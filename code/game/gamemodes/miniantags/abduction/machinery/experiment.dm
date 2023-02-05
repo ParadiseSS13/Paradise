@@ -118,11 +118,11 @@
 	if(H in history)
 		return "<span class='bad'>Specimen already in database.</span>"
 	if(H.stat == DEAD)
-		atom_say("Образец скончался - пожалуйста, предоставьте свежий образец.")
+		atom_say("Образец мертв - пожалуйста, предоставьте свежий образец.")
 		return "<span class='bad'>Specimen deceased.</span>"
 	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
-		atom_say("Экспериментальное вскрытие не обнаружено!")
+		atom_say("Экспериментальная диссекция не обнаружена!")
 		return "<span class='bad'>No glands detected!</span>"
 	if(H.mind != null && H.ckey != null)
 		history += H

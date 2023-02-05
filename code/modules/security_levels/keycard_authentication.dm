@@ -170,7 +170,7 @@
 			revoke_station_all_access()
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				atom_say("Все Отряды Быстрого Реагирования направлены и не могут быть вызваны в этот раз.")
+				atom_say("Все Отряды Быстрого Реагирования распределены и не могут быть вызваны в данный момент.")
 				return
 			atom_say("Запрос ОБР отправлен!")
 			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)

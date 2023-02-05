@@ -33,7 +33,7 @@
 			dialed_holopads += H
 			var/area/area = get_area(H)
 			LAZYADD(H.holo_calls, src)
-			H.atom_say("[area] холопад звонит: входящий вызов от [caller]!")
+			H.atom_say("[area] голопад звонит: входящий вызов от [caller]!")
 
 	if(!dialed_holopads.len)
 		calling_holopad.atom_say("Сбой соединения.")
@@ -86,7 +86,7 @@
 /datum/holocall/proc/Disconnect(obj/machinery/hologram/holopad/H)
 	if(H == connected_holopad)
 		var/area/A = get_area(connected_holopad)
-		calling_holopad.atom_say("[A] холопад не отвечает.")
+		calling_holopad.atom_say("[A] голопад не отвечает.")
 	else if(H == calling_holopad && connected_holopad)
 		connected_holopad.atom_say("[user] не отвечает.")
 
@@ -108,7 +108,7 @@
 	dialed_holopads -= H
 	if(!dialed_holopads.len)
 		if(graceful)
-			calling_holopad.atom_say("Звонок отклонён.")
+			calling_holopad.atom_say("Вызов отклонён.")
 		qdel(src)
 
 //Answers a call made to a holopad `H` which cannot be the calling holopad. Pads not in the call are ignored

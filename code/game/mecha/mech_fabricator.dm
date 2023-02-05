@@ -252,7 +252,7 @@
 		if(!RDC.sync)
 			continue
 		RDC.files.push_data(local_designs)
-		atom_say("Успешная синхронизация с серверами R&D.")
+		atom_say("Успешная синхронизация с серверами РНД.")
 		break
 	SStgui.update_uis(src)
 

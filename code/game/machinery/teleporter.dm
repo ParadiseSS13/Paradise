@@ -132,7 +132,7 @@
 			resetPowerstation()
 			var/turf/tmpTarget = locate(text2num(params["x"]), text2num(params["y"]), text2num(params["z"]))
 			if(!isturf(tmpTarget))
-				atom_say("Отсутствуют действующие цели.")
+				atom_say("Отсутствуют подходящие цели.")
 				return
 			target = tmpTarget
 			if(regime == REGIME_TELEPORT)

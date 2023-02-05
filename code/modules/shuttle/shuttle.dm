@@ -825,7 +825,7 @@
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
-				atom_say("Шаттл отправляется! Пожалуйста, стойте подальше от шлюзов.")
+				atom_say("Шаттл отправляется! Пожалуйста, отойдите от шлюзов.")
 				add_misc_logs(usr, "used [src] to call the [shuttleId] shuttle")
 				if(!moved)
 					moved = TRUE
