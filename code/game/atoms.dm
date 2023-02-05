@@ -916,7 +916,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
 
 /atom/proc/select_voice(mob/user, silent_target = FALSE)
-	set waitfor = FALSE
 	if(!ismob(src) && !user)
 		return null
 	var/tts_test_str = "Так звучит мой голос."
