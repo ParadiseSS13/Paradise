@@ -5,6 +5,7 @@
 	w_class = 100
 	item_state = "electronic"
 	flags = CONDUCT
+	var/module_armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 	/// Has the AI hacked the borg module, allowing access to the malf AI exclusive item.
 	var/malfhacked = FALSE
@@ -85,7 +86,9 @@
 	QDEL_LIST_CONTENTS(special_rechargables)
 	return ..()
 
-
+/obj/item/robot_module/Initialize(mapload)
+	. = ..()
+	module_armor = getArmor(arglist(module_armor))
 /**
  * Searches through the various module lists for the given `item_type`, deletes and removes the item from all supplied lists, if the item is found.
  *
@@ -263,6 +266,11 @@
 	R.add_language("Clownish", 0)
 	R.add_language("Tkachi", 0)
 
+///Adds armor to a cyborg. Normaly resets it to 0 across the board, unless the module has an armor defined.
+/obj/item/robot_module/proc/add_armor(mob/living/silicon/robot/R)
+	R.armor = module_armor
+
+
 /// Adds anything in `subsystems` to the robot's verbs, and grants any actions that are in `module_actions`.
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
 	R.verbs |= subsystems
@@ -323,15 +331,15 @@
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
 
 // Disable safeties on the borg's defib.
-/obj/item/robot_module/medical/emag_act()
+/obj/item/robot_module/medical/emag_act(mob/user)
 	. = ..()
 	for(var/obj/item/borg_defib/F in modules)
-		F.safety = FALSE
+		F.emag_act()
 
 // Enable safeties on the borg's defib.
 /obj/item/robot_module/medical/unemag()
 	for(var/obj/item/borg_defib/F in modules)
-		F.safety = TRUE
+		F.emag_act()
 	return ..()
 
 // Fluorosulphuric acid spray bottle.
@@ -443,7 +451,7 @@
 /obj/item/robot_module/janitor/proc/on_cyborg_move(mob/living/silicon/robot/R)
 	SIGNAL_HANDLER
 
-	if(R.stat == DEAD || !isturf(R.loc))
+	if(R.stat == DEAD || !isturf(R.loc) || !R.floorbuffer)
 		return
 	var/turf/tile = R.loc
 	for(var/A in tile)
@@ -466,14 +474,6 @@
 			cleaned_human.clean_blood()
 			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 
-/obj/item/reagent_containers/spray/cyborg_lube
-	name = "Lube spray"
-	list_reagents = list("lube" = 250)
-
-/obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
-	if(emagged)
-		reagents.check_and_add("lube", volume, 2 * coeff)
-
 // Service cyborg module.
 /obj/item/robot_module/butler
 	name = "service robot module"
@@ -487,7 +487,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/reagent_scanner/adv,
-		/obj/item/rsf/cyborg,
+		/obj/item/rsf,
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
@@ -499,8 +499,6 @@
 		/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
 	)
 
-/obj/item/rsf/cyborg
-	matter = 30
 
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
 /obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
@@ -539,6 +537,7 @@
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
+	module_armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	custom_removals = list("KA modkits")
 	basic_modules = list(
@@ -642,7 +641,7 @@
 
 // Sydicate engineer/sabotuer cyborg module.
 /obj/item/robot_module/syndicate_saboteur
-	name = "engineering robot module" //to disguise in examine
+	name = "saboteur robot module" // Disguises are handled in the actual cyborg projector
 	module_type = "Malf"
 	basic_modules = list(
 		/obj/item/flash/cyborg,

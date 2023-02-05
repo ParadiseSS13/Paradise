@@ -25,7 +25,6 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 /datum/controller/subsystem/processing/instruments/Initialize()
 	initialize_instrument_data()
 	synthesizer_instrument_ids = get_allowed_instrument_ids()
-	return ..()
 
 /**
   * Initializes all instrument datums
