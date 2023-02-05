@@ -170,9 +170,9 @@
 			revoke_station_all_access()
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
+				atom_say("Все Отряды Быстрого Реагирования направлены и не могут быть вызваны в этот раз.")
 				return
-			atom_say("ERT request transmitted!")
+			atom_say("Запрос ОБР отправлен!")
 			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 

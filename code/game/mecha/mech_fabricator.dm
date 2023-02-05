@@ -170,10 +170,10 @@
 	if(!local_designs.known_designs[D.id] || !(D.build_type & allowed_design_types))
 		return
 	if(being_built)
-		atom_say("Error: Something is already being built!")
+		atom_say("Ошибка: уже в процессе производства!")
 		return
 	if(!can_afford_design(D))
-		atom_say("Error: Insufficient materials to build [D.name]!")
+		atom_say("Ошибка: недостаточно материалов для производства [D.name]!")
 		return
 
 	// Subtract the materials from the holder
@@ -228,7 +228,7 @@
 	desc = initial(desc)
 	use_power = IDLE_POWER_USE
 	cut_overlays()
-	atom_say("[A] is complete.")
+	atom_say("[A] завершён.")
 
 	// Keep the queue processing going if it's on
 	process_queue()
@@ -252,7 +252,7 @@
 		if(!RDC.sync)
 			continue
 		RDC.files.push_data(local_designs)
-		atom_say("Successfully synchronized with R&D servers.")
+		atom_say("Успешная синхронизация с серверами R&D.")
 		break
 	SStgui.update_uis(src)
 

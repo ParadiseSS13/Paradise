@@ -449,12 +449,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/enough_materials = TRUE
 
 	if(!machine.materials.has_materials(efficient_mats, amount))
-		atom_say("Not enough materials to complete prototype.")
+		atom_say("Недостаточно материалов для завершения прототипа.")
 		enough_materials = FALSE
 	else
 		for(var/R in being_built.reagents_list)
 			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
-				atom_say("Not enough reagents to complete prototype.")
+				atom_say("Недостаточно реагентов для завершения прототипа.")
 				enough_materials = FALSE
 
 	if(enough_materials)

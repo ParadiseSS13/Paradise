@@ -369,7 +369,7 @@
 	switch(action)
 		if("toggle_power")
 			if(!powernet) //only a warning, process will disable
-				atom_say("Not connected to powernet.")
+				atom_say("Не подключен к электросет+и.")
 			active = !active
 			update_icon()
 		if("eject_fuel")

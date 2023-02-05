@@ -277,7 +277,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		var/datum/holocall/HC = I
 		//Sanity check and skip if no longer valid call
 		if(!HC.Check())
-			atom_say("Call was terminated at remote terminal.")
+			atom_say("Вызов был завершен на удаленном терминале.")
 			continue
 
 		if(HC.connected_holopad != src)

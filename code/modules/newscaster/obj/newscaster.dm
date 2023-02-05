@@ -677,7 +677,7 @@
 	if(!is_operational())
 		return
 	if(wanted_notice)
-		atom_say("Attention! Wanted issue distributed!")
+		atom_say("Внимание! Розыск!")
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 	else if(length(announcement))
 		atom_say("[announcement]!")

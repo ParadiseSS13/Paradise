@@ -103,21 +103,21 @@ SUBSYSTEM_DEF(mob_hunt)
 	if(battle_turn)		//somehow we got called mid-battle, so lets just stop now
 		return
 	if(red_terminal && red_terminal.ready && blue_terminal && blue_terminal.ready)
-		battle_turn = pick("Red", "Blue")
-		red_terminal.atom_say("Battle starting!")
-		blue_terminal.atom_say("Battle starting!")
-		if(battle_turn == "Red")
-			red_terminal.atom_say("Red Player's Turn!")
-		else if(battle_turn == "Blue")
-			blue_terminal.atom_say("Blue Player's Turn!")
+		battle_turn = pick("Красный", "Синий")
+		red_terminal.atom_say("Битва начинается!")
+		blue_terminal.atom_say("Битва начинается!")
+		if(battle_turn == "Красный")
+			red_terminal.atom_say("Ход красного игрока!")
+		else if(battle_turn == "Синий")
+			blue_terminal.atom_say("Ход синего игрока!")
 
 /datum/controller/subsystem/mob_hunt/proc/launch_attack(team, raw_damage, datum/mob_type/attack_type)
 	if(!team || !raw_damage)
 		return
 	var/obj/machinery/computer/mob_battle_terminal/target = null
-	if(team == "Red")
+	if(team == "Красный")
 		target = blue_terminal
-	else if(team == "Blue")
+	else if(team == "Синий")
 		target = red_terminal
 	else
 		return
@@ -126,20 +126,20 @@ SUBSYSTEM_DEF(mob_hunt)
 /datum/controller/subsystem/mob_hunt/proc/end_battle(loser, surrender = 0)
 	var/obj/machinery/computer/mob_battle_terminal/winner_terminal = null
 	var/obj/machinery/computer/mob_battle_terminal/loser_terminal = null
-	if(loser == "Red")
+	if(loser == "Красный")
 		loser_terminal = red_terminal
 		winner_terminal = blue_terminal
-	else if (loser == "Blue")
+	else if (loser == "Синий")
 		loser_terminal = blue_terminal
 		winner_terminal = red_terminal
 	battle_turn = null
 	winner_terminal.ready = 0
 	loser_terminal.ready = 0
 	if(surrender)	//surrender doesn't give exp, to avoid people just farming exp without actually doing a battle
-		winner_terminal.atom_say("Your rival surrendered!")
+		winner_terminal.atom_say("Ваш соперник сдался!")
 	else
 		var/progress_message =  winner_terminal.mob_info.gain_exp()
-		winner_terminal.atom_say("[winner_terminal.team] Player wins!")
+		winner_terminal.atom_say("[winner_terminal.team] игрок побеждает!")
 		winner_terminal.atom_say(progress_message)
 
 /datum/controller/subsystem/mob_hunt/proc/end_turn()
@@ -147,9 +147,9 @@ SUBSYSTEM_DEF(mob_hunt)
 	blue_terminal.updateUsrDialog()
 	if(!battle_turn)
 		return
-	if(battle_turn == "Red")
-		battle_turn = "Blue"
-		blue_terminal.atom_say("Blue's turn.")
-	else if(battle_turn == "Blue")
-		battle_turn = "Red"
-		blue_terminal.atom_say("Red's turn.")
+	if(battle_turn == "Красный")
+		battle_turn = "Синий"
+		blue_terminal.atom_say("Ход синего игрока.")
+	else if(battle_turn == "Синий")
+		battle_turn = "Красный"
+		blue_terminal.atom_say("Ход красного игрока.")

@@ -55,7 +55,7 @@
 	var/datum/data/pda/app/mob_hunter_game/client = P.current_app
 	var/total_catch_mod = client.catch_mod + catch_mod		//negative values decrease the chance of the mob running, positive values makes it more likely to flee
 	if(!client.connected)	//must be connected to attempt captures
-		P.atom_say("No server connection. Capture aborted.")
+		P.atom_say("Нет соединения с сервером. Захват прерван.")
 		return
 
 	if(mob_info.is_trap)		//traps work even if you ran into them before, which is why this is before the clients_encountered check
@@ -82,14 +82,14 @@
 		var/message = null
 		var/effective_run_chance = mob_info.run_chance + total_catch_mod
 		if((effective_run_chance > 0) && prob(effective_run_chance))
-			message += "Capture failed! [name] escaped [P.owner ? "from [P.owner]" : "from this hunter"]!"
+			message += "Захват провален! [name] сбежал [P.owner ? "от [P.owner]" : "от этого охотника"]!"
 			conceal(client)
 		else
 			if(client.register_capture(mob_info, 1))
-				message += "Capture success! [P.owner ? P.owner : "This hunter"] captured [name]!"
+				message += "Захват успешен! [P.owner ? P.owner : "Этот охотник"] захватил [name]!"
 				conceal(client)
 			else
-				message += "Capture error! Try again."
+				message += "Ошибка захвата! Попробуйте снова."
 				clients_encountered -= client		//if the capture registration failed somehow, let them have another chance with this mob
 		P.atom_say(message)
 

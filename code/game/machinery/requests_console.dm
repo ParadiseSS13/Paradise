@@ -239,7 +239,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
-				atom_say("No server detected!")
+				atom_say("Сервер не обнаружен!")
 
 		//Handle screen switching
 		if("setScreen")
@@ -265,11 +265,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("printLabel")
 			var/error_message
 			if(!ship_tag_index)
-				error_message = "Please select a destination."
+				error_message = "Пожалуйста, выберите пункт назначения."
 			else if(!msgVerified)
-				error_message = "Please verify shipper ID."
+				error_message = "Пожалуйста, проверьте ID отправителя."
 			else if(world.time < print_cooldown)
-				error_message = "Please allow the printer time to prepare the next shipping label."
+				error_message = "Пожалуйста, предоставьте принтеру время для подготовки следующей транспортной этикетки."
 			if(error_message)
 				atom_say("[error_message]")
 				return

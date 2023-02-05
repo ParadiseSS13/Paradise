@@ -161,7 +161,7 @@
 		return
 	else if(playing)
 		playing = 0
-		atom_say("Playback stopped.")
+		atom_say("Проигрывание остановлено.")
 	update_icon()
 
 
@@ -194,12 +194,12 @@
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(10)
-			atom_say("End of recording.")
+			atom_say("Конец записи.")
 		else
 			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
 		if(playsleepseconds > 14)
 			sleep(10)
-			atom_say("Skipping [playsleepseconds] seconds of silence.")
+			atom_say("Пропуск [playsleepseconds] секунд тишины.")
 			playsleepseconds = 1
 		i++
 

@@ -442,7 +442,7 @@
 		return 0
 	else
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-		atom_say("Attention: Posterior Placed on Printing Plaque!")
+		atom_say("Внимание:  Attention: обнуружена задница на печатном полотне!")
 		return 1
 
 /obj/machinery/photocopier/emag_act(user as mob)

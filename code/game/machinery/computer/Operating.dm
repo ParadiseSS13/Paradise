@@ -193,8 +193,8 @@
 		patientStatus = "Asleep"
 
 	if(isNewPatient)
-		atom_say("New patient detected, loading stats")
-		atom_say("[table.patient], [table.patient.dna.blood_type] blood, [patientStatus]")
+		atom_say("Обнаружен новый пациент, загрузка статистики")
+		atom_say("[table.patient], группа крови [table.patient.dna.blood_type], [patientStatus]")
 		SStgui.update_uis(src)
 		patientStatusHolder = table.patient.stat
 		currentPatient = table.patient
@@ -208,5 +208,5 @@
 		if(healthAnnounce && table.patient.health <= healthAlarm)
 			atom_say("[round(table.patient.health)]")
 		if(table.patient.stat != patientStatusHolder)
-			atom_say("Patient is now [patientStatus]")
+			atom_say("Пациент [patientStatus]")
 			patientStatusHolder = table.patient.stat

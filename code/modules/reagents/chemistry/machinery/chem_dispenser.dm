@@ -217,7 +217,7 @@
 			var/free = R.maximum_volume - R.total_volume
 			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
 			if(!cell.use(actual / powerefficiency))
-				atom_say("Not enough energy to complete operation!")
+				atom_say("Недостаточно энергии для завершения операции!")
 				return
 			R.add_reagent(params["reagent"], actual)
 			overlays.Cut()

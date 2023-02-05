@@ -217,11 +217,11 @@
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)
 		experiment.credits -=cost
-		atom_say("Incoming supply!")
+		atom_say("Прибывающие поставки!")
 		if(pad)
 			flick("alien-pad", pad)
 			new item(pad.loc)
 		else
 			new item(src.loc)
 	else
-		atom_say("Insufficent data!")
+		atom_say("Недостаточно данных!")

@@ -944,7 +944,7 @@
 /obj/machinery/vending/snack
 	name = "\improper Getmore Chocolate Corp"
 	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars."
-	slogan_list = list("Try our new nougat bar!","Twice the calories for half the price!")
+	slogan_list = list("Попробуйте наш новый батончик с нугой!","Вдвое больше калорий за полцены!")
 	ads_list = list("The healthiest!","Award-winning chocolate bars!","Mmm! So good!","Oh my god it's so juicy!","Have a snack.","Snacks are good for you!","Have some more Getmore!","Best quality snacks straight from mars.","We love chocolate!","Try our new jerky!")
 	icon_state = "snack"
 	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/reagent_containers/food/snacks/chips =6,
@@ -962,7 +962,7 @@
 /obj/machinery/vending/chinese
 	name = "\improper Mr. Chang"
 	desc = "A self-serving Chinese food machine, for all your Chinese food needs."
-	slogan_list = list("Taste 5000 years of culture!","Mr. Chang, approved for safe consumption in over 10 sectors!","Chinese food is great for a date night, or a lonely night!","You can't go wrong with Mr. Chang's authentic Chinese food!")
+	slogan_list = list("Попробуйте 5000 лет культуры!","Мистер Чанг, одобрен для безопасного потребления в более чем 10 секторах!","Китайская кухня отлично подходит для вечернего свидания или одинокого вечера!","Вы не ошибетесь, если попробуете настоящую китайскую кухню от мистера Чанга.!")
 	icon_state = "chang"
 	products = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 6, /obj/item/reagent_containers/food/snacks/chinese/tao = 6, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 6, /obj/item/reagent_containers/food/snacks/chinese/newdles = 6,
 					/obj/item/reagent_containers/food/snacks/chinese/rice = 6, /obj/item/reagent_containers/food/snacks/fortunecookie = 6)
@@ -977,7 +977,7 @@
 	name = "\improper Robust Softdrinks"
 	desc = "A soft drink vendor provided by Robust Industries, LLC."
 	icon_state = "Cola_Machine"
-	slogan_list = list("Robust Softdrinks: More robust than a toolbox to the head!")
+	slogan_list = list("Роб+аст с+офтдринкс: крепче, чем тулбоксом по голове!")
 	ads_list = list("Освежает!","Надеюсь, вас одолела жажда!","Продано больше миллиона бутылок!","Хотите пить? Почему бы не взять колы?","Пожалуйста, купите напиток","Выпьем!","Лучшие напитки во всём космосе")
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10,/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10,/obj/item/reagent_containers/food/drinks/cans/starkist = 10,
@@ -994,7 +994,7 @@
 /obj/machinery/vending/cart
 	name = "\improper PTech"
 	desc = "Cartridges for PDA's."
-	slogan_list = list("Carts to go!")
+	slogan_list = list("Карточки в дорогу!")
 	icon_state = "cart"
 	icon_deny = "cart-deny"
 	products = list(/obj/item/pda =10,/obj/item/eftpos = 6,/obj/item/cartridge/mob_hunt_game = 25,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
