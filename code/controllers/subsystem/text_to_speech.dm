@@ -33,6 +33,7 @@ SUBSYSTEM_DEF(tts)
 	var/is_enabled = TRUE
 
 	var/list/datum/tts_seed/tts_seeds = list()
+	var/list/tts_seeds_names = list()
 	var/list/datum/tts_provider/tts_providers = list()
 
 	var/list/tts_local_channels_by_owner = list()
@@ -179,6 +180,8 @@ SUBSYSTEM_DEF(tts)
 			continue
 		seed.provider = tts_providers[initial(seed.provider.name)]
 		tts_seeds[seed.name] = seed
+		tts_seeds_names += seed.name
+	tts_seeds_names = sortTim(tts_seeds_names, /proc/cmp_text_asc)
 
 /datum/controller/subsystem/tts/Initialize(start_timeofday)
 	is_enabled = config.tts_enabled

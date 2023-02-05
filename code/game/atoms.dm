@@ -916,14 +916,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
 
 /atom/proc/select_voice(mob/user, silent_target = FALSE)
+	set waitfor = FALSE
 	if(!ismob(src) && !user)
 		return null
 	var/tts_test_str = "Так звучит мой голос."
-	var/list/tts_seeds = list()
-	for(var/_seed in SStts.tts_seeds)
-		var/datum/tts_seed/_tts_seed = SStts.tts_seeds[_seed]
-		tts_seeds += _tts_seed.name
-	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference", tts_seed) as null|anything in sortTim(tts_seeds, /proc/cmp_text_asc)
+	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference", tts_seed) as null|anything in SStts.tts_seeds_names
 	if(!new_tts_seed)
 		return null
 	if(!silent_target && ismob(src) && src != user)
@@ -933,6 +930,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return new_tts_seed
 
 /atom/proc/change_voice(mob/user)
+	set waitfor = FALSE
 	var/new_tts_seed = select_voice(user)
 	if(!new_tts_seed)
 		return null
