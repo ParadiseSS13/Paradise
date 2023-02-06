@@ -45,7 +45,7 @@
 
 /datum/keybinding/human/parry
 	name = "Parry"
-	keys = list("F")
+	keys = list("Space")
 
 /datum/keybinding/human/parry/down(client/C)
 	. = ..()
