@@ -10280,7 +10280,7 @@
 /obj/structure/table/reinforced,
 /obj/item/eftpos/register{
 	dir = 1;
-	pixel_y = 11
+	pixel_y = 9
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar)
@@ -22800,8 +22800,7 @@
 /obj/item/toy/figure/crew/chef,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/eftpos/register{
-	dir = 1;
-	pixel_x = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)

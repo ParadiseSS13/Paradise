@@ -72644,13 +72644,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
-"nMf" = (
-/obj/structure/table/wood,
-/obj/item/eftpos/register{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/maintenance/apmaint)
 "nMk" = (
 /obj/item/wrench,
 /turf/simulated/floor/plating,
@@ -107079,7 +107072,7 @@ cQb
 bZP
 bcO
 bQy
-nMf
+bQy
 bNf
 bPB
 bPB
