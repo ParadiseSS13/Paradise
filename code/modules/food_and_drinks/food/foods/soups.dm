@@ -133,7 +133,7 @@
 	
 /obj/item/reagent_containers/food/snacks/soup/rassolnik
 	name = "pickle soup"
-	desc = "Популярен в СССП."
+	desc = "Quite popular in USSP."
 	icon_state = "rassolnik"
 	filling_color = "#F1FC72"
 	list_reagents = list("nutriment" = 6, "kelotane" = 1, "vitamin" = 2)

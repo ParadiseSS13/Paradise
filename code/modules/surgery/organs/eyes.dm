@@ -79,3 +79,15 @@
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+
+/obj/item/organ/internal/eyes/on_life()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(owner.glasses)
+		var/obj/item/clothing/glasses/G = owner.glasses
+		if(G.heal_bodypart == "eyes" && iscarbon(owner))
+			var/mob/living/carbon/C = owner
+			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
+			if(istype(E))
+				E.heal_internal_damage(G.heal_rate)
+		update_flags |= owner.AdjustEyeBlurry(-1, FALSE)
+	return ..() | update_flags

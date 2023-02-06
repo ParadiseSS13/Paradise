@@ -35,6 +35,8 @@
 	var/species_disguise = null
 	var/magical = FALSE
 	var/dyeable = FALSE
+	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.  
+	var/heal_rate = 1
 	w_class = WEIGHT_CLASS_SMALL
 
 

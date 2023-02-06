@@ -16,15 +16,16 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "cucumber-grow"
 	icon_dead = "cucumber-dead"
-	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("water" = 0.15, "kelotane" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/cucumber
 	seed = /obj/item/seeds/cucumber
 	name = "cucumber"
-	desc = "Сила земли!"
+	desc = "The power of Earth itself!"
 	icon_state = "cucumber"
 	splat_type = /obj/effect/decal/cleanable/plant_smudge
+	slice_path = /obj/item/reagent_containers/food/snacks/cucumberslice
+	slices_num = 5
 	filling_color = "#47FF91"
 	tastes = list("cucumber" = 1)
 	bitesize_mod = 2

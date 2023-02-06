@@ -272,7 +272,7 @@
 	reagents = list("water" = 10)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/tomato, /obj/item/reagent_containers/food/snacks/grown/tomato)
 	result = /obj/item/reagent_containers/food/snacks/soup/tomatosoup
-
+	
 /datum/recipe/microwave/rassolnik
 	reagents = list("water" = 10, "rice" = 5)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/grown/cucumber)
@@ -552,22 +552,22 @@
 				 /obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris, /obj/item/reagent_containers/food/snacks/grown/potato,
 				 /obj/item/reagent_containers/food/snacks/meatball)
 	result = /obj/item/reagent_containers/food/snacks/validsalad
-
+	
 /datum/recipe/microwave/vegisalad
-	reagents = list("salt" = 1, "cream" = 5)
+	reagents = list("cream" = 5, "sodiumchloride" = 1)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/cucumber, /obj/item/reagent_containers/food/snacks/grown/tomato)
 	result = /obj/item/reagent_containers/food/snacks/vegisalad
-
+	
 /datum/recipe/microwave/oliviersalad
-	reagents = list("salt" = 5, "cream" = 10)
-	items = list(/obj/item/reagent_containers/food/snacks/grown/cucumber, /obj/item/reagent_containers/food/snacks/friedegg,
+	reagents = list("cream" = 10, "sodiumchloride" = 5)
+	items = list(/obj/item/reagent_containers/food/snacks/pickles, /obj/item/reagent_containers/food/snacks/boiledegg,
 				 /obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/grown/carrot,
 				 /obj/item/reagent_containers/food/snacks/sausage)
 	result = /obj/item/reagent_containers/food/snacks/oliviersalad
-
+	
 /datum/recipe/microwave/weirdoliviersalad
-	reagents = list("salt" = 5, "cream" = 10)
-	items = list(/obj/item/reagent_containers/food/snacks/grown/cucumber, /obj/item/reagent_containers/food/snacks/friedegg,
+	reagents = list("cream" = 10, "sodiumchloride" = 5)
+	items = list(/obj/item/reagent_containers/food/snacks/pickles, /obj/item/reagent_containers/food/snacks/boiledegg,
 				 /obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/grown/carrot,
 				 /obj/item/reagent_containers/food/snacks/sausage, /obj/item/reagent_containers/food/snacks/grown/apple)
 	result = /obj/item/reagent_containers/food/snacks/weirdoliviersalad

@@ -636,3 +636,10 @@
 		var/mob/living/carbon/user = usr
 		user.update_tint()
 		user.update_inv_glasses()
+		
+/obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask
+	desc = "A simple pair of two cucumber slices. Medically proven to be able to heal your eyes over time."
+	name = "cucumber mask"
+	heal_bodypart = "eyes"
+	icon_state = "cucumbermask"
+	item_state = "cucumbermask"

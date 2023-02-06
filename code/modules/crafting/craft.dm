@@ -20,7 +20,8 @@
 						list(	//Food subcategories
 							CAT_CAKE,
 							CAT_SUSHI,
-							CAT_SANDWICH),
+							CAT_SANDWICH,
+							CAT_MISCFOOD),
 						list(	//Decoration subcategories
 							CAT_DECORATION,
 							CAT_HOLIDAY,
