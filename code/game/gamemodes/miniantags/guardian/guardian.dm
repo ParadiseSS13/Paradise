@@ -246,9 +246,7 @@
 	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
-	var/random = FALSE
 	/// What type was picked the first activation
-	var/picked_random_type
 	var/color_list = list("Pink" = "#FFC0CB",
 		"Red" = "#FF0000",
 		"Orange" = "#FFA500",
@@ -263,28 +261,55 @@
 	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
 		to_chat(user, "[ling_failure]")
 		return
-	if(used == TRUE)
+	if(used)
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
-	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
-	if(choice == "No")
+
+	to_chat(user, "[use_message]")
+	var/guardian_type
+	switch(theme)
+		if("magic")
+			var/list/possible_guardians_magic = list("Chaos" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicOrange"),
+										"Standard" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicGreen"),
+										"Ranged" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicRed"),
+										"Support" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicBlue"),
+										"Explosive" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicRed"),
+										"Assassin" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicOrange"),
+										"Lightning" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicPink"),
+										"Charger" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicRed"),
+										"Protector" = image(icon = 'icons/mob/guardian.dmi', icon_state = "magicBlue"))
+
+			guardian_type = show_radial_menu(user, src, possible_guardians_magic, radius = 44)
+		if("tech")
+			var/list/possible_guardians_tech = list("Chaos" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techLilac"),
+										"Standard" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techZinnia"),
+										"Ranged" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techPeony"),
+										"Support" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techPetunia"),
+										"Explosive" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techViolet"),
+										"Assassin" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techRose"),
+										"Lightning" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techDaisy"),
+										"Charger" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techIvy"),
+										"Protector" = image(icon = 'icons/mob/guardian.dmi', icon_state = "techIris"))
+			guardian_type = show_radial_menu(user, src, possible_guardians_tech, radius = 44)
+		if("bio")
+			var/list/possible_guardians_bio = list("Chaos" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioIvy"),
+										"Standard" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioOrchid"),
+										"Ranged" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioRose"),
+										"Support" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioPetunia"),
+										"Explosive" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioLily"),
+										"Assassin" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioPeony"),
+										"Lightning" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioDaisy"),
+										"Charger" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioZinnia"),
+										"Protector" = image(icon = 'icons/mob/guardian.dmi', icon_state = "bioIris"))
+			guardian_type = show_radial_menu(user, src, possible_guardians_bio, radius = 44)
+	if(QDELETED(src) || !in_range(user, src) || user.stat)
+		used = FALSE
+		return
+	if(!guardian_type)
 		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
 		used = FALSE
 		return
-	to_chat(user, "[use_message]")
-
-	var/guardian_type
-	if(random)
-		if(!picked_random_type) // Only pick the type once. No type fishing
-			picked_random_type = pick(possible_guardians)
-		guardian_type = picked_random_type
-	else
-		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
-		if(!guardian_type)
-			to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
-			used = FALSE
-			return
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] ([guardian_type]) of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
 	var/mob/dead/observer/theghost = null
@@ -367,9 +392,6 @@
 	G.icon_dead = "[theme][color]"
 	to_chat(user, "[G.magic_fluff_string].")
 
-/obj/item/guardiancreator/choose
-	random = FALSE
-
 /obj/item/guardiancreator/tech
 	name = "holoparasite injector"
 	desc = "It contains alien nanoswarm of unknown origin. Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, it requires an organic host as a home base and source of fuel."
@@ -407,9 +429,6 @@
 /obj/item/guardiancreator/tech/check_uplink_validity()
 	return !used
 
-/obj/item/guardiancreator/tech/choose
-	random = FALSE
-
 /obj/item/guardiancreator/biological
 	name = "scarab egg cluster"
 	desc = "A parasitic species that will nest in the closest living creature upon birth. While not great for your health, they'll defend their new 'hive' to the death."
@@ -444,10 +463,6 @@
 	G.attacktext = "swarms"
 	G.speak_emote = list("chitters")
 
-/obj/item/guardiancreator/biological/choose
-	random = FALSE
-
-
 /obj/item/paper/guardian
 	name = "Holoparasite Guide"
 	icon_state = "paper"
@@ -480,5 +495,5 @@
 	name = "holoparasite injector kit"
 
 /obj/item/storage/box/syndie_kit/guardian/populate_contents()
-	new /obj/item/guardiancreator/tech/choose(src)
+	new /obj/item/guardiancreator/tech(src)
 	new /obj/item/paper/guardian(src)

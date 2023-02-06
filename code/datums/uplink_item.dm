@@ -639,7 +639,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/guardian
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 12
-	refund_path = /obj/item/guardiancreator/tech/choose
+	refund_path = /obj/item/guardiancreator/tech
 	refundable = TRUE
 	cant_discount = TRUE
 
