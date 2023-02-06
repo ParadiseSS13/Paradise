@@ -41,7 +41,6 @@
 // Intents
 /datum/keybinding/mob/prev_intent
 	name = "Previous Intent"
-	keys = list("F")
 
 /datum/keybinding/mob/prev_intent/down(client/C)
 	. = ..()
