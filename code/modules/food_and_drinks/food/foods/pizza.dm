@@ -251,10 +251,6 @@
 	. = ..()
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-/obj/item/pizzabox/examine(mob/user)
-	update_appearance(UPDATE_DESC|UPDATE_ICON)
-	return ..()
-
 /obj/item/pizzabox/update_desc()
 	. = ..()
 	if(open && pizza)
@@ -380,44 +376,44 @@
 
 
 /obj/item/pizzabox/margherita/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/margheritapizza(src)
 	box_tag = "margherita deluxe"
+	. = ..()
 
 /obj/item/pizzabox/vegetable/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
 	box_tag = "gourmet vegetable"
+	. = ..()
 
 /obj/item/pizzabox/mushroom/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
 	box_tag = "mushroom special"
+	. = ..()
 
 /obj/item/pizzabox/meat/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	box_tag = "meatlover's supreme"
+	. = ..()
 
 /obj/item/pizzabox/hawaiian/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
 	box_tag = "Hawaiian feast"
+	. = ..()
 
 /obj/item/pizzabox/pepperoni/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza(src)
 	box_tag = "classic pepperoni"
+	. = ..()
 
 /obj/item/pizzabox/garlic/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/garlicpizza(src)
 	box_tag = "triple garlic"
+	. = ..()
 
 /obj/item/pizzabox/firecracker/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/firecrackerpizza(src)
 	box_tag = "extra spicy pie"
+	. = ..()
 
 //////////////////////////
 //		Pizza bombs		//
@@ -542,9 +538,9 @@
 	..()
 
 /obj/item/pizzabox/pizza_bomb/Initialize(mapload)
-	. = ..()
 	correct_wire = pick(wires)
 	box_tag = "classic pepperoni"
+	. = ..()
 
 /obj/item/pizzabox/pizza_bomb/autoarm
 	timer_set = TRUE
