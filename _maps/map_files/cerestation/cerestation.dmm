@@ -2616,7 +2616,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "apd" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -2626,6 +2625,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "ape" = (
@@ -4588,13 +4588,13 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "azk" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Prisoner Lockers"
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "azs" = (
@@ -56631,7 +56631,7 @@
 	},
 /area/security/nuke_storage)
 "jYh" = (
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "jYp" = (
@@ -74791,10 +74791,10 @@
 	},
 /area/maintenance/maintcentral)
 "rgF" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "rgO" = (
@@ -88158,11 +88158,11 @@
 /turf/simulated/floor/plating,
 /area/toxins/launch)
 "wuE" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/item/radio/intercom{
 	pixel_y = -28;
 	name = "custom placement"
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
 "wuW" = (

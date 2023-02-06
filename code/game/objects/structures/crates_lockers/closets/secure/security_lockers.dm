@@ -231,19 +231,19 @@
 	anchored = TRUE
 	var/id = null
 
-/obj/structure/closet/secure_closet/brig/populate_contents()
+/obj/structure/closet/secure_closet/brig/prisoner/populate_contents()
 	new /obj/item/clothing/under/color/orange/prison(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
-/obj/structure/closet/secure_closet/brig/gulag
+/obj/structure/closet/secure_closet/brig/prisoner/gulag
 	name = "labor camp locker"
 	desc = "A special locker designed to store prisoner belongings, allows access when prisoners meet their point quota."
 	locked = FALSE
 	var/registered_ID_UID
 
-/obj/structure/closet/secure_closet/brig/gulag/allowed(mob/M)
+/obj/structure/closet/secure_closet/brig/prisoner/gulag/allowed(mob/M)
 	. = ..()
 	if(.) //we were gonna let them do it anyway
 		return TRUE
@@ -265,7 +265,7 @@
 
 	return FALSE //if we didn't match above, no interaction for you
 
-/obj/structure/closet/secure_closet/brig/gulag/examine(mob/user)
+/obj/structure/closet/secure_closet/brig/prisoner/gulag/examine(mob/user)
 	. = ..()
 	if(registered_ID_UID)
 		var/obj/item/card/id/prisoner/prisoner_id = locateUID(registered_ID_UID)
