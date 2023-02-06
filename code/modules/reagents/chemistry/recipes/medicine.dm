@@ -144,6 +144,15 @@
 	mix_message = "The solution bubbles freely, creating a head of bluish foam."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/fomepizole
+	name = "Fomepizole"
+	id = "fomepizole"
+	result = "fomepizole"
+	required_reagents = list("ammonia" = 1, "mannitol" = 1, "acetic_acid" = 1)
+	result_amount = 3
+	mix_message = "The solution create a smoke, which clearing your mind."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/perfluorodecalin
 	name = "Perfluorodecalin"
 	id = "perfluorodecalin"
