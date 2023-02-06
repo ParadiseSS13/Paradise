@@ -1476,6 +1476,7 @@
 #include "code\modules\awaymissions\mission_code\wildwest.dm"
 #include "code\modules\awaymissions\mission_code\ghost_role_spawners\golems.dm"
 #include "code\modules\awaymissions\mission_code\ghost_role_spawners\oldstation.dm"
+#include "code\modules\awaymissions\mission_code\ruins\crashedipcship.dm"
 #include "code\modules\awaymissions\mission_code\ruins\gasthelizards.dm"
 #include "code\modules\awaymissions\mission_code\ruins\gps.dm"
 #include "code\modules\awaymissions\mission_code\ruins\oldstation.dm"
