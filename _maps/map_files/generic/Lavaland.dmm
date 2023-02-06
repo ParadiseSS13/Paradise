@@ -4575,7 +4575,7 @@
 	},
 /area/mine/airlock)
 "op" = (
-/obj/structure/closet/secure_closet/brig/gulag,
+/obj/structure/closet/secure_closet/brig/prisoner/gulag,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "oA" = (
@@ -4676,8 +4676,8 @@
 /turf/simulated/wall,
 /area/mine/laborcamp)
 "rd" = (
-/obj/structure/closet/secure_closet/brig/gulag,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/brig/prisoner/gulag,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "rj" = (
@@ -4734,7 +4734,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/brig/gulag,
+/obj/structure/closet/secure_closet/brig/prisoner/gulag,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "sF" = (
@@ -5996,11 +5996,11 @@
 	},
 /area/mine/sleeper)
 "PK" = (
-/obj/structure/closet/secure_closet/brig/gulag,
 /obj/machinery/flasher{
 	id = "labor";
 	pixel_y = 32
 	},
+/obj/structure/closet/secure_closet/brig/prisoner/gulag,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "PQ" = (
