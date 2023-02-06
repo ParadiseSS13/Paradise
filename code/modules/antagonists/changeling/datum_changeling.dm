@@ -40,8 +40,6 @@
 	var/genetic_damage = 0
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
-	/// If the changeling is in the process of linking with someone.
-	var/is_linking = FALSE
 	/// The amount of points available to purchase changeling abilities.
 	var/genetic_points = 10
 	/// A name that will display in place of the changeling's real name when speaking.
