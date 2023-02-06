@@ -287,8 +287,8 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in station_vendors
-	if(!choice)
+	var/choice = show_radial_menu(user, src, station_vendors, radius = 48)
+	if(!choice || QDELETED(src) || user.stat || !in_range(user, src))
 		return
 	set_type(choice)
 
@@ -544,8 +544,8 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in fridge_names_paths
-	if(!choice)
+	var/choice = show_radial_menu(user, src, fridge_names_paths, radius = 48)
+	if(!choice || QDELETED(src) || user.stat || !in_range(user, src))
 		return
 	set_type(user, choice)
 
