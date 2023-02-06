@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	desc = "Controls an airlock controller, requesting the doors open on this side."
 	layer = ABOVE_WINDOW_LAYER
 	anchored = TRUE
-	power_channel = ENVIRON
+	power_state = PW_CHANNEL_ENVIRONMENT
 	/// Id to be used by the controller to grab us on spawn
 	var/autolink_id
 	/// UID of the airlock controller that owns us
@@ -26,7 +26,7 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	return ..()
 
 /obj/machinery/access_button/update_icon_state()
-	if(powered(power_channel))
+	if(has_power(power_channel))
 		icon_state = "access_button_standby"
 	else
 		icon_state = "access_button_off"
@@ -45,16 +45,17 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 /obj/machinery/access_button/attack_hand(mob/user)
 	add_fingerprint(user)
 
-	if(!powered(power_channel))
+	var/obj/machinery/airlock_controller/C = locateUID(controller_uid)
+	if(!C)
+		to_chat(user, "<span class='warning'>Could not communicate with controller.</span>")
+		return
+
+	if(!C.has_power(C.power_channel))
+		to_chat(user, "<span class='warning'>No response from controller, possibly offline.</span>")
 		return
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
-
-	var/obj/machinery/airlock_controller/C = locateUID(controller_uid)
-	if(!C)
-		to_chat(user, "<span class='warning'>Could not communicate with controller.</span>")
 		return
 
 	C.handle_button(assigned_command)

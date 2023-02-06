@@ -12,7 +12,7 @@
 	resistance_flags = FLAMMABLE
 	var/mopping = 0
 	var/mopcount = 0
-	var/mopcap = 5
+	var/mopcap = 6
 	var/mopspeed = 30
 
 /obj/item/mop/New()
@@ -33,7 +33,7 @@
 			janicart_insert(user, o)
 		return
 
-	o.reagents.trans_to(src, 5)
+	o.reagents.trans_to(src, 6)
 	to_chat(user, "<span class='notice'>You wet [src] in [o].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 
@@ -80,7 +80,6 @@
 	name = "advanced mop"
 	mopcap = 10
 	icon_state = "advmop"
-	item_state = "mop"
 	origin_tech = "materials=3;engineering=3"
 	force = 6
 	throwforce = 8
