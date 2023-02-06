@@ -495,7 +495,7 @@
 
 /obj/item/storage/belt/bandolier/full/populate_contents()
 	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[initial(icon_state)]_[min(length(contents), 8)]"
