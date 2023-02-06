@@ -66435,7 +66435,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
 "egq" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -66445,6 +66444,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -70599,12 +70599,12 @@
 	},
 /area/maintenance/aft)
 "gZy" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -76007,7 +76007,7 @@
 /turf/space,
 /area/solar/auxstarboard)
 "lgS" = (
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -81535,7 +81535,7 @@
 	},
 /area/quartermaster/storage)
 "psa" = (
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"
@@ -86796,12 +86796,12 @@
 	},
 /area/toxins/xenobiology)
 "tCY" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/firealarm{
 	dir = 4;
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -89836,7 +89836,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
 "vDY" = (
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -92628,7 +92628,6 @@
 	},
 /area/security/execution)
 "xVM" = (
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -92636,6 +92635,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"

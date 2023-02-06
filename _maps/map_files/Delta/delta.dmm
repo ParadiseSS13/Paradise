@@ -19290,7 +19290,7 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = -32
 	},
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -19315,14 +19315,14 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/security/permabrig)
 "bdd" = (
-/obj/structure/closet/secure_closet/brig,
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -20493,10 +20493,10 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/structure/closet/secure_closet/brig,
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/brig/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
