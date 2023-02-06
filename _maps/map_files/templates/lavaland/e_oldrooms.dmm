@@ -1,0 +1,1382 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"av" = (
+/obj/structure/stone_tile/slab/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"bm" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"bE" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"dP" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"eG" = (
+/obj/structure/stone_tile/slab/cracked,
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"eS" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"il" = (
+/turf/simulated/wall/indestructible/boss,
+/area/template_noop)
+"io" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"iD" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"jv" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/chair/brass{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"kt" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"kv" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/closet/crate/necropolis,
+/obj/structure/window/reinforced/clockwork,
+/obj/structure/window/reinforced/clockwork{
+	dir = 8;
+	move_resist = 45000
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"lY" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"nq" = (
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"nB" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"ow" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/chair/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"pC" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"tt" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"uh" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"uw" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"va" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"vK" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/chair/brass{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"xc" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"zM" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"CR" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Df" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"DI" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/table/reinforced/brass,
+/obj/item/wirecutters/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"DS" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/closet/crate/necropolis/tendril,
+/obj/structure/window/reinforced/clockwork{
+	dir = 4;
+	move_resist = 45000
+	},
+/obj/structure/window/reinforced/clockwork{
+	dir = 1;
+	move_resist = 45000
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"DU" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/wrench/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Ed" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"GE" = (
+/obj/structure/stone_tile/block/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"GI" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"It" = (
+/turf/template_noop,
+/area/template_noop)
+"Ji" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"JB" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Kg" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"KY" = (
+/turf/simulated/mineral/random/high_chance/volcanic,
+/area/template_noop)
+"Le" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"LW" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/weldingtool/experimental/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Or" = (
+/obj/structure/clockwork/wall_gear,
+/turf/simulated/wall/indestructible/boss,
+/area/mine/necropolis)
+"Pa" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/table/reinforced/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"PA" = (
+/obj/structure/stone_tile/slab/cracked,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"PH" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible/boss,
+/area/mine/necropolis)
+"RA" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"RQ" = (
+/obj/structure/stone_tile/surrounding,
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Sc" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"SU" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/item/clockwork/clockgolem_remains,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Te" = (
+/turf/simulated/wall/indestructible/boss,
+/area/mine/necropolis)
+"Up" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Vh" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Wl" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"XA" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Ye" = (
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Yn" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Yu" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/storage/toolbox/brass,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"YF" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"Zz" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"ZC" = (
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"ZD" = (
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"ZL" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+"ZM" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/structure/bookcase,
+/turf/simulated/floor/indestructible/boss,
+/area/mine/necropolis)
+
+(1,1,1) = {"
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+"}
+(2,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+il
+il
+il
+il
+il
+It
+"}
+(3,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+il
+il
+il
+il
+il
+It
+"}
+(4,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+PH
+Te
+Te
+Te
+Te
+il
+il
+il
+KY
+KY
+It
+"}
+(5,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Yn
+Zz
+dP
+Te
+Te
+Te
+il
+il
+KY
+KY
+GE
+It
+"}
+(6,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Or
+Vh
+zM
+Up
+Te
+Te
+Te
+il
+il
+KY
+KY
+kt
+It
+"}
+(7,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Le
+RA
+lY
+Wl
+XA
+Or
+Te
+il
+il
+KY
+nq
+kt
+It
+"}
+(8,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Zz
+ZC
+Yn
+uh
+ZC
+DS
+Te
+il
+il
+kt
+kt
+kt
+It
+"}
+(9,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+tt
+pC
+RA
+ZC
+eG
+bE
+Le
+il
+il
+kt
+kt
+kt
+It
+"}
+(10,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+xc
+Wl
+YF
+Wl
+ZC
+zM
+ZD
+il
+il
+kt
+kt
+kt
+It
+"}
+(11,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+ZM
+YF
+RQ
+ZC
+JB
+GI
+Te
+il
+il
+kt
+kt
+kt
+It
+"}
+(12,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+ZD
+XA
+GI
+Kg
+lY
+ZD
+Te
+il
+il
+kt
+kt
+kt
+It
+"}
+(13,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+ZC
+Up
+ZC
+YF
+Te
+Te
+il
+il
+KY
+kt
+kt
+It
+"}
+(14,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Or
+Te
+av
+Te
+Te
+Te
+il
+il
+KY
+KY
+kt
+It
+"}
+(15,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+ZC
+Te
+Te
+Te
+il
+il
+il
+KY
+KY
+It
+"}
+(16,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Or
+RA
+bE
+Te
+Te
+Te
+il
+il
+il
+il
+il
+It
+"}
+(17,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+YF
+ZC
+YF
+Pa
+Te
+Te
+Te
+il
+il
+il
+il
+It
+"}
+(18,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+eS
+XA
+Ye
+ZC
+vK
+xc
+Te
+Te
+Te
+il
+il
+il
+It
+"}
+(19,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+kv
+uw
+RA
+Wl
+zM
+Ji
+Te
+Te
+Te
+Te
+il
+il
+It
+"}
+(20,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Pa
+CR
+ZC
+Up
+bE
+Or
+Te
+Te
+Te
+Te
+il
+il
+It
+"}
+(21,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Wl
+nB
+av
+Te
+Te
+Te
+Or
+DU
+tt
+Te
+il
+It
+"}
+(22,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Or
+Te
+ZC
+Te
+Te
+Te
+CR
+XA
+jv
+av
+il
+It
+"}
+(23,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+YF
+Te
+Te
+Yu
+Wl
+ZC
+zM
+RA
+il
+It
+"}
+(24,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+XA
+Te
+Te
+DI
+Sc
+YF
+iD
+ab
+il
+It
+"}
+(25,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+av
+Te
+Te
+Te
+zM
+ZC
+RA
+Ed
+il
+It
+"}
+(26,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+ZC
+Wl
+lY
+Or
+Te
+JB
+PA
+xc
+LW
+il
+It
+"}
+(27,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+RA
+YF
+RA
+ZC
+Wl
+Te
+XA
+Wl
+Or
+il
+il
+It
+"}
+(28,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Pa
+zM
+ZC
+Wl
+XA
+YF
+ZC
+SU
+il
+il
+il
+It
+"}
+(29,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Or
+io
+bm
+va
+JB
+Df
+il
+il
+il
+il
+il
+il
+It
+"}
+(30,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+tt
+XA
+RA
+ow
+io
+il
+il
+il
+il
+il
+il
+It
+"}
+(31,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+ZL
+ZC
+av
+Or
+il
+il
+il
+il
+It
+It
+It
+"}
+(32,1,1) = {"
+It
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+Te
+YF
+Te
+Te
+il
+il
+il
+il
+It
+It
+It
+"}
+(33,1,1) = {"
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+It
+"}

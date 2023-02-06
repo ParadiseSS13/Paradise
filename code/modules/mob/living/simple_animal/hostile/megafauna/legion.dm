@@ -135,10 +135,12 @@ Difficulty: Medium
 		if(last_legion)
 			loot = list(/obj/item/staff/storm)
 			elimination = 0
+			UnlockBlastDoors("11119")
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
 			if(!true_spawn)
 				loot = null
+				UnlockBlastDoors("11119")
 		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
