@@ -270,7 +270,7 @@
 		icon_state = "match_lit"
 		damtype = "fire"
 		force = 3
-		hitsound = 'sound/items/welder.ogg'
+		hitsound = 'sound/weapons/tap.ogg'
 		item_state = "cigon"
 		name = "lit match"
 		desc = "A match. This one is lit."
