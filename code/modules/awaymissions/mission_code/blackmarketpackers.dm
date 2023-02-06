@@ -39,6 +39,9 @@
 	name = "BMP Armory"
 	icon_state = "away5"
 	requires_power = TRUE
+	power_environ = FALSE
+	power_light = FALSE
+	power_equip = FALSE
 	fire = TRUE
 	ambientsounds = list('sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
@@ -53,6 +56,9 @@
 	name = "BMP MedBay Block"
 	icon_state = "away7"
 	requires_power = TRUE
+	power_environ = FALSE
+	power_light = FALSE
+	power_equip = FALSE
 	ambientsounds = list('sound/ambience/ambigen6.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin3.ogg', 'sound/ambience/ambiruin4.ogg', 'sound/ambience/ambiruin5.ogg', 'sound/ambience/ambiruin6.ogg')
 
 /area/awaymission/BMPship/ChemLab
@@ -78,6 +84,9 @@
 	name = "BMP Turrets North"
 	icon_state = "away11"
 	requires_power = TRUE
+	power_environ = FALSE
+	power_light = FALSE
+	power_equip = FALSE
 
 /area/awaymission/BMPship/TurretsSouth
 	name = "BMP Turrets South"
@@ -140,6 +149,13 @@
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
 
+/obj/item/storage/firstaid/with_mousetrap/tactical/AltClick(var/mob/user)
+	if (isliving(user))
+		return ..()
+
+/obj/item/storage/firstaid/with_mousetrap/tactical/attack_ghost(var/mob/user)
+	return
+
 /obj/item/paper/taunt
 	name = "Shrot note"
 	info = "<b>Ha-ha! Gotcha! As always!</b>"
@@ -157,6 +173,13 @@
 	..()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
+
+/obj/item/storage/firstaid/with_mousetrap/syndie/AltClick(var/mob/user)
+	if (isliving(user))
+		return ..()
+
+/obj/item/storage/firstaid/with_mousetrap/syndie/attack_ghost(var/mob/user)
+	return
 
 // Дисплей кейс с лодкой
 
@@ -201,3 +224,17 @@
 	show_alert_level = FALSE
 	triggered = TRUE
 	icon_state = "fire1"
+
+//Spieder spawner
+
+/obj/structure/spawner/giantspider
+	name = "giant spider nest"
+	desc = "A living nest for giant spiders. It is moving ominously."
+	icon_state = "eggs"
+	icon = 'icons/effects/effects.dmi'
+	max_integrity = 200
+	max_mobs = 5
+	spawn_time = 600
+	mob_types = list(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter)
+	spawn_text = "crawls out of"
+	faction = list("spiders")
