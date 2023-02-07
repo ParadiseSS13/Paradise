@@ -79,7 +79,7 @@
 
 /obj/vehicle/janicart/Move(atom/OldLoc, Dir)
 	. = ..()
-	if(floorbuffer)
+	if(floorbuffer && has_buckled_mobs())
 		var/turf/tile = loc
 		if(isturf(tile))
 			tile.clean_blood()
