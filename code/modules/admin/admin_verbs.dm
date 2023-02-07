@@ -172,7 +172,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmjit_debug_dump_call_count,
 	/client/proc/dmjit_debug_dump_opcode_count,
 	/client/proc/dmjit_debug_toggle_hooks,
-	/client/proc/dmjit_debug_dump_deopts
+	/client/proc/dmjit_debug_dump_deopts,
+	/client/proc/timer_log,
+	/client/proc/debug_timers,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
