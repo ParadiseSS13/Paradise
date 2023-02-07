@@ -1012,7 +1012,7 @@
 	if(trash_amount > 1)
 		if(target_bin)
 			target_bin.update_icon()
-			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].")
+			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 10, TRUE, -1)
 
 /obj/item/twohanded/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
