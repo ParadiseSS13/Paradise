@@ -60,9 +60,8 @@
 	var/weighted_score = min(max(round(heads.len - ((8 - sec.len) / 3)),1),max_headrevs)
 
 	while(weighted_score < head_revolutionaries.len) //das vi danya
-		var/datum/mind/removable_headrev = pick(head_revolutionaries)
+		var/datum/mind/removable_headrev = pick_n_take(head_revolutionaries)
 		possible_revolutionaries += removable_headrev
-		head_revolutionaries -= removable_headrev
 		update_rev_icons_removed(removable_headrev)
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
@@ -85,7 +84,7 @@
 /datum/game_mode/revolution/transit_z(mob/living/player)
 	if(!finished)
 		var/list/heads = get_all_heads()
-		if(player.mind && ((player.mind in heads)||(player.mind in head_revolutionaries)))
+		if(player.mind && ((player.mind in heads) || (player.mind in head_revolutionaries)))
 			SSticker.mode.check_win()
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
