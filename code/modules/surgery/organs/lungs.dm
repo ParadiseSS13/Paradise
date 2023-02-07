@@ -395,6 +395,7 @@
 	name = "cursed lungs"
 	desc = "it needs to be pumped..."
 	actions_types = list(/datum/action/item_action/organ_action/cursed_lungs)
+	unremovable = TRUE
 	var/last_pump = 0
 	var/pump_delay = 300
 	var/oxy_loss = 45
