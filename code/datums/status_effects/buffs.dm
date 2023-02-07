@@ -368,12 +368,12 @@
 	var/tolerance = 1
 	var/instance_duration = 10 // in ticks
 	/// a list of integers, one for each remaining instance of fleshmend.
-	var/active_instances[0]
+	var/list/active_instances = list()
 	var/ticks = 0
 
 /datum/status_effect/fleshmend/on_apply()
 	tolerance += 1
-	active_instances += instance_duration // need to make sure this is a new instance and not just the existing instance variable
+	active_instances += instance_duration
 	return TRUE
 
 /datum/status_effect/fleshmend/refresh()
@@ -389,10 +389,12 @@
 		owner.adjustOxyLoss(-heal_amount, FALSE)
 		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
 		owner.updatehealth()
+		var/list/expired_instances = list()
 		for(var/i in 1 to length(active_instances))
 			active_instances[i]--
 			if(active_instances[i] <= 0)
-				active_instances -= active_instances[i]
+				expired_instances += active_instances[i]
+		active_instances -= expired_instances
 	tolerance = max(tolerance - 0.05, 1)
 	if(tolerance <= 1 && length(active_instances) == 0)
 		qdel(src)
