@@ -331,7 +331,7 @@
 		..()
 
 /obj/machinery/economy/vending/AltClick(mob/user)
-	if(!tilted || !Adjacent(user) || user.incapacitated())
+	if(!tilted || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	untilt(user)
