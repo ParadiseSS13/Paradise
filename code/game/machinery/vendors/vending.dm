@@ -373,9 +373,7 @@
 		var/should_warn = world.time > last_hit_time + hit_warning_cooldown_length
 		last_hit_time = world.time
 		if(should_warn)
-			visible_message(
-				"<span class='warning'>[src] seems to sway a bit!</span>"
-			)
+			visible_message("<span class='warning'>[src] seems to sway a bit!</span>")
 			to_chat(user, "<span class='danger'>You might want to think twice about doing that again, [src] looks like it could come crashing down!</span>")
 			return
 
