@@ -20196,10 +20196,10 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "ced" = (
-/obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -111143,9 +111143,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -28
@@ -119003,8 +119000,9 @@
 /obj/item/airlock_electronics,
 /obj/item/stack/sheet/glass,
 /obj/item/assembly/signaler,
-/obj/machinery/light{
-	dir = 8
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
