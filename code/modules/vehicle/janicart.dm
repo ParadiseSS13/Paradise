@@ -84,11 +84,10 @@
 			return
 		else
 			to_chat(user, fail_msg)
-	if(istype(I, /obj/item/key/janitor))
-		..()
-	if(mybag && user.a_intent == INTENT_HELP)
+	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
 		mybag.attackby(I, user)
-	return ..()
+	else
+		return ..()
 
 /obj/vehicle/janicart/update_overlays()
 	. = ..()
