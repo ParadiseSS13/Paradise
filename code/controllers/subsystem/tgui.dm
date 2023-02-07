@@ -99,8 +99,9 @@ SUBSYSTEM_DEF(tgui)
  * Returns the number of UIs updated.
  *
  * * datum/src_object - The object/datum which owns the UIs.
+ * * update_static_data - If the static data of the `src_object` should be updated for every viewing user.
  */
-/datum/controller/subsystem/tgui/proc/update_uis(datum/src_object)
+/datum/controller/subsystem/tgui/proc/update_uis(datum/src_object, update_static_data = FALSE)
 	var/src_object_key = "[src_object.UID()]"
 	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
 		return 0 // Couldn't find any UIs for this object.
@@ -109,6 +110,8 @@ SUBSYSTEM_DEF(tgui)
 	for(var/ui_key in open_uis[src_object_key])
 		for(var/datum/tgui/ui in open_uis[src_object_key][ui_key])
 			if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user)) // Check the UI is valid.
+				if(update_static_data)
+					src_object.update_static_data(ui.user, ui, ui_key)
 				ui.process(force = 1) // Update the UI.
 				update_count++ // Count each UI we update.
 	return update_count
