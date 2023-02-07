@@ -240,14 +240,14 @@ SUBSYSTEM_DEF(tts)
 	tts_requests_queue += list(list(text, seed, proc_callback))
 	return TRUE
 
-/datum/controller/subsystem/tts/proc/get_tts(atom/speaker, mob/listener, message, seed_name = "Arthas", is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
+/datum/controller/subsystem/tts/proc/get_tts(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
 	if(!is_enabled)
 		return
 	if(!message)
 		return
 	if(isnull(listener) || !listener.client)
 		return
-	if(!(seed_name in tts_seeds))
+	if(isnull(seed_name) || !(seed_name in tts_seeds))
 		return
 	var/datum/tts_seed/seed = tts_seeds[seed_name]
 

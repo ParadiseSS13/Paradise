@@ -69,7 +69,7 @@
 	var/drain_act_protected = FALSE
 	var/list/description_holders = list("info" = null, "antag" = null, "fluff" = null)
 
-	var/tts_seed = null
+	var/tts_seed = "Arthas"
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
