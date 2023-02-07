@@ -5,10 +5,16 @@
 	icon_state = "pussywagon"
 	key_type = /obj/item/key/janitor
 	var/obj/item/storage/bag/trash/mybag
+	var/datum/action/floor_buffer/F
+	var/buffer_installed = FALSE
+	/// How much speed the janicart loses while the buffer is active
+	var/buffer_delay = 1
+	/// Does it clean the tile under it?
 	var/floorbuffer = FALSE
 
 /obj/vehicle/janicart/Destroy()
 	QDEL_NULL(mybag)
+	QDEL_NULL(F)
 	return ..()
 
 /obj/vehicle/janicart/handle_vehicle_offsets()
@@ -30,11 +36,9 @@
 					buckled_mob.pixel_x = 12
 					buckled_mob.pixel_y = 7
 
-
 /obj/item/key/janitor
 	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
 	icon_state = "keyjanitor"
-
 
 /obj/item/janiupgrade
 	name = "floor buffer upgrade"
@@ -42,6 +46,36 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "upgrade"
 	origin_tech = "materials=3;engineering=4"
+
+/datum/action/floor_buffer
+	name = "Toggle Floor Buffer"
+	desc = "Movement speed is decreased while active."
+	icon_icon = 'icons/obj/vehicles.dmi'
+	button_icon_state = "upgrade"
+
+/datum/action/floor_buffer/Trigger()
+	. = ..()
+	var/obj/vehicle/janicart/J = target
+	if(!J.floorbuffer)
+		J.floorbuffer = TRUE
+		J.vehicle_move_delay += J.buffer_delay
+	else
+		J.floorbuffer = FALSE
+		J.vehicle_move_delay -= J.buffer_delay
+	to_chat(usr, "<span class='notice'>The floor buffer is now [J.floorbuffer ? "active" : "deactivated"].</span>")
+
+/obj/vehicle/janicart/post_buckle_mob(mob/living/M)
+	. = ..()
+	if(buffer_installed)
+		if(has_buckled_mobs())
+			F.Grant(M)
+		else
+			F.Remove(M)
+
+/obj/vehicle/janicart/post_unbuckle_mob(mob/living/M)
+	if(buffer_installed)
+		F.Remove(M)
+	return ..()
 
 /obj/vehicle/janicart/Move(atom/OldLoc, Dir)
 	. = ..()
@@ -53,13 +87,10 @@
 				if(E.is_cleanable())
 					qdel(E)
 
-
-
 /obj/vehicle/janicart/examine(mob/user)
 	. = ..()
-	if(floorbuffer)
+	if(buffer_installed)
 		. += "It has been upgraded with a floor buffer."
-
 
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))
@@ -71,7 +102,8 @@
 		update_icon(UPDATE_OVERLAYS)
 		return
 	if(istype(I, /obj/item/janiupgrade))
-		floorbuffer = TRUE
+		buffer_installed = TRUE
+		F = new(src)
 		qdel(I)
 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
 		update_icon(UPDATE_OVERLAYS)
@@ -82,9 +114,8 @@
 	. = ..()
 	if(mybag)
 		. += "cart_garbage"
-	if(floorbuffer)
+	if(buffer_installed)
 		. += "cart_buffer"
-
 
 /obj/vehicle/janicart/attack_hand(mob/user)
 	if(..())
