@@ -61487,7 +61487,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/access_button{
-	command = "cycle_exterior";
+	command = "cycle_interior";
 	frequency = 1379;
 	master_tag = "xeno_airlock_control";
 	name = "Xenobiology Access Button";
