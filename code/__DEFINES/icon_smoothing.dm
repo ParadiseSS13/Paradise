@@ -66,7 +66,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_MATERIAL_WALLS S_TURF(25)			///turf/simulated/wall/material
 #define SMOOTH_GROUP_SYNDICATE_WALLS S_TURF(26)			///turf/simulated/wall/r_wall/syndicate, /turf/simulated/indestructible/syndicate
 #define SMOOTH_GROUP_HOTEL_WALLS S_TURF(27)				///turf/simulated/indestructible/hotelwall
-#define SMOOTH_GROUP_MINERAL_WALLS S_TURF(28)			///turf/simulated/mineral, /turf/simulated/indestructible
+#define SMOOTH_GROUP_MINERAL_WALLS S_TURF(28)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
 #define SMOOTH_GROUP_BOSS_WALLS S_TURF(29)				///turf/simulated/indestructible/riveted/boss
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(30)	///turf/simulated/wall/mineral/titanium/survival
 
@@ -98,6 +98,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_REGULAR_WALLS S_OBJ(17)			///turf/simulated/wall, /obj/structure/falsewall
 #define SMOOTH_GROUP_REINFORCED_WALLS S_OBJ(18)			///turf/simulated/wall/r_wall, /obj/structure/falsewall/reinforced
 #define SMOOTH_GROUP_CULT_WALLS S_OBJ(19)				///turf/simulated/wall/cult
+#define SMOOTH_GROUP_ASTEROID_WALLS S_OBJ(12)			///turf/simulated/mineral, /obj/structure/falsewall/rock_ancient
 
 #define SMOOTH_GROUP_WINDOW_FULLTILE S_OBJ(21)			///turf/simulated/indestructible/fakeglass, /obj/structure/window/full/basic, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced, /obj/structure/window/full/reinforced
 #define SMOOTH_GROUP_WINDOW_FULLTILE_BRASS S_OBJ(22)	///obj/structure/window/brass/fulltile
@@ -117,7 +118,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_REINFORCED_TABLES S_OBJ(56)		///obj/structure/table/reinforced, /obj/structure/table/glass/reinforced
 
 #define SMOOTH_GROUP_ALIEN_RESIN S_OBJ(60)				///obj/structure/alien/resin
-#define SMOOTH_GROUP_ALIEN_WALLS S_OBJ(61)				///obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane
+#define SMOOTH_GROUP_ALIEN_WALLS S_OBJ(61)				///obj/structure/alien/resin/wall,
 #define SMOOTH_GROUP_ALIEN_WEEDS S_OBJ(62)				///obj/structure/alien/weeds
 
 #define SMOOTH_GROUP_SECURITY_BARRICADE S_OBJ(63)		///obj/structure/barricade/security

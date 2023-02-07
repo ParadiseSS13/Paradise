@@ -37,6 +37,7 @@
 	throwforce = 1
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
+	flags_2 = RANDOM_BLOCKER_2
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 

@@ -94,8 +94,11 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(T)
 	if(ismineralturf(T))
-		var/turf/simulated/mineral/M = T
-		M.gets_drilled(creator)
+		if(is_ancient_rock(T))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			var/turf/simulated/mineral/M = T
+			M.gets_drilled(creator)
 	check_pressure(T)
 	playsound(T,'sound/weapons/resonator_blast.ogg',50,1)
 	for(var/mob/living/L in T)

@@ -78,26 +78,24 @@
 		O.forceMove(loc)
 		CHECK_TICK
 
+/obj/structure/ore_box/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to empty the ore box.</span>"
+
 /obj/structure/ore_box/onTransitZ()
 	return
 
-/obj/structure/ore_box/verb/empty_box()
-	set name = "Empty Ore Box"
-	set category = "Object"
-	set src in view(1)
-
-	if(usr.incapacitated())
+/obj/structure/ore_box/AltShiftClick(mob/user)
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "You cannot interact with the ore box.")
 		return
 
-	if(!Adjacent(usr))
-		to_chat(usr, "You cannot reach the ore box.")
-		return
+	add_fingerprint(user)
 
-	add_fingerprint(usr)
-
-	if(contents.len < 1)
-		to_chat(usr, "<span class='warning'>The ore box is empty.</span>")
+	if(length(contents) < 1)
+		to_chat(user, "<span class='warning'>The ore box is empty.</span>")
 		return
 
 	dump_box_contents()
-	to_chat(usr, "<span class='notice'>You empty the ore box.</span>")
+	to_chat(user, "<span class='notice'>You empty the ore box.</span>")

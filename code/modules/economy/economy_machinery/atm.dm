@@ -12,8 +12,7 @@
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 	density = FALSE
 	restricted_bypass = TRUE
 
@@ -52,7 +51,8 @@
 	underlays += emissive_appearance(icon, "atm_lightmask")
 
 /obj/machinery/economy/atm/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -79,12 +79,12 @@
 
 /obj/machinery/economy/atm/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/card/id))
-		if(powered())
+		if(has_power())
 			handle_id_insert(I, user)
 			return TRUE
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
-			if(!powered())
+			if(!has_power())
 				return
 			insert_cash(I, user)
 			return TRUE
@@ -124,6 +124,8 @@
 
 ///ensures proper GC of money account
 /obj/machinery/economy/atm/proc/clear_account()
+	if(!authenticated_account) // In some situations there will be no authenticated account, such as removing your ID without inputting account information
+		return
 	UnregisterSignal(authenticated_account, COMSIG_PARENT_QDELETING)
 	authenticated_account = null
 

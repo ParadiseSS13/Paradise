@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/Destroy(force = FALSE, ...)
 	for(var/datum/mind/member as anything in members)
 		remove_member(member)
-	QDEL_LIST(objectives)
+	QDEL_LIST_CONTENTS(objectives)
 	members.Cut()
 	GLOB.antagonist_teams -= src
 	return ..()
