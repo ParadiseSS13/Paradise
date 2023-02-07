@@ -390,3 +390,43 @@
 	cold_level_1_threshold = 200
 	cold_level_2_threshold = 140
 	cold_level_3_threshold = 100
+
+/obj/item/organ/internal/lungs/cursed
+	name = "cursed lungs"
+	desc = "it needs to be pumped..."
+	actions_types = list(/datum/action/item_action/organ_action/cursed_lungs)
+	var/last_pump = 0
+	var/pump_delay = 300
+	var/oxy_loss = 45
+
+/obj/item/organ/internal/lungs/cursed/on_life()
+	if(world.time > (last_pump + pump_delay))
+		if(ishuman(owner) && owner.client)
+			var/mob/living/carbon/human/H = owner
+			if(!(NO_BLOOD in H.dna.species.species_traits))
+				H.setOxyLoss(H.oxyloss + oxy_loss)
+				H.custom_emote(1, "задыхается!")
+				to_chat(H, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
+		last_pump = world.time
+
+/obj/item/organ/internal/lungs/cursed/insert(mob/living/carbon/M, special = 0)
+	..()
+	if(M)
+		to_chat(M, "<span class='userdanger'>Я должен дышать, иначе просто задохнусь!</span>")
+
+/datum/action/item_action/organ_action/cursed_lungs
+	name = "Дышать"
+
+//You are now brea- pumping blood manually
+/datum/action/item_action/organ_action/cursed_lungs/Trigger()
+	. = ..()
+	if(. && istype(target, /obj/item/organ/internal/lungs/cursed))
+		var/obj/item/organ/internal/lungs/cursed/cursed_lungs = target
+
+		if(world.time < (cursed_lungs.last_pump + (cursed_lungs.pump_delay - 100))) //no spam
+			to_chat(owner, "<span class='userdanger'>Слишком рано!</span>")
+			return
+
+		cursed_lungs.last_pump = world.time
+		to_chat(owner, "<span class = 'notice'>Вы дышите.</span>")
+		owner.custom_emote(1, "дышит")
