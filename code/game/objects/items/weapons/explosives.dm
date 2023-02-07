@@ -44,10 +44,6 @@
 		return
 	..()
 
-//assembly stuff
-/obj/item/grenade/plastic/receive_signal()
-	prime()
-
 /obj/item/grenade/plastic/Crossed(atom/movable/AM, oldloc)
 	if(nadeassembly)
 		nadeassembly.Crossed(AM, oldloc)

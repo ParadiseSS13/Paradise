@@ -104,7 +104,7 @@
 	throwforce = 18
 
 /obj/item/storage/toolbox/syndicate/populate_contents()
-	new /obj/item/screwdriver(src, "red")
+	new /obj/item/screwdriver/nuke(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
 	new /obj/item/crowbar/red(src)

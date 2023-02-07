@@ -38,14 +38,24 @@
 			if(tank)
 				tank.boom(TRUE)  // this qdel's `src`
 
+		if(istype(locloc, /obj/item/onetankbomb))
+			var/obj/item/onetankbomb/bomb = locloc
+			if(bomb?.bombtank)
+				bomb.bombtank.detonate()
+
 		else if(istype(locloc, /obj/item/reagent_containers/glass/beaker))
 			var/obj/item/reagent_containers/glass/beaker/beakerbomb = locloc
 			if(beakerbomb)
 				beakerbomb.heat_beaker()
 
+		else if(istype(locloc, /obj/item/grenade/chem_grenade))
+			var/obj/item/grenade/chem_grenade/CG = locloc
+			CG.prime()
+
 	return TRUE
 
 
 /obj/item/assembly/igniter/attack_self(mob/user)
-	activate()
+	if(!istype(loc, /obj/item/assembly_holder))
+		activate()
 	add_fingerprint(user)

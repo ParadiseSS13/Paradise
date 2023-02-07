@@ -6,6 +6,7 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
+	power_channel = PW_CHANNEL_LIGHTING
 
 /obj/machinery/light_switch/Initialize(mapload, build_dir)
 	. = ..()
@@ -61,17 +62,17 @@
 	for(var/obj/machinery/light_switch/L in A)
 		L.update_icon(UPDATE_ICON_STATE)
 
-	A.power_change()
+	machine_powernet.power_change()
 
 /obj/machinery/light_switch/power_change()
-	if(powered(LIGHT))
-		stat &= ~NOPOWER
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 
-	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/light_switch/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -80,14 +81,6 @@
 
 	power_change()
 	..(severity)
-
-/obj/machinery/light_switch/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-
-	update_multitool_menu(user)
 
 /obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
 	. = TRUE

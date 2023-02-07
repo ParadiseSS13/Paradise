@@ -77,21 +77,11 @@
 	desc = "A digitally controlled valve."
 	icon = 'icons/atmos/digital_valve.dmi'
 
-	frequency = ATMOS_VENTSCRUB
-	var/id_tag = null
-	settagwhitelist = list("id_tag")
-
-/obj/machinery/atmospherics/binary/valve/digital/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
 /obj/machinery/atmospherics/binary/valve/digital/attack_ai(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/binary/valve/digital/attack_hand(mob/user)
-	if(!powered())
+	if(!has_power())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='alert'>Access denied.</span>")
@@ -103,58 +93,12 @@
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/digital/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon(UPDATE_ICON_STATE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/binary/valve/digital/update_icon_state()
-	if(!powered())
+	if(!has_power())
 		icon_state = "valve[open]nopower"
 		return
 	..()
-
-/obj/machinery/atmospherics/binary/valve/digital/atmos_init()
-	..()
-	if(frequency)
-		set_frequency(frequency)
-
-/obj/machinery/atmospherics/binary/valve/digital/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag))
-		return 0
-
-	switch(signal.data["command"])
-		if("valve_open")
-			if(!open)
-				open()
-
-		if("valve_close")
-			if(open)
-				close()
-
-		if("valve_toggle")
-			if(open)
-				close()
-			else
-				open()
-		if("valve_set")
-			if(signal.data["valve_set"] == 1)
-				if(!open)
-					open()
-			else
-				if(open)
-					close()
-
-/obj/machinery/atmospherics/binary/valve/digital/attackby(obj/item/W as obj, mob/user)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	return ..()
-
-/obj/machinery/atmospherics/binary/valve/digital/multitool_menu(mob/user, obj/item/multitool/P)
-	return {"
-		<ul>
-			<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
-			<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
-		</ul>
-		"}

@@ -8,9 +8,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 50
+	idle_power_consumption = 5
+	active_power_consumption = 50
 	var/grinded = 0
 	var/required_grind = 5
 	var/cube_production = 1
@@ -52,7 +51,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(exchange_parts(user, O))
 		return
 
-	if(default_unfasten_wrench(user, O))
+	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		power_change()
 		return
 

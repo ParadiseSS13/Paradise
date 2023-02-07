@@ -312,11 +312,11 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
-    ..()
-    if(slot == slot_head && reagents.total_volume)
-        to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
-        reagents.reaction(user, REAGENT_TOUCH)
-        reagents.clear_reagents()
+	..()
+	if(slot == slot_head && reagents.total_volume)
+		to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
+		reagents.reaction(user, REAGENT_TOUCH)
+		reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
 	if(istype(D, /obj/item/mop))
