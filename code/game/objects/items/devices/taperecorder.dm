@@ -16,6 +16,7 @@
 	var/open_panel = 0
 	var/canprint = 1
 	var/starts_with_tape = TRUE
+	tts_seed = "Xenia"
 
 
 /obj/item/taperecorder/New()
@@ -119,7 +120,7 @@
 		piece.speaker_name = M.name
 		piece.message = msg
 		piece.message_verb = null
-		piece.tts_seed = null
+		piece.tts_seed = initial(tts_seed)
 		mytape.storedinfo += piece
 
 /datum/tape_piece
@@ -153,7 +154,7 @@
 		piece.speaker_name = null
 		piece.message = "Запись началась."
 		piece.message_verb = null
-		piece.tts_seed = null
+		piece.tts_seed = initial(tts_seed)
 		mytape.storedinfo += piece
 		var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
 		var/max = mytape.max_capacity
@@ -184,13 +185,13 @@
 		piece.speaker_name = null
 		piece.message = "Запись остановлена."
 		piece.message_verb = null
-		piece.tts_seed = null
+		piece.tts_seed = initial(tts_seed)
 		mytape.storedinfo += piece
 		to_chat(usr, "<span class='notice'>Recording stopped.</span>")
 		return
 	else if(playing)
 		playing = 0
-		tts_seed = null
+		tts_seed = initial(tts_seed)
 		atom_say_verb = "says"
 		atom_say("Проигрывание остановлено.")
 	update_icon()
@@ -230,14 +231,14 @@
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(10)
-			tts_seed = null
+			tts_seed = initial(tts_seed)
 			atom_say_verb = "says"
 			atom_say("Конец записи.")
 		else
 			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
 		if(playsleepseconds > 14)
 			sleep(10)
-			tts_seed = null
+			tts_seed = initial(tts_seed)
 			atom_say_verb = "says"
 			atom_say("Пропуск [playsleepseconds] секунд тишины.")
 			playsleepseconds = 1
