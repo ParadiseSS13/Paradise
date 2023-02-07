@@ -1,5 +1,5 @@
-#define SHORT 5/7
-#define TALL 7/5
+#define SHORT_SCALE (5/7)
+#define TALL_SCALE (7/5)
 
 /**
  * squish.dm
@@ -11,7 +11,7 @@
 /datum/element/squish
 	element_flags = ELEMENT_DETACH
 
-/datum/element/squish/Attach(datum/target, duration=20 SECONDS, reverse=FALSE)
+/datum/element/squish/Attach(datum/target, duration = 20 SECONDS, reverse = FALSE)
 	. = ..()
 	if(!iscarbon(target))
 		return ELEMENT_INCOMPATIBLE
@@ -21,22 +21,23 @@
 	addtimer(CALLBACK(src, PROC_REF(Detach), C, was_lying, reverse), duration)
 
 	if(reverse)
-		C.transform = C.transform.Scale(SHORT, TALL)
+		C.transform = C.transform.Scale(SHORT_SCALE, TALL_SCALE)
 	else
-		C.transform = C.transform.Scale(TALL, SHORT)
+		C.transform = C.transform.Scale(TALL_SCALE, SHORT_SCALE)
 
 /datum/element/squish/Detach(mob/living/carbon/C, was_lying, reverse)
 	. = ..()
-	if(istype(C))
-		var/is_lying = C.body_position == LYING_DOWN
+	if(!istype(C))
+		return
+	var/is_lying = C.body_position == LYING_DOWN
 
-		if(reverse)
-			is_lying = !is_lying
+	if(reverse)
+		is_lying = !is_lying
 
-		if(was_lying == is_lying)
-			C.transform = C.transform.Scale(SHORT, TALL)
-		else
-			C.transform = C.transform.Scale(TALL, SHORT)
+	if(was_lying == is_lying)
+		C.transform = C.transform.Scale(SHORT_SCALE, TALL_SCALE)
+	else
+		C.transform = C.transform.Scale(TALL_SCALE, SHORT_SCALE)
 
-#undef SHORT
-#undef TALL
+#undef SHORT_SCALE
+#undef TALL_SCALE
