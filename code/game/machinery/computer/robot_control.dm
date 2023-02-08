@@ -229,5 +229,5 @@
 			message_admins("<span class='notice'>[key_name_admin(usr)] emagged [key_name_admin(R)] using robotic console!</span>")
 			R.emagged = TRUE
 			R.module.rebuild_modules()
-			to_chat(R, "<span class='notice'>Failsafe protocols overriden. New tools available.</span>")
+			to_chat(R, "<span class='notice'>Failsafe protocols overridden. New tools available.</span>")
 			. = TRUE

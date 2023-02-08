@@ -387,7 +387,7 @@ SUBSYSTEM_DEF(dbcore)
 		SSdbcore.total_errors++
 		if(usr)
 			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>")
-		message_admins("An SQL error has occured. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
+		message_admins("An SQL error has occurred. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
 /**
   * Main Execution Handler

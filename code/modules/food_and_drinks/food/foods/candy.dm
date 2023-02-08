@@ -162,7 +162,7 @@
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas."
+	desc = "A candy bean, guaranteed to not give you gas."
 	icon_state = "jbean"
 	filling_color = "#FFFFFF"
 	bitesize = 3
@@ -337,91 +337,91 @@
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/red
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's red!"
+	desc = "A candy bean, guaranteed to not give you gas. It's red!"
 	icon_state = "jbean_red"
 	filling_color = "#801E28"
 	list_reagents = list("sugar" = 10, "cherryjelly" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/blue
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's blue!"
+	desc = "A candy bean, guaranteed to not give you gas. It's blue!"
 	icon_state = "jbean_blue"
 	filling_color = "#863333"
 	list_reagents = list("sugar" = 10, "berryjuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/poison
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's blue!"
+	desc = "A candy bean, guaranteed to not give you gas. It's blue!"
 	icon_state = "jbean_blue"
 	filling_color = "#863353"
 	list_reagents = list("poisonberryjuice" = 12)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/green
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's green!"
+	desc = "A candy bean, guaranteed to not give you gas. It's green!"
 	icon_state = "jbean_green"
 	filling_color = "#365E30"
 	list_reagents = list("sugar" = 10, "limejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/yellow
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's yellow!"
+	desc = "A candy bean, guaranteed to not give you gas. It's yellow!"
 	icon_state = "jbean_yellow"
 	filling_color = "#863333"
 	list_reagents = list("sugar" = 10, "lemonjuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/orange
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's orange!"
+	desc = "A candy bean, guaranteed to not give you gas. It's orange!"
 	icon_state = "jbean_orange"
 	filling_color = "#E78108"
 	list_reagents = list("sugar" = 10, "orangejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/purple
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's purple!"
+	desc = "A candy bean, guaranteed to not give you gas. It's purple!"
 	icon_state = "jbean_purple"
 	filling_color = "#993399"
 	list_reagents = list("sugar" = 10, "grapejuice" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/chocolate
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's chocolate!"
+	desc = "A candy bean, guaranteed to not give you gas. It's chocolate!"
 	icon_state = "jbean_choc"
 	filling_color = "#302000"
 	list_reagents = list("sugar" = 10, "chocolate" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/popcorn
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's popcorn flavored!"
+	desc = "A candy bean, guaranteed to not give you gas. It's popcorn flavored!"
 	icon_state = "jbean_popcorn"
 	filling_color = "#664330"
 	list_reagents = list("sugar" = 10, "nutriment" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/cola
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's Cola flavored!"
+	desc = "A candy bean, guaranteed to not give you gas. It's Cola flavored!"
 	icon_state = "jbean_cola"
 	filling_color = "#102000"
 	list_reagents = list("sugar" = 10, "cola" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/drgibb
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's Dr. Gibb flavored!"
+	desc = "A candy bean, guaranteed to not give you gas. It's Dr. Gibb flavored!"
 	icon_state = "jbean_cola"
 	filling_color = "#102000"
 	list_reagents = list("sugar" = 10, "dr_gibb" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/coffee
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. It's Coffee flavored!"
+	desc = "A candy bean, guaranteed to not give you gas. It's Coffee flavored!"
 	icon_state = "jbean_choc"
 	filling_color = "#482000"
 	list_reagents = list("sugar" = 10, "coffee" = 2)
 
 /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf
 	name = "jelly bean"
-	desc = "A candy bean, guarenteed to not give you gas. You aren't sure what color it is."
+	desc = "A candy bean, guaranteed to not give you gas. You aren't sure what color it is."
 	icon_state = "jbean_rainbow"
 	filling_color = "#60A584"
 	list_reagents = list("sugar" = 10, "space_drugs" = 2)
