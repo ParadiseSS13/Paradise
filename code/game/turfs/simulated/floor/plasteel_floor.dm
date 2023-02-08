@@ -43,6 +43,7 @@
 
 /turf/simulated/floor/plasteel/goonplaque/violence
 	name = "Violence Free Area"
+	desc = "Violence Free Area"
 
 //TODO: Make subtypes for all normal turf icons
 /turf/simulated/floor/plasteel/white

@@ -25002,9 +25002,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/goonplaque{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/goonplaque,
 /area/hallway/secondary/entry)
 "blt" = (
 /obj/machinery/economy/vending/cigarette,
@@ -30799,9 +30797,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bzd" = (
-/turf/simulated/floor/plasteel/goonplaque/memorial{
-	dir = 4
-	},
+/turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/hallway/secondary/exit)
 "bze" = (
 /obj/structure/sign/barsign,

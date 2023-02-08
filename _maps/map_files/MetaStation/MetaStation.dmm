@@ -53931,8 +53931,6 @@
 "eQf" = (
 /obj/structure/table/wood,
 /obj/structure/sign/kiddieplaque/perfect_drone{
-	desc = "A guide to the drone shell dispenser, detailing the constructive and destructive applications of modern repair drones, as well as the development of the incorruptible cyborg servants of tomorrow, available today.";
-	name = "\improper 'Perfect Drone' sign";
 	pixel_y = 32
 	},
 /obj/structure/showcase/machinery{
