@@ -75,7 +75,15 @@ SUBSYSTEM_DEF(redis)
 
 	for(var/channel in usable_data)
 		if(channel == RUSTG_REDIS_ERROR_CHANNEL)
-			message_admins("Redis error: [usable_data[channel]] | Please inform the server host.") // uh oh
+			var/redis_error_data = usable_data[channel]
+			var/error_str
+			if(islist(redis_error_data))
+				error_str = json_encode(redis_error_data)
+			else
+				error_str = redis_error_data
+
+			message_admins("Redis error: [error_str] | Please inform the server host.") // uh oh
+			log_game("Redis error: [error_str]")
 			continue
 		// Check its an actual channel
 		if(!(channel in subbed_channels))
