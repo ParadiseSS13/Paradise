@@ -220,7 +220,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	// If the target is a changeling, then it's an invalid target. Since changelings can not be debrained.
 	if(ischangeling(possible_target.current))
 		return TARGET_INVALID_CHANGELING
-	return
 
 /datum/objective/debrain/find_target(list/target_blacklist)
 	..()
