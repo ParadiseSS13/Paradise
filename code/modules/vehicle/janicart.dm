@@ -65,25 +65,25 @@
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 
 	if(istype(I, /obj/item/storage/bag/trash))
-		if(!mybag)
-			if(!user.drop_item())
-				return
-			to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
-			I.forceMove(src)
-			mybag = I
-			update_icon(UPDATE_OVERLAYS)
-			return
-		else
+		if(mybag)
 			to_chat(user, fail_msg)
+			return
+		if(!user.drop_item())
+			return
+		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
+		I.forceMove(src)
+		mybag = I
+		update_icon(UPDATE_OVERLAYS)
+		return
 	if(istype(I, /obj/item/janiupgrade))
-		if(!floorbuffer)
-			floorbuffer = TRUE
-			qdel(I)
-			to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
-			update_icon(UPDATE_OVERLAYS)
-			return
-		else
+		if(floorbuffer)
 			to_chat(user, fail_msg)
+			return
+		floorbuffer = TRUE
+		qdel(I)
+		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
+		update_icon(UPDATE_OVERLAYS)
+		return
 	if(mybag && user.a_intent == INTENT_HELP && !is_key(I))
 		mybag.attackby(I, user)
 	else
