@@ -80101,10 +80101,7 @@
 	},
 /area/toxins/lab)
 "tjK" = (
-/obj/structure/sign/securearea{
-	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste... You were delicious.'";
-	icon_state = "monkey_painting";
-	name = "Mr. Deempisi portrait";
+/obj/structure/sign/monkey_paint{
 	pixel_x = -28;
 	pixel_y = 4
 	},

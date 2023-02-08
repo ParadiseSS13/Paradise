@@ -7037,10 +7037,7 @@
 "Bb" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/bikehorn/airhorn,
-/turf/simulated/floor/plasteel/goonplaque{
-	desc = "Nosey little bastard aren't you?";
-	name = "Nosey little bastard aren't you?"
-	},
+/turf/simulated/floor/plasteel/goonplaque/nosey,
 /area/wizard_station)
 "Bd" = (
 /obj/machinery/light/spot{
@@ -12736,9 +12733,7 @@
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
 "XG" = (
-/turf/simulated/floor/plasteel/goonplaque{
-	name = "Violence Free Area"
-	},
+/turf/simulated/floor/plasteel/goonplaque/violence,
 /area/centcom/evac)
 "XH" = (
 /obj/structure/flora/ausbushes/grassybush,

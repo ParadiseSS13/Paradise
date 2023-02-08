@@ -25002,11 +25002,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
+/turf/simulated/floor/plasteel/goonplaque{
+	dir = 4
 	},
 /area/hallway/secondary/entry)
 "blt" = (
@@ -30802,11 +30799,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bzd" = (
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Memorial Plaque"
+/turf/simulated/floor/plasteel/goonplaque/memorial{
+	dir = 4
 	},
 /area/hallway/secondary/exit)
 "bze" = (
@@ -58487,10 +58481,7 @@
 "cWo" = (
 /obj/structure/table/wood,
 /obj/machinery/bottler,
-/obj/structure/sign/securearea{
-	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste... You were delicious.'";
-	icon_state = "monkey_painting";
-	name = "Mr. Deempisi portrait";
+/obj/structure/sign/monkey_paint{
 	pixel_x = -28;
 	pixel_y = 4
 	},
