@@ -83,7 +83,7 @@
 		message_verbed = replace_characters(message_verbed, list("+"))
 		if ((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 			create_chat_message(H, message, TRUE, FALSE)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
 		log_debug("holopad_talk(): [message]")
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
 			M.hear_holopad_talk(message_pieces, verb, src, H)
