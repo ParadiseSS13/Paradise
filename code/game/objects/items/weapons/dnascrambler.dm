@@ -27,7 +27,7 @@
 		return
 
 	if(M == user)
-		user.visible_message("<span class='danger'>[user] injects [user.p_them()]self with [src]!</span>")
+		user.visible_message("<span class='danger'>[user] injects [user.p_themselves()] with [src]!</span>")
 		injected(user, user)
 	else
 		user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")

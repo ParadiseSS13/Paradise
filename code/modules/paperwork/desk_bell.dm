@@ -97,3 +97,10 @@
 	flick("desk_bell_ring", src)
 	times_rang++
 	return TRUE
+
+/obj/item/desk_bell/get_spooked()
+	if(broken_ringer)
+		return
+	playsound(src, ring_sound, 70, vary = broken_ringer, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	flick("desk_bell_ring", src)
+	return TRUE

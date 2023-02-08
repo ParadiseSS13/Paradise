@@ -100,7 +100,7 @@
 
 /obj/machinery/cooker/deepfryer/special_attack(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/external/head/head = target.get_organ("head")
-	if(!head)
+	if(!istype(head))
 		to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
 		return FALSE  // you'll probably get smacked against it
 	target.visible_message(

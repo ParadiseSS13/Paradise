@@ -25,9 +25,13 @@
 		var/obj/target_obj = target
 		if(target_obj.resistance_flags & UNACIDABLE)
 			return
+	if(is_ancient_rock(target))
+		visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		return
+
 	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",
-					 "<span class='italics'>You hear drilling.</span>")
+					"<span class='italics'>You hear drilling.</span>")
 
 	if(do_after_cooldown(target))
 		set_ready_state(FALSE)

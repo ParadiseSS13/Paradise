@@ -46,7 +46,7 @@
 
 /obj/machinery/kitchen_machine/oven/special_attack(mob/user, mob/living/target)
 	var/obj/item/organ/external/head/head = target.get_organ("head")
-	if(!head)
+	if(!istype(head))
 		to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
 		return FALSE
 	target.visible_message("<span class='danger'>[user] bashes [target]'s head in [src]'s door!</span>", \

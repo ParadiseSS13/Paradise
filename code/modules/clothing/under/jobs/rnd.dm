@@ -18,7 +18,7 @@
 
 /obj/item/clothing/under/rank/rnd/research_director/dress
 	name = "research director's dress uniform"
-	desc = "Feminine fashion for the style concious RD."
+	desc = "Feminine fashion for the style conscious RD."
 	icon_state = "dress_rd"
 	item_color = "dress_rd"
 

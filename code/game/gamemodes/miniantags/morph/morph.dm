@@ -65,6 +65,12 @@
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 
+/mob/living/simple_animal/hostile/morph/Destroy()
+	QDEL_NULL(mimic_spell)
+	QDEL_NULL(ambush_spell)
+	QDEL_NULL(pass_airlock_spell)
+	return ..()
+
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
 	if(statpanel("Status"))
@@ -139,8 +145,8 @@
  */
 /mob/living/simple_animal/hostile/morph/proc/add_food(amount)
 	gathered_food += amount
-	for(var/obj/effect/proc_holder/spell/morph_spell/MS in mind.spell_list)
-		MS.updateButtonIcon()
+	for(var/datum/action/spell_action/action in actions)
+		action.UpdateButtonIcon()
 
 
 /mob/living/simple_animal/hostile/morph/proc/assume()

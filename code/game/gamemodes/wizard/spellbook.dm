@@ -190,7 +190,7 @@
 	spell_type = /obj/effect/proc_holder/spell/rathens
 	log_name = "RS"
 	category = "Defensive"
-	cost = 1
+	cost = 2
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
@@ -607,6 +607,24 @@
 	category = "Summons"
 	limit = 3
 
+/datum/spellbook_entry/item/shadowbottle
+	name = "Bottle of Shadows"
+	desc = "A bottle of pure darkness, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned from the shadows are indiscriminate in their killing, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
+	log_name = "BOS"
+	category = "Summons"
+	limit = 3
+	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
+
+/datum/spellbook_entry/item/revenantbottle
+	name = "Bottle of Ectoplasm"
+	desc = "A magically infused bottle of ectoplasm, effectivly pure salt from the spectral realm. Be careful though, these salty spirits are indiscriminate in their harvesting, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/revenant
+	log_name = "RB"
+	category = "Summons"
+	limit = 3
+	cost = 1 //Needs essence to live. Needs crew to die for essence, doubt xenobio will be making many monkeys. As such, weaker. Also can hardstun the wizard.
+
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
@@ -725,6 +743,11 @@
 			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
 				if(!isnull(HB.limit))
 					HB.limit++
+		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
+			uses += 1
+			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
+				if(!isnull(SB.limit))
+					SB.limit++
 		else
 			uses += 2
 			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
@@ -739,6 +762,15 @@
 		for(var/datum/spellbook_entry/item/oozebottle/OB in entries)
 			if(!isnull(OB.limit))
 				OB.limit++
+		qdel(O)
+		return
+
+	if(istype(O, /obj/item/antag_spawner/revenant))
+		to_chat(user, "<span class='notice'>On second thought, maybe the ghosts have been salty enough today. You refund your points.</span>")
+		uses += 1
+		for(var/datum/spellbook_entry/item/revenantbottle/RB in entries)
+			if(!isnull(RB.limit))
+				RB.limit++
 		qdel(O)
 		return
 	return ..()
@@ -790,21 +822,21 @@
 	dat += {"
 	<head>
 		<style type="text/css">
-      		body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-      		ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.6em 0; }
-      		ul#tabs li { display: inline; }
-      		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
-      		ul#tabs li a:hover { background-color: #f1f0ee; }
-      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; border-bottom: 1px solid #f1f0ee; font-weight: bold; padding: 0.6em 0.6em 0.6em 0.6em; }
+			body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
+			ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.6em 0; }
+			ul#tabs li { display: inline; }
+			ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
+			ul#tabs li a:hover { background-color: #f1f0ee; }
+			ul#tabs li a.selected { color: #000; background-color: #f1f0ee; border-bottom: 1px solid #f1f0ee; font-weight: bold; padding: 0.6em 0.6em 0.6em 0.6em; }
 			ul#maintabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 1em 0; font-size: 14px; }
 			ul#maintabs li { display: inline; }
-      		ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; padding: 1em; text-decoration: none; }
-      		ul#maintabs li a:hover { background-color: #f1f0ee; }
-      		ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1.4em 1.2em 1em 1.2em; }
-      		div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
-      		div.tabContent.hide { display: none; }
-    	</style>
-  	</head>
+			ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; padding: 1em; text-decoration: none; }
+			ul#maintabs li a:hover { background-color: #f1f0ee; }
+			ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1.4em 1.2em 1em 1.2em; }
+			div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
+			div.tabContent.hide { display: none; }
+		</style>
+	</head>
 	"}
 	dat += {"[content]</body></html>"}
 	return dat

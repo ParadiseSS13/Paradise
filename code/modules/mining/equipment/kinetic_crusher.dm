@@ -28,8 +28,12 @@
 	var/brightness_on = 5
 	var/adaptive_damage_bonus = 0
 
+/obj/item/twohanded/kinetic_crusher/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (7 / 3) SECONDS ) // 2.3333 seconds of cooldown for 30% uptime
+
 /obj/item/twohanded/kinetic_crusher/Destroy()
-	QDEL_LIST(trophies)
+	QDEL_LIST_CONTENTS(trophies)
 	return ..()
 
 /obj/item/twohanded/kinetic_crusher/examine(mob/living/user)
@@ -203,9 +207,12 @@
 				T.on_mark_application(target, CM, had_effect)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		var/turf/simulated/mineral/M = target_turf
-		new /obj/effect/temp_visual/kinetic_blast(M)
-		M.gets_drilled(firer)
+		if(is_ancient_rock(target_turf))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			var/turf/simulated/mineral/M = target_turf
+			new /obj/effect/temp_visual/kinetic_blast(M)
+			M.gets_drilled(firer)
 	..()
 
 //trophies
@@ -358,7 +365,7 @@
 	denied_type = /obj/item/crusher_trophy/miner_eye
 
 /obj/item/crusher_trophy/miner_eye/effect_desc()
-	return "mark detonation to grant stun immunity and <b>90%</b> damage reduction for <b>1</b> second"
+	return "mark detonation to grant stun immunity and <b>75%</b> damage reduction for <b>1</b> second"
 
 /obj/item/crusher_trophy/miner_eye/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_BLOODDRUNK)

@@ -124,8 +124,8 @@
 	return TRUE
 
 /obj/structure/sign/barsign/emp_act(severity)
-    set_sign(new /datum/barsign/hiddensigns/empbarsign)
-    broken = TRUE
+	set_sign(new /datum/barsign/hiddensigns/empbarsign)
+	broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)

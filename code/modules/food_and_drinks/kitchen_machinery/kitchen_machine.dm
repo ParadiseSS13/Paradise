@@ -7,9 +7,8 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	idle_power_consumption = 5
+	active_power_consumption = 100
 	container_type = OPENCONTAINER
 	var/operating = FALSE // Is it on?
 	var/dirty = NO_DIRT // = {0..100} Does it need cleaning?
@@ -565,6 +564,9 @@
 		return FALSE
 	if(!anchored)
 		to_chat(user, "<span class='warning'>It's unanchored!</span>")
+		return FALSE
+	if(operating)
+		to_chat(user, "<span class='warning'>Its already cooking!</span>")
 		return FALSE
 	return TRUE
 

@@ -15,8 +15,8 @@
 	var/comment
 	///does this order need to be approve by the department head?
 	var/requires_head_approval = FALSE
-	///does this order need to be approve by the QM?
-	var/requires_qm_approval = FALSE
+	///does this order need to be approve by carg?
+	var/requires_cargo_approval = FALSE
 
 /obj/item/paper/request_form
 	name = "request form"

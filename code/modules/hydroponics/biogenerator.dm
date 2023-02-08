@@ -8,8 +8,7 @@
 	icon_state = "biogen-empty"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_consumption = 40
 	/// Is the biogenerator curretly grinding up plants?
 	var/processing = FALSE
 	/// The container that is used to store reagents from certain products.
@@ -45,7 +44,7 @@
 /obj/machinery/biogenerator/Destroy()
 	QDEL_NULL(container)
 	QDEL_NULL(files)
-	QDEL_LIST(stored_plants)
+	QDEL_LIST_CONTENTS(stored_plants)
 	return ..()
 
 /obj/machinery/biogenerator/ex_act(severity)
@@ -93,7 +92,7 @@
 		container = null
 	return TRUE
 
-/obj/machinery/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
 /obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
