@@ -362,8 +362,8 @@
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
-		/obj/item/cane = 1
-		/obj/item/reagent_containers/food/snacks/baguette
+		/obj/item/cane = 1,
+		/obj/item/reagent_containers/food/snacks/baguette = 1
 	)
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
