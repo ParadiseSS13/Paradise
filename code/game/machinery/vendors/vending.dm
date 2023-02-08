@@ -120,8 +120,10 @@
 	var/tilted = FALSE
 	/// Amount of damage to deal when tipped
 	var/squish_damage = 40  // yowch
-	/// Factor of extra damage to deal when knocking over on oneself
+	/// Factor of extra damage to deal when triggering a crit
 	var/crit_damage_factor = 2
+	/// Factor of extra damage to deal when you knock it over onto yourself
+	var/self_knockover_factor = 1.5
 	/// Possible crit effects from this vending machine tipping.
 	var/possible_crits = list(
 		/datum/vendor_crit/pop_head,
@@ -945,16 +947,22 @@
 		for(var/mob/living/L in get_turf(victim))
 			var/mob/living/carbon/C = L
 
+			// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
 			var/crit_rebate = 0
 			var/damage_to_deal = squish_damage
-			if(crit || !from_combat)
-				// double the damage on a crit
-				damage_to_deal *= crit_damage_factor
+			if(!from_combat)
+				if(crit)
+					// increase damage if you knock it over onto yourself
+					damage_to_deal *= crit_damage_factor
+				else
+					damage_to_deal *= self_knockover_factor
 			if(HAS_TRAIT(C, TRAIT_DWARF))
+				// also double damage if you're short
 				damage_to_deal *= 2
+
 			if(istype(C))
 				var/datum/vendor_crit/critical_attack = choose_crit()
-				if(crit && critical_attack && critical_attack.is_valid(src, C))
+				if(!from_combat && crit && critical_attack?.is_valid(src, C))
 					crit_rebate = critical_attack.tip_crit_effect(src, C)
 					if(critical_attack.harmless)
 						tilt_over(critical_attack.fall_towards_mob ? victim : null)
@@ -963,7 +971,6 @@
 					should_throw_at_target = critical_attack.fall_towards_mob
 					add_attack_logs(null, C, "critically crushed by [src] causing [critical_attack]")
 				else
-					// we'll still apply double damage
 					C.visible_message(
 						"<span class='danger'>[C] is crushed by [src]!</span>",
 						"<span class='userdanger'>[src] crushes you!</span>",
@@ -972,15 +979,15 @@
 					add_attack_logs(null, C, "crushed by [src]")
 
 				// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
-				damage_to_deal -= crit_rebate
+				damage_to_deal = max(damage_to_deal - crit_rebate, 0)
 				if(prob(30))
-					C.apply_damage(max(0, damage_to_deal), BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
+					C.apply_damage(damage_to_deal, BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
 				else
 					var/picked_zone
 					var/num_parts_to_pick = 2
 					for(var/i = 1 to num_parts_to_pick)
 						picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
-						C.apply_damage(max(0, damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
+						C.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
 				C.AddElement(/datum/element/squish, 80 SECONDS)
 			else
@@ -988,9 +995,7 @@
 					"<span class='danger'>[L] is crushed by [src]!</span>",
 					"<span class='userdanger'>[src] falls on top of you, crushing you!</span>"
 				)
-				L.apply_damage(squish_damage, BRUTE)
-				if(crit)
-					L.apply_damage(squish_damage, BRUTE)  // 2x damage
+				L.apply_damage(damage_to_deal, BRUTE)
 
 				add_attack_logs(null, C, "crushed by [src]")
 

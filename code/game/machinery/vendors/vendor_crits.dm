@@ -42,7 +42,8 @@
 			"<span class='danger'>You hear a sickening crunch!</span>"
 		)
 
-	return machine.squish_damage - 10
+	// that's a LOT of damage, let's rebate most of it.
+	return machine.squish_damage * (5/6)
 
 /datum/vendor_crit/pin
 
@@ -84,7 +85,7 @@
 
 	playsound(machine, "shatter", 50)
 
-	return machine.squish_damage - 20
+	return machine.squish_damage * (3/4)
 
 /datum/vendor_crit/pop_head
 
@@ -99,7 +100,7 @@
 	else
 		O.visible_message("<span class='danger'>[victim]'s head seems to be crushed under the machine...but wait, they had none in the first place!</span>")
 	if(B in O)
-		B.damage += 80
+		victim.adjustBrainLoss(80)
 
 	return 0
 
