@@ -78,6 +78,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	return ..()
 
 /datum/disease/proc/stage_act()
+	if(!affected_mob)
+		return FALSE
 	var/cure = has_cure()
 
 	if(carrier && !cure)

@@ -786,7 +786,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				visible_message("<span class='warning'>[user] headbutts the airlock.</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("head")
 				H.Weaken(10 SECONDS)
-				if(affecting.receive_damage(10, 0))
+				if(istype(affecting) && affecting.receive_damage(10, 0))
 					H.UpdateDamageIcon()
 			else
 				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet.</span>")
@@ -1420,7 +1420,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	prying_so_hard = FALSE
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		// If we lost power, disable electrification
 		// Keeping door lights on, runs on internal battery or something.

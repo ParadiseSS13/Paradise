@@ -4,9 +4,8 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 200
-	active_power_usage = 5000
+	idle_power_consumption = 200
+	active_power_consumption = 5000
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
 	var/teleport_speed = 50
 	var/last_teleport //to handle the cooldown
@@ -127,7 +126,7 @@
 	do_sparks(5, 1, get_turf(src))
 
 /obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
-	if(linked_pad)
+	if(!QDELETED(linked_pad))
 		ghost.forceMove(get_turf(linked_pad))
 
 /obj/machinery/quantumpad/proc/doteleport(mob/user)
