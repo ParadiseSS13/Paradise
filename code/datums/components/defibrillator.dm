@@ -242,7 +242,7 @@
 		busy = FALSE
 		return
 
-	if(target.stat != DEAD)
+	if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient is not in a valid state. Operation aborted.</span>")
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
@@ -262,6 +262,8 @@
 
 	// run through some quick failure states after shocking.
 
+	var/obj/item/organ/internal/brain/brain_org = target.get_organ_slot("brain")
+
 	if(tplus > tlimit || (!target.get_int_organ(/obj/item/organ/internal/heart || !target.get_int_organ(/obj/item/organ/internal/brain/slime))))
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 		defib_success = FALSE
@@ -274,13 +276,16 @@
 	else if (target.blood_volume < BLOOD_VOLUME_SURVIVE)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>")
 		defib_success = FALSE
+	else if(!istype(brain_org))  // so things like headless clings don't get outed
+		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>")
+		defib_success = FALSE
 	else if(ghost)
 		if(!ghost.can_reenter_corpse) // DNR or AntagHUD
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected.</span>")
 		else
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed.</span>")
 		defib_success = FALSE
-	else if(HAS_TRAIT(target, TRAIT_BADDNA) || (signal_result & COMPONENT_BLOCK_DEFIB))  // these are a bit more arbitrary
+	else if((signal_result & COMPONENT_BLOCK_DEFIB) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || HAS_TRAIT(target, TRAIT_BADDNA))  // these are a bit more arbitrary
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed.</span>")
 		defib_success = FALSE
 
