@@ -359,6 +359,45 @@
 /datum/status_effect/regenerative_core/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 
+/datum/status_effect/fleshmend
+	duration = -1
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 1 SECONDS
+	alert_type = null
+	/// This diminishes the healing of fleshmend the higher it is.
+	var/tolerance = 1
+	var/instance_duration = 10 // in ticks
+	/// a list of integers, one for each remaining instance of fleshmend.
+	var/list/active_instances = list()
+	var/ticks = 0
+
+/datum/status_effect/fleshmend/on_apply()
+	tolerance += 1
+	active_instances += instance_duration
+	return TRUE
+
+/datum/status_effect/fleshmend/refresh()
+	tolerance += 1
+	active_instances += instance_duration
+	..()
+
+/datum/status_effect/fleshmend/tick()
+	if(length(active_instances) >= 1)
+		var/heal_amount = 10 * length(active_instances) / tolerance
+		var/blood_restore = 30 * length(active_instances)
+		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+		owner.adjustOxyLoss(-heal_amount, FALSE)
+		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
+		owner.updatehealth()
+		var/list/expired_instances = list()
+		for(var/i in 1 to length(active_instances))
+			active_instances[i]--
+			if(active_instances[i] <= 0)
+				expired_instances += active_instances[i]
+		active_instances -= expired_instances
+	tolerance = max(tolerance - 0.05, 1)
+	if(tolerance <= 1 && length(active_instances) == 0)
+		qdel(src)
 
 /datum/status_effect/speedlegs
 	duration = -1

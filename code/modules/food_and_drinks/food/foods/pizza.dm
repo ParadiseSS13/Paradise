@@ -365,52 +365,183 @@
 	if(is_pen(I))
 		if(open)
 			return
-		var/t = clean_input("Enter what you want to add to the tag:", "Write", null)
+		var/t = clean_input("Enter what you want to set the tag to:", "Write", null)
 		var/obj/item/pizzabox/boxtotagto = src
 		if(boxes.len > 0)
 			boxtotagto = boxes[boxes.len]
-		boxtotagto.box_tag = copytext("[boxtotagto.box_tag][t]", 1, 30)
+		boxtotagto.box_tag = copytext("[t]", 1, 30)
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
 		return
 	..()
 
 
 /obj/item/pizzabox/margherita/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/margheritapizza(src)
 	box_tag = "margherita deluxe"
+	. = ..()
 
 /obj/item/pizzabox/vegetable/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
 	box_tag = "gourmet vegetable"
+	. = ..()
 
 /obj/item/pizzabox/mushroom/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
 	box_tag = "mushroom special"
+	. = ..()
 
 /obj/item/pizzabox/meat/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	box_tag = "meatlover's supreme"
+	. = ..()
 
 /obj/item/pizzabox/hawaiian/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
 	box_tag = "Hawaiian feast"
+	. = ..()
 
 /obj/item/pizzabox/pepperoni/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/pepperonipizza(src)
 	box_tag = "classic pepperoni"
+	. = ..()
 
 /obj/item/pizzabox/garlic/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/garlicpizza(src)
 	box_tag = "triple garlic"
+	. = ..()
 
 /obj/item/pizzabox/firecracker/Initialize(mapload)
-	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/firecrackerpizza(src)
 	box_tag = "extra spicy pie"
+	. = ..()
+
+//////////////////////////
+//		Pizza bombs		//
+//////////////////////////
+/obj/item/pizzabox/pizza_bomb
+	/// Adjustable timer
+	var/timer = 1 SECONDS
+	var/timer_set = FALSE
+	var/primed = FALSE
+	var/disarmed = FALSE
+	var/wires = list("orange", "green", "blue", "yellow", "aqua", "purple")
+	var/correct_wire
+	var/armer //Used for admin purposes
+	var/opener //Ditto
+
+/obj/item/pizzabox/pizza_bomb/update_desc()
+	if(primed)
+		return
+	return ..()
+
+/obj/item/pizzabox/pizza_bomb/update_icon_state()
+	if(primed)
+		return
+	return ..()
+
+/obj/item/pizzabox/pizza_bomb/attack_self(mob/user)
+	if(disarmed)
+		to_chat(user, "<span class='notice'>[src] is disarmed.</span>")
+		return
+	if(!timer_set)
+		name = "pizza bomb"
+		desc = "It seems inactive."
+		icon_state = "pizzabox_bomb"
+		timer_set = TRUE
+		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) SECONDS
+		if(!in_range(src, user) || issilicon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
+			timer_set = FALSE
+			name = "pizza box"
+			desc = "A box suited for pizzas."
+			icon_state = "pizzabox1"
+			return
+		timer = clamp(timer, 1 SECONDS, 10 SECONDS)
+		icon_state = "pizzabox1"
+		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing [src].")
+		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
+		log_game("[key_name(usr)] has set the timer on a pizza bomb to [timer / 10] seconds ([loc.x],[loc.y],[loc.z]).")
+		armer = user
+		name = "pizza box"
+		desc = "A box suited for pizzas."
+		return
+	if(!primed)
+		name = "pizza bomb"
+		desc = "OH GOD THAT'S NOT A PIZZA"
+		icon_state = "pizzabox_bomb_active"
+		audible_message("<span class='warning'>[bicon(src)] *beep* *beep*</span>")
+		to_chat(user, "<span class='danger'>That's no pizza! That's a bomb!</span>")
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			atom_say("Pizza time!")
+			playsound(src, 'sound/voice/pizza_time.ogg', 50, FALSE) ///Sound effect made by BlackDog
+		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [key_name_admin(armer)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
+		log_game("[key_name(usr)] has triggered a pizza bomb armed by [key_name(armer)] ([loc.x],[loc.y],[loc.z]).")
+		opener = user
+		primed = TRUE
+		sleep(timer)
+		return go_boom()
+
+/obj/item/pizzabox/pizza_bomb/proc/go_boom()
+	if(disarmed)
+		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on [src], but it's disarmed!</span>")
+		return
+	atom_say("Enjoy the pizza!")
+	visible_message("<span class='userdanger'>[src] violently explodes!</span>")
+	message_admins("A pizza bomb set by [key_name_admin(armer)] and opened by [key_name_admin(opener)] has detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
+	log_game("Pizza bomb set by [key_name(armer)] and opened by [key_name(opener)]) detonated at ([loc.x],[loc.y],[loc.z]).")
+	explosion(loc, 1, 2, 4, flame_range = 2) //Identical to a minibomb
+	armer = null
+	opener = null
+	qdel(src)
+
+/obj/item/pizzabox/pizza_bomb/cmag_act(mob/user)
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(user, "<span class='notice'>You smear the bananium ooze all over the pizza bomb's internals! You think you smell a bit of tomato sauce.</span>")
+		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+
+/obj/item/pizzabox/pizza_bomb/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/wirecutters) && primed)
+		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
+		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
+		if(!in_range(src, user) || issilicon(usr) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.restrained())
+			return
+		playsound(src, I.usesound, 50, 1, 1)
+		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
+		sleep(5)
+		if(chosen_wire == correct_wire)
+			audible_message("<span class='warning'>[bicon(src)] [src] suddenly stops beeping and seems lifeless.</span>")
+			to_chat(user, "<span class='notice'>You did it!</span>")
+			icon_state = "pizzabox_bomb_[correct_wire]"
+			name = "pizza bomb"
+			desc = "A devious contraption, made of a small explosive payload hooked up to pressure-sensitive wires. It's disarmed."
+			disarmed = TRUE
+			primed = FALSE
+			return
+		else
+			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
+			go_boom()
+			return
+	if(istype(I, /obj/item/wirecutters) && disarmed)
+		if(!in_range(user, src))
+			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
+			return
+		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from [src].</span>")
+		if(do_after(user, 40 * I.toolspeed, target = src))
+			playsound(src, I.usesound, 50, 1, 1)
+			user.unEquip(src)
+			user.visible_message("<span class='notice'>[user] removes the insides of [src]!</span>")
+			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
+			C.amount = 3
+			new /obj/item/bombcore/miniature(loc)
+			new /obj/item/pizzabox(loc)
+			qdel(src)
+		return
+	..()
+
+/obj/item/pizzabox/pizza_bomb/Initialize(mapload)
+	correct_wire = pick(wires)
+	box_tag = "classic pepperoni"
+	. = ..()
+
+/obj/item/pizzabox/pizza_bomb/autoarm
+	timer_set = TRUE
+	timer = 3 SECONDS
