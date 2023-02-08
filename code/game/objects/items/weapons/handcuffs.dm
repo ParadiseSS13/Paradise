@@ -1,3 +1,8 @@
+/obj/item/restraints
+	name = "bugged restraints" //This item existed before this pr, but had no name or such. Better warn people if it exists
+	desc = "Should not exist. Report me to a(n) coder/admin!"
+	var/cuffed_state = "handcuff"
+
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
@@ -17,7 +22,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	// Icon state for cuffed overlay on a mob
-	var/cuffed_state = "handcuff"
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
 

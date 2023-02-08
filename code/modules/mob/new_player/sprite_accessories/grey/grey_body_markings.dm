@@ -17,3 +17,7 @@
 /datum/sprite_accessory/body_markings/tattoo/grey/tiger_body_grey
 	name = "Grey Tiger-stripe Tattoo"
 	icon_state = "tiger"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/sparta_body_grey
+	name = "Grey Sparta Tattoo"
+	icon_state = "sparta"

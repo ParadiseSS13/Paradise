@@ -805,7 +805,9 @@
 /turf/template_noop,
 /area/template_noop)
 "id" = (
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/unary/vent_pump{
+	autolink_id = "syndiebase_mix_out"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ii" = (
@@ -1630,8 +1632,8 @@
 /obj/structure/rack{
 	dir = 8
 	},
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2374,7 +2376,7 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -3644,7 +3646,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "syndbaseventing";
 	name = "Venting Bay Door";
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -3780,7 +3782,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "NE" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	autolink_id = "syndiebase_mix_in"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "NN" = (
@@ -4134,7 +4138,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -4274,6 +4278,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "Tv" = (
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "syndiebase_mix_sensor"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Tw" = (
@@ -4585,7 +4592,7 @@
 /obj/item/screwdriver/nuke{
 	pixel_y = 18
 	},
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -4724,12 +4731,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Zo" = (
-/obj/machinery/computer/general_air_control{
-	frequency = 1222;
-	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor"="Burn Mix")
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	inlet_injector_autolink_id = "syndiebase_mix_in";
+	outlet_vent_autolink_id = "syndiebase_mix_out";
+	autolink_sensors = list("syndiebase_mix_sensor" = "Burn Mix")
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Zy" = (

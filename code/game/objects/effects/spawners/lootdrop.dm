@@ -200,7 +200,7 @@
 				/obj/item/storage/belt/utility/full/multitool = 150,
 				/obj/item/clothing/gloves/combat = 100,
 				/obj/item/clothing/glasses/welding = 50,
-				/obj/item/reagent_containers/spray/cleaner = 100,
+				/obj/item/reagent_containers/spray/cleaner/advanced = 100,
 				/obj/item/clothing/shoes/magboots = 50,
 				/obj/item/soap = 50,
 				/obj/item/clothing/under/syndicate/combat = 50,
@@ -340,6 +340,7 @@
 	lootcount = 1
 	loot = list(
 				/obj/machinery/disco = 20,
+				/obj/structure/spirit_board = 20,
 				/obj/mecha/combat/durand/old = 20
 				)
 
@@ -377,6 +378,7 @@
 				// Clown
 				/obj/item/grenade/clusterbuster/honk = 100,
 				/obj/item/bikehorn/golden = 100,
+				/obj/item/gun/throw/piecannon = 100,
 
 				// Bartender
 				/obj/item/storage/box/bartender_rare_ingredients_kit = 100,

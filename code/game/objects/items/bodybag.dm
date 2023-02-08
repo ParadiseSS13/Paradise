@@ -75,3 +75,7 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/structure/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
+
+/obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
+	// no, you can't shove people into a body bag
+	return FALSE

@@ -26,7 +26,6 @@
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
 	req_access = list(ACCESS_CARGO)
-	path_image_color = "#7F5200"
 
 
 	suffix = ""
@@ -844,8 +843,8 @@
 	else
 		return null
 
-/mob/living/simple_animal/bot/mulebot/resist()
-	..()
+/mob/living/simple_animal/bot/mulebot/run_resist()
+	. = ..()
 	if(load)
 		unload()
 

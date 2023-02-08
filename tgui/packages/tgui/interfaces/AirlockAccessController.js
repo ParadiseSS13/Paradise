@@ -9,7 +9,7 @@ export const AirlockAccessController = (props, context) => {
   let interiorbutton;
   // If exterior is open, then it can be locked, if closed, it can be cycled to. Vice versa for interior
 
-  if (data.exterior_status.state === 'open') {
+  if (exterior_status === 'open') {
     exteriorbutton = (
       <Button
         content={'Lock Exterior Door'}
@@ -28,7 +28,7 @@ export const AirlockAccessController = (props, context) => {
       />
     );
   }
-  if (data.interior_status.state === 'open') {
+  if (interior_status === 'open') {
     interiorbutton = (
       <Button
         content={'Lock Interior Door'}
@@ -56,10 +56,10 @@ export const AirlockAccessController = (props, context) => {
         <Section title="Information">
           <LabeledList>
             <LabeledList.Item label="External Door Status">
-              {exterior_status.state === 'closed' ? 'Locked' : 'Open'}
+              {exterior_status === 'closed' ? 'Locked' : 'Open'}
             </LabeledList.Item>
             <LabeledList.Item label="Internal Door Status">
-              {interior_status.state === 'closed' ? 'Locked' : 'Open'}
+              {interior_status === 'closed' ? 'Locked' : 'Open'}
             </LabeledList.Item>
           </LabeledList>
         </Section>

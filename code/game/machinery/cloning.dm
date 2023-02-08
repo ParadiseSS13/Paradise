@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	light_color = LIGHT_COLOR_PURE_GREEN
 
 /obj/machinery/clonepod/power_change()
-	..()
+	..() //we don't check return here because we also care about the BROKEN flag
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -196,6 +196,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		. +=  "Current clone cycle is [round(get_completion())]% complete."
 
 /obj/machinery/clonepod/return_air() //non-reactive air
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/GM = new
 	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
 	GM.temperature = T20C

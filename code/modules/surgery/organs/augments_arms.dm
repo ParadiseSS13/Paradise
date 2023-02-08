@@ -117,7 +117,11 @@
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
-		if(!owner.unEquip(arm_item))
+		if(istype(arm_item, /obj/item/twohanded/offhand))
+			var/obj/item/offhand_arm_item = owner.get_active_hand()
+			to_chat(owner, "<span class='warning'>Your hands are too encumbered wielding [offhand_arm_item] to deploy [src]!</span>")
+			return
+		else if(!owner.unEquip(arm_item))
 			to_chat(owner, "<span class='warning'>Your [arm_item] interferes with [src]!</span>")
 			return
 		else
@@ -464,7 +468,7 @@
 	item_state = "v1_arm"
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
-	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interupted", "gored")
+	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
 	hitsound = 'sound/effects/bang.ogg'
 	light_power = 3
 	light_range = 0
@@ -529,11 +533,16 @@
 
 	owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
 	playsound(src, 'sound/weapons/v1_parry.ogg', 100, TRUE)
-	if(isitem(hitby)) //Thrown items
+	if(attack_type == THROWN_PROJECTILE_ATTACK)
+		if(!isitem(hitby))
+			return TRUE
 		var/obj/item/TT = hitby
-		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 15, 15, owner), 0.1 SECONDS) //yeet that shit right back
+		addtimer(CALLBACK(TT, TYPE_PROC_REF(/atom/movable, throw_at), locateUID(TT.thrownby), 10, 4, owner), 0.2 SECONDS) //Timer set to 0.2 seconds to ensure item finshes the throwing to prevent double embeds
 		return TRUE
-	melee_attack_chain(owner, hitby)
+	if(isitem(hitby))
+		melee_attack_chain(owner, hitby.loc)
+	else
+		melee_attack_chain(owner, hitby)
 	return TRUE
 
 /obj/item/v1_arm_shell

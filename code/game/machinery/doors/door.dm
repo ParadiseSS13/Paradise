@@ -7,7 +7,7 @@
 	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	max_integrity = 350
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
@@ -45,17 +45,16 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
-/obj/machinery/door/New()
-	..()
-	GLOB.airlocks += src
-	update_freelook_sight()
-
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_dir()
+	update_freelook_sight()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
+	// Yes I know this isnt an airlock but its required because of the dumb reason of
+	// pod doors and shutters similar using this list as well
+	GLOB.airlocks += src
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
@@ -74,7 +73,8 @@
 	update_dir()
 
 /obj/machinery/door/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/door/proc/update_dir()

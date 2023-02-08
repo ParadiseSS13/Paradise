@@ -37,7 +37,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ag" = (
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 1;
 	pixel_y = 24
 	},
@@ -758,7 +758,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bZ" = (
-/obj/machinery/economy/vending/assist,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ca" = (

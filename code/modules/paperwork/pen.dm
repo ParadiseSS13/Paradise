@@ -25,7 +25,7 @@
 	pressure_resistance = 2
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -147,7 +147,30 @@
 	var/on = FALSE
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
+	var/backstab_sound = 'sound/items/unsheath.ogg'
+	var/backstab_damage = 12
 	armour_penetration_flat = 20
+
+/obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+	var/extra_force_applied = FALSE
+	if(on && user.dir == M.dir && !HAS_TRAIT(M, TRAIT_FLOORED) && user != M)
+		force += backstab_damage
+		extra_force_applied = TRUE
+		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
+		M.apply_damage(40, STAMINA) //Just enough to slow
+		M.KnockDown(2 SECONDS)
+		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+
+		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	else
+		playsound(loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	. = ..()
+	if(extra_force_applied)
+		force -= backstab_damage
+
+/obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
+	return 0
+
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -159,7 +182,7 @@
 		hitsound = initial(hitsound)
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
-		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 2, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 		set_light(0)
 	else
@@ -171,7 +194,7 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35
-		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 2, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
 	set_sharpness(on)
