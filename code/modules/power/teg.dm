@@ -4,7 +4,7 @@
 	icon_state = "teg"
 	anchored = FALSE
 	density = TRUE
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 
 	var/obj/machinery/atmospherics/binary/circulator/cold_circ
 	var/obj/machinery/atmospherics/binary/circulator/hot_circ
