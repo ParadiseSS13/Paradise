@@ -71,6 +71,7 @@
 
 	for(var/i in 1 to machine.num_shards)
 		var/obj/item/shard/shard = new /obj/item/shard(get_turf(victim))
+		// do a little dance to force the embeds, but make sure the glass isn't gigapowered afterwards
 		shard.embed_chance = 100
 		shard.embedded_pain_chance = 5
 		shard.embedded_impact_pain_multiplier = 1
@@ -80,6 +81,8 @@
 		shard.embedded_pain_chance = initial(shard.embedded_pain_chance)
 		shard.embedded_impact_pain_multiplier = initial(shard.embedded_pain_multiplier)
 		shard.embedded_ignore_throwspeed_threshold = initial(shard.embedded_ignore_throwspeed_threshold)
+
+	playsound(machine, "shatter", 50)
 
 	return machine.squish_damage - 20
 
@@ -106,7 +109,7 @@
 /datum/vendor_crit/lucky/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	victim.visible_message(
 		"<span class='danger'>[src] crashes around [victim], but doesn't seem to crush them!</span>",
-		"<span class='userdanger'>[src] crashes around you, but only around you!</span>"
+		"<span class='userdanger'>[src] crashes around you, but only around you! You're fine!</span>"
 	)
 
 	return 1000

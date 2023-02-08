@@ -370,6 +370,9 @@
 		return
 	. = ..()
 	if(tiltable && !tilted && I.force)
+		if(resistance_flags & INDESTRUCTIBLE)
+			// no goodies, but also no tilts
+			return
 		var/should_warn = world.time > last_hit_time + hit_warning_cooldown_length
 		last_hit_time = world.time
 		if(should_warn)
@@ -534,6 +537,22 @@
 /obj/machinery/economy/vending/emag_act(mob/user)
 	emagged = TRUE
 	to_chat(user, "You short out the product lock on [src]")
+
+/obj/machinery/economy/vending/ex_act(severity)
+	. = ..()
+	if(QDELETED(src) || (resistance_flags & INDESTRUCTIBLE) || tilted || !tiltable)
+		return
+	var/tilt_prob = 0
+	switch(severity)
+		if(EXPLODE_LIGHT)
+			tilt_prob = 10
+		if(EXPLODE_HEAVY)
+			tilt_prob = 50
+		if(EXPLODE_DEVASTATE)
+			tilt_prob = 80
+
+	if(prob(tilt_prob))
+		tilt()
 
 /obj/machinery/economy/vending/attack_ai(mob/user)
 	return attack_hand(user)
@@ -915,7 +934,6 @@
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
 		return
 
-	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
 	tilted = TRUE
 	layer = ABOVE_MOB_LAYER
 
@@ -923,7 +941,7 @@
 
 	. = FALSE
 
-	if(in_range(victim, src))
+	if(victim && in_range(victim, src))
 		for(var/mob/living/L in get_turf(victim))
 			var/mob/living/carbon/C = L
 
@@ -972,7 +990,7 @@
 				)
 				L.apply_damage(squish_damage, BRUTE)
 				if(crit)
-					L.apply_damage(squish_damage, BRUTE)  // 3x damage
+					L.apply_damage(squish_damage, BRUTE)  // 2x damage
 
 				add_attack_logs(null, C, "crushed by [src]")
 
@@ -987,6 +1005,8 @@
 	tilt_over(should_throw_at_target ? victim : null)
 
 /obj/machinery/economy/vending/proc/tilt_over(mob/victim)
+	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
+	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
 	var/matrix/M = matrix()
 	M.Turn(pick(90, 270))
 	transform = M
