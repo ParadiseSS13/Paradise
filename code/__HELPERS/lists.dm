@@ -857,3 +857,7 @@
 			return FALSE
 
 	return TRUE
+
+// Pick something else from a list than we last picked
+/proc/pick_excluding(list/l, exclude)
+	return pick(l - exclude)

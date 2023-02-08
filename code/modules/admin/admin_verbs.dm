@@ -69,6 +69,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/view_instances,
 	/client/proc/start_vote,
+	/client/proc/toggle_mctabs,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist
 ))
@@ -163,7 +164,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
-	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
@@ -177,6 +177,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmapi_log,
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
+	/client/proc/force_verb_bypass,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

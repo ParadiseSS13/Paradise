@@ -797,11 +797,25 @@
 			continue
 		held.forceMove(NewLoc)
 
+/obj/structure/table/tray/can_be_pulled(user, grab_state, force, show_message)
+	var/atom/movable/puller = user
+	if(loc != puller.loc)
+		held_items -= puller.UID()
+	if(isliving(user))
+		var/mob/living/M = user
+		if(M.UID() in held_items)
+			return FALSE
+	return ..()	
+	
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
 	if(is_type_in_typecache(item, typecache_can_hold))
 		held_items += item.UID()
-
+		if(isliving(item))
+			var/mob/living/M = item
+			if(M.pulling == src)
+				M.stop_pulling()
+			
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)

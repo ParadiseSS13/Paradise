@@ -53,3 +53,23 @@
 
 	del_on_death = TRUE
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/item/clothing/shoes/clown_shoes)
+
+/mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne
+	name = "cluwne goblin"
+	desc = "A tiny pile of misery and evil. Kill this thing before it comes for your family."
+	icon_state = "cluwnegoblin"
+	icon_living = "cluwnegoblin"
+	response_help = "henks the"
+	speak = list("HENK!")
+	emote_see = list("henks")
+	maxHealth = 150
+	health = 150
+	harm_intent_damage = 15
+	melee_damage_lower = 17
+	melee_damage_upper = 20
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = INFINITY
+	move_to_delay = 2
+
+	loot = list(/obj/item/clothing/mask/false_cluwne_mask, /obj/item/clothing/shoes/clown_shoes/false_cluwne_shoes) // We'd rather not give them ACTUAL cluwne stuff you know?

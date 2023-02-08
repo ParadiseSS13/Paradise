@@ -44,7 +44,7 @@
 	if(stat & BROKEN)
 		icon_state = "[lasercolor]destroyed_target_prism"
 	else
-		if(powered())
+		if(has_power())
 			if(enabled)
 				if(iconholder)
 					//lasers have a orange icon
