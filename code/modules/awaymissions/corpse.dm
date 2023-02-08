@@ -158,14 +158,11 @@
 		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
+		M.change_voice()
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
 		qdel(src)
-	if(plr)
-		for(var/i in 1 to 10)
-			if(M.change_voice())
-				break
 	else
 		M.tts_seed = pick(SStts.tts_seeds)
 
