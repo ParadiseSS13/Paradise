@@ -357,8 +357,17 @@
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
+/mob/living/carbon/can_be_flashed(intensity = 1, override_blindness_check = 0)
+	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 	. = ..()
+
+	if((E && (E.status & ORGAN_DEAD)) || !.)
+		return FALSE
+
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
+	//Parent proc checks if a mob can_be_flashed()
+	. = ..()
+
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
 	var/damage = intensity - check_eye_prot()
@@ -366,8 +375,10 @@
 	if(.)
 		if(visual)
 			return
+
+		//Checks that shouldn't stop flashing, but should stop eye damage, so they go here instead of in can_be_flashed()
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		if(!E || (E && E.weld_proof))
+		if(!E || E.weld_proof)
 			return
 
 		var/extra_darkview = 0
@@ -729,6 +740,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		legcuffed = null
 		toggle_move_intent()
 		update_inv_legcuffed()
+
+/mob/living/carbon/update_inv_legcuffed()
+	clear_alert("legcuffed")
+	if(!legcuffed)
+		return
+	throw_alert("legcuffed", /obj/screen/alert/restrained/legcuffed, new_master = legcuffed)
+	if(m_intent != MOVE_INTENT_WALK)
+		m_intent = MOVE_INTENT_WALK
+		if(hud_used?.move_intent)
+			hud_used.move_intent.icon_state = "walking"
 
 /mob/living/carbon/show_inv(mob/user)
 	user.set_machine(src)

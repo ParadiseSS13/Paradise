@@ -19,6 +19,9 @@
 	max_integrity = 200
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	resistance_flags = FIRE_PROOF
+	active_power_consumption = 600
+	idle_power_consumption = 100
+
 	var/datum/gas_mixture/air_contents	// internal reservoir
 	var/mode = 1	// item mode 0=off 1=charging 2=charged
 	var/flush = 0	// true if flush handle is pulled
@@ -29,8 +32,6 @@
 	var/last_sound = 0
 	var/required_mode_to_deconstruct = -1
 	var/deconstructs_to = PIPE_DISPOSALS_BIN
-	active_power_usage = 600
-	idle_power_usage = 100
 
 /obj/machinery/disposal/proc/trunk_check()
 	var/obj/structure/disposalpipe/trunk/T = locate() in loc
@@ -363,7 +364,7 @@
 // timed process
 // charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/process()
-	use_power = NO_POWER_USE
+	change_power_mode(NO_POWER_USE)
 	if(stat & BROKEN)			// nothing can happen if broken
 		return
 
@@ -383,13 +384,13 @@
 	if(stat & NOPOWER)			// won't charge if no power
 		return
 
-	use_power = IDLE_POWER_USE
+	change_power_mode(IDLE_POWER_USE)
 
 	if(mode != 1)		// if off or ready, no need to charge
 		return
 
 	// otherwise charge
-	use_power = ACTIVE_POWER_USE
+	change_power_mode(ACTIVE_POWER_USE)
 
 	var/atom/L = loc						// recharging from loc turf
 
@@ -454,7 +455,8 @@
 
 // called when area power changes
 /obj/machinery/disposal/power_change()
-	..()	// do default setting/reset of stat NOPOWER bit
+	if(!..())
+		return	// do default setting/reset of stat NOPOWER bit
 	update()	// update icon
 	if(stat & NOPOWER)
 		set_light(0)
