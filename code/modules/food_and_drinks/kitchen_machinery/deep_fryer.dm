@@ -87,7 +87,6 @@
 		return
 
 /obj/machinery/cooker/deepfryer/special_attack_shove(mob/living/target, mob/living/attacker)
-	. = ..()
 	target.visible_message(
 		"<span class='danger'>[attacker] shoves [target] against [src], and [target] reaches into the hot oil trying to catch [target.p_their()] fall!</span>",
 		"<span class='userdanger'>[attacker] shoves you into [src], your hands landing in hot oil!</span>",

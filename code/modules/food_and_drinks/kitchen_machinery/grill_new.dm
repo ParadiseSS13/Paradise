@@ -45,17 +45,15 @@
 	efficiency = round((E/2), 1) // There's 2 lasers, so halve the effect on the efficiency to keep it balanced
 
 /obj/machinery/kitchen_machine/grill/special_attack_shove(mob/user, mob/living/carbon/target)
-	. = ..()
 	target.visible_message(
 		"<span class='danger'>[user] shoves [target] onto [src], the active grill surface searing [user.p_them()]!</span>",
 		"<span class='userdanger'>[user] shoves you onto [src], and the hot surface sears you!</span>",
-
 	)
 	target.adjustFireLoss(5)
 
 /obj/machinery/kitchen_machine/grill/special_attack(mob/user, mob/living/carbon/target, from_grab)
 	target.visible_message(
-		"<span class='danger'>[user] forces [target] onto [src]'S hot cooking surface, searing [target]'s body!</span>",
+		"<span class='danger'>[user] forces [target] onto [src]'s hot cooking surface, searing [target]'s body!</span>",
 		"<span class='userdanger'>[user] forces you onto [src]! HOT HOT HOT!</span>",
 		"<span class='warning'>You hear some meat being put on to cook.</span>"
 	)

@@ -68,13 +68,17 @@
 	. = special_attack_shove(target, attacker)
 	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
 
+/**
+ * Perform a special shove attack.
+ * The return value of this proc gets passed up to shove_impact, so returning TRUE will prevent any further shove handling (like knockdown).
+ */
 /obj/machinery/cooker/proc/special_attack_shove(mob/living/target, mob/living/attacker)
 	return FALSE
 
 /obj/machinery/cooker/proc/special_attack_grab(obj/item/grab/G, mob/user)
 	if(special_attack_on_cooldown)
 		return FALSE
-	if(!G)
+	if(!istype(G))
 		return FALSE
 	if(!iscarbon(G.affecting))
 		to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
