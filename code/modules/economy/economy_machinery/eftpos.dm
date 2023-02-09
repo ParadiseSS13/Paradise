@@ -69,18 +69,13 @@
 	data["transaction_amount"] = transaction_amount
 	data["linked_account"] = list("name" = linked_account?.account_name, "UID" = linked_account?.UID())
 	data["available_accounts"] = list()
-	for(var/datum/money_account/department as anything in account_database.get_all_department_accounts())
+	for(var/datum/money_account/department as anything in (account_database.get_all_department_accounts() + account_database.user_accounts))
 		var/list/account_data = list(
 			"name" = department.account_name,
 			"UID"  = department.UID()
 		)
 		data["available_accounts"] += list(account_data)
-	for(var/datum/money_account/account as anything in account_database.user_accounts)
-		var/list/account_data = list(
-			"name" = account.account_name,
-			"UID"  = account.UID()
-		)
-		data["available_accounts"] += list(account_data)
+
 
 	return data
 
@@ -110,9 +105,11 @@
 				reconnect_database()
 			if(!account_database)
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
+				return
 			var/datum/money_account/target_account = locateUID(params["account"])
 			if(!istype(target_account))
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to inputted account.</span>")
+				return
 			// in this case we don't care about authenticating login because we're sending money into the account
 			linked_account = target_account
 			to_chat(user, "[bicon(src)]<span class='warning'>Linked account successfully set to [target_account.account_name]</span>")

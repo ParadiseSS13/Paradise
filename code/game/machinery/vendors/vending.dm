@@ -40,8 +40,7 @@
 	/// Icon for the lightmask, defaults to icon_state + _off, _lightmask if one is defined.
 	var/icon_lightmask
 	// Power
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 	var/vend_power_usage = 150
 
 	var/light_range_on = 1
@@ -734,15 +733,13 @@
 	atom_say(message)
 
 /obj/machinery/economy/vending/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	update_icon(UPDATE_OVERLAYS)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/economy/vending/obj_break(damage_flag)
 	if(stat & BROKEN)
@@ -750,6 +747,10 @@
 	stat |= BROKEN
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
+
+	if(cash_transaction)
+		new /obj/item/stack/spacecash(get_turf(src), cash_transaction)
+		cash_transaction = 0
 
 	var/dump_amount = 0
 	var/found_anything = TRUE
