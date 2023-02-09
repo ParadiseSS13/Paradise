@@ -15007,7 +15007,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/security/vacantoffice)
+/area/maintenance/port)
 "aOs" = (
 /obj/effect/spawner/random_barrier/obstruction,
 /turf/simulated/floor/plating,
@@ -18973,7 +18973,7 @@
 /obj/machinery/door/airlock/welded{
 	name = "Maintenance Airlock"
 	},
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "aYa" = (
@@ -23834,7 +23834,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/security/vacantoffice)
+/area/maintenance/port)
 "biM" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/glass{
@@ -29868,7 +29868,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/security/vacantoffice)
+/area/maintenance/port)
 "bxb" = (
 /turf/simulated/wall,
 /area/quartermaster/storage)
@@ -66787,7 +66787,7 @@
 "ecZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/r_wall,
-/area/toxins/xenobiology)
+/area/maintenance/asmaint)
 "edf" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 1;
@@ -67452,7 +67452,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/grille_often,
 /turf/simulated/floor/plasteel,
-/area/security/vacantoffice)
+/area/maintenance/port)
 "exh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -68523,7 +68523,7 @@
 "fgP" = (
 /obj/structure/sign/directions/medical,
 /turf/simulated/wall/r_wall,
-/area/toxins/xenobiology)
+/area/maintenance/aft)
 "fhe" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -70676,7 +70676,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/security/vacantoffice)
+/area/maintenance/port)
 "gCU" = (
 /obj/structure/punching_bag,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -74413,7 +74413,7 @@
 	name = "Abandoned Equipment Storage";
 	req_access_txt = "5"
 	},
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "iZp" = (
@@ -77160,6 +77160,9 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/auxport)
+"laW" = (
+/turf/simulated/wall/r_wall,
+/area/maintenance/asmaint2)
 "lbb" = (
 /obj/machinery/disposal,
 /obj/machinery/firealarm{
@@ -79300,7 +79303,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/security/vacantoffice)
+/area/maintenance/port)
 "mHO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -80194,7 +80197,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "nqG" = (
@@ -86205,7 +86208,7 @@
 /obj/machinery/door/airlock/welded{
 	name = "Maintenance Airlock"
 	},
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "rqU" = (
@@ -86585,10 +86588,10 @@
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
 "rHd" = (
-/obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/freezer{
 	req_access_txt = "28"
 	},
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "rHm" = (
@@ -88264,6 +88267,9 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology)
+"sPz" = (
+/turf/simulated/wall/r_wall,
+/area/maintenance/asmaint)
 "sPK" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -138720,22 +138726,22 @@ cDg
 cuQ
 chf
 chf
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
 fjO
 dOb
 sFA
@@ -138977,7 +138983,7 @@ soR
 cuQ
 bGG
 uCK
-cBR
+laW
 cJK
 cJK
 cJK
@@ -138992,7 +138998,7 @@ cBP
 cMk
 cMk
 dbR
-cBR
+cxO
 vIW
 lWE
 cDm
@@ -139234,7 +139240,7 @@ cuQ
 cuQ
 jxu
 dbg
-cBR
+laW
 gGQ
 taM
 cJK
@@ -139249,7 +139255,7 @@ hLC
 cJK
 cJK
 gIp
-cBR
+cxO
 chf
 cDm
 chf
@@ -139491,7 +139497,7 @@ cEE
 bGG
 bGG
 cEE
-cBR
+laW
 cJL
 cMk
 cMk
@@ -139506,7 +139512,7 @@ ilj
 cJK
 cJK
 cJK
-cBR
+cxO
 rnY
 scP
 chf
@@ -139748,7 +139754,7 @@ hGb
 hFn
 fog
 qkC
-cBR
+laW
 cxN
 smP
 cIb
@@ -139763,7 +139769,7 @@ rSo
 gyS
 wkX
 cxN
-cBR
+cxO
 cVD
 cAv
 dhQ
@@ -140005,7 +140011,7 @@ cuQ
 cuQ
 upd
 cuQ
-cBR
+laW
 cJK
 cJK
 cJK
@@ -140262,7 +140268,7 @@ cKQ
 lqd
 qHH
 eaO
-cBR
+laW
 gGQ
 taM
 cJK
@@ -140277,7 +140283,7 @@ twx
 cJK
 cJK
 gIp
-cBR
+cxO
 ujj
 cAv
 eOU
@@ -140519,7 +140525,7 @@ cKQ
 cuQ
 pUR
 bGG
-cBR
+laW
 dQM
 cMk
 cMk
@@ -140534,7 +140540,7 @@ gbw
 cJK
 cJK
 cJK
-cBR
+cxO
 cTB
 lMP
 chf
@@ -140776,7 +140782,7 @@ cEE
 cQx
 qHH
 dgy
-cBR
+laW
 cxN
 cRY
 cMj
@@ -140791,7 +140797,7 @@ vfc
 wmr
 jEQ
 cxN
-cBR
+cxO
 chf
 cDm
 cDm
@@ -141033,7 +141039,7 @@ cLc
 cuQ
 cLQ
 cLR
-cBR
+laW
 cJK
 cJK
 cJK
@@ -141048,7 +141054,7 @@ tdd
 cMk
 cMk
 kUv
-cBR
+cxO
 cAu
 lJh
 cAw
@@ -141290,7 +141296,7 @@ cLc
 cuQ
 nHM
 cuQ
-cBR
+laW
 gGQ
 taM
 cJK
@@ -141305,7 +141311,7 @@ pKP
 cJK
 cJK
 gIp
-cBR
+cxO
 gmu
 dfM
 cDm
@@ -141547,7 +141553,7 @@ cJQ
 lqd
 cLQ
 bKl
-cBR
+laW
 iGI
 cMk
 cMk
@@ -141562,7 +141568,7 @@ jtc
 cJK
 cJK
 cJK
-cBR
+cxO
 cyJ
 nMU
 cep
@@ -141804,7 +141810,7 @@ cuQ
 lqd
 cLQ
 oVH
-cBR
+laW
 cBR
 cBR
 cBR
@@ -141819,7 +141825,7 @@ cBR
 cBR
 cBR
 cBR
-cBR
+cxO
 ctZ
 dfM
 cyJ
@@ -142061,7 +142067,7 @@ bGG
 cuQ
 cLQ
 bGG
-cBR
+laW
 cBR
 tAp
 xUK
@@ -142319,7 +142325,7 @@ cOp
 cOR
 bGG
 cQs
-cBR
+laW
 cSf
 cEH
 cEH
@@ -142333,7 +142339,7 @@ iun
 fpG
 fMb
 cJK
-cBR
+sPz
 cQC
 dhR
 csL
@@ -142576,7 +142582,7 @@ lqd
 cLQ
 jxu
 cQr
-cBR
+laW
 cSH
 cXA
 cEH
@@ -142590,7 +142596,7 @@ xUX
 tMx
 qKZ
 jIE
-cBR
+sPz
 jrt
 dMD
 djX
@@ -142833,7 +142839,7 @@ cuQ
 qHH
 cuQ
 cuQ
-cBR
+laW
 cSh
 weM
 cNc
@@ -142847,7 +142853,7 @@ iun
 dvM
 tQn
 cJK
-cBR
+sPz
 sFy
 dhR
 nMd
@@ -143090,7 +143096,7 @@ lqd
 qHH
 cuQ
 cQu
-cBR
+laW
 fTy
 oSt
 qOs
@@ -143346,22 +143352,22 @@ rKV
 rKV
 mRD
 rKV
-cBR
-cBR
+laW
+laW
 cBR
 uPe
 cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+sPz
+sPz
+sPz
+sPz
+sPz
+sPz
+sPz
+sPz
+sPz
+sPz
+sPz
 kMc
 nJm
 csL
@@ -143608,7 +143614,7 @@ lCQ
 cWr
 kdP
 cNl
-cBR
+sPz
 tlI
 vum
 ojz
@@ -143865,7 +143871,7 @@ aoo
 vJv
 cWw
 xFt
-cBR
+sPz
 eKA
 ijg
 hra
@@ -144122,7 +144128,7 @@ miN
 xTZ
 qyf
 osm
-cBR
+sPz
 ksj
 mdX
 cga
@@ -144374,12 +144380,12 @@ rKV
 rKV
 uMj
 rKV
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+sPz
+sPz
+sPz
+sPz
+sPz
+sPz
 mhm
 pAl
 kdh
