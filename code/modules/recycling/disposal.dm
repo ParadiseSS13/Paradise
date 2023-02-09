@@ -169,6 +169,17 @@
 		C.density = TRUE
 		qdel(src)
 
+/obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
+	target.visible_message(
+		"<span class='warning'>[attacker] shoves [target] inside of [src]!</span>",
+		"<span class='userdanger'>[attacker] shoves you inside of [src]!</span>",
+		"<span class='warning'>You hear the sound of something being thrown in the trash.</span>"
+	)
+	target.forceMove(src)
+	add_attack_logs(attacker, target, "Shoved into disposals", target.ckey ? null : ATKLOG_ALL)
+	playsound(src, "sound/effects/bang.ogg")
+	return TRUE
+
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)

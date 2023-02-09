@@ -149,6 +149,16 @@
 
 	power_state = use_type
 
+/obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
+	if(power_state == ACTIVE_POWER_USE)
+		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
+	idle_power_consumption = amount
+
+/obj/machinery/proc/update_active_power_consumption(channel = power_channel, amount)
+	if(power_state == ACTIVE_POWER_USE)
+		machine_powernet.adjust_static_power(power_channel, amount - active_power_consumption)
+	active_power_consumption = amount
+
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
 	. = ..()
 	if(.)

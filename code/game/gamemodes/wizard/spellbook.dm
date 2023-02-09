@@ -618,7 +618,7 @@
 
 /datum/spellbook_entry/item/revenantbottle
 	name = "Bottle of Ectoplasm"
-	desc = "A magically infused bottle of ectoplasm, effectivly pure salt from the spectral realm. Be careful though, these salty spirits are indiscriminate in their harvesting, and you yourself may become a victim."
+	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm. Be careful though, these salty spirits are indiscriminate in their harvesting, and you yourself may become a victim."
 	item_path = /obj/item/antag_spawner/revenant
 	log_name = "RB"
 	category = "Summons"
