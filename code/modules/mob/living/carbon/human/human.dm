@@ -28,7 +28,7 @@
 			mind.name = real_name
 
 		if (!tts_seed)
-			tts_seed = pick(SStts.tts_seeds)
+			tts_seed = SStts.get_random_seed(src)
 
 	create_reagents(330)
 

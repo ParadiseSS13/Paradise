@@ -31,6 +31,6 @@
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, tearing vocal cords in [target]'s throat with [tool]!</span>", \
 						 "<span class='warning'> Your hand slips, tearing vocal cords in [target]'s throat with [tool]!</span>")
-	target.tts_seed = pick(SStts.tts_seeds)
+	target.tts_seed = SStts.get_random_seed(target)
 	target.apply_damage(10, BRUTE, head, sharp = TRUE)
 	return FALSE

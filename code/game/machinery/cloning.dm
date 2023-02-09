@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	maim_clone(H)
 	H.Paralyse(4)
 
-	H.tts_seed = pick(SStts.tts_seeds)
+	H.tts_seed = SStts.get_random_seed(H)
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)

@@ -1,10 +1,25 @@
 /datum/ui_module/tts_seeds_explorer
 	name = "Эксплорер TTS голосов"
+	var/phrases = list(
+		"Так звучит мой голос.",
+		"Так я звучу.",
+		"Я.",
+		"Поставьте свою подпись.",
+		"Пора за работу.",
+		"Дело сделано.",
+		"Станция Нанотрейзен.",
+		"Офицер СБ.",
+		"Капитан.",
+		"Вульпканин.",
+		"Съешь же ещё этих мягких французских булок, да выпей чаю.",
+		"Клоун, прекрати разбрасывать банановые кожурки офицерам под ноги!",
+		"Капитан, вы уверены что хотите назначить клоуна на должность главы персонала?",
+	)
 
 /datum/ui_module/tts_seeds_explorer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "TTSSeedsExplorer", name, 350, 700, master_ui, state)
+		ui = new(user, src, ui_key, "TTSSeedsExplorer", name, 550, 800, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -12,6 +27,8 @@
 	var/list/data = list()
 
 	data["selected_seed"] = user.client.prefs.tts_seed
+
+	data["donator_level"] = usr.client.donator_level
 
 	return data
 
@@ -36,24 +53,11 @@
 			"category" = seed.category,
 			"gender" = seed.gender,
 			"provider" = initial(seed.provider.name),
+			"donator_level" = seed.donator_level,
 		))
 	data["seeds"] = seeds
 
-	data["phrases"] = list(
-		"Так звучит мой голос.",
-		"Так я звучу.",
-		"Я.",
-		"Поставьте свою подпись.",
-		"Пора за работу.",
-		"Дело сделано.",
-		"Станция Нанотрейзен.",
-		"Офицер СБ.",
-		"Капитан.",
-		"Вульпканин.",
-		"Съешь же ещё этих мягких французских булок, да выпей чаю.",
-		"Клоун, прекрати разбрасывать банановые кожурки офицерам под ноги!",
-		"Капитан, вы уверены что хотите назначить клоуна на должность главы персонала?"
-		)
+	data["phrases"] = phrases
 
 	return data
 
@@ -65,11 +69,24 @@
 	switch(action)
 		if("listen")
 			var/phrase = params["phrase"]
-			var/seed = params["seed"]
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, usr, phrase, seed, FALSE)
+			var/seed_name = params["seed"]
+
+			if(!(phrase in phrases))
+				return
+			if(!(seed_name in SStts.tts_seeds))
+				return
+
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, usr, phrase, seed_name, FALSE)
 		if("select")
-			var/seed = params["seed"]
-			usr.client.prefs.tts_seed = seed
+			var/seed_name = params["seed"]
+
+			if(!(seed_name in SStts.tts_seeds))
+				return
+			var/datum/tts_seed/seed = SStts.tts_seeds[seed_name]
+			if(usr.client.donator_level < seed.donator_level)
+				return
+
+			usr.client.prefs.tts_seed = seed_name
 		else
 			return FALSE
 

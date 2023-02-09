@@ -39,7 +39,7 @@ Bonus
 					var/mob/living/carbon/human/H = M
 					H.SetSpecialVoice(H.dna.species.get_random_name(H.gender))
 					tts_seeds_memory[H] = H.tts_seed
-					H.tts_seed = pick(SStts.tts_seeds)
+					H.tts_seed = SStts.get_random_seed(H)
 
 	return
 

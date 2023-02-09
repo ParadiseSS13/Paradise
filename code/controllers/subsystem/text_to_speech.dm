@@ -34,6 +34,7 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/datum/tts_seed/tts_seeds = list()
 	var/list/tts_seeds_names = list()
+	var/list/tts_seeds_names_by_donator_levels = list()
 	var/list/datum/tts_provider/tts_providers = list()
 
 	var/list/tts_local_channels_by_owner = list()
@@ -181,6 +182,7 @@ SUBSYSTEM_DEF(tts)
 		seed.provider = tts_providers[initial(seed.provider.name)]
 		tts_seeds[seed.name] = seed
 		tts_seeds_names += seed.name
+		tts_seeds_names_by_donator_levels["[seed.donator_level]"] += list(seed.name)
 	tts_seeds_names = sortTim(tts_seeds_names, /proc/cmp_text_asc)
 
 /datum/controller/subsystem/tts/Initialize(start_timeofday)
@@ -430,6 +432,26 @@ SUBSYSTEM_DEF(tts)
 
 /datum/controller/subsystem/tts/proc/cleanup_tts_file(filename)
 	fdel(filename)
+
+/datum/controller/subsystem/tts/proc/get_available_seeds(owner)
+	var/list/_tts_seeds_names = list()
+	_tts_seeds_names |= tts_seeds_names
+
+	if(!ismob(owner))
+		return _tts_seeds_names
+
+	var/mob/M = owner
+
+	if(!M.client)
+		return _tts_seeds_names
+
+	for(var/donator_level in 0 to DONATOR_LEVEL_MAX)
+		if(M.client.donator_level < donator_level)
+			_tts_seeds_names -= tts_seeds_names_by_donator_levels["[donator_level]"]
+	return _tts_seeds_names
+
+/datum/controller/subsystem/tts/proc/get_random_seed(owner)
+	return pick(get_available_seeds(owner))
 
 /datum/controller/subsystem/tts/proc/sanitize_tts_input(message)
 	var/hash

@@ -164,7 +164,7 @@
 	if(!permanent && !uses)
 		qdel(src)
 	else
-		M.tts_seed = pick(SStts.tts_seeds)
+		M.tts_seed = SStts.get_random_seed(M)
 
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human

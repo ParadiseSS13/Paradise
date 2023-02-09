@@ -157,10 +157,16 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return FALSE
-		if(config.tts_enabled && !client.prefs.tts_seed)
-			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
-			client.prefs.ShowChoices(src)
-			return FALSE
+		if(config.tts_enabled)
+			if(!client.prefs.tts_seed)
+				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
+			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
+			if(client.donator_level < seed.donator_level)
+				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -244,10 +250,16 @@
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return FALSE
-		if(config.tts_enabled && !client.prefs.tts_seed)
-			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
-			client.prefs.ShowChoices(src)
-			return FALSE
+		if(config.tts_enabled)
+			if(!client.prefs.tts_seed)
+				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
+			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
+			if(client.donator_level < seed.donator_level)
+				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+				client.prefs.ShowChoices(src)
+				return FALSE
 
 		LateChoices()
 

@@ -1,7 +1,59 @@
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Table, Section, Dropdown, Input } from '../components';
+import {
+  Button,
+  LabeledList,
+  Table,
+  Section,
+  Dropdown,
+  Input,
+  BlockQuote,
+  Box,
+  Icon,
+} from '../components';
 import { Window } from '../layouts';
+
+const donatorTiers = {
+  0: "Бесплатные",
+  1: "Tier I",
+  2: "Tier II",
+  3: "Tier III",
+  4: "Tier IV",
+};
+
+const gendersIcons = {
+  "Мужской": {
+    icon: "mars",
+    color: "blue",
+  },
+  "Женский": {
+    icon: "venus",
+    color: "purple",
+  },
+  "Любой": {
+    icon: "venus-mars",
+    color: "white",
+  },
+};
+
+const getCheckboxGroup = (itemsList, selectedList, setSelected, contentKey = null) => {
+  return itemsList.map(item => {
+    const title = item[contentKey] ?? item;
+    return (
+      <Button.Checkbox
+        key={title}
+        checked={selectedList.includes(item)}
+        content={title}
+        onClick={() => {
+          if (selectedList.includes(item)) {
+            setSelected(selectedList.filter(i => (i[contentKey] ?? i) !== item));
+          } else {
+            setSelected([item, ...selectedList]);
+          }
+        }} />
+    );
+  });
+};
 
 export const TTSSeedsExplorer = (props, context) => {
   return (
@@ -16,64 +68,23 @@ export const TTSSeedsExplorer = (props, context) => {
 export const TTSSeedsExplorerContent = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const { providers, seeds, selected_seed, phrases } = data;
+  const { providers, seeds, selected_seed, phrases, donator_level } = data;
 
   const categories = seeds.map(seed => seed.category).filter((category, i, a) => a.indexOf(category) === i);
   const genders = seeds.map(seed => seed.gender).filter((gender, i, a) => a.indexOf(gender) === i);
+  const donatorLevels = seeds.map(seed => seed.donator_level).filter((level, i, a) => a.indexOf(level) === i).map(level => donatorTiers[level]);
 
   const [selectedProviders, setSelectedProviders] = useLocalState(context, 'selectedProviders', providers);
   const [selectedGenders, setSelectedGenders] = useLocalState(context, 'selectedGenders', genders);
   const [selectedCategories, setSelectedCategories] = useLocalState(context, 'selectedCategories', categories);
+  const [selectedDonatorLevels, setSelectedDonatorLevels] = useLocalState(context, 'selectedDonatorLevels', donatorLevels);
   const [selectedPhrase, setSelectedPhrase] = useLocalState(context, 'selectedPhrase', phrases[0]);
   const [searchtext, setSearchtext] = useLocalState(context, 'searchtext', "");
 
-  let providerCheckboxes = providers.map(provider => {
-    return (
-      <Button.Checkbox
-        key={provider.name}
-        checked={selectedProviders.includes(provider)}
-        content={provider.name}
-        onClick={() => {
-          if (selectedProviders.includes(provider)) {
-            setSelectedProviders(selectedProviders.filter(p => p.name !== provider.name));
-          } else {
-            setSelectedProviders([provider, ...selectedProviders]);
-          }
-        }} />
-    );
-  });
-
-  let genderesCheckboxes = genders.map(gender => {
-    return (
-      <Button.Checkbox
-        key={gender}
-        checked={selectedGenders.includes(gender)}
-        content={gender}
-        onClick={() => {
-          if (selectedGenders.includes(gender)) {
-            setSelectedGenders(selectedGenders.filter(g => g !== gender));
-          } else {
-            setSelectedGenders([gender, ...selectedGenders]);
-          }
-        }} />
-    );
-  });
-
-  let categoriesCheckboxes = categories.map(category => {
-    return (
-      <Button.Checkbox
-        key={category}
-        checked={selectedCategories.includes(category)}
-        content={category}
-        onClick={() => {
-          if (selectedCategories.includes(category)) {
-            setSelectedCategories(selectedCategories.filter(c => c !== category));
-          } else {
-            setSelectedCategories([category, ...selectedCategories]);
-          }
-        }} />
-    );
-  });
+  let providerCheckboxes = getCheckboxGroup(providers, selectedProviders, setSelectedProviders, "name");
+  let genderesCheckboxes = getCheckboxGroup(genders, selectedGenders, setSelectedGenders);
+  let categoriesCheckboxes = getCheckboxGroup(categories, selectedCategories, setSelectedCategories);
+  let donatorLevelsCheckboxes = getCheckboxGroup(donatorLevels, selectedDonatorLevels, setSelectedDonatorLevels);
 
   let phrasesSelect = (
     <Dropdown
@@ -104,18 +115,22 @@ export const TTSSeedsExplorerContent = (props, context) => {
     selectedProviders.some(provider => provider.name === seed.provider)
     && selectedGenders.includes(seed.gender)
     && selectedCategories.includes(seed.category)
+    && selectedDonatorLevels.includes(donatorTiers[seed.donator_level])
     && seed.name.toLowerCase().includes(searchtext.toLowerCase())
   );
 
   let seedsRow = availableSeeds.map(seed => {
     return (
-      <Table.Row key={seed.name} backgroundColor={selected_seed === seed.name ? "green" : "transparent"}>
+      <Table.Row
+        key={seed.name}
+        backgroundColor={selected_seed === seed.name ? "green" : "transparent"}>
         <Table.Cell collapsing textAlign="center">
           <Button
             fluid
-            // disabled={selected_seed === seed.name}
             color={selected_seed === seed.name ? "green" : "transparent"}
             content={selected_seed === seed.name ? "Выбрано" : "Выбрать"}
+            tooltip={donator_level < seed.donator_level && "Требуется более высокий уровень подписки"}
+            tooltipPosition="right "
             textAlign="left"
             onClick={() => act('select', { seed: seed.name })} />
         </Table.Cell>
@@ -128,8 +143,38 @@ export const TTSSeedsExplorerContent = (props, context) => {
             color="transparent"
             onClick={() => act('listen', { seed: seed.name, phrase: selectedPhrase })} />
         </Table.Cell>
-        <Table.Cell bold>
+        <Table.Cell
+          bold
+          textColor={seed.donator_level > 0 && selected_seed !== seed.name ? "orange" : "white"}>
           {seed.name}
+        </Table.Cell>
+        <Table.Cell
+          collapsing
+          opacity={selected_seed === seed.name ? 0.5 : 0.25}
+          textAlign="left" >
+          {seed.category}
+        </Table.Cell>
+        <Table.Cell
+          collapsing
+          opacity={0.5}
+          textColor={selected_seed === seed.name ? "white" : gendersIcons[seed.gender].color}
+          textAlign="left">
+          <Icon
+            mx={1}
+            size={1.2}
+            name={gendersIcons[seed.gender].icon} />
+        </Table.Cell>
+        <Table.Cell
+          collapsing
+          opacity={0.5}
+          textColor="white"
+          textAlign="right">
+          {seed.donator_level > 0 && (
+            <>
+              {donatorTiers[seed.donator_level]}
+              <Icon ml={1} mr={2} name="coins" />
+            </>
+          )}
         </Table.Cell>
       </Table.Row>
     );
@@ -148,6 +193,9 @@ export const TTSSeedsExplorerContent = (props, context) => {
           <LabeledList.Item label="Категории">
             {categoriesCheckboxes}
           </LabeledList.Item>
+          <LabeledList.Item label="Уровень подписки">
+            {donatorLevelsCheckboxes}
+          </LabeledList.Item>
           <LabeledList.Item label="Фраза">
             {phrasesSelect}
           </LabeledList.Item>
@@ -160,6 +208,16 @@ export const TTSSeedsExplorerContent = (props, context) => {
         <Table>
           {seedsRow}
         </Table>
+      </Section>
+      <Section>
+        <BlockQuote>
+          <Box>
+            {`Для поддержания и развития сообщества в условиях растущих расходов часть голосов пришлось сделать доступными только за материальную поддержку сообщества.`}
+          </Box>
+          <Box mt={2} italic>
+            {`Подробнее об этом можно узнать в нашем Discord-сообществе.`}
+          </Box>
+        </BlockQuote>
       </Section>
     </Fragment>
   );

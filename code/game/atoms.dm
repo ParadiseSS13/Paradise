@@ -919,7 +919,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!ismob(src) && !user)
 		return null
 	var/tts_test_str = "Так звучит мой голос."
-	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference", tts_seed) as null|anything in SStts.tts_seeds_names
+
+	var/tts_seeds
+	if(user && check_rights(R_ADMIN, 0, user))
+		tts_seeds = SStts.tts_seeds_names
+	else
+		tts_seeds = SStts.get_available_seeds(src)
+
+	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference", tts_seed) as null|anything in tts_seeds
 	if(!new_tts_seed)
 		return null
 	if(!silent_target && ismob(src) && src != user)
