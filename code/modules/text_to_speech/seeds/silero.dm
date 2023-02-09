@@ -234,6 +234,7 @@
 	value = "raynor"
 	category = TTS_CATEGORY_STARCRAFT
 	gender = TTS_GENDER_MALE
+	donator_level = 1
 
 /datum/tts_seed/silero/kerrigan
 	name = "Kerrigan"
@@ -336,6 +337,7 @@
 	value = "vort_e2"
 	category = TTS_CATEGORY_HALFLIFE2
 	gender = TTS_GENDER_MALE
+	donator_level = 1
 
 /datum/tts_seed/silero/luna
 	name = "Luna"
@@ -432,6 +434,7 @@
 	value = "evelynn"
 	category = TTS_CATEGORY_LOL
 	gender = TTS_GENDER_FEMALE
+	donator_level = 1
 
 /datum/tts_seed/silero/riki
 	name = "Riki"
@@ -468,12 +471,14 @@
 	value = "bandit"
 	category = TTS_CATEGORY_STALKER
 	gender = TTS_GENDER_MALE
+	donator_level = 1
 
 /datum/tts_seed/silero/pantheon
 	name = "pantheon"
 	value = "pantheon"
 	category = TTS_CATEGORY_LOL
 	gender = TTS_GENDER_MALE
+	donator_level = 1
 
 /datum/tts_seed/silero/tychus
 	name = "Tychus"
@@ -534,6 +539,7 @@
 	value = "gman_e2"
 	category = TTS_CATEGORY_HALFLIFE2
 	gender = TTS_GENDER_MALE
+	donator_level = 1
 
 /datum/tts_seed/silero/valerian
 	name = "Valerian"
