@@ -593,6 +593,10 @@
 		return FALSE
 	if((emote_type & EMOTE_MOUTH) && !can_vocalize_emotes(user))
 		return FALSE
+	if(istype(user, /mob/living))
+		var/mob/living/live_user = user
+		if(live_user.has_status_effect(STATUS_EFFECT_SILENCED))
+			return FALSE
 	return TRUE
 
 /datum/emote/proc/remove_ending_punctuation(msg)
