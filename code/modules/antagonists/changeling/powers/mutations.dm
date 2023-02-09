@@ -499,7 +499,7 @@
 		else
 			armordurability -= damage
 	if(armordurability <= 0)
-		visible_message("<span class='warning'>[owner]'s chitinous armor collapses in clumps onto the ground.</span>",)
+		visible_message("<span class='warning'>[owner]'s chitinous armor collapses in clumps onto the ground.</span>")
 		new /obj/effect/decal/cleanable/shreds(owner.loc)
 		// just unequip them since they qdel on drop
 		owner.unEquip(src, TRUE, TRUE)
