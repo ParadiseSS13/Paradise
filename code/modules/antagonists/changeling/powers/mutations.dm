@@ -469,6 +469,7 @@
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
+	var/armordurability = 600
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -479,61 +480,32 @@
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
-
-/obj/item/clothing/suit/armor/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
+/obj/item/clothing/suit/armor/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage)
 	. = ..()
-
-	if(!IS_HORIZONTAL(owner))
-		return
-
-	var/obj/item/I = hitby
-
-	if(!isliving(I.loc))
-		// Maybe it's on the ground? Maybe it's being used telekinetically? IDK
-		return
-
-	// The user who's wielding the tool
-	var/mob/living/user = I.loc
-
-	// snowflake checks my beloved
-	// this will become tooltype checks I swear
-	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/twohanded/required/chainsaw) && !istype(I, /obj/item/twohanded/chainsaw))
-		return
-
-	user.visible_message(
-		"<span class='notice'>[user] starts to saw through [owner]'s [name].</span>",
-		"<span class='notice'>You start to saw through [owner]'s [name].</span>",
-		"<span class='notice'>You hear a loud grinding noise.</span>"
-	)
-
-	if(!do_after(user, 15 SECONDS, target = owner))
-		user.visible_message(
-			"<span class='warning'>[user] fails to cut through [owner]'s [name].</span>",
-			"<span class='warning'>You fail to cut through [owner]'s [name].</span>",
-			"<span class='notice'>You hear the grinding stop.</span>"
-		)
-		return FALSE
-
-	// check again after the do_after to make sure they haven't gotten up
-	if(!IS_HORIZONTAL(owner))
-		return FALSE
-
-	user.visible_message(
-		"<span class='warning'>\The [name] turns to shreds as [user] cleaves through it!</span>",
-		"<span class='warning'>\The [name] turns to shreds as you cleave through it!</span>",
-		"<span class='notice'>You hear something fall as the grinding ends.</span>"
-	)
-
-	playsound(I, I.hitsound, 50)
-	// you've torn it up, get rid of it.
-	new /obj/effect/decal/cleanable/shreds(owner.loc)
-	// just unequip them since they qdel on drop
-	owner.unEquip(src, TRUE, TRUE)
-	if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
-		owner.unEquip(owner.head, TRUE, TRUE)
-
-	return TRUE
-
+	if(istype(hitby, /obj/item/projectile/energy/charged_plasma))
+		armordurability -= 200 // the plasma pistol is designed to be a niche tool for blasting through shields, may as well let it cut away armor
+	else if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.damage_type == BURN)
+			armordurability -= damage * 2
+		else
+			armordurability -= damage
+	else
+		var/obj/item/I = hitby
+		if(istype(I, /obj/item/circular_saw))
+			armordurability -= 25 // saws used to cut away armor through an interaction, so let's keep them somewhat more effective
+		else if(I.damtype == BURN)
+			armordurability -= damage * 2
+		else
+			armordurability -= damage
+	if(armordurability <= 0)
+		visible_message("<span class='warning'>[owner]'s chitinous armor collapses in clumps onto the ground.</span>",)
+		new /obj/effect/decal/cleanable/shreds(owner.loc)
+		// just unequip them since they qdel on drop
+		owner.unEquip(src, TRUE, TRUE)
+		if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
+			owner.unEquip(owner.head, TRUE, TRUE)
+	return
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
