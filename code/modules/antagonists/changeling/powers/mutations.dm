@@ -469,7 +469,7 @@
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
-	var/armordurability = 600
+	var/armor_durability = 600
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -483,22 +483,22 @@
 /obj/item/clothing/suit/armor/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage)
 	. = ..()
 	if(istype(hitby, /obj/item/projectile/energy/charged_plasma))
-		armordurability -= 200 // the plasma pistol is designed to be a niche tool for blasting through shields, may as well let it cut away armor
+		armor_durability -= 200 // the plasma pistol is designed to be a niche tool for blasting through shields, may as well let it cut away armor
 	else if(istype(hitby, /obj/item/projectile))
 		var/obj/item/projectile/P = hitby
 		if(P.damage_type == BURN)
-			armordurability -= damage * 2
+			armor_durability -= damage * 2
 		else
-			armordurability -= damage
+			armor_durability -= damage
 	else
 		var/obj/item/I = hitby
 		if(istype(I, /obj/item/circular_saw))
-			armordurability -= 25 // saws used to cut away armor through an interaction, so let's keep them somewhat more effective
+			armor_durability -= 25 // saws used to cut away armor through an interaction, so let's keep them somewhat more effective
 		else if(I.damtype == BURN)
-			armordurability -= damage * 2
+			armor_durability -= damage * 2
 		else
-			armordurability -= damage
-	if(armordurability <= 0)
+			armor_durability -= damage
+	if(armor_durability <= 0)
 		visible_message("<span class='warning'>[owner]'s chitinous armor collapses in clumps onto the ground.</span>")
 		new /obj/effect/decal/cleanable/shreds(owner.loc)
 		// just unequip them since they qdel on drop
