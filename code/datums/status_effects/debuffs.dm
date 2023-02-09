@@ -674,6 +674,9 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_MUTE, id)
 
+/datum/status_effect/transient/silence/absolute
+	id = "abssilenced"
+
 /datum/status_effect/transient/jittery
 	id = "jittering"
 

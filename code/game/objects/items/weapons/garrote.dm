@@ -153,7 +153,7 @@
 		return
 
 
-	strangling.Silence(6 SECONDS) // Non-improvised effects
+	strangling.SetAbsoluteSilence(6 SECONDS) // Non-improvised effects
 	strangling.apply_damage(4, OXY, "head")
 
 
