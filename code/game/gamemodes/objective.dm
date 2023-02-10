@@ -1096,6 +1096,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/vermit_hunt/proc/generate_changelings()
 	var/list/possible_changelings = list()
+	var/datum/game_mode/changeling/temp_gameMode = new
 	for(var/mob/living/player in GLOB.alive_mob_list)
 		if(player.client && player.mind && player.stat != DEAD)
 			if((ishuman(player) && !player.mind.special_role))
@@ -1104,6 +1105,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/player in possible_changelings)
 		if(player.current)
 			if(ismindshielded(player.current))
+				possible_changelings -= player
+			if(player.current.dna.species.name in temp_gameMode.protected_species)
 				possible_changelings -= player
 	if(possible_changelings.len)
 		var/changeling_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling))+1)
