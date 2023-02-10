@@ -577,10 +577,20 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/crashedipcship/engine)
 "kP" = (
-/obj/structure/shuttle/engine/large{
-	dir = 4
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater2x2_side";
+	tag = "icon-heater (NORTH)"
 	},
-/turf/space,
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/engine)
 "kT" = (
 /turf/simulated/floor/grass,
@@ -1361,6 +1371,13 @@
 /obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
+"ws" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/crashedipcship/engine)
 "wt" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -2315,6 +2332,22 @@
 	icon_state = "barber"
 	},
 /area/ruin/space/crashedipcship/aft)
+"Kw" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater2x2";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/crashedipcship/engine)
 "KS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -2642,12 +2675,6 @@
 /obj/item/clothing/glasses/meson/fluff/book_berner_1,
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/crashedipcship/aft)
-"Qs" = (
-/obj/machinery/door/airlock/hatch{
-	color = "lightblue"
-	},
-/turf/space,
-/area/ruin/space/crashedipcship/middle)
 "QV" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -2711,6 +2738,16 @@
 /obj/machinery/pipedispenser,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel/white,
+/area/ruin/space/crashedipcship/engine)
+"RQ" = (
+/obj/structure/shuttle/engine/large{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/engine)
 "RS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5366,7 +5403,7 @@ aH
 rw
 Kk
 AY
-Qs
+kg
 Za
 qa
 xn
@@ -6241,14 +6278,14 @@ uP
 uP
 uP
 WH
-he
+Kw
 kP
-he
+Kw
 kP
 WH
-he
+Kw
 kP
-he
+Kw
 kP
 WH
 uP
@@ -6293,15 +6330,15 @@ uP
 uP
 uP
 WH
-he
-he
-he
-he
+ws
+RQ
+ws
+RQ
 WH
-he
-he
-he
-he
+ws
+RQ
+ws
+RQ
 WH
 uP
 uP
@@ -6345,15 +6382,15 @@ uP
 uP
 uP
 uP
+he
+he
+he
+he
 uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
-uP
+he
+he
+he
+he
 uP
 uP
 uP
