@@ -273,7 +273,13 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/engineering = "Robco Tool Maker",
 		/obj/machinery/vending/sovietsoda = "BODA",
 		/obj/machinery/vending/security = "SecTech",
-		/obj/machinery/vending/crittercare = "CritterCare")
+		/obj/machinery/vending/crittercare = "CritterCare",
+		/obj/machinery/vending/clothing/departament/security = "Departament Security ClothesMate",
+		/obj/machinery/vending/clothing/departament/medical = "Departament Medical ClothesMate",
+		/obj/machinery/vending/clothing/departament/engineering = "Departament Engineering ClothesMate",
+		/obj/machinery/vending/clothing/departament/science = "Departament Science ClothesMate",
+		/obj/machinery/vending/clothing/departament/cargo = "Departament Cargo ClothesMate",
+		/obj/machinery/vending/clothing/departament/law = "Departament Law ClothesMate")
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
