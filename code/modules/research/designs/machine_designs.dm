@@ -162,6 +162,16 @@
 	build_path = /obj/item/circuitboard/chem_dispenser
 	category = list("Medical Machinery")
 
+/datum/design/botanical_dispenser
+	name = "Machine Board (Botanical Dispenser)"
+	desc = "The circuit board for a Chem Dispenser."
+	id = "botanical_dispenser"
+	req_tech = list("programming" = 5, "biotech" = 3, "materials" = 4, "plasmatech" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/chem_dispenser/botanical
+	category = list("Medical Machinery")
+
 /datum/design/chem_master
 	name = "Machine Design (ChemMaster Board)"
 	desc = "The circuit board for a ChemMaster 3000."

@@ -599,36 +599,10 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/cell = 1)
-	var/access_types = list("Chem Dispenser", "Botanical Chem Dispenser")
-	id = 1
 
 /obj/item/circuitboard/chem_dispenser/botanical
 	name = "circuit board (Botanical Chem Dispenser)"
 	build_path = /obj/machinery/chem_dispenser/botanical
-	id = 2
-
-/obj/item/circuitboard/chem_dispenser/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(I.GetID())
-		if(allowed(user))
-			user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
-			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "Chem Dispenser") as null|anything in access_types
-			if(console_choice == null)
-				return
-			switch(console_choice)
-				if("Chem Dispenser")
-					name = "circuit board (Chem Dispenser)"
-					build_path = /obj/machinery/chem_dispenser
-					id = 1
-				if("Botanical Chem Dispenser")
-					name = "circuit board (Botanical Chem Dispenser)"
-					build_path = /obj/machinery/chem_dispenser/botanical
-					id = 2
-
-			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
-		else
-			to_chat(user, "<span class='warning'>Access Denied</span>")
-		return
-	return ..()
 
 /obj/item/circuitboard/chem_master
 	name = "circuit board (ChemMaster 3000)"
