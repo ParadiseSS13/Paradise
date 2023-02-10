@@ -75,12 +75,13 @@
 	var/obj/item/organ/O = I
 	if(istype(O) && O.owner == src)
 		. = 0 // keep a good grip on your heart
+	if((get_slot_by_item(I) in check_obscured_slots())&&!force)
+		. = 0
 
 /mob/living/carbon/human/unEquip(obj/item/I, force)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
-
 	if(I == wear_suit)
 		if(s_store)
 			unEquip(s_store, 1) //It makes no sense for your suit storage to stay on you if you drop your suit.
@@ -190,7 +191,6 @@
 		return
 	if(!has_organ_for_slot(slot))
 		return
-
 	if(I == src.l_hand)
 		src.l_hand = null
 		update_inv_l_hand() //So items actually disappear from hands.
@@ -381,6 +381,50 @@
 			return s_store
 	return null
 
+/mob/living/carbon/human/proc/get_slot_by_item(item)
+	if(item == back)
+		return slot_back
+	if(item == wear_mask)
+		return slot_wear_mask
+	if(item == neck)
+		return slot_neck
+	if(item == handcuffed)
+		return slot_handcuffed
+	if(item == legcuffed)
+		return slot_legcuffed
+	if(item == l_hand)
+		return slot_l_hand
+	if(item == r_hand)
+		return slot_r_hand
+	if(item == belt)
+		return slot_belt
+	if(item == wear_id)
+		return slot_wear_id
+	if(item == wear_pda)
+		return slot_wear_pda
+	if(item == l_ear)
+		return slot_l_ear
+	if(item == r_ear)
+		return slot_r_ear
+	if(item == glasses)
+		return slot_glasses
+	if(item == gloves)
+		return slot_gloves
+	if(item == head)
+		return slot_head
+	if(item == shoes)
+		return slot_shoes
+	if(item == wear_suit)
+		return slot_wear_suit
+	if(item == w_uniform)
+		return slot_w_uniform
+	if(item == l_store)
+		return slot_l_store
+	if(item == r_store)
+		return slot_r_store
+	if(item == s_store)
+		return slot_s_store
+	return null
 /mob/living/carbon/human/get_all_slots()
 	. = get_head_slots() | get_body_slots()
 
@@ -431,7 +475,7 @@
 	..(what, who, where, silent = is_silent)
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE)
-	return dna.species.can_equip(I, slot, disable_warning, src)
+	return dna.species.can_equip(I, slot, disable_warning, src)&&!(slot in check_obscured_slots())
 
 /mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
 	var/datum/outfit/O = null
