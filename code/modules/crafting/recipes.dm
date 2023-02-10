@@ -547,6 +547,30 @@
 				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/bonebow
+	name = "Wooden Bow"
+	result = /obj/item/gun/projectile/bow
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 3,
+				 /obj/item/stack/sheet/sinew = 2,
+				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/arrow
+	name = "Arrow"
+	result = /obj/item/ammo_casing/caseless/arrow
+	time = 20
+	reqs = list(/obj/item/stack/sheet/bone = 1,
+				 /obj/item/stack/sheet/wood = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/quiver
+	name = "Quiver"
+	result = /obj/item/storage/backpack/quiver
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 2,
+				 /obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
 /datum/crafting_recipe/boneaxe
 	name = "Bone Axe"
 	result = /obj/item/twohanded/fireaxe/boneaxe

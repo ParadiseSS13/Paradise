@@ -7,6 +7,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
 	flags = HANDSLOW
 	weapon_weight = WEAPON_HEAVY
+	trigger_guard = TRIGGER_GUARD_NONE
 	var/draw_sound = 'sound/weapons/draw_bow.ogg'
 	var/ready_to_fire = 0
 	var/slowdown_when_ready = 2
