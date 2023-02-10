@@ -101,8 +101,10 @@
 	options["The Original"] = "detective"
 	options["Leopard Spots"] = "detective_leopard"
 	options["Black Panther"] = "detective_panther"
-	options["Gold Trim"] = "detective_gold"
+	options["White Gold "] = "detective_gold"
 	options["The Peacemaker"] = "detective_peacemaker"
+	options["Gold Wood"] = "detective_gold_alt"
+	options["Silver"] = "detective_silver"
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/detective/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
