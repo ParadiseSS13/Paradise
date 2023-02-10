@@ -6,6 +6,7 @@
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
 	var/mob/ranged_ability_user
+	var/datum/action/spell_action/action = null
 
 /obj/effect/proc_holder/singularity_act()
 	return
@@ -49,6 +50,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	user.client.click_intercept = new /datum/click_intercept/proc_holder(user.client, user.ranged_ability)
 	add_mousepointer(user.client)
 	active = TRUE
+	if(action)
+		action.UpdateButtonIcon()
 	if(msg)
 		to_chat(user, msg)
 	update_icon()
@@ -64,9 +67,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/proc/remove_ranged_ability(mob/user, var/msg)
 	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
 		return
+	active = FALSE
+	if(user.ranged_ability.action)
+		user.ranged_ability.action.UpdateButtonIcon()
 	user.ranged_ability = null
 	ranged_ability_user = null
-	active = FALSE
 	if(user.client)
 		qdel(user.client.click_intercept)
 		user.client.click_intercept = null
@@ -123,7 +128,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/critfailchance = 0
 	var/centcom_cancast = 1 //Whether or not the spell should be allowed on z2
 
-	var/datum/action/spell_action/action = null
 	var/action_icon = 'icons/mob/actions/actions.dmi'
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
@@ -510,8 +514,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		revert_cast(user)
 		return FALSE
 
-	perform(targets, user = user, make_attack_logs = create_logs)
 	remove_ranged_ability(user)
+	perform(targets, user = user, make_attack_logs = create_logs)
 	return TRUE
 
 /* Checks if a target is valid

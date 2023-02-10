@@ -82,6 +82,9 @@
 			return FALSE
 	return TRUE
 
+/datum/action/proc/IsMayActive()
+	return FALSE
+
 /datum/action/proc/UpdateButtonIcon()
 	if(button)
 		if(owner && owner.client && background_icon_state == "bg_default") // If it's a default action background, apply the custom HUD style
@@ -96,6 +99,9 @@
 		button.desc = desc
 
 		ApplyIcon(button)
+
+		if(IsMayActive())
+			toggle_active_overlay()
 
 		// If the action isn't available, darken the button
 		if(!IsAvailable())
@@ -119,6 +125,9 @@
 		img.pixel_x = 0
 		img.pixel_y = 0
 		current_button.add_overlay(img)
+
+/datum/action/proc/toggle_active_overlay()
+	return
 
 //Presets for item actions
 /datum/action/item_action
@@ -576,6 +585,24 @@
 	if(owner)
 		return spell.can_cast(owner)
 	return FALSE
+
+/datum/action/spell_action/IsMayActive()
+	if(!target)
+		return FALSE
+	var/obj/effect/proc_holder/spell/targeted/click/S = target
+	if(!istype(S))
+		return ..()
+	return TRUE
+
+/datum/action/spell_action/toggle_active_overlay()
+	var/obj/effect/proc_holder/spell/targeted/click/S = target
+	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+	I.plane = FLOAT_PLANE + 1.1
+	I.layer = FLOAT_LAYER
+	if(S.active)
+		button.overlays += I
+	else
+		button.overlays -= I
 
 /datum/action/spell_action/apply_unavailable_effect()
 	var/obj/effect/proc_holder/spell/S = target
