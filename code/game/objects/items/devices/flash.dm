@@ -156,13 +156,14 @@
 
 
 /obj/item/flash/proc/revolution_conversion(mob/M, mob/user)
-	if(ishuman(M) && (user.mind in SSticker.mode.head_revolutionaries))
-		if(M.stat != CONSCIOUS)
-			to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
-		else if(SSticker.mode.add_revolutionary(M.mind))
-			times_used-- //Flashes less likely to burn out for headrevs when used for conversion
-		else
-			to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
+	if(!ishuman(M) || !(user.mind in SSticker.mode.head_revolutionaries))
+		return
+	if(M.stat != CONSCIOUS)
+		to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
+	else if(SSticker.mode.add_revolutionary(M.mind))
+		times_used-- //Flashes less likely to burn out for headrevs when used for conversion
+	else
+		to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
 
 /obj/item/flash/cyborg
 	origin_tech = null
