@@ -88,7 +88,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='boldannounce'>It's [open ? "stuck open":"locked"].</span>")
+		to_chat(user, "<span class='boldannounce'>Кажется, эта дверь [open ? "навеки открыта":"намертво запечатана"].</span>")
 		return
 	toggle_the_gate(user)
 	return ..()
@@ -133,6 +133,16 @@
 		open = TRUE
 	changing_openness = FALSE
 	return TRUE
+
+/obj/structure/necropolis_gate/ashwalker
+	desc = "Массивные каменные ворота. Кажется, они намертво запечатаны."
+	locked = TRUE
+
+/obj/structure/necropolis_gate/ashwalker/attack_hand(mob/user)
+	if(locked)
+		if(user.faction == "ashwalker")
+			locked = FALSE
+	return ..()
 
 /obj/structure/necropolis_gate/locked
 	locked = TRUE
