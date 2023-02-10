@@ -241,6 +241,10 @@
 #define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
 #define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
 
+// For tools
+
+#define gettoolspeedmod(A) (ishuman(A) ? A.dna.species.toolspeedmod : 1)
+
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
 #define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))

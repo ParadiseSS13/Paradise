@@ -181,6 +181,8 @@
 	/// Whether the presence of a body accessory on this species is optional or not.
 	var/optional_body_accessory = TRUE
 
+	var/toolspeedmod = 1
+
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
 	var/liked_food = FRIED | JUNKFOOD | SUGAR

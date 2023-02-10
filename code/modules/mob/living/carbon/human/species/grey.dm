@@ -18,6 +18,7 @@
 		)
 
 	brute_mod = 1.25 //greys are fragile
+	toolspeedmod = 0.8
 
 	default_genes = list(REMOTE_TALK)
 

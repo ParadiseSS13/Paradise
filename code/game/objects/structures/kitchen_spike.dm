@@ -55,7 +55,7 @@
 	if(istype(G, /obj/item/crowbar))
 		if(!has_buckled_mobs())
 			playsound(loc, G.usesound, 100, 1)
-			if(do_after(user, 20 * G.toolspeed, target = src))
+			if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
 				deconstruct(TRUE)
 		else

@@ -243,7 +243,7 @@
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
-		if(do_after(user, 30 * coil.toolspeed, target = src))
+		if(do_after(user, 30 * coil.toolspeed * gettoolspeedmod(user), target = src))
 			if(!src || !coil)
 				return
 			coil.use(1)

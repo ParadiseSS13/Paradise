@@ -83,12 +83,12 @@
 	if(broken > 0)
 		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
+			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
 				broken = 1 // Fix it a bit
 		else if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
+			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
 				icon_state = off_icon
 				broken = 0 // Fix it!
@@ -100,7 +100,7 @@
 	else if(dirty==100) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
+			if(do_after(user, 20 * O.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
 				dirty = 0 // It's clean!
 				broken = 0 // just to be sure

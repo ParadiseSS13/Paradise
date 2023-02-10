@@ -213,7 +213,7 @@
 	if(istype(I, /obj/item/screwdriver))
 		playsound(src, I.usesound, 100, 1)
 		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
-		if(do_after(user, 100 * I.toolspeed, target = src))
+		if(do_after(user, 100 * I.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(src, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
 			frame.forceMove(user.loc)

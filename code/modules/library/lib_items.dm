@@ -54,7 +54,7 @@
 		playsound(get_turf(src), O.usesound, 50, 1)
 		busy = TRUE
 
-		if(do_after(user, 50 * O.toolspeed, target = src))
+		if(do_after(user, 50 * O.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(get_turf(src), O.usesound, 75, 1)
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")

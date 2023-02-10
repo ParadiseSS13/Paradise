@@ -52,7 +52,7 @@
 		return
 	playsound(loc, I.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
-	if(do_after(user, 40 * I.toolspeed, target = src))
+	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 		user.visible_message("[user] unfastens [src].", "<span class='notice'>You have unfastened [src].</span>", "You hear ratchet.")
 		new /obj/item/pipe_gsensor(loc)
 		qdel(src)

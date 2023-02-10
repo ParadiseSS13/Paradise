@@ -94,7 +94,7 @@
 	if(istype(I, /obj/item/screwdriver) && circuit)
 		var/obj/item/screwdriver/S = I
 		playsound(src.loc, S.usesound, 50, 1)
-		if(do_after(user, 20 * S.toolspeed, target = src))
+		if(do_after(user, 20 * S.toolspeed * gettoolspeedmod(user), target = src))
 			var/obj/structure/computerframe/HONKputer/A = new /obj/structure/computerframe/HONKputer( src.loc )
 			var/obj/item/circuitboard/M = new circuit( A )
 			A.circuit = M

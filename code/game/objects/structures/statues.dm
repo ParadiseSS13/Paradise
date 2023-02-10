@@ -18,7 +18,7 @@
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
 								 "<span class='notice'>You are slicing apart the [name]...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
+			if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \

@@ -426,7 +426,7 @@
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/screwdriver))
 		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 20 * I.toolspeed, target = src))
+		if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(src.stat & BROKEN)
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )

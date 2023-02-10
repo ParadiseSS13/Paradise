@@ -135,7 +135,7 @@
 					to_chat(user, "<span class='warning'>You need one length of cable to wire the ED-209!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(coil.get_amount() >= 1 && build_step == 6)
 						coil.use(1)
 						build_step = 7
@@ -173,7 +173,7 @@
 			if(istype(W, /obj/item/screwdriver))
 				playsound(loc, W.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					build_step++
 					name = "armed [name]"
 					to_chat(user, "<span class='notice'>Taser gun attached.</span>")

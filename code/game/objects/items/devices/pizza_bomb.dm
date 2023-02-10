@@ -85,7 +85,7 @@
 			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from \the [src].</span>")
-		if(do_after(user, 40 * I.toolspeed, target = src))
+		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(src, I.usesound, 50, 1, 1)
 			user.unEquip(src)
 			user.visible_message("<span class='notice'>[user] removes the insides of \the [src]!</span>")

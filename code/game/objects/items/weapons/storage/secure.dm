@@ -38,7 +38,7 @@
 			emag_act(user, W)
 
 		if(istype(W, /obj/item/screwdriver))
-			if(do_after(user, 20 * W.toolspeed, target = src))
+			if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
 				open = !open
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
@@ -46,7 +46,7 @@
 		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = 1
-			if(do_after(usr, 100 * W.toolspeed, target = src))
+			if(do_after(usr, 100 * W.toolspeed * gettoolspeedmod(user), target = src))
 				if(prob(40))
 					l_setshort = 1
 					l_set = 0

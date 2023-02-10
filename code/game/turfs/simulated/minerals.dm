@@ -63,13 +63,13 @@
 		if(!isturf(T))
 			return
 
-		if(last_act + (40 * P.toolspeed) > world.time) // Prevents message spam
+		if(last_act + (40 * P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
 			return
 		last_act = world.time
 		to_chat(user, "<span class='notice'>You start picking...</span>")
 		P.playDigSound()
 
-		if(do_after(user, 40 * P.toolspeed, target = src))
+		if(do_after(user, 40 * P.toolspeed * gettoolspeedmod(user), target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				gets_drilled(user)

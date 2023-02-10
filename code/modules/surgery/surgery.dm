@@ -100,7 +100,7 @@
 		return
 
 	if(tool)
-		speed_mod = tool.toolspeed
+		speed_mod = tool.toolspeed * gettoolspeedmod(user)
 
 	if(do_after(user, time * speed_mod, target = target))
 		var/advance = 0

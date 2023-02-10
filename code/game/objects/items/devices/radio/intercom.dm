@@ -135,7 +135,7 @@
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() >= 5)
 			to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
-			if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1 && coil.use(5))
+			if(do_after(user, 10 * coil.toolspeed * gettoolspeedmod(user), target = src) && buildstage == 1 && coil.use(5))
 				to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 				buildstage = 2
 			return 1
@@ -144,7 +144,7 @@
 			return
 	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
 		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 10 * W.toolspeed, target = src) && buildstage == 0)
+		if(do_after(user, 10 * W.toolspeed * gettoolspeedmod(user), target = src) && buildstage == 0)
 			qdel(W)
 			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
 			buildstage = 1

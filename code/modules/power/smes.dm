@@ -207,7 +207,7 @@
 		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
 		playsound(src.loc, I.usesound, 50, 1)
 
-		if(do_after(user, 50 * I.toolspeed, target = src))
+		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(terminal && panel_open)
 				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 					do_sparks(5, 1, src)

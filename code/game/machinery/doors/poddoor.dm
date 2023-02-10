@@ -64,7 +64,7 @@
 		return
 	if(!hasPower())
 		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
-		if(do_after(user, 50 * I.toolspeed, target = src))
+		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
 			if(!hasPower())
 				open()
 			else

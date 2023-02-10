@@ -125,7 +125,7 @@
 			if(H == user) //shaving yourself
 				user.visible_message("<span class='notice'>[user] starts to shave [user.p_their()] facial hair with [src].</span>", \
 				"<span class='notice'>You take a moment shave your facial hair with \the [src].</span>")
-				if(do_after(user, 50 * toolspeed, target = H))
+				if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H))
 					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] facial hair clean with [src].</span>", \
 					"<span class='notice'>You finish shaving with [src]. Fast and clean!</span>")
 					C.f_style = "Shaved"
@@ -136,7 +136,7 @@
 				var/turf/H_loc = H.loc
 				user.visible_message("<span class='danger'>[user] tries to shave [H]'s facial hair with \the [src].</span>", \
 				"<span class='warning'>You start shaving [H]'s facial hair.</span>")
-				if(do_after(user, 50 * toolspeed, target = H))
+				if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves off [H]'s facial hair with \the [src].</span>", \
 						"<span class='notice'>You shave [H]'s facial hair clean off.</span>")
@@ -159,7 +159,7 @@
 			if(H == user) //shaving yourself
 				user.visible_message("<span class='warning'>[user] starts to shave [user.p_their()] head with [src].</span>", \
 				"<span class='warning'>You start to shave your head with \the [src].</span>")
-				if(do_after(user, 50 * toolspeed, target = H))
+				if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H))
 					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] head with [src].</span>", \
 					"<span class='notice'>You finish shaving with \the [src].</span>")
 					C.h_style = "Skinhead"
@@ -170,7 +170,7 @@
 				var/turf/H_loc = H.loc
 				user.visible_message("<span class='danger'>[user] tries to shave [H]'s head with \the [src]!</span>", \
 				"<span class='warning'>You start shaving [H]'s head.</span>")
-				if(do_after(user, 50 * toolspeed, target = H))
+				if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = H))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves [H]'s head bald with \the [src]!</span>", \
 						"<span class='warning'>You shave [H]'s head bald.</span>")

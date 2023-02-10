@@ -40,7 +40,7 @@
 	add_fingerprint(user)
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40 * W.toolspeed, target = src))
+		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 			if(!src)
 				return
 			playsound(loc, W.usesound, 100, 1)
@@ -131,7 +131,7 @@
 					to_chat(user, "<span class='warning'>You need two planks of wood to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -163,7 +163,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of metal to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -431,7 +431,7 @@
 		qdel(src)
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 40* W.toolspeed, target = src))
+		if(do_after(user, 40* W.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
 			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))

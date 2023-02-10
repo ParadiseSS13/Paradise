@@ -73,7 +73,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting the [src]. The timer is set to [det_time]...</span>")
 
-	if(do_after(user, 50 * toolspeed, target = AM))
+	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = AM))
 		if(!user.unEquip(src))
 			return
 		src.target = AM

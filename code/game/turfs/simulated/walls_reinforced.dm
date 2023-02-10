@@ -63,7 +63,7 @@
 		if(istype(I, /obj/item/stack/sheet/metal))
 			var/obj/item/stack/sheet/metal/MS = I
 			to_chat(user, "<span class='notice'>You begin patching-up the wall with [MS]...</span>")
-			if(do_after(user, max(20 * d_state, 100) * MS.toolspeed, target = src) && d_state)
+			if(do_after(user, max(20 * d_state, 100) * MS.toolspeed * gettoolspeedmod(user), target = src) && d_state)
 				if(!MS.use(1))
 					to_chat(user, "<span class='warning'>You don't have enough [MS.name] for that!</span>")
 					return
@@ -79,7 +79,7 @@
 			to_chat(user, "<span class='notice'>The wall is already coated!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin adding an additional layer of coating to the wall with [PS]...</span>")
-		if(do_after(user, 40 * PS.toolspeed, target = src) && !d_state)
+		if(do_after(user, 40 * PS.toolspeed * gettoolspeedmod(user), target = src) && !d_state)
 			if(!PS.use(2))
 				to_chat(user, "<span class='warning'>You don't have enough [PS.name] for that!</span>")
 				return
@@ -206,7 +206,7 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, "<span class='notice'>You begin to drill though the wall...</span>")
 
-		if(do_after(user, 800 * I.toolspeed, target = src)) // Diamond drill has 0.25 toolspeed, so 200
+		if(do_after(user, 800 * I.toolspeed * gettoolspeedmod(user), target = src)) // Diamond drill has 0.25 toolspeed, so 200
 			to_chat(user, "<span class='notice'>Your drill tears through the last of the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE
@@ -214,7 +214,7 @@
 	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>You begin to disintegrate the wall...</span>")
 
-		if(do_after(user, 1000 * I.toolspeed, target = src)) // Jackhammer has 0.1 toolspeed, so 100
+		if(do_after(user, 1000 * I.toolspeed * gettoolspeedmod(user), target = src)) // Jackhammer has 0.1 toolspeed, so 100
 			to_chat(user, "<span class='notice'>Your sonic jackhammer disintegrates the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE

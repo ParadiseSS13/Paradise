@@ -68,7 +68,7 @@
 			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly...")
-		if(do_after(user, 40 * coil.toolspeed, target = src))
+		if(do_after(user, 40 * coil.toolspeed * gettoolspeedmod(user), target = src))
 			if(coil.get_amount() < 1 || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 				return
 			coil.use(1)
@@ -79,7 +79,7 @@
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
-		if(do_after(user, 40 * W.toolspeed, target = src))
+		if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 				return
 			user.drop_item()
@@ -98,7 +98,7 @@
 						if(istype(S, /obj/item/stack/sheet/rglass) || istype(S, /obj/item/stack/sheet/glass))
 							playsound(loc, S.usesound, 100, 1)
 							user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-							if(do_after(user, 40 * S.toolspeed, target = src))
+							if(do_after(user, 40 * S.toolspeed * gettoolspeedmod(user), target = src))
 								if(S.get_amount() < 1 || glass)
 									return
 								if(S.type == /obj/item/stack/sheet/rglass)
@@ -114,7 +114,7 @@
 							if(S.get_amount() >= 2)
 								playsound(loc, S.usesound, 100, 1)
 								user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-								if(do_after(user, 40 * S.toolspeed, target = src))
+								if(do_after(user, 40 * S.toolspeed * gettoolspeedmod(user), target = src))
 									if(S.get_amount() < 2 || mineral)
 										return
 									to_chat(user, "<span class='notice'>You install [M] plating into the airlock assembly.</span>")

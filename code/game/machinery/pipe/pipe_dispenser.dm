@@ -106,7 +106,7 @@
 		if(unwrenched==0)
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
+			if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
@@ -119,7 +119,7 @@
 		else /*if(unwrenched==1)*/
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You begin to fasten \the [src] to the floor...</span>")
-			if(do_after(user, 20 * W.toolspeed, target = src))
+			if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \

@@ -97,7 +97,7 @@
 					return
 				to_chat(user, "<span class='notice'>You start to reinforce the windoor with plasteel...</span>")
 
-				if(do_after(user, 40 * P.toolspeed, target = src))
+				if(do_after(user, 40 * P.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || secure || P.get_amount() < 2)
 						return
 					playsound(loc, P.usesound, 100, 1)
@@ -114,7 +114,7 @@
 			else if(iscoil(W) && anchored)
 				user.visible_message("[user] wires the windoor assembly.", "You start to wire the windoor assembly...")
 
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || !anchored || state != "01")
 						return
 					var/obj/item/stack/cable_coil/CC = W
@@ -137,7 +137,7 @@
 				user.drop_item()
 				W.forceMove(src)
 
-				if(do_after(user, 40 * W.toolspeed, target = src))
+				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || electronics)
 						W.forceMove(loc)
 						return
