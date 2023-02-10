@@ -88,7 +88,7 @@
 /datum/gear/suit/coat/job/hop
 	display_name = "winter coat, head of personnel"
 	path = /obj/item/clothing/suit/hooded/wintercoat/hop
-	allowed_roles = list("Head Of Personnel")
+	allowed_roles = list("Head of Personnel")
 
 //LABCOATS
 /datum/gear/suit/labcoat_emt
