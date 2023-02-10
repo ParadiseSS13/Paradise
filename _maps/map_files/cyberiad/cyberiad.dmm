@@ -49089,16 +49089,19 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/cyborgrecharger{
-	pixel_x = -4;
-	pixel_y = -2
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /obj/item/circuitboard/mech_bay_power_console{
-	pixel_x = 2;
-	pixel_y = 2
+	pixel_y = 0
 	},
-/obj/item/circuitboard/mech_recharger,
+/obj/item/circuitboard/mech_recharger{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /obj/item/circuitboard/mechfab{
-	pixel_y = 3
+	pixel_y = -6;
+	pixel_x = 6
 	},
 /obj/machinery/power/apc{
 	dir = 1;
@@ -49120,7 +49123,6 @@
 "cvA" = (
 /obj/structure/table,
 /obj/item/plant_analyzer,
-/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cvB" = (
@@ -49469,8 +49471,11 @@
 /area/engine/controlroom)
 "cwN" = (
 /obj/structure/table,
-/obj/item/apc_electronics,
-/obj/item/airlock_electronics,
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cwO" = (
@@ -50130,6 +50135,10 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
+/obj/item/circuitboard/aicore{
+	pixel_x = 5;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
 "cyv" = (
@@ -50142,16 +50151,17 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/rdconsole{
-	pixel_x = -4
+	pixel_x = -6;
+	pixel_y = 6
 	},
 /obj/item/circuitboard/rdserver{
-	pixel_x = 4;
-	pixel_y = -2
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /obj/item/circuitboard/destructive_analyzer,
 /obj/item/circuitboard/protolathe{
-	pixel_x = -2;
-	pixel_y = 3
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -50159,8 +50169,8 @@
 	icon_state = "1-2"
 	},
 /obj/item/circuitboard/circuit_imprinter{
-	pixel_x = -4;
-	pixel_y = -3
+	pixel_y = -6;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -50175,12 +50185,23 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/message_monitor{
-	pixel_y = -5
+	pixel_y = 6;
+	pixel_x = -6
 	},
-/obj/item/circuitboard/arcade/battle,
-/obj/item/circuitboard/arcade/orion_trail{
-	pixel_x = -4;
-	pixel_y = 2
+/obj/item/circuitboard/aifixer{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/circuitboard/teleporter{
+	pixel_y = 0
+	},
+/obj/item/circuitboard/teleporter_hub{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/circuitboard/teleporter_station{
+	pixel_x = 6;
+	pixel_y = -6
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -50201,12 +50222,12 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/autolathe{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/item/circuitboard/ore_redemption{
 	pixel_x = 3;
 	pixel_y = -3
-	},
-/obj/item/circuitboard/bodyscanner,
-/obj/item/circuitboard/sleeper{
-	pixel_x = 3
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -50700,17 +50721,13 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/crew{
-	pixel_x = -1;
-	pixel_y = 1
+/obj/item/circuitboard/communications{
+	pixel_y = 1;
+	pixel_x = -1
 	},
 /obj/item/circuitboard/card{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/circuitboard/communications{
-	pixel_x = 5;
-	pixel_y = -5
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
@@ -51177,7 +51194,7 @@
 "cBl" = (
 /obj/structure/table,
 /obj/item/screwdriver{
-	pixel_y = 16
+	pixel_y = 8
 	},
 /obj/item/wirecutters,
 /turf/simulated/floor/plating,
@@ -51226,12 +51243,12 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/robotics{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /obj/item/circuitboard/mecha_control{
-	pixel_x = 1;
-	pixel_y = -1
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
@@ -51240,16 +51257,33 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/cloning,
-/obj/item/circuitboard/med_data{
+/obj/item/circuitboard/cloning{
+	pixel_y = 8;
+	pixel_x = -8
+	},
+/obj/item/circuitboard/clonescanner{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/circuitboard/clonepod{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/circuitboard/cryo_tube{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/item/circuitboard/pandemic{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/circuitboard/clonescanner,
-/obj/item/circuitboard/clonepod,
-/obj/item/circuitboard/scan_consolenew,
-/obj/item/circuitboard/cryo_tube{
-	pixel_x = 3
+/obj/item/circuitboard/bodyscanner{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/circuitboard/sleeper{
+	pixel_x = 9;
+	pixel_y = -9
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -51259,20 +51293,19 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/powermonitor{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /obj/item/circuitboard/stationalert{
-	pixel_x = 1;
-	pixel_y = -1
+	pixel_y = 0
 	},
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/circuitboard/thermomachine,
 /obj/item/circuitboard/smes{
-	pixel_x = 4
+	pixel_x = 6;
+	pixel_y = -6
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -51282,12 +51315,16 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/secure_data{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /obj/item/circuitboard/camera{
-	pixel_x = 1;
-	pixel_y = -1
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/circuitboard/prisoner{
+	pixel_x = 5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -51673,7 +51710,6 @@
 	pixel_y = 3
 	},
 /obj/item/stack/cable_coil,
-/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cCQ" = (
