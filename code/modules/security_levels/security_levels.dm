@@ -108,6 +108,19 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 						FA.update_icon()
+				// Empty the manifest
+				GLOB.PDA_Manifest = list(\
+					"heads" = list(),\
+					"pro" = list(),\
+					"sec" = list(),\
+					"eng" = list(),\
+					"med" = list(),\
+					"sci" = list(),\
+					"ser" = list(),\
+					"sup" = list(),\
+					"bot" = list(),\
+					"misc" = list()\
+					)
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("Механизм самоуничтожения станции задействован. Все члены экипажа обязан подчиняться всем указаниям, данными Главами отделов. Любые нарушения этих приказов наказуемы уничтожением на месте. Это не учебная тревога.","ВНИМАНИЕ! КОД ДЕЛЬТА!", new_sound = sound('sound/effects/deltaalarm.ogg'))
