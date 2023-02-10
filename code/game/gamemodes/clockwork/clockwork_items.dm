@@ -984,7 +984,8 @@
 /obj/item/mmi/robotic_brain/clockwork/transfer_personality(mob/candidate)
 	searching = FALSE
 	brainmob.key = candidate.key
-	brainmob.real_name = "[pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
+	brainmob.name = "[pick(list("Nycun", "Oenib", "Havsbez", "Ubgry", "Fvreen"))]-[rand(10, 99)]"
+	brainmob.real_name = brainmob.name
 	name = "[src] ([brainmob.name])"
 	brainmob.mind.assigned_role = "Soul Vessel Cube"
 	visible_message("<span class='notice'>[src] chimes quietly.</span>")
@@ -1003,7 +1004,7 @@
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 		if(do_after(user, 40, target = src))
-			var/obj/item/mmi/robotic_brain/purified = new(get_turf(src))
+			var/obj/item/mmi/robotic_brain/positronic/purified = new(get_turf(src))
 			if(brainmob.key)
 				SSticker.mode.remove_clocker(brainmob.mind)
 				purified.transfer_identity(brainmob)

@@ -39,6 +39,7 @@
 /mob/living/simple_animal/hostile/clockwork/marauder/Initialize(mapload)
 	. = ..()
 	real_name = text("clockwork marauder ([rand(1, 1000)])")
+	name = real_name
 
 /mob/living/simple_animal/hostile/clockwork/marauder/death(gibbed)
 	. = ..()
