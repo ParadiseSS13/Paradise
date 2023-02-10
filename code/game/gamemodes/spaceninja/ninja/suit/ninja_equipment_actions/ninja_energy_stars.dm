@@ -33,10 +33,10 @@
 	icon_state = "shuriken_emitter"
 	item_state = ""
 	ninja_weapon = TRUE
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	slot_flags = 0
-	flags = DROPDEL | ABSTRACT
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken)
 	can_charge = 0
 	burst_size = 3

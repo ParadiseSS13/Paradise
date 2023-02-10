@@ -39,9 +39,9 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "chameleon_device"
 	item_state = ""
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = 0
-	flags =  DROPDEL | ABSTRACT
+	flags =  DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
 	var/effect_color = "#ffaa00"
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninja_chameleon/my_action = null
@@ -58,8 +58,6 @@
 /obj/item/ninja_chameleon_scanner/attack_self(mob/user)
 	ninja_chameleon(user, user)
 
-/obj/item/ninja_chameleon_scanner/attack()
-	return
 
 /obj/item/ninja_chameleon_scanner/afterattack(atom/target, mob/living/user, proximity)
 	var/mob/target_mob = get_mob_in_atom_without_warning(target)

@@ -39,15 +39,16 @@
 	max_charges = 1
 	recharge_rate = 0
 	charge_tick = 1
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_MEDIUM
 	slot_flags = 0
-	flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	flags = DROPDEL | ABSTRACT | NOBLUDGEON | NOPICKUP
 	force = 10
 	ninja_weapon = TRUE
 	var/cost = 500
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/johyo/my_action = null
+
 
 /obj/item/gun/magic/johyo/Destroy()
 	. = ..()

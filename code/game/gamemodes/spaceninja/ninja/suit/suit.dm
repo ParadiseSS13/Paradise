@@ -15,7 +15,6 @@
 	icon_state = "ninja_suit"
 	item_state = "ninja_suit"
 	allowed = list(
-		/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing,
 		/obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank,
 		/obj/item/stock_parts/cell, /obj/item/grenade/plastic/c4/ninja)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
