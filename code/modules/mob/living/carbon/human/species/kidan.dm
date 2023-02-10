@@ -14,6 +14,7 @@
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
 	flesh_color = "#ba7814"
+	blood_species = "Kidan"
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG
 	//Default styles for created mobs.

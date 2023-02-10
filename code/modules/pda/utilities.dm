@@ -103,7 +103,8 @@
 					to_chat(user, "<span class='notice'>\t [R]</span>")
 				else
 					var/blood_type = R.data["blood_type"]
-					to_chat(user, "<span class='notice'>\t [R] [blood_type]</span>")
+					var/blood_species = R.data["blood_species"]
+					to_chat(user, "<span class='notice'>\t [R] [blood_type] [blood_species]</span>")
 		else
 			to_chat(user, "<span class='notice'>No active chemical agents found in [A].</span>")
 	else

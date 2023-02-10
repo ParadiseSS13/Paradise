@@ -18,6 +18,8 @@
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	flesh_color = "#8CD7A3"
+
+	blood_species = "Skrell"
 	blood_color = "#1D2CBF"
 	base_color = "#38b661" //RGB: 56, 182, 97.
 	default_hair_colour = "#38b661"

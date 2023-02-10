@@ -30,6 +30,7 @@
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
+	blood_species = "Tajaran"
 	flesh_color = "#b5a69b"
 	base_color = "#424242"
 	butt_sprite = "tajaran"
@@ -86,5 +87,5 @@
 	H.verbs -= /mob/living/carbon/human/proc/emote_wag
 	H.verbs -= /mob/living/carbon/human/proc/emote_swag
 	H.verbs -= /mob/living/carbon/human/proc/emote_purr
-	H.verbs -= /mob/living/carbon/human/proc/emote_purrl	
+	H.verbs -= /mob/living/carbon/human/proc/emote_purrl
 	H.verbs -= /mob/living/carbon/human/proc/emote_hisses

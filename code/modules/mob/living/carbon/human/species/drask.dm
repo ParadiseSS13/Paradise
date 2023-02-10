@@ -50,6 +50,7 @@
 	flesh_color = "#a3d4eb"
 	reagent_tag = PROCESS_ORG
 	base_color = "#a3d4eb"
+	blood_species = "Drask"
 	blood_color = "#a3d4eb"
 	butt_sprite = "drask"
 

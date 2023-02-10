@@ -28,6 +28,7 @@
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	skinned_type = /obj/item/stack/sheet/wood
 
+	blood_species = "Diona"
 	blood_color = "#004400"
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"

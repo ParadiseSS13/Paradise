@@ -387,6 +387,20 @@
 		R.on_update(A)
 	update_total()
 
+/datum/reagents/proc/find_blood_group(var/datum/chemical_reaction/reaction)
+	for(var/K in reaction.required_blood_group)
+		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
+		if(I.data["blood_group"] == K)
+			return TRUE
+	return FALSE
+
+/datum/reagents/proc/find_blood_species(var/datum/chemical_reaction/reaction)
+	for(var/K in reaction.required_blood_species)
+		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
+		if(I.data["blood_species"] == K)
+			return TRUE
+	return FALSE
+
 /datum/reagents/proc/handle_reactions()
 	if(flags & REAGENT_NOREACT)
 		return //Yup, no reactions here. No siree.
@@ -413,6 +427,13 @@
 				for(var/B in C.required_reagents)
 					if(!has_reagent(B, C.required_reagents[B]))
 						break
+					if((B == "blood") && (C.required_blood_group || C.required_blood_species))
+						if(C.required_blood_group)
+							if(!find_blood_group(C))
+								break
+						if(C.required_blood_species)
+							if(!find_blood_species(C))
+								break
 					total_matching_reagents++
 					multipliers += round(get_reagent_amount(B) / C.required_reagents[B])
 				for(var/B in C.required_catalysts)

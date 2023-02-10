@@ -246,6 +246,7 @@
 			dat += "<h3>Данные образца крови:</h3>"
 			dat += "<b>ДНК крови:</b> [(Blood.data["blood_DNA"]||"нет")]<BR>"
 			dat += "<b>Тип крови:</b> [(Blood.data["blood_type"]||"нет")]<BR>"
+			dat += "<b>Тип расовой крови:</b> [(Blood.data["blood_species"]||"нет")]<BR>"
 
 
 			if(Blood.data["viruses"])

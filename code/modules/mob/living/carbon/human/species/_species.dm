@@ -11,6 +11,8 @@
 	var/damage_mask = 'icons/mob/human_races/masks/dam_mask_human.dmi'
 	var/blood_mask = 'icons/mob/human_races/masks/blood_human.dmi'
 
+	var/blood_species // Species blood's name
+
 	var/eyes = "eyes_s"                                  // Icon for eyes.
 	var/blurb = "A completely nondescript species."      // A brief lore summary for use in the chargen screen.
 	var/butt_sprite = "human"

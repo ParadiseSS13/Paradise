@@ -5,6 +5,8 @@
 	var/result = null
 	var/list/required_reagents = list()
 	var/list/required_catalysts = list()
+	var/list/required_blood_group  = null //requested blood groups, for example, "A+"
+	var/list/required_blood_species = null //requested blood's species name, for example, "Vox"
 
 	// Both of these variables are mostly going to be used with slime cores - but if you want to, you can use them for other things
 	var/atom/required_container = null // the container required for the reaction to happen

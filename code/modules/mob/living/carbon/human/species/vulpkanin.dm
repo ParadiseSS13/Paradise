@@ -21,6 +21,7 @@
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 
+	blood_species = "Vulpkanin"
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"

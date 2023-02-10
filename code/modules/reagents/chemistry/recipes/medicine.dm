@@ -163,6 +163,15 @@
 	mix_message = "The mixture rapidly turns into a dense pink liquid."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/sbloodoxy
+	name = "Syntetic Blood"
+	id = "sbloodoxy"
+	result = "sbloodoxy"
+	required_reagents = list("blood" = 1, "perfluorodecalin" = 1)
+	required_blood_species = list("Vox")
+	result_amount = 1
+	mix_message = "The mixture rapidly turns into a dense pink liquid."
+
 /datum/chemical_reaction/ephedrine
 	name = "Ephedrine"
 	id = "ephedrine"

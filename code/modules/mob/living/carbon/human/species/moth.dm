@@ -17,6 +17,7 @@
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | HAS_SKIN_COLOR
 	reagent_tag = PROCESS_ORG
 	tox_mod = 1.5
+	blood_species = "Nian"
 	blood_color = "#b9ae9c"
 	unarmed_type = /datum/unarmed_attack/claws
 	scream_verb = "жужжит"

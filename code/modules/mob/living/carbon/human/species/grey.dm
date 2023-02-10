@@ -27,6 +27,7 @@
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#a598ad"
+	blood_species = "Grey"
 	blood_color = "#A200FF"
 
 	disliked_food = SUGAR | FRIED
