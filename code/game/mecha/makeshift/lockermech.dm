@@ -10,6 +10,7 @@
 	internal_damage_threshold = 30 //Its got shitty durability
 	max_equip = 2 //You only have two arms and the control system is shitty
 	wreckage = null
+	mech_enter_time = 20
 	var/list/cargo = list()
 	var/cargo_capacity = 5 // you can fit a few things in this locker but not much.
 

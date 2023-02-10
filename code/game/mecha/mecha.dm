@@ -18,6 +18,7 @@
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
+	var/mech_enter_time = 40 // Entering mecha time
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
@@ -1098,7 +1099,7 @@
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 
-	if(do_after(user, 40, target = src))
+	if(do_after(user, src.mech_enter_time, target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
