@@ -230,7 +230,6 @@ antag_account_age_restrictions = false
 # Gamemode probabilities map for if you are using secret or random
 gamemode_probabilities = [
 	{gamemode = "abduction", probability = 0},
-	{gamemode = "blob", probability = 1},
 	{gamemode = "changeling", probability = 3},
 	{gamemode = "cult", probability = 3},
 	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
