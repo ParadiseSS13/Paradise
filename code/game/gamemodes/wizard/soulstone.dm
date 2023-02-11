@@ -28,7 +28,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		return FALSE
 
-	if(iscultist(user) || iswizard(user) || usability)
+	if(iscultist(user) || iswizard(user) || (user.mind.isholy && purified))
 		return TRUE
 
 	return FALSE
@@ -59,7 +59,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		to_chat(user, "<span class='danger'>[src] reeks of holy magic. You will need to cleanse it with a ritual dagger before anything can be done with it.</span>")
 	if(!can_use(user))
-		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up [src].</span>")
+		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up [src]. It looks fragile enough to break with your hands.</span>")
 
 /obj/item/soulstone/Destroy() //Stops the shade from being qdel'd immediately and their ghost being sent back to the arrival shuttle.
 	for(var/mob/living/simple_animal/shade/A in src)
@@ -200,17 +200,27 @@
 		..()
 
 /obj/item/soulstone/attack_self(mob/living/user)
-	if(!in_range(src, user))
+	var/mob/living/simple_animal/shade/S = locate(/mob/living/simple_animal/shade) in contents
+	if(!in_range(src, user) || !S)
 		return
 
-	if(!can_use(user))
-		user.Weaken(10 SECONDS)
-		user.emote("scream")
-		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
-		return
+	if(can_use(user))
+		release_shades(user)
 
-	release_shades(user)
-	return
+	else if(do_after_once(user, 5 SECONDS, FALSE, src))
+		user.visible_message("[user] shatters the soulstone apart! Releasing [src] from their prison!", "You shatter the soulstone holding [src], binding them free!", "You hear something shatter with a ghastly crack.")
+		for(var/atom/movable/AM in src)
+			if(isshade(AM))
+				continue
+			if(isliving(AM))
+				var/mob/living/L = AM
+				L.key = S.key
+				S.cancel_camera()
+			// insert borg stuff here later
+			AM.forceMove(get_turf(src))
+			SSticker.mode.add_cult_immunity(AM)
+		qdel(src)
+		return
 
 /obj/item/soulstone/proc/release_shades(mob/user)
 	for(var/mob/living/simple_animal/shade/A in src)
@@ -270,7 +280,7 @@
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
 				T.Paralyse(40 SECONDS)
 				if(!get_cult_ghost(T, user, TRUE))
-					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
+					T.forceMove(src) //If we can't get a ghost, shard the body anyways.
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
@@ -300,7 +310,7 @@
 			if((iscultist(T) && purified) || (T.holy && !purified))
 				to_chat(user, "<span class='danger'>Capture failed!</span> The shade recoils away from [src]!")
 			else
-				if(length(contents))
+				if(locate(/mob/living/simple_animal/shade) in contents)
 					to_chat(user, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
 					T.forceMove(src) // Put the shade into the stone.
@@ -360,10 +370,18 @@
 		to_chat(src, "<span class='userdanger'>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</span>")
 	else
 		to_chat(src, "<span class='userdanger'>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</span>")
+	var/atom/movable/body = SS.get_body()
+	body.forceMove(src)
 	cancel_camera()
 	qdel(shell)
 	qdel(shade)
 	qdel(SS)
+
+/obj/item/soulstone/proc/get_body()
+	for(var/atom/movable/AM in src)
+		if(isshade(AM))
+			continue
+		return AM
 
 /proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE)
 	if(jobban_isbanned(target, ROLE_CULTIST))
@@ -406,11 +424,11 @@
 	if(forced && user)
 		to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
 	if(isrobot(M))//Robots have to dust or else they spill out an empty robot brain, and unequiping them spills robot components that shouldn't spawn.
-		M.dust()
+		M.forceMove()
 	else
 		for(var/obj/item/I in M)
 			M.unEquip(I)
-		M.dust()
+		M.forceMove(src)
 
 /obj/item/soulstone/proc/get_shade_type()
 	if(purified)

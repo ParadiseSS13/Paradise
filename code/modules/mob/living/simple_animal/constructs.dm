@@ -51,6 +51,13 @@
 	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
+	for(var/atom/movable/AM in src)
+		AM.forceMove(get_turf(src))
+		SSticker.mode.add_cult_immunity(AM)
+		if(isliving(AM))
+			var/mob/living/L = AM
+			L.key = key
+			L.cancel_camera()
 	. = ..()
 	SSticker.mode.remove_cultist(mind, FALSE)
 

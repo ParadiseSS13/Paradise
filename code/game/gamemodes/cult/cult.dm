@@ -209,6 +209,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
 
+/datum/game_mode/proc/add_cult_immunity(mob/living/target)
+	ADD_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(remove_cult_immunity), target), 10 SECONDS)
+
+/datum/game_mode/proc/remove_cult_immunity(mob/living/target)
+	REMOVE_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)
+
 
 /**
   * Decides at the start of the round how many conversions are needed to rise/ascend.

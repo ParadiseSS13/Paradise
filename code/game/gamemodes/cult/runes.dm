@@ -313,7 +313,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	rune_in_use = TRUE
 	var/mob/living/L = pick(offer_targets)
-	if(L.mind in GLOB.sacrificed)
+	if(HAS_TRAIT(L, TRAIT_CULT_IMMUNITY))
 		fail_invoke()
 		rune_in_use = FALSE
 		return
@@ -388,6 +388,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/sacrifice_fulfilled
 	var/worthless = FALSE
 	var/datum/game_mode/gamemode = SSticker.mode
+
+	if(isliving(offering))
+		var/mob/living/L = offering
+		L.adjustCloneLoss(120)
+		L.death(FALSE)
+
 	if(offering.mind)
 		GLOB.sacrificed += offering.mind
 		if(is_sacrifice_target(offering.mind))
