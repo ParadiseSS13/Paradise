@@ -106,6 +106,45 @@
 /obj/item/gun/energy/lasercannon/cyborg/emp_act()
 	return
 
+/obj/item/gun/energy/lwap
+	name = "LWAP laser sniper"
+	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly."
+	icon_state = "esniper"
+	item_state = null
+	w_class = WEIGHT_CLASS_BULKY
+	force = 12
+	flags =  CONDUCT
+	slot_flags = SLOT_BACK
+	can_holster = FALSE
+	origin_tech = "combat=6;magnets=6;powerstorage=4"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper)
+	zoomable = TRUE
+	zoom_amt = 7
+	shaded_charge = TRUE
+
+/obj/item/ammo_casing/energy/laser/sniper
+	projectile_type = /obj/item/projectile/beam/laser/sniper
+	muzzle_flash_color = LIGHT_COLOR_PINK
+	select_name = "sniper"
+	fire_sound = 'sound/weapons/marauder.ogg'
+	delay = 50
+
+/obj/item/projectile/beam/laser/sniper
+	name = "sniper laser"
+	icon_state = "sniperlaser"
+	range = 255
+	damage = 10
+
+/obj/item/projectile/beam/laser/sniper/Range()
+	..()
+	damage = min(damage+5, 100)
+
+/obj/item/projectile/beam/laser/sniper/on_hit(atom/target, blocked = 0, hit_zone)
+	..()
+	var/mob/living/carbon/human/M = target
+	if(ishuman(target) && damage >= 40)
+		M.KnockDown(2 SECONDS * (damage/10))
+
 /obj/item/gun/energy/xray
 	name = "xray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts. These blasts will penetrate solid objects, but will decrease in power the longer they have to travel."
