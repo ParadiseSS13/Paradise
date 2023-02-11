@@ -8,12 +8,12 @@
 	name = "tajaran eyeballs"
 	colourblind_matrix = MATRIX_TAJ_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
 	replace_colours = TRITANOPIA_COLOR_REPLACE
-	see_in_dark = 8
+	see_in_dark = 4
 
 /obj/item/organ/internal/eyes/tajaran/farwa //Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
 	name = "farwa eyeballs"
 	colourmatrix = MATRIX_TAJ_CBLIND
-	see_in_dark = 8
+	see_in_dark = 3
 	replace_colours = TRITANOPIA_COLOR_REPLACE
 
 /obj/item/organ/internal/heart/tajaran

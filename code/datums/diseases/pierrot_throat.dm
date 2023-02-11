@@ -12,7 +12,8 @@
 	severity = MEDIUM
 
 /datum/disease/pierrot_throat/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(10))

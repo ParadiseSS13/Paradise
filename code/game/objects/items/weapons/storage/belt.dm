@@ -444,7 +444,7 @@
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator/janitor(src)
-	new /obj/item/reagent_containers/spray/cleaner(src)
+	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
@@ -484,7 +484,8 @@
 	desc = "A bandolier for holding shotgun ammunition."
 	icon_state = "bandolier"
 	item_state = "bandolier"
-	storage_slots = 8
+	storage_slots = 16
+	max_combined_w_class = 16
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 	display_contents_with_number = TRUE
 
@@ -494,10 +495,10 @@
 
 /obj/item/storage/belt/bandolier/full/populate_contents()
 	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/belt/bandolier/update_icon_state()
-	icon_state = "[initial(icon_state)]_[length(contents)]"
+	icon_state = "[initial(icon_state)]_[min(length(contents), 8)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user)
 	var/amount = length(contents)

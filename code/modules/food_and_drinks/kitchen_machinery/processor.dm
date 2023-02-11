@@ -5,12 +5,10 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
+	idle_power_consumption = 5
+	active_power_consumption = 50
 
 	var/processing = FALSE
-
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 50
 	var/rating_speed = 1
 	var/rating_amount = 1
 
@@ -171,7 +169,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	if(default_unfasten_wrench(user, O))
+	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		return
 
 	default_deconstruction_crowbar(user, O)

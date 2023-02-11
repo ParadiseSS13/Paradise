@@ -122,7 +122,7 @@
 
 	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
 		var/obj/item/organ/external/head/head = H.get_organ("head")
-		head.disfigure()
+		head?.disfigure()
 		H.inflate_gib()
 		return OBLITERATION
 
@@ -209,6 +209,7 @@
 	return air_contents.remove(amount)
 
 /obj/item/tank/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/item/tank/assume_air(datum/gas_mixture/giver)

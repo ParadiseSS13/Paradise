@@ -33,7 +33,7 @@
   */
 /datum/client_login_processor/proc/get_query(client/C)
 	RETURN_TYPE(/datum/db_query)
-	CRASH("get_query() not overriden for [type]!")
+	CRASH("get_query() not overridden for [type]!")
 
 
 
@@ -48,4 +48,4 @@
   * * C - The client to store stuff on
   */
 /datum/client_login_processor/proc/process_result(datum/db_query/Q, client/C)
-	CRASH("process_result() not overriden for [type]!")
+	CRASH("process_result() not overridden for [type]!")

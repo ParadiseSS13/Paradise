@@ -79,7 +79,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
 	volume = 1000
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	interact_offline = TRUE
 	var/release_log = ""
 	var/update_flag = NONE
@@ -270,6 +270,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		can_label = FALSE
 
 /obj/machinery/atmospherics/portable/canister/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/machinery/atmospherics/portable/canister/proc/return_temperature()

@@ -14,9 +14,8 @@ Pipelines + Other Objects -> Pipe network
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	plane = GAME_PLANE
-	idle_power_usage = 0
-	active_power_usage = 0
-	power_channel = ENVIRON
+	power_state = NO_POWER_USE
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 
@@ -43,6 +42,9 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	/// Pipe image, not used for all subtypes
 	var/image/pipe_image
+
+	/// ID for automatic linkage of stuff. This is used to assist in connections at mapload. Dont try use it for other stuff
+	var/autolink_id = null
 
 
 /obj/machinery/atmospherics/Initialize(mapload)
@@ -73,12 +75,6 @@ Pipelines + Other Objects -> Pipe network
 		L.forceMove(get_turf(src))
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
-
-/obj/machinery/atmospherics/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
@@ -413,7 +409,7 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is toggling the machine.
  */
 /obj/machinery/atmospherics/proc/toggle(mob/living/user)
-	if(!powered())
+	if(!has_power())
 		return
 	on = !on
 	update_icon()
@@ -429,7 +425,7 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is setting the output pressure to maximum.
  */
 /obj/machinery/atmospherics/proc/set_max(mob/living/user)
-	if(!powered())
+	if(!has_power())
 		return
 	target_pressure = MAX_OUTPUT_PRESSURE
 	update_icon()
