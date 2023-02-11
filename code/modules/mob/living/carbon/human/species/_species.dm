@@ -507,9 +507,6 @@
 			target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
 							"<span class='userdanger'>[user] has knocked down [target]!</span>")
 			target.KnockDown(4 SECONDS)
-			target.forcesay(GLOB.hit_appends)
-		else if(IS_HORIZONTAL(target))
-			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
