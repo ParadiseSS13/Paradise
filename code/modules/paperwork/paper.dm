@@ -784,9 +784,11 @@
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.reagents.add_reagent(contact_poison, contact_poison_volume)
-		add_attack_logs(src, user, "Picked up [src], coated with [contact_poison] by [contact_poison_poisoner]")
-		contact_poison = null
+		var/obj/item/clothing/gloves/G = H.gloves
+		if(!istype(G) || !G.safe_from_poison)
+			H.reagents.add_reagent(contact_poison, contact_poison_volume)
+			add_attack_logs(src, user, "Picked up [src], coated with [contact_poison] by [contact_poison_poisoner]")
+			contact_poison = null
 	. = ..()
 
 /obj/item/paper/researchnotes

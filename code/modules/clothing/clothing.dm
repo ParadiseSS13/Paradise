@@ -267,6 +267,7 @@
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
+	var/safe_from_poison = FALSE //Do they protect the wearer from poison ink?
 	strip_delay = 20
 	put_on_delay = 40
 
