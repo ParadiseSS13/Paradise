@@ -116,6 +116,7 @@
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
 	can_holster = FALSE
+	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper)
 	zoomable = TRUE
