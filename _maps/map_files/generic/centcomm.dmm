@@ -1256,7 +1256,7 @@
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 32;
-	use_power = 0
+	power_state = 0
 	},
 /obj/item/clipboard,
 /turf/simulated/floor/plasteel/dark,

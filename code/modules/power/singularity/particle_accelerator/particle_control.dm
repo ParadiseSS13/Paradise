@@ -6,9 +6,9 @@
 	reference = "control_box"
 	anchored = FALSE
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 500
-	active_power_usage = 10000
+	power_state = NO_POWER_USE
+	idle_power_consumption = 500
+	active_power_consumption = 10000
 	construction_state = 0
 	active = FALSE
 	dir = 1
@@ -48,7 +48,7 @@
 
 /obj/machinery/particle_accelerator/control_box/update_state()
 	if(construction_state < 3)
-		use_power = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 		assembled = 0
 		active = FALSE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
@@ -58,7 +58,7 @@
 		connected_parts = list()
 		return
 	if(!part_scan())
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		active = FALSE
 		connected_parts = list()
 
@@ -71,7 +71,7 @@
 		if(stat & NOPOWER)
 			icon_state = "[reference]w"
 			return
-		else if(use_power && assembled)
+		else if(power_state && assembled)
 			icon_state = "[reference]p"
 		else
 			switch(construction_state)
@@ -150,9 +150,9 @@
 	..()
 	if(stat & NOPOWER)
 		active = FALSE
-		use_power = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 	else if(!stat && construction_state <= 3)
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 	update_icon()
 
 	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
@@ -234,13 +234,13 @@
 		usr.create_log(MISC_LOG, "PA Control Computer turned ON", src)
 		log_game("PA Control Computer turned ON by [key_name(usr)] in ([x],[y],[z])")
 	if(active)
-		use_power = ACTIVE_POWER_USE
+		change_power_mode(ACTIVE_POWER_USE)
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = strength
 			part.powered = TRUE
 			part.update_icon()
 	else
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
 			part.powered = FALSE

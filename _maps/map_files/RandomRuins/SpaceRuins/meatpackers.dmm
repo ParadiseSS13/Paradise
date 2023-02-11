@@ -128,11 +128,11 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 1;
-	environ = 2;
-	equipment = 0;
-	lighting = 0;
+	environment_channel = 2;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	locked = 0;
 	pixel_y = 24;
 	req_access = ""
@@ -429,10 +429,10 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 1;
-	equipment = 0;
-	lighting = 0;
+	equipment_channel = 0;
+	lighting_channel = 0;
 	locked = 0;
 	operating = 0;
 	pixel_y = 24;
@@ -765,9 +765,9 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 1;
-	environ = 0;
+	environment_channel = 0;
 	locked = 0;
 	operating = 0;
 	pixel_y = 24;
@@ -1126,7 +1126,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 1;
 	locked = 0;
 	operating = 0;
