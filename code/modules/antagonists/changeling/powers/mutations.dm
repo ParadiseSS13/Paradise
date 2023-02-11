@@ -484,6 +484,8 @@
 	. = ..()
 	if(istype(hitby, /obj/item/projectile/energy/charged_plasma))
 		armor_durability -= 200 // the plasma pistol is designed to be a niche tool for blasting through shields, may as well let it cut away armor
+	else if(istype(hitby, /obj/item/projectile/plasma))
+		armor_durability -= damage * 4
 	else if(istype(hitby, /obj/item/projectile))
 		var/obj/item/projectile/P = hitby
 		if(P.damage_type == BURN)
