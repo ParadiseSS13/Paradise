@@ -39,8 +39,31 @@ SUBSYSTEM_DEF(redis)
 			rustg_redis_subscribe(RCB.channel)
 			subbed_channels[RCB.channel] = RCB
 
+		// Send our presence to required channels
+		var/list/presence_data = list()
+		presence_data["author"] = "system"
+		presence_data["source"] = GLOB.configuration.system.instance_id
+		presence_data["message"] = "Connected at `[SQLtime()]` during round [GLOB.round_id]"
+
+		var/presence_text = json_encode(presence_data)
+
+		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+			publish(channel, presence_text)
+
 		var/amount_registered = length(subbed_channels)
 		log_startup_progress("Registered [amount_registered] callback[amount_registered == 1 ? "" : "s"].")
+
+/datum/controller/subsystem/redis/Shutdown()
+	// Send our presence to required channels
+	var/list/presence_data = list()
+	presence_data["author"] = "system"
+	presence_data["source"] = GLOB.configuration.system.instance_id
+	presence_data["message"] = "Disconnected at `[SQLtime()]` during round [GLOB.round_id]"
+
+	var/presence_text = json_encode(presence_data)
+
+	for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+		publish(channel, presence_text)
 
 
 /datum/controller/subsystem/redis/fire()
