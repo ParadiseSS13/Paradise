@@ -137,7 +137,7 @@
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == slot_glasses)
-		return 1
+		return TRUE
 
 /obj/item/clothing/glasses/science/night
 	name = "night vision science goggles"

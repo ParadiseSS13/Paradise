@@ -100,6 +100,8 @@
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
+	if(user.research_scanner && chambered)
+		. += "<span class='warning'>The projectiles of this gun have a force of [chambered.BB.damage], deal [chambered.BB.stamina] stamina damage, damage type of [chambered.BB.damage_type].</span><BR>"
 
 /obj/item/gun/detailed_examine() // Truly detailed
 	return "This is a gun."

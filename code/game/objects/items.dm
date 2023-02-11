@@ -237,6 +237,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				msg += "[CallMaterialName(mat)]<BR>" //Capitize first word, remove the "$"
 		else
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
+
+		if(force)
+			msg += "<span class='warning'>Force of [force], damage type of [damtype].</span><BR>"
 		msg += "*--------*"
 		. += msg
 
