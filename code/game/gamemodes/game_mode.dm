@@ -179,6 +179,18 @@
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
 	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	if(SSredis.connected)
+		// Send our presence to required channels
+		var/list/presence_data = list()
+		presence_data["author"] = "system"
+		presence_data["source"] = GLOB.configuration.system.instance_id
+		presence_data["message"] = "Round [GLOB.round_id] ended at `[SQLtime()]`"
+
+		var/presence_text = json_encode(presence_data)
+
+		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+			SSredis.publish(channel, presence_text)
+
 	return 0
 
 
