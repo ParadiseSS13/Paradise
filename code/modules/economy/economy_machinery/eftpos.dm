@@ -279,8 +279,8 @@
 		return TRUE
 	return FALSE
 
-/obj/item/eftpos/register/scan_card(obj/item/card/id/C, mob/user, secured = anchored)
-	..()
+/obj/item/eftpos/register/scan_card(obj/item/card/id/C, mob/user)
+	..(C, user, anchored)
 
 /obj/item/eftpos/register/wrench_act(mob/user, obj/item/I)
 	. = TRUE
