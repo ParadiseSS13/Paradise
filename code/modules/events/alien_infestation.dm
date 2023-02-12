@@ -1,7 +1,6 @@
 /datum/event/alien_infestation
 	announceWhen	= 400
-	var/highpop_trigger = 80
-	var/spawncount = 2
+	var/spawncount = 4
 	var/list/playercount
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
@@ -15,9 +14,6 @@
 		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 
 /datum/event/alien_infestation/start()
-	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
-	if(playercount >= highpop_trigger) //spawn with 4 if highpop
-		spawncount = 4
 	INVOKE_ASYNC(src, PROC_REF(spawn_xenos))
 
 /datum/event/alien_infestation/proc/spawn_xenos()
