@@ -66,7 +66,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/circuitboard/rdconsole
-	var/datum/research/files							//Stores all the collected research data.
+
 	var/obj/item/disk/tech_disk/t_disk = null	//Stores the technology disk.
 	var/obj/item/disk/design_disk/d_disk = null	//Stores the design disk.
 
@@ -79,8 +79,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/wait_message = 0
 	var/wait_message_timer = 0
 
-	var/id = 0			//ID of the computer (for server restrictions).
-	var/sync = TRUE		//If sync if FALSE, it doesn't show up on Server Control Console
+	/// ID to autolink to, used in mapload
+	var/autolink_id = null
+	/// UID of the network that we use
+	var/network_manager_uid = null
+
 	///Range to search for rnd devices in proximity to console
 	var/range = 3
 
@@ -130,6 +133,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(initial(rt.id) == ID)
 				return initial(rt.name)
 
+/obj/machinery/computer/rdconsole/proc/getfiles()
+	if(!network_manager_uid)
+		return null
+
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	if(!RNC)
+		network_manager_uid = null
+		return null
+
+	return RNC.research_files
+
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
 	for(var/obj/machinery/r_n_d/D in range(range, src))
 		if(!isnull(D.linked_console) || D.panel_open)
@@ -150,27 +164,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_imprinter = D
 				D.linked_console = src
 
-//Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
-/obj/machinery/computer/rdconsole/proc/griefProtection()
-	for(var/obj/machinery/r_n_d/server/centcom/C in GLOB.machines)
-		files.push_data(C.files)
-
-/obj/machinery/computer/rdconsole/proc/Maximize()
-	for(var/datum/tech/T in files.possible_tech)
-		files.known_tech[T.id] = T
-	for(var/v in files.known_tech)
-		var/datum/tech/KT = files.known_tech[v]
-		KT.level = 8
-	files.RefreshResearch()
-
 /obj/machinery/computer/rdconsole/Initialize(mapload)
 	. = ..()
-	files = new /datum/research(src) //Setup the research data holder.
 	matching_designs = list()
 	SyncRDevices()
 
+/obj/machinery/computer/rdconsole/LateInitialize()
+	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+		if(RNC.network_name == autolink_id)
+			network_manager_uid = RNC.UID()
+
 /obj/machinery/computer/rdconsole/Destroy()
-	QDEL_NULL(files)
 	QDEL_NULL(t_disk)
 	QDEL_NULL(d_disk)
 	matching_designs.Cut()
@@ -257,38 +261,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/update_from_disk()
 	clear_wait_message()
+	var/datum/research/files = getfiles()
+	if(!files)
+		return
 	if(d_disk && d_disk.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
 	else if(t_disk && t_disk.stored)
 		files.AddTech2Known(t_disk.stored)
 	SStgui.update_uis(src)
-	griefProtection() //Update centcom too
 
-/obj/machinery/computer/rdconsole/proc/sync_research()
-	if(!sync)
-		return
-	clear_wait_message()
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-		var/server_processed = FALSE
-
-		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			files.push_data(S.files)
-			server_processed = TRUE
-
-		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)))
-			S.files.push_data(files)
-			server_processed = TRUE
-
-		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
-			S.produce_heat(100)
-
-	SStgui.update_uis(src)
-
-/obj/machinery/computer/rdconsole/proc/reset_research()
-	qdel(files)
-	files = new /datum/research(src)
-	clear_wait_message()
-	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()
 	SyncRDevices()
@@ -309,6 +290,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
 	var/pointless = FALSE
+
+	var/datum/research/files = getfiles()
+	if(!files)
+		to_chat(user, "<span class='danger'>Error - No research network linked.</span>")
+		return
 
 	for(var/T in temp_tech)
 		if(files.IsTechHigher(T, temp_tech[T]))
@@ -342,6 +328,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/finish_destroyer(mob/user, list/temp_tech)
 	clear_wait_message()
 	if(!linked_destroy || !temp_tech)
+		return
+
+	var/datum/research/files = getfiles()
+	if(!files)
+		to_chat(user, "<span class='danger'>Error - No research network linked.</span>")
 		return
 
 	if(!linked_destroy.loaded_item)
@@ -378,6 +369,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
 	if(!machine)
 		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
+		return
+
+	var/datum/research/files = getfiles()
+	if(!files)
+		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
 		return
 
 	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
@@ -488,6 +484,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	add_fingerprint(usr)
 
+	var/datum/research/files = getfiles()
+	if(!files)
+		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
+		return
 
 	switch(action)
 		if("nav") //Switches menu screens. Converts a sent text string into a number. Saves a LOT of code.
@@ -588,29 +588,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					linked_destroy.icon_state = "d_analyzer"
 					menu = MENU_DESTROY
 
-		if("maxresearch")
-			if(!check_rights(R_ADMIN))
-				return
-			if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
-				return
-			log_admin("[key_name(usr)] has maximized the research levels.")
-			message_admins("[key_name_admin(usr)] has maximized the research levels.")
-			Maximize()
-			griefProtection() //Update centcomm too
 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
 			start_destroyer(usr)
-
-		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-			else
-				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
-				griefProtection() //Putting this here because I dont trust the sync process
-				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
-
-		if("togglesync") //Prevents the console from being synced by other consoles. Can still send data.
-			sync = !sync
 
 		if("build") //Causes the Protolathe to build something.
 			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
@@ -658,13 +638,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					if(linked_imprinter)
 						linked_imprinter.linked_console = null
 						linked_imprinter = null
-
-		if("reset") //Reset the R&D console's database.
-			griefProtection()
-			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
-			if(choice == "Continue")
-				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
-				addtimer(CALLBACK(src, PROC_REF(reset_research)), RESET_RESEARCH_DELAY)
 
 		if("search") //Search for designs with name matching pattern
 			var/query = params["to_search"]
@@ -800,6 +773,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
 	var/list/data = list()
 
+	var/datum/research/files = getfiles()
+	if(!files)
+		#warn AA make the UI show another screen
+		return
+
 	files.RefreshResearch()
 
 	data["menu"] = menu
@@ -810,7 +788,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
-	data["sync"] = sync
 	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["disk_type"] = d_disk ? "design" : (t_disk ? "tech" : null)
 	data["disk_data"] = null
@@ -934,26 +911,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
 	desc = "A console used to interface with R&D tools."
-	id = 1
-
-/obj/machinery/computer/rdconsole/robotics
-	name = "robotics R&D console"
-	desc = "A console used to interface with R&D tools."
-	id = 2
-	req_access = list(ACCESS_ROBOTICS)
-	circuit = /obj/item/circuitboard/rdconsole/robotics
-
-/obj/machinery/computer/rdconsole/experiment
-	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
-	desc = "A console used to interface with R&D tools."
-	id = 3
-	range = 5
-	circuit = /obj/item/circuitboard/rdconsole/experiment
+	autolink_id = "station_rnd"
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
 	desc = "A console used to interface with R&D tools."
-	id = 5
 	req_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public
 

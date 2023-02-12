@@ -268,7 +268,7 @@
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
 				/obj/item/autosurgeon/organ = 50,
 
-				// Research / Experimentor
+				// Research
 				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
 
 				// Xenobio

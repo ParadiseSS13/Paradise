@@ -763,14 +763,6 @@
 	title = "Cyborgs for Dummies"
 	wiki_article_title = "Guide_to_Robotics"
 
-/obj/item/book/manual/wiki/experimentor
-	name = "Mentoring your Experiments"
-	desc = "A madman's ramblings on how to experiment with the E.X.P.E.R.I-MENTOR."
-	icon_state = "rdbook"
-	author = "Dr. H.P. Kritz"
-	title = "Mentoring your Experiments"
-	wiki_article_title = "Guide_to_the_E.X.P.E.R.I-MENTOR"
-
 /obj/item/book/manual/wiki/chef_recipes
 	name = "Chef Recipes"
 	desc = "Knives, Ovens, and You: A guide to cooking."

@@ -295,18 +295,9 @@
 	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics console
 	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Public")
 
-/obj/item/circuitboard/rdconsole/robotics
-	board_name = "RD Console - Robotics"
-	build_path = /obj/machinery/computer/rdconsole/robotics
-
-/obj/item/circuitboard/rdconsole/experiment
-	board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-	build_path = /obj/machinery/computer/rdconsole/experiment
-
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
-
 
 /obj/item/circuitboard/mecha_control
 	board_name = "Exosuit Control Console"
@@ -447,12 +438,6 @@
 				if("R&D Core")
 					board_name = "RD Console"
 					build_path = /obj/machinery/computer/rdconsole/core
-				if("Robotics")
-					board_name = "RD Console - Robotics"
-					build_path = /obj/machinery/computer/rdconsole/robotics
-				if("E.X.P.E.R.I-MENTOR")
-					board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-					build_path = /obj/machinery/computer/rdconsole/experiment
 				if("Public")
 					board_name = "RD Console - Public"
 					build_path = /obj/machinery/computer/rdconsole/public
