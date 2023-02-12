@@ -979,7 +979,7 @@
 
 /obj/item/twohanded/push_broom/wield(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>You brace the [src] against the ground in a firm sweeping stance.</span>")
+	to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
 
 /obj/item/twohanded/push_broom/unwield(mob/user)

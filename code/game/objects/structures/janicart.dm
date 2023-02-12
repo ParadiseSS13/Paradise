@@ -59,8 +59,8 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/twohanded/push_broom))
 			if(!mybroom)
-				var/obj/item/twohanded/push_broom/b = I
-				b.janicart_insert(user, src)
+				var/obj/item/twohanded/push_broom/B = I
+				B.janicart_insert(user, src)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/storage/bag/trash))
