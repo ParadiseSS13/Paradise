@@ -9,7 +9,7 @@
 	force = 0
 	throwforce = 0
 	burst_size = 3
-	can_suppress = FALSE
+	can_suppress = TRUE
 	clumsy_check = FALSE
 	needs_permit = FALSE
 
@@ -24,14 +24,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	can_suppress = FALSE
+	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
 	can_holster = TRUE
 	actions_types = list()
-
-/obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/riot
 	name = "foam force riot pistol"
@@ -44,12 +41,15 @@
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
+	can_suppress = TRUE
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_overlays()
 	. = ..()
+	if(suppressed)
+		. += image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "enforcer_supp", pixel_x = 5)
 	if(gun_light)
 		var/flashlight = "Enforcer_light"
 		if(gun_light.on)
@@ -97,7 +97,7 @@
 	name = "donksoft SMG"
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
-	can_suppress = FALSE
+	can_suppress = TRUE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 
