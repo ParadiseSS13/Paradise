@@ -10,6 +10,7 @@
  *		Mjolnnir
  *		Knighthammer
  *		Pyro Claws
+ *		Push Broom
  */
 
 /*##################################################################
@@ -1015,8 +1016,8 @@
 			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 10, TRUE, -1)
 
-/obj/item/twohanded/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.mybroom = src
-	J.put_in_cart(src, user)
+/obj/item/twohanded/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
+	cart.mybroom = src
+	cart.put_in_cart(src, user)
 
 #undef BROOM_PUSH_LIMIT
