@@ -1,6 +1,8 @@
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Apply to head repeatedly."
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
@@ -29,6 +31,9 @@
 		"the bible melts" =	   list("state" = "melted",		  "inhand" = "melted"),
 		"Necronomicon" =	   list("state" = "necronomicon", "inhand" = "necronomicon"),
 		"Greentext" =		   list("state" = "greentext",	  "inhand" = "greentext"),
+		"Honkmother" =		   list("state" = "honk",	  "inhand" = "honk"),
+		"Silentfather" =	   list("state" = "mime",	  "inhand" = "mime"),
+		"Nanotrasen" =		   list("state" = "nanotrasen",	  "inhand" = "nanotrasen")
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -183,3 +188,9 @@
 	if(!src || !H.is_in_hands(src) || H.incapacitated())
 		return FALSE
 	return TRUE
+
+/obj/item/storage/bible/syndi
+	name = "suspicious bible"
+	desc = "For treading the line between cultist, contraband, and a hostile corporation."
+	customisable = FALSE
+	icon_state = "syndi"
