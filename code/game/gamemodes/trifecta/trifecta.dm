@@ -60,24 +60,21 @@
 		changeling.special_role = SPECIAL_ROLE_CHANGELING
 
 	//And now traitors
-	var/list/possible_traitors = get_players_for_role(ROLE_TRAITOR)
+	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_TRAITOR)
 
 	//stop setup if no possible traitors
 	if(!length(possible_traitors))
 		return FALSE
 
-	for(var/i in 1 to amount_tot)
-		if(!length(possible_traitors))
+	for(var/datum/mind/traitor as anything in shuffle(possible_traitors))
+		if(length(possible_traitors) >= amount_tot)
 			break
-		var/datum/mind/traitor = pick_n_take(possible_traitors)
 		if(traitor.special_role == SPECIAL_ROLE_VAMPIRE || traitor.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
 			continue
 		pre_traitors += traitor
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
 
-	if(!length(pre_traitors))
-		return FALSE
 	return TRUE
 
 /datum/game_mode/trifecta/proc/calculate_quantities()
