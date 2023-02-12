@@ -423,7 +423,7 @@
 	module_type = "Janitor"
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/soap/deluxe,
+		/obj/item/soap/nanotrasen,
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
