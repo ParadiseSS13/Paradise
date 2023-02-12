@@ -240,6 +240,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 		if(force)
 			msg += "<span class='warning'>Force of [force], damage type of [damtype].</span><BR>"
+		if(armor)
+			msg += "<span class='notice'>Following armor values detected: </span><BR>"
+			for(var/armor_value in armor.get_display_armor())
+				msg += "<span class='notice'>[armor_value]</span><BR>"
 		msg += "*--------*"
 		. += msg
 

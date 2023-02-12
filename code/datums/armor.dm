@@ -60,6 +60,9 @@
 /datum/armor/proc/detachArmor(datum/armor/AA)
 	return getArmor(melee - AA.melee, bullet - AA.bullet, laser - AA.laser, energy - AA.energy, bomb - AA.bomb, bio - AA.bio, rad - AA.rad, fire - AA.fire, acid - AA.acid, magic - AA.magic)
 
+/datum/armor/proc/get_display_armor()
+	return list("Melee resistance = [melee]", "Bullet resistance = [bullet]", "Laser resistance = [laser]", "Energy resistance = [energy]", "Explosive resistance = [bomb]", "Biological resistance = [bio]", "Radiation resistance = [rad]", "Fire resistance = [fire]", "Acid resistance = [acid]")
+
 /datum/armor/vv_edit_var(var_name, var_value)
 	if (var_name == NAMEOF(src, tag))
 		return FALSE
