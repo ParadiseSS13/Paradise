@@ -35,10 +35,9 @@
 	if(!length(possible_vampires))
 		return FALSE
 
-	for(var/I in possible_vampires)
+	for(var/datum/mind/vampire as anything in shuffle(possible_vampires))
 		if(length(pre_vampires) >= amount_vamp)
 			break
-		var/datum/mind/vampire = pick_n_take(possible_vampires)
 		if(vampire.current.client.prefs.active_character.species in secondary_protected_species)
 			continue
 		pre_vampires += vampire
@@ -51,10 +50,9 @@
 	if(!length(possible_changelings))
 		return FALSE
 
-	for(var/I in possible_changelings)
+	for(var/datum/mind/changeling as anything in shuffle(possible_changelings))
 		if(length(pre_changelings) >= amount_cling)
 			break
-		var/datum/mind/changeling = pick_n_take(possible_changelings)
 		if((changeling.current.client.prefs.active_character.species in secondary_protected_species) || changeling.special_role == SPECIAL_ROLE_VAMPIRE)
 			continue
 		pre_changelings += changeling
