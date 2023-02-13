@@ -114,9 +114,22 @@
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
+	var/warm = TRUE
+
+/obj/item/reagent_containers/food/snacks/warmdonkpocket/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(donk_cool)), 420 SECONDS)
+
+/obj/item/reagent_containers/food/snacks/warmdonkpocket/proc/donk_cool()
+	name = "cold Donk-pocket"
+	desc = "The food of choice for the seasoned traitor. This one is cold."
+	warm = FALSE
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/Post_Consume(mob/living/M)
-	M.reagents.add_reagent("omnizine", 15)
+	if(warm)
+		M.reagents.add_reagent("omnizine", 15)
+	else
+		M.reagents.add_reagent("weak_omnizine", 5)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket_weak
 	name = "lukewarm Donk-pocket"
