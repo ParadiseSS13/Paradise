@@ -593,7 +593,7 @@
 		return FALSE
 	if((emote_type & EMOTE_MOUTH) && !can_vocalize_emotes(user))
 		return FALSE
-	if(istype(user, /mob/living))
+	if(isliving(user))
 		var/mob/living/liveuser = user
 		if(liveuser.has_status_effect(STATUS_EFFECT_ABSSILENCED))
 			return FALSE
