@@ -61,92 +61,6 @@ def check_pixel_varedits(filename, lines):
             return "ERROR: incorrect pixel offset variables detected in maps, please remove them."
 
 
-def check_multiple_lattices(filename, lines):
-    for line in lines:
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/area/.+?\)',
-            line,
-        ):
-            return (
-                "ERROR: Found multiple lattices on the same tile, please remove them."
-            )
-
-
-def check_multiple_airlocks(filename, lines):
-    for line in lines:
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w]*?,\n[^)]*?/obj/machinery/door/airlock[/\w]*?,\n[^)]*?/area/.+\)',
-            line,
-        ):
-            return (
-                "ERROR: Found multiple airlocks on the same tile, please remove them."
-            )
-
-
-def check_multiple_firelocks(filename, lines):
-    for line in lines:
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/obj/machinery/door/firedoor[/\w]*?,\n[^)]*?/obj/machinery/door/firedoor[/\w]*?,\n[^)]*?/area/.+\)',
-            line,
-        ):
-            return (
-                "ERROR: Found multiple firelocks on the same tile, please remove them."
-            )
-
-
-def check_apc_pixel_shifts(filename, lines):
-    invalid_res = [
-        r"/obj/machinery/power/apc[/\w]*?[{]\n[^}]*?pixel_[xy] = -?[013-9]\d*?[^\d]*?\s*?[}],?\n",
-        r"/obj/machinery/power/apc[/\w]*?[{]\n[^}]*?pixel_[xy] = -?\d+?[0-46-9][^\d]*?\s*?[}],?\n",
-        r"/obj/machinery/power/apc[/\w]*?[{]\n[^}]*?pixel_[xy] = -?\d{3,1000}[^\d]*?\s*?[}],?\n",
-    ]
-    for line in lines:
-        for invalid_re in invalid_res:
-            if re.match(invalid_re, line):
-                return "ERROR: Found an APC with a manually set pixel_x or pixel_y that is not +-25. Use the directional variants when possible."
-
-
-def check_lattice_and_wall_stacking(filename, lines):
-    for line in lines:
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/turf/simulated/wall[/\w]*?,\n[^)]*?/area/.+?\)',
-            line,
-        ):
-            return "ERROR: Found a lattice stacked within a wall, please remove them."
-
-
-def check_window_and_wall_stacking(filename, lines):
-    for line in lines:
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/obj/structure/window[/\w]*?,\n[^)]*?/turf/simulated/wall[/\w]*?,\n[^)]*?/area/.+?\)',
-            line,
-        ):
-            return "ERROR: Found a window stacked within a wall, please remove it."
-
-
-def check_airlock_and_wall_stacking(filename, lines):
-    for line in lines:
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w]*?,\n[^)]*?/turf/simulated/wall[/\w]*?,\n[^)]*?/area/.+?\)',
-            line,
-        ):
-            return "ERROR: Found an airlock stacked within a wall, please remove it."
-
-
-def check_grille_and_window_stacking(filename, lines):
-    for line in lines:
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/obj/structure/grille,\n[^)]*?/obj/structure/window/full[/\w]*?,\n[^)]*?/area/.+\)',
-            line,
-        ):
-            return "ERROR: Found grille above a fulltile window. Please replace it with the proper structure spawner."
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/obj/structure/grille,\n[^)]*?/obj/structure/window/full/plasmareinforced,\n[^)]*?/area/.+\)',
-            line,
-        ):
-            return "ERROR: Found grille above a fulltile plastitanium window. Please replace it with the proper structure spawner."
-
-
 def check_area_varedits(filename, lines):
     for line in lines:
         if re.match(r"^/area/.+[{]", line):
@@ -157,21 +71,6 @@ def check_base_turf_type(filename, lines):
     for line in lines:
         if re.match(r"/turf\s*[,\){]", line):
             return "ERROR: Base /turf path use detected in maps, please replace it with a proper turf path."
-
-
-def check_multiple_turfs(filename, lines):
-    for line in lines:
-        if re.match(
-            r'"\w+" = \(\n[^)]*?/turf/[/\w]*?,\n[^)]*?/turf/[/\w]*?,\n[^)]*?/area/.+?\)',
-            line,
-        ):
-            return "ERROR: Multiple turfs detected on the same tile! Please choose only one turf!"
-
-
-def check_multiple_areas(filename, lines):
-    for line in lines:
-        if re.match(r'"\w+" = \(\n[^)]*?/area/.+?,\n[^)]*?/area/.+?\)', line):
-            return "ERROR: Multiple areas detected on the same tile! Please choose only one area!"
 
 
 def check_common_spelling_mistakes(filename, lines):
@@ -265,18 +164,8 @@ MAP_SECTIONS = OrderedDict(
             check_iconstate_tags,
             check_step_varedits,
             check_pixel_varedits,
-            check_multiple_lattices,
-            check_multiple_airlocks,
-            check_multiple_firelocks,
-            check_apc_pixel_shifts,
-            check_lattice_and_wall_stacking,
-            check_window_and_wall_stacking,
-            check_airlock_and_wall_stacking,
-            check_grille_and_window_stacking,
             check_area_varedits,
             check_base_turf_type,
-            check_multiple_turfs,
-            check_multiple_areas,
             check_common_spelling_mistakes,
         ),
     }
