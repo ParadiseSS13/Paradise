@@ -918,11 +918,16 @@
 /obj/machinery/economy/vending/onTransitZ()
 	return
 
-/obj/machinery/economy/vending/proc/choose_crit()
+/**
+ * Select a random valid crit.
+ */
+/obj/machinery/economy/vending/proc/choose_crit(mob/living/carbon/victim)
 	if(!length(possible_crits))
 		return
-	var/crit_path_selected = pick(possible_crits)
-	return GLOB.vendor_crits[crit_path_selected]
+	for(var/crit_path in shuffle(possible_crits))
+		var/datum/vendor_crit/C = GLOB.vendor_crits[crit_path]
+		if(C.is_valid(src, victim))
+			return C
 
 /**
  * Tilts the machine onto the atom passed in.
@@ -943,69 +948,71 @@
 
 	. = FALSE
 
-	if(victim && in_range(victim, src))
-		for(var/mob/living/L in get_turf(victim))
-			var/mob/living/carbon/C = L
+	if(!victim || !in_range(victim, src))
+		tilt_over()
+		return
+	for(var/mob/living/L in get_turf(victim))
+		var/mob/living/carbon/C = L
 
-			// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
-			var/crit_rebate = 0
-			var/damage_to_deal = squish_damage
-			if(!from_combat)
-				if(crit)
-					// increase damage if you knock it over onto yourself
-					damage_to_deal *= crit_damage_factor
-				else
-					damage_to_deal *= self_knockover_factor
-			if(HAS_TRAIT(C, TRAIT_DWARF))
-				// also double damage if you're short
-				damage_to_deal *= 2
-
-			if(istype(C))
-				var/datum/vendor_crit/critical_attack = choose_crit()
-				if(!from_combat && crit && critical_attack?.is_valid(src, C))
-					crit_rebate = critical_attack.tip_crit_effect(src, C)
-					if(critical_attack.harmless)
-						tilt_over(critical_attack.fall_towards_mob ? victim : null)
-						return TRUE
-
-					should_throw_at_target = critical_attack.fall_towards_mob
-					add_attack_logs(null, C, "critically crushed by [src] causing [critical_attack]")
-				else
-					C.visible_message(
-						"<span class='danger'>[C] is crushed by [src]!</span>",
-						"<span class='userdanger'>[src] crushes you!</span>",
-						"<span class='warning'>You hear a loud crunch!</span>"
-					)
-					add_attack_logs(null, C, "crushed by [src]")
-
-				// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
-				damage_to_deal = max(damage_to_deal - crit_rebate, 0)
-				if(prob(30))
-					C.apply_damage(damage_to_deal, BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
-				else
-					var/picked_zone
-					var/num_parts_to_pick = 2
-					for(var/i = 1 to num_parts_to_pick)
-						picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
-						C.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
-
-				C.AddElement(/datum/element/squish, 80 SECONDS)
+		// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
+		var/crit_rebate = 0
+		var/damage_to_deal = squish_damage
+		if(!from_combat)
+			if(crit)
+				// increase damage if you knock it over onto yourself
+				damage_to_deal *= crit_damage_factor
 			else
-				L.visible_message(
-					"<span class='danger'>[L] is crushed by [src]!</span>",
-					"<span class='userdanger'>[src] falls on top of you, crushing you!</span>"
-				)
-				L.apply_damage(damage_to_deal, BRUTE)
+				damage_to_deal *= self_knockover_factor
+		if(HAS_TRAIT(C, TRAIT_DWARF))
+			// also double damage if you're short
+			damage_to_deal *= 2
 
+		if(istype(C))
+			var/datum/vendor_crit/critical_attack = choose_crit(victim)
+			if(!from_combat && crit && critical_attack)
+				crit_rebate = critical_attack.tip_crit_effect(src, C)
+				if(critical_attack.harmless)
+					tilt_over(critical_attack.fall_towards_mob ? victim : null)
+					return TRUE
+
+				should_throw_at_target = critical_attack.fall_towards_mob
+				add_attack_logs(null, C, "critically crushed by [src] causing [critical_attack]")
+			else
+				C.visible_message(
+					"<span class='danger'>[C] is crushed by [src]!</span>",
+					"<span class='userdanger'>[src] crushes you!</span>",
+					"<span class='warning'>You hear a loud crunch!</span>"
+				)
 				add_attack_logs(null, C, "crushed by [src]")
 
-			. = TRUE
-			L.Weaken(6 SECONDS)
-			L.KnockDown(12 SECONDS)
-			L.emote("scream")
+			// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
+			damage_to_deal = max(damage_to_deal - crit_rebate, 0)
+			if(prob(30))
+				C.apply_damage(damage_to_deal, BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
+			else
+				var/picked_zone
+				var/num_parts_to_pick = 2
+				for(var/i = 1 to num_parts_to_pick)
+					picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
+					C.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
-			playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
-			playsound(L, "sound/effects/splat.ogg", 50, TRUE)
+			C.AddElement(/datum/element/squish, 80 SECONDS)
+		else
+			L.visible_message(
+				"<span class='danger'>[L] is crushed by [src]!</span>",
+				"<span class='userdanger'>[src] falls on top of you, crushing you!</span>"
+			)
+			L.apply_damage(damage_to_deal, BRUTE)
+
+			add_attack_logs(null, C, "crushed by [src]")
+
+		. = TRUE
+		L.Weaken(6 SECONDS)
+		L.KnockDown(12 SECONDS)
+		L.emote("scream")
+
+		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
+		playsound(L, "sound/effects/splat.ogg", 50, TRUE)
 
 	tilt_over(should_throw_at_target ? victim : null)
 
