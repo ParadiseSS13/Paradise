@@ -99,6 +99,7 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	name = "syndicate assault cyborg teleporter"
 	borg_to_spawn = "Assault"
+	rolename = "Syndicate Assault Cyborg"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault/Initialize(mapload)
 	. = ..()
@@ -107,6 +108,7 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	name = "syndicate medical teleporter"
 	borg_to_spawn = "Medical"
+	rolename = "Syndicate Medical Cyborg"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical/Initialize(mapload)
 	. = ..()
@@ -115,6 +117,7 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
+	rolename = "Syndicate Saboteur Cyborg"
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur/Initialize(mapload)
 	. = ..()
@@ -127,10 +130,9 @@
 
 	if(switch_roles_choice == "Syndicate Cyborg")
 		switch_roles = TRUE
-		rolename = initial(rolename)
+		rolename = "Syndicate Operative"
 	else
 		switch_roles = FALSE
-		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 
