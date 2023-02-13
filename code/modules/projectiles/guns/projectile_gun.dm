@@ -9,7 +9,7 @@
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
-	/// The sound the projectile will make when suppressed
+	/// The sound it will make when the gun suppression is TRUE
 	var/suppressed_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 
 /obj/item/gun/projectile/Initialize(mapload)
