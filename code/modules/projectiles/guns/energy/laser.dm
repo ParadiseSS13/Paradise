@@ -138,13 +138,13 @@
 
 /obj/item/projectile/beam/laser/sniper/Range()
 	..()
-	damage = min(damage+5, 100)
+	damage = min(damage + 5, 100)
 
 /obj/item/projectile/beam/laser/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	..()
 	var/mob/living/carbon/human/M = target
-	if(ishuman(target) && damage >= 40)
-		M.KnockDown(2 SECONDS * (damage/10))
+	if(istype(M) && damage >= 40)
+		M.KnockDown(2 SECONDS * (damage / 10))
 
 /obj/item/gun/energy/xray
 	name = "xray laser gun"
