@@ -937,7 +937,7 @@
 		if(C.is_valid(src, victim))
 			return C
 
-/obj/machinery/economy/vending/proc/handle_squish_carbon(mob/living/carbon/victim, var/damage_to_deal, crit, from_combat)
+/obj/machinery/economy/vending/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, crit, from_combat)
 
 	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
 	var/crit_rebate = 0
