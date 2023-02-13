@@ -413,11 +413,17 @@ STATUS EFFECTS
 /mob/living/proc/Silence(amount)
 	SetSilence(max(amount, AmountSilenced()))
 
-/mob/living/proc/SetAbsoluteSilence(amount)
-	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_ABSSILENCED, amount)
-
 /mob/living/proc/SetSilence(amount)
 	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_SILENCED, amount)
+
+/mob/living/proc/AmountAbsoluteSilenced()
+	RETURN_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_ABSSILENCED)
+
+/mob/living/proc/AbsoluteSilence(amount)
+	SetAbsoluteSilence(max(amount, AmountAbsoluteSilenced()))
+
+/mob/living/proc/SetAbsoluteSilence(amount)
+	SET_STATUS_EFFECT_STRENGTH(STATUS_EFFECT_ABSSILENCED, amount)
 
 /mob/living/proc/AdjustSilence(amount, bound_lower = 0, bound_upper = INFINITY)
 	SetSilence(directional_bounded_sum(AmountSilenced(), amount, bound_lower, bound_upper))

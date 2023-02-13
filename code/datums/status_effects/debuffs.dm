@@ -674,7 +674,7 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_MUTE, id)
 
-/datum/status_effect/transient/silence/absolute
+/datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
 	id = "abssilenced"
 
 /datum/status_effect/transient/jittery
