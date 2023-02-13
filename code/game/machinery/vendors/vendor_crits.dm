@@ -51,8 +51,8 @@
 	machine.forceMove(get_turf(victim))
 	machine.buckle_mob(victim, force=TRUE)
 	victim.visible_message(
-		"<span class='danger'>[victim] gets pinned underneath [src]!</span>",
-		"<span class='userdanger'>You are pinned down by [src]!</span>"
+		"<span class='danger'>[victim] gets pinned underneath [machine]!</span>",
+		"<span class='userdanger'>You are pinned down by [machine]!</span>"
 	)
 
 	return 0
@@ -66,8 +66,8 @@
 
 /datum/vendor_crit/embed/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	victim.visible_message(
-		"<span class='danger'>[src]'s panel shatters against [victim]!</span>",
-		"<span class='userdanger>[src] lands on you, its panel shattering!</span>"
+		"<span class='danger'>[machine]'s panel shatters against [victim]!</span>",
+		"<span class='userdanger>[machine] lands on you, its panel shattering!</span>"
 	)
 
 	for(var/i in 1 to machine.num_shards)
@@ -91,15 +91,18 @@
 
 /datum/vendor_crit/pop_head/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	// pop!
-	var/obj/item/organ/external/head/O = victim.get_organ("head")
+	var/obj/item/organ/external/head/H = victim.get_organ("head")
 	var/obj/item/organ/internal/brain/B = victim.get_int_organ_tag("brain")
-	if(O)
-		victim.visible_message("<span class='danger'>[O] gets crushed under [src]!</span>", "<span class='userdanger'>Oh f-</span>")
-		O.disfigure()
+	if(H)
+		victim.visible_message("<span class='danger'>[H] gets crushed under [machine], and explodes in a shower of gore!</span>", "<span class='userdanger'>Oh f-</span>")
+		new /obj/effect/gibspawner/human(get_turf(victim))
+		H.drop_organs()
+		H.droplimb(TRUE)
+		H.disfigure()
 		victim.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
 	else
-		O.visible_message("<span class='danger'>[victim]'s head seems to be crushed under the machine...but wait, they had none in the first place!</span>")
-	if(B in O)
+		H.visible_message("<span class='danger'>[victim]'s head seems to be crushed under [machine]...but wait, they had none in the first place!</span>")
+	if(B in H)
 		victim.adjustBrainLoss(80)
 
 	return 0
