@@ -461,7 +461,7 @@
 		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has set the timer on a pizza bomb to [timer / 10] seconds ([loc.x],[loc.y],[loc.z]).")
 		investigate_log("[key_name(usr)] has armed a [name] for detonation at ([loc.x],[loc.y],[loc.z])", INVESTIGATE_BOMB)
-		add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
+		add_attack_logs(user, src, "has armed for detonation", ATKLOG_FEW)
 		armer = user
 		name = "pizza box"
 		desc = "A box suited for pizzas."
@@ -477,6 +477,8 @@
 			playsound(src, 'sound/voice/pizza_time.ogg', 50, FALSE) ///Sound effect made by BlackDog
 		message_admins("[key_name_admin(usr)] has triggered a pizza bomb armed by [key_name_admin(armer)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
 		log_game("[key_name(usr)] has triggered a pizza bomb armed by [key_name(armer)] ([loc.x],[loc.y],[loc.z]).")
+		investigate_log("[key_name(usr)] has opened a [name] for detonation at ([loc.x],[loc.y],[loc.z])", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has opened for detonation", ATKLOG_FEW)
 		opener = user
 		primed = TRUE
 		sleep(timer)
