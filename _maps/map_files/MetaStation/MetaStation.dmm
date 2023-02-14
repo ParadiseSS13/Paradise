@@ -30013,6 +30013,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/item/eftpos/register{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
@@ -84982,6 +84985,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"udl" = (
+/obj/structure/table/reinforced,
+/obj/item/eftpos/register,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "udB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -126318,7 +126328,7 @@ mZL
 bCv
 bEv
 bHO
-bGd
+udl
 bJH
 bLx
 lUc
