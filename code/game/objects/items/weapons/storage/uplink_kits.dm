@@ -28,7 +28,7 @@
 		/obj/item/twohanded/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/implanter/freedom, // 6TC
+		/obj/item/implanter/freedom, // 5TC
 		/obj/item/coin/gold, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
@@ -82,7 +82,7 @@
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/implant = list( // 41TC
-		/obj/item/implanter/freedom, // 6TC
+		/obj/item/implanter/freedom, // 5TC
 		/obj/item/implanter/uplink, // 14TC (ten free TC)
 		/obj/item/implanter/emp, // 1TC
 		/obj/item/implanter/adrenalin, // 8TC
