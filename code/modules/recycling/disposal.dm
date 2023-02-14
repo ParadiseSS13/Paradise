@@ -321,12 +321,14 @@
 	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	user.visible_message(
-	"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
-	"<span class='notice'>You operate the manual ejection lever on [src].</span>")
+		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
+		"<span class='notice'>You operate the manual ejection lever on [src].</span>"
+	)
 	if(do_after(user, 5 SECONDS, target = src))
 		user.visible_message(
-		"<span class='notice'>[user] ejects the contents of [src].</span>",
-		"<span class='notice'>You eject the contents of [src].</span>")
+			"<span class='notice'>[user] ejects the contents of [src].</span>",
+			"<span class='notice'>You eject the contents of [src].</span>"
+		)
 		eject()
 
 // update the icon & overlays to reflect mode & status
