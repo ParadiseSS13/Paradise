@@ -8,7 +8,7 @@
 
 	name = "air vent"
 	desc = "Has a valve and pump attached to it"
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 	plane = FLOOR_PLANE
 	layer = GAS_SCRUBBER_LAYER
 
@@ -62,7 +62,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "large air vent"
-	power_channel = EQUIP
+	power_channel = PW_CHANNEL_EQUIPMENT
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume/Initialize(mapload)
 	. = ..()
@@ -79,7 +79,7 @@
 
 	if(welded)
 		vent_icon += "weld"
-	else if(!powered())
+	else if(!has_power())
 		vent_icon += "off"
 	else
 		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"
@@ -245,10 +245,9 @@
 		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_pump/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/unary/vent_pump/Destroy()
 	GLOB.all_vent_pumps -= src

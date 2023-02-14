@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	meteorgibs = /obj/effect/gibspawner/xeno
 
 /obj/effect/meteor/meaty/xeno/Initialize(mapload, target)
-	meteordrop += subtypesof(/obj/item/organ/internal/xenos)
+	meteordrop += subtypesof(/obj/item/organ/internal/alien)
 	return ..()
 
 /obj/effect/meteor/meaty/xeno/ram_turf(turf/T)

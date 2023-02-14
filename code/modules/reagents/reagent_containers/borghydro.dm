@@ -14,10 +14,8 @@
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
-
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "spaceacillin", "charcoal", "hydrocodone")
-	//var/list/reagent_ids = list("salbutamol", "silver_sulfadiazine", "styptic_powder", "charcoal", "epinephrine", "spaceacillin", "hydrocodone")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "spaceacillin", "charcoal", "mannitol", "salbutamol")
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
@@ -104,7 +102,6 @@
 	mode++
 	if(mode > reagent_list.len)
 		mode = 1
-
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")

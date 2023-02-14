@@ -74,7 +74,7 @@
 
 	if(ignore_flags || M.can_inject(user, TRUE))
 		if(M == user)
-			M.visible_message("[user] begins mending [user.p_them()]self with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
+			M.visible_message("[user] begins mending [user.p_themselves()] with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
 		else
 			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", "<span class='notice'>You begin mending [M] with [src].</span>")
 		if(M.reagents)

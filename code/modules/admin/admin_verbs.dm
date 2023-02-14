@@ -116,7 +116,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
-	/client/proc/admin_deserialize
+	/client/proc/admin_deserialize,
+	/client/proc/create_crate
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
@@ -177,6 +178,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmapi_log,
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
+	/client/proc/force_verb_bypass,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -233,6 +235,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/debugNatureMapGenerator, // This lags like hell, and is very easy to nuke half the server with
 	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
+	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
 ))
 
 /client/proc/on_holder_add()

@@ -21,7 +21,7 @@
 	icon_state = "h_lathe"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 	var/recentlyExperimented = 0
 	var/badThingCoeff = 0
 	var/resetTime = 15

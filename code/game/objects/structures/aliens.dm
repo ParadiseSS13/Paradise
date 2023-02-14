@@ -164,7 +164,7 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/C = user
-	if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+	if(C.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		if(world.time - C.last_bumped <= 60)
 			return
 		if(!C.handcuffed)
@@ -283,10 +283,10 @@
 	return ..()
 
 /obj/structure/alien/weeds/process()
-    check_counter++
-    if(check_counter >= 5)
-        spread()
-        check_counter = 0
+	check_counter++
+	if(check_counter >= 5)
+		spread()
+		check_counter = 0
 
 /obj/structure/alien/weeds/proc/clear_wall_weed()
 	if(wall_weed && !QDELETED(wall_weed))
@@ -492,7 +492,7 @@
 	return attack_hand(user)
 
 /obj/structure/alien/egg/attack_hand(mob/living/user)
-	if(user.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+	if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		switch(status)
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")

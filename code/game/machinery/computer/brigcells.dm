@@ -3,9 +3,8 @@
 	desc = "Used to manage prison cells."
 	icon_keyboard = "security_key"
 	icon_screen = "cell_monitor"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 250
-	active_power_usage = 500
+	idle_power_consumption = 250
+	active_power_consumption = 500
 	circuit = /obj/item/circuitboard/brigcells
 	light_color = LIGHT_COLOR_DARKRED
 	req_access = list(ACCESS_BRIG)

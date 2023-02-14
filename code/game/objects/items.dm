@@ -5,6 +5,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	name = "item"
 	icon = 'icons/obj/items.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
+	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
@@ -587,7 +588,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 							"<span class='userdanger'>[user] stabs you in the eye with [src]!</span>")
 	else
 		user.visible_message( \
-			"<span class='danger'>[user] has stabbed [user.p_them()]self in the eyes with [src]!</span>", \
+			"<span class='danger'>[user] has stabbed [user.p_themselves()] in the eyes with [src]!</span>", \
 			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
 		)
 
@@ -597,7 +598,8 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
-			head.receive_damage(rand(10,14), 1)
+			if(head)
+				head.receive_damage(rand(10, 14), 1)
 			return
 		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
@@ -615,7 +617,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
-		if(affecting.receive_damage(7))
+		if(istype(affecting) && affecting.receive_damage(7))
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)

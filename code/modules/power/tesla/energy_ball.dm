@@ -25,6 +25,7 @@
 	dissipate = FALSE
 	dissipate_delay = 5
 	dissipate_strength = 1
+	warps_projectiles = FALSE
 	var/list/orbiting_balls = list()
 	var/miniball = FALSE
 	var/produced_power
