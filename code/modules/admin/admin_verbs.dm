@@ -1009,3 +1009,36 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		return
 
 	watchlist_show()
+
+/client/proc/cmd_admin_alert_message(mob/about_to_be_banned)
+	set name = "Send Alert Message"
+	set category = "Admin"
+
+	if(!ismob(about_to_be_banned))
+		return
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/alert_type = alert(src, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?",,"Yes", "No", "Custom Message")
+
+	switch(alert_type)
+		if("Yes")
+			var/message = "An admin is trying to talk to you!\nCheck your chat window and click their name to respond or you may be banned!"
+			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
+			log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+			message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+
+		if("Custom Message")
+			var/message = input(src, "Input your custom admin alert text:", "Message") as text|null
+			if(!message)
+				return
+			message = strip_html(message, 500)
+
+			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
+			if(!message_color)
+				return
+
+			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
+			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
