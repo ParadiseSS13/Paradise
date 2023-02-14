@@ -180,10 +180,10 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
 
 //Engineering
@@ -290,10 +290,10 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
 
 /obj/item/clothing/suit/magirobe
@@ -306,10 +306,10 @@
 	flags_inv = HIDEJUMPSUIT
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
-		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 	)
 
 //Medical
