@@ -18,7 +18,7 @@
 		/obj/item/chameleon, // 7TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/agent13 = list( // 37TC
+	var/static/list/agent13 = list( // 36TC
 		/obj/item/clothing/under/chameleon, // 1TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
@@ -81,7 +81,7 @@
 		/obj/item/thermal_drill/diamond_drill, // 1TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/implant = list( // 41TC
+	var/static/list/implant = list( // 40TC
 		/obj/item/implanter/freedom, // 5TC
 		/obj/item/implanter/uplink, // 14TC (ten free TC)
 		/obj/item/implanter/emp, // 1TC
