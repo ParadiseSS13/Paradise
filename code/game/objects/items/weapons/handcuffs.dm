@@ -153,7 +153,7 @@
 
 /obj/item/restraints/handcuffs/pinkcuffs
 	name = "fluffy pink handcuffs"
-	desc = "Use this to keep prisoners in line. Or you know, your significant other."
+	desc = "Use this to keep prisoners in line, they're really ichy."
 	icon_state = "pinkcuffs"
 	cuffed_state = "pinkcuff"
 
