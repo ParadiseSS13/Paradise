@@ -7,6 +7,7 @@
 	var/skipears = 0
 	var/skipeyes = 0
 	var/skipface = 0
+	var/skipprostheses = 0
 
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
@@ -14,6 +15,7 @@
 		skipsuitstorage = wear_suit.flags_inv & HIDESUITSTORAGE
 		skipjumpsuit = wear_suit.flags_inv & HIDEJUMPSUIT
 		skipshoes = wear_suit.flags_inv & HIDESHOES
+		skipprostheses = wear_suit.flags_inv & (HIDEGLOVES|HIDEJUMPSUIT|HIDESHOES)
 
 	if(head)
 		skipmask = head.flags_inv & HIDEMASK
@@ -224,7 +226,7 @@
 		if(!E)
 			wound_flavor_text["[organ_tag]"] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
 		else
-			if(!ismachineperson(src))
+			if(!ismachineperson(src) && !skipprostheses)
 				if(E.is_robotic())
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
 
