@@ -6,6 +6,7 @@
 	lock_suit(ninja)
 	//Боевое искусство
 	var/datum/martial_art/ninja_martial_art/creeping_widow = new
+	ninja_martial = TRUE
 	creeping_widow.teach(usr)
 	creeping_widow.my_suit = src
 	creeping_widow.my_energy_katana = energyKatana

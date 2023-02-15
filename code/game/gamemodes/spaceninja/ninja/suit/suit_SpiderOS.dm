@@ -139,6 +139,7 @@
 			var/icon/ability_icon = icon('icons/mob/actions/actions_ninja.dmi', ability, SOUTH, frame = 1)
 			if(ability == "spider_red")
 				var/datum/martial_art/ninja_martial_art/creeping_widow = new
+				ninja_martial = TRUE
 				creeping_widow.teach(usr)
 				creeping_widow.my_suit = src
 				creeping_widow.my_energy_katana = energyKatana

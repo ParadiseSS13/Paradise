@@ -40,33 +40,25 @@
 	if(!(ninja))
 		for(var/datum/dna2/record/ninja_dna_record in records)
 			if(revive_ninja(ninja_dna_record))
-//				message_admins("[src] message: removed record: [ninja_dna_record.ckey]")
 				records.Remove(ninja_dna_record)
 
 // Автоматически вызываемое - оживление ниндзя!
 /obj/machinery/ninja_clonepod/proc/revive_ninja(datum/dna2/record/ninja_dna_record)
 	if(attempting)
-// 		message_admins("[src] message: attempting")
 		return FALSE
 	clonemind = locate(ninja_dna_record.mind)
 	if(!istype(clonemind))	//not a mind
-//		message_admins("[src] message: not a mind")
 		return FALSE
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
-//		message_admins("[src] message: not a dead body")
 		return FALSE
 	if(!clonemind.is_revivable()) //Other reasons for being unrevivable
-//		message_admins("[src] message: is not revivable")
 		return FALSE
 	if(clonemind.active)	//somebody is using that mind
 		if(ckey(clonemind.key) != ninja_dna_record.ckey )
-//			message_admins("[src] message: somebody is using that mind")
 			return FALSE
-	// get_ghost() will fail if they're unable to reenter their body
 	var/mob/dead/observer/ninja_ghost = clonemind.get_ghost()
 	var/datum/ninja_suit_cloning_data/ninja_suit_data = find_suit_data(ckey(clonemind.key))
 	if(!ninja_ghost)
-//		message_admins("[src] message: no ninja_ghost")
 		return FALSE
 	if(!ninja_suit_data)
 		return FALSE
@@ -86,6 +78,7 @@
 
 	n_suit.actions_types = ninja_suit_data.actions_types
 	n_suit.blocked_TGUI_rows = ninja_suit_data.blocked_TGUI_rows
+	n_suit.ninja_martial = ninja_suit_data.ninja_martial
 	n_suit.design_choice = ninja_suit_data.design_choice
 	n_suit.color_choice = ninja_suit_data.color_choice
 	n_suit.preferred_clothes_gender = ninja_suit_data.preferred_clothes_gender
@@ -103,11 +96,14 @@
 		var/datum/action/ninja_action = new action_path(n_suit, n_suit.action_icon[action_path], n_suit.action_icon_state[action_path])
 		ninja_action.Grant(ninja)
 	//Обновление боевого исскуства
-	QDEL_NULL(ninja.mind.martial_art)
-	var/datum/martial_art/ninja_martial_art/creeping_widow = new
-	creeping_widow.teach(ninja)
-	creeping_widow.my_suit = n_suit
-	creeping_widow.my_energy_katana = n_suit.energyKatana
+	//Хоть БИ и в одном ряду с клонёркой.
+	//Но пусть всё равно клонёрка выдаёт БИ если оно было по любым причинам.
+	if(n_suit.ninja_martial)
+		QDEL_NULL(ninja.mind.martial_art)
+		var/datum/martial_art/ninja_martial_art/creeping_widow = new
+		creeping_widow.teach(ninja)
+		creeping_widow.my_suit = n_suit
+		creeping_widow.my_energy_katana = n_suit.energyKatana
 	//Проверка и перевыдача бомбы
 	SSticker.mode.basic_ninja_needs_check(ninja.mind)
 	//Пробуждение из клонёрки
@@ -178,6 +174,7 @@
 	ninja_suit_data.ckey = subject.ckey
 	ninja_suit_data.actions_types = n_suit.actions_types
 	ninja_suit_data.blocked_TGUI_rows = n_suit.blocked_TGUI_rows
+	ninja_suit_data.ninja_martial = n_suit.ninja_martial
 	ninja_suit_data.design_choice = n_suit.design_choice
 	ninja_suit_data.color_choice = n_suit.color_choice
 	ninja_suit_data.preferred_clothes_gender = n_suit.preferred_clothes_gender
@@ -209,6 +206,7 @@
 	// Данные костюма
 	var/list/actions_types = null
 	var/list/blocked_TGUI_rows = null
+	var/ninja_martial = null
 	var/design_choice = null
 	var/color_choice = null
 	var/preferred_clothes_gender = null

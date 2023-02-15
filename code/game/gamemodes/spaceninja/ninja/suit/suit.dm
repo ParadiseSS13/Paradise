@@ -91,6 +91,8 @@
 	var/obj/machinery/ninja_clonepod/cloning_ref
 	/// Купил ли ниндзя клон абилку?
 	var/ninja_clonable = FALSE
+	/// Купил ли ниндзя боевое исскуство?
+	var/ninja_martial = FALSE
 	/// Встроенный в костюм джетпак
 	var/obj/item/tank/jetpack/suit/jetpack = /obj/item/tank/jetpack/suit/ninja
 
