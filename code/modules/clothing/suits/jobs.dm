@@ -92,22 +92,45 @@
 		"Stok" = 'icons/mob/species/monkey/suit.dmi'
 		)
 
-/obj/item/clothing/suit/captunic/capjacket
-	name = "captain's uniform jacket"
-	desc = "A less formal jacket for everyday captain use."
-	icon_state = "capjacket"
-	item_state = "bio_suit"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	flags_inv = HIDEJUMPSUIT
+/obj/item/clothing/suit/captunic/coat
+	name = "captain fur coat"
+	desc = "Made of real fur."
+	item_state = "cap_coat"
+	icon_state = "cap_coat"
 
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/species/monkey/suit.dmi'
-		)
+/obj/item/clothing/suit/captunic/parade
+	name = "captain's parade jacket"
+	desc = "Worn by a Captain to show their class."
+	icon_state = "cap_jacket_black_open"
+	item_state = "cap_jacket_black_open"
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/captunic/parade/alt
+	icon_state = "dress_capjacket_black_open"
+	item_state = "dress_capjacket_black_open"
+
+/obj/item/clothing/suit/captunic/jacket
+	name = "captain's jacket"
+	desc = "Worn by a Captain to show their class."
+	icon_state = "cap_jacket_open"
+	item_state = "cap_jacket_open"
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
+
+/obj/item/clothing/suit/captunic/bomber
+	name = "captain's bomber jacket"
+	desc = "Worn by a Captain to show their class."
+	icon_state = "bomber_captain_open"
+	item_state = "bomber_captain_open"
+	ignore_suitadjust = 0
+	suit_adjusted = 1
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"
 
 //Chaplain
 /obj/item/clothing/suit/hooded/chaplain_hoodie

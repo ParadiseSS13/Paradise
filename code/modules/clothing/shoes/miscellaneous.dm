@@ -225,6 +225,11 @@
 	icon_state = "laceups"
 	put_on_delay = 50
 
+/obj/item/clothing/shoes/laceup/cap
+	name = "captain's laceup shoes"
+	icon_state = "cap_laceups"
+	item_state = "cap_laceups"
+
 /obj/item/clothing/shoes/roman
 	name = "roman sandals"
 	desc = "Sandals with buckled leather straps on it."

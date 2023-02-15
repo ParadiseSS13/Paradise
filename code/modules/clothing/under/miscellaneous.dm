@@ -468,6 +468,12 @@
 	icon_state = "dress_cap"
 	item_color = "dress_cap"
 
+/obj/item/clothing/under/dress/dress_parade
+	name = "captain parade dress uniform"
+	desc = "Feminine fashion for the style concious captain."
+	icon_state = "dress_parade"
+	item_state = "dress_parade"
+
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
@@ -544,6 +550,23 @@
 	icon_state = "captain_parade"
 	item_state = "by_suit"
 	item_color = "captain_parade"
+
+/obj/item/clothing/under/captainparade/alt
+	icon_state = "cap_parade"
+	item_state = "cap_parade"
+	item_color = "cap_parade"
+
+/obj/item/clothing/under/captainparade/dress
+	icon_state = "dress_parade"
+	item_state = "dress_parade"
+	item_color = "dress_parade"
+
+/obj/item/clothing/under/captainparade/office
+	name = "captain's office uniform"
+	desc = "for everyday bureaucracy"
+	icon_state = "cap_office"
+	item_state = "cap_office"
+	item_color = "cap_office"
 
 /obj/item/clothing/under/roman
 	name = "roman armor"
