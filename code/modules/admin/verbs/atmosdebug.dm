@@ -9,23 +9,24 @@
 	if(alert("WARNING: This command should not be run on a live server. Do you want to continue?", "Check Piping", "No", "Yes") == "No")
 		return
 
-	to_chat(usr, "Checking for disconnected pipes...")
 	//all plumbing - yes, some things might get stated twice, doesn't matter.
-	for(var/thing in SSair.atmos_machinery)
-		var/obj/machinery/atmospherics/plumbing = thing
-		if(plumbing.nodealert)
-			to_chat(usr, "Unconnected [plumbing.name] located at [plumbing.x],[plumbing.y],[plumbing.z] ([get_area(plumbing.loc)])")
-
-	//Manifolds
-	for(var/obj/machinery/atmospherics/pipe/manifold/pipe in SSair.atmos_machinery)
+	to_chat(usr, "Checking for unconnected pipes")
+	var/list/atmos = list()
+	for(var/turf/T in world)
+		for(var/obj/machinery/atmospherics/atm in T)
+			atmos += atm
+	//Manifolds 3w
+	for(var/obj/machinery/atmospherics/pipe/manifold/pipe in atmos)
 		if(!pipe.node1 || !pipe.node2 || !pipe.node3)
 			to_chat(usr, "Unconnected [pipe.name] located at [pipe.x],[pipe.y],[pipe.z] ([get_area(pipe.loc)])")
-
+	//Manifolds 4w
+	for(var/obj/machinery/atmospherics/pipe/manifold4w/pipe in atmos)
+		if(!pipe.node1 || !pipe.node2 || !pipe.node3 || !pipe.node4)
+			to_chat(usr, "Unconnected [pipe.name] located at [pipe.x],[pipe.y],[pipe.z] ([get_area(pipe.loc)])")
 	//Pipes
-	for(var/obj/machinery/atmospherics/pipe/simple/pipe in SSair.atmos_machinery)
+	for(var/obj/machinery/atmospherics/pipe/simple/pipe in atmos)
 		if(!pipe.node1 || !pipe.node2)
 			to_chat(usr, "Unconnected [pipe.name] located at [pipe.x],[pipe.y],[pipe.z] ([get_area(pipe.loc)])")
-
 	to_chat(usr, "Checking for overlapping pipes...")
 	for(var/turf/T in world)
 		for(var/dir in GLOB.cardinal)

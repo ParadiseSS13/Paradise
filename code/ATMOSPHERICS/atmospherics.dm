@@ -18,7 +18,6 @@ Pipelines + Other Objects -> Pipe network
 	active_power_usage = 0
 	power_channel = ENVIRON
 	on_blueprints = TRUE
-	var/nodealert = 0
 	var/can_unwrench = 0
 
 	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
