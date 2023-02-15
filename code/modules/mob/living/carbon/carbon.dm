@@ -1142,6 +1142,9 @@ so that different stomachs can handle things in different ways VB*/
 	. |= list(get_active_hand(), get_inactive_hand())
 
 /mob/living/carbon/proc/can_breathe_gas()
+	if(NO_BREATHE in src.dna.species.species_traits)
+		return FALSE
+
 	if(!wear_mask)
 		return TRUE
 
