@@ -196,18 +196,19 @@
 			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
 			return ..()
 
+		if(SM.master_commander)
+			to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
+			return
+
+		being_used = TRUE
 		var/response = alert(SM, "Желаете стать питомцем [user.name] и обрести разум подобный человеческому?","Зелье Разума!", "Да","Нет")
 
-		if (response == "Нет")
+		if(response == "Нет")
 			to_chat(user, "<span class='warning'>[SM.name] отказался от зелья!</span>")
+			being_used = FALSE
 			return
 		else
 			if(!src)
-				return
-			being_used = TRUE
-
-			if(SM.master_commander)
-				to_chat(user, "<span class='warning'>[SM.name] уже имеет хозяина!</span>")
 				return
 
 			SM.universal_speak = TRUE
@@ -234,8 +235,9 @@
 
 			SM.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
 			add_game_logs("стал питомцем игрока [key_name_log(user)]", SM)
+			return
 
-	if (isanimal(M))
+	if(isanimal(M))
 		var/mob/living/simple_animal/SM = M
 
 		if(SM.sentience_type != sentience_type)
@@ -287,7 +289,7 @@
 		return
 
 	//обработка низших форм: Обезьяны, стока, фарвы, неары, вульпина
-	if (ismonkeybasic(M))
+	if(ismonkeybasic(M) && !M.ckey)
 		var/mob/living/carbon/human/lesser/monkey/LF = M
 
 		to_chat(user, "<span class='notice'>Вы предлагаете [src] зелье разума [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
