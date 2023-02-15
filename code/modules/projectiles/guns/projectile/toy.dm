@@ -10,7 +10,6 @@
 	force = 0
 	throwforce = 0
 	burst_size = 3
-	can_suppress = TRUE
 	clumsy_check = FALSE
 	needs_permit = FALSE
 
@@ -26,7 +25,6 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	suppressed_sound = 'sound/weapons/gunshots/gunshot.ogg'
-	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
 	can_holster = TRUE
@@ -43,7 +41,6 @@
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
-	can_suppress = TRUE
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
@@ -100,7 +97,6 @@
 	desc = "A bullpup two-round burst toy SMG, designated 'C-20r'. Ages 8 and up."
 	icon = 'icons/obj/guns/toy.dmi'
 	suppressed_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
-	can_suppress = TRUE
 	needs_permit = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/smgm45
 
