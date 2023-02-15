@@ -155,6 +155,8 @@
 		return FALSE
 	if(istype(I, /obj/item/stack))
 		return insert_stack(I, stack_amt, multiplier)
+	if(I.resistance_flags & INDESTRUCTIBLE)
+		return FALSE
 
 	var/material_amount = get_item_material_amount(I)
 	if(!material_amount || !has_space(material_amount))
