@@ -124,6 +124,9 @@
 	if(!is_level_reachable(C.z))
 		to_chat(user, "<span class='warning'>Warning: No telepads in range!</span>")
 		return
+	if(C.anchored)
+		to_chat(user, "<span class ='warning'>Ошибка: Ящик прикручен! Отмена операции.</span>")
+		return
 
 	teleport(user, C, pad)
 
