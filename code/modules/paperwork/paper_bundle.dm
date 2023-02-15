@@ -21,7 +21,7 @@
 		new /obj/item/paper(src)
 		new /obj/item/paper(src)
 		amount += 1
-		
+
 /obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	var/obj/item/paper/P
@@ -104,7 +104,10 @@
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		show_content(user)
+		if(user.is_literate())
+			show_content(user)
+		else
+			. += "<span class='notice'>You don't know how to read.</span>"
 	else
 		. += "<span class='notice'>It is too far away.</span>"
 
