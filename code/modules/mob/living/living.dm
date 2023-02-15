@@ -598,9 +598,6 @@
 				var/mob/living/M = pulling
 				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
-			else
-				pulling.pixel_x = initial(pulling.pixel_x)
-				pulling.pixel_y = initial(pulling.pixel_y)
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
 			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()

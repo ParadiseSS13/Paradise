@@ -1043,7 +1043,6 @@
 #include "code\game\objects\items\devices\thermal_drill.dm"
 #include "code\game\objects\items\devices\traitordevices.dm"
 #include "code\game\objects\items\devices\transfer_valve.dm"
-#include "code\game\objects\items\devices\transporter.dm"
 #include "code\game\objects\items\devices\tts.dm"
 #include "code\game\objects\items\devices\uplinks.dm"
 #include "code\game\objects\items\devices\voice.dm"

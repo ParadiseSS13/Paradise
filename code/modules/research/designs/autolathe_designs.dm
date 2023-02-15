@@ -623,14 +623,6 @@
 	build_path = /obj/item/assembly/voice/noise
 	category = list("initial", "Miscellaneous")
 
-/datum/design/transporter
-	name = "Transporter"
-	id = "Transporter"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 150, MAT_GLASS = 50)
-	build_path = /obj/item/transporter
-	category = list("initial", "Miscellaneous")
-
 /datum/design/light_tube
 	name = "Light Tube"
 	id = "light_tube"
