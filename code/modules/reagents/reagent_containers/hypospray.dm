@@ -95,6 +95,62 @@
 	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
+/obj/item/reagent_containers/hypospray/ertm
+	volume = 90
+	ignore_flags = 1
+	icon_state = "combat_hypo"
+	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+
+/obj/item/reagent_containers/hypospray/ertm/hydrocodone
+	amount_per_transfer_from_this = 10
+	name = "Hydrocodon combat stimulant injector"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. Contains hydrocodone."
+	icon_state = "hypocombat-hydro"
+	list_reagents = list("hydrocodone" = 90)
+
+/obj/item/reagent_containers/hypospray/ertm/perfluorodecalin
+	amount_per_transfer_from_this = 3
+	name = "Perfluorodecalin combat stimulant injector"
+	icon_state = "hypocombat-perfa"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. Contains perfluorodecalin."
+	list_reagents = list("perfluorodecalin" = 90)
+
+/obj/item/reagent_containers/hypospray/ertm/pentic_acid
+	amount_per_transfer_from_this = 5
+	name = "Pentic acid combat stimulant injector"
+	icon_state = "hypocombat-dtpa"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. Contains pentic acid."
+	list_reagents = list("pen_acid" = 90)
+
+/obj/item/reagent_containers/hypospray/ertm/epinephrine
+	amount_per_transfer_from_this = 5
+	name = "Epinephrine combat stimulant injector"
+	icon_state = "hypocombat-epi"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. Contains epinephrine."
+	list_reagents = list("epinephrine" = 90)
+
+/obj/item/reagent_containers/hypospray/ertm/mannitol
+	amount_per_transfer_from_this = 5
+	name = "Mannitol combat stimulant injector"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. Contains mannitol."
+	icon_state = "hypocombat-mani"
+	list_reagents = list("mannitol" = 90)
+
+/obj/item/reagent_containers/hypospray/ertm/oculine
+	amount_per_transfer_from_this = 5
+	name = "Oculine combat stimulant injector"
+	icon_state = "hypocombat-ocu"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. Contains oculine."
+	list_reagents = list("oculine" = 90)
+
+/obj/item/reagent_containers/hypospray/ertm/omnisal
+	amount_per_transfer_from_this = 10
+	name = "DilOmni-Salglu solution combat stimulant injector"
+	icon_state = "hypocombat-womnisal"
+	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat. Contains a solution of dilute omnisin and saline."
+	list_reagents = list("weak_omnizine" = 45, "salglu_solution" = 45)
+	possible_transfer_amounts = list(10, 20, 30)
+
 /obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
 	volume = 100

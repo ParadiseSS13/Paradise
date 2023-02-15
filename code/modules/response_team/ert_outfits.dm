@@ -348,6 +348,7 @@
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
+		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/clothing/mask/surgical = 1,
 		/obj/item/storage/firstaid/toxin = 1,
 		/obj/item/storage/firstaid/brute = 1,
@@ -383,6 +384,7 @@
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
 
 	backpack_contents = list(
+		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller = 1,
