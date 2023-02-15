@@ -10276,6 +10276,14 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"aIg" = (
+/obj/structure/table/reinforced,
+/obj/item/eftpos/register{
+	dir = 1;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/crew_quarters/bar)
 "aIh" = (
 /obj/machinery/conveyor/southeast{
 	id = "cargodelivery"
@@ -22791,6 +22799,9 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/chef,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/eftpos/register{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blq" = (
@@ -135594,7 +135605,7 @@ aFA
 aGB
 aMi
 aJa
-aKs
+aIg
 bsq
 aOG
 aOG

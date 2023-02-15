@@ -60,3 +60,6 @@ GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN =
 GLOBAL_LIST_EMPTY(client_login_processors)
 // Assoc-List of all karma packages
 GLOBAL_LIST_EMPTY(karma_packages)
+
+/// List of ckeys that have seen a blurb of a given key.
+GLOBAL_LIST_EMPTY(blurb_witnesses)
