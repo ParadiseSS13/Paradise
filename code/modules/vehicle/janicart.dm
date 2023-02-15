@@ -65,15 +65,15 @@
 /obj/vehicle/janicart/post_buckle_mob(mob/living/M)
 	. = ..()
 	if(buffer_installed)
-		var/datum/action/floor_buffer/F = new(src)
+		var/datum/action/floor_buffer/floorbuffer_action = new(src)
 		if(has_buckled_mobs())
-			F.Grant(M)
+			floorbuffer_action.Grant(M)
 		else
-			F.Remove(M)
+			floorbuffer_action.Remove(M)
 
 /obj/vehicle/janicart/post_unbuckle_mob(mob/living/M)
-	for(var/datum/action/floor_buffer/F in M.actions)
-		F.Remove(M)
+	for(var/datum/action/floor_buffer/floorbuffer_action in M.actions)
+		floorbuffer_action.Remove(M)
 	return ..()
 
 /obj/vehicle/janicart/Move(atom/OldLoc, Dir)
