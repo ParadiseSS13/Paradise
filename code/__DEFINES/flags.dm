@@ -4,19 +4,20 @@
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE 		1		// This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
-#define NOPICKUP				4		// This flags makes it so an item cannot be picked in hands
-#define NOBLUDGEON  			8		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
-#define AIRTIGHT				16		// mask allows internals
-#define HANDSLOW        		32		// If an item has this flag, it will slow you to carry it
-#define CONDUCT					64		// conducts electricity (metal etc.)
-#define ABSTRACT				128		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
-#define ON_BORDER				256		// item has priority to check when entering or leaving
-#define PREVENT_CLICK_UNDER		512
-#define NODECONSTRUCT			1024
+#define NOBLUDGEON  			4		// when an item has this it produces no "X has been hit by Y with Z" message with the default handler
+#define AIRTIGHT				8		// mask allows internals
+#define HANDSLOW        		16		// If an item has this flag, it will slow you to carry it
+#define CONDUCT					32		// conducts electricity (metal etc.)
+#define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
+#define ON_BORDER				128		// item has priority to check when entering or leaving
+#define PREVENT_CLICK_UNDER		256
+#define NODECONSTRUCT			512
 
-#define EARBANGPROTECT			2048
+#define EARBANGPROTECT			1024
 
-#define NOSLIP					2048 	//prevents from slipping on wet floors, in space etc
+#define NOSLIP					1024 	//prevents from slipping on wet floors, in space etc
+
+#define NOPICKUP				2048	// This flags makes it so an item cannot be picked in hands
 
 #define HEADBANGPROTECT			4096
 
