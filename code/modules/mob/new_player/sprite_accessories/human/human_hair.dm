@@ -756,3 +756,119 @@
 	name = "Sasook Hair"
 	icon_state = "psalad_fluff_hair"
 	species_allowed = list("Slime People")
+
+///BAY12 Hairsyles///
+
+/datum/sprite_accessory/hair/wong
+	name = "Wong"
+	icon_state = "wong"
+	gender = FEMALE
+
+/datum/sprite_accessory/hair/ponytail7
+	name = "Ponytail 7"
+	icon_state = "ponytail7"
+
+/datum/sprite_accessory/hair/angel
+	name = "Angel"
+	icon_state = "angel"
+
+/datum/sprite_accessory/hair/harley
+	name = "Harley"
+	icon_state = "harley"
+
+/datum/sprite_accessory/hair/encoder
+	name = "Encoder"
+	icon_state = "encoder"
+
+/datum/sprite_accessory/hair/pais
+	name = "Pais"
+	icon_state = "pais"
+
+/datum/sprite_accessory/hair/hipstery
+	name = "Hipstery"
+	icon_state = "hipstery"
+
+/datum/sprite_accessory/hair/undercut4
+	name = "Undercut Alt"
+	icon_state = "undercut4"
+
+/datum/sprite_accessory/hair/shortflip
+	name = "Flippy Punk"
+	icon_state = "shortflip"
+
+/datum/sprite_accessory/hair/waterfall
+	name = "Waterfall"
+	icon_state = "waterfall"
+
+/datum/sprite_accessory/hair/long_braided
+	name = "Long Braided"
+	icon_state = "long_braided"
+
+/datum/sprite_accessory/hair/long_emo
+	name = "Long Emo"
+	icon_state = "longemo_alt"
+
+/datum/sprite_accessory/hair/zone
+	name = "Zone"
+	icon_state = "zone"
+
+/datum/sprite_accessory/hair/judge
+	name = "Judge"
+	icon_state = "judge"
+
+/datum/sprite_accessory/hair/lbangs
+	name = "Bangs"
+	icon_state = "lbangs"
+
+/datum/sprite_accessory/hair/bedheadlong_alt
+	name = "Bedhead Long Alt"
+	icon_state = "bedhead_alt"
+
+/datum/sprite_accessory/hair/long_braid
+	name = "Long Braid"
+	icon_state = "long_braid"
+
+/datum/sprite_accessory/hair/long_sidepart
+	name = "Long Sidepart"
+	icon_state = "longsidepart"
+
+/datum/sprite_accessory/hair/sidetail
+	name = "Side Tail"
+	icon_state = "sidetail3"
+
+/datum/sprite_accessory/hair/schierke     //berserk reference, holy shit
+	name = "Schierke"
+	icon_state = "schierke"
+
+/datum/sprite_accessory/hair/terezi
+	name = "Terezi"
+	icon_state = "terezi"
+
+/datum/sprite_accessory/hair/vriska
+	name = "Vriska"
+	icon_state = "vriska"
+
+/datum/sprite_accessory/hair/lsps
+	name = "Long Side Part Straight"
+	icon_state = "longsidepartstraight"
+
+/datum/sprite_accessory/hair/blunt_bangs
+	name = "Blunt Bangs"
+	icon_state = "bluntbangs"
+
+/datum/sprite_accessory/hair/combedbob
+	name = "Combed Bob"
+	icon_state = "combedbob"
+
+/datum/sprite_accessory/hair/slightlymessy
+	name = "Slightlymessy"
+	icon_state = "slightlymessy"
+
+/datum/sprite_accessory/hair/geisha
+	name = "Geisha"
+	icon_state = "geisha"
+
+/datum/sprite_accessory/hair/baum
+	name = "Baum"
+	icon_state = "baum"
+
