@@ -5,7 +5,6 @@
 	icon_state = "pussywagon"
 	key_type = /obj/item/key/janitor
 	var/obj/item/storage/bag/trash/mybag
-	var/datum/action/floor_buffer/F
 	var/buffer_installed = FALSE
 	/// How much speed the janicart loses while the buffer is active
 	var/buffer_delay = 1
@@ -14,7 +13,6 @@
 
 /obj/vehicle/janicart/Destroy()
 	QDEL_NULL(mybag)
-	QDEL_NULL(F)
 	return ..()
 
 /obj/vehicle/janicart/handle_vehicle_offsets()
@@ -67,13 +65,14 @@
 /obj/vehicle/janicart/post_buckle_mob(mob/living/M)
 	. = ..()
 	if(buffer_installed)
+		var/datum/action/floor_buffer/F = new(src)
 		if(has_buckled_mobs())
 			F.Grant(M)
 		else
 			F.Remove(M)
 
 /obj/vehicle/janicart/post_unbuckle_mob(mob/living/M)
-	if(buffer_installed)
+	for(var/datum/action/floor_buffer/F in M.actions)
 		F.Remove(M)
 	return ..()
 
@@ -103,7 +102,6 @@
 		return
 	if(istype(I, /obj/item/janiupgrade))
 		buffer_installed = TRUE
-		F = new(src)
 		qdel(I)
 		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
 		update_icon(UPDATE_OVERLAYS)
