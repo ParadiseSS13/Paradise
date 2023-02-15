@@ -31,65 +31,65 @@
 	. = ..()
 	prize_list = list()
 	prize_list["Gear"] = list(
-		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
-		EQUIPMENT("Explorer's Webbing", /obj/item/storage/belt/mining, 500),
-		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
-		EQUIPMENT("Mining Conscription Kit", /obj/item/storage/backpack/duffel/mining_conscript, 1500),
-		EQUIPMENT("Jetpack Upgrade", /obj/item/tank/jetpack/suit, 2000),
-		EQUIPMENT("Jump Boots", /obj/item/clothing/shoes/bhop, 2500),
-		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
-		EQUIPMENT("Mining Hardsuit", /obj/item/clothing/suit/space/hardsuit/mining, 2000),
+		EQUIPMENT("Fulton Beacon", /obj/item/fulton_core, 400),
+		EQUIPMENT("Explorer's Webbing", /obj/item/storage/belt/mining, 500),
 		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
+		EQUIPMENT("Advanced Scanner", /obj/item/t_scanner/adv_mining_scanner, 800),
+		EQUIPMENT("Mining Conscription Kit", /obj/item/storage/backpack/duffel/mining_conscript, 1500),
+		EQUIPMENT("Mining Hardsuit", /obj/item/clothing/suit/space/hardsuit/mining, 2000),
+		EQUIPMENT("Jetpack Upgrade", /obj/item/tank/jetpack/suit, 2000),
+		EQUIPMENT("Jump Boots", /obj/item/clothing/shoes/bhop, 2500)
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", /obj/item/stack/marker_beacon/ten, 100),
-		EQUIPMENT("Brute First-Aid Kit", /obj/item/storage/firstaid/brute, 600),
-		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
-		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 750),
-		EQUIPMENT("Lazarus Injector", /obj/item/lazarus_injector, 1000),
-		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 		EQUIPMENT("Shelter Capsule", /obj/item/survivalcapsule, 400),
 		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
+		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 		EQUIPMENT("Survival Medipen", /obj/item/reagent_containers/hypospray/autoinjector/survival, 500),
+		EQUIPMENT("Brute First-Aid Kit", /obj/item/storage/firstaid/brute, 600),
+		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 750),
+		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
+		EQUIPMENT("Lazarus Injector", /obj/item/lazarus_injector, 1000)
 	)
 	prize_list["Kinetic Accelerator"] = list(
-		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
+		EQUIPMENT("KA Minebot Passthrough", /obj/item/borg/upgrade/modkit/minebot_passthrough, 100),
+		EQUIPMENT("KA White Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer, 100),
 		EQUIPMENT("KA Adjustable Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer/adjustable, 150),
-		EQUIPMENT("KA AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 2000),
+		EQUIPMENT("KA Super Chassis", /obj/item/borg/upgrade/modkit/chassis_mod, 250),
+		EQUIPMENT("KA Hyper Chassis", /obj/item/borg/upgrade/modkit/chassis_mod/orange, 300),
+		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("KA Cooldown Decrease", /obj/item/borg/upgrade/modkit/cooldown, 1000),
 		EQUIPMENT("KA Damage Increase", /obj/item/borg/upgrade/modkit/damage, 1000),
-		EQUIPMENT("KA Hyper Chassis", /obj/item/borg/upgrade/modkit/chassis_mod/orange, 300),
-		EQUIPMENT("KA Minebot Passthrough", /obj/item/borg/upgrade/modkit/minebot_passthrough, 100),
 		EQUIPMENT("KA Range Increase", /obj/item/borg/upgrade/modkit/range, 1000),
-		EQUIPMENT("KA Super Chassis", /obj/item/borg/upgrade/modkit/chassis_mod, 250),
-		EQUIPMENT("KA White Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer, 100),
+		EQUIPMENT("KA AoE Damage", /obj/item/borg/upgrade/modkit/aoe/mobs, 2000)
 	)
 	prize_list["Digging Tools"] = list(
-		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("Kinetic Crusher", /obj/item/twohanded/kinetic_crusher, 750),
 		EQUIPMENT("Resonator", /obj/item/resonator, 800),
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
-		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500),
+		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
+		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500)
 	)
 	prize_list["Minebot"] = list(
-		EQUIPMENT("Nanotrasen Minebot", /obj/item/mining_drone_cube, 800),
-		EQUIPMENT("Minebot AI Upgrade", /obj/item/slimepotion/sentience/mining, 1000),
 		EQUIPMENT("Minebot Armor Upgrade", /obj/item/mine_bot_upgrade/health, 400),
-		EQUIPMENT("Minebot Cooldown Upgrade", /obj/item/borg/upgrade/modkit/cooldown/minebot, 600),
 		EQUIPMENT("Minebot Melee Upgrade", /obj/item/mine_bot_upgrade, 400),
+		EQUIPMENT("Minebot Cooldown Upgrade", /obj/item/borg/upgrade/modkit/cooldown/minebot, 600),
+		EQUIPMENT("Nanotrasen Minebot", /obj/item/mining_drone_cube, 800),
+		EQUIPMENT("Minebot AI Upgrade", /obj/item/slimepotion/sentience/mining, 1000)
 	)
 	prize_list["Miscellaneous"] = list(
 		EQUIPMENT("Absinthe", /obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 100),
-		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
-		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
-		EQUIPMENT("GAR Meson Scanners", /obj/item/clothing/glasses/meson/gar, 500),
-		EQUIPMENT("Laser Pointer", /obj/item/laser_pointer, 300),
-		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
-		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
-		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
+		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
+		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
+		EQUIPMENT("Laser Pointer", /obj/item/laser_pointer, 300),
+		EQUIPMENT("Alien Toy", /obj/item/clothing/mask/facehugger/toy, 300),
+		EQUIPMENT("GAR Meson Scanners", /obj/item/clothing/glasses/meson/gar, 500),
+		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
+		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000)
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 
