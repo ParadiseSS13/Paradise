@@ -207,7 +207,16 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("Pew (left)", /obj/structure/chair/sofa/pew/left, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("Pew (right)", /obj/structure/chair/sofa/pew/right, one_per_turf = TRUE, on_floor = TRUE),
 	)),
-	new /datum/stack_recipe("Wood floor tile", /obj/item/stack/tile/wood, res_amount = 4, max_res_amount = 20),
+	new /datum/stack_recipe_list("Wooden floor tiles", list(
+		new /datum/stack_recipe("Wood floor tile", /obj/item/stack/tile/wood, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Oak floor tile", /obj/item/stack/tile/wood/oak, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Birch floor tile", /obj/item/stack/tile/wood/birch, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Cherry floor tile", /obj/item/stack/tile/wood/cherry, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Fancy oak floor tile", /obj/item/stack/tile/wood/fancy/oak, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Fancy light oak floor tile", /obj/item/stack/tile/wood/fancy/light, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Fancy birch floor tile", /obj/item/stack/tile/wood/fancy/birch, res_amount = 4, max_res_amount = 20),
+		new /datum/stack_recipe("Fancy cherry floor tile", /obj/item/stack/tile/wood/fancy/cherry, res_amount = 4, max_res_amount = 20)
+	)),
 	new /datum/stack_recipe("Wood table frame", /obj/structure/table_frame/wood, 2, time = 10),
 	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
