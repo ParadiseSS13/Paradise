@@ -173,7 +173,7 @@
 /mob/proc/changeling_update_languages(var/updated_languages)
 
 	for(var/datum/language/L in updated_languages)
-		add_language("L.name")
+		add_language(L.name)
 
 	//This isn't strictly necessary but just to be safe...
 	add_language("Changeling")

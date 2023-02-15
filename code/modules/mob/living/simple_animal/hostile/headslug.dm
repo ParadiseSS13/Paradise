@@ -55,7 +55,7 @@
 				return
 			Infect(target)
 			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
-			addtimer(CALLBACK(src, .proc/death), 100)
+			addtimer(CALLBACK(src, .proc/death), 10 SECONDS)
 
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
@@ -69,7 +69,7 @@
 	time++
 	if(time >= EGG_INCUBATION_TIME)
 		Pop()
-		remove(owner)
+		STOP_PROCESSING(SSobj, src)
 		qdel(src)
 
 /obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
@@ -85,6 +85,8 @@
 			M.make_changeling()
 		if(origin.changeling.can_absorb_dna(M, owner))
 			origin.changeling.absorb_dna(owner, M)
+		if(origin.changeling.absorbed_languages)
+			M.changeling_update_languages(origin.changeling.absorbed_languages)
 
 		var/datum/action/changeling/humanform/HF = new
 		HF.Grant(M)
