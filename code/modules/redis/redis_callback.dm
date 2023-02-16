@@ -21,7 +21,7 @@
   * * message - The message received on the redis channel
   */
 /datum/redis_callback/proc/on_message(message)
-	CRASH("on_message() not overriden for [type]!")
+	CRASH("on_message() not overridden for [type]!")
 
 // Misc protections
 /datum/redis_callback/vv_edit_var(var_name, var_value)

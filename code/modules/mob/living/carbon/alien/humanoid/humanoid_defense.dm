@@ -56,6 +56,6 @@
 							visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
 
 /mob/living/carbon/alien/humanoid/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!no_effect && !visual_effect_icon)
+	if(!no_effect && !visual_effect_icon && !get_active_hand())
 		visual_effect_icon = ATTACK_EFFECT_CLAW
 	..()

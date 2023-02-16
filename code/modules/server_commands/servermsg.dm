@@ -18,7 +18,7 @@
 	var/list/command_args = list()
 
 /datum/server_command/proc/execute(source, command_args)
-	CRASH("execute(source, command_args) not overriden for [type]!")
+	CRASH("execute(source, command_args) not overridden for [type]!")
 
 /datum/server_command/proc/dispatch(command_args)
 	SHOULD_NOT_OVERRIDE(TRUE) // No messing with
@@ -35,4 +35,4 @@
 
 // Override this if you want a cleaner method for putting together dispatch args
 /datum/server_command/proc/custom_dispatch()
-	CRASH("custom_dispatch() not overriden for [type]!")
+	CRASH("custom_dispatch() not overridden for [type]!")

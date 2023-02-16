@@ -104,7 +104,7 @@
 	var/mode = "NTPROBEV0.8"
 	var/active = FALSE
 	density = TRUE
-	use_power = FALSE
+	power_state = NO_POWER_USE
 	var/static/gid = 0
 	var/id = 0
 

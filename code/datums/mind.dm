@@ -143,7 +143,6 @@
 			martial_art.remove(current)
 		else
 			martial_art.teach(current)
-
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
