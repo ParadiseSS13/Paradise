@@ -138,10 +138,37 @@
  */
 /obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
-	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut") //these wont show up if the pen is off
 	var/on = 0
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
+	armour_penetration = 20
+	var/backstab_sound = 'sound/items/unsheath.ogg'
+	var/backstab_cooldown = 0
+	var/backstab_damage = 12
+
+/obj/item/pen/edagger/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	user.changeNext_move(CLICK_CD_MELEE * 1.3) //attack speed is 1.3 times slower
+
+/obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
+	var/extra_force_applied = FALSE
+	if(on && user.dir == M.dir && !M.incapacitated(TRUE) && user != M && backstab_cooldown <= world.time)
+		backstab_cooldown = (world.time + 10 SECONDS)
+		force += backstab_damage
+		extra_force_applied = TRUE
+		M.Weaken(1)
+		M.adjustStaminaLoss(40)
+		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
+		M.visible_message("<span class='warning'>[user] stabs [M] in the back!</span>", "<span class='userdanger'>[user] stabs you in the back! The energy blade makes you collapse in pain!</span>")
+		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	else
+		playsound(loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	. = ..()
+	if(extra_force_applied)
+		force -= backstab_damage
+
+/obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
+	return 0
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -150,10 +177,11 @@
 		sharp = 0
 		w_class = initial(w_class)
 		name = initial(name)
+		attack_verb = list()
 		hitsound = initial(hitsound)
 		embed_chance = initial(embed_chance)
 		throwforce = initial(throwforce)
-		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 3, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
 		set_light(0)
 	else
@@ -162,10 +190,11 @@
 		sharp = 1
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
+		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35
-		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 3, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
 	update_icon()
