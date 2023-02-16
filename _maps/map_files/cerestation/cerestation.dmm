@@ -19057,6 +19057,21 @@
 	pixel_y = 6
 	},
 /obj/machinery/light,
+/obj/item/storage/box/pillbottles{
+	pixel_x = 6;
+	pixel_y = -2
+	},
+/obj/item/storage/box/pillbottles{
+	pixel_x = 3;
+	pixel_y = 1
+	},
+/obj/item/storage/box/patch_packs{
+	pixel_y = 4
+	},
+/obj/item/storage/box/patch_packs{
+	pixel_y = 7;
+	pixel_x = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -58322,10 +58337,18 @@
 /area/hallway/primary/fore/east)
 "kzM" = (
 /obj/structure/rack,
-/obj/item/hand_labeler,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/item/storage/box/pillbottles{
+	pixel_x = 6;
+	pixel_y = -2
+	},
+/obj/item/storage/box/patch_packs{
+	pixel_y = 7;
+	pixel_x = -3
+	},
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -80788,7 +80811,14 @@
 	pixel_x = 7;
 	pixel_y = -3
 	},
-/obj/item/storage/box/iv_bags,
+/obj/item/storage/box/patch_packs{
+	pixel_y = 7;
+	pixel_x = -3
+	},
+/obj/item/storage/box/pillbottles{
+	pixel_x = 6;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
