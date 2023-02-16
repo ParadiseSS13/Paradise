@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	. = ..()
 	setup_parts()
 	update_gen_list()
-	update_icon()
+	set_power()
 
 //
 // Main Generator with the main code
