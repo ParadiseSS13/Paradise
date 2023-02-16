@@ -8262,7 +8262,7 @@
 "aVi" = (
 /obj/structure/bonfire,
 /turf/simulated/floor/carpet/green,
-/area/maintenance/gambling_den)
+/area/library)
 "aVo" = (
 /obj/structure/table/wood,
 /obj/item/megaphone,
@@ -42399,7 +42399,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/carpet/green,
-/area/maintenance/gambling_den)
+/area/library)
 "eiB" = (
 /obj/structure/sign/pods,
 /turf/simulated/wall,
@@ -42884,7 +42884,7 @@
 /obj/item/hatchet,
 /obj/item/hatchet,
 /turf/simulated/floor/carpet/green,
-/area/maintenance/gambling_den)
+/area/library)
 "etE" = (
 /obj/structure/closet,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -63112,7 +63112,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/green,
-/area/maintenance/gambling_den)
+/area/library)
 "mAW" = (
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
@@ -78925,9 +78925,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/virology)
-"szQ" = (
-/turf/simulated/floor/carpet/green,
-/area/maintenance/gambling_den)
 "sAd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -86176,7 +86173,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/green,
-/area/maintenance/gambling_den)
+/area/library)
 "vwy" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -90888,7 +90885,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/gambling_den)
+/area/library)
 "xjO" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -113710,9 +113707,9 @@ bHZ
 bHZ
 bHZ
 bHZ
-dgP
-szQ
-sbn
+bHZ
+ybP
+aEe
 sbn
 sbn
 bZg
@@ -113968,8 +113965,8 @@ bPi
 vEs
 bHZ
 eiq
-szQ
-sbn
+ybP
+aEe
 sbn
 sbn
 bZg
@@ -114226,7 +114223,7 @@ vEs
 jKi
 aVi
 mAT
-sbn
+aEe
 sbn
 sbn
 bZg
@@ -114482,8 +114479,8 @@ rUL
 vEs
 bHZ
 vww
-szQ
-sbn
+ybP
+aEe
 sbn
 sbn
 bZg
@@ -114740,7 +114737,7 @@ bHZ
 bHZ
 xjI
 ets
-sbn
+aEe
 sbn
 sbn
 bZg
@@ -114995,9 +114992,9 @@ aEe
 aEe
 aEe
 aEe
-sbn
-sbn
-sbn
+aEe
+aEe
+aEe
 sbn
 sbn
 bZg
