@@ -112,11 +112,11 @@
 			"<span class='notice'>You feel so cozy, you could probably stay here for a while...</span>"
 		)
 
-	add_attack_logs(attacker, target, "put to bed for [15 * sleep_ratio] seconds.")
-
 	target.forceMove(loc)
 	buckle_mob(target, TRUE)
-	H.Sleeping((15 SECONDS) * sleep_ratio)
+	if(!H.IsSleeping())
+		H.Sleeping((15 SECONDS) * sleep_ratio)
+		add_attack_logs(attacker, target, "put to bed for [15 * sleep_ratio] seconds.")
 	H.emote("snore")
 
 	for(var/mob/living/carbon/human/viewer in viewers())
