@@ -108,7 +108,7 @@
 
 	if(sleep_ratio > 1)
 		target.visible_message(
-			"<span class='notice'>[target] seems especially cozy...they won't be up for a while.</span>",
+			"<span class='notice'>[target] seems especially cozy...[target.p_they()] probably won't be up for a while.</span>",
 			"<span class='notice'>You feel so cozy, you could probably stay here for a while...</span>"
 		)
 
