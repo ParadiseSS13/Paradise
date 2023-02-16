@@ -295,15 +295,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 			for(var/obj/item/organ/internal/brain/brain in H.contents)
 				b_mob = brain.brainmob
 				brain.forceMove(T)
-				O = brain // Convoluted way of making the brain disappear
 
 		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain
-			var/obj/item/organ/internal/brain/brain = O
 			b_mob = brain.brainmob
 
 		if(b_mob && b_mob.mind && (!iscultist(b_mob) || is_sacrifice_target(b_mob.mind)))
 			offer_targets += b_mob
-			O.invisibility = INVISIBILITY_MAXIMUM // So that it can't be moved around. This gets qdeleted later
 
 	if(!length(offer_targets))
 		fail_invoke()
@@ -325,8 +322,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		invocation = "Barhah hra zar'garis!"
 		..()
 		do_sacrifice(L, invokers)
-		if(isbrain(L))
-			qdel(L.loc) // Don't need this anymore!
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
@@ -389,9 +384,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/worthless = FALSE
 	var/datum/game_mode/gamemode = SSticker.mode
 
-	if(isliving(offering))
+	if(isliving(offering) && !isbrain(offering))
 		var/mob/living/L = offering
-		L.adjustCloneLoss(120)
+		if(isrobot(L) || ismachineperson(L))
+			L.adjustBruteLoss(250)
+		else
+			L.adjustCloneLoss(120)
 		L.death(FALSE)
 
 	if(offering.mind)

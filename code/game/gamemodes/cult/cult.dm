@@ -211,7 +211,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/proc/add_cult_immunity(mob/living/target)
 	ADD_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)
-	addtimer(CALLBACK(src, PROC_REF(remove_cult_immunity), target), 10 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(remove_cult_immunity), target), 1 MINUTES)
 
 /datum/game_mode/proc/remove_cult_immunity(mob/living/target)
 	REMOVE_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)

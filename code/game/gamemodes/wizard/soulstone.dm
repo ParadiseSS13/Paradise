@@ -423,11 +423,13 @@
 			to_chat(S, "<span class='userdanger'>Your soul has been captured! You are now bound to [user.real_name]'s will. Help them succeed in their goals at all costs.</span>")
 	if(forced && user)
 		to_chat(user, "<span class='info'><b>Capture successful!</b>:</span> [M.real_name]'s soul has been ripped from [user.p_their()] body and stored within the soul stone.")
-	if(isrobot(M))//Robots have to dust or else they spill out an empty robot brain, and unequiping them spills robot components that shouldn't spawn.
-		M.forceMove()
-	else
+	if(!isrobot(M))
 		for(var/obj/item/I in M)
 			M.unEquip(I)
+	if(isbrain(M))
+		var/mob/living/carbon/brain/B = M
+		B.container.forceMove(src)
+	else
 		M.forceMove(src)
 
 /obj/item/soulstone/proc/get_shade_type()
