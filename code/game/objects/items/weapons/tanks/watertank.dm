@@ -182,15 +182,18 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "misterjani"
 	item_state = "misterjani"
-	amount_per_transfer_from_this = 5
+	spray_maxrange = 4
+	spray_currentrange = 4
+	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
 /obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
+	spray_currentrange = (spray_currentrange == 2 ? spray_maxrange : 2)
+	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 //ATMOS FIRE FIGHTING BACKPACK
 

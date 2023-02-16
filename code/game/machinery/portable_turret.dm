@@ -380,7 +380,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		//if the turret was attacked with the intention of harming it:
 		user.changeNext_move(CLICK_CD_MELEE)
-		take_damage(I.force * 0.5)
 		playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 		if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
 			if(!attacked && !emagged)
@@ -397,7 +396,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	if(!(stat & BROKEN))
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
-		take_damage(M.melee_damage_upper)
+		..()
 	else
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
@@ -427,14 +426,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = TRUE //turns it back on. The cover pop_up() pop_down() are automatically called in process(), no need to define it here
 
-/obj/machinery/porta_turret/take_damage(force)
+
+/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
+	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration_flat, armour_penetration_percentage)
 	if(!raised && !raising)
-		force = force / 8
-		if(force < 5)
+		damage_amount = damage_amount / 8
+		if(damage_amount < 5)
 			return
 
-	health -= force
-	if(force > 5 && prob(45) && spark_system)
+	health -= damage_amount
+	if(damage_amount > 5 && prob(45) && spark_system)
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -449,10 +450,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			spawn(60)
 				attacked = FALSE
 
-	..()
-
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		take_damage(Proj.damage)
+	return ..()
 
 /obj/machinery/porta_turret/emp_act(severity)
 	if(enabled && emp_vulnerable)

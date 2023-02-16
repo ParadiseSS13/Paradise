@@ -6,7 +6,7 @@
 				/obj/item/pizzabox/pepperoni = 2,
 				/obj/item/pizzabox/garlic = 1,
 				/obj/item/pizzabox/firecracker = 1,
-				/obj/item/pizza_bomb = 1)
+				/obj/item/pizzabox/pizza_bomb = 1)
 	lootdoubles = FALSE
 
 /obj/structure/reagent_dispensers/water_cooler/pizzaparty

@@ -315,6 +315,12 @@
 	color = "#5F3A13"
 	taste_description = "bitter cocoa"
 
+/datum/reagent/consumable/cocoa/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M))
+		update_flags |= M.adjustToxLoss(2, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/consumable/vanilla
 	name = "Vanilla"
 	id = "vanilla"
@@ -336,7 +342,10 @@
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	return ..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M))
+		update_flags |= M.adjustToxLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/garlic
 	name = "Garlic Juice"
@@ -566,7 +575,10 @@
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
-	return ..()
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M)) // chocolate is bad for dogs and cats, ya know
+		update_flags |= M.adjustToxLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
