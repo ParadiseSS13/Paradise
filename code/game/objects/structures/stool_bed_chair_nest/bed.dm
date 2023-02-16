@@ -68,6 +68,63 @@
 /obj/structure/bed/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset()
 
+/obj/structure/bed/shove_impact(mob/living/target, mob/living/attacker)
+	. = ..()
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/H = target
+
+	// only if you're wearing PJs
+	if(!istype(H.w_uniform, /obj/item/clothing/under/misc/pj))
+		return
+
+	// and there's a sheet on the bed
+	if(!locate(/obj/item/bedsheet) in loc)
+		return
+
+	var/sleep_ratio = 1
+
+	if(istype(H.shoes, /obj/item/clothing/shoes/slippers))
+		sleep_ratio *= 2
+		// take your shoes off first, you filthy animal
+		H.unEquip(H.shoes)
+
+	var/extinguished_candle = FALSE
+	for(var/obj/item/candle/C in range(2, src))
+		if(C.lit)
+			C.unlight()
+			extinguished_candle = TRUE
+
+	if(extinguished_candle)
+		sleep_ratio *= 2
+
+	// nighty night
+	target.visible_message(
+		"<span class='danger'>[attacker] puts [target] to bed!</span>",
+		"<span class='userdanger'>[attacker] shoves you under the covers, and you're out like a light!</span>",
+		"<span class='notice'>You hear someone getting into bed.</span>"
+	)
+
+	if(sleep_ratio > 1)
+		target.visible_message(
+			"<span class='notice'>[target] seems especially cozy...they won't be up for a while.</span>",
+			"<span class='notice'>You feel so cozy, you could probably stay here for a while...</span>"
+		)
+
+	add_attack_logs(attacker, target, "put to bed for [15 * sleep_ratio] seconds.")
+
+	target.forceMove(loc)
+	buckle_mob(target, TRUE)
+	H.Sleeping((15 SECONDS) * sleep_ratio)
+	H.emote("snore")
+
+	for(var/mob/living/carbon/human/viewer in viewers())
+		if(prob(50))
+			viewer.emote("yawn")
+
+	return TRUE
+
 /*
  * Roller beds
  */
@@ -205,17 +262,45 @@
 	buckle_offset = 0
 	comfort = 0.5
 
+/obj/structure/bed/dogbed/proc/can_be_put_to_bed(mob/sleeper)
+	return ispet(sleeper)
+
+/obj/structure/bed/dogbed/shove_impact(mob/living/target, mob/living/attacker)
+	// no, you can't force vulps or taj to sleep in the dog bed.
+	if(!istype(target) || !can_be_put_to_bed(target))
+		return FALSE
+
+	target.visible_message(
+		"<span class='warning'>[attacker] puts [target] to bed!</span>",
+		"<span class='danger'>[attacker] pushes you into [src], and it feels so comfy you can't resist the urge to sleep!</span>"
+	)
+
+	target.Sleeping(15 SECONDS)
+	buckle_mob(target, TRUE)
+
+	return TRUE
+
 /obj/structure/bed/dogbed/ian
 	name = "Ian's bed"
 	desc = "Ian's bed! Looks comfy."
 	anchored = TRUE
+
+/obj/structure/bed/dogbed/ian/can_be_put_to_bed(mob/sleeper)
+	return iscorgi(sleeper)
 
 /obj/structure/bed/dogbed/renault
 	desc = "Renault's bed! Looks comfy. A foxy person needs a foxy pet."
 	name = "Renault's bed"
 	anchored = TRUE
 
+
+/obj/structure/bed/dogbed/renault/can_be_put_to_bed(mob/sleeper)
+	return istype(sleeper, /mob/living/simple_animal/pet/dog/fox)
+
 /obj/structure/bed/dogbed/runtime
 	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
 	name = "Runtime's bed"
 	anchored = TRUE
+
+/obj/structure/bed/dogbed/runtime/can_be_put_to_bed(mob/sleeper)
+	return iscat(sleeper)
