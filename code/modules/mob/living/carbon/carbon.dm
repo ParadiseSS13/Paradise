@@ -357,17 +357,8 @@
 	if(HAS_TRAIT(H, TRAIT_SKELETONIZED) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
-/mob/living/carbon/can_be_flashed(intensity = 1, override_blindness_check = 0)
-	var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-	. = ..()
-
-	if((E && (E.status & ORGAN_DEAD)) || !.)
-		return FALSE
-
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
-	//Parent proc checks if a mob can_be_flashed()
 	. = ..()
-
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_CARBON_FLASH_EYES, laser_pointer)
 	var/damage = intensity - check_eye_prot()
@@ -375,10 +366,8 @@
 	if(.)
 		if(visual)
 			return
-
-		//Checks that shouldn't stop flashing, but should stop eye damage, so they go here instead of in can_be_flashed()
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
-		if(!E || E.weld_proof)
+		if(!E || (E && E.weld_proof))
 			return
 
 		var/extra_darkview = 0
@@ -1051,7 +1040,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/Stat()
 	..()
 	if(statpanel("Status"))
-		var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
+		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
 		if(vessel)
 			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
 

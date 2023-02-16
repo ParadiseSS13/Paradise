@@ -58,7 +58,7 @@
 			if(C.operating)
 				C.toggle_breaker()
 			// no matter what, ensure the area knows something happened to the power
-			current_area.powernet.power_change()
+			current_area.power_change()
 			affected_apc_count++
 	log_and_message_admins("APC Overload event deleted [affected_apc_count] underfloor APC terminals.")
 

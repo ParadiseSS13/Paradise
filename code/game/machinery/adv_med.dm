@@ -6,8 +6,8 @@
 	density = TRUE
 	dir = WEST
 	anchored = TRUE
-	idle_power_consumption = 1250
-	active_power_consumption = 2500
+	idle_power_usage = 1250
+	active_power_usage = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
@@ -30,8 +30,7 @@
 	return ..()
 
 /obj/machinery/bodyscanner/power_change()
-	if(!..())
-		return
+	..()
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else

@@ -124,19 +124,20 @@
 	state = TVALVE_STATE_SIDE
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/power_change()
-	if(!..())
-		return
-	update_icon()
+	var/old_stat = stat
+	..()
+	if(old_stat != stat)
+		update_icon()
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/update_icon_state()
-	if(!has_power())
+	if(!powered())
 		icon_state = "tvalvenopower"
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/attack_ai(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/attack_hand(mob/user)
-	if(!has_power())
+	if(!powered())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='alert'>Access denied.</span>")

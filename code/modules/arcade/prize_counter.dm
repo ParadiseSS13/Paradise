@@ -6,8 +6,8 @@
 	icon_state = "prize_counter-on"
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 40
-
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 40
 	var/tickets = 0
 
 /obj/machinery/prize_counter/Initialize(mapload)

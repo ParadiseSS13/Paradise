@@ -244,10 +244,6 @@ emp_act
 	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
 	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
 	if(!right_hand_parry && !left_hand_parry)
-		if(l_hand?.flags_2 & RANDOM_BLOCKER_2)
-			return l_hand
-		if(r_hand?.flags_2 & RANDOM_BLOCKER_2)
-			return r_hand
 		return null // no parry component
 
 	if(right_hand_parry && left_hand_parry)
@@ -481,6 +477,7 @@ emp_act
 		weapon_sharp = 0
 	if(armor == INFINITY)
 		return 0
+	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/bonus_damage = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -538,6 +535,11 @@ emp_act
 						if(w_uniform)
 							w_uniform.add_mob_blood(src)
 							update_inv_w_uniform()
+
+
+
+	if(Iforce > 10 || Iforce >= 5 && prob(33))
+		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 

@@ -3,7 +3,7 @@
 	desc = "A remote control-switch for a door."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl0"
-	power_channel = PW_CHANNEL_ENVIRONMENT
+	power_channel = ENVIRON
 	var/id = null
 	var/safety_z_check = TRUE
 	var/normaldoorcontrol = FALSE
@@ -26,8 +26,9 @@
 	*/
 
 	anchored = TRUE
-	idle_power_consumption = 2
-	active_power_consumption = 4
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 4
 
 /obj/machinery/door_control/attack_ai(mob/user as mob)
 	if(wires & 2)
@@ -118,8 +119,7 @@
 			icon_state = "doorctrl0"
 
 /obj/machinery/door_control/power_change()
-	if(!..())
-		return
+	..()
 	if(stat & NOPOWER)
 		icon_state = "doorctrl-p"
 	else

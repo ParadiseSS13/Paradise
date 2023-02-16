@@ -49,8 +49,7 @@
 	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
 
 /obj/machinery/recycler/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)

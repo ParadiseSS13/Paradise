@@ -277,7 +277,7 @@
 	log_startup_progress("Initialized within [time] second[time == 1 ? "" : "s"]!")
 
 /datum/controller/subsystem/Initialize()
-	CRASH("Initialize() not overridden for [type]! Make the subsystem Initialize or add SS_NO_INIT to the flags")
+	CRASH("Initialize() not overriden for [type]! Make the subsystem Initialize or add SS_NO_INIT to the flags")
 
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)

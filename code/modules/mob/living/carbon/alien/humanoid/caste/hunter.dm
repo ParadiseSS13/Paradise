@@ -14,14 +14,14 @@
 
 /mob/living/carbon/alien/humanoid/hunter/get_caste_organs()
 	. = ..()
-	. += /obj/item/organ/internal/alien/plasmavessel/hunter
+	. += /obj/item/organ/internal/xenos/plasmavessel/hunter
 
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
 	if(m_intent == MOVE_INTENT_RUN || IS_HORIZONTAL(src))
 		..()
 	else
-		add_plasma(-heal_rate)
+		adjustPlasma(-heal_rate)
 
 
 //Hunter verbs

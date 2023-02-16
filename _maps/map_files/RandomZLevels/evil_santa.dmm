@@ -589,7 +589,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "Worn-out APC";
 	pixel_x = 24
@@ -659,7 +659,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	dir = 4;
 	name = "Worn-out APC";
 	pixel_x = 24

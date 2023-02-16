@@ -9,10 +9,11 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	anchored = TRUE
 	max_integrity = 150
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
-	power_channel = PW_CHANNEL_ENVIRONMENT
-	power_state = IDLE_POWER_USE
-	idle_power_consumption = 2
-	active_power_consumption = 5
+	power_channel = ENVIRON
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 5
+
 	var/obj/machinery/atmospherics/pipe/target = null
 
 /obj/machinery/atmospherics/meter/Initialize(mapload)

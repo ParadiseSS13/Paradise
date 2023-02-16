@@ -20,9 +20,6 @@ GLOBAL_VAR(bomb_set)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	anchored = TRUE
-	power_state = NO_POWER_USE
-	requires_power = FALSE
-
 	var/extended = TRUE
 	var/lighthack = FALSE
 	var/timeleft = 120
@@ -38,6 +35,7 @@ GLOBAL_VAR(bomb_set)
 	var/is_syndicate = FALSE
 	/// If this is true you cannot unbolt the NAD with tools, only the NAD
 	var/requires_NAD_to_unbolt = FALSE
+	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
 	var/removal_stage = NUKE_INTACT
@@ -45,7 +43,6 @@ GLOBAL_VAR(bomb_set)
 	var/anchor_stage = NUKE_INTACT
 	///This is so that we can check if the internal components are sealed up properly when the outer hatch is closed.
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
-
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE

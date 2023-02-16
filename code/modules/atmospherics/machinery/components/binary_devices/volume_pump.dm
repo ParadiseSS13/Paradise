@@ -53,7 +53,7 @@ Thus, the two variables affect pump operation are set in New():
 	icon_state = "map_on"
 
 /obj/machinery/atmospherics/binary/volume_pump/update_icon_state()
-	if(!has_power())
+	if(!powered())
 		icon_state = "off"
 	else
 		icon_state = "[on ? "on" : "off"]"
@@ -146,9 +146,10 @@ Thus, the two variables affect pump operation are set in New():
 		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/binary/volume_pump/power_change()
-	if(!..())
-		return
-	update_icon()
+	var/old_stat = stat
+	..()
+	if(old_stat != stat)
+		update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/W, mob/user, params)
 	if(is_pen(W))

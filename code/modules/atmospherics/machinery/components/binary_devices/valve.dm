@@ -81,7 +81,7 @@
 	return attack_hand(user)
 
 /obj/machinery/atmospherics/binary/valve/digital/attack_hand(mob/user)
-	if(!has_power())
+	if(!powered())
 		return
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='alert'>Access denied.</span>")
@@ -93,12 +93,13 @@
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/digital/power_change()
-	if(!..())
-		return
-	update_icon(UPDATE_ICON_STATE)
+	var/old_stat = stat
+	..()
+	if(old_stat != stat)
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/binary/valve/digital/update_icon_state()
-	if(!has_power())
+	if(!powered())
 		icon_state = "valve[open]nopower"
 		return
 	..()

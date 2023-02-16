@@ -3,9 +3,9 @@
 	desc = "It's used to monitor rooms."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "camera"
-	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 5
-	active_power_consumption = 10
+	use_power = ACTIVE_POWER_USE
+	idle_power_usage = 5
+	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12

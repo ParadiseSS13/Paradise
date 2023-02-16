@@ -233,7 +233,7 @@
 	energy_drain = 0
 	range = 0
 	var/coeff = 100
-	var/list/use_channels = list(PW_CHANNEL_EQUIPMENT, PW_CHANNEL_ENVIRONMENT, PW_CHANNEL_LIGHTING)
+	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
 	selectable = 0
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/Destroy()
@@ -257,7 +257,7 @@
 	var/pow_chan
 	if(A)
 		for(var/c in use_channels)
-			if(A.powernet.has_power(c))
+			if(A.powered(c))
 				pow_chan = c
 				break
 	return pow_chan
@@ -294,14 +294,14 @@
 		var/area/A = get_area(chassis)
 		if(A)
 			var/pow_chan
-			for(var/c in use_channels)
-				if(A.powernet.has_power(c))
+			for(var/c in list(EQUIP,ENVIRON,LIGHT))
+				if(A.powered(c))
 					pow_chan = c
 					break
 			if(pow_chan)
 				var/delta = min(20, chassis.cell.maxcharge-cur_charge)
 				chassis.give_power(delta)
-				A.powernet.use_active_power(pow_chan, delta * coeff)
+				A.use_power(delta*coeff, pow_chan)
 
 /////////////////////////////////////////// GENERATOR /////////////////////////////////////////////
 

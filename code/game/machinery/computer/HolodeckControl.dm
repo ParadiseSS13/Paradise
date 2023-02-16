@@ -286,7 +286,7 @@
 	for(var/obj/effect/decal/cleanable/blood/B in linkedholodeck)
 		qdel(B)
 
-	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
+	for(var/mob/living/simple_animal/hostile/carp/C in linkedholodeck)
 		qdel(C)
 
 	holographic_items = A.copy_contents_to(linkedholodeck , 1, perfect_copy = FALSE)
@@ -521,9 +521,10 @@
 	var/eventstarted = 0
 
 	anchored = TRUE
-	idle_power_consumption = 2
-	active_power_consumption = 6
-	power_channel = PW_CHANNEL_ENVIRONMENT
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 6
+	power_channel = ENVIRON
 
 /obj/machinery/readybutton/attack_ai(mob/user as mob)
 	to_chat(user, "The station AI is not to interact with these devices.")

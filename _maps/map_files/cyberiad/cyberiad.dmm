@@ -76,7 +76,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "aaQ" = (
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
@@ -668,7 +670,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "aeg" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -1274,7 +1278,7 @@
 /obj/machinery/door/airlock/hatch/gamma{
 	locked = 1;
 	req_access_txt = "1";
-	power_state = 0
+	use_power = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9226,7 +9230,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "azH" = (
 /obj/machinery/door_control{
 	id = "brig_courtroom";
@@ -24748,10 +24754,6 @@
 "bkP" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
-/obj/item/eftpos/register{
-	dir = 1;
-	pixel_y = 11
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -28149,7 +28151,6 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_service,
-/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -30879,7 +30880,9 @@
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "bzn" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -32362,6 +32365,10 @@
 	pixel_x = -4;
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
+	name = "Chemistry Cleaner"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -32935,7 +32942,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
 	name = "Toxins Venting Bay Door";
-	power_state = 0
+	use_power = 0
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
@@ -33616,7 +33623,9 @@
 /obj/structure/closet/firecloset/full,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "bGq" = (
 /obj/structure/rack,
 /obj/item/roller{
@@ -41525,7 +41534,7 @@
 	pixel_y = 7;
 	pixel_x = -8
 	},
-/obj/item/eftpos/register,
+/obj/item/phone/pos,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "caq" = (
@@ -44299,7 +44308,9 @@
 "cif" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cij" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
@@ -44999,7 +45010,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cjX" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/rack,
@@ -45125,6 +45138,10 @@
 /area/medical/cmostore)
 "ckC" = (
 /obj/structure/rack,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /obj/item/reagent_containers/spray/cleaner{
 	pixel_x = 2
 	},
@@ -45482,7 +45499,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "clz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/landmark/burnturf,
@@ -45903,7 +45922,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cmG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -46025,7 +46046,9 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cmZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/caution/red,
@@ -46038,13 +46061,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cnb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cnf" = (
 /obj/machinery/atmospherics/portable/scrubber/huge,
 /obj/effect/decal/cleanable/dirt,
@@ -46056,7 +46083,9 @@
 	},
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cng" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -46597,6 +46626,9 @@
 /area/blueshield)
 "coZ" = (
 /obj/structure/table,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -46719,6 +46751,7 @@
 	pixel_y = 10
 	},
 /obj/item/soap/nanotrasen,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -46977,7 +47010,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cqe" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -49242,6 +49277,9 @@
 /obj/structure/table,
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_y = -30
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -52426,7 +52464,9 @@
 	pixel_x = -29
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "cFe" = (
 /obj/item/cultivator,
 /obj/structure/sink{
@@ -52692,9 +52732,7 @@
 /area/maintenance/apmaint2)
 "cFL" = (
 /obj/structure/table/reinforced,
-/obj/item/eftpos/register{
-	dir = 8
-	},
+/obj/item/phone/pos,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint2)
 "cFM" = (
@@ -57256,7 +57294,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "cSM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -58463,7 +58503,9 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "cWj" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -59511,6 +59553,7 @@
 "cZy" = (
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -60120,7 +60163,9 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dcb" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62045,7 +62090,9 @@
 "dis" = (
 /obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dit" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /obj/effect/spawner/window/reinforced,
@@ -62761,7 +62808,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dkf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -62929,7 +62978,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dkJ" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -62947,7 +62998,9 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dkK" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -62956,12 +63009,15 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dkL" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/table/reinforced,
+/obj/item/phone/pos,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -62984,7 +63040,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dkN" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -63061,7 +63119,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dkV" = (
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -63088,7 +63148,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dkX" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -63111,7 +63173,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dkZ" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4
@@ -63170,7 +63234,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dld" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -63192,7 +63258,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dle" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
@@ -63230,7 +63298,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dll" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
@@ -63253,7 +63323,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dlp" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -63265,7 +63337,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dlt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63324,7 +63398,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dlM" = (
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -63349,7 +63425,9 @@
 	dir = 8;
 	icon_state = "darkbluecorners"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dlS" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "MiniSat Maintenance";
@@ -63357,7 +63435,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dlT" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -63376,7 +63456,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dlX" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63416,11 +63498,15 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dme" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63432,7 +63518,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63441,14 +63529,18 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmk" = (
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dml" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Waste Out"
@@ -63489,7 +63581,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmt" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
@@ -63515,7 +63609,9 @@
 	dir = 10
 	},
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmx" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -63580,7 +63676,9 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63592,19 +63690,25 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmK" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "MiniSat Maintenance";
@@ -63614,7 +63718,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmL" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63625,7 +63731,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmO" = (
 /obj/structure/cable,
 /obj/machinery/power/compressor{
@@ -63650,7 +63758,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63661,7 +63771,9 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmR" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "MiniSat Maintenance";
@@ -63676,7 +63788,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmS" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -63692,7 +63806,9 @@
 	dir = 5
 	},
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmT" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63705,14 +63821,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmU" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmV" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63730,7 +63850,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dmW" = (
 /obj/structure/transit_tube,
 /turf/space,
@@ -64408,7 +64530,9 @@
 /area/turret_protected/aisat_interior)
 "dpd" = (
 /turf/simulated/wall/r_wall,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpf" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/aisat_interior)
@@ -64440,18 +64564,26 @@
 /obj/item/wrench,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plating,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpm" = (
 /obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/floor/plating,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpp" = (
 /turf/simulated/wall/r_wall,
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dpq" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plating,
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dpu" = (
 /obj/structure/rack,
 /obj/item/storage/box/donkpockets{
@@ -64489,7 +64621,9 @@
 /area/turret_protected/aisat_interior)
 "dpA" = (
 /turf/simulated/floor/plating,
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dpC" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -64501,19 +64635,25 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpD" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Air Out"
 	},
 /turf/simulated/floor/plating,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10
 	},
 /turf/simulated/floor/plating,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpF" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
@@ -64531,7 +64671,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpK" = (
 /obj/machinery/cryopod/robot,
 /obj/structure/extinguisher_cabinet{
@@ -64539,7 +64681,9 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plating,
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dpL" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -64558,7 +64702,9 @@
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plating,
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dpM" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -64576,18 +64722,24 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpO" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1;
 	name = "Mix to MiniSat"
 	},
 /turf/simulated/floor/plating,
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dpR" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -64616,7 +64768,9 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/simulated/floor/plating,
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dpZ" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -64635,7 +64789,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dqk" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -64648,7 +64804,9 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dql" = (
 /obj/structure/bed,
 /obj/item/toy/plushie/voxplushie,
@@ -64658,14 +64816,20 @@
 /area/maintenance/asmaint)
 "dqm" = (
 /turf/simulated/wall/r_wall,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqn" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqp" = (
 /turf/simulated/wall,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqq" = (
 /obj/machinery/porta_turret{
 	dir = 4
@@ -64674,14 +64838,20 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/aisat/atmos)
+/area/aisat/entrance{
+	name = "\improper AI Satellite Atmospherics"
+	})
 "dqv" = (
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqw" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqx" = (
 /obj/machinery/porta_turret{
 	dir = 1
@@ -64704,11 +64874,15 @@
 /obj/item/crowbar/red,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqD" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqE" = (
 /obj/machinery/porta_turret{
 	dir = 8
@@ -64718,7 +64892,9 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/aisat/service)
+/area/aisat/maintenance{
+	name = "\improper AI Satellite Service"
+	})
 "dqL" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
@@ -64738,7 +64914,9 @@
 	name = "hallway turret"
 	},
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqO" = (
 /obj/machinery/light{
 	dir = 4
@@ -64749,7 +64927,9 @@
 	name = "hallway turret"
 	},
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqQ" = (
 /obj/structure/lattice,
 /obj/machinery/camera{
@@ -64766,10 +64946,14 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dqX" = (
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "drf" = (
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai)
@@ -64788,7 +64972,9 @@
 	dir = 9
 	},
 /turf/simulated/floor/bluegrid,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "dro" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -64825,7 +65011,9 @@
 "dru" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/aisat/hall)
+/area/aisat{
+	name = "\improper AI Satellite Hallway"
+	})
 "drv" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -65617,7 +65805,9 @@
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "dDQ" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -65682,7 +65872,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "dHc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 4
@@ -66606,7 +66798,9 @@
 /obj/machinery/atmospherics/portable/canister/toxins,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "elC" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -67158,7 +67352,7 @@
 "eIN" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/eftpos/register,
+/obj/item/phone/pos,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "eJo" = (
@@ -68884,7 +69078,9 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "fSz" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -69344,7 +69540,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "gkn" = (
 /obj/structure/bed,
 /obj/machinery/status_display{
@@ -70407,6 +70605,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
+	name = "Chemistry Cleaner";
+	pixel_x = -8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -71356,7 +71559,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "hzG" = (
 /obj/machinery/access_button{
 	autolink_id = "scimaint_btn_int";
@@ -71869,7 +72074,9 @@
 	pixel_x = 31
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "hPB" = (
 /obj/machinery/power/smes/engineering,
 /obj/structure/cable{
@@ -73089,7 +73296,11 @@
 	},
 /area/assembly/chargebay)
 "iPb" = (
-/obj/machinery/computer/security/telescreen/entertainment/television,
+/obj/machinery/computer/security/telescreen/entertainment{
+	icon_screen = "detective_tv";
+	icon_state = "television";
+	name = "old TV"
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint)
@@ -75377,7 +75588,9 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "kIa" = (
 /obj/structure/rack{
 	dir = 4
@@ -76522,7 +76735,9 @@
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "lHm" = (
 /obj/item/bodybag,
 /turf/simulated/floor/plasteel{
@@ -78598,7 +78813,7 @@
 	dir = 8;
 	invuln = 1;
 	name = "Hardened Bomb-Test Security Camera";
-	network = list("Toxins","Research","SS13")
+	network = list("Research","SS13")
 	},
 /turf/simulated/floor/indestructible,
 /area/toxins/test_area)
@@ -79315,7 +79530,12 @@
 	},
 /area/toxins/mixing)
 "nMT" = (
-/obj/machinery/computer/security/telescreen/entertainment/television,
+/obj/machinery/computer/security/telescreen/entertainment{
+	icon_state = "television";
+	icon_screen = "detective_tv";
+	name = "television";
+	desc = "A relic of a bygone age."
+	},
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "nMU" = (
@@ -80063,7 +80283,9 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "ouo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -80229,7 +80451,9 @@
 "oAD" = (
 /obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "oAS" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
@@ -80706,6 +80930,9 @@
 	},
 /obj/structure/table/glass,
 /obj/item/storage/box/bodybags,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -3
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -81705,7 +81932,9 @@
 "pyI" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "pzr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -82919,7 +83148,9 @@
 	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "qws" = (
 /obj/structure/marker_beacon/dock_marker,
 /obj/structure/sign/securearea{
@@ -86466,6 +86697,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
+"tjz" = (
+/turf/simulated/wall/r_wall,
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "tkf" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
@@ -86478,7 +86714,9 @@
 "tks" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "tky" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -90040,7 +90278,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "vKP" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -91022,7 +91262,9 @@
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/toxins/storage)
+/area/toxins/storage{
+	name = "\improper Science Toxin Storage"
+	})
 "wyI" = (
 /obj/item/stack/cable_coil,
 /obj/structure/cable{
@@ -141463,12 +141705,12 @@ ctI
 bYB
 cdk
 cbj
-cbj
+tjz
 tks
-cbj
-cbj
-cbj
-cbj
+tjz
+tjz
+tjz
+tjz
 iZj
 csg
 xdy
@@ -141718,14 +141960,14 @@ bTe
 uMa
 ctI
 dVG
-cbj
-cbj
+tjz
+tjz
 azG
 ekQ
 qvV
 ekQ
 cmX
-cbj
+tjz
 crz
 csg
 fTR
@@ -141975,14 +142217,14 @@ vzI
 cba
 cyF
 cdP
-cbj
+tjz
 cFc
 dDw
 oAD
 cmF
 oAD
 cnb
-cbj
+tjz
 cqn
 csR
 wZM
@@ -142489,14 +142731,14 @@ bED
 rKV
 dbx
 rKV
-cbj
+tjz
 bGp
 dDw
 cif
 cjV
 wym
 otW
-cbj
+tjz
 cqa
 csM
 cto
@@ -142746,8 +142988,8 @@ bED
 cHf
 dbX
 csL
-cbj
-cbj
+tjz
+tjz
 hPx
 lGY
 cif
@@ -143004,13 +143246,13 @@ bUx
 cga
 csL
 kMc
-cbj
-cbj
-cbj
-cbj
-cbj
-cbj
-cbj
+tjz
+tjz
+tjz
+tjz
+tjz
+tjz
+tjz
 rKV
 evS
 rKV

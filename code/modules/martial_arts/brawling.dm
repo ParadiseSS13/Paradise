@@ -39,6 +39,9 @@
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.Weaken(10 SECONDS)
+			D.forcesay(GLOB.hit_appends)
+		else if(IS_HORIZONTAL(D))
+			D.forcesay(GLOB.hit_appends)
 	return 1
 
 /datum/martial_art/drunk_brawling
@@ -94,4 +97,7 @@
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.Paralyse(10 SECONDS)
+			D.forcesay(GLOB.hit_appends)
+		else if(IS_HORIZONTAL(D))
+			D.forcesay(GLOB.hit_appends)
 	return 1

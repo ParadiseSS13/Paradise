@@ -173,17 +173,7 @@
 		if("openLink")
 			src << link(href_list["link"])
 
-	//fun fact: Topic() acts like a verb and is executed at the end of the tick like other verbs. So we have to queue it if the server is
-	//overloaded
-	if(hsrc && hsrc != holder && DEFAULT_TRY_QUEUE_VERB(VERB_CALLBACK(src, PROC_REF(_Topic), hsrc, href, href_list)))
-		return
-
 	..()	//redirect to hsrc.Topic()
-
-///dumb workaround because byond doesnt seem to recognize the Topic() typepath for /datum/proc/Topic() from the client Topic,
-///so we cant queue it without this
-/client/proc/_Topic(datum/hsrc, href, list/href_list)
-	return hsrc.Topic(href, href_list)
 
 
 /client/proc/get_display_key()

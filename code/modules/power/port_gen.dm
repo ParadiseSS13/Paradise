@@ -8,6 +8,7 @@
 	icon_state = "portgen0_0"
 	density = TRUE
 	anchored = FALSE
+	use_power = NO_POWER_USE
 
 	var/active = FALSE
 	var/power_gen = 5000
@@ -41,8 +42,8 @@
 		handleInactive()
 		update_icon()
 
-/obj/machinery/power/has_power()
-	return TRUE //doesn't require an external power source
+/obj/machinery/power/powered()
+	return 1 //doesn't require an external power source
 
 /obj/machinery/power/port_gen/attack_hand(mob/user as mob)
 	if(..())

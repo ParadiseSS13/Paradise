@@ -73,9 +73,10 @@
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
-	idle_power_consumption = 4
-	active_power_consumption = 8
-	power_channel = PW_CHANNEL_ENVIRONMENT
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 4
+	active_power_usage = 8
+	power_channel = ENVIRON
 	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
@@ -344,7 +345,7 @@
 				var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
 				//Use power.  Assuming that each power unit represents 1000 watts....
-				use_power(energy_used / 1000, PW_CHANNEL_ENVIRONMENT)
+				use_power(energy_used / 1000, ENVIRON)
 
 				//We need to cool ourselves.
 				if(heat_capacity)
@@ -1091,11 +1092,12 @@
 	qdel(src)
 
 /obj/machinery/alarm/power_change()
-	..()
-	if(stat & NOPOWER)
-		set_light(0)
-	else
+	if(powered(power_channel))
+		stat &= ~NOPOWER
 		set_light(1, LIGHTING_MINIMUM_POWER)
+	else
+		stat |= NOPOWER
+		set_light(0)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/machinery/alarm/obj_break(damage_flag)

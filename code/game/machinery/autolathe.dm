@@ -7,8 +7,6 @@
 	desc = "It produces items using metal and glass."
 	icon_state = "autolathe"
 	density = TRUE
-	idle_power_consumption = 10
-	active_power_consumption = 100
 
 	var/list/queue = list()
 	var/queue_max_len = 12
@@ -22,7 +20,9 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
-
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 10
+	active_power_usage = 100
 	var/busy = FALSE
 	var/prod_coeff
 	var/datum/wires/autolathe/wires = null

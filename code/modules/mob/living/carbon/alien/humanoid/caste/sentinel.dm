@@ -41,7 +41,7 @@
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
 	. = ..()
 	. += list(
-		/obj/item/organ/internal/alien/plasmavessel,
-		/obj/item/organ/internal/alien/acidgland,
-		/obj/item/organ/internal/alien/neurotoxin,
+		/obj/item/organ/internal/xenos/plasmavessel,
+		/obj/item/organ/internal/xenos/acidgland,
+		/obj/item/organ/internal/xenos/neurotoxin,
 	)

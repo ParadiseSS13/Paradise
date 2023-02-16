@@ -483,7 +483,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	dir = 8;
 	pixel_x = -24
 	},
@@ -1543,7 +1543,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 24
 	},
@@ -1718,7 +1718,7 @@
 	pixel_y = 1
 	},
 /obj/structure/piano,
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 24
 	},
@@ -2748,7 +2748,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 24
 	},

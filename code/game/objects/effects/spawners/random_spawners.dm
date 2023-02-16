@@ -190,16 +190,10 @@
 	color = "#000000"
 
 /obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb
-	name = "33pc trap pizza"
+	name = "50pc trap pizza"
 	result = list(/obj/item/pizzabox/meat = 1,
 		/obj/item/pizzabox/hawaiian = 1,
-		/obj/item/pizzabox/margherita = 1,
-		/obj/item/pizzabox/vegetable = 1,
-		/obj/item/pizzabox/mushroom = 1,
-		/obj/item/pizzabox/pepperoni = 7, //Higher weight as a pizza bomb looks like pepperoni by default
-		/obj/item/pizzabox/garlic = 1,
-		/obj/item/pizzabox/firecracker = 1,
-		/obj/item/pizzabox/pizza_bomb/autoarm = 7)
+		/obj/item/pizza_bomb/autoarm = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/medbot
 	name = "50pc trap medibot"

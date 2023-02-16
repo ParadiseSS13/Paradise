@@ -305,13 +305,12 @@
 	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
-	flags = CONDUCT
-	power_state = NO_POWER_USE
-
 	var/activated = FALSE
 	var/locked = TRUE
 	var/list/active_shields
 	var/stored_power = 0
+	flags = CONDUCT
+	use_power = NO_POWER_USE
 
 /obj/machinery/shieldwallgen/Initialize(mapload)
 	. = ..()

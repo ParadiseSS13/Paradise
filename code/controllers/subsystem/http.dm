@@ -1,13 +1,13 @@
 SUBSYSTEM_DEF(http)
 	name = "HTTP"
-	flags = SS_TICKER | SS_BACKGROUND | SS_NO_INIT // Measure in ticks, but also only run if we have the spare CPU.
+	flags = SS_TICKER | SS_BACKGROUND // Measure in ticks, but also only run if we have the spare CPU.
 	wait = 1
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY // All the time
 	// Assuming for the worst, since only discord is hooked into this for now, but that may change
 	offline_implications = "The server is no longer capable of making async HTTP requests. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
 	/// List of all async HTTP requests in the processing chain
-	var/list/datum/http_request/active_async_requests = list()
+	var/list/datum/http_request/active_async_requests
 	/// Variable to define if logging is enabled or not. Disabled by default since we know the requests the server is making. Enable with VV if you need to debug requests
 	var/logging_enabled = FALSE
 	/// Total requests the SS has processed in a round
@@ -16,6 +16,9 @@ SUBSYSTEM_DEF(http)
 /datum/controller/subsystem/http/PreInit()
 	. = ..()
 	rustg_create_async_http_client() // Open the door
+
+/datum/controller/subsystem/http/Initialize()
+	active_async_requests = list()
 
 /datum/controller/subsystem/http/get_stat_details()
 	return "P: [length(active_async_requests)] | T: [total_requests]"

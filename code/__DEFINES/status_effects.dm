@@ -39,9 +39,6 @@
 
 #define STATUS_EFFECT_DASH /datum/status_effect/dash // Grants the ability to dash, expiring after a few secodns
 
-/// Rapid burn/brute/oxy/blood healing from the cling ability
-#define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
-
 #define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs //Handles cling speed boost and chemical cost.
 
 #define STATUS_EFFECT_PANACEA /datum/status_effect/panacea

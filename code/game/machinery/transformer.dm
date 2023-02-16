@@ -47,8 +47,7 @@
 		new /obj/machinery/conveyor/auto(west, WEST)
 
 /obj/machinery/transformer/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/update_icon_state()
@@ -166,8 +165,7 @@
 			new /obj/machinery/conveyor/auto(west2, EAST)
 
 /obj/machinery/transformer/xray/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/transformer/xray/update_icon_state()

@@ -1632,8 +1632,8 @@
 /obj/structure/rack{
 	dir = 8
 	},
-/obj/item/reagent_containers/spray/cleaner/advanced,
-/obj/item/reagent_containers/spray/cleaner/advanced,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2376,7 +2376,7 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/spray/cleaner/advanced,
+/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -3646,7 +3646,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "syndbaseventing";
 	name = "Venting Bay Door";
-	power_state = 0
+	use_power = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -4138,7 +4138,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/reagent_containers/spray/cleaner/advanced,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -4592,7 +4592,7 @@
 /obj/item/screwdriver/nuke{
 	pixel_y = 18
 	},
-/obj/item/reagent_containers/spray/cleaner/advanced,
+/obj/item/reagent_containers/spray/cleaner,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;

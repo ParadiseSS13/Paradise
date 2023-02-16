@@ -19,7 +19,7 @@
 	var/area/current_area = get_area(src)
 	var/obj/machinery/power/apc/current_apc = current_area.get_apc()
 	if(current_apc)
-		RegisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(power_update), override = TRUE)
+		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(power_update), override = TRUE)
 	toggle_light(TRUE)
 
 /turf/simulated/floor/light/update_icon_state()
@@ -42,7 +42,7 @@
 
 /turf/simulated/floor/light/proc/power_check()
 	var/area/A = get_area(src)
-	return A.powernet.has_power(PW_CHANNEL_LIGHTING)
+	return A.powered(LIGHT)
 
 /turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)
@@ -96,11 +96,11 @@
 	// 1 = ON
 	on = light
 	if(!on && using_power)
-		A.powernet.adjust_static_power(PW_CHANNEL_LIGHTING, -100)
+		A.addStaticPower(-100, STATIC_LIGHT)
 		using_power = FALSE
 	if(on && !using_power)
 		using_power = TRUE
-		A.powernet.adjust_static_power(PW_CHANNEL_LIGHTING, 100)
+		A.addStaticPower(100, STATIC_LIGHT)
 	update_icon()
 
 /turf/simulated/floor/light/extinguish_light(force = FALSE)

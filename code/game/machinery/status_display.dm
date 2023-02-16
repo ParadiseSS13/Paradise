@@ -12,7 +12,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 	name = "status display"
 	anchored = TRUE
 	density = FALSE
-	idle_power_consumption = 10
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 10
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
@@ -54,8 +55,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 	underlays += emissive_appearance(icon, "lightmask")
 
 /obj/machinery/status_display/power_change()
-	if(!..())
-		return
+	..()
+
 	if(stat & NOPOWER)
 		set_light(0)
 	else

@@ -191,7 +191,7 @@
 	pixel_y = -64
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	power_state = NO_POWER_USE	// power usage is handelled manually
+	use_power = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -222,7 +222,7 @@
 	var/actual_power_usage = 0
 
 
-	// Tweak these and active_power_consumption to balance power generation
+	// Tweak these and active_power_usage to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 20

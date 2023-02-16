@@ -4,7 +4,8 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 5
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 5
 	var/on = FALSE
 	var/onicon = null
 	var/officon = null

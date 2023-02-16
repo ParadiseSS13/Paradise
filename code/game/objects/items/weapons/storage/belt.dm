@@ -444,7 +444,7 @@
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator/janitor(src)
-	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
+	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
@@ -495,7 +495,7 @@
 
 /obj/item/storage/belt/bandolier/full/populate_contents()
 	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
 
 /obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[initial(icon_state)]_[min(length(contents), 8)]"

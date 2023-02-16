@@ -20,9 +20,10 @@ FIRE ALARM
 	max_integrity = 250
 	integrity_failure = 100
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
-	idle_power_consumption = 2
-	active_power_consumption = 6
-	power_channel = PW_CHANNEL_ENVIRONMENT
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 6
+	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
 
 	light_power = LIGHTING_MINIMUM_POWER
@@ -238,8 +239,10 @@ FIRE ALARM
 		set_light(l_power = LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/firealarm/power_change()
-	if(!..())
-		return
+	if(powered(ENVIRON))
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
 	update_fire_light()
 	update_icon()
 

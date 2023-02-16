@@ -405,8 +405,6 @@ Difficulty: Hard
 			stored_nearby += L // store the people to grant the achievements to once we die
 		hierophant_burst(null, get_turf(src), 10)
 		set_stat(CONSCIOUS) // deathgasp wont run if dead, stupid
-		for(var/turf/simulated/wall/indestructible/hierophant/T in GLOB.hierophant_walls)
-			T.collapse()
 		..(/* force_grant = stored_nearby */)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
@@ -486,13 +484,6 @@ Difficulty: Hard
 	anger_modifier = clamp(((maxHealth - health) / 42),0,50)
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
-
-/mob/living/simple_animal/hostile/megafauna/hierophant/bullet_act(obj/item/projectile/P)
-	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
-		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
-			FindTarget(list(P.firer), 1)
-		Goto(P.starting, move_to_delay, 3)
-	..()
 
 //Hierophant overlays
 /obj/effect/temp_visual/hierophant

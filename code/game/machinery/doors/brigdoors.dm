@@ -178,8 +178,7 @@
 
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE)
 
 

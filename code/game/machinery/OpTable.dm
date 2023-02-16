@@ -5,8 +5,9 @@
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 1
-	active_power_consumption = 5
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 1
+	active_power_usage = 5
 	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
 	buckle_lying = -1

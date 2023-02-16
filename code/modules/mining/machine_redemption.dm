@@ -153,22 +153,21 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/mineral/ore_redemption/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !(stat & NOPOWER))
+	if(inserted_id && !powered())
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
 /obj/machinery/mineral/ore_redemption/update_icon_state()
-	if(has_power())
+	if(powered())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
 
 /obj/machinery/mineral/ore_redemption/process()
-	if(panel_open || !has_power())
+	if(panel_open || !powered())
 		return
 	// Check if the input turf has a [/obj/structure/ore_box] to draw ore from. Otherwise suck ore from the turf
 	var/atom/input = get_step(src, input_dir)
@@ -195,7 +194,7 @@
 /obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
 		return
-	if(!has_power())
+	if(!powered())
 		return ..()
 
 	if(istype(I, /obj/item/card/id))
@@ -222,7 +221,7 @@
 	if(!panel_open)
 		return
 	. = TRUE
-	if(!has_power())
+	if(!powered())
 		return
 	if(!I.tool_start_check(src, user, 0))
 		return

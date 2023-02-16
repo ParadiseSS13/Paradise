@@ -329,9 +329,10 @@
 
 /obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
 	if(..())
-		qdel(src)
-		return TRUE
-	return FALSE
+		loc = null
+		return 1
+	else
+		return 0
 
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."

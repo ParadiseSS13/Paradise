@@ -56,7 +56,6 @@ const CryoContent = (props, context) => {
     cellTemperature,
     cellTemperatureStatus,
     isBeakerLoaded,
-    cooldownProgress,
     auto_eject_healthy,
     auto_eject_dead,
   } = data;
@@ -152,18 +151,6 @@ const CryoContent = (props, context) => {
           <LabeledList.Item label="Beaker">
             <CryoBeaker />
           </LabeledList.Item>
-          <LabeledList.Item label="Dosage interval">
-            <ProgressBar
-              ranges={{
-                average: [-Infinity, 99],
-                good: [99, Infinity],
-              }}
-              color={!isBeakerLoaded && "average"}
-              value={cooldownProgress}
-              minValue={0}
-              maxValue={100}
-            />
-          </LabeledList.Item>
           <LabeledList.Divider />
           <LabeledList.Item label="Auto-eject healthy occupants">
             <Button
@@ -205,8 +192,8 @@ const CryoBeaker = (props, context) => {
   if (isBeakerLoaded) {
     return (
       <Fragment>
-        <Box display="inline" color={!beakerLabel && "average"}>{beakerLabel || "No label"}</Box>
-        <Box display="inline" float="right" color={!beakerVolume && 'bad'}>
+        {beakerLabel ? beakerLabel : <Box color="average">No label</Box>}
+        <Box color={!beakerVolume && 'bad'}>
           {beakerVolume ? (
             <AnimatedNumber
               value={beakerVolume}
@@ -219,6 +206,6 @@ const CryoBeaker = (props, context) => {
       </Fragment>
     );
   } else {
-    return <Box display="inline" color="bad">No beaker loaded</Box>;
+    return <Box color="average">No beaker loaded</Box>;
   }
 };

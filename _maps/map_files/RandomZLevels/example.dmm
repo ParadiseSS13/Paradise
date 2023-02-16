@@ -37,7 +37,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ag" = (
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 24
 	},

@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	icon_state = "vault"
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 5000
+	idle_power_usage = 5000
 	pixel_x = -32
 	pixel_y = -64
 	luminosity = 1
@@ -195,8 +195,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	icon_state = "vault"
 
 /obj/machinery/dna_vault/power_change()
-	if(!..())
-		return
+	if(powered(power_channel))
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
 	update_icon(UPDATE_ICON_STATE)
 
 
