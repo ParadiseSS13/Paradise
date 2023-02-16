@@ -109,8 +109,8 @@
 
 		if("professional") // 34TC + two 0TC
 			new /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator(src) // 16TC
-			new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src) // 5TC
-			new /obj/item/ammo_box/magazine/sniper_rounds/soporific(src) // 3TC
+			new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src) // 5TC
+			new /obj/item/ammo_box/magazine/sniper_rounds/compact/soporific(src) // 3TC
 			new /obj/item/clothing/glasses/chameleon/thermal(src) // 6TC
 			new /obj/item/clothing/gloves/combat(src) // 0 TC
 			new /obj/item/clothing/under/suit_jacket/really_black(src) // 0 TC

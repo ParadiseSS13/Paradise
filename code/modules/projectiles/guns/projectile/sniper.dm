@@ -27,13 +27,14 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator
 	name = "syndicate penetrator sniper rifle"
+	mag_type = /obj/item/ammo_box/magazine/sniper_rounds/compact
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator/Initialize(mapload)
 	. = ..()
 	desc += " It comes loaded with a penetrator magazine, but can use different magazines."
 
 	QDEL_NULL(magazine)
-	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/penetrator(src)
+	magazine = new /obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator(src)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/update_icon()
 	if(magazine)
@@ -213,24 +214,56 @@
 	weaken = 0
 	breakthings = FALSE
 
-//compact ammo
+//compact and penetrator ammo to avoid taipan abuse by traitors
 /obj/item/ammo_box/magazine/sniper_rounds/compact
 	name = "sniper rounds (compact)"
 	desc = "An extremely powerful round capable of inflicting massive damage on a target."
 	ammo_type = /obj/item/ammo_casing/compact
 	max_ammo = 4
+	caliber = ".50L"
 
 /obj/item/ammo_casing/compact
 	desc = "A .50 caliber compact round casing."
-	caliber = ".50"
+	caliber = ".50L"
 	projectile_type = /obj/item/projectile/bullet/sniper/compact
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
 
 /obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
-	dismemberment = 0
+	damage = 70
+	stun = 2
+	weaken = 2
+	armour_penetration = 50
 	breakthings = FALSE
+	dismemberment = 0
+
+/obj/item/ammo_box/magazine/sniper_rounds/compact/penetrator
+	name = "penetrator sniper rounds(compact)"
+	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
+	icon_state = "penetrator"
+	ammo_type = /obj/item/ammo_casing/compact/penetrator
+	origin_tech = "combat=6"
+	max_ammo = 5
+
+/obj/item/ammo_casing/compact/penetrator
+	desc = "A .50 caliber penetrator round casing."
+	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
+	icon_state = ".50pen"
+
+/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific
+	name = "soporofic sniper rounds(compact)"
+	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
+	icon_state = "soporific"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/compact/soporific
+	max_ammo = 3
+
+/obj/item/ammo_casing/compact/soporific
+	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
+	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	icon_state = ".50sop"
+	harmful = FALSE
 
 //toy magazine
 /obj/item/ammo_box/magazine/toy/sniper_rounds

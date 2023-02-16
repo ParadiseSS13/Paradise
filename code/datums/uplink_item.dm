@@ -927,6 +927,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 
+/datum/uplink_item/ammo/compact
+	name = "50. compact ammo box"
+	desc = "A box of 50. cal sniper ammo."
+	reference = "50L"
+	item = /obj/item/ammo_box/magazine/sniper_rounds/compact
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/ammo/revolver
 	name = ".357 Revolver - Speedloader"
 	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
