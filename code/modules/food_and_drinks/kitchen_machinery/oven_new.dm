@@ -51,8 +51,8 @@
 		return FALSE
 	target.visible_message("<span class='danger'>[user] bashes [target]'s head in [src]'s door!</span>", \
 					"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
-	target.apply_damage(5, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
-	target.apply_damage(20, BRUTE, "head")
+	target.apply_damage(25, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
+	target.apply_damage(25, BRUTE, "head")
 	target.Weaken(4 SECONDS)  // With the weaken, you PROBABLY can't run unless they are slow to grab you again...
 	target.emote("scream")
 	playsound(src, "sound/machines/kitchen/oven_loop_end.ogg", 100)

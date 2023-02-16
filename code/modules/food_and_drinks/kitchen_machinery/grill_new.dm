@@ -49,7 +49,7 @@
 		"<span class='danger'>[user] shoves [target] onto [src], the active grill surface searing [user.p_them()]!</span>",
 		"<span class='userdanger'>[user] shoves you onto [src], and the hot surface sears you!</span>",
 	)
-	target.adjustFireLoss(5)
+	target.adjustFireLoss(15)
 
 /obj/machinery/kitchen_machine/grill/special_attack(mob/user, mob/living/carbon/target, from_grab)
 	target.visible_message(
