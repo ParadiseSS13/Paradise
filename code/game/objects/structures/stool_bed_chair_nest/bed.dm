@@ -274,10 +274,7 @@
 		"<span class='warning'>[attacker] puts [target] to bed!</span>",
 		"<span class='danger'>[attacker] pushes you into [src], and it feels so comfy you can't resist the urge to sleep!</span>"
 	)
-	var/sleep_length = 2 MINUTES
-	if(target.mind)
-		// much less if you're actually conscious
-		target.Sleeping(15 SECONDS)
+	target.Sleeping(target.mind ? 15 SECONDS : 2 MINUTES)
 	buckle_mob(target, TRUE)
 
 	return TRUE
