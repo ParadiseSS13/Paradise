@@ -281,6 +281,9 @@ CHECK_RANDOMIZER
 ## Discord address (forum-based invite)
 # DISCORDFORUMURL http://example.org
 
+## Discord address (bug report)
+# DISCORDBUGREPORTURL http://example.org
+
 ## Donations address
 # DONATIONSURL http://example.org
 
