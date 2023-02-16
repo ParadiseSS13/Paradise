@@ -1,9 +1,8 @@
 /obj/item/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
-	damage = 25
+	damage = 20
 	damage_type = BRUTE
-	armour_penetration = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"

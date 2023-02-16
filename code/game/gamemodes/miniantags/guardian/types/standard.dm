@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/guardian/punch
 	melee_damage_lower = 20
 	melee_damage_upper = 20
+	armour_penetration = 100
 	obj_damage = 80
 	damage_transfer = 0.4
 	playstyle_string = "As a <b>Standard</b> type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls."
