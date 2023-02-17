@@ -107,8 +107,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<a href='?src=[usr.UID()];priv_msg=[M.client.ckey]'>PM</a> - "
 		body += "[ADMIN_SM(M,"SM")] - "
 	if(ishuman(M) && M.mind)
-		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> -"
-	body += "[admin_jump_link(M)]\] </b><br>"
+		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> - "
+	body += "[admin_jump_link(M)] - "
+	body += "<a href='?_src_=holder;adminalert=[M.UID()]'>SEND ALERT</a>\]</b><br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
 		if(M.client.related_accounts_cid.len)
@@ -140,7 +141,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"]'>OOC</font></a> |
 			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
 			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a>]
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a> |
 			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><font color='[check_mute(M.client.ckey, MUTE_EMOTE) ?" red" : "#6685f5"]'>EMOTE</font></a>]
 			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
 		"}

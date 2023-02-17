@@ -73089,11 +73089,7 @@
 	},
 /area/assembly/chargebay)
 "iPb" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	icon_screen = "detective_tv";
-	icon_state = "television";
-	name = "old TV"
-	},
+/obj/machinery/computer/security/telescreen/entertainment/television,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint)
@@ -78602,7 +78598,7 @@
 	dir = 8;
 	invuln = 1;
 	name = "Hardened Bomb-Test Security Camera";
-	network = list("Research","SS13")
+	network = list("Toxins","Research","SS13")
 	},
 /turf/simulated/floor/indestructible,
 /area/toxins/test_area)
@@ -79319,12 +79315,7 @@
 	},
 /area/toxins/mixing)
 "nMT" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	icon_state = "television";
-	icon_screen = "detective_tv";
-	name = "television";
-	desc = "A relic of a bygone age."
-	},
+/obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "nMU" = (
