@@ -128,7 +128,7 @@
 	muzzle_flash_color = LIGHT_COLOR_PINK
 	select_name = "sniper"
 	fire_sound = 'sound/weapons/marauder.ogg'
-	delay = 50
+	delay = 5 SECONDS
 
 /obj/item/projectile/beam/laser/sniper
 	name = "sniper laser"
