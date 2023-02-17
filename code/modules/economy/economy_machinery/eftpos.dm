@@ -12,6 +12,7 @@
 	var/transaction_amount = 0
 	var/transaction_purpose = "Default charge"
 	var/access_code
+	var/transaction_sound = 'sound/machines/chime.ogg'
 
 	///linked money account database to this EFTPOS
 	var/datum/money_account_database/account_database
@@ -94,7 +95,7 @@
 			if(account_database)
 				var/attempt_account_num = input("Enter account number to pay EFTPOS charges into", "New account number") as num
 				var/attempt_pin = input("Enter pin code", "Account pin") as num
-				if(!Adjacent(user))
+				if(!check_user_position(user))
 					return
 				var/datum/money_account/target_account = GLOB.station_money_database.find_user_account(attempt_account_num, include_departments = TRUE)
 				if(!target_account)
@@ -110,13 +111,13 @@
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 		if("trans_purpose")
 			var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
-			if(!Adjacent(user))
+			if(!check_user_position(user))
 				return
 			if(purpose)
 				transaction_purpose = purpose
 		if("trans_value")
 			var/try_num = input("Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount) as num
-			if(!Adjacent(user))
+			if(!check_user_position(user))
 				return
 			if(try_num < 0)
 				alert("That is not a valid amount!")
@@ -128,7 +129,7 @@
 		if("toggle_lock")
 			if(transaction_locked)
 				var/attempt_code = input("Enter EFTPOS access code", "Reset Transaction") as num
-				if(!Adjacent(user))
+				if(!check_user_position(user))
 					return
 				if(attempt_code == access_code)
 					transaction_locked = FALSE
@@ -160,10 +161,10 @@
 				to_chat(user, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
 
-/obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user)
+/obj/item/eftpos/proc/scan_card(obj/item/card/id/C, mob/user, secured = TRUE)
 	visible_message("<span class='info'>[user] swipes a card through [src].</span>")
 
-	if(!transaction_locked || transaction_paid)
+	if(!transaction_locked || transaction_paid || !secured)
 		return
 
 	if(!linked_account)
@@ -190,7 +191,7 @@
 		to_chat(user, "[bicon(src)]<span class='warning'>Insufficient credits in your account!</span>")
 		return
 	GLOB.station_money_database.credit_account(linked_account, transaction_amount, transaction_purpose, machine_name, FALSE)
-	playsound(src, 'sound/machines/chime.ogg', 50, 1)
+	playsound(src, transaction_sound, 50, TRUE)
 	visible_message("<span class='notice'>[src] chimes!</span>")
 	transaction_paid = TRUE
 
@@ -218,3 +219,80 @@
 	R.forceMove(D)
 	D.wrapped = R
 	D.name = "small parcel - 'EFTPOS access code'"
+
+/obj/item/eftpos/proc/check_user_position(mob/user)
+	return Adjacent(user)
+
+/obj/item/eftpos/register
+	name = "point of sale"
+	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, and had an EFTPOS module fitted in it."
+	icon = 'icons/obj/machines/pos.dmi'
+	icon_state = "pos"
+	force = 10
+	throwforce = 10
+	throw_speed = 1.5
+	throw_range = 7
+	anchored = TRUE
+	w_class = WEIGHT_CLASS_BULKY
+	hitsound = 'sound/weapons/ringslam.ogg'
+	drop_sound = 'sound/items/handling/register_drop.ogg'
+	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	transaction_sound = 'sound/machines/checkout.ogg'
+	attack_verb = list("bounced a check off", "checked-out", "tipped")
+
+/obj/item/eftpos/register/examine(mob/user)
+	. = ..()
+	if(!anchored)
+		. += "<span class='notice'>Alt-click to rotate it.</span>"
+	else
+		. += "<span class='notice'>It is secured in place.</span>"
+
+/obj/item/eftpos/register/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] is secured in place!</span>")
+		return
+	setDir(turn(dir, 90))
+
+/obj/item/eftpos/register/attack_hand(mob/user)
+	if(anchored)
+		if(!check_user_position(user))
+			to_chat(user, "<span class='warning'>You need to be behind [src] to use it!</span>")
+			return
+		add_fingerprint(user)
+		ui_interact(user, state = GLOB.human_adjacent_state)
+		return TRUE
+	return ..()
+
+/obj/item/eftpos/register/attack_self(mob/user)
+	to_chat(user, "<span class='notice'>[src] has to be set down and secured to be used.</span>")
+
+/obj/item/eftpos/register/check_user_position(mob/user)
+	if(!..())
+		return FALSE
+	var/user_loc = get_dir(src, user)
+	if(!user_loc || user_loc & dir)
+		return TRUE
+	return FALSE
+
+/obj/item/eftpos/register/scan_card(obj/item/card/id/C, mob/user)
+	..(C, user, anchored)
+
+/obj/item/eftpos/register/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		WRENCH_ATTEMPT_UNANCHOR_MESSAGE
+	else
+		WRENCH_ATTEMPT_ANCHOR_MESSAGE
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
+	SStgui.close_uis(src)
