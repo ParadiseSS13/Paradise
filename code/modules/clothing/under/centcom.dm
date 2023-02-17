@@ -84,14 +84,14 @@
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	name = "magistrate's uniform"
-	desc = "Fine black cotton pants and white shirt with red and gold trim."
+	desc = "Fine black cotton pants and white shirt with a black tie and gold trim."
 	icon_state = "magistrate"
 	item_state = "magistrate"
 	item_color = "magistrate"
 
 /obj/item/clothing/under/rank/centcom/magistrate/skirt
 	name = "magistrate's skirt"
-	desc = "A silky black skirt and white shirt with red and gold trim."
+	desc = "A silky black skirt and white shirt with a black tie and gold trim."
 	icon_state = "magistrate_skirt"
 	item_state = "magistrate_skirt"
 	item_color = "magistrate_skirt"
