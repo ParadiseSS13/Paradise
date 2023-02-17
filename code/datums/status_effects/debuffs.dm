@@ -43,6 +43,17 @@
 	owner.adjustBruteLoss(damage)
 	to_chat(owner, "<span class='userdanger'>You are too far away from the summoner!</span>")
 
+/datum/status_effect/baton_delayed_knockdown
+	id = "baton_delayed_knockdown"
+	duration = 2.5 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	var/knockdown_duration = 10 SECONDS
+
+/datum/status_effect/baton_delayed_knockdown/on_timeout()
+	owner.KnockDown(knockdown_duration)
+	..()
+
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
 	duration = 300 //if you leave for 30 seconds you lose the mark, deal with it

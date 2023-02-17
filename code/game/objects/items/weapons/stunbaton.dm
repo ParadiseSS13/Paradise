@@ -195,8 +195,18 @@
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
 
-	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
-	addtimer(CALLBACK(src, PROC_REF(baton_knockdown), L, user_UID, knockdown_duration), knockdown_delay)
+	/// check if the baton does in fact have a knockdown delay, in case of subtypes or admemery
+	if(knockdown_delay > 0)
+		ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
+		L.apply_status_effect(STATUS_EFFECT_BATON_KNOCKDOWN)
+		var/datum/status_effect/baton_delayed_knockdown/stun_timer = L.has_status_effect(STATUS_EFFECT_BATON_KNOCKDOWN)
+		/// overrides the default status effect values in case of subtypes or var edits
+		if(istype(stun_timer))
+			stun_timer.knockdown_duration = knockdown_duration
+			stun_timer.duration = world.time + knockdown_delay
+		addtimer(CALLBACK(src, PROC_REF(batonned_end), L, user_UID), knockdown_delay)
+	else
+		L.KnockDown(knockdown_duration)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
@@ -210,8 +220,7 @@
 	deductcharge(hitcost)
 	return TRUE
 
-/obj/item/melee/baton/proc/baton_knockdown(mob/living/target, user_UID, knockdown_duration)
-	target.KnockDown(knockdown_duration)
+/obj/item/melee/baton/proc/batonned_end(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
 
 /obj/item/melee/baton/emp_act(severity)

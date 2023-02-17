@@ -42,6 +42,9 @@
 /// Rapid burn/brute/oxy/blood healing from the cling ability
 #define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
 
+/// Delayed knockdown effect from the security baton
+#define STATUS_EFFECT_BATON_KNOCKDOWN /datum/status_effect/baton_delayed_knockdown
+
 #define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs //Handles cling speed boost and chemical cost.
 
 #define STATUS_EFFECT_PANACEA /datum/status_effect/panacea

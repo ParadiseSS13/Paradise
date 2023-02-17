@@ -721,6 +721,7 @@ STATUS EFFECTS
 		return
 	var/datum/status_effect/incapacitating/floored/F = IsKnockedDown()
 	if(amount <= 0)
+		remove_status_effect(STATUS_EFFECT_BATON_KNOCKDOWN) // we want to cancel delayed baton knockdowns as well
 		if(F)
 			qdel(F)
 	else
