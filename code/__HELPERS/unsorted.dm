@@ -602,11 +602,14 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
 		return TRUE
-	for(var/i in T)
-		var/atom/A = i
-		if(isAI(A)) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
-			return TRUE
-		if(A.density && (!exclude_mobs || !ismob(A)))
+	if(locate(/mob/living/silicon/ai) in T) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
+		return TRUE
+	if(!exclude_mobs)
+		for(var/mob/living/L in T)
+			if(L.density)
+				return TRUE
+	for(var/obj/O in T)
+		if(O.density)
 			return TRUE
 	return FALSE
 
@@ -2025,6 +2028,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Engine Ambience"
 		if(CHANNEL_FIREALARM)
 			return "Fire Alarms"
+		if(CHANNEL_ASH_STORM)
+			return "Ash Storms"
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)

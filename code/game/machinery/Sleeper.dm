@@ -26,8 +26,8 @@
 	var/min_health = -25
 	var/controls_inside = FALSE
 	var/auto_eject_dead = FALSE
-	idle_power_usage = 1250
-	active_power_usage = 2500
+	idle_power_consumption = 1250
+	active_power_consumption = 2500
 
 	light_color = LIGHT_COLOR_CYAN
 
@@ -37,7 +37,7 @@
 		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. Click-drag someone to the sleeper to place them in it after a short delay.</span>"
 
 /obj/machinery/sleeper/power_change()
-	..()
+	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else

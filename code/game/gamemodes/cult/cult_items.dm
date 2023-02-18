@@ -75,7 +75,7 @@
 	knockdown_duration = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback)
-	if(!iscultist(thrower))
+	if(thrower && !iscultist(thrower)) // A couple of objs actually proc throw_at, so we need to make sure that yes, we got tossed by a person before trying to send a message
 		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
 		throw_impact(thrower)
 	. = ..()

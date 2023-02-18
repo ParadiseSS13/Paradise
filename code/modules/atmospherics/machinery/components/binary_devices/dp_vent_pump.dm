@@ -54,7 +54,7 @@
 	if(!istype(T))
 		return
 
-	if(!powered())
+	if(!has_power())
 		vent_icon += "off"
 	else
 		vent_icon += "[on ? "[releasing ? "out" : "in"]" : "off"]"

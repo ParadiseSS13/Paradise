@@ -189,7 +189,6 @@
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
-		H.forcesay(GLOB.hit_appends)
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)

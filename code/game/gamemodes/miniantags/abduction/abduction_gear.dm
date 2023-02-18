@@ -492,10 +492,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.forcesay(GLOB.hit_appends)
-
 	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)

@@ -57,7 +57,7 @@ Thus, the two variables affect pump operation are set in New():
 	on = TRUE
 
 /obj/machinery/atmospherics/binary/pump/update_icon_state()
-	if(!powered())
+	if(!has_power())
 		icon_state = "off"
 	else
 		icon_state = "[on ? "on" : "off"]"
@@ -151,10 +151,9 @@ Thus, the two variables affect pump operation are set in New():
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/binary/pump/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
 	if(is_pen(W))
