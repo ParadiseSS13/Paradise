@@ -32,7 +32,7 @@
 	species = "oat"
 	plantname = "Oat Stalks"
 	product = /obj/item/reagent_containers/food/snacks/grown/oat
-	mutatelist = list()
+	mutatelist = list(/obj/item/seeds/wheat/buckwheat)
 
 /obj/item/reagent_containers/food/snacks/grown/oat
 	seed = /obj/item/seeds/wheat/oat
@@ -44,6 +44,27 @@
 	tastes = list("oat" = 1)
 	bitesize_mod = 2
 	distill_reagent = "ale"
+
+// Buckwheat
+/obj/item/seeds/wheat/buckwheat
+	name = "pack of buckwheat seeds"
+	desc = "These may, or may not, grow into buckwheat."
+	icon_state = "seed-buckwheat"
+	species = "buckwheat"
+	plantname = "Buckwheat Stalks"
+	product = /obj/item/reagent_containers/food/snacks/grown/buckwheat
+	mutatelist = list()
+
+/obj/item/reagent_containers/food/snacks/grown/buckwheat
+	seed = /obj/item/seeds/wheat/buckwheat
+	name = "buckwheat"
+	desc = "You asked for this."
+	gender = PLURAL
+	icon_state = "buckwheat"
+	filling_color = "#8e633c"
+	bitesize_mod = 2
+	tastes = list("buckwheat" = 1)
+	can_distill = FALSE
 
 // Rice
 /obj/item/seeds/wheat/rice

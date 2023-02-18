@@ -117,7 +117,6 @@
 	tastes = list("rice" = 1)
 	foodtype = GRAIN
 
-
 /obj/item/reagent_containers/food/snacks/roastparsnip
 	name = "roast parsnip"
 	desc = "Sweet and crunchy."

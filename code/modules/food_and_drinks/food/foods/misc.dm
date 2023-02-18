@@ -101,7 +101,7 @@
 	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
 	tastes = list("fried potato" = 1, "lettuce" = 1, "meat" = 1, "valids" = 1)
 	foodtype = VEGETABLES
-	
+
 /obj/item/reagent_containers/food/snacks/oliviersalad
 	name = "olivier salad"
 	desc = "Don't touch this, its for the New Year!"
@@ -111,7 +111,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "kelotane" = 2, "vitamin" = 3)
 	tastes = list("boiled potato" = 1, "pickles" = 1, "carrots" = 1, "egg" = 1, "New Year" = 3)
-	
+
 /obj/item/reagent_containers/food/snacks/vegisalad
 	name = "vegetable salad"
 	desc = "A perfect combination of tomatoes and cucumbers."
@@ -122,7 +122,7 @@
 	list_reagents = list("nutriment" = 4, "kelotane" = 1, "vitamin" = 1)
 	tastes = list("tomato" = 2, "cucumber" = 2, "sour cream" = 2)
 	foodtype = VEGETABLES
-	
+
 /obj/item/reagent_containers/food/snacks/weirdoliviersalad
 	name = "weird olivier salad"
 	desc = "What have you done to this salad, you monster?"
@@ -183,6 +183,29 @@
 	M.reagents.add_reagent("salbutamol", 15)
 	M.reagents.add_reagent("methamphetamine", 15)
 
+//////////////////////
+//  Buckwheat       //
+//////////////////////
+
+/obj/item/reagent_containers/food/snacks/boiledbuckwheat
+	name = "boiled buckwheat"
+	desc = "'Grechka', or boiled buckwheat. Motherland would be proud of you."
+	icon_state = "boiledbuckwheat"
+	trash = /obj/item/trash/plate
+	filling_color = "#8E633C"
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	tastes = list("buckwheat" = 1, "motherland" = 1)
+	foodtype = GRAIN
+
+/obj/item/reagent_containers/food/snacks/buckwheat_merchant
+	name = "merchant's buckwheat porridge"
+	desc = "Hot and steamy, soviet spies are involved. No doubt."
+	icon_state = "buckwheat_merchant"
+	trash = /obj/item/trash/plate
+	filling_color = "#8E633C"
+	list_reagents = list("nutriment" = 5, "protein" = 2, "vitamin" = 3)
+	tastes = list("buckwheat" = 2, "meat" = 2, "tomato sause" = 1)
+	foodtype = GRAIN | MEAT
 
 //////////////////////
 //		Misc		//

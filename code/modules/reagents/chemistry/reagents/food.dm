@@ -456,6 +456,15 @@
 	color = "#FFFFFF" // rgb: 0, 0, 0
 	taste_description = "rice"
 
+/datum/reagent/consumable/buckwheat
+	name = "Buckwheat"
+	id = "buckwheat"
+	description = "Rumors tell soviet people are eating only vodka and... this?"
+	reagent_state = SOLID
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	color = "#8E633C" // rgb: 142, 99, 60
+	taste_description = "dry buckwheat"
+
 /datum/reagent/consumable/cherryjelly
 	name = "Cherry Jelly"
 	id = "cherryjelly"
