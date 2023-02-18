@@ -65,6 +65,35 @@
 	filling_color = "#008B8B"
 
 
+// Moonlight
+/obj/item/seeds/moonlight
+	name = "pack of moonlight seeds"
+	desc = "These seeds grow into moonlight."
+	icon_state = "seed-moonlight"
+	species = "moonlight"
+	plantname = "Moonlight Plants"
+	product = /obj/item/reagent_containers/food/snacks/grown/moonlight
+	lifespan = 45
+	endurance = 40
+	maturation = 8
+	production = 5
+	yield = 3
+	growthstages = 6
+	genes = list(/datum/plant_gene/trait/glow)
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	icon_grow = "moonlight-grow"
+	icon_dead = "moonlight-dead"
+	reagents_add = list("plantmatter" = 0.02, "vitamin" = 0.03, "moonlin" = 0.1)
+/obj/item/reagent_containers/food/snacks/grown/moonlight
+	seed = /obj/item/seeds/moonlight
+	name = "moonlight"
+	desc = "A beautiful sparkling flower."
+	origin_tech = "biotech=4"
+	icon_state = "moonlight"
+	tastes = list("moonlin" = 1)
+	filling_color = "#46fdfd"
+	slot_flags = SLOT_HEAD
+
 // Harebell
 /obj/item/seeds/harebell
 	name = "pack of harebell seeds"

@@ -150,7 +150,78 @@
 			update_flags |= M.adjustToxLoss(6, FALSE)
 			update_flags |= M.adjustOxyLoss(20, FALSE)
 	return list(effect, update_flags)
+/datum/reagent/moonlin
+	name = "Moonlin"
+	id = "moonlin"
+	description = "A granular powder consisting of small white crystals, which is extracted from moonlight plant growing on the coasts and in the deltas of the Adomai rivers."
+	reagent_state = LIQUID
+	color = "#5ec3cc" // rgb: 96, 165, 132
+	overdose_threshold = 20
+	addiction_chance = 20
+	addiction_threshold = 15
+	shock_reduction = 30
+	harmless = FALSE
+	minor_addiction = TRUE
+	heart_rate_increase = 1
+	taste_description = "a delightful numbing and mint"
 
+/datum/reagent/moonlin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/smoke_message = pick("You feel numbed.", "You feel calmed.")
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[smoke_message]</span>")
+	M.AdjustJitter(-25)
+	switch(current_cycle)
+		if(1 to 35)
+			if(prob(7))
+				M.emote("yawn")
+		if(36 to 70)
+			M.Drowsy(10)
+		if(71 to INFINITY)
+			update_flags |= M.Paralyse(10, FALSE)
+			M.Drowsy(10)
+	return ..() | update_flags
+
+/datum/reagent/moonlin/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] looks nervous!</span>")
+			M.AdjustConfused(15)
+			update_flags |= M.adjustToxLoss(2, FALSE)
+			M.Jitter(10)
+			M.emote("twitch_s")
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
+			M.bodytemperature += rand(15,30)
+			update_flags |= M.adjustToxLoss(3, FALSE)
+		else if(effect <= 7)
+			update_flags |= M.adjustToxLoss(4, FALSE)
+			M.emote("twitch")
+			M.Jitter(10)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.emote("gasp")
+			to_chat(M, "<span class='warning'>You feel awful!</span>")
+			update_flags |= M.adjustToxLoss(3, FALSE)
+			update_flags |= M.Stun(1, FALSE)
+		else if(effect <= 4)
+			to_chat(M, "<span class='warning'>You feel terrible!</span>")
+			M.emote("drool")
+			M.Jitter(10)
+			update_flags |= M.adjustToxLoss(4, FALSE)
+			update_flags |= M.Weaken(1, FALSE)
+			M.AdjustConfused(33)
+		else if(effect <= 7)
+			M.emote("collapse")
+			to_chat(M, "<span class='warning'>Your heart is pounding!</span>")
+			M << 'sound/effects/singlebeat.ogg'
+			update_flags |= M.Paralyse(5, FALSE)
+			M.Jitter(30)
+			update_flags |= M.adjustToxLoss(4, FALSE)
+	return list(effect, update_flags)
 /datum/reagent/crank
 	name = "Crank"
 	id = "crank"

@@ -74,6 +74,12 @@
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 
+/datum/species/tajaran/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "moonlin")
+		H.reagents.add_reagent("psilocybin",(0.5))
+		return TRUE
+	return ..()
+
 /datum/species/tajaran/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/emote_wag

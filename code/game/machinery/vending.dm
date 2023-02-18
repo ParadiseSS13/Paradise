@@ -1255,7 +1255,8 @@
 					  /obj/item/seeds/plump = 2,
 					  /obj/item/seeds/reishi = 2,
 					  /obj/item/seeds/starthistle = 2,
-					  /obj/item/seeds/random = 2)
+					  /obj/item/seeds/random = 2,
+					  /obj/item/seeds/moonlight = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
