@@ -291,9 +291,9 @@
 			L.heal_overall_damage(heal_power, heal_power)
 			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 
-/mob/living/simple_animal/hostile/lightgeist/ghostize()
-	if(..())
-		death()
+/mob/living/simple_animal/hostile/lightgeist/ghost()
+	qdel(src)
+	return ..()
 
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
 	activation_method = "touch"
