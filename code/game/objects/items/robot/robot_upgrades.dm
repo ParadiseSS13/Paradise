@@ -13,6 +13,7 @@
 	var/module_type = null
 	/// A list of items, and their replacements that this upgrade should replace on installation, in the format of `item_type_to_replace = replacement_item_type`.
 	var/list/items_to_replace = list()
+	var/list/items_to_add = list()
 	/// A list of replacement items will need to be placed into a cyborg module's `special_rechargable` list after this upgrade is installed.
 	var/list/special_rechargables = list()
 
@@ -70,6 +71,10 @@
 
 		if(replacement_type in special_rechargables)
 			R.module.special_rechargables += replacement
+
+	for(var/item in items_to_add)
+		var/obj/item/replacement = new item(R.module)
+		R.module.basic_modules += replacement
 
 	R.module?.rebuild_modules()
 	return TRUE
@@ -398,3 +403,12 @@
 	cyborg.floorbuffer = FALSE
 	cyborg = null
 	return ..()
+
+/obj/item/borg/upgrade/RCD
+	name = " R.C.D upgrade"
+	desc = "A modified rapid construction device, able to pull energy directly from a cyborgs internal power cell."
+	icon_state = "cyborg_upgrade5"
+	origin_tech = "engineering=4;materials=5;powerstorage=4"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+	items_to_add = list(/obj/item/rcd/borg)

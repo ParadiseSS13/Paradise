@@ -359,7 +359,6 @@
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/rcd/borg,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
 		/obj/item/weldingtool/largetank/cyborg,

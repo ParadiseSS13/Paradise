@@ -1108,6 +1108,16 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_rcd
+	name = "Cyborg Upgrade (Rapid Construction Device)"
+	id = "borg_upgrade_RCD"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/RCD
+	req_tech = list("materials" = 6, "engineering" = 5, "powerstorage" = 5)
+	materials = list(MAT_METAL=30000, MAT_GLASS=15000,)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 //Misc
 /datum/design/mecha_tracking
 	name = "Exosuit Tracking Beacon"
