@@ -243,6 +243,7 @@
 	//Нацепляем фиолетовый защитный балахон
 	var/obj/item/clothing/suit/space/suit = new
 	suit.magical = TRUE
+	suit.slowdown = 0
 	suit.icon_state = "psyamp"
 	suit.name = "Роба межпространства"
 	suit.desc = "Магическая роба прислужника школы пространства, оберегающий владельца от перемещений в агрессивных средах."
