@@ -289,10 +289,10 @@
 	desc = "A harbinger of enlightenment. It'll be all over soon."
 	icon_state = "harvester"
 	icon_living = "harvester"
-	maxHealth = 60
-	health = 60
-	melee_damage_lower = 1
-	melee_damage_upper = 5
+	maxHealth = 40
+	health = 40
+	melee_damage_lower = 30
+	melee_damage_upper = 35
 	attacktext = "prods"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
