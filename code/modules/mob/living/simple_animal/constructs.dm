@@ -291,8 +291,8 @@
 	icon_living = "harvester"
 	maxHealth = 40
 	health = 40
-	melee_damage_lower = 30
-	melee_damage_upper = 35
+	melee_damage_lower = 20
+	melee_damage_upper = 25
 	attacktext = "prods"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
