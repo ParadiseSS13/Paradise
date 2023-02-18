@@ -177,10 +177,7 @@
 		if("purr")
 			on_CD = handle_emote_CD()
 		if("sit")
-			icon_state = "[icon_living]_sit"
-			collar_type = "[initial(collar_type)]_sit"
-			resting = TRUE
-			update_canmove()
+			on_CD = handle_emote_CD()
 		else
 			on_CD = 0
 
@@ -198,6 +195,13 @@
 		if("purr")
 			message = "purrs."
 			m_type = 2
+		if("sit")
+			message = "sits down."
+			m_type = 1 //visible
+			icon_state = "[icon_living]_sit"
+			collar_type = "[initial(collar_type)]_sit"
+			resting = TRUE
+			update_canmove()
 		if("help")
 			to_chat(src, "scream, meow, hiss, purr, sit")
 
@@ -215,7 +219,7 @@
 	icon_state = "kitten"
 	icon_living = "kitten"
 	icon_dead = "kitten_dead"
-	icon_resting = null
+	icon_resting = "kitten_sit"
 	gender = NEUTER
 	density = 0
 	pass_flags = PASSMOB
