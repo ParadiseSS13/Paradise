@@ -132,14 +132,14 @@
 	desc = "The food of choice for the seasoned traitor. This one is cold."
 	warm = FALSE
 
-/obj/item/reagent_containers/food/snacks/warmdonkpocket/on_enter_storage(obj/item/storage/S as obj)
+/obj/item/reagent_containers/food/snacks/warmdonkpocket/on_enter_storage(obj/item/storage/S)
 	. = ..()
 	if(istype(S, /obj/item/storage/box/donkpockets) && cool_timer)
 		deltimer(cool_timer)
 		subtracted_time += (world.time - heated_at)
 		cool_timer = null
 
-/obj/item/reagent_containers/food/snacks/warmdonkpocket/on_exit_storage(obj/item/storage/S as obj)
+/obj/item/reagent_containers/food/snacks/warmdonkpocket/on_exit_storage(obj/item/storage/S)
 	. = ..()
 	if(warm)
 		donk_heat()
