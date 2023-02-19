@@ -17,7 +17,7 @@
 	id = "blutrash"
 	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 1500, MAT_URANIUM = 250, MAT_PLASMA = 1500)
+	materials = list(MAT_GOLD = 1500, MAT_URANIUM = 250, MAT_PLASMA = 1500, MAT_BLUESPACE = 50)
 	build_path = /obj/item/storage/bag/trash/bluespace
 	category = list("Janitorial")
 

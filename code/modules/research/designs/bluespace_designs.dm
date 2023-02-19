@@ -37,7 +37,7 @@
 	id = "bluespace_belt"
 	req_tech = list("bluespace" = 6, "materials" = 5, "engineering" = 5, "plasmatech" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 1500, MAT_DIAMOND = 3000, MAT_URANIUM = 1000)
+	materials = list(MAT_GOLD = 1500, MAT_DIAMOND = 3000, MAT_URANIUM = 1000, MAT_BLUESPACE = 400)
 	build_path = /obj/item/storage/belt/bluespace
 	category = list("Bluespace")
 
@@ -57,7 +57,7 @@
 	id = "minerbag_holding"
 	req_tech = list("bluespace" = 4, "materials" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 250, MAT_URANIUM = 500) //quite cheap, for more convenience
+	materials = list(MAT_GOLD = 250, MAT_URANIUM = 500, MAT_BLUESPACE = 150) //quite cheap, for more convenience
 	build_path = /obj/item/storage/bag/ore/holding
 	category = list("Bluespace")
 
