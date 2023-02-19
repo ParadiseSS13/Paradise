@@ -198,8 +198,16 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Ore box", /obj/structure/ore_box, 4, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Rake", /obj/item/cultivator/rake, 5, time = 10),
 	new /datum/stack_recipe("Rifle stock", /obj/item/weaponcrafting/stock, 10, time = 40),
+	new /datum/stack_recipe("Tribune", /obj/structure/tribune, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden bucket", /obj/item/reagent_containers/glass/bucket/wooden, 3, time = 10),
 	new /datum/stack_recipe("Wooden buckler", /obj/item/shield/riot/buckler, 20, time = 40),
+	new /datum/stack_recipe_list("Wooden railings", list(
+		new /datum/stack_recipe("Wooden railing", /obj/structure/railing/wooden, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing corner (right)", /obj/structure/railing/wooden/cornerr, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing corner (left)", /obj/structure/railing/wooden/cornerl, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing end (right)", /obj/structure/railing/wooden/endr, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+		new /datum/stack_recipe("Wooden railing end (left)", /obj/structure/railing/wooden/endl, 5, time = 40, on_floor = TRUE, one_per_turf = TRUE),
+	)),
 	new /datum/stack_recipe("Wooden sandals", /obj/item/clothing/shoes/sandal),
 	null,
 	new /datum/stack_recipe_list("Pews", list(

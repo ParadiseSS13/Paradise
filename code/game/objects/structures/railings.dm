@@ -10,6 +10,8 @@
 	layer = ABOVE_MOB_LAYER
 	var/currently_climbed = FALSE
 	var/mover_dir = null
+	var/buildstacktype = /obj/item/stack/rods
+	var/buildstackamount = 3
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -41,11 +43,12 @@
 	deconstruct()
 	return TRUE
 
-/obj/structure/railing/deconstruct(disassembled)
-	if(!(flags & NODECONSTRUCT))
-		var/obj/item/stack/rods/rod = new /obj/item/stack/rods(drop_location(), 3)
-		transfer_fingerprints_to(rod)
-	return ..()
+/obj/structure/railing/deconstruct()
+	// If we have materials, and don't have the NOCONSTRUCT flag
+	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+		var/obj/item/stack/rods/stack = new buildstacktype(loc, buildstackamount)
+		transfer_fingerprints_to(stack)
+	..()
 
 ///Implements behaviour that makes it possible to unanchor the railing.
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
@@ -159,3 +162,83 @@
 		return
 	if(can_be_rotated(user))
 		setDir(turn(dir, 45))
+
+/obj/structure/railing/Initialize(mapload) //Only for mappers
+	..()
+	handle_layer()
+
+/obj/structure/railing/setDir(newdir)
+	..()
+	handle_layer()
+
+/obj/structure/railing/Move(newloc, direct, movetime)
+	..()
+	handle_layer()
+
+/obj/structure/railing/proc/handle_layer()
+	if(dir == NORTH || dir == NORTHEAST || dir == NORTHWEST)
+		layer = BELOW_MOB_LAYER
+	else
+		layer = ABOVE_MOB_LAYER
+
+/obj/structure/railing/wooden
+	name = "Wooden railing"
+	desc = "Wooden railing meant to protect idiots like you from falling."
+	icon = 'icons/obj/fence.dmi'
+	icon_state = "railing_wood"
+	resistance_flags = FLAMMABLE
+	climbable = TRUE
+	can_be_unanchored = 1
+	flags = ON_BORDER
+	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
+
+/obj/structure/railing/wooden/handle_layer()
+	if(dir == NORTH)
+		layer = LOW_ITEM_LAYER
+	else if(dir == SOUTH)
+		layer = ABOVE_MOB_LAYER
+	else
+		layer = HIGH_OBJ_LAYER
+
+/obj/structure/railing/wooden/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "It is fastened to the floor!")
+		return
+	setDir(turn(dir, 90))
+	after_rotation(user)
+
+/obj/structure/railing/wooden/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
+/obj/structure/railing/wooden/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+		return
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
+
+/obj/structure/railing/wooden/wirecutter_act(mob/living/user, obj/item/I)
+	. = NODECONSTRUCT
+	return
+
+/obj/structure/railing/wooden/cornerr
+	icon_state = "right_corner_railing_wood"
+	anchored = FALSE
+
+/obj/structure/railing/wooden/cornerl
+	icon_state = "left_corner_railing_wood"
+	anchored = FALSE
+
+/obj/structure/railing/wooden/endr
+	icon_state = "right_end_railing_wood"
+	anchored = FALSE
+
+/obj/structure/railing/wooden/endl
+	icon_state = "left_end_railing_wood"
+	anchored = FALSE
