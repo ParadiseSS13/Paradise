@@ -31,6 +31,8 @@
 	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_prefs_prompt = TRUE
 	allow_species_pick = TRUE
+	allow_gender_pick = TRUE
+	allow_name_pick = TRUE
 	pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Drask", "Vox", "Plasmaman", "Machine", "Kidan", "Grey", "Nucleation", "Slime People", "Wryn")
 	faction = list("syndicate")
 	min_hours = 10
@@ -40,32 +42,6 @@
     var/obj/machinery/cryopod/syndie/S = new(get_turf(src))
     S.setDir(dir)
     return ..()
-
-/obj/effect/mob_spawn/human/space_base_syndicate/species_prompt()
-	if(allow_species_pick)
-		//пол
-		var/new_gender = alert("Please select gender.",, "Male","Female")
-		if(new_gender == "Male")
-			mob_gender = MALE
-		else
-			mob_gender = FEMALE
-		//раса
-		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
-		if(!selected_species)
-			to_chat(usr, "<span class='warning'>Spawning stopped.</span>")
-			return	FALSE	// You didn't pick, abort
-		var/datum/species/S = GLOB.all_species[selected_species]
-		mob_species = S.type
-		//имя
-		var/new_name = input("Enter your name:") as text
-		if(new_name)
-			mob_name = new_name
-		else
-			mob_name = random_name(mob_gender, selected_species)
-		//цвет кожи
-		skin_tone = rand(-25, 0)
-
-	return TRUE
 
 /datum/outfit/space_base_syndicate
 	name = "Space Base Syndicate Scientist"
@@ -121,16 +97,11 @@
 		H.update_action_buttons_icon()
 		H.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc
 
-	H.dna.blood_type = pick("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") //Чтобы им всем подряд не требовалась кровь одного типа
-// Это фиксит белую кожу. Костяк, увы.
-	var/datum/dna/D = H.dna
-	if(!D.species.is_small)
-		H.change_dna(D, TRUE, TRUE)
-
 /obj/effect/mob_spawn/human/space_base_syndicate/special(mob/living/carbon/human/H)
 	GLOB.human_names_list += H.real_name
 	SEND_SOUND(H, 'sound/effects/taipan_start.ogg')
 	H.give_taipan_hud()
+	return ..()
 
 /obj/effect/mob_spawn/human/space_base_syndicate/medic
 	name = "Syndicate Medic sleeper"

@@ -7,14 +7,20 @@
 	icon_state = "cryostasis_sleeper"
 	roundstart = FALSE
 	death = FALSE
-	random = TRUE
 	allow_species_pick = TRUE
+	allow_prefs_prompt = TRUE
+	allow_gender_pick = TRUE
+	allow_name_pick = TRUE
+	outfit = /datum/outfit/hermit
 	mob_species = /datum/species/human
 	description = "You are a single survivor stranded on lavaland in a makeshift shelter. Try to survive with barely any equipment. For when miner is just too boring."
 	flavour_text = "You've been stranded in this godless prison of a planet for longer than you can remember. Each day you barely scrape by, and between the terrible \
 	conditions of your makeshift shelter, the hostile creatures, and the ash drakes swooping down from the cloudless skies, all you can wish for is the feel of soft grass between your toes and \
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
 	assignedrole = "Hermit"
+
+/datum/outfit/hermit
+	name = "Lavaland Survivor"
 
 /obj/effect/mob_spawn/human/hermit/Initialize(mapload)
 	. = ..()
@@ -51,4 +57,8 @@
 
 /obj/effect/mob_spawn/human/hermit/Destroy()
 	new/obj/structure/fluff/empty_cryostasis_sleeper(get_turf(src))
+	return ..()
+
+/obj/effect/mob_spawn/human/hermit/special(mob/living/carbon/human/H)
+	GLOB.human_names_list += H.real_name
 	return ..()

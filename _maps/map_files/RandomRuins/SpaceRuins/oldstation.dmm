@@ -1668,7 +1668,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldeng,
+/obj/effect/mob_spawn/human/oldstation/oldeng,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "mF" = (
@@ -4298,7 +4298,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldsec,
+/obj/effect/mob_spawn/human/oldstation/oldsec,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "IH" = (
@@ -5082,7 +5082,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldsci,
+/obj/effect/mob_spawn/human/oldstation/oldsci,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "NX" = (
@@ -6199,7 +6199,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/oldmed,
+/obj/effect/mob_spawn/human/oldstation/oldmed,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "VS" = (

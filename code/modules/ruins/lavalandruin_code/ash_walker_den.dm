@@ -62,6 +62,7 @@
 	icon_state = "large_egg"
 	mob_species = /datum/species/unathi/ashwalker
 	outfit = /datum/outfit/ashwalker
+	mob_gender = MALE
 	roundstart = FALSE
 	death = FALSE
 	anchored = FALSE

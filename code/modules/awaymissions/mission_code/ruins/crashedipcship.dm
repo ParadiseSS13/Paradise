@@ -47,8 +47,8 @@
 	gloves = /obj/item/clothing/gloves/color/black
 
 /obj/effect/mob_spawn/human/corpse/ipc/Initialize()
-	brute_damage = rand(50, 100)
-	burn_damage = rand(120, 200)
+	brute_damage = rand(50, 99)
+	burn_damage = rand(50, 99)
 	return ..()
 
 // Headcrab corpse
