@@ -33,6 +33,7 @@
 		"Greentext" =		   list("state" = "greentext",	  "inhand" = "greentext"),
 		"Honkmother" =		   list("state" = "honk",		  "inhand" = "honk"),
 		"Silentfather" =	   list("state" = "mime",		  "inhand" = "mime"),
+		"Clockwork" =		   list("state" = "clock_bible",  "inhand" = "clock_bible"),
 		"Nanotrasen" =		   list("state" = "nanotrasen",	  "inhand" = "nanotrasen")
 	)
 
