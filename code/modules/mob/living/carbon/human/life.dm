@@ -380,17 +380,27 @@
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 			var/mult = dna.species.coldmod
-			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
-				throw_alert("temp", /obj/screen/alert/cold, 1)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "Low Body Temperature")
-			if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
-				throw_alert("temp", /obj/screen/alert/cold, 2)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "Low Body Temperature")
-			if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
-				throw_alert("temp", /obj/screen/alert/cold, 3)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Low Body Temperature")
+			if(mult>0)
+				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
+					throw_alert("temp", /obj/screen/alert/cold, 1)
+					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
+				if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
+					throw_alert("temp", /obj/screen/alert/cold, 2)
+					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
+				if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
+					throw_alert("temp", /obj/screen/alert/cold, 3)
+					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
+				else
+					clear_alert("temp")
 			else
-				clear_alert("temp")
+				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1)
+				if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2)
+				if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
+					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3)
+				else
+					clear_alert("temp")
 	else
 		clear_alert("temp")
 

@@ -296,8 +296,9 @@
 			. += hungry/50
 		if(FAT in H.mutations)
 			. += (1.5 - flight)
-		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+		if (coldmod>0)
+			if(H.bodytemperature < cold_level_1)
+				. += (cold_level_1 - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	return .
 
