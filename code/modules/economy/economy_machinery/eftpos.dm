@@ -172,6 +172,9 @@
 		return
 
 	var/datum/money_account/D = GLOB.station_money_database.find_user_account(C.associated_account_number, include_departments = FALSE)
+	if(!D)
+		to_chat(user, "<span class='warning'>Your currently in use card is not connected to a money account.</span>")
+		return
 	//if security level high enough, prompt for pin
 	var/attempt_pin
 	if(D.security_level != ACCOUNT_SECURITY_ID)
