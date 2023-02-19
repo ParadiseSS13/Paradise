@@ -284,8 +284,8 @@
 		deconstruct(TRUE)
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 		I.play_tool_sound(user, I.tool_volume)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)
