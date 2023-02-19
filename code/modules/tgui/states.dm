@@ -66,7 +66,7 @@
 	return STATUS_INTERACTIVE
 
 /mob/living/silicon/ai/shared_ui_interaction(src_object)
-	if(lacks_power()) // Disable UIs if the AI is unpowered.
+	if(lacks_power() && !apc_override) // Disable UIs if the AI is unpowered.
 		return STATUS_DISABLED
 	return ..()
 
