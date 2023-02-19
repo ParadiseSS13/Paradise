@@ -181,6 +181,8 @@
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox
 
+
+/datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(allow_loadout && H.client && (H.client.prefs.loadout_gear && H.client.prefs.loadout_gear.len))
 		for(var/gear in H.client.prefs.loadout_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
@@ -204,14 +206,13 @@
 					continue
 
 				if(G.slot)
-					if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot))
+					if(H.equip_to_slot(G.spawn_item(H), G.slot))
 						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")
 					else
 						gear_leftovers += G
 				else
 					gear_leftovers += G
 
-/datum/outfit/job/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 

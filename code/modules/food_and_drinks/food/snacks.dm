@@ -54,7 +54,7 @@
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(HIDEFACE in H.check_obscured_slots())
+		if(!get_location_accessible(H, "mouth"))
 			if(M == user)
 				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
 			else

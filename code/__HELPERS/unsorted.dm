@@ -1275,7 +1275,7 @@ Standard way to write links -Sayu
 			if(face_covered & HIDEEYES || eyesmouth_covered & GLASSESCOVERSEYES || eyesmouth_covered & HEADCOVERSEYES)
 				return 0
 		if("mouth")
-			if(covered_locations & HEAD || face_covered & HIDEFACE || eyesmouth_covered & MASKCOVERSMOUTH)
+			if(covered_locations & HEAD && face_covered & HIDEFACE || eyesmouth_covered & MASKCOVERSMOUTH)
 				return 0
 		if("chest")
 			if(covered_locations & UPPER_TORSO)
