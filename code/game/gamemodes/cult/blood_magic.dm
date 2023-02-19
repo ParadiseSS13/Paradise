@@ -849,6 +849,9 @@
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
 	var/list/options = list("Blood Orb (50)", "Blood Recharge (75)", "Blood Spear (150)", "Blood Bolt Barrage (300)")
 	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
+	if(!Adjacent(user))
+		to_chat(user, "<span class='cultitalic'>Вы не можете использовать это заклинание без самого заклинания!</span>")
+		return
 	switch(choice)
 		if("Blood Spear (150)")
 			if(uses < BLOOD_SPEAR_COST)
