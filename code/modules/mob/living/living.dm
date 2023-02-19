@@ -156,7 +156,7 @@
 /mob/living/get_pull_push_speed_modifier(current_delay)
 	if(!canmove)
 		return pull_push_speed_modifier * 1.2
-	var/average_delay = (movement_delay() + current_delay) / 2
+	var/average_delay = (movement_delay(TRUE) + current_delay) / 2
 	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
 
 //Called when we want to push an atom/movable
@@ -598,6 +598,24 @@
 				var/mob/living/M = pulling
 				if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 					M.makeTrail(dest)
+				if(ishuman(pulling))
+					var/mob/living/carbon/human/H = pulling
+					var/obj/item/organ/external/head
+					if(!H.lying)
+						if(H.confused > 0 && prob(4))
+							H.setStaminaLoss(100)
+							head = H.get_organ("head")
+							head?.receive_damage(5, 0, FALSE)
+							pulling.stop_pulling()
+							visible_message("<span class='danger'>Ноги [H] путаются и [genderize_ru(H.gender,"он","она","оно","они")] с грохотом падает на пол, сильно ударяясь головой!</span>")
+						if(H.m_intent == MOVE_INTENT_WALK && prob(4))
+							H.setStaminaLoss(100)
+							head = H.get_organ("head")
+							head?.receive_damage(5, 0, FALSE)
+							visible_message("<span class='danger'>[H] не поспевает за [src] и с грохотом падает на пол, сильно ударяясь головой!</span>")
+			else
+				pulling.pixel_x = initial(pulling.pixel_x)
+				pulling.pixel_y = initial(pulling.pixel_y)
 			pulling.Move(dest, get_dir(pulling, dest), movetime) // the pullee tries to reach our previous position
 			if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 				stop_pulling()

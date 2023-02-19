@@ -53,7 +53,7 @@
 #define NO_SHOCK		"no_shock" 			// insulated hands
 #define DWARF			"dwarf"				// table climbing
 #define OBESITY       	"obesity"			// Decreased metabolism
-#define STRONG        	"strong"			// (Nothing)
+#define STRONG        	"strong"			// No slowdown from pull
 #define SOBER         	"sober"				// Increased alcohol metabolism
 #define PSY_RESIST    	"psy_resist"		// Block remoteview
 #define EMPATH			"empathy"			//Read minds
