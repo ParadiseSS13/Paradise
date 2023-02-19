@@ -569,7 +569,7 @@
 	shootAt(A)
 
 /mob/living/simple_animal/bot/ed209/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 	icon_state = "[lasercolor]ed209-c"
 	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 2)
 	var/threat = C.assess_threat(src)
