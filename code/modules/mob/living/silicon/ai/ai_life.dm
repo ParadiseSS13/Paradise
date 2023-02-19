@@ -45,6 +45,7 @@
 			aiRestorePowerRoutine = 0
 			update_sight()
 			to_chat(src, "Alert cancelled. Power has been restored[aiRestorePowerRoutine == 2 ? "without our assistance" : ""].")
+			apc_override = FALSE
 	else
 		if(lacks_power())
 			if(!aiRestorePowerRoutine)
@@ -121,9 +122,8 @@
 								to_chat(src, "Receiving control information from APC.")
 								sleep(2)
 								//bring up APC dialog
-								apc_override = 1
+								apc_override = TRUE
 								theAPC.attack_ai(src)
-								apc_override = 0
 								aiRestorePowerRoutine = 3
 						sleep(50)
 						theAPC = null
