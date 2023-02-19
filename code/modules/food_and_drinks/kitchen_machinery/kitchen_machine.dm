@@ -290,9 +290,14 @@
 		source.reagents.clear_reagents()
 
 		var/reagents_per_serving = temp_reagents.total_volume / efficiency
-		for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
+		var/obj/duplication = recipe.read_duplication()
+		if(duplication)
+			for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
+				var/obj/cooked = new recipe.result(loc)
+				temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
+		else
 			var/obj/cooked = new recipe.result(loc)
-			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
+			temp_reagents.trans_to(cooked, temp_reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
 		temp_reagents.clear_reagents()
 
 		var/obj/byproduct = recipe.get_byproduct()
