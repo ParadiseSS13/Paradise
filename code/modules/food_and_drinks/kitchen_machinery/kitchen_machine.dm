@@ -288,11 +288,10 @@
 
 			qdel(O)
 		source.reagents.clear_reagents()
-
-		var/reagents_per_serving = temp_reagents.total_volume / efficiency
-		var/obj/duplication = recipe.read_duplication()
-		if(duplication)
-			for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
+		var/portions = recipe.duplicate ? efficiency : 1
+		var/reagents_per_serving = temp_reagents.total_volume / portions
+		if(recipe.duplicate)
+			for(var/i in 1 to portions) // Extra servings when upgraded, ingredient reagents split equally
 				var/obj/cooked = new recipe.result(loc)
 				temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
 		else
@@ -306,7 +305,7 @@
 
 		if(istype(source, /obj/item/mixing_bowl)) // Cooking in mixing bowls returns them dirtier
 			var/obj/item/mixing_bowl/mb = source
-			mb.make_dirty(5 * efficiency)
+			mb.make_dirty(5 * portions)
 			mb.forceMove(loc)
 
 	stop()

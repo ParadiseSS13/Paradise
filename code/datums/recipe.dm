@@ -125,12 +125,6 @@
 	else
 		return null
 
-/datum/recipe/proc/read_duplication()
-	if(duplicate)
-		return duplicate
-	else
-		return null
-
 /datum/recipe/proc/count_n_items()
 	var/count = 0
 	if(items && items.len)
