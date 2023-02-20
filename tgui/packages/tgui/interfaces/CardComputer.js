@@ -105,7 +105,7 @@ export const CardComputer = (props, context) => {
               <LabeledList.Item label="Department">
                 {data.jobs_dept.map((v) => (
                   <Button
-                    selected={v === data.modify_rank}
+                    selected={data.modify_rank === v}
                     key={v}
                     content={v}
                     onClick={() => act('assign', { assign_target: v })}
@@ -114,7 +114,7 @@ export const CardComputer = (props, context) => {
               </LabeledList.Item>
               <LabeledList.Item label="Retirement">
                 <Button
-                  selected={'Assistant' === data.modify_rank}
+                  selected={data.modify_rank === "Assistant"}
                   key="Assistant"
                   content="Assistant"
                   onClick={() => act('assign', { assign_target: 'Assistant' })}
@@ -122,7 +122,7 @@ export const CardComputer = (props, context) => {
               </LabeledList.Item>
               <LabeledList.Item label="Demotion">
                 <Button
-                  selected={'Demoted' === data.modify_assignment}
+                  selected={data.modify_assignment === "Demoted"}
                   key="Demoted"
                   content="Demoted"
                   tooltip="Assistant access, 'demoted' title."
@@ -134,7 +134,7 @@ export const CardComputer = (props, context) => {
               {!!data.canterminate && (
                 <LabeledList.Item label="Non-Crew">
                   <Button
-                    disabled={'Terminated' === data.modify_assignment}
+                    disabled={data.modify_assignment === "Terminated"}
                     key="Terminate"
                     content="Terminated"
                     tooltip="Zero access. Not crew."
@@ -165,9 +165,7 @@ export const CardComputer = (props, context) => {
               </LabeledList.Item>
               <LabeledList.Item label="Account Number">
                 <Button
-                  icon={
-                    data.account_number ? 'pencil-alt' : 'exclamation-triangle'
-                  }
+                  icon={data.account_number ? 'pencil-alt' : 'exclamation-triangle'}
                   selected={data.account_number}
                   content={data.account_number ? data.account_number : 'None'}
                   onClick={() => act('account')}
@@ -184,7 +182,7 @@ export const CardComputer = (props, context) => {
                 <LabeledList.Item label="Special">
                   {data.jobs_top.map((v) => (
                     <Button
-                      selected={v === data.modify_rank}
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -192,12 +190,10 @@ export const CardComputer = (props, context) => {
                     />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item
-                  label="Engineering"
-                  labelColor={deptCols.engineering}
-                >
+                <LabeledList.Item label="Engineering" labelColor={deptCols.engineering}>
                   {data.jobs_engineering.map((v) => (
                     <Button
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -208,6 +204,7 @@ export const CardComputer = (props, context) => {
                 <LabeledList.Item label="Medical" labelColor={deptCols.medical}>
                   {data.jobs_medical.map((v) => (
                     <Button
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -218,6 +215,7 @@ export const CardComputer = (props, context) => {
                 <LabeledList.Item label="Science" labelColor={deptCols.science}>
                   {data.jobs_science.map((v) => (
                     <Button
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -225,13 +223,10 @@ export const CardComputer = (props, context) => {
                     />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item
-                  label="Security"
-                  labelColor={deptCols.security}
-                >
+                <LabeledList.Item label="Security" labelColor={deptCols.security}>
                   {data.jobs_security.map((v) => (
                     <Button
-                      selected={v === data.modify_rank}
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -242,7 +237,7 @@ export const CardComputer = (props, context) => {
                 <LabeledList.Item label="Service" labelColor={deptCols.service}>
                   {data.jobs_service.map((v) => (
                     <Button
-                      selected={v === data.modify_rank}
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -253,7 +248,7 @@ export const CardComputer = (props, context) => {
                 <LabeledList.Item label="Supply" labelColor={deptCols.supply}>
                   {data.jobs_supply.map((v) => (
                     <Button
-                      selected={v === data.modify_rank}
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -264,7 +259,7 @@ export const CardComputer = (props, context) => {
                 <LabeledList.Item label="Assistant">
                   {data.jobs_assistant.map((v) => (
                     <Button
-                      selected={v === data.modify_rank}
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -273,18 +268,13 @@ export const CardComputer = (props, context) => {
                   ))}
                 </LabeledList.Item>
                 {!!data.iscentcom && (
-                  <LabeledList.Item
-                    label="CentCom"
-                    labelColor={deptCols.centcom}
-                  >
+                  <LabeledList.Item label="CentCom" labelColor={deptCols.centcom}>
                     {data.jobs_centcom.map((v) => (
                       <Button
-                        selected={v === data.modify_rank}
-                        color={
-                          data.jobFormats[v] ? data.jobFormats[v] : 'purple'
-                        }
+                        selected={data.modify_rank === v}
                         key={v}
                         content={v}
+                        color={data.jobFormats[v] ? data.jobFormats[v] : 'purple'}
                         onClick={() => act('assign', { assign_target: v })}
                       />
                     ))}
@@ -292,7 +282,7 @@ export const CardComputer = (props, context) => {
                 )}
                 <LabeledList.Item label="Demotions">
                   <Button
-                    disabled={'Terminated' === data.modify_assignment}
+                    disabled={data.modify_assignment === "Terminated"}
                     key="Demoted"
                     content="Demoted"
                     selected={'Demoted' === data.modify_assignment}
@@ -304,7 +294,7 @@ export const CardComputer = (props, context) => {
                 </LabeledList.Item>
                 <LabeledList.Item label="Non-Crew">
                   <Button
-                    disabled={'Terminated' === data.modify_assignment}
+                    disabled={data.modify_assignment === "Terminated"}
                     key="Terminate"
                     content="Terminated"
                     tooltip="Zero access. Not crew."
@@ -318,7 +308,7 @@ export const CardComputer = (props, context) => {
             <Section title="Card Skins">
               {data.card_skins.map((v) => (
                 <Button
-                  selected={v.skin === data.current_skin}
+                  selected={data.current_skin === v.skin}
                   key={v.skin}
                   content={v.display_name}
                   onClick={() => act('skin', { skin_target: v.skin })}
@@ -328,7 +318,7 @@ export const CardComputer = (props, context) => {
                 <Box>
                   {data.all_centcom_skins.map((v) => (
                     <Button
-                      selected={v.skin === data.current_skin}
+                      selected={data.current_skin === v.skin}
                       key={v.skin}
                       content={v.display_name}
                       color="purple"
