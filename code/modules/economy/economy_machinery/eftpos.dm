@@ -182,7 +182,7 @@
 		if(!attempt_pin || !Adjacent(user))
 			return
 	//given the credentials, can the associated account be accessed right now?
-	if(!D || !GLOB.station_money_database.try_authenticate_login(D, attempt_pin, restricted_bypass = FALSE))
+	if(!GLOB.station_money_database.try_authenticate_login(D, attempt_pin, restricted_bypass = FALSE))
 		to_chat(user, "[bicon(src)]<span class='warning'>Unable to access account, insufficient access.</span>")
 		return
 	if(alert("Are you sure you want to pay $[transaction_amount] to Account: [linked_account.account_name] ", "Confirm transaction", "Yes", "No") != "Yes")
