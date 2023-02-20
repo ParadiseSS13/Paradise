@@ -87,6 +87,22 @@
 /obj/item/melee/baton/get_cell()
 	return cell
 
+/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = 1)
+	if(turned_on && slot==slot_belt)
+		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
+		return 0
+	if(turned_on && slot==slot_s_store)
+		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
+		return 0
+	return ..()
+
+/obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
+	if(turned_on)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's active!</span>")
+		return FALSE
+	else
+		return TRUE
+
 /**
   * Removes the specified amount of charge from the batons power cell.
   *
@@ -104,8 +120,6 @@
 		update_icon(UPDATE_ICON_STATE)
 	if(cell.charge < (hitcost)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 		turned_on = FALSE
-		w_class = initial(w_class)
-		slot_flags = initial(slot_flags)
 		update_icon()
 		playsound(src, "sparks", 75, TRUE, -1)
 
@@ -137,8 +151,6 @@
 	cell.update_icon()
 	cell = null
 	turned_on = FALSE
-	w_class = initial(w_class)
-	slot_flags = initial(slot_flags)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/attack_self(mob/user)
@@ -155,12 +167,6 @@
 			to_chat(user, "<span class='warning'>[src] is out of charge.</span>")
 	update_icon()
 	add_fingerprint(user)
-	if(turned_on)
-		w_class = w_class_on
-		slot_flags = null
-	else
-		w_class = initial(w_class)
-		slot_flags = initial(slot_flags)
 
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
