@@ -25,6 +25,14 @@
 	add_language("Xenomorph")
 	add_language("Hivemind")
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
+	var/datum/action/innate/alien_larva_hide/hide = new()
+	hide.Grant(src)
+
+/mob/living/carbon/alien/larva/Destroy()
+	for(var/datum/action/innate/alien_larva_hide/hide in actions)
+		hide.Remove(src)
+	return ..()
+
 
 /mob/living/carbon/alien/larva/get_caste_organs()
 	. = ..()
@@ -82,3 +90,18 @@
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
+/datum/action/innate/alien_larva_hide
+	name = "Hide"
+	desc = "Allows to hide beneath tables or certain items. Toggled on or off."
+	background_icon_state = "bg_alien"
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon_state = "alien_hide"
+
+/datum/action/innate/alien_larva_hide/Activate()
+	if(owner.layer != ABOVE_NORMAL_TURF_LAYER)
+		owner.layer = ABOVE_NORMAL_TURF_LAYER
+		owner.visible_message("<B>[owner] scurries to the ground!</B>", "<span class='noticealien'>You are now hiding.</span>")
+		return
+
+	owner.layer = MOB_LAYER
+	owner.visible_message("[owner] slowly peeks up from the ground...", "<span class=notice'>You have stopped hiding.</span>")

@@ -1,17 +1,20 @@
 // DRONE ABILITIES
-/mob/living/silicon/robot/drone/verb/hide()
-	set name = "Hide"
-	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
-	set category = "Robot Commands"
+/datum/action/innate/drone_hide
+	name = "Hide"
+	desc = "Allows to hide beneath tables or certain items. Toggled on or off. While hiding you can fit under unbolted airlocks."
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon_state = "repairbot"
 
-	if(layer != TURF_LAYER+0.2)
-		layer = TURF_LAYER+0.2
-		to_chat(src, text("<span class='notice'>You are now hiding.</span>"))
-		pass_flags |= PASSDOOR
-	else
-		layer = MOB_LAYER
-		to_chat(src, text("<span class='notice'>You have stopped hiding.</span>"))
-		pass_flags &= ~PASSDOOR
+/datum/action/innate/drone_hide/Activate()
+	if(owner.layer != TURF_LAYER + 0.2)
+		owner.layer = TURF_LAYER + 0.2
+		to_chat(owner, text("<span class='notice'>You are now hiding.</span>"))
+		owner.pass_flags |= PASSDOOR
+		return
+
+	owner.layer = MOB_LAYER
+	to_chat(owner, text("<span class='notice'>You have stopped hiding.</span>"))
+	owner.pass_flags &= ~PASSDOOR
 
 //Actual picking-up event.
 /mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M)

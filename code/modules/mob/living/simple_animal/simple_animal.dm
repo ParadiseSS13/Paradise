@@ -122,8 +122,9 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	verbs -= /mob/verb/observe
-	if(!can_hide)
-		verbs -= /mob/living/simple_animal/verb/hide
+	if(can_hide)
+		var/datum/action/innate/animal_hide/hide = new()
+		hide.Grant(src)
 	if(pcollar)
 		pcollar = new(src)
 		regenerate_icons()
@@ -134,6 +135,8 @@
 	/// We need to clear the reference to where we're walking to properly GC
 	walk_to(src, 0)
 	QDEL_NULL(pcollar)
+	for(var/datum/action/innate/animal_hide/hide in actions)
+		hide.Remove(src)
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
 	if(SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
