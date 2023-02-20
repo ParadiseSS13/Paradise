@@ -562,8 +562,8 @@ export const CardComputer = (props, context) => {
   return (
     <Window resizable>
       <Window.Content scrollable>
-        {menuBlock}
         {authBlock}
+        {menuBlock}
         {bodyBlock}
       </Window.Content>
     </Window>
