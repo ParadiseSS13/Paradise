@@ -77,12 +77,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_EVENT
 
 /datum/objective/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
 	for(var/datum/mind/M in get_owners())
 		if(possible_target == M)
 			return TARGET_INVALID_IS_OWNER
 		if(possible_target in M.targets)
 			return TARGET_INVALID_IS_TARGET
-	return ..()
+	if(SEND_SIGNAL(src, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, possible_target) & OBJECTIVE_INVALID_TARGET)
+		return TARGET_INVALID_BLACKLISTED
 
 
 /datum/objective/proc/find_target(list/target_blacklist)
@@ -208,6 +212,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/debrain //I want braaaainssss
 	name = "Debrain"
 	martyr_compatible = 0
+
+/datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
+	// If the target is a changeling, then it's an invalid target. Since changelings can not be debrained.
+	if(ischangeling(possible_target.current))
+		return TARGET_INVALID_CHANGELING
 
 /datum/objective/debrain/find_target(list/target_blacklist)
 	..()
@@ -374,7 +386,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	/// If the objective has an assassinate objective tied to it.
 	var/has_assassinate_objective = FALSE
 
-/datum/objective/escape/escape_with_identity/New(text, datum/objective/assassinate/assassinate)
+/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/objective/assassinate/assassinate)
 	..()
 	if(!assassinate)
 		return
@@ -383,6 +395,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	has_assassinate_objective = TRUE
 	RegisterSignal(assassinate, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(assassinate_found_target))
+	RegisterSignal(assassinate, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, PROC_REF(assassinate_checking_target))
 
 /datum/objective/escape/escape_with_identity/is_invalid_target(datum/mind/possible_target)
 	if(..() || !possible_target.current.client)
@@ -397,6 +410,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
 		explanation_text = "Free Objective"
+
+/datum/objective/escape/escape_with_identity/proc/assassinate_checking_target(datum/source, datum/mind/possible_target)
+	SIGNAL_HANDLER
+	if(!possible_target.current.client || HAS_TRAIT(possible_target.current, TRAIT_GENELESS))
+		// Stop our linked assassinate objective from choosing a clientless/geneless target.
+		return OBJECTIVE_INVALID_TARGET
+	return OBJECTIVE_VALID_TARGET
 
 /datum/objective/escape/escape_with_identity/proc/assassinate_found_target(datum/source, datum/mind/new_target)
 	SIGNAL_HANDLER

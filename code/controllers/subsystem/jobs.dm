@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(jobs)
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -20,13 +21,12 @@ SUBSYSTEM_DEF(jobs)
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
-	if(!occupations.len)
+/datum/controller/subsystem/jobs/Initialize()
+	if(!length(occupations))
 		SetupOccupations()
 	for(var/department_type in subtypesof(/datum/station_department))
 		station_departments += new department_type()
 	LoadJobs(FALSE)
-	return ..()
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
@@ -678,7 +678,7 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/job/tgt_job = GetJob(jobtitle)
 	if(!tgt_job)
 		return
-	if(!tgt_job.department_head[1])
+	if(!length(tgt_job.department_head))
 		return
 	var/boss_title = tgt_job.department_head[1]
 	var/obj/item/pda/target_pda

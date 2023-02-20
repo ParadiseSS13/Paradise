@@ -2942,16 +2942,14 @@
 			if("flicklights")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
 				while(!usr.stat)
-//knock yourself out to stop the ghosts
+					//knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
 							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
-								AffectedArea.power_light = 0
-								AffectedArea.power_change()
-								spawn(rand(55,185))
-									AffectedArea.power_light = 1
-									AffectedArea.power_change()
+								AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
+								spawn(rand(55, 185))
+									AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, TRUE)
 								var/Message = rand(1,4)
 								switch(Message)
 									if(1)
@@ -3093,12 +3091,7 @@
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
 				if(confirmation == "No")
 					return
-				if(makeThunderdomeTeams())
-					log_admin("[key_name(usr)] started a Thunderdome match!", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started a Thunderdome match!</span>")
-				else
-					log_admin("[key_name(usr)] attempted to start a Thunderdome match, but no ghosts signed up.", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] tried starting a Thunderdome match, but no ghosts signed up.</span>")
+				makeThunderdomeTeams()
 			if("securitylevel0")
 				set_security_level(0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
@@ -3380,6 +3373,13 @@
 		popup.open(FALSE)
 	else if(href_list["who_advanced"])
 		usr.client.who_advanced()
+
+	else if(href_list["adminalert"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
 /client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))

@@ -14,12 +14,12 @@
 	. = ..()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
 
-/obj/structure/bed/nest/user_unbuckle_mob(mob/living/user)
+/obj/structure/bed/nest/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	if(has_buckled_mobs())
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+			if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 				unbuckle_mob(M)
 				add_fingerprint(user)
 				return
@@ -45,15 +45,16 @@
 			unbuckle_mob(M)
 			add_fingerprint(user)
 
-
 /obj/structure/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
 	if (!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
 		return
 
-	if(M.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
+		to_chat(user, "<span class='noticealien'>[M]'s linkage with the hive prevents you from securing them into [src]</span>")
 		return
 
-	if(!user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+	if(!user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
+		to_chat(user, "<span class='noticealien'>Your lack of linkage to the hive prevents you from buckling [M] into [src]</span>")
 		return
 
 	if(has_buckled_mobs())
@@ -87,8 +88,10 @@
 /obj/structure/bed/nest/attack_alien(mob/living/carbon/alien/user)
 	if(user.a_intent != INTENT_HARM)
 		return attack_hand(user)
-	else
-		return ..()
+	if(!do_after(user, 4 SECONDS, target = src) || QDELETED(src))
+		return
+	playsound(loc, pick('sound/effects/alien_resin_break2.ogg','sound/effects/alien_resin_break1.ogg'), 50, FALSE)
+	qdel(src)
 
 /obj/structure/bed/nest/prevents_buckled_mobs_attacking()
 	return TRUE

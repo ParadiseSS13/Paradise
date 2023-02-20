@@ -40,7 +40,7 @@
 
 	add_fingerprint(user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
+		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_themselves()] with [src]!</span>", \
 							"<span class='userdanger'>You accidentally club yourself with [src]!</span>")
 		user.KnockDown(knockdown_duration)
 		if(ishuman(user))

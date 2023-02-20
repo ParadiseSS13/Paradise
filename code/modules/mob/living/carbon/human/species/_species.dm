@@ -220,8 +220,12 @@
 		if(initial(organ_path.parent_organ) in bodyparts_to_omit)
 			continue
 
-		var/obj/item/organ/internal/org = new organ_path()
-		org.insert(H)
+		// heads up for any brave future coders:
+		// it's essential that a species' internal organs are intialized with the mob, instead of just creating them and calling insert() separately.
+		// not doing so (as of now) causes weird issues for some organs like posibrains, which need a mob on init or they'll qdel themselves.
+		// for the record: this caused every single IPC's brain to be deleted randomly throughout a round, killing them instantly.
+
+		new organ_path(H)
 
 	create_mutant_organs(H)
 
@@ -244,8 +248,7 @@
 		qdel(ears)
 
 	if(mutantears && !isnull(H.bodyparts_by_name[initial(mutantears.parent_organ)]))
-		var/obj/item/organ/internal/ears/new_ears = new mutantears()
-		new_ears.insert(H)
+		new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
@@ -528,9 +531,6 @@
 			target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
 							"<span class='userdanger'>[user] has knocked down [target]!</span>")
 			target.KnockDown(4 SECONDS)
-			target.forcesay(GLOB.hit_appends)
-		else if(IS_HORIZONTAL(target))
-			target.forcesay(GLOB.hit_appends)
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
@@ -868,7 +868,7 @@
 
 	if(radiation > RAD_MOB_HAIRLOSS)
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		if(!head_organ || (NO_HAIR in species_traits))
+		if(!istype(head_organ) || (NO_HAIR in species_traits))
 			return
 		if(prob(15) && head_organ.h_style != "Bald")
 			to_chat(H, "<span class='danger'>Your hair starts to fall out in clumps...</span>")
@@ -939,7 +939,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(G.invis_override)
 			H.see_invisible = G.invis_override
 		else
-			H.see_invisible = min(G.invis_view, H.see_invisible)
+			H.see_invisible = max(G.invis_view, H.see_invisible) //Max, whichever is better
 
 		if(!isnull(G.lighting_alpha))
 			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
@@ -1040,4 +1040,4 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return H.skin_colour
 	else
 		var/obj/item/organ/external/head/HD = H.get_organ("head")
-		return HD.hair_colour
+		return HD?.hair_colour

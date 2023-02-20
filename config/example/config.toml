@@ -243,6 +243,7 @@ gamemode_probabilities = [
 	{gamemode = "traitorvamp", probability = 3},
 	{gamemode = "vampire", probability = 3},
 	{gamemode = "wizard", probability = 2},
+	{gamemode = "trifecta", probability = 3},
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
@@ -718,10 +719,6 @@ lavaland_ruin_budget = 60
 
 # Communications password for authorising world/Topic requests. Comment out to disable
 #communications_password = "generateSomeLongRandomStringHere"
-# Medal hub for tracking lavaland stats
-#medal_hub_address = "hubmakerckey.hubname"
-# Medal hub password for tracking lavaland stats
-#medal_hub_password = "putYourPasswordHere"
 # Do we want to kill the world on reboot instead of restarting it?
 shutdown_on_reboot = false
 # If true to above, an optional shell command can be ran. Defaults to killing DD on windows
@@ -737,6 +734,9 @@ is_production = false
 # Server instance ID. This is used for tagging the server in the database
 # You do NOT want to change this once you are running in production
 instance_id = "paradise_main"
+# Enable the below setting if you plan to run multiple instances of the server
+# Enabling this if you dont run multiple instances wont cause problems, but will add a **TINY** amount more lag at times
+enable_multi_instance_support = false
 # Server internal IP. Used if you are splitting instances over multiple internal IPs.
 # In most cases this is just 127.0.0.1
 internal_ip = "127.0.0.1"
@@ -752,6 +752,8 @@ external_tos_handler = false
 regional_servers = [
 	#{name = "UK", ip = "byond://uk.paradisestation.org:6666"},
 ]
+# Send a toast on server init completion. You probably dont need this on in production
+toast_on_init_complete = true
 
 
 ################################################################
