@@ -404,7 +404,7 @@
 	cyborg = null
 	return ..()
 
-/obj/item/borg/upgrade/RCD
+/obj/item/borg/upgrade/rcd
 	name = " R.C.D. upgrade"
 	desc = "A modified rapid construction device, able to pull energy directly from a cyborgs internal power cell."
 	icon_state = "cyborg_upgrade5"

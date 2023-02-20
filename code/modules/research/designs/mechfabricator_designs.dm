@@ -1112,7 +1112,7 @@
 	name = "Cyborg Upgrade (Rapid Construction Device)"
 	id = "borg_upgrade_RCD"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/RCD
+	build_path = /obj/item/borg/upgrade/rcd
 	req_tech = list("materials" = 6, "engineering" = 5, "powerstorage" = 5)
 	materials = list(MAT_METAL=30000, MAT_GLASS=15000,)
 	construction_time = 120
