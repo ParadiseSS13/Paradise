@@ -326,9 +326,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(modify)
 				if(!scan)
 					return data
-				else if(target_dept)
+
+				data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
+				data["jobs_assistant"] = GLOB.assistant_positions
+				data["canterminate"] = has_idchange_access()
+
+				if(target_dept)
 					data["jobs_dept"] = get_subordinates(scan.rank, FALSE)
-					data["canterminate"] = has_idchange_access()
 				else
 					data["account_number"] = modify ? modify.associated_account_number : null
 					data["jobs_top"] = list("Captain", "Custom")
@@ -338,9 +342,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["jobs_security"] = GLOB.security_positions
 					data["jobs_service"] = GLOB.service_positions
 					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
-					data["jobs_assistant"] = GLOB.assistant_positions
 					data["jobs_centcom"] = get_all_centcom_jobs() + get_all_ERT_jobs()
-					data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
 					data["current_skin"] = modify.icon_state
 					data["card_skins"] = format_card_skins(get_station_card_skins())
 					data["all_centcom_skins"] = is_centcom() ? format_card_skins(get_centcom_card_skins()) : FALSE
