@@ -122,7 +122,10 @@ export const CardComputer = (props, context) => {
               </LabeledList.Item>
               <LabeledList.Item label="Demotion">
                 <Button
-                  selected={data.modify_assignment === "Demoted"}
+                  disabled={
+                    data.modify_assignment === "Demoted" ||
+                    data.modify_assignment === "Terminated"
+                  }
                   key="Demoted"
                   content="Demoted"
                   tooltip="Assistant access, 'demoted' title."
@@ -280,12 +283,14 @@ export const CardComputer = (props, context) => {
                     ))}
                   </LabeledList.Item>
                 )}
-                <LabeledList.Item label="Demotions">
+                <LabeledList.Item label="Demotion">
                   <Button
-                    disabled={data.modify_assignment === "Terminated"}
+                    disabled={
+                      data.modify_assignment === "Demoted" ||
+                      data.modify_assignment === "Terminated"
+                    }
                     key="Demoted"
                     content="Demoted"
-                    selected={'Demoted' === data.modify_assignment}
                     tooltip="Assistant access, 'demoted' title."
                     color="red"
                     icon="times"
