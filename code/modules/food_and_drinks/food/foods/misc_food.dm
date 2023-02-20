@@ -125,7 +125,7 @@
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/proc/donk_heat()
 	heated_at = world.time
-	cool_timer = addtimer(CALLBACK(src, PROC_REF(donk_cool)), 420 SECONDS - subtracted_time, TIMER_UNIQUE|TIMER_STOPPABLE)
+	cool_timer = addtimer(CALLBACK(src, PROC_REF(donk_cool)), 7 MINUTES - subtracted_time, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/proc/donk_cool()
 	name = "cold Donk-pocket"

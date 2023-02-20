@@ -358,7 +358,7 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "A heavy, insulated box that reads, <B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</I>"
+	desc = "A heavy, insulated box that reads, <b>Instructions:</b> <i>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</i>"
 	storage_slots = 6
 	can_hold = list(
 		/obj/item/reagent_containers/food/snacks/donkpocket,
