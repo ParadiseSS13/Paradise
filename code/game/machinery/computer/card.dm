@@ -446,9 +446,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return
 			var/t1 = params["assign_target"]
 			if(target_dept)
-				if(modify.assignment == "Demoted")
+				if(modify.assignment == "Demoted" || modify.assignment == "Terminated")
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-					visible_message("<span class='warning'>[src]: Reassigning a demoted individual requires a full ID computer.</span>")
+					visible_message("<span class='warning'>[src]: Reassigning a demoted or terminated individual requires a full ID computer.</span>")
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
