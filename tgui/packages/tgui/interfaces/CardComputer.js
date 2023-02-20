@@ -122,7 +122,7 @@ export const CardComputer = (props, context) => {
               </LabeledList.Item>
               <LabeledList.Item label="Demotion">
                 <Button
-                  selected={'Demoted' === data.modify_rank}
+                  selected={'Demoted' === data.modify_assignment}
                   key="Demoted"
                   content="Demoted"
                   tooltip="Assistant access, 'demoted' title."
@@ -134,7 +134,7 @@ export const CardComputer = (props, context) => {
               {!!data.canterminate && (
                 <LabeledList.Item label="Non-Crew">
                   <Button
-                    disabled={'Terminated' === data.modify_rank}
+                    disabled={'Terminated' === data.modify_assignment}
                     key="Terminate"
                     content="Terminated"
                     tooltip="Zero access. Not crew."
@@ -292,10 +292,10 @@ export const CardComputer = (props, context) => {
                 )}
                 <LabeledList.Item label="Demotions">
                   <Button
-                    disabled={'Terminated' === data.modify_rank}
+                    disabled={'Terminated' === data.modify_assignment}
                     key="Demoted"
                     content="Demoted"
-                    selected={'Demoted' === data.modify_rank}
+                    selected={'Demoted' === data.modify_assignment}
                     tooltip="Assistant access, 'demoted' title."
                     color="red"
                     icon="times"
@@ -304,7 +304,7 @@ export const CardComputer = (props, context) => {
                 </LabeledList.Item>
                 <LabeledList.Item label="Non-Crew">
                   <Button
-                    disabled={'Terminated' === data.modify_rank}
+                    disabled={'Terminated' === data.modify_assignment}
                     key="Terminate"
                     content="Terminated"
                     tooltip="Zero access. Not crew."

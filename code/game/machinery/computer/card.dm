@@ -80,9 +80,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return check_access(scan)
 	return FALSE
 
-/obj/machinery/computer/card/proc/get_target_assignment()
-	return modify && modify.assignment ? modify.assignment : "Unassigned"
-
 /obj/machinery/computer/card/proc/format_jobs(list/jobs, targetrank, list/jobformats)
 	var/list/formatted = list()
 	for(var/job in jobs)
@@ -312,7 +309,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	data["mode"] = mode
 	data["modify_name"] = modify ? modify.name : FALSE
 	data["modify_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
-	data["modify_rank"] = get_target_assignment()
+	data["modify_rank"] = modify && modify.rank ? modify.rank : FALSE
+	data["modify_assignment"] = modify && modify.assignment ? modify.assignment : "Unassigned"
 	data["modify_lastlog"] = modify && modify.lastlog ? modify.lastlog : FALSE
 	data["scan_name"] = scan ? scan.name : FALSE
 	data["scan_rank"] = scan ? scan.rank : FALSE
