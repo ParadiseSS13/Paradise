@@ -511,11 +511,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("demote")
 			if(modify.assignment == "Demoted")
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
+				visible_message("<span class='warning'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
+				visible_message("<span class='warning'>[src]: Heads may only demote members of their own department.</span>")
 				return FALSE
 			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !modify)
@@ -541,7 +541,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("terminate")
 			if(!has_idchange_access()) // because captain/HOP can use this even on dept consoles
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message("<span class='notice'>[src]: Only the Captain or HOP may completely terminate the employment of a crew member.</span>")
+				visible_message("<span class='warning'>[src]: Only the Captain or HOP may completely terminate the employment of a crew member.</span>")
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
 			var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
@@ -635,7 +635,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/temp_name = reject_bad_name(input(usr, "Who is this ID for?", "ID Card Renaming", modify.registered_name), TRUE)
 			if(!modify || !temp_name)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message("<span class='notice'>[src] buzzes rudely.</span>")
+				visible_message("<span class='warning'>[src] buzzes rudely.</span>")
 				return FALSE
 			modify.registered_name = temp_name
 			regenerate_id_name()
