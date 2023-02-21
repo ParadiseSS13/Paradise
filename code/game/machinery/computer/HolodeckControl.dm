@@ -219,7 +219,7 @@
 
 
 // Holographic Items!
-/turf/simulated/floor/holofloor/
+/turf/simulated/floor/holofloor
 	thermal_conductivity = 0
 	icon_state = "plating"
 
