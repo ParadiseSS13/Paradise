@@ -26,6 +26,7 @@
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
+	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 	return
 
 /datum/game_mode/wizard/raginmages/check_finished()

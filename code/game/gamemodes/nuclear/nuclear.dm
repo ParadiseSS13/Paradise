@@ -251,6 +251,7 @@
 		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 	to_chat(syndicate.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)</span>")
+	syndicate.current.create_log(MISC_LOG, "[syndicate.current] was made into a nuclear operative")
 	return
 
 
