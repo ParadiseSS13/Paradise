@@ -115,7 +115,7 @@
 	target.forceMove(loc)
 	buckle_mob(target, TRUE)
 	if(!H.IsSleeping())
-		H.Sleeping((15 SECONDS) * sleep_ratio)
+		H.Sleeping(15 SECONDS * sleep_ratio)
 		add_attack_logs(attacker, target, "put to bed for [15 * sleep_ratio] seconds.")
 	H.emote("snore")
 
