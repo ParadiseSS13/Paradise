@@ -3,9 +3,9 @@
 	name = "APLU \"Ripley\""
 	icon_state = "ripley"
 	initial_icon = "ripley"
-	step_in = 4 //Move speed, lower is faster.
-	var/fast_pressure_step_in = 2 //step_in while in normal pressure conditions
-	var/slow_pressure_step_in = 4 //step_in while in better pressure conditions
+	step_in = 3 //Move speed, lower is faster.
+	var/fast_pressure_step_in = 1.75 //step_in while in normal pressure conditions
+	var/slow_pressure_step_in = 3 //step_in while in better pressure conditions
 	max_temperature = 20000
 	max_integrity = 200
 	lights_power = 7
