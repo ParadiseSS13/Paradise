@@ -97,7 +97,7 @@
 		qdel(B)
 	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
-	holographic_items = A.copy_contents_to(linkedholodeck , platingRequired = TRUE, perfect_copy = FALSE)
+	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE, perfect_copy = FALSE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -123,26 +123,24 @@
 	active = FALSE
 
 
-/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
+/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj, silent = TRUE)
 	holographic_items.Remove(obj)
 
-	if(obj == null)
+	if(!istype(obj))
 		return
 
-	if(isobj(obj))
-		var/mob/M = obj.loc
-		if(ismob(M))
-			M.unEquip(obj, 1) //Holoweapons should always drop.
+	var/mob/M = obj.loc
+	if(istype(M))
+		M.unEquip(obj, TRUE) //Holoweapons should always drop.
 
 	if(!silent)
-		var/obj/oldobj = obj
-		visible_message("[oldobj] fades away!")
+		var/obj/old_obj = obj
+		visible_message("[old_obj] fades away!")
 	qdel(obj)
 
 /obj/machinery/computer/HolodeckControl/proc/check_deck_integrity(area/A)
-	for(var/turf/T in A)
-		if(isspaceturf(T))
-			return FALSE
+	for(var/turf/space/T in A)
+		return FALSE
 	return TRUE
 
 /obj/machinery/computer/HolodeckControl/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -181,9 +179,9 @@
 			if(emagged)
 				message_admins("[key_name_admin(ui.user)] overrode the holodeck's safeties")
 				log_game("[key_name(ui.user)] overrode the holodeck's safeties")
-			else
-				message_admins("[key_name_admin(ui.user)] restored the holodeck's safeties")
-				log_game("[key_name(ui.user)] restored the holodeck's safeties")
+				return
+			message_admins("[key_name_admin(ui.user)] restored the holodeck's safeties")
+			log_game("[key_name(ui.user)] restored the holodeck's safeties")
 		if("wildlifecarp")
 			if(!emagged)
 				return
