@@ -8,9 +8,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 50
+	idle_power_consumption = 5
+	active_power_consumption = 50
 	var/grinded = 0
 	var/required_grind = 5
 	var/cube_production = 1

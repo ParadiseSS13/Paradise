@@ -5,7 +5,6 @@
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/chokehold_active = FALSE //Then uses this to determine if the restrain actually goes anywhere
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
-														/area/crew_quarters/cafeteria,
 														/area/crew_quarters/bar))
 
 /datum/martial_art/cqc/under_siege
@@ -65,7 +64,7 @@
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 10, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+						"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(IS_HORIZONTAL(A) && !IS_HORIZONTAL(D))
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \

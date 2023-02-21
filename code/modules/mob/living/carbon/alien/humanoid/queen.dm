@@ -15,14 +15,15 @@
 	alien_slash_damage = 30 //Queens do higher slashing damage to people
 	alien_movement_delay = 1 //This represents a movement delay of 1, or roughly 80% the movement speed of a normal carbon mob
 
-
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	. = ..()
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)
 		if(Q == src)
+			ADD_TRAIT(Q, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 			continue
 		if(Q.stat == DEAD)
+			ADD_TRAIT(Q, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
 			continue
 		if(Q.client)
 			name = "alien princess ([rand(1, 999)])"	//if this is too cutesy feel free to change it/remove it.
@@ -33,34 +34,16 @@
 /mob/living/carbon/alien/humanoid/queen/get_caste_organs()
 	. = ..()
 	. += list(
-		/obj/item/organ/internal/xenos/plasmavessel/queen,
-		/obj/item/organ/internal/xenos/acidgland,
-		/obj/item/organ/internal/xenos/eggsac,
-		/obj/item/organ/internal/xenos/resinspinner,
-		/obj/item/organ/internal/xenos/neurotoxin,
+		/obj/item/organ/internal/alien/plasmavessel/queen,
+		/obj/item/organ/internal/alien/acidgland,
+		/obj/item/organ/internal/alien/eggsac,
+		/obj/item/organ/internal/alien/resinspinner,
+		/obj/item/organ/internal/alien/neurotoxin,
 	)
 
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE
-
-//Queen verbs
-/mob/living/carbon/alien/humanoid/queen/verb/lay_egg()
-
-	set name = "Lay Egg (75)"
-	set desc = "Lay an egg to produce huggers to impregnate prey with."
-	set category = "Alien"
-	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
-		return
-
-	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
-		adjustPlasma(-75)
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] has laid an egg!</span>"), 1)
-		new /obj/structure/alien/egg(loc)
-	return
-
 
 /mob/living/carbon/alien/humanoid/queen/large
 	icon = 'icons/mob/alienlarge.dmi'

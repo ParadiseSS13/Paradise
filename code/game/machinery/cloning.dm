@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	light_color = LIGHT_COLOR_PURE_GREEN
 
 /obj/machinery/clonepod/power_change()
-	..()
+	..() //we don't check return here because we also care about the BROKEN flag
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			return
 		else
 			connected_message("Authorized Ejection")
-			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
+			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occurred")
 			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
 			go_out()
 

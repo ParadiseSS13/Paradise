@@ -152,7 +152,7 @@
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
-			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>",
+			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		return
 
@@ -191,7 +191,6 @@
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
-		H.forcesay(GLOB.hit_appends)
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)
@@ -224,7 +223,7 @@
 	if(turned_on && cell?.charge)
 		flick("baton_active", source)
 		baton_stun(user, user, skip_cooldown = TRUE)
-		user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>",
+		user.visible_message("<span class='warning'>[user] shocks [user.p_themselves()] while attempting to wash the active [src]!</span>",
 							"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 		return TRUE
 	..()

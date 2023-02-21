@@ -167,7 +167,7 @@
 	if(R.id == "plasma" || R.id == "plasma_dust")
 		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
-		H.adjustPlasma(20)
+		H.add_plasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 

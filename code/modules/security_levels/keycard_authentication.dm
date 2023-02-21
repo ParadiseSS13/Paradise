@@ -17,10 +17,9 @@
 	var/ert_reason
 
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 6
-	power_channel = ENVIRON
+	idle_power_consumption = 2
+	active_power_consumption = 6
+	power_channel = PW_CHANNEL_ENVIRONMENT
 
 	req_access = list(ACCESS_KEYCARD_AUTH)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -71,10 +70,8 @@
 	return ..()
 
 /obj/machinery/keycard_auth/power_change()
-	if(powered(ENVIRON))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/keycard_auth/attack_ghost(mob/user)
