@@ -24748,6 +24748,10 @@
 "bkP" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
+/obj/item/eftpos/register{
+	dir = 1;
+	pixel_y = 11
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -28145,6 +28149,7 @@
 	},
 /obj/structure/table,
 /obj/item/book/manual/wiki/sop_service,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -41520,7 +41525,7 @@
 	pixel_y = 7;
 	pixel_x = -8
 	},
-/obj/item/phone/pos,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "caq" = (
@@ -52687,7 +52692,9 @@
 /area/maintenance/apmaint2)
 "cFL" = (
 /obj/structure/table/reinforced,
-/obj/item/phone/pos,
+/obj/item/eftpos/register{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint2)
 "cFM" = (
@@ -62955,7 +62962,6 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/phone/pos,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -67152,7 +67158,7 @@
 "eIN" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/phone/pos,
+/obj/item/eftpos/register,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "eJo" = (
@@ -73083,11 +73089,7 @@
 	},
 /area/assembly/chargebay)
 "iPb" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	icon_screen = "detective_tv";
-	icon_state = "television";
-	name = "old TV"
-	},
+/obj/machinery/computer/security/telescreen/entertainment/television,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint)
@@ -78596,7 +78598,7 @@
 	dir = 8;
 	invuln = 1;
 	name = "Hardened Bomb-Test Security Camera";
-	network = list("Research","SS13")
+	network = list("Toxins","Research","SS13")
 	},
 /turf/simulated/floor/indestructible,
 /area/toxins/test_area)
@@ -79313,12 +79315,7 @@
 	},
 /area/toxins/mixing)
 "nMT" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	icon_state = "television";
-	icon_screen = "detective_tv";
-	name = "television";
-	desc = "A relic of a bygone age."
-	},
+/obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/wood,
 /area/maintenance/apmaint)
 "nMU" = (

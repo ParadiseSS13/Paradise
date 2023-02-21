@@ -7077,7 +7077,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/grenade/clusterbuster/smoke,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)

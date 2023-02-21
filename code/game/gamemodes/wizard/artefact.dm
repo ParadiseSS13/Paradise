@@ -819,3 +819,38 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
+
+/obj/item/reagent_containers/food/drinks/everfull
+	name = "everfull mug"
+	desc = "An enchanted mug which can be filled with any of various liquids on command."
+	icon_state = "evermug"
+
+/obj/item/reagent_containers/food/drinks/everfull/attack_self(mob/user)
+	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
+							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
+							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
+							"Holy Water" = image(icon = 'icons/obj/drinks.dmi', icon_state = "holyflask"),
+							"Welder Fuel" = image(icon = 'icons/obj/objects.dmi', icon_state = "fuel"),
+							"Vomit" = image(icon = 'icons/effects/blood.dmi', icon_state = "vomit_1"))
+	var/static/list/options_to_reagent = list("Omnizine" = "omnizine",
+									"Ale" = "ale",
+									"Wine" = "wine",
+									"Holy Water" = "holywater",
+									"Welder Fuel" = "fuel",
+									"Vomit" = "vomit")
+	var/static/list/options_to_descriptions = list("Omnizine" = "a strange pink-white liquid",
+												"Ale" = "foamy amber ale",
+												"Wine" = "deep red wine",
+												"Holy Water" = "sparkling clear water",
+												"Welder Fuel" = "a dark, pungent, oily substance",
+												"Vomit" = "warm chunky vomit")
+
+	var/choice = show_radial_menu(user, src, options)
+	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
+		return
+	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
+	magic_fill(options_to_reagent[choice])
+
+/obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
+	reagents.clear_reagents()
+	reagents.add_reagent(reagent_choice, volume)
