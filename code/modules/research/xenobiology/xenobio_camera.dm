@@ -54,10 +54,11 @@
 	locate_recycler()
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/locate_recycler()
-	for(var/obj/machinery/monkey_recycler/recycler in get_area(loc))
-		connected_recycler = recycler
-		connected_recycler.connected += src
-		break
+	for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
+		if(get_area(recycler) == get_area(loc))
+			connected_recycler = recycler
+			connected_recycler.connected += src
+			break
 
 /obj/machinery/computer/camera_advanced/xenobio/Destroy()
 	QDEL_NULL(current_potion)
@@ -162,8 +163,8 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/release_slime(mob/living/simple_animal/slime/slime, release_spot)
 	slime.visible_message("<span class='notice'>[slime] warps in!</span>")
-	slime.forceMove(release_spot)
 	clear_slime(slime)
+	slime.forceMove(release_spot)
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/clear_slime(mob/living/simple_animal/slime/slime)
 	UnregisterSignal(slime, COMSIG_PARENT_QDELETING)

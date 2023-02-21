@@ -102,8 +102,6 @@
 		AC.Remove(src)
 	Target = null
 	Leader = null
-	for(var/friend in Friends)
-		clear_friend(friend)
 	speech_buffer.Cut()
 	return ..()
 
