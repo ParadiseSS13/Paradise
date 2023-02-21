@@ -204,10 +204,7 @@
 	playsound(src, transaction_sound, 50, TRUE)
 	visible_message("<span class='notice'>[src] chimes!</span>")
 	transaction_paid = TRUE
-	addtimer(CALLBACK(src, PROC_REF(auto_reset_transaction)), 5 SECONDS)
-
-/obj/item/eftpos/proc/auto_reset_transaction()
-	transaction_paid = FALSE
+	addtimer(VARSET_CALLBACK(src, transaction_paid, FALSE), 5 SECONDS)
 
 ///creates and builds paper with info about the EFTPOS
 /obj/item/eftpos/proc/print_reference()
