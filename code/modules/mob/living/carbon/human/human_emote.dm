@@ -300,52 +300,10 @@
 	status = STATUS_EFFECT_DAP
 	key_third_person = "daps"
 
-/datum/emote/living/carbon/human/handshake
+/datum/emote/living/carbon/human/highfive/handshake
 	key = "handshake"
-	message = "holds out their hand."
-	hands_use_check = TRUE
-	emote_target_type = EMOTE_TARGET_MOB
-	target_behavior = EMOTE_TARGET_BHVR_DEFAULT_TO_BASE
-
-/datum/emote/living/carbon/human/handshake/act_on_target(mob/user, target)
-	. = ..()
-	if(!target)
-		user.visible_message(
-			"[user] seems to shake hands with empty space.",
-			"You shake the air's hand."
-		)
-		return EMOTE_ACT_STOP_EXECUTION
-
-	if(!user.Adjacent(target) || !ishuman(target))
-		message_param = "extends a hand towards %t."
-		return TRUE
-
-	var/mob/living/carbon/human/human_target = target
-
-	if(!HAS_TRAIT(human_target, TRAIT_HANDS_BLOCKED) && !human_target.r_hand && !human_target.restrained())
-		message_param = "shakes hands with %t."
-	else
-		message_param = "holds out [user.p_their()] hand to %t."
-
-/datum/emote/living/carbon/human/handshake/run_emote(mob/user, params, type_override, intentional)
-	var/mob/living/target
-	for(var/mob/living/A in oview(5, user))
-		if(params == A.name)
-			target = A
-
-	if(!target)
-		user.visible_message(
-			"[user] seems to shake hands with empty space.",
-			"You shake the air's hand."
-		)
-		return TRUE
-
-	if(!HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) && !target.r_hand && !target.restrained())
-		message_param = "shakes hands with %t."
-	else
-		message_param = "holds out [user.p_their()] hand to %t."
-
-	return ..()
+	key_third_person = "handshakes"
+	status = STATUS_EFFECT_HANDSHAKE
 
 /datum/emote/living/carbon/human/snap
 	key = "snap"

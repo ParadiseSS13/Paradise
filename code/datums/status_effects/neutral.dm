@@ -53,6 +53,7 @@
 	var/success = "high-five!"
 	var/request = "requests a high-five."
 	var/obj/item/item_path = /obj/item/latexballon
+	var/sound_effect = 'sound/effects/snap.ogg'
 
 /// So we don't leave folks with god-mode
 /datum/status_effect/high_five/proc/wiz_cleanup(mob/user, mob/highfived)
@@ -80,7 +81,7 @@
 			user.do_attack_animation(C, no_effect = TRUE)
 			C.do_attack_animation(user, no_effect = TRUE)
 			user.visible_message("<b>[user.name]</b> and <b>[C.name]</b> [success]")
-			playsound(user, 'sound/effects/snap.ogg', 80)
+			playsound(user, sound_effect, 80)
 			user.remove_status_effect(type)
 			C.remove_status_effect(type)
 			return FALSE
@@ -112,10 +113,12 @@
 /datum/status_effect/high_five/dap/get_missed_message()
 	return "sadly can't find anybody to give daps to, and daps themself. Shameful."
 
-/datum/status_effect/high_five/on_timeout()
-	// show some emotionally damaging failure messages
-	// high risk, high reward
-	owner.visible_message("[owner] awkwardly lowers [owner.p_their()] hand, [get_missed_message()]")
+/datum/status_effect/high_five/handshake
+	id = "handshake"
+	critical_success = "give each other an EPIC handshake!"
+	success = "give each other a handshake!"
+	request = "requests a handshake!"
+	sound_effect = "sound/weapons/thudswoosh.ogg"
 
 /datum/status_effect/charging
 	id = "charging"
