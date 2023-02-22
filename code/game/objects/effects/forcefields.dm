@@ -53,8 +53,10 @@
 	return !blocks_atmos
 
 /obj/structure/forcefield/mime
-	icon_state = "empty"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "5"
 	name = "invisible wall"
+	alpha = 1
 	desc = "You have a bad feeling about this."
 	max_integrity = 80
 
