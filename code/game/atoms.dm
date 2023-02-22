@@ -1226,6 +1226,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 
 	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+
+	// Logging
+	var/logged_name = initial(name)
+	if(t)
+		logged_name = "[use_prefix ? "[prefix][t]" : t]"
+	investigate_log("[key_name(user)] renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
+
 	if(actually_rename)
 		if(t == "")
 			name = "[initial(name)]"
