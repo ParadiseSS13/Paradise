@@ -1669,8 +1669,8 @@
 			if(L.is_dead() || !L.client) //we don't care about dead mobs
 				continue
 			targets += L
-		var/mob/living/target = pick(targets)
-		if(target)
+		if(length(targets))
+			var/mob/living/target = pick(targets)
 			to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
 	return ..()
 
