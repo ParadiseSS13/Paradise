@@ -191,6 +191,13 @@
 		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
 			SSredis.publish(channel, presence_text)
 
+		// Report detailed presence info to system
+		var/list/presence_data_2 = list()
+		presence_data_2["source"] = GLOB.configuration.system.instance_id
+		presence_data_2["round_id"] = GLOB.round_id
+		presence_data_2["event"] = "round_end"
+		SSredis.publish("byond.system", json_encode(presence_data_2))
+
 	return 0
 
 
