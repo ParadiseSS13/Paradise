@@ -26,8 +26,8 @@
 	if(!L.has_status_effect(STATUS_EFFECT_HIGHFIVE))
 		L.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
 		L.visible_message(
-			"<span class='notice'[user] raises [user.p_their()] hand for a high-five!",
-			"<span class='notice'>You raise your hand for a high-five!"
+			"<span class='notice'[user] raises [user.p_their()] hand for a high-five!</span>",
+			"<span class='notice'>You raise your hand for a high-five!</span>"
 		)
 
 /obj/item/slapper/attack_obj(obj/O, mob/living/user, params)
