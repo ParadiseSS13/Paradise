@@ -243,6 +243,7 @@ gamemode_probabilities = [
 	{gamemode = "traitorvamp", probability = 3},
 	{gamemode = "vampire", probability = 3},
 	{gamemode = "wizard", probability = 2},
+	{gamemode = "trifecta", probability = 3},
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
