@@ -18,6 +18,15 @@
 	if(force)
 		return ..()
 
+/obj/item/slapper/attack_self(mob/user)
+	. = ..()
+	if(!user.has_status_effect(STATUS_EFFECT_HIGHFIVE))
+		user.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
+		user.visible_message(
+			"<span class='notice'[user] raises [user.p_their()] hand for a high-five!",
+			"<span class='notice'>You raise your hand for a high-five!"
+		)
+
 /obj/item/slapper/attack_obj(obj/O, mob/living/user, params)
 	if(!istype(O, /obj/structure/table))
 		return ..()
