@@ -47,15 +47,47 @@
 
 /datum/status_effect/high_five
 	id = "high_five"
-	duration = 5 SECONDS
+	duration = 30 SECONDS  //TODO MAKE THIS 10
 	alert_type = null
+	var/critical_success = "high-five EPICALLY!"
+	var/success = "high-five!"
+	var/request = "requests a high-five."
+	var/obj/item/item_path = /obj/item/latexballon
+
+/// So we don't leave folks with god-mode
+/datum/status_effect/high_five/proc/wiz_cleanup(mob/user, mob/highfived)
+	user.status_flags &= ~GODMODE
+	highfived.status_flags &= ~GODMODE
 
 /datum/status_effect/high_five/on_apply()
-	if(!istype(owner, /mob/living))
+	if(!istype(owner, /mob/living/carbon))
 		return FALSE
 	. = ..()
+
+	var/mob/living/carbon/user = owner
+	for(var/mob/living/carbon/C in orange(1))
+		if(C.has_status_effect(type) && C != user)
+			if(iswizard(user) && iswizard(C))
+				user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[C.name]</b> [critical_success]</span>")
+				user.status_flags |= GODMODE
+				C.status_flags |= GODMODE
+				explosion(get_turf(user), 5, 2, 1, 3)
+				// explosions have a spawn so this makes sure that we don't get gibbed
+				addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 1)
+				user.remove_status_effect(type)
+				C.remove_status_effect(type)
+
+			user.do_attack_animation(C, no_effect = TRUE)
+			C.do_attack_animation(user, no_effect = TRUE)
+			user.visible_message("<b>[user.name]</b> and <b>[C.name]</b> [success]")
+			playsound(user, 'sound/effects/snap.ogg', 80)
+			user.remove_status_effect(type)
+			C.remove_status_effect(type)
+			return FALSE
+
+	owner.custom_emote(EMOTE_VISIBLE, request)
 	// this can only go well
-	var/obj/item/latexballon/bloon = new()
+	var/obj/item/bloon = new item_path()
 	owner.create_point_bubble(bloon)
 	QDEL_IN(bloon, 10)
 
@@ -70,6 +102,12 @@
 	)
 
 	return pick(missed_highfive_messages)
+
+/datum/status_effect/high_five/dap
+	id = "dap"
+	critical_success = "dap each other up EPICALLY!"
+	success = "dap each other up!"
+	request = "requests someone to dap them up!"
 
 /datum/status_effect/high_five/on_timeout()
 	// show some emotionally damaging failure messages

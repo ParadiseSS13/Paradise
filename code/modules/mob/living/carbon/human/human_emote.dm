@@ -283,9 +283,10 @@
 /datum/emote/living/carbon/human/highfive
 	key = "highfive"
 	key_third_person = "highfives"
-	message = "requests a highfive."
+	// message = "requests a highfive."
 	hands_use_check = TRUE
 	cooldown = 3 SECONDS
+	var/status = STATUS_EFFECT_HIGHFIVE
 
 /datum/emote/living/carbon/human/highfive/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
@@ -293,34 +294,19 @@
 	if(user_carbon.restrained())
 		return FALSE
 
-/datum/emote/living/carbon/human/highfive/proc/wiz_cleanup(mob/user, mob/highfived)
-	user.status_flags &= ~GODMODE
-	highfived.status_flags &= ~GODMODE
-
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
-	if(user_carbon.has_status_effect(STATUS_EFFECT_HIGHFIVE))
-		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to high-five them.")
+	if(user_carbon.has_status_effect(status))
+		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to [key].")
 		return TRUE
-	user_carbon.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
-	for(var/mob/living/L in orange(1))
-		if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE) && L != user)
-			if(iswizard(user) && iswizard(L))
-				user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
-				user_carbon.status_flags |= GODMODE
-				L.status_flags |= GODMODE
-				explosion(get_turf(user), 5, 2, 1, 3)
-				// explosions have a spawn so this makes sure that we don't get gibbed
-				addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user_carbon, L), 1)
-				user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-				L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-				return TRUE
-			user.visible_message("<b>[user.name]</b> and <b>[L.name]</b> high-five!")
-			playsound(user, 'sound/effects/snap.ogg', 50)
-			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
-			return TRUE
+	user_carbon.apply_status_effect(status)
+
 	return ..()
+
+/datum/emote/living/carbon/human/highfive/dap
+	key = "dap"
+	status = STATUS_EFFECT_DAP
+	key_third_person = "daps"
 
 /datum/emote/living/carbon/human/handshake
 	key = "handshake"
