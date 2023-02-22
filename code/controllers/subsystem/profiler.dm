@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(profiler)
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	wait = 5 MINUTES
 	flags = SS_NO_TICK_CHECK
+	cpu_display = SS_CPUDISPLAY_LOW // its usage itself is high but its every 5 mins so
 	/// Time it took to fetch normal profile data (ms)
 	var/nfetch_cost = 0
 	/// Time it took to write the normal file (ms)
@@ -24,7 +25,6 @@ SUBSYSTEM_DEF(profiler)
 	if(!GLOB.configuration.general.enable_auto_profiler)
 		StopProfiling() //Stop the early start profiler if we dont want it on in the config
 		flags |= SS_NO_FIRE
-	return ..()
 
 /datum/controller/subsystem/profiler/fire()
 	DumpFile()

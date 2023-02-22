@@ -12,7 +12,8 @@
 	severity = DANGEROUS
 
 /datum/disease/fluspanish/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(2)
 			affected_mob.bodytemperature += 10

@@ -23,6 +23,7 @@ SUBSYSTEM_DEF(timer)
 
 	flags = SS_TICKER|SS_NO_INIT
 	offline_implications = "The game will no longer process timers. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	/// Queue used for storing timers that do not fit into the current buckets
 	var/list/datum/timedevent/second_queue = list()

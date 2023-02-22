@@ -69,6 +69,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/view_instances,
 	/client/proc/start_vote,
+	/client/proc/toggle_mctabs,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist
 ))
@@ -115,7 +116,8 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
-	/client/proc/admin_deserialize
+	/client/proc/admin_deserialize,
+	/client/proc/create_crate
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
@@ -163,7 +165,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
-	/client/proc/toggle_medal_disable,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
@@ -177,6 +178,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/dmapi_log,
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
+	/client/proc/force_verb_bypass,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -233,6 +235,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/debugNatureMapGenerator, // This lags like hell, and is very easy to nuke half the server with
 	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
+	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
 ))
 
 /client/proc/on_holder_add()
@@ -1006,3 +1009,36 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		return
 
 	watchlist_show()
+
+/client/proc/cmd_admin_alert_message(mob/about_to_be_banned)
+	set name = "Send Alert Message"
+	set category = "Admin"
+
+	if(!ismob(about_to_be_banned))
+		return
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/alert_type = alert(src, "Do you wish to send an admin alert to [key_name(about_to_be_banned, FALSE)]?",,"Yes", "No", "Custom Message")
+
+	switch(alert_type)
+		if("Yes")
+			var/message = "An admin is trying to talk to you!\nCheck your chat window and click their name to respond or you may be banned!"
+			show_blurb(about_to_be_banned, 15, message, null, "center", "center", COLOR_RED, null, null, 1)
+			log_admin("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+			message_admins("[key_name(src)] sent a default admin alert to [key_name(about_to_be_banned)].")
+
+		if("Custom Message")
+			var/message = input(src, "Input your custom admin alert text:", "Message") as text|null
+			if(!message)
+				return
+			message = strip_html(message, 500)
+
+			var/message_color = input(src, "Input your message color:", "Color Selector") as color|null
+			if(!message_color)
+				return
+
+			show_blurb(about_to_be_banned, 15, message, null, "center", "center", message_color, null, null, 1)
+			log_admin("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")
+			message_admins("[key_name(src)] sent an admin alert to [key_name(about_to_be_banned)] with custom message [message].")

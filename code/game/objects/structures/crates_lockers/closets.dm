@@ -241,6 +241,8 @@
 		return
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
+	if(!ishuman(user) && !isrobot(user)) //No ghosts, you cannot shove people into fucking lockers
+		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
 	if(!isturf(user.loc)) // are you in a container/closet/pod/etc?
@@ -383,6 +385,21 @@
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
 
+/obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)
+	if(opened)
+		target.forceMove(src)
+		visible_message("<span class='danger'>[attacker] shoves [target] inside [src]!</span>", "<span class='warning'>You hear a thud, and something clangs shut.</span>")
+		close()
+		add_attack_logs(attacker, target, "shoved into [src]")
+		return TRUE
+
+	if(can_open())
+		open()
+		visible_message("<span class='danger'>[attacker] shoves [target] against [src], knocking it open!</span>")
+		target.KnockDown(3 SECONDS)
+		return TRUE
+
+	return ..()
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
