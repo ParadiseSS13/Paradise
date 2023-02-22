@@ -293,7 +293,6 @@
 
 /mob/living/simple_animal/hostile/lightgeist/ghost()
 	qdel(src)
-	return ..()
 
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
 	activation_method = "touch"
