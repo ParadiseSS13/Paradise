@@ -76,11 +76,10 @@
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), slot_glasses)
-
+	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings(H), slot_wear_suit)
 
 /datum/superheroes/griffin
 	name = "The Griffin"
@@ -95,9 +94,8 @@
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings/griffinwings(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), slot_head)
-
+	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings/griffinwings(H), slot_wear_suit)
 	var/obj/item/implant/freedom/L = new/obj/item/implant/freedom(H)
 	L.implant(H)
 
@@ -115,11 +113,10 @@
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), slot_back)
-
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), slot_wear_suit)
 
 /datum/superheroes/electro
 	name = "Electro-Negmatic"
@@ -134,10 +131,9 @@
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), slot_back)
-
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), slot_wear_suit)
 
 
 

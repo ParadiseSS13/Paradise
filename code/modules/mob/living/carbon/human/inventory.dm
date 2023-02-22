@@ -318,6 +318,7 @@
 			uniform.attackby(I, src)
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
+	return TRUE
 
 /mob/living/carbon/human/put_in_hands(obj/item/I)
 	if(!I)

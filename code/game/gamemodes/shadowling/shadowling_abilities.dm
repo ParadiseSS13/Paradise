@@ -295,13 +295,13 @@
 							 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
 		H.set_species(/datum/species/shadow/ling)
 		H.adjustCloneLoss(-target.getCloneLoss())
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(H), slot_wear_suit)
-		H.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(H), slot_head)
-		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(H), slot_gloves)
-		H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(H), slot_wear_mask)
-		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(H), slot_glasses)
+		H.equip_to_slot(new /obj/item/clothing/under/shadowling(H), slot_w_uniform)
+		H.equip_to_slot(new /obj/item/clothing/shoes/shadowling(H), slot_shoes)
+		H.equip_to_slot(new /obj/item/clothing/suit/space/shadowling(H), slot_wear_suit)
+		H.equip_to_slot(new /obj/item/clothing/head/shadowling(H), slot_head)
+		H.equip_to_slot(new /obj/item/clothing/gloves/shadowling(H), slot_gloves)
+		H.equip_to_slot(new /obj/item/clothing/mask/gas/shadowling(H), slot_wear_mask)
+		H.equip_to_slot(new /obj/item/clothing/glasses/shadowling(H), slot_glasses)
 
 /obj/effect/proc_holder/spell/targeted/collective_mind //Lets a shadowling bring together their thralls' strength, granting new abilities and a headcount
 	name = "Collective Hivemind"

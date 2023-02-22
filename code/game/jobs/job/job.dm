@@ -206,7 +206,7 @@
 					continue
 
 				if(G.slot)
-					if(H.equip_to_slot(G.spawn_item(H), G.slot))
+					if(H.equip_to_slot_if_possible(G.spawn_item(H), G.slot))
 						to_chat(H, "<span class='notice'>Equipping you with [gear]!</span>")
 					else
 						gear_leftovers += G
