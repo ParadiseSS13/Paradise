@@ -418,7 +418,7 @@
 	name = "High Five"
 
 /datum/keybinding/emote/carbon/human/handshake
-	linked_emote = /datum/emote/living/carbon/human/handshake
+	linked_emote = /datum/emote/living/carbon/human/highfive/handshake
 	name = "Handshake"
 
 /datum/keybinding/emote/carbon/human/snap
