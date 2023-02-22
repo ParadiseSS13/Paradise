@@ -35,7 +35,7 @@
 /obj/item/reagent_containers/borghypo/abductor
 	charge_cost = 40
 	recharge_time = 3
-	reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "spaceacillin", "charcoal", "mannitol", "salbutamol","corazone")
+	reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "spaceacillin", "charcoal", "mannitol", "salbutamol", "corazone")
 	bypass_protection = 1
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
