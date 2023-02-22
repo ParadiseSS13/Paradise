@@ -18,20 +18,23 @@
 	. = ..()
 	icon_state = "coatrack[rand(0, 1)]"
 
-/obj/structure/coatrack/attack_hand(mob/user as mob)
-	user.visible_message("[user] takes [coat] off \the [src].", "You take [coat] off the \the [src]")
-	if(!user.put_in_active_hand(coat))
-		coat.loc = get_turf(user)
-	coat = null
-	update_icon()
+/obj/structure/coatrack/attack_hand(mob/living/user)
+	if(coat)
+		user.visible_message("[user] takes [coat] off \the [src].", "You take [coat] off the \the [src].")
+		if(!user.put_in_active_hand(coat))
+			coat.loc = get_turf(user)
+		coat = null
+		update_icon()
 
-/obj/structure/coatrack/attackby(obj/item/W as obj, mob/user as mob, params)
-	var/can_hang = 0
+/obj/structure/coatrack/attackby(obj/item/W, mob/living/user, params)
+	var/can_hang = FALSE
 	for(var/T in allowed)
 		if(istype(W,T))
-			can_hang = 1
+			can_hang = TRUE
+			continue
+
 	if(can_hang && !coat)
-		user.visible_message("[user] hangs [W] on \the [src].", "You hang [W] on the \the [src]")
+		user.visible_message("[user] hangs [W] on \the [src].", "You hang [W] on the \the [src].")
 		coat = W
 		user.drop_item(src)
 		coat.loc = src
@@ -40,13 +43,14 @@
 		return ..()
 
 /obj/structure/coatrack/CanPass(atom/movable/mover, turf/target, height=0)
-	var/can_hang = 0
+	var/can_hang = FALSE
 	for(var/T in allowed)
 		if(istype(mover,T))
-			can_hang = 1
+			can_hang = TRUE
+			continue
 
 	if(can_hang && !coat)
-		src.visible_message("[mover] lands on \the [src].")
+		visible_message("[mover] lands on \the [src].")
 		coat = mover
 		coat.loc = src
 		update_icon()
@@ -83,8 +87,6 @@
 
 /obj/structure/coatrack/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0))
-		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
@@ -99,6 +101,7 @@
 	if(disassembled)
 		mat_drop = 10
 	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
-	coat.loc = get_turf(src)
-	coat = null
+	if(coat)
+		coat.loc = get_turf(src)
+		coat = null
 	..()
