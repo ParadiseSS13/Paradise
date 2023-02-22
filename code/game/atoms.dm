@@ -1231,7 +1231,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/logged_name = initial(name)
 	if(t)
 		logged_name = "[use_prefix ? "[prefix][t]" : t]"
-	investigate_log("[key_name(user)] renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
+	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
 
 	if(actually_rename)
 		if(t == "")
