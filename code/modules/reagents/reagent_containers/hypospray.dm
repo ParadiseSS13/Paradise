@@ -164,7 +164,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/emergency_nuclear
 	name = "emergency stabilization medipen"
-	desc = "A fast acting livesaving emergency autoinjector. Effective in combat situations, make by the syndicate for the syndicate.</span>"
+	desc = "A fast acting live-saving emergency autoinjector. Effective in combat situations, made by the syndicate for the syndicate."
 	icon_state = "stimpen"
 	volume = 15
 	amount_per_transfer_from_this = 15
