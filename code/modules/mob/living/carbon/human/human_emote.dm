@@ -55,14 +55,6 @@
 	muzzled_noises = list("weak", "pathetic", "sad")
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/dap
-	key = "dap"
-	key_third_person = "daps"
-	message = "sadly can't find anybody to give daps to, and daps themself. Shameful."
-	message_param = "give daps to %t."
-	emote_target_type = EMOTE_TARGET_MOB
-	hands_use_check = TRUE
-
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
 	message = "raises an eyebrow."

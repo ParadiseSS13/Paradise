@@ -109,6 +109,9 @@
 	success = "dap each other up!"
 	request = "requests someone to dap them up!"
 
+/datum/status_effect/high_five/dap/get_missed_message()
+	return "sadly can't find anybody to give daps to, and daps themself. Shameful."
+
 /datum/status_effect/high_five/on_timeout()
 	// show some emotionally damaging failure messages
 	// high risk, high reward
