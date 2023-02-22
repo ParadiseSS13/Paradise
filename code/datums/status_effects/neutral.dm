@@ -50,6 +50,15 @@
 	duration = 5 SECONDS
 	alert_type = null
 
+/datum/status_effect/high_five/on_apply()
+	if(!istype(owner, /mob/living))
+		return FALSE
+	. = ..()
+	// this can only go well
+	var/obj/item/latexballon/bloon = new()
+	owner.create_point_bubble(bloon)
+	QDEL_IN(bloon, 10)
+
 /datum/status_effect/high_five/proc/get_missed_message()
 	var/list/missed_highfive_messages = list(
 		"it looks like [owner.p_they()] [owner.p_were()] left hanging...",
