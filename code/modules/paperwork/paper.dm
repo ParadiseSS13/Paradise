@@ -250,7 +250,6 @@
 
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
-	var/i = 0
 	for(var/i in 1 to fields)
 		var/write_1 = "<font face=\"[deffont]\"><a href='?src=[UID()];write=[i]'>write</a></font>"
 		var/write_2 = "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
