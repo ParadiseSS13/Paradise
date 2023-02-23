@@ -61,6 +61,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	shaded_charge = FALSE
 	can_holster = TRUE
+	objective_item = TRUE
 
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced energy revolver"

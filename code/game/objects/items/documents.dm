@@ -10,6 +10,7 @@
 	throw_speed = 1
 	pressure_resistance = 2
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	objective_item = TRUE
 
 /obj/item/documents/nanotrasen
 	desc = "\"Top Secret\" Nanotrasen documents printed on special copy-protected paper. It is filled with complex diagrams and lists of names, dates and coordinates."

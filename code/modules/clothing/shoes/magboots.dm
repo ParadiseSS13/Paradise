@@ -60,6 +60,7 @@
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	objective_item = TRUE
 
 /obj/item/clothing/shoes/magboots/syndie
 	name = "blood-red magboots"

@@ -353,6 +353,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
+	objective_item = TRUE
 	/// The cell reactive armor uses.
 	var/obj/item/stock_parts/cell/emproof/reactive/cell
 	/// Cost multiplier for armor. "Stronger" armors use 200 charge, other armors use 120.

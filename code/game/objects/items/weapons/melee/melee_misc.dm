@@ -36,6 +36,7 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+	objective_item = TRUE
 
 /obj/item/melee/rapier/Initialize(mapload)
 	. = ..()

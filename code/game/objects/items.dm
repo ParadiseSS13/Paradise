@@ -48,6 +48,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 //	causeerrorheresoifixthis
 	var/obj/item/master = null
 
+	/// Is this an objective item?
+	var/objective_item = FALSE
+
 	var/heat_protection = 0 //flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
 	var/cold_protection = 0 //flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
 	var/max_heat_protection_temperature //Set this variable to determine up to which temperature (IN KELVIN) the item protects against heat damage. Keep at null to disable protection. Only protects areas set by heat_protection flags
@@ -170,6 +173,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/Destroy()
 	flags &= ~DROPDEL	//prevent reqdels
 	QDEL_NULL(hidden_uplink)
+	if(objective_item)
+		message_admins("[src] has been destroyed at ([x],[y],[z]) in the location [loc].")
+		log_game("[src] has been destroyed at ([x],[y],[z]) in the location [loc].")
 	if(ismob(loc))
 		var/mob/m = loc
 		m.unEquip(src, 1)

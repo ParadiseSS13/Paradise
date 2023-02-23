@@ -341,6 +341,7 @@
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 
 /obj/item/areaeditor/blueprints/ce
+	objective_item = TRUE
 
 /obj/item/areaeditor/blueprints/ce/Initialize(mapload)
 	. = ..()
