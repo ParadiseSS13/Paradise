@@ -297,6 +297,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				brain.forceMove(T)
 
 		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain
+			var/obj/item/organ/internal/brain/brain = O
 			b_mob = brain.brainmob
 
 		if(b_mob && b_mob.mind && (!iscultist(b_mob) || is_sacrifice_target(b_mob.mind)))

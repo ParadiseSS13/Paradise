@@ -215,11 +215,15 @@
 			if(isliving(AM))
 				var/mob/living/L = AM
 				L.key = S.key
-				S.cancel_camera()
-			// insert borg stuff here later
+			else if(istype(AM, /obj/item/organ/internal/brain))
+				var/obj/item/organ/internal/brain/B = AM
+				B.brainmob.key = S.key
+			S.cancel_camera()
 			AM.forceMove(get_turf(src))
 			SSticker.mode.add_cult_immunity(AM)
 		qdel(src)
+		new /obj/effect/temp_visual/cult/sparks(get_turf(src))
+		playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 		return
 
 /obj/item/soulstone/proc/release_shades(mob/user)
@@ -427,8 +431,8 @@
 		for(var/obj/item/I in M)
 			M.unEquip(I)
 	if(isbrain(M))
-		var/mob/living/carbon/brain/B = M
-		B.container.forceMove(src)
+		var/obj/item/organ/internal/brain/brain_obj = M.loc
+		brain_obj.forceMove(src)
 	else
 		M.forceMove(src)
 
