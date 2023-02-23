@@ -312,6 +312,16 @@
 		return
 	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr))))
 		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+/*
+	t = checkhtml(t)
+	// check for exploits
+	for(var/bad in paper_blacklist)
+		if(findtext(t,bad))
+			to_chat(usr, "<span class='notice'>You think to yourself, \</span>"Hm.. this is only paper...\"")
+			log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
+			message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
+			return
+*/
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
@@ -366,6 +376,8 @@
 		topic_href_write(id, input_element)
 	if(href_list["write"] )
 		var/id = href_list["write"]
+		// var/t = strip_html_simple(input(usr, "What text do you wish to add to " + (id=="end" ? "the end of the paper" : "field "+id) + "?", "[name]", null),8192) as message
+		// var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null, null)  as message, MAX_MESSAGE_LEN)
 		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
 		topic_href_write(id, input_element)
 
