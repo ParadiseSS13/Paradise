@@ -309,17 +309,16 @@
 /obj/item/paper/proc/topic_href_write(var/id, var/input_element)
 	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
-	if(!istype(item_write, /obj/item/pen))
-		if(!istype(item_write, /obj/item/toy/crayon))
-			return
+	if(!istype(item_write, /obj/item/pen) && !istype(item_write, /obj/item/toy/crayon))
+		return
 
 	// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
- 	if(src.loc != usr && !src. Adjacent(usr) && ! ((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr)) ) )
+ 	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr))))
 		return
 
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 
-	if(id!="end")
+	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
 	else
 		info += input_element // Oh, he wants to edit to the end of the file, let him.
@@ -334,7 +333,7 @@
 	update_icon()
 
 /obj/item/paper/Topic(href, href_list)
-	 .. ()
+	..()
 	if(!usr || (usr.stat || usr.restrained()))
 		return
 	if(href_list["auto_write"])
