@@ -13,6 +13,7 @@
 	var/module_type = null
 	/// A list of items, and their replacements that this upgrade should replace on installation, in the format of `item_type_to_replace = replacement_item_type`.
 	var/list/items_to_replace = list()
+	/// A list of items to add, rather than replace
 	var/list/items_to_add = list()
 	/// A list of replacement items will need to be placed into a cyborg module's `special_rechargable` list after this upgrade is installed.
 	var/list/special_rechargables = list()
@@ -412,3 +413,9 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 	items_to_add = list(/obj/item/rcd/borg)
+
+/obj/item/borg/upgrade/rcd/after_install(mob/living/silicon/robot/R)
+	if(R.emagged) // Emagged engi-borgs have already have the RCD added.
+		return
+	R.module.remove_item_from_lists(/obj/item/rcd) // So emagging them in the future won't grant another RCD.
+	..()
