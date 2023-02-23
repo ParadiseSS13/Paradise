@@ -30,6 +30,10 @@
 	..()
 	LoseTarget()
 
+/obj/item/gun/medbeam/equipped(mob/user, slot, initial)
+	..()
+	LoseTarget()
+
 /obj/item/gun/medbeam/proc/LoseTarget()
 	if(active)
 		qdel(locateUID(beam_UID))
