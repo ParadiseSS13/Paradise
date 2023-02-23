@@ -21,6 +21,8 @@
 	for(var/obj/item/stock_parts/cell/I in get_turf(src)) //suck any cells in at roundstart
 		I.forceMove(src)
 		charging = I
+		check_level()
+		update_icon(UPDATE_OVERLAYS)
 		break
 
 /obj/machinery/cell_charger/deconstruct()
@@ -79,7 +81,7 @@
 			charging = I
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			check_level()
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 	else
 		return ..()
 
@@ -108,7 +110,7 @@
 	charging.update_icon()
 	charging = null
 	chargelevel = -1
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/cell_charger/attack_hand(mob/user)
 	if(!charging)
