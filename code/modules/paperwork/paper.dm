@@ -251,11 +251,11 @@
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
 	var/i = 0
-	for(i = 1, i <= fields, i++)
-		var/write_1 = "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>"
-		var/write_2 = "<font face=\"[deffont]\"><A href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></A></font>"
+	for(var/i in 1 to fields)
+		var/write_1 = "<font face=\"[deffont]\"><a href='?src=[UID()];write=[i]'>write</a></font>"
+		var/write_2 = "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
 		addtofield(i, "[write_1][write_2]", 1)
-	info_links = info_links + "<font face=\"[deffont]\"><A href='?src=[UID()];write=end'>write</A></font>" + "<font face=\"[deffont]\"><A href='?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></A></font>"
+	info_links = info_links + "<font face=\"[deffont]\"><a href='?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
 
 /obj/item/paper/proc/clearpaper()
 	info = null
@@ -310,18 +310,8 @@
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 	if(!istype(item_write, /obj/item/pen) && !istype(item_write, /obj/item/toy/crayon))
 		return
-	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr))))
+	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && (loc.loc == usr || loc.Adjacent(usr))))
 		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
-/*
-	t = checkhtml(t)
-	// check for exploits
-	for(var/bad in paper_blacklist)
-		if(findtext(t,bad))
-			to_chat(usr, "<span class='notice'>You think to yourself, \</span>"Hm.. this is only paper...\"")
-			log_admin("PAPER: [key_name(usr)] tried to use forbidden word in [src]: [bad].")
-			message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
-			return
-*/
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
 	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
@@ -330,7 +320,7 @@
 	populatefields()
 	updateinfolinks()
 	item_write.on_write(src, usr)
-	show_content(usr, forceshow = 1, infolinks = 1)
+	show_content(usr, forceshow = TRUE, infolinks = TRUE)
 	update_icon()
 
 /obj/item/paper/Topic(href, href_list)
@@ -376,8 +366,6 @@
 		topic_href_write(id, input_element)
 	if(href_list["write"] )
 		var/id = href_list["write"]
-		// var/t = strip_html_simple(input(usr, "What text do you wish to add to " + (id=="end" ? "the end of the paper" : "field "+id) + "?", "[name]", null),8192) as message
-		// var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null, null)  as message, MAX_MESSAGE_LEN)
 		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
 		topic_href_write(id, input_element)
 
