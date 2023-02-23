@@ -125,7 +125,7 @@
 	sound_effect = "sound/weapons/thudswoosh.ogg"
 
 /datum/status_effect/high_five/handshake/get_missed_message()
-	var/list/missed_mesasges = list(
+	var/list/missed_messages = list(
 		"drops [owner.p_their()] hand, shamefully.",
 		"grabs [owner.p_their()] outstretched hand with [owner.p_their()] other hand and gives [owner.p_themselves()] a handshake.",
 		"balls [owner.p_their()] hand into a fist, slowly bringing it back in."
