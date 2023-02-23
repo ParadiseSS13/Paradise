@@ -18,6 +18,9 @@
 	component_parts += new /obj/item/circuitboard/cell_charger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+	if(!mapload)
+		return
+
 	for(var/obj/item/stock_parts/cell/I in get_turf(src)) //suck any cells in at roundstart
 		I.forceMove(src)
 		charging = I
