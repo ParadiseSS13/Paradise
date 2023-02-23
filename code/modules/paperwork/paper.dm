@@ -251,12 +251,11 @@
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
 	var/i = 0
-	for(i=1, i<=fields, i++)
+	for(i = 1, i <= fields, i++)
 		var/write_1 = "<font face=\"[deffont]\"><A href='?src=[UID()];write=[i]'>write</A></font>"
 		var/write_2 = "<font face=\"[deffont]\"><A href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></A></font>"
 		addtofield(i, "[write_1][write_2]", 1)
-	info_links = info_links + "<font face=\"[deffont]\"><A href='?src=[UID()];write=end'>write</A></font>"
-
+	info_links = info_links + "<font face=\"[deffont]\"><A href='?src=[UID()];write=end'>write</A></font>" + "<font face=\"[deffont]\"><A href='?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></A></font>"
 
 /obj/item/paper/proc/clearpaper()
 	info = null
@@ -306,30 +305,22 @@
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>
 	</BODY></HTML>"}, "window=paper_help")
 
-/obj/item/paper/proc/topic_href_write(var/id, var/input_element)
+/obj/item/paper/proc/topic_href_write(id, input_element)
 	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
 	if(!istype(item_write, /obj/item/pen) && !istype(item_write, /obj/item/toy/crayon))
 		return
-
-	// if paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
- 	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr))))
-		return
-
+	if(src.loc != usr && !src.Adjacent(usr) && !((istype(src.loc, /obj/item/clipboard) || istype(src.loc, /obj/item/folder)) && (src.loc.loc == usr || src.loc.Adjacent(usr))))
+		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
 	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
-
 	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
 	else
 		info += input_element // Oh, he wants to edit to the end of the file, let him.
-
 	populatefields()
 	updateinfolinks()
-
-	item_write.on_write(src,usr)
-
+	item_write.on_write(src, usr)
 	show_content(usr, forceshow = 1, infolinks = 1)
-
 	update_icon()
 
 /obj/item/paper/Topic(href, href_list)
@@ -338,57 +329,44 @@
 		return
 	if(href_list["auto_write"])
 		var/id = href_list["auto_write"]
-
- var/const/sign_text = "\[Sign\]"
- var/const/time_text = "\[Write current time\]"
- var/const/date_text = "\[Write current date\]"
- var/const/num_text = "\[Write account number\]"
- var/const/pin_text = "\[Write PIN\]"
- var/const/station_text = "\[Write station name\]"
-
- text items in the menu
-		var/list/menu_list = list()
- menu_list. Add(usr.real_name) //the real name of the character, even if it is hidden
-
- if the player is masked or the name is different a new answer option is added
-		if (usr.real_name != usr.name || usr.name != "unknown")
- menu_list. Add("[usr.name]")
-
- menu_list. Add(usr.job, //current work
- num_text, //account number
- pin_text, //pin code number
- sign_text, //signature
- time_text, //time
- date_text, //date
- station_text, // station name
-			usr.gender,		//пол
-			usr.dna.species	//раса
+		var/const/sign_text = "\[Sign\]"
+		var/const/time_text = "\[Current time\]"
+		var/const/date_text = "\[Current date\]"
+		var/const/num_text = "\[Account number\]"
+		var/const/pin_text = "\[PIN\]"
+		var/const/station_text = "\[Station name\]"
+		var/list/menu_list = list() //text items in the menu
+		menu_list.Add(usr.real_name) //the real name of the character, even if it is hidden
+		if(usr.real_name != usr.name || usr.name != "unknown") //if the player is masked or the name is different a new answer option is added
+			menu_list.Add("[usr.name]")
+		menu_list.Add(usr.job, //current job
+			num_text, //account number
+			pin_text, //pin code number
+			sign_text, //signature
+			time_text, //time
+			date_text, //date
+			station_text, // station name
+			usr.gender, //current gender
+			usr.dna.species //current species
 		)
-
- var/input_element = input("Select the text you want to add:", "Select item") as null|anything in menu_list
-
- format selected menu items in pencode and internal data
-		switch(input_element)
-			if (sign_text)
+		var/input_element = input("Select the text you want to add:", "Select item") as null|anything in menu_list
+		switch(input_element) //format selected menu items in pencode and internal data
+			if(sign_text)
 				input_element = "\[sign\]"
-			if (time_text)
+			if(time_text)
 				input_element = "\[time\]"
-			if (date_text)
+			if(date_text)
 				input_element = "\[date\]"
-			if (station_text)
+			if(station_text)
 				input_element = "\[station\]"
-			if (num_text)
+			if(num_text)
 				input_element = usr.mind.initial_account.account_number
-			if (pin_text)
-				input_element = usr.mind.initial_account.remote_access_pin
-
+			if(pin_text)
+				input_element = usr.mind.initial_account.account_pin
 		topic_href_write(id, input_element)
-
-
 	if(href_list["write"] )
 		var/id = href_list["write"]
-		var/input_element =  input("Enter what you want to write:", "Write", null, null)  as message
-
+		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
 		topic_href_write(id, input_element)
 
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
