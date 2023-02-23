@@ -2,7 +2,7 @@
 	name = "cell charger"
 	desc = "It charges power cells."
 	icon = 'icons/obj/power.dmi'
-	icon_state = "ccharger0"
+	icon_state = "ccharger"
 	anchored = TRUE
 	idle_power_consumption = 5
 	active_power_consumption = 60
@@ -18,6 +18,10 @@
 	component_parts += new /obj/item/circuitboard/cell_charger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+	for(var/obj/item/stock_parts/cell/I in get_turf(src)) //suck any cells in at roundstart
+		I.forceMove(src)
+		charging = I
+		break
 
 /obj/machinery/cell_charger/deconstruct()
 	if(charging)
@@ -28,13 +32,21 @@
 	QDEL_NULL(charging)
 	return ..()
 
-/obj/machinery/cell_charger/update_icon_state()
-	icon_state = "ccharger[charging ? 1 : 0]"
-
 /obj/machinery/cell_charger/update_overlays()
 	. = ..()
-	if(charging && !(stat & (BROKEN|NOPOWER)))
-		. += "ccharger-o[chargelevel]"
+	if(!charging)
+		return
+	. += "[charging.icon_state]"
+
+	switch(charging.charge / charging.maxcharge)
+		if(0.1 to 0.995)
+			. += "cell-o1"
+		if(0.995 to 1)
+			. += "cell-o2"
+
+	if(stat & (BROKEN|NOPOWER))
+		return
+	. += "ccharger-o[chargelevel]"
 
 /obj/machinery/cell_charger/examine(mob/user)
 	. = ..()
