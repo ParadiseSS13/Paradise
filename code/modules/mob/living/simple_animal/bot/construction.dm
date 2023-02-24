@@ -502,7 +502,10 @@
 
 /obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3 ))
+	if((istype(I, /obj/item/melee/energy/sword)) && (!toy_step == 0 ))
+		to_chat(user, "<span class='notice'>You can't add an energy sword to [src]!.</span>")
+
+	else if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3 ))
 		if(!user.unEquip(I))
 			return
 		build_step++
@@ -516,6 +519,9 @@
 		new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
 		qdel(I)
 		qdel(src)
+
+	else if((istype(I, /obj/item/toy/sword)) && (!build_step == 0 ))
+		to_chat(user, "<span class='notice'>You can't add a toy sword to [src]!.</span>")
 
 	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3 ))
 		if(!user.unEquip(I))
