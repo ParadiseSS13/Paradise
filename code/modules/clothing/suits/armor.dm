@@ -353,7 +353,6 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hit_reaction_chance = 50
-	objective_item = TRUE
 	/// The cell reactive armor uses.
 	var/obj/item/stock_parts/cell/emproof/reactive/cell
 	/// Cost multiplier for armor. "Stronger" armors use 200 charge, other armors use 120.
@@ -365,6 +364,7 @@
 /obj/item/clothing/suit/armor/reactive/Initialize(mapload, ...)
 	. = ..()
 	cell = new(src)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/clothing/suit/armor/reactive/Destroy()
 	QDEL_NULL(cell)
@@ -580,6 +580,7 @@
 	. = ..()
 	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
 	new spawnpath(loc)
+	UnregisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 	return INITIALIZE_HINT_QDEL
 
 //All of the armor below is mostly unused

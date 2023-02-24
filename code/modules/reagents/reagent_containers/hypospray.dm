@@ -83,7 +83,10 @@
 	name = "advanced hypospray"
 	list_reagents = list("omnizine" = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	objective_item = TRUE
+
+/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"

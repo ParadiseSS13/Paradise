@@ -151,7 +151,10 @@
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
-	objective_item = TRUE
+
+/obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/clothing/gloves/color/black/krav_maga/combat // for nukies
 	name = "combat gloves plus"

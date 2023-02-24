@@ -246,7 +246,6 @@
 	hardened = TRUE  // emp-proof (on the component), but not emag-proof.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
 	heart_attack_probability = 10
-	objective_item = TRUE
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
@@ -260,6 +259,7 @@
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/bluespace/charging(src)
 	update_icon(UPDATE_OVERLAYS)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
 	if(world.time > next_emp_message)
