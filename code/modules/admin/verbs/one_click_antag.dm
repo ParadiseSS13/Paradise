@@ -331,6 +331,13 @@
 	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
 	if(confirm != "Yes")
 		return 0
+	var/datum/objective/custom_objective = null
+	if(alert(usr, "Хотите ли вы выдать этому ниндзя особую цель?","Особая цель","Да", "Нет") == "Да")
+		var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", "") as text|null,1,MAX_MESSAGE_LEN))
+		if(!expl)
+			return
+		custom_objective = new
+		custom_objective.explanation_text = expl
 	var/image/I = new('icons/mob/ninja_previews.dmi', "ninja_preview_new_hood_green")
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for the position of a Spider Clan Assassin'?", ROLE_NINJA, source = I)
 
@@ -340,9 +347,8 @@
 	if(candidates.len)
 		var/mob/dead/observer/selected = pick(candidates)
 		candidates -= selected
-
 		var/mob/living/carbon/human/new_character = makeBody(selected)
-		new_character.mind.make_Space_Ninja()
+		new_character.mind.make_Space_Ninja(custom_objective)
 		return 1
 	return 0
 

@@ -9,6 +9,7 @@
 /obj/item/clothing/suit/space/space_ninja
 	name = "ninja suit"
 	desc = "A unique, vacuum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
+	tts_seed = "Sorceress"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
@@ -133,7 +134,8 @@
 		"ninja_clones", "emp", "chem_injector", "healthstatus", "caltrop",
 		"cloning", "spider_green", "spider_red", "spider_blue", "work_in_progress",
 		"ninja_sleeper", "ai_face", "ninja_borg", "server", "buckler",
-		"cash", "handcuff", "spider_charge", "ninja_teleport", "headset_green")
+		"cash", "handcuff", "spider_charge", "ninja_teleport", "headset_green",
+		"BSM", "changeling", "vampire", "syndicate")
 
 	/// Превью отображающееся сейчас в tgui.
 	/// Позволяет предпросмотреть настройки внешности костюма
@@ -243,7 +245,7 @@
 		"I'LL CUT YOU IN TWO!", "I'M FUCKING INVINCIBLE!",
 		"I'M LIGHTNING! THE RAIN TRANSFORMED!")
 
-	/// Флаг доступности лечащих химикатов для применения
+	/// Лечащие химикаты. Для удобства обращения к ним костюма.
 	var/datum/action/item_action/advanced/ninja/ninjaheal/heal_chems = null
 	/// Сколько кусков урана требуется для восстановления адреналина/лечащего коктейля?
 	/// От этой цифры так же зависит объём радия вводимый в тело после адренала
@@ -253,7 +255,8 @@
 	var/auto_dust = FALSE
 	/// Сколько у ниндзя должно быть здоровья, чтобы его автоматически убило. (Переключается между -90 и 0)
 	var/health_threshold = -90
-
+	/// Флаг дающий защиту от некоторых способностей вампира пока на нас костюм
+	var/vamp_protection_active = FALSE
 
 /obj/item/clothing/suit/space/space_ninja/examine(mob/ninja)
 	. = ..()

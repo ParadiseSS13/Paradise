@@ -15,14 +15,6 @@
   @include meta.load-css('../atomic/color.scss');
 
   // Components
-  /*
-  @include meta.load-css('../components/Button.scss', $with: ('color-default': colors.$primary,
-      'color-disabled': #363636,
-      'color-selected': #9d0808,
-      'color-caution': #be6209,
-      'color-danger': #9a9d00,
-    ));
-*/
   @include meta.load-css('../components/Button.scss', $with: ('color-default': #15e264,
       'color-disabled': #3a3a3a,
       'color-selected': #3cfd1e,

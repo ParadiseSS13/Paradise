@@ -19,6 +19,8 @@
 	var/current_mode = NINJA_NIGHTVISION
 	///The space ninja's mask.
 	var/obj/item/clothing/mask/gas/space_ninja/n_mask
+	/// Флаг дающий защиту от некоторых способностей вампира пока на нас костюм
+	var/vamp_protection_active = FALSE
 
 /obj/item/clothing/glasses/ninja/Destroy()
 	n_mask = null

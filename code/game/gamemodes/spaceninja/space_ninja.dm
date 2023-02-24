@@ -137,103 +137,179 @@
 
 // Прок ответственный за выдачу целей ниндзя согласно выпавшему игровому подходу
 // Вызывает прок для выдачи целей ориентируясь на рандомно выбранный игровой подход - стелс/взлом/агрессивный
-/datum/game_mode/proc/forge_ninja_objectives(datum/mind/ninja_mind, objective_type = null)
+/datum/game_mode/proc/forge_ninja_objectives(datum/mind/ninja_mind, objective_type = null, datum/objective/custom_objective = null)
 	if(!objective_type)
 		objective_type = pick("stealthy", "generic", "aggressive")
 	switch(objective_type)
-		if("stealthy")
-			forge_stealthy_ninja_objectives(ninja_mind)
 		if("generic")
-			forge_generic_ninja_objectives(ninja_mind)
-		if("aggressive")
-			forge_aggressive_ninja_objectives(ninja_mind)
+			forge_generic_ninja_objectives(ninja_mind, custom_objective)
+		if("protector")
+			forge_protector_ninja_objectives(ninja_mind)
+		if("hacker")
+			forge_hacker_ninja_objectives(ninja_mind)
+		if("killer")
+			forge_killer_ninja_objectives(ninja_mind)
 
-// Цели с которыми для ниндзя больше поощряется стелс геймплей
-/datum/game_mode/proc/forge_stealthy_ninja_objectives(datum/mind/ninja_mind)
+// Цели для нидзя одиночек. Будь то ивентовых или щитспавн.
+// Такие ниндзя не спавнят других антагов вместе с собой.
+// Им может быть выдана кастомная цель вместо генерации через этот прок.
+/datum/game_mode/proc/forge_generic_ninja_objectives(datum/mind/ninja_mind, datum/objective/custom_objective = null)
+	var/datum/ninja/ninja_datum = ninja_mind.ninja
+	var/mob/living/carbon/human/ninja_mob = ninja_mind.current
+
+	if(custom_objective)
+		custom_objective.owner = src
+		ninja_mind.objectives += custom_objective
+	else
+		if(prob(50))
+			//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
+			var/datum/objective/cyborg_hijack/hijack = new
+			ninja_mind.objectives += hijack
+
+		var/pick_hack = pick(1,2)
+		switch(pick_hack)
+			if(1)
+				//Поломка ИИ: Flag set to complete in the DrainAct in ninjaDrainAct.dm
+				var/datum/objective/ai_corrupt/corrupt_objective = new
+				corrupt_objective.owner = ninja_mind
+				ninja_mind.objectives += corrupt_objective
+			if(2)
+				//Взлом РНД: Flag set to complete in the DrainAct in ninjaDrainAct.dm
+				var/datum/objective/research_corrupt/rnd_hack_objective = new
+				rnd_hack_objective.owner = ninja_mind
+				ninja_mind.objectives += rnd_hack_objective
+
+		var/pick_chance = rand(0, 100)
+		if(pick_chance <= 25)
+			//БОМБА
+			var/datum/objective/plant_explosive/bomb_objective = new
+			bomb_objective.owner = ninja_mind
+			bomb_objective.choose_target_area()
+			//Если у нас каким то чудом уже есть бомба(ы) с другой зоной или без неё - мы должны выдать ей(им) новую зону
+			for(var/obj/item/grenade/plastic/c4/ninja/ninja_bomb in ninja_mob.get_contents())
+				ninja_bomb.detonation_objective = bomb_objective
+			ninja_mind.objectives += bomb_objective
+		else if(pick_chance <= 50)
+			//Подставить цель//
+			var/datum/objective/set_up/set_up_objective = new
+			set_up_objective.owner = ninja_mind
+			set_up_objective.find_target()
+
+			//Защита от повторяющихся целей
+			for(var/sanity_check = 0, sanity_check < 10)
+				if("[set_up_objective.target]" in ninja_datum.assigned_targets)
+					set_up_objective.find_target()
+					sanity_check++
+					continue
+				else
+					break
+			//Выдача или удаление цели если нету
+			if(set_up_objective.target)
+				ninja_datum.assigned_targets.Add("[set_up_objective.target]")
+				ninja_mind.objectives += set_up_objective
+			else
+				qdel(set_up_objective)
+		else
+			//Нанесение увечий. Цели не будет если target совпадает с прошлыми.
+			var/datum/objective/pain_hunter/pain_objective = new
+			pain_objective.owner = ninja_mind
+			pain_objective.find_target()
+			if("[pain_objective]" in ninja_datum.assigned_targets)
+				qdel(pain_objective)
+			else if(pain_objective.target)
+				ninja_datum.assigned_targets.Add("[pain_objective.target]")
+				ninja_mind.objectives += pain_objective
+
+		var/pick_objective = pick(1,2)
+		switch(pick_objective)
+			if(1)
+				//Добыча денег
+				var/datum/objective/get_money/money_objective = new
+				money_objective.owner = ninja_mind
+				ninja_mind.objectives += money_objective
+				var/temp_cash_summ
+				for(var/datum/money_account/account in GLOB.all_money_accounts)
+					temp_cash_summ += account.money
+				money_objective.req_amount = (temp_cash_summ / 100) * 60 //60% всех денег со всех аккаунтов
+				money_objective.explanation_text = "Добудьте [money_objective.req_amount] кредитов со станции, наличкой."
+			if(2)
+				//Похищать людей пока не найдёшь нужного
+				var/datum/objective/find_and_scan/find_objective = new
+				find_objective.owner = ninja_mind
+				find_objective.find_target()
+				ninja_mind.objectives += find_objective
+
+		var/pick_kill_or_steal = pick(1,2)
+		switch(pick_kill_or_steal)
+			if(1)
+				//Банальное убийство. 2 штуки
+				for(var/num_obj = 0, num_obj < 2, num_obj++)
+					var/datum/objective/assassinate/kill_objective = new
+					kill_objective.owner = ninja_mind
+					kill_objective.find_target()
+					//Защита от повторяющихся целей
+					for(var/sanity_check = 0, sanity_check < 10)
+						if("[kill_objective.target]" in ninja_datum.assigned_targets)
+							kill_objective.find_target()
+							sanity_check++
+							continue
+						else
+							break
+					//Выдача или удаление цели если нету
+					if(kill_objective.target)
+						ninja_datum.assigned_targets.Add("[kill_objective.target]")
+						ninja_mind.objectives += kill_objective
+					else
+						qdel(kill_objective)
+			if(2)
+				//Банальная Кража. 2 штуки
+				for(var/num_obj = 0, num_obj < 2, num_obj++)
+					var/datum/objective/steal/steal_objective = new
+					steal_objective.owner = ninja_mind
+					steal_objective.find_target()
+					if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+						steal_objective.find_target()
+					else if(steal_objective.steal_target)
+						ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+					ninja_mind.objectives += steal_objective
+
+	//Выжить//
+	if(!(locate(/datum/objective/survive) in ninja_mind.objectives))
+		var/datum/objective/survive/survive_objective = new
+		survive_objective.owner = ninja_mind
+		ninja_mind.objectives += survive_objective
+	return
+
+// Цели с которыми ниндзя в одном раунде с трейторами которые охотятся на его подзащищаемого.
+// Остальные цели поощряют стелс геймплей
+/datum/game_mode/proc/forge_protector_ninja_objectives(datum/mind/ninja_mind)
 	var/datum/ninja/ninja_datum = ninja_mind.ninja
 
 	//Защита цели//
 	var/datum/objective/protect/ninja/protect_objective = new
 	protect_objective.owner = ninja_mind
 	var/datum/mind/protect_target = protect_objective.find_target()
+	ninja_datum.assigned_targets.Add("[protect_target]")
+	ninja_mind.objectives += protect_objective
 
-	//Защита от повторяющихся целей + проверка на спец. роль
-	for(var/sanity_check = 0, sanity_check < 10)
-		if("[protect_target]" in ninja_datum.assigned_targets || protect_target.special_role)
-			protect_objective.find_target()
-			sanity_check++
-			continue
-		else
-			break
-
-	if(protect_target)
-		//Генерация трейторов для атаки защищаемого
-		var/list/possible_traitors = list()
-		for(var/mob/living/player in GLOB.alive_mob_list)
-			if(player.client && player.mind && player.stat != DEAD && player != protect_target.current)
-				if((ishuman(player) && !player.mind.special_role) || (isAI(player) && !player.mind.special_role))
-					if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
-						possible_traitors += player.mind
-		for(var/datum/mind/player in possible_traitors)
-			if(player.current)
-				if(ismindshielded(player.current))
-					possible_traitors -= player
-		if(possible_traitors.len)
-			var/traitor_num = max(1, round((num_players_started())/(config.traitor_scaling))+1)
-			for(var/j = 0, j < traitor_num, j++)
-				var/datum/mind/newtraitormind = pick(possible_traitors)
-				var/datum/antagonist/traitor/killer = new()
-				killer.silent = TRUE //Позже поздороваемся
-				newtraitormind.add_antag_datum(killer)
-				//Подменяем цель на того кого нам выпало защищать
-				var/datum/objective/maroon/killer_maroon_objective = locate() in newtraitormind.objectives
-				var/datum/objective/assassinate/killer_kill_objective = locate() in newtraitormind.objectives
-				if(killer_maroon_objective)
-					killer_maroon_objective.target = protect_target
-					killer_maroon_objective.check_cryo = FALSE
-					killer_maroon_objective.explanation_text = "Prevent from escaping alive or assassinate [protect_target.current.real_name], the [protect_target.assigned_role]."
-					protect_objective.killers_objectives += killer_maroon_objective
-				else if(killer_kill_objective)
-					killer_kill_objective.target = protect_target
-					killer_kill_objective.check_cryo = FALSE
-					killer_kill_objective.explanation_text = "Assassinate [protect_target.current.real_name], the [protect_target.assigned_role]."
-					protect_objective.killers_objectives += killer_kill_objective
-				else //Не нашли целей на убийство? Значит подставляем пресет из трёх целей вместо того, что нагенерил стандартный код. Прости хиджакер, не при ниндзя.
-					QDEL_LIST(newtraitormind.objectives)	// Очищаем листы
-					QDEL_LIST(killer.assigned_targets)
-					//Подставная цель для трейтора
-					var/datum/objective/maroon/maroon_objective = new
-					maroon_objective.owner = newtraitormind
-					maroon_objective.target = protect_target
-					maroon_objective.check_cryo = FALSE
-					killer.assigned_targets.Add("[maroon_objective.target]")
-					maroon_objective.explanation_text = "Prevent from escaping alive or assassinate [protect_target.current.real_name], the [protect_target.assigned_role]."
-					killer.add_objective(maroon_objective)
-					protect_objective.killers_objectives += maroon_objective
-					//Кража для трейтора
-					var/datum/objective/steal/steal_objective = new
-					steal_objective.owner = newtraitormind
-					steal_objective.find_target()
-					killer.assigned_targets.Add("[steal_objective.steal_target]")
-					killer.add_objective(steal_objective)
-					//Ну и банальное - Выживи
-					var/datum/objective/survive/survive_objective = new
-					survive_objective.owner = newtraitormind
-					killer.add_objective(survive_objective)
-				killer.greet()	// Вот теперь здороваемся!
-				killer.update_traitor_icons_added()	// Фикс худа, а то порой те кому выпал хиджак при ниндзя - получали замену целек, но не худа
-			//Сама выдача защиты
-			ninja_datum.assigned_targets.Add("[protect_target]")
-			ninja_mind.objectives += protect_objective
-		else
-			qdel(protect_objective)
-	else//Если не кого защищать, просто не даём цель
+	// Если не кого защищать
+	// Или если трейторов не сгенерировалось,
+	// просто не даём цель
+	if(!protect_target || !length(SSticker.mode.traitors))
+		GLOB.all_objectives -= protect_objective
+		ninja_mind.objectives -= protect_objective
 		qdel(protect_objective)
+
+	if(prob(50))
+		//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
+		var/datum/objective/cyborg_hijack/hijack = new
+		ninja_mind.objectives += hijack
 
 	//Подставить цель//
 	var/datum/objective/set_up/set_up_objective = new
 	set_up_objective.owner = ninja_mind
 	set_up_objective.find_target()
+
 	//Защита от повторяющихся целей
 	for(var/sanity_check = 0, sanity_check < 10)
 		if("[set_up_objective.target]" in ninja_datum.assigned_targets)
@@ -249,9 +325,26 @@
 	else
 		qdel(set_up_objective)
 
-	//Другой тип целей если не сгенерились цели выше//
-	if(!ninja_mind.objectives.len)
-		forge_generic_ninja_objectives(ninja_mind)
+	//Банальная Кража. 2 штуки
+	for(var/num_obj = 0, num_obj < 2, num_obj++)
+		var/datum/objective/steal/steal_objective = new
+		steal_objective.owner = ninja_mind
+		steal_objective.find_target()
+		if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+			steal_objective.find_target()
+		else if(steal_objective.steal_target)
+			ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+		ninja_mind.objectives += steal_objective
+
+	//Нанесение увечий. Цели не будет если target совпадает с прошлыми.
+	var/datum/objective/pain_hunter/pain_objective = new
+	pain_objective.owner = ninja_mind
+	pain_objective.find_target()
+	if("[pain_objective]" in ninja_datum.assigned_targets)
+		qdel(pain_objective)
+	else if(pain_objective.target)
+		ninja_datum.assigned_targets.Add("[pain_objective.target]")
+		ninja_mind.objectives += pain_objective
 
 	//Выжить//
 	if(!(locate(/datum/objective/survive) in ninja_mind.objectives))
@@ -260,23 +353,26 @@
 		ninja_mind.objectives += survive_objective
 	return
 
-// Цели заточенные на взломе и кражах
-/datum/game_mode/proc/forge_generic_ninja_objectives(datum/mind/ninja_mind)
+// Цели заточенные на взломе и кражах.
+// Так же ниндзя прийдётся искать и добывать кровь вампиров.
+// Но при успешном выполнении этой цели он получит доболнительную защиту от их абилок
+/datum/game_mode/proc/forge_hacker_ninja_objectives(datum/mind/ninja_mind)
 	var/datum/ninja/ninja_datum = ninja_mind.ninja
 
-	//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
-	var/datum/objective/cyborg_hijack/hijack = new
-	ninja_mind.objectives += hijack
+	//Сбор крови вампиров
+	var/datum/objective/collect_blood/collect_vamp_blood = new
+	collect_vamp_blood.owner = ninja_mind
+	collect_vamp_blood.generate_vampires()
+	ninja_mind.objectives += collect_vamp_blood
+	if(!length(SSticker.mode.vampires)) //Если нет вампиров, просто не даём цель
+		GLOB.all_objectives -= collect_vamp_blood
+		ninja_mind.objectives -= collect_vamp_blood
+		qdel(collect_vamp_blood)
 
-	//Добыча денег
-	var/datum/objective/get_money/money_objective = new
-	money_objective.owner = ninja_mind
-	ninja_mind.objectives += money_objective
-	var/temp_cash_summ
-	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		temp_cash_summ += account.money
-	money_objective.req_amount = (temp_cash_summ / 100) * 60 //60% всех денег со всех аккаунтов
-	money_objective.explanation_text = "Добудьте [money_objective.req_amount] кредитов со станции, наличкой."
+	if(prob(75))
+		//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
+		var/datum/objective/cyborg_hijack/hijack = new
+		ninja_mind.objectives += hijack
 
 	var/pick_hack = pick(1,2)
 	switch(pick_hack)
@@ -291,40 +387,55 @@
 			rnd_hack_objective.owner = ninja_mind
 			ninja_mind.objectives += rnd_hack_objective
 
-	var/pick_kill_or_steal = pick(1,2)
-	switch(pick_kill_or_steal)
+	var/pick_objective = pick(1,2)
+	switch(pick_objective)
 		if(1)
-			//Банальная Кража
-			for(var/num_obj = 0, num_obj < 2, num_obj++)
-				var/datum/objective/steal/steal_objective = new
-				steal_objective.owner = ninja_mind
-				steal_objective.find_target()
-				if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
-					steal_objective.find_target()
-				else if(steal_objective.steal_target)
-					ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
-				ninja_mind.objectives += steal_objective
+			//Добыча денег
+			var/datum/objective/get_money/money_objective = new
+			money_objective.owner = ninja_mind
+			ninja_mind.objectives += money_objective
+			var/temp_cash_summ
+			for(var/datum/money_account/account in GLOB.all_money_accounts)
+				temp_cash_summ += account.money
+			money_objective.req_amount = (temp_cash_summ / 100) * 60 //60% всех денег со всех аккаунтов
+			money_objective.explanation_text = "Добудьте [money_objective.req_amount] кредитов со станции, наличкой."
 		if(2)
-			//Банальное убийство
-			for(var/num_obj = 0, num_obj < 2, num_obj++)
-				var/datum/objective/assassinate/kill_objective = new
-				kill_objective.owner = ninja_mind
-				kill_objective.find_target()
-				//Защита от повторяющихся целей
-				for(var/sanity_check = 0, sanity_check < 10)
-					if("[kill_objective.target]" in ninja_datum.assigned_targets)
-						kill_objective.find_target()
-						sanity_check++
-						continue
-					else
-						break
-				//Выдача или удаление цели если нету
-				if(kill_objective.target)
-					ninja_datum.assigned_targets.Add("[kill_objective.target]")
-					ninja_mind.objectives += kill_objective
-				else
-					qdel(kill_objective)
+			//Похищать людей пока не найдёшь нужного
+			var/datum/objective/find_and_scan/find_objective = new
+			find_objective.owner = ninja_mind
+			find_objective.find_target()
+			ninja_mind.objectives += find_objective
 
+	//Банальная Кража
+	var/datum/objective/steal/steal_objective = new
+	steal_objective.owner = ninja_mind
+	steal_objective.find_target()
+	if("[steal_objective.steal_target]" in ninja_datum.assigned_targets)
+		steal_objective.find_target()
+	else if(steal_objective.steal_target)
+		ninja_datum.assigned_targets.Add("[steal_objective.steal_target]")
+	ninja_mind.objectives += steal_objective
+
+	//Банальное убийство
+	var/datum/objective/assassinate/kill_objective = new
+	kill_objective.owner = ninja_mind
+	kill_objective.find_target()
+	//Защита от повторяющихся целей
+	for(var/sanity_check = 0, sanity_check < 10)
+		if("[kill_objective.target]" in ninja_datum.assigned_targets)
+			kill_objective.find_target()
+			sanity_check++
+			continue
+		else
+			break
+	//Выдача или удаление цели если нету
+	if(kill_objective.target)
+		ninja_datum.assigned_targets.Add("[kill_objective.target]")
+		ninja_mind.objectives += kill_objective
+	else
+		qdel(kill_objective)
+
+	//Выжить
 	if(!(locate(/datum/objective/survive) in ninja_mind.objectives))
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = ninja_mind
@@ -332,12 +443,25 @@
 	return
 
 // Цели с которыми для ниндзя больше поощряется агрессивный и заметный геймплей
-/datum/game_mode/proc/forge_aggressive_ninja_objectives(datum/mind/ninja_mind)
+// Так же в раунде вместе с ниндзя будут генокрады. которых ниндзя прийдётся истреблять
+/datum/game_mode/proc/forge_killer_ninja_objectives(datum/mind/ninja_mind)
+	var/datum/ninja/ninja_datum = ninja_mind.ninja
 	var/mob/living/carbon/human/ninja_mob = ninja_mind.current
 
-	//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
-	var/datum/objective/cyborg_hijack/hijack = new
-	ninja_mind.objectives += hijack
+	//Очистка станции от генокрадов
+	var/datum/objective/vermit_hunt/hunt_changelings = new
+	hunt_changelings.owner = ninja_mind
+	hunt_changelings.find_target()
+	ninja_mind.objectives += hunt_changelings
+	if(!length(SSticker.mode.changelings))//Если нет генокрадов, просто не даём цель
+		GLOB.all_objectives -= hunt_changelings
+		ninja_mind.objectives -= hunt_changelings
+		qdel(hunt_changelings)
+
+	if(prob(50))
+		//Cyborg Hijack: Flag set to complete in the DrainAct in ninjaDrainAct.dm
+		var/datum/objective/cyborg_hijack/hijack = new
+		ninja_mind.objectives += hijack
 
 	//БОМБА
 	var/datum/objective/plant_explosive/bomb_objective = new
@@ -354,15 +478,25 @@
 	find_objective.find_target()
 	ninja_mind.objectives += find_objective
 
-	//Очистка станции от генокрадов
-	var/datum/objective/vermit_hunt/hunt_changelings = new
-	hunt_changelings.owner = ninja_mind
-	hunt_changelings.find_target()
-	ninja_mind.objectives += hunt_changelings
-	if(!length(SSticker.mode.changelings))//Если нет генокрадов, просто не даём цель
-		GLOB.all_objectives -= hunt_changelings
-		ninja_mind.objectives -= hunt_changelings
-		qdel(hunt_changelings)
+	//Банальное убийство. 2 штуки
+	for(var/num_obj = 0, num_obj < 2, num_obj++)
+		var/datum/objective/assassinate/kill_objective = new
+		kill_objective.owner = ninja_mind
+		kill_objective.find_target()
+		//Защита от повторяющихся целей
+		for(var/sanity_check = 0, sanity_check < 10)
+			if("[kill_objective.target]" in ninja_datum.assigned_targets)
+				kill_objective.find_target()
+				sanity_check++
+				continue
+			else
+				break
+		//Выдача или удаление цели если нету
+		if(kill_objective.target)
+			ninja_datum.assigned_targets.Add("[kill_objective.target]")
+			ninja_mind.objectives += kill_objective
+		else
+			qdel(kill_objective)
 
 	//Выжить
 	if(!(locate(/datum/objective/survive) in ninja_mind.objectives))

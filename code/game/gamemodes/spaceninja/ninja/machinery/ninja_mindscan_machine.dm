@@ -11,9 +11,10 @@
 
 /obj/machinery/ninja_mindscan_machine
 	anchored = TRUE
+	density = TRUE
 	name = "Mind-Scan Machine"
 	desc = "A very complex machine with a capability of scanning the brain of it's occupant to retrieve any valuable information they possess."
-	density = TRUE
+	tts_seed = "Sorceress"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "ninja_sleeper"
 	/// Нельзя чтобы такая дорогая технология была сломана игроком по фану
@@ -71,25 +72,18 @@
 		to_chat(user, span_notice("You are not that stupid to get inside this, are you?!"))
 		return
 	if(dropped.loc == user) //no you can't pull things out of your ass
-		//testing(span_green("[src]: Пытались поместить кого то из своего инвентаря"))
 		return
 	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
-		//testing(span_green("[src]: Вы связаны!"))
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, dropped) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
-		//testing(span_green("[src]: Проблемы с дистанцией!"))
 		return
 	if(!istype(dropped, /mob/living/carbon/human))
-		//testing(span_green("[src]: Пихаете не хумана!"))
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
-		//testing(span_green("[src]: Вы не хуман!"))
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
-		//testing(span_green("[src]: Маловероятный исход с доставанием с 0-ого z lvl-a!"))
 		return
 	if(!istype(user.loc, /turf) || !istype(dropped.loc, /turf)) // are you in a container/closet/pod/etc?
-		//testing(span_green("[src]: Жертва в контейнере!"))
 		return
 	if(occupant)
 		to_chat(user, span_boldnotice("The [src] is already occupied!"))
@@ -108,7 +102,6 @@
 		to_chat(user, span_warning("[dropped_mob] will not fit into [src] because [dropped_mob.p_they()] [dropped_mob.p_have()] a slime latched onto [dropped_mob.p_their()] head."))
 		return
 	if(!dropped_mob.client)
-		//testing(span_green("[src]: У жертвы нет клиента!"))
 		return
 	if(!Adjacent(dropped_mob) && !Adjacent(user))
 		to_chat(user, span_boldnotice("You're not close enough to [src]."))

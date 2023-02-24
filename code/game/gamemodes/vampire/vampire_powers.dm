@@ -222,6 +222,12 @@
 	for(var/mob/living/target in targets)
 		if(!affects(target))
 			continue
+		if(isninja(target))
+			var/mob/living/carbon/human/target_human = target
+			var/obj/item/clothing/glasses/ninja/ninja_visor = target_human.glasses
+			if(istype(ninja_visor) && ninja_visor.vamp_protection_active && ninja_visor.current_mode == "flashprotection")
+				to_chat(target, span_warning("Глаза [user] засветились, но ваш визор защитил вас."))
+				continue
 		target.Stun(2)
 		target.Weaken(2)
 		target.stuttering = 20
@@ -269,6 +275,14 @@
 				continue
 		if(!affects(C))
 			continue
+		if(isninja(C))
+			var/obj/item/clothing/suit/space/space_ninja/ninja_suit = C.wear_suit
+			if(istype(ninja_suit) && ninja_suit.vamp_protection_active && ninja_suit.s_initialized)
+				to_chat(C, span_warning("<b>Вы начали слышать жуткий визг!</b> Но ваш костюм отреагировал на него и временно прикрыл вам уши, минимизируя урон"))
+				C.MinimumDeafTicks(10)
+				C.Jitter(50)
+				C.adjustStaminaLoss(20)
+				continue
 		to_chat(C, "<span class='warning'><font size='3'><b>Вы слышите ушераздирающий визг и ваши чувства притупляются!</font></b></span>")
 		C.Weaken(2)
 		C.MinimumDeafTicks(20)
@@ -327,6 +341,12 @@
 	if(!affects(C))
 		C.visible_message("<span class='warning'>Похоже что [C] сопротивляется захвату!</span>", "<span class='notice'>Вера в [SSticker.Bible_deity_name] защищает ваш разум от всякого зла.</span>")
 		return 0
+	if(isninja(C))
+		var/obj/item/clothing/suit/space/space_ninja/ninja_suit = C.wear_suit
+		if(istype(ninja_suit) && ninja_suit.vamp_protection_active && ninja_suit.s_initialized)
+			C.visible_message(span_warning("Похоже что [C] сопротивляется захвату!"), span_notice("Вы ощутили сильную боль, а затем слабый укол в шею. Кажется костюм только, что защитил ваш разум..."))
+			C.setBrainLoss(20)
+			return 0
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>Вы можете порабощать только гуманоидов!</span>")
 		return 0

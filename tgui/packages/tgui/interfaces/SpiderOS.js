@@ -295,11 +295,11 @@ const Helpers = (properties, context) => {
         <Flex.Item direction="row">
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["ninja_teleport"]}`}
               style={{
                 "margin-left": "-6px",
@@ -317,11 +317,11 @@ const Helpers = (properties, context) => {
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["headset_green"]}`}
               style={{
                 "margin-left": "-6px",
@@ -339,11 +339,11 @@ const Helpers = (properties, context) => {
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["ninja_sleeper"]}`}
               style={{
                 "margin-left": "-6px",
@@ -360,11 +360,11 @@ const Helpers = (properties, context) => {
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["ai_face"]}`}
               style={{
                 "margin-left": "-6px",
@@ -380,11 +380,11 @@ const Helpers = (properties, context) => {
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["ninja_borg"]}`}
               style={{
                 "margin-left": "-6px",
@@ -400,15 +400,13 @@ const Helpers = (properties, context) => {
               Помните, что катана робота не способна обеспечить его блюспейс транслокацию!"}
               position="bottom-left" />
           </Button>
-        </Flex.Item>
-        <Flex.Item direction="row">
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["server"]}`}
               style={{
                 "margin-left": "-6px",
@@ -426,11 +424,11 @@ const Helpers = (properties, context) => {
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["buckler"]}`}
               style={{
                 "margin-left": "-6px",
@@ -449,11 +447,11 @@ const Helpers = (properties, context) => {
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["cash"]}`}
               style={{
                 "margin-left": "-6px",
@@ -470,11 +468,11 @@ const Helpers = (properties, context) => {
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["handcuff"]}`}
               style={{
                 "margin-left": "-6px",
@@ -492,11 +490,11 @@ const Helpers = (properties, context) => {
           </Button>
           <Button
             className="Button_green"
-            height="48px"
-            width="48px">
+            height="32px"
+            width="32px">
             <img
-              height="48px"
-              width="48px"
+              height="32px"
+              width="32px"
               src={`data:image/jpeg;base64,${allActionsPreview["spider_charge"]}`}
               style={{
                 "margin-left": "-6px",
@@ -510,6 +508,93 @@ const Helpers = (properties, context) => {
               \nБудьте готовы к тому, что после взрыва на вас будет вестись охота. \
               \n Наши бомбы специально изготовлены с ограничителями. Никто кроме вас не сможет их подорвать \
               и даже вы сможете активировать их лишь в зоне заказанной клиентом. Советуем сразу бежать подальше после установки. Хотя это и так должно быть для вас очевидно."}
+              position="bottom-left" />
+          </Button>
+          <Button
+            className="Button_green"
+            height="32px"
+            width="32px">
+            <img
+              height="32px"
+              width="32px"
+              src={`data:image/jpeg;base64,${allActionsPreview["BSM"]}`}
+              style={{
+                "margin-left": "-6px",
+                "-ms-interpolation-mode": "nearest-neighbor",
+              }} />
+            <Tooltip
+              title={"Анализ крови"}
+              content={"\"Знай своего врага\" - простая истина.\
+              \nЗа годы существования клана мы изучили множество разных опасных тварей. И до сих пор продолжаем изучение неко- торых. \
+              А чтобы было, что изучать, нужно добывать образцы. Кровь один из самых очевидных примеров того, что может быть полезно нашим учёным. \
+              \nИмеющаяся у вас на базе центрифуга для крови способна эффективно проанализировать образцы не повредив их и передать информацию нам. \
+              \nДля эффективного анализа крови необходимо обязательно собрать 3 уникальных образца. И поме- стить их в пробирки, которые потом надо поместить в устройство. \
+              \nПримеси приняты не будут!"}
+              position="bottom-left" />
+          </Button>
+          <Button
+            className="Button_green"
+            height="32px"
+            width="32px">
+            <img
+              height="32px"
+              width="32px"
+              src={`data:image/jpeg;base64,${allActionsPreview["changeling"]}`}
+              style={{
+                "margin-left": "-6px",
+                "-ms-interpolation-mode": "nearest-neighbor",
+              }} />
+            <Tooltip
+              title={"Генокрады"}
+              content={"Черви возомнившие себя выше других видов потому, что умеют красть гены и имитировать их. \
+              \nСвоим существованием они приносят гораздо больше проб- лем, чем пользы. \
+              \nЭти твари столь же хитры сколь и скрытны. Не договаривайтесь с ними ни о чём! \
+              \nК сожалению даже нам сложно распознать генокрада не запих- нув его в лабораторию и не проведя множество тестов. Но они иногда выдают себя своими активными действиями. \
+              И так же эффективно ложатся на дно в случае опасности. Чтобы было легче их поймать дайте им поплясать, прежде чем выходить на сцену. \
+              И внимательно слушайте радио на обьекте. Возможно местная охрана уже охотится за одним из них. \
+              \nНикто не будет против если вы незаметно поможете им с этим..."}
+              position="bottom-left" />
+          </Button>
+          <Button
+            className="Button_green"
+            height="32px"
+            width="32px">
+            <img
+              height="32px"
+              width="32px"
+              src={`data:image/jpeg;base64,${allActionsPreview["vampire"]}`}
+              style={{
+                "margin-left": "-6px",
+                "-ms-interpolation-mode": "nearest-neighbor",
+              }} />
+            <Tooltip
+              title={"Вампиры"}
+              content={"Дешёвые романы, истории и сказки прошлого описывали вампиров как хищников пьющих кровь людей в ночи и обладаю- щих магическими способно- стями. \
+              Известные сейчас создания менее романтичны... \
+              \nМы пока не знаем, что вызывает их состояние, но наши подозре- ния падают на влияние некой блюспейс сущности.\
+              Так или иначе, до тех пор пока вампир не мешает вашей миссии или угрожает вашей жизни. Вы вольны его игнорировать. \
+              \nВампиры очень опасны в прямом столкновении, они способны оглушать взглядом и порабощать разум своих жертв. \
+              Не доверяйте им, но так же помните - они лишь жертвы стечения обстоятельств. И это можно использовать в свою пользу..."}
+              position="bottom-left" />
+          </Button>
+          <Button
+            className="Button_green"
+            height="32px"
+            width="32px">
+            <img
+              height="32px"
+              width="32px"
+              src={`data:image/jpeg;base64,${allActionsPreview["syndicate"]}`}
+              style={{
+                "margin-left": "-6px",
+                "-ms-interpolation-mode": "nearest-neighbor",
+              }} />
+            <Tooltip
+              title={"Синдикат"}
+              content={"Наши хорошие знакомые. Сборище могущественных фигур в подпольном мире с закрытой системой руководства о которой известно мало... \
+              \nСиндикат поставляет и выполняет множество заказов. Но самой очевидной, для всех кто как следует их изучит, чертой этой группы - является огромная ненависть к НТ. \
+              \nВ случае столкновения с агентами Синдиката политика наших действий проста. \
+              \nЕсли они не мешают выполнению задания. Мы не мешаем им."}
               position="bottom-left" />
           </Button>
         </Flex.Item>

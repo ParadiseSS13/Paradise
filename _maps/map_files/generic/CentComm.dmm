@@ -3380,9 +3380,19 @@
 	},
 /area/syndicate_mothership)
 "bGP" = (
-/obj/structure/chair/comfy/black{
-	dir = 8
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
 	},
+/obj/item/toy/figure/ninja{
+	pixel_x = 8;
+	pixel_y = 14
+	},
+/obj/item/storage/box/syringes{
+	pixel_x = -1;
+	pixel_y = 12
+	},
+/obj/item/storage/fancy/vials,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -5732,7 +5742,7 @@
 /obj/structure/sign/poster/contraband/cc64k_ad{
 	pixel_y = 32
 	},
-/obj/item/toy/figure/ninja,
+/obj/machinery/ninja_bloodscan_machine,
 /turf/simulated/floor/indestructible{
 	icon_state = "floorgrime"
 	},
@@ -13380,13 +13390,13 @@
 	roundstart_move = "pod3_home"
 	},
 /obj/docking_port/stationary/transit{
+	dwidth = 2;
 	height = 6;
 	id = "pod3_transit";
 	name = "pod 3 in transit";
+	pixel_y = -32;
 	turf_type = /turf/space/transit/north;
-	width = 5;
-	dwidth = 2;
-	pixel_y = -32
+	width = 5
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
@@ -13703,8 +13713,8 @@
 /obj/item/reagent_containers/food/snacks/candy/mre,
 /obj/item/reagent_containers/hypospray/combat,
 /obj/item/radio/headset/ert/alt{
-	name = "SRT bowman headset";
-	desc = null
+	desc = null;
+	name = "SRT bowman headset"
 	},
 /obj/item/clothing/head/beret/centcom/officer/navy{
 	desc = null;
@@ -13733,8 +13743,8 @@
 	},
 /obj/item/storage/box/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
-	name = "SRT uniform";
-	desc = null
+	desc = null;
+	name = "SRT uniform"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -23810,12 +23820,12 @@
 "mAx" = (
 /obj/docking_port/stationary{
 	dir = 4;
+	dwidth = 2;
 	height = 6;
 	id = "pod3_away";
 	name = "recovery ship bay 3";
 	turf_type = /turf/simulated/floor;
-	width = 5;
-	dwidth = 2
+	width = 5
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -25123,12 +25133,12 @@
 /area/centcom/zone1)
 "nai" = (
 /obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
 	frequency = 1331;
+	hackProof = 1;
 	id_tag = "vox_northeast_lock";
 	locked = 1;
-	req_access_txt = "152";
-	aiControlDisabled = 1;
-	hackProof = 1
+	req_access_txt = "152"
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -35026,12 +35036,12 @@
 "rHd" = (
 /obj/docking_port/stationary{
 	dir = 4;
+	dwidth = 2;
 	height = 6;
 	id = "pod4_away";
 	name = "recovery ship bay 4";
 	turf_type = /turf/simulated/floor;
-	width = 5;
-	dwidth = 2
+	width = 5
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -35687,9 +35697,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "rWE" = (
-/obj/machinery/vending/medical{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36359,8 +36367,8 @@
 /obj/item/reagent_containers/food/snacks/candy/mre,
 /obj/item/reagent_containers/hypospray/combat,
 /obj/item/radio/headset/ert/alt{
-	name = "SRT bowman headset";
-	desc = null
+	desc = null;
+	name = "SRT bowman headset"
 	},
 /obj/item/clothing/head/beret/centcom/officer/navy{
 	desc = null;
@@ -36389,8 +36397,8 @@
 	},
 /obj/item/storage/box/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
-	name = "SRT uniform";
-	desc = null
+	desc = null;
+	name = "SRT uniform"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43303,9 +43311,9 @@
 /area/shuttle/syndicate_elite)
 "vzo" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	aiControlDisabled = 1;
-	hackProof = 1
+	hackProof = 1;
+	req_access_txt = "152"
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -44567,12 +44575,12 @@
 /area/shuttle/syndicate)
 "wix" = (
 /obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
 	frequency = 1331;
+	hackProof = 1;
 	id_tag = "vox_northwest_lock";
 	locked = 1;
-	req_access_txt = "152";
-	hackProof = 1;
-	aiControlDisabled = 1
+	req_access_txt = "152"
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -45896,9 +45904,7 @@
 	},
 /area/syndicate_mothership/jail)
 "wUL" = (
-/obj/machinery/vending/medical{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -46475,12 +46481,12 @@
 /area/syndicate_mothership)
 "xhf" = (
 /obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
 	frequency = 1331;
+	hackProof = 1;
 	id_tag = "vox_southwest_lock";
 	locked = 1;
-	req_access_txt = "152";
-	aiControlDisabled = 1;
-	hackProof = 1
+	req_access_txt = "152"
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -46651,12 +46657,12 @@
 /area/shuttle/trade/sol)
 "xjY" = (
 /obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
 	frequency = 1331;
+	hackProof = 1;
 	id_tag = "vox_southeast_lock";
 	locked = 1;
-	req_access_txt = "152";
-	aiControlDisabled = 1;
-	hackProof = 1
+	req_access_txt = "152"
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -46814,13 +46820,13 @@
 	roundstart_move = "pod4_home"
 	},
 /obj/docking_port/stationary/transit{
+	dwidth = 2;
 	height = 6;
 	id = "pod4_transit";
 	name = "pod 4 in transit";
-	turf_type = /turf/space/transit/north;
-	width = 5;
 	pixel_y = -32;
-	dwidth = 2
+	turf_type = /turf/space/transit/north;
+	width = 5
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_4)
@@ -47397,9 +47403,9 @@
 /area/shuttle/syndicate)
 "xFI" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
 	aiControlDisabled = 1;
-	hackProof = 1
+	hackProof = 1;
+	req_access_txt = "152"
 	},
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
