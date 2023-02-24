@@ -42,8 +42,8 @@
 		overlays += icon(src.icon,"door")
 
 		if(broken)
-			overlays += icon(src.icon,"broken")
+			overlays += icon(src.icon,"door_broken")
 		else if(locked)
-			overlays += icon(src.icon,"locked")
+			overlays += icon(src.icon,"door_locked")
 		else
-			overlays += icon(src.icon,"open")
+			overlays += icon(src.icon,"door")
