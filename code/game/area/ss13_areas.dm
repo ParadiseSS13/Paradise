@@ -852,6 +852,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Backstage"
 	icon_state = "yellow"
 
+/area/maintenance/trading
+	name = "Trading area"
+	icon_state = "yellow"
+
 /area/maintenance/server
 	name = "Abandoned Server Room"
 	icon_state = "yellow"
@@ -1115,6 +1119,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/dorms
 	name = "\improper Dorms"
 	icon_state = "dorms"
+
+/area/crew_quarters/trading
+	name = "\improper Abandoned Tradiders Room"
+	icon_state = "blue"
 
 /area/crew_quarters/arcade
 	name = "\improper Arcade"
