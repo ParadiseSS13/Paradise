@@ -580,7 +580,7 @@
 	. = ..()
 	var/spawnpath = pick(subtypesof(/obj/item/clothing/suit/armor/reactive) - /obj/item/clothing/suit/armor/reactive/random)
 	new spawnpath(loc)
-	UnregisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
 	return INITIALIZE_HINT_QDEL
 
 //All of the armor below is mostly unused
