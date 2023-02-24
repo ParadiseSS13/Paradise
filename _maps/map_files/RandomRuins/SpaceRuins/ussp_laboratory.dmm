@@ -1,0 +1,5085 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ad" = (
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"am" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/engi)
+"ay" = (
+/obj/structure/closet/cabinet,
+/obj/item/gun/projectile/shotgun/toy,
+/obj/item/toy/russian_revolver,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"bP" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"bT" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/power/apc{
+	equipment = 0;
+	pixel_y = 27
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"bU" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"bV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light/small/built{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"bW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = -4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"cb" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1;
+	welded = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/entrance)
+"cA" = (
+/obj/structure/chair/comfy/red{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"cR" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/mineral/plasma{
+	layer = 2.8
+	},
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/dropper{
+	layer = 2.8
+	},
+/obj/item/organ/internal/xenos/hivenode{
+	layer = 2.9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"dh" = (
+/obj/structure/dresser,
+/obj/item/storage/firstaid/aquatic_kit/full{
+	pixel_y = 17
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = 32
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"dp" = (
+/obj/structure/rack,
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"dt" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/rack,
+/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+	pixel_x = -2;
+	pixel_y = 9
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"dB" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"dM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"dN" = (
+/obj/structure/table/reinforced,
+/obj/machinery/reagentgrinder{
+	layer = 4;
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"dQ" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken5";
+	tag = "icon-wood-broken5"
+	},
+/area/ruin/ussp_xeno/out)
+"ef" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/structure/disposaloutlet,
+/turf/simulated/floor/plating/airless,
+/area/ruin/ussp_xeno/out)
+"en" = (
+/obj/machinery/newscaster{
+	pixel_x = 32
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"er" = (
+/turf/simulated/floor/wood,
+/area/ruin/ussp_xeno/out)
+"eD" = (
+/obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien/drone,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"fa" = (
+/obj/machinery/light_switch{
+	pixel_x = 22;
+	pixel_y = -22
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"fo" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/machinery/atmospherics/unary/tank/air,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"fr" = (
+/obj/machinery/vending/sovietsoda,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"ft" = (
+/obj/machinery/arcade/claw,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"fx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/obj/structure/chair/comfy/red{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"fz" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"fL" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	autoclose = 1;
+	dir = 8;
+	id_tag = "HenoLab 1"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"fT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4;
+	welded = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"gi" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/vending/wallmed{
+	layer = 3.3;
+	name = "Emergency NanoMed";
+	pixel_x = -23;
+	pixel_y = -1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"gq" = (
+/obj/machinery/vending/wallmed{
+	layer = 3.3;
+	name = "Emergency NanoMed";
+	pixel_y = -32
+	},
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"gw" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/storage)
+"gE" = (
+/obj/effect/decal/remains/xeno,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light/small/built{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"gG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"gN" = (
+/obj/structure/table/wood,
+/obj/structure/alien/weeds,
+/obj/item/paper_bin{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/item/pen{
+	pixel_x = -7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/admiral)
+"gV" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/obj/item/organ/internal/brain/xeno{
+	pixel_x = 4;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"gW" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"hd" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/admiral)
+"hn" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/blood/xeno,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/alien/weeds,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"hr" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"hx" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"hy" = (
+/obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien/queen/large{
+	desc = "A gigantic alien who is in charge of the hive and all of its loyal servants.";
+	name = "alien queen";
+	pixel_x = -16;
+	plants_off = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/medbay)
+"hN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"hX" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = -7
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"ig" = (
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"ip" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"iv" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/photocopier{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"iK" = (
+/obj/structure/chair/sofa/right{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"iT" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/chair/comfy/red{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"iW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"jj" = (
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/decal/warning_stripes/south,
+/obj/item/flashlight/seclite{
+	pixel_y = -9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"jp" = (
+/obj/structure/table/wood,
+/obj/item/toy/plushie/slimeplushie{
+	pixel_x = -1;
+	pixel_y = 17
+	},
+/obj/machinery/computer/library,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"jr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/alien/drone,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"jt" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	id_tag = "SSSP_Xeno_inner";
+	tag = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/entrance)
+"jA" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/alien/weeds,
+/obj/structure/sign/xenobio{
+	pixel_x = 32;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"jC" = (
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/external{
+	id_tag = "SSSP_Xeno_outer";
+	tag = null
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/entrance)
+"jF" = (
+/turf/simulated/floor/plating/asteroid,
+/area/template_noop)
+"jL" = (
+/obj/item/mop,
+/obj/item/reagent_containers/glass/bucket{
+	pixel_x = 7;
+	pixel_y = -8
+	},
+/obj/effect/decal/warning_stripes/northeastsouth,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"kh" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/ussp_xeno/out)
+"km" = (
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1;
+	welded = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"kr" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/ussp_xeno/medbay)
+"kA" = (
+/obj/structure/weightmachine/weightlifter,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"kL" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/organ/internal/brain/xeno{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"kR" = (
+/obj/structure/table/wood,
+/obj/item/kitchen/utensil/fork{
+	pixel_x = 10
+	},
+/obj/item/kitchen/utensil/spoon{
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/obj/item/trash/plate,
+/turf/simulated/floor/wood,
+/area/ruin/ussp_xeno/out)
+"lk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"ll" = (
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/admiral)
+"lq" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"lt" = (
+/obj/structure/alien/weeds/node,
+/obj/effect/decal/cleanable/blood/xeno,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/medbay)
+"lJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"lM" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"lO" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"lT" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/medbay)
+"mt" = (
+/obj/machinery/access_button/airlock_exterior{
+	master_tag = "SSSP_Xeno_sensor";
+	pixel_x = -11;
+	pixel_y = -9
+	},
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/entrance)
+"mv" = (
+/turf/simulated/wall/rust,
+/area/ruin/ussp_xeno/engi)
+"mE" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"mP" = (
+/obj/structure/table/glass,
+/obj/item/toy/plushie/octopus{
+	pixel_x = 2;
+	pixel_y = 13
+	},
+/obj/item/trash/plate{
+	pixel_x = 2;
+	pixel_y = -1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"mZ" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/ussp_xeno/out)
+"no" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken6";
+	tag = "icon-wood-broken6"
+	},
+/area/ruin/ussp_xeno/out)
+"nq" = (
+/obj/structure/dresser,
+/obj/item/toy/pet_rock{
+	pixel_x = 6;
+	pixel_y = 12
+	},
+/obj/item/paicard{
+	pixel_x = -7;
+	pixel_y = 12
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"nN" = (
+/obj/structure/alien/weeds,
+/obj/structure/bookcase/random,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"nQ" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkredcorners"
+	},
+/area/ruin/ussp_xeno/entrance)
+"nU" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/obj/item/bikehorn/rubberducky{
+	pixel_x = 11;
+	pixel_y = 12
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"ot" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"oA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc{
+	dir = 1;
+	equipment = 0;
+	pixel_y = -26
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"oP" = (
+/obj/item/stack/sheet/wood,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"pk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"pt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/disposalpipe/junction{
+	dir = 8;
+	tag = "icon-pipe-j1 (EAST)"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"pz" = (
+/obj/structure/sign/biohazard{
+	pixel_x = -4;
+	pixel_y = 31
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkredcorners"
+	},
+/area/ruin/ussp_xeno/entrance)
+"pG" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"pH" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/simulated/floor/plating/airless,
+/area/ruin/ussp_xeno/out)
+"pJ" = (
+/obj/item/ammo_casing/shotgun/assassination{
+	pixel_x = -5
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"qb" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"qd" = (
+/obj/structure/closet/emcloset,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door_control{
+	id = "HenoLab 2";
+	name = "Door shutters controll";
+	pixel_x = 7;
+	pixel_y = 24
+	},
+/obj/machinery/door_control{
+	id = "HenoLab 1";
+	name = " Window shutters control";
+	pixel_x = -7;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"qy" = (
+/obj/machinery/gameboard{
+	pixel_y = -7
+	},
+/obj/item/decorations/sticky_decorations/flammable/skeleton{
+	layer = 4;
+	pixel_x = 1;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"qG" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"qP" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -8;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"qZ" = (
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"rf" = (
+/obj/item/hatchet/wooden,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/drip,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"sa" = (
+/obj/machinery/door/airlock/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/admiral)
+"sg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/admiral)
+"sh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/ruin/ussp_xeno/out)
+"sp" = (
+/obj/structure/bed,
+/obj/item/bedsheet/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -6;
+	pixel_y = -30
+	},
+/obj/machinery/light{
+	on = 1
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"sv" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"sG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/head/xenos,
+/obj/item/clothing/suit/xenos,
+/turf/simulated/floor/plating,
+/area/ruin/ussp_xeno/medbay)
+"sI" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/baracks)
+"sM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/sign/nosmoking_2{
+	pixel_y = -32
+	},
+/obj/machinery/door/airlock/multi_tile/glass{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"sZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 8
+	},
+/obj/structure/sign/vacuum/external{
+	pixel_y = -31
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8;
+	frequency = 1379;
+	tag = "SSSP_Xeno_pump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredcorners"
+	},
+/area/ruin/ussp_xeno/entrance)
+"tz" = (
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"tE" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -8
+	},
+/obj/item/paper_bin{
+	pixel_x = 4;
+	pixel_y = 2
+	},
+/obj/machinery/computer/security/wooden_tv{
+	network = list("USSP_LAB");
+	pixel_x = -14;
+	pixel_y = 16
+	},
+/obj/item/flashlight/lamp/green{
+	pixel_x = 8;
+	pixel_y = 14
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"tR" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/medbay)
+"ug" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/storage)
+"uj" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/gym_ussp)
+"um" = (
+/obj/item/chair/wood/wings,
+/turf/simulated/floor/plating/airless,
+/area/ruin/ussp_xeno/out)
+"us" = (
+/turf/simulated/wall/rust,
+/area/ruin/ussp_xeno/baracks)
+"uu" = (
+/obj/structure/table_frame/wood,
+/turf/simulated/floor/wood,
+/area/ruin/ussp_xeno/out)
+"uw" = (
+/obj/machinery/light_switch{
+	pixel_x = 22;
+	pixel_y = -22
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"uJ" = (
+/obj/structure/table/glass,
+/obj/item/clothing/head/ushanka{
+	pixel_x = -8;
+	pixel_y = 5
+	},
+/obj/item/camera{
+	pixel_x = 7;
+	pixel_y = -3
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"uT" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	autoclose = 1;
+	dir = 8;
+	id_tag = "HenoLab 1"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"uW" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/gym_ussp)
+"vj" = (
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/obj/structure/table/wood/poker,
+/obj/item/toy/figure/scientist{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/toy/figure/geneticist{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"vr" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"vz" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/ussp_xeno/dorms_ussp)
+"vA" = (
+/obj/structure/dresser,
+/obj/item/flashlight/lamp/green{
+	pixel_x = -1;
+	pixel_y = 14
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 9;
+	pixel_y = 14
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"vK" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/organ/internal/brain/xeno,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"vL" = (
+/turf/simulated/wall/rust,
+/area/ruin/ussp_xeno/admiral)
+"vO" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger{
+	pixel_y = 8
+	},
+/obj/item/stock_parts/cell/high{
+	pixel_x = 2;
+	pixel_y = -3
+	},
+/obj/item/radio{
+	pixel_x = -3;
+	pixel_y = 13
+	},
+/obj/item/gps{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/north,
+/obj/item/flashlight/seclite,
+/obj/machinery/light{
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"vP" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/structure/rack,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 1;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 10;
+	pixel_y = -7
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"vY" = (
+/obj/structure/table/wood/poker,
+/obj/item/toy/figure/rd{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"vZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"wa" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"wb" = (
+/obj/effect/decal/remains/xeno,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/xeno,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"wi" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/smes/engineering{
+	charge = 0
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"wz" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable,
+/obj/machinery/door/poddoor/shutters/preopen{
+	autoclose = 1;
+	dir = 8;
+	id_tag = "HenoLab 1"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"wG" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"wH" = (
+/obj/machinery/smartfridge/secure/extract,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"wO" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = 14
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"xa" = (
+/obj/machinery/computer/camera_advanced/xenobio{
+	networks = list("USSP_LAB")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"xi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"xp" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	desc = "Кто это тут к нам колёса катит?";
+	name = "Старая бутылка водки";
+	pixel_x = -5
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 25;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"xz" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"xB" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"xN" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light_switch{
+	pixel_x = 21;
+	pixel_y = -8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"xS" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/food/snacks/soup{
+	pixel_x = 7;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -12;
+	pixel_y = -11
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"yl" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"yx" = (
+/obj/structure/table/wood,
+/obj/item/folder/red{
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/phone{
+	pixel_x = 6;
+	pixel_y = 11
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/admiral)
+"yK" = (
+/obj/structure/dispenser/oxygen{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"yR" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/medbay)
+"yW" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"zF" = (
+/obj/item/shard,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -7;
+	pixel_y = -10
+	},
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 6;
+	pixel_y = -7
+	},
+/obj/structure/alien/weeds,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	autoclose = 1;
+	dir = 8;
+	id_tag = "HenoLab 1"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"zZ" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -6;
+	pixel_y = -30
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"Ad" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/glass{
+	amount = 10;
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"Ak" = (
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/engi)
+"Au" = (
+/obj/item/cigbutt{
+	pixel_x = 5;
+	pixel_y = 19
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"AR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/chair/comfy/brown{
+	dir = 8;
+	pixel_x = 7
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "ramptop";
+	tag = "icon-stage_stairs"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"AX" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_x = -31
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"Bg" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/r_wall,
+/area/ruin/ussp_xeno/storage)
+"Bn" = (
+/obj/machinery/power/apc{
+	dir = 1;
+	equipment = 0;
+	pixel_y = -26
+	},
+/obj/structure/cable,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Br" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/obj/machinery/light_switch{
+	pixel_x = -11;
+	pixel_y = 23
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"BA" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"BB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/mob/living/simple_animal/hostile/alien/drone{
+	dir = 8;
+	health = 0
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/admiral)
+"BD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"BG" = (
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/baracks)
+"BT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"BW" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	pixel_x = 22;
+	pixel_y = 21
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/remains/human,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/head/ushanka,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"BZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8;
+	welded = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/entrance)
+"Cg" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 7
+	},
+/obj/item/folder/red{
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/pen{
+	pixel_x = -7
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Cx" = (
+/obj/machinery/floodlight,
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"CL" = (
+/obj/structure/weightmachine/stacklifter,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"CV" = (
+/obj/item/reagent_containers/glass/beaker,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8;
+	tag = "SSSP_Xeno_pump"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"CX" = (
+/obj/structure/bed,
+/obj/item/bedsheet/red,
+/obj/structure/sign/poster/secret/yug0{
+	pixel_x = 32
+	},
+/obj/machinery/vending/wallmed{
+	layer = 3.3;
+	name = "Emergency NanoMed";
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"Dd" = (
+/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/storage)
+"Dy" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"DE" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"DG" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"DP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/turf/simulated/wall/rust,
+/area/ruin/ussp_xeno/gym_ussp)
+"Ee" = (
+/turf/simulated/mineral/random/high_chance/volcanic,
+/area/ruin/ussp_xeno/out)
+"Eo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/structure/sink{
+	dir = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Fd" = (
+/obj/structure/rack,
+/obj/item/weldingtool{
+	pixel_x = -4
+	},
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	layer = 2.8
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	layer = 2.8
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	layer = 2.8
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	layer = 2.8
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	layer = 2.8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"Fv" = (
+/obj/structure/rack,
+/obj/item/reagent_containers/food/snacks/soup{
+	pixel_x = -6;
+	pixel_y = 10
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"Fx" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Fz" = (
+/turf/simulated/wall/rust,
+/area/ruin/ussp_xeno/out)
+"FA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"FH" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/photocopier{
+	icon_state = "fax";
+	layer = 3.5;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"FK" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/ussp_xeno/out)
+"FX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 5
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"FY" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Gn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Gp" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating,
+/area/ruin/ussp_xeno/entrance)
+"Gv" = (
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/out)
+"GB" = (
+/obj/structure/alien/egg/grown,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"GC" = (
+/obj/structure/bed,
+/obj/item/bedsheet/black{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/gun/projectile/revolver/doublebarrel{
+	pixel_y = -4
+	},
+/obj/item/toy/plushie/girly_corgi{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"GG" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
+	},
+/area/ruin/ussp_xeno/out)
+"GH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"GK" = (
+/turf/simulated/wall/rust,
+/area/ruin/ussp_xeno/gym_ussp)
+"GM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 4;
+	icon_state = "pipe-j2";
+	tag = "icon-pipe-j2 (EAST)"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"GU" = (
+/obj/machinery/newscaster{
+	pixel_x = 32
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"GV" = (
+/obj/structure/rack,
+/obj/item/clothing/glasses/meson{
+	pixel_x = 1;
+	pixel_y = -9
+	},
+/obj/item/storage/belt/utility,
+/obj/item/crowbar/red,
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1;
+	welded = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"GW" = (
+/obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 8
+	},
+/obj/machinery/airlock_sensor{
+	id_tag = "SSSP_Xeno_sensor";
+	layer = 3.1;
+	pixel_y = 40
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	id_tag = "SSSP_Xeno_sensor";
+	pixel_y = 30;
+	tag_airpump = "SSSP_Xeno_pump";
+	tag_chamber_sensor = "SSSP_Xeno_sensor";
+	tag_exterior_door = "SSSP_Xeno_outer";
+	tag_interior_door = "SSSP_Xeno_inner"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8;
+	frequency = 1379;
+	tag = "SSSP_Xeno_pump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcorners"
+	},
+/area/ruin/ussp_xeno/entrance)
+"GY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Hi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/mob/living/simple_animal/hostile/alien/drone,
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"HJ" = (
+/obj/item/ammo_casing/shotgun/assassination{
+	pixel_x = -9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"HV" = (
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken7";
+	tag = "icon-wood-broken7"
+	},
+/area/ruin/ussp_xeno/out)
+"HW" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/safe/floor,
+/obj/item/coin/iron,
+/obj/item/stack/spacecash/c1000,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"Ij" = (
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Iq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/pump,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"Iu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"IJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"IQ" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_y = 20
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredcorners"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"IT" = (
+/turf/simulated/wall/rust,
+/area/ruin/ussp_xeno/dorms_ussp)
+"Jt" = (
+/obj/machinery/camera{
+	c_tag = "Xeno laboratory 1";
+	dir = 9;
+	network = list("USSP_LAB")
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"JB" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"JD" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"JI" = (
+/obj/machinery/computer/arcade,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Ka" = (
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/entrance)
+"Kc" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/plating,
+/area/ruin/ussp_xeno/medbay)
+"Kq" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"Kx" = (
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/ussp_xeno/out)
+"KA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/junction{
+	dir = 2;
+	icon_state = "pipe-j2";
+	tag = "icon-pipe-j2"
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"KF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/entrance)
+"KM" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"KP" = (
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/gym_ussp)
+"KQ" = (
+/obj/structure/table/glass,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 28
+	},
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/clothing/mask/gas,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"KR" = (
+/mob/living/simple_animal/mouse/white,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"KT" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"KY" = (
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/ussp_xeno/medbay)
+"KZ" = (
+/turf/simulated/wall/rust,
+/area/ruin/ussp_xeno/entrance)
+"La" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4;
+	target_pressure = 101
+	},
+/obj/item/gun/energy/laser/retro/old,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"Lh" = (
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/dorms_ussp)
+"Ly" = (
+/obj/structure/piano,
+/turf/simulated/floor/wood,
+/area/ruin/ussp_xeno/out)
+"LM" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"LU" = (
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Mf" = (
+/obj/item/organ/internal/body_egg/alien_embryo,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Mg" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1;
+	welded = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Mk" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc{
+	dir = 1;
+	equipment = 0;
+	pixel_y = -26
+	},
+/obj/structure/cable,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHEAST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Mn" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plating,
+/area/ruin/ussp_xeno/dorms_ussp)
+"Mu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/admiral)
+"Mz" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/head/ushanka,
+/obj/item/storage/belt/utility,
+/obj/item/clothing/mask/gas,
+/obj/effect/decal/cleanable/blood,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/head/ushanka,
+/obj/machinery/alarm{
+	dir = 4;
+	pixel_x = -22
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"MA" = (
+/obj/effect/decal/cleanable/blood/drip{
+	pixel_x = -4;
+	pixel_y = 12
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"MC" = (
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/obj/machinery/power/apc{
+	dir = 1;
+	equipment = 0;
+	pixel_y = -26
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"MW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Na" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHWEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Nf" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault";
+	tag = "icon-vault (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Nh" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	autoclose = 1;
+	dir = 8;
+	id_tag = "HenoLab 1"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Nq" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/table/wood/poker,
+/obj/item/toy/cards/deck{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Nz" = (
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/ruin/ussp_xeno/out)
+"NC" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"NL" = (
+/obj/item/ammo_casing/shotgun/assassination{
+	pixel_x = 15;
+	pixel_y = 10
+	},
+/mob/living/simple_animal/hostile/alien/drone{
+	dir = 8;
+	health = 0
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"NO" = (
+/obj/structure/dresser,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -8;
+	pixel_y = 13
+	},
+/obj/item/flashlight/lamp{
+	pixel_x = 7;
+	pixel_y = 14
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/alien/weeds,
+/obj/machinery/light_switch{
+	pixel_x = 21;
+	pixel_y = -9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"NU" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Oa" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"Oc" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/alien/weeds,
+/obj/structure/sign/xeno_warning_mining{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Ol" = (
+/obj/machinery/access_button/airlock_interior{
+	master_tag = "SSSP_Xeno_sensor";
+	pixel_x = 8;
+	pixel_y = -10
+	},
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/entrance)
+"Oo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcorners"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Ov" = (
+/obj/machinery/door/airlock/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/baracks)
+"OI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"OL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/mob/living/simple_animal/hostile/alien/sentinel,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8;
+	welded = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"OM" = (
+/turf/simulated/mineral/random/low_chance,
+/area/ruin/ussp_xeno/out)
+"OR" = (
+/obj/structure/sign/poster/official/random{
+	pixel_x = 28
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"OW" = (
+/obj/structure/closet/crate{
+	name = "Базовый набор экипировки для выхода в космос"
+	},
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 3;
+	name = "3maintenance loot spawner"
+	},
+/obj/item/flashlight{
+	on = 1
+	},
+/obj/item/storage/box/lights/mixed,
+/obj/item/clothing/gloves/color/fyellow,
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"Pc" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"PG" = (
+/obj/structure/chair/sofa/right{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = -30
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"PM" = (
+/obj/item/ammo_casing/shotgun/assassination{
+	pixel_x = 5;
+	pixel_y = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Qa" = (
+/obj/item/trash/candy{
+	pixel_x = -10;
+	pixel_y = 11
+	},
+/obj/machinery/light,
+/obj/machinery/vending/wallmed{
+	layer = 3.3;
+	name = "Emergency NanoMed";
+	pixel_y = -32
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Qh" = (
+/obj/item/storage/box/monkeycubes{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/box/monkeycubes{
+	pixel_x = 3;
+	pixel_y = 5
+	},
+/obj/machinery/light_switch{
+	pixel_x = -21;
+	pixel_y = 10
+	},
+/obj/machinery/camera{
+	c_tag = "Xeno laboratory 2";
+	dir = 5;
+	network = list("USSP_LAB")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Qi" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/light{
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/admiral)
+"QQ" = (
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Rl" = (
+/obj/structure/chair/sofa{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"RB" = (
+/obj/machinery/vending/coffee,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"RO" = (
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"RR" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/airless,
+/area/ruin/ussp_xeno/out)
+"RS" = (
+/obj/structure/rack,
+/obj/item/pizzabox/vegetable{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"Sd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Sk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/alien/sentinel,
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"SN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"SQ" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/dorms_ussp)
+"Tc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/newscaster{
+	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Tk" = (
+/obj/structure/closet/l3closet/scientist,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHWEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Tr" = (
+/obj/structure/table,
+/obj/item/t_scanner{
+	pixel_x = -8
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/obj/item/analyzer{
+	pixel_x = -2;
+	pixel_y = -5
+	},
+/obj/item/extinguisher/mini{
+	pixel_x = -5
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/recharger{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
+/area/ruin/ussp_xeno/engi)
+"TO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"TR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"TU" = (
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"TX" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Ua" = (
+/obj/structure/closet/cardboard,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/obj/effect/decal/warning_stripes/north,
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"Uf" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/ussp_xeno/storage)
+"Um" = (
+/obj/structure/closet/wardrobe/xenos,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Un" = (
+/obj/structure/sign/poster/contraband/lusty_xenomorph{
+	pixel_x = -30;
+	pixel_y = -1
+	},
+/obj/item/gun/projectile/revolver/doublebarrel,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"UM" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/power/apc{
+	equipment = 0;
+	pixel_y = 27
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"UO" = (
+/obj/machinery/slot_machine,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light_switch{
+	pixel_x = -19;
+	pixel_y = -9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"UX" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/head/ushanka,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Ve" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/storage)
+"Vg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/entrance)
+"VF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"VL" = (
+/obj/structure/table,
+/obj/item/storage/bag/trash{
+	pixel_x = 11;
+	pixel_y = 5
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -8;
+	pixel_y = 14
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_x = -9;
+	pixel_y = 8
+	},
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc{
+	dir = 8;
+	equipment = 0;
+	pixel_x = -27
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/storage)
+"VQ" = (
+/obj/structure/table/wood/poker,
+/obj/item/pizzabox/meat{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Wb" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Wg" = (
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/ussp_xeno/storage)
+"WV" = (
+/obj/structure/bed,
+/obj/item/bedsheet/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"Xd" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Xh" = (
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/obj/structure/chair/comfy/red{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"XK" = (
+/obj/machinery/fishtank/wall{
+	opacity = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"XO" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/ruin/ussp_xeno/medbay)
+"XV" = (
+/obj/effect/decal/remains/xeno,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -32
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/ruin/ussp_xeno/medbay)
+"Ym" = (
+/obj/machinery/atmospherics/unary/portables_connector,
+/obj/machinery/portable_atmospherics/canister/air,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/entrance)
+"YA" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/structure/mirror{
+	pixel_x = -26
+	},
+/obj/machinery/shower{
+	pixel_x = 23;
+	pixel_y = 20
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/cleanable/cobweb,
+/mob/living/simple_animal/hostile/alien/drone{
+	dir = 8;
+	health = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"YN" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"YS" = (
+/obj/structure/table/glass,
+/obj/item/pizzabox/vegetable,
+/obj/item/newspaper{
+	pixel_y = -8
+	},
+/obj/item/cigbutt{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/toy/toy_xeno{
+	pixel_x = 9;
+	pixel_y = 13
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle/large{
+	pixel_x = -6;
+	pixel_y = 14
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"Zg" = (
+/obj/machinery/power/apc{
+	equipment = 0;
+	pixel_y = 27
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/chair/comfy/red{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"Zq" = (
+/obj/effect/decal/cleanable/fungus,
+/obj/item/gps/ruin{
+	gpstag = "USSP singal"
+	},
+/turf/simulated/wall,
+/area/ruin/ussp_xeno/entrance)
+"Zr" = (
+/obj/structure/dresser,
+/obj/item/toy/plushie/blue_fox{
+	layer = 3.1;
+	pixel_y = 12
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/ussp_xeno/baracks)
+"ZO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+"ZQ" = (
+/turf/template_noop,
+/area/template_noop)
+"ZS" = (
+/obj/structure/alien/weeds,
+/obj/structure/chair/comfy/red{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/ussp_xeno/dorms_ussp)
+"ZY" = (
+/obj/machinery/door/airlock/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkredfull"
+	},
+/area/ruin/ussp_xeno/gym_ussp)
+
+(1,1,1) = {"
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+Kx
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+"}
+(2,1,1) = {"
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+jF
+Kx
+Kx
+Kx
+OM
+OM
+OM
+OM
+Kx
+Kx
+Kx
+KT
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+"}
+(3,1,1) = {"
+ZQ
+ZQ
+ZQ
+Kx
+Kx
+Kx
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+Kx
+Kx
+Kx
+Kx
+Kx
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+"}
+(4,1,1) = {"
+ZQ
+KT
+ZQ
+Kx
+Kx
+OM
+OM
+Ak
+mv
+am
+mv
+Ak
+Ak
+OM
+OM
+OM
+OM
+OM
+Kx
+Kx
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+"}
+(5,1,1) = {"
+ZQ
+ZQ
+ZQ
+Kx
+OM
+OM
+OM
+Ak
+pG
+FX
+Tr
+Dy
+Ak
+OM
+OM
+OM
+OM
+OM
+OM
+Kx
+Kx
+Kx
+ZQ
+ZQ
+ZQ
+"}
+(6,1,1) = {"
+ZQ
+ZQ
+Kx
+Kx
+OM
+OM
+OM
+mv
+Pc
+La
+xz
+Iq
+Ak
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+Kx
+ZQ
+ZQ
+ZQ
+"}
+(7,1,1) = {"
+ZQ
+Kx
+Kx
+OM
+OM
+OM
+OM
+mv
+fo
+lM
+Sk
+zZ
+Ak
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+Kx
+Kx
+Kx
+ZQ
+"}
+(8,1,1) = {"
+ZQ
+Kx
+OM
+OM
+OM
+OM
+OM
+Ak
+bT
+wG
+vr
+LM
+mv
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+Kx
+FK
+ZQ
+"}
+(9,1,1) = {"
+Kx
+Kx
+OM
+OM
+OM
+OM
+OM
+Ak
+Cx
+BW
+OR
+GV
+Ak
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+Kx
+ZQ
+"}
+(10,1,1) = {"
+Kx
+OM
+OM
+OM
+OM
+Uf
+Uf
+Wg
+Uf
+Dd
+Uf
+Uf
+BG
+sI
+us
+BG
+ll
+ll
+vL
+ll
+ll
+OM
+OM
+Kx
+ZQ
+"}
+(11,1,1) = {"
+Kx
+OM
+OM
+OM
+OM
+Uf
+Fv
+VL
+jj
+OI
+dt
+Wg
+nq
+ay
+Zr
+BG
+FH
+AX
+Mz
+oA
+ll
+OM
+OM
+Kx
+ZQ
+"}
+(12,1,1) = {"
+Kx
+OM
+OM
+OM
+OM
+Uf
+Fd
+dB
+Ua
+KR
+vP
+Wg
+WV
+fT
+MC
+BG
+jp
+yx
+gN
+HW
+ll
+OM
+OM
+Kx
+ZQ
+"}
+(13,1,1) = {"
+Kx
+OM
+OM
+OM
+OM
+Wg
+Ad
+Kq
+xS
+ad
+Ve
+gw
+Hi
+gW
+XK
+BG
+nN
+hd
+BB
+Qi
+ll
+OM
+Kx
+Kx
+ZQ
+"}
+(14,1,1) = {"
+Kx
+Kx
+OM
+OM
+OM
+Uf
+OW
+OL
+jL
+vZ
+RS
+Uf
+GC
+hN
+sp
+us
+JB
+sg
+Mu
+vA
+vL
+OM
+Kx
+Kx
+ZQ
+"}
+(15,1,1) = {"
+ZQ
+Kx
+OM
+OM
+OM
+Wg
+wi
+xN
+IJ
+Oa
+xp
+Uf
+NO
+GH
+dh
+us
+iv
+uw
+GU
+CX
+ll
+OM
+OM
+Kx
+ZQ
+"}
+(16,1,1) = {"
+ZQ
+Kx
+OM
+OM
+OM
+Uf
+Bg
+Wg
+ug
+Uf
+Wg
+Uf
+us
+Ov
+BG
+sI
+ll
+sa
+ll
+ll
+ll
+OM
+OM
+Kx
+ZQ
+"}
+(17,1,1) = {"
+ZQ
+Kx
+OM
+OM
+OM
+SQ
+ot
+gi
+GM
+Cg
+iK
+vz
+UO
+wa
+ig
+Rl
+PG
+pk
+ft
+GK
+KP
+KP
+OM
+Kx
+ZQ
+"}
+(18,1,1) = {"
+ZQ
+Kx
+Kx
+OM
+OM
+IT
+Zg
+iT
+TO
+tE
+LU
+vz
+JI
+YN
+iW
+jr
+iW
+DE
+KA
+ZY
+YA
+DP
+mZ
+Kx
+ZQ
+"}
+(19,1,1) = {"
+ZQ
+ZQ
+Kx
+OM
+OM
+Lh
+Nq
+vY
+KM
+qG
+TX
+Wb
+xi
+pt
+mP
+YS
+uJ
+lJ
+Au
+uj
+nU
+uW
+ef
+Kx
+ZQ
+"}
+(20,1,1) = {"
+ZQ
+ZQ
+Kx
+OM
+OM
+Lh
+vj
+VQ
+wO
+km
+MA
+RO
+qP
+hx
+Mg
+ip
+Fx
+Iu
+Qa
+KP
+KP
+KP
+OM
+Kx
+ZQ
+"}
+(21,1,1) = {"
+ZQ
+ZQ
+Kx
+Kx
+OM
+Lh
+Xh
+ZS
+lk
+BT
+fx
+vz
+fr
+bW
+ip
+CL
+Ij
+CL
+gG
+GK
+OM
+OM
+OM
+Kx
+ZQ
+"}
+(22,1,1) = {"
+ZQ
+KT
+Kx
+Kx
+OM
+SQ
+qZ
+Gn
+TR
+eD
+qy
+vz
+RB
+ZO
+lO
+JD
+FA
+JD
+Bn
+GK
+OM
+OM
+OM
+Kx
+ZQ
+"}
+(23,1,1) = {"
+ZQ
+ZQ
+Kx
+Kx
+Ee
+IT
+mE
+IQ
+Oo
+Tc
+cA
+vz
+FY
+rf
+dM
+kA
+SN
+kA
+BD
+uj
+OM
+OM
+OM
+Kx
+ZQ
+"}
+(24,1,1) = {"
+ZQ
+ZQ
+Kx
+Kx
+OM
+Lh
+Lh
+Br
+Sd
+Lh
+Mn
+IT
+hr
+AR
+KQ
+xB
+UX
+oP
+en
+KP
+OM
+OM
+OM
+Kx
+ZQ
+"}
+(25,1,1) = {"
+ZQ
+ZQ
+Kx
+OM
+OM
+Ka
+Ka
+tz
+sM
+Ka
+sG
+kr
+kr
+yR
+KY
+Kc
+Kc
+Kc
+KY
+kr
+OM
+OM
+Kx
+FK
+ZQ
+"}
+(26,1,1) = {"
+ZQ
+Kx
+Kx
+OM
+OM
+Ka
+yl
+hX
+VF
+yW
+kr
+Tk
+Un
+bP
+Qh
+xa
+dN
+xa
+Na
+kr
+OM
+OM
+Kx
+Kx
+ZQ
+"}
+(27,1,1) = {"
+ZQ
+Kx
+OM
+OM
+OM
+KZ
+yK
+KF
+Vg
+vO
+KY
+qd
+HJ
+PM
+Um
+TU
+cR
+QQ
+Eo
+KY
+OM
+OM
+OM
+Kx
+ZQ
+"}
+(28,1,1) = {"
+ZQ
+Kx
+OM
+OM
+OM
+Ka
+UM
+cb
+BZ
+dp
+kr
+sv
+NL
+pJ
+CV
+lq
+wH
+GY
+XV
+kr
+OM
+OM
+OM
+Kx
+Kx
+"}
+(29,1,1) = {"
+ZQ
+Kx
+Kx
+OM
+OM
+Ka
+Ym
+DG
+fa
+qb
+kr
+bU
+NC
+hn
+Oc
+fz
+NU
+jA
+Mk
+kr
+OM
+OM
+OM
+OM
+Kx
+"}
+(30,1,1) = {"
+ZQ
+ZQ
+Kx
+OM
+OM
+Ka
+mt
+jt
+jt
+Ka
+KY
+Nh
+fL
+zF
+uT
+wz
+kr
+vK
+gq
+KY
+OM
+OM
+OM
+OM
+Kx
+"}
+(31,1,1) = {"
+ZQ
+ZQ
+Kx
+OM
+OM
+OM
+Ka
+GW
+sZ
+KZ
+KY
+bV
+Xd
+BA
+Mf
+gE
+kr
+gV
+MW
+kr
+OM
+OM
+OM
+OM
+Kx
+"}
+(32,1,1) = {"
+ZQ
+ZQ
+Kx
+Kx
+OM
+OM
+KZ
+pz
+nQ
+Zq
+kr
+tR
+hy
+lt
+tR
+lT
+KY
+kL
+XO
+kr
+OM
+OM
+Kx
+Kx
+Kx
+"}
+(33,1,1) = {"
+ZQ
+ZQ
+ZQ
+Kx
+OM
+OM
+Ol
+jC
+jC
+Ka
+kr
+wb
+Jt
+BA
+Nf
+GB
+kr
+KY
+kr
+kr
+OM
+OM
+OM
+Kx
+Kx
+"}
+(34,1,1) = {"
+ZQ
+ZQ
+ZQ
+FK
+Gv
+RR
+KZ
+Gp
+Gp
+Ka
+kr
+kr
+KY
+kr
+kr
+kr
+kr
+OM
+OM
+OM
+OM
+OM
+OM
+Kx
+Kx
+"}
+(35,1,1) = {"
+ZQ
+ZQ
+ZQ
+Kx
+kh
+dQ
+Ly
+no
+Nz
+sh
+Fz
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+OM
+Kx
+Kx
+Kx
+Kx
+Kx
+"}
+(36,1,1) = {"
+ZQ
+ZQ
+ZQ
+Kx
+Kx
+kh
+Nz
+er
+kR
+GG
+RR
+OM
+OM
+OM
+Kx
+OM
+OM
+Kx
+Kx
+Kx
+Kx
+Kx
+ZQ
+ZQ
+ZQ
+"}
+(37,1,1) = {"
+ZQ
+ZQ
+ZQ
+ZQ
+Kx
+Kx
+um
+pH
+kh
+kh
+Fz
+OM
+Kx
+Kx
+FK
+Kx
+Kx
+Kx
+Kx
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+"}
+(38,1,1) = {"
+ZQ
+ZQ
+KT
+ZQ
+ZQ
+Kx
+Kx
+HV
+er
+uu
+RR
+OM
+Kx
+Kx
+Kx
+Kx
+Kx
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+"}
+(39,1,1) = {"
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+Kx
+Kx
+Kx
+OM
+OM
+Kx
+Kx
+Kx
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+"}
+(40,1,1) = {"
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+ZQ
+"}

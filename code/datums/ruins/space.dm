@@ -317,6 +317,14 @@
 		After long wanderings over space, the ghost ship collided with an asteroid..."
 	cost = 3 // 65x50 Space ship with few asteroids, carps and headcrabs in positions
 	allow_duplicates = FALSE
+	
+/datum/map_template/ruin/space/ussp_laboratory
+	id = "ussp_laboratory"
+	suffix = "ussp_laboratory.dmm"
+	name = "USSP Laboratory"
+	description = "Tovarish! U nas chto-to proisoshlo! Ksenosi!"
+	allow_duplicates = FALSE
+	cost = 2
 
 /* Старый код для добавления Тайпана. Оставлено на всякий случай
 /datum/map_template/ruin/space/syndicate_space_base
