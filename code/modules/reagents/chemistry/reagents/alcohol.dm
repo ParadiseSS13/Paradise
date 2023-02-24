@@ -1467,3 +1467,734 @@
 	M.AdjustHallucinate(10)
 	M.last_hallucinator_log = name
 	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/champagne
+	name = "Champagne"
+	id = "champagne"
+	description = "Excellent sparkling champagne. For those who want to stand out among vinokurs."
+	color = "#d0d312"
+	alcohol_perc = 0.2
+	drink_icon = "champagneglass"
+	drink_name = "Glass of Champagne"
+	drink_desc = "Excellent sparkling champagne. For those who want to stand out among vinokurs."
+	taste_description = "sparkling sunshine"
+
+/datum/reagent/consumable/ethanol/aperol
+	name = "Aperol"
+	id = "aperol"
+	description = "Oh-oh-oh... It looks like it's an ambush for the liver"
+	color = "#b9000a"
+	alcohol_perc = 0.2
+	drink_icon = "aperolglass"
+	drink_name = "Glass of Aperol"
+	drink_desc = "Oh-oh-oh... It looks like it's an ambush for the liver"
+	taste_description = "herbaceous sweetness"
+
+/datum/reagent/consumable/ethanol/jagermeister
+	name = "Jagermeister"
+	id = "jagermeister"
+	description = "The drunkard hunter came from deep space, and it looks like he found a victim."
+	color = "#200b0b"
+	alcohol_perc = 0.4
+	dizzy_adj = 3
+	drink_icon = "jagermeisterglass"
+	drink_name = "Glass of Jagermeister"
+	drink_desc = "The drunkard hunter came from deep space, and it looks like he found a victim."
+	taste_description = "btterness of hunting"
+
+/datum/reagent/consumable/ethanol/schnaps
+	name = "Schnaps"
+	id = "schnaps"
+	description = "From such a schnapps it's not a sin to start yodeling."
+	color = "#e0e0e0"
+	alcohol_perc = 0.4
+	dizzy_adj = 1
+	drink_icon = "schnapsglass"
+	drink_name = "Glass of Schnaps"
+	drink_desc = "From such a schnapps it's not a sin to start yodeling."
+	taste_description = "wheat mint"
+
+/datum/reagent/consumable/ethanol/sambuka
+	name = "Sambuka"
+	id = "sambuka"
+	description = "Flying into space, many thought that they had grasped fate."
+	color = "#e0e0e0"
+	alcohol_perc = 0.45
+	dizzy_adj = 1
+	drink_icon = "sambukaglass"
+	drink_name = "Glass of Sambuka"
+	drink_desc = "Flying into space, many thought that they had grasped fate."
+	taste_description = "twirly fire"
+
+/datum/reagent/consumable/ethanol/bluecuracao
+	name = "Blue Curacao"
+	id = "bluecuracao"
+	description = "The fuse is ready, the blue has already lit up."
+	color = "#16c9ff"
+	alcohol_perc = 0.35
+	drink_icon = "bluecuracaoglass"
+	drink_name = "Glass of Blue Curacao"
+	drink_desc = "The fuse is ready, the blue has already lit up."
+	taste_description = "explosive blue"
+
+/datum/reagent/consumable/ethanol/bitter
+	name = "Bitter"
+	id = "bitter"
+	description = "Don't mix up the label sizes, because I won't change anything."
+	color = "#d44071"
+	alcohol_perc = 0.45
+	dizzy_adj = 2
+	drink_icon = "bitterglass"
+	drink_name = "Glass of bitter"
+	drink_desc = "Don't mix up the label sizes, because I won't change anything."
+	taste_description = "vacuum bitterness"
+
+/datum/reagent/consumable/ethanol/sheridan
+	name = "Sheridan's"
+	id = "sheridan"
+	description = "Refrigerate, pour at an angle of 45, do not mix, enjoy."
+	color = "#3a3d2e"
+	alcohol_perc = 0.35
+	drink_icon = "sheridanglass"
+	drink_name = "Glass of Sheridan's"
+	drink_desc = "Refrigerate, pour at an angle of 45, do not mix, enjoy."
+	taste_description = "creamy coffee"
+
+////////////////////////////Cocktails///////////////////////////////
+/datum/reagent/consumable/ethanol/black_blood
+	name = "Black Blood"
+	id = "black_blood"
+	description = "Need to drink faster before it starts to curdle."
+	color = "#252521"
+	alcohol_perc = 0.45
+	drink_icon = "black_blood"
+	drink_name = "Black Blood"
+	drink_desc = "Need to drink faster before it starts to curdle."
+	taste_description = "bloody darkness"
+
+/datum/reagent/consumable/ethanol/light_storm
+	name = "Light Storm"
+	id = "light_storm"
+	description = "Even away from the ocean, you can feel this shaking."
+	color = "#4b4b44"
+	alcohol_perc = 0.6
+	drink_icon = "light_storm"
+	drink_name = "Light Storm"
+	drink_desc = "Even away from the ocean, you can feel this shaking."
+	taste_description = "sea excitement"
+
+/datum/reagent/consumable/ethanol/cream_heaven
+	name = "Cream Heaven"
+	id = "cream_heaven"
+	description = "This is a touch of cream and coffee, a real creation of heaven."
+	color = "#4b4b44"
+	alcohol_perc = 0.25
+	drink_icon = "cream_heaven"
+	drink_name = "Cream Heaven"
+	drink_desc = "This is a touch of cream and coffee, a real creation of heaven."
+	taste_description = "coffee cloud"
+
+/datum/reagent/consumable/ethanol/negroni
+	name = "Negroni"
+	id = "negroni"
+	description = "Bitters are very good for the liver, and gin has a bad effect on you. Here they balance each other."
+	color = "#ad3948"
+	alcohol_perc = 0.4
+	drink_icon = "negroni"
+	drink_name = "Negroni"
+	drink_desc = "Bitters are very good for the liver, and gin has a bad effect on you. Here they balance each other."
+	taste_description = "sweet parade"
+
+/datum/reagent/consumable/ethanol/hirosima
+	name = "Hirosima"
+	id = "hirosima"
+	description = "My hands are up to the elbows in blood... Oh, wait, it's alcohol."
+	color = "#598317"
+	alcohol_perc = 0.3
+	drink_icon = "hirosima"
+	drink_name = "Hirosima"
+	drink_desc = "My hands are up to the elbows in blood... Oh, wait, it's alcohol."
+	taste_description = "alcoholic ashes"
+
+/datum/reagent/consumable/ethanol/nagasaki
+	name = "nagasaki"
+	id = "nagasaki"
+	description = "At first, no one knew what would happen next. The intoxication was terrible. There is no doubt that this is the strongest intoxication that a person has ever seen."
+	color = "#18c212"
+	alcohol_perc = 0.7
+	drink_icon = "nagasaki"
+	drink_name = "Nagasaki"
+	drink_desc = "At first, no one knew what would happen next. The intoxication was terrible. There is no doubt that this is the strongest intoxication that a person has ever seen."
+	taste_description = "radioactive ash"
+
+/datum/reagent/consumable/ethanol/chocolate_sheridan
+	name = "Chocolate Sheridan's"
+	id = "chocolate_sheridan"
+	description = "In situations when you really want to cheer up and drink."
+	color = "#332a1a"
+	alcohol_perc = 0.3
+	drink_icon = "chocolate_sheridan"
+	drink_name = "Chocolate Sheridan's"
+	drink_desc = "In situations when you really want to cheer up and drink."
+	taste_description = "alcoholic mocha"
+
+/datum/reagent/consumable/ethanol/panamian
+	name = "Panama"
+	id = "panamian"
+	description = "It will connect your blood and alcohol like a Katun gateway."
+	color = "#3164a7"
+	alcohol_perc = 0.6
+	drink_icon = "panamian"
+	drink_name = "Panama"
+	drink_desc = "It will connect your blood and alcohol like a Katun gateway."
+	taste_description = "shipping channel"
+
+/datum/reagent/consumable/ethanol/pegu_club
+	name = "Pegu Club"
+	id = "pegu_club"
+	description = "It's like a group of gentlemen colonizing your tongue."
+	color = "#a5702b"
+	alcohol_perc = 0.5
+	drink_icon = "pegu_club"
+	drink_name = "Pegu Club"
+	drink_desc = "It's like a group of gentlemen colonizing your tongue."
+	taste_description = "shipping channel"
+
+/datum/reagent/consumable/ethanol/jagermachine
+	name = "Jagermachine"
+	id = "jagermachine"
+	description = "A true detail hunter."
+	color = "#6b0b74"
+	alcohol_perc = 0.55
+	drink_icon = "jagermachine"
+	drink_name = "Jagermachine"
+	drink_desc = "A true detail hunter."
+	taste_description = "stealing parts"
+
+/datum/reagent/consumable/ethanol/blue_cybesauo
+	name = "Blue Cybesauo"
+	id = "blue_cybesauo"
+	description = "The blue is similar to the blue screen of death."
+	color = "#0b7463"
+	alcohol_perc = 0.4
+	drink_icon = "blue_cybesauo"
+	drink_name = "Blue Cybesauo"
+	drink_desc = "The blue is similar to the blue screen of death."
+	taste_description = "error 0xc000001b"
+
+/datum/reagent/consumable/ethanol/alcomender
+	name = "Alcomender"
+	id = "alcomender"
+	description = "A glass in the form of a mender, a favorite among doctors."
+	color = "#6b0059"
+	alcohol_perc = 1.4 ////Heal burn
+	drink_icon = "alcomender"
+	drink_name = "Alcomender"
+	drink_desc = "A glass in the form of a mender, a favorite among doctors."
+	taste_description = "funny medicine"
+
+/datum/reagent/consumable/ethanol/amnesia
+	name = "Star Amnesia"
+	id = "amnesia"
+	description = "Is it just a bottle of medical alcohol?"
+	color = "#6b0059"
+	alcohol_perc = 1.2 ////Ethanol and Hooch
+	drink_icon = "amnesia"
+	drink_name = "Star Amnesia"
+	drink_desc = "Is it just a bottle of medical alcohol?"
+	taste_description = "disco amnesia"
+
+/datum/reagent/consumable/ethanol/johnny
+	name = "Silverhand"
+	id = "johnny"
+	description = "Wake the heck up, samurai. We have a station to burn."
+	color = "#c41414"
+	alcohol_perc = 0.6
+	drink_icon = "johnny"
+	drink_name = "Silverhand"
+	drink_desc = "Wake the heck up, samurai. We have a station to burn."
+	taste_description = "superstar fading"
+
+/datum/reagent/consumable/ethanol/cosmospoliten
+	name = "Cosmospoliten"
+	id = "cosmospoliten"
+	description = "Then try to prove that you are straight and not a woman if you got caught with him."
+	color = "#b1483a"
+	alcohol_perc = 0.5
+	drink_icon = "cosmospoliten"
+	drink_name = "Cosmospoliten"
+	drink_desc = "Then try to prove that you are straight and not a woman if you got caught with him."
+	taste_description = "orientation reversal"
+
+/datum/reagent/consumable/ethanol/oldfashion
+	name = "Old Fashion"
+	id = "oldfashion"
+	description = "Rumor has it that this cocktail is the oldest, but however, this is a completely different story."
+	color = "#6b4017"
+	alcohol_perc = 0.6
+	drink_icon = "oldfashion"
+	drink_name = "Old Fashion"
+	drink_desc = "Rumor has it that this cocktail is the oldest, but however, this is a completely different story."
+	taste_description = "old times"
+
+/datum/reagent/consumable/ethanol/french_75
+	name = "French 75"
+	id = "french_75"
+	description = "Charge the liver, aim, fire!"
+	color = "#b1953a"
+	alcohol_perc = 0.4
+	drink_icon = "french_75"
+	drink_name = "French 75"
+	drink_desc = "Charge the liver, aim, fire!"
+	taste_description = "artillery bombing"
+
+/datum/reagent/consumable/ethanol/gydroseridan
+	name = "Gydroridan"
+	id = "gydroseridan"
+	description = "Hydraulic separation of layers will help us in efficiency."
+	color = "#3a99b1"
+	alcohol_perc = 0.5
+	drink_icon = "gydroseridan"
+	drink_name = "Gydroridan"
+	drink_desc = "Hydraulic separation of layers will help us in efficiency."
+	taste_description = "hydraulic power"
+
+/datum/reagent/consumable/ethanol/milk_plus
+	name = "Milk +"
+	id = "milk_plus"
+	description = "When a man cannot choose he ceases to be a man."
+	color = "#DFDFDF"
+	alcohol_perc = 0.8
+	drink_icon = "milk_plus"
+	drink_name = "Milk +"
+	drink_desc = "When a man cannot choose he ceases to be a man."
+	taste_description = "loss of human"
+
+/datum/reagent/consumable/ethanol/teslasingylo
+	name = "God Of Power"
+	id = "teslasingylo"
+	description = "A real horror for the SMES and the APC. Don't overload them."
+	color = "#0300ce"
+	alcohol_perc = 0.7
+	drink_icon = "teslasingylo"
+	drink_name = "God Of Power"
+	drink_desc = "A real horror for the SMES and the APC. Don't overload them."
+	taste_description = "electricity bless"
+
+/datum/reagent/consumable/ethanol/light
+	name = "Light"
+	id = "light"
+	description = "A favorite among Nian and Dionea, someone say that this is a mini thermonuclear reaction, but only shhh..."
+	color = "#fffb00"
+	alcohol_perc = 0.2
+	drink_icon = "light"
+	drink_name = "Light"
+	drink_desc = "A favorite among Nian and Dionea, someone say that this is a mini thermonuclear reaction, but only shhh..."
+	taste_description = "star warmth"
+
+/datum/reagent/consumable/ethanol/bees_knees
+	name = "Bee's Knees"
+	id = "bees_knees"
+	description = "As if the fact is that the bee carries pollen in the area of the knees and ... Nevermind."
+	color = "#e8f71f"
+	alcohol_perc = 0.5
+	drink_icon = "bees_knees"
+	drink_name = "Bee's Knees"
+	drink_desc = "As if the fact is that the bee carries pollen in the area of the knees and ... Nevermind."
+	taste_description = "honey love"
+
+/datum/reagent/consumable/ethanol/aviation
+	name = "Aviation"
+	id = "aviation"
+	description = "It's hard to make cocktails when a zeppelin flies over your house."
+	color = "#c48f8f"
+	alcohol_perc = 0.5
+	drink_icon = "aviation"
+	drink_name = "Aviation"
+	drink_desc = "It's hard to make cocktails when a zeppelin flies over your house."
+	taste_description = "blowing the wind"
+
+/datum/reagent/consumable/ethanol/fizz
+	name = "Fizz"
+	id = "fizz"
+	description = "It's like living with a feral cat."
+	color = "#b6b6b6"
+	alcohol_perc = 0.3
+	drink_icon = "fizz"
+	drink_name = "Fizz"
+	drink_desc = "It's like living with a feral cat."
+	taste_description = "fizzing"
+
+/datum/reagent/consumable/ethanol/brandy_crusta
+	name = "Brandy Crusta"
+	id = "brandy_crusta"
+	description = "The sugar crust may not be sweet at all."
+	color = "#754609"
+	alcohol_perc = 0.4
+	drink_icon = "brandy_crusta"
+	drink_name = "Brandy Crusta"
+	drink_desc = "The sugar crust may not be sweet at all."
+	taste_description = "salty-sweet"
+
+/datum/reagent/consumable/ethanol/aperolspritz
+	name = "Aperol Spritz"
+	id = "aperolspritz"
+	description = "Many consider it a separate alcohol, but it's more like a knight in chess."
+	color = "#c43d3d"
+	alcohol_perc = 0.5
+	drink_icon = "aperolspritz"
+	drink_name = "Aperol Spritz"
+	drink_desc = "Many consider it a separate alcohol, but it's more like a knight in chess."
+	taste_description = "separateness of taste"
+
+/datum/reagent/consumable/ethanol/sidecar
+	name = "Sidecar"
+	id = "sidecar"
+	description = "This cocktail is very popular. It was first introduced by the popular bartender This McGarry from Buck's Club."
+	color = "#b15416"
+	alcohol_perc = 0.4
+	drink_icon = "sidecar"
+	drink_name = "Sidecar"
+	drink_desc = "This cocktail is very popular. It was first introduced by the popular bartender This McGarry from Buck's Club."
+	taste_description = "orange alcoh"
+
+/datum/reagent/consumable/ethanol/daiquiri
+	name = "Daiquiri"
+	id = "daiquiri"
+	description = "Just try, try again for me! With the headshot power of a Daiquiri!"
+	color = "#b6b6b6"
+	alcohol_perc = 0.4
+	drink_icon = "daiquiri"
+	drink_name = "Daiquiri"
+	drink_desc = "Just try, try again for me! With the headshot power of a Daiquiri!"
+	taste_description = "headshot"
+
+/datum/reagent/consumable/ethanol/tuxedo
+	name = "Tuxedo"
+	id = "tuxedo"
+	description = "I can promise you a Colombian tie."
+	color = "#888686"
+	alcohol_perc = 0.5
+	drink_icon = "tuxedo"
+	drink_name = "Tuxedo"
+	drink_desc = "I can promise you a Colombian tie."
+	taste_description = "strictness of style"
+
+/datum/reagent/consumable/ethanol/telegol
+	name = "Telegol"
+	id = "telegol"
+	description = "Many are still puzzling over the question of this cocktail. Anyway, it still exists... Or not."
+	color = "#4218a3"
+	alcohol_perc = 0.5
+	drink_icon = "telegol"
+	drink_name = "Telegol"
+	drink_desc = "Many are still puzzling over the question of this cocktail. Anyway, it still exists... Or not."
+	taste_description = "fourteen dimension"
+
+/datum/reagent/consumable/ethanol/horse_neck
+	name = "Horse Neck"
+	id = "horse_neck"
+	description = "Be careful with your horse's shoes."
+	color = "#c45d09"
+	alcohol_perc = 0.5
+	drink_icon = "horse_neck"
+	drink_name = "Horse Neck"
+	drink_desc = "Be careful with your horse's shoes."
+	taste_description = "horsepower"
+
+/datum/reagent/consumable/ethanol/cuban_sunset
+	name = "Cuban Sunset"
+	id = "cuban_sunset"
+	description = "A new day, with a new coup."
+	color = "#d88948"
+	alcohol_perc = 0.6
+	drink_icon = "cuban_sunset"
+	drink_name = "Cuban Sunset"
+	drink_desc = "A new day, with a new coup."
+	taste_description = "totalitarianism"
+
+/datum/reagent/consumable/ethanol/sake_bomb
+	name = "Sake Bomb"
+	id = "sake_bomb"
+	description = "Carpet bombing your bamboo liver."
+	color = "#e2df2e"
+	alcohol_perc = 0.3
+	drink_icon = "sake_bomb"
+	drink_name = "Sake Bomb"
+	drink_desc = "Carpet bombing your bamboo liver."
+	taste_description = "beer and sake"
+
+/datum/reagent/consumable/ethanol/blue_havai
+	name = "Blue Havai"
+	id = "blue_havai"
+	description = "The same blue as brown eyes."
+	color = "#296129"
+	alcohol_perc = 0.2
+	drink_icon = "blue_havai"
+	drink_name = "Blue Havai"
+	drink_desc = "The same blue as brown eyes."
+	taste_description = "neon dawn"
+
+/datum/reagent/consumable/ethanol/woo_woo
+	name = "Woo Woo"
+	id = "woo_woo"
+	description = "And which child came up with this name? Yeah, I see, the question is settled."
+	color = "#e22e2e"
+	alcohol_perc = 0.5
+	drink_icon = "woo_woo"
+	drink_name = "Woo Woo"
+	drink_desc = "And which child came up with this name? Yeah, I see, the question is settled."
+	taste_description = "woo woo"
+
+/datum/reagent/consumable/ethanol/mulled_wine
+	name = "Mulled Wine"
+	id = "mulled_wine"
+	description = "Just a hot wine with spices, but so pleasant."
+	color = "#fd4b4b"
+	alcohol_perc = 0.2
+	drink_icon = "mulled_wine"
+	drink_name = "Mulled Wine"
+	drink_desc = "Just a hot wine with spices, but so pleasant."
+	taste_description = "hot wine"
+
+/datum/reagent/consumable/ethanol/white_bear
+	name = "White Bear"
+	id = "white_bear"
+	description = "Two historical enemies, in one circle."
+	color = "#d8b465"
+	alcohol_perc = 0.5
+	drink_icon = "white_bear"
+	drink_name = "White Bear"
+	drink_desc = "Two historical enemies, in one circle."
+	taste_description = "ideological war"
+
+/datum/reagent/consumable/ethanol/vampiro
+	name = "Vampiro"
+	id = "vampiro"
+	description = "Has nothing to do with vampires, except that color."
+	color = "#8d0000"
+	alcohol_perc = 0.45
+	drink_icon = "vampiro"
+	drink_name = "Vampiro"
+	drink_desc = "Has nothing to do with vampires, except that color."
+	taste_description = "exhaustion"
+
+/datum/reagent/consumable/ethanol/queen_mary
+	name = "Queen Mary"
+	id = "queen_mary"
+	description = "Mary was cleaned of blood, and it turned out that she was also red."
+	color = "#bd2f2f"
+	alcohol_perc = 0.35
+	drink_icon = "queen_mary"
+	drink_name = "Queen Mary"
+	drink_desc = "Mary was cleaned of blood, and it turned out that she was also red."
+	taste_description = "cherry beer"
+
+/datum/reagent/consumable/ethanol/inabox
+	name = "Box"
+	id = "inabox"
+	description = "This... Just a box?"
+	color = "#5a3e0b"
+	alcohol_perc = 0.4
+	drink_icon = "inabox"
+	drink_name = "Box"
+	drink_desc = "This... Just a box?"
+	taste_description = "stealth"
+
+/datum/reagent/consumable/ethanol/beer_berry_royal
+	name = "Beer Berry Royal"
+	id = "beer_berry_royal"
+	description = "For some reason, they continue to float up and down."
+	color = "#684b16"
+	alcohol_perc = 0.25
+	drink_icon = "beer_berry_royal"
+	drink_name = "Beer Berry Royal"
+	drink_desc = "For some reason, they continue to float up and down."
+	taste_description = "beer berry"
+
+/datum/reagent/consumable/ethanol/sazerac
+	name = "Sazerac"
+	id = "sazerac"
+	description = "The best pharmacists are bartenders."
+	color = "#7c6232"
+	alcohol_perc = 0.4
+	drink_icon = "sazerac"
+	drink_name = "Sazerac"
+	drink_desc = "The best pharmacists are bartenders."
+	taste_description = "bitter whiskey"
+
+/datum/reagent/consumable/ethanol/monako
+	name = "Monako"
+	id = "monako"
+	description = "You might think there are more fruits on the market."
+	color = "#7c6232"
+	alcohol_perc = 0.5
+	drink_icon = "monako"
+	drink_name = "Monako"
+	drink_desc = "You might think there are more fruits on the market."
+	taste_description = "fruit gin"
+
+/datum/reagent/consumable/ethanol/irishempbomb
+	name = "Irish EMP Bomb"
+	id = "irishempbomb"
+	description = "Mmm, tastes like shut down..."
+	color = "#123eb8"
+	alcohol_perc = 0.6
+	drink_icon = "irishempbomb"
+	drink_name = "Irish EMP Bomb"
+	drink_desc = "Mmm, tastes like shut down..."
+	taste_description = "electromagnetic impulse"
+
+/datum/reagent/consumable/ethanol/codelibre
+	name = "Code Libre"
+	id = "codelibre"
+	description = "Por Code libre!"
+	color = "#a126b1"
+	alcohol_perc = 0.55
+	drink_icon = "codelibre"
+	drink_name = "Code Libre"
+	drink_desc = "Por Code libre!"
+	taste_description = "code liberation"
+
+/datum/reagent/consumable/ethanol/blackicp
+	name = "Black ICP"
+	id = "blackicp"
+	description = "I'm sorry I wasn't responding, can you repeat that?"
+	color = "#a126b1"
+	alcohol_perc = 0.5
+	drink_icon = "blackicp"
+	drink_name = "Black ICP"
+	drink_desc = "I'm sorry I wasn't responding, can you repeat that?"
+	taste_description = "monitor replacing"
+
+/datum/reagent/consumable/ethanol/slime_drink
+	name = "Slime Drink"
+	id = "slime_drink"
+	description = "Don't worry, it's just jelly."
+	color = "#dd3e32"
+	alcohol_perc = 0.2
+	drink_icon = "slime_drink"
+	drink_name = "Slime Drink"
+	drink_desc = "Don't worry, it's just jelly. And slime been dead for a long time."
+	taste_description = "jelly alcohol"
+
+/datum/reagent/consumable/ethanol/innocent_erp
+	name = "Innocent ERP"
+	id = "innocent_erp"
+	description = "Remember that big brother sees everything."
+	color = "#746463"
+	alcohol_perc = 0.5
+	drink_icon = "innocent_erp"
+	drink_name = "Innocent ERP"
+	drink_desc = "Remember that big brother sees everything."
+	taste_description = "loss of flirtatiousness"
+
+/datum/reagent/consumable/ethanol/nasty_slush
+	name = "Nasty Slush"
+	id = "nasty_slush"
+	description = "The name has nothing to do with the drink itself."
+	color = "#462c0a"
+	alcohol_perc = 0.55
+	drink_icon = "nasty_slush"
+	drink_name = "Nasty Slush"
+	drink_desc = "The name has nothing to do with the drink itself."
+	taste_description = "nasty slush"
+
+/datum/reagent/consumable/ethanol/blue_lagoon
+	name = "Blue Lagoon"
+	id = "blue_lagoon"
+	description = "What could be better than relaxing on the beach with a good drink?"
+	color = "#1edddd"
+	alcohol_perc = 0.5
+	drink_icon = "blue_lagoon"
+	drink_name = "Blue Lagoon"
+	drink_desc = "What could be better than relaxing on the beach with a good drink?"
+	taste_description = "beach relaxation"
+
+/datum/reagent/consumable/ethanol/green_fairy
+	name = "Green Fairy"
+	id = "green_fairy"
+	description = "Some kind of abnormal green."
+	color = "#54dd1e"
+	alcohol_perc = 0.6
+	drink_icon = "green_fairy"
+	drink_name = "Green Fairy"
+	drink_desc = "Some kind of abnormal green."
+	taste_description = "faith in fairies"
+
+/datum/reagent/consumable/ethanol/home_lebovsky
+	name = "Home Lebowski"
+	id = "home_lebovsky"
+	description = "Let me explain something to you. Um, I am not Home Lebowski. You're Home Lebowski. I'm The Dude."
+	color = "#422b00"
+	alcohol_perc = 0.35
+	drink_icon = "home_lebovsky"
+	drink_name = "Home Lebowski"
+	drink_desc = "Let me explain something to you. Um, I am not Home Lebowski. You're Home Lebowski. I'm The Dude."
+	taste_description = "dressing gown"
+
+/datum/reagent/consumable/ethanol/top_billing
+	name = "Top Billing"
+	id = "top_billing"
+	description = "In a prominent place, our top billing!"
+	color = "#0b573d"
+	alcohol_perc = 0.4
+	drink_icon = "top_billing"
+	drink_name = "Top Billing"
+	drink_desc = "In a prominent place, our top billing!"
+	taste_description = "advertising space"
+
+/datum/reagent/consumable/ethanol/trans_siberian_express
+	name = "Trans-Siberian Express"
+	id = "trans_siberian_express"
+	description = "From Vladivostok to delirium tremens in a day."
+	color = "#e2a600"
+	alcohol_perc = 0.5
+	drink_icon = "trans_siberian_express"
+	drink_name = "Trans-Siberian express"
+	drink_desc = "From Vladivostok to delirium tremens in a day."
+	taste_description = "terrible infrastructure"
+
+/datum/reagent/consumable/ethanol/sun
+	name = "Sun"
+	id = "sun"
+	description = "Red sun over paradise!"
+	color = "#bd1c1c"
+	alcohol_perc = 0.4
+	drink_icon = "sun"
+	drink_name = "Sun"
+	drink_desc = "Red sun over paradise!"
+	taste_description = "sun heat"
+
+/datum/reagent/consumable/ethanol/tick_tack
+	name = "Tick-Tock"
+	id = "tick_tack"
+	description = "Tick-Tock, Tick-Tock Bzzzzz..."
+	color = "#118020"
+	alcohol_perc = 0.3
+	drink_icon = "tick_tack"
+	drink_name = "Tick-Tock"
+	drink_desc = "Tick-Tock, Tick-Tock Bzzzzz..."
+	taste_description = "clock tick"
+
+/datum/reagent/consumable/ethanol/uragan_shot
+	name = "Uragan Shot"
+	id = "uragan_shot"
+	description = "Is it a uragan? But no, it's urahol."
+	color = "#da6631"
+	alcohol_perc = 0.35
+	drink_icon = "uragan_shot"
+	drink_name = "Uragan Shot"
+	drink_desc = "Is it a uragan? But no, it's urahol."
+	taste_description = "gusts of wind"
+
+/datum/reagent/consumable/ethanol/new_yorker
+	name = "New Yorker"
+	id = "new_yorker"
+	description = "Be careful with the stock exchange, otherwise it will be 'Black Tuesday.'"
+	color = "#da3131"
+	alcohol_perc = 0.4
+	drink_icon = "new_yorker"
+	drink_name = "New Yorker"
+	drink_desc = "Be careful with the stock exchange, otherwise it will be 'Black Tuesday.'"
+	taste_description = "the collapse"

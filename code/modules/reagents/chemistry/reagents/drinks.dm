@@ -535,3 +535,12 @@
 	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
 	taste_description = "refreshingly cold cocoa"
+
+/datum/reagent/consumable/drink/non_alcoholic_beer
+	name = "Non-alcoholic beer"
+	id = "alcohol_free_beer"
+	description = "The most meaningless thing."
+	drink_icon = "alcohol_free_beer"
+	drink_name = "Non-alcoholic beer"
+	color = "#572c13"
+	taste_description = "beer"

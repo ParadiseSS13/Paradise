@@ -892,3 +892,528 @@
 	result = "rainbow_sky"
 	required_reagents = list("doctorsdelight" = 1, "bananahonk" = 1, "erikasurprise" = 1, "screwdrivercocktail" = 1, "gargleblaster" = 1)
 	result_amount = 5
+
+/datum/chemical_reaction/aperol
+	name = "Aperol"
+	id = "aperol"
+	result = "aperol"
+	required_reagents = list("grapejuice" = 5, "limejuice" = 5, "wine" = 5)
+	required_catalysts = list("enzyme" = 5)
+	result_amount = 20
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bitter
+	name = "Bitter"
+	id = "bitter"
+	result = "bitter"
+	required_reagents = list("ethanol" = 5, "berryjuice" = 5)
+	required_catalysts = list("enzyme" = 5)
+	result_amount = 15
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/schnaps
+	name = "Schnaps"
+	id = "schnaps"
+	result = "schnaps"
+	required_reagents = list("ethanol" = 5, "flour" = 5)
+	required_catalysts = list("enzyme" = 5)
+	result_amount = 15
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+//////////////////////////coctail/////////////////////////////
+
+/datum/chemical_reaction/black_blood
+	name = "Black Blood"
+	id = "black_blood"
+	result = "black_blood"
+	required_reagents = list("bluecuracao" = 2, "jagermeister" = 1, "sodawater" = 1, "ice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/light_storm
+	name = "Light Storm"
+	id = "light_storm"
+	result = "light_storm"
+	required_reagents = list("sheridan" = 2, "vodka" = 1, "sambuka" = 1, "cream" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cream_heaven
+	name = "Cream Heaven"
+	id = "cream_heaven"
+	result = "cream_heaven"
+	required_reagents = list("sheridan" = 2, "milk" = 2, "gin" = 1, "ice" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/negroni
+	name = "Negroni"
+	id = "negroni"
+	result = "negroni"
+	required_reagents = list("martini" = 2, "bitter" = 1, "orangejuice" = 2)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/hirosima
+	name = "Hirosima"
+	id = "hirosima"
+	result = "hirosima"
+	required_reagents = list("grapejuice" = 1, "sambuka" = 2, "absinthe" = 1, "irishcream" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/nagasaki
+	name = "Nagasaki"
+	id = "nagasaki"
+	result = "nagasaki"
+	required_reagents = list("nagasaki" = 1, "uranium" = 10)
+	result_amount = 10
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/chocolate_sheridan
+	name = "Chocolate Sheridan's"
+	id = "chocolate_sheridan"
+	result = "chocolate_sheridan"
+	required_reagents = list("sheridan" = 5, "chocolate" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/panamian
+	name = "Panama"
+	id = "panamian"
+	result = "panamian"
+	required_reagents = list("gintonic" = 1, "bluecuracao" = 2, "vodka" = 1, "ice" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/pegu_club
+	name = "Pegu Club"
+	id = "pegu_club"
+	result = "pegu_club"
+	required_reagents = list("gin" = 2, "orangejuice" = 1, "limejuice" = 1, "bitter" = 2)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/jagermachine
+	name = "Jagermachine"
+	id = "jagermachine"
+	result = "jagermachine"
+	required_reagents = list("jagermeister" = 1, "synthanol" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/blue_cybesauo
+	name = "Blue Cybesauo"
+	id = "blue_cybesauo"
+	result = "blue_cybesauo"
+	required_reagents = list("bluecuracao" = 2, "synthanol" = 2, "limejuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/alcomender
+	name = "Alcomender"
+	id = "alcomender"
+	result = "alcomender"
+	required_reagents = list("silver_sulfadiazine" = 1, "ethanol" = 1 )
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/amnesia
+	name = "Amnesia"
+	id = "Amnesia"
+	result = "amnesia"
+	required_reagents = list("hooch" = 1, "vodka" = 1,  )
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/johnny
+	name = "Silverhand"
+	id = "johnny"
+	result = "johnny"
+	required_reagents = list("tequila" = 2, "bitter" = 1, "beer" = 1, "berryjuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cosmospoliten
+	name = "Cosmospoliten"
+	id = "cosmospoliten"
+	result = "cosmospoliten"
+	required_reagents = list("screwdrivercocktail" = 2, "orangejuice" = 1, "limejuice" = 1, "berryjuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/oldfashion
+	name = "Old Fashion"
+	id = "oldfashion"
+	result = "oldfashion"
+	required_reagents = list("whiskey" = 5, "bitter" = 2, "sugar" = 2, "orangejuice" = 1,  )
+	result_amount = 10
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/french_75
+	name = "French 75"
+	id = "french_75"
+	result = "french_75"
+	required_reagents = list("gin" = 2, "lemonjuice" = 1, "champagne" = 2, "sugar" = 1 )
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/gydroseridan
+	name = "Gydroridan"
+	id = "gydroseridan"
+	result = "gydroseridan"
+	required_reagents = list("sheridan" = 2, "synthanol" = 1 )
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/milk_plus
+	name = "Milk +"
+	id = "milk_plus"
+	result = "milk_plus"
+	required_reagents = list("absinthe" = 2, "irishcream" = 2, "milk" = 5, "sugar" = 1 )
+	result_amount = 10
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/teslasingylo
+	name = "God Of Power"
+	id = "teslasingylo"
+	result = "teslasingylo"
+	required_reagents = list("teslium" = 2, "radium" = 2, "whiskey" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/light
+	name = "Light"
+	id = "light"
+	result = "light"
+	required_reagents = list("orangejuice" = 2, "mead" = 1)
+	min_temp = T0C + 100
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/bees_knees
+	name = "Bee's Knees"
+	id = "bees_knees"
+	result = "bees_knees"
+	required_reagents = list("gin" = 2, "lemonjuice" = 1, "limejuice" = 1, "honey" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/bees_knees2
+	name = "Bee's Knees"
+	id = "bees_knees"
+	result = "bees_knees"
+	required_reagents = list("gin" = 2, "lemonjuice" = 1, "limejuice" = 1, "mead" = 3 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/aviation
+	name = "aviation"
+	id = "aviation"
+	result = "aviation"
+	required_reagents = list("gin" = 2, "berryjuice" = 1, "lemon_lime" = 1, "cream" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/fizz
+	name = "Fizz"
+	id = "fizz"
+	result = "fizz"
+	required_reagents = list("whiskeysoda" = 4, "lemonjuice" = 1, "sugar" = 2)
+	result_amount = 7
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/brandy_crusta
+	name = "Brandy Crusta"
+	id = "brandy_crusta"
+	result = "brandy_crusta"
+	required_reagents = list("whiskey" = 2, "berryjuice" = 1, "lemonjuice" = 1, "bitter" = 1 )
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/aperolspritz
+	name = "Aperol Spritz"
+	id = "aperolspritz"
+	result = "aperolspritz"
+	required_reagents = list("aperol" = 4, "wine" = 3, "sodawater" = 1, "orangejuice" = 2 )
+	result_amount = 10
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/sidecar
+	name = "Sidecar"
+	id = "sidecar"
+	result = "sidecar"
+	required_reagents = list("cognac" = 3, "triple_citrus" = 2)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/tuxedo
+	name = "tuxedo"
+	id = "tuxedo"
+	result = "tuxedo"
+	required_reagents = list("martini" = 2, "vermouth" = 2, "absinthe" = 1, "bitter" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/daiquiri
+	name = "Daiquiri"
+	id = "daiquiri"
+	result = "daiquiri"
+	required_reagents = list("rum" = 3, "limejuice" = 2, "sugar" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/telegol
+	name = "telegol"
+	id = "telegol"
+	result = "telegol"
+	required_reagents = list("teslium" = 2, "vodka" = 2, "dr_gibb" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/horse_neck
+	name = "Horse Neck"
+	id = "horse_neck"
+	result = "horse_neck"
+	required_reagents = list("whiskey" = 2, "ale" = 3, "bitter" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cuban_sunset
+	name = "Cuban Sunset"
+	id = "cuban_sunset"
+	result = "cuban_sunset"
+	required_reagents = list("rum" = 3, "lemonade" = 2, "bitter" = 1)
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/sake_bomb
+	name = "Sake Bomb"
+	id = "sake_bomb"
+	result = "sake_bomb"
+	required_reagents = list("beer" = 2, "sake" = 2)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/blue_havai
+	name = "Blue Havai"
+	id = "blue_havai"
+	result = "blue_havai"
+	required_reagents = list("rum" = 2, "vodka" = 2, "bluecuracao" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/woo_woo
+	name = "Woo Woo"
+	id = "woo_woo"
+	result = "woo_woo"
+	required_reagents = list("vodka" = 2, "schnaps" = 2, "berryjuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mulled_wine
+	name = "Mulled Wine"
+	id = "mulled_wine"
+	result = "mulled_wine"
+	required_reagents = list("wine" = 2, "lemonjuice" = 2)
+	min_temp = T0C + 100
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/white_bear
+	name = "White Bear"
+	id = "white_bear"
+	result = "white_bear"
+	required_reagents = list("schnaps" = 2, "cream" = 1, "beer" = 2)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/vampiro
+	name = "Vampiro"
+	id = "vampiro"
+	result = "vampiro"
+	required_reagents = list("tequila" = 2, "tomatojuice" = 1, "berryjuice" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/queen_mary
+	name = "Queen Mary"
+	id = "queen_mary"
+	result = "queen_mary"
+	required_reagents = list("beer" = 2, "berryjuice" = 2, "bitter" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/inabox
+	name = "Box"
+	id = "inabox"
+	result = "inabox"
+	required_reagents = list("gin" = 2, "potato" = 1 )
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/beer_berry_royal
+	name = "Beer Berry Royal"
+	id = "beer_berry_royal"
+	result = "beer_berry_royal"
+	required_reagents = list("beer" = 2, "berryjuice" = 2, "grapejuice" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/sazerac
+	name = "Sazerac"
+	id = "sazerac"
+	result = "sazerac"
+	required_reagents = list("absinthe" = 1, "cognac" = 1, "bitter" = 1, "whiskey" = 1, "water" = 2 )
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/monako
+	name = "Monako"
+	id = "monako"
+	result = "monako"
+	required_reagents = list("gin" = 1, "lemonjuice" = 1, "limejuice" = 1, "berryjuice" = 1, "sodiumchloride" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/irishempbomb
+	name = "Irish EMP Bomb"
+	id = "irishempbomb"
+	result = "irishempbomb"
+	required_reagents = list("irishcarbomb" = 1, "synthanol" = 1 )
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/codelibre
+	name = "Code Libre"
+	id = "codelibre"
+	result = "codelibre"
+	required_reagents = list("cubalibre" = 1, "synthanol" = 1 )
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/blackicp
+	name = "Black ICP"
+	id = "blackicp"
+	result = "blackicp"
+	required_reagents = list("blackrussian" = 1, "synthanol" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/slime_drink
+	name = "Slime Drink"
+	id = "slime_drink"
+	result = "slime_drink"
+	required_reagents = list("cherryjelly" = 5, "ice" = 2, "sugar" = 1, "gin" = 2 )
+	result_amount = 10
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/innocent_erp
+	name = "Innocent ERP"
+	id = "innocent_erp"
+	result = "innocent_erp"
+	required_reagents = list("sambuka" = 3, "triple_citrus" = 1, "irishcream" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/nasty_slush
+	name = "Nasty Slush"
+	id = "nasty_slush"
+	result = "nasty_slush"
+	required_reagents = list("absinthe" = 2, "kahlua" = 2, "irishcream" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/blue_lagoon
+	name = "Blue Lagoon"
+	id = "blue_lagoon"
+	result = "blue_lagoon"
+	required_reagents = list("bluecuracao" = 2, "vodka" = 2, "sodawater" = 1, "ice" = 1 )
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/green_fairy
+	name = "Green Fairy"
+	id = "green_fairy"
+	result = "green_fairy"
+	required_reagents = list("tequila" = 1, "absinthe" = 1, "vodka" = 1, "bluecuracao" = 1, "lemonjuice" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/home_lebovsky
+	name = "Home Lebovsky"
+	id = "home_lebovsky"
+	result = "home_lebovsky"
+	required_reagents = list("vodka" = 2, "coffee" = 1, "sugar" = 1, "ice" = 1 )
+	result_amount = 6
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/top_billing
+	name = "Top Billing"
+	id = "top_billing"
+	result = "top_billing"
+	required_reagents = list("vodka" = 2, "bluecuracao" = 1, "lemonjuice" = 2, "ice" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/trans_siberian_express
+	name = "Trans-Siberian Express"
+	id = "trans_siberian_express"
+	result = "trans_siberian_express"
+	required_reagents = list("vodka" = 3, "limejuice" = 2, "carrotjuice" = 2, "ice" = 1 )
+	result_amount = 8
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/sun
+	name = "Sun"
+	id = "sun"
+	result = "sun"
+	required_reagents = list("rum" = 2, "berryjuice" = 2, "egg" = 1 )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/tick_tack
+	name = "Tick-Tack"
+	id = "tick_tack"
+	result = "tick_tack"
+	required_reagents = list("sambuka" = 1, "watermelonjuice" = 1 )
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/uragan_shot
+	name = "Uragan Shot"
+	id = "uragan_shot"
+	result = "uragan_shot"
+	required_reagents = list("whiskey" = 1, "gin" = 1, "watermelonjuice" = 1 )
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/new_yorker
+	name = "New Yorker"
+	id = "new_yorker"
+	result = "new_yorker"
+	required_reagents = list("whiskey" = 3, "bitter" = 1, "grapejuice" = 2, "limejuice" = 1,  )
+	result_amount = 7
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

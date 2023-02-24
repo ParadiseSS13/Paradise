@@ -178,6 +178,13 @@
 	is_glass = 1
 	list_reagents = list("beer" = 30)
 
+/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer
+	name = "non-alcoholic beer"
+	desc = "A favorite thing of all students and those who drive."
+	icon_state = "alcoholfreebeercan"
+	list_reagents = list("alcohol_free_beer" = 30)
+
+
 /obj/item/reagent_containers/food/drinks/cans/adminbooze
 	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."

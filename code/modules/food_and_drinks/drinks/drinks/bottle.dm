@@ -273,6 +273,54 @@
 	icon_state = "fernetbottle"
 	list_reagents = list("fernet" = 100)
 
+/obj/item/reagent_containers/food/drinks/bottle/champagne
+	name = "Sparkling Sunny Champagne"
+	desc = "A bottle of pure sizzling sun, ready to hit your brain."
+	icon_state = "champagnebottle"
+	list_reagents = list("champagne" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/aperol
+	name = "Jungle Aperol Aperitivo"
+	desc = "A true aperitif experienced in the most remote jungle."
+	icon_state = "aperolbottle"
+	list_reagents = list("aperol" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/jagermeister
+	name = "Infused Space Jaegermeister"
+	desc = "Das ist des Jägers Ehrenschild, daß er beschützt und hegt sein Wild, weidmännisch jagt, wie sich gehört, den Schöpfer im Geschöpfe ehrt."
+	icon_state = "jagermeisterbottle"
+	list_reagents = list("jagermeister" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/schnaps
+	name = "Grainy Mint Schnapps"
+	desc = "A real horror for a true connoisseur, high-quality mint schnapps."
+	icon_state = "schnapsbottle"
+	list_reagents = list("schnaps" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/sheridan
+	name = "Sheridan’s Coffee Layered"
+	desc = "A double miracle with a new innovative neck, much better than yours."
+	icon_state = "sheridanbottle"
+	list_reagents = list("sheridan" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bitter
+	name = "Vacuum Cherry Bitter"
+	desc = "Try not to suffocate after drinking such wonderful bitterness."
+	icon_state = "bitterbottle"
+	list_reagents = list("bitter" = 50)
+
+/obj/item/reagent_containers/food/drinks/bottle/bluecuracao
+	name = "Grenadier Blue Curacao"
+	desc = "The explosion is an art, but the blue explosion is much better."
+	icon_state = "bluecuracao"
+	list_reagents = list("bluecuracao" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/sambuka
+	name = "The Headless Horseman 's Sambuka"
+	desc = "I haven't drunk sambuca since I was twenty."
+	icon_state = "sambukabottle"
+	list_reagents = list("sambuka" = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
