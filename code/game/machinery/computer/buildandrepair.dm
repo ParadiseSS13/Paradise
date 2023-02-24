@@ -386,6 +386,9 @@
 	icon_state = "bananium_board"
 	board_type = "honkcomputer"
 
+/obj/item/circuitboard/broken
+	name = "Broken curcuit"
+	build_path = null
 
 /obj/item/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/multitool))
@@ -548,7 +551,11 @@
 			if(istype(P, /obj/item/screwdriver))
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-				var/B = new circuit.build_path (loc)
+				var/build_path = circuit.build_path
+				if(!build_path)
+					to_chat(user, "<span class='notice'>The circuit is not working, so you cant build this computer.</span>")
+					return
+				var/B = new build_path (loc)
 				if(circuit.powernet) B:powernet = circuit.powernet
 				if(circuit.id) B:id = circuit.id
 				if(circuit.records) B:records = circuit.records
