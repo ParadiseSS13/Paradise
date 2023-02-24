@@ -44,6 +44,7 @@
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
+	var/time = "00:00"
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
@@ -660,11 +661,17 @@
 	info =  ""
 
 /obj/item/paper/central_command
-	name = "paper"
-	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Центральное командование Nanotrasen</h3><p style='text-align: center;font-family:Verdana;'>Официальный Меморандум</p></b><hr />"
+	name = "Директива Центрального Командования"
 	info = ""
-	footer = "<hr /><p style='font-family:Verdana;'><em>Несоблюдение указаний, содержащихся в данном документе, считается нарушением политики компании; Дисциплинарное взыскание за нарушения может быть применено на месте или в конце смены в Центральном командовании. </em> <br /> <em>*Получатель(и) данного меморандума подтверждает(ют), что он(она/они) несут ответственность за любой ущерб, который может возникнуть в результате игнорирования приведенных здесь директив или рекомендаций. </em> <br /> <em> *Все отчеты должны храниться конфиденциально их предполагаемым получателем и любой соответствующей стороной. Несанкционированное распространение данного меморандума может привести к дисциплинарным взысканиям</em></p>"
-
+	
+/obj/item/paper/central_command/Initialize(mapload)
+	time = "Время: [station_time_timestamp()]"
+	if(!(GLOB.genname))
+		GLOB.genname = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
+	header ="<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">Форма NT-CC-DRV</font></td><tr><td><font size=\"1\">NAS Trurl</font></td><tr><td><font size=\"1\">[time]</font></td><tr><td></td><tr><td></td><tr><td><B>Директива Центрального Командования</B></td></tr></table></td></tr></table><BR><HR><BR></font>"
+	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального Командования.</em></font></p>"
+	populatefields()
+	return ..()
 
 /obj/item/paper/crumpled/update_icon()
 	return
