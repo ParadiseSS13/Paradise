@@ -1,6 +1,7 @@
 /mob/living/silicon/robot/syndicate
 	base_icon = "syndie_bloodhound"
 	icon_state = "syndie_bloodhound"
+	has_transform_animation = TRUE
 	lawupdate = 0
 	scrambledcodes = 1
 	has_camera = FALSE
@@ -55,6 +56,7 @@
 /mob/living/silicon/robot/syndicate/medical
 	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
+	has_transform_animation = TRUE
 	modtype = "Syndicate Medical"
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
@@ -76,6 +78,7 @@
 /mob/living/silicon/robot/syndicate/saboteur
 	base_icon = "syndi-engi"
 	icon_state = "syndi-engi"
+	has_transform_animation = TRUE
 	modtype = "Syndicate Saboteur"
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8

@@ -21,6 +21,7 @@
 	lawchannel = "State"
 	drain_act_protected = TRUE
 	playstyle_string = null
+	has_transform_animation = FALSE
 
 /mob/living/silicon/robot/syndicate/saboteur/ninja/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	. = ..()

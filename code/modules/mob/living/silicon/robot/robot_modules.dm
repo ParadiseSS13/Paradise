@@ -1,6 +1,7 @@
 /obj/item/robot_module
 	name = "Placeholder name"
 	var/name_disguise //used by examine
+	var/has_transform_animation = FALSE
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
 	w_class = 100
@@ -174,6 +175,7 @@
 		"Default" = "Standard",
 		"Noble-STD" = "Noble-STD"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/standard/New()
 	..()
@@ -234,6 +236,7 @@
 		"Noble-MED" = "Noble-MED",
 		"Cricket" = "Cricket-MEDI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/medical/New()
 	..()
@@ -295,6 +298,7 @@
 		"Noble-ENG" = "Noble-ENG",
 		"Cricket" = "Cricket-ENGI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/engineering/New()
 	..()
@@ -347,6 +351,7 @@
 		"Noble-SEC" = "Noble-SEC",
 		"Cricket" = "Cricket-SEC"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/security/New()
 	..()
@@ -375,6 +380,7 @@
 		"Noble-CLN" = "Noble-CLN",
 		"Cricket" = "Cricket-JANI"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/janitor/New()
 	..()
@@ -408,6 +414,7 @@
 		"Noble-SRV" = "Noble-SRV",
 		"Cricket" = "Cricket-SERV"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/butler/New()
 	..()
@@ -491,6 +498,7 @@
 		"Cricket" = "Cricket-MINE",
 		"Lavaland" = "lavaland"
 	)
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/miner/New()
 	..()
@@ -522,6 +530,9 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
+	default_skin = "nano_bloodhound"
+	borg_skins = list("Deathsquad" = "nano_bloodhound")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/deathsquad/New()
 	..()
@@ -538,6 +549,9 @@
 /obj/item/robot_module/syndicate
 	name = "Syndicate Bloodhound"
 	module_type = "Malf" // cuz it looks cool
+	default_skin = "syndie_bloodhound"
+	borg_skins = list("Syndicate Bloodhound" = "syndie_bloodhound")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate/New()
 	..()
@@ -558,6 +572,9 @@
 /obj/item/robot_module/syndicate_medical
 	name = "Syndicate Medical"
 	module_type = "Malf"
+	default_skin = "syndi-medi"
+	borg_skins = list("Syndicate Medical" = "syndi-medi")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate_medical/New()
 	..()
@@ -598,6 +615,9 @@
 	name = "Syndicate Saboteur"
 	name_disguise = "Engineering"
 	module_type = "Malf"
+	default_skin = "syndi-engi"
+	borg_skins = list("Syndicate Saboteur" = "syndi-engi")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
@@ -663,6 +683,7 @@
 	module_actions = list()
 	default_skin = "ertgamma"
 	borg_skins = list("ERT-GAMMA" = "ertgamma")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/combat/New()
 	..()

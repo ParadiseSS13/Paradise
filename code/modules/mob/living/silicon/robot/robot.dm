@@ -60,6 +60,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ear_protection = 0
 	var/damage_protection = 0
 	var/emp_protection = FALSE
+	var/has_transform_animation = FALSE
  	/// Value incoming brute damage to borgs is mutiplied by.
 	var/brute_mod = 1
 	/// Value incoming burn damage to borgs is multiplied by.
@@ -181,6 +182,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new()
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/create_trail)
+
+	if(length(module?.borg_skins) <= 1 && (has_transform_animation || module?.has_transform_animation))
+		transform_animation(icon_state, TRUE)
 
 /mob/living/silicon/robot/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
 	if(ionpulse_on)
@@ -987,7 +991,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			add_conversion_logs(src, "Converted as a slave to [key_name_log(user)]")
 			sleep(6)
 			SetEmagged(TRUE)
-			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
+			SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			disconnect_from_ai()
@@ -1015,7 +1019,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
 			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
-			SetLockdown(0)
+			SetLockdown(FALSE)
 			if(src.module && istype(src.module, /obj/item/robot_module/miner))
 				for(var/obj/item/pickaxe/drill/cyborg/D in src.module.modules)
 					qdel(D)
@@ -1393,10 +1397,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return
 
-/mob/living/silicon/robot/proc/SetLockdown(var/state = 1)
+/mob/living/silicon/robot/proc/SetLockdown(var/state = TRUE)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))
-		state = 1
+		state = TRUE
 	if(isclocker(src))
 		return
 	if(state)
@@ -1414,26 +1418,41 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		icon_state =  "[src.ckey]-[modtype]"
 		return
 
-	icon_state = module.default_skin
-	if(length(module.borg_skins) <= 1) // it's a default
-		return
-	lockcharge = TRUE  //Locks borg until it select an icon to avoid secborgs running around with a standard sprite
 	var/list/choices = list()
-	for(var/skin in module.borg_skins)
-		var/image/skin_image = image(icon = icon, icon_state = module.borg_skins[skin])
-		skin_image.add_overlay("eyes-[module.borg_skins[skin]]")
-		choices[skin] = skin_image
-	var/choice = show_radial_menu(src, src, choices, require_near = TRUE)
+	var/choice
+	if(length(module?.borg_skins) > 1)
+		for(var/skin in module.borg_skins)
+			var/image/skin_image = image(icon = icon, icon_state = module.borg_skins[skin])
+			skin_image.add_overlay("eyes-[module.borg_skins[skin]]")
+			choices[skin] = skin_image
+		choice = show_radial_menu(src, src, choices, require_near = TRUE)
+
+	overlays.Cut()
 	if(choice)
 		icon_state = module.borg_skins[choice]
-		to_chat(src, "<span class='notice'>Your icon has been set. You now require a reset module to change it.</span>")
+		transform_animation(module.borg_skins[choice])
 	else
-		to_chat(src, "<span class='notice'>Your icon has been set by default. You now require a reset module to change it.</span>")
+		icon_state = module.default_skin
+		transform_animation(module.default_skin, TRUE)
+
 	var/list/names = splittext(icon_state, "-")
 	custom_panel = trim(names[1])
-	update_icons()
-	lockcharge = FALSE
 	return
+
+/mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
+	SetLockdown(TRUE)
+	say("Загрузка модуля...")
+	setDir(SOUTH)
+	for(var/i in 1 to 4)
+		playsound(loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
+	flick("[animated_icon]_transform", src)
+	to_chat(src, "<span class='notice'>Your icon has been set[default?" by default":""]. You now require a reset module to change it.</span>")
+	addtimer(CALLBACK(src, /mob/living/silicon/robot/.proc/complete_loading), 5 SECONDS)
+	update_icons()
+
+/mob/living/silicon/robot/proc/complete_loading()
+	SetLockdown(FALSE)
+	say("Инициализация успешна")
 
 /mob/living/silicon/robot/proc/notify_ai(var/notifytype, var/oldname, var/newname)
 	if(!connected_ai)
@@ -1504,6 +1523,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	see_reagents = TRUE
+	has_transform_animation = TRUE
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
