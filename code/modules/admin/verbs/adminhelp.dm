@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 		return
 
 	msg = sanitize_simple(copytext_char(msg, 1, MAX_MESSAGE_LEN))
+	msg = sanitize_censored_patterns(msg)
 	if(!msg) // No message after sanitisation
 		return
 

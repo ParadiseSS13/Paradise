@@ -104,6 +104,7 @@
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
 		msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
+		msg = sanitize_censored_patterns(msg)
 		if(!msg)
 			return
 	else

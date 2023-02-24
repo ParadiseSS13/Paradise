@@ -721,6 +721,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize_censored_patterns(msg)
 
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
