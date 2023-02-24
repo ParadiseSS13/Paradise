@@ -2568,6 +2568,7 @@
 #include "code\modules\surgery\organs_internal.dm"
 #include "code\modules\surgery\other.dm"
 #include "code\modules\surgery\plastic_surgery.dm"
+#include "code\modules\surgery\plastic_surgery_robotics.dm"
 #include "code\modules\surgery\remove_embedded_object.dm"
 #include "code\modules\surgery\robotics.dm"
 #include "code\modules\surgery\surgery.dm"
