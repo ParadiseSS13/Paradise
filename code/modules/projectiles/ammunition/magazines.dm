@@ -258,29 +258,26 @@
 	caliber = "4.6x30mm"
 	max_ammo = 10
 	multi_sprite_step = 4
+	var/being_loaded = FALSE //A var to check if the mag is already being loaded
 
 /obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
-		var/atom/Aloc = A
-		if(Aloc.loc == user)
-			to_chat(user, "<span class='notice'>You begin to load the magazine with [src].</span>")
-			var/obj/item/ammo_box/AB = A
-			for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
-				if(length(stored_ammo) < max_ammo)
-					if(moving_do_after(user, 0.5 SECONDS, target = src, use_default_checks = TRUE))
-						src.give_round(AC)
-						AB.stored_ammo -= AC
-						update_mat_value()
-						update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-						AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-						playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
-					else
-						to_chat(user, "<span class='notice'>You stop loading the magazine with [src].</span>")
-						break
-		else if(!Aloc.loc == user)
-			to_chat(user, "<span class='notice'>You can't load the magazine while it on the ground!.</span>")
-		else
-			to_chat(user, "<span class='notice'>No bullets left to load the magazine with [src].</span>")
+		to_chat(user, "<span class='notice'>You begin to load the magazine with [src].</span>")
+		var/obj/item/ammo_box/AB = A
+		being_loaded = TRUE
+		for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
+			if(length(stored_ammo) < max_ammo)
+				if(moving_do_after(user, 0.5 SECONDS, target = src, use_default_checks = TRUE))
+					src.give_round(AC)
+					AB.stored_ammo -= AC
+					update_mat_value()
+					update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+					AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+					playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+				else
+					to_chat(user, "<span class='notice'>You stop loading the magazine with [src].</span>")
+					break
+		being_loaded = FALSE
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC))
