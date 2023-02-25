@@ -30,7 +30,7 @@
 	admin_spawned = TRUE
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
-	qdel(beacon)
+	QDEL_NULL(beacon)
 	return ..()
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
@@ -91,8 +91,7 @@
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
 		if(isfloorturf(beacon_loc) && !islava(beacon_loc) && !ischasm(beacon_loc))
-			if(beacon)
-				qdel(beacon)
+			QDEL_NULL(beacon)
 			beacon = new(beacon_loc)
 			to_chat(src, "<span class='danger'>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span>")
 			beacon_cooldown = world.time + default_beacon_cooldown
