@@ -465,9 +465,9 @@
 
 	var/holding = user.get_active_hand()
 
-	var/holdingnull = TRUE //User's hand started out empty, check for an empty hand
+	var/holdingnull = TRUE
 	if(holding)
-		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
+		holdingnull = FALSE
 
 	var/datum/progressbar/progbar
 	if(progress)
@@ -477,8 +477,6 @@
 	var/starttime = world.time
 	. = TRUE
 
-	// By default, checks for weakness and stunned get added to the extra_checks list.
-	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
 	if(use_default_checks)
 		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsWeakened))
 		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsStunned))
@@ -495,14 +493,13 @@
 		if(Tloc && (!target || Tloc != target.loc))
 			. = FALSE
 			break
-		// Makes it so it can only be used while on the person
+
 		if(target.loc != user)
 			. = FALSE
 			break
 
 		if(needhand)
-			//This might seem like an odd check, but you can still need a hand even when it's empty
-			//i.e the hand is used to pull some item/tool out of the construction
+
 			if(!holdingnull)
 				if(!holding)
 					. = FALSE
