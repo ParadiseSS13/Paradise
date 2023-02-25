@@ -371,8 +371,6 @@
 	if(!proximity) return
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1
-		A.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].", \
-											"<span class='userdanger'>[user] blinks \the [src] at \the [A].")
 		if(ismob(A))
 			var/mob/M = A
 			add_attack_logs(user, M, "Hit with EMP-light")
