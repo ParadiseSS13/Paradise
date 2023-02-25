@@ -3,6 +3,27 @@
 	desc = "A computer used to control a nearby holodeck."
 	icon_keyboard = "tech_key"
 	icon_screen = "holocontrol"
+
+	/// String name of the currently selected holodeck state
+	var/selected_deck = "Empty Court"
+	/// The default deck for this holodeck incase of emergency / destruction
+	var/area/shutdown_state = /area/holodeck/source_plating
+	/// All decks available to the player, will automatically be selectable in the menu if put in this list
+	var/list/available_decks = list(
+		"Empty Court" = /area/holodeck/source_emptycourt,
+		"Boxing Court" = /area/holodeck/source_boxingcourt,
+		"Basketball Court" = /area/holodeck/source_basketball,
+		"Thunderdome Court" = /area/holodeck/source_thunderdomecourt,
+		"Beach" = /area/holodeck/source_beach,
+		"Desert" = /area/holodeck/source_desert,
+		"Space" = /area/holodeck/source_space,
+		"Picnic Area" = /area/holodeck/source_picnicarea,
+		"Snow Field" = /area/holodeck/source_snowfield,
+		"Theatre" = /area/holodeck/source_theatre,
+		"Meeting Hall" = /area/holodeck/source_meetinghall,
+		"Knight Arena" = /area/holodeck/source_knightarena,
+	)
+	var/emag_deck = /area/holodeck/source_wildlife
 	var/area/linkedholodeck = null
 	var/area/target = null
 	var/active = FALSE
@@ -11,188 +32,26 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/HolodeckControl/attack_ai(mob/user as mob)
-	return attack_hand(user)
-
-
-/obj/machinery/computer/HolodeckControl/attack_hand(mob/user as mob)
-	if(..())
-		return 1
-
-	user.set_machine(src)
-	var/dat
-
-	dat += "<B>Holodeck Control System</B><BR>"
-	dat += "<HR>Current Loaded Programs:<BR>"
-
-	dat += "<A href='?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];space=1'>((Space)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
-//		dat += "<A href='?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
-
-	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
-
-	if(emagged)
-/*			dat += "<A href='?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
-		dat += "Ensure the holodeck is empty before testing.<BR>"
-		dat += "<BR>"*/
-		dat += "<A href='?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
-		dat += "Ensure the holodeck is empty before testing.<BR>"
-		dat += "<BR>"
-		if(issilicon(user))
-			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
-		dat += "Safety Protocols are <font color=red> DISABLED </font><BR>"
-	else
-		if(issilicon(user))
-			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
-		dat += "<BR>"
-		dat += "Safety Protocols are <font color=green> ENABLED </font><BR>"
-
-	var/datum/browser/popup = new(user, "holodeck_computer", name, 400, 500)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "computer")
-	return
-
-/obj/machinery/computer/HolodeckControl/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(href_list["emptycourt"])
-		target = locate(/area/holodeck/source_emptycourt)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["boxingcourt"])
-		target = locate(/area/holodeck/source_boxingcourt)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["basketball"])
-		target = locate(/area/holodeck/source_basketball)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["thunderdomecourt"])
-		target = locate(/area/holodeck/source_thunderdomecourt)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["beach"])
-		target = locate(/area/holodeck/source_beach)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["desert"])
-		target = locate(/area/holodeck/source_desert)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["space"])
-		target = locate(/area/holodeck/source_space)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["picnicarea"])
-		target = locate(/area/holodeck/source_picnicarea)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["snowfield"])
-		target = locate(/area/holodeck/source_snowfield)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["theatre"])
-		target = locate(/area/holodeck/source_theatre)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["meetinghall"])
-		target = locate(/area/holodeck/source_meetinghall)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["knightarena"])
-		target = locate(/area/holodeck/source_knightarena)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["turnoff"])
-		target = locate(/area/holodeck/source_plating)
-		if(target)
-			loadProgram(target)
-/*
-	else if(href_list["burntest"])
-		if(!emagged)	return
-		target = locate(/area/holodeck/source_burntest)
-		if(target)
-			loadProgram(target)
-*/
-	else if(href_list["wildlifecarp"])
-		if(!emagged)	return
-		target = locate(/area/holodeck/source_wildlife)
-		if(target)
-			loadProgram(target)
-
-	else if(href_list["AIoverride"])
-		if(!issilicon(usr))	return
-		emagged = !emagged
-		if(emagged)
-			message_admins("[key_name_admin(usr)] overrode the holodeck's safeties")
-			log_game("[key_name(usr)] overrode the holodeck's safeties")
-		else
-			message_admins("[key_name_admin(usr)] restored the holodeck's safeties")
-			log_game("[key_name(usr)] restored the holodeck's safeties")
-
-	add_fingerprint(usr)
-	updateUsrDialog()
-	return
-
-/obj/machinery/computer/HolodeckControl/attackby(obj/item/D as obj, mob/user as mob, params)
-	return
-
-/obj/machinery/computer/HolodeckControl/emag_act(user as mob)
-	if(!emagged)
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		emagged = TRUE
-		to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
-		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
-		log_game("[key_name(usr)] emagged the Holodeck Control Computer")
-		src.updateUsrDialog()
-
 /obj/machinery/computer/HolodeckControl/Initialize(mapload)
 	. = ..()
 	linkedholodeck = locate(/area/holodeck/alphadeck)
-	//if(linkedholodeck)
-	//	target = locate(/area/holodeck/source_emptycourt)
-	//	if(target)
-	//		loadProgram(target)
 
-//This could all be done better, but it works for now.
 /obj/machinery/computer/HolodeckControl/Destroy()
-	emergencyShutdown()
+	emergency_shutdown()
 	return ..()
 
-/obj/machinery/computer/HolodeckControl/emp_act(severity)
-	emergencyShutdown()
-	..()
+/obj/machinery/computer/HolodeckControl/attack_ai(mob/user)
+	return attack_hand(user)
 
-/obj/machinery/computer/HolodeckControl/ex_act(severity)
-	emergencyShutdown()
-	..()
+/obj/machinery/computer/HolodeckControl/attackby(obj/item/D, mob/user)
+	return
 
-/obj/machinery/computer/HolodeckControl/blob_act(obj/structure/blob/B)
-	emergencyShutdown()
+/obj/machinery/computer/HolodeckControl/attack_ghost(mob/user)
+	ui_interact(user)
+	return ..()
+
+/obj/machinery/computer/HolodeckControl/attack_hand(mob/user)
+	ui_interact(user)
 	return ..()
 
 /obj/machinery/computer/HolodeckControl/process()
@@ -204,7 +63,7 @@
 		return
 
 	if(active)
-		if(!checkInteg(linkedholodeck))
+		if(!check_deck_integrity(linkedholodeck))
 			target = locate(/area/holodeck/source_plating)
 			if(target)
 				loadProgram(target)
@@ -218,54 +77,6 @@
 					do_sparks(2, 1, T)
 				T.ex_act(3)
 				T.hotspot_expose(1000,500,1)
-
-/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
-	holographic_items.Remove(obj)
-
-	if(obj == null)
-		return
-
-	if(isobj(obj))
-		var/mob/M = obj.loc
-		if(ismob(M))
-			M.unEquip(obj, 1) //Holoweapons should always drop.
-
-	if(!silent)
-		var/obj/oldobj = obj
-		visible_message("[oldobj] fades away!")
-	qdel(obj)
-
-/obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
-	for(var/turf/T in A)
-		if(isspaceturf(T))
-			return 0
-
-	return 1
-
-/obj/machinery/computer/HolodeckControl/proc/togglePower(toggleOn = 0)
-
-	if(toggleOn)
-		var/area/targetsource = locate(/area/holodeck/source_emptycourt)
-		holographic_items = targetsource.copy_contents_to(linkedholodeck)
-
-/*		spawn(30)
-			for(var/obj/effect/landmark/L in linkedholodeck)
-				if(L.name=="Atmospheric Test Start")
-					spawn(20)
-						var/turf/T = get_turf(L)
-						do_sparks(2, 1, T)
-						if(T)
-							T.temperature = 5000
-							T.hotspot_expose(50000,50000,1)*/
-
-		active = TRUE
-	else
-		for(var/item in holographic_items)
-			derez(item)
-		var/area/targetsource = locate(/area/holodeck/source_plating)
-		targetsource.copy_contents_to(linkedholodeck , 1)
-		active = FALSE
-
 
 /obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
 
@@ -282,14 +93,11 @@
 
 	for(var/item in holographic_items)
 		derez(item)
-
 	for(var/obj/effect/decal/cleanable/blood/B in linkedholodeck)
 		qdel(B)
-
-	for(var/mob/living/simple_animal/hostile/carp/C in linkedholodeck)
+	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
-
-	holographic_items = A.copy_contents_to(linkedholodeck , 1, perfect_copy = FALSE)
+	holographic_items = A.copy_contents_to(linkedholodeck, platingRequired = TRUE, perfect_copy = FALSE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -297,18 +105,11 @@
 
 	spawn(30)
 		for(var/obj/effect/landmark/L in linkedholodeck)
-/*			if(L.name=="Atmospheric Test Start")
-				spawn(20)
-					var/turf/T = get_turf(L)
-					do_sparks(2, 1, T)
-					if(T)
-						T.temperature = 5000
-						T.hotspot_expose(50000,50000,1)*/
 			if(L.name=="Holocarp Spawn")
 				new /mob/living/simple_animal/hostile/carp/holocarp(L.loc)
 
 
-/obj/machinery/computer/HolodeckControl/proc/emergencyShutdown()
+/obj/machinery/computer/HolodeckControl/proc/emergency_shutdown()
 	//Get rid of any items
 	for(var/item in holographic_items)
 		derez(item)
@@ -321,8 +122,104 @@
 	targetsource.copy_contents_to(linkedholodeck , 1)
 	active = FALSE
 
+
+/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj, silent = TRUE)
+	holographic_items.Remove(obj)
+
+	if(!istype(obj))
+		return
+
+	var/mob/M = obj.loc
+	if(istype(M))
+		M.unEquip(obj, TRUE) //Holoweapons should always drop.
+
+	if(!silent)
+		var/obj/old_obj = obj
+		visible_message("[old_obj] fades away!")
+	qdel(obj)
+
+/obj/machinery/computer/HolodeckControl/proc/check_deck_integrity(area/A)
+	for(var/turf/space/T in A)
+		return FALSE
+	return TRUE
+
+/obj/machinery/computer/HolodeckControl/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "Holodeck", name, 400, 500, master_ui, state)
+		ui.autoupdate = TRUE
+		ui.open()
+
+/obj/machinery/computer/HolodeckControl/ui_data(mob/user)
+	var/list/data = list()
+	data["current_deck"] = selected_deck
+	data["emagged"] = emagged
+	data["ai_override"] = issilicon(user)
+	data["decks"] = list()
+	for(var/deck_name in available_decks)
+		data["decks"] += deck_name
+	return data
+
+/obj/machinery/computer/HolodeckControl/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	. = TRUE
+
+	add_fingerprint(ui.user)
+	switch(action)
+		if("select_deck")
+			target = locate(available_decks[params["deck"]])
+			selected_deck = params["deck"]
+			if(target)
+				loadProgram(target)
+		if("ai_override")
+			if(!issilicon(ui.user))
+				return
+			emagged = !emagged
+			if(emagged)
+				message_admins("[key_name_admin(ui.user)] overrode the holodeck's safeties")
+				log_game("[key_name(ui.user)] overrode the holodeck's safeties")
+				return
+			message_admins("[key_name_admin(ui.user)] restored the holodeck's safeties")
+			log_game("[key_name(ui.user)] restored the holodeck's safeties")
+		if("wildlifecarp")
+			if(!emagged)
+				return
+			target = locate(emag_deck)
+			selected_deck = "Wildlife Simulation"
+			if(target)
+				loadProgram(target)
+
+/obj/machinery/computer/HolodeckControl/emag_act(user)
+	if(emagged)
+		return
+	playsound(loc, 'sound/effects/sparks4.ogg', 75, 1)
+	emagged = TRUE
+	to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
+	to_chat(user, "Warning! Automatic shutoff and derezing protocols have been corrupted. Please call Nanotrasen maintenance and do not use the simulator.")
+	log_game("[key_name(user)] emagged the Holodeck Control Computer")
+
+/obj/machinery/computer/HolodeckControl/emp_act(severity)
+	emergency_shutdown()
+	..()
+
+/obj/machinery/computer/HolodeckControl/ex_act(severity)
+	emergency_shutdown()
+	..()
+
+/obj/machinery/computer/HolodeckControl/blob_act(obj/structure/blob/B)
+	emergency_shutdown()
+	return ..()
+
+
+//
+// ## HOLODECK ITEMS & OBJECTS
+//
+
+
+
 // Holographic Items!
-/turf/simulated/floor/holofloor/
+/turf/simulated/floor/holofloor
 	thermal_conductivity = 0
 	icon_state = "plating"
 
@@ -350,6 +247,7 @@
 		return 0
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH(src)
+
 /turf/simulated/floor/holofloor/grass
 	name = "Lush Grass"
 	icon = 'icons/turf/floors/grass.dmi'
@@ -532,17 +430,17 @@
 /obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 
-/obj/machinery/readybutton/attack_hand(mob/user as mob)
+/obj/machinery/readybutton/attack_hand(mob/user)
 	if(user.stat || stat & (BROKEN))
 		to_chat(user, "This device is not functioning.")
 		return
 
-	currentarea = get_area(src.loc)
+	currentarea = get_area(loc)
 	if(!currentarea)
 		qdel(src)
 
 	if(eventstarted)
-		to_chat(usr, "The event has already begun!")
+		to_chat(user, "The event has already begun!")
 		return
 
 	ready = !ready

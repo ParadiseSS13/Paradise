@@ -253,7 +253,7 @@
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
 /obj/item/card/id/proc/get_departments()
-	return get_departments_from_job(assignment)
+	return get_departments_from_job(rank)
 
 /obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

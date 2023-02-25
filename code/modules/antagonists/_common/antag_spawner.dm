@@ -301,7 +301,7 @@
 
 /obj/item/antag_spawner/revenant
 	name = "vial of ectoplasm"
-	desc = "A magically infused bottle of ectoplasm, effectivly pure salt from the spectral realm."
+	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialectoplasm"
 	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
@@ -328,7 +328,7 @@
 		used = FALSE
 		to_chat(user, "<span class='notice'>The ectoplasm does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 		return
-		
+
 	var/mob/C = pick(candidates)
 	spawn_antag(C, get_turf(src), initial(revenant.name), user)
 	to_chat(user, "[shatter_msg]")

@@ -62,7 +62,7 @@
 
 /obj/item/reagent_containers/spray/alien/stun
 	name = "paralytic toxin synthesizer"
-	desc = "squirts viagra."
+	desc = "squirts ether."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-stun"
 	list_reagents = list("ether" = 250)
