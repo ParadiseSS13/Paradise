@@ -168,7 +168,7 @@
 	if(!(src in strangling.garroted_by))
 		strangling.garroted_by+=src
 	strangling.Silence(3) // Non-improvised effects
-	strangling.apply_damage(4, OXY, "head")
+	strangling.apply_damage(20, OXY, "head")
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)
