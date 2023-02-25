@@ -67,7 +67,7 @@
 		return FALSE
 
 	for(var/datum/mind/traitor as anything in shuffle(possible_traitors))
-		if(length(possible_traitors) >= amount_tot)
+		if(length(pre_traitors) >= amount_tot)
 			break
 		if(traitor.special_role == SPECIAL_ROLE_VAMPIRE || traitor.special_role == SPECIAL_ROLE_CHANGELING) // no traitor vampires or changelings
 			continue
