@@ -139,7 +139,7 @@
 // Вызывает прок для выдачи целей ориентируясь на рандомно выбранный игровой подход - стелс/взлом/агрессивный
 /datum/game_mode/proc/forge_ninja_objectives(datum/mind/ninja_mind, objective_type = null, datum/objective/custom_objective = null)
 	if(!objective_type)
-		objective_type = pick("stealthy", "generic", "aggressive")
+		objective_type = pick("protector", "hacker", "killer")
 	switch(objective_type)
 		if("generic")
 			forge_generic_ninja_objectives(ninja_mind, custom_objective)
