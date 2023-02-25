@@ -342,7 +342,7 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/rdconsole/core
 	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics console
-	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Public")
+	var/list/access_types = list("R&D Core", "Public")
 
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
@@ -353,10 +353,10 @@
 	icon_state = "science"
 	build_path = /obj/machinery/computer/mecha
 
-/obj/item/circuitboard/rdservercontrol
-	board_name = "RD Server Control"
+/obj/item/circuitboard/rnd_network_controller
+	board_name = "RnD Network Controller"
 	icon_state = "science"
-	build_path = /obj/machinery/computer/rdservercontrol
+	build_path = /obj/machinery/computer/rnd_network_controller
 
 /obj/item/circuitboard/crew
 	board_name = "Crew Monitoring Computer"

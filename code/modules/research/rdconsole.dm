@@ -165,14 +165,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				D.linked_console = src
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)
-	. = ..()
+	..()
 	matching_designs = list()
 	SyncRDevices()
+	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/rdconsole/LateInitialize()
 	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
 		if(RNC.network_name == autolink_id)
 			network_manager_uid = RNC.UID()
+			RNC.consoles += UID()
 
 /obj/machinery/computer/rdconsole/Destroy()
 	QDEL_NULL(t_disk)
@@ -191,12 +193,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(wait_message_timer)
 		deltimer(wait_message_timer)
 		wait_message_timer = 0
-	return ..()
 
-/*	Instead of calling this every tick, it is only being called when needed
-/obj/machinery/computer/rdconsole/process()
-	griefProtection()
-*/
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	if(RNC)
+		// Unlink us
+		RNC.consoles -= UID()
+
+	return ..()
 
 /obj/machinery/computer/rdconsole/attackby(obj/item/D as obj, mob/user as mob, params)
 
@@ -484,6 +487,37 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	add_fingerprint(usr)
 
+	// We switch these actions first because they can be done without files
+	switch(action)
+		if("unlink")
+			if(!network_manager_uid)
+				return
+			var/choice = alert(usr, "Are you SURE you want to unlink this console?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			if(choice == "Yes")
+				unlink()
+
+			return TRUE
+
+		// You should only be able to link if its not linked, to prevent weirdness
+		#warn zlevel lock this
+		if("linktonetworkcontroller")
+			if(network_manager_uid)
+				return
+			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
+			if(istype(C, /obj/machinery/computer/rnd_network_controller))
+				var/user_pass = input(usr, "Please enter network password", "Password Entry")
+				// Check the password
+				if(user_pass == C.network_password)
+					network_manager_uid = C.UID()
+					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+				else
+					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+			else
+				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+
+			return TRUE
+
+	// Now we do a files check
 	var/datum/research/files = getfiles()
 	if(!files)
 		to_chat(usr, "<span class='danger'>Error - No research network linked.</span>")
@@ -663,8 +697,36 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			selected_category = "Search Results for '[query]'"
 
+
+		if("unlink")
+			if(!network_manager_uid)
+				return
+			var/choice = alert(usr, "Are you SURE you want to unlink this console?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			if(choice == "Yes")
+				unlink()
+
+		// You should only be able to link if its not linked, to prevent weirdness
+		if("linktonetworkcontroller")
+			if(network_manager_uid)
+				return
+			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
+			if(istype(C, /obj/machinery/computer/rnd_network_controller))
+				var/user_pass = input(usr, "Please enter network password", "Password Entry")
+				// Check the password
+				if(user_pass == C.network_password)
+					network_manager_uid = C.UID()
+					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+				else
+					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+			else
+				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+
+
 	return TRUE // update uis
 
+/obj/machinery/computer/rdconsole/proc/unlink()
+	network_manager_uid = null
+	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
@@ -774,12 +836,20 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/list/data = list()
 
 	var/datum/research/files = getfiles()
+	// If we have no linked files, dont even process anything else, just get a link up
 	if(!files)
-		#warn AA make the UI show another screen
-		return
+		data["linked"] = FALSE
+
+		var/list/controllers = list()
+		for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+			controllers += list(list("addr" = RNC.UID(), "net_id" = RNC.network_name))
+		data["controllers"] = controllers
+
+		return data
 
 	files.RefreshResearch()
 
+	data["linked"] = TRUE
 	data["menu"] = menu
 	data["submenu"] = submenu
 	data["wait_message"] = wait_message

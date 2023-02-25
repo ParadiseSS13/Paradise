@@ -6553,17 +6553,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"xg" = (
-/obj/machinery/computer/rdservercontrol{
-	badmin = 1;
-	name = "Master R&amp;D Server Controller"
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
-"xk" = (
-/obj/machinery/r_n_d/server/centcom,
-/turf/simulated/floor/plasteel,
-/area/admin)
 "xl" = (
 /obj/structure/table,
 /obj/item/card/id/silver{
@@ -68009,7 +67998,7 @@ vH
 lZ
 wR
 wk
-xg
+lZ
 lZ
 lZ
 lZ
@@ -68266,7 +68255,7 @@ lZ
 lZ
 lZ
 wk
-xk
+lZ
 lZ
 lZ
 lZ

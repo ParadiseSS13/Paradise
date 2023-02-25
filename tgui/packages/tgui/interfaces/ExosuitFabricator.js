@@ -12,6 +12,9 @@ import {
   Input,
   ProgressBar,
   Section,
+  Table,
+  Modal,
+  LabeledList,
 } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
@@ -26,10 +29,16 @@ const iconNameOverrides = {
 
 export const ExosuitFabricator = (properties, context) => {
   const { act, data } = useBackend(context);
-  const { building } = data;
+  const { building, linked } = data;
+
+  if (!linked) {
+    return <LinkMenu />
+  }
+
   return (
     <Window>
       <Window.Content className="Exofab">
+        <LevelsModal />
         <Flex width="100%" height="100%">
           <Flex.Item grow="1" mr="0.5rem" width="70%">
             <Flex direction="column" height="100%">
@@ -110,6 +119,13 @@ const Designs = (properties, context) => {
     return design.name;
   });
   const filteredDesigns = designs.filter(searcher);
+
+  const [showLevelsModal, setShowLevelsModal] = useLocalState(
+    context,
+    'levelsModal',
+    false
+  );
+
   return (
     <Section
       className="Exofab__designs"
@@ -134,13 +150,15 @@ const Designs = (properties, context) => {
             onClick={() => act('queueall')}
           />
           <Button
-            disabled={syncing}
-            iconSpin={syncing}
-            icon="sync-alt"
-            content={
-              syncing ? 'Synchronizing...' : 'Synchronize with R&D servers'
-            }
-            onClick={() => act('sync')}
+            icon="info"
+            content="Show current tech levels"
+            onClick={() => setShowLevelsModal(true)}
+          />
+          <Button
+            icon="unlink"
+            color="red"
+            tooltip="Disconnect from R&D network"
+            onClick={() => act('unlink')}
           />
         </Box>
       }
@@ -391,3 +409,86 @@ const Design = (properties, context) => {
     </Box>
   );
 };
+
+const LinkMenu = (properties, context) => {
+  const { act, data } = useBackend(context);
+
+  const { controllers } = data;
+
+  return (
+    <Window>
+      <Window.Content>
+        <Section title="Setup Linkage">
+          <Table m="0.5rem">
+            <Table.Row header>
+              <Table.Cell>Network Address</Table.Cell>
+              <Table.Cell>Network ID</Table.Cell>
+              <Table.Cell>Link</Table.Cell>
+            </Table.Row>
+            {controllers.map((c) => (
+              <Table.Row key={c.addr}>
+                <Table.Cell>{c.addr}</Table.Cell>
+                <Table.Cell>{c.net_id}</Table.Cell>
+                <Table.Cell>
+                  <Button
+                    content="Link"
+                    icon="link"
+                    onClick={() =>
+                      act('linktonetworkcontroller', {
+                        target_controller: c.addr,
+                      })
+                    }
+                  />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </Section>
+      </Window.Content>
+    </Window>
+  )
+};
+
+const LevelsModal = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const { tech_levels } = data;
+
+  const [showLevelsModal, setShowLevelsModal] = useLocalState(
+    context,
+    'levelsModal',
+    false
+  );
+
+  if(showLevelsModal) {
+    return (
+      <Modal
+        maxWidth="75%"
+        width={window.innerWidth + 'px'}
+        maxHeight={window.innerHeight * 0.75 + 'px'}
+        mx="auto"
+      >
+        <Section
+          title="Current tech levels"
+          buttons={
+            <Button
+              content="Close"
+              onClick={() => {
+                setShowLevelsModal(false);
+              }}
+            />
+          }
+        >
+          <LabeledList>
+            {tech_levels.map(({ name, level }) => (
+              <LabeledList.Item label={name} key={name}>
+                {level}
+              </LabeledList.Item>
+            ))}
+          </LabeledList>
+        </Section>
+      </Modal>
+    )
+  } else {
+    return null;
+  }
+}

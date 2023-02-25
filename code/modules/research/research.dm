@@ -44,15 +44,18 @@ research holder datum.
 **	Includes all the helper procs and basic tech processing.  **
 ***************************************************************/
 
-/datum/research								//Holder for all the existing, archived, and known tech. Individual to console.
-
-									//Datum/tech go here.
-									// Possible is a list of direct datum references
-									// known is a list of id -> datum mappings
-	var/list/possible_tech = list()			//List of all tech in the game that players have access to (barring special events).
-	var/list/known_tech = list()				//List of locally known tech.
-	var/list/possible_designs = list()		//List of all designs
-	var/list/known_designs = list()			//List of available designs
+/// Holder for all the existing, archived, and known tech. Individual to network controller.
+/datum/research
+	/// How many research points are in this network
+	var/research_points = 0
+	/// datum/tech go here. Possible is a list of direct datum references known is a list of id -> datum mappings
+	var/list/possible_tech = list()
+	/// List of locally known tech.
+	var/list/known_tech = list()
+	/// List of all designs
+	var/list/possible_designs = list()
+	/// List of available designs
+	var/list/known_designs = list()
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
 	// MON DIEU!!!

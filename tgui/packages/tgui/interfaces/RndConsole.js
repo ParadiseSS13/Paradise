@@ -11,6 +11,7 @@ import {
   DataDiskMenu,
   LatheMenu,
 } from './RndConsoleComponents';
+import { LinkMenu } from './RndConsoleComponents/LinkMenu';
 
 export const MENU = {
   MAIN: 0,
@@ -33,7 +34,11 @@ export const SUBMENU = {
 
 export const RndConsole = (properties, context) => {
   const { data } = useBackend(context);
-  const { wait_message } = data;
+  const { wait_message, linked } = data;
+
+  if (!linked) {
+    return <LinkMenu />
+  }
 
   return (
     <Window>

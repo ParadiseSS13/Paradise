@@ -6,7 +6,7 @@ import { MENU, SUBMENU } from '../RndConsole';
 export const SettingsMenu = (properties, context) => {
   const { data, act } = useBackend(context);
 
-  const { sync, admin, linked_destroy, linked_lathe, linked_imprinter } = data;
+  const { admin, linked_destroy, linked_lathe, linked_imprinter } = data;
 
   return (
     <Box>
@@ -15,39 +15,20 @@ export const SettingsMenu = (properties, context) => {
         render={() => (
           <Section title="Settings">
             <Flex direction="column" align="flex-start">
-              <Button
-                content="Sync Database with Network"
-                icon="sync"
-                disabled={!sync}
-                onClick={() => {
-                  act('sync');
-                }}
-              />
-
-              <Button
-                content="Connect to Research Network"
-                icon="plug"
-                disabled={sync}
-                onClick={() => {
-                  act('togglesync');
-                }}
-              />
-
-              <Button
-                disabled={!sync}
-                icon="unlink"
-                content="Disconnect from Research Network"
-                onClick={() => {
-                  act('togglesync');
-                }}
-              />
-
               <RndNavButton
-                disabled={!sync}
                 content="Device Linkage Menu"
                 icon="link"
                 menu={MENU.SETTINGS}
                 submenu={SUBMENU.SETTINGS_DEVICES}
+              />
+
+              <Button
+                color="red"
+                icon="unlink"
+                content="Disconnect from Research Network"
+                onClick={() => {
+                  act('unlink');
+                }}
               />
 
               {admin === 1 ? (

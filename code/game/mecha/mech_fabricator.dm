@@ -50,7 +50,7 @@
 
 
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
-	. = ..()
+	..()
 	// Set up some datums
 	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), 0, FALSE, /obj/item/stack, CALLBACK(src, PROC_REF(can_insert_materials)), CALLBACK(src, PROC_REF(on_material_insert)))
 	materials.precise_insertion = TRUE
@@ -82,10 +82,13 @@
 		"Misc"
 	)
 
+	return INITIALIZE_HINT_LATELOAD
+
 /obj/machinery/mecha_part_fabricator/LateInitialize()
 	for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
 		if(RNC.network_name == autolink_id)
 			network_manager_uid = RNC.UID()
+			RNC.mechfabs += UID()
 
 /obj/machinery/mecha_part_fabricator/proc/getfiles()
 	if(!network_manager_uid)
@@ -101,6 +104,12 @@
 /obj/machinery/mecha_part_fabricator/Destroy()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
+
+	var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+	if(RNC)
+		// Unlink us
+		RNC.mechfabs -= UID()
+
 	return ..()
 
 /obj/machinery/mecha_part_fabricator/multitool_act(mob/user, obj/item/I)
@@ -321,14 +330,35 @@
 		ui.set_autoupdate(FALSE)
 
 /obj/machinery/mecha_part_fabricator/ui_data(mob/user)
+	var/list/data = list()
+
 	var/datum/research/files = getfiles()
 	if(!files)
-		return
+		data["linked"] = FALSE
 
-	var/list/data = list()
+		var/list/controllers = list()
+		for(var/obj/machinery/computer/rnd_network_controller/RNC in GLOB.rnd_network_managers)
+			controllers += list(list("addr" = RNC.UID(), "net_id" = RNC.network_name))
+		data["controllers"] = controllers
+
+		return data
+
+	data["linked"] = TRUE
 	data["processingQueue"] = processing_queue
 	data["categories"] = categories
 	data["curCategory"] = selected_category
+
+	var/list/tech_levels = list()
+	for(var/v in files.known_tech)
+		var/datum/tech/T = files.known_tech[v]
+		if(T.level <= 0)
+			continue
+		var/list/this_tech_list = list()
+		this_tech_list["name"] = T.name
+		this_tech_list["level"] = T.level
+		this_tech_list["desc"] = T.desc
+		tech_levels[++tech_levels.len] = this_tech_list
+	data["tech_levels"] = tech_levels
 
 	// Materials
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -386,6 +416,37 @@
 /obj/machinery/mecha_part_fabricator/ui_act(action, params)
 	if(..())
 		return
+
+	// We switch these actions first because they can be done without files
+	switch(action)
+		if("unlink")
+			if(!network_manager_uid)
+				return
+			var/choice = alert(usr, "Are you SURE you want to unlink this fabricator?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			if(choice == "Yes")
+				unlink()
+
+			return TRUE
+
+		// You should only be able to link if its not linked, to prevent weirdness
+		if("linktonetworkcontroller")
+			if(network_manager_uid)
+				return
+			#warn zlevel lock the linkage
+			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
+			if(istype(C, /obj/machinery/computer/rnd_network_controller))
+				var/user_pass = input(usr, "Please enter network password", "Password Entry")
+				// Check the password
+				if(user_pass == C.network_password)
+					network_manager_uid = C.UID()
+					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+				else
+					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+			else
+				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
+
+			return TRUE
+
 
 	var/datum/research/files = getfiles()
 	if(!files)
@@ -475,6 +536,10 @@
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+
+/obj/machinery/mecha_part_fabricator/proc/unlink()
+	network_manager_uid = null
+	SStgui.update_uis(src)
 
 /**
   * # Robotic Fabricator

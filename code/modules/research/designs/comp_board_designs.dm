@@ -249,7 +249,7 @@
 	req_tech = list("programming" = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/rdservercontrol
+	build_path = /obj/item/circuitboard/rnd_network_controller
 	category = list("Computer Boards")
 
 /datum/design/robocontrol
