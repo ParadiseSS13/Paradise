@@ -220,6 +220,8 @@
 	switch(mode)
 		if(0)
 			if(istype(target, /turf/simulated/wall))
+				if(istype(target, /turf/simulated/wall/indestructible))
+					return 0
 				if(istype(target, /turf/simulated/wall/r_wall) && !canRwall)
 					return 0
 				var/turf/simulated/wall/W = target
