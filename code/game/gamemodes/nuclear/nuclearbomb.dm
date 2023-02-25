@@ -21,6 +21,7 @@ GLOBAL_VAR(bomb_set)
 	flags_2 = NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
 	anchored = TRUE
 	power_state = NO_POWER_USE
+	requires_power = FALSE
 
 	var/extended = TRUE
 	var/lighthack = FALSE

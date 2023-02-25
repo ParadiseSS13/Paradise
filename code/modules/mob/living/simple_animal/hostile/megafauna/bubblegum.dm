@@ -298,7 +298,7 @@ Difficulty: Hard
 
 	if(target.z != z)
 		return FALSE
-	
+
 	var/obj/effect/decal/cleanable/blood/found_bloodpool
 	pools = get_pools(get_turf(target), 5)
 	pools_to_remove = get_pools(get_turf(target), 4)
@@ -519,6 +519,7 @@ Difficulty: Hard
 	deathmessage = "Explodes into a pool of blood!"
 	death_sound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE
+	internal_gps = null // No gps for this lad
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)

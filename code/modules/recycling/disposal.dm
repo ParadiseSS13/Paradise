@@ -9,7 +9,7 @@
 
 /obj/machinery/disposal
 	name = "disposal unit"
-	desc = "A pneumatic waste disposal unit."
+	desc = "A pneumatic waste disposal unit. Alt-click to manually eject its contents."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "disposal"
 	anchored = TRUE
@@ -169,6 +169,17 @@
 		C.density = TRUE
 		qdel(src)
 
+/obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
+	target.visible_message(
+		"<span class='warning'>[attacker] shoves [target] inside of [src]!</span>",
+		"<span class='userdanger'>[attacker] shoves you inside of [src]!</span>",
+		"<span class='warning'>You hear the sound of something being thrown in the trash.</span>"
+	)
+	target.forceMove(src)
+	add_attack_logs(attacker, target, "Shoved into disposals", target.ckey ? null : ATKLOG_ALL)
+	playsound(src, "sound/effects/bang.ogg")
+	return TRUE
+
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user)
@@ -317,6 +328,20 @@
 		AM.forceMove(loc)
 		AM.pipe_eject(0)
 	update()
+
+/obj/machinery/disposal/AltClick(mob/user)
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	user.visible_message(
+		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
+		"<span class='notice'>You operate the manual ejection lever on [src].</span>"
+	)
+	if(do_after(user, 5 SECONDS, target = src))
+		user.visible_message(
+			"<span class='notice'>[user] ejects the contents of [src].</span>",
+			"<span class='notice'>You eject the contents of [src].</span>"
+		)
+		eject()
 
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
