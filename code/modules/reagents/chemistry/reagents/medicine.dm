@@ -1342,6 +1342,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	shock_reduction = 20
 	taste_description = "blessing"
+	can_synth = FALSE
 
 /datum/reagent/medicine/zessulblood/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
