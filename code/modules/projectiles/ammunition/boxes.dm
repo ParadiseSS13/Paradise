@@ -70,6 +70,7 @@
 	icon_state = "riflebox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
+	w_class = WEIGHT_CLASS_NORMAL
 	max_ammo = 20
 	multiload = 0
 
