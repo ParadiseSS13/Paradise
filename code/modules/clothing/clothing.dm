@@ -257,7 +257,8 @@
 //Gloves
 /obj/item/clothing/gloves
 	name = "gloves"
-	gender = PLURAL //Carn: for grammarically correct text-parsing
+	///Carn: for grammarically correct text-parsing
+	gender = PLURAL
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
@@ -265,8 +266,11 @@
 	slot_flags = SLOT_GLOVES
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
-	var/pickpocket = 0 //Master pickpocket?
+	///Master pickpocket?
+	var/pickpocket = 0
 	var/clipped = 0
+	///Do they protect the wearer from poison ink?
+	var/safe_from_poison = FALSE
 	strip_delay = 20
 	put_on_delay = 40
 

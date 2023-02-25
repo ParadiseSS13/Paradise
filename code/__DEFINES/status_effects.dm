@@ -124,6 +124,7 @@
 #define STATUS_EFFECT_DROWSINESS /datum/status_effect/transient/drowsiness
 #define STATUS_EFFECT_DRUNKENNESS /datum/status_effect/transient/drunkenness
 #define STATUS_EFFECT_SILENCED /datum/status_effect/transient/silence
+#define STATUS_EFFECT_ABSSILENCED /datum/status_effect/transient/silence/absolute
 #define STATUS_EFFECT_JITTER /datum/status_effect/transient/jittery
 #define STATUS_EFFECT_CULT_SLUR /datum/status_effect/transient/cult_slurring
 #define STATUS_EFFECT_STAMMER /datum/status_effect/transient/stammering

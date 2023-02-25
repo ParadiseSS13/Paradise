@@ -473,6 +473,14 @@
 	spawn_on_floor = TRUE // breaks if spawned in hand
 	category = "Artefacts"
 
+/datum/spellbook_entry/item/everfull_mug
+	name = "Everfull Mug"
+	desc = "A magical mug that can be filled with omnizine at will, though beware of addiction! It can also produce alchohol and other less useful substances."
+	item_path = /obj/item/reagent_containers/food/drinks/everfull
+	log_name = "EM"
+	cost = 1
+	category = "Artefacts"
+
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
