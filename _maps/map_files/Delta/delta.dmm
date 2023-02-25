@@ -10276,6 +10276,14 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"aIg" = (
+/obj/structure/table/reinforced,
+/obj/item/eftpos/register{
+	dir = 1;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/crew_quarters/bar)
 "aIh" = (
 /obj/machinery/conveyor/southeast{
 	id = "cargodelivery"
@@ -14790,12 +14798,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque,
 /area/hallway/primary/fore)
 "aTk" = (
 /obj/effect/decal/cleanable/dirt,
@@ -22791,6 +22794,9 @@
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/chef,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/eftpos/register{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
 "blq" = (
@@ -56024,6 +56030,11 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "cIq" = (
@@ -67210,6 +67221,11 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/medical/research)
 "dkX" = (
@@ -67218,6 +67234,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -68091,6 +68112,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/assembly/chargebay)
 "dnH" = (
@@ -68482,6 +68508,11 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/assembly/chargebay)
 "doz" = (
@@ -135594,7 +135625,7 @@ aFA
 aGB
 aMi
 aJa
-aKs
+aIg
 bsq
 aOG
 aOG

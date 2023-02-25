@@ -6,38 +6,6 @@
 		return " (as [get_id_name("Unknown")])"
 	return ..()
 
-/mob/living/carbon/human/proc/forcesay(list/append)
-	if(stat == CONSCIOUS)
-		if(client)
-			var/modified = FALSE	//has the text been modified yet?
-			var/temp = winget(client, "input", "text")
-			if(findtextEx(temp, "Say \"", 1, 7) && length(temp) > 5)	//case sensitive means
-
-				temp = replacetext(temp, ";", "")	//general radio
-
-				if(findtext(trim_left(temp), ":", 6, 7))	//dept radio
-					temp = copytext(trim_left(temp), 8)
-					modified = TRUE
-
-				if(!modified)
-					temp = copytext(trim_left(temp), 6)	//normal speech
-					modified = TRUE
-
-				while(findtext(trim_left(temp), ":", 1, 2))	//dept radio again (necessary)
-					temp = copytext(trim_left(temp), 3)
-
-				if(findtext(temp, "*", 1, 2))	//emotes
-					return
-				temp = copytext(trim_left(temp), 1, rand(5,8))
-
-				var/trimmed = trim_left(temp)
-				if(length(trimmed))
-					if(append)
-						temp += pick(append)
-
-					say(temp)
-				winset(client, "input", "text=[null]")
-
 /mob/living/carbon/human/say_understands(mob/other, datum/language/speaking = null)
 	if(dna.species.can_understand(other))
 		return 1

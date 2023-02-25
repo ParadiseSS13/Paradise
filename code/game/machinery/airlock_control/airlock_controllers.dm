@@ -95,7 +95,7 @@
 
 /obj/machinery/airlock_controller/proc/handle_button(button_mode)
 	// dm please give me abstracts I beg
-	CRASH("handle_button() not overriden for [type]")
+	CRASH("handle_button() not overridden for [type]")
 
 /obj/machinery/airlock_controller/ui_act(action, params)
 	if(..())
