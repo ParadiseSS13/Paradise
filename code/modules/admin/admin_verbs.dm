@@ -804,7 +804,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			if(H.head)
 				H.unEquip(H.head, TRUE)
 			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
-			H.equip_to_slot(S, slot_head)
+			H.equip_to_slot_or_del(S, slot_head)
 			logmsg = "shamebrero"
 		if("Dust")
 			H.dust()

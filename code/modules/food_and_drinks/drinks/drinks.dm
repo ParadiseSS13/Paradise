@@ -36,6 +36,12 @@
 
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
+		if(!get_location_accessible(C, "mouth"))
+			if(C == user)
+				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+			else
+				to_chat(user, "<span class='warning'>[C]'s face is obscured, so[C.p_they()] cant eat.</span>")
+			return FALSE
 		if(C.eat(src, user))
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
 				var/mob/living/silicon/robot/borg = user

@@ -75,13 +75,12 @@
 	var/obj/item/organ/O = I
 	if(istype(O) && O.owner == src)
 		. = 0 // keep a good grip on your heart
-	if((get_slot_by_item(I) in check_obscured_slots())&&!force)
-		. = 0
 
 /mob/living/carbon/human/unEquip(obj/item/I, force)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
+
 	if(I == wear_suit)
 		if(s_store)
 			unEquip(s_store, 1) //It makes no sense for your suit storage to stay on you if you drop your suit.
@@ -191,6 +190,7 @@
 		return
 	if(!has_organ_for_slot(slot))
 		return
+
 	if(I == src.l_hand)
 		src.l_hand = null
 		update_inv_l_hand() //So items actually disappear from hands.
@@ -318,7 +318,6 @@
 			uniform.attackby(I, src)
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
-	return TRUE
 
 /mob/living/carbon/human/put_in_hands(obj/item/I)
 	if(!I)
@@ -426,6 +425,7 @@
 	if(item == s_store)
 		return slot_s_store
 	return null
+
 /mob/living/carbon/human/get_all_slots()
 	. = get_head_slots() | get_body_slots()
 
@@ -476,7 +476,7 @@
 	..(what, who, where, silent = is_silent)
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE)
-	return dna.species.can_equip(I, slot, disable_warning, src)&&!(slot in check_obscured_slots())
+	return dna.species.can_equip(I, slot, disable_warning, src)
 
 /mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
 	var/datum/outfit/O = null
@@ -496,3 +496,28 @@
 /mob/living/carbon/human/proc/delete_equipment()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
+
+//procs to prevent equipping/unequipping stuff if something obscurs the slot
+/mob/living/carbon/human/advanced_can_equip(obj/item/item, slot, disable_warning = 0)
+	. = ..()
+	if(slot in check_obscured_slots())
+		if(!disable_warning)
+			to_chat(src, "<span class='warning'>You can't equip this item beacause the slot is obscuread!</span>")
+		return 0
+
+/mob/living/carbon/human/advanced_can_unequip(obj/item/item, force, disable_warning = 0)
+	. = ..()
+	if(get_slot_by_item(item) in check_obscured_slots())
+		if(!disable_warning)
+			to_chat(src, "<span class='warning'>You can't unequip this item beacause the slot is obscuread!</span>")
+		return 0
+
+/mob/living/carbon/human/advanced_equip_to_slot_if_possible(obj/item/item, slot, del_on_fail = 0, disable_warning = 0)
+	if(advanced_can_equip(item, slot, disable_warning))
+		return equip_to_slot_if_possible(item, slot, del_on_fail, disable_warning)
+
+/mob/living/carbon/human/advanced_unequip_if_possible(obj/item/item, force)
+	if((get_slot_by_item(item) in check_obscured_slots()) && !force)
+		to_chat(src, "<span class='warning'>You can't unequip this item beacause the slot is obscuread!</span>")
+		return
+	return unEquip(item, force)

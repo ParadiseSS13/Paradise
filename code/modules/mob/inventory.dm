@@ -12,7 +12,7 @@
 
 	var/obj/item/I = get_active_hand()
 	if(I)
-		I.equip_to_best_slot(src)
+		I.equip_to_best_slot(src, FALSE)
 
 /mob/proc/is_in_active_hand(obj/item/I)
 	var/obj/item/item_to_test = get_active_hand()
@@ -34,7 +34,8 @@
 // Currently invalid for two-handed items - call obj/item/mob_can_equip() instead.
 /mob/proc/can_equip(obj/item/I, slot, disable_warning = 0)
 	return 0
-
+/mob/proc/advanced_can_equip(obj/item/I, slot, disable_warning = 0)
+	return can_equip(I, slot, disable_warning)
 // Because there's several different places it's stored.
 /mob/proc/get_multitool(var/if_active=0)
 	return null
@@ -117,6 +118,8 @@
 		return drop_r_hand()
 
 //Here lie unEquip and before_item_take, already forgotten and not missed.
+/mob/proc/advanced_can_unequip(obj/item/item, force)
+	return canUnEquip(item, force)
 
 /mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
@@ -124,6 +127,9 @@
 	if((I.flags & NODROP) && !force)
 		return 0
 	return 1
+
+/mob/proc/advanced_unequip_if_possible(obj/item/item, force = 0)
+	return unEquip(item, force)
 
 /mob/proc/unEquip(obj/item/I, force) //Force overrides NODROP for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
@@ -209,18 +215,16 @@
 			items += s_store
 	return items
 
-/obj/item/proc/equip_to_best_slot(mob/M)
+/obj/item/proc/equip_to_best_slot(mob/M, var/ignore_obscured = 1)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
 		return 0
-
-	if(M.equip_to_appropriate_slot(src))
+	if(M.equip_to_appropriate_slot(src, ignore_obscured))
 		if(M.hand)
 			M.update_inv_l_hand()
 		else
 			M.update_inv_r_hand()
 		return 1
-
 	if(M.s_active && M.s_active.can_be_inserted(src, 1))	//if storage active insert there
 		M.s_active.handle_item_insertion(src)
 		return 1

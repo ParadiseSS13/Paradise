@@ -86,13 +86,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.faction |= "faithless"
 
 				H.set_species(/datum/species/shadow/ling)	//can't be a shadowling without being a shadowling
-				H.equip_to_slot(new /obj/item/clothing/under/shadowling(user), slot_w_uniform)
-				H.equip_to_slot(new /obj/item/clothing/shoes/shadowling(user), slot_shoes)
-				H.equip_to_slot(new /obj/item/clothing/suit/space/shadowling(user), slot_wear_suit)
-				H.equip_to_slot(new /obj/item/clothing/head/shadowling(user), slot_head)
-				H.equip_to_slot(new /obj/item/clothing/gloves/shadowling(user), slot_gloves)
-				H.equip_to_slot(new /obj/item/clothing/mask/gas/shadowling(user), slot_wear_mask)
-				H.equip_to_slot(new /obj/item/clothing/glasses/shadowling(user), slot_glasses)
+				H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), slot_w_uniform)
+				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), slot_shoes)
+				H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), slot_wear_suit)
+				H.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), slot_head)
+				H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), slot_gloves)
+				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), slot_wear_mask)
+				H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), slot_glasses)
 
 				H.mind.RemoveSpell(src)
 

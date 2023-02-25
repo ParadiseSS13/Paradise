@@ -38,14 +38,14 @@
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		return 0
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!get_location_accessible(H, "mouth"))
-			if(M == user)
-				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
-			else
-				to_chat(user, "<span class='warning'>[H]'s face is obscured, so[H.p_they()] cant eat.</span>")
-			return 0
+
+	if(!get_location_accessible(M, "mouth"))
+		if(M == user)
+			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+		else
+			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
+		return FALSE
+
 	if(M == user)
 		to_chat(M, "<span class='notice'>You swallow some of contents of \the [src].</span>")
 	else

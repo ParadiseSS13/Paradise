@@ -22,7 +22,7 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 20,"energy" = 30, "bomb" = 30, "bio" = 100, "rad" = 30, "fire" = 100, "acid" = 100)
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	flags_inv = HIDEJUMPSUIT|HIDETAIL
+	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
 	/// Абилки костюма
 	actions_types = list(
 		/datum/action/item_action/advanced/ninja/SpiderOS,

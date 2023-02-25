@@ -1313,8 +1313,8 @@
 		M.loc = prison_cell
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
-			prisoner.equip_to_slot(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
 
 		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
 		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
@@ -1584,8 +1584,8 @@
 
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
-			observer.equip_to_slot(new /obj/item/clothing/shoes/black(observer), slot_shoes)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
 		M.Paralyse(5)
 		sleep(5)
 		M.loc = pick(GLOB.tdomeobserve)
@@ -2893,8 +2893,8 @@
 								W.plane = initial(W.plane)
 						//teleport person to cell
 						H.loc = pick(GLOB.prisonwarp)
-						H.equip_to_slot(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)
-						H.equip_to_slot(new /obj/item/clothing/shoes/orange(H), slot_shoes)
+						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)
+						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
 					else
 						//teleport security person
 						H.loc = pick(GLOB.prisonsecuritywarp)

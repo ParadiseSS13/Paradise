@@ -57,6 +57,12 @@
 	if(length(contents))
 		var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
 		if(istype(toEat))
+			if(!get_location_accessible(C, "mouth"))
+				if(C == user)
+					to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+				else
+					to_chat(user, "<span class='warning'>[C]'s face is obscured, so[C.p_they()] cant eat.</span>")
+				return
 			if(C.eat(toEat, user))
 				toEat.On_Consume(C, user)
 				overlays.Cut()

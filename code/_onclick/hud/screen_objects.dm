@@ -407,7 +407,7 @@
 		var/image/item_overlay = image(holding)
 		item_overlay.alpha = 92
 
-		if(!user.can_equip(holding, slot_id, disable_warning = TRUE))
+		if(!user.advanced_can_equip(holding, slot_id, disable_warning = TRUE))
 			item_overlay.color = "#ff0000"
 		else
 			item_overlay.color = "#00ff00"

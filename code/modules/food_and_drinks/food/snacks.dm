@@ -52,18 +52,17 @@
 	return
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!get_location_accessible(H, "mouth"))
-			if(M == user)
-				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
-			else
-				to_chat(user, "<span class='warning'>[H]'s face is obscured, so[H.p_they()] cant eat.</span>")
-			return FALSE
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		M.unEquip(src)	//so icons update :[
 		qdel(src)
+		return FALSE
+
+	if(!get_location_accessible(M, "mouth"))
+		if(M == user)
+			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+		else
+			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
 		return FALSE
 
 	if(iscarbon(M))
