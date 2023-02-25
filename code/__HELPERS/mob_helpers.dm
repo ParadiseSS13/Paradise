@@ -455,6 +455,64 @@
 	if(progress)
 		qdel(progbar)
 
+//A version of do_after that will not get cancelled by a mob moving, for situations when signals are not viable
+/proc/moving_do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, list/extra_checks = list(), use_default_checks = TRUE)
+	if(!user)
+		return FALSE
+	var/atom/Tloc = null
+	if(target)
+		Tloc = target.loc
+
+	var/holding = user.get_active_hand()
+
+	var/holdingnull = TRUE //User's hand started out empty, check for an empty hand
+	if(holding)
+		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
+
+	var/datum/progressbar/progbar
+	if(progress)
+		progbar = new(user, delay, target)
+
+	var/endtime = world.time + delay
+	var/starttime = world.time
+	. = TRUE
+
+	// By default, checks for weakness and stunned get added to the extra_checks list.
+	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
+	if(use_default_checks)
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsWeakened))
+		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsStunned))
+
+	while(world.time < endtime)
+		sleep(1)
+		if(progress)
+			progbar.update(world.time - starttime)
+
+		if(!user || user.stat || check_for_true_callbacks(extra_checks))
+			. = FALSE
+			break
+
+		if(Tloc && (!target || Tloc != target.loc))
+			. = FALSE
+			break
+		// Makes it so it can only be used while on the person
+		if(target.loc != user)
+			. = FALSE
+			break
+
+		if(needhand)
+			//This might seem like an odd check, but you can still need a hand even when it's empty
+			//i.e the hand is used to pull some item/tool out of the construction
+			if(!holdingnull)
+				if(!holding)
+					. = FALSE
+					break
+			if(user.get_active_hand() != holding)
+				. = FALSE
+				break
+	if(progress)
+		qdel(progbar)
+
 // Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
 /proc/check_for_true_callbacks(list/extra_checks)
 	for(var/datum/callback/CB in extra_checks)

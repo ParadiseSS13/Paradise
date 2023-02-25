@@ -256,8 +256,37 @@
 	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
-	max_ammo = 20
+	max_ammo = 10
 	multi_sprite_step = 4
+
+/obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
+		var/atom/Aloc = A
+		if(Aloc.loc == user)
+			to_chat(user, "<span class='notice'>You begin to load the magazine with [src].</span>")
+			var/obj/item/ammo_box/AB = A
+			for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
+				if(length(stored_ammo) < max_ammo)
+					if(moving_do_after(user, 0.5 SECONDS, target = src, use_default_checks = TRUE))
+						src.give_round(AC)
+						AB.stored_ammo -= AC
+						update_mat_value()
+						update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+						AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+						playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+					else
+						to_chat(user, "<span class='notice'>You stop loading the magazine with [src].</span>")
+						break
+		else if(!Aloc.loc == user)
+			to_chat(user, "<span class='notice'>You can't load the magazine while it on the ground!.</span>")
+		else
+			to_chat(user, "<span class='notice'>No bullets left to load the magazine with [src].</span>")
+	if(istype(A, /obj/item/ammo_casing))
+		var/obj/item/ammo_casing/AC = A
+		if(give_round(AC))
+			user.drop_item()
+			AC.loc = src
+	return 0
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -273,6 +302,16 @@
 	name = "wt550 magazine (Incendiary 4.6x30mm)"
 	icon_state = "46x30mmtI"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
+
+/obj/item/ammo_box/magazine/wt550m9/empty
+	name = "wt550 magazine (4.6x30mm)"
+	icon_state = "46x30mmt"
+	ammo_type = /obj/item/ammo_casing/c46x30mm
+
+/obj/item/ammo_box/magazine/wt550m9/empty/New()
+	. = ..()
+	stored_ammo = list()
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"

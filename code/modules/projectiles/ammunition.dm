@@ -50,7 +50,7 @@
 	return
 
 /obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/ammo_box))
+	if(istype(I, /obj/item/ammo_box) && !istype(I, /obj/item/ammo_box/magazine/wt550m9))
 		var/obj/item/ammo_box/box = I
 		if(isturf(loc))
 			var/boolets = 0

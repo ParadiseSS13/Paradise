@@ -248,10 +248,10 @@
 
 /datum/supply_packs/security/armory/wt550ammo
 	name = "WT-550 Rifle Ammo Crate"
-	contains = list(/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,
-					/obj/item/ammo_box/magazine/wt550m9,)
+	contains = list(/obj/item/ammo_box/magazine/wt550m9/empty,
+					/obj/item/ammo_box/magazine/wt550m9/empty,
+					/obj/item/ammo_box/wt550,
+					/obj/item/ammo_box/wt550,)
 	cost = 500
 	containername = "auto rifle ammo crate"
 

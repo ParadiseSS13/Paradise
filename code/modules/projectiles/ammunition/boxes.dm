@@ -65,6 +65,28 @@
 	ammo_type = /obj/item/ammo_casing/n762
 	max_ammo = 14
 
+/obj/item/ammo_box/wt550
+	name = "ammo box (4.6x30mm)"
+	icon_state = "riflebox"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/c46x30mm
+	max_ammo = 20
+	multiload = 0
+
+/obj/item/ammo_box/wt550/wtap
+	name = "ammo box (Armor Piercing 4.6x30mm)"
+	icon_state = "wtbox_AP"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
+
+/obj/item/ammo_box/wt550/wtic
+	name = "ammo box (Incendiary 4.6x30mm)"
+	icon_state = "wtbox_inc"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
+
+/obj/item/ammo_box/wt550/wttx
+	name = "ammo box (Toxin Tipped 4.6x30mm)"
+	icon_state = "wtbox_tox"
+	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
 
 /obj/item/ammo_box/shotgun
 	name = "shotgun speedloader (Slug)"
