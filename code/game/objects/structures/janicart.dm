@@ -29,6 +29,7 @@
 	GLOB.janitorial_equipment -= src
 	QDEL_NULL(mybag)
 	QDEL_NULL(mymop)
+	QDEL_NULL(mybroom)
 	QDEL_NULL(myspray)
 	QDEL_NULL(myreplacer)
 	return ..()
