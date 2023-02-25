@@ -73,3 +73,42 @@
 /obj/mecha/makeshift/Destroy()
 	new /obj/structure/closet(loc)
 	return ..()
+
+/obj/mecha/combat/lockersyndie
+	desc = "A locker with stolen wires, struts, electronics and airlock servos crudley assemebled into something that resembles the fuctions of a mech. Dark-red painted."
+	name = "Syndie Locker Mech"
+	icon = 'icons/mecha/lockermech.dmi'
+	icon_state = "syndielockermech"
+	lights_power = 5
+	step_in = 4
+	max_integrity = 225 //its made of scraps
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 10, bomb = 15, bio = 0, rad = 0, fire = 70, acid = 60)
+	internal_damage_threshold = 30
+	deflect_chance = 20
+	force = 20
+	maint_access = 0
+	mech_enter_time = 20
+	max_equip = 3
+	wreckage = null
+
+/obj/mecha/combat/lockersyndie/go_out()
+	..()
+	update_icon()
+
+/obj/mecha/combat/lockersyndie/moved_inside(mob/living/carbon/human/H)
+	..()
+	update_icon()
+
+/obj/mecha/combat/lockersyndie/add_cell()
+	cell = new /obj/item/stock_parts/cell/high/slime(src)
+
+/obj/mecha/combat/lockersyndie/loaded/New()
+	..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill(src)
+	ME.attach(src)
+
+/obj/mecha/combat/lockersyndie/Destroy()
+	new /obj/structure/closet(loc)
+	return ..()

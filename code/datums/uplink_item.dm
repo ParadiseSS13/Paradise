@@ -341,6 +341,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 6
 	job = list("Civilian")
 
+/datum/uplink_item/jobspecific/lockermech
+	name = "Syndie Locker Mech"
+	desc = "A massive and incredibly deadly Syndicate exosuit(Not realy)."
+	reference = "SLM"
+	item = /obj/mecha/combat/lockersyndie/loaded
+	cost = 10
+	job = list("Civilian")
+
 /datum/uplink_item/jobspecific/stungloves
 	name = "Stungloves"
 	desc = "A pair of sturdy shock gloves with insulated layer. Protects user from electric shock and allows to shock enemies."
