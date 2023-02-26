@@ -151,7 +151,7 @@
 			update_state |= UPSTATE_OPENED1
 		if(opened == APC_COVER_OFF)
 			update_state |= UPSTATE_OPENED2
-	else if(emagged || malfai)
+	else if(emagged || malfai || being_hijacked)
 		update_state |= UPSTATE_BLUESCREEN
 	else if(panel_open)
 		update_state |= UPSTATE_WIREEXP
