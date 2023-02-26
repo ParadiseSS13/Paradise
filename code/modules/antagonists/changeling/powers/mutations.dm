@@ -507,7 +507,6 @@
 		owner.unEquip(src, TRUE, TRUE)
 		if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
 			owner.unEquip(owner.head, TRUE, TRUE)
-	return
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
