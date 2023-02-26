@@ -415,7 +415,7 @@
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/create_new_targeting()
 	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
-	targeting.allowed_type = /mob/living
+	targeting.allowed_type = /mob/living/carbon
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
