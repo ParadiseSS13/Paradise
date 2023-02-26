@@ -498,6 +498,8 @@
 			armor_durability -= 25 // saws used to cut away armor through an interaction, so let's keep them somewhat more effective
 		else if(istype(I) && I.damtype == BURN)
 			armor_durability -= damage * 2
+		else if(!damage)
+			armor_durability--
 		else
 			armor_durability -= damage
 	if(armor_durability <= 0)
