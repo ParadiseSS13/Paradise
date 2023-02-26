@@ -3,6 +3,8 @@
 	icon_state = "intact"
 	pipe_icon = "hepipe"
 	level = 2
+	plane = GAME_PLANE
+	layer = GAS_PIPE_VISIBLE_LAYER
 	var/initialize_directions_he
 	var/surface = 2
 

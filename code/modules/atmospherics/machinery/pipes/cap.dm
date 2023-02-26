@@ -89,7 +89,8 @@
 	desc = "An endcap for scrubbers pipes"
 	icon_state = "cap-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
-	layer = GAS_PIPE_VISIBLE_LAYER + 0.001
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
@@ -98,7 +99,8 @@
 	desc = "An endcap for supply pipes"
 	icon_state = "cap-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
-	layer = GAS_PIPE_VISIBLE_LAYER + 0.002
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
@@ -114,7 +116,8 @@
 	desc = "An endcap for scrubbers pipes"
 	icon_state = "cap-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
-	layer = GAS_PIPE_HIDDEN_LAYER + 0.001
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
@@ -123,6 +126,7 @@
 	desc = "An endcap for supply pipes"
 	icon_state = "cap-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
-	layer = GAS_PIPE_HIDDEN_LAYER + 0.002
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE

@@ -10,7 +10,6 @@ Pipelines + Other Objects -> Pipe network
 */
 /obj/machinery/atmospherics
 	anchored = TRUE
-	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	plane = GAME_PLANE
@@ -18,6 +17,9 @@ Pipelines + Other Objects -> Pipe network
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
+
+	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
+	var/layer_offset = 0.0 // generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things
 
 	/// Can this be unwrenched?
 	var/can_unwrench = FALSE
@@ -84,14 +86,13 @@ Pipelines + Other Objects -> Pipe network
 		..(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/update_icon_state()
-	var/turf/T = get_turf(loc)
-	if(T && T.transparent_floor)
-		plane = FLOOR_PLANE
-	else
-		if(!T || level == 2 || !T.intact)
-			plane = GAME_PLANE
-		else
+	switch (level)
+		if (1)
 			plane = FLOOR_PLANE
+			layer = GAS_PIPE_HIDDEN_LAYER + layer_offset
+		if (2)
+			plane = GAME_PLANE
+			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
