@@ -20,7 +20,7 @@
 		to_chat(finder, "It's small and weak, barely the size of a fetus.")
 	else
 		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
-		AttemptGrow(burst_on_success = FALSE)
+		alien_embryo_grow(burst_on_success = FALSE)
 
 /obj/item/organ/internal/body_egg/alien_embryo/prepare_eat()
 	var/obj/S = ..()
@@ -65,14 +65,14 @@
 	if(stage == 4)
 		for(var/datum/surgery/S in owner.surgeries)
 			if(S.location == "chest" && S.organ_to_manipulate.open >= ORGAN_ORGANIC_OPEN)
-				AttemptGrow(burst_on_success = FALSE) ///If you managed to get this far, you deserve to be rewarded somewhat
+				alien_embryo_grow(burst_on_success = FALSE) ///If you managed to get this far, you deserve to be rewarded somewhat
 				return
-		AttemptGrow()
+		alien_embryo_grow()
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(burst_on_success = TRUE)
-	if(!owner || polling)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/alien_embryo_grow(burst_on_success = TRUE)
+	if(QDELETED(owner) || polling)
 		return
 	polling = TRUE
 	spawn()
