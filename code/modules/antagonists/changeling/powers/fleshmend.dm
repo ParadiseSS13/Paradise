@@ -14,7 +14,7 @@
 	if(user.has_status_effect(STATUS_EFFECT_FLESHMEND))
 		to_chat(user, "<span class='warning'>Our healing's effectiveness is reduced \
 			by quick repeated use!</span>")
-	if((user.bodytemperature + 50 <= user.dna.species.body_temperature))
+	if(user.bodytemperature + 50 <= user.dna.species.body_temperature)
 		to_chat(user, "<span class='warning'>Our healing's effectiveness is reduced \
 			by our cold body!</span>")
 
