@@ -161,7 +161,7 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
+	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && !(user.a_intent == INTENT_HARM))
 		if(beaker)
 			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
 		else if(panel_open)

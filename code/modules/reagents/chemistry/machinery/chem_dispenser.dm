@@ -239,7 +239,7 @@
 		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
 		return
 
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
+	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)) && !(user.a_intent == INTENT_HARM))
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
