@@ -8,6 +8,7 @@
 	icon_state = "term"
 	desc = "It's an underfloor wiring terminal for power equipment."
 	level = 1
+	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
 	var/obj/machinery/power/master = null
 

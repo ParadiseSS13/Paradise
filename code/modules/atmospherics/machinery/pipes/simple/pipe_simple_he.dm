@@ -88,6 +88,8 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/hidden
 	level=1
 	icon_state="intact-f"
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /////////////////////////////////
 // JUNCTION
@@ -133,3 +135,5 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden
 	level=1
 	icon_state="intact-f"
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER

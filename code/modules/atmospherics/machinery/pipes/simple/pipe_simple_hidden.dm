@@ -2,13 +2,16 @@
 	icon_state = "intact"
 	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
+	// these are inherited, but it's nice to have them explicit here
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers
 	name = "Scrubbers pipe"
 	desc = "A one meter section of scrubbers pipe"
 	icon_state = "intact-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
-	layer = 2.38
+	layer = GAS_PIPE_HIDDEN_LAYER + 0.001
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
@@ -21,7 +24,7 @@
 	desc = "A one meter section of supply pipe"
 	icon_state = "intact-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
-	layer = 2.39
+	layer = GAS_PIPE_HIDDEN_LAYER + 0.002
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
