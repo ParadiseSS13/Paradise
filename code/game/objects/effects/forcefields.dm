@@ -44,10 +44,10 @@
 
 /obj/structure/forcefield/Destroy()
 	var/turf/turf_to_update = get_turf(src)
-	. = ..()
 	if(blocks_atmos)
 		blocks_atmos = FALSE
 		turf_to_update.air_update_turf(TRUE)
+	return ..()
 
 /obj/structure/forcefield/CanAtmosPass(turf/T)
 	return !blocks_atmos
