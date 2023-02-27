@@ -815,8 +815,8 @@
 	changeling.adjustStaminaLoss(50)
 	changeling.adjustCloneLoss(20)
 	changeling.setOxyLoss(0)
-	changeling.adjustBruteLoss(rand(0, 10) - changeling.getBruteLoss())
-	changeling.adjustFireLoss(rand(0, 10) - changeling.getFireLoss())
+	changeling.adjustBruteLoss(rand(0, 10))
+	changeling.adjustFireLoss(rand(0, 10))
 	changeling.decaylevel = 0
 	for(var/datum/antagonist/changeling/cling_mind in changeling.mind.antag_datums)
 		cling_mind.chem_charges += 40
