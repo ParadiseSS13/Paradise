@@ -56,7 +56,7 @@
 				darklight_charges++
 				gouged_mobs.Add(mob_UID)
 				gouging = FALSE
-				to_chat(src, "<span class='notice'>We have harvested [target]'s darklight essence, we now possess [darklight_charges].</span>")
+				to_chat(src, "<span class='notice'>We have harvested [target]'s darklight essence, we now possess [darklight_charges] charge\s.</span>")
 				return
 			else
 				gouging = FALSE
