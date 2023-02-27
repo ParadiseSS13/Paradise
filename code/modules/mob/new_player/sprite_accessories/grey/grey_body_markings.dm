@@ -17,3 +17,15 @@
 /datum/sprite_accessory/body_markings/tattoo/grey/tiger_body_grey
 	name = "Grey Tiger-stripe Tattoo"
 	icon_state = "tiger"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/enthralled_grey
+	name = "Grey Enthralled Tattoo"
+	icon_state = "enthralled"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/flared_grey
+	name = "Grey Flared Tattoo"
+	icon_state = "flared"
+
+/datum/sprite_accessory/body_markings/tattoo/grey/imp_grey
+	name = "Grey Imp Tattoo"
+	icon_state = "imp"
