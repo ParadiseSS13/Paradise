@@ -132,8 +132,10 @@
 	var/crit_damage_factor = 2
 	/// Factor of extra damage to deal when you knock it over onto yourself
 	var/self_knockover_factor = 1.5
+	/// All possible crits that could be applied. We only need to build this up once
+	var/static/list/all_possible_crits = list()
 	/// Possible crit effects from this vending machine tipping.
-	var/possible_crits = list(
+	var/list/possible_crits = list(
 		/datum/vendor_crit/pop_head,
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
@@ -177,6 +179,11 @@
 
 	if(account_database)
 		vendor_account = account_database.vendor_account
+
+
+	if(!length(all_possible_crits))
+		for(var/typepath in subtypesof(/datum/vendor_crit))
+			all_possible_crits[typepath] = new typepath()
 
 	reconnect_database()
 	power_change()
@@ -933,7 +940,7 @@
 	if(!length(possible_crits))
 		return
 	for(var/crit_path in shuffle(possible_crits))
-		var/datum/vendor_crit/C = GLOB.vendor_crits[crit_path]
+		var/datum/vendor_crit/C = all_possible_crits[crit_path]
 		if(C.is_valid(src, victim))
 			return C
 
