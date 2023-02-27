@@ -166,9 +166,9 @@
 	name = "emergency stabilization medipen"
 	desc = "A fast acting life-saving emergency autoinjector. Effective in combat situations, made by the syndicate for the syndicate."
 	icon_state = "stimpen"
-	volume = 15
-	amount_per_transfer_from_this = 15
-	list_reagents = list("perfluorodecalin" = 3, "teporone" = 3, "atropine" = 3, "stimulants" = 3, "mannitol" = 3)
+	volume = 12
+	amount_per_transfer_from_this = 12
+	list_reagents = list("perfluorodecalin" = 3, "teporone" = 3, "atropine" = 3, "mannitol" = 3)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"
