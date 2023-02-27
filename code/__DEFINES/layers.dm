@@ -20,10 +20,11 @@
 #define DISPOSAL_PIPE_LAYER 1.71
 #define GAS_PIPE_HIDDEN_LAYER 1.72
 #define WIRE_LAYER 1.73
-#define TRANSPARENT_TURF_LAYER 1.74
 #define WIRE_TERMINAL_LAYER 1.75
 #define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
+#define TRANSPARENT_TURF_LAYER 2
+#define ABOVE_TRANSPARENT_TURF_LAYER 2.01 // put wire terminals here if T.transparent_floor
 #define MID_TURF_LAYER 2.02
 #define HIGH_TURF_LAYER 2.03
 #define TURF_PLATING_DECAL_LAYER 2.031
