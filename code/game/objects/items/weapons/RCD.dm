@@ -666,6 +666,9 @@
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
 
+/obj/item/rcd/combat/detonate_pulse()
+	return
+
 /obj/item/rcd/preloaded
 	matter = 100
 
