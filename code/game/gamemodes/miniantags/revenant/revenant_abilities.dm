@@ -422,7 +422,7 @@
 	if(!attempt_cast(user))
 		return
 
-	for(var/mob/living/carbon/M in targets)
+	for(var/mob/living/carbon/M as anything in targets)
 		M.AdjustHallucinate(120 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
 		new /obj/effect/temp_visual/revenant(get_turf(M))
 
