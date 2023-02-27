@@ -195,6 +195,40 @@
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
 
+/obj/item/storage/bag/garment/warden
+	name = "warden's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the warden."
+
+/obj/item/storage/bag/garment/warden/populate_contents()
+	new /obj/item/clothing/suit/armor/vest/warden(src)
+	new /obj/item/clothing/head/warden(src)
+	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
+	new /obj/item/clothing/head/beret/sec/warden(src)
+	new /obj/item/clothing/under/rank/security/warden(src)
+	new /obj/item/clothing/under/rank/security/formal/warden(src)
+	new /obj/item/clothing/under/rank/security/warden/corporate(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt(src)
+	new /obj/item/clothing/under/rank/security/warden/skirt/corporate(src)
+	new /obj/item/clothing/mask/gas/sechailer/warden(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+
+/obj/item/storage/bag/garment/detective
+	name = "detective's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the detective."
+
+/obj/item/storage/bag/garment/detective/populate_contents()
+	new /obj/item/clothing/under/rank/security/detective(src)
+	new /obj/item/clothing/suit/storage/det_suit(src)
+	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
+	new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
+	new /obj/item/clothing/gloves/color/black/forensics(src)
+	new /obj/item/clothing/head/det_hat(src)
+	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/suit/armor/vest/det_suit(src)
+	new /obj/item/clothing/accessory/black(src)
+	new /obj/item/clothing/accessory/holster/armpit(src)
+	new /obj/item/clothing/glasses/sunglasses/yeah(src)
+
 /obj/item/storage/bag/garment/chaplain
 	name = "chaplain's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the chaplain."
