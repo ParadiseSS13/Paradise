@@ -181,7 +181,7 @@
 	new /obj/item/clothing/accessory/blue(src)
 
 /obj/item/storage/bag/garment/quartermaster
-	name = "quatermaster's garment bag"
+	name = "quartermaster's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the quartermaster."
 
 /obj/item/storage/bag/garment/quartermaster/populate_contents()
@@ -194,3 +194,25 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/suit/fire/firefighter(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
+
+/obj/item/storage/bag/garment/chaplain
+	name = "chaplain's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the chaplain."
+
+/obj/item/storage/bag/garment/chaplain/populate_contents()
+	new /obj/item/clothing/under/rank/civilian/chaplain(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/suit/hooded/nun(src)
+	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
+	new /obj/item/clothing/suit/hooded/monk(src)
+	new /obj/item/clothing/suit/witchhunter(src)
+	new /obj/item/clothing/head/witchhunter_hat(src)
+	new /obj/item/clothing/suit/holidaypriest(src)
+	new /obj/item/clothing/under/dress/wedding/bride_white(src)
+	new /obj/item/clothing/head/helmet/riot/knight/templar(src)
+	new /obj/item/clothing/suit/armor/riot/knight/templar(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/gloves/ring/silver(src)
+	new /obj/item/clothing/gloves/ring/silver(src)
+	new /obj/item/clothing/gloves/ring/gold(src)
+	new /obj/item/clothing/gloves/ring/gold(src)
