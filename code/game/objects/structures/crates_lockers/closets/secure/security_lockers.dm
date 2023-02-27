@@ -269,15 +269,12 @@
 	open_door_sprite = "chaplain_door"
 
 /obj/structure/closet/secure_closet/iaa/populate_contents()
+	new /obj/item/storage/bag/garment/iaa(src)
 	new /obj/item/book/manual/wiki/faxes(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_iaa(src)
-	new /obj/item/clothing/under/rank/civilian/internalaffairs(src)
-	new /obj/item/clothing/suit/storage/internalaffairs(src)
-	new /obj/item/clothing/glasses/sunglasses/big(src)
-	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)

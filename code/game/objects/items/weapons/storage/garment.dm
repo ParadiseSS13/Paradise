@@ -229,6 +229,26 @@
 	new /obj/item/clothing/accessory/holster/armpit(src)
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
 
+/obj/item/storage/bag/garment/iaa
+	name = "internal affairs agent's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the internal affairs agent."
+
+/obj/item/storage/bag/garment/iaa/populate_contents()
+	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/red(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/blue(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/purple(src)
+	new /obj/item/clothing/under/rank/civilian/lawyer/bluesuit(src)
+	new /obj/item/clothing/under/suit/female(src)
+	new /obj/item/clothing/suit/storage/lawyer/bluejacket(src)
+	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
+	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/under/rank/civilian/internalaffairs(src)
+	new /obj/item/clothing/suit/storage/internalaffairs(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
+	new /obj/item/clothing/glasses/sunglasses/big(src)
+
 /obj/item/storage/bag/garment/chaplain
 	name = "chaplain's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the chaplain."

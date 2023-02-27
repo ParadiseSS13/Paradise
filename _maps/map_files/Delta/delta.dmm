@@ -42640,7 +42640,6 @@
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "ccC" = (
-/obj/structure/closet/lawcloset,
 /obj/machinery/light{
 	dir = 4
 	},
