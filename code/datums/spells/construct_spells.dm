@@ -5,9 +5,6 @@
 	action_icon_state = "artificer"
 	action_background_icon_state = "bg_cult"
 
-/obj/effect/proc_holder/spell/aoe/conjure/build
-	aoe_range = 0
-
 /obj/effect/proc_holder/spell/aoe/conjure/build/floor
 	name = "Summon Cult Floor"
 	desc = "This spell constructs a cult floor"

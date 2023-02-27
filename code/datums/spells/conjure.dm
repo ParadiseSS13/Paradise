@@ -62,3 +62,6 @@
 	summon_amt = 10
 	newVars = list("emagged" = 1,"name" = "Wizard's Justicebot")
 	aoe_range = 3
+
+/obj/effect/proc_holder/spell/aoe/conjure/build
+	aoe_range = 0

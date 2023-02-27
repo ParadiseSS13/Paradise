@@ -8,6 +8,12 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	var/thrown_alert = FALSE
+	/// How many times the shadow demon can use the darklight spell, increases by gouging dead players
+	var/darklight_charges = 0
+	/// Stores a list of gouged players so the demon can't do it twice
+	var/list/gouged_mobs = list()
+	/// Is the shadow demon currently gouging someone?
+	var/gouging = FALSE
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
@@ -20,6 +26,42 @@
 	else
 		adjustBruteLoss(-20)
 
+/mob/living/simple_animal/demon/shadow/Stat()
+	..()
+	if(statpanel("Status"))
+		stat(null, "Current darklight essence: [darklight_charges]")
+
+/mob/living/simple_animal/demon/shadow/ClickOn(atom/A)
+	if(ishuman(A))
+		var/mob/living/carbon/human/target = A
+		if(in_range(src, target) && target.stat == DEAD)
+			if(isLivingSSD(target) && client.send_ssd_warning(target)) //Similar to revenants, only gouge SSD targets if you've accepted the SSD warning
+				return
+			if(gouging)
+				to_chat(src, "<span class='notice'>We are already gouging something.</span>")
+				return
+			if(!target.ckey)
+				to_chat(src, "<span class='notice'>This being is mindless, not fit for darklight gouging.</span>")
+				return
+			var/mob_UID = target.UID()
+			if(mob_UID in gouged_mobs)
+				to_chat(src, "<span class='notice'>This being bears the marks of our gouging already, and are empty of darklight essence.</span>")
+				return
+			to_chat(src, "<span class='notice'>We begin to gouge [target] for their darklight essence.</span>")
+			gouging = TRUE
+			if(do_after(src, 2 SECONDS, 0, target = target))
+				playsound(target, 'sound/misc/demon_attack1.ogg', 50, TRUE)
+				target.apply_damage(50, BRUTE, BODY_ZONE_CHEST)
+				target.visible_message("<span class='warning'><b>[src] gouges the chest of [target] with its claws, leaving a deep wound.</b></span>")
+				darklight_charges++
+				gouged_mobs.Add(mob_UID)
+				gouging = FALSE
+				to_chat(src, "<span class='notice'>We have harvested [target]'s darklight essence, we now possess [darklight_charges].</span>")
+				return
+			else
+				gouging = FALSE
+				return
+	..()
 
 /mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isliving(AM)) // when a living creature is thrown at it, dont knock it back
@@ -32,6 +74,7 @@
 	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
 	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/S = new
 	AddSpell(S)
+	AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/darklight)
 	whisper_action.button_icon_state = "shadow_whisper"
 	whisper_action.background_icon_state = "shadow_demon_bg"
 	if(istype(loc, /obj/effect/dummy/slaughter))
@@ -72,6 +115,27 @@
 	sound = null
 	invocation_type = "none"
 	invocation = null
+
+/obj/effect/proc_holder/spell/aoe/conjure/build/darklight
+	name = "Summon Darklight"
+	desc = "This spell conjures a fragile crystal constructed of pure darkness. Acts as a negative light source."
+	action_icon_state = "shadow_darklight"
+	action_background_icon_state = "shadow_demon_bg"
+	school = "conjuration"
+	base_cooldown = 15 SECONDS
+	clothes_req = FALSE
+	invocation = "none"
+	invocation_type = "none"
+	summon_type = list(/obj/structure/darklight)
+
+/obj/effect/proc_holder/spell/aoe/conjure/build/darklight/can_cast(mob/living/simple_animal/demon/shadow/user, charge_check = TRUE, show_message = FALSE)
+	if(user.darklight_charges <= 0) // should never go less than 0 but let's just be safe
+		return FALSE
+	return TRUE
+
+/obj/effect/proc_holder/spell/aoe/conjure/build/darklight/cast(list/targets, mob/living/simple_animal/demon/shadow/user)
+	. = ..()
+	user.darklight_charges--
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
 	return

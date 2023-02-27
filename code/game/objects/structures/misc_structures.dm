@@ -141,3 +141,15 @@
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
+
+/obj/structure/darklight
+	name = "pylon"
+	desc = "A floating crystal, seemingly made of darkness itself. Emanates an aura of shadow."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "darklight"
+	light_power = -4
+	light_range = 6
+	max_integrity = 100
+	light_color = "#AAD84B"
+	density = TRUE
+	anchored = TRUE
