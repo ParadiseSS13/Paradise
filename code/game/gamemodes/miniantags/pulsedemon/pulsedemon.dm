@@ -204,7 +204,6 @@
 	. = ..()
 
 	var/got_power = FALSE
-	var/prev_charge = charge
 	if (current_cable)
 		// TODO: small passive charge gain from cables when draining?
 		if (current_cable.avail() >= power_per_regen)
