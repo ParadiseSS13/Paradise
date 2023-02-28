@@ -644,7 +644,7 @@
 	name = "Soviet Officer"
 
 	suit = /obj/item/clothing/suit/sovietcoat/officer
-	uniform = /obj/item/clothing/under/sovietofficer
+	uniform = /obj/item/clothing/under/new_soviet/sovietofficer
 	head = /obj/item/clothing/head/sovietofficerhat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	belt = /obj/item/gun/projectile/revolver/mateba
@@ -661,7 +661,7 @@
 /datum/outfit/admin/soviet/admiral
 	name = "Soviet Admiral"
 
-	uniform = /obj/item/clothing/under/sovietadmiral
+	uniform = /obj/item/clothing/under/new_soviet/sovietadmiral
 	head = /obj/item/clothing/head/sovietadmiralhat
 	belt = /obj/item/gun/projectile/revolver/mateba
 	l_ear = /obj/item/radio/headset/syndicate

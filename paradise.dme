@@ -1564,6 +1564,7 @@
 #include "code\modules\clothing\under\solgov.dm"
 #include "code\modules\clothing\under\suit.dm"
 #include "code\modules\clothing\under\syndicate_jumpsuits.dm"
+#include "code\modules\clothing\under\ussp.dm"
 #include "code\modules\clothing\under\accessories\accessory.dm"
 #include "code\modules\clothing\under\accessories\armband.dm"
 #include "code\modules\clothing\under\accessories\holster.dm"

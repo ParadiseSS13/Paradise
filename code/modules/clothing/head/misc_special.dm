@@ -2,7 +2,7 @@
  * Contents:
  *		Welding mask
  *		Cakehat
- *		Ushanka
+ *		Soviet Hats
  *		Pumpkin head
  *		Kitty ears
  *		Cardborg Disguise
