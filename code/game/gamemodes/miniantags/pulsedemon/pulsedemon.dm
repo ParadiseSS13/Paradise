@@ -114,6 +114,7 @@
 	return death()
 
 /mob/living/simple_animal/pulse_demon/death()
+	cancel_hijack_apc(apc_being_hijacked)
 	var/turf/T = get_turf(src)
 	do_sparks(rand(2, 4), FALSE, src)
 	var/heavy_radius = min(charge / 50000, 20)
@@ -264,7 +265,7 @@
 		cleanup_hijack(A)
 
 /mob/living/simple_animal/pulse_demon/proc/cancel_hijack_apc(obj/machinery/power/apc/A)
-	if (A == apc_being_hijacked)
+	if (A && A == apc_being_hijacked)
 		deltimer(hijack_timer_id)
 		cleanup_hijack(A)
 
