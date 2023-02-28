@@ -770,9 +770,6 @@
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					if(M.mind && M.mind.has_antag_datum(/datum/antagonist/changeling))
-						var/when_revive = rand(2 SECONDS, 10 SECONDS)
-						M.do_jitter_animation(1000, when_revive) // jitter until they get revived
-						addtimer(CALLBACK(src, PROC_REF(revive_changeling), M), when_revive)
 						return
 					M.delayed_gib()
 					return
@@ -808,23 +805,6 @@
 					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 					SSblackbox.record_feedback("tally", "players_revived", 1, "strange_reagent")
 	..()
-
-/datum/reagent/medicine/strange_reagent/proc/revive_changeling(mob/living/carbon/human/changeling)
-	changeling.revive()
-	changeling.visible_message("<span class='warning'>[changeling] suddenly bolts upwards!</span>")
-	changeling.adjustStaminaLoss(50)
-	changeling.adjustCloneLoss(20)
-	changeling.setOxyLoss(0)
-	changeling.adjustBruteLoss(rand(0, 10))
-	changeling.adjustFireLoss(rand(0, 10))
-	changeling.decaylevel = 0
-	for(var/datum/antagonist/changeling/cling_mind in changeling.mind.antag_datums)
-		cling_mind.chem_charges += 40
-	for(var/obj/item/organ/O in (changeling.bodyparts))
-		if(!O.vital && prob(20))
-			O.necrotize(FALSE)
-			if(O.status & ORGAN_DEAD)
-				O.germ_level = INFECTION_LEVEL_THREE
 
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
