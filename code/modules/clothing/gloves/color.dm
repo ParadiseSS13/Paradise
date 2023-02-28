@@ -124,6 +124,10 @@
 				return
 	..()
 
+/obj/item/clothing/gloves/color/black/poisoner
+	desc = "These gloves are fire-resistant. They seem thicker than usual."
+	safe_from_poison = TRUE
+
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
 	desc = "A pair of gloves, they don't look special in any way."

@@ -30429,10 +30429,7 @@
 	},
 /area/gateway)
 "bQC" = (
-/obj/structure/sign/securearea{
-	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste... You were delicious.'";
-	icon_state = "monkey_painting";
-	name = "Mr. Deempisi portrait";
+/obj/structure/sign/monkey_paint{
 	pixel_y = -28
 	},
 /obj/machinery/economy/vending/boozeomat,
@@ -31557,9 +31554,7 @@
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
 "bTN" = (
-/obj/structure/sign/kiddieplaque{
-	desc = "A guide to the exhibit, explaining how recent developments in mindshield implant and cloning technologies by Nanotrasen Corporation have led to the development and the effective immortality of the 'perfect man', the loyal Nanotrasen Employee.";
-	name = "\improper 'Perfect Man' sign";
+/obj/structure/sign/kiddieplaque/perfect_man{
 	pixel_y = 32
 	},
 /obj/structure/showcase/machinery{
@@ -42754,10 +42749,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cCs" = (
-/obj/structure/sign/atmosplaque{
-	desc = "A plaque commemorating the fallen, may they rest in peace, forever asleep amongst the stars. Someone has drawn a picture of a crying badger at the bottom.";
-	icon_state = "kiddieplaque";
-	name = "Remembrance Plaque";
+/obj/structure/sign/kiddieplaque/remembrance{
 	pixel_y = 32
 	},
 /obj/machinery/light/small{
@@ -53941,9 +53933,7 @@
 /area/toxins/explab)
 "eQf" = (
 /obj/structure/table/wood,
-/obj/structure/sign/kiddieplaque{
-	desc = "A guide to the drone shell dispenser, detailing the constructive and destructive applications of modern repair drones, as well as the development of the incorruptible cyborg servants of tomorrow, available today.";
-	name = "\improper 'Perfect Drone' sign";
+/obj/structure/sign/kiddieplaque/perfect_drone{
 	pixel_y = 32
 	},
 /obj/structure/showcase/machinery{
@@ -57715,11 +57705,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	desc = "Epsilon Eridani Sector - 'Meta' Class Outpost - Commissioned 11/03/2557 - NSS Cerebron";
-	icon_state = "plaque";
-	name = "Commission Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque/commission,
 /area/bridge/hall)
 "gHu" = (
 /obj/structure/table/wood,
@@ -69310,9 +69296,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "mik" = (
-/obj/structure/sign/goldenplaque{
-	desc = "A golden plaque commemorating excellence in medical care. God only knows how this ended up in this medbay.";
-	name = "The Hippocratic Award for Excellence in Medicine";
+/obj/structure/sign/goldenplaque/medical{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
