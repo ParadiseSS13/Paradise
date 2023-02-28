@@ -85,6 +85,8 @@
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
+	new /obj/item/twohanded/push_broom(src)
+	new /obj/item/twohanded/push_broom(src)
 	new /obj/item/storage/bag/trash(src)
 	new /obj/item/storage/bag/trash(src)
 	new /obj/item/lightreplacer(src)
