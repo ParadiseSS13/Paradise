@@ -169,12 +169,29 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/costume/soviet
-	name = "soviet uniform"
+	name = "old soviet uniform"
 	desc = "For the Motherland!"
 	icon_state = "soviet"
 	item_state = "soviet"
 	item_color = "soviet"
 
+/obj/item/clothing/under/new_soviet
+	name = "\improper Soviet uniform"
+	desc = "A standard U.S.S.P military uniform."
+	icon_state = "soviet"
+	item_color = "soviet"
+
+/obj/item/clothing/under/sovietofficer
+	name = "\improper Soviet officer uniform"
+	desc = "A U.S.S.P commanding officer's uniform."
+	icon_state = "sovietofficer"
+	item_color = "sovietofficer"
+
+/obj/item/clothing/under/sovietadmiral
+	name = "\improper Soviet admiral uniform"
+	desc = "A U.S.S.P naval admiral's uniform."
+	icon_state = "sovietadmiral"
+	item_color = "sovietadmiral"
 
 /obj/item/clothing/under/costume/tourist_suit
 	name = "tourist outfit"

@@ -958,6 +958,23 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/sovietcoat
+	name = "\improper Soviet greatcoat"
+	desc = "A military overcoat made of rough wool that is thick enough to provide excellent protection against the elements."
+	icon_state = "sovietcoat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	armor = list(melee = 15, bullet = 15, laser = 15, energy = 5, bomb = 15, bio = 0, rad = 0, fire = 30, acid = 30)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/flashlight,/obj/item/gun/energy,/obj/item/gun/projectile,/obj/item/ammo_box)
+
+/obj/item/clothing/suit/sovietcoat/officer
+	name = "\improper Soviet officer's greatcoat"
+	desc = "A military overcoat made with expensive wool. The U.S.S.P armband means it must belong to someone important."
+	icon_state = "sovietofficercoat"
+	armor = list(melee = 25, bullet = 25, laser = 25, energy = 10, bomb = 20, bio = 0, rad = 0, fire = 30, acid = 30)
+
 /obj/item/clothing/suit/toggle/owlwings
 	name = "owl cloak"
 	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
