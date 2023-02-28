@@ -43,7 +43,18 @@
 
 	next_move = 1
 	sight |= SEE_SELF
-	..()
+
+	// DO NOT CALL PARENT HERE
+	// BYOND's internal implementation of login does two things
+	// 1: Set statobj to the mob being logged into (We got this covered)
+	// 2: And I quote "If the mob has no location, place it near (1,1,1) if possible"
+	// See, near is doing an agressive amount of legwork there
+	// What it actually does is takes the area that (1,1,1) is in, and loops through all those turfs
+	// If you successfully move into one, it stops
+	// Because we want Move() to mean standard movements rather then just what byond treats it as (ALL moves)
+	// We don't allow moves from nullspace -> somewhere. This means the loop has to iterate all the turfs in (1,1,1)'s area
+	// For us, (1,1,1) is a space tile. This means roughly 200,000! calls to Move()
+	// You do not want this
 
 	reset_perspective(loc)
 
