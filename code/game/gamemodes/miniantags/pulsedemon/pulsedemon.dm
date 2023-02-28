@@ -72,6 +72,8 @@
 
 	var/apc_hijack_time = 30 SECONDS
 
+	var/glow_color = "#bbbb00" // for varedit funsies
+
 	var/obj/structure/cable/current_cable // inhabited wire
 	var/obj/machinery/power/current_power // inhabited machine
 
@@ -98,7 +100,7 @@
 		current_cable = locate(/obj/structure/cable) in loc
 	else
 		forceMove(current_power)
-	set_light(1.5, 2, "#bbbb00")
+	set_light(1.5, 2, glow_color)
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 50, 1)
 
 /mob/living/simple_animal/pulse_demon/Stat()
@@ -185,11 +187,24 @@
 	if (adjust_max)
 		maxcharge = max(maxcharge, charge + amount)
 	charge = min(maxcharge, charge + amount)
+	update_glow()
+
+// TODO: does equation need adjustment? see original table:
+	// 1.5 <= 25k
+	// 2   at 50k
+	// 2.5 at 100k
+	// 3   at 200k
+	// 3.5 at 400k, etc
+/mob/living/simple_animal/pulse_demon/proc/update_glow()
+	var/range = 2 + (log(2, charge + 1) - log(2, 50000)) / 2
+	range = max(range, 1.5)
+	set_light(range, 2, glow_color)
 
 /mob/living/simple_animal/pulse_demon/Life(seconds, times_fired)
 	. = ..()
 
 	var/got_power = FALSE
+	var/prev_charge = charge
 	if (current_cable)
 		// TODO: small passive charge gain from cables when draining?
 		if (current_cable.avail() >= power_per_regen)
