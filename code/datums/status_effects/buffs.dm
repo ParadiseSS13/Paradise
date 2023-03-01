@@ -375,10 +375,7 @@
 
 /datum/status_effect/fleshmend/on_apply()
 	tolerance += 1
-	if(owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
-		freezing = TRUE
-	else
-		freezing = FALSE
+	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 	active_instances += instance_duration
 	return TRUE
 
@@ -393,11 +390,7 @@
 
 /datum/status_effect/fleshmend/tick()
 	if(length(active_instances) >= 1)
-		var/heal_amount
-		if(!freezing)
-			heal_amount = 10 * length(active_instances) / tolerance
-		else
-			heal_amount = 2 * length(active_instances) / tolerance
+		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
 		var/blood_restore = 30 * length(active_instances)
 		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		owner.adjustOxyLoss(-heal_amount, FALSE)
