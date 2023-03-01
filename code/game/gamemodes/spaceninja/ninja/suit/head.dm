@@ -10,7 +10,8 @@
 	name = "ninja hood"
 	desc = "What may appear to be a simple black garment is in fact a highly sophisticated nano-weave helmet. Standard issue ninja gear."
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
-	flags_inv = HIDEEARS|HIDEFACE
+	flags_inv = HIDEHEADSETS|HIDENAME
+	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
 	icon = 'icons/obj/ninjaobjects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'

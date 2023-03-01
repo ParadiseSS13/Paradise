@@ -3755,7 +3755,7 @@
 	color = "gray"
 	},
 /obj/item/clothing/under/syndicate/tacticool,
-/obj/item/clothing/mask/fawkes,
+/obj/item/clothing/mask/face/fawkes,
 /obj/item/clothing/shoes/combat,
 /obj/item/storage/belt/military/assault,
 /obj/item/storage/backpack/duffel/durathread,

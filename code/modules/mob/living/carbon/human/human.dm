@@ -483,9 +483,9 @@
 /mob/living/carbon/human/get_visible_name(var/id_override = FALSE)
 	if(name_override)
 		return name_override
-	if(wear_mask && (wear_mask.flags_inv & HIDEFACE))	//Wearing a mask which hides our face, use id-name if possible
+	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name("Unknown")
-	if(head && (head.flags_inv & HIDEFACE))
+	if(head && (head.flags_inv & HIDENAME))
 		return get_id_name("Unknown")		//Likewise for hats
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
@@ -1001,9 +1001,9 @@
 	if(head)
 		if(head.flags_inv & HIDEMASK)
 			obscured |= slot_wear_mask
-		if(head.flags_inv & HIDEEYES)
+		if(head.flags_inv & HIDEGLASSES)
 			obscured |= slot_glasses
-		if(head.flags_inv & HIDEEARS)
+		if(head.flags_inv & HIDEHEADSETS)
 			obscured |= slot_r_ear
 			obscured |= slot_l_ear
 
@@ -1021,7 +1021,7 @@
 
 /mob/living/carbon/human/proc/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
-	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
+	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDENAME)) || (head && (head.flags_inv & HIDENAME))
 	if((slot_w_uniform in obscured) && skipface)
 		return PLURAL
 	return gender

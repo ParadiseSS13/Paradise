@@ -252,7 +252,7 @@
 	name = "completely real moustache"
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	actions_types = list(/datum/action/item_action/pontificate)
 	dog_fashion = /datum/dog_fashion/head/not_ian
 
@@ -329,7 +329,8 @@
 	icon_state = "pig"
 	item_state = "pig"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_SMALL
 
 
@@ -339,7 +340,7 @@
 	icon_state = "horsehead"
 	item_state = "horsehead"
 	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_SMALL
 	var/voicechange = 0
 	var/temporaryname = " the Horse"
@@ -381,7 +382,7 @@
 		user.real_name = originalname
 
 /obj/item/clothing/mask/face
-	flags_inv = HIDEFACE
+	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
 
 /obj/item/clothing/mask/face/rat
@@ -432,12 +433,11 @@
 	icon_state = "bumba"
 	item_state = "bumba"
 
-/obj/item/clothing/mask/fawkes
+/obj/item/clothing/mask/face/fawkes
 	name = "Guy Fawkes mask"
 	desc = "A mask designed to help you remember a specific date."
 	icon_state = "fawkes"
 	item_state = "fawkes"
-	flags_inv = HIDEFACE
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
@@ -452,8 +452,7 @@
 /obj/item/clothing/mask/bandana
 	name = "bandana"
 	desc = "A colorful bandana."
-	flags_inv = HIDEFACE
-	flags_cover = MASKCOVERSMOUTH
+	flags_inv = HIDENAME
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_MASK
 	adjusted_flags = SLOT_HEAD

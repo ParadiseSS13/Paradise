@@ -5,7 +5,7 @@
 	desc = "A high tech, NASA Centcom branch designed space suit helmet. Used for AI satellite maintenance."
 	icon_state = "void-red"
 	item_state = "void"
-	flags_inv = HIDEMASK|HIDEEARS
+	flags_inv = HIDEMASK|HIDEHEADSETS
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
@@ -74,7 +74,7 @@
 	name = "Blood Red Retro Void Helmet"
 	icon_state = "void-syndi"
 	desc = "A high tech, NASA Centcom branch designed space suit helmet. This one looks rather suspicious."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 80, "acid" = 85)
 
 /obj/item/clothing/suit/space/nasavoid/syndi

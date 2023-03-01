@@ -526,4 +526,5 @@
 	icon_state = "lingarmorhelmet"
 	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
+	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH

@@ -45,6 +45,7 @@
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP
+	flags_cover = MASKCOVERSEYES	//We don't need to cover mouth
 
 
 /obj/item/clothing/gloves/shadowling
@@ -70,6 +71,7 @@
 	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP | STOPSPRESSUREDMAGE
+	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
 
 /obj/item/clothing/glasses/shadowling
 	name = "crimson eyes"

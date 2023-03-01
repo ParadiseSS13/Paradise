@@ -55,7 +55,7 @@
 	icon_state = "guardhelm"
 	item_state = "guardhelm"
 	flags = BLOCKHAIR
-
+	flags_cover = HEADCOVERSEYES
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
 		"Monkey" = 'icons/mob/species/monkey/head.dmi',

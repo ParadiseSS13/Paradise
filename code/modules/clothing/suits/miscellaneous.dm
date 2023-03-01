@@ -306,7 +306,7 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/salmon_costume
 	name = "salmon suit"
@@ -322,7 +322,7 @@
 	icon_state = "salmon"
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/bee_costume // It's Hip!
 	name = "bee costume"
@@ -339,7 +339,7 @@
 	icon_state = "bee"
 	body_parts_covered = HEAD
 	flags = THICKMATERIAL|BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
 	name = "bloated human suit"
@@ -386,7 +386,7 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -579,7 +579,7 @@
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	flags = BLOCKHAIR
-	flags_inv = HIDEEARS
+	flags_inv = HIDEHEADSETS
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -860,9 +860,9 @@
 	item_state = "mercy_hood"
 	permeability_coefficient = 0.01
 	flags = BLOCKHAIR
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 50)
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 
 /obj/item/clothing/suit/jacket
 	name = "bomber jacket"
@@ -1143,7 +1143,7 @@
 	throw_range = 2
 	w_class = WEIGHT_CLASS_TINY
 	flags = BLOCKHAIR
-	flags_inv = HIDEGLOVES|HIDEEARS|HIDEFACE
+	flags_inv = HIDEGLOVES|HIDEHEADSETS|HIDENAME
 
 // Suragi start
 // Suragi parent

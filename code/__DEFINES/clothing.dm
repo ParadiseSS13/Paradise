@@ -5,9 +5,9 @@
 #define HIDESHOES		8	//APPLIES ONLY TO THE EXTERIOR SUIT!!
 #define HIDETAIL 		16	//APPLIES ONLY TO THE EXTERIOR SUIT!!
 #define HIDEMASK	32	//APPLIES ONLY TO HELMETS/MASKS!!
-#define HIDEEARS	64	//APPLIES ONLY TO HELMETS/MASKS!! (ears means headsets and such)
-#define HIDEEYES	128	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
-#define HIDEFACE	256	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
+#define HIDEHEADSETS	64	//APPLIES ONLY TO HELMETS/MASKS!! (headsets and such)
+#define HIDEGLASSES	128	//APPLIES ONLY TO HELMETS/MASKS!!
+#define HIDENAME	256	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
 // slots
 #define slot_back 1

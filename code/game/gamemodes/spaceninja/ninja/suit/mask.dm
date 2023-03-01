@@ -15,7 +15,8 @@
 	icon_state = "ninja_mask_classic_thermals"
 	item_state = "ninja_mask_classic_thermals"
 	strip_delay = 120
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_cover = MASKCOVERSEYES	//We don't need to cover mouth
 	flash_protect = -1	//Не должна защищать от флешек
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF | NO_MOUSTACHING
 	// "classic"	- Классическая белая маска

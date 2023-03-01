@@ -19,13 +19,13 @@
 
 	if(head)
 		skipmask = head.flags_inv & HIDEMASK
-		skipeyes = head.flags_inv & HIDEEYES
-		skipears = head.flags_inv & HIDEEARS
-		skipface = head.flags_inv & HIDEFACE
+		skipeyes = head.flags_inv & HIDEGLASSES
+		skipears = head.flags_inv & HIDEHEADSETS
+		skipface = head.flags_inv & HIDENAME
 
 	if(wear_mask)
-		skipface |= wear_mask.flags_inv & HIDEFACE
-		skipeyes |= wear_mask.flags_inv & HIDEEYES
+		skipface |= wear_mask.flags_inv & HIDENAME
+		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 
 	var/msg = "This is "
 
@@ -348,7 +348,7 @@
 		if(digitalcamo)
 			msg += "[p_they(TRUE)] [p_are()] moving [p_their()] body in an unnatural and blatantly inhuman manner.\n"
 
-	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
+	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
 
 	if(decaylevel == 1)

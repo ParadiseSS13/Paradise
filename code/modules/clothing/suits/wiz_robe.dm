@@ -71,6 +71,7 @@
 	icon_state = "magus"
 	item_state = "magus"
 	dog_fashion = null
+	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
