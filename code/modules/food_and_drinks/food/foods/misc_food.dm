@@ -138,7 +138,9 @@
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/on_enter_storage(obj/item/storage/S)
 	. = ..()
-	if(istype(S, /obj/item/storage/box/donkpockets) && cool_timer)
+	if(!cool_timer)
+		return
+	if(istype(S, /obj/item/storage/box/donkpockets))
 		deltimer(cool_timer)
 		subtracted_time += (world.time - heated_at)
 		cool_timer = null
