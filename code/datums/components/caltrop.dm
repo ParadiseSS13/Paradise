@@ -56,4 +56,10 @@
 				H.visible_message("<span class='danger'>[H] slides on [A]!</span>", "<span class='userdanger'>You slide on [A]!</span>")
 
 			cooldown = world.time
+		if(flags & CALTROP_SAFE_VERTICAL)
+			if(!IS_HORIZONTAL(H))
+				return
+			else
+				H.apply_damage(30, BRUTE, picked_def_zone)
+				A.atom_say("Hobo detected, activating anti-hobo measures")
 		H.Weaken(6 SECONDS)

@@ -39,3 +39,4 @@
 //Ouch my toes!
 #define CALTROP_BYPASS_SHOES 1
 #define CALTROP_IGNORE_WALKERS 2
+#define CALTROP_SAFE_VERTICAL 4
