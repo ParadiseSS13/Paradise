@@ -147,6 +147,7 @@ const NanoMapMarker = props => {
     icon,
     tooltip,
     color,
+    onClick,
   } = props;
   const rx = ((x * 2 * zoom) - zoom) - 3;
   const ry = ((y * 2 * zoom) - zoom) - 3;
@@ -157,7 +158,8 @@ const NanoMapMarker = props => {
         className="NanoMap__marker"
         lineHeight="0"
         bottom={ry + "px"}
-        left={rx + "px"}>
+        left={rx + "px"}
+        onClick={onClick}>
         <Icon
           name={icon}
           color={color}
