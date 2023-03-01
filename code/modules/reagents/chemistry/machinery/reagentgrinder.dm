@@ -145,7 +145,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_crowbar(I)
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
