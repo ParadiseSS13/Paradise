@@ -75,7 +75,7 @@
 	absorbed_languages = list()
 
 	var/mob/living/carbon/human/H = owner.current
-	absorbed_dna += H.dna.Clone()
+	protected_dna += H.dna.Clone()
 	..()
 
 /datum/antagonist/changeling/Destroy()
