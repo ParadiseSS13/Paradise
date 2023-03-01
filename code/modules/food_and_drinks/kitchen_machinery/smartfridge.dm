@@ -459,7 +459,9 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "foodcart"
 	anchored = FALSE
-	power_state = NO_POWER_USE
+	requires_power = FALSE
+	idle_power_consumption = 0
+	active_power_consumption = 0
 	visible_contents = FALSE
 	face_while_pulling = FALSE
 	silicon_controllable = FALSE
