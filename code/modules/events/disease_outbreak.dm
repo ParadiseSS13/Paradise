@@ -20,7 +20,7 @@
 	D.carrier = TRUE
 
 /datum/event/disease_outbreak/announce()
-	GLOB.event_announcement.Announce("Вспышка вирусной угрозы 7-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА", new_sound = 'sound/AI/outbreak7.ogg')
+	GLOB.event_announcement.Announce("Вспышка вирусной угрозы 7-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", new_sound = 'sound/AI/outbreak7.ogg')
 	for(var/p in GLOB.dead_mob_list)
 		var/mob/M = p
 		to_chat(M, "<span class='deadsay'><b>[patient_zero]</b> был(а) заражён(а) <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])</span>")

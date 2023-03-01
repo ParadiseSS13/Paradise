@@ -51,7 +51,7 @@
 /datum/weather/rad_storm/end()
 	if(..())
 		return
-	GLOB.priority_announcement.Announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.", "Предупреждение об аномалиях")
+	GLOB.priority_announcement.Announce("Радиационная угроза миновала. Пожалуйста, вернитесь на свои рабочие места.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
 	status_alarm(FALSE)
 	if(!pre_maint_all_access)
 		revoke_maint_all_access()

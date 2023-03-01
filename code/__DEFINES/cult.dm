@@ -45,13 +45,13 @@
 #define CULT_GREETING "<span class='cultlarge'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. \
 						You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>"
 
-#define CULT_CURSES list("A fuel technician just slit his own throat and begged for death.",                                           \
-			"The shuttle's navigation programming was replaced by a file containing two words, IT COMES.",                             \
-			"The shuttle's custodian tore out his guts and began painting strange shapes on the floor.",                               \
-			"A shuttle engineer began screaming 'DEATH IS NOT THE END' and ripped out wires until an arc flash seared off her flesh.", \
-			"A shuttle inspector started laughing madly over the radio and then threw herself into an engine turbine.",                \
-			"The shuttle dispatcher was found dead with bloody symbols carved into their flesh.",                                      \
-			"Steve repeatedly touched a lightbulb until his hands fell off.")
+#define CULT_CURSES list("Заправщик шаттла только что перерезал себе горло и умолял о смерти.",\
+			"Навигационная программа шаттла была заменена файлом, содержащим два слова: ОНО ПРИБЛЕЖАЕТСЯ.",\
+			"Уборщик шаттла вырвал свои кишки и начал рисовать на полу странные фигуры.",\
+			"Инженер шаттла кричал `СМЕРТЬ НЕ КОНЕЦ` и вырывал проводку, пока электрический разряд не испепелил его плоть.",\
+			"Инспектор шаттла начал безумно смеяться по рации, а затем бросился в турбину двигателя.",\
+			"Диспетчер шаттла был найден мертвым с кровавыми символами, вырезанными на его теле.",\
+			"Стив неоднократно трогал лампочку, пока у него не отнялись руки.")
 
 // Misc
 #define SOULS_TO_REVIVE 3

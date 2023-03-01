@@ -269,7 +269,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 				sleep(50)
 				qdel(borer)
 				sleep(rand(60, 90))
-				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Hello","Hi","You're my slave now!","Don't try to get rid of me...")]</span>")
+				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня...")]</span>")
 				break
 			sleep(4)
 		if(!QDELETED(borer))
@@ -741,8 +741,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
 	. = ..()
 	target = T
-	var/speak_messages = list("I'm watching you...","[target.name]!","Get out!","Kchck-Chkck? Kchchck!","Did you hear that?","What did you do ?","Why?","Give me that!","Honk!","HELP!!", "EI NATH!!", "RUN!!", "Kill me!","O bidai nabora se'sma!")
-	var/radio_messages = list("Xenos!","Singularity loose!","Comms down!","They are arming the nuke!","They butchered Ian!","H-help!","[pick("Cult", "Wizard", "Ling", "Ops", "Revenant", "Murderer", "Harm", "I hear flashing", "Help")] in [pick(GLOB.teleportlocs)][prob(50)?"!":"!!"]","Where's [target.name]?","Call the shuttle!","AI rogue!!")
+	var/speak_messages = list("Я слежу за тобой...","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","O bidai nabora se'sma!","EI NATH!!","Kchck-Chkck? Kchchck!")
+	var/radio_messages = list("Ксеноморфы!","Синга вышла!","Телекомы упали!","Они взвели нюку!","Они убили Иана!","П-помогите!","[pick("Культисты", "Маг", "Генка", "Нюкеры", "Ревенант", "Труп", "Драка", "Я слышал флешку", "Нужна помощь")] в [pick(GLOB.teleportlocs)][prob(50)?"!":"!!"]","Где [target.name]?","[target.name] мёртв!","Вызывайте шаттл!","ИИ взломан!")
 
 	var/list/mob/living/carbon/people = list()
 	var/mob/living/carbon/person = null
@@ -874,7 +874,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				if(13)
 					to_chat(src, "<span class='warning'>You feel a tiny prick!</span>")
 				if(14)
-					to_chat(src, "<h1 class='alert'>Priority Announcement</h1>")
+					to_chat(src, "<h1 class='alert'>Приоритетное оповещение.</h1>")
 					to_chat(src, "<br><br><span class='alert'>Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.</span><br><br>")
 					playsound_local(null, 'sound/AI/shuttledock.ogg', 100)
 				if(15)
@@ -893,7 +893,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				if(17)
 					playsound_local(null, 'sound/weapons/saberon.ogg', 35, 1)
 				if(18)
-					to_chat(src, "<h1 class='alert'>ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА</h1>")
+					to_chat(src, "<h1 class='alert'>ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.</h1>")
 					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение любой ценой!.</span><br><br>")
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
@@ -902,8 +902,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						sleep(20)
 						playsound_local(null, 'sound/magic/lightningbolt.ogg', 65+(35*(i-1)), 1)	//65%, then 100% volume.
 				if(20) //AI is doomsdaying!
-					to_chat(src, "<h1 class='alert'>Anomaly Alert</h1>")
-					to_chat(src, "<br><br><span class='alert'>Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.</span><br><br>")
+					to_chat(src, "<h1 class='alert'>ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.</h1>")
+					to_chat(src, "<br><br><span class='alert'>Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.</span><br><br>")
 					playsound_local(null, 'sound/AI/aimalf.ogg')
 		if("hudscrew")
 			//Screwy HUD
@@ -1043,8 +1043,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				var/mob/dead/observer/fakemob = pick(dead_people)
 				if(fakemob)
 					sleep(rand(30, 60))
-					to_chat(src, "<span class='deadsay'><span class='name'>[fakemob.name]</span>(FOLLOW) [pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[pick("rip","welcome [name]","you too?","is the AI malf?",\
-					 "i[prob(50)?" fucking":""] hate [pick("blood cult", "clock cult", "revenants", "abductors","double agents","viruses","badmins","you")]")]\"</span></span>")
+					to_chat(src, "<span class='deadsay'><span class='name'>[fakemob.name]</span>(FOLLOW) [pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[pick("мёртв","привет [name]","ты тоже?","ИИ взломан?",\
+					 "я[prob(50)?" блять":""] ненавижу [pick("культистов", "реву", "абдукторов", "предателей", "свармеров", "вирусы", "тебя")]")]\"</span></span>")
 			sleep(rand(50,70))
 			hal_screwyhud = SCREWYHUD_NONE
 			SetSleeping(0)

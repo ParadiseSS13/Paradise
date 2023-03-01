@@ -1,7 +1,7 @@
 /datum/event/door_runtime
 
 /datum/event/door_runtime/announce()
-	GLOB.minor_announcement.Announce("Вредоносное программное обеспечение обнаружено в системе контроля шлюзов. Задействованы протоколы изоляции. Пожалуйста, сохраняйте спокойствие.", "ВНИМАНИЕ: УЯЗВИМОСТЬ СЕТИ")
+	GLOB.minor_announcement.Announce("Вредоносное программное обеспечение обнаружено в системе контроля шл+юзов. Задействованы протоколы изоляции. Пожалуйста, сохраняйте спокойствие.", "ВНИМАНИЕ: УЯЗВИМОСТЬ СЕТИ.")
 
 /datum/event/door_runtime/start()
 	for(var/obj/machinery/door/D in GLOB.airlocks)

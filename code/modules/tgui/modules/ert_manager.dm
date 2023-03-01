@@ -93,7 +93,7 @@
 			notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
 			message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
 			log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
-			GLOB.event_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
+			GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 		else
 			return FALSE

@@ -337,7 +337,7 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src)]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction")
+		GLOB.event_announcement.Announce("Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Внимание, обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "ВНИМАНИЕ: Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]", "ВНИМАНИЕ: Сбой Блюспейс-сборщика.")
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0

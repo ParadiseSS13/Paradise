@@ -390,7 +390,7 @@
 		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
 		SSshuttle.emergency.setTimer(timer*10)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
-		GLOB.minor_announcement.Announce("The emergency shuttle will reach its destination in [round(SSshuttle.emergency.timeLeft(600))] minutes.")
+		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [round(SSshuttle.emergency.timeLeft(600))] минут.")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
 		href_list["secrets"] = "check_antagonist"
 
@@ -2842,11 +2842,11 @@
 				if(GLOB.gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.")
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity on.</span>")
-					GLOB.event_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
+					GLOB.event_announcement.Announce("Гравитационные генераторы снова функционируют в пределах штатных значений. Приносим извинения за неудобства.")
 				else
 					log_admin("[key_name(usr)] toggled gravity off.")
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity off.</span>")
-					GLOB.event_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					GLOB.event_announcement.Announce("Обнаружен всплеск обратного потока в системах распределения масс. Искусственная гравитация была отключена на время восстановления системы. Дальнейшие сбои могут привести к гравитационному коллапсу и образованию чёрных дыр. Хорошего дня.")
 
 			if("power")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All APCs")
@@ -3038,7 +3038,7 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.event_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
+				GLOB.event_announcement.Announce("Активирована блокировка управления шл+юзами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()

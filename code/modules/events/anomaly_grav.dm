@@ -5,4 +5,4 @@
 	anomaly_path = /obj/effect/anomaly/grav
 
 /datum/event/anomaly/anomaly_grav/announce()
-	GLOB.event_announcement.Announce("На сканерах дальнего действия обнаружена гравитационная аномалия. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: АНОМАЛИЯ")
+	GLOB.event_announcement.Announce("На сканерах дальнего действия обнаружена гравитационная аномалия. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")

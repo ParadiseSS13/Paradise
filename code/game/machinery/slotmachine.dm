@@ -55,7 +55,7 @@
 	switch(rand(1,5000))
 		if(1)
 			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл 10000 кредитов!")
-			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в 10000 кредитов!", "Обладатель джекпота")
+			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в 10000 кредитов!", "Обладатель джекпота!")
 			result = "JACKPOT! You win ten thousand credits!"
 			resultlvl = "teal"
 			win_money(10000, 'sound/goonstation/misc/airraid_loop.ogg')

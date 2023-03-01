@@ -16,4 +16,4 @@
 
 
 /datum/event/meteor_wave/goreop/end()
-	GLOB.event_announcement.Announce("Все метеориты мертвы. Майор Станция одержал победу.", "МЕТЕОРИТЫ")
+	GLOB.event_announcement.Announce("Все метеориты мертвы. Майор Станция одержал победу.", "МЕТЕОРИТЫ.")

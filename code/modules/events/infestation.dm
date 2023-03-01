@@ -128,7 +128,7 @@
 
 
 /datum/event/infestation/announce()
-	GLOB.event_announcement.Announce("Биосканеры фиксируют размножение [vermstring] в [locstring]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ")
+	GLOB.event_announcement.Announce("Биосканеры фиксируют размножение [vermstring] в [locstring]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.")
 
 #undef LOC_KITCHEN
 #undef LOC_ATMOS

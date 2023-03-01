@@ -26,7 +26,7 @@ SUBSYSTEM_DEF(nightshift)
 	check_nightshift()
 
 /datum/controller/subsystem/nightshift/proc/announce(message)
-	GLOB.priority_announcement.Announce(message, new_sound = 'sound/misc/announce_dig.ogg', new_title = "Автоматическое оповещение: Освещение")
+	GLOB.priority_announcement.Announce(message, new_sound = 'sound/misc/announce_dig.ogg', new_title = "Автоматическое оповещение: Освещ+ение.")
 
 /datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)
 	if(check_canfire && !can_fire)
@@ -52,9 +52,9 @@ SUBSYSTEM_DEF(nightshift)
 	nightshift_active = active
 	if(announce)
 		if(active)
-			announce("Добрый вечер, экипаж. Для снижения энергопотребления и стимуляции циркадных ритмов некоторых видов освещение на борту станции переведено в ночной режим.")
+			announce("Добрый вечер, экипаж. Для снижения энергопотребления и стимуляции циркадных ритмов некоторых видов освещ+ение на борту станции переведено в ночной режим.")
 		else
-			announce("Доброе утро, экипаж. В связи с наступлением дневного времени освещение на борту станции переведено в дневной режим.")
+			announce("Доброе утро, экипаж. В связи с наступлением дневного времени освещ+ение на борту станции переведено в дневной режим.")
 	for(var/A in GLOB.apcs)
 		var/obj/machinery/power/apc/APC = A
 		if(is_station_level(APC.z) || is_taipan(APC.z) && GLOB.security_level == SEC_LEVEL_GREEN)

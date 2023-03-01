@@ -216,7 +216,7 @@
 			var/turf/turf_to = get_turf(chosen) // the turf of origin we're travelling TO
 
 			playsound(turf_to, 'sound/effects/phasein.ogg', 100, TRUE)
-			GLOB.event_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
+			GLOB.event_announcement.Announce("Обнаружено перемещение крупной Блюспейс аномалии.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
 
 			var/list/flashers = list()
 			for(var/mob/living/carbon/C in viewers(turf_to, null))

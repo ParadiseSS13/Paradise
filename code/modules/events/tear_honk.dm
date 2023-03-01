@@ -2,7 +2,7 @@
 	var/obj/effect/tear/honk/HE //i could just inherit but its being finicky.
 
 /datum/event/tear/honk/announce()
-	GLOB.event_announcement.Announce("На борту станции зафиксирована Хонкономалия. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: ХОНКОНОМАЛИЯ", 'sound/items/airhorn.ogg')
+	GLOB.event_announcement.Announce("На борту станции зафиксирована Хонканомалия. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: ХОНКАНОМАЛИЯ.", 'sound/items/airhorn.ogg')
 
 /datum/event/tear/honk/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

@@ -371,7 +371,7 @@
 			to_chat(user, "<span class='warning'>It has to be anchored before you can start!</span>")
 		if(!double_check(user, A))
 			return
-		GLOB.command_announcement.Announce("A high anomalous power has been detected in [A.map_name], the origin of the power indicates an attempt to summon eldtrich god named Ratvar. Disrupt the ritual at all costs, before the station is destroyed! Space law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+		GLOB.command_announcement.Announce("Была обнаружена высокая аномальная активность в [A.map_name]. Происхождение силы указывает на попытку вызвать потустороннего бога по имени Ратвар. Любой ценой сорвите ритуал, пока станция не была уничтожена! Космический закон и стандартные рабочие процедуры приостановлены. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам межпространственных аномалий.", 'sound/AI/spanomalies.ogg')
 		visible_message("<span class='biggerdanger'>[user] ominously presses [I] into [src] as the mechanism inside starts to shine!</span>")
 		user.unEquip(I)
 		qdel(I)

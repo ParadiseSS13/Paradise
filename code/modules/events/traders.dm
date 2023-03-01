@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(!station) // If there are no unused stations, just no.
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
-		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "Запрос на стыковку шаттла торговцев отклонен")
+		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев отклонен.")
 		// if the docking request was refused, fire another major event in 60 seconds
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + (60 * 10)
@@ -58,7 +58,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			var/map_trader_port = 5
 			if(station_name() == "NSS Cyberiad")
 				map_trader_port = 4
-			GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "Запрос на стыковку шаттла торговцев принят")
+			GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев принят.")
 		else
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 

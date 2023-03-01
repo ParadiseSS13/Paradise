@@ -5,7 +5,7 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/announce()
-	GLOB.event_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: АНОМАЛИЯ")
+	GLOB.event_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [impact_area.name].", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

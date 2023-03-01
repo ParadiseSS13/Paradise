@@ -210,7 +210,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были сняты.")
 	GLOB.maint_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
@@ -219,7 +219,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были возобновлены.")
 	GLOB.maint_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
 
@@ -228,7 +228,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		if(is_station_level(D.z))
 			D.emergency = 1
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были сняты в связи с происходящим кризисом. Законы о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
 	GLOB.station_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
 
@@ -237,6 +237,6 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		if(is_station_level(D.z))
 			D.emergency = 0
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
 	GLOB.station_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

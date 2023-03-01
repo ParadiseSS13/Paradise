@@ -18,7 +18,7 @@
 
 /datum/event/ion_storm/announce()
 	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
-		GLOB.event_announcement.Announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.", "ВНИМАНИЕ: АНОМАЛИЯ", 'sound/AI/ionstorm.ogg')
+		GLOB.event_announcement.Announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/ionstorm.ogg')
 
 /datum/event/ion_storm/start()
 	//AI laws
