@@ -258,13 +258,22 @@
 						if("corgi")
 							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
 						if("crab")
-							new_mob = new /mob/living/simple_animal/crab(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/crab(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/crab/royal(M.loc)
 						if("cat")
 							new_mob = new /mob/living/simple_animal/pet/cat(M.loc)
 						if("mouse")
-							new_mob = new /mob/living/simple_animal/mouse(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/mouse(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/mouse/rat(M.loc)
 						if("chicken")
-							new_mob = new /mob/living/simple_animal/chicken(M.loc)
+							if(prob(70))
+								new_mob = new /mob/living/simple_animal/chicken(M.loc)
+							else
+								new_mob = new /mob/living/simple_animal/cock(M.loc)
 						if("cow")
 							new_mob = new /mob/living/simple_animal/cow(M.loc)
 						if("lizard")
@@ -357,8 +366,8 @@
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 2
-	var/slip_weaken = 2
+	var/slip_stun = 5
+	var/slip_weaken = 5
 	hitsound = 'sound/items/bikehorn.ogg'
 
 /obj/item/projectile/magic/slipping/New()

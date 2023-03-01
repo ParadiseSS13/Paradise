@@ -44,9 +44,15 @@
 	name = "corgi meat"
 	desc = "Tastes like the Head of Personnel's hopes and dreams"
 
+/obj/item/reagent_containers/food/snacks/meat/dog
+	name = "dog meat"
+	desc = "Не слишком питательно. Но говорят деликатес космокорейцев."
+	list_reagents = list("protein" = 2, "epinephrine" = 2)
+
 /obj/item/reagent_containers/food/snacks/meat/pug
 	name = "pug meat"
 	desc = "Slightly less adorable in sliced form."
+	list_reagents = list("protein" = 2, "epinephrine" = 2)
 
 /obj/item/reagent_containers/food/snacks/meat/security
 	name = "security meat"
@@ -57,6 +63,11 @@
 	name = "ham"
 	desc = "For when you need to go ham."
 	list_reagents = list("protein" = 3, "porktonium" = 10)
+
+/obj/item/reagent_containers/food/snacks/meat/ham/old
+	name = "жесткая ветчина"
+	desc = "Мясо почтенного хряка."
+	list_reagents = list("protein" = 2, "porktonium" = 10)
 
 /obj/item/reagent_containers/food/snacks/meat/meatwheat
 	name = "meatwheat clump"

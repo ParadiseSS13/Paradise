@@ -7,6 +7,7 @@
 		SSticker.mode.remove_ninja(mind)
 		SSticker.mode.remove_changeling(mind)
 		SSticker.mode.remove_vampire(mind)
+		SSticker.mode.remove_thief(mind)
 		SSticker.mode.remove_thrall(mind, 0)
 		SSticker.mode.remove_shadowling(mind)
 		SSticker.mode.remove_abductor(mind)

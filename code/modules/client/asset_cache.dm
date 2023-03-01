@@ -205,7 +205,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
 		"syndielogo.png"		    = 'icons/paper_icons/syndielogo.png',
-		"large_stamp-mime.png"      = 'icons/paper_icons/large_stamp-mime.png'
+		"large_stamp-mime.png"      = 'icons/paper_icons/large_stamp-mime.png',
+		"thieflogo.png"		    	= 'icons/paper_icons/thieflogo.png',
 	)
 
 /datum/asset/simple/chess

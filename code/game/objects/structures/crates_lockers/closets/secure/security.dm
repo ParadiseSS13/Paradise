@@ -142,6 +142,7 @@
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses/aviators(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"

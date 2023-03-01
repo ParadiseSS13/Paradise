@@ -21,6 +21,7 @@
 	attack_same = 1
 	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
+	death_sound = 'sound/creatures/goat_death.ogg'
 	health = 40
 	maxHealth = 40
 	melee_damage_lower = 1
@@ -123,6 +124,9 @@
 	response_harm   = "kicks the"
 	attacktext = "бодает"
 	attack_sound = 'sound/weapons/punch1.ogg'
+	death_sound = 'sound/creatures/cow_death.ogg'
+	damaged_sound = list('sound/creatures/cow_damaged.ogg')
+	talk_sound = list('sound/creatures/cow_talk1.ogg', 'sound/creatures/cow_talk2.ogg')
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -190,6 +194,7 @@
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "клюёт"
+	death_sound = 'sound/creatures/mouse_squeak.ogg'
 	health = 3
 	maxHealth = 3
 	ventcrawler = 2
@@ -200,6 +205,7 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
+	holder_type = /obj/item/holder/chick
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -211,9 +217,13 @@
 	if(.)
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
-			var/mob/living/simple_animal/chicken/C = new /mob/living/simple_animal/chicken(loc)
+			var/mob/living/simple_animal/A
+			if(prob(5))
+				A = new /mob/living/simple_animal/cock(loc)
+			else
+				A = new /mob/living/simple_animal/chicken(loc)
 			if(mind)
-				mind.transfer_to(C)
+				mind.transfer_to(A)
 			qdel(src)
 
 #define MAX_CHICKENS 50
@@ -241,6 +251,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "клюёт"
+	death_sound = 'sound/creatures/chicken_death.ogg'
+	damaged_sound = list('sound/creatures/chicken_damaged1.ogg', 'sound/creatures/chicken_damaged2.ogg')
+	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 15
 	maxHealth = 15
 	ventcrawler = 2
@@ -257,6 +270,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
+	holder_type = /obj/item/holder/chicken
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -314,6 +328,42 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	else
 		STOP_PROCESSING(SSobj, src)
 
+/mob/living/simple_animal/cock
+	name = "Петух"
+	desc = "Гордый и важный вид."
+	gender = MALE
+	icon_state = "cock"
+	icon_living = "cock"
+	icon_dead = "cock_dead"
+	speak = list("Cluck!","BWAAAAARK BWAK BWAK BWAK!","Bwaak bwak.")
+	speak_emote = list("clucks","croons")
+	emote_hear = list("clucks")
+	emote_see = list("pecks at the ground","flaps its wings viciously")
+	tts_seed = "pantheon"
+	density = 0
+	speak_chance = 2
+	turns_per_move = 3
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
+	response_help  = "pets the"
+	response_disarm = "gently pushes aside the"
+	response_harm   = "kicks the"
+	melee_damage_type = STAMINA
+	melee_damage_lower = 2
+	melee_damage_upper = 6
+	attacktext = "клюёт"
+	death_sound = 'sound/creatures/chicken_death.ogg'
+	damaged_sound = list('sound/creatures/chicken_damaged1.ogg', 'sound/creatures/chicken_damaged2.ogg')
+	talk_sound = list('sound/creatures/chicken_talk.ogg')
+	health = 30
+	maxHealth = 30
+	ventcrawler = 2
+	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	can_hide = 1
+	can_collar = 1
+	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
+	holder_type = /obj/item/holder/cock
 
 /mob/living/simple_animal/pig
 	name = "pig"
@@ -334,6 +384,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "лягает"
+	death_sound = 'sound/creatures/pig_death.ogg'
+	talk_sound = list('sound/creatures/pig_talk1.ogg', 'sound/creatures/pig_talk2.ogg')
+	damaged_sound = list()
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -358,6 +411,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "клюёт"
+	death_sound = 'sound/creatures/duck_quak1.ogg'
 	health = 50
 	maxHealth = 50
 	can_collar = 1
@@ -366,10 +420,11 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/goose
 	name = "goose"
-	desc = "A pretty goose. Would make a nice comforter."
+	desc = "Прекрасная птица для набива подушек и страха детишек."
 	icon_state = "goose"
 	icon_living = "goose"
 	icon_dead = "goose_dead"
+	icon_resting = "goose_rest"
 	speak = list("quack?","quack","QUACK")
 	speak_emote = list("quacks")
 	tts_seed = "pantheon" //Жи есть брат да, я гусь, до тебя доебусь.
@@ -382,12 +437,31 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
+	melee_damage_type = STAMINA
+	melee_damage_lower = 2
+	melee_damage_upper = 8
 	attacktext = "щипает"
+	death_sound = 'sound/creatures/duck_quak1.ogg'
+	talk_sound = list('sound/creatures/duck_talk1.ogg', 'sound/creatures/duck_talk2.ogg', 'sound/creatures/duck_talk3.ogg', 'sound/creatures/duck_quak1.ogg', 'sound/creatures/duck_quak2.ogg', 'sound/creatures/duck_quak3.ogg')
+	damaged_sound = list('sound/creatures/duck_aggro1.ogg', 'sound/creatures/duck_aggro2.ogg')
 	health = 50
 	maxHealth = 50
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
+
+/mob/living/simple_animal/goose/gosling
+	name = "gosling"
+	desc = "Симпатичный гусенок. Скоро он станей грозой всей станции."
+	icon_state = "gosling"
+	icon_living = "gosling"
+	icon_dead = "gosling_dead"
+	icon_resting = "gosling_rest"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
+	melee_damage_lower = 0
+	melee_damage_upper = 0
+	health = 20
+	maxHealth = 20
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -398,6 +472,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak = list("Urk?","urk","URK")
 	speak_emote = list("urks")
 	tts_seed = "Narrator"
+	death_sound = 'sound/creatures/seal_death.ogg'
 //	emote_hear = list("brays")
 	emote_see = list("flops around")
 	speak_chance = 1
@@ -424,6 +499,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak = list("Urk?","urk","URK")
 	speak_emote = list("urks")
 	tts_seed = "Tychus"
+	death_sound = 'sound/creatures/seal_death.ogg'
 //	emote_hear = list("brays")
 	emote_see = list("flops around")
 	speak_chance = 1

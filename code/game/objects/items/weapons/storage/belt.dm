@@ -400,6 +400,40 @@
 	new /obj/item/grenade/syndieminibomb(src) //2
 	new /obj/item/grenade/syndieminibomb(src)
 
+
+/obj/item/storage/belt/grenade/nonlethal/New()
+	..()
+	new /obj/item/grenade/smokebomb(src) //14
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/smokebomb(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)	//6
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/teargas(src)
+	new /obj/item/grenade/chem_grenade/metalfoam(src) //4
+	new /obj/item/grenade/chem_grenade/metalfoam(src)
+	new /obj/item/grenade/chem_grenade/metalfoam(src)
+	new /obj/item/grenade/chem_grenade/metalfoam(src)
+	new /obj/item/grenade/chem_grenade/lube(src) //2
+	new /obj/item/grenade/chem_grenade/lube(src)
+	new /obj/item/grenade/chem_grenade/drugs(src) //2
+	new /obj/item/grenade/chem_grenade/drugs(src)
+	new /obj/item/grenade/gas/knockout(src)	//2
+	new /obj/item/grenade/gas/knockout(src)
+
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."

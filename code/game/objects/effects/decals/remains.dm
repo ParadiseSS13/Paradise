@@ -50,3 +50,14 @@
 	R.add_reagent("water", 5)
 	R.reaction(get_turf(src))
 	qdel(src)
+
+/obj/effect/decal/remains/mouse
+	name = "remains"
+	desc = "Некогда бывшая мышь. Её останки. Больше не будет пищать..."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "mouse_skeleton"
+	anchored = FALSE
+	move_resist = MOVE_FORCE_EXTREMELY_WEAK
+
+/obj/effect/decal/remains/mouse/water_act(volume, temperature, source, method)
+	. = ..()

@@ -274,6 +274,10 @@
 	item_state = "skull"
 	strip_delay = 100
 
+/obj/item/clothing/head/helmet/skull/Yorick
+	name = "Йорик"
+	desc = "Бедный Йорик..."
+
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
 	desc = "A helmet made from durathread and leather."

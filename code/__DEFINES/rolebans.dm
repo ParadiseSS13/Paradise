@@ -1,6 +1,7 @@
 // Bannable antag roles
 GLOBAL_LIST_INIT(antag_roles, list(
 	ROLE_TRAITOR,
+	ROLE_THIEF,
 	ROLE_OPERATIVE,
 	ROLE_CHANGELING,
 	ROLE_WIZARD,

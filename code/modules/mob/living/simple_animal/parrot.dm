@@ -55,6 +55,7 @@
 	stop_automated_movement = 1
 	universal_speak = 1
 	mob_size = MOB_SIZE_SMALL
+	holder_type = /obj/item/holder/parrot
 
 	var/parrot_state = PARROT_WANDER //Hunt for a perch when created
 	var/parrot_sleep_max = 25 //The time the parrot sits while perched before looking around. Mosly a way to avoid the parrot's AI in process_ai() being run every single tick.

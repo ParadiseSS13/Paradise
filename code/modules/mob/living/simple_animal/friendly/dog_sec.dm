@@ -9,8 +9,8 @@
 	health = 35
 	maxHealth = 35
 	melee_damage_type = STAMINA
-	melee_damage_lower = 10
-	melee_damage_upper = 8
+	melee_damage_lower = 8
+	melee_damage_upper = 10
 	attacktext = "кусает"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_mask

@@ -865,7 +865,7 @@
 /turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "dd" = (
-/mob/living/simple_animal/crab,
+/mob/living/simple_animal/crab/royal,
 /turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "de" = (

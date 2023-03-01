@@ -59,10 +59,14 @@
 
 //Research Director
 /obj/item/clothing/head/beret/purple
-	name = "research director's beret"
-	desc = " A purple beret, with a small golden crescent moon sewn onto it. Smells like plasma."
+	name = "scientist beret"
+	desc = "For science!"
 	icon_state = "beret_purple"
 	item_state = "purpleberet"
+
+/obj/item/clothing/head/beret/purple/rd
+	name = "research director's beret"
+	desc = "A purple beret, with a small golden crescent moon sewn onto it. Smells like plasma."
 
 //Chaplain
 /obj/item/clothing/head/hooded/chaplain_hood

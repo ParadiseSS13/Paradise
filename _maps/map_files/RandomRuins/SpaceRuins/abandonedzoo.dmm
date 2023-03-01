@@ -745,7 +745,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bJ" = (
-/mob/living/simple_animal/crab{
+/mob/living/simple_animal/crab/royal{
 	faction = list("carp")
 	},
 /turf/simulated/floor/plating,

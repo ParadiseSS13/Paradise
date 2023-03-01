@@ -9,9 +9,12 @@
 #define LOC_TECH 8
 #define LOC_ARMORY 9
 
-#define VERM_MICE 0
-#define VERM_LIZARDS 1
-#define VERM_SPIDERS 2
+#define VERM_MICE 		0
+#define VERM_LIZARDS 	1
+#define VERM_SPIDERS 	2
+#define VERM_RATS 	 	3
+#define VERM_SNAIL 	 	4
+#define VERM_FROG 	 	5
 
 /datum/event/infestation
 	announceWhen = 10
@@ -66,20 +69,48 @@
 
 	var/list/spawn_types = list()
 	var/max_number
-	vermin = rand(0,2)
+	vermin = rand(0,5)
 	switch(vermin)
 		if(VERM_MICE)
 			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
 			max_number = 12
 			vermstring = "мышей"
 		if(VERM_LIZARDS)
-			spawn_types = list(/mob/living/simple_animal/lizard)
 			max_number = 6
-			vermstring = "ящериц"
+			if(prob(70))
+				spawn_types = list(/mob/living/simple_animal/lizard)
+				vermstring = "ящериц"
+			else
+				spawn_types = list(/mob/living/simple_animal/lizard/axolotl)
+				vermstring = "аксолотлей"
 		if(VERM_SPIDERS)
 			spawn_types = list(/obj/structure/spider/spiderling)
 			max_number = 3
 			vermstring = "пауков"
+		if(VERM_RATS)
+			max_number = 8
+			if(prob(70))
+				spawn_types = list(/mob/living/simple_animal/mouse/rat)
+				vermstring = "крыс"
+			else
+				if(prob(50))
+					spawn_types = list(/mob/living/simple_animal/mouse/rat/white)
+					vermstring = "лабораторных крыс"
+				else
+					spawn_types = list(/mob/living/simple_animal/mouse/rat/irish)
+					vermstring = "ирландских крыс"
+		if(VERM_SNAIL)
+			spawn_types = list(/mob/living/simple_animal/snail)
+			max_number = 6
+			vermstring = "улиток"
+		if(VERM_FROG)
+			max_number = 6
+			if(prob(85))
+				spawn_types = list(/mob/living/simple_animal/frog)
+				vermstring = "лягушек"
+			else
+				spawn_types = list(/mob/living/simple_animal/frog/toxic)
+				vermstring = "токсичных лягушек"
 
 	spawn(0)
 		var/num = rand(2,max_number)
@@ -111,3 +142,6 @@
 #undef VERM_MICE
 #undef VERM_LIZARDS
 #undef VERM_SPIDERS
+#undef VERM_RATS
+#undef VERM_SNAIL
+#undef VERM_FROG

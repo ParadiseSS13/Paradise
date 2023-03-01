@@ -35,12 +35,32 @@
 	return 1
 
 /obj/structure/closet/critter/corgi
-	name = "corgi crate"
+	name = "dog corgi crate"
 	content_mob = /mob/living/simple_animal/pet/dog/corgi
 
 /obj/structure/closet/critter/corgi/populate_contents()
 	if(prob(50))
 		content_mob = /mob/living/simple_animal/pet/dog/corgi/Lisa
+
+/obj/structure/closet/critter/dog_pug
+	name = "dog pug crate"
+	content_mob = /mob/living/simple_animal/pet/dog/pug
+
+/obj/structure/closet/critter/dog_bullterrier
+	name = "dog bullterrier crate"
+	content_mob = /mob/living/simple_animal/pet/dog/bullterrier
+
+/obj/structure/closet/critter/dog_tamaskan
+	name = "dog tamaskan crate"
+	content_mob = /mob/living/simple_animal/pet/dog/tamaskan
+
+/obj/structure/closet/critter/dog_german
+	name = "dog german crate"
+	content_mob = /mob/living/simple_animal/pet/dog/german
+
+/obj/structure/closet/critter/dog_brittany
+	name = "dog brittany crate"
+	content_mob = /mob/living/simple_animal/pet/dog/brittany
 
 /obj/structure/closet/critter/cow
 	name = "cow crate"
@@ -70,16 +90,30 @@
 	content_mob = /mob/living/simple_animal/pet/cat
 
 /obj/structure/closet/critter/cat/populate_contents()
-	if(prob(50))
+	if(prob(30))
 		content_mob = /mob/living/simple_animal/pet/cat/Proc
+	if(prob(5))
+		content_mob = /mob/living/simple_animal/pet/cat/fat
 
-/obj/structure/closet/critter/pug
-	name = "pug crate"
-	content_mob = /mob/living/simple_animal/pet/dog/pug
+/obj/structure/closet/critter/cat_white
+	name = "white cat crate"
+	content_mob = /mob/living/simple_animal/pet/cat/white
+
+/obj/structure/closet/critter/cat_birman
+	name = "birman cat crate"
+	content_mob = /mob/living/simple_animal/pet/cat/birman
 
 /obj/structure/closet/critter/fox
 	name = "fox crate"
 	content_mob = /mob/living/simple_animal/pet/dog/fox
+
+/obj/structure/closet/critter/fox/populate_contents()
+	if(prob(30))
+		content_mob = /mob/living/simple_animal/pet/dog/fox/forest
+
+/obj/structure/closet/critter/fennec
+	name = "fennec crate"
+	content_mob = /mob/living/simple_animal/pet/dog/fox/fennec
 
 /obj/structure/closet/critter/butterfly
 	name = "butterfly crate"
@@ -88,3 +122,59 @@
 /obj/structure/closet/critter/deer
 	name = "deer crate"
 	content_mob = /mob/living/simple_animal/deer
+
+/obj/structure/closet/critter/sloth
+	name = "sloth crate"
+	content_mob = /mob/living/simple_animal/pet/sloth
+
+/obj/structure/closet/critter/goose
+	name = "goose crate"
+	content_mob = /mob/living/simple_animal/goose
+
+/obj/structure/closet/critter/gosling
+	name = "gosling crate"
+	content_mob = /mob/living/simple_animal/goose/gosling
+
+/obj/structure/closet/critter/gosling/populate_contents()
+	amount = rand(1, 3)
+
+/obj/structure/closet/critter/hamster
+	name = "hamster crate"
+	content_mob = /mob/living/simple_animal/mouse/hamster
+
+/obj/structure/closet/critter/hamster/populate_contents()
+	amount = rand(1, 5)
+
+/obj/structure/closet/critter/frog
+	name = "frog crate"
+	content_mob = /mob/living/simple_animal/frog
+
+/obj/structure/closet/critter/frog/populate_contents()
+	amount = rand(1, 3)
+
+/obj/structure/closet/critter/frog/toxic
+	name = "frog crate"
+	content_mob = /mob/living/simple_animal/frog/toxic
+
+/obj/structure/closet/critter/snail
+	name = "snail crate"
+	content_mob = /mob/living/simple_animal/snail
+
+/obj/structure/closet/critter/snail/populate_contents()
+	amount = rand(1, 5)
+
+/obj/structure/closet/critter/turtle
+	name = "turtle crate"
+	content_mob = /mob/living/simple_animal/turtle
+
+/obj/structure/closet/critter/iguana
+	name = "iguana crate"
+	content_mob = /mob/living/simple_animal/hostile/lizard
+
+/obj/structure/closet/critter/gator
+	name = "gator crate"
+	content_mob = /mob/living/simple_animal/hostile/lizard/gator
+
+/obj/structure/closet/critter/croco
+	name = "croco crate"
+	content_mob = /mob/living/simple_animal/hostile/lizard/croco

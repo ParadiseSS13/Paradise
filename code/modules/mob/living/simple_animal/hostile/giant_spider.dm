@@ -35,6 +35,9 @@
 	move_to_delay = 6
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
+	death_sound = 'sound/creatures/spider_death.ogg'
+	talk_sound = list('sound/creatures/spider_talk1.ogg', 'sound/creatures/spider_talk2.ogg')
+	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	gold_core_spawnable = HOSTILE_SPAWN
 	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0

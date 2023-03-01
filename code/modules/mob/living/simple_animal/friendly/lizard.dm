@@ -7,6 +7,7 @@
 	icon_dead = "lizard-dead"
 	speak_emote = list("hisses")
 	tts_seed = "Ladyvashj"
+	death_sound = 'sound/creatures/lizard_death.ogg'
 	health = 5
 	maxHealth = 5
 	attacktext = "кусает"
@@ -24,6 +25,7 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
+	holder_type = /obj/item/holder/lizard
 
 /mob/living/simple_animal/lizard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
@@ -35,3 +37,12 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/simple_animal/lizard/axolotl
+	name = "Аксолотль"
+	desc = "Маленький милый аксолотль."
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "axolotl"
+	icon_living = "axolotl"
+	icon_dead = "axolotl-dead"
+	holder_type = /obj/item/holder/axolotl

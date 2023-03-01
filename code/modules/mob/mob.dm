@@ -1201,7 +1201,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(length(found_vents))
 		client.time_joined_as_mouse = world.time
 		var/obj/vent_found = pick(found_vents)
-		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
+		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
 		host.ckey = src.ckey
 		if(istype(get_area(vent_found), /area/syndicate/unpowered/syndicate_space_base))
 			host.faction += "syndicate"

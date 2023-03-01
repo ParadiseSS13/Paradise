@@ -130,7 +130,7 @@
 		investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
 		C.deconstruct()
 
-/mob/living/simple_animal/mouse/clockwork/splat()
+/mob/living/simple_animal/mouse/clockwork/splat(var/obj/item/item = null, var/mob/living/user = null)
 	return
 
 /mob/living/simple_animal/mouse/clockwork/toast()

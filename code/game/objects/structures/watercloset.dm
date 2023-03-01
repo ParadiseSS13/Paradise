@@ -215,6 +215,15 @@
 	. = ..()
 	icon_state = "gold_toilet[open][cistern]"
 
+/obj/structure/toilet/captain_toilet
+	name = "Унитаз Капитана"
+	desc = "Престижное седалище для престижной персоны. Судя по форме, был идеально подготовлен под седальное место Капитана."
+	icon_state = "captain_toilet00"
+
+/obj/structure/toilet/captain_toilet/update_icon()
+	. = ..()
+	icon_state = "captain_toilet[open][cistern]"
+
 /obj/structure/urinal
 	name = "urinal"
 	desc = "The HU-452, an experimental urinal."
@@ -470,6 +479,13 @@
 	item_state = "rubberducky"
 	honk_sounds = list('sound/items/squeaktoy.ogg' = 1)
 	attack_verb = list("quacked", "squeaked")
+
+/obj/item/bikehorn/rubberducky/captain
+	name = "уточка-капитан"
+	desc = "Капитан всех уточек на этой станции. Крайне важная и престижная уточка. Выпущены в ограниченных экземплярах и только для капитанов. Ценная находка для коллекционеров."
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "captain_rubberducky"
+	item_state = "captain_rubberducky"
 
 /obj/structure/sink
 	name = "sink"

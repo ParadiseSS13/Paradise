@@ -1,7 +1,5 @@
 GLOBAL_LIST_EMPTY(all_objectives)
 
-GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
-
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
@@ -403,6 +401,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
 	var/theft_area
+	var/type_theft_flag = 0
+
+/datum/objective/steal/proc/get_theft_extension_list_objectives()
+	return FALSE
 
 /datum/objective/steal/proc/get_location()
 	if(steal_target.location_override)
@@ -412,17 +414,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		if(!is_admin_level(candidate.loc.z))
 			theft_area = get_area(candidate.loc)
 			return "[theft_area]"
-	return "an unknown area"
+	return "неизвестной зоне"
 
 /datum/objective/steal/find_target()
 	var/list/valid_theft_objectives = list()
-	for(var/thefttype in GLOB.potential_theft_objectives)
+	for(var/thefttype in get_theft_list_objectives(type_theft_flag))
 		for(var/datum/objective/steal/objective in owner.objectives)
 			if(istype(objective) && istype(objective.steal_target, thefttype))
 				continue
 		var/datum/theft_objective/O = new thefttype
-		if(O.flags & 2)
-			continue
 		if(owner.assigned_role in O.protected_jobs)
 			continue
 		valid_theft_objectives += O
@@ -430,37 +430,42 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		var/datum/theft_objective/O = pick(valid_theft_objectives)
 		steal_target = O
 
-		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
+		explanation_text = "Украсть [steal_target]. Последнее местоположение было в [get_location()]. "
 		if(islist(O.protected_jobs) && O.protected_jobs.len)
-			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
-		return
+			explanation_text += "Оно также может находиться у [jointext(O.protected_jobs, ", ")]."
+		return TRUE
 
 	explanation_text = "Free Objective."
-
+	return FALSE
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
+	var/list/possible_items_all = get_theft_list_objectives(type_theft_flag)+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
-	if(!new_target) return
+	if(!new_target)
+		return FALSE
 	if(new_target == "custom")
 		var/datum/theft_objective/O=new
 		O.typepath = input("Select type:","Type") as null|anything in typesof(/obj/item)
-		if(!O.typepath) return
+		if(!O.typepath)
+			return FALSE
 		var/tmp_obj = new O.typepath
 		var/custom_name = tmp_obj:name
 		qdel(tmp_obj)
 		O.name = sanitize(copytext_char(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
-		if(!O.name) return
+		if(!O.name)
+			return FALSE
 		steal_target = O
-		explanation_text = "Steal [O.name]."
+		explanation_text = "Украсть [O.name]."
 	else
 		steal_target = new new_target
-		explanation_text = "Steal [steal_target.name]."
-	return steal_target
+		explanation_text = "Украсть [steal_target.name]."
+	if(steal_target)
+		return TRUE
+	return FALSE
 
 /datum/objective/steal/check_completion()
 	if(!steal_target)
-		return 1 // Free Objective
+		return TRUE // Free Objective
 
 	if(!owner.current)
 		return FALSE
@@ -895,6 +900,21 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 //Цель на добычу определённой суммы денег налом
 /datum/objective/get_money
 	var/req_amount = 75000
+
+/datum/objective/get_money/proc/new_cash(var/input_sum, var/accounts_procent = 60)
+	var/temp_cash_summ = 0
+	var/remainder = 0
+
+	if(input_sum)
+		temp_cash_summ = input_sum
+	else
+		for(var/datum/money_account/account in GLOB.all_money_accounts)
+			temp_cash_summ += account.money
+		temp_cash_summ = (temp_cash_summ / 100) * accounts_procent //procents from all accounts
+		remainder = temp_cash_summ % 1000	//для красивого 1000-го числа
+
+	req_amount = temp_cash_summ - remainder
+	explanation_text = "Добудьте [req_amount] кредитов со станции, наличкой."
 
 /datum/objective/get_money/check_completion()
 	if(!owner.current)

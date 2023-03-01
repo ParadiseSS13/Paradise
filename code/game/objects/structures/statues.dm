@@ -250,6 +250,12 @@
 		spawn(20)
 			spam_flag = 0
 
+/obj/structure/statue/bananium/clown/unique
+	name = "статуя великого Хонкера"
+	desc = "Искусно слепленная статуя из бананиума, бананового сока и непонятного белого материала. Судя по его выдающейся улыбки, двум золотым гудкам в руках и наряду, он был лучшим стендапером и шутником на станции. Полное имя, к сожалению плохо читаемо и затерто, похоже кто-то явно завидовал его таланту."
+	icon_state = "clown_unique"
+	oreAmount = 20
+
 /obj/structure/statue/sandstone
 	max_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/mineral/sandstone
@@ -284,6 +290,12 @@
 		to_chat(user, "It is fastened to the floor!")
 		return
 	setDir(turn(dir, 90))
+
+/obj/structure/statue/tranquillite/mime/unique
+	name = "статуя гордости пантомимы"
+	desc = "Искусно слепленная статуя из транквилиума, если приглядеться, то на статую надета старая униформа мима, перекрашенная под текстуру транквилиума, а рот статуи заклеен скотчем. Похоже кто-то полностью отдавал себя искусству пантомимы. На груди виднеется медаль с еле различимой закрашенной надписью \"За Отвагу\", поверх которой написано \"За Военные Преступления\"."
+	icon_state = "mime_unique"
+	oreAmount = 20
 
 /obj/structure/statue/kidanstatue
 	name = "Obsidian Kidan warrior statue"

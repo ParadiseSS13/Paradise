@@ -189,6 +189,18 @@
 	new /obj/item/grenade/plastic/c4(src)
 	new /obj/item/grenade/plastic/c4(src)
 
+/obj/item/storage/box/syndie_kit/t4
+	name = "Pack of T-4 Explosives"
+	desc = "Contains three T4 breaching charges."
+
+/obj/item/storage/box/syndie_kit/t4/New()
+	..()
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+	new /obj/item/grenade/plastic/x4/thermite(src)
+
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"
 	can_hold = list(/obj/item/throwing_star, /obj/item/restraints/legcuffs/bola/tactical)

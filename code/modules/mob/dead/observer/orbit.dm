@@ -119,6 +119,7 @@
 							"Spider Clan — ([SSticker.mode.space_ninjas.len])" = (mind in SSticker.mode.space_ninjas),
 							"Vampire Thralls — ([SSticker.mode.vampire_enthralled.len])" = (mind in SSticker.mode.vampire_enthralled),
 							"Vampires — ([SSticker.mode.vampires.len])" = (mind.vampire != null),
+							"Thieves — ([SSticker.mode.thieves.len])" = (mind in SSticker.mode.thieves),
 							"Wizards — ([SSticker.mode.wizards.len])" = (mind in SSticker.mode.wizards),
 							"Wizard’s Apprentices — ([SSticker.mode.apprentices.len])" = (mind in SSticker.mode.apprentices),
 							"Xenomorphs — ([SSticker.mode.xenos.len])" = (mind in SSticker.mode.xenos),

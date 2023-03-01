@@ -109,6 +109,7 @@
 // -------------------------------------
 /obj/item/grenade/chem_grenade/lube
 	payload_name = "lubricant"
+	desc = "Honk-lover."
 	stage = 2
 
 /obj/item/grenade/chem_grenade/lube/New()

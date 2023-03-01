@@ -52,3 +52,5 @@
 
 	del_on_death = TRUE
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/item/clothing/shoes/clown_shoes)
+
+	holder_type = /obj/item/holder/clowngoblin

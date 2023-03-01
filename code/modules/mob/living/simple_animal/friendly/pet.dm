@@ -3,6 +3,8 @@
 	mob_size = MOB_SIZE_SMALL
 	blood_volume = BLOOD_VOLUME_NORMAL
 	can_collar = TRUE
+	attacktext = "кусает"
+	attack_sound = 'sound/weapons/bite.ogg'
 
 /mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/newspaper))

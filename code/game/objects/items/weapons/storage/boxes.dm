@@ -1227,6 +1227,19 @@
 	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
 
+/obj/item/storage/box/candythief
+	name = "набор радужных конфет"
+	desc = "Набор для самых маленьких и не уверенных в себе работников, обожающих простые пути, смешивая всевозможные в один. Поставляется с сосательной конфетой. Удобный набор если нужно где-то засесть и не выходить. Производитель не отвечает за возникающие акне и галлюцинации от вашего времяпровождения."
+	icon_state = "box_thief"
+
+/obj/item/storage/box/candythief/New()
+	..()
+	for(var/i in 0 to 5)
+		new /obj/item/reagent_containers/food/snacks/candy/gummybear/wtf(src)
+		new /obj/item/reagent_containers/food/snacks/candy/gummyworm/wtf(src)
+		new /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf(src)
+	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

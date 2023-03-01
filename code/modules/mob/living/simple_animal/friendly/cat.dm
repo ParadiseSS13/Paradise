@@ -6,6 +6,7 @@
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
 	icon_resting = "cat2_rest"
+	var/icon_sit = "sit"
 	gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
@@ -29,6 +30,7 @@
 	var/eats_mice = 1
 	footstep_type = FOOTSTEP_MOB_CLAW
 	tts_seed = "Valerian"
+	holder_type = /obj/item/holder/cat2
 
 /mob/living/simple_animal/pet/cat/floppa
 	name = "Big Floppa"
@@ -39,6 +41,7 @@
 	icon_resting = "floppa_rest"
 	unique_pet = TRUE
 	tts_seed = "Uther"
+	holder_type = null
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
@@ -53,6 +56,7 @@
 	unique_pet = TRUE
 	var/list/family = list()
 	var/list/children = list() //Actual mob instances of children
+	holder_type = /obj/item/holder/cat
 
 /mob/living/simple_animal/pet/cat/Runtime/New()
 	SSpersistent_data.register(src)
@@ -116,8 +120,8 @@
 			StartResting()
 		else if(prob(1))
 			custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
-			icon_state = "[icon_living]_sit"
-			collar_type = "[initial(collar_type)]_sit"
+			icon_state = "[icon_living]_[icon_sit]"
+			collar_type = "[initial(collar_type)]_[icon_sit]"
 			resting = TRUE
 			update_canmove()
 		else if(prob(1))
@@ -133,7 +137,7 @@
 			if(!M.stat && Adjacent(M))
 				custom_emote(1, "splats \the [M]!")
 				M.death()
-				M.splat()
+				M.splat(user = src)
 				movement_target = null
 				stop_automated_movement = 0
 				break
@@ -177,10 +181,11 @@
 		if("purr")
 			on_CD = handle_emote_CD()
 		if("sit")
+			icon_state = "[icon_living]_[icon_sit]"
+			collar_type = "[initial(collar_type)]_[icon_sit]"
+			resting = TRUE
+			update_canmove()
 			on_CD = handle_emote_CD()
-		else
-			on_CD = 0
-
 	if(!force && on_CD == 1)
 		return
 
@@ -267,6 +272,7 @@
 	attacked_sound = "sound/items/eatfood.ogg"
 	deathmessage = "loses its false life and collapses!"
 	death_sound = "bodyfall"
+	holder_type = /obj/item/holder/cak
 
 /mob/living/simple_animal/pet/cat/cak/Life()
 	..()
@@ -300,3 +306,60 @@
 	if(new_name)
 		to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
 		name = new_name
+
+/mob/living/simple_animal/pet/cat/white
+	name = "white"
+	desc = "Белоснежная шерстка. Плохо различается на белой плитке, зато отлично виден в темноте!"
+	icon_state = "penny"
+	icon_living = "penny"
+	icon_dead = "penny_dead"
+	icon_resting = "penny_rest"
+	icon_sit = "rest"
+	gender = MALE
+	holder_type = /obj/item/holder/cak
+
+/mob/living/simple_animal/pet/cat/birman
+	name = "birman"
+	desc = "Священная порода Бирма"
+	icon_state = "crusher"
+	icon_living = "crusher"
+	icon_dead = "crusher_dead"
+	icon_resting = "crusher_rest"
+	icon_sit = "rest"
+	gender = MALE
+	holder_type = /obj/item/holder/cak
+
+/mob/living/simple_animal/pet/cat/spacecat
+	name = "spacecat"
+	desc = "Space Kitty!!"
+	icon_state = "spacecat"
+	icon_living = "spacecat"
+	icon_dead = "spacecat_dead"
+	icon_resting = "spacecat_rest"
+	unsuitable_atmos_damage = 0
+	minbodytemp = TCMB
+	maxbodytemp = T0C + 40
+	holder_type = /obj/item/holder/spacecat
+
+/mob/living/simple_animal/pet/cat/fat
+	name = "FatCat"
+	desc = "Упитана. Счастлива."
+	icon = 'icons/mob/iriska.dmi'
+	icon_state = "iriska"
+	icon_living = "iriska"
+	icon_dead = "iriska_dead"
+	icon_resting = "iriska"
+	gender = FEMALE
+	mob_size = MOB_SIZE_LARGE	//THICK!!!
+	//canmove = FALSE
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 8)
+	tts_seed = "Huntress"
+	maxHealth = 40	//Sooooo faaaat...
+	health = 40
+	speed = 10		// TOO FAT
+	wander = 0		// LAZY
+	can_hide = 0
+	resting = TRUE
+
+/mob/living/simple_animal/pet/cat/fat/handle_automated_action()
+	return

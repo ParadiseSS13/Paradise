@@ -20,6 +20,7 @@
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
 	tts_seed = "Kleiner"
+	var/list/talk_sound = null //The sound played when talk
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
@@ -91,6 +92,7 @@
 	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
+	var/list/damaged_sound = null
 
 	var/allow_movement_on_non_turfs = FALSE
 
@@ -647,3 +649,41 @@
 	..()
 	walk(src, 0) // if mob is moving under ai control, then stop AI movement
 
+/mob/living/simple_animal/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics)
+	if(..() && length(src.talk_sound))
+		playsound(src, pick(src.talk_sound), 75, TRUE)
+
+/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
+	if(..() && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
+	if(..() && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_animal(mob/living/simple_animal/M)
+	if(..() && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if(..() && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
+	if(..() && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_slime(mob/living/simple_animal/slime/M)
+	if(..() && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/attack_robot(mob/living/user)
+	if(..() && length(src.damaged_sound))
+		playsound(src, pick(src.damaged_sound), 40, 1)
+
+/mob/living/simple_animal/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+	if(pull_constraint(AM, show_message))
+		return ..()
+
+/mob/living/simple_animal/proc/pull_constraint(atom/movable/AM, show_message = FALSE)
+	return TRUE

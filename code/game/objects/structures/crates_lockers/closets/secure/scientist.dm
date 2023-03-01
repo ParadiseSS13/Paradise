@@ -69,7 +69,7 @@
 	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/neck/mantle/research_director(src)
 	new /obj/item/clothing/neck/cloak/research_director(src)
-	new /obj/item/clothing/head/beret/purple(src)
+	new /obj/item/clothing/head/beret/purple/rd(src)
 	new /obj/item/cartridge/rd(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/gloves/color/latex(src)

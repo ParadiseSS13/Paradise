@@ -26,6 +26,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	attack_sound = 'sound/creatures/terrorspiders/bite.ogg'
 	deathmessage = "Screams in pain and slowly stops moving."
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
+	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
+	talk_sound = list('sound/creatures/spider_talk1.ogg', 'sound/creatures/spider_talk2.ogg')
 	var/spider_intro_text = "Если ты это видишь, напиши разрабам"
 	speak_chance = 0 // quiet but deadly
 	speak_emote = list("hisses")

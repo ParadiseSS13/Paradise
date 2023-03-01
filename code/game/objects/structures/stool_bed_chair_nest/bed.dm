@@ -197,3 +197,8 @@
 	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
 	name = "Runtime's bed"
 	anchored = TRUE
+
+/obj/structure/bed/dogbed/pet
+	name = "Удобная лежанка"
+	desc = "Комфортная лежанка для любимейшего питомца отдела."
+	anchored = TRUE

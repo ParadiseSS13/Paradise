@@ -75,7 +75,7 @@
 	channels = list("Security" = 1)
 
 /obj/item/encryptionkey/headset_iaa
-	name = "IAA Radio Encryption Key"
+	name = "Internal Affairs Radio Encryption Key"
 	icon_state = "sec_cypherkey"
 	channels = list("Security" = 1, "Procedure" = 1)
 

@@ -299,7 +299,7 @@
 	. += _memory_edit_role_enabled(ROLE_WIZARD)
 
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
-	. = _memory_edit_header("changeling", list("traitorchan"))
+	. = _memory_edit_header("changeling", list("traitorchan", "thiefchan", "traitorthiefchan"))
 	if(src in SSticker.mode.changelings)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
 		if(!length(objectives))
@@ -312,7 +312,7 @@
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
-	. = _memory_edit_header("vampire", list("traitorvamp"))
+	. = _memory_edit_header("vampire", list("traitorvamp", "vampirethief", "traitorthiefvampire"))
 	if(src in SSticker.mode.vampires)
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
 		if(!length(objectives))
@@ -402,7 +402,7 @@
 		. += "<a href='?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_traitor()
-	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp"))
+	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	if(has_antag_datum(/datum/antagonist/traitor))
 		. += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=[UID()];traitor=clear'>no</a>"
 		if(!length(objectives))
@@ -469,6 +469,17 @@
 	else
 		. += "mindslave|<b>NO</b>"
 
+/datum/mind/proc/memory_edit_thief()
+	. = _memory_edit_header("thief", list("traitorthief", "thiefchan", "vampirethief", "traitorthiefvampire", "traitorthiefchan"))
+	if(src in SSticker.mode.thieves)
+		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>|<a href='?src=[UID()];thief=equip'>Equip</a>"
+		if(!length(objectives))
+			. += "<br>Objectives are empty! <a href='?src=[UID()];thief=autoobjectives'>Randomize!</a>"
+	else
+		. += "<a href='?src=[UID()];thief=thief'>thief</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_THIEF)
+
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/silicon = current
@@ -523,11 +534,12 @@
 		"cult",
 		"clockwork",
 		"wizard",
-		"changeling",
-		"vampire", // "traitorvamp",
+		"changeling", 	// "traitorchan", "thiefchan",
+		"vampire", 		// "traitorvamp", "vampirethief",
 		"nuclear",
-		"traitor", // "traitorchan",
+		"traitor",
 		"ninja",
+		"thief",		//	"traitorthief", "traitorthiefvampire", "traitorthiefchan",
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -556,6 +568,8 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
+	/** THIEF ***/
+	sections["thief"] = memory_edit_thief()
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
@@ -570,25 +584,60 @@
 		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
 		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
 	*/
-	if(SSticker.mode.config_tag == "traitorchan")
-		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
-		if(sections["changeling"])
-			out += sections["changeling"] + "<br>"
-		sections -= "traitor"
-		sections -= "changeling"
-	// Elif technically unnecessary but it makes the following else look better
-	else if(SSticker.mode.config_tag == "traitorvamp")
-		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
-		if(sections["vampire"])
-			out += sections["vampire"] + "<br>"
-		sections -= "traitor"
-		sections -= "vampire"
-	else
-		if(sections[SSticker.mode.config_tag])
-			out += sections[SSticker.mode.config_tag] + "<br>"
-		sections -= SSticker.mode.config_tag
+	switch(SSticker.mode.config_tag)
+		if("traitorchan")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "traitor"
+			sections -= "changeling"
+		// Elif technically unnecessary but it makes the following else look better
+		if("traitorvamp")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			sections -= "traitor"
+			sections -= "vampire"
+		if("thiefchan")
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "thief"
+			sections -= "changeling"
+		if("vampirethief")
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			sections -= "vampire"
+			sections -= "thief"
+		if("traitorthiefchan")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["changeling"])
+				out += sections["changeling"] + "<br>"
+			sections -= "traitor"
+			sections -= "thief"
+			sections -= "changeling"
+		if("traitorthiefvampire")
+			if(sections["traitor"])
+				out += sections["traitor"] + "<br>"
+			if(sections["thief"])
+				out += sections["thief"] + "<br>"
+			if(sections["vampire"])
+				out += sections["vampire"] + "<br>"
+			sections -= "traitor"
+			sections -= "thief"
+			sections -= "vampire"
+		else
+			if(sections[SSticker.mode.config_tag])
+				out += sections[SSticker.mode.config_tag] + "<br>"
+			sections -= SSticker.mode.config_tag
 
 	for(var/i in sections)
 		if(sections[i])
@@ -655,9 +704,10 @@
 				def_value = "custom"
 
 		var/list/objective_types = list(
-			"assassinate", "prevent from escape", "pain_hunter", "steal brain", "protect", "hijack",
-			"escape", "survive", "steal", "download", "nuclear", "capture", "blood", "absorb",
-			"destroy", "identity theft", "kill all humans",
+			"assassinate", "prevent from escape", "pain_hunter", "steal brain", "protect", "escape", "survive",
+			"steal", "thief hard", "thief medium", "thief collect", "thief pet", "thief structure",
+			"download", "nuclear", "capture", "blood", "absorb",
+			"destroy", "identity theft", "hijack", "kill all humans",
 			// Цели для ниндзя //
 			"get money", "find and scan", "set up",
 			"research corrupt", "ai corrupt", "plant explosive", "cyborg hijack",
@@ -842,20 +892,80 @@
 					new_objective = objective
 				var/datum/objective/steal/steal = new_objective
 				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
 					return
+
+			if("thief hard")
+				if(!istype(objective, /datum/objective/steal/hard))
+					new_objective = new /datum/objective/steal/hard
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal/hard/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
+			if("thief medium")
+				if(!istype(objective, /datum/objective/steal/medium))
+					new_objective = new /datum/objective/steal/medium
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal/medium/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
+			if("thief collect")
+				if(!istype(objective, /datum/objective/collect))
+					new_objective = new /datum/objective/collect
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/collect/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
+			if("thief pet")
+				if(!istype(objective, /datum/objective/steal_pet))
+					new_objective = new /datum/objective/steal_pet
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal_pet/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
+			if("thief structure")
+				if(!istype(objective, /datum/objective/steal_structure))
+					new_objective = new /datum/objective/steal_structure
+					new_objective.owner = src
+				else
+					new_objective = objective
+				var/datum/objective/steal_structure/steal = new_objective
+				if(!steal.select_target())
+					to_chat(usr, "<span class='warning'>Цель не обнаружена. Выберите другую или создайте её.</span>")
+					return
+
 
 			if("get money")
 				new_objective = new /datum/objective/get_money
 				var/datum/objective/get_money/money_objective = new_objective
-				var/temp_cash_summ
 				var/input_sum = null
-				for(var/datum/money_account/account in GLOB.all_money_accounts)
-					temp_cash_summ += account.money
-				if(alert(usr, "Do you want to pick the summ yourself? No will use 60% of cash in all accounts.", "Confirmation", "Yes", "No") == "Yes")
-					input_sum = input("Input required money sum:", "Objective") as num|null
-				money_objective.req_amount = !input_sum ? ((temp_cash_summ / 100) * 60): input_sum
-				money_objective.explanation_text = "Добудьте [money_objective.req_amount] кредитов со станции, наличкой."
+				var/accounts_procent = 60
+				if(alert(usr, "Хотите сами подобрать сумму? Если нет, то будет выбрана сумма от процентажа со всех аккаунтов.", "Введите сумму", "Yes", "No") == "Yes")
+					input_sum = input("Введите необходимую денежную сумму:", "Денежная Сумма") as num|null
+				else
+					accounts_procent = input("Введите необходимый процентаж суммы со всех аккаунтов (1-100), иначе будет 60%:", "Процентаж") as num|null
+					if(accounts_procent)
+						accounts_procent = clamp(accounts_procent, 1, 100)
+					else
+						accounts_procent = initial(accounts_procent)
 				money_objective.owner = src
+				money_objective.new_cash(input_sum, accounts_procent)
 
 			if("download","capture","absorb", "blood")
 				var/def_num
@@ -1695,6 +1805,34 @@
 					log_admin("[key_name(usr)] has de-mindslaved [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-mindslaved [key_name_admin(current)]")
 
+	else if(href_list["thief"])
+		switch(href_list["thief"])
+			if("clear")
+				if(src in SSticker.mode.thieves)
+					SSticker.mode.remove_thief(src)
+					log_admin("[key_name(usr)] has de-thiefed [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-thiefed [key_name_admin(current)]")
+			if("thief")
+				SSticker.mode.thieves += src
+				special_role = SPECIAL_ROLE_THIEF
+				SSticker.mode.update_thief_icons_added(src)
+				SEND_SOUND(current, 'sound/ambience/antag/thiefalert.ogg')
+				to_chat(current, "<B><font color='red'>Мои [ishuman(current) ? "руки" : "лапы"] так и чешутся чего-нибудь прикарманить!</font></B>")
+				log_admin("[key_name(usr)] has thiefed [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has thiefed [key_name_admin(current)]")
+			if("autoobjectives")
+				SSticker.mode.forge_thief_objectives(src)
+				to_chat(usr, "<span class='notice'>The objectives for thief [key] have been generated. You can edit them and announce manually.</span>")
+				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+			if("equip")
+				if(!ishuman(current))
+					to_chat(usr, "<span class='warning'>Некуда поместить экипировку!</span>")
+					return
+				SSticker.mode.equip_thief(current)
+				log_admin("[key_name(usr)] give [key_name(current)] thief equipment")
+				message_admins("[key_name_admin(usr)] give [key_name_admin(current)] thief equipment")
+
 	else if(href_list["shadowling"])
 		switch(href_list["shadowling"])
 			if("clear")
@@ -2084,6 +2222,16 @@
 	SSticker.mode.forge_revolutionary_objectives(src)
 	SSticker.mode.equip_revolutionary(current)
 	SSticker.mode.greet_revolutionary(src,0)
+
+
+/datum/mind/proc/make_Thief()
+	if(!(src in SSticker.mode.thieves))
+		SSticker.mode.thieves += src
+		special_role = SPECIAL_ROLE_THIEF
+		SSticker.mode.forge_thief_objectives(src)
+		SSticker.mode.equip_thief(src)
+		SSticker.mode.update_thief_icons_added(src)
+		SSticker.mode.greet_thief(src)
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role ?","Role","Agent","Scientist")

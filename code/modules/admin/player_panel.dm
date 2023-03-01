@@ -508,6 +508,9 @@
 		if(SSticker.mode.implanted.len)
 			dat += check_role_table("Mindslaves", SSticker.mode.implanted)
 
+		if(SSticker.mode.thieves.len)
+			dat += check_role_table("Thieves", SSticker.mode.thieves)
+
 		if(SSticker.mode.shadows.len)
 			dat += check_role_table("Shadowlings", SSticker.mode.shadows)
 

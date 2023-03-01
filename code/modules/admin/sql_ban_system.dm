@@ -313,9 +313,8 @@
 			"Antagonist Positions" = list(
 				ROLE_SYNDICATE,
 				ROLE_TRAITOR,
+				ROLE_THIEF,
 				ROLE_WIZARD,
-				ROLE_SYNDICATE,
-				ROLE_TRAITOR,
 				ROLE_OPERATIVE,
 				ROLE_CHANGELING,
 				ROLE_WIZARD,

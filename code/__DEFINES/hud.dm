@@ -58,6 +58,7 @@
 #define ANTAG_HUD_EVENTMISC 21
 #define ANTAG_HUD_BLOB 22
 #define TAIPAN_HUD 23
+#define ANTAG_HUD_THIEF 24
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
