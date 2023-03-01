@@ -2687,6 +2687,7 @@
 #include "code\modules\world_topic\announce.dm"
 #include "code\modules\world_topic\fixinput.dm"
 #include "code\modules\world_topic\fixticker.dm"
+#include "code\modules\world_topic\fixtts.dm"
 #include "code\modules\world_topic\hostannounce.dm"
 #include "code\modules\world_topic\manifest.dm"
 #include "code\modules\world_topic\ping.dm"
