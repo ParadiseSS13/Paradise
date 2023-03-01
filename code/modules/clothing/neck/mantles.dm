@@ -14,7 +14,7 @@
 	icon_state = "regal_mantle"
 
 /obj/item/clothing/neck/mantle/old
-	name = "old wrap"
+	name = "old scarf"
 	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
 	icon_state = "old_mantle"
 
@@ -36,13 +36,13 @@
 	icon_state = "cmomantle"
 
 /obj/item/clothing/neck/mantle/head_of_security
-	name = "head of security's shawl"
-	desc = "A shawl worn by the Head of Security. Do you dare take up their mantle?"
+	name = "head of security's mantle"
+	desc = "A cloak worn by the Head of Security. Do you dare take up their mantle?"
 	icon_state = "hosmantle"
 
 /obj/item/clothing/neck/mantle/head_of_personnel
 	name = "head of personnel's mantle"
-	desc = "An shawl for the head of personnel. It's remarkably well kept."
+	desc = "An cloak for the head of personnel. It's remarkably well kept."
 	icon_state = "hopmantle"
 
 //Research Director
