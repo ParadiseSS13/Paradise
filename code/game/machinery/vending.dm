@@ -1814,6 +1814,8 @@
 
 		/obj/item/clothing/accessory/scarf/black 	= 10,
 		/obj/item/clothing/accessory/scarf/red 		= 10,
+		/obj/item/clothing/neck/poncho/security     = 10,
+		/obj/item/clothing/neck/cloak/security      = 10,
 		/obj/item/clothing/accessory/armband/sec 	= 10,
 
 		/obj/item/storage/backpack/security 		= 5,

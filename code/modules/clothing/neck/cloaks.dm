@@ -12,6 +12,10 @@
 	desc = "Worn by the leader of Brigston, ruling the station with an iron fist."
 	icon_state = "hoscloak"
 
+/obj/item/clothing/neck/cloak/security
+	name = "security officer's cloak"
+	desc = "Worn by security officers."
+	icon_state = "seccloak"
 /obj/item/clothing/neck/cloak/quartermaster
 	name = "quartermaster's cloak"
 	desc = "Worn by the God-emperor of Cargonia, supplying the station with the necessary tools for survival."

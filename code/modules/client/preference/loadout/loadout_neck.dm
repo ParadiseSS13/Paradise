@@ -99,6 +99,11 @@
 	path = /obj/item/clothing/neck/cloak/head_of_security
 	allowed_roles = list("Head of Security")
 
+/datum/gear/neck/cloak/security
+	display_name = "cloak, security officer"
+	path = /obj/item/clothing/neck/cloak/security
+	allowed_roles = list("Head of Security", "Security Officer", "Warden", "Security Cadet", "Security Pod Pilot")
+
 /datum/gear/neck/cloak/job/head_of_personnel
 	display_name = "cloak, head of personnel"
 	path = /obj/item/clothing/neck/cloak/head_of_personnel
@@ -119,10 +124,16 @@
 	display_name = "poncho, classic"
 	path = /obj/item/clothing/neck/poncho
 
-/datum/gear/neck/grponcho
+/datum/gear/neck/poncho/green
 	display_name = "poncho, green"
 	path = /obj/item/clothing/neck/poncho/green
 
-/datum/gear/neck/rdponcho
+/datum/gear/neck/poncho/red
 	display_name = "poncho, red"
 	path = /obj/item/clothing/neck/poncho/red
+
+/datum/gear/neck/poncho/security
+	display_name = "poncho, corporate"
+	path = /obj/item/clothing/neck/poncho/security
+	allowed_roles = list("Head of Security", "Security Officer", "Warden", "Security Cadet", "Security Pod Pilot")
+
