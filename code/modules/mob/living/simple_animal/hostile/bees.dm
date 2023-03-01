@@ -125,11 +125,14 @@
 	wings = bee_icons["[icon_base]_wings"]
 	overlays += wings
 
-//We don't attack beekeepers/people dressed as bees//Todo: bee costume
+//We don't attack beekeepers/people dressed as bees/wryns //Todo: bee costume
 /mob/living/simple_animal/hostile/poison/bees/CanAttack(atom/the_target)
 	. = ..()
 	if(!.)
 		return FALSE
+	if(iswryn(the_target))
+		var/mob/living/H = the_target
+		return H.bee_friendly()
 	if(!bee_syndicate && isliving(the_target))
 		var/mob/living/H = the_target
 		return !H.bee_friendly()
