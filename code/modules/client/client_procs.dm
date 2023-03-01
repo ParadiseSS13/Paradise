@@ -195,6 +195,19 @@
 	if(href_list["link_forum_account"])
 		link_forum_account()
 		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
+
+	if(href_list["__keydown"])
+		var/keycode = href_list["__keydown"]
+		if(keycode)
+			KeyDown(keycode)
+		return
+
+	if(href_list["__keyup"])
+		var/keycode = href_list["__keyup"]
+		if(keycode)
+			KeyUp(keycode)
+		return
+
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
