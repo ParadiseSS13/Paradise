@@ -151,8 +151,8 @@
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/Post_Consume(mob/living/M)
 	if(warm)
 		M.reagents.add_reagent("omnizine", 15)
-	else
-		M.reagents.add_reagent("weak_omnizine", 5)
+		return
+	M.reagents.add_reagent("weak_omnizine", 5)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket_weak
 	name = "lukewarm Donk-pocket"
