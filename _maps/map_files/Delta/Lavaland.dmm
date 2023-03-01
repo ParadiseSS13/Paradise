@@ -4272,7 +4272,7 @@
 	dir = 8
 	},
 /obj/item/clockwork/clockgolem_remains,
-/turf/simulated/wall/indestructible/boss,
+/turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "tC" = (
 /obj/machinery/camera{
