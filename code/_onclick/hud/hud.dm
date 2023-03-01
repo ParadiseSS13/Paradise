@@ -22,6 +22,7 @@
 	var/obj/screen/vampire_blood_display
 	var/obj/screen/ninja_energy_display
 	var/obj/screen/ninja_focus_display
+	var/obj/screen/wind_up_timer
 	var/obj/screen/alien_plasma_display
 	var/obj/screen/nightvisionicon
 	var/obj/screen/action_intent
@@ -92,6 +93,7 @@
 	vampire_blood_display = null
 	ninja_energy_display = null
 	ninja_focus_display = null
+	wind_up_timer = null
 	nightvisionicon = null
 	devilsouldisplay = null
 

@@ -49,6 +49,7 @@
 	)
 
 	var/wind_up_timer = CLOCK_MAX_WIND_UP_TIMER
+	var/wind_up_icon_segment = CLOCK_MAX_WIND_UP_TIMER / 5
 	var/warn_wind_up = WINDUP_STATE_NONE
 
 /mob/living/silicon/robot/cogscarab/Initialize()
@@ -79,6 +80,15 @@
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
 
+/mob/living/silicon/robot/cogscarab/create_mob_hud()
+	..()
+	if(hud_used)
+		var/datum/hud/hud = hud_used
+		if(!hud.wind_up_timer)
+			hud.wind_up_timer = new /obj/screen()
+			hud.static_inventory += hud.wind_up_timer
+			hud.show_hud(hud.hud_version)
+
 /mob/living/silicon/robot/cogscarab/Life(seconds, times_fired)
 	..()
 	if(wind_up_timer > CLOCK_MAX_WIND_UP_TIMER/2)
@@ -98,6 +108,9 @@
 		adjustBruteLoss(2)
 	else
 		wind_up_timer -= seconds
+	hud_used.wind_up_timer?.icon_state = "windup_display-[6-(round(wind_up_timer, wind_up_icon_segment) / wind_up_icon_segment)]"
+	//rounds to 30 and divides by 30. if timer full, 6 - 5, state 1. from 1 to 6.
+
 
 /mob/living/silicon/robot/cogscarab/Stat()
 	..()
