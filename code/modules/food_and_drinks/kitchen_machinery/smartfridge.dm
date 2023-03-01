@@ -460,8 +460,7 @@
 	icon_state = "foodcart"
 	anchored = FALSE
 	requires_power = FALSE
-	idle_power_consumption = 0
-	active_power_consumption = 0
+	power_state = NO_POWER_USE
 	visible_contents = FALSE
 	face_while_pulling = FALSE
 	silicon_controllable = FALSE
