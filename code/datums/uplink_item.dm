@@ -188,7 +188,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
 	job = list("Clown")
-//mime
+
+//Mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
 	desc = "A specialised, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes boxed with 6 specialised shrapnel rounds laced with a silencing toxin and 1 preloaded in the shotgun's chamber."
@@ -205,6 +206,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 6
 	job = list("Mime")
 
+//Miner
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
@@ -239,7 +241,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chef")
 
 //Chaplain
-
 /datum/uplink_item/jobspecific/voodoo
 	name = "Voodoo Doll"
 	desc = "A doll created by Syndicate Witch Doctors. Ingredients: Something of the Thread, Something of the Head, Something of the Body, Something of the Dead, Secret Voodoo herbs, and Monosodium glutamate."
@@ -267,7 +268,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
 //Janitor
-
 /datum/uplink_item/jobspecific/cautionsign
 	name = "Proximity Mine"
 	desc = "An Anti-Personnel proximity mine cleverly disguised as a wet floor caution sign that is triggered by running past it, activate it to start the 15 second timer and activate again to disarm."
@@ -287,7 +287,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 
 //Medical
-
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Radiation Laser"
 	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
@@ -314,7 +313,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 
 //Virology
-
 /datum/uplink_item/jobspecific/viral_injector
 	name = "Viral Injector"
 	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
@@ -332,7 +330,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Assistant
-
 /datum/uplink_item/jobspecific/pickpocketgloves
 	name = "Pickpocket's Gloves"
 	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
@@ -358,7 +355,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Civilian", "Mechanic", "Station Engineer", "Trainee Engineer", "Chief Engineer")
 
 //Bartender
-
 /datum/uplink_item/jobspecific/drunkbullets
 	name = "Boozey Shotgun Shells"
 	desc = "A box containing 6 shotgun shells that simulate the effects of extreme drunkenness on the target, more effective for each type of alcohol in the target's system."
@@ -368,7 +364,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Bartender")
 
 //Barber
-
 /datum/uplink_item/jobspecific/safety_scissors //Hue
 	name = "Safety Scissors"
 	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
@@ -378,7 +373,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Barber")
 
 //Botanist
-
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
 	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s). It also wirelessly taps into station intercomms to broadcast a message of TERROR."
@@ -388,7 +382,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Botanist")
 
 //Engineer
-
 /datum/uplink_item/jobspecific/powergloves
 	name = "Power Gloves"
 	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. Must be standing on a powered cable to use."
@@ -398,7 +391,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer")
 
 //RD
-
 /datum/uplink_item/jobspecific/telegun
 	name = "Telegun"
 	desc = "An extremely high-tech energy gun that utilizes bluespace technology to teleport away living targets. Select the target beacon on the telegun itself; projectiles will send targets to the beacon locked onto."
@@ -442,7 +434,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AIRJ"
 	item = /obj/item/clothing/under/contortionist
 	cost = 10
-	job = list("Life Support Specialist")
+	job = list("Life Support Specialist", "Chief Engineer")
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
@@ -450,7 +442,17 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "EFA"
 	item = /obj/item/twohanded/fireaxe/energized
 	cost = 4
-	job = list("Life Support Specialist")
+	job = list("Life Support Specialist", "Chief Engineer")
+
+//CE
+/datum/uplink_item/jobspecific/combat_rcd
+	name = "Syndicate RCD"
+	desc = "Special RCD capable to destroy reinforced walls and have 500 matter units instead of 100."
+	reference = "SRCD"
+	item = /obj/item/rcd/combat
+	cost = 8
+	job = list("Chief Engineer")
+	surplus = 0
 
 //Stimulants
 
