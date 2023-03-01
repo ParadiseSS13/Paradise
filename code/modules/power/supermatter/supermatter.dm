@@ -45,11 +45,11 @@
 
 	var/damage = 0
 	var/damage_archived = 0
-	var/safe_alert = "Crystalline hyperstructure returning to safe operating levels."
+	var/safe_alert = "Гиперструктура кристалла возвращается к безопасному эксплуатационному уровню."
 	var/warning_point = 50
-	var/warning_alert = "Danger! Crystal hyperstructure instability!"
+	var/warning_alert = "ОПАСНОСТЬ! Дестабилизация гиперструктуры кристалла!"
 	var/emergency_point = 400
-	var/emergency_alert = "CRYSTAL DELAMINATION IMMINENT."
+	var/emergency_alert = "РАСЩЕПЛЕНИЕ КРИСТАЛЛА НЕМИНУЕМО."
 	var/explosion_point = 600
 
 	var/emergency_issued = 0
@@ -164,7 +164,7 @@
 			var/stability = num2text(round((damage / explosion_point) * 100))
 
 			if(damage > emergency_point)
-				radio.autosay("[emergency_alert] Instability: [stability]%", src.name)
+				radio.autosay("[emergency_alert] Дестабилизация: [stability]%", src.name)
 				lastwarning = world.timeofday
 				if(!has_reached_emergency)
 					investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
@@ -172,7 +172,7 @@
 					has_reached_emergency = 1
 
 			else if(damage >= damage_archived) // The damage is still going up
-				radio.autosay("[warning_alert] Instability: [stability]%", src.name)
+				radio.autosay("[warning_alert] Дестабилизация: [stability]%", src.name)
 				lastwarning = world.timeofday - 150
 
 			else                                                 // Phew, we're safe
