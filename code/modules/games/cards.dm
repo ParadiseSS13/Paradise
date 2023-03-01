@@ -364,6 +364,9 @@
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
 
+	if(!card)
+		return
+
 	var/obj/item/cardhand/H = new(get_turf(src))
 	user.put_in_hands(H)
 	H.cards += card
