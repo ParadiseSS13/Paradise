@@ -19044,24 +19044,16 @@
 /area/shuttle/escape)
 "kpi" = (
 /obj/structure/rack/holorack,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
 /obj/item/clothing/gloves/color/white{
 	desc = null
 	},
 /obj/item/clothing/gloves/color/white{
 	desc = null
 	},
-/obj/item/clothing/gloves/color/white{
-	desc = null;
-	icon_state = "s-ninjas";
-	name = "black gloves"
-	},
-/obj/item/clothing/gloves/color/white{
-	desc = null;
-	icon_state = "s-ninjas";
-	name = "black gloves"
-	},
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/wood,
 /area/centcom/bridge)
 "kpr" = (
@@ -42402,16 +42394,6 @@
 /obj/item/clothing/gloves/color/white{
 	desc = null
 	},
-/obj/item/clothing/gloves/color/white{
-	desc = null;
-	icon_state = "s-ninjas";
-	name = "black gloves"
-	},
-/obj/item/clothing/gloves/color/white{
-	desc = null;
-	icon_state = "s-ninjas";
-	name = "black gloves"
-	},
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/gloves/combat,
 /obj/structure/window/reinforced,
@@ -42419,6 +42401,8 @@
 	dir = 4;
 	layer = 2.9
 	},
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
