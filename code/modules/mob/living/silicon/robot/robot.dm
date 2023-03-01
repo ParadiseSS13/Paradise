@@ -549,6 +549,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	update_icons()
 	update_headlamp()
+	robot_module_hat_offset(icon_state)
+	drop_hat()
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
