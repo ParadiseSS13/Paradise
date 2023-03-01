@@ -114,9 +114,13 @@
 	filling_color = "#DEDEAB"
 	list_reagents = list("nutriment" = 4)
 	tastes = list("meat" = 2, "dough" = 2, "laziness" = 1)
+	/// Is the donk pocket warm or has it cooled - this affects what chemicals it yields when consumed
 	var/warm = TRUE
+	/// This stores the timer for how long the donk pocket takes to cool, seven minutes, that is paused inside of a donk pocket box
 	var/cool_timer
+	/// This is used to check the world time when the donk pocket was heated or last removed from a donk pocket box, for restarting the timer
 	var/heated_at
+	/// This tracks how much time the donk pocket has already been cooling for when its timer is paused
 	var/subtracted_time = 0
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/Initialize(mapload)
