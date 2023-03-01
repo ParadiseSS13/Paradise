@@ -59,7 +59,7 @@
 	/// A list of access numbers which have been checked off by the user in the UI.
 	var/list/selected_accesses = list()
 	/// A list of valid atoms that RCDs can target. Clicking on an atom with an RCD which is not in this list, will do nothing.
-	var/static/list/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
+	var/static/list/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock, /obj/structure/falsewall)
 	/// An associative list of airlock type paths as keys, and their names as values.
 	var/static/list/rcd_door_types = list()
 
@@ -490,6 +490,24 @@
 				var/turf/AT = A
 				add_attack_logs(user, AT, "Deconstructed wall with RCD")
 				AT.ChangeTurf(floor_type)
+				return TRUE
+			return FALSE
+		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this wall!</span>")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		return FALSE
+
+	if(istype(A, /obj/structure/falsewall))
+		if(istype(A, /obj/structure/falsewall/reinforced) && !canRwall)
+			return FALSE
+		if(checkResource(5, user))
+			to_chat(user, "Deconstructing Wall...")
+			playsound(loc, 'sound/machines/click.ogg', 50, 1)
+			if(do_after(user, 40 * toolspeed * gettoolspeedmod(user), target = A))
+				if(!useResource(5, user))
+					return FALSE
+				playsound(loc, usesound, 50, 1)
+				add_attack_logs(user, A, "Deconstructed false wall with RCD")
+				qdel(A)
 				return TRUE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this wall!</span>")
