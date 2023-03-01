@@ -64,7 +64,7 @@
 	if(isrobot(user))
 		return
 
-	if(istype(I, /obj/item/reagent_containers/glass) && !(user.a_intent == INTENT_HARM))
+	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(beaker)
 			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")
 			return

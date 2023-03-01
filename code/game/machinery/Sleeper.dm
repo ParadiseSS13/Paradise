@@ -313,7 +313,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass) && !(user.a_intent == INTENT_HARM))
+	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(!beaker)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
