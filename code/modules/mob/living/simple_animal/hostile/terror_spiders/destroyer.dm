@@ -15,15 +15,15 @@
 	icon_living = "terror_brown"
 	icon_dead = "terror_brown_dead"
 	gender = MALE
-	maxHealth = 150
-	health = 150
+	maxHealth = 135
+	health = 135
 	speed = -0.1
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage_lower = 10
+	melee_damage_upper = 15
 	obj_damage = 100 //for effective breaching
 	move_to_delay = 20
 	spider_opens_doors = 2 // Breach specialist.
-	environment_smash = 2
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	spider_tier = TS_TIER_2
 	ai_ventbreaker = 1
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
@@ -40,3 +40,12 @@
 	..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/destroyer/death(gibbed)
+	if(can_die())
+		if(!gibbed)
+			msg_terrorspiders("[src] has died in [get_area(src)].")
+			empulse(src.loc, 6, 3, TRUE, cause = src)
+			explosion(src.loc, heavy_impact_range = 1, light_impact_range = 4, flash_range = 5, flame_range = 5, cause = src)
+		handle_dying()
+	return ..()

@@ -17,15 +17,16 @@
 	icon_dead = "terror_allblack_dead"
 	maxHealth = 550
 	health = 550
+	damage_coeff = list(BRUTE = 0.7, BURN = 0.9, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	deathmessage =  "morbidly growls, flailing and crumbling as death finally washes away the burning hatred in it's eyes."
 	death_sound = 'sound/creatures/terrorspiders/prince_dead.ogg'
 	regeneration = 0 //no healing on life, prince should play agressive
 	force_threshold = 30
-	melee_damage_lower = 35
-	melee_damage_upper = 39
+	melee_damage_lower = 40
+	melee_damage_upper = 40
 	armour_penetration = 20
 	obj_damage = 90
-	environment_smash = 2
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	var/delimb_chance = 10
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
 	ventcrawler = 0
@@ -52,7 +53,7 @@
 	if(prob(delimb_chance))
 		if(L.stat != DEAD) //no dismemberment for dead carbons, less griefy
 			do_attack_animation(L)
-			L.adjustBruteLoss(39)
+			L.adjustBruteLoss(25)
 			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 100, 1)
 			var/obj/item/organ/external/NB = pick(L.bodyparts)
 			visible_message("<span class='warning'>[src] Tears appart the [NB.name] of [L] with his razor sharp jaws!</span>")

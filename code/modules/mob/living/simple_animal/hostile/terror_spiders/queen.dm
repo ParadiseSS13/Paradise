@@ -15,13 +15,17 @@
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
-	maxHealth = 310
-	health = 310
+	maxHealth = 360
+	health = 360
+	damage_coeff = list(BRUTE = 0.7, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+	regeneration = 3
 	deathmessage = "Emits a  piercing screech that echoes through the hallways, chilling the hearts of those around, as the spider lifelessly falls to the ground."
 	death_sound = 'sound/creatures/terrorspiders/queen_death.ogg'
-	melee_damage_lower = 20
+	melee_damage_lower = 25
 	melee_damage_upper = 30
+	armour_penetration = 20
 	obj_damage = 75
+	environment_smash = ENVIRONMENT_SMASH_WALLS
 	ventcrawler = 1
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	ai_break_lights = FALSE
@@ -33,8 +37,9 @@
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
-	projectilesound = 'sound/creatures/terrorspiders/spit.ogg'
+	projectilesound = 'sound/creatures/terrorspiders/spit2.ogg'
 	projectiletype = /obj/item/projectile/terrorspider/queen
+	ranged_cooldown_time = 20
 	spider_tier = TS_TIER_4
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
@@ -42,8 +47,8 @@
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/queen)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
-	var/spider_spawnfrequency = 1400 // 140 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
-	var/spider_spawnfrequency_stable = 1400 // 140 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
+	var/spider_spawnfrequency = 1200 // 140 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
+	var/spider_spawnfrequency_stable = 1200 // 140 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
 	var/spider_lastspawn = 0
 	var/nestfrequency = 300 // 30 seconds
 	var/lastnestsetup = 0
@@ -246,9 +251,9 @@
 	queennest_action.Remove(src)
 	hasnested = TRUE
 	ventcrawler = 0
-	speed = 1
+	speed = 0.5
 	ai_ventcrawls = FALSE
-	environment_smash = 2
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
 	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl.</span>")
 
@@ -368,8 +373,7 @@
 	name = "queen venom"
 	icon_state = "toxin3"
 	damage = 40
-	stamina = 50
-	icon_state = "toxin"
+	stamina = 40
 	damage_type = BURN
 
 /obj/structure/spider/terrorweb/queen

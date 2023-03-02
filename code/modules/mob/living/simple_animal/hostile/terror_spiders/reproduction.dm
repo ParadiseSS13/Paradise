@@ -191,7 +191,7 @@
 /obj/structure/spider/eggcluster/terror_eggcluster
 	name = "terror egg cluster"
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
-	icon_state = "eggs"
+	icon_state = "egg"
 	var/spider_growinstantly = FALSE
 	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_myqueen = null
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_mymother = null

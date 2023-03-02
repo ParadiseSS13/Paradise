@@ -16,19 +16,19 @@
 	icon_state = "terror_drone"
 	icon_living = "terror_drone"
 	icon_dead = "terror_drone_dead"
-	maxHealth = 90
-	health = 90
+	maxHealth = 80
+	health = 80
 	regeneration = 0
 	delay_web = 10
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	obj_damage = 50
-	environment_smash = 2
+	environment_smash = ENVIRONMENT_SMASH_WALLS
 	spider_opens_doors = 2
 	ranged = 1
 	rapid = 2
-	ranged_cooldown_time = 40
-	speed = 1.4
+	ranged_cooldown_time = 25
+	speed = 1
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
 	projectiletype = /obj/item/projectile/terrorspider/builder
 	web_type = /obj/structure/spider/terrorweb/queen/builder
@@ -56,12 +56,12 @@
 	. = ..()
 	var/obj/structure/spider/terrorweb/W = locate() in get_turf(src)
 	if(W)
-		if(speed == 1.2)
+		if(speed == 1)
 			speed = -0.2
 			regeneration = 3
-	else if(speed != 1.2)
+	else if(speed != 1)
 		regeneration = 0
-		speed = 1.4
+		speed = 1
 
 /obj/structure/spider/terrorweb/queen/builder
 	max_integrity = 30
@@ -72,7 +72,7 @@
 /obj/item/projectile/terrorspider/builder
 	name = "drone venom"
 	icon_state = "toxin2"
-	damage = 10
+	damage = 17
 	stamina = 17
 
 /obj/item/projectile/terrorspider/drone/on_hit(atom/target, blocked = 0, hit_zone)

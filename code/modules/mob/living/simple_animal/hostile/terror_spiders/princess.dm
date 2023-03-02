@@ -17,8 +17,10 @@
 	icon_dead = "terror_princess1_dead"
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	maxHealth = 180
-	health = 180
+	ranged_cooldown_time = 25
+	maxHealth = 210
+	health = 210
+	regeneration = 3
 	delay_web = 25
 	deathmessage = "Emits a  piercing screech and slowly falls on the ground."
 	death_sound = 'sound/creatures/terrorspiders/princess_death.ogg'
@@ -32,7 +34,7 @@
 	spider_spawnfrequency = 300 // 30 seconds
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/princess)
 	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
-	var/spider_max_children = 8
+	var/spider_max_children = 60
 	tts_seed = "Ranger"
 
 
@@ -128,5 +130,4 @@
 	icon_state = "toxin4"
 	damage = 25
 	stamina = 33
-	icon_state = "toxin"
 	damage_type = BURN

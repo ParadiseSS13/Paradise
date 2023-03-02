@@ -16,19 +16,19 @@
 	icon_state = "terror_red"
 	icon_living = "terror_red"
 	icon_dead = "terror_red_dead"
-	maxHealth = 200
-	health = 200
+	maxHealth = 220
+	health = 220
+	damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	melee_damage_lower = 15
 	melee_damage_upper = 19
 	obj_damage = 60
-	environment_smash = 2
+	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
 	death_sound = 'sound/creatures/terrorspiders/death1.ogg'
 	armour_penetration = 10
 	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
 	speed = 0.8
 	spider_opens_doors = 2
-	ventcrawler = 0
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	web_type = /obj/structure/spider/terrorweb/knight
 	spider_intro_text = "Будучи Рыцарем Ужаса, ваша задача - создавать места для прорыва, или же оборонять гнездо. Несмотря на медлительность, вы живучи и опасны вблизи, используйте свою силу и выносливость, чтобы другие пауки могли выполнять свои функции! Ваши способности позволяют вам переключаться между режимом атаки и обороны, первый - увеличивает скорость, а также наносимый и получаемый урон, второй - уменьшает скорость, получаемый и наносимый урон."
@@ -73,9 +73,9 @@
 		playsound(src, 'sound/creatures/terrorspiders/mod_defence_out.ogg', 100)
 		to_chat(src, "<span class='notice'>You are now in default mode</span>")
 		speed = 0.8
-		damage_coeff = list(BRUTE = 0.9, BURN = 1.2, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 2)
-		melee_damage_lower = 15
-		melee_damage_upper = 19
+		damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+		melee_damage_lower = 21
+		melee_damage_upper = 21
 		current_mode = 0
 		return 1
 	if	(n==1)
@@ -85,11 +85,11 @@
 			attack_mode_av = 0
 			playsound(src, 'sound/creatures/terrorspiders/mod_attack_out.ogg', 100)
 			to_chat(src, "<span class='notice'>You are now in attack mode</span>")
-			speed = 0
-			damage_coeff = list(BRUTE = 1.2, BURN = 1.4, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 2)
-			melee_damage_lower = 30
+			speed = -0.1
+			damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+			melee_damage_lower = 35
 			melee_damage_upper = 35
-			src.adjustBruteLoss(50)
+			src.adjustBruteLoss(30)
 			current_mode = 1
 			return 1
 		to_chat(src, "<span class='notice'>You cant do this yet!</span>")
@@ -102,9 +102,10 @@
 			playsound(src, 'sound/creatures/terrorspiders/mod_defence.ogg', 100)
 			to_chat(src, "<span class='notice'>You are now in defence mode</span>")
 			speed = 1.6
-			damage_coeff = list(BRUTE = 0.6, BURN = 0.8, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 2)
-			melee_damage_lower = 10
+			damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+			melee_damage_lower = 15
 			melee_damage_upper = 15
+			src.adjustBruteLoss(-30)
 			current_mode = 2
 			return 1
 		to_chat(src, "<span class='notice'>You cant do this yet!</span>")
@@ -117,7 +118,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/spider_specialattack(mob/living/carbon/human/L)
 	if(L.stat != DEAD)
-		L.adjustStaminaLoss(15) //8 hits for stamcrit
+		L.adjustStaminaLoss(20) //5 hits for stamcrit
 		L.attack_animal(src)
 	else
 		..()

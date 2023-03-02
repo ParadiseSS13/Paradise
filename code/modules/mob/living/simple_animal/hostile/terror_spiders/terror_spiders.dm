@@ -37,15 +37,17 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	footstep_type = FOOTSTEP_MOB_CLAW
+	var/list/speech_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
 
 	//HEALTH
 	maxHealth = 120
 	health = 120
+	unsuitable_atmos_damage = 0
 	a_intent = INTENT_HARM
 	var/regeneration = 2 //pure regen on life
 	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
 	//also regenerates by using /datum/status_effect/terror/food_regen when wraps a carbon, wich grants full health witin ~25 seconds
-	damage_coeff = list(BRUTE = 0.9, BURN = 1.2, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 2)
+	damage_coeff = list(BRUTE = 0.75, BURN = 1.25, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 
 	//ATTACK
 	melee_damage_lower = 15
@@ -56,6 +58,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	speed = 0
+	var/magpulse = 1
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
 
 	//SPECIAL
@@ -63,7 +66,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/can_wrap = TRUE   //can spider wrap corpses and objects?
 	var/web_type = /obj/structure/spider/terrorweb
 	ventcrawler = 1 // allows player ventcrawling, set 0 to disallow
-	var/delay_web = 30 // delay between starting to spin web, and finishing
+	var/delay_web = 25 // delay between starting to spin web, and finishing
 	faction = list("terrorspiders")
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	var/ai_ventcrawls = TRUE
@@ -432,8 +435,22 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		return TRUE
 	return ..()
 
+/mob/living/simple_animal/hostile/poison/terror_spider/say(message, verb)
+	. = ..()
+	playsound(src, pick(src.speech_sound), 50, 1)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
+	return magpulse
+
+/mob/living/simple_animal/hostile/poison/terror_spider/mob_has_gravity()
+	return ..() || mob_negates_gravity()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
+	if(!magpulse)
+		return ..()
+
 /obj/item/projectile/terrorspider
 	name = "basic"
 	damage = 0
 	icon_state = "toxin"
-	damage_type = BURN
+	damage_type = TOX

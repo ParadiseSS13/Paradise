@@ -17,6 +17,7 @@
 	icon_dead = "terror_mother_dead"
 	maxHealth = 170
 	health = 170
+	regeneration = 3
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	can_wrap = FALSE
 	melee_damage_lower = 10

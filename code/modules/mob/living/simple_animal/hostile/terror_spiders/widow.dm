@@ -23,8 +23,9 @@
 	rapid = 2
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
 	projectiletype = /obj/item/projectile/terrorspider/widow
-	melee_damage_lower = 5
-	melee_damage_upper = 10
+	ranged_cooldown_time = 20
+	melee_damage_lower = 15
+	melee_damage_upper = 20
 	melee_damage_type = TOX
 	web_type = /obj/structure/spider/terrorweb/widow
 	special_abillity = list(/obj/effect/proc_holder/spell/targeted/click/fireball/terror/smoke,
@@ -73,4 +74,3 @@
 	icon_state = "toxin5"
 	damage = 15
 	stamina = 25
-	damage_type = TOX

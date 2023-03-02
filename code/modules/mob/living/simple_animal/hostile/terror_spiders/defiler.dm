@@ -14,8 +14,8 @@
 	icon_state = "terror_white"
 	icon_living = "terror_white"
 	icon_dead = "terror_white_dead"
-	maxHealth = 220
-	health = 220
+	maxHealth = 180
+	health = 180
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	speed = -0.1
 	melee_damage_lower = 2
@@ -44,7 +44,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.AdjustSilence(5)
-	L.adjustStaminaLoss(50)
+	L.adjustStaminaLoss(39)
 	if(!poisonable)
 		..()
 		return
