@@ -155,7 +155,7 @@
 
 	// Stun them, there is no escape from this unless you get teleported
 	user.anchored = TRUE
-	user.SetStunned(12, TRUE)
+	user.SetStunned(1.2 SECONDS, TRUE)
 
 	// No cheesing with buckling ourselves, this spinning is too fast for seatbelts
 	if(user.buckled)
