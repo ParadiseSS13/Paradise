@@ -41,6 +41,7 @@
 	head = /obj/item/clothing/head/helmet/abductor
 	suit = /obj/item/clothing/suit/armor/abductor/vest
 	belt = /obj/item/storage/belt/military/abductor/full
+	gloves = /obj/item/clothing/gloves/abductor_agent
 
 	backpack_contents = list(
 		/obj/item/abductor_baton = 1,
@@ -50,6 +51,7 @@
 
 /datum/outfit/abductor/scientist
 	name = "Abductor Scientist"
+	gloves = /obj/item/clothing/gloves/abductor_science
 
 	backpack_contents = list(
 		/obj/item/abductor/gizmo = 1

@@ -838,3 +838,23 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	new /obj/item/reagent_containers/glass/bottle/abductor/salgu(src)
 	new /obj/item/reagent_containers/glass/bottle/abductor/oculine(src)
 	new /obj/item/reagent_containers/glass/bottle/abductor/pen_acid(src)
+
+/obj/item/clothing/gloves/abductor_agent
+	desc = "These gloves seems to protect the wearer from electric shock."
+	name = "high-tech insulated gloves"
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "gloves_agent"
+	item_state = "abductor_gloves_agent"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
+	resistance_flags = NONE
+
+/obj/item/clothing/gloves/abductor_science
+	name = "high-tech science gloves"
+	desc = "High-tech sterile gloves that are stronger than latex."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "gloves_science"
+	item_state = "abductor_gloves_science"
+	siemens_coefficient = 0.30
+	permeability_coefficient = 0.01
+	resistance_flags = NONE
