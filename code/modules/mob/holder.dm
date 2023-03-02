@@ -33,6 +33,13 @@
 	for(var/mob/M in src.contents)
 		M.attackby(W,user, params)
 
+/obj/item/holder/attack(mob/living/target, mob/living/user, def_zone)
+	if(ishuman(user))	//eating holder
+		for(var/mob/M in src.contents)
+			if(devoured(M, user))
+				return TRUE
+	. = ..()
+
 /obj/item/holder/proc/show_message(var/message, var/m_type)
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
@@ -55,6 +62,7 @@
 	else if(istype(loc,/obj/item))
 		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
+	L.resting = FALSE
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
@@ -250,6 +258,13 @@
 	desc = "It's a pet"
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "spacecat"
+
+/obj/item/holder/fatcat
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "iriska"
+	slot_flags = null
 
 /obj/item/holder/bullterrier
 	name = "pet"

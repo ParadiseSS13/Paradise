@@ -4,7 +4,7 @@
 	icon = 'icons/mob/critter.dmi'
 	icon_state = "lizard"
 	icon_living = "lizard"
-	icon_dead = "lizard-dead"
+	icon_dead = "lizard_dead"
 	speak_emote = list("hisses")
 	tts_seed = "Ladyvashj"
 	death_sound = 'sound/creatures/lizard_death.ogg'
@@ -44,5 +44,5 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "axolotl"
 	icon_living = "axolotl"
-	icon_dead = "axolotl-dead"
+	icon_dead = "axolotl_dead"
 	holder_type = /obj/item/holder/axolotl

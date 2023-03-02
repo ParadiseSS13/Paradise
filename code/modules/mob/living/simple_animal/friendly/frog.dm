@@ -40,10 +40,6 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 
-/mob/living/simple_animal/frog/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1, "[scream_sound]" = 1), 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
-
 /mob/living/simple_animal/frog/attack_hand(mob/living/carbon/human/M as mob)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
@@ -89,3 +85,20 @@
 /mob/living/simple_animal/frog/toxic/proc/toxin_affect(mob/living/carbon/human/M as mob)
 	if(M.reagents && !toxin_per_touch == 0)
 		M.reagents.add_reagent(toxin_type, toxin_per_touch)
+
+/mob/living/simple_animal/frog/scream
+	name = "орущая лягушка"
+	real_name = "орущая лягушка"
+	desc = "Не любит когда на неё наступают. Используется в качестве наказания за проступки"
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/frog/scream/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1, "[scream_sound]" = 1), 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+
+/mob/living/simple_animal/frog/toxic/scream
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/frog/toxic/scream/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1, "[scream_sound]" = 1), 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever

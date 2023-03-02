@@ -360,6 +360,7 @@
 	wander = 0		// LAZY
 	can_hide = 0
 	resting = TRUE
+	holder_type = /obj/item/holder/fatcat
 
 /mob/living/simple_animal/pet/cat/fat/handle_automated_action()
 	return

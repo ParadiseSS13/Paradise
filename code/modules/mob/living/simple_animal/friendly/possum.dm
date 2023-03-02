@@ -21,6 +21,9 @@
 	faction = list("neutral")
 	maxHealth = 30
 	health = 30
+	mob_size = MOB_SIZE_SMALL
+	pass_flags = PASSTABLE
+	ventcrawler = VENTCRAWLER_ALWAYS
 	blood_volume = BLOOD_VOLUME_NORMAL
 	melee_damage_type = STAMINA
 	melee_damage_lower = 3

@@ -21,9 +21,9 @@
 	maxHealth = 40
 	health = 40
 	blood_volume = BLOOD_VOLUME_NORMAL
-	obj_damage = 60
-	melee_damage_lower = 20
-	melee_damage_upper = 30
+	obj_damage = 40
+	melee_damage_lower = 10
+	melee_damage_upper = 20
 	attacktext = "терзает"
 	attack_sound = 'sound/weapons/bite.ogg'
 	death_sound = 'sound/creatures/lizard_death_big.ogg'
@@ -47,8 +47,8 @@
 	maxHealth = 200
 	health = 200
 	obj_damage = 80
-	melee_damage_lower = 30
-	melee_damage_upper = 80
+	melee_damage_lower = 25
+	melee_damage_upper = 50
 
 /mob/living/simple_animal/hostile/lizard/croco
 	name = "крокодил"
@@ -59,9 +59,9 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat = 5, /obj/item/stack/sheet/animalhide/lizard = 3)
 	maxHealth = 100
 	health = 100
-	obj_damage = 80
-	melee_damage_lower = 20
-	melee_damage_upper = 50
+	obj_damage = 60
+	melee_damage_lower = 15
+	melee_damage_upper = 30
 
 /mob/living/simple_animal/hostile/lizard/croco/Gena
 	name = "Гена"

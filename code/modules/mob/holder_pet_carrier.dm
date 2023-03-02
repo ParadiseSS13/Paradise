@@ -96,14 +96,15 @@
 
 /obj/item/pet_carrier/proc/free_content(atom/new_location)
 	if(istype(loc,/turf) || length(contents))
-		for(var/mob/M in contents)
+		for(var/mob/living/L in contents)
 			var/atom/movable/mob_container
-			mob_container = M
+			mob_container = L
 			mob_container.forceMove(new_location ? new_location : get_turf(src))
 			contains_pet = FALSE
 			name = initial(name)
 			desc = initial(desc)
 			update_icon()
+			L.resting = FALSE
 		return TRUE
 	return FALSE
 
@@ -146,9 +147,13 @@
 
 	to_chat(L, "<span class='warning'>Вы начали вылезать из переноски (это займет [breakout_time_open] секунд, не двигайтесь)</span>")
 
+	var/atom/target_atom = src
+	if(ishuman(src.loc))
+		target_atom = src.loc
+
 	if(opened && L.loc == src)
 		spawn(0)
-			if(do_after(L,(breakout_time_open*dcsec), target = src))
+			if(do_after(L,(breakout_time_open*dcsec), target = target_atom))
 				if(!src || !L || L.stat != CONSCIOUS || L.loc != src || !opened)
 					to_chat(L, "<span class='warning'>Побег прерван!</span>")
 					return
@@ -162,7 +167,7 @@
 		O.show_message("<span class='danger'>[src.name] начинает трястись!</span>", 1)
 
 	spawn(0)
-		if(do_after(L,(breakout_time*dcsec), target = src))
+		if(do_after(L,(breakout_time*dcsec), target = target_atom))
 			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
 				to_chat(L, "<span class='warning'>Побег прерван!</span>")
 				return
