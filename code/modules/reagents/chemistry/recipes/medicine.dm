@@ -91,7 +91,7 @@
 	result = "antiburn_stimulant"
 	required_reagents = list("synthflesh" = 40)
 	result_amount = 1
-	min_temp = T0C + 100
+	min_temp = T0C + 200
 
 /datum/chemical_reaction/styptic_powder
 	name = "Styptic Powder"
