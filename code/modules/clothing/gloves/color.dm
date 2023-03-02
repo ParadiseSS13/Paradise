@@ -235,6 +235,12 @@
 	icon_state = "white"
 	item_state = "wgloves"
 	item_color="mime"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
+		)
 
 /obj/item/clothing/gloves/color/white/redcoat
 	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
