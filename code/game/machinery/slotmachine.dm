@@ -162,7 +162,7 @@
 		user.buckled.unbuckle_mob(user, force = TRUE)
 
 	// Check if the machine and the user are still next to each other
-	if(!do_after(user, delay = 12, target = src, use_default_checks = FALSE))
+	if(!do_after(user, delay = 1.2 SECONDS, target = src, use_default_checks = FALSE))
 		user.anchored = FALSE
 		emagged_game_in_progress = FALSE
 		return
