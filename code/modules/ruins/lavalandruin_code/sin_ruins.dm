@@ -148,6 +148,8 @@
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(HAS_TRAIT(H, TRAIT_GENELESS))
+			to_chat(user, "<span class='warning'>Whispers invade your mind...</span>")
+			to_chat(user, "<span class='danger'>\"You have nothing to envy of this fleshless abomination.\"</span>")
 			return
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name
