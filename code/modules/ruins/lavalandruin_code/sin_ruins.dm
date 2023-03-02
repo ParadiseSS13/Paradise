@@ -147,6 +147,8 @@
 		return
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
+			return
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name
 			H.dna.transfer_identity(user)
