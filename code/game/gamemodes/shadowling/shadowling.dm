@@ -171,7 +171,7 @@ Made by Xhuis
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
-			GLOB.command_announcement.Announce("Большая концентрация психической блюспейс энергии обнаружена сканерами дальнего действия. Событие вознесения тенелингов неизбежно. Предотвратите его любой ценой!", "Отдел Центрального Командования по делам межпространственных аномалий.", 'sound/AI/spanomalies.ogg')
+			GLOB.command_announcement.Announce("Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Событие вознесения тенеморфов неизбежно. Предотвратите его любой ценой!", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)

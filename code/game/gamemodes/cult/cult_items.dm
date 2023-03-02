@@ -307,7 +307,8 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
-		GLOB.command_announcement.Announce("[message] Шаттл задержится на [cursetime / 600] минут.", "Системный сбой.", 'sound/misc/notice1.ogg')
+		var/curse_delay = cursetime / 600
+		GLOB.command_announcement.Announce("[message] Шаттл задерживается на [curse_delay] [declension_ru(curse_delay,"минуту","минуты","минут")].", "Системный сбой.", 'sound/misc/notice1.ogg')
 		qdel(src)
 
 /obj/item/cult_shift

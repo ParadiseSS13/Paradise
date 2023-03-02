@@ -269,7 +269,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 				sleep(50)
 				qdel(borer)
 				sleep(rand(60, 90))
-				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня...")]</span>")
+				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня…")]</span>")
 				break
 			sleep(4)
 		if(!QDELETED(borer))
@@ -741,7 +741,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
 	. = ..()
 	target = T
-	var/speak_messages = list("Я слежу за тобой...","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","O bidai nabora se'sma!","EI NATH!!","Kchck-Chkck? Kchchck!")
+	var/speak_messages = list("Я слежу за тобой…","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","O bidai nabora se'sma!","EI NATH!!","Kchck-Chkck? Kchchck!")
 	var/radio_messages = list("Ксеноморфы!","Синга вышла!","Телекомы упали!","Они взвели нюку!","Они убили Иана!","П-помогите!","[pick("Культисты", "Маг", "Генка", "Нюкеры", "Ревенант", "Труп", "Драка", "Я слышал флешку", "Нужна помощь")] в [pick(GLOB.teleportlocs)][prob(50)?"!":"!!"]","Где [target.name]?","[target.name] мёртв!","Вызывайте шаттл!","ИИ взломан!")
 
 	var/list/mob/living/carbon/people = list()
@@ -894,7 +894,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/weapons/saberon.ogg', 35, 1)
 				if(18)
 					to_chat(src, "<h1 class='alert'>ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.</h1>")
-					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение любой ценой!.</span><br><br>")
+					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.</span><br><br>")
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
 					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, 1)
@@ -1044,7 +1044,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				if(fakemob)
 					sleep(rand(30, 60))
 					to_chat(src, "<span class='deadsay'><span class='name'>[fakemob.name]</span>(FOLLOW) [pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[pick("мёртв","привет [name]","ты тоже?","ИИ взломан?",\
-					 "я[prob(50)?" блять":""] ненавижу [pick("культистов", "реву", "абдукторов", "предателей", "свармеров", "вирусы", "тебя")]")]\"</span></span>")
+					 "я[prob(50)?", блять,":""] ненавижу [pick("культистов", "реву", "абдукторов", "предателей", "свармеров", "вирусы", "тебя")]")]\"</span></span>")
 			sleep(rand(50,70))
 			hal_screwyhud = SCREWYHUD_NONE
 			SetSleeping(0)

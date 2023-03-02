@@ -73,7 +73,7 @@
 
 /proc/power_restore_quick(announce=TRUE)
 	if(announce)
-		GLOB.event_announcement.Announce("Все СМЕСы на станции [station_name()] были перезаряжены. Приносим извинения за неудобства.", "ВНИМАНИЕ: СИСТЕМА ПИТАНИЯ ВОССТАНОВЛЕНА.", new_sound = 'sound/AI/poweron.ogg')
+		GLOB.event_announcement.Announce("Все СКА+Ны на станции [station_name()] были перезаряжены. Приносим извинения за неудобства.", "ВНИМАНИЕ: СИСТЕМА ПИТАНИЯ ВОССТАНОВЛЕНА.", new_sound = 'sound/AI/poweron.ogg')
 
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/S in GLOB.machines)

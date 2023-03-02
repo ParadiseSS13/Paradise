@@ -271,7 +271,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования код `AMBER`. Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ЭМБЕР». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- RED TEAM --
 
@@ -285,7 +285,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования код `RED`. Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «РЭД». Ожидайте.", "Оповещение: ОБР в пути.")
 
 // -- GAMMA TEAM --
 
@@ -299,7 +299,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования код `GAMMA`. Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ГАММА». Ожидайте.", "Оповещение: ОБР в пути.")
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"
