@@ -1006,10 +1006,12 @@
 				if(!istype(targ))
 					log_runtime(EXCEPTION("Invalid target for identity theft objective, cancelling"), src)
 					return
-				new_objective = new /datum/objective/escape/escape_with_identity
-				new_objective.owner = src
-				new_objective.target = new_target
-				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+				var/datum/objective/escape/escape_with_identity/identity_objective = new
+				identity_objective.owner = src
+				identity_objective.target = new_target
+				identity_objective.target_real_name = targ.current.real_name
+				identity_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+				new_objective = identity_objective
 			if("custom")
 				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl)

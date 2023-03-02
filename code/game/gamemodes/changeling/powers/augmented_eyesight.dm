@@ -47,10 +47,15 @@
 	aug_message = "We feel a minute twitch in our eyes, our eyes feel more durable."
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/on_life()
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
 	var/obj/item/organ/internal/eyes/E = owner.get_int_organ(/obj/item/organ/internal/eyes)
-	if(owner.eye_blind || owner.eye_blurry || (BLINDNESS in owner.mutations) || (NEARSIGHTED in owner.mutations) || (E && E.damage > 0))
+	if(owner.eye_blind || owner.eye_blurry || (E && E.damage > 0))
 		owner.reagents.add_reagent("oculine", 1)
+	if((NEARSIGHTED in owner.mutations) || (BLINDNESS in owner.mutations))
+		update_flags |= owner.CureNearsighted()
+		update_flags |= owner.CureBlind()
+		update_flags |= owner.SetEyeBlind(0)
+	return ..() | update_flags
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/prepare_eat()
 	var/obj/S = ..()
