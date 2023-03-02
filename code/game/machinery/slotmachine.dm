@@ -168,7 +168,7 @@
 		return
 
 	// Find the right direction and throw the user away from the machine
-	to_chat(user, "<span class='danger'>The handle suddenly lets you go!</span>")
+	to_chat(user, "<span class='userdanger'>The handle suddenly lets you go!</span>")
 	user.anchored = FALSE
 	var/user_direction = get_dir(src, user)
 	var/turf/throw_direction = get_edge_target_turf(user, user_direction)
