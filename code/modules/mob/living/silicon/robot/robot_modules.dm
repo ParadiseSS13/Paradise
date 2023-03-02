@@ -266,6 +266,7 @@
 	modules += new /obj/item/gripper/medical(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/spray(src)
 

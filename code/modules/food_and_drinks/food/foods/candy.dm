@@ -220,6 +220,17 @@
 	filling_color = "#FFFFFF"
 	list_reagents = list("sugar" = 10)
 
+/obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
+	name = "lollipop"
+	desc = "For being such a courage patient!"
+	icon_state = "sucker"
+	filling_color = "#60A584"
+	list_reagents = list("sugar" = 4)
+
+/obj/item/reagent_containers/food/snacks/candy/sucker/lollipop/New()
+	. = ..()
+	icon_state = pick(list("sucker_blue", "sucker_green", "sucker_orange", "sucker_purple", "sucker_red", "sucker_yellow"))
+
 // ***********************************************************
 // Gummy Bear Flavors
 // ***********************************************************
