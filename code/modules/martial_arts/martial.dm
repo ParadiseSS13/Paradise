@@ -297,6 +297,36 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
+/obj/item/CQC_manual/chef
+	name = "CQC Upgrade implant"
+	desc = "Gives you to remember what you always forget"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "implanter1"
+	item_state = "syringe_0"
+
+/obj/item/CQC_manual/chef/attack_self(mob/living/carbon/human/user)
+	if(!istype(user) || !user)
+		return
+	if(user.mind && user.mind.assigned_role == "Chef")
+		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
+		var/datum/martial_art/cqc/CQC = new(null)
+		CQC.teach(user)
+		user.drop_item()
+		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up.</span>")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
+	else
+		to_chat(user, "<span class='notice'>You implant yourself, but nanobots can't find their target. You feel sharp pain in head!</span>")
+		if(isliving(user))
+			var/mob/living/L = user
+			L.adjustBrainLoss(20)
+			L.adjustFireLoss(20)
+		user.drop_item()
+		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up!</span>")
+		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		qdel(src)
+
 /obj/item/twohanded/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."

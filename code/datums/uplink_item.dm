@@ -240,6 +240,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Chef")
 
+/datum/uplink_item/jobspecific/CQC_upgrade
+	name = "CQC Upgrade implant"
+	desc = "Contain special implant for chefs, which destroy safety check their innate CQC implant, allow them to use martial art outside the kitchen. Use in hand."
+	reference = "CUI"
+	item = /obj/item/CQC_manual/chef
+	cost = 6
+	job = list("Chef")
+	surplus = 0 //because it's useless for all non-chefs
+
 //Chaplain
 /datum/uplink_item/jobspecific/voodoo
 	name = "Voodoo Doll"
