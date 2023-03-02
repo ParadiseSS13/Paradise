@@ -18,6 +18,11 @@
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
+/mob/new_player/Destroy()
+	if(mind)
+		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+	return ..()
+
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
@@ -198,7 +203,6 @@
 			observer.name = observer.real_name
 			observer.key = key
 			observer.add_to_respawnable_list()
-			mind.current = null
 			qdel(src)
 			return TRUE
 		return FALSE
