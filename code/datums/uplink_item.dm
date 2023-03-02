@@ -221,7 +221,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A custom sauce made from the highly poisonous fly amanita mushrooms. Anyone who ingests it will take variable toxin damage depending on how long it has been in their system, with a higher dosage taking longer to metabolize."
 	reference = "CESS"
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
-	cost = 2
+	cost = 1
 	job = list("Chef")
 
 /datum/uplink_item/jobspecific/meatcleaver
@@ -335,7 +335,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
-	cost = 4
+	cost = 2
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Assistant
@@ -378,7 +378,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
 	reference = "CTS"
 	item = /obj/item/scissors/safety
-	cost = 5
+	cost = 2
 	job = list("Barber")
 
 //Botanist
@@ -433,7 +433,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	reference = "BRO"
 	item = /obj/item/seeds/ambrosia/cruciatus
-	cost = 2
+	cost = 1
 	job = list("Botanist")
 
 //Atmos Tech
@@ -490,7 +490,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with delayed contact poison."
 	reference = "PP"
 	item = /obj/item/pen/poison
-	cost = 2
+	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
@@ -1049,7 +1049,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
 	reference = "FBBC"
 	item = /obj/item/storage/briefcase/false_bottomed
-	cost = 3
+	cost = 2
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -1144,9 +1144,19 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
 	item = /obj/item/radio/beacon/syndicate/bomb
-	cost = 11
+	cost = 8
 	surplus = 0
 	cant_discount = TRUE
+	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/syndicate_bomb/nuke
+	reference = "SB"
+	item = /obj/item/radio/beacon/syndicate/bomb
+	cost = 11
+	excludefrom = list()
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	hijack_only = FALSE
 
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"
@@ -1154,9 +1164,20 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SBEMP"
 	item = /obj/item/radio/beacon/syndicate/bomb/emp
-	cost = 10
+	cost = 8
 	surplus = 0
 	cant_discount = TRUE
+	hijack_only = TRUE
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/emp_bomb/nuke
+	reference = "SBEMP"
+	item = /obj/item/radio/beacon/syndicate/bomb/emp
+	cost = 10
+	excludefrom = list()
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	hijack_only = FALSE
+
 
 /datum/uplink_item/explosives/syndicate_minibomb
 	name = "Syndicate Minibomb"
@@ -1210,7 +1231,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "APG"
 	item = /obj/item/storage/box/syndie_kit/atmosfiregrenades
 	hijack_only = TRUE
-	cost = 12
+	cost = 10
 	surplus = 0
 	cant_discount = TRUE
 
@@ -1271,7 +1292,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
 	reference = "SBM"
 	item = /obj/item/storage/belt/military/traitor
-	cost = 2
+	cost = 1
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/frame
@@ -1334,7 +1355,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
 	reference = "DNAS"
 	item = /obj/item/dnascrambler
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/stealthy_tools/smugglersatchel
 	name = "Smuggler's Satchel"
@@ -1425,28 +1446,28 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "For holding your favourite gun close and always being ready for a cowboy duel with clown."
 	reference = "SHL"
 	item = /obj/item/clothing/accessory/holster
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/webbing
 	name = "Combat Webbing"
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 	reference = "WBNG"
 	item = /obj/item/clothing/accessory/storage/webbing
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/black_vest
 	name = "Black Vest"
 	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
 	reference = "BLCKVST"
 	item = /obj/item/clothing/accessory/storage/black_vest
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/brown_vest
 	name = "Brown Vest"
 	desc = "Worn brownish synthcotton vest with lots of pockets to unload your hands."
 	reference = "BRWNVST"
 	item = /obj/item/clothing/accessory/storage/brown_vest
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Syndicate Surgery Duffelbag"
@@ -1460,7 +1481,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Stolen prototype bone repair nanites. Contains one nanocalcium autoinjector and guide."
 	reference = "NCAI"
 	item = /obj/item/storage/box/syndie_kit/bonerepair
-	cost = 4
+	cost = 2
 
 /datum/uplink_item/device_tools/syndicate_teleporter
 	name = "Experimental Syndicate Teleporter"
@@ -1605,7 +1626,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/radio/beacon/syndicate
-	cost = 5
+	cost = 6
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	cant_discount = TRUE
@@ -1784,7 +1805,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	reference = "SYSM"
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
