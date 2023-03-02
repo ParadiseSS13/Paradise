@@ -168,8 +168,6 @@
 		H.apply_effect(STUTTER, 5 SECONDS)
 
 /obj/item/clothing/gloves/fingerless/rapid
-	name = "Gloves of the North Star"
-	desc = "Just looking at these fills you with an urge to beat the shit out of people."
 	var/accepted_intents = list(INTENT_HARM)
 	var/click_speed_modifier = CLICK_CD_RAPID
 
