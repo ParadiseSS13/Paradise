@@ -34,6 +34,7 @@
 		for(var/i = 0, i < thieves_amount, i++)
 			if(!possible_thieves.len) break
 			var/datum/mind/M = pick(possible_thieves)
+			thieves += M
 			M.special_role = SPECIAL_ROLE_THIEF
 			possible_thieves -= M
 			M.restricted_roles = restricted_jobs

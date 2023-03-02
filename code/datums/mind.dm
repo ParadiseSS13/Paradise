@@ -299,7 +299,7 @@
 	. += _memory_edit_role_enabled(ROLE_WIZARD)
 
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
-	. = _memory_edit_header("changeling", list("traitorchan", "thiefchan", "traitorthiefchan"))
+	. = _memory_edit_header("changeling", list("traitorchan", "traitorthiefchan", "thiefchan", "changelingthief"))
 	if(src in SSticker.mode.changelings)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
 		if(!length(objectives))
@@ -312,7 +312,7 @@
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
-	. = _memory_edit_header("vampire", list("traitorvamp", "vampirethief", "traitorthiefvampire"))
+	. = _memory_edit_header("vampire", list("traitorvamp", "traitorthiefvamp", "thiefvamp", "vampirethief"))
 	if(src in SSticker.mode.vampires)
 		. += "<b><font color='red'>VAMPIRE</font></b>|<a href='?src=[UID()];vampire=clear'>no</a>"
 		if(!length(objectives))
@@ -470,7 +470,7 @@
 		. += "mindslave|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_thief()
-	. = _memory_edit_header("thief", list("traitorthief", "thiefchan", "vampirethief", "traitorthiefvampire", "traitorthiefchan"))
+	. = _memory_edit_header("thief", list("traitorthief", "traitorthiefvamp", "traitorthiefchan", "thiefchan", "thiefvamp", "changelingthief", "vampirethief"))
 	if(src in SSticker.mode.thieves)
 		. += "<b><font color='red'>THIEF</font></b>|<a href='?src=[UID()];thief=clear'>no</a>|<a href='?src=[UID()];thief=equip'>Equip</a>"
 		if(!length(objectives))
@@ -534,12 +534,12 @@
 		"cult",
 		"clockwork",
 		"wizard",
-		"changeling", 	// "traitorchan", "thiefchan",
-		"vampire", 		// "traitorvamp", "vampirethief",
+		"changeling", 	// "traitorchan", "thiefchan", "changelingthief",
+		"vampire", 		// "traitorvamp", "thiefvamp", "vampirethief",
 		"nuclear",
 		"traitor",
 		"ninja",
-		"thief",		//	"traitorthief", "traitorthiefvampire", "traitorthiefchan",
+		"thief",		//	"traitorthief", "traitorthiefvamp", "traitorthiefchan",
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -624,7 +624,7 @@
 			sections -= "traitor"
 			sections -= "thief"
 			sections -= "changeling"
-		if("traitorthiefvampire")
+		if("traitorthiefvamp")
 			if(sections["traitor"])
 				out += sections["traitor"] + "<br>"
 			if(sections["thief"])
@@ -2229,11 +2229,11 @@
 /datum/mind/proc/make_Thief()
 	if(!(src in SSticker.mode.thieves))
 		SSticker.mode.thieves += src
-		special_role = SPECIAL_ROLE_THIEF
-		SSticker.mode.forge_thief_objectives(src)
-		SSticker.mode.equip_thief(src)
-		SSticker.mode.update_thief_icons_added(src)
-		SSticker.mode.greet_thief(src)
+	special_role = SPECIAL_ROLE_THIEF
+	SSticker.mode.forge_thief_objectives(src)
+	SSticker.mode.equip_thief(src)
+	SSticker.mode.update_thief_icons_added(src)
+	SSticker.mode.greet_thief(src)
 
 /datum/mind/proc/make_Abductor()
 	var/role = alert("Abductor Role ?","Role","Agent","Scientist")

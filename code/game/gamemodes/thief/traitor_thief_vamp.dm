@@ -1,6 +1,6 @@
 /datum/game_mode/traitor/thief/vampire
 	name = "traitor+thief+vampire"
-	config_tag = "traitorthiefvampire"
+	config_tag = "traitorthiefvamp"
 	traitors_possible = 2 //hard limit on traitors if scaling is turned off
 	restricted_jobs = list("AI", "Cyborg")
 	required_players = 25

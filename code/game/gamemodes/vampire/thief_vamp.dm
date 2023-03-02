@@ -1,15 +1,15 @@
 /datum/game_mode/thief/vampire
-	name = "vampire+thief"
-	config_tag = "vampirethief"
-	thieves_amount = 2 //hard limit on vampires if scaling is turned off
+	name = "thief+vampire(less)"
+	config_tag = "thiefvamp"
+	thieves_amount = 3 //hard limit on vampires if scaling is turned off
 	restricted_jobs = list("AI", "Cyborg")
-	required_players = 10
+	required_players = 15
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
 	var/protected_species_vampire = list("Machine")
 
 /datum/game_mode/thief/vampire/announce()
-	to_chat(world, "<B>The current game mode is - Vampire+Thief!</B>")
+	to_chat(world, "<B>The current game mode is - Thief+Vampire!</B>")
 	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров и вампиров. Не дайте вампирам достичь успеха и не допустите кражу дорогостоящего оборудования!</B>")
 
 
