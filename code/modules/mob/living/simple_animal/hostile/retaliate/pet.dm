@@ -4,10 +4,10 @@
 	voice_name = "неизвестный голос"
 	desc = "Свирепый компаньон любого влиятельного лица, эта паучиха была тщательно обучена специалистами NanoTrasen. От пристального взгляда её глаз-бусинок у вас по спине бегают мурашки."
 	faction = list("spiders")
-	icon_state = "guard"
-	icon_living = "guard"
-	icon_dead = "guard_dead"
-	icon_gib = "guard_dead"
+	icon_state = "guard(old)"
+	icon_living = "guard(old)"
+	icon_dead = "guard_dead(old)"
+	icon_gib = "guard_dead(old)"
 	tts_seed = "Anubarak"
 	turns_per_move = 8
 	response_help = "pets"
