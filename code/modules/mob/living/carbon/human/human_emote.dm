@@ -275,7 +275,6 @@
 /datum/emote/living/carbon/human/highfive
 	key = "highfive"
 	key_third_person = "highfives"
-	// message = "requests a highfive."
 	hands_use_check = TRUE
 	cooldown = 3 SECONDS
 	var/status = STATUS_EFFECT_HIGHFIVE
