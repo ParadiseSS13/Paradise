@@ -99,7 +99,7 @@ GLOBAL_VAR(bomb_set)
 	if(panel_open)
 		switch(removal_stage)
 			if(NUKE_CORE_EVERYTHING_FINE)
-				. += "<span class='notice'>The outer panel is <b>pried shut</b>.</span>"
+				. += "<span class='notice'>The outer panel can be <b>pried open</b> or it can be <i>screwed</i> back on.</span>"
 			if(NUKE_CORE_PANEL_EXPOSED)
 				. += "<span class='notice'>The outer plate can be fixed by <b>[sheets_to_fix] metal sheets</b>, while the inner core plate is <i>welded shut</i>.</span>"
 			if(NUKE_CORE_PANEL_UNWELDED)
