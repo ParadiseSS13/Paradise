@@ -82,7 +82,6 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
-	// Anchors
 	if(!panel_open)
 		. += "<span class='notice'>The outer panel is <b>screwed shut</b>.</span>"
 	switch(removal_stage)
