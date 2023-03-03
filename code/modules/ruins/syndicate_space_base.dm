@@ -33,7 +33,7 @@
 	allow_species_pick = TRUE
 	allow_gender_pick = TRUE
 	allow_name_pick = TRUE
-	pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Drask", "Vox", "Plasmaman", "Machine", "Kidan", "Grey", "Nucleation", "Slime People", "Wryn")
+	pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Drask", "Vox", "Plasmaman", "Machine", "Kidan", "Grey", "Nucleation", "Slime People", "Wryn", "Nian")
 	faction = list("syndicate")
 	min_hours = 10
 	exp_type = EXP_TYPE_LIVING
