@@ -234,7 +234,8 @@
 */
 
 ///Called when a mob changes Z-level
-/datum/game_mode/proc/transit_z(mob)
+/datum/game_mode/proc/transit_z(mob/living/player)
+	return
 
 /datum/game_mode/proc/num_players()
 	. = 0
