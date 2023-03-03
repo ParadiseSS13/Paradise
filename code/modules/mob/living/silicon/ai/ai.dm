@@ -1291,13 +1291,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
 
 /mob/living/silicon/ai/proc/relay_speech(mob/living/M, list/message_pieces, verb)
-	var/message = combine_message(message_pieces, verb, M)
+	var/message_clean = combine_message(message_pieces, M)
+	message_clean = replace_characters(message_clean, list("+"))
+
+	var/message = verb_message(message_clean, verb)
+
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-		var/message_clean = combine_message(message_pieces, null, M)
-		create_chat_message(M.runechat_msg_location, message_clean,TRUE, FALSE)
+		create_chat_message(M.runechat_msg_location, message_clean, TRUE, FALSE)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
