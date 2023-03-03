@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SHADOWLING = /datum/game_mode/shadowling, 		// Shadowling
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_NINJA, 										// Space ninja
-	ROLE_THIEF = /datum/game_mode/thief,					// Thief
+	ROLE_THIEF = /datum/game_mode/thief,				// Thief
 	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire

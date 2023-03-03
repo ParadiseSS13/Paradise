@@ -2,6 +2,7 @@
 	name = "thief+vampire(less)"
 	config_tag = "thiefvamp"
 	thieves_amount = 3 //hard limit on vampires if scaling is turned off
+	protected_jobs = list("Security Officer", "Security Cadet", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer", "Special Operations Officer", "Supreme Commander")
 	restricted_jobs = list("AI", "Cyborg")
 	required_players = 15
 	required_enemies = 1	// how many of each type are required
