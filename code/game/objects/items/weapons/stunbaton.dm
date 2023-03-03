@@ -84,12 +84,12 @@
 	return cell
 
 /obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = 1)
-	if(turned_on && slot==slot_belt)
+	if(turned_on && slot == slot_belt)
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
-		return 0
-	if(turned_on && slot==slot_s_store)
+		return FALSE
+	if(turned_on && slot == slot_s_store)
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
-		return 0
+		return FALSE
 	return ..()
 
 /obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
