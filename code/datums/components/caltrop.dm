@@ -30,7 +30,11 @@
 		if((flags & CALTROP_IGNORE_WALKERS) && H.m_intent == MOVE_INTENT_WALK)
 			return
 
-		var/picked_def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+		var/picked_def_zone
+		if(flags & CALTROP_SAFE_VERTICAL)
+			picked_def_zone = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		else
+			picked_def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 		var/obj/item/organ/external/O = H.get_organ(picked_def_zone)
 		if(!istype(O))
 			return
@@ -60,6 +64,6 @@
 			if(!IS_HORIZONTAL(H))
 				return
 			else
-				H.apply_damage(30, BRUTE, picked_def_zone)
+				H.apply_damage(30, BRUTE, spread_damage = TRUE)
 				A.atom_say("Hobo detected, activating anti-hobo measures")
 		H.Weaken(6 SECONDS)
