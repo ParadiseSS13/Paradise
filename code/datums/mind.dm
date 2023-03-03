@@ -2231,7 +2231,7 @@
 		SSticker.mode.thieves += src
 	special_role = SPECIAL_ROLE_THIEF
 	SSticker.mode.forge_thief_objectives(src)
-	SSticker.mode.equip_thief(src)
+	SSticker.mode.equip_thief(current)
 	SSticker.mode.update_thief_icons_added(src)
 	SSticker.mode.greet_thief(src)
 
