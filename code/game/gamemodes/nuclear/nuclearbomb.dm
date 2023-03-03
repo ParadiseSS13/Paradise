@@ -83,6 +83,8 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/examine(mob/user)
 	. = ..()
 	// Anchors
+	if(!panel_open)
+		. += "<span class='notice'>The outer panel is <b>screwed shut</b>.</span>"
 	switch(removal_stage)
 		if(NUKE_INTACT)
 			. += "<span class='notice'>The anchoring bolt covers are <b>welded shut</b>.</span>"
@@ -94,18 +96,14 @@ GLOBAL_VAR(bomb_set)
 			. += "<span class='notice'>The bolts are <b>wrenched</b> in place.</span>"
 		if(NUKE_UNWRENCHED)
 			. += "<span class='notice'>The device can be <b>pried off</b> its anchors.</span>"
-	if(!panel_open)
-		. += "<span class='notice'>The outer panel is <b>screwed shut</b>.</span>"
-	if(panel_open)
-		switch(removal_stage)
-			if(NUKE_CORE_EVERYTHING_FINE)
-				. += "<span class='notice'>The outer panel can be <b>pried open</b> or it can be <i>screwed</i> back on.</span>"
-			if(NUKE_CORE_PANEL_EXPOSED)
-				. += "<span class='notice'>The outer plate can be fixed by <b>[sheets_to_fix] metal sheets</b>, while the inner core plate is <i>welded shut</i>.</span>"
-			if(NUKE_CORE_PANEL_UNWELDED)
-				. += "<span class='notice'>The inner core plate can be <b>welded shut</b> or it can be <i>pried open</i>.</span>"
-			if(NUKE_CORE_FULLY_EXPOSED)
-				. += "<span class='notice'>The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].</span>"
+		if(NUKE_CORE_EVERYTHING_FINE)
+			. += "<span class='notice'>The outer panel can be <b>pried open</b> or it can be <i>screwed</i> back on.</span>"
+		if(NUKE_CORE_PANEL_EXPOSED)
+			. += "<span class='notice'>The outer plate can be fixed by <b>[sheets_to_fix] metal sheets</b>, while the inner core plate is <i>welded shut</i>.</span>"
+		if(NUKE_CORE_PANEL_UNWELDED)
+			. += "<span class='notice'>The inner core plate can be <b>welded shut</b> or it can be <i>pried open</i>.</span>"
+		if(NUKE_CORE_FULLY_EXPOSED)
+			. += "<span class='notice'>The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].</span>"
 
 /obj/machinery/nuclearbomb/update_overlays()
 	. = ..()
