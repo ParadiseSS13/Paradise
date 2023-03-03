@@ -598,7 +598,7 @@
 	message = "clicks their mandibles."
 	message_param = "clicks their mandibles at %t."
 	// Credit to DrMinky (freesound.org) for the sound.
-	sound = "sound/effects/Kidanclack2.ogg"
+	sound = "sound/effects/kidanclack2.ogg"
 
 /datum/emote/living/carbon/human/drask_talk
 	species_type_whitelist_typecache = list(/datum/species/drask)

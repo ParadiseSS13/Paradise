@@ -72,7 +72,8 @@
 	name = "[initial(chosentype.name)] [chosensuff]"
 
 /datum/disease/kingstons_advanced/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/twisted = affected_mob
 		switch(stage)
