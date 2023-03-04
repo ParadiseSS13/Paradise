@@ -358,19 +358,27 @@
 		//Body temperature is too hot.
 		if(status_flags & GODMODE)	return 1	//godmode
 		var/mult = dna.species.heatmod
-
-		if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
-			throw_alert("temp", /obj/screen/alert/hot, 1)
-			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "High Body Temperature")
-		if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
-			throw_alert("temp", /obj/screen/alert/hot, 2)
-			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
-		if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
-			throw_alert("temp", /obj/screen/alert/hot, 3)
-			if(on_fire)
-				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Fire")
-			else
+		if(mult>0)
+			if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
+				throw_alert("temp", /obj/screen/alert/hot, 1)
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "High Body Temperature")
+			if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
+				throw_alert("temp", /obj/screen/alert/hot, 2)
 				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
+			if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
+				throw_alert("temp", /obj/screen/alert/hot, 3)
+				if(on_fire)
+					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Fire")
+				else
+					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
+		else
+			mult = abs(mult)
+			if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
+				heal_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1)
+			if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
+				heal_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2)
+			if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
+				heal_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3)
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
@@ -393,6 +401,7 @@
 				else
 					clear_alert("temp")
 			else
+				mult = abs(mult)
 				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 					heal_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1)
 				if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)

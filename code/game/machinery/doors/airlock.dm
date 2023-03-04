@@ -741,9 +741,12 @@ About the new airlock wires panel:
 
 	if(headbutt_airlock(user))
 		return // Smack that head against that airlock
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
+		return
 	if(remove_airlock_note(user, FALSE))
 		return
-
 	if(panel_open)
 		if(security_level)
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")

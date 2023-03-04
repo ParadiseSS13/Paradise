@@ -18,6 +18,11 @@
 	burn_mod = 1.5
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
+	toolspeedmod = 1.2 //20% slower
+	punchdamagelow = 5
+	punchdamagehigh = 12
+	punchstunthreshold = 12
+	obj_damage = 10
 
 	blurb = "Hailing from Hoorlm, planet outside what is usually considered a habitable \
 	orbit, the Drask evolved to live in extreme cold. Their strange bodies seem \

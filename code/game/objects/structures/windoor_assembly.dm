@@ -84,6 +84,13 @@
 	else
 		return 1
 
+/obj/structure/windoor_assembly/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
+		return
+	. = ..()
+
 /obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)

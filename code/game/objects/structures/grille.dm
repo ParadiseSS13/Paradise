@@ -78,6 +78,9 @@
 	if(.)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		user.changeNext_move(CLICK_CD_MELEE)
+		attack_generic(user, user.dna.species.obj_damage)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] hits [src].</span>")
 	if(!shock(user, 70))
