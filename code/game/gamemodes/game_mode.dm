@@ -233,6 +233,10 @@
 	return 0
 */
 
+///Called when a mob changes Z-level
+/datum/game_mode/proc/transit_z(mob/living/player)
+	return
+
 /datum/game_mode/proc/num_players()
 	. = 0
 	for(var/mob/new_player/P in GLOB.player_list)
