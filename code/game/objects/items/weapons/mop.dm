@@ -1,3 +1,5 @@
+#define MOP_SOUND_CD 2 SECONDS
+
 /obj/item/mop
 	desc = "The world of janitalia wouldn't be complete without a mop."
 	name = "mop"
@@ -14,6 +16,8 @@
 	var/mopcount = 0
 	var/mopcap = 6
 	var/mopspeed = 30
+	/// The cooldown between each mopping sound effect
+	var/mop_sound_cooldown
 
 /obj/item/mop/New()
 	..()
@@ -45,6 +49,9 @@
 	if(reagents.total_volume < 1)
 		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
 		return
+	if(world.time > mop_sound_cooldown)
+		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
+		mop_sound_cooldown = world.time + MOP_SOUND_CD
 	A.cleaning_act(user, src, mopspeed, text_verb = "mop", text_description = ".")
 
 /obj/item/mop/can_clean()
@@ -123,3 +130,5 @@
 
 /obj/item/mop/advanced/cyborg/mopbucket_insert(mob/user, obj/structure/mopbucket/J)
 	return
+
+#undef MOP_SOUND_CD
