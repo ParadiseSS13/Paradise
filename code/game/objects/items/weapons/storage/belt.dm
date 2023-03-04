@@ -12,8 +12,8 @@
 	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
-	var/storable = FALSE
-	var/large = FALSE
+	var/storable = FALSE //bypasses the "belt in bag" prevention
+	var/large = FALSE //ignores update_weight() if TRUE
 
 /obj/item/storage/belt/proc/update_weight()
 	if(large)
