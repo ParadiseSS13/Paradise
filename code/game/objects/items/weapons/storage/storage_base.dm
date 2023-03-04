@@ -408,6 +408,12 @@
 
 	return TRUE
 
+	if(istype(src, /obj/item/storage/belt) && src.loc == /obj/item/storage) //You shouldnt be able to bypass belt in bag storage
+		if(!stop_messages)
+			to_chat(usr, "<span class='warning'>You cant seem to fit [I] into [src].</span>")
+		return FALSE
+	return TRUE
+
 /**
   * Handles items being inserted into a storage container.
   *
