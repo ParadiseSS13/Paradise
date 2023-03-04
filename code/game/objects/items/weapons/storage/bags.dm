@@ -79,6 +79,11 @@
 	storage_slots = 60
 	flags_2 = NO_MAT_REDEMPTION_2
 
+/obj/item/storage/bag/trash/bluespace/cyborg
+
+/obj/item/storage/bag/trash/bluespace/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	return
+
 // -----------------------------
 //        Plastic Bag
 // -----------------------------
