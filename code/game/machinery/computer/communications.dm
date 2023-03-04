@@ -29,6 +29,7 @@
 
 	var/message_cooldown
 	var/centcomm_message_cooldown
+	var/alert_level_cooldown
 	var/tmp_alertlevel = 0
 
 	var/stat_msg1
@@ -122,7 +123,11 @@
 			else if(!ishuman(usr))
 				to_chat(usr, "<span class='warning'>Security measures prevent you from changing the alert level.</span>")
 				return
+			else if(alert_level_cooldown > world.time)
+				to_chat(usr, "<span class='warning'>Please allow at least one minute between manual changes to the alert level.</span>")
+				return
 
+			alert_level_cooldown = world.time + 60 SECONDS
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id/I = H.get_idcard(TRUE)
 			if(istype(I))
