@@ -310,7 +310,7 @@
 	wrapper_color = COLOR_MAROON
 
 /obj/item/storage/pill_bottle/ert/populate_contents()
-	for(var/I in 1 to 8)
+	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/pill/pentetic(src)
 		new /obj/item/reagent_containers/food/pill/ironsaline(src)
 		new /obj/item/reagent_containers/food/pill/salicylic(src)
@@ -319,7 +319,7 @@
 	wrapper_color = COLOR_AMBER
 
 /obj/item/storage/pill_bottle/ert_amber/populate_contents()
-	for(var/I in 1 to 5)
+	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/pill/salbutamol(src)
 		new /obj/item/reagent_containers/food/pill/charcoal(src)
 		new /obj/item/reagent_containers/food/pill/salicylic(src)
@@ -388,7 +388,7 @@
 	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT medics."
 
 /obj/item/storage/pill_bottle/patch_pack/ert/populate_contents()
-	for(var/I in 1 to 4)
+	for(var/I in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/patch/perfluorodecalin(src)
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
