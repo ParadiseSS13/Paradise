@@ -136,6 +136,67 @@
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
 
+/datum/reagent/consumable/tomatosauce
+	name = "tomato sauce"
+	id = "tsauce"
+	description = "The father of all sauces. Tomatoes, a little spice and nothing extra."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#ee1000"
+	taste_description = "tomato sauce"
+
+/datum/reagent/consumable/cheesesauce
+	name = "cheese sauce"
+	id = "csauce"
+	description = "Cheese, cream and milk... maximum protein concentration!"
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#e6d600"
+	name = "diablo sauce"
+	id = "dsauce"
+	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#440804" // rgb: 115, 16, 8
+	taste_description = "hot tomato sauce"
+	taste_description = "cheese sauce"
+
+/datum/reagent/consumable/mushroomsauce
+	name = "mushroom sauce"
+	id = "msauce"
+	description = "Creamy sauce with mushrooms, has a rather pungent smell."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#beb58a"
+	taste_description = "mushroom sauce"
+
+/datum/reagent/consumable/garlicsauce
+	name = "garlic sauce"
+	id = "gsauce"
+	description = "A strong sauce with garlic, its smell punches the nose. Some crewmembers will probably hiss at you and walk away."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#fffee1"
+	taste_description = "garlic sauce"
+
+/datum/reagent/consumable/diablosauce
+	name = "diablo sauce"
+	id = "dsauce"
+	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#440804"
+	taste_description = "hot tomato sauce"
+
+/datum/reagent/consumable/diablosauce
+	name = "custard"
+	id = "custard"
+	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#fffed1"
+	taste_description = "sweet soft cream"
+
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
 	id = "capsaicin"
@@ -316,6 +377,14 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#FFFACD"
 	taste_description = "bitter vanilla"
+
+/datum/reagent/consumable/herbs
+	name = "herbs mix"
+	id = "herbsmix"
+	description = "A mix of variouse herbs."
+	reagent_state = SOLID
+	color = "#2c5c04"
+	taste_description = "dry herbs"
 
 /datum/reagent/consumable/hot_coco
 	name = "Hot Chocolate"

@@ -118,6 +118,81 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
 	foodtype = GRAIN | DAIRY
 
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/seafood
+	name = "seafood pizza"
+	desc = "Gifts of cosmic lakes, cheese and a little sourness."
+	icon_state = "fishpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/seapizzaslice
+	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "garlic" = 1, "cheese" = 2, "seafood" = 1, "sourness" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/seapizzaslice
+	name = "seafood pizza slice"
+	desc = "A delicious slice of pizza topped with seafood & cheese..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "fishpizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "garlic" = 1, "cheese" = 2, "seafood" = 1, "sourness" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/bacon
+	name = "bacon pizza"
+	desc = "A classic pizza, one of the ingredients was replaced with fried bacon"
+	icon_state = "baconpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/baconpizzaslice
+	list_reagents = list("nutriment" = 40, "vitamin" = 5, "protein" = 15)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "mushroom" = 1, "cheese" = 2, "bacon" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/baconpizzaslice
+	name = "bacon pizza slice"
+	desc = "A delicious slice of pizza topped with bacon & mushrooms..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "baconpizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "mushroom" = 1, "cheese" = 2, "bacon" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/tajaroni
+	name = "tajaroni pizza"
+	desc = "Spicy tayaroni sausages covered with cheese, and olives.. Which of these is more terrible has yet to be decided."
+	icon_state = "tajarpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/tajpizzaslice
+	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "tajaroni" = 1, "olives" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/tajpizzaslice
+	name = "tajaroni pizza slice"
+	desc = "A delicious slice of pizza topped with tajaroni & olives..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "tajarpizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "tajaroni" = 1, "olives" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/diablo
+	name = "diablo pizza"
+	desc = "Incredibly burning pizza with meat pieces, some say it can send you to the redspace."
+	icon_state = "diablopizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/diablopizzaslice
+	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15, "capsaicin" = 15)
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "hotness" = 1, "cheese" = 2, "meat" = 1, "spice" = 1)
+	foodtype = MEAT | DAIRY
+
+/obj/item/reagent_containers/food/snacks/diablopizzaslice
+	name = "seafood pizza slice"
+	desc = "A delicious slice of pizza topped with diablo sauce & meat..."
+	icon = 'icons/obj/food/pizza.dmi'
+	icon_state = "diablopizzaslice"
+	filling_color = "#ffe45d"
+	tastes = list("crust" = 1, "hotness" = 1, "cheese" = 2, "meat" = 1, "spice" = 1)
+	foodtype = MEAT | DAIRY
 
 //////////////////////
 //		Boxes		//

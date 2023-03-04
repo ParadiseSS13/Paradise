@@ -200,6 +200,62 @@
 	possible_states = list()
 	log_eating = TRUE
 
+//Tomato sauce
+/obj/item/reagent_containers/food/condiment/tomatosauce
+	name = "tomato sauce"
+	desc = "The father of all sauces. Tomatoes, a little spice and nothing extra."
+	icon_state = "tomatosauce"
+	list_reagents = list("tsauce" = 50)
+	possible_states = list()
+
+//Diablo sauce
+/obj/item/reagent_containers/food/condiment/diablosauce
+	name = "diablo sauce"
+	desc = "An ancient burning sauce, its recipe has hardly changed since its creation."
+	icon_state = "diablosauce"
+	list_reagents = list("dsauce" = 30, "capsaicin" = 20)
+	possible_states = list()
+
+//Cheese sauce
+/obj/item/reagent_containers/food/condiment/cheesesauce
+	name = "cheese sauce"
+	desc = "Cheese, cream and milk... maximum protein concentration!"
+	icon_state = "cheesesauce"
+	list_reagents = list("csauce" = 50)
+	possible_states = list()
+
+//Mushroom sauce
+/obj/item/reagent_containers/food/condiment/mushroomsauce
+	name = "mushroom sauce"
+	desc = "Creamy sauce with mushrooms, has a rather pungent smell."
+	icon_state = "mushroomsauce"
+	list_reagents = list("msauce" = 50)
+	possible_states = list()
+
+//Garlic sauce
+/obj/item/reagent_containers/food/condiment/garlicsauce
+	name = "garlic sauce"
+	desc = "A strong sauce with garlic, its smell punches the nose. Some crewmembers will probably hiss at you and walk away."
+	icon_state = "garlicsauce"
+	list_reagents = list("gsauce" = 50)
+	possible_states = list()
+
+//Custard
+/obj/item/reagent_containers/food/condiment/custard
+	name = "Custard"
+	desc = "Soft and sweet cream, used in confectionery."
+	icon_state = "custard"
+	list_reagents = list("custard" = 50)
+	possible_states = list()
+
+//Herbs
+/obj/item/reagent_containers/food/condiment/herbs
+	name = "Herbs mix"
+	desc = "A mix of variouse herbs. Perfect for pizza!"
+	icon_state = "herbs"
+	list_reagents = list("herbsmix" = 50)
+	possible_states = list()
+
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
 /obj/item/reagent_containers/food/condiment/pack

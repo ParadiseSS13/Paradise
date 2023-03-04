@@ -274,14 +274,52 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
 
-/datum/recipe/oven/macncheesepizza
+/datum/recipe/oven/seapizza
+	reagents = list("herbs" = 1, "gsauce" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/salmonmeat,
+		/obj/item/reagent_containers/food/snacks/salmonmeat,
+		/obj/item/reagent_containers/food/snacks/boiled_shrimp,
+		/obj/item/reagent_containers/food/snacks/grown/citrus/lemon
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/seafood
+
+/datum/recipe/oven/tajarpizza
+	reagents = list("herbs" = 1, "tsauce" = 1, "blackpepper" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/macncheese,
+		/obj/item/reagent_containers/food/snacks/tajaroni,
+		/obj/item/reagent_containers/food/snacks/grown/olive,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/tajaroni
+
+/datum/recipe/oven/baconpizza
+	reagents = list("msauce" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/reagent_containers/food/snacks/raw_bacon,
+		/obj/item/reagent_containers/food/snacks/raw_bacon
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/bacon
+
+/datum/recipe/oven/diablopizza
+	reagents = list("herbs" = 1, "dsauce" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/grown/tomato,
+		/obj/item/reagent_containers/food/snacks/grown/chili,
+		/obj/item/reagent_containers/food/snacks/meatball,
+		/obj/item/reagent_containers/food/snacks/meatball
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/diablo
 
 /datum/recipe/oven/amanita_pie
 	items = list(
@@ -500,3 +538,60 @@
 		/obj/item/reagent_containers/food/snacks/dough
 	)
 	result = /obj/item/reagent_containers/food/snacks/lasagna
+
+/datum/recipe/oven/tajaroni
+	reagents = list("blackpepper" = 1)
+	items = list(
+		/obj/item/organ/external/tail/tajaran,
+		/obj/item/reagent_containers/food/snacks/grown/garlic,
+		/obj/item/reagent_containers/food/snacks/grown/chili,
+		/obj/item/reagent_containers/food/snacks/meat
+	)
+	result = /obj/item/reagent_containers/food/snacks/tajaroni
+
+/datum/recipe/oven/vuplix
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "tsauce" = 1, "cream" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/organ/internal/liver/vulpkanin
+	)
+	result = /obj/item/reagent_containers/food/snacks/vulpix
+
+/datum/recipe/oven/vulpixchilli
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "dsauce" = 1, "cream" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/organ/internal/liver/vulpkanin,
+		/obj/item/reagent_containers/food/snacks/grown/chili
+	)
+	result = /obj/item/reagent_containers/food/snacks/vulpix/chilli
+
+/datum/recipe/oven/vulpixcheese
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "csauce" = 1, "cream" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/organ/internal/liver/vulpkanin,
+		/obj/item/reagent_containers/food/snacks/cheesewedge
+	)
+	result = /obj/item/reagent_containers/food/snacks/vulpix/cheese
+
+/datum/recipe/oven/vulpixbacon
+	reagents = list("blackpepper" = 1, "sodiumchloride" = 1, "herbsmix" = 1, "msauce" = 1, "cream" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/organ/internal/liver/vulpkanin,
+		/obj/item/reagent_containers/food/snacks/raw_bacon,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom
+	)
+	result = /obj/item/reagent_containers/food/snacks/vulpix/bacon
+
+/datum/recipe/oven/slimepie
+	reagents = list("custard" = 1, "milk" = 5, "sugar" = 15)
+	items = list(
+		/obj/item/organ/internal/heart/slime
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/slimepie

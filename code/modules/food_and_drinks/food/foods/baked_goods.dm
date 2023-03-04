@@ -235,6 +235,26 @@
 	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 	foodtype = SUGAR | GRAIN | FRUIT
 
+/obj/item/reagent_containers/food/snacks/sliceable/slimepie
+	name = "slime pie"
+	desc = "Blurp blob blup blep blop. Slicable."
+	icon_state = "slimepie"
+	slice_path = /obj/item/reagent_containers/food/snacks/slimepieslice
+	slices_num = 5
+	bitesize = 3
+	filling_color = "#00d9ff"
+	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("slime" = 5, "sweetness" = 1, "jelly" = 1)
+	foodtype = SUGAR | MEAT | FRUIT
+
+/obj/item/reagent_containers/food/snacks/slimepieslice
+	name = "slime pie slice"
+	desc = "Blurp blob blup blep blop."
+	icon_state = "slimepieslice"
+	trash = /obj/item/trash/plate
+	filling_color = "#00d9ff"
+	tastes = list("slime" = 5, "sweetness" = 1, "jelly" = 1)
+	foodtype = SUGAR | MEAT | FRUIT
 
 //////////////////////
 //		Cookies		//

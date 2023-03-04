@@ -1455,6 +1455,7 @@
 					/obj/item/reagent_containers/food/condiment/pack/hotsauce = 5,
 					/obj/item/reagent_containers/food/condiment/saltshaker =5,
 					/obj/item/reagent_containers/food/condiment/peppermill =5,
+					/obj/item/reagent_containers/food/condiment/herbs = 2,
 					/obj/item/whetstone = 2, /obj/item/mixing_bowl = 10,
 					/obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 1,
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,

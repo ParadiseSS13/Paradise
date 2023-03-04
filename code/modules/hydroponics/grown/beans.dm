@@ -50,3 +50,43 @@
 	bitesize_mod = 2
 	tastes = list("koi" = 1)
 	wine_power = 0.4
+
+// Olives
+/obj/item/seeds/soya/olive
+	name = "pack of olives seeds"
+	desc = "These seeds grow into olive plants."
+	icon_state = "seed-olive"
+	species = "olives"
+	plantname = "Olive Plants"
+	product = /obj/item/reagent_containers/food/snacks/grown/olive
+	icon_grow = "olives-grow"
+	icon_dead = "olives-dead"
+	icon_harvest = "olives-harvest"
+	mutatelist = list(/obj/item/seeds/soya/olive/charc)
+
+/obj/item/reagent_containers/food/snacks/grown/olive
+	seed = /obj/item/seeds/soya/olive
+	name = "olives"
+	desc = "Hate it or like it..."
+	icon_state = "olives"
+	filling_color = "#161220"
+	tastes = list("olive" = 1)
+
+/obj/item/seeds/soya/olive/charc
+	name = "pack of charcolives seeds"
+	desc = "These seeds grow into charcolive plants."
+	icon_state = "seed-charcolive"
+	species = "charcolives"
+	plantname = "Charcolive Plants"
+	product = /obj/item/reagent_containers/food/snacks/grown/olive/charc
+	icon_grow = "charcolives-grow"
+	icon_dead = "charcolives-dead"
+	icon_harvest = "charcolives-harvest"
+	reagents_add = list("charcoal" = 0.4, "plantmatter" = 0.05)
+
+/obj/item/reagent_containers/food/snacks/grown/olive/charc
+	seed = /obj/item/seeds/soya/olive/charc
+	name = "charcolives"
+	icon_state = "charcolives"
+	filling_color = "#000000"
+	tastes = list("charcoal" = 1)
