@@ -140,6 +140,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 		return
 
 	if(old_loc)
+		// Check if the current turf falls in the same chunka as the old_loc. If so, don't do anything
 		if(T.x & ~(CAMERA_CHUNK_SIZE - 1) == old_loc.x & ~(CAMERA_CHUNK_SIZE - 1) && T.y & ~(CAMERA_CHUNK_SIZE - 1) == old_loc.y & ~(CAMERA_CHUNK_SIZE - 1))
 			return
 
