@@ -9,9 +9,11 @@
 	container_type = OPENCONTAINER
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
+	visible_transfer_rate = TRUE
 	volume = 50
 	resistance_flags = NONE
 	antable = FALSE
+	var/chugging = FALSE
 	foodtype = ALCOHOL
 
 /obj/item/reagent_containers/food/drinks/New()
@@ -53,21 +55,35 @@
 	return FALSE
 
 /obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
+	if(!iscarbon(over_object))
+		return
 	var/mob/living/carbon/chugger = over_object
-	if (!(container_type & DRAINABLE))
+	if(!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
-	if(istype(chugger) && loc == chugger && src == chugger.get_active_hand() && reagents.total_volume)
-		chugger.visible_message("<span class='notice'>[chugger] raises the [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>", "<span class='notice'>You start chugging [src].</span>", "<span class='notice'>You hear what sounds like gulping.</span>")
-		while(do_mob(chugger, chugger, 40)) //Between the default time for do_mob and the time it takes for a vampire to suck blood.
+	if(!get_location_accessible(chugger, "mouth"))
+		to_chat(chugger, "<span class='notice'>Your face is obscured, so you cant [pick("chugging","gulping")].</span>")
+		return
+	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
+		chugger.visible_message("<span class='notice'>[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>",
+			"<span class='notice'>You start chugging [src].</span>",
+			"<span class='notice'>You hear what sounds like gulping.</span>")
+		chugging = TRUE
+		while(do_after_once(chugger, 4 SECONDS, TRUE, chugger, null, "You stop chugging [src]."))
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>", "<span class='notice'>You finish off the [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>", "<span class='notice'>You hear a gasp and a clink.</span>")
+				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",
+					"<span class='notice'>You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>",
+					"<span class='notice'>You hear a gasp and a clink.</span>")
 				break
+		chugging = FALSE
 
 /obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
+		return
+
+	if(chugging)
 		return
 
 	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
@@ -142,7 +158,7 @@
 	throwforce = 1
 	amount_per_transfer_from_this = 5
 	materials = list(MAT_METAL=100)
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 5
 	flags = CONDUCT
 	container_type = OPENCONTAINER
@@ -268,7 +284,7 @@
 	desc = "A paper water cup."
 	icon_state = "water_cup_e"
 	item_state = "coffee"
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	volume = 10
 
 /obj/item/reagent_containers/food/drinks/sillycup/on_reagent_change()

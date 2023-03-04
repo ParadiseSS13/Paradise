@@ -17,6 +17,9 @@
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
 
+/obj/item/reagent_containers/iv_bag/empty()
+	set hidden = TRUE
+
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
 	return ..()

@@ -6,10 +6,12 @@
 	item_state = "mender"
 	volume = 200
 	possible_transfer_amounts = null
+	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
 	container_type = REFILLABLE | AMOUNT_VISIBLE
 	temperature_min = 270
 	temperature_max = 350
+	pass_open_check = TRUE
 	var/ignore_flags = FALSE
 	var/emagged = FALSE
 	var/applied_amount = 8 // How much it applies
@@ -109,20 +111,6 @@
 		reagents.remove_any(total_applied_amount * 0.5)
 
 		playsound(get_turf(src), pick('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg'), 50, 1)
-
-/obj/item/reagent_containers/applicator/verb/empty()
-	set name = "Empty Applicator"
-	set category = "Object"
-	set src in usr
-
-	if(usr.incapacitated())
-		return
-	if(alert(usr, "Are you sure you want to empty [src]?", "Empty Applicator:", "Yes", "No") != "Yes")
-		return
-	if(!usr.incapacitated() && isturf(usr.loc) && loc == usr)
-		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
-		reagents.reaction(usr.loc)
-		reagents.clear_reagents()
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"

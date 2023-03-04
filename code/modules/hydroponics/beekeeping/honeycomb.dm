@@ -4,7 +4,8 @@
 	desc = "A hexagonal mesh of honeycomb."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "honeycomb"
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
+	visible_transfer_rate = FALSE
 	disease_amount = 0
 	volume = 10
 	amount_per_transfer_from_this = 0
@@ -18,6 +19,9 @@
 	update_icon()
 
 /obj/item/reagent_containers/honeycomb/set_APTFT()
+	set hidden = TRUE
+
+/obj/item/reagent_containers/honeycomb/empty()
 	set hidden = TRUE
 
 /obj/item/reagent_containers/honeycomb/update_icon()

@@ -17,6 +17,10 @@
 	set hidden = FALSE
 	..()
 
+/obj/item/reagent_containers/food/drinks/empty()
+	set hidden = FALSE
+	..()
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		var/obj/item/reagent_containers/food/snacks/egg/E = I

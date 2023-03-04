@@ -92,20 +92,6 @@
 	if(get_dist(user, src) && user == loc)
 		. += "<span class='notice'>[round(reagents.total_volume)] units left.</span>"
 
-/obj/item/reagent_containers/spray/verb/empty()
-
-	set name = "Empty Spray Bottle"
-	set category = "Object"
-	set src in usr
-	if(usr.stat || !usr.canmove || usr.restrained())
-		return
-	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
-		return
-	if(isturf(usr.loc) && loc == usr)
-		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
-		reagents.reaction(usr.loc)
-		reagents.clear_reagents()
-
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"

@@ -1,5 +1,6 @@
 /obj/item/reagent_containers/food/drinks/cans
 	var/canopened = FALSE
+	container_type = NONE
 	var/is_glass = 0
 	var/is_plastic = 0
 	var/times_shaken = 0
@@ -8,16 +9,18 @@
 	var/burst_chance = 0
 	foodtype = SUGAR
 
-/obj/item/reagent_containers/food/drinks/cans/New()
+/obj/item/reagent_containers/food/drinks/cans/empty()
+	if(!canopened)
+		to_chat(usr, "<span class='warning'>Open [src] first.</span>")
+		return
 	..()
-	flags &= ~OPENCONTAINER
 
 /obj/item/reagent_containers/food/drinks/cans/examine(mob/user)
 	. = ..()
 	if(canopened)
 		. += "<span class='notice'>It has been opened.</span>"
 	else
-		. += "<span class='info'>Alt-Click to shake it up!</span>"
+		. += "<span class='info'>Ctrl-Click to shake it up!</span>"
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(canopened)
@@ -27,7 +30,7 @@
 		return ..()
 	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 	canopened = TRUE
-	flags |= OPENCONTAINER
+	container_type |= OPENCONTAINER
 	to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 	return ..()
 
@@ -45,7 +48,7 @@
 	qdel(src)
 	return crushed_can
 
-/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/living/user)
+/obj/item/reagent_containers/food/drinks/cans/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -54,7 +57,7 @@
 	var/mob/living/carbon/human/H = user
 	if(canopened)
 		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
-		return ..()
+		return
 	if(src == H.l_hand || src == H.r_hand)
 		can_shake = FALSE
 		addtimer(CALLBACK(src, .proc/reset_shakable), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
@@ -113,7 +116,7 @@
 /obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user, burstopen = FALSE)
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
 	canopened = TRUE
-	flags |= OPENCONTAINER
+	container_type |= OPENCONTAINER
 
 	if(!burstopen && user)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")

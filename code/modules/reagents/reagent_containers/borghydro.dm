@@ -54,6 +54,9 @@
 		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
 
 
+/obj/item/reagent_containers/borghypo/empty()
+	set hidden = TRUE
+
 /obj/item/reagent_containers/borghypo/New()
 	..()
 	for(var/R in reagent_ids)

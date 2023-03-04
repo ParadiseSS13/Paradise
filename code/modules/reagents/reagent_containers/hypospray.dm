@@ -89,7 +89,7 @@
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = list(15)
+	possible_transfer_amounts = null
 	icon_state = "combat_hypo"
 	volume = 90
 	ignore_flags = 1 // So they can heal their comrades.
@@ -162,12 +162,15 @@
 	icon_state = "autoinjector"
 	item_state = "autoinjector"
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(10)
+	possible_transfer_amounts = null
 	volume = 10
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
+
+/obj/item/reagent_containers/hypospray/autoinjector/empty()
+	set hidden = TRUE
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -213,7 +216,6 @@
 	desc = "Rapidly stimulates and regenerates the body's organ system."
 	icon_state = "stimpen"
 	amount_per_transfer_from_this = 50
-	possible_transfer_amounts = list(50)
 	volume = 50
 	list_reagents = list("stimulants" = 50)
 
@@ -230,7 +232,6 @@
 	desc = "After a short period of time the nanites will slow the body's systems and assist with bone repair. Nanomachines son."
 	icon_state = "bonepen"
 	amount_per_transfer_from_this = 30
-	possible_transfer_amounts = list(30)
 	volume = 30
 	list_reagents = list("nanocalcium" = 30)
 
