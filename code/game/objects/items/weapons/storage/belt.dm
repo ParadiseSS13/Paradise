@@ -12,9 +12,17 @@
 	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
+	var/storable = FALSE
+
+/obj/item/storage/belt/proc/update_weight()
+	if(!length(contents) || storable)
+		w_class = WEIGHT_CLASS_NORMAL
+	else
+		w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/belt/update_overlays()
 	. = ..()
+	update_weight()
 	if(!use_item_overlays)
 		return
 	for(var/obj/item/I in contents)
@@ -23,10 +31,6 @@
 		var/image/belt_image = image(icon, I.belt_icon)
 		belt_image.color = I.color
 		. += belt_image
-	if(!length(contents))
-		w_class = WEIGHT_CLASS_NORMAL
-	else
-		w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
@@ -335,6 +339,7 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	storable = TRUE
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -353,6 +358,7 @@
 	storage_slots = 30
 	max_combined_w_class = 60
 	display_contents_with_number = TRUE
+	storable = TRUE
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
