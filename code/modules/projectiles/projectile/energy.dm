@@ -151,15 +151,15 @@
 
 /obj/effect/abstract/arc_revolver
 	name = "arc emitter"
-	desc = "Emitts arcs what more do you want"
+	desc = "Emits arcs. What more do you want?"
 	var/duration = 10 SECONDS
 	var/list/charge_numbers = list()
 	var/list/chains = list()
 	var/successfulshocks = 0
 	var/wait_for_three = 0
 
-/obj/effect/abstract/arc_revolver/New(loc, charge_number)
-	..()
+/obj/effect/abstract/arc_revolver/Initialize(mapload, charge_number)
+	. = ..()
 	charge_numbers += charge_number
 	START_PROCESSING(SSfastprocess, src)
 	GLOB.arc_emitters += src
@@ -177,20 +177,19 @@
 			for(var/num2 in charge_numbers)
 				if(num1 - num2 == -1) //Don't ABS it, we only want one chain made, not 2.
 					var/dont = FALSE
-					for(var/chain in chains)
-						var/datum/beam/B = chain
+					for(var/datum/beam/B as anything in chains)
 						if(B.target == A.loc)
 							dont = TRUE
 							break
 					if(!dont && (A.loc in view(7, loc)))
-						chains += loc.Beam(A.loc, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time= 10 SECONDS, maxdistance=7, beam_type=/obj/effect/ebeam/chain)
+						chains += loc.Beam(A.loc, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', time = 10 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam/chain)
 
 
 /obj/effect/abstract/arc_revolver/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
 	GLOB.arc_emitters -= src
 	removechains()
-	..()
+	return ..()
 
 /obj/effect/abstract/arc_revolver/process()// We want this to not be on crossed, or people fucking die when yeeted diagonally. We want this fast process to be faster, but not doing for loops every tick. Thus, every 3 fastproccesses
 	duration -= 2 // 5 ticks per second, second is 10
@@ -209,23 +208,20 @@
 /obj/effect/abstract/arc_revolver/proc/shockallchains()
 	. = 0
 	cleardeletedchains()
-	if(chains.len)
+	if(length(chains))
 		for(var/chain in chains)
 			. += chainshock(chain)
 
 /obj/effect/abstract/arc_revolver/proc/chainshock(datum/beam/B)
 	. = 0
 	var/list/turfs = list()
-	for(var/E in B.elements)
-		var/obj/effect/ebeam/chainpart = E
+	for(var/obj/effect/ebeam/chainpart as anything in B.elements)
 		if(chainpart && chainpart.x && chainpart.y && chainpart.z)
-			var/turf/T = get_turf_pixel(chainpart)
-			turfs |= T
+			turfs |= get_turf_pixel(chainpart)
 			if(T != get_turf(B.origin) && T != get_turf(B.target))
 				for(var/turf/TU in circlerange(T, 1))
 					turfs |= TU
-	for(var/turf in turfs)
-		var/turf/T = turf
+	for(var/turf/T as anything in turfs)
 		for(var/mob/living/L in T)
 			if(L.stat != DEAD)
 				if(successfulshocks > 2)
@@ -239,14 +235,13 @@
 				. = 1
 
 /obj/effect/abstract/arc_revolver/proc/removechains()
-	if(chains.len)
+	if(length(chains))
 		for(var/chain in chains)
 			qdel(chain)
 
 
 /obj/effect/abstract/arc_revolver/proc/cleardeletedchains()
-	if(chains.len)
+	if(length(chains))
 		for(var/chain in chains)
-			var/datum/cd = chain
-			if(!chain || QDELETED(cd))
+			if(!chain || QDELETED(chain))
 				chains -= chain
