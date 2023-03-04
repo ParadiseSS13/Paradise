@@ -26,7 +26,7 @@ INCLUDER_FILES = [
 
 IGNORE_FILES = {
     # Included directly in the function /datum/tgs_api/v5#ApiVersion
-    'code/modules/tgs/v5/interop_version.dm'
+    'code/modules/tgs/v5/v5_interop_version.dm'
 }
 
 def get_unticked_files(root:Path):

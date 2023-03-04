@@ -8,7 +8,7 @@
 	magic_fluff_string = "..And draw the CMO, a potent force of life...and death."
 	tech_fluff_string = "Boot sequence complete. Medical modules active. Bluespace modules activated. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of mending wounds and travelling via bluespace."
-	var/turf/simulated/floor/beacon
+	var/obj/effect/bluespace_beacon/beacon
 	var/beacon_cooldown = 0
 	var/default_beacon_cooldown = 300 SECONDS
 	var/toggle = FALSE
@@ -30,7 +30,7 @@
 	admin_spawned = TRUE
 
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
-	beacon = null
+	QDEL_NULL(beacon)
 	return ..()
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
@@ -90,20 +90,21 @@
 	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work in unfavorable atmospheric conditions."
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
-		if(isfloorturf(beacon_loc))
-			var/turf/simulated/floor/F = beacon_loc
-			F.icon = 'icons/turf/floors.dmi'
-			F.name = "bluespace recieving pad"
-			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
-			F.icon_state = "light_on"
+		if(isfloorturf(beacon_loc) && !islava(beacon_loc) && !ischasm(beacon_loc))
+			QDEL_NULL(beacon)
+			beacon = new(beacon_loc)
 			to_chat(src, "<span class='danger'>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span>")
-			if(beacon)
-				beacon.ChangeTurf(/turf/simulated/floor/plating)
-			beacon = F
 			beacon_cooldown = world.time + default_beacon_cooldown
 
 	else
 		to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place another beacon.</span>")
+
+/obj/effect/bluespace_beacon
+	name = "bluespace receiving pad"
+	desc = "A receiving zone for bluespace teleportations. Building a wall over it should disable it."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "light_on"
+	plane = FLOOR_PLANE
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
@@ -126,8 +127,8 @@
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				to_chat(src, "<span class='danger'>You need a beacon to warp things!</span>")
 				return
-			var/turf/T = beacon
-			if(T.is_safe())
+			var/turf/T = get_turf(beacon)
+			if(T.is_safe()) // Walls always return false
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
 				do_teleport(A, beacon, 0)
 				new /obj/effect/temp_visual/guardian/phase(get_turf(A))

@@ -140,7 +140,7 @@
 										break
 
 	catch(var/exception/e)
-		to_chat(usr, "<span class='danger'>An exception has occured during the execution of your query and your query has been aborted.</span>")
+		to_chat(usr, "<span class='danger'>An exception has occurred during the execution of your query and your query has been aborted.</span>")
 		to_chat(usr, "  [e.name]")
 		to_chat(usr, "  at: [e.file]:[e.line]")
 

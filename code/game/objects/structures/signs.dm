@@ -104,6 +104,11 @@
 	desc = "A warning sign which reads 'SECURE AREA'"
 	icon_state = "securearea"
 
+/obj/structure/sign/monkey_paint
+	name = "Mr. Deempisi portrait"
+	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste...You were delicious."
+	icon_state = "monkey_painting"
+
 /obj/structure/sign/biohazard
 	name = "\improper BIOHAZARD"
 	desc = "A warning sign which reads 'BIOHAZARD'"
@@ -186,10 +191,26 @@
 	desc = "To be Robust is not an action or a way of life, but a mental state. Only those with the force of Will strong enough to act during a crisis, saving friend from foe, are truly Robust. Stay Robust my friends."
 	icon_state = "goldenplaque"
 
+/obj/structure/sign/goldenplaque/medical
+	name = "The Hippocratic Award for Excellence in Medicine"
+	desc = "A golden plaque commemorating excellence in medical care. God only knows how this ended up in this medbay."
+
 /obj/structure/sign/kiddieplaque
 	name = "AI developers plaque"
 	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child's eyes are crossed, and is drooling. Beneath the image, someone has scratched the word \"PACKETS\"."
 	icon_state = "kiddieplaque"
+
+/obj/structure/sign/kiddieplaque/remembrance
+	name = "Remembrance Plaque"
+	desc = "A plaque commemorating the fallen, may they rest in peace, forever asleep amongst the stars. Someone has drawn a picture of a crying badger at the bottom."
+
+/obj/structure/sign/kiddieplaque/perfect_man
+	name = "\improper 'Perfect Man' sign"
+	desc = "A guide to the exhibit, explaining how recent developments in mindshield implant and cloning technologies by Nanotrasen Corporation have led to the development and the effective immortality of the 'perfect man', the loyal Nanotrasen Employee."
+
+/obj/structure/sign/kiddieplaque/perfect_drone
+	name = "\improper 'Perfect Drone' sign"
+	desc = "A guide to the drone shell dispenser, detailing the constructive and destructive applications of modern repair drones, as well as the development of the incorruptible cyborg servants of tomorrow, available today."
 
 /obj/structure/sign/atmosplaque
 	name = "\improper ZAS Atmospherics Division plaque"

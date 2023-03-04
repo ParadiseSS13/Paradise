@@ -245,7 +245,7 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	keep_preset_name = 1;
 	name = "Hallway APC";
 	pixel_y = -24
@@ -401,7 +401,7 @@
 /obj/item/healthanalyzer,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 4;
 	keep_preset_name = 1;
 	name = "Crew Quarters APC";
@@ -416,7 +416,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 1;
 	keep_preset_name = 1;
 	name = "Mining Drone Bay APC";
@@ -761,7 +761,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 1;
 	keep_preset_name = 1;
 	name = "Bridge APC";

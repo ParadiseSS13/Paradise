@@ -18,7 +18,7 @@
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 		return
-	if(powered())
+	if(has_power())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
@@ -193,5 +193,6 @@
 	update_icon()
 
 /obj/machinery/pdapainter/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()

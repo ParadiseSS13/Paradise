@@ -102,8 +102,8 @@
 /turf/template_noop,
 /area/space)
 "lK" = (
-/obj/machinery/power/apc/noalarm{
-	area = null;
+/obj/machinery/power/apc/off_station{
+	apc_area = null;
 	dir = 8;
 	keep_preset_name = 1;
 	light_power = 0;
@@ -231,8 +231,8 @@
 /turf/space,
 /area/space)
 "zd" = (
-/obj/machinery/power/apc/noalarm{
-	area = null;
+/obj/machinery/power/apc/off_station{
+	apc_area = null;
 	dir = 8;
 	keep_preset_name = 1;
 	locked = 0;
