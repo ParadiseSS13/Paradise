@@ -19,6 +19,11 @@
 	var/borg_to_spawn
 	var/checking = FALSE
 	var/rolename = "Syndicate Operative"
+	var/image/poll_icon
+
+/obj/item/antag_spawner/nuke_ops/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate_space_sword")
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
 	return TRUE
@@ -46,8 +51,7 @@
 	checking = TRUE
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/image/I = new('icons/mob/simple_human.dmi', "syndicate_space_sword")
-	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = I)
+	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = poll_icon)
 	if(length(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
@@ -95,14 +99,29 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	name = "syndicate assault cyborg teleporter"
 	borg_to_spawn = "Assault"
+	rolename = "Syndicate Assault Cyborg"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/assault/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndie-bloodhound-preview")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	name = "syndicate medical teleporter"
 	borg_to_spawn = "Medical"
+	rolename = "Syndicate Medical Cyborg"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/medical/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndi-medi")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
+	rolename = "Syndicate Saboteur Cyborg"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/saboteur/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndi-engi-preview")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
 	var/switch_roles_choice = input("Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
@@ -111,10 +130,9 @@
 
 	if(switch_roles_choice == "Syndicate Cyborg")
 		switch_roles = TRUE
-		rolename = initial(rolename)
+		rolename = "Syndicate Operative"
 	else
 		switch_roles = FALSE
-		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 
@@ -301,7 +319,7 @@
 
 /obj/item/antag_spawner/revenant
 	name = "vial of ectoplasm"
-	desc = "A magically infused bottle of ectoplasm, effectivly pure salt from the spectral realm."
+	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialectoplasm"
 	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
@@ -328,7 +346,7 @@
 		used = FALSE
 		to_chat(user, "<span class='notice'>The ectoplasm does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 		return
-		
+
 	var/mob/C = pick(candidates)
 	spawn_antag(C, get_turf(src), initial(revenant.name), user)
 	to_chat(user, "[shatter_msg]")

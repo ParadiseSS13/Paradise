@@ -34,17 +34,16 @@
 	AddComponent(/datum/component/proximity_monitor)
 
 /obj/machinery/flasher/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
+	if(stat & NOPOWER)
 		set_light(0)
+	else
+		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon()
 
 /obj/machinery/flasher/update_icon_state()
 	. = ..()
-
 	if((stat & NOPOWER) || !anchored)
 		icon_state = "[base_state]1-p"
 	else
@@ -72,7 +71,7 @@
 		return flash()
 
 /obj/machinery/flasher/proc/flash()
-	if(!(powered()))
+	if(!has_power())
 		return
 
 	if((disable) || (last_flash && world.time < last_flash + 150))
@@ -140,9 +139,8 @@
 	var/id = null
 	var/active = FALSE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
+	idle_power_consumption = 2
+	active_power_consumption = 4
 
 /obj/machinery/flasher_button/attack_ai(mob/user as mob)
 	return attack_hand(user)

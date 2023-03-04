@@ -79,6 +79,24 @@
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "wall"
 	smoothing_flags = SMOOTH_CORNERS
+	baseturf = /turf/simulated/floor/indestructible/hierophant/two
+
+/turf/simulated/wall/indestructible/hierophant/Initialize(mapload)
+	. = ..()
+	GLOB.hierophant_walls += src
+
+/turf/simulated/wall/indestructible/hierophant/BeforeChange()
+	GLOB.hierophant_walls -= src
+	return ..()
+
+
+/turf/simulated/wall/indestructible/hierophant/proc/collapse()
+	if(prob(15))
+		visible_message("<span class='warning'>[src] starts to rumble and groan as the lights fade on it, and it begins to collapse to rubble!</span>",\
+		"<span class='warning'>You hear metal groaning and tearing!</span>")
+		ChangeTurf(/turf/simulated/floor/indestructible/hierophant/two)
+		return
+	addtimer(CALLBACK(src, PROC_REF(collapse)), 10 SECONDS)
 
 /turf/simulated/wall/indestructible/sandstone
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
