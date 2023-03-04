@@ -113,9 +113,10 @@
 		return
 
 	var/message_tts = combine_message_tts(message_pieces, speaker)
+	var/message = message_clean
 
 	if(italics)
-		message_clean = "<i>[message_clean]</i>"
+		message = "<i>[message]</i>"
 
 	var/track = null
 	if(isobserver(src))
@@ -123,7 +124,7 @@
 			speaker_name = "[speaker.real_name] ([speaker_name])"
 		track = "([ghost_follow_link(speaker, ghost=src)]) "
 		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
-			message_clean = "<b>[message_clean]</b>"
+			message = "<b>[message]</b>"
 
 	speaker_name = colorize_name(speaker, speaker_name)
 	// Ensure only the speaker is forced to emote, and that the spoken language is inname
@@ -141,11 +142,11 @@
 		else
 			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb_message(message_clean, verb)]</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb_message(message, verb)]</span>")
 
 		// Create map text message
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
-			create_chat_message(speaker.runechat_msg_location, message_clean,FALSE, italics)
+			create_chat_message(speaker.runechat_msg_location, message_clean, FALSE, italics)
 
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))
