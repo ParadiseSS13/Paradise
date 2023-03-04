@@ -104,9 +104,10 @@
 
 /obj/item/storage/belt/utility/chief
 	name = "advanced toolbelt"
-	desc = "Holds tools, looks snazzy"
+	desc = "Holds tools, looks snazzy, and fits nicely into a bag"
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
+	storable = TRUE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
@@ -335,7 +336,7 @@
 
 /obj/item/storage/belt/military/traitor
 	name = "tool-belt"
-	desc = "Can hold various tools. This model seems to have additional compartments."
+	desc = "Can hold various tools. This model seems to have additional compartments and folds up rather nicely into a bag."
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
@@ -358,7 +359,6 @@
 	storage_slots = 30
 	max_combined_w_class = 60
 	display_contents_with_number = TRUE
-	storable = TRUE
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
