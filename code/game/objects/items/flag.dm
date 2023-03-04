@@ -137,6 +137,11 @@
 	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
 	icon_state = "plasmaflag"
 
+/obj/item/flag/species/nian
+	name = "NIAN flag"
+	desc = "A flag proudly proclaiming the superior heritage of Nian."
+	icon_state = "nianflag"
+
 //Department Flags
 
 /obj/item/flag/cargo
