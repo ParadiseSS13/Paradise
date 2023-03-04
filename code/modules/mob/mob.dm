@@ -1566,7 +1566,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	add_to_all_human_data_huds()
 
 /mob/proc/make_invisible()
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
 	remove_from_all_data_huds()
 
