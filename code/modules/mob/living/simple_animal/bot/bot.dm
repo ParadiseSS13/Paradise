@@ -41,6 +41,7 @@
 	var/open = FALSE //Maint panel
 	var/locked = TRUE
 	var/hacked = FALSE //Used to differentiate between being hacked by silicons and emagged by humans.
+	var/hijacked = FALSE // for pulse demon
 	var/text_hack = ""		//Custom text returned to a silicon upon hacking a bot.
 	var/text_dehack = "" 	//Text shown when resetting a bots hacked status to normal.
 	var/text_dehack_fail = "" //Shown when a silicon tries to reset a bot emagged with the emag item, which cannot be reset.
@@ -260,6 +261,9 @@
 	if(!on)
 		return
 
+	if (hijacked)
+		return
+
 	switch(mode) //High-priority overrides are processed first. Bots can do nothing else while under direct command.
 		if(BOT_RESPONDING)	//Called by the AI.
 			call_mode()
@@ -322,7 +326,7 @@
 		if(paicard)
 			to_chat(user, "<span class='warning'>A [paicard] is already inserted!</span>")
 		else if(allow_pai && !key)
-			if(!locked && !open)
+			if(!locked && !open && !hijacked)
 				var/obj/item/paicard/card = W
 				if(card.pai && card.pai.mind)
 					if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
@@ -900,9 +904,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(emagged == 2) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
 		if(!hacked) //Manually emagged by a human - access denied to all.
 			return TRUE
-		else if(!issilicon(user)) //Bot is hacked, so only silicons are allowed access.
+		else if(!(issilicon(user) || ispulsedemon(user))) //Bot is hacked, so only silicons are allowed access.
 			return TRUE
-	if(locked && !issilicon(user))
+	if(locked && !(issilicon(user) || ispulsedemon(user)))
 		return TRUE
 	return FALSE
 
@@ -1008,6 +1012,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 		to_chat(src, "[paicard.pai.pai_laws]")
 
 /mob/living/simple_animal/bot/get_access()
+	if (hijacked)
+		return get_all_accesses()
+
 	. = ..()
 
 	if(access_card)

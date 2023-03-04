@@ -6,6 +6,7 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 
+#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/pulse_demon))
 // used a lot here, undef'd after
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
 
@@ -15,6 +16,7 @@
 	desc = "A strange electrical apparition that lives in wires."
 	gender = NEUTER
 	emote_hear = list("vibrates", "sizzles")
+	speak_emote = list("modulates")
 	speak_chance = 20
 
 	icon = 'icons/mob/animal.dmi'
@@ -55,6 +57,7 @@
 	wander = FALSE
 	can_have_ai = FALSE
 	can_be_on_fire = FALSE
+	has_unlimited_silicon_privilege = TRUE
 
 	var/charge = 1000
 	var/maxcharge = 1000
@@ -70,21 +73,26 @@
 	var/inside_cable_speed = -1
 	var/outside_cable_speed = 4
 
-	var/apc_hijack_time = 30 SECONDS
+	var/hijack_time = 30 SECONDS
 
 	var/glow_color = "#bbbb00" // for varedit funsies
 
+	var/area/controlling_area // maintain this while doing area machinery actions
 	var/obj/structure/cable/current_cable // inhabited wire
 	var/obj/machinery/power/current_power // inhabited machine
+	var/obj/item/current_weapon // inhabited (energy) gun
+	var/mob/living/silicon/robot/current_robot // inhabited cyborg
+	var/mob/living/simple_animal/bot/current_bot // inhabited bot
 
-	var/list/image/cables_shown = list()
+	var/bot_movedelay = 0
+	var/list/mob/living/silicon/robot/hijacked_robots = list()
+
+	var/list/image/images_shown = list()
 	var/list/obj/machinery/power/apc/hijacked_apcs = list()
 	var/obj/machinery/power/apc/apc_being_hijacked
-	var/hijack_timer_id = TIMER_ID_NULL
-	// do_after doesn't work with relaymove so we do our own progressbar
-	var/datum/progressbar/progbar
-	var/progbar_timer_id = TIMER_ID_NULL
+	var/datum/progressbar_helper/pb_helper
 
+// TODO: setting name to be unambigious (incase of multiple pulse demons)? numbering/namefile?
 /mob/living/simple_animal/pulse_demon/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
@@ -93,6 +101,8 @@
 	// don't step on me
 	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_cross_shock))
 	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
+
+	pb_helper = new()
 
 	current_power = locate(/obj/machinery/power) in loc
 	// in the case that both current_power and current_cable are null, the pulsedemon will die the next tick
@@ -116,13 +126,32 @@
 	return death()
 
 /mob/living/simple_animal/pulse_demon/death()
-	cancel_hijack_apc(apc_being_hijacked)
+	pb_helper.cancel() // clean up any actions we were doing
 	var/turf/T = get_turf(src)
 	do_sparks(rand(2, 4), FALSE, src)
+	. = ..()
+
 	var/heavy_radius = min(charge / 50000, 20)
 	var/light_radius = min(charge / 25000, 25)
 	empulse(T, heavy_radius, light_radius)
-	return ..()
+
+/mob/living/simple_animal/pulse_demon/proc/exit_to_turf(atom/oldloc)
+	if (loc != oldloc)
+		return
+	var/turf/T = get_turf(oldloc)
+	// TODO: only set this if purchased
+	can_exit_cable = TRUE
+	forceMove(T)
+	controlling_area = null
+	current_power = null
+	current_cable = null
+	current_weapon = null
+	current_robot = null
+	current_bot = null
+
+// can enter an apc at all?
+/mob/living/simple_animal/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
+	return istype(A) && !(A.stat & BROKEN) && !A.shorted
 
 /mob/living/simple_animal/pulse_demon/Move(newloc)
 	var/obj/machinery/power/new_power = locate(/obj/machinery/power) in newloc
@@ -131,8 +160,10 @@
 	if (istype(new_power, /obj/machinery/power/terminal))
 		new_power = null // entering a terminal is kinda useless
 
-	if (isapc(new_power) && !is_valid_apc(new_power))
-		new_power = null // don't enter an APC without a terminal or a broken APC, etc.
+	if (isapc(new_power))
+		var/obj/machinery/power/apc/A = new_power
+		if (!is_valid_apc(new_power) || !A.terminal)
+			new_power = null // don't enter an APC without a terminal or a broken APC, etc.
 
 	if (!new_cable && !new_power)
 		if (!can_exit_cable)
@@ -153,7 +184,11 @@
 		playsound(src, 'sound/effects/eleczap.ogg', 50, 1)
 		do_sparks(rand(2, 4), FALSE, src)
 		if (isapc(current_power))
-			try_hijack_apc(current_power)
+			var/obj/machinery/power/apc/A = current_power
+			if (current_power in hijacked_apcs)
+				controlling_area = A.apc_area
+			else
+				try_hijack_apc(current_power)
 	else if (new_cable)
 		current_cable = new_cable
 		current_power = null
@@ -167,7 +202,7 @@
 
 // signal to replace relaymove where or when?
 /obj/machinery/power/relaymove(mob/user, dir)
-	if (!istype(user, /mob/living/simple_animal/pulse_demon))
+	if (!ispulsedemon(user))
 		return ..()
 
 	var/mob/living/simple_animal/pulse_demon/PD = user
@@ -178,7 +213,9 @@
 		do_sparks(rand(2, 4), FALSE, src)
 		user.forceMove(T)
 		if (isapc(src))
-			PD.cancel_hijack_apc(src)
+			if (src == PD.apc_being_hijacked)
+				PD.pb_helper.cancel()
+			PD.controlling_area = null
 
 // TODO: decide how maxcharge should increase, it's kinda weird for now (see also: SMES draining code in Life())
 //       I'd say have maxcharge be a multiple of the number of controlled APCs (with upgrade to increase)
@@ -210,7 +247,7 @@
 			current_cable.add_load(power_per_regen)
 			got_power = TRUE
 	else if (current_power)
-		if (isapc(current_power) && do_drain)
+		if (isapc(current_power) && loc == current_power && do_drain)
 			var/obj/machinery/power/apc/this_apc = current_power
 			// no draining and hijacking in one
 			if (!this_apc.being_hijacked)
@@ -218,7 +255,7 @@
 				this_apc.cell.use(amount_to_drain)
 				// gain more charge than we drain (TODO: consult on numbers with balance team)
 				adjustCharge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER, TRUE)
-				if (amount_to_drain > power_per_regen)
+				if (amount_to_drain > power_per_regen && !this_apc.cell.self_recharge)
 					got_power = TRUE
 		else if (istype(current_power, /obj/machinery/power/smes) && do_drain)
 			var/obj/machinery/power/smes/this_smes = current_power
@@ -229,7 +266,7 @@
 			adjustCharge(amount_to_drain)
 			if (amount_to_drain > power_per_regen)
 				got_power = TRUE
-		// try to take power from the powernet if the APC or SMES is empty
+		// try to take power from the powernet if the APC or SMES is empty (or we're not /really/ in the APC)
 		if (!got_power && current_power.avail() >= power_per_regen)
 			current_power.add_load(power_per_regen)
 			got_power = TRUE
@@ -249,47 +286,129 @@
 		if (--regen_lock == 0)
 			clear_alert(ALERT_CATEGORY_NOREGEN)
 
-// TODO: maybe add APCs (bluescreen state?) to the demon's overlay if successful?
-/mob/living/simple_animal/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A)
+/mob/living/simple_animal/pulse_demon/proc/gen_speech_name()
+	. = ""
+	for (var/i = 1 to 10)
+		. += pick("!", "@", "#", "$", "%", "^", "&", "*")
+
+/mob/living/simple_animal/pulse_demon/say(message, verb, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+	if(client)
+		if(check_mute(client.ckey, MUTE_IC))
+			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+			return FALSE
+
+	if(sanitize)
+		message = trim_strip_html_properly(message)
+
+	if(stat)
+		if(stat == DEAD)
+			return say_dead(message)
+		return FALSE
+
+	if (current_robot)
+		var/turf/T = get_turf(src)
+		log_say("[key_name(src)] (@[T.x], [T.y], [T.z]) made [current_robot]([key_name(current_robot)]) say: [message]")
+		log_admin("[key_name(src)] made [key_name(current_robot)] say: [message]")
+		message_admins("<span class='notice'>[key_name(src)] made [key_name(current_robot)] say: [message]</span>")
+		// don't sanitize again
+		current_robot.say(message, null, FALSE, ignore_speech_problems, ignore_atmospherics, ignore_languages)
+		return TRUE
+
+	var/message_mode = parse_message_mode(message, "headset")
+
+	if(copytext(message, 1, 2) == "*")
+		return emote(copytext(message, 2), intentional = TRUE)
+
+	if(message_mode)
+		if(message_mode == "headset")
+			message = copytext(message, 2)
+		else
+			message = copytext(message, 3)
+
+	message = trim_left(message)
+
+	var/list/message_pieces = list()
+	if(ignore_languages)
+		message_pieces = message_to_multilingual(message)
+	else
+		message_pieces = parse_languages(message)
+
+	// hivemind languages
+	if(istype(message_pieces, /datum/multilingual_say_piece))
+		var/datum/multilingual_say_piece/S = message_pieces
+		S.speaking.broadcast(src, S.message)
+		return TRUE
+
+	if(!LAZYLEN(message_pieces))
+		. = FALSE
+		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
+
+	create_log(SAY_LOG, "[message_mode ? "([message_mode])" : ""] '[message]'")
+
+	if (istype(loc, /obj/item/radio))
+		var/obj/item/radio/R = loc
+		name = gen_speech_name()
+		R.talk_into(src, message_pieces, message_mode, verbage = verb)
+		name = real_name
+		return TRUE
+	else if (istype(loc, /obj/machinery/hologram/holopad))
+		var/obj/machinery/hologram/holopad/H = loc
+		var/turf/T = get_turf(H)
+		name = "\the [H]"
+		for(var/mob/M in hearers(T.loc) + src)
+			M.hear_say(message_pieces, verb, FALSE, src)
+		name = real_name
+		return TRUE
+
+	emote("me", message = "[pick(emote_hear)]")
+	return TRUE
+
+/mob/living/simple_animal/pulse_demon/update_runechat_msg_location()
+	if (istype(loc, /obj/machinery/hologram/holopad))
+		runechat_msg_location = loc.UID()
+	else
+		return ..()
+
+/mob/living/simple_animal/pulse_demon/has_internal_radio_channel_access(mob/user, list/req_one_accesses)
+	var/list/access = get_all_accesses()
+	return has_access(list(), req_one_accesses, access)
+
+/mob/living/simple_animal/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
-	if (is_valid_hijack(A) && !(A in hijacked_apcs) && !apc_being_hijacked && !A.being_hijacked)
-		progbar = new(src, apc_hijack_time, A)
-		progbar.update(0)
-		progbar_timer_id = addtimer(CALLBACK(src, PROC_REF(update_progressbar), world.time), apc_hijack_time / 20, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_STOPPABLE | TIMER_LOOP)
-		apc_being_hijacked = A
-		A.being_hijacked = TRUE
-		A.update_icon()
-		hijack_timer_id = addtimer(CALLBACK(src, PROC_REF(finish_hijack_apc), A), apc_hijack_time, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_STOPPABLE)
+	if (check_valid_apc(A, loc) && !(A in hijacked_apcs) && !apc_being_hijacked && !A.being_hijacked)
+		to_chat(src, "<span class='notice'>You are now attempting to hijack \the [A], this will take approximately [hijack_time / 10] seconds.</span>")
+		if (pb_helper.start(src, A, hijack_time, TRUE, \
+		  CALLBACK(src, PROC_REF(check_valid_apc), A), \
+		  CALLBACK(src, PROC_REF(finish_hijack_apc), A, remote), \
+		  CALLBACK(src, PROC_REF(fail_hijack)), \
+		  CALLBACK(src, PROC_REF(cleanup_hijack_apc), A)))
+			apc_being_hijacked = A
+			A.being_hijacked = TRUE
+			A.update_icon()
+		else
+			to_chat(src, "<span class='warning'>You are already performing an action!</span>")
 
-/mob/living/simple_animal/pulse_demon/proc/update_progressbar(start)
-	progbar.update(world.time - start)
+// TODO: which checks here? maybe aidisabled or constructed?
+/mob/living/simple_animal/pulse_demon/proc/check_valid_apc(obj/machinery/power/apc/A, atom/startloc)
+	return is_valid_apc(A)
 
-/mob/living/simple_animal/pulse_demon/proc/cleanup_hijack(obj/machinery/power/apc/A)
-	deltimer(progbar_timer_id)
-	progbar_timer_id = null
-	QDEL_NULL(progbar)
-	hijack_timer_id = null
+/mob/living/simple_animal/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
+	var/image/AI = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
+	AI.plane = ABOVE_LIGHTING_PLANE
+	images_shown += AI
+	client.images += AI
+	hijacked_apcs += A
+	if (!remote)
+		controlling_area = A.apc_area
+	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
+
+/mob/living/simple_animal/pulse_demon/proc/cleanup_hijack_apc(obj/machinery/power/apc/A)
 	apc_being_hijacked = null
 	A.being_hijacked = FALSE
 	A.update_icon()
 
-/mob/living/simple_animal/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A)
-	if (is_valid_hijack(A) && A == apc_being_hijacked)
-		hijacked_apcs += A
-		cleanup_hijack(A)
-
-/mob/living/simple_animal/pulse_demon/proc/cancel_hijack_apc(obj/machinery/power/apc/A)
-	if (A && A == apc_being_hijacked)
-		deltimer(hijack_timer_id)
-		cleanup_hijack(A)
-
-// can enter an apc at all?
-/mob/living/simple_animal/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
-	return A && A.terminal && !(A.stat & BROKEN) && !A.shorted
-
-// TODO: which checks here? maybe aidisabled or constructed?
-/mob/living/simple_animal/pulse_demon/proc/is_valid_hijack(obj/machinery/power/apc/A)
-	return is_valid_apc(A)
+/mob/living/simple_animal/pulse_demon/proc/fail_hijack()
+	to_chat(src, "<span class='warning'>Hijacking failed!</span>")
 
 /mob/living/simple_animal/pulse_demon/proc/try_cross_shock(src, atom/A)
 	if (!isliving(A) || is_under_tile())
@@ -307,12 +426,6 @@
 		adjustCharge(-1000)
 	add_attack_logs(src, L, "shocked ([dealt] damage)")
 
-// TODO: spells that can effect machines IN YOUR AREA (see /vg/station wiki)
-/mob/living/simple_animal/pulse_demon/proc/controlling_area()
-	if (isapc(current_power))
-		var/obj/machinery/power/apc/this_apc = current_power
-		return this_apc.apc_area
-
 /mob/living/simple_animal/pulse_demon/proc/is_under_tile()
 	var/turf/T = get_turf(src)
 	return T.transparent_floor || T.intact
@@ -323,23 +436,40 @@
 		return
 
 	// clear out old images
-	for (var/image/current_image in cables_shown)
+	for (var/image/current_image in images_shown)
 		client.images -= current_image
-	cables_shown.Cut()
+	images_shown.Cut()
 
+	var/turf/T = get_turf(src)
 	// regenerate for all cables on our (or our holder's) z-level
 	for (var/obj/structure/cable/C in GLOB.cable_list)
-		if (C.z != z && !(loc && C.z == loc.z)) continue;
-		var/image/CI = image(C, get_turf(C), layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
+		var/turf/CT = get_turf(C)
+		if (T.z != CT.z)
+			continue
+		var/image/CI = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
 		// good visibility here
 		CI.plane = ABOVE_LIGHTING_PLANE
-		cables_shown += CI
+		images_shown += CI
 		client.images += CI
+
+	// same for hijacked APCs
+	for (var/obj/machinery/power/apc/A in hijacked_apcs)
+		var/turf/AT = get_turf(A)
+		if (T.z != AT.z)
+			continue
+		// parent of image is the APC, not the turf because of how clicking on images works
+		// TODO: maybe a custom sprite to make it clearer to the pulse demon
+		var/image/AI = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
+		AI.plane = ABOVE_LIGHTING_PLANE
+		images_shown += AI
+		client.images += AI
+	// TODO: figure out how to make cameras always visible (if in the corresponding APC), even if blocked from view (because of stations like farragus)
 
 /mob/living/simple_animal/pulse_demon/reset_perspective(atom/A)
 	. = ..()
 	update_cableview()
 
+// TODO: EMP_HEAVY, EMP_LIGHT distinction
 /mob/living/simple_animal/pulse_demon/emp_act(severity)
 	. = ..()
 	visible_message("<span class ='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
@@ -399,7 +529,7 @@
 	return // you can't turn electricity into a harvester
 
 /mob/living/simple_animal/pulse_demon/get_access()
-	return IGNORE_ACCESS
+	return get_all_accesses()
 
 /mob/living/simple_animal/pulse_demon/IsAdvancedToolUser()
 	return TRUE // interacting with machines
@@ -418,6 +548,12 @@
 
 /mob/living/simple_animal/pulse_demon/singularity_pull()
 	return
+
+/mob/living/simple_animal/pulse_demon/mob_negates_gravity()
+	return TRUE
+
+/mob/living/simple_animal/pulse_demon/mob_has_gravity()
+	return TRUE
 
 // TODO: convert to spell
 /mob/living/simple_animal/pulse_demon/verb/toggle_do_drain()

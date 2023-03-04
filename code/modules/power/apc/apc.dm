@@ -272,6 +272,14 @@
 				return
 			W.forceMove(src)
 			cell = W
+
+			for (var/mob/living/simple_animal/pulse_demon/PD in cell)
+				PD.forceMove(src)
+				PD.current_power = src
+				if (cell.rigged) // first come first serve
+					PD.try_hijack_apc(src)
+					cell.rigged = FALSE // don't blow the demon up
+
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [name]!",\
 				"<span class='notice'>You insert the power cell.</span>")
@@ -521,7 +529,7 @@
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(user.can_admin_interact())
 		return TRUE
-	if(isAI(user) || isrobot(user))
+	if(isAI(user) || isrobot(user) || user.has_unlimited_silicon_privilege)
 		return TRUE
 	else
 		return !locked
@@ -529,14 +537,14 @@
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(user.can_admin_interact())
 		return FALSE
-	if(isAI(user) || isrobot(user))
+	if(isAI(user) || isrobot(user) || user.has_unlimited_silicon_privilege)
 		return FALSE
 	else
 		return locked
 
 /obj/machinery/power/apc/ui_act(action, params, datum/tgui/ui)
 	var/mob/user = ui.user
-	if(..() || !can_use(user, TRUE) || (locked && !user.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !user.can_admin_interact()))
+	if(..() || !can_use(user, TRUE) || (is_locked(user) && (action != "toggle_nightshift")))
 		return
 	. = TRUE
 	switch(action)
