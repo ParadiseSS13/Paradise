@@ -397,12 +397,14 @@
 	desc = "Slooooow"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "snail"
+	slot_flags = null
 
 /obj/item/holder/turtle
 	name = "yeeslow"
 	desc = "Slooooow"
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "yeeslow"
+	slot_flags = null
 
 /obj/item/holder/clowngoblin
 	name = "clowngoblin"

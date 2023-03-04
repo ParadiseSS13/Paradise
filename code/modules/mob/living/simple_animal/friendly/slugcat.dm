@@ -5,8 +5,8 @@
 	icon_living = "slugcat"
 	icon_dead = "slugcat_dead"
 	icon_resting = "slugcat_rest"
+	speak = list("Furrr.","Uhh.", "Hurrr.")
 	gender = MALE
-	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 8
 	health = 100

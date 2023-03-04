@@ -4,6 +4,7 @@
 	icon_state = "snail"
 	icon_living = "snail"
 	icon_dead = "snail_dead"
+	speak = list("Uhh.", "Hurrr.")
 	tts_seed = "Ladyvashj"
 	health = 100
 	maxHealth = 100
@@ -52,6 +53,7 @@
 	icon_living = "yeeslow"
 	icon_dead = "yeeslow_dead"
 	icon_resting = "yeeslow_scared"
+	speak = list("Uhh.", "Hurrr.")
 	tts_seed = "Ladyvashj"
 	health = 500
 	maxHealth = 500

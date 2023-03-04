@@ -6,6 +6,7 @@
 	icon_living = "moth"
 	icon_dead = "moth_dead"
 	turns_per_move = 1
+	speak = list("Furrr.","Uhh.", "Hurrr.")
 	emote_see = list("flutters")
 	response_help = "shoos"
 	response_disarm = "brushes aside"
@@ -33,6 +34,8 @@
 	icon_living = "mothroach"
 	icon_dead = "mothroach_dead"
 	icon_resting = "mothroach_sleep"
+	speak = list("Furrr.","Uhh.", "Hurrr.")
+	speak_chance = 0
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"

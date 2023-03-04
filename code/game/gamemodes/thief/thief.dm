@@ -153,19 +153,19 @@
 				var/count = 1
 				for(var/datum/objective/objective in thief.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Выполнена!</B></font>"
+						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Выполнена!</B></font><br>"
 						SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провалена.</font>"
+						text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провалена.</font><br>"
 						SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "FAIL"))
 						thiefwin = 0
 					count++
 
 			if(thiefwin)
-				text += "<br><font color='green'><B>Вор преуспел!</B></font>"
+				text += "<br><font color='green'><B>Вор преуспел!</B></font><br>"
 				SSblackbox.record_feedback("tally", "thief_success", 1, "SUCCESS")
 			else
-				text += "<br><font color='red'><B>Вор провалился.</B></font>"
+				text += "<br><font color='red'><B>Вор провалился.</B></font><br>"
 				SSblackbox.record_feedback("tally", "thief_success", 1, "FAIL")
 
 		to_chat(world, text)
