@@ -23,6 +23,10 @@
 		var/image/belt_image = image(icon, I.belt_icon)
 		belt_image.color = I.color
 		. += belt_image
+	if(!length(contents))
+		w_class = WEIGHT_CLASS_NORMAL
+	else
+		w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
