@@ -22,7 +22,7 @@
 		addtimer(CALLBACK(src, .proc/dissolve_restraint, user, O), 3 SECONDS)
 		used = TRUE
 
-	if(user.legcuffed)
+	if(user.legcuffed && !used)
 		var/obj/O = user.get_item_by_slot(slot_legcuffed)
 		if(!istype(O))
 			return FALSE
