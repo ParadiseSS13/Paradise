@@ -432,7 +432,7 @@
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,
-		/obj/item/lightreplacer,
+		/obj/item/lightreplacer/bluespace,
 		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
