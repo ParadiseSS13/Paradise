@@ -12,8 +12,10 @@
 	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
-	var/storable = FALSE //bypasses the "belt in bag" prevention
-	var/large = FALSE //ignores update_weight() if TRUE
+	/// Bypasses the "belt in bag" prevention if TRUE
+	var/storable = FALSE
+	/// Ignores update_weight() if TRUE
+	var/large = FALSE
 
 /obj/item/storage/belt/proc/update_weight()
 	if(large)
@@ -206,7 +208,6 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
-	update_weight()
 	update_weight()
 
 /obj/item/storage/belt/medical/response_team/populate_contents()
