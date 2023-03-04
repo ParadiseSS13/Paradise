@@ -406,7 +406,7 @@
 	return ..()
 
 /obj/item/borg/upgrade/rcd
-	name = " R.C.D. upgrade"
+	name = "R.C.D. upgrade"
 	desc = "A modified rapid construction device, able to pull energy directly from a cyborgs internal power cell."
 	icon_state = "cyborg_upgrade5"
 	origin_tech = "engineering=4;materials=5;powerstorage=4"
