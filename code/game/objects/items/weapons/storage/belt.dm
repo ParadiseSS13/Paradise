@@ -208,6 +208,7 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
+	update_icon()
 	update_weight()
 
 /obj/item/storage/belt/medical/response_team/populate_contents()
