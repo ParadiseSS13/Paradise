@@ -201,6 +201,7 @@
 	GLOB.poi_list |= src
 	radio = new(src)
 	radio.listening = FALSE
+	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 	investigate_log("has been created.", "supermatter")
 
