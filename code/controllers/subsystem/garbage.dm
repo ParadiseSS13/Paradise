@@ -236,6 +236,10 @@ SUBSYSTEM_DEF(garbage)
 	var/type = D.type
 	var/refID = "\ref[D]"
 
+	#ifdef ENABLE_BYOND_TRACY
+	// Mark this datum as being hard deleted for tracking
+	D.InvokeHardDelete()
+	#endif
 	del(D)
 
 	tick = (TICK_USAGE - tick + ((world.time - ticktime) / world.tick_lag * 100))
@@ -511,4 +515,12 @@ SUBSYSTEM_DEF(garbage)
 	CHECK_TICK
 #endif
 
+#endif
+
+
+#ifdef ENABLE_BYOND_TRACY
+// This exists inside a define so we can mark datums being hard deleted by their type
+// This allows us to see whats being passed through /HardDelete
+/datum/proc/InvokeHardDelete()
+	return
 #endif
