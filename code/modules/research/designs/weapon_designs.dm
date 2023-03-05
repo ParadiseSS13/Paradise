@@ -138,10 +138,10 @@
 	desc = "A 20 round magazine for the out of date security WT-550 Auto Rifle"
 	id = "mag_oldsmg"
 	req_tech = list("combat" = 1, "materials" = 1)
-	build_type = PROTOLATHE
+	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 22000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9
-	category = list("Weapons")
+	category = list("Weapons", "hacked", "Security")
 
 /datum/design/mag_oldsmg/ap_mag
 	name = "WT-550 Auto Gun Armour Piercing Magazine (4.6x30mm AP)"
@@ -169,10 +169,10 @@
 	desc = "A 40 round ammo box for the out of date security WT-550 Auto Rifle"
 	id = "box_oldsmg"
 	req_tech = list("combat" = 2, "materials" = 1)
-	build_type = PROTOLATHE
+	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 40500)
 	build_path = /obj/item/ammo_box/c46x30mm
-	category = list("Weapons")
+	category = list("Weapons", "hacked", "Security")
 
 /datum/design/box_oldsmg/ap_box
 	name = "WT-550 Auto Gun Armour Piercing Ammo box (4.6x30mm AP)"
