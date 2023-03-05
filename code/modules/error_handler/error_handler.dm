@@ -14,6 +14,38 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		return ..()
 	GLOB.total_runtimes++
 
+	// STEP 1 - WE SANITIZE
+	// Proc args are included in runtimes. This has a habit of leaking secrets. We dont want this.
+	var/list/sanitize_splitlines = splittext(e.desc, "\n")
+	var/callstack_hit = FALSE
+	for(var/i in 1 to length(sanitize_splitlines))
+		var/original_line = sanitize_splitlines[i]
+		// Blank line, skip it
+		if(length(original_line) < 3)
+			continue
+
+		// We only care about lines after callstack
+		if(original_line == "  call stack:")
+			callstack_hit = TRUE
+			continue
+
+		// If we aint hit it, next
+		if(!callstack_hit)
+			continue
+
+		// First split on the colon
+		var/list/inner_split = splittext(original_line, ": ")
+		var/source_half = "[inner_split[1]]: "
+		var/proc_half = inner_split[2]
+		var/proc_name = splittext(proc_half, "(")[1] // Put a ) here to stop the bracket colouriser whining
+
+		proc_name = replacetext(proc_name, " ", "_") // Put the underscores back because BYOND removes them for some reason
+
+		sanitize_splitlines[i] = "[source_half][proc_name]"
+
+	e.desc = sanitize_splitlines.Join("\n")
+
+	// Ok now we can do everything else
 	var/erroruid = "[e.file][e.line]"
 	var/last_seen = GLOB.error_last_seen[erroruid]
 	var/cooldown = GLOB.error_cooldown[erroruid] || 0
@@ -106,3 +138,16 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	if(GLOB.error_cache)
 		GLOB.error_cache.logError(e, desclines, e_src = e_src)
 #endif
+
+/client/proc/throw_runtime()
+	set name = "Throw Runtime"
+	set desc = "Throws a runtime, what did you expect?"
+	set category = "Debug"
+
+	if(!check_rights(R_MAINTAINER))
+		return
+
+	throw_runtime_inner(1337, 0)
+
+/client/proc/throw_runtime_inner(x, y)
+	to_chat(usr, "[x]/[y]=[x/y]")

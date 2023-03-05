@@ -228,6 +228,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface)
 
 	l_pocket = /obj/item/gun/energy/gun/mini
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -249,7 +250,8 @@
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(
 	/obj/item/organ/internal/eyes/cybernetic/shield,
-	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
+	/obj/item/organ/internal/cyberimp/brain/wire_interface
 	)
 	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -286,7 +288,8 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/eyes/cybernetic/shield,
-		/obj/item/organ/internal/cyberimp/arm/toolset
+		/obj/item/organ/internal/cyberimp/arm/toolset,
+		/obj/item/organ/internal/cyberimp/brain/wire_interface
 	)
 
 	implants = list(/obj/item/implant/mindshield,
@@ -493,6 +496,7 @@
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/reagent_containers/spray/cleaner/advanced = 1,
 		/obj/item/storage/bag/trash = 1,
+		/obj/item/twohanded/push_broom,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1)
 
