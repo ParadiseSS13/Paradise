@@ -20,6 +20,7 @@
 	var/magboots_type = null
 	var/storage_type = null
 
+	var/controls_inside = FALSE
 	var/locked = FALSE
 	var/safeties = TRUE
 	var/broken = FALSE
@@ -596,6 +597,8 @@
 	if(..())
 		return
 	add_fingerprint(usr)
+	if(!controls_inside && usr == occupant)
+		return
 	if(shocked && !(stat & NOPOWER))
 		if(shock(usr, 100))
 			return FALSE
