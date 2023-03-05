@@ -100,7 +100,7 @@
 /datum/action/innate/alien_larva_hide/Activate()
 	if(owner.layer != ABOVE_NORMAL_TURF_LAYER)
 		owner.layer = ABOVE_NORMAL_TURF_LAYER
-		owner.visible_message("<B>[owner] scurries to the ground!</B>", "<span class='noticealien'>You are now hiding.</span>")
+		owner.visible_message("<b>[owner] scurries to the ground!</b>", "<span class='noticealien'>You are now hiding.</span>")
 		return
 
 	owner.layer = MOB_LAYER
