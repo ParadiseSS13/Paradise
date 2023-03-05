@@ -227,9 +227,6 @@
 	new /obj/item/storage/pill_bottle/ert(src)
 	new /obj/item/storage/pill_bottle/patch_pack/ert/(src)
 
-/obj/item/storage/firstaid/ert/empty/populate_contents()
-	return
-
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
 	icon_state = "firstaid"
@@ -243,9 +240,6 @@
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/storage/pill_bottle/ert_amber(src)
 	new /obj/item/storage/pill_bottle/patch_pack/ert_amber/(src)
-
-/obj/item/storage/firstaid/ert_amber/empty/populate_contents()
-	return
 
 /*
  * Pill Bottles
@@ -393,9 +387,6 @@
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
-/obj/item/storage/pill_bottle/patch_pack/ert/empty/populate_contents()
-	return
-
 /obj/item/storage/pill_bottle/patch_pack/ert_amber
 	name = "ert amber patch pack"
 	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Amber level medics"
@@ -404,6 +395,3 @@
 	for(var/I in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf/small(src)
 		new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
-
-/obj/item/storage/pill_bottle/patch_pack/ert_amber/empty/populate_contents()
-	return
