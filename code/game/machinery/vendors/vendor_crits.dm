@@ -112,8 +112,8 @@
 
 /datum/vendor_crit/lucky/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	victim.visible_message(
-		"<span class='danger'>[src] crashes around [victim], but doesn't seem to crush them!</span>",
-		"<span class='userdanger'>[src] crashes around you, but only around you! You're fine!</span>"
+		"<span class='danger'>[machine] crashes around [victim], but doesn't seem to crush them!</span>",
+		"<span class='userdanger'>[machine] crashes around you, but only around you! You're fine!</span>"
 	)
 
 	return 1000
