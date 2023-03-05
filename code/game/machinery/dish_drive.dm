@@ -131,6 +131,6 @@
 		Beam(bin, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		bin.update_icon()
 		flick("synthesizer_beam", src)
-	else if (manual)
+	else if(manual)
 		to_chat(usr, "<span class='notice'>There are no disposable items to be beamed.</span>")
 	time_since_dishes = world.time + 60 SECONDS
