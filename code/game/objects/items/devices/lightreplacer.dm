@@ -233,6 +233,8 @@
 		return
 	if(!isturf(T))
 		return
+	if(get_dist(src, T) >= (U.client.view + 2)) // To prevent people from using it over cameras
+		return
 
 	var/used = FALSE
 	for(var/atom/A in T)
