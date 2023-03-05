@@ -138,7 +138,7 @@
 	foodtype = MEAT | DAIRY
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/bacon
-	name = "bacon pizza"
+	name = "bacon and mushrooms pizza"
 	desc = "A classic pizza, one of the ingredients was replaced with fried bacon"
 	icon_state = "baconpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/baconpizzaslice
@@ -148,7 +148,7 @@
 	foodtype = MEAT | DAIRY
 
 /obj/item/reagent_containers/food/snacks/baconpizzaslice
-	name = "bacon pizza slice"
+	name = "bacon and mushrooms pizza slice"
 	desc = "A delicious slice of pizza topped with bacon & mushrooms..."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "baconpizzaslice"

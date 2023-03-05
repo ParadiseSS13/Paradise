@@ -572,17 +572,17 @@
 	foodtype = GROSS | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/sliceable/lizard
-	name = "Fried unathi meat"
+	name = "Fried reptile meat"
 	desc = " A Juicy steaks from the tail of a large lizard, makes you want to lie on warm rocks. Slicable"
 	icon_state = "lizard_steak"
 	slice_path = /obj/item/reagent_containers/food/snacks/lizardslice
 	slices_num = 5
-	list_reagents = list("protein" = 30, "nutriment" = 20, "vitamin" = 10)
+	list_reagents = list("zessulblood" = 50, "protein" = 30, "nutriment" = 20, "vitamin" = 10)
 	tastes = list("lizard meat" = 4, "chicken meat" = 2)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lizardslice
-	name = "unathi steak"
+	name = "reptile steak"
 	desc = "A serving of unathi meat."
 	icon_state = "lizard_slice"
 	trash = /obj/item/trash/plate
@@ -614,7 +614,7 @@
 	tastes = list("dough" = 2, "dog meat" = 3, "cheese" = 2)
 
 /obj/item/reagent_containers/food/snacks/vulpix/bacon
-	name = "Bacon vulpixes"
+	name = "Bacon and mushroom vulpixes"
 	desc = "Appetizing-looking meat balls in the dough filled with.. The main thing is not to think about WHO they are made of!"
 	icon_state = "vulpix_bacon"
 	tastes = list("dough" = 2, "dog meat" = 3, "bacon" = 2, "mushroom" = 2)

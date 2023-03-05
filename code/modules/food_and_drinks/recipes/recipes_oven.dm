@@ -274,8 +274,17 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
 
+/datum/recipe/oven/macncheesepizza
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/macncheese,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
+
 /datum/recipe/oven/seapizza
-	reagents = list("herbs" = 1, "gsauce" = 1)
+	reagents = list("herbsmix" = 1, "gsauce" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
@@ -287,7 +296,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/seafood
 
 /datum/recipe/oven/tajarpizza
-	reagents = list("herbs" = 1, "tsauce" = 1, "blackpepper" = 1)
+	reagents = list("herbsmix" = 1, "tsauce" = 1, "blackpepper" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
@@ -310,7 +319,7 @@
 	result = /obj/item/reagent_containers/food/snacks/sliceable/pizza/bacon
 
 /datum/recipe/oven/diablopizza
-	reagents = list("herbs" = 1, "dsauce" = 1)
+	reagents = list("herbsmix" = 1, "dsauce" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,

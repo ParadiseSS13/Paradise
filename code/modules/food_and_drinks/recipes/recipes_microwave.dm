@@ -789,7 +789,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/egg
 	)
-	result = /obj/item/reagent_containers/food/condiment/garlicsauce
+	result = /obj/item/reagent_containers/food/condiment/custard
 
 //////////////////////////////////////////
 // bs12 food port stuff

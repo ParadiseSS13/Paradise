@@ -152,14 +152,6 @@
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#e6d600"
-	name = "diablo sauce"
-	id = "dsauce"
-	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
-	reagent_state = LIQUID
-	nutriment_factor = 5 * REAGENTS_METABOLISM
-	color = "#440804" // rgb: 115, 16, 8
-	taste_description = "hot tomato sauce"
-	taste_description = "cheese sauce"
 
 /datum/reagent/consumable/mushroomsauce
 	name = "mushroom sauce"

@@ -11,7 +11,7 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
 	container_type = OPENCONTAINER
-	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
+	possible_transfer_amounts = list(1, 5)
 	visible_transfer_rate = TRUE
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
@@ -218,7 +218,7 @@
 	name = "diablo sauce"
 	desc = "An ancient burning sauce, its recipe has hardly changed since its creation."
 	icon_state = "diablosauce"
-	list_reagents = list("dsauce" = 30, "capsaicin" = 20)
+	list_reagents = list("dsauce" = 50)
 	possible_states = list()
 
 //Cheese sauce
