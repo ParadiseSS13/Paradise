@@ -131,14 +131,6 @@
 	build_path = /obj/item/stack/sheet/leather
 	category = list("initial", "Organic Materials")
 
-/datum/design/strange_seeds
-	name = "Strange seeds"
-	id = "strange_seeds"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 5000)
-	build_path = /obj/item/seeds/random
-	category = list("initial","Organic Materials")
-
 /datum/design/hydrobelt
 	name = "Botanist belt"
 	id = "hydrobelt"
