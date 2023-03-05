@@ -104,12 +104,12 @@ emp_act
 			E = S
 		else if(LAZYLEN(childlist))
 			E = pick_n_take(childlist)
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				continue
 		else if(S.parent && !parenthealed)
 			E = S.parent
 			parenthealed = TRUE
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam  || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				break
 		else
 			break

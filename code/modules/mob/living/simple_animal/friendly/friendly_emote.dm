@@ -91,3 +91,12 @@
 	key = "purr"
 	key_third_person = "purrs"
 	message = "purrs."
+
+/datum/emote/living/sit/cat
+	message = null
+	mob_type_allowed_typecache = list(/mob/living/simple_animal/pet/cat)
+
+/datum/emote/living/sit/cat/run_emote(mob/user, params, type_override, intentional)
+	var/mob/living/simple_animal/pet/cat/C = user
+	C.sit()
+	return TRUE

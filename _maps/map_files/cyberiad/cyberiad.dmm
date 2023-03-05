@@ -62,6 +62,7 @@
 	dir = 9
 	},
 /mob/living/simple_animal/bot/secbot/pingsky,
+/mob/living/simple_animal/bot/secbot/pingsky,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24939,15 +24940,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
 	dir = 4;
@@ -30732,6 +30724,12 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bzd" = (
+/turf/simulated/floor/plasteel{
+	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing.";
+	dir = 4;
+	icon_state = "plaque";
+	name = "Memorial Plaque"
+	},
 /area/hallway/secondary/exit)
 "bze" = (
 /obj/structure/sign/barsign,
@@ -58411,6 +58409,13 @@
 "cWo" = (
 /obj/structure/table/wood,
 /obj/machinery/bottler,
+/obj/structure/sign/securearea{
+	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste... You were delicious.'";
+	icon_state = "monkey_painting";
+	name = "Mr. Deempisi portrait";
+	pixel_x = -28;
+	pixel_y = 4
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "cWp" = (
@@ -66310,7 +66315,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor"="Tank")
+	autolink_sensors = list("o2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -67501,7 +67506,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor"="Tank")
+	autolink_sensors = list("n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel{
@@ -68378,7 +68383,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -75633,7 +75638,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor"="Tank")
+	autolink_sensors = list("co2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -77402,7 +77407,7 @@
 	dir = 1;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -81024,7 +81029,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor"="Tank")
+	autolink_sensors = list("tox_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -81244,7 +81249,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -83092,7 +83097,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix")
+	autolink_sensors = list("burn_sensor" = "Burn Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -84250,7 +84255,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -84875,7 +84880,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor"="Tank")
+	autolink_sensors = list("air_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -89004,7 +89009,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor"="Tank")
+	autolink_sensors = list("waste_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -92740,7 +92745,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor"="Tank")
+	autolink_sensors = list("n2o_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -109438,7 +109443,6 @@ aGn
 aGn
 aRu
 bff
-aTz
 aTz
 aTz
 aXG
