@@ -8,7 +8,7 @@
 /datum/action/innate/drone_hide/Activate()
 	if(owner.layer != TURF_LAYER + 0.2)
 		owner.layer = TURF_LAYER + 0.2
-		to_chat(owner, text("<span class='notice'>You are now hiding.</span>"))
+		to_chat(owner, "<span class='notice'>You are now hiding.</span>")
 		owner.pass_flags |= PASSDOOR
 		return
 
