@@ -654,7 +654,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/heist/kidnap
 /datum/objective/heist/kidnap/choose_target()
-	var/list/roles = list("Chief Engineer","Research Director","Roboticist","Chemist","Station Engineer")
+	var/list/roles = list("Chief Engineer","Research Director","Chief Medical Officer","Head of Personal","Head of Security","Nanotrasen Representative","Magistrate","Roboticist","Chemist")
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 
@@ -767,29 +767,23 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/heist/salvage
 /datum/objective/heist/salvage/choose_target()
-	switch(rand(1,8))
+	switch(rand(1,6))
 		if(1)
-			target = "metal"
-			target_amount = 300
-		if(2)
-			target = "glass"
-			target_amount = 200
-		if(3)
 			target = "plasteel"
 			target_amount = 100
-		if(4)
+		if(2)
 			target = "solid plasma"
 			target_amount = 100
-		if(5)
+		if(3)
 			target = "silver"
 			target_amount = 50
-		if(6)
+		if(4)
 			target = "gold"
 			target_amount = 20
-		if(7)
+		if(5)
 			target = "uranium"
 			target_amount = 20
-		if(8)
+		if(6)
 			target = "diamond"
 			target_amount = 20
 
