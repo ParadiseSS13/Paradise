@@ -10,8 +10,7 @@
 	speak_emote = list("квак","куак","квуак")
 	emote_hear = list("квак","куак","квуак")
 	emote_see = list("лежит расслабленная", "увлажнена", "издает гортанные звуки", "лупает глазками")
-	var/squeak_sound = 'sound/creatures/frog_scream1.ogg'
-	var/scream_sound = 'sound/creatures/frog_scream2.ogg'
+	var/scream_sound = list ('sound/creatures/frog_scream_1.ogg','sound/creatures/frog_scream_2.ogg','sound/creatures/frog_scream_3.ogg')
 	talk_sound = list('sound/creatures/frog_talk1.ogg', 'sound/creatures/frog_talk2.ogg')
 	damaged_sound = list('sound/creatures/frog_damaged.ogg')
 	death_sound = 'sound/creatures/frog_death.ogg'
@@ -90,15 +89,48 @@
 	name = "орущая лягушка"
 	real_name = "орущая лягушка"
 	desc = "Не любит когда на неё наступают. Используется в качестве наказания за проступки"
+	var/squeak_sound = list ('sound/creatures/frog_scream1.ogg','sound/creatures/frog_scream2.ogg')
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/frog/scream/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1, "[scream_sound]" = 1), 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
 
 /mob/living/simple_animal/frog/toxic/scream
+	var/squeak_sound = list ('sound/creatures/frog_scream1.ogg','sound/creatures/frog_scream2.ogg')
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/frog/toxic/scream/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1, "[scream_sound]" = 1), 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+
+/mob/living/simple_animal/frog/handle_automated_movement()
+	. = ..()
+	if(!resting && !buckled)
+		if(prob(1))
+			custom_emote(1,"издаёт боевой клич!")
+			playsound(src, pick(src.scream_sound), 50, TRUE)
+
+/mob/living/simple_animal/frog/emote(act, m_type = 1, message = null, force)
+	if(incapacitated())
+		return
+
+	var/on_CD = 0
+	act = lowertext(act)
+	switch(act)
+		if("warcry")
+			on_CD = handle_emote_CD()
+		else
+			on_CD = 0
+
+	if(!force && on_CD == 1)
+		return
+
+	switch(act)
+		if("warcry")
+			message = "издаёт боевой клич!"
+			m_type = 2 //audible
+			playsound(src, pick(src.scream_sound), 50, TRUE)
+		if("help")
+			to_chat(src, "warcry")
+	..()
