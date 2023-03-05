@@ -7741,7 +7741,8 @@
 /area/centcom/supply)
 "dZv" = (
 /obj/structure/piano{
-	icon_state = "piano"
+	icon_state = "piano";
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 8

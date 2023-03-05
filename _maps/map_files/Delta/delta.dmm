@@ -737,7 +737,7 @@
 	},
 /area/security/permabrig)
 "aee" = (
-/obj/effect/mob_spawn/human/skeleton,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
 "aeG" = (
@@ -8097,11 +8097,10 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "baM" = (
-/obj/structure/bed/dogbed/pet,
-/obj/structure/bed/dogbed/pet,
-/obj/structure/bed/dogbed/pet,
-/turf/simulated/wall/r_wall,
-/area/toxins/misc_lab)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/toxins/sm_test_chamber)
 "baS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -8887,16 +8886,6 @@
 	icon_state = "purple"
 	},
 /area/janitor)
-"bgm" = (
-/obj/item/radio/intercom{
-	dir = 0;
-	pixel_x = 29
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "blue"
-	},
-/area/hydroponics)
 "bgn" = (
 /obj/structure/table/reinforced,
 /obj/item/restraints/legcuffs/beartrap,
@@ -21616,9 +21605,9 @@
 "cjf" = (
 /obj/structure/bed,
 /obj/item/clothing/under/color/orange/prison,
-/obj/effect/mob_spawn/human/skeleton,
 /obj/item/restraints/handcuffs,
 /obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "cjg" = (
@@ -23597,6 +23586,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/fitness)
+"csl" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating,
+/area/toxins/sm_test_chamber)
 "csm" = (
 /obj/machinery/power/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -31972,6 +31968,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	pixel_x = 30;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/hydroponics)
 "cXM" = (
@@ -37747,8 +37747,6 @@
 	},
 /area/maintenance/kitchen)
 "dtE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -37760,6 +37758,12 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -43327,6 +43331,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"dON" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/toxins/sm_test_chamber)
 "dOS" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box/eternal,
@@ -47046,6 +47057,9 @@
 "edJ" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -56353,14 +56367,15 @@
 /area/maintenance/bar)
 "geX" = (
 /obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	id_tag = "engsm1";
 	name = "Supermatter Blast Doors";
-	opacity = 0
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	opacity = 0;
+	icon_state = "open"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -71156,10 +71171,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/sign/science{
-	layer = 2.5;
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -79779,14 +79790,15 @@
 	heat_proof = 1;
 	name = "Supermatter Chamber"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	id_tag = "engsm1";
 	name = "Supermatter Blast Doors";
-	opacity = 0
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+	opacity = 0;
+	icon_state = "open"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/sm_test_chamber)
@@ -99230,6 +99242,9 @@
 	pixel_y = -30
 	},
 /obj/item/clothing/mask/gas,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
 "pCB" = (
@@ -105545,6 +105560,9 @@
 	},
 /obj/structure/window/plasmareinforced{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -113416,6 +113434,17 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"syK" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/sign/science{
+	layer = 2.5;
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "purplecorner"
+	},
+/area/hallway/primary/aft)
 "szb" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -120353,6 +120382,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
 "tZI" = (
@@ -122367,9 +122397,7 @@
 "uvW" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/light,
-/obj/machinery/vending/dinnerware{
-	products = list(/obj/item/storage/bag/tray=1,/obj/item/kitchen/utensil/fork=2,/obj/item/kitchen/knife=0,/obj/item/kitchen/rollingpin=0,/obj/item/kitchen/sushimat=1,/obj/item/reagent_containers/food/drinks/drinkingglass=2,/obj/item/clothing/suit/chef/classic=1,/obj/item/storage/belt/chef=0,/obj/item/reagent_containers/food/condiment/pack/ketchup=1,/obj/item/reagent_containers/food/condiment/pack/hotsauce=0,/obj/item/reagent_containers/food/condiment/saltshaker=1,/obj/item/reagent_containers/food/condiment/peppermill=2,/obj/item/whetstone=1,/obj/item/mixing_bowl=3,/obj/item/kitchen/mould/bear=1,/obj/item/kitchen/mould/worm=0,/obj/item/kitchen/mould/bean=0,/obj/item/kitchen/mould/ball=1,/obj/item/kitchen/mould/cane=1,/obj/item/kitchen/mould/cash=0,/obj/item/kitchen/mould/coin=0,/obj/item/kitchen/mould/loli=1,/obj/item/kitchen/cutter=0,/obj/item/eftpos=1)
-	},
+/obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -127128,6 +127156,9 @@
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -32;
 	pixel_y = 32
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -135986,6 +136017,9 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/machinery/poolcontroller{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -138074,7 +138108,8 @@
 	density = 0;
 	id_tag = "engsm1";
 	name = "Supermatter Blast Doors";
-	opacity = 0
+	opacity = 0;
+	icon_state = "open"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -139231,6 +139266,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
 	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
@@ -158140,7 +158178,7 @@ cTi
 jDz
 gtC
 mep
-edJ
+csl
 apE
 ybJ
 rqI
@@ -158395,7 +158433,7 @@ wUr
 pxR
 cTi
 xXS
-xrC
+dON
 qta
 pnU
 bGW
@@ -159169,7 +159207,7 @@ iXv
 xrC
 hld
 pHv
-xrC
+baM
 nWY
 tjr
 cTi
@@ -168425,7 +168463,7 @@ svD
 svD
 cRU
 mxZ
-baM
+oOZ
 uHA
 iQu
 oOo
@@ -170423,7 +170461,7 @@ baB
 bca
 gWH
 cXI
-bgm
+oCC
 iUP
 baF
 bWL
@@ -170678,9 +170716,9 @@ aYZ
 aYZ
 aYZ
 aYZ
-cgs
-ccC
 baF
+ccC
+cgs
 ctT
 baF
 baF
@@ -177691,7 +177729,7 @@ siH
 miw
 kQV
 jsc
-kQV
+syK
 uRI
 kQV
 xHs
