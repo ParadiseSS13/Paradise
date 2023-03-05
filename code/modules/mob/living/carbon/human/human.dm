@@ -1860,6 +1860,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()
+	if(mind && ("high_rp" in mind.curses)) // Probably need to make a new proc to handle curses in case if there will be new ones
+		curse_high_rp()
 
 /mob/living/carbon/human/proc/influenceSin()
 	var/datum/objective/sintouched/O

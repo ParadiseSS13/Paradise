@@ -222,6 +222,7 @@
 			var/datum/dna/D = data["dna"]
 			if(!D.species.is_small)
 				H.change_dna(D, TRUE, TRUE)
+				H.special_post_clone_handling()
 
 	return ..()
 

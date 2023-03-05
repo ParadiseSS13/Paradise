@@ -80,6 +80,8 @@
 
 	var/ambition_limit = 6 //Лимит амбиций
 
+	var/list/curses = list()
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
