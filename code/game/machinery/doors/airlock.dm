@@ -1221,18 +1221,19 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(!twohanded_item.wielded)
 			to_chat(user, "<span class='warning'>You need to be wielding [I] to do that!</span>")
 			return
-	if(density && !prying_so_hard)
-		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-		if(!arePowerSystemsOn() && can_force_open_while_unpowered)
-			open(2)
-			return
-		prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
-		var/result = do_after(user, time_to_open_airlock, target = src)
-		prying_so_hard = FALSE
-		if(result)
-			open(TRUE)
-			if(density && !open(TRUE))
-				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+	if(!density || prying_so_hard)
+		return
+	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+	if(!arePowerSystemsOn() && can_force_open_while_unpowered)
+		open(2)
+		return
+	prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
+	var/result = do_after(user, time_to_open_airlock, target = src)
+	prying_so_hard = FALSE
+	if(result)
+		open(TRUE)
+		if(density && !open(TRUE))
+			to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
 /obj/machinery/door/airlock/open(forced=0)
 	if(operating || welded || locked || emagged)
