@@ -1431,7 +1431,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	prying_so_hard = FALSE
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		// If we lost power, disable electrification
 		// Keeping door lights on, runs on internal battery or something.

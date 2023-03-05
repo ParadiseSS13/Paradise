@@ -241,6 +241,8 @@
 		return
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
+	if(!ishuman(user) && !isrobot(user)) //No ghosts, you cannot shove people into fucking lockers
+		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
 	if(!isturf(user.loc)) // are you in a container/closet/pod/etc?

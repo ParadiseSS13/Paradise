@@ -28,6 +28,8 @@
 	var/override_map = null
 	/// Assoc list of region names and their server IPs. Used for geo-routing.
 	var/list/region_map = list()
+	/// Send a system toast on init completion?
+	var/toast_on_init_complete = FALSE
 
 /datum/configuration_section/system_configuration/load_data(list/data)
 	// Use the load wrappers here. That way the default isnt made 'null' if you comment out the config line
@@ -35,6 +37,7 @@
 	CONFIG_LOAD_BOOL(is_production, data["is_production"])
 	CONFIG_LOAD_BOOL(external_tos_handler, data["external_tos_handler"])
 	CONFIG_LOAD_BOOL(enable_multi_instance_support, data["enable_multi_instance_support"])
+	CONFIG_LOAD_BOOL(toast_on_init_complete, data["toast_on_init_complete"])
 
 	CONFIG_LOAD_STR(topic_key, data["communications_password"])
 	CONFIG_LOAD_STR(shutdown_shell_command, data["shutdown_shell_command"])
