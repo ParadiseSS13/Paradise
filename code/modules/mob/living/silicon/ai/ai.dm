@@ -1294,7 +1294,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/message_clean = combine_message(message_pieces, M)
 	message_clean = replace_characters(message_clean, list("+"))
 
-	var/message = verb_message(message_clean, verb)
+	var/message = verb_message(message_pieces, message_clean, verb)
 
 	var/name_used = M.GetVoice()
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.

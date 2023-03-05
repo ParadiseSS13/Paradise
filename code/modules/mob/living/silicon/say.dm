@@ -79,7 +79,7 @@
 		var/message_clean = combine_message(message_pieces, src)
 		message_clean = replace_characters(message_clean, list("+"))
 
-		var/message = verb_message(message_clean, verb)
+		var/message = verb_message(message_pieces, message_clean, verb)
 		var/message_tts = combine_message_tts(message_pieces, src)
 
 		if ((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
