@@ -432,7 +432,7 @@
 	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,
-		/obj/item/lightreplacer/bluespace,
+		/obj/item/lightreplacer,
 		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
@@ -443,7 +443,7 @@
 		)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
-	new /obj/item/lightreplacer(src)
+	new /obj/item/lightreplacer/bluespace(src)
 	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
 	new /obj/item/soap/deluxe(src)
