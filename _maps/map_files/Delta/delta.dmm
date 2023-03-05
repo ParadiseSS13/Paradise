@@ -42883,11 +42883,11 @@
 /area/quartermaster/storage)
 "dNl" = (
 /obj/machinery/light/small,
-/obj/machinery/cooker/foodgrill,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -25
 	},
+/obj/machinery/kitchen_machine/grill,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7";
 	tag = "icon-wood-broken7"
