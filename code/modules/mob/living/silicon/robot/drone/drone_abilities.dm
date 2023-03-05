@@ -13,7 +13,7 @@
 		return
 
 	owner.layer = MOB_LAYER
-	to_chat(owner, text("<span class='notice'>You have stopped hiding.</span>"))
+	to_chat(owner, "<span class='notice'>You have stopped hiding.</span>")
 	owner.pass_flags &= ~PASSDOOR
 
 //Actual picking-up event.
