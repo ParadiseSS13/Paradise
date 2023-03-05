@@ -74,3 +74,11 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 					/obj/item/reagent_containers/food/snacks/grown/wheat,
 					/obj/item/stack/ore)
 	result = "meteor_malt"
+
+/datum/bottler_recipe/moonlight_skuma
+	name = "Moon'drin"
+	description = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans."
+	ingredients = list(/obj/item/reagent_containers/food/snacks/grown/moonlight,
+					/obj/item/reagent_containers/food/snacks/grown/moonlight,
+					/obj/item/reagent_containers/food/snacks/grown/moonlight)
+	result = "moonlight_skuma"

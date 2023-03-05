@@ -156,6 +156,9 @@
 	description = "A granular powder consisting of small white crystals, which is extracted from moonlight plant growing on the coasts and in the deltas of the Adomai rivers."
 	reagent_state = LIQUID
 	color = "#5ec3cc" // rgb: 96, 165, 132
+	drink_icon = "moonlight_d"
+	drink_name = "Moonlin"
+	drink_desc = "Strange drink with white crystals! Be aware, if you are tajaran."
 	overdose_threshold = 20
 	addiction_chance = 20
 	addiction_threshold = 15

@@ -144,3 +144,40 @@
 		var/mineral = pick("copper", "iron", "gold", "carbon", "silver", "aluminum", "silicon", "sodiumchloride", "plasma")
 		M.reagents.add_reagent(mineral, amount)
 	return ..()
+
+/datum/reagent/consumable/drink/moonlight_skuma
+	var/dizzy_adj = 3
+	var/alcohol_perc = 0.5
+	name = "Moon'drin"
+	id = "moonlight_skuma"
+	description = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans. Used in cocktails."
+	reagent_state = LIQUID
+	color = "#6734df"
+	taste_description = "alcohol, mint and you feel funny"
+	drink_icon = "moonlight_skuma"
+	drink_name = "Moon'drin"
+	drink_desc = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans. Used in cocktails."
+	addiction_chance = 2
+	dizzy_adj = 3
+	alcohol_perc = 0.5
+
+/datum/reagent/consumable/drink/moonlight_skuma/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.Druggy(30, FALSE)
+	switch(current_cycle)
+		if(1 to INFINITY)
+			M.Dizzy(5)
+			if(prob(15))
+				M.emote(pick("twitch","giggle"))
+				M.Dizzy(3)
+			if(prob(5))
+				M.Jitter(5)
+				M.emote("smile")
+				to_chat(M, "<span class='notice'>Вы испытываете приятные, теплые чувства, словно вы дома...</span>")
+			if(prob(20))
+				var/list/tider_talk = list("Тёплые пески Адомая так далеко...",
+										"Даже когти стали острее!",
+										"Надеюсь, мы летим туда, где тепло?",
+										"Пусть дорога приведёт нас в теплые пески.",)
+				M.say(pick(tider_talk))
+	return ..()

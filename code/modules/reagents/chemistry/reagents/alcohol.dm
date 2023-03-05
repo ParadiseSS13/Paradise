@@ -2198,3 +2198,27 @@
 	drink_name = "New Yorker"
 	drink_desc = "Be careful with the stock exchange, otherwise it will be 'Black Tuesday.'"
 	taste_description = "the collapse"
+
+/datum/reagent/consumable/ethanol/blue_moondrin
+	name = "Iluk Blue Moon'drin"
+	id = "blue_moondrin"
+	description = "Rarest tajaran drink in the galaxy! Be careful with your Captain!"
+	color = "#0026fc"
+	alcohol_perc = 0.7
+	addiction_chance = 4
+	drink_icon = "blue_moondrin"
+	drink_name = "Iluk Blue Moon'drin"
+	drink_desc = "Rarest tajaran drink in the galaxy! Be careful with your Captain!"
+	taste_description = "the blue set-up"
+
+/datum/reagent/consumable/ethanol/red_moondrin
+	name = "Redwater Moon'drin"
+	id = "red_moondrin"
+	description = "Illegal tajaran drink in Adomai, but maybe not here! Dangerous moon'drin based drink with secret ingridient. Be careful with this stuff!"
+	color = "#960202"
+	alcohol_perc = 0.9
+	addiction_chance = 7
+	drink_icon = "red_moondrin"
+	drink_name = "Redwater Moon'drin"
+	drink_desc = "Dangerous moon'drin based tajaran drink with secret ingridient. It seems legal but also wrong..."
+	taste_description = "blood red pain in your stomach! But it feels so go-o-o-o-od.."
