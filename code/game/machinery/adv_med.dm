@@ -15,7 +15,7 @@
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. Click-drag someone to the scanner to place them inside.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.</span>"
 
 
 /obj/machinery/bodyscanner/Destroy()

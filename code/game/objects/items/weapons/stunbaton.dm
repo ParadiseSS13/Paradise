@@ -75,7 +75,7 @@
 	else
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
 	. += "<span class='notice'>When turned on this item will knockdown anyone it hits after a short delay. While on harm intent, this item will also do some brute damage, even if turned on.</span>"
-	. += "<span class='notice'>This item can be recharged in a weapons charger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.</span>"
+	. += "<span class='notice'>This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.</span>"
 
 
 /obj/item/melee/baton/get_cell()

@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging.</span>"
+	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging in a <b>cyborg recharger</b>.</span>"
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50

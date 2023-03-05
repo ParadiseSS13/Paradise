@@ -7,7 +7,7 @@
 
 /obj/item/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use this item in hand to create an inflatible wall.</span>"
+	. += "<span class='notice'><b>Use this item in hand</b> to create an inflatible wall.</span>"
 
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)

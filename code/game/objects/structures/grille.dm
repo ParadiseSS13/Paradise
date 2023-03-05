@@ -24,7 +24,7 @@
 /obj/structure/grille/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>A powered wire underneath this will cause the grille to shock anyone who touches the grill. An electric shock may leap forth if the grill is damaged.</span>"
-	. += "<span class='notice'>Use wirecutters to deconstruct this item.</span>"
+	. += "<span class='notice'>Use <b>wirecutters</b> to deconstruct this item.</span>"
 
 
 /obj/structure/grille/fence

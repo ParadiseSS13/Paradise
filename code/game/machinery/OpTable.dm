@@ -32,7 +32,7 @@
 
 /obj/machinery/optable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Click-drag someone to the table to place them on top of the table.</span>"
+	. += "<span class='notice'><b>Click-drag</b> someone to the table to place them on top of the table.</span>"
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)

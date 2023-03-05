@@ -34,7 +34,7 @@
 /obj/machinery/sleeper/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. Click-drag someone to the sleeper to place them in it after a short delay.</span>"
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
 
 /obj/machinery/sleeper/power_change()
 	..() //we don't check parent return here because we also care about BROKEN

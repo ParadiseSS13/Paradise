@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 
 /obj/item/stack/sheet/glass/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of glass by recharging.</span>"
+	. += "<span class='notice'>As a synthetic, you can regain sheets of glass by recharging in a <b>cyborg recharger</b>.</span>"
 
 
 /obj/item/stack/sheet/glass/New(loc, amount)
@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 
 /obj/item/stack/sheet/rglass/cyborg/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging.</span>"
+	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging in a <b>cyborg recharger</b>.</span>"
 
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"

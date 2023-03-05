@@ -27,7 +27,7 @@
 			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
 		if(GIRDER_DISASSEMBLED)
 			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
-	. += "<span class='notice'>Various different types of metal sheets can be used on this to create different kinds of walls.</span>"
+	. += "<span class='notice'>Various types of metal sheets can be used on this to create different kinds of walls.</span>"
 	. += "<span class='notice'>Apply a crowbar to this item to cause any walls to be made to be false walls. Use a wrench on this item to deconstruct it.</span>"
 
 

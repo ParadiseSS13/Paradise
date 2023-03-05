@@ -549,7 +549,7 @@
 	. = ..()
 	if(isAntag(user))
 		. += "<span class='warning'>This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
-			Activate the staff while wearing robes to link them both, then aim the staff at your victim to try and convert them.</span>"
+			<b>Use the staff in hand</b> while wearing robes to link them both, then aim the staff at your victim to try and convert them.</span>"
 
 
 /obj/item/nullrod/missionary_staff/New()
