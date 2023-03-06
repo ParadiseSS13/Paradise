@@ -96,8 +96,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/diona/resist()
-	..()
+/mob/living/simple_animal/diona/run_resist()
 	split()
 
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
