@@ -111,14 +111,63 @@
 	name = "Syndicate Freedom Operative"
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 
-
 /datum/outfit/admin/syndicate_strike_team
-	name = "Syndicate Strike Team"
+	name = "Syndicate Strike Team Commando"
+	uniform = /obj/item/clothing/under/syndicate
+	back = /obj/item/storage/backpack/security
+	shoes =	/obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
+	l_pocket = /obj/item/card/emag
+	r_pocket = /obj/item/melee/energy/sword/saber/red
+	id = /obj/item/card/id/syndicate
+	box = /obj/item/storage/box/survival_syndi
+	backpack_contents = list(
+		/obj/item/grenade/plastic/x4 = 2,
+		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
+		/obj/item/gun/projectile/revolver = 1,
+		/obj/item/ammo_box/a357 = 1
+	)
+	implants = list(/obj/item/implant/dust)
+	can_be_admin_equipped = FALSE
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = H.equip_syndicate_commando(FALSE, TRUE)
+	..()
+	var/obj/item/card/id/syndicate/I = H.wear_id
+	I.icon_state = "syndie"
+	I.name = "[H.real_name]'s ID Card"
+	I.assignment = "Syndicate Commando"
+	I.access += get_syndicate_access(I.assignment)
+	I.registered_name = H.real_name
 	if(!visualsOnly)
 		H.faction += "syndicate"
+
+/datum/outfit/admin/syndicate_strike_team/officer
+	name = "Syndicate Stirke Team Officer"
+	pda = /obj/item/pinpointer
+
+/datum/outfit/admin/syndicate_strike_team/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	.=..()
+	H.back.contents += new /obj/item/disk/nuclear/unrestricted
+
+/datum/outfit/admin/syndicate_strike_team/full_gear
+	name = "Syndicate Strike Team Commando"
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst
+	belt = /obj/item/storage/belt/military/sst
+	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
+	mask = /obj/item/clothing/mask/gas/syndicate
+	glasses = /obj/item/clothing/glasses/thermal/sunglasses
+	l_hand = /obj/item/gun/projectile/automatic/l6_saw
+
+	backpack_contents = list(
+		/obj/item/tank/jetpack/oxygen/harness = 1,
+		/obj/item/ammo_box/magazine/mm556x45 = 1,
+		/obj/item/grenade/plastic/x4 = 2,
+		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
+		/obj/item/gun/projectile/revolver = 1,
+		/obj/item/ammo_box/a357 = 1
+	)
+	can_be_admin_equipped = TRUE
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
@@ -323,8 +372,59 @@
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"
 
-/datum/outfit/admin/death_commando/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_death_commando()
+	uniform = /obj/item/clothing/under/rank/centcom_officer
+	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
+	back = /obj/item/storage/backpack/ert/security
+	belt = /obj/item/gun/projectile/revolver/mateba
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/magboots/advance
+	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	l_pocket = /obj/item/shield/energy
+	r_pocket = /obj/item/melee/energy/sword/saber
+	l_hand = /obj/item/gun/energy/pulse
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+	l_ear = /obj/item/radio/headset/alt
+	id = /obj/item/card/id
+	pda = /obj/item/pinpointer
+	box = /obj/item/storage/box/responseteam
+
+	backpack_contents = list(
+		/obj/item/storage/box/handcuffs = 1,
+		/obj/item/storage/box/flashbangs = 1,
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
+		/obj/item/grenade/plastic/x4 = 1,
+		/obj/item/ammo_box/a357 = 1
+	)
+
+	implants = list(/obj/item/implant/mindshield/ert)
+
+/datum/outfit/admin/death_commando/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/radio/R = H.l_ear
+	R.set_frequency(DTH_FREQ)
+	R.requires_tcomms = FALSE
+	R.instant = TRUE
+	R.freqlock = TRUE
+
+	var/obj/item/card/id/I = H.wear_id
+	I.icon_state = "deathsquad"
+	H.sec_hud_set_ID()
+	if(istype(I))
+		apply_to_card(I, H, get_centcom_access("Death Commando"), "Death Commando")
+	I.photo = get_id_photo(H, custom_job = "Nanotrasen Representative") // They should go die with a good photo instead of assistants grey shorts xD
+
+/datum/outfit/admin/death_commando/officer
+	name = "NT Death Commando officer"
+	can_be_admin_equipped = FALSE
+
+/datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	.=..()
+	H.back.contents += new /obj/item/disk/nuclear/unrestricted
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"

@@ -367,33 +367,6 @@
 
 	return new_character
 
-/datum/admins/proc/create_syndicate_death_commando(obj/spawn_location, syndicate_leader_selected = 0)
-	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
-	var/syndicate_commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
-	var/syndicate_commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
-	var/syndicate_commando_name = pick(GLOB.last_names)
-
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
-	if(syndicate_leader_selected)
-		A.real_name = "[syndicate_commando_leader_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : syndicate_commando_name]"
-		A.age = rand(35,45)
-	else
-		A.real_name = "[syndicate_commando_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : syndicate_commando_name]"
-	A.copy_to(new_syndicate_commando)
-
-	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
-
-	//Creates mind stuff.
-	new_syndicate_commando.mind_initialize()
-	new_syndicate_commando.mind.assigned_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
-	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
-	new_syndicate_commando.mind.offstation_role = TRUE
-	//Adds them to current traitor list. Which is really the extra antagonist list.
-	SSticker.mode.traitors += new_syndicate_commando.mind
-	new_syndicate_commando.equip_syndicate_commando(syndicate_leader_selected)
-
-	return new_syndicate_commando
-
 /datum/admins/proc/makeVoxRaiders()
 	var/antnum = input(owner, "How many raiders you want to create? Enter 0 to cancel.","Amount:", 0) as num
 	if(!antnum || antnum <= 0)
