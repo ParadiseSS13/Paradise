@@ -1513,9 +1513,10 @@
 	},
 /area/turret_protected/ai)
 "ajT" = (
-/obj/machinery/camera{
+/obj/machinery/camera/motion{
 	c_tag = "AI Core South";
-	dir = 1
+	dir = 1;
+	start_active = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -63192,8 +63193,10 @@
 /obj/machinery/porta_turret{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "AI Core North"
+/obj/machinery/camera/motion{
+	c_tag = "AI Core North";
+	dir = 6;
+	start_active = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
