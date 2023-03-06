@@ -529,6 +529,8 @@
 		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
+		if(L.grabbed_by)
+			QDEL_LIST(L.grabbed_by)
 		SStgui.update_uis(src)
 		return
 	return
