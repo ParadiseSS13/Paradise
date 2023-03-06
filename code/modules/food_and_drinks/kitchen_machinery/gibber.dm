@@ -25,7 +25,7 @@
 
 /obj/machinery/gibber/Initialize(mapload)
 	. = ..()
-	add_overlay("grjam")
+	add_overlay("grinder_jam")
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gibber(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
