@@ -300,7 +300,7 @@
 			if(L == default_language)
 				default_str = " - default - <a href='byond://?src=[UID()];default_lang=reset'>reset</a>"
 			else
-				default_str = " - <a href='byond://?src=[UID()];default_lang=[L]'>set default</a>"
+				default_str = " - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a>"
 
 			var/synth = (L in speech_synthesizer_langs)
 			. += "<b>[L.name] (:[L.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[L.desc]<br><br>"
