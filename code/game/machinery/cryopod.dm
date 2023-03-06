@@ -583,6 +583,9 @@
 	else
 		willing = 1
 
+	if(istype(L.loc, /obj/machinery/cryopod))
+		return
+
 	if(willing)
 		if(!Adjacent(L) && !Adjacent(user))
 			to_chat(user, "<span class='boldnotice'>You're not close enough to [src].</span>")
