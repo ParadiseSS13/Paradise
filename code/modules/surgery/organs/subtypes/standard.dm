@@ -259,6 +259,16 @@
 		if(brute_dam + burn_dam > 50)
 			disfigure()
 
+/obj/item/organ/external/head/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(!contents.len)
+			. += "<span class='notice'>Выглядит пустой.</span>"
+		else
+			. += "<span class='notice'>Выглядит относительно целой, внутри что-то есть.</span>"
+	else
+		. += "<span class='notice'>Вы должны подойти ближе, чтобы осмотреть это.</span>"
+
 /obj/item/organ/external/head/proc/handle_alt_icon()
 	if(alt_head && GLOB.alt_heads_list[alt_head])
 		var/datum/sprite_accessory/alt_heads/alternate_head = GLOB.alt_heads_list[alt_head]
