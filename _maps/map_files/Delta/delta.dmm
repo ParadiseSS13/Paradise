@@ -69146,10 +69146,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -101362,6 +101358,10 @@
 	c_tag = "Atmospherics Front Desk";
 	dir = 4;
 	network = list("SS13","Engineering")
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
