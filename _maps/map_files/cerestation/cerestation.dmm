@@ -55912,11 +55912,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
-"jMC" = (
-/obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/crew_quarters/fitness)
 "jMD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -112108,7 +112103,7 @@ gwQ
 kWu
 kWu
 pwt
-jMC
+pwt
 pwt
 dVo
 pwt
