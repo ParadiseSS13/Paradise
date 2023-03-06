@@ -373,3 +373,20 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_DANCE_DISCO
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_DANCE_DISCO) ? "now" : "no longer"] dance to the radiant dance machine.")
+
+/client/verb/manage_adminsound_mutes()
+	set name = "Manage Admin Sound Mutes"
+	set category = "Preferences"
+	set desc = "Manage admins that you wont hear played audio from"
+
+	if(!length(prefs.admin_sound_ckey_ignore))
+		to_chat(usr, "You have no admins with muted sounds.")
+		return
+
+	var/choice  = input(usr, "Select an admin to unmute sounds from.", "Pick an admin") as null|anything in prefs.admin_sound_ckey_ignore
+	if(!choice)
+		return
+
+	prefs.admin_sound_ckey_ignore -= choice
+	to_chat(usr, "You will now hear sounds from <code>[choice]</code> again.")
+	prefs.save_preferences(src)

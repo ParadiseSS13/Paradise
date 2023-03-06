@@ -172,6 +172,18 @@
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
+			return
+
+		if("silenceSound")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			return
+
+		if("muteAdmin")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			prefs.admin_sound_ckey_ignore |= href_list["a"]
+			to_chat(usr, "You will no longer head admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
+			prefs.save_preferences(src)
+			return
 
 	//fun fact: Topic() acts like a verb and is executed at the end of the tick like other verbs. So we have to queue it if the server is
 	//overloaded
