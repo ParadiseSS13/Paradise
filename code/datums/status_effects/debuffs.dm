@@ -831,7 +831,7 @@
 	status_type = STATUS_EFFECT_REPLACE
 	tick_interval = 2
 	alert_type = null
-	var/msg_stage = 0//so you dont get the most intense messages immediately
+	var/msg_stage = 0 // So you dont get the most intense messages immediately
 
 /datum/status_effect/fake_virus/tick()
 	var/fake_msg = ""
