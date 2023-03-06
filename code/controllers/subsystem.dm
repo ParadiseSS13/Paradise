@@ -15,18 +15,19 @@
 	var/can_fire = TRUE
 
 	// Bookkeeping variables; probably shouldn't mess with these.
-	var/last_fire = 0		//last world.time we called fire()
-	var/next_fire = 0		//scheduled world.time for next fire()
-	var/cost = 0			//average time to execute
-	var/tick_usage = 0		//average tick usage
-	var/tick_overrun = 0	//average tick overrun
-	var/state = SS_IDLE		//tracks the current state of the ss, running, paused, etc.
-	var/paused_ticks = 0	//ticks this ss is taking to run right now.
-	var/paused_tick_usage	//total tick_usage of all of our runs while pausing this run
-	var/ticks = 1			//how many ticks does this ss take to run on avg.
-	var/times_fired = 0		//number of times we have called fire()
-	var/queued_time = 0		//time we entered the queue, (for timing and priority reasons)
-	var/queued_priority 	//we keep a running total to make the math easier, if priority changes mid-fire that would break our running total, so we store it here
+	var/last_fire = 0			//last world.time we called fire()
+	var/next_fire = 0			//scheduled world.time for next fire()
+	var/cost = 0				//average time to execute
+	var/tick_usage = 0			//average tick usage
+	var/tick_overrun = 0		//average tick overrun
+	var/state = SS_IDLE			//tracks the current state of the ss, running, paused, etc.
+	var/paused_ticks = 0		//ticks this ss is taking to run right now.
+	var/paused_tick_usage		//total tick_usage of all of our runs while pausing this run
+	var/ticks = 1				//how many ticks does this ss take to run on avg.
+	var/times_fired = 0			//number of times we have called fire()
+	var/queued_time = 0			//time we entered the queue, (for timing and priority reasons)
+	var/queued_priority 		//we keep a running total to make the math easier, if priority changes mid-fire that would break our running total, so we store it here
+	var/fire_sleep_count = 0 	//amount of times the subsystem has slept during fire()
 	//linked list stuff for the queue
 	var/datum/controller/subsystem/queue_next
 	var/datum/controller/subsystem/queue_prev
@@ -229,3 +230,18 @@
 		if("queued_priority") //editing this breaks things.
 			return 0
 	. = ..()
+
+/**
+  * Returns the metrics for the subsystem.
+  *
+  * This can be overriden on subtypes for variables that could affect tick usage
+  * Example: ATs on SSair
+  */
+/datum/controller/subsystem/proc/get_metrics()
+	SHOULD_CALL_PARENT(TRUE)
+	var/list/out = list()
+	out["cost"] = cost
+	out["tick_usage"] = tick_usage
+	out["sleep_count"] = fire_sleep_count
+	out["custom"] = list() // Override as needed on child
+	return out
