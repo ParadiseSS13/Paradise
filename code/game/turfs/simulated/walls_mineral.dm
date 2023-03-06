@@ -280,6 +280,9 @@
 /turf/simulated/wall/mineral/titanium/nodecon/welder_act()
 	return
 
+/turf/simulated/wall/mineral/titanium/nodecon/rcd_deconstruct_act()
+	return RCD_NO_ACT
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium

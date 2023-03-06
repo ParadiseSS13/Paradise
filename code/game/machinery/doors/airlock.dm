@@ -1509,6 +1509,24 @@ About the new airlock wires panel:
 	A.name = name
 	qdel(src)
 
+/obj/machinery/door/airlock/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(our_rcd.checkResource(20, user))
+		to_chat(user, "Deconstructing airlock...")
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!our_rcd.useResource(20, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Deconstructed airlock with RCD")
+			qdel(src)
+			return RCD_ACT_SUCCESSFULL
+		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		return RCD_ACT_FAILED
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this airlock!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
 /obj/machinery/door/airlock/proc/ai_control_callback()
 	if(aiControlDisabled == AICONTROLDISABLED_ON)
 		aiControlDisabled = AICONTROLDISABLED_OFF

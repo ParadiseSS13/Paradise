@@ -61,6 +61,41 @@
 		new /obj/structure/grille/ratvar(loc)
 	qdel(src)
 
+/obj/structure/grille/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(!our_rcd.checkResource(2, user))
+		to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this window!"))
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		return RCD_ACT_FAILED
+	to_chat(user, "Deconstructing window...")
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		return RCD_ACT_FAILED
+	if(!our_rcd.useResource(2, user))
+		return RCD_ACT_FAILED
+	playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+	var/turf/T1 = get_turf(src)
+	add_attack_logs(user, src, "Deconstructed window with RCD")
+	for(var/obj/structure/window/del_window in T1.contents)
+		qdel(del_window)
+	for(var/cdir in GLOB.cardinal)
+		var/turf/T2 = get_step(T1, cdir)
+		var/is_fulltile = our_rcd.fulltile_window
+		if(!(locate(/obj/structure/grille) in T2))
+			continue
+		for(var/obj/structure/window/check_window in T2)
+			if(check_window.fulltile)
+				is_fulltile = TRUE // Fulltile windows? Nah. We don't need extra windows there.
+				continue
+			if(check_window.dir == turn(cdir, 180))
+				qdel(check_window)
+		if(!is_fulltile)
+			var/obj/structure/window/new_window = new our_rcd.window_type(T2)
+			new_window.dir = turn(cdir, 180)
+	QDEL_IN(src, 0.2)
+	return RCD_ACT_SUCCESSFULL
+
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
 		if(!(shockcooldown <= world.time))

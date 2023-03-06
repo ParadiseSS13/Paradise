@@ -278,3 +278,104 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/can_have_cabling()
 	return !burnt && !broken
+
+/turf/simulated/floor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(our_rcd.checkResource(5, user))
+		to_chat(user, "Deconstructing floor...")
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!our_rcd.useResource(5, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Deconstructed floor with RCD")
+			src.ChangeTurf(baseturf)
+			return RCD_ACT_SUCCESSFULL
+		return RCD_ACT_FAILED
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this floor!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
+/turf/simulated/floor/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	. = ..()
+	if(locate(/obj/machinery/field) in src)
+		to_chat(user, span_warning("ERROR! Due to safety protocols building is prohibited in high-energy field areas!"))
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		return RCD_ACT_FAILED
+	switch(rcd_mode)
+		if(RCD_MODE_TURF)
+			if(our_rcd.checkResource(3, user))
+				to_chat(user, "Building Wall...")
+				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+				if(do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+					if(!our_rcd.useResource(3, user))
+						return RCD_ACT_FAILED
+					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+					add_attack_logs(user, src, "Constructed wall with RCD")
+					ChangeTurf(our_rcd.wall_type)
+					return RCD_ACT_SUCCESSFULL
+				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				return RCD_ACT_FAILED
+			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this wall!"))
+			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+			return RCD_ACT_FAILED
+		if(RCD_MODE_AIRLOCK)
+			if(our_rcd.checkResource(10, user))
+				to_chat(user, "Building Airlock...")
+				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+					if(locate(/obj/machinery/door/airlock) in src.contents)
+						return RCD_NO_ACT
+					if(!our_rcd.useResource(10, user))
+						return RCD_ACT_FAILED
+					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+					var/obj/machinery/door/airlock/T = new our_rcd.door_type(src)
+					add_attack_logs(user, T, "Constructed airlock with RCD")
+					T.name = our_rcd.door_name
+					T.autoclose = TRUE
+					if(our_rcd.one_access)
+						T.req_one_access = our_rcd.selected_accesses.Copy()
+					else
+						T.req_access = our_rcd.selected_accesses.Copy()
+					return RCD_ACT_SUCCESSFULL
+				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				return RCD_ACT_FAILED
+			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this airlock!"))
+			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+			return RCD_ACT_FAILED
+		if(RCD_MODE_WINDOW)
+			if(locate(/obj/structure/grille) in src)
+				return // We already have window
+			if(!our_rcd.checkResource(2, user))
+				to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this window!"))
+				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+				return RCD_ACT_FAILED
+			to_chat(user, "Constructing window...")
+			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+			if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				return RCD_ACT_FAILED
+			if(locate(/obj/structure/grille) in src)
+				return RCD_NO_ACT// We already have window
+			if(!our_rcd.useResource(2, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Constructed window with RCD")
+			new /obj/structure/grille(src)
+			for(var/obj/structure/window/del_window in src)
+				qdel(del_window)
+			if(!our_rcd.fulltile_window)
+				for(var/cdir in GLOB.cardinal)
+					var/turf/T = get_step(src, cdir)
+					if(locate(/obj/structure/grille) in T)
+						for(var/obj/structure/window/del_window in T)
+							if(del_window.dir == turn(cdir, 180))
+								qdel(del_window)
+					else  // Build a window!
+						var/obj/structure/window/new_window = new our_rcd.window_type(src)
+						new_window.dir = cdir
+			else
+				new our_rcd.window_type(src)
+			ChangeTurf(our_rcd.floor_type) // Platings go under windows.
+			return RCD_ACT_SUCCESSFULL
+	return RCD_NO_ACT

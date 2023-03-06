@@ -193,98 +193,55 @@
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
-	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
-	var/canRwall = 0
+	var/obj/item/rcd/mecha_ref/rcd_holder
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/rcd/New()
 	GLOB.rcd_list += src
+	rcd_holder = new(rcd_holder)
+	rcd_holder.power_use_multiplier = energy_drain
 	..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
 	GLOB.rcd_list -= src
+	rcd_holder.chassis = null
+	qdel(rcd_holder)
 	return ..()
 
+/obj/item/mecha_parts/mecha_equipment/rcd/attach(obj/mecha/M)
+	rcd_holder.chassis = M
+	. = ..()
+
 /obj/item/mecha_parts/mecha_equipment/rcd/action(atom/target)
-	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
-		return
-
-	if(!istype(target, /turf) && !istype(target, /obj/machinery/door/airlock))
-		target = get_turf(target)
-
 	if(!action_checks(target) || get_dist(chassis, target)>3)
 		return
+	var/area/check_area = get_area(target)
+	if(check_area?.type in rcd_holder.areas_blacklist)
+		to_chat(chassis.occupant, span_warning("Something prevents you from using [rcd_holder] in here..."))
+		return
 	playsound(chassis, 'sound/machines/click.ogg', 50, 1)
-
-	switch(mode)
-		if(0)
-			if(istype(target, /turf/simulated/wall))
-				if(istype(target, /turf/simulated/wall/indestructible))
-					return 0
-				if(istype(target, /turf/simulated/wall/r_wall) && !canRwall)
-					return 0
-				var/turf/simulated/wall/W = target
-				occupant_message("Deconstructing [target]...")
-				if(do_after_cooldown(W))
-					chassis.spark_system.start()
-					W.ChangeTurf(/turf/simulated/floor/plating)
-					playsound(W, usesound, 50, 1)
-			else if(istype(target, /turf/simulated/floor))
-				var/turf/simulated/floor/F = target
-				occupant_message("Deconstructing [target]...")
-				if(do_after_cooldown(F))
-					chassis.spark_system.start()
-					F.ChangeTurf(F.baseturf)
-					F.air_update_turf()
-					playsound(F, usesound, 50, 1)
-			else if(istype(target, /obj/machinery/door/airlock))
-				occupant_message("Deconstructing [target]...")
-				if(do_after_cooldown(target))
-					chassis.spark_system.start()
-					qdel(target)
-					playsound(target, usesound, 50, 1)
-		if(1)
-			if(istype(target, /turf/space))
-				var/turf/space/S = target
-				occupant_message("Building Floor...")
-				if(do_after_cooldown(S))
-					S.ChangeTurf(/turf/simulated/floor/plating)
-					playsound(S, usesound, 50, 1)
-					chassis.spark_system.start()
-			else if(istype(target, /turf/simulated/floor))
-				var/turf/simulated/floor/F = target
-				occupant_message("Building Wall...")
-				if(do_after_cooldown(F))
-					F.ChangeTurf(/turf/simulated/wall)
-					playsound(F, usesound, 50, 1)
-					chassis.spark_system.start()
-		if(2)
-			if(istype(target, /turf/simulated/floor))
-				occupant_message("Building Airlock...")
-				if(do_after_cooldown(target))
-					chassis.spark_system.start()
-					var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock(target)
-					T.autoclose = 1
-					playsound(target, usesound, 50, 1)
-					playsound(target, 'sound/effects/sparks2.ogg', 50, 1)
-
+	chassis.can_move = world.time + 5 SECONDS 	// We don't move while we build
+	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
+	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
+		chassis.can_move = 0
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Topic(href,href_list)
 	..()
 	if(href_list["mode"])
-		mode = text2num(href_list["mode"])
-		switch(mode)
-			if(0)
+		rcd_holder.mode = href_list["mode"]
+		switch(rcd_holder.mode)
+			if(RCD_MODE_DECON)
 				occupant_message("Switched RCD to Deconstruct.")
-			if(1)
+			if(RCD_MODE_TURF)
 				occupant_message("Switched RCD to Construct.")
-			if(2)
+			if(RCD_MODE_AIRLOCK)
 				occupant_message("Switched RCD to Construct Airlock.")
+			if(RCD_MODE_WINDOW)
+				occupant_message("Switched RCD to Construct Windows.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_equip_info()
-	return "[..()] \[<a href='?src=[UID()];mode=0'>D</a>|<a href='?src=[UID()];mode=1'>C</a>|<a href='?src=[UID()];mode=2'>A</a>\]"
-
+	return "[..()] \[<a href='?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
 	name = "mounted MRCD"

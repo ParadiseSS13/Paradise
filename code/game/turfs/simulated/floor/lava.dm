@@ -18,6 +18,9 @@
 /turf/simulated/floor/plating/lava/acid_act(acidpwr, acid_volume)
 	return
 
+/turf/simulated/floor/plating/lava/rcd_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	return
+
 /turf/simulated/floor/plating/lava/airless
 	temperature = TCMB
 

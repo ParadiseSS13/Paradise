@@ -239,3 +239,8 @@
 /turf/simulated/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)
 	new /obj/item/stack/sheet/metal(src, 2)
+
+/turf/simulated/wall/r_wall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	if(!our_rcd.canRwall)
+		return RCD_NO_ACT
+	. = ..()

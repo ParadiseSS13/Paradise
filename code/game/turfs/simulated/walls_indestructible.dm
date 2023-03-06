@@ -56,6 +56,9 @@
 /turf/simulated/wall/indestructible/try_decon(obj/item/I, mob/user, params)
 	return
 
+/turf/simulated/wall/indestructible/rcd_deconstruct_act()
+	return RCD_NO_ACT
+
 /turf/simulated/wall/indestructible/thermitemelt(mob/user as mob, speed)
 	return
 

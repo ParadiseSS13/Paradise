@@ -198,6 +198,24 @@
 	else
 		..()
 
+/turf/simulated/wall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	if(our_rcd.checkResource(5, user))
+		to_chat(user, "Deconstructing wall...")
+		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 40 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!our_rcd.useResource(5, user))
+				return RCD_ACT_FAILED
+			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+			add_attack_logs(user, src, "Deconstructed wall with RCD")
+			src.ChangeTurf(our_rcd.floor_type)
+			return RCD_ACT_SUCCESSFULL
+		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		return RCD_ACT_FAILED
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this wall!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
 	M.do_attack_animation(src)
 	switch(M.damtype)

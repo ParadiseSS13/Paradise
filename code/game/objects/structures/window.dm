@@ -375,6 +375,14 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	qdel(src)
 	update_nearby_icons()
 
+/obj/structure/window/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	. = ..()
+	var/obj/structure/grille/our_grille = locate(/obj/structure/grille) in get_turf(src)
+	if(our_grille)
+		return our_grille.rcd_deconstruct_act(user, our_rcd)
+	else
+		return RCD_ACT_FAILED
+
 /obj/structure/window/verb/rotate()
 	set name = "Rotate Window Counter-Clockwise"
 	set category = "Object"

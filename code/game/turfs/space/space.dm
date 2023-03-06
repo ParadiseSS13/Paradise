@@ -273,6 +273,20 @@
 /turf/space/acid_act(acidpwr, acid_volume)
 	return 0
 
+/turf/space/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	. = ..()
+	if(rcd_mode != RCD_MODE_TURF)
+		return RCD_NO_ACT
+	if(our_rcd.useResource(1, user))
+		to_chat(user, "Building Floor...")
+		playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+		add_attack_logs(user, src, "Constructed floor with RCD")
+		ChangeTurf(our_rcd.floor_type)
+		return RCD_ACT_SUCCESSFULL
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
 /turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE

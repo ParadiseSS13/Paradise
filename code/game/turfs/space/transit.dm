@@ -53,6 +53,9 @@
 /turf/space/transit/rpd_act()
 	return
 
+/turf/space/transit/rcd_act()
+	return RCD_NO_ACT
+
 //Overwrite because we dont want people building rods in space.
 /turf/space/transit/attackby()
 	return

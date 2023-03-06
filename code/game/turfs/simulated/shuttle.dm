@@ -52,6 +52,9 @@
 /turf/simulated/wall/shuttle/rpd_act()
 	return
 
+/turf/simulated/wall/shuttle/rcd_act()
+	return RCD_NO_ACT
+
 /turf/simulated/wall/shuttle/acid_act(acidpwr, acid_volume, acid_id)
 	return
 
@@ -153,6 +156,10 @@
 /turf/simulated/floor/shuttle/ratvar_act()
 	if(prob(20))
 		ChangeTurf(/turf/simulated/floor/clockwork)
+
+/turf/simulated/floor/shuttle/rcd_act()
+	return RCD_NO_ACT
+
 /turf/simulated/floor/shuttle/syndicate //Used only by buildmode generators
 	icon_state = "floor4"
 

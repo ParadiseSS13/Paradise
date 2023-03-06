@@ -57,6 +57,21 @@
 	if(current_size >= STAGE_FOUR)
 		deconstruct()
 
+/obj/structure/lattice/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+	. = ..()
+	if(rcd_mode != RCD_MODE_TURF)
+		return RCD_NO_ACT
+	if(our_rcd.useResource(1, user))
+		to_chat(user, "Building Floor...")
+		playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+		var/turf/AT = get_turf(src)
+		add_attack_logs(user, AT, "Constructed floor with RCD")
+		AT.ChangeTurf(our_rcd.floor_type)
+		return RCD_ACT_SUCCESSFULL
+	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
+	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+	return RCD_ACT_FAILED
+
 /obj/structure/lattice/clockwork
 	name = "cog lattice"
 	desc = "A lightweight support lattice. These hold the Justicar's station together."
