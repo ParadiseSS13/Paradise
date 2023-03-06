@@ -180,7 +180,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Revenant", 				/datum/event/revenant, 					150),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Morph Spawn", 				/datum/event/spawn_morph, 				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disease Outbreak",			/datum/event/disease_outbreak, 			50,		list(ASSIGNMENT_MEDICAL = 30), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Bureaucratic Error",		/datum/event/bureaucratic_error,					200, TRUE)
 	)
 
 /datum/event_container/major
