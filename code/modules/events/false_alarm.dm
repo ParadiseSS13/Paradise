@@ -3,8 +3,8 @@
 	endWhen			= 1
 
 /datum/event/falsealarm/announce()
-	var/datum/event_container/container = SSevents.event_containers[pick(6;EVENT_LEVEL_MUNDANE, 3;EVENT_LEVEL_MODERATE, 1;EVENT_LEVEL_MAJOR)]
-	var/datum/event_meta/E = container.acquire_event()
+	var/datum/event_container/container = SSevents.false_event_containers
+	var/datum/event_meta/E = pick_n_take(container.available_events)
 	var/datum/event/Event = new E.event_type
 	message_admins("False Alarm: [Event]")
 	Event.announce() 	//just announce it like it's happening
