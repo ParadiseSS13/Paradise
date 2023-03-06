@@ -8,7 +8,6 @@
 
 	if (next_click > world.time)
 		return
-	changeNext_click(1)
 
 	if (try_modified_click(A, params))
 		return
@@ -24,40 +23,43 @@
 			G.process_fire(A, src, FALSE)
 			visible_message("<span class='danger'>\the [G] fires itself at [A]!</span>", "<span class='danger'>You force \the [G] to fire at [A]!</span>", "<span class='italics'>You hear \a [G.fire_sound_text]!</span>")
 			changeNext_click(G.fire_delay)
+			return
 	else if (current_robot)
 		log_admin("[key_name(src)] made [key_name(current_robot)] attack [A]")
 		message_admins("<span class='notice'>[key_name(src)] made [key_name(current_robot)] attack [A]</span>")
 
 		current_robot.ClickOn(A, params)
 		changeNext_click(0.5 SECONDS)
+		return
 	else if (current_bot)
 		if (A == current_bot)
 			A.attack_ai(src)
 		else
 			current_bot.attack_integrated_pulsedemon(src, A)
 			changeNext_click(0.5 SECONDS)
+			return
 	else if (get_area(A) == controlling_area)
 		A.attack_pulsedemon(src)
 	else
 		..()
-
+	changeNext_click(0.1 SECONDS)
 
 // returns TRUE if any [modifier]ClickOn was called
 /mob/living/simple_animal/pulse_demon/proc/try_modified_click(atom/A, params)
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"])
-		if(modifiers["shift"])
+	if (modifiers["middle"])
+		if (modifiers["shift"])
 			MiddleShiftClickOn(A)
 		else
 			MiddleClickOn(A)
 		return TRUE
-	if(modifiers["shift"])
+	if (modifiers["shift"])
 		ShiftClickOn(A)
 		return TRUE
-	if(modifiers["alt"])
+	if (modifiers["alt"])
 		AltClickOn(A)
 		return TRUE
-	if(modifiers["ctrl"])
+	if (modifiers["ctrl"])
 		CtrlClickOn(A)
 		return TRUE
 	return FALSE
@@ -102,7 +104,8 @@
 /obj/machinery/power/apc/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	if (user.loc != src)
 		user.forceMove(src)
-		user.controlling_area = get_area(src)
+		user.current_power = src
+		user.controlling_area = apc_area
 		user.current_robot = null
 		if (user.current_bot)
 			user.current_bot.hijacked = FALSE
@@ -128,14 +131,15 @@
 		var/mob/living/simple_animal/pulse_demon/PD = user
 		if (PD.bot_movedelay <= world.time && dir)
 			step(src, dir)
-			PD.bot_movedelay = world.time + BOT_STEP_DELAY * (base_speed - 1)
+			PD.bot_movedelay = world.time + (BOT_STEP_DELAY * (base_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
 
 /obj/machinery/recharger/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	user.forceMove(src)
 	if (user.check_valid_recharger(src))
-		to_chat(user, "<span class='notice'>You are now attempting to hijack \the [charging], this will take approximately [user.hijack_time / 10] seconds.</span>")
 		if (!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_recharger), PD_HIJACK_CB(user, finish_hijack_recharger), PD_HIJACK_FAIL(user)))
 			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
+		else
+			user.do_hijack_notice()
 	else
 		to_chat(user, "<span class='warning'>There is no weapon charging. Click again to retry.</span>")
 
@@ -153,9 +157,10 @@
 		if (charging.rigged)
 			user.finish_hijack_cell_charger(src)
 			return
-		to_chat(user, "<span class='notice'>You are now attempting to hijack \the [charging], this will take approximately [user.hijack_time / 10] seconds.</span>")
 		if (!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_cell_charger), PD_HIJACK_CB(user, finish_hijack_cell_charger), PD_HIJACK_FAIL(user)))
 			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
+		else
+			user.do_hijack_notice()
 	else
 		to_chat(user, "<span class='warning'>There is no cell charging. Click again to retry.</span>")
 
@@ -174,10 +179,10 @@
 		if (R in user.hijacked_robots)
 			user.finish_hijack_recharge_station(src)
 			return
-		to_chat(user, "<span class='notice'>You are now attempting to hijack \the [occupant], this will take approximately [user.hijack_time / 10] seconds.</span>")
 		if (!user.pb_helper.start(user, src, user.hijack_time, TRUE, PD_HIJACK_CB(user, check_valid_recharge_station), PD_HIJACK_CB(user, finish_hijack_recharge_station), PD_HIJACK_FAIL(user)))
 			to_chat(user, "<span class='warning'>You are already performing an action!</span>")
 		else
+			user.do_hijack_notice()
 			to_chat(R, "<span class='danger'>ALERT: ELECTRICAL MALEVOLENCE DETECTED, TARGETING SYSTEMS HIJACK IN PROGRESS</span>")
 	else
 		to_chat(user, "<span class='warning'>There is no silicon-based occupant inside. Click again to retry.</span>")
@@ -201,6 +206,7 @@
 		user.forceMove(src)
 		to_chat(user, "<span class='notice'>You jump towards \the [src]. Click on a hijacked APC to return.</span>")
 
+// see pulse_demon/say
 /obj/machinery/hologram/holopad/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	if (user.loc != src)
 		user.forceMove(src)
@@ -218,12 +224,16 @@
 	return
 
 /mob/living/simple_animal/bot/attack_integrated_pulsedemon(mob/living/simple_animal/pulse_demon/user, atom/A)
+	if (!on)
+		return
 	if (Adjacent(A))
 		UnarmedAttack(A)
 	else
 		RangedAttack(A)
 
 /mob/living/simple_animal/bot/secbot/attack_integrated_pulsedemon(mob/living/simple_animal/pulse_demon/user, atom/A)
+	if (!on)
+		return
 	if (Adjacent(A))
 		UnarmedAttack(A)
 	else if (iscarbon(A))
@@ -232,6 +242,8 @@
 		visible_message("<b>[src]</b> points at [A.name]!")
 
 /mob/living/simple_animal/bot/floorbot/attack_integrated_pulsedemon(mob/living/simple_animal/pulse_demon/user, atom/A)
+	if (!on)
+		return
 	if (isfloorturf(A) && Adjacent(A))
 		var/turf/simulated/floor/F = A
 		// there was originally a 1% chance to break to lattice, but that doesn't help a pulse demon, so I don't see the point
@@ -239,6 +251,8 @@
 		audible_message("<span class='danger'>[src] makes an excited booping sound.</span>")
 
 /mob/living/simple_animal/bot/cleanbot/attack_integrated_pulsedemon(mob/living/simple_animal/pulse_demon/user, atom/A)
+	if (!on)
+		return
 	if (isfloorturf(A) && Adjacent(A))
 		var/turf/simulated/floor/F = A
 		if (prob(50))
@@ -249,6 +263,8 @@
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 
 /mob/living/simple_animal/bot/mulebot/attack_integrated_pulsedemon(mob/living/simple_animal/pulse_demon/user, atom/A)
+	if (!on)
+		return
 	if (istype(A) && Adjacent(A))
 		if (ismovable(A))
 			to_chat(user, "You try to load \the [A] onto the [src].")

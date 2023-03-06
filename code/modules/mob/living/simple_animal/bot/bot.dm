@@ -117,6 +117,8 @@
 			return "<b>Autonomous</b>"
 	else if(!on)
 		return "<span class='bad'>Inactive</span>"
+	else if(hijacked)
+		return "<span class='bad'>ERROR</span>"
 	else if(!mode)
 		return "<span class='good'>Idle</span>"
 	else
@@ -732,7 +734,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return FALSE
 
 	// check to see if we are the commanded bot
-	if(emagged == 2 || remote_disabled) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
+	if(emagged == 2 || remote_disabled || hijacked) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
 		return FALSE
 
 	if(client)

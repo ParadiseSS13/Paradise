@@ -32,6 +32,7 @@
 	layer = ABOVE_PLATING_LAYER
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 	see_in_dark = 8
 	minbodytemp = 0
@@ -116,8 +117,9 @@
 /mob/living/simple_animal/pulse_demon/Stat()
 	. = ..()
 	if (statpanel("Status"))
-		stat(null, "Charge: [charge]")
-		stat(null, "Maximum Charge: [maxcharge]")
+		stat(null, "Charge: [charge / 1000]kW")
+		stat(null, "Maximum Charge: [maxcharge / 1000]kW")
+		stat(null, "Hijacked APCs: [length(hijacked_apcs)]")
 
 /mob/living/simple_animal/pulse_demon/dust()
 	return death()
@@ -147,6 +149,8 @@
 	current_cable = null
 	current_weapon = null
 	current_robot = null
+	if (current_bot)
+		current_bot.hijacked = FALSE
 	current_bot = null
 
 // can enter an apc at all?
@@ -158,24 +162,33 @@
 	var/obj/structure/cable/new_cable = locate(/obj/structure/cable) in newloc
 
 	if (istype(new_power, /obj/machinery/power/terminal))
-		new_power = null // entering a terminal is kinda useless
+		// entering a terminal is kinda useless and any working terminal will have a cable under it
+		new_power = null
 
 	if (isapc(new_power))
 		var/obj/machinery/power/apc/A = new_power
 		if (!is_valid_apc(new_power) || !A.terminal)
 			new_power = null // don't enter an APC without a terminal or a broken APC, etc.
 
-	if (!new_cable && !new_power)
-		if (!can_exit_cable)
-			return
-		speed = outside_cable_speed
-	else
-		speed = inside_cable_speed
+	if (!new_cable && !new_power && !can_exit_cable)
+		return
 
 	var/moved = ..()
 
+	if (!new_cable && !new_power)
+		if (can_exit_cable && moved)
+			speed = outside_cable_speed
+	else
+		speed = inside_cable_speed
+
 	if (!is_under_tile() && prob(PULSEDEMON_PLATING_SPARK_CHANCE))
 		do_sparks(rand(2, 4), FALSE, src)
+
+	// these shouldn't be set if the demon can move normally anyway
+	current_weapon = null
+	current_robot = null
+	current_bot = null
+	controlling_area = null
 
 	if (new_power)
 		current_power = new_power
@@ -292,16 +305,16 @@
 		. += pick("!", "@", "#", "$", "%", "^", "&", "*")
 
 /mob/living/simple_animal/pulse_demon/say(message, verb, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
-	if(client)
-		if(check_mute(client.ckey, MUTE_IC))
+	if (client)
+		if (check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
 			return FALSE
 
-	if(sanitize)
+	if (sanitize)
 		message = trim_strip_html_properly(message)
 
-	if(stat)
-		if(stat == DEAD)
+	if (stat)
+		if (stat == DEAD)
 			return say_dead(message)
 		return FALSE
 
@@ -316,11 +329,8 @@
 
 	var/message_mode = parse_message_mode(message, "headset")
 
-	if(copytext(message, 1, 2) == "*")
-		return emote(copytext(message, 2), intentional = TRUE)
-
-	if(message_mode)
-		if(message_mode == "headset")
+	if (message_mode)
+		if (message_mode == "headset")
 			message = copytext(message, 2)
 		else
 			message = copytext(message, 3)
@@ -328,18 +338,18 @@
 	message = trim_left(message)
 
 	var/list/message_pieces = list()
-	if(ignore_languages)
+	if (ignore_languages)
 		message_pieces = message_to_multilingual(message)
 	else
 		message_pieces = parse_languages(message)
 
 	// hivemind languages
-	if(istype(message_pieces, /datum/multilingual_say_piece))
+	if (istype(message_pieces, /datum/multilingual_say_piece))
 		var/datum/multilingual_say_piece/S = message_pieces
 		S.speaking.broadcast(src, S.message)
 		return TRUE
 
-	if(!LAZYLEN(message_pieces))
+	if (!LAZYLEN(message_pieces))
 		. = FALSE
 		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
 
@@ -411,6 +421,7 @@
 	to_chat(src, "<span class='warning'>Hijacking failed!</span>")
 
 /mob/living/simple_animal/pulse_demon/proc/try_cross_shock(src, atom/A)
+	SIGNAL_HANDLER
 	if (!isliving(A) || is_under_tile())
 		return
 	var/mob/living/L = A
@@ -430,7 +441,10 @@
 	var/turf/T = get_turf(src)
 	return T.transparent_floor || T.intact
 
-// cable view helper
+/mob/living/simple_animal/pulse_demon/proc/do_hijack_notice(atom/A)
+	to_chat(src, "<span class='notice'>You are now attempting to hijack \the [A], this will take approximately [hijack_time / 10] seconds.</span>")
+
+// cable (and hijacked APC) view helper
 /mob/living/simple_animal/pulse_demon/proc/update_cableview()
 	if (!client)
 		return
@@ -463,7 +477,7 @@
 		AI.plane = ABOVE_LIGHTING_PLANE
 		images_shown += AI
 		client.images += AI
-	// TODO: figure out how to make cameras always visible (if in the corresponding APC), even if blocked from view (because of stations like farragus)
+	// TODO: spell that cycles you through the cameras in your area, necessitated by maps like Farragus
 
 /mob/living/simple_animal/pulse_demon/reset_perspective(atom/A)
 	. = ..()
