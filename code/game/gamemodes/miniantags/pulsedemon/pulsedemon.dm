@@ -364,7 +364,7 @@
 	else if (istype(loc, /obj/machinery/hologram/holopad))
 		var/obj/machinery/hologram/holopad/H = loc
 		var/turf/T = get_turf(H)
-		name = "\the [H]"
+		name = "[H]"
 		for(var/mob/M in hearers(T.loc) + src)
 			M.hear_say(message_pieces, verb, FALSE, src)
 		name = real_name
@@ -386,7 +386,7 @@
 /mob/living/simple_animal/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
 	if (check_valid_apc(A, loc) && !(A in hijacked_apcs) && !apc_being_hijacked && !A.being_hijacked)
-		to_chat(src, "<span class='notice'>You are now attempting to hijack \the [A], this will take approximately [hijack_time / 10] seconds.</span>")
+		to_chat(src, "<span class='notice'>You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds.</span>")
 		if (pb_helper.start(src, A, hijack_time, TRUE, \
 		  CALLBACK(src, PROC_REF(check_valid_apc), A), \
 		  CALLBACK(src, PROC_REF(finish_hijack_apc), A, remote), \
@@ -442,7 +442,7 @@
 	return T.transparent_floor || T.intact
 
 /mob/living/simple_animal/pulse_demon/proc/do_hijack_notice(atom/A)
-	to_chat(src, "<span class='notice'>You are now attempting to hijack \the [A], this will take approximately [hijack_time / 10] seconds.</span>")
+	to_chat(src, "<span class='notice'>You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds.</span>")
 
 // cable (and hijacked APC) view helper
 /mob/living/simple_animal/pulse_demon/proc/update_cableview()
@@ -522,16 +522,16 @@
 	if (C && C.charge)
 		C.use(min(C.charge, power_drain_rate))
 		adjustCharge(min(C.charge, power_drain_rate))
-		to_chat(user, "<span class='warning'>You touch \the [src] with \the [O] and \the [src] drains it!</span>")
-		to_chat(src, "<span class='notice'>[user] touches you with \the [O] and you drain its power!</span>")
-	visible_message("<span class='notice'>The [O] goes right through \the [src].</span>")
+		to_chat(user, "<span class='warning'>You touch [src] with [O] and [src] drains it!</span>")
+		to_chat(src, "<span class='notice'>[user] touches you with [O] and you drain its power!</span>")
+	visible_message("<span class='notice'>[O] goes right through [src].</span>")
 	try_shock_mob(user, O.siemens_coefficient)
 
 /mob/living/simple_animal/pulse_demon/ex_act()
 	return
 
 /mob/living/simple_animal/pulse_demon/bullet_act(obj/item/projectile/Proj)
-	visible_message("<span class='warning'>The [Proj] goes right through \the [src]!</span>")
+	visible_message("<span class='warning'>[Proj] goes right through [src]!</span>")
 
 /mob/living/simple_animal/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
 	return // TODO: potiential for gaining charge or a boost of some kind?

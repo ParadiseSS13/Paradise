@@ -21,7 +21,7 @@
 		// we probably shouldn't be firing from inside a recharger or someone's bag
 		if (iscarbon(G.loc) || isturf(G.loc))
 			G.process_fire(A, src, FALSE)
-			visible_message("<span class='danger'>\the [G] fires itself at [A]!</span>", "<span class='danger'>You force \the [G] to fire at [A]!</span>", "<span class='italics'>You hear \a [G.fire_sound_text]!</span>")
+			visible_message("<span class='danger'>[G] fires itself at [A]!</span>", "<span class='danger'>You force [G] to fire at [A]!</span>", "<span class='italics'>You hear \a [G.fire_sound_text]!</span>")
 			changeNext_click(G.fire_delay)
 			return
 	else if (current_robot)
@@ -117,7 +117,7 @@
 /mob/living/simple_animal/bot/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	if (user.loc != src)
 		// TODO: maybe change bot death to just dump the demon on the ground?
-		to_chat(user, "<span class='warning'>You are now inside \the [src]. If it is destroyed, you will instantly die.</span>")
+		to_chat(user, "<span class='warning'>You are now inside [src]. If it is destroyed, you will instantly die.</span>")
 		to_chat(user, "<span class='notice'>Leave it by jumping to a hijacked APC.</span>")
 		ejectpai(user)
 		user.forceMove(src)
@@ -147,7 +147,7 @@
 	return R.charging
 
 /mob/living/simple_animal/pulse_demon/proc/finish_hijack_recharger(obj/machinery/recharger/R)
-	to_chat(src, "<span class='notice'>You are now inside \the [R.charging]. Click on a hijacked APC to return.</span>")
+	to_chat(src, "<span class='notice'>You are now inside [R.charging]. Click on a hijacked APC to return.</span>")
 	forceMove(R.charging)
 	current_weapon = R.charging
 
@@ -168,7 +168,7 @@
 	return C.charging
 
 /mob/living/simple_animal/pulse_demon/proc/finish_hijack_cell_charger(obj/machinery/cell_charger/C)
-	to_chat(src, "<span class='notice'>You are now inside \the [C.charging]. Click on a hijacked APC to return.</span>")
+	to_chat(src, "<span class='notice'>You are now inside [C.charging]. Click on a hijacked APC to return.</span>")
 	forceMove(C.charging)
 	C.charging.rigged = TRUE
 
@@ -194,7 +194,7 @@
 	do_hijack_robot(RS.occupant)
 
 /mob/living/simple_animal/pulse_demon/proc/do_hijack_robot(mob/living/silicon/robot/R)
-	to_chat(src, "<span class='notice'>You are now inside \the [R]. Click on a hijacked APC to return.</span>")
+	to_chat(src, "<span class='notice'>You are now inside [R]. Click on a hijacked APC to return.</span>")
 	forceMove(R)
 	current_robot = R
 	if (!(R in hijacked_robots))
@@ -204,18 +204,18 @@
 /obj/machinery/camera/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	if (user.loc != src)
 		user.forceMove(src)
-		to_chat(user, "<span class='notice'>You jump towards \the [src]. Click on a hijacked APC to return.</span>")
+		to_chat(user, "<span class='notice'>You jump towards [src]. Click on a hijacked APC to return.</span>")
 
 // see pulse_demon/say
 /obj/machinery/hologram/holopad/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	if (user.loc != src)
 		user.forceMove(src)
-		to_chat(user, "<span class='notice'>You jump towards \the [src]. You can now communicate via the holopad's speaker. Click on a hijacked APC to return.</span>")
+		to_chat(user, "<span class='notice'>You jump towards [src]. You can now communicate via the holopad's speaker. Click on a hijacked APC to return.</span>")
 
 /obj/item/radio/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	if (user.loc != src)
 		user.forceMove(src)
-		to_chat(user, "<span class='notice'>You jump towards \the [src]. You can now communicate via radio. Click on a hijacked APC to return.</span>")
+		to_chat(user, "<span class='notice'>You jump towards [src]. You can now communicate via radio. Click on a hijacked APC to return.</span>")
 	else
 		attack_ai(user)
 
@@ -258,7 +258,7 @@
 		if (prob(50))
 			F.MakeSlippery(TURF_WET_WATER)
 		if (prob(50))
-			audible_message("<span class='warning'>Something flies out of \the [src]! He seems to be acting oddly.</span>")
+			audible_message("<span class='warning'>Something flies out of [src]! He seems to be acting oddly.</span>")
 			if (!(locate(/obj/effect/decal/cleanable/blood/gibs) in F))
 				new /obj/effect/decal/cleanable/blood/gibs(F)
 
@@ -267,11 +267,11 @@
 		return
 	if (istype(A) && Adjacent(A))
 		if (ismovable(A))
-			to_chat(user, "You try to load \the [A] onto the [src].")
+			to_chat(user, "You try to load [A] onto the [src].")
 			load(A)
 			return
 	if (load)
-		to_chat(user, "You unload \the [load].")
+		to_chat(user, "You unload [load].")
 		unload(0)
 
 #undef PD_HIJACK_CB
