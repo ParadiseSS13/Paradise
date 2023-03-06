@@ -181,7 +181,7 @@
 		if("muteAdmin")
 			usr.stop_sound_channel(CHANNEL_ADMIN)
 			prefs.admin_sound_ckey_ignore |= href_list["a"]
-			to_chat(usr, "You will no longer head admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
+			to_chat(usr, "You will no longer hear admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
 			prefs.save_preferences(src)
 			return
 
