@@ -258,7 +258,8 @@
 	name = "Locker Mech customisation kit"
 	icon_state = "paintkit_syndie"
 	desc = "A kit containing all the needed tools and parts to turn a Locker Mech into a Syndie Locker Mech!."
+
 	new_name = "Syndie Locker Mech"
 	new_desc = "Dark-red painted locker mech. The paint is still wet."
 	new_icon = "syndielockermech"
-	allowed_types = list("makeshift")
+	allowed_types = list("lockermech")

@@ -3,6 +3,7 @@
 	name = "Locker Mech"
 	icon = 'icons/mecha/lockermech.dmi'
 	icon_state = "lockermech"
+	initial_icon = "lockermech"
 	max_integrity = 100 //its made of scraps
 	lights_power = 5
 	step_in = 4 //Same speed as a ripley, for now.
@@ -79,6 +80,7 @@
 	name = "Syndie Locker Mech"
 	icon = 'icons/mecha/lockermech.dmi'
 	icon_state = "syndielockermech"
+	initial_icon = "syndielockermech"
 	lights_power = 5
 	step_in = 4
 	max_integrity = 225 //its made of scraps
