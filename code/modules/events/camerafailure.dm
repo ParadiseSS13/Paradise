@@ -5,7 +5,7 @@
 		var/obj/machinery/camera/C = pick_n_take(cameras)
 		if(!C)
 			break
-		if(!("SS13" in C.network))
+		if(!("SS13" in C.network) || C.start_active)
 			continue
 		if(C.status)
 			C.toggle_cam(null, FALSE)
