@@ -51,14 +51,11 @@
 	. = ..()
 	if(!dynamic_icon_state)
 		return
-	var/percentage =  amount / max_amount
-	switch(percentage)
-		if(0.33 to 0.65)
-			icon_state = "[initial(icon_state)]_2"
-		if(0.66 to 1)
-			icon_state = "[initial(icon_state)]_3"
-		else //somethin went wrong, or we're less than 33% of the max stack
-			icon_state = initial(icon_state)
+	var/temp_amount = get_amount()
+	if(temp_amount > 1)
+		icon_state = "[initial(icon_state)]_[min(temp_amount, 3)]" //2 if amount is 2, 3 if more.
+		return
+	icon_state = initial(icon_state)
 
 /obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
