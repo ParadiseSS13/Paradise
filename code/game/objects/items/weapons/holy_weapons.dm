@@ -301,6 +301,42 @@
 		qdel(S)
 	return ..()
 
+/obj/item/nullrod/scythe/talking/proc/click_actions(atom/attacking_atom, mob/living/simple_animal/attacking_shade)
+	if(world.time <= attacking_shade.next_move) // yea we gotta check
+		return
+	var/attacking_from = loc
+	if(istype(attacking_atom, /atom/movable))
+		attacking_shade.changeNext_move(CLICK_CD_MELEE)
+		if(!isturf(loc))
+			if(ismob(loc))
+				var/mob/living/carbon/human/our_location = loc
+				if(istype(our_location))
+					actually_attack(attacking_atom, attacking_shade, 1, attacking_from)
+					return
+				else
+					actually_attack(attacking_atom, attacking_shade, 0, attacking_from) // if this isn't in someones hand, it should only be able to attack them
+			else
+				actually_attack(attacking_atom, attacking_shade, 0, attacking_from)
+		else
+			actually_attack(attacking_atom, attacking_shade, 0, attacking_from)
+
+/obj/item/nullrod/scythe/talking/proc/actually_attack(atom/attacking_atom, mob/living/simple_animal/attacking_shade, range, atom/attacking_from)
+	if(range)
+		if(attacking_from.Adjacent(attacking_atom))
+			melee_attack_chain(attacking_shade, attacking_atom)
+	else
+		if(Adjacent(attacking_atom))
+			melee_attack_chain(attacking_shade, attacking_atom)
+
+/mob/living/simple_animal/shade/sword
+
+/mob/living/simple_animal/shade/sword/ClickOn(atom/A, params)
+	if(istype(loc, /obj/item/nullrod/scythe/talking))
+		var/obj/item/nullrod/scythe/talking/host_sword = loc
+		return host_sword.click_actions(A, src)
+	return ..()
+
+
 /obj/item/nullrod/hammmer
 	name = "relic war hammer"
 	icon_state = "hammeron"

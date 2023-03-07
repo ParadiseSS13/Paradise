@@ -321,7 +321,7 @@ starlight = true
 # Disable lobby music on the server
 disable_lobby_music = false
 # Enable this if you want to disable the popup alert for people on the same CID
-disable_cid_warning_popup = false
+disable_cid_warning_popup = true
 # Amount of loadout points people should get
 base_loadout_points = 5
 # Respawnability loss penalty if you cryo below this threshold (Minutes)
