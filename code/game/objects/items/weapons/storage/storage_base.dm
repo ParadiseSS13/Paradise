@@ -385,7 +385,7 @@
 	if(istype(src, /obj/item/storage/belt) && isstorage(loc)) //You shouldnt be able to bypass belt in bag storage
 		if(!(istype(src, /obj/item/storage/belt/military/traitor) || istype(src, /obj/item/storage/belt/utility/chief)))
 			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>You cant seem to fit [I] into [src].</span>")
+				to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
 			return FALSE
 
 	if(I.w_class > max_w_class)
