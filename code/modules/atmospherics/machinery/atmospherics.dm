@@ -86,11 +86,11 @@ Pipelines + Other Objects -> Pipe network
 		..(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/update_icon_state()
-	switch (level)
-		if (1)
+	switch(level)
+		if(1)
 			plane = FLOOR_PLANE
 			layer = GAS_PIPE_HIDDEN_LAYER + layer_offset
-		if (2)
+		if(2)
 			plane = GAME_PLANE
 			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
