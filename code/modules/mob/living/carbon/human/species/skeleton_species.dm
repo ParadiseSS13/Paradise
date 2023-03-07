@@ -56,7 +56,6 @@
 /datum/species/skeleton/brittle
 	name = "Brittle Skeleton"
 	name_plural = "Brittle Skeletons"
-	blurb = "Spoopy and scary."
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTHIGHPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
 	milk_heal_amount = 1
 	milk_fracture_repair_probability = 1
