@@ -8,7 +8,7 @@
 	var/list/jobs = SSjobs.occupations.Copy()
 	var/datum/job/overflow
 	var/errors
-	while(errors <= pick(1, 6))
+	while(errors <= rand(1, 6))
 		overflow = pick_n_take(jobs)
 		overflow.total_positions = max(overflow.total_positions + pick(-1, 1), 0)
 		errors++
