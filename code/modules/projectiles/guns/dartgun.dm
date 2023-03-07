@@ -278,6 +278,8 @@
 /obj/item/gun/dartgun/vox
 	name = "alien dart gun"
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
+	icon = 'icons/obj/guns/projectile.dmi'
+	icon_state = "dartgun-e"
 
 /obj/item/gun/dartgun/vox/medical
 	starting_chems = list("silver_sulfadiazine","styptic_powder","charcoal")

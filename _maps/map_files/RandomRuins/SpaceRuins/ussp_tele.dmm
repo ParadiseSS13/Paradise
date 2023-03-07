@@ -61,7 +61,7 @@
 	},
 /area/derelict/teleporter)
 "n" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -73,7 +73,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
@@ -145,13 +145,13 @@
 	},
 /area/derelict/teleporter)
 "y" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
 /area/derelict/teleporter)
 "z" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/twohanded/required/kirbyplants/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
 	item_state = "plant-dead";

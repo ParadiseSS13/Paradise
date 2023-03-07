@@ -1011,7 +1011,7 @@
 /area/moonoutpost19/syndicateoutpost)
 "ck" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "cl" = (
@@ -1209,7 +1209,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "cC" = (
@@ -1362,7 +1362,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "cR" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -1421,7 +1421,7 @@
 /turf/simulated/floor/wood,
 /area/moonoutpost19/syndicateoutpost)
 "cV" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
@@ -1459,7 +1459,7 @@
 /obj/item/mining_scanner,
 /obj/item/shovel,
 /obj/item/pickaxe,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "cZ" = (
@@ -1624,7 +1624,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "do" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -1638,7 +1638,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "dq" = (
@@ -1763,7 +1763,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "dC" = (
@@ -2460,7 +2460,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "fb" = (
@@ -2528,7 +2528,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "ff" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "fg" = (
@@ -2981,7 +2981,7 @@
 	name = "Personal Log &mdash; Ivan Volodin"
 	},
 /obj/item/pickaxe,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "fN" = (
@@ -3650,7 +3650,7 @@
 	tag = ""
 	},
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "gR" = (
@@ -3876,7 +3876,7 @@
 /obj/effect/decal/cleanable/blood/oil{
 	color = "black"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "hm" = (
@@ -3980,7 +3980,7 @@
 /obj/structure/closet/crate,
 /obj/item/storage/box/lights/mixed,
 /obj/item/poster/random_contraband,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "hv" = (
@@ -4697,7 +4697,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "iM" = (
@@ -4801,7 +4801,7 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/moonoutpost19/mo19arrivals)
 "iY" = (
@@ -5079,7 +5079,7 @@
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5118,7 +5118,7 @@
 	info = "<b><h2>I Can't Believe It's Not Pasta: Half off on Wednesdays</h2></b><br><br><b><h2><font color=blue>Burger night every Friday 6PM-10PM, free drinks with purchase of meal!</font></h2></b><br><br><b><h2><font color=red>Premiering Tonight: The comedy stylings of Shoe Snatching Willy! 11AM-7PM</font></h2></b>";
 	name = "Specials This Week"
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "jL" = (
@@ -5202,7 +5202,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5275,7 +5275,7 @@
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "kd" = (
@@ -5589,7 +5589,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5603,7 +5603,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -5700,7 +5700,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -5738,7 +5738,7 @@
 /obj/effect/decal/remains/human{
 	desc = "They look like human remains. The skeleton is curled up in fetal position with the hands placed near the throat."
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -5890,13 +5890,13 @@
 "lm" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
 /area/moonoutpost19/mo19arrivals)
 "ln" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "lo" = (
@@ -6030,7 +6030,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/moonoutpost19/mo19arrivals)
 "lG" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
@@ -6074,7 +6074,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/moonoutpost19/mo19arrivals)
 "lL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	germ_level = 20;
 	icon_state = "neutralcorner";
@@ -6325,15 +6325,11 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "mt" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle,
 /area/moonoutpost19/mo19arrivals)
 "mu" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -6355,7 +6351,7 @@
 	dir = 4;
 	pixel_x = 24
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	germ_level = 20;
 	icon_state = "neutralcorner";
@@ -6466,9 +6462,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "mJ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
@@ -6480,9 +6474,7 @@
 	icon_state = "beacon";
 	name = "tracking beacon"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
 	},
@@ -6624,7 +6616,7 @@
 	icon_state = "tracks"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "neutralcorner";
@@ -6660,7 +6652,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -6673,7 +6665,7 @@
 	icon = 'icons/effects/blood.dmi';
 	icon_state = "tracks"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -6706,7 +6698,7 @@
 /area/moonoutpost19/mo19arrivals)
 "nq" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "nr" = (
@@ -6719,7 +6711,7 @@
 "ns" = (
 /obj/structure/table,
 /obj/item/deck/cards,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	germ_level = 20
 	},
@@ -7505,7 +7497,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "Jr" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	germ_level = 20

@@ -1406,10 +1406,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "ji" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
@@ -1773,10 +1770,7 @@
 /area/ruin/space/spacehotelv1/tcomms)
 "lM" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/crowbar,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
@@ -2643,10 +2637,7 @@
 /area/ruin/space/spacehotelv1/guestroom1)
 "sd" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -4767,10 +4758,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "Fu" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -7033,10 +7021,7 @@
 /area/template_noop)
 "TA" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "TC" = (
@@ -7683,10 +7668,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
 "XS" = (
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
 /obj/machinery/light/small{
 	dir = 4
@@ -7872,10 +7854,7 @@
 "YM" = (
 /obj/structure/window/reinforced,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "YS" = (

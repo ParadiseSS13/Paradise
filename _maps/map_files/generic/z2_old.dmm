@@ -979,9 +979,7 @@
 	},
 /area/centcom/zone1)
 "aRV" = (
-/obj/effect/landmark{
-	name = "Holocarp Spawn"
-	},
+/obj/effect/landmark/traderstart_sol,
 /turf/simulated/floor/holofloor{
 	icon_state = "engine";
 	name = "Holodeck Projector Floor"
@@ -2948,9 +2946,7 @@
 /area/centcom/blops)
 "cEj" = (
 /obj/structure/table/reinforced,
-/obj/effect/landmark{
-	name = "Commando_Manual"
-	},
+/obj/effect/landmark/commando_manual,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -7771,9 +7767,7 @@
 /obj/effect/turf_decal/siding{
 	color = "#444444"
 	},
-/obj/effect/landmark{
-	name = "ninjastart"
-	},
+/obj/effect/landmark/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "fST" = (
@@ -8268,9 +8262,7 @@
 "gmR" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/obj/effect/landmark{
-	name = "traderstart_sol"
-	},
+/obj/effect/landmark/traderstart_sol,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
@@ -8693,9 +8685,7 @@
 /area/centcom/evac)
 "gDX" = (
 /obj/structure/chair,
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -10427,9 +10417,7 @@
 /area/admin)
 "hQw" = (
 /obj/structure/table/wood,
-/obj/effect/landmark{
-	name = "Teleport-Scroll"
-	},
+/obj/effect/landmark/teleport_scroll,
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -30
 	},
@@ -10806,9 +10794,7 @@
 	},
 /area/centcom/zone3)
 "iiz" = (
-/obj/effect/landmark{
-	name = "syndieprisonwarp"
-	},
+/obj/effect/landmark/syndieprisonwarp,
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
 	},
@@ -12024,9 +12010,7 @@
 	color = "#363636";
 	icon_state = "diagonal_edge"
 	},
-/obj/effect/landmark{
-	name = "ninjastart"
-	},
+/obj/effect/landmark/ninjastart,
 /turf/simulated/floor/plasteel,
 /area/ninja/outpost)
 "jaa" = (
@@ -16867,9 +16851,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -18026,9 +18008,7 @@
 	},
 /area/ussp_ship)
 "nfZ" = (
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/tdome/tdome1,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome1)
 "ngp" = (
@@ -18466,9 +18446,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/landmark{
-	name = "voxstart"
-	},
+/obj/effect/landmark/voxstart,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -18723,9 +18701,7 @@
 /turf/simulated/floor/carpet/red,
 /area/ninja/outpost)
 "nFE" = (
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/tdome/tdome2,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome2)
 "nFJ" = (
@@ -20076,8 +20052,7 @@
 /obj/structure/chair/comfy/red{
 	color = "#FFFFFF"
 	},
-/obj/effect/landmark{
-	name = "aroomwarp";
+/obj/effect/landmark/aroomwarp{
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
@@ -20968,8 +20943,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "aroomwarp";
+/obj/effect/landmark/aroomwarp{
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
@@ -21782,9 +21756,7 @@
 	pixel_x = 11;
 	pixel_y = -9
 	},
-/obj/effect/landmark{
-	name = "tdome2"
-	},
+/obj/effect/landmark/tdome/tdome2,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome2)
 "pLq" = (
@@ -23430,9 +23402,7 @@
 	pixel_x = 12;
 	pixel_y = -10
 	},
-/obj/effect/landmark{
-	name = "tdome1"
-	},
+/obj/effect/landmark/tdome/tdome1,
 /turf/simulated/floor/indestructible/plating,
 /area/tdome/tdome1)
 "qRG" = (
@@ -25083,8 +25053,7 @@
 	color = "#FFFFFF";
 	dir = 1
 	},
-/obj/effect/landmark{
-	name = "aroomwarp";
+/obj/effect/landmark/aroomwarp{
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
@@ -26044,9 +26013,7 @@
 /area/syndicate_mothership)
 "szy" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/landmark{
-	name = "syndieprisonwarp"
-	},
+/obj/effect/landmark/syndieprisonwarp,
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
 	},
@@ -26428,9 +26395,7 @@
 	},
 /area/centcom/jail)
 "sMS" = (
-/obj/effect/landmark{
-	name = "Response Team"
-	},
+/obj/effect/landmark/response_team,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -27741,9 +27706,7 @@
 /area/centcom/evac)
 "tMy" = (
 /obj/structure/chair/comfy/black,
-/obj/effect/landmark{
-	name = "ERT Director"
-	},
+/obj/effect/landmark/ert_director,
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -28325,12 +28288,8 @@
 	name = "Special Ops. Monitor";
 	network = list("ERT")
 	},
-/obj/effect/landmark{
-	name = "nukecode"
-	},
-/obj/effect/landmark{
-	name = "Commando_Manual"
-	},
+/obj/effect/landmark/commando_manual,
+/obj/effect/landmark/commando_manual,
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -28968,9 +28927,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 32
 	},
-/obj/effect/landmark{
-	name = "Response Team"
-	},
+/obj/effect/landmark/response_team,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -30292,9 +30249,7 @@
 	},
 /area/syndicate_mothership)
 "vHw" = (
-/obj/effect/landmark{
-	name = "Commando"
-	},
+/obj/effect/landmark/death_squard,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -30485,9 +30440,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "vLT" = (
-/obj/effect/landmark{
-	name = "Marauder Exit"
-	},
+/obj/effect/landmark/marauder_exit,
 /turf/simulated/floor/indestructible{
 	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
@@ -31728,9 +31681,7 @@
 /area/space)
 "wCQ" = (
 /obj/structure/bed,
-/obj/effect/landmark{
-	name = "prisonwarp"
-	},
+/obj/effect/landmark/prisonwarp,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -33728,9 +33679,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/landmark{
-	name = "Syndicate Officer"
-	},
+/obj/effect/landmark/syndicate_officer,
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
 	icon = 'icons/turf/floors/carpet_black.dmi'
@@ -34204,9 +34153,7 @@
 "yjb" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
-/obj/effect/landmark/start{
-	name = "wizard"
-	},
+/obj/effect/landmark/wizard,
 /turf/simulated/floor/carpet/cyan,
 /area/wizard_station)
 "yje" = (

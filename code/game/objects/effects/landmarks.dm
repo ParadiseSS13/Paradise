@@ -1,7 +1,8 @@
 /obj/effect/landmark
 	name = "landmark"
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
+	icon = 'icons/misc/landmarks.dmi'
+	icon_state = "standart"
+	layer = 5
 	anchored = 1.0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
@@ -105,6 +106,15 @@
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
+/obj/effect/landmark/singularity_act()
+	return
+
+/obj/effect/landmark/ex_act()
+	return
+
+/obj/effect/landmark/singularity_pull()
+	return
+
 /obj/effect/landmark/proc/set_tag()
 	tag = text("landmark*[]", name)
 
@@ -112,18 +122,360 @@
 /obj/effect/landmark/singularity_act()
 	return
 
-// Please stop bombing the Observer-Start landmark.
-/obj/effect/landmark/ex_act()
-	return
+/obj/effect/landmark/observer_start
+	name = "Observer-Start"
+	icon_state = "observer_start"
 
-/obj/effect/landmark/singularity_pull()
-	return
+/obj/effect/landmark/join_late_cyborg
+	name = "JoinLateCyborg"
+	icon_state = "LateBorg"
+
+/obj/effect/landmark/join_late
+	name = "JoinLate"
+	icon_state = "Late"
+
+/obj/effect/landmark/join_late_cryo
+	name = "JoinLateCryo"
+	icon_state = "Late"
+
+/obj/effect/landmark/join_late_gateway
+	name = "JoinLateGateway"
+	icon_state = "awaystart"
+
+/obj/effect/landmark/marauder_entry
+	name = "Marauder Entry"
+	icon_state = "marauder"
+
+/obj/effect/landmark/marauder_exit
+	name = "Marauder Exit"
+	icon_state = "marauder"
+
+/obj/effect/landmark/awaystart
+	name = "awaystart"
+	icon_state = "awaystart"
+
+/obj/effect/landmark/honk_squad
+	name = "HONKsquad"
+	icon_state = "HONKsquad"
+
+/obj/effect/landmark/ert_director
+	name = "ERT Director"
+	icon_state = "ERT Director"
+
+/obj/effect/landmark/response_team
+	name = "Response Team"
+	icon_state = "Response_Team"
+
+/obj/effect/landmark/death_squard
+	name = "Commando"
+	icon_state = "death_squard"
+
+/obj/effect/landmark/syndicate_spawn
+	name = "Syndicate-Spawn"
+	icon_state = "snukeop_spawn"
+
+/obj/effect/landmark/syndicate_infiltrator
+	name = "Syndicate-Infiltrator"
+	icon_state = "syndicate_team"
+
+/obj/effect/landmark/syndicate_commando
+	name = "Syndicate-Commando"
+	icon_state = "syndicate_team"
+
+/obj/effect/landmark/aroomwarp
+	name = "aroomwarp"
+	icon_state = "aroomwarp"
+
+/obj/effect/landmark/prisonwarp
+	name = "prisonwarp"
+	icon_state = "aroomwarp"
+
+/obj/effect/landmark/syndieprisonwarp
+	name = "syndieprisonwarp"
+	icon_state = "aroomwarp"
+
+/obj/effect/landmark/wizard
+	name = "wizard"
+	icon_state = "wizard"
+
+/obj/effect/landmark/free_golem_spawn
+	name = "Free Golem Spawn Point"
+	icon_state = "free_golem"
+
+/obj/effect/landmark/syndicate_officer
+	name = "Syndicate Officer"
+	icon_state = "Syndicate Officer"
+
+/obj/effect/landmark/traderstart_sol
+	name = "traderstart_sol"
+	icon_state = "traderstart_sol"
+
+/obj/effect/landmark/voxstart
+	name = "voxstart"
+	icon_state = "voxstart"
+
+/obj/effect/landmark/ninjastart
+	name = "ninjastart"
+	icon_state = "ninjastart"
+
+/obj/effect/landmark/ninja_teleport
+	name = "ninja_teleport"
+	icon_state = "ninja_teleport"
+
+/obj/effect/landmark/holocarp_spawn
+	name = "Holocarp Spawn"
+	icon_state = "carpspawn"
+
+/obj/effect/landmark/event/carpspawn
+	name = "carpspawn"
+	icon_state = "carpspawn"
+
+/obj/effect/landmark/event/blobstart
+	name = "blobstart"
+	icon_state = "blobstart"
+
+/obj/effect/landmark/event/xeno_spawn
+	name = "xeno_spawn"
+	icon_state = "xeno_spawn"
+
+/obj/effect/landmark/event/revenantspawn
+	name = "revenantspawn"
+	icon_state = "revenantspawn"
+
+/obj/effect/landmark/event/voxstart
+	name = "voxstart"
+	icon_state = "voxstart"
+
+/obj/effect/landmark/event/tripai
+	name = "tripai"
+	icon_state = "tripai"
+
+/obj/effect/landmark/event/lightsout
+	name = "lightsout"
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "lightsout"
+
+/obj/effect/landmark/tdome
+
+/obj/effect/landmark/tdome/tdomeadmin
+	name = "tdomeadmin"
+	icon_state = "tdome_admin"
+
+/obj/effect/landmark/tdome/tdome_observer
+	name = "tdomeobserve"
+	icon_state = "tdome_observer"
+
+/obj/effect/landmark/tdome/tdome1
+	name = "tdome1"
+	icon_state = "tdome1"
+
+/obj/effect/landmark/tdome/tdome2
+	name = "tdome2"
+	icon_state = "tdome_t2"
+
+/obj/effect/landmark/nuclear_bomb
+	name = "Nuclear-Bomb"
+	icon_state = "nuclear_bomb"
+
+/obj/effect/landmark/teleport_scroll
+	name = "Teleport-Scroll"
+	icon_state = "teleport_scroll"
+
+/obj/effect/landmark/commando_manual
+	name = "Commando_Manual"
+	icon_state = "codes"
+
+/obj/effect/landmark/nukecode
+	name = "nukecode"
+	icon_state = "codes"
 
 /obj/effect/landmark/start
-	name = "start"
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x"
-	anchored = 1.0
+//Landmark icons added only for renders
+//Same orders as jobs in lobby
+
+/obj/effect/landmark/start/civilian
+	name = "Civilian"
+	icon_state = "Assistant"
+
+/obj/effect/landmark/start/chief_engineer
+	name = "Chief Engineer"
+	icon_state = "CE"
+
+/obj/effect/landmark/start/engineer
+	name = "Station Engineer"
+	icon_state = "Engi"
+
+/obj/effect/landmark/start/trainee_engineer
+	name = "Trainee Engineer"
+	icon_state = "Trainee_Engi"
+
+/obj/effect/landmark/start/atmospheric
+	name = "Life Support Specialist"
+	icon_state = "Atmos"
+
+/obj/effect/landmark/start/mechanic
+	name = "Mechanic"
+	icon_state = "Mechanic"
+
+/obj/effect/landmark/start/cmo
+	name = "Chief Medical Officer"
+	icon_state = "CMO"
+
+/obj/effect/landmark/start/doctor
+	name = "Medical Doctor"
+	icon_state = "MD"
+
+/obj/effect/landmark/start/intern
+	name = "Intern"
+	icon_state = "Intern"
+
+/obj/effect/landmark/start/coroner
+	name = "Coroner"
+	icon_state = "Coroner"
+
+/obj/effect/landmark/start/chemist
+	name = "Chemist"
+	icon_state = "Chemist"
+
+/obj/effect/landmark/start/geneticist
+	name = "Geneticist"
+	icon_state = "Genetics"
+
+/obj/effect/landmark/start/virologist
+	name = "Virologist"
+	icon_state = "Viro"
+
+/obj/effect/landmark/start/psychiatrist
+	name = "Psychiatrist"
+	icon_state = "Psych"
+
+/obj/effect/landmark/start/paramedic
+	name = "Paramedic"
+	icon_state = "Paramed"
+
+/obj/effect/landmark/start/research_director
+	name = "Research Director"
+	icon_state = "RD"
+
+/obj/effect/landmark/start/scientist
+	name = "Scientist"
+	icon_state = "Sci"
+
+/obj/effect/landmark/start/student_sientist
+	name = "Student Sientist"
+	icon_state = "Student_Sci"
+
+/obj/effect/landmark/start/roboticist
+	name = "Roboticist"
+	icon_state = "Robo"
+
+/obj/effect/landmark/start/head_of_security
+	name = "Head of Security"
+	icon_state = "HoS"
+
+/obj/effect/landmark/start/warden
+	name = "Warden"
+	icon_state = "Warden"
+
+/obj/effect/landmark/start/detective
+	name = "Detective"
+	icon_state = "Det"
+
+/obj/effect/landmark/start/security_officer
+	name = "Security Officer"
+	icon_state = "Sec"
+
+/obj/effect/landmark/start/security_cadet
+	name = "Security Cadet"
+	icon_state = "Sec_Cadet"
+
+/obj/effect/landmark/start/brig_physician
+	name = "Brig Physician"
+	icon_state = "Brig_MD"
+
+/obj/effect/landmark/start/security_pod_pilot
+	name = "Security Pod Pilot"
+	icon_state = "Security_Pod"
+
+/obj/effect/landmark/start/ai
+	name = "AI"
+	icon_state = "AI"
+
+/obj/effect/landmark/start/cyborg
+	name = "Cyborg"
+	icon_state = "Borg"
+
+/obj/effect/landmark/start/captain
+	name = "Captain"
+	icon_state = "Cap"
+
+/obj/effect/landmark/start/hop
+	name = "Head of Personnel"
+	icon_state = "HoP"
+
+/obj/effect/landmark/start/nanotrasen_rep
+	name = "Nanotrasen Representative"
+	icon_state = "NTR"
+
+/obj/effect/landmark/start/blueshield
+	name = "Blueshield"
+	icon_state = "BS"
+
+/obj/effect/landmark/start/magistrate
+	name = "Magistrate"
+	icon_state = "Magi"
+
+/obj/effect/landmark/start/internal_affairs
+	name = "Internal Affairs Agent"
+	icon_state = "IAA"
+
+/obj/effect/landmark/start/bartender
+	name = "Bartender"
+	icon_state = "Bartender"
+
+/obj/effect/landmark/start/chef
+	name = "Chef"
+	icon_state = "Chef"
+
+/obj/effect/landmark/start/botanist
+	name = "Botanist"
+	icon_state = "Botanist"
+
+/obj/effect/landmark/start/quartermaster
+	name = "Quartermaster"
+	icon_state = "QM"
+
+/obj/effect/landmark/start/cargo_technician
+	name = "Cargo Technician"
+	icon_state = "Cargo_Tech"
+
+/obj/effect/landmark/start/shaft_miner
+	name = "Shaft Miner"
+	icon_state = "Miner"
+
+/obj/effect/landmark/start/clown
+	name = "Clown"
+	icon_state = "Clown"
+
+/obj/effect/landmark/start/mime
+	name = "Mime"
+	icon_state = "Mime"
+
+/obj/effect/landmark/start/janitor
+	name = "Janitor"
+	icon_state = "Jani"
+
+/obj/effect/landmark/start/librarian
+	name = "Librarian"
+	icon_state = "Librarian"
+
+/obj/effect/landmark/start/barber
+	name = "Barber"
+	icon_state = "Barber"
+
+/obj/effect/landmark/start/chaplain
+	name = "Chaplain"
+	icon_state = "Chap"
 
 /obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"
@@ -311,19 +663,23 @@
 	. = ..()
 
 // Damage tiles
-/obj/effect/landmark/damageturf
+/obj/effect/landmark/tiles
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "standart"
+
+/obj/effect/landmark/tiles/damageturf
 	icon_state = "damaged"
 
-/obj/effect/landmark/damageturf/New()
+/obj/effect/landmark/tiles/damageturf/New()
 	..()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		T.break_tile()
 
-/obj/effect/landmark/burnturf
+/obj/effect/landmark/tiles/burnturf
 	icon_state = "burned"
 
-/obj/effect/landmark/burnturf/New()
+/obj/effect/landmark/tiles/burnturf/New()
 	..()
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
@@ -332,5 +688,3 @@
 /obj/effect/landmark/battle_mob_point
 	name = "Nanomob Battle Avatar Spawn Point"
 
-/obj/effect/landmark/free_golem_spawn
-	name = "Free Golem Spawn Point"

@@ -865,15 +865,11 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "cn" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "co" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -882,9 +878,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "cq" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/machinery/light_construct/small{
 	tag = "icon-bulb-construct-stage1 (WEST)";
 	icon_state = "bulb-construct-stage1";
@@ -893,9 +887,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "cr" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/item/mop,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -905,9 +897,7 @@
 /area/awaymission/example)
 "ct" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "cu" = (

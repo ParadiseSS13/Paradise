@@ -1,4 +1,6 @@
 /obj/effect/decal/remains
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "remains"
 	gender = PLURAL
 
 /obj/effect/decal/remains/acid_act()

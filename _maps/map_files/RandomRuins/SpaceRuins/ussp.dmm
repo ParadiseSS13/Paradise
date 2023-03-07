@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/tileblend{
 	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "cautionfull");
 	icon_state = "4-i"
@@ -73,16 +73,16 @@
 /turf/simulated/floor/plating,
 /area/derelict/bridge)
 "ao" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
 "ap" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
 "aq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/machinery/door/poddoor/shutters{
@@ -94,7 +94,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/bridge)
 "ar" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /obj/machinery/door/poddoor/shutters{
@@ -308,8 +308,8 @@
 /obj/structure/chair/comfy/red{
 	dir = 1
 	},
-/obj/effect/landmark/burnturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -318,7 +318,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -340,7 +340,7 @@
 	},
 /area/derelict/bridge)
 "aQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -1164,10 +1164,7 @@
 /area/derelict/bridge)
 "cG" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /obj/item/trash/can,
 /obj/item/trash/semki,
 /turf/simulated/floor/plasteel{
@@ -3051,7 +3048,7 @@
 	},
 /area/derelict/annex)
 "gy" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/annex)
 "gz" = (
@@ -3059,7 +3056,7 @@
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil/cut{
 	amount = 2
 	},
@@ -3214,7 +3211,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "gS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
@@ -3363,7 +3360,7 @@
 	},
 /area/derelict/annex)
 "hi" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/glass,
@@ -3516,7 +3513,7 @@
 	},
 /area/derelict/annex)
 "hz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/annex)
 "hA" = (
@@ -3529,7 +3526,7 @@
 	},
 /area/derelict/annex)
 "hB" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -3793,7 +3790,7 @@
 /turf/simulated/floor/plating,
 /area/derelict/annex)
 "ig" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
@@ -4027,10 +4024,7 @@
 /area/space/nearstation)
 "iS" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_x = -32
 	},
@@ -4047,7 +4041,7 @@
 	},
 /area/derelict/arrival)
 "iU" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "iV" = (
@@ -4095,7 +4089,7 @@
 /turf/template_noop,
 /area/derelict/annex)
 "iZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -4207,7 +4201,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "jq" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/item/trash/spentcasing{
 	icon_state = "s-casing"
 	},
@@ -4279,7 +4273,7 @@
 /turf/template_noop,
 /area/derelict/annex)
 "jz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "jA" = (
@@ -4623,7 +4617,7 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "kp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/slag,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
@@ -5275,7 +5269,7 @@
 /turf/template_noop,
 /area/template_noop)
 "lD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
 	nitrogen = 0.01;
@@ -5327,10 +5321,7 @@
 /area/derelict/arrival)
 "lL" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -5485,7 +5476,7 @@
 	},
 /area/derelict/annex)
 "mi" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/derelict/annex)
 "mj" = (
@@ -5493,14 +5484,14 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "mk" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
 	},
 /area/derelict/annex)
 "ml" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille/broken,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating/airless,
@@ -5592,7 +5583,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/annex)
 "mz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/annex)
 "mA" = (
@@ -5669,7 +5660,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "mL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	dir = 8;
 	icon_state = "green"
@@ -5971,13 +5962,13 @@
 	},
 /area/derelict/arrival)
 "nx" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
 /area/derelict/arrival)
 "ny" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -6034,8 +6025,8 @@
 	},
 /area/derelict/arrival)
 "nG" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -6087,12 +6078,12 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "nN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
 "nO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/clothing/suit/tracksuit,
 /obj/item/clothing/under/pants/track,
 /obj/item/clothing/shoes/black,
@@ -6206,7 +6197,7 @@
 	},
 /area/derelict/arrival)
 "oa" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -6221,14 +6212,14 @@
 /turf/template_noop,
 /area/derelict/arrival)
 "od" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "oe" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/annex)
 "of" = (
@@ -6326,7 +6317,7 @@
 	},
 /area/derelict/annex)
 "or" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plasteel/airless,
 /area/derelict/annex)
@@ -6450,14 +6441,14 @@
 /turf/template_noop,
 /area/derelict/arrival)
 "oE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/derelict/arrival)
 "oF" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -6547,7 +6538,7 @@
 	},
 /area/derelict/crew_quarters)
 "oS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
@@ -6738,7 +6729,7 @@
 /turf/simulated/floor/plating/airless,
 /area/derelict/arrival)
 "pp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/derelict/arrival)
 "pq" = (
@@ -6818,7 +6809,7 @@
 	},
 /area/derelict/crew_quarters)
 "pA" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -6876,14 +6867,14 @@
 	},
 /area/derelict/arrival)
 "pH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/hemostat,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
 /area/derelict/arrival)
 "pI" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/machinery/light/small{
 	dir = 4;
 	tag = "icon-bulb1 (EAST)"
@@ -6893,7 +6884,7 @@
 	},
 /area/derelict/arrival)
 "pJ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "pK" = (
@@ -7035,7 +7026,7 @@
 	},
 /area/derelict/crew_quarters)
 "qa" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
@@ -7076,7 +7067,7 @@
 	},
 /area/derelict/crew_quarters)
 "qf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/slag,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plasteel/airless{
@@ -7155,7 +7146,7 @@
 	},
 /area/derelict/crew_quarters)
 "qp" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/arrival)
 "qq" = (
@@ -7760,10 +7751,7 @@
 /area/derelict/arrival)
 "rJ" = (
 /obj/structure/closet/crate/can,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/double,
 /obj/item/trash/popcorn,
 /obj/item/trash/semki,
 /obj/item/paper/crumpled{
@@ -8157,7 +8145,7 @@
 	},
 /area/space/nearstation)
 "ui" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/derelict/bridge)
 "ul" = (
@@ -8539,7 +8527,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ET" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},

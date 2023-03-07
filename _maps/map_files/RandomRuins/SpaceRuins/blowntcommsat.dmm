@@ -100,7 +100,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
 "au" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
 "av" = (

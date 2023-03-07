@@ -4305,9 +4305,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/general)
 "kD" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

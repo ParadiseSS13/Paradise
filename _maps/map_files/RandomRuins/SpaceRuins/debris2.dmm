@@ -95,7 +95,7 @@
 /turf/space,
 /area/template_noop)
 "D" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "E" = (
@@ -103,7 +103,7 @@
 /turf/space,
 /area/template_noop)
 "F" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor,
 /area/space)
 "G" = (
@@ -164,7 +164,7 @@
 /turf/simulated/wall,
 /area/space)
 "U" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "V" = (
@@ -172,7 +172,7 @@
 /turf/space,
 /area/template_noop)
 "W" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/burnt,
 /area/space)
 "X" = (

@@ -74,9 +74,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "ap" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -165,9 +163,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "aF" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -296,9 +292,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "bd" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -471,7 +465,7 @@
 	},
 /area/awaymission/spacebattle/hallway13)
 "bL" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/space/nearstation)
 "bN" = (
@@ -540,7 +534,7 @@
 /turf/simulated/floor/plasteel,
 /area/space/nearstation)
 "bX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "bY" = (
@@ -587,7 +581,7 @@
 /turf/space,
 /area/space)
 "cf" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/closet/crate/secure/bin,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -677,7 +671,7 @@
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/awaymission/spacebattle/server)
 "cy" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/mob_spawn/human/corpse/assistant,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/mineral/titanium,
@@ -855,7 +849,7 @@
 /area/awaymission/spacebattle/engine)
 "db" = (
 /obj/machinery/optable,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -908,7 +902,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "dm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/space/nearstation)
 "dn" = (
@@ -977,7 +971,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/freezing)
 "dy" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/space/nearstation)
@@ -999,7 +993,7 @@
 /turf/space,
 /area/space/nearstation)
 "dC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "dD" = (
@@ -1011,11 +1005,11 @@
 	},
 /area/awaymission/spacebattle/engineering)
 "dE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "dF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1176,7 +1170,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
 "ee" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "ef" = (
@@ -1196,7 +1190,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/freezing)
 "eh" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret3)
 "ei" = (
@@ -1242,7 +1236,7 @@
 /obj/machinery/gateway{
 	dir = 10
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "es" = (
@@ -1358,7 +1352,7 @@
 /area/awaymission/spacebattle/bridge)
 "eL" = (
 /obj/item/shield/energy,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
 "eM" = (
@@ -1886,7 +1880,7 @@
 	},
 /area/awaymission/spacebattle/hallway7)
 "fQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -1923,7 +1917,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
 "fU" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2106,7 +2100,7 @@
 	},
 /area/awaymission/spacebattle/storage)
 "gp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/rack,
 /obj/item/ammo_casing/c45,
 /obj/item/ammo_casing/c45,
@@ -2396,7 +2390,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "hk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -2413,7 +2407,7 @@
 	},
 /area/awaymission/spacebattle/syndicate5)
 "ho" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret9)
 "hp" = (
@@ -2432,20 +2426,14 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "hs" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "ht" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "hu" = (
@@ -2524,7 +2512,7 @@
 /area/awaymission/spacebattle/hallway12)
 "hJ" = (
 /obj/machinery/door/airlock,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2572,7 +2560,7 @@
 /turf/space,
 /area/space)
 "hP" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "hQ" = (
@@ -2648,7 +2636,7 @@
 	},
 /area/awaymission/spacebattle/syndicate7)
 "ih" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -2909,7 +2897,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
 "ju" = (
@@ -2935,7 +2923,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "jC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/closet/crate/secure/bin,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3015,11 +3003,11 @@
 	},
 /area/space/nearstation)
 "kx" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret10)
 "ky" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3285,9 +3273,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "mi" = (
@@ -3332,7 +3318,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "ms" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -3467,7 +3453,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "nu" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3488,7 +3474,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
 "nC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway7)
 "nE" = (
@@ -3715,7 +3701,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret4)
 "pp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3769,10 +3755,7 @@
 /area/awaymission/spacebattle/engine)
 "pH" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/ammo_casing/c45,
 /obj/item/ammo_casing/c45,
 /turf/simulated/floor/plating,
@@ -3826,7 +3809,7 @@
 	},
 /area/awaymission/spacebattle/hallway6)
 "qi" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -3930,7 +3913,7 @@
 	},
 /area/awaymission/spacebattle/kitchen)
 "qP" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3972,7 +3955,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway1)
 "rg" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -4050,7 +4033,7 @@
 	},
 /area/awaymission/spacebattle/hallway10)
 "rM" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -4068,7 +4051,7 @@
 	},
 /area/awaymission/spacebattle/hallway5)
 "rP" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable,
 /obj/machinery/power/apc{
 	pixel_y = -24
@@ -4163,7 +4146,7 @@
 	},
 /area/awaymission/spacebattle/hallway5)
 "sl" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
 "sn" = (
@@ -4343,7 +4326,7 @@
 	},
 /area/awaymission/spacebattle/hallway3)
 "tm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -4366,7 +4349,7 @@
 	},
 /area/awaymission/spacebattle/prhallway6)
 "tu" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/mineral/titanium{
 	icon_state = "titanium_dam1"
 	},
@@ -4478,7 +4461,7 @@
 	},
 /area/awaymission/spacebattle/hallway8)
 "ua" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway8)
 "ue" = (
@@ -4621,7 +4604,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/turret8)
 "vo" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "vs" = (
@@ -4782,7 +4765,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway6)
 "wq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -4859,7 +4842,7 @@
 	},
 /area/awaymission/spacebattle/prhallway2)
 "wR" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret6)
 "wV" = (
@@ -4875,7 +4858,7 @@
 	},
 /area/awaymission/spacebattle/prhallway1)
 "wY" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -4904,7 +4887,7 @@
 /area/awaymission/spacebattle/prhallway2)
 "xb" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -5030,7 +5013,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "yo" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -5047,7 +5030,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "yt" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -5099,7 +5082,7 @@
 	},
 /area/awaymission/spacebattle/hallway8)
 "yO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -5111,7 +5094,7 @@
 	},
 /area/awaymission/spacebattle/hallway4)
 "yQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/bed,
 /obj/item/bedsheet,
 /turf/simulated/floor/plasteel{
@@ -5138,7 +5121,7 @@
 	},
 /area/awaymission/spacebattle/hallway12)
 "yZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -5208,9 +5191,7 @@
 	},
 /area/awaymission/spacebattle/hallway12)
 "zQ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "zS" = (
@@ -5239,7 +5220,7 @@
 	},
 /area/awaymission/spacebattle/prhallway4)
 "Ac" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -5288,9 +5269,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "Av" = (
@@ -5345,7 +5324,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "AH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/ammo_casing/c45,
 /obj/item/ammo_casing/c45,
 /obj/item/ammo_casing/c45,
@@ -5544,7 +5523,7 @@
 	},
 /area/awaymission/spacebattle/engineering)
 "BS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -5568,12 +5547,9 @@
 	},
 /area/awaymission/spacebattle/hallway5)
 "BV" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/light,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -5587,7 +5563,7 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "Ce" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -5619,9 +5595,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Cu" = (
@@ -5667,7 +5641,7 @@
 	},
 /area/awaymission/spacebattle/hallway1)
 "CN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/closet/secure_closet/engineering_personal,
 /turf/simulated/floor/plasteel,
 /area/space/nearstation)
@@ -5752,7 +5726,7 @@
 	},
 /area/awaymission/spacebattle/hallway10)
 "Dw" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -5845,7 +5819,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "Eg" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -5892,7 +5866,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway6)
 "EX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -5968,7 +5942,7 @@
 	},
 /area/awaymission/spacebattle/hallway10)
 "FA" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engineering)
@@ -6029,7 +6003,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "FN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -6173,7 +6147,7 @@
 	},
 /area/awaymission/spacebattle/kitchen)
 "GQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/ammo_casing/c45,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -6211,7 +6185,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret2)
 "GZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -6309,7 +6283,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway4)
 "HM" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engine)
 "HN" = (
@@ -6319,7 +6293,7 @@
 	},
 /area/awaymission/spacebattle/living)
 "HO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -6332,7 +6306,7 @@
 	},
 /area/awaymission/spacebattle/prhallway2)
 "Ic" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -6527,10 +6501,8 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "JD" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "JH" = (
@@ -6815,7 +6787,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "Mt" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -6870,7 +6842,7 @@
 	},
 /area/awaymission/spacebattle/hallway7)
 "MW" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6954,7 +6926,7 @@
 	},
 /area/awaymission/spacebattle/hallway7)
 "Nv" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -6997,7 +6969,7 @@
 	},
 /area/awaymission/spacebattle/engineering)
 "NH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -7049,7 +7021,7 @@
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/awaymission/spacebattle/server)
 "Ok" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -7161,7 +7133,7 @@
 	},
 /area/awaymission/spacebattle/prhallway5)
 "OU" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
 "OX" = (
@@ -7303,16 +7275,14 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "PN" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "PO" = (
@@ -7387,7 +7357,7 @@
 	},
 /area/awaymission/spacebattle/hallway12)
 "Qq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -7401,7 +7371,7 @@
 	},
 /area/space/nearstation)
 "Qt" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -7479,7 +7449,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "QP" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -7524,7 +7494,7 @@
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/awaymission/spacebattle/server)
 "Re" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "neutral"
@@ -7534,11 +7504,11 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret2)
 "Rk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret1)
 "Rm" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/mob_spawn/human/corpse/assistant,
 /obj/effect/decal/cleanable/blood,
 /obj/item/gun/projectile/automatic/pistol/m1911,
@@ -7570,7 +7540,7 @@
 	},
 /area/awaymission/spacebattle/living)
 "Rr" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/living)
 "Ry" = (
@@ -7590,7 +7560,7 @@
 	},
 /area/awaymission/spacebattle/medbay)
 "RD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -7612,7 +7582,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "RO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/engineering)
 "RQ" = (
@@ -7639,9 +7609,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "Se" = (
@@ -7686,7 +7654,7 @@
 	},
 /area/awaymission/spacebattle/hallway5)
 "Ss" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -7704,19 +7672,16 @@
 "Su" = (
 /obj/structure/rack,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "SA" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/mob_spawn/human/securty,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "SI" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "neutral"
@@ -7761,7 +7726,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway9)
 "Tb" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -7853,9 +7818,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway13)
 "TQ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "TS" = (
@@ -7947,7 +7910,7 @@
 	},
 /area/awaymission/spacebattle/prhallway1)
 "UD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -8082,7 +8045,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret8)
 "Vz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -8235,7 +8198,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/prhallway1)
 "Wi" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -8390,19 +8353,19 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "Xt" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
 	},
 /area/awaymission/spacebattle/engine)
 "Xv" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /mob/living/simple_animal/hostile/syndicate/ranged/space/spacebattle,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "Xz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret4)
 "XA" = (
@@ -8427,7 +8390,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway12)
 "XG" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -8483,11 +8446,11 @@
 	},
 /area/awaymission/spacebattle/prhallway4)
 "XZ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/turret7)
 "Yc" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
@@ -8527,7 +8490,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/living)
 "Ym" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/hallway6)
 "Yo" = (
@@ -8753,7 +8716,7 @@
 /area/awaymission/spacebattle/medbay)
 "ZN" = (
 /obj/effect/decal/cleanable/blood,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "ZQ" = (

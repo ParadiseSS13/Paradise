@@ -408,7 +408,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "gD" = (
@@ -425,7 +425,7 @@
 /obj/item/stack/sheet/metal{
 	amount = 5
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "gR" = (
@@ -715,7 +715,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "mc" = (
@@ -757,7 +757,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/spacevine,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "mF" = (
@@ -1057,7 +1057,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
 "rl" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/aft)
 "rw" = (
@@ -1111,7 +1111,7 @@
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/spacevine,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
@@ -1187,7 +1187,7 @@
 	max_mobs = 7;
 	max_integrity = 300
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "tw" = (
@@ -1265,7 +1265,7 @@
 	name = "grass"
 	},
 /obj/item/stack/cable_coil,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/middle)
 "vj" = (
@@ -1359,7 +1359,7 @@
 "wi" = (
 /obj/structure/spacevine,
 /obj/item/stock_parts/matter_bin/super,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "wl" = (
@@ -1684,7 +1684,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/spacevine,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
@@ -2159,7 +2159,7 @@
 "HW" = (
 /obj/structure/spacevine,
 /obj/item/stock_parts/micro_laser/ultra,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "HY" = (
@@ -2226,7 +2226,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "Jz" = (
@@ -2291,7 +2291,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "Kg" = (
@@ -2315,7 +2315,7 @@
 	icon_state = "grass_edge_medium";
 	name = "grass"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "Ko" = (
@@ -2382,7 +2382,7 @@
 	name = "grass"
 	},
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "Lt" = (
@@ -2490,7 +2490,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/asteroid)
 "MF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "MK" = (
@@ -2599,7 +2599,7 @@
 /area/ruin/space/crashedipcship/aft)
 "Oq" = (
 /obj/item/stack/sheet/metal,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "Ov" = (
@@ -2770,13 +2770,13 @@
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "Sb" = (
 /obj/item/clothing/under/misc/durathread,
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "Sh" = (
@@ -2821,7 +2821,7 @@
 /obj/item/storage/backpack,
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mob_spawn/headcrab,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "SX" = (
@@ -2880,7 +2880,7 @@
 /area/space)
 "UB" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "UF" = (
@@ -2920,9 +2920,9 @@
 	on = 1
 	},
 /obj/item/stock_parts/matter_bin/super,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
 "Vp" = (
@@ -3136,7 +3136,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "Zu" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "ZK" = (

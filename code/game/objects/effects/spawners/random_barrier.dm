@@ -1,5 +1,7 @@
 /obj/effect/spawner/random_barrier
 	name = "random tile"
+	icon = 'icons/effects/mapping_helpers.dmi'
+	icon_state = "floor"
 	var/list/result = list(
 	/turf/simulated/floor/plasteel = 1,
 	/turf/simulated/wall = 1,
@@ -26,18 +28,21 @@
 
 /obj/effect/spawner/random_barrier/wall_probably
 	name = "probably a wall"
+	icon_state = "wall"
 	result = list(
 	/turf/simulated/wall = 9,
 	/obj/structure/falsewall = 1)
 
 /obj/effect/spawner/random_barrier/floor_probably
 	name = "probably a floor"
+	icon_state = "floor"
 	result = list(
 	/turf/simulated/floor/plasteel = 3,
 	/turf/simulated/wall = 1)
 
 /obj/effect/spawner/random_barrier/obstruction
 	name = "obstruction"
+	icon_state = "obstruction"
 	result = list(
 	/turf/simulated/wall = 1,
 	/obj/structure/falsewall = 1,
@@ -46,12 +51,14 @@
 
 /obj/effect/spawner/random_barrier/possibly_welded_airlock // these have no access restrictions, so for internal maintenance only
 	name = "possibly welded airlock"
+	icon_state = "airlock"
 	result = list(
 	/obj/machinery/door/airlock = 3,
 	/obj/machinery/door/airlock/welded = 1)
 
 /obj/effect/spawner/random_spawners/grille_often
 	name = "grille often"
+	icon_state = "grille"
 	result = list(
 	/obj/structure/grille = 8,
 	/obj/structure/grille/broken = 4,
@@ -59,6 +66,7 @@
 
 /obj/effect/spawner/random_spawners/grille_maybe
 	name = "grille maybe"
+	icon_state = "grille"
 	result = list(
 	/obj/structure/grille = 2,
 	/obj/structure/grille/broken = 2,

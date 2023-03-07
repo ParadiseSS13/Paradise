@@ -47,25 +47,25 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "am" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "an" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "ao" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "ap" = (
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "aq" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "ar" = (
@@ -158,17 +158,17 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "aF" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "aG" = (
 /obj/effect/decal/remains/robot,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "aH" = (
 /obj/machinery/door/airlock/engineering,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "aI" = (
@@ -213,7 +213,7 @@
 /area/awaymission/syndishuttle)
 "aR" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "aS" = (
@@ -237,7 +237,7 @@
 /area/awaymission/northblock)
 "aW" = (
 /obj/structure/girder/reinforced,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/research)
 "aX" = (
@@ -265,7 +265,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "bc" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorscorched2"
 	},
@@ -368,7 +368,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
 "bw" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/research)
 "bx" = (
@@ -621,7 +621,7 @@
 	icon_state = "intact";
 	level = 2
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "cj" = (
@@ -897,7 +897,7 @@
 /obj/machinery/portable_atmospherics/canister/toxins{
 	destroyed = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "cS" = (
@@ -983,7 +983,7 @@
 	icon_state = "intact";
 	level = 2
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "dd" = (
@@ -1091,7 +1091,7 @@
 /area/awaymission/research)
 "do" = (
 /obj/machinery/atmospherics/pipe/simple,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "dp" = (
@@ -1123,7 +1123,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "dt" = (
@@ -1236,7 +1236,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "dD" = (
@@ -1332,7 +1332,7 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dO" = (
@@ -1368,21 +1368,21 @@
 /obj/structure/sign/goldenplaque{
 	pixel_y = 31
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dS" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dT" = (
 /obj/structure/sign/atmosplaque{
 	pixel_y = 31
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "dU" = (
@@ -1511,7 +1511,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "ek" = (
@@ -1566,7 +1566,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "er" = (
@@ -1597,7 +1597,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "eu" = (
@@ -1617,7 +1617,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "ew" = (
@@ -1633,7 +1633,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "ex" = (
@@ -1650,14 +1650,14 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/northblock)
 "ez" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "eA" = (
@@ -1757,7 +1757,7 @@
 /area/awaymission/syndishuttle)
 "eM" = (
 /obj/machinery/light/small,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "eN" = (
@@ -1876,14 +1876,14 @@
 	},
 /area/awaymission/syndishuttle)
 "eY" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "eZ" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/northblock)
 "fa" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "fb" = (
@@ -2057,7 +2057,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "ft" = (
@@ -2068,7 +2068,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "fu" = (
@@ -2196,7 +2196,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "fG" = (
@@ -2212,11 +2212,11 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "fH" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 1
@@ -2424,7 +2424,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/midblock)
 "gh" = (
@@ -2693,7 +2693,7 @@
 /area/awaymission/arrivalblock)
 "gU" = (
 /obj/structure/girder,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/arrivalblock)
 "gV" = (
@@ -3192,7 +3192,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/midblock)
 "id" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 5
@@ -3219,7 +3219,7 @@
 /area/awaymission/midblock)
 "ih" = (
 /obj/structure/table/reinforced,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -3324,7 +3324,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/midblock)
 "iz" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/southblock)
 "iA" = (
@@ -3826,9 +3826,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
 "jP" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
@@ -3981,9 +3979,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
@@ -4244,9 +4240,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)
 "kV" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
 "kW" = (
@@ -4256,9 +4250,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/gateroom)
 "kX" = (

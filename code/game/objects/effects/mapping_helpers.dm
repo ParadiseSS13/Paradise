@@ -1,7 +1,7 @@
 /obj/effect/baseturf_helper //Set the baseturfs of every turf in the /area/ it is placed.
 	name = "baseturf editor"
 	icon = 'icons/effects/mapping_helpers.dmi'
-	icon_state = ""
+	icon_state = "standart"
 	var/baseturf
 
 	layer = POINT_LAYER
@@ -55,7 +55,7 @@
 
 /obj/effect/mapping_helpers
 	icon = 'icons/effects/mapping_helpers.dmi'
-	icon_state = ""
+	icon_state = "standart"
 	layer = 10
 	var/late = FALSE
 

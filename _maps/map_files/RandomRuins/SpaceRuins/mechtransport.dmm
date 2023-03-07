@@ -177,7 +177,7 @@
 	},
 /area/ruin/powered)
 "H" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "I" = (

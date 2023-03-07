@@ -1084,7 +1084,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betanorth)
 "hR" = (
@@ -1672,7 +1672,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation)
 "mF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betanorth)
 "mH" = (
@@ -1740,7 +1740,7 @@
 /area/template_noop)
 "mT" = (
 /obj/item/stack/ore/iron,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "mU" = (
@@ -2370,7 +2370,7 @@
 /area/ruin/space/ancientstation/betanorth)
 "sA" = (
 /obj/structure/flora/rock/pile,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betanorth)
 "sF" = (
@@ -3353,7 +3353,7 @@
 	},
 /area/ruin/space/ancientstation/proto)
 "Bn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/atmos)
 "Bp" = (
@@ -3744,7 +3744,7 @@
 "DC" = (
 /obj/structure/lattice,
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/template_noop,
 /area/ruin/space/ancientstation/atmos)
 "DE" = (
@@ -3838,7 +3838,7 @@
 "EH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/ore/iron,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil{
 	amount = 4;
 	desc = "And another piece of cable. Seems this one is all what left from that APCs terminal."
@@ -4351,7 +4351,7 @@
 /area/ruin/space/ancientstation/thetacorridor)
 "IP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/betacargo)
 "IV" = (
@@ -5171,7 +5171,7 @@
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/rnd)
 "OX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -5794,7 +5794,7 @@
 "TP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/rnd)

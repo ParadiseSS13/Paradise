@@ -33,7 +33,7 @@
 /area/awaymission/BMPship/TurretsSouth)
 "al" = (
 /obj/item/stack/sheet/mineral/titanium,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "am" = (
@@ -173,7 +173,7 @@
 	density = 0;
 	icon_state = "brokengrille"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "aF" = (
@@ -206,7 +206,7 @@
 	dir = 4
 	},
 /obj/structure/grille,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "aI" = (
@@ -247,7 +247,7 @@
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Gate)
 "aR" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/apc_electronics,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
@@ -277,7 +277,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "bb" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
@@ -439,16 +439,16 @@
 /area/awaymission/BMPship/Fore)
 "bw" = (
 /obj/structure/alien/weeds,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
 "by" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "bz" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "bA" = (
@@ -879,7 +879,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "cE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/tile/plasteel,
 /obj/item/stack/sheet/mineral/titanium,
 /turf/simulated/floor/plating/airless,
@@ -1216,7 +1216,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "dw" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/item/stock_parts/cell,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
@@ -1586,9 +1586,7 @@
 	},
 /area/awaymission/BMPship/Fore)
 "en" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -1671,7 +1669,7 @@
 /area/awaymission/BMPship/Fore)
 "eC" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
@@ -1881,7 +1879,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "fc" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2271,7 +2269,7 @@
 /area/awaymission/BMPship/Kitchen)
 "fT" = (
 /mob/living/carbon/human/lesser/monkey,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -2482,7 +2480,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gs" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gt" = (
@@ -2492,7 +2490,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gu" = (
@@ -2522,7 +2520,7 @@
 /area/space)
 "gz" = (
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gA" = (
@@ -2557,14 +2555,14 @@
 /area/awaymission/BMPship/Fore)
 "gD" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gE" = (
 /obj/structure/computerframe{
 	anchored = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gF" = (
@@ -2634,12 +2632,12 @@
 /obj/structure/computerframe{
 	anchored = 1
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "gP" = (
 /obj/item/multitool,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "gQ" = (
@@ -2660,7 +2658,7 @@
 /area/awaymission/BMPship/Fore)
 "gS" = (
 /obj/structure/cable,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/tank/internals/emergency_oxygen/empty,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -2705,23 +2703,21 @@
 	},
 /area/awaymission/BMPship/Dormitories)
 "gY" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "gZ" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/awaystart,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "ha" = (
 /obj/effect/gibspawner/robot,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "hb" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -2792,7 +2788,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Buffer)
 "hr" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/structure/spider/stickyweb,
 /obj/structure/cable{
 	d1 = 2;
@@ -2821,7 +2817,7 @@
 /obj/machinery/broken/porta_turret{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "hw" = (
@@ -2872,7 +2868,7 @@
 /obj/machinery/light_construct/small{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "hC" = (
@@ -2985,7 +2981,7 @@
 	icon_state = "small"
 	},
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille{
 	density = 0;
 	icon_state = "brokengrille"
@@ -3035,18 +3031,14 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "ib" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Mining)
 "ic" = (
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/Engines)
 "id" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "ie" = (
@@ -3069,7 +3061,7 @@
 /area/awaymission/BMPship/TraderShuttle)
 "ih" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
@@ -3084,7 +3076,7 @@
 	pixel_x = -7;
 	pixel_y = -10
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "ij" = (
@@ -3406,7 +3398,7 @@
 "jm" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "jn" = (
@@ -3698,7 +3690,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/grille{
 	density = 0;
 	icon_state = "brokengrille"
@@ -3931,7 +3923,7 @@
 /area/awaymission)
 "mJ" = (
 /obj/structure/girder,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "mL" = (
@@ -3993,7 +3985,7 @@
 /area/awaymission/BMPship/TurretsNorth)
 "nD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -4011,7 +4003,7 @@
 	layer = 2.8
 	},
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "nH" = (
@@ -4133,7 +4125,7 @@
 /obj/effect/decal/warning_stripes/red/partial{
 	dir = 8
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "os" = (
@@ -4153,7 +4145,7 @@
 	icon_state = "0-4"
 	},
 /obj/item/mounted/frame/apc_frame,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
 "ov" = (
@@ -4190,7 +4182,7 @@
 	},
 /area/awaymission/BMPship/Fore)
 "oD" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stock_parts/cell/empty,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
@@ -4270,7 +4262,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Armory)
 "pn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/apc_electronics,
 /obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/plating/airless,
@@ -4437,7 +4429,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "qp" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/ash,
 /obj/item/stack/sheet/mineral/titanium,
 /turf/simulated/floor/plating/airless,
@@ -4529,14 +4521,14 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "qS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/firealarm/triggered_nosignals{
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "qX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/crowbar/fluff/zelda_creedy_1,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -4545,7 +4537,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "rg" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/warning_stripes/red/partial{
 	dir = 8
 	},
@@ -4589,7 +4581,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsSouth)
 "rE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
 "rJ" = (
@@ -4700,14 +4692,14 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "su" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/bodyanalyzer,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "sv" = (
 /obj/item/stack/tile/plasteel,
-/obj/effect/landmark/damageturf,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "sF" = (
@@ -4734,7 +4726,7 @@
 	maxHealth = 150;
 	name = "Angry giant spider"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Containment)
 "sQ" = (
@@ -4818,7 +4810,7 @@
 	},
 /area/awaymission/BMPship/Engines)
 "tw" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /obj/effect/mob_spawn/carp,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/airless,
@@ -4850,7 +4842,7 @@
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Kitchen)
 "tE" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/light_construct{
 	dir = 4
 	},
@@ -4932,7 +4924,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "uo" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Buffer)
 "ur" = (
@@ -5191,7 +5183,7 @@
 /obj/machinery/light_construct/small,
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/blood/oil,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "wg" = (
@@ -5214,7 +5206,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "wk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/broken/porta_turret{
 	dir = 8
 	},
@@ -5259,7 +5251,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "wB" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/CommonArea)
 "wG" = (
@@ -5460,7 +5452,7 @@
 /area/awaymission/BMPship/Containment)
 "ye" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /mob/living/simple_animal/hostile/carp{
 	maxHealth = 50;
 	name = "Annoyed space carp";
@@ -5490,7 +5482,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "yv" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Fore)
 "yw" = (
@@ -5556,7 +5548,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "zb" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/BMPship/Buffer)
 "zf" = (
@@ -5720,7 +5712,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
 "AI" = (
@@ -5761,7 +5753,7 @@
 /area/space)
 "AW" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "AZ" = (
@@ -5821,7 +5813,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/BMPship/Fore)
 "BC" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
@@ -6215,7 +6207,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "EA" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/landmark/tiles/burnturf,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowalt"
@@ -6358,7 +6350,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/BMPship/Gate)
 "FQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
@@ -6622,7 +6614,7 @@
 /area/awaymission/BMPship/MedBay)
 "HE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
 	maxHealth = 250;
@@ -6751,7 +6743,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "IF" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -6821,7 +6813,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "Jh" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
@@ -6898,7 +6890,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "KF" = (
@@ -7173,7 +7165,7 @@
 "ND" = (
 /obj/item/stack/ore/iron,
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "NH" = (
@@ -7208,7 +7200,7 @@
 /area/awaymission/BMPship/Containment)
 "Oj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/machinery/firealarm/triggered_nosignals{
 	pixel_y = 28
 	},
@@ -7262,7 +7254,7 @@
 	},
 /area/awaymission/BMPship/Engines)
 "OS" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "OU" = (
@@ -7468,7 +7460,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "QO" = (
@@ -7558,7 +7550,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "Rk" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsNorth)
 "Rm" = (
@@ -7569,7 +7561,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
 "Rn" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/MedBay)
 "RB" = (
@@ -7605,7 +7597,7 @@
 /area/awaymission/BMPship/Buffer)
 "RK" = (
 /obj/structure/girder,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "Sd" = (
@@ -7641,12 +7633,12 @@
 /area/awaymission/BMPship/MedBay)
 "Sn" = (
 /obj/effect/decal/cleanable/ash,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "Sq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7748,7 +7740,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "TJ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/r_wall,
 /area/awaymission/BMPship/Containment)
 "TM" = (
@@ -7798,7 +7790,7 @@
 	},
 /area/awaymission/BMPship/Containment)
 "Ug" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/Armory)
 "Uh" = (
@@ -7815,7 +7807,7 @@
 /area/awaymission/BMPship/Containment)
 "Uj" = (
 /obj/item/shard,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "Un" = (
@@ -7939,7 +7931,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Vw" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -7993,16 +7985,16 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "VO" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "VQ" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "VV" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/wall/shuttle,
 /area/awaymission/BMPship/TurretsNorth)
 "VX" = (
@@ -8095,7 +8087,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "Xa" = (
@@ -8327,7 +8319,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "YX" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/tile/plasteel,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
@@ -8370,7 +8362,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "ZB" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)

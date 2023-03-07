@@ -3234,10 +3234,7 @@
 /obj/structure/closet/crate{
 	name = "Базовый набор экипировки для выхода в космос"
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/flashlight{
 	on = 1
 	},

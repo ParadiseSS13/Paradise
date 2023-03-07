@@ -1223,10 +1223,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 15
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plasteel,
 /area/shuttle/abandoned)
 "yA" = (

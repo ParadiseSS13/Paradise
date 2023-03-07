@@ -2227,9 +2227,7 @@
 	},
 /area/awaymission/spacehotel)
 "fx" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "fy" = (
@@ -2289,9 +2287,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "fH" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/indestructible/beach/water,
 /area/awaymission/spacehotel)
 "fI" = (
@@ -3501,7 +3497,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "ja" = (
@@ -3606,7 +3602,7 @@
 	icon_state = "smes";
 	name = "WaffeCo PSU"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jo" = (

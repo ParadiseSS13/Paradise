@@ -501,9 +501,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/start)
 "bK" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/greengrid,
 /area/awaymission/challenge/start)
 "bL" = (
