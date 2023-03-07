@@ -43449,7 +43449,6 @@
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
 /obj/item/clothing/mask/surgical,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/robot_parts/l_leg,
@@ -43457,6 +43456,7 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28
 	},
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
