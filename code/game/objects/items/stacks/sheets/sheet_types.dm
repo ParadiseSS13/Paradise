@@ -241,6 +241,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	desc = "One can only guess that this is a bunch of wood."
 	gender = PLURAL
 	singular_name = "wood plank"
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-wood"
 	item_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
@@ -295,6 +296,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 	name = "cloth"
 	desc = "Is it cotton? Linen? Denim? Burlap? Canvas? You can't tell."
 	singular_name = "cloth roll"
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-cloth"
 	item_state = "sheet-cloth"
 	origin_tech = "materials=2"
@@ -325,6 +327,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
 	item_state = "sheet-durathread"
+	icon = 'icons/obj/stacks/organic.dmi'
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -341,6 +344,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	desc = "A bundle of raw cotton ready to be spun on the loom."
 	singular_name = "raw cotton ball"
 	icon_state = "sheet-cotton"
+	icon = 'icons/obj/stacks/organic.dmi'
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -353,6 +357,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list (
 	desc = "A bundle of raw durathread ready to be spun on the loom."
 	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
+	icon = 'icons/obj/stacks/organic.dmi'
 	merge_type = /obj/item/stack/sheet/cotton/durathread
 	pull_effort = 70
 	loom_result = /obj/item/stack/sheet/durathread
@@ -406,6 +411,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
+	icon = 'icons/obj/stacks/miscelaneous.dmi'
 	icon_state = "sheet-card"
 	item_state = "sheet-card"
 	origin_tech = "materials=1"
@@ -523,7 +529,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (
  */
 /obj/item/stack/sheet/bone
 	name = "bones"
-	icon = 'icons/obj/mining.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "bone"
 	item_state = "bone"
 	singular_name = "bone"

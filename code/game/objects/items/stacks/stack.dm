@@ -29,6 +29,8 @@
 	var/recipe_height = 400 //Height of the recipe popup
 	/// What sort of table is made when applying this stack to a frame?
 	var/table_type
+	/// If this stack has a dynamic icon_state based on amount / max_amount
+	var/dynamic_icon_state = TRUE
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
@@ -43,6 +45,19 @@
 		for(var/obj/item/stack/S in loc)
 			if(S.merge_type == merge_type)
 				merge(S)
+
+/obj/item/stack/update_icon_state()
+	. = ..()
+	if(!dynamic_icon_state)
+		return
+	var/percentage =  amount / max_amount
+	switch(percentage)
+		if(0.33 to 0.65)
+			icon_state = "[initial(icon_state)]_2"
+		if(0.66 to 1)
+			icon_state = "[initial(icon_state)]_3"
+		else //somethin went wrong, or we're less than 33% of the max stack
+			icon_state = initial(icon_state)
 
 /obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
@@ -84,7 +99,7 @@
 		source.add_charge(newamount * cost)
 	else
 		amount += newamount
-	update_icon()
+	update_icon(update_icon_state)
 
 /obj/item/stack/attack_self(mob/user)
 	list_recipes(user)
@@ -279,7 +294,7 @@
 	amount -= used
 	if(check)
 		zero_amount()
-	update_icon()
+	update_icon(update_icon_state)
 	return TRUE
 
 /obj/item/stack/proc/get_amount()

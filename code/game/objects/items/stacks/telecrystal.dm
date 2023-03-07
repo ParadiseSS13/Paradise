@@ -2,13 +2,14 @@
 	name = "telecrystal"
 	desc = "It seems to be pulsing with suspiciously enticing energies."
 	singular_name = "telecrystal"
-	icon = 'icons/obj/telescience.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "telecrystal"
 	item_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 50
 	flags = NOBLUDGEON
 	origin_tech = "materials=6;syndicate=1"
+	dynamic_icon_state = TRUE
 
 /obj/item/stack/telecrystal/attack(mob/target, mob/user)
 	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
