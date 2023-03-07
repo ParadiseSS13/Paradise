@@ -11,6 +11,7 @@
 	throw_speed = 2
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
+	max_combined_w_class = 18
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("robusted")
