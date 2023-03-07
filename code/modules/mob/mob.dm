@@ -1078,6 +1078,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/show_stat_station_time()
 	stat(null, "Round Time: [worldtime2text()]")
 	stat(null, "Station Time: [station_time_timestamp()]")
+	stat(null, "Server TPS: [world.fps]")
+	stat(null, "Desired Client FPS: [client?.prefs?.clientfps]")
 	stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% " + \
 				"AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, " + \
 				"[round(SStime_track.time_dilation_avg,1)]%, " + \
