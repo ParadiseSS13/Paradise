@@ -76,6 +76,7 @@
 	name = "medical wrench"
 	desc = "A medical wrench with common (medical?) uses. Can be found in your hand."
 	icon_state = "wrench_medical"
+	w_class = WEIGHT_CLASS_SMALL
 	force = 2 //MEDICAL
 	throwforce = 4
 	origin_tech = "materials=1;engineering=1;biotech=3"
