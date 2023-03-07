@@ -512,6 +512,7 @@
 #include "code\datums\spells\projectile_spell.dm"
 #include "code\datums\spells\rathens.dm"
 #include "code\datums\spells\rod_form.dm"
+#include "code\datums\spells\sentient_sword_lunge.dm"
 #include "code\datums\spells\shapeshift.dm"
 #include "code\datums\spells\spacetime_dist.dm"
 #include "code\datums\spells\summonitem.dm"

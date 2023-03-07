@@ -263,6 +263,7 @@
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	attack_verb = list("chopped", "sliced", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
+	force = 10
 	var/possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
@@ -295,7 +296,7 @@
 		possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/proc/debug_spawn()
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the blade spirit?",, FALSE, 10 SECONDS, source = src, role_cleanname = "possessed blade")
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the blade spirit?",, FALSE, 3 SECONDS, source = src, role_cleanname = "possessed blade")
 	var/mob/dead/observer/theghost = null
 
 	if(QDELETED(src))
@@ -321,9 +322,9 @@
 	return ..()
 
 /obj/item/nullrod/scythe/talking/proc/click_actions(atom/attacking_atom, mob/living/simple_animal/attacking_shade)
+	var/bonus_damage = 5
 	if(world.time <= attacking_shade.next_move) // yea we gotta check
 		return
-	var/attacking_from = loc
 	if(!istype(attacking_atom, /atom/movable))
 		return
 	attacking_shade.changeNext_move(CLICK_CD_MELEE)
@@ -331,24 +332,36 @@
 		if(ismob(loc))
 			var/mob/living/carbon/human/our_location = loc
 			if(istype(our_location))
-				actually_attack(attacking_atom, attacking_shade, 1, attacking_from)
+				if(our_location.Adjacent(attacking_atom)) // with a buddy we deal 15 damage :D
+					our_location.do_attack_animation(attacking_atom, used_item = src)
+					force = clamp(force + bonus_damage, 0, INFINITY)
+					melee_attack_chain(attacking_shade, attacking_atom)
+					force = clamp(force - bonus_damage, 0, INFINITY)
 				return
-	actually_attack(attacking_atom, attacking_shade, 0, attacking_from)
-
-/obj/item/nullrod/scythe/talking/proc/actually_attack(atom/attacking_atom, mob/living/simple_animal/attacking_shade, range, atom/attacking_from)
-	if(range)
-		if(attacking_from.Adjacent(attacking_atom))
-			var/mob/living/carbon/human/holder = attacking_from
-			holder.do_attack_animation(attacking_atom, used_item = src)
-			melee_attack_chain(attacking_shade, attacking_atom)
-	else
-		if(Adjacent(attacking_atom))
-			do_attack_animation(attacking_atom, used_item = src)
-			melee_attack_chain(attacking_shade, attacking_atom)
+	if(Adjacent(attacking_atom)) // without a buddy we only deal 10 damage :c
+		do_attack_animation(attacking_atom, used_item = src)
+		melee_attack_chain(attacking_shade, attacking_atom)
 
 /mob/living/simple_animal/shade/sword
+	a_intent = INTENT_HARM // i ain't dealing with this shite
+
+/mob/living/simple_animal/shade/sword/Initialize(mapload)
+	. = ..()
+	AddSpell(new /obj/effect/proc_holder/spell/sentient_sword_lunge)
+
+/mob/living/simple_animal/shade/sword/create_mob_hud()
+	hud_used = new /datum/hud/sword(src)
+
+/datum/hud/sword/New(mob/user)
+	..()
+
+	mymob.healths = new /obj/screen/healths()
+	infodisplay += mymob.healths
 
 /mob/living/simple_animal/shade/sword/ClickOn(atom/A, params)
+	if(client.click_intercept)
+		client.click_intercept.InterceptClickOn(src, params, A)
+		return
 	if(istype(loc, /obj/item/nullrod/scythe/talking))
 		var/obj/item/nullrod/scythe/talking/host_sword = loc
 		return host_sword.click_actions(A, src)
