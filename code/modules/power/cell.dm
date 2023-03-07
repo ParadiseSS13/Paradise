@@ -76,7 +76,7 @@
 // recharge the cell
 /obj/item/stock_parts/cell/proc/give(amount)
 	if(rigged && amount > 0)
-		if (!((locate(/mob/living/simple_animal/pulse_demon) in src) && istype(loc, /obj/machinery/cell_charger)))
+		if(!((locate(/mob/living/simple_animal/pulse_demon) in src) && istype(loc, /obj/machinery/cell_charger)))
 			explode()
 			return 0
 	if(maxcharge < amount)
@@ -119,7 +119,7 @@
 	if(charge == 0)
 		return
 
-	for (var/mob/living/simple_animal/pulse_demon/PD in src)
+	for(var/mob/living/simple_animal/pulse_demon/PD in src)
 		PD.exit_to_turf(src)
 
 	var/devastation_range = -1 //round(charge/11000)

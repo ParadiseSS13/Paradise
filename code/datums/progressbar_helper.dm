@@ -26,7 +26,7 @@
 
 // returns FALSE if this instance is already performing an action, otherwise TRUE
 /datum/progressbar_helper/proc/start(mob/source, atom/target, delay, staystill = TRUE, datum/callback/check = null, datum/callback/onfinish = null, datum/callback/onfail = null, datum/callback/always = null)
-	if (state == PBHELPER_RUNNING || !istype(source) || !istype(target))
+	if(state == PBHELPER_RUNNING || !istype(source) || !istype(target))
 		return FALSE
 
 	nomove = staystill
@@ -48,7 +48,7 @@
 	return TRUE
 
 /datum/progressbar_helper/proc/cleanup()
-	if (state != PBHELPER_RUNNING)
+	if(state != PBHELPER_RUNNING)
 		return FALSE
 	deltimer(progbar_timer_id)
 	progbar_timer_id = TIMER_ID_NULL
@@ -57,12 +57,12 @@
 	return TRUE
 
 /datum/progressbar_helper/proc/end()
-	if (state == PBHELPER_RUNNING && always_cb)
+	if(state == PBHELPER_RUNNING && always_cb)
 		always_cb.Invoke()
 		QDEL_NULL(always_cb)
 
 /datum/progressbar_helper/proc/cancel()
-	if (state == PBHELPER_RUNNING && cleanup())
+	if(state == PBHELPER_RUNNING && cleanup())
 		end()
 		state = PBHELPER_CANCELED
 
@@ -70,21 +70,21 @@
 	return (targ.loc != tloc) || (progbar.user.loc != uloc)
 
 /datum/progressbar_helper/proc/update_callback()
-	if (state != PBHELPER_RUNNING)
+	if(state != PBHELPER_RUNNING)
 		return
 
-	if (((nomove && !has_moved()) || !nomove) && ((check_cb && check_cb.Invoke()) || !check_cb))
+	if(((nomove && !has_moved()) || !nomove) && ((check_cb && check_cb.Invoke()) || !check_cb))
 		progbar.update(world.time - start)
-		if (world.time - start >= progbar.goal)
-			if (cleanup())
-				if (finish_cb)
+		if(world.time - start >= progbar.goal)
+			if(cleanup())
+				if(finish_cb)
 					finish_cb.Invoke()
 					QDEL_NULL(finish_cb)
 				end()
 				state = PBHELPER_FINISHED
 	else
-		if (cleanup())
-			if (fail_cb)
+		if(cleanup())
+			if(fail_cb)
 				fail_cb.Invoke()
 				QDEL_NULL(fail_cb)
 			end()

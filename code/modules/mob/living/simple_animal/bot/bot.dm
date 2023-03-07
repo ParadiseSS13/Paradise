@@ -263,7 +263,7 @@
 	if(!on)
 		return
 
-	if (hijacked)
+	if(hijacked)
 		return
 
 	switch(mode) //High-priority overrides are processed first. Bots can do nothing else while under direct command.
@@ -1014,7 +1014,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		to_chat(src, "[paicard.pai.pai_laws]")
 
 /mob/living/simple_animal/bot/get_access()
-	if (hijacked)
+	if(hijacked)
 		return get_all_accesses()
 
 	. = ..()

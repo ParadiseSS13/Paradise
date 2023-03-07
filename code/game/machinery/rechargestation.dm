@@ -72,7 +72,7 @@
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
 		if(M == occupant)
 			continue
-		else if (!ispulsedemon(M))
+		else if(!ispulsedemon(M))
 			M.forceMove(src.loc)
 	return 1
 
@@ -101,7 +101,7 @@
 	return FALSE
 
 /obj/machinery/recharge_station/relaymove(mob/user as mob)
-	if (ispulsedemon(user))
+	if(ispulsedemon(user))
 		return
 	if(user.stat)
 		return
