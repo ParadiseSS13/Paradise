@@ -825,13 +825,25 @@
 /datum/status_effect/transient/drugged/on_remove()
 	owner.update_druggy_effects()
 
+#define FAKE_COLD 1
+#define FAKE_FOOD_POISONING 2
+#define FAKE_RETRO_VIRUS 3
+#define FAKE_TURBERCULOSIS 4
+
 /datum/status_effect/fake_virus
 	id = "fake_virus"
 	duration = 3 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
 	tick_interval = 2
 	alert_type = null
-	var/msg_stage = 0 // So you dont get the most intense messages immediately
+	/// So you dont get the most intense messages immediately
+	var/msg_stage = 0
+	/// Which disease we are going to fake?
+	var/current_fake_disease
+
+/datum/status_effect/fake_virus/on_creation()
+	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS)
+	. = ..()
 
 /datum/status_effect/fake_virus/tick()
 	var/fake_msg = ""
@@ -839,30 +851,52 @@
 	switch(msg_stage)
 		if(0 to 300)
 			if(prob(1))
-				fake_msg = pick("<span class='warning'>[pick("Your head hurts.", "Your head pounds.")]</span>",
-				"<span class='warning'>[pick("You're having difficulty breathing.", "Your breathing becomes heavy.")]</span>",
-				"<span class='warning'>[pick("You feel dizzy.", "Your head spins.")]</span>",
-				"<span notice='warning'>[pick("You swallow excess mucus.", "You lightly cough.")]</span>",
-				"<span class='warning'>[pick("Your head hurts.", "Your mind blanks for a moment.")]</span>",
-				"<span class='warning'>[pick("Your throat hurts.", "You clear your throat.")]</span>")
+				if(current_fake_disease == FAKE_COLD)
+					fake_msg = pick("<span class='danger'>Your throat feels sore.</span>", "<span class='danger'>Mucous runs down the back of your throat.</span>")
+					fake_emote = pick("sneeze", "cough")
+				if(current_fake_disease == FAKE_FOOD_POISONING)
+					fake_msg = pick("<span class='danger'>Your stomach feels weird.</span>", "<span class='danger'>You feel queasy.</span>")
+				if(current_fake_disease == FAKE_RETRO_VIRUS)
+					fake_msg = pick("<span class='danger'>Your head hurts.</span>", "You feel a tingling sensation in your chest.", "<span class='danger'>You feel angry.</span>")
+				if(current_fake_disease == FAKE_TURBERCULOSIS)
+					fake_msg = pick("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>")
+					fake_emote = "cough"
 		if(301 to 600)
 			if(prob(2))
-				fake_msg = pick("<span class='warning'>[pick("Your head hurts a lot.", "Your head pounds incessantly.")]</span>",
-				"<span class='warning'>[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]</span>",
-				"<span class='warning'>You feel very [pick("dizzy","woozy","faint")].</span>",
-				"<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>",
-				"<span class='warning'>You nod off for a moment.</span>")
+				if(current_fake_disease == FAKE_COLD)
+					fake_msg = pick("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
+					fake_emote = pick("sneeze", "cough")
+				if(current_fake_disease == FAKE_FOOD_POISONING)
+					fake_msg = pick("<span class='danger'>Your stomach aches.</span>", "<span class='danger'>You feel nauseous.</span>")
+					fake_emote = "groan"
+				if(current_fake_disease == FAKE_RETRO_VIRUS)
+					fake_msg = pick("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>")
+				if(current_fake_disease == FAKE_TURBERCULOSIS)
+					fake_msg = pick("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>")
+					fake_emote = "gasp"
 		else
-			if(prob(3))
-				if(prob(50))// coin flip to throw a message or an emote
-					fake_msg = pick("<span class='userdanger'>[pick("Your head hurts!", "You feel a burning knife inside your brain!", "A wave of pain fills your head!")]</span>",
-					"<span class='userdanger'>[pick("Your lungs hurt!", "It hurts to breathe!")]</span>",
-					"<span class='warning'>[pick("You feel nauseated.", "You feel like you're going to throw up!")]</span>")
-				else
-					fake_emote = pick("cough", "sniff", "sneeze")
+			if(prob(2))
+				if(current_fake_disease == FAKE_COLD)
+					fake_msg = pick("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
+					fake_emote = pick("sneeze", "cough")
+				if(current_fake_disease == FAKE_FOOD_POISONING)
+					fake_msg = pick("<span class='danger'>Your stomach hurts.</span>", "<span class='danger'>You feel sick.</span>")
+					fake_emote = pick("groan", "moan")
+				if(current_fake_disease == FAKE_RETRO_VIRUS)
+					fake_msg = pick("<span class='danger'>Your entire body vibrates.</span>")
+				if(current_fake_disease == FAKE_TURBERCULOSIS)
+					fake_msg = pick("<span class='danger'>You feel uncomfortably hot...</span>", "<span class='danger'>You feel like unzipping your jumpsuit</span>", "<span class='danger'>You feel like taking off some clothes...</span>")
 
-	if(fake_emote)
-		owner.emote(fake_emote)
-	else if(fake_msg)
+	if(prob(50))
+		if(fake_emote)
+			owner.emote(fake_emote)
+		else
+			to_chat(owner, fake_msg)
+	else
 		to_chat(owner, fake_msg)
 	msg_stage++
+
+#undef FAKE_COLD
+#undef FAKE_FOOD_POISONING
+#undef FAKE_RETRO_VIRUS
+#undef FAKE_TURBERCULOSIS
