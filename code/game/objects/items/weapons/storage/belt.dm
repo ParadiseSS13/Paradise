@@ -53,6 +53,8 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 18
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	can_hold = list(
@@ -319,6 +321,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
+	max_combined_w_class = 18
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
