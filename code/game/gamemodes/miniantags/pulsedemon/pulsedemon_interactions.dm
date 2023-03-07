@@ -267,7 +267,7 @@
 		return
 	if (istype(A) && Adjacent(A))
 		if (ismovable(A))
-			to_chat(user, "You try to load [A] onto the [src].")
+			to_chat(user, "You try to load [A] onto [src].")
 			load(A)
 			return
 	if (load)

@@ -15,8 +15,6 @@
 	real_name = "pulse demon"
 	desc = "A strange electrical apparition that lives in wires."
 	gender = NEUTER
-	emote_hear = list("vibrates", "sizzles")
-	speak_emote = list("modulates")
 	speak_chance = 20
 
 	icon = 'icons/mob/animal.dmi'
@@ -30,9 +28,6 @@
 	level = 1
 	plane = FLOOR_PLANE
 	layer = ABOVE_PLATING_LAYER
-
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 
 	see_in_dark = 8
 	minbodytemp = 0
@@ -86,10 +81,10 @@
 	var/mob/living/simple_animal/bot/current_bot // inhabited bot
 
 	var/bot_movedelay = 0
-	var/list/mob/living/silicon/robot/hijacked_robots = list()
+	var/list/mob/living/silicon/robot/hijacked_robots
 
-	var/list/image/images_shown = list()
-	var/list/obj/machinery/power/apc/hijacked_apcs = list()
+	var/list/image/images_shown
+	var/list/obj/machinery/power/apc/hijacked_apcs
 	var/obj/machinery/power/apc/apc_being_hijacked
 	var/datum/progressbar_helper/pb_helper
 
@@ -104,6 +99,16 @@
 	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
 
 	pb_helper = new()
+
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+
+	emote_hear = list("vibrates", "sizzles")
+	speak_emote = list("modulates")
+
+	hijacked_apcs = list()
+	hijacked_robots = list()
+	images_shown = list()
 
 	current_power = locate(/obj/machinery/power) in loc
 	// in the case that both current_power and current_cable are null, the pulsedemon will die the next tick
