@@ -2,7 +2,7 @@
 	announceWhen = 1
 
 /datum/event/bureaucratic_error/announce()
-	GLOB.major_announcement.Announce("A recent bureaucratic error in the Organic Resources Department may result in personnel shortages in some departments and redundant staffing in others.", "Paperwork Mishap Alert")
+	GLOB.major_announcement.Announce("A recent bureaucratic error in the Human Resources Department may result in personnel shortages in some departments and redundant staffing in others.", "Paperwork Mishap Alert")
 
 /datum/event/bureaucratic_error/start()
 	var/list/jobs = SSjobs.occupations.Copy()
