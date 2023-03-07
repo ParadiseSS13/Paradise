@@ -365,7 +365,7 @@
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
-	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first. Hopefully. Gives you 2 extra wizard points on purchase."
+	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first. Hopefully. Gives you 2 extra spell points on purchase."
 	cost = -2
 	log_name = "SG"
 	is_ragin_restricted = TRUE
