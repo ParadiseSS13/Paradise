@@ -45,6 +45,18 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
+/obj/item/crowbar/small
+	name = "miniature titanium crowbar"
+	desc = "A tiny, lightweight titanium crowbar. It fits handily in your pocket."
+	force = 3
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 3
+	materials = list(MAT_TITANIUM = 250)
+	//icon_state = TODO
+	//item_state = TODO
+	origin_tech = "materials=2"
+	toolspeed = 1.25
+
 /obj/item/crowbar/large
 	name = "crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
