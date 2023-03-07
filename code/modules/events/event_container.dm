@@ -141,7 +141,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		80),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Disease Outbreak",	/datum/event/disease_outbreak, 			50,		list(ASSIGNMENT_MEDICAL = 25), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Camera Failure",	/datum/event/camera_failure,		100)
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Camera Failure",	/datum/event/camera_failure,		100, list(ASSIGNMENT_ENGINEER = 10))
 	)
 
 /datum/event_container/moderate
