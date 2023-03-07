@@ -70,6 +70,9 @@
 	///Job Objectives that crew with this job will have a roundstart
 	var/required_objectives = list()
 
+	/// Should this job be allowed to be picked for the bureaucratic error event?
+	var/allow_bureaucratic_error = TRUE
+
 //Only override this proc
 /datum/job/proc/after_spawn(mob/living/carbon/human/H)
 

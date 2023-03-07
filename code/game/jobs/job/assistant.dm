@@ -10,6 +10,7 @@
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 	outfit = /datum/outfit/job/assistant
+	allow_bureaucratic_error = FALSE
 
 /datum/job/assistant/get_access()
 	if(GLOB.configuration.jobs.assistant_maint_access)

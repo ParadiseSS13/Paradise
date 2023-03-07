@@ -11,6 +11,7 @@
 	admin_only = 1
 	syndicate_command = 1
 	outfit = /datum/outfit/job/syndicateofficer
+	allow_bureaucratic_error = FALSE
 
 /datum/job/syndicateofficer/get_access()
 	return get_syndicate_access(title)

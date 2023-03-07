@@ -9,7 +9,10 @@
 	var/datum/job/overflow
 	var/errors
 	while(errors <= rand(1, 6))
+		var/random_change = pick(-1, 1)
 		overflow = pick_n_take(jobs)
-		overflow.total_positions = max(overflow.total_positions + pick(-1, 1), 0)
+		if(!overflow.allow_bureaucratic_error)
+			continue
+		overflow.total_positions = max(overflow.total_positions + random_change, 0)
+		log_and_message_admins("[overflow] slot changed by [random_change]")
 		errors++
-

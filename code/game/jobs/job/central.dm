@@ -12,6 +12,7 @@
 	minimal_access = list()
 	admin_only = 1
 	outfit = /datum/outfit/job/ntnavyofficer
+	allow_bureaucratic_error = FALSE
 
 /datum/job/ntnavyofficer/get_access()
 	return get_centcom_access(title)
@@ -62,6 +63,7 @@
 	admin_only = 1
 	spawn_ert = 1
 	outfit = /datum/outfit/job/ntspecops
+	allow_bureaucratic_error = FALSE
 
 /datum/job/ntspecops/get_access()
 	return get_centcom_access(title)
