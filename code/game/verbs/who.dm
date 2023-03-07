@@ -48,6 +48,7 @@
 			if(is_special_character(C.mob))
 				entry += " - <b><font color='red'>Антагонист</font></b>"
 			entry += " ([ADMIN_QUE(C.mob,"?")])"
+			entry += " ([round(C.avgping, 1)]ms)"
 			Lines += entry
 	else
 		for(var/client/C in GLOB.clients)
@@ -57,7 +58,7 @@
 			if(C.holder && C.holder.fakekey)
 				Lines += C.holder.fakekey
 			else
-				Lines += C.key
+				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
 
 	for(var/line in sortList(Lines))
 		msg += "[line]\n"

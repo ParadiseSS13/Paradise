@@ -1082,6 +1082,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				"AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, " + \
 				"[round(SStime_track.time_dilation_avg,1)]%, " + \
 				"[round(SStime_track.time_dilation_avg_slow,1)]%)")
+	stat(null, "Ping: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()

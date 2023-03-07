@@ -350,6 +350,9 @@
 			winset(src, null, "command=\".configure graphics-hwmode off\"")
 			winset(src, null, "command=\".configure graphics-hwmode on\"")
 
+	connection_time = world.time
+	connection_realtime = world.realtime
+	connection_timeofday = world.timeofday
 	log_client_to_db(tdata)
 	. = ..()	//calls mob.Login()
 
@@ -448,6 +451,7 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	SSinput.processing -= src
+	SSping.currentrun -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
