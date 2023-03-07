@@ -1,7 +1,7 @@
 /// The OG skellybones, quite OP. As of this comment, only available through ash-drake loot (2023-03-07)
 /datum/species/skeleton
-	name = "Skeleton"
-	name_plural = "Skeletons"
+	name = "Ancient Skeleton"
+	name_plural = "Ancient Skeletons"
 
 	blurb = "Spoopy and scary."
 
