@@ -10,7 +10,7 @@
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 600)
 	drop_sound = 'sound/items/handling/wrench_drop.ogg'
 	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
@@ -44,6 +44,7 @@
 	icon_state = "wrench"
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=5;engineering=5;abductor=3"
 
 /obj/item/wrench/power

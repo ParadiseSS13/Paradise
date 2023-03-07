@@ -1,5 +1,5 @@
 /obj/item/crowbar
-	name = "pocket crowbar"
+	name = "crowbar"
 	desc = "A small crowbar. This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
@@ -10,7 +10,7 @@
 	slot_flags = SLOT_BELT
 	force = 5
 	throwforce = 7
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 300)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
@@ -42,13 +42,14 @@
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "crowbar"
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
 /obj/item/crowbar/large
 	name = "crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
 	force = 12
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_HUGE
 	throw_speed = 3
 	throw_range = 3
 	materials = list(MAT_METAL = 400)
