@@ -170,6 +170,7 @@
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
+	icon = 'icons/obj/items.dmi'
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
@@ -224,6 +225,7 @@
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "burnkit"
 	belt_icon = "burnkit"
 	heal_burn = 25

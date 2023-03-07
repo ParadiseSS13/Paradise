@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
-	icon_state = "sheet-clown"
+	icon_state = "sheet-bananium"
 	item_state = "sheet-clown"
 	singular_name = "bananium sheet"
 	origin_tech = "materials=4"
@@ -338,7 +338,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 
 /obj/item/stack/sheet/mineral/tranquillite
 	name = "tranquillite"
-	icon_state = "sheet-mime"
+	icon_state = "sheet-tranquillite"
 	item_state = "sheet-mime"
 	singular_name = "beret"
 	origin_tech = "materials=4"

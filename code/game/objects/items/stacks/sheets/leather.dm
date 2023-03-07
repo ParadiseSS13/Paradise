@@ -1,5 +1,5 @@
 /obj/item/stack/sheet/animalhide
-	name = "hide"
+	name = "sheet-hide"
 	icon = 'icons/obj/stacks/organic.dmi'
 	desc = "Something went wrong."
 	origin_tech = "biotech=3"
@@ -184,6 +184,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	dynamic_icon_state = TRUE
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
 			/obj/item/clothing/head/helmet/space/hardsuit/mining,
@@ -239,6 +240,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	dynamic_icon_state = TRUE
 
 //Step one - dehairing.
 

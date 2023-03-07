@@ -502,7 +502,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50

@@ -32,8 +32,8 @@
 	/// If this stack has a dynamic icon_state based on amount / max_amount
 	var/dynamic_icon_state = TRUE
 
-/obj/item/stack/New(loc, new_amount, merge = TRUE)
-	..()
+/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	if(new_amount != null)
 		amount = new_amount
 	while(amount > max_amount)
@@ -45,6 +45,7 @@
 		for(var/obj/item/stack/S in loc)
 			if(S.merge_type == merge_type)
 				merge(S)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/update_icon_state()
 	. = ..()
@@ -99,7 +100,7 @@
 		source.add_charge(newamount * cost)
 	else
 		amount += newamount
-	update_icon(update_icon_state)
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/attack_self(mob/user)
 	list_recipes(user)
@@ -294,7 +295,7 @@
 	amount -= used
 	if(check)
 		zero_amount()
-	update_icon(update_icon_state)
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/stack/proc/get_amount()
