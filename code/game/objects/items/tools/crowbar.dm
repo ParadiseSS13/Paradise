@@ -52,8 +52,8 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	materials = list(MAT_TITANIUM = 250)
-	//icon_state = TODO
-	//item_state = TODO
+	icon_state = "crowbar_titanium"
+	item_state = "crowbar_titanium"
 	origin_tech = "materials=2"
 	toolspeed = 1.25
 
