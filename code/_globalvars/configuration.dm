@@ -46,3 +46,7 @@ GLOBAL_PROTECT(python_path)
 //GeoIP
 GLOBAL_VAR_INIT(geoip_query_counter, 0)
 GLOBAL_VAR_INIT(geoip_next_counter_reset, 0)
+
+//CPU Affinity for FFmpeg
+GLOBAL_VAR(ffmpeg_cpuaffinity)
+GLOBAL_PROTECT(ffmpeg_cpuaffinity)

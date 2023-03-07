@@ -882,6 +882,12 @@
 				if("auto_extended_players_num")
 					config.auto_extended_players_num = text2num(value)
 
+				if("ffmpeg_cpuaffinity")
+					var/sanitized = regex(@"[^0-9,-]", "g").Replace(value, "")
+					if(value != sanitized)
+						log_config("Wrong value for setting in configuration: '[name]'. Check out taskset man page.")
+					GLOB.ffmpeg_cpuaffinity = value
+
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
