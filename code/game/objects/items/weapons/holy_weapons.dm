@@ -294,6 +294,25 @@
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE
 
+/obj/item/nullrod/scythe/talking/proc/debug_spawn()
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the blade spirit?",, FALSE, 10 SECONDS, source = src, role_cleanname = "possessed blade")
+	var/mob/dead/observer/theghost = null
+
+	if(QDELETED(src))
+		return
+	if(length(candidates))
+		theghost = pick(candidates)
+		var/mob/living/simple_animal/shade/sword/S = new(src)
+		S.real_name = name
+		S.name = name
+		S.ckey = theghost.ckey
+		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
+
+		if(src && input)
+			name = input
+			S.real_name = input
+			S.name = input
+
 /obj/item/nullrod/scythe/talking/Destroy()
 	for(var/mob/living/simple_animal/shade/sword/S in contents)
 		to_chat(S, "You were destroyed!")
@@ -305,27 +324,26 @@
 	if(world.time <= attacking_shade.next_move) // yea we gotta check
 		return
 	var/attacking_from = loc
-	if(istype(attacking_atom, /atom/movable))
-		attacking_shade.changeNext_move(CLICK_CD_MELEE)
-		if(!isturf(loc))
-			if(ismob(loc))
-				var/mob/living/carbon/human/our_location = loc
-				if(istype(our_location))
-					actually_attack(attacking_atom, attacking_shade, 1, attacking_from)
-					return
-				else
-					actually_attack(attacking_atom, attacking_shade, 0, attacking_from) // if this isn't in someones hand, it should only be able to attack them
-			else
-				actually_attack(attacking_atom, attacking_shade, 0, attacking_from)
-		else
-			actually_attack(attacking_atom, attacking_shade, 0, attacking_from)
+	if(!istype(attacking_atom, /atom/movable))
+		return
+	attacking_shade.changeNext_move(CLICK_CD_MELEE)
+	if(!isturf(loc))
+		if(ismob(loc))
+			var/mob/living/carbon/human/our_location = loc
+			if(istype(our_location))
+				actually_attack(attacking_atom, attacking_shade, 1, attacking_from)
+				return
+	actually_attack(attacking_atom, attacking_shade, 0, attacking_from)
 
 /obj/item/nullrod/scythe/talking/proc/actually_attack(atom/attacking_atom, mob/living/simple_animal/attacking_shade, range, atom/attacking_from)
 	if(range)
 		if(attacking_from.Adjacent(attacking_atom))
+			var/mob/living/carbon/human/holder = attacking_from
+			holder.do_attack_animation(attacking_atom, used_item = src)
 			melee_attack_chain(attacking_shade, attacking_atom)
 	else
 		if(Adjacent(attacking_atom))
+			do_attack_animation(attacking_atom, used_item = src)
 			melee_attack_chain(attacking_shade, attacking_atom)
 
 /mob/living/simple_animal/shade/sword
@@ -335,7 +353,6 @@
 		var/obj/item/nullrod/scythe/talking/host_sword = loc
 		return host_sword.click_actions(A, src)
 	return ..()
-
 
 /obj/item/nullrod/hammmer
 	name = "relic war hammer"
