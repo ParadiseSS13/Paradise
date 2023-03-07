@@ -239,7 +239,7 @@
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/storage/pill_bottle/ert_amber(src)
-	new /obj/item/storage/pill_bottle/patch_pack/ert_amber/(src)
+	new /obj/item/storage/pill_bottle/patch_pack/ert_amber(src)
 
 /*
  * Pill Bottles
