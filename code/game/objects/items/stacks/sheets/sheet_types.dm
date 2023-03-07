@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
-	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "sheet-card"
 	item_state = "sheet-card"
 	origin_tech = "materials=1"

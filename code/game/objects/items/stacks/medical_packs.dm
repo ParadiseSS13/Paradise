@@ -118,7 +118,7 @@
 	name = "roll of gauze"
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
-	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "gauze"
 	origin_tech = "biotech=2"
 	max_amount = 12
@@ -194,7 +194,7 @@
 	name = "ointment"
 	desc = "Used to treat those nasty burns."
 	gender = PLURAL
-	icon = 'icons/obj/stacks/miscelaneous.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	singular_name = "ointment"
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
