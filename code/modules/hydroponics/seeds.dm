@@ -34,8 +34,9 @@
 
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
+	var/nogenes = FALSE
 
-/obj/item/seeds/New(loc, nogenes = 0)
+/obj/item/seeds/New(loc, nogenes = FALSE)
 	..()
 	pixel_x = rand(-8, 8)
 	pixel_y = rand(-8, 8)
@@ -48,7 +49,11 @@
 
 	if(!icon_harvest && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && yield != -1)
 		icon_harvest = "[species]-harvest"
+	src.nogenes = nogenes
 
+
+/obj/item/seeds/Initialize(mapload)
+	. = ..()
 	if(!nogenes) // not used on Copy()
 		genes += new /datum/plant_gene/core/lifespan(lifespan)
 		genes += new /datum/plant_gene/core/endurance(endurance)
