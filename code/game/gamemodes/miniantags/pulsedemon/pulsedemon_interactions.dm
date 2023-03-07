@@ -128,10 +128,10 @@
 	if(!on || !isturf(loc))
 		return
 	if(ispulsedemon(user))
-		var/mob/living/simple_animal/pulse_demon/PD = user
-		if(PD.bot_movedelay <= world.time && dir)
+		var/mob/living/simple_animal/pulse_demon/demon = user
+		if(demon.bot_movedelay <= world.time && dir)
 			step(src, dir)
-			PD.bot_movedelay = world.time + (BOT_STEP_DELAY * (base_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
+			demon.bot_movedelay = world.time + (BOT_STEP_DELAY * (base_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
 
 /obj/machinery/recharger/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	user.forceMove(src)
@@ -190,8 +190,8 @@
 /mob/living/simple_animal/pulse_demon/proc/check_valid_recharge_station(obj/machinery/recharge_station/R)
 	return R.occupant && istype(R.occupant, /mob/living/silicon/robot)
 
-/mob/living/simple_animal/pulse_demon/proc/finish_hijack_recharge_station(obj/machinery/recharge_station/RS)
-	do_hijack_robot(RS.occupant)
+/mob/living/simple_animal/pulse_demon/proc/finish_hijack_recharge_station(obj/machinery/recharge_station/S)
+	do_hijack_robot(S.occupant)
 
 /mob/living/simple_animal/pulse_demon/proc/do_hijack_robot(mob/living/silicon/robot/R)
 	to_chat(src, "<span class='notice'>You are now inside [R]. Click on a hijacked APC to return.</span>")

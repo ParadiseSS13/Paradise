@@ -119,8 +119,8 @@
 	if(charge == 0)
 		return
 
-	for(var/mob/living/simple_animal/pulse_demon/PD in src)
-		PD.exit_to_turf(src)
+	for(var/mob/living/simple_animal/pulse_demon/demon in src)
+		demon.exit_to_turf(src)
 
 	var/devastation_range = -1 //round(charge/11000)
 	var/heavy_impact_range = round(sqrt(charge) / 60)

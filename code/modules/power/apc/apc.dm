@@ -273,11 +273,11 @@
 			W.forceMove(src)
 			cell = W
 
-			for(var/mob/living/simple_animal/pulse_demon/PD in cell)
-				PD.forceMove(src)
-				PD.current_power = src
+			for(var/mob/living/simple_animal/pulse_demon/demon in cell)
+				demon.forceMove(src)
+				demon.current_power = src
 				if(cell.rigged) // first come first serve
-					PD.try_hijack_apc(src)
+					demon.try_hijack_apc(src)
 					cell.rigged = FALSE // don't blow the demon up
 
 			user.visible_message(\

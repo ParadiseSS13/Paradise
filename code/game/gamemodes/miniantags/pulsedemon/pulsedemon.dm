@@ -6,7 +6,6 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 
-#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/pulse_demon))
 // used a lot here, undef'd after
 #define isapc(A) (istype(A, /obj/machinery/power/apc))
 
@@ -223,17 +222,17 @@
 	if(!ispulsedemon(user))
 		return ..()
 
-	var/mob/living/simple_animal/pulse_demon/PD = user
+	var/mob/living/simple_animal/pulse_demon/demon = user
 	var/turf/T = get_turf(src)
 	var/turf/T2 = get_step(T, dir)
-	if(PD.can_exit_cable || locate(/obj/structure/cable) in T2)
+	if(demon.can_exit_cable || locate(/obj/structure/cable) in T2)
 		playsound(src, 'sound/effects/eleczap.ogg', 50, 1)
 		do_sparks(rand(2, 4), FALSE, src)
 		user.forceMove(T)
 		if(isapc(src))
-			if(src == PD.apc_being_hijacked)
-				PD.pb_helper.cancel()
-			PD.controlling_area = null
+			if(src == demon.apc_being_hijacked)
+				demon.pb_helper.cancel()
+			demon.controlling_area = null
 
 // TODO: decide how maxcharge should increase, it's kinda weird for now (see also: SMES draining code in Life())
 //       I'd say have maxcharge be a multiple of the number of controlled APCs (with upgrade to increase)
@@ -408,10 +407,10 @@
 	return is_valid_apc(A)
 
 /mob/living/simple_animal/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
-	var/image/AI = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-	AI.plane = ABOVE_LIGHTING_PLANE
-	images_shown += AI
-	client.images += AI
+	var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
+	apc_image.plane = ABOVE_LIGHTING_PLANE
+	images_shown += apc_image
+	client.images += apc_image
 	hijacked_apcs += A
 	if(!remote)
 		controlling_area = A.apc_area
@@ -462,26 +461,26 @@
 	var/turf/T = get_turf(src)
 	// regenerate for all cables on our (or our holder's) z-level
 	for(var/obj/structure/cable/C in GLOB.cable_list)
-		var/turf/CT = get_turf(C)
-		if(T.z != CT.z)
+		var/turf/cable_turf = get_turf(C)
+		if(T.z != cable_turf.z)
 			continue
-		var/image/CI = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
+		var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
 		// good visibility here
-		CI.plane = ABOVE_LIGHTING_PLANE
-		images_shown += CI
-		client.images += CI
+		cable_image.plane = ABOVE_LIGHTING_PLANE
+		images_shown += cable_image
+		client.images += cable_image
 
 	// same for hijacked APCs
 	for(var/obj/machinery/power/apc/A in hijacked_apcs)
-		var/turf/AT = get_turf(A)
-		if(T.z != AT.z)
+		var/turf/apc_turf = get_turf(A)
+		if(T.z != apc_turf.z)
 			continue
 		// parent of image is the APC, not the turf because of how clicking on images works
 		// TODO: maybe a custom sprite to make it clearer to the pulse demon
-		var/image/AI = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-		AI.plane = ABOVE_LIGHTING_PLANE
-		images_shown += AI
-		client.images += AI
+		var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
+		apc_image.plane = ABOVE_LIGHTING_PLANE
+		images_shown += apc_image
+		client.images += apc_image
 	// TODO: spell that cycles you through the cameras in your area, necessitated by maps like Farragus
 
 /mob/living/simple_animal/pulse_demon/reset_perspective(atom/A)
