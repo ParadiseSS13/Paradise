@@ -225,7 +225,7 @@
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/storage/pill_bottle/ert(src)
-	new /obj/item/storage/pill_bottle/patch_pack/ert/(src)
+	new /obj/item/storage/pill_bottle/patch_pack/ert(src)
 
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
