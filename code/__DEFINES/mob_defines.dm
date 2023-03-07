@@ -220,7 +220,6 @@
 #define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
 #define isshadowperson(A) (is_species(A, /datum/species/shadow))
 #define isskeleton(A) (is_species(A, /datum/species/skeleton))
-#define isbrittleskeleton(A) (is_species(A, /datum/species/skeleton/brittle))
 #define ishumanbasic(A) (is_species(A, /datum/species/human))
 #define isunathi(A) (is_species(A, /datum/species/unathi))
 #define istajaran(A) (is_species(A, /datum/species/tajaran))

@@ -1,3 +1,4 @@
+/// The OG skellybones, quite OP. As of this comment, only available through ash-drake loot (2023-03-07)
 /datum/species/skeleton
 	name = "Skeleton"
 	name_plural = "Skeletons"
@@ -53,9 +54,15 @@
 
 	return ..()
 
+/// Wizard subtype, subtype to allow balancing separately from other skellies
+/datum/species/skeleton/lich
+	name = "Lich"
+	name_plural = "Liches"
+
+/// The most common (and weakest) type, legion corpses and skeleton map spawners are these
 /datum/species/skeleton/brittle
 	name = "Brittle Skeleton"
 	name_plural = "Brittle Skeletons"
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTHIGHPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
-	milk_heal_amount = 1
-	milk_fracture_repair_probability = 1
+	milk_heal_amount = 0.66 //on par with saline-glucose (after averaging that out)
+	milk_fracture_repair_probability = 0 //no bone juice here

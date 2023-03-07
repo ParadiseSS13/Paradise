@@ -704,7 +704,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(heresy)
 		spawnheresy(M)//oh god why
 	else
-		M.set_species(/datum/species/skeleton)
+		M.set_species(/datum/species/skeleton) //OP skellybones
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()
