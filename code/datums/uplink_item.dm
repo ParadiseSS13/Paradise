@@ -1138,6 +1138,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/explosives/t4
+	name = "Breaching T-4"
+	desc = "Thermite-charged breaching explosive. Effective to destroy wall, but not to destroy airlocks."
+	reference = "T4"
+	item = /obj/item/grenade/plastic/x4/thermite
+	cost = 2
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/explosives/t4_pack
+	name = "Pack of 3 T-4 explosives"
+	desc = "A package containing 3 T-4."
+	reference = "T4P"
+	item = /obj/item/storage/box/syndie_kit/t4P
+	cost = 5
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/explosives/syndicate_bomb
 	name = "Syndicate Bomb"
 	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
