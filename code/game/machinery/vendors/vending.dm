@@ -1083,6 +1083,7 @@
 	transform = M
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
+	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 	tilt(target, from_combat = TRUE)
 	return TRUE
 
