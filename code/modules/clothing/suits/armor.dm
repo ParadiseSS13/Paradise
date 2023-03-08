@@ -361,7 +361,6 @@
 		return 1
 	return 0
 
-
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
 

@@ -395,3 +395,9 @@
 	desc = "A small bottle containing Bio Virus Antidote Kit."
 	icon_state = "wide_bottle"
 	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "spaceacillin" = 10)
+
+/obj/item/reagent_containers/glass/bottle/monkeylangue
+	name = "bottle of monkey language potion"
+	desc = "A bottle of monkey language potion."
+	icon_state = "round_bottle"
+	list_reagents = list("monkeylanguage" = 5)

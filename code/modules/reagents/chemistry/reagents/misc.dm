@@ -706,3 +706,17 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
+
+/datum/reagent/monkeylanguage
+	name = "Moenky Language"
+	id = "monkeylanguage"
+	description = "Strange reagent"
+	reagent_state = SOLID
+	color = "#f0d18f" // rgb: 128, 128, 128
+	taste_description = "Strange"
+
+/datum/reagent/monkeylanguage/on_mob_life(mob/living/M)
+	if(volume > 5)
+		M.add_language("Chimpanzee")
+		to_chat(M, "<span class='notice'>What a stran-eek Eek ock ock!</span>")
+	return

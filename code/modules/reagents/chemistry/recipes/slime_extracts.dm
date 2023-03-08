@@ -54,19 +54,19 @@
 /datum/chemical_reaction/slimemutate/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
-/datum/chemical_reaction/slimeacidproof
-	name = "Slime Acidproof"
-	id = "m_acidproof"
+/datum/chemical_reaction/slimepotionbio
+	name = "Slime Bio Resistence Potion"
+	id = "m_slime_potion_BioR"
 	result = null
 	required_reagents = list("water" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/green
 	required_other = 1
 
-/datum/chemical_reaction/slimeacidproof/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/slimepotionbio/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/acidproof/P = new /obj/item/slimepotion/acidproof
-	P.forceMove(get_turf(holder.my_atom))
+	var/obj/item/slimepotion/bio/B = new /obj/item/slimepotion/bio
+	B.forceMove(get_turf(holder.my_atom))
 
 //Metal
 /datum/chemical_reaction/slimemetal
@@ -414,6 +414,20 @@
 	var/turf/location = get_turf(holder.my_atom)
 	new /obj/item/stack/sheet/mineral/plasma (location, 3)
 
+/datum/chemical_reaction/slimeplasmaglass
+	name = "Slime Plasma Glass"
+	id = "m_plasma_glass"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 2
+	required_container = /obj/item/slime_extract/darkpurple
+	required_other = 1
+
+/datum/chemical_reaction/slimeplasmaglass/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/turf/location = get_turf(holder.my_atom)
+	new /obj/item/stack/sheet/plasmaglass (location, 2)
+
 //Red
 /datum/chemical_reaction/slimemutator
 	name = "Slime Mutator"
@@ -480,6 +494,19 @@
 	var/obj/item/slimepotion/slime/docility/P = new /obj/item/slimepotion/slime/docility
 	P.forceMove(get_turf(holder.my_atom))
 
+/datum/chemical_reaction/moenkeylanguage
+	name = "Moenky language"
+	id = "monkeylanguage"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/pink
+	required_other = 1
+
+/datum/chemical_reaction/moenkeylanguage/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/reagent_containers/glass/bottle/monkeylangue/M = new /obj/item/reagent_containers/glass/bottle/monkeylangue
+	M.forceMove(get_turf(holder.my_atom))
 
 //Black
 /datum/chemical_reaction/slimemutate2
@@ -493,6 +520,20 @@
 
 /datum/chemical_reaction/slimemutate2/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+
+/datum/chemical_reaction/slimeacid
+	name = "Slime Acid Resistence Potion"
+	id = "m_slime_potion_AcidR"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/black
+	required_other = 1
+
+/datum/chemical_reaction/slimeacid/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/acidproof/A = new /obj/item/slimepotion/acidproof
+	A.forceMove(get_turf(holder.my_atom))
 
 //Oil
 /datum/chemical_reaction/slimeexplosion
@@ -513,6 +554,20 @@
 	spawn(50)
 		if(holder && holder.my_atom)
 			explosion(get_turf(holder.my_atom), 1 ,3, 6, cause = src)
+
+/datum/chemical_reaction/slimepotionexplosion
+	name = "Slime Explosion Resistence Potion"
+	id = "m_slime_potion_ExplosionR"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/oil
+	required_other = 1
+
+/datum/chemical_reaction/slimepotionexplosion/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/explosionresistencte/E = new /obj/item/slimepotion/explosionresistencte
+	E.forceMove(get_turf(holder.my_atom))
 
 //Light Pink
 /datum/chemical_reaction/slimepotion2
@@ -543,6 +598,20 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	new /obj/item/stack/sheet/mineral/adamantine(get_turf(holder.my_atom))
 
+/datum/chemical_reaction/slimedamage
+	name = "Slime Damage Resistence Potion"
+	id = "m_slime_potion_DamageR"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/adamantine
+	required_other = 1
+
+/datum/chemical_reaction/slimedamage/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/damage/D = new /obj/item/slimepotion/damage
+	D.forceMove(get_turf(holder.my_atom))
+
 //Bluespace
 /datum/chemical_reaction/slimefloor2
 	name = "Bluespace Floor"
@@ -559,6 +628,19 @@
 	P.amount = 25
 	P.forceMove(get_turf(holder.my_atom))
 
+/datum/chemical_reaction/slimeteleportation
+	name = "Slime Steroid 2"
+	id = "m_steroid2"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/bluespace
+	required_other = 1
+
+/datum/chemical_reaction/slimeteleportation/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/teleportation/T = new /obj/item/slimepotion/teleportation
+	T.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimecrystal
 	name = "Slime Crystal"
@@ -624,6 +706,19 @@
 	T.immune += mob
 	T.timestop()
 
+/datum/chemical_reaction/slimepotionlaser
+	name = "Slime Laser Resistence Potion"
+	id = "m_slime_potion_LaserR"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/sepia
+	required_other = 1
+
+/datum/chemical_reaction/slimepotionlaser/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/laserresistance/L = new /obj/item/slimepotion/laserresistance
+	L.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimecamera
 	name = "Slime Camera"
@@ -676,6 +771,20 @@
 	var/obj/P = new chosen
 	if(P)
 		P.forceMove(get_turf(holder.my_atom))
+
+/datum/chemical_reaction/slimepotionrad
+	name = "Slime Radiation Resistence Potion"
+	id = "m_slime_potion_RadR"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/pyrite
+	required_other = 1
+
+/datum/chemical_reaction/slimepotionrad/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/slimepotion/radiation/R = new /obj/item/slimepotion/radiation
+	R.forceMove(get_turf(holder.my_atom))
 
 //Rainbow :o)
 /datum/chemical_reaction/slimeRNG
