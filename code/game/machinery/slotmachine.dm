@@ -131,8 +131,10 @@
 		return
 	default_unfasten_wrench(user, I)
 
-// Emag behaviour below. When the machine is emagged, it'll stun and anchor its user, spin them, then throw them away.
-// With a chance of "emagged_win_chance", the machine resets its emagged state and throws money at the user.
+/* 
+	* Emag behaviour below. When the machine is emagged, it'll stun and anchor its user, spin them, then throw them away.
+	* With a chance of "emagged_win_chance", the machine resets its emagged state and throws money at the user.
+*/ 
 /obj/machinery/economy/slot_machine/emag_act(user)
 	if(emagged)
 		to_chat(user, "<span class='notice'>[src] is unresponsive. It is probably already modified.</span>")
