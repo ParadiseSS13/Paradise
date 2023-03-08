@@ -58,8 +58,13 @@
 	. = ..()
 	if(iscultist(user) && purified && !iswizard(user))
 		to_chat(user, "<span class='danger'>[src] reeks of holy magic. You will need to cleanse it with a ritual dagger before anything can be done with it.</span>")
-	if(!can_use(user))
+		return
+	if(user.mind.isholy)
 		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up [src]. It looks fragile enough to break with your hands.</span>")
+		return
+	if(!can_use(user))
+		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up [src].</span>")
+		return
 
 /obj/item/soulstone/Destroy() //Stops the shade from being qdel'd immediately and their ghost being sent back to the arrival shuttle.
 	for(var/mob/living/simple_animal/shade/A in src)
@@ -206,8 +211,13 @@
 
 	if(can_use(user))
 		release_shades(user)
+		return
 
-	else if(do_after_once(user, 5 SECONDS, FALSE, src))
+	if(!user.mind.isholy)
+		to_chat(user, "<span class='notice'>The shard feels too tough to shatter, you are not holy enough to free its captive!</span>")
+		return
+
+	if(do_after_once(user, 5 SECONDS, FALSE, src))
 		user.visible_message("[user] shatters the soulstone apart! Releasing [src] from their prison!", "You shatter the soulstone holding [src], binding them free!", "You hear something shatter with a ghastly crack.")
 		for(var/atom/movable/AM in src)
 			if(isshade(AM))
@@ -221,9 +231,9 @@
 			S.cancel_camera()
 			AM.forceMove(get_turf(src))
 			SSticker.mode.add_cult_immunity(AM)
-		qdel(src)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 		playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
+		qdel(src)
 		return
 
 /obj/item/soulstone/proc/release_shades(mob/user)
