@@ -241,7 +241,7 @@
 			attack_ghost(ghost)
 
 /obj/machinery/anomalous_crystal/helpers/Destroy()
-	GLOB.poi_list.Remove(src)
+	GLOB.poi_list -= src
 	return ..()
 
 /mob/living/simple_animal/hostile/lightgeist
