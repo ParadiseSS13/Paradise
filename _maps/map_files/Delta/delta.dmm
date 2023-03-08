@@ -113474,7 +113474,6 @@
 "sKp" = (
 /obj/structure/closet/secure_closet/blueshield,
 /obj/item/stack/tape_roll,
-/obj/item/sensor_device,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "sKv" = (

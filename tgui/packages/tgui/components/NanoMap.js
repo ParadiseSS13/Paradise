@@ -148,6 +148,7 @@ const NanoMapMarker = props => {
     tooltip,
     color,
     onClick,
+    size = 6,
   } = props;
   const rx = ((x * 2 * zoom) - zoom) - 3;
   const ry = ((y * 2 * zoom) - zoom) - 3;
@@ -163,7 +164,7 @@ const NanoMapMarker = props => {
         <Icon
           name={icon}
           color={color}
-          fontSize="6px"
+          fontSize={size + "px"}
         />
         <Tooltip content={tooltip} />
       </Box>

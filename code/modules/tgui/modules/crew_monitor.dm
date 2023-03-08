@@ -1,5 +1,6 @@
 /datum/ui_module/crew_monitor
 	name = "Crew monitor"
+	var/with_command = FALSE
 
 /datum/ui_module/crew_monitor/ui_act(action, params)
 	if(..())
@@ -39,5 +40,7 @@
 	data["isAI"] = isAI(user)
 	data["crewmembers"] = GLOB.crew_repository.health_data(T)
 	data["critThreshold"] = HEALTH_THRESHOLD_CRIT
+	if(with_command)
+		data["isBS"] = 1
 
 	return data

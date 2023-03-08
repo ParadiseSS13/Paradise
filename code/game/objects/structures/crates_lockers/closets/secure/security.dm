@@ -269,6 +269,7 @@
 	new /obj/item/clothing/under/fluff/jay_turtleneck(src)
 	new /obj/item/clothing/mask/gas/sechailer/blue(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/sensor_device/command(src)
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
