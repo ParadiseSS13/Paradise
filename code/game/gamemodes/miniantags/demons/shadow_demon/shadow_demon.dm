@@ -22,27 +22,30 @@
 		adjustBruteLoss(-20)
 
 /mob/living/simple_animal/demon/shadow/ClickOn(atom/A)
-	if(ishuman(A))
-		var/mob/living/carbon/human/target = A
-		if(in_range(src, target) && target.stat == DEAD)
-			if(isLivingSSD(target) && client.send_ssd_warning(target)) //Similar to revenants, only gouge SSD targets if you've accepted the SSD warning
-				return
-			if(wrapping)
-				to_chat(src, "<span class='notice'>We are already wrapping something.</span>")
-				return
-			visible_message("<span class='danger'>[src] begins wrapping [target] in shadowy threads.</span>")
-			wrapping = TRUE
-			if(do_after(src, 4 SECONDS, 0, target = target))
-				target.visible_message("<span class='warning'><b>[src] envelops [target] into an ethereal cocoon, and darkness begins to creep from it.</b></span>")
-				var/obj/structure/shadowcocoon/C = new(target.loc)
-				target.extinguish_light() // may as well be safe
-				target.loc = C
-				wrapping = FALSE
-				return
-			else
-				wrapping = FALSE
-				return
-	..()
+	if(!ishuman(A))
+		return ..()
+	var/mob/living/carbon/human/target = A
+	if(!in_range(src, target) || target.stat != DEAD)
+		return ..()
+
+	if(isLivingSSD(target) && client.send_ssd_warning(target)) //Similar to revenants, only wrap SSD targets if you've accepted the SSD warning
+		return
+
+	if(wrapping)
+		to_chat(src, "<span class='notice'>We are already wrapping something.</span>")
+		return
+
+	visible_message("<span class='danger'>[src] begins wrapping [target] in shadowy threads.</span>")
+	wrapping = TRUE
+	if(!do_after(src, 4 SECONDS, 0, target = target))
+		wrapping = FALSE
+		return
+
+	target.visible_message("<span class='warning'><b>[src] envelops [target] into an ethereal cocoon, and darkness begins to creep from it.</b></span>")
+	var/obj/structure/shadowcocoon/C = new(target.loc)
+	target.extinguish_light() // may as well be safe
+	target.loc = C
+	wrapping = FALSE
 
 /obj/structure/shadowcocoon
 	name = "shadowy cocoon"
