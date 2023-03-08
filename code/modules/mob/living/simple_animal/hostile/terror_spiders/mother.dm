@@ -15,9 +15,8 @@
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
 	icon_dead = "terror_mother_dead"
-	maxHealth = 170
-	health = 170
-	regeneration = 3
+	maxHealth = 200
+	health = 200
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	can_wrap = FALSE
 	melee_damage_lower = 10
@@ -57,7 +56,7 @@
 				new /obj/effect/temp_visual/heal(get_turf(S), "#8c00ff")
 	for(var/mob/living/carbon/human/L in view(7, src))  //deadly toxic aura
 		if(L.stat != DEAD)
-			L.adjustToxLoss(1)
+			L.adjustToxLoss(2)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/consume_jelly(obj/structure/spider/royaljelly/J)
 	to_chat(src, "<span class='warning'>Mothers cannot consume royal jelly.</span>")

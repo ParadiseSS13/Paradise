@@ -27,7 +27,6 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	deathmessage = "Screams in pain and slowly stops moving."
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
-	talk_sound = list('sound/creatures/spider_talk1.ogg', 'sound/creatures/spider_talk2.ogg')
 	var/spider_intro_text = "Если ты это видишь, напиши разрабам"
 	speak_chance = 0 // quiet but deadly
 	speak_emote = list("hisses")
@@ -37,7 +36,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	footstep_type = FOOTSTEP_MOB_CLAW
-	var/list/speech_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
+	talk_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
+	damaged_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
 
 	//HEALTH
 	maxHealth = 120
@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(stat != DEAD)
 			adjustBruteLoss(-regeneration)
 		if(degenerate)
-			adjustBruteLoss(rand(15,20))
+			adjustBruteLoss(15)
 		if(prob(5))
 			CheckFaction()
 
@@ -408,7 +408,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(client && (client.eye != client.mob))
 		reset_perspective()
 		return
-	if(health != maxHealth)
+	if(health <= (maxHealth*0.75))
 		to_chat(src, "<span class='warning'>You must be at full health to do this!</span>")
 		return
 	var/list/targets = list()
@@ -424,20 +424,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(istype(L))
 		reset_perspective(L)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/adjustHealth(amount, updating_health = TRUE)
-	if(client && (client.eye != client.mob) && ismob(client.eye)) // the ismob check is required because client.eye can = atmos machines if a spider is in the vent
-		to_chat(src, "<span class='warning'>Cancelled remote view due to being under attack!</span>")
-		reset_perspective()
-	. = ..()
-
 /mob/living/simple_animal/hostile/poison/terror_spider/CanPass(atom/movable/O)
 	if(istype(O, /obj/item/projectile/terrorspider))
 		return TRUE
 	return ..()
-
-/mob/living/simple_animal/hostile/poison/terror_spider/say(message, verb)
-	. = ..()
-	playsound(src, pick(src.speech_sound), 50, 1)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
 	return magpulse

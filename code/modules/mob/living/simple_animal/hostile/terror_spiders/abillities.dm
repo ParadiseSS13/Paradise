@@ -122,7 +122,7 @@
 	desc = "Emits a shriek that causes EMP pulse."
 	action_icon_state = "emp_new"
 	action_background_icon_state = "bg_terror"
-	charge_max = 300
+	charge_max = 400
 	clothes_req = FALSE
 	range = -1
 	include_user = 1
@@ -139,7 +139,7 @@
 	desc = "Release your energy to create a massive fire ring."
 	action_icon_state = "explosion"
 	action_background_icon_state = "bg_terror"
-	charge_max = 500
+	charge_max = 600
 	clothes_req = FALSE
 	range = -1
 	include_user = 1
@@ -258,7 +258,7 @@
 	desc = "Emits a loud shriek that weakens your enemies."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
-	charge_max = 300
+	charge_max = 600
 	clothes_req = FALSE
 	range = 6
 	sound = 'sound/creatures/terrorspiders/princess_shriek.ogg'
@@ -270,7 +270,7 @@
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				M.AdjustConfused(5)
-				M.AdjustWeakened(1)
+				M.Jitter(7)
 				M.adjustStaminaLoss(33)
 				M.slowed = 3
 			else if(issilicon(target))
@@ -279,7 +279,7 @@
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, S)
-				S.Weaken(6)
+				S.Weaken(4)
 
 //PRINCE//
 
@@ -289,7 +289,7 @@
 	desc = "Slam the ground with your body."
 	action_icon_state = "slam"
 	action_background_icon_state = "bg_terror"
-	charge_max = 200
+	charge_max = 350
 	clothes_req = FALSE
 	range = 2
 
@@ -300,7 +300,7 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				M.AdjustWeakened(1)
-				M.slowed = 6
+				M.slowed = 3
 				M.adjustBruteLoss(20)
 		var/turf/simulated/floor/tile = user.loc
 		for(tile in range(2, user))
@@ -355,7 +355,7 @@
 	desc = "Emit a loud shriek that weakens your enemies."
 	action_icon_state = "terror_shriek"
 	action_background_icon_state = "bg_terror"
-	charge_max = 250
+	charge_max = 450
 	clothes_req = FALSE
 	range = 7
 	sound = 'sound/creatures/terrorspiders/queen_shriek.ogg'
@@ -368,6 +368,7 @@
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				M.AdjustConfused(10)
 				M.AdjustWeakened(2)
+				M.Jitter(14)
 				M.adjustStaminaLoss(50)
 				M.slowed = 7
 			else if(issilicon(target))

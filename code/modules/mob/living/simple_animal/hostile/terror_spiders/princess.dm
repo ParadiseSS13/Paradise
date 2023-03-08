@@ -17,10 +17,10 @@
 	icon_dead = "terror_princess1_dead"
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	ranged_cooldown_time = 25
-	maxHealth = 210
-	health = 210
-	regeneration = 3
+	maxHealth = 190
+	health = 190
+	regeneration = 2
+	damage_coeff = list(BRUTE = 0.75, BURN = 1.25, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	delay_web = 25
 	deathmessage = "Emits a  piercing screech and slowly falls on the ground."
 	death_sound = 'sound/creatures/terrorspiders/princess_death.ogg'
@@ -29,12 +29,13 @@
 	spider_intro_text = "Будучи Принцессой Ужаса, ваша задача - откладывать яйца и охранять их. Хоть вы и умеете плеваться кислотой, а также обладаете визгом, помогающим в бою, вам не стоит сражаться намеренно, ведь для этого есть другие пауки."
 	ranged = 1
 	projectiletype = /obj/item/projectile/terrorspider/princess
+	ranged_cooldown_time = 35
 	canlay = 0
 	hasnested = TRUE
 	spider_spawnfrequency = 300 // 30 seconds
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/princess)
-	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
-	var/spider_max_children = 60
+	var/grant_prob = 20 // 20% chance every spider_spawnfrequency seconds to gain 1 egg
+	var/spider_max_children = 20
 	tts_seed = "Ranger"
 
 
@@ -48,7 +49,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ListAvailableEggTypes()
-	var/list/valid_types = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_REAPER)
+	var/list/valid_types = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_REAPER, TS_DESC_BUILDER)
 
 	// Each princess can also have ONE black/purple/brown. If it dies, they can pick a new spider from the 3 advanced types to lay.
 	var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/guardian, /mob/living/simple_animal/hostile/poison/terror_spider/destroyer))
@@ -129,5 +130,5 @@
 	name = "princess venom"
 	icon_state = "toxin4"
 	damage = 25
-	stamina = 33
+	stamina = 25
 	damage_type = BURN

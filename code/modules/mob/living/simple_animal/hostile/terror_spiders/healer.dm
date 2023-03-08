@@ -15,17 +15,17 @@
 	icon_state = "terror_green"
 	icon_living = "terror_green"
 	icon_dead = "terror_green_dead"
-	maxHealth = 110
-	health = 110
+	maxHealth = 100
+	health = 100
 	death_sound = 'sound/creatures/terrorspiders/death4.ogg'
-	speed = -0.1
 	delay_web = 20
 	melee_damage_lower = 10
 	melee_damage_upper = 15
+	melee_damage_type = TOX
 	web_type = /obj/structure/spider/terrorweb/green
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/healing_lesser)
 	spider_intro_text = "Будучи Лекарем Ужаса, ваша задача исцелять других пауков и откладывать яйца. Чем больше трупов вы поглотили, тем эффективнее исцеление, однако, для откладывания яиц, вам также необходимы трупы."
-	var/feedings_to_lay = 2
+	var/feedings_to_lay = 6
 	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 	tts_seed = "Mortred"
 
@@ -118,7 +118,7 @@
 				L.adjustBruteLoss(-5)
 			if(fed >= 3)
 				new /obj/effect/temp_visual/heal(get_turf(L), "#ff0000")
-				L.adjustBruteLoss(-6)
+				L.adjustBruteLoss(-7)
 
 /obj/structure/spider/terrorweb/green
 	name = "slimy web"
@@ -128,4 +128,3 @@
 	if(istype(C))
 		if(C.eye_blurry < 60)
 			C.AdjustEyeBlurry(30)
-

@@ -15,9 +15,9 @@
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
 	icon_dead = "terror_queen_dead"
-	maxHealth = 360
-	health = 360
-	damage_coeff = list(BRUTE = 0.7, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+	maxHealth = 340
+	health = 340
+	damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	regeneration = 3
 	deathmessage = "Emits a  piercing screech that echoes through the hallways, chilling the hearts of those around, as the spider lifelessly falls to the ground."
 	death_sound = 'sound/creatures/terrorspiders/queen_death.ogg'
@@ -47,8 +47,8 @@
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/queen)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
-	var/spider_spawnfrequency = 1200 // 140 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
-	var/spider_spawnfrequency_stable = 1200 // 140 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
+	var/spider_spawnfrequency = 1300 // 130 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
+	var/spider_spawnfrequency_stable = 3600 // 360 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
 	var/spider_lastspawn = 0
 	var/nestfrequency = 300 // 30 seconds
 	var/lastnestsetup = 0

@@ -74,8 +74,8 @@
 		to_chat(src, "<span class='notice'>You are now in default mode</span>")
 		speed = 0.8
 		damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
-		melee_damage_lower = 21
-		melee_damage_upper = 21
+		melee_damage_lower = 19
+		melee_damage_upper = 19
 		current_mode = 0
 		return 1
 	if	(n==1)
@@ -85,10 +85,10 @@
 			attack_mode_av = 0
 			playsound(src, 'sound/creatures/terrorspiders/mod_attack_out.ogg', 100)
 			to_chat(src, "<span class='notice'>You are now in attack mode</span>")
-			speed = -0.1
+			speed = 0
 			damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
-			melee_damage_lower = 35
-			melee_damage_upper = 35
+			melee_damage_lower = 30
+			melee_damage_upper = 30
 			src.adjustBruteLoss(30)
 			current_mode = 1
 			return 1
@@ -105,7 +105,6 @@
 			damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 			melee_damage_lower = 15
 			melee_damage_upper = 15
-			src.adjustBruteLoss(-30)
 			current_mode = 2
 			return 1
 		to_chat(src, "<span class='notice'>You cant do this yet!</span>")
@@ -115,10 +114,3 @@
 	max_integrity = 30
 	name = "reinforced web"
 	desc = "This web is reinforced with extra strands, for added strength."
-
-/mob/living/simple_animal/hostile/poison/terror_spider/knight/spider_specialattack(mob/living/carbon/human/L)
-	if(L.stat != DEAD)
-		L.adjustStaminaLoss(20) //5 hits for stamcrit
-		L.attack_animal(src)
-	else
-		..()

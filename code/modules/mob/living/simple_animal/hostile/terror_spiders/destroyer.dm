@@ -15,9 +15,8 @@
 	icon_living = "terror_brown"
 	icon_dead = "terror_brown_dead"
 	gender = MALE
-	maxHealth = 135
-	health = 135
-	speed = -0.1
+	maxHealth = 125
+	health = 125
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	obj_damage = 100 //for effective breaching
@@ -40,6 +39,12 @@
 	..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/destroyer/Life(seconds)
+	. = ..()
+	for(var/mob/living/simple_animal/S in view(5, src))
+		if(isterrorspider(S) && S != src)
+			src.adjustBruteLoss(6)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/death(gibbed)
 	if(can_die())

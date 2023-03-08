@@ -16,14 +16,14 @@
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"
 	speed = -0.1
-	maxHealth = 130
-	health = 130
+	maxHealth = 120
+	health = 120
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	ranged = 1
 	rapid = 2
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
 	projectiletype = /obj/item/projectile/terrorspider/widow
-	ranged_cooldown_time = 20
+	ranged_cooldown_time = 25
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	melee_damage_type = TOX
@@ -36,7 +36,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/widow/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	L.AdjustSilence(5)
-	L.adjustStaminaLoss(25) //4 hits for stamcrit
 	if(!poisonable)
 		return ..()
 	if(L.reagents.has_reagent("terror_black_toxin", 100))
@@ -73,4 +72,4 @@
 	name = "widow venom"
 	icon_state = "toxin5"
 	damage = 15
-	stamina = 25
+	stamina = 24
