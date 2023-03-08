@@ -183,7 +183,7 @@
 	if(prob(emagged_win_chance))
 		addtimer(CALLBACK(src, PROC_REF(emagged_winning), user), 1 SECONDS)
 
-// With a chance of "emagged_win_chance", we win some money and reset the machine to a non-emagged state
+/// With a chance of "emagged_win_chance", we win some money and reset the machine to a non-emagged state
 /obj/machinery/economy/slot_machine/proc/emagged_winning(user)
 		// Notify nearby people
 		atom_say("ERROR ERROR ERROR. Entering safe mode. Disabling reverse-gripping mechanism!")
