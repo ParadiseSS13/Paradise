@@ -290,6 +290,7 @@
 	icon_state = "codes"
 
 /obj/effect/landmark/start
+	name = "start"
 //Landmark icons added only for renders
 //Same orders as jobs in lobby
 
