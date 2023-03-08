@@ -34,9 +34,9 @@ SUBSYSTEM_DEF(machines)
 
 	for(var/obj/structure/cable/PC in GLOB.cable_list)
 		if(!PC.powernet)
-			var/datum/regional_powernet/NewPN = new()
-			NewPN.add_cable(PC)
-			propagate_network(PC,PC.powernet)
+			var/datum/regional_powernet/new_pn = new()
+			new_pn.add_cable(PC)
+			propagate_network(PC, PC.powernet)
 
 /datum/controller/subsystem/machines/get_stat_details()
 	return "Machines: [processing.len] | Powernets: [powernets.len] | Deferred: [deferred_powernet_rebuilds.len]"

@@ -1221,7 +1221,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "mP" = (
-/obj/machinery/power/generator,
+/obj/machinery/power/teg,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)

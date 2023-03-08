@@ -8,6 +8,7 @@
 	density = TRUE
 	max_integrity = 150
 	integrity_failure = 50
+
 	var/obscured = FALSE
 	var/sunfrac = 0
 	var/adir = SOUTH // actual dir
@@ -27,10 +28,10 @@
 //set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
 /obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
 	if(!SC || (get_dist(src, SC) > SOLAR_MAX_DIST))
-		return 0
+		return FALSE
 	control = SC
 	SC.connected_panels |= src
-	return 1
+	return TRUE
 
 //set the control of the panel to null and removes it from the control list of the previous control computer if needed
 /obj/machinery/power/solar/proc/unset_control()
@@ -86,8 +87,8 @@
 				S.give_glass(stat & BROKEN)
 		else
 			playsound(src, "shatter", 70, TRUE)
-			new /obj/item/shard(src.loc)
-			new /obj/item/shard(src.loc)
+			new /obj/item/shard(loc)
+			new /obj/item/shard(loc)
 	qdel(src)
 
 /obj/machinery/power/solar/update_overlays()
