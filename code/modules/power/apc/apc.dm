@@ -159,7 +159,7 @@
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 		apc_area = get_area(src)
-		apc_area.apc |= src
+		apc_area.apc += src
 		opened = APC_OPENED
 		operating = FALSE
 		name = "[apc_area.name] APC"
@@ -174,7 +174,7 @@
 
 	machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 	machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, FALSE)
-	machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
+	machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, FALSE)
 	machine_powernet.power_change()
 	if(occupier)
 		malfvacate(1)
@@ -183,6 +183,7 @@
 	if(terminal)
 		disconnect_terminal()
 	machine_powernet.powernet_apc = null
+	apc_area.apc -= src
 	return ..()
 
 
@@ -495,11 +496,10 @@
 	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
-		if(aidisabled || malfhack && istype(malfai))
-			if((istype(AI) && (malfai!=AI && malfai != AI.parent)) || (istype(robot) && (robot in malfai.connected_robots)))
-				if(!loud)
-					to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
-				return FALSE
+		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && (robot in malfai.connected_robots))))
+			if(!loud)
+				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
+			return FALSE
 	else
 		if((!in_range(src, user) || !isturf(loc)))
 			return FALSE

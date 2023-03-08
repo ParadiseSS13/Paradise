@@ -621,6 +621,10 @@
 	linked_emote = /datum/emote/living/simple_animal/pet/cat/purr
 	name = "Purr (Cat)"
 
+/datum/keybinding/emote/simple_animal/pet/cat/sit
+	linked_emote = /datum/emote/living/sit/cat
+	name = "Sit/Stand (Cat)"
+
 /datum/keybinding/emote/simple_animal/pet/cat/can_use(client/C, mob/M)
 	return iscat(M) && ..()
 

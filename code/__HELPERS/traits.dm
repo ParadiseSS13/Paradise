@@ -199,12 +199,18 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SOAPY_MOUTH		"soapy_mouth"
 #define TRAIT_UNREVIVABLE 		"unrevivable" // Prevents changeling revival
 #define TRAIT_CULT_IMMUNITY		"cult_immunity"
-
 //***** ITEM TRAITS *****//
+=======
+
+//***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+
+//***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
+/// Forces open doors after a delay specific to the item
+#define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"

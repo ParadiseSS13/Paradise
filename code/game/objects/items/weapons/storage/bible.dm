@@ -1,6 +1,8 @@
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Apply to head repeatedly."
+	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
@@ -18,17 +20,21 @@
 		"Bible" =			   list("state" = "bible",		  "inhand" = "bible"),
 		"Koran" =			   list("state" = "koran",		  "inhand" = "koran"),
 		"Scrapbook" =		   list("state" = "scrapbook",	  "inhand" = "scrapbook"),
-		"Creeper" =			   list("state" = "creeper",	  "inhand" = "syringe_kit"),
-		"White Bible" =		   list("state" = "white",		  "inhand" = "syringe_kit"),
-		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "syringe_kit"),
-		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "syringe_kit"),
-		"Tome" =			   list("state" = "tome",		  "inhand" = "syringe_kit"),
+		"Creeper" =			   list("state" = "creeper",	  "inhand" = "generic_bible"),
+		"White Bible" =		   list("state" = "white",		  "inhand" = "generic_bible"),
+		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "generic_bible"),
+		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "generic_bible"),
+		"Tome" =			   list("state" = "tome",		  "inhand" = "generic_bible"),
 		"The King in Yellow" = list("state" = "kingyellow",	  "inhand" = "kingyellow"),
 		"Ithaqua" =			   list("state" = "ithaqua",	  "inhand" = "ithaqua"),
 		"Scientology" =		   list("state" = "scientology",  "inhand" = "scientology"),
 		"the bible melts" =	   list("state" = "melted",		  "inhand" = "melted"),
 		"Necronomicon" =	   list("state" = "necronomicon", "inhand" = "necronomicon"),
 		"Greentext" =		   list("state" = "greentext",	  "inhand" = "greentext"),
+		"Honkmother" =		   list("state" = "honk",		  "inhand" = "honk"),
+		"Silentfather" =	   list("state" = "mime",		  "inhand" = "mime"),
+		"Clockwork" =		   list("state" = "clock_bible",  "inhand" = "clock_bible"),
+		"Nanotrasen" =		   list("state" = "nanotrasen",	  "inhand" = "nanotrasen")
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -183,3 +189,9 @@
 	if(!src || !H.is_in_hands(src) || H.incapacitated())
 		return FALSE
 	return TRUE
+
+/obj/item/storage/bible/syndi
+	name = "suspicious bible"
+	desc = "For treading the line between cultist, contraband, and a hostile corporation."
+	customisable = FALSE
+	icon_state = "syndi"

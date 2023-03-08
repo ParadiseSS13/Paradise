@@ -182,6 +182,13 @@
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/implanter/emp/(src)
 
+/obj/item/storage/box/syndie_kit/poisoner
+	name = "poisoner's kit"
+
+/obj/item/storage/box/syndie_kit/poisoner/populate_contents()
+	new /obj/item/pen/multi/poison(src)
+	new /obj/item/clothing/gloves/color/black/poisoner(src)
+
 /obj/item/storage/box/syndie_kit/c4
 	name = "pack of C-4 explosives"
 

@@ -143,6 +143,7 @@
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/mop,
+					/obj/item/twohanded/push_broom,
 					/obj/item/caution,
 					/obj/item/caution,
 					/obj/item/caution,
