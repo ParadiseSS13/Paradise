@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(ping)
 	name = "Ping"
 	priority = FIRE_PRIORITY_PING
 	wait = 6 SECONDS
-	flags = SS_NO_INIT
+	flags = SS_NO_INIT | SS_NO_FIRE
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/list/currentrun = list()

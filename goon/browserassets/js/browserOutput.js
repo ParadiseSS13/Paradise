@@ -518,14 +518,14 @@ function ehjaxCallback(data) {
 		opts.pongTime = Date.now();
 		var pingDuration = Math.ceil((opts.pongTime - opts.pingTime) / 2);
 		$('#pingMs').text(pingDuration+' мс');
-		pingDuration = Math.min(pingDuration, 255);
 		opts.lastPingDuration = pingDuration;
+		pingDuration = Math.min(pingDuration, 255);
 		var red = pingDuration;
 		var green = 255 - pingDuration;
 		var blue = 0;
 		var hex = rgbToHex(red, green, blue);
 		$('#pingDot').css('color', '#'+hex);
-		runByond('?_src_=chat&proc=pingstat&param[lastPingDuration]='+opts.lastPingDuration);
+		runByond('?_src_=chat&proc=pingstat&param[ping]='+opts.lastPingDuration);
 	} else if (data == 'roundrestart') {
 		opts.restarting = true;
 		internalOutput('<div class="connectionClosed internal restarting">Сервер перезагружается, поэтому соединение было закрыто. Пожалуйста, дождитесь автоматического переподключения.</div>', 'internal');

@@ -202,11 +202,16 @@ var/chatDebug = file("data/chatDebug.log")
 /datum/chatOutput/proc/ping()
 	return "pong"
 
-/datum/chatOutput/proc/pingstat(lastPingDuration = 0)
-	if(lastPingDuration && owner)
-		owner.last_ping_duration = lastPingDuration
-	else
-		owner.last_ping_duration = 0
+#define PING_BUFFER_TIME 25
+
+/datum/chatOutput/proc/pingstat(ping = 0)
+	ping = text2num(ping)
+	if(!owner || world.time - owner.connection_time < PING_BUFFER_TIME)
+		ping = 0
+	owner.lastping = ping
+	owner.avgping = MC_AVERAGE_SLOW(owner.avgping, ping)
+
+#undef PING_BUFFER_TIME
 
 /datum/chatOutput/proc/debug(error)
 	error = "\[[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]\] Client : [owner.key ? owner.key : owner] triggered JS error: [error]"

@@ -102,7 +102,6 @@
 	/// Days since the client's BYOND account was created
 	var/byondacc_age = 0
 
-	var/last_ping_duration = 0
 	///Last ping of the client
 	var/lastping = 0
 	///Average ping of the client

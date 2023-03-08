@@ -924,6 +924,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	msg += "<TH>Player</TH>"
 	msg += "<TH>Quality</TH>"
 	msg += "<TH>Ping</TH>"
+	msg += "<TH>AvgPing</TH>"
 	msg += "<TH>Url</TH>"
 	msg += "<TH>IP</TH>"
 	msg += "<TH>Country</TH>"
@@ -942,9 +943,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		msg += "<TR>"
 
 		msg += "<TD>[key_name_admin(C.mob)]</TD>"
-		color = "rgb([C.last_ping_duration], [255 - text2num(C.last_ping_duration)], 0)"
+		color = "rgb([C.lastping], [255 - clamp(text2num(C.lastping), 0, 255)], 0)"
 		msg += "<TD bgcolor='[color]' >&nbsp;</TD>"
-		msg += "<TD><b>[C.last_ping_duration]<b></TD>"
+		msg += "<TD><b>[C.lastping]<b></TD>"
+		msg += "<TD><b>[round(C.avgping,1)]<b></TD>"
 		msg += "<TD>[C.url]</TD>"
 
 		if(C.geoip.status != "updated")
