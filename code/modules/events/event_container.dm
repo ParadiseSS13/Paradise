@@ -140,9 +140,11 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vent Clog",				/datum/event/vent_clog,					1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Wormholes",				/datum/event/wormholes,					1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, 	"Carp Migration",			/datum/event/carp_migration,	1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, 	"APC Overload",				/datum/event/apc_overload,		1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR,	 "Meteor Wave",				/datum/event/meteor_wave,		1)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Immovable Rod",			/datum/event/immovable_rod,				1),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Rogue Drones",				/datum/event/rogue_drone, 				1),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, 	"Carp Migration",			/datum/event/carp_migration,			1),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, 	"APC Overload",				/datum/event/apc_overload,				1),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR,	"Meteor Wave",				/datum/event/meteor_wave,				1)
 	)
 
 /datum/event_container/mundane
