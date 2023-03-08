@@ -199,8 +199,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SOAPY_MOUTH		"soapy_mouth"
 #define TRAIT_UNREVIVABLE 		"unrevivable" // Prevents changeling revival
 #define TRAIT_CULT_IMMUNITY		"cult_immunity"
-//***** ITEM TRAITS *****//
-=======
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
