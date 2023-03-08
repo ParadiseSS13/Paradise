@@ -207,11 +207,11 @@
 			to_chat(user, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [locationx],[locationy]</span>")
 
 
-			return attack_self()
+			return attack_self(user)
 
 		if("Disk Recovery")
 			setting = SETTING_DISK
-			return attack_self()
+			return attack_self(user)
 
 		if("Other Signature")
 			setting = SETTING_OBJECT
@@ -249,7 +249,7 @@
 							target = C
 							break
 
-			return attack_self()
+			return attack_self(user)
 
 ///////////////////////
 //nuke op pinpointers//
@@ -533,7 +533,7 @@
 			location = locate(locationx,locationy,Z.z)
 
 			to_chat(user, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [locationx],[locationy]</span>")
-			return attack_self()
+			return attack_self(user)
 
 		if("Сигнатура Объекта")
 			setting = SETTING_OBJECT
@@ -609,7 +609,7 @@
 				to_chat(user, "<span class='warning'>Не удалось обнаружить [choosen_target]!</span>")
 				return
 			to_chat(user, "<span class='notice'>Вы переключили пинпоинтер для обнаружения [choosen_target].</span>")
-			return attack_self()
+			return attack_self(user)
 
 		if("Цели")
 			setting = SETTING_OBJECT
@@ -677,7 +677,7 @@
 			else
 				to_chat(user, "<span class='warning'>Не удалось обнаружить интересные цели для #REDACTED#! Если вы не член #REDACTED#, верните устройство владельцу или обратитесь по зашифрованному номеру на обратной стороне пинпоинтера.</span>")
 
-			return attack_self()
+			return attack_self(user)
 
 #undef MODE_OFF
 #undef MODE_DISK
