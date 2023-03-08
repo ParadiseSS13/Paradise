@@ -127,7 +127,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	next_event = EM
 	return EM
 
-
 /datum/event_container/mundane
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
