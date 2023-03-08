@@ -23,6 +23,9 @@
 	if(!forced)
 		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
+	if(stat == 2)
+		return
+
 	if(forced || (confirm == "Yes"))
 		if(!forced && isAntag(src))
 			confirm = alert("Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", "Yes", "No")
