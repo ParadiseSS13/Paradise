@@ -155,4 +155,5 @@
 
 #define STATUS_EFFECT_BLOB_BURST /datum/status_effect/blob_burst
 
-#define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus //gives you fluff messages for cough, sneeze, headache, etc but without an actual virus
+/// gives you fluff messages for cough, sneeze, headache, etc but without an actual virus
+#define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
