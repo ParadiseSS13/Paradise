@@ -73,7 +73,7 @@
 		plays++
 		working = TRUE
 		icon_state = "slots-on"
-		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
 
 		if(emagged)
