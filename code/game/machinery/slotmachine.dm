@@ -57,10 +57,10 @@
 	data["resultlvl"] = resultlvl
 	return data
 
-/obj/machinery/economy/slot_machine/ui_act(action, params)
+/obj/machinery/economy/slot_machine/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 	if(action == "spin")
 		if(working)
@@ -74,10 +74,10 @@
 		working = TRUE
 		icon_state = "slots-on"
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
+		addtimer(CALLBACK(src, PROC_REF(spin_slots), ui.user.name), 25)
 
 		if(emagged)
-			emagged_spinning(usr)
+			emagged_spinning(ui.user)
 
 /obj/machinery/economy/slot_machine/proc/spin_slots(userName)
 	switch(rand(1, 5000))
@@ -131,10 +131,10 @@
 		return
 	default_unfasten_wrench(user, I)
 
-/* 
+/*
 	* Emag behaviour below. When the machine is emagged, it'll stun and anchor its user, spin them, then throw them away.
 	* With a chance of "emagged_win_chance", the machine resets its emagged state and throws money at the user.
-*/ 
+*/
 /obj/machinery/economy/slot_machine/emag_act(user)
 	if(emagged)
 		to_chat(user, "<span class='notice'>[src] is unresponsive. It is probably already modified.</span>")
@@ -185,13 +185,13 @@
 
 /// With a chance of "emagged_win_chance", we win some money and reset the machine to a non-emagged state
 /obj/machinery/economy/slot_machine/proc/emagged_winning(user)
-		// Notify nearby people
-		atom_say("ERROR ERROR ERROR. Entering safe mode. Disabling reverse-gripping mechanism!")
-		playsound(loc, 'sound/machines/bell.ogg', 55, 1)
+	// Notify nearby people
+	atom_say("ERROR ERROR ERROR. Entering safe mode. Disabling reverse-gripping mechanism!")
+	playsound(loc, 'sound/machines/bell.ogg', 55, 1)
 
-		// This resets us back to normal
-		emagged = FALSE
+	// This resets us back to normal
+	emagged = FALSE
 
-		// Reward the winner
-		var/obj/item/reward_to_throw = new /obj/item/stack/spacecash/c100(get_turf(src))
-		reward_to_throw.throw_at(user, 6, 10)
+	// Reward the winner
+	var/obj/item/reward_to_throw = new /obj/item/stack/spacecash/c100(get_turf(src))
+	reward_to_throw.throw_at(user, 6, 10)
