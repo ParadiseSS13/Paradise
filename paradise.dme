@@ -654,6 +654,7 @@
 #include "code\game\gamemodes\miniantags\revenant\revenant_abilities.dm"
 #include "code\game\gamemodes\miniantags\revenant\revenant_spawn_event.dm"
 #include "code\game\gamemodes\miniantags\pulsedemon\pulsedemon.dm"
+#include "code\game\gamemodes\miniantags\pulsedemon\pulsedemon_event.dm"
 #include "code\game\gamemodes\miniantags\pulsedemon\pulsedemon_interactions.dm"
 #include "code\game\gamemodes\nuclear\nuclear.dm"
 #include "code\game\gamemodes\nuclear\nuclear_challenge.dm"

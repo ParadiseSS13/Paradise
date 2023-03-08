@@ -29,6 +29,7 @@
 #define ROLE_VAMPIRE			"vampire"
 // Role tags for EVERYONE!
 #define ROLE_DEMON				"demon"
+#define ROLE_PULSEDEMON			"pulse demon"
 #define ROLE_SENTIENT			"sentient animal"
 #define ROLE_POSIBRAIN			"positronic brain"
 #define ROLE_GUARDIAN			"guardian"
@@ -65,6 +66,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_REV = /datum/game_mode/revolution, 			// Revolutionary
 	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_DEMON, 										// Slaguther demon
+	ROLE_PULSEDEMON, 									// Pulse Demon
 	ROLE_ELITE,											// Lavaland Elite
 	ROLE_NINJA, 										// Space ninja
 	ROLE_TRADER, 										// Trader

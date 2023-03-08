@@ -9,6 +9,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_VAMPIRE = 14,
 	ROLE_BLOB = 14,
 	ROLE_REVENANT = 14,
+	ROLE_PULSEDEMON = 14,
 	ROLE_OPERATIVE = 21,
 	ROLE_CULTIST = 21,
 	ROLE_ALIEN = 21,

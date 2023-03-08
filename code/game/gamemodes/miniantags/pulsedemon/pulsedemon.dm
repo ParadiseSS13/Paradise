@@ -185,14 +185,15 @@
 	else
 		speed = inside_cable_speed
 
-	if(!is_under_tile() && prob(PULSEDEMON_PLATING_SPARK_CHANCE))
-		do_sparks(rand(2, 4), FALSE, src)
+	if(moved)
+		if(!is_under_tile() && prob(PULSEDEMON_PLATING_SPARK_CHANCE))
+			do_sparks(rand(2, 4), FALSE, src)
 
-	// these shouldn't be set if the demon can move normally anyway
-	current_weapon = null
-	current_robot = null
-	current_bot = null
-	controlling_area = null
+		// these shouldn't be set if the demon can move normally anyway
+		current_weapon = null
+		current_robot = null
+		current_bot = null
+		controlling_area = null
 
 	if(new_power)
 		current_power = new_power
@@ -213,7 +214,7 @@
 			loc = get_turf(newloc)
 		if(!moved)
 			forceMove(newloc)
-	else
+	else if(moved)
 		current_cable = null
 		current_power = null
 
@@ -324,9 +325,9 @@
 
 	if(current_robot)
 		var/turf/T = get_turf(src)
-		log_say("[key_name(src)] (@[T.x], [T.y], [T.z]) made [current_robot]([key_name(current_robot)]) say: [message]")
-		log_admin("[key_name(src)] made [key_name(current_robot)] say: [message]")
-		message_admins("<span class='notice'>[key_name(src)] made [key_name(current_robot)] say: [message]</span>")
+		log_say("[key_name_admin(src)] (@[T.x], [T.y], [T.z]) made [current_robot]([key_name_admin(current_robot)]) say: [message]")
+		log_admin("[key_name_admin(src)] made [key_name_admin(current_robot)] say: [message]")
+		message_admins("<span class='notice'>[key_name_admin(src)] made [key_name_admin(current_robot)] say: [message]</span>")
 		// don't sanitize again
 		current_robot.say(message, null, FALSE, ignore_speech_problems, ignore_atmospherics, ignore_languages)
 		return TRUE
@@ -439,6 +440,8 @@
 	else if(charge >= 1000)
 		dealt = L.electrocute_act(30, src, siemens_coeff)
 		adjustCharge(-1000)
+	if(dealt > 0)
+		do_sparks(rand(2, 4), FALSE, src)
 	add_attack_logs(src, L, "shocked ([dealt] damage)")
 
 /mob/living/simple_animal/pulse_demon/proc/is_under_tile()

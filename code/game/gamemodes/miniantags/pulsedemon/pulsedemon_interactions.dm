@@ -25,8 +25,8 @@
 			changeNext_click(G.fire_delay)
 			return
 	else if(current_robot)
-		log_admin("[key_name(src)] made [key_name(current_robot)] attack [A]")
-		message_admins("<span class='notice'>[key_name(src)] made [key_name(current_robot)] attack [A]</span>")
+		log_admin("[key_name_admin(src)] made [key_name_admin(current_robot)] attack [A]")
+		message_admins("<span class='notice'>[key_name_admin(src)] made [key_name_admin(current_robot)] attack [A]</span>")
 
 		current_robot.ClickOn(A, params)
 		changeNext_click(0.5 SECONDS)

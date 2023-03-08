@@ -38,6 +38,7 @@
 #define SPECIAL_ROLE_PYROCLASTIC_SLIME 	"Pyroclastic Anomaly Slime"
 #define SPECIAL_ROLE_REVENANT "Revenant"
 #define SPECIAL_ROLE_DEMON "Demon"
+#define SPECIAL_ROLE_PULSEDEMON "Pulse Demon"
 #define SPECIAL_ROLE_SUPER "Super"
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
 #define SPECIAL_ROLE_TRAITOR "Traitor"
