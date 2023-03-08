@@ -3,7 +3,7 @@
 	var/list/cameras = GLOB.cameranet.cameras.Copy()
 	while(prob(100 / iterations))
 		var/obj/machinery/camera/C = pick_n_take(cameras)
-		if(!C)
+		if(!istype(C))
 			break
 		if(!("SS13" in C.network) || C.start_active)
 			continue
