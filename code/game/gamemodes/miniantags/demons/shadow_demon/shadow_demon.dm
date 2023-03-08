@@ -56,8 +56,9 @@
 	anchored = TRUE
 
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	if(damage_type == BURN)//I unashamedly stole this from spider cocoon code
-		playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
+	if(damage_type != BURN) //I unashamedly stole this from spider cocoon code
+		return
+	playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/shadowcocoon/Destroy()
 	visible_message("<span class='danger'>[src] splits open, and the shadows dancing around it fade.</span>")
