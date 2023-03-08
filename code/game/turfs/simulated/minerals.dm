@@ -203,7 +203,7 @@
 	playsound(src, pick(list('sound/effects/picaxe1.ogg','sound/effects/picaxe2.ogg','sound/effects/picaxe3.ogg')), 30, 1 )
 
 	for(var/obj/O in contents) //Eject contents!
-		if(istype(O,/obj/structure/sign/poster))
+		if(istype(O, /obj/structure/sign/poster))
 			var/obj/structure/sign/poster/P = O
 			P.roll_and_drop(src)
 		else
