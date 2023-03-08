@@ -1225,7 +1225,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
 	if(!arePowerSystemsOn() && can_force_open_while_unpowered)
-		open(2)
+		open(TRUE)
 		return
 	prying_so_hard = TRUE //so you dont pry the door when you are already trying to pry it
 	var/result = do_after(user, time_to_open_airlock, target = src)
