@@ -6,7 +6,7 @@
 	invocation = "EN GUARD!"
 	invocation_type = "shout"
 	sound = 'sound/magic/repulse.ogg'
-	action_icon_state = "repulse"
+	action_icon_state = "lunge"
 
 /obj/effect/proc_holder/spell/sentient_sword_lunge/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
