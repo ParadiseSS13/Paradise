@@ -52,7 +52,7 @@ const SelectionView = (props, context) => {
       {powermonitors.map((p) => (
         <Box key={p}>
           <Button
-            content={p.Name}
+            content={p.Area}
             icon="arrow-right"
             onClick={() =>
               act('selectmonitor', {

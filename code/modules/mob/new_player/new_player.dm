@@ -18,6 +18,11 @@
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
+/mob/new_player/Destroy()
+	if(mind)
+		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+	return ..()
+
 /mob/new_player/verb/new_player_panel()
 	set src = usr
 
@@ -151,6 +156,11 @@
 		if(client.version_blocked)
 			client.show_update_notice()
 			return FALSE
+		if(!ready && !client.prefs.active_character.check_any_job() && (client.prefs.active_character.alternate_option == RETURN_TO_LOBBY))
+			to_chat(usr, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			ready = FALSE
+			return FALSE
+
 		ready = !ready
 		new_player_panel_proc()
 
@@ -198,7 +208,6 @@
 			observer.name = observer.real_name
 			observer.key = key
 			observer.add_to_respawnable_list()
-			mind.current = null
 			qdel(src)
 			return TRUE
 		return FALSE

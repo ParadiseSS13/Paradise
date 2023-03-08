@@ -51,7 +51,7 @@
 		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
-			var/datum/objective/demonFluff/fluffObjective = new
+			var/datum/objective/demon_fluff/fluffObjective = new
 			SSticker.mode.traitors |= mind
 			objective.owner = mind
 			fluffObjective.owner = mind
@@ -309,6 +309,7 @@
 
 //Objective info, Based on Reverent mini Atang
 /datum/objective/slaughter
+	needs_target = FALSE
 	var/targetKill = 10
 
 /datum/objective/slaughter/New()
@@ -327,27 +328,30 @@
 		return TRUE
 	return FALSE
 
-/datum/objective/demonFluff
+/datum/objective/demon_fluff
+	needs_target = FALSE
 
-
-/datum/objective/demonFluff/New()
+/datum/objective/demon_fluff/New()
 	find_target()
 	var/targetname = "someone"
 	if(target && target.current)
 		targetname = target.current.real_name
-	var/list/explanationTexts = list("Spread blood all over the bridge.", \
-									"Spread blood all over the brig.", \
-									"Spread blood all over the chapel.", \
-									"Kill or Destroy all Janitors or Sanitation bots.", \
-									"Spare a few after striking them... make them bleed before the harvest.", \
-									"Hunt those that try to hunt you first.", \
-									"Hunt those that run away from you in fear", \
-									"Show [targetname] the power of blood.", \
-									"Drive [targetname] insane with demonic whispering."
-									)
-
-	explanation_text = pick(explanationTexts)
+	var/list/explanation_texts = list(
+		"Spread blood all over the bridge.",
+		"Spread blood all over the brig.",
+		"Spread blood all over the chapel.",
+		"Kill or Destroy all Janitors or Sanitation bots.",
+		"Spare a few after striking them... make them bleed before the harvest.",
+		"Hunt those that try to hunt you first.",
+		"Hunt those that run away from you in fear",
+		"Show [targetname] the power of blood.",
+		"Drive [targetname] insane with demonic whispering."
+	)
+	// As this is a fluff objective, we don't need a target, so we want to null it out.
+	// We don't want the demon getting a "Time for Plan B" message if the target cryos.
+	target = null
+	explanation_text = pick(explanation_texts)
 	..()
 
-/datum/objective/demonFluff/check_completion()
-	return 1
+/datum/objective/demon_fluff/check_completion()
+	return TRUE
