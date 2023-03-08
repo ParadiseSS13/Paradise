@@ -381,10 +381,7 @@
 
 /datum/status_effect/fleshmend/refresh()
 	tolerance += 1
-	if(owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
-		freezing = TRUE
-	else
-		freezing = FALSE
+	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 	active_instances += instance_duration
 	..()
 
