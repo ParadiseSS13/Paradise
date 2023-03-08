@@ -164,9 +164,12 @@
 	opacity = FALSE
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
-/obj/structure/mineral_door/transparent/operate()
-	..()
-	set_opacity(0)
+/obj/structure/mineral_door/transparent/operate_update()
+	density = !density
+	state_open = !state_open
+	air_update_turf(1)
+	update_icon(UPDATE_ICON_STATE)
+	is_operating = FALSE
 
 /obj/structure/mineral_door/transparent/plasma
 	name = "plasma door"
