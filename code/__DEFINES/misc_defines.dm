@@ -375,7 +375,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // Defines for investigate to prevent typos and for styling
-#define INVESTIGATE_LABEL "labels"
+#define INVESTIGATE_RENAME "renames"
 
 #define INVESTIGATE_BOMB "bombs"
 

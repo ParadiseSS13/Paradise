@@ -42,7 +42,8 @@
 	severity = DANGEROUS
 
 /datum/disease/pierrot_throat/advanced/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(10))
