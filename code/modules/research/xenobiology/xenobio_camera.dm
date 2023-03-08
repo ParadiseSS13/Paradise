@@ -51,13 +51,14 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/Initialize(mapload)
 	. = ..()
-	locate_recycler()
+	if(!connected_recycler)
+		locate_recycler()
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/locate_recycler()
 	for(var/obj/machinery/monkey_recycler/recycler in GLOB.monkey_recyclers)
 		if(get_area(recycler) == get_area(loc))
 			connected_recycler = recycler
-			connected_recycler.connected += src
+			connected_recycler.connected |= src
 			break
 
 /obj/machinery/computer/camera_advanced/xenobio/Destroy()

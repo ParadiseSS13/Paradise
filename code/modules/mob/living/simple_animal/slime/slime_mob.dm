@@ -102,6 +102,7 @@
 		AC.Remove(src)
 	Target = null
 	Leader = null
+	Friends.Cut()
 	speech_buffer.Cut()
 	return ..()
 

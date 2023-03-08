@@ -25,6 +25,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	GLOB.monkey_recyclers += src
 	RefreshParts()
+	locate_camera_console()
 
 /obj/machinery/monkey_recycler/Destroy()
 	GLOB.monkey_recyclers -= src
@@ -33,6 +34,15 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		console.connected_recycler = null
 	connected.Cut()
 	return ..()
+
+/obj/machinery/monkey_recycler/proc/locate_camera_console()
+	if(length(connected))
+		return // we're already connected!
+	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera in GLOB.machines)
+		if(get_area(xeno_camera) == get_area(loc))
+			xeno_camera.connected_recycler = src
+			connected |= xeno_camera
+			break
 
 /obj/machinery/monkey_recycler/RefreshParts()
 	var/req_grind = 5
