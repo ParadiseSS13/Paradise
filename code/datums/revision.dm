@@ -11,14 +11,14 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	var/commit_hash
 	/// Date that this commit was made
 	var/commit_date
+	// git rev-parse origin/master220
+	var/originmastercommit
 
 /datum/code_revision/New()
-	commit_hash = "-"
-	commit_date = "-"
-	return
-	// commit_hash = rustg_git_revparse("HEAD")
-	// if(commit_hash)
-	// 	commit_date = rustg_git_commit_date(commit_hash)
+	commit_hash = rustg_git_revparse("HEAD")
+	if(commit_hash)
+		commit_date = rustg_git_commit_date(commit_hash)
+	originmastercommit = rustg_git_revparse("origin/master220")
 
 /**
   * Code Revision Logging Helper
