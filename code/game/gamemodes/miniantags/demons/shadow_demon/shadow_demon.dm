@@ -44,7 +44,7 @@
 	target.visible_message("<span class='warning'><b>[src] envelops [target] into an ethereal cocoon, and darkness begins to creep from it.</b></span>")
 	var/obj/structure/shadowcocoon/C = new(target.loc)
 	target.extinguish_light() // may as well be safe
-	target.loc = C
+	target.forceMove(C)
 	wrapping = FALSE
 
 /obj/structure/shadowcocoon
