@@ -48,6 +48,8 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	if(mind?.current == src)
+		mind.current = null
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
