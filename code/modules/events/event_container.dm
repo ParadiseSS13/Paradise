@@ -127,25 +127,6 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 	next_event = EM
 	return EM
 
-/datum/event_container/false_events // Used by the /datum/event/falsealarm event
-	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Solar Flare",				/datum/event/solar_flare,				1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Communication Blackout",	/datum/event/communications_blackout,	1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Prison Break",				/datum/event/prison_break,				1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "APC Short",				/datum/event/apc_short, 				1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Electrical Storm",			/datum/event/electrical_storm, 			1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Radiation Storm",			/datum/event/radiation_storm, 			1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Spider Infestation",		/datum/event/spider_infestation, 		1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Mass Hallucination",		/datum/event/mass_hallucination,		1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Vent Clog",				/datum/event/vent_clog,					1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Wormholes",				/datum/event/wormholes,					1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Immovable Rod",			/datum/event/immovable_rod,				1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Rogue Drones",				/datum/event/rogue_drone, 				1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, 	"Carp Migration",			/datum/event/carp_migration,			1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, 	"APC Overload",				/datum/event/apc_overload,				1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR,	"Meteor Wave",				/datum/event/meteor_wave,				1)
-	)
 
 /datum/event_container/mundane
 	severity = EVENT_LEVEL_MUNDANE

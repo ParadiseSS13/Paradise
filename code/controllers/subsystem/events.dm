@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(events)
 			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
 			EVENT_LEVEL_MAJOR 		= new/datum/event_container/major
 		)
-	var/false_event_containers = new /datum/event_container/false_events
+
 	var/datum/event_meta/new_event = new
 
 /datum/controller/subsystem/events/Initialize()
