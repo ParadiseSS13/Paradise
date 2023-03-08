@@ -48,7 +48,7 @@
 				qdel(S)
 			else
 				S.be_replaced()
-	if(mind)
+	if(mind?.current == src)
 		mind.current = null
 	return ..()
 
