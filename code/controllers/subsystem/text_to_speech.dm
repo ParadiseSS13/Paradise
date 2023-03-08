@@ -209,14 +209,16 @@ SUBSYSTEM_DEF(tts)
 		rps_sum += rps
 	tts_sma_rps = round(rps_sum / tts_rps_list.len, 0.1)
 
-	var/requests = tts_requests_queue.Copy(1, clamp(LAZYLEN(tts_requests_queue), 0, tts_rps_limit) + 1)
+	var/free_rps = clamp(tts_rps_limit - tts_rps, 0, tts_rps_limit)
+	var/requests = tts_requests_queue.Copy(1, clamp(LAZYLEN(tts_requests_queue), 0, free_rps) + 1)
 	for(var/request in requests)
 		var/text = request[1]
 		var/datum/tts_seed/seed = request[2]
 		var/datum/callback/proc_callback = request[3]
 		var/datum/tts_provider/provider = seed.provider
 		provider.request(text, seed, proc_callback)
-	tts_requests_queue.Cut(1, clamp(LAZYLEN(tts_requests_queue), 0, tts_rps_limit) + 1)
+		tts_rps_counter++
+	tts_requests_queue.Cut(1, clamp(LAZYLEN(tts_requests_queue), 0, free_rps) + 1)
 
 	if(sanitized_messages_caching)
 		sanitized_messages_cache.Cut()
@@ -237,6 +239,13 @@ SUBSYSTEM_DEF(tts)
 		is_enabled = FALSE
 		to_chat(world, span_announce("SERVER: очередь запросов превысила лимит, подсистема SStts принудительно отключена!"))
 		return FALSE
+
+	if(tts_rps_counter < tts_rps_limit)
+		var/datum/tts_provider/provider = seed.provider
+		provider.request(text, seed, proc_callback)
+		tts_rps_counter++
+		return TRUE
+
 	tts_requests_queue += list(list(text, seed, proc_callback))
 	return TRUE
 
@@ -295,7 +304,6 @@ SUBSYSTEM_DEF(tts)
 	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect, preSFX, postSFX)
 	queue_request(text, seed, cb)
 	LAZYADD(tts_queue[filename], play_tts_cb)
-	tts_rps_counter++
 
 /datum/controller/subsystem/tts/proc/get_tts_callback(atom/speaker, mob/listener, filename, datum/tts_seed/seed, is_local, effect, preSFX, postSFX, datum/http_response/response)
 	var/datum/tts_provider/provider = seed.provider
