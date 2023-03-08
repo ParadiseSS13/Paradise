@@ -31,6 +31,7 @@
 	)
 	var/list/major_fake_events = list(
 		list("Confirmed outbreak of level 3-X biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak3.ogg'),
+		list("Confirmed outbreak of level 3-S biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak3.ogg'),
 		list("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 	)
 	if(prob(90))
