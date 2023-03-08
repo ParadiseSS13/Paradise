@@ -840,9 +840,44 @@
 	var/msg_stage = 0
 	/// Which disease we are going to fake?
 	var/current_fake_disease
+	// Fake virus messages by stage
+	var/list/fake_msg_1
+	var/list/fake_msg_2
+	var/list/fake_msg_3
+	// Fake virus emotes by stage
+	var/list/fake_emote_1
+	var/list/fake_emote_2
+	var/list/fake_emote_3
 
 /datum/status_effect/fake_virus/on_creation()
 	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS)
+	switch(current_fake_disease)
+		if(FAKE_COLD)
+			fake_msg_1 = list("<span class='danger'>Your throat feels sore.</span>", "<span class='danger'>Mucous runs down the back of your throat.</span>")
+			fake_msg_2 = list("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
+			fake_msg_3 = list("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
+
+			fake_emote_1 = list("sneeze", "cough")
+			fake_emote_2 = list("sneeze", "cough")
+			fake_emote_3 = list("sneeze", "cough")
+		if(FAKE_FOOD_POISONING)
+			fake_msg_1 = list("<span class='danger'>Your stomach feels weird.</span>", "<span class='danger'>You feel queasy.</span>")
+			fake_msg_2 = list("<span class='danger'>Your stomach aches.</span>", "<span class='danger'>You feel nauseous.</span>")
+			fake_msg_3 = list("<span class='danger'>Your stomach hurts.</span>", "<span class='danger'>You feel sick.</span>")
+
+			fake_emote_2 = list("groan")
+			fake_emote_3 = list("groan", "moan")
+		if(FAKE_RETRO_VIRUS)
+			fake_msg_1 = list("<span class='danger'>Your head hurts.</span>", "You feel a tingling sensation in your chest.", "<span class='danger'>You feel angry.</span>")
+			fake_msg_2 = list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>")
+			fake_msg_3 = list("<span class='danger'>Your entire body vibrates.</span>")
+		else
+			fake_msg_1 = list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>")
+			fake_msg_2 = list("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>")
+			fake_msg_3 = list("<span class='danger'>You feel uncomfortably hot...</span>", "<span class='danger'>You feel like unzipping your jumpsuit</span>", "<span class='danger'>You feel like taking off some clothes...</span>")
+
+			fake_emote_1 = list("cough")
+			fake_emote_2 = list("gasp")
 	. = ..()
 
 /datum/status_effect/fake_virus/tick()
@@ -851,49 +886,27 @@
 	switch(msg_stage)
 		if(0 to 300)
 			if(prob(1))
-				if(current_fake_disease == FAKE_COLD)
-					fake_msg = pick("<span class='danger'>Your throat feels sore.</span>", "<span class='danger'>Mucous runs down the back of your throat.</span>")
-					fake_emote = pick("sneeze", "cough")
-				if(current_fake_disease == FAKE_FOOD_POISONING)
-					fake_msg = pick("<span class='danger'>Your stomach feels weird.</span>", "<span class='danger'>You feel queasy.</span>")
-				if(current_fake_disease == FAKE_RETRO_VIRUS)
-					fake_msg = pick("<span class='danger'>Your head hurts.</span>", "You feel a tingling sensation in your chest.", "<span class='danger'>You feel angry.</span>")
-				if(current_fake_disease == FAKE_TURBERCULOSIS)
-					fake_msg = pick("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>")
-					fake_emote = "cough"
+				if(prob(50) || !fake_emote_1) // 50% chance to trigger either a msg or emote, 100% if it doesnt have an emote
+					fake_msg = pick(fake_msg_1)
+				else
+					fake_emote = pick(fake_emote_1)
 		if(301 to 600)
 			if(prob(2))
-				if(current_fake_disease == FAKE_COLD)
-					fake_msg = pick("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
-					fake_emote = pick("sneeze", "cough")
-				if(current_fake_disease == FAKE_FOOD_POISONING)
-					fake_msg = pick("<span class='danger'>Your stomach aches.</span>", "<span class='danger'>You feel nauseous.</span>")
-					fake_emote = "groan"
-				if(current_fake_disease == FAKE_RETRO_VIRUS)
-					fake_msg = pick("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>")
-				if(current_fake_disease == FAKE_TURBERCULOSIS)
-					fake_msg = pick("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>")
-					fake_emote = "gasp"
+				if(prob(50) || !fake_emote_2)
+					fake_msg = pick(fake_msg_2)
+				else
+					fake_emote = pick(fake_emote_2)
 		else
 			if(prob(2))
-				if(current_fake_disease == FAKE_COLD)
-					fake_msg = pick("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
-					fake_emote = pick("sneeze", "cough")
-				if(current_fake_disease == FAKE_FOOD_POISONING)
-					fake_msg = pick("<span class='danger'>Your stomach hurts.</span>", "<span class='danger'>You feel sick.</span>")
-					fake_emote = pick("groan", "moan")
-				if(current_fake_disease == FAKE_RETRO_VIRUS)
-					fake_msg = pick("<span class='danger'>Your entire body vibrates.</span>")
-				if(current_fake_disease == FAKE_TURBERCULOSIS)
-					fake_msg = pick("<span class='danger'>You feel uncomfortably hot...</span>", "<span class='danger'>You feel like unzipping your jumpsuit</span>", "<span class='danger'>You feel like taking off some clothes...</span>")
+				if(prob(50) || !fake_emote_3)
+					fake_msg = pick(fake_msg_3)
+				else
+					fake_emote = pick(fake_emote_3)
 
-	if(prob(50))
-		if(fake_emote)
-			owner.emote(fake_emote)
-		else
-			to_chat(owner, fake_msg)
-	else
+	if(fake_msg)
 		to_chat(owner, fake_msg)
+	else if(fake_emote)
+		owner.emote(fake_emote)
 	msg_stage++
 
 #undef FAKE_COLD
