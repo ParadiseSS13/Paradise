@@ -182,6 +182,7 @@
 	name = "Security Laser Rifle Projector Magazine"
 	desc = "A 12 round encased projector magazine for the Security Laser Rifle"
 	id = "mag_laserrifle"
+	req_tech = list("combat" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600, MAT_GLASS = 2000)
 	build_path = /obj/item/ammo_box/magazine/laserrifle
 
