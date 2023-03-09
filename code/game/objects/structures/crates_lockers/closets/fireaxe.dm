@@ -39,7 +39,7 @@
 				return
 			else
 				user.do_attack_animation(src)
-				playsound(user, 'sound/effects/Glasshit.ogg', 100, 1) //We don't want this playing every time
+				playsound(user, 'sound/effects/glasshit.ogg', 100, 1) //We don't want this playing every time
 			if(W.force < 15)
 				to_chat(user, "<span class='notice'>The cabinet's protective glass glances off the hit.</span>")
 			else
