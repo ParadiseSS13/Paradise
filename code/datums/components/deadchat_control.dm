@@ -94,11 +94,11 @@
 	var/result = count_democracy_votes()
 	if(!isnull(result))
 		inputs[result].Invoke()
-		if(!(deadchat_mode & MUTE_DEMOCRACY_MESSAGES))
+		if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
 			var/message = "<span class='deadsay italics bold'>[parent] has done action [result]!<br>New vote started. It will end in [input_cooldown * 0.1] second\s.</span>"
 			for(var/mob/dead/observer/M in orbiters)
 				to_chat(M, message)
-	else if(!(deadchat_mode & MUTE_DEMOCRACY_MESSAGES))
+	else if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
 		var/message = "<span class='deadsay italics bold'>No votes were cast this cycle.</span>"
 		for(var/mob/dead/observer/M in orbiters)
 			to_chat(M, message)

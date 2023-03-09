@@ -1237,7 +1237,7 @@
 		CMT.ui_interact(usr)
 
 	if(href_list["grantdeadchatcontrol"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_EVENT))
 			return
 
 		var/atom/movable/A = locateUID(href_list["grantdeadchatcontrol"])
@@ -1271,7 +1271,7 @@
 		message_admins("[key_name_admin(usr)] provided deadchat control to [A].")
 
 	if(href_list["removedeadchatcontrol"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_EVENT))
 			return
 
 		var/atom/movable/A = locateUID(href_list["removedeadchatcontrol"])
