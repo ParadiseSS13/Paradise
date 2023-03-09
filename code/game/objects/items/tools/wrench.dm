@@ -102,6 +102,10 @@
 	for(var/obj/item/W in user)
 		user.unEquip(W)
 
+	for(var/mob/living/M in orange(2, src))
+		// you're close enough, it's pretty fuckin bright
+		M.flash_eyes(1, TRUE, TRUE)
+
 	var/obj/item/wrench/medical/W = new /obj/item/wrench/medical(loc)
 	W.add_fingerprint(user)
 	W.desc += " For some reason, it reminds you of [user.name]."
