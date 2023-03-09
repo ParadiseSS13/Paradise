@@ -499,11 +499,9 @@
 			break
 
 		if(needhand)
-
-			if(!holdingnull)
-				if(!holding)
-					. = FALSE
-					break
+			if(!holdingnull && !holding)
+				. = FALSE
+				break
 			if(user.get_active_hand() != holding)
 				. = FALSE
 				break
