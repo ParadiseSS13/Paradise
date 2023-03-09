@@ -62,30 +62,32 @@
 	highfived.status_flags &= ~GODMODE
 
 /datum/status_effect/high_five/on_apply()
-	if(!istype(owner, /mob/living/carbon))
+	if(!iscarbon(owner))
 		return FALSE
 	. = ..()
 
 	var/mob/living/carbon/user = owner
-	for(var/mob/living/carbon/C in orange(1))
-		if(C.has_status_effect(type) && C != user)
-			if(iswizard(user) && iswizard(C))
-				user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[C.name]</b> [critical_success]</span>")
-				user.status_flags |= GODMODE
-				C.status_flags |= GODMODE
-				explosion(get_turf(user), 5, 2, 1, 3)
-				// explosions have a spawn so this makes sure that we don't get gibbed
-				addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 1)
-				user.remove_status_effect(type)
-				C.remove_status_effect(type)
-
-			user.do_attack_animation(C, no_effect = TRUE)
-			C.do_attack_animation(user, no_effect = TRUE)
-			user.visible_message("<b>[user.name]</b> and <b>[C.name]</b> [success]")
-			playsound(user, sound_effect, 80)
+	var/is_wiz = iswizard(user)
+	for(var/mob/living/carbon/C in orange(1, user))
+		if(!C.has_status_effect(type) || C == user)
+			continue
+		if(is_wiz && iswizard(C))
+			user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[C.name]</b> [critical_success]</span>")
+			user.status_flags |= GODMODE
+			C.status_flags |= GODMODE
+			explosion(get_turf(user), 5, 2, 1, 3)
+			// explosions have a spawn so this makes sure that we don't get gibbed
+			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 1)
 			user.remove_status_effect(type)
 			C.remove_status_effect(type)
-			return FALSE
+
+		user.do_attack_animation(C, no_effect = TRUE)
+		C.do_attack_animation(user, no_effect = TRUE)
+		user.visible_message("<b>[user.name]</b> and <b>[C.name]</b> [success]")
+		playsound(user, sound_effect, 80)
+		user.remove_status_effect(type)
+		C.remove_status_effect(type)
+		return FALSE
 
 	owner.custom_emote(EMOTE_VISIBLE, request)
 	// this can only go well

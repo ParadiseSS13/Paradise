@@ -20,7 +20,7 @@
 
 /obj/item/slapper/attack_self(mob/user)
 	. = ..()
-	if(!istype(user, /mob/living))
+	if(!isliving(user))
 		return
 	var/mob/living/L = user
 	if(!L.has_status_effect(STATUS_EFFECT_HIGHFIVE))
