@@ -2075,6 +2075,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 	var/obj/structure/other_victim = locate(/obj/structure) in ahead
 	if(other_victim)
+		do_attack_animation(other_victim, used_item = in_hand)
 		other_victim.attacked_by(in_hand, src)
 		return
 
