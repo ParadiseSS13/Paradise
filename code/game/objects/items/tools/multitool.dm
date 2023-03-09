@@ -105,6 +105,13 @@
 	toolspeed = 0.95 // dangerously fast... not like multitools use speed anyways
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
 
+/obj/item/multitool/command
+	name = "command multitool"
+	desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain."
+	icon_state = "multitool_command"
+	belt_icon = "multitool_command"
+	toolspeed = 0.95 //command those wires / that fireaxe cabinet!
+
 /obj/item/multitool/ai_detect/admin
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
 	track_delay = 5
