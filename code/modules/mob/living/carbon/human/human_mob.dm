@@ -1257,6 +1257,46 @@
 	sec_hud_set_ID()
 
 
+
+/mob/living/carbon/human/proc/export_dmi_json()
+	var/filename = clean_input("filename", "filename", "my_character")
+
+	if(filename == "")
+		return
+
+	var/maxCount = 10
+	var/curCount = 0
+	var/dmipath = "data/exports/characters/[filename].dmi"
+	log_debug("saving icon to [filename]")
+	var/icon/allDirs = null
+
+	var/list/directions = list(SOUTH, NORTH, EAST, WEST)
+	for(var/d in directions)
+		var/icon/new_icon
+		for(var/i = 0; i < maxCount; i++)
+			sleep(5)
+			curCount = i
+			new_icon = getFlatIcon(src, defdir=d)
+			if(new_icon != null)
+				break
+
+		if(new_icon == null)
+			log_debug("ran [curCount] times and could not find icon")
+		else
+			log_debug("ran [curCount] times and found icon")
+			if(allDirs == null)
+				allDirs = icon(new_icon, "", d)
+			else
+				allDirs.Insert(new_icon, "", d)
+
+	fcopy(allDirs, dmipath)
+	log_debug("saved icon to [dmipath]")
+
+	var/jsonpath = "data/exports/characters/[filename].json"
+	var/json = json_encode(serialize())
+	text2file(json, jsonpath)
+	log_debug("saved json to [jsonpath]")
+
 /**
  * Change a mob's species.
  *
