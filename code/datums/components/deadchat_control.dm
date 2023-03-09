@@ -50,6 +50,9 @@
 	message_admins("[parent] has been given deadchat control in [deadchat_mode == DEADCHAT_ANARCHY_MODE ? "anarchy" : "democracy"] mode with a cooldown of [input_cooldown SECONDS] second\s.")
 
 /datum/component/deadchat_control/Destroy(force, silent)
+	var/message = "<span class='deadsay italics bold'>[parent] is no longer controllable.</span>"
+	for(var/mob/dead/observer/M in orbiters)
+		to_chat(M, message)
 	on_removal?.Invoke()
 	inputs = null
 	orbiters = null
@@ -93,11 +96,11 @@
 		inputs[result].Invoke()
 		if(!(deadchat_mode & MUTE_DEMOCRACY_MESSAGES))
 			var/message = "<span class='deadsay italics bold'>[parent] has done action [result]!<br>New vote started. It will end in [input_cooldown * 0.1] second\s.</span>"
-			for(var/M in orbiters)
+			for(var/mob/dead/observer/M in orbiters)
 				to_chat(M, message)
 	else if(!(deadchat_mode & MUTE_DEMOCRACY_MESSAGES))
 		var/message = "<span class='deadsay italics bold'>No votes were cast this cycle.</span>"
-		for(var/M in orbiters)
+		for(var/mob/dead/observer/M in orbiters)
 			to_chat(M, message)
 
 /datum/component/deadchat_control/proc/count_democracy_votes()
