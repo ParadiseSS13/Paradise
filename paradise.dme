@@ -353,6 +353,7 @@
 #include "code\datums\cache\powermonitor.dm"
 #include "code\datums\components\_component.dm"
 #include "code\datums\components\caltrop.dm"
+#include "code\datums\components\deadchat_control.dm"
 #include "code\datums\components\decal.dm"
 #include "code\datums\components\defibrillator.dm"
 #include "code\datums\components\ducttape.dm"

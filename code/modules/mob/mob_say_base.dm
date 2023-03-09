@@ -62,6 +62,8 @@
 		if(client.handle_spam_prevention(message, MUTE_DEADCHAT))
 			return
 
+	if(SEND_SIGNAL(src, COMSIG_MOB_DEADSAY, message) & MOB_DEADSAY_SIGNAL_INTERCEPT)
+		return
 
 	if(message in USABLE_DEAD_EMOTES)
 		emote(copytext(message, 2), intentional = TRUE)
