@@ -53,7 +53,6 @@
 	notify_ghosts("[parent] is now deadchat controllable! Possible commands are: [english_list(input_names)]", source = parent, action = NOTIFY_FOLLOW, title="Something Interesting!")
 	if(!ismob(parent) && !(parent in GLOB.poi_list))
 		GLOB.poi_list |= parent
-		// SSpoints_of_interest.make_point_of_interest(parent)
 		generated_point_of_interest = TRUE
 
 /datum/component/deadchat_control/Destroy(force, silent)
@@ -63,7 +62,6 @@
 	ckey_to_cooldown = null
 	if(generated_point_of_interest)
 		GLOB.poi_list -= parent
-		// SSpoints_of_interest.remove_point_of_interest(parent)
 	return ..()
 
 /datum/component/deadchat_control/proc/deadchat_react(mob/source, message)
@@ -175,27 +173,6 @@
 	return NONE
 
 
-/// Allows for this component to be removed via a dedicated VV dropdown entry.
-// /datum/component/deadchat_control/proc/handle_vv_topic(datum/source, mob/user, list/href_list)
-// 	SIGNAL_HANDLER
-// 	if(!href_list[VV_HK_DEADCHAT_PLAYS] || !check_rights(R_FUN))
-// 		return
-// 	. = COMPONENT_VV_HANDLED
-// 	INVOKE_ASYNC(src, PROC_REF(async_handle_vv_topic), user, href_list)
-
-/// Async proc handling the alert input and associated logic for an admin removing this component via the VV dropdown.
-/datum/component/deadchat_control/proc/async_handle_vv_topic(mob/user, list/href_list)
-	if(alert(user, "Remove deadchat control from [parent]?", "Deadchat Plays [parent]", list("Remove", "Cancel")) == "Remove")
-		// Quick sanity check as this is an async call.
-		if(QDELETED(src))
-			return
-
-		to_chat(user, "<span class='notice'>Deadchat can no longer control [parent].</span>")
-		log_admin("[key_name(user)] has removed deadchat control from [parent]")
-		message_admins("<span class='notice'>[key_name(user)] has removed deadchat control from [parent]</span>")
-
-		qdel(src)
-
 /// Informs any examiners to the inputs available as part of deadchat control, as well as the current operating mode and cooldowns.
 /datum/component/deadchat_control/proc/on_examine(atom/A, mob/user, list/examine_list)
 	SIGNAL_HANDLER
@@ -246,12 +223,7 @@
 	_inputs["left"] = CALLBACK(src, PROC_REF(_step), parent, WEST)
 	_inputs["right"] = CALLBACK(src, PROC_REF(_step), parent, EAST)
 
-	. = ..()
-
-	// inputs["up"] = CALLBACK(src, PROC_REF(_step), parent, NORTH)
-	// inputs["down"] = CALLBACK(src, PROC_REF(_step), parent, SOUTH)
-	// inputs["left"] = CALLBACK(src, PROC_REF(_step), parent, WEST)
-	// inputs["right"] = CALLBACK(src, PROC_REF(_step), parent, EAST)
+	return ..()
 
 /**
  * Deadchat Moves Things
@@ -268,9 +240,4 @@
 	_inputs["left"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), WEST)
 	_inputs["right"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), EAST)
 
-	. = ..()
-
-	// _inputs["up"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), NORTH)
-	// _inputs["down"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), SOUTH)
-	// inputs["left"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), WEST)
-	// inputs["right"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), EAST)
+	return ..()
