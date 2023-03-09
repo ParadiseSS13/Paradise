@@ -22,8 +22,9 @@
 		return
 	if(!length(contents) || storable)
 		w_class = WEIGHT_CLASS_NORMAL
-	else
-		w_class = WEIGHT_CLASS_BULKY
+		return
+
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/belt/update_overlays()
 	. = ..()
