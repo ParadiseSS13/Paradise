@@ -75,16 +75,26 @@
 /obj/machinery/cooker/proc/special_attack_shove(mob/living/target, mob/living/attacker)
 	return FALSE
 
-/obj/machinery/cooker/proc/special_attack_grab(obj/item/grab/G, mob/user)
+/**
+ * Verify if we would be able to perform our grab attack.
+ */
+/obj/machinery/cooker/proc/can_grab_attack(obj/item/grab/G, mob/user, verbose = FALSE)
 	if(special_attack_on_cooldown)
 		return FALSE
 	if(!istype(G))
 		return FALSE
 	if(!iscarbon(G.affecting))
-		to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
+		if(verbose)
+			to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
 		return FALSE
 	if(G.state < GRAB_AGGRESSIVE)
-		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		if(verbose)
+			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		return FALSE
+	return TRUE
+
+/obj/machinery/cooker/proc/special_attack_grab(obj/item/grab/G, mob/user)
+	if(!can_grab_attack(G, user, FALSE))  // do it silently, but still make sure this isn't called without sanity checking first
 		return FALSE
 	var/result = special_attack(user, G.affecting, G)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -101,7 +111,7 @@
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
 		return FALSE
 	if(istype(check, /obj/item/grab))
-		return special_attack_grab(user, check)
+		return can_grab_attack(check, user, TRUE)  // tell the user here
 	if(has_specials && checkSpecials(check))
 		return TRUE
 	if(istype(check, /obj/item/reagent_containers/food/snacks) || emagged)

@@ -44,8 +44,6 @@
 	return type
 
 /obj/machinery/cooker/deepfryer/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grab))
-		return special_attack_grab(I, user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/ice))
 		var/ice_amount = I.reagents.get_reagent_amount("ice")
 		if(ice_amount)
