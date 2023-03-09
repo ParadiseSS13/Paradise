@@ -167,7 +167,7 @@
 /obj/structure/mineral_door/transparent/operate_update()
 	density = !density
 	state_open = !state_open
-	air_update_turf(1)
+	air_update_turf(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	is_operating = FALSE
 
