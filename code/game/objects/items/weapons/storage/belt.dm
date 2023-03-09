@@ -26,6 +26,10 @@
 
 	w_class = WEIGHT_CLASS_BULKY
 
+/obj/item/storage/belt/Initialize(mapload)
+	. = ..()
+	update_weight()
+
 /obj/item/storage/belt/update_overlays()
 	. = ..()
 	update_weight()
@@ -92,13 +96,11 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/stack/cable_coil/random(src, 30)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/utility/full/multitool/populate_contents()
 	..()
 	new /obj/item/multitool(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/utility/atmostech/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -109,7 +111,6 @@
 	new /obj/item/t_scanner(src)
 	new /obj/item/extinguisher/mini(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/utility/chief
 	name = "advanced toolbelt"
@@ -127,7 +128,6 @@
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()
-	update_weight()
 	//much roomier now that we've managed to remove two tools
 
 /obj/item/storage/belt/utility/syndi_researcher // A cool looking belt thats essentially a syndicate toolbox
@@ -144,7 +144,6 @@
 	new /obj/item/multitool/red(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/medical
 	name = "medical belt"
@@ -210,7 +209,6 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/medical/response_team/populate_contents()
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
@@ -221,7 +219,6 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/botany
 	name = "botanist belt"
@@ -283,7 +280,6 @@
 	new /obj/item/flash(src)
 	new /obj/item/melee/baton/loaded(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/security/response_team/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
@@ -292,7 +288,6 @@
 	new /obj/item/melee/classic_baton/telescopic(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/security/response_team_gamma/populate_contents()
 	new /obj/item/melee/baton/loaded(src)
@@ -301,7 +296,6 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
@@ -326,7 +320,6 @@
 	for(var/I in 1 to 6)
 		new /obj/item/soulstone(src)
 	update_icon()
-	update_weight()
 
 
 /obj/item/storage/belt/champion
@@ -368,7 +361,6 @@
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
@@ -396,7 +388,6 @@
 		new /obj/item/grenade/syndieminibomb(src)
 	new /obj/item/grenade/chem_grenade/facid(src) //1
 	new /obj/item/grenade/chem_grenade/saringas(src) //1
-	update_weight()
 
 /obj/item/storage/belt/grenade/tactical // Traitor bundle version
 	name = "tactical grenadier belt"
@@ -412,7 +403,6 @@
 		new /obj/item/grenade/frag(src)
 		new /obj/item/grenade/empgrenade(src) // Two of each
 	new /obj/item/grenade/syndieminibomb(src) // One minibomb
-	update_weight()
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
@@ -429,7 +419,6 @@
 	new /obj/item/wirecutters/abductor(src)
 	new /obj/item/multitool/abductor(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
-	update_weight()
 
 /obj/item/storage/belt/military/assault
 	name = "assault belt"
@@ -446,7 +435,6 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m556/arg(src)
@@ -455,7 +443,6 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
-	update_weight()
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -484,7 +471,6 @@
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/lazarus
 	name = "trainer's belt"
@@ -533,7 +519,6 @@
 /obj/item/storage/belt/bandolier/full/populate_contents()
 	for(var/I in 1 to 8)
 		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-	update_weight()
 
 /obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[initial(icon_state)]_[min(length(contents), 8)]"
@@ -579,7 +564,6 @@
 		W.max_charges = initial(W.max_charges)
 		W.charges = W.max_charges
 	update_icon()
-	update_weight()
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
@@ -823,7 +807,6 @@
 
 	new /obj/item/analyzer(src)
 	new /obj/item/healthanalyzer(src)
-	update_weight()
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
