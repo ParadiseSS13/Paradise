@@ -10,7 +10,7 @@
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 600)
 	drop_sound = 'sound/items/handling/wrench_drop.ogg'
 	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
@@ -44,7 +44,6 @@
 	icon_state = "wrench"
 	usesound = 'sound/effects/empulse.ogg'
 	toolspeed = 0.1
-	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=5;engineering=5;abductor=3"
 
 /obj/item/wrench/power
@@ -76,7 +75,6 @@
 	name = "medical wrench"
 	desc = "A medical wrench with common (medical?) uses. Can be found in your hand."
 	icon_state = "wrench_medical"
-	w_class = WEIGHT_CLASS_SMALL
 	force = 2 //MEDICAL
 	throwforce = 4
 	origin_tech = "materials=1;engineering=1;biotech=3"
