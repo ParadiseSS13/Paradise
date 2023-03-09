@@ -169,7 +169,7 @@
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
-		/obj/item/ammo_box/magazine/laser = 2
+		/obj/item/ammo_box/magazine/lasercarbine = 2
 	)
 
 	implants = list(/obj/item/implant/mindshield,
