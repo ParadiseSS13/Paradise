@@ -90,6 +90,7 @@
 /obj/item/storage/box/survival_syndi/populate_contents()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+	new /obj/item/tools/crowbar/small(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
