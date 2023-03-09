@@ -88,6 +88,7 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/Initialize(mapload)
