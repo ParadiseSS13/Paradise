@@ -196,7 +196,7 @@
 	var/mob/ghost = get_mob_by_ckey(ghost_ckey)
 	if(!ghost || isliving(ghost))
 		return
-	to_chat(ghost, "<span class='nicegreen'>Your deadchat control inputs for [parent]([ghost_follow_link(parent, ghost)]) are no longer on cooldown.</span>")
+	to_chat(ghost, "<span class='green'>Your deadchat control inputs for [parent] ([ghost_follow_link(parent, ghost)]) are no longer on cooldown.</span>")
 
 /// Dummy to call since we can't proc reference builtins
 /datum/component/deadchat_control/proc/_step(ref, dir)
