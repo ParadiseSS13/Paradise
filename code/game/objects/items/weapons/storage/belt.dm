@@ -320,6 +320,9 @@
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
+	can_hold = list(
+		/obj/item/ammo_box/magazine/wt550m9
+		)
 
 /obj/item/storage/belt/military/sst
 	icon_state = "assaultbelt"

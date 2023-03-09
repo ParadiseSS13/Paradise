@@ -136,7 +136,15 @@
 	category = list("Weapons")
 
 //WT550 Mags
-
+/datum/design/mag_oldsmg
+	name = "WT-550 Auto Gun Magazine (4.6x30mm)"
+	desc = "A 20 round magazine for the out of date security WT-550 Auto Rifle"
+	id = "mag_oldsmg"
+	req_tech = list("combat" = 1, "materials" = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000)
+	build_path = /obj/item/ammo_box/magazine/wt550m9/empty
+	category = list("Weapons")
 /datum/design/box_oldsmg
 	name = "WT-550 Auto Gun Ammo Box (4.6x30mm)"
 	desc = "A box of 20 rounds for the out of date security WT-550 Auto Rifle"

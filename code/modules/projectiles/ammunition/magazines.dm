@@ -256,9 +256,10 @@
 	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = "4.6x30mm"
-	max_ammo = 10
+	max_ammo = 20
 	multi_sprite_step = 4
 	multiload = 0
+	w_class = WEIGHT_CLASS_NORMAL
 	var/being_loaded = FALSE //A var to check if the mag is already being loaded
 	var/double_loaded = FALSE
 
