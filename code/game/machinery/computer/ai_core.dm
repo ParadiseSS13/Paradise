@@ -2,7 +2,7 @@
 	density = 1
 	anchored = 0
 	name = "AI core"
-	icon = 'icons/mob/AI.dmi'
+	icon = 'icons/mob/ai.dmi'
 	icon_state = "0"
 	max_integrity = 500
 	var/state = 0
