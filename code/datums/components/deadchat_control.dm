@@ -23,7 +23,7 @@
 	/// List of everything orbitting this component's parent.
 	var/orbiters = list()
 	/// A bitfield containing the mode which this component uses (DEMOCRACY_MODE or ANARCHY_MODE) and other settings)
-	var/deadchat_mode
+	var/deadchat_mode = DEMOCRACY_MODE
 	/// In DEMOCRACY_MODE, this is how long players have to vote on an input. In ANARCHY_MODE, this is how long between inputs for each unique player.
 	var/input_cooldown
 	///Set to true if a point of interest was created for an object, and needs to be removed if deadchat control is removed. Needed for preventing objects from having two points of interest.
@@ -241,12 +241,17 @@
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
+	_inputs["up"] = CALLBACK(src, PROC_REF(_step), parent, NORTH)
+	_inputs["down"] = CALLBACK(src, PROC_REF(_step), parent, SOUTH)
+	_inputs["left"] = CALLBACK(src, PROC_REF(_step), parent, WEST)
+	_inputs["right"] = CALLBACK(src, PROC_REF(_step), parent, EAST)
+
 	. = ..()
 
-	inputs["up"] = CALLBACK(src, PROC_REF(_step), parent, NORTH)
-	inputs["down"] = CALLBACK(src, PROC_REF(_step), parent, SOUTH)
-	inputs["left"] = CALLBACK(src, PROC_REF(_step), parent, WEST)
-	inputs["right"] = CALLBACK(src, PROC_REF(_step), parent, EAST)
+	// inputs["up"] = CALLBACK(src, PROC_REF(_step), parent, NORTH)
+	// inputs["down"] = CALLBACK(src, PROC_REF(_step), parent, SOUTH)
+	// inputs["left"] = CALLBACK(src, PROC_REF(_step), parent, WEST)
+	// inputs["right"] = CALLBACK(src, PROC_REF(_step), parent, EAST)
 
 /**
  * Deadchat Moves Things
@@ -258,9 +263,14 @@
 	if(!istype(parent, /obj/effect/immovablerod))
 		return COMPONENT_INCOMPATIBLE
 
+	_inputs["up"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), NORTH)
+	_inputs["down"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), SOUTH)
+	_inputs["left"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), WEST)
+	_inputs["right"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), EAST)
+
 	. = ..()
 
-	inputs["up"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), NORTH)
-	inputs["down"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), SOUTH)
-	inputs["left"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), WEST)
-	inputs["right"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), EAST)
+	// _inputs["up"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), NORTH)
+	// _inputs["down"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), SOUTH)
+	// inputs["left"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), WEST)
+	// inputs["right"] = CALLBACK(parent, TYPE_PROC_REF(/obj/effect/immovablerod, walk_in_direction), EAST)

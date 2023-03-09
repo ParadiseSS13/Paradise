@@ -2059,3 +2059,82 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set category = "IC"
 
 	update_flavor_text()
+
+/mob/living/carbon/human/proc/dchat_emote()
+	var/list/possible_emotes = list(
+		"scream", "clap", "snap", "crack", "fart"
+	)
+	emote(pick(possible_emotes))
+
+/mob/living/carbon/human/proc/dchat_attack()
+	var/turf/ahead = get_turf(get_step(src, dir))
+	var/mob/living/victim = locate(/mob/living) in ahead
+	var/in_hand = get_active_hand()
+	if(victim)
+		victim.attacked_by(in_hand, src, BODY_ZONE_CHEST)
+		return
+	var/obj/structure/other_victim = locate(/obj/structure) in ahead
+	if(other_victim)
+		other_victim.attacked_by(in_hand, src)
+		return
+
+	visible_message("<span class='warning'>[src] swings [isnull(in_hand) ? "[p_their()] fists" : in_hand] wildly!")
+
+/mob/living/carbon/human/proc/dchat_pickup()
+	var/turf/ahead = get_step(src, dir)
+	var/obj/item/thing = locate(/obj/item) in ahead
+	if(!thing)
+		return
+
+	var/old_loc = thing.loc
+	var/obj/item/in_hand = get_active_hand()
+
+	if(in_hand)
+		visible_message("<span class='notice'>[src] drops [in_hand] and picks up [thing] instead!</span>")
+		unEquip(in_hand)
+		in_hand.forceMove(old_loc)
+	else
+		visible_message("<span class='notice'>[src] picks up [thing]!</span>")
+	put_in_active_hand(thing)
+
+/mob/living/carbon/human/proc/dchat_throw()
+	var/in_hand = get_active_hand()
+	if(!in_hand)
+		visible_message("<span class='notice'>[src] makes a throwing motion!</span>")
+		return
+	var/atom/possible_target
+	var/cur_turf = get_turf(src)
+	for(var/i in 1 to 5)
+		cur_turf = get_step(cur_turf, dir)
+		possible_target = locate(/mob/living) in cur_turf
+		if(possible_target)
+			break
+
+		possible_target = locate(/obj/structure) in cur_turf
+		if(possible_target)
+			break
+
+	if(!possible_target)
+		throw_item(cur_turf)
+	else
+		throw_item(possible_target)
+
+/mob/living/carbon/human/proc/dchat_shove()
+	var/turf/ahead = get_turf(get_step(src, dir))
+	var/mob/living/carbon/human/H = locate(/mob/living/carbon/human) in ahead
+	if(!H)
+		visible_message("<span class='notice'>[src] tries to shove something away!</span>")
+		return
+	dna?.species.disarm(src, H)
+
+
+/mob/living/carbon/human/deadchat_plays(mode = DEMOCRACY_MODE, cooldown = 7 SECONDS)
+	var/list/inputs = list(
+		"emote" = CALLBACK(src, PROC_REF(dchat_emote)),
+		"attack" = CALLBACK(src, PROC_REF(dchat_attack)),
+		"pickup" = CALLBACK(src, PROC_REF(dchat_pickup)),
+		"throw" = CALLBACK(src, PROC_REF(dchat_throw)),
+		"disarm" = CALLBACK(src, PROC_REF(dchat_shove)),
+	)
+
+	AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, inputs, cooldown)
