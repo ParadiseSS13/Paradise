@@ -105,7 +105,7 @@
 	..(gibbed)
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/deadchat_plays(mode = ANARCHY_MODE, cooldown = 12 SECONDS)
+/mob/living/simple_animal/pet/dog/corgi/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
 	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(
 		"speak" = CALLBACK(src, PROC_REF(handle_automated_speech), TRUE),
 		"wear_hat" = CALLBACK(src, PROC_REF(find_new_hat)),

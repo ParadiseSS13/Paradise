@@ -103,7 +103,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(loc == destination)
 		qdel(src)
 
-/obj/effect/immovablerod/deadchat_plays(mode = DEMOCRACY_MODE, cooldown = 6 SECONDS)
+/obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
 	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
 
 /**

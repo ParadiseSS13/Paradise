@@ -636,7 +636,7 @@
 /mob/living/simple_animal/proc/npc_safe(mob/user)
 	return FALSE
 
-/mob/living/simple_animal/deadchat_plays(mode = ANARCHY_MODE, cooldown = 12 SECONDS)
+/mob/living/simple_animal/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
 	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
 
 	if(. == COMPONENT_INCOMPATIBLE)

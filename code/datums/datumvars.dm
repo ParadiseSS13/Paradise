@@ -1236,6 +1236,55 @@
 		var/datum/ui_module/colour_matrix_tester/CMT = new(target=target)
 		CMT.ui_interact(usr)
 
+	if(href_list["grantdeadchatcontrol"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/atom/movable/A = locateUID(href_list["grantdeadchatcontrol"])
+		if(!istype(A))
+			return
+
+		if(A.GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, "<span class='warning'>[A] is already under deadchat control!</span>")
+			return
+
+		var/control_mode = input(usr, "Please select the control mode","Organ", null) as null|anything in list("democracy", "anarchy")
+
+		var/selected_mode
+		switch(control_mode)
+			if("democracy")
+				selected_mode = DEADCHAT_DEMOCRACY_MODE
+			if("anarchy")
+				selected_mode = DEADCHAT_ANARCHY_MODE
+			else
+				return
+
+		var/cooldown = input(usr, "Please enter a cooldown time in seconds. For democracy, it's the time between actions. For anarchy, it's the time between each user's actions. -1 for no cooldown (only in anarchy mode).", "Cooldown", null) as null|num
+		if(isnull(cooldown) || (cooldown == -1 && selected_mode == DEADCHAT_DEMOCRACY_MODE))
+			return
+		if(cooldown == -1)
+			cooldown = 0
+		else
+			cooldown = (cooldown SECONDS)
+
+		A.deadchat_plays(selected_mode, cooldown)
+		message_admins("[key_name_admin(usr)] provided deadchat control to [A].")
+
+	if(href_list["removedeadchatcontrol"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/atom/movable/A = locateUID(href_list["removedeadchatcontrol"])
+		if(!istype(A))
+			return
+
+		if(!A.GetComponent(/datum/component/deadchat_control))
+			to_chat(usr, "<span class='warning'>[A] is not currently under deadchat control!</span>")
+			return
+
+		A.stop_deadchat_plays()
+		message_admins("[key_name_admin(usr)] removed deadchat control from [A].")
+
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])
 		debug_variables(locate(href_list["VarsList"]))

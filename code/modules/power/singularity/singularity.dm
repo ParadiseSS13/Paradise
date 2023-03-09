@@ -496,7 +496,7 @@
 	move_self = TRUE
 
 
-/obj/singularity/deadchat_plays(mode = DEMOCRACY_MODE, cooldown = 12 SECONDS)
+/obj/singularity/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 12 SECONDS)
 	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, TYPE_PROC_REF(/atom/movable, stop_deadchat_plays)))
 
 	if(. == COMPONENT_INCOMPATIBLE)
@@ -507,4 +507,4 @@
 
 /obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
 	. = ..()
-	deadchat_plays(mode = DEMOCRACY_MODE)
+	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)

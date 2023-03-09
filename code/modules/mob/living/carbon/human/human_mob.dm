@@ -2129,7 +2129,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	dna?.species.disarm(src, H)
 
 
-/mob/living/carbon/human/deadchat_plays(mode = DEMOCRACY_MODE, cooldown = 7 SECONDS)
+/mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
 	var/list/inputs = list(
 		"emote" = CALLBACK(src, PROC_REF(dchat_emote)),
 		"attack" = CALLBACK(src, PROC_REF(dchat_attack)),

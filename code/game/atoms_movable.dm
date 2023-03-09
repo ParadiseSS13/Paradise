@@ -630,10 +630,10 @@
  *
  * Returns the component added.
  * Arguments:
- * * mode - Either ANARCHY_MODE or DEMOCRACY_MODE passed to the deadchat_control component. See [/datum/component/deadchat_control] for more info.
+ * * mode - Either DEADCHAT_ANARCHY_MODE or DEADCHAT_DEMOCRACY_MODE passed to the deadchat_control component. See [/datum/component/deadchat_control] for more info.
  * * cooldown - The cooldown between command inputs passed to the deadchat_control component. See [/datum/component/deadchat_control] for more info.
  */
-/atom/movable/proc/deadchat_plays(mode = ANARCHY_MODE, cooldown = 12 SECONDS)
+/atom/movable/proc/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
 	return AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown)
 
 /// Easy way to remove the component when the fun has been played out
@@ -643,3 +643,12 @@
 		return
 
 	comp.RemoveComponent()
+
+
+/atom/movable/vv_get_dropdown()
+	. = ..()
+	if(!GetComponent(/datum/component/deadchat_control))
+		.["Give deadchat control"] = "?_src_=vars;grantdeadchatcontrol=[UID()]"
+	else
+		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
+

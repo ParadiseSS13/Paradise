@@ -1,9 +1,3 @@
-///Will execute a single command after the cooldown based on player votes.
-#define DEMOCRACY_MODE (1<<0)
-///Allows each player to do a single command every cooldown.
-#define ANARCHY_MODE (1<<1)
-///Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
-#define MUTE_DEMOCRACY_MESSAGES (1<<2)
 
 /**
  * Deadchat Plays Things - The Componenting
@@ -14,17 +8,17 @@
 /datum/component/deadchat_control
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 
-	/// The id for the DEMOCRACY_MODE looping vote timer.
+	/// The id for the DEADCHAT_DEMOCRACY_MODE looping vote timer.
 	var/timerid
 	/// Assoc list of key-chat command string, value-callback pairs. list("right" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(_step), src, EAST))
 	var/list/datum/callback/inputs = list()
-	/// Assoc list of ckey:value pairings. In DEMOCRACY_MODE, value is the player's vote. In ANARCHY_MODE, value is world.time when their cooldown expires.
+	/// Assoc list of ckey:value pairings. In DEADCHAT_DEMOCRACY_MODE, value is the player's vote. In DEADCHAT_ANARCHY_MODE, value is world.time when their cooldown expires.
 	var/list/ckey_to_cooldown = list()
 	/// List of everything orbitting this component's parent.
 	var/orbiters = list()
-	/// A bitfield containing the mode which this component uses (DEMOCRACY_MODE or ANARCHY_MODE) and other settings)
-	var/deadchat_mode = DEMOCRACY_MODE
-	/// In DEMOCRACY_MODE, this is how long players have to vote on an input. In ANARCHY_MODE, this is how long between inputs for each unique player.
+	/// A bitfield containing the mode which this component uses (DEADCHAT_DEMOCRACY_MODE or DEADCHAT_ANARCHY_MODE) and other settings)
+	var/deadchat_mode = DEADCHAT_DEMOCRACY_MODE
+	/// In DEADCHAT_DEMOCRACY_MODE, this is how long players have to vote on an input. In DEADCHAT_ANARCHY_MODE, this is how long between inputs for each unique player.
 	var/input_cooldown
 	///Set to true if a point of interest was created for an object, and needs to be removed if deadchat control is removed. Needed for preventing objects from having two points of interest.
 	var/generated_point_of_interest = FALSE
@@ -36,14 +30,13 @@
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(orbit_begin))
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_STOP, PROC_REF(orbit_stop))
-	// RegisterSignal(parent, COMSIG_VV_TOPIC, PROC_REF(handle_vv_topic))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	deadchat_mode = _deadchat_mode
 	inputs = _inputs
 	input_cooldown = _input_cooldown
 	on_removal = _on_removal
-	if(deadchat_mode & DEMOCRACY_MODE)
-		if(deadchat_mode & ANARCHY_MODE) // Choose one, please.
+	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
+		if(deadchat_mode & DEADCHAT_ANARCHY_MODE) // Choose one, please.
 			stack_trace("deadchat_control component added to [parent.type] with both democracy and anarchy modes enabled.")
 		timerid = addtimer(CALLBACK(src, PROC_REF(democracy_loop)), input_cooldown, TIMER_STOPPABLE | TIMER_LOOP)
 
@@ -54,6 +47,7 @@
 	if(!ismob(parent) && !(parent in GLOB.poi_list))
 		GLOB.poi_list |= parent
 		generated_point_of_interest = TRUE
+	message_admins("[parent] has been given deadchat control in [deadchat_mode == DEADCHAT_ANARCHY_MODE ? "anarchy" : "democracy"] mode with a cooldown of [input_cooldown SECONDS] second\s.")
 
 /datum/component/deadchat_control/Destroy(force, silent)
 	on_removal?.Invoke()
@@ -72,7 +66,7 @@
 	if(!inputs[message])
 		return
 
-	if(deadchat_mode & ANARCHY_MODE)
+	if(deadchat_mode & DEADCHAT_ANARCHY_MODE)
 		if(!source || !source.ckey)
 			return
 		var/cooldown = ckey_to_cooldown[source.ckey] - world.time
@@ -85,13 +79,13 @@
 		to_chat(source, "<span class='notice'>\"[message]\" input accepted. You are now on cooldown for [input_cooldown * 0.1] second\s.</span>")
 		return MOB_DEADSAY_SIGNAL_INTERCEPT
 
-	if(deadchat_mode & DEMOCRACY_MODE)
+	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
 		ckey_to_cooldown[source.ckey] = message
 		to_chat(source, "<span class='notice'>You have voted for \"[message]\".</span>")
 		return MOB_DEADSAY_SIGNAL_INTERCEPT
 
 /datum/component/deadchat_control/proc/democracy_loop()
-	if(QDELETED(parent) || !(deadchat_mode & DEMOCRACY_MODE))
+	if(QDELETED(parent) || !(deadchat_mode & DEADCHAT_DEMOCRACY_MODE))
 		deltimer(timerid)
 		return
 	var/result = count_democracy_votes()
@@ -134,7 +128,7 @@
 	if(var_name != NAMEOF(src, deadchat_mode))
 		return
 	ckey_to_cooldown = list()
-	if(var_value == DEMOCRACY_MODE)
+	if(var_value == DEADCHAT_DEMOCRACY_MODE)
 		timerid = addtimer(CALLBACK(src, PROC_REF(democracy_loop)), input_cooldown, TIMER_STOPPABLE | TIMER_LOOP)
 	else
 		deltimer(timerid)
@@ -180,11 +174,11 @@
 	if(!isobserver(user))
 		return
 
-	examine_list += "<span class='notice'>[A.p_theyre(TRUE)] currently under deadchat control using the [(deadchat_mode & DEMOCRACY_MODE) ? "democracy" : "anarchy"] ruleset!</span>"
+	examine_list += "<span class='notice'>[A.p_theyre(TRUE)] currently under deadchat control using the [(deadchat_mode & DEADCHAT_DEMOCRACY_MODE) ? "democracy" : "anarchy"] ruleset!</span>"
 
-	if(deadchat_mode & DEMOCRACY_MODE)
+	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
 		examine_list += "<span class='notice'>Type a command into chat to vote on an action. This happens once every [input_cooldown * 0.1] second\s.</span>"
-	else if(deadchat_mode & ANARCHY_MODE)
+	else if(deadchat_mode & DEADCHAT_ANARCHY_MODE)
 		examine_list += "<span class='notice'>Type a command into chat to perform. You may do this once every [input_cooldown * 0.1] second\s.</span>"
 
 	var/extended_examine = "<span class='notice'>Command list:"
