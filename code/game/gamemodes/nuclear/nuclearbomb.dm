@@ -59,6 +59,7 @@ GLOBAL_VAR(bomb_set)
 	. = ..()
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
+	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	previous_level = get_security_level()
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
