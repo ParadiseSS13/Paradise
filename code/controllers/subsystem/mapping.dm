@@ -1,11 +1,43 @@
 SUBSYSTEM_DEF(mapping)
-   	name = "Mapping"
-   	init_order = INIT_ORDER_MAPPING // 9
-   	flags = SS_NO_FIRE
+	name = "Mapping"
+	init_order = INIT_ORDER_MAPPING // 9
+	flags = SS_NO_FIRE
+	/// What map datum are we using
+	var/datum/map/map_datum
+	/// What map will be used next round
+	var/datum/map/next_map
+
+// This has to be here because world/New() uses [station_name()], which looks this datum up
+/datum/controller/subsystem/mapping/PreInit()
+	. = ..()
+	if(map_datum) // Dont do this again if we are recovering
+		return
+	if(fexists("data/next_map.txt"))
+		var/list/lines = file2list("data/next_map.txt")
+		// Check its valid
+		try
+			map_datum = text2path(lines[1])
+			map_datum = new map_datum
+		catch
+			map_datum = new /datum/map/delta // Assume delta if non-existent
+		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
+	else
+		map_datum = new /datum/map/delta // Assume delta if non-existent
+
+/datum/controller/subsystem/mapping/Shutdown()
+	if(next_map) // Save map for next round
+		var/F = file("data/next_map.txt")
+		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize(timeofday)
 	// Load all Z level templates
 	preloadTemplates()
+	// Load the station
+	loadStation()
+
+	loadLavaland()
+
+	loadTaipan()
 	// Pick a random away mission.
 	if(!config.disable_away_missions)
 		createRandomZlevel()
@@ -63,12 +95,6 @@ SUBSYSTEM_DEF(mapping)
 
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
-	// Map name. Break these down into SSmapping controller vars instaed of GLOBs at some point
-	if(GLOB.using_map && GLOB.using_map.name)
-		GLOB.map_name = "[GLOB.using_map.name]"
-	else
-		GLOB.map_name = "Unknown"
-
 	// World name
 	if(config && config.server_name)
 		world.name = "[config.server_name] — [station_name()]"
@@ -77,6 +103,53 @@ SUBSYSTEM_DEF(mapping)
 
 	return ..()
 
+
+/datum/controller/subsystem/mapping/proc/loadStation()
+	if(config.override_map)
+		log_startup_progress("Station map overridden by configuration to [config.override_map].")
+		var/map_datum_path = text2path(config.override_map)
+		if(map_datum_path)
+			map_datum = new map_datum_path
+		else
+			to_chat(world, "<span class='narsie'>ERROR: The map datum specified to load is invalid. Falling back to... delta probably?</span>")
+
+	ASSERT(map_datum.map_path)
+	if(!fexists(map_datum.map_path))
+		// Make a VERY OBVIOUS error
+		to_chat(world, "<span class='narsie'>ERROR: The path specified for the map to load is invalid. No station has been loaded!</span>")
+		return
+
+	var/watch = start_watch()
+	log_startup_progress("Loading [map_datum.station_name]...")
+	// This should always be Z3, but you never know
+	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK))
+	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	log_startup_progress("Loaded [map_datum.station_name] in [stop_watch(watch)]s")
+
+	// Save station name in the DB
+	if(!SSdbcore.IsConnected())
+		return
+	var/datum/db_query/query_set_map = SSdbcore.NewQuery(
+		"UPDATE [format_table_name("round")] SET start_datetime=NOW(), map_name=:mapname, station_name=:stationname WHERE id=:round_id",
+		list("mapname" = map_datum.name, "stationname" = map_datum.station_name, "round_id" = GLOB.round_id)
+	)
+	query_set_map.Execute(async = FALSE) // This happens during a time of intense server lag, so should be non-async
+	qdel(query_set_map)
+
+/datum/controller/subsystem/mapping/proc/loadLavaland()
+	var/watch = start_watch()
+	log_startup_progress("Loading Lavaland...")
+	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
+	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
+	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
+
+
+/datum/controller/subsystem/mapping/proc/loadTaipan()
+	var/watch = start_watch()
+	log_startup_progress("Loading Taipan...")
+	var/taipan_z_level = GLOB.space_manager.add_new_zlevel(RAMSS_TAIPAN, linkage = SELFLOOPING, traits = list(REACHABLE, TAIPAN))
+	GLOB.maploader.load_map(file("_maps/map_files/generic/syndicatebase.dmm"), z_offset = taipan_z_level)
+	log_startup_progress("Loaded Taipan in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/mapping/proc/seedRuins(list/z_levels = null, budget = 0, whitelist = /area/space, list/potentialRuins)
 	if(!z_levels || !z_levels.len)

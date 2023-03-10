@@ -887,7 +887,7 @@
 	footer = footer_signstampfax
 
 /obj/item/paper/form/New()
-	from = "Научная станция Nanotrasen &#34;[MAP_NAME]&#34;"
+	from = "Научная станция Nanotrasen &#34;[SSmapping.map_datum.station_name]&#34;"
 	if(is_header_needed)
 		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><B><font size=\"4\">[altername]</font></B></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><BR><HR><BR></font>"
 	populatefields()

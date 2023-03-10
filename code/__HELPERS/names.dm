@@ -17,7 +17,7 @@ GLOBAL_VAR(church_name)
 
 GLOBAL_VAR(command_name)
 /proc/command_name()
-	return GLOB.using_map.dock_name
+	return SSmapping.map_datum.dock_name
 
 GLOBAL_VAR(religion_name)
 /proc/religion_name()
@@ -32,10 +32,10 @@ GLOBAL_VAR(religion_name)
 	return capitalize(name)
 
 /proc/system_name()
-	return GLOB.using_map.starsys_name
+	return SSmapping.map_datum.starsys_name
 
 /proc/station_name()
-	return GLOB.using_map.station_name
+	return SSmapping.map_datum.station_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)

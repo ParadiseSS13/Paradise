@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(title)
 		else if(L.len > 1)
 			if(use_rare_screens && lowertext(L[1]) == "rare")
 				title_screens += S
-			else if(GLOB.using_map && (lowertext(L[1]) == lowertext(GLOB.using_map.name)))
+			else if(SSmapping.map_datum && (lowertext(L[1]) == lowertext(SSmapping.map_datum.name)))
 				title_screens += S
 
 	if(!isemptylist(title_screens))

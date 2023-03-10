@@ -576,3 +576,9 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 ## CPU Affinity for FFmpeg. Check out taskset man page.
 ## Example valid values: "0-3" or "1,4-7"
 #FFMPEG_CPUAFFINITY 0-3
+
+## Server map rotate strategy: none - select same map, random - select random map, rotate - select next map in list
+MAP_ROTATE none
+
+## Override server map by specified, unkomment to apply
+#OVERRIDE_MAP /datum/map/delta
