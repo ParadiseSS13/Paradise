@@ -4,7 +4,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
 	density = TRUE
-	anchored = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
 	max_integrity = 300
@@ -231,6 +230,7 @@
 	icon_state = "pepper"
 	density = FALSE
 	can_be_unwrenched = FALSE
+	anchored = TRUE
 	reagent_id = "condensedcapsaicin"
 
 /obj/structure/reagent_dispensers/water_cooler
@@ -274,12 +274,14 @@
 	All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
+	anchored = TRUE
 
 /obj/structure/reagent_dispensers/virusfood
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
 	can_be_unwrenched = FALSE
+	anchored = TRUE
 	density = FALSE
 	reagent_id = "virusfood"
 
@@ -288,6 +290,7 @@
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
 	can_be_unwrenched = FALSE
+	anchored = TRUE
 	density = FALSE
 	tank_volume = 5000
 	reagent_id = "cleaner"
@@ -295,6 +298,7 @@
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
 	can_be_unwrenched = FALSE
+	anchored = TRUE
 	density = FALSE
 	accepts_rig = FALSE
 	tank_volume = 1000
