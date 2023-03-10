@@ -20273,10 +20273,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
