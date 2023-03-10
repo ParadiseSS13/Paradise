@@ -1337,12 +1337,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "ERROR frog crate"
 	hidden = 1
 
-/datum/supply_packs/organic/snail
-	name = "Snail Crate"
-	cost = 60
-	containertype = /obj/structure/closet/critter/snail
-	containername = "snail crate"
-
 /datum/supply_packs/organic/turtle
 	name = "Turtle Crate"
 	cost = 80

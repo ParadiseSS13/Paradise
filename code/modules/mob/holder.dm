@@ -379,7 +379,7 @@
 	name = "poppy"
 	desc = "It's a possum Poppy. Ewwww..."
 	icon = 'icons/mob/pets.dmi'
-	icon_state = "poppy"
+	icon_state = "possum_poppy"
 
 /obj/item/holder/frog
 	name = "frog"

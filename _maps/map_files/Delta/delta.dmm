@@ -102922,7 +102922,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/mob/living/simple_animal/pet/slugcat,
+/mob/living/simple_animal/pet/slugcat/monk,
 /obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/plasteel{
 	dir = 1;

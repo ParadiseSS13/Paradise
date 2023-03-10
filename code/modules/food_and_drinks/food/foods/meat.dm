@@ -38,7 +38,7 @@
 	desc = "A slab of reclaimed and chemically processed meat product."
 
 /obj/item/reagent_containers/food/snacks/meat/monkey
-	//same as plain meat
+	name = "lesser meat"
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "corgi meat"
@@ -68,6 +68,12 @@
 	name = "жесткая ветчина"
 	desc = "Мясо почтенного хряка."
 	list_reagents = list("protein" = 2, "porktonium" = 10)
+
+/obj/item/reagent_containers/food/snacks/meat/mouse
+	name = "мышатина"
+	desc = "На безрыбье и мышь мясо. Кто знает чем питался этот грызун до его подачи к столу."
+	icon_state = "meat_clear"
+	list_reagents = list("nutriment" = 2, "blood" = 3, "toxin" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/meatwheat
 	name = "meatwheat clump"

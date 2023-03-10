@@ -1,6 +1,6 @@
 /mob/living/simple_animal/pet/slugcat
-	name = "Слизнекот"
-	desc = "Удивительное существо, напоминающая кота и слизня в одном обличии. Гордость ксенобиологии. Крайне ловкое и умное, родом с планеты с опасной средой обитания. Обожает копья, не стоит давать ему его в лапки. На нем отлично смотрятся шляпы."
+	name = "слизнекот"
+	desc = "Удивительное существо, напоминающая кота и слизня в одном обличии. Но это не слизь, а иной вид существа. Гордость ксенобиологии. Крайне ловкое и умное, родом с планеты с опасной средой обитания. Обожает копья, не стоит давать ему его в лапки. На нем отлично смотрятся шляпы."
 	icon_state = "slugcat"
 	icon_living = "slugcat"
 	icon_dead = "slugcat_dead"
@@ -40,6 +40,48 @@
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
+
+	var/is_pacifist = FALSE
+	var/is_reduce_damage = TRUE
+
+/mob/living/simple_animal/pet/slugcat/monk
+	name = "слизнекот-монах"
+	desc = "Удивительное существо, напоминающая кота и слизня в одном обличии. Но это не слизь, а иной вид существа. Гордость ксенобиологии. Крайне ловкое и умное, родом с планеты с опасной средой обитания. Не любит охоту и не умеет пользоваться копьями. На нем отлично смотрятся шляпы."
+	icon_state = "slugcat_monk"
+	icon_living = "slugcat_monk"
+	icon_dead = "slugcat_monk_dead"
+	icon_resting = "slugcat_monk_rest"
+	is_pacifist = TRUE
+	gold_core_spawnable = FRIENDLY_SPAWN
+	health = 80
+	maxHealth = 80
+
+/mob/living/simple_animal/pet/slugcat/hunter
+	name = "слизнекот-охотник"
+	desc = "Удивительное существо, напоминающая кота и слизня в одном обличии. Но это не слизь, а иной вид существа. Гордость ксенобиологии. Крайне ловкое и умное, родом с планеты с опасной средой обитания. Обожает копья и умело управляется ими, не стоит давать ему его в лапки. На нем отлично смотрятся шляпы."
+	icon_state = "slugcat_hunter"
+	icon_living = "slugcat_hunter"
+	icon_dead = "slugcat_hunter_dead"
+	icon_resting = "slugcat_hunter_rest"
+	is_pacifist = FALSE
+	is_reduce_damage = FALSE
+	faction = list("slime","neutral","hostile")
+	gold_core_spawnable = HOSTILE_SPAWN
+	health = 150
+	maxHealth = 150
+
+/mob/living/simple_animal/pet/slugcat/gold	//for admins
+	name = "золотой слизнекот"
+	desc = "Уникальный золотой слизнекот полученный чудотворным путём."
+	icon_state = "slugcat_gold"
+	icon_living = "slugcat_gold"
+	icon_dead = "slugcat_gold_dead"
+	icon_resting = "slugcat_gold_rest"
+	is_pacifist = FALSE
+	is_reduce_damage = FALSE
+	gold_core_spawnable = NO_SPAWN
+	health = 300
+	maxHealth = 300
 
 /mob/living/simple_animal/pet/slugcat/New()
 	..()
@@ -131,20 +173,20 @@
 	. = ..()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
-	icon_state = "slugcat_spear"
+	icon_state = "[icon_state]_spear"
 
 	var/obj/item/twohanded/spear = inventory_hand
 
 	attacktext = "бьет копьем"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	melee_damage_type = BRUTE
-	melee_damage_lower = spear.force_unwielded
-	melee_damage_upper = spear.force_wielded
+	melee_damage_lower = round(spear.force_unwielded / (is_reduce_damage ? 2 : 1))
+	melee_damage_upper = round(spear.force_wielded / (is_reduce_damage ? 2 : 1))
 	armour_penetration = spear.armour_penetration
 	obj_damage = spear.force
 
 /mob/living/simple_animal/pet/slugcat/proc/unspeared()
-	icon_state = "slugcat"
+	icon_state = initial(icon_state)
 	attacktext = initial(attacktext)
 	attack_sound = initial(attack_sound)
 	melee_damage_type = initial(melee_damage_type)
@@ -177,26 +219,26 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
+		user.visible_message("<span class='notice'>[user] похлопывает по голове [src.name].</span>", "<span class='notice'>Вы положили руку на голову [src.name].</span>")
 		if(flags_2 & HOLOGRAM_2)
 			return 0
 		return 0
 
 	if(!istype(item_to_add, /obj/item/clothing/head))
-		to_chat(user, "<span class='warning'>[item_to_add] нельзя надеть на голову [src]!</span>")
+		to_chat(user, "<span class='warning'>[item_to_add.name] нельзя надеть на голову [src.name]!</span>")
 		return 0
 
 	if(inventory_head)
 		if(user)
-			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на голову [src]!</span>")
+			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на голову [src.name]!</span>")
 		return 0
 
 	if(user && !user.unEquip(item_to_add))
-		to_chat(user, "<span class='warning'>[item_to_add] застрял в ваших руках, вы не можете его надеть на голову [src]!</span>")
+		to_chat(user, "<span class='warning'>[item_to_add.name] застрял в ваших руках, вы не можете его надеть на голову [src.name]!</span>")
 		return 0
 
-	user.visible_message("<span class='notice'>[user] надевает [item_to_add] на голову [real_name].</span>",
-		"<span class='notice'>Вы надеваете [item_to_add] на голову [real_name].</span>",
+	user.visible_message("<span class='notice'>[user] надевает [item_to_add].name на голову [real_name].</span>",
+		"<span class='notice'>Вы надеваете [item_to_add.name] на голову [real_name].</span>",
 		"<span class='italics'>Вы слышите как что-то нацепили.</span>")
 	item_to_add.forceMove(src)
 	inventory_head = item_to_add
@@ -207,17 +249,17 @@
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_head(mob/user)
 	if(inventory_head)
 		if(inventory_head.flags & NODROP)
-			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src]! Его невозможно снять!</span>")
+			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src.name]! Его невозможно снять!</span>")
 			return TRUE
 
-		to_chat(user, "<span class='warning'>Вы сняли [inventory_head.name] с головы [src].</span>")
+		to_chat(user, "<span class='warning'>Вы сняли [inventory_head.name] с головы [src.name].</span>")
 		user.put_in_hands(inventory_head)
 
 		null_hat()
 
 		regenerate_icons()
 	else
-		to_chat(user, "<span class='warning'>На голове [src] нет головного убора!</span>")
+		to_chat(user, "<span class='warning'>На голове [src.name] нет головного убора!</span>")
 		return FALSE
 
 	return TRUE
@@ -242,20 +284,23 @@
 		return 0
 
 	if(resting)
-		to_chat(user, "<span class='warning'>[src] спит и не принимает [item_to_add]!</span>")
+		to_chat(user, "<span class='warning'>[src.name] спит и не принимает [item_to_add.name]!</span>")
 		return 0
 
 	if(!istype(item_to_add, /obj/item/twohanded/spear))
-		to_chat(user, "<span class='warning'>[src] не принимает [item_to_add]!</span>")
+		to_chat(user, "<span class='warning'>[src.name] не принимает [item_to_add.name]!</span>")
 		return 0
-
 	if(inventory_hand)
 		if(user)
-			to_chat(user, "<span class='warning'>Лапки [src] заняты [inventory_hand.name]!</span>")
+			to_chat(user, "<span class='warning'>Лапки [src.name] заняты [inventory_hand.name]!</span>")
 		return 0
 
 	if(user && !user.unEquip(item_to_add))
-		to_chat(user, "<span class='warning'>[item_to_add] застрял в ваших руках, вы не можете его дать [src]!</span>")
+		to_chat(user, "<span class='warning'>[item_to_add.name] застрял в ваших руках, вы не можете его дать [src.name]!</span>")
+		return 0
+
+	if(is_pacifist)
+		to_chat(user, "<span class='warning'>[src.name] пацифист и не пользуется [item_to_add.name]!</span>")
 		return 0
 
 	user.visible_message("<span class='notice'>[real_name] выхватывает [item_to_add] с рук [user].</span>",
