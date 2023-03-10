@@ -10347,8 +10347,7 @@
 	},
 /obj/structure/sign/directions/security{
 	dir = 1;
-	pixel_x = -32;
-	pixel_y = 24
+	pixel_y = -24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -20129,6 +20128,7 @@
 /obj/structure/sign/atmosplaque{
 	pixel_y = 32
 	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -27553,7 +27553,6 @@
 "cwq" = (
 /obj/structure/sign/directions/evac{
 	dir = 4;
-	pixel_x = -1;
 	pixel_y = 39
 	},
 /obj/effect/turf_decal/loading_area{
@@ -32591,7 +32590,6 @@
 "cSr" = (
 /obj/structure/sign/directions/security{
 	dir = 8;
-	pixel_x = 2;
 	pixel_y = 39
 	},
 /obj/effect/turf_decal/loading_area{
@@ -32625,7 +32623,6 @@
 	name = "east bump"
 	},
 /obj/structure/sign/directions/evac{
-	pixel_x = -1;
 	pixel_y = 39
 	},
 /obj/effect/turf_decal/loading_area{
@@ -35962,8 +35959,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/sign/directions/security{
 	dir = 1;
-	pixel_x = -32;
-	pixel_y = 24
+	pixel_y = -24
 	},
 /obj/structure/sign/directions/cargo{
 	dir = 1;
@@ -39890,6 +39886,16 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
+"dHz" = (
+/obj/structure/sign/directions/cargo{
+	dir = 4
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 8;
+	pixel_y = 8
+	},
+/turf/simulated/wall,
+/area/teleporter/quantum/cargo)
 "dHN" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -39939,7 +39945,6 @@
 /area/maintenance/fpmaint)
 "dIL" = (
 /obj/structure/sign/directions/science{
-	pixel_x = 2;
 	pixel_y = -25
 	},
 /obj/effect/turf_decal/loading_area,
@@ -43140,8 +43145,7 @@
 	},
 /obj/structure/sign/directions/security{
 	dir = 8;
-	pixel_x = -32;
-	pixel_y = -32
+	pixel_y = 26
 	},
 /obj/structure/sign/directions/medical{
 	dir = 4;
@@ -49989,7 +49993,6 @@
 	},
 /obj/structure/sign/directions/security{
 	dir = 1;
-	pixel_x = 2;
 	pixel_y = 39
 	},
 /obj/effect/turf_decal/loading_area{
@@ -49999,6 +50002,12 @@
 	dir = 8;
 	icon_state = "darkpurple"
 	},
+/area/teleporter/quantum/science)
+"hwx" = (
+/obj/structure/sign/directions/science{
+	dir = 8
+	},
+/turf/simulated/wall,
 /area/teleporter/quantum/science)
 "hwG" = (
 /obj/structure/cable/orange{
@@ -53402,6 +53411,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
+"iNz" = (
+/obj/structure/sign/directions/evac{
+	dir = 4
+	},
+/turf/simulated/wall,
+/area/teleporter/quantum/docking)
 "iNC" = (
 /obj/structure/closet/secure_closet/medical2,
 /obj/machinery/light{
@@ -58337,7 +58352,6 @@
 	},
 /obj/structure/sign/directions/cargo{
 	dir = 1;
-	pixel_x = -1;
 	pixel_y = 39
 	},
 /obj/effect/turf_decal/loading_area{
@@ -59835,6 +59849,21 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
+"lji" = (
+/obj/structure/cable/orange{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/sign/directions/security{
+	dir = 8;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "browncorner"
+	},
+/area/hallway/primary/fore/east)
 "ljp" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -70670,7 +70699,6 @@
 "pxm" = (
 /obj/structure/sign/directions/science{
 	dir = 8;
-	pixel_x = 2;
 	pixel_y = 39
 	},
 /obj/effect/turf_decal/loading_area{
@@ -75106,6 +75134,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
+"reb" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/fore/west)
 "reg" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -88877,7 +88917,6 @@
 "wwa" = (
 /obj/structure/sign/directions/cargo{
 	dir = 4;
-	pixel_x = -1;
 	pixel_y = -25
 	},
 /obj/effect/turf_decal/loading_area,
@@ -111802,7 +111841,7 @@ cYr
 xla
 sZf
 aWA
-aWJ
+reb
 uwc
 sNl
 sNl
@@ -122185,7 +122224,7 @@ fPc
 fPc
 lyI
 lyI
-lyI
+hwx
 sej
 ciG
 tuF
@@ -131951,7 +131990,7 @@ pLr
 pLr
 nFW
 nFW
-nFW
+iNz
 tbP
 tuh
 spQ
@@ -140326,8 +140365,8 @@ cMQ
 cMQ
 cMQ
 cHq
-cHq
-ojx
+dHz
+lji
 fmI
 fpG
 aRx
