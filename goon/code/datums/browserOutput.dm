@@ -317,7 +317,6 @@ var/to_chat_src
 
 		message = replacetext(message, "\n", "<br>")
 
-		message = macro2html(message)
 		if(findtext(message, "\improper"))
 			message = replacetext(message, "\improper", "")
 		if(findtext(message, "\proper"))

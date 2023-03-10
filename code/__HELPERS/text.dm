@@ -424,16 +424,6 @@
 /proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
-
-//Replace BYOND text macros with span classes for to_chat
-/proc/replace_text_macro(match, code, rest)
-	var/regex/text_macro = new("(\\xFF.)(.*)$")
-	return text_macro.Replace(rest, /proc/replace_text_macro)
-
-/proc/macro2html(text)
-    var/static/regex/text_macro = new("(\\xFF.)(.*)$")
-    return text_macro.Replace(text, /proc/replace_text_macro)
-
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
 	// Some coder will probably despise me for this, years down the line
