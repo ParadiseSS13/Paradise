@@ -216,9 +216,10 @@
 	var/list/turfs = list()
 	for(var/obj/effect/ebeam/chainpart as anything in B.elements)
 		if(chainpart && chainpart.x && chainpart.y && chainpart.z)
-			turfs |= get_turf_pixel(chainpart)
-			if(T != get_turf(B.origin) && T != get_turf(B.target))
-				for(var/turf/TU in circlerange(T, 1))
+			var/turf/T1 = get_turf_pixel(chainpart)
+			turfs |= T1
+			if(T1 != get_turf(B.origin) && T1 != get_turf(B.target))
+				for(var/turf/TU in circlerange(T1, 1))
 					turfs |= TU
 	for(var/turf/T as anything in turfs)
 		for(var/mob/living/L in T)
@@ -242,5 +243,6 @@
 /obj/effect/abstract/arc_revolver/proc/cleardeletedchains()
 	if(length(chains))
 		for(var/chain in chains)
-			if(!chain || QDELETED(chain))
+			var/datum/cd = chain
+			if(!chain || QDELETED(cd))
 				chains -= chain
