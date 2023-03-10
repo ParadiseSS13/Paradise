@@ -583,17 +583,20 @@
 
 /obj/item/storage/backpack/duffel/syndie/surgery/New()
 	..()
-	new /obj/item/scalpel(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/scalpel/laser/laser2(src)
 	new /obj/item/hemostat(src)
 	new /obj/item/retractor(src)
 	new /obj/item/circular_saw(src)
 	new /obj/item/surgicaldrill(src)
-	new /obj/item/cautery(src)
 	new /obj/item/bonegel(src)
 	new /obj/item/bonesetter(src)
 	new /obj/item/FixOVein(src)
+	new /obj/item/reagent_containers/glass/bottle/morphine(src)
+	new /obj/item/reagent_containers/syringe/antiviral(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
+	new /obj/item/stack/sheet/plasteel(src, 5)
 
 /obj/item/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
 	name = "surgery duffelbag"
