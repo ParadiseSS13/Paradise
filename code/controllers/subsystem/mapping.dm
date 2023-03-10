@@ -6,6 +6,9 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/map_datum
 	/// What map will be used next round
 	var/datum/map/next_map
+	/// Waht map to fallback
+	var/datum/map/fallback_map = new /datum/map/delta
+
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
@@ -19,10 +22,10 @@ SUBSYSTEM_DEF(mapping)
 			map_datum = text2path(lines[1])
 			map_datum = new map_datum
 		catch
-			map_datum = new /datum/map/delta // Assume delta if non-existent
+			map_datum = fallback_map // Assume delta if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
-	else
-		map_datum = new /datum/map/delta // Assume delta if non-existent
+		return
+	map_datum = fallback_map // Assume delta if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
