@@ -1398,6 +1398,8 @@
 					/obj/item/clothing/under/janimaid = 1,
 					/obj/item/clothing/under/jester = 1,
 					/obj/item/clothing/head/jester = 1,
+					/obj/item/clothing/under/pennywise = 1,
+					/obj/item/clothing/mask/gas/pennywise = 1,
 					/obj/item/clothing/under/pants/camo = 1,
 					/obj/item/clothing/mask/bandana = 1,
 					/obj/item/clothing/mask/bandana/black = 1,

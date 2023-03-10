@@ -27826,7 +27826,7 @@
 "cIx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/clothing/mask/gas/clown_hat/pennywise,
+/obj/item/clothing/mask/gas/pennywise,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

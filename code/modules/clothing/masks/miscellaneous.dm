@@ -440,7 +440,7 @@
 	item_state = "fawkes"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/clothing/mask/gas/clown_hat/pennywise
+/obj/item/clothing/mask/gas/pennywise
 	name = "Pennywise Mask"
 	desc = "It's the eater of worlds, and of children."
 	icon_state = "pennywise_mask"
