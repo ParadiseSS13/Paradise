@@ -239,10 +239,10 @@
 	desc = "A reagent bottle. Contains Omnizine."
 	list_reagents = list("omnizine" = 50)
 
-/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent
-	name = "strange reagent bottle"
+/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent
+	name = "Lazarus Reagent bottle"
 	desc = "A bottle of glowing fluid."
-	list_reagents = list("strange_reagent" = 30)
+	list_reagents = list("lazarus_reagent" = 30)
 
 ////////////////////Traitor Poison Bottle//////////////////////////////
 
