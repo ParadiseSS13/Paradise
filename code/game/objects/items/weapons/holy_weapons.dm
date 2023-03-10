@@ -264,6 +264,7 @@
 	attack_verb = list("chopped", "sliced", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 10
+	can_be_hit = TRUE // be a shit and you can get your ass beat
 	var/possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
