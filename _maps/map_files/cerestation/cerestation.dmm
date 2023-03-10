@@ -285,8 +285,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -2993,8 +2993,8 @@
 "aqr" = (
 /obj/structure/closet/secure_closet/roboticist,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5480,8 +5480,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -8145,6 +8145,7 @@
 	name = "Internal Affairs Requests Console";
 	pixel_x = -30
 	},
+/obj/item/taperecorder,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "aUo" = (
@@ -10014,8 +10015,8 @@
 "bcM" = (
 /obj/structure/flora/grass/jungle,
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/grass/jungle,
 /area/hallway/secondary/garden)
@@ -18457,8 +18458,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/closet/l3closet/scientist,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -20418,8 +20419,8 @@
 "bOX" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/crew_quarters/fitness)
@@ -22795,8 +22796,8 @@
 	dir = 10
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
@@ -25818,8 +25819,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -28599,6 +28600,7 @@
 	},
 /obj/item/stamp/law,
 /obj/item/pen/multi,
+/obj/item/taperecorder,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -35789,8 +35791,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
@@ -40971,8 +40973,8 @@
 	},
 /obj/effect/turf_decal/loading_area,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4
@@ -41078,8 +41080,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/hop,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
@@ -42749,8 +42751,8 @@
 /area/hallway/primary/fore)
 "eKK" = (
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /obj/structure/closet/secure_closet/bar{
 	req_access_txt = "25"
@@ -43442,8 +43444,8 @@
 /area/hallway/primary/fore)
 "eYz" = (
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
@@ -43948,8 +43950,8 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
@@ -44677,8 +44679,8 @@
 	network = list("Labor Camp")
 	},
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -45679,8 +45681,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
@@ -46785,8 +46787,8 @@
 "gqn" = (
 /obj/machinery/economy/vending/cola,
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -47025,8 +47027,8 @@
 /area/engine/engineering)
 "gug" = (
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
@@ -47522,8 +47524,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -48031,8 +48033,8 @@
 "gMZ" = (
 /obj/structure/chair/comfy/black,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -48314,8 +48316,8 @@
 	initialize_directions = 10
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server)
@@ -49044,8 +49046,8 @@
 	icon_state = "4-8"
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southwest)
@@ -49342,8 +49344,8 @@
 /area/engine/break_room)
 "hlU" = (
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -49639,8 +49641,8 @@
 /area/security/interrogation)
 "hrT" = (
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
@@ -49826,8 +49828,8 @@
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -49858,8 +49860,8 @@
 /area/maintenance/disposal/west)
 "hvR" = (
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -50536,8 +50538,8 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /obj/machinery/camera/autoname{
 	dir = 4
@@ -50685,8 +50687,8 @@
 "hLT" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -50900,8 +50902,8 @@
 	dir = 10
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southeast)
@@ -51560,8 +51562,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
@@ -52839,8 +52841,8 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53086,8 +53088,8 @@
 "iIZ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53916,8 +53918,8 @@
 /area/hallway/primary/fore/west)
 "iZm" = (
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /obj/machinery/computer/arcade{
 	dir = 8
@@ -54486,8 +54488,8 @@
 "jlF" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /obj/machinery/camera/autoname{
 	dir = 8
@@ -55929,8 +55931,8 @@
 /area/crew_quarters/heads/hop)
 "jMY" = (
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet/green,
 /area/library)
@@ -57218,8 +57220,8 @@
 	dir = 9
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet/black,
 /area/chapel/main)
@@ -57873,8 +57875,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/westalt)
@@ -58558,8 +58560,8 @@
 /area/assembly/robotics)
 "kMb" = (
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -58640,8 +58642,8 @@
 /area/maintenance/portsolar)
 "kOR" = (
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
@@ -60661,8 +60663,8 @@
 	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -60809,8 +60811,8 @@
 /area/maintenance/starboard)
 "lCp" = (
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -61573,8 +61575,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/captain,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/crew_quarters/captain)
@@ -63769,8 +63771,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -64085,8 +64087,8 @@
 	network = list("SS13","RD")
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -64478,8 +64480,8 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -65626,8 +65628,8 @@
 /area/hydroponics)
 "nBB" = (
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/wood,
 /area/clownoffice)
@@ -66008,8 +66010,8 @@
 	icon_state = "0-8"
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -66415,8 +66417,8 @@
 "nRB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -67810,8 +67812,8 @@
 /area/medical/medbay)
 "ovt" = (
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
@@ -69592,8 +69594,8 @@
 "pfg" = (
 /obj/machinery/iv_drip,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -70137,8 +70139,8 @@
 /area/crew_quarters/sleep)
 "ppo" = (
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
@@ -70784,8 +70786,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -70999,8 +71001,8 @@
 /area/maintenance/port)
 "pFo" = (
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -71024,8 +71026,8 @@
 /obj/item/storage/box/monkeycubes,
 /obj/item/clothing/mask/gas,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -71305,8 +71307,8 @@
 /area/maintenance/port2)
 "pKh" = (
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -71327,8 +71329,8 @@
 	random_basetype = /obj/structure/sign/poster/official
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/crew_quarters/fitness)
@@ -71385,8 +71387,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -74775,8 +74777,8 @@
 	icon_state = "1-4"
 	},
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -74904,8 +74906,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -75235,8 +75237,8 @@
 /area/maintenance/starboard)
 "rkD" = (
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/grass,
@@ -75920,8 +75922,8 @@
 	icon_state = "0-8"
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
@@ -76340,8 +76342,8 @@
 	icon_state = "1-2"
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/toilet)
@@ -76795,8 +76797,8 @@
 /area/hallway/primary/starboard/south)
 "rQQ" = (
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -79304,8 +79306,8 @@
 /area/crew_quarters/kitchen)
 "sNZ" = (
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -80296,8 +80298,8 @@
 "tjj" = (
 /obj/machinery/economy/vending/artvend,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -80489,8 +80491,8 @@
 /area/maintenance/starboard)
 "tmu" = (
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -81228,8 +81230,8 @@
 	},
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/north)
@@ -81560,8 +81562,8 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
@@ -81822,8 +81824,8 @@
 	icon_state = "plant-21"
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -82093,8 +82095,8 @@
 /area/maintenance/electrical_shop)
 "tST" = (
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82163,8 +82165,8 @@
 /area/maintenance/electrical_shop)
 "tUB" = (
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
@@ -82292,8 +82294,8 @@
 	icon_state = "2-8"
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -83172,8 +83174,8 @@
 /area/maintenance/fsmaint)
 "upN" = (
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /obj/structure/chair/stool{
 	dir = 1
@@ -83536,8 +83538,8 @@
 	dir = 5
 	},
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -85437,17 +85439,6 @@
 	icon_state = "wood-broken6"
 	},
 /area/maintenance/starboard)
-"vof" = (
-/obj/structure/chair,
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/hallway/secondary/exit)
 "vok" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -87302,8 +87293,8 @@
 /area/hydroponics)
 "vYZ" = (
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
@@ -87513,8 +87504,8 @@
 /obj/machinery/cell_charger,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/hallway/primary/starboard/north)
@@ -87616,8 +87607,8 @@
 "wee" = (
 /obj/machinery/light,
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -87985,8 +87976,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -88033,8 +88024,8 @@
 	icon_state = "4-8"
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/east)
@@ -88627,8 +88618,8 @@
 "wvH" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northwest)
@@ -89449,8 +89440,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
+	pixel_x = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -89916,8 +89907,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
@@ -89990,8 +89981,8 @@
 "wTQ" = (
 /obj/effect/turf_decal/stripes/corner,
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
@@ -90148,8 +90139,8 @@
 /obj/structure/weightmachine/weightlifter,
 /obj/effect/landmark/start/assistant,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/crew_quarters/fitness)
@@ -90674,8 +90665,8 @@
 	pixel_x = 32
 	},
 /obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
+	pixel_y = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker)
@@ -90868,8 +90859,8 @@
 /area/security/prison/cell_block/A)
 "xlv" = (
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -91208,8 +91199,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
+	pixel_y = -28;
+	name = "custom placement"
 	},
 /obj/structure/chair/stool{
 	dir = 4
@@ -91709,8 +91700,8 @@
 	dir = 1
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology)
@@ -91796,8 +91787,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
@@ -92564,8 +92555,8 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -93424,8 +93415,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/radio/intercom{
-	name = "east bump";
-	pixel_x = 28
+	pixel_x = 28;
+	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -145318,7 +145309,7 @@ bhO
 bhO
 hUU
 cdT
-vof
+lts
 ceQ
 lvj
 qpe
