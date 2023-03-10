@@ -44,6 +44,10 @@
 	update_overlays()
 	update_charge()
 
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>"
@@ -101,12 +105,16 @@
 			cell = W
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 
-	if(istype(W, /obj/item/screwdriver))
+	else if(istype(W, /obj/item/screwdriver))
 		if(cell)
 			cell.update_icon()
 			cell.loc = get_turf(loc)
 			cell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+
+	else if(W == paddles)
+		paddles.unwield()
+		toggle_paddles()
 
 	update_icon()
 	return
@@ -164,9 +172,6 @@
 		remove_paddles(user)
 
 	update_icon()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
 
 /obj/item/defibrillator/proc/make_paddles()
 	return new /obj/item/twohanded/shockpaddles(src)
@@ -256,13 +261,6 @@
 	update_icon()
 	return
 
-/obj/item/defibrillator/compact/combat/attackby(obj/item/W, mob/user, params)
-	if(W == paddles)
-		paddles.unwield()
-		toggle_paddles()
-		update_icon()
-		return
-
 //paddles
 
 /obj/item/twohanded/shockpaddles
@@ -275,6 +273,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = INDESTRUCTIBLE
 	toolspeed = 1
+	flags = ABSTRACT
 
 	var/revivecost = 1000
 	var/cooldown = FALSE
