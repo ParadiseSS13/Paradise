@@ -158,6 +158,8 @@ SUBSYSTEM_DEF(ticker)
 				else
 					reboot_helper("Round ended.", "proper completion")
 
+			to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
 

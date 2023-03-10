@@ -1076,6 +1076,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
+	stat(null, "Current Map: [SSmapping.map_datum.name]")
+	if(SSmapping.next_map)
+		stat(null, "Next Map: [SSmapping.next_map.name]")
 	stat(null, "Round Time: [worldtime2text()]")
 	stat(null, "Station Time: [station_time_timestamp()]")
 	stat(null, "Server TPS: [world.fps]")
