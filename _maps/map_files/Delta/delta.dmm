@@ -8497,7 +8497,6 @@
 	dir = 1;
 	pixel_y = -25
 	},
-/mob/living/simple_animal/mouse/rat/gray/Ratatui,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
