@@ -18,10 +18,6 @@
 
 	var/list/datum/mind/possible_thieves = get_players_for_role(ROLE_THIEF)
 
-	for(var/mob/new_player/player in GLOB.player_list)
-		if((player.mind in possible_thieves))
-			possible_thieves -= player.mind
-
 	if(possible_thieves.len > 0)
 		var/datum/mind/thief = pick(possible_thieves)
 		thieves += thief
