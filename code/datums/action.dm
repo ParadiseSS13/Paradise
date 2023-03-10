@@ -362,6 +362,9 @@
 /datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
 	name = "YEAH!"
 
+/datum/action/item_action/laugh_track
+	name = "Laugh Track"
+
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)

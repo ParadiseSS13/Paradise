@@ -29,6 +29,7 @@
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
+		/obj/item/clown_recorder = 1,
 		/obj/item/clothing/head/beret/sec = 1
 	)
 	implants = list(/obj/item/implant/mindshield, /obj/item/implant/sad_trombone)
@@ -68,6 +69,7 @@
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/clown_recorder = 1,
 		/obj/item/instrument/bikehorn = 1,
 
 		/obj/item/cartridge/medical = 1,

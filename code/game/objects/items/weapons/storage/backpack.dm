@@ -136,6 +136,7 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 	new /obj/item/instrument/bikehorn(src)
 	new /obj/item/bikehorn(src)
+	new /obj/item/clown_recorder(src)
 	new /obj/item/dnainjector/comic(src)
 	new /obj/item/implanter/sad_trombone(src)
 
