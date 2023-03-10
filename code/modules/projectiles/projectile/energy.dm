@@ -146,7 +146,6 @@
 			return
 	new /obj/effect/abstract/arc_revolver(target, charge_number)
 	qdel(src)
-	return
 
 
 /obj/effect/abstract/arc_revolver
