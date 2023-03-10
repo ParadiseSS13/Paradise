@@ -144,7 +144,7 @@
 			A.duration += 10 SECONDS
 			qdel(src)
 			return
-	new/obj/effect/abstract/arc_revolver(target, charge_number)
+	new /obj/effect/abstract/arc_revolver(target, charge_number)
 	qdel(src)
 	return
 
