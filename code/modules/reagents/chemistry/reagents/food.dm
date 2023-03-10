@@ -180,7 +180,7 @@
 	color = "#440804"
 	taste_description = "hot tomato sauce"
 
-/datum/reagent/consumable/diablosauce
+/datum/reagent/consumable/custard
 	name = "custard"
 	id = "custard"
 	description = "An ancient burning sauce, its recipe has hardly changed since its creation."
