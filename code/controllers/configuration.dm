@@ -311,6 +311,7 @@
 	var/auto_extended_players_num = 0
 
 	var/map_rotate = "none"
+	var/default_map = null
 	var/override_map = null
 
 /datum/configuration/New()
@@ -893,6 +894,9 @@
 
 				if("map_rotate")
 					config.map_rotate = value
+
+				if("default_map")
+					config.default_map = value
 
 				if("override_map")
 					config.override_map = value

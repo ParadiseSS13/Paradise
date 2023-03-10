@@ -108,6 +108,11 @@ SUBSYSTEM_DEF(mapping)
 
 
 /datum/controller/subsystem/mapping/proc/loadStation()
+	if(config.default_map && !config.override_map)
+		var/map_datum_path = text2path(config.default_map)
+		if(map_datum_path)
+			map_datum = new map_datum_path
+
 	if(config.override_map)
 		log_startup_progress("Station map overridden by configuration to [config.override_map].")
 		var/map_datum_path = text2path(config.override_map)
