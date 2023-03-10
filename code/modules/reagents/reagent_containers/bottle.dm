@@ -240,7 +240,7 @@
 	list_reagents = list("omnizine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent
-	name = "Lazarus Reagent bottle"
+	name = "lazarus reagent bottle"
 	desc = "A bottle of glowing fluid."
 	list_reagents = list("lazarus_reagent" = 30)
 

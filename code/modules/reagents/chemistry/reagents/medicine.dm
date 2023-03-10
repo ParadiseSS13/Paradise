@@ -800,7 +800,7 @@
 
 					M.grab_ghost()
 					M.update_revive()
-					add_attack_logs(M, M, "Revived with Lazarus Reagent") //Yes, the logs say you revived yourself.
+					add_attack_logs(M, M, "Revived with lazarus reagent") //Yes, the logs say you revived yourself.
 					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
