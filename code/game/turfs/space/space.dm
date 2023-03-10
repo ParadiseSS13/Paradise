@@ -113,6 +113,7 @@
 		return
 
 	if(destination_z && destination_x && destination_y)
+		destination_z = check_taipan_availability(A, destination_z)
 		A.forceMove(locate(destination_x, destination_y, destination_z))
 
 		if(isliving(A))
@@ -124,6 +125,39 @@
 		//now we're on the new z_level, proceed the space drifting
 		sleep(0)//Let a diagonal move finish, if necessary
 		A.newtonian_move(A.inertia_dir)
+
+/turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
+	var/mob/living/check_mob = A
+	// if we are from taipan's crew, then we can easily access it.
+	if(istype(check_mob) && is_taipan(destination_z))
+		if(check_mob.mind in GLOB.taipan_players_active)
+			to_chat(A, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
+			return destination_z
+	// if we are not from taipan's crew, then we cannot get there until there is enought players on Taipan
+	if(is_taipan(destination_z) && length(GLOB.taipan_players_active) < 6)
+		var/datum/space_level/taipan_zlvl
+		var/datum/space_level/direct
+		for(var/list_parser in GLOB.space_manager.z_list)
+			var/datum/space_level/lvl = GLOB.space_manager.z_list[list_parser]
+			if(TAIPAN in lvl.flags)
+				taipan_zlvl = lvl
+		switch(A.dir)
+			if(NORTH)
+				direct = taipan_zlvl.get_connection(Z_LEVEL_NORTH)
+			if(SOUTH)
+				direct = taipan_zlvl.get_connection(Z_LEVEL_SOUTH)
+			if(EAST)
+				direct = taipan_zlvl.get_connection(Z_LEVEL_EAST)
+			if(WEST)
+				direct = taipan_zlvl.get_connection(Z_LEVEL_WEST)
+		destination_z = direct.zpos
+		// if we are still going to get to taipan after all the checks... Then get random available z_lvl instead
+		if(is_taipan(destination_z))
+			destination_z = pick(get_all_linked_levels_zpos())
+	//notification if we do get to taipan
+	if(is_taipan(destination_z))
+		to_chat(check_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
+	return destination_z
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x

@@ -72,11 +72,14 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
   * Proc to get a list of all the linked-together Z-Levels
   *
   * Returns a list of zlevel numbers which can be accessed from travelling space naturally
+  * ignores Taipan tho
   */
 /proc/get_all_linked_levels_zpos()
 	var/list/znums = list()
 	for(var/i in GLOB.space_manager.z_list)
 		var/datum/space_level/SL = GLOB.space_manager.z_list[i]
 		if(SL.linkage == CROSSLINKED)
+			znums |= SL.zpos
+		if(TAIPAN in SL.flags)
 			znums |= SL.zpos
 	return znums

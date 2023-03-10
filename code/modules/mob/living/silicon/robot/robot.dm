@@ -511,18 +511,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						Встроенное в вас LMG самостоятельно производит патроны используя вашу батарею. \
 						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
 
-	var/datum/robot_component/cell/C = R.components["power cell"]
-
-	var/obj/item/stock_parts/cell/CC = get_cell(M)
-	CC.loc = src
-	R.cell = new CC.type
-	C.installed = 1
-	C.wrapped = CC
-	C.install()
-	C.external_type = CC.type
-	C.brute_damage = 0
-	C.electronics_damage = 0
-	diag_hud_set_borgcell()
+	var/datum/robot_component/cell/cell_component = R.components["power cell"]
+	var/obj/item/stock_parts/cell/borg_cell = get_cell(M)
+	if(borg_cell)
+		QDEL_NULL(R.cell)
+		borg_cell.forceMove(R)
+		R.cell = borg_cell
+		cell_component.installed = 1
+		cell_component.external_type = borg_cell.type
+		cell_component.wrapped = borg_cell
+		cell_component.install()
+		cell_component.brute_damage = 0
+		cell_component.electronics_damage = 0
+		diag_hud_set_borgcell()
 
 	R.mmi = new /obj/item/mmi/robotic_brain/syndicate(M)
 	M.mind.transfer_to(R)

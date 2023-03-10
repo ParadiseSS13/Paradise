@@ -401,6 +401,10 @@
 		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
 			SSticker.mode.cult_objs.ready_to_summon()
 
+	// We should track when taipan players get despawned
+	if(occupant.mind in GLOB.taipan_players_active)
+		GLOB.taipan_players_active -= occupant.mind
+
 	//Update any existing objectives involving this mob.
 	if(occupant.mind)
 		for(var/datum/objective/O in GLOB.all_objectives)

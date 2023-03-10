@@ -100,6 +100,7 @@
 /obj/effect/mob_spawn/human/space_base_syndicate/special(mob/living/carbon/human/H)
 	GLOB.human_names_list += H.real_name
 	SEND_SOUND(H, 'sound/effects/taipan_start.ogg')
+	GLOB.taipan_players_active += H.mind
 	H.give_taipan_hud()
 	return ..()
 

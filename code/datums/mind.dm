@@ -2476,6 +2476,7 @@
 	mind.assigned_role = "Cyborg"
 	if(is_taipan(z))
 		give_taipan_hud()
+		GLOB.taipan_players_active += mind
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
