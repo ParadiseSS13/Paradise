@@ -6107,7 +6107,7 @@
 /area/maintenance/bar)
 "aPA" = (
 /obj/machinery/vending/clothing/departament/security{
-	req_access_txt = "1;63"
+	req_access_txt = "63"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
