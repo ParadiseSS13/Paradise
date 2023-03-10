@@ -119614,12 +119614,6 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/obj/machinery/door/airlock/glass{
-	name = "Courtroom";
-	req_access_txt = "63";
-	id_tag = "courtroombolts";
-	id = "courtroom"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
