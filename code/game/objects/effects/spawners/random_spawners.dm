@@ -337,7 +337,7 @@
 // Layout-affecting spawns
 
 /obj/effect/spawner/random_spawners/syndicate/layout
-	icon_state = "wall"
+	icon_state = "turret_fwall"
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door
 	name = "50pc door 25pc falsewall 25pc wall"

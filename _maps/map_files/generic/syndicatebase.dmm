@@ -269,14 +269,12 @@
 /area/ruin/unpowered)
 "auQ" = (
 /mob/living/simple_animal/mouse/brown{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plating/asteroid/airless/cave,
 /area/ruin/unpowered)
 "avh" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -290,8 +288,6 @@
 "awy" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -476,10 +472,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "aCz" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/toilets)
@@ -536,10 +530,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "aDa" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
@@ -1228,10 +1220,8 @@
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "aYF" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
@@ -1413,8 +1403,6 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue)
 "beL" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -1600,7 +1588,9 @@
 	tag = "icon-bulb1 (WEST)";
 	throw_range = 2
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "bmH" = (
@@ -3055,7 +3045,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cCi" = (
 /mob/living/simple_animal/mouse/gray{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -3797,10 +3787,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dnW" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -4486,10 +4474,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "dTo" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
@@ -4632,10 +4618,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ebj" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/firing_range)
@@ -5966,10 +5950,8 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "foL" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
@@ -6089,10 +6071,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "fvk" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/botany)
@@ -6277,10 +6257,7 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "fGp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/syndicate/trap/mine{
-	color = "#2580f0";
-	icon_state = "x_white"
-	},
+/obj/effect/spawner/random_spawners/syndicate/trap/mine,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -6361,12 +6338,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "fKy" = (
@@ -6393,7 +6368,7 @@
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_mix_sensor" = "Tank")
+	sensors = list("syndie_base_mix_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -6563,7 +6538,7 @@
 	output_tag = "syndie_base_air_out";
 	pressure_setting = 2000;
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_air_sensor" = "Tank")
+	sensors = list("syndie_base_air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -6611,7 +6586,7 @@
 	name = "Oxygen Supply Control";
 	output_tag = "syndie_base_o2_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_o2_sensor" = "Tank")
+	sensors = list("syndie_base_o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -6641,7 +6616,7 @@
 	name = "Nitrogen Supply Control";
 	output_tag = "syndie_base_n2_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_n2_sensor" = "Tank")
+	sensors = list("syndie_base_n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -6744,10 +6719,8 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "fXY" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -6881,12 +6854,10 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
 	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gih" = (
@@ -6947,8 +6918,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "gmy" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -7065,10 +7034,8 @@
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "grR" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -7877,7 +7844,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7978,8 +7947,6 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "hgH" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = -32;
 	use_power = 1
 	},
@@ -8661,7 +8628,7 @@
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "syndie_base_n2o_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_n2o_sensor" = "Tank")
+	sensors = list("syndie_base_n2o_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -10441,7 +10408,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/random/toolbox,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "jkz" = (
@@ -11358,11 +11327,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "kdF" = (
@@ -12525,7 +12490,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "lho" = (
@@ -12608,7 +12575,7 @@
 	name = "Toxin Supply Control";
 	output_tag = "syndie_base_tox_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_tox_sensor" = "Tank")
+	sensors = list("syndie_base_tox_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -12650,8 +12617,6 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lnr" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_x = 32;
 	use_power = 1
 	},
@@ -13764,11 +13729,7 @@
 "mbY" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14955,11 +14916,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ndo" = (
@@ -15488,10 +15445,8 @@
 /area/syndicate/unpowered/syndicate_space_base/main/west)
 "ntM" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
@@ -16009,8 +15964,6 @@
 "nGe" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
@@ -16312,7 +16265,7 @@
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "syndie_base_co2_out";
 	req_one_access_txt = "159";
-	sensors = list("syndie_base_co2_sensor" = "Tank")
+	sensors = list("syndie_base_co2_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -16564,10 +16517,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "ocQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/syndicate/trap/mine{
-	color = "#2580f0";
-	icon_state = "x_white"
-	},
+/obj/effect/spawner/random_spawners/syndicate/trap/mine,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -16991,10 +16941,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ovD" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
@@ -17347,7 +17295,7 @@
 	dir = 1
 	},
 /mob/living/simple_animal/mouse/white{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
@@ -17619,7 +17567,9 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "oTI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "oTR" = (
@@ -18188,7 +18138,9 @@
 	},
 /obj/item/stack/tape_roll,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "ppf" = (
@@ -18808,7 +18760,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "pKm" = (
 /mob/living/simple_animal/mouse/brown{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
@@ -18833,10 +18785,8 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "pLA" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
@@ -18870,8 +18820,6 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "pME" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -21724,8 +21672,6 @@
 "rRZ" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/grenade{
 	active_power_usage = 1000;
-	color = "red";
-	icon_state = "x_white";
 	idle_power_usage = 200;
 	use_power = 1
 	},
@@ -22233,7 +22179,9 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/storage/wallet/random,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "smz" = (
@@ -22624,7 +22572,9 @@
 "sJO" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -22643,7 +22593,9 @@
 "sLk" = (
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/closet/crate,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "sLL" = (
@@ -22908,11 +22860,7 @@
 "sUQ" = (
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "sVq" = (
@@ -23413,11 +23361,7 @@
 	throw_range = 2
 	},
 /obj/effect/spawner/lootdrop/maintenance/tripple,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "tob" = (
@@ -24946,7 +24890,9 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ujO" = (
@@ -24979,7 +24925,9 @@
 	dir = 4
 	},
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ulz" = (
@@ -25052,7 +25000,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot,
+/obj/effect/spawner/random_spawners/syndicate/loot{
+	spawn_inside = null
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "umD" = (
@@ -25475,10 +25425,8 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "uzu" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
@@ -25561,7 +25509,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "uBn" = (
 /mob/living/simple_animal/mouse/brown{
-	faction = list("neutral", "syndicate");
+	faction = list("neutral","syndicate");
 	name = "Борис"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -25705,6 +25653,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level4{
+	spawn_inside = /obj/structure/closet/crate/syndicate
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -26310,11 +26261,7 @@
 "uUK" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/random/tool{
-	color = "#c08081";
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x_white"
-	},
+/obj/random/tool,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "uVo" = (
@@ -26647,10 +26594,8 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "vdW" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay)
@@ -28863,10 +28808,8 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "wHe" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
-	color = "cyan";
-	icon_state = "x_white";
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2, /obj/structure/falsewall/plastitanium = 2)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
@@ -30554,8 +30497,6 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xHx" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "blue";
-	icon_state = "x_white";
 	use_power = 1
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -30569,8 +30510,6 @@
 "xIq" = (
 /obj/structure/lattice,
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_x = -32;
 	use_power = 1
 	},
@@ -30673,7 +30612,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse/brown{
-	faction = list("neutral", "syndicate")
+	faction = list("neutral","syndicate")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -31319,8 +31258,6 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yhG" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
-	color = "green";
-	icon_state = "x_white";
 	pixel_y = 32;
 	use_power = 1
 	},
