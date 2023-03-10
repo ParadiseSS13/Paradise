@@ -64,7 +64,7 @@
 	else
 		icon_state = ""
 
-	if(!powered())
+	if(!has_power())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
 		icon_state += on ? "on" : "off"
@@ -89,10 +89,9 @@
 		add_underlay(T, node3, dir)
 
 /obj/machinery/atmospherics/trinary/filter/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()

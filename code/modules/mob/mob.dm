@@ -3,6 +3,8 @@
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
 	input_focus = null
+	if(s_active)
+		s_active.close(src)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -597,6 +599,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set name = "Examine"
 	set category = "IC"
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
+
+/mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
@@ -649,6 +654,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	set category = null
 	set src = usr
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_mode)))
+
+///proc version to finish /mob/verb/mode() execution. used in case the proc needs to be queued for the tick after its first called
+/mob/proc/run_mode()
 	if(ismecha(loc)) return
 
 	if(hand)
@@ -1559,7 +1568,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	add_to_all_human_data_huds()
 
 /mob/proc/make_invisible()
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
 	remove_from_all_data_huds()
 
@@ -1569,3 +1578,13 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+
+///Makes a call in the context of a different usr. Use sparingly
+/world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
+	var/temp = usr
+	usr = user_mob
+	if (length(args) > 2)
+		. = invoked_callback.Invoke(arglist(args.Copy(3)))
+	else
+		. = invoked_callback.Invoke()
+	usr = temp

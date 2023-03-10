@@ -5,12 +5,10 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
+	idle_power_consumption = 5
+	active_power_consumption = 50
 
 	var/processing = FALSE
-
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 50
 	var/rating_speed = 1
 	var/rating_amount = 1
 
@@ -53,6 +51,7 @@
 	var/output
 	var/time = 40
 
+/// WHO NAME A PARAMETER FOR A PROC "what" holy hell
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)

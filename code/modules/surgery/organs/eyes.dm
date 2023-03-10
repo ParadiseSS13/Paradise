@@ -314,11 +314,14 @@
 	receive_damage(2, 1) //No flicky flicky on / off to fully negate damage
 	RegisterSignal(owner, COMSIG_CARBON_FLASH_EYES, PROC_REF(got_flashed))
 	active = TRUE
-	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
+	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	flash_protect = FLASH_PROTECTION_VERYVUNERABLE //Flashing is it's weakness. I don't care how many protections you have up
 	owner?.client?.color = LIGHT_COLOR_PURE_CYAN
+	colourmatrix = list(0, 0, 0,\
+						0, 1, 0,\
+						0, 0, 1)
 	owner.update_sight()
 	owner.update_eyes_overlay_layer()
 
@@ -330,6 +333,7 @@
 	lighting_alpha = initial(lighting_alpha)
 	flash_protect = initial(flash_protect)
 	owner?.client?.color = null
+	colourmatrix = null
 	owner.update_sight()
 	owner.update_eyes_overlay_layer()
 
@@ -347,4 +351,4 @@
 	name = "eye mark"
 	icon_state = "shield_reversed"
 	duration = 2 SECONDS
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_LEVEL_TWO

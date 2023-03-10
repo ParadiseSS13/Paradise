@@ -51,9 +51,8 @@ GLOBAL_LIST_EMPTY(message_servers)
 	icon_state = "message_server"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	idle_power_consumption = 10
+	active_power_consumption = 100
 
 	var/list/datum/data_pda_msg/pda_msgs = list()
 	var/list/datum/data_rc_msg/rc_msgs = list()
@@ -126,7 +125,5 @@ GLOBAL_LIST_EMPTY(message_servers)
 	name = "Blackbox Recorder"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
-
+	idle_power_consumption = 10
+	active_power_consumption = 100

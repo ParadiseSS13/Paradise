@@ -8,9 +8,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 50
+	idle_power_consumption = 5
+	active_power_consumption = 50
 	var/grinded = 0
 	var/required_grind = 5
 	var/cube_production = 1
@@ -26,6 +25,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	GLOB.monkey_recyclers += src
 	RefreshParts()
+	locate_camera_console()
 
 /obj/machinery/monkey_recycler/Destroy()
 	GLOB.monkey_recyclers -= src
@@ -34,6 +34,15 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		console.connected_recycler = null
 	connected.Cut()
 	return ..()
+
+/obj/machinery/monkey_recycler/proc/locate_camera_console()
+	if(length(connected))
+		return // we're already connected!
+	for(var/obj/machinery/computer/camera_advanced/xenobio/xeno_camera in GLOB.machines)
+		if(get_area(xeno_camera) == get_area(loc))
+			xeno_camera.connected_recycler = src
+			connected |= xeno_camera
+			break
 
 /obj/machinery/monkey_recycler/RefreshParts()
 	var/req_grind = 5
@@ -93,6 +102,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 				else
 					user.drop_item()
 					qdel(target)
+					target = null //we sleep in this proc, clear reference NOW
 					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
 					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 					var/offset = prob(50) ? -2 : 2

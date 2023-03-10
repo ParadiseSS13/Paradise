@@ -209,9 +209,9 @@
 		return area_created
 	var/area/A = new
 	A.name = str
-	A.power_equip = FALSE
-	A.power_light = FALSE
-	A.power_environ = FALSE
+	A.powernet.equipment_powered = FALSE
+	A.powernet.lighting_powered = FALSE
+	A.powernet.environment_powered = FALSE
 	A.always_unpowered = FALSE
 	A.set_dynamic_lighting()
 
@@ -345,3 +345,4 @@
 /obj/item/areaeditor/blueprints/ce/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))

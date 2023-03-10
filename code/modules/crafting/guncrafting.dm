@@ -70,6 +70,11 @@
 	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into an accelerator laser cannon."
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 
+/obj/item/weaponcrafting/gunkit/lwap
+	name = "\improper lwap laser sniper parts kit"
+	desc = "A suitcase containing the necessary gun parts to transform an accelerator laser cannon into an even meaner laser sniper. Somehow turns the laser purple!"
+	origin_tech = "combat=6;magnets=6;powerstorage=4"
+
 /obj/item/weaponcrafting/gunkit/plasma
 	name = "\improper plasma pistol parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into a plasma pistol. Wort, wort, wort!"

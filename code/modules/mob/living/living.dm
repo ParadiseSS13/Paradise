@@ -48,6 +48,8 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	if(mind?.current == src)
+		mind.current = null
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -249,6 +251,9 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
+	return ..()
+
+/mob/living/run_pointed(atom/A)
 	if(!..())
 		return FALSE
 	var/obj/item/hand_item = get_active_hand()
@@ -721,6 +726,10 @@
 	set name = "Resist"
 	set category = "IC"
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
+
+///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
+/mob/living/proc/run_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -830,9 +839,16 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
+//Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
+/mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
+	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
+		return FALSE
+
+	return TRUE
+
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
+	if(can_be_flashed(intensity, override_blindness_check))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return 1
@@ -1070,6 +1086,7 @@
 /mob/living/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
+	SSticker.mode.transit_z(src)
 
 /mob/living/rad_act(amount)
 	. = ..()
