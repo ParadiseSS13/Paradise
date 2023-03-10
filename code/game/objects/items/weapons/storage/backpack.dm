@@ -137,6 +137,7 @@
 	new /obj/item/instrument/bikehorn(src)
 	new /obj/item/bikehorn(src)
 	new /obj/item/dnainjector/comic(src)
+	new /obj/item/implanter/sad_trombone(src)
 
 /obj/item/storage/backpack/mime
 	name = "Parcel Parceaux"

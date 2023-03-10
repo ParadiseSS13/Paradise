@@ -31,7 +31,7 @@
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/clothing/head/beret/sec = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield, /obj/item/implant/sad_trombone)
 
 	var/is_warden = FALSE
 	var/is_physician = FALSE
