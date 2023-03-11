@@ -558,6 +558,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CD"
 	item = /obj/item/defibrillator/compact/combat/loaded
 	cost = 12
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // SUPPORT AND MECHAS
 
