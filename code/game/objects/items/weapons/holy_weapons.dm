@@ -265,6 +265,8 @@
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	force = 10
 	can_be_hit = TRUE // be a shit and you can get your ass beat
+	max_integrity = 100
+	obj_integrity = 100
 	var/possessed = FALSE
 
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
@@ -322,6 +324,12 @@
 		qdel(S)
 	return ..()
 
+/obj/item/nullrod/scythe/talking/take_damage(damage_amount)
+	if(possessed)
+		for(var/mob/living/simple_animal/shade/sword/sword_shade in contents)
+			sword_shade.take_overall_damage(damage_amount)
+	return ..()
+
 /obj/item/nullrod/scythe/talking/proc/click_actions(atom/attacking_atom, mob/living/simple_animal/attacking_shade)
 	var/bonus_damage = 5
 	if(world.time <= attacking_shade.next_move) // yea we gotta check
@@ -342,13 +350,6 @@
 	if(Adjacent(attacking_atom)) // without a buddy we only deal 10 damage :c
 		do_attack_animation(attacking_atom, used_item = src)
 		melee_attack_chain(attacking_shade, attacking_atom)
-
-/mob/living/simple_animal/shade/sword
-	a_intent = INTENT_HARM // i ain't dealing with this shite
-
-/mob/living/simple_animal/shade/sword/Initialize(mapload)
-	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/sentient_sword_lunge)
 
 /mob/living/simple_animal/shade/sword/create_mob_hud()
 	hud_used = new /datum/hud/sword(src)
