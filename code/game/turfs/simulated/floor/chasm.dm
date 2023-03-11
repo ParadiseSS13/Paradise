@@ -40,6 +40,10 @@
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
+/turf/simulated/floor/chasm/Initialize()
+	. = ..()
+	drop_z = level_name_to_num(MAIN_STATION)
+
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
@@ -128,7 +132,7 @@
 	falling_atoms -= AM
 
 /turf/simulated/floor/chasm/straight_down/Initialize()
-	. = ..()
+	..()
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
