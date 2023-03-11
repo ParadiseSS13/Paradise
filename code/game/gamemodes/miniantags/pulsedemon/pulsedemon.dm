@@ -115,14 +115,25 @@
 		current_cable = locate(/obj/structure/cable) in loc
 	else
 		forceMove(current_power)
-	set_light(1.5, 2, glow_color)
+	update_glow()
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 50, 1)
+	give_spells()
+
+/mob/living/simple_animal/pulse_demon/proc/give_spells()
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain(do_drain))
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable(can_exit_cable))
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cablehop)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/emagtamper)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/emp)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/overload)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotehijack)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
 
 /mob/living/simple_animal/pulse_demon/Stat()
 	. = ..()
 	if(statpanel("Status"))
-		stat(null, "Charge: [charge / 1000]kW")
-		stat(null, "Maximum Charge: [maxcharge / 1000]kW")
+		stat(null, "Charge: [format_si_suffix(charge)]W")
+		stat(null, "Maximum Charge: [format_si_suffix(maxcharge)]W")
 		stat(null, "Hijacked APCs: [length(hijacked_apcs)]")
 
 /mob/living/simple_animal/pulse_demon/dust()
@@ -145,9 +156,6 @@
 	if(loc != oldloc)
 		return
 	var/turf/T = get_turf(oldloc)
-	// TODO: only set this if purchased
-	can_exit_cable = TRUE
-	forceMove(T)
 	controlling_area = null
 	current_power = null
 	current_cable = null
@@ -156,6 +164,13 @@
 	if(current_bot)
 		current_bot.hijacked = FALSE
 	current_bot = null
+	forceMove(T)
+	Move(T)
+	if(!current_cable && !current_power)
+		var/obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/S = locate() in mob_spell_list
+		if(!S.locked && !can_exit_cable)
+			can_exit_cable = TRUE
+			S.do_toggle(can_exit_cable)
 
 // can enter an apc at all?
 /mob/living/simple_animal/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
@@ -174,7 +189,8 @@
 		if(!is_valid_apc(new_power) || !A.terminal)
 			new_power = null // don't enter an APC without a terminal or a broken APC, etc.
 
-	if(!new_cable && !new_power && !can_exit_cable)
+	// there's no electricity in space
+	if(!new_cable && !new_power && (!can_exit_cable || isspaceturf(newloc)))
 		return
 
 	var/moved = ..()
@@ -189,11 +205,10 @@
 		if(!is_under_tile() && prob(PULSEDEMON_PLATING_SPARK_CHANCE))
 			do_sparks(rand(2, 4), FALSE, src)
 
-		// these shouldn't be set if the demon can move normally anyway
-		current_weapon = null
-		current_robot = null
-		current_bot = null
-		controlling_area = null
+	current_weapon = null
+	current_robot = null
+	current_bot = null
+	controlling_area = null
 
 	if(new_power)
 		current_power = new_power
@@ -235,14 +250,28 @@
 				demon.pb_helper.cancel()
 			demon.controlling_area = null
 
-// TODO: decide how maxcharge should increase, it's kinda weird for now (see also: SMES draining code in Life())
+// TODO: decide how maxcharge should increase, it's kinda weird for now (see also: SMES draining code in drainSMES())
 //       I'd say have maxcharge be a multiple of the number of controlled APCs (with upgrade to increase)
 // adjust_max is TRUE when draining APCs
 /mob/living/simple_animal/pulse_demon/proc/adjustCharge(amount, adjust_max = FALSE)
+	if(amount == 0)
+		return
 	if(adjust_max)
 		maxcharge = max(maxcharge, charge + amount)
+	var/orig = charge
 	charge = min(maxcharge, charge + amount)
+	var/realdelta = charge - orig
+	if(realdelta == 0)
+		return
+
 	update_glow()
+	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
+		if(!S.action || S.locked || S.cast_cost == 0)
+			continue
+		var/dist = S.cast_cost - orig
+		// only update icon if the amount is actually enough to change a spell's availability
+		if(dist == 0 || (dist > 0 && realdelta >= dist) || (dist < 0 && realdelta <= dist))
+			S.action.UpdateButtonIcon()
 
 // TODO: does equation need adjustment? see original table:
 	// 1.5 <= 25k
@@ -255,6 +284,21 @@
 	range = max(range, 1.5)
 	set_light(range, 2, glow_color)
 
+/mob/living/simple_animal/pulse_demon/proc/drainAPC(obj/machinery/power/apc/A, multiplier = 1)
+	if(A.being_hijacked)
+		return -1
+	var/amount_to_drain = clamp(A.cell.charge, 0, power_drain_rate * multiplier)
+	A.cell.use(amount_to_drain)
+	adjustCharge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER, TRUE)
+	return amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER
+
+/mob/living/simple_animal/pulse_demon/proc/drainSMES(obj/machinery/power/smes/S)
+	var/amount_to_drain = clamp(S.charge, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
+	S.charge -= amount_to_drain
+	maxcharge = max(maxcharge, S.output_level)
+	adjustCharge(amount_to_drain)
+	return amount_to_drain
+
 /mob/living/simple_animal/pulse_demon/Life(seconds, times_fired)
 	. = ..()
 
@@ -266,23 +310,10 @@
 			got_power = TRUE
 	else if(current_power)
 		if(isapc(current_power) && loc == current_power && do_drain)
-			var/obj/machinery/power/apc/this_apc = current_power
-			// no draining and hijacking in one
-			if(!this_apc.being_hijacked)
-				var/amount_to_drain = min(this_apc.cell.charge, power_drain_rate)
-				this_apc.cell.use(amount_to_drain)
-				// gain more charge than we drain (TODO: consult on numbers with balance team)
-				adjustCharge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER, TRUE)
-				if(amount_to_drain > power_per_regen && !this_apc.cell.self_recharge)
-					got_power = TRUE
+			if(drainAPC(current_power) > power_per_regen)
+				got_power = TRUE
 		else if(istype(current_power, /obj/machinery/power/smes) && do_drain)
-			var/obj/machinery/power/smes/this_smes = current_power
-			// drain SMESes faster than APCs (TODO: consult on numbers with balance team)
-			var/amount_to_drain = min(this_smes.charge, power_drain_rate * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
-			this_smes.charge -= amount_to_drain
-			maxcharge = max(maxcharge, this_smes.output_level)
-			adjustCharge(amount_to_drain)
-			if(amount_to_drain > power_per_regen)
+			if(drainSMES(current_power) > power_per_regen)
 				got_power = TRUE
 		// try to take power from the powernet if the APC or SMES is empty (or we're not /really/ in the APC)
 		if(!got_power && current_power.avail() >= power_per_regen)
@@ -400,8 +431,10 @@
 			apc_being_hijacked = A
 			A.being_hijacked = TRUE
 			A.update_icon()
+			return TRUE
 		else
 			to_chat(src, "<span class='warning'>You are already performing an action!</span>")
+	return FALSE
 
 // TODO: which checks here? maybe aidisabled or constructed?
 /mob/living/simple_animal/pulse_demon/proc/check_valid_apc(obj/machinery/power/apc/A, atom/startloc)
@@ -576,31 +609,15 @@
 /mob/living/simple_animal/pulse_demon/mob_has_gravity()
 	return TRUE
 
-// TODO: convert to spell
-/mob/living/simple_animal/pulse_demon/verb/toggle_do_drain()
-	set category = "Pulse Demon"
-	set name = "Toggle Draining"
-	set desc = "Toggle whether to drain power supplies."
-	do_drain = !do_drain
-	to_chat(src, "You will [do_drain ? "now" : "no longer"] drain power sources.")
-
-// TODO: convert to spell
-/mob/living/simple_animal/pulse_demon/verb/toggle_can_exit()
-	set category = "Pulse Demon"
-	set name = "Toggle Exit Cable"
-	set desc = "Toggle whether you can move off of cables or power sources."
-	can_exit_cable = !can_exit_cable
-	to_chat(src, "You will [can_exit_cable ? "now" : "no longer"] move outside cable connections.")
-
 /obj/screen/alert/pulse_nopower
 	name = "No Power"
 	desc = "You are not connected to a cable or machine and are losing health!"
-	icon_state = "nocell" // TODO: sprite
+	icon_state = "pd_nopower"
 
 /obj/screen/alert/pulse_noregen
 	name = "Regeneration Stalled"
 	desc = "You've been EMP'd and cannot regenerate health!"
-	icon_state = "locked" // TODO: sprite
+	icon_state = "pd_noregen"
 
 #undef ALERT_CATEGORY_NOPOWER
 #undef ALERT_CATEGORY_NOREGEN

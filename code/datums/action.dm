@@ -19,6 +19,7 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/mob/owner
+	var/has_altclick = FALSE
 
 /datum/action/New(Target)
 	target = Target
@@ -62,6 +63,12 @@
 
 /datum/action/proc/Trigger()
 	if(!IsAvailable())
+		return FALSE
+	return TRUE
+
+/datum/action/proc/AltTrigger()
+	if(!has_altclick)
+		Trigger()
 		return FALSE
 	return TRUE
 
@@ -560,6 +567,7 @@
 	button_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state
+	has_altclick = S.has_altclick
 	button.name = name
 
 /datum/action/spell_action/Destroy()
@@ -573,6 +581,14 @@
 	if(target)
 		var/obj/effect/proc_holder/spell = target
 		spell.Click()
+		return TRUE
+
+/datum/action/spell_action/AltTrigger()
+	if(!..())
+		return FALSE
+	if(target)
+		var/obj/effect/proc_holder/spell = target
+		spell.AltClick()
 		return TRUE
 
 /datum/action/spell_action/IsAvailable()
