@@ -108,7 +108,7 @@ SUBSYSTEM_DEF(mapping)
 
 
 /datum/controller/subsystem/mapping/proc/loadStation()
-	if(config.default_map && !config.override_map)
+	if(config.default_map && !config.override_map && map_datum == fallback_map)
 		var/map_datum_path = text2path(config.default_map)
 		if(map_datum_path)
 			map_datum = new map_datum_path
