@@ -78,8 +78,6 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 	var/list/znums = list()
 	for(var/i in GLOB.space_manager.z_list)
 		var/datum/space_level/SL = GLOB.space_manager.z_list[i]
-		if(SL.linkage == CROSSLINKED)
-			znums |= SL.zpos
-		if(TAIPAN in SL.flags)
+		if(SL.linkage == CROSSLINKED && !is_taipan(SL.zpos))
 			znums |= SL.zpos
 	return znums
