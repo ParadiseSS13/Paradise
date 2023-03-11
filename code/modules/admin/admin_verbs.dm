@@ -1061,6 +1061,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/next_map = input("Select next map:", "Next map", SSmapping.map_datum.type) as null|anything in all_maps
 
 	if(next_map)
+		message_admins("[key_name_admin(usr)] select [next_map] as next map")
+		log_admin("[key_name(usr)] select [next_map] as next map")
 		SSmapping.next_map = new next_map
 		to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
 
