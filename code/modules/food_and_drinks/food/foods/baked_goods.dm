@@ -453,12 +453,16 @@
 /obj/item/reagent_containers/food/snacks/pancake/attack_tk(mob/user)
 	if(src in user.tkgrabbed_objects)
 		to_chat(user, "<span class='notice'>You start channeling psychic energy into [src].</span>")
-		if(do_after_once(user, 4 SECONDS, target = src, attempt_cancel_message = "You stop channeling psychic energy into [src]."))
-			visible_message("<span class='danger'>[src] suddenly combust!</span>", "<span class='warning'>You combust [src] with your mind!</span>")
+		visible_message("<span class='danger'>The syrup on [src] starts to boil...</span>")
+		if(do_after_once(user, 4 SECONDS, target = src))
+			visible_message("<span class='danger'>[src] suddenly combust!</span>")
+			to_chat(user, "<span class='warning'>You combust [src] with your mind!</span>")
 			explosion(get_turf(src), light_impact_range = 2, flash_range = 2)
 			add_attack_logs(user, src, "blew up [src] with TK", ATKLOG_ALL)
 			qdel(src)
 			return
+		to_chat(user, "<span class='notice'>You decide against the destruction of [src].</span>")
+		return
 	return ..()
 
 /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
