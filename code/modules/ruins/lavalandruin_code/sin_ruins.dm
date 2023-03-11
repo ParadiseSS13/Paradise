@@ -120,7 +120,7 @@
 	var/turf/simulated/floor/chasm/C = T
 	C.drop_x = T.x
 	C.drop_y = T.y
-	C.drop_z = pick(levels)
+	C.drop_z = text2num(pick(levels))
 	C.drop(user)
 
 // Envy
