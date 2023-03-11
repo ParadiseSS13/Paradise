@@ -93,7 +93,7 @@ export const CameraConsoleMapContent = (props, context) => {
     <Box height="100%" display="flex">
       <Box height="100%" flex="0 0 500px" display="flex">
         <NanoMap onZoom={v => setZoom(v)}>
-          {cameras.filter(cam => cam.z === 1).map(cm => (
+          {cameras.filter(cam => cam.z === 3).map(cm => (
             <NanoMap.NanoButton
               activeCamera={activeCamera}
               key={cm.ref}
