@@ -472,14 +472,15 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 /datum/dmm_suite/loaded_map/proc/area_path_to_real_area(area/A)
 	if(!ispath(A, /area))
-		log_runtime(EXCEPTION("Wrong argument to `area_path_to_real_area`"))
-		return null
+		throw EXCEPTION("Wrong argument to `area_path_to_real_area`")
 
 	if(!(A in area_list))
 		if(initial(A.there_can_be_many))
 			area_list[A] = new A
 		else
-			area_list[A] = locate(A)
+			if(!GLOB.all_unique_areas[A])
+				GLOB.all_unique_areas[A] = new A // No locate here else it will find a subtype of the one we're looking for
+			area_list[A] = GLOB.all_unique_areas[A]
 
 	return area_list[A]
 

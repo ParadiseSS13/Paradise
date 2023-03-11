@@ -70,6 +70,11 @@
 	///Used to decide what kind of reverb the area makes sound have
 	var/sound_environment = SOUND_ENVIRONMENT_NONE
 
+/area/New(loc, ...)
+	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
+		GLOB.all_unique_areas[type] = src
+	..()
+
 /area/Initialize(mapload)
 	GLOB.all_areas += src
 	icon_state = ""
