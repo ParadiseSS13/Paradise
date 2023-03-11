@@ -121,11 +121,11 @@ const AtmosControlDataView = (_properties, context) => {
 const AtmosControlMapView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
-  const { alarms } = data;
+  const { alarms, stationLevel } = data;
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
       <NanoMap onZoom={v => setZoom(v)}>
-        {alarms.filter(a => a.z === 1).map(aa => (
+        {alarms.filter(a => a.z === stationLevel).map(aa => (
           // The AA means air alarm, and nothing else
           <NanoMap.Marker
             key={aa.ref}
