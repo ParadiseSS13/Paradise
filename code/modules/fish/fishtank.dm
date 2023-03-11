@@ -585,7 +585,7 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src, 'sound/effects/Glasshit.ogg', 75, 1)
+				playsound(src, 'sound/effects/glasshit.ogg', 75, 1)
 			else
 				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
