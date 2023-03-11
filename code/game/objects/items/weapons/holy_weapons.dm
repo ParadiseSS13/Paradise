@@ -298,25 +298,6 @@
 		to_chat(user, "The blade is dormant. Maybe you can try again later.")
 		possessed = FALSE
 
-/obj/item/nullrod/scythe/talking/proc/debug_spawn()
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the blade spirit?",, FALSE, 3 SECONDS, source = src, role_cleanname = "possessed blade")
-	var/mob/dead/observer/theghost = null
-
-	if(QDELETED(src))
-		return
-	if(length(candidates))
-		theghost = pick(candidates)
-		var/mob/living/simple_animal/shade/sword/S = new(src)
-		S.real_name = name
-		S.name = name
-		S.ckey = theghost.ckey
-		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
-
-		if(src && input)
-			name = input
-			S.real_name = input
-			S.name = input
-
 /obj/item/nullrod/scythe/talking/Destroy()
 	for(var/mob/living/simple_animal/shade/sword/S in contents)
 		to_chat(S, "You were destroyed!")
