@@ -336,6 +336,8 @@
 		if(ismob(loc))
 			var/mob/living/carbon/human/our_location = loc
 			if(istype(our_location))
+				if(!(src == our_location.l_hand) && !(src == our_location.r_hand))
+					return
 				if(our_location.Adjacent(attacking_atom)) // with a buddy we deal 15 damage :D
 					our_location.do_attack_animation(attacking_atom, used_item = src)
 					force = clamp(force + bonus_damage, 0, INFINITY)
