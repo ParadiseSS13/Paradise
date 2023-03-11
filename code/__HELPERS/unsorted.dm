@@ -1540,7 +1540,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			loc = targetloc
 		lastloc = loc
 		var/atom/movable/B = A
-		if(B?.glide_size)
+		if(istype(B))
 			glide_size = B.glide_size
 		sleep(0.6)
 
