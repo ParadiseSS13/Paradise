@@ -109,6 +109,7 @@
 /obj/machinery/computer/security/ui_static_data()
 	var/list/data = list()
 	data["mapRef"] = map_name
+	data["stationLevel"] = level_name_to_num(MAIN_STATION)
 	return data
 
 /obj/machinery/computer/security/ui_act(action, params)
