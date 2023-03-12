@@ -16618,7 +16618,6 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "ojC" = (
-/obj/machinery/bluespace_beacon/syndicate,
 /obj/structure/window/plasmareinforced{
 	color = "#d70000";
 	dir = 8
@@ -16627,6 +16626,7 @@
 	color = "#d70000"
 	},
 /obj/effect/turf_decal/box/red,
+/obj/machinery/bluespace_beacon/syndicate/infiltrator,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
