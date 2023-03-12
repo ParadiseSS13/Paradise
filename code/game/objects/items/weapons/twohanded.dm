@@ -1000,20 +1000,29 @@
 		return
 	var/turf/new_item_loc = get_step(current_item_loc, user.dir)
 	var/obj/machinery/disposal/target_bin = locate(/obj/machinery/disposal) in new_item_loc.contents
+	var/obj/structure/janitorialcart/jani_cart = locate(/obj/structure/janitorialcart) in new_item_loc.contents
+	var/obj/vehicle/janicart/jani_vehicle = locate(/obj/vehicle/janicart) in new_item_loc.contents
 	var/trash_amount = 1
 	for(var/obj/item/garbage in current_item_loc.contents)
 		if(!garbage.anchored)
+			if(jani_vehicle?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
+				garbage.forceMove(jani_vehicle.mybag)
+				jani_vehicle.mybag.update_icon_state()
+				to_chat(user, "<span class='notice'>You sweep the pile of garbage into [jani_vehicle].</span>")
+			if(jani_cart?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
+				garbage.forceMove(jani_cart.mybag)
+				jani_cart.mybag.update_icon_state()
+				to_chat(user, "<span class='notice'>You sweep the pile of garbage into [jani_cart].</span>")
 			if(target_bin)
 				garbage.forceMove(target_bin)
+				target_bin.update_icon()
+				to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
 			else
 				garbage.Move(new_item_loc, user.dir)
 			trash_amount++
 		if(trash_amount > BROOM_PUSH_LIMIT)
 			break
 	if(trash_amount > 1)
-		if(target_bin)
-			target_bin.update_icon()
-			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 10, TRUE, -1)
 
 /obj/item/twohanded/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
