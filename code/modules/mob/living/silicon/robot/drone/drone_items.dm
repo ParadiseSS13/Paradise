@@ -26,6 +26,7 @@
 		/obj/item/mounted/frame/intercom,
 		/obj/item/mounted/frame/extinguisher,
 		/obj/item/mounted/frame/light_switch,
+		/obj/item/assembly/prox_sensor,
 		/obj/item/rack_parts,
 		/obj/item/camera_assembly,
 		/obj/item/tank,
