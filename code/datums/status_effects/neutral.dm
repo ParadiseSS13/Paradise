@@ -50,11 +50,16 @@
 	duration = 10 SECONDS
 	alert_type = null
 	status_type = STATUS_EFFECT_REFRESH
+	/// Message displayed when wizards perform this together
 	var/critical_success = "high-five EPICALLY!"
+	/// Message displayed when normal people perform this together
 	var/success = "high-five!"
+	/// Message displayed when this status effect is applied.
 	var/request = "requests a high-five."
+	/// Item to be shown in the pop-up balloon.
 	var/obj/item/item_path = /obj/item/latexballon
-	var/sound_effect = 'sound/effects/snap.ogg'
+	/// Sound effect played when this emote is completed.
+	var/sound_effect = 'sound/weapons/slap.ogg'
 
 /// So we don't leave folks with god-mode
 /datum/status_effect/high_five/proc/wiz_cleanup(mob/user, mob/highfived)
@@ -75,15 +80,16 @@
 			user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[C.name]</b> [critical_success]</span>")
 			user.status_flags |= GODMODE
 			C.status_flags |= GODMODE
-			explosion(get_turf(user), 5, 2, 1, 3)
+			explosion(get_turf(user), 5, 2, 1, 3, cause = id)
 			// explosions have a spawn so this makes sure that we don't get gibbed
 			addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user, C), 1)
+			add_attack_logs(user, C, "caused a wizard [id] explosion")
 			user.remove_status_effect(type)
 			C.remove_status_effect(type)
 
 		user.do_attack_animation(C, no_effect = TRUE)
 		C.do_attack_animation(user, no_effect = TRUE)
-		user.visible_message("<b>[user.name]</b> and <b>[C.name]</b> [success]")
+		user.visible_message("<span class='notice'><b>[user.name]</b> and <b>[C.name]</b> [success]</span>")
 		playsound(user, sound_effect, 80)
 		user.remove_status_effect(type)
 		C.remove_status_effect(type)
@@ -103,7 +109,7 @@
 		"lowers [owner.p_their()] hand, it looks like [owner.p_they()] [owner.p_were()] left hanging...",
 		"seems to awkwardly wave at nobody in particular.",
 		"moves [owner.p_their()] hand directly to [owner.p_their()] forehead in shame.",
-		"fully commit[owner.p_s()] and high-fives empty space.",
+		"fully commits and high-fives empty space.",
 		"high-fives [owner.p_their()] other hand shamefully before wiping away a tear.",
 		"goes for a handshake, then a fistbump, before pulling [owner.p_their()] hand back...? <i>What [owner.p_are()] [owner.p_they()] doing?</i>"
 	)
@@ -115,9 +121,11 @@
 	critical_success = "dap each other up EPICALLY!"
 	success = "dap each other up!"
 	request = "requests someone to dap them up!"
+	sound_effect = 'sound/effects/snap.ogg'
+	item_path = /obj/item/melee/touch_attack/fake_disintegrate  // EI-NATH!
 
 /datum/status_effect/high_five/dap/get_missed_message()
-	return "sadly can't find anybody to give daps to, and daps themself. Shameful."
+	return "sadly can't find anybody to give daps to, and daps [owner.p_themselves()]. Shameful."
 
 /datum/status_effect/high_five/handshake
 	id = "handshake"

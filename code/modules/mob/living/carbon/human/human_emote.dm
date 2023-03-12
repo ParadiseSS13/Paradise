@@ -276,7 +276,8 @@
 	key = "highfive"
 	key_third_person = "highfives"
 	hands_use_check = TRUE
-	cooldown = 3 SECONDS
+	cooldown = 5 SECONDS
+	/// Status effect to apply when this emote is used. Should be a subtype
 	var/status = STATUS_EFFECT_HIGHFIVE
 
 /datum/emote/living/carbon/human/highfive/can_run_emote(mob/user, status_check, intentional)
