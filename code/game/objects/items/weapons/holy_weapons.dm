@@ -263,7 +263,7 @@
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
 	attack_verb = list("chopped", "sliced", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
-	force = 10
+	force = 12
 	can_be_hit = TRUE // be a shit and you can get your ass beat
 	max_integrity = 100
 	obj_integrity = 100
@@ -326,7 +326,6 @@
 	return ..()
 
 /obj/item/nullrod/scythe/talking/proc/click_actions(atom/attacking_atom, mob/living/simple_animal/attacking_shade)
-	var/bonus_damage = 5
 	if(world.time <= attacking_shade.next_move) // yea we gotta check
 		return
 	if(!istype(attacking_atom, /atom/movable))
@@ -338,15 +337,15 @@
 			if(istype(our_location))
 				if(!(src == our_location.l_hand) && !(src == our_location.r_hand))
 					return
-				if(our_location.Adjacent(attacking_atom)) // with a buddy we deal 15 damage :D
+				if(our_location.Adjacent(attacking_atom)) // with a buddy we deal 10 damage :D
 					our_location.do_attack_animation(attacking_atom, used_item = src)
-					force = clamp(force + bonus_damage, 0, INFINITY)
 					melee_attack_chain(attacking_shade, attacking_atom)
-					force = clamp(force - bonus_damage, 0, INFINITY)
 				return
-	if(Adjacent(attacking_atom)) // without a buddy we only deal 10 damage :c
+	if(Adjacent(attacking_atom)) // without a buddy we only deal 5 damage :c
+		force = force - 5
 		do_attack_animation(attacking_atom, used_item = src)
 		melee_attack_chain(attacking_shade, attacking_atom)
+		force = force + 5
 
 /mob/living/simple_animal/shade/sword/create_mob_hud()
 	hud_used = new /datum/hud/sword(src)
