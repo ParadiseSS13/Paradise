@@ -20558,7 +20558,7 @@
 /area/syndicate_mothership/infteam)
 "lay" = (
 /obj/structure/table/wood,
-/obj/item/storage/firstaid/tactical{
+/obj/item/storage/firstaid/tactical/sst{
 	pixel_x = 3;
 	pixel_y = 1
 	},
@@ -32045,7 +32045,7 @@
 /area/syndicate_mothership/infteam)
 "qpY" = (
 /obj/structure/table/glass,
-/obj/item/storage/firstaid/tactical,
+/obj/item/storage/firstaid/tactical/sst,
 /obj/machinery/reagentgrinder{
 	pixel_x = -1;
 	pixel_y = 9
@@ -39132,12 +39132,12 @@
 "tFQ" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot_white,
-/obj/item/storage/firstaid/tactical{
+/obj/item/storage/firstaid/tactical/sst{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/firstaid/tactical,
-/obj/item/storage/firstaid/tactical{
+/obj/item/storage/firstaid/tactical/sst,
+/obj/item/storage/firstaid/tactical/sst{
 	pixel_x = 3;
 	pixel_y = -3
 	},
