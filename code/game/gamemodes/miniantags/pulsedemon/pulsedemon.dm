@@ -292,7 +292,7 @@
 	adjustCharge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER, TRUE)
 	return amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER
 
-/mob/living/simple_animal/pulse_demon/proc/drainSMES(obj/machinery/power/smes/S)
+/mob/living/simple_animal/pulse_demon/proc/drainSMES(obj/machinery/power/smes/S, multiplier = 1)
 	var/amount_to_drain = clamp(S.charge, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
 	S.charge -= amount_to_drain
 	maxcharge = max(maxcharge, S.output_level)
