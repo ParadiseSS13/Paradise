@@ -102,6 +102,10 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/meteordrop = /obj/item/stack/ore/iron
 	var/dropamt = 2
 
+/obj/effect/meteor/Initialize(mapload)
+	. = ..()
+	z_original = z
+
 /obj/effect/meteor/Move()
 	if(z != z_original || loc == dest)
 		qdel(src)
