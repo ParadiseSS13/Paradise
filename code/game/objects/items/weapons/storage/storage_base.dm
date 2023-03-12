@@ -15,6 +15,8 @@
 	var/list/can_hold = list()
 	/// List of objects which this item can't store (in effect only if can_hold isn't set)
 	var/list/cant_hold = list()
+	/// List of objects which this item overrides the cant_hold list (used to negate cant_hold on specific items. Ex: Allowing Smuggler's Satchels (subtype of backpack) to be stored inside bags of holding.)
+	var/list/cant_hold_override = list()
 	/// Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
 	/// The sum of the w_classes of all the items in this storage item.
@@ -49,6 +51,7 @@
 	. = ..()
 	can_hold = typecacheof(can_hold)
 	cant_hold = typecacheof(cant_hold)
+	cant_hold_override = typecacheof(cant_hold_override)
 
 	if(allow_quick_empty)
 		verbs += /obj/item/storage/verb/quick_empty
@@ -370,17 +373,19 @@
 			return FALSE
 
 	if(is_type_in_typecache(I, cant_hold)) //Check for specific items which this container can't hold.
-		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
-		return FALSE
+		if(!is_type_in_typecache(I, cant_hold_override))
+			if(!stop_messages)
+				to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
+			return FALSE
 
 	if(length(cant_hold) && isstorage(I)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
 		var/obj/item/storage/S = I
 		for(var/obj/A in S.return_inv())
-			if(is_type_in_typecache(A, cant_hold))
-				if(!stop_messages)
-					to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
-				return FALSE
+			if(!is_type_in_typecache(I,cant_hold_override))
+				if(is_type_in_typecache(A, cant_hold))
+					if(!stop_messages)
+						to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
+					return FALSE
 
 	if(I.w_class > max_w_class)
 		if(!stop_messages)
