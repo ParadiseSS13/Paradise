@@ -6,9 +6,6 @@
 	// Always if human
 	if(species == "human" || species == "Human")
 		return TRUE
-	// Always if admin
-	if(check_rights(R_ADMIN, FALSE))
-		return TRUE
 
 	var/datum/species/S = GLOB.all_species[species]
 	// Part of me feels like the below checks could be merged but ehh
@@ -16,6 +13,10 @@
 	// No if species is not selectable
 	if(NOT_SELECTABLE in S.species_traits)
 		return FALSE
+
+	// Yes if admin
+	if(check_rights(R_ADMIN, FALSE))
+		return TRUE
 
 	// No if species is blacklisted
 	if(S.blacklisted)
