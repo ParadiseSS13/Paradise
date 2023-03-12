@@ -84,7 +84,6 @@
 	name = "judge's security armor"
 	desc = "Perfect for when you're looking to send a message rather than performing your actual duties."
 	icon_state = "streetjudgearmor"
-	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield's security armor"
