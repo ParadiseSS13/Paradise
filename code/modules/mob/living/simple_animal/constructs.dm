@@ -12,6 +12,7 @@
 	speed = 0
 	a_intent = INTENT_HARM
 	stop_automated_movement = TRUE
+	can_change_intents = FALSE
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_HIDDEN_RUNES
 	attack_sound = 'sound/weapons/punch1.ogg'
