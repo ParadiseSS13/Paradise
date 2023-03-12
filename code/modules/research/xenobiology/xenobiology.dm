@@ -600,7 +600,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/laserresistance
-	name = "That's a laser resistance slime potion."
+	name = "laser resistance slime potion."
 	id = "Laser Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase laser resistance of any article of clothing."
@@ -641,7 +641,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/radiation
-	name = "That's a radiation resistance slime potion."
+	name = "radiation resistance slime potion."
 	id = "Radiation Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 40, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase radiation resistance of any article of clothing."
@@ -682,7 +682,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/bio
-	name = "That's a bio resistance slime potion."
+	name = "bio resistance slime potion."
 	id = "Bio Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 40, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase bio resistance of any article of clothing."
@@ -723,7 +723,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/explosionresistencte
-	name = "That's a explosion resistance slime potion."
+	name = "explosion resistance slime potion."
 	id = "Explosion Resistance"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	desc = "A potent chemical mix that will increase explosion resistance of any article of clothing."
@@ -764,7 +764,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/teleportation
-	name = "That's a teleportation slime potion"
+	name = "teleportation slime potion"
 	id = "Teleportation Resistance"
 	desc = "A potent chemical mix that provides a small chance to teleport when taking damage."
 	icon = 'icons/obj/chemical.dmi'

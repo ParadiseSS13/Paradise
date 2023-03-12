@@ -494,20 +494,6 @@
 	var/obj/item/slimepotion/slime/docility/P = new /obj/item/slimepotion/slime/docility
 	P.forceMove(get_turf(holder.my_atom))
 
-/datum/chemical_reaction/moenkeylanguage
-	name = "Moenky language"
-	id = "monkeylanguage"
-	result = null
-	required_reagents = list("water" = 1)
-	result_amount = 1
-	required_container = /obj/item/slime_extract/pink
-	required_other = 1
-
-/datum/chemical_reaction/moenkeylanguage/on_reaction(datum/reagents/holder)
-	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/reagent_containers/glass/bottle/monkeylangue/M = new /obj/item/reagent_containers/glass/bottle/monkeylangue
-	M.forceMove(get_turf(holder.my_atom))
-
 //Black
 /datum/chemical_reaction/slimemutate2
 	name = "Advanced Mutation Toxin"
@@ -597,6 +583,20 @@
 /datum/chemical_reaction/slimegolem/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	new /obj/item/stack/sheet/mineral/adamantine(get_turf(holder.my_atom))
+
+/datum/chemical_reaction/moenkeylanguage
+	name = "Moenky language"
+	id = "monkeylanguage"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	required_container = /obj/item/slime_extract/pink
+	required_other = 1
+
+/datum/chemical_reaction/moenkeylanguage/on_reaction(datum/reagents/holder)
+	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
+	var/obj/item/reagent_containers/glass/bottle/monkeylangue/M = new /obj/item/reagent_containers/glass/bottle/monkeylangue
+	M.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimedamage
 	name = "Slime Damage Resistence Potion"
