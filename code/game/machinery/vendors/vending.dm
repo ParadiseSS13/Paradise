@@ -1014,6 +1014,7 @@
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
+			L.Weaken(6 SECONDS)
 			if(crit)
 				// increase damage if you knock it over onto yourself
 				damage_to_deal *= crit_damage_factor
