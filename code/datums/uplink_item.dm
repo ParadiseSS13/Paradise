@@ -181,6 +181,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/acrobatic_shoes
+	name = "Acrobatic Shoes"
+	desc = "A pair of modified clown shoes are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
+	reference = "AS"
+	item = /obj/item/clothing/shoes/bhop/clown
+	cost = 3
+	job = list("Clown")
+
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
 	desc = "A revolver that will fire backwards and kill whoever attempts to use it. Perfect for those pesky vigilante or just a good laugh."

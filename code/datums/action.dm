@@ -486,6 +486,12 @@
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 
+/datum/action/item_action/bhop/clown
+	name = "Activate Honk Boots"
+	desc = "Activates the jump boot's internal honk system, allowing the user to flip over 6-wide gaps."
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "clown"
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS

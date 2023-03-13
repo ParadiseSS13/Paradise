@@ -407,6 +407,48 @@
 /obj/item/clothing/shoes/bhop/proc/after_jump(mob/user, isflying)
 	user.flying = isflying
 
+/obj/item/clothing/shoes/bhop/clown
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
+	name = "clown shoes"
+	icon_state = "clown"
+	item_state = "clown_shoes"
+	description_antag = "These boots are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
+	slowdown = SHOES_SLOWDOWN+1
+	item_color = "clown"
+	actions_types = list(/datum/action/item_action/bhop/clown)
+	var/enabled_waddle = TRUE
+	jumpdistance = 7//-1 from to see the actual distance, e.g 7 goes over 6 tiles
+
+/obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, action)
+	user.emote("flip")
+	. = ..()
+
+/obj/item/clothing/shoes/bhop/clown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+
+/obj/item/clothing/shoes/bhop/clown/equipped(mob/user, slot)
+	. = ..()
+	if(slot == slot_shoes && enabled_waddle)
+		user.AddElement(/datum/element/waddling)
+
+/obj/item/clothing/shoes/bhop/clown/dropped(mob/user)
+	. = ..()
+	user.RemoveElement(/datum/element/waddling)
+
+/obj/item/clothing/shoes/bhop/clown/CtrlClick(mob/living/user)
+	if(!isliving(user))
+		return
+	if(user.get_active_hand() != src)
+		to_chat(user, "You must hold [src] in your hand to do this.")
+		return
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		enabled_waddle = FALSE
+
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"
 	desc = "These shoes are made for quacking, and thats just what they'll do."
