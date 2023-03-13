@@ -1039,7 +1039,6 @@
 			add_attack_logs(null, L, "crushed by [src]")
 
 		. = TRUE
-		L.Weaken(6 SECONDS)
 		L.KnockDown(12 SECONDS)
 
 		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
