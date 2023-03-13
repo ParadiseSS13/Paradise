@@ -11,6 +11,7 @@
 	var/unlock_cost = 1 KW
 	var/cast_cost = 1 KW
 	var/upgrade_cost = 1 KW
+	var/requires_area = FALSE
 	base_cooldown = 20 SECONDS
 	level_max = 4
 
@@ -44,12 +45,21 @@
 			to_chat(user, "<span class='warning'>You do not have enough charge to use this ability!</span>")
 			to_chat(user, "<span class='notice'>It costs [format_si_suffix(cast_cost)]W to use.</span>")
 		return FALSE
+	if(requires_area && !user.controlling_area)
+		if(show_message)
+			to_chat(user, "<span class='warning'>You need to be controlling an area to use this ability!</span>")
+		return FALSE
 	return TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/cast(list/targets, mob/living/simple_animal/pulse_demon/user)
-	if(!istype(user) || locked || user.charge < cast_cost)
+	if(!istype(user) || locked || user.charge < cast_cost || !targets)
 		return FALSE
-	if(targets && try_cast_action(user, targets[1]))
+	if(requires_area && !user.controlling_area)
+		return FALSE
+	if(requires_area && user.controlling_area != get_area(targets[1]))
+		to_chat(user, "<span class='warning'>You can only use this ability in your controlled area!</span>")
+		return FALSE
+	if(try_cast_action(user, targets[1]))
 		user.adjustCharge(-cast_cost)
 		return TRUE
 	else
@@ -88,7 +98,7 @@
 		else if(user.charge >= upgrade_cost)
 			user.adjustCharge(-upgrade_cost)
 			spell_level = min(spell_level + 1, level_max)
-			upgrade_cost = round(upgrade_cost * 1.5)
+			upgrade_cost = round(initial(upgrade_cost) * (1.5 ** spell_level))
 			do_upgrade(user)
 
 			if(spell_level == level_max)
@@ -135,14 +145,9 @@
 	unlock_cost = 50 KW
 	cast_cost = 20 KW
 	upgrade_cost = 200 KW
+	requires_area = TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/emagtamper/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
-	if(user.controlling_area == null)
-		to_chat(user, "<span class='warning'>You need to be in an APC for this!</span>")
-		return FALSE
-	if(user.controlling_area != get_area(target))
-		to_chat(user, "<span class='warning'>You can only use this in your controlled area!</span>")
-		return FALSE
 	target.emag_act(user)
 	to_chat(user, "<span class='warning'>You attempt to tamper with [target]!</span>")
 	return TRUE
@@ -154,14 +159,9 @@
 	unlock_cost = 50 KW
 	cast_cost = 10 KW
 	upgrade_cost = 200 KW
+	requires_area = TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/emp/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
-	if(user.controlling_area == null)
-		to_chat(user, "<span class='warning'>You need to be in an APC for this!</span>")
-		return FALSE
-	if(user.controlling_area != get_area(target))
-		to_chat(user, "<span class='warning'>You can only use this in your controlled area!</span>")
-		return FALSE
 	empulse(get_turf(target), 1, 1)
 	to_chat(user, "<span class='warning'>You EMP [target]!</span>")
 	return TRUE
@@ -173,14 +173,9 @@
 	unlock_cost = 300 KW
 	cast_cost = 50 KW
 	upgrade_cost = 500 KW
+	requires_area = TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/overload/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
-	if(user.controlling_area == null)
-		to_chat(user, "<span class='warning'>You need to be in an APC for this!</span>")
-		return FALSE
-	if(user.controlling_area != get_area(target))
-		to_chat(user, "<span class='warning'>You can only use this in your controlled area!</span>")
-		return FALSE
 	var/obj/machinery/M = target
 	if(!istype(M))
 		to_chat(user, "<span class='warning'>That is not a machine.</span>")
@@ -285,5 +280,48 @@
 /obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable/do_upgrade(mob/living/simple_animal/pulse_demon/user)
 	user.outside_cable_speed = max(initial(user.outside_cable_speed) - spell_level, 1)
 	to_chat(user, "<span class='notice'>You have upgraded [initial(name)] to level [spell_level + 1], you will now move faster outside of cables.</span>")
+
+/obj/effect/proc_holder/spell/pulse_demon/cycle_camera
+	name = "Cycle Camera View"
+	desc = "Jump between the cameras in your APC's area. Alt-click to return to the APC."
+	action_icon_state = "pd_camera_view"
+	create_attack_logs = FALSE
+	locked = FALSE
+	cast_cost = 0
+	level_max = 0
+	base_cooldown = 0
+	requires_area = TRUE
+	var/current_camera = 0
+
+/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/AltClick()
+	var/mob/living/simple_animal/pulse_demon/user = usr
+	if(!istype(user))
+		return
+	current_camera = 0
+
+	if(!istype(user.current_power, /obj/machinery/power/apc))
+		return
+	if(get_area(user.loc) != user.controlling_area)
+		return
+	user.forceMove(user.current_power)
+
+/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+	if(length(user.controlling_area.cameras) < 1)
+		return
+
+	if(istype(user.loc, /obj/machinery/power/apc))
+		current_camera = 0
+	else if(istype(user.loc, /obj/machinery/camera))
+		current_camera = (current_camera + 1) % length(user.controlling_area.cameras)
+		if(current_camera == 0)
+			user.forceMove(user.current_power)
+			return
+
+	if(length(user.controlling_area.cameras) < current_camera)
+		current_camera = 0
+	user.forceMove(locateUID(user.controlling_area.cameras[current_camera + 1]))
 
 #undef KW

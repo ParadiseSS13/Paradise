@@ -120,6 +120,7 @@
 	give_spells()
 
 /mob/living/simple_animal/pulse_demon/proc/give_spells()
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain(do_drain))
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable(can_exit_cable))
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cablehop)
@@ -156,8 +157,8 @@
 	if(loc != oldloc)
 		return
 	var/turf/T = get_turf(oldloc)
-	controlling_area = null
 	current_power = null
+	update_controlling_area()
 	current_cable = null
 	current_weapon = null
 	current_robot = null
@@ -171,6 +172,25 @@
 		if(!S.locked && !can_exit_cable)
 			can_exit_cable = TRUE
 			S.do_toggle(can_exit_cable)
+
+/mob/living/simple_animal/pulse_demon/proc/update_controlling_area(reset = FALSE)
+	var/area/prev = controlling_area
+	if(reset || current_power == null)
+		controlling_area = null
+	else
+		var/obj/machinery/power/apc/A = current_power
+		if(istype(A) && (A in hijacked_apcs))
+			controlling_area = A.apc_area
+		else
+			controlling_area = null
+
+	if((prev == null && controlling_area == null) || (prev != null && controlling_area != null))
+		return // only update icons when we get or no longer have ANY area
+	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
+		if(!S.action || S.locked)
+			continue
+		if(S.requires_area)
+			S.action.UpdateButtonIcon()
 
 // can enter an apc at all?
 /mob/living/simple_animal/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
@@ -208,7 +228,6 @@
 	current_weapon = null
 	current_robot = null
 	current_bot = null
-	controlling_area = null
 
 	if(new_power)
 		current_power = new_power
@@ -217,14 +236,14 @@
 		playsound(src, 'sound/effects/eleczap.ogg', 50, 1)
 		do_sparks(rand(2, 4), FALSE, src)
 		if(isapc(current_power))
-			var/obj/machinery/power/apc/A = current_power
 			if(current_power in hijacked_apcs)
-				controlling_area = A.apc_area
+				update_controlling_area()
 			else
 				try_hijack_apc(current_power)
 	else if(new_cable)
 		current_cable = new_cable
 		current_power = null
+		update_controlling_area()
 		if(!isturf(loc))
 			loc = get_turf(newloc)
 		if(!moved)
@@ -232,6 +251,7 @@
 	else if(moved)
 		current_cable = null
 		current_power = null
+		update_controlling_area()
 
 // signal to replace relaymove where or when?
 /obj/machinery/power/relaymove(mob/user, dir)
@@ -248,7 +268,7 @@
 		if(isapc(src))
 			if(src == demon.apc_being_hijacked)
 				demon.pb_helper.cancel()
-			demon.controlling_area = null
+			demon.update_controlling_area(TRUE)
 
 // TODO: decide how maxcharge should increase, it's kinda weird for now (see also: SMES draining code in drainSMES())
 //       I'd say have maxcharge be a multiple of the number of controlled APCs (with upgrade to increase)
@@ -447,7 +467,7 @@
 	client.images += apc_image
 	hijacked_apcs += A
 	if(!remote)
-		controlling_area = A.apc_area
+		update_controlling_area()
 	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
 
 /mob/living/simple_animal/pulse_demon/proc/cleanup_hijack_apc(obj/machinery/power/apc/A)

@@ -105,7 +105,7 @@
 	if(user.loc != src)
 		user.forceMove(src)
 		user.current_power = src
-		user.controlling_area = apc_area
+		user.update_controlling_area()
 		user.current_robot = null
 		if(user.current_bot)
 			user.current_bot.hijacked = FALSE
