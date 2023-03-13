@@ -510,8 +510,10 @@ emp_act
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							KnockDown(10 SECONDS)
 							AdjustConfused(30 SECONDS)
-						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
-							SSticker.mode.remove_revolutionary(mind)
+						if(src.mind)
+							if(src.mind in SSticker.mode.revolutionaries)
+								if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+									SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
 						if(wear_mask)
