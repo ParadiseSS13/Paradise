@@ -24,17 +24,28 @@
 	var/wipespeed = 30
 
 /obj/item/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)
-	if(ismob(target) && target.reagents && reagents.total_volume)
-		user.visible_message("<span class='danger'>[user] has smothered \the [target] with \the [src]!</span>", "<span class='danger'>You smother \the [target] with \the [src]!</span>", "You hear some struggling and muffled cries of surprise")
-		src.reagents.reaction(target, REAGENT_TOUCH)
-		src.reagents.clear_reagents()
-		return
+	if(ismob(target) && target.reagents && reagents.total_volume && user.zone_selected == "mouth")
+		if(!get_location_accessible(target, "mouth"))
+			if(target == user)
+				to_chat(user, "<span class='warning'>Your face is obscured, so you can't do that.</span>")
+			else
+				to_chat(user, "<span class='warning'>[target.name]'s face is obscured, so you can't do that.</span>")
+			return
+
+		else
+			user.visible_message("[user] starts to smoother down [target] with [src]!")
+			if(do_after(user, wipespeed, target = target))
+				add_attack_logs(user, target, "Smoothed with [src] containing ([reagents.log_list()])", ATKLOG_ALMOSTALL)
+				user.visible_message("<span class='danger'>[user] has smothered \the [target] with \the [src]!</span>", "<span class='danger'>You smother \the [target] with \the [src]!</span>", "You hear some struggling and muffled cries of surprise")
+				src.reagents.reaction(target, REAGENT_TOUCH)
+				src.reagents.clear_reagents()
 	else
 		..()
 
-/obj/item/reagent_containers/glass/rag/afterattack(atom/A as obj|turf|area, mob/user as mob,proximity)
+/obj/item/reagent_containers/glass/rag/afterattack(atom/A as obj|turf|area|mob, mob/user as mob,proximity)
 	if(!proximity) return
-	if(istype(A) && (src in user))
+	if(ismob(A) && user.zone_selected != "mouth") return
+	if(istype(A) && (src in user) && reagents.total_volume)
 		user.visible_message("[user] starts to wipe down [A] with [src]!")
 		if(do_after(user, wipespeed, target = A))
 			user.visible_message("[user] finishes wiping off the [A]!")
