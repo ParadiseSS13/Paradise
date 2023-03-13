@@ -48,6 +48,8 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	if(mind?.current == src)
+		mind.current = null
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -1084,6 +1086,7 @@
 /mob/living/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
+	SSticker.mode.transit_z(src)
 
 /mob/living/rad_act(amount)
 	. = ..()

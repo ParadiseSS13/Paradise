@@ -776,7 +776,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/internal/organ in internal_organs)
 		var/atom/movable/thing = organ.remove(victim)
-		thing.forceMove(src)
+		if(thing) // Nodrop organs exist
+			thing.forceMove(src)
 
 	release_restraints(victim)
 	victim.bodyparts -= src
