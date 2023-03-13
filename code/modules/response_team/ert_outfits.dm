@@ -327,7 +327,8 @@
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/handheld_defibrillator = 1
+		/obj/item/handheld_defibrillator = 1,
+		/obj/item/soap/nanotrasen = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/red
@@ -353,6 +354,7 @@
 		/obj/item/roller/holo = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/handheld_defibrillator = 1,
+		/obj/item/soap/nanotrasen = 1
 	)
 
 	cybernetic_implants = list(
