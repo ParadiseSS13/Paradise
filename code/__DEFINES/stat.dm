@@ -35,6 +35,9 @@
 #define SHUTTLE_STRANDED 5
 #define SHUTTLE_ESCAPE 6
 #define SHUTTLE_ENDGAME 7
+#define SHUTTLE_RECHARGING 8
+
+#define SHUTTLE_CONSOLE_RECHARGING "recharging"
 
 // Shuttle return values
 #define SHUTTLE_CAN_DOCK "can_dock"

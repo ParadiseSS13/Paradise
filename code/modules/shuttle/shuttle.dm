@@ -215,8 +215,11 @@
 	var/area/shuttle/areaInstance
 	var/list/shuttle_areas
 
+	var/fly_sound = 'sound/effects/hyperspace_mini.ogg'
+
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
 	var/last_timer_length
+	var/rechargeTime = 50
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
 	var/callTime = 50				//time spent in transit (deciseconds)
 	var/ignitionTime = 30			// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
@@ -526,8 +529,8 @@
 	for(var/A1 in L1)
 		var/turf/T1 = A1
 		T1.postDock(S1)
-		for(var/atom/movable/M in T1)
-			M.postDock(S1)
+		for(var/atom/movable/mobile_docking_port in T1)
+			mobile_docking_port.postDock(S1)
 
 	loc = S1.loc
 	dir = S1.dir
@@ -608,9 +611,9 @@
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
 			if(ismob(AM))
-				var/mob/M = AM
-				if(M.buckled)
-					M.buckled.unbuckle_mob(M, force = TRUE)
+				var/mob/mobile_docking_port = AM
+				if(mobile_docking_port.buckled)
+					mobile_docking_port.buckled.unbuckle_mob(mobile_docking_port, force = TRUE)
 				if(isliving(AM))
 					var/mob/living/L = AM
 					L.stop_pulling()
@@ -644,6 +647,10 @@
 			if(SHUTTLE_CALL)
 				if(dock(destination))
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
+					return
+				if(rechargeTime)
+					mode = SHUTTLE_RECHARGING
+					setTimer(rechargeTime)
 					return
 			if(SHUTTLE_RECALL)
 				if(dock(previous))
@@ -730,6 +737,8 @@
 		else
 			dst = destination
 		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
+	else if(mode == SHUTTLE_RECHARGING)
+		return "[dockedAt.name], recharging [getTimerStr()]"
 
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
@@ -737,6 +746,7 @@
 	icon_keyboard = "tech_key"
 	req_access = list()
 	circuit = /obj/item/circuitboard/shuttle
+	var/destination
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
@@ -754,24 +764,24 @@
 	connect()
 
 /obj/machinery/computer/shuttle/proc/connect()
-	var/obj/docking_port/mobile/M
+	var/obj/docking_port/mobile/mobile_docking_port
 	if(!shuttleId)
 		// find close shuttle that is ok to mess with
 		if(!SSshuttle) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
 			return
 		for(var/obj/docking_port/mobile/D in SSshuttle.mobile)
 			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
-				M = D
-				shuttleId = M.id
+				mobile_docking_port = D
+				shuttleId = mobile_docking_port.id
 				break
 	else if(!possible_destinations && SSshuttle) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
-		M = SSshuttle.getShuttle(shuttleId)
+		mobile_docking_port = SSshuttle.getShuttle(shuttleId)
 
-	if(M && !possible_destinations)
+	if(mobile_docking_port && !possible_destinations)
 		// find perfect fits
 		possible_destinations = ""
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
-			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
+			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == mobile_docking_port.width && S.height == mobile_docking_port.height && S.dwidth == mobile_docking_port.dwidth && S.dheight == mobile_docking_port.dheight && findtext(S.id, mobile_docking_port.id))
 				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
 
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
@@ -786,24 +796,47 @@
 /obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 150, master_ui, state)
+		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 240, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
 	var/list/data = list()
-	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
-	data["status"] = M ? M.getStatusText() : null
-	if(M)
+	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
+	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : "Unknown"
+	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
+	if(!mobile_docking_port)
+		data["status"] = "Missing"
+		return data
+	if(admin_controlled)
+		data["status"] = "Unauthorized Access"
+	else
+		switch(mobile_docking_port.mode)
+			if(SHUTTLE_IGNITING)
+				data["status"] = "Igniting"
+			if(SHUTTLE_IDLE)
+				data["status"] = "Idle"
+			if(SHUTTLE_RECHARGING)
+				data["status"] = "Recharging"
+			else
+				data["status"] = "In Transit"
+	if(mobile_docking_port)
 		data["shuttle"] = TRUE	//this should just be boolean, right?
 		var/list/docking_ports = list()
-		data["docking_ports"] = docking_ports
+		data["locations"] = docking_ports
 		var/list/options = params2list(possible_destinations)
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!options.Find(S.id))
 				continue
-			if(!M.check_dock(S))
+			if(!mobile_docking_port.check_dock(S))
 				continue
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
+		if(length(data["locations"]) == 1)
+			for(var/location in data["locations"])
+				destination = location["id"]
+				data["destination"] = destination
+		if(!length(data["locations"]))
+			data["locked"] = TRUE
+			data["status"] = "Locked"
 		data["docking_ports_len"] = docking_ports.len
 		data["admin_controlled"] = admin_controlled
 	return data
@@ -819,11 +852,14 @@
 		return TRUE
 	var/list/options = params2list(possible_destinations)
 	if(action == "move")
-		var/destination = params["move"]
+		var/destination = params["shuttle_id"]
 		if(!options.Find(destination))//figure out if this translation works
 			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
+			if(SHUTTLE_CONSOLE_RECHARGING)
+				to_chat(usr, span_warning("Shuttle engines are not ready for use."))
+				return
 			if(0)
 				atom_say("Шаттл отправляется! Пожалуйста, отойдите от шл+юзов.")
 				add_misc_logs(usr, "used [src] to call the [shuttleId] shuttle")

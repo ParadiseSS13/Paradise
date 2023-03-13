@@ -234,6 +234,10 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
+
+	if(M.mode == SHUTTLE_RECHARGING)
+		return SHUTTLE_CONSOLE_RECHARGING
+
 	if(!M)
 		return 1
 	M.last_caller = user // Save the caller of the shuttle for later logging
@@ -243,6 +247,7 @@ SUBSYSTEM_DEF(shuttle)
 	else
 		if(M.dock(D))
 			return 2
+	M.areaInstance << M.fly_sound
 	return 0	//dock successful
 
 /datum/controller/subsystem/shuttle/proc/initial_move()
