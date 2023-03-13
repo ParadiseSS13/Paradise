@@ -13,6 +13,7 @@
 /datum/event/spider_terror/announce()
 	if(successSpawn)
 		GLOB.command_announcement.Announce("Вспышка биологической угрозы 3-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+		cancel_call_proc(usr)
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
