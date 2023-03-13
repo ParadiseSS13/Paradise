@@ -18,7 +18,7 @@
 	if(R.stat == DEAD)
 		to_chat(usr, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
 		return FALSE
-	if(src in R.upgrades && !multiple_use)
+	if((locate(src) in R.upgrades) && !multiple_use)
 		to_chat(R, "<span class='notice'>There is already [src] inside!</span>")
 		return FALSE
 	if(module_type && !istype(R.module, module_type))
