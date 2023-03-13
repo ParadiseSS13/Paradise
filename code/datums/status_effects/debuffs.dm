@@ -881,8 +881,8 @@
 	. = ..()
 
 /datum/status_effect/fake_virus/tick()
-	var/fake_msg = ""
-	var/fake_emote = ""
+	var/fake_msg
+	var/fake_emote
 	switch(msg_stage)
 		if(0 to 300)
 			if(prob(1))
