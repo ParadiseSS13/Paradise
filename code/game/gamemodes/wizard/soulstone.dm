@@ -140,6 +140,12 @@
 		if(spent)//checking one more time against shenanigans
 			return
 
+	if(is_sacrifice_target(M.mind))
+		if(iscultist(user))
+			SSticker.mode.cult_objs.succesful_sacrifice()
+		else if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
+			SSticker.mode.cult_objs.ready_to_summon()
+
 	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
 	return
