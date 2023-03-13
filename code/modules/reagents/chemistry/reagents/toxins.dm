@@ -9,7 +9,7 @@
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1, FALSE)
+	update_flags |= M.adjustToxLoss(2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/spider_venom
