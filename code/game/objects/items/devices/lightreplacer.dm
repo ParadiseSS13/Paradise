@@ -243,7 +243,7 @@
 		used = TRUE
 		if(istype(A, /obj/machinery/light))
 			if(!proximity)  // only beams if at a distance
-				U.Beam(A, icon_state = "rped_upgrade", icon='icons/effects/effects.dmi', time = 5)
+				U.Beam(A, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 				playsound(src, 'sound/items/pshoom.ogg', 40, 1)
 			ReplaceLight(A, U)
 
