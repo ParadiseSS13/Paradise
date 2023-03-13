@@ -311,6 +311,7 @@
 /datum/outfit/job/centcom/response_team/medic/amber
 	name = "RT Medic (Amber)"
 
+	head = /obj/item/clothing/head/helmet/ert/medical
 	shoes = /obj/item/clothing/shoes/white
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
 	suit_store = /obj/item/gun/energy/gun/mini
@@ -324,13 +325,10 @@
 	l_hand = /obj/item/defibrillator/loaded
 
 	backpack_contents = list(
-		/obj/item/clothing/head/helmet/ert/medical = 1,
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/storage/firstaid/adv = 1,
-		/obj/item/storage/firstaid/doctor = 1,
+		/obj/item/storage/firstaid/ert_amber = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
-		/obj/item/storage/pill_bottle/ert = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/handheld_defibrillator = 1,
 		/obj/item/soap/nanotrasen = 1
@@ -339,7 +337,7 @@
 /datum/outfit/job/centcom/response_team/medic/red
 	name = "RT Medic (Red)"
 	rt_mob_job = "ERT Medical"
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit_store = /obj/item/gun/energy/gun
@@ -354,15 +352,11 @@
 
 	backpack_contents = list(
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/storage/firstaid/toxin = 1,
-		/obj/item/storage/firstaid/doctor = 1,
-		/obj/item/storage/firstaid/adv = 1,
+		/obj/item/storage/firstaid/ert = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
-		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/handheld_defibrillator = 1,
-		/obj/item/storage/pill_bottle/painkillers = 1,
 		/obj/item/soap/nanotrasen = 1
 	)
 
@@ -390,13 +384,10 @@
 
 	backpack_contents = list(
 		/obj/item/bodyanalyzer/advanced = 1,
-		/obj/item/storage/firstaid/toxin = 1,
-		/obj/item/storage/firstaid/doctor = 1,
-		/obj/item/storage/firstaid/adv = 1,
+		/obj/item/storage/firstaid/ert = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/handheld_defibrillator = 1,
-		/obj/item/storage/pill_bottle/painkillers = 1
 		)
 
 	cybernetic_implants = list(
