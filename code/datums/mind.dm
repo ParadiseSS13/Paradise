@@ -834,6 +834,7 @@
 				special_role = SPECIAL_ROLE_REV
 				log_admin("[key_name(usr)] has rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has rev'd [key_name_admin(current)]")
+				current.create_log(MISC_LOG, "[current] was made into a revolutionary by [key_name_admin(usr)]")
 
 			if("headrev")
 				if(src in SSticker.mode.revolutionaries)
@@ -860,6 +861,7 @@
 				special_role = SPECIAL_ROLE_HEAD_REV
 				log_admin("[key_name(usr)] has head-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
+				current.create_log(MISC_LOG, "[current] was made into a head revolutionary by [key_name_admin(usr)]")
 
 			if("autoobjectives")
 				SSticker.mode.forge_revolutionary_objectives(src)
@@ -954,6 +956,7 @@
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
+					current.create_log(MISC_LOG, "[current] was made into a wizard by [key_name_admin(usr)]")
 			if("lair")
 				current.forceMove(pick(GLOB.wizardstart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
@@ -1183,6 +1186,7 @@
 				SSticker.mode.update_eventmisc_icons_added(src)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
+				current.create_log(MISC_LOG, "[current] was made into an event antagonist by [key_name_admin(usr)]")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -1423,6 +1427,7 @@
 				make_Abductor()
 				log_admin("[key_name(usr)] turned [current] into abductor.")
 				SSticker.mode.update_abductor_icons_added(src)
+				current.create_log(MISC_LOG, "[current] was made into an abductor by [key_name_admin(usr)]")
 			if("equip")
 				if(!ishuman(current))
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
@@ -1731,6 +1736,7 @@
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
 		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
+	H.create_log(MISC_LOG, "[H] was made into an abductor")
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
