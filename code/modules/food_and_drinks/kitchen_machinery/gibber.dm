@@ -51,7 +51,6 @@
 	return OBLITERATION
 
 /obj/machinery/gibber/update_icon_state()
-	. = ..()
 	if(operating && !(stat & (NOPOWER|BROKEN)))
 		icon_state = "grinder_on"
 		return
