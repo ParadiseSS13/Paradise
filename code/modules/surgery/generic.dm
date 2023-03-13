@@ -61,6 +61,7 @@
 	/obj/item/scalpel/laser = 100, \
 	/obj/item/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 90, 	\
+	/obj/item/stack/sheet/sinew = 90, 	\
 	/obj/item/assembly/mousetrap = 25
 	)
 
