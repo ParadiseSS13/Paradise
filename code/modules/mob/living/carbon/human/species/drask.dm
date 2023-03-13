@@ -16,7 +16,8 @@
 	female_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 
 	burn_mod = 1.5
-	//exotic_blood = "cryoxadone"
+	oxy_mod = 2
+	exotic_blood = "cryoxadone"
 	body_temperature = 273
 	toolspeedmod = 1.2 //20% slower
 	punchdamagelow = 5
@@ -82,3 +83,23 @@
 	..()
 	H.verbs -= /mob/living/carbon/human/proc/emote_hum
 
+/datum/species/drask/handle_life(mob/living/carbon/human/H)
+	..()
+	if(H.stat == DEAD)
+		return
+	if(H.bodytemperature < TCRYO)
+		H.adjustCloneLoss(-1)
+		H.adjustOxyLoss(-2)
+		H.adjustToxLoss(-0.5)
+		H.adjustBruteLoss(-2)
+		H.adjustFireLoss(-4)
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		if(head)
+			head.disfigured = FALSE
+
+/datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "iron")
+		return TRUE
+	if(R.id == "salglu_solution")
+		return TRUE
+	return ..()
