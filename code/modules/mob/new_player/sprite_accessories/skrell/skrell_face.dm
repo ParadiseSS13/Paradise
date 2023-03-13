@@ -155,6 +155,61 @@
 	secondary_theme = "fest"
 	no_sec_colour = 1
 
+/datum/sprite_accessory/hair/skrell/skr_shortmidbun
+	name = "Mid bun short"
+	icon_state = "short_mid_bun"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_midbun
+	name = "Mid bun normal"
+	icon_state = "mid_bun"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_longmidbun
+	name = "Mid bun long"
+	icon_state = "long_mid_bun"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_vshortmidbun
+	name = "Mid bun very short"
+	icon_state = "low_bun"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_mullet
+	name = "Mullet"
+	icon_state = "mullet"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_insulatedlong
+	name = "Insulated long"
+	icon_state = "insulted_long"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_excitedlong
+	name = "Excited long"
+	icon_state = "excited_long"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_reversedlong
+	name = "Reversed long"
+	icon_state = "reserved_long"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_tuuxstraight
+	name = "Tuux straight"
+	icon_state = "straight_tuux"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_tuuxstraightlong
+	name = "Tuux straight long"
+	icon_state = "straight_tuux_long"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_loosebraid
+	name = "Loose braid"
+	icon_state = "loose_braid"
+	no_sec_colour = 1
+
 /datum/sprite_accessory/hair/fluff/zeke_fluff_tentacle //Zeke Fluff hair
 	icon = 'icons/mob/sprite_accessories/skrell/skrell_hair.dmi'
 	name = "Zekes Tentacles"
