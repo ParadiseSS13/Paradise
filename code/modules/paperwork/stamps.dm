@@ -97,6 +97,16 @@
 	icon_state = "stamp-cent"
 	item_color = "centcom"
 
+/obj/item/stamp/ploho
+	name = "'Very Bad, Redo' rubber stamp"
+	icon_state = "stamp-ploho"
+	item_color = "hop"
+
+/obj/item/stamp/BIGdeny
+	name = "BIG DENY rubber stamp"
+	icon_state = "stamp-BIGdeny"
+	item_color = "redcoat"
+
 /obj/item/stamp/syndicate
 	name = "suspicious rubber stamp"
 	icon_state = "stamp-syndicate"

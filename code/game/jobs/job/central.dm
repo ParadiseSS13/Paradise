@@ -36,6 +36,8 @@
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/stamp/centcom = 1,
+		/obj/item/stamp/ploho = 1,
+		/obj/item/stamp/BIGdeny = 1,
 	)
 	box = /obj/item/storage/box/centcomofficer
 	cybernetic_implants = list(
