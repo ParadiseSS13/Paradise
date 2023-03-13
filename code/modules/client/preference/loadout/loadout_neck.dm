@@ -16,6 +16,10 @@
 	display_name = "regal shawl"
 	path = /obj/item/clothing/neck/mantle/regal
 
+/datum/gear/neck/cowboy_mantle
+	display_name = "old wrappings"
+	path = /obj/item/clothing/neck/mantle/cowboy
+
 /datum/gear/neck/mantle/job
 	subtype_path = /datum/gear/neck/mantle/job
 	subtype_cost_overlap = FALSE

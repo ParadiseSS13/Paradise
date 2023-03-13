@@ -18,6 +18,11 @@
 	desc = "A tattered fabric wrap, faded over the years. Smells faintly of cigars."
 	icon_state = "old_mantle"
 
+/obj/item/clothing/neck/mantle/cowboy
+	name = "old wrappings"
+	desc = "A bunch of stitched together clothing with bandages covering them."
+	icon_state = "cowboy_mantle"
+
 //Mantles of the heads
 
 /obj/item/clothing/neck/mantle/captain
