@@ -366,6 +366,36 @@
  	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/clothing/shoes/footwraps/yellow
+ 	name = "yellow cloth footwraps"
+ 	icon_state = "yellow_wrap"
+ 	item_state = "yellow_wrap"
+
+/obj/item/clothing/shoes/footwraps/silver
+ 	name = "silver cloth footwraps"
+ 	icon_state = "silver_wrap"
+ 	item_state = "silver_wrap"
+
+/obj/item/clothing/shoes/footwraps/red
+ 	name = "red cloth footwraps"
+ 	icon_state = "red_wrap"
+ 	item_state = "red_wrap"
+
+/obj/item/clothing/shoes/footwraps/blue
+ 	name = "blue cloth footwraps"
+ 	icon_state = "blue_wrap"
+ 	item_state = "blue_wrap"
+
+/obj/item/clothing/shoes/footwraps/black
+ 	name = "black cloth footwraps"
+ 	icon_state = "black_wrap"
+ 	item_state = "black_wrap"
+
+/obj/item/clothing/shoes/footwraps/brown
+ 	name = "brown cloth footwraps"
+ 	icon_state = "brown_wrap"
+ 	item_state = "brown_wrap"
+
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid foward movement."

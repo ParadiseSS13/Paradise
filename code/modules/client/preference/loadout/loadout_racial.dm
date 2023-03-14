@@ -45,3 +45,27 @@
 	display_name = "cloth footwraps"
 	path = /obj/item/clothing/shoes/footwraps
 	slot = slot_shoes
+
+/datum/gear/racial/footwraps/yellow
+	display_name = "cloth footwraps(yellow)"
+	path = /obj/item/clothing/shoes/footwraps/yellow
+
+/datum/gear/racial/footwraps/silver
+	display_name = "cloth footwraps(silver)"
+	path = /obj/item/clothing/shoes/footwraps/silver
+
+/datum/gear/racial/footwraps/red
+	display_name = "cloth footwraps(red)"
+	path = /obj/item/clothing/shoes/footwraps/red
+
+/datum/gear/racial/footwraps/blue
+	display_name = "cloth footwraps(blue)"
+	path = /obj/item/clothing/shoes/footwraps/blue
+
+/datum/gear/racial/footwraps/black
+	display_name = "cloth footwraps(black)"
+	path = /obj/item/clothing/shoes/footwraps/black
+
+/datum/gear/racial/footwraps/brown
+	display_name = "cloth footwraps(brown)"
+	path = /obj/item/clothing/shoes/footwraps/brown
