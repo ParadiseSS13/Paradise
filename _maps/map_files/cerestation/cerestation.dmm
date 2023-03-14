@@ -33491,7 +33491,7 @@
 "cUX" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4;
-	name = "Turbineto Space"
+	name = "Turbine to Space"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -36132,6 +36132,10 @@
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/camera{
+	c_tag = "Security SMES";
+	dir = 6
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fpmaint)
