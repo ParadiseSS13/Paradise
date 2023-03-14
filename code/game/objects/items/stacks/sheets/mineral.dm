@@ -21,6 +21,8 @@ GLOBAL_LIST_INIT(sandstone_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
+	new/datum/stack_recipe("Sandstone Plate", /obj/structure/bed/sandstone, 15, one_per_turf = 1, on_floor = 1), \
+	null, \
 	new/datum/stack_recipe("Breakdown into sand", /obj/item/stack/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
 	))
 
