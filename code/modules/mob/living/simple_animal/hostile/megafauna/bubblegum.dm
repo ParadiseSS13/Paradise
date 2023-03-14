@@ -72,7 +72,7 @@ Difficulty: Hard
 
 /obj/item/gps/internal/bubblegum
 	icon_state = null
-	gpstag = "Bloody Signal"
+	gpstag = "Mysterious Signal"
 	desc = "You're not quite sure how a signal can be bloody."
 	invisibility = 100
 

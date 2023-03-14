@@ -736,6 +736,6 @@ Difficulty: Hard
 
 /obj/item/gps/internal/hierophant
 	icon_state = null
-	gpstag = "Zealous Signal"
+	gpstag = "Mysterious Signal"
 	desc = "Heed its words."
 	invisibility = 100

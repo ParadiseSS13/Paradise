@@ -267,6 +267,6 @@ Difficulty: Very Hard
 
 /obj/item/gps/internal/colossus
 	icon_state = null
-	gpstag = "Angelic Signal"
+	gpstag = "Mysterious Signal"
 	desc = "Get in the fucking robot."
 	invisibility = 100

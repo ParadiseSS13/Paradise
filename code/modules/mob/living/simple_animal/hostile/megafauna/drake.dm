@@ -97,7 +97,7 @@ Difficulty: Medium
 
 /obj/item/gps/internal/dragon
 	icon_state = null
-	gpstag = "Fiery Signal"
+	gpstag = "Mysterious Signal"
 	desc = "Here there be dragons."
 	invisibility = 100
 

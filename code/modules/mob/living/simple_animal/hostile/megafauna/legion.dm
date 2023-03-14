@@ -148,6 +148,6 @@ Difficulty: Medium
 
 /obj/item/gps/internal/legion
 	icon_state = null
-	gpstag = "Echoing Signal"
+	gpstag = "Mysterious Signal"
 	desc = "The message repeats."
 	invisibility = 100

@@ -61,7 +61,7 @@ Difficulty: Medium
 
 /obj/item/gps/internal/miner
 	icon_state = null
-	gpstag = "Resonant Signal"
+	gpstag = "Mysterious Signal"
 	desc = "The sweet blood, oh, it sings to me."
 	invisibility = 100
 
