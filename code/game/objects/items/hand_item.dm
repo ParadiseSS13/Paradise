@@ -63,4 +63,4 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.Confused(10 SECONDS) //SMACK CAM
-	. = ..()
+	return ..()
