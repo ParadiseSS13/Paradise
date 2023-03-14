@@ -109,10 +109,6 @@
 	var/unique_suck_id = H.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
-	if(owner.current.is_muzzled())
-		to_chat(owner.current, "<span class='warning'>[owner.current.wear_mask] prevents you from biting [H]!</span>")
-		draining = null
-		return
 	add_attack_logs(owner.current, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
 	owner.current.visible_message("<span class='danger'>[owner.current] grabs [H]'s neck harshly and sinks in [owner.current.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [H.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner.current))

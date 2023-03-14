@@ -483,6 +483,9 @@
 		if(HAS_TRAIT(target, TRAIT_SKELETONIZED))
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
 			return
+		if(user.is_muzzled() && !ismonkeybasic(target)) //this check allows safety muzzles to be useable on small mobs like monkeys
+			to_chat(user, "<span class='warning'>[user.wear_mask] prevents you from biting [target]!</span>")
+			return
 		//we're good to suck the blood, blaah
 		V.handle_bloodsucking(target)
 		add_attack_logs(user, target, "vampirebit")
