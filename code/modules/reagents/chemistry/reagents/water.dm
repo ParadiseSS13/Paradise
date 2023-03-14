@@ -364,15 +364,10 @@
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(iscultist(M))
-		M.AdjustDrowsy(-10 SECONDS)
-		M.AdjustParalysis(-2 SECONDS)
-		M.AdjustStunned(-4 SECONDS)
-		M.AdjustWeakened(-4 SECONDS)
-		M.AdjustKnockDown(-4 SECONDS)
-		update_flags |= M.adjustStaminaLoss(-25, FALSE)
-		update_flags |= M.adjustToxLoss(-1, FALSE)
+		update_flags |= M.adjustBrainLoss(-3, FALSE)
+		update_flags |= M.adjustToxLoss(-1.5, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
-		update_flags |= M.adjustOxyLoss(-1, FALSE)
+		update_flags |= M.adjustOxyLoss(-1.5, FALSE)
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	else
 		update_flags |= M.adjustBrainLoss(3, FALSE)
