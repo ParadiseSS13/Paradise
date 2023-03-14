@@ -157,7 +157,7 @@
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.altar_icon_state
-	cooldowntime = CULT_STRUCTURE_COOLDOWN
+	cooldowntime = world.time + CULT_STRUCTURE_COOLDOWN
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
