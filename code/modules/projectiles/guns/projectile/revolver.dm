@@ -212,6 +212,13 @@
 	can_suppress = 1
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 
+/obj/item/gun/projectile/revolver/c36
+	name = ".36 revolver"
+	desc = "An old fashion .36 chambered revolver."
+	icon_state = "detective"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev36
+	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
+
 // A gun to play Russian Roulette!
 // You can spin the chamber to randomize the position of the bullet.
 

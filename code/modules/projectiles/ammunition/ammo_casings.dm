@@ -50,6 +50,11 @@
 /obj/item/ammo_casing/c38/invisible/fake
 	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible/fake
 
+/obj/item/ammo_casing/c38/c36
+	desc = "A .36 bullet casing."
+	caliber = ".36"
+	projectile_type = /obj/item/projectile/bullet/midbullet2
+
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
 	materials = list(MAT_METAL = 1500)
