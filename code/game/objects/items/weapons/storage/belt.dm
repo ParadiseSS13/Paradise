@@ -302,7 +302,7 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/clothing/mask/gas/sechailer,
-		/obj/item/detective_scanner
+		/obj/item/detective_scanner,
 		/obj/item/ammo_box/magazine/wt550m9
 		)
 
