@@ -56,8 +56,8 @@
 
 
 /obj/item/slapper/cqc/Initialize(mapload)
-	. = ..()
 	add_parry_component()
+	return ..()
 
 /obj/item/slapper/cqc/attack(mob/M, mob/living/carbon/human/user)
 	if(ishuman(M))

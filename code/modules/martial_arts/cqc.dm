@@ -17,14 +17,14 @@
 	return ..()
 
 /datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
-	. = ..()
 	var/datum/action/defensive_stance/defensive = new/datum/action/defensive_stance()
 	defensive.Grant(H)
+	return ..()
 
 /datum/martial_art/cqc/remove(mob/living/carbon/human/H)
-	. = ..()
 	for(var/datum/action/defensive_stance/defensive in H.actions)
 		defensive.Remove(H)
+	return ..()
 
 /datum/action/defensive_stance
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
