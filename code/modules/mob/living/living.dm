@@ -1032,7 +1032,10 @@
 /mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return 0
+		return FALSE
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, "<span class='warning'>This gun is only built to be fired by machines!</span>")
+		return FALSE
 	return 1
 
 /mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
