@@ -359,3 +359,17 @@
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
 			receive_damage(1, silent = prob(30))
+
+/mob/living/carbon/human/proc/check_infections()
+	var/list/infections = list()
+	for(var/obj/item/organ/internal/organ in internal_organs)
+		if(organ.germ_level > 0)
+			infections.Add(organ)
+	return infections
+
+/mob/living/carbon/human/proc/check_damaged_organs()
+	var/list/damaged = list()
+	for(var/obj/item/organ/internal/organ in internal_organs)
+		if(organ.damage > 0)
+			damaged.Add(organ)
+	return damaged

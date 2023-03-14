@@ -127,6 +127,15 @@
 				else
 					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
+/mob/living/carbon/human/proc/check_internal_bleedings()
+	var/list/internals_list = list()
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+	for(var/obj/item/organ/external/limb in bodyparts)
+		if(limb.internal_bleeding)
+			internals_list.Add(limb)
+	return internals_list
+
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
 

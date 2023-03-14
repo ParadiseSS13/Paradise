@@ -2,12 +2,14 @@
 	friendly = "heals"
 	speed = 0
 	damage_transfer = 0.7
-	melee_damage_lower = 15
-	melee_damage_upper = 15
-	playstyle_string = "As a <b>Support</b> type, you may toggle your basic attacks to a healing mode. In addition, Alt-Clicking on an adjacent mob will warp them to your bluespace beacon after a short delay."
-	magic_fluff_string = "..And draw the CMO, a potent force of life...and death."
-	tech_fluff_string = "Boot sequence complete. Medical modules active. Bluespace modules activated. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of mending wounds and travelling via bluespace."
+	melee_damage_lower = 20
+	melee_damage_upper = 20
+	melee_damage_type = TOX
+	armour_penetration = 100
+	playstyle_string = "Будучи <b>Поддержкой</b>, вы можете переключить свои базовые атаки в режим исцеления. Кроме того, нажатие Alt-кнопки на соседнем мобе деформирует его к вашему маяку в блюспейс пространстве с небольшой задержкой."
+	magic_fluff_string = "...и берете карту Главного Врача, мощную силу жизни... и смерти."
+	tech_fluff_string = "Последовательность загрузки завершена. Медицинские модули активированы. Активированы модули блюпространства. Голопаразитный рой активирован."
+	bio_fluff_string = "Ваш рой скарабеев завершает мутацию и оживает, способный залечивать раны и путешествовать через блюспейс."
 	var/turf/simulated/floor/beacon
 	var/beacon_cooldown = 0
 	var/default_beacon_cooldown = 300 SECONDS
@@ -31,6 +33,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend(summoner))
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
@@ -41,22 +44,24 @@
 	..()
 	if(statpanel("Status"))
 		if(beacon_cooldown >= world.time)
-			stat(null, "Bluespace Beacon Cooldown Remaining: [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds")
+			stat(null, "Перезарядка блюспейс маяка: [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()
 	if(toggle == TRUE)
 		if(loc == summoner)
-			to_chat(src, "<span class='danger'>You must be manifested to heal!</span>")
+			to_chat(src, "<span class='danger'>Нужно явить себя для лечения!</span>")
 			return
 		if(iscarbon(target))
 			changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
 				var/mob/living/carbon/human/C = target
-				C.adjustBruteLoss(-5, robotic=1)
-				C.adjustFireLoss(-5, robotic=1)
+				C.adjustBruteLoss(-5, robotic=3)
+				C.adjustFireLoss(-5, robotic=3)
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
+				C.adjustCloneLoss(-5)
+				C.adjustBrainLoss(-5)
 				heal_cooldown = world.time + 20
 				if(C == summoner)
 					med_hud_set_health()
@@ -70,7 +75,7 @@
 			speed = 0
 			melee_damage_lower = 15
 			melee_damage_upper = 15
-			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+			to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
@@ -78,15 +83,15 @@
 			speed = 1
 			melee_damage_lower = 0
 			melee_damage_upper = 0
-			to_chat(src, "<span class='danger'>You switch to healing mode.</span>")
+			to_chat(src, "<span class='danger'>Вы переключились в режим исцеления.</span>")
 			toggle = TRUE
 	else
-		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
+		to_chat(src, "<span class='danger'>Нужно быть в хозяине для переключения режимов!</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
-	set name = "Place Bluespace Beacon"
+	set name = "Установить блюспейс маяк"
 	set category = "Guardian"
-	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work in unfavorable atmospheric conditions."
+	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
 		if(istype(beacon_loc, /turf/simulated/floor))
@@ -95,35 +100,35 @@
 			F.name = "bluespace recieving pad"
 			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
 			F.icon_state = "light_on-w"
-			to_chat(src, "<span class='danger'>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span>")
+			to_chat(src, "<span class='danger'>Маяк установлен! Вы можете телепортировать на него вещи и людей, нажав Alt+Click </span>")
 			if(beacon)
 				beacon.ChangeTurf(/turf/simulated/floor/plating)
 			beacon = F
 			beacon_cooldown = world.time + default_beacon_cooldown
 
 	else
-		to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place another beacon.</span>")
+		to_chat(src, "<span class='danger'>Ваша сила на перезарядке! Нужно дождаться ещё [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд, пока вы сможете переставить маяк.</span>")
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
 	if(loc == summoner)
-		to_chat(src, "<span class='danger'>You must be manifested to warp a target!</span>")
+		to_chat(src, "<span class='danger'>Вы должны явить себя для телепортации вещей!</span>")
 		return
 	if(!beacon)
-		to_chat(src, "<span class='danger'>You need a beacon placed to warp things!</span>")
+		to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
 		return
 	if(!Adjacent(A))
-		to_chat(src, "<span class='danger'>You must be adjacent to your target!</span>")
+		to_chat(src, "<span class='danger'>Вам нужно быть рядом с целью!</span>")
 		return
 	if((A.anchored))
-		to_chat(src, "<span class='danger'>Your target can not be anchored!</span>")
+		to_chat(src, "<span class='danger'>Цель прикреплена к полу. Телепортация невозможна.</span>")
 		return
-	to_chat(src, "<span class='danger'>You begin to warp [A]</span>")
+	to_chat(src, "<span class='danger'>Вы начинаете телепортировать [A]</span>")
 	if(do_mob(src, A, 50))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
-				to_chat(src, "<span class='danger'>You need a beacon to warp things!</span>")
+				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
 				return
 			var/turf/T = beacon
 			if(T.is_safe())
@@ -132,7 +137,85 @@
 				investigate_log("[key_name_log(src)] teleported [key_name_log(A)] to [COORD(beacon)].", INVESTIGATE_TELEPORTATION)
 				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 				return
-			to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
+			to_chat(src, "<span class='danger'>Маячок не в безопасном месте, нужен кислород для хозяина.</span>")
 			return
 	else
-		to_chat(src, "<span class='danger'>You need to hold still!</span>")
+		to_chat(src, "<span class='danger'>Вам нужно стоять смирно!</span>")
+
+/obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend
+	name = "Быстрое исцеление"
+	desc = "Проверяет хозяина на наличие травм. Если таковые есть, лечит случайную из них. Шанс срабатывания 50%."
+	action_icon_state = "heal"
+	action_background_icon_state = "bg_spell"
+	charge_max = 350
+	range = 1
+	clothes_req = FALSE
+	human_req = 0
+	var/chance_to_mend = 50
+	var/cast_time = 50
+	var/list/possible_cures = list("bleedings","fractures","infections","embedded","damaged_organs")
+	var/mob/living/carbon/human/summoner = null
+
+/obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend/New(var/mob/living/carbon/human/summoned_by)
+	. = ..()
+	summoner = summoned_by
+
+/obj/effect/proc_holder/spell/targeted/guardian/healer/quickmend/cast(list/targets, mob/user)
+	. = ..()
+	for(var/target in targets)
+		if(target != summoner)
+			to_chat(user, "Это не ваш хозяин.")
+			return 0
+	to_chat(user, "Проверка ран хозяина..")
+	if(do_after(user, cast_time, target = summoner))
+		if(prob(chance_to_mend))
+			var/list/injures[] = list()
+			injures["bleedings"] = summoner.check_internal_bleedings()
+			injures["fractures"] = summoner.check_fractures()
+			injures["infections"] =  summoner.check_infections()
+			injures["embedded"] = summoner.check_limbs_with_embedded_objects()
+			injures["damaged_organs"] = summoner.check_damaged_organs()
+
+			var/list/available_cures = list()
+			for(var/injure in injures)
+				if((injures[injure]).len > 0)
+					available_cures.Add(injure)
+			if(!available_cures.len)
+				return 0
+			var/random_cure = pick(available_cures)
+			to_chat(user, "Найдена травма. Попытка исцеления..")
+			switch(random_cure)
+				if("bleedings")
+					var/obj/item/organ/external/limb = pick(injures["bleedings"])
+					limb.internal_bleeding = FALSE
+					to_chat(user, "Внутреннее кровотечение остановлено.")
+					return 1
+				if("fractures")
+					var/obj/item/organ/external/limb = pick(injures["fractures"])
+					limb.mend_fracture()
+					to_chat(user, "Перелом зафиксирован.")
+					return 1
+				if("infections")
+					var/obj/item/organ/internal/organ = pick(injures["infections"])
+					organ.germ_level = 0
+					to_chat(user, "Очищено тело хозяина от инфекции.")
+					return 1
+				if("embedded")
+					var/obj/item/organ/external/limb = pick(injures["embedded"])
+					var/turf/T = get_turf(summoner)
+					var/obj/item/item = pick(limb.embedded_objects)
+					limb.embedded_objects -= item
+					item.forceMove(T)
+					to_chat(user, "Удалось вытащить застрявший предмет.")
+					return 1
+				if("damaged_organs")
+					var/obj/item/organ/internal/organ = pick(injures["damaged_organs"])
+					organ.damage = 0
+					to_chat(user, "Восстановлен поврежденный орган.")
+					return 1
+		else
+			to_chat(user, "Не удалось обнаружить травму. Возможно, нужно попробовать снова..")
+			return 1
+	else
+		to_chat(user, "Нужно стоять смирно!")
+		return 0

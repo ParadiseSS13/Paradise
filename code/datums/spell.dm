@@ -533,8 +533,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
 	var/list/targets = list()
 
-	for(var/turf/target in view_or_range(range,user,selection_type))
-		if(!(target in view_or_range(inner_radius,user,selection_type)))
+	for(var/turf/target in view_or_range(range, user ,selection_type))
+		if(!(target in view_or_range(inner_radius, user ,selection_type)))
 			targets += target
 
 	if(!targets.len) //doesn't waste the spell

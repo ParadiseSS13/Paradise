@@ -3,51 +3,51 @@
 	melee_damage_upper = 15
 	damage_transfer = 0.6
 	range = 13
-	playstyle_string = "As an <b>Explosive</b> type, you have only moderate close combat abilities, but are capable of converting any adjacent item into a disguised bomb via alt click."
-	magic_fluff_string = "..And draw the Scientist, master of explosive death."
-	tech_fluff_string = "Boot sequence complete. Explosive modules active. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of stealthily booby trapping items."
+	playstyle_string = "Будучи <b>Подрывником</b> у вас весьма посредственные боевые способности, но вы можете конвертировать любой предмет вокруг себя в скрытую бомбу на Alt+Click. Даже будучи в хозяине. Помните: бомбы живут минуту!"
+	magic_fluff_string = "...и вытаскиваете Ученого, мастера взрывной смерти."
+	tech_fluff_string = "Последовательность загрузки завершена. Взрывные модули активны. Голопаразитный рой активирован."
+	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, способный незаметно заминировать предметы."
 	var/bomb_cooldown = 0
-	var/default_bomb_cooldown = 20 SECONDS
+	var/default_bomb_cooldown = 10 SECONDS
 
 /mob/living/simple_animal/hostile/guardian/bomb/Stat()
 	..()
 	if(statpanel("Status"))
 		if(bomb_cooldown >= world.time)
-			stat(null, "Bomb Cooldown Remaining: [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds")
+			stat(null, "Перезарядка до следующей бомбы: [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] секунд.")
 
 /mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
-	if(get_dist(get_turf(src), get_turf(A)) > 1)
-		to_chat(src, "<span class='danger'>You're too far from [A] to disguise it as a bomb.</span>")
+	if(get_dist(get_turf(src), get_turf(A)) > 3)
+		to_chat(src, "<span class='danger'>Слишком далеко от [A] чтобы скрыть это как бомбу.</span>")
 		return
 	if(istype(A, /obj/) && can_plant(A))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
-			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")
+			to_chat(src, "<span class='danger'>Success! Бомба на [A] взведена!</span>")
 			if(summoner)
-				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
+				to_chat(summoner, "<span class='warning'>Ваш Подрывник взвел [A] для взрыва!</span>")
 			bomb_cooldown = world.time + default_bomb_cooldown
 			B.spawner = src
 			B.disguise (A)
 		else
-			to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place next bomb.</span>")
+			to_chat(src, "<span class='danger'>Ваши силы на перезарядке! Вы должны ждать ещё [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] секунд до установки следующей бомбы.</span>")
 
 /mob/living/simple_animal/hostile/guardian/bomb/proc/can_plant(atom/movable/A)
 	if(istype(A, /obj/mecha))
 		var/obj/mecha/target = A
 		if(target.occupant)
-			to_chat(src, "<span class='warning'>You can't disguise piloted mechs as a bomb!</span>")
+			to_chat(src, "<span class='warning'>Пилотируемые мехи непригодны для минирования!</span>")
 			return FALSE
 	if(istype(A, /obj/spacepod))
 		var/obj/spacepod/target = A
 		if(target.pilot)
-			to_chat(src, "<span class='warning'>You can't disguise piloted pods as a bomb!</span>")
+			to_chat(src, "<span class='warning'>Челноки не пригодны для минирования!</span>")
 			return FALSE
 	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
-		to_chat(src, "<span class='warning'>You can't disguise disposal units as a bomb!</span>")
+		to_chat(src, "<span class='warning'>Бомбы не мусор! Нельзя минировать мусорки!</span>")
 		return FALSE
 	return TRUE
 
@@ -72,7 +72,7 @@
 	add_attack_logs(null, stored_obj, "booby trap expired")
 	stored_obj.forceMove(get_turf(src))
 	if(spawner)
-		to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
+		to_chat(spawner, "<span class='danger'>Провал! Ваша мина на [stored_obj] не смогла никого поймать на сей раз.</span>")
 	qdel(src)
 
 /obj/item/guardian_bomb/proc/detonate(var/mob/living/user)
@@ -80,21 +80,25 @@
 		return
 	if(get_dist(get_turf(src), get_turf(user)) > 1)
 		return
-	to_chat(user, "<span class='danger'>The [src] was boobytrapped!</span>")
+	to_chat(user, "<span class='danger'> Это ловушка! [src] был заминирован!</span>")
+
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			add_attack_logs(user, stored_obj, "booby trap defused")
-			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
+			to_chat(user, "<span class='danger'>Из-за связи с вашим Подрывником вы знали о бомбе и деактивировали её.</span>")
 			stored_obj.forceMove(get_turf(loc))
 			qdel(src)
 			qdel(src)
 			return
 	add_attack_logs(user, stored_obj, "booby trap TRIGGERED (spawner: [spawner])")
-	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
+	to_chat(spawner, "<span class='danger'>Успех! Ваша мина на [src] поймала [user]!</span>")
 	stored_obj.forceMove(get_turf(loc))
+	playsound(get_turf(src),'sound/effects/bomb_activate.ogg', 200, 1)
 	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
-	user.ex_act(2)
+	user.ex_act(3)
+	user.ex_act(3) //Probably should create separate proc for this
+	user.Weaken(3)
 	qdel(src)
 	qdel(src)
 

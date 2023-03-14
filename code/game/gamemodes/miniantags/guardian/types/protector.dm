@@ -3,19 +3,19 @@
 	melee_damage_upper = 15
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
-	playstyle_string = "As a <b>Protector</b> type you cause your summoner to leash to you instead of you leashing to them and have two modes; Combat Mode, where you do and take medium damage, and Protection Mode, where you do and take almost no damage, but move slightly slower."
-	magic_fluff_string = "..And draw the Guardian, a stalwart protector that never leaves the side of its charge."
-	tech_fluff_string = "Boot sequence complete. Protector modules loaded. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to defend you."
+	playstyle_string = "Как <b>Защитник</b>, вы заставляете своего призывателя привязываться к вам, вместо того чтобы вы привязывались к нему, и имеете два режима: боевой режим, в котором вы наносите средний урон и получаете очень малый, и режим защиты, в котором вы почти не наносите и не получаете урона, даже от взрывов, но двигаетесь немного медленнее"
+	magic_fluff_string = "..и берете Стража - непоколебимого защитника, который никогда не покидает сторону своего подопечного."
+	tech_fluff_string = "Последовательность загрузки завершена. Загружены модули защиты. Голопаразитный рой в сети."
+	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый защищать вас."
 	var/toggle = FALSE
 
 /mob/living/simple_animal/hostile/guardian/protector/ex_act(severity)
 	if(severity == 1)
-		adjustBruteLoss(400) //if in protector mode, will do 20 damage and not actually necessarily kill the summoner
+		adjustBruteLoss(400) //технически, в режиме защиты вам плевать даже на гиб. Ваш хозяин получит всего 20 урона.
 	else
 		..()
 	if(toggle)
-		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>")
+		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>") //FLEX
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()
 	if(cooldown > world.time)
@@ -28,7 +28,7 @@
 		obj_damage = initial(obj_damage)
 		speed = initial(speed)
 		damage_transfer = 0.4
-		to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+		to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
 		toggle = FALSE
 	else
 		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
@@ -39,7 +39,7 @@
 		obj_damage = 6 //40/7.5 rounded up, we don't want a protector guardian 2 shotting blob tiles while taking 5% damage, thats just silly.
 		speed = 1
 		damage_transfer = 0.05 //damage? what's damage?
-		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
+		to_chat(src, "<span class='danger'>Вы переключились в режим защиты.</span>")
 		toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/protector/snapback() //snap to what? snap to the guardian!
@@ -49,12 +49,29 @@
 			return
 		else
 			if(istype(summoner.loc, /obj/effect))
-				to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
+				to_chat(src, "<span class='holoparasite'>Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от [summoner.real_name]!</span>")
 				visible_message("<span class='danger'>[src] jumps back to its user.</span>")
 				Recall(TRUE)
 			else
-				to_chat(summoner, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from <b>[src]</b>!</span>")
+				to_chat(summoner, "<span class='holoparasite'>Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от <b>[src]</b>!</span>")
 				summoner.visible_message("<span class='danger'>[summoner] jumps back to [summoner.p_their()] protector.</span>")
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector
+
+/mob/living/simple_animal/hostile/guardian/protector/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
+	var/damage = amount * damage_transfer
+	if(prob(85)) //15% chance of block
+		if(summoner)
+			if(loc == summoner)
+				return
+			summoner.adjustBruteLoss(damage)
+			if(damage)
+				to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
+				summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
+			if(summoner.stat == UNCONSCIOUS && prob(85))
+				to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
+				summoner.adjustCloneLoss(damage/2)
+	else
+		to_chat(summoner, "<span class='danger'>Your [name] is under attack, absorbing damage!</span>")
+		visible_message("<span class='danger'>[src] absorb damage!</span>")
