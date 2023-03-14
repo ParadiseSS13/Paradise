@@ -4,6 +4,7 @@
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/chokehold_active = FALSE //Then uses this to determine if the restrain actually goes anywhere
+	var/datum/action/defensive_stance/defensive = new/datum/action/defensive_stance()
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/bar))
 
@@ -15,6 +16,31 @@
 	if(!(is_type_in_typecache(A, areas_under_siege)))
 		return FALSE
 	return ..()
+
+/datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
+	. = ..()
+	defensive.Grant(H)
+
+/datum/martial_art/cqc/remove(mob/living/carbon/human/H)
+	. = ..()
+	defensive.Remove(H)
+
+/datum/action/defensive_stance
+	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
+	button_icon_state = "defensive"
+
+/datum/action/defensive_stance/Trigger()
+	var/mob/living/carbon/human/H = owner
+	if(H.incapacitated())
+		to_chat(H, "<span class='warning'>You can't defend yourself while you're incapacitated.</span>")
+		return
+	var/obj/item/slapper/cqc/slap = new(H)
+	if(H.put_in_hands(slap))
+		to_chat(H, "<b><i>You drop back into a defensive stance.</i></b>")
+		H.visible_message("<span class='danger'>[H] assumes a defensive stance!</span>")
+	else
+		qdel(slap)
+		to_chat(H, "<span class='warning'>Your hands are full.</span>")
 
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
