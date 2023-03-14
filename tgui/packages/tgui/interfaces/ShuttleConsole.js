@@ -127,10 +127,13 @@ export const ShuttleConsoleContent = (props, context) => {
                   getLocationNameById(locations, destination)
                   || 'Select a Destination'
                 }
-                onSelected={value =>
+                onSelected={value => {
+                  alert(JSON.stringify(locations, null, 4));
+                  alert('destination' + destination);
                   act('set_destination', {
                     destination: getLocationIdByName(locations, value),
-                  })}
+                  });
+                }}
               />
             )}
           </LabeledList.Item>

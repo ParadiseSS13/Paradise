@@ -830,11 +830,13 @@
 			if(!mobile_docking_port.check_dock(S))
 				continue
 			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
-		if(length(data["locations"]) == 1)
+		if(length(data["locations"]) > 1)
+			data["destination"] = destination
+		else if(length(data["locations"]) == 1)
 			for(var/location in data["locations"])
 				destination = location["id"]
 				data["destination"] = destination
-		if(!length(data["locations"]))
+		else if(!length(data["locations"]))
 			data["locked"] = TRUE
 			data["status"] = "Locked"
 		data["docking_ports_len"] = docking_ports.len
@@ -871,6 +873,11 @@
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+	else if(action == "set_destination")
+		var/target_destination = params["destination"]
+		if(target_destination)
+			destination = target_destination
+			return TRUE
 
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
