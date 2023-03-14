@@ -114,6 +114,7 @@
 			if(O.density)
 				return
 	var/dist = get_dist(src,the_target)
+	changeNext_move(CLICK_CD_MELEE)
 	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/vine)
 	the_target.attack_animal(src)
 

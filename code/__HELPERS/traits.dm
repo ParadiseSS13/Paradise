@@ -208,6 +208,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CMAGGED "cmagged"
 /// Wires on this will have their titles randomized for those with SHOW_WIRES
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
+/// Forces open doors after a delay specific to the item
+#define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
 
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL			"surgical_tool"

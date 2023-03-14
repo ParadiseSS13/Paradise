@@ -95,7 +95,13 @@
 	var/obj/item/organ/internal/brain/B = victim.get_int_organ_tag("brain")
 	if(H)
 		victim.visible_message("<span class='danger'>[H] gets crushed under [machine], and explodes in a shower of gore!</span>", "<span class='userdanger'>Oh f-</span>")
-		new /obj/effect/gibspawner/human(get_turf(victim))
+		var/gibspawner = /obj/effect/gibspawner/human
+		if(ismachineperson(victim))
+			gibspawner = /obj/effect/gibspawner/robot
+		else if(isalien(victim))
+			gibspawner = /obj/effect/gibspawner/xeno
+
+		new gibspawner(get_turf(victim))
 		H.drop_organs()
 		H.droplimb(TRUE)
 		H.disfigure()
@@ -112,8 +118,8 @@
 
 /datum/vendor_crit/lucky/tip_crit_effect(obj/machinery/economy/vending/machine, mob/living/carbon/victim)
 	victim.visible_message(
-		"<span class='danger'>[src] crashes around [victim], but doesn't seem to crush them!</span>",
-		"<span class='userdanger'>[src] crashes around you, but only around you! You're fine!</span>"
+		"<span class='danger'>[machine] crashes around [victim], but doesn't seem to crush them!</span>",
+		"<span class='userdanger'>[machine] crashes around you, but only around you! You're fine!</span>"
 	)
 
 	return 1000
