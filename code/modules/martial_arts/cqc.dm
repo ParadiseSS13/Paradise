@@ -4,7 +4,6 @@
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/chokehold_active = FALSE //Then uses this to determine if the restrain actually goes anywhere
-	var/datum/action/defensive_stance/defensive = new/datum/action/defensive_stance()
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/bar))
 
@@ -19,11 +18,13 @@
 
 /datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
 	. = ..()
+	var/datum/action/defensive_stance/defensive = new/datum/action/defensive_stance()
 	defensive.Grant(H)
 
 /datum/martial_art/cqc/remove(mob/living/carbon/human/H)
 	. = ..()
-	defensive.Remove(H)
+	for(var/datum/action/defensive_stance/defensive in H.actions)
+		defensive.Remove(H)
 
 /datum/action/defensive_stance
 	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
