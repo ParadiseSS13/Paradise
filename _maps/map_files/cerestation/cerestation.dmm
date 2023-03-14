@@ -11654,6 +11654,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"bjE" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/brig)
 "bjG" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "cmo"
@@ -14407,7 +14413,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/hallway/primary/central)
+/area/maintenance/maintcentral)
 "btP" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -31406,14 +31412,6 @@
 	icon_state = "dark"
 	},
 /area/security/prison/cell_block/A)
-"cNJ" = (
-/obj/effect/landmark/start/mime,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
-/area/crew_quarters/theatre)
 "cNK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -36544,6 +36542,7 @@
 /turf/simulated/wall,
 /area/hallway/spacebridge/cargocom)
 "dnB" = (
+/obj/item/crowbar/red,
 /obj/effect/spawner/grouped_spawner{
 	group_id = "tunnelbats";
 	max_per_spawner = 1;
@@ -42128,6 +42127,14 @@
 	dir = 8
 	},
 /area/hallway/primary/fore/west)
+"ewX" = (
+/obj/machinery/computer/secure_data{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/brig)
 "exv" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -42880,6 +42887,14 @@
 /obj/item/tracker_electronics,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar/aft)
+"eLY" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/brig)
 "eMm" = (
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 8
@@ -48087,6 +48102,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/janitor)
+"gMM" = (
+/obj/structure/table,
+/obj/item/clipboard,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/brig)
 "gMV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -49539,7 +49561,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "hok" = (
-/obj/effect/landmark/start/clown,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -60893,14 +60914,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/starboard)
-"lBB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/brig)
 "lBJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -84349,13 +84362,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"uLa" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Central Asteroid Maintenance";
-	req_access_txt = "12"
-	},
-/turf/simulated/floor/plating,
-/area/hallway/primary/central)
 "uLy" = (
 /obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/mineral/ancient,
@@ -84530,6 +84536,19 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
+"uPr" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/paper_bin{
+	pixel_x = -3
+	},
+/obj/item/pen,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/brig)
 "uPL" = (
 /obj/structure/closet/secure_closet/security,
 /turf/simulated/floor/plasteel{
@@ -86824,6 +86843,15 @@
 	icon_state = "dark"
 	},
 /area/quartermaster/office)
+"vLZ" = (
+/obj/machinery/computer/security{
+	dir = 1;
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/brig)
 "vMc" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -106216,7 +106244,7 @@ cUx
 bfA
 cMT
 cNh
-cNJ
+cNh
 hok
 qsR
 cMT
@@ -109357,7 +109385,7 @@ wjD
 laI
 yes
 yes
-mic
+yes
 bhO
 bhO
 cdb
@@ -110279,7 +110307,7 @@ mng
 mng
 mng
 mng
-lBB
+blg
 dpu
 oam
 dpu
@@ -110533,10 +110561,10 @@ mng
 mng
 dpu
 dpu
-dpu
-dpu
 mng
-blg
+uPr
+mng
+mng
 aHL
 oam
 uii
@@ -110789,10 +110817,10 @@ dpu
 mng
 mng
 mng
-mng
-mng
 dpu
 mng
+dpu
+gMM
 mng
 mng
 oam
@@ -111046,11 +111074,11 @@ dpu
 mng
 mng
 mng
-mng
-mng
 dpu
 dpu
-mng
+dpu
+bjE
+vLZ
 mng
 bzZ
 awr
@@ -111303,11 +111331,11 @@ vQv
 mng
 mng
 mng
-mng
-mng
 dpu
 mng
-mng
+eLY
+dpu
+ewX
 mng
 dpu
 dpu
@@ -111559,10 +111587,10 @@ auG
 uii
 mng
 mng
-mng
-mng
 dpu
 dpu
+mng
+mng
 mng
 mng
 mng
@@ -132185,7 +132213,7 @@ aYJ
 uKX
 bgf
 cWM
-uLa
+kBa
 bvj
 mkk
 uMu
