@@ -124,7 +124,7 @@
 		if("Body")
 			if(organ_warn)
 				to_chat(user, "<span class='boldwarning'>Using the mirror will destroy any non biochip implants in you!</span>")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Slime People", "Grey", "Drask", "Kidan")
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask")
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
