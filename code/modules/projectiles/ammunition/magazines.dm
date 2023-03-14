@@ -260,7 +260,9 @@
 	multi_sprite_step = 4
 	multiload = 0
 	w_class = WEIGHT_CLASS_NORMAL
-	var/being_loaded = FALSE //A var to check if the mag is already being loaded
+	///A var to check if the mag is being loaded
+	var/being_loaded = FALSE
+	/// There are two reloading processes ongoing so cancel them
 	var/double_loaded = FALSE
 
 /obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)

@@ -284,6 +284,27 @@
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
+	can_hold = list(
+		/obj/item/grenade/flashbang,
+		/obj/item/grenade/chem_grenade/teargas,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flash,
+		/obj/item/clothing/glasses,
+		/obj/item/ammo_casing/shotgun,
+		/obj/item/ammo_box,
+		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/kitchen/knife/combat,
+		/obj/item/melee/baton,
+		/obj/item/melee/classic_baton,
+		/obj/item/flashlight/seclite,
+		/obj/item/holosign_creator/security,
+		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/restraints/legcuffs/bola,
+		/obj/item/clothing/mask/gas/sechailer,
+		/obj/item/detective_scanner
+		/obj/item/ammo_box/magazine/wt550m9
+		)
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
