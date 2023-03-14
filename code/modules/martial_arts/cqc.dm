@@ -37,8 +37,7 @@
 		return
 	var/obj/item/slapper/cqc/slap = new(H)
 	if(H.put_in_hands(slap))
-		to_chat(H, "<b><i>You drop back into a defensive stance.</i></b>")
-		H.visible_message("<span class='danger'>[H] assumes a defensive stance!</span>")
+		H.visible_message("<span class='danger'>[H] assumes a defensive stance!</span>", "<b><i>You drop back into a defensive stance.</i></b>")
 	else
 		qdel(slap)
 		to_chat(H, "<span class='warning'>Your hands are full.</span>")
