@@ -90,14 +90,13 @@
 	if(turned_on && slot == slot_s_store)
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
-	return ..()
+	return ..(user, slot, disable_warning == TRUE) // call parent but disable warning
 
 /obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
 	if(turned_on)
 		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's active!</span>")
 		return FALSE
-	else
-		return TRUE
+	return TRUE
 
 /**
   * Removes the specified amount of charge from the batons power cell.
