@@ -202,7 +202,15 @@
 			top_layer.layer = 4.1
 			icon_state = "cannon_east"
 	overlays += top_layer
-	reload()
+
+/obj/machinery/bsa/full/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/bsa/full/LateInitialize(mapload)
+	. = ..()
+	reload() // so we don't try and use the powernet before it initializes
+
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
 	var/turf/point = get_front_turf()
@@ -231,6 +239,7 @@
 
 /obj/item/circuitboard/machine/bsa/back
 	board_name = "Bluespace Artillery Generator"
+	icon_state = "command"
 	build_path = /obj/machinery/bsa/back
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -239,6 +248,7 @@
 
 /obj/item/circuitboard/machine/bsa/middle
 	board_name = "Bluespace Artillery Fusor"
+	icon_state = "command"
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -247,6 +257,7 @@
 
 /obj/item/circuitboard/machine/bsa/front
 	board_name = "Bluespace Artillery Bore"
+	icon_state = "command"
 	build_path = /obj/machinery/bsa/front
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -255,6 +266,7 @@
 
 /obj/item/circuitboard/computer/bsa_control
 	board_name = "Bluespace Artillery Controls"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/bsa_control
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 
@@ -263,7 +275,7 @@
 	var/obj/machinery/bsa/full/cannon
 	var/notice
 	var/target
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"

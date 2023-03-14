@@ -72,7 +72,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/radiochannel = ""
 
 /obj/machinery/requests_console/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else

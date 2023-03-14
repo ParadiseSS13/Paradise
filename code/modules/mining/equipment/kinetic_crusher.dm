@@ -28,6 +28,10 @@
 	var/brightness_on = 5
 	var/adaptive_damage_bonus = 0
 
+/obj/item/twohanded/kinetic_crusher/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (7 / 3) SECONDS ) // 2.3333 seconds of cooldown for 30% uptime
+
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST_CONTENTS(trophies)
 	return ..()
@@ -251,6 +255,12 @@
 	H.trophies -= src
 	return TRUE
 
+/obj/item/crusher_trophy/Destroy()
+	if(istype(loc, /obj/item/twohanded/kinetic_crusher))
+		var/obj/item/twohanded/kinetic_crusher/crusher = loc
+		crusher.trophies -= src
+	return ..()
+
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
 
 /obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
@@ -361,7 +371,7 @@
 	denied_type = /obj/item/crusher_trophy/miner_eye
 
 /obj/item/crusher_trophy/miner_eye/effect_desc()
-	return "mark detonation to grant stun immunity and <b>90%</b> damage reduction for <b>1</b> second"
+	return "mark detonation to grant stun immunity and <b>75%</b> damage reduction for <b>1</b> second"
 
 /obj/item/crusher_trophy/miner_eye/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_BLOODDRUNK)

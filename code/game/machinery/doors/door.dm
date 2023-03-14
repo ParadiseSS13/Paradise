@@ -7,7 +7,7 @@
 	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	max_integrity = 350
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
@@ -73,7 +73,8 @@
 	update_dir()
 
 /obj/machinery/door/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/door/proc/update_dir()
@@ -255,12 +256,12 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
 
-	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
+	if(user.a_intent != INTENT_HARM && HAS_TRAIT(I, TRAIT_FORCES_OPEN_DOORS_ITEM))
 		try_to_crowbar(user, I)
-		return 1
+		return TRUE
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
-		return 1
+		return TRUE
 	return ..()
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)

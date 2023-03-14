@@ -152,6 +152,10 @@
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
 
+/obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
 /obj/item/clothing/gloves/color/black/krav_maga/combat // for nukies
 	name = "combat gloves plus"
 	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."

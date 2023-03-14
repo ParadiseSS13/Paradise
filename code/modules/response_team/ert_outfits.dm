@@ -228,6 +228,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface)
 
 	l_pocket = /obj/item/gun/energy/gun/mini
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -249,7 +250,8 @@
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(
 	/obj/item/organ/internal/eyes/cybernetic/shield,
-	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
+	/obj/item/organ/internal/cyberimp/brain/wire_interface
 	)
 	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -286,7 +288,8 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/eyes/cybernetic/shield,
-		/obj/item/organ/internal/cyberimp/arm/toolset
+		/obj/item/organ/internal/cyberimp/arm/toolset,
+		/obj/item/organ/internal/cyberimp/brain/wire_interface
 	)
 
 	implants = list(/obj/item/implant/mindshield,
@@ -308,6 +311,7 @@
 /datum/outfit/job/centcom/response_team/medic/amber
 	name = "RT Medic (Amber)"
 
+	head = /obj/item/clothing/head/helmet/ert/medical
 	shoes = /obj/item/clothing/shoes/white
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
 	suit_store = /obj/item/gun/energy/gun/mini
@@ -321,21 +325,19 @@
 	l_hand = /obj/item/defibrillator/loaded
 
 	backpack_contents = list(
-		/obj/item/clothing/head/helmet/ert/medical = 1,
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/storage/firstaid/adv = 1,
-		/obj/item/storage/firstaid/doctor = 1,
+		/obj/item/storage/firstaid/ert_amber = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
-		/obj/item/storage/pill_bottle/ert = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/handheld_defibrillator = 1
+		/obj/item/handheld_defibrillator = 1,
+		/obj/item/soap/nanotrasen = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/red
 	name = "RT Medic (Red)"
 	rt_mob_job = "ERT Medical"
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit_store = /obj/item/gun/energy/gun
@@ -350,15 +352,12 @@
 
 	backpack_contents = list(
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/storage/firstaid/toxin = 1,
-		/obj/item/storage/firstaid/doctor = 1,
-		/obj/item/storage/firstaid/adv = 1,
+		/obj/item/storage/firstaid/ert = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
-		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/handheld_defibrillator = 1,
-		/obj/item/storage/pill_bottle/painkillers = 1
+		/obj/item/soap/nanotrasen = 1
 	)
 
 	cybernetic_implants = list(
@@ -385,13 +384,10 @@
 
 	backpack_contents = list(
 		/obj/item/bodyanalyzer/advanced = 1,
-		/obj/item/storage/firstaid/toxin = 1,
-		/obj/item/storage/firstaid/doctor = 1,
-		/obj/item/storage/firstaid/adv = 1,
+		/obj/item/storage/firstaid/ert = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/handheld_defibrillator = 1,
-		/obj/item/storage/pill_bottle/painkillers = 1
 		)
 
 	cybernetic_implants = list(
@@ -491,8 +487,9 @@
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/reagent_containers/spray/cleaner/advanced = 1,
 		/obj/item/storage/bag/trash = 1,
+		/obj/item/twohanded/push_broom,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1)
 
@@ -533,7 +530,7 @@
 		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
-		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/reagent_containers/spray/cleaner/advanced = 1,
 		/obj/item/melee/flyswatter = 1
 	)
 

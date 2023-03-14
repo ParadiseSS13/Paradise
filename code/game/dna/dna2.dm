@@ -53,6 +53,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/datum/dna/new_dna = new()
 	new_dna.unique_enzymes = unique_enzymes
 	new_dna.struc_enzymes_original = struc_enzymes_original // will make clone's SE the same as the original, do we want this?
+	new_dna.default_blocks = default_blocks
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
@@ -445,7 +446,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 
 	// We manually set the species to ensure all proper species change procs are called.
-	destination.set_species(species.type, retain_damage = TRUE)
+	destination.set_species(species.type, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 	var/datum/dna/new_dna = Clone()
 	new_dna.species = destination.dna.species
 	destination.dna = new_dna

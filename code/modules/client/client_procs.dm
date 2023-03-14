@@ -172,8 +172,30 @@
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
+			return
+
+		if("silenceSound")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			return
+
+		if("muteAdmin")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			prefs.admin_sound_ckey_ignore |= href_list["a"]
+			to_chat(usr, "You will no longer hear admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
+			prefs.save_preferences(src)
+			return
+
+	//fun fact: Topic() acts like a verb and is executed at the end of the tick like other verbs. So we have to queue it if the server is
+	//overloaded
+	if(hsrc && hsrc != holder && DEFAULT_TRY_QUEUE_VERB(VERB_CALLBACK(src, PROC_REF(_Topic), hsrc, href, href_list)))
+		return
 
 	..()	//redirect to hsrc.Topic()
+
+///dumb workaround because byond doesnt seem to recognize the Topic() typepath for /datum/proc/Topic() from the client Topic,
+///so we cant queue it without this
+/client/proc/_Topic(datum/hsrc, href, list/href_list)
+	return hsrc.Topic(href, href_list)
 
 
 /client/proc/get_display_key()

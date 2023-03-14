@@ -87,6 +87,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1018" = 100, // CHANNEL_AMBIENCE
 		"1017" = 100, // CHANNEL_ENGINE
 		"1016" = 100, // CHANNEL_FIREALARM
+		"1015" = 100, // CHANNEL_ASH_STORM
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -125,6 +126,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/keybindings_overrides = null
 	/// Player's region override for routing optimisation
 	var/server_region = null
+	/// List of admin ckeys this player wont hear sounds from
+	var/list/admin_sound_ckey_ignore = list()
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C
@@ -504,7 +507,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<a href='?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
 			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
-			dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overriden by other categories.</b></div></td></tr>"
+			dat += "<tr><td colspan=4><div align='center'><b>Please note, some keybinds are overridden by other categories.</b></div></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Ensure you bind all of them, or the specific one you want.</b></div></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Users of legacy mode can only rebind and use the following keys:</b></div></td></tr>"
