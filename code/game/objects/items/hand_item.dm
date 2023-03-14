@@ -48,7 +48,7 @@
 /obj/item/slapper/cqc
 	desc = "This is how real men win fights."
 	force = 5
-	attack_verb = list("slapped", "backhanded", "smacked")
+	attack_verb = list("slapped", "backhanded", "smacked", "discombobulated")
 	table_smacks_left = 10 //Much more smackitude
 
 /obj/item/slapper/cqc/proc/add_parry_component()
