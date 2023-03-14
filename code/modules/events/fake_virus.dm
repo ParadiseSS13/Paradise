@@ -11,6 +11,7 @@
 		for(var/i in 1 to rand(1, defacto_min))
 			var/mob/living/carbon/human/hypochondriac = pick(fake_virus_victims)
 			hypochondriac.apply_status_effect(STATUS_EFFECT_FAKE_VIRUS)
+			hypochondriac.create_log(MISC_LOG, "[hypochondriac] has contracted a fake virus.")
 			fake_virus_victims -= hypochondriac
 			notify_ghosts("[hypochondriac] Now has a fake virus!")
 	//then we do light one-message victims who simply cough or whatever once (have to repeat the process since the last operation modified our candidates list)
