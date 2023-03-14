@@ -35933,10 +35933,6 @@
 /area/hallway/primary/fore)
 "dkt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/structure/sign/directions/cargo{
 	dir = 1;
 	pixel_x = -32;
@@ -43158,30 +43154,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/hallway/primary/fore)
-"eSc" = (
-/obj/structure/sign/directions/engineering{
-	pixel_x = -32;
-	pixel_y = -24
-	},
-/obj/structure/sign/directions/security{
-	dir = 8;
-	pixel_y = 26
-	},
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	pixel_x = -32;
-	pixel_y = -40
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "eSe" = (
 /obj/structure/disposalpipe/trunk{
@@ -71702,6 +71674,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/sign/directions/engineering{
+	dir = 1;
+	pixel_x = 32;
+	pixel_y = 40
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -77162,6 +77139,27 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"rSo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 40
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purplecorner"
+	},
+/area/hallway/primary/aft/east)
 "rSN" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -82965,6 +82963,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/structure/sign/directions/security{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/south)
 "ueb" = (
@@ -85111,6 +85114,28 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
+"uXS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/sign/directions/engineering{
+	pixel_x = -32;
+	pixel_y = -24
+	},
+/obj/structure/sign/directions/security{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = -32
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_x = -32;
+	pixel_y = -40
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/fore)
 "uXU" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -122366,7 +122391,7 @@ fPc
 lyI
 lyI
 hwx
-sej
+rSo
 ciG
 tuF
 izC
@@ -127659,10 +127684,10 @@ djg
 dmp
 dwe
 oKy
-xru
-iJY
-gQN
+uXS
 wgh
+gQN
+iJY
 iIv
 jBP
 wgh
@@ -129458,7 +129483,7 @@ abW
 aKp
 dwg
 dTC
-eSc
+eTQ
 aKp
 npV
 npV
