@@ -129,6 +129,7 @@
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/overload)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotehijack)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
+	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
 
 /mob/living/simple_animal/pulse_demon/Stat()
 	. = ..()

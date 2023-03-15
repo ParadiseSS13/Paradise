@@ -1,6 +1,14 @@
 #define KW *1000
 #define PULSEDEMON_REMOTE_DRAIN_MULTIPLIER 5
 
+#define PD_UPGRADE_HIJACK_SPEED "Speed"
+#define PD_UPGRADE_DRAIN_SPEED  "Absorption"
+#define PD_UPGRADE_HEALTH_LOSS  "Endurance"
+#define PD_UPGRADE_HEALTH_REGEN "Recovery"
+#define PD_UPGRADE_MAX_HEALTH   "Strength"
+#define PD_UPGRADE_HEALTH_COST  "Efficiency"
+#define PD_UPGRADE_MAX_CHARGE   "Capacity"
+
 /obj/effect/proc_holder/spell/pulse_demon
 	panel = "Pulse Demon"
 	school = "pulse demon"
@@ -306,11 +314,18 @@
 		return
 	if(get_area(user.loc) != user.controlling_area)
 		return
+	user.current_bot = null
+	user.current_robot = null
+	user.current_weapon = null
 	user.forceMove(user.current_power)
 
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
 	if(length(user.controlling_area.cameras) < 1)
-		return
+		return FALSE
+
+	user.current_bot = null
+	user.current_robot = null
+	user.current_weapon = null
 
 	if(istype(user.loc, /obj/machinery/power/apc))
 		current_camera = 0
@@ -318,10 +333,141 @@
 		current_camera = (current_camera + 1) % length(user.controlling_area.cameras)
 		if(current_camera == 0)
 			user.forceMove(user.current_power)
-			return
+			return TRUE
 
 	if(length(user.controlling_area.cameras) < current_camera)
 		current_camera = 0
+
 	user.forceMove(locateUID(user.controlling_area.cameras[current_camera + 1]))
+	return TRUE
+
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades
+	name = "Open Upgrade Menu"
+	desc = "Open the upgrades menu. Alt-click for descriptions and costs."
+	action_icon_state = "pd_upgrade"
+	create_attack_logs = FALSE
+	locked = FALSE
+	cast_cost = 0
+	level_max = 0
+	base_cooldown = 0
+	var/static/list/upgrade_icons = list(
+		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/power.dmi', icon_state = "apcemag"),
+		PD_UPGRADE_DRAIN_SPEED  = image(icon = 'icons/obj/power.dmi', icon_state = "ccharger1"),
+		PD_UPGRADE_MAX_HEALTH   = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "bluespace_matter_bin"),
+		PD_UPGRADE_HEALTH_REGEN = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "femto_mani"),
+		PD_UPGRADE_HEALTH_LOSS  = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "triphasic_scan_module"),
+		PD_UPGRADE_HEALTH_COST  = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "quadultra_micro_laser"),
+		PD_UPGRADE_MAX_CHARGE   = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "quadratic_capacitor"),
+	)
+	var/static/list/upgrade_descs = list(
+		PD_UPGRADE_HIJACK_SPEED = "Decrease the amount of time required to hijack an APC.",
+		PD_UPGRADE_DRAIN_SPEED  = "Increase the amount of charge drained from a power source per cycle.",
+		PD_UPGRADE_MAX_HEALTH   = "Increase the total amount of health you can have at once.",
+		PD_UPGRADE_HEALTH_REGEN = "Increase the amount of health regenerated when powered per cycle.",
+		PD_UPGRADE_HEALTH_LOSS  = "Decrease the amount of health lost when unpowered per cycle.",
+		PD_UPGRADE_HEALTH_COST  = "Decrease the amount of power required to regenerate per cycle.",
+		PD_UPGRADE_MAX_CHARGE   = "Increase the total amount of charge you can have at once.",
+	)
+
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/Initialize(mapload)
+	. = ..()
+
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/proc/calc_cost(mob/living/simple_animal/pulse_demon/user, upgrade)
+	var/cost
+	switch(upgrade)
+		if(PD_UPGRADE_HIJACK_SPEED)
+			if(user.hijack_time <= 1 SECONDS)
+				return -1
+			cost = (100 / (user.hijack_time / (1 SECONDS))) * 10 KW
+		if(PD_UPGRADE_DRAIN_SPEED)
+			if(user.power_drain_rate >= 600 KW)
+				return -1
+			cost = user.power_drain_rate * 10
+		if(PD_UPGRADE_MAX_HEALTH)
+			if(user.maxHealth >= 200)
+				return -1
+			cost = user.maxHealth * 1 KW
+		if(PD_UPGRADE_HEALTH_REGEN)
+			if(user.health_regen_rate >= 200)
+				return -1
+			cost = user.health_regen_rate * 10 KW
+		if(PD_UPGRADE_HEALTH_LOSS)
+			if(user.health_loss_rate <= 1)
+				return -1
+			cost = (100 / user.health_loss_rate) * 10 KW
+		if(PD_UPGRADE_HEALTH_COST)
+			if(user.power_per_regen <= 1)
+				return -1
+			cost = (100 / user.power_per_regen) * 10 KW
+		if(PD_UPGRADE_MAX_CHARGE)
+			cost = user.maxcharge
+		else
+			return -1
+	return round(cost)
+
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/proc/get_upgrades(mob/living/simple_animal/pulse_demon/user)
+	var/upgrades = list()
+	for(var/upgrade in upgrade_icons)
+		var/cost = calc_cost(user, upgrade)
+		if(cost == -1)
+			continue
+		upgrades["[upgrade] ([format_si_suffix(cost)]W)"] = upgrade_icons[upgrade]
+	return upgrades
+
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/AltClick()
+	var/mob/living/simple_animal/pulse_demon/user = usr
+	if(!istype(user))
+		return
+
+	to_chat(user, "<b>Pulse Demon upgrades:</b>")
+	for(var/upgrade in upgrade_descs)
+		var/cost = calc_cost(user, upgrade)
+		to_chat(user, "<b>[upgrade]</b> ([cost == -1 ? "Fully Upgraded" : "[format_si_suffix(cost)]W"]) - [upgrade_descs[upgrade]]")
+
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+	var/upgrades = get_upgrades(user)
+	if(!length(upgrades))
+		to_chat(user, "<span class='warning'>You have already fully upgraded everything available!</span>")
+		return FALSE
+
+	var/raw_choice = show_radial_menu(user, user, upgrades, radius = 48)
+	var/choice = splittext(raw_choice, " ")[1]
+
+	var/cost = calc_cost(user, choice)
+	if(cost == -1)
+		return FALSE
+	if(user.charge < cost)
+		to_chat(user, "<span class='warning'>You do not have enough charge to purchase this upgrade!</span>")
+		return FALSE
+
+	user.adjustCharge(-cost)
+	switch(choice)
+		if(PD_UPGRADE_HIJACK_SPEED)
+			user.hijack_time = max(round(user.hijack_time / 1.5), 1 SECONDS)
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [user.hijack_time / 10] seconds to hijack APCs.</span>")
+		if(PD_UPGRADE_DRAIN_SPEED)
+			user.power_drain_rate = min(round(user.power_drain_rate * 1.5), 600 KW)
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now drain [format_si_suffix(user.power_drain_rate)]W per cycle.</span>")
+		if(PD_UPGRADE_MAX_HEALTH)
+			user.maxHealth = min(round(user.maxHealth * 1.5), 200)
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], your max health is now [user.maxHealth].</span>")
+		if(PD_UPGRADE_HEALTH_REGEN)
+			user.health_regen_rate = min(round(user.health_regen_rate * 1.5), 200)
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now regenerate [user.health_regen_rate] health per cycle when powered.</span>")
+		if(PD_UPGRADE_HEALTH_LOSS)
+			user.health_loss_rate = max(round(user.health_loss_rate / 1.5), 1)
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], you will now lose [user.health_loss_rate] health per cycle when unpowered.</span>")
+		if(PD_UPGRADE_HEALTH_COST)
+			user.power_per_regen = max(round(user.power_per_regen / 1.5), 1)
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [format_si_suffix(user.power_per_regen)]W of power to regenerate health.</span>")
+		if(PD_UPGRADE_MAX_CHARGE)
+			user.maxcharge = round(user.maxcharge * 2)
+			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now store [format_si_suffix(user.maxcharge)]W of charge.</span>")
+		else
+			return FALSE
+	return TRUE
 
 #undef KW
