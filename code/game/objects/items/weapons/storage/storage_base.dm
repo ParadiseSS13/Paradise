@@ -381,7 +381,7 @@
 	if(length(cant_hold) && isstorage(I)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
 		var/obj/item/storage/S = I
 		for(var/obj/A in S.return_inv())
-			if(!is_type_in_typecache(I, cant_hold_override) && is_type_in_typecache(A, cant_hold)
+			if(!is_type_in_typecache(I, cant_hold_override) && is_type_in_typecache(A, cant_hold))
 				if(!stop_messages)
 					to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
 				return FALSE
