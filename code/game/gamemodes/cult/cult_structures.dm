@@ -1,3 +1,4 @@
+/// The amount of time necessary for a structure to be able to produce items after being built
 #define CULT_STRUCTURE_COOLDOWN 60 SECONDS
 
 /obj/structure/cult
