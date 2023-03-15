@@ -122,8 +122,8 @@
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, 1, -1)
 	sleep(20)
 
-	src.add_fingerprint(user)
-	src.desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
+	add_fingerprint(user)
+	desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
 
 	for(var/obj/item/W in user)
 		user.unEquip(W)
