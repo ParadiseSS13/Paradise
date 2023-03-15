@@ -34,7 +34,7 @@
 	var/turf/T = get_turf(cam)
 
 	// Falls outside of the chunk view distance
-	if(T.x + CAMERA_VIEW_DISTANCE < x || T.x - CAMERA_VIEW_DISTANCE >= x + CAMERA_CHUNK_SIZE || T.y + CAMERA_VIEW_DISTANCE < y || T.y - CAMERA_VIEW_DISTANCE >= y + CAMERA_CHUNK_SIZE)
+	if(T.x + CAMERA_VIEW_DISTANCE < x || T.x - CAMERA_VIEW_DISTANCE >= x + CAMERA_CHUNK_SIZE || T.y + CAMERA_VIEW_DISTANCE < y || T.y - CAMERA_VIEW_DISTANCE >= y + CAMERA_CHUNK_SIZE || T.z != z)
 		remove_camera(cam)
 
 /datum/camerachunk/proc/remove_camera(obj/machinery/camera/cam)

@@ -22,6 +22,7 @@
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
+	/// If this camera should be added to the camera network and update camera network when the it moves around
 	var/part_of_camera_network
 
 	//OTHER
@@ -261,16 +262,16 @@
 /obj/machinery/camera/proc/toggle_cam(mob/user, display_message = TRUE)
 	if(status)
 		turn_off(user, display_message)
-	else
-		turn_on(user, display_message)
+		return
+
+	turn_on(user, display_message)
 
 /obj/machinery/camera/proc/turn_on(mob/user, display_message = TRUE, emp_recover = FALSE)
 	if(status && !emp_recover)
 		return
 	status = TRUE
-	if(!emp_recover)
-		if(isturf(loc))
-			LAZYADD(get_area(src).cameras, UID())
+	if(!emp_recover && isturf(loc))
+		LAZYADD(get_area(src).cameras, UID())
 
 	if(display_message)
 		if(user)
@@ -417,7 +418,9 @@
 	if(!part_of_camera_network)
 		return PROCESS_KILL // Stop wasting performance
 
-	if(part_of_camera_network && get_turf(src) != prev_turf)
-		SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
-		GLOB.cameranet.updatePortableCamera(src, prev_turf)
-		prev_turf = get_turf(src)
+	if(get_turf(src) == prev_turf)
+		return
+
+	SEND_SIGNAL(src, COMSIG_CAMERA_MOVED, prev_turf)
+	GLOB.cameranet.updatePortableCamera(src, prev_turf)
+	prev_turf = get_turf(src)
