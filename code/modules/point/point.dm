@@ -96,8 +96,8 @@
 	create_point_bubble(pointed_atom_appearance, include_arrow)
 
 /// See above, this uses an uninstantiated path.
-/atom/movable/proc/create_point_bubble_from_path(atom/pointed_atom, include_arrow = TRUE)
-	create_point_bubble_from_icons(initial(pointed_atom.icon), initial(pointed_atom.icon_state), include_arrow)
+/atom/movable/proc/create_point_bubble_from_path(atom/pointed_atom_path, include_arrow = TRUE)
+	create_point_bubble_from_icons(initial(pointed_atom_path.icon), initial(pointed_atom_path.icon_state), include_arrow)
 
 /obj/effect/temp_visual/point
 	name = "arrow"
