@@ -37,12 +37,12 @@
 
 	visible_message("<span class='danger'>[src] begins wrapping [target] in shadowy threads.</span>")
 	wrapping = TRUE
-	if(!do_after(src, 4 SECONDS, 0, target = target))
+	if(!do_after(src, 4 SECONDS, FALSE, target = target))
 		wrapping = FALSE
 		return
 
 	target.visible_message("<span class='warning'><b>[src] envelops [target] into an ethereal cocoon, and darkness begins to creep from it.</b></span>")
-	var/obj/structure/shadowcocoon/C = new(target.loc)
+	var/obj/structure/shadowcocoon/C = new(get_turf(target))
 	target.extinguish_light() // may as well be safe
 	target.forceMove(C)
 	wrapping = FALSE
@@ -63,7 +63,7 @@
 		return
 	playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/shadowcocoon/Destroy()
+/obj/structure/shadowcocoon/obj_destruction()
 	visible_message("<span class='danger'>[src] splits open, and the shadows dancing around it fade.</span>")
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
