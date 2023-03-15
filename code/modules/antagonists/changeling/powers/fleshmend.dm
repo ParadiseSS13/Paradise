@@ -14,9 +14,6 @@
 	if(user.has_status_effect(STATUS_EFFECT_FLESHMEND))
 		to_chat(user, "<span class='warning'>Our healing's effectiveness is reduced \
 			by quick repeated use!</span>")
-	if(user.bodytemperature + 50 <= user.dna.species.body_temperature)
-		to_chat(user, "<span class='warning'>Our healing's effectiveness is reduced \
-			by our cold body!</span>")
 
 	user.apply_status_effect(STATUS_EFFECT_FLESHMEND)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

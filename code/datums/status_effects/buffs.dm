@@ -374,16 +374,20 @@
 	var/ticks = 0
 
 /datum/status_effect/fleshmend/on_apply()
-	tolerance += 1
-	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
-	active_instances += instance_duration
+	check_effectiveness()
 	return TRUE
 
 /datum/status_effect/fleshmend/refresh()
+	check_effectiveness()
+	..()
+
+/datum/status_effect/fleshmend/proc/check_effectiveness()
 	tolerance += 1
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
+	if(freezing)
+		to_chat(owner, "<span class='warning'>Our healing's effectiveness is reduced \
+			by our cold body!</span>")
 	active_instances += instance_duration
-	..()
 
 /datum/status_effect/fleshmend/tick()
 	if(length(active_instances) >= 1)
