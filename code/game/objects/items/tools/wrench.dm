@@ -82,9 +82,11 @@
 
 /obj/item/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	// TODO Make them glow with the power of the M E D I C A L W R E N C H
-	// during their ascension
-
+	user.add_filter("sacrifice_glow", 2, list("type" = "outline", "color" = "#55dcfdd2", "size" = 2))
+	var/filter = user.get_filter("sacrifice_glow")
+	// Pulse in and out
+	animate(filter, alpha = 110, time = 3, loop = -1)
+	animate(alpha = 40, time = 6)
 	// Stun stops them from wandering off
 	user.Stun(10 SECONDS)
 	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
@@ -101,9 +103,7 @@
 	var/obj/item/wrench/medical/W = new /obj/item/wrench/medical(loc)
 	W.add_fingerprint(user)
 	W.desc += " For some reason, it reminds you of [user.name]."
-
-	if(!user)
-		return
+	user.visible_message("<span class='suicide'>[user] turned into \a [W]!</span>")
 
 	user.dust()
 	return OBLITERATION
