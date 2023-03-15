@@ -1,7 +1,7 @@
 /datum/event/fake_virus/start()
 	var/list/fake_virus_victims = list()
 	for(var/mob/living/carbon/human/victim in shuffle(GLOB.player_list))
-		if(victim.stat == DEAD || victim.InCritical() || victim.mind.assigned_role == victim.mind.special_role)
+		if(victim.stat == DEAD || victim.InCritical() || victim.mind?.assigned_role == victim.mind?.special_role || victim.mind?.offstation_role)
 			continue
 		fake_virus_victims += victim
 
@@ -13,7 +13,7 @@
 			hypochondriac.apply_status_effect(STATUS_EFFECT_FAKE_VIRUS)
 			hypochondriac.create_log(MISC_LOG, "[hypochondriac] has contracted a fake virus.")
 			fake_virus_victims -= hypochondriac
-			notify_ghosts("[hypochondriac] Now has a fake virus!")
+			notify_ghosts("[hypochondriac] now has a fake virus!")
 	//then we do light one-message victims who simply cough or whatever once (have to repeat the process since the last operation modified our candidates list)
 	defacto_min = min(5, length(fake_virus_victims))
 	if(defacto_min)
