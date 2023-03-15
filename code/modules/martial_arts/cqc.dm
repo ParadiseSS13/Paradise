@@ -17,7 +17,7 @@
 	return ..()
 
 /datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
-	var/datum/action/defensive_stance/defensive = new/datum/action/defensive_stance()
+	var/datum/action/defensive_stance/defensive = new /datum/action/defensive_stance()
 	defensive.Grant(H)
 	return ..()
 
