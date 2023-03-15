@@ -269,6 +269,27 @@
 	obj_integrity = 100
 	var/possessed = FALSE
 
+/obj/item/nullrod/scythe/talking/proc/debug_spawn()
+	possessed = TRUE
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the blade spirit?",, FALSE, 3 SECONDS, source = src, role_cleanname = "possessed blade")
+	var/mob/dead/observer/theghost = null
+
+	if(QDELETED(src))
+		return
+	if(length(candidates))
+		theghost = pick(candidates)
+		var/mob/living/simple_animal/shade/sword/S = new(src)
+		S.real_name = name
+		S.name = name
+		S.ckey = theghost.ckey
+		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
+
+		if(src && input)
+			name = input
+			S.real_name = input
+			S.name = input
+
+
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
 	if(possessed)
 		return
@@ -306,18 +327,17 @@
 	return ..()
 
 /obj/item/nullrod/scythe/talking/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/soulstone) && possessed)
-		if(!(obj_integrity < max_integrity))
-			to_chat(user, "<span class='notice'>You have no reason to replace a perfectly good soulstone with a new one.</span>")
-			return
-		to_chat(user, "<span class='notice'>You load a new soulstone into the possessed blade.</span>")
-		playsound(user, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
-		obj_integrity = max_integrity
-		for(var/mob/living/simple_animal/shade/sword/sword_shade in contents)
-			sword_shade.health = sword_shade.maxHealth
-		qdel(I)
+	if(!istype(I, /obj/item/soulstone) || !possessed)
+		return ..()
+	if(!(obj_integrity < max_integrity))
+		to_chat(user, "<span class='notice'>You have no reason to replace a perfectly good soulstone with a new one.</span>")
 		return
-	return ..()
+	to_chat(user, "<span class='notice'>You load a new soulstone into the possessed blade.</span>")
+	playsound(user, 'sound/weapons/gun_interactions/shotgunpump.ogg', 60, 1)
+	obj_integrity = max_integrity
+	for(var/mob/living/simple_animal/shade/sword/sword_shade in contents)
+		sword_shade.health = sword_shade.maxHealth
+	qdel(I)
 
 /obj/item/nullrod/scythe/talking/take_damage(damage_amount)
 	if(possessed)
@@ -331,18 +351,20 @@
 	if(!istype(attacking_atom, /atom/movable))
 		return
 	attacking_shade.changeNext_move(CLICK_CD_MELEE)
-	if(!isturf(loc))
-		if(ismob(loc))
-			var/mob/living/carbon/human/our_location = loc
-			if(istype(our_location))
-				if(!(src == our_location.l_hand) && !(src == our_location.r_hand))
-					return
-				if(our_location.Adjacent(attacking_atom)) // with a buddy we deal 10 damage :D
-					our_location.do_attack_animation(attacking_atom, used_item = src)
-					melee_attack_chain(attacking_shade, attacking_atom)
+	if(ismob(loc))
+		var/mob/living/carbon/human/our_location = loc
+		if(istype(our_location))
+			if(!(src == our_location.l_hand) && !(src == our_location.r_hand))
 				return
+			if(our_location.Adjacent(attacking_atom)) // with a buddy we deal 10 damage :D
+				our_location.do_attack_animation(attacking_atom, used_item = src)
+				melee_attack_chain(attacking_shade, attacking_atom)
+			return
 	if(Adjacent(attacking_atom)) // without a buddy we only deal 5 damage :c
 		force = force - 5
+		var/mob/living/simple_animal/hostile/hostile_target = attacking_atom
+		if(istype(hostile_target) && prob(40))
+			attack_animal(hostile_target)
 		do_attack_animation(attacking_atom, used_item = src)
 		melee_attack_chain(attacking_shade, attacking_atom)
 		force = force + 5
