@@ -309,7 +309,7 @@
 	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
-	mag_type = /obj/item/ammo_box/magazine/lasercarbine
+	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
@@ -324,10 +324,10 @@
 	name = "security laser rifle"
 	desc = "A bulky, single barreled rifle that uses disposable laser cartridges rather than an internal power cell. Utilized by Nanotrasen's private security force."
 	icon_state = "laserrifle"
-	item_state = "laserrifle"
+	item_state = "lasercarbine"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3;materials=2"
-	mag_type = /obj/item/ammo_box/magazine/laserrifle
+	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
@@ -336,5 +336,5 @@
 	actions_types = list()
 
 /obj/item/gun/projectile/automatic/laserrifle/update_icon_state()
-	icon_state = "laserrifle[magazine ? "-[CEILING(get_ammo(0)/6, 1)*6]" : ""]"
-	item_state = "laserrifle[magazine ? "-[CEILING(get_ammo(0)/6, 1)*6]" : ""]"
+	icon_state = "laserrifle[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+	item_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"

@@ -494,25 +494,15 @@
 /obj/item/ammo_box/magazine/toy/m762/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
-/obj/item/ammo_box/magazine/lasercarbine
+/obj/item/ammo_box/magazine/laser
 	name = "laser carbine projector magazine"
-	desc = "Fits experimental laser ammo casings. Compatible with navy laser carbines."
-	icon_state = "lasercarbine"
+	desc = "Fits experimental laser ammo casings. Compatible with laser rifles and carbines."
+	icon_state = "laser"
 	ammo_type = /obj/item/ammo_casing/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
 	multi_sprite_step = 5
-
-/obj/item/ammo_box/magazine/laserrifle
-	name = "laser rifle projector magazine"
-	desc = "Fits laser ammo casings. Compatible with security laser rifles."
-	icon_state = "laserrifle"
-	ammo_type = /obj/item/ammo_casing/laser
-	origin_tech = "combat=2"
-	caliber = "laser"
-	max_ammo = 12
-	multi_sprite_step = 6
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
