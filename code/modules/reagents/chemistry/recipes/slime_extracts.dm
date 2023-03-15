@@ -150,6 +150,7 @@
 	var/list/blocked = list(/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/sliceable,
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza,
 		/obj/item/reagent_containers/food/snacks/margheritapizzaslice,
 		/obj/item/reagent_containers/food/snacks/meatpizzaslice,
 		/obj/item/reagent_containers/food/snacks/mushroompizzaslice,
@@ -165,8 +166,11 @@
 		/obj/item/reagent_containers/food/snacks/meat,
 		/obj/item/reagent_containers/food/snacks/meat/slab,
 		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/reagent_containers/food/snacks/grown/shell,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
 		/obj/item/reagent_containers/food/snacks/deepfryholder,
+		/obj/item/reagent_containers/food/snacks/chinese,
+		/obj/item/reagent_containers/food/snacks/human,
 		/obj/item/reagent_containers/food/snacks/monstermeat
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
