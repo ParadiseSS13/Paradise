@@ -206,23 +206,6 @@
 			else
 				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
 
-/**
- * Proc called to determine if the user can see wire define information, such as "Contraband", "Door Bolts", etc.
- *
- * If the user is an admin, or has an item which reveals wire information in their active hand, the proc returns TRUE.
- *
- * Arguments:
- * * user - the mob who is interacting with the wires.
- */
-/datum/wires/proc/can_see_wire_info(mob/user)
-	if(user.can_admin_interact())
-		return TRUE
-	var/obj/item/held_item = user.get_active_hand()
-	if(istype(held_item) && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO))
-		return TRUE
-	if(HAS_TRAIT(user, TRAIT_SHOW_WIRE_INFO))
-		return TRUE
-	return FALSE
 
 /**
  * Base proc, intended to be overwritten. Put wire information you'll see at the botton of the TGUI window here, such as "The red light is blinking".
@@ -298,7 +281,10 @@
 
 	var/can_probably_see_wires = FALSE
 	var/obj/item/held_item = user.get_active_hand()
+	var/obj/item/offhand = user.get_inactive_hand()
 	if(istype(held_item) && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO))
+		can_probably_see_wires = TRUE
+	if(istype(offhand) && HAS_TRAIT(offhand, TRAIT_SHOW_WIRE_INFO))
 		can_probably_see_wires = TRUE
 	if(HAS_TRAIT(user, TRAIT_SHOW_WIRE_INFO))
 		can_probably_see_wires = TRUE
@@ -308,7 +294,7 @@
 
 	// even if you *think* you can see them, it's not guaranteed that you can.
 	if(HAS_TRAIT(holder, TRAIT_OBSCURED_WIRES))
-		var/list/fake_wire_chars = list("!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "?", "/")
+		var/list/fake_wire_chars = list("!", "@", "#", "$", "%", "^", "&", "*", "-", "?", "/")
 		var/fake_wire_name = ""
 
 		for(var/i in 1 to 5)
@@ -320,8 +306,6 @@
 	if(is_dud(wire))
 		return null
 	return wire
-
-	// can_see_wire_info(user) && !is_dud_color(color) ? get_wire(color) : null
 
 
 /**
