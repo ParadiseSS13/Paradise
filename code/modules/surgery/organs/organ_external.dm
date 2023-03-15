@@ -150,6 +150,8 @@
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	loc = null
+	if(iscarbon(owner))
+		SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_ORGAN, src)
 	if(istype(owner))
 		if(!isnull(owner.bodyparts_by_name[limb_name]))
 			log_debug("Duplicate organ in slot \"[limb_name]\", mob '[target]'")
@@ -750,6 +752,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(!owner)
 		return
+
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
 	var/mob/living/carbon/human/victim = owner
 
 	if(status & ORGAN_SPLINTED)
@@ -776,7 +780,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Grab all the internal giblets too.
 	for(var/obj/item/organ/internal/organ in internal_organs)
 		var/atom/movable/thing = organ.remove(victim)
-		thing.forceMove(src)
+		if(thing) // Nodrop organs exist
+			thing.forceMove(src)
 
 	release_restraints(victim)
 	victim.bodyparts -= src

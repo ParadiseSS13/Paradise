@@ -170,6 +170,9 @@
 				to_chat(src, "<i>I must be conscious to do this...</i>")
 				return
 
+			if(istype(loc, /obj/machinery/computer/camera_advanced/xenobio))
+				return //no you cannot split while you're in the matrix (this prevents GC issues and slimes disappearing)
+
 			var/list/babies = list()
 			var/new_nutrition = round(nutrition * 0.9)
 			var/new_powerlevel = round(powerlevel / 4)
@@ -187,7 +190,7 @@
 					M.set_nutrition(new_nutrition) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
 				M.powerlevel = new_powerlevel
 				if(i != 1)
-					step_away(M,src)
+					step_away(M, get_turf(src))
 				M.Friends = Friends.Copy()
 				babies += M
 				M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)

@@ -3350,27 +3350,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
-	else if(href_list["viewkarma"])
-		if(!check_rights(R_ADMIN))
-			return
 
-		var/client/C = GLOB.directory[href_list["viewkarma"]]
-		if(!C)
-			return
-
-		// Pack it into a dat
-		var/dat = {"
-		<ul>
-		<li>Total Karma: [C.karmaholder.karma_earned]</li>
-		<li>Spent Karma: [C.karmaholder.karma_spent]</li>
-		<li>Available Karma: [C.karmaholder.karma_earned - C.karmaholder.karma_spent]</li>
-		<li>Unlocked Packages: [C.karmaholder.purchased_packages.Join(", ")]</li>
-		</ul>
-		"}
-
-		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [C.ckey]", 600, 300)
-		popup.set_content(dat)
-		popup.open(FALSE)
 	else if(href_list["who_advanced"])
 		usr.client.who_advanced()
 
