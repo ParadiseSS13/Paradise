@@ -29,7 +29,7 @@
 
 	var/message_cooldown
 	var/centcomm_message_cooldown
-	var/alert_level_cooldown
+	var/alert_level_cooldown = 0
 	var/tmp_alertlevel = 0
 
 	var/stat_msg1
