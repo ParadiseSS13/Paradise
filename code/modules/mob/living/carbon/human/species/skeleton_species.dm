@@ -64,5 +64,5 @@
 	name = "Brittle Skeleton"
 	name_plural = "Brittle Skeletons"
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTHIGHPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
-	milk_heal_amount = 0.66 //on par with saline-glucose (after averaging that out)
+	milk_heal_amount = 0.66 // On par with saline-glucose (after averaging that out)
 	milk_fracture_repair_probability = 0 //no bone juice here
