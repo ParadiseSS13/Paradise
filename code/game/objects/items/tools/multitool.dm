@@ -122,12 +122,11 @@
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, 1, -1)
 	sleep(20)
 
+	src.add_fingerprint(user)
+	src.desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
+
 	for(var/obj/item/W in user)
 		user.unEquip(W)
-
-	var/obj/item/multitool/command/M = new /obj/item/multitool/command(loc)
-	M.add_fingerprint(user)
-	M.desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
 
 	user.dust()
 	return OBLITERATION
