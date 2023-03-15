@@ -325,8 +325,9 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return
+	. = TRUE
+	if(panel_open)
+		default_deconstruction_crowbar(user, I)
 
 /obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
 	if(occupant || on)

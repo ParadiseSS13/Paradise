@@ -66,6 +66,63 @@
 /obj/structure/bed/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset()
 
+/obj/structure/bed/shove_impact(mob/living/target, mob/living/attacker)
+	. = ..()
+	if(!ishuman(target))
+		return
+
+	var/mob/living/carbon/human/H = target
+
+	// only if you're wearing PJs
+	if(!istype(H.w_uniform, /obj/item/clothing/under/misc/pj))
+		return
+
+	// and there's a sheet on the bed
+	if(!locate(/obj/item/bedsheet) in loc)
+		return
+
+	var/sleep_ratio = 1
+
+	if(istype(H.shoes, /obj/item/clothing/shoes/slippers))
+		sleep_ratio *= 2
+		// take your shoes off first, you filthy animal
+		H.unEquip(H.shoes)
+
+	var/extinguished_candle = FALSE
+	for(var/obj/item/candle/C in range(2, src))
+		if(C.lit)
+			C.unlight()
+			extinguished_candle = TRUE
+
+	if(extinguished_candle)
+		sleep_ratio *= 2
+
+	// nighty night
+	target.visible_message(
+		"<span class='danger'>[attacker] puts [target] to bed!</span>",
+		"<span class='userdanger'>[attacker] shoves you under the covers, and you're out like a light!</span>",
+		"<span class='notice'>You hear someone getting into bed.</span>"
+	)
+
+	if(sleep_ratio > 1)
+		target.visible_message(
+			"<span class='notice'>[target] seems especially cozy...[target.p_they()] probably won't be up for a while.</span>",
+			"<span class='notice'>You feel so cozy, you could probably stay here for a while...</span>"
+		)
+
+	target.forceMove(loc)
+	buckle_mob(target, TRUE)
+	if(!H.IsSleeping())
+		H.Sleeping(15 SECONDS * sleep_ratio)
+		add_attack_logs(attacker, target, "put to bed for [15 * sleep_ratio] seconds.")
+	H.emote("snore")
+
+	for(var/mob/living/carbon/human/viewer in viewers())
+		if(prob(50))
+			viewer.emote("yawn")
+
+	return TRUE
+
 /*
  * Roller beds
  */

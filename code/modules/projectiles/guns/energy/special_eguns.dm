@@ -128,6 +128,7 @@
 	materials = list(MAT_METAL=4000)
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = FALSE
+	can_holster = FALSE // it's large after all
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	empty_state = "crossbowlarge_empty"
 

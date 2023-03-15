@@ -541,8 +541,6 @@
 	var/datum/antagonist/changeling/cling = speaker.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(cling)
 		..(speaker, message, cling.changelingID)
-	else if(speaker.mind?.linglink)
-		..()
 	else
 		..(speaker,message)
 

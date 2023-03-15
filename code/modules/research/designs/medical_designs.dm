@@ -519,6 +519,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/chest/reviver
 	category = list("Medical")
 
+/datum/design/cyberimp_wire_interface
+	name = "Wire Interface Implant"
+	desc = "This cybernetic brain implant will allow you to interface with electrical currents to sense the purpose of wires."
+	id = "ci-wire_interface"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 400, MAT_GOLD = 400)
+	build_path = /obj/item/organ/internal/cyberimp/brain/wire_interface
+	category = list("Medical")
+
 /////////////////////////////////////////
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
