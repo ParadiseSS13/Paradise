@@ -89,6 +89,13 @@
 
 	user.color = rgb(255, 252, 82)
 
+	// thank you vi3
+	user.add_filter("sacrifice_glow", 2, list("type" = "outline", "color" = "#55dcfdd2", "size" = 2))
+	var/filter = user.get_filter("sacrifice_glow")
+	// Pulse in and out
+	animate(filter, alpha = 110, time = 3, loop = -1)
+	animate(alpha = 40, time = 6)
+
 	// Stun stops them from wandering off
 	user.Stun(10 SECONDS)
 	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
@@ -116,4 +123,5 @@
 	user.color = previous_color  // for the sake of their ghost
 
 	user.dust()
+	user.visible_message("<span class='suicide'>[user]'s soul coalesces into a new [W.name]!</span>")
 	return OBLITERATION
