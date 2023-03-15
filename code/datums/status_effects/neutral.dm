@@ -96,10 +96,7 @@
 		return FALSE
 
 	owner.custom_emote(EMOTE_VISIBLE, request)
-	// this can only go well
-	var/obj/item/bloon = new item_path()
-	owner.create_point_bubble(bloon)
-	QDEL_IN(bloon, 10)
+	owner.create_point_bubble_from_path(item_path, FALSE)
 
 /datum/status_effect/high_five/on_timeout()
 	owner.visible_message("[owner] [get_missed_message()]")
