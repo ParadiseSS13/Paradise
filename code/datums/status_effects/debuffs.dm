@@ -907,7 +907,7 @@
 					selected_fake_emote = safepick(fake_emote[2])
 		else
 			if(prob(2))
-				if(prob(50) || !!listgetindex(fake_emote, 3))
+				if(prob(50) || !listgetindex(fake_emote, 3))
 					selected_fake_msg = safepick(fake_msg[3])
 				else
 					selected_fake_emote = safepick(fake_emote[3])
