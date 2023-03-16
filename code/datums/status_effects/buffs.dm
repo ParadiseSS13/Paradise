@@ -374,11 +374,11 @@
 	var/ticks = 0
 
 /datum/status_effect/fleshmend/on_apply()
-	check_effectiveness()
+	apply_new_fleshmend()
 	return TRUE
 
 /datum/status_effect/fleshmend/refresh()
-	check_effectiveness()
+	apply_new_fleshmend()
 	..()
 
 /datum/status_effect/fleshmend/proc/apply_new_fleshmend()
