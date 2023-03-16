@@ -57,6 +57,9 @@
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
+/datum/atom_hud/kidan_pheromones
+	hud_icons = list(KIDAN_PHEROMONE_HUD)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*

@@ -28,6 +28,8 @@
 #define DIAG_AIRLOCK_HUD 	"23" // Airlock shock overlay
 //#define DIAG_PATH_HUD 		"24"//Bot path indicators
 #define GLAND_HUD 			"25"//Gland indicators for abductors
+/// This allows kidans to see kidan pheromones
+#define KIDAN_PHEROMONE_HUD 			"26"
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -56,6 +58,8 @@
 #define DATA_HUD_ABDUCTOR	18
 #define ANTAG_HUD_EVENTMISC 19
 #define ANTAG_HUD_BLOB 20
+//species HUD defines
+#define DATA_HUD_KIDAN_PHEROMONES	21
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

@@ -29,7 +29,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys/kidan,
 		"brain" =    /obj/item/organ/internal/brain/kidan,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
+		"eyes" =     /obj/item/organ/internal/eyes/kidan,
 		"lantern" =  /obj/item/organ/internal/lantern
 		)
 
@@ -47,3 +47,24 @@
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_color
+
+// Kidan pheromones, visible by the HUD they gain just for being kidan
+/datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
+	..()
+	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
+	kidan_hud.add_hud_to(H)
+
+/datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
+	..()
+	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
+	kidan_hud.remove_hud_from(H)
+
+/obj/effect/kidan_pheromones
+	name = "kidan pheromones"
+
+/obj/effect/kidan_pheromones/Initialize(mapload)
+	. = ..()
+	var/image/holder = hud_list[KIDAN_PHEROMONE_HUD]
+	holder.icon = 'icons/effects/effects.dmi'
+	holder.icon_state = "purplesparkles"
+	to_chat(world, "Initialized [holder], [length(hud_list[KIDAN_PHEROMONE_HUD])]")
