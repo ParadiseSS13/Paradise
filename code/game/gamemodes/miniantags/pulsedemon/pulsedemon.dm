@@ -16,6 +16,9 @@
 	gender = NEUTER
 	speak_chance = 20
 
+	var/list/speech_sounds
+	var/list/hurt_sounds
+
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "pulsedem"
 	icon_living = "pulsedem"
@@ -104,6 +107,8 @@
 
 	emote_hear = list("vibrates", "sizzles")
 	speak_emote = list("modulates")
+	speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
+	hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
 
 	hijacked_apcs = list()
 	hijacked_robots = list()
@@ -167,6 +172,7 @@
 	var/heavy_radius = min(charge / 50000, 20)
 	var/light_radius = min(charge / 25000, 25)
 	empulse(T, heavy_radius, light_radius)
+	playsound(T, pick(hurt_sounds), 50, 1)
 
 /mob/living/simple_animal/pulse_demon/proc/exit_to_turf(atom/oldloc)
 	if(loc != oldloc)
@@ -423,6 +429,7 @@
 
 	create_log(SAY_LOG, "[message_mode ? "([message_mode])" : ""] '[message]'")
 
+	playsound(get_turf(src), pick(speech_sounds), 50, 1)
 	if(istype(loc, /obj/item/radio))
 		var/obj/item/radio/R = loc
 		name = gen_speech_name()
@@ -559,6 +566,7 @@
 /mob/living/simple_animal/pulse_demon/emp_act(severity)
 	. = ..()
 	visible_message("<span class ='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
+	playsound(get_turf(src), pick(hurt_sounds), 50, 1)
 	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)
 	adjustHealth(round(max(initial(health) / 2, round(maxHealth / 4))))
 	regen_lock = 5
