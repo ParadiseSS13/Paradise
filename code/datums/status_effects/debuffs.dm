@@ -866,7 +866,7 @@
 						list("<span class='danger'>Your stomach hurts.</span>", "<span class='danger'>You feel sick.</span>")
 			)
 			fake_emote = list(
-						list(null),
+						list(),
 						list("groan"),
 						list("groan", "moan")
 			)
@@ -885,7 +885,7 @@
 			fake_emote = list(
 						list("cough"),
 						list("gasp"),
-						list(null)
+						list()
 			)
 	. = ..()
 
@@ -896,21 +896,21 @@
 		if(0 to 300)
 			if(prob(1)) // First stage starts slow, stage 2 and 3 trigger fake msgs/emotes twice as often
 				if(prob(50) || !listgetindex(fake_emote, 1)) // 50% chance to trigger either a msg or emote, 100% if it doesnt have an emote
-					selected_fake_msg = pick(fake_msg[1])
+					selected_fake_msg = safepick(fake_msg[1])
 				else
-					selected_fake_emote = pick(fake_emote[1])
+					selected_fake_emote = safepick(fake_emote[1])
 		if(301 to 600)
 			if(prob(2))
 				if(prob(50) || !listgetindex(fake_emote, 2))
-					selected_fake_msg = pick(fake_msg[2])
+					selected_fake_msg = safepick(fake_msg[2])
 				else
-					selected_fake_emote = pick(fake_emote[2])
+					selected_fake_emote = safepick(fake_emote[2])
 		else
 			if(prob(2))
 				if(prob(50) || !!listgetindex(fake_emote, 3))
-					selected_fake_msg = pick(fake_msg[3])
+					selected_fake_msg = safepick(fake_msg[3])
 				else
-					selected_fake_emote = pick(fake_emote[3])
+					selected_fake_emote = safepick(fake_emote[3])
 
 	if(selected_fake_msg)
 		to_chat(owner, selected_fake_msg)
