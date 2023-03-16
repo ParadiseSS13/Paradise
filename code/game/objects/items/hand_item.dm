@@ -51,12 +51,8 @@
 	attack_verb = list("slapped", "backhanded", "smacked", "discombobulated")
 	table_smacks_left = 10 //Much more smackitude
 
-/obj/item/slapper/cqc/proc/add_parry_component()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS) //75% uptime
-
-
 /obj/item/slapper/cqc/Initialize(mapload)
-	add_parry_component()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS) //75% uptime
 	return ..()
 
 /obj/item/slapper/cqc/attack(mob/M, mob/living/carbon/human/user)
