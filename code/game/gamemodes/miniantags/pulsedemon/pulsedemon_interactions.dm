@@ -106,11 +106,6 @@
 		user.forceMove(src)
 		user.current_power = src
 		user.update_controlling_area()
-		user.current_robot = null
-		if(user.current_bot)
-			user.current_bot.hijacked = FALSE
-		user.current_bot = null
-		user.current_weapon = null
 	else
 		attack_ai(user)
 

@@ -119,6 +119,20 @@
 	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 50, 1)
 	give_spells()
 
+/mob/living/simple_animal/pulse_demon/vv_edit_var(var_name, var_value)
+	. = ..()
+	switch(var_name)
+		if("charge")
+			adjustCharge(var_value - charge, TRUE)
+
+/mob/living/simple_animal/pulse_demon/forceMove(atom/destination)
+	. = ..()
+	current_weapon = null
+	current_robot = null
+	if(current_bot)
+		current_bot.hijacked = FALSE
+	current_bot = null
+
 /mob/living/simple_animal/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain(do_drain))
@@ -161,11 +175,6 @@
 	current_power = null
 	update_controlling_area()
 	current_cable = null
-	current_weapon = null
-	current_robot = null
-	if(current_bot)
-		current_bot.hijacked = FALSE
-	current_bot = null
 	forceMove(T)
 	Move(T)
 	if(!current_cable && !current_power)
@@ -228,6 +237,8 @@
 
 	current_weapon = null
 	current_robot = null
+	if(current_bot)
+		current_bot.hijacked = FALSE
 	current_bot = null
 
 	if(new_power)

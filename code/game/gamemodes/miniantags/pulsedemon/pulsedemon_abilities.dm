@@ -156,8 +156,8 @@
 	requires_area = TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/emagtamper/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
-	target.emag_act(user)
 	to_chat(user, "<span class='warning'>You attempt to tamper with [target]!</span>")
+	target.emag_act(user)
 	return TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/emp
@@ -170,8 +170,8 @@
 	requires_area = TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/emp/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
+	to_chat(user, "<span class='warning'>You attempt to EMP [target]!</span>")
 	empulse(get_turf(target), 1, 1)
-	to_chat(user, "<span class='warning'>You EMP [target]!</span>")
 	return TRUE
 
 /obj/effect/proc_holder/spell/pulse_demon/overload
@@ -314,18 +314,11 @@
 		return
 	if(get_area(user.loc) != user.controlling_area)
 		return
-	user.current_bot = null
-	user.current_robot = null
-	user.current_weapon = null
 	user.forceMove(user.current_power)
 
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
 	if(length(user.controlling_area.cameras) < 1)
 		return FALSE
-
-	user.current_bot = null
-	user.current_robot = null
-	user.current_weapon = null
 
 	if(istype(user.loc, /obj/machinery/power/apc))
 		current_camera = 0
