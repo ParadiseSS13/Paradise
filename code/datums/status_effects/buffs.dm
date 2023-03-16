@@ -381,7 +381,7 @@
 	check_effectiveness()
 	..()
 
-/datum/status_effect/fleshmend/proc/check_effectiveness()
+/datum/status_effect/fleshmend/proc/apply_new_fleshmend()
 	tolerance += 1
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 	if(freezing)
