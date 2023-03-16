@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
 	init_order = INIT_ORDER_DEFAULT
 	wait = 1 SECONDS
+	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 
 	var/tts_wanted = 0
 	var/tts_request_failed = 0
