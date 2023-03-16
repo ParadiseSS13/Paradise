@@ -19,7 +19,7 @@
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
 			var/mob/living/M = buck
 
-			if(user.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+			if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 				unbuckle_mob(M)
 				add_fingerprint(user)
 				return
@@ -49,11 +49,11 @@
 	if (!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)
 		return
 
-	if(M.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+	if(M.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		to_chat(user, "<span class='noticealien'>[M]'s linkage with the hive prevents you from securing them into [src]</span>")
 		return
 
-	if(!user.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+	if(!user.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		to_chat(user, "<span class='noticealien'>Your lack of linkage to the hive prevents you from buckling [M] into [src]</span>")
 		return
 

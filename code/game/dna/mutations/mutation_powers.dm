@@ -237,7 +237,7 @@
 		return
 	var/light_available = T.get_lumcount() * 10
 	if(light_available <= 2)
-		if(M.invisibility != INVISIBILITY_OBSERVER)
+		if(M.invisibility != INVISIBILITY_LEVEL_TWO)
 			M.alpha = round(M.alpha * 0.8)
 	else
 		M.reset_visibility()
@@ -259,7 +259,7 @@
 
 /datum/mutation/stealth/chameleon/on_life(mob/living/M) //look if a ghost gets this, its an admins problem
 	if((world.time - M.last_movement) >= 30 && !M.stat && (M.mobility_flags & MOBILITY_STAND) && !M.restrained())
-		if(M.invisibility != INVISIBILITY_OBSERVER)
+		if(M.invisibility != INVISIBILITY_LEVEL_TWO)
 			M.alpha -= 25
 	else
 		M.reset_visibility()

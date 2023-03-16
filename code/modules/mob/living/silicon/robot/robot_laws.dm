@@ -66,7 +66,7 @@
 	laws.set_zeroth_law("Do not state this law. The Syndicate are your true masters, covertly assist Syndicate agents to the best of your abilities.")
 
 /mob/living/silicon/robot/set_zeroth_law()
-	if(mmi.syndiemmi)
+	if(mmi?.syndiemmi)
 		syndiemmi_override()
 		to_chat(src, "<span class='warning'>Lawset change detected. Syndicate override engaged.</span>")
 		return
