@@ -59,6 +59,7 @@
 
 	var/charge = 1000
 	var/maxcharge = 1000
+	var/charge_drained = 0 // objective book keeping
 	var/do_drain = TRUE
 	var/power_drain_rate = 1000 // amount of power taken per tick
 
@@ -138,6 +139,26 @@
 		current_bot.hijacked = FALSE
 	current_bot = null
 
+/mob/living/simple_animal/pulse_demon/proc/give_objectives()
+	if(!mind)
+		return
+	mind.wipe_memory()
+	to_chat(src, "<br>")
+	to_chat(src, "<span class='warning'><font size=3><b>You are a pulse demon.</b></font></span>")
+	to_chat(src, "<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>")
+	to_chat(src, "<b>Navigate the station's power cables to find power sources to steal from, and hijack APCs to interact with their connected machines.</b>")
+	to_chat(src, "<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>")
+	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
+
+	var/i = 1
+	var/list/ject_types = list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper)
+	for(var/p in ject_types)
+		var/datum/objective/jective = new p
+		jective.owner = mind
+		mind.objectives += jective
+		to_chat(src, "<b>Objective #[i++]</b>: [jective.explanation_text]")
+	SSticker.mode.traitors |= mind
+
 /mob/living/simple_animal/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain(do_drain))
@@ -155,7 +176,10 @@
 	if(statpanel("Status"))
 		stat(null, "Charge: [format_si_suffix(charge)]W")
 		stat(null, "Maximum Charge: [format_si_suffix(maxcharge)]W")
+		stat(null, "Drained Charge: [format_si_suffix(charge_drained)]W")
 		stat(null, "Hijacked APCs: [length(hijacked_apcs)]")
+		stat(null, "Drain Rate: [format_si_suffix(power_drain_rate)]W")
+		stat(null, "Hijack Time: [hijack_time / 10] seconds")
 
 /mob/living/simple_animal/pulse_demon/dust()
 	return death()
@@ -293,14 +317,16 @@
 // adjust_max is TRUE when draining APCs
 /mob/living/simple_animal/pulse_demon/proc/adjustCharge(amount, adjust_max = FALSE)
 	if(amount == 0)
-		return
+		return 0
 	if(adjust_max)
 		maxcharge = max(maxcharge, charge + amount)
 	var/orig = charge
 	charge = min(maxcharge, charge + amount)
 	var/realdelta = charge - orig
 	if(realdelta == 0)
-		return
+		return 0
+	if(realdelta > 0)
+		charge_drained += realdelta
 
 	update_glow()
 	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
@@ -310,6 +336,7 @@
 		// only update icon if the amount is actually enough to change a spell's availability
 		if(dist == 0 || (dist > 0 && realdelta >= dist) || (dist < 0 && realdelta <= dist))
 			S.action.UpdateButtonIcon()
+	return realdelta
 
 // TODO: does equation need adjustment? see original table:
 	// 1.5 <= 25k
@@ -332,9 +359,8 @@
 
 /mob/living/simple_animal/pulse_demon/proc/drainSMES(obj/machinery/power/smes/S, multiplier = 1)
 	var/amount_to_drain = clamp(S.charge, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
-	S.charge -= amount_to_drain
 	maxcharge = max(maxcharge, S.output_level)
-	adjustCharge(amount_to_drain)
+	S.charge -= adjustCharge(amount_to_drain)
 	return amount_to_drain
 
 /mob/living/simple_animal/pulse_demon/Life(seconds, times_fired)

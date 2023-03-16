@@ -22,6 +22,7 @@
 	player_mind.transfer_to(demon)
 	player_mind.assigned_role = SPECIAL_ROLE_PULSEDEMON
 	player_mind.special_role = SPECIAL_ROLE_PULSEDEMON
+	demon.give_objectives()
 	message_admins("[key_name_admin(demon)] has been made into a [initial(demon.name)] by an event.")
 	log_game("[key_name_admin(demon)] was spawned as a [initial(demon.name)] by an event.")
 
