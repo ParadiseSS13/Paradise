@@ -31,7 +31,7 @@
 
 /obj/structure/inflatable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'><b>Alt-Shift-Click</b> to deflate the wall.</span>"
+	. += "<span class='notice'><b>Alt-Shift-Click</b> to deflate [src].</span>"
 
 /obj/structure/inflatable/Initialize(location)
 	..()
@@ -104,10 +104,6 @@
 
 	var/state_open = FALSE
 	var/is_operating = FALSE
-
-/obj/structure/inflatable/door/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'><b>Alt-Shift-Click</b> to deflate the door.</span>"
 
 /obj/structure/inflatable/door/attack_ai(mob/user as mob) //those aren't machinery, they're just big fucking slabs of a mineral
 	if(isAI(user)) //so the AI can't open it

@@ -130,7 +130,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Metal is used in various different construction sequences. It can be used on lattices to create a floor tile.</span>"
+	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
 
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_energy_storage/metal
