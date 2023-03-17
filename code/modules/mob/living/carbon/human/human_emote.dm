@@ -268,7 +268,11 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/obj/item/slapper/N = new(user)
+	var/obj/item/slapper/N
+	if(user.mind && user.mind.martial_art?.name == "CQC")
+		N = new /obj/item/slapper/cqc(user)
+	else
+		N = new /obj/item/slapper(user)
 	if(user.put_in_hands(N))
 		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
 	else
