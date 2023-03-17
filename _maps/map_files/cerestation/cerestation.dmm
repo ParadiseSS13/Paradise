@@ -1043,9 +1043,6 @@
 /area/turret_protected/ai)
 "ahb" = (
 /obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/item/storage/box/pillbottles{
 	pixel_x = 6;
 	pixel_y = -2
@@ -1938,9 +1935,6 @@
 	},
 /area/security/permabrig)
 "alv" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
@@ -1953,6 +1947,10 @@
 	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3415,7 +3413,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
 "asU" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "CargoWaste"
@@ -3609,7 +3609,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5365,13 +5365,14 @@
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/captain)
 "aEV" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -6098,7 +6099,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "aJX" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -6837,7 +6840,9 @@
 	},
 /area/tcommsat/computer)
 "aOA" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/railing/corner,
 /turf/simulated/floor/plasteel,
@@ -8493,9 +8498,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -8544,9 +8546,9 @@
 	},
 /area/quartermaster/office)
 "aWh" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/orange{
@@ -8555,6 +8557,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -8680,7 +8683,8 @@
 /area/maintenance/fore)
 "aWJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -9126,7 +9130,9 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -9968,8 +9974,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -10310,13 +10318,14 @@
 	},
 /area/hallway/primary/central)
 "bek" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/sign/directions/medical{
 	dir = 4;
 	pixel_x = 32;
 	pixel_y = 32
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10324,9 +10333,6 @@
 	},
 /area/hallway/primary/central)
 "bel" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -10337,13 +10343,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
 /area/hallway/primary/central)
 "bem" = (
 /obj/structure/disposalpipe/segment/corner{
-	dir = 8
+	dir = 8;
+	color = "#954535"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -10985,14 +10996,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11009,7 +11021,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11027,10 +11040,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -11050,11 +11064,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12441,7 +12456,8 @@
 /area/engine/engineering)
 "bmC" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -13284,7 +13300,8 @@
 /area/maintenance/fore)
 "bqm" = (
 /obj/structure/disposalpipe/junction/y{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -14195,7 +14212,8 @@
 	name = "Criminal Delivery Chute"
 	},
 /obj/structure/disposalpipe/trunk{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -15523,7 +15541,9 @@
 	name = "west bump";
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -21975,7 +21995,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -22858,7 +22880,9 @@
 	pixel_x = -28;
 	name = "custom placement"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -23468,7 +23492,9 @@
 	},
 /area/security/processing)
 "ccv" = (
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	color = "#954535"
+	},
 /obj/structure/disposaloutlet{
 	dir = 1
 	},
@@ -24292,7 +24318,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
@@ -24312,7 +24340,8 @@
 "cfV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/junction/reversed{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -24638,9 +24667,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28;
 	name = "custom placement"
@@ -24673,7 +24699,8 @@
 /area/bridge)
 "chE" = (
 /obj/structure/disposalpipe/segment/corner{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -24821,7 +24848,9 @@
 /turf/simulated/floor/plating,
 /area/teleporter)
 "cih" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -24941,7 +24970,8 @@
 /area/hallway/secondary/exit)
 "cja" = (
 /obj/structure/disposalpipe/segment/corner{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -24950,7 +24980,8 @@
 /area/security/lobby)
 "cjb" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
@@ -24960,7 +24991,8 @@
 /area/security/lobby)
 "cjc" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
@@ -24974,7 +25006,8 @@
 	name = "north bump"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -24997,11 +25030,12 @@
 	},
 /area/security/warden)
 "cjh" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -25060,7 +25094,9 @@
 /area/hallway/secondary/entry/south)
 "cju" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/segment/corner{
+	color = "#954535"
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -25083,7 +25119,9 @@
 /area/toxins/launch)
 "cjx" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plating,
 /area/security/checkpoint2)
 "cjy" = (
@@ -25202,7 +25240,8 @@
 	dir = 5
 	},
 /obj/structure/disposalpipe/segment/corner{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -25225,9 +25264,6 @@
 	c_tag = "Docking Asteroid Hall 2";
 	dir = 6
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -25235,6 +25271,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -25508,7 +25548,9 @@
 	},
 /area/hallway/secondary/entry/south)
 "clJ" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -25810,7 +25852,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
 "cny" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -26448,7 +26492,8 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28;
@@ -27449,7 +27494,9 @@
 	},
 /area/security/lobby)
 "cwk" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/railing{
 	dir = 4
@@ -27861,6 +27908,14 @@
 	icon_state = "dark"
 	},
 /area/bridge)
+"cyJ" = (
+/obj/structure/disposalpipe/junction{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redyellowfull"
+	},
+/area/crew_quarters/bar)
 "cyL" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -28534,7 +28589,9 @@
 	},
 /area/lawoffice)
 "cBJ" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -29047,10 +29104,11 @@
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
 "cEL" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -29917,7 +29975,9 @@
 /turf/simulated/floor/grass/jungle,
 /area/hallway/secondary/garden)
 "cIm" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -29947,7 +30007,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "cIu" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -30044,7 +30106,8 @@
 /area/hallway/secondary/entry/north)
 "cIL" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -31848,7 +31911,6 @@
 	},
 /area/medical/virology)
 "cPL" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
@@ -31860,6 +31922,9 @@
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -35195,6 +35260,23 @@
 	icon_state = "redcorner"
 	},
 /area/security/prison/cell_block/A)
+"dfJ" = (
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/port/south)
 "dfP" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/oxygen{
@@ -36055,7 +36137,9 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/fpmaint)
 "dlh" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/railing/corner{
 	dir = 4;
 	pixel_y = 11
@@ -36189,7 +36273,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -36858,10 +36944,12 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -36944,7 +37032,9 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "dqK" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/sign/science{
 	pixel_x = -32
 	},
@@ -37521,9 +37611,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/camera{
 	c_tag = "Command Asteroid Hall 5";
 	dir = 6
@@ -37553,7 +37640,7 @@
 	},
 /area/security/brig)
 "dts" = (
-/obj/structure/disposalpipe/junction/y{
+/obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -40022,10 +40109,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
-"dLo" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/mineral/ancient/outer,
-/area/mine/unexplored/cere/medical)
 "dLF" = (
 /obj/machinery/light{
 	dir = 8
@@ -40096,7 +40179,9 @@
 	location = "CommandWest";
 	name = "navigation beacon (Command-West)"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -40106,7 +40191,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/door/firedoor,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
@@ -40244,7 +40331,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -40368,7 +40457,9 @@
 	},
 /area/hallway/primary/fore/west)
 "dOT" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/light_switch{
 	dir = 4;
 	pixel_x = -24;
@@ -40541,10 +40632,11 @@
 	},
 /area/hallway/primary/fore)
 "dSt" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -41027,6 +41119,9 @@
 "eao" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/green,
 /area/library)
 "eaD" = (
@@ -41373,7 +41468,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -41392,7 +41489,10 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating/asteroid/ancient,
+/obj/structure/disposalpipe/segment/corner,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/maintenance/gambling_den)
 "ejh" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -41455,7 +41555,9 @@
 	name = "Criminal Deposit";
 	req_access_txt = "2"
 	},
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	color = "#954535"
+	},
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/red/full,
 /turf/simulated/floor/plasteel{
@@ -41520,14 +41622,15 @@
 /turf/simulated/floor/plating,
 /area/storage/primary)
 "elE" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -41658,14 +41761,15 @@
 /area/hallway/primary/central)
 "eoc" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -41829,7 +41933,9 @@
 	pixel_x = -32;
 	pixel_y = -32
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -41995,7 +42101,9 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "evJ" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/item/radio/intercom{
 	pixel_x = -28;
 	name = "custom placement"
@@ -42066,7 +42174,8 @@
 	name = "south bump"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42080,7 +42189,8 @@
 /area/hallway/primary/fore/west)
 "ewR" = (
 /obj/structure/disposalpipe/segment/corner{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8
@@ -42119,7 +42229,8 @@
 	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8
@@ -42195,7 +42306,8 @@
 	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42238,7 +42350,8 @@
 "eAo" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42259,7 +42372,8 @@
 	name = "south bump"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42299,14 +42413,16 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
+	},
+/obj/structure/disposalpipe/sortjunction{
+	name = "disposal pipe - Custodials";
+	sort_type_txt = "22";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -42343,11 +42459,12 @@
 	},
 /area/maintenance/port)
 "eCP" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42416,7 +42533,8 @@
 	name = "south bump"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42426,7 +42544,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -42489,13 +42609,14 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "eET" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -42603,9 +42724,6 @@
 /turf/simulated/floor/carpet/black,
 /area/chapel/main)
 "eHc" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 2;
 	d2 = 4;
@@ -42615,6 +42733,10 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42705,9 +42827,6 @@
 /turf/simulated/wall,
 /area/maintenance/fsmaint)
 "eIH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 2;
 	d2 = 8;
@@ -42715,6 +42834,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -42731,7 +42854,8 @@
 	name = "Central Access"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42742,13 +42866,14 @@
 /turf/simulated/wall,
 /area/maintenance/fsmaint)
 "eIY" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42772,7 +42897,8 @@
 "eJS" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42808,10 +42934,11 @@
 /turf/simulated/floor/wood,
 /area/maintenance/gambling_den)
 "eLH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -42874,7 +43001,8 @@
 /area/security/brig)
 "eMm" = (
 /obj/structure/disposalpipe/junction/reversed{
-	dir = 8
+	dir = 8;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43076,7 +43204,8 @@
 	name = "Central Access"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43094,7 +43223,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43125,7 +43255,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43189,7 +43320,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43232,7 +43364,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
@@ -43248,7 +43381,8 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43286,7 +43420,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "eUJ" = (
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	name = "disposal pipe - Chapel";
+	sort_type_txt = "17"
+	},
 /turf/simulated/floor/carpet/green,
 /area/library)
 "eUR" = (
@@ -43303,7 +43441,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43338,7 +43477,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43388,7 +43528,8 @@
 	name = "south bump"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43447,10 +43588,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -43475,20 +43617,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/fore)
-"eZr" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43536,7 +43666,8 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43606,9 +43737,6 @@
 /area/toxins/launch)
 "fbK" = (
 /obj/machinery/light,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
@@ -43618,6 +43746,10 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -43780,7 +43912,9 @@
 	},
 /area/hallway/spacebridge/servsci)
 "ffc" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -43801,15 +43935,6 @@
 	icon_state = "darkgreenfull"
 	},
 /area/hydroponics)
-"ffX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/fore)
 "fgu" = (
 /obj/machinery/alarm{
 	pixel_y = 24;
@@ -43823,11 +43948,12 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/fans/tiny,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/caution/red{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -43891,21 +44017,20 @@
 "fiK" = (
 /turf/simulated/mineral/ancient/outer,
 /area/maintenance/disposal/west)
-"fiW" = (
-/obj/structure/disposalpipe/segment/corner,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/maintenance/starboard)
 "fje" = (
 /obj/machinery/light/small,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/cargocom)
 "fjn" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -43935,7 +44060,8 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -43960,14 +44086,17 @@
 	name = "south bump"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/cargocom)
 "fjD" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24;
 	name = "custom placement"
@@ -44068,7 +44197,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -44100,7 +44230,9 @@
 	},
 /area/hallway/secondary/entry/south)
 "flS" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -44129,11 +44261,12 @@
 	layer = 2.6;
 	name = "Cargo Lockdown"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/caution/red{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44177,11 +44310,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/sign/cargo{
 	pixel_y = -32
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44247,7 +44381,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44274,7 +44409,8 @@
 	dir = 5
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44337,7 +44473,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44391,7 +44528,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44494,7 +44632,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44517,7 +44656,8 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44596,7 +44736,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -44719,7 +44860,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/segment/corner{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore/east)
 "fxg" = (
@@ -44812,7 +44955,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "fyY" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/railing{
 	dir = 4;
 	pixel_y = 8
@@ -45021,15 +45166,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/alarm{
 	pixel_y = 24;
 	name = "north bump"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -45179,7 +45325,8 @@
 /area/maintenance/fpmaint)
 "fGR" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -45460,9 +45607,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -45470,6 +45614,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -45568,7 +45716,9 @@
 	},
 /area/clownoffice/secret)
 "fOA" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -45583,6 +45733,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -46233,7 +46384,9 @@
 	},
 /area/hallway/spacebridge/scidock)
 "fZP" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -46497,7 +46650,6 @@
 	},
 /area/hallway/secondary/exit)
 "gfB" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -46505,6 +46657,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -46597,8 +46752,10 @@
 /area/engine/engineering)
 "gio" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -46911,7 +47068,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness)
 "gqA" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -46938,7 +47097,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment/corner{
-	dir = 8
+	dir = 8;
+	color = "#954535"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -47118,9 +47278,6 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/machinery/iv_drip,
 /obj/item/reagent_containers/iv_bag/salglu,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -47448,7 +47605,9 @@
 /turf/simulated/wall/r_wall,
 /area/engine/gravitygenerator)
 "gzX" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -47488,7 +47647,9 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -47799,16 +47960,6 @@
 "gGB" = (
 /turf/simulated/mineral/ancient/outer,
 /area/crew_quarters/sleep/secondary)
-"gGF" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/structure/disposaloutlet{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/red/full,
-/turf/simulated/floor/plasteel,
-/area/janitor)
 "gGM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -47841,13 +47992,6 @@
 	icon_state = "barber"
 	},
 /area/security/permabrig)
-"gHl" = (
-/obj/effect/turf_decal/stripes/red/full,
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/janitor)
 "gHv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -48450,7 +48594,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -48535,7 +48681,9 @@
 	},
 /area/hallway/secondary/entry/south)
 "gUe" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/sign/security{
 	pixel_x = -32
 	},
@@ -48603,7 +48751,9 @@
 	},
 /area/engine/break_room)
 "gVT" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -49471,7 +49621,8 @@
 /area/medical/medbay)
 "hli" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -49671,10 +49822,11 @@
 	name = "Criminal Delivery Chute";
 	req_access_txt = "63"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/red/full,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -49684,7 +49836,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/segment/corner{
+	color = "#954535"
+	},
 /obj/machinery/computer/card{
 	dir = 4
 	},
@@ -49876,7 +50030,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -50347,13 +50503,14 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab_chamber)
 "hBk" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -50411,6 +50568,16 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/hor)
+"hDD" = (
+/obj/machinery/hologram/holopad,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/fore)
 "hDL" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -51282,13 +51449,14 @@
 /area/crew_quarters/locker)
 "hSH" = (
 /obj/machinery/light,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -51469,7 +51637,8 @@
 /area/mine/unexplored/cere/civilian)
 "hVb" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/machinery/light_switch{
 	dir = 1;
@@ -51531,7 +51700,8 @@
 /area/hallway/secondary/garden)
 "hVP" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52122,18 +52292,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/hallway)
-"iiZ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/central)
 "ijf" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
@@ -52219,15 +52377,6 @@
 /obj/item/wirecutters,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southeast)
-"ilH" = (
-/obj/machinery/door/window/southleft{
-	name = "Medbay Mail Chute";
-	req_access_txt = "45"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/cmostore)
 "ilJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -52340,7 +52489,9 @@
 	pixel_x = -24;
 	name = "custom placement"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -52654,7 +52805,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -52989,7 +53142,8 @@
 /area/maintenance/disposal/westalt)
 "iCG" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -52999,7 +53153,9 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/maintenance/starboard)
 "iDa" = (
 /obj/item/chair,
@@ -53022,9 +53178,6 @@
 	},
 /area/quartermaster/office)
 "iEs" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
@@ -53032,6 +53185,10 @@
 	},
 /obj/machinery/economy/atm{
 	pixel_y = -32
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -53223,9 +53380,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -53240,6 +53394,10 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -53926,10 +54084,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "iUS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purplecorner"
@@ -54176,7 +54335,9 @@
 	c_tag = "Command Asteroid Hallway 1";
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -54542,7 +54703,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -54799,13 +54961,14 @@
 	},
 /area/hallway/spacebridge/engmed)
 "jms" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -56209,6 +56372,9 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/green,
 /area/library)
 "jND" = (
@@ -56650,11 +56816,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -56838,10 +57005,14 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "kaI" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/sortjunction/reversed{
+	dir = 1;
+	name = "disposal pipe - Kitchen";
+	sort_type_txt = "20"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/maintenance/gambling_den)
 "kbd" = (
 /obj/machinery/power/terminal{
@@ -56879,6 +57050,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Fitness Room"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/carpet/green,
 /area/library)
 "kcw" = (
@@ -56893,7 +57067,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -57211,13 +57387,15 @@
 /area/hallway/secondary/entry/north)
 "kix" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -57561,7 +57739,9 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -57861,7 +58041,6 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ktP" = (
@@ -57949,9 +58128,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -57959,6 +58135,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -58045,7 +58225,9 @@
 /obj/structure/sign/pods{
 	pixel_x = -32
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -58074,6 +58256,21 @@
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
+"kxo" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/sortjunction/reversed{
+	dir = 8;
+	name = "disposal pipe - Hydroponics";
+	sort_type_txt = "21"
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/gambling_den)
 "kxp" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -58178,13 +58375,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -58543,7 +58742,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -58615,7 +58816,8 @@
 /area/mine/unexplored/cere/orbiting)
 "kGE" = (
 /obj/structure/disposalpipe/segment/corner{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /obj/machinery/newscaster{
 	pixel_x = -28;
@@ -58883,7 +59085,8 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -58983,7 +59186,9 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -59033,10 +59238,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -59169,7 +59375,8 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -59289,7 +59496,6 @@
 /area/maintenance/fsmaint)
 "kVg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -24;
@@ -59301,6 +59507,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -59751,7 +59960,8 @@
 	name = "south bump"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59789,7 +59999,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/fans/tiny,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/effect/turf_decal/caution/red{
 	dir = 1
 	},
@@ -60439,7 +60651,6 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "loq" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
@@ -60447,6 +60658,9 @@
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -60533,7 +60747,9 @@
 	desc = "A chute for big and small criminals alike!";
 	name = "Criminal Delivery Chute"
 	},
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	color = "#954535"
+	},
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/red/full,
 /turf/simulated/floor/plasteel{
@@ -60730,7 +60946,9 @@
 	},
 /area/maintenance/starboard)
 "luL" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
@@ -60846,8 +61064,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -61214,13 +61434,14 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "lDt" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24;
 	name = "south bump"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -61418,9 +61639,11 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "lIc" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -61824,13 +62047,15 @@
 	},
 /area/toxins/mixing)
 "lSj" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -62092,10 +62317,12 @@
 /area/maintenance/fsmaint)
 "lYk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -62308,8 +62535,10 @@
 	c_tag = "Cargo Asteroid Hall 3";
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -62431,11 +62660,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "mfB" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/sign/cargo{
 	pixel_x = -32
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -62672,6 +62903,14 @@
 	icon_state = "asteroidplating"
 	},
 /area/hydroponics)
+"mlK" = (
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/maintenance/gambling_den)
 "mmx" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -62793,7 +63032,6 @@
 /turf/simulated/wall,
 /area/hallway/spacebridge/medcargo)
 "mom" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
@@ -62808,6 +63046,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/turf_decal/caution/red{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -63035,7 +63276,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -63139,7 +63382,9 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/toilet)
 "mwr" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -63161,7 +63406,9 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/maintenance/starboard)
 "mwZ" = (
 /obj/structure/disposalpipe/segment,
@@ -63214,10 +63461,12 @@
 /turf/simulated/floor/plating,
 /area/hallway/spacebridge/medcargo)
 "mxI" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -63670,12 +63919,13 @@
 /turf/simulated/floor/grass,
 /area/hallway/spacebridge/scidock)
 "mIa" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28;
 	name = "custom placement"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -63761,10 +64011,12 @@
 /turf/simulated/wall/r_wall,
 /area/hallway/spacebridge/medcargo)
 "mKW" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -64261,13 +64513,6 @@
 	slowdown = -0.3
 	},
 /area/hallway/spacebridge/comeng)
-"mTQ" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/fore/west)
 "mTZ" = (
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -64299,9 +64544,11 @@
 	},
 /area/toxins/lab)
 "mUO" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -64429,7 +64676,6 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "mWQ" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/power/apc{
 	dir = 8;
@@ -64439,6 +64685,9 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -64597,7 +64846,9 @@
 	layer = 2.6;
 	name = "Service Lockdown"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -64769,7 +65020,9 @@
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "neb" = (
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/segment/corner{
+	color = "#954535"
+	},
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -64879,7 +65132,6 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "nfX" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -64887,6 +65139,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -65340,15 +65595,6 @@
 	icon_state = "dark"
 	},
 /area/maintenance/asmaint)
-"noO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/fore/east)
 "noX" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -65688,7 +65934,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft/east)
 "nwx" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
@@ -65705,6 +65950,9 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/caution/red,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -65927,7 +66175,9 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/door/firedoor,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen{
@@ -66214,11 +66464,13 @@
 	},
 /area/engine/break_room)
 "nGv" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -66431,11 +66683,12 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -66876,7 +67129,9 @@
 	desc = "A chute for big and small criminals alike!";
 	name = "Criminal Delivery Chute"
 	},
-/obj/structure/disposalpipe/trunk,
+/obj/structure/disposalpipe/trunk{
+	color = "#954535"
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -66892,7 +67147,9 @@
 	c_tag = "Service Asteroid Hallway 1";
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -66900,14 +67157,14 @@
 /area/hallway/primary/port/north)
 "nTL" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -66991,7 +67248,9 @@
 /turf/simulated/mineral/ancient,
 /area/maintenance/maintcentral)
 "nWh" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Criminal Delivery Chute";
 	req_access_txt = "63"
@@ -67120,9 +67379,6 @@
 	},
 /obj/item/storage/belt/medical{
 	pixel_y = 2
-	},
-/obj/structure/window/reinforced{
-	dir = 8
 	},
 /obj/machinery/light{
 	dir = 1
@@ -67279,11 +67535,13 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -67419,7 +67677,9 @@
 	},
 /area/hallway/secondary/exit)
 "ofa" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
@@ -67798,9 +68058,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -67808,6 +68065,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -68221,7 +68482,9 @@
 	c_tag = "Service Asteroid Hallway 3";
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -68417,7 +68680,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -68564,7 +68829,8 @@
 /area/security/checkpoint2)
 "oDU" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -69226,7 +69492,9 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -69771,11 +70039,12 @@
 	},
 /area/hydroponics)
 "pay" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -69814,7 +70083,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -70255,9 +70526,6 @@
 /obj/structure/table,
 /obj/item/destTagger,
 /obj/item/stack/packageWrap,
-/obj/structure/disposalpipe/segment/corner{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70386,7 +70654,9 @@
 	c_tag = "Research Asteroid Hallway 1";
 	dir = 5
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -70709,6 +70979,11 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
+"prF" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/east)
 "prG" = (
 /obj/structure/chair/wood,
 /obj/machinery/light/small{
@@ -70826,7 +71101,9 @@
 /turf/simulated/floor/plating,
 /area/security/evidence)
 "puO" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/transparent/glass/reinforced{
 	slowdown = -0.3
 	},
@@ -71375,23 +71652,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/east)
-"pEP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/sortjunction{
-	name = "disposal pipe - Custodials";
-	sort_type_txt = "22";
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
-/area/hallway/primary/fore/west)
 "pFa" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating{
@@ -71539,7 +71799,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment/corner{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -71633,14 +71894,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71664,11 +71926,12 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71865,11 +72128,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71936,11 +72200,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71973,14 +72238,15 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -71998,7 +72264,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment/corner{
-	dir = 8
+	dir = 8;
+	color = "#954535"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -72615,7 +72882,9 @@
 	},
 /area/crew_quarters/hor)
 "qan" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -73009,7 +73278,9 @@
 	location = "Medbay";
 	name = "navigation beacon (Medbay)"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -73980,22 +74251,14 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/starboard/north)
-"qAG" = (
-/obj/machinery/light,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purplecorner"
-	},
-/area/hallway/primary/aft/east)
 "qAH" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -74053,7 +74316,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -74173,7 +74438,9 @@
 	},
 /area/hallway/primary/starboard/north)
 "qCB" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
@@ -74248,7 +74515,9 @@
 	c_tag = "Service Asteroid Hallway 2";
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -74426,7 +74695,9 @@
 	},
 /area/security/detectives_office)
 "qHJ" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/railing{
 	dir = 4
 	},
@@ -74632,11 +74903,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -74676,7 +74949,9 @@
 	c_tag = "Service Asteroid Hallway 5";
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -75326,7 +75601,8 @@
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/red/full,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -75479,12 +75755,13 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "reb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/sign/directions/security{
 	dir = 1;
 	pixel_y = -24
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -75605,9 +75882,11 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -75776,7 +76055,8 @@
 /area/engine/engineering)
 "rlh" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /obj/machinery/economy/atm{
 	pixel_y = -32
@@ -75899,7 +76179,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -76390,13 +76672,14 @@
 	},
 /area/medical/paramedic)
 "rwD" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/orange{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -76555,10 +76838,12 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -76687,6 +76972,15 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/hallway)
+"rCf" = (
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/aft/west)
 "rCm" = (
 /obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/plating{
@@ -76756,7 +77050,9 @@
 	pixel_x = -24;
 	name = "custom placement"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -76812,7 +77108,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -76847,7 +77145,8 @@
 /area/crew_quarters/locker)
 "rGq" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -77098,7 +77397,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -77590,7 +77891,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -77715,7 +78018,8 @@
 	name = "south bump"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -77901,7 +78205,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar/aft)
 "sau" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 8;
@@ -78041,11 +78347,12 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -78173,9 +78480,11 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -78403,7 +78712,8 @@
 /area/maintenance/portsolar)
 "shR" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -78773,7 +79083,8 @@
 /area/maintenance/port2)
 "spQ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -79047,7 +79358,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -79475,7 +79787,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
 "sDr" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -79618,6 +79932,9 @@
 	dir = 4
 	},
 /obj/effect/landmark/lightsout,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -79979,7 +80296,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -80249,7 +80568,12 @@
 	dir = 4
 	},
 /obj/structure/closet/crate,
-/turf/simulated/floor/plating/asteroid/ancient,
+/obj/structure/disposalpipe/segment/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/maintenance/gambling_den)
 "sUG" = (
 /obj/structure/grille/broken,
@@ -80623,7 +80947,9 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -80768,7 +81094,8 @@
 /area/hydroponics)
 "tir" = (
 /obj/structure/disposalpipe/segment/corner{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -81513,7 +81840,8 @@
 /area/maintenance/maintcentral)
 "tuF" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -81958,7 +82286,9 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/maintenance/starboard)
 "tDj" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -82097,7 +82427,8 @@
 "tFZ" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment/corner{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -82129,10 +82460,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "bluecorner"
@@ -82218,15 +82550,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "tIP" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Criminal Delivery Chute";
 	req_access_txt = "63"
 	},
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/red/full,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/south)
 "tIY" = (
@@ -82341,7 +82674,8 @@
 /area/medical/medbay)
 "tKl" = (
 /obj/structure/disposalpipe/trunk{
-	dir = 8
+	dir = 8;
+	color = "#954535"
 	},
 /obj/machinery/disposal/deliveryChute{
 	desc = "A chute for big and small criminals alike!";
@@ -82593,7 +82927,9 @@
 	},
 /area/medical/surgery2)
 "tQt" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -82868,13 +83204,15 @@
 	},
 /area/hallway/secondary/entry/south)
 "tWu" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass{
 	name = "Criminal Delivery Chute";
 	req_access_txt = "63"
 	},
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/red/full,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -82907,6 +83245,9 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Bar";
 	req_access_txt = "12"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
@@ -83016,9 +83357,6 @@
 /turf/simulated/wall/r_wall,
 /area/security/processing)
 "tYX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
 	},
@@ -83026,6 +83364,10 @@
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/caution/red{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -83035,7 +83377,9 @@
 "tYY" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -83269,7 +83613,8 @@
 /area/atmos)
 "udN" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -83395,7 +83740,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -83403,6 +83747,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -83704,7 +84051,8 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -83758,7 +84106,9 @@
 	},
 /area/atmos/distribution)
 "uoi" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -83789,6 +84139,20 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
+"upp" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central)
 "upy" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -83800,6 +84164,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"upz" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/secondary/entry/south)
 "upN" = (
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -84701,7 +85074,8 @@
 /area/maintenance/gambling_den)
 "uKa" = (
 /obj/structure/disposalpipe/junction/reversed{
-	dir = 1
+	dir = 1;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -84829,7 +85203,8 @@
 "uMb" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/junction{
-	dir = 8
+	dir = 8;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -85094,7 +85469,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "uQH" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -85396,7 +85773,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/east)
 "uVU" = (
-/obj/structure/disposaloutlet,
+/obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -85491,9 +85868,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/south)
 "uXS" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/sign/directions/engineering{
 	pixel_x = -32;
 	pixel_y = -24
@@ -85507,6 +85881,10 @@
 	dir = 4;
 	pixel_x = -32;
 	pixel_y = -40
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -85631,7 +86009,9 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
 "vap" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -24;
@@ -85754,7 +86134,9 @@
 	},
 /area/crew_quarters/sleep)
 "vcV" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -85874,10 +86256,6 @@
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
-"vfa" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating/airless,
-/area/maintenance/disposal/east)
 "vfe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -86139,9 +86517,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/newscaster{
 	pixel_y = 28;
 	name = "north bump"
@@ -86153,6 +86528,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -86723,7 +87102,9 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
 	},
@@ -86831,7 +87212,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
 "vBr" = (
@@ -86965,10 +87345,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"vDE" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/maintenance/starboard)
 "vDL" = (
 /obj/machinery/sleeper{
 	dir = 1
@@ -87688,9 +88064,6 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "vRA" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/machinery/alarm{
 	pixel_y = 24;
 	name = "north bump"
@@ -88223,7 +88596,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/aft/west)
 "wbc" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -88233,6 +88605,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -88954,7 +89329,9 @@
 	},
 /area/quartermaster/office)
 "woi" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/sign/security{
 	pixel_x = -32
 	},
@@ -90474,7 +90851,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "wNe" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -90678,21 +91057,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/port)
-"wQk" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 2;
-	name = "disposal pipe - Kitchen";
-	sort_type_txt = "20"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/maintenance/gambling_den)
 "wQl" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -90808,17 +91172,6 @@
 	icon_state = "rampbottom"
 	},
 /area/hallway/secondary/exit)
-"wTp" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/sign/science{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "purple"
-	},
-/area/hallway/primary/aft/west)
 "wTs" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/wood,
@@ -91231,7 +91584,6 @@
 	name = "disposal pipe - CMO Office";
 	sort_type_txt = "10"
 	},
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/east)
 "xbh" = (
@@ -91493,7 +91845,9 @@
 	},
 /area/engine/break_room)
 "xeK" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
 /obj/machinery/camera{
 	c_tag = "Service Asteroid Hallway 4";
 	dir = 4
@@ -91734,6 +92088,16 @@
 "xla" = (
 /turf/simulated/wall/r_wall,
 /area/security/prison/cell_block/A)
+"xld" = (
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "CargoWaste"
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal)
 "xlv" = (
 /obj/item/radio/intercom{
 	pixel_y = -28;
@@ -91958,7 +92322,8 @@
 /area/hallway/secondary/entry/south)
 "xru" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -91991,7 +92356,8 @@
 	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -92058,11 +92424,12 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
 "xuP" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	color = "#954535"
 	},
 /turf/simulated/floor/engine{
 	slowdown = -0.3
@@ -93207,6 +93574,15 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/paramedic)
+"xQu" = (
+/obj/structure/disposalpipe/segment{
+	color = "#954535"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/starboard/south)
 "xQI" = (
 /obj/machinery/door_control{
 	id = "paramedic";
@@ -93732,6 +94108,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/closet/firecloset/full,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -93838,6 +94215,7 @@
 /obj/effect/turf_decal/stripes/asteroid/end{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -108658,7 +109036,7 @@ pBp
 bHZ
 tCf
 dmV
-ybP
+bRi
 ybP
 fxS
 aEe
@@ -109172,7 +109550,7 @@ aEe
 bLH
 bHZ
 lCz
-ybP
+bRi
 bPj
 bdV
 aEe
@@ -109429,7 +109807,7 @@ aEe
 kEr
 bHZ
 tTE
-ybP
+bRi
 ybP
 fxS
 pRC
@@ -109686,7 +110064,7 @@ aEe
 bLI
 bNf
 hWD
-ybP
+bRi
 ybP
 fxS
 pRC
@@ -109943,7 +110321,7 @@ aEe
 qft
 bHZ
 bNh
-ybP
+bRi
 oDb
 bQl
 pRC
@@ -110714,7 +111092,7 @@ xeK
 fjD
 tQt
 tQt
-tQt
+dfJ
 tQt
 fjn
 tQt
@@ -112559,7 +112937,7 @@ vkl
 nSy
 nWh
 dNQ
-jTe
+rCf
 uMb
 tHG
 vtv
@@ -113588,7 +113966,7 @@ wiE
 wiE
 wMV
 xEd
-wTp
+xsF
 uMr
 djd
 clj
@@ -115079,7 +115457,7 @@ qQJ
 qQJ
 qQJ
 hir
-qQJ
+cyJ
 qQJ
 fXE
 xfj
@@ -115336,7 +115714,7 @@ bjr
 pVR
 pVR
 tPe
-bjr
+cwT
 bjr
 cwT
 nWT
@@ -115593,7 +115971,7 @@ dNk
 yfS
 mEg
 upN
-bjr
+cwT
 fnO
 dhU
 baF
@@ -116108,12 +116486,12 @@ sbn
 gtv
 ogY
 fOS
-wXm
-wXm
+wpF
+wpF
 yaj
 ycq
 kaI
-caw
+mlK
 xOD
 sbn
 sbn
@@ -116369,8 +116747,8 @@ qQI
 fVb
 qQI
 oQF
-wQk
-wpF
+wXm
+kxo
 kXB
 wpF
 wAq
@@ -116626,7 +117004,7 @@ cxW
 shL
 sbn
 eiK
-sbn
+qQI
 sUE
 caw
 gtv
@@ -117853,7 +118231,7 @@ iqQ
 bWx
 rwD
 fUU
-gFu
+aWG
 abW
 abW
 cRv
@@ -118109,9 +118487,9 @@ xla
 dsD
 haT
 iEs
-dzk
-dzk
-dzk
+ice
+gFu
+ivS
 abW
 abW
 cRv
@@ -118367,7 +118745,7 @@ dsL
 dOM
 rwD
 dzk
-gGF
+dzk
 jpP
 abW
 abW
@@ -118620,11 +118998,11 @@ vrQ
 vrQ
 vrQ
 bLx
-pEP
-mTQ
+wBG
+chV
 nTL
 ktM
-gHl
+gIG
 jpP
 jpP
 jpP
@@ -120419,8 +120797,8 @@ aUc
 aqC
 chS
 aqC
-cOF
-exv
+wBG
+chV
 rwD
 dzk
 gLu
@@ -120933,8 +121311,8 @@ mJJ
 chT
 chT
 aqC
-dtf
-hWs
+cOF
+exv
 hSH
 dzk
 dzk
@@ -123354,7 +123732,7 @@ cdb
 lyI
 sej
 ciG
-qAG
+iUS
 izC
 rWw
 rWw
@@ -128394,7 +128772,7 @@ gRT
 uQH
 uQH
 uQH
-pqi
+hDD
 uQH
 uQH
 loq
@@ -128412,9 +128790,9 @@ cIu
 cIu
 cIu
 wbc
-iiZ
+upp
 bcD
-bdw
+upp
 bem
 beY
 bgd
@@ -133271,7 +133649,7 @@ dkd
 aKp
 dzp
 vuY
-eZr
+eIY
 gch
 gch
 gch
@@ -133634,7 +134012,7 @@ qWI
 nFW
 akn
 tWq
-eWu
+upz
 dbg
 eWu
 jpz
@@ -133785,7 +134163,7 @@ dkd
 dnb
 dAc
 dSs
-ffX
+eLH
 gfd
 hmJ
 cSm
@@ -133891,7 +134269,7 @@ vRX
 cjE
 mWg
 tWq
-eWu
+upz
 dbg
 eWu
 xQX
@@ -134148,7 +134526,7 @@ wKu
 kAW
 uKe
 tWq
-eWu
+upz
 dbg
 eWu
 rFJ
@@ -134405,7 +134783,7 @@ grJ
 sHm
 wqU
 mhJ
-eWu
+upz
 esB
 eWu
 hDf
@@ -134662,7 +135040,7 @@ vWF
 vWF
 rcz
 mxo
-eWu
+upz
 dbg
 ckQ
 vjb
@@ -134813,7 +135191,7 @@ dkr
 ist
 dAA
 vuY
-eZr
+eIY
 aKp
 lmZ
 sZz
@@ -134919,7 +135297,7 @@ vWF
 vWF
 kFu
 iFb
-eWu
+upz
 dbg
 cjs
 hiN
@@ -139475,9 +139853,9 @@ qKE
 rmV
 rLZ
 seF
-qcS
+xQu
 sPo
-qcS
+xQu
 tFZ
 bvt
 bvt
@@ -142329,7 +142707,7 @@ utF
 bwX
 gSQ
 gSQ
-fiW
+jOE
 eQu
 aZM
 aZM
@@ -142848,7 +143226,7 @@ eyt
 gSQ
 gSQ
 gSQ
-xuJ
+xAV
 aZM
 aZM
 fMl
@@ -143262,8 +143640,8 @@ rNK
 rNK
 rIu
 aqJ
-uHP
-gom
+xld
+asP
 pjx
 waj
 waj
@@ -143520,7 +143898,7 @@ jpv
 jpv
 arS
 asU
-asP
+gom
 aub
 awn
 axf
@@ -144066,7 +144444,7 @@ ydF
 aVD
 fmI
 fwV
-noO
+gio
 hsP
 cfV
 gio
@@ -144647,7 +145025,7 @@ wvp
 iIM
 yfZ
 vHH
-xuJ
+xAV
 iSn
 aZM
 aZM
@@ -144897,14 +145275,14 @@ nhg
 vWU
 gxB
 uVU
-ilH
+wvp
 wvp
 wKw
 oJu
 jrX
 yfZ
 gSQ
-xuJ
+xAV
 aZN
 aZM
 aZM
@@ -147474,7 +147852,7 @@ itf
 itf
 itf
 dCS
-xuJ
+xAV
 ozK
 aZM
 aZM
@@ -147981,9 +148359,9 @@ bNL
 mqf
 bmc
 pdN
-vDE
-vDE
-vDE
+lux
+lux
+lux
 uAi
 lux
 lux
@@ -148243,8 +148621,8 @@ gSQ
 itf
 itf
 gFg
-gFg
-gFg
+gSQ
+gSQ
 qgX
 aZM
 fMl
@@ -148499,7 +148877,7 @@ itf
 gFg
 itf
 gFg
-gFg
+gSQ
 gFg
 fMl
 fMl
@@ -149261,7 +149639,7 @@ hEE
 itf
 itf
 qIV
-xuJ
+xAV
 itf
 gSQ
 gSQ
@@ -149518,7 +149896,7 @@ vHH
 dTB
 itf
 fvM
-xuJ
+xAV
 itf
 itf
 itf
@@ -150546,7 +150924,7 @@ qeZ
 gFg
 gFg
 qIV
-xuJ
+xAV
 fqw
 gSQ
 gSQ
@@ -150558,7 +150936,7 @@ gFg
 tlk
 voe
 kwq
-dLo
+fMl
 rNK
 rNK
 gEl
@@ -152088,7 +152466,7 @@ xTb
 xTb
 vFQ
 skF
-xuJ
+xAV
 fqw
 aLH
 xpp
@@ -153881,7 +154259,7 @@ rNK
 rNK
 rNK
 rNK
-rNK
+xtF
 gnk
 ndd
 knc
@@ -154137,8 +154515,8 @@ rNK
 rNK
 rNK
 rNK
-rNK
-vfa
+xtF
+xtF
 vAY
 njV
 iDa
@@ -154394,8 +154772,8 @@ wdb
 wdb
 wdb
 wdb
-wdb
 ycO
+prF
 xaW
 mfg
 rXV
@@ -154651,7 +155029,7 @@ sbG
 sbG
 sbG
 sbG
-sbG
+dQj
 dQj
 dQj
 dQj
