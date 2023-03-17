@@ -23,9 +23,9 @@
 /mob/living/carbon/proc/examine_handle_individual_limb(limb_name)
 	return ""
 
-/// Identify what this mob in particular is. Make sure to return a newline after.
+/// Identify what this mob in particular is.
 /mob/living/carbon/proc/examine_what_am_i(skip_jumpsuit, skip_face)
-	return ".\n"
+	return "."
 
 /// Add whatever you want to start the damage block with here.
 /mob/living/carbon/proc/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
@@ -75,7 +75,7 @@
 /**
  * Add some last information in before HUDs get put through.
  */
-/mob/living/carbon/proc/examine_extra_general_flavor()
+/mob/living/carbon/proc/examine_extra_general_flavor(mob/user)
 	return ""
 
 /mob/living/carbon/proc/examine_show_ssd()
@@ -120,6 +120,7 @@
 
 	// Show what you are
 	msg += examine_what_am_i()
+	msg += "\n"
 
 	// All the things wielded/worn that can be reasonably described with a common template:
 	var/list/message_parts = examine_visible_clothing(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
@@ -136,7 +137,7 @@
 		if(item && !(item.flags & ABSTRACT))
 			var/item_words = item.name
 			if(item.blood_DNA)
-				item_words = "[item.blood_color != "#030303" ? "blood-stained":"oil-stained"] [item_words]"
+				item_words = "[item.blood_color != "#030303" ? "blood-stained" : "oil-stained"] [item_words]"
 			var/submsg = "[p_they(TRUE)] [action] [bicon(item)] \a [item_words]"
 			if(accessories)
 				submsg += " with [accessories]"
@@ -163,7 +164,7 @@
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
-			msg += "<span class='warning'><B>[p_they(TRUE)] [p_are()] convulsing violently!</B></span>\n"
+			msg += "<span class='warning'><b>[p_they(TRUE)] [p_are()] convulsing violently!</b></span>\n"
 		if(400 SECONDS to 600 SECONDS)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] extremely jittery.</span>\n"
 		if(200 SECONDS to 400 SECONDS)
@@ -234,7 +235,7 @@
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
+			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"  // guh
 
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
@@ -261,57 +262,6 @@
 
 	// add anything else in here before huds
 	msg += examine_extra_general_flavor()
-
-	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
-		var/perpname = get_visible_name(TRUE)
-		var/criminal = "None"
-		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
-
-		if(perpname)
-			for(var/datum/data/record/E in GLOB.data_core.general)
-				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in GLOB.data_core.security)
-						if(R.fields["id"] == E.fields["id"])
-							criminal = R.fields["criminal"]
-							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
-								var/list/comments = R.fields["comments"]
-								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
-							else
-								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
-
-			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
-			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
-			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
-
-	if(hasHUD(user, EXAMINE_HUD_SKILLS))
-		var/perpname = get_visible_name(TRUE)
-		var/skills
-
-		if(perpname)
-			for(var/datum/data/record/E in GLOB.data_core.general)
-				if(E.fields["name"] == perpname)
-					skills = E.fields["notes"]
-			if(skills)
-				var/char_limit = 40
-				if(length(skills) <= char_limit)
-					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
-				else
-					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
-
-
-	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
-		var/perpname = get_visible_name(TRUE)
-		var/medical = "None"
-
-		for(var/datum/data/record/E in GLOB.data_core.general)
-			if(E.fields["name"] == perpname)
-				for(var/datum/data/record/R in GLOB.data_core.general)
-					if(R.fields["id"] == E.fields["id"])
-						medical = R.fields["p_stat"]
-
-		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
-		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(print_flavor_text() && !skipface)
 		if(get_organ("head"))

@@ -53,13 +53,15 @@
 			if(C.species_disguise)
 				displayed_species = C.species_disguise
 	if(skip_jumpsuit && skip_face || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
-		msg += "!\n"    //omit the species when examining
+		msg += "!"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
-		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!\n"
+		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!"
 	else if(displayed_species == "Unathi") //DAMN YOU, VOWELS
-		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!\n"
+		msg += ", a<b><font color='[examine_color]'> unathi</font></b>!"
 	else
-		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
+		msg += ", a<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!"
+
+	return msg
 
 /mob/living/carbon/human/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
 	var/msg = ""
@@ -73,7 +75,7 @@
 
 		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
 		if(!E)
-			wound_flavor_text["[organ_tag]"] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
+			wound_flavor_text["[organ_tag]"] = "<b>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</b>\n"
 		else
 			if(!ismachineperson(src))
 				if(E.is_robotic())
@@ -92,7 +94,7 @@
 					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
 
 			for(var/obj/item/I in E.embedded_objects)
-				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</B>\n"
+				msg += "<b>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</Bb>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -126,11 +128,11 @@
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
-		msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
+		msg += "<b>[p_they(TRUE)] [p_are()] bleeding!</b>\n"
 
 	return msg
 
-/mob/living/carbon/human/examine_extra_general_flavor()
+/mob/living/carbon/human/examine_extra_general_flavor(mob/user)
 	var/msg = ""
 	switch(decaylevel)
 		if(1)
@@ -140,7 +142,60 @@
 		if(3)
 			msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
 		if(4)
-			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
+			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only [isslimeperson() ? "slime" : "bones"] remaining of what used to be a person.\n"
+
+	// only humans get employment records
+	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
+		var/perpname = get_visible_name(TRUE)
+		var/criminal = "None"
+		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
+
+		if(perpname)
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					for(var/datum/data/record/R in GLOB.data_core.security)
+						if(R.fields["id"] == E.fields["id"])
+							criminal = R.fields["criminal"]
+							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
+								var/list/comments = R.fields["comments"]
+								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
+							else
+								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
+
+			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
+			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
+			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
+
+	if(hasHUD(user, EXAMINE_HUD_SKILLS))
+		var/perpname = get_visible_name(TRUE)
+		var/skills
+
+		if(perpname)
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					skills = E.fields["notes"]
+			if(skills)
+				var/char_limit = 40
+				if(length(skills) <= char_limit)
+					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
+				else
+					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
+
+
+	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
+		var/perpname = get_visible_name(TRUE)
+		var/medical = "None"
+
+		for(var/datum/data/record/E in GLOB.data_core.general)
+			if(E.fields["name"] == perpname)
+				for(var/datum/data/record/R in GLOB.data_core.general)
+					if(R.fields["id"] == E.fields["id"])
+						medical = R.fields["p_stat"]
+
+		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
+		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+
 
 	return msg
 
