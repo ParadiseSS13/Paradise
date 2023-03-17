@@ -1949,6 +1949,7 @@
 #include "code\modules\mob\living\carbon\carbon_status_procs.dm"
 #include "code\modules\mob\living\carbon\carbon_update_icons.dm"
 #include "code\modules\mob\living\carbon\carbon_update_status.dm"
+#include "code\modules\mob\living\carbon\examine.dm"
 #include "code\modules\mob\living\carbon\give.dm"
 #include "code\modules\mob\living\carbon\superheroes.dm"
 #include "code\modules\mob\living\carbon\alien\alien_base.dm"
