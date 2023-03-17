@@ -142,7 +142,7 @@
 		if(3)
 			msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
 		if(4)
-			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only [isslimeperson() ? "slime" : "bones"] remaining of what used to be a person.\n"
+			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only [isslimeperson(src) ? "slime" : "bones"] remaining of what used to be a person.\n"
 
 	// only humans get employment records
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))

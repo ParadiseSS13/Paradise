@@ -12,10 +12,9 @@
 	)
 
 /mob/living/carbon/alien/examine_show_ssd()
-	if(!HAS_TRAIT(src, SCRYING))
-		if(!key)
-			return "<span class='deadsay'>[p_they(TRUE)] [p_are()] completely catatonic, a glazed look in [p_their()] eyes.</span>\n"
-		else if(!client)
-			return "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
+	if(!key)
+		return "<span class='deadsay'>[p_they(TRUE)] [p_are()] completely catatonic, an unfocused look in [p_their()] eyes.</span>\n"
+	else if(!client)
+		return "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
 	return ""

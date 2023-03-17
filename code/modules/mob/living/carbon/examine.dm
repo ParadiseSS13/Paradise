@@ -48,21 +48,21 @@
 		if(damage < 60)
 			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message]!</B>\n"
+			msg += "<b>[p_they(TRUE)] [p_have()] severe [brute_message]!</b>\n"
 
 	damage = getFireLoss()
 	if(damage)
 		if(damage < 60)
 			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns.\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe burns!</B>\n"
+			msg += "<b>[p_they(TRUE)] [p_have()] severe burns!</b>\n"
 
 	damage = getCloneLoss()
 	if(damage)
 		if(damage < 60)
 			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage.\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe cellular damage.</B>\n"
+			msg += "<b>[p_they(TRUE)] [p_have()] severe cellular damage.</b>\n"
 
 	return msg
 
@@ -258,7 +258,7 @@
 			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
-			examine_show_ssd()
+			msg += examine_show_ssd()
 
 	// add anything else in here before huds
 	msg += examine_extra_general_flavor()
