@@ -18,6 +18,9 @@
 	if(force)
 		return ..()
 
+/obj/item/slapper/get_clamped_volume() //Without this, you would hear the slap twice if it has force.
+	return 0
+
 /obj/item/slapper/attack_obj(obj/O, mob/living/user, params)
 	if(!istype(O, /obj/structure/table))
 		return ..()
