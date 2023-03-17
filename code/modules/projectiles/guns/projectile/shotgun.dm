@@ -20,7 +20,10 @@
 
 /obj/item/gun/projectile/shotgun/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>After firing a shot, use this item in hand to remove the spent shell.</span>"
+	. += get_shotgun_info()
+
+/obj/item/gun/projectile/shotgun/proc/get_shotgun_info()
+	return "<span class='notice'>After firing a shot, use this item in hand to remove the spent shell.</span>"
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
@@ -302,9 +305,8 @@
 
 /obj/item/gun/projectile/shotgun/automatic
 
-/obj/item/gun/projectile/shotgun/automatic/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>Automatically releases spent shotgun shells.</span>"
+/obj/item/gun/projectile/shotgun/automatic/get_shotgun_info()
+	return "<span class='notice'>Automatically releases spent shotgun shells.</span>"
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()
