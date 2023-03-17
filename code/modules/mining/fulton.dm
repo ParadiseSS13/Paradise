@@ -118,6 +118,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				if(floor.density)
 					continue
 				flooring_near_beacon += floor
+			if(!length(flooring_near_beacon))
+				to_chat(user, "<span class='notice'>Your fulton pack slowly brings you back down, it seems that the linked beacon has stopped functioning!</span>")
+				flooring_near_beacon = get_turf(user)
 			holder_obj.forceMove(pick(flooring_near_beacon))
 			animate(holder_obj, pixel_z = 10, time = 50)
 			sleep(50)
@@ -143,14 +146,15 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 
 /obj/item/fulton_core
-	name = "extraction beacon signaller"
-	desc = "Emits a signal which fulton recovery devices can lock onto. Activate in hand to create a beacon."
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "subspace_amplifier"
+	name = "extraction beacon assembly kit"
+	desc = "When built, emits a signal which fulton recovery devices can lock onto. Activate in hand to unfold into a beacon."
+	icon = 'icons/obj/fulton.dmi'
+	icon_state = "folded_extraction"
 
 /obj/item/fulton_core/attack_self(mob/user)
 	if(do_after(user, 15, target = user) && !QDELETED(src))
 		new /obj/structure/extraction_point(get_turf(user))
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 		qdel(src)
 
 /obj/structure/extraction_point
@@ -166,6 +170,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	. = ..()
 	name += " ([rand(100,999)]) ([get_location_name(src)])"
 	GLOB.total_extraction_beacons += src
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/extraction_point/Destroy()
 	GLOB.total_extraction_beacons -= src
@@ -187,6 +192,10 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			if(L.stat != DEAD)
 				return TRUE
 	return FALSE
+
+/obj/structure/extraction_point/update_overlays()
+	. = ..()
+	underlays += emissive_appearance(icon, "[icon_state]_light", src, alpha = src.alpha)
 
 /obj/effect/extraction_holder/singularity_act()
 	return

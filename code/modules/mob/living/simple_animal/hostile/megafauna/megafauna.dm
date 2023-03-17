@@ -71,7 +71,6 @@
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
-			grant_achievement(medal_type,score_type)
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
 
@@ -127,20 +126,6 @@
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
 
-/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
-	if(!medal_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
-		return FALSE
-
-	for(var/mob/living/L in view(7,src))
-		if(L.stat || !L.client)
-			continue
-		var/client/C = L.client
-		SSmedals.UnlockMedal("Boss [BOSS_KILL_MEDAL]", C)
-		SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL]", C)
-		SSmedals.SetScore(BOSS_SCORE, C, 1)
-		SSmedals.SetScore(score_type, C, 1)
-	return TRUE
-
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
@@ -150,7 +135,7 @@
 	var/chosen_attack_num = 0
 
 /datum/action/innate/megafauna_attack/Grant(mob/living/L)
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+	if(ismegafauna(L))
 		M = L
 		return ..()
 	return FALSE

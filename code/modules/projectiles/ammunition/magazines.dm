@@ -180,7 +180,7 @@
 	max_ammo = 5
 
 /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
- 	max_ammo = 10
+	max_ammo = 10
 
 ///////////EXTERNAL MAGAZINES////////////////
 
@@ -502,7 +502,7 @@
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
-	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
+	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"

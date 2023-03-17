@@ -21,7 +21,7 @@
 		if(T.mob)
 			if(isnewplayer(T.mob))
 				targets["(New Player) - [T]"] = T
-			else if(istype(T.mob, /mob/dead/observer))
+			else if(isobserver(T.mob))
 				targets["[T.mob.name](Ghost) - [T]"] = T
 			else
 				targets["[T.mob.real_name](as [T.mob.name]) - [T]"] = T
@@ -43,7 +43,7 @@
 		if(T.mob)
 			if(isnewplayer(T.mob))
 				targets["[T] - (New Player)"] = T
-			else if(istype(T.mob, /mob/dead/observer))
+			else if(isobserver(T.mob))
 				targets["[T] - [T.mob.name](Ghost)"] = T
 			else
 				targets["[T] - [T.mob.real_name](as [T.mob.name])"] = T
@@ -65,7 +65,7 @@
 	var/client/C
 	if(istext(whom))
 		C = get_client_by_ckey(whom)
-	else if(istype(whom,/client))
+	else if(isclient(whom))
 		C = whom
 
 	if(!C)
@@ -160,7 +160,8 @@
 	to_chat(C, recieve_message)
 	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	to_chat(src, "<span class='pmsend'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</span> [ping_link] [window_link]")
+	var/alert_link = "(<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)"
+	to_chat(src, "<span class='pmsend'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</span> [ping_link] [window_link] [alert_link]")
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -235,7 +236,7 @@
 		to_chat(src, "<span class='notice'>[msg]</span>")
 		return
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
 	to_chat(src, "<span class='pmsend'>PM to-<b>Discord Admins</b>: [msg]</span>")
 
@@ -363,7 +364,7 @@
 	var/client/C = pms[title].client || update_client(title)
 	if(!C)
 		return "[title] (Disconnected)"
-	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)])"
+	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) ([ADMIN_ALERT(C.mob,"SEND ALERT")])"
 
 /datum/pm_tracker/proc/update_client(title)
 	var/client/C = GLOB.directory[ckey(title)]
@@ -393,6 +394,13 @@
 		current_title = href_list["newtitle"]
 		show_ui(usr)
 		return
+
+	if(href_list["adminalert"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
 	if(href_list["ping"])
 		var/client/C = pms[href_list["ping"]].client

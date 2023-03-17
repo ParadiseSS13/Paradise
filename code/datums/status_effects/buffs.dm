@@ -98,12 +98,13 @@
 /datum/status_effect/void_price/refresh()
 	price++
 	return ..()
-	
+
 /datum/status_effect/blooddrunk
 	id = "blooddrunk"
 	duration = 10
 	tick_interval = 0
 	alert_type = /obj/screen/alert/status_effect/blooddrunk
+	var/blooddrunk_damage_mod_remove = 4 // Damage is multiplied by this at the end of the status effect. Modify this one, it changes the _add
 
 /obj/screen/alert/status_effect/blooddrunk
 	name = "Blood-Drunk"
@@ -116,12 +117,13 @@
 		ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			H.physiology.brute_mod *= 0.1
-			H.physiology.burn_mod *= 0.1
-			H.physiology.tox_mod *= 0.1
-			H.physiology.oxy_mod *= 0.1
-			H.physiology.clone_mod *= 0.1
-			H.physiology.stamina_mod *= 0.1
+			var/blooddrunk_damage_mod_add = 1 / blooddrunk_damage_mod_remove // Damage is multiplied by this at the start of the status effect. Don't modify this one directly.
+			H.physiology.brute_mod *= blooddrunk_damage_mod_add
+			H.physiology.burn_mod *= blooddrunk_damage_mod_add
+			H.physiology.tox_mod *= blooddrunk_damage_mod_add
+			H.physiology.oxy_mod *= blooddrunk_damage_mod_add
+			H.physiology.clone_mod *= blooddrunk_damage_mod_add
+			H.physiology.stamina_mod *= blooddrunk_damage_mod_add
 		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
 		owner.add_stun_absorption("blooddrunk", INFINITY, 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
@@ -129,12 +131,12 @@
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.physiology.brute_mod *= 10
-		H.physiology.burn_mod *= 10
-		H.physiology.tox_mod *= 10
-		H.physiology.oxy_mod *= 10
-		H.physiology.clone_mod *= 10
-		H.physiology.stamina_mod *= 10
+		H.physiology.brute_mod *= blooddrunk_damage_mod_remove
+		H.physiology.burn_mod *= blooddrunk_damage_mod_remove
+		H.physiology.tox_mod *= blooddrunk_damage_mod_remove
+		H.physiology.oxy_mod *= blooddrunk_damage_mod_remove
+		H.physiology.clone_mod *= blooddrunk_damage_mod_remove
+		H.physiology.stamina_mod *= blooddrunk_damage_mod_remove
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "blooddrunk")
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
@@ -344,10 +346,12 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		for(var/thing in H.bodyparts)
-			var/obj/item/organ/external/E = thing
-			E.fix_internal_bleeding()
-			E.mend_fracture()
+		if(is_mining_level(H.z))
+			for(var/obj/item/organ/external/E in H.bodyparts)
+				E.fix_internal_bleeding()
+				E.mend_fracture()
+		else
+			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
 	else
 		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
@@ -355,6 +359,45 @@
 /datum/status_effect/regenerative_core/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 
+/datum/status_effect/fleshmend
+	duration = -1
+	status_type = STATUS_EFFECT_REFRESH
+	tick_interval = 1 SECONDS
+	alert_type = null
+	/// This diminishes the healing of fleshmend the higher it is.
+	var/tolerance = 1
+	var/instance_duration = 10 // in ticks
+	/// a list of integers, one for each remaining instance of fleshmend.
+	var/list/active_instances = list()
+	var/ticks = 0
+
+/datum/status_effect/fleshmend/on_apply()
+	tolerance += 1
+	active_instances += instance_duration
+	return TRUE
+
+/datum/status_effect/fleshmend/refresh()
+	tolerance += 1
+	active_instances += instance_duration
+	..()
+
+/datum/status_effect/fleshmend/tick()
+	if(length(active_instances) >= 1)
+		var/heal_amount = 10 * length(active_instances) / tolerance
+		var/blood_restore = 30 * length(active_instances)
+		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+		owner.adjustOxyLoss(-heal_amount, FALSE)
+		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
+		owner.updatehealth()
+		var/list/expired_instances = list()
+		for(var/i in 1 to length(active_instances))
+			active_instances[i]--
+			if(active_instances[i] <= 0)
+				expired_instances += active_instances[i]
+		active_instances -= expired_instances
+	tolerance = max(tolerance - 0.05, 1)
+	if(tolerance <= 1 && length(active_instances) == 0)
+		qdel(src)
 
 /datum/status_effect/speedlegs
 	duration = -1
@@ -397,6 +440,22 @@
 			owner.emote("gasp")
 	cling.genetic_damage += stacks
 	cling = null
+
+/datum/status_effect/panacea
+	duration = 20 SECONDS
+	tick_interval = 2 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
+/datum/status_effect/panacea/tick()
+	owner.adjustToxLoss(-5) //Has the same healing as 20 charcoal, but happens faster
+	owner.radiation = max(0, owner.radiation - 70) //Same radiation healing as pentetic
+	owner.adjustBrainLoss(-5)
+	owner.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
+	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
+	for(var/datum/reagent/R in owner.reagents.reagent_list)
+		if(!R.harmless)
+			owner.reagents.remove_reagent(R.id, 2)
 
 /datum/status_effect/chainsaw_slaying
 	id = "chainsaw_slaying"
@@ -478,3 +537,60 @@
 	else
 		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
 
+/datum/status_effect/thrall_net
+	id = "thrall_net"
+	tick_interval = 2 SECONDS
+	duration = -1
+	alert_type = null
+	var/blood_cost_per_tick = 5
+	var/list/target_UIDs = list()
+	var/datum/antagonist/vampire/vamp
+
+/datum/status_effect/thrall_net/on_creation(mob/living/new_owner, datum/antagonist/vampire/V, ...)
+	. = ..()
+	vamp = V
+	START_PROCESSING(SSfastprocess, src)
+	target_UIDs += owner.UID()
+	var/list/view_cache = view(7, owner)
+	for(var/datum/mind/M in owner.mind.som.serv)
+		if(!M.has_antag_datum(/datum/antagonist/mindslave/thrall))
+			continue
+		if(!(M.current in view_cache))
+			continue
+		if(M.current.stat == DEAD)
+			continue
+		target_UIDs += M.current.UID()
+		M.current.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)
+
+/datum/status_effect/thrall_net/tick()
+	var/total_damage = 0
+	var/list/view_cache = view(7, owner)
+	for(var/uid in target_UIDs)
+		var/mob/living/L = locateUID(uid)
+		if(!(L in view_cache) || L.stat == DEAD)
+			target_UIDs -= uid
+			continue
+		total_damage += (L.maxHealth - L.health)
+		L.Beam(owner, "sendbeam", time = 2 SECONDS, maxdistance = 7)
+
+	var/average_damage = total_damage / length(target_UIDs)
+
+	for(var/uid in target_UIDs)
+		var/mob/living/L = locateUID(uid)
+		var/current_damage = L.maxHealth - L.health
+		if(current_damage == average_damage)
+			continue
+		if(current_damage > average_damage)
+			var/heal_amount = current_damage - average_damage
+			L.heal_ordered_damage(heal_amount, list(BRUTE, BURN, TOX, OXY, CLONE))
+		else
+			var/damage_amount = average_damage - current_damage
+			L.adjustFireLoss(damage_amount)
+
+	vamp.bloodusable = max(vamp.bloodusable - blood_cost_per_tick, 0)
+	if(!vamp.bloodusable || length(target_UIDs) <= 1) // if there is one left in the list, its only the vampire.
+		qdel(src)
+
+/datum/status_effect/thrall_net/on_remove()
+	. = ..()
+	vamp = null

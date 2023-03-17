@@ -9,7 +9,7 @@
 		if(length(locs) == max_targets) //we found 2 locations and thats all we need
 			break
 		var/turf/T = get_step(user, direction) //getting a loc in that direction
-		if(AStar(user, T, /turf/proc/Distance, 1, simulated_only = FALSE)) // if a path exists, so no dense objects in the way its valid salid
+		if(length(get_path_to(user, T, max_distance = 1, simulated_only = FALSE))) // if a path exists, so no dense objects in the way its valid salid
 			locs += T
 
 	// pad with player location

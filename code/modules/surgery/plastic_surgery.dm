@@ -31,7 +31,7 @@
 		var/obj/item/card/id/ID
 
 		//IDs in hand
-		if(istype(user, /mob/living/carbon/human)) //Only 'humans' can hold ID cards
+		if(ishuman(user)) //Only 'humans' can hold ID cards
 			var/mob/living/carbon/human/H = user
 			ID = H.get_id_from_hands()
 			if(ID)

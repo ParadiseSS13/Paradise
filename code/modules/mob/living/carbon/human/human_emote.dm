@@ -37,6 +37,17 @@
 	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/crack
+	key = "crack"
+	key_third_person = "cracks"
+	message = "cracks their knuckles."
+	emote_type = EMOTE_AUDIBLE | EMOTE_SOUND
+	// knuckles.ogg by CGEffex. Shortened and cut.
+	// https://freesound.org/people/CGEffex/sounds/93981/
+	sound = "sound/effects/mob_effects/knuckles.ogg"
+	// These species all have overrides, see below
+	species_type_blacklist_typecache = list(/datum/species/slime, /datum/species/machine, /datum/species/plasmaman, /datum/species/skeleton, /datum/species/diona)
+
 /datum/emote/living/carbon/human/cry
 	key = "cry"
 	key_third_person = "cries"
@@ -300,7 +311,7 @@
 				L.status_flags |= GODMODE
 				explosion(get_turf(user), 5, 2, 1, 3)
 				// explosions have a spawn so this makes sure that we don't get gibbed
-				addtimer(CALLBACK(src, .proc/wiz_cleanup, user_carbon, L), 1)
+				addtimer(CALLBACK(src, PROC_REF(wiz_cleanup), user_carbon, L), 1)
 				user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 				L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 				return TRUE
@@ -587,7 +598,7 @@
 	message = "clicks their mandibles."
 	message_param = "clicks their mandibles at %t."
 	// Credit to DrMinky (freesound.org) for the sound.
-	sound = "sound/effects/Kidanclack2.ogg"
+	sound = "sound/effects/kidanclack2.ogg"
 
 /datum/emote/living/carbon/human/drask_talk
 	species_type_whitelist_typecache = list(/datum/species/drask)
@@ -689,4 +700,37 @@
 	key_third_person = "rattles"
 	message = "rattles their bones."
 	message_param = "rattles their bones at %t."
+	sound = "sound/voice/plas_rattle.ogg"
+	volume = 80
 	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)
+
+/datum/emote/living/carbon/human/crack/slime
+	message = "squishes their knuckles!"
+	sound = "sound/effects/slime_squish.ogg"
+	species_type_whitelist_typecache = list(/datum/species/slime)
+	species_type_blacklist_typecache = null
+
+/datum/emote/living/carbon/human/crack/machine
+	message = "cracks their actuators!"
+	sound = "sound/effects/mob_effects/ipc_crunch.ogg"
+	species_type_whitelist_typecache = list(/datum/species/machine)
+	species_type_blacklist_typecache = null
+
+/datum/emote/living/carbon/human/crack/diona
+	message = "cracks a twig!"
+	sound = "sound/effects/mob_effects/diona_crunch.ogg"
+	species_type_whitelist_typecache = list(/datum/species/diona)
+	species_type_blacklist_typecache = null
+	volume = 85  // the sound effect is a bit quiet
+
+/datum/emote/living/carbon/human/crack/skelly
+	message = "cracks something!"  // placeholder
+	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)
+	species_type_blacklist_typecache = null
+
+/datum/emote/living/carbon/human/crack/skelly/run_emote(mob/user, params, type_override, intentional)
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/external/bodypart = pick(H.bodyparts)
+	message = "cracks their [bodypart.name]!"
+	. = ..()
+

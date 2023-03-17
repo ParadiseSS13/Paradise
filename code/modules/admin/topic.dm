@@ -380,7 +380,7 @@
 		if(!check_rights(R_SPAWN))	return
 
 		var/mob/M = locateUID(href_list["mob"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -427,7 +427,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["jobban2"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -444,9 +444,9 @@
 		var/jobs = ""
 
 		/***********************************WARNING!************************************
-					      The jobban stuff looks mangled and disgusting
-							      But it looks beautiful in-game
-							                -Nodrak
+						The jobban stuff looks mangled and disgusting
+								But it looks beautiful in-game
+											-Nodrak
 		************************************WARNING!***********************************/
 		var/counter = 0
 //Regular jobs
@@ -654,7 +654,7 @@
 		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locateUID(href_list["jobban4"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -866,7 +866,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["newban"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
@@ -967,7 +967,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["mute"])
-		if(!istype(M, /mob))	return
+		if(!ismob(M))	return
 		if(!M.client)	return
 
 		var/mute_type = href_list["mute_type"]
@@ -1087,7 +1087,7 @@
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1105,10 +1105,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["sendtoprison"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1138,7 +1138,7 @@
 			return
 
 		M.loc = prison_cell
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
@@ -1178,7 +1178,7 @@
 
 		var/mob/M = locateUID(href_list["eraseflavortext"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1209,7 +1209,7 @@
 
 		var/mob/M = locateUID(href_list["userandomname"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1244,10 +1244,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome1"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1276,10 +1276,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome2"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1308,10 +1308,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeadmin"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1332,10 +1332,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeobserve"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1347,9 +1347,9 @@
 				I.plane = initial(I.plane)
 				I.dropped(M)
 
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit(observer), slot_w_uniform)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
 		if(isliving(M))
 			var/mob/living/L = M
@@ -1406,7 +1406,7 @@
 		if(time_seconds < 0)
 			return
 
-		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, TYPE_PROC_REF(/datum/syndicate_contract, handle_target_return), M), time_seconds * 10, TIMER_STOPPABLE)
 		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
 		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
 		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
@@ -1439,10 +1439,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["aroomwarp"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1584,7 +1584,7 @@
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locateUID(href_list["adminplayeropts"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1598,7 +1598,7 @@
 			C.admin_ghost()
 		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1608,6 +1608,49 @@
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
+
+	else if(href_list["check_teams"])
+		if(!check_rights(R_ADMIN))
+			return
+		check_teams()
+
+	else if(href_list["team_command"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/team/team
+		var/datum/mind/member
+		if(href_list["team"])
+			team = locateUID(href_list["team"])
+			if(QDELETED(team))
+				to_chat(usr, "<span class='warning'>This team doesn't exist anymore!</span>")
+				return
+		if(href_list["member"])
+			member = locateUID(href_list["member"])
+			if(QDELETED(member))
+				to_chat(usr, "<span class='warning'>This team member doesn't exist anymore!</span>")
+				return
+		switch(href_list["team_command"])
+			if("communicate")
+				team.admin_communicate(usr)
+			if("delete_team")
+				message_admins("[key_name_admin(usr)] has deleted the '[team.name]' team.")
+				log_admin("[key_name_admin(usr)] has deleted the '[team.name]' team.")
+				qdel(team)
+			if("rename_team")
+				team.admin_rename_team(usr)
+			if("admin_add_member")
+				team.admin_add_member(usr)
+			if("remove_member")
+				team.admin_remove_member(usr, member)
+			if("view_member")
+				show_player_panel(member.current)
+			if("add_objective")
+				team.admin_add_objective(usr)
+			if("remove_objective")
+				var/datum/objective/O = locateUID(href_list["objective"])
+				if(O)
+					team.admin_remove_objective(usr, O)
+		check_teams()
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
@@ -1719,7 +1762,7 @@
 	else if(href_list["adminmoreinfo"])
 		var/mob/M = locateUID(href_list["adminmoreinfo"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1792,7 +1835,7 @@
 
 		var/mob/M = locateUID(href_list["CentcommReply"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1804,7 +1847,7 @@
 
 		var/mob/M = locateUID(href_list["SyndicateReply"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1816,7 +1859,7 @@
 
 		var/mob/M = locateUID(href_list["HeadsetMessage"])
 
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1953,7 +1996,7 @@
 					P.universal_understand = TRUE
 					P.can_collar = TRUE
 					P.faction = list("neutral")
-					var/obj/item/clothing/accessory/petcollar/C = new
+					var/obj/item/petcollar/C = new
 					P.add_collar(C)
 					var/obj/item/card/id/I = H.wear_id
 					if(I)
@@ -2274,7 +2317,7 @@
 			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
 			if(announce_to_crew)
-				GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
+				GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
 				return
 
 			if(H.stat != CONSCIOUS)
@@ -2499,7 +2542,7 @@
 		if(!check_rights(R_ADMIN | R_MOD | R_MENTOR))
 			return
 		var/mob/M = locateUID(href_list["getplaytimewindow"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		cmd_mentor_show_exp_panel(M.client)
@@ -2508,7 +2551,7 @@
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["jumpto"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.jumptomob(M)
@@ -2518,7 +2561,7 @@
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locateUID(href_list["getmob"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.Getmob(M)
@@ -2527,7 +2570,7 @@
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["sendmob"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.sendmob(M)
@@ -2536,7 +2579,7 @@
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["narrateto"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.cmd_admin_direct_narrate(M)
@@ -2546,7 +2589,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["subtlemessage"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.cmd_admin_subtle_message(M)
@@ -2559,7 +2602,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["traitor"])
-		if(!istype(M, /mob))
+		if(!ismob(M))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		show_traitor_panel(M)
@@ -2664,10 +2707,10 @@
 							O.dir = obj_dir
 							if(obj_name)
 								O.name = obj_name
-								if(istype(O,/mob))
+								if(ismob(O))
 									var/mob/M = O
 									M.real_name = obj_name
-							if(where == "inhand" && isliving(usr) && istype(O, /obj/item))
+							if(where == "inhand" && isliving(usr) && isitem(O))
 								var/mob/living/L = usr
 								var/obj/item/I = O
 								L.put_in_hands(I)
@@ -2786,11 +2829,11 @@
 				if(GLOB.gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity on.</span>", 1)
-					GLOB.event_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
+					GLOB.minor_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity off.</span>", 1)
-					GLOB.event_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					GLOB.minor_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
 				switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs", "Repair and Power APCs")) //Alert notification in this code for standarization purposes
@@ -2899,16 +2942,14 @@
 			if("flicklights")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
 				while(!usr.stat)
-//knock yourself out to stop the ghosts
+					//knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
 							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
-								AffectedArea.power_light = 0
-								AffectedArea.power_change()
-								spawn(rand(55,185))
-									AffectedArea.power_light = 1
-									AffectedArea.power_change()
+								AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
+								spawn(rand(55, 185))
+									AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, TRUE)
 								var/Message = rand(1,4)
 								switch(Message)
 									if(1)
@@ -2972,7 +3013,7 @@
 			if("fakeguns")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
-					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
+					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
 					W.icon = 'icons/obj/guns/projectile.dmi'
 					W.icon_state = "revolver"
@@ -2992,7 +3033,7 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.event_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
+				GLOB.minor_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
@@ -3050,12 +3091,7 @@
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
 				if(confirmation == "No")
 					return
-				if(makeThunderdomeTeams())
-					log_admin("[key_name(usr)] started a Thunderdome match!", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started a Thunderdome match!</span>")
-				else
-					log_admin("[key_name(usr)] attempted to start a Thunderdome match, but no ghosts signed up.", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] tried starting a Thunderdome match, but no ghosts signed up.</span>")
+				makeThunderdomeTeams()
 			if("securitylevel0")
 				set_security_level(0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
@@ -3338,6 +3374,13 @@
 	else if(href_list["who_advanced"])
 		usr.client.who_advanced()
 
+	else if(href_list["adminalert"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		usr.client.cmd_admin_alert_message(about_to_be_banned)
+
 /client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
 		return
@@ -3407,7 +3450,7 @@
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"
-	else if(istype(target, /mob/dead/observer))
+	else if(isobserver(target))
 		var/mob/dead/observer/O = target
 		if(O.mind && O.mind.current)
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"

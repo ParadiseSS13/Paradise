@@ -54,7 +54,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/battle
-	var/enemy_name = "Space Villian"
+	var/enemy_name = "Space Villain"
 	var/temp = "Winners Don't Use Spacedrugs" //Temporary message, for attack messages, etc
 	var/player_hp = 30 //Player health/attack points
 	var/player_mp = 10
@@ -98,7 +98,7 @@
 
 	//user << browse(dat, "window=arcade")
 	//onclose(user, "arcade")
-	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000")
+	var/datum/browser/popup = new(user, "arcade", "Space Villain 2000")
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -296,14 +296,14 @@
 	var/event = null
 	var/list/settlers = list("Harry","Larry","Bob")
 	var/list/events = list(ORION_TRAIL_RAIDERS		= 3,
-						   ORION_TRAIL_FLUX			= 1,
-						   ORION_TRAIL_ILLNESS		= 3,
-						   ORION_TRAIL_BREAKDOWN	= 2,
-						   ORION_TRAIL_LING			= 3,
-						   ORION_TRAIL_MALFUNCTION	= 2,
-						   ORION_TRAIL_COLLISION	= 1,
-						   ORION_TRAIL_SPACEPORT	= 2
-						   )
+						ORION_TRAIL_FLUX			= 1,
+						ORION_TRAIL_ILLNESS		= 3,
+						ORION_TRAIL_BREAKDOWN	= 2,
+						ORION_TRAIL_LING			= 3,
+						ORION_TRAIL_MALFUNCTION	= 2,
+						ORION_TRAIL_COLLISION	= 1,
+						ORION_TRAIL_SPACEPORT	= 2
+						)
 	var/list/stops = list()
 	var/list/stopblurbs = list()
 	var/lings_aboard = 0
@@ -469,7 +469,7 @@
 						playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
-						if(istype(location, /turf/simulated))
+						if(issimulatedturf(location))
 							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))

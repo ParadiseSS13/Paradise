@@ -15,6 +15,7 @@ SUBSYSTEM_DEF(air)
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 	var/cost_turfs = 0
 	var/cost_groups = 0
 	var/cost_highpressure = 0
@@ -74,7 +75,7 @@ SUBSYSTEM_DEF(air)
 	cust["hotspots"] = length(hotspots)
 	.["custom"] = cust
 
-/datum/controller/subsystem/air/Initialize(timeofday)
+/datum/controller/subsystem/air/Initialize()
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	icon_manager = new() // Sets up icon manager for pipes
 	if(length(active_turfs))
@@ -84,7 +85,21 @@ SUBSYSTEM_DEF(air)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
-	return ..()
+
+/datum/controller/subsystem/air/Recover()
+	excited_groups = SSair.excited_groups
+	active_turfs = SSair.active_turfs
+	hotspots = SSair.hotspots
+	deferred_pipenet_rebuilds = SSair.deferred_pipenet_rebuilds
+	networks = SSair.networks
+	atmos_machinery = SSair.atmos_machinery
+	pipe_init_dirs_cache = SSair.pipe_init_dirs_cache
+	machinery_to_construct = SSair.machinery_to_construct
+	active_super_conductivity = SSair.active_super_conductivity
+	high_pressure_delta = SSair.high_pressure_delta
+	icon_manager = SSair.icon_manager
+	currentrun = SSair.currentrun
+	currentpart = SSair.currentpart
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
@@ -283,10 +298,11 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/add_to_active(turf/simulated/T, blockchanges = 1)
 	if(!initialized)
 		/* it makes no sense to "activate" turfs before setup_allturfs is
-		   called, as setup_allturfs would simply cull the list incorrectly.
-		   only /turf/simulated/Initialize_Atmos() is blessed enough to
-		   activate turfs during this phase of initialization, as it happens
-		   post-cull and inlines the logic (perhaps incorrectly) */
+		 * called, as setup_allturfs would simply cull the list incorrectly.
+		 * only /turf/simulated/Initialize_Atmos() is blessed enough to
+		 * activate turfs during this phase of initialization, as it happens
+		 * post-cull and inlines the logic (perhaps incorrectly)
+		 **/
 		return
 
 	if(istype(T) && T.air)
@@ -345,12 +361,6 @@ SUBSYSTEM_DEF(air)
 	for(var/obj/machinery/atmospherics/A in machines_to_init)
 		A.atmos_init()
 		count++
-		if(istype(A, /obj/machinery/atmospherics/unary/vent_pump))
-			var/obj/machinery/atmospherics/unary/vent_pump/T = A
-			T.broadcast_status()
-		else if(istype(A, /obj/machinery/atmospherics/unary/vent_scrubber))
-			var/obj/machinery/atmospherics/unary/vent_scrubber/T = A
-			T.broadcast_status()
 	return count
 
 //this can't be done with setup_atmos_machinery() because

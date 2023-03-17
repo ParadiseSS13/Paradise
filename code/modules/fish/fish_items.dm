@@ -52,7 +52,7 @@
 	attack_verb = list("scrubbed", "brushed", "scraped")
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_them()]self raw with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish
@@ -157,10 +157,10 @@
 	throwforce = 5.0
 	materials = list()
 
-/obj/item/shard/shark_teeth/Initialize(mapload)
-	. = ..()
-	src.pixel_x = rand(-5,5)
-	src.pixel_y = rand(-5,5)
+/obj/item/shard/shark_teeth/set_initial_icon_state()
+	icon_state = "teeth"
+	pixel_x = rand(-5,5)
+	pixel_y = rand(-5,5)
 
 /obj/item/fish/catfish
 	name = "catfish"

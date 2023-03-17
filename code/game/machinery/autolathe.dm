@@ -7,6 +7,8 @@
 	desc = "It produces items using metal and glass."
 	icon_state = "autolathe"
 	density = TRUE
+	idle_power_consumption = 10
+	active_power_consumption = 100
 
 	var/list/queue = list()
 	var/queue_max_len = 12
@@ -20,9 +22,7 @@
 	var/hack_wire
 	var/disable_wire
 	var/shock_wire
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+
 	var/busy = FALSE
 	var/prod_coeff
 	var/datum/wires/autolathe/wires = null
@@ -40,7 +40,7 @@
 
 /obj/machinery/autolathe/Initialize()
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, PROC_REF(AfterMaterialInsert)))
 	component_parts = list()
 	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

@@ -64,6 +64,10 @@
 		if(sponge)
 			return min(sponge.damage,maxHealth*2)
 		else
+			if(ischangeling(src))
+				// if a changeling has no brain, they have no brain damage.
+				return 0
+
 			return 200
 	else
 		return 0
@@ -308,7 +312,7 @@ This function restores all organs.
 
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
 	var/obj/item/organ/external/E = get_organ(zone)
-	if(istype(E, /obj/item/organ/external))
+	if(isorgan(E))
 		if(E.heal_damage(brute, burn))
 			UpdateDamageIcon()
 	else

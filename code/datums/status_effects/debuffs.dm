@@ -23,14 +23,25 @@
 	owner.adjustFireLoss(0.1)
 	owner.adjustToxLoss(0.2)
 
-/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
+/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
 	id = "cult_ghost"
 	duration = -1
 	alert_type = null
+	var/damage = 7.5
+	var/source_UID
+
+/datum/status_effect/cultghost/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
 
 /datum/status_effect/cultghost/tick()
 	if(owner.reagents)
 		owner.reagents.del_reagent("holywater") //can't be deconverted
+	var/mob/living/summoner = locateUID(source_UID)
+	if(get_dist_euclidian(summoner, owner) < 21)
+		return
+	owner.adjustBruteLoss(damage)
+	to_chat(owner, "<span class='userdanger'>You are too far away from the summoner!</span>")
 
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
@@ -166,7 +177,7 @@
 
 /datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
 	flick("legion-smash", latest_attacker)
-	addtimer(CALLBACK(latest_attacker, /mob/living/simple_animal/hostile/asteroid/big_legion/.proc/throw_mobs), 1 SECONDS)
+	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/big_legion, throw_mobs)), 1 SECONDS)
 
 /datum/status_effect/stacking/ground_pound/on_remove()
 	latest_attacker = null
@@ -246,6 +257,37 @@
 
 /datum/status_effect/bluespace_slowdown/on_remove()
 	owner.next_move_modifier /= 2
+
+/datum/status_effect/shadow_boxing
+	id = "shadow barrage"
+	alert_type = null
+	duration = 10 SECONDS
+	tick_interval = 0.4 SECONDS
+	var/damage = 8
+	var/source_UID
+
+/datum/status_effect/shadow_boxing/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+
+/datum/status_effect/shadow_boxing/tick()
+	var/mob/living/attacker = locateUID(source_UID)
+	if(attacker in view(owner, 2))
+		attacker.do_attack_animation(owner, ATTACK_EFFECT_PUNCH)
+		owner.apply_damage(damage, BRUTE)
+		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
+
+/datum/status_effect/cling_tentacle
+	id = "cling_tentacle"
+	alert_type = null
+	duration = 3 SECONDS
+
+/datum/status_effect/cling_tentacle/on_apply()
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	return ..()
+
+/datum/status_effect/cling_tentacle/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
 // start of `living` level status procs.
 
@@ -632,6 +674,9 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_MUTE, id)
 
+/datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
+	id = "abssilenced"
+
 /datum/status_effect/transient/jittery
 	id = "jittering"
 
@@ -662,7 +707,7 @@
 /// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
 #define HALLUCINATE_COOLDOWN_FACTOR 0.003
 /// Percentage defining the chance at which an hallucination may spawn past the cooldown.
-#define HALLUCINATE_CHANCE 8
+#define HALLUCINATE_CHANCE 80
 // Severity weights, should sum up to 100!
 #define HALLUCINATE_MINOR_WEIGHT 60
 #define HALLUCINATE_MODERATE_WEIGHT 30

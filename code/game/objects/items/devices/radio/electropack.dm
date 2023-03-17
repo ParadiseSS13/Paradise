@@ -75,7 +75,7 @@
 	if(isliving(loc))
 		var/mob/living/M = loc
 		var/turf/T = M.loc
-		if(istype(T, /turf))
+		if(isturf(T))
 			if(!M.moved_recently && M.last_move)
 				M.moved_recently = 1
 				step(M, M.last_move)

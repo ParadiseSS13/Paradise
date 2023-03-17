@@ -288,7 +288,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		var/mlen = members.len - 1
 		while(index <= mlen) // Last item is an /area
 			var/underlay
-			if(istype(T, /turf)) // I blame this on the stupid clown who coded the BYOND map editor
+			if(isturf(T)) // I blame this on the stupid clown who coded the BYOND map editor
 				underlay = T.appearance
 			T = instance_atom(members[index], members_attributes[index], xcrd, ycrd, zcrd) // instance new turf
 			if(ispath(members[index], /turf))

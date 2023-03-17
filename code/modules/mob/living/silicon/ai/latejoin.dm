@@ -29,7 +29,10 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 			current_mode.possible_traitors.Remove(src)
 
 	// Ghost the current player and disallow them to return to the body
-	ghostize()
+	if(TOO_EARLY_TO_GHOST)
+		ghostize(FALSE)
+	else
+		ghostize(TRUE)
 	// Delete the old AI shell
 	qdel(src)
 

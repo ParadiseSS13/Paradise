@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 
 /proc/EncodeDNABlock(value)
-	return add_zero2(num2hex(value, 1), 3)
+	return num2hex(value, 3)
 
 /datum/dna/proc/UpdateUI()
 	uni_identity = ""
@@ -445,7 +445,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 
 	// We manually set the species to ensure all proper species change procs are called.
-	destination.set_species(species.type, retain_damage = TRUE)
+	destination.set_species(species.type, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 	var/datum/dna/new_dna = Clone()
 	new_dna.species = destination.dna.species
 	destination.dna = new_dna

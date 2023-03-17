@@ -61,3 +61,10 @@
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
+
+/obj/item/grown/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	if(seed.get_gene(/datum/plant_gene/trait/glow/shadow))
+		return
+	set_light(0)

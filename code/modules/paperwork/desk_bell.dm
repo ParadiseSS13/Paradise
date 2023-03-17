@@ -30,7 +30,7 @@
 
 /obj/item/desk_bell/MouseDrop(atom/over_object)
 	var/mob/M = usr
-	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) || !Adjacent(M))
+	if(HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) || !Adjacent(M) || anchored)
 		return
 	if(!ishuman(M))
 		return
@@ -96,4 +96,11 @@
 	playsound(src, ring_sound, 70, vary = broken_ringer, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	flick("desk_bell_ring", src)
 	times_rang++
+	return TRUE
+
+/obj/item/desk_bell/get_spooked()
+	if(broken_ringer)
+		return
+	playsound(src, ring_sound, 70, vary = broken_ringer, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	flick("desk_bell_ring", src)
 	return TRUE

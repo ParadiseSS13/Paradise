@@ -21,6 +21,7 @@
 /obj/item/gun/energy/laser/retro
 	name ="retro laser gun"
 	icon_state = "retro"
+	item_state = "retro"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's private security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 	ammo_x_offset = 3
 
@@ -105,6 +106,46 @@
 /obj/item/gun/energy/lasercannon/cyborg/emp_act()
 	return
 
+/obj/item/gun/energy/lwap
+	name = "LWAP laser sniper"
+	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly."
+	icon_state = "esniper"
+	item_state = null
+	w_class = WEIGHT_CLASS_BULKY
+	force = 12
+	flags =  CONDUCT
+	slot_flags = SLOT_BACK
+	can_holster = FALSE
+	weapon_weight = WEAPON_HEAVY
+	origin_tech = "combat=6;magnets=6;powerstorage=4"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper)
+	zoomable = TRUE
+	zoom_amt = 7
+	shaded_charge = TRUE
+
+/obj/item/ammo_casing/energy/laser/sniper
+	projectile_type = /obj/item/projectile/beam/laser/sniper
+	muzzle_flash_color = LIGHT_COLOR_PINK
+	select_name = "sniper"
+	fire_sound = 'sound/weapons/marauder.ogg'
+	delay = 5 SECONDS
+
+/obj/item/projectile/beam/laser/sniper
+	name = "sniper laser"
+	icon_state = "sniperlaser"
+	range = 255
+	damage = 10
+
+/obj/item/projectile/beam/laser/sniper/Range()
+	..()
+	damage = min(damage + 5, 100)
+
+/obj/item/projectile/beam/laser/sniper/on_hit(atom/target, blocked = 0, hit_zone)
+	..()
+	var/mob/living/carbon/human/M = target
+	if(istype(M) && damage >= 40)
+		M.KnockDown(2 SECONDS * (damage / 10))
+
 /obj/item/gun/energy/xray
 	name = "xray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts. These blasts will penetrate solid objects, but will decrease in power the longer they have to travel."
@@ -118,7 +159,7 @@
 	name = "immolator laser gun"
 	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
 	icon_state = "immolator"
-	item_state = "laser"
+	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE
@@ -127,6 +168,7 @@
 	name = "multi lens immolator cannon"
 	desc = "A large laser cannon, similar to the Immolator Laser, with toggleable firemodes. It is frequently used by military-like forces through Nanotrasen."
 	icon_state = "multilensimmolator"
+	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 
@@ -177,8 +219,10 @@
 
 /obj/item/gun/energy/laser/tag/blue
 	icon_state = "bluetag"
+	item_state = "bluetag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
 
 /obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
+	item_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)

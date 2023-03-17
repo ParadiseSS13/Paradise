@@ -31,7 +31,7 @@
 				variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 
 /obj/item/nullrod/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
+	user.visible_message("<span class='suicide'>[user] is killing [user.p_themselves()] with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
@@ -73,7 +73,7 @@
 		variant_names[initial(rod.name)] = rod
 		variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 	var/mob/living/carbon/human/H = user
-	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, .proc/radial_check, H), TRUE)
+	var/choice = show_radial_menu(H, src, variant_icons, null, 40, CALLBACK(src, PROC_REF(radial_check), H), TRUE)
 	if(!choice || !radial_check(H))
 		return
 
@@ -130,7 +130,10 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = SLOT_BACK
-	block_chance = 50
+
+/obj/item/nullrod/staff/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
@@ -144,10 +147,13 @@
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK|SLOT_BELT
-	block_chance = 30
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+
+/obj/item/nullrod/claymore/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (7 / 3) SECONDS) // 2.3333 seconds of cooldown for 30% uptime
 
 /obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -358,7 +364,7 @@
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
-	desc = "An adorable stuffed toy that resembles the god of all carp. The teeth look pretty sharp. Activate it to recieve the blessing of Carp-Sie."
+	desc = "An adorable stuffed toy that resembles the god of all carp. The teeth look pretty sharp. Activate it to receive the blessing of Carp-Sie."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 	item_state = "carp_plushie"
@@ -381,13 +387,16 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
 	w_class = WEIGHT_CLASS_BULKY
 	force = 13
-	block_chance = 40
 	slot_flags = SLOT_BACK
 	sharp = FALSE
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
+
+/obj/item/nullrod/claymore/bostaff/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // will remove the other component, 0.666667 seconds for 60% uptime.
 
 /obj/item/nullrod/tribal_knife
 	name = "arrhythmic knife"
@@ -531,7 +540,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = SLOT_BACK
-	block_chance = 50
 
 	var/team_color = "red"
 	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
@@ -547,6 +555,7 @@
 	icon_state = "godstaff-[team_color]"
 	item_state = "godstaff-[team_color]"
 	name = "[team_color] holy staff"
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/nullrod/missionary_staff/Destroy()
 	if(robes)		//delink on destruction

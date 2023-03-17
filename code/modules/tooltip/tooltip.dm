@@ -105,6 +105,9 @@ Notes:
 				theme = lowertext(user.client.prefs.UI_style)
 			if(!theme)
 				theme = "default"
+			// Strip macros from item names
+			title = replacetext(title, "\proper", "")
+			title = replacetext(title, "\improper", "")
 			user.client.tooltips.show(tip_src, params, title, content, theme)
 
 

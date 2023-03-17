@@ -6,9 +6,6 @@
 	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "sp_base"
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
 	var/obscured = FALSE
@@ -50,7 +47,7 @@
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
 		obj_integrity = max_integrity
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
@@ -78,7 +75,7 @@
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		stat |= BROKEN
 		unset_control()
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/solar/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -98,8 +95,11 @@
 	if(stat & BROKEN)
 		. += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
 	else
-		. += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
-		set_angle(adir)
+		var/image/panel = image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
+		var/matrix/M = matrix()
+		M.Turn(adir)
+		panel.transform = M
+		. += panel
 
 //calculates the fraction of the sunlight that the panel recieves
 /obj/machinery/power/solar/proc/update_solar_exposure()
@@ -137,7 +137,7 @@
 	. = (!(stat & BROKEN))
 	stat |= BROKEN
 	unset_control()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
 	..(loc, S, 0)
@@ -198,6 +198,15 @@
 		S.amount = 2
 		glass_type = null
 
+/obj/item/solar_assembly/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The solar assembly is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.</span>"
+	if(tracker)
+		. += "<span class='notice'>The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.</span>"
+	else
+		. += "<span class='notice'>The solar assembly has a slot for a <i>tracking circuit<i> board.</span>"
+	if(anchored)
+		.+= "<span class='notice'>The solar assembly needs <i>glass<i> to be completed.</span>"
 
 /obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
 
@@ -261,8 +270,8 @@
 	icon_state = "computer"
 	anchored = TRUE
 	density = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 250
+	power_state = IDLE_POWER_USE
+	idle_power_consumption = 250
 	max_integrity = 200
 	integrity_failure = 100
 	var/icon_screen = "solar"
@@ -479,13 +488,14 @@
 	for(var/obj/machinery/power/solar/S in connected_panels)
 		S.adir = cdir //instantly rotates the panel
 		S.occlusion()//and
-		S.update_icon() //update it
+		S.update_icon(UPDATE_OVERLAYS) //update it
 
 	update_icon()
 
 
 /obj/machinery/power/solar_control/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 

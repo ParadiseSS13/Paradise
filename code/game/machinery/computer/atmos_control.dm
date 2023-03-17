@@ -1,22 +1,26 @@
+GLOBAL_LIST_EMPTY(gas_sensors)
+
+#define SENSOR_PRESSURE 1
+#define SENSOR_TEMPERATURE 2
+#define SENSOR_O2 4
+#define SENSOR_PLASMA 8
+#define SENSOR_N2 16
+#define SENSOR_CO2 32
+#define SENSOR_N2O 64
+
 /obj/machinery/atmospherics/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
 	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
-	req_one_access_txt = "24;10"
 
 	anchored = TRUE
 	var/state = 0
 	var/bolts = TRUE
 
-	var/id_tag
-	frequency = ATMOS_VENTSCRUB
-	Mtoollink = TRUE
-	settagwhitelist = list("id_tag")
-
 	on = TRUE
-	var/output = 3
-	//Flags:
+	var/output = SENSOR_PRESSURE | SENSOR_TEMPERATURE
+	//Flags: (see lines 3-9)
 	// 1 for pressure
 	// 2 for temperature
 	// Output >= 4 includes gas composition
@@ -24,605 +28,466 @@
 	// 8 for toxins concentration
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
+	// 64 for nitrous dioxide concentration
+
+/obj/machinery/atmospherics/air_sensor/Initialize(mapload)
+	. = ..()
+	GLOB.gas_sensors += src
+
+/obj/machinery/atmospherics/air_sensor/Destroy()
+	GLOB.gas_sensors -= src
+	return ..()
 
 /obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 
-/obj/machinery/atmospherics/air_sensor/multitool_menu(mob/user, obj/item/multitool/P)
-	return {"
-	<b>Main</b>
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag","set_id")]</li>
-		<li>Floor Bolts: <a href="?src=[UID()];toggle_bolts=1">[bolts ? "Enabled" : "Disabled"]</a>
-		<li>Monitor Pressure: <a href="?src=[UID()];toggle_out_flag=1">[output&1 ? "Yes" : "No"]</a>
-		<li>Monitor Temperature: <a href="?src=[UID()];toggle_out_flag=2">[output&2 ? "Yes" : "No"]</a>
-		<li>Monitor Oxygen Concentration: <a href="?src=[UID()];toggle_out_flag=4">[output&4 ? "Yes" : "No"]</a>
-		<li>Monitor Plasma Concentration: <a href="?src=[UID()];toggle_out_flag=8">[output&8 ? "Yes" : "No"]</a>
-		<li>Monitor Nitrogen Concentration: <a href="?src=[UID()];toggle_out_flag=16">[output&16 ? "Yes" : "No"]</a>
-		<li>Monitor Carbon Dioxide Concentration: <a href="?src=[UID()];toggle_out_flag=32">[output&32 ? "Yes" : "No"]</a>
-	</ul>"}
-
-/obj/machinery/atmospherics/air_sensor/multitool_topic(mob/user, list/href_list, obj/O)
-	. = ..()
-	if(.)
-		return .
-
-	if("toggle_out_flag" in href_list)
-		var/bitflag_value = text2num(href_list["toggle_out_flag"])//this is a string normally
-		if(!(bitflag_value in list(1, 2, 4, 8, 16, 32))) //Here to prevent breaking the sensors with HREF exploits
-			return 0
-		if(output&bitflag_value)//the bitflag is on ATM
-			output &= ~bitflag_value
-		else//can't not be off
-			output |= bitflag_value
-		return TRUE
-
-	if("toggle_bolts" in href_list)
-		bolts = !bolts
-		visible_message("<span class='notice'>You hear a quiet click as [src][bolts ? " bolts to the floor" : "'s bolts raise"].</span>", "<span class='notice>You hear a quiet click.</span>")
-		return TRUE
-
-/obj/machinery/atmospherics/air_sensor/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return TRUE
-
-	if(istype(W, /obj/item/wrench))
-		if(bolts)
-			to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
-			return TRUE
-
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-
-		if(do_after(user, 40 * W.toolspeed, target = src))
-			user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
-			new /obj/item/pipe_gsensor(src.loc)
-			qdel(src)
-			return TRUE
-
+/obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/I)
+	if(bolts)
+		to_chat(usr, "[src] is bolted to the floor! You can't detach it like this.")
 		return
 
-	return ..()
+	. = TRUE
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		return
 
-/obj/machinery/atmospherics/air_sensor/process_atmos()
-	if(on)
-		if(!radio_connection)
-			return
+	user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
+	new /obj/item/pipe_gsensor(loc)
+	qdel(src)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
-		var/datum/signal/signal = new
-		signal.transmission_method = 1 //radio signal
-		signal.data["tag"] = id_tag
-		signal.data["timestamp"] = world.time
+#define ONOFF_TOGGLE(flag) "\[[(output & flag) ? "YES" : "NO"]]"
+/obj/machinery/atmospherics/air_sensor/multitool_act(mob/living/user, obj/item/I)
+	while(Adjacent(user))
 
-		var/datum/gas_mixture/air_sample = return_air()
+		var/list/options = list(
+			"Pressure: [ONOFF_TOGGLE(SENSOR_PRESSURE)]" = SENSOR_PRESSURE,
+			"Temperature: [ONOFF_TOGGLE(SENSOR_TEMPERATURE)]" = SENSOR_TEMPERATURE,
+			"Oxygen: [ONOFF_TOGGLE(SENSOR_O2)]" = SENSOR_O2,
+			"Toxins: [ONOFF_TOGGLE(SENSOR_PLASMA)]" = SENSOR_PLASMA,
+			"Nitrogen: [ONOFF_TOGGLE(SENSOR_N2)]" = SENSOR_N2,
+			"Carbon Dioxide: [ONOFF_TOGGLE(SENSOR_CO2)]" = SENSOR_CO2,
+			"Nitrous Oxide: [ONOFF_TOGGLE(SENSOR_N2O)]" = SENSOR_N2O,
+			"-SAVE TO BUFFER-" = "multitool"
+		)
 
-		if(output & 1)
-			signal.data["pressure"] = num2text(round(air_sample.return_pressure(),0.1),)
-		if(output & 2)
-			signal.data["temperature"] = round(air_sample.temperature,0.1)
+		var/temp_answer = input(user, "Select an option to adjust", "Options!", null) as null|anything in options
 
-		if(output > 4)
-			var/total_moles = air_sample.total_moles()
-			if(total_moles > 0)
-				if(output & 4)
-					signal.data["oxygen"] = round(100*air_sample.oxygen/total_moles,0.1)
-				if(output & 8)
-					signal.data["toxins"] = round(100*air_sample.toxins/total_moles,0.1)
-				if(output & 16)
-					signal.data["nitrogen"] = round(100*air_sample.nitrogen/total_moles,0.1)
-				if(output & 32)
-					signal.data["carbon_dioxide"] = round(100*air_sample.carbon_dioxide/total_moles,0.1)
-			else
-				signal.data["oxygen"] = 0
-				signal.data["toxins"] = 0
-				signal.data["nitrogen"] = 0
-				signal.data["carbon_dioxide"] = 0
-		signal.data["sigtype"]="status"
-		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+		if(!Adjacent(user))
+			break
 
-/obj/machinery/atmospherics/air_sensor/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
+		if(temp_answer in options) // Null will break us out
+			switch(options[temp_answer])
+				if(SENSOR_PRESSURE)
+					output ^= SENSOR_PRESSURE
+				if(SENSOR_TEMPERATURE)
+					output ^= SENSOR_TEMPERATURE
+				if(SENSOR_O2)
+					output ^= SENSOR_O2
+				if(SENSOR_PLASMA)
+					output ^= SENSOR_PLASMA
+				if(SENSOR_N2)
+					output ^= SENSOR_N2
+				if(SENSOR_CO2)
+					output ^= SENSOR_CO2
+				if(SENSOR_N2O)
+					output ^= SENSOR_N2O
+				if("multitool")
+					if(!ismultitool(I)) // Should never happen
+						return
 
-/obj/machinery/atmospherics/air_sensor/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
+					var/obj/item/multitool/M = I
+					M.buffer_uid = UID()
+					to_chat(user, "<span class='notice'>You save [src] into [M]'s buffer</span>")
+		else
+			break
 
-/obj/machinery/atmospherics/air_sensor/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
+	return TRUE
+#undef ONOFF_TOGGLE
 
-	radio_connection = null
-	return ..()
+
 
 
 /obj/machinery/computer/general_air_control
+	name = "air sensor monitor"
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
-	req_one_access_txt = "24;10"
+	// Map set vars
+	/// List of sensors to autolink to. Key = sensor_id, Value = sensor display name
+	var/list/autolink_sensors = list()
 
-	name = "Computer"
+	// Instanced vars. These are /tmp/ to avoid mappers trying to set them
+	/// List of sensor names to UIDs to be used in the display
+	var/tmp/list/sensor_name_uid_map = list()
+	/// List of sensor names to cache lists used in the display TGUI
+	var/tmp/list/sensor_name_data_map = list()
 
-	frequency = ATMOS_VENTSCRUB
-	var/show_sensors=1
-	var/list/sensors = list()
-	Mtoollink = TRUE
+/obj/machinery/computer/general_air_control/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD // Do all our work in here
 
-	var/list/sensor_information = list()
+/obj/machinery/computer/general_air_control/LateInitialize()
+	// Setup sensors
+	for(var/obj/machinery/atmospherics/air_sensor/AS as anything in GLOB.gas_sensors)
+		for(var/sensor_id in autolink_sensors)
+			if(AS.autolink_id == sensor_id)
+				sensor_name_uid_map[autolink_sensors[sensor_id]] = AS.UID()
+				sensor_name_data_map[autolink_sensors[sensor_id]] = list()
 
-/obj/machinery/computer/general_air_control/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-
-	radio_connection = null
-	return ..()
+	// Setup meters
+	for(var/obj/machinery/atmospherics/meter/GM as anything in GLOB.gas_meters)
+		for(var/meter_id in autolink_sensors)
+			if(GM.autolink_id == meter_id)
+				sensor_name_uid_map[autolink_sensors[meter_id]] = GM.UID()
+				sensor_name_data_map[autolink_sensors[meter_id]] = list()
 
 /obj/machinery/computer/general_air_control/attack_hand(mob/user)
-	if(..(user))
+	ui_interact(user)
+
+/obj/machinery/computer/general_air_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	if(!isprocessing)
+		START_PROCESSING(SSmachines, src)
+		refresh_all()
+
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		// We can use the same template here for sensors and for tanks with inlets/outlets with TGUI memes
+		ui = new(user, src, ui_key, "AtmosTankControl", name, 400, 400, master_ui, state)
+		ui.open()
+
+/obj/machinery/computer/general_air_control/ui_data(mob/user)
+	var/list/data = list()
+	data["sensors"] = sensor_name_data_map // We can make this super cheap by sending our existing data
+	return data
+
+/obj/machinery/computer/general_air_control/multitool_act(mob/living/user, obj/item/I)
+	if(!ismultitool(I)) // Should never happen
 		return
 
-	var/datum/browser/popup = new(user, "gac", name, 400, 400)
-	popup.set_content(return_text())
-	popup.open(FALSE)
-	user.set_machine(src)
-	onclose(user, "gac")
+	configure_sensors(user, I)
+	return TRUE
+
+// This is its own proc so it can be modified in child types
+/obj/machinery/computer/general_air_control/proc/configure_sensors(mob/living/user, obj/item/multitool/M)
+	var/choice = alert(user, "Would you like to add or remove a sensor/meter", "Configuration", "Add", "Remove", "Cancel")
+	if((choice == "Cancel") || !Adjacent(user))
+		return
+
+	switch(choice)
+		if("Add")
+			// First see if they have a scrubber in their buffer
+			var/datum/linked_datum = locateUID(M.buffer_uid)
+			if(!linked_datum || !(istype(linked_datum, /obj/machinery/atmospherics/air_sensor) || istype(linked_datum, /obj/machinery/atmospherics/meter)))
+				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not a sensor or meter.</span>")
+				return
+
+			var/new_name = clean_input(user, "Enter a name for the sensor/meter", "Name")
+			if(!new_name || !Adjacent(user))
+				return
+
+			sensor_name_uid_map[new_name] = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
+			sensor_name_data_map[new_name] = list()
+			to_chat(user, "<span class='notice'>Successfully added a new sensor/meter with name <code>[new_name]</code></span>")
+
+		if("Remove")
+			var/to_remove = input(user, "Select a sensor/meter to remove", "Sensor/Meter Removal") as null|anything in sensor_name_uid_map
+			if(!to_remove)
+				return
+
+			var/confirm = alert(user, "Are you sure you want to remove the sensor/meter '[to_remove]'?", "Warning", "Yes", "No")
+			if((confirm != "Yes") || !Adjacent(user))
+				return
+
+			sensor_name_uid_map -= to_remove
+			sensor_name_data_map -= to_remove
+			to_chat(user, "<span class='notice'>Successfully removed sensor/meter with name <code>[to_remove]</code></span>")
+
+// Makes overrides easier
+/obj/machinery/computer/general_air_control/proc/refresh_all()
+	refresh_sensors()
+
+// Refreshes the sensors every so often, but only when the UI is opened
+/obj/machinery/computer/general_air_control/proc/refresh_sensors()
+	for(var/sensor_name in sensor_name_uid_map)
+		var/obj/machinery/atmospherics/AM = locateUID(sensor_name_uid_map[sensor_name])
+		if(QDELETED(AM))
+			sensor_name_uid_map -= sensor_name
+			sensor_name_data_map -= sensor_name
+			continue
+
+		if(istype(AM, /obj/machinery/atmospherics/air_sensor))
+			// Cache here to avoid a ton of list lookups
+			var/obj/machinery/atmospherics/air_sensor/AS = AM
+			var/list/sensor_data = sensor_name_data_map[sensor_name]
+			var/datum/gas_mixture/air_sample = AS.return_air()
+
+			// We remove it from the list incase sensor reporting is ever disabled
+			// We only want to show the information available
+			if(AS.output & SENSOR_PRESSURE)
+				sensor_data["pressure"] = air_sample.return_pressure()
+			else
+				sensor_data -= "pressure"
+
+			if(AS.output & SENSOR_TEMPERATURE)
+				sensor_data["temperature"] = air_sample.return_temperature()
+			else
+				sensor_data -= "temperature"
+
+			var/total_moles = air_sample.total_moles()
+
+			if(total_moles > 0)
+				if(AS.output & SENSOR_O2)
+					sensor_data["o2"] = round(100 * air_sample.oxygen / total_moles, 0.1)
+				else
+					sensor_data -= "o2"
+
+				if(AS.output & SENSOR_PLASMA)
+					sensor_data["plasma"] = round(100 * air_sample.toxins / total_moles, 0.1)
+				else
+					sensor_data -= "plasma"
+
+				if(AS.output & SENSOR_N2)
+					sensor_data["n2"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
+				else
+					sensor_data -= "n2"
+
+				if(AS.output & SENSOR_CO2)
+					sensor_data["co2"] = round(100 * air_sample.carbon_dioxide / total_moles, 0.1)
+				else
+					sensor_data -= "co2"
+
+				if(AS.output & SENSOR_N2O)
+					sensor_data["n2o"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
+				else
+					sensor_data -= "n2o"
+
+		else if(istype(AM, /obj/machinery/atmospherics/meter))
+			var/list/meter_data = sensor_name_data_map[sensor_name]
+			var/obj/machinery/atmospherics/meter/the_meter = AM
+			if(the_meter.target)
+				var/datum/gas_mixture/meter_env = the_meter.target.return_air()
+				if(meter_env)
+					meter_data["pressure"] = meter_env.return_pressure()
+					meter_data["temperature"] = meter_env.return_temperature()
+
 
 /obj/machinery/computer/general_air_control/process()
-	..()
+	// We only care about refreshing if people are looking at us
+	if(SStgui.get_open_ui_count(src) < 1)
+		return PROCESS_KILL
 
-	if(!sensors)
-		//warning("[src.type] at [x],[y],[z] has null sensors.  Please fix.")//commenting this line out because the admins will get a warning like this every time somebody builds another GAC
-		sensors = list()
-
-	updateUsrDialog()
-
-/obj/machinery/computer/general_air_control/attackby(I as obj, user as mob, params)
-	if(istype(I, /obj/item/multitool))
-		update_multitool_menu(user)
-		return TRUE
-
-	return ..()
-
-
-/obj/machinery/computer/general_air_control/receive_signal(datum/signal/signal)
-	if(!signal || signal.encryption) return
-
-	var/id_tag = signal.data["tag"]
-	if(!id_tag || !sensors || !sensors.Find(id_tag))
-		return
-
-	sensor_information[id_tag] = signal.data
-
-/obj/machinery/computer/general_air_control/proc/return_text()
-	var/sensor_data
-	if(show_sensors)
-		if(length(sensors))
-			for(var/id_tag in sensors)
-				var/long_name = sensors[id_tag]
-				var/list/data = sensor_information[id_tag]
-				var/sensor_part = "<fieldset><legend>[long_name]</legend>"
-
-				if(data)
-					sensor_part += "<table>"
-					if(data["pressure"])
-						sensor_part += "<tr><th>Pressure:</th><td>[data["pressure"]] kPa</td></tr>"
-
-					if(data["temperature"])
-						sensor_part += "<tr><th>Temperature:</th><td>[data["temperature"]] K</td></tr>"
-
-					if(data["oxygen"]||data["toxins"]||data["nitrogen"]||data["carbon_dioxide"])
-						sensor_part += "<tr><th>Gas Composition :</th><td><ul>"
-						if(data["oxygen"])
-							sensor_part += "<li>[data["oxygen"]]% O<sub>2</sub></li>"
-
-						if(data["nitrogen"])
-							sensor_part += "<li>[data["nitrogen"]]% N</li>"
-
-						if(data["carbon_dioxide"])
-							sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
-
-						if(data["toxins"])
-							sensor_part += "<li>[data["toxins"]]% Plasma</li>"
-
-						sensor_part += "</ul></td></tr>"
-					sensor_part += "</table>"
-
-				else
-					sensor_part += "<FONT color='red'>[long_name] can not be found!</FONT><BR>"
-				sensor_part += "</fieldset>"
-				sensor_data += sensor_part
-
-		else
-			sensor_data = "<em>No sensors connected.</em>"
-
-	var/output = {"
-		<style type="text/css">
-	html,body {
-	font-family:sans-serif,verdana;
-	font-size:smaller;
-	color:#fff;
-	}
-	h1 {
-	border-bottom:1px solid maroon;
-	}
-	table {
-	border-spacing: 0;
-	border-collapse: collapse;
-	}
-	td, th {
-	margin: 0;
-	font-size: small;
-	border-bottom: 1px solid #ccc;
-	padding: 3px;
-	}
-
-	th {
-	text-align:right;
-	}
-
-	fieldset {
-	border:1px solid #ccc;
-	background: #333;
-	}
-	legend {
-	font-weight:bold;
-	}
-		</style>
-	[show_sensors ? "<h2>Sensor Data:</h2>" + sensor_data : ""]
-	"}
-
-	return output
-
-/obj/machinery/computer/general_air_control/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
-/obj/machinery/computer/general_air_control/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
-
-/obj/machinery/computer/general_air_control/multitool_menu(mob/user, obj/item/multitool/P)
-	var/dat= {"
-	<b>Main</b>
-	<ul>
-	<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-	</ul>
-	<b>Sensors:</b>
-	<ul>"}
-	for(var/id_tag in sensors)
-		dat += {"<li><a href="?src=[UID()];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
-	dat += {"<li><a href="?src=[UID()];add_sensor=1">\[+\]</a></li></ul>"}
-	return dat
-
-/obj/machinery/computer/general_air_control/multitool_topic(mob/user,list/href_list,obj/O)
-	. = ..()
-	if(.)
-		return
-
-	if("add_sensor" in href_list)
-		// Make a list of all available sensors on the same frequency
-		var/list/sensor_list = list()
-
-		for(var/obj/machinery/atmospherics/air_sensor/G in GLOB.machines)
-			if(!isnull(G.id_tag) && G.frequency == frequency)
-				sensor_list |= G.id_tag
-
-		if(!length(sensor_list))
-			to_chat(user, "<span class=\"warning\">No sensors on this frequency.</span>")
-			return FALSE
-
-		// Have the user pick one of them and name its label
-		var/sensor = input(user, "Select a sensor:", "Sensor Data") as null|anything in sensor_list
-		if(!sensor)
-			return FALSE
-
-		var/label = reject_bad_name( input(user, "Choose a sensor label:", "Sensor Label")  as text|null, allow_numbers=1)
-		if(!label)
-			return FALSE
-
-		// Add the sensor's information to general_air_controler
-		sensors[sensor] = label
-		return TRUE
-
-	if("edit_sensor" in href_list)
-		var/list/sensor_list = list()
-
-		for(var/obj/machinery/atmospherics/air_sensor/G in GLOB.machines)
-			if(!isnull(G.id_tag) && G.frequency == frequency)
-				sensor_list |= G.id_tag
-
-		if(!length(sensor_list))
-			to_chat(user, "<span class=\"warning\">No sensors on this frequency.</span>")
-			return FALSE
-
-		var/label = sensors[href_list["edit_sensor"]]
-		var/sensor = input(user, "Select a sensor:", "Sensor Data", href_list["edit_sensor"]) as null|anything in sensor_list
-		if(!sensor)
-			return FALSE
-
-		sensors.Remove(href_list["edit_sensor"])
-		sensors[sensor] = label
-		return TRUE
-
-/obj/machinery/computer/general_air_control/unlinkFrom(mob/user, obj/O)
-	..()
-
-	if("id_tag" in O.vars && (istype(O,/obj/machinery/atmospherics/air_sensor) || istype(O, /obj/machinery/atmospherics/meter)))
-		sensors.Remove(O:id_tag)
-		return TRUE
-
-	return FALSE
-
-/obj/machinery/computer/general_air_control/linkMenu(obj/O)
-	if(isLinkedWith(O))
-		return
-
-	var/dat = ""
-
-	if(istype(O, /obj/machinery/atmospherics/air_sensor) || istype(O, /obj/machinery/atmospherics/meter))
-		dat += " <a href='?src=[UID()];link=1'>\[New Sensor\]</a> "
-	return dat
-
-/obj/machinery/computer/general_air_control/canLink(obj/O, list/context)
-	if(istype(O, /obj/machinery/atmospherics/air_sensor) || istype(O, /obj/machinery/atmospherics/meter))
-		return O:id_tag
-
-/obj/machinery/computer/general_air_control/isLinkedWith(obj/O)
-	if(istype(O, /obj/machinery/atmospherics/air_sensor) || istype(O, /obj/machinery/atmospherics/meter))
-		return O:id_tag in sensors
-
-/obj/machinery/computer/general_air_control/linkWith(mob/user, obj/O, context)
-	sensors[O:id_tag] = reject_bad_name(clean_input(user, "Choose a sensor label:", "Sensor Label"), allow_numbers=1)
-	return TRUE
+	refresh_all()
 
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
-	req_one_access_txt = "24;10"
-	settagwhitelist = list("input_tag", "output_tag")
 
-	var/input_tag
-	var/output_tag
+	// Map set vars
+	/// Autolink ID of the chamber inlet injector
+	var/inlet_injector_autolink_id
+	/// Autolink ID of the chamber outlet vent
+	var/outlet_vent_autolink_id
 
-	var/list/input_info
-	var/list/output_info
+	// Instanced vars. These are /tmp/ to avoid mappers trying to set them
+	/// The runtime UID of the inlet injector
+	var/tmp/inlet_injector_uid
+	/// The runtime UID of the outlet vent
+	var/tmp/outlet_vent_uid
 
-	var/list/input_linkable=list(
-		/obj/machinery/atmospherics/unary/outlet_injector,
-		/obj/machinery/atmospherics/unary/vent_pump
-	)
+	/// UI holder list of the inlet data
+	var/tmp/list/inlet_data = list()
+	/// UI holder list of the outlet data
+	var/tmp/list/outlet_data = list()
 
-	var/list/output_linkable=list(
-		/obj/machinery/atmospherics/unary/vent_pump
-	)
+	/// Default outlet vent setting (About 4559.6)
+	var/outlet_setting = ONE_ATMOSPHERE * 45
+	/// Default inlet injector setting (50 L/s)
+	var/inlet_setting = 50
 
-	var/pressure_setting = ONE_ATMOSPHERE * 45
-
-/obj/machinery/computer/general_air_control/large_tank_control/attackby(I as obj, user as mob)
-	if(istype(I, /obj/item/multitool))
-		update_multitool_menu(user)
-		return TRUE
-
-	return ..()
-
-
-/obj/machinery/computer/general_air_control/large_tank_control/multitool_menu(mob/user, obj/item/multitool/P)
-	var/dat= {"
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
-		<li>[format_tag("Input","input_tag")]</li>
-		<li>[format_tag("Output","output_tag")]</li>
-	</ul>
-	<b>Sensors:</b>
-	<ul>"}
-
-	for(var/id_tag in sensors)
-		dat += {"<li><a href="?src=[UID()];edit_sensor=[id_tag]">[sensors[id_tag]]</a></li>"}
-
-	dat += {"<li><a href="?src=[UID()];add_sensor=1">\[+\]</a></li></ul>"}
-	return dat
-
-
-/obj/machinery/computer/general_air_control/large_tank_control/linkWith(mob/user, obj/machinery/atmospherics/unary/O, list/context)
-	if(!is_type_in_list(O, input_linkable))
-		return FALSE
-
-	if(context["slot"] == "input")
-		input_tag = O.id_tag
-		input_info = null
-		if(istype(O, /obj/machinery/atmospherics/unary/vent_pump))
-			send_signal(list("tag" = input_tag,
-				"direction" = 1, // Release
-				"checks"    = 0  // No pressure checks.
-				))
-		return TRUE
-
-	if(context["slot"] == "output")
-		output_tag = O.id_tag
-		output_info = null
-		if(istype(O, /obj/machinery/atmospherics/unary/vent_pump))
-			send_signal(list("tag" = output_tag,
-				"direction" = 0, // Siphon
-				"checks"    = 2  // Internal pressure checks.
-				))
-		return TRUE
-
-/obj/machinery/computer/general_air_control/large_tank_control/unlinkFrom(mob/user, obj/O)
-	if("id_tag" in O.vars)
-		if(O:id_tag == input_tag)
-			input_tag = null
-			input_info = null
-			return TRUE
-
-		if(O:id_tag == output_tag)
-			output_tag = null
-			output_info = null
-			return TRUE
-
-	return FALSE
-
-/obj/machinery/computer/general_air_control/large_tank_control/linkMenu(obj/O)
-	var/dat = ""
-	if(canLink(O, list("slot"="input")))
-		dat += " <a href='?src=[UID()];link=1;slot=input'>\[Link @ Input\]</a> "
-
-	if(canLink(O, list("slot"="output")))
-		dat += " <a href='?src=[UID()];link=1;slot=output'>\[Link @ Output\]</a> "
-
-	return dat
-
-/obj/machinery/computer/general_air_control/large_tank_control/canLink(obj/O, list/context)
-	return (context["slot"] == "input" && is_type_in_list(O,input_linkable)) || (context["slot"] == "output" && is_type_in_list(O,output_linkable))
-
-/obj/machinery/computer/general_air_control/large_tank_control/isLinkedWith(obj/O)
-	if(O:id_tag == input_tag)
-		return TRUE
-	if(O:id_tag == output_tag)
-		return TRUE
-
-	return FALSE
-
-/obj/machinery/computer/general_air_control/large_tank_control/process()
+/obj/machinery/computer/general_air_control/large_tank_control/LateInitialize()
 	..()
 
-	if(!input_info && input_tag)
-		request_device_refresh(input_tag)
-	if(!output_info && output_tag)
-		request_device_refresh(output_tag)
+	// Setup inlet
+	if(inlet_injector_autolink_id)
+		for(var/obj/machinery/atmospherics/unary/outlet_injector/OI as anything in GLOB.air_injectors)
+			if(OI.autolink_id == inlet_injector_autolink_id)
+				inlet_injector_uid = OI.UID() // OI!
+				// Setup some defaults
+				OI.on = TRUE
+				OI.volume_rate = inlet_setting
+				OI.update_icon()
+				break
 
-/obj/machinery/computer/general_air_control/large_tank_control/return_text()
-	var/output = ..()
-	//if(signal.data)
-	//	input_info = signal.data // Attempting to fix intake control -- TLE
+	// Setup outlet
+	if(outlet_vent_autolink_id)
+		for(var/obj/machinery/atmospherics/unary/vent_pump/VP as anything in GLOB.all_vent_pumps)
+			if(VP.autolink_id == outlet_vent_autolink_id)
+				outlet_vent_uid = VP.UID()
+				get_area(VP).vents -= VP
+				VP.on = TRUE
+				VP.releasing = FALSE
+				VP.internal_pressure_bound = outlet_setting
+				VP.update_icon()
+				break
 
-	output += "<h2>Tank Control System</h2><BR>"
-	if(input_tag)
-		if(input_info)
-			var/power = (input_info["power"])
-			var/volume_rate = input_info["volume_rate"]
-			output += {"
-<fieldset>
-	<legend>Input (<A href='?src=[UID()];in_refresh_status=1'>Refresh</A>)</legend>
-	<table>
-		<tr>
-			<th>State:</th>
-			<td><A href='?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
-		</tr>
-		<tr>
-			<th>Rate:</th>
-			<td>[volume_rate] L/sec</td>
-		</tr>
-	</table>
-</fieldset>
-"}
-		else
-			output += "<FONT color='red'>ERROR: Can not find input port</FONT> <A href='?src=[UID()];in_refresh_status=1'>Search</A><BR>"
-
-	if(output_tag)
-		if(output_info)
-			var/power = (output_info["power"])
-			var/output_pressure = output_info["internal"]
-			output += {"
-<fieldset>
-	<legend>Output (<A href='?src=[UID()];out_refresh_status=1'>Refresh</A>)</legend>
-	<table>
-		<tr>
-			<th>State:</th>
-			<td><A href='?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
-		</tr>
-		<tr>
-			<th>Max Output Pressure:</th>
-			<td><A href='?src=[UID()];out_set_pressure=1'>[output_pressure]</A> kPa</td>
-		</tr>
-	</table>
-</fieldset>
-"}
-		else
-			output += "<FONT color='red'>ERROR: Can not find output port</FONT> <A href='?src=[UID()];out_refresh_status=1'>Search</A><BR>"
-
-	return output
-
-/obj/machinery/computer/general_air_control/large_tank_control/receive_signal(datum/signal/signal)
-	if(!signal || signal.encryption) return
-
-	var/id_tag = signal.data["tag"]
-
-	if(input_tag == id_tag)
-		input_info = signal.data
-		updateUsrDialog()
-
-	else if(output_tag == id_tag)
-		output_info = signal.data
-		updateUsrDialog()
-
-	else
-		..(signal)
-
-/obj/machinery/computer/general_air_control/large_tank_control/proc/request_device_refresh(device)
-	send_signal(list("tag" = device, "status"))
-
-/obj/machinery/computer/general_air_control/large_tank_control/proc/send_signal(list/data)
-	if(!radio_connection)
+/obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/I)
+	if(!ismultitool(I)) // Should never happen
 		return
 
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.source = src
-	signal.data=data
-	signal.data["sigtype"] = "command"
-	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
+	var/choice = input(user, "Configure what", "Configuration") in list("Inlet", "Outlet", "Sensors", "Cancel")
+	if((!choice) || (choice == "Cancel") || !Adjacent(user))
+		return
 
-/obj/machinery/computer/general_air_control/large_tank_control/Topic(href, href_list)
+	switch(choice)
+		if("Inlet")
+			configure_inlet(user, I)
+		if("Outlet")
+			configure_outlet(user, I)
+		if("Sensors")
+			configure_sensors(user, I)
+
+	return TRUE
+
+/obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/multitool/M)
+	var/choice = alert(user, "Would you like to add/replace the existing inlet or clear it?", "Configuration", "Add/Replace", "Clear", "Cancel")
+	if((choice == "Cancel") || !Adjacent(user))
+		return
+
+	switch(choice)
+		if("Add/Replace")
+			// First see if they have a scrubber in their buffer
+			var/datum/linked_datum = locateUID(M.buffer_uid)
+			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/unary/outlet_injector))
+				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not an injector.</span>")
+				return
+
+			inlet_injector_uid = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
+			var/obj/machinery/atmospherics/unary/outlet_injector/OI = linked_datum
+			// Setup some defaults
+			OI.on = TRUE
+			OI.volume_rate = inlet_setting
+			OI.update_icon()
+			refresh_inlet()
+			to_chat(user, "<span class='notice'>Successfully set the inlet injector.</span>")
+
+		if("Clear")
+			if(inlet_injector_uid)
+				// Lets be kind and turn it off first so its unwrenchable
+				var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(inlet_injector_uid)
+				if(!QDELETED(OI))
+					OI.on = FALSE
+					OI.update_icon()
+				inlet_injector_uid = null
+				refresh_inlet()
+				to_chat(user, "<span class='notice'>Successfully unlinked inlet injector.</span>")
+			else
+				to_chat(user, "<span class='warning'>Error - No injector linked!</span>")
+
+
+/obj/machinery/computer/general_air_control/large_tank_control/proc/configure_outlet(mob/living/user, obj/item/multitool/M)
+	var/choice = alert(user, "Would you like to add/replace the existing outlet or clear it?", "Configuration", "Add/Replace", "Clear", "Cancel")
+	if((choice == "Cancel") || !Adjacent(user))
+		return
+
+	switch(choice)
+		if("Add/Replace")
+			// First see if they have a scrubber in their buffer
+			var/datum/linked_datum = locateUID(M.buffer_uid)
+			if(!linked_datum || !istype(linked_datum, /obj/machinery/atmospherics/unary/vent_pump))
+				to_chat(user, "<span class='warning'>Error: No device in multitool buffer, or device is not a vent pump.</span>")
+				return
+
+			outlet_vent_uid = linked_datum.UID() // Make sure the multitool ref didnt change while they had the menu open
+			var/obj/machinery/atmospherics/unary/vent_pump/VP = linked_datum
+			// Setup some defaults
+			get_area(VP).vents -= VP
+			VP.on = TRUE
+			VP.releasing = FALSE
+			VP.internal_pressure_bound = outlet_setting
+			VP.update_icon()
+			refresh_outlet()
+			to_chat(user, "<span class='notice'>Successfully set the outlet vent</span>")
+
+		if("Clear")
+			if(outlet_vent_uid)
+				// Lets be kind and turn it off first so its unwrenchable
+				var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(outlet_vent_uid)
+				if(!QDELETED(VP))
+					VP.on = FALSE
+					VP.update_icon()
+				outlet_vent_uid = null
+				refresh_outlet()
+				to_chat(user, "<span class='notice'>Successfully unlinked outlet vent.</span>")
+			else
+				to_chat(user, "<span class='warning'>Error - No vent linked!</span>")
+
+
+/obj/machinery/computer/general_air_control/large_tank_control/proc/refresh_inlet()
+	var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(inlet_injector_uid)
+	if(QDELETED(OI))
+		inlet_data = list()
+		return
+
+	inlet_data["on"] = OI.on
+	inlet_data["rate"] = OI.volume_rate
+
+/obj/machinery/computer/general_air_control/large_tank_control/proc/refresh_outlet()
+	var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(outlet_vent_uid)
+	if(QDELETED(VP))
+		outlet_data = list()
+		return
+
+	outlet_data["on"] = VP.on
+	outlet_data["rate"] = VP.internal_pressure_bound
+
+/obj/machinery/computer/general_air_control/large_tank_control/refresh_all()
+	..()
+	refresh_inlet()
+	refresh_outlet()
+
+/obj/machinery/computer/general_air_control/large_tank_control/ui_data(mob/user)
+	. = ..()
+	.["inlet"] = inlet_data
+	.["outlet"] = outlet_data
+
+/obj/machinery/computer/general_air_control/large_tank_control/ui_act(action, list/params)
 	if(..())
-		return TRUE
+		return
 
-	add_fingerprint(usr)
+	switch(action)
+		if("toggle_active")
+			switch(params["dev"])
+				if("inlet")
+					var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(inlet_injector_uid)
+					if(!QDELETED(OI))
+						OI.on = !OI.on
+						OI.update_icon()
+						refresh_inlet()
+				if("outlet")
+					var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(outlet_vent_uid)
+					if(!QDELETED(VP))
+						VP.on = !VP.on
+						VP.update_icon()
+						refresh_outlet()
 
-	if(href_list["out_set_pressure"])
-		var/response=input(usr,"Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
-		pressure_setting = text2num(response)
-		pressure_setting = clamp(pressure_setting, 0, 50*ONE_ATMOSPHERE)
+		if("set_pressure")
+			switch(params["dev"])
+				if("inlet")
+					var/obj/machinery/atmospherics/unary/outlet_injector/OI = locateUID(inlet_injector_uid)
+					if(!QDELETED(OI))
+						var/new_value = clamp(text2num(params["val"]), 0, 50)
+						if(new_value)
+							OI.volume_rate = new_value
+							refresh_inlet()
+				if("outlet")
+					var/obj/machinery/atmospherics/unary/vent_pump/VP = locateUID(outlet_vent_uid)
+					if(!QDELETED(VP))
+						var/new_value = clamp(text2num(params["val"]), 0, (50 * ONE_ATMOSPHERE))
+						if(new_value)
+							VP.internal_pressure_bound = new_value
+							refresh_outlet()
 
-	if(!radio_connection)
-		return FALSE
-
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.source = src
-
-	if(href_list["in_refresh_status"])
-		input_info = null
-		signal.data = list ("tag" = input_tag, "status" = 1)
-
-	else if(href_list["in_toggle_injector"])
-		input_info = null
-		signal.data = list ("tag" = input_tag, "power_toggle" = 1)
-
-	else if(href_list["out_refresh_status"])
-		output_info = null
-		signal.data = list ("tag" = output_tag, "status" = 1)
-
-	else if(href_list["out_toggle_power"])
-		output_info = null
-		signal.data = list ("tag" = output_tag, "power_toggle" = 1)
-
-	else if(href_list["out_set_pressure"])
-		output_info = null
-		signal.data = list ("tag" = output_tag, "set_internal_pressure" = "[pressure_setting]")
-	/*else
-		testing("Bad Topic() to GAC \"[src.name]\": [href]")
-		return*/ // NOPE. // disabling because it spams when multitool menus are used
-
-	signal.data["sigtype"] = "command"
-	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
-	updateUsrDialog()
-
-
+	return TRUE
 
 // Central atmos control //
 /obj/machinery/computer/atmoscontrol
@@ -642,12 +507,6 @@
 /obj/machinery/computer/atmoscontrol/Destroy()
 	QDEL_NULL(atmos_control)
 	return ..()
-
-/obj/machinery/computer/atmoscontrol/laptop
-	name = "atmospherics laptop"
-	desc = "Cheap Nanotrasen laptop."
-	icon_state = "medlaptop"
-	density = FALSE
 
 /obj/machinery/computer/atmoscontrol/attack_ai(mob/user)
 	ui_interact(user)

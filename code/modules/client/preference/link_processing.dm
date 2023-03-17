@@ -137,18 +137,18 @@
 				if("age")
 					active_character.age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & BALD))
 						active_character.h_colour = rand_hex_color()
 				if("secondary_hair")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & BALD))
 						active_character.h_sec_colour = rand_hex_color()
 				if("h_style")
 					active_character.h_style = random_hair_style(active_character.gender, active_character.species, robohead)
 				if("facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & SHAVED))
 						active_character.f_colour = rand_hex_color()
 				if("secondary_facial")
-					if(active_character.species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox"))
+					if(!(S.bodyflags & SHAVED))
 						active_character.f_sec_colour = rand_hex_color()
 				if("f_style")
 					active_character.f_style = random_facial_hair_style(active_character.gender, active_character.species, robohead)
@@ -1073,7 +1073,7 @@
 
 				if("edit_2fa")
 					// Do this async so we arent holding up a topic() call
-					INVOKE_ASYNC(user.client, /client.proc/edit_2fa)
+					INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, edit_2fa))
 					return // We return here to avoid focus being lost
 
 				if("keybindings")

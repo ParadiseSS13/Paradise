@@ -1,6 +1,6 @@
 /obj/item/implantpad
 	name = "bio-chip pad"
-	desc = "Used to modify implants."
+	desc = "Used to modify bio-chips."
 	icon = 'icons/obj/implants.dmi'
 	icon_state = "implantpad-off"
 	item_state = "electronic"

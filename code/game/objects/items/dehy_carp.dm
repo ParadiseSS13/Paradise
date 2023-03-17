@@ -43,7 +43,7 @@
 	icon = 'icons/mob/carp.dmi'
 	flick("carp_swell", src)
 	// Wait for animation to end
-	addtimer(CALLBACK(src, .proc/make_carp), 6)
+	addtimer(CALLBACK(src, PROC_REF(make_carp)), 6)
 
 /obj/item/toy/carpplushie/dehy_carp/proc/make_carp()
 	// Make space carp

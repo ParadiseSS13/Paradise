@@ -53,7 +53,7 @@
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
 	for(var/obj/structure/nest/N in range(spawn_trigger_distance, src))
 		N.spawn_is_triggered = TRUE
-		addtimer(CALLBACK(N, /obj/structure/nest/.proc/spawn_mob, chosen_mob), rand(2, 5) SECONDS)
+		addtimer(CALLBACK(N, TYPE_PROC_REF(/obj/structure/nest, spawn_mob), chosen_mob), rand(2, 5) SECONDS)
 
 /obj/structure/nest/proc/spawn_mob(mob/M)
 	var/byproduct = pick(spawn_byproduct)

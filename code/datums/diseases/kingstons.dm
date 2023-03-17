@@ -12,7 +12,8 @@
 	severity = DANGEROUS
 
 /datum/disease/kingstons/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(10))
@@ -43,11 +44,12 @@
 					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
 					var/mob/living/carbon/human/catface = affected_mob
-					catface.set_species(/datum/species/tajaran, retain_damage = TRUE)
+					catface.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
 
 /datum/disease/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
 	name = "Advanced Kingstons Syndrome"
+	medical_name = "Advanced Kingstons Syndrome"
 	max_stages = 4
 	spread_text = "Airborne"
 	cure_text = "Plasma"
@@ -70,7 +72,8 @@
 	name = "[initial(chosentype.name)] [chosensuff]"
 
 /datum/disease/kingstons_advanced/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/twisted = affected_mob
 		switch(stage)
@@ -89,9 +92,9 @@
 					if(!istype(twisted.dna.species, chosentype))
 						twisted.visible_message("<span class='danger'>[twisted]'s skin splits and form contorts!</span>", \
 														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
-						twisted.set_species(chosentype, retain_damage = TRUE)
+						twisted.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 					else
-						twisted.visible_message("<span class='danger'>[twisted] scratches at thier skin!</span>", \
+						twisted.visible_message("<span class='danger'>[twisted] scratches at their skin!</span>", \
 														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
 						twisted.adjustBruteLoss(-5)
 						twisted.adjustStaminaLoss(5)

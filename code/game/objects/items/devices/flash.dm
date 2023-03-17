@@ -33,19 +33,23 @@
 
 /obj/item/flash/attackby(obj/item/I, mob/user, params)
 	if(can_overcharge)
-		if(istype(I, /obj/item/screwdriver))
-			if(battery_panel)
-				to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
-				battery_panel = FALSE
-			else
-				to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
-				battery_panel = TRUE
 		if(battery_panel && !overcharged)
 			if(istype(I, /obj/item/stock_parts/cell))
 				to_chat(user, "<span class='notice'>You jam [I] into the battery compartment on [src].</span>")
 				qdel(I)
 				overcharged = TRUE
 				add_overlay("overcharge")
+
+/obj/item/flash/screwdriver_act(mob/living/user, obj/item/I)
+	if(!can_overcharge)
+		return
+
+	if(battery_panel)
+		to_chat(user, "<span class='notice'>You close the battery compartment on [src].</span>")
+	else
+		to_chat(user, "<span class='notice'>You open the battery compartment on [src].</span>")
+	battery_panel = !battery_panel
+	return TRUE
 
 /obj/item/flash/random/New()
 	..()
@@ -73,19 +77,19 @@
 
 
 /obj/item/flash/proc/try_use_flash(mob/user = null)
+	if(broken)
+		return FALSE
+
 	if(cooldown >= world.time)
 		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
 	cooldown = world.time + cooldown_duration
 	flash_recharge(user)
 
-	if(broken)
-		return FALSE
-
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
 	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	times_used++
 
 	if(user && !clown_check(user))
@@ -100,7 +104,7 @@
 		if(targeted)
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
-				terrible_conversion_proc(M, user)
+				revolution_conversion(M, user)
 				M.drop_l_hand()
 				M.drop_r_hand()
 				visible_message("<span class='disarm'>[user] blinds [M] with [src]!</span>")
@@ -151,29 +155,15 @@
 	..()
 
 
-/obj/item/flash/proc/terrible_conversion_proc(mob/M, mob/user)
-	if(ishuman(M) && ishuman(user) && M.stat != DEAD)
-		if(user.mind && (user.mind in SSticker.mode.head_revolutionaries))
-			if(M.client)
-				if(M.stat == CONSCIOUS)
-					M.mind_initialize() //give them a mind datum if they don't have one.
-					var/resisted
-					if(!ismindshielded(M))
-						if(user.mind in SSticker.mode.head_revolutionaries)
-							if(SSticker.mode.add_revolutionary(M.mind))
-								times_used -- //Flashes less likely to burn out for headrevs when used for conversion
-							else
-								resisted = 1
-					else
-						resisted = 1
-
-					if(resisted)
-						to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
-				else
-					to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
-			else
-				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
-
+/obj/item/flash/proc/revolution_conversion(mob/M, mob/user)
+	if(!ishuman(M) || !(user.mind in SSticker.mode.head_revolutionaries))
+		return
+	if(M.stat != CONSCIOUS)
+		to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
+	else if(SSticker.mode.add_revolutionary(M.mind))
+		times_used-- //Flashes less likely to burn out for headrevs when used for conversion
+	else
+		to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
 
 /obj/item/flash/cyborg
 	origin_tech = null
@@ -244,15 +234,15 @@
 	name = "photon projector"
 	desc = "A high-powered photon projector implant normally used for lighting purposes, but also doubles as a flashbulb weapon. Self-repair protocols fix the flashbulb if it ever burns out."
 	cooldown_duration = 2 SECONDS
-	var/obj/item/organ/internal/cyberimp/arm/flash/I = null
+	var/obj/item/organ/internal/cyberimp/arm/implant = null
 
 /obj/item/flash/armimplant/burn_out()
-	if(I && I.owner)
-		to_chat(I.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
-		I.Retract()
+	if(implant?.owner)
+		to_chat(implant.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
+		implant.Retract()
 
 /obj/item/flash/armimplant/Destroy()
-	I = null
+	implant = null
 	return ..()
 
 /obj/item/flash/synthetic //just a regular flash now

@@ -4,8 +4,7 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
+	idle_power_consumption = 5
 	var/on = FALSE
 	var/onicon = null
 	var/officon = null
@@ -20,6 +19,15 @@
 	var/has_specials = FALSE
 	///Set to TRUE if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
 	var/upgradeable = FALSE
+	var/datum/looping_sound/kitchen/deep_fryer/soundloop
+
+/obj/machinery/cooker/Initialize(mapload)
+	. = ..()
+	soundloop = new(list(src), FALSE) // cereal machine, screw off
+
+/obj/machinery/cooker/Destroy()
+	QDEL_NULL(soundloop)
+	return ..()
 
 // checks if the snack has been cooked in a certain way
 /obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
@@ -68,6 +76,7 @@
 
 /obj/machinery/cooker/proc/turnoff(obj/item/olditem)
 	icon_state = officon
+	soundloop.stop()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 	on = FALSE
 	qdel(olditem)
@@ -79,9 +88,10 @@
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
+	soundloop.stop()
 	to_chat(user, "<span class='warning'>You smell burning coming from [src]!</span>")
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
-	smoke.set_up(5, 0, src)
+	smoke.set_up(5, FALSE, src)
 	smoke.start()
 	if(prob(firechance))
 		var/turf/location = get_turf(src)
@@ -99,6 +109,7 @@
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
 	icon_state = onicon
 	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
+	soundloop.start()
 	on = TRUE
 	chef.drop_item()
 	tocook.loc = src
@@ -136,7 +147,7 @@
 			else
 				L.death()
 		break
-	addtimer(CALLBACK(src, .proc/finish_cook, I, user), cooktime)
+	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
 
 /obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
 	if(QDELETED(I)) //For situations where the item being cooked gets deleted mid-cook (primed grenades)

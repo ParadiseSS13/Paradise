@@ -79,6 +79,24 @@
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "wall"
 	smoothing_flags = SMOOTH_CORNERS
+	baseturf = /turf/simulated/floor/indestructible/hierophant/two
+
+/turf/simulated/wall/indestructible/hierophant/Initialize(mapload)
+	. = ..()
+	GLOB.hierophant_walls += src
+
+/turf/simulated/wall/indestructible/hierophant/BeforeChange()
+	GLOB.hierophant_walls -= src
+	return ..()
+
+
+/turf/simulated/wall/indestructible/hierophant/proc/collapse()
+	if(prob(15))
+		visible_message("<span class='warning'>[src] starts to rumble and groan as the lights fade on it, and it begins to collapse to rubble!</span>",\
+		"<span class='warning'>You hear metal groaning and tearing!</span>")
+		ChangeTurf(/turf/simulated/floor/indestructible/hierophant/two)
+		return
+	addtimer(CALLBACK(src, PROC_REF(collapse)), 10 SECONDS)
 
 /turf/simulated/wall/indestructible/sandstone
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
@@ -136,13 +154,17 @@
 
 /turf/simulated/wall/indestructible/fakeglass
 	name = "window"
-	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 	icon_state = "fake_window"
 	base_icon_state = "reinforced_window"
 	opacity = FALSE
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+	/// Used to define what file the edging sprite is contained within
+	var/edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
+	/// Tracks the edging appearence sprite
+	var/mutable_appearance/edge_overlay
 
 /turf/simulated/wall/indestructible/fakeglass/Initialize(mapload)
 	. = ..()
@@ -150,9 +172,35 @@
 	underlays += mutable_appearance('icons/obj/structures.dmi', "grille") //add a grille underlay
 	underlays += mutable_appearance('icons/turf/floors.dmi', "plating") //add the plating underlay, below the grille
 
+/turf/simulated/wall/indestructible/fakeglass/smooth_icon()
+	..()
+	update_icon(UPDATE_OVERLAYS)
+
+/turf/simulated/wall/indestructible/fakeglass/update_icon_state()
+	. = ..()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
+
+/turf/simulated/wall/indestructible/fakeglass/update_overlays()
+	. = ..()
+
+	if(!edge_overlay_file)
+		return
+
+	edge_overlay = mutable_appearance(edge_overlay_file, "[smoothing_junction]", layer + 0.1, appearance_flags = RESET_COLOR)
+	. += edge_overlay
+
+/turf/simulated/wall/indestructible/fakeglass/brass
+	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
+	icon_state = "clockwork_window-0"
+	base_icon_state = "clockwork_window"
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_BRASS)
+	edge_overlay_file = null
+
 /turf/simulated/wall/indestructible/opsglass
 	name = "window"
-	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	opacity = FALSE
@@ -165,6 +213,10 @@
 	icon_state = null
 	underlays += mutable_appearance('icons/obj/structures.dmi', "grille")
 	underlays += mutable_appearance('icons/turf/floors.dmi', "plating")
+
+/turf/simulated/wall/indestructible/opsglass/limited_smooth
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM)
 
 /turf/simulated/wall/indestructible/rock
 	name = "dense rock"
@@ -185,12 +237,12 @@
 	canSmoothWith = null
 
 /turf/simulated/wall/indestructible/riveted
-	icon = 'icons/turf/walls/riveted.dmi'
-	icon_state = "riveted-0"
-	base_icon_state = "riveted"
+	icon = 'icons/turf/walls/reinforced_wall.dmi'
+	icon_state = "reinforced_wall-0"
+	base_icon_state = "reinforced_wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 
 /turf/simulated/wall/indestructible/syndicate
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'

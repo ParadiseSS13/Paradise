@@ -63,7 +63,7 @@
 	..()
 
 /datum/surgery_step/proxy/Destroy(force, ...)
-	QDEL_LIST(branches_init)
+	QDEL_LIST_CONTENTS(branches_init)
 	return ..()
 
 /datum/surgery_step/proxy/get_step_information(datum/surgery/surgery)
@@ -174,7 +174,7 @@
 
 	if(overridden_tool || next_surgery == surgery || !next_surgery)
 		// Continue along with the original surgery.
-		return try_next_step(user, target, target_zone, tool, surgery, null, TRUE)
+		return try_next_step(user, target, target_zone, tool, surgery, null, TRUE, TRUE)
 
 	if(!target.can_run_surgery(next_surgery, user))
 		// Make sure the target can support the surgery.
@@ -199,10 +199,11 @@
  *
  * Arguments:
  * * next_surgery_steps - the steps for the branching surgery to add to the current surgery. If there's no branching surgery (or this would continue the main surgery) ignore this.
- * * override_adding_self - If true, then regardless of the value of insert_self_after, we won't add ourselves in as another step.
+ * * override_adding_self - If true, then on a successful surgery, regardless of the value of insert_self_after, we won't add ourselves in as another step.
+ * * readd_step_on_fail - If true, when we fail a step we'll add the failed step again after the proxy surgery. This is necessary for main surgeries.
  * (for other arguments, see try_op())
  */
-/datum/surgery_step/proxy/proc/try_next_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/running_surgery, list/next_surgery_steps, override_adding_self)
+/datum/surgery_step/proxy/proc/try_next_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/running_surgery, list/next_surgery_steps, override_adding_self, readd_step_on_fail)
 
 	var/list/following_steps = list()
 
@@ -224,6 +225,12 @@
 	if(step_status != SURGERY_INITIATE_SUCCESS)
 		// always add ourselves after a failure so someone can make a different choice.
 		running_surgery.steps.Insert(running_surgery.step_number + 1, type)
+
+		// Since we've already bumped up the step count, if we tried the main branch in the surgery and failed it, we need to add both
+		// the proxy step and the main step to keep them both as options.
+		if(readd_step_on_fail)
+			running_surgery.steps.Insert(running_surgery.step_number + 2, next_step.type)
+
 		running_surgery.step_number++
 
 	else

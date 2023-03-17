@@ -28,8 +28,12 @@
 	var/brightness_on = 5
 	var/adaptive_damage_bonus = 0
 
+/obj/item/twohanded/kinetic_crusher/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (7 / 3) SECONDS ) // 2.3333 seconds of cooldown for 30% uptime
+
 /obj/item/twohanded/kinetic_crusher/Destroy()
-	QDEL_LIST(trophies)
+	QDEL_LIST_CONTENTS(trophies)
 	return ..()
 
 /obj/item/twohanded/kinetic_crusher/examine(mob/living/user)
@@ -114,7 +118,7 @@
 		D.fire()
 		charged = FALSE
 		update_icon()
-		addtimer(CALLBACK(src, .proc/Recharge), charge_time)
+		addtimer(CALLBACK(src, PROC_REF(Recharge)), charge_time)
 		return
 	if(proximity_flag && isliving(target))
 		var/mob/living/L = target
@@ -203,9 +207,12 @@
 				T.on_mark_application(target, CM, had_effect)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		var/turf/simulated/mineral/M = target_turf
-		new /obj/effect/temp_visual/kinetic_blast(M)
-		M.gets_drilled(firer)
+		if(is_ancient_rock(target_turf))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			var/turf/simulated/mineral/M = target_turf
+			new /obj/effect/temp_visual/kinetic_blast(M)
+			M.gets_drilled(firer)
 	..()
 
 //trophies
@@ -275,6 +282,13 @@
 	missing_health *= bonus_value //multiply the remaining amount by bonus_value
 	if(missing_health > 0)
 		target.adjustBruteLoss(missing_health) //and do that much damage
+
+
+/obj/item/crusher_trophy/goliath_tentacle/ancient
+	name = "ancient goliath tentacle"
+	desc = "A HUGE sliced-off goliath tentacle. Suitable as a trophy for a kinetic crusher."
+	icon_state = "ancient_goliath_tentacle"
+	bonus_value = 4
 
 //watcher
 /obj/item/crusher_trophy/watcher_wing
@@ -351,7 +365,7 @@
 	denied_type = /obj/item/crusher_trophy/miner_eye
 
 /obj/item/crusher_trophy/miner_eye/effect_desc()
-	return "mark detonation to grant stun immunity and <b>90%</b> damage reduction for <b>1</b> second"
+	return "mark detonation to grant stun immunity and <b>75%</b> damage reduction for <b>1</b> second"
 
 /obj/item/crusher_trophy/miner_eye/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_BLOODDRUNK)
@@ -385,7 +399,7 @@
 			continue
 		playsound(L, 'sound/magic/fireball.ogg', 20, 1)
 		new /obj/effect/temp_visual/fire(L.loc)
-		addtimer(CALLBACK(src, .proc/pushback, L, user), 1) //no free backstabs, we push AFTER module stuff is done
+		addtimer(CALLBACK(src, PROC_REF(pushback), L, user), 1) //no free backstabs, we push AFTER module stuff is done
 		L.adjustFireLoss(bonus_value)
 
 /obj/item/crusher_trophy/tail_spike/proc/pushback(mob/living/target, mob/living/user)
@@ -451,7 +465,7 @@
 
 /obj/item/crusher_trophy/blaster_tubes/on_mark_detonation(mob/living/target, mob/living/user)
 	deadly_shot = TRUE
-	addtimer(CALLBACK(src, .proc/reset_deadly_shot), 300, TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(reset_deadly_shot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/item/crusher_trophy/blaster_tubes/proc/reset_deadly_shot()
 	deadly_shot = FALSE
@@ -475,7 +489,7 @@
 	duration = 75
 
 /obj/item/crusher_trophy/adaptive_intelligence_core
-	name = "adaptive inteligence core"
+	name = "adaptive intelligence core"
 	desc = "Seems to be one of the cores from a massive robot. Suitable as a trophy for a kinetic crusher."
 	icon_state = "adaptive_core"
 	denied_type = /obj/item/crusher_trophy/adaptive_intelligence_core

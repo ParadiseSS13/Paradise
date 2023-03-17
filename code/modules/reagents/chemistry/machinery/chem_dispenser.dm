@@ -4,8 +4,7 @@
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dispenser"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_consumption = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/ui_title = "Chem Dispenser 5000"
 	var/cell_type = /obj/item/stock_parts/cell/high
@@ -123,17 +122,11 @@
 		return
 	recharge_counter++
 
-/obj/machinery/chem_dispenser/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-
 /obj/machinery/chem_dispenser/update_icon_state()
 	if(panel_open)
 		icon_state = "[initial(icon_state)]-o"
 		return
-	if(!powered() && !is_drink)
+	if(!has_power() && !is_drink)
 		icon_state = "dispenser_nopower"
 		return
 	icon_state = "[initial(icon_state)][beaker ? "_working" : ""]"
@@ -297,7 +290,7 @@
 
 /obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 		return
 	if(anchored)
 		anchored = FALSE
@@ -348,7 +341,7 @@
 
 /obj/machinery/chem_dispenser/soda/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -360,7 +353,7 @@
 
 /obj/machinery/chem_dispenser/soda/upgraded/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -384,7 +377,7 @@
 
 /obj/machinery/chem_dispenser/beer/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -396,7 +389,7 @@
 
 /obj/machinery/chem_dispenser/beer/upgraded/Initialize(mapload)
 	. = ..()
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -592,7 +585,7 @@
 	icon_state = "handheld_booze"
 	is_drink = TRUE
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
-	 "vermouth", "cognac", "ale", "mead", "synthanol")
+		"vermouth", "cognac", "ale", "mead", "synthanol")
 
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"

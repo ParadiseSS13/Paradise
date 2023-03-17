@@ -1,123 +1,147 @@
-/obj/item/storage/box/syndicate // Traitor bundles
+/obj/item/storage/box/syndie_kit
+	desc = "A sleek, sturdy box."
+	icon_state = "box_of_doom"
 
-	var/static/list/spy = list( // 37TC + one 0TC
-		/obj/item/clothing/under/chameleon, // 2TC
-		/obj/item/clothing/mask/chameleon, // 0TC
+/obj/item/storage/box/syndie_kit/bundle // Traitor bundles
+
+	var/static/list/spy = list( // 37TC
+		/obj/item/clothing/under/chameleon, // 1TC
+		/obj/item/clothing/mask/chameleon, // 1TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-		/obj/item/camera_bug, // 1TC
-		/obj/item/multitool/ai_detect, // 1TC
-		/obj/item/encryptionkey/syndicate, // 2TC
-		/obj/item/twohanded/garrote, // 10TC
+		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
+		/obj/item/implanter/storage, // 8TC
+		/obj/item/pen/edagger, // 2TC
 		/obj/item/pinpointer/advpinpointer, // 4TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 2TC
-		/obj/item/flashlight/emp, // 2TC
-		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
-		/obj/item/chameleon) // 7TC
+		/obj/item/flashlight/emp, // 4TC
+		/obj/item/chameleon, // 7TC
+		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/thief = list( // 39TC
+	var/static/list/agent13 = list( // 37TC
+		/obj/item/clothing/under/chameleon, // 1TC
+		/obj/item/card/id/syndicate, // 2TC
+		/obj/item/gun/projectile/automatic/pistol, // 4TC
+		/obj/item/suppressor, // 1TC
+		/obj/item/ammo_box/magazine/m10mm,  // 1TC
+		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
+		/obj/item/twohanded/garrote, // 6TC
+		/obj/item/door_remote/omni/access_tuner, // 6TC
+		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
+		/obj/item/implanter/freedom, // 6TC
+		/obj/item/coin/gold, // 0TC
+		/obj/item/encryptionkey/syndicate) // 2TC
+
+	var/static/list/thief = list( // 37TC
 		/obj/item/gun/energy/kinetic_accelerator/crossbow, // 12TC
 		/obj/item/chameleon, // 7TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/clothing/gloves/color/black/thief, // 6TC
 		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/storage/backpack/satchel_flat, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/bond = list( // 33TC + three 0TC
+	var/static/list/bond = list( // 32TC
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
 		/obj/item/suppressor, // 1TC
-		/obj/item/ammo_box/magazine/m10mm/hp,  // 3TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
-		/obj/item/clothing/under/suit_jacket/really_black, // 0TC
+		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
+		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/storage/box/syndie_kit/emp, // 2TC
+		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
 		/obj/item/encryptionkey/syndicate, // 2TC
 		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
-		/obj/item/dnascrambler, // 4TC
-		/obj/item/storage/box/syndie_kit/emp, // 2TC
+		/obj/item/dnascrambler, // 2TC
 		/obj/item/CQC_manual) // 13TC
 
-	var/static/list/sabotage = list( // 41TC + two 0TC
-		/obj/item/grenade/plastic/c4, // 1TC
-		/obj/item/grenade/plastic/c4, // 1TC
-		/obj/item/camera_bug, // 1TC
-		/obj/item/powersink, // 10TC
-		/obj/item/cartridge/syndicate, // 6TC
+	var/static/list/infiltrator = list( // 34TC + RCD & Mesons Autoimplanter
+		/obj/item/storage/box/syndie_kit/teleporter, // 8TC
+		/obj/item/clothing/gloves/color/black/krav_maga, // 10TC
+		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
+		/obj/item/pinpointer/advpinpointer, // 4TC
 		/obj/item/rcd/preloaded, // 0TC
-		/obj/item/card/emag, // 6TC
-		/obj/item/clothing/gloves/color/yellow, // 0TC
-		/obj/item/grenade/syndieminibomb, // 6TC
-		/obj/item/grenade/clusterbuster/n2o, // 4TC
 		/obj/item/storage/box/syndie_kit/space, // 4TC
+		/obj/item/autosurgeon/organ/syndicate/meson_eyes, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/payday = list( // 36TC + four 0TC
+	var/static/list/payday = list( // 35TC
 		/obj/item/gun/projectile/revolver, // 13TC
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/card/emag, // 6TC
-		/obj/item/jammer, // 5TC
+		/obj/item/jammer, // 4TC
 		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/under/suit_jacket/really_black, //0TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, //0TC
-		/obj/item/clothing/gloves/color/latex/nitrile, //0 TC
+		/obj/item/clothing/under/suit/really_black, // 0TC
+		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/gloves/color/latex/nitrile, // 0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
-		/obj/item/grenade/plastic/c4, //1TC
+		/obj/item/grenade/plastic/c4, // 1TC
 		/obj/item/thermal_drill/diamond_drill, // 1TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/implant = list( // 39TC + ten free TC
-		/obj/item/implanter/freedom, // 5TC
+	var/static/list/implant = list( // 41TC
+		/obj/item/implanter/freedom, // 6TC
 		/obj/item/implanter/uplink, // 14TC (ten free TC)
-		/obj/item/implanter/emp, // 0TC
+		/obj/item/implanter/emp, // 1TC
 		/obj/item/implanter/adrenalin, // 8TC
 		/obj/item/implanter/explosive, // 2TC
 		/obj/item/implanter/storage, // 8TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/hacker = list( // 37TC + two 0TC
-		/obj/item/aiModule/syndicate, // 12TC
+	var/static/list/hacker = list( // 39TC + Toy AI Uploader
+		/obj/item/melee/energy/sword/saber/blue, // 8TC
 		/obj/item/card/emag, // 6TC
 		/obj/item/encryptionkey/syndicate, // 2TC
 		/obj/item/encryptionkey/binary, // 5TC
+		/obj/item/card/id/syndicate, // 2TC
+		/obj/item/storage/box/syndie_kit/emp, // 2TC
 		/obj/item/aiModule/toyAI, // 0TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/storage/belt/military/traitor/hacker, // 3TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/multitool/ai_detect, // 1TC
-		/obj/item/flashlight/emp) // 2TC
+		/obj/item/flashlight/emp) // 4TC
 
-	var/static/list/darklord = list( // 24TC + two 0TC
+	var/static/list/darklord = list( // 33TC + TK
 		/obj/item/melee/energy/sword/saber/red, // 8TC
 		/obj/item/melee/energy/sword/saber/red, // 8TC
+		/obj/item/clothing/gloves/color/yellow/power, // 10TC
 		/obj/item/dnainjector/telemut/darkbundle, // 0TC
 		/obj/item/clothing/suit/hooded/chaplain_hoodie, // 0TC
+		/obj/item/clothing/glasses/meson/engine/tray, // 0TC
+		/obj/item/clothing/mask/chameleon, // 1TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
-		/obj/item/clothing/mask/chameleon, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/professional = list( // 34TC + two 0TC
-		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator, // 16TC
+	var/static/list/professional = list( // 38TC
+		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate, // 16TC
+		/obj/item/ammo_box/magazine/sniper_rounds, // 4TC
 		/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 5TC
-		/obj/item/ammo_box/magazine/sniper_rounds/soporific, // 3TC
+		/obj/item/ammo_box/magazine/sniper_rounds/penetrator, // 5TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/clothing/gloves/combat, // 0 TC
-		/obj/item/clothing/under/suit_jacket/really_black, // 0 TC
+		/obj/item/clothing/under/suit/really_black, // 0 TC
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
-		/obj/item/pen/edagger, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-/obj/item/storage/box/syndicate/populate_contents()
-	var/list/bundle = pick(spy, thief, bond, sabotage, payday, implant, hacker, darklord, professional)
+	var/static/list/grenadier = list( // 20TC + Tactical Grenadier Belt
+		/obj/item/storage/belt/grenade/tactical, // Contains 2 Frag and EMP grenades, 5 C4 Explosives, 5 Smoke and Gluon grenades and 1 Minibomb grenade ~20TC Estimate
+		/obj/item/gun/projectile/automatic/pistol, // 4TC
+		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
+		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
+		/obj/item/storage/box/syndie_kit/hardsuit, // 6TC
+		/obj/item/clothing/gloves/combat, // 0TC
+		/obj/item/card/id/syndicate, // 2TC
+		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
+		/obj/item/encryptionkey/syndicate) // 2TC
+
+/obj/item/storage/box/syndie_kit/bundle/populate_contents()
+	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier)
 	for(var/item in bundle)
 		new item(src)
-
-/obj/item/storage/box/syndie_kit
-	desc = "A sleek, sturdy box."
-	icon_state = "box_of_doom"
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
@@ -157,6 +181,13 @@
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/implanter/emp/(src)
+
+/obj/item/storage/box/syndie_kit/poisoner
+	name = "poisoner's kit"
+
+/obj/item/storage/box/syndie_kit/poisoner/populate_contents()
+	new /obj/item/pen/multi/poison(src)
+	new /obj/item/clothing/gloves/color/black/poisoner(src)
 
 /obj/item/storage/box/syndie_kit/c4
 	name = "pack of C-4 explosives"
@@ -327,3 +358,10 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/retractor/supermatter(src)
 	new /obj/item/nuke_core_container/supermatter(src)
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
+
+/obj/item/storage/box/syndie_kit/revolver
+	name = "\improper .357 revolver kit"
+
+/obj/item/storage/box/syndie_kit/revolver/populate_contents()
+	new /obj/item/gun/projectile/revolver(src)
+	new /obj/item/ammo_box/a357(src)

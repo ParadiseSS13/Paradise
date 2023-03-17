@@ -3,7 +3,7 @@
 /obj/effect/proc_holder/spell/morph_spell/ambush
 	name = "Prepare Ambush"
 	desc = "Prepare an ambush. Dealing significantly more damage on the first hit and you will weaken the target. Only works while morphed. If the target tries to use you with their hands then you will do even more damage. \
-	 		Keeping still for another 15 seconds will perfect your disguise."
+			Keeping still for another 15 seconds will perfect your disguise."
 	action_icon_state = "morph_ambush"
 	base_cooldown = 8 SECONDS
 
@@ -25,7 +25,7 @@
 
 /obj/effect/proc_holder/spell/morph_spell/ambush/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	to_chat(user, "<span class='sinister'>You start preparing an ambush.</span>")
-	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, .proc/prepare_check, user)), FALSE))
+	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, PROC_REF(prepare_check), user)), FALSE))
 		if(!user.morphed)
 			to_chat(user, "<span class='warning'>You need to stay morphed to prepare the ambush!</span>")
 			return

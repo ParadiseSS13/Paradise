@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
-	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
+	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
 
 // *************************************
 // Hydroponics Tools
@@ -65,7 +65,7 @@
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=50)
+	materials = list(MAT_METAL = 200)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -98,7 +98,7 @@
 	sharp = TRUE
 
 /obj/item/hatchet/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -142,7 +142,7 @@
 	origin_tech = "materials=1;combat=2"
 
 /obj/item/scythe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beheading [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is beheading [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("head")

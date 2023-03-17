@@ -38,7 +38,7 @@
 		// This includes maint loot spawners. The problem with that is if a closet loads before a spawner,
 		// the loot will just be in a pile. Adding a timer with 0 delay will cause it to only take in contents once the MC has loaded,
 		// therefore solving the issue on mapload. During rounds, everything will happen as normal
-		addtimer(CALLBACK(src, .proc/take_contents), 0)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
 	populate_contents() // Spawn all its stuff
 	update_icon() // Set it to the right icon if needed
 
@@ -131,7 +131,7 @@
 	for(var/mob/M in loc)
 		if(itemcount >= storage_capacity)
 			break
-		if(istype(M, /mob/dead/observer))
+		if(isobserver(M))
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
@@ -241,9 +241,11 @@
 		return
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
+	if(!ishuman(user) && !isrobot(user)) //No ghosts, you cannot shove people into fucking lockers
+		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(!opened)
 		return
@@ -282,8 +284,7 @@
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user)
 	add_fingerprint(user)
-	if(!toggle())
-		to_chat(usr, "<span class='notice'>It won't budge!</span>")
+	toggle(user)
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
@@ -384,6 +385,21 @@
 	// Its okay to silently teleport mobs out of lockers, since the only thing affected is their contents list.
 	return
 
+/obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)
+	if(opened)
+		target.forceMove(src)
+		visible_message("<span class='danger'>[attacker] shoves [target] inside [src]!</span>", "<span class='warning'>You hear a thud, and something clangs shut.</span>")
+		close()
+		add_attack_logs(attacker, target, "shoved into [src]")
+		return TRUE
+
+	if(can_open())
+		open()
+		visible_message("<span class='danger'>[attacker] shoves [target] against [src], knocking it open!</span>")
+		target.KnockDown(3 SECONDS)
+		return TRUE
+
+	return ..()
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"

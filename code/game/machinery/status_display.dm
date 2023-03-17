@@ -12,8 +12,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 	name = "status display"
 	anchored = TRUE
 	density = FALSE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
+	idle_power_consumption = 10
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
@@ -55,8 +54,8 @@ GLOBAL_LIST_EMPTY(status_displays)
 	underlays += emissive_appearance(icon, "lightmask")
 
 /obj/machinery/status_display/power_change()
-	..()
-
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -214,3 +213,16 @@ GLOBAL_LIST_EMPTY(status_displays)
 				SD.set_picture(data1)
 
 		SD.update()
+
+/obj/machinery/status_display/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0 SECONDS))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct()
+
+/obj/machinery/status_display/on_deconstruction()
+	. = ..()
+	new /obj/item/mounted/frame/display/display_frame(drop_location())

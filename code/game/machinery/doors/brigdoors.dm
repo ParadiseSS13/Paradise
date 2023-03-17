@@ -128,22 +128,22 @@
 	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
 		if(M.id == id)
 			targets += M
-			RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
 	for(var/obj/machinery/flasher/F in GLOB.machines)
 		if(F.id == id)
 			targets += F
-			RegisterSignal(F, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
+			RegisterSignal(F, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
 	for(var/obj/structure/closet/secure_closet/brig/C in world)
 		if(C.id == id)
 			targets += C
-			RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
+			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
 	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
 		if(T.id == id)
 			targets += T
-			RegisterSignal(T, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
+			RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
 
 	if(!length(targets))
 		stat |= BROKEN
@@ -178,7 +178,8 @@
 
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -243,7 +244,7 @@
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(!door.density)
 			continue
-		INVOKE_ASYNC(door, /obj/machinery/door/window/brigdoor.proc/open)
+		INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/window/brigdoor, open))
 
 	for(var/obj/structure/closet/secure_closet/brig/C in targets)
 		if(C.broken)
@@ -480,5 +481,13 @@
 /obj/machinery/door_timer/cell_6
 	name = "Cell 6"
 	id = "Cell 6"
+
+/obj/machinery/door_timer/cell_7
+	name = "Cell 7"
+	id = "Cell 7"
+
+/obj/machinery/door_timer/cell_8
+	name = "Cell 8"
+	id = "Cell 8"
 
 #undef CELL_NONE

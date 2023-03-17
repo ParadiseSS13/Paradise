@@ -18,8 +18,8 @@
 	GLOB.prisoncomputer_list += src
 
 /obj/machinery/computer/prisoner/Destroy()
- 	GLOB.prisoncomputer_list -= src
- 	return ..()
+	GLOB.prisoncomputer_list -= src
+	return ..()
 
 /obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
 	var/datum/ui_login/state = ui_login_get()
@@ -95,7 +95,7 @@
 		else if(total_loss)
 			health_display = "HURT ([total_loss])"
 		var/turf/implant_location = get_turf(T)
-		if(!istype(implant_location, /turf/space))
+		if(!isspaceturf(implant_location))
 			loc_display = "[get_area(implant_location)]"
 
 		var/list/implant_info = list(

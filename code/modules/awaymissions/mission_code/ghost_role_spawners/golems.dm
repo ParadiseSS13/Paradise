@@ -43,7 +43,7 @@
 		if(!ishuman(user))
 			to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 			return
-			
+
 		var/obj/item/stack/O = I
 		var/species = golem_shell_species_types[O.merge_type]
 		if(species)
@@ -72,8 +72,8 @@
 	var/has_owner = FALSE
 	var/can_transfer = TRUE //if golems can switch bodies to this new shell
 	var/mob/living/owner = null //golem's owner if it has one
-	important_info = "You are not an antag. Do not mess with the station or create AIs."
-	description = "As a Free Golem on lavaland, you are unable to use most weapons, but you can mine, research and make more of your kind. Earn enough mining points and you can even move your shuttle out of there."
+	important_info = "You are not an antagonist. Do not create AIs without explicit admin permission. Do not involve yourself with the main station, boarding the main station requires explicit admin permission."
+	description = "As a Free Golem on lavaland, you are unable to use most weapons, but you can mine, research and make more of your kind. Earn enough mining points and you can even move your shuttle out of there. Your goal is to survive on lavaland with your kin, not to become crew on the primary station."
 	flavour_text = "You are a Free Golem. Your family worships The Liberator. In his infinite and divine wisdom, he set your clan free to \
 	travel the stars with a single declaration: \"Yeah go do whatever.\" Though you are bound to the one who created you, it is customary in your society to repeat those same words to newborn \
 	golems, so that no golem may ever be forced to serve again."
@@ -97,12 +97,12 @@
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
+		to_chat(new_spawn, "<big><span class='warning'>You are not an antagonist, do not build an AI without explicit admin permission. Do not board the station without explicit admin permission.</span><big>")
 		to_chat(new_spawn, "<span class='notice'>It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
 		Adamantine golems are the only golems that can resonate to all golems.</span>")
 		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
-		to_chat(new_spawn, "<span class='warning'>You are not an antagonist, but you are not a crewmember either. \
-		You may interact or trade with crew you come across, aswell as defend yourself and your ship \
-		but avoid actively interfering with the station unless you have a valid roleplay reason to do so, such as an invitation by crewmembers.</span>")
+		to_chat(new_spawn, "<span class='warning'>You may interact or trade with crew you come across, aswell as defend yourself and your ship \
+		but avoid actively interfering with the station, you are required to adminhelp and request permission to board the main station.</span>")
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
 		log_game("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
@@ -117,7 +117,7 @@
 		else
 			H.rename_character(null, name)
 		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall(null))
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 			H.mind.miming = TRUE
 

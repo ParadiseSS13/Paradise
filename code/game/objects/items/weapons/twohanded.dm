@@ -10,6 +10,7 @@
  *		Mjolnnir
  *		Knighthammer
  *		Pyro Claws
+ *		Push Broom
  */
 
 /*##################################################################
@@ -285,7 +286,6 @@
 	armour_penetration_flat = 10
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
@@ -299,6 +299,7 @@
 	..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.25, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (1 / 3) SECONDS) // 0.3333 seconds of cooldown for 75% uptime
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(wielded)
@@ -319,7 +320,7 @@
 		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
-		INVOKE_ASYNC(src, .proc/jedi_spin, user)
+		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
@@ -610,6 +611,7 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
+	flags_2 = RANDOM_BLOCKER_2
 
 /obj/item/twohanded/chainsaw/update_icon_state()
 	if(wielded)
@@ -817,12 +819,12 @@
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 		if(wielded)
-			if(istype(A, /turf/simulated/wall))
+			if(iswallturf(A))
 				var/turf/simulated/wall/Z = A
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(istype(A, /obj/structure) || istype(A, /obj/mecha))
+			else if(isstructure(A) || ismecha(A))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
@@ -838,7 +840,6 @@
 	force_wielded = 22
 	damtype = BURN
 	armour_penetration_percentage = 50
-	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -850,6 +851,7 @@
 /obj/item/twohanded/required/pyro_claws/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
 /obj/item/twohanded/required/pyro_claws/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -931,7 +933,7 @@
 	user.put_in_hands(W)
 	on_cooldown = TRUE
 	flags |= NODROP
-	addtimer(CALLBACK(src, .proc/reboot), 2 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 2 MINUTES)
 	do_sparks(rand(1,6), 1, loc)
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
@@ -952,3 +954,70 @@
 	on_cooldown = FALSE
 	flags &= ~NODROP
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
+
+/// Max number of atoms a broom can sweep at once
+#define BROOM_PUSH_LIMIT 20
+
+/obj/item/twohanded/push_broom
+	name = "push broom"
+	desc = "This is my BROOMSTICK! It can be used manually or braced with two hands to sweep items as you move. It has a telescopic handle for compact storage."
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "broom0"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
+	force = 8
+	throwforce = 10
+	throw_speed = 3
+	throw_range = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	force_unwielded = 8
+	force_wielded = 12
+	attack_verb = list("swept", "brushed off", "bludgeoned", "whacked")
+	resistance_flags = FLAMMABLE
+
+/obj/item/twohanded/push_broom/update_icon_state()
+	icon_state = "broom[wielded]"
+
+/obj/item/twohanded/push_broom/wield(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
+
+/obj/item/twohanded/push_broom/unwield(mob/user)
+	. = ..()
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+
+/obj/item/twohanded/push_broom/afterattack(atom/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	sweep(user, A, FALSE)
+
+/obj/item/twohanded/push_broom/proc/sweep(mob/user, atom/A, moving = TRUE)
+	SIGNAL_HANDLER
+	var/turf/current_item_loc = moving ? user.loc : (isturf(A) ? A : A.loc)
+	if(!isturf(current_item_loc))
+		return
+	var/turf/new_item_loc = get_step(current_item_loc, user.dir)
+	var/obj/machinery/disposal/target_bin = locate(/obj/machinery/disposal) in new_item_loc.contents
+	var/trash_amount = 1
+	for(var/obj/item/garbage in current_item_loc.contents)
+		if(!garbage.anchored)
+			if(target_bin)
+				garbage.forceMove(target_bin)
+			else
+				garbage.Move(new_item_loc, user.dir)
+			trash_amount++
+		if(trash_amount > BROOM_PUSH_LIMIT)
+			break
+	if(trash_amount > 1)
+		if(target_bin)
+			target_bin.update_icon()
+			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 10, TRUE, -1)
+
+/obj/item/twohanded/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
+	cart.mybroom = src
+	cart.put_in_cart(src, user)
+
+#undef BROOM_PUSH_LIMIT

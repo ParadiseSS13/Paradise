@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(profiler)
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	wait = 5 MINUTES
 	flags = SS_NO_TICK_CHECK
+	cpu_display = SS_CPUDISPLAY_LOW // its usage itself is high but its every 5 mins so
 	/// Time it took to fetch normal profile data (ms)
 	var/nfetch_cost = 0
 	/// Time it took to write the normal file (ms)
@@ -24,7 +25,6 @@ SUBSYSTEM_DEF(profiler)
 	if(!GLOB.configuration.general.enable_auto_profiler)
 		StopProfiling() //Stop the early start profiler if we dont want it on in the config
 		flags |= SS_NO_FIRE
-	return ..()
 
 /datum/controller/subsystem/profiler/fire()
 	DumpFile()
@@ -38,11 +38,11 @@ SUBSYSTEM_DEF(profiler)
 // You cant proc-call onto /world
 /datum/controller/subsystem/profiler/proc/StartProfiling()
 	world.Profile(PROFILE_START)
-	world.Profile(PROFILE_START, type = "sendmaps")
+	world.Profile(PROFILE_START, "sendmaps")
 
 /datum/controller/subsystem/profiler/proc/StopProfiling()
 	world.Profile(PROFILE_STOP)
-	world.Profile(PROFILE_STOP, type = "sendmaps")
+	world.Profile(PROFILE_STOP, "sendmaps")
 
 // Write the file while also cost tracking
 /datum/controller/subsystem/profiler/proc/DumpFile()
@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(profiler)
 	// FETCH PROC PROFILE //
 
 	// Fetch info
-	var/current_profile_data = world.Profile(PROFILE_REFRESH, format = "json")
+	var/current_profile_data = world.Profile(PROFILE_REFRESH, "json")
 	nfetch_cost = MC_AVERAGE(nfetch_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 	CHECK_TICK // this shouldnt sleep given its being called from fire() but ehhhhhhhhhhhhhhhh
 
@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(profiler)
 	// FETCH MAPTICK PROFILE //
 
 	// Fetch info
-	var/current_sendmaps_data = world.Profile(PROFILE_REFRESH, type = "sendmaps", format = "json")
+	var/current_sendmaps_data = world.Profile(PROFILE_REFRESH, "sendmaps", "json")
 	mfetch_cost = MC_AVERAGE(mfetch_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
 	CHECK_TICK
 

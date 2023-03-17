@@ -41,7 +41,7 @@
 
 /obj/item/implanter/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 
 /obj/item/implanter/Initialize(mapload)
@@ -50,3 +50,7 @@
 		return
 	imp = new implant_type()
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/implanter/Destroy()
+	QDEL_NULL(imp)
+	. = ..()

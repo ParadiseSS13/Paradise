@@ -69,7 +69,7 @@
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
 	if(!magazine.ammo_count())
-		return 0
+		return FALSE
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
@@ -108,7 +108,7 @@
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
 		return
-	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
+	if(isstorage(loc))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
@@ -149,7 +149,7 @@
 	if(sawn_state == SAWN_INTACT)
 		to_chat(user, "<span class='warning'>[src] has not been shortened!</span>")
 		return
-	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
+	if(isstorage(loc))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
@@ -204,7 +204,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction
 	name = "\improper Mosin Nagant"
-	desc = "This piece of junk looks like something that could have been used 700 years ago."
+	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -213,7 +213,7 @@
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
-	var/bolt_open = 0
+	var/bolt_open = FALSE
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
@@ -225,7 +225,11 @@
 	else
 		pump_unload(M)
 	bolt_open = !bolt_open
+	update_icon(UPDATE_ICON_STATE)
 	return 1
+
+/obj/item/gun/projectile/shotgun/boltaction/update_icon_state()
+	icon_state = "[initial(icon_state)][bolt_open ? "-open" : ""]"
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0

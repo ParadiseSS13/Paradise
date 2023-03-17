@@ -20,9 +20,8 @@
 	var/stealthmode = FALSE
 	var/list/victims = list()
 
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 500
+	idle_power_consumption = 2
+	active_power_consumption = 500
 
 /obj/machinery/gibber/Initialize(mapload)
 	. = ..()
@@ -48,7 +47,7 @@
 	occupant = user
 	update_icon(UPDATE_OVERLAYS)
 	feedinTopanim()
-	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
+	addtimer(CALLBACK(src, PROC_REF(startgibbing), user), 33)
 	return OBLITERATION
 
 /obj/machinery/gibber/update_overlays()
@@ -100,7 +99,7 @@
 	if(exchange_parts(user, P))
 		return
 
-	if(default_unfasten_wrench(user, P))
+	if(default_unfasten_wrench(user, P, time = 4 SECONDS))
 		return
 
 	if(default_deconstruction_crowbar(user, P))
@@ -147,7 +146,7 @@
 		occupant = victim
 
 		update_icon(UPDATE_OVERLAYS)
-		feedinTopanim()
+		INVOKE_ASYNC(src, PROC_REF(feedinTopanim))
 
 /obj/machinery/gibber/verb/eject()
 	set category = "Object"
@@ -377,7 +376,7 @@
 	if(!istype(H))	return 0
 	if(H != occupant)	return 0 //only using H as a shortcut to typecast
 	for(var/obj/O in H)
-		if(istype(O,/obj/item/clothing)) //clothing gets skipped to avoid cleaning out shit
+		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
 		if(istype(O,/obj/item/implant))
 			var/obj/item/implant/I = O

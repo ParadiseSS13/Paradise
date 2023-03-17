@@ -3,10 +3,12 @@
 	name = "colossus chest"
 
 /obj/structure/closet/crate/necropolis/colossus/populate_contents()
-	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
-	var/random_crystal = pick(choices)
-	new random_crystal(src)
-	new /obj/item/organ/internal/vocal_cords/colossus(src)
+	var/list/crystalchoices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(crystalchoices)
+	var/list/choices = list(/obj/item/organ/internal/vocal_cords/colossus, /obj/item/organ/internal/eyes/cybernetic/eyesofgod, random_crystal)
+	for(var/I in 1 to 2)
+		var/loot = pick_n_take(choices)
+		new loot(src)
 
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"
@@ -23,7 +25,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	light_range = 8
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/activation_method = "touch"
@@ -165,7 +167,7 @@
 /obj/machinery/anomalous_crystal/emitter/Initialize(mapload)
 	. = ..()
 	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,
-								 /obj/item/projectile/bullet/meteorshot, /obj/item/projectile/beam/xray, /obj/item/projectile/colossus)
+								/obj/item/projectile/bullet/meteorshot, /obj/item/projectile/beam/xray, /obj/item/projectile/colossus)
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
 	if(..())
@@ -289,16 +291,15 @@
 			L.heal_overall_damage(heal_power, heal_power)
 			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 
-/mob/living/simple_animal/hostile/lightgeist/ghostize()
-	if(..())
-		death()
+/mob/living/simple_animal/hostile/lightgeist/ghost()
+	qdel(src)
 
 /obj/machinery/anomalous_crystal/refresher //Deletes and recreates a copy of the item, "refreshing" it.
 	activation_method = "touch"
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
-										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
+										/obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink)
 
 /obj/machinery/anomalous_crystal/refresher/Initialize(mapload)
 	. = ..()
@@ -311,7 +312,7 @@
 		var/turf/T = get_step(src, dir)
 		new /obj/effect/temp_visual/emp/pulse(T)
 		for(var/i in T)
-			if(istype(i, /obj/item) && !is_type_in_typecache(i, banned_items_typecache))
+			if(isitem(i) && !is_type_in_typecache(i, banned_items_typecache))
 				var/obj/item/W = i
 				if(!W.admin_spawned && !(W.flags_2 & HOLOGRAM_2) && !(W.flags & ABSTRACT))
 					L += W

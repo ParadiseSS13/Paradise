@@ -58,6 +58,13 @@
 	flight_y_offset = 10
 	can_holster = TRUE
 
+/obj/item/gun/energy/disabler/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	var/obj/item/gun/energy/disabler/offhand_disabler = user.get_inactive_hand()
+	if(istype(offhand_disabler) && offhand_disabler.semicd && (user.a_intent != INTENT_HARM))
+		return
+
+	return ..()
+
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"
 	desc = "An integrated disabler that draws from a cyborg's power cell. This weapon contains a limiter to prevent the cyborg's power cell from overheating."
@@ -67,3 +74,13 @@
 /obj/item/gun/energy/disabler/cyborg/newshot()
 	..()
 	robocharge()
+
+/obj/item/gun/energy/disabler/silencer
+	name = "u-ION Silencer"
+	desc = "Nanotrasen's take on silenced weapons. A quiet lethal disabler, designed to make the death look like a natural cause."
+	icon_state = "tesla"
+	item_state = "tesla"
+	origin_tech = "combat=6;syndicate=2"
+	shaded_charge = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
+	suppressed = TRUE

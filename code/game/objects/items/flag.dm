@@ -195,6 +195,16 @@
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
 
+/obj/item/flag/ussp
+	name = "\improper USSP flag"
+	desc = "A flag proudly boasting the logo of the USSP, a noticeable faction in the galaxy."
+	icon_state = "usspflag"
+
+/obj/item/flag/solgov
+	name = "\improper Trans-Solar Federation flag"
+	desc = "A flag proudly boasting the logo of the SolGov, allied to NT government originated from Earth."
+	icon_state = "solgovflag"
+
 //Chameleon
 
 /obj/item/flag/chameleon
@@ -273,7 +283,7 @@
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
 		fire_act()
-		addtimer(CALLBACK(src, .proc/prime_boobytrap), boobytrap.det_time)
+		addtimer(CALLBACK(src, PROC_REF(prime_boobytrap)), boobytrap.det_time)
 	else
 		..()
 

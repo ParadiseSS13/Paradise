@@ -1,17 +1,17 @@
-GLOBAL_LIST_INIT(rod_recipes, list ( \
-	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor_or_lattice = 1), \
-	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
+GLOBAL_LIST_INIT(rod_recipes, list (
+	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor_or_lattice = TRUE),
+	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, one_per_turf = 1, on_floor = 1), \
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
-	new /datum/stack_recipe_list("chainlink fence", list( \
-		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 10, one_per_turf = 1, on_floor = 1), \
-		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 10, one_per_turf = 1, on_floor = 1), \
-		)), \
+	new /datum/stack_recipe_list("chainlink fence", list(
+		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		)),
 	))
 
 /obj/item/stack/rods
@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 		// stack was moved into another one on the pile
 		new_item = locate() in user.loc
 	visible_message("<span class='notice'>[user.name] shapes [src] into metal with [I]!</span>", \
-				 	"<span class='notice'>You shape [src] into metal with [I]!</span>", \
+					"<span class='notice'>You shape [src] into metal with [I]!</span>", \
 					"<span class='warning'>You hear welding.</span>")
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)

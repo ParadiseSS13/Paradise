@@ -55,9 +55,9 @@ Difficulty: Very Hard
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/misc/demon_dies.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/spiral_attack,
-							   /datum/action/innate/megafauna_attack/aoe_attack,
-							   /datum/action/innate/megafauna_attack/shotgun,
-							   /datum/action/innate/megafauna_attack/alternating_cardinals)
+							/datum/action/innate/megafauna_attack/aoe_attack,
+							/datum/action/innate/megafauna_attack/shotgun,
+							/datum/action/innate/megafauna_attack/alternating_cardinals)
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
 
@@ -163,8 +163,8 @@ Difficulty: Very Hard
 	say("Die.")
 	telegraph()
 	SLEEP_CHECK_DEATH(2.5 SECONDS)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, FALSE)
-	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE)
+	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	icon_state = "eva_attack"
@@ -291,7 +291,7 @@ Difficulty: Very Hard
 /obj/effect/temp_visual/at_shield/Initialize(mapload, new_target)
 	. = ..()
 	target = new_target
-	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, orbit), target, 0, FALSE, 0, 0, FALSE, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
 	if(!stat)

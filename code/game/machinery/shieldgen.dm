@@ -142,7 +142,7 @@
 	var/locked = FALSE
 
 /obj/machinery/shieldgen/Destroy()
-	QDEL_LIST(deployed_shields)
+	QDEL_LIST_CONTENTS(deployed_shields)
 	deployed_shields = null
 	return ..()
 
@@ -156,10 +156,10 @@
 	anchored = TRUE
 
 	for(var/turf/target_tile in range(2, src))
-		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
+		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				var/obj/machinery/shield/new_shield = new(target_tile)
-				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, .proc/remove_shield) // Ensures they properly GC
+				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, PROC_REF(remove_shield)) // Ensures they properly GC
 				deployed_shields += new_shield
 
 /obj/machinery/shieldgen/proc/remove_shield(obj/machinery/shield/S)
@@ -172,7 +172,7 @@
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-	QDEL_LIST(deployed_shields)
+	QDEL_LIST_CONTENTS(deployed_shields)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
@@ -287,7 +287,7 @@
 			visible_message("<span class='warning'>[src] shuts off!</span>")
 			shields_down()
 	else
-		if(istype(get_turf(src), /turf/space))
+		if(isspaceturf(get_turf(src)))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
 	anchored = !anchored
@@ -305,12 +305,13 @@
 	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
+	flags = CONDUCT
+	power_state = NO_POWER_USE
+
 	var/activated = FALSE
 	var/locked = TRUE
 	var/list/active_shields
 	var/stored_power = 0
-	flags = CONDUCT
-	use_power = NO_POWER_USE
 
 /obj/machinery/shieldwallgen/Initialize(mapload)
 	. = ..()
@@ -379,7 +380,7 @@
 	activated = TRUE
 	START_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
-		INVOKE_ASYNC(src, .proc/try_link_generators, direction)
+		INVOKE_ASYNC(src, PROC_REF(try_link_generators), direction)
 
 /obj/machinery/shieldwallgen/proc/try_link_generators(direction)
 	var/turf/current_turf = loc
@@ -411,7 +412,7 @@
 	STOP_PROCESSING(SSmachines, src)
 	for(var/direction in GLOB.cardinal)
 		var/list/L = active_shields["[direction]"]
-		QDEL_LIST(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
+		QDEL_LIST_CONTENTS(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
 
 /obj/machinery/shieldwallgen/proc/remove_active_shield(obj/machinery/shieldwall/SW, direction)
 	var/list/L = active_shields["[direction]"]
@@ -559,7 +560,7 @@
 		return FALSE
 	return ..(mover, target, height)
 
-/obj/machinery/shieldwall/syndicate/CanAStarPass(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(isliving(caller))
 		var/mob/living/M = caller
 		if("syndicate" in M.faction)

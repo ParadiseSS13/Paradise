@@ -341,7 +341,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["jobs_service"] = GLOB.service_positions
 					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
 					data["jobs_assistant"] = GLOB.assistant_positions
-					data["jobs_centcom"] = get_all_centcom_jobs()
+					data["jobs_centcom"] = get_all_centcom_jobs() + get_all_ERT_jobs()
 					data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
 					data["current_skin"] = modify.icon_state
 					data["card_skins"] = format_card_skins(get_station_card_skins())
@@ -389,7 +389,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(scan)
 				if(ishuman(usr))
 					scan.forceMove(get_turf(src))
-					if(!usr.get_active_hand() && Adjacent(usr))
+					if(Adjacent(usr))
 						usr.put_in_hands(scan)
 					scan = null
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
@@ -415,7 +415,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				regenerate_id_name()
 				if(ishuman(usr))
 					modify.forceMove(get_turf(src))
-					if(!usr.get_active_hand() && Adjacent(usr))
+					if(Adjacent(usr))
 						usr.put_in_hands(modify)
 					modify = null
 					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
@@ -644,7 +644,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
 			if(!scan || !modify)
 				return FALSE
-			modify.associated_account_number = clamp(round(account_num), 0, 999999)
+			modify.associated_account_number = clamp(round(account_num), 1000000, 9999999) //force a 7 digit number
+			//for future reference, you should never be able to modify the money account datum through the card computer
 			return
 		if("skin")
 			if(!modify)

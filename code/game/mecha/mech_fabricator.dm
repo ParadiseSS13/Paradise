@@ -15,9 +15,8 @@
 	icon_state = "fab-idle"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
-	active_power_usage = 5000
+	idle_power_consumption = 20
+	active_power_consumption = 5000
 	// Settings
 	/// Bitflags of design types that can be produced.
 	var/allowed_design_types = MECHFAB
@@ -52,7 +51,7 @@
 /obj/machinery/mecha_part_fabricator/Initialize(mapload)
 	. = ..()
 	// Set up some datums
-	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), 0, FALSE, /obj/item/stack, CALLBACK(src, .proc/can_insert_materials), CALLBACK(src, .proc/on_material_insert))
+	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), 0, FALSE, /obj/item/stack, CALLBACK(src, PROC_REF(can_insert_materials)), CALLBACK(src, PROC_REF(on_material_insert)))
 	materials.precise_insertion = TRUE
 	local_designs = new /datum/research(src)
 
@@ -194,9 +193,9 @@
 	build_start = world.time
 	build_end = build_start + build_time
 	desc = "It's building \a [initial(D.name)]."
-	use_power = ACTIVE_POWER_USE
+	change_power_mode(ACTIVE_POWER_USE)
 	add_overlay("fab-active")
-	addtimer(CALLBACK(src, .proc/build_design_timer_finish, D, final_cost), build_time)
+	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)
 
 	return TRUE
 
@@ -210,7 +209,7 @@
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
 	var/atom/A = new D.build_path(get_step(src, output_dir))
-	if(istype(A, /obj/item))
+	if(isitem(A))
 		var/obj/item/I = A
 		I.materials = final_cost
 		if(D.locked)
@@ -224,7 +223,7 @@
 	build_start = 0
 	build_end = 0
 	desc = initial(desc)
-	use_power = IDLE_POWER_USE
+	change_power_mode(IDLE_POWER_USE)
 	cut_overlays()
 	atom_say("[A] is complete.")
 
@@ -237,7 +236,7 @@
   * Syncs the R&D designs from the first [/obj/machinery/computer/rdconsole] in the area.
   */
 /obj/machinery/mecha_part_fabricator/proc/sync()
-	addtimer(CALLBACK(src, .proc/sync_timer_finish), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(sync_timer_finish)), 3 SECONDS)
 	syncing = TRUE
 
 /**
@@ -265,7 +264,7 @@
 /obj/machinery/mecha_part_fabricator/proc/on_material_insert(type_inserted, id_inserted, amount_inserted)
 	var/stack_name = copytext(id_inserted, 2)
 	add_overlay("fab-load-[stack_name]")
-	addtimer(CALLBACK(src, .proc/on_material_insert_timer_finish), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(on_material_insert_timer_finish)), 1 SECONDS)
 	process_queue()
 	SStgui.update_uis(src)
 
@@ -463,7 +462,7 @@
 /obj/machinery/mecha_part_fabricator/upgraded/Initialize(mapload)
 	. = ..()
 	// Upgraded components
-	QDEL_LIST(component_parts)
+	QDEL_LIST_CONTENTS(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mechfab(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)

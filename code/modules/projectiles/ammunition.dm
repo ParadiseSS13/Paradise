@@ -69,26 +69,33 @@
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
 	else
-		if(istype(I, /obj/item/screwdriver))
-			if(BB)
-				if(initial(BB.name) == "bullet")
-					var/tmp_label = ""
-					var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
-					if(length(label_text) > 20)
-						to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
-					else
-						if(label_text == "")
-							to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
-							BB.name = initial(BB.name)
-						else
-							to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
-							BB.name = "[initial(BB.name)] \"[label_text]\""
-				else
-					to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
-
-			else
-				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		..()
+
+/obj/item/ammo_casing/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!BB)
+		to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+		return
+	if(!initial(BB.name) == "bullet")
+		to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
+		return
+
+	var/tmp_label = ""
+	var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]", "Inscription", tmp_label))
+
+	if(length(label_text) > 20)
+		to_chat(user, "<span class='warning'>The inscription can be at most 20 characters long.</span>")
+		return
+
+	if(label_text == "")
+		to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
+		BB.name = initial(BB.name)
+	else
+		to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
+		BB.name = "[initial(BB.name)] \"[label_text]\""
+
+
+
 
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!BB)
@@ -129,7 +136,7 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/Destroy()
-	QDEL_LIST(stored_ammo)
+	QDEL_LIST_CONTENTS(stored_ammo)
 	stored_ammo = null
 	return ..()
 
@@ -180,7 +187,7 @@
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
-	if(istype(A, /obj/item/ammo_box))
+	if(istype(A, /obj/item/ammo_box) && !istype(A, /obj/item/ammo_box/b357))
 		var/obj/item/ammo_box/AM = A
 		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
 			var/did_load = give_round(AC, replace_spent)

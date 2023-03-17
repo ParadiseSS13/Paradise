@@ -72,7 +72,7 @@
 			return
 
 		if(reagents.total_volume)
-			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !istype(target, /obj/item/reagent_containers/food/pill)) && !istype(target, /obj/item/clothing/mask/cigarette))
+			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !ispill(target)) && !istype(target, /obj/item/clothing/mask/cigarette))
 				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 				return
 
