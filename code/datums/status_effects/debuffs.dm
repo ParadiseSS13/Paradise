@@ -895,19 +895,19 @@
 	switch(msg_stage)
 		if(0 to 300)
 			if(prob(1)) // First stage starts slow, stage 2 and 3 trigger fake msgs/emotes twice as often
-				if(prob(50) || !listgetindex(fake_emote, 1)) // 50% chance to trigger either a msg or emote, 100% if it doesnt have an emote
+				if(prob(50) || !length(fake_emote[1])) // 50% chance to trigger either a msg or emote, 100% if it doesnt have an emote
 					selected_fake_msg = safepick(fake_msg[1])
 				else
 					selected_fake_emote = safepick(fake_emote[1])
 		if(301 to 600)
 			if(prob(2))
-				if(prob(50) || !listgetindex(fake_emote, 2))
+				if(prob(50) || !length(fake_emote[2]))
 					selected_fake_msg = safepick(fake_msg[2])
 				else
 					selected_fake_emote = safepick(fake_emote[2])
 		else
 			if(prob(2))
-				if(prob(50) || !listgetindex(fake_emote, 3))
+				if(prob(50) || !length(fake_emote[3]))
 					selected_fake_msg = safepick(fake_msg[3])
 				else
 					selected_fake_emote = safepick(fake_emote[3])
