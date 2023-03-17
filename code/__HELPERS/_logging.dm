@@ -128,12 +128,13 @@ GLOBAL_PROTECT(log_end)
 	WRITE_LOG(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")
 
 /proc/log_antag_objectives(datum/mind/Mind)
-	var/count = 1
-	for(var/datum/objective/objective in Mind.objectives)
+	if(length(Mind.objectives))
 		WRITE_LOG(GLOB.world_game_log, "GAME: Start objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
-		WRITE_LOG(GLOB.world_game_log, "GAME: Objective #[count]: [objective.explanation_text][GLOB.log_end]")
+		var/count = 1
+		for(var/datum/objective/objective in Mind.objectives)
+			WRITE_LOG(GLOB.world_game_log, "GAME: Objective #[count]: [objective.explanation_text][GLOB.log_end]")
+			count++
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
-		count++
 
 /proc/log_world(text)
 	if(config && !config.disable_root_log)
