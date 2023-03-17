@@ -287,6 +287,16 @@
 	if(pulledby && stat == CONSCIOUS)
 		icon_state = "parrot_fly"
 
+	if (buckled && icon_state == "parrot_fly")
+		icon_state = "parrot_sit"
+	else if (!buckled && icon_state == "parrot_sit")
+		icon_state = "parrot_fly"
+
+	if (floating && icon_state == "parrot_sit")
+		float(FALSE)
+	else if (!floating && icon_state == "parrot_fly")
+		float(TRUE)
+
 /mob/living/simple_animal/parrot/proc/update_speak()
 	speak.Cut()
 
