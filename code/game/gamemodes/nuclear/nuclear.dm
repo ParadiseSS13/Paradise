@@ -508,7 +508,7 @@
 				diskdat += "Carried by [M.real_name] "
 			if(isobj(disk_loc))
 				var/obj/O = disk_loc
-				diskdat += "in \a [O]"
+				diskdat += "in \a [O] "
 			disk_loc = disk_loc.loc
 		diskdat += "in [disk_loc.loc]"
 
