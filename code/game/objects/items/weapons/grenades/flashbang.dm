@@ -79,10 +79,10 @@
 					var/mob/living/carbon/C = M
 					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 					if(istype(ears))
-						if(ears.ear_damage >= 15)
+						if(ears.damage >= 15)
 							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-							if(prob(ears.ear_damage - 5))
+							if(prob(ears.damage - 5))
 								to_chat(M, "<span class='warning'>You can't hear anything!</span>")
 								M.BecomeDeaf()
-						else if(ears.ear_damage >= 5)
+						else if(ears.damage >= 5)
 							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")

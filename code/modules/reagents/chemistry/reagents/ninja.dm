@@ -98,7 +98,7 @@
 				var/obj/item/organ/internal/ears/our_ears = mob_human.get_int_organ(/obj/item/organ/internal/ears)
 				if(istype(our_ears))
 					our_ears.AdjustEarDamage(-5)
-					if(our_ears.ear_damage < 25 && prob(30))
+					if(our_ears.damage < 25 && prob(30))
 						our_ears.deaf = 0
 				//ALL viruses
 				for(var/thing in mob_human.viruses)
