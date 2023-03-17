@@ -1020,6 +1020,8 @@
 				damage_to_deal *= crit_damage_factor
 			else
 				damage_to_deal *= self_knockover_factor
+		else
+			L.Weaken(4 SECONDS)
 
 		if(iscarbon(L))
 			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
@@ -1083,6 +1085,8 @@
 	transform = M
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
+	if(HAS_TRAIT(target, TRAIT_FLATTENED))
+		return
 	tilt(target, from_combat = TRUE)
 	return TRUE
 
