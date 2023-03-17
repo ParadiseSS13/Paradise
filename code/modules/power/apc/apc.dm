@@ -249,7 +249,7 @@
 	. += "<span class='notice'>The equipment setting controls the power of all machines and computers in the room.</span>"
 	. += "<span class='notice'>You can crowbar an unlocked APC to open the cover of the APC.</span>"
 	if(isAntag(user))
-		. += "<span class='warning'>An APC can be emmaged to unlock it, this will keep it in it's refresh state, making very obvious something is wrong.</span>"
+		. += "<span class='warning'>An APC can be emagged to unlock it, this will keep it in it's refresh state, making very obvious something is wrong.</span>"
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
