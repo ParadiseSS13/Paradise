@@ -156,57 +156,57 @@
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_shortmidbun
-	name = "Mid bun short"
+	name = "Mid bun short Tentacles"
 	icon_state = "short_mid_bun"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_midbun
-	name = "Mid bun normal"
+	name = "Mid bun normal Tentacles"
 	icon_state = "mid_bun"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_longmidbun
-	name = "Mid bun long"
+	name = "Mid bun long Tentacles"
 	icon_state = "long_mid_bun"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_vshortmidbun
-	name = "Mid bun very short"
+	name = "Mid bun very short Tentacles"
 	icon_state = "low_bun"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_mullet
-	name = "Mullet"
+	name = "Mullet Tentacles"
 	icon_state = "mullet"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_insulatedlong
-	name = "Insulated long"
+	name = "Insulated long Tentacles"
 	icon_state = "insulted_long"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_excitedlong
-	name = "Excited long"
+	name = "Excited long Tentacles"
 	icon_state = "excited_long"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_reversedlong
-	name = "Reversed long"
+	name = "Reversed long Tentacles"
 	icon_state = "reserved_long"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_tuuxstraight
-	name = "Tuux straight"
+	name = "Tuux straight Tentacles"
 	icon_state = "straight_tuux"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_tuuxstraightlong
-	name = "Tuux straight long"
+	name = "Tuux straight long Tentacles"
 	icon_state = "straight_tuux_long"
 	no_sec_colour = 1
 
 /datum/sprite_accessory/hair/skrell/skr_loosebraid
-	name = "Loose braid"
+	name = "Loose braid Tentacles"
 	icon_state = "loose_braid"
 	no_sec_colour = 1
 
