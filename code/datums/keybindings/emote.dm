@@ -338,7 +338,7 @@
 	name = "Cry"
 
 /datum/keybinding/emote/carbon/human/dap
-	linked_emote = /datum/emote/living/carbon/human/dap
+	linked_emote = /datum/emote/living/carbon/human/highfive/dap
 	name = "Dap"
 
 /datum/keybinding/emote/carbon/human/eyebrow
@@ -418,7 +418,7 @@
 	name = "High Five"
 
 /datum/keybinding/emote/carbon/human/handshake
-	linked_emote = /datum/emote/living/carbon/human/handshake
+	linked_emote = /datum/emote/living/carbon/human/highfive/handshake
 	name = "Handshake"
 
 /datum/keybinding/emote/carbon/human/snap

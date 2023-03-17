@@ -106,6 +106,7 @@
 		rev_mind.special_role = SPECIAL_ROLE_HEAD_REV
 		obj_count++
 	to_chat(rev_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Revolution)</span>")
+	rev_mind.current.create_log(MISC_LOG, "[rev_mind.current] was made into a head revolutionary")
 
 /////////////////////////////////////////////////////////////////////////////////
 //This are equips the rev heads with their gear, and makes the clown not clumsy//
