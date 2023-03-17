@@ -126,13 +126,8 @@
 /mob/living/silicon/robot/drone/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The ever-loyal workers of Nanotrasen facilities. Known for their small and cute look, these drones seek only to repair damaged parts of the station, being lawed against hurting even a spiderling. These fine drones are programmed against interfering with any business of anyone, so they won't do anything you don't want them to.</span>"
-
-
-
-/mob/living/silicon/robot/drone/examine(mob/user)
-	. = ..()
 	if(isAntag(user))
-		. += "<span class='warning'>Clearly they're not loyal enough however, use of an emmag will slave them to you for 5 minutes... until they explode in a shower of sparks.</span>"
+		. += "<span class='warning'>Clearly they're not loyal enough however, use of an emag will slave them to you for 5 minutes... until they explode in a shower of sparks.</span>"
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
