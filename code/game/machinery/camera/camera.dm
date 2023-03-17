@@ -22,7 +22,7 @@
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
-	/// If this camera should be added to the camera network and update camera network when the it moves around
+	/// If this camera should be added to the camera network and update the camera network when it moves around
 	var/part_of_camera_network
 
 	//OTHER
