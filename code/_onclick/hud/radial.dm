@@ -52,6 +52,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/obj/screen/radial/center/close_button
 	var/client/current_user
 	var/atom/anchor
+	var/obj/screen/screen_center
 	var/image/menu_holder
 	var/finished = FALSE
 	var/datum/callback/custom_check_callback
@@ -246,8 +247,16 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	if(!M.client || !anchor)
 		return
 	current_user = M.client
+
+	var/atom/menu_holder_location = anchor
+	if (M == anchor)
+		screen_center = new
+		screen_center.screen_loc = "CENTER,CENTER"
+		current_user.screen += screen_center
+		menu_holder_location = screen_center
+
 	//Blank
-	menu_holder = image(icon = 'icons/effects/effects.dmi', loc = anchor,icon_state = "nothing", layer = ABOVE_HUD_LAYER)
+	menu_holder = image(icon = 'icons/effects/effects.dmi', loc = menu_holder_location, icon_state = "nothing", layer = ABOVE_HUD_LAYER)
 	menu_holder.appearance_flags |= KEEP_APART
 	menu_holder.vis_contents += elements + close_button
 	current_user.images += menu_holder
@@ -255,6 +264,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/proc/hide()
 	if(current_user)
 		current_user.images -= menu_holder
+		if (screen_center)
+			menu_holder.loc = null
+			current_user.screen -= screen_center
 
 /datum/radial_menu/proc/wait(mob/user, atom/anchor, require_near = FALSE)
 	while(current_user && !finished && !selected_choice)
