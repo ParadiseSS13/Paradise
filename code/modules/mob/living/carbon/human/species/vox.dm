@@ -20,7 +20,7 @@
 
 	eyes = "vox_eyes_s"
 
-	species_traits = list(NO_CLONESCAN, IS_WHITELISTED)
+	species_traits = list(NO_CLONESCAN)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	dietflags = DIET_OMNI
@@ -144,7 +144,7 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_CLONESCAN, NO_BLOOD, IS_WHITELISTED)
+	species_traits = list(NO_CLONESCAN, NO_BLOOD)
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_NOPAIN, TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL

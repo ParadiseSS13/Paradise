@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	to_chat(blob.current, "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>")
 	to_chat(blob.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Blob)</span>")
 	SEND_SOUND(blob.current, sound('sound/magic/mutate.ogg'))
-	return
+	blob.current.create_log(MISC_LOG, "[blob.current] was made into a blob")
 
 /datum/game_mode/blob/proc/show_message(message)
 	for(var/datum/mind/blob in infected_crew)
