@@ -160,7 +160,7 @@
 	list_reagents = list("iron" = 10, "salglu_solution" = 10)
 
 /obj/item/reagent_containers/food/pill/strange_reagent
-	name = "\improper Strange Reagente pill"
+	name = "\improper Strange Reagent pill"
 	desc = "Miraculous drug used for revival. Use with caution. Improper use may cause bodies to violently blow apart."
 	icon_state = "pill9"
 	list_reagents = list("strange_reagent" = 1)
