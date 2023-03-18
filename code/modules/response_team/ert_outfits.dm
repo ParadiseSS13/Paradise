@@ -358,7 +358,7 @@
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/handheld_defibrillator = 1,
 		/obj/item/storage/pill_bottle/ert_red = 1,
-		/obj/item/storage/pill_bottle/patch_pack/ert_red = 1,
+		/obj/item/storage/pill_bottle/patch_pack/ert/red = 1,
 		/obj/item/soap/nanotrasen = 1
 	)
 
@@ -392,7 +392,7 @@
 		/obj/item/handheld_defibrillator = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/storage/pill_bottle/ert_gamma = 1,
-		/obj/item/storage/pill_bottle/patch_pack/ert_gamma = 1
+		/obj/item/storage/pill_bottle/patch_pack/ert/gamma = 1
 		)
 
 	cybernetic_implants = list(
