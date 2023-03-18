@@ -37903,13 +37903,9 @@
 /turf/simulated/floor/plating/airless,
 /area/toxins/test_area)
 "clS" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_x = 30
+/obj/machinery/r_n_d/destructive_analyzer,
+/obj/effect/turf_decal/siding{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -39149,7 +39145,14 @@
 	},
 /area/toxins/lab)
 "cqv" = (
-/obj/machinery/r_n_d/protolathe,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -41068,6 +41071,18 @@
 	icon_state = "whitepurple"
 	},
 /area/crew_quarters/hor)
+"cxe" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/toxins/lab)
 "cxf" = (
 /obj/machinery/door/window{
 	name = "Mass Driver";
@@ -53824,6 +53839,16 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
+"eOe" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/lab)
 "eOZ" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/machinery/firealarm{
@@ -60387,6 +60412,9 @@
 /obj/machinery/computer/rdconsole/core,
 /obj/effect/turf_decal/siding{
 	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Chapel - Fore"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -68773,6 +68801,11 @@
 /area/hallway/primary/aft)
 "lVF" = (
 /obj/machinery/r_n_d/circuit_imprinter,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -70897,7 +70930,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -70963,10 +70995,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "mZe" = (
-/obj/machinery/r_n_d/destructive_analyzer,
-/obj/effect/turf_decal/siding{
-	dir = 1
-	},
+/obj/machinery/r_n_d/protolathe,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -73978,11 +74007,6 @@
 /area/medical/chemistry)
 "oDj" = (
 /obj/structure/table,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/machinery/camera{
 	c_tag = "Science - Research";
 	dir = 10;
@@ -73990,6 +74014,11 @@
 	},
 /obj/item/wrench,
 /obj/item/clothing/glasses/welding,
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -75114,6 +75143,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
+"pho" = (
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/toxins/lab)
 "phx" = (
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
@@ -88130,7 +88169,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -91668,9 +91706,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "xHu" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -91683,6 +91718,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -92211,8 +92249,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/table,
-/obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -123709,7 +123745,7 @@ bVZ
 lVF
 cqv
 vQr
-vIY
+cxe
 xHu
 vIY
 sfg
@@ -123962,8 +123998,8 @@ bdb
 dbb
 cmo
 hYA
-bYq
-bYq
+pho
+eOe
 clr
 bYq
 kqw
