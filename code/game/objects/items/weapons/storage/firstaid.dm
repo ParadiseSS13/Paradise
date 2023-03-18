@@ -394,19 +394,15 @@
 	new /obj/item/reagent_containers/food/pill/fakedeath(src)
 
 /obj/item/storage/pill_bottle/patch_pack/ert
-	name = "ert patch pack"
-	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT medics."
+	name = "ert red patch pack"
+	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Red level medics."
+	wrapper_color = COLOR_NT_RED
 
 /obj/item/storage/pill_bottle/patch_pack/ert/populate_contents()
 	for(var/I in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/patch/perfluorodecalin(src)
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-
-/obj/item/storage/pill_bottle/patch_pack/ert/red
-	name = "ert red patch pack"
-	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Red level medics."
-	wrapper_color = COLOR_NT_RED
 
 /obj/item/storage/pill_bottle/patch_pack/ert/gamma
 	name = "ert gamma patch pack"
