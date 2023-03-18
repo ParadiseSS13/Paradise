@@ -408,7 +408,6 @@
 	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Red level medics."
 	wrapper_color = COLOR_NT_RED
 
-
 /obj/item/storage/pill_bottle/patch_pack/ert/gamma
 	name = "ert gamma patch pack"
 	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Gamma level medics."
