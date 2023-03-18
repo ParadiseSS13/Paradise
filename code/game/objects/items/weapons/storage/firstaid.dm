@@ -404,7 +404,7 @@
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
-/obj/item/storage/pill_bottle/patch_pack/ert_gamma
+/obj/item/storage/pill_bottle/patch_pack/ert/gamma
 	name = "ert gamma patch pack"
 	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Gamma level medics."
 	wrapper_color = COLOR_YELLOW_GRAY
