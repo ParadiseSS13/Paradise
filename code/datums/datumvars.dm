@@ -1248,7 +1248,7 @@
 			to_chat(usr, "<span class='warning'>[A] is already under deadchat control!</span>")
 			return
 
-		var/control_mode = input(usr, "Please select the control mode","Organ", null) as null|anything in list("democracy", "anarchy")
+		var/control_mode = input(usr, "Please select the control mode","Deadchat Control", null) as null|anything in list("democracy", "anarchy")
 
 		var/selected_mode
 		switch(control_mode)
