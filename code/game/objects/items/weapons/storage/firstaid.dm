@@ -225,9 +225,10 @@
 	new /obj/item/stack/medical/splint(src)
 	new /obj/item/reagent_containers/applicator/dual(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
-	new /obj/item/storage/pill_bottle/ert(src)
-	new /obj/item/storage/pill_bottle/patch_pack/ert(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+
 
 /obj/item/storage/firstaid/ert_amber
 	name = "amber ert first-aid kit"
@@ -305,11 +306,12 @@
 /obj/item/storage/pill_bottle/ert
 	wrapper_color = COLOR_MAROON
 
-/obj/item/storage/pill_bottle/ert/populate_contents()
+/obj/item/storage/pill_bottle/ert_red/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/pill/pentetic(src)
 		new /obj/item/reagent_containers/food/pill/ironsaline(src)
 		new /obj/item/reagent_containers/food/pill/salicylic(src)
+		new /obj/item/reagent_containers/food/pill/mannitol(src)
 
 /obj/item/storage/pill_bottle/ert_amber
 	wrapper_color = COLOR_AMBER
@@ -319,6 +321,18 @@
 		new /obj/item/reagent_containers/food/pill/salbutamol(src)
 		new /obj/item/reagent_containers/food/pill/charcoal(src)
 		new /obj/item/reagent_containers/food/pill/salicylic(src)
+
+/obj/item/storage/pill_bottle/ert_gamma
+	wrapper_color = COLOR_LIGHT_GREEN
+
+/obj/item/storage/pill_bottle/ert_gamma/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/pill/pentetic(src)
+		new /obj/item/reagent_containers/food/pill/ironsaline(src)
+		new /obj/item/reagent_containers/food/pill/hydrocodone(src)
+		new /obj/item/reagent_containers/food/pill/mannitol(src)
+		new /obj/item/reagent_containers/food/pill/strange_reagent(src)
+		new /obj/item/reagent_containers/food/pill/rezadone(src)
 
 /obj/item/storage/pill_bottle/MouseDrop(obj/over_object) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(over_object))
