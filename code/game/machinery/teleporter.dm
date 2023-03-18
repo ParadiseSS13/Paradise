@@ -211,28 +211,6 @@
 			"x" = T.x,
 			"y" = T.y,
 			"z" = T.z)
-
-	for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
-		if(!I.implanted || !ismob(I.loc))
-			continue
-		else
-			var/mob/M = I.loc
-			if(M.stat == DEAD)
-				if(M.timeofdeath + 6000 < world.time)
-					continue
-			var/turf/T = get_turf(M)
-			if(!T)	continue
-			if(!is_teleport_allowed(T.z))	continue
-			var/tmpname = M.real_name
-			if(areaindex[tmpname])
-				tmpname = "[tmpname] ([++areaindex[tmpname]])"
-			else
-				areaindex[tmpname] = 1
-			L[tmpname] = list(
-				"name" = tmpname,
-				"x" = T.x,
-				"y" = T.y,
-				"z" = T.z)
 	return L
 
 /**
