@@ -1527,9 +1527,6 @@
 	},
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/manipulator,
-/obj/effect/turf_decal/siding{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -67199,9 +67196,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/turf_decal/siding{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -73984,9 +73978,6 @@
 /area/medical/chemistry)
 "oDj" = (
 /obj/structure/table,
-/obj/effect/turf_decal/siding{
-	dir = 8
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
@@ -89725,9 +89716,6 @@
 	},
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/micro_laser,
-/obj/effect/turf_decal/siding{
-	dir = 9
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -92221,9 +92209,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
-	},
-/obj/effect/turf_decal/siding{
-	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table,
