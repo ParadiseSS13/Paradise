@@ -1624,6 +1624,7 @@
 #include "code\modules\events\event.dm"
 #include "code\modules\events\event_container.dm"
 #include "code\modules\events\event_procs.dm"
+#include "code\modules\events\fake_virus.dm"
 #include "code\modules\events\false_alarm.dm"
 #include "code\modules\events\floorcluwne.dm"
 #include "code\modules\events\immovable_rod.dm"
