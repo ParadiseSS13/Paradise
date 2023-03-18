@@ -409,11 +409,6 @@
 	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Gamma level medics."
 	wrapper_color = COLOR_YELLOW_GRAY
 
-/obj/item/storage/pill_bottle/patch_pack/ert_gamma/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/reagent_containers/food/pill/patch/perfluorodecalin(src)
-		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
 /obj/item/storage/pill_bottle/patch_pack/ert_amber
 	name = "ert amber patch pack"
