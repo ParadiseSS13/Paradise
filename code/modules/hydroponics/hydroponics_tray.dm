@@ -379,7 +379,7 @@
 		oldPlantName = myseed.plantname
 		QDEL_NULL(myseed)
 	else
-		oldPlantName = "empty tray"
+		oldPlantName = "[name]"
 	switch(rand(1,18))		// randomly pick predominative weed
 		if(16 to 18)
 			myseed = new /obj/item/seeds/reishi(src)

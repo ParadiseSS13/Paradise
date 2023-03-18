@@ -172,6 +172,18 @@
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
+			return
+
+		if("silenceSound")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			return
+
+		if("muteAdmin")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			prefs.admin_sound_ckey_ignore |= href_list["a"]
+			to_chat(usr, "You will no longer hear admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
+			prefs.save_preferences(src)
+			return
 
 	//fun fact: Topic() acts like a verb and is executed at the end of the tick like other verbs. So we have to queue it if the server is
 	//overloaded
@@ -380,12 +392,6 @@
 		// activate_darkmode() calls the CL update button proc, so we dont want it double called
 		SSchangelog.UpdatePlayerChangelogButton(src)
 
-
-	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
-		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
-	else
-		to_chat(src,"<span class='notice'>You have enabled karma gains.")
-
 	generate_clickcatcher()
 	apply_clickcatcher()
 
@@ -420,10 +426,6 @@
 
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-
-	// This happens "asyncronously"
-	if(karmaholder)
-		karmaholder.processRefunds(mob)
 
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")

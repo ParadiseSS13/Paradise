@@ -23,10 +23,6 @@
 	QDEL_NULL(magazine)
 	return ..()
 
-/obj/item/gun/projectile/detailed_examine()
-	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
-			will tell you what caliber you need."
-
 /obj/item/gun/projectile/update_name()
 	. = ..()
 	if(sawn_state)
@@ -178,6 +174,7 @@
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	. += "Has [get_ammo()] round\s remaining."
+	. += "<span class='notice'>Use in hand to empty the gun's ammo reserves.</span>"
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
