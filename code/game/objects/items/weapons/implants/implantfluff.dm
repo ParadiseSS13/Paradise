@@ -93,7 +93,7 @@
 	name = "Nanotrasen RFID Tracking Bio-chip"
 	life = "Unknown, known to last up to a few years."
 	notes = "Tracking bio-chips are Neuro-safe! Makes use of a specialized shell that will melt and disintegrate into bio-safe elements in the event of a malfunction. "
-	function = "Continuously transmits a low power signal. Can be used for tracking and teleporting to the user."
+	function = "Continuously transmits a low power signal. Can be used for tracking the user."
 
 /datum/implant_fluff/traitor
 	name = "Syndicate Type E Mindslave Bio-chip"
