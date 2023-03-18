@@ -48,6 +48,7 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
 		mind.current = null
 	return ..()

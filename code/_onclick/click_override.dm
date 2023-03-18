@@ -14,7 +14,7 @@
 
 /datum/middleClickOverride/proc/onClick(atom/A, mob/living/user)
 	user.middleClickOverride = null
-	return 1
+	return TRUE
 	/* Note, when making a new click override it is ABSOLUTELY VITAL that you set the source's clickOverride to null at some point if you don't want them to be stuck with it forever.
 	Calling the super will do this for you automatically, but if you want a click override to NOT clear itself after the first click, you must do it at some other point in the code*/
 
