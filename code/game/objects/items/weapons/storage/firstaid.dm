@@ -393,7 +393,7 @@
 	new /obj/item/reagent_containers/food/pill/fakedeath(src)
 	new /obj/item/reagent_containers/food/pill/fakedeath(src)
 
-/obj/item/storage/pill_bottle/patch_pack/ert_red
+/obj/item/storage/pill_bottle/patch_pack/ert
 	name = "ert red patch pack"
 	desc = "A patch pack containing medical patches. Issued to Nanotrasen ERT Red level medics."
 	wrapper_color = COLOR_NT_RED
