@@ -208,6 +208,8 @@
 	explode()
 
 /mob/living/simple_animal/bot/proc/explode()
+	for(var/mob/living/simple_animal/pulse_demon/demon in contents)
+		demon.exit_to_turf()
 	qdel(src)
 
 /mob/living/simple_animal/bot/emag_act(mob/user)

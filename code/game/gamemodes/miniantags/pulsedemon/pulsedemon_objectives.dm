@@ -20,12 +20,11 @@
 
 /datum/objective/pulse_demon/drain
 	name = "Drain Power"
-	var/amount = 200000
+	var/amount = 500000
 
 /datum/objective/pulse_demon/drain/New()
 	. = ..()
-	// TODO: probably needs to be much larger, a single SMES will satisfy this with ease
-	amount = rand(40, 200) * 5000
+	amount = rand(1, 10) * 500000
 	explanation_text = "Drain [format_si_suffix(amount)]W of power."
 
 /datum/objective/pulse_demon/drain/check_completion()

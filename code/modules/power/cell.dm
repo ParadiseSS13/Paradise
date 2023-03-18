@@ -120,7 +120,7 @@
 		return
 
 	for(var/mob/living/simple_animal/pulse_demon/demon in src)
-		demon.exit_to_turf(src)
+		demon.exit_to_turf()
 
 	var/devastation_range = -1 //round(charge/11000)
 	var/heavy_impact_range = round(sqrt(charge) / 60)

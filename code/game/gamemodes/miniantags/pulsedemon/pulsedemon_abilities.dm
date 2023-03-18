@@ -427,6 +427,8 @@
 		return FALSE
 
 	var/raw_choice = show_radial_menu(user, user, upgrades, radius = 48)
+	if(!raw_choice)
+		return
 	var/choice = splittext(raw_choice, " ")[1]
 
 	var/cost = calc_cost(user, choice)
@@ -456,6 +458,7 @@
 		if(PD_UPGRADE_HEALTH_COST)
 			user.power_per_regen = max(round(user.power_per_regen / 1.5), 1)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], it now takes [format_si_suffix(user.power_per_regen)]W of power to regenerate health.</span>")
+			to_chat(user, "<span class='notice'>Additionally, if you enable draining while on a cable, any excess power that would've been used regenerating will be added to your charge.</span>")
 		if(PD_UPGRADE_MAX_CHARGE)
 			user.maxcharge = round(user.maxcharge * 2)
 			to_chat(user, "<span class='notice'>You have upgraded your [choice], you can now store [format_si_suffix(user.maxcharge)]W of charge.</span>")

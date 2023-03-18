@@ -111,8 +111,7 @@
 
 /mob/living/simple_animal/bot/attack_pulsedemon(mob/living/simple_animal/pulse_demon/user)
 	if(user.loc != src)
-		// TODO: maybe change bot death to just dump the demon on the ground?
-		to_chat(user, "<span class='warning'>You are now inside [src]. If it is destroyed, you will instantly die.</span>")
+		to_chat(user, "<span class='warning'>You are now inside [src]. If it is destroyed, you will be dropped onto the ground, and may die if there is no cable under you.</span>")
 		to_chat(user, "<span class='notice'>Leave it by jumping to a hijacked APC.</span>")
 		ejectpai(user)
 		user.forceMove(src)

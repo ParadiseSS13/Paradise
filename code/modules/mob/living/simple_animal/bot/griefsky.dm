@@ -201,7 +201,7 @@
 		new weapon(Tsec)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	qdel(src)
+	..()
 
 //this section is blocking attack
 

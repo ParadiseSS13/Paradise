@@ -63,7 +63,7 @@
 	var/do_drain = TRUE
 	var/power_drain_rate = 1000 // amount of power taken per tick
 
-	var/power_per_regen = 100
+	var/power_per_regen = 1000
 	var/health_loss_rate = 5
 	var/health_regen_rate = 3
 	var/regen_lock = 0 // health regen locked for a time after being EMP'd
@@ -130,6 +130,8 @@
 	switch(var_name)
 		if("charge")
 			adjustCharge(var_value - charge, TRUE)
+		if("glow_color")
+			update_glow()
 
 /mob/living/simple_animal/pulse_demon/forceMove(atom/destination)
 	. = ..()
@@ -199,9 +201,7 @@
 	playsound(T, pick(hurt_sounds), 50, 1)
 
 /mob/living/simple_animal/pulse_demon/proc/exit_to_turf(atom/oldloc)
-	if(loc != oldloc)
-		return
-	var/turf/T = get_turf(oldloc)
+	var/turf/T = get_turf(loc)
 	current_power = null
 	update_controlling_area()
 	current_cable = null
@@ -312,9 +312,6 @@
 				demon.pb_helper.cancel()
 			demon.update_controlling_area(TRUE)
 
-// TODO: decide how maxcharge should increase, it's kinda weird for now (see also: SMES draining code in drainSMES())
-//       I'd say have maxcharge be a multiple of the number of controlled APCs (with upgrade to increase)
-// adjust_max is TRUE when draining APCs
 /mob/living/simple_animal/pulse_demon/proc/adjustCharge(amount, adjust_max = FALSE)
 	if(amount == 0)
 		return 0
@@ -338,7 +335,7 @@
 			S.action.UpdateButtonIcon()
 	return realdelta
 
-// TODO: does equation need adjustment? see original table:
+// logarithmic scale for glow strength, see table:
 	// 1.5 <= 25k
 	// 2   at 50k
 	// 2.5 at 100k
@@ -353,25 +350,28 @@
 	if(A.being_hijacked)
 		return -1
 	var/amount_to_drain = clamp(A.cell.charge, 0, power_drain_rate * multiplier)
-	A.cell.use(amount_to_drain)
-	adjustCharge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER, TRUE)
-	return amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER
+	A.cell.use(min(amount_to_drain, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
+	return adjustCharge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER)
 
 /mob/living/simple_animal/pulse_demon/proc/drainSMES(obj/machinery/power/smes/S, multiplier = 1)
 	var/amount_to_drain = clamp(S.charge, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
-	maxcharge = max(maxcharge, S.output_level)
-	S.charge -= adjustCharge(amount_to_drain)
-	return amount_to_drain
+	var/drained = adjustCharge(amount_to_drain)
+	S.charge -= drained
+	return drained
 
 /mob/living/simple_animal/pulse_demon/Life(seconds, times_fired)
 	. = ..()
 
 	var/got_power = FALSE
 	if(current_cable)
-		// TODO: small passive charge gain from cables when draining?
 		if(current_cable.avail() >= power_per_regen)
 			current_cable.add_load(power_per_regen)
 			got_power = TRUE
+
+			var/excess = initial(power_per_regen) - power_per_regen
+			if(excess > 0 && current_cable.avail() >= excess && do_drain)
+				adjustCharge(excess)
+				current_cable.add_load(excess)
 	else if(current_power)
 		if(isapc(current_power) && loc == current_power && do_drain)
 			if(drainAPC(current_power) > power_per_regen)
@@ -501,18 +501,26 @@
 			to_chat(src, "<span class='warning'>You are already performing an action!</span>")
 	return FALSE
 
-// TODO: which checks here? maybe aidisabled or constructed?
 /mob/living/simple_animal/pulse_demon/proc/check_valid_apc(obj/machinery/power/apc/A, atom/startloc)
 	return is_valid_apc(A)
+
+// TODO: this formula is eeeeeehhhhhhhhhhhhhhhhhhhhhhhhhhhh but figuring out what would actually fit is not easy, discover in testing sometime
+// note: the station maps supposedly average ~150 APCs, so the upper levels here are certainly possible, also you can manually upgrade the capacity stat
+/mob/living/simple_animal/pulse_demon/proc/calc_maxcharge(n)
+	if(n < 1)
+		return 1000
+	return 20000 * clamp(n, 0, 20) + 500000 * clamp(n - 20, 0, 30) + 1000000 * clamp(n - 50, 0, 50) + 500000000 * max(0, n - 100)
 
 /mob/living/simple_animal/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 	apc_image.plane = ABOVE_LIGHTING_PLANE
 	images_shown += apc_image
 	client.images += apc_image
+
 	hijacked_apcs += A
 	if(!remote)
 		update_controlling_area()
+	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, "<span class='notice'>Hijacking complete! You now control [length(hijacked_apcs)] APCs.</span>")
 
 /mob/living/simple_animal/pulse_demon/proc/cleanup_hijack_apc(obj/machinery/power/apc/A)
@@ -577,25 +585,27 @@
 		if(T.z != apc_turf.z)
 			continue
 		// parent of image is the APC, not the turf because of how clicking on images works
-		// TODO: maybe a custom sprite to make it clearer to the pulse demon
 		var/image/apc_image = image('icons/obj/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
 		apc_image.plane = ABOVE_LIGHTING_PLANE
 		images_shown += apc_image
 		client.images += apc_image
-	// TODO: spell that cycles you through the cameras in your area, necessitated by maps like Farragus
 
 /mob/living/simple_animal/pulse_demon/reset_perspective(atom/A)
 	. = ..()
 	update_cableview()
 
-// TODO: EMP_HEAVY, EMP_LIGHT distinction
 /mob/living/simple_animal/pulse_demon/emp_act(severity)
 	. = ..()
 	visible_message("<span class ='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
 	playsound(get_turf(src), pick(hurt_sounds), 50, 1)
 	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)
-	adjustHealth(round(max(initial(health) / 2, round(maxHealth / 4))))
-	regen_lock = 5
+	switch(severity)
+		if(EMP_LIGHT)
+			adjustHealth(round(max(initial(health) / 3, round(maxHealth / 6))))
+			regen_lock = 3
+		if(EMP_HEAVY)
+			adjustHealth(round(max(initial(health) / 2, round(maxHealth / 4))))
+			regen_lock = 5
 
 /mob/living/simple_animal/pulse_demon/proc/try_attack_mob(mob/living/L)
 	if(!is_under_tile() && L != src)
@@ -640,7 +650,7 @@
 	visible_message("<span class='warning'>[Proj] goes right through [src]!</span>")
 
 /mob/living/simple_animal/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, flags)
-	return // TODO: potiential for gaining charge or a boost of some kind?
+	return
 
 /mob/living/simple_animal/pulse_demon/blob_act(obj/structure/blob/B)
 	return // will likely end up dying if the blob cuts its wires anyway
