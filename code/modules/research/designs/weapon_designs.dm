@@ -182,9 +182,11 @@
 	name = "Laser Rifle Projector Magazine"
 	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
 	id = "mag_laser"
+	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)
 	build_path = /obj/item/ammo_box/magazine/laser
+	category = list("Weapons")
 
 /datum/design/stunrevolver
 	name = "Tesla Revolver Parts Kit"
