@@ -584,14 +584,16 @@
 // Soviet Military
 
 /datum/outfit/admin/soviet
-	name = "Soviet Generic"
-	gloves = /obj/item/clothing/gloves/combat
+	name = "Soviet Tourist"
 	uniform = /obj/item/clothing/under/new_soviet
 	back = /obj/item/storage/backpack/satchel
 	head = /obj/item/clothing/head/sovietsidecap
 	id = /obj/item/card/id
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/syndicate
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1
+	)
 
 /datum/outfit/admin/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -604,18 +606,9 @@
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 	H.sec_hud_set_ID()
 
-/datum/outfit/admin/soviet/tourist
-	name = "Soviet Tourist"
-
-	gloves = null
-	backpack_contents = list(
-		/obj/item/storage/box/survival = 1
-	)
-
 /datum/outfit/admin/soviet/conscript
 	name = "Soviet Conscript"
 
-	gloves = null
 	r_pocket = /obj/item/flashlight/seclite
 	r_hand = /obj/item/gun/projectile/shotgun/boltaction
 	belt = /obj/item/gun/projectile/revolver/nagant
@@ -628,6 +621,7 @@
 /datum/outfit/admin/soviet/soldier
 	name = "Soviet Soldier"
 
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/sovietcoat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	r_pocket = /obj/item/flashlight/seclite
@@ -643,6 +637,7 @@
 /datum/outfit/admin/soviet/officer
 	name = "Soviet Officer"
 
+	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/sovietcoat/officer
 	uniform = /obj/item/clothing/under/new_soviet/sovietofficer
 	head = /obj/item/clothing/head/sovietofficerhat
@@ -661,6 +656,7 @@
 /datum/outfit/admin/soviet/admiral
 	name = "Soviet Admiral"
 
+	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/new_soviet/sovietadmiral
 	head = /obj/item/clothing/head/sovietadmiralhat
 	belt = /obj/item/gun/projectile/revolver/mateba
