@@ -348,7 +348,7 @@
 /obj/item/nullrod/scythe/talking/proc/click_actions(atom/attacking_atom, mob/living/simple_animal/attacking_shade)
 	if(world.time <= attacking_shade.next_move) // yea we gotta check
 		return
-	if(!istype(attacking_atom, /atom/movable))
+	if(!ismovable(attacking_atom))
 		return
 	attacking_shade.changeNext_move(CLICK_CD_MELEE)
 	if(ismob(loc))
