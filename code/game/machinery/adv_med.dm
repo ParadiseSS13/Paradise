@@ -318,6 +318,9 @@
 			if(E.status & ORGAN_INT_BLEEDING)
 				organData["internalBleeding"] = TRUE
 
+			if(E.status & ORGAN_BURNT)
+				organData["burnWound"] = TRUE
+
 			extOrganData.Add(list(organData))
 
 		occupantData["extOrgan"] = extOrganData

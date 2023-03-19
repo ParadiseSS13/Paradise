@@ -363,10 +363,7 @@ This function completely restores a damaged organ to perfect condition.
 				trace_chemicals[chemID] = trace_chemicals[chemID] - 1
 				if(trace_chemicals[chemID] <= 0)
 					trace_chemicals.Remove(chemID)
-/*
-		if(!(status & ORGAN_BROKEN))
-			perma_injury = 0
-*/
+
 	if(..())
 		if(owner.germ_level > germ_level && infection_check())
 			//Open wounds can become infected
