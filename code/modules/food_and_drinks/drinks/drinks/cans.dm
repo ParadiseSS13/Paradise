@@ -273,6 +273,37 @@
 	desc = "this shouldn't ever be spawned. shame on you"
 	icon_state = "glass_bottle"
 
+/obj/item/reagent_containers/food/drinks/cans/voobra
+	name = "Voobra"
+	desc = "A can of Voobra!"
+	icon_state = "voobcan"
+	list_reagents = list("voobra" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/diet_space_cola
+	name = "Diet Space Cola"
+	desc = "Diet Cola. In Space."
+	icon_state = "dspacecola"
+	list_reagents = list("dietcola" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/root_beer
+	name = "K&N/A Root Beer"
+	desc = "Root Beer. In Space."
+	icon_state = "rootbeercan"
+	list_reagents = list("rootbeer" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/blue_cow
+	name = "Blue Cow"
+	desc = "You probably shouldn't drink this."
+	icon_state = "bluecowcan"
+	list_reagents = list("bluecow" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/solar_espresso
+	name = "Solar Espresso."
+	desc = "For your caffinated needs!"
+	icon_state ="espressocan"
+	list_reagents = list("espresso" = 30)
+
+
 /obj/item/reagent_containers/food/drinks/cans/bottler/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
@@ -314,3 +345,5 @@
 	name = "metal can"
 	desc = "A metal can suitable for beverages."
 	icon_state = "metal_can"
+
+

@@ -136,6 +136,18 @@
 	list_reagents = list("nutriment" = 1, "chocolate" = 1)
 	tastes = list("chocolate" = 1)
 
+/obj/item/reagent_containers/food/snacks/candy/biscuitbar
+	name = "Biscuit bar"
+	desc = "A chocolate candybar, with bits of crunchy biscuit inside!."
+	icon_state = "biscuitbar"
+	trash = /obj/item/trash/biscuitbar
+	filling_color = "#7D5F46"
+	bitesize = 3
+	junkiness = 30
+	antable = FALSE
+	list_reagents = list("nutriment" = 1, "chocolate" = 2)
+	tastes = list("chocolate" = 1)
+
 
 /obj/item/reagent_containers/food/snacks/candy/candycane
 	name = "candy cane"

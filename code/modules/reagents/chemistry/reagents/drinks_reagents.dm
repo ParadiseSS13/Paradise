@@ -581,6 +581,19 @@
 	drink_desc = "A glass of refreshing Space Cola."
 	taste_description = "cola"
 
+/datum/reagent/consumable/drink/diet_space_cola
+	name = "Diet Cola"
+	id = "dietcola"
+	description = "A healthier refreshing beverage."
+	reagent_state = LIQUID
+	color = "#100800" // rgb: 16, 8, 0
+	adj_drowsy = -5 SECONDS
+	drink_icon = "glass_brown"
+	drink_name = "Glass of Diet Space Cola"
+	drink_desc = "A glass of healthy, refreshing Space Cola."
+	taste_description = "flat cola"
+
+
 /datum/reagent/consumable/drink/nuka_cola
 	name = "Nuka Cola"
 	id = "nuka_cola"
@@ -737,3 +750,53 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
 	if(isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+
+/datum/reagent/consumable/drink/voobra
+	name = "Voobra"
+	id = "voobra"
+	description = "A Neo-Russkyian favourite! Made in glorious Nova Cygni herself!"
+	reagent_state = LIQUID
+	color = "#100800" // rgb: 16, 8, 0
+	adj_drowsy = -10 SECONDS
+	drink_icon = "voobra"
+	drink_name = "Glass of Voobra!"
+	drink_desc = "The Neo-Russkyian beverage of choice!"
+	taste_description = "carbonated orange"
+
+/datum/reagent/consumable/drink/root_beer
+	name = "Root Beer"
+	id = "rootbeer"
+	description = "Child friendly beer!"
+	reagent_state = LIQUID
+	color = "#100800" // rgb: 16, 8, 0
+	adj_drowsy = -5 SECONDS
+	drink_icon = "glass_brown"
+	drink_name = "Glass of Root Beer"
+	drink_desc = "AA for kids!"
+	taste_description = "sweet, gone off vanilla."
+
+/datum/reagent/consumable/drink/blue_cow
+	name = "Blue Cow"
+	id = "bluecow"
+	description = "They put WHAT in this?!"
+	reagent_state = LIQUID
+	color = "#100800" // rgb: 16, 8, 0
+	adj_drowsy = -10 SECONDS
+	heart_rate_increase = 10
+	drink_icon = "lemonglass"
+	drink_name = "Glass of Blue Cow!"
+	drink_desc = "Cow. . . cow what?"
+	taste_description = "the fact that your insides are burning."
+
+/datum/reagent/consumable/drink/espresso
+	name = "Espresso"
+	id = "espresso"
+	description = "Concentrated joy!"
+	reagent_state = LIQUID
+	color = "#100800" // rgb: 16, 8, 0
+	adj_drowsy = -10 SECONDS
+	heart_rate_increase = 5
+	drink_icon = "cafe_latte"
+	drink_name = "Glass of Espresso."
+	drink_desc = "Maybe not a great idea."
+	taste_description = "strong coffee."

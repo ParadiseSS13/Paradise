@@ -110,6 +110,10 @@
 	name = "bread tube"
 	icon_state = "tastybread"
 
+/obj/item/trash/biscuitbar
+	name = "biscuit bar"
+	icon_state = "biscuitbar"
+
 /obj/item/trash/spentcasing
 	icon = 'icons/obj/ammo.dmi'
 	name = "bullet casing"

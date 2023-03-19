@@ -66,9 +66,11 @@
 	vend_delay = 34
 	products = list(/obj/item/reagent_containers/food/drinks/coffee = 25, /obj/item/reagent_containers/food/drinks/tea = 25, /obj/item/reagent_containers/food/drinks/h_chocolate = 25,
 					/obj/item/reagent_containers/food/drinks/chocolate = 10, /obj/item/reagent_containers/food/drinks/chicken_soup = 10, /obj/item/reagent_containers/food/drinks/weightloss = 10,
+					/obj/item/reagent_containers/food/drinks/cans/solar_espresso = 15,
 					/obj/item/reagent_containers/food/drinks/mug = 15, /obj/item/reagent_containers/food/drinks/mug/novelty = 5)
 	contraband = list(/obj/item/reagent_containers/food/drinks/ice = 10)
 	prices = list(/obj/item/reagent_containers/food/drinks/coffee = 80, /obj/item/reagent_containers/food/drinks/tea = 80, /obj/item/reagent_containers/food/drinks/h_chocolate = 64, /obj/item/reagent_containers/food/drinks/chocolate = 120,
+				/obj/item/reagent_containers/food/drinks/cans/solar_espresso = 85,
 				/obj/item/reagent_containers/food/drinks/chicken_soup = 100, /obj/item/reagent_containers/food/drinks/weightloss = 50, /obj/item/reagent_containers/food/drinks/mug = 75, /obj/item/reagent_containers/food/drinks/mug/novelty = 100)
 	refill_canister = /obj/item/vending_refill/coffee
 
@@ -737,10 +739,12 @@
 	icon_panel = "thin_vendor"
 	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6, /obj/item/reagent_containers/food/drinks/dry_ramen = 6, /obj/item/reagent_containers/food/snacks/chips = 6,
 					/obj/item/reagent_containers/food/snacks/sosjerky = 6,/obj/item/reagent_containers/food/snacks/no_raisin = 6, /obj/item/reagent_containers/food/snacks/pistachios = 6,
+					/obj/item/reagent_containers/food/snacks/candy/biscuitbar = 6,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6, /obj/item/reagent_containers/food/snacks/tastybread = 6, /obj/item/reagent_containers/food/snacks/stroopwafel = 2)
 	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
 	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 64, /obj/item/reagent_containers/food/drinks/dry_ramen = 32, /obj/item/reagent_containers/food/snacks/chips = 64,
 					/obj/item/reagent_containers/food/snacks/sosjerky = 64, /obj/item/reagent_containers/food/snacks/no_raisin = 80, /obj/item/reagent_containers/food/snacks/pistachios = 80,
+					/obj/item/reagent_containers/food/snacks/candy/biscuitbar = 75,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 64, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 64,/obj/item/reagent_containers/food/snacks/tastybread = 80,
 					/obj/item/reagent_containers/food/snacks/stroopwafel = 100, /obj/item/reagent_containers/food/snacks/syndicake = 175) //syndicakes are genuinely kind of powerful
 	refill_canister = /obj/item/vending_refill/snack
@@ -773,10 +777,14 @@
 	ads_list = list("Refreshing!","Hope you're thirsty!","Over 1 million drinks sold!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","The best drinks in space.")
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10, /obj/item/reagent_containers/food/drinks/cans/starkist = 10,
+					/obj/item/reagent_containers/food/drinks/cans/voobra = 10, /obj/item/reagent_containers/food/drinks/cans/diet_space_cola = 10,
+					/obj/item/reagent_containers/food/drinks/cans/root_beer = 10, /obj/item/reagent_containers/food/drinks/cans/blue_cow = 10,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 10, /obj/item/reagent_containers/food/drinks/cans/grape_juice = 10, /obj/item/reagent_containers/glass/beaker/waterbottle = 10)
 	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5)
 	prices = list(/obj/item/reagent_containers/food/drinks/cans/cola = 45, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 50,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 50, /obj/item/reagent_containers/food/drinks/cans/starkist = 50,
+					/obj/item/reagent_containers/food/drinks/cans/root_beer = 45, /obj/item/reagent_containers/food/drinks/cans/blue_cow = 33,
+					/obj/item/reagent_containers/food/drinks/cans/voobra = 60, /obj/item/reagent_containers/food/drinks/cans/diet_space_cola = 44,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 50, /obj/item/reagent_containers/food/drinks/cans/grape_juice = 50, /obj/item/reagent_containers/glass/beaker/waterbottle = 20)
 	refill_canister = /obj/item/vending_refill/cola
 
