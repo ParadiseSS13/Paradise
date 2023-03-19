@@ -269,27 +269,6 @@
 	obj_integrity = 100
 	var/possessed = FALSE
 
-/obj/item/nullrod/scythe/talking/proc/debug_spawn()
-	possessed = TRUE
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the blade spirit?",, FALSE, 3 SECONDS, source = src, role_cleanname = "possessed blade")
-	var/mob/dead/observer/theghost = null
-
-	if(QDELETED(src))
-		return
-	if(length(candidates))
-		theghost = pick(candidates)
-		var/mob/living/simple_animal/shade/sword/S = new(src)
-		S.real_name = name
-		S.name = name
-		S.ckey = theghost.ckey
-		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
-
-		if(src && input)
-			name = input
-			S.real_name = input
-			S.name = input
-
-
 /obj/item/nullrod/scythe/talking/attack_self(mob/living/user)
 	if(possessed)
 		return
@@ -363,7 +342,7 @@
 	if(Adjacent(attacking_atom)) // without a buddy we only deal 5 damage :c
 		force = force - 5
 		var/mob/living/simple_animal/hostile/hostile_target = attacking_atom
-		if(istype(hostile_target) && prob(40))
+		if(istype(hostile_target) && prob(40)) // Cheese reduction, non sentient animals have a hard time attacking things in objects
 			attack_animal(hostile_target)
 		do_attack_animation(attacking_atom, used_item = src)
 		melee_attack_chain(attacking_shade, attacking_atom)
