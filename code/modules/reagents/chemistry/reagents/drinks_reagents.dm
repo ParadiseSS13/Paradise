@@ -324,6 +324,21 @@
 	drink_desc = "A nice and refrshing beverage while you are reading."
 	taste_description = "milkish coffee"
 
+
+/datum/reagent/consumable/drink/coffee/espresso
+	name = "Espresso"
+	id = "espresso"
+	description = "Concentrated joy!"
+	reagent_state = LIQUID
+	color = "#100800" // rgb: 16, 8, 0
+	adj_drowsy = -10 SECONDS
+	heart_rate_increase = 5
+	drink_icon = "cafe_latte"
+	drink_name = "Glass of Espresso."
+	drink_desc = "Maybe not a great idea."
+	taste_description = "strong coffee."
+
+
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetSleeping(0)
@@ -788,15 +803,3 @@
 	drink_desc = "Cow. . . cow what?"
 	taste_description = "the fact that your insides are burning."
 
-/datum/reagent/consumable/drink/espresso
-	name = "Espresso"
-	id = "espresso"
-	description = "Concentrated joy!"
-	reagent_state = LIQUID
-	color = "#100800" // rgb: 16, 8, 0
-	adj_drowsy = -10 SECONDS
-	heart_rate_increase = 5
-	drink_icon = "cafe_latte"
-	drink_name = "Glass of Espresso."
-	drink_desc = "Maybe not a great idea."
-	taste_description = "strong coffee."
