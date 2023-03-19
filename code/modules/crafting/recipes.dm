@@ -73,7 +73,7 @@
 	reqs = list(/obj/item/gun/energy/gun = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/nuclear = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -88,7 +88,7 @@
 	reqs = list(/obj/item/gun/energy/gun = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/temperature = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -104,7 +104,7 @@
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/decloner = 1,
 				/datum/reagent/mutagen = 40)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -119,7 +119,7 @@
 	reqs = list(/obj/item/gun/energy/gun = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/ion = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -135,7 +135,7 @@
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/ebow = 1,
 				/datum/reagent/radium = 15)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -150,7 +150,7 @@
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/xray = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -165,7 +165,7 @@
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/immolator = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -180,7 +180,7 @@
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/plasma = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -189,13 +189,13 @@
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
 /datum/crafting_recipe/teslarevolver
-	name = "Tesla Revolver"
+	name = "Arc Revolver"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = list(/obj/item/gun/energy/shock_revolver)
+	result = list(/obj/item/gun/energy/arc_revolver)
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/tesla = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -210,7 +210,7 @@
 	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/accelerator = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -225,7 +225,7 @@
 	reqs = list(/obj/item/gun/energy/lasercannon = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/lwap = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -236,7 +236,7 @@
 	reqs = list(/obj/item/gun/energy/disabler = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/u_ionsilencer = 1)
-	time = 20 SECONDS
+	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 

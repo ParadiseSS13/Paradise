@@ -128,14 +128,18 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	point_value = 2
 	table_type = /obj/structure/table
 
+/obj/item/stack/sheet/metal/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Metal is used in various different construction sequences.</span>"
+
 /obj/item/stack/sheet/metal/cyborg
 	energy_type = /datum/robot_energy_storage/metal
 	is_cyborg = TRUE
 	materials = list()
 
-/obj/item/stack/sheet/metal/cyborg/detailed_examine()
-	return "Use in your hand to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.<br>\
-			You can replenish your supply of metal as a synthetic by recharging."
+/obj/item/stack/sheet/metal/cyborg/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging in a <b>cyborg recharger</b>.</span>"
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50

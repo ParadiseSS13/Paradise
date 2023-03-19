@@ -220,6 +220,8 @@
 	var/obj/item/held_item = user.get_active_hand()
 	if(istype(held_item) && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO))
 		return TRUE
+	if(HAS_TRAIT(user, TRAIT_SHOW_WIRE_INFO))
+		return TRUE
 	return FALSE
 
 /**

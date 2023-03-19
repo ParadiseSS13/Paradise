@@ -351,7 +351,7 @@ SUBSYSTEM_DEF(ticker)
 	cinematic.icon_state = "station_intact"
 	cinematic.layer = 21
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	cinematic.screen_loc = "1,0"
+	cinematic.screen_loc = "1,1"
 
 	if(station_missed)
 		for(var/mob/M in GLOB.mob_list)

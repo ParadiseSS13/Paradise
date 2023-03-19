@@ -180,7 +180,10 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
 
 //Engineering
@@ -287,8 +290,27 @@
 	adjust_flavour = "unbutton"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		)
+
+/obj/item/clothing/suit/magirobe
+	name = "magistrate's robe"
+	desc = "An opulent robe that commands authority. Issued only to licensed magistrates."
+	icon_state = "magirobe"
+	item_state = "magirobe"
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS
+	allowed = list(/obj/item/storage/fancy/cigarettes, /obj/item/stack/spacecash, /obj/item/flash, /obj/item/gavelhammer)
+	flags_inv = HIDEJUMPSUIT
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+	)
 
 //Medical
 /obj/item/clothing/suit/storage/fr_jacket
