@@ -60423,7 +60423,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Chapel - Fore"
+	c_tag = "Science - Research Fore"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -74017,7 +74017,7 @@
 "oDj" = (
 /obj/structure/table,
 /obj/machinery/camera{
-	c_tag = "Science - Research";
+	c_tag = "Science - Research Fore";
 	dir = 10;
 	network = list("Research","SS13")
 	},
