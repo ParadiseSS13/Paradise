@@ -517,6 +517,10 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
+	implants = list(/obj/item/implant/mindshield,
+		/obj/item/implant/death_alarm
+	)
+
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
