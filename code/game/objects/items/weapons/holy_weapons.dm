@@ -329,7 +329,7 @@
 /obj/item/nullrod/scythe/talking/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/soulstone) || !possessed)
 		return ..()
-	if(!(obj_integrity < max_integrity))
+	if(obj_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>You have no reason to replace a perfectly good soulstone with a new one.</span>")
 		return
 	to_chat(user, "<span class='notice'>You load a new soulstone into the possessed blade.</span>")
