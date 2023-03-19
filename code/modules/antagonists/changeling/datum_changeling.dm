@@ -40,8 +40,6 @@
 	var/genetic_damage = 0
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
-	/// If the changeling is in the process of linking with someone.
-	var/is_linking = FALSE
 	/// The amount of points available to purchase changeling abilities.
 	var/genetic_points = 10
 	/// A name that will display in place of the changeling's real name when speaking.
@@ -77,7 +75,7 @@
 	absorbed_languages = list()
 
 	var/mob/living/carbon/human/H = owner.current
-	absorbed_dna += H.dna.Clone()
+	protected_dna += H.dna.Clone()
 	..()
 
 /datum/antagonist/changeling/Destroy()
@@ -90,7 +88,7 @@
 /datum/antagonist/changeling/greet()
 	..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	to_chat(owner.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")
+	to_chat(owner.current, "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>")
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
@@ -101,7 +99,6 @@
 		START_PROCESSING(SSobj, src)
 	add_new_languages(L.languages) // Absorb the languages of the new body.
 	update_languages() // But also, give the changeling the languages they've already absorbed before this.
-	L.add_language("Changeling")
 	// If there's a mob_override, this is a body transfer, and therefore we should give them back their powers they had while in the old body.
 	if(mob_override)
 		for(var/datum/action/changeling/power in acquired_powers)
@@ -129,7 +126,6 @@
 	if(L.hud_used?.lingstingdisplay)
 		L.hud_used.lingstingdisplay.invisibility = 101
 		L.hud_used.lingchemdisplay.invisibility = 101
-	L.remove_language("Changeling")
 	remove_unnatural_languages(L)
 	UnregisterSignal(L, COMSIG_MOB_DEATH)
 	// If there's a mob_override, this is a body transfer, and therefore we should only remove their powers from the old body.

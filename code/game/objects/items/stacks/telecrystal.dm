@@ -34,8 +34,10 @@
 		use(amount)
 		to_chat(user, "<span class='notice'>You slot [src] into [cart].  The next time it's used, it will also give telecrystals</span>")
 
-/obj/item/stack/telecrystal/detailed_examine_antag()
-	return "Telecrystals can be activated by utilizing them on devices with an actively running uplink. They will not activate on unactivated uplinks."
+/obj/item/stack/telecrystal/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='warning'>Telecrystals can be activated by utilizing them on devices with an actively running uplink. They will not activate on inactive uplinks.</span>"
 
 /obj/item/stack/telecrystal/five
 	amount = 5

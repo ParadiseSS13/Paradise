@@ -606,10 +606,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
-	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
-	if(client)
-		client.update_description_holders(A, is_antag)
-
 	face_atom(A)
 	var/list/result = A.examine(src)
 	to_chat(src, result.Join("\n"))
@@ -1169,6 +1165,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
+			if(!(is_station_level(L.z) || is_admin_level(L.z))) // Prevents players from spawning in space
+				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures

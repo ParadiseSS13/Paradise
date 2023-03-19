@@ -92,6 +92,7 @@
 	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = FALSE // HUNKE
+	sprite_sheets = null
 
 /obj/item/clothing/under/misc/burial
 	name = "burial garments"

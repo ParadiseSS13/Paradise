@@ -866,7 +866,7 @@
 	atom_say(message)
 
 /obj/machinery/economy/vending/power_change()
-	..()
+	. = ..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
