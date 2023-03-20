@@ -35,7 +35,7 @@
 
 	/// How much brute and burn does milk heal per handle_reagents()
 	var/milk_heal_amount = 4
-	// How likely (in %) are we to heal a fracture?
+	/// How likely (in %) are we to heal a fracture?
 	var/milk_fracture_repair_probability = 5
 
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
