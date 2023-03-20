@@ -564,6 +564,8 @@
 	new /obj/item/autoimplanter(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite/med(src)
 	new /obj/item/bodyanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
+	new /obj/item/stack/medical/splint(src)
 
 /obj/item/storage/backpack/duffel/syndie/c4/New()
 	..()
