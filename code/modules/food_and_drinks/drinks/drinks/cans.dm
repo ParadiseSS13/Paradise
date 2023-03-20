@@ -298,10 +298,16 @@
 	list_reagents = list("bluecow" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/solar_espresso
-	name = "Solar Espresso."
+	name = "Solar Espresso"
 	desc = "For your caffinated needs!"
 	icon_state ="espressocan"
 	list_reagents = list("espresso" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/nebula_fizz
+	name = "Nebula Fizz"
+	desc = "Mmmm Deep-Space flavoured!"
+	icon_state ="nebulafizz"
+	list_reagents = list("nebulafizz" = 30)
 
 
 /obj/item/reagent_containers/food/drinks/cans/bottler/on_reagent_change()

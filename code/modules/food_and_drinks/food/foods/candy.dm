@@ -124,6 +124,17 @@
 	bitesize = 4
 	list_reagents = list("sugar" = 15)
 
+/obj/item/reagent_containers/food/snacks/candy/plasmapuffs
+	name = "plasma puffs"
+	desc = "A savory snack made from a mixture of dehydrated plasma and various spices!"
+	icon_state = "plasmapuffs"
+	trash = /obj/item/trash/plasmapuffs
+	filling_color = "#FFFFFF"
+	bitesize = 4
+	list_reagents = list("plasma" = 0.1, "sugar" = 20)
+	tastes = list("plasma" = 1)
+
+
 /obj/item/reagent_containers/food/snacks/candy/candybar
 	name = "candy"
 	desc = "A chocolate candybar, wrapped in a bit of foil."

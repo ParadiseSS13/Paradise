@@ -114,6 +114,11 @@
 	name = "biscuit bar"
 	icon_state = "biscuitbar"
 
+/obj/item/trash/plasmapuffs
+	name = "plasma puffs"
+	icon_state = "plasmapuffs"
+
+
 /obj/item/trash/spentcasing
 	icon = 'icons/obj/ammo.dmi'
 	name = "bullet casing"

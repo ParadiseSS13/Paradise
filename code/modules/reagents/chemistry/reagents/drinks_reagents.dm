@@ -771,7 +771,7 @@
 	id = "voobra"
 	description = "A Neo-Russkyian favourite! Made in glorious Nova Cygni herself!"
 	reagent_state = LIQUID
-	color = "#100800" // rgb: 16, 8, 0
+	color = "#100800" // rgb: 255, 128, 0
 	adj_drowsy = -10 SECONDS
 	drink_icon = "voobra"
 	drink_name = "Glass of Voobra!"
@@ -783,7 +783,7 @@
 	id = "rootbeer"
 	description = "Child friendly beer!"
 	reagent_state = LIQUID
-	color = "#100800" // rgb: 16, 8, 0
+	color = "#100800" // rgb: 102, 51, 0
 	adj_drowsy = -5 SECONDS
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Root Beer"
@@ -795,11 +795,23 @@
 	id = "bluecow"
 	description = "They put WHAT in this?!"
 	reagent_state = LIQUID
-	color = "#100800" // rgb: 16, 8, 0
+	color = "#100800" // rgb: 247, 223, 4
 	adj_drowsy = -10 SECONDS
 	heart_rate_increase = 10
 	drink_icon = "lemonglass"
 	drink_name = "Glass of Blue Cow!"
 	drink_desc = "Cow. . . cow what?"
 	taste_description = "the fact that your insides are burning."
+
+/datum/reagent/consumable/drink/nebula_fizz
+	name = "Nebula Fizz"
+	id = "nebuladizz"
+	description = "A a soft drink that fizzes with the flavors of exotic fruits found in the depths of space."
+	reagent_state = LIQUID
+	color = "#100800" // rgb: 76, 0, 153
+	adj_drowsy = -10 SECONDS
+	drink_icon = "berryjuice"
+	drink_name = "Glass of Nebula Fizz!"
+	drink_desc = "This refreshing beverage will keep you energized and alert during long shifts aboard the Nanotrasen stations!"
+	taste_description = "exotic fruits"
 
