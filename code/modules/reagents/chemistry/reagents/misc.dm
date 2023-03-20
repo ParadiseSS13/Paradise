@@ -716,7 +716,6 @@
 	taste_description = "Strange"
 
 /datum/reagent/monkeylanguage/on_mob_life(mob/living/M)
-	if(volume > 5)
+	if(volume > 4)
 		M.add_language("Chimpanzee")
-		to_chat(M, "<span class='notice'>What a stran-eek Eek ock ock!</span>")
-	return
+	return ..()

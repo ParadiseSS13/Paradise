@@ -400,4 +400,4 @@
 	name = "bottle of monkey language potion"
 	desc = "A bottle of monkey language potion."
 	icon_state = "round_bottle"
-	list_reagents = list("monkeylanguage" = 5)
+	list_reagents = list("monkeylanguage" = 30)
