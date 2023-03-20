@@ -27,8 +27,8 @@
 			if((H.l_ear && H.l_ear.flags_2 & HEALS_EARS_2) || (H.r_ear && H.r_ear.flags_2 & HEALS_EARS_2))
 				deaf = max(deaf - 1, 1)
 				damage = max(damage - 0.10, 0)
-		// if higher than UNHEALING_EAR_DAMAGE, no natural healing occurs.
-		if(damage < UNHEALING_EAR_DAMAGE)
+		// natural healing if not broken
+		if(damage < min_broken_damage)
 			damage = max(damage - 0.05, 0)
 			deaf = max(deaf - 1, 0)
 
