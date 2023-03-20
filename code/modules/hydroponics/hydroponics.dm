@@ -342,11 +342,11 @@
 		overlays += image('icons/obj/hydroponics/equipment.dmi', icon_state = "over_harvest3")
 
 
-/obj/machinery/hydroponics/examine(mob/living/carbon/human/H)
+/obj/machinery/hydroponics/examine(mob/user)
 	. = ..()
 	if(myseed)
 		. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
-		if (H.glasses && istype(H.glasses, /obj/item/clothing/glasses/hud/hydroponic))
+		if(hasHUD(user, DATA_HUD_HYDROPONIC) || isobserver(user))
 			. += myseed.get_analyzer_text()
 			. += "<span class='notice'>Weed: [weedlevel] / 10</span>"
 			. += "<span class='notice'>Pest: [pestlevel] / 10</span>"

@@ -175,7 +175,7 @@
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
 	icon_state = "hydroponichud"
 	HUDType = DATA_HUD_HYDROPONIC
-
+	examine_extensions = list(DATA_HUD_HYDROPONIC)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
