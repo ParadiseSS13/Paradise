@@ -31972,7 +31972,7 @@
 "cYw" = (
 /mob/living/simple_animal/mouse/white{
 	desc = "Близкий друг психиатра. Не подпускать к Рантайму.";
-	real_name = "Бобби"
+	name = "Бобби"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
