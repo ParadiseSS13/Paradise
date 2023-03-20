@@ -90,6 +90,9 @@
 	button_icon_state = "tail"
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
+/datum/action/innate/tail_lash/Trigger()
+	return IsAvailable(show_message = TRUE)
+
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
 	if((user.restrained() && user.pulledby) || user.buckled)
@@ -118,14 +121,16 @@
 				to_chat(user, "<span class='warning'>Вы выбились из сил!</span>")
 				return
 
-/datum/action/innate/tail_lash/IsAvailable()
+/datum/action/innate/tail_lash/IsAvailable(show_message = FALSE)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
 	if(!user.bodyparts_by_name["tail"])
-		to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>У вас НЕТ ХВОСТА!</span>")
 		return FALSE
 	if(!istype(user.bodyparts_by_name["tail"], /obj/item/organ/external/tail/unathi))
-		to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>У вас слабый хвост!</span>")
 		return FALSE
 	return .
 
