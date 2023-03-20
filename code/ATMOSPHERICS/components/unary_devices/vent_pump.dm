@@ -339,7 +339,7 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/paper))
+	if(istype(W, /obj/item/paper) || istype(W, /obj/item/stack/spacecash))
 		if(!welded)
 			if(open)
 				user.drop_item(W)
