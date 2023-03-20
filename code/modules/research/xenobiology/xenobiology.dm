@@ -137,7 +137,7 @@
 	if(C.slime_potions)
 		for(var/Potion as obj in GLOB.slime_potions)
 			var/obj/item/slimepotion/S = Potion
-			if(S.id == C.slime_potions)	
+			if(S.id == C.slime_potions)
 				C.slime_potions = null
 				C.name = initial(C.name)
 				var/datum/armor/current_armor = C.armor
@@ -753,7 +753,7 @@
 	C.add_atom_colour("#2b2b2a", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
-	C.armor = current_armor.attachArmor(armor)	
+	C.armor = current_armor.attachArmor(armor)
 	to_chat(user, "<span class='notice'>You slather the green gunk over [C], making it more explosionproof.</span>")
 	qdel(src)
 
@@ -823,7 +823,7 @@
 		to_chat(user, "<span class='warning'>[C] was already improoved by some potion! You washed away previous potion</span>")
 
 	C.slime_potions = id
-	C.name = "damagepoof [C.name]"
+	C.name = "damageproof [C.name]"
 	C.add_atom_colour("#00d9ffff", WASHABLE_COLOUR_PRIORITY)
 	C.is_improoved_by_potion = TRUE
 	var/datum/armor/current_armor = C.armor
