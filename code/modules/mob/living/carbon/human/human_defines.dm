@@ -62,9 +62,6 @@
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE
 
-	var/fire_dmi = 'icons/mob/OnFire.dmi'
-	var/fire_sprite = "Standing"
-
 	var/datum/body_accessory/body_accessory = null
 	/// Name of tail image in species effects icon file.
 	var/tail

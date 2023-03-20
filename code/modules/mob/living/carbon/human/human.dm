@@ -1899,9 +1899,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return getBrainLoss() < 100
 
 
-/mob/living/carbon/human/fakefire(var/fire_icon = "Generic_mob_burning")
+/mob/living/carbon/human/fakefire()
 	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image("icon"=fire_dmi, "icon_state"=fire_icon)
+		overlays_standing[FIRE_LAYER] = image(FIRE_DMI, icon_state = "Generic_mob_burning")
 		update_icons()
 
 /mob/living/carbon/human/fakefireextinguish()

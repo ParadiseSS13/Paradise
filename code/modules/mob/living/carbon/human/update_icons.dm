@@ -465,7 +465,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_mutations()
 	remove_overlay(MUTATIONS_LAYER)
-	var/mutable_appearance/standing = mutable_appearance(genetic_mutable, layer = -MUTATIONS_LAYER)
+	var/mutable_appearance/standing = mutable_appearance(issmall(src) ? 'icons/mob/species/monkey/genetics.dmi' : 'icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
 	var/add_image = 0
 	var/g = "m"
 	if(gender == FEMALE)
@@ -509,7 +509,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(FIRE_LAYER)
 	if(on_fire)
 		if(!overlays_standing[FIRE_LAYER])
-			overlays_standing[FIRE_LAYER] = mutable_appearance(fire_dmi, fire_sprite, layer = -FIRE_LAYER)
+			overlays_standing[FIRE_LAYER] = mutable_appearance(FIRE_DMI, icon_state = "Standing", layer = -FIRE_LAYER)
 	apply_overlay(FIRE_LAYER)
 
 /* --------------------------------------- */

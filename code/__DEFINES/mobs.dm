@@ -280,3 +280,5 @@
 #define HEARING_PROTECTION_MINOR	1
 #define HEARING_PROTECTION_MAJOR	2
 #define HEARING_PROTECTION_TOTAL	3
+
+#define FIRE_DMI (issmall(src) ? 'icons/mob/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')

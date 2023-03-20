@@ -1,9 +1,11 @@
 /mob/living/carbon/human/lesser
 	var/master_commander = null //переменная хранящая владельца "животного"
-	fire_dmi = 'icons/mob/species/monkey/OnFire.dmi'
-	genetic_mutable = 'icons/mob/species/monkey/genetics.dmi'
 	var/sentience_type = SENTIENCE_ORGANIC
 	//holder_type = /obj/item/holder/monkey	//Задыхается сидя на голове или в сумке, временно отключен
+
+/mob/living/carbon/human/lesser/Initialize(mapload, species)
+	icon = null
+	. = ..(mapload, species)
 
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)

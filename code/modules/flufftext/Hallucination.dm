@@ -23,9 +23,6 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/hal_screwyhud = SCREWYHUD_NONE
 	var/handling_hal = FALSE
 
-	var/genetic_mutable = 'icons/effects/genetics.dmi'
-
-
 /mob/living/carbon/proc/handle_hallucinations()
 	if(handling_hal)
 		return
