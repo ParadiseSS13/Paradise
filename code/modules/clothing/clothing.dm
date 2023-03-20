@@ -469,8 +469,7 @@ BLIND     // can't see anything
 			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 				user.unEquip(src)
 			else //Otherwise, put it in an available hand, the active one preferentially.
-				src.loc = user
-				H.head = null
+				user.unEquip(src)
 				user.put_in_hands(src)
 	else
 		icon_state += "_up"
@@ -495,8 +494,7 @@ BLIND     // can't see anything
 			if(H.l_hand && H.r_hand) //If both hands are occupied, drop the object on the ground.
 				user.unEquip(src)
 			else //Otherwise, put it in an available hand, the active one preferentially.
-				src.loc = user
-				user.wear_mask = null
+				user.unEquip(src)
 				user.put_in_hands(src)
 	H.wear_mask_update(src, toggle_off = mask_adjusted)
 	usr.update_inv_wear_mask()
@@ -895,7 +893,7 @@ BLIND     // can't see anything
 		"Neara" = 'icons/mob/species/monkey/neck.dmi',
 		"Stok" = 'icons/mob/species/monkey/neck.dmi'
 		)
-	
+
 /obj/item/clothing/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!teleportation)
 		return ..()
@@ -909,7 +907,7 @@ BLIND     // can't see anything
 			if(T.density)
 				continue
 			if(T.x>world.maxx-3 || T.x<3)
-				continue			
+				continue
 			if(T.y>world.maxy-3 || T.y<3)
 				continue
 			turfs += T
