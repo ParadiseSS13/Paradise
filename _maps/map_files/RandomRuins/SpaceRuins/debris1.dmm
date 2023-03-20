@@ -59,8 +59,6 @@
 /area/template_noop)
 "t" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/space,
@@ -98,8 +96,6 @@
 /area/space)
 "D" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_y = 0;
 	tag = ""

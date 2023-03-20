@@ -1046,8 +1046,6 @@
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/bartender,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1108,8 +1106,6 @@
 	name = "Security Airlock"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1118,8 +1114,6 @@
 /area/awaymission/research)
 "ds" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -1134,8 +1128,6 @@
 	name = "Windoor"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1146,8 +1138,6 @@
 /area/awaymission/research)
 "du" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -1175,8 +1165,6 @@
 /area/awaymission/northblock)
 "dx" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -1184,8 +1172,6 @@
 /area/awaymission/northblock)
 "dy" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1194,8 +1180,6 @@
 /area/awaymission/northblock)
 "dz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1208,8 +1192,6 @@
 /area/awaymission/northblock)
 "dA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1231,8 +1213,6 @@
 /area/awaymission/research)
 "dC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -1284,8 +1264,6 @@
 /area/awaymission/research)
 "dI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1506,8 +1484,6 @@
 /area/awaymission/syndishuttle)
 "ej" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -1581,8 +1557,6 @@
 "es" = (
 /obj/machinery/door/airlock/command,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1591,8 +1565,6 @@
 /area/awaymission/northblock)
 "et" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1611,8 +1583,6 @@
 /area/awaymission/arrivalblock)
 "ev" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1622,14 +1592,10 @@
 /area/awaymission/northblock)
 "ew" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -1888,8 +1854,6 @@
 /area/awaymission/midblock)
 "fb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -2043,8 +2007,6 @@
 /area/awaymission/midblock)
 "fr" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2052,8 +2014,6 @@
 /area/awaymission/northblock)
 "fs" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -2062,8 +2022,6 @@
 /area/awaymission/midblock)
 "ft" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -2161,8 +2119,6 @@
 /obj/item/ammo_casing/c10mm,
 /obj/item/clothing/under/syndicate,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2191,8 +2147,6 @@
 /area/awaymission/midblock)
 "fF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -2201,14 +2155,10 @@
 /area/awaymission/midblock)
 "fG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -2322,8 +2272,6 @@
 /area/awaymission/northblock)
 "fT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2419,8 +2367,6 @@
 /area/awaymission/midblock)
 "gg" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2482,8 +2428,6 @@
 /area/awaymission/midblock)
 "gq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2595,8 +2539,6 @@
 "gG" = (
 /obj/structure/table,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -2606,8 +2548,6 @@
 "gH" = (
 /obj/structure/chair/stool,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -2821,8 +2761,6 @@
 "hj" = (
 /obj/structure/chair/stool,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2948,8 +2886,6 @@
 	icon_state = "tube1"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2978,8 +2914,6 @@
 /area/awaymission/midblock)
 "hD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3046,8 +2980,6 @@
 /area/awaymission/midblock)
 "hO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3132,8 +3064,6 @@
 /area/awaymission/arrivalblock)
 "hY" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3145,8 +3075,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3156,8 +3084,6 @@
 "ia" = (
 /obj/effect/decal/remains/human,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3173,8 +3099,6 @@
 	req_access_txt = "0"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3183,8 +3107,6 @@
 /area/awaymission/arrivalblock)
 "ic" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3315,8 +3237,6 @@
 "iy" = (
 /obj/item/ammo_casing/c10mm,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3393,8 +3313,6 @@
 "iI" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3465,8 +3383,6 @@
 /area/awaymission/southblock)
 "iS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3562,8 +3478,6 @@
 /area/awaymission/arrivalblock)
 "jh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -3571,8 +3485,6 @@
 /area/awaymission/southblock)
 "ji" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3584,8 +3496,6 @@
 	pixel_y = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3594,15 +3504,11 @@
 /area/awaymission/southblock)
 "jk" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -3610,14 +3516,10 @@
 /area/awaymission/southblock)
 "jl" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -3625,8 +3527,6 @@
 /area/awaymission/southblock)
 "jm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -3649,8 +3549,6 @@
 	name = "Airlock"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3671,8 +3569,6 @@
 "jt" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3746,8 +3642,6 @@
 /area/awaymission/southblock)
 "jE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3942,8 +3836,6 @@
 	icon_state = "tube1"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3974,8 +3866,6 @@
 /area/awaymission/gateroom)
 "kk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4036,8 +3926,6 @@
 /area/awaymission/gateroom)
 "ks" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4154,8 +4042,6 @@
 /area/awaymission/gateroom)
 "kL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4165,14 +4051,10 @@
 /area/awaymission/southblock)
 "kM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4182,8 +4064,6 @@
 /area/awaymission/southblock)
 "kN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4245,8 +4125,6 @@
 /area/awaymission/gateroom)
 "kW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4433,8 +4311,6 @@
 "lA" = (
 /obj/effect/decal/remains/human,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4442,8 +4318,6 @@
 /area/awaymission/southblock)
 "lB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4457,8 +4331,6 @@
 /area/awaymission/gateroom)
 "lD" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -4520,8 +4392,6 @@
 /area/awaymission/southblock)
 "lM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -4529,8 +4399,6 @@
 /area/awaymission/southblock)
 "lN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4539,8 +4407,6 @@
 /area/awaymission/southblock)
 "lR" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4550,8 +4416,6 @@
 /area/awaymission/gateroom)
 "lS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4560,21 +4424,15 @@
 /area/awaymission/gateroom)
 "lT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -4638,8 +4496,6 @@
 /area/awaymission/southblock)
 "md" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},

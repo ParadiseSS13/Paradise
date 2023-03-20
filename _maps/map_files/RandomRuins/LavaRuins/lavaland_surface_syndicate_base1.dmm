@@ -682,8 +682,6 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/glass{
@@ -711,8 +709,6 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine/insulated,
@@ -728,8 +724,6 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bj" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/glass{
@@ -1285,8 +1279,6 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cp" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/igniter{
@@ -5340,8 +5332,6 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
@@ -5495,8 +5485,6 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "lM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -5703,8 +5691,6 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -5849,8 +5835,6 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5973,8 +5957,6 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/stripes/line,

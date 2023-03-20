@@ -18262,8 +18262,6 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/mech_bay_recharge_port/upgraded,
@@ -41936,8 +41934,6 @@
 	operation_req_access = list(1)
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/mech,

@@ -71,8 +71,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -112,8 +110,6 @@
 /area/space/nearstation)
 "aw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},

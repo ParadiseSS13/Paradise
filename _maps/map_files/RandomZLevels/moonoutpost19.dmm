@@ -449,8 +449,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "bf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -584,8 +582,6 @@
 	req_access_txt = "150"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -666,8 +662,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "bB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -767,8 +761,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "bQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -781,8 +773,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "bR" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -816,8 +806,6 @@
 	},
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -935,8 +923,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "cf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -980,8 +966,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "ci" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -1094,14 +1078,10 @@
 /area/moonoutpost19/syndicateoutpost)
 "ct" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -1114,8 +1094,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "cu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -1130,8 +1108,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "cv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -1145,8 +1121,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "cw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -1154,8 +1128,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "cx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -1167,20 +1139,14 @@
 /area/moonoutpost19/syndicateoutpost)
 "cy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -1189,8 +1155,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "cz" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -1204,8 +1168,6 @@
 /area/moonoutpost19/syndicateoutpost)
 "cB" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -1758,8 +1720,6 @@
 /area/moonoutpost19/khonsu19)
 "dB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2010,8 +1970,6 @@
 /area/moonoutpost19/mo19research)
 "ei" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -2027,8 +1985,6 @@
 /area/moonoutpost19/mo19research)
 "ej" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2178,8 +2134,6 @@
 /area/moonoutpost19/mo19research)
 "ex" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2338,8 +2292,6 @@
 /area/moonoutpost19/mo19research)
 "eO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2455,8 +2407,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fa" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2494,8 +2444,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fd" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2520,8 +2468,6 @@
 /area/moonoutpost19/mo19research)
 "fe" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -2533,8 +2479,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fg" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2593,8 +2537,6 @@
 /area/moonoutpost19/mo19research)
 "fm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2657,8 +2599,6 @@
 /area/moonoutpost19/mo19research)
 "fr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2677,8 +2617,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "ft" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2699,8 +2637,6 @@
 	pixel_x = 32
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -2757,8 +2693,6 @@
 /area/moonoutpost19/mo19research)
 "fx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -2766,14 +2700,10 @@
 /area/moonoutpost19/mo19utilityroom)
 "fy" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2783,8 +2713,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2796,8 +2724,6 @@
 /area/moonoutpost19/mo19research)
 "fA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2808,8 +2734,6 @@
 /area/moonoutpost19/mo19research)
 "fB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2822,8 +2746,6 @@
 /area/moonoutpost19/mo19research)
 "fC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2834,8 +2756,6 @@
 /area/moonoutpost19/mo19research)
 "fD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -2889,8 +2809,6 @@
 	icon_state = "medium"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2986,8 +2904,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fN" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -2995,8 +2911,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3007,8 +2921,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -3029,14 +2941,10 @@
 /area/moonoutpost19/mo19research)
 "fR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -3099,14 +3007,10 @@
 /area/moonoutpost19/mo19utilityroom)
 "fZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3197,14 +3101,10 @@
 /area/moonoutpost19/mo19research)
 "gh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -3216,8 +3116,6 @@
 "gi" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -3290,8 +3188,6 @@
 	pixel_x = 32
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3625,8 +3521,6 @@
 	color = "black"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3644,8 +3538,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "gQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3808,8 +3700,6 @@
 /area/moonoutpost19/mo19research)
 "hf" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3868,8 +3758,6 @@
 /area/moonoutpost19/mo19research)
 "hl" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4133,8 +4021,6 @@
 /area/moonoutpost19/mo19research)
 "hH" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -4164,8 +4050,6 @@
 /area/moonoutpost19/mo19arrivals)
 "hL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4174,8 +4058,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "hM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -4692,8 +4574,6 @@
 /area/moonoutpost19/mo19research)
 "iL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4999,8 +4879,6 @@
 /area/moonoutpost19/mo19research)
 "ju" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5215,8 +5093,6 @@
 /area/moonoutpost19/mo19arrivals)
 "jW" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5270,8 +5146,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "kc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -5311,8 +5185,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5358,8 +5230,6 @@
 /area/moonoutpost19/mo19research)
 "kk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5368,8 +5238,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "kl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5386,8 +5254,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kn" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5461,8 +5327,6 @@
 /area/moonoutpost19/mo19arrivals)
 "ku" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5515,8 +5379,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5567,8 +5429,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5581,8 +5441,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kG" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5595,8 +5453,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5610,8 +5466,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5679,8 +5533,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5692,8 +5544,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5706,8 +5556,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kR" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5746,8 +5594,6 @@
 "kU" = (
 /obj/machinery/light/small,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5769,8 +5615,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kW" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5853,8 +5697,6 @@
 /area/moonoutpost19/mo19arrivals)
 "li" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6049,8 +5891,6 @@
 /area/moonoutpost19/mo19arrivals)
 "lJ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6112,8 +5952,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6262,8 +6100,6 @@
 /area/moonoutpost19/mo19arrivals)
 "mn" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6278,8 +6114,6 @@
 /area/moonoutpost19/mo19arrivals)
 "mo" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6293,8 +6127,6 @@
 	opacity = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6765,8 +6597,6 @@
 /area/moonoutpost19/mo19arrivals)
 "nA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6928,8 +6758,6 @@
 /area/moonoutpost19/mo19arrivals)
 "nU" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -7293,8 +7121,6 @@
 "oJ" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},

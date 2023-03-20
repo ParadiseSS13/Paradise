@@ -590,8 +590,6 @@
 /area/syndicate_depot/core)
 "bL" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -856,8 +854,6 @@
 /area/syndicate_depot/core)
 "cv" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -869,13 +865,9 @@
 /area/syndicate_depot/core)
 "cw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -977,8 +969,6 @@
 /area/syndicate_depot/core)
 "cI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1024,8 +1014,6 @@
 /area/syndicate_depot/core)
 "cO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -1065,8 +1053,6 @@
 	},
 /obj/effect/spawner/random_spawners/syndicate/turret,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1130,8 +1116,6 @@
 /area/syndicate_depot/core)
 "db" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/light/small,

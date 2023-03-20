@@ -957,8 +957,6 @@
 "cz" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -973,8 +971,6 @@
 /area/awaymission/centcomAway/hangar)
 "cB" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -1033,8 +1029,6 @@
 "cL" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1043,8 +1037,6 @@
 /area/awaymission/centcomAway/maint)
 "cM" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1053,8 +1045,6 @@
 /area/awaymission/centcomAway/maint)
 "cN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1064,20 +1054,14 @@
 /area/awaymission/centcomAway/maint)
 "cO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1184,8 +1168,6 @@
 /area/awaymission/centcomAway/cafe)
 "dc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -1258,8 +1240,6 @@
 	},
 /obj/structure/cable,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -1498,14 +1478,10 @@
 /area/awaymission/centcomAway/cafe)
 "dQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -1539,14 +1515,10 @@
 /area/awaymission/centcomAway/hangar)
 "dU" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -1640,8 +1612,6 @@
 /area/awaymission/centcomAway/hangar)
 "eh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0;
 	tag = ""
@@ -1758,8 +1728,6 @@
 /area/awaymission/centcomAway/cafe)
 "ev" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
@@ -1820,8 +1788,6 @@
 	start_charge = 100
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -2071,8 +2037,6 @@
 "fq" = (
 /obj/machinery/door/airlock/centcom,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -2350,8 +2314,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -2481,8 +2443,6 @@
 /area/awaymission/centcomAway/general)
 "gu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -2656,13 +2616,9 @@
 /area/awaymission/centcomAway/general)
 "gP" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -2683,8 +2639,6 @@
 "gS" = (
 /obj/machinery/light,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -2719,8 +2673,6 @@
 /area/awaymission/centcomAway/hangar)
 "gZ" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -2758,8 +2710,6 @@
 	req_access_txt = "10"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -2778,8 +2728,6 @@
 /area/awaymission/centcomAway/general)
 "hh" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -2788,8 +2736,6 @@
 /area/awaymission/centcomAway/general)
 "hi" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -2849,8 +2795,6 @@
 "hp" = (
 /obj/machinery/door/airlock/centcom,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -2884,8 +2828,6 @@
 /area/awaymission/centcomAway/general)
 "hu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -3005,8 +2947,6 @@
 /area/awaymission/centcomAway/hangar)
 "hM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -3038,14 +2978,10 @@
 /area/awaymission/centcomAway/general)
 "hQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -3132,8 +3068,6 @@
 /area/awaymission/centcomAway/general)
 "hZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -3216,8 +3150,6 @@
 /area/awaymission/centcomAway/courtroom)
 "ik" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3252,14 +3184,10 @@
 /area/awaymission/centcomAway/general)
 "io" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3279,8 +3207,6 @@
 	req_access_txt = "32"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -3304,8 +3230,6 @@
 	d2 = 2
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -3465,8 +3389,6 @@
 /area/awaymission/centcomAway/hangar)
 "iO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -3483,8 +3405,6 @@
 /area/awaymission/centcomAway/hangar)
 "iQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3512,14 +3432,10 @@
 /area/awaymission/centcomAway/general)
 "iU" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -3533,8 +3449,6 @@
 	in_use = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3553,8 +3467,6 @@
 /area/awaymission/centcomAway/general)
 "iX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3566,8 +3478,6 @@
 /area/awaymission/centcomAway/general)
 "iY" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3599,14 +3509,10 @@
 /area/awaymission/centcomAway/courtroom)
 "jc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3627,8 +3533,6 @@
 	in_use = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3641,8 +3545,6 @@
 /area/awaymission/centcomAway/general)
 "jf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3751,8 +3653,6 @@
 /area/awaymission/centcomAway/hangar)
 "jq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
@@ -3763,8 +3663,6 @@
 /area/awaymission/centcomAway/hangar)
 "jr" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3776,8 +3674,6 @@
 	req_access_txt = "101"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -3786,8 +3682,6 @@
 /area/awaymission/centcomAway/maint)
 "jt" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -3810,8 +3704,6 @@
 /area/awaymission/centcomAway/general)
 "jw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -3844,8 +3736,6 @@
 /area/awaymission/centcomAway/hangar)
 "jA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/warning_stripes/west,
@@ -3855,14 +3745,10 @@
 /area/awaymission/centcomAway/general)
 "jB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = "90Curve"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -4016,8 +3902,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -4275,8 +4159,6 @@
 /area/awaymission/centcomAway/courtroom)
 "kA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -4405,8 +4287,6 @@
 /area/awaymission/centcomAway/hangar)
 "kT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4474,8 +4354,6 @@
 /area/awaymission/centcomAway/hangar)
 "kZ" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -4487,8 +4365,6 @@
 "la" = (
 /obj/machinery/light,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4500,8 +4376,6 @@
 /area/awaymission/centcomAway/general)
 "lb" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -4522,8 +4396,6 @@
 /area/awaymission/centcomAway/general)
 "ld" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -4562,8 +4434,6 @@
 /area/awaymission/centcomAway/general)
 "li" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -4786,8 +4656,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -4885,8 +4753,6 @@
 /area/awaymission/centcomAway/general)
 "lT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5128,8 +4994,6 @@
 /area/awaymission/centcomAway/general)
 "mw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5256,8 +5120,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5383,8 +5245,6 @@
 	name = "XCC Main Access Shutters"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5548,8 +5408,6 @@
 /area/awaymission/centcomAway/hangar)
 "nt" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5609,8 +5467,6 @@
 /area/awaymission/centcomAway/general)
 "nA" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5734,8 +5590,6 @@
 "nQ" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5760,8 +5614,6 @@
 "nT" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5816,8 +5668,6 @@
 /area/awaymission/centcomAway/general)
 "ob" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},
@@ -5872,8 +5722,6 @@
 "oi" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
 	},

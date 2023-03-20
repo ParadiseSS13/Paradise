@@ -13,8 +13,6 @@
 	color = "lightblue"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -115,8 +113,6 @@
 /area/ruin/space/crashedipcship/middle)
 "cc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -132,8 +128,6 @@
 /area/ruin/space/crashedipcship/aft)
 "cj" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -185,18 +179,12 @@
 /area/space)
 "cG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
@@ -300,8 +288,6 @@
 /area/ruin/space/crashedipcship/asteroid)
 "eb" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -460,8 +446,6 @@
 /area/ruin/space/crashedipcship/aft)
 "hZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -473,8 +457,6 @@
 /area/ruin/space/crashedipcship/middle)
 "ij" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -565,8 +547,6 @@
 /area/ruin/space/crashedipcship/middle)
 "ku" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/r_wall/coated,
@@ -696,14 +676,10 @@
 /area/ruin/space/crashedipcship/middle)
 "lZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -711,8 +687,6 @@
 /obj/effect/decal/cleanable/ash,
 /obj/item/stock_parts/matter_bin/super,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/landmark/tiles/damageturf,
@@ -752,8 +726,6 @@
 /area/ruin/space/crashedipcship/asteroid)
 "mv" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/spacevine,
@@ -805,8 +777,6 @@
 /area/ruin/space/crashedipcship/asteroid)
 "mZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/wall/shuttle{
@@ -854,14 +824,10 @@
 /area/ruin/space/crashedipcship/asteroid)
 "nW" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/mob_spawn/headcrab,
@@ -902,8 +868,6 @@
 /area/ruin/space/crashedipcship/asteroid)
 "oI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -913,8 +877,6 @@
 /area/ruin/space/crashedipcship/engine)
 "oS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -953,14 +915,10 @@
 /area/ruin/space/crashedipcship/engine)
 "pJ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/turf_decal{
@@ -1127,8 +1085,6 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/trinary/filter{
@@ -1230,8 +1186,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -1520,8 +1474,6 @@
 "yy" = (
 /obj/machinery/computer/sm_monitor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -1550,8 +1502,6 @@
 /area/ruin/space/crashedipcship/middle)
 "yN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -1691,8 +1641,6 @@
 "AC" = (
 /obj/item/book/manual/ripley_build_and_repair,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -1803,8 +1751,6 @@
 /area/ruin/space/crashedipcship/middle)
 "Cu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -1994,8 +1940,6 @@
 /area/ruin/space/crashedipcship/aft)
 "FX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2033,8 +1977,6 @@
 /area/ruin/space/crashedipcship/asteroid)
 "Gm" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2045,8 +1987,6 @@
 "GK" = (
 /obj/item/circuitboard/cyborgrecharger,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2070,8 +2010,6 @@
 /area/ruin/space/crashedipcship/middle)
 "GW" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2140,8 +2078,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2221,8 +2157,6 @@
 /area/ruin/space/crashedipcship/middle)
 "Jy" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/item/shard,
@@ -2272,8 +2206,6 @@
 	on = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -2350,8 +2282,6 @@
 /area/ruin/space/crashedipcship/engine)
 "KS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2756,8 +2686,6 @@
 /area/ruin/space/crashedipcship/engine)
 "RW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2855,8 +2783,6 @@
 "TQ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2938,8 +2864,6 @@
 /area/ruin/space/crashedipcship/shard)
 "Vs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -3035,8 +2959,6 @@
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -3050,14 +2972,10 @@
 /obj/item/tank/internals/plasma/empty,
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -3141,8 +3059,6 @@
 /area/ruin/space/crashedipcship/aft)
 "ZK" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -3175,8 +3091,6 @@
 /area/ruin/space/crashedipcship/aft)
 "ZW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
