@@ -158,6 +158,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MINE0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+	local = TRUE
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
