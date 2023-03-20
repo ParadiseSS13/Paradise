@@ -590,7 +590,7 @@
 	head = /obj/item/clothing/head/sovietsidecap
 	id = /obj/item/card/id
 	shoes = /obj/item/clothing/shoes/combat
-	l_ear = /obj/item/radio/headset/syndicate
+	l_ear = /obj/item/radio/headset/soviet
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1
 	)
@@ -660,7 +660,6 @@
 	uniform = /obj/item/clothing/under/new_soviet/sovietadmiral
 	head = /obj/item/clothing/head/sovietadmiralhat
 	belt = /obj/item/gun/projectile/revolver/mateba
-	l_ear = /obj/item/radio/headset/syndicate
 	glasses = /obj/item/clothing/glasses/thermal/eyepatch
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 
