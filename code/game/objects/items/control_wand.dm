@@ -65,6 +65,8 @@
 
 /obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
+		D = locate() in get_turf(D)
+	if(!istype(D))
 		return
 	if(D.is_special)
 		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
