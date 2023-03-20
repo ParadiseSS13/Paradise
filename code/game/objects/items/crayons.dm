@@ -115,7 +115,7 @@
 		if(uses)
 			uses -= 5
 			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+				to_chat(user, "<span class='warning'>There is no more of [huffable ? "paint in " : ""][name] left!</span>")
 				qdel(src)
 
 	else
