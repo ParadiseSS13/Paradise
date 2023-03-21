@@ -10,6 +10,7 @@
 	emote_see = list("clacks")
 	death_sound = 'sound/creatures/crack_death2.ogg'
 	speak_chance = 1
+	blood_nutrients = 30
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets"

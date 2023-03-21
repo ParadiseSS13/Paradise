@@ -20,6 +20,7 @@
 	see_in_dark = 6
 	maxHealth = 5
 	health = 5
+	blood_nutrients = 20
 	blood_volume = BLOOD_VOLUME_SURVIVE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 1)
 	response_help  = "pets"
@@ -223,6 +224,7 @@
 /mob/living/simple_animal/mouse/blobinfected
 	maxHealth = 100
 	health = 100
+	blood_nutrients = 500
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
@@ -309,8 +311,10 @@
 	mouse_color = null
 	maxHealth = 15
 	health = 15
+	blood_nutrients = 30
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 2)
+
 
 /mob/living/simple_animal/mouse/rat/color_pick()
 	if(!mouse_color)

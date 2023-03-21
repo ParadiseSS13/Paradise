@@ -197,6 +197,7 @@
 	death_sound = 'sound/creatures/mouse_squeak.ogg'
 	health = 3
 	maxHealth = 3
+	blood_nutrients = 20
 	ventcrawler = 2
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -256,6 +257,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 15
 	maxHealth = 15
+	blood_nutrients = 30
 	ventcrawler = 2
 	var/eggsleft = 0
 	var/eggsFertile = TRUE

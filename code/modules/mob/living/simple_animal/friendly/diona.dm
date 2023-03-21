@@ -18,7 +18,7 @@
 
 	maxHealth = 50
 	health = 50
-
+	blood_nutrients = 30
 	voice_name = "diona nymph"
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")

@@ -17,6 +17,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	turns_per_move = 5
 	maxHealth = 10
 	health = 10
+	blood_nutrients = 30
 	butcher_results = list(/obj/item/stack/sheet/fur = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
