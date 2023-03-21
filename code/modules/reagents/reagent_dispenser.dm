@@ -98,6 +98,7 @@
 	icon_state = "fuel"
 	reagent_id = "fuel"
 	tank_volume = 4000
+	anchored = TRUE
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 
@@ -299,7 +300,6 @@
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
 	can_be_unwrenched = FALSE
-	anchored = TRUE
 	density = FALSE
 	accepts_rig = FALSE
 	tank_volume = 1000
