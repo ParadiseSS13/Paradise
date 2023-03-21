@@ -45,7 +45,6 @@
 		"anchoring ligament" = /obj/item/organ/internal/heart/diona
 		)
 
-	vision_organ = /obj/item/organ/internal/eyes/diona
 	mutantears = /obj/item/organ/internal/ears/diona
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/diona),

@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		return 1
 	if(!owner.current || owner.current.stat == DEAD)
 		return 0
-	if(!target.current || !isbrain(target.current))
+	if(!target.current || !(isbrain(target.current) || isnymph(target.current)))
 		return 0
 	var/atom/A = target.current
 	while(A.loc)			//check to see if the brainmob is on our person

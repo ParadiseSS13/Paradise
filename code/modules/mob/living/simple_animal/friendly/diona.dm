@@ -97,6 +97,7 @@
 		..()
 
 /mob/living/simple_animal/diona/run_resist()
+	..()
 	split()
 
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
@@ -191,10 +192,17 @@
 		adult.add_language(L.name)
 	adult.regenerate_icons()
 
-	adult.name = "diona ([rand(100,999)])"
-	adult.real_name = adult.name
+	if(splittext(name, " ")[2] == "diona")
+
+		adult.name = "diona ([rand(100,999)])"
+		adult.real_name = adult.name
+		adult.real_name = adult.dna.species.get_random_name()
+		//I hate this being here of all places but unfortunately dna is based on real_name!
+	else
+		adult.name = name
+		adult.real_name = real_name
+
 	adult.ckey = ckey
-	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
 
 	for(var/obj/item/W in contents)
 		unEquip(W)

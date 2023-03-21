@@ -138,3 +138,28 @@
 	icon_state = "claw"
 	desc = "A strange organic object used by a Gestalt for orientation in a three-dimensional projection."
 	parent_organ = "groin"
+
+/datum/component/diona_internals
+
+/datum/component/diona_internals/Initialize()
+	if(!isatom(parent))
+		return COMPONENT_INCOMPATIBLE
+	if(istype(parent, /obj/item/organ/internal))
+		RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, .proc/transform_organ)
+
+/datum/component/diona_internals/proc/transform_organ()
+	if(is_int_organ(parent))
+		var/obj/item/organ/internal/organ = parent
+		var/mob/living/simple_animal/diona/nymph = new /mob/living/simple_animal/diona(get_turf(organ.owner))
+		nymph.health = round(clamp(1 - organ.damage / organ.min_broken_damage, 0, 1) * nymph.maxHealth)
+
+		if(istype(parent, /obj/item/organ/internal/brain))
+			var/obj/item/organ/internal/brain/brain = organ
+			nymph.real_name = brain.brainmob.real_name
+			nymph.name = brain.brainmob.real_name
+			var/datum/mind/mind = brain.brainmob.mind
+			mind.transfer_to(nymph)
+
+		qdel(organ)
+
+

@@ -13,6 +13,12 @@
 	if(istype(holder))
 		insert(holder)
 
+/obj/item/organ/internal/Initialize(mapload)
+	. = ..()
+	if(species_type == /datum/species/diona)
+		AddComponent(/datum/component/diona_internals)
+
+
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, var/dont_remove_slot = 0)
 	if(!iscarbon(M) || owner == M)
 		return
@@ -50,11 +56,12 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
-	owner = null
+
 	if(M)
 		M.internal_organs -= src
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
+			SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()
@@ -71,6 +78,8 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
+
+	owner = null
 	START_PROCESSING(SSobj, src)
 	return src
 
