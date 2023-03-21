@@ -38,11 +38,12 @@
 		if(istype(G) && G.Touch(A, 0)) // for magic gloves
 			return
 
-	if((LASER in mutations) && a_intent == INTENT_HARM)
-		LaserEyes(A)
+	if(!GLOB.pacifism_after_gt)
+		if((LASER in mutations) && a_intent == INTENT_HARM)
+			LaserEyes(A)
 
-	if(TK in mutations)
-		A.attack_tk(src)
+		if(TK in mutations)
+			A.attack_tk(src)
 
 	if(isturf(A) && get_dist(src, A) <= 1)
 		Move_Pulled(A)

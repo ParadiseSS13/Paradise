@@ -67,7 +67,7 @@
 	if (check_item_eat(target, user))
 		return FALSE
 
-	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(force && (HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
 

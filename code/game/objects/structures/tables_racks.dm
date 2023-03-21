@@ -188,7 +188,7 @@
 	return
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		to_chat(user, "<span class='danger'>Throwing [G.affecting] onto the table might hurt them!</span>")
 		return
 	if(get_dist(src, user) < 2)

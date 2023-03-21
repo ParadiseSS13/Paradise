@@ -202,6 +202,10 @@
 	if(src == target)
 		return
 
+	if(GLOB.pacifism_after_gt)
+		to_chat(user, "<span class='warning'>You don't want to harm!</span>")
+		return
+
 	var/dir_to_target = get_dir(src, target)
 	if(dir_to_target && !(dir_to_target & dir))//wrong direction
 		return

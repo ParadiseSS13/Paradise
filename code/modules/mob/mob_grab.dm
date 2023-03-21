@@ -138,7 +138,7 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM))
+		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM) && !GLOB.pacifism_after_gt)
 			affecting.drop_r_hand()
 			affecting.drop_l_hand()
 
@@ -236,7 +236,7 @@
 /obj/item/grab/proc/s_click(obj/screen/S)
 	if(!confirm())
 		return
-	if(state >= GRAB_AGGRESSIVE && HAS_TRAIT(assailant, TRAIT_PACIFISM))
+	if(state >= GRAB_AGGRESSIVE && (HAS_TRAIT(assailant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
 		to_chat(assailant, "<span class='warning'>You don't want to risk hurting [affecting]!</span>")
 		return
 	if(state == GRAB_UPGRADING)

@@ -61,6 +61,8 @@ SUBSYSTEM_DEF(ticker)
 	var/end_state = "undefined"
 	/// Time the real reboot kicks in
 	var/real_reboot_time = 0
+	/// Do we need to switch pacifism after Greentext
+	var/toggle_pacifism = TRUE
 
 	var/list/randomtips = list()
 	var/list/memetips = list()
@@ -526,6 +528,9 @@ SUBSYSTEM_DEF(ticker)
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
+
+	if(toggle_pacifism)
+		GLOB.pacifism_after_gt = TRUE
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()

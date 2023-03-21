@@ -83,7 +83,10 @@
 		..()
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/sword_attack(mob/living/carbon/C)     // esword attack
-	src.do_attack_animation(C)
+	if((HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && dmg)
+		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
+	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
 	spawn(2)
 	icon_state = spin_icon
@@ -263,7 +266,10 @@
 	var/check_mug = TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/sword_attack(mob/living/carbon/C)     // esword attack
-	src.do_attack_animation(C)
+	if((HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && dmg)
+		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
+	do_attack_animation(C)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, -1)
 	icon_state = spin_icon
 	var/threat = C.assess_threat(src)

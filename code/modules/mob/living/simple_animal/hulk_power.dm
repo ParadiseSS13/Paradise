@@ -10,11 +10,11 @@
 	clothes_req = 0
 
 /obj/effect/proc_holder/spell/aoe_turf/hulk/hulk_transform/cast(list/targets, mob/user)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>Not enough angry power")
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		to_chat(user, "<span class='warning'>Not enough angry power.")
 		return
 	if(istype(user,/mob/living/simple_animal/hulk))
-		to_chat(user, "<span class='warning'>You are already hulk")
+		to_chat(user, "<span class='warning'>You are already hulk.")
 		return
 	to_chat(user, "<span class='bold notice'>You can feel real POWER.</span>")
 	if(istype(user.loc, /obj/machinery/dna_scannernew))

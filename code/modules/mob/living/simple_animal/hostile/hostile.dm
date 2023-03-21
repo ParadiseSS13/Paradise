@@ -547,6 +547,8 @@
 		return 1
 
 /mob/living/simple_animal/hostile/RangedAttack(atom/A, params) //Player firing
+	if(GLOB.pacifism_after_gt)
+		return
 	if(ranged && ranged_cooldown <= world.time)
 		target = A
 		OpenFire(A)

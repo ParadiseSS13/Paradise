@@ -55,6 +55,9 @@
 	log_and_message_admins("used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-")
 	GLOB.nologevent = 1
 
+	GLOB.pacifism_after_gt = FALSE
+	SSticker.toggle_pacifism = FALSE
+
 	var/sound/music = sound('sound/music/thunderdome.ogg', channel = CHANNEL_ADMIN)
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)

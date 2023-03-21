@@ -1,5 +1,5 @@
 /obj/item/spacepod_equipment/weaponry/proc/fire_weapons()
-	if(HAS_TRAIT(usr, TRAIT_PACIFISM) && harmful)
+	if((HAS_TRAIT(usr, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && harmful)
 		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
 	if(my_atom.next_firetime > world.time)

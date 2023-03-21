@@ -68,7 +68,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds_afks,
-	/client/proc/ccbdb_lookup_ckey
+	/client/proc/ccbdb_lookup_ckey,
+	/client/proc/toggle_pacifism_gt
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
