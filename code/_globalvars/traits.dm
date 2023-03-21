@@ -9,7 +9,9 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_WATERBREATH"	= TRAIT_WATERBREATH,
 		"BLOODCRAWL" = TRAIT_BLOODCRAWL,
 		"BLOODCRAWL_EAT" = TRAIT_BLOODCRAWL_EAT
-	)))
+	),
+	/obj/item = list(
+		"TRAIT_CMAGGED" = TRAIT_CMAGGED)))
 
 /// value -> trait name, generated on use from trait_by_type global
 GLOBAL_LIST(trait_name_map)

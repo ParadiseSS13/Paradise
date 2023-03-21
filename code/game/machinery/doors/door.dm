@@ -36,6 +36,9 @@
 	var/unres_sides = 0
 	//Multi-tile doors
 	var/width = 1
+	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
+	var/sound_ready = TRUE
+	var/sound_cooldown = 1 SECONDS
 
 /obj/machinery/door/New()
 	..()
@@ -110,8 +113,14 @@
 				if(world.time - mecha.occupant.last_bumped <= 10)
 					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE, mecha.occupant)
+					return
 				open()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE, mecha.occupant)
+					return
 				do_animate("deny")
 		return
 
@@ -145,11 +154,17 @@
 
 	if(density && !emagged)
 		if(allowed(user))
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				cmag_switch(FALSE, user)
+				return
 			open()
 			if(isbot(user))
 				var/mob/living/simple_animal/bot/B = user
 				B.door_opened(src)
 		else
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				cmag_switch(TRUE, user)
+				return
 			do_animate("deny")
 
 /obj/machinery/door/attack_ai(mob/user)
@@ -173,9 +188,17 @@
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+				cmag_switch(FALSE, user)
+				return
 			open()
 		else
+			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+				return
 			close()
+		return
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		cmag_switch(TRUE, user)
 		return
 	if(density)
 		do_animate("deny")
@@ -195,7 +218,27 @@
 /obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
+/obj/machinery/door/proc/clean_cmag_ooze(obj/item/I, mob/user) //Emags are Engineering's problem, cmags are the janitor's problem
+	var/cleaning = FALSE
+	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+		var/obj/item/reagent_containers/spray/cleaner/C = I
+		if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+			cleaning = TRUE
+		else
+			return
+	if(istype(I, /obj/item/soap))
+		cleaning = TRUE
+
+	if(!cleaning)
+		return
+	user.visible_message("<span class='notice'>[user] starts to clean the ooze off the access panel.</span>", "<span class='notice'>You start to clean the ooze off the access panel.</span>")
+	if(do_after(user, 50, target = src))
+		user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		clean_cmag_ooze(I, user)
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(user, I)
 		return 1
@@ -241,6 +284,45 @@
 		open()
 		emagged = 1
 		return 1
+
+/obj/machinery/door/cmag_act(mob/user)
+	if(!density)
+		return
+	flick("door_spark", src)
+	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	return TRUE
+
+//Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
+/obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)
+	if(!canopen || locked || !hasPower())
+		if(density) //Windoors can still do their deny animation in unpowered environments, this bugs out if density isn't checked for
+			do_animate("deny")
+		if(hasPower() && sound_ready)
+			playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+			soundcooldown()
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!H.get_assignment(0, 0)) //Humans can't game inverted access by taking their ID off or using spare IDs.
+			if(!density)
+				return
+			do_animate("deny")
+			to_chat(H, "<span class='warning'>The airlock speaker chuckles: 'What's wrong, pal? Lost your ID? Nyuk nyuk nyuk!'</span>")
+			if(sound_ready)
+				playsound(loc, 'sound/machines/honkbot_evil_laugh.ogg', 25, TRUE, ignore_walls = FALSE)
+				soundcooldown() //Thanks, mechs
+			return
+	if(density)
+		open()
+	else
+		close()
+
+/obj/machinery/door/proc/soundcooldown()
+	if(!sound_ready)
+		return
+	sound_ready = FALSE
+	addtimer(VARSET_CALLBACK(src, sound_ready, TRUE), sound_cooldown)
 
 /obj/machinery/door/update_icon()
 	if(density)

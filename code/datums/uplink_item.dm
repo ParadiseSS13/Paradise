@@ -173,6 +173,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/cmag
+	name = "Jestographic Sequencer"
+	desc = "The jestographic sequencer, also known as a cmag, is a small card that inverts the access on any door it's used on. Perfect for locking command out of their own departments. Honk!"
+	reference = "CMG"
+	item = /obj/item/card/cmag
+	cost = 4
+	surplus = 50
+	job = list("Clown")
+
 /datum/uplink_item/jobspecific/clownmagboots
 	name = "Clown Magboots"
 	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."

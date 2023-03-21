@@ -551,6 +551,8 @@ About the new airlock wires panel:
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
 	if(note)
 		if(!in_range(user, src))
 			. += "<span class='notice'>There's a [note.name] pinned to the front. You can't [note_type() == "note" ? "read" : "see"] it from here.</span>"
@@ -792,7 +794,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/ai_control_check(mob/user)
 	if(!issilicon(user))
 		return TRUE
-	if(emagged)
+	if(emagged || HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return FALSE
 	if(!canAIControl())
@@ -1319,6 +1321,19 @@ About the new airlock wires panel:
 			update_icon(AIRLOCK_CLOSED, 1)
 		emagged = TRUE
 		return 1
+
+/obj/machinery/door/airlock/cmag_act(mob/user)
+	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn() || emagged)
+		return
+	operating = TRUE
+	update_icon(AIRLOCK_EMAG, 1)
+	sleep(6)
+	if(QDELETED(src))
+		return
+	operating = FALSE
+	update_icon(AIRLOCK_CLOSED, 1)
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)
 	. = ..()

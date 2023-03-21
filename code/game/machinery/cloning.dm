@@ -192,6 +192,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	. = ..()
 	if(mess)
 		. += "<span class='warning'>It's filled with blood and viscera. You swear you can see it moving...</span>"
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>Yellow ooze is dripping out of the synthmeat storage chamber...</span>"
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
@@ -404,6 +406,23 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
 			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
 			go_out()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		var/cleaning = FALSE
+		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
+			var/obj/item/reagent_containers/spray/cleaner/C = I
+			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+				cleaning = TRUE
+			else
+				return
+		if(istype(I, /obj/item/soap))
+			cleaning = TRUE
+
+		if(!cleaning)
+			return
+		user.visible_message("<span class='notice'>[user] starts to clean the ooze off the [src].</span>", "<span class='notice'>You start to clean the ooze off the [src].</span>")
+		if(do_after(user, 50, target = src))
+			user.visible_message("<span class='notice'>[user] cleans the ooze off [src].</span>", "<span class='notice'>You clean the ooze off [src].</span>")
+			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
 // A user can feed in biomass sources manually.
 	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
@@ -453,6 +472,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(isnull(occupant))
 		return
 	go_out()
+
+/obj/machinery/clonepod/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(user, "<span class='warning'>A droplet of bananium ooze seeps into the synthmeat storage chamber...</span>")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
 /obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
@@ -517,6 +543,14 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		to_chat(occupant, "<span class='userdanger'>You remember nothing from the time that you were dead!</span>")
 		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i></span>")
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+			occupant.dna.SetSEState(GLOB.clumsyblock, TRUE, FALSE)
+			occupant.dna.SetSEState(GLOB.comicblock, TRUE, FALSE)
+			genemutcheck(occupant, GLOB.clumsyblock, MUTCHK_FORCED)
+			genemutcheck(occupant, GLOB.comicblock, MUTCHK_FORCED)
+			occupant.dna.default_blocks.Add(GLOB.clumsyblock) //Until Genetics fixes you, this is your life now
+			occupant.dna.default_blocks.Add(GLOB.comicblock)
 		occupant.flash_eyes(visual = 1)
 		clonemind = null
 

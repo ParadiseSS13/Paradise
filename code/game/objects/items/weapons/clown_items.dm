@@ -58,7 +58,7 @@
 		M.emote("flip")
 
 #define LAUGH_COOLDOWN 30 SECONDS
-//#define LAUGH_COOLDOWN_CMAG 10 SECONDS
+#define LAUGH_COOLDOWN_CMAG 10 SECONDS
 
 /obj/item/clown_recorder
 	name = "clown recorder"
@@ -79,8 +79,7 @@
 		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
 		return
 	playsound(src, pick('sound/voice/sitcom_laugh1.ogg', 'sound/voice/sitcom_laugh2.ogg', 'sound/voice/sitcom_laugh3.ogg', 'sound/voice/sitcom_laugh4.ogg', 'sound/voice/sitcom_laugh5.ogg'), 50, FALSE)
-	cooldown = world.time + LAUGH_COOLDOWN
-/*
+
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		cooldown = world.time + LAUGH_COOLDOWN
 	else
@@ -89,7 +88,7 @@
 /obj/item/clown_recorder/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
-		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-*/
+		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+
 #undef LAUGH_COOLDOWN
-//#undef LAUGH_COOLDOWN_CMAG
+#undef LAUGH_COOLDOWN_CMAG

@@ -71,6 +71,10 @@ AI MODULES
 			comp.current.show_laws()
 			to_chat(usr, "<span class='notice'>Upload complete. The robot's laws have been modified.</span>")
 
+/obj/item/aiModule/cmag_act()
+	. = ..()
+	name = "\improper 'Pranksimov' core AI module"
+	laws = new/datum/ai_laws/pranksimov
 
 /obj/item/aiModule/proc/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
 	log_law_changes(target, sender)

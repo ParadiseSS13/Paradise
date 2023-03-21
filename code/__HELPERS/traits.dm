@@ -67,6 +67,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BLOODCRAWL_EAT	"bloodcrawl_eat"
 #define TRAIT_JESTER			"jester"
 
+//item traits
+#define TRAIT_CMAGGED "cmagged"
+#define CMAGGED "clown_emag"
+
 //
 // common trait sources
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention
