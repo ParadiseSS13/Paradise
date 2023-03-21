@@ -15,7 +15,7 @@
 	var/charge_cost = 50
 	/// Used for delay with the recharge time, each charge tick is worth 2 seconds of real time
 	var/charge_tick = 0
-	/// Time it takes for reagents to recharge, *2 and you get how many seconds it will additionally take from 2
+	/// How many SSobj ticks it takes for the reagents to recharge by 10 units
 	var/recharge_time = 3
 	/// Can the autohypo inject through thick materials?
 	var/bypass_protection = 0
