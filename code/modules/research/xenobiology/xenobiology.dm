@@ -209,7 +209,7 @@
 	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
 		var/mob/living/simple_animal/SM = M
 		if(SM.sentience_type != sentience_type)
-			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
 			return ..()
 
 		if(SM.master_commander)
@@ -257,10 +257,10 @@
 		var/mob/living/simple_animal/SM = M
 
 		if(SM.sentience_type != sentience_type)
-			to_chat(user, "<span class='warning'>The potion won't work on [SM].</span>")
+			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
 			return ..()
 
-		to_chat(user, "<span class='notice'>You offer [src] sentience potion to [SM]...</span>")
+		to_chat(user, "<span class='notice'>You offer [src.name] to [SM]...</span>")
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
@@ -281,7 +281,7 @@
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
 				to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
-			to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+			to_chat(user, "<span class='notice'>[M] accepts [src] and suddenly becomes attentive and aware. It worked!</span>")
 			after_success(user, SM)
 			qdel(src)
 
@@ -308,7 +308,11 @@
 	if(ismonkeybasic(M) && !M.ckey)
 		var/mob/living/carbon/human/lesser/monkey/LF = M
 
-		to_chat(user, "<span class='notice'>Вы предлагаете [src] зелье разума [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
+		if(LF.sentience_type != sentience_type)
+			to_chat(user, "<span class='warning'>[LF] совершенно безразлично смотрит на [src.name] в ваших руках.</span>")
+			return ..()
+
+		to_chat(user, "<span class='notice'>Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?"
