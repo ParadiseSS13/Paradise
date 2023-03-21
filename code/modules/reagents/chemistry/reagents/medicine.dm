@@ -638,6 +638,10 @@
 			M.Drowsy(20)
 	return ..() | update_flags
 
+/datum/reagent/medicine/morphine/syntmorphine
+	name = "Syntmorphine"
+	id = "syntmorphine"
+
 /datum/reagent/medicine/oculine
 	name = "Oculine"
 	id = "oculine"

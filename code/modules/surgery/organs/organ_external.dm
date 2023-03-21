@@ -650,6 +650,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		playsound(owner, "bonebreak", 150, 1)
 		if(owner.reagents.has_reagent("morphine"))
 			return
+		if(owner.reagents.has_reagent("syntmorphine"))
+			return
 		if(owner.reagents.has_reagent("hydrocodone"))
 			return
 		if(owner.stat == UNCONSCIOUS)

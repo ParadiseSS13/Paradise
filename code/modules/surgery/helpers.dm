@@ -120,6 +120,8 @@
 		return 0.99
 	if(M.reagents.has_reagent("morphine"))//Just as effective as Hydrocodone, but has an addiction chance
 		return 0.99
+	if(M.reagents.has_reagent("syntmorphine"))
+		return 0.99
 	if(M.drunk >= 80)//really damn drunk
 		return 0.95
 	if(M.drunk >= 40)//pretty drunk

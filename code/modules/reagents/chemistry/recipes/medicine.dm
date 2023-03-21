@@ -306,3 +306,12 @@
 	result_amount = 3
 	min_temp = T0C + 100
 	mix_message = "The solution gently swirls with a metallic sheen."
+
+/datum/chemical_reaction/syntmorphine
+	name = "Syntmorphine"
+	id = "syntmorphine"
+	result = "syntmorphine"
+	required_reagents = list("carbon" = 2, "hydrogen" = 2, "ethanol" = 1, "oxygen" = 1)
+	result_amount = 6
+	min_temp = T0C + 480
+	mix_message = "The solution gurgles, it has an almost incredible calming influence on the mind."
