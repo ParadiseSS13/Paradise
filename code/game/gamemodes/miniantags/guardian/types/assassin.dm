@@ -17,6 +17,12 @@
 	. = ..()
 	updatestealthalert()
 
+/mob/living/simple_animal/hostile/guardian/assassin/Stat()
+	..()
+	if(statpanel("Status"))
+		if(stealthcooldown >= world.time)
+			stat(null, "Время до невидимости: [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] секунд")
+
 /mob/living/simple_animal/hostile/guardian/assassin/Manifest()
 	if(cooldown > world.time)
 		return
@@ -24,13 +30,7 @@
 		return
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
-		cooldown = world.time + 20
-
-/mob/living/simple_animal/hostile/guardian/assassin/Stat()
-	..()
-	if(statpanel("Status"))
-		if(stealthcooldown >= world.time)
-			stat(null, "Время до невидимости: [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] секунд")
+		cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
 	var/mob/living/L = target

@@ -62,7 +62,7 @@
 				C.adjustToxLoss(-5)
 				C.adjustCloneLoss(-5)
 				C.adjustBrainLoss(-5)
-				heal_cooldown = world.time + 20
+				heal_cooldown = world.time + 10
 				if(C == summoner)
 					med_hud_set_health()
 					med_hud_set_status()
@@ -72,15 +72,15 @@
 		if(toggle)
 			a_intent = INTENT_HARM
 			hud_used.action_intent.icon_state = a_intent
-			speed = 0
-			melee_damage_lower = 15
-			melee_damage_upper = 15
+			melee_damage_lower = 20
+			melee_damage_upper = 20
+			melee_damage_type = TOX
+			armour_penetration = 100
 			to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
 			hud_used.action_intent.icon_state = a_intent
-			speed = 1
 			melee_damage_lower = 0
 			melee_damage_upper = 0
 			to_chat(src, "<span class='danger'>Вы переключились в режим исцеления.</span>")
@@ -125,7 +125,7 @@
 		to_chat(src, "<span class='danger'>Цель прикреплена к полу. Телепортация невозможна.</span>")
 		return
 	to_chat(src, "<span class='danger'>Вы начинаете телепортировать [A]</span>")
-	if(do_mob(src, A, 50))
+	if(do_mob(src, A, 3 SECONDS))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")

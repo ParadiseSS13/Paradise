@@ -30,18 +30,17 @@
 
 /mob/living/simple_animal/hostile/guardian/beam/AttackingTarget()
 	. = ..()
-	if(prob(10))
-		if(. && isliving(target) && target != src && target != summoner)
-			cleardeletedchains()
-			for(var/chain in enemychains)
-				var/datum/beam/B = chain
-				if(B.target == target)
-					return //oh this guy already HAS a chain, let's not chain again
-			if(enemychains.len > 2)
-				var/datum/beam/C = pick(enemychains)
-				qdel(C)
-				enemychains -= C
-			enemychains += Beam(target, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=20, maxdistance=4, beam_type=/obj/effect/ebeam/chain)
+	if(. && isliving(target) && target != src && target != summoner)
+		cleardeletedchains()
+		for(var/chain in enemychains)
+			var/datum/beam/B = chain
+			if(B.target == target)
+				return //oh this guy already HAS a chain, let's not chain again
+		if(enemychains.len > 2)
+			var/datum/beam/C = pick(enemychains)
+			qdel(C)
+			enemychains -= C
+		enemychains += Beam(target, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=70, maxdistance=7, beam_type=/obj/effect/ebeam/chain)
 
 /mob/living/simple_animal/hostile/guardian/beam/Destroy()
 	removechains()
@@ -115,7 +114,7 @@
 						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
 						"<span class='italics'>You hear a heavy electrical crack.</span>" \
 					)
-				L.adjustFireLoss(3)
+				L.adjustFireLoss(4)
 				. = 1
 
 /mob/living/simple_animal/hostile/guardian/beam/death(gibbed)
