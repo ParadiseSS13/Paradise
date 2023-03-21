@@ -190,9 +190,7 @@
 		to_chat(user, "<span class='warning'>Close the panel first!</span>")
 		return
 	if(istype(I, /obj/item/grab))
-		if (can_grab_attack(I, user, TRUE))
-			special_attack_grab(I, user)
-			return
+		return special_attack_grab(I, user)
 	if(!checkValid(I, user))
 		return
 	if(!burns)
