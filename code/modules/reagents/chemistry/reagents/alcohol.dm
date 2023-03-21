@@ -1693,6 +1693,18 @@
 	drink_desc = "A glass in the form of a mender, a favorite among doctors."
 	taste_description = "funny medicine"
 
+/datum/reagent/consumable/ethanol/alcomender/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustFireLoss(-0.7, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/alcomender/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) // It is alcohol after all, so don't try to pour it on someone who's on fire ... please.
+	if(iscarbon(M))
+		if(method == REAGENT_TOUCH)
+			M.adjustFireLoss(-volume * 0.7)
+			to_chat(M, "<span class='notice'>The diluted silver sulfadiazine soothes your burns.</span>")
+	return STATUS_UPDATE_NONE
+
 /datum/reagent/consumable/ethanol/amnesia
 	name = "Star Amnesia"
 	id = "amnesia"

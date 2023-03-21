@@ -869,6 +869,7 @@
 					/obj/item/reagent_containers/food/drinks/bottle/sambuka = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/bitter = 3,
 					/obj/item/reagent_containers/food/drinks/cans/beer = 6,
+					/obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer = 6,
 					/obj/item/reagent_containers/food/drinks/cans/ale = 6,
 					/obj/item/reagent_containers/food/drinks/cans/synthanol = 15,
 					/obj/item/reagent_containers/food/drinks/bottle/orangejuice = 4,

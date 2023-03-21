@@ -967,7 +967,7 @@
 	name = "Nagasaki"
 	id = "nagasaki"
 	result = "nagasaki"
-	required_reagents = list("nagasaki" = 1, "uranium" = 10)
+	required_reagents = list("hirosima" = 10, "uranium" = 1)
 	result_amount = 10
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
