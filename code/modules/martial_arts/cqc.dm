@@ -32,6 +32,10 @@
 
 /datum/action/defensive_stance/Trigger()
 	var/mob/living/carbon/human/H = owner
+	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial users anyway
+	if(!MA.can_use(H))
+		to_chat(H, "<span class='warning'>You can't use this outside your kitchen.</span>")
+		return
 	if(H.incapacitated())
 		to_chat(H, "<span class='warning'>You can't defend yourself while you're incapacitated.</span>")
 		return
