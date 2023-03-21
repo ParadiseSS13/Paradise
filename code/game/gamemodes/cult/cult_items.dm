@@ -535,6 +535,16 @@
 		return prob(reflect_chance) && iscultist(holder) //so non-cultist can not reflect using this shield
 	return FALSE
 
+/obj/item/shield/mirror/equipped(mob/user, slot)
+	..()
+	if(!iscultist(user))
+		to_chat(user, "<span class='cultlarge'>Вы поднимаете щит и в его зеркальном отражение видите свою смерть</span>")
+		user.emote("scream")
+		user.unEquip(src, 1)
+		user.Confused(30)
+		user.Weaken(5)
+		user.EyeBlind(30)
+
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"
 	desc = "A sickening spear composed entirely of crystallized blood."
