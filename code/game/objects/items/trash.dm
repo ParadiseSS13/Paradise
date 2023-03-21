@@ -118,6 +118,10 @@
 	name = "plasma puffs"
 	icon_state = "plasmapuffs"
 
+/obj/item/trash/stargums
+	name = "stargums"
+	icon_state = "stargums"
+
 
 /obj/item/trash/spentcasing
 	icon = 'icons/obj/ammo.dmi'

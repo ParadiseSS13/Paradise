@@ -183,6 +183,15 @@
 	bitesize = 3
 	list_reagents = list("sugar" = 10)
 
+/obj/item/reagent_containers/food/snacks/candy/stargums
+	name = "stargums"
+	desc = "Mmmmm! Stargums!"
+	icon_state = "stargums"
+	trash = /obj/item/trash/stargums
+	filling_color = "#FFFFFF"
+	bitesize = 4
+	list_reagents = list("sugar" = 30)
+
 /obj/item/reagent_containers/food/snacks/candy/jellybean
 	name = "jelly bean"
 	desc = "A candy bean, guaranteed to not give you gas."
