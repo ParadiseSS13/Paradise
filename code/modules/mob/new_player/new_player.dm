@@ -357,6 +357,15 @@
 	else
 		return 0
 
+/mob/new_player/proc/random_job()
+	var/jobs_available = list()
+	for(var/datum/job/job in SSjobs.occupations)
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+			jobs_available += job.title
+	if(!length(jobs_available))
+		return FALSE
+	return pick(jobs_available)
+
 /mob/new_player/proc/AttemptLateSpawn(rank,var/spawning_at)
 	if(src != usr)
 		return FALSE
@@ -366,6 +375,13 @@
 	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>Администратор заблокировал вход в игру!</span>")
 		return FALSE
+	if(rank == "RandomJob")
+		rank = random_job()
+		if(!rank)
+			var/msg = "Нет свободных ролей. Пожалуйста, попробуйте позже."
+			to_chat(src, msg)
+			alert(msg)
+			return FALSE
 	if(!IsJobAvailable(rank))
 		var/msg = "Должность [rank] недоступна. Пожалуйста, попробуйте другую."
 		to_chat(src, msg)
@@ -583,6 +599,8 @@
 			var/color = categorizedJobs[jobcat]["color"]
 			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
+			if(jobcat == "Miscellaneous")
+				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Random (free jobs)</a><br>"
 			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
 				if(job in SSjobs.prioritized_jobs)
 					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
