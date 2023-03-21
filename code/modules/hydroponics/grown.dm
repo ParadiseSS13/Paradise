@@ -6,7 +6,7 @@
 // Base type. Subtypes are found in /grown dir.
 /obj/item/reagent_containers/food/snacks/grown
 	icon = 'icons/obj/hydroponics/harvest.dmi'
-	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
+	var/obj/item/seeds/seed = null // type path, gets converted to item on Initialize(). It's safe to assume it's always a seed item.
 	var/plantname = ""
 	var/bitesize_mod = 0 	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
 	var/splat_type = /obj/effect/decal/cleanable/plant_smudge
@@ -18,8 +18,8 @@
 	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
-/obj/item/reagent_containers/food/snacks/grown/New(newloc, var/obj/item/seeds/new_seed = null)
-	..()
+/obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed = null)
+	. = ..()
 	if(!tastes)
 		tastes = list("[name]" = 1)
 
@@ -30,15 +30,12 @@
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
 
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
-
 	if(dried_type == -1)
 		dried_type = type
 
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_new(src, newloc)
+			T.on_new(src)
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()

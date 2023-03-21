@@ -159,7 +159,7 @@
 			return FALSE
 	return TRUE
 
-/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	if(!origin_tech) // This ugly code segment adds RnD tech levels to resulting plants.
 		return
 
@@ -206,7 +206,7 @@
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 	dangerous = TRUE
 
-/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	. = ..()
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
@@ -278,7 +278,7 @@
 /datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
 	return max(S.potency*rate, 0.1)
 
-/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
 
@@ -339,7 +339,7 @@
 	// Makes plant reagents not react until squashed.
 	name = "Separated Chemicals"
 
-/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.reagents.set_reacting(FALSE)
 
@@ -361,7 +361,7 @@
 	name = "Densified Chemicals"
 	rate = 2
 
-/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.reagents.maximum_volume *= rate
 
@@ -446,7 +446,7 @@
 	if(!(S.resistance_flags & FIRE_PROOF))
 		S.resistance_flags |= FIRE_PROOF
 
-/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 
