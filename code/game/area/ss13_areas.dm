@@ -44,6 +44,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	outdoors = TRUE
 	ambientsounds = SPACE_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
+	there_can_be_many = TRUE
 
 /area/space/nearstation
 	icon_state = "space_near"
