@@ -325,7 +325,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/turf/T = locate(x, y, z)
 	if(T)
 		if(ispath(path, /turf))
-			T.ChangeTurf(path, defer_change = TRUE, keep_icon = FALSE)
+			T.ChangeTurf(path, defer_change = TRUE, keep_icon = FALSE, copy_existing_baseturf = FALSE)
 			instance = T
 		else if(ispath(path, /area))
 

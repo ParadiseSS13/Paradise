@@ -114,7 +114,7 @@
 		playsound(src, "clownstep", CHANNEL_BUZZ)
 
 
-/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	if(air && !defer_change && !ignore_air)
 		var/aoxy = air.oxygen
 		var/anitro = air.nitrogen

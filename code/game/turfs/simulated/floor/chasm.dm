@@ -44,6 +44,9 @@
 	. = ..()
 	drop_z = level_name_to_num(MAIN_STATION)
 
+/turf/simulated/floor/chasm/ex_act()
+	return
+
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
