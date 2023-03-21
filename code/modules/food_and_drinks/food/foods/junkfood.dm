@@ -99,6 +99,30 @@
 	tastes = list("bread" = 1)
 	foodtype = JUNKFOOD | GRAIN
 
+/obj/item/reagent_containers/food/snacks/doshik
+	name = "Doshi Co"
+	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow."
+	icon_state = "doshik"
+	bitesize = 3
+	trash = /obj/item/trash/doshik
+	list_reagents = list("dry_ramen" = 30)
+	junkiness = 25
+	tastes = list("chiken" = 1, "noodles" = 1)
+	foodtype = JUNKFOOD
+	closed = TRUE
+
+/obj/item/reagent_containers/food/snacks/doshik_spicy
+	name = "Doshi Co Special"
+	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow. It seems to have hot spices in it."
+	icon_state = "doshikspicy"
+	bitesize = 3
+	trash = /obj/item/trash/doshik
+	list_reagents = list("dry_ramen" = 30,"capsaicin" = 5)
+	junkiness = 30
+	tastes = list("beef" = 1, "noodles" = 1)
+	foodtype = JUNKFOOD
+	closed = TRUE
+
 
 //////////////////////
 //		Homemade	//

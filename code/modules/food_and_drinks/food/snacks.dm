@@ -17,6 +17,7 @@
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
+	var/closed = FALSE // TRUE if it needed to be opened first
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
 	if(tastes && tastes.len)
@@ -48,10 +49,22 @@
 /obj/item/reagent_containers/food/snacks/proc/Post_Consume(mob/living/M)
 	return
 
+/obj/item/reagent_containers/food/snacks/update_icon()
+	icon_state = "[closed ? "-opened" : ""]"
+
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
-	return
+	if(closed)
+		closed = FALSE
+		to_chat(user, "<span class='notice'>You open the [src].</span>")
+		update_icon()
+		return ..()
+	else
+		return
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
+	if(closed)
+		to_chat(user, "<span class='notice'>You need to open the [src]!</span>")
+		return
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		M.unEquip(src)	//so icons update :[
