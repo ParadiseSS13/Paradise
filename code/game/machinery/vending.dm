@@ -1543,6 +1543,13 @@
 					  /obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance
 
+/obj/machinery/vending/sustenance/additional
+	desc = "Какого этот автомат тут оказался?!"
+	products = list(/obj/item/reagent_containers/food/snacks/tofu = 12,
+					/obj/item/reagent_containers/food/drinks/ice = 6,
+					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
+	contraband = list(/obj/item/kitchen/knife=2)
+
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
 	desc = "It doesn't seem the slightest bit unusual. This frustrates you immensely."

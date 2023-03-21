@@ -12463,11 +12463,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "bAl" = (
-/obj/machinery/vending/sustenance{
-	contraband = list(/obj/item/kitchen/knife=2);
-	desc = "Какого этот автомат тут оказался?!";
-	products = list(/obj/item/reagent_containers/food/snacks/tofu=12,/obj/item/reagent_containers/food/drinks/ice=6,/obj/item/reagent_containers/food/snacks/candy/candy_corn=6)
-	},
+/obj/machinery/vending/sustenance/additional,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
