@@ -87,7 +87,7 @@
 	if(turned_on && (slot == slot_belt || slot == slot_s_store))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
-	return ..(user, slot, disable_warning == TRUE) // call parent but disable warning
+	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning
 
 /obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
 	if(turned_on)
