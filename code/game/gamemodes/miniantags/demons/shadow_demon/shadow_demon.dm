@@ -65,9 +65,12 @@
 
 /obj/structure/shadowcocoon/obj_destruction()
 	visible_message("<span class='danger'>[src] splits open, and the shadows dancing around it fade.</span>")
+	return ..()
+
+/obj/structure/shadowcocoon/destroy()
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
-	return ..()
+	return..()
 
 /mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isliving(AM)) // when a living creature is thrown at it, dont knock it back
