@@ -48,7 +48,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/judge,
 		/datum/job/blueshield,
 		/datum/job/nanotrasenrep,
-		/datum/job/barber,
 		/datum/job/chaplain
 	)
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
