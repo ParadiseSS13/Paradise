@@ -416,6 +416,7 @@ GLOBAL_LIST_INIT(vox_sounds, list(
 "fahrenheit" = 'sound/vox_fem/fahrenheit.ogg',
 "failed" = 'sound/vox_fem/failed.ogg',
 "failure" = 'sound/vox_fem/failure.ogg',
+"farragus" = 'sound/vox_fem/farragus.ogg',
 "farthest" = 'sound/vox_fem/farthest.ogg',
 "fast" = 'sound/vox_fem/fast.ogg',
 "fatal" = 'sound/vox_fem/fatal.ogg',

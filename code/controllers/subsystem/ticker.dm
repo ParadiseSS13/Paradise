@@ -141,6 +141,10 @@ SUBSYSTEM_DEF(ticker)
 			declare_completion()
 			if(!SSmapping.next_map) //Next map already selected by admin
 				var/list/all_maps = subtypesof(/datum/map)
+				for(var/i in 1 to all_maps.len)
+					var/datum/map/map_check = all_maps[i]
+					if(map_check.admin_only)
+						all_maps -= map_check
 				switch(config.map_rotate)
 					if("rotate")
 						for(var/i in 1 to all_maps.len)

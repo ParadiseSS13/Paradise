@@ -137,6 +137,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "volcanic_sand"
 	icon_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
+	desc = "Looks like you could shove some on a girder to make a false rock wall"
+
+/obj/item/stack/ore/glass/basalt/ancient
+	name = "ancient sand"
+	icon_state = "volcanic_sand"
+	item_state = "volcanic_sand"
+	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"

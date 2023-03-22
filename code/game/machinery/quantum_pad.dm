@@ -13,6 +13,7 @@
 	var/teleporting = 0 //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/obj/machinery/quantumpad/linked_pad = null
+	var/preset_target = null
 
 /obj/machinery/quantumpad/New()
 	..()
@@ -54,6 +55,9 @@
 
 /obj/machinery/quantumpad/multitool_act(mob/user, obj/item/I)
 	. = TRUE
+	if(preset_target)
+		to_chat(user, "<span class='notice'>[src]'s target cannot be modified!</span>")
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!I.multitool_check_buffer(user))
@@ -153,3 +157,25 @@
 				tele_success = do_teleport(ROI, get_turf(linked_pad))
 			if(!tele_success)
 				to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")
+
+
+/obj/machinery/quantumpad/cere/Initialize(mapload)
+	. = ..()
+	linked_pad = locate(preset_target)
+
+/obj/machinery/quantumpad/cere/cargo_arrivals
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_cargo
+/obj/machinery/quantumpad/cere/cargo_security
+	preset_target = /obj/machinery/quantumpad/cere/security_cargo
+/obj/machinery/quantumpad/cere/security_cargo
+	preset_target = /obj/machinery/quantumpad/cere/cargo_security
+/obj/machinery/quantumpad/cere/security_science
+	preset_target = /obj/machinery/quantumpad/cere/science_security
+/obj/machinery/quantumpad/cere/science_security
+	preset_target = /obj/machinery/quantumpad/cere/security_science
+/obj/machinery/quantumpad/cere/science_arrivals
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_science
+/obj/machinery/quantumpad/cere/arrivals_science
+	preset_target = /obj/machinery/quantumpad/cere/science_arrivals
+/obj/machinery/quantumpad/cere/arrivals_cargo
+	preset_target = /obj/machinery/quantumpad/cere/cargo_arrivals

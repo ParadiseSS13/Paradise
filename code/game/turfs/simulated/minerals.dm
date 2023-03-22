@@ -22,6 +22,9 @@
 	var/last_act = 0
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
+	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
+	/// Should this be set to the normal rock colour on init?
+	var/should_reset_color = TRUE
 
 /turf/simulated/mineral/Initialize(mapload)
 	if(!canSmoothWith)
@@ -31,6 +34,8 @@
 	transform = M
 	icon = smooth_icon
 	. = ..()
+	if(should_reset_color)
+		color = null
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in GLOB.cardinal)
 			if(prob(spreadChance))
@@ -63,13 +68,13 @@
 		if(!isturf(T))
 			return
 
-		if(last_act + (40 * P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
+		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
 			return
 		last_act = world.time
 		to_chat(user, "<span class='notice'>You start picking...</span>")
 		P.playDigSound()
 
-		if(do_after(user, 40 * P.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				gets_drilled(user)
@@ -134,6 +139,66 @@
 				gets_drilled(null, 1)
 		if(1)
 			gets_drilled(null, 1)
+
+/turf/simulated/mineral/ancient
+	name = "ancient rock"
+	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	canSmoothWith = list(/turf/simulated/mineral, /obj/structure/falsewall/mineral_ancient)
+	mine_time = 6 SECONDS
+	color = COLOR_ANCIENT_ROCK
+	layer = TURF_LAYER
+	should_reset_color = FALSE
+	mineralAmt = 2
+	mineralType = /obj/item/stack/ore/glass/basalt/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient
+
+/turf/simulated/mineral/ancient/attackby(obj/item/I, mob/user, params)
+	if(!user.IsAdvancedToolUser())
+		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		return
+
+	if(istype(I, /obj/item/pickaxe))
+		var/obj/item/pickaxe/P = I
+		var/turf/T = user.loc
+		if(!isturf(T))
+			return
+
+		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
+			return
+		last_act = world.time
+		to_chat(user, "<span class='notice'>You start picking...</span>")
+		P.playDigSound()
+
+		if(do_after(user, mine_time * P.toolspeed, target = src))
+			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
+				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
+				gets_drilled(user)
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
+	else
+		return attack_hand(user)
+
+/turf/simulated/mineral/ancient/outer
+	name = "cold ancient rock"
+	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
+	mine_time = 15 SECONDS
+	color = COLOR_COLD_ROCK
+	var/static/list/allowed_picks_typecache
+
+/turf/simulated/mineral/ancient/outer/Initialize(mapload)
+	. = ..()
+	allowed_picks_typecache = typecacheof(list(
+			/obj/item/pickaxe/drill/jackhammer,
+			/obj/item/pickaxe/diamond,
+			/obj/item/pickaxe/drill/cyborg/diamond,
+			/obj/item/pickaxe/drill/diamonddrill,
+			))
+
+/turf/simulated/mineral/ancient/outer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
+		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
+		return
+	return ..()
 
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList = list(/turf/simulated/mineral/uranium = 5, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 10,

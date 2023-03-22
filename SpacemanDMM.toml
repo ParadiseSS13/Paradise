@@ -14,7 +14,10 @@ engine = "auxtools"
 [map_renderer]
 # Objects inside this list will never render
 hide_invisible = [
+"/obj/effect/landmark",
 "/obj/effect/mapping_helpers",
+"/obj/effect/spawner/random_barrier",
+"/obj/effect/spawner/random_spawners",
 ]
 
 [map_renderer.fancy_layers]

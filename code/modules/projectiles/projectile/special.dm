@@ -254,6 +254,10 @@
 /obj/item/projectile/plasma/on_hit(atom/target, pointblank = 0)
 	. = ..()
 	if(ismineralturf(target))
+		if(isancientturf(target))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			forcedodge = 0
+			return
 		forcedodge = 1
 		var/turf/simulated/mineral/M = target
 		M.gets_drilled(firer)

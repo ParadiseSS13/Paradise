@@ -498,6 +498,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 //Other types of conveyor, mostly for saving yourself a headache during mapping
 
+/obj/machinery/conveyor/auto/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
 /obj/machinery/conveyor/north
 	dir = NORTH
 

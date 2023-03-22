@@ -587,5 +587,5 @@ MAP_ROTATE none
 DEFAULT_MAP /datum/map/cyberiad
 
 ## Override server map by specified, uncomment to apply
-#OVERRIDE_MAP /datum/map/delta
+# OVERRIDE_MAP /datum/map/delta
 

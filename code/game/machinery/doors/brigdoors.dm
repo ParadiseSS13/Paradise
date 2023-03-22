@@ -523,6 +523,14 @@
 	dir = 4
 	pixel_x = 32
 
+/obj/machinery/door_timer/cell_7
+	name = "Cell 7"
+	id = "Cell 7"
+
+/obj/machinery/door_timer/cell_8
+	name = "Cell 8"
+	id = "Cell 8"
+
 #undef FONT_SIZE
 #undef FONT_COLOR
 #undef FONT_STYLE

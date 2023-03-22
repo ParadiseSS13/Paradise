@@ -426,3 +426,17 @@
 		dismantle(user, TRUE)
 		return TRUE
 	return TRUE
+
+
+/obj/structure/falsewall/mineral_ancient
+	name = "ancient rock"
+	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	icon = 'icons/turf/smoothrocks.dmi'
+	icon_state = "rock_ancient"
+	pixel_x = -4
+	pixel_y = -4
+	color = COLOR_ANCIENT_ROCK
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	canSmoothWith = list(/turf/simulated/mineral, /obj/structure/falsewall/mineral_ancient)
+	mineral = /obj/item/stack/ore/glass/basalt/ancient
+	walltype = /turf/simulated/mineral/ancient

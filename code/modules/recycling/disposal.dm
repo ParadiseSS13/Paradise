@@ -1198,6 +1198,8 @@
 
 	return P
 
+/obj/structure/disposalpipe/sortjunction/reversed
+	icon_state = "pipe-j2s"
 
 //a three-way junction that sorts objects destined for the mail office mail table (tomail = 1)
 /obj/structure/disposalpipe/wrapsortjunction
@@ -1256,6 +1258,9 @@
 		return null
 
 	return P
+
+/obj/structure/wrapsortjunction/reversed
+	icon_state = "pipe-j2s"
 
 //a trunk joining to a disposal bin or outlet on the same turf
 /obj/structure/disposalpipe/trunk

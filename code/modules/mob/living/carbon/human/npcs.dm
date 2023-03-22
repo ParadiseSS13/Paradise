@@ -12,3 +12,11 @@
 	real_name = name
 	equip_to_slot(new /obj/item/clothing/under/punpun(src), slot_w_uniform)
 	tts_seed = "Chen"
+
+/mob/living/carbon/human/lesser/monkey/teeny/Initialize(mapload)
+	. = ..()
+	name = "Mr. Teeny"
+	real_name = name
+	resize = 0.8
+	update_transform()
+	tts_seed = "Chen"

@@ -104,6 +104,37 @@
 					qdel(src)
 				return
 
+		if(istype(W, /obj/item/stack/ore/glass/basalt))
+			var/obj/item/stack/ore/glass/basalt/A = W
+			if(state == GIRDER_DISPLACED)
+				if(A.get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need at least two [A] to create a false wall!</span>")
+					return
+				if(do_after(user, 2 SECONDS, target = src))
+					if(!loc || !A || A.get_amount() < 2)
+						return
+					A.use(2)
+					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
+					var/obj/structure/falsewall/mineral_ancient/FW = new (loc)
+					transfer_fingerprints_to(FW)
+					qdel(src)
+			else
+				if(A.get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need at least two [A] to add plating!</span>")
+					return
+				to_chat(user, "<span class='notice'>You start adding [A]...</span>")
+				if(do_after(user, 4 SECONDS, target = src))
+					if(!src || !A || A.get_amount() < 2)
+						return
+					A.use(2)
+					to_chat(user, "<span class='notice'>You add [A].</span>")
+					var/turf/parent_turf = get_turf(src)
+					parent_turf.ChangeTurf(/turf/simulated/mineral/ancient)
+					for(var/turf/simulated/mineral/X in parent_turf.loc)
+						X.add_hiddenprint(usr)
+					qdel(src)
+				return
+
 		if(!istype(W,/obj/item/stack/sheet))
 			return
 

@@ -22,6 +22,7 @@
 				break
 			if(!cdir)	continue
 			var/obj/structure/window/WI = new windowtospawn(get_turf(src))
+			sync_id(WI)
 			WI.dir = cdir
 	else
 		var/obj/structure/window/W = new windowtospawn(get_turf(src))
@@ -37,11 +38,24 @@
 	// why is this line a no-op
 	// QDEL_IN(src, 10)
 
+/obj/effect/spawner/window/proc/sync_id(obj/structure/window/reinforced/polarized/W)
+	return
+
 
 /obj/effect/spawner/window/reinforced
 	name = "reinforced window spawner"
 	icon_state = "rwindow_spawner"
 	windowtospawn = /obj/structure/window/reinforced
+
+/obj/effect/spawner/window/reinforced/polarized
+	name = "polarized reinforced window spawner"
+	icon_state = "ewindow_spawner"
+	windowtospawn = /obj/structure/window/reinforced/polarized
+	/// Used to link electrochromic windows to buttons
+	var/id
+
+/obj/effect/spawner/window/reinforced/polarized/sync_id(obj/structure/window/reinforced/polarized/W)
+	W.id = id
 
 /obj/effect/spawner/window/reinforced/plasma
 	name = "reinforced plasma window spawner"
