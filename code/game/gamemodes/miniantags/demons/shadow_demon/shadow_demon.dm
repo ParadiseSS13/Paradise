@@ -67,7 +67,7 @@
 	visible_message("<span class='danger'>[src] splits open, and the shadows dancing around it fade.</span>")
 	return ..()
 
-/obj/structure/shadowcocoon/destroy()
+/obj/structure/shadowcocoon/Destroy()
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
 	return..()
