@@ -277,6 +277,13 @@
 			if(can_insert && istype(disk.gene, /datum/plant_gene/trait))
 				dat += "<a href='?src=[UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
 			dat += "</div>"
+
+		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
+		dat += "<tr><td width='260px'>[seed.variant ? seed.variant : "None"]</td>"
+		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
+		if(seed.variant)
+			dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
+		dat += "</tr></table></div>"
 	else
 		dat += "<br>No sample found.<br><span class='highlight'>Please, insert a plant sample to use this device.</span>"
 	popup.set_content(dat)
@@ -392,6 +399,16 @@
 	else if(href_list["abort"])
 		operation = ""
 		target = null
+	else if(href_list["set_v"])
+		if(!seed)
+			return
+		seed.variant_prompt(usr, src)
+	else if(href_list["del_v"])
+		if(!seed)
+			return
+		seed.variant = null
+		seed.apply_variant_name()
+		to_chat(usr, "<span class='notice'>You remove the [seed.plantname]'s variant designation.</span>")
 
 	interact(usr)
 

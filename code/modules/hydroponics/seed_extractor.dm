@@ -109,6 +109,7 @@
 
 /datum/seed_pile
 	var/name = ""
+	var/variant = ""
 	var/lifespan = 0	//Saved stats
 	var/endurance = 0
 	var/maturation = 0
@@ -117,8 +118,10 @@
 	var/potency = 0
 	var/amount = 0
 
-/datum/seed_pile/New(var/name, var/life, var/endur, var/matur, var/prod, var/yie, var/poten, var/am = 1)
+/datum/seed_pile/New(var/name, var/variant, var/life, var/endur, var/matur, var/prod, var/yie, var/poten, var/am = 1)
 	src.name = name
+	if (variant<>"" && !isnull(variant)) src.name += " ("+variant+")"
+	src.variant = variant
 	src.lifespan = life
 	src.endurance = endur
 	src.maturation = matur
@@ -155,7 +158,7 @@
 	href_list["pot"] = text2num(href_list["pot"])
 
 	for (var/datum/seed_pile/N in piles)//Find the pile we need to reduce...
-		if (href_list["name"] == N.name && href_list["li"] == N.lifespan && href_list["en"] == N.endurance && href_list["ma"] == N.maturation && href_list["pr"] == N.production && href_list["yi"] == N.yield && href_list["pot"] == N.potency)
+		if (href_list["name"] == N.name && href_list["variant"] == N.variant && href_list["li"] == N.lifespan && href_list["en"] == N.endurance && href_list["ma"] == N.maturation && href_list["pr"] == N.production && href_list["yi"] == N.yield && href_list["pot"] == N.potency)
 			if(N.amount <= 0)
 				return
 			N.amount = max(N.amount - 1, 0)
@@ -166,7 +169,7 @@
 
 	for (var/obj/T in contents)//Now we find the seed we need to vend
 		var/obj/item/seeds/O = T
-		if (O.plantname == href_list["name"] && O.lifespan == href_list["li"] && O.endurance == href_list["en"] && O.maturation == href_list["ma"] && O.production == href_list["pr"] && O.yield == href_list["yi"] && O.potency == href_list["pot"])
+		if (O.plantname == href_list["name"] && href_list["variant"] == O.variant && O.lifespan == href_list["li"] && O.endurance == href_list["en"] && O.maturation == href_list["ma"] && O.production == href_list["pr"] && O.yield == href_list["yi"] && O.potency == href_list["pot"])
 			O.forceMove(loc)
 			break
 
@@ -179,12 +182,13 @@
 	var/list/seeds = list() //Храним список объектов, чтобы не искать циклом по contents
 
 /datum/seed_pile/extended/New(obj/item/seeds/O)
-	..(O.plantname, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
+	..(O.plantname, O.variant, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
+
 	src.seeds += O
 
 /obj/machinery/seed_extractor/proc/generate_seedId(obj/item/seeds/O) //Генерация строки-идентификатора для поиска
 	var/id_string = copytext("[O.type]",17)
-
+	if (O.variant<>"") id_string += " ("+O.variant+")"
 	id_string += "[O.lifespan]_[O.endurance]_[O.maturation]_[O.production]_[O.yield]_[O.potency]_[O.weed_rate]_[O.weed_chance]"
 
 	for (var/datum/plant_gene/reagent/G in O.genes)
@@ -262,10 +266,9 @@
 
 		if (length(Sl) == 0)
 			continue //Пустых куч быть не должно, но проверка не помешает
-
 		var/strain_text=generate_strainText(Sl[1])
-		items.Add(list(list("display_name" = html_encode(capitalize(P.name)), "vend" = i, "quantity" = P.amount,"life"=P.lifespan,"endr"=P.endurance,"matr" = P.maturation,"prod" = P.production,"yld" = P.yield,"potn" = P.potency,"strain_text" = strain_text )))
 
+		items.Add(list(list("display_name" = html_encode(capitalize(P.name)), "variant" = html_encode(P.variant), "vend" = i, "quantity" = P.amount,"life"=P.lifespan,"endr"=P.endurance,"matr" = P.maturation,"prod" = P.production,"yld" = P.yield,"potn" = P.potency,"strain_text" = strain_text )))
 	if(length(items))
 		data["contents"] = items
 

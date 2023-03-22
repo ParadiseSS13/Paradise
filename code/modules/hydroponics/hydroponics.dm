@@ -345,8 +345,11 @@
 /obj/machinery/hydroponics/examine(mob/user)
 	. = ..()
 	if(myseed)
-		. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
-		if(hasHUD(user, DATA_HUD_HYDROPONIC) || isobserver(user))
+		if(myseed.variant)
+			. += "<span class='notice'>It has the <span class='name'>[myseed.variant]</span> variant of <span class='name'>[myseed.plantname]</span> planted.</span>"
+		else
+			. += "<span class='notice'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
+		if (hasHUD(user, DATA_HUD_HYDROPONIC) || isobserver(user))
 			. += myseed.get_analyzer_text()
 			. += "<span class='notice'>Weed: [weedlevel] / 10</span>"
 			. += "<span class='notice'>Pest: [pestlevel] / 10</span>"
@@ -881,7 +884,8 @@
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_icon()
-
+	else if(is_pen(O) && myseed)
+		myseed.variant_prompt(user, src)
 	else
 		return ..()
 
