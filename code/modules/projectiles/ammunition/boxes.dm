@@ -19,6 +19,12 @@
 	multiple_sprites = 1
 	icon_prefix = "38"
 
+/obj/item/ammo_box/c38/hp
+	name = "speed_loader (.38 Hollow-Point)"
+	ammo_type = /obj/item/ammo_casing/c38/hp
+	icon_state = "38hp-6"
+	icon_prefix = "38hp"
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"

@@ -43,6 +43,12 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
+/obj/item/ammo_casing/c38/hp
+	desc = "A .38 Hollow-Point bullet casing"
+	icon_state = "rhp-casing"
+	materials = list(MAT_METAL = 4000)
+	projectile_type = /obj/item/projectile/bullet/hp38
+
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible
 	muzzle_flash_effect = null // invisible eh

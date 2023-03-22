@@ -38,6 +38,15 @@
 	stamina = 35
 	icon_state = "bullet-r"
 
+/obj/item/projectile/bullet/hp38 //Detective hollow-point
+	damage = 33
+	armour_penetration = -50
+
+/obj/item/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.AdjustSlowed(1)
+
 /obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
 	damage = 0
