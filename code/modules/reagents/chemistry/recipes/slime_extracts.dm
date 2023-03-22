@@ -171,7 +171,8 @@
 		/obj/item/reagent_containers/food/snacks/deepfryholder,
 		/obj/item/reagent_containers/food/snacks/chinese,
 		/obj/item/reagent_containers/food/snacks/human,
-		/obj/item/reagent_containers/food/snacks/monstermeat
+		/obj/item/reagent_containers/food/snacks/monstermeat,
+		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
