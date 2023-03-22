@@ -71,3 +71,15 @@
 /datum/sprite_accessory/head_accessory/moth/mothra
 	name = "Snow Antennae"
 	icon_state = "snow"
+
+/datum/sprite_accessory/head_accessory/moth/plasmafire
+	name = "Plasmafire Antennae"
+	icon_state = "plasmafire"
+
+/datum/sprite_accessory/head_accessory/moth/brown
+	name = "Brown Antennae"
+	icon_state = "brown"
+
+/datum/sprite_accessory/head_accessory/moth/feathery
+	name = "Feathery Antennae"
+	icon_state = "feathery"

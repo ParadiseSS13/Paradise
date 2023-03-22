@@ -207,3 +207,15 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 /datum/body_accessory/wing/witchwing
 	name = "Witch Wing Wings"
 	icon_state = "witchwing"
+
+/datum/body_accessory/wing/plasmafire
+	name = "Plasmafire Wings"
+	icon_state = "plasmafire"
+
+/datum/body_accessory/wing/brown
+	name = "Brown Wings"
+	icon_state = "brown"
+
+/datum/body_accessory/wing/feathery
+	name = "Feathery Wings"
+	icon_state = "feathery"
