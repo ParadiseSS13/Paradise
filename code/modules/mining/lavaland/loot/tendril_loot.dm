@@ -264,7 +264,7 @@
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
+		spawn() wisp.orbit(user, 20) // spawn prevents endless loop in .orbit from blocking code execution here
 		set_light(0)
 
 		user.update_sight()
