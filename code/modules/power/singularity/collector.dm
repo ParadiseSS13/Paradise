@@ -53,8 +53,6 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	if(istype(W, /obj/item/multitool))
 		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
 		return 1
-	else if(istype(W, /obj/item/analyzer) && P)
-		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/tank/internals/plasma))
 		if(!src.anchored)
 			to_chat(user, "<span class='warning'>The [src] needs to be secured to the floor first.</span>")
@@ -96,6 +94,11 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			return 1
 	else
 		return ..()
+
+/obj/machinery/power/rad_collector/return_analyzable_air()
+	if(P)
+		return P.return_analyzable_air()
+	return null
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
