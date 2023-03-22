@@ -11,8 +11,8 @@
 	selection_color = "#dddddd"
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
-
 	outfit = /datum/outfit/job/chaplain
+	allow_bureaucratic_error = FALSE
 
 /datum/outfit/job/chaplain
 	name = "Chaplain"

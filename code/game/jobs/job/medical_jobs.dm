@@ -19,6 +19,7 @@
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_MEDICAL = 1200)
 	outfit = /datum/outfit/job/cmo
+	allow_bureaucratic_error = FALSE
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Medical), basic job duties, and act professionally (roleplay)."
 
 /datum/outfit/job/cmo

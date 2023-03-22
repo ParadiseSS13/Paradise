@@ -21,6 +21,7 @@
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_ENGINEERING = 1200)
 	outfit = /datum/outfit/job/chief_engineer
+	allow_bureaucratic_error = FALSE
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Engineering), basic job duties, and act professionally (roleplay)."
 
 /datum/outfit/job/chief_engineer
