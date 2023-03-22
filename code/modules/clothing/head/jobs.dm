@@ -193,6 +193,11 @@
 	icon_state = "beret_warden"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
 
+/obj/item/clothing/head/beret/brigphys
+	name = "brigphys's beret"
+	desc = "Берет медика службы безопасности"
+	icon_state = "brigphysberet"
+
 /obj/item/clothing/head/beret/eng
 	name = "engineering beret"
 	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."

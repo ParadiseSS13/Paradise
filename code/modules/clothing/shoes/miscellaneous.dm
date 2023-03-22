@@ -132,6 +132,12 @@
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
 
+/obj/item/clothing/shoes/jackboots/cross
+	name = "jackcross"
+	desc = "Nanotrasen-issue Security combat cross for combat scenarios. They're jackcross, however that works."
+	icon_state = "jackboots_cross"
+	item_color = "jackboots_cross"
+
 /obj/item/clothing/shoes/workboots
 	name = "work boots"
 	desc = "Thick-soled boots for industrial work environments."

@@ -108,6 +108,14 @@
 	item_color = "rainbow"
 	dog_fashion = null
 
+/obj/item/clothing/head/soft/brigphys
+	name = "brigphysic`s cap"
+	desc = "Кепи бригмедика"
+	icon_state = "brigphyssoft"
+	item_state = "brigphyssoft"
+	item_color = "brigphys"
+	dog_fashion = null
+
 /obj/item/clothing/head/soft/sec
 	name = "security cap"
 	desc = "It's baseball hat in tasteful red colour."

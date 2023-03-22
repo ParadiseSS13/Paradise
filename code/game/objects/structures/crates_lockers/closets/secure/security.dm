@@ -121,6 +121,7 @@
 	new /obj/item/clothing/under/rank/head_of_security/formal(src)
 	new /obj/item/clothing/under/rank/head_of_security/corp(src)
 	new /obj/item/clothing/under/rank/head_of_security/skirt(src)
+	new /obj/item/clothing/under/rank/head_of_security/alt(src)
 	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/alt(src)
 	new /obj/item/clothing/head/HoS(src)

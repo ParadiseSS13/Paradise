@@ -138,6 +138,11 @@
 	item_state = "hos_corporate"
 	item_color = "hos_corporate"
 
+/obj/item/clothing/under/rank/head_of_security/alt
+	icon_state = "hosalt"
+	item_state = "hosalt"
+	item_color = "hosalt"
+
 //Jensen cosplay gear
 /obj/item/clothing/under/rank/head_of_security/jensen
 	desc = "You never asked for anything that stylish."
@@ -209,6 +214,15 @@
 	item_state = "brig_physf"
 	item_color = "brig_physf"
 	permeability_coefficient = 0.50
+
+/obj/item/clothing/under/rank/security/brigmedical
+	desc = "Комбинезон медика СБ синего цвета 26-го века. Является компромиссом между санитарными нормами и стандартами защиты."
+	name = "brig medical's jumpsuit"
+	icon_state = "brig_medical"
+	item_state = "brig_medical"
+	item_color = "brig_medical"
+	permeability_coefficient = 0.50
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 30, acid = 30)
 
 //Pod Pilot
 /obj/item/clothing/under/rank/security/pod_pilot
