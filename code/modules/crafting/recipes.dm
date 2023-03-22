@@ -475,6 +475,7 @@
 	reqs = list(/obj/item/storage/box,
 				/obj/item/stack/sheet/plastic,
 				/obj/item/stack/sheet/metal)
+	category = CAT_MISC
 
 /datum/crafting_recipe/flashlight_eyes
 	name = "Flashlight Eyes"
