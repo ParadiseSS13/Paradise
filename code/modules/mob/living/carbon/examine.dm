@@ -88,14 +88,14 @@
 	return ""
 
 /mob/living/carbon/examine(mob/user)
-	var/skipgloves = 0
-	var/skipsuitstorage = 0
-	var/skipjumpsuit = 0
-	var/skipshoes = 0
-	var/skipmask = 0
-	var/skipears = 0
-	var/skipeyes = 0
-	var/skipface = 0
+	var/skipgloves = FALSE
+	var/skipsuitstorage = FALSE
+	var/skipjumpsuit = FALSE
+	var/skipshoes = FALSE
+	var/skipmask = FALSE
+	var/skipears = FALSE
+	var/skipeyes = FALSE
+	var/skipface = FALSE
 
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
