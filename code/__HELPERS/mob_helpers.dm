@@ -455,9 +455,9 @@
 	if(progress)
 		qdel(progbar)
 
-//A version of do_after that will not get cancelled by a mob moving, for situations when signals are not viable
+/// A version of do_after that will not get cancelled by a mob moving, for situations when signals are not viable
 /proc/moving_do_after(mob/user, delay, needhand = TRUE, atom/target = null, progress = TRUE, list/extra_checks = list(), use_default_checks = TRUE)
-	if(!user)
+	if(!istype(user))
 		return FALSE
 	var/atom/Tloc = null
 	if(target)

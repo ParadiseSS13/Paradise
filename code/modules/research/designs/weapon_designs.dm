@@ -145,6 +145,7 @@
 	materials = list(MAT_METAL = 10000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/empty
 	category = list("Weapons")
+	
 /datum/design/box_oldsmg
 	name = "WT-550 Auto Gun Ammo Box (4.6x30mm)"
 	desc = "A box of 20 rounds for the out of date security WT-550 Auto Rifle"
@@ -154,6 +155,7 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/ammo_box/wt550
 	category = list("Weapons")
+	
 /datum/design/box_oldsmg/ap_box
 	name = "WT-550 Auto Gun Armour Piercing Ammo Box (4.6x30mm AP)"
 	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
@@ -161,6 +163,7 @@
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600)
 	build_path = /obj/item/ammo_box/wt550/wtap
 	category = list("Weapons")
+	
 /datum/design/box_oldsmg/ic_box
 	name = "WT-550 Auto Gun Incendiary Ammo Box (4.6x30mm IC)"
 	desc = "A box of 20 armour piercing rounds for the out of date security WT-550 Auto Rifle"
@@ -168,6 +171,7 @@
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_GLASS = 1000)
 	build_path = /obj/item/ammo_box/wt550/wtic
 	category = list("Weapons")
+	
 /datum/design/box_oldsmg/tx_box
 	name = "WT-550 Auto Gun Uranium Ammo Box (4.6x30mm TX)"
 	desc = "A box of 20 uranium tipped rounds for the out of date security WT-550 Auto Rifle"
@@ -175,6 +179,7 @@
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/wt550/wttx
 	category = list("Weapons")
+	
 /datum/design/stunrevolver
 	name = "Tesla Revolver Parts Kit"
 	desc = "A kit for a high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
