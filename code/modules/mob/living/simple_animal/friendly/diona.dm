@@ -44,6 +44,8 @@
 	can_collar = TRUE
 
 	a_intent = INTENT_HELP
+
+	var/random_name = TRUE
 	var/gestalt_alert = "merged with gestalt" //used in adding and clearing alert
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
 	var/awareness_donors = 3 //amount of blood donors needed for understand language
@@ -192,8 +194,7 @@
 		adult.add_language(L.name)
 	adult.regenerate_icons()
 
-	if(splittext(name, " ")[2] == "diona")
-
+	if(random_name)
 		adult.name = "diona ([rand(100,999)])"
 		adult.real_name = adult.name
 		adult.real_name = adult.dna.species.get_random_name()

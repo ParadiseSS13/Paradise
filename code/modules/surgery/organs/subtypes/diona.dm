@@ -153,12 +153,14 @@
 		var/mob/living/simple_animal/diona/nymph = new /mob/living/simple_animal/diona(get_turf(organ.owner))
 		nymph.health = round(clamp(1 - organ.damage / organ.min_broken_damage, 0, 1) * nymph.maxHealth)
 
-		if(istype(parent, /obj/item/organ/internal/brain))
+		if(istype(organ, /obj/item/organ/internal/brain))
 			var/obj/item/organ/internal/brain/brain = organ
-			nymph.real_name = brain.brainmob.real_name
-			nymph.name = brain.brainmob.real_name
-			var/datum/mind/mind = brain.brainmob.mind
-			mind.transfer_to(nymph)
+			if(brain.brainmob)
+				nymph.random_name = FALSE
+				nymph.real_name = brain.brainmob.real_name
+				nymph.name = brain.brainmob.real_name
+				var/datum/mind/mind = brain.brainmob.mind
+				mind.transfer_to(nymph)
 
 		qdel(organ)
 
