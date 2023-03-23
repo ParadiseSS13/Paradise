@@ -299,7 +299,7 @@
 			uid = C.UID(),
 			name = C.channel_name,
 			author = C.author,
-			author_ckey = C.author_ckey,
+			author_ckey = (is_admin(user) ? C.author_ckey : "N/A"),
 			description = C.description,
 			icon = C.icon,
 			public = C.is_public,
