@@ -529,7 +529,7 @@
 			injury_target.cause_internal_bleeding()
 			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
 
-		if(prob(25))
+		else if(prob(25))
 			injury_target = M.get_organ(BODY_ZONE_CHEST)
 			injury_target.fracture()
 		else
