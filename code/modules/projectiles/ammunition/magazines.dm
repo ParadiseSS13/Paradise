@@ -498,7 +498,7 @@
 	name = "laser carbine projector magazine"
 	desc = "Fits experimental laser ammo casings. Compatible with laser rifles and carbines."
 	icon_state = "laser"
-	ammo_type = /obj/item/ammo_casing/laser
+	ammo_type = /obj/item/ammo_casing/caseless/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
