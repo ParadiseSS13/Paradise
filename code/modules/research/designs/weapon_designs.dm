@@ -179,10 +179,10 @@
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
 /datum/design/stunrevolver
-	name = "Tesla Revolver Parts Kit"
-	desc = "A kit for a high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
+	name = "Arc Revolver Parts Kit"
+	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	id = "stunrevolver"
-	req_tech = list("combat" = 4, "materials" = 4, "powerstorage" = 5)
+	req_tech = list("combat" = 7, "materials" = 6, "powerstorage" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
 	build_path = /obj/item/weaponcrafting/gunkit/tesla

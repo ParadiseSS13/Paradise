@@ -9,6 +9,8 @@
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
 	var/obj/item/ammo_box/magazine/magazine
 	var/can_tactical = FALSE //check to see if the gun can tactically reload
+	/// The sound it will make when the gun suppression is TRUE
+	var/suppressed_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
@@ -20,10 +22,6 @@
 /obj/item/gun/projectile/Destroy()
 	QDEL_NULL(magazine)
 	return ..()
-
-/obj/item/gun/projectile/detailed_examine()
-	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
-			will tell you what caliber you need."
 
 /obj/item/gun/projectile/update_name()
 	. = ..()
@@ -122,7 +120,7 @@
 				suppressed = A
 				S.oldsound = fire_sound
 				S.initial_w_class = w_class
-				fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
+				fire_sound = suppressed_sound
 				w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
 				A.loc = src
 				update_icon()
@@ -176,6 +174,7 @@
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	. += "Has [get_ammo()] round\s remaining."
+	. += "<span class='notice'>Use in hand to empty the gun's ammo reserves.</span>"
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
