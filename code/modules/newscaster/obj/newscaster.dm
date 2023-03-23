@@ -332,7 +332,7 @@
 	return list(list(
 		uid = FM.UID(),
 		author = (FM.censor_flags & CENSOR_AUTHOR) ? "" : FM.author,
-		author_ckey = FM.author_ckey,
+		author_ckey = (is_admin(M) ? FM.author_ckey : "N/A"),
 		title = (FM.censor_flags & CENSOR_STORY) ? "" : FM.title,
 		body = (FM.censor_flags & CENSOR_STORY) ? "" : FM.body,
 		admin_locked = FM.admin_locked,
