@@ -179,6 +179,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
+#define TRAIT_BURN_WOUND_IMMUNE "burn_immune"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_NOFINGERPRINTS	"no_fingerprints"

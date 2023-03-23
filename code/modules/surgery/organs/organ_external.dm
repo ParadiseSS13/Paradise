@@ -146,6 +146,8 @@
 	if(HAS_TRAIT(owner, TRAIT_STURDY_LIMBS))
 		limb_flags |= CANNOT_DISMEMBER
 
+	if(HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
+		limb_flags |= CANNOT_BURN
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
@@ -695,9 +697,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status |= ORGAN_BURNT
 	perma_injury = min_broken_damage
 
-/obj/item/organ/external/proc/fix_burn_wound()
+/obj/item/organ/external/proc/fix_burn_wound(update_health = TRUE)
 	status &= ~ORGAN_BURNT
-	perma_injury = min_broken_damage
+	perma_injury = max(perma_injury - min_broken_damage, 0)
+	if(update_health)
+		owner.updatehealth("burn wound")
 
 /obj/item/organ/external/robotize(company, make_tough = FALSE, convert_all = TRUE)
 	..()
