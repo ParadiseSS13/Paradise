@@ -241,9 +241,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/north)
 "abH" = (
@@ -7529,9 +7526,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aTb" = (
@@ -8135,7 +8129,6 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/effect/turf_decal/stripes/end,
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
@@ -9216,6 +9209,9 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/garden)
@@ -12107,10 +12103,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 5
 	},
 /turf/simulated/floor/plating/airless,
-/area/mine/unexplored/cere/medical)
+/area/maintenance/starboard)
 "bnv" = (
 /obj/structure/closet,
 /obj/structure/window/reinforced{
@@ -21322,6 +21318,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plating,
 /area/medical/paramedic)
 "bYQ" = (
@@ -21487,9 +21484,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/port/south)
 "cav" = (
@@ -21614,9 +21608,6 @@
 /obj/structure/cable/orange{
 	d2 = 4;
 	icon_state = "0-4"
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -22001,9 +21992,6 @@
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
@@ -23877,9 +23865,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/stripes/asteroid/end{
-	dir = 8
-	},
+/obj/effect/turf_decal/stripes/asteroid/end,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -25788,6 +25774,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/effect/turf_decal/stripes/asteroid/end{
+	dir = 8
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -26797,7 +26786,6 @@
 	},
 /area/security/prison/cell_block/A)
 "cFq" = (
-/obj/effect/turf_decal/stripes/end,
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
@@ -28029,7 +28017,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/stripes/asteroid/end{
+/obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -36660,12 +36648,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/maintenance/apmaint)
-"dCu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/red{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/mine/unexplored/cere/medical)
 "dCv" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
@@ -38859,6 +38841,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/turf_decal/stripes/asteroid/end,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -39986,7 +39969,6 @@
 /turf/simulated/floor/plating/asteroid/ancient/airless,
 /area/mine/unexplored/cere/cargo)
 "eNW" = (
-/obj/effect/turf_decal/stripes/end,
 /obj/structure/cable/orange{
 	d2 = 8;
 	icon_state = "0-8"
@@ -44509,6 +44491,9 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/effect/turf_decal/stripes/asteroid/end{
+	dir = 8
+	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -45008,9 +44993,6 @@
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/asteroid/end{
-	dir = 4
 	},
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -46174,7 +46156,7 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/maintenance/starboard)
+/area/medical/cmostore)
 "hjM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -52695,7 +52677,6 @@
 /turf/simulated/floor/carpet/black,
 /area/chapel/main)
 "jxi" = (
-/obj/effect/turf_decal/stripes/end,
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
@@ -58558,7 +58539,6 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/external/southeast)
 "luh" = (
@@ -68403,6 +68383,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/medical/psych)
 "oWG" = (
@@ -68874,9 +68857,6 @@
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
 	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -71138,9 +71118,6 @@
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
 	},
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/asmaint)
@@ -76970,9 +76947,6 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar/aft)
 "saJ" = (
@@ -78883,9 +78857,6 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/end{
-	dir = 4
 	},
 /obj/machinery/atmospherics/binary/valve/open,
 /turf/simulated/floor/plating,
@@ -153792,7 +153763,7 @@ rNK
 rNK
 fMl
 fMl
-dCu
+dCv
 bnt
 fqw
 lIS
@@ -154049,7 +154020,7 @@ rNK
 rNK
 rNK
 rNK
-dCu
+rNK
 rNK
 fqw
 lIS
@@ -154306,7 +154277,7 @@ rNK
 rNK
 rNK
 rNK
-dCv
+rNK
 rNK
 rNK
 rNK
@@ -154821,7 +154792,7 @@ wdb
 wdb
 wdb
 wdb
-wdb
+rNK
 wdb
 wdb
 wdb
@@ -155078,7 +155049,7 @@ sbG
 sbG
 sbG
 sbG
-sbG
+rNK
 sbG
 sbG
 sbG
@@ -156363,7 +156334,7 @@ lRR
 lRR
 ayb
 ayb
-ayb
+rNK
 ayb
 rNK
 rNK
@@ -156620,7 +156591,7 @@ jft
 lRR
 lRR
 lRR
-lRR
+rNK
 lRR
 rNK
 rNK
@@ -156877,7 +156848,7 @@ jft
 jft
 lRR
 lRR
-lRR
+rNK
 rNK
 rNK
 rNK
