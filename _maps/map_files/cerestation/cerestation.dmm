@@ -2793,7 +2793,7 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/maintenance/fsmaint)
+/area/maintenance/fore2)
 "apv" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
@@ -3122,17 +3122,17 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/maintenance/fsmaint)
+/area/maintenance/fore2)
 "ark" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/maintenance/fsmaint)
+/area/maintenance/fore2)
 "arl" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/area/maintenance/fore2)
 "arm" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Fore Asteroid Maintenance Access";
@@ -28058,7 +28058,7 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/maintenance/fsmaint)
+/area/maintenance/fore2)
 "cLa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -39403,7 +39403,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/area/maintenance/fore2)
 "eAS" = (
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
@@ -61024,7 +61024,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
+/area/maintenance/fore2)
 "moY" = (
 /obj/structure/closet/secure_closet/medical3,
 /obj/machinery/light,
@@ -62612,7 +62612,7 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
-/area/maintenance/fsmaint)
+/area/maintenance/fore2)
 "mVA" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -116417,7 +116417,7 @@ aTz
 aTz
 aTz
 afd
-vdj
+vrQ
 mVr
 arh
 fqh
@@ -116931,7 +116931,7 @@ aTz
 aTz
 aTz
 afd
-vdj
+vrQ
 apu
 arl
 asu
