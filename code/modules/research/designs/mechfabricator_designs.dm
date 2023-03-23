@@ -875,6 +875,26 @@
 	construction_time = 200
 	category = list("Exosuit Equipment")
 
+/datum/design/improved_exosuit_control_system
+    name = "Improved Exosuit Control System"
+    id = "mech_improved_exosuit_control_system"
+    build_type = MECHFAB
+    build_path = /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
+    req_tech = list("engineering" = 7, "materials" = 6, "magnets" = 5, "powerstorage"= 5)
+    materials = list(MAT_METAL=15000,MAT_TITANIUM=2000,MAT_GOLD=1000)
+    construction_time = 200
+    category = list("Exosuit Equipment")
+
+/datum/design/syringe_gun_upgrade
+	name = "Additional System for the Reproduction of Reagents"
+	id = "mech_syringe_gun_upgrade"
+	build_type = MECHFAB
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
+	req_tech = list("materials" = 7, "engineering" = 6, "biotech" = 7, "bluespace" = 6, "toxins" = 6)
+	materials = list(MAT_METAL=8000,MAT_DIAMOND=1000,MAT_GLASS=1000,MAT_GOLD=1000,MAT_URANIUM=500,MAT_BLUESPACE=1000)
+	construction_time = 200
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_generator
 	name = "Exosuit Equipment (Plasma Generator)"
 	id = "mech_generator"

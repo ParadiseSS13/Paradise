@@ -266,6 +266,10 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach()
 	STOP_PROCESSING(SSobj, src)
+	if(istype(src.loc, /obj/mecha/medical/odysseus))
+		var/obj/mecha/medical/odysseus/O = src.loc
+		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/S in O.equipment)
+			S.detach()
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Destroy()
@@ -528,6 +532,37 @@
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
 
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
+	name = "additional system for the reproduction of reagents"
+	desc = "A upgrade for the syringe gun. Increases synthesis rate and maximum capacity. Requires a syringe gun to be installed first."
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "beaker_upgrade"
+	origin_tech = "materials=5;engineering=5;biotech=6"
+	energy_drain = 10
+	selectable = 0
+	var/improv_max_volume = 300
+	var/imrov_synth_speed = 20
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/can_attach(obj/mecha/M)
+	..()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in M.equipment)
+		return 1
+	return 0
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach(obj/mecha/M)
+	..()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
+		S.max_volume = improv_max_volume
+		S.synth_speed = imrov_synth_speed
+		S.reagents.maximum_volume = improv_max_volume
+
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/detach()
+	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
+		S.max_volume = initial(S.max_volume)
+		S.synth_speed = initial(S.synth_speed)
+		S.reagents.maximum_volume = S.max_volume
+	return ..()
+
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	name = "rescue jaw"
 	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
@@ -574,3 +609,23 @@
 		if(M.equipment.len < M.max_equip)
 			return TRUE
 	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
+	name = "improved exosuit control system"
+	desc = "A contol system for more precise contorl of exosuit movement. In other words - Gotta go fast!"
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "move_plating"
+	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
+	energy_drain = 20
+	selectable = 0
+	var/improv_step_in = 2
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/attach(obj/mecha/M)
+	..()
+	M.step_in = improv_step_in
+
+/obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system/detach()
+	if(istype(src.loc, /obj/mecha/medical/odysseus))
+		var/obj/mecha/medical/odysseus/O = src.loc
+		O.step_in = initial(O.step_in)
+		return ..()
