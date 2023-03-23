@@ -82763,11 +82763,11 @@
 	},
 /area/medical/medbay2)
 "nkW" = (
-/obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/sign/botany{
 	pixel_y = 32
 	},
+/obj/machinery/chem_dispenser/botanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
