@@ -1526,6 +1526,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 8
 
+/datum/uplink_item/device_tools/spai
+	name = "Syndicate Personal AI Device (SPAI)"
+	desc = "You will have your personal assistant. It comes with an increased amount of memory and special programs."
+	reference = "SPAI"
+	item = /obj/item/paicard/uplink
+	cost = 8
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	surplus = 0
+
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."

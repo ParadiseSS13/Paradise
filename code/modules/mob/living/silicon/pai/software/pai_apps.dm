@@ -24,7 +24,8 @@
 	var/list/available_s = list()
 	for(var/s in GLOB.pai_software_by_key)
 		var/datum/pai_software/PS = GLOB.pai_software_by_key[s]
-		available_s += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost))
+		if(!PS.only_syndi || pai_holder.syndipai)
+			available_s += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost))
 
 	// Split to installed software and toggles for the UI
 	var/list/installed_s = list()
@@ -386,3 +387,70 @@
 		data["burn"] = held.getFireLoss()
 
 	return data
+
+// Camera Bug //
+/datum/pai_software/cam_bug
+	name = "Internal Camera Bug"
+	ram_cost = 30
+	id = "cam_bug"
+	ui_icon = "eye"
+	template_file = "pai_camera_bug"
+	only_syndi = TRUE
+
+/datum/pai_software/cam_bug/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("ui_interact")
+			pai_holder.integrated_console.ui_interact(pai_holder)
+
+// Secrete Chemicals (as borer) //
+/datum/pai_software/sec_chem
+	name = "Special Secrete Chemical"
+	ram_cost = 60
+	id = "sec_chem"
+	ui_icon = "blind"
+	template_file = "pai_sec_chem"
+	only_syndi = TRUE
+
+/datum/pai_software/sec_chem/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+
+	var/mob/living/held = get_holding_mob(FALSE)
+
+	if(isliving(held))
+		data["holder"] = held.name
+		data["dead"] = (held.stat > UNCONSCIOUS)
+		data["health"] = held.health
+
+	var/list/available_c = list()
+	for(var/datum in typesof(/datum/pai_chem))
+		var/datum/pai_chem/C = datum
+		if(initial(C.chemname))
+			available_c += list(list("name" = initial(C.chemname), "key" = initial(C.key), "desc" = initial(C.chemdesc), "cost" = initial(C.chemuse)))
+
+	data["current_chemicals"] = pai_holder.chemicals
+	data["available_chemicals"] = available_c
+	return data
+
+/datum/pai_software/sec_chem/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("secreteChemicals")
+			var/mob/living/held = get_holding_mob(FALSE)
+			var/datum/pai_chem/C = null
+			for(var/datum in typesof(/datum/pai_chem))
+				var/datum/pai_chem/test = datum
+				if(initial(test.key) == params["key"])
+					C = new test()
+					break
+			if(!C || !held || !src)
+				return
+			var/datum/reagent/R = GLOB.chemical_reagents_list[C.key]
+
+			to_chat(pai_holder, "<span class='notice'>You inject [R.name] from your internal secret laboratory into [held]'s bloodstream.</span>")
+			held.reagents.add_reagent(C.key, C.quantity)
+			pai_holder.chemicals -= C.chemuse

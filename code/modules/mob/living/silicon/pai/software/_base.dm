@@ -26,6 +26,8 @@
 	var/ui_icon = "file-code"
 	/// pAI which holds this software
 	var/mob/living/silicon/pai/pai_holder
+	/// If you want to do this just for the pAI Syndicate
+	var/only_syndi = FALSE
 
 /**
   * New handler

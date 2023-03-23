@@ -95,3 +95,35 @@
 /datum/pai_software/flashlight/is_active(mob/living/silicon/pai/user)
 	return user.flashlight_on
 
+// Advanced Security Hud //
+/datum/pai_software/adv_sec_hud
+	name = "Advanced Security HUD"
+	ram_cost = 40
+	id = "adv_sec_hud"
+	ui_icon = "exclamation-triangle"
+	toggle_software = TRUE
+	only_syndi = TRUE
+
+/datum/pai_software/adv_sec_hud/toggle(mob/living/silicon/pai/user)
+	user.adv_secHUD = !user.adv_secHUD
+	user.remove_med_sec_hud()
+	if(user.adv_secHUD)
+		user.add_sec_hud()
+
+/datum/pai_software/adv_sec_hud/is_active(mob/living/silicon/pai/user)
+	return user.adv_secHUD
+
+// Weakened AI Сapability //
+/datum/pai_software/weak_ai
+	name = "Weakened AI Сapability"
+	ram_cost = 90
+	id = "weak_ai"
+	ui_icon = "bug"
+	toggle_software = TRUE
+	only_syndi = TRUE
+
+/datum/pai_software/weak_ai/toggle(mob/living/silicon/pai/user)
+	user.ai_capability = !user.ai_capability
+
+/datum/pai_software/weak_ai/is_active(mob/living/silicon/pai/user)
+	return user.ai_capability

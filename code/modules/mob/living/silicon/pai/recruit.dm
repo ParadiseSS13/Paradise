@@ -40,6 +40,9 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				pai.name = candidate.name
 			pai.real_name = pai.name
 			pai.key = candidate.key
+			if(card.is_syndicate_type)
+				pai.syndipai = card.is_syndicate_type
+				pai.ram += card.extra_memory
 
 			card.setPersonality(pai)
 			card.looking_for_personality = 0

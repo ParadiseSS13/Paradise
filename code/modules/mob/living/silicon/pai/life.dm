@@ -14,6 +14,12 @@
 				visible_message("<span class='warning'>The data cable connected to [src] rapidly retracts back into its spool!</span>")
 				QDEL_NULL(DJ.cable)
 
+	if(installed_software["sec_chem"])
+		if(chemicals < initial(chemicals))
+			if(world.time > (last_change_chemicals + 30 SECONDS))
+				chemicals += 5
+				last_change_chemicals = world.time
+
 /mob/living/silicon/pai/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
 		return ..()

@@ -13,10 +13,17 @@
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	var/is_syndicate_type = FALSE
+	var/extra_memory = 0
 
-/obj/item/paicard/syndicate
+/obj/item/paicard/syndicate // Only seems that it is syndicard
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
+
+/obj/item/paicard/uplink // true Syndicate
+	is_syndicate_type = TRUE
+	faction = list("syndicate")
+	extra_memory = 30
 
 /obj/item/paicard/New()
 	..()

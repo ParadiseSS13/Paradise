@@ -445,6 +445,11 @@
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL))
 
+	else if(ispAI(M))
+		var/mob/living/silicon/pai/P = M
+		if(P.adv_secHUD)
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE))
+
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
 		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
