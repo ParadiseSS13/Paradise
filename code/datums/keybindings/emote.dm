@@ -338,7 +338,7 @@
 	name = "Cry"
 
 /datum/keybinding/emote/carbon/human/dap
-	linked_emote = /datum/emote/living/carbon/human/dap
+	linked_emote = /datum/emote/living/carbon/human/highfive/dap
 	name = "Dap"
 
 /datum/keybinding/emote/carbon/human/eyebrow
@@ -418,7 +418,7 @@
 	name = "High Five"
 
 /datum/keybinding/emote/carbon/human/handshake
-	linked_emote = /datum/emote/living/carbon/human/handshake
+	linked_emote = /datum/emote/living/carbon/human/highfive/handshake
 	name = "Handshake"
 
 /datum/keybinding/emote/carbon/human/snap
@@ -620,6 +620,10 @@
 /datum/keybinding/emote/simple_animal/pet/cat/purr
 	linked_emote = /datum/emote/living/simple_animal/pet/cat/purr
 	name = "Purr (Cat)"
+
+/datum/keybinding/emote/simple_animal/pet/cat/sit
+	linked_emote = /datum/emote/living/sit/cat
+	name = "Sit/Stand (Cat)"
 
 /datum/keybinding/emote/simple_animal/pet/cat/can_use(client/C, mob/M)
 	return iscat(M) && ..()

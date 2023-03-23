@@ -5,7 +5,7 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, NO_BLOOD, NO_HAIR)
+	species_traits = list(NO_BLOOD, NO_HAIR)
 	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_NOHUNGER, TRAIT_BURN_WOUND_IMMUNE)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks

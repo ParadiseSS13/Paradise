@@ -45,7 +45,8 @@ GLOBAL_VAR(bomb_set)
 	var/anchor_stage = NUKE_INTACT
 	///This is so that we can check if the internal components are sealed up properly when the outer hatch is closed.
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
-
+	///How many sheets of various metals we need to fix it
+	var/sheets_to_fix = 5
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -79,6 +80,30 @@ GLOBAL_VAR(bomb_set)
 			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
 
+/obj/machinery/nuclearbomb/examine(mob/user)
+	. = ..()
+	if(!panel_open)
+		. += "<span class='notice'>The outer panel is <b>screwed shut</b>.</span>"
+	switch(removal_stage)
+		if(NUKE_INTACT)
+			. += "<span class='notice'>The anchoring bolt covers are <b>welded shut</b>.</span>"
+		if(NUKE_COVER_OFF)
+			. += "<span class='notice'>The cover plate is <b>pried into</b> place.</span>"
+		if(NUKE_COVER_OPEN)
+			. += "<span class='notice'>The anchoring system sealant is <b>welded shut</b>.</span>"
+		if(NUKE_SEALANT_OPEN)
+			. += "<span class='notice'>The bolts are <b>wrenched</b> in place.</span>"
+		if(NUKE_UNWRENCHED)
+			. += "<span class='notice'>The device can be <b>pried off</b> its anchors.</span>"
+		if(NUKE_CORE_EVERYTHING_FINE)
+			. += "<span class='notice'>The outer panel can be <b>pried open</b> or it can be <i>screwed</i> back on.</span>"
+		if(NUKE_CORE_PANEL_EXPOSED)
+			. += "<span class='notice'>The outer plate can be fixed by <b>[sheets_to_fix] metal sheets</b>, while the inner core plate is <i>welded shut</i>.</span>"
+		if(NUKE_CORE_PANEL_UNWELDED)
+			. += "<span class='notice'>The inner core plate can be <b>welded shut</b> or it can be <i>pried open</i>.</span>"
+		if(NUKE_CORE_FULLY_EXPOSED)
+			. += "<span class='notice'>The inner core plate can be fixed by <b>[sheets_to_fix] titanium sheets</b>, [core ? "or the plutonium core can be <i>removed</i>" : "though the plutonium core is <i>missing</i>"].</span>"
+
 /obj/machinery/nuclearbomb/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -105,23 +130,31 @@ GLOBAL_VAR(bomb_set)
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
 		return
 	if(istype(O, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
+		var/obj/item/stack/S = O
+		if(S.get_amount() < sheets_to_fix)
+			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
+			return
 		if(do_after(user, 2 SECONDS, target = src))
-			var/obj/item/stack/S = O
-			if(!loc || !S || S.get_amount() < 5)
+			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
-			S.use(5)
-			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", "<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
+			S.use(sheets_to_fix)
+			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", \
+								"<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
 			removal_stage = NUKE_CORE_PANEL_UNWELDED
 			if(core)
 				STOP_PROCESSING(SSobj, core)
 			return
 	if(istype(O, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		var/obj/item/stack/S = O
+		if(S.get_amount() < sheets_to_fix)
+			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
+			return
 		if(do_after(user, 2 SECONDS, target = src))
-			if(!loc || !S || S.get_amount() < 5)
+			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
-			S.use(5)
-			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", "<span class='notice'>You repair [src]'s outer core plate.</span>")
+			S.use(sheets_to_fix)
+			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", \
+								"<span class='notice'>You repair [src]'s outer core plate.</span>")
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
 			return
 	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
@@ -378,19 +411,23 @@ GLOBAL_VAR(bomb_set)
 			if(removal_stage == NUKE_MOBILE)
 				anchored = FALSE
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-			else if(isinspace())
+				return
+
+			if(!anchored && isinspace())
 				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 				return FALSE
-			else
-				if(!yes_code && anchored && timing)
-					to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
-					return
-				anchored = !(anchored)
-				if(anchored)
-					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
-				else
-					requires_NAD_to_unbolt = FALSE
-					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
+
+			if(!yes_code && anchored && timing)
+				to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
+				return
+
+			anchored = !(anchored)
+			if(anchored)
+				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
+				return
+
+			requires_NAD_to_unbolt = FALSE
+			visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct

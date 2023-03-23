@@ -16,7 +16,9 @@
 	..()
 	initialize_directions = dir
 
-/obj/machinery/atmospherics/pipe/cap/detailed_examine()
+/obj/machinery/atmospherics/pipe/cap/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Largely cosmetic as pipes automatically seal themselves off from leaking gases if not connected to another pipe. Will prevent a nasty ventcrawler from paying you a visit however.</span>"
 	return "This is a cosmetic attachment, as pipes currently do not spill their contents into the air."
 
 /obj/machinery/atmospherics/pipe/cap/hide(i)
