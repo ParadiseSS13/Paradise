@@ -117,9 +117,9 @@
 			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
 			return
 
-		var/clock_structur_inrange = locate(/obj/structure/clockwork/functional) in range(1, src)
+		var/clock_structure_in_range = locate(/obj/structure/clockwork/functional) in range(1, usr)
 		var/time_cast = spell_enchant.time SECONDS
-		if(clock_structur_inrange)
+		if(clock_structure_in_range)
 			time_cast /= 2
 
 		if(do_after(owner, time_cast, target = owner))
@@ -199,7 +199,7 @@
 
 /datum/action/innate/clockwork/hand_spell/construction
 	name = "Midas Touch"
-	desc = "Empowers your hand to cover metalic objects into brass.<br><u>Converts:</u><br>Plasteel and metal into brass metal<br>Brass metal into integration cog or clockwork slab<br>Airlocks into brightish airlocks after a delay (harm intent)"
+	desc = "Empowers your hand to cover metalic objects into brass.<br><u>Converts:</u><br>Plasteel and metal into brass metal<br>Brass metal into integration cog or clockwork slab<br>Cyborgs or AI into Ratvar's servants after a short delay"
 	button_icon_state = "midas_touch"
 	magic_path = /obj/item/melee/clock_magic/construction
 
