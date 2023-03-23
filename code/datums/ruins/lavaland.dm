@@ -228,3 +228,11 @@
 	suffix = "lavaland_surface_bfl_crack.dmm"
 	always_place = TRUE
 	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/monster_nest
+	name = "Monster Nest"
+	id = "monsternest"
+	description = "A cave of several tunnels, housing the local fauna deep underground."
+	suffix = "lavaland_surface_monster_nest.dmm"
+	allow_duplicates = FALSE
+	cost = 5

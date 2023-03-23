@@ -1262,6 +1262,7 @@
 #include "code\game\objects\structures\misc.dm"
 #include "code\game\objects\structures\mop_bucket.dm"
 #include "code\game\objects\structures\morgue.dm"
+#include "code\game\objects\structures\nest.dm"
 #include "code\game\objects\structures\noticeboard.dm"
 #include "code\game\objects\structures\plasticflaps.dm"
 #include "code\game\objects\structures\railings.dm"

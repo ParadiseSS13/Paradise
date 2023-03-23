@@ -33,10 +33,11 @@
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_dead_ratvar.dmm
-#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hell.dmm"
+#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_fountain_hell.dmm
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_pizza_party.dmm
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_puzzle.dmm
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_random_ripley.dmm
 #_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_survivalpod.dmm
-#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm"
-#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm"
+#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_ufo_crash.dmm
+#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm
+#_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_monster_nest.dmm
