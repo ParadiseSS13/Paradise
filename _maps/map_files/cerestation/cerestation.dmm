@@ -3589,6 +3589,7 @@
 	dir = 1;
 	network = list("SS13","QM")
 	},
+/obj/effect/landmark/start/cargo_technician,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6372,7 +6373,6 @@
 /obj/structure/table,
 /obj/item/paper_bin/nanotrasen,
 /obj/machinery/light,
-/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -8138,17 +8138,14 @@
 "aVM" = (
 /obj/structure/table,
 /obj/item/folder,
-/obj/item/stamp/denied{
-	pixel_x = 5;
-	pixel_y = 3
-	},
+/obj/item/stamp/denied,
 /obj/item/radio/intercom{
 	pixel_y = 28;
 	name = "custom placement"
 	},
 /obj/item/stack/packageWrap,
 /obj/item/destTagger,
-/obj/item/stamp,
+/obj/item/stamp/granted,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -12725,7 +12722,6 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "bqA" = (
-/obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
 	},
@@ -25649,6 +25645,7 @@
 	},
 /obj/structure/disposalpipe/junction/reversed,
 /obj/structure/chair/comfy/blue,
+/obj/effect/landmark/start/nanotrasen_rep,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26415,6 +26412,7 @@
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/effect/landmark/start/blueshield,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -35897,6 +35895,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 4
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "dzg" = (
@@ -37568,7 +37567,6 @@
 /area/maintenance/disposal/external/southwest)
 "dOw" = (
 /obj/structure/table,
-/obj/machinery/recharger,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -50410,7 +50408,6 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/effect/landmark/start/blueshield,
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "iJF" = (
@@ -55662,7 +55659,6 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start/nanotrasen_rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "kwQ" = (
@@ -84295,6 +84291,13 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology)
+"uGD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/cargo_technician,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/quartermaster/storage)
 "uGM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/atmos{
@@ -88265,10 +88268,7 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/pen,
 /obj/item/folder/white,
-/obj/item/stamp/rd{
-	pixel_x = 3;
-	pixel_y = -2
-	},
+/obj/item/stamp/rd,
 /obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -142401,7 +142401,7 @@ bkZ
 brp
 bkX
 bkX
-brp
+uGD
 brp
 brp
 ceN
