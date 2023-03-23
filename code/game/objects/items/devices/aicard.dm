@@ -115,4 +115,7 @@
 	while(AI && AI.stat != DEAD)
 		AI.adjustOxyLoss(2)
 		sleep(10)
+	for(var/mob/living/silicon/robot/R in AI.connected_robots)
+		R.disconnect_from_ai()
+		R.show_laws()
 	flush = FALSE

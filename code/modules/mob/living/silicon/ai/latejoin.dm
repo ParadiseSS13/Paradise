@@ -14,6 +14,10 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
 	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
 
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		R.disconnect_from_ai()
+		R.show_laws()
+
 	//Handle job slot/tater cleanup.
 	var/job = mind.assigned_role
 
