@@ -658,8 +658,8 @@
 			var/mob/living/carbon/carbon = user
 			if(carbon.wear_suit != src)
 				return
-			user.visible_message("<span class='danger'>[usr] concentrates as [user.p_their()] curiass shifts his plates!</span>",
-			"<span class='notice'>The [src] becomes more hardened as the plates becomes to shift for any attack!</span>")
+			user.visible_message("<span class='danger'>[user] concentrates as [user.p_their()] curiass shifts his plates!</span>",
+			"<span class='notice'>The [src.name] becomes more hardened as the plates becomes to shift for any attack!</span>")
 			//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 			armor = harden_armor
 			flags |= NODROP
@@ -671,8 +671,8 @@
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
 			addtimer(CALLBACK(src, /atom./proc/set_light, 0), 0.2 SECONDS)
-			usr.visible_message("<span class='disarm'>[user]'s [src] emits a blinding light!</span>", "<span class='danger'>Your [src] emits a blinding light!</span>")
-			for(var/mob/living/carbon/M in oviewers(3, src))
+			user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
+			for(var/mob/living/carbon/M in oviewers(3, user))
 				if(isclocker(M))
 					return
 				if(M.flash_eyes(2, 1))
