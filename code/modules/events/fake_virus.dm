@@ -1,7 +1,7 @@
 /datum/event/fake_virus/start()
 	var/list/fake_virus_victims = list()
 	for(var/mob/living/carbon/human/victim in shuffle(GLOB.player_list))
-		if(ismachineperson(victim))
+		if(HAS_TRAIT(victim, TRAIT_VIRUSIMMUNE))
 			continue
 		if(victim.stat == DEAD || victim.InCritical() || victim.mind?.assigned_role == victim.mind?.special_role || victim.mind?.offstation_role)
 			continue
