@@ -176,11 +176,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(!(cult_mind in cult)) // Not actually a cultist in the first place
 		return
 
-	var/mob/cultist
-	if(!target_mob)
+	var/mob/cultist = target_mob
+	if(!cultist)
 		cultist = cult_mind.current
-	else
-		cultist = target_mob
 	cult -= cult_mind
 	cultist.faction -= "cult"
 	cult_mind.special_role = null
