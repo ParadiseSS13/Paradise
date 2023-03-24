@@ -86,20 +86,19 @@
 				return
 			human_suicide(damagetype, held_item)
 			return
-	else
-		for(var/obj/O in orange(1, src))
-			if(O.suicidal_hands)
-				continue
-			var/damagetype = O.suicide_act(src)
-			if(damagetype)
-				if(damagetype & SHAME)
-					adjustStaminaLoss(200)
-					suiciding = FALSE
-					return
-				if(damagetype & OBLITERATION)
-					return
-				human_suicide(damagetype, O)
+	for(var/obj/O in orange(1, src))
+		if(O.suicidal_hands)
+			continue
+		var/damagetype = O.suicide_act(src)
+		if(damagetype)
+			if(damagetype & SHAME)
+				adjustStaminaLoss(200)
+				suiciding = FALSE
 				return
+			if(damagetype & OBLITERATION)
+				return
+			human_suicide(damagetype, O)
+			return
 
 	to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
 	human_suicide(0)
