@@ -60943,6 +60943,7 @@
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -67342,11 +67343,6 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/medbreak)
-"oGl" = (
-/turf/simulated/floor/plasteel{
-	dir = 8
-	},
-/area/security/lobby)
 "oGF" = (
 /obj/structure/sign/security,
 /turf/simulated/wall,
@@ -67960,6 +67956,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
+"oQY" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/security/lobby)
 "oRb" = (
 /obj/machinery/computer/HolodeckControl{
 	dir = 4
@@ -81870,11 +81874,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"tPj" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
-/area/security/lobby)
 "tPV" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom"
@@ -106305,8 +106304,8 @@ xNA
 xtN
 dnw
 eDv
-oGl
-aPX
+eDv
+oQY
 vFB
 vFB
 vFB
@@ -106562,8 +106561,8 @@ ulj
 xtN
 dnw
 eDv
-oGl
-aPX
+eDv
+oQY
 vFB
 vIu
 xSC
@@ -108361,7 +108360,7 @@ cco
 tYz
 oTq
 daA
-tPj
+joR
 mnL
 dkp
 dkp
