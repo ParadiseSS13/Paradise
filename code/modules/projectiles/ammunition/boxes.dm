@@ -20,7 +20,7 @@
 	icon_prefix = "38"
 
 /obj/item/ammo_box/c38/hp
-	name = "speed_loader (.38 Hollow-Point)"
+	name = "speed loader (.38 Hollow-Point)"
 	ammo_type = /obj/item/ammo_casing/c38/hp
 	icon_state = "38hp-6"
 	icon_prefix = "38hp"
