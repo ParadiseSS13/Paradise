@@ -652,7 +652,8 @@
 		return
 	else
 		helmet.forceMove(loc)
-		usr.put_in_active_hand(helmet)
+		if(ishuman(usr))
+			usr.put_in_active_hand(helmet)
 		helmet = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_suit()
@@ -660,7 +661,8 @@
 		return
 	else
 		suit.forceMove(loc)
-		usr.put_in_active_hand(suit)
+		if(ishuman(usr))
+			usr.put_in_active_hand(suit)
 		suit = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_mask()
@@ -668,7 +670,8 @@
 		return
 	else
 		mask.forceMove(loc)
-		usr.put_in_active_hand(mask)
+		if(ishuman(usr))
+			usr.put_in_active_hand(mask)
 		mask = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_magboots()
@@ -676,7 +679,8 @@
 		return
 	else
 		magboots.forceMove(loc)
-		usr.put_in_active_hand(magboots)
+		if(ishuman(usr))
+			usr.put_in_active_hand(magboots)
 		magboots = null
 
 /obj/machinery/suit_storage_unit/proc/dispense_storage()
@@ -684,7 +688,8 @@
 		return
 	else
 		storage.forceMove(loc)
-		usr.put_in_active_hand(storage)
+		if(ishuman(usr))
+			usr.put_in_active_hand(storage)
 		storage = null
 
 /obj/machinery/suit_storage_unit/proc/toggle_open(mob/user as mob)
