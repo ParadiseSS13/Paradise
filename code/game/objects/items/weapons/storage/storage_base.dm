@@ -372,10 +372,9 @@
 			return FALSE
 
 	if(is_type_in_typecache(I, cant_hold)) //Check for specific items which this container can't hold.
-		if(!is_type_in_typecache(I, cant_hold_override))
-			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
-			return FALSE
+		if(!stop_messages)
+			to_chat(usr, "<span class='warning'>[src] cannot hold [I].</span>")
+		return FALSE
 
 	if(length(cant_hold) && isstorage(I)) //Checks nested storage contents for restricted objects, we don't want people sneaking the NAD in via boxes now, do we?
 		var/obj/item/storage/S = I
