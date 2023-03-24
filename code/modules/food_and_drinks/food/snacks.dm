@@ -17,7 +17,7 @@
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
 	var/total_w_class = 0 //for the total weight an item of food can carry
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
-	var/closed = FALSE // TRUE if it needed to be opened first
+	var/opened = TRUE // FALSE if it needed to be opened first
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
 	if(tastes && tastes.len)
@@ -30,6 +30,17 @@
 					reagents.add_reagent(rid, amount)
 	else
 		..()
+
+/obj/item/reagent_containers/food/snacks/New()
+	if(!opened)
+		update_icon()
+	..()
+
+/obj/item/reagent_containers/food/snacks/update_icon()
+	if(!opened)
+		icon_state = "[initial(icon_state)]-closed"
+	else
+		icon_state = "[initial(icon_state)]"
 
 //Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
@@ -49,12 +60,9 @@
 /obj/item/reagent_containers/food/snacks/proc/Post_Consume(mob/living/M)
 	return
 
-/obj/item/reagent_containers/food/snacks/update_icon()
-	icon_state = "[closed ? "-opened" : ""]"
-
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
-	if(closed)
-		closed = FALSE
+	if(!opened)
+		opened = TRUE
 		to_chat(user, "<span class='notice'>You open the [src].</span>")
 		update_icon()
 		return ..()
@@ -62,7 +70,7 @@
 		return
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
-	if(closed)
+	if(!opened)
 		to_chat(user, "<span class='notice'>You need to open the [src]!</span>")
 		return
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
