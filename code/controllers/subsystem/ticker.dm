@@ -139,12 +139,19 @@ SUBSYSTEM_DEF(ticker)
 			auto_toggle_ooc(TRUE) // Turn it on
 
 			declare_completion()
+
+			spawn(50)
+				if(mode.station_was_nuked)
+					reboot_helper("Station destroyed by Nuclear Device.", "nuke")
+				else
+					reboot_helper("Round ended.", "proper completion")
+
 			if(!SSmapping.next_map) //Next map already selected by admin
 				var/list/all_maps = subtypesof(/datum/map)
-				for(var/i in 1 to all_maps.len)
-					var/datum/map/map_check = all_maps[i]
-					if(map_check.admin_only)
-						all_maps -= map_check
+				for(var/x in all_maps)
+					var/datum/map/M = x
+					if(initial(M.admin_only))
+						all_maps -= M
 				switch(config.map_rotate)
 					if("rotate")
 						for(var/i in 1 to all_maps.len)
@@ -157,12 +164,6 @@ SUBSYSTEM_DEF(ticker)
 						SSmapping.next_map = new target_map
 					else
 						SSmapping.next_map = SSmapping.map_datum
-
-			spawn(50)
-				if(mode.station_was_nuked)
-					reboot_helper("Station destroyed by Nuclear Device.", "nuke")
-				else
-					reboot_helper("Round ended.", "proper completion")
 
 			to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
 
