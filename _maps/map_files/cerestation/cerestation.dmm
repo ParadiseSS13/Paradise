@@ -1425,17 +1425,12 @@
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
 "aji" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/machinery/power/solar{
 	name = "Fore Solar Array"
 	},
 /obj/structure/cable{
-	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8"
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -7102,16 +7097,6 @@
 	icon_state = "dark"
 	},
 /area/bridge)
-"aQW" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/maintenance/fore)
 "aQX" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "IAA"
@@ -18235,6 +18220,25 @@
 	icon_state = "darkyellow"
 	},
 /area/engine/engineering)
+"bMo" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/space,
+/area/solar/port)
 "bMv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -23444,6 +23448,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -24269,20 +24278,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/south)
-"cpN" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
 "cpQ" = (
 /obj/structure/closet/firecloset/full,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -41770,11 +41765,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24;
@@ -44233,6 +44223,18 @@
 /obj/item/reagent_containers/spray/plantbgone,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
+"gBL" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Aft Asteroid Maintenance";
+	req_access_txt = "12"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "gBM" = (
 /obj/machinery/chem_master,
 /turf/simulated/floor/plating,
@@ -45670,17 +45672,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
-"haH" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/secondary/entry)
 "haI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -45891,6 +45882,19 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
+"hdD" = (
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "hdE" = (
 /obj/machinery/light{
 	dir = 1
@@ -47620,19 +47624,6 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
-"hJY" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/hallway/secondary/entry)
 "hKc" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -53721,11 +53712,6 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -55612,17 +55598,6 @@
 	},
 /turf/simulated/wall,
 /area/teleporter/quantum/security)
-"kvR" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/secondary/entry/north)
 "kvU" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -55823,6 +55798,11 @@
 "kzz" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59034,20 +59014,6 @@
 	icon_state = "neutral"
 	},
 /area/storage/primary)
-"lBZ" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/secondary/entry/north)
 "lCd" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -60159,11 +60125,6 @@
 "lXp" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = -32
@@ -63777,7 +63738,7 @@
 "nsb" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Tech Storage";
-	req_access_txt = "19;23"
+	req_access_txt = "23"
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -63826,7 +63787,7 @@
 "nsZ" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Tech Storage";
-	req_access_txt = "19;23"
+	req_access_txt = "23"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -65615,11 +65576,6 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/north)
 "oba" = (
-/obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -68666,30 +68622,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
-"pcI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/space,
-/area/solar/port)
 "pdg" = (
 /obj/structure/cable/orange,
 /obj/structure/cable/orange{
@@ -68709,17 +68641,12 @@
 	},
 /area/security/evidence)
 "pdj" = (
+/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -69107,19 +69034,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/maintenance/disposal/external/southwest)
-"pjX" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/hallway/secondary/entry)
 "pkc" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -72213,11 +72127,6 @@
 	dir = 4;
 	pixel_x = 32;
 	pixel_y = 24
-	},
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -76397,11 +76306,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -82473,6 +82377,7 @@
 	},
 /area/teleporter/quantum/security)
 "tYn" = (
+/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -82483,12 +82388,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -86961,11 +86860,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/south)
 "vAx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Chapel"
 	},
@@ -88478,9 +88372,9 @@
 	dir = 4
 	},
 /obj/structure/cable/orange{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -94227,17 +94121,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/southwest)
 "ycG" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/power/solar{
 	name = "Fore Solar Array"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
@@ -124538,7 +124427,7 @@ rNK
 rNK
 rNK
 lAv
-ycG
+rQx
 ycG
 ycG
 ycG
@@ -124795,15 +124684,15 @@ rNK
 rNK
 rNK
 lAv
+tjT
+tYn
+tYn
+tYn
+bMo
 tYn
 tYn
 tYn
 tYn
-tYn
-tYn
-tYn
-tYn
-pcI
 tYn
 tYn
 tYn
@@ -125052,7 +124941,7 @@ rNK
 rNK
 rNK
 lAv
-aji
+ofd
 aji
 aji
 aji
@@ -125566,10 +125455,10 @@ rNK
 rNK
 rNK
 lAv
-rQx
-rQx
-rQx
-rQx
+ycG
+ycG
+ycG
+ycG
 ycG
 ycG
 ycG
@@ -125823,15 +125712,15 @@ rNK
 rNK
 rNK
 lAv
-tjT
-tjT
-tjT
-tjT
 tYn
 tYn
 tYn
 tYn
-pcI
+bMo
+tYn
+tYn
+tYn
+tYn
 tYn
 tYn
 tYn
@@ -126080,10 +125969,10 @@ rNK
 rNK
 rNK
 lAv
-ofd
-ofd
-ofd
-ofd
+aji
+aji
+aji
+aji
 aji
 aji
 aji
@@ -126594,10 +126483,10 @@ ayb
 rNK
 rNK
 lAv
-rQx
-rQx
-rQx
-rQx
+ycG
+ycG
+ycG
+ycG
 ycG
 ycG
 ycG
@@ -126851,15 +126740,15 @@ hBQ
 hBQ
 rNK
 lAv
-tjT
-tjT
-tjT
-tjT
 tYn
 tYn
 tYn
 tYn
-pcI
+bMo
+tYn
+tYn
+tYn
+tYn
 tYn
 tYn
 tYn
@@ -127108,10 +126997,10 @@ hBQ
 ayb
 rNK
 peG
-ofd
-ofd
-ofd
-ofd
+aji
+aji
+aji
+aji
 aji
 aji
 aji
@@ -131858,7 +131747,7 @@ rBk
 rBk
 rBk
 rUq
-cpN
+rUq
 rUq
 rUq
 axi
@@ -132115,7 +132004,7 @@ aQq
 aQq
 aQq
 gKc
-aQW
+gKc
 gKc
 aQq
 aRc
@@ -132372,7 +132261,7 @@ cDp
 czu
 aMj
 vpg
-aQW
+gKc
 vpg
 czt
 qbE
@@ -140197,14 +140086,14 @@ dxM
 vvB
 dxM
 rQW
-lBZ
-kvR
-kvR
-kvR
-kvR
+cvq
+dxM
+dxM
+dxM
+dxM
 qmy
-haH
-pjX
+djw
+jUc
 xMQ
 rNK
 rNK
@@ -140718,7 +140607,7 @@ omG
 noC
 ckp
 djw
-hJY
+jUc
 xMQ
 rNK
 rNK
@@ -140975,7 +140864,7 @@ omG
 neh
 opl
 djw
-hJY
+jUc
 xMQ
 rNK
 rNK
@@ -141746,7 +141635,7 @@ vHw
 chI
 vMR
 djw
-wby
+jUc
 xMQ
 rNK
 rNK
@@ -142260,7 +142149,7 @@ tHf
 chI
 dkc
 djw
-wby
+jUc
 csG
 rNK
 rNK
@@ -142517,7 +142406,7 @@ rKr
 chI
 mWz
 djw
-wby
+jUc
 csG
 rNK
 rNK
@@ -142774,7 +142663,7 @@ vHw
 chI
 mtv
 djw
-wby
+jUc
 csG
 rNK
 rNK
@@ -143031,7 +142920,7 @@ fcw
 chI
 xro
 djw
-wby
+jUc
 csG
 bhO
 rNK
@@ -143288,7 +143177,7 @@ kXu
 chI
 cjF
 djw
-wby
+jUc
 csG
 bhO
 rNK
@@ -143545,7 +143434,7 @@ vWF
 srn
 daX
 djw
-wby
+jUc
 csG
 bhO
 rNK
@@ -143802,7 +143691,7 @@ jlX
 xMQ
 vMR
 djw
-wby
+jUc
 csG
 bhO
 rNK
@@ -144055,8 +143944,8 @@ rlr
 sOl
 mJk
 dzq
-xSV
-cjE
+hdD
+gBL
 ckv
 kzz
 wby
