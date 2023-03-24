@@ -50,6 +50,10 @@
 	alert_type = null
 	var/knockdown_duration = 10 SECONDS
 
+/datum/status_effect/baton_delayed_knockdown/on_creation()
+	..()
+	RegisterSignal(owner, COMSIG_KNOCKDOWN_REMOVE, PROC_REF(signal_qdel))
+
 /datum/status_effect/baton_delayed_knockdown/on_timeout()
 	owner.KnockDown(knockdown_duration)
 	..()

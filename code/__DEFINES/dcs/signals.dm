@@ -452,6 +452,9 @@
 #define COMSIG_LIVING_CAN_TRACK "mob_cantrack"
 	#define COMPONENT_CANT_TRACK (1<<0)
 
+///sent from living mobs when they have all knockdown removed (such as by antistuns)
+#define COMSIG_KNOCKDOWN_REMOVE "living_knockdown_remove"
+
 // /mob/living/carbon signals
 
 ///from base of mob/living/carbon/soundbang_act(): (list(intensity))

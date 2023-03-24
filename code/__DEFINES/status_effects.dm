@@ -42,9 +42,6 @@
 /// Rapid burn/brute/oxy/blood healing from the cling ability
 #define STATUS_EFFECT_FLESHMEND /datum/status_effect/fleshmend
 
-/// Delayed knockdown effect from the security baton
-#define STATUS_EFFECT_BATON_KNOCKDOWN /datum/status_effect/baton_delayed_knockdown
-
 #define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs //Handles cling speed boost and chemical cost.
 
 #define STATUS_EFFECT_PANACEA /datum/status_effect/panacea
@@ -70,6 +67,9 @@
 //#define STATUS_EFFECT_MANIAMOTOR /datum/status_effect/maniamotor //disrupts, damages, and confuses the affected as long as they're in range of the motor
 //#define MAX_MANIA_SEVERITY 100 //how high the mania severity can go
 //#define MANIA_DAMAGE_TO_CONVERT 90 //how much damage is required before it'll convert affected targets
+
+/// Delayed knockdown effect from the security baton
+#define STATUS_EFFECT_BATON_KNOCKDOWN /datum/status_effect/baton_delayed_knockdown
 
 #define STATUS_EFFECT_CULT_STUN /datum/status_effect/cult_stun_mark
 
