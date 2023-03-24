@@ -48,7 +48,6 @@
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
 #define HEALTH_THRESHOLD_DEAD -100
-#define GUARDIAN_THRESHOLD_DEAD -200
 
 //Grab levels
 #define GRAB_PASSIVE  1

@@ -5,7 +5,7 @@
 	obj_damage = 100
 	damage_transfer = 0.4
 	playstyle_string = "Будучи <b>Стандартным</b> типом, вы обладаете огромной броней, сильными ударами пробивающими даже стены и ваше присутствие ужасает врагов, замедляя их. Кричите, повергая врагов в страх!"
-	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	environment_smash = 2
 	magic_fluff_string = "..И вытаскиваете Ассистента, безликого и типичного, но которого никогда нельзя недооценивать."
 	tech_fluff_string = "Инициализация завершена. Стандартные модули загружены. Рой голопаразитов активирован."
 	bio_fluff_string = "Ваш рой скарабеев оживает, готовый разорвать ваших врагов на части."
@@ -33,9 +33,9 @@
 
 /mob/living/simple_animal/hostile/guardian/punch/Life(seconds, times_fired)
 	. = ..()
-	for(var/mob/living/carbon/human/L in view(3, src))
+	for(var/mob/living/carbon/human/L in view(2, src))
 		if(L.stat != DEAD && L != summoner)
-			L.Slowed(3)
+			L.Slowed(2)
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch
 	name = "Seal Sprit"

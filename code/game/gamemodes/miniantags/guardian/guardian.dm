@@ -69,7 +69,7 @@
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
 	if(summoner)
-		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= GUARDIAN_THRESHOLD_DEAD) || QDELETED(summoner))
+		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD) || QDELETED(summoner))
 			summoner.remove_guardian_actions()
 			to_chat(src, "<span class='danger'>Ваш призыватель умер!</span>")
 			visible_message("<span class='danger'>[src] умирает вместе с носителем!</span>")
@@ -172,7 +172,7 @@
 		forceMove(get_turf(summoner))
 		new /obj/effect/temp_visual/guardian/phase(loc)
 		reset_perspective()
-		cooldown = world.time + 10
+		cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
@@ -181,7 +181,7 @@
 	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
 	buckled = null
-	cooldown = world.time + 10
+	cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
@@ -200,7 +200,7 @@
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, "<span class='changeling'><i>Связь Стража от <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
+			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 
 //override set to true if message should be passed through instead of going to host communication
 /mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
