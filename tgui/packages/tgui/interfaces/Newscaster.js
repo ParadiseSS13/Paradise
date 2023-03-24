@@ -263,7 +263,6 @@ const NewscasterFeed = (properties, context) => {
     'censorMode',
     false
   );
-  const isAdmin = !is_admin;
   const channel =
     screen === 2 && channel_idx > -1 ? channels[channel_idx - 1] : null;
   return (
@@ -344,7 +343,7 @@ const NewscasterFeed = (properties, context) => {
             <LabeledList.Item label="Owner">
               {channel.author || 'N/A'}
             </LabeledList.Item>
-            {!isAdmin && (
+            {!!is_admin && (
               <LabeledList.Item label="Ckey">
                 {channel.author_ckey}
               </LabeledList.Item>
@@ -451,7 +450,6 @@ const Story = (properties, context) => {
   const { act, data } = useBackend(context);
   const { story, wanted = false } = properties;
   const {is_admin} = data;
-  const isAdmin = !is_admin;
   const [fullStories, setFullStories] = useLocalState(
     context,
     'fullStories',
@@ -493,7 +491,7 @@ const Story = (properties, context) => {
             )}
             <Box display="inline">
               <Icon name="user" /> {story.author} |&nbsp;
-              {!isAdmin && (
+              {!!is_admin && (
                 <Fragment>
                   ckey: {story.author_ckey}{' '}
                   |&nbsp;
