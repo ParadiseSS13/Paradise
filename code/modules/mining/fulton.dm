@@ -118,6 +118,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				if(floor.density)
 					continue
 				flooring_near_beacon += floor
+			if(!length(flooring_near_beacon))
+				to_chat(user, "<span class='notice'>It is impossible to find a connected beacon. Your fulton pack brings you back.</span>")
+				flooring_near_beacon = get_turf(user)
 			holder_obj.forceMove(pick(flooring_near_beacon))
 			animate(holder_obj, pixel_z = 10, time = 50)
 			sleep(50)
