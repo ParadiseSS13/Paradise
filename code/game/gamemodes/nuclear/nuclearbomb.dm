@@ -10,6 +10,7 @@
 #define NUKE_CORE_FULLY_EXPOSED 9
 
 GLOBAL_VAR(bomb_set)
+GLOBAL_VAR(pizza_time)
 
 /obj/machinery/nuclearbomb
 	name = "\improper Nuclear Fission Explosive"
@@ -47,6 +48,8 @@ GLOBAL_VAR(bomb_set)
 	var/core_stage = NUKE_CORE_EVERYTHING_FINE
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
+	///Have 10 seconds passed, if so deduct from accounts.
+	var/seconds_passed = 0
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -76,6 +79,12 @@ GLOBAL_VAR(bomb_set)
 	if(timing)
 		GLOB.bomb_set = TRUE // So long as there is one nuke timing, it means one nuke is armed.
 		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
+		if(!is_syndicate)
+			if(seconds_passed == 10)
+				SSeconomy.pizza_time()
+				seconds_passed = 0
+			else
+				seconds_passed += 2
 		if(timeleft <= 0)
 			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
@@ -461,6 +470,22 @@ GLOBAL_VAR(bomb_set)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
 						set_security_level("delta")
+						GLOB.pizza_time = TRUE
+						var/sound/music = sound('sound/music/pizza_time_90.ogg', channel = CHANNEL_ADMIN) // All of these assume a ~ 30% tidi. Will not line up on zero tidi. Probably won't line up anyway
+						switch(timeleft)
+							if(1 to 100)
+								music = sound('sound/music/pizza_time_90.ogg', channel = CHANNEL_ADMIN) // All of these assume a ~ 30% tidi. Will not line up on zero tidi. Probably won't line up anyway
+							if(101 to 150)
+								music = sound('sound/music/pizza_time_120.ogg', channel = CHANNEL_ADMIN)
+							if(151 to INFINITY)
+								music = sound('sound/music/pizza_time_full.ogg', channel = CHANNEL_ADMIN)
+
+						for(var/mob/M in GLOB.player_list)
+							if(M.client.prefs.sound & SOUND_MIDI)
+								if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
+									M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+								music.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+								SEND_SOUND(M, music)
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
 				else
 					GLOB.bomb_set = TRUE

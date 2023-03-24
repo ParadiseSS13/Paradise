@@ -287,6 +287,23 @@ SUBSYSTEM_DEF(economy)
 				objective.payout_given = TRUE
 			break
 
+////////////////////////////////////////////////
+/// Nuclear fine stuff (what is performance)///
+///////////////////////////////////////////////
+
+
+/datum/controller/subsystem/economy/proc/pizza_time()
+	var/datum/money_account_database/main_station/station_db = GLOB.station_money_database
+	var/list/all_station_accounts = station_db.user_accounts + station_db.get_all_department_accounts()
+	for(var/datum/money_account/account in all_station_accounts)
+		var/found_pda = FALSE
+		for(var/datum/data/pda/app/nanobank/program as anything in account.associated_nanobank_programs)
+			found_pda = TRUE
+			if(is_station_level(program.pda.loc.z)) //Charge them only if they are still on station.
+				station_db.charge_account(account, 25, "Nanotrasen Nuclear Recovery Fund", "NAS Trurl Payroll", allow_overdraft = TRUE, supress_log = FALSE)
+		if(!found_pda) //Destroyed your pda / unlinked it? Shame.
+			station_db.charge_account(account, 25, "Nanotrasen Nuclear Recovery Fund", "NAS Trurl Payroll", allow_overdraft = TRUE, supress_log = FALSE)
+
 //
 //   The NanoCoin Economy is booming
 //	  My Parabuck Stocks are Rising

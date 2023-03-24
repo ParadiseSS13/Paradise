@@ -151,4 +151,43 @@
 	precision = 0
 	ignore_tele_proof_area_setting = TRUE
 
+/obj/effect/portal/redspace/lap_2
+	name = "Lap 2 portal"
+	desc = "A syndicate portal, bribing spacemen with the best thing: Greed and prestige."
+
+/obj/effect/portal/redspace/lap_2/can_teleport(atom/movable/A)
+	generate_target()
+	var/mob/living/M = A
+	if(!istype(M))
+		return FALSE
+	if(GLOB.pizza_time == FALSE)
+		to_chat(M, "<span class='warning'>Pizza time has not started, this should not exist!</span>")
+		return FALSE
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(istype(H))
+			var/obj/item/card/id/C = H.get_idcard(TRUE)
+			var/datum/money_account/account = C.get_card_account()
+			if(!C || !account)
+				return FALSE
+			var/datum/money_account_database/main_station/station_db = GLOB.station_money_database
+			station_db.credit_account(account, 3000, "Lap 2 Challenge!", "Syndicate Bribes INC", FALSE)
+			if(account.account_type == ACCOUNT_TYPE_PERSONAL)
+				if(LAZYLEN(account.associated_nanobank_programs))
+					for(var/datum/data/pda/app/nanobank/program as anything in account.associated_nanobank_programs)
+						program.announce_payday(3000)
+			H.stop_sound_channel(CHANNEL_ADMIN)
+			var/sound/music = sound('sound/music/lap_2_please_dont_sue.ogg', channel = CHANNEL_ADMIN) //1 version, plays till round end, no syncing needed
+			music.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+			SEND_SOUND(M, music)
+		else
+			return FALSE
+	return TRUE
+
+/obj/effect/portal/redspace/lap_2/proc/generate_target() //temp
+	var/list/spawn_locs = list()
+	for(var/obj/effect/landmark/spawner/rev/R in GLOB.landmarks_list)
+		spawn_locs += get_turf(R)
+	target = pick(spawn_locs)
+
 #undef EFFECT_COOLDOWN
