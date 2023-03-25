@@ -183,7 +183,7 @@
 	// To the right of health bar
 	if(stat == DEAD || (status_flags & FAKEDEATH))
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
-		if(!ghost_can_reenter()) // DNR or AntagHUD
+		if(!ghost_can_reenter() || suiciding) // DNR or AntagHUD or Suicide
 			revivable = FALSE
 		if(revivable)
 			holder.icon_state = "hudflatline"
