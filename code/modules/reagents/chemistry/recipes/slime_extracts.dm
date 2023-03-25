@@ -38,7 +38,7 @@
 /datum/chemical_reaction/slimemonkey/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	for(var/i = 1, i <= 3, i++)
-		var/obj/item/reagent_containers/food/snacks/monkeycube/M = new /obj/item/reagent_containers/food/snacks/monkeycube
+		var/obj/item/reagent_containers/food/snacks/monkeycube/M = new
 		M.forceMove(get_turf(holder.my_atom))
 
 //Green
@@ -65,7 +65,7 @@
 
 /datum/chemical_reaction/slimepotionbio/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/bio/B = new /obj/item/slimepotion/bio
+	var/obj/item/slimepotion/clothing/bio/B = new
 	B.forceMove(get_turf(holder.my_atom))
 
 //Metal
@@ -253,7 +253,7 @@
 
 /datum/chemical_reaction/slimestabilizer/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/slime/stabilizer/P = new /obj/item/slimepotion/slime/stabilizer
+	var/obj/item/slimepotion/slime/stabilizer/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 //Dark Blue
@@ -289,7 +289,7 @@
 
 /datum/chemical_reaction/slimefireproof/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/fireproof/P = new /obj/item/slimepotion/fireproof
+	var/obj/item/slimepotion/clothing/fireproof/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 //Orange
@@ -351,7 +351,7 @@
 
 /datum/chemical_reaction/slimecell/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/stock_parts/cell/high/slime/P = new /obj/item/stock_parts/cell/high/slime
+	var/obj/item/stock_parts/cell/high/slime/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimeglow
@@ -367,7 +367,7 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='danger'>The slime begins to emit a soft light. Squeezing it will cause it to grow brightly.</span>")
-	var/obj/item/flashlight/slime/F = new /obj/item/flashlight/slime
+	var/obj/item/flashlight/slime/F = new
 	F.forceMove(get_turf(holder.my_atom))
 
 //Purple
@@ -383,7 +383,7 @@
 
 /datum/chemical_reaction/slimepsteroid/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/slime/steroid/P = new /obj/item/slimepotion/slime/steroid
+	var/obj/item/slimepotion/slime/steroid/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimejam
@@ -440,7 +440,7 @@
 
 /datum/chemical_reaction/slimemutator/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/slime/mutator/P = new /obj/item/slimepotion/slime/mutator
+	var/obj/item/slimepotion/slime/mutator/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimebloodlust
@@ -475,7 +475,7 @@
 
 /datum/chemical_reaction/slimespeed/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/speed/P = new /obj/item/slimepotion/speed
+	var/obj/item/slimepotion/speed/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 
@@ -491,7 +491,7 @@
 
 /datum/chemical_reaction/docility/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/slime/docility/P = new /obj/item/slimepotion/slime/docility
+	var/obj/item/slimepotion/slime/docility/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 //Black
@@ -518,7 +518,7 @@
 
 /datum/chemical_reaction/slimeacid/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/acidproof/A = new /obj/item/slimepotion/acidproof
+	var/obj/item/slimepotion/clothing/acidproof/A = new
 	A.forceMove(get_turf(holder.my_atom))
 
 //Oil
@@ -552,7 +552,7 @@
 
 /datum/chemical_reaction/slimepotionexplosion/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/explosionresistencte/E = new /obj/item/slimepotion/explosionresistencte
+	var/obj/item/slimepotion/clothing/explosionresistencte/E = new
 	E.forceMove(get_turf(holder.my_atom))
 
 //Light Pink
@@ -567,7 +567,7 @@
 
 /datum/chemical_reaction/slimepotion2/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/sentience/P = new /obj/item/slimepotion/sentience
+	var/obj/item/slimepotion/sentience/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 //Adamantine
@@ -607,7 +607,7 @@
 
 /datum/chemical_reaction/slimedamage/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/damage/D = new /obj/item/slimepotion/damage
+	var/obj/item/slimepotion/clothing/damage/D = new
 	D.forceMove(get_turf(holder.my_atom))
 
 //Bluespace
@@ -622,7 +622,7 @@
 
 /datum/chemical_reaction/slimefloor2/on_reaction(datum/reagents/holder, created_volume)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/stack/tile/bluespace/P = new /obj/item/stack/tile/bluespace
+	var/obj/item/stack/tile/bluespace/P = new
 	P.amount = 25
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -637,7 +637,7 @@
 
 /datum/chemical_reaction/slimeteleportation/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/teleportation/T = new /obj/item/slimepotion/teleportation
+	var/obj/item/slimepotion/clothing/teleportation/T = new
 	T.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimecrystal
@@ -667,7 +667,7 @@
 
 /datum/chemical_reaction/slimepsteroid2/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/enhancer/P = new /obj/item/slimepotion/enhancer
+	var/obj/item/slimepotion/enhancer/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 
@@ -683,7 +683,7 @@
 
 /datum/chemical_reaction/slime_territory/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/areaeditor/blueprints/slime/P = new /obj/item/areaeditor/blueprints/slime
+	var/obj/item/areaeditor/blueprints/slime/P = new
 	P.forceMove(get_turf(holder.my_atom))
 
 //Sepia
@@ -699,7 +699,7 @@
 /datum/chemical_reaction/slimestop/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/mob/mob = get_mob_by_key(holder.my_atom.fingerprintslast)
-	var/obj/effect/timestop/T = new /obj/effect/timestop
+	var/obj/effect/timestop/T = new
 	T.forceMove(get_turf(holder.my_atom))
 	T.immune += mob
 	T.timestop()
@@ -715,7 +715,7 @@
 
 /datum/chemical_reaction/slimepotionlaser/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/laserresistance/L = new /obj/item/slimepotion/laserresistance
+	var/obj/item/slimepotion/clothing/laserresistance/L = new
 	L.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimecamera
@@ -729,9 +729,9 @@
 
 /datum/chemical_reaction/slimecamera/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/camera/P = new /obj/item/camera
+	var/obj/item/camera/P = new
 	P.forceMove(get_turf(holder.my_atom))
-	var/obj/item/camera_film/Z = new /obj/item/camera_film
+	var/obj/item/camera_film/Z = new
 	Z.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimefloor
@@ -745,7 +745,7 @@
 
 /datum/chemical_reaction/slimefloor/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/stack/tile/sepia/P = new /obj/item/stack/tile/sepia
+	var/obj/item/stack/tile/sepia/P = new
 	P.amount = 25
 	P.forceMove(get_turf(holder.my_atom))
 
@@ -781,7 +781,7 @@
 
 /datum/chemical_reaction/slimepotionrad/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/radiation/R = new /obj/item/slimepotion/radiation
+	var/obj/item/slimepotion/clothing/radiation/R = new
 	R.forceMove(get_turf(holder.my_atom))
 
 //Rainbow :o)
@@ -810,5 +810,5 @@
 
 /datum/chemical_reaction/slime_transfer/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/transference/P = new /obj/item/slimepotion/transference
+	var/obj/item/slimepotion/transference/P = new
 	P.forceMove(get_turf(holder.my_atom))

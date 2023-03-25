@@ -303,7 +303,7 @@
 		/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 50,
 		/obj/item/autoimplanter = 50,
 		/obj/item/paper/researchnotes = 100,
-		/obj/item/slimepotion/fireproof = 50,
+		/obj/item/slimepotion/clothing/fireproof = 50,
 		/obj/item/slimepotion/speed = 50,
 		/obj/item/slimepotion/enhancer = 50,
 		/obj/item/slimepotion/slime/mutator = 50,
