@@ -262,7 +262,7 @@
 /obj/item/holder/fatcat
 	name = "pet"
 	desc = "It's a pet"
-	icon = 'icons/mob/pets.dmi'
+	icon = 'icons/mob/iriska.dmi'
 	icon_state = "iriska"
 	slot_flags = null
 
