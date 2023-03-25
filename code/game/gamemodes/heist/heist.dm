@@ -288,6 +288,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	desc = "Used to contact the Vox Shoal, generally to arrange for pickup."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "tcstation"
+	anchored = TRUE
 
 /obj/machinery/vox_win_button/New()
 	. = ..()

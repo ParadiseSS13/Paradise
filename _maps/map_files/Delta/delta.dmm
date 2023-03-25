@@ -4917,8 +4917,7 @@
 	layer = 4.2
 	},
 /obj/structure/railing/wooden/endr{
-	dir = 1;
-	anchored = 1
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -18645,9 +18644,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/obj/structure/railing/wooden/endr{
-	anchored = 1
-	},
+/obj/structure/railing/wooden/endr,
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -26689,8 +26686,7 @@
 	},
 /obj/structure/chair/office,
 /obj/structure/railing/wooden/endl{
-	dir = 4;
-	anchored = 1
+	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -32631,7 +32627,6 @@
 	network = list("Medical","SS13")
 	},
 /obj/machinery/button/windowtint{
-	anchored = 1;
 	id = "cloninglab";
 	pixel_x = 22;
 	pixel_y = 10
@@ -41513,8 +41508,7 @@
 	id = "departureprivate";
 	pixel_x = 23;
 	pixel_y = 6;
-	range = 4;
-	anchored = 1
+	range = 4
 	},
 /turf/simulated/floor/carpet/purple,
 /area/hallway/secondary/exit)
@@ -47176,7 +47170,6 @@
 	specialfunctions = 4
 	},
 /obj/machinery/button/windowtint{
-	anchored = 1;
 	id = "privateroom";
 	pixel_x = -24;
 	pixel_y = -6
@@ -48747,8 +48740,7 @@
 /obj/machinery/button/windowtint{
 	id = "vir2";
 	pixel_x = 4;
-	pixel_y = -24;
-	anchored = 1
+	pixel_y = -24
 	},
 /obj/machinery/light_switch{
 	pixel_x = -4;
@@ -49755,7 +49747,6 @@
 /area/maintenance/tourist)
 "fsq" = (
 /obj/machinery/button/windowtint{
-	anchored = 1;
 	id = "Interrogation";
 	pixel_y = 24;
 	req_one_access = list(63)
@@ -51148,8 +51139,7 @@
 	layer = 4.2
 	},
 /obj/structure/railing/wooden/cornerl{
-	dir = 1;
-	anchored = 1
+	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -57344,7 +57334,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
 /obj/machinery/button/windowtint{
-	anchored = 1;
 	id = "chem";
 	pixel_x = -24;
 	pixel_y = -24
@@ -61217,8 +61206,7 @@
 /obj/machinery/button/windowtint{
 	dir = 8;
 	id = "psychoffice";
-	pixel_x = 25;
-	anchored = 1
+	pixel_x = 25
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
@@ -65537,7 +65525,6 @@
 /area/engine/engineering)
 "jdU" = (
 /obj/machinery/button/windowtint{
-	anchored = 1;
 	id = "visiting room";
 	pixel_x = 24
 	},
@@ -66490,7 +66477,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/machinery/button/windowtint{
 	active = 1;
-	anchored = 1;
 	icon_state = "light1";
 	id = "pokerclub";
 	pixel_x = -24
@@ -83072,8 +83058,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/railing/wooden/endr{
-	dir = 4;
-	anchored = 1
+	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -83653,7 +83638,6 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/button/windowtint{
 	pixel_x = 7;
-	anchored = 1;
 	id = "courtroom"
 	},
 /obj/machinery/door_control{
@@ -100739,9 +100723,7 @@
 /obj/structure/railing/wooden{
 	dir = 4
 	},
-/obj/structure/railing/wooden/cornerl{
-	anchored = 1
-	},
+/obj/structure/railing/wooden/cornerl,
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
 	},
@@ -103297,8 +103279,7 @@
 /obj/machinery/button/windowtint{
 	id = "execution";
 	pixel_x = -8;
-	pixel_y = 24;
-	anchored = 1
+	pixel_y = 24
 	},
 /obj/machinery/light_switch{
 	pixel_y = 24

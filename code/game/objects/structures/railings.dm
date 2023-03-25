@@ -229,16 +229,12 @@
 
 /obj/structure/railing/wooden/cornerr
 	icon_state = "right_corner_railing_wood"
-	anchored = FALSE
 
 /obj/structure/railing/wooden/cornerl
 	icon_state = "left_corner_railing_wood"
-	anchored = FALSE
 
 /obj/structure/railing/wooden/endr
 	icon_state = "right_end_railing_wood"
-	anchored = FALSE
 
 /obj/structure/railing/wooden/endl
 	icon_state = "left_end_railing_wood"
-	anchored = FALSE

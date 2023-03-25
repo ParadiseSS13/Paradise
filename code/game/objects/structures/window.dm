@@ -551,6 +551,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light0"
 	desc = "A remote control switch for polarized windows."
+	anchored = TRUE
 	var/range = 7
 	var/id = 0
 	var/active = 0
