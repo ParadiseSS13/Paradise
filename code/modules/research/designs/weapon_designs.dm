@@ -125,6 +125,16 @@
 	build_path = /obj/item/weaponcrafting/gunkit/accelerator
 	category = list("Weapons")
 
+/datum/design/lwap
+	name = "LWAP Laser Sniper Parts Kit"
+	desc = "Parts for a scoped laser sniper. It does more damage the farther away the target is, and can knock them down if it goes far enough."
+	id = "lwap"
+	req_tech = list("combat" = 7, "magnets" = 7, "powerstorage" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_GOLD = 5000, MAT_DIAMOND = 5000)
+	build_path = /obj/item/weaponcrafting/gunkit/lwap
+	category = list("Weapons")
+
 /datum/design/plasmapistol
 	name = "Plasma Pistol Parts Kit"
 	desc = "A kit for a specialized firearm designed to fire heated bolts of plasma. Can be charged up for a shield breaking shot."
@@ -169,10 +179,10 @@
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
 /datum/design/stunrevolver
-	name = "Tesla Revolver Parts Kit"
-	desc = "A kit for a high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."
+	name = "Arc Revolver Parts Kit"
+	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
 	id = "stunrevolver"
-	req_tech = list("combat" = 4, "materials" = 4, "powerstorage" = 5)
+	req_tech = list("combat" = 7, "materials" = 6, "powerstorage" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
 	build_path = /obj/item/weaponcrafting/gunkit/tesla

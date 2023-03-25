@@ -502,11 +502,9 @@ SUBSYSTEM_DEF(jobs)
 					G.prescription = TRUE
 					G.name = "prescription [G.name]"
 					H.update_nearsighted_effects()
+
+	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
 	return H
-
-
-
-
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
 	if(!GLOB.configuration.jobs.enable_job_amount_overrides)
@@ -634,7 +632,7 @@ SUBSYSTEM_DEF(jobs)
 	if(tgtcard)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
-			if(tgtcard.assignment && tgtcard.assignment == job.title)
+			if(tgtcard.rank && tgtcard.rank == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"

@@ -58,10 +58,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/ai_slipper,
-/mob/living/simple_animal/bot/secbot/pingsky,
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
 	dir = 9
 	},
+/mob/living/simple_animal/bot/secbot/pingsky,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7534,9 +7534,9 @@
 	},
 /area/hallway/secondary/exit)
 "avE" = (
-/mob/living/simple_animal/mouse/white,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/random,
+/mob/living/simple_animal/mouse/white,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "avF" = (
@@ -25006,12 +25006,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque,
 /area/hallway/secondary/entry)
 "blt" = (
 /obj/machinery/economy/vending/cigarette,
@@ -30807,12 +30802,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bzd" = (
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of those who died in the great space lube airlock incident.\" Scratched in beneath that is a crude image of a clown and a spaceman. The spaceman is slipping. The clown is laughing.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Memorial Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/hallway/secondary/exit)
 "bze" = (
 /obj/structure/sign/barsign,
@@ -37942,10 +37932,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/mob/living/simple_animal/pet/dog/corgi/borgi,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -49094,16 +49084,19 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/cyborgrecharger{
-	pixel_x = -4;
-	pixel_y = -2
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /obj/item/circuitboard/mech_bay_power_console{
-	pixel_x = 2;
-	pixel_y = 2
+	pixel_y = 0
 	},
-/obj/item/circuitboard/mech_recharger,
+/obj/item/circuitboard/mech_recharger{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /obj/item/circuitboard/mechfab{
-	pixel_y = 3
+	pixel_y = -6;
+	pixel_x = 6
 	},
 /obj/machinery/power/apc{
 	dir = 1;
@@ -49125,7 +49118,6 @@
 "cvA" = (
 /obj/structure/table,
 /obj/item/plant_analyzer,
-/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cvB" = (
@@ -49474,8 +49466,11 @@
 /area/engine/controlroom)
 "cwN" = (
 /obj/structure/table,
-/obj/item/apc_electronics,
-/obj/item/airlock_electronics,
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cwO" = (
@@ -50135,6 +50130,10 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
+/obj/item/circuitboard/aicore{
+	pixel_x = 5;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
 "cyv" = (
@@ -50147,16 +50146,17 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/rdconsole{
-	pixel_x = -4
+	pixel_x = -6;
+	pixel_y = 6
 	},
 /obj/item/circuitboard/rdserver{
-	pixel_x = 4;
-	pixel_y = -2
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /obj/item/circuitboard/destructive_analyzer,
 /obj/item/circuitboard/protolathe{
-	pixel_x = -2;
-	pixel_y = 3
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -50164,8 +50164,8 @@
 	icon_state = "1-2"
 	},
 /obj/item/circuitboard/circuit_imprinter{
-	pixel_x = -4;
-	pixel_y = -3
+	pixel_y = -6;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -50180,12 +50180,23 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/message_monitor{
-	pixel_y = -5
+	pixel_y = 6;
+	pixel_x = -6
 	},
-/obj/item/circuitboard/arcade/battle,
-/obj/item/circuitboard/arcade/orion_trail{
-	pixel_x = -4;
-	pixel_y = 2
+/obj/item/circuitboard/aifixer{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/circuitboard/teleporter{
+	pixel_y = 0
+	},
+/obj/item/circuitboard/teleporter_hub{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/circuitboard/teleporter_station{
+	pixel_x = 6;
+	pixel_y = -6
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -50206,12 +50217,12 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/autolathe{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/item/circuitboard/ore_redemption{
 	pixel_x = 3;
 	pixel_y = -3
-	},
-/obj/item/circuitboard/bodyscanner,
-/obj/item/circuitboard/sleeper{
-	pixel_x = 3
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -50705,17 +50716,13 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/crew{
-	pixel_x = -1;
-	pixel_y = 1
+/obj/item/circuitboard/communications{
+	pixel_y = 1;
+	pixel_x = -1
 	},
 /obj/item/circuitboard/card{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/circuitboard/communications{
-	pixel_x = 5;
-	pixel_y = -5
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
@@ -51182,7 +51189,7 @@
 "cBl" = (
 /obj/structure/table,
 /obj/item/screwdriver{
-	pixel_y = 16
+	pixel_y = 8
 	},
 /obj/item/wirecutters,
 /turf/simulated/floor/plating,
@@ -51231,12 +51238,12 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/robotics{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /obj/item/circuitboard/mecha_control{
-	pixel_x = 1;
-	pixel_y = -1
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
@@ -51245,16 +51252,33 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/cloning,
-/obj/item/circuitboard/med_data{
+/obj/item/circuitboard/cloning{
+	pixel_y = 8;
+	pixel_x = -8
+	},
+/obj/item/circuitboard/clonescanner{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/circuitboard/clonepod{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/circuitboard/cryo_tube{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/item/circuitboard/pandemic{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/circuitboard/clonescanner,
-/obj/item/circuitboard/clonepod,
-/obj/item/circuitboard/scan_consolenew,
-/obj/item/circuitboard/cryo_tube{
-	pixel_x = 3
+/obj/item/circuitboard/bodyscanner{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/circuitboard/sleeper{
+	pixel_x = 9;
+	pixel_y = -9
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -51264,20 +51288,19 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/powermonitor{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /obj/item/circuitboard/stationalert{
-	pixel_x = 1;
-	pixel_y = -1
+	pixel_y = 0
 	},
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/circuitboard/thermomachine,
 /obj/item/circuitboard/smes{
-	pixel_x = 4
+	pixel_x = 6;
+	pixel_y = -6
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -51287,12 +51310,16 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/secure_data{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /obj/item/circuitboard/camera{
-	pixel_x = 1;
-	pixel_y = -1
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/circuitboard/prisoner{
+	pixel_x = 5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -51678,7 +51705,6 @@
 	pixel_y = 3
 	},
 /obj/item/stack/cable_coil,
-/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cCQ" = (
@@ -52357,10 +52383,10 @@
 /area/maintenance/apmaint2)
 "cEJ" = (
 /obj/structure/chair/stool/bar,
-/mob/living/simple_animal/mouse,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -54734,7 +54760,6 @@
 /area/assembly/assembly_line)
 "cLy" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -54742,6 +54767,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "cLz" = (
@@ -58311,19 +58337,14 @@
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "cVH" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
 	},
 /obj/structure/cable{
-	d1 = 2;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -58494,10 +58515,7 @@
 "cWo" = (
 /obj/structure/table/wood,
 /obj/machinery/bottler,
-/obj/structure/sign/securearea{
-	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste... You were delicious.'";
-	icon_state = "monkey_painting";
-	name = "Mr. Deempisi portrait";
+/obj/structure/sign/monkey_paint{
 	pixel_x = -28;
 	pixel_y = 4
 	},
@@ -59103,7 +59121,7 @@
 	},
 /area/hallway/secondary/exit)
 "cYg" = (
-/obj/machinery/atmospherics/binary/valve/open{
+/obj/machinery/atmospherics/binary/valve{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -60250,16 +60268,11 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dcu" = (
-/obj/structure/cable{
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -60289,7 +60302,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -60358,6 +60371,11 @@
 	icon_state = "pipe-c"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dcH" = (
@@ -60406,6 +60424,11 @@
 /area/storage/secure)
 "dcQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dcR" = (
@@ -60472,18 +60495,23 @@
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/turbine)
-"ddk" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/simulated/floor/plasteel,
+/area/maintenance/turbine)
+"ddk" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "ddl" = (
@@ -60574,6 +60602,11 @@
 	req_access_txt = "32"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "ddw" = (
@@ -60593,14 +60626,14 @@
 /area/atmos)
 "ddy" = (
 /obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
@@ -60861,6 +60894,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dev" = (
@@ -60869,7 +60907,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "dew" = (
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -60894,6 +60932,11 @@
 /area/engine/engine_smes)
 "dey" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "deA" = (
@@ -63378,7 +63421,7 @@
 	},
 /area/aisat/hall)
 "dlX" = (
-/obj/structure/cable{
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -63546,17 +63589,17 @@
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dmA" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/igniter{
 	id = "gasturbine"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6;
 	level = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -63627,13 +63670,13 @@
 	},
 /area/aisat/hall)
 "dmO" = (
-/obj/structure/cable,
 /obj/machinery/power/compressor{
 	comp_id = "incineratorturbine";
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/cable{
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -63788,9 +63831,9 @@
 /turf/space,
 /area/maintenance/turbine)
 "dne" = (
-/obj/structure/cable,
 /obj/machinery/power/turbine,
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/structure/cable/yellow,
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
 "dnf" = (
@@ -64582,7 +64625,7 @@
 /turf/simulated/floor/plating,
 /area/aisat/atmos)
 "dpO" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/binary/pump{
 	dir = 1;
 	name = "Mix to MiniSat"
 	},
@@ -66296,7 +66339,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor"="Tank")
+	autolink_sensors = list("o2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -67162,11 +67205,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "eJo" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/public/glass{
 	autoclose = 0;
 	heat_proof = 1;
@@ -67174,6 +67212,11 @@
 	locked = 1;
 	name = "Turbine Interior Airlock";
 	req_access_txt = "32"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -67431,7 +67474,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor"="Tank")
+	autolink_sensors = list("n2_sensor" = "Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel{
@@ -68302,7 +68345,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -70875,10 +70918,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/brown,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/brown,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "hjX" = (
@@ -71276,7 +71319,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "hxx" = (
-/mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -71284,6 +71326,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -72539,13 +72582,13 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/xenobiology)
 "inV" = (
-/obj/structure/cable{
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/hologram/holopad,
+/obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "iot" = (
@@ -73396,10 +73439,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "jcY" = (
-/mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -75350,8 +75393,8 @@
 /area/medical/medbay2)
 "kGB" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/carbon/human/monkey,
 /obj/effect/decal/cleanable/blood,
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "kGM" = (
@@ -75391,7 +75434,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor"="Tank")
+	autolink_sensors = list("co2_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -77123,7 +77166,7 @@
 	dir = 1;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -79373,7 +79416,6 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "nPD" = (
-/mob/living/simple_animal/pet/cat/Runtime,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -79382,6 +79424,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/mob/living/simple_animal/pet/cat/Runtime,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluefull"
@@ -79784,10 +79827,10 @@
 /turf/space,
 /area/space/nearstation)
 "oiS" = (
-/mob/living/carbon/human/monkey,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -80247,8 +80290,8 @@
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/skeleton,
-/mob/living/simple_animal/hostile/scarybat,
 /obj/effect/landmark/spawner/nukedisc_respawn,
+/mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "oBJ" = (
@@ -80659,7 +80702,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor"="Tank")
+	autolink_sensors = list("tox_sensor" = "Tank")
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -80879,7 +80922,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
@@ -81995,11 +82038,6 @@
 	},
 /area/security/permabrig)
 "pMX" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/public/glass{
 	autoclose = 0;
 	heat_proof = 1;
@@ -82007,6 +82045,11 @@
 	locked = 1;
 	name = "Turbine Exterior Airlock";
 	req_access_txt = "32"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -82229,7 +82272,6 @@
 	},
 /area/engine/break_room)
 "pUR" = (
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -82244,6 +82286,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "pUX" = (
@@ -82680,7 +82723,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix")
+	autolink_sensors = list("burn_sensor" = "Burn Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -83833,7 +83876,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -84451,7 +84494,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor"="Tank")
+	autolink_sensors = list("air_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -88445,7 +88488,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor"="Tank")
+	autolink_sensors = list("waste_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -90305,7 +90348,7 @@
 	},
 /area/toxins/xenobiology)
 "vTp" = (
-/obj/machinery/atmospherics/binary/pump/on{
+/obj/machinery/atmospherics/binary/pump{
 	dir = 8;
 	name = "Mix to MiniSat"
 	},
@@ -92106,7 +92149,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor"="Tank")
+	autolink_sensors = list("n2o_sensor" = "Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -92930,12 +92973,12 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/hallway)
 "ygu" = (
-/mob/living/carbon/human/monkey,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/mob/living/carbon/human/monkey,
 /turf/simulated/floor/engine,
 /area/toxins/test_chamber)
 "ygw" = (

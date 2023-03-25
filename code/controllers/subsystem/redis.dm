@@ -39,9 +39,26 @@ SUBSYSTEM_DEF(redis)
 			rustg_redis_subscribe(RCB.channel)
 			subbed_channels[RCB.channel] = RCB
 
+		// Send our presence to required channels
+		var/list/presence_data = list()
+		presence_data["author"] = "system"
+		presence_data["source"] = GLOB.configuration.system.instance_id
+		presence_data["message"] = "Connected at `[SQLtime()]` during round [GLOB.round_id]"
+
+		var/presence_text = json_encode(presence_data)
+
+		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+			publish(channel, presence_text)
+
+		// Report detailed presence info to system
+		var/list/presence_data_2 = list()
+		presence_data_2["source"] = GLOB.configuration.system.instance_id
+		presence_data_2["round_id"] = GLOB.round_id
+		presence_data_2["event"] = "server_restart"
+		publish("byond.system", json_encode(presence_data_2))
+
 		var/amount_registered = length(subbed_channels)
 		log_startup_progress("Registered [amount_registered] callback[amount_registered == 1 ? "" : "s"].")
-
 
 /datum/controller/subsystem/redis/fire()
 	check_messages()
@@ -50,6 +67,11 @@ SUBSYSTEM_DEF(redis)
 // Redis integration stuff
 /datum/controller/subsystem/redis/proc/connect()
 	if(GLOB.configuration.redis.enabled)
+		#ifndef UNIT_TESTS // CI uses linux so dont flag up a fail there
+		if(world.system_type == UNIX)
+			stack_trace("SSredis has known to be very buggy when running on Linux with random dropouts ocurring due to interrupted syscalls. You have been warned!")
+		#endif
+
 		var/conn_failed = rustg_redis_connect(GLOB.configuration.redis.connstring)
 		if(conn_failed)
 			log_startup_progress("Failed to connect to redis. Please inform the server host.")
@@ -75,7 +97,15 @@ SUBSYSTEM_DEF(redis)
 
 	for(var/channel in usable_data)
 		if(channel == RUSTG_REDIS_ERROR_CHANNEL)
-			message_admins("Redis error: [usable_data[channel]] | Please inform the server host.") // uh oh
+			var/redis_error_data = usable_data[channel]
+			var/error_str
+			if(islist(redis_error_data))
+				error_str = json_encode(redis_error_data)
+			else
+				error_str = redis_error_data
+
+			message_admins("Redis error: [error_str] | Please inform the server host.") // uh oh
+			log_game("Redis error: [error_str]")
 			continue
 		// Check its an actual channel
 		if(!(channel in subbed_channels))

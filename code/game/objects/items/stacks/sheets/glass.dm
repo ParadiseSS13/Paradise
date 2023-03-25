@@ -39,8 +39,9 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	point_value = 1
 	table_type = /obj/structure/table/glass
 
-/obj/item/stack/sheet/glass/detailed_examine()
-	return "Use in your hand to build a window. Can be upgraded to reinforced glass by adding metal rods, which are made from metal sheets."
+/obj/item/stack/sheet/glass/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Using rods on a floor plating will install glass floor. You can make reinforced glass by combining rods and normal glass sheets.</span>"
 
 /obj/item/stack/sheet/glass/fifty
 	amount = 50
@@ -50,9 +51,10 @@ GLOBAL_LIST_INIT(glass_recipes, list (
 	is_cyborg = TRUE
 	materials = list()
 
-/obj/item/stack/sheet/glass/cyborg/detailed_examine()
-	return "Use in your hand to build a window. Can be upgraded to reinforced glass by adding metal rods, which are made from metal sheets.<br>\
-			As a synthetic, you can acquire more sheets of glass by recharging."
+/obj/item/stack/sheet/glass/cyborg/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>As a synthetic, you can regain sheets of glass by recharging in a <b>cyborg recharger</b>.</span>"
+
 
 /obj/item/stack/sheet/glass/New(loc, amount)
 	recipes = GLOB.glass_recipes
@@ -120,8 +122,9 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	recipes = GLOB.reinforced_glass_recipes
 	..()
 
-/obj/item/stack/sheet/rglass/detailed_examine()
-	return "Use in your hand to build a window. Reinforced glass is much stronger against damage."
+/obj/item/stack/sheet/rglass/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Reinforced glass is much stronger against damage than normal glass, otherwise it functions like normal glass does.</span>"
 
 GLOBAL_LIST_INIT(pglass_recipes, list (
 	new /datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 0 SECONDS, on_floor = TRUE, window_checks = TRUE),
@@ -133,9 +136,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	is_cyborg = TRUE
 	materials = list()
 
-/obj/item/stack/sheet/rglass/cyborg/detailed_examine()
-	return "Use in your hand to build a window. Reinforced glass is much stronger against damage.<br>\
-			As a synthetic, you can gain more reinforced glass by recharging."
+/obj/item/stack/sheet/rglass/cyborg/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>As a synthetic, you can regain sheets of reinforced glass by recharging in a <b>cyborg recharger</b>.</span>"
 
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"

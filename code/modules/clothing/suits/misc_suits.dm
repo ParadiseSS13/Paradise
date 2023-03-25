@@ -97,11 +97,11 @@
 
 
 /obj/item/clothing/suit/judgerobe
-	name = "judge's robe"
-	desc = "This robe commands authority."
+	name = "judge's robe costume"
+	desc = "A fancy costume giving off an aura of authority."
 	icon_state = "judge"
 	item_state = "judge"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | ARMS
 	allowed = list(/obj/item/storage/fancy/cigarettes,/obj/item/stack/spacecash)
 	flags_inv = HIDEJUMPSUIT
 
@@ -1065,8 +1065,10 @@
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 10, FIRE = 20, ACID = 20)
 	var/obj/item/nullrod/missionary_staff/linked_staff = null
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/detailed_examine_antag()
-	return "This robe is made of reinforced fibers, granting it superior protection. The robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn."
+/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='warning'>This robe is made of totally reinforced fibers, granting it 100% not superficial protection. More importantly the robes also wirelessly generate power for the neurotransmitter in the linked missionary staff while being worn.</span>"
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/Destroy()
 	if(linked_staff)	//delink on destruction
