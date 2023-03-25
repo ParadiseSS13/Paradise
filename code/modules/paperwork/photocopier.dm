@@ -368,7 +368,12 @@
 	else
 		return
 	var/obj/item/photo/p = new /obj/item/photo (loc)
-	p.desc = "You see [ass]'s ass on the photo."
+	var/ass_holder
+	if(ass.dna?.species)
+		ass_holder = "[ass.dna.species.a] [ass.dna.species.name]"
+	else
+		ass_holder = ass
+	p.desc = "You see [ass_holder]'s ass on the photo."
 	p.pixel_x = rand(-10, 10)
 	p.pixel_y = rand(-10, 10)
 	p.img = temp_img
