@@ -148,9 +148,8 @@
 				if(isturf(oldloc) && isturf(newloc))
 					user.SpinAnimation(5, 1)
 					user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
-					user.forceMove(newloc)
+					step(user,get_dir(oldloc,newloc))
 					G.glide_for(0.6 SECONDS)
-					G.affecting.forceMove(oldloc)
 					message = "flips over [G.affecting]!"
 					return ..()
 
