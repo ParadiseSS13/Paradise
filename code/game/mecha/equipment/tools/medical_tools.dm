@@ -544,9 +544,9 @@
 	var/imrov_synth_speed = 20
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/can_attach(obj/mecha/M)
-	..()
-	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in M.equipment)
-		return 1
+	if(..())
+		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in M.equipment)
+			return 1
 	return 0
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach(obj/mecha/M)
