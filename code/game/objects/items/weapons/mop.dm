@@ -12,8 +12,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
-	var/mopping = 0
-	var/mopcount = 0
 	var/mopcap = 6
 	var/mopspeed = 30
 	/// The cooldown between each mopping sound effect

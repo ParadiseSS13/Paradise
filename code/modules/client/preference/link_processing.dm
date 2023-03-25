@@ -216,10 +216,10 @@
 					if(new_age)
 						active_character.age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
+					var/list/new_species = list()
 					var/prev_species = active_character.species
 
-					for(var/_species in GLOB.whitelisted_species)
+					for(var/_species in GLOB.all_species)
 						if(can_use_species(user, _species))
 							new_species += _species
 

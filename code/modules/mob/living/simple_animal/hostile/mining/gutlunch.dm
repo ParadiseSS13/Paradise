@@ -95,11 +95,6 @@
 /obj/item/udder/gutlunch
 	name = "nutrient sac"
 
-/obj/item/udder/gutlunch/Initialize(mapload)
-	. = ..()
-	reagents = new(50)
-	reagents.my_atom = src
-
 /obj/item/udder/gutlunch/generateMilk()
 	if(prob(60))
 		reagents.add_reagent("cream", rand(2, 5))

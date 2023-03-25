@@ -150,7 +150,7 @@
 	power_state = use_type
 
 /obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
-	if(power_state == ACTIVE_POWER_USE)
+	if(power_state == IDLE_POWER_USE)
 		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
 	idle_power_consumption = amount
 

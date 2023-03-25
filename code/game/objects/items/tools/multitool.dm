@@ -101,6 +101,7 @@
 	name = "suspicious multitool"
 	desc = "A sinister-looking multitool, used for pulsing wires to test which to cut."
 	icon_state = "multitool_syndi"
+	item_state = "multitool_syndi"
 	belt_icon = "multitool_syndi"
 	toolspeed = 0.95 // dangerously fast... not like multitools use speed anyways
 	origin_tech = "magnets=1;engineering=2;syndicate=1"

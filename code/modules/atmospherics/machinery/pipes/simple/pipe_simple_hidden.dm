@@ -12,9 +12,10 @@
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers/detailed_examine()
-	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/simple/hidden/supply
 	name = "Air supply pipe"
@@ -25,9 +26,10 @@
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
-/obj/machinery/atmospherics/pipe/simple/hidden/supply/detailed_examine()
-	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/simple/hidden/supply/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal
 	name="Universal pipe adapter"
@@ -35,8 +37,9 @@
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 	icon_state = "map_universal"
 
-/obj/machinery/atmospherics/pipe/simple/hidden/universal/detailed_examine()
-	return "This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes."
+/obj/machinery/atmospherics/pipe/simple/hidden/universal/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes.</span>"
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_overlays()
 	. = list()

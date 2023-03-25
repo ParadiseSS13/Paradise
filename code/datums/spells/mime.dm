@@ -3,7 +3,7 @@
 	desc = "The mime's performance transmutates into physical reality."
 	school = "mime"
 	panel = "Mime"
-	summon_type = list(/obj/effect/forcefield/mime)
+	summon_type = list(/obj/structure/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
 	summon_lifespan = 20 SECONDS
