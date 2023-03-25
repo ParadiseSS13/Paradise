@@ -106,8 +106,12 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	config.ooc_allowed = ( !config.ooc_allowed )
 	if(config.ooc_allowed)
 		to_chat(world, "<B>The OOC channel has been globally enabled!</B>")
+		log_admin("OOC was toggled on automatically.")
+		message_admins("OOC has been toggled on automatically.")
 	else
 		to_chat(world, "<B>The OOC channel has been globally disabled!</B>")
+		log_admin("OOC was toggled off automatically.")
+		message_admins("OOC has been toggled off automatically.")
 
 /proc/auto_toggle_ooc(var/on)
 	if(config.auto_toggle_ooc_during_round && config.ooc_allowed != on)

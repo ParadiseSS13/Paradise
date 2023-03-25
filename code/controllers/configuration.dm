@@ -36,7 +36,6 @@
 	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
 	var/pregame_timestart = 240			// Time it takes for the server to start the game
-	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
 	var/vote_delay = 6000				// minimum time between voting sessions (deciseconds, 10 minute default)
 	var/vote_period = 600				// length of voting period (deciseconds, default 1 minute)
@@ -493,9 +492,6 @@
 
 				if("pregame_timestart")
 					config.pregame_timestart = text2num(value)
-
-				if("allow_vote_restart")
-					config.allow_vote_restart = 1
 
 				if("allow_vote_mode")
 					config.allow_vote_mode = 1

@@ -645,6 +645,14 @@ so as to remain in compliance with the most up-to-date laws."
 	return ..()
 
 
+/obj/screen/alert/notify_mapvote
+	name = "Map Vote"
+	desc = "Vote on which map you would like to play on next!"
+	icon_state = "map_vote"
+
+/obj/screen/alert/notify_mapvote/Click()
+	usr.client.vote()
+
 //OBJECT-BASED
 
 /obj/screen/alert/restrained/buckled

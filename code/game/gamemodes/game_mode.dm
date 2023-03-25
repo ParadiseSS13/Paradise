@@ -249,16 +249,6 @@
 						candidates += player.mind
 				players -= player
 
-	// If we don't have enough antags, draft people who voted for the round.
-	if(candidates.len < recommended_enemies)
-		for(var/key in SSvote.round_voters)
-			for(var/mob/new_player/player in players)
-				if(player.ckey == key)
-					player_draft_log += "[player.key] voted for this round, so we are drafting them."
-					candidates += player.mind
-					players -= player
-					break
-
 	// Remove candidates who want to be antagonist but have a job that precludes it
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)

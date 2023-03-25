@@ -508,22 +508,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_and_message_admins("toggled Dead OOC.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/togglevotedead()
-	set category = "Server"
-	set desc="Toggle Dead Vote."
-	set name="Toggle Dead Vote"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	config.vote_no_dead = !( config.vote_no_dead )
-	if(!config.vote_no_dead)
-		to_chat(world, "<B>Dead Vote has been globally enabled!</B>")
-	else
-		to_chat(world, "<B>Dead Vote has been globally disabled!</B>")
-	log_and_message_admins("toggled Dead Vote.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead Vote") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /datum/admins/proc/toggleemoji()
 	set category = "Server"
 	set desc = "Toggle OOC Emoji"

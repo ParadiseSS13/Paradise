@@ -181,9 +181,6 @@ ALLOW_METADATA
 ## The time it takes for a round to start in seconds
 PREGAME_TIMESTART 240
 
-## allow players to initiate a restart vote
-#ALLOW_VOTE_RESTART
-
 ## allow players to initate a mode-change start
 #ALLOW_VOTE_MODE
 
