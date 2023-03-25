@@ -1007,9 +1007,9 @@
 		if(!garbage.anchored)
 			if(jani_vehicle?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
 				move_into_storage(user, jani_vehicle.mybag, garbage)
-			if(jani_cart?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
+			else if(jani_cart?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
 				move_into_storage(user, jani_cart.mybag, garbage)
-			if(target_bin)
+			else if(target_bin)
 				move_into_storage(user, target_bin, garbage)
 			else
 				garbage.Move(new_item_loc, user.dir)
