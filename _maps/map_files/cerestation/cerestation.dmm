@@ -3598,6 +3598,7 @@
 	pixel_x = -32
 	},
 /obj/item/soap/deluxe,
+/obj/item/bikehorn/rubberducky/captain,
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/captain)
 "auZ" = (
@@ -3635,9 +3636,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "avk" = (
-/obj/structure/toilet{
-	dir = 8
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -3647,6 +3645,9 @@
 	normaldoorcontrol = 1;
 	pixel_x = 24;
 	specialfunctions = 4
+	},
+/obj/structure/toilet/captain_toilet{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/captain)
@@ -9117,6 +9118,7 @@
 	dir = 8;
 	icon_state = "pipe-c"
 	},
+/mob/living/simple_animal/mouse/rat/irish/Remi,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "baH" = (
@@ -53691,6 +53693,10 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft/east)
+"jmu" = (
+/obj/effect/decal/remains/mouse/Pinkie,
+/turf/simulated/floor/plasteel/dark/telecomms,
+/area/toxins/server_coldroom)
 "jmF" = (
 /obj/machinery/camera{
 	c_tag = "Service Asteroid Hallway 5";
@@ -63098,13 +63104,13 @@
 /area/maintenance/port)
 "mNA" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/cock,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/mob/living/simple_animal/cock/Commandor,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "mNG" = (
@@ -69981,6 +69987,9 @@
 "pop" = (
 /obj/machinery/igniter{
 	id = "Incinerator"
+	},
+/obj/effect/decal/remains/mouse{
+	name = "Джерри"
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
@@ -108943,7 +108952,7 @@ kal
 iid
 wXW
 ejh
-fIu
+jmu
 ejh
 wXW
 lZz

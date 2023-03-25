@@ -51834,7 +51834,7 @@
 /area/maintenance/asmaint4)
 "fTl" = (
 /obj/structure/flora/ausbushes/ywflowers,
-/mob/living/simple_animal/cock,
+/mob/living/simple_animal/cock/Commandor,
 /turf/simulated/floor/grass,
 /area/hydroponics)
 "fTp" = (
