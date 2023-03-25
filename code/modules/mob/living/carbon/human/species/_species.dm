@@ -255,7 +255,7 @@
 			. -= 0.5
 
 		var/ignoreslow = FALSE
-		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations) || (H.status_flags & GODMODE))
 			ignoreslow = TRUE
 
 		var/flight = H.flying	//Check for flight and flying items
