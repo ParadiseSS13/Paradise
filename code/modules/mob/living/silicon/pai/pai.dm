@@ -143,7 +143,7 @@
 /mob/living/silicon/pai/update_overlays()
 	. = ..()
 	if(on_fire)
-		. += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+		. += image("icon" = 'icons/mob/OnFire.dmi', "icon_state" = "Generic_mob_burning")
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
