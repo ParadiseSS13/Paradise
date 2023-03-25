@@ -329,6 +329,20 @@
 	name = "XMG-9 Autocannon"
 	projectiles_per_shot = 6
 
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg
+	name = "AMLG-90"
+	icon_state = "mecha_amlg90"
+	origin_tech = "combat=6;magnets=6;powerstorage=5"
+	equip_cooldown = 10
+	projectile = /obj/item/projectile/beam/laser
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	projectiles = 150
+	projectile_energy_cost = 40
+	projectiles_per_shot = 3
+	variance = 6
+	projectile_delay = 2
+	harmful = TRUE
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
