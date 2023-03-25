@@ -145,9 +145,7 @@
 		M.reagents.add_reagent(mineral, amount)
 	return ..()
 
-/datum/reagent/consumable/drink/moonlight_skuma
-	var/dizzy_adj = 3
-	var/alcohol_perc = 0.5
+/datum/reagent/consumable/ethanol/moonlight_skuma
 	name = "Moon'drin"
 	id = "moonlight_skuma"
 	description = "Double distilled Moon'lin. Soft mint taste which is loved by all tajarans. Used in cocktails."
@@ -161,17 +159,15 @@
 	dizzy_adj = 3
 	alcohol_perc = 0.5
 
-/datum/reagent/consumable/drink/moonlight_skuma/on_mob_life(mob/living/M)
+/datum/reagent/consumable/ethanol/moonlight_skuma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.Druggy(30, FALSE)
-	switch(current_cycle)
-		if(1 to INFINITY)
-			M.Dizzy(5)
-			if(prob(15))
-				M.emote(pick("twitch","giggle"))
-				M.Dizzy(3)
-			if(prob(5))
-				M.Jitter(5)
-				M.emote("smile")
-				to_chat(M, "<span class='notice'>Вы испытываете приятные, теплые чувства, словно вы дома...</span>")
-	return ..()
+	M.Dizzy(5)
+	if(prob(15))
+		M.emote(pick("twitch","giggle"))
+		M.Dizzy(3)
+	if(prob(5))
+		M.Jitter(5)
+		M.emote("smile")
+		to_chat(M, "<span class='notice'>Вы испытываете приятные, теплые чувства, словно вы дома...</span>")
+	return ..() | update_flags
