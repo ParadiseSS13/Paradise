@@ -50,7 +50,7 @@
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 	can_hold = typecacheof(can_hold)
-	cant_hold = typecacheof(cant_hold) - typesof(cant_hold_override)
+	cant_hold = typecacheof(cant_hold) - typecacheof(cant_hold_override)
 
 	if(allow_quick_empty)
 		verbs += /obj/item/storage/verb/quick_empty
