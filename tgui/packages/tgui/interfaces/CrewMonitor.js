@@ -196,7 +196,7 @@ const ComCrewMonitorDataView = (_properties, context) => {
 };
 
 const CrewMonitorMapView = (_properties, context) => {
-  const { data } = useBackend(context);
+  const { act, data } = useBackend(context);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   const getIcon = cm => {
     return cm.is_command && data.isBS ? "square" : "circle";
@@ -233,6 +233,13 @@ const CrewMonitorMapView = (_properties, context) => {
             size={getSize(cm)}
             tooltip={cm.name + " (" + cm.assignment + ")"}
             color={getExtendedStatColor(cm, data.critThreshold)}
+            onClick={() => {
+              if (data.isAI) {
+                act('track', {
+                  track: cm.ref,
+                });
+              }
+            }}
           />
         ))}
       </NanoMap>
