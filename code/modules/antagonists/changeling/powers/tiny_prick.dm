@@ -11,6 +11,8 @@
 	click_override = new(CALLBACK(src, PROC_REF(try_to_sting)))
 
 /datum/action/changeling/sting/Destroy(force, ...)
+	if(cling.owner.current && cling.owner.current.middleClickOverride == click_override) // this is a very scuffed way of doing this honestly
+		cling.owner.current.middleClickOverride = null
 	QDEL_NULL(click_override)
 	if(cling.chosen_sting == src)
 		cling.chosen_sting = null
