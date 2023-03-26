@@ -16,12 +16,6 @@
 #define SPACE_LAYER 1.5
 #define GRASS_UNDER_LAYER 1.6
 #define PLATING_LAYER 1.7
-#define LATTICE_LAYER 1.701
-#define DISPOSAL_PIPE_LAYER 1.71
-#define GAS_PIPE_HIDDEN_LAYER 1.72
-#define WIRE_LAYER 1.73
-#define WIRE_TERMINAL_LAYER 1.75
-#define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
 #define TRANSPARENT_TURF_LAYER 2
 #define ABOVE_TRANSPARENT_TURF_LAYER 2.01 // put wire terminals here if T.transparent_floor
@@ -34,8 +28,14 @@
 #define BULLET_HOLE_LAYER 2.06
 #define ABOVE_NORMAL_TURF_LAYER 2.08
 #define ABOVE_ICYOVERLAY_LAYER 2.11
-#define GAS_SCRUBBER_OFFSET -0.001
+#define LATTICE_LAYER 2.2
+#define ABOVE_PLATING_LAYER 2.25 // generic for /obj/hide
+#define DISPOSAL_PIPE_LAYER 2.3
+#define GAS_PIPE_HIDDEN_LAYER 2.35
+#define WIRE_LAYER 2.4
+#define WIRE_TERMINAL_LAYER 2.45
 #define GAS_PIPE_VISIBLE_LAYER 2.47
+#define GAS_SCRUBBER_OFFSET -0.001
 #define GAS_PIPE_SCRUB_OFFSET 0.001
 #define GAS_PIPE_SUPPLY_OFFSET 0.002
 #define GAS_FILTER_OFFSET 0.003
