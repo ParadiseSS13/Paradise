@@ -30,7 +30,7 @@
 	/// What sort of table is made when applying this stack to a frame?
 	var/table_type
 	/// If this stack has a dynamic icon_state based on amount / max_amount
-	var/dynamic_icon_state = TRUE
+	var/dynamic_icon_state = FALSE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
