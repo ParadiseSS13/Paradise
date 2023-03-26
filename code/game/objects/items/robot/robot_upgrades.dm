@@ -251,7 +251,8 @@
 		/obj/item/FixOVein = /obj/item/FixOVein/alien,
 		/obj/item/bonesetter = /obj/item/bonesetter/alien,
 		/obj/item/circular_saw = /obj/item/circular_saw/alien,
-		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien
+		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien,
+		/obj/item/reagent_containers/borghypo = /obj/item/reagent_containers/borghypo/abductor
 	)
 
 /obj/item/borg/upgrade/syndicate
