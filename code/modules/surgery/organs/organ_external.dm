@@ -694,7 +694,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_INT_BLEEDING
 
 /obj/item/organ/external/proc/cause_burn_wound()
-	if(is_robotic() || limb_flags & CANNOT_BURN || status & ORGAN_BURNT)
+	if(is_robotic() || (limb_flags & CANNOT_BURN) || (status & ORGAN_BURNT))
 		return
 	status |= ORGAN_BURNT
 	perma_injury = min_broken_damage
