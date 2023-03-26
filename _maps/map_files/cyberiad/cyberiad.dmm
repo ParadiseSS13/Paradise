@@ -82629,7 +82629,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins","n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
