@@ -8,6 +8,7 @@
 	icon_state = "term"
 	desc = "It's an underfloor wiring terminal for power equipment."
 	level = 1
+	plane = FLOOR_PLANE
 	layer = WIRE_TERMINAL_LAYER //a bit above wires
 	var/obj/machinery/power/master = null
 
@@ -16,6 +17,7 @@
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor)
+		layer = ABOVE_TRANSPARENT_TURF_LAYER
 		return
 	if(level == 1)
 		hide(T.intact)
@@ -26,6 +28,10 @@
 		master = null
 	return ..()
 
+/obj/machinery/power/terminal/update_icon_state()
+	. = ..()
+	var/turf/T = get_turf(src)
+	layer = T.transparent_floor ? ABOVE_TRANSPARENT_TURF_LAYER : WIRE_TERMINAL_LAYER
 
 /obj/machinery/power/terminal/hide(i)
 	if(i)
