@@ -72,6 +72,10 @@
 	if(!forced)
 		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
+	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
+		to_chat(src, "You're already dead!")
+		return
+
 	if(forced || (confirm == "Yes"))
 		suiciding = TRUE
 		create_log(ATTACK_LOG, "Attempted suicide")

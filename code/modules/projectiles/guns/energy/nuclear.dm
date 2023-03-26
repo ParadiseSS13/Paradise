@@ -11,9 +11,6 @@
 	flight_y_offset = 10
 	shaded_charge = TRUE
 
-/obj/item/gun/energy/gun/detailed_examine()
-	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between stun and lethal, click the weapon \
-			in your hand. To recharge this weapon, use a weapon recharger."
 
 /obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
@@ -112,6 +109,6 @@
 	selfcharge = TRUE
 	shaded_charge = FALSE
 
-/obj/item/gun/energy/gun/nuclear/detailed_examine()
-	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. To switch between disable and lethal, click the weapon \
-			in your hand. Unlike most weapons, this weapon recharges itself."
+/obj/item/gun/energy/gun/nuclear/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This items cell recharges on it's own. Known to drive people mad by forcing them to wait for shots to recharge. Cannot be recharged in a recharger.</span>"

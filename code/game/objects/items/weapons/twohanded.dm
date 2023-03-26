@@ -1004,21 +1004,29 @@
 		return
 	var/turf/new_item_loc = get_step(current_item_loc, user.dir)
 	var/obj/machinery/disposal/target_bin = locate(/obj/machinery/disposal) in new_item_loc.contents
+	var/obj/structure/janitorialcart/jani_cart = locate(/obj/structure/janitorialcart) in new_item_loc.contents
+	var/obj/vehicle/janicart/jani_vehicle = locate(/obj/vehicle/janicart) in new_item_loc.contents
 	var/trash_amount = 1
 	for(var/obj/item/garbage in current_item_loc.contents)
 		if(!garbage.anchored)
-			if(target_bin)
-				garbage.forceMove(target_bin)
+			if(jani_vehicle?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
+				move_into_storage(user, jani_vehicle.mybag, garbage)
+			else if(jani_cart?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
+				move_into_storage(user, jani_cart.mybag, garbage)
+			else if(target_bin)
+				move_into_storage(user, target_bin, garbage)
 			else
 				garbage.Move(new_item_loc, user.dir)
 			trash_amount++
 		if(trash_amount > BROOM_PUSH_LIMIT)
 			break
 	if(trash_amount > 1)
-		if(target_bin)
-			target_bin.update_icon()
-			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [target_bin].</span>")
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 10, TRUE, -1)
+		playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
+
+/obj/item/twohanded/push_broom/proc/move_into_storage(mob/user, obj/storage, obj/trash)
+	trash.forceMove(storage)
+	storage.update_icon()
+	to_chat(user, "<span class='notice'>You sweep the pile of garbage into [storage].</span>")
 
 /obj/item/twohanded/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
 	cart.mybroom = src

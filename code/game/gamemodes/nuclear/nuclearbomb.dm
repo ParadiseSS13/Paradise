@@ -411,19 +411,23 @@ GLOBAL_VAR(bomb_set)
 			if(removal_stage == NUKE_MOBILE)
 				anchored = FALSE
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-			else if(isinspace())
+				return
+
+			if(!anchored && isinspace())
 				to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 				return FALSE
-			else
-				if(!yes_code && anchored && timing)
-					to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
-					return
-				anchored = !(anchored)
-				if(anchored)
-					visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
-				else
-					requires_NAD_to_unbolt = FALSE
-					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
+
+			if(!yes_code && anchored && timing)
+				to_chat(usr, "<span class='warning'>The code is required to unanchor [src] when armed!</span>")
+				return
+
+			anchored = !(anchored)
+			if(anchored)
+				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
+				return
+
+			requires_NAD_to_unbolt = FALSE
+			visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct

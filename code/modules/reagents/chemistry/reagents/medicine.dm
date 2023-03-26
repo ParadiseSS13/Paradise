@@ -737,7 +737,7 @@
 /datum/reagent/medicine/lazarus_reagent
 	name = "Lazarus Reagent"
 	id = "lazarus_reagent"
-	description = "A glowing green fluid highly reminiscent of nuclear waste."
+	description = "A bioluminescent green fluid that seems to move on its own."
 	reagent_state = LIQUID
 	color = "#A0E85E"
 	metabolization_rate = 0.2
@@ -762,7 +762,7 @@
 			return
 		if(SM.stat == DEAD)
 			SM.revive()
-			SM.loot.Cut() //no abusing Lazarus reagent for farming unlimited resources
+			SM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
