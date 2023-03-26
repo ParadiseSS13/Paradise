@@ -14398,7 +14398,9 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "CargoWarehouse"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/quartermaster/storage)
 "bxf" = (
 /turf/simulated/floor/plating,
@@ -16812,7 +16814,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/quartermaster/storage)
 "bFS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
