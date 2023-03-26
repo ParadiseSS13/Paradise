@@ -265,15 +265,15 @@
 		if(H.status_flags & IGNORE_SPEED_CHANGES)
 			return .
 
-		if(H.wear_suit)
+		if(H.wear_suit && !H.wear_suit.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.wear_suit.slowdown)
-		if(!H.buckled && H.shoes)
+		if(!H.buckled && H.shoes && !H.shoes.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.shoes.slowdown)
-		if(H.back)
+		if(H.back && !H.back.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.back.slowdown)
-		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
+		if(H.l_hand && (H.l_hand.flags & HANDSLOW) && !H.l_hand.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.l_hand.slowdown)
-		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
+		if(H.r_hand && (H.r_hand.flags & HANDSLOW) && !H.r_hand.is_speedslimepotioned)
 			ADD_SLOWDOWN(H.r_hand.slowdown)
 
 		if(ignoreslow)
