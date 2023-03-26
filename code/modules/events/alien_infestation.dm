@@ -10,7 +10,7 @@
 
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
-		GLOB.event_announcement.Announce("Вспышка биологической угрозы 2-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+		GLOB.event_announcement.Announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
 		cancel_call_proc(usr)
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
