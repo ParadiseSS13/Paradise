@@ -313,5 +313,5 @@
 	result = "syntmorphine"
 	required_reagents = list("carbon" = 2, "hydrogen" = 2, "ethanol" = 1, "oxygen" = 1)
 	result_amount = 6
-	min_temp = T0C + 480
+	min_temp = T0C + 200
 	mix_message = "The solution gurgles, it has an almost incredible calming influence on the mind."
