@@ -331,7 +331,7 @@
 		new /obj/item/reagent_containers/food/pill/ironsaline(src)
 		new /obj/item/reagent_containers/food/pill/hydrocodone(src)
 		new /obj/item/reagent_containers/food/pill/mannitol(src)
-		new /obj/item/reagent_containers/food/pill/strange_reagent(src)
+		new /obj/item/reagent_containers/food/pill/lazarus_reagent(src)
 		new /obj/item/reagent_containers/food/pill/rezadone(src)
 
 /obj/item/storage/pill_bottle/MouseDrop(obj/over_object) // Best utilized if you're a cantankerous doctor with a Vicodin habit.

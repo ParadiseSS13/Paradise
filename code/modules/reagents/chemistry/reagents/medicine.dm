@@ -734,9 +734,9 @@
 			M.emote("collapse")
 	return list(effect, update_flags)
 
-/datum/reagent/medicine/strange_reagent
-	name = "Strange Reagent"
-	id = "strange_reagent"
+/datum/reagent/medicine/lazarus_reagent
+	name = "Lazarus Reagent"
+	id = "lazarus_reagent"
 	description = "A glowing green fluid highly reminiscent of nuclear waste."
 	reagent_state = LIQUID
 	color = "#A0E85E"
@@ -745,14 +745,14 @@
 	harmless = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
-/datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
+/datum/reagent/medicine/lazarus_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		update_flags |= M.adjustBruteLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+/datum/reagent/medicine/lazarus_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
@@ -762,7 +762,7 @@
 			return
 		if(SM.stat == DEAD)
 			SM.revive()
-			SM.loot.Cut() //no abusing strange reagent for farming unlimited resources
+			SM.loot.Cut() //no abusing Lazarus reagent for farming unlimited resources
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
@@ -800,8 +800,8 @@
 
 					M.grab_ghost()
 					M.update_revive()
-					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
-					SSblackbox.record_feedback("tally", "players_revived", 1, "strange_reagent")
+					add_attack_logs(M, M, "Revived with lazarus reagent") //Yes, the logs say you revived yourself.
+					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
 /datum/reagent/medicine/mannitol
