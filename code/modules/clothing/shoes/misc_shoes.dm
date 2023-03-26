@@ -126,24 +126,25 @@
 	if(slot == slot_shoes)
 		return TRUE
 
-/obj/item/clothing/shoes/clown_shoes/slippers/proc/slide_one(mob/living/user, progress, prev_dir)
+/obj/item/clothing/shoes/clown_shoes/slippers/proc/slide_one(mob/living/user, progress, prev_dir , prev_flags)
 	user.dir = prev_dir
 	step(user, user.dir)
 	if(progress == slide_distance)
-		user.pass_flags -= PASSMOB | PASSTABLE
 		user.stand_up()
+		user.pass_flags = prev_flags
 
 /obj/item/clothing/shoes/clown_shoes/slippers/ui_action_click(mob/living/user, action)
     if(recharging_time > world.time)
         to_chat(user, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
         return
     var/prev_dir = user.dir
-    user.pass_flags += PASSMOB | PASSTABLE
+    var/old_pass = user.pass_flags
+    user.pass_flags |= (PASSMOB | PASSTABLE)
     playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE, 1)
     recharging_time = world.time + recharging_rate
     user.lay_down()
     for(var/crossed in 1 to slide_distance)
-        addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir), crossed)
+        addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir), crossed, old_pass)
 
 
 /obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
