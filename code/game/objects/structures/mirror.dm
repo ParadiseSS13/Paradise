@@ -97,6 +97,7 @@
 	icon_state = "magic_mirror"
 	var/options = list("Name", "Body", "Voice")
 	var/organ_warn = FALSE
+	var/actually_magical = TRUE
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
 	if(!ishuman(user) || broken)
@@ -124,7 +125,9 @@
 		if("Body")
 			if(organ_warn)
 				to_chat(user, "<span class='boldwarning'>Using the mirror will destroy any non biochip implants in you!</span>")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Slime People", "Grey", "Drask", "Kidan")
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask")
+			if(actually_magical)
+				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Vox", "Plasmaman", "Kidan")
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
@@ -174,4 +177,5 @@
 	desc = "The M.A.G.I.C mirror will let you change your species in a flash! Be careful, any implants (not biochips) in you will be destroyed on use."
 	options = list("Body")
 	organ_warn = TRUE
+	actually_magical = FALSE
 

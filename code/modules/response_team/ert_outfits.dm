@@ -487,7 +487,7 @@
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/reagent_containers/spray/cleaner/advanced = 1,
+		/obj/item/lightreplacer = 1,
 		/obj/item/storage/bag/trash = 1,
 		/obj/item/twohanded/push_broom,
 		/obj/item/storage/box/lights/mixed = 1,
@@ -517,6 +517,10 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
+	implants = list(/obj/item/implant/mindshield,
+		/obj/item/implant/death_alarm
+	)
+
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
@@ -530,7 +534,7 @@
 		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
-		/obj/item/reagent_containers/spray/cleaner/advanced = 1,
+		/obj/item/lightreplacer/bluespace = 1,
 		/obj/item/melee/flyswatter = 1
 	)
 
