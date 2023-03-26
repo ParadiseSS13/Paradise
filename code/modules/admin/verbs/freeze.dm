@@ -99,11 +99,11 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 		radio.autosay("Alert: Unknown intervention has frozen causality around the crystal. It is not progressing in local timespace.", name, "Engineering", list(z))
 		GLOB.frozen_atom_list += src
 		processes = FALSE
-		overlays += freeze_overlay
+		add_overlay(freeze_overlay)
 	else
 		radio.autosay("Alert: Unknown intervention has ceased around the crystal. It has returned to the regular flow of time.", name, "Engineering", list(z))
 		GLOB.frozen_atom_list -= src
 		processes = TRUE
-		overlays -= freeze_overlay
+		cut_overlay(freeze_overlay)
 	message_admins("<span class='notice'>[key_name_admin(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal</span>")
 	log_admin("[key_name(admin)] [processes ? "unfroze" : "froze"] a supermatter crystal")
