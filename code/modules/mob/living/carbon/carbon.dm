@@ -332,10 +332,8 @@
 				if(40 to INFINITY)
 					status += "peeling away"
 
-
 		if(LB.status & ORGAN_MUTATED)
 			status = "weirdly shapen"
-
 
 		var/msg = "<span class='notice'>Your [LB.name] is OK.</span>"
 		if(!isnull(status))

@@ -449,7 +449,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		cause_internal_bleeding()
 
 /obj/item/organ/external/proc/check_for_burn_wound(damage)
-	if(burn_dam > min_broken_damage && prob(damage * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
+	if(burn_dam >= min_broken_damage && prob(damage * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
 		cause_burn_wound()
 
 // new damage icon system

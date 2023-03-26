@@ -221,8 +221,6 @@
 		affecting.status |= ORGAN_SALVED
 		addtimer(CALLBACK(affecting, TYPE_PROC_REF(/obj/item/organ/external, remove_ointment), heal_burn), 3 MINUTES)
 
-
-
 /obj/item/organ/external/proc/remove_ointment(heal_amount) //de-ointmenterized D:
 	status &= ~ORGAN_SALVED
 	perma_injury = max(perma_injury - heal_amount, 0)
