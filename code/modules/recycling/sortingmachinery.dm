@@ -141,7 +141,7 @@
 
 /obj/item/stack/packageWrap
 	name = "package wrapper"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "deliveryPaper"
 	singular_name = "package wrapper"
 	flags = NOBLUDGEON

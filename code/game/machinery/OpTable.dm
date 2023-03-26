@@ -84,6 +84,8 @@
 	update_patient()
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
+			if(C.stat == DEAD)
+				continue
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
 				R.check_and_add(chemical,reagent_target_amount,inject_amount)
