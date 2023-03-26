@@ -91,7 +91,8 @@
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
 
 /datum/action/innate/tail_lash/Trigger()
-	return IsAvailable(show_message = TRUE)
+	if(IsAvailable(show_message = TRUE))
+		..()
 
 /datum/action/innate/tail_lash/Activate()
 	var/mob/living/carbon/human/user = owner
