@@ -119,11 +119,13 @@
 	name = "roll of gauze"
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "gauze"
 	origin_tech = "biotech=2"
 	max_amount = 12
 	heal_brute = 10
 	stop_bleeding = 1800
+	dynamic_icon_state = TRUE
 
 /obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
@@ -169,6 +171,7 @@
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
+	icon = 'icons/obj/items.dmi'
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
@@ -176,6 +179,7 @@
 	max_amount = 6
 	heal_brute = 25
 	stop_bleeding = 0
+	dynamic_icon_state = FALSE
 
 /obj/item/stack/medical/bruise_pack/advanced/cyborg
 	energy_type = /datum/robot_energy_storage/medical/adv_brute_kit
@@ -191,11 +195,13 @@
 	name = "ointment"
 	desc = "Used to treat those nasty burns."
 	gender = PLURAL
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	singular_name = "ointment"
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
 	healverb = "salve"
 	heal_burn = 10
+	dynamic_icon_state = TRUE
 
 /obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
 	if(..())
@@ -233,9 +239,11 @@
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "burnkit"
 	belt_icon = "burnkit"
 	heal_burn = 25
+	dynamic_icon_state = FALSE
 
 /obj/item/stack/medical/ointment/advanced/cyborg
 	energy_type = /datum/robot_energy_storage/medical/adv_burn_kit
@@ -258,6 +266,7 @@
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
+	dynamic_icon_state = FALSE
 
 /obj/item/stack/medical/bruise_pack/comfrey/heal(mob/living/M, mob/user)
 	playsound(src, 'sound/misc/soggy.ogg', 30, TRUE)
@@ -271,6 +280,7 @@
 	icon_state = "ambrosiavulgaris"
 	color = "#4CC5C7"
 	heal_burn = 12
+	dynamic_icon_state = FALSE
 
 // Splints
 /obj/item/stack/medical/splint

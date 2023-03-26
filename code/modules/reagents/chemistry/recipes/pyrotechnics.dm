@@ -30,7 +30,7 @@
 	name = "Bee Explosion"
 	id = "beesplosion"
 	result = null
-	required_reagents = list("honey" = 1, "strange_reagent" = 1, "radium" = 1)
+	required_reagents = list("honey" = 1, "lazarus_reagent" = 1, "radium" = 1)
 	result_amount = 1
 
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
