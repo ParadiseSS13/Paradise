@@ -10958,10 +10958,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
-"bis" = (
-/obj/machinery/economy/vending/boozeomat,
-/turf/simulated/wall,
-/area/crew_quarters/bar)
 "biv" = (
 /obj/machinery/chem_dispenser/beer{
 	dir = 4
@@ -40358,6 +40354,10 @@
 	icon_state = "redyellowfull"
 	},
 /area/crew_quarters/bar)
+"eYa" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/wood,
+/area/library)
 "eYp" = (
 /obj/structure/railing{
 	dir = 8
@@ -54810,6 +54810,12 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/secondary/entry/north)
+"kiv" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/green,
+/area/library)
 "kjb" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -65859,6 +65865,10 @@
 	icon_state = "darkred"
 	},
 /area/security/checkpoint2)
+"ohH" = (
+/obj/machinery/economy/vending/boozeomat,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "ohN" = (
 /obj/machinery/economy/vending/snack,
 /obj/effect/turf_decal/stripes/line{
@@ -71842,6 +71852,9 @@
 "qji" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -86853,6 +86866,12 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
+"vAk" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "vAr" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light,
@@ -92271,6 +92290,9 @@
 /obj/item/lighter/zippo,
 /obj/structure/table/wood,
 /obj/item/lighter/zippo,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "xrc" = (
@@ -107655,14 +107677,14 @@ vtY
 vtY
 aEe
 dsc
-ybP
+kiv
 dsc
-ybP
+kiv
 dsc
-ybP
+kiv
 dsc
 bHZ
-bHZ
+eYa
 aEe
 vtY
 aEe
@@ -113045,7 +113067,7 @@ oOg
 oOg
 oOg
 oOg
-bis
+aZZ
 aZZ
 fwJ
 aZZ
@@ -113302,7 +113324,7 @@ xyD
 biv
 dda
 xlV
-wmR
+ohH
 dsJ
 htv
 qEX
@@ -113814,7 +113836,7 @@ aZZ
 dKY
 bxp
 hIv
-wmR
+vAk
 wmR
 wmR
 xHX
