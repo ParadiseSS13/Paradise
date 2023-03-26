@@ -7,8 +7,9 @@
 /datum/event/bureaucratic_error/start()
 	var/list/jobs = SSjobs.occupations.Copy()
 	var/datum/job/overflow
+	var/overflow_amount = rand(1, 6)
 	var/errors = 0
-	while(errors <= rand(1, 6))
+	while(errors <= overflow_amount)
 		var/random_change = pick(-1, 1)
 		overflow = pick_n_take(jobs)
 		if(!overflow.allow_bureaucratic_error)
