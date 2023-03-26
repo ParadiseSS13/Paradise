@@ -14958,6 +14958,8 @@
 /area/maintenance/fpmaint)
 "aOq" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -16190,9 +16192,6 @@
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
@@ -71292,6 +71291,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
+"hrP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/maintenance/fpmaint)
 "hsQ" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -72422,11 +72428,10 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "icD" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "idg" = (
 /obj/machinery/door/airlock/maintenance{
@@ -77736,8 +77741,9 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
 "mmd" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/chair/sofa/bench/left,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "mmt" = (
@@ -78248,6 +78254,14 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/toxins/launch)
+"mJz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/maintenance/fpmaint)
 "mJC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -82728,6 +82742,12 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/beach/sand,
 /area/hallway/secondary/exit)
+"pXL" = (
+/obj/structure/chair/sofa/bench/right,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "pXY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -85057,6 +85077,13 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/toxins/hallway)
+"rHx" = (
+/obj/structure/chair/sofa/bench,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "rHR" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -114595,8 +114622,8 @@ aLC
 aPi
 aOo
 aOq
-mmd
 aMA
+pXL
 aRp
 aSv
 aab
@@ -114850,10 +114877,10 @@ aab
 aGi
 aLG
 aMU
-aOq
-aLF
+hrP
 icD
 aPj
+rHx
 aRo
 aXY
 aaa
@@ -115108,9 +115135,9 @@ aMA
 aLF
 aMT
 kWN
-aOq
-icD
+mJz
 aMA
+mmd
 aRn
 tJb
 aab
