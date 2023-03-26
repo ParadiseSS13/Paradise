@@ -2135,3 +2135,70 @@
 
 
 	refill_canister = /obj/item/vending_refill/clothing/law
+
+
+/obj/machinery/vending/clothing/departament/service
+	name = "\improper Departament Service ClothesMate"
+	desc = "Автомат-помощник по выдаче одежды Сервисного отдела."
+	icon_state = "clothes"
+	//slogan_list += list()
+	req_access_txt = "0"
+	products = list()
+	refill_canister = /obj/item/vending_refill/
+
+/obj/machinery/vending/clothing/departament/service/chaplain
+	name = "\improper Departament Service ClothesMate Chaplain"
+	desc = "Автомат-помощник по выдаче одежды Сервисного отдела церкви."
+	icon_state = "clothes-dep-car"
+	//slogan_list += list()
+	req_access_txt = "22"
+	products = list(
+		/obj/item/clothing/under/rank/chaplain = 5,
+		/obj/item/clothing/suit/witchhunter = 2,
+		/obj/item/clothing/head/witchhunter_hat = 2,
+		/obj/item/clothing/suit/armor/riot/knight/templar = 1,
+		/obj/item/clothing/head/helmet/riot/knight/templar = 1,
+		/obj/item/clothing/under/wedding/bride_white = 1,
+		/obj/item/clothing/suit/hooded/chaplain_hoodie = 2,
+		/obj/item/radio/headset/headset_service = 5,
+		/obj/item/clothing/suit/hooded/nun = 2,
+		/obj/item/clothing/suit/holidaypriest = 2,
+		/obj/item/clothing/head/bishopmitre = 2,
+		/obj/item/clothing/neck/cloak/bishop = 2,
+		/obj/item/clothing/head/blackbishopmitre = 2,
+		/obj/item/clothing/neck/cloak/bishopblack = 2,
+		/obj/item/storage/backpack/cultpack = 5,
+		/obj/item/clothing/shoes/black = 5,
+		/obj/item/clothing/shoes/laceup = 2,
+		/obj/item/clothing/gloves/ring/gold = 2,
+		/obj/item/clothing/gloves/ring/silver = 2
+	)
+	refill_canister = /obj/item/vending_refill/clothing/service/chaplain
+
+
+/obj/machinery/vending/clothing/departament/service/botanical
+	name = "\improper Departament Service ClothesMate Botanical"
+	desc = "Автомат-помощник по выдаче одежды Сервисного отдела ботаники."
+	icon_state = "clothes"
+	//slogan_list += list()
+	req_access_txt = "35"
+	products = list(
+		/obj/item/clothing/under/rank/hydroponics = 5,
+		/obj/item/clothing/suit/storage/suragi_jacket/botany = 3,
+		/obj/item/clothing/suit/apron = 4,
+		/obj/item/clothing/suit/apron/overalls = 2,
+		/obj/item/clothing/mask/bandana/botany = 4,
+		/obj/item/clothing/accessory/scarf/green = 2,
+		/obj/item/clothing/head/flatcap = 2,
+		/obj/item/radio/headset/headset_service = 5,
+		/obj/item/clothing/gloves/botanic_leather = 5,
+		/obj/item/clothing/gloves/fingerless = 3,
+		/obj/item/clothing/gloves/color/brown = 3,
+		/obj/item/storage/backpack/botany = 5,
+		/obj/item/storage/backpack/satchel_hyd = 5,
+		/obj/item/storage/backpack/duffel/hydro = 5,
+		/obj/item/clothing/shoes/brown = 4,
+		/obj/item/clothing/shoes/sandal = 2,
+		/obj/item/clothing/shoes/leather = 2
+	)
+	refill_canister = /obj/item/vending_refill/clothing/service/botanical

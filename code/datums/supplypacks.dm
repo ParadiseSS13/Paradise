@@ -2135,6 +2135,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	containername = "law departament clothesmate supply crate"
 
+/datum/supply_packs/vending/clothes/service/botanical
+	name = "Service Departament ClothesMate Botanical Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing/service/botanical)
+	cost = 30
+	containername = "Service Departament ClothesMate Botanical crate"
+
+/datum/supply_packs/vending/clothes/service/chaplain
+	name = "Service Departament ClothesMate Chaplain Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing/service/chaplain)
+	cost = 30
+	containername = "Service Departament ClothesMate Chaplain crate"
+
 /datum/supply_packs/vending/suit
 	name = "Suitlord Supply Crate"
 	contains = list(/obj/item/vending_refill/suitdispenser)
