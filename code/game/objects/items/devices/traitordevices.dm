@@ -98,6 +98,7 @@
 	var/list/turfs = new/list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
+	var/list/food = user.search_contents_for(/obj/item/reagent_containers/food)
 	for(var/turf/T in range(user, tp_range))
 		if(!is_teleport_allowed(T.z))
 			break

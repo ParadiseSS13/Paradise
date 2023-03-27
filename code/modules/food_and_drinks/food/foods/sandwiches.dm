@@ -158,6 +158,7 @@
 	filling_color = "#D9BE29"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("meat" = 2, "cheese" = 1, "bread" = 2, "lettuce" = 1)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/toastedsandwich
 	name = "toasted sandwich"

@@ -22,6 +22,7 @@
 	///Name of the food to show up in kitchen machines (microwaves, ovens, etc)
 	var/ingredient_name
 	var/ingredient_name_plural
+	var/bread = FALSE
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 

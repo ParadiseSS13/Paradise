@@ -196,6 +196,7 @@
 			precision = rand(1, 100)
 
 		var/list/bagholding = teleatom.search_contents_for(/obj/item/storage/backpack/holding)
+		var/list/food = teleatom.search_contents_for(/obj/item/reagent_containers/food)
 		if(bagholding.len)
 			if(safe_turf_first) //If this is true, this is already a random teleport. Make it unsafe but do not touch the precision.
 				safe_turf_first = FALSE
@@ -205,6 +206,15 @@
 			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
+
+		if(food.len)
+			for(var/obj/item/reagent_containers/food/fooditem in food)
+				if(fooditem.bread == TRUE)
+					var/turf/T = fooditem.loc
+					var/mob/living/simple_animal/hostile/mimic/copy/M = new(get_turf(fooditem), fooditem, null, 1)
+					if(isliving(teleatom))
+						var/mob/living/MM = teleatom
+						to_chat(MM, "<span class='warning'>The bread comes to life!</span>")
 	return 1
 
 // Random safe location finder
