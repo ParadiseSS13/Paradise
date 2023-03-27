@@ -27567,10 +27567,6 @@
 	pixel_y = 3
 	},
 /obj/item/circuitboard/card,
-/obj/item/circuitboard/crew{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -31283,15 +31279,24 @@
 	},
 /area/hallway/primary/central)
 "bDH" = (
-/obj/structure/rack,
-/obj/item/circuitboard/scan_consolenew{
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/circuitboard/cyborgrecharger{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/med_data,
-/obj/item/circuitboard/pandemic{
+/obj/item/circuitboard/mech_bay_power_console{
+	pixel_y = 0
+	},
+/obj/item/circuitboard/mech_recharger{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/circuitboard/mechfab{
+	pixel_y = -6;
+	pixel_x = 6
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -31306,15 +31311,26 @@
 /turf/simulated/floor/plasteel/dark,
 /area/storage/tech)
 "bDJ" = (
-/obj/structure/rack,
-/obj/item/circuitboard/aifixer{
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/circuitboard/rdconsole{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/circuitboard/rdserver{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/rdconsole,
-/obj/item/circuitboard/rdserver{
+/obj/item/circuitboard/destructive_analyzer,
+/obj/item/circuitboard/protolathe{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/circuitboard/circuit_imprinter{
+	pixel_y = -6;
+	pixel_x = 6
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -32018,15 +32034,37 @@
 /turf/simulated/floor/plasteel/dark,
 /area/storage/tech)
 "bFj" = (
-/obj/structure/rack,
-/obj/item/circuitboard/cloning{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
 	},
-/obj/item/circuitboard/clonescanner,
+/obj/item/circuitboard/cloning{
+	pixel_y = 8;
+	pixel_x = -8
+	},
+/obj/item/circuitboard/clonescanner{
+	pixel_x = -5;
+	pixel_y = 5
+	},
 /obj/item/circuitboard/clonepod{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/circuitboard/cryo_tube{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/item/circuitboard/pandemic{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/circuitboard/bodyscanner{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/circuitboard/sleeper{
+	pixel_x = 9;
+	pixel_y = -9
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -32034,13 +32072,15 @@
 	},
 /area/storage/tech)
 "bFk" = (
-/obj/structure/rack,
-/obj/item/circuitboard/destructive_analyzer{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
 	},
-/obj/item/circuitboard/protolathe,
-/obj/item/circuitboard/circuit_imprinter{
+/obj/item/circuitboard/autolathe{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/item/circuitboard/ore_redemption{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -32944,7 +32984,6 @@
 	pixel_x = -24
 	},
 /obj/item/folder/yellow,
-/obj/item/airlock_electronics,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -32979,12 +33018,6 @@
 	},
 /area/storage/tech)
 "bGW" = (
-/obj/structure/rack,
-/obj/item/circuitboard/mechfab,
-/obj/item/circuitboard/autolathe{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -33769,15 +33802,21 @@
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bIJ" = (
-/obj/structure/rack,
-/obj/item/circuitboard/camera{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
 	},
-/obj/item/circuitboard/prisoner,
 /obj/item/circuitboard/secure_data{
-	pixel_x = 3;
-	pixel_y = -3
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/item/circuitboard/camera{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/circuitboard/prisoner{
+	pixel_x = 5;
+	pixel_y = -5
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -33795,20 +33834,32 @@
 	c_tag = "Technical Storage";
 	dir = 4
 	},
-/obj/item/airalarm_electronics,
-/obj/item/apc_electronics,
+/obj/item/paicard,
 /turf/simulated/floor/plasteel/dark,
 /area/storage/tech)
 "bIO" = (
-/obj/structure/rack,
-/obj/item/circuitboard/atmos_alert{
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/circuitboard/message_monitor{
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/obj/item/circuitboard/aifixer{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/powermonitor,
-/obj/item/circuitboard/stationalert{
+/obj/item/circuitboard/teleporter{
+	pixel_y = 0
+	},
+/obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/circuitboard/teleporter_station{
+	pixel_x = 6;
+	pixel_y = -6
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -34538,15 +34589,24 @@
 	},
 /area/engine/break_room)
 "bKu" = (
-/obj/structure/rack,
-/obj/item/circuitboard/teleporter_hub{
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/circuitboard/powermonitor{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/teleporter_station,
-/obj/item/circuitboard/teleporter{
+/obj/item/circuitboard/stationalert{
+	pixel_y = 0
+	},
+/obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/circuitboard/smes{
+	pixel_x = 6;
+	pixel_y = -6
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -35430,10 +35490,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/firelock_electronics,
-/obj/item/firelock_electronics,
-/obj/item/firealarm_electronics,
-/obj/item/firealarm_electronics,
 /obj/item/circuitboard/sleeper,
 /turf/simulated/floor/plasteel/dark,
 /area/storage/tech)
@@ -36226,7 +36282,6 @@
 /obj/structure/table/reinforced,
 /obj/item/wrench,
 /obj/item/crowbar,
-/obj/item/paicard,
 /obj/machinery/newscaster{
 	dir = 1;
 	name = "south bump";
@@ -87456,19 +87511,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "map" = (
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access_txt = "1";
-	power_state = 0
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/impassable/gamma,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

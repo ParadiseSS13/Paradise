@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/pylon/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	..()
+	return ..()
 
 /obj/structure/cult/functional/pylon/cult_conceal()
 	STOP_PROCESSING(SSobj, src)

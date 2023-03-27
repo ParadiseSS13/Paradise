@@ -15,6 +15,8 @@
 	var/list/can_hold = list()
 	/// List of objects which this item can't store (in effect only if can_hold isn't set)
 	var/list/cant_hold = list()
+	/// List of objects which this item overrides the cant_hold list (used to negate cant_hold on specific items. Ex: Allowing Smuggler's Satchels (subtype of backpack) to be stored inside bags of holding.)
+	var/list/cant_hold_override = list()
 	/// Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL
 	/// The sum of the w_classes of all the items in this storage item.
@@ -48,7 +50,7 @@
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 	can_hold = typecacheof(can_hold)
-	cant_hold = typecacheof(cant_hold)
+	cant_hold = typecacheof(cant_hold) - typecacheof(cant_hold_override)
 
 	if(allow_quick_empty)
 		verbs += /obj/item/storage/verb/quick_empty

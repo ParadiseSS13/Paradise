@@ -50,3 +50,13 @@
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 3000)
 	build_path = /obj/item/lightreplacer
 	category = list("Janitorial")
+
+/datum/design/light_replacer_bluespace
+	name = "Bluespace Light Replacer"
+	desc = "A device to automatically replace lights from a distance. Refill with working light bulbs."
+	id = "light_replacer_bluespace"
+	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 6, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
+	build_path = /obj/item/lightreplacer/bluespace
+	category = list("Janitorial")

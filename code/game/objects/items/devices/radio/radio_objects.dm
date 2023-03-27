@@ -253,7 +253,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown") //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown", follow_target_override) //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if(channel == "department")
@@ -295,7 +295,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	else
 		tcm.source_level = level_name_to_num(MAIN_STATION) // Assume station level if we dont have an actual Z level available to us.
 	tcm.freq = connection.frequency
-	tcm.follow_target = follow_target
+	if(follow_target_override)
+		tcm.follow_target = follow_target_override
+	else
+		tcm.follow_target = follow_target
 
 	// Now put that through the stuff
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
