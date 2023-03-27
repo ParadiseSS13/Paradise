@@ -17167,7 +17167,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/closet/secure_closet/iaa,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -28062,7 +28061,7 @@
 	},
 /area/maintenance/disposal)
 "cLb" = (
-/obj/structure/closet/lawcloset,
+/obj/structure/closet/secure_closet/iaa,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "cLj" = (

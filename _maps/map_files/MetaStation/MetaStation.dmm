@@ -65530,7 +65530,6 @@
 	},
 /area/security/permabrig)
 "kyo" = (
-/obj/structure/closet/lawcloset,
 /obj/machinery/light{
 	dir = 8
 	},
