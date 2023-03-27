@@ -28,7 +28,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		return FALSE
 
-	if(iscultist(user) || iswizard(user) || (user.mind.isholy && purified))
+	if(iscultist(user) || iswizard(user) || (user.mind?.isholy && purified))
 		return TRUE
 
 	return FALSE
@@ -59,7 +59,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		to_chat(user, "<span class='danger'>[src] reeks of holy magic. You will need to cleanse it with a ritual dagger before anything can be done with it.</span>")
 		return
-	if(user.mind.isholy)
+	if(user.mind?.isholy)
 		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up [src]. It looks fragile enough to break with your hands.</span>")
 		return
 	if(!can_use(user))
