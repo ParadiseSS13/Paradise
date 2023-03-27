@@ -980,6 +980,17 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mecha_thruster
+	name = "Heavy-duty Exosuit Ion Thruster"
+	desc = "Allows for further control in zero gravity enviroments."
+	id = "mech_thruster"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 6, "magnets" = 5, "materials" = 5)
+	build_path = /obj/item/mecha_parts/mecha_equipment/thrusters
+	materials = list(MAT_METAL = 15000, MAT_PLASMA = 3000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
 //Cyborg Upgrade Modules
 
 /datum/design/borg_upgrade_reset
