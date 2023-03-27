@@ -64411,7 +64411,8 @@
 "dsg" = (
 /obj/machinery/camera/motion{
 	c_tag = "AI Core South";
-	network = list("SS13","MiniSat")
+	network = list("SS13","MiniSat");
+	start_active = 1
 	},
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
