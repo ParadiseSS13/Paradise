@@ -122,17 +122,17 @@
 
 /obj/machinery/floodlight/crowbar_act(mob/living/user, obj/item/I)
 	if(!unlocked)
-		to_chat(user, "The cover is screwed tightly down")
+		to_chat(user, "The cover is screwed tightly down.")
 		return TRUE
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
 	if(open)
-		to_chat(user, "You pry the panel closed")
+		to_chat(user, "You pry the panel closed.")
 		open = FALSE
 	else
-		to_chat(user, "You pry the panel open")
+		to_chat(user, "You pry the panel open.")
 		open = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
