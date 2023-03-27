@@ -233,7 +233,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
 	if(!invisibility) // No visible messages if not visible
 		if(HAS_TRAIT(target, TRAIT_CULT_IMMUNITY))
-			visible_message("something something placeholder")
+			visible_message("<spacn class='warning'>This sacrifice was already converted recently. Wait a moment before trying again!</span>")
 		else
 			visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
 	animate(src, color = rgb(255, 0, 0), time = 0)
@@ -316,7 +316,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/mob/living/L = pick(offer_targets)
 	if(HAS_TRAIT(L, TRAIT_CULT_IMMUNITY))
 		fail_invoke(L)
-		to_chat("<spacn class='warning'>This sacrafacie was already converted recently. Wait a moment before trying again!</span>")
+		to_chat("<spacn class='warning'>This sacrifice was already converted recently. Wait a moment before trying again!</span>")
 		rune_in_use = FALSE
 		return
 
