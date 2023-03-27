@@ -477,7 +477,7 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "<span class='notice'>Release sequence activated. This will take two minutes.</span>")
+		to_chat(usr, "<span class='notice'>Release sequence activated. This will take one minute.</span>")
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return
