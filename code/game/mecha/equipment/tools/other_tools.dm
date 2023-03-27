@@ -436,7 +436,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/thrusters
 	name = "exosuit ion thrusters"
-	desc = "ion thrusters to be attached to an exosuit. Drains power even while not in flight."
+	desc = "Ion thrusters to be attached to an exosuit. Drains power even while not in flight."
 	icon_state = "tesla"
 	origin_tech = "powerstorage=4;engineering=4"
 	range = 0
