@@ -94,7 +94,7 @@
 					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
 
 			for(var/obj/item/I in E.embedded_objects)
-				msg += "<b>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</Bb>\n"
+				msg += "<b>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</b>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -142,7 +142,7 @@
 		if(3)
 			msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
 		if(4)
-			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only [isslimeperson(src) ? "slime" : "bones"] remaining of what used to be a person.\n"
+			msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only [isslimeperson(src) ? "congealed slime" : "bones"] remaining of what used to be a person.\n"
 
 	// only humans get employment records
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
