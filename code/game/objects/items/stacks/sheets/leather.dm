@@ -165,6 +165,7 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	icon_state = "sinew"
 	item_state = "sinew"
 	origin_tech = "biotech=4"
+	dynamic_icon_state = FALSE
 
 GLOBAL_LIST_INIT(sinew_recipes, list (
 	new /datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1),
