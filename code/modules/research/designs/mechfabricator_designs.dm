@@ -982,7 +982,7 @@
 
 /datum/design/mecha_thruster
 	name = "Heavy-duty Exosuit Ion Thruster"
-	desc = "Allows for further control in zero gravity enviroments."
+	desc = "Allows for further control in zero gravity environments."
 	id = "mech_thruster"
 	build_type = MECHFAB
 	req_tech = list("engineering" = 6, "magnets" = 5, "materials" = 5)
