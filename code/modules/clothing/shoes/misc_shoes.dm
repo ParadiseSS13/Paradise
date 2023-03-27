@@ -144,7 +144,7 @@
     recharging_time = world.time + recharging_rate
     user.lay_down()
     for(var/crossed in 1 to slide_distance)
-        addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir), crossed, old_pass)
+        addtimer(CALLBACK(src, PROC_REF(slide_one), user, crossed, prev_dir, old_pass), crossed)
 
 
 /obj/item/clothing/shoes/clown_shoes/slippers/toggle_waddle(mob/living/user)
