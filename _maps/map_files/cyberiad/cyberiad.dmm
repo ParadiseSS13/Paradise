@@ -7922,14 +7922,7 @@
 /turf/space,
 /area/space/nearstation)
 "axp" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
+/obj/structure/bookcase/sop,
 /obj/machinery/requests_console{
 	department = "Internal Affairs Office";
 	name = "Internal Affairs Requests Console";
@@ -41955,16 +41948,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_science,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
-/obj/item/book/manual/wiki/sop_command,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "ccN" = (

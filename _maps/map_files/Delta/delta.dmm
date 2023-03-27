@@ -41531,16 +41531,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cae" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_command,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_science,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "caf" = (
@@ -51923,16 +51914,7 @@
 	},
 /area/crew_quarters/locker)
 "cyL" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_legal,
-/obj/item/book/manual/wiki/sop_command,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_science,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "cyM" = (
