@@ -774,6 +774,7 @@
 	if(istype(I, /obj/item/card/id))
 		if(access_id)
 			to_chat(user, "<span class='notice'>There is already \a [access_id] clipped onto \the [src]</span>")
+			return
 		user.drop_item()
 		I.forceMove(src)
 		access_id = I
