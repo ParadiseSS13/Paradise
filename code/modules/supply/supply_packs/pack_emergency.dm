@@ -119,4 +119,4 @@
 	contains = list(/obj/machinery/floodlight)
 	cost = 250
 	containertype = /obj/structure/largecrate
-	containername = "Emergency flood light"
+	containername = "emergency flood light"

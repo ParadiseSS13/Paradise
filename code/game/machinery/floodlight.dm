@@ -66,10 +66,10 @@
 		set_light(0)
 	else
 		if(!cell)
-			to_chat(user, "<span class='warning'>[src] doesn't do anything! <b>seems</b> like it lacks a power cell.</span>")
+			to_chat(user, "<span class='warning'>[src] doesn't do anything! <b>Seems</b> like it lacks a power cell.</span>")
 			return
 		if(cell.charge <= 0)
-			to_chat(user, "<span class= 'warning'>[src] hardly glows at all! <b>seems</b> like the power cell is empty.</span>")
+			to_chat(user, "<span class='warning'>[src] hardly glows at all! <b>Seems</b> like the power cell is empty.</span>")
 			return
 		on = TRUE
 		to_chat(user, "<span class='notice'>You turn on the light.</span>")
@@ -103,7 +103,7 @@
 
 /obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)
 	if(open)
-		to_chat(user, "the screws aren't long enough to reach the holes.")
+		to_chat(user, "The screws aren't long enough to reach the holes.")
 		return TRUE
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -129,10 +129,10 @@
 		return
 
 	if(open)
-		to_chat(user, "you pry the panel closed")
+		to_chat(user, "You pry the panel closed")
 		open = FALSE
 	else
-		to_chat(user, "you pry the panel open")
+		to_chat(user, "You pry the panel open")
 		open = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
@@ -151,9 +151,9 @@
 /obj/machinery/floodlight/examine(mob/user)
 	. = ..()
 	if(!unlocked)
-		. +="<span class='notice'>The panel is <b>screwed</b> shut."
+		. +="<span class='notice'>The panel is <b>screwed</b> shut.</span>"
 	else
 		if(open)
-			. +="<span class='notice'>The panel is <b>pried</b> open, looks like you could fit a cell in there."
+			. +="<span class='notice'>The panel is <b>pried</b> open, looks like you could fit a cell in there.</span>"
 		else
-			. +="<span class='notice'>The panel looks like it could be <b>pried</b> open, or <b>screwed</b> shut."
+			. +="<span class='notice'>The panel looks like it could be <b>pried</b> open, or <b>screwed</b> shut.</span>"
