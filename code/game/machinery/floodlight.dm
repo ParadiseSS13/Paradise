@@ -52,7 +52,7 @@
 		cell.update_icon(UPDATE_ICON_STATE)
 
 		cell = null
-		to_chat(user, "You remove the power cell.")
+		to_chat(user, "<span class='warning'>You remove the power cell.</span>")
 		if(on)
 			on = FALSE
 			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
@@ -66,10 +66,10 @@
 		set_light(0)
 	else
 		if(!cell)
-			to_chat(user, "<span class='warning'>[src] doesn't do anything! <b>Seems</b> like it lacks a power cell.</span>")
+			to_chat(user, "<span class='warning'>You try to turn on [src] but nothing happens! Seems like it <b>lacks a power cell</b>.</span>")
 			return
 		if(cell.charge <= 0)
-			to_chat(user, "<span class='warning'>[src] hardly glows at all! <b>Seems</b> like the power cell is empty.</span>")
+			to_chat(user, "<span class='warning'>[src] hardly glows at all! Seems like the <b>power cell is empty</b>.</span>")
 			return
 		on = TRUE
 		to_chat(user, "<span class='notice'>You turn on the light.</span>")
@@ -90,20 +90,20 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)
-				to_chat(user, "There is a power cell already installed.")
+				to_chat(user, "<span class='warning'>There is a power cell already installed.</span>")
 			else
 				playsound(loc, W.usesound, 50, 1)
 				user.drop_item()
 				W.loc = src
 				cell = W
-				to_chat(user, "You insert the power cell.")
+				to_chat(user, "<span class='notice'>You insert the power cell.</span>")
 		update_icon(UPDATE_ICON_STATE)
 		return
 	return ..()
 
 /obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)
 	if(open)
-		to_chat(user, "The screws aren't long enough to reach the holes.")
+		to_chat(user, "<span class='warning'>The screws aren't long enough to reach the holes.</span>")
 		return TRUE
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -113,26 +113,26 @@
 		return
 
 	if(unlocked)
-		to_chat(user, "You screw the battery panel in place.")
+		to_chat(user, "<span class='notice'>You screw the battery panel in place.</span>")
 	else
-		to_chat(user, "You unscrew the battery panel.")
+		to_chat(user, "<span class='notice'>You unscrew the battery panel.</span>")
 	unlocked = !unlocked
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/machinery/floodlight/crowbar_act(mob/living/user, obj/item/I)
 	if(!unlocked)
-		to_chat(user, "The cover is screwed tightly down.")
+		to_chat(user, "<span class='notice'>The cover is screwed tightly down.</span>")
 		return TRUE
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return
 
 	if(open)
-		to_chat(user, "You pry the panel closed.")
+		to_chat(user, "<span class='notice'>You pry the panel closed.</span>")
 		open = FALSE
 	else
-		to_chat(user, "You pry the panel open.")
+		to_chat(user, "<span class='notice'>You pry the panel open.</span>")
 		open = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
