@@ -19,7 +19,7 @@
 						ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 						ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
 	minimal_player_age = 21
-	exp_map = list(EXP_TYPE_SECURITY = 4800)
+	exp_map = list(EXP_TYPE_SECURITY = 3000)
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Space Law, basic job duties, and act professionally (roleplay)."

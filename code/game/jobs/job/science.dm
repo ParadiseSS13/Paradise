@@ -19,7 +19,7 @@
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK)
 	minimal_player_age = 21
-	exp_map = list(EXP_TYPE_SCIENCE = 4800)
+	exp_map = list(EXP_TYPE_SCIENCE = 3000)
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
 		/datum/job_objective/further_research
