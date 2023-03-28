@@ -32301,6 +32301,11 @@
 /area/maintenance/fsmaint)
 "bVZ" = (
 /obj/effect/landmark/start/scientist,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -37904,9 +37909,6 @@
 /area/toxins/test_area)
 "clS" = (
 /obj/machinery/r_n_d/destructive_analyzer,
-/obj/effect/turf_decal/siding{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -43765,7 +43767,6 @@
 	},
 /area/chapel/office)
 "cFB" = (
-/obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -53840,16 +53841,6 @@
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
-"eOe" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/toxins/lab)
 "eOZ" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/machinery/firealarm{
@@ -60419,9 +60410,6 @@
 /area/assembly/showroom)
 "hYA" = (
 /obj/machinery/computer/rdconsole/core,
-/obj/effect/turf_decal/siding{
-	dir = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Science - Research Fore"
 	},
@@ -68811,9 +68799,9 @@
 "lVF" = (
 /obj/machinery/r_n_d/circuit_imprinter,
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -70932,10 +70920,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "mYo" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
@@ -75154,9 +75138,9 @@
 /area/maintenance/fpmaint)
 "pho" = (
 /obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -85130,6 +85114,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
+"uiw" = (
+/obj/machinery/recharger/wallcharger,
+/turf/simulated/wall/r_wall,
+/area/maintenance/starboard2)
 "uiK" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -89359,6 +89347,10 @@
 	icon_state = "white"
 	},
 /area/security/permabrig)
+"wwx" = (
+/obj/machinery/computer/guestpass,
+/turf/simulated/wall/r_wall,
+/area/toxins/lab)
 "wwI" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
@@ -92068,6 +92060,10 @@
 	pixel_y = -6;
 	req_access_txt = "7"
 	},
+/obj/machinery/cell_charger{
+	step_x = -0.5;
+	step_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -92256,10 +92252,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engimaint)
 "xTH" = (
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -123751,7 +123743,7 @@ caM
 nWH
 bdb
 dbb
-cmo
+wwx
 mZe
 bVZ
 lVF
@@ -124011,7 +124003,7 @@ dbb
 cmo
 hYA
 pho
-eOe
+bYq
 clr
 gvN
 kqw
@@ -124523,7 +124515,7 @@ cMh
 cdE
 cte
 cmB
-cmB
+uiw
 cmB
 cmB
 cmB
