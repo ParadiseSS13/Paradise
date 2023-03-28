@@ -200,7 +200,7 @@
 
 		if(mitocholide)
 			affected.status &= ~ORGAN_DEAD
-			affected.status &= ~ORGAN_BURNT
+			affected.fix_burn_wound()
 			affected.germ_level = 0
 			target.update_body()
 
