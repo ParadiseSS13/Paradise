@@ -747,6 +747,7 @@
 	. = ..()
 	Announcer = new /obj/item/radio/headset(src)
 	Announcer.config(list("Security" = 1))
+	Announcer.follow_target = src
 	options["The Original"] = "handgun"
 	options["Golden Mamba"] = "handgun_golden-mamba"
 	options["NT's Finest"] = "handgun_nt-finest"

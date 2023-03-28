@@ -2,8 +2,8 @@
 /obj/item/stack/ore/bluespace_crystal
 	name = "bluespace crystal"
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
-	icon = 'icons/obj/telescience.dmi'
-	icon_state = "bluespace_crystal"
+	icon = 'icons/obj/stacks/minerals.dmi'
+	icon_state = "refined_bluespace_crystal"
 	item_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
@@ -47,6 +47,7 @@
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
+	icon_state = "synthetic_bluespace_crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	origin_tech = "bluespace=3;plasmatech=4"
 	materials = list(MAT_BLUESPACE=MINERAL_MATERIAL_AMOUNT * 0.5)
@@ -60,9 +61,8 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 
 /obj/item/stack/sheet/bluespace_crystal
 	name = "bluespace polycrystal"
-	icon = 'icons/obj/telescience.dmi'
-	icon_state = "polycrystal"
-	item_state = "polycrystal"
+	icon_state = "bluespace_crystal"
+	item_state = "bluespace_crystal"
 	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
 	origin_tech = "bluespace=6;materials=3"
 	merge_type = /obj/item/stack/sheet/bluespace_crystal
