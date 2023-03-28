@@ -1534,6 +1534,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
+	refundable = TRUE
+	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/thermal_drill
 	name = "Thermal Safe Drill"
