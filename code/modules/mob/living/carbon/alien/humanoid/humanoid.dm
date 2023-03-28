@@ -121,3 +121,7 @@
 
 /mob/living/carbon/alien/humanoid/get_permeability_protection()
 	return 0.8
+
+/mob/living/carbon/alien/humanoid/toggle_move_intent() //because with movement intent change our pose changes
+	..()
+	update_icons()

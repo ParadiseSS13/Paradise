@@ -12,7 +12,6 @@
 		handle_robot_hud_updates()
 		handle_robot_cell()
 		process_locks()
-		update_items()
 
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
@@ -107,20 +106,6 @@
 				throw_alert("charge", /obj/screen/alert/emptycell)
 	else
 		throw_alert("charge", /obj/screen/alert/nocell)
-
-
-
-/mob/living/silicon/robot/proc/update_items() // What in the Sam hell is this?
-	if(client)
-		for(var/obj/I in get_all_slots())
-			client.screen |= I
-	if(module_state_1)
-		module_state_1:screen_loc = ui_inv1
-	if(module_state_2)
-		module_state_2:screen_loc = ui_inv2
-	if(module_state_3)
-		module_state_3:screen_loc = ui_inv3
-	update_icons()
 
 /mob/living/silicon/robot/proc/process_locks()
 	if(weapon_lock)

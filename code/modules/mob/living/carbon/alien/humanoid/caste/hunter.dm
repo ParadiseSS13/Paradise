@@ -34,6 +34,7 @@
 /mob/living/carbon/alien/humanoid/hunter/proc/toggle_leap(var/message = 1)
 	leap_on_click = !leap_on_click
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
+	update_icons()
 	if(message)
 		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at":"slash at"] enemies!</span>")
 	else
