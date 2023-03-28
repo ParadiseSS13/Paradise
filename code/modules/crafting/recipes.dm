@@ -468,6 +468,15 @@
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 
+/datum/crafting_recipe/donk_box
+	name = "Donk Pocket Box"
+	result = list(/obj/item/storage/box/donkpockets/empty)
+	time = 10
+	reqs = list(/obj/item/storage/box = 1,
+				/obj/item/stack/sheet/plastic = 1,
+				/obj/item/stack/sheet/metal = 1)
+	category = CAT_MISC
+
 /datum/crafting_recipe/flashlight_eyes
 	name = "Flashlight Eyes"
 	result = list(/obj/item/organ/internal/eyes/cybernetic/flashlight)

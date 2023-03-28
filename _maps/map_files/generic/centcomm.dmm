@@ -5105,6 +5105,9 @@
 /obj/machinery/light/spot{
 	dir = 8
 	},
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -28
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "rQ" = (
@@ -5388,10 +5391,8 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/syndicate)
 "tg" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -28
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
+/obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
 "tj" = (
 /obj/structure/flora/bush,
@@ -59246,7 +59247,7 @@ tf
 KY
 tP
 ub
-KY
+tg
 KY
 KY
 KY
@@ -59490,7 +59491,7 @@ lA
 lQ
 KX
 KX
-KY
+tg
 nx
 gx
 gx
@@ -59499,7 +59500,7 @@ gx
 rP
 KX
 KX
-tg
+KX
 tw
 KX
 KX
@@ -60004,7 +60005,7 @@ lA
 lS
 KX
 mH
-KY
+tg
 nA
 iS
 iS
@@ -60274,7 +60275,7 @@ tf
 KY
 tT
 ue
-KY
+tg
 KY
 KY
 KY

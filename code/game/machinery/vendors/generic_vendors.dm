@@ -793,13 +793,28 @@
 	icon_state = "artvend"
 	icon_lightmask = "artvend"
 	icon_panel = "screen_vendor"
-	products = list(/obj/item/stack/cable_coil/random = 10, /obj/item/toner = 4, /obj/item/camera = 4, /obj/item/camera_film = 6,
-	/obj/item/storage/photo_album = 2, /obj/item/stack/wrapping_paper = 4, /obj/item/stack/tape_roll = 5, /obj/item/stack/packageWrap = 4,
-	/obj/item/storage/fancy/crayons = 4, /obj/item/hand_labeler = 4, /obj/item/paper = 10,
-	/obj/item/c_tube = 10, /obj/item/pen = 5, /obj/item/pen/blue = 5,
-	/obj/item/pen/red = 5, /obj/item/pen/fancy = 2)
-	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1, /obj/item/poster/random_contraband = 5)
-	prices = list(/obj/item/stack/cable_coil/random = 20, /obj/item/toner = 40, /obj/item/pen/fancy = 40)
+	products = list(/obj/item/stack/cable_coil/random = 10,
+					/obj/item/toner = 4,
+					/obj/item/camera = 4,
+					/obj/item/camera_film = 6,
+					/obj/item/storage/photo_album = 2,
+					/obj/item/stack/wrapping_paper = 4,
+					/obj/item/stack/packageWrap = 4,
+					/obj/item/c_tube = 10,
+					/obj/item/hand_labeler = 4,
+					/obj/item/stack/tape_roll = 5,
+					/obj/item/paper = 10,
+					/obj/item/storage/fancy/crayons = 4,
+					/obj/item/pen = 5,
+					/obj/item/pen/blue = 5,
+					/obj/item/pen/red = 5,
+					/obj/item/pen/fancy = 2)
+	contraband = list(/obj/item/toy/crayon/mime = 1,
+					/obj/item/toy/crayon/rainbow = 1,
+					/obj/item/poster/random_contraband = 5)
+	prices = list(/obj/item/stack/cable_coil/random = 20,
+				/obj/item/toner = 40,
+				/obj/item/pen/fancy = 40)
 
 /obj/machinery/economy/vending/tool
 	name = "\improper YouTool"
@@ -810,12 +825,27 @@
 	icon_panel = "generic"
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
-	products = list(/obj/item/stack/cable_coil/random = 10, /obj/item/crowbar = 5, /obj/item/weldingtool = 3, /obj/item/wirecutters = 5,
-					/obj/item/wrench = 5, /obj/item/analyzer = 5, /obj/item/t_scanner = 5, /obj/item/screwdriver = 5, /obj/item/clothing/gloves/color/yellow = 1)
-	contraband = list(/obj/item/weldingtool/hugetank = 2, /obj/item/clothing/gloves/color/fyellow = 2)
-	prices = list(/obj/item/stack/cable_coil/random = 20, /obj/item/crowbar = 75, /obj/item/weldingtool = 100,
-				/obj/item/wirecutters = 50, /obj/item/wrench = 75,/obj/item/analyzer = 25, /obj/item/t_scanner = 25,
-				/obj/item/screwdriver = 50, /obj/item/clothing/gloves/color/yellow = 250, /obj/item/weldingtool/hugetank = 120)
+	products = list(/obj/item/crowbar = 5,
+					/obj/item/screwdriver = 5,
+					/obj/item/weldingtool = 3,
+					/obj/item/wirecutters = 5,
+					/obj/item/wrench = 5,
+					/obj/item/analyzer = 5,
+					/obj/item/t_scanner = 5,
+					/obj/item/stack/cable_coil/random = 10,
+					/obj/item/clothing/gloves/color/yellow = 1)
+	contraband = list(/obj/item/clothing/gloves/color/fyellow = 2,
+					/obj/item/weldingtool/hugetank = 2)
+	prices = list(/obj/item/crowbar = 75,
+				/obj/item/screwdriver = 50,
+				/obj/item/weldingtool = 100,
+				/obj/item/wirecutters = 50,
+				/obj/item/wrench = 75,
+				/obj/item/analyzer = 25,
+				/obj/item/t_scanner = 25,
+				/obj/item/stack/cable_coil/random = 20,
+				/obj/item/clothing/gloves/color/yellow = 250,
+				/obj/item/weldingtool/hugetank = 120)
 	refill_canister = /obj/item/vending_refill/youtool
 
 /// we want a free version for engineering to use

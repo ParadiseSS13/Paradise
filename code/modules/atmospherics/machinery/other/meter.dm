@@ -5,7 +5,8 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	desc = "A gas flow meter"
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
-	layer = GAS_PUMP_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
+	layer_offset = GAS_PUMP_OFFSET
 	anchored = TRUE
 	max_integrity = 150
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
