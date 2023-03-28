@@ -145,10 +145,15 @@
 	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/do_install(mob/living/silicon/robot/R)
-	if(R.speed < 0)
+	for(var/obj/item/borg/upgrade/vtec/U in R.contents)
 		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
 		return
+
+	for(var/obj/item/borg/upgrade/floorbuffer/U in R.contents)
+		if(R.floorbuffer)
+			R.floorbuffer = FALSE
+			R.speed -= U.buffer_speed
 
 	R.speed = -1 // Gotta go fast.
 
@@ -246,7 +251,8 @@
 		/obj/item/FixOVein = /obj/item/FixOVein/alien,
 		/obj/item/bonesetter = /obj/item/bonesetter/alien,
 		/obj/item/circular_saw = /obj/item/circular_saw/alien,
-		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien
+		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien,
+		/obj/item/reagent_containers/borghypo = /obj/item/reagent_containers/borghypo/abductor
 	)
 
 /obj/item/borg/upgrade/syndicate
