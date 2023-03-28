@@ -256,6 +256,7 @@
 		return 1
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
 		step_in = initial(step_in) / thruster_count
+		new /obj/effect/particle_effect/ion_trails(get_turf(src), dir)
 		return 1
 
 	var/atom/movable/backup = get_spacemove_backup()
