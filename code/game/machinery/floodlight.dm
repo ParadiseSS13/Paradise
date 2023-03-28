@@ -31,7 +31,7 @@
 
 /obj/machinery/floodlight/process()
 	if(on)
-		if(!cell.use(use))
+		if(cell && !cell.use(use))
 			on = FALSE
 			update_icon(UPDATE_ICON_STATE)
 			set_light(0)
@@ -103,7 +103,7 @@
 
 /obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)
 	if(open)
-		to_chat(user, "<span class='warning'>The screws aren't long enough to reach the holes.</span>")
+		to_chat(user, "<span class='warning'>The screws can't reach while its open.</span>")
 		return TRUE
 
 	if(!I.use_tool(src, user, volume = I.tool_volume))
@@ -130,10 +130,9 @@
 
 	if(open)
 		to_chat(user, "<span class='notice'>You pry the panel closed.</span>")
-		open = FALSE
 	else
 		to_chat(user, "<span class='notice'>You pry the panel open.</span>")
-		open = TRUE
+	open = !open
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
