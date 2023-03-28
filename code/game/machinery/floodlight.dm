@@ -92,7 +92,7 @@
 			if(cell)
 				to_chat(user, "<span class='warning'>There is a power cell already installed.</span>")
 			else
-				playsound(loc, W.usesound, 50, 1)
+				playsound(loc, W.usesound, 50, TRUE)
 				user.drop_item()
 				W.loc = src
 				cell = W
