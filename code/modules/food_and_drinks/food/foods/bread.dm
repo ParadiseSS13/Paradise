@@ -154,6 +154,14 @@
 	tastes = list("bun" = 1)
 	foodtype = GRAIN
 
+/obj/item/reagent_containers/food/snacks/bunbun
+	name = "\improper Bun Bun"
+	desc = "A small bread monkey fashioned from two burger buns."
+	icon_state = "bunbun"
+	list_reagents = list("nutriment" = 2)
+	tastes = list("bun" = 2)
+	bitesize = 2
+	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/flatbread
 	name = "flatbread"

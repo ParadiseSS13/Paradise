@@ -298,6 +298,31 @@
 	tastes = list("meat" = 1)
 	foodtype = MEAT
 
+/obj/item/reagent_containers/food/snacks/smokedsausage
+	name = "Smoked sausage"
+	desc = "Piece of smoked sausage. Oh, really?"
+	icon_state = "smokedsausage"
+	list_reagents = list("protein" = 12)
+	tastes = list("meat" = 3)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/sliceable/salami
+	name = "Salami"
+	desc = "Not the best for sandwiches."
+	icon_state = "salami"
+	slice_path = /obj/item/reagent_containers/food/snacks/slice/salami
+	slices_num = 6
+	list_reagents = list("protein" = 12)
+	tastes = list("meat" = 3, "garlic" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/slice/salami
+	name = "Salami's slice"
+	desc = "A slice of salami. The best for sandwiches"
+	icon_state = "salami_s"
+	bitesize = 2
+	foodtype = MEAT
+
 //////////////////////
 //		Cubes		//
 //////////////////////
@@ -531,6 +556,27 @@
 	filling_color = "#B97A57"
 	tastes = list("turkey" = 1)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/pelmeni
+	name = "Pelmeni"
+	desc = "Meat wrapped in thin uneven dough."
+	icon_state = "pelmeni"
+	filling_color = "#d9be29"
+	list_reagents = list("protein" = 2)
+	bitesize = 2
+	tastes = list("raw meat" = 1, "raw dough" = 1)
+	foodtype = MEAT | RAW | GRAIN
+
+/obj/item/reagent_containers/food/snacks/boiledpelmeni
+	name = "Boiled pelmeni"
+	desc = "We don't know what was Siberia, but these tasty pelmeni definitely arrived from there."
+	icon_state = "boiledpelmeni"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#d9be29"
+	list_reagents = list("protein" = 5)
+	bitesize = 3
+	tastes = list("meat" = 2, "dough" = 2)
+	foodtype = MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/organ
 	name = "organ"

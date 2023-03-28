@@ -130,7 +130,7 @@
 /obj/item/reagent_containers/food/snacks/soup/beetsoup/New()
 	..()
 	name = pick("borsch","bortsch","borstch","borsh","borshch","borscht")
-	
+
 /obj/item/reagent_containers/food/snacks/soup/rassolnik
 	name = "pickle soup"
 	desc = "Quite popular in USSP."
@@ -139,7 +139,6 @@
 	list_reagents = list("nutriment" = 6, "kelotane" = 1, "vitamin" = 2)
 	tastes = list("potato" = 1, "pickles" = 1, "rice" = 1, "Russia" = 1)
 	foodtype = VEGETABLES
-
 
 //////////////////////
 //		Stews		//

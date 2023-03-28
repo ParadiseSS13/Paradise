@@ -89,7 +89,7 @@
 	list_reagents = list("protein" = 2)
 	tastes = list("tomato" = 1)
 	foodtype = VEGETABLES
-	
+
 /obj/item/reagent_containers/food/snacks/cucumberslice
  	name = "cucumber slice"
  	desc = "A slice from a cucumber."
@@ -164,6 +164,14 @@
 	tastes = list("dough" = 1)
 	foodtype = GRAIN
 
+/obj/item/reagent_containers/food/snacks/doughslice/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/food/snacks/rawcutlet))
+		new /obj/item/reagent_containers/food/snacks/pelmeni(src)
+		to_chat(user, "You make some pelmeni.")
+		qdel(src)
+		qdel(I)
+	else
+		..()
 
 ///cookies by Ume
 

@@ -604,3 +604,61 @@
 		/obj/item/organ/internal/heart/slime
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/slimepie
+
+//////////////////////////////////////////
+//onyx bay food
+//////////////////////////////////////////
+
+/datum/recipe/oven/bunbun
+	items = list(
+		/obj/item/reagent_containers/food/snacks/bun,
+		/obj/item/reagent_containers/food/snacks/bun
+	)
+	result = /obj/item/reagent_containers/food/snacks/bunbun
+
+/datum/recipe/oven/choccherrycake
+	reagents = list("milk" = 5, "flour" = 15)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/reagent_containers/food/snacks/grown/cherries
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/choccherrycake
+
+/datum/recipe/oven/smokedsausage
+	reagents = list("sodiumchloride" = 5, "blackpepper" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sausage
+	)
+	result = /obj/item/reagent_containers/food/snacks/smokedsausage
+
+/datum/recipe/oven/salami
+	reagents = list("garlicsauce" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/smokedsausage
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/salami
+
+/datum/recipe/oven/sundae
+	reagents = list("cream" = 10)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/grown/cherries,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/doughslice
+	)
+	result = /obj/item/reagent_containers/food/snacks/sundae
+
+/datum/recipe/oven/noel
+	reagents = list("flour" = 15, "cream" = 10, "milk" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/reagent_containers/food/snacks/chocolatebar,
+		/obj/item/reagent_containers/food/snacks/grown/berries,
+		/obj/item/reagent_containers/food/snacks/grown/berries
+	)
+	result = /obj/item/reagent_containers/food/snacks/sliceable/noel

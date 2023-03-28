@@ -256,6 +256,47 @@
 	tastes = list("slime" = 5, "sweetness" = 1, "jelly" = 1)
 	foodtype = SUGAR | MEAT | FRUIT
 
+/obj/item/reagent_containers/food/snacks/sliceable/choccherrycake
+	name = "Chocolate - cherry cake"
+	desc = "Another cake. However."
+	icon_state = "choccherrycake"
+	slice_path = /obj/item/reagent_containers/food/snacks/choccherrycakeslice
+	slices_num = 6
+	bitesize = 3
+	filling_color = "#5e1706"
+	tastes = list("cherry" = 5, "sweetness" = 1, "chocolate" = 1)
+	list_reagents = list("nutriment" = 10, "sugar" = 3, "coco" = 4)
+	foodtype = SUGAR | FRUIT | GRAIN
+
+/obj/item/reagent_containers/food/snacks/choccherrycakeslice
+	name = "Chocolate - cherry cake's slice"
+	desc = "Slice of another cake. Wait, what?"
+	icon_state = "choccherrycake_s"
+	trash = /obj/item/trash/plate
+	filling_color = "#5e1706"
+	foodtype = SUGAR | FRUIT | GRAIN
+
+/obj/item/reagent_containers/food/snacks/sliceable/noel
+	name = "Buche de Noel"
+	desc = "What?"
+	icon_state = "noel"
+	trash = /obj/item/trash/tray
+	slice_path = /obj/item/reagent_containers/food/snacks/noelslice
+	slices_num = 5
+	filling_color = "#5e1706"
+	tastes = list("chocolate" = 3, "sweetness" = 2, "egg" = 1, "berries" = 2)
+	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "coco" = 2, "cream" = 3, "sugar" = 3, "berryjucie" = 3)
+	foodtype = SUGAR | FRUIT | GRAIN | DAIRY
+
+/obj/item/reagent_containers/food/snacks/noelslice
+	name = "Noel's slice"
+	desc = "Slice of what?"
+	icon_state = "noel_s"
+	trash = /obj/item/trash/plate
+	filling_color = "#5e1706"
+	bitesize = 2
+	foodtype = SUGAR | FRUIT | GRAIN | DAIRY
+
 //////////////////////
 //		Cookies		//
 //////////////////////
@@ -592,3 +633,13 @@
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
 	foodtype = GRAIN
+
+/obj/item/reagent_containers/food/snacks/sundae
+	name = "Sundae"
+	desc = "Creamy satisfaction"
+	icon_state = "sundae"
+	filling_color = "#F5DEB8"
+	list_reagents = list("nutriment" = 4, "plantmatter" = 2, "bananajucie" = 4, "cream" = 3)
+	tastes = list("banana" = 1, "cherry" = 1, "cream" = 1)
+	bitesize = 5
+	foodtype = GRAIN | FRUIT

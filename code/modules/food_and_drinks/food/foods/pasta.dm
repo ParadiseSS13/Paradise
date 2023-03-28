@@ -93,3 +93,23 @@
 	list_reagents = list("nutriment" = 10, "msg" = 3, "vitamin" = 4, "tomatojuice" = 10)
 	tastes = list("pasta" = 1, "cheese" = 1, "tomato" = 1, "meat" = 1)
 	foodtype = GRAIN | DAIRY | VEGETABLES | MEAT
+
+/obj/item/reagent_containers/food/snacks/chowmein
+	name = "Chowmein"
+	desc = "Nihao!"
+	icon_state = "chowmein"
+	trash = /obj/item/trash/plate
+	list_reagents = list("nutriment" = 6, "protein" = 6)
+	tastes = list("pasta" = 1, "carrot" = 1, "cabage" = 1, "meat" = 1)
+	bitesize = 3
+	foodtype = GRAIN | VEGETABLES | MEAT
+
+/obj/item/reagent_containers/food/snacks/beefnoodles
+	name = "Beef noodles"
+	desc = "So simple, but so yummy!"
+	icon_state = "beefnoodles"
+	trash = /obj/item/trash/snack_bowl
+	list_reagents = list("nutriment" = 3, "protein" = 5, "plantmatter" = 3)
+	tastes = list("pasta" = 1, "cabage" = 1, "meat" = 2)
+	bitesize = 2
+	foodtype = GRAIN | VEGETABLES | MEAT
