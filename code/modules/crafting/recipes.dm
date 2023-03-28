@@ -619,6 +619,15 @@
 	category = CAT_MISC
 	tools = list(TOOL_WRENCH, TOOL_WELDER, TOOL_WIRECUTTER)
 
+/datum/crafting_recipe/autoinjector
+	name = "Selfmade Autoinjector"
+	result = /obj/item/reagent_containers/hypospray/autoinjector/selfmade
+	time = 5
+	reqs = list(/obj/item/reagent_containers/syringe = 1,
+				/obj/item/stack/sheet/plastic = 1,
+				/obj/item/stack/sheet/metal = 1)
+	category = CAT_MISC
+
 /datum/crafting_recipe/drill
 	name = "Thermal Drill"
 	result = /obj/item/thermal_drill

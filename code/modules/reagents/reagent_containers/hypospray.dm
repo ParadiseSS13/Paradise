@@ -164,27 +164,85 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	volume = 10
+	var/only_self = FALSE //is it usable only on yourself
+	var/spent = FALSE
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
+	var/reskin_allowed = FALSE
+	//for radial menu
+	var/list/skinslist = list(
+		"Completely Blue" = "ablueinjector",
+		"Blue" = "blueinjector",
+		"Completely Red" = "redinjector",
+		"Red" = "lepopen",
+		"Golden" = "goldinjector",
+		"Completely Green" = "greeninjector",
+		"Green" = "autoinjector",
+		"Gray" = "stimpen",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/W, mob/user)
+	if(reskin_allowed)
+		if(istype(W, /obj/item/pen))
+			var/t = clean_input("Введите желаемое название для инжектора.", "Переименовывание", "")
+			if(!t)
+				return
+			if(length(t) > 15)
+				to_chat(user, "<span class = 'warning'>Название слишком длинное, и не помещается на инжекторе! Нужно другое.</span>")
+			name = t
+		if(istype(W, /obj/item/toy/crayon/spraycan))
+			var/obj/item/toy/crayon/spraycan/C = W
+			if(C.capped)
+				to_chat(user, "<span class = 'warning'>Вам стоит снять крышку, прежде чем пытаться раскрасить [src]!</span>")
+				return
+			var/list/injector_icons = list("Completely Blue" = image(icon = src.icon, icon_state = "ablueinjector"),
+											"Blue" = image(icon = src.icon, icon_state = "blueinjector"),
+											"Completely Red" = image(icon = src.icon, icon_state = "redinjector"),
+											"Red" = image(icon = src.icon, icon_state = "lepopen"),
+											"Golden" = image(icon = src.icon, icon_state = "goldinjector"),
+											"Completely Green" = image(icon = src.icon, icon_state = "greeninjector"),
+											"Green" = image(icon = src.icon, icon_state = "autoinjector"),
+											"Gray" = image(icon = src.icon, icon_state = "stimpen"))
+			var/choice = show_radial_menu(user, src, injector_icons, custom_check = CALLBACK(src, .proc/check_reskin, user))
+			if(!choice || W.loc != user || src.loc != user)
+				return
+			if(C.uses <= 0)
+				to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
+				return
+			icon_state = skinslist[choice]
+			C.uses--
+			update_icon()
+	else
+		return ..()
+
+/obj/item/reagent_containers/hypospray/autoinjector/proc/check_reskin(mob/living/user)
+	if(user.incapacitated())
+		return
+	if(loc != user)
+		return
+	return TRUE
 
 /obj/item/reagent_containers/hypospray/autoinjector/empty()
 	set hidden = TRUE
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
-	if(!reagents.total_volume)
+	if(!reagents.total_volume || spent)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
+	if(only_self && (M != user))
+		to_chat(user, "<span class='warning'>Не похоже что вы сможете уколоть [src] кому-либо, кроме себя!</span>")
+		return
 	..()
+	spent = TRUE
 	update_icon()
 	return TRUE
 
 /obj/item/reagent_containers/hypospray/autoinjector/update_icon()
-	if(reagents.total_volume > 0)
-		icon_state = initial(icon_state)
-	else
-		icon_state = "[initial(icon_state)]0"
+	if(spent)
+		if(icon_state != "[icon_state]0")
+			icon_state = "[icon_state]0"
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
 	. = ..()
@@ -238,3 +296,17 @@
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
+
+/obj/item/reagent_containers/hypospray/autoinjector/selfmade
+	name = "autoinjector"
+	desc = "Самодельное подобие инжектора. Не похоже что вы сможете уколоть кого-то ещё кроме себя используя его."
+	volume = 15
+	amount_per_transfer_from_this = 15
+	list_reagents = list()
+	only_self = TRUE
+	reskin_allowed = TRUE
+	container_type = OPENCONTAINER
+
+/obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/M, mob/user)
+	..()
+	container_type = DRAINABLE

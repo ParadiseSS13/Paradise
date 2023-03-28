@@ -299,7 +299,8 @@
 				C.lip_style = "spray_face"
 				C.lip_color = colour
 				C.update_body()
-		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		if(loc == user) //sound play only if it in user hands
+			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
 /obj/item/toy/crayon/spraycan/update_icon()
