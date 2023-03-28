@@ -447,9 +447,11 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	M.add_thrusters()
+	M.thruster_count++
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/detach(atom/moveto)
 	chassis.remove_thrusters()
+	chassis.thruster_count--
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 

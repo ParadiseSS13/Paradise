@@ -156,6 +156,8 @@
 		return
 	if(chassis.get_charge() > 0)
 		chassis.thrusters_active = !chassis.thrusters_active
+		if(!chassis.thrusters_active)
+			chassis.step_in = initial(chassis.step_in)
 		button_icon_state = "mech_thrusters_[chassis.thrusters_active ? "on" : "off"]"
 		chassis.log_message("Toggled thrusters.")
 		chassis.occupant_message("<font color='[chassis.thrusters_active ? "blue" : "red"]'>Thrusters [chassis.thrusters_active ? "en" : "dis"]abled.")
