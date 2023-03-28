@@ -95,23 +95,27 @@
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
 
-		var/datum/reagent/refill
-		var/datum/reagent/refillName
+		var/list/transfer_data
+		var/list/ids_data = list()
 		if(isrobot(user))
-			refill = reagents.get_master_reagent_id()
-			refillName = reagents.get_master_reagent_name()
+			transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
 
-		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-			if(refill in GLOB.drinks) // Only synthesize drinks
-				var/mob/living/silicon/robot/bro = user
-				var/chargeAmount = max(30,4*trans)
-				bro.cell.use(chargeAmount)
-				to_chat(user, "<span class='notice'>Now synthesizing [trans] units of [refillName]...</span>")
-				addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
+		transfer_data &= GLOB.drinks
+
+		for(var/thing in transfer_data)
+			var/datum/reagent/R = thing
+			ids_data[initial(R.id)] = transfer_data[R]
+
+		if(isrobot(user) && ids_data) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
+			var/mob/living/silicon/robot/bro = user
+			var/chargeAmount = max(30,4*trans)
+			bro.cell.use(chargeAmount)
+			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
+			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent_list, ids_data), 300)
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
@@ -302,8 +306,8 @@
 	name = "shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
-	materials = list(MAT_METAL=1500)
 	amount_per_transfer_from_this = 10
+	materials = list(MAT_METAL=1500)
 	volume = 100
 
 /obj/item/reagent_containers/food/drinks/flask

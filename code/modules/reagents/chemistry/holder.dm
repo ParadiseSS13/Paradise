@@ -238,6 +238,21 @@
 	R.handle_reactions()
 	return amount
 
+/datum/reagents/proc/get_transferred_reagents(obj/target, amount = 1, multiplier = 1, preserve_data = TRUE, safety = FALSE) //позволяет сохранить список перенесённых реагентов с их количеством (боргам нада)
+	if(!target)
+		return
+	if(!target.reagents || total_volume <= 0)
+		return
+	var/datum/reagents/R = target.reagents
+	amount = min(min(amount, total_volume), R.maximum_volume - R.total_volume)
+	var/part = amount / total_volume
+	var/list/transfered = list()
+	for(var/A in reagent_list)
+		var/datum/reagent/current_reagent = A
+		var/current_reagent_transfer = current_reagent.volume * part
+		transfered[current_reagent.type] = current_reagent_transfer
+
+	return transfered
 
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)

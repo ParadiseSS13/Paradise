@@ -29,6 +29,11 @@
 	transaction_amount = 500
 	duty_mode = TRUE
 
+/obj/item/eftpos/cyborg
+	name = "Service EFTPOS"
+	desc = "Swipe a crew ID card to pay taxes."
+	transaction_purpose = "Payment for the glory of NanoTrasen!"
+
 /obj/item/paper/check
 	desc = "Printed by the financial terminal."
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -294,8 +299,12 @@
 		if(confirm == "No")
 			return during_paid = FALSE
 
-		var/attempt_pin = input("Enter your pin code", "EFTPOS transaction") as num
-		var/datum/money_account/card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
+		var/datum/money_account/card_account
+		if(isrobot(user))
+			card_account = attempt_account_access(id_card.associated_account_number, pin_needed = FALSE)
+		else
+			var/attempt_pin = input("Enter your pin code", "EFTPOS transaction") as num
+			card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
 		if(!card_account || card_account.suspended)
 			to_chat(user, "[bicon(src)]<span class='warning'> Server Error #403 Unable To Access Account. Check security settings and try again.</span>")
 			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)

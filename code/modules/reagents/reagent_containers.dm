@@ -21,7 +21,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(!usr.Adjacent(src) || !(ishuman(usr) || issilicon(usr)) || usr.incapacitated())
+	if(!usr.Adjacent(src) || !(ishuman(usr) || isrobot(usr)) || usr.incapacitated())
 		return
 	var/default = null
 	if(amount_per_transfer_from_this in possible_transfer_amounts)
@@ -33,7 +33,8 @@
 	if(!usr.Adjacent(src))
 		to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
 		return
-	if(!(ishuman(usr) || issilicon(usr)) || usr.incapacitated())
+
+	if(usr.incapacitated())
 		to_chat(usr, "<span class='warning'>You can't use your hands!</span>")
 		return
 

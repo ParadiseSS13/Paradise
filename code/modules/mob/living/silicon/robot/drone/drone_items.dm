@@ -70,6 +70,33 @@
 		return
 	..()
 
+/obj/item/gripper/service
+	name = "Card gripper"
+	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
+	can_hold = list(/obj/item/card,
+					/obj/item/camera_film,
+					/obj/item/paper,
+					/obj/item/photo,
+					/obj/item/toy/plushie)
+
+/obj/item/gripper/service/afterattack(atom/target, mob/living/user, proximity, params)
+	if(!gripped_item && proximity && target && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.lying)
+			H.AdjustSleeping(-5)
+			if(H.sleeping == 0)
+				H.StopResting()
+			H.AdjustParalysis(-3)
+			H.AdjustStunned(-3)
+			H.AdjustWeakened(-3)
+			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			user.visible_message( \
+				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
+				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
+				)
+		return
+	..()
+
 /obj/item/gripper/cogscarab
 	name = "ancient gripper"
 	desc = "A brass grasping tool for supporting workmates."

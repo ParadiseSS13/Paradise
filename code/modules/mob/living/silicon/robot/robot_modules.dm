@@ -422,16 +422,17 @@
 
 	modules += new /obj/item/handheld_chem_dispenser/booze(src)
 	modules += new /obj/item/handheld_chem_dispenser/soda(src)
-
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
+	modules += new /obj/item/gripper/service(src)
+	modules += new /obj/item/eftpos/cyborg(src)
+	modules += new /obj/item/camera/spooky(src)
 
-	var/obj/item/rsf/M = new /obj/item/rsf(src)
-	M.matter = 30
-	modules += M
+	modules += new /obj/item/rsf(src)
+	modules += new /obj/item/rsf/rff(src)
 
 	modules += new /obj/item/reagent_containers/dropper/cyborg(src)
 	modules += new /obj/item/lighter/zippo(src)
@@ -479,6 +480,9 @@
 	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
 	if(istype(T))
 		T.drop_inventory(R)
+	var/obj/item/gripper/service/G = locate() in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 
 
 /obj/item/robot_module/miner

@@ -88,15 +88,19 @@
 /obj/item/reagent_containers/food/drinks/bottle/random_drink
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
+	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink/New()
-	..()
-	var/list/possible_drinks = GLOB.drinks.Copy()
-	if(prob(50))
-		possible_drinks += list("pancuronium","lsd","omnizine","blood")
+/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize()
+	. = ..()
+	var/datum/reagent/R
+	if (prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
+		R = pick(special_drinks)
+	else
+		R = pick(GLOB.drinks)
 
-	var/datum/reagent/R = pick(possible_drinks)
-	reagents.add_reagent(R, volume)
+	var/datum/reagent/reagent = R
+
+	reagents.add_reagent(initial(reagent.id), volume)
 	name = "unlabelled bottle"
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)

@@ -69,6 +69,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 9999	//Dang that's a lot of tickets
 
+/obj/item/stack/tickets/five
+	amount = 5
+
 /obj/item/stack/tickets/New(var/loc, var/amount=null)
 	..()
 	update_icon()
