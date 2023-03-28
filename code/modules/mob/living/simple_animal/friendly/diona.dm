@@ -203,7 +203,7 @@
 		adult.name = name
 		adult.real_name = real_name
 
-	adult.ckey = ckey
+	mind.transfer_to(adult)
 
 	for(var/obj/item/W in contents)
 		unEquip(W)
