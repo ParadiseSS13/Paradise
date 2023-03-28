@@ -80,15 +80,12 @@
 // Прок убирающий роль ниндзя как антагониста у игрока
 // Сделана возможность вызвать его и просто кодом, например при боргизации, с тематическими сообщениями
 // И возможность вызвать его админам с админ логами о том, кто снял антажку (Всяко лучше чем код по 10 раз копировать)
-/datum/game_mode/proc/remove_ninja(datum/mind/ninja_mind, mob/caller = null, admin_removed = FALSE)
+/datum/game_mode/proc/remove_ninja(datum/mind/ninja_mind, mob/caller = null)
 	if(ninja_mind in space_ninjas)
 		SSticker.mode.space_ninjas -= ninja_mind
 		ninja_mind.special_role = null
 		QDEL_NULL(ninja_mind.ninja)
 		ninja_mind.current.faction = list("Station")
-		if(admin_removed)
-			log_and_message_admins("has removed special role \"Ninja\" from [key_name_admin(ninja_mind.current)]")
-		add_conversion_logs(ninja_mind.current, "De-ninjad")
 		if(issilicon(ninja_mind.current))
 			to_chat(ninja_mind.current, span_userdanger("Вы стали Роботом! И годы ваших тренировок становятся пылью..."))
 		else
