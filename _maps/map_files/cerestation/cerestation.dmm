@@ -3605,12 +3605,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/northeast)
 "auh" = (
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access_txt = "1";
-	power_state = 0
-	},
-/obj/machinery/door/firedoor,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 4;
@@ -3621,6 +3615,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/door/poddoor/impassable/gamma,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17172,7 +17167,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/closet/secure_closet/iaa,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -28067,7 +28061,7 @@
 	},
 /area/maintenance/disposal)
 "cLb" = (
-/obj/structure/closet/lawcloset,
+/obj/structure/closet/secure_closet/iaa,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "cLj" = (
