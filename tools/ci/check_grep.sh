@@ -101,6 +101,11 @@ if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/girder(?<type>[/\w]*),\n[^)]*?/ob
 	echo
     st=1
 fi;
+if grep -Pzo '"\w+" = \([^)]*?(/[^{]+\{[^}]*?(((\n\s*(?<var>\w+)\s*=.*);[^}]*?\n\s*(\g{var})\s*=.*)+)[^}]*?\})+[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+    echo -e "${RED}ERROR: Found multiple set of same atom variable, please remove them.${NC}"
+	echo
+    st=1
+fi;
 # TODO: Uncomment in the future, when our maps are standardized
 # if grep -rzoP 'machinery/door.*{([^}]|\n)*name = .*("|\s)(?!of|and|to)[a-z].*\n' _maps/**/*.dmm;	then
 #     echo -e "${RED}ERROR: Found door names without proper upper-casing. Please upper-case your door names.${NC}"

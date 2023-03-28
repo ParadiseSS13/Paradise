@@ -6740,7 +6740,6 @@
 /area/security/brig)
 "asu" = (
 /obj/machinery/computer/prisoner{
-	req_one_access = null;
 	req_one_access = list(2)
 	},
 /turf/simulated/floor/plasteel,
@@ -6984,7 +6983,6 @@
 /area/lawoffice)
 "asO" = (
 /obj/machinery/computer/prisoner{
-	req_one_access = null;
 	req_one_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
@@ -11271,7 +11269,6 @@
 /area/magistrateoffice)
 "aCe" = (
 /obj/machinery/computer/prisoner{
-	req_one_access = null;
 	req_one_access = list(2)
 	},
 /obj/machinery/status_display{
@@ -28391,7 +28388,6 @@
 /area/hallway/primary/central/nw)
 "bqO" = (
 /obj/machinery/computer/prisoner{
-	req_one_access = null;
 	req_one_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
