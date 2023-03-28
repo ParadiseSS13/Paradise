@@ -20,3 +20,13 @@
 		name = "space piano"
 		desc = "This is a space piano, like a regular piano, but always in tune! Even if the musician isn't."
 		icon_state = "piano"
+
+/obj/structure/pianoclassic
+	parent_type = /obj/structure/musician
+	name = "space minimoog"
+	desc = "This is a minimoog, like a space piano, but more spacey!"
+	icon = 'icons/obj/musician.dmi'
+	icon_state = "minipiano"
+	anchored = TRUE
+	density = TRUE
+	allowed_instrument_ids = "piano"

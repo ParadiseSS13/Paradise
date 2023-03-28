@@ -23491,7 +23491,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "cye" = (
-/obj/structure/piano,
+/obj/structure/pianoclassic,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
