@@ -169,20 +169,21 @@
 /obj/item/rcd/attackby(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/rcd_ammo))
 		return ..()
+	rcd_reload(W, user)
 
-	var/obj/item/rcd_ammo/R = W
-	if((matter + R.ammoamt) > max_matter)
+/obj/item/rcd/proc/rcd_reload(obj/item/rcd_ammo/rcd_ammo, mob/user)
+	if(matter >= max_matter)
 		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 		return
 
-	if(!user.unEquip(R))
-		to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
+	if(!user.unEquip(rcd_ammo))
+		to_chat(user, "<span class='warning'>[rcd_ammo] is stuck to your hand!</span>")
 		return
 
-	user.put_in_active_hand(R)
-	if(R.type == matter_type || R.type == matter_type_large)
-		matter += R.ammoamt
-		qdel(R)
+	user.put_in_active_hand(rcd_ammo)
+	if(rcd_ammo.type == matter_type || rcd_ammo.type == matter_type_large)
+		matter = min(matter + rcd_ammo.ammoamt, max_matter)
+		qdel(rcd_ammo)
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
 	else
@@ -360,6 +361,9 @@
 
 /obj/item/rcd/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
+		return
+	if(istype(target, /obj/item/rcd_ammo))
+		rcd_reload(target, user)
 		return
 	var/area/check_area = get_area(target)
 	if(check_area?.type in areas_blacklist)
