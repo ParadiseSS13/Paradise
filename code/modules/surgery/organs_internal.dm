@@ -394,7 +394,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(I.requires_robotic_bodypart)
-		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
