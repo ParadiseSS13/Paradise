@@ -2894,6 +2894,9 @@
 	id = "CargoWaste"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/sign/deathsposal{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "arD" = (
@@ -9621,7 +9624,7 @@
 /area/hallway/primary/starboard/north)
 "bcT" = (
 /obj/machinery/conveyor{
-	dir = 4;
+	dir = 8;
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
@@ -9629,13 +9632,13 @@
 	},
 /area/quartermaster/office)
 "bcU" = (
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "QMLoad"
-	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor";
 	name = "supply dock loading door"
+	},
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
@@ -17144,7 +17147,7 @@
 /area/quartermaster/office)
 "bFT" = (
 /obj/machinery/conveyor{
-	dir = 8;
+	dir = 4;
 	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel{
@@ -17167,13 +17170,13 @@
 	},
 /area/crew_quarters/bar)
 "bGm" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "QMLoad2"
-	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
@@ -17705,6 +17708,9 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -18597,18 +18603,12 @@
 	},
 /area/medical/medbreak)
 "bLe" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/disks{
-	pixel_x = 2;
-	pixel_y = 2
+/obj/machinery/door/window/westleft{
+	name = "Monkey Pen";
+	req_access = list(9);
+	dir = 4
 	},
-/obj/item/destTagger,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whitepurple"
-	},
+/turf/simulated/floor/grass,
 /area/medical/genetics)
 "bLf" = (
 /obj/item/gun/projectile/shotgun/riot{
@@ -18640,37 +18640,48 @@
 /obj/structure/sink{
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
 "bLh" = (
-/obj/structure/chair/office/light{
-	dir = 4
-	},
-/obj/effect/landmark/start/geneticist,
-/obj/item/radio/intercom{
+/obj/machinery/firealarm{
 	dir = 1;
-	pixel_y = -29
+	pixel_y = -24
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/rxglasses,
+/obj/item/folder/white,
+/obj/item/toy/figure/geneticist,
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
 "bLi" = (
-/obj/machinery/dna_scannernew,
-/obj/effect/turf_decal/delivery,
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
 "bLj" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/machinery/light,
-/turf/simulated/floor/grass,
+/obj/machinery/dna_scannernew,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
 /area/medical/genetics)
 "bLk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -18684,12 +18695,14 @@
 	},
 /area/medical/medbay)
 "bLl" = (
-/obj/structure/flora/tree/palm,
 /obj/machinery/camera{
 	c_tag = "Genetics Monkey Dome";
 	dir = 9
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurple"
+	},
 /area/medical/genetics)
 "bLm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -20067,6 +20080,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/item/rcd/preloaded,
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
 "bPE" = (
@@ -26936,6 +26950,8 @@
 	pixel_y = 7
 	},
 /obj/item/rcs,
+/obj/item/rcs,
+/obj/item/rcs,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkbrown"
@@ -30146,11 +30162,11 @@
 	},
 /area/security/lobby)
 "cLD" = (
+/obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
-	dir = 8;
+	dir = 4;
 	id = "QMLoad2"
 	},
-/obj/structure/plasticflaps/mining,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "cLE" = (
@@ -37285,6 +37301,13 @@
 "dxS" = (
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/captain)
+"dxT" = (
+/obj/structure/chair/office/light,
+/obj/effect/landmark/start/geneticist,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/genetics)
 "dyb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -42091,10 +42114,19 @@
 /turf/simulated/floor/engine,
 /area/engine/engineering)
 "eZR" = (
-/obj/machinery/dna_scannernew,
-/obj/effect/turf_decal/delivery,
+/obj/structure/table/glass,
+/obj/item/storage/box/disks{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/destTagger,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 1;
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
@@ -43912,19 +43944,16 @@
 	},
 /area/security/brig)
 "fKo" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28;
-	name = "custom placement"
-	},
 /obj/machinery/camera{
 	c_tag = "Genetics";
 	dir = 10;
 	network = list("SS13","CMO")
 	},
-/obj/structure/closet/secure_closet/medical1,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+/mob/living/carbon/human/lesser/monkey,
+/obj/structure/window/reinforced{
+	dir = 4
 	},
+/turf/simulated/floor/grass,
 /area/medical/genetics)
 "fLq" = (
 /obj/structure/sign/radiation,
@@ -46207,10 +46236,16 @@
 	},
 /area/maintenance/starboard)
 "gEz" = (
-/obj/structure/chair/office/light{
+/obj/machinery/requests_console{
+	department = "Medbay";
+	departmentType = 1;
+	name = "Genetics Requests Console";
+	pixel_y = 30
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/start/geneticist,
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -51669,12 +51704,14 @@
 /turf/simulated/wall,
 /area/mine/unexplored/cere/research)
 "iFv" = (
-/obj/machinery/door/window/westleft{
-	name = "Monkey Pen";
-	req_access = list(9)
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28;
+	name = "custom placement"
 	},
-/mob/living/carbon/human/lesser/monkey,
-/turf/simulated/floor/grass,
+/obj/structure/closet/secure_closet/medical1,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
 /area/medical/genetics)
 "iFB" = (
 /obj/structure/chair/office/dark{
@@ -52614,10 +52651,14 @@
 /turf/simulated/floor/plating,
 /area/toxins/launch)
 "iXy" = (
-/obj/structure/window/reinforced{
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/turf/simulated/floor/grass,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitepurple"
+	},
 /area/medical/genetics)
 "iXD" = (
 /turf/simulated/wall,
@@ -54667,11 +54708,17 @@
 /turf/simulated/floor/wood,
 /area/ntrep)
 "jKA" = (
-/obj/structure/window/reinforced{
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -29
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/mob/living/carbon/human/lesser/monkey,
-/turf/simulated/floor/grass,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
 /area/medical/genetics)
 "jKO" = (
 /obj/structure/mineral_door/iron,
@@ -56092,18 +56139,12 @@
 /turf/space,
 /area/solar/port)
 "kkD" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/rxglasses,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
+/obj/structure/railing,
+/obj/structure/sign/deathsposal{
+	pixel_x = -32
 	},
-/obj/item/folder/white,
-/obj/item/toy/figure/geneticist,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/medical/genetics)
+/turf/space,
+/area/space/nearstation)
 "kla" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
@@ -62973,10 +63014,20 @@
 	},
 /area/engine/mechanic_workshop)
 "mTp" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
+/obj/structure/window/reinforced{
+	dir = 4
 	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/closet/secure_closet/personal/patient,
+/obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/stokcubes,
+/obj/item/storage/box/monkeycubes/neaeracubes,
+/obj/item/storage/box/monkeycubes/farwacubes,
+/obj/item/storage/box/monkeycubes,
+/turf/simulated/floor/grass,
 /area/medical/genetics)
 "mTy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72297,7 +72348,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
 "qml" = (
@@ -73972,7 +74024,12 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/grass,
+/obj/machinery/dna_scannernew,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitepurple"
+	},
 /area/medical/genetics)
 "qSK" = (
 /turf/simulated/floor/plasteel,
@@ -79045,6 +79102,10 @@
 	icon_state = "asteroid"
 	},
 /area/hydroponics)
+"sLD" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/wall,
+/area/teleporter/quantum/cargo)
 "sLH" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
@@ -80720,10 +80781,8 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/engineering)
 "tsx" = (
-/obj/effect/landmark/start/geneticist,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/obj/structure/flora/tree/palm,
+/turf/simulated/floor/grass,
 /area/medical/genetics)
 "tsS" = (
 /obj/structure/table,
@@ -84748,23 +84807,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "uVC" = (
-/obj/structure/closet/secure_closet/personal/patient,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes/farwacubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
-/obj/item/storage/box/monkeycubes/stokcubes,
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/machinery/requests_console{
-	department = "Medbay";
-	departmentType = 1;
-	name = "Genetics Requests Console";
-	pixel_x = -30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
-	},
-/area/medical/genetics)
+/mob/living/simple_animal/pet/dog/bullterrier/Genn,
+/obj/structure/bed/dogbed/pet,
+/turf/simulated/floor/wood,
+/area/library)
 "uVJ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/grille/broken,
@@ -84881,6 +84927,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"uYf" = (
+/obj/structure/chair/office/light{
+	dir = 1
+	},
+/obj/effect/landmark/start/geneticist,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/genetics)
 "uYj" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -85853,11 +85908,11 @@
 	},
 /area/storage/primary)
 "vtS" = (
+/obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
-	dir = 4;
+	dir = 8;
 	id = "QMLoad"
 	},
-/obj/structure/plasticflaps/mining,
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
 "vtV" = (
@@ -86275,6 +86330,10 @@
 	},
 /area/medical/reception)
 "vCS" = (
+/obj/machinery/computer/scan_consolenew{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -86460,13 +86519,10 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
 "vFy" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whitepurple"
+	dir = 8;
+	icon_state = "whitepurplefull"
 	},
 /area/medical/genetics)
 "vFB" = (
@@ -86542,9 +86598,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2;
+	icon_state = "pipe-j2"
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 9;
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
@@ -86953,13 +87012,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurple"
-	},
+/turf/simulated/floor/grass,
 /area/medical/genetics)
 "vPx" = (
 /obj/structure/table/wood,
@@ -88418,8 +88471,12 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction{
+	dir = 2;
+	icon_state = "pipe-j2"
+	},
 /turf/simulated/floor/plasteel{
+	dir = 10;
 	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
@@ -91260,7 +91317,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whitepurple"
 	},
 /area/medical/genetics)
 "xpe" = (
@@ -93247,13 +93305,13 @@
 	},
 /area/hallway/primary/port/south)
 "yai" = (
-/obj/machinery/computer/scan_consolenew{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
 /obj/machinery/light_switch{
 	pixel_y = 24
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -108177,7 +108235,7 @@ aEe
 gso
 bOV
 gfH
-bHZ
+uVC
 esU
 bZN
 bbh
@@ -141525,7 +141583,7 @@ eUS
 eUS
 ghb
 cHq
-cHq
+sLD
 cHq
 cHq
 cHq
@@ -145183,9 +145241,9 @@ xAz
 rjp
 dlk
 udk
-uVC
+bGw
 vPs
-bLe
+gbJ
 bDA
 eiz
 tXJ
@@ -145440,9 +145498,9 @@ udk
 udk
 udk
 udk
-vCS
+gbJ
 tsx
-kkD
+gbJ
 bDA
 vHH
 pps
@@ -145698,7 +145756,7 @@ xWB
 yhU
 vFy
 mTp
-xhG
+bLe
 fKo
 bDA
 hnM
@@ -146727,7 +146785,7 @@ bDA
 yai
 xhG
 xhG
-pZK
+jKA
 bDA
 itf
 xuJ
@@ -146982,9 +147040,9 @@ dBx
 cfW
 bDA
 eZR
-bKf
-bKf
-bLi
+xhG
+dxT
+pZK
 bDA
 fqw
 wHG
@@ -147239,8 +147297,8 @@ tcU
 qhP
 bDA
 iXy
-iFv
-jKA
+xhG
+xhG
 bLj
 cFA
 itf
@@ -147495,10 +147553,10 @@ bCt
 uyn
 sXY
 bDA
-gbJ
-gbJ
-gbJ
-gbJ
+vCS
+uYf
+xhG
+iFv
 cFA
 bNL
 mqf
@@ -147753,9 +147811,9 @@ nyl
 rgu
 bDA
 qRZ
-bGw
+bKf
 bLl
-bGw
+bLi
 cFA
 itf
 mqf
@@ -149465,7 +149523,7 @@ rNK
 rNK
 rNK
 rNK
-euP
+kkD
 juL
 rzh
 lCC
