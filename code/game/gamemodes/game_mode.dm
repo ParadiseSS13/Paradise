@@ -40,6 +40,7 @@
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/blob_overminds = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
@@ -251,10 +252,6 @@
 		return 1
 	return 0
 */
-
-///Called when a mob changes Z-level
-/datum/game_mode/proc/transit_z(mob/living/player)
-	return
 
 /datum/game_mode/proc/num_players()
 	. = 0

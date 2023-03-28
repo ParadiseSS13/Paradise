@@ -195,6 +195,23 @@
 	else
 		return attack_hand(user)
 
+/turf/simulated/mineral/ancient/blob_act(obj/structure/blob/B)
+	if(prob(50))
+		blob_destruction()
+
+/turf/simulated/mineral/ancient/proc/blob_destruction()
+	playsound(src, pick(list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')), 30, 1 )
+
+	for(var/obj/O in contents) //Eject contents!
+		if(istype(O, /obj/structure/sign/poster))
+			var/obj/structure/sign/poster/P = O
+			P.roll_and_drop(src)
+		else
+			O.forceMove(src)
+
+	ChangeTurf(/turf/simulated/floor/plating/asteroid/ancient)
+	return TRUE
+
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"
 	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."

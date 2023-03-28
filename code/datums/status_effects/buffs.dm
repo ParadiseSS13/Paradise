@@ -366,24 +366,32 @@
 	alert_type = null
 	/// This diminishes the healing of fleshmend the higher it is.
 	var/tolerance = 1
+	/// This diminishes the healing of fleshmend if the user is cold when it is activated
+	var/freezing = FALSE
 	var/instance_duration = 10 // in ticks
 	/// a list of integers, one for each remaining instance of fleshmend.
 	var/list/active_instances = list()
 	var/ticks = 0
 
 /datum/status_effect/fleshmend/on_apply()
-	tolerance += 1
-	active_instances += instance_duration
+	apply_new_fleshmend()
 	return TRUE
 
 /datum/status_effect/fleshmend/refresh()
-	tolerance += 1
-	active_instances += instance_duration
+	apply_new_fleshmend()
 	..()
+
+/datum/status_effect/fleshmend/proc/apply_new_fleshmend()
+	tolerance += 1
+	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
+	if(freezing)
+		to_chat(owner, "<span class='warning'>Our healing's effectiveness is reduced \
+			by our cold body!</span>")
+	active_instances += instance_duration
 
 /datum/status_effect/fleshmend/tick()
 	if(length(active_instances) >= 1)
-		var/heal_amount = 10 * length(active_instances) / tolerance
+		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
 		var/blood_restore = 30 * length(active_instances)
 		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		owner.adjustOxyLoss(-heal_amount, FALSE)
