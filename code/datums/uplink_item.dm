@@ -558,6 +558,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CD"
 	item = /obj/item/defibrillator/compact/combat/loaded
 	cost = 12
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // SUPPORT AND MECHAS
 
@@ -1612,7 +1613,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
-	cost = 6
+	cost = 5
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Bio-chip"

@@ -201,6 +201,7 @@
 	GLOB.poi_list |= src
 	radio = new(src)
 	radio.listening = FALSE
+	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 	investigate_log("has been created.", "supermatter")
 
@@ -217,29 +218,15 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/examine(mob/user)
 	. = ..()
-	if(!ishuman(user))
-		return
 	var/mob/living/carbon/human/H = user
-	var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
-	if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
-		. += "<span class='danger'>You get headaches just from looking at it.</span>"
-
-/obj/machinery/atmospherics/supermatter_crystal/detailed_examine()
-	return "When energized by a laser (or something hitting it), it emits radiation and heat. If the heat reaches above 7000 kelvin, it will send an alert and start taking damage. \
-			After integrity falls to zero percent, it will delaminate, causing a massive explosion, station-wide radiation spikes, and hallucinations. \
-			Supermatter reacts badly to oxygen in the atmosphere. It'll also heat up really quick if it is in vacuum.<br>\
-			<br>\
-			Supermatter cores are extremely dangerous to be close to, and requires protection to handle properly. The protection you will need is:<br>\
-			Optical meson scanners on your eyes, to prevent hallucinations when looking at the supermatter.<br>\
-			Radiation helmet and suit, as the supermatter is radioactive.<br>\
-			<br>\
-			Touching the supermatter will result in *instant death*, with no corpse left behind! You can drag the supermatter, but anything else will kill you. \
-			It is advised to obtain a genetic backup before trying to drag it."
-
-/obj/machinery/atmospherics/supermatter_crystal/detailed_examine_antag()
-	return "Exposing the supermatter to oxygen or vacuum will cause it to start rapidly heating up. Sabotaging the supermatter and making it explode will \
-			cause a period of lag as the explosion is processed by the server, as well as irradiating the entire station and causing hallucinations to happen. \
-			Wearing radiation equipment will protect you from most of the delamination effects sans explosion."
+	if(istype(H))
+		var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
+		if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+			. += "<span class='danger'>You get headaches just from looking at it.</span>"
+	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of use the psudo-perpetual energy source, the supermatter crystal.</span>"
+	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or simple as a metal rod. These burts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
+	if(isAntag(user))
+		. += "<span class='warning'>Although a T.E.G. is more costly, there's a damn good reason the syndicate doesn't use this. If the integrity of [src] dips to 0%, perhaps from overheating, the supermatter will violently explode destroying nearly everything even somewhat close to it and releasing massive amounts of radiation.</span>"
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/get_status()
 	var/turf/T = get_turf(src)

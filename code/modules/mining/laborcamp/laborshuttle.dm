@@ -40,6 +40,7 @@
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Initialize()
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
+	announcer.follow_target = src
 	announcer.config(list("Security" = 0))
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/Destroy()
