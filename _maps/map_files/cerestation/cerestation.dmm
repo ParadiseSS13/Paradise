@@ -3127,6 +3127,7 @@
 	name = "disposal bay door";
 	protected = 0
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "asX" = (
@@ -67332,7 +67333,9 @@
 	name = "Turbine Access Console";
 	pixel_x = -8;
 	pixel_y = 26;
-	req_access = list(7)
+	req_access = list(7);
+	tag_exterior_door = "toxins_control_outer";
+	tag_interior_door = "toxins_control_inner"
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
@@ -78705,7 +78708,8 @@
 	id_tag = "toxins_control_inner";
 	locked = 1;
 	name = "Mixing Room Interior Airlock";
-	req_access = list(12)
+	req_access = list(12);
+	frequency = 1449
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -88120,7 +88124,8 @@
 	id_tag = "toxins_control_outer";
 	locked = 1;
 	name = "Mixing Room Exterior Airlock";
-	req_access = list(12)
+	req_access = list(12);
+	frequency = 1449
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
