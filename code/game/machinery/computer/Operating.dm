@@ -119,11 +119,14 @@
 			occupantData["bloodType"] = occupant.dna.blood_type
 		if(occupant.surgeries.len)
 			occupantData["inSurgery"] = 1
+			occupantData["surgeries"] = list()
 			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
 				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
-
+				occupantData["surgeries"] += list(list(
+					"bodypartName" = capitalize(procedure.location),
+					"surgeryName" = capitalize(procedure.name),
+					"stepName" = capitalize(surgery_step.name)
+				))
 	data["occupant"] = occupantData
 	data["verbose"]=verbose
 	data["oxyAlarm"]=oxyAlarm

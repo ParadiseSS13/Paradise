@@ -141,19 +141,23 @@ const OperatingComputerPatient = (props, context) => {
           )}
         </LabeledList>
       </Section>
-      <Section title="Current Procedure" level="2">
+      <Section title="Current Procedures" level="2">
         {occupant.inSurgery ? (
-          <LabeledList>
-            <LabeledList.Item label="Procedure">
-              {occupant.surgeryName}
-            </LabeledList.Item>
-            <LabeledList.Item label="Next Step">
-              {occupant.stepName}
-            </LabeledList.Item>
-          </LabeledList>
+          occupant.surgeries.map(({ bodypartName, surgeryName, stepName }) => (
+            <Section title={bodypartName} level="4" key={bodypartName}>
+              <LabeledList>
+                <LabeledList.Item label="Procedure">
+                  {surgeryName}
+                </LabeledList.Item>
+                <LabeledList.Item label="Next Step">
+                  {stepName}
+                </LabeledList.Item>
+              </LabeledList>
+            </Section>
+          ))
         ) : (
           <Box color="label">
-            No procedure ongoing.
+            No procedures ongoing.
           </Box>
         )}
       </Section>
