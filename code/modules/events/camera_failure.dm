@@ -7,6 +7,6 @@
 		if(!C.status)
 			continue
 		C.toggle_cam(null, FALSE)
-		failed_cameras ++
+		failed_cameras++
 		if(failed_cameras >= failure_limit)
 			return
