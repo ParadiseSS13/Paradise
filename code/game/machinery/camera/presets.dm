@@ -39,19 +39,20 @@
 	var/number = 0 //camera number in area
 
 //This camera type automatically sets it's name to whatever the area that it's in is called.
-/obj/machinery/camera/autoname/New()
-	..()
-	spawn(10)
-		number = 1
-		var/area/A = get_area(src)
-		if(A)
-			for(var/obj/machinery/camera/autoname/C in GLOB.machines)
-				if(C == src) continue
-				var/area/CA = get_area(C)
-				if(CA.type == A.type)
-					if(C.number)
-						number = max(number, C.number+1)
-			c_tag = "[A.name] #[number]"
+/obj/machinery/camera/autoname/Initialize(mapload)
+	. = ..()
+	number = 1
+	var/area/A = get_area(src)
+	if(A)
+		for(var/obj/machinery/camera/autoname/C in GLOB.machines)
+			if(C == src)
+				continue
+			var/area/CA = get_area(C)
+			if(CA.type == A.type)
+				if(C.number)
+					number = max(number, C.number + 1)
+		var/cam_tag = "[A.name] #[number]"
+		c_tag = sanitize(cam_tag)
 
 
 // CHECKS
