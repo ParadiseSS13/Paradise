@@ -151,7 +151,7 @@
 	if(!enabled_waddle)
 		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
 		enabled_waddle = TRUE
-		slowdown = SHOES_SLOWDOWN+1
+		slowdown = SHOES_SLOWDOWN + 1
 	else
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners, [src] no longer slow you down!</span>")
 		enabled_waddle = FALSE
