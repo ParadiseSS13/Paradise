@@ -802,11 +802,11 @@
 
 	if(usr == user && opened && !issilicon(user))
 		if(cell)
+			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon()
 			cell = null
-			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
 			charging = FALSE
 			update_icon()
 		return
