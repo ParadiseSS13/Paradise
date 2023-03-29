@@ -34,19 +34,7 @@
 /obj/machinery/sleeper/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant.</span>"
-
-/obj/machinery/sleeper/detailed_examine()
-	return "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\
-			<br>\
-			Click on your target then drag their sprite onto the sleeper to put them into it. Click the sleeper, with an empty hand, to open the menu. \
-			Click 'Start Dialysis' to begin filtering unwanted chemicals from the occupant's blood. The beaker contained will begin to fill with their \
-			contaminated blood, and will need to be emptied when full.<br>\
-			<br>\
-			You can also inject common medicines directly into their bloodstream.\
-			<br>\
-			Alt-Click the sleeper to remove them. You can enter the cell yourself by right clicking and selecting 'Enter Sleeper'. \
-			Note that you cannot control the sleeper while inside of it."
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
 
 /obj/machinery/sleeper/power_change()
 	..() //we don't check parent return here because we also care about BROKEN
@@ -313,7 +301,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(!beaker)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")

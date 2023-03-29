@@ -30,20 +30,13 @@
 
 	light_color = LIGHT_COLOR_WHITE
 
-/obj/machinery/atmospherics/unary/cryo_cell/detailed_examine()
-	return "The cryogenic chamber, or 'cryo', treats most damage types, most notably genetic damage. <br>\
-			<br>\
-			In order for it to work, it must be loaded with chemical. Additionally, it requires a supply of pure oxygen, provided by canisters that are attached. \
-			The most commonly used chemicals in the chambers is Cryoxadone, which heals most damage types including genetic damage.<br>\
-			<br>\
-			Activating the freezer nearby, and setting it to a temperature setting below 150, is recommended before operation! Further, any clothing the patient \
-			is wearing that act as an insulator will reduce its effectiveness, and should be removed.<br>\
-			<br>\
-			Clicking the tube with a beaker full of chemicals in hand will place it in its storage to distribute when it is activated.<br>\
-			<br>\
-			Click your target and drag them onto the cryo cell to place them inside it. Click the tube again to open the menu. \
-			Press the button on the menu to activate it. Once they have reached 100 health, right-click the cell and click 'Eject Occupant' to remove them. \
-			Remember to turn it off, once you've finished, to save power and chemicals!"
+/obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The Cryogenic cell chamber is effective at treating those with genetic damage, but all other damage types at a moderate rate.</span>"
+	. += "<span class='notice'>Mostly using cryogenic chemicals, such as cryoxadone for it's medical purposes, requires that the inside of the cell be kept cool at all times. Hooking up a freezer and cooling the pipeline will do this nicely.</span>"
+	. += "<span class='notice'><b>Click-drag</b> someone to a cell to place them in it, use the 'Eject occupant' verb to remove them.</span>"
+	if(user.loc == src)
+		. += "<span class='notice'>You can use the 'Eject occupant' verb to eject yourself. This will take roughly 2 minutes.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change()
 	..()
@@ -297,7 +290,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/G, mob/user, params)
-	if(istype(G, /obj/item/reagent_containers/glass))
+	if(istype(G, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		var/obj/item/reagent_containers/B = G
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
@@ -484,7 +477,7 @@
 	if(usr == occupant)//If the user is inside the tube...
 		if(usr.stat == DEAD)
 			return
-		to_chat(usr, "<span class='notice'>Release sequence activated. This will take two minutes.</span>")
+		to_chat(usr, "<span class='notice'>Release sequence activated. This will take one minute.</span>")
 		sleep(600)
 		if(!src || !usr || !occupant || (occupant != usr)) //Check if someone's released/replaced/bombed him already
 			return

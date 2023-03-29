@@ -23,13 +23,12 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
 "ah" = (
-/obj/structure/grille,
 /obj/machinery/door/poddoor{
 	desc = "A heavy duty blast door that opens mechanically. This one has been applied with an acid-proof coating.";
 	id_tag = "Awaybiohazard";
 	name = "Acid-Proof biohazard containment door"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ai" = (
@@ -251,8 +250,7 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable,
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
@@ -641,8 +639,7 @@
 	id_tag = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "br" = (
@@ -1015,8 +1012,7 @@
 	},
 /area/ruin/space/unpowered)
 "bX" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "bY" = (
@@ -1335,8 +1331,7 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable,
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cD" = (
@@ -1529,8 +1524,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cU" = (
@@ -1907,12 +1901,11 @@
 	},
 /area/ruin/space/unpowered)
 "dD" = (
-/obj/structure/grille,
 /obj/machinery/door/poddoor{
 	id_tag = "AwayRD";
 	name = "privacy shutter"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "dE" = (
@@ -2958,8 +2951,7 @@
 	},
 /area/ruin/space/unpowered)
 "fM" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -3026,8 +3018,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fU" = (
-/obj/structure/grille,
-/obj/structure/window/full/basic,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fV" = (
@@ -4233,12 +4224,11 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "iA" = (
-/obj/structure/grille,
 /obj/structure/sign/vacuum{
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
 	name = "\improper HOSTILE ATMOSPHERE AHEAD"
 	},
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "iB" = (
@@ -4917,9 +4907,8 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/unpowered)
 "kg" = (
-/obj/structure/grille,
 /obj/structure/disposalpipe/segment,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "kh" = (

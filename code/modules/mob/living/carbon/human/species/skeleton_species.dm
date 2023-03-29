@@ -1,6 +1,7 @@
+/// The OG skellybones, quite OP. As of this comment, only available through ash-drake loot (2023-03-07)
 /datum/species/skeleton
-	name = "Skeleton"
-	name_plural = "Skeletons"
+	name = "Ancient Skeleton"
+	name_plural = "Ancient Skeletons"
 
 	blurb = "Spoopy and scary."
 
@@ -9,7 +10,7 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	species_traits = list(NO_BLOOD, NO_HAIR)
+	species_traits = list(NO_BLOOD, NO_HAIR, NOT_SELECTABLE)
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
 	inherent_biotypes = MOB_UNDEAD | MOB_HUMANOID
 	tox_mod = 0
@@ -32,11 +33,16 @@
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.
 
+	/// How much brute and burn does milk heal per handle_reagents()
+	var/milk_heal_amount = 4
+	/// How likely (in %) are we to heal a fracture?
+	var/milk_fracture_repair_probability = 5
+
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	// Crazylemon is still silly
 	if(R.id == "milk")
-		H.heal_overall_damage(4, 4)
-		if(prob(5)) // 5% chance per proc to find a random limb, and mend it
+		H.heal_overall_damage(milk_heal_amount, milk_heal_amount)
+		if(prob(milk_fracture_repair_probability)) // 5% chance per proc to find a random limb, and mend it
 			var/list/our_organs = H.bodyparts.Copy()
 			shuffle(our_organs)
 			for(var/obj/item/organ/external/L in our_organs)
@@ -47,3 +53,16 @@
 		return TRUE
 
 	return ..()
+
+/// Wizard subtype, subtype to allow balancing separately from other skellies
+/datum/species/skeleton/lich
+	name = "Lich"
+	name_plural = "Liches"
+
+/// The most common (and weakest) type, legion corpses and skeleton map spawners are these
+/datum/species/skeleton/brittle
+	name = "Brittle Skeleton"
+	name_plural = "Brittle Skeletons"
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTHIGHPRESSURE, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOHUNGER, TRAIT_XENO_IMMUNE)
+	milk_heal_amount = 0.66 // On par with saline-glucose (after averaging that out)
+	milk_fracture_repair_probability = 0 //no bone juice here
