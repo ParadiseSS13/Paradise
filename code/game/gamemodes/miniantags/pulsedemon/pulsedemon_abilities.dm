@@ -81,8 +81,7 @@
 	return FALSE
 
 // handles purchasing and upgrading abilities
-/obj/effect/proc_holder/spell/pulse_demon/AltClick()
-	var/mob/living/simple_animal/pulse_demon/user = usr
+/obj/effect/proc_holder/spell/pulse_demon/AltClick(mob/living/simple_animal/pulse_demon/user)
 	if(!istype(user))
 		return
 
@@ -304,8 +303,7 @@
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/AltClick()
-	var/mob/living/simple_animal/pulse_demon/user = usr
+/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/AltClick(mob/living/simple_animal/pulse_demon/user)
 	if(!istype(user))
 		return
 	current_camera = 0
@@ -345,7 +343,7 @@
 	base_cooldown = 0
 	var/static/list/upgrade_icons = list(
 		PD_UPGRADE_HIJACK_SPEED = image(icon = 'icons/obj/power.dmi', icon_state = "apcemag"),
-		PD_UPGRADE_DRAIN_SPEED  = image(icon = 'icons/obj/power.dmi', icon_state = "ccharger1"),
+		PD_UPGRADE_DRAIN_SPEED  = image(icon = 'icons/obj/power.dmi', icon_state = "ccharger"),
 		PD_UPGRADE_MAX_HEALTH   = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "bluespace_matter_bin"),
 		PD_UPGRADE_HEALTH_REGEN = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "femto_mani"),
 		PD_UPGRADE_HEALTH_LOSS  = image(icon = 'icons/obj/stock_parts.dmi', icon_state = "triphasic_scan_module"),
@@ -410,8 +408,7 @@
 		upgrades["[upgrade] ([format_si_suffix(cost)]W)"] = upgrade_icons[upgrade]
 	return upgrades
 
-/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/AltClick()
-	var/mob/living/simple_animal/pulse_demon/user = usr
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/AltClick(mob/living/simple_animal/pulse_demon/user)
 	if(!istype(user))
 		return
 
