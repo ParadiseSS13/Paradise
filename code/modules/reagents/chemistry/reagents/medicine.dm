@@ -769,7 +769,7 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
-					if(M.mind && M.mind.has_antag_datum(/datum/antagonist/changeling))
+					if(ischangeling(M))
 						return
 					M.delayed_gib()
 					return
