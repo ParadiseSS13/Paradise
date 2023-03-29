@@ -101,8 +101,6 @@
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
-/obj/item/gun/detailed_examine() // Truly detailed
-	return "This is a gun."
 
 /obj/item/gun/proc/process_chamber()
 	return 0

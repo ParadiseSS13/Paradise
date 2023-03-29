@@ -10,6 +10,7 @@
 	language = null
 	default_language = "Chimpanzee"
 	inherent_traits = list(TRAIT_NOEXAMINE)
+	species_traits = list(NOT_SELECTABLE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
 	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)

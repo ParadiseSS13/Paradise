@@ -422,6 +422,7 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -443,10 +444,10 @@
 		)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
-	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
-	new /obj/item/soap(src)
+	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
+	new /obj/item/soap/deluxe(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	update_icon()

@@ -552,6 +552,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/twohanded/chainsaw
 	cost = 13
 
+/datum/uplink_item/dangerous/combat_defib
+	name = "Combat defibrillator"
+	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well."
+	reference = "CD"
+	item = /obj/item/defibrillator/compact/combat/loaded
+	cost = 12
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 // SUPPORT AND MECHAS
 
 /datum/uplink_item/support
@@ -1414,7 +1422,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/storage/firstaid/tactical
-	cost = 7
+	cost = 4
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/vtec
@@ -1605,7 +1613,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
-	cost = 6
+	cost = 5
 
 /datum/uplink_item/implants/uplink
 	name = "Uplink Bio-chip"
@@ -1786,7 +1794,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			a medical beam gun and a pair of syndicate magboots."
 	reference = "MEDB"
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
-	cost = 20 // normally 24
+	cost = 16 // normally 21
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/sniper

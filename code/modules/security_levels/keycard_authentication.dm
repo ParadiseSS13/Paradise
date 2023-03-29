@@ -188,7 +188,7 @@
 				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
 				return
 			atom_say("ERT request transmitted!")
-			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
+			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, follow_target_override = src)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
 			var/fullmin_count = 0

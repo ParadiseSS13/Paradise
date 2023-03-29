@@ -412,22 +412,10 @@
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 
-		if(GAMEMODE_IS_BLOB)
-			var/datum/game_mode/blob/mode = SSticker.mode
-			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
-			dat += "<tr><td><i>Progress: [GLOB.blobs.len]/[mode.blobwincount]</i></td></tr>"
-
-			for(var/datum/mind/blob in mode.infected_crew)
-				var/mob/M = blob.current
-				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")]</td>"
-				else
-					dat += "<tr><td><i>Blob not found!</i></td></tr>"
-			dat += "</table>"
 
 		if(SSticker.mode.blob_overminds.len)
 			dat += check_role_table("Blob Overminds", SSticker.mode.blob_overminds)
+			dat += "<i>Blob Tiles: [length(GLOB.blobs)]</i>"
 
 		if(SSticker.mode.changelings.len)
 			dat += check_role_table("Changelings", SSticker.mode.changelings)

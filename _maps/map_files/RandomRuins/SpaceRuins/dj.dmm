@@ -84,8 +84,7 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "am" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -94,8 +93,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "an" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -107,8 +105,7 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "ap" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -125,8 +122,7 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "as" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -271,8 +267,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aK" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -286,8 +281,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aL" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aM" = (

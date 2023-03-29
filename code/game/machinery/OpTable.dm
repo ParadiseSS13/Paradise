@@ -30,8 +30,9 @@
 	patient = null
 	return ..()
 
-/obj/machinery/optable/detailed_examine()
-	return "Click your target and drag them onto the table to place them onto it."
+/obj/machinery/optable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Click-drag</b> someone to the table to place them on top of the table.</span>"
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
@@ -83,6 +84,8 @@
 	update_patient()
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
+			if(C.stat == DEAD)
+				continue
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
 				R.check_and_add(chemical,reagent_target_amount,inject_amount)
