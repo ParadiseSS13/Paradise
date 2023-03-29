@@ -187,7 +187,7 @@
 	..()
 
 /obj/machinery/bot_core/cleanbot
-	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 
 
 /mob/living/simple_animal/bot/cleanbot/show_controls(mob/M)

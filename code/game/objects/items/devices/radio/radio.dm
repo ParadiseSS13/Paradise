@@ -236,15 +236,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
-/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
 	var/obj/item/card/id/I = user.get_id_card()
-	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
+	return has_access(req_accesses, TRUE, I ? I.GetAccess() : list())
 
-/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
 	var/list/access = get_all_accesses()
-	return has_access(list(), req_one_accesses, access)
+	return has_access(req_accesses, TRUE, access)
 
-/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
+/mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_accesses)
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()

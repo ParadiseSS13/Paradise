@@ -73,8 +73,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/wiresexposed = 0
 	var/locked = 1
-	var/list/req_one_access = list(ACCESS_ROBOTICS)
-	var/list/req_access
+	var/list/req_access = list(ACCESS_ROBOTICS)
+	var/check_one_access = TRUE
 	var/ident = 0
 	//var/list/laws = list()
 	var/viewalerts = 0
@@ -1078,7 +1078,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
 	dummy.req_access = req_access
-	dummy.req_one_access = req_one_access
+	dummy.check_one_access = check_one_access
 
 	if(dummy.check_access(I))
 		qdel(dummy)
@@ -1515,7 +1515,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lawupdate = 0
 	scrambledcodes = 1
 	has_camera = FALSE
-	req_one_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
 	pdahide = 1
@@ -1554,7 +1554,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	designation = "ERT"
 	lawupdate = 0
 	scrambledcodes = 1
-	req_one_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	limited_modules = list("Engineering", "Medical", "Security")
 	static_radio_channels = 1
@@ -1610,7 +1610,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lawupdate = 0
 	scrambledcodes = 1
 	has_camera = FALSE
-	req_one_access = list(ACCESS_CENT_SPECOPS)
+	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
 	pdahide = 1

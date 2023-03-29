@@ -3757,7 +3757,7 @@
 "AR" = (
 /obj/machinery/door/morgue{
 	name = "Private Study";
-	req_one_access = list(37)
+	req_access = list(37)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)

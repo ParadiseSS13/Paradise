@@ -10,7 +10,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	/// List of accesses currently set
 	var/list/selected_accesses = list()
-	/// Is the door access using req_one_access (TRUE) or req_access (FALSE)
+	/// Is the door access require one access or all
 	var/one_access = FALSE
 	/// An associative list containing all station accesses. Includes their name and access number.
 	var/static/list/door_accesses_list = list()

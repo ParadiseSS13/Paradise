@@ -917,7 +917,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	req_one_access = list(271)
+	req_access = list(271)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/thetacorridor)
@@ -1248,7 +1248,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
-	req_one_access = list(271)
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -2379,7 +2379,7 @@
 "tt" = (
 /obj/machinery/door/airlock/external{
 	name = "Mining Internal Access";
-	req_one_access = list(271)
+	req_access = list(271)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
@@ -2629,7 +2629,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Prototype Laboratory";
-	req_one_access = list(271)
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -3301,7 +3301,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/highsecurity{
 	name = "Theta Longterm Storage";
-	req_one_access = list(271)
+	req_access = list(271)
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
@@ -4615,7 +4615,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access = list(271)
+	req_access = list(271)
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/engi)
@@ -6288,7 +6288,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	name = "Engineering External Access";
-	req_one_access = list(271)
+	req_access = list(271)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/engi)

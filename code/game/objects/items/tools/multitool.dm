@@ -28,7 +28,7 @@
 
 /obj/item/multitool/Initialize()
 	. = ..()
-	req_one_access_txt = "[ACCESS_HEADS];[ACCESS_CONSTRUCTION]" // initialize it here to be able to use our macros
+	req_access_txt = "[ACCESS_HEADS];[ACCESS_CONSTRUCTION]" // initialize it here to be able to use our macros
 	menu = new(src)
 
 /obj/item/multitool/proc/IsBufferA(typepath)

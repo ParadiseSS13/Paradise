@@ -109,7 +109,7 @@
 "aA" = (
 /obj/machinery/door/airlock{
 	name = "Bar Storage";
-	req_one_access = list(25)
+	req_access = list(25)
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
@@ -221,7 +221,7 @@
 "aX" = (
 /obj/machinery/door/airlock{
 	name = "Bar Storage";
-	req_one_access = list(25)
+	req_access = list(25)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"

@@ -908,7 +908,7 @@
 /area/awaymission/BMPship/Kitchen)
 "cP" = (
 /obj/structure/closet/secure_closet{
-	req_one_access = list(111)
+	req_access = list(111)
 	},
 /obj/item/id_decal/centcom,
 /obj/item/clothing/head/helmet,
@@ -1225,7 +1225,7 @@
 	dir = 8;
 	lighting = 2;
 	locked = 0;
-	req_one_access = list();
+	req_access = list();
 	environ = 0;
 	equipment = 0;
 	pixel_x = -24;
@@ -1974,7 +1974,7 @@
 	lighting = 0;
 	locked = 0;
 	pixel_y = 24;
-	req_one_access = list();
+	req_access = list();
 	environ = 0;
 	equipment = 0;
 	operating = 0;
@@ -3070,7 +3070,7 @@
 	lighting = 2;
 	locked = 0;
 	pixel_y = 24;
-	req_one_access = list();
+	req_access = list();
 	environ = 0;
 	equipment = 0;
 	start_charge = 0
@@ -4029,7 +4029,7 @@
 /area/awaymission/BMPship/MedBay)
 "pg" = (
 /obj/structure/closet/secure_closet{
-	req_one_access = list(111)
+	req_access = list(111)
 	},
 /obj/item/id_decal/gold,
 /obj/item/clothing/head/helmet,
@@ -4070,7 +4070,7 @@
 	dir = 4;
 	lighting = 2;
 	locked = 0;
-	req_one_access = list();
+	req_access = list();
 	environ = 2;
 	equipment = 2;
 	pixel_x = 24;
@@ -4779,7 +4779,7 @@
 /area/awaymission/BMPship/MedBay)
 "vi" = (
 /obj/machinery/door/airlock/vault{
-	req_one_access = list(111);
+	req_access = list(111);
 	hackProof = 1;
 	locked = 1
 	},
@@ -5039,7 +5039,7 @@
 	lighting = 2;
 	locked = 0;
 	pixel_y = 24;
-	req_one_access = list();
+	req_access = list();
 	environ = 1;
 	equipment = 0;
 	start_charge = 100
@@ -5101,7 +5101,7 @@
 	lighting = 2;
 	locked = 0;
 	pixel_y = 24;
-	req_one_access = list();
+	req_access = list();
 	environ = 0;
 	equipment = 0;
 	start_charge = 0
@@ -5917,7 +5917,7 @@
 /area/awaymission/BMPship/TurretsNorth)
 "EY" = (
 /obj/machinery/door/airlock/vault{
-	req_one_access = list(111);
+	req_access = list(111);
 	hackProof = 1;
 	locked = 1
 	},
@@ -6756,7 +6756,7 @@
 	lighting = 2;
 	locked = 0;
 	pixel_y = -24;
-	req_one_access = list();
+	req_access = list();
 	environ = 0;
 	equipment = 0;
 	start_charge = 0
@@ -6846,7 +6846,7 @@
 	dir = 8;
 	lighting = 2;
 	locked = 0;
-	req_one_access = list();
+	req_access = list();
 	environ = 0;
 	equipment = 0;
 	pixel_x = -24;
@@ -7478,7 +7478,7 @@
 /obj/structure/closet/secure_closet{
 	color = "gold";
 	layer = 2.9;
-	req_one_access = list(111)
+	req_access = list(111)
 	},
 /obj/item/tank/internals/oxygen,
 /obj/item/clothing/mask/gas,
@@ -7537,7 +7537,7 @@
 	dir = 1;
 	lighting = 0;
 	pixel_y = 24;
-	req_one_access = list(111);
+	req_access = list(111);
 	environ = 0;
 	equipment = 0;
 	operating = 0;
@@ -7714,7 +7714,7 @@
 	dir = 8;
 	lighting = 2;
 	locked = 0;
-	req_one_access = list();
+	req_access = list();
 	environ = 0;
 	equipment = 0;
 	pixel_x = -24;

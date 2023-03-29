@@ -621,7 +621,7 @@
 		// Try to get the ID
 		var/obj/item/card/id/id = M.wear_id.GetID()
 		if(istype(id))
-			return list(name = "[id.registered_name] ([id.assignment])", security = has_access(list(), list(ACCESS_SECURITY), id.access))
+			return list(name = "[id.registered_name] ([id.assignment])", security = has_access(list(ACCESS_SECURITY), TRUE, id.access))
 	else if(issilicon(user))
 		var/mob/living/silicon/ai_user = user
 		return list(name = "[ai_user.name] ([ai_user.job])", security = TRUE)

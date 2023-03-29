@@ -615,7 +615,7 @@
 		declare_cooldown = 0
 
 /obj/machinery/bot_core/medbot
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 
 /obj/machinery/bot_core/medbot/syndicate
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE)

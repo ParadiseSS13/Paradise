@@ -97,7 +97,7 @@
 "ay" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_one_access = list(19)
+	req_access = list(19)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
@@ -329,7 +329,7 @@
 "db" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_one_access = list(2)
+	req_access = list(2)
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)

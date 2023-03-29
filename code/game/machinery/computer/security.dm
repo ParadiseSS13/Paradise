@@ -10,6 +10,7 @@
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	circuit = /obj/item/circuitboard/secure_data
+	req_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	/// The current page being viewed.
 	var/current_page = SEC_DATA_R_LIST
 	/// The current general record being viewed.
@@ -29,7 +30,6 @@
 
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
-	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	if(!field_edit_questions)
 		field_edit_questions = list(
 			// General

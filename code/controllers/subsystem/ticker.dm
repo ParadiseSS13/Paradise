@@ -306,13 +306,12 @@ SUBSYSTEM_DEF(ticker)
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
 			if(ACCESS_MAINT_TUNNELS == text2num(M.req_access_txt))
 				M.req_access = null
-				M.req_one_access = null
 				if(config.restrict_maint == 1)
 					M.req_access_txt = "0"
-					M.req_one_access_txt = "[ACCESS_BRIG];[ACCESS_ENGINE]"
+					M.req_access_txt = "[ACCESS_BRIG];[ACCESS_ENGINE]"
 				if(config.restrict_maint == 2)
 					M.req_access_txt = "[ACCESS_BRIG]"
-					M.req_one_access_txt = "0"
+					M.req_access_txt = "0"
 
 	// Sets the auto shuttle vote to happen after the config duration
 	next_autotransfer = world.time + config.vote_autotransfer_initial

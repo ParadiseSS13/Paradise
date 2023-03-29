@@ -29,7 +29,7 @@
 	viewalerts = FALSE
 	modules_break = FALSE
 
-	req_one_access = list(ACCESS_CENT_COMMANDER) //I dare you to try
+	req_access = list(ACCESS_CENT_COMMANDER) //I dare you to try
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items

@@ -333,10 +333,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 					add_attack_logs(user, T, "Constructed airlock with RCD")
 					T.name = our_rcd.door_name
 					T.autoclose = TRUE
-					if(our_rcd.one_access)
-						T.req_one_access = our_rcd.selected_accesses.Copy()
-					else
-						T.req_access = our_rcd.selected_accesses.Copy()
+					T.req_access = our_rcd.selected_accesses.Copy()
+					T.check_one_access = our_rcd.one_access
 					return RCD_ACT_SUCCESSFULL
 				to_chat(user, span_warning("ERROR! Construction interrupted!"))
 				return RCD_ACT_FAILED

@@ -183,7 +183,7 @@
 "aF" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_one_access = list(19)
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -331,7 +331,7 @@
 "be" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "Emergency Airlock Access";
-	req_one_access = list(2,19)
+	req_access = list(2,19)
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -361,7 +361,7 @@
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_one_access = list(2)
+	req_access = list(2)
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -467,7 +467,7 @@
 "bC" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_one_access = list(2,19)
+	req_access = list(2,19)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;

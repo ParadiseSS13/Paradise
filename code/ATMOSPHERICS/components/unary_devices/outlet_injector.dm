@@ -11,7 +11,7 @@
 	name = "air injector"
 	desc = "Has a valve and pump attached to it"
 
-	req_one_access_txt = "24;10"
+	req_access_txt = "24;10"
 
 	frequency = ATMOS_TANKS_FREQ
 

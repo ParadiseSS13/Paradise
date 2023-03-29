@@ -207,10 +207,8 @@
 		windoor.density = FALSE
 		windoor.unres_sides = electronics.unres_access_from
 
-		if(electronics.one_access)
-			windoor.req_one_access = electronics.selected_accesses
-		else
-			windoor.req_access = electronics.selected_accesses
+		windoor.req_access = electronics.selected_accesses
+		windoor.check_one_access = electronics.one_access
 		windoor.electronics = src.electronics
 		electronics.forceMove(windoor)
 		electronics = null

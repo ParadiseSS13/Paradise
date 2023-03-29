@@ -17,7 +17,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 5
-	req_one_access_txt = "24;10"
+	req_access_txt = "24;10"
 
 /obj/machinery/meter/New()
 	..()

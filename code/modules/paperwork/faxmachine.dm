@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	/// Can we send messages off-station?
 	var/long_range_enabled = FALSE
-	req_one_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
+	req_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	name = "syndicate long range fax machine"
 	emagged = TRUE
 	syndie_restricted = TRUE
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE)
 	//No point setting fax network, being emagged overrides that anyway.
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
@@ -86,7 +86,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = 1
-		req_one_access = list()
+		req_access = list()
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
 	else
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")

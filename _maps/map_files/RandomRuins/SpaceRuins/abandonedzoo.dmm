@@ -197,7 +197,7 @@
 	},
 /obj/machinery/door/airlock/highsecurity{
 	name = "Bio Containment";
-	req_one_access = list(47)
+	req_access = list(47)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

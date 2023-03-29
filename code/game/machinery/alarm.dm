@@ -77,7 +77,7 @@
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
+	req_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
@@ -125,7 +125,6 @@
 	report_danger_level = FALSE
 	remote_control = FALSE
 	req_access = list(ACCESS_SYNDICATE)
-	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
@@ -239,7 +238,7 @@
 	..()
 	set_frequency(frequency)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
-		req_one_access = list(ACCESS_SYNDICATE)
+		req_access = list(ACCESS_SYNDICATE)
 
 	if(!master_is_operating())
 		elect_master()
@@ -1096,7 +1095,6 @@
 	desc = "This particular atmos control unit appears to have no access restrictions."
 	locked = FALSE
 	req_access = null
-	req_one_access = null
 
 /*
 AIR ALARM CIRCUIT

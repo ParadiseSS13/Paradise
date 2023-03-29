@@ -450,7 +450,7 @@
 "bq" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sst_away";
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -458,7 +458,7 @@
 "br" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sst_away";
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -569,7 +569,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	id_tag = "sst_away";
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -652,7 +652,7 @@
 /obj/machinery/turretid/syndicate{
 	name = "external turret controls";
 	pixel_x = -32;
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -979,7 +979,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
 	pixel_x = 24;
-	req_one_access = list(150)
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

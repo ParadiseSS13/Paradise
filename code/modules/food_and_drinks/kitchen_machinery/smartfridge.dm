@@ -416,7 +416,7 @@
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
-	req_one_access = list(ACCESS_RESEARCH)
+	req_access = list(ACCESS_RESEARCH)
 
 /obj/machinery/smartfridge/secure/extract/syndie
 	name = "\improper Suspicious Slime Extract Storage"
@@ -426,7 +426,7 @@
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
-		req_one_access = list(ACCESS_SYNDICATE)
+		req_access = list(ACCESS_SYNDICATE)
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/slime_extract
 	))
@@ -440,7 +440,7 @@
 	name = "\improper Secure Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
+	req_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/medbay/Initialize(mapload)
 	. = ..()
@@ -454,7 +454,7 @@
 
 /obj/machinery/smartfridge/secure/medbay/syndie
 	icon_state = "syndi_smartfridge"
-	req_one_access = list(ACCESS_SYNDICATE)
+	req_access = list(ACCESS_SYNDICATE)
 
 /**
   * # Smart Chemical Storage

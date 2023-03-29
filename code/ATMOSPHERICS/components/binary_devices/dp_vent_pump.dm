@@ -5,7 +5,7 @@
 	//node2 is output port
 	//node1 is input port
 
-	req_one_access_txt = "24;10"
+	req_access_txt = "24;10"
 
 	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."

@@ -12,7 +12,7 @@
 	desc = "This can be used to check medical records."
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
+	req_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/med_data
 	var/screen = null
 	var/datum/data/record/active1 = null

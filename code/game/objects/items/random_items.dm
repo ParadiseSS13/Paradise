@@ -164,7 +164,7 @@
 /obj/structure/closet/crate/secure/unknownchemicals
 	name = "grey-market chemicals grab pack"
 	desc = "Crate full of chemicals of unknown type and value from a 'trusted' source."
-	req_one_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH,ACCESS_QM) // the qm knows a guy, you see.
+	req_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH,ACCESS_QM) // the qm knows a guy, you see.
 
 /obj/structure/closet/crate/secure/unknownchemicals/populate_contents()
 	for(var/i in 1 to 7)
@@ -181,7 +181,7 @@
 /obj/structure/closet/crate/secure/chemicals
 	name = "chemical supply kit"
 	desc = "Full of basic chemistry supplies."
-	req_one_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH)
+	req_access = list(ACCESS_CHEMISTRY,ACCESS_RESEARCH)
 
 /obj/structure/closet/crate/secure/chemicals/populate_contents()
 	for(var/chem in GLOB.standard_chemicals)

@@ -14,6 +14,9 @@
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
+
+	req_access = list(ACCESS_SECURITY, ACCESS_HEADS)
+
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
 	var/health = 80			//the turret's health
@@ -56,7 +59,6 @@
 	var/wrenching = FALSE
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
 
-	var/one_access = FALSE // Determines if access control is set to req_one_access or req_access
 	var/region_min = REGION_GENERAL
 	var/region_max = REGION_COMMAND
 
@@ -70,10 +72,6 @@
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
-	if(req_access && req_access.len)
-		req_access.Cut()
-	req_one_access = list(ACCESS_SECURITY, ACCESS_HEADS)
-	one_access = TRUE
 
 	//Sets up a spark system
 	spark_system = new /datum/effect_system/spark_spread
@@ -85,13 +83,6 @@
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
 	return ..()
-
-/obj/machinery/porta_turret/centcom/Initialize(mapload)
-	. = ..()
-	if(req_one_access && req_one_access.len)
-		req_one_access.Cut()
-	req_access = list(ACCESS_CENT_SPECOPS)
-	one_access = FALSE
 
 /obj/machinery/porta_turret/proc/setup()
 	var/obj/item/gun/energy/E = new installation	//All energy-based weapons are applicable
@@ -221,8 +212,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		"lethal_is_configurable" = lethal_is_configurable,
 		"check_weapons" = check_weapons,
 		"neutralize_noaccess" = check_access,
-		"one_access" = one_access,
-		"selectedAccess" = one_access ? req_one_access : req_access,
+		"one_access" = check_one_access,
+		"selectedAccess" = req_access,
 		"access_is_configurable" = access_is_configurable(),
 		"neutralize_norecord" = check_records,
 		"neutralize_criminals" = check_arrest,
@@ -267,50 +258,29 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				check_borgs = !check_borgs
 			if("set")
 				var/access = text2num(params["access"])
-				if(one_access)
-					if(!(access in req_one_access))
-						req_one_access += access
-					else
-						req_one_access -= access
+				if(!(access in req_access))
+					req_access += access
 				else
-					if(!(access in req_access))
-						req_access += access
-					else
-						req_access -= access
+					req_access -= access
 	if(access_is_configurable())
 		switch(action)
 			if("grant_region")
 				var/region = text2num(params["region"])
 				if(isnull(region))
 					return
-				if(one_access)
-					req_one_access |= get_region_accesses(region)
-				else
-					req_access |= get_region_accesses(region)
+				req_access |= get_region_accesses(region)
 			if("deny_region")
 				var/region = text2num(params["region"])
 				if(isnull(region))
 					return
-				if(one_access)
-					req_one_access -= get_region_accesses(region)
-				else
-					req_access -= get_region_accesses(region)
+				req_access -= get_region_accesses(region)
 			if("clear_all")
-				if(one_access)
-					req_one_access = list()
-				else
-					req_access = list()
+				req_access = list()
 			if("grant_all")
-				if(one_access)
-					req_one_access = get_all_accesses()
-				else
-					req_access = get_all_accesses()
+				req_access = get_all_accesses()
 			if("one_access")
-				if(one_access)
-					req_one_access = list()
-				else
-					req_access = list()
-				one_access = !one_access
+				req_access = list()
+				check_one_access = !check_one_access
 
 /obj/machinery/porta_turret/power_change()
 	if(powered() || !use_power)
@@ -735,6 +705,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_weapons = TRUE
 	check_anomalies = TRUE
 	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
+	req_access = list(ACCESS_CENT_SPECOPS)
 
 /obj/machinery/porta_turret/centcom/pulse
 	name = "Pulse Turret"
@@ -1012,6 +983,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_anomalies = TRUE
 	check_synth	= TRUE
 	ailock = TRUE
+	req_access = list(ACCESS_SYNDICATE)
 	var/area/syndicate_depot/core/depotarea
 
 /obj/machinery/porta_turret/syndicate/die()
@@ -1024,13 +996,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		depotarea.list_add(target, depotarea.hostile_list)
 		depotarea.declare_started()
 	return ..(target)
-
-/obj/machinery/porta_turret/syndicate/Initialize(mapload)
-	. = ..()
-	if(req_one_access && req_one_access.len)
-		req_one_access.Cut()
-	req_access = list(ACCESS_SYNDICATE)
-	one_access = FALSE
 
 /obj/machinery/porta_turret/syndicate/update_icon()
 	if(stat & BROKEN)

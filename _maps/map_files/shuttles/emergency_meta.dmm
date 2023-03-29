@@ -11,7 +11,7 @@
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
 	name = "Emergency Shuttle Airlock";
-	req_one_access = list(2)
+	req_access = list(2)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
@@ -292,7 +292,7 @@
 "aR" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Cockpit";
-	req_one_access = list(19)
+	req_access = list(19)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
@@ -401,14 +401,14 @@
 "bh" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Recovery Airlock";
-	req_one_access = list(19)
+	req_access = list(19)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig";
-	req_one_access = list(2)
+	req_access = list(2)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"

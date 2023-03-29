@@ -249,8 +249,7 @@
 	master_tag = "seed_vault";
 	name = "interior access button";
 	pixel_x = 25;
-	pixel_y = -25;
-	req_access_txt = null
+	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
@@ -303,8 +302,7 @@
 	master_tag = "seed_vault";
 	name = "exterior access button";
 	pixel_x = -25;
-	pixel_y = -25;
-	req_access_txt = null
+	pixel_y = -25
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

@@ -272,7 +272,7 @@
 
 /obj/structure/closet/secure_closet/syndicate/hydro
 	name = "Syndicate Botanist's Locker"
-	req_one_access = list(ACCESS_SYNDICATE_BOTANY)
+	req_access = list(ACCESS_SYNDICATE_BOTANY)
 	icon_state = "syndicate_hydro_secure1"
 	icon_closed = "syndicate_hydro_secure"
 	icon_locked = "syndicate_hydro_secure1"

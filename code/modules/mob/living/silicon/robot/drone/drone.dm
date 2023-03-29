@@ -15,7 +15,7 @@
 	lawupdate = 0
 	density = 0
 	has_camera = FALSE
-	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
+	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = VENTCRAWLER_ALWAYS
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL

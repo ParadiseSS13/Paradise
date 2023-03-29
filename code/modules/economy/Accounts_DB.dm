@@ -8,7 +8,7 @@ GLOBAL_VAR(current_date_string)
 	name = "Accounts Uplink Terminal"
 	desc = "Access transaction logs, account data and all kinds of other financial records."
 	icon_screen = "accounts"
-	req_one_access = list(ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_CENT_COMMANDER)
+	req_access = list(ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_CENT_COMMANDER)
 	light_color = LIGHT_COLOR_GREEN
 	var/receipt_num
 	var/machine_id = ""

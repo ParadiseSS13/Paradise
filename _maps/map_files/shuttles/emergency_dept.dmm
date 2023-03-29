@@ -189,7 +189,7 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
 	normalspeed = 0;
-	req_one_access = list(19)
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -232,7 +232,7 @@
 	id_tag = null;
 	name = "Escape Shuttle Infirmary";
 	normalspeed = 0;
-	req_one_access = list(5)
+	req_access = list(5)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -296,7 +296,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Brig";
 	normalspeed = 0;
-	req_one_access = list(63)
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -388,7 +388,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
 	normalspeed = 0;
-	req_one_access = list(2)
+	req_access = list(2)
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -396,7 +396,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Escape Shuttle Cargo";
 	normalspeed = 0;
-	req_one_access = list(50)
+	req_access = list(50)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -700,7 +700,7 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Escape Shuttle Engineering";
 	normalspeed = 0;
-	req_one_access = list(32)
+	req_access = list(32)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2"
@@ -714,7 +714,7 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "Escape Shuttle Research";
 	normalspeed = 0;
-	req_one_access = list(47)
+	req_access = list(47)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor5"
@@ -788,7 +788,7 @@
 	id_tag = null;
 	name = "Escape Shuttle Medical Seating";
 	normalspeed = 0;
-	req_one_access = list(5)
+	req_access = list(5)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
