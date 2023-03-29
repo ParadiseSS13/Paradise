@@ -1256,7 +1256,7 @@
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 32;
-	use_power = 0
+	power_state = 0
 	},
 /obj/item/clipboard,
 /turf/simulated/floor/plasteel/dark,
@@ -3804,7 +3804,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeadmin)
 "nj" = (
-/obj/structure/mirror{
+/obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
 /obj/structure/sink{
@@ -3841,7 +3841,7 @@
 /area/admin)
 "no" = (
 /obj/item/mop,
-/obj/structure/mirror{
+/obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
 /obj/item/twohanded/required/kirbyplants,
@@ -6249,6 +6249,7 @@
 /obj/machinery/light/spot,
 /obj/effect/spawner/lootdrop/trade_sol/serv,
 /obj/structure/closet,
+/obj/item/stack/tile/disco_light/thirty,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
 "wb" = (
@@ -7036,10 +7037,7 @@
 "Bb" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/bikehorn/airhorn,
-/turf/simulated/floor/plasteel/goonplaque{
-	desc = "Nosey little bastard aren't you?";
-	name = "Nosey little bastard aren't you?"
-	},
+/turf/simulated/floor/plasteel/goonplaque/nosey,
 /area/wizard_station)
 "Bd" = (
 /obj/machinery/light/spot{
@@ -7076,7 +7074,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/grenade/clusterbuster/smoke,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
@@ -12735,9 +12732,7 @@
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
 "XG" = (
-/turf/simulated/floor/plasteel/goonplaque{
-	name = "Violence Free Area"
-	},
+/turf/simulated/floor/plasteel/goonplaque/violence,
 /area/centcom/evac)
 "XH" = (
 /obj/structure/flora/ausbushes/grassybush,

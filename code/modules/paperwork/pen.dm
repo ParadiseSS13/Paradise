@@ -25,7 +25,7 @@
 	pressure_resistance = 2
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
 	return BRUTELOSS
 
 /obj/item/pen/blue
@@ -211,18 +211,30 @@
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
 
-/obj/item/pen/poison
-	var/uses_left = 3
+/obj/item/pen/multi/poison
+	var/current_poison = null
 
-/obj/item/pen/poison/on_write(obj/item/paper/P, mob/user)
-	if(P.contact_poison_volume)
-		to_chat(user, "<span class='warning'>[P] is already coated.</span>")
-	else if(uses_left)
-		uses_left--
-		P.contact_poison = "amanitin"
-		P.contact_poison_volume = 15
-		P.contact_poison_poisoner = user.name
-		add_attack_logs(user, P, "Poison pen'ed")
-		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
-	else
-		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")
+/obj/item/pen/multi/poison/attack_self(mob/living/user)
+	. = ..()
+	switch(colour)
+		if("black")
+			current_poison = null
+		if("red")
+			current_poison = "amanitin"
+		if("green")
+			current_poison = "polonium"
+		if("blue")
+			current_poison = "teslium"
+		if("yellow")
+			current_poison = "pancuronium"
+
+/obj/item/pen/multi/poison/on_write(obj/item/paper/P, mob/user)
+	if(current_poison)
+		if(P.contact_poison)
+			to_chat(user, "<span class='warning'>[P] is already coated.</span>")
+		else
+			P.contact_poison = current_poison
+			P.contact_poison_volume = 20
+			P.contact_poison_poisoner = user.name
+			add_attack_logs(user, P, "Poison pen'ed")
+			to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")

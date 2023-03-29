@@ -363,6 +363,8 @@
 					/obj/item/clothing/head/wizard/clown = 1,
 					/obj/item/clothing/mask/gas/clownwiz = 1,
 					/obj/item/clothing/shoes/clown_shoes/magical = 1,
+					/obj/item/dnainjector/comic = 1,
+					/obj/item/implanter/sad_trombone = 1,
 					/obj/item/clothing/suit/wizrobe/mime = 1,
 					/obj/item/clothing/head/wizard/mime = 1,
 					/obj/item/clothing/mask/gas/mime/wizard = 1,
@@ -371,6 +373,7 @@
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
+	tiltable = FALSE  // don't let a poor wizard screw themselves
 
 /obj/machinery/economy/vending/autodrobe
 	name = "\improper AutoDrobe"
@@ -708,11 +711,11 @@
 	ads_list = list("Refreshing!","Hope you're thirsty!","Over 1 million drinks sold!","Thirsty? Why not cola?","Please, have a drink!","Drink up!","The best drinks in space.")
 	products = list(/obj/item/reagent_containers/food/drinks/cans/cola = 10, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 10,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 10, /obj/item/reagent_containers/food/drinks/cans/starkist = 10,
-					/obj/item/reagent_containers/food/drinks/cans/space_up = 10, /obj/item/reagent_containers/food/drinks/cans/grape_juice = 10)
+					/obj/item/reagent_containers/food/drinks/cans/space_up = 10, /obj/item/reagent_containers/food/drinks/cans/grape_juice = 10, /obj/item/reagent_containers/glass/beaker/waterbottle = 10)
 	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5)
 	prices = list(/obj/item/reagent_containers/food/drinks/cans/cola = 45, /obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 50,
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 50, /obj/item/reagent_containers/food/drinks/cans/starkist = 50,
-					/obj/item/reagent_containers/food/drinks/cans/space_up = 50, /obj/item/reagent_containers/food/drinks/cans/grape_juice = 50)
+					/obj/item/reagent_containers/food/drinks/cans/space_up = 50, /obj/item/reagent_containers/food/drinks/cans/grape_juice = 50, /obj/item/reagent_containers/glass/beaker/waterbottle = 20)
 	refill_canister = /obj/item/vending_refill/cola
 
 /obj/machinery/economy/vending/cola/free
@@ -857,6 +860,7 @@
 	icon_panel = "wallmed"
 	icon_broken = "wallmed"
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
+	tiltable = FALSE
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)

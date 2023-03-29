@@ -107,10 +107,10 @@
 
 	var/temperature_delta= abs(old_temperature - air_contents.temperature)
 	if(temperature_delta > 1)
-		active_power_usage = (heat_capacity * temperature_delta) / 10 + idle_power_usage
+		update_active_power_consumption(power_channel, (heat_capacity * temperature_delta) / 10 + idle_power_consumption)
 		parent.update = 1
 	else
-		active_power_usage = idle_power_usage
+		update_active_power_consumption(power_channel, idle_power_consumption)
 	return 1
 
 /obj/machinery/atmospherics/unary/thermomachine/attackby(obj/item/I, mob/user, params)
@@ -186,7 +186,7 @@
 	switch(action)
 		if("power")
 			on = !on
-			use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
 			update_icon()
 			. = TRUE

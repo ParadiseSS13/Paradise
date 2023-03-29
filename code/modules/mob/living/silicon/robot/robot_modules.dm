@@ -359,7 +359,6 @@
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/rcd/borg,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
 		/obj/item/weldingtool/largetank/cyborg,
@@ -383,7 +382,7 @@
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)
-	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 
@@ -451,7 +450,7 @@
 /obj/item/robot_module/janitor/proc/on_cyborg_move(mob/living/silicon/robot/R)
 	SIGNAL_HANDLER
 
-	if(R.stat == DEAD || !isturf(R.loc))
+	if(R.stat == DEAD || !isturf(R.loc) || !R.floorbuffer)
 		return
 	var/turf/tile = R.loc
 	for(var/A in tile)
@@ -474,14 +473,6 @@
 			cleaned_human.clean_blood()
 			to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 
-/obj/item/reagent_containers/spray/cyborg_lube
-	name = "Lube spray"
-	list_reagents = list("lube" = 250)
-
-/obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
-	if(emagged)
-		reagents.check_and_add("lube", volume, 2 * coeff)
-
 // Service cyborg module.
 /obj/item/robot_module/butler
 	name = "service robot module"
@@ -495,7 +486,7 @@
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,
 		/obj/item/reagent_scanner/adv,
-		/obj/item/rsf/cyborg,
+		/obj/item/rsf,
 		/obj/item/reagent_containers/dropper/cyborg,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/bag/tray/cyborg,
@@ -507,8 +498,6 @@
 		/obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
 	)
 
-/obj/item/rsf/cyborg
-	matter = 30
 
 // This is a special type of beer given when emagged, one sip and the target falls asleep.
 /obj/item/reagent_containers/food/drinks/cans/beer/sleepy_beer
@@ -585,6 +574,7 @@
 	if(component_id == "KA modkits")
 		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
 			D.crowbar_act(user, W)
+		to_chat(user, "You remove the KPA modkits.")
 		return TRUE
 	return ..()
 

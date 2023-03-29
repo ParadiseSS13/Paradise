@@ -357,3 +357,19 @@
 	client.prefs.toggles2 ^= PREFTOGGLE_2_ANON
 	to_chat(src, "Your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "no longer" : "now"] be shown in certain events (end round reports, deadchat, etc).</span>")
 	client.prefs.save_preferences(src)
+
+/client/proc/toggle_mctabs()
+	set name = "Show/Hide MC Tabs"
+	set category = "Preferences"
+	set desc = "Shows or hides the MC tabs."
+	prefs.toggles2 ^= PREFTOGGLE_2_MC_TABS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "now" : "no longer"] see the MC tabs on the top right.")
+
+/client/verb/toggle_dance()
+	set name = "Toggle Disco Machine Dancing"
+	set category = "Preferences"
+	set desc = "Toggles automatic dancing from the radiant dance machine"
+	prefs.toggles2 ^= PREFTOGGLE_2_DANCE_DISCO
+	prefs.save_preferences(src)
+	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_DANCE_DISCO) ? "now" : "no longer"] dance to the radiant dance machine.")

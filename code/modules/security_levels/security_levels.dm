@@ -180,7 +180,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			continue
 		A.emergency_lights = FALSE
 		AR.area_emergency_mode = TRUE
-		for(var/obj/machinery/light/L in A.area)
+		for(var/obj/machinery/light/L in A.apc_area)
 			if(L.status)
 				continue
 			if(GLOB.security_level == SEC_LEVEL_DELTA)

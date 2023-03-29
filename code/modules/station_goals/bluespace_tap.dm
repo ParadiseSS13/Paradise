@@ -43,6 +43,7 @@
 
 /obj/item/circuitboard/machine/bluespace_tap
 	board_name = "Bluespace Harvester"
+	icon_state = "command"
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
@@ -133,7 +134,7 @@
 		/mob/living/simple_animal/pet/dog/corgi/ = 5,
 		/mob/living/simple_animal/pet/cat = 5,
 		/mob/living/simple_animal/pet/dog/fox/ = 5,
-		/mob/living/simple_animal/pet/penguin = 5,
+		/mob/living/simple_animal/pet/penguin/baby = 5,
 		/mob/living/simple_animal/pig = 5,
 		/obj/item/slimepotion/sentience = 5,
 		/obj/item/clothing/mask/cigarette/cigar/havana = 3,
@@ -191,7 +192,7 @@
 	pixel_y = -64
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
+	power_state = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -222,7 +223,7 @@
 	var/actual_power_usage = 0
 
 
-	// Tweak these and active_power_usage to balance power generation
+	// Tweak these and active_power_consumption to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
 	var/max_level = 20

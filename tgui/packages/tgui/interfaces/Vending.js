@@ -89,6 +89,7 @@ export const Vending = (props, context) => {
   } = data;
   let inventory;
 
+  inventory = [...product_records];
   if (data.extended_inventory) {
     inventory = [...inventory, ...hidden_records];
   }
@@ -105,6 +106,9 @@ export const Vending = (props, context) => {
                 <br />
                 Your balance is <b>{usermoney} credits</b>.
                 <br />
+              </Box>
+            ))}
+            <Box>
                 There is <b>{inserted_cash} credits </b> of space cash inserted.
                 <br />
                 <Button
@@ -115,7 +119,6 @@ export const Vending = (props, context) => {
                   onClick={() => act('change')}
                 />
               </Box>
-            ))}
           </Section>
         )}
         {!!inserted_item_name && (

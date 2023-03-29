@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(debugview)
 	wait = 1 // SS_TICKER subsystem, so wait is in ticks
 	flags = SS_TICKER|SS_NO_INIT
 	offline_implications = "Shift+F3 will no longer show a debug view. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 	/// List of clients currently processing
 	var/list/client/processing = list()
 

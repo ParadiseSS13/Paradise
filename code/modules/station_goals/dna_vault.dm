@@ -121,6 +121,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 /obj/item/circuitboard/machine/dna_vault
 	board_name = "DNA Vault"
+	icon_state = "command"
 	build_path = /obj/machinery/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -149,7 +150,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	icon_state = "vault"
 	density = TRUE
 	anchored = TRUE
-	idle_power_usage = 5000
+	idle_power_consumption = 5000
 	pixel_x = -32
 	pixel_y = -64
 	luminosity = 1
@@ -195,10 +196,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	icon_state = "vault"
 
 /obj/machinery/dna_vault/power_change()
-	if(powered(power_channel))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 
