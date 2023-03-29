@@ -95,6 +95,12 @@
 	check_flags = 0
 	desc = "Leave body as a nymph."
 
+/datum/action/item_action/organ_action/diona_brain_evacuation/IsAvailable()
+	. = ..()
+	if(owner.mind.suicided)
+		return FALSE
+
+
 /datum/action/item_action/organ_action/diona_brain_evacuation/Trigger()
 	. = ..()
 	var/confirm = alert("Вы уверены, что хотите покинуть свое тело как нимфа? (!Если использовать, пока живы, то лишитесь роли антагониста!)","Confirm evacuation","Yes","No")
