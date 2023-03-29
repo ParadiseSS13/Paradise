@@ -242,10 +242,30 @@
 					for(var/i in 1 to rand(5, 50))
 						new /obj/item/coin/gold(M)
 		if(14)
-			//Free Gun
-			T.visible_message("<span class='userdanger'>An impressive gun appears!</span>")
+			//Tator Item
+			var/traitor_item = pick(/obj/item/chameleon,
+			/obj/item/clothing/shoes/chameleon/noslip,
+			/obj/item/pinpointer/advpinpointer,
+			/obj/item/encryptionkey/syndicate,
+			/obj/item/storage/box/syndie_kit/bonerepair,
+			/obj/item/storage/backpack/duffel/syndie/med/surgery,
+ 			/obj/item/storage/toolbox/syndicate,
+ 			/obj/item/storage/backpack/clown/syndie,
+ 			/obj/item/storage/backpack/satchel_flat,
+ 			/obj/item/camera_bug,
+			/obj/item/storage/belt/military/traitor,
+			/obj/item/clothing/glasses/chameleon/thermal,
+			/obj/item/pen/edagger,
+			/obj/item/borg/upgrade/modkit/indoors,
+			/obj/item/storage/box/syndie_kit/chameleon,
+			/obj/item/storage/box/syndie_kit/hardsuit,
+			/obj/item/implanter/storage,
+			/obj/item/clothing/gloves/fingerless/rapid,
+			/obj/item/gun/projectile/automatic/pistol,
+			/obj/item/toy/syndicateballoon)
+			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")
+			new traitor_item(drop_location())
 			create_smoke(2)
-			new /obj/item/gun/projectile/revolver/mateba(drop_location())
 		if(15)
 			//Random One-use spellbook
 			T.visible_message("<span class='userdanger'>A magical looking book drops to the floor!</span>")
@@ -277,11 +297,10 @@
 			S.target_mob = H
 			user.mind.AddSpell(S)
 		if(17)
-			//Tator Item
-			var/traitor_item = pick(/obj/item/chameleon, /obj/item/borg/upgrade/modkit/indoors, /obj/item/storage/box/syndie_kit/chameleon, /obj/item/encryptionkey/binary, /obj/item/storage/box/syndie_kit/hardsuit, /obj/item/implanter/storage, /obj/item/toy/syndicateballoon)
-			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")
-			new traitor_item(drop_location())
+			//Free Gun
+			T.visible_message("<span class='userdanger'>An impressive gun appears!</span>")
 			create_smoke(2)
+			new /obj/item/gun/projectile/revolver/mateba(drop_location())
 		if(18)
 			//Captain ID
 			T.visible_message("<span class='userdanger'>A golden identification card appears!</span>")
