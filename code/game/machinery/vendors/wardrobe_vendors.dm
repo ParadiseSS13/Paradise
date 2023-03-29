@@ -482,6 +482,7 @@
 	ads_list = list("Our clothes are guaranteed to protect you from food splatters!", "Comfortable enough for a CQC practice!")
 	vend_reply = "Thank you for using the ChefDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/chef = 2,
+					/obj/item/clothing/under/rank/civilian/chef/skirt = 2,
 					/obj/item/clothing/under/misc/waiter = 2,
 					/obj/item/clothing/suit/chef = 2,
 					/obj/item/clothing/suit/chef/classic = 2,
@@ -495,6 +496,7 @@
 					/obj/item/storage/box/dish_drive = 1)
 	contraband = list(/obj/item/toy/figure/crew/chef = 1)
 	prices = list(/obj/item/clothing/under/rank/civilian/chef = 50,
+					/obj/item/clothing/under/rank/civilian/chef/skirt = 50,
 					/obj/item/clothing/under/misc/waiter = 50,
 					/obj/item/clothing/suit/chef = 50,
 					/obj/item/clothing/suit/chef/classic = 50,
@@ -517,6 +519,7 @@
 	ads_list = list("Guaranteed to prevent stains from spilled drinks!")
 	vend_reply = "Thank you for using the BarDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/bartender = 2,
+					/obj/item/clothing/under/rank/civilian/bartender/skirt = 2,
 					/obj/item/clothing/under/misc/sl_suit = 2,
 					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/soft/black = 2,
@@ -528,6 +531,7 @@
 					/obj/item/storage/box/dish_drive = 1)
 	contraband = list(/obj/item/toy/figure/crew/bartender = 1)
 	prices = list(/obj/item/clothing/under/rank/civilian/bartender = 50,
+					/obj/item/clothing/under/rank/civilian/bartender/skirt = 50,
 					/obj/item/clothing/under/misc/sl_suit = 50,
 					/obj/item/clothing/head/that = 20,
 					/obj/item/clothing/head/soft/black = 20,
@@ -548,6 +552,7 @@
 	ads_list = list("Do you love soil? Then buy our clothes!", "Get outfits to match your green thumb here!")
 	vend_reply = "Thank you for using the HydroDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/hydroponics = 3,
+					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 3,
 					/obj/item/reagent_containers/glass/bucket = 3,
 					/obj/item/clothing/suit/apron = 3,
 					/obj/item/clothing/suit/apron/overalls = 3,
@@ -559,6 +564,7 @@
 					/obj/item/storage/backpack/duffel/hydro = 2,)
 	contraband = list(/obj/item/toy/figure/crew/botanist = 1)
 	prices = list(/obj/item/clothing/under/rank/civilian/hydroponics = 50,
+					/obj/item/clothing/under/rank/civilian/hydroponics/skirt = 50,
 					/obj/item/reagent_containers/glass/bucket = 15,
 					/obj/item/clothing/suit/apron = 50,
 					/obj/item/clothing/suit/apron/overalls = 50,

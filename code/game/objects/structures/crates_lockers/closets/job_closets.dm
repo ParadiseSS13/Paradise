@@ -25,6 +25,7 @@
 	new /obj/item/clothing/under/misc/sl_suit(src)
 	new /obj/item/clothing/under/rank/civilian/bartender(src)
 	new /obj/item/clothing/under/rank/civilian/bartender(src)
+	new /obj/item/clothing/under/rank/civilian/bartender/skirt(src)
 	new /obj/item/clothing/under/dress/dress_saloon
 	new /obj/item/clothing/suit/wcoat(src)
 	new /obj/item/clothing/suit/wcoat(src)
@@ -58,6 +59,9 @@
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/clothing/under/rank/civilian/chef(src)
+	new /obj/item/clothing/under/rank/civilian/chef(src)
+	new /obj/item/clothing/under/rank/civilian/chef/skirt(src)
+	new /obj/item/clothing/under/rank/civilian/chef/skirt(src)
 	new /obj/item/clothing/head/chefhat(src)
 	new /obj/item/reagent_containers/glass/rag(src)
 
@@ -102,6 +106,9 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/under/rank/civilian/janitor(src)
+	new /obj/item/clothing/under/rank/civilian/janitor(src)
+	new /obj/item/clothing/under/rank/civilian/janitor/skirt(src)
+	new /obj/item/clothing/under/rank/civilian/janitor/skirt(src)
 	new /obj/item/cartridge/janitor(src)
 
 /*

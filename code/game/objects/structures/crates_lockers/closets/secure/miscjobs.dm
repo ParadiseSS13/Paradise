@@ -31,6 +31,8 @@
 	new /obj/item/clothing/mask/gas/mime(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/under/rank/civilian/mime(src)
+	new /obj/item/clothing/under/rank/civilian/mime/skirt(src)
+	new /obj/item/clothing/under/rank/civilian/mime/sexy(src)
 	new /obj/item/clothing/suit/suspenders(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/black(src)

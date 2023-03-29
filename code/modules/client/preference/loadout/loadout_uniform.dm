@@ -188,6 +188,41 @@
 	path = /obj/item/clothing/under/rank/cargo/quartermaster/skirt
 	allowed_roles = list("Quartermaster")
 
+/datum/gear/uniform/skirt/job/bartender
+	display_name = "Skirt, bartender"
+	path = /obj/item/clothing/under/rank/civilian/bartender/skirt
+	allowed_roles = list("Bartender")
+
+/datum/gear/uniform/skirt/job/botanist
+	display_name = "Skirt, botanist"
+	path = /obj/item/clothing/under/rank/civilian/hydroponics/skirt
+	allowed_roles = list("Botanist")
+
+/datum/gear/uniform/skirt/job/chaplain
+	display_name = "Skirt, chaplain"
+	path = /obj/item/clothing/under/rank/civilian/chaplain/skirt
+	allowed_roles = list("Chaplain")
+
+/datum/gear/uniform/skirt/job/chef
+	display_name = "Skirt, chef"
+	path = /obj/item/clothing/under/rank/civilian/chef/skirt
+	allowed_roles = list("Chef")
+
+/datum/gear/uniform/skirt/job/janitor
+	display_name = "Skirt, janitor"
+	path = /obj/item/clothing/under/rank/civilian/janitor/skirt
+	allowed_roles = list("Janitor")
+
+/datum/gear/uniform/skirt/job/mime
+	display_name = "Skirt, mime"
+	path = /obj/item/clothing/under/rank/civilian/mime/skirt
+	allowed_roles = list("Mime")
+
+/datum/gear/uniform/skirt/job/hop
+	display_name = "Skirt, HoP"
+	path = /obj/item/clothing/under/rank/civilian/hop/skirt
+	allowed_roles = list("Head of Personnel")
+
 /datum/gear/uniform/skirt/job/warden
 	display_name = "Skirt, warden"
 	path = /obj/item/clothing/under/rank/security/warden/skirt

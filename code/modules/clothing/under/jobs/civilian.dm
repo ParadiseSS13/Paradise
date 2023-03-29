@@ -5,53 +5,90 @@
 		"Human" = 'icons/mob/clothing/under/civilian.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/civilian.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/civilian.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/civilian.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/civilian.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/civilian.dmi'
 		)
 
-/obj/item/clothing/under/rank/civilian/head_of_personnel
-	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
+/obj/item/clothing/under/rank/civilian/hop
 	name = "head of personnel's jumpsuit"
+	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
 	icon_state = "hop"
-	item_state = "b_suit"
+	item_state = "hop"
 	item_color = "hop"
 
-/obj/item/clothing/under/rank/civilian/head_of_personnel/dress
+/obj/item/clothing/under/rank/civilian/hop/skirt
+	name = "head of personnel's jumpskirt"
+	desc = "It's a jumpskirt worn by someone who works in the position of \"Head of Personnel\"."
+	icon_state = "hop_skirt"
+	item_state = "hop_skirt"
+	item_color = "hop_skirt"
+
+/obj/item/clothing/under/rank/civilian/hop/formal
+	name = "formal head of personnel uniform"
+	desc = "A formal uniform for the Head of Personnel."
+	icon_state = "hop_formal"
+	item_state = "hop_formal"
+	item_color = "hop_formal"
+
+/obj/item/clothing/under/rank/civilian/hop/dress
 	name = "head of personal's dress uniform"
 	desc = "Feminine fashion for the style conscious HoP."
-	icon_state = "dress_hop"
-	item_color = "dress_hop"
+	icon_state = "hop_dress"
+	item_state = "hop_dress"
+	item_color = "hop_dress"
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel_whimsy
-	desc = "A blue jacket and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
 	name = "head of personnel's suit"
+	desc = "A blue jacket and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
 	icon_state = "hopwhimsy"
 	item_state = "hopwhimsy"
 	item_color = "hopwhimsy"
 
 /obj/item/clothing/under/rank/civilian/bartender
-	desc = "It looks like it could use some more flair."
 	name = "bartender's uniform"
-	icon_state = "ba_suit"
-	item_state = "ba_suit"
-	item_color = "ba_suit"
+	desc = "It looks like it could use some more flair."
+	icon_state = "bartender"
+	item_state = "bartender"
+	item_color = "bartender"
 
+/obj/item/clothing/under/rank/civilian/bartender/skirt
+	name = "bartender's skirt"
+	desc = "It looks like it could use some more flair."
+	icon_state = "bartender_skirt"
+	item_state = "bartender_skirt"
+	item_color = "bartender_skirt"
 
 /obj/item/clothing/under/rank/civilian/chaplain
-	desc = "It's a black jumpsuit, often worn by religious folk."
 	name = "chaplain's jumpsuit"
+	desc = "It's a black jumpsuit, often worn by religious folk."
 	icon_state = "chaplain"
-	item_state = "bl_suit"
-	item_color = "chapblack"
+	item_state = "chaplain"
+	item_color = "chaplain"
 
 /obj/item/clothing/under/rank/civilian/chaplain/sensor
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
 
+/obj/item/clothing/under/rank/civilian/chaplain/skirt
+	name = "chaplain's jumpskirt"
+	desc = "It's a black jumpskirt, often worn by religious folk."
+	icon_state = "chaplain_skirt"
+	item_state = "chaplain_skirt"
+	item_color = "chaplain_skirt"
+
 /obj/item/clothing/under/rank/civilian/chef
-	desc = "It's an apron which is given only to the most <b>hardcore</b> chefs in space."
 	name = "chef's uniform"
+	desc = "A white shirt and black slacks for the humble chef."
 	icon_state = "chef"
+	item_state = "chef"
 	item_color = "chef"
+
+/obj/item/clothing/under/rank/civilian/chef/skirt
+	name = "chef's skirt"
+	desc = "A white shirt and black skirt for the humble chef."
+	icon_state = "chef_skirt"
+	item_state = "chef_skirt"
+	item_color = "chef_skirt"
 
 /obj/item/clothing/under/rank/civilian/clown
 	name = "clown suit"
@@ -88,6 +125,13 @@
 	item_state = "mime"
 	item_color = "mime"
 
+/obj/item/clothing/under/rank/civilian/mime/skirt
+	name = "mime's skirt"
+	desc = "It's not very colourful."
+	icon_state = "mime_skirt"
+	item_state = "mime_skirt"
+	item_color = "mime_skirt"
+
 /obj/item/clothing/under/rank/civilian/mime/sexy
 	name = "sexy mime outfit"
 	desc = "The only time when you DON'T enjoy looking at someone's rack."
@@ -97,18 +141,35 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/rank/civilian/hydroponics
-	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
 	name = "botanist's jumpsuit"
+	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
 	icon_state = "hydroponics"
-	item_state = "g_suit"
+	item_state = "hydroponics"
 	item_color = "hydroponics"
 	permeability_coefficient = 0.50
 
+/obj/item/clothing/under/rank/civilian/hydroponics/skirt
+	name = "botanist's jumpskirt"
+	desc = "It's a jumpskirt designed to protect against minor plant-based hazards."
+	icon_state = "hydroponics_skirt"
+	item_state = "hydroponics_skirt"
+	item_color = "hydroponics_skirt"
+	permeability_coefficient = 0.50
+
 /obj/item/clothing/under/rank/civilian/janitor
-	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
 	name = "janitor's jumpsuit"
+	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
 	icon_state = "janitor"
+	item_state = "janitor"
 	item_color = "janitor"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
+
+/obj/item/clothing/under/rank/civilian/janitor/skirt
+	name = "janitor's jumpskirt"
+	desc = "It's a skirt version of the janitor's uniform with leggings. It has minor protection from biohazards."
+	icon_state = "janitor_skirt"
+	item_state = "janitor_skirt"
+	item_color = "janitor_skirt"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/civilian/librarian
