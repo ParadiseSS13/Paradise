@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A bio-chip injected into the body and later activated manually to break out of any restraints or grabs. Can be activated up to 4 times."
 	reference = "FI"
 	item = /obj/item/implanter/freedom
-	cost = 6
+	cost = 5
 
 /datum/uplink_item/implants/storage
 	name = "Storage Bio-chip"
