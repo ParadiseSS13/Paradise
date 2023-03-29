@@ -636,7 +636,7 @@
 	result = /obj/item/reagent_containers/food/snacks/smokedsausage
 
 /datum/recipe/oven/salami
-	reagents = list("garlicsauce" = 5)
+	reagents = list("gsauce" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/smokedsausage
 	)
