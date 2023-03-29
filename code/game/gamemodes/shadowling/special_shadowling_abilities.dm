@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				charge_counter = charge_max
 				return
 			if("Yes")
-				H.canmove = FALSE
+				H.Stun(INFINITY)
 				H.visible_message("<span class='warning'>[H]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 									"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
@@ -41,8 +41,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				for(var/obj/structure/alien/resin/wall/shadowling/R in shadowturf) //extremely hacky
 					qdel(R)
 					new /obj/structure/alien/weeds/node(shadowturf) //Dim lighting in the chrysalis -- removes itself afterwards
-				var/temp_flags = H.status_flags
-				H.status_flags |= GODMODE //Can't die while hatching
+				//Can't die while hatching
+				H.dna.species.brute_mod = 0;
+				H.dna.species.burn_mod = 0;
+				H.dna.species.tox_mod = 0;
+				H.dna.species.oxy_mod = 0;
+				H.dna.species.clone_mod = 0;
+				H.dna.species.brain_mod = 0;
 
 				H.visible_message("<span class='warning'>A chrysalis forms around [H], sealing [H.p_them()] inside.</span>", \
 									"<span class='shadowling'>You create your chrysalis and begin to contort within.</span>")
@@ -64,7 +69,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				sleep(10)
 				playsound(H.loc, 'sound/weapons/slice.ogg', 25, 1)
 				to_chat(H, "<i><b>You are free!</b></i>")
-				H.status_flags = temp_flags
 				sleep(10)
 				playsound(H.loc, 'sound/effects/ghost.ogg', 50, TRUE)
 				var/newNameId = pick(GLOB.possibleShadowlingNames)
@@ -73,7 +77,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.name = user.real_name
 				H.SetStunned(0)
 				to_chat(H, "<i><b><font size=3>YOU LIVE!!!</i></b></font>")
-				H.canmove = TRUE
 				for(var/obj/structure/alien/resin/wall/shadowling/W in orange(H, 1))
 					playsound(W, 'sound/effects/splat.ogg', 50, 1)
 					qdel(W)
