@@ -3,6 +3,8 @@
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
 	input_focus = null
+	if(s_active)
+		s_active.close(src)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -604,10 +606,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
-	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
-	if(client)
-		client.update_description_holders(A, is_antag)
-
 	face_atom(A)
 	var/list/result = A.examine(src)
 	to_chat(src, result.Join("\n"))
@@ -1167,13 +1165,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
+			if(!(is_station_level(L.z) || is_admin_level(L.z))) // Prevents players from spawning in space
+				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				remove_from_respawnable_list()
-				become_mouse()
+				if(become_mouse()) // Only remove respawnability if the player successfully becomes a mouse
+					remove_from_respawnable_list()
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
@@ -1183,24 +1183,30 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
 
-
+/**
+ * Returns true if the player successfully becomes a mouse
+ */
 /mob/proc/become_mouse()
 	var/timedifference = world.time - client.time_died_as_mouse
 	if(client.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
-		var/timedifference_text
-		timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
+		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
 		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
-		return
+		return FALSE
 
 	//find a viable mouse candidate
-	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0)
-	if(length(found_vents))
-		var/obj/vent_found = pick(found_vents)
-		var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
-		host.ckey = src.ckey
-		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
-	else
-		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+	var/list/found_vents = get_valid_vent_spawns()
+	if(!length(found_vents))
+		found_vents = get_valid_vent_spawns(min_network_size = 0)
+		if(!length(found_vents))
+			to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+			return FALSE
+	var/obj/vent_found = pick(found_vents)
+	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+	host.ckey = src.ckey
+	to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+	host.forceMove(vent_found)
+	host.add_ventcrawl(vent_found)
+	return TRUE
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return 5
@@ -1566,7 +1572,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	add_to_all_human_data_huds()
 
 /mob/proc/make_invisible()
-	invisibility = INVISIBILITY_OBSERVER
+	invisibility = INVISIBILITY_LEVEL_TWO
 	alpha = 128
 	remove_from_all_data_huds()
 

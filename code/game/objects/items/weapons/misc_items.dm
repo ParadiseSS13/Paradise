@@ -39,7 +39,7 @@
 /obj/item/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "c_tube"
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY

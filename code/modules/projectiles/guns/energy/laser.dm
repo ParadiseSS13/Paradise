@@ -36,8 +36,13 @@
 	selfcharge = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/gun/energy/laser/captain/detailed_examine()
-	return "This is an energy weapon. Most energy weapons can fire through windows harmlessly. Unlike most weapons, this weapon recharges itself."
+/obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
+/obj/item/gun/energy/laser/captain/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The power cell of this item slowly recharges on it's own. This caused the station pictured to explode. Cannot be recharged in a recharger.</span>"
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
