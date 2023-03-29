@@ -341,3 +341,22 @@
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon()
 	..()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+
+//Semi-Machine Gun SFG
+
+/obj/item/gun/projectile/automatic/sfg
+	name = "SFG-5 SMG"
+	desc = "Данное оружие, созданное для различных спецслужб по всей галактике одной компанией, имеет в качестве калибра 9мм, возможность стрельбы очередями отсечкой по 3 патрона и имеет место для фонарика и глушителя."
+	icon_state = "sfg-5"
+	item_state = "sfg-5"
+	mag_type = /obj/item/ammo_box/magazine/sfg9mm
+	burst_size = 3
+	can_flashlight = TRUE
+
+/obj/item/gun/projectile/automatic/sfg/update_icon()
+	..()
+	if(gun_light)
+		var/iconF = "sfg-light"
+		if(gun_light.on)
+			iconF = "sfg-light-on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)

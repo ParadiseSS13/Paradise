@@ -323,6 +323,17 @@
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count()+1,4)]"
 
+/obj/item/ammo_box/magazine/sfg9mm
+	icon_state = "sfg5"
+	name = "SFG Magazine (9mm)"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/sfg9mm/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(), 30)]"
+
 /obj/item/ammo_box/magazine/pistolm9mm
 	name = "pistol magazine (9mm)"
 	icon_state = "9x19p-8"
