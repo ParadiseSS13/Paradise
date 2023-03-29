@@ -265,9 +265,14 @@
 			create_smoke(2)
 		if(15)
 			//Random One-use spellbook
+			var/selected_spellbook = pick(/obj/item/spellbook/oneuse/smoke,
+				/obj/item/spellbook/oneuse/blind,
+				/obj/item/spellbook/oneuse/forcewall,
+				/obj/item/spellbook/oneuse/knock,
+				/obj/item/spellbook/oneuse/summonitem)
 			T.visible_message("<span class='userdanger'>A magical looking book drops to the floor!</span>")
 			create_smoke(2)
-			new /obj/item/spellbook/oneuse/random(drop_location())
+			new selected_spellbook(drop_location())
 		if(16)
 			//Servant & Servant Summon
 			T.visible_message("<span class='userdanger'>A Dice Servant appears in a cloud of smoke!</span>")
@@ -297,7 +302,7 @@
 			//Free Gun
 			T.visible_message("<span class='userdanger'>An impressive gun appears!</span>")
 			create_smoke(2)
-			new /obj/item/gun/projectile/revolver/mateba(drop_location())
+			new /obj/item/gun/energy/alien(drop_location())
 		if(18)
 			//Captain ID
 			T.visible_message("<span class='userdanger'>A golden identification card appears!</span>")
