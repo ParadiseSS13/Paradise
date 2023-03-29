@@ -130,7 +130,7 @@
 /obj/item/trash/doshik
 	name = "packaging from doshik"
 	icon_state = "doshik"
-	desc = "Still have delicious smell."
+	desc = "Still has a delicious smell."
 
 /obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
 	return
