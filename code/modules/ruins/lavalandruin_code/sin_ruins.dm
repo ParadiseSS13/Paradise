@@ -21,7 +21,10 @@
 		return
 
 	in_use = TRUE
-	user.adjustCloneLoss(20)
+	if(!ismachineperson(user))
+		user.adjustCloneLoss(20)
+	else
+		user.emp_act(EMP_LIGHT)
 	if(user.stat)
 		to_chat(user, "<span class='userdanger'>No... just one more try...</span>")
 		user.gib()
