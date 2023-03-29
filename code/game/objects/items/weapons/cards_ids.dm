@@ -89,9 +89,8 @@
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
 
-/obj/item/card/cmag/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
+/obj/item/card/cmag/ComponentInitialize()
+	AddComponent(/datum/component/slippery, src, 4, 4, 100, 0, FALSE)
 
 /obj/item/card/cmag/attack()
 	return
