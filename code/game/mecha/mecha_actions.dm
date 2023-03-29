@@ -19,7 +19,7 @@
 	internals_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
-	for(var/obj/item/mecha_parts/mecha_equipment/thrusters/thrusters in equipment)
+	if(locate(/obj/item/mecha_parts/mecha_equipment/thrusters) in equipment)
 		add_thrusters()
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
@@ -28,8 +28,7 @@
 	internals_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
-	for(var/obj/item/mecha_parts/mecha_equipment/thrusters/thrusters in equipment)
-		remove_thrusters()
+	thrusters_action.Remove(user)
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS

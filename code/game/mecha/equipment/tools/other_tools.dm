@@ -450,8 +450,8 @@
 	M.thruster_count++
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/detach(atom/moveto)
-	chassis.remove_thrusters()
 	chassis.thruster_count--
+	chassis.remove_thrusters()
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 
@@ -467,7 +467,7 @@
 		thrusters_action.Grant(occupant, src)
 
 /obj/mecha/proc/remove_thrusters()
-	if(occupant)
+	if(occupant && !thruster_count)
 		thrusters_action.Remove(occupant)
 
 #undef MECH_GRAVCAT_MODE_GRAVSLING
