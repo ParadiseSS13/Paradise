@@ -238,6 +238,7 @@
 /obj/machinery/cryopod/Initialize(mapload)
 	. = ..()
 	announce = new /obj/item/radio/intercom(src)
+	announce.follow_target = src
 	icon_state = base_icon_state
 	find_control_computer()
 

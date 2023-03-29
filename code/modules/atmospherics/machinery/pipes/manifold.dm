@@ -30,8 +30,9 @@
 		if(WEST)
 			initialize_directions = NORTH|EAST|SOUTH
 
-/obj/machinery/atmospherics/pipe/manifold/detailed_examine()
-	return "A normal pipe with three ends to connect to."
+/obj/machinery/atmospherics/pipe/manifold/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A pipe with three ends to connect to.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()
@@ -155,32 +156,38 @@
 /obj/machinery/atmospherics/pipe/manifold/visible
 	icon_state = "map"
 	level = 2
+	plane = GAME_PLANE
+	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers
 	name="Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
-	layer = 2.38
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
-/obj/machinery/atmospherics/pipe/manifold/visible/scrubbers/detailed_examine()
-	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/manifold/visible/scrubbers/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
-	layer = 2.39
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
-/obj/machinery/atmospherics/pipe/manifold/visible/supply/detailed_examine()
-	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/manifold/visible/supply/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow
 	color = PIPE_COLOR_YELLOW
@@ -204,32 +211,38 @@
 	icon_state = "map"
 	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
+	plane = FLOOR_PLANE
+	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
 	name="Scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
-	layer = 2.38
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
+	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers/detailed_examine()
-	return "This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
 	name="Air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
-	layer = 2.39
+	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
+	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply/detailed_examine()
-	return "This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
-			a Universal Adapter pipe."
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use \
+			a Universal Adapter pipe.</span>"
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/yellow
 	color = PIPE_COLOR_YELLOW

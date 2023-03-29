@@ -109,15 +109,6 @@
 	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_DISABLE_SCOREBOARD) ? "no longer" : "now"] see the end of round scoreboard.")
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Scoreboard") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/verb/togglekarmareminder()
-	set name = "Hide/Display End Round Karma Reminder"
-	set category = "Preferences"
-	set desc = "Toggles displaying end of round karma reminder"
-	prefs.toggles ^= PREFTOGGLE_DISABLE_KARMA_REMINDER
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_DISABLE_KARMA_REMINDER) ? "no longer" : "now"] see the end of round karma reminder.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Karma Reminder") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence LobbyMusic"
 	set category = "Preferences"
@@ -253,17 +244,6 @@
 	else
 		deactivate_darkmode()
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/toggle_karma()
-	set name = "Toggle Karma Gains"
-	set category = "Special Verbs"
-	set desc = "This button will allow you to stop other people giving you karma."
-	prefs.toggles ^= PREFTOGGLE_DISABLE_KARMA
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA)
-		to_chat(usr, "<span class='notice'>You have disabled karma gains.")
-	else
-		to_chat(usr, "<span class='notice'>You have enabled karma gains.")
 
 /client/verb/toggle_popup_limiter()
 	set name = "Toggle Text Popup Limiter"

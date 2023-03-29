@@ -94,6 +94,12 @@
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
 
+/mob/living/carbon/human/skeleton/lich/Initialize(mapload)
+	. = ..(mapload, /datum/species/skeleton/lich)
+
+/mob/living/carbon/human/skeleton/brittle/Initialize(mapload)
+	. = ..(mapload, /datum/species/skeleton/brittle)
+
 /mob/living/carbon/human/kidan/Initialize(mapload)
 	. = ..(mapload, /datum/species/kidan)
 
