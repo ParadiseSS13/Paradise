@@ -244,9 +244,9 @@
 		if(14)
 			//Tator Item
 			var/traitor_item = pick(/obj/item/chameleon,
+			/obj/item/chameleon_counterfeiter,
 			/obj/item/clothing/shoes/chameleon/noslip,
 			/obj/item/pinpointer/advpinpointer,
-			/obj/item/encryptionkey/syndicate,
 			/obj/item/storage/box/syndie_kit/bonerepair,
 			/obj/item/storage/backpack/duffel/syndie/med/surgery,
  			/obj/item/storage/toolbox/syndicate,
