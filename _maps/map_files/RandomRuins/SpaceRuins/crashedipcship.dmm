@@ -590,7 +590,7 @@
 	equipment = 0;
 	lighting = 0;
 	start_charge = 0;
-	req_access = list(111);
+	req_one_access = list(111);
 	name = "IPC area power controller"
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -992,7 +992,7 @@
 	equipment = 0;
 	lighting = 0;
 	start_charge = 0;
-	req_access = list(111);
+	req_one_access = list(111);
 	name = "IPC area power controller";
 	pixel_x = -28;
 	dir = 8
@@ -2380,7 +2380,7 @@
 	equipment = 0;
 	lighting = 0;
 	start_charge = 0;
-	req_access = list(111);
+	req_one_access = list(111);
 	name = "IPC area power controller";
 	pixel_y = 28;
 	dir = 1

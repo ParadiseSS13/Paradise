@@ -21,7 +21,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	req_one_access = list(31)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
@@ -57,7 +57,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	req_one_access = list(31)
 	},
 /obj/docking_port/mobile/supply{
 	timid = 1

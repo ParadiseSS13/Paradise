@@ -612,8 +612,7 @@
 /area/awaymission/example)
 "bF" = (
 /obj/machinery/door/airlock{
-	name = "Unisex Restrooms";
-	req_access_txt = "0"
+	name = "Unisex Restrooms"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)

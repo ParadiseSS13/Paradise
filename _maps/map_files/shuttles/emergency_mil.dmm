@@ -351,7 +351,7 @@
 "bc" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_one_access = list(2)
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -367,7 +367,7 @@
 "bf" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	req_one_access = list(19)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -378,7 +378,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "ShuttleMedbay";
 	name = "Shuttle Medbay";
-	req_access_txt = "5"
+	req_one_access = list(5)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

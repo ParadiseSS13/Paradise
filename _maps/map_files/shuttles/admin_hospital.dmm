@@ -3,7 +3,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
 	name = "NHV Asclepius";
-	req_access = "101"
+	req_one_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -260,7 +260,7 @@
 	id_tag = "adminshuttle";
 	name = "Bridge";
 	opacity = 1;
-	req_access_txt = "101"
+	req_one_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;
@@ -289,7 +289,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_inner";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_one_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -475,7 +475,7 @@
 "cu" = (
 /obj/machinery/door/airlock/hatch{
 	name = "NHV Asclepius";
-	req_access = "101"
+	req_one_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -664,7 +664,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_inner";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_one_access = list(101)
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -672,7 +672,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_one_access_txt = "101"
+	req_one_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -729,7 +729,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_outer";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_one_access = list(101)
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -737,7 +737,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_one_access_txt = "101"
+	req_one_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -788,8 +788,7 @@
 "AE" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "Operating Room";
-	req_access = null;
-	req_access_txt = "45"
+	req_one_access = list(45)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -810,7 +809,7 @@
 	name = "Shuttle Blast Door Control";
 	pixel_x = -26;
 	pixel_y = 25;
-	req_access_txt = "19"
+	req_one_access = list(19)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -832,7 +831,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_air_control";
 	pixel_y = 24;
-	req_access_txt = "152";
+	req_one_access = list(152);
 	tag_airpump = "admin_s_pump";
 	tag_chamber_sensor = "admin_s_sensor";
 	tag_exterior_door = "admin_s_outer";
@@ -988,7 +987,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_outer";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_one_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1017,7 +1016,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_sensor";
 	pixel_y = 26;
-	req_access_txt = "101"
+	req_one_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"

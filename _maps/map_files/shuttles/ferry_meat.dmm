@@ -167,7 +167,7 @@
 "x" = (
 /obj/machinery/door/airlock/freezer{
 	name = "Meat tadeship backroom";
-	req_access = "28"
+	req_one_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

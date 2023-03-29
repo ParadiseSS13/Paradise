@@ -50,7 +50,7 @@
 	dir = 1;
 	environ = 0;
 	locked = 0;
-	req_access = ""
+	req_one_access = list()
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
@@ -1533,7 +1533,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	locked = 0;
-	req_access = ""
+	req_one_access = list()
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -2719,7 +2719,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	locked = 0;
-	req_access = ""
+	req_one_access = list()
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/academyaft)
@@ -3826,7 +3826,7 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	locked = 0;
-	req_access = ""
+	req_one_access = list()
 	},
 /obj/structure/cable{
 	d2 = 2;
