@@ -95,3 +95,28 @@
 	var/mob/living/silicon/robot/bot = user
 	if(!istype(bot) || !istype(bot.module, /obj/item/robot_module/security))
 		return FALSE
+
+
+/datum/emote/living/silicon/dap
+	key = "dap"
+	key_third_person = "daps"
+	cooldown = 5 SECONDS
+	/// Status effect to apply when this emote is used. Should be a subtype
+	var/status = STATUS_EFFECT_DAP
+
+/datum/emote/living/silicon/dap/can_run_emote(mob/user, status_check, intentional)
+	. = ..()
+	var/mob/living/silicon/robot/bot = user
+	// only service borgs
+	if(!istype(bot) || !istype(bot.module, /obj/item/robot_module/butler))
+		return FALSE
+
+
+/datum/emote/living/silicon/dap/run_emote(mob/user, params, type_override, intentional)
+	var/mob/living/silicon/user_carbon = user
+	if(user_carbon.has_status_effect(status))
+		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to [key].")
+		return TRUE
+	user_carbon.apply_status_effect(status)
+
+	return ..()
