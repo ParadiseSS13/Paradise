@@ -292,13 +292,12 @@
 			T.visible_message("<span class='userdanger'>[user] looks very robust!</span>")
 			user.physiology.brute_mod *= 0.5
 			user.physiology.burn_mod *= 0.5
-
 		if(20)
 			//Three free good dice rolls!
 			T.visible_message("<span class='userdanger'>Critical number! [src] is rolling three times all by himself!</span>")
 			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 1 SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 1 SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 2 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 3 SECONDS)
 
 /obj/item/dice/d100
 	name = "d100"
