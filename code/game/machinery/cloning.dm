@@ -70,6 +70,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	Radio = new /obj/item/radio(src)
 	Radio.listening = FALSE
 	Radio.config(list("Medical" = 0))
+	Radio.follow_target = src
 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
