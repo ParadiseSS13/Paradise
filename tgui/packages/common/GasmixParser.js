@@ -19,14 +19,14 @@ export const GasmixParser = (props, context) => {
           {gasmixes[0].oxygen.toFixed(2) + ' mol (' + (gasmixes[0].oxygen / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
         </LabeledList.Item>
       ) : ('')}
-      {gasmixes[0].carbon_dioxide ? (
-        <LabeledList.Item label={'Carbon Dioxide'}>
-          {gasmixes[0].carbon_dioxide.toFixed(2) + ' mol (' + (gasmixes[0].carbon_dioxide / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
-        </LabeledList.Item>
-      ) : ('')}
       {gasmixes[0].nitrogen ? (
         <LabeledList.Item label={'Nitrogen'}>
           {gasmixes[0].nitrogen.toFixed(2) + ' mol (' + (gasmixes[0].nitrogen / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
+        </LabeledList.Item>
+      ) : ('')}
+      {gasmixes[0].carbon_dioxide ? (
+        <LabeledList.Item label={'Carbon Dioxide'}>
+          {gasmixes[0].carbon_dioxide.toFixed(2) + ' mol (' + (gasmixes[0].carbon_dioxide / gasmixes[0].total_moles).toFixed(2) * 100 + ' %)'}
         </LabeledList.Item>
       ) : ('')}
       {gasmixes[0].toxins ? (
