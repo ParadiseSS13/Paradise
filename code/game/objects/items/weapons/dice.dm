@@ -182,7 +182,7 @@
 			//Swarm of creatures
 			T.visible_message("<span class='userdanger'>A swarm of creatures surround [user]!</span>")
 			for(var/direction in GLOB.alldirs)
-				new /mob/living/simple_animal/hostile/netherworld(get_step(get_turf(user),direction))
+				new /mob/living/simple_animal/hostile/netherworld(get_step(get_turf(user), direction))
 		if(4)
 			//Destroy Equipment
 			T.visible_message("<span class='userdanger'>Everything [user] is holding and wearing disappears!</span>")
@@ -210,7 +210,7 @@
 		if(8)
 			//Fueltank Explosion
 			T.visible_message("<span class='userdanger'>An explosion bursts into existence around [user]!</span>")
-			explosion(get_turf(user),-1,0,2, flame_range = 2)
+			explosion(get_turf(user), -1, 0, 2, flame_range = 2)
 		if(9)
 			//Cold
 			var/datum/disease/D = new /datum/disease/cold()
@@ -234,12 +234,12 @@
 			T.visible_message("<span class='userdanger'>Mad dosh shoots out of [src]!</span>")
 			var/turf/Start = get_turf(src)
 			for(var/direction in GLOB.alldirs)
-				var/turf/dirturf = get_step(Start,direction)
+				var/turf/dirturf = get_step(Start, direction)
 				if(prob(50))
 					new /obj/item/stack/spacecash/c1000(dirturf)
 				else
 					var/obj/item/storage/bag/money/M = new(dirturf)
-					for(var/i in 1 to rand(5,50))
+					for(var/i in 1 to rand(5, 50))
 						new /obj/item/coin/gold(M)
 		if(14)
 			//Free Gun
@@ -276,11 +276,11 @@
 			var/obj/effect/proc_holder/spell/summonmob/S = new
 			S.target_mob = H
 			user.mind.AddSpell(S)
-
 		if(17)
-			//Tator Kit
-			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
-			new /obj/item/storage/box/syndie_kit/bundle(drop_location())
+			//Tator Item
+			var/traitor_item = pick(/obj/item/chameleon, /obj/item/borg/upgrade/modkit/indoors, /obj/item/storage/box/syndie_kit/chameleon, /obj/item/encryptionkey/binary, /obj/item/storage/box/syndie_kit/hardsuit, /obj/item/implanter/storage, /obj/item/toy/syndicateballoon)
+			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")
+			new traitor_item(drop_location())
 			create_smoke(2)
 		if(18)
 			//Captain ID
@@ -294,9 +294,11 @@
 			user.physiology.burn_mod *= 0.5
 
 		if(20)
-			//Free wizard!
-			T.visible_message("<span class='userdanger'>Magic flows out of [src] and into [user]!</span>")
-			user.mind.make_Wizard()
+			//Three free good dice rolls!
+			T.visible_message("<span class='userdanger'>Critical number! [src] is rolling three times all by himself!</span>")
+			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(effect), user, rand(1, 9) + 10), 1 SECONDS)
 
 /obj/item/dice/d100
 	name = "d100"

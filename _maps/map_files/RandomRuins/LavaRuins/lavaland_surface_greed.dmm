@@ -72,7 +72,7 @@
 /area/ruin/powered/greed)
 "n" = (
 /obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c1000,
+/obj/item/stack/spacecash/c500,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
 "o" = (
@@ -98,7 +98,6 @@
 /obj/structure/table/wood/poker,
 /obj/item/stack/spacecash/c500,
 /obj/item/stack/spacecash/c100,
-/obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
 "s" = (
@@ -108,9 +107,7 @@
 /area/ruin/powered/greed)
 "u" = (
 /obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c500,
 /obj/item/stack/spacecash/c100,
-/obj/item/stack/spacecash/c1000,
 /obj/machinery/light/small{
 	dir = 4
 	},
