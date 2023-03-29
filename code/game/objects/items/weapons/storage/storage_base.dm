@@ -382,12 +382,6 @@
 					to_chat(usr, "<span class='warning'>[src] rejects [I] because of its contents.</span>")
 				return FALSE
 
-	if(istype(src, /obj/item/storage/belt) && isstorage(loc)) //You shouldnt be able to bypass belt in bag storage
-		if(!(istype(src, /obj/item/storage/belt/military/traitor) || istype(src, /obj/item/storage/belt/utility/chief)))
-			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
-			return FALSE
-
 	if(I.w_class > max_w_class)
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")

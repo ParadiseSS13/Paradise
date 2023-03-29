@@ -26,6 +26,14 @@
 
 	w_class = WEIGHT_CLASS_BULKY
 
+/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(isstorage(loc))
+		if(!storable)
+			if(!stop_messages)
+				to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+    return FALSE
+  . = ..()
+
 /obj/item/storage/belt/Initialize(mapload)
 	. = ..()
 	update_weight()
