@@ -124,7 +124,7 @@
 	/// settings variable for having the APC auto use certain power channel settings
 	var/autoflag = APC_AUTOFLAG_ALL_OFF		// 0 = off, 1= eqp and lights off, 2 = eqp off, 3 = all on.
 
-	// being hijacked by a pulse demon?
+	/// Being hijacked by a pulse demon?
 	var/being_hijacked = FALSE
 
 	/*** APC Malf AI Vars ****/

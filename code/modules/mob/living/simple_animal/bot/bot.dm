@@ -41,7 +41,8 @@
 	var/open = FALSE //Maint panel
 	var/locked = TRUE
 	var/hacked = FALSE //Used to differentiate between being hacked by silicons and emagged by humans.
-	var/hijacked = FALSE // for pulse demon
+	/// Is currently hijacked by a pulse demon?
+	var/hijacked = FALSE
 	var/text_hack = ""		//Custom text returned to a silicon upon hacking a bot.
 	var/text_dehack = "" 	//Text shown when resetting a bots hacked status to normal.
 	var/text_dehack_fail = "" //Shown when a silicon tries to reset a bot emagged with the emag item, which cannot be reset.

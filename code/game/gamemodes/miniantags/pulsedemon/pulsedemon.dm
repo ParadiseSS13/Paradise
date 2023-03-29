@@ -59,31 +59,43 @@
 
 	var/charge = 1000
 	var/maxcharge = 1000
-	var/charge_drained = 0 // objective book keeping
+	/// Book keeping for objective win conditions.
+	var/charge_drained = 0
 	var/do_drain = TRUE
-	var/power_drain_rate = 1000 // amount of power taken per tick
+	/// Amount of power (in watts) to drain from power sources every Life tick.
+	var/power_drain_rate = 1000
 
+	/// Amount of power (in watts) required to regenerate health.
 	var/power_per_regen = 1000
 	var/health_loss_rate = 5
 	var/health_regen_rate = 3
-	var/regen_lock = 0 // health regen locked for a time after being EMP'd
+	/// Lock health regeneration while this is not 0, decreases by 1 every Life tick.
+	var/regen_lock = 0
 
 	var/can_exit_cable = FALSE
 	var/inside_cable_speed = -1
 	var/outside_cable_speed = 4
 
+	/// The time it takes to hijack APCs and cyborgs.
 	var/hijack_time = 30 SECONDS
 
 	var/glow_color = "#bbbb00" // for varedit funsies
 
-	var/area/controlling_area // maintain this while doing area machinery actions
-	var/obj/structure/cable/current_cable // inhabited wire
-	var/obj/machinery/power/current_power // inhabited machine
-	var/obj/item/current_weapon // inhabited (energy) gun
-	var/mob/living/silicon/robot/current_robot // inhabited cyborg
-	var/mob/living/simple_animal/bot/current_bot // inhabited bot
+	/// Area being controlled, should be maintained as long as the demon does not move outside a container (APC, object, robot, bot).
+	var/area/controlling_area
+	/// Inhabited cable, only maintained while on top of the cable.
+	var/obj/structure/cable/current_cable
+	/// Inhabited power source, maintained while inside, or while inside its area if it is an APC.
+	var/obj/machinery/power/current_power
+	/// Inhabited item, only items which can be used in rechargers can be hijacked. Only maintained while inside the item.
+	var/obj/item/current_weapon
+	/// Inhabited cyborg, only maintained while inside the cyborg.
+	var/mob/living/silicon/robot/current_robot
+	/// Inhabited bot, only maintained while inside the bot.
+	var/mob/living/simple_animal/bot/current_bot
 
 	var/bot_movedelay = 0
+	/// A cyborg that has already been hijacked can be re-entered instantly.
 	var/list/mob/living/silicon/robot/hijacked_robots
 
 	var/list/image/images_shown
@@ -122,7 +134,7 @@
 	else
 		forceMove(current_power)
 	update_glow()
-	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/effects/eleczap.ogg', 50, TRUE)
 	give_spells()
 
 /mob/living/simple_animal/pulse_demon/vv_edit_var(var_name, var_value)
@@ -153,12 +165,12 @@
 	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
 
 	var/i = 1
-	var/list/ject_types = list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper)
-	for(var/p in ject_types)
-		var/datum/objective/jective = new p
-		jective.owner = mind
-		mind.objectives += jective
-		to_chat(src, "<b>Objective #[i++]</b>: [jective.explanation_text]")
+	var/list/objective_types = list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper)
+	for(var/p in objective_types)
+		var/datum/objective/objective_to_give = new p
+		objective_to_give.owner = mind
+		mind.objectives += objective_to_give
+		to_chat(src, "<b>Objective #[i++]</b>: [objective_to_give.explanation_text]")
 	SSticker.mode.traitors |= mind
 
 /mob/living/simple_animal/pulse_demon/proc/give_spells()
@@ -198,7 +210,7 @@
 	var/heavy_radius = min(charge / 50000, 20)
 	var/light_radius = min(charge / 25000, 25)
 	empulse(T, heavy_radius, light_radius)
-	playsound(T, pick(hurt_sounds), 50, 1)
+	playsound(T, pick(hurt_sounds), 50, TRUE)
 
 /mob/living/simple_animal/pulse_demon/proc/exit_to_turf(atom/oldloc)
 	var/turf/T = get_turf(loc)
@@ -275,7 +287,7 @@
 		current_power = new_power
 		current_cable = null
 		forceMove(current_power) // we go inside the machine
-		playsound(src, 'sound/effects/eleczap.ogg', 50, 1)
+		playsound(src, 'sound/effects/eleczap.ogg', 50, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		if(isapc(current_power))
 			if(current_power in hijacked_apcs)
@@ -304,7 +316,7 @@
 	var/turf/T = get_turf(src)
 	var/turf/T2 = get_step(T, dir)
 	if(demon.can_exit_cable || locate(/obj/structure/cable) in T2)
-		playsound(src, 'sound/effects/eleczap.ogg', 50, 1)
+		playsound(src, 'sound/effects/eleczap.ogg', 50, TRUE)
 		do_sparks(rand(2, 4), FALSE, src)
 		user.forceMove(T)
 		if(isapc(src))
@@ -455,7 +467,7 @@
 
 	create_log(SAY_LOG, "[message_mode ? "([message_mode])" : ""] '[message]'")
 
-	playsound(get_turf(src), pick(speech_sounds), 50, 1)
+	playsound(get_turf(src), pick(speech_sounds), 50, TRUE)
 	if(istype(loc, /obj/item/radio))
 		var/obj/item/radio/R = loc
 		name = gen_speech_name()
@@ -597,7 +609,7 @@
 /mob/living/simple_animal/pulse_demon/emp_act(severity)
 	. = ..()
 	visible_message("<span class ='danger'>[src] [pick("fizzles", "wails", "flails")] in anguish!</span>")
-	playsound(get_turf(src), pick(hurt_sounds), 50, 1)
+	playsound(get_turf(src), pick(hurt_sounds), 50, TRUE)
 	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)
 	switch(severity)
 		if(EMP_LIGHT)
