@@ -302,7 +302,7 @@
 			//Free Gun
 			T.visible_message("<span class='userdanger'>An impressive gun appears!</span>")
 			create_smoke(2)
-			new /obj/item/gun/energy/alien(drop_location())
+			new /obj/item/gun/energy/kinetic_accelerator/experimental(drop_location())
 		if(18)
 			//Captain ID
 			T.visible_message("<span class='userdanger'>A golden identification card appears!</span>")
