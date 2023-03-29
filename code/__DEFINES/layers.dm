@@ -15,6 +15,7 @@
 
 #define SPACE_LAYER 1.5
 #define GRASS_UNDER_LAYER 1.6
+/// Which layer turfs appear on by default in the map editor. Should be unique!
 #define MAP_EDITOR_TURF_LAYER 1.6999
 #define PLATING_LAYER 1.7
 #define LATTICE_LAYER 1.701
