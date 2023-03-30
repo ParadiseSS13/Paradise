@@ -1183,28 +1183,28 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	UnregisterSignal(old_upgrade, COMSIG_PARENT_QDELETING)
 
 /mob/living/silicon/robot/Topic(href, href_list)
-	if(..())
-		return 1
-
+	. = ..()
+	if(.)
+		return TRUE
 	if(href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
 		src << browse(null, t1)
-		return 1
+		return TRUE
 
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
 			O.attack_self(src)
-		return 1
+		return TRUE
 
 	if(href_list["act"])
 		var/obj/item/O = locate(href_list["act"])
 		if(!istype(O) || !(O.loc == src || O.loc == src.module))
-			return 1
-
+			return TRUE
 		activate_module(O)
 		installed_modules()
+		return TRUE
 
 	//Show alerts window if user clicked on "Show alerts" in chat
 	if(href_list["showalerts"])
@@ -1228,9 +1228,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			to_chat(src, "Module isn't activated")
 		installed_modules()
-		return 1
-
-	return 1
+		return TRUE
 
 /mob/living/silicon/robot/proc/radio_menu()
 	radio.interact(src)

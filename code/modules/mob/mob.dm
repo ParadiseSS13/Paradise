@@ -617,10 +617,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='notice'>Здесь что-то есть, но вы не видите — что именно.</span>")
 		return 1
 
-	var/is_antag = (isAntag(src) || isobserver(src)) //ghosts don't have minds
-	if(client)
-		client.update_description_holders(A, is_antag)
-
 	face_atom(A)
 	var/list/result = A.examine(src)
 	to_chat(src, "<div class='examine'>[result.Join("\n")]</div>")
@@ -933,6 +929,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			src:cameraFollow = null
 
 /mob/Topic(href, href_list)
+	. = ..()
 	if(href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
@@ -963,8 +960,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
-
-	return
 
 // The src mob is trying to strip an item from someone
 // Defined in living.dm

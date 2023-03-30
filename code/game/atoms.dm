@@ -67,7 +67,6 @@
 	var/list/ru_names
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
-	var/list/description_holders = list("info" = null, "antag" = null, "fluff" = null)
 
 	var/tts_seed = "Arthas"
 
@@ -359,29 +358,34 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+	//Detailed description
 	var/descriptions
-	description_holders["info"] = get_description_info()
-	description_holders["antag"] = (isAntag(user) || isobserver(user)) ? get_description_antag() : ""
-	description_holders["fluff"] = get_description_fluff()
-
-	if(description_holders["info"])
+	if(get_description_info())
 		descriptions += "<a href='?src=[UID()];description_info=`'>\[Справка\]</a> "
-	if(description_holders["antag"])
-		descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
-	if(description_holders["fluff"])
+	if(get_description_antag())
+		if(isAntag(user) || isobserver(user))
+			descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
+	if(get_description_fluff())
 		descriptions += "<a href='?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
 
-	. += descriptions
+	if(descriptions)
+		. += descriptions
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /atom/Topic(href, href_list)
+	. = ..()
+	if(.)
+		return TRUE
 	if(href_list["description_info"])
-		to_chat(usr, "<div class='examine'><span class='info'>[description_holders["info"]]</span></div>")
+		to_chat(usr, "<div class='examine'><span class='info'>[get_description_info()]</span></div>")
+		return TRUE
 	if(href_list["description_antag"])
-		to_chat(usr, "<div class='examine'><span class='syndradio'>[description_holders["antag"]]</span></div>")
+		to_chat(usr, "<div class='examine'><span class='syndradio'>[get_description_antag()]</span></div>")
+		return TRUE
 	if(href_list["description_fluff"])
-		to_chat(usr, "<div class='examine'><span class='notice'>[description_holders["fluff"]]</span></div>")
+		to_chat(usr, "<div class='examine'><span class='notice'>[get_description_fluff()]</span></div>")
+		return TRUE
 
 /atom/proc/relaymove()
 	return
