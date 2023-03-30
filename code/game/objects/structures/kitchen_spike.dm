@@ -77,7 +77,7 @@
 
 /obj/structure/kitchenspike/proc/start_spike(mob/living/victim, mob/user)
 	if(has_buckled_mobs())
-		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
+		to_chat(user, "<span class='danger'>The spike already has something on it, finish collecting its meat first!</span>")
 		return
 	victim.visible_message(
 		"<span class='danger'>[user] tries to slam [victim] onto the meat spike!</span>",
