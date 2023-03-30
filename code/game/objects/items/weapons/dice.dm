@@ -267,7 +267,6 @@
 			//Random One-use spellbook
 			var/selected_spellbook = pick(/obj/item/spellbook/oneuse/smoke,
 				/obj/item/spellbook/oneuse/blind,
-				/obj/item/spellbook/oneuse/forcewall,
 				/obj/item/spellbook/oneuse/knock,
 				/obj/item/spellbook/oneuse/summonitem)
 			T.visible_message("<span class='userdanger'>A magical looking book drops to the floor!</span>")
