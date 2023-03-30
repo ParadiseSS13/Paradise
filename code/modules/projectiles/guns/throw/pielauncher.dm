@@ -34,3 +34,12 @@
 /obj/item/gun/throw/piecannon/process_chamber()
 	..()
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/gun/throw/piecannon/attack_self(mob/user)
+	if(!isrobot(user) || get_ammocount() == max_capacity)
+		return
+	var/mob/living/silicon/robot/robot_user = user
+	if(robot_user.cell && robot_user.cell.use(400))
+		var/obj/item/reagent_containers/food/snacks/pie/P = new /obj/item/reagent_containers/food/snacks/pie(src)
+		loaded_projectiles += P
+		process_chamber()

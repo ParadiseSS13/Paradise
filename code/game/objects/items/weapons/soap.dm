@@ -110,3 +110,8 @@
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 10 //much faster than mop so it is useful for traitors who want to clean crime scenes
+
+/obj/item/soap/nanotrasen/shitty
+	name = "odd smelling soap"
+	desc = "Well it's soap, doesn't look to be very good soap."
+	cleanspeed = 200 // good luck!

@@ -88,6 +88,38 @@
 	playsound(loc, 'sound/machines/click.ogg', 10, 1)
 	new currently_dispensing(T)
 
+#warn add an emag effect like it makes hellwater cookies or somethin + refactor into a RSF thingy
+
+/obj/item/cookiesynth
+	name = "\improper Cookie Synthesizer"
+	desc = "A self-recharging device used to rapidly deploy cookies."
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "rcd"
+	var/cooldown = 0
+	var/cooldowndelay = 10 SECONDS
+	var/dispensing_type = /obj/item/reagent_containers/food/snacks/cookie
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/cookiesynth/attackby()
+	return
+
+/obj/item/cookiesynth/afterattack(atom/A, mob/user, proximity)
+	if(cooldown > world.time)
+		return
+	if(!proximity)
+		return
+	if(!(istype(A, /obj/structure/table) || isturf(A)))
+		return
+	if(isrobot(user))
+		var/mob/living/silicon/robot/R = user
+		if(!R.cell || !R.cell.use(POWER_HIGH))
+			to_chat(user, "<span class='warning'>You do not have enough power to use [src].</span>")
+			return
+	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	to_chat(user, "<span class='notice'>Cookie dispensed.</span>")
+	new dispensing_type(get_turf(A))
+	cooldown = world.time + cooldowndelay
+
 #undef POWER_NONE
 #undef POWER_LOW
 #undef POWER_HIGH

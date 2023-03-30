@@ -728,6 +728,22 @@
 	. = ..()
 	R.add_language("xenocommon", 1)
 
+// Cmag/Clown cyborg module.
+#warn add an emag module
+/obj/item/robot_module/clown
+	name = "comical cyborg module"
+	module_type = "Clown"
+	basic_modules = list(
+		/obj/item/toy/flash,
+		/obj/item/bikehorn/airhorn,
+		/obj/item/gun/throw/piecannon,
+		/obj/item/toy/crayon/rainbow,
+		/obj/item/clown_recorder,
+		/obj/item/soap/nanotrasen/shitty,
+		/obj/item/cookiesynth
+	)
+	emag_modules = list(/obj/item/reagent_containers/spray/alien/acid)
+
 // Maintenance drone module.
 /obj/item/robot_module/drone
 	name = "drone module"

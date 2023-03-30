@@ -346,7 +346,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/static/list/special_modules = list(
 		"Combat" = image('icons/mob/robots.dmi', "security-radial"),
 		"Security" = image('icons/mob/robots.dmi', "security-radial"),
-		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"))
+		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"),
+		"Clown" = image('icons/mob/robots.dmi', "xeno-radial"))
 
 	if(mmi?.alien)
 		return list("Hunter" = image('icons/mob/robots.dmi', "xeno-radial"))
@@ -439,6 +440,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites = list(
 				"Xeno-Hu" = image('icons/mob/robots.dmi', "xenoborg-state-a")
 			)
+		if("Clown")
+			module_sprites = list(
+				"Xeno-Hu" = image('icons/mob/robots.dmi', "xenoborg-state-a")
+			)
 
 	if(custom_sprite && check_sprite("[ckey]-[selected_module]"))
 		module_sprites["Custom"] = image('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-[selected_module]")
@@ -490,6 +495,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			status_flags &= ~CANPUSH
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
+		if("Clown")
+			module = new /obj/item/robot_module/clown(src)
 
 	if(!module)
 		return FALSE

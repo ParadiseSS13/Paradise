@@ -286,6 +286,9 @@
 
 			M.brainmob.mind.transfer_to(O)
 
+			if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				O.force_modules = "Clown" // we getting silly out here
+
 			if(O.mind && O.mind.special_role && !M.syndiemmi)
 				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
@@ -323,6 +326,11 @@
 	if(is_pen(W))
 		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")
 	return
+
+/obj/item/robot_parts/robot_suit/cmag_act(mob/user)
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(user, "<span class='notice'>You smear the bananium ooze all over [src]. The new cyborg who uses this shell will love it or hate it.</span>")
+		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <A href='?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
