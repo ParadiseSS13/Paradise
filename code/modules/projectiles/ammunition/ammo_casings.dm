@@ -180,7 +180,7 @@
 	icon_state = "gshell"
 	projectile_type = /obj/item/projectile/bullet/pellet
 	pellets = 6
-	variance = 25
+	variance = 17
 
 /obj/item/ammo_casing/shotgun/rubbershot
 	name = "rubber shot"
@@ -189,7 +189,7 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/item/projectile/bullet/pellet/rubber
 	pellets = 6
-	variance = 25
+	variance = 17
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
@@ -207,7 +207,7 @@
 	materials = list(MAT_METAL = 250)
 	projectile_type = /obj/item/projectile/bullet/pellet/weak
 	pellets = 10
-	variance = 25
+	variance = 20
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
@@ -273,7 +273,7 @@
 	icon_state = "ishell2"
 	projectile_type = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	pellets = 4
-	variance = 35
+	variance = 25
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 
 /obj/item/ammo_casing/shotgun/ion
@@ -497,7 +497,7 @@
 	muzzle_flash_effect = null
 	icon_state = "gshell"
 	pellets = 6
-	variance = 25
+	variance = 15
 
 /obj/item/ammo_casing/cap
 	desc = "A cap for children toys."
