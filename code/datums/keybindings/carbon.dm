@@ -24,7 +24,7 @@
 
 /datum/keybinding/carbon/give_item
 	name = "Give Item (Toggle)"
-	keys = null
+	keys = list("G")
 
 /datum/keybinding/carbon/give_item/down(client/C)
 	. = ..()
