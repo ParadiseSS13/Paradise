@@ -46,8 +46,11 @@
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/internals/emergency_oxygen( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
-	new /obj/item/flashlight/flare/glowstick/emergency( src )
+	new /obj/item/flashlight/flare/glowstick/blue( src )
 	return
+
+/obj/item/storage/box/survival/brigphys
+	icon_state = "box_brigphys"
 
 /obj/item/storage/box/survival_vox
 	icon_state = "box_vox"
@@ -58,7 +61,7 @@
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_machine
 	icon_state = "box_machine"
@@ -68,7 +71,7 @@
 	contents = list()
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/stack/cable_coil/random(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
@@ -79,7 +82,7 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
 
 /obj/item/storage/box/engineer
 	icon_state = "box_eng"
@@ -90,7 +93,7 @@
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/internals/emergency_oxygen/engi( src )
 	new /obj/item/reagent_containers/hypospray/autoinjector( src )
-	new /obj/item/flashlight/flare/glowstick/emergency( src )
+	new /obj/item/flashlight/flare/glowstick/blue( src )
 	return
 
 /obj/item/storage/box/survival_mining
@@ -103,7 +106,53 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
+/obj/item/storage/box/survival_security
+	icon_state = "box_sec"
+
+/obj/item/storage/box/survival_security/New()
+	..()
+	contents = list()
+	new /obj/item/tank/internals/emergency_oxygen/engi/sec(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/flashlight/flare/glowstick/red(src)
+	new /obj/item/crowbar/red/sec(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/radio(src)
+	new /obj/item/book/manual/security_space_law(src)
+
+/obj/item/storage/box/survival_security/hos
+	icon_state = "box_hos"
+
+/obj/item/storage/box/survival_security/cadet
+	icon_state = "box_cadet"
+
+/obj/item/storage/box/survival_security/warden
+	icon_state = "box_warden"
+
+/obj/item/storage/box/survival_security/pilot
+	icon_state = "box_pilot"
+
+/obj/item/storage/box/survival_security/detective
+	icon_state = "box_detective"
+
+/obj/item/storage/box/survival_laws
+	icon_state = "box_avd"
+
+/obj/item/storage/box/survival_laws/New()
+	..()
+	contents = list()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/flashlight/flare/glowstick/pink(src)
+	new /obj/item/book/manual/security_space_law(src)
+	new /obj/item/taperecorder(src)
+	new /obj/item/camera(src)
+
+/obj/item/storage/box/survival_laws/magisraka
+	icon_state = "box_magisraka"
 
 /obj/item/storage/box/survival_syndi
 	icon_state = "box_syndi"

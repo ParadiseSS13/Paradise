@@ -50,6 +50,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	box = /obj/item/storage/box/survival_security/hos
 
 
 
@@ -96,6 +97,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	box = /obj/item/storage/box/survival_security/warden
 
 
 
@@ -138,6 +140,7 @@
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
+	box = /obj/item/storage/box/survival_security/detective
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -196,6 +199,7 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	box = /obj/item/storage/box/survival_security
 
 
 /datum/job/officer/cadet
@@ -222,6 +226,7 @@
 	l_pocket = /obj/item/reagent_containers/spray/pepper
 	r_pocket = /obj/item/paper/deltainfo
 	suit_store = /obj/item/gun/energy/gun/advtaser
+	box = /obj/item/storage/box/survival_security/cadet
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -268,6 +273,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+	box = /obj/item/storage/box/survival/brigphys
 
 
 /datum/job/pilot
@@ -306,4 +312,4 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival_security/pilot

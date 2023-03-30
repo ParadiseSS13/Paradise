@@ -247,6 +247,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	box = /obj/item/storage/box/survival_laws/magisraka
 
 
 
@@ -289,3 +290,4 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	box = /obj/item/storage/box/survival_laws
