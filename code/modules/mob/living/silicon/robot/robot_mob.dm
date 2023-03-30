@@ -350,7 +350,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"))
 
 	if(mmi?.alien)
-		force_modules = list("Hunter") + standard_modules.Copy() // standard PLUS hunter
+		if(!length(force_modules))
+			force_modules = list("Hunter") + standard_modules.Copy() // standard PLUS hunter
 
 	// Return a list of `force_modules`, with the associated images from the other lists.
 	if(length(force_modules))
