@@ -34,6 +34,8 @@
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
+	if(dynamic_icon_state) //If we have a dynamic icon state, we don't want item states to follow the same pattern.
+		item_state = initial(icon_state)
 	if(new_amount != null)
 		amount = new_amount
 	while(amount > max_amount)
