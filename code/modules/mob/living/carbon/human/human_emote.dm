@@ -357,6 +357,34 @@
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/ocelot
+	key = "ocelot"
+	key_third_person = "ocelots"
+	hands_use_check = TRUE
+
+/datum/emote/living/carbon/human/ocelot/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
+	. = ..()
+	if(!.)
+		return .
+
+	if(!istype(user))
+		return FALSE
+
+	if(user.has_status_effect(/datum/status_effect/revolver_spinning))
+		return FALSE
+
+	if(user.l_hand && user.l_hand.type == /obj/item/gun/projectile/revolver && user.r_hand && user.r_hand.type == /obj/item/gun/projectile/revolver)
+		return TRUE
+
+	return FALSE
+
+
+/datum/emote/living/carbon/human/ocelot/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
+	. = ..()
+	if(!istype(user))
+		return
+
+	user.apply_status_effect(/datum/status_effect/revolver_spinning)
 
 /////////
 // Species-specific emotes

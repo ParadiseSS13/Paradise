@@ -143,3 +143,117 @@
 /datum/status_effect/charging
 	id = "charging"
 	alert_type = null
+
+/datum/status_effect/revolver_spinning
+	id = "revolver_spin"
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+
+	var/obj/effect/spinning_gun_effect
+
+/datum/status_effect/revolver_spinning/on_apply()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(owner))
+		return FALSE
+
+	if(!owner.l_hand || owner.l_hand.type != /obj/item/gun/projectile/revolver || !owner.r_hand || owner.r_hand.type != /obj/item/gun/projectile/revolver || H.incapacitated())
+		return FALSE
+
+	var/obj/item/gun/projectile/revolver/l_revolver = H.l_hand
+	var/obj/item/gun/projectile/revolver/r_revolver = H.r_hand
+
+	if(!owner.l_hand || owner.l_hand.type != /obj/item/gun/projectile/revolver || !owner.r_hand || owner.r_hand.type != /obj/item/gun/projectile/revolver || H.incapacitated())
+		return FALSE
+
+	// TODO EXTRA TAJ DAMAGE
+
+
+	// extra damage for taj
+
+	spinning_gun_effect = new
+	var/mutable_appearance/spinning_gun_ma = mutable_appearance(
+		'icons/obj/guns/projectile.dmi',
+		"revolver",
+		layer = ABOVE_MOB_LAYER,
+	)
+
+	spinning_gun_effect.appearance = spinning_gun_ma
+	H.vis_contents += spinning_gun_effect
+
+	spinning_gun_effect.SpinAnimation()
+
+	H.visible_message(
+		"<span class='danger'>[src] begins spinning the revolvers in [owner.p_their()] hands around!</span>",
+	)
+
+/datum/status_effect/revolver_spinning/proc/get_fluff_message(mob/user)
+	var/list/messages = list(
+		"<span class='warning'>[user] tosses one revolver over the other!</span>",
+		"<span class='danger'>[user] flips one revolver around behind [user.p_their()] back and catches it, wow!</span>",
+		"<span class='warning'>[user] spins both revolvers around their fingers skillfully.</span>",
+		"[user] spins one revolver neatly into their pocket, dancing the other around.",
+		"<span class='danger'>You're scared shitless by the display in front of you, it makes you want to cower!</span>"
+	)
+
+	return pick(messages)
+
+/datum/status_effect/revolver_spinning/on_remove()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	var/obj/item/gun/projectile/revolver/l_revolver = H.l_hand
+	var/obj/item/gun/projectile/revolver/r_revolver = H.r_hand
+
+	// if(!l_revolver.type == /obj/item/gun/projectile/revolver || !r_revolver.type == /obj/item/gun/projectile/revolver)
+	owner.visible_message("<span class='warning'>[owner] stops spinning [owner.p_their()] revolvers around.</span>")
+
+/datum/status_effect/revolver_spinning/tick()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!owner.l_hand || owner.l_hand.type != /obj/item/gun/projectile/revolver || !owner.r_hand || owner.r_hand.type != /obj/item/gun/projectile/revolver || H.incapacitated())
+		qdel(src)
+
+	if(prob(40))
+		// set random direction and speed
+		spinning_gun_effect.SpinAnimation(rand(10, 30), -1, rand(0, 1), parallel = FALSE)
+
+	if(prob(10))
+		owner.visible_message(get_fluff_message(owner))
+
+	// todo add looping spin sound
+
+
+
+/datum/status_effect/revolver_spinning/on_timeout()
+	. = ..()
+	H.vis_contents -= spinning_gun_effect
+	qdel(spinning_gun_effect)
+	// todo add meow sound
+	var/mob/living/carbon/human/H = owner
+	var/obj/item/gun/projectile/revolver/l_revolver = H.l_hand
+	var/obj/item/gun/projectile/revolver/r_revolver = H.r_hand
+
+	if(!owner.l_hand || owner.l_hand.type != /obj/item/gun/projectile/revolver || !owner.r_hand || owner.r_hand.type != /obj/item/gun/projectile/revolver || H.incapacitated())
+		qdel(src)
+
+	var/ahead = locate(/mob/living) in get_step(owner, owner.dir)
+	if(!ahead)
+		ahead = get_turf(get_step(owner, owner.dir))  // shoot at the turf instead
+
+	// meow here
+	owner.visible_message("<span class='userdanger'>[owner] makes one last move, pointing both revolvers [isturf(ahead) ? "ahead" : "towards [ahead]"] and firing!</span>")
+	var/extra_multiplier = istajaran(H) ? 2 : 1  // ocelots are cats
+
+	// skip all that guncode bullshit and pull the trigger if you've made it this far
+	if(l_revolver.can_shoot())
+		l_revolver.chambered.BB?.damage *= 2 * extra_multiplier  // ow
+		l_revolver.shoot_live_shot(H, ahead, !isturf(ahead), FALSE)
+	else
+		l_revolver.shoot_with_empty_chamber(H)
+
+	if(r_revolver.can_shoot())
+		r_revolver.chambered.BB?.damage *= 2 * extra_multiplier  // ow
+		r_revolver.shoot_live_shot(H, ahead, !isturf(ahead), FALSE)
+	else
+		r_revolver.shoot_with_empty_chamber(H)
