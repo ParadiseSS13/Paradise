@@ -68,7 +68,7 @@
 	return ..()
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
-	if(get_dist(user, src) > 1 || get_dist(user, victim) > 1 || isAI(user))
+	if (!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user))
 		return
 	if(isanimal(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
