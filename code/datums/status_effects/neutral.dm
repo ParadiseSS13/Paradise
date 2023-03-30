@@ -177,11 +177,11 @@
 		"sound/weapons/bulletflyby3.ogg",
 	)
 
-/datum/status_effect/revolver_spinning/proc/create_spinning_gun()
+/datum/status_effect/revolver_spinning/proc/create_spinning_gun(obj/item/gun/projectile/gun)
 	var/obj/effect/spinning_gun_effect = new
 	var/mutable_appearance/spinning_gun_ma = mutable_appearance(
-		'icons/obj/guns/projectile.dmi',
-		"revolver",
+		isnull(gun) ? 'icons/obj/guns/projectile.dmi' : gun.icon,
+		isnull(gun) ? "revolver" : gun.icon_state,
 		layer = ABOVE_MOB_LAYER,
 	)
 
@@ -209,8 +209,8 @@
 	if(!can_spin())
 		return FALSE
 
-	spinning_gun_effect_l = create_spinning_gun()
-	spinning_gun_effect_r = create_spinning_gun()
+	spinning_gun_effect_l = create_spinning_gun(owner.l_hand)
+	spinning_gun_effect_r = create_spinning_gun(owner.r_hand)
 
 	spinning_gun_effect_l.pixel_x -= 8
 	spinning_gun_effect_r.pixel_x += 8
