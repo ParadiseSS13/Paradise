@@ -17,25 +17,18 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 5
-	req_access_txt = "24;10"
 
-/obj/machinery/meter/New()
-	..()
+/obj/machinery/meter/Initialize(mapload)
+	. = ..(mapload)
 	SSair.atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
 		id_tag = id
-	return 1
 
 /obj/machinery/meter/Destroy()
 	SSair.atmos_machinery -= src
 	target = null
 	return ..()
-
-/obj/machinery/meter/Initialize()
-	..()
-	if(!target)
-		target = locate(/obj/machinery/atmospherics/pipe) in loc
 
 /obj/machinery/meter/process_atmos()
 	if(!target)

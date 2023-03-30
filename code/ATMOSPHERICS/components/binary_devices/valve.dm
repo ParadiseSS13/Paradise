@@ -9,8 +9,6 @@
 
 	var/open = 0
 
-	req_access_txt = "24;10"
-
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."
@@ -72,6 +70,8 @@
 	name = "digital valve"
 	desc = "A digitally controlled valve."
 	icon = 'icons/atmos/digital_valve.dmi'
+
+	req_access = list(ACCESS_ATMOSPHERICS,ACCESS_ENGINE)
 
 	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null

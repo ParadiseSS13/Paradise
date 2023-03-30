@@ -18,8 +18,6 @@
 	var/area/initial_loc
 	var/area_uid
 
-	req_access_txt = "24;10"
-
 	var/on = 0
 	var/pump_direction = 1 //0 = siphoning, 1 = releasing
 

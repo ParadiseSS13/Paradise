@@ -304,7 +304,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(config.restrict_maint)
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-			if(ACCESS_MAINT_TUNNELS == text2num(M.req_access_txt))
+			if(M.req_access && M.req_access.len == 1 && M.req_access[1] == ACCESS_MAINT_TUNNELS)
 				M.req_access = null
 				if(config.restrict_maint == 1)
 					M.req_access = list(ACCESS_BRIG, ACCESS_ENGINE)
