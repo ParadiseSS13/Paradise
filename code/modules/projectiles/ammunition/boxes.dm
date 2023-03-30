@@ -112,6 +112,7 @@
 	ammo_type = /obj/item/ammo_casing/shotgun
 	max_ammo = 7
 	multiple_sprites = 1
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/ammo_box/shotgun/buck
 	name = "Shotgun Speedloader (buckshot)"
