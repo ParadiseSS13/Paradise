@@ -138,6 +138,12 @@
 	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
 	lastused = world.time
 
+/obj/item/toy/balloon/snail
+	name = "\improper 'snail' balloon"
+	desc = "It looks quite familiar, right?"
+	icon_state = "snailplushie"
+	item_state = "snailplushie"
+
 /*
  * Fake telebeacon
  */
@@ -1210,6 +1216,213 @@
 				icon_state = "ninja_plushie_red"
 				item_state = "ninja_plushie_red"
 				user.visible_message(span_notice("[bicon(src)] The [name] says \"You can run, but you can't hide!\""))
+
+//New toys from another builds
+/obj/item/toy/plushie/nianplushie/beeplushie
+	name = "bee plushie"
+	desc = "A cute toy that resembles an even cuter bee."
+	icon_state = "plushie_h"
+	item_state = "plushie_h"
+	attack_verb = list("stung", "buzzed", "pollinated")
+	gender = FEMALE
+
+/obj/item/toy/plushie/realgoat
+	name = "goat plushie"
+	desc = "Despite its cuddly appearance and plush nature, it will beat you up all the same, or at least it would if it wasn't a normal plushie."
+	icon_state = "realgoat"
+	attack_verb = list("chomped", "punched", "poked")
+	var/goatbite = 'sound/items/goatsound.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/realgoat/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, goatbite, 10, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/realgoat/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/items/goatsound.ogg', 10, 0)
+	visible_message("<span class='danger'>Baaaaah!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/foxplushie
+	name = "fox plushie"
+	desc = "An adorable stuffed toy resembling a cute fox."
+	icon_state = "fox"
+	item_state = "fox"
+
+/obj/item/toy/plushie/blahaj
+	name = "shark plushie"
+	desc = "A smaller, friendlier, and fluffier version of the real thing."
+	gender = MALE
+	icon_state = "blahaj"
+	item_state = "blahaj"
+	attack_verb = list("chomped", "gnawed", "bit")
+	var/fishbite = 'sound/weapons/bite.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/blahaj/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, fishbite, 10, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/blahaj/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/weapons/bite.ogg', 10, 0)
+	visible_message("<span class='danger'>...!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/axolotlplushie
+	name = "axolotl plushie"
+	desc = "An adorable stuffed toy that resembles an axolotl. Not to be mistaken for the real thing."
+	icon_state = "plushie_axolotl"
+	item_state = "axolotl"
+	attack_verb = list("nibbles", "splats")
+	var/axolotlbite = 'sound/items/axolotl.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/axolotlplushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, axolotlbite, 20, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/axolotlplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/items/axolotl.ogg', 20, 0)
+	visible_message("<span class='danger'>Squeeek!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/plasmamanplushie
+	name = "plasmaman plushie"
+	desc = "A stuffed toy that resembles your purple coworkers. Mmm, yeah, in true plasmaman fashion, it's not cute at all despite the designer's best efforts."
+	icon_state = "plushie_pman"
+	attack_verb = list("burns", "space beasts", "fwooshes")
+	var/pmanlbite = 'sound/effects/extinguish.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/plasmamanplushie/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, pmanlbite, 20, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/plasmamanplushie/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/effects/extinguish.ogg', 20, 0)
+	visible_message("<span class='danger'>Plasmaflood!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/rouny
+	name = "runner plushie"
+	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
+	icon_state = "rouny"
+	attack_verb = list("slashes", "bites", "charges")
+	var/rounibite = 'sound/items/Help.ogg'
+	var/cooldown = FALSE
+
+/obj/item/toy/plushie/rouny/attack(mob/M as mob, mob/user as mob)
+	playsound(loc, rounibite, 10, 1)	// Play bite sound in local area
+	return ..()
+
+/obj/item/toy/plushie/rouny/attack_self(mob/user)
+	if(cooldown)
+		return ..()
+
+	playsound(src, 'sound/items/Help.ogg', 10, 0)
+	visible_message("<span class='danger'>Ruuun!</span>")
+	cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+
+/obj/item/toy/plushie/beepsky
+	name = "plush Officer Sweepsky"
+	desc = "A plushie of a popular industrious cleaning robot! If it could feel emotions, it would love you."
+	icon_state = "beepskyplushie"
+	attack_verb = list("Ping!")
+
+/obj/item/toy/plushie/banbanana
+	name = "BANana"
+	desc = "What happens if I peel it?"
+	icon_state = "banana"
+
+/obj/item/toy/plushie/banbanana/attack(mob/M, mob/user)
+	to_chat(M, "<font color='red'><b>You have been banned by HO$T.\nReason: Honk.<b></font>")
+	to_chat(M, "<font color='red'><b>This is a PERMENANT ban.<b></font>")
+	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
+	playsound(loc, 'sound/effects/adminhelp.ogg', 25)
+
+/obj/item/toy/plushie/pig
+	name = "rubber piggy"
+	desc = "The people demand pigs!"
+	icon_state = "pig1"
+	var/spam_flag = 0
+	var/message_spam_flag = 0
+
+/obj/item/toy/plushie/pig/proc/oink(mob/user, msg)
+	if(spam_flag == 0)
+		spam_flag = 1
+		playsound(loc, pick('sound/items/pig1.ogg','sound/items/pig2.ogg','sound/items/pig3.ogg'), 100, 1)
+		add_fingerprint(user)
+		if(message_spam_flag == 0)
+			message_spam_flag = 1
+			user.visible_message("notice", "[user] [msg] \the [src] in hand!")
+			spawn(30)
+				message_spam_flag = 0
+		spawn(3)
+			spam_flag = 0
+	return
+
+/obj/item/toy/plushie/pig/attack_self(mob/user)
+	oink(user, "squeezes")
+
+/obj/item/toy/plushie/pig/attack_hand(mob/user)
+	oink(user, pick("presses", "squeezes", "squashes", "champs", "pinches"))
+
+/obj/item/toy/plushie/pig/Initialize()
+	. = ..()
+	switch(rand(1, 100))
+		if(1 to 33)
+			icon_state = "pig1"
+		if(34 to 66)
+			icon_state = "pig2"
+		if(67 to 99)
+			icon_state = "pig3"
+		if(100)
+			icon_state = "pig4"
+			name = "green rubber piggy"
+			desc = "Watch out for angry voxes!"
+
+/obj/item/toy/plushie/pig/MouseDrop(atom/over_object)
+	var/mob/M = usr
+	if(M.restrained() || M.stat || !Adjacent(M))
+		return
+	if(!ishuman(M))
+		return
+
+	if(over_object == M)
+		if(!remove_item_from_storage(M))
+			M.unEquip(src)
+		M.put_in_hands(src)
+
+	else if(istype(over_object, /obj/screen))
+		switch(over_object.name)
+			if("r_hand")
+				if(!remove_item_from_storage(M))
+					M.unEquip(src)
+				M.put_in_r_hand(src)
+			if("l_hand")
+				if(!remove_item_from_storage(M))
+					M.unEquip(src)
+				M.put_in_l_hand(src)
+
+	add_fingerprint(M)
+
 /*
  * Foam Armblade
  */
