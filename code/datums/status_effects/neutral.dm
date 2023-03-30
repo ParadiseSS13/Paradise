@@ -154,9 +154,21 @@
 	var/obj/effect/spinning_gun_effect_r
 
 	// necessary because shotguns are revolvers too lol
-	var/list/valid_revolver_types = list(
+	var/static/list/valid_revolver_types = list(
 		/obj/item/gun/projectile/revolver,
-		/obj/item/gun/projectile/revolver/mateba
+		/obj/item/gun/projectile/revolver/mateba,
+		/obj/item/gun/projectile/revolver/capgun,
+		/obj/item/gun/projectile/revolver/golden,
+		/obj/item/gun/projectile/revolver/russian,
+		/obj/item/gun/projectile/revolver/russian/soul,
+		/obj/item/gun/projectile/revolver/nagant,
+
+	)
+
+	var/list/nonlethal_revolvers = list(
+		/obj/item/gun/projectile/revolver/capgun,
+		/obj/item/gun/projectile/revolver/russian,
+		/obj/item/gun/projectile/revolver/russian/soul,
 	)
 
 	var/list/sound_effects = list(
@@ -182,6 +194,10 @@
 	SIGNAL_HANDLER
 	qdel(src)
 
+/datum/status_effect/revolver_spinning/proc/can_spin()
+	var/mob/living/carbon/human/H = owner
+	return (H.l_hand && (H.l_hand.type in valid_revolver_types) && H.r_hand && (H.r_hand.type in valid_revolver_types) && !H.incapacitated())
+
 /datum/status_effect/revolver_spinning/on_apply()
 	. = ..()
 	var/mob/living/carbon/human/H = owner
@@ -190,19 +206,8 @@
 
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_user_move))
 
-	if(!owner.l_hand || owner.l_hand.type != /obj/item/gun/projectile/revolver || !owner.r_hand || owner.r_hand.type != /obj/item/gun/projectile/revolver || H.incapacitated())
+	if(!can_spin())
 		return FALSE
-
-	// var/obj/item/gun/projectile/revolver/l_revolver = H.l_hand
-	// var/obj/item/gun/projectile/revolver/r_revolver = H.r_hand
-
-	if(!owner.l_hand || owner.l_hand.type != /obj/item/gun/projectile/revolver || !owner.r_hand || owner.r_hand.type != /obj/item/gun/projectile/revolver || H.incapacitated())
-		return FALSE
-
-	// TODO EXTRA TAJ DAMAGE
-
-
-	// extra damage for taj
 
 	spinning_gun_effect_l = create_spinning_gun()
 	spinning_gun_effect_r = create_spinning_gun()
@@ -232,11 +237,6 @@
 
 /datum/status_effect/revolver_spinning/on_remove()
 	. = ..()
-	// var/mob/living/carbon/human/H = owner
-	// var/obj/item/gun/projectile/revolver/l_revolver = H.l_hand
-	// var/obj/item/gun/projectile/revolver/r_revolver = H.r_hand
-
-	// if(!l_revolver.type == /obj/item/gun/projectile/revolver || !r_revolver.type == /obj/item/gun/projectile/revolver)
 	owner.vis_contents -= spinning_gun_effect_l
 	owner.vis_contents -= spinning_gun_effect_r
 	qdel(spinning_gun_effect_l)
@@ -247,7 +247,7 @@
 /datum/status_effect/revolver_spinning/tick()
 	. = ..()
 	var/mob/living/carbon/human/H = owner
-	if(!owner.l_hand || owner.l_hand.type != /obj/item/gun/projectile/revolver || !owner.r_hand || owner.r_hand.type != /obj/item/gun/projectile/revolver || H.incapacitated())
+	if(!can_spin())
 		qdel(src)
 
 	for(var/obj/effect/spinning_gun in list(spinning_gun_effect_l, spinning_gun_effect_r))
@@ -268,14 +268,11 @@
 /datum/status_effect/revolver_spinning/on_timeout()
 	. = ..()
 
-
-
-	// todo add meow sound
 	var/mob/living/carbon/human/H = owner
 	var/obj/item/gun/projectile/revolver/l_revolver = H.l_hand
 	var/obj/item/gun/projectile/revolver/r_revolver = H.r_hand
 
-	if(!owner.l_hand || owner.l_hand.type != /obj/item/gun/projectile/revolver || !owner.r_hand || owner.r_hand.type != /obj/item/gun/projectile/revolver || H.incapacitated())
+	if(!can_spin())
 		qdel(src)
 
 	var/ahead = locate(/mob/living) in get_step(owner, owner.dir)
@@ -284,7 +281,7 @@
 
 	// meow here
 	owner.visible_message("<span class='userdanger'>[owner] makes one last move, pointing both revolvers [isturf(ahead) ? "ahead" : "towards [ahead]"] and firing!</span>")
-	var/extra_multiplier = istajaran(H) ? 2 : 1  // ocelots are cats
+	var/extra_multiplier = istajaran(H) ? 2 : 1  // meow
 
 	var/shot_both = l_revolver.can_shoot() && r_revolver.can_shoot()
 
@@ -295,7 +292,7 @@
 	r_revolver.process_fire(ahead, owner, FALSE)
 
 	// skip all that guncode bullshit and pull the trigger if you've made it this far
-	if(shot_both)
+	if(shot_both && !(l_revolver.type in nonlethal_revolvers) && !(r_revolver.type in nonlethal_revolvers))
 		if(isliving(ahead))
 			var/mob/living/L = ahead
 			L.visible_message(
@@ -306,6 +303,6 @@
 			L.gib()
 
 
-	to_chat(owner, "<span class=narsie>You're pretty good...</span>")
+	to_chat(owner, "<i><span class=narsie>You're pretty good...</span></i>")
 	playsound(owner, 'sound/effects/ocelot.ogg', 120, FALSE)
 

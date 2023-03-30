@@ -373,10 +373,13 @@
 	if(user.has_status_effect(/datum/status_effect/revolver_spinning))
 		return FALSE
 
-	if(user.l_hand && user.l_hand.type == /obj/item/gun/projectile/revolver && user.r_hand && user.r_hand.type == /obj/item/gun/projectile/revolver)
-		return TRUE
+	var/datum/status_effect/revolver_spinning/spinning
 
-	return FALSE
+	var/valid_revolver_types = initial(spinning.valid_revolver_types)
+
+	return ((user.l_hand.type in valid_revolver_types) && (user.r_hand.type in valid_revolver_types))
+
+
 
 
 /datum/emote/living/carbon/human/ocelot/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
