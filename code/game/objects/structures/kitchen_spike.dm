@@ -72,7 +72,7 @@
 		return
 	if(isanimal(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	start_spike(victim, user)
 
 /obj/structure/kitchenspike/proc/start_spike(mob/living/victim, mob/user)
