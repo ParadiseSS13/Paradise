@@ -5272,14 +5272,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "azY" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -65530,7 +65523,6 @@
 	},
 /area/security/permabrig)
 "kyo" = (
-/obj/structure/closet/lawcloset,
 /obj/machinery/light{
 	dir = 8
 	},
