@@ -27,7 +27,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = -25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/white/side{
 	dir = 4
@@ -63,8 +63,7 @@
 	},
 /obj/structure/sign/barsign{
 	pixel_y = -32;
-	req_access = null;
-	req_access_txt = "0"
+	req_access = list()
 	},
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -215,7 +214,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_north_interior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -225,7 +224,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_south";
 	pixel_x = -25;
-	req_access_txt = "150";
+	req_access = list(150);
 	tag_exterior_door = "syndicate_base_west_south_exterior";
 	tag_interior_door = "syndicate_base_west_south_interior"
 	},
@@ -254,7 +253,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_north_interior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
@@ -264,7 +263,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_north_exterior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
@@ -280,7 +279,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = 25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -313,7 +312,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_south_exterior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -340,7 +339,7 @@
 	id_tag = "syndicate_base_virology_interior";
 	locked = 1;
 	name = "Virology Lab Interior Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -362,7 +361,7 @@
 	id_tag = "syndicate_base_virology_exterior";
 	locked = 1;
 	name = "Virology Lab Exterior Airlock";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -402,7 +401,7 @@
 	name = "exterior access button";
 	pixel_x = -25;
 	pixel_y = 25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
@@ -441,7 +440,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = -25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -450,7 +449,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_south_interior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -466,7 +465,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_south";
 	pixel_x = 25;
-	req_access_txt = "150";
+	req_access = list(150);
 	tag_exterior_door = "syndicate_base_south_exterior";
 	tag_interior_door = "syndicate_base_south_interior"
 	},
@@ -494,7 +493,7 @@
 	name = "exterior access button";
 	pixel_x = 20;
 	pixel_y = 21;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -513,7 +512,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = -8;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
@@ -522,7 +521,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_north";
 	pixel_x = -25;
-	req_access_txt = "150";
+	req_access = list(150);
 	tag_exterior_door = "syndicate_base_west_north_exterior";
 	tag_interior_door = "syndicate_base_west_north_interior"
 	},
@@ -556,7 +555,7 @@
 	id = "lavalandsyndi_arrivals";
 	name = "Arrivals Blast Door Control";
 	pixel_y = -26;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -582,7 +581,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_north_exterior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
@@ -592,7 +591,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_south_exterior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -601,7 +600,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_south_interior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -612,7 +611,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_west_south_interior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
@@ -628,7 +627,7 @@
 	name = "exterior access button";
 	pixel_x = -21;
 	pixel_y = 21;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating{
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
@@ -649,7 +648,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_virology";
 	pixel_x = -25;
-	req_access_txt = "150";
+	req_access = list(150);
 	tag_exterior_door = "syndicate_base_virology_exterior";
 	tag_interior_door = "syndicate_base_virology_interior"
 	},
@@ -688,7 +687,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_incinerator_interior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -697,7 +696,7 @@
 	name = "interior access button";
 	pixel_x = -25;
 	pixel_y = 0;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/engine/insulated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -730,7 +729,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_incinerator_exterior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -739,7 +738,7 @@
 	name = "exterior access button";
 	pixel_x = -25;
 	pixel_y = 0;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/engine/insulated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -783,7 +782,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = 25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
@@ -792,7 +791,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_east_interior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -807,7 +806,7 @@
 	id_tag = "syndicate_base_east";
 	pixel_x = 0;
 	pixel_y = 25;
-	req_access_txt = "150";
+	req_access = list(150);
 	tag_exterior_door = "syndicate_base_east_exterior";
 	tag_interior_door = "syndicate_base_east_interior"
 	},
@@ -819,7 +818,7 @@
 	frequency = 1449;
 	id_tag = "syndicate_base_east_exterior";
 	locked = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
@@ -831,7 +830,7 @@
 	name = "exterior access button";
 	pixel_x = -21;
 	pixel_y = 21;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -880,7 +879,7 @@
 	name = "exterior access button";
 	pixel_x = -21;
 	pixel_y = -21;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating{
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
@@ -918,8 +917,7 @@
 	faction = "syndicate";
 	name = "Base turret controls";
 	pixel_y = 30;
-	req_access = null;
-	req_access_txt = "150";
+	req_access = list(150);
 	syndicate = 1
 	},
 /turf/simulated/floor/redgrid,
@@ -1066,7 +1064,7 @@
 	id_tag = "syndicate_base_incinerator";
 	pixel_x = -6;
 	pixel_y = -25;
-	req_access_txt = "150";
+	req_access = list(150);
 	tag_exterior_door = "syndicate_base_incinerator_exterior";
 	tag_interior_door = "syndicate_base_incinerator_interior"
 	},
@@ -1091,7 +1089,7 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "bS" = (
 /obj/machinery/vending/toyliberationstation{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -1110,7 +1108,7 @@
 	id = "lavalandsyndi";
 	name = "Syndicate Experimentation Lockdown Control";
 	pixel_y = 26;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner{
@@ -1359,8 +1357,7 @@
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "do" = (
 /obj/structure/closet/secure_closet/medical1{
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/beakers/bluespace,
@@ -1377,7 +1374,7 @@
 	id = "lavalandsyndi_chemistry";
 	name = "Chemistry Blast Door Control";
 	pixel_y = 26;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white/side{
@@ -1485,7 +1482,7 @@
 	dir = 1
 	},
 /obj/structure/closet/crate/secure/gear{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/gloves/combat,
@@ -1565,7 +1562,7 @@
 /obj/machinery/door/airlock/hatch{
 	heat_proof = 1;
 	name = "Experimentation Room";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "lavalandsyndi";
@@ -1661,7 +1658,7 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/secure/weapon{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/ammo_box/c10mm{
 	pixel_y = 6
@@ -2000,7 +1997,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Warehouse";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -2097,7 +2094,7 @@
 "eL" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Monkey Pen";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -2483,7 +2480,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical{
 	name = "Chemistry Lab";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -2514,7 +2511,7 @@
 	dir = 1;
 	icon_state = "left";
 	name = "Chemistry";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
@@ -2642,7 +2639,7 @@
 "fy" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Isolation B";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2651,7 +2648,7 @@
 "fz" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Isolation A";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2715,7 +2712,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/hatch{
 	name = "Experimentation Lab";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -2769,7 +2766,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Warehouse";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -3124,14 +3121,14 @@
 	id = "lavalandsyndi_cargo";
 	name = "Cargo Bay Blast Door Control";
 	pixel_x = 26;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "gT" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Monkey Pen";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3265,7 +3262,7 @@
 	light_color = "#FA8282";
 	name = "syndicate cargo shuttle terminal";
 	possible_destinations = "syndielavaland_cargo";
-	req_access_txt = "150";
+	req_access = list(150);
 	shuttleId = "syndie_cargo"
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -3286,7 +3283,7 @@
 	id = "lavalandsyndi_virology";
 	name = "Virology Blast Door Control";
 	pixel_x = -26;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/white/side{
 	dir = 10
@@ -3895,7 +3892,7 @@
 "iI" = (
 /obj/machinery/door/airlock/vault{
 	id_tag = "syndie_lavaland_vault";
-	req_access_txt = "150";
+	req_access = list(150);
 	locked = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -4138,7 +4135,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = 24;
 	pixel_y = 8;
-	req_access_txt = "150";
+	req_access = list(150);
 	specialfunctions = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -4476,7 +4473,7 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -4569,7 +4566,7 @@
 	id = "lavalandsyndi_bar";
 	name = "Bar Blast Door Control";
 	pixel_y = 26;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
@@ -4834,7 +4831,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
@@ -4912,7 +4909,7 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "kr" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5272,8 +5269,7 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lm" = (
 /obj/structure/closet/secure_closet/medical1{
-	req_access = null;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -5599,7 +5595,7 @@
 	},
 /obj/machinery/door/airlock{
 	name = "Bar Storage";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -5872,7 +5868,7 @@
 	id = "lavalandsyndi_telecomms";
 	name = "Telecomms Blast Door Control";
 	pixel_x = 26;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
@@ -5941,14 +5937,14 @@
 	name = "Incinerator Output Blast Door Control";
 	pixel_x = -6;
 	pixel_y = -24;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door_control{
 	id = "lavalandsyndi_incineratorinput";
 	name = "Incinerator Input Blast Door Control";
 	pixel_x = 6;
 	pixel_y = -24;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -6326,7 +6322,7 @@
 "nL" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Telecommunications";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4

@@ -579,7 +579,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	name = "Gateway Access";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -767,7 +767,7 @@
 /obj/machinery/door/airlock/highsecurity{
 	locked = 1;
 	name = "Gateway";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/syndicateoutpost)
@@ -1133,7 +1133,7 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Power Maintenance";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
@@ -1630,7 +1630,7 @@
 	icon_opened = "cabinetdetective_open";
 	icon_state = "cabinetdetective_locked";
 	name = "personal closet";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/ammo_box/magazine/m10mm,
@@ -1653,7 +1653,7 @@
 	icon_state = "cabinetdetective";
 	locked = 0;
 	name = "personal closet";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/stack/spacecash/c50,
 /turf/simulated/floor/wood,
@@ -2313,7 +2313,7 @@
 	name = "Containment Chamber Blast Doors";
 	pixel_x = 4;
 	pixel_y = -2;
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/ignition_switch{
 	id = "awayxenobio";
@@ -2628,7 +2628,7 @@
 	icon_state = "tracks"
 	},
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
@@ -2932,7 +2932,7 @@
 	locked = 1;
 	name = "Xenobiology Lab";
 	opacity = 0;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -3130,7 +3130,7 @@
 	icon_opened = "secopen";
 	icon_state = "sec1";
 	name = "security officer's locker";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/clothing/suit/armor/vest,
 /obj/item/reagent_containers/spray/pepper,
@@ -3530,7 +3530,7 @@
 	locked = 0;
 	name = "Maintenance APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable,
@@ -3568,7 +3568,7 @@
 "gU" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Post";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3807,7 +3807,7 @@
 	locked = 0;
 	name = "Research APC";
 	pixel_x = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3876,7 +3876,7 @@
 	id = "Awaybiohazard";
 	name = "Biohazard Shutter Control";
 	pixel_x = -25;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -4167,7 +4167,7 @@
 	icon_state = "secureres";
 	locked = 0;
 	name = "scientist's locker";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/clothing/suit/storage/labcoat,
 /turf/simulated/floor/plasteel,
@@ -4382,7 +4382,7 @@
 	icon_opened = "secureresopen";
 	icon_state = "secureres1";
 	name = "scientist's locker";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/clothing/suit/storage/labcoat,
 /obj/item/tank/internals/air,
@@ -4515,7 +4515,7 @@
 /area/moonoutpost19/mo19research)
 "iG" = (
 /obj/machinery/vending/medical{
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
@@ -4849,7 +4849,7 @@
 	icon_opened = "rdsecureopen";
 	icon_state = "rdsecure1";
 	name = "research director's locker";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/storage/backpack/satchel_tox,
 /obj/item/clothing/gloves/color/latex,
@@ -5116,7 +5116,7 @@
 	locked = 1;
 	name = "Research Director's Office";
 	opacity = 0;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5134,7 +5134,7 @@
 "ka" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Storage";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5198,7 +5198,7 @@
 /obj/machinery/door/airlock/research{
 	id_tag = "";
 	name = "Research Division";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -5214,13 +5214,13 @@
 	id = "Awaybiohazard";
 	name = "Biohazard Shutter Control";
 	pixel_y = 8;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/machinery/door_control{
 	id = "AwayRD";
 	name = "Privacy Shutter Control";
 	pixel_y = -2;
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5417,7 +5417,7 @@
 	locked = 0;
 	name = "Habitat APC";
 	pixel_y = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /turf/simulated/floor/plasteel,
@@ -7032,7 +7032,7 @@
 	icon_state = "cabinetdetective";
 	locked = 0;
 	name = "personal closet";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
@@ -7067,7 +7067,7 @@
 "oE" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen Cold Room";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -7098,7 +7098,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
 	name = "Kitchen";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7136,7 +7136,7 @@
 	icon_state = "fridge";
 	locked = 0;
 	name = "meat fridge";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
@@ -7152,7 +7152,7 @@
 	icon_state = "secure";
 	locked = 0;
 	name = "kitchen Cabinet";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
@@ -7173,7 +7173,7 @@
 	icon_state = "fridge";
 	locked = 0;
 	name = "refrigerator";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
@@ -7277,7 +7277,7 @@
 	icon_state = "cabinetdetective";
 	locked = 0;
 	name = "personal closet";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/clothing/under/assistantformal,
 /turf/simulated/floor/carpet,
@@ -7290,7 +7290,7 @@
 /area/moonoutpost19/mo19arrivals)
 "pe" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
@@ -7305,7 +7305,7 @@
 	icon_state = "cabinetdetective";
 	locked = 0;
 	name = "personal closet";
-	req_access_txt = "271"
+	req_access = list(271)
 	},
 /obj/item/clothing/under/suit_jacket/burgundy,
 /turf/simulated/floor/carpet{

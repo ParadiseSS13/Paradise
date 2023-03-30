@@ -267,8 +267,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Pulse ANNIHILATOR";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/gun/energy/pulse/destroyer/annihilator,
 /obj/item/gun/energy/pulse/destroyer/annihilator,
@@ -884,8 +883,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "IK-60 Laser Carbine";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/lasercarbine,
 /obj/item/gun/projectile/automatic/lasercarbine,
@@ -2155,7 +2153,7 @@
 	icon_closed = "cabinet_closed";
 	icon_opened = "cabinet_open";
 	icon_state = "cabinet_closed";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/clothing/head/helmet/space/deathsquad/beret,
 /obj/item/clothing/shoes/combat,
@@ -2346,7 +2344,7 @@
 /area/centcom/evac)
 "ccG" = (
 /obj/machinery/computer/supplycomp{
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -2956,14 +2954,14 @@
 	name = "SST Base Access";
 	pixel_x = -6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "sst_tele";
 	name = "SST Teleporter Access";
 	pixel_x = 6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
@@ -3395,7 +3393,7 @@
 	name = "Ready room";
 	pixel_x = -6;
 	pixel_y = 6;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
@@ -3956,14 +3954,14 @@
 	name = "Privacy Shutters";
 	pixel_x = -7;
 	pixel_y = -3;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "syndicate_bridge";
 	name = "Bridge Blastdoor";
 	pixel_x = 7;
 	pixel_y = -3;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -4172,7 +4170,7 @@
 "dxO" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Vault";
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -4811,7 +4809,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Restroom";
 	opacity = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -6089,8 +6087,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "Enforcer magazine";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/enforcer/lethal,
 /obj/item/ammo_box/magazine/enforcer/lethal,
@@ -6231,7 +6228,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	desc = "For all your shady business needs";
 	name = "Special Shuttle";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
@@ -6521,7 +6518,7 @@
 	name = "ERT Turret Shutters";
 	pixel_x = -4;
 	pixel_y = 33;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /mob/living/simple_animal/pet/dog/fox/alisa,
 /obj/machinery/turretid/lethal{
@@ -6529,8 +6526,7 @@
 	control_area = "\improper Centcom Emergency Shuttle";
 	name = "ERT Turret Control";
 	pixel_y = 25;
-	req_access = null;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -6830,14 +6826,14 @@
 	name = "SIT Base Access";
 	pixel_x = -6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "sit_tele";
 	name = "SIT Teleporter Access";
 	pixel_x = 6;
 	pixel_y = 6;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
@@ -7041,7 +7037,7 @@
 	name = "Shuttle Blast Doors";
 	pixel_x = 26;
 	pixel_y = -2;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -8535,7 +8531,7 @@
 	name = "Shuttle Blast Doors";
 	pixel_x = -26;
 	pixel_y = -2;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -8583,7 +8579,7 @@
 "gCq" = (
 /obj/machinery/computer/syndicate_depot/teleporter{
 	name = "teleporter console";
-	req_access = null;
+	req_access = list();
 	use_power = 0
 	},
 /turf/simulated/floor/indestructible{
@@ -8595,8 +8591,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "TX-20a Assault Rifle";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -8697,8 +8692,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "M-90gl 40mm grenade";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
@@ -9556,8 +9550,7 @@
 /area/centcom/jail)
 "hld" = (
 /obj/structure/closet/secure_closet/security{
-	req_access = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -9633,7 +9626,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	desc = "For all your shady business needs";
 	name = "Special Shuttle";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -10645,7 +10638,7 @@
 /area/syndicate_mothership)
 "ibN" = (
 /obj/machinery/door/airlock/hatch/syndicate/command{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -11224,8 +11217,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "ARG";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -12054,7 +12046,7 @@
 "jcG" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Equipment Room";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -12316,8 +12308,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "ARG magazine";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/m556,
 /obj/structure/window/reinforced{
@@ -12915,7 +12906,7 @@
 	name = "Slaughterhouse door";
 	normaldoorcontrol = 1;
 	pixel_y = 25;
-	req_access_txt = "150";
+	req_access = list(150);
 	specialfunctions = 4
 	},
 /turf/simulated/floor/indestructible{
@@ -13606,7 +13597,7 @@
 "kgi" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sit_away";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -13768,7 +13759,7 @@
 	id = "nukeop_base";
 	name = "Nuclear Base Access";
 	pixel_y = -25;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -14317,7 +14308,7 @@
 	id_tag = "ninja_sensor";
 	pixel_x = 12;
 	pixel_y = 25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
@@ -14596,7 +14587,7 @@
 	name = "Privacy Shutters"
 	},
 /obj/machinery/door/airlock/hatch/syndicate/command{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -14744,7 +14735,7 @@
 	name = "Classified gear";
 	pixel_x = 8;
 	pixel_y = -25;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -15601,8 +15592,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Automatic Shotgun";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/shotgun/bulldog{
 	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Pancor Jackhammer' by NanoTrasen corp. Compatible only with specialized 8-round drum magazines.";
@@ -16276,7 +16266,7 @@
 /area/wizard_station)
 "lZI" = (
 /obj/machinery/door/airlock/external{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -17514,7 +17504,7 @@
 	name = "Supply Blastdoor";
 	pixel_x = 4;
 	pixel_y = -30;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -17725,8 +17715,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "Grenade launcher";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/gun/projectile/automatic/gyropistol,
 /obj/item/gun/projectile/automatic/gyropistol,
@@ -18609,7 +18598,7 @@
 /area/centcom/evac)
 "nFj" = (
 /obj/machinery/vending/medical{
-	req_access_txt = "0"
+	req_access = list()
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -18909,8 +18898,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "Frag grenade";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -19460,7 +19448,7 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkgreenfull";
@@ -19619,7 +19607,7 @@
 /area/centcom/zone1)
 "oyd" = (
 /obj/machinery/door/airlock/hatch/syndicate/command{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "commandcenter";
@@ -20202,7 +20190,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "ERT Service Room";
 	opacity = 1;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "navyblue";
@@ -21082,8 +21070,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "ML IC";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/gun/energy/immolator/multi,
 /obj/item/gun/energy/immolator/multi,
@@ -22355,7 +22342,7 @@
 "qhj" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -23090,7 +23077,7 @@
 "qHw" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sst_away";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -23620,7 +23607,7 @@
 /area/centcom/court)
 "rcb" = (
 /obj/machinery/vending/medical{
-	req_access_txt = "0"
+	req_access = list()
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkblue";
@@ -24058,7 +24045,7 @@
 "rrf" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "syndicate_away";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -24704,7 +24691,7 @@
 	base_state = "rightsecure";
 	dir = 1;
 	icon_state = "rightsecure";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkgreenfull";
@@ -24827,7 +24814,7 @@
 	id = "CC_special_operations_force_room";
 	name = "Central Command Special Operations Forces";
 	pixel_y = -25;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkred"
@@ -24873,7 +24860,7 @@
 	id_tag = "admin_away";
 	name = "Administration Shuttle";
 	opacity = 0;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -25172,7 +25159,7 @@
 /area/syndicate_mothership)
 "sca" = (
 /obj/machinery/vending/medical{
-	req_access_txt = "0"
+	req_access = list()
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -25415,7 +25402,7 @@
 "siK" = (
 /obj/machinery/computer/bsa_control/admin{
 	integrity_failure = 20;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -25528,7 +25515,7 @@
 	id_tag = "ninja_sensor";
 	pixel_x = -12;
 	pixel_y = 25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor13"
@@ -25612,7 +25599,7 @@
 "spt" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/storage/box/centcomofficer,
 /obj/item/radio/headset/centcom{
@@ -25668,7 +25655,7 @@
 	id = "CC_zone3_blastdoor";
 	name = "Zone 3 Blastdoor Control";
 	pixel_x = 25;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/effect/decal/warning_stripes/east{
 	layer = 50
@@ -25699,7 +25686,7 @@
 	id = "CC_zone3_blastdoor";
 	name = "Zone 3 Blastdoor Control";
 	pixel_x = -25;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/effect/decal/warning_stripes/west{
 	layer = 50
@@ -25836,7 +25823,7 @@
 	id = "CC_zone3_blastdoor";
 	name = "Zone 3 Blastdoor Control";
 	pixel_x = 25;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/effect/decal/warning_stripes/east{
 	layer = 50;
@@ -25855,7 +25842,7 @@
 	id = "CC_zone3_blastdoor";
 	name = "Zone 3 Blastdoor Control";
 	pixel_x = -25;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkblue";
@@ -26262,7 +26249,7 @@
 	name = "Bolt Cell Doors";
 	normaldoorcontrol = 1;
 	pixel_x = 6;
-	req_access_txt = "150";
+	req_access = list(150);
 	specialfunctions = 4
 	},
 /obj/machinery/door_control{
@@ -26270,7 +26257,7 @@
 	name = "Bolt Jail Door";
 	normaldoorcontrol = 1;
 	pixel_x = -5;
-	req_access_txt = "150";
+	req_access = list(150);
 	specialfunctions = 4
 	},
 /turf/simulated/floor/indestructible{
@@ -26346,7 +26333,7 @@
 	id_tag = "syndicate_jail_airlock_control";
 	name = "Syndicate Jail Access Controller";
 	pixel_x = -25;
-	req_access_txt = "150";
+	req_access = list(150);
 	tag_exterior_door = "syndicate_jail_airlock_external";
 	tag_interior_door = "syndicate_jail_airlock_internal"
 	},
@@ -26530,7 +26517,7 @@
 	name = "ERT Armory Level 1";
 	pixel_x = -22;
 	pixel_y = -6;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control{
 	color = "#9999ff";
@@ -26538,7 +26525,7 @@
 	name = "ERT Armory Level 2";
 	pixel_x = -33;
 	pixel_y = -6;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control{
 	color = "#ff9999";
@@ -26546,7 +26533,7 @@
 	name = "ERT Armory Level 3";
 	pixel_x = -22;
 	pixel_y = 4;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control{
 	color = "#ffdd99";
@@ -26554,7 +26541,7 @@
 	name = "ERT Armory Level 4";
 	pixel_x = -33;
 	pixel_y = 4;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -26625,7 +26612,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "ERT Mech, Gamma Delivery & Artillery Control";
 	opacity = 1;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "navyblue";
@@ -26972,7 +26959,7 @@
 	icon_closed = "cabinet_closed";
 	icon_opened = "cabinet_open";
 	icon_state = "cabinet_closed";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -27070,7 +27057,7 @@
 	master_tag = "syndicate_jail_airlock_control";
 	name = "Syndicate Jail Access Button";
 	pixel_y = -25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -27141,8 +27128,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "Suppressor's";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/suppressor,
 /obj/item/suppressor,
@@ -27413,7 +27399,7 @@
 	name = "Central Command Special Operations Forces";
 	pixel_x = -25;
 	pixel_y = 5;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/door_remote/centcomm,
 /obj/item/storage/box/ert_taser_proof/ert_locked,
@@ -27459,7 +27445,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "ERT Director";
 	opacity = 1;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "woodalt"
@@ -27494,8 +27480,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "LMG M249 SAW";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/mm556x45/ap,
 /obj/item/ammo_box/magazine/mm556x45/ap,
@@ -27651,7 +27636,7 @@
 "tRe" = (
 /obj/machinery/computer/bsa_control/admin{
 	integrity_failure = 20;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -27840,8 +27825,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	layer = 2.9;
 	name = "X-ray laser";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/gun/energy/xray,
 /obj/item/gun/energy/xray,
@@ -28144,7 +28128,7 @@
 	name = "ERT Director Office Shutters";
 	pixel_x = 7;
 	pixel_y = -3;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/radio/intercom/specops{
 	pixel_x = 5;
@@ -28520,7 +28504,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "ERT Director";
 	opacity = 1;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door/poddoor/shutters{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -28567,7 +28551,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Artillery Control";
 	opacity = 1;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -29308,14 +29292,14 @@
 	name = "Mauler's  Garage";
 	pixel_x = 8;
 	pixel_y = 25;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "dark_gygax_garage";
 	name = "Dark Gygax's Garage";
 	pixel_x = -8;
 	pixel_y = 25;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -29326,7 +29310,7 @@
 	aiControlDisabled = 1;
 	name = "Assault Pod";
 	opacity = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/docking_port/mobile/assault_pod,
 /turf/simulated/floor/shuttle{
@@ -29520,7 +29504,7 @@
 	id = "CC_NT_armory";
 	name = "Nanotrasen Armory";
 	pixel_x = -25;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -29581,8 +29565,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "M-90gl magazine";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/ammo_box/magazine/m556,
 /obj/item/ammo_box/magazine/m556,
@@ -29694,7 +29677,7 @@
 "vvt" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/clothing/head/beret/centcom/officer,
 /obj/item/storage/box/centcomofficer,
@@ -29754,7 +29737,7 @@
 	name = "Central Command Supply Internal Shutter";
 	pixel_x = 4;
 	pixel_y = -30;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
@@ -30321,7 +30304,7 @@
 "vMK" = (
 /obj/structure/closet/secure_closet/personal/cabinet{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/item/clothing/suit/judgerobe{
 	name = "Supreme judge's robe"
@@ -31114,14 +31097,14 @@
 	name = "Central Command Supply External Shutte";
 	pixel_x = -5;
 	pixel_y = -2;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/door_control{
 	id = "CC_supply_internal";
 	name = "Central Command Supply Internal Shutter";
 	pixel_x = -5;
 	pixel_y = 8;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -31179,7 +31162,7 @@
 	master_tag = "syndicate_jail_airlock_control";
 	name = "Syndicate Jail Access Button";
 	pixel_y = 25;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
@@ -31841,7 +31824,7 @@
 	aiControlDisabled = 1;
 	name = "Assault Pod";
 	opacity = 1;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -32469,8 +32452,7 @@
 	anchored = 1;
 	layer = 2.9;
 	name = "M-90gl";
-	req_access = null;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -32670,7 +32652,7 @@
 	base_state = "rightsecure";
 	dir = 1;
 	icon_state = "rightsecure";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkgreenfull";
@@ -33018,7 +33000,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Gamma Armory";
 	opacity = 1;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -33568,7 +33550,7 @@
 /obj/mecha/combat/gygax/ert,
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkgreenfull";

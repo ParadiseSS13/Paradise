@@ -3095,8 +3095,7 @@
 /area/awaymission/arrivalblock)
 "ib" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Glass Airlock";
-	req_access_txt = "0"
+	name = "Glass Airlock"
 	},
 /obj/structure/cable{
 	icon_state = "4-8";
@@ -3557,8 +3556,7 @@
 "jr" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
-	name = "Glass Airlock";
-	req_access_txt = "0"
+	name = "Glass Airlock"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)

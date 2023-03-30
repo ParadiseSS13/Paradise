@@ -624,7 +624,7 @@
 	icon_state = "on";
 	id = "air_in";
 	on = 1;
-	req_access_txt = "159,156"
+	req_access = list(156,159)
 	},
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
@@ -6090,7 +6090,7 @@
 	id = "CargoPrivacy";
 	name = "Privacy shutters control";
 	pixel_x = 24;
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6130,7 +6130,7 @@
 	input_tag = "syndie_base_mix_in";
 	name = "Gas Mix Tank Control";
 	output_tag = "mix_out";
-	req_access_txt = "159";
+	req_access = list(159);
 	sensors = list("syndie_base_mix_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6300,7 +6300,7 @@
 	name = "Mixed Air Supply Control";
 	output_tag = "syndie_base_air_out";
 	pressure_setting = 2000;
-	req_access_txt = "159";
+	req_access = list(159);
 	sensors = list("syndie_base_air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6348,7 +6348,7 @@
 	input_tag = "syndie_base_o2_in";
 	name = "Oxygen Supply Control";
 	output_tag = "syndie_base_o2_out";
-	req_access_txt = "159";
+	req_access = list(159);
 	sensors = list("syndie_base_o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -6378,7 +6378,7 @@
 	input_tag = "syndie_base_n2_in";
 	name = "Nitrogen Supply Control";
 	output_tag = "syndie_base_n2_out";
-	req_access_txt = "159";
+	req_access = list(159);
 	sensors = list("syndie_base_n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -7897,7 +7897,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
 	name = "Animal Pen";
-	req_access_txt = "148"
+	req_access = list(148)
 	},
 /mob/living/simple_animal/pig,
 /turf/simulated/floor/grass,
@@ -8338,7 +8338,7 @@
 	input_tag = "syndie_base_n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	output_tag = "syndie_base_n2o_out";
-	req_access_txt = "159";
+	req_access = list(159);
 	sensors = list("syndie_base_n2o_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -8490,7 +8490,7 @@
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "hRV" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -8890,7 +8890,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 2;
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8954,7 +8954,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 2;
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8966,7 +8966,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 2;
-	req_access_txt = "158"
+	req_access = list(158)
 	},
 /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice,
 /turf/simulated/floor/plasteel{
@@ -11720,7 +11720,7 @@
 	},
 /obj/machinery/door/airlock/syndicate/engineering{
 	name = "Atmospherics storage";
-	req_access_txt = "156;159"
+	req_access = list(156,159)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12078,7 +12078,7 @@
 	id = "SyndieRnDPrivacy";
 	name = "Privacy shutters control";
 	pixel_x = 24;
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12188,7 +12188,7 @@
 	input_tag = "syndie_base_tox_in";
 	name = "Toxin Supply Control";
 	output_tag = "syndie_base_tox_out";
-	req_access_txt = "159";
+	req_access = list(159);
 	sensors = list("syndie_base_tox_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -13433,7 +13433,7 @@
 "mfU" = (
 /obj/machinery/door/airlock/syndicate/public/glass{
 	name = "Hydroponics";
-	req_access_txt = "148"
+	req_access = list(148)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -15716,7 +15716,7 @@
 	input_tag = "syndie_base_co2_in";
 	name = "Carbon Dioxide Supply Control";
 	output_tag = "syndie_base_co2_out";
-	req_access_txt = "159";
+	req_access = list(159);
 	sensors = list("syndie_base_co2_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -17769,7 +17769,7 @@
 	color = "red";
 	dir = 8;
 	name = "Coroner";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -17938,7 +17938,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/syndicate/atmos/glass{
 	name = "Atmospherics";
-	req_access_txt = "156;159"
+	req_access = list(156,159)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -19154,7 +19154,7 @@
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "qzc" = (
 /obj/machinery/vending/tool{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -19167,7 +19167,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "qzw" = (
 /obj/machinery/vending/engivend{
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
@@ -19774,7 +19774,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20938,7 +20938,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 8;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/implanter/freedom{
 	pixel_x = 5;
@@ -21639,7 +21639,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 8;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/item/organ/internal/cyberimp/brain/anti_stun,
 /turf/simulated/floor/mineral/plastitanium,
@@ -22860,7 +22860,7 @@
 	name = "Privacy shutters control";
 	pixel_x = 5;
 	pixel_y = 8;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/carpet,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
@@ -23007,7 +23007,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_w)
 "tET" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -23342,7 +23342,7 @@
 	dir = 4
 	},
 /obj/machinery/vending/medical/syndicate_access{
-	req_access_txt = list(156,149)
+	req_access = list(156,149)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -25255,7 +25255,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "uSX" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "149"
+	req_access = list(149)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -25296,7 +25296,7 @@
 /obj/machinery/door/window/eastright{
 	color = "red";
 	dir = 8;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#FF0000";
@@ -26978,7 +26978,7 @@
 	dir = 2;
 	icon_state = "left";
 	name = "Cryo Tank Storage";
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -27585,7 +27585,7 @@
 	id = "surgery1_privacy";
 	name = "Privacy shutters control";
 	pixel_x = 22;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -27632,7 +27632,7 @@
 	id = "surgery2_privacy";
 	name = "Privacy shutters control";
 	pixel_x = 22;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28307,7 +28307,7 @@
 	name = "Privacy shutters control";
 	pixel_x = 5;
 	pixel_y = 6;
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -28429,7 +28429,7 @@
 	id = "CargoPrivacy";
 	name = "Privacy shutters control";
 	pixel_y = -24;
-	req_access_txt = "157"
+	req_access = list(157)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

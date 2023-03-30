@@ -546,7 +546,7 @@
 	name = "Thunderdome Flash"
 	},
 /obj/item/radio/intercom/pirate{
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "thunderdome";
@@ -850,7 +850,7 @@
 	icon_closed = "cabinet_closed";
 	icon_opened = "cabinet_open";
 	icon_state = "cabinet_closed";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /turf/simulated/floor/wood,
 /area/admin)
@@ -2025,13 +2025,13 @@
 /obj/effect/landmark/tdome/tdomeadmin,
 /obj/item/radio/intercom/pirate{
 	pixel_y = -25;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "thunderdome";
 	name = "Thunder start";
 	pixel_y = -32;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/carpet/black,
 /area/tdome/tdomeadmin)
@@ -2285,7 +2285,7 @@
 	name = "Ready room";
 	pixel_x = -6;
 	pixel_y = 6;
-	req_access_txt = "150"
+	req_access = list(150)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -2893,21 +2893,21 @@
 	name = "TD Strela Kit";
 	pixel_x = 5;
 	pixel_y = 5;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "TD_Baseball";
 	name = "TD Baseball Kit";
 	pixel_x = -5;
 	pixel_y = 5;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "TD_Cowboy";
 	name = "TD Cowboy Kit";
 	pixel_x = -5;
 	pixel_y = -5;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/carpet/black,
 /area/tdome/tdomeadmin)
@@ -3373,7 +3373,7 @@
 	name = "Thunderdome Flash"
 	},
 /obj/item/radio/intercom/pirate{
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "thunderdome";
@@ -3390,7 +3390,7 @@
 	icon_closed = "cabinet_closed";
 	icon_opened = "cabinet_open";
 	icon_state = "cabinet_closed";
-	req_access_txt = "114"
+	req_access = list(114)
 	},
 /obj/machinery/light/small{
 	brightness_range = 6;
@@ -4076,28 +4076,28 @@
 	name = "TD Shitcurity Kit";
 	pixel_x = 5;
 	pixel_y = 5;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "TD_Robaster";
 	name = "TD Robaster Kit";
 	pixel_x = -5;
 	pixel_y = 5;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "TD_Mecha";
 	name = "TD Mecha Kit";
 	pixel_x = 5;
 	pixel_y = -5;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /obj/machinery/door_control{
 	id = "TD_Bojutsu";
 	name = "TD Bojutsu Kit";
 	pixel_x = -5;
 	pixel_y = -5;
-	req_access_txt = "153"
+	req_access = list(153)
 	},
 /turf/simulated/floor/carpet/black,
 /area/tdome/tdomeadmin)
