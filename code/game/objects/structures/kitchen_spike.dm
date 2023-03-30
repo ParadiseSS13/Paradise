@@ -114,10 +114,6 @@
 	victim.pixel_y = victim.get_standard_pixel_y_offset(180)
 	return TRUE
 
-/obj/structure/kitchenspike/user_buckle_mob(mob/living/M, mob/living/user)
-	// This will never run because meatspikes have density = TRUE
-	return
-
 /obj/structure/kitchenspike/user_unbuckle_mob(mob/living/buckled_mob, mob/living/carbon/human/user)
 	if(buckled_mob)
 		var/mob/living/M = buckled_mob
