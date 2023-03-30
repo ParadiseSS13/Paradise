@@ -83,7 +83,7 @@
 		"<span class='danger'>[user] tries to slam [victim] onto the meat spike!</span>",
 		"<span class='userdanger'>[user] tries to slam you onto the meat spike!</span>"
 	)
-	if(do_mob(user, src, 120))
+	if(do_mob(user, src, 12 SECONDS))
 		end_spike(victim, user)
 
 /obj/structure/kitchenspike/proc/end_spike(mob/living/victim, mob/user)
