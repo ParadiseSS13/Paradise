@@ -510,7 +510,11 @@
 	var/obj/item/twohanded/spear/contained_spear = null
 
 /obj/structure/headspear/Destroy()
-	QDEL_NULL(mounted_head)
+	if(!obj_integrity)
+		mounted_head.forceMove(loc)
+		mounted_head = null
+	else
+		QDEL_NULL(mounted_head)
 	QDEL_NULL(contained_spear)
 	return ..()
 

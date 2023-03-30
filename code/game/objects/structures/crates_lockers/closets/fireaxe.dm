@@ -200,3 +200,12 @@
 
 /obj/structure/closet/fireaxecabinet/welder_act(mob/user, obj/item/I) //A bastion of sanity in a sea of madness
 	return
+
+/obj/structure/closet/fireaxecabinet/Destroy()
+	if(!obj_integrity)
+		if(fireaxe)
+			fireaxe.forceMove(loc)
+			fireaxe = null
+		else
+			QDEL_NULL(fireaxe)
+	return ..()
