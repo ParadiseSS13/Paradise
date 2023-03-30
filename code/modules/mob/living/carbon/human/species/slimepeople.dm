@@ -193,6 +193,15 @@
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
 
+/datum/species/slime/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "sodiumchloride")
+		H.adjustFireLoss(0.5)
+		if(prob(25))
+			H.adjustBrainLoss(0.5)
+		to_chat(H, "<span class='warning'>Your insides are burning!</span>")
+		return TRUE
+	return ..()
+
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
 #undef SLIMEPERSON_BLOOD_SCALING_FACTOR
