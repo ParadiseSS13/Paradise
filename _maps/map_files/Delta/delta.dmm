@@ -47866,6 +47866,11 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
+/obj/structure/table/glass,
+/obj/item/storage/fancy/donut_box{
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/food/drinks/mug/sec,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "whitered"
@@ -57846,13 +57851,17 @@
 /turf/simulated/floor/plating,
 /area/security/podbay)
 "hmq" = (
-/obj/structure/closet/secure_closet/brigdoc{
-	req_access = list(2,5)
+/obj/structure/window/reinforced{
+	dir = 4
 	},
-/obj/item/handheld_defibrillator,
-/obj/item/storage/belt/medical,
-/obj/item/storage/pill_bottle,
-/obj/item/storage/pill_bottle/patch_pack,
+/obj/machinery/door/window/eastright{
+	dir = 2;
+	name = "Hardsuit storage";
+	req_access = list(5)
+	},
+/obj/machinery/suit_storage_unit/brigmed/secure{
+	req_access = list(5)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitered"
@@ -57921,23 +57930,10 @@
 	},
 /area/crew_quarters/fitness)
 "hnB" = (
-/obj/structure/table/glass,
-/obj/item/paper_bin{
-	pixel_y = 7
-	},
-/obj/item/flashlight/lamp{
-	layer = 3.1;
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/obj/item/pen,
-/obj/item/folder/white{
-	pixel_x = 6;
-	pixel_y = 3
-	},
 /obj/item/radio/intercom{
 	pixel_y = 32
 	},
+/obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
@@ -58141,16 +58137,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "hpg" = (
-/obj/structure/table/glass,
 /obj/structure/sign/nosmoking_1{
 	pixel_x = 32
 	},
-/obj/item/storage/fancy/donut_box{
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/food/drinks/mug/sec,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
+	},
+/obj/machinery/computer/med_data{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -78201,9 +78195,22 @@
 	},
 /area/chapel/office)
 "mlX" = (
-/obj/machinery/computer/crew,
 /obj/machinery/newscaster/security_unit{
 	pixel_x = 30
+	},
+/obj/structure/table/glass,
+/obj/item/paper_bin{
+	pixel_y = 7
+	},
+/obj/item/flashlight/lamp{
+	layer = 3.1;
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/pen,
+/obj/item/folder/white{
+	pixel_x = 6;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -109445,9 +109452,13 @@
 /area/medical/surgery/south)
 "tns" = (
 /obj/structure/window/reinforced,
-/obj/machinery/computer/med_data{
-	dir = 4
+/obj/structure/closet/secure_closet/brigdoc{
+	req_access = list(2,5)
 	},
+/obj/item/handheld_defibrillator,
+/obj/item/storage/belt/medical,
+/obj/item/storage/pill_bottle,
+/obj/item/storage/pill_bottle/patch_pack,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitered"

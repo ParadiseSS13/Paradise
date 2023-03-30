@@ -106,6 +106,16 @@
 /obj/machinery/suit_storage_unit/security/pod_pilot
 	req_access = list(ACCESS_PILOT)
 
+/obj/machinery/suit_storage_unit/brigmed
+	name = "brig physician suit storage unit"
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/security/brigmed
+	mask_type    = /obj/item/clothing/mask/gas/sechailer
+	storage_type = /obj/item/tank/jetpack/oxygen
+	magboots_type = /obj/item/clothing/shoes/magboots/security
+
+/obj/machinery/suit_storage_unit/brigmed/secure
+	secure = TRUE
+
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/atmos

@@ -548,6 +548,24 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
 
+/obj/item/clothing/head/helmet/space/hardsuit/security/brigmed
+	name = "brig physician's hardsuit helmet"
+	desc = "Improved medical hardsuit helmet with an additional layer of armor."
+	icon_state = "hardsuit0-brigmed"
+	armor = list("melee" = 30, "bullet" = 10, "laser" = 20, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
+	item_color = "brigmed"
+	flash_protect = 0
+	scan_reagents = 1
+
+/obj/item/clothing/suit/space/hardsuit/security/brigmed
+	name = "brig physician's hardsuit"
+	desc = "Improved medical hardsuit with an additional layer of armor."
+	icon_state = "hardsuit-brigmed"
+	item_state = "hardsuit-brigmed"
+	armor = list("melee" = 30, "bullet" = 10, "laser" = 20, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/brigmed
+	slowdown = 0.5
+
 //Blueshield hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/blueshield
 	name = "blueshield's hardsuit helmet"
