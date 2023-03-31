@@ -468,7 +468,7 @@
 	item_state = "v1_arm"
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
 	force = 20 //bonk, not sharp
-	attack_verb = list("slamed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored")
+	attack_verb = list("slammed", "punched", "parried", "judged", "styled on", "disrespected", "interrupted", "gored", "neglected to sugarcoat") //this is atomic i swear
 	hitsound = 'sound/effects/bang.ogg'
 	light_power = 3
 	light_range = 0
@@ -481,6 +481,10 @@
 	var/disabled = FALSE
 	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
 
+/obj/item/shield/v1_arm/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(ismachineperson(user))
+		user.nutrition = NUTRITION_LEVEL_WELL_FED
 
 /obj/item/shield/v1_arm/emp_act(severity)
 	if(disabled)
