@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		return 1
 	return 0
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0, var/has_googly_eyes = TRUE)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0, has_googly_eyes = TRUE)
 	if(destroy_original || CheckObject(O))
 		O.loc = src
 		name = O.name
