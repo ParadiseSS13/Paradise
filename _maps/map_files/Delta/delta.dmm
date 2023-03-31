@@ -25934,6 +25934,7 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/spikes,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -25945,11 +25946,13 @@
 	icon_state = "spooky";
 	name = "Observer-Start"
 	},
+/obj/structure/spikes,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
 /area/hallway/primary/central)
 "bsm" = (
+/obj/structure/spikes,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -25960,6 +25963,7 @@
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/structure/spikes,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -35539,6 +35543,7 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/spikes,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -88199,6 +88204,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
+"mQO" = (
+/obj/structure/spikes,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "mRb" = (
 /obj/machinery/airlock_controller/access_controller{
 	name = "Turbine Access Console";
@@ -91754,6 +91765,13 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
+"qRP" = (
+/obj/machinery/light,
+/obj/structure/spikes,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "qSk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -92986,6 +93004,13 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
+"sjt" = (
+/obj/structure/spikes,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "sjA" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
@@ -136185,7 +136210,7 @@ bnc
 bmZ
 boo
 bqu
-bIX
+mQO
 btH
 aaa
 bwc
@@ -136442,7 +136467,7 @@ bne
 bmZ
 boo
 bqu
-bIX
+mQO
 btH
 aaa
 bwd
@@ -136699,7 +136724,7 @@ bQy
 bmZ
 boo
 bqu
-bIX
+mQO
 btH
 aaa
 bwd
@@ -136956,7 +136981,7 @@ bQy
 aYZ
 fJp
 bqu
-bIX
+mQO
 btH
 aaa
 bwe
@@ -137213,7 +137238,7 @@ aYZ
 bna
 boo
 bqu
-bhX
+qRP
 bsv
 abj
 bwf
@@ -138498,7 +138523,7 @@ bls
 bfq
 bov
 aXY
-bwm
+sjt
 btH
 aaa
 bwj
@@ -138755,7 +138780,7 @@ blt
 bfq
 bov
 aXY
-bwm
+sjt
 btH
 aaa
 bwk
@@ -139012,7 +139037,7 @@ blu
 bhU
 bov
 aXY
-bwm
+sjt
 btH
 aaa
 bwk
@@ -139269,7 +139294,7 @@ blu
 bhU
 bov
 aXY
-bwm
+sjt
 btH
 aaa
 bwl

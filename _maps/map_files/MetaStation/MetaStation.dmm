@@ -16479,6 +16479,7 @@
 /area/maintenance/apmaint)
 "bfU" = (
 /obj/machinery/hologram/holopad,
+/obj/structure/spikes,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
 "bfV" = (
@@ -63870,6 +63871,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/structure/spikes,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -73400,6 +73402,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
+/obj/structure/spikes,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -78502,6 +78505,12 @@
 	icon_state = "dark"
 	},
 /area/security/interrogation)
+"qRe" = (
+/obj/structure/spikes,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "qRm" = (
 /turf/simulated/floor/carpet,
 /area/security/hos)
@@ -85826,6 +85835,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"uDs" = (
+/obj/structure/spikes,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "uDH" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
@@ -87570,6 +87586,14 @@
 	icon_state = "darkblue"
 	},
 /area/security/armoury)
+"vvs" = (
+/obj/structure/spikes,
+/obj/structure/spikes,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/central)
 "vvR" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1;
@@ -118390,7 +118414,7 @@ aZN
 bbk
 bdS
 beq
-bdb
+qRe
 aYx
 abq
 abq
@@ -118647,7 +118671,7 @@ bco
 aZL
 bgH
 bek
-bdb
+qRe
 aYx
 abq
 abq
@@ -118904,7 +118928,7 @@ aZL
 aZL
 bdU
 bek
-bdb
+qRe
 aYx
 abq
 aBV
@@ -119161,7 +119185,7 @@ aZJ
 bbm
 bNp
 bek
-bdb
+qRe
 aYx
 abq
 aCV
@@ -119418,7 +119442,7 @@ aUr
 bbn
 bbr
 bwn
-bdb
+qRe
 aYx
 abq
 aBY
@@ -119932,7 +119956,7 @@ aMf
 bbp
 fJp
 jtg
-bdb
+qRe
 aYx
 abq
 bkW
@@ -120189,7 +120213,7 @@ aZP
 bbq
 pzV
 ber
-bdb
+qRe
 aYx
 abq
 aEh
@@ -120703,7 +120727,7 @@ aZR
 bbs
 dEM
 tyF
-bfV
+uDs
 aYx
 abq
 aDK
@@ -120960,7 +120984,7 @@ aMk
 bZi
 lDm
 fHQ
-bfV
+vvs
 aYx
 abq
 bkW
@@ -121474,7 +121498,7 @@ aMk
 beD
 bcX
 bek
-bfV
+uDs
 aYx
 abq
 boe
@@ -121731,7 +121755,7 @@ aMk
 beR
 bMR
 bek
-bfV
+uDs
 aYx
 abq
 boe
@@ -121988,7 +122012,7 @@ aMk
 aMk
 bMR
 bek
-bfV
+uDs
 aYx
 abq
 aEt
@@ -122245,7 +122269,7 @@ aZT
 aMk
 bMR
 bek
-bfV
+uDs
 aYx
 abq
 abq
@@ -122502,7 +122526,7 @@ aZU
 aYA
 bMR
 bek
-bfV
+uDs
 aYx
 abq
 abq
