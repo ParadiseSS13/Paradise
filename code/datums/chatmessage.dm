@@ -25,6 +25,16 @@
 	icon = 'icons/mob/verified.dmi'
 	icon_state = "verified"
 
+/client
+	var/show_checkmark = TRUE
+
+/client/verb/toggle_checkmark()
+	set name = "Toggle Verified Checkmark"
+	set category = "OOC"
+
+	show_checkmark = !show_checkmark
+	to_chat(src, "If you have a checkmark, it's been [show_checkmark ? 'enabled' : 'disabled']")
+
 
 /**
   * # Chat Message Overlay
@@ -143,7 +153,7 @@
 			size = size || "small"
 		else
 			// afd or not, we don't want to actually make people's lives harder
-			var/no_symbol_regardless = (owned_by.holder?.fakekey || (owned_by.prefs.toggles2 & PREFTOGGLE_2_ANON))
+			var/no_symbol_regardless = (owned_by.holder?.fakekey || (owned_by.prefs.toggles2 & PREFTOGGLE_2_ANON) || !owned_by.show_checkmark)
 			if((owned_by.IsByondMember() || owned_by.donator_level) && !no_symbol_regardless)
 				symbol = "<img src='icons/mob/verified.dmi' icon='icons/mob/verified.dmi' iconstate='verified'>"
 			else
