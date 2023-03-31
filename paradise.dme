@@ -1629,6 +1629,7 @@
 #include "code\modules\events\meaty_ores.dm"
 #include "code\modules\events\meteors.dm"
 #include "code\modules\events\money_spam.dm"
+#include "code\modules\events\monkey_event.dm"
 #include "code\modules\events\prison_break.dm"
 #include "code\modules\events\radiation_storm.dm"
 #include "code\modules\events\rogue_drones.dm"

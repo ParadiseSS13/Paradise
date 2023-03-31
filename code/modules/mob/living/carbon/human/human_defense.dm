@@ -611,6 +611,8 @@ emp_act
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		dna.species.spec_attack_hand(H, src)
+	if(HAS_TRAIT(user, TRAIT_HAS_MONKEY_VIRUS))
+		infect_with_monkey_virus(user)
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
