@@ -67,7 +67,7 @@
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/payday = list( // 35TC
-		/obj/item/gun/projectile/revolver, // 13TC
+		/obj/item/toy/russian_revolver/trick_revolver, // 13TC
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/ammo_box/a357, // 3TC
 		/obj/item/card/emag, // 6TC
@@ -237,7 +237,7 @@
 	name = "trick revolver kit"
 
 /obj/item/storage/box/syndie_kit/fake_revolver/populate_contents()
-	new /obj/item/toy/russian_revolver/trick_revolver(src)
+	new /obj/item/gun/projectile/revolver(src)
 
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
@@ -363,5 +363,5 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	name = "\improper .357 revolver kit"
 
 /obj/item/storage/box/syndie_kit/revolver/populate_contents()
-	new /obj/item/gun/projectile/revolver(src)
+	new /obj/item/toy/russian_revolver/trick_revolver(src)
 	new /obj/item/ammo_box/a357(src)

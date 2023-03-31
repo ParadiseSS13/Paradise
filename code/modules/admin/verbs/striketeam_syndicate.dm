@@ -133,7 +133,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), slot_in_backpack)
 
-	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/toy/russian_revolver/trick_revolver(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)

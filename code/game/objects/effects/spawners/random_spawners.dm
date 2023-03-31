@@ -318,7 +318,7 @@
 		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
 		/obj/item/melee/energy/sword/saber = 1,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
-		/obj/item/gun/projectile/revolver = 1,
+		/obj/item/toy/russian_revolver/trick_revolver = 1,
 		/obj/item/clothing/gloves/color/yellow/power = 1,
 		/obj/item/twohanded/chainsaw = 1,
 		/obj/item/bee_briefcase = 1,

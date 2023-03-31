@@ -242,7 +242,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/capgun
 	name = "Capgun Revolver"
 	desc = "Do you feel lucky... punk?"
-	typepath = /obj/item/gun/projectile/revolver/capgun
+	typepath = /obj/item/toy/russian_revolver/trick_revolver
 	cost = 75
 
 /datum/prize_item/codex_gigas

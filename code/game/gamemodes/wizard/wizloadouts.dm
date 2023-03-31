@@ -58,7 +58,7 @@
 		You will likely need to scavenge additional ammo or weapons aboard the station. <br><br>\
 		</i>Provides a .357 Revolver, 4 speedloaders of ammo, Ethereal Jaunt, Blink, Summon Item, No Clothes, and Bind Soul, with a unique outfit.<i>"
 	log_name = "GR"
-	items_path = list(/obj/item/gun/projectile/revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
+	items_path = list(/obj/item/toy/russian_revolver/trick_revolver, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/clothing/under/syndicate)
 	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/turf_teleport/blink, \
 		/obj/effect/proc_holder/spell/summonitem, /obj/effect/proc_holder/spell/noclothes, /obj/effect/proc_holder/spell/lichdom/gunslinger)
 	category = "Unique"

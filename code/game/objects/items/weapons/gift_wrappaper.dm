@@ -74,7 +74,7 @@
 		/obj/item/toy/balloon,
 		/obj/item/toy/blink,
 		/obj/item/gun/projectile/shotgun/toy/crossbow,
-		/obj/item/gun/projectile/revolver/capgun,
+		/obj/item/toy/russian_revolver/trick_revolver,
 		/obj/item/toy/katana,
 		/obj/random/mech,
 		/obj/item/toy/spinningtoy,
