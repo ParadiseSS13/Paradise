@@ -188,6 +188,11 @@
 	path = /obj/item/clothing/under/rank/cargo/quartermaster/skirt
 	allowed_roles = list("Quartermaster")
 
+/datum/gear/uniform/skirt/job/barber
+	display_name = "Skirt, barber"
+	path = /obj/item/clothing/under/rank/civilian/barber/skirt
+	allowed_roles = list("Barber")
+
 /datum/gear/uniform/skirt/job/bartender
 	display_name = "Skirt, bartender"
 	path = /obj/item/clothing/under/rank/civilian/bartender/skirt

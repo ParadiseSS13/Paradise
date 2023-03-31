@@ -37,12 +37,12 @@
 	item_state = "hop_dress"
 	item_color = "hop_dress"
 
-/obj/item/clothing/under/rank/civilian/head_of_personnel_whimsy
+/obj/item/clothing/under/rank/civilian/hop/whimsy
 	name = "head of personnel's suit"
-	desc = "A blue jacket and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
-	icon_state = "hopwhimsy"
-	item_state = "hopwhimsy"
-	item_color = "hopwhimsy"
+	desc = "A blue sweater and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
+	icon_state = "hop_whimsy"
+	item_state = "hop_whimsy"
+	item_color = "hop_whimsy"
 
 /obj/item/clothing/under/rank/civilian/bartender
 	name = "bartender's uniform"
@@ -172,24 +172,44 @@
 	item_color = "janitor_skirt"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
 
-/obj/item/clothing/under/rank/civilian/librarian
-	name = "sensible suit"
-	desc = "It's very... sensible."
-	icon_state = "red_suit"
-	item_state = "red_suit"
-	item_color = "red_suit"
+/obj/item/clothing/under/rank/civilian/janitor/overalls
+	name = "janitor's overalls"
+	desc = "A pair of purple overalls, specifically designed to protect the wearer against high levels of viscera."
+	icon_state = "janitor_overalls"
+	item_state = "janitor_overalls"
+	item_color = "janitor_overalls"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
 
+/obj/item/clothing/under/rank/civilian/librarian
+	name = "librarian's suit"
+	desc = "A red sweater and grey slacks, usually worn by the station's librarian."
+	icon_state = "librarian"
+	item_state = "librarian"
+	item_color = "librarian"
+
+/obj/item/clothing/under/rank/civilian/librarian/skirt
+	name = "librarian's skirt"
+	desc = "A red sweater and grey skirt, usually worn by the station's librarian."
+	icon_state = "librarian_skirt"
+	item_state = "librarian_skirt"
+	item_color = "librarian_skirt"
 
 /obj/item/clothing/under/rank/civilian/mime/nodrop
 	flags = NODROP
 
 /obj/item/clothing/under/rank/civilian/barber
-	desc = "It's a barber's uniform."
 	name = "barber's uniform"
+	desc = "It's a barber's uniform."
 	icon_state = "barber"
 	item_state = "barber"
 	item_color = "barber"
 
+/obj/item/clothing/under/rank/civilian/barber/skirt
+	name = "barber's skirt"
+	desc = "It's a barber's uniform. This one has a skirt."
+	icon_state = "barber_skirt"
+	item_state = "barber_skirt"
+	item_color = "barber_skirt"
 
 /obj/item/clothing/under/rank/civilian/internalaffairs
 	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
@@ -202,22 +222,42 @@
 	name = "lawyer suit"
 	desc = "Slick threads."
 
+/obj/item/clothing/under/rank/civilian/lawyer/skirt
+	name = "lawyer skirt"
+	desc = "Slick threads."
+
 /obj/item/clothing/under/rank/civilian/lawyer/black
 	icon_state = "lawyer_black"
 	item_state = "lawyer_black"
 	item_color = "lawyer_black"
 
+/obj/item/clothing/under/rank/civilian/lawyer/skirt/black
+	icon_state = "lawyer_black_skirt"
+	item_state = "lawyer_black_skirt"
+	item_color = "lawyer_black_skirt"
 /obj/item/clothing/under/rank/civilian/lawyer/red
 	name = "lawyer red suit"
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"
 	item_color = "lawyer_red"
 
+/obj/item/clothing/under/rank/civilian/lawyer/skirt/red
+	name = "lawyer red skirt"
+	icon_state = "lawyer_red_skirt"
+	item_state = "lawyer_red_skirt"
+	item_color = "lawyer_red_skirt"
+
 /obj/item/clothing/under/rank/civilian/lawyer/blue
 	name = "lawyer blue suit"
 	icon_state = "lawyer_blue"
 	item_state = "lawyer_blue"
 	item_color = "lawyer_blue"
+
+/obj/item/clothing/under/rank/civilian/lawyer/skirt/blue
+	name = "lawyer blue skirt"
+	icon_state = "lawyer_blue_skirt"
+	item_state = "lawyer_blue_skirt"
+	item_color = "lawyer_blue_skirt"
 
 /obj/item/clothing/under/rank/civilian/lawyer/purple
 	name = "lawyer purple suit"
@@ -244,3 +284,17 @@
 	desc = "Superior class for the nosy H.R. Director."
 	icon_state = "huresource"
 	item_color = "huresource"
+
+/obj/item/clothing/under/rank/civilian/lawyer/goodsuit
+	name = "good man's suit"
+	desc = "It's all good, man!"
+	icon_state = "good_suit"
+	item_state = "good_suit"
+	item_color = "good_suit"
+
+/obj/item/clothing/under/rank/civilian/lawyer/goodsuit
+	name = "good man's skirt"
+	desc = "It's all good, man!"
+	icon_state = "good_suit_skirt"
+	item_state = "good_suit_skirt"
+	item_color = "good_suit_skirt"

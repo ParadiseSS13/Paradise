@@ -262,6 +262,7 @@
 
 /obj/item/storage/bag/garment/chaplain/populate_contents()
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
+	new /obj/item/clothing/under/rank/civilian/chaplain/skirt(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/suit/hooded/nun(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
@@ -277,3 +278,19 @@
 	new /obj/item/clothing/gloves/ring/silver(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
 	new /obj/item/clothing/gloves/ring/gold(src)
+
+/obj/item/storage/bag/garment/janitor
+	name = "janitor's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the janitor."
+
+/obj/item/storage/bag/garment/janitor/populate_contents()
+	new /obj/item/clothing/under/rank/civilian/janitor(src)
+	new /obj/item/clothing/under/rank/civilian/janitor(src)
+	new /obj/item/clothing/under/rank/civilian/janitor/skirt(src)
+	new /obj/item/clothing/under/rank/civilian/janitor/skirt(src)
+	new /obj/item/clothing/under/rank/civilian/janitor/overalls(src)
+	new /obj/item/clothing/under/rank/civilian/janitor/overalls(src)
+	new /obj/item/clothing/head/soft/purple(src)
+	new /obj/item/clothing/head/soft/purple(src)
+	new /obj/item/clothing/shoes/galoshes(src)
+	new /obj/item/clothing/shoes/galoshes(src)

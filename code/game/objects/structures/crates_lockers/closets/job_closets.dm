@@ -80,8 +80,6 @@
 	new /obj/item/flashlight(src)
 	new /obj/item/melee/flyswatter(src)
 	new /obj/item/melee/flyswatter(src)
-	new /obj/item/clothing/shoes/galoshes(src)
-	new /obj/item/clothing/shoes/galoshes(src)
 	new /obj/item/soap(src)
 	new /obj/item/soap(src)
 	new /obj/item/reagent_containers/spray/cleaner(src)
@@ -101,15 +99,10 @@
 	new /obj/item/watertank/janitor(src)
 	new /obj/item/storage/belt/janitor(src)
 	new /obj/item/storage/belt/janitor(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/head/soft/purple(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
-	new /obj/item/clothing/under/rank/civilian/janitor(src)
-	new /obj/item/clothing/under/rank/civilian/janitor(src)
-	new /obj/item/clothing/under/rank/civilian/janitor/skirt(src)
-	new /obj/item/clothing/under/rank/civilian/janitor/skirt(src)
 	new /obj/item/cartridge/janitor(src)
+	new /obj/item/storage/bag/garment/janitor(src)
 
 //Paramedic
 

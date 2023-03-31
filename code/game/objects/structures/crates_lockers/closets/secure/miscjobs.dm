@@ -7,6 +7,7 @@
 /obj/structure/closet/secure_closet/clown/populate_contents()
 	new /obj/item/storage/backpack/clown(src)
 	new /obj/item/clothing/under/rank/civilian/clown(src)
+	new /obj/item/clothing/under/rank/civilian/clown/sexy(src)
 	new /obj/item/clothing/shoes/clown_shoes(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/mask/gas/clown_hat(src)
