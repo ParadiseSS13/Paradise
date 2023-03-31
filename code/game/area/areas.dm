@@ -436,6 +436,7 @@
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
+	SEND_SIGNAL(L, COMSIG_AREA_ENTERED, newarea)
 	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
 		thunk(L)
 

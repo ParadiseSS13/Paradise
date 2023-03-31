@@ -1,6 +1,7 @@
 /datum/martial_art/cqc
 	name = "CQC"
 	has_explaination_verb = TRUE
+	can_parry = TRUE
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/chokehold_active = FALSE //Then uses this to determine if the restrain actually goes anywhere
@@ -9,6 +10,26 @@
 
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"
+
+/datum/martial_art/cqc/under_siege/teach(mob/living/carbon/human/H, make_temporary)
+	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(kitchen_check))
+	return ..()
+
+/datum/martial_art/cqc/under_siege/remove(mob/living/carbon/human/H)
+	UnregisterSignal(H, COMSIG_AREA_ENTERED)
+	. = ..()
+
+/datum/martial_art/cqc/under_siege/proc/kitchen_check(mob/living/carbon/human/H, area/entered_area)
+	SIGNAL_HANDLER //COMSIG_AREA_ENTERED
+	var/list/held_items = list(H.get_active_hand(), H.get_inactive_hand())
+	if(!(is_type_in_typecache(entered_area, areas_under_siege)))
+		for(var/obj/item in held_items)
+			if(istype(item, /obj/item/slapper/cqc))
+				var/obj/item/slapper/cqc/smacking_hand = item
+				qdel(smacking_hand)
+		can_parry = FALSE
+	else
+		can_parry = TRUE
 
 /datum/martial_art/cqc/under_siege/can_use(mob/living/carbon/human/H)
 	var/area/A = get_area(H)
@@ -33,7 +54,7 @@
 /datum/action/defensive_stance/Trigger()
 	var/mob/living/carbon/human/H = owner
 	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial users anyway
-	if(!MA.can_use(H))
+	if(!MA.can_parry)
 		to_chat(H, "<span class='warning'>You can't use this outside your kitchen.</span>")
 		return
 	if(H.incapacitated())

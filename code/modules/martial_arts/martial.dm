@@ -31,6 +31,8 @@
 	var/last_hit = 0
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
+	/// If the martial art allows parrying.
+	var/can_parry = FALSE
 
 /datum/martial_art/New()
 	. = ..()
