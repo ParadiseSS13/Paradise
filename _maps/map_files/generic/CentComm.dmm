@@ -565,7 +565,7 @@
 	master_tag = "CC-OP1";
 	name = "CC-OP1-EXT";
 	pixel_x = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/door/airlock/wood/glass{
 	frequency = 2000;
@@ -2359,7 +2359,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Supreme Court";
 	opacity = 1;
-	req_access_txt = "106,109,110"
+	req_access = list(106,109,110)
 	},
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel{
@@ -2509,7 +2509,7 @@
 	master_tag = "CC-OP3";
 	name = "CC-OP3-EXT";
 	pixel_y = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2750,7 +2750,7 @@
 	name = "Privacy Shutters Control";
 	pixel_x = 24;
 	pixel_y = 32;
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/machinery/flasher_button{
 	id = "soltraderflash";
@@ -3283,7 +3283,7 @@
 	master_tag = "CC-OP3";
 	name = "CC-OP3-INT";
 	pixel_y = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3839,7 +3839,7 @@
 "bVg" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 2;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
@@ -6264,7 +6264,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
 	name = "NVT Argos";
-	req_access = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -7038,7 +7038,7 @@
 /area/ninja/outside)
 "dEE" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/indestructible/vox{
@@ -7054,7 +7054,7 @@
 /area/syndicate_mothership/elite_squad)
 "dFv" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
+	req_access = list(152);
 	welded = 1
 	},
 /obj/structure/barricade/wooden/crude{
@@ -7556,7 +7556,7 @@
 	hackProof = 1;
 	name = "Black Ops";
 	opacity = 1;
-	req_access_txt = "111"
+	req_access = list(111)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9166,7 +9166,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "supply_away";
 	name = "Central Command Supply";
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "CC_supply_space";
@@ -10200,7 +10200,7 @@
 "ftK" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle,
@@ -10559,7 +10559,7 @@
 	master_tag = "CC-OP4";
 	name = "CC-OP4-INT";
 	pixel_x = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10649,7 +10649,7 @@
 /obj/machinery/door/window{
 	dir = 2;
 	panel_open = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
@@ -11335,7 +11335,7 @@
 	dir = 8
 	},
 /obj/machinery/vending/dinnerware{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -11418,7 +11418,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Outpost 2";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
@@ -12180,7 +12180,7 @@
 /area/centcom/zone3)
 "guv" = (
 /obj/machinery/vending/dinnerware{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -12471,7 +12471,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12535,7 +12535,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Outpost 1";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
@@ -12848,7 +12848,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Prison";
 	opacity = 1;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
@@ -13814,7 +13814,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_air_control";
 	pixel_y = 24;
-	req_access_txt = "152";
+	req_access = list(152);
 	tag_airpump = "admin_s_pump";
 	tag_chamber_sensor = "admin_s_sensor";
 	tag_exterior_door = "admin_s_outer";
@@ -14223,7 +14223,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_sensor";
 	pixel_y = 26;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -14259,7 +14259,7 @@
 	},
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
+	req_access = list(160);
 	security_level = 6
 	},
 /turf/simulated/floor/carpet/orange,
@@ -14297,7 +14297,7 @@
 /obj/machinery/door/airlock/shuttle/glass{
 	id_tag = "soltradeship_north";
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
+	req_access = list(160);
 	security_level = 6
 	},
 /turf/simulated/floor/carpet/orange,
@@ -14865,7 +14865,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_outer";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -15027,7 +15027,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Outpost 3";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
@@ -15373,7 +15373,7 @@
 	name = "Trade Deposits Door";
 	pixel_x = 24;
 	pixel_y = 24;
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
@@ -15567,7 +15567,7 @@
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -15905,7 +15905,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Prison";
 	opacity = 1;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
@@ -16110,7 +16110,7 @@
 /area/ninja/outpost)
 "iMy" = (
 /obj/structure/closet/secure_closet/freezer/meat{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
@@ -16516,7 +16516,7 @@
 /obj/machinery/door_control{
 	id = "voxshutters";
 	name = "remote shutter control";
-	req_access_txt = "152";
+	req_access = list(152);
 	wires = 1
 	},
 /turf/simulated/floor/shuttle/objective_check/vox,
@@ -16684,7 +16684,7 @@
 	base_state = "rightsecure";
 	dir = 8;
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -16807,7 +16807,7 @@
 	master_tag = "CC-OP4";
 	name = "CC-OP4-EXT";
 	pixel_x = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -17052,7 +17052,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/docking_port/mobile{
 	dir = 8;
@@ -17271,7 +17271,7 @@
 	},
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
+	req_access = list(160);
 	security_level = 6
 	},
 /turf/simulated/floor/carpet/orange,
@@ -17325,7 +17325,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	panel_open = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
@@ -17773,7 +17773,7 @@
 	id_tag = "adminshuttle";
 	name = "Workshop";
 	opacity = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -18734,7 +18734,7 @@
 /area/shuttle/pod_2)
 "kic" = (
 /obj/structure/closet/secure_closet/freezer/meat{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
@@ -18924,7 +18924,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Prison";
 	opacity = 1;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel{
@@ -18953,7 +18953,7 @@
 "kph" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary";
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -19750,7 +19750,7 @@
 	base_state = "rightsecure";
 	dir = 1;
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -20645,7 +20645,7 @@
 /area/syndicate_mothership/outside)
 "lcU" = (
 /obj/machinery/vending/dinnerware{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/wood,
 /area/centcom/specops)
@@ -21501,7 +21501,7 @@
 	name = "Privacy Shutters Control";
 	pixel_x = 24;
 	pixel_y = -32;
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/machinery/flasher_button{
 	id = "soltraderflash";
@@ -22608,7 +22608,7 @@
 	name = "Trade Deposits Door";
 	pixel_x = 24;
 	pixel_y = -24;
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-cherry"
@@ -22705,7 +22705,7 @@
 "mdY" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23005,7 +23005,7 @@
 /area/centcom/specops)
 "mnX" = (
 /obj/machinery/door/window/brigdoor{
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -23082,7 +23082,7 @@
 "mqd" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	req_access_txt = "106"
+	req_access = list(106)
 	},
 /turf/simulated/floor/wood,
 /area/centcom/court)
@@ -23288,7 +23288,7 @@
 	id = "trader_privacy";
 	name = "Privacy Shutters Control";
 	pixel_x = 24;
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/trade/sol)
@@ -23956,7 +23956,7 @@
 /area/ninja/outside)
 "mFe" = (
 /obj/structure/closet/secure_closet/freezer/meat{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
@@ -24116,7 +24116,7 @@
 /obj/machinery/door/airlock/shuttle/glass{
 	id_tag = "soltradeship_south";
 	name = "trader shuttle airlock";
-	req_access_txt = "160";
+	req_access = list(160);
 	security_level = 6
 	},
 /turf/simulated/floor/carpet/orange,
@@ -24435,7 +24435,7 @@
 	base_state = "rightsecure";
 	dir = 2;
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull";
@@ -24477,7 +24477,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Outpost 4";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plating,
@@ -24724,7 +24724,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_away";
 	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/delivery/white,
@@ -24794,7 +24794,7 @@
 	name = "Shuttle Dock Door";
 	pixel_x = -32;
 	pixel_y = 25;
-	req_access_txt = "151";
+	req_access = list(151);
 	specialfunctions = 4;
 	wires = 1
 	},
@@ -24866,7 +24866,7 @@
 	id_tag = "adminshuttle";
 	name = "Medbay";
 	opacity = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;
@@ -25015,14 +25015,14 @@
 	hackProof = 1;
 	id_tag = "vox_northeast_lock";
 	locked = 1;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1331;
 	master_tag = "vox_east_control";
 	pixel_x = 28;
-	req_access_txt = "152";
+	req_access = list(152);
 	wires = 1
 	},
 /obj/docking_port/mobile{
@@ -25960,7 +25960,7 @@
 	id = "CC_space_jail_cell";
 	name = "Central Command Jail Cell's";
 	pixel_y = -30;
-	req_access_txt = "110";
+	req_access = list(110);
 	wires = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -26297,7 +26297,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
@@ -26349,7 +26349,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Prison";
 	opacity = 1;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	density = 0;
@@ -27563,7 +27563,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Medical Block";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -28795,7 +28795,7 @@
 	frequency = 1331;
 	id_tag = "vox_east_sensor";
 	pixel_x = -25;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /obj/machinery/light/spot{
 	dir = 8
@@ -28937,7 +28937,7 @@
 	hackProof = 1;
 	name = "Black Ops";
 	opacity = 1;
-	req_access_txt = "111"
+	req_access = list(111)
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -29378,7 +29378,7 @@
 	base_state = "rightsecure";
 	dir = 1;
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -30600,7 +30600,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_inner";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -30608,7 +30608,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -30712,7 +30712,7 @@
 	color = "#22aab7";
 	dir = 8;
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
@@ -30794,7 +30794,7 @@
 "pKU" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	req_access_txt = "106"
+	req_access = list(106)
 	},
 /obj/structure/chair/comfy/lime{
 	dir = 1
@@ -31338,7 +31338,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
-	req_access_txt = "48"
+	req_access = list(48)
 	},
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -32194,7 +32194,7 @@
 	master_tag = "CC-OP1";
 	name = "CC-OP1-INT";
 	pixel_x = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -32328,7 +32328,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_inner";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -33138,7 +33138,7 @@
 	id_tag = "adminshuttle";
 	name = "Bridge";
 	opacity = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
 	dir = 8;
@@ -33256,7 +33256,7 @@
 	master_tag = "CC-OP2";
 	name = "CC-OP2-INT";
 	pixel_y = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35289,7 +35289,7 @@
 "rRm" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
@@ -36462,7 +36462,7 @@
 	id = "CC_space_jail_sec";
 	name = "Central Command Jail Security Room";
 	pixel_x = -40;
-	req_access_txt = "110";
+	req_access = list(110);
 	wires = 1
 	},
 /obj/structure/chair/office/dark{
@@ -36808,7 +36808,7 @@
 "sCS" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -37405,7 +37405,7 @@
 	frequency = 2000;
 	id_tag = "CC-OP1";
 	name = "Access Controller OP1";
-	req_access_txt = "109";
+	req_access = list(109);
 	tag_exterior_door = "CC-OP1-Ext";
 	tag_interior_door = "CC-OP1-Int"
 	},
@@ -37672,7 +37672,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle/plating,
@@ -38859,7 +38859,7 @@
 	id_tag = "CC-OP3";
 	name = "Access Controller OP3";
 	pixel_y = 32;
-	req_access_txt = "109";
+	req_access = list(109);
 	tag_exterior_door = "CC-OP3-Ext";
 	tag_interior_door = "CC-OP3-Int"
 	},
@@ -39361,7 +39361,7 @@
 	dir = 2;
 	icon_state = "rightsecure";
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -40245,7 +40245,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Bridge 1-1";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "CC_Main_Office_1_1"
@@ -41099,7 +41099,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/structure/curtain/black{
 	pixel_y = 32
@@ -41154,7 +41154,7 @@
 	id_tag = "CC-OP2";
 	name = "Access Controller OP2";
 	pixel_y = 32;
-	req_access_txt = "109";
+	req_access = list(109);
 	tag_exterior_door = "CC-OP2-Ext";
 	tag_interior_door = "CC-OP2-Int"
 	},
@@ -41278,7 +41278,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Bridge 1-2";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
@@ -42306,7 +42306,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Medical Block";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -42338,7 +42338,7 @@
 	dir = 4;
 	icon_state = "leftsecure";
 	name = "Customs Desk";
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/structure/table/wood/fancy/orange,
 /turf/simulated/floor/wood{
@@ -43131,7 +43131,7 @@
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -43151,7 +43151,7 @@
 	master_tag = "CC-OP2";
 	name = "CC-OP2-EXT";
 	pixel_x = -24;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/door/airlock/wood/glass{
 	frequency = 2000;
@@ -43826,7 +43826,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_away";
 	name = "Ferry Airlock";
-	req_access_txt = "106"
+	req_access = list(106)
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/delivery/white,
@@ -43913,7 +43913,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_outer";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -43921,7 +43921,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -44109,7 +44109,7 @@
 	dir = 2;
 	icon_state = "rightsecure";
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/structure/curtain/black{
 	pixel_y = 32
@@ -44395,14 +44395,14 @@
 	hackProof = 1;
 	id_tag = "vox_northwest_lock";
 	locked = 1;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1331;
 	master_tag = "vox_west_control";
 	pixel_x = -29;
-	req_access_txt = "152";
+	req_access = list(152);
 	wires = 1
 	},
 /obj/structure/fans/tiny,
@@ -44438,7 +44438,7 @@
 	hackProof = 1;
 	name = "Black Ops";
 	opacity = 1;
-	req_access_txt = "111"
+	req_access = list(111)
 	},
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
@@ -44829,7 +44829,7 @@
 	id_tag = "CC-OP4";
 	name = "Access Controller OP4";
 	pixel_x = -32;
-	req_access_txt = "109";
+	req_access = list(109);
 	tag_exterior_door = "CC-OP4-Ext";
 	tag_interior_door = "CC-OP4-Int"
 	},
@@ -45010,7 +45010,7 @@
 	frequency = 1331;
 	id_tag = "vox_west_sensor";
 	pixel_x = 25;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /obj/machinery/light/spot{
 	dir = 4
@@ -45473,7 +45473,7 @@
 	frequency = 1331;
 	id_tag = "vox_west_control";
 	pixel_x = 24;
-	req_access_txt = "152";
+	req_access = list(152);
 	tag_airpump = "vox_west_vent";
 	tag_chamber_sensor = "vox_west_sensor";
 	tag_exterior_door = "vox_northwest_lock";
@@ -45855,7 +45855,7 @@
 	frequency = 1331;
 	id_tag = "vox_east_control";
 	pixel_x = -24;
-	req_access_txt = "152";
+	req_access = list(152);
 	tag_airpump = "vox_east_vent";
 	tag_chamber_sensor = "vox_east_sensor";
 	tag_exterior_door = "vox_northeast_lock";
@@ -45931,7 +45931,7 @@
 	id = "nukeop_ready";
 	name = "Shuttle Dock Door";
 	pixel_y = 25;
-	req_access_txt = "151";
+	req_access = list(151);
 	specialfunctions = 4;
 	wires = 1
 	},
@@ -46140,7 +46140,7 @@
 /obj/machinery/door/window/brigdoor/southright{
 	dir = 4;
 	name = "Customs Desk";
-	req_access_txt = "160"
+	req_access = list(160)
 	},
 /obj/structure/table/wood/fancy/orange,
 /turf/simulated/floor/wood{
@@ -46207,7 +46207,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Emergency Response Team";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel{
@@ -46286,14 +46286,14 @@
 	hackProof = 1;
 	id_tag = "vox_southwest_lock";
 	locked = 1;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1331;
 	master_tag = "vox_west_control";
 	pixel_x = 28;
-	req_access_txt = "152";
+	req_access = list(152);
 	wires = 1
 	},
 /turf/simulated/floor/shuttle/plating/vox,
@@ -46460,14 +46460,14 @@
 	hackProof = 1;
 	id_tag = "vox_southeast_lock";
 	locked = 1;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
 	frequency = 1331;
 	master_tag = "vox_east_control";
 	pixel_x = -30;
-	req_access_txt = "152";
+	req_access = list(152);
 	wires = 1
 	},
 /turf/simulated/floor/shuttle/plating/vox,
@@ -47196,7 +47196,7 @@
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
@@ -47584,7 +47584,7 @@
 "xPf" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -47837,7 +47837,7 @@
 /area/syndicate_mothership)
 "xTi" = (
 /obj/machinery/vending/dinnerware{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /obj/structure/sign/barsign{
 	pixel_y = 32
@@ -48071,7 +48071,7 @@
 /obj/machinery/door/window/brigdoor{
 	color = "#d70000";
 	name = "Arrivals Post";
-	req_access_txt = "154"
+	req_access = list(154)
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
@@ -48329,7 +48329,7 @@
 /obj/machinery/door/window/brigdoor{
 	base_state = "rightsecure";
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;

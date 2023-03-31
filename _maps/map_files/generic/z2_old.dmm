@@ -1413,7 +1413,7 @@
 	id = "SOL_Shutters";
 	name = "Shutters";
 	pixel_y = -25;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -2519,7 +2519,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Medical Block";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -3705,7 +3705,7 @@
 	id = "nukeop_ready";
 	name = "Shuttle Dock Door";
 	pixel_x = -25;
-	req_access_txt = "151";
+	req_access = list(151);
 	specialfunctions = 4
 	},
 /turf/simulated/floor/indestructible{
@@ -3896,7 +3896,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/structure/window/reinforced{
 	dir = 4
@@ -4334,7 +4334,7 @@
 "dCo" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "stage_bleft"
@@ -4591,7 +4591,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Auxillary Shuttles";
 	opacity = 1;
-	req_access_txt = "106"
+	req_access = list(106)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -6328,7 +6328,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Prison";
 	opacity = 1;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -6711,7 +6711,7 @@
 	id = "CC_space_jail";
 	name = "Central Command Jail";
 	pixel_y = 25;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -8158,7 +8158,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Garden room";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -8168,7 +8168,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Freezer & Garden room";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -8227,7 +8227,7 @@
 /obj/machinery/door/window{
 	dir = 2;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -8248,7 +8248,7 @@
 	id = "thunderdomegen";
 	name = "General Equiptment";
 	pixel_y = 5;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
@@ -8726,7 +8726,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Medical Block";
 	opacity = 1;
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "bcarpet05"
@@ -9662,7 +9662,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Kitchen room";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -10132,7 +10132,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Kitchen room";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
@@ -10163,7 +10163,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_away";
 	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/shower{
 	dir = 1;
@@ -10656,7 +10656,7 @@
 	id = "thunderdomeaxe";
 	name = "Specialist Supply";
 	pixel_y = 5;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
@@ -11513,10 +11513,10 @@
 /area/admin)
 "iGg" = (
 /obj/machinery/door/window/brigdoor{
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/vending/dinnerware{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "stage_bleft"
@@ -12735,7 +12735,7 @@
 /obj/machinery/door/window{
 	dir = 2;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -12974,7 +12974,7 @@
 /obj/machinery/door/window{
 	dir = 2;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "bcircuit"
@@ -13298,7 +13298,7 @@
 /obj/machinery/door/window{
 	dir = 8;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -13607,7 +13607,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Toilet";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "tranquillite"
@@ -13717,14 +13717,14 @@
 	name = "Zone 2 Blastdoor Control";
 	pixel_x = -36;
 	pixel_y = -4;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/machinery/door_control{
 	id = "CC_zone2_checkpoint_lockdown";
 	name = "Zone 2 Checkpoint Lockdown";
 	pixel_x = -36;
 	pixel_y = 7;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -13796,7 +13796,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -14100,7 +14100,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Garden room";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/zone1)
@@ -14288,7 +14288,7 @@
 /obj/machinery/door/window{
 	dir = 8;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
@@ -14415,7 +14415,7 @@
 	id_tag = "check_point_1_airlock_internal";
 	locked = 1;
 	name = "Check Point 1 Internal Airlock";
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/machinery/door/poddoor/shutters{
 	active_power_usage = 1;
@@ -14442,7 +14442,7 @@
 	id_tag = "check_point_2_airlock_internal";
 	locked = 1;
 	name = "Check Point 2 Internal Airlock";
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/machinery/door/poddoor/shutters{
 	active_power_usage = 1;
@@ -14564,7 +14564,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Master of Synthetics";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -14611,7 +14611,7 @@
 	id = "thunderdome";
 	name = "Main Blast Doors";
 	pixel_x = -3;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
@@ -14669,7 +14669,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Checkpoint zone 2";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /obj/machinery/door/poddoor/shutters{
 	active_power_usage = 1;
@@ -14700,7 +14700,7 @@
 	dir = 2;
 	layer = 2.9;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -15005,14 +15005,14 @@
 	name = "Arrivals Blastdoor";
 	pixel_x = -25;
 	pixel_y = -4;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/machinery/door_control{
 	id = "ASPS_blastdoor";
 	name = "Automatic Station Protection System";
 	pixel_x = -25;
 	pixel_y = 5;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -15030,7 +15030,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -15151,7 +15151,7 @@
 /obj/machinery/door/window{
 	dir = 8;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -15205,7 +15205,7 @@
 	name = "Arrivals Blastdoor";
 	pixel_x = 25;
 	pixel_y = -4;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -15236,7 +15236,7 @@
 "lnF" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/kitchen_machine/microwave/upgraded,
 /turf/simulated/floor/indestructible{
@@ -15895,7 +15895,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Medical and Rest room";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/door/poddoor/shutters{
 	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
@@ -16022,7 +16022,7 @@
 	id = "CC_zone2_checkpoint_lockdown";
 	name = "Zone 2 Checkpoint Lockdown";
 	pixel_y = 25;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkblue";
@@ -16343,8 +16343,7 @@
 	control_area = "\improper Centcom Emergency Shuttle";
 	name = "Emergency Shuttle Turret Control Panel";
 	pixel_x = -30;
-	req_access = "0";
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/machinery/camera{
 	c_tag = "CentComm Zone 1 Check point 2";
@@ -16389,7 +16388,7 @@
 	name = "Check point 1 Controller";
 	pixel_x = 4;
 	pixel_y = 10;
-	req_access_txt = "110";
+	req_access = list(110);
 	tag_exterior_door = "check_point_1_airlock_external";
 	tag_interior_door = "check_point_1_airlock_internal"
 	},
@@ -16435,7 +16434,7 @@
 	name = "Check point 2 Controller";
 	pixel_x = -5;
 	pixel_y = 10;
-	req_access_txt = "110";
+	req_access = list(110);
 	tag_exterior_door = "check_point_2_airlock_external";
 	tag_interior_door = "check_point_2_airlock_internal"
 	},
@@ -16897,7 +16896,7 @@
 "msU" = (
 /obj/machinery/door/window{
 	name = "Uplink Management Control";
-	req_access_txt = "151"
+	req_access = list(151)
 	},
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -30
@@ -16930,7 +16929,7 @@
 /obj/machinery/door/window{
 	dir = 2;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
@@ -16950,7 +16949,7 @@
 /obj/machinery/door/window{
 	dir = 2;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -16973,7 +16972,7 @@
 /area/syndicate_mothership)
 "mxg" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152"
+	req_access = list(152)
 	},
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
@@ -17054,7 +17053,7 @@
 	frequency = 1559;
 	id_tag = "check_point_1_airlock_external";
 	name = "Check Point 1 External Airlock";
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "sepia"
@@ -17065,7 +17064,7 @@
 	frequency = 1560;
 	id_tag = "check_point_2_airlock_external";
 	name = "Check Point 2 External Airlock";
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "sepia"
@@ -17113,7 +17112,7 @@
 	dir = 2;
 	frequency = 1560;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -17196,7 +17195,7 @@
 	id = "CC_space_jail";
 	name = "Central Command Jail";
 	pixel_y = -25;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/machinery/camera{
 	c_tag = "CentComm Jail Entrance";
@@ -17273,7 +17272,7 @@
 	id = "CC_zone2_blastdoor";
 	name = "Zone 2 Blastdoor Control";
 	pixel_x = 25;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkgreen";
@@ -17328,7 +17327,7 @@
 	id = "CC_zone2_blastdoor";
 	name = "Zone 2 Blastdoor Control";
 	pixel_x = -25;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "sepia"
@@ -17558,7 +17557,7 @@
 	id = "CC_space_jail_sec";
 	name = "Central Command Jail Security Room";
 	pixel_x = -40;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -17567,7 +17566,7 @@
 	id = "CC_space_jail_rest";
 	name = "Central Command Jail Rest Room";
 	pixel_x = -25;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -17961,7 +17960,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Prison";
 	opacity = 1;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -18685,7 +18684,7 @@
 	id = "CC_zone2_blastdoor";
 	name = "Zone 2 Blastdoor Control";
 	pixel_x = -25;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkblue";
@@ -19210,7 +19209,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Teleporter";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "navyblue";
@@ -19815,7 +19814,7 @@
 "oCE" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -20224,7 +20223,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Bridge";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -20796,7 +20795,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Bridge 1-1";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -22731,7 +22730,7 @@
 	id = "CC_space_jail_cell";
 	name = "Central Command Jail Cell's";
 	pixel_y = -30;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -23127,7 +23126,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_away";
 	name = "Ferry Airlock";
-	req_access_txt = "106"
+	req_access = list(106)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -23576,7 +23575,7 @@
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	req_access_txt = "106"
+	req_access = list(106)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
@@ -24091,7 +24090,7 @@
 /obj/machinery/door/window{
 	dir = 1;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -24140,7 +24139,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Supreme Court";
 	opacity = 1;
-	req_access_txt = "106,109,110"
+	req_access = list(106,109,110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -24346,7 +24345,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Medical and Rest room";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/door/poddoor/shutters{
 	armor = list("melee"=95,"bullet"=95,"laser"=95,"energy"=95,"bomb"=95,"bio"=100,"rad"=100,"fire"=100,"acid"=80);
@@ -24900,7 +24899,7 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
 	name = "Supreme Commander";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
@@ -25560,7 +25559,7 @@
 	color = "#d70000";
 	dir = 2;
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 4
@@ -25643,7 +25642,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Black Ops";
 	opacity = 1;
-	req_access_txt = "111"
+	req_access = list(111)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "navyblue";
@@ -26348,7 +26347,7 @@
 /area/holodeck/source_beach)
 "sPN" = (
 /obj/machinery/door/airlock/hatch{
-	req_access_txt = "152";
+	req_access = list(152);
 	welded = 1
 	},
 /obj/structure/barricade/wooden/crude{
@@ -26369,7 +26368,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Supreme Commander";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -26682,7 +26681,7 @@
 /area/syndicate_mothership)
 "tcF" = (
 /obj/structure/closet/secure_closet/freezer/meat{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "stage_bleft"
@@ -26983,7 +26982,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Special Team Ready Room";
 	opacity = 1;
-	req_access_txt = "106"
+	req_access = list(106)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -27747,7 +27746,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Medical Block";
 	opacity = 1;
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "navyblue";
@@ -27868,7 +27867,7 @@
 /area/centcom/zone1)
 "ubp" = (
 /obj/machinery/vending/boozeomat{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "woodalt"
@@ -29719,7 +29718,7 @@
 /area/centcom/specops)
 "vvS" = (
 /obj/machinery/vending/boozeomat{
-	req_access_txt = "102"
+	req_access = list(102)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "woodalt"
@@ -30605,7 +30604,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "supply_away";
 	name = "Central Command Supply";
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "CC_supply_space";
@@ -31018,7 +31017,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_away";
 	name = "Shuttle Hatch";
-	req_access_txt = "109"
+	req_access = list(109)
 	},
 /obj/machinery/shower{
 	pixel_y = 20
@@ -31090,7 +31089,7 @@
 /obj/machinery/door/window{
 	dir = 8;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /obj/machinery/door_control{
 	id = "CC_supply_external";
@@ -31272,7 +31271,7 @@
 	dir = 2;
 	icon_state = "rightsecure";
 	name = "Riot Control";
-	req_access_txt = "156"
+	req_access = list(156)
 	},
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -31769,7 +31768,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Prison";
 	opacity = 1;
-	req_access_txt = "104"
+	req_access = list(104)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
@@ -31847,7 +31846,7 @@
 /obj/machinery/door/window{
 	dir = 8;
 	panel_open = 1;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -31944,7 +31943,7 @@
 	id = "CC_space_jail_sec";
 	name = "Central Command Jail Security Room";
 	pixel_y = -30;
-	req_access_txt = "110"
+	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
@@ -33038,7 +33037,7 @@
 /obj/machinery/door/airlock/centcom{
 	name = "Bridge 1-2";
 	opacity = 1;
-	req_access_txt = "113"
+	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "carpet";
