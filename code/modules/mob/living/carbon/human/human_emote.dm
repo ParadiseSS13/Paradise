@@ -374,9 +374,11 @@
 		return FALSE
 
 
-	var/datum/status_effect/revolver_spinning/spinning
+	var/datum/status_effect/revolver_spinning/spinning = /datum/status_effect/revolver_spinning
 
-	var/valid_revolver_types = initial(spinning.valid_revolver_types)
+	var/valid_revolver_types = spinning.valid_revolver_types
+
+	// var/valid_revolver_types = initial(spinning.valid_revolver_types)
 
 	spinning = FALSE  // appease the linter so it looks like I'm doing something with this variable
 	if(spinning)
