@@ -456,18 +456,14 @@
 		qdel(progbar)
 
 /// A version of do_after that will not get cancelled by a mob moving, for situations when signals are not viable
-/proc/moving_do_after(mob/user, delay, needhand = TRUE, atom/target = null, progress = TRUE, list/extra_checks = list(), use_default_checks = TRUE)
+/proc/moving_do_after(mob/user, delay, needhand = TRUE, atom/target = null, progress = TRUE, list/extra_checks = list(), use_default_checks = TRUE, must_be_held = TRUE)
 	if(!istype(user))
 		return FALSE
-	var/atom/Tloc = null
+	var/atom/target_loc = null
 	if(target)
-		Tloc = target.loc
+		target_loc = target.loc
 
 	var/holding = user.get_active_hand()
-
-	var/holdingnull = TRUE
-	if(holding)
-		holdingnull = FALSE
 
 	var/datum/progressbar/progbar
 	if(progress)
@@ -490,16 +486,17 @@
 			. = FALSE
 			break
 
-		if(Tloc && (!target || Tloc != target.loc))
+		if(target_loc && (!target || target_loc != target.loc))
 			. = FALSE
 			break
 
-		if(target.loc != user)
-			. = FALSE
-			break
+		if(must_be_held )
+			if(target.loc != user)
+				. = FALSE
+				break
 
 		if(needhand)
-			if(!holdingnull && !holding)
+			if(!holding)
 				. = FALSE
 				break
 			if(user.get_active_hand() != holding)

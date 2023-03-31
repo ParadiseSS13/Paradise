@@ -266,43 +266,38 @@
 	var/double_loaded = FALSE
 
 /obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
-		to_chat(user, "<span class='notice'>You begin to load the magazine with [src].</span>")
-		var/obj/item/ammo_box/AB = A
-		if(being_loaded == FALSE && double_loaded != TRUE)
-			being_loaded = TRUE
-			for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
-				if(double_loaded == FALSE)// checks to make sure double_loaded hasn't been made true while an ongoing reload is already ongoing
-					if(length(stored_ammo) < max_ammo)
-						if(moving_do_after(user, 0.5 SECONDS, target = src, use_default_checks = TRUE))
-							src.give_round(AC)
-							AB.stored_ammo -= AC
-							update_mat_value()
-							update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-							AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-							playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
-						else
-							to_chat(user, "<span class='notice'>You stop loading the magazine with [src].</span>")
-							break
-					else
-						to_chat(user, "<span class='notice'>You stop loading the magazine with [src].</span>")
-						break
-				else
-					to_chat(user, "<span class='notice'>You stop loading the magazine with [src].</span>")
-					double_loaded = FALSE
-					break
-		else
-			double_loaded = TRUE //This will cancel ongoing reloads if made true by someone trying to do two reload processes at once
-			to_chat(user, "<span class='notice'>You're already loading the magazine!.</span>")
-			to_chat(user, "<span class='notice'>You stop loading the magazine with [src].</span>")
-		being_loaded = FALSE
-		return
 	if(istype(A, /obj/item/ammo_casing))
 		var/obj/item/ammo_casing/AC = A
 		if(give_round(AC))
 			user.drop_item()
 			AC.loc = src
-	return 0
+			return
+	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
+		to_chat(user, "<span class='notice'>You begin to load the magazine with [A].</span>")
+		var/obj/item/ammo_box/AB = A
+		if(being_loaded == TRUE && double_loaded == FALSE)
+			double_loaded = TRUE //This will cancel ongoing reloads if made true by someone trying to do two reload processes at once
+			to_chat(user, "<span class='notice'>You're already loading the magazine!.</span>")
+			to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
+		being_loaded = TRUE
+		for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
+			if(double_loaded == FALSE)// checks to make sure double_loaded hasn't been made true while an ongoing reload is already ongoing
+				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
+				double_loaded = FALSE
+				break
+			if(length(stored_ammo) >= max_ammo)
+				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
+				break
+			if(!moving_do_after(user, 0.5 SECONDS, target = src, use_default_checks = TRUE))
+				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
+				break
+			src.give_round(AC)
+			AB.stored_ammo -= AC
+			update_mat_value()
+			update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+			AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+			playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+		being_loaded = FALSE
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
