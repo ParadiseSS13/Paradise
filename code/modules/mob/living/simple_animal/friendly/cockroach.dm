@@ -88,14 +88,14 @@
 		icon_state = "cockroach_dance"
 
 		for(var/mob/living/Mi in range(12, src))
-			if(Mi in range(6, src))
+			if(get_dist(Mi, src) <= 6)
 				to_chat(Mi,"<span class='warning'>You are struck dumb.</span>")
 				observepreformance(Mi)
 				Mi.Stun(18)
 			else
 				to_chat(Mi,"<span class='notice'><span class='italics'>What the fuck is that?</span></span>")
 		playsound(src, 'sound/hallucinations/dancing_roach_autotune.ogg', 200)
-		addtimer(CALLBACK(src, .proc/endpreformance), 340, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, PROC_REF(endpreformance)), 34 SECONDS, TIMER_STOPPABLE)
 
 /mob/living/simple_animal/cockroach/proc/observepreformance(mob/living/Mu)
 	if(!Mu)
@@ -104,9 +104,9 @@
 		var/outputmessage = pick("<span class='notice'>[Mu] drools.</span>", "<span class='notice'>[Mu] stares dumbly at [src].</span>", "<span class='notice'>[Mu] blinks slowly.</span>")
 		Mu.visible_message("[outputmessage]")
 		Mu.reagents.add_reagent("krokodil", 1)
-		addtimer(CALLBACK(src, .proc/observepreformance, Mu, TIMER_STOPPABLE), rand(50,150))
+		addtimer(CALLBACK(src, PROC_REF(observepreformance), Mu), rand(5,15) SECONDS, TIMER_STOPPABLE)
 
 /mob/living/simple_animal/cockroach/proc/endpreformance()
-	src.ispreforming = FALSE
+	ispreforming = FALSE
 	icon_state = "cockroach"
 
