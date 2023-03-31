@@ -1115,7 +1115,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
 	playsound(loc, 'sound/misc/sliiip.ogg', 50, 1, -3)
 	for(var/obj/structure/holosign/wetsign/S in range(3, src))
-		playsound(loc, 'sound/misc/sign_says_walk.ogg', 50)
+		addtimer(CALLBACK(null, GLOBAL_PROC_REF(playsound), loc, 'sound/misc/sign_says_walk.ogg', 50), 1 SECONDS)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	KnockDown(knockdown)
