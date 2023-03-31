@@ -19,8 +19,10 @@
 	var/unlimited_power = FALSE // Does this really need explanation?
 	var/shock_range = 7
 
-/obj/item/clothing/gloves/color/yellow/power/detailed_examine_antag()
-	return "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
+/obj/item/clothing/gloves/color/yellow/power/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='warning'>These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables.</span>"
 
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -235,6 +237,12 @@
 	icon_state = "white"
 	item_state = "wgloves"
 	item_color="mime"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
+		)
 
 /obj/item/clothing/gloves/color/white/redcoat
 	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.

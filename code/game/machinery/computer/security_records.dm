@@ -409,7 +409,10 @@
 		<br>\nImportant Notes:
 		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><B>Comments/Log</B></center><br>"}
 		for(var/c in record_security.fields["comments"])
-			P.info += "[c]<br>"
+			if(islist(c))
+				P.info += "\"[c["text"]]\" Comment [c["header"]]<br>"
+			else
+				P.info += "[c]<br>"
 	else
 		P.info += "<b>Security Record Lost!</b><br>"
 	is_printing = FALSE

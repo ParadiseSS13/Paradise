@@ -607,7 +607,7 @@ so as to remain in compliance with the most up-to-date laws."
 			if(NOTIFY_JUMP)
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
-					G.loc = T
+					G.forceMove(T)
 			if(NOTIFY_FOLLOW)
 				G.ManualFollow(target)
 
