@@ -383,7 +383,11 @@
 		/obj/item/gun/projectile/revolver/russian,
 		/obj/item/gun/projectile/revolver/russian/soul,
 		/obj/item/gun/projectile/revolver/nagant,
+		/obj/item/toy/russian_revolver,
+		/obj/item/toy/russian_revolver/trick_revolver,
+		/obj/item/gun/energy/arc_revolver
 	)
+
 
 	return ((user.l_hand.type in valid_revolver_types) && (user.r_hand.type in valid_revolver_types))
 

@@ -162,13 +162,27 @@
 		/obj/item/gun/projectile/revolver/russian,
 		/obj/item/gun/projectile/revolver/russian/soul,
 		/obj/item/gun/projectile/revolver/nagant,
-
+		/obj/item/toy/russian_revolver,
+		/obj/item/toy/russian_revolver/trick_revolver,
+		/obj/item/gun/energy/arc_revolver
 	)
 
-	var/list/nonlethal_revolvers = list(
+	/// Revolvers that won't actually kill a target (but might kill you)
+	var/static/list/nonlethal_revolvers = list(
 		/obj/item/gun/projectile/revolver/capgun,
 		/obj/item/gun/projectile/revolver/russian,
 		/obj/item/gun/projectile/revolver/russian/soul,
+		/obj/item/toy/russian_revolver,
+		/obj/item/toy/russian_revolver/trick_revolver,
+	)
+
+	/// guns that will kill you
+	var/static/list/suicide_revolvers = list(
+		// exclude the trick revolver since you shouldn't know either way
+		/obj/item/toy/russian_revolver,
+		/obj/item/gun/projectile/revolver/russian,
+		/obj/item/gun/projectile/revolver/russian/soul
+
 	)
 
 	var/list/sound_effects = list(
@@ -261,15 +275,57 @@
 				to_chat(fan, "<span class='notice'>You're so moved by [owner]'s display in front of you, you can't help but clap!</span>")
 				fan.emote("clap")
 
+	for(var/mob/living/simple_animal/hostile/poison/bees/bee in orange(3, owner))
+		if(prob(50))
+			owner.visible_message("<span class='danger'>[owner] deftly splats [bee] out of the air with [owner.p_their()] gun!</span>")
+			bee.death()  // pretty good...
+			playsound(owner, "sound/effects/splat.ogg", 50)
+
 	if(prob(10))
 		owner.visible_message(get_fluff_message(owner), "", "<span class='notice'>You hear something whooshing.</span>")
+
+/// Return TRUE if it actually fires a bullet lethally
+/datum/status_effect/revolver_spinning/proc/fire(extra_multiplier, atom/target, obj/item/firing_thing)
+	if(istype(firing_thing, /obj/item/gun/projectile/revolver/russian))
+		var/obj/item/gun/projectile/revolver/russian/shooting_revolver = firing_thing
+		// these are a travesty of guncode and deserve to die tbh
+		shooting_revolver.Spin()
+		var/initial_zone_selected = owner.zone_selected
+		owner.zone_selected = BODY_ZONE_HEAD
+		shooting_revolver.afterattack(owner, owner)
+		owner.zone_selected = initial_zone_selected
+		return FALSE
+
+	else if(istype(firing_thing, /obj/item/gun))
+		var/obj/item/gun/shooting_revolver = firing_thing
+		var/shot = shooting_revolver.can_shoot()
+		shooting_revolver.chambered?.BB?.damage *= 2 * extra_multiplier  // ow
+		shooting_revolver.process_fire(target, owner, FALSE)
+		return shot
+
+	if(istype(firing_thing, /obj/item/toy/russian_revolver))
+		// sucker
+		var/obj/item/toy/russian_revolver/gun = firing_thing
+		gun.spin_cylinder()
+		gun.shoot_gun(owner)
+		return FALSE
+
+/datum/status_effect/revolver_spinning/proc/get_message(atom/ahead, obj/item/left, obj/item/right)
+	// yearning for rust matches rn
+	if((left.type in suicide_revolvers) && (right.type in suicide_revolvers))
+		return "<span class='userdanger'>[owner] makes one last move, <i>spinning the barrels on both revolvers</i>, pointing them at [owner.p_their()] head and pulling the trigger!</span>"
+	else if((left.type in suicide_revolvers) || (right.type in suicide_revolvers))
+		return "<span class='userdanger'>[owner] makes one last move, <i>spinning the barrel on one revolver</i>, pointing it at [owner.p_their()] head, pointing the other forwards, and firing!</span>"
+	else
+		return "<span class='userdanger'>[owner] makes one last move, pointing both revolvers [isturf(ahead) ? "ahead" : "towards [ahead]"] and firing!</span>"
+
 
 /datum/status_effect/revolver_spinning/on_timeout()
 	. = ..()
 
 	var/mob/living/carbon/human/H = owner
-	var/obj/item/gun/projectile/revolver/l_revolver = H.l_hand
-	var/obj/item/gun/projectile/revolver/r_revolver = H.r_hand
+	var/obj/item/l_revolver = H.l_hand
+	var/obj/item/r_revolver = H.r_hand
 
 	if(!can_spin())
 		qdel(src)
@@ -279,19 +335,13 @@
 		ahead = get_edge_target_turf(owner, owner.dir)  // shoot straight ahead
 
 	// meow here
-	owner.visible_message("<span class='userdanger'>[owner] makes one last move, pointing both revolvers [isturf(ahead) ? "ahead" : "towards [ahead]"] and firing!</span>")
+	owner.visible_message(get_message(ahead, l_revolver, r_revolver))
 	var/extra_multiplier = istajaran(H) ? 2 : 1  // meow
 
-	var/shot_both = l_revolver.can_shoot() && r_revolver.can_shoot()
+	var/shot_left = fire(extra_multiplier, ahead, l_revolver)
+	var/shot_right = fire(extra_multiplier, ahead, r_revolver)
 
-	l_revolver.chambered?.BB?.damage *= 2 * extra_multiplier  // ow
-	l_revolver.process_fire(ahead, owner, FALSE)
-
-	r_revolver.chambered?.BB?.damage *= 2 * extra_multiplier  // ow
-	r_revolver.process_fire(ahead, owner, FALSE)
-
-	// skip all that guncode bullshit and pull the trigger if you've made it this far
-	if(shot_both && !(l_revolver.type in nonlethal_revolvers) && !(r_revolver.type in nonlethal_revolvers))
+	if(shot_left && shot_right && !(l_revolver.type in nonlethal_revolvers) && !(r_revolver.type in nonlethal_revolvers))
 		if(isliving(ahead))
 			var/mob/living/L = ahead
 			L.visible_message(
