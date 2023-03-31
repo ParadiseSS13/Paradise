@@ -662,3 +662,14 @@
 		/obj/item/reagent_containers/food/snacks/grown/berries
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/noel
+
+//////////////////////////////////////////
+//Reinforced cheese
+//////////////////////////////////////////
+/datum/recipe/oven/reinforcedcheese
+	reagents = list("sodiumchloride" = 10)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+		/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
+	)
+	result = /obj/item/stack/sheet/cheese

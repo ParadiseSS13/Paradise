@@ -410,3 +410,24 @@
 	..()
 	qdel(src)
 
+///////// Cheese
+/obj/structure/statue/cheese
+	max_integrity = 100
+	material_drop_type = /obj/item/stack/sheet/cheese
+
+/obj/structure/statue/cheese/cheesus
+	name = "statue of cheesus"
+	desc = "Cheese expertly crafted into a representation of our mighty lord and saviour."
+	icon_state = "cheesus1"
+
+/obj/structure/statue/cheese/cheesus/attackby(obj/item/W, mob/user, params)
+	if(obj_integrity <= 20)
+		icon_state = "cheesus4"
+		return ..()
+	if(obj_integrity <= 40)
+		icon_state = "cheesus3"
+		return ..()
+	if(obj_integrity <= 60)
+		icon_state = "cheesus2"
+		return ..()
+	return ..()

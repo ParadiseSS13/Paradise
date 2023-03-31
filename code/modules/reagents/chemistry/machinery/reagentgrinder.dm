@@ -33,6 +33,7 @@
 			/obj/item/grown/nettle/basic = list("sacid" = 0),
 			/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
 			/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
+			/obj/item/stack/sheet/cheese = list("milk" = 20),
 
 			//Blender Stuff
 			/obj/item/reagent_containers/food/snacks/grown/tomato = list("ketchup" = 0),
