@@ -6,6 +6,7 @@
 	var/tagname = null
 	var/obj/item/card/id/access_id
 	var/flipped = FALSE
+	var/rainbowed = FALSE
 
 /obj/item/petcollar/Destroy()
 	QDEL_NULL(access_id)
@@ -57,6 +58,9 @@
 	if(lowertext(tagname) == "dinnerbone")
 		flipped = TRUE
 		flip(user)
+	if(lowertext(tagname) == "jeb_")
+		rainbowed = TRUE
+		animate_rainbow_glow(user)
 	if(istype(user))
 		START_PROCESSING(SSobj, src)
 
@@ -70,6 +74,8 @@
 	STOP_PROCESSING(SSobj, src)
 	if(flipped)
 		flip(user)
+	if(rainbowed)
+		animate(user, transform = null, time = 5, color = "#ffffff", alpha = 255, pixel_y = 0, easing = ELASTIC_EASING)
 
 /obj/item/petcollar/process()
 	var/mob/living/simple_animal/M = loc
