@@ -92,7 +92,7 @@
 
 /obj/item/gun/energy/disabler/ducky/newshot()
 	if(prob(98))
-		atom_say(pick("Stop touching me!", "I am a duck not a gun!", "Stop squeaking me, its useless!", "You still think i can shoot something?", "I hate you.", "I miss my rubber ducky family.", "I am not shooting anything!", "Still thinking i am a gun?!", "This is not a trigger, its my leg!"))
+		atom_say(pick("Stop touching me!", "I am a duck not a gun!", "Stop squeaking me, its useless!", "You still think I can shoot something?", "I hate you.", "I miss my rubber ducky family.", "I am not shooting anything!", "Still thinking I am a gun?!", "This is not a trigger, its my leg!"))
 		return
 	else
 		atom_say(pick("Are you happy now?", "Only shooting once, now stop!"))
