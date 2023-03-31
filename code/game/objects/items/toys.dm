@@ -1556,3 +1556,34 @@
 	throwforce = 0
 	breakouttime = 0
 	ignoresClumsy = TRUE
+
+/*
+ *Long Face Button
+ */
+
+/obj/item/longfacebutton
+	name = "long face button"
+	desc = "Press in case of feeling unhappy or disappointed. One time use only!"
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "bigred"
+	item_state = "electronic"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/longfacebutton/attack_self(mob/user)
+	GLOB.major_announcement.Announce("The captain of [station_name()] is feeling pretty bummed out. Give them a pep talk!", "Why the long face?")
+	if(user)
+		to_chat(user, "<span class='warning'>You share your feelings with the entire crew!</span>")
+		message_admins("[ADMIN_LOOKUPFLW(user)] gave nearly everyone horse masks using April Fool's item!")
+
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		to_chat(H, "<span class='warning'>You feel pretty bad about this whole shift.</span>")
+		if(H.dna.species.name == "Vox" || H.dna.species.name == "Plasmaman")
+			to_chat(H, "<span class='warning'>But at least better than these other unfortunate souls!</span>")
+			continue
+		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
+		magichead.flags |= NODROP | DROPDEL	//curses!
+		magichead.flags_inv = null	//so you can still see their face
+		if(!user.unEquip(user.wear_mask))
+			qdel(user.wear_mask)
+		user.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
+		qdel(src)
