@@ -559,14 +559,14 @@
 	. = ..()
 	if(QDELETED(src) || (resistance_flags & INDESTRUCTIBLE) || tilted || !tiltable)
 		return
-	var/tilt_prob = 0
-	switch(severity)
-		if(EXPLODE_LIGHT)
-			tilt_prob = 10
-		if(EXPLODE_HEAVY)
-			tilt_prob = 50
-		if(EXPLODE_DEVASTATE)
-			tilt_prob = 80
+	// var/tilt_prob = 0
+	// switch(severity)
+	// 	if(EXPLODE_LIGHT)
+	// 		tilt_prob = 10
+	// 	if(EXPLODE_HEAVY)
+	// 		tilt_prob = 50
+	// 	if(EXPLODE_DEVASTATE)
+	// 		tilt_prob = 80
 
 	if(MAYBE)
 		tilt()

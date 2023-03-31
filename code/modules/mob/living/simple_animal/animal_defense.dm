@@ -101,7 +101,7 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
-	var/bomb_armor = getarmor(null, BOMB)
+	// var/bomb_armor = getarmor(null, BOMB)
 	switch(severity)
 		if(1)
 			if(MAYBE)

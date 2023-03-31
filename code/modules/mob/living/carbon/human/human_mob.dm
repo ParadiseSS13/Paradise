@@ -221,7 +221,7 @@
 	var/bomb_armor = ARMOUR_VALUE_TO_PERCENTAGE(getarmor(null, BOMB))
 	var/list/valid_limbs = list("l_arm", "l_leg", "r_arm", "r_leg")
 	var/limbs_amount = 1
-	var/limb_loss_chance = 50
+	// var/limb_loss_chance = 50
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
@@ -255,7 +255,7 @@
 				AdjustEarDamage(15, 60)
 			KnockDown(10 SECONDS - bomb_armor) //Between no knockdown to 10 seconds of knockdown depending on bomb armor
 			valid_limbs = list("l_hand", "l_foot", "r_hand", "r_foot")
-			limb_loss_chance = 25
+			// limb_loss_chance = 25
 
 	//attempt to dismember bodyparts
 	for(var/X in valid_limbs)

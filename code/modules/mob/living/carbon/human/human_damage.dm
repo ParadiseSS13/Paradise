@@ -137,8 +137,8 @@
 		amount = amount * dna.species.clone_mod
 	. = ..()
 
-	var/heal_prob = max(0, 80 - getCloneLoss())
-	var/mut_prob = min(80, getCloneLoss() + 10)
+	// var/heal_prob = max(0, 80 - getCloneLoss())
+	// var/mut_prob = min(80, getCloneLoss() + 10)
 	if(amount > 0) //cloneloss is being added
 		if(MAYBE)
 			var/list/obj/item/organ/external/candidates = list() //TYPECASTED LISTS ARE NOT A FUCKING THING WHAT THE FUCK

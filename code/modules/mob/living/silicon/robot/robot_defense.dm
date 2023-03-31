@@ -20,7 +20,7 @@
 /mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime shock
 		flash_eyes(affect_silicon = 1)
-		var/stunprob = M.powerlevel * 7 + 10
+		// var/stunprob = M.powerlevel * 7 + 10
 		if(MAYBE && M.powerlevel >= 8)
 			adjustBruteLoss(M.powerlevel * rand(6,10))
 

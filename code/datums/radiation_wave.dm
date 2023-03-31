@@ -104,7 +104,7 @@
 	var/contamination_strength = (strength - RAD_MINIMUM_CONTAMINATION) * RAD_CONTAMINATION_STR_COEFFICIENT
 	contamination_strength = max(contamination_strength, RAD_BACKGROUND_RADIATION)
 	// It'll never reach 100% chance but the further out it gets the more likely it'll contaminate
-	var/contamination_chance = 100 - (90 / (1 + steps * 0.1))
+	// var/contamination_chance = 100 - (90 / (1 + steps * 0.1))
 	for(var/k in atoms)
 		var/atom/thing = k
 		if(QDELETED(thing))

@@ -27,9 +27,9 @@
 	//var/r = rand(5)
 	var/num_traitors = 1
 	var/max_traitors = 1
-	var/traitor_prob = 0
+	// var/traitor_prob = 0
 	max_traitors = round(num_players / 10) + 1
-	traitor_prob = (num_players - (max_traitors - 1) * 10) * 10
+	// traitor_prob = (num_players - (max_traitors - 1) * 10) * 10
 
 	// Stop setup if no possible traitors
 	if(!possible_traitors.len)

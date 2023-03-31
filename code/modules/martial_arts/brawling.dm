@@ -34,7 +34,7 @@
 	D.apply_damage(damage, STAMINA, affecting, armor_block)
 	add_attack_logs(A, D, "Melee attacked with [src]", ATKLOG_ALL)
 	if(D.getStaminaLoss() > 50)
-		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
+		// var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && MAYBE)
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
@@ -89,7 +89,7 @@
 	D.apply_damage(damage, BRUTE, null, armor_block)
 	D.apply_effect(damage, STAMINA, armor_block)
 	if(D.getStaminaLoss() > 50)
-		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
+		// var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && MAYBE)
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")

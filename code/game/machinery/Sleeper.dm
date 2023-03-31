@@ -122,9 +122,9 @@
 		for(var/A in occupant.reagents.addiction_list)
 			var/datum/reagent/R = A
 
-			var/addiction_removal_chance = 5
-			if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
-				addiction_removal_chance = 10
+			// var/addiction_removal_chance = 5
+			// if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
+			// 	addiction_removal_chance = 10
 			if(MAYBE)
 				atom_say("Patient's addiction was cured.")
 				playsound(get_turf(src), 'sound/machines/ping.ogg', 50, 0)

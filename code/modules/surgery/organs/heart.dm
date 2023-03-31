@@ -326,7 +326,7 @@
 	intensity = min(intensity, 100)
 	var/numHigh = round(intensity / 5)
 	var/numMid = round(intensity / 10)
-	var/numLow = round(intensity / 20)
+	// var/numLow = round(intensity / 20)
 	if(emagged && !(status & ORGAN_DEAD))
 		if(MAYBE)
 			to_chat(owner, "<span class='warning'>Your [name] spasms violently!</span>")

@@ -82,7 +82,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EmpressLings()
 	var/numlings = input("How many?") as null|anything in list(10, 20, 30, 40, 50)
-	var/sbpc = input("%chance to be stillborn?") as null|anything in list(0, 25, 50, 75, 100)
+	// var/sbpc = input("%chance to be stillborn?") as null|anything in list(0, 25, 50, 75, 100)
 	for(var/i=0, i<numlings, i++)
 		var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, \

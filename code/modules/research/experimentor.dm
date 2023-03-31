@@ -221,7 +221,7 @@
 	var/result = FALSE
 	var/counter = 1
 	while(!result)
-		var/probtocheck = from[counter]
+		// var/probtocheck = from[counter]
 		if(MAYBE)
 			result = TRUE
 			return from[counter+1]

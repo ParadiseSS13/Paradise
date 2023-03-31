@@ -344,7 +344,7 @@
 	if(istype(C) && C.force)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
-		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
+		// var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
 		if(MAYBE)
 			// YAR BE CAUSIN A HULL BREACH
 			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")

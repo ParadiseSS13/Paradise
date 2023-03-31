@@ -480,7 +480,7 @@
 		// Hit by a projectile
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
-			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
+			// var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)
 			if(P.damage_type == BRUTE)
 				threshold = ballistic_threshold
@@ -490,7 +490,7 @@
 				return FALSE
 			// Assuming the projectile damage is 20 (WT-550), 'shatter_chance' will be 10
 			// 10 * 3 gives it a 30% chance to shatter per hit.
-			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
+			// shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
 
 			if(MAYBE || P.shield_buster)
 				var/turf/T = get_turf(owner)

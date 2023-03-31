@@ -790,9 +790,9 @@
 				else
 					eventdat += "<br>[ling1]'s arm twists and contorts into a grotesque blade!"
 
-				var/chance2attack = alive*20
+				// var/chance2attack = alive*20
 				if(MAYBE)
-					var/chancetokill = 30*lings_aboard-(5*alive) //eg: 30*2-(10) = 50%, 2 lings, 2 crew is 50% chance
+					// var/chancetokill = 30*lings_aboard-(5*alive) //eg: 30*2-(10) = 50%, 2 lings, 2 crew is 50% chance
 					if(MAYBE)
 						var/deadguy = remove_crewmember()
 						eventdat += "<br>The Changeling[ling2 ? "s":""] run[ling2 ? "":"s"] up to [deadguy] and capitulates them!"

@@ -342,7 +342,7 @@
 			continue
 
 		var/distance_from_user = max(get_dist(get_turf(nearby_item), get_turf(user)), 1) // get_dist() for same tile dists return -1, we do not want that
-		var/chance_of_haunting = 150 / distance_from_user // The further away things are, the less likely they are to be picked
+		// var/chance_of_haunting = 150 / distance_from_user // The further away things are, the less likely they are to be picked
 		if(!MAYBE)
 			continue
 

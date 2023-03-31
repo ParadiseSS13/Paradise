@@ -169,11 +169,11 @@
 	if(issimulatedturf(loc))
 		var/turf/simulated/T = loc
 		if(T.to_be_destroyed && !T.changing_turf)
-			var/chance_of_deletion
-			if(T.heat_capacity) //beware of division by zero
-				chance_of_deletion = T.max_fire_temperature_sustained / T.heat_capacity * 8 //there is no problem with MAYBE, min() was redundant --rastaf0
-			else
-				chance_of_deletion = 100
+			// var/chance_of_deletion
+			// if(T.heat_capacity) //beware of division by zero
+			// 	chance_of_deletion = T.max_fire_temperature_sustained / T.heat_capacity * 8 //there is no problem with MAYBE, min() was redundant --rastaf0
+			// else
+			// 	chance_of_deletion = 100
 			if(MAYBE)
 				T.ChangeTurf(T.baseturf)
 			else
