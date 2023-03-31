@@ -80,3 +80,23 @@
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
 	suppressed = TRUE
+
+/obj/item/gun/energy/disabler/ducky
+	name = "rubber ducky gun"
+	desc = "A plastic yellow duck with a trigger below the base. 'DO NOT SQUEEZE' is inscribed on it's back."
+	icon = 'icons/obj/watercloset.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	icon_state = "rubberducky"
+	item_state = "rubberducky"
+
+/obj/item/gun/energy/disabler/ducky/newshot()
+	if(prob(98))
+		atom_say(pick("Stop touching me!", "I am a duck not a gun!", "Stop squeaking me, its useless!", "You still think i can shoot something?", "I hate you.", "I miss my rubber ducky family.", "I am not shooting anything!", "Still thinking i am a gun?!", "This is not a trigger, its my leg!"))
+		return
+	else
+		atom_say(pick("Are you happy now?", "Only shooting once, now stop!"))
+	. = ..()
+
+/obj/item/gun/energy/disabler/ducky/shoot_with_empty_chamber(mob/living/user)
+	playsound(user, 'sound/items/squeaktoy.ogg', 100, TRUE)
