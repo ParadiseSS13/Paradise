@@ -29,7 +29,7 @@
 	jobtype = /datum/job/hos
 
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
-	suit = /obj/item/clothing/suit/armor/hos
+	suit = /obj/item/clothing/suit/drip
 	gloves = /obj/item/clothing/gloves/color/black/hos
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/HoS
@@ -72,7 +72,7 @@
 	jobtype = /datum/job/warden
 
 	uniform = /obj/item/clothing/under/rank/security/warden
-	suit = /obj/item/clothing/suit/armor/vest/warden/alt
+	suit = /obj/item/clothing/suit/drip
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/warden
@@ -118,7 +118,7 @@
 	jobtype = /datum/job/detective
 
 	uniform = /obj/item/clothing/under/rank/security/detective
-	suit = /obj/item/clothing/suit/storage/det_suit
+	suit = /obj/item/clothing/suit/drip
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/det_hat
@@ -173,7 +173,7 @@
 	name = "Security Officer"
 	jobtype = /datum/job/officer
 	uniform = /obj/item/clothing/under/rank/security/officer
-	suit = /obj/item/clothing/suit/armor/vest/security
+	suit = /obj/item/clothing/suit/drip
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/helmet

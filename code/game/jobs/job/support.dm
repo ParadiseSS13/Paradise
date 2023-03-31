@@ -19,6 +19,7 @@
 	jobtype = /datum/job/qm
 
 	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -47,6 +48,7 @@
 	jobtype = /datum/job/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargo/tech
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
@@ -77,6 +79,7 @@
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
+	suit = /obj/item/clothing/suit/drip
 	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
 	r_pocket = /obj/item/storage/bag/ore
 	id = /obj/item/card/id/shaftminer
@@ -144,7 +147,7 @@
 	jobtype = /datum/job/bartender
 
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
-	suit = /obj/item/clothing/suit/armor/vest
+	suit = /obj/item/clothing/suit/drip
 	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
@@ -187,7 +190,7 @@
 	jobtype = /datum/job/chef
 
 	uniform = /obj/item/clothing/under/rank/civilian/chef
-	suit = /obj/item/clothing/suit/chef
+	suit = /obj/item/clothing/suit/drip
 	belt = /obj/item/storage/belt/chef
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
@@ -227,7 +230,7 @@
 	jobtype = /datum/job/hydro
 
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
-	suit = /obj/item/clothing/suit/apron
+	suit = /obj/item/clothing/suit/drip
 	gloves = /obj/item/clothing/gloves/botanic_leather
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
@@ -261,6 +264,7 @@
 	jobtype = /datum/job/clown
 
 	uniform = /obj/item/clothing/under/rank/civilian/clown
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
@@ -350,7 +354,7 @@
 	jobtype = /datum/job/mime
 
 	uniform = /obj/item/clothing/under/rank/civilian/mime
-	suit = /obj/item/clothing/suit/suspenders
+	suit = /obj/item/clothing/suit/drip
 	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/black
@@ -403,6 +407,7 @@
 	jobtype = /datum/job/janitor
 
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/janitor
@@ -430,6 +435,7 @@
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/rank/civilian/librarian
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
@@ -460,6 +466,7 @@
 	jobtype = /datum/job/barber
 
 	uniform = /obj/item/clothing/under/rank/civilian/barber
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/barber

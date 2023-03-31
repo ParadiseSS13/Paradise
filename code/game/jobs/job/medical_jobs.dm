@@ -26,7 +26,7 @@
 	jobtype = /datum/job/cmo
 
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
-	suit = /obj/item/clothing/suit/storage/labcoat/cmo
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
@@ -63,7 +63,7 @@
 	jobtype = /datum/job/doctor
 
 	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit = /obj/item/clothing/suit/storage/labcoat
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
@@ -96,7 +96,7 @@
 	jobtype = /datum/job/coroner
 
 	uniform = /obj/item/clothing/under/rank/medical/scrubs/coroner
-	suit = /obj/item/clothing/suit/storage/labcoat/mortician
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/coroner
@@ -158,7 +158,7 @@
 	jobtype = /datum/job/chemist
 
 	uniform = /obj/item/clothing/under/rank/medical/chemist
-	suit = /obj/item/clothing/suit/storage/labcoat/chemist
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_med
 	glasses = /obj/item/clothing/glasses/science
@@ -190,7 +190,7 @@
 	jobtype = /datum/job/geneticist
 
 	uniform = /obj/item/clothing/under/rank/rnd/geneticist
-	suit = /obj/item/clothing/suit/storage/labcoat/genetics
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_medsci
 	id = /obj/item/card/id/geneticist
@@ -224,7 +224,7 @@
 	jobtype = /datum/job/virologist
 
 	uniform = /obj/item/clothing/under/rank/medical/virologist
-	suit = /obj/item/clothing/suit/storage/labcoat/virologist
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/white
 	mask = /obj/item/clothing/mask/surgical
 	l_ear = /obj/item/radio/headset/headset_med
@@ -256,7 +256,7 @@
 	jobtype = /datum/job/psychiatrist
 
 	uniform = /obj/item/clothing/under/rank/medical/doctor
-	suit = /obj/item/clothing/suit/storage/labcoat
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/laceup
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/psychiatrist
@@ -295,6 +295,7 @@
 	jobtype = /datum/job/paramedic
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/soft/blue
 	mask = /obj/item/clothing/mask/cigarette

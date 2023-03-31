@@ -20,6 +20,7 @@
 	jobtype = /datum/job/syndicateofficer
 
 	uniform = /obj/item/clothing/under/syndicate
+	suit = /obj/item/clothing/suit/drip
 	back = /obj/item/storage/backpack
 	head = /obj/item/clothing/head/beret
 	gloves = /obj/item/clothing/gloves/combat

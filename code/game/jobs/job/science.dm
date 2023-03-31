@@ -33,7 +33,7 @@
 	jobtype = /datum/job/rd
 
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
-	suit = /obj/item/clothing/suit/storage/labcoat
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/heads/rd
 	id = /obj/item/card/id/rd
@@ -75,7 +75,7 @@
 	jobtype = /datum/job/scientist
 
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
-	suit = /obj/item/clothing/suit/storage/labcoat/science
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
@@ -114,7 +114,7 @@
 	jobtype = /datum/job/roboticist
 
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
-	suit = /obj/item/clothing/suit/storage/labcoat
+	suit = /obj/item/clothing/suit/drip
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_sci

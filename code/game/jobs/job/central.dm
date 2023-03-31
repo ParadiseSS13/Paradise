@@ -21,6 +21,7 @@
 	jobtype = /datum/job/ntnavyofficer
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
+	suit = /obj/item/clothing/suit/drip
 	gloves =  /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/centcom/officer
@@ -71,7 +72,7 @@
 	jobtype = /datum/job/ntspecops
 	allow_backbag_choice = FALSE
 	uniform = /obj/item/clothing/under/rank/centcom/captain
-	suit = /obj/item/clothing/suit/space/deathsquad/officer
+	suit = /obj/item/clothing/suit/drip
 	belt = /obj/item/storage/belt/military/assault
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
@@ -112,7 +113,7 @@
 /datum/outfit/job/ntspecops/solgovspecops
 	name = "Solar Federation General"
 	uniform = /obj/item/clothing/under/rank/centcom/captain/solgov
-	suit = /obj/item/clothing/suit/space/deathsquad/officer/solgov
+	suit = /obj/item/clothing/suit/drip
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 
 /datum/outfit/job/ntspecops/solgovspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
