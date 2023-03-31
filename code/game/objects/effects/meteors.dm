@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		max_i--
 		if(max_i <= 0)
 			return
-	var/Me = pickweight(meteortypes)
+	// var/Me = pickweight(meteortypes)
 	var/obj/effect/meteor/M = new /obj/effect/meteor/tunguska(pickedstart, pickedgoal)
 	M.dest = pickedgoal
 
