@@ -155,6 +155,10 @@
 	name = "Lap 2 portal"
 	desc = "A syndicate portal, bribing spacemen with the best thing: Greed and prestige."
 
+/obj/effect/portal/redspace/lap_2/New(loc, turf/_target, obj/creation_object, lifespan, mob/creation_mob)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(generate_target), 2 SECONDS))
+
 /obj/effect/portal/redspace/lap_2/can_teleport(atom/movable/A)
 	generate_target()
 	var/mob/living/M = A
@@ -178,16 +182,35 @@
 						program.announce_payday(3000)
 			H.stop_sound_channel(CHANNEL_ADMIN)
 			var/sound/music = sound('sound/music/lap_2_please_dont_sue.ogg', channel = CHANNEL_ADMIN) //1 version, plays till round end, no syncing needed
-			music.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
-			SEND_SOUND(M, music)
+			music.volume = 100 * H.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+			SEND_SOUND(H, music)
+			addtimer(CALLBACK(src, PROC_REF(easy_anti_cheat), H, 3 SECONDS))
 		else
 			return FALSE
 	return TRUE
 
 /obj/effect/portal/redspace/lap_2/proc/generate_target() //temp
-	var/list/spawn_locs = list()
-	for(var/obj/effect/landmark/spawner/rev/R in GLOB.landmarks_list)
-		spawn_locs += get_turf(R)
-	target = pick(spawn_locs)
+	var/target_turf
+	for(var/tries in 0 to 10)
+		var/list/candidate_turfs = get_area_turfs(/area/hallway/secondary/exit)
+		while(length(candidate_turfs))
+			var/turf/candidate = pick_n_take(candidate_turfs)
+			if(!is_blocked_turf(candidate,TRUE))
+				target_turf = candidate
+				break
+		if(target_turf)
+			break
+	if(!target_turf)
+		CRASH("Unable to dunk someone into escape for lap 2")
+	target = target_turf
+
+/obj/effect/portal/redspace/lap_2/proc/easy_anti_cheat(mob/living/carbon/human/H)
+	H.apply_status_effect(STATUS_EFFECT_LAP_2)
+	to_chat(H, "<span class='colossus'>Entering space or teleporting WILL KILL YOU. Good luck!</span>")
+
+/obj/effect/landmark/spawner/lap2 //If someone actually wants this this will get an icon
+	name = "lap2spawn"
+	icon_state = "Rev"
+
 
 #undef EFFECT_COOLDOWN

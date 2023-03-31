@@ -15,6 +15,11 @@
  */
 /proc/do_teleport(atom_to_teleport, destination, variance_range = 0, force_teleport = TRUE, datum/effect_system/effect_in = null, datum/effect_system/effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
 	var/datum/teleport/instant/science/D = new // default here
+	if(ishuman(atom_to_teleport))
+		var/mob/living/carbon/human/H = atom_to_teleport
+		var/datum/status_effect/lap_2/A = H.has_status_effect(STATUS_EFFECT_LAP_2)
+		if(A)
+			A.die()
 	if(isnull(effect_in) || isnull(effect_out)) // Set default effects
 		var/datum/effect_system/spark_spread/effect = new
 		effect.set_up(5, 1, atom_to_teleport)

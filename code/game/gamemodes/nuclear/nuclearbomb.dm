@@ -486,6 +486,9 @@ GLOBAL_VAR(pizza_time)
 									M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 								music.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
 								SEND_SOUND(M, music)
+						for(var/obj/effect/landmark/spawner/lap2/P in GLOB.landmarks_list)
+							new /obj/effect/portal/redspace/lap_2(get_turf(P), 0, src, 999999)
+
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
 				else
 					GLOB.bomb_set = TRUE

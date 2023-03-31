@@ -363,13 +363,35 @@ SUBSYSTEM_DEF(ticker)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer) && !(issilicon(M) && override == "AI malfunction"))
 					to_chat(M, "<span class='danger'><B>The blast wave from the explosion tears you atom from atom!</B></span>")
+					if(ishuman(M))
+						var/mob/living/carbon/human/H = M
+						var/datum/status_effect/lap_2/A = H.has_status_effect(STATUS_EFFECT_LAP_2)
+						if(A)
+							A.dying = TRUE
 					var/mob/ghost = M.ghostize()
 					M.dust() //no mercy
 					if(ghost && ghost.client) //Play the victims an uninterrupted cinematic.
 						ghost.client.screen += cinematic
+						ghost.stop_sound_channel(CHANNEL_ADMIN)
+						var/sound/music = sound('sound/music/yfasyd.ogg', channel = CHANNEL_ADMIN)
+						music.volume = 100 * ghost.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+						SEND_SOUND(ghost, music)
 					CHECK_TICK
 			if(M && M.client) //Play the survivors a cinematic.
 				M.client.screen += cinematic
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					var/datum/status_effect/lap_2/A = H.has_status_effect(STATUS_EFFECT_LAP_2)
+					if(A)
+						H.stop_sound_channel(CHANNEL_ADMIN)
+						var/sound/music = sound('sound/music/victorious_degenerate_spessman.ogg', channel = CHANNEL_ADMIN)
+						music.volume = 100 * H.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+						SEND_SOUND(H, music)
+					else
+						H.stop_sound_channel(CHANNEL_ADMIN)
+						var/sound/music = sound('sound/music/sips_not_an_s.ogg', channel = CHANNEL_ADMIN)
+						music.volume = 100 * H.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+						SEND_SOUND(H, music)
 
 	//Now animate the cinematic
 	switch(station_missed)

@@ -92,6 +92,8 @@
 
 #define STATUS_EFFECT_CLINGTENTACLE /datum/status_effect/cling_tentacle //Imobilises target for 3 seconds
 
+#define STATUS_EFFECT_LAP_2 /datum/status_effect/lap_2 //Kill em dead if they try to leave for space / teleport
+
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
 //#define CURSE_SPAWNING	2 //spawns creatures that attack the target only

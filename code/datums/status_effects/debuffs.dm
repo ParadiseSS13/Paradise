@@ -289,6 +289,33 @@
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
+/datum/status_effect/lap_2
+	alert_type = /obj/screen/alert/status_effect/lap_2
+	duration = -1
+	tick_interval = 0.5 SECONDS
+	var/dying = FALSE
+
+/datum/status_effect/lap_2/tick()
+	if(dying)
+		return
+	if(isspaceturf(get_turf(owner)))
+		die()
+	if(owner.stat == DEAD)
+		die()
+
+/datum/status_effect/lap_2/proc/die()
+	dying = TRUE
+	owner.stop_sound_channel(CHANNEL_ADMIN)
+	var/sound/music = sound('sound/music/yfasyd.ogg', channel = CHANNEL_ADMIN)
+	music.volume = 100 * owner.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+	SEND_SOUND(owner, music)
+	owner.dust()
+
+/obj/screen/alert/status_effect/lap_2
+	name = "P rank?"
+	desc = "P Stands for Probably gonna die! No teleporting or space walking!"
+	icon_state = "p_rank"
+
 // start of `living` level status procs.
 
 /**
