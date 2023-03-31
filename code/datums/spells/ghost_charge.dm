@@ -3,16 +3,18 @@
 #define MAINT_GHOST_CHARGE_POWER 3
 
 /obj/effect/proc_holder/spell/ghost_charge
-	name = "Chaaaarge!"
+	name = "CHAAAARGE!"
 	desc = "How about a moshpit in the afterlife?"
 	ghost = TRUE
-
+	still_recharging_msg = "<span class='notice'>You're still gathering enough salt to RAGE!</span>"
+	selection_activated_message		= "<span class='notice'>Click in a direction to CHAAAARGE!</span>"
+	selection_deactivated_message	= "<span class='notice'>You unsaltify yourself.</span>"
 	action_icon = 'icons/mob/actions/ghost_charge.dmi'
+
 	action_icon_state = "ghost_charge"
 	school = "transmutation"
 	base_cooldown = 5 SECONDS
 	clothes_req = FALSE
-	stat_allowed = UNCONSCIOUS
 	invocation = ""
 	invocation_type = "none"
 	var/power_level
