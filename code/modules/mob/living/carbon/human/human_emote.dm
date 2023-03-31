@@ -373,16 +373,17 @@
 	if(user.has_status_effect(/datum/status_effect/revolver_spinning))
 		return FALSE
 
-
-	var/datum/status_effect/revolver_spinning/spinning = /datum/status_effect/revolver_spinning
-
-	var/valid_revolver_types = spinning.valid_revolver_types
-
-	// var/valid_revolver_types = initial(spinning.valid_revolver_types)
-
-	spinning = FALSE  // appease the linter so it looks like I'm doing something with this variable
-	if(spinning == /datum/status_effect/revolver_spinning)
-		spinning = null
+	// fuck it we ball
+	// when this gets serious consideration find a better way to do this that references the effect's list
+	var/static/list/valid_revolver_types = list(
+		/obj/item/gun/projectile/revolver,
+		/obj/item/gun/projectile/revolver/mateba,
+		/obj/item/gun/projectile/revolver/capgun,
+		/obj/item/gun/projectile/revolver/golden,
+		/obj/item/gun/projectile/revolver/russian,
+		/obj/item/gun/projectile/revolver/russian/soul,
+		/obj/item/gun/projectile/revolver/nagant,
+	)
 
 	return ((user.l_hand.type in valid_revolver_types) && (user.r_hand.type in valid_revolver_types))
 
