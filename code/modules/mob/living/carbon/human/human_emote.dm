@@ -373,7 +373,12 @@
 	if(user.has_status_effect(/datum/status_effect/revolver_spinning))
 		return FALSE
 
+
+	var/datum/status_effect/revolver_spinning/spinning
+
 	var/valid_revolver_types = initial(spinning.valid_revolver_types)
+
+	spinning = null  // appease the linter so it looks like I'm doing something with this variable
 
 	return ((user.l_hand.type in valid_revolver_types) && (user.r_hand.type in valid_revolver_types))
 
