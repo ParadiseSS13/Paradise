@@ -21,6 +21,11 @@
 /// Macro from Lummox used to get height from a MeasureText proc
 #define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
 
+/obj/verified
+	icon = 'icons/mob/verified.dmi'
+	icon_state = "verified"
+
+
 /**
   * # Chat Message Overlay
   *
@@ -45,6 +50,8 @@
 	var/datum/chatmessage/next
 	/// Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem
 	var/datum/chatmessage/prev
+	/// Verified icon
+	var/static/obj/verified/checkmark
 
 /**
   * Constructs a chat message overlay
@@ -61,6 +68,9 @@
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
+	if(!checkmark)
+		checkmark = new()
+		bicon(checkmark)  // just to cache it
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
@@ -132,7 +142,12 @@
 			symbol = "<span style='font-size: 9px; color: #3399FF;'>*</span> "
 			size = size || "small"
 		else
-			symbol = null
+			// afd or not, we don't want to actually make people's lives harder
+			var/no_symbol_regardless = (owned_by.holder?.fakekey || (owned_by.prefs.toggles2 & PREFTOGGLE_2_ANON))
+			if((owned_by.IsByondMember() || owned_by.donator_level) && !no_symbol_regardless)
+				symbol = "<img src='icons/mob/verified.dmi' icon='icons/mob/verified.dmi' iconstate='verified'>"
+			else
+				symbol = null
 
 	// Approximate text height
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
