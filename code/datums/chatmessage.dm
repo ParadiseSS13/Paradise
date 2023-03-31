@@ -153,8 +153,11 @@
 			size = size || "small"
 		else
 			// afd or not, we don't want to actually make people's lives harder
+			var/member_or_donor = owned_by.prefs.unlock_content || owned_by.donator_level
+			if(owned_by.prefs)  // for local shenanigans
+				member_or_donor = (owned_by.prefs.unlock_content && (owned_by.prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)) || (owned_by.donator_level && (owned_by.prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
 			var/no_symbol_regardless = (owned_by.holder?.fakekey || (owned_by.prefs.toggles2 & PREFTOGGLE_2_ANON) || !owned_by.show_checkmark)
-			if((owned_by.IsByondMember() || owned_by.donator_level) && !no_symbol_regardless)
+			if(member_or_donor && !no_symbol_regardless)
 				symbol = "<img src='icons/mob/verified.dmi' icon='icons/mob/verified.dmi' iconstate='verified'>"
 			else
 				symbol = null
