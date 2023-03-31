@@ -101,7 +101,7 @@
 		return
 	if(seconds_electrified > 0)
 		seconds_electrified--
-	if(shoot_inventory && prob(2))
+	if(shoot_inventory && MAYBE)
 		throw_item()
 
 /obj/machinery/smartfridge/power_change()

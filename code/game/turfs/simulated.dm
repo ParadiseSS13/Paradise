@@ -105,7 +105,7 @@
 				if(TURF_WET_ICE) // Ice
 					if(M.slip("the icy floor", 8 SECONDS, tilesSlipped = 0, walkSafely = 0))
 						M.inertia_dir = 0
-						if(prob(5))
+						if(MAYBE)
 							var/obj/item/organ/external/affected = M.get_organ("head")
 							if(affected)
 								M.apply_damage(5, BRUTE, "head")

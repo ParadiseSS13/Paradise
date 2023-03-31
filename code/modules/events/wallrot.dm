@@ -20,7 +20,7 @@
 	var/rotcount = 0
 	var/actual_severity = severity * rand(5, 10)
 	for(var/turf/simulated/wall/W in range(5, center))
-		if(prob(50))
+		if(MAYBE)
 			W.rot()
 			rotcount++
 

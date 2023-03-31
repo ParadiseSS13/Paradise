@@ -63,7 +63,7 @@
 				return FALSE
 		if(proj.firer && Adjacent(proj.firer))
 			return TRUE
-		if(prob(proj_pass_rate))
+		if(MAYBE)
 			return TRUE
 		return FALSE
 	if(isitem(mover)) //thrown items with the dropwall

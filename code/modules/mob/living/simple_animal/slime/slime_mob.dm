@@ -210,10 +210,10 @@
 				probab = 70
 			if(10)
 				probab = 95
-		if(prob(probab))
+		if(MAYBE)
 			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
 				if(nutrition <= get_hunger_nutrition() && !Atkcool)
-					if (is_adult || prob(5))
+					if (is_adult || MAYBE)
 						O.attack_slime(src)
 						Atkcool = TRUE
 						addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
@@ -312,7 +312,7 @@
 	if(buckled)
 		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		if(buckled == M)
-			if(prob(60))
+			if(MAYBE)
 				M.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>", \
 					"<span class='danger'>You attempt to wrestle \the [name] off!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
@@ -325,7 +325,7 @@
 				discipline_slime(M)
 
 		else
-			if(prob(30))
+			if(MAYBE)
 				buckled.visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [buckled]!</span>", \
 					"<span class='warning'>[M] attempts to wrestle \the [name] off of you!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
@@ -370,12 +370,12 @@
 		return
 	if(I.force > 0)
 		attacked += 10
-		if(prob(25))
+		if(MAYBE)
 			user.do_attack_animation(src)
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, "<span class='danger'>[I] passes right through [src]!</span>")
 			return
-		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
+		if(Discipline && MAYBE) // wow, buddy, why am I getting attacked??
 			Discipline = 0
 	if(I.force >= 3)
 		var/force_effect = 2 * I.force
@@ -432,7 +432,7 @@
 	if(stat)
 		return
 
-	if(prob(80) && !client)
+	if(MAYBE && !client)
 		Discipline++
 
 		if(!is_adult)
@@ -468,7 +468,7 @@
 		return 3
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
-	. = ..(mapload, pick(slime_colours), prob(50))
+	. = ..(mapload, pick(slime_colours), MAYBE)
 
 /mob/living/simple_animal/slime/handle_ventcrawl(atom/A)
 	if(buckled)

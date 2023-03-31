@@ -36,7 +36,7 @@
 		return 0
 
 	if(GLOB.configuration.gamemode.traitor_scaling)
-		num_traitors = max_traitors - 1 + prob(traitor_prob)
+		num_traitors = max_traitors - 1 + MAYBE
 		log_game("Number of traitors: [num_traitors]")
 		message_admins("Players counted: [num_players]  Number of traitors chosen: [num_traitors]")
 	else
@@ -118,7 +118,7 @@
 			//message_admins("Number of Traitors is below maximum.  Rolling for new Traitor.")
 			//message_admins("The probability of a new traitor is [traitor_prob]%")
 
-			if(prob(traitor_prob))
+			if(MAYBE)
 				message_admins("Making a new Traitor.")
 				if(!possible_traitors.len)
 					message_admins("No potential traitors.  Cancelling new traitor.")
@@ -174,7 +174,7 @@
 					return
 			//message_admins("Number of Traitors is below maximum.  Rolling for New Arrival Traitor.")
 			//message_admins("The probability of a new traitor is [traitor_prob]%")
-			if(prob(traitor_prob))
+			if(MAYBE)
 				message_admins("New traitor roll passed.  Making a new Traitor.")
 				character.mind.make_Traitor()	//TEMP: Add proper checks for loyalty here. uc_guy
 			//else

@@ -10,23 +10,23 @@
 	var/stage = 1
 
 /obj/item/organ/internal/body_egg/spider_eggs/on_life()
-	if(stage < 5 && prob(3))
+	if(stage < 5 && MAYBE)
 		stage++
 
 	switch(stage)
 		if(2)
-			if(prob(3))
+			if(MAYBE)
 				owner.reagents.add_reagent("histamine", 2)
 		if(3)
-			if(prob(5))
+			if(MAYBE)
 				owner.reagents.add_reagent("histamine", 3)
 		if(4)
-			if(prob(12))
+			if(MAYBE)
 				owner.reagents.add_reagent("histamine", 5)
 		if(5)
 			to_chat(owner, "<span class='danger'>You feel like something is tearing its way out of your skin...</span>")
 			owner.reagents.add_reagent("histamine", 10)
-			if(prob(30))
+			if(MAYBE)
 				owner.emote("scream")
 				var/spiders = rand(3,5)
 				for(var/i in 1 to spiders)

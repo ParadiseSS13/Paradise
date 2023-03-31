@@ -124,7 +124,7 @@
 		return FALSE
 
 	if(welded)
-		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
+		if(air_contents.return_pressure() >= weld_burst_pressure && MAYBE)	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
 			visible_message("<span class='danger'>The welded cover of [src] bursts open!</span>")
 			for(var/mob/living/M in range(1))
 				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying

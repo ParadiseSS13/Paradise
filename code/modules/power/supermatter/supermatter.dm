@@ -379,7 +379,7 @@
 		soundloop.mid_sounds = list('sound/machines/sm/loops/calm.ogg' = 1)
 
 	//We play delam/neutral sounds at a rate determined by power and damage
-	if(last_accent_sound < world.time && prob(20))
+	if(last_accent_sound < world.time && MAYBE)
 		var/aggression = min(((damage / 800) * (power / 2500)), 1.0) * 100
 		if(damage >= 300)
 			playsound(src, "smdelam", max(50, aggression), FALSE, 40, 30, falloff_distance = 10, channel = CHANNEL_ENGINE)
@@ -494,7 +494,7 @@
 		if(power_changes)
 			power = max((removed.temperature * temp_factor / T0C) * gasmix_power_ratio + power, 0)
 
-		if(prob(50))
+		if(MAYBE)
 
 			radiation_pulse(src, power * max(0, (1 + (power_transmission_bonus / 10))))
 
@@ -569,7 +569,7 @@
 				flags |= (ZAP_MOB_STUN | ZAP_MACHINE_EXPLOSIVE | ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE)
 				zap_count = 4
 		//Now we deal with damage shit
-		if(damage > damage_penalty_point && prob(20))
+		if(damage > damage_penalty_point && MAYBE)
 			zap_count += 1
 
 		if(zap_count >= 1)
@@ -577,14 +577,14 @@
 			for(var/i in 1 to zap_count)
 				supermatter_zap(src, range, clamp(power*2, 4000, 20000), flags)
 
-		if(prob(5))
+		if(MAYBE)
 			supermatter_anomaly_gen(src, FLUX_ANOMALY, rand(5, 10))
-		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
+		if(power > SEVERE_POWER_PENALTY_THRESHOLD && MAYBE || MAYBE)
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
-		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
+		if((power > SEVERE_POWER_PENALTY_THRESHOLD && MAYBE) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
 			supermatter_anomaly_gen(src, PYRO_ANOMALY, rand(5, 10))
 
-	if(prob(15))
+	if(MAYBE)
 		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
 
 	//Tells the engi team to get their butt in gear
@@ -898,7 +898,7 @@
 
 		if(istype(test, /obj/machinery/power/tesla_coil))
 			var/obj/machinery/power/tesla_coil/coil = test
-			if(coil.anchored && !coil.being_shocked && !coil.panel_open && prob(70)) //Diversity of death
+			if(coil.anchored && !coil.being_shocked && !coil.panel_open && MAYBE) //Diversity of death
 				if(target_type != COIL)
 					arctargets = list()
 				arctargets += test
@@ -921,7 +921,7 @@
 
 		if(isliving(test))
 			var/mob/living/alive = test
-			if(!(HAS_TRAIT(alive, TRAIT_TESLA_SHOCKIMMUNE)) && !(alive.flags_2 & SHOCKED_2) && alive.stat != DEAD && prob(20)) //let's not hit all the engineers with every beam and/or segment of the arc
+			if(!(HAS_TRAIT(alive, TRAIT_TESLA_SHOCKIMMUNE)) && !(alive.flags_2 & SHOCKED_2) && alive.stat != DEAD && MAYBE) //let's not hit all the engineers with every beam and/or segment of the arc
 				if(target_type != LIVING)
 					arctargets = list()
 				arctargets += test
@@ -932,7 +932,7 @@
 
 		if(ismachinery(test))
 			var/obj/machinery/machine = test
-			if(!machine.being_shocked && prob(40))
+			if(!machine.being_shocked && MAYBE)
 				if(target_type != MACHINERY)
 					arctargets = list()
 				arctargets += test
@@ -962,7 +962,7 @@
 			. = zapdir
 
 		//Going boom should be rareish
-		if(prob(80))
+		if(MAYBE)
 			zap_flags &= ~ZAP_MACHINE_EXPLOSIVE
 		if(target_type == COIL)
 			//In the best situation we can expect this to grow up to 2120kw before a delam/IT'S GONE TOO FAR FRED SHUT IT DOWN
@@ -998,7 +998,7 @@
 		//We get our range with the strength of the zap and the pressure, the higher the former and the lower the latter the better
 		var/new_range = clamp(zap_str / pressure * 10, 2, 7)
 		var/zap_count = 1
-		if(prob(5))
+		if(MAYBE)
 			zap_str -= (zap_str / 10)
 			zap_count += 1
 		for(var/j in 1 to zap_count)

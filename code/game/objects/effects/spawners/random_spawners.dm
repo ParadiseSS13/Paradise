@@ -72,7 +72,7 @@
 	icon_state = "rust"
 
 /obj/effect/spawner/random_spawners/wall_rusted_probably/randspawn(turf/T)
-	if(prob(75))
+	if(MAYBE)
 		rustify(T)
 	qdel(src)
 
@@ -81,7 +81,7 @@
 	icon_state = "rust"
 
 /obj/effect/spawner/random_spawners/wall_rusted_maybe/randspawn(turf/T)
-	if(prob(25))
+	if(MAYBE)
 		rustify(T)
 	qdel(src)
 

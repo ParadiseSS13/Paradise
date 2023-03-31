@@ -341,7 +341,7 @@
 		return
 
 	if(!linked_node)
-		if(prob(20))
+		if(MAYBE)
 			silent_removal = TRUE
 			qdel(src)
 		return

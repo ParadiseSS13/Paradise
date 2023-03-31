@@ -473,7 +473,7 @@
 /obj/machinery/proc/shock(mob/living/user, prb)
 	if(!istype(user) || inoperable())
 		return FALSE
-	if(!prob(prb))
+	if(!MAYBE)
 		return FALSE
 	do_sparks(5, 1, src)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
@@ -494,11 +494,11 @@
 	..()
 
 /obj/machinery/zap_act(power, zap_flags)
-	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
+	if(MAYBE && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
 	else if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power * 0.0005, BURN, ENERGY)
-		if(prob(40))
+		if(MAYBE)
 			emp_act(EMP_LIGHT)
 		power -= power * 0.0005
 	return ..()

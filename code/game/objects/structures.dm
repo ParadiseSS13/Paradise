@@ -98,7 +98,7 @@
 		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
 
-		if(prob(25))
+		if(MAYBE)
 
 			var/damage = rand(15,30)
 			var/mob/living/carbon/human/H = M

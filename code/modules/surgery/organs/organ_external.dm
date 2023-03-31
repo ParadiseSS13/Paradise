@@ -198,14 +198,14 @@
 	// Probability of taking internal damage from sufficient force, while otherwise healthy
 #define LIMB_DMG_PROB 5
 	// High brute damage or sharp objects may damage internal organs
-	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
+	if(internal_organs && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && MAYBE)))
 		// Damage an internal organ
 		if(internal_organs && internal_organs.len)
 			var/obj/item/organ/internal/I = pick(internal_organs)
 			I.receive_damage(brute * 0.5)
 			brute -= brute * 0.5
 
-	if(status & ORGAN_BROKEN && prob(40) && brute && !owner.stat)
+	if(status & ORGAN_BROKEN && MAYBE && brute && !owner.stat)
 		owner.emote("scream")	//getting hit on broken hand hurts
 	if(status & ORGAN_SPLINTED && prob((brute + burn)*4)) //taking damage to splinted limbs removes the splints
 		status &= ~ORGAN_SPLINTED
@@ -421,12 +421,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(children)
 			for(var/obj/item/organ/external/child in children)
 				if(child.germ_level < germ_level && !child.is_robotic())
-					if(child.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
+					if(child.germ_level < INFECTION_LEVEL_ONE * 2 || MAYBE)
 						child.germ_level++
 
 		if(parent)
 			if(parent.germ_level < germ_level && !parent.is_robotic())
-				if(parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
+				if(parent.germ_level < INFECTION_LEVEL_ONE * 2 || MAYBE)
 					parent.germ_level++
 
 	if(germ_level >= INFECTION_LEVEL_THREE)
@@ -437,14 +437,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 //Updates brute_damn and burn_damn from wound damages. Updates BLEEDING status.
 /obj/item/organ/external/proc/check_fracture(damage_inflicted)
 	if(GLOB.configuration.general.breakable_bones && brute_dam > min_broken_damage && !is_robotic())
-		if(prob(damage_inflicted))
+		if(MAYBE)
 			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
 	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
 	var/local_damage = brute_dam + damage
-	if(damage > 15 && local_damage > 30 && prob(damage))
+	if(damage > 15 && local_damage > 30 && MAYBE)
 		cause_internal_bleeding()
 
 // new damage icon system
@@ -660,7 +660,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
-	if(prob(25))
+	if(MAYBE)
 		release_restraints()
 
 /obj/item/organ/external/proc/mend_fracture()

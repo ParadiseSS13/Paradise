@@ -5,7 +5,7 @@
 	open_door_sprite = "white_secure_door"
 
 /obj/structure/closet/secure_closet/engineering_chief/populate_contents()
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack/industrial(src)
 	else
 		new /obj/item/storage/backpack/satchel_eng(src)
@@ -77,7 +77,7 @@
 	open_door_sprite = "eng_secure_door"
 
 /obj/structure/closet/secure_closet/engineering_personal/populate_contents()
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack/industrial(src)
 	else
 		new /obj/item/storage/backpack/satchel_eng(src)
@@ -104,7 +104,7 @@
 	new /obj/item/radio/headset/headset_eng(src)
 	new /obj/item/cartridge/atmos(src)
 	new /obj/item/storage/toolbox/mechanical(src)
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack/industrial/atmos(src)
 	else
 		new /obj/item/storage/backpack/satchel_atmos(src)

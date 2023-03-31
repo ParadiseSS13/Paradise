@@ -85,7 +85,7 @@
 	)
 
 	affected.fix_internal_bleeding()
-	if(ishuman(user) && prob(40))
+	if(ishuman(user) && MAYBE)
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
 

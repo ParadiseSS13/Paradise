@@ -6,7 +6,7 @@
 		return
 
 	if(prob(emp_damage * 4))
-		if(prob(10)) //10% chance to drop the message entirely
+		if(MAYBE) //10% chance to drop the message entirely
 			return
 		else
 			message = Gibberish(message, (emp_damage*6))//scrambles the message, gets worse when emp_damage is higher

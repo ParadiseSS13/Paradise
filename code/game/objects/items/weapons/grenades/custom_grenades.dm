@@ -11,7 +11,7 @@
 	muck -= filth
 
 	B1.reagents.add_reagent(filth, 25)
-	if(prob(25))
+	if(MAYBE)
 		muck += "radium"
 		B1.reagents.add_reagent(pick(muck), 25)
 
@@ -30,7 +30,7 @@
 	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
 	B1.reagents.add_reagent("blood",60)
-	if(prob(5))
+	if(MAYBE)
 		B1.reagents.add_reagent("blood",1) // Quality control problems, causes a mess
 	B2.reagents.add_reagent("cryoxadone",30)
 

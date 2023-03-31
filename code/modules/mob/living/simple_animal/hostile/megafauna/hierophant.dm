@@ -176,7 +176,7 @@ Difficulty: Hard
 	if(chaser_cooldown < world.time) //if chasers are off cooldown, fire some!
 		var/obj/effect/temp_visual/hierophant/chaser/C = new /obj/effect/temp_visual/hierophant/chaser(loc, src, target, chaser_speed, FALSE)
 		chaser_cooldown = world.time + initial(chaser_cooldown)
-		if((prob(anger_modifier) || target.Adjacent(src)) && target != src)
+		if((MAYBE || target.Adjacent(src)) && target != src)
 			var/obj/effect/temp_visual/hierophant/chaser/OC = new(loc, src, target, chaser_speed * 1.5, FALSE)
 			OC.moving = 4
 			OC.moving_dir = pick(GLOB.cardinal - C.moving_dir)
@@ -187,7 +187,7 @@ Difficulty: Hard
 	else if(prob(70 - anger_modifier)) //a cross blast of some type
 		if(prob(anger_modifier * (2 / target_slowness)) && health < maxHealth * 0.5) //we're super angry do it at all dirs
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.alldirs)
-		else if(prob(60))
+		else if(MAYBE)
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.cardinal)
 		else
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.diagonals)
@@ -225,7 +225,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(6)
 	while(!QDELETED(target) && cross_counter)
 		cross_counter--
-		if(prob(60))
+		if(MAYBE)
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.cardinal)
 		else
 			INVOKE_ASYNC(src, PROC_REF(blasts), target, GLOB.diagonals)

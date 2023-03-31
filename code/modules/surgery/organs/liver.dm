@@ -8,10 +8,10 @@
 
 /obj/item/organ/internal/liver/on_life()
 	if(germ_level > INFECTION_LEVEL_ONE)
-		if(prob(1))
+		if(MAYBE)
 			to_chat(owner, "<span class='warning'> Your skin itches.</span>")
 	if(germ_level > INFECTION_LEVEL_TWO)
-		if(prob(1))
+		if(MAYBE)
 			owner.vomit()
 
 	if(owner.life_tick % PROCESS_ACCURACY == 0)

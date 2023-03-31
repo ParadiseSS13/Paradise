@@ -507,7 +507,7 @@
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
 	if(iscarbon(M))
-		if(prob(10))
+		if(MAYBE)
 			M.reagents.add_reagent("hugs", 10)
 	return ..()
 

@@ -32,7 +32,7 @@
 		if(. && iscarbon(target))
 			new /obj/effect/hallucination/delusion(get_turf(target), target, icon, icon_state)
 	else
-		if(prob(45))
+		if(MAYBE)
 			if(ismovable(target))
 				var/atom/movable/M = target
 				if(!M.anchored && M != summoner)

@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 		var/turf/T = get_turf(loc)
 		ram_turf(T)
 
-		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
+		if(MAYBE && !isspaceturf(T))//randomly takes a 'hit' from ramming
 			get_hit()
 
 /obj/effect/meteor/Destroy()
@@ -268,7 +268,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	var/turf/current_turf = get_turf(src)
 	new /obj/item/grown/bananapeel(current_turf)
 	for(var/obj/target in range(4, current_turf))
-		if(prob(15))
+		if(MAYBE)
 			target.cmag_act()
 
 //Station buster Tunguska
@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 
 /obj/effect/meteor/tunguska/Bump()
 	..()
-	if(prob(20))
+	if(MAYBE)
 		explosion(loc, 2, 4, 6, 8)
 
 //Meaty Ore

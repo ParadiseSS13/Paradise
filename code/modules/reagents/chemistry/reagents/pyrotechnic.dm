@@ -269,7 +269,7 @@
 	taste_description = "air and bitterness"
 
 /datum/reagent/sorium/reaction_turf(turf/T, volume) // oh no
-	if(prob(75))
+	if(MAYBE)
 		return
 	if(isspaceturf(T))
 		return
@@ -286,7 +286,7 @@
 	taste_description = "compressed bitterness"
 
 /datum/reagent/liquid_dark_matter/reaction_turf(turf/T, volume) //Oh gosh, why
-	if(prob(75))
+	if(MAYBE)
 		return
 	if(isspaceturf(T))
 		return

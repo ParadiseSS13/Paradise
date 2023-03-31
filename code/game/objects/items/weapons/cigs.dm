@@ -109,7 +109,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(I, /obj/item/gun/magic/wand/fireball))
 		var/obj/item/gun/magic/wand/fireball/F = I
 		if(F.charges)
-			if(prob(50) || user.mind.assigned_role == "Wizard")
+			if(MAYBE || user.mind.assigned_role == "Wizard")
 				light("<span class='notice'>Holy shit, did [user] just manage to light [user.p_their()] [name] with [F], with only moderate eyebrow singing?</span>")
 			else
 				to_chat(user, "<span class='warning'>Unsure which end of the wand is which, [user] fails to light [name] with [F].</span>")

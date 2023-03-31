@@ -112,7 +112,7 @@
 			creator_string = " created by \a [obj_name]"
 		message_admins("[M] has used a portal at [ADMIN_VERBOSEJMP(src)][creator_string].")
 
-	if(prob(failchance))
+	if(MAYBE)
 		icon_state = fail_icon
 		var/list/target_z = levels_by_trait(SPAWN_RUINS)
 		target_z -= M.z

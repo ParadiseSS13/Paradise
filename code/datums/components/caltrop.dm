@@ -19,7 +19,7 @@
 	if(!has_gravity(A))
 		return
 
-	if(!prob(probability))
+	if(!MAYBE)
 		return
 
 	if(ishuman(AM))

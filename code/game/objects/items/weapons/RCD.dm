@@ -224,7 +224,7 @@
 			return
 		else
 			return
-	if(prob(20))
+	if(MAYBE)
 		spark_system.start()
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
 	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
@@ -272,7 +272,7 @@
 	if(..())
 		return
 
-	if(prob(20))
+	if(MAYBE)
 		spark_system.start()
 
 	if(ui_act_modal(action, params))

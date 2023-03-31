@@ -1007,9 +1007,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
 
-//chances are 1:value. anyprob(1) will always return true
-/proc/anyprob(value)
-	return (rand(1,value)==value)
 
 /proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
@@ -1367,7 +1364,7 @@ Standard way to write links -Sayu
 /proc/random_step(atom/movable/AM, steps, chance)
 	var/initial_chance = chance
 	while(steps > 0)
-		if(prob(chance))
+		if(MAYBE)
 			step(AM, pick(GLOB.alldirs))
 		chance = max(chance - (initial_chance / steps), 0)
 		steps--

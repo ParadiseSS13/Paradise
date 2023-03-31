@@ -41,7 +41,7 @@
 /datum/fish/catfish/special_interact(obj/machinery/fishtank/my_tank)
 	if(!my_tank || !istype(my_tank))
 		return
-	if(my_tank.filth_level > 0 && prob(33))
+	if(my_tank.filth_level > 0 && MAYBE)
 		my_tank.adjust_filth_level(-0.1)
 
 /datum/fish/salmon
@@ -65,7 +65,7 @@
 		return
 	if(my_tank.get_num_fish() < 2)
 		return
-	if(my_tank.food_level <= 5 && prob(25))
+	if(my_tank.food_level <= 5 && MAYBE)
 		my_tank.adjust_food_level(1)
 		my_tank.kill_fish(src)
 

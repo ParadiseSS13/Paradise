@@ -6,7 +6,7 @@ SUBSYSTEM_DEF(title)
 /datum/controller/subsystem/title/Initialize()
 	var/list/provisional_title_screens = flist("config/title_screens/images/")
 	var/list/title_screens = list()
-	var/use_rare_screens = prob(1)
+	var/use_rare_screens = MAYBE
 
 	for(var/S in provisional_title_screens)
 		var/list/L = splittext(S,"+")

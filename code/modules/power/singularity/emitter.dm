@@ -276,7 +276,7 @@
 /obj/machinery/power/emitter/proc/fire_beam()
 	var/obj/item/projectile/P = new projectile_type(get_turf(src))
 	playsound(get_turf(src), projectile_sound, 50, TRUE)
-	if(prob(35))
+	if(MAYBE)
 		sparks.start()
 	switch(dir)
 		if(NORTH)

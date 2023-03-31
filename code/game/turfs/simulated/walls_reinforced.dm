@@ -210,7 +210,7 @@
 
 /turf/simulated/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
-		if(prob(30))
+		if(MAYBE)
 			dismantle_wall()
 
 /turf/simulated/wall/r_wall/update_icon_state()

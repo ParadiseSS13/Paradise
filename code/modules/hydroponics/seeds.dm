@@ -109,7 +109,7 @@
 	adjust_potency(rand(-potmut,potmut))
 	adjust_weed_rate(rand(-wrmut, wrmut))
 	adjust_weed_chance(rand(-wcmut, wcmut))
-	if(prob(traitmut))
+	if(MAYBE)
 		add_random_traits(1, 1)
 
 
@@ -419,7 +419,7 @@
 			qdel(T)
 
 /obj/item/seeds/proc/add_random_plant_type(normal_plant_chance = 75)
-	if(prob(normal_plant_chance))
+	if(MAYBE)
 		var/random_plant_type = pick(subtypesof(/datum/plant_gene/trait/plant_type))
 		var/datum/plant_gene/trait/plant_type/P = new random_plant_type
 		if(P.can_add(src))

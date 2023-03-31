@@ -447,7 +447,7 @@
 	food.desc = "Looks like your captors care for their prisoners as much as their bread."
 	food.trash = null
 	food.reagents.add_reagent("nutriment", 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
-	if(prob(10))
+	if(MAYBE)
 		// Mold adds a bit of spice to it
 		food.name = "moldy bread"
 		food.reagents.add_reagent("fungus", 1)
@@ -500,12 +500,12 @@
   * * M - The target mob.
   */
 /datum/syndicate_contract/proc/injure_target(mob/living/M)
-	if(!prob(RETURN_INJURY_CHANCE) || M.health < 50)
+	if(!MAYBE || M.health < 50)
 		return
 
 	var/obj/item/organ/external/injury_target
-	if(prob(20)) //remove a limb
-		if(prob(50))
+	if(MAYBE) //remove a limb
+		if(MAYBE)
 			injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 			if(!injury_target)
 				default_damage(M)
@@ -529,7 +529,7 @@
 			injury_target.cause_internal_bleeding()
 			to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like your inner membrane has been punctured!</span>")
 
-		if(prob(25))
+		if(MAYBE)
 			injury_target = M.get_organ(BODY_ZONE_CHEST)
 			injury_target.fracture()
 		else
@@ -574,7 +574,7 @@
 
 	// Injuries due to questioning and souvenirs
 	injure_target(M)
-	if(prob(RETURN_SOUVENIR_CHANCE))
+	if(MAYBE)
 		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)

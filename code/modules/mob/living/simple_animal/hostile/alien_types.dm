@@ -51,7 +51,7 @@
 		return
 	plant_cooldown--
 	if(AIStatus == AI_IDLE)
-		if(!plants_off && prob(10) && plant_cooldown<=0)
+		if(!plants_off && MAYBE && plant_cooldown<=0)
 			plant_cooldown = initial(plant_cooldown)
 			SpreadPlants()
 
@@ -98,10 +98,10 @@
 	egg_cooldown--
 	plant_cooldown--
 	if(AIStatus == AI_IDLE)
-		if(!plants_off && prob(10) && plant_cooldown<=0)
+		if(!plants_off && MAYBE && plant_cooldown<=0)
 			plant_cooldown = initial(plant_cooldown)
 			SpreadPlants()
-		if(!sterile && prob(10) && egg_cooldown<=0)
+		if(!sterile && MAYBE && egg_cooldown<=0)
 			egg_cooldown = initial(egg_cooldown)
 			LayEggs()
 

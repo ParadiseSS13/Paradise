@@ -37,12 +37,12 @@
 	return TRUE
 
 /mob/living/carbon/proc/handle_dreams()
-	if(client && !dreaming && prob(5))
+	if(client && !dreaming && MAYBE)
 		dream()
-	else if(client && !nightmare && prob(2))
+	else if(client && !nightmare && MAYBE)
 		nightmare()
 		if(ishuman(src))
-			if(prob(10))
+			if(MAYBE)
 				emote("nightmare")
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)

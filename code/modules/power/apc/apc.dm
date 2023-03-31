@@ -306,7 +306,7 @@
 			if(C.get_amount() >= 10 && !terminal && opened && has_electronics())
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
-				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE))
+				if(MAYBE && electrocute_mob(usr, N, N, 1, TRUE))
 					do_sparks(5, TRUE, src)
 					return
 				C.use(10)
@@ -750,7 +750,7 @@
 		shock_chance = 15
 	else if(excess >= 5000000)
 		shock_chance = 10
-	if(prob(shock_chance))
+	if(MAYBE)
 		var/list/shock_mobs = list()
 		for(var/C in view(get_turf(src), 5)) //We only want to shock a single random mob in range, not every one.
 			if(isliving(C))
@@ -886,7 +886,7 @@
 	if(cell && cell.charge >= 20)
 		cell.use(20)
 		for(var/obj/machinery/light/L in apc_area)
-			if(prob(chance))
+			if(MAYBE)
 				L.break_light_tube(0, 1)
 				stoplag()
 
@@ -975,7 +975,7 @@
 /obj/machinery/power/apc/proc/ion_act()
 	//intended to be exactly the same as an AI malf attack
 	if(!malfhack && is_station_level(z))
-		if(prob(3))
+		if(MAYBE)
 			locked = TRUE
 			if(cell.charge > 0)
 				cell.charge = 0

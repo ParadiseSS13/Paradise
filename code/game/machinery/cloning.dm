@@ -263,11 +263,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	domutcheck(H, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 
-	if(efficiency > 2 && efficiency < 5 && prob(25))
+	if(efficiency > 2 && efficiency < 5 && MAYBE)
 		randmutb(H)
-	if(efficiency > 5 && prob(20))
+	if(efficiency > 5 && MAYBE)
 		randmutg(H)
-	if(efficiency < 3 && prob(50))
+	if(efficiency < 3 && MAYBE)
 		randmutb(H)
 
 	H.dna.UpdateSE()

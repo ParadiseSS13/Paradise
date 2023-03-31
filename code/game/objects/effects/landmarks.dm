@@ -476,7 +476,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new /obj/item/clothing/gloves/color/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)
 	new /obj/item/clothing/under/misc/scratch(src.loc)
-	if(prob(30))
+	if(MAYBE)
 		new /obj/item/clothing/head/cueball(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -537,7 +537,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/costume/imperium_monk/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/imperium_monk(src.loc)
-	if(prob(25))
+	if(MAYBE)
 		new /obj/item/clothing/mask/gas/cyborg(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -610,7 +610,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
-	if(prob(1))
+	if(MAYBE)
 		mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
 	. = ..()
 
@@ -619,7 +619,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
-	if(prob(5))
+	if(MAYBE)
 		mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	. = ..()
 
@@ -628,8 +628,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
-	if(prob(1))
-		if(prob(25)) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
+	if(MAYBE)
+		if(MAYBE) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
 			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
 		else
 			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing

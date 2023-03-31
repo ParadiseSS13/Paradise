@@ -100,7 +100,7 @@
 		EyeBlind(4 SECONDS)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
-		if(prob(3))
+		if(MAYBE)
 			var/list/crazysay = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",
 							"without oxigen blob don't evoluate?",
 							"CAPTAINS A COMDOM",
@@ -144,7 +144,7 @@
 							"I FOT AND DIED FOR MUH [pick("RITES","FREEDOM","payCHECK","cARGO points","teCH Level","doG","mAPLe syrup","fluffy fWiends","gATEway LoOt")]",
 							"KILL DEM [pick("mainTnacE cHickinNS","kiRA CulwnNES","FLOOR CLUWNEs","MIME ASSASSIN","BOMBING TAJARAN","cC offiser","morPhlings","slinglings")]!",
 							"I CAN FORCE YOU TO SAY WHATEREVE!!?!?!")
-			if(prob(66))
+			if(MAYBE)
 				say(pick(crazysay))
 			else
 				emote("drool")
@@ -166,7 +166,7 @@
 			if(prob(instability * 0.1))
 				adjustToxLoss(min(5, instability * 0.67))
 				to_chat(src, "<span class='danger'>You feel weak and nauseous.</span>")
-			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
+			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && MAYBE)
 				to_chat(src, "<span class='biggerdanger'>You feel incredibly sick... Something isn't right!</span>")
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
@@ -605,18 +605,18 @@
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)
 			var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
-			if(prob(deathchance))
+			if(MAYBE)
 				death()
 				return
 
 		if(health <= HEALTH_THRESHOLD_CRIT)
-			if(prob(5))
+			if(MAYBE)
 				emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
 			SetStuttering(10 SECONDS)
 			EyeBlurry(5)
-			if(prob(7))
+			if(MAYBE)
 				AdjustConfused(4 SECONDS)
-			if(prob(5))
+			if(MAYBE)
 				Paralyse(4 SECONDS)
 			switch(health)
 				if(-INFINITY to -100)
@@ -631,30 +631,30 @@
 					Paralyse(10 SECONDS)
 				if(-99 to -80)
 					adjustOxyLoss(1)
-					if(prob(4))
+					if(MAYBE)
 						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
 						Paralyse(4 SECONDS)
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
 				if(-79 to -50)
 					adjustOxyLoss(1)
-					if(prob(10))
+					if(MAYBE)
 						var/datum/disease/D = new /datum/disease/critical/shock
 						ForceContractDisease(D)
 					if(prob(health * -0.08))
 						var/datum/disease/D = new /datum/disease/critical/heart_failure
 						ForceContractDisease(D)
-					if(prob(6))
+					if(MAYBE)
 						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
 						Weaken(6 SECONDS)
-					if(prob(3))
+					if(MAYBE)
 						Paralyse(4 SECONDS)
 				if(-49 to 0)
 					adjustOxyLoss(1)
-					if(prob(3))
+					if(MAYBE)
 						var/datum/disease/D = new /datum/disease/critical/shock
 						ForceContractDisease(D)
-					if(prob(5))
+					if(MAYBE)
 						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
 						Weaken(6 SECONDS)
 
@@ -823,7 +823,7 @@
 		return
 
 	for(var/mob/living/carbon/human/H in range(decaylevel, src))
-		if(prob(2))
+		if(MAYBE)
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				continue
@@ -913,7 +913,7 @@
 		return
 	if(getOxyLoss())
 		adjustBrainLoss(3)
-	else if(prob(10))
+	else if(MAYBE)
 		adjustBrainLoss(1)
 	Weaken(10 SECONDS)
 	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)

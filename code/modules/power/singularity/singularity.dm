@@ -120,7 +120,7 @@
 		move()
 	if(current_size >= STAGE_TWO)
 		radiation_pulse(src, min(5000, (energy * 4.5) + 1000), RAD_DISTANCE_COEFFICIENT * 0.5)
-		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
+		if(MAYBE)//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
 	do_dissipate()
@@ -304,7 +304,7 @@
 	if(force_move)
 		movement_dir = force_move
 
-	if(target && prob(60))
+	if(target && MAYBE)
 		movement_dir = get_dir(src,target) //moves to a singulo beacon, if there is one
 
 	step(src, movement_dir)
@@ -421,7 +421,7 @@
 		M.Stun(6 SECONDS)
 		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
 						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
-	return 
+	return
 
 
 /obj/singularity/proc/emp_area()
@@ -445,7 +445,7 @@
 
 /obj/singularity/onetile/process()
 	eat()
-	if(prob(1))
+	if(MAYBE)
 		mezzer()
 
 /datum/component/proximity_monitor/singulo

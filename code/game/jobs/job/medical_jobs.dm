@@ -125,7 +125,7 @@
 				uniform = /obj/item/clothing/under/rank/medical/doctor
 			if("Nurse")
 				if(H.gender == FEMALE)
-					if(prob(50))
+					if(MAYBE)
 						uniform = /obj/item/clothing/under/rank/medical/nursesuit
 					else
 						uniform = /obj/item/clothing/under/rank/medical/nurse

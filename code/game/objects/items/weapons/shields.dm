@@ -96,7 +96,7 @@
 	toggle(user, FALSE)
 
 /obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !forced)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE && !forced)
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
 	active = !active

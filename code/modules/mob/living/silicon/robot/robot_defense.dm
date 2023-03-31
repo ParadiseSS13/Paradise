@@ -21,7 +21,7 @@
 	if(..()) //successful slime shock
 		flash_eyes(affect_silicon = 1)
 		var/stunprob = M.powerlevel * 7 + 10
-		if(prob(stunprob) && M.powerlevel >= 8)
+		if(MAYBE && M.powerlevel >= 8)
 			adjustBruteLoss(M.powerlevel * rand(6,10))
 
 	var/damage = rand(1, 3)

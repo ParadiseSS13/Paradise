@@ -66,7 +66,7 @@
 		qdel(src)
 
 /obj/effect/anomaly/proc/anomalyEffect()
-	if(prob(movechance))
+	if(MAYBE)
 		step(src, pick(GLOB.alldirs))
 
 /obj/effect/anomaly/proc/detonate()
@@ -106,9 +106,9 @@
 	if(!event_spawned) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
 		return
 	for(var/I in 1 to 3)
-		if(prob(75))
+		if(MAYBE)
 			new /obj/item/stack/rods(loc)
-		if(prob(75))
+		if(MAYBE)
 			new /obj/item/shard(loc)
 
 /obj/effect/anomaly/grav/anomalyEffect()
@@ -172,7 +172,7 @@
 	canshock = TRUE
 	for(var/mob/living/M in get_turf(src))
 		mobShock(M)
-	if(explosive && prob(50)) //Let us not fuck up the sm that much
+	if(explosive && MAYBE) //Let us not fuck up the sm that much
 		tesla_zap(src, zap_range, power, zap_flags)
 
 
@@ -220,7 +220,7 @@
 	for(var/mob/living/M in range(3, src))
 		do_teleport(M, locate(M.x, M.y, M.z), 4)
 	for(var/obj/item/O in range (3, src))
-		if(!O.anchored && O.invisibility == 0 && prob(50))
+		if(!O.anchored && O.invisibility == 0 && MAYBE)
 			do_teleport(O, locate(O.x, O.y, O.z), 6)
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
@@ -304,7 +304,7 @@
 	..()
 	ticks++
 	for(var/mob/living/M in hearers(4, src))
-		if(prob(50))
+		if(MAYBE)
 			M.adjust_fire_stacks(4)
 			M.IgniteMob()
 
@@ -380,7 +380,7 @@
 		return
 
 	//Pulling and/or ex_act-ing movable atoms in that turf
-	if(prob(pull_chance))
+	if(MAYBE)
 		for(var/obj/O in T.contents)
 			if(O.anchored)
 				O.ex_act(ex_act_force)
@@ -390,7 +390,7 @@
 			step_towards(M, src)
 
 	//Damaging the turf
-	if(T && prob(turf_removal_chance))
+	if(T && MAYBE)
 		T.ex_act(ex_act_force)
 
 #undef ANOMALY_MOVECHANCE

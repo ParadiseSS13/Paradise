@@ -108,7 +108,7 @@
 	else
 		hitx = target.pixel_x + rand(-8, 8)
 		hity = target.pixel_y + rand(-8, 8)
-	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && prob(75))
+	if(!nodamage && (damage_type == BRUTE || damage_type == BURN) && iswallturf(target_loca) && MAYBE)
 		var/turf/simulated/wall/W = target_loca
 		if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
@@ -136,7 +136,7 @@
 					H = target
 					blood_color = H.dna.species.blood_color
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
-			if(prob(33))
+			if(MAYBE)
 				var/list/shift = list("x" = 0, "y" = 0)
 				var/turf/step_over = get_step(target_loca, splatter_dir)
 
@@ -362,7 +362,7 @@
 	return
 
 /obj/item/projectile/proc/check_ricochet()
-	if(prob(ricochet_chance))
+	if(MAYBE)
 		return TRUE
 	return FALSE
 

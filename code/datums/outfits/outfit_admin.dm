@@ -1289,7 +1289,7 @@
 		uniform = /obj/item/clothing/under/rank/civilian/clown/sexy
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
 
-	if(prob(50))
+	if(MAYBE)
 		// You have to do it like this to make it work with assoc lists without a runtime.
 		// Trust me.
 		backpack_contents.Add(/obj/item/gun/energy/clown)

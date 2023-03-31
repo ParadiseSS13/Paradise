@@ -101,9 +101,9 @@
 			add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 
 			var/severity = 1
-			if(prob(33))
+			if(MAYBE)
 				severity = 2
-			else if(prob(50))
+			else if(MAYBE)
 				severity = 0
 
 			//20% chance to actually hit the eyes

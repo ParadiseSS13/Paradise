@@ -23,8 +23,8 @@
 /obj/item/storage/toolbox/Initialize(mapload)
 	. = ..()
 	if(has_latches)
-		if(prob(10))
-			if(prob(1))
+		if(MAYBE)
+			if(MAYBE)
 				latches = "triple_latch"
 			else
 				latches = "double_latch"
@@ -44,7 +44,7 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/extinguisher/mini(src)
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/flashlight(src)
 	else
 		new /obj/item/flashlight/flare(src)
@@ -89,7 +89,7 @@
 	new /obj/item/crowbar(src)
 	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
 	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
-	if(prob(5))
+	if(MAYBE)
 		new /obj/item/clothing/gloves/color/yellow(src)
 	else
 		new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)

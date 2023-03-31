@@ -16,7 +16,7 @@
 	. = TRUE
 	if(isliving(mover) && mover == target)
 		var/mob/living/M = mover
-		if(!(M.mobility_flags & MOBILITY_MOVE) || !prob(trip_chance))
+		if(!(M.mobility_flags & MOBILITY_MOVE) || !MAYBE)
 			return
 		M.Weaken(weaken)
 		on_crossed()
@@ -95,7 +95,7 @@
 	var/should_attack_weakened = FALSE
 
 /obj/effect/hallucination/chaser/attacker/within_range()
-	if(!prob(attack_chance))
+	if(!MAYBE)
 		return
 	var/was_weakened = target.IsWeakened()
 	if(was_weakened && !should_attack_weakened)

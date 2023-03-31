@@ -7,7 +7,7 @@ GLOBAL_VAR(church_name)
 
 	name += pick("Holy", "United", "First", "Second", "Last")
 
-	if(prob(20))
+	if(MAYBE)
 		name += " Space"
 
 	name += " " + pick("Church", "Cathedral", "Body", "Worshippers", "Movement", "Witnesses")
@@ -36,7 +36,7 @@ GLOBAL_VAR(religion_name)
 	var/new_station_name = ""
 
 	//Rare: Pre-Prefix
-	if(prob(10))
+	if(MAYBE)
 		name = pick("Imperium", "Heretical", "Cuban", "Psychic", "Elegant", "Common", "Uncommon", "Rare", "Unique", "Houseruled", "Religious", "Atheist", "Traditional", "Houseruled", "Mad", "Super", "Ultra", "Secret", "Top Secret", "Deep", "Death", "Zybourne", "Central", "Main", "Government", "Uoi", "Fat", "Automated", "Experimental", "Augmented")
 		new_station_name = name + " "
 		name = ""
@@ -84,11 +84,11 @@ GLOBAL_VAR(syndicate_name)
 	name += pick("Clandestine", "Prima", "Blue", "Zero-G", "Max", "Blasto", "Waffle", "North", "Omni", "Newton", "Cyber", "Bonk", "Gene", "Gib")
 
 	// Suffix
-	if(prob(80))
+	if(MAYBE)
 		name += " "
 
 		// Full
-		if(prob(60))
+		if(MAYBE)
 			name += pick("Syndicate", "Consortium", "Collective", "Corporation", "Group", "Holdings", "Biotech", "Industries", "Systems", "Products", "Chemicals", "Enterprises", "Family", "Creations", "International", "Intergalactic", "Interplanetary", "Foundation", "Positronics", "Hive")
 		// Broken
 		else
@@ -218,7 +218,7 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 			syndicate_code_phrase += pick("Escape","Engineering","Atmos","the bridge","the brig","Clown Planet","CentComm","the library","the chapel","a bathroom","Med Bay","Tool Storage","the escape shuttle","Robotics","a locker room","the living quarters","the gym","the autolathe","QM","the bar","the theater","the derelict")
 			syndicate_code_phrase += "?"
 		if(3)
-			if(prob(70))
+			if(MAYBE)
 				syndicate_code_phrase += pick("Get me","I want","I'd like","Make me")
 				syndicate_code_phrase += " a "
 			else
@@ -239,25 +239,25 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 
 	switch(choice)
 		if(1)
-			if(prob(80))
+			if(MAYBE)
 				syndicate_code_response += pick("Try looking for them near","I they ran off to","Yes. I saw them near","Nope. I'm heading to","Try searching")
 				syndicate_code_response += " "
 				syndicate_code_response += pick("Escape","Engineering","Atmos","the bridge","the brig","Clown Planet","CentComm","the library","the chapel","a bathroom","Med Bay","Tool Storage","the escape shuttle","Robotics","a locker room","the living quarters","the gym","the autolathe","QM","the bar","the theater","the derelict")
 				syndicate_code_response += "."
-			else if(prob(60))
+			else if(MAYBE)
 				syndicate_code_response += pick("No. I'm busy, sorry.","I don't have the time.","Not sure, maybe?","There is no time.")
 			else
 				syndicate_code_response += pick("*shrug*","*smile*","*blink*","*sigh*","*laugh*","*nod*","*giggle*")
 		if(2)
-			if(prob(80))
+			if(MAYBE)
 				syndicate_code_response += pick("Go to","Navigate to","Try","Sure, run to","Try searching","It's near","It's around")
 				syndicate_code_response += " the "
 				syndicate_code_response += pick("[pick("south","north","east","west")] maitenance door","nearby maitenance","teleporter","[pick("cold","dead")] space","morgue","vacuum","[pick("south","north","east","west")] hall ","[pick("south","north","east","west")] hallway","[pick("white","black","red","green","blue","pink","purple")] [pick("rabbit","frog","lion","tiger","panther","snake","facehugger")]")
 				syndicate_code_response += "."
-			else if(prob(60))
+			else if(MAYBE)
 				syndicate_code_response += pick("Try asking","Ask","Talk to","Go see","Follow","Hunt down")
 				syndicate_code_response += " "
-				if(prob(50))
+				if(MAYBE)
 					syndicate_code_response += pick(pick(GLOB.first_names_male,GLOB.first_names_female))
 					syndicate_code_response += " "
 					syndicate_code_response += pick(GLOB.last_names)

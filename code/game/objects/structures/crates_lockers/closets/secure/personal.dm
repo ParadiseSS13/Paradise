@@ -5,9 +5,9 @@
 	var/registered_name = null
 
 /obj/structure/closet/secure_closet/personal/populate_contents()
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack/duffel(src)
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack(src)
 	else
 		new /obj/item/storage/backpack/satchel_norm(src)

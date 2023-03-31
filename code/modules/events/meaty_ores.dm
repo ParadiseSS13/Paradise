@@ -1,5 +1,5 @@
 /datum/event/dust/meaty/announce()
-	if(prob(16))
+	if(MAYBE)
 		GLOB.minor_announcement.Announce("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
 	else
 		GLOB.minor_announcement.Announce("Meaty ores have been detected on collision course with the station.", "Meaty Ore Alert", new_sound = 'sound/AI/meteors.ogg')
@@ -13,7 +13,7 @@
 /datum/event/dust/meaty/proc/spawn_meaty_ores()
 	while(qnty-- > 0)
 		new /obj/effect/space_dust/meaty()
-		if(prob(10))
+		if(MAYBE)
 			sleep(rand(10,15))
 
 /obj/effect/space_dust/meaty
@@ -29,11 +29,11 @@
 	..()
 
 /obj/effect/space_dust/meaty/on_shatter(turf/where)
-	if(prob(80))
+	if(MAYBE)
 		gibs(where)
-		if(prob(45))
+		if(MAYBE)
 			new /obj/item/reagent_containers/food/snacks/meat(where)
-		else if(prob(10))
+		else if(MAYBE)
 			explosion(where, 0, pick(0,1), pick(2,3), 0)
 	else
 		new /mob/living/simple_animal/cow(where)

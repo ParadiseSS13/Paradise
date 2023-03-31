@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
 	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
-		if(prob(2))
+		if(MAYBE)
 			// 2% chance every cycle to decompose
 			visible_message("<span class='notice'>The dead body of [src] decomposes!</span>")
 			gib()
@@ -331,7 +331,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 				else if(getFireLoss())
 					adjustFireLoss(-1)
 					regen_points -= regen_points_per_hp
-		if(prob(5)) // AA 2022-08-11 - This gives me prob(80) vibes. Should probably be refactored.
+		if(MAYBE) // AA 2022-08-11 - This gives me MAYBE vibes. Should probably be refactored.
 			CheckFaction()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()

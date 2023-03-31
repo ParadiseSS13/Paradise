@@ -301,7 +301,7 @@
 		H.adjustBruteLoss(-60)
 		H.adjustFireLoss(-60)
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(prob(25))
+			if(MAYBE)
 				E.mend_fracture()
 				E.fix_internal_bleeding()
 

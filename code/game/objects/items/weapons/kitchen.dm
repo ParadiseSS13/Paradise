@@ -37,7 +37,7 @@
 
 /obj/item/kitchen/utensil/New()
 	..()
-	if(prob(60))
+	if(MAYBE)
 		src.pixel_y = rand(0, 4)
 
 	create_reagents(5)
@@ -48,7 +48,7 @@
 
 	if(user.a_intent != INTENT_HELP)
 		if(user.zone_selected == "head" || user.zone_selected == "eyes")
-			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 				C = user
 			return eyestab(C, user)
 		else

@@ -10,7 +10,7 @@
 // creates a new object and deletes itself
 /obj/random/Initialize(mapload)
 	. = ..()
-	if(!prob(spawn_nothing_percentage))
+	if(!MAYBE)
 		spawn_item()
 	return INITIALIZE_HINT_QDEL
 
@@ -48,9 +48,9 @@
 	icon_state = "atmos"
 
 /obj/random/technology_scanner/item_to_spawn()
-	return pick(prob(5);/obj/item/t_scanner,\
-				prob(2);/obj/item/radio/intercom,\
-				prob(5);/obj/item/analyzer)
+	return pick(MAYBE;/obj/item/t_scanner,\
+				MAYBE;/obj/item/radio/intercom,\
+				MAYBE;/obj/item/analyzer)
 
 
 /obj/random/powercell
@@ -60,11 +60,11 @@
 	icon_state = "cell"
 
 /obj/random/powercell/item_to_spawn()
-	return pick(prob(10);/obj/item/stock_parts/cell/crap,\
-				prob(40);/obj/item/stock_parts/cell,\
-				prob(40);/obj/item/stock_parts/cell/high,\
-				prob(9);/obj/item/stock_parts/cell/super,\
-				prob(1);/obj/item/stock_parts/cell/hyper)
+	return pick(MAYBE;/obj/item/stock_parts/cell/crap,\
+				MAYBE;/obj/item/stock_parts/cell,\
+				MAYBE;/obj/item/stock_parts/cell/high,\
+				MAYBE;/obj/item/stock_parts/cell/super,\
+				MAYBE;/obj/item/stock_parts/cell/hyper)
 
 /obj/random/bomb_supply
 	name = "Bomb Supply"
@@ -85,9 +85,9 @@
 	icon_state = "red"
 
 /obj/random/toolbox/item_to_spawn()
-	return pick(prob(3);/obj/item/storage/toolbox/mechanical,\
-				prob(2);/obj/item/storage/toolbox/electrical,\
-				prob(1);/obj/item/storage/toolbox/emergency)
+	return pick(MAYBE;/obj/item/storage/toolbox/mechanical,\
+				MAYBE;/obj/item/storage/toolbox/electrical,\
+				MAYBE;/obj/item/storage/toolbox/emergency)
 
 /obj/random/tech_supply
 	name = "Random Tech Supply"
@@ -97,14 +97,14 @@
 	spawn_nothing_percentage = 50
 
 /obj/random/tech_supply/item_to_spawn()
-	return pick(prob(3);/obj/random/powercell,\
-				prob(2);/obj/random/technology_scanner,\
-				prob(1);/obj/item/stack/packageWrap,\
-				prob(2);/obj/random/bomb_supply,\
-				prob(1);/obj/item/extinguisher,\
-				prob(1);/obj/item/clothing/gloves/color/fyellow,\
-				prob(3);/obj/item/stack/cable_coil,\
-				prob(2);/obj/random/toolbox,\
-				prob(2);/obj/item/storage/belt/utility,\
-				prob(5);/obj/random/tool,\
-				prob(3);/obj/item/stack/tape_roll)
+	return pick(MAYBE;/obj/random/powercell,\
+				MAYBE;/obj/random/technology_scanner,\
+				MAYBE;/obj/item/stack/packageWrap,\
+				MAYBE;/obj/random/bomb_supply,\
+				MAYBE;/obj/item/extinguisher,\
+				MAYBE;/obj/item/clothing/gloves/color/fyellow,\
+				MAYBE;/obj/item/stack/cable_coil,\
+				MAYBE;/obj/random/toolbox,\
+				MAYBE;/obj/item/storage/belt/utility,\
+				MAYBE;/obj/random/tool,\
+				MAYBE;/obj/item/stack/tape_roll)

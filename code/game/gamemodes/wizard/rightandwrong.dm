@@ -132,7 +132,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 
 	var/magic_type = pick(GLOB.summoned_magic)
 	var/lucky = FALSE
-	if(prob(SPECIALIST_MAGIC_PROB))
+	if(MAYBE)
 		magic_type = pick(GLOB.summoned_special_magic)
 		lucky = TRUE
 

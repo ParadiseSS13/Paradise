@@ -163,7 +163,7 @@
 
 //Nutrients//////////////////////////////////////////////////////////////
 			// Nutrients deplete slowly
-			if(prob(50))
+			if(MAYBE)
 				adjustNutri(-1 / rating)
 
 			// Lack of nutrients hurts non-weeds
@@ -197,7 +197,7 @@
 				adjustHealth(rand(1,2) / rating)
 				if(myseed && prob(myseed.weed_chance))
 					adjustWeeds(myseed.weed_rate)
-				else if(prob(5))  //5 percent chance the weed population will increase
+				else if(MAYBE)  //5 percent chance the weed population will increase
 					adjustWeeds(1 / rating)
 
 //Toxins/////////////////////////////////////////////////////////////////
@@ -238,14 +238,14 @@
 					plant_hud_set_status()
 				else
 					lastproduce = age
-			if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
+			if(MAYBE)  // On each tick, there's a 5 percent chance the pest population will increase
 				adjustPests(1 / rating)
 		else
-			if(waterlevel > 10 && nutrilevel > 0 && prob(10))  // If there's no plant, the percentage chance is 10%
+			if(waterlevel > 10 && nutrilevel > 0 && MAYBE)  // If there's no plant, the percentage chance is 10%
 				adjustWeeds(1 / rating)
 
 		// Weeeeeeeeeeeeeeedddssss
-		if(weedlevel >= 10 && prob(50)) // At this point the plant is kind of fucked. Weeds can overtake the plant spot.
+		if(weedlevel >= 10 && MAYBE) // At this point the plant is kind of fucked. Weeds can overtake the plant spot.
 			if(myseed)
 				if(!myseed.get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !myseed.get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism)) // If a normal plant
 					weedinvasion()
@@ -260,17 +260,17 @@
 	if (mutmod == 0)
 		return
 	if (mutmod == 1)
-		if(prob(80))		//80%
+		if(MAYBE)		//80%
 			mutate()
-		else if(prob(75))	//15%
+		else if(MAYBE)	//15%
 			hardmutate()
 		return
 	if (mutmod == 2)
-		if(prob(50))		//50%
+		if(MAYBE)		//50%
 			mutate()
-		else if(prob(50))	//25%
+		else if(MAYBE)	//25%
 			hardmutate()
-		else if(prob(50))	//12.5%
+		else if(MAYBE)	//12.5%
 			mutatespecie()
 		return
 	return

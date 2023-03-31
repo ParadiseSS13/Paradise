@@ -46,7 +46,7 @@
 	GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
 		LAZYADD(get_area(src).cameras, UID())
-	if(is_station_level(z) && prob(3) && !start_active)
+	if(is_station_level(z) && MAYBE && !start_active)
 		toggle_cam(null, FALSE)
 		wires.cut_all()
 

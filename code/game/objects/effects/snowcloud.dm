@@ -31,7 +31,7 @@
 		qdel(src)
 		return
 	if(!parent_machine || !parent_machine.active || parent_machine.stat & NOPOWER) //All reasons a cloud could dissipate
-		if(prob(10))
+		if(MAYBE)
 			qdel(src)
 		return
 	try_to_snow()
@@ -116,7 +116,7 @@
 	qdel(src)
 
 /obj/effect/snow/ex_act(severity)
-	if(severity == 3 && prob(50))
+	if(severity == 3 && MAYBE)
 		return
 	qdel(src)
 

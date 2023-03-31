@@ -524,7 +524,7 @@
 			sleep(1)
 		user.flying = prevFlying
 
-		if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
+		if(HAS_TRAIT(user, TRAIT_FAT) && MAYBE)
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
@@ -711,7 +711,7 @@
 
 		if(M.dna?.GetSEState(GLOB.empathblock))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
-		else if(prob(5) || M.mind?.assigned_role=="Chaplain")
+		else if(MAYBE || M.mind?.assigned_role=="Chaplain")
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
 
 ///////////////////Vanilla Morph////////////////////////////////////

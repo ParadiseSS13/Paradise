@@ -138,7 +138,7 @@
 	src.text += "It would be in your best interests to suspect everybody, as these undercover operatives could have implants which trigger them to have their memories removed until they are needed. He, or she, could even be a high ranking officer."
 
 	src.text += "After some investigation, we "
-	if(prob(50))
+	if(MAYBE)
 		src.text += "are [prob_right_dude]% sure that [traitor_name] may have been involved, and should be closely observed."
 		src.text += "<BR>Note: This group are known to be untrustworthy, so do not act on this information without proper discourse."
 	else
@@ -208,7 +208,7 @@
 	var/changeling_job
 	var/prob_right_dude = rand(prob_correct_person_lower, prob_correct_person_higher)
 	var/prob_right_job = rand(prob_correct_job_lower, prob_correct_job_higher)
-	if(prob(prob_right_job))
+	if(MAYBE)
 		if(correct_person)
 			if(correct_person:assigned_role == correct_person:special_role)
 				changeling_job = pick(GLOB.joblist)
@@ -216,7 +216,7 @@
 				changeling_job = correct_person:assigned_role
 	else
 		changeling_job = pick(GLOB.joblist)
-	if(prob(prob_right_dude) && ticker.mode == "changeling")
+	if(MAYBE && ticker.mode == "changeling")
 		if(correct_person:assigned_role == correct_person:special_role)
 			changeling_name = correct_person:current
 		else

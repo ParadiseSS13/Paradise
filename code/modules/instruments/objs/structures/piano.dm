@@ -12,7 +12,7 @@
 
 /obj/structure/piano/Initialize(mapload)
 	. = ..()
-	if(prob(50) && icon_state == initial(icon_state))
+	if(MAYBE && icon_state == initial(icon_state))
 		name = "space minimoog"
 		desc = "This is a minimoog, like a space piano, but more spacey!"
 		icon_state = "minimoog"

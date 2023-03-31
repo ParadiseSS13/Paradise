@@ -162,7 +162,7 @@
 
 /obj/machinery/door/airlock/uranium/process()
 	if(world.time > last_event + 20)
-		if(prob(50))
+		if(MAYBE)
 			radiate()
 		last_event = world.time
 	..()

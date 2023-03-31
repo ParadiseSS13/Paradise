@@ -270,7 +270,7 @@
 	new /obj/item/nullrod/missionary_staff(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe(src)
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(src)
-	if(prob(25))	//an omen of success to come?
+	if(MAYBE)	//an omen of success to come?
 		B.deity_name = "Success"
 		B.icon_state = "greentext"
 		B.item_state = "greentext"

@@ -303,7 +303,7 @@
 		soft_reset()
 
 	if(!patient)
-		if(!shut_up && prob(1))
+		if(!shut_up && MAYBE)
 			var/list/messagevoice = list("Radar, put a mask on!" = 'sound/voice/mradar.ogg', "There's always a catch, and I'm the best there is." = 'sound/voice/mcatch.ogg', "I knew it, I should've been a plastic surgeon." = 'sound/voice/msurgeon.ogg', "What kind of medbay is this? Everyone's dropping like flies." = 'sound/voice/mflies.ogg', "Delicious!" = 'sound/voice/mdelicious.ogg')
 			var/message = pick(messagevoice)
 			speak(message)
@@ -540,14 +540,14 @@
 
 		new /obj/item/healthanalyzer(Tsec)
 
-		if(prob(50))
+		if(MAYBE)
 			drop_part(robot_arm, Tsec)
 
 	if(reagent_glass)
 		reagent_glass.forceMove(Tsec)
 		reagent_glass = null
 
-	if(emagged && prob(25))
+	if(emagged && MAYBE)
 		playsound(loc, 'sound/voice/minsult.ogg', 50, FALSE)
 
 	do_sparks(3, TRUE, src)

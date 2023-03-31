@@ -649,7 +649,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/emp_act(severity)
 	..()
-	if(prob(30))
+	if(MAYBE)
 		switch(pick(1,2))
 			if(1)
 				view_core()

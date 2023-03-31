@@ -171,7 +171,7 @@ Difficulty: Medium
 	miner_saw.melee_attack_chain(src, target)
 	if(guidance)
 		adjustHealth(-2)
-	if(prob(50))
+	if(MAYBE)
 		transform_weapon() //Still follows the normal rules for cooldown between swaps.
 	return TRUE
 
@@ -291,7 +291,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/hunter/AttackingTarget()
 	. = ..()
-	if(. && prob(12))
+	if(. && MAYBE)
 		INVOKE_ASYNC(src, PROC_REF(dash))
 
 #undef MINER_DASH_RANGE

@@ -160,7 +160,7 @@
 
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
-	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 		if(baton_stun(user, user, skip_cooldown = TRUE)) // for those super edge cases where you clumsy baton yourself in quick succession
 			user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")

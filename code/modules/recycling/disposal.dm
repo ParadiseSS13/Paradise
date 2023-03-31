@@ -515,7 +515,7 @@
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
-		if(prob(75))
+		if(MAYBE)
 			I.forceMove(src)
 			for(var/mob/M in viewers(src))
 				M.show_message("\the [I] lands in \the [src].", 3)
@@ -628,12 +628,12 @@
 /obj/structure/disposalholder/proc/move()
 	var/obj/structure/disposalpipe/last
 	while(active)
-	/*	if(hasmob && prob(3))
+	/*	if(hasmob && MAYBE)
 			for(var/mob/living/H in src)
 				if(!istype(H,/mob/living/silicon/robot/drone)) //Drones use the mailing code to move through the disposal system,
 					H.take_overall_damage(20, 0, "Blunt Trauma") */ //horribly maim any living creature jumping down disposals.  c'est la vie
 
-		if(has_fat_guy && prob(2)) // chance of becoming stuck per segment if contains a fat guy
+		if(has_fat_guy && MAYBE) // chance of becoming stuck per segment if contains a fat guy
 			active = FALSE
 			// find the fat guys
 			for(var/mob/living/carbon/human/H in src)
@@ -1035,7 +1035,7 @@
 		else
 			setbit = WEST
 
-		if(prob(50))	// 50% chance to choose the found bit or the other one
+		if(MAYBE)	// 50% chance to choose the found bit or the other one
 			return setbit
 		else
 			return mask & (~setbit)
@@ -1044,7 +1044,7 @@
 /obj/structure/disposalpipe/sortjunction
 	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
-	var/list/sort_type = list(1)	
+	var/list/sort_type = list(1)
 	var/sort_type_txt //Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0

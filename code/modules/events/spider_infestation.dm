@@ -21,7 +21,7 @@ GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
 	while(spawncount && length(vents))
 		var/obj/vent = pick_n_take(vents)
 		var/obj/structure/spider/spiderling/S = new(vent.loc)
-		if(prob(66))
+		if(MAYBE)
 			S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 		spawncount--
 		successSpawn = TRUE

@@ -89,7 +89,7 @@
 		user.take_organ_damage(0, 10)
 		return
 
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 		to_chat(user, "<span class='warning'>[src] slips out of your hand and hits your head.</span>")
 		user.take_organ_damage(10)
 		user.Paralyse(40 SECONDS)
@@ -97,7 +97,7 @@
 
 	if(M.stat != DEAD && ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(prob(60))
+		if(MAYBE)
 			bless(H)
 			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_themselves()]" : "[H]"] with the power of [deity_name]!</span>",
 				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")

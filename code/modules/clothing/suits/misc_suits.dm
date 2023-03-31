@@ -194,7 +194,7 @@
 	return ..()
 
 /obj/item/clothing/suit/corgisuit/super_hero/en/process()
-	if(prob(2))
+	if(MAYBE)
 		for(var/obj/M in orange(2,src))
 			if(!M.anchored && (M.flags & CONDUCT))
 				step_towards(M,src)
@@ -1099,7 +1099,7 @@
 
 	// Do not allow the staff to recharge if it's more than 3 tiles away from the robe. If get_dist returns 0, the robe and the staff in the same tile.
 	if(!(get_dist(H, linked_staff) <= 3))
-		if(prob(10))	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
+		if(MAYBE)	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
 			to_chat(H, "<span class='warning'>Your staff is unable to charge at this range. Get closer!</span>")
 		return
 

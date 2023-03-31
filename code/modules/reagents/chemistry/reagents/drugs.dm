@@ -17,7 +17,7 @@
 	if(isturf(M.loc) && !isspaceturf(M.loc))
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
-	if(prob(5))
+	if(MAYBE)
 		M.emote(pick("twitch","drool","moan"))
 	return ..()
 
@@ -53,7 +53,7 @@
 	if(isturf(M.loc) && !isspaceturf(M.loc))
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
-	if(prob(7))
+	if(MAYBE)
 		M.emote(pick("twitch","drool","moan","giggle"))
 	return ..() | update_flags
 
@@ -71,21 +71,21 @@
 		if(1 to 5)
 			M.Stuttering(2 SECONDS)
 			M.Dizzy(10 SECONDS)
-			if(prob(10))
+			if(MAYBE)
 				M.emote(pick("twitch","giggle"))
 		if(5 to 10)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(20 SECONDS)
 			M.Dizzy(20 SECONDS)
 			M.Druggy(70 SECONDS)
-			if(prob(20))
+			if(MAYBE)
 				M.emote(pick("twitch","giggle"))
 		if(10 to INFINITY)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(40 SECONDS)
 			M.Dizzy(40 SECONDS)
 			M.Druggy(80 SECONDS)
-			if(prob(30))
+			if(MAYBE)
 				M.emote(pick("twitch","giggle"))
 	return ..() | update_flags
 
@@ -105,7 +105,7 @@
 /datum/reagent/nicotine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/smoke_message = pick("You feel relaxed.", "You feel calmed.", "You feel less stressed.", "You feel more placid.", "You feel more undivided.")
-	if(prob(5))
+	if(MAYBE)
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
 	return ..() | update_flags
 
@@ -174,16 +174,16 @@
 	M.AdjustWeakened(-4 SECONDS)
 	M.AdjustKnockDown(-4 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-25, FALSE)
-	if(prob(15))
+	if(MAYBE)
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
-	if(prob(8))
+	if(MAYBE)
 		M.emote(pick("laugh", "giggle"))
 	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>You feel warm.</span>") // fever, gets worse with volume
 		M.bodytemperature += 30 * recent_consumption
 		M.Confused(2 SECONDS * recent_consumption)
 
-	if(prob(4))
+	if(MAYBE)
 		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
 		M.LoseBreath(5 SECONDS)
 		M.AdjustJitter(60 SECONDS)
@@ -259,7 +259,7 @@
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	switch(severity)
 		if(1)
-			if(prob(20))
+			if(MAYBE)
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE)
@@ -288,22 +288,22 @@
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-80 SECONDS)
-	if(prob(25))
+	if(MAYBE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
-	if(prob(15))
+	if(MAYBE)
 		M.emote(pick("smile", "grin", "yawn", "laugh", "drool"))
-	if(prob(10))
+	if(MAYBE)
 		to_chat(M, "<span class='notice'>You feel pretty chill.</span>")
 		M.bodytemperature--
 		M.emote("smile")
-	if(prob(5))
+	if(MAYBE)
 		to_chat(M, "<span class='notice'>You feel too chill!</span>")
 		M.emote(pick("yawn", "drool"))
 		M.Stun(2 SECONDS, FALSE)
 		update_flags |= M.adjustToxLoss(1, FALSE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 		M.bodytemperature -= 20
-	if(prob(2))
+	if(MAYBE)
 		to_chat(M, "<span class='warning'>Your skin feels all rough and dry.</span>")
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 	return ..() | update_flags
@@ -372,7 +372,7 @@
 /datum/reagent/methamphetamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/recent_consumption = holder.addiction_threshold_accumulated[type]
-	if(prob(5))
+	if(MAYBE)
 		M.emote(pick("twitch_s","blink_r","shiver"))
 	M.AdjustJitter(10 SECONDS, bound_upper = 100 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-40, FALSE)
@@ -537,7 +537,7 @@
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Dizzy(10 SECONDS)
-	if(prob(10))
+	if(MAYBE)
 		M.emote(pick("twitch_s","drool","moan"))
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	return ..() | update_flags
@@ -571,9 +571,9 @@
 	update_flags |= M.adjustStaminaLoss(-2, FALSE)
 	if(prob(10 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		update_flags |= M.adjustToxLoss(4, FALSE)
-	if(prob(5))
+	if(MAYBE)
 		M.emote(pick("twitch", "shake", "tremble","quiver", "twitch_s"))
-	if(prob(8))
+	if(MAYBE)
 		var/high_message = pick("really buff", "on top of the world","like you're made of steel", "energized", "invigorated", "full of energy")
 		to_chat(M, "<span class='notice'>You feel [high_message]!</span>")
 	return ..() | update_flags
@@ -597,14 +597,14 @@
 
 /datum/reagent/thc/on_mob_life(mob/living/M)
 	M.AdjustStuttering(rand(0, 6 SECONDS))
-	if(prob(5))
+	if(MAYBE)
 		M.emote(pick("laugh","giggle","smile"))
-	if(prob(5))
+	if(MAYBE)
 		to_chat(M, "[pick("You feel hungry.","Your stomach rumbles.","You feel cold.","You feel warm.")]")
-	if(prob(4))
+	if(MAYBE)
 		M.Confused(20 SECONDS)
-	if(volume >= 50 && prob(25))
-		if(prob(10))
+	if(volume >= 50 && MAYBE)
+		if(MAYBE)
 			M.Drowsy(20 SECONDS)
 	return ..()
 
@@ -618,17 +618,17 @@
 
 /datum/reagent/cbd/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(5))
+	if(MAYBE)
 		M.emote(pick("hsigh", "yawn"))
-	if(prob(5))
+	if(MAYBE)
 		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You breathe softly.", "You feel chill.", "You vibe.")]</span>")
-	if(prob(10))
+	if(MAYBE)
 		M.AdjustConfused(-10 SECONDS)
 		M.SetWeakened(0, FALSE)
-	if(volume >= 70 && prob(25))
+	if(volume >= 70 && MAYBE)
 		if(M.reagents.get_reagent_amount("thc") <= 20)
 			M.Drowsy(20 SECONDS)
-	if(prob(25))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-2, FALSE)
 		update_flags |= M.adjustFireLoss(-2, FALSE)
 	return ..() | update_flags
@@ -768,11 +768,11 @@
 		update_flags |= M.adjustBrainLoss(10, FALSE)
 
 	var/high_message = pick("You feel your servos whir!", "You feel like you need to go faster.", "You feel like you were just overclocked!")
-	if(prob(10))
+	if(MAYBE)
 		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
-	if(prob(5))
+	if(MAYBE)
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	if(prob(5))
+	if(MAYBE)
 		M.emote(pick("twitch", "shiver"))
 	return ..() | update_flags
 
@@ -788,9 +788,9 @@
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
-	if(prob(20))
+	if(MAYBE)
 		M.emote("ping")
-	if(prob(33))
+	if(MAYBE)
 		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
 		var/obj/item/I = M.get_active_hand()
 		if(I)
@@ -824,9 +824,9 @@
 	M.AdjustWeakened(-4 SECONDS)
 	M.AdjustKnockDown(-4 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-25, FALSE)
-	if(prob(5))
+	if(MAYBE)
 		var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
-		if(prob(10))
+		if(MAYBE)
 			high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 		to_chat(M, "<span class='notice'>[high_message]</span>")
 	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
@@ -842,7 +842,7 @@
 	M.Weaken(10 SECONDS)
 	M.Jitter(40 SECONDS)
 	M.Stuttering(10 SECONDS)
-	if(prob(10))
+	if(MAYBE)
 		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
 		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, 1)
 		//Lightning effect for electrical discharge visualization

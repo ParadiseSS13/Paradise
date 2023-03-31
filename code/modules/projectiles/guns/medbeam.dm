@@ -114,7 +114,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(prob(10))
+			if(MAYBE)
 				E.mend_fracture()
 
 /obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)

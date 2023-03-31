@@ -16,26 +16,26 @@
 		return FALSE
 	switch(stage)
 		if(1)
-			if(prob(10))
+			if(MAYBE)
 				if(istajaran(affected_mob))
 					to_chat(affected_mob, "<span class='notice'>You feel good.</span>")
 				else
 					to_chat(affected_mob, "<span class='notice'>You feel like playing with string.</span>")
 		if(2)
-			if(prob(10))
+			if(MAYBE)
 				if(istajaran(affected_mob))
 					to_chat(affected_mob, "<span class='danger'>Something in your throat itches.</span>")
 				else
 					to_chat(affected_mob, "<span class='danger'>You NEED to find a mouse.</span>")
 		if(3)
-			if(prob(10))
+			if(MAYBE)
 				if(istajaran(affected_mob))
 					to_chat(affected_mob, "<span class='danger'>You feel something in your throat!</span>")
 					affected_mob.emote("cough")
 				else
 					affected_mob.say(pick(list("Mew", "Meow!", "Nya!~")))
 		if(4)
-			if(prob(5))
+			if(MAYBE)
 				if(istajaran(affected_mob))
 					affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a hairball!</span>", \
 													"<span class='userdanger'>You cough up a hairball!</span>")
@@ -79,17 +79,17 @@
 		var/mob/living/carbon/human/twisted = affected_mob
 		switch(stage)
 			if(1)
-				if(prob(10))
+				if(MAYBE)
 					to_chat(twisted, "<span class='notice'>You feel awkward.</span>")
 			if(2)
-				if(prob(10))
+				if(MAYBE)
 					to_chat(twisted, "<span class='danger'>You itch.</span>")
 			if(3)
-				if(prob(10))
+				if(MAYBE)
 					to_chat(twisted, "<span class='danger'>Your skin starts to flake!</span>")
 
 			if(4)
-				if(prob(5))
+				if(MAYBE)
 					if(!istype(twisted.dna.species, chosentype))
 						twisted.visible_message("<span class='danger'>[twisted]'s skin splits and form contorts!</span>", \
 														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")

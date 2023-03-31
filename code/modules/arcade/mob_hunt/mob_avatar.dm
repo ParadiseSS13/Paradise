@@ -92,7 +92,7 @@
 		clients_encountered += client
 		var/message = null
 		var/effective_run_chance = mob_info.run_chance + total_catch_mod
-		if((effective_run_chance > 0) && prob(effective_run_chance))
+		if((effective_run_chance > 0) && MAYBE)
 			message += "Capture failed! [name] escaped [P.owner ? "from [P.owner]" : "from this hunter"]!"
 			conceal(client)
 		else

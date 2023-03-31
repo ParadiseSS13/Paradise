@@ -299,7 +299,7 @@
 	if(available_channels.len && ears)
 		for(var/possible_phrase in clean_speak)
 			//50/50 chance to not use the radio at all
-			speak += "[prob(50) ? pick(available_channels) : ""][possible_phrase]"
+			speak += "[MAYBE ? pick(available_channels) : ""][possible_phrase]"
 
 	else //If we have no headset or channels to use, dont try to use any!
 		for(var/possible_phrase in clean_speak)
@@ -318,7 +318,7 @@
 	Phrases that the parrot hears in mob/living/say() get added to speach_buffer.
 	Every once in a while, the parrot picks one of the lines from the buffer and replaces an element of the 'speech' list.
 	Then it clears the buffer to make sure they dont magically remember something from hours ago. */
-	if(speech_buffer.len && prob(10))
+	if(speech_buffer.len && MAYBE)
 		if(clean_speak.len)
 			clean_speak -= pick(clean_speak)
 
@@ -362,7 +362,7 @@
 
 		//Wander around aimlessly. This will help keep the loops from searches down
 		//and possibly move the mob into a new are in view of something they can use
-		if(prob(90))
+		if(MAYBE)
 			step(src, pick(GLOB.cardinal))
 			return
 
@@ -733,12 +733,12 @@
 		used_radios += ears
 
 /mob/living/simple_animal/parrot/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
-	if(speaker != src && prob(50))
+	if(speaker != src && MAYBE)
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
 /mob/living/simple_animal/parrot/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, atom/follow_target)
-	if(speaker != src && prob(50))
+	if(speaker != src && MAYBE)
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 

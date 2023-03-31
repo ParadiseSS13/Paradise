@@ -234,7 +234,7 @@
 		. += "[src] is in pristine condition."
 
 /mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
-	if(amount > 0 && prob(10))
+	if(amount > 0 && MAYBE)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 	. = ..()
 
@@ -272,7 +272,7 @@
 	apply_damage(rand(15,30), BRUTE)
 	visible_message("<span class='danger'>[user] has slashed [src]!</span>")
 	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-	if(prob(10))
+	if(MAYBE)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
 /mob/living/simple_animal/bot/attack_animal(mob/living/simple_animal/M)
@@ -282,7 +282,7 @@
 	apply_damage(M.melee_damage_upper, BRUTE)
 	visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
 	add_attack_logs(M, src, "Animal attacked", ATKLOG_ALL)
-	if(prob(10))
+	if(MAYBE)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
 /mob/living/simple_animal/bot/attack_hand(mob/living/carbon/human/H)
@@ -387,7 +387,7 @@
 
 /mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		if(prob(75) && Proj.damage > 0)
+		if(MAYBE && Proj.damage > 0)
 			do_sparks(5, 1, src)
 	return ..()
 

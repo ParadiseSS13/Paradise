@@ -102,5 +102,5 @@
 /mob/living/simple_animal/hostile/hivebot/tele/handle_automated_action()
 	if(!..())
 		return
-	if(prob(2))//Might be a bit low, will mess with it likely
+	if(MAYBE)//Might be a bit low, will mess with it likely
 		warpbots()

@@ -173,7 +173,7 @@
 
 /// Handles flicker operations for apc processing, will flicker machines and lights in the powernet's area by random chance
 /datum/local_powernet/proc/handle_flicker()
-	if(prob(MACHINE_FLICKER_CHANCE))
+	if(MAYBE)
 		powernet_apc?.flicker()
 
 	// lights don't have their own processing loop, so local powernets will be the father they never had. 3x as likely to cause a light flicker in a particular area, pick a light to flicker at random

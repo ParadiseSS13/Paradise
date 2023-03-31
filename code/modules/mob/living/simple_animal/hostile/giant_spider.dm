@@ -89,7 +89,7 @@
 	. = ..()
 	if(AIStatus == AI_IDLE)
 		//1% chance to skitter madly away
-		if(!busy && prob(1))
+		if(!busy && MAYBE)
 			stop_automated_movement = TRUE
 			Goto(pick(urange(20, src, 1)), move_to_delay)
 			spawn(50)
@@ -108,7 +108,7 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_movement() //Hacky and ugly.
 	if(..())
 		var/list/can_see = view(src, 10)
-		if(!busy && prob(30))	//30% chance to stop wandering and do something
+		if(!busy && MAYBE)	//30% chance to stop wandering and do something
 			//first, check for potential food nearby to cocoon
 			for(var/mob/living/C in can_see)
 				if(C.stat && !istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && !C.anchored)

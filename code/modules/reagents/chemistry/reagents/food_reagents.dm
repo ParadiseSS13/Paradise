@@ -35,7 +35,7 @@
 	if(ishuman(M) && !is_vamp)
 		var/mob/living/carbon/human/H = M
 		if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
-			if(prob(50))
+			if(MAYBE)
 				update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
 				update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
 	return ..() | update_flags
@@ -104,7 +104,7 @@
 	M.AdjustDrowsy(-10 SECONDS)
 	if(current_cycle >= 90)
 		M.AdjustJitter(4 SECONDS)
-	if(prob(4))
+	if(MAYBE)
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
 
@@ -117,7 +117,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Paralyse(6 SECONDS * severity)
 	M.Weaken(8 SECONDS * severity)
-	if(prob(8))
+	if(MAYBE)
 		update_flags |= M.adjustToxLoss(severity, FALSE)
 	return list(0, update_flags)
 
@@ -183,7 +183,7 @@
 	taste_description = "<span class='userdanger'>PURE FIRE</span>"
 
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
-	if(prob(5))
+	if(MAYBE)
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
 	return ..()
 
@@ -217,7 +217,7 @@
 				return
 			else if( mouth_covered )	// Reduced effects if partially protected
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
-				if(prob(5))
+				if(MAYBE)
 					victim.emote("scream")
 				victim.EyeBlurry(6 SECONDS)
 				victim.EyeBlind(2 SECONDS)
@@ -232,7 +232,7 @@
 				victim.damageoverlaytemp = 30
 				return
 			else // Oh dear :D
-				if(prob(5))
+				if(MAYBE)
 					victim.emote("scream")
 				to_chat(victim, "<span class='danger'>You're sprayed directly in the eyes with pepperspray!</span>")
 				victim.EyeBlurry(10 SECONDS)
@@ -265,13 +265,13 @@
 				M.bodytemperature -= rand(10,20)
 		if(25 to 35)
 			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(prob(1))
+			if(MAYBE)
 				M.emote("shiver")
 			if(isslime(M))
 				M.bodytemperature -= rand(15,20)
 		if(35 to INFINITY)
 			M.bodytemperature -= 20 * TEMPERATURE_DAMAGE_COEFFICIENT
-			if(prob(1))
+			if(MAYBE)
 				M.emote("shiver")
 			if(isslime(M))
 				M.bodytemperature -= rand(20,25)
@@ -295,7 +295,7 @@
 
 /datum/reagent/consumable/sodiumchloride/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(70))
+	if(MAYBE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
@@ -359,7 +359,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.job == "Chef" && prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
+		if(H.job == "Chef" && MAYBE) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
 			update_flags |= H.adjustBruteLoss(-1, FALSE)
 			update_flags |= H.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -489,7 +489,7 @@
 	taste_description = "eggs"
 
 /datum/reagent/consumable/egg/on_mob_life(mob/living/M)
-	if(prob(3))
+	if(MAYBE)
 		M.reagents.add_reagent("cholesterol", rand(1,2))
 	return ..()
 
@@ -537,7 +537,7 @@
 /datum/reagent/consumable/honey/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.reagents.add_reagent("sugar", 3)
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-3, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -617,9 +617,9 @@
 	taste_description = "bacon"
 
 /datum/reagent/consumable/porktonium/overdose_process(mob/living/M, severity)
-	if(prob(15))
+	if(MAYBE)
 		M.reagents.add_reagent("cholesterol", rand(1,3))
-	if(prob(8))
+	if(MAYBE)
 		M.reagents.add_reagent("radium", 15)
 		M.reagents.add_reagent("cyanide", 10)
 	return list(0, STATUS_UPDATE_NONE)
@@ -643,7 +643,7 @@
 	taste_description = "cheese"
 
 /datum/reagent/consumable/cheese/on_mob_life(mob/living/M)
-	if(prob(3))
+	if(MAYBE)
 		M.reagents.add_reagent("cholesterol", rand(1,2))
 	return ..()
 
@@ -667,7 +667,7 @@
 
 /datum/reagent/consumable/fake_cheese/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(8))
+	if(MAYBE)
 		to_chat(M, "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>")
 		update_flags |= M.adjustToxLoss(rand(1,2), FALSE)
 	return list(0, update_flags)
@@ -685,7 +685,7 @@
 	taste_description = "cheeeeeese...?"
 
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
-	if(prob(5))
+	if(MAYBE)
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	return ..()
 
@@ -718,9 +718,9 @@
 	taste_description = "oil"
 
 /datum/reagent/consumable/soybeanoil/on_mob_life(mob/living/M)
-	if(prob(10))
+	if(MAYBE)
 		M.reagents.add_reagent("cholesterol", rand(1,3))
-	if(prob(8))
+	if(MAYBE)
 		M.reagents.add_reagent("porktonium", 5)
 	return ..()
 
@@ -736,9 +736,9 @@
 	taste_description = "oil"
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/on_mob_life(mob/living/M)
-	if(prob(15))
+	if(MAYBE)
 		M.reagents.add_reagent("cholesterol", rand(1,3))
-	if(prob(8))
+	if(MAYBE)
 		M.reagents.add_reagent("porktonium", 5)
 	if(volume >= 75)
 		metabolization_rate = 0.4
@@ -748,12 +748,12 @@
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(33))
+	if(MAYBE)
 		to_chat(M, "<span class='warning'>You feel horribly weak.</span>")
-	if(prob(10))
+	if(MAYBE)
 		to_chat(M, "<span class='warning'>You cannot breathe!</span>")
 		update_flags |= M.adjustOxyLoss(5, FALSE)
-	if(prob(5))
+	if(MAYBE)
 		to_chat(M, "<span class='warning'>You feel a sharp pain in your chest!</span>")
 		update_flags |= M.adjustOxyLoss(25, FALSE)
 		M.Stun(10 SECONDS)
@@ -769,12 +769,12 @@
 	taste_description = "meat?"
 
 /datum/reagent/consumable/meatslurry/on_mob_life(mob/living/M)
-	if(prob(4))
+	if(MAYBE)
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	return ..()
 
 /datum/reagent/consumable/meatslurry/reaction_turf(turf/T, volume)
-	if(prob(10) && volume >= 5 && !isspaceturf(T))
+	if(MAYBE && volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
 		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
 
@@ -841,10 +841,10 @@
 
 /datum/reagent/msg/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(5))
-		if(prob(10))
+	if(MAYBE)
+		if(MAYBE)
 			update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
-		if(prob(7))
+		if(MAYBE)
 			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
 			M.Stun(rand(4 SECONDS, 10 SECONDS))
 	return ..() | update_flags
@@ -903,7 +903,7 @@
 
 /datum/reagent/ectoplasm/on_mob_life(mob/living/M)
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
-	if(prob(8))
+	if(MAYBE)
 		to_chat(M, "<span class='warning'>[spooky_message]</span>")
 	return ..()
 
@@ -973,7 +973,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 10)
 		M.Paralyse(4 SECONDS)
-	if(prob(20))
+	if(MAYBE)
 		M.LoseBreath(8 SECONDS)
 		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -1008,7 +1008,7 @@
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(80))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags

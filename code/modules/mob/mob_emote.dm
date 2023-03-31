@@ -158,7 +158,7 @@
 
 	user.SpinAnimation(5, 1)
 
-	if(prob(5) && ishuman(user))
+	if(MAYBE && ishuman(user))
 		message = "attempts a flip and crashes to the floor!"
 		sleep(0.3 SECONDS)
 		if(istype(L))
@@ -182,7 +182,7 @@
 	if(!.)
 		return FALSE
 
-	if(prob(95) || isobserver(user) || !ishuman(user))
+	if(MAYBE || isobserver(user) || !ishuman(user))
 		user.spin(20, 1)
 		return TRUE
 

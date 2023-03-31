@@ -38,13 +38,13 @@
 /obj/machinery/shield/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			if(prob(75))
+			if(MAYBE)
 				qdel(src)
 		if(2.0)
-			if(prob(50))
+			if(MAYBE)
 				qdel(src)
 		if(3.0)
-			if(prob(25))
+			if(MAYBE)
 				qdel(src)
 
 /obj/machinery/shield/emp_act(severity)
@@ -52,7 +52,7 @@
 		if(1)
 			qdel(src)
 		if(2)
-			if(prob(50))
+			if(MAYBE)
 				qdel(src)
 
 /obj/machinery/shield/blob_act()
@@ -157,7 +157,7 @@
 
 	for(var/turf/target_tile in range(2, src))
 		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
-			if(malfunction && prob(33) || !malfunction)
+			if(malfunction && MAYBE || !malfunction)
 				var/obj/machinery/shield/new_shield = new(target_tile)
 				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, PROC_REF(remove_shield)) // Ensures they properly GC
 				deployed_shields += new_shield
@@ -176,7 +176,7 @@
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
-		if(length(deployed_shields) && prob(5))
+		if(length(deployed_shields) && MAYBE)
 			qdel(pick_n_take(deployed_shields))
 
 /obj/machinery/shieldgen/proc/checkhp()
@@ -194,7 +194,7 @@
 			checkhp()
 		if(2.0)
 			health -= 30
-			if(prob(15))
+			if(MAYBE)
 				malfunction = TRUE
 			checkhp()
 		if(3.0)
@@ -209,7 +209,7 @@
 			malfunction = TRUE
 			locked = pick(TRUE, FALSE)
 		if(2)
-			if(prob(50))
+			if(MAYBE)
 				health *= 0.3 //chop off a third of the health
 				malfunction = TRUE
 	checkhp()
@@ -488,7 +488,7 @@
 
 /obj/machinery/shieldwall/process()
 	if(needs_power)
-		if(prob(50))
+		if(MAYBE)
 			gen_primary.stored_power = max(gen_primary.stored_power - 10, 0)
 		else
 			gen_secondary.stored_power = max(gen_secondary.stored_power - 10, 0)
@@ -497,7 +497,7 @@
 /obj/machinery/shieldwall/bullet_act(obj/item/projectile/Proj)
 	if(needs_power)
 		var/obj/machinery/shieldwallgen/G
-		if(prob(50))
+		if(MAYBE)
 			G = gen_primary
 		else
 			G = gen_secondary
@@ -511,21 +511,21 @@
 		var/obj/machinery/shieldwallgen/G
 		switch(severity)
 			if(1.0) //big boom
-				if(prob(50))
+				if(MAYBE)
 					G = gen_primary
 				else
 					G = gen_secondary
 				G.stored_power -= 200
 
 			if(2.0) //medium boom
-				if(prob(50))
+				if(MAYBE)
 					G = gen_primary
 				else
 					G = gen_secondary
 				G.stored_power -= 50
 
 			if(3.0) //lil boom
-				if(prob(50))
+				if(MAYBE)
 					G = gen_primary
 				else
 					G = gen_secondary
@@ -538,10 +538,10 @@
 		return TRUE
 
 	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return prob(20)
+		return MAYBE
 	else
 		if(istype(mover, /obj/item/projectile))
-			return prob(10)
+			return MAYBE
 		else
 			return !density
 

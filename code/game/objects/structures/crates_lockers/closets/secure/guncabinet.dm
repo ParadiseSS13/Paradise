@@ -35,7 +35,7 @@
 				if(!lasers && !ballistics) //This may seem redundant but needed here to prevent adding the gun overlay without guns
 					continue
 				var/image/gun = image(icon(icon))
-				if(lasers && (!ballistics || prob(50)))
+				if(lasers && (!ballistics || MAYBE))
 					lasers--
 					gun.icon_state = "laser"
 				else if(ballistics)

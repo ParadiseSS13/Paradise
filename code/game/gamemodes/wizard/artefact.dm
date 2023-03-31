@@ -329,7 +329,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			user.faction = list("[user.real_name]")
 			to_chat(user, "You bind the sword to yourself. You can now use it to summon help.")
 			if(!usr.mind.special_role)
-				if(prob(probability_evil))
+				if(MAYBE)
 					to_chat(user, "<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.owner = usr.mind
@@ -381,7 +381,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(duplicate_self)
 		M.set_species(user.dna.species.type) //duplicate the sword user's species.
 	else
-		if(prob(50))
+		if(MAYBE)
 			var/list/list_all_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/golem, /datum/species/diona, /datum/species/machine, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)
 			M.set_species(pick(list_all_species))
 	M.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.

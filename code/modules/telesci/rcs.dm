@@ -89,7 +89,7 @@
 	var/rand_x = rand(50, 200)
 	var/rand_y = rand(50, 200)
 
-	if(prob(50)) // 50% chance of being a different Z level
+	if(MAYBE) // 50% chance of being a different Z level
 		var/list/z_levels = GLOB.space_manager.levels_by_name.Copy()
 		z_levels.Cut(1, 5) // Remove the first four z levels from the list (Station, CC, Lavaland, Gateway)
 		Z = pick(z_levels) // Pick a z level

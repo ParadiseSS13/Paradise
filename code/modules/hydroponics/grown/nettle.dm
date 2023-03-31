@@ -98,7 +98,7 @@
 
 /obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
 	if(..())
-		if(prob(50))
+		if(MAYBE)
 			user.Weaken(10 SECONDS)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 

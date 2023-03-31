@@ -158,7 +158,7 @@
 	// Pick a hand if it exists of course
 	wielder = pick(mobs)
 	var/right = FALSE
-	if(!(wielder.bodyparts_by_name["l_hand"] && !wielder.l_hand) || ((wielder.bodyparts_by_name["r_hand"] && !wielder.r_hand) && prob(50)))
+	if(!(wielder.bodyparts_by_name["l_hand"] && !wielder.l_hand) || ((wielder.bodyparts_by_name["r_hand"] && !wielder.r_hand) && MAYBE))
 		right = TRUE
 
 	// Create the icon
@@ -353,7 +353,7 @@
 	target.playsound_local(T, get_sfx("bodyfall"), 25, TRUE)
 	target.playsound_local(T, "sparks", 50, TRUE)
 
-	if(prob(50))
+	if(MAYBE)
 		var/snd = pick('sound/goonstation/voice/female_scream.ogg', 'sound/goonstation/voice/male_scream.ogg')
 		play_sound_in(rand(13, 20), T, snd, 50, TRUE, rand(9, 11) / 10)
 
@@ -387,7 +387,7 @@
 		play_sound_in(time, T, 'sound/weapons/blade1.ogg', 15, TRUE)
 		if(i == num_hits)
 			play_sound_in(time, T, pick('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg'), 50, TRUE, scream_pitch)
-		else if(scream_sound && scream_cd-- <= 0 && prob(20))
+		else if(scream_sound && scream_cd-- <= 0 && MAYBE)
 			scream_cd = 2
 			play_sound_in(time, T, scream_sound, 50, TRUE, scream_pitch)
 
@@ -423,7 +423,7 @@
 		play_sound_in(time, T, gun_sound, 25, TRUE)
 		if(i == num_hits)
 			play_sound_in(time, T, pick('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg'), 50, TRUE, scream_pitch)
-		else if(scream_sound && scream_cd-- <= 0 && prob(20))
+		else if(scream_sound && scream_cd-- <= 0 && MAYBE)
 			scream_cd = 2
 			play_sound_in(time, T, scream_sound, 50, TRUE, scream_pitch)
 

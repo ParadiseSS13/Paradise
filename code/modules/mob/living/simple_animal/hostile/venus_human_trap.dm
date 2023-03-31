@@ -84,7 +84,7 @@
 			if(L.Adjacent(src))
 				L.attack_animal(src)
 			else
-				if(prob(grasp_pull_chance))
+				if(MAYBE)
 					dir = get_dir(src,L) //staaaare
 					step(L,get_dir(L,src)) //reel them in
 					L.Weaken(6 SECONDS) //you can't get away now~
@@ -99,7 +99,7 @@
 							var/atom/A = a
 							if(A.density && A != L)
 								continue grasping
-					if(prob(grasp_chance))
+					if(MAYBE)
 						to_chat(L, "<span class='userdanger'>\The [src] has you entangled!</span>")
 						grasping[L] = Beam(L, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
 

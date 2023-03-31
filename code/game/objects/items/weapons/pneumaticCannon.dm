@@ -107,10 +107,10 @@
 	if(tank && !tank.air_contents.remove(gasPerThrow * pressureSetting))
 		to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
 		return
-	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [src], causing it to go off!</span>", "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
 		user.drop_item()
-		if(prob(10))
+		if(MAYBE)
 			target = get_turf(user)
 		else
 			var/list/possible_targets = range(3,src)

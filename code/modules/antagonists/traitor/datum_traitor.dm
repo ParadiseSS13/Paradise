@@ -92,7 +92,7 @@
  */
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	// Hijack objective.
-	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+	if(MAYBE && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 		add_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 
@@ -101,7 +101,7 @@
 		forge_single_human_objective()
 
 	// Die a glorious death objective.
-	if(prob(20))
+	if(MAYBE)
 		var/martyr_compatibility = TRUE
 		for(var/objective in owner.get_all_objectives())
 			var/datum/objective/O = objective
@@ -129,12 +129,12 @@
  * Create and assign a single randomized human traitor objective.
  */
 /datum/antagonist/traitor/proc/forge_single_human_objective()
-	if(prob(50))
+	if(MAYBE)
 		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
 			add_objective(/datum/objective/destroy)
-		else if(prob(5))
+		else if(MAYBE)
 			add_objective(/datum/objective/debrain)
-		else if(prob(30))
+		else if(MAYBE)
 			add_objective(/datum/objective/maroon)
 		else
 			add_objective(/datum/objective/assassinate)

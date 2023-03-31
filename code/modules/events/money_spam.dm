@@ -25,7 +25,7 @@
 		pick_message_server()
 
 	if(useMS)
-		if(prob(5))
+		if(MAYBE)
 			// /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
 			var/list/viables = list()
 			for(var/obj/item/pda/check_pda in GLOB.PDAs)
@@ -97,7 +97,7 @@
 
 			last_spam_time = world.time
 
-			if(prob(50)) //Give the AI an increased chance to intercept the message
+			if(MAYBE) //Give the AI an increased chance to intercept the message
 				for(var/mob/living/silicon/ai/ai in GLOB.mob_list)
 					// Allows other AIs to intercept the message but the AI won't intercept their own message.
 					if(ai.aiPDA != P && ai.aiPDA != src)

@@ -83,7 +83,7 @@
 
 /obj/item/reagent_containers/food/snacks/soup/wishsoup/Initialize(mapload)
 	. = ..()
-	if(prob(25))
+	if(MAYBE)
 		desc = "A wish come true!" // hue
 		reagents.add_reagent("nutriment", 9)
 		reagents.add_reagent("vitamin", 1)

@@ -109,11 +109,11 @@
 			to_chat(M, "<span class='danger'>The water is searing hot!</span>")
 
 		if(WARM) //Warm the mob.
-			if(prob(5)) //inform the mob of warm water occasionally
+			if(MAYBE) //inform the mob of warm water occasionally
 				to_chat(M, "<span class='warning'>The water is quite warm.</span>")//Inform the mob it's warm water.
 
 		if(COOL) //Cool the mob.
-			if(prob(5)) //inform the mob of cold water occasionally
+			if(MAYBE) //inform the mob of cold water occasionally
 				to_chat(M, "<span class='warning'>The water is chilly.</span>")//Inform the mob it's chilly water.
 
 		if(FRIGID) //YOU'RE AS COLD AS ICE
@@ -142,7 +142,7 @@
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
 		else
 			drownee.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
-			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
+			if(MAYBE) //35% chance to tell them what is going on. They should probably figure it out before then.
 				drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like [drownee.p_they()] [drownee.p_are()] drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
 
 

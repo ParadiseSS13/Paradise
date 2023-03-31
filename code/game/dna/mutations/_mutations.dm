@@ -27,7 +27,7 @@
 	if(flags & MUTCHK_FORCED)
 		return TRUE
 	// Probability check
-	return prob(activation_prob)
+	return MAYBE
 
 // Called when the gene activates.  Do your magic here.
 /datum/mutation/proc/activate(mob/living/M)

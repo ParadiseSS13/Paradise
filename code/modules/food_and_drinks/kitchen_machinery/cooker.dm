@@ -151,7 +151,7 @@
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
 	smoke.set_up(5, FALSE, src)
 	smoke.start()
-	if(prob(firechance))
+	if(MAYBE)
 		var/turf/location = get_turf(src)
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(location)
 		oil.name = "fat"

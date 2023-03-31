@@ -225,7 +225,7 @@
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			if(!prob(bomb_armor))
+			if(!MAYBE)
 				gib()
 				return
 			else
@@ -262,7 +262,7 @@
 		var/obj/item/organ/external/BP = get_organ(X)
 		if(!BP) //limb already blown off, move to the next one without counting it
 			continue
-		if(prob(limb_loss_chance) && !prob(getarmor(BP, BOMB)))
+		if(MAYBE && !prob(getarmor(BP, BOMB)))
 			BP.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 		limbs_amount--
 		if(!limbs_amount)
@@ -594,7 +594,7 @@
 	//Note we both check that the user is in cardiac arrest and can actually heartattack
 	//If they can't, they're missing their heart and this would runtime
 	if(undergoing_cardiac_arrest() && !(flags & SHOCK_ILLUSION))
-		if(shock_damage * siemens_coeff >= 1 && prob(25))
+		if(shock_damage * siemens_coeff >= 1 && MAYBE)
 			set_heartattack(FALSE)
 			if(stat == CONSCIOUS)
 				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")

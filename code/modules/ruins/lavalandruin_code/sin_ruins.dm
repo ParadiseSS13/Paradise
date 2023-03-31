@@ -35,7 +35,7 @@
 /obj/structure/cursed_slot_machine/proc/determine_victor(mob/living/user)
 	icon_state = "slots-off"
 	in_use = FALSE
-	if(prob(win_prob))
+	if(MAYBE)
 		playsound(src, 'sound/lavaland/cursed_slot_machine_jackpot.ogg', 50, 0)
 		new/obj/structure/cursed_money(get_turf(src))
 		if(user)

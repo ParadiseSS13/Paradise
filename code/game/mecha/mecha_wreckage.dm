@@ -23,7 +23,7 @@
 		for(var/i in 1 to 2)
 			if(!parts.len)
 				break
-			if(prob(60))
+			if(MAYBE)
 				continue
 			var/part = pick(parts)
 			welder_salvage += part
@@ -68,7 +68,7 @@
 	if(salvage_num <= 0 || !length(welder_salvage))
 		to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
 		return
-	if(prob(30))
+	if(MAYBE)
 		to_chat(user, "<span class='notice'>You fail to salvage anything valuable from [src]!</span>")
 		return
 	var/type = pick(welder_salvage)

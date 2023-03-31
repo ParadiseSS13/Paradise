@@ -15,7 +15,7 @@
 	var/again = 0
 
 	for(var/more = numspawned,more > 0,more--)
-		if(prob(35))
+		if(MAYBE)
 			again++
 			numspawned--
 

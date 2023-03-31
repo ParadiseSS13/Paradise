@@ -131,7 +131,7 @@
 				LAZYADD(cached_tentacle_turfs, T)
 		for(var/t in cached_tentacle_turfs)
 			if(isfloorturf(t))
-				if(prob(10))
+				if(MAYBE)
 					new /obj/effect/temp_visual/goliath_tentacle(t, src)
 			else
 				cached_tentacle_turfs -= t

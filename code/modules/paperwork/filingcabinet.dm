@@ -89,7 +89,7 @@
 		if(prob(40 + (length(contents) * 5)))
 			var/obj/item/I = pick(contents)
 			I.loc = loc
-			if(prob(25))
+			if(MAYBE)
 				step_rand(I)
 			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
 			return

@@ -41,7 +41,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
-	if(prob(50))
+	if(MAYBE)
 		empulse(src, 4, 10)
 	else
 		radiation_pulse(get_turf(src), 500, 2)

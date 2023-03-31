@@ -141,7 +141,7 @@
 	track = handle_track(message, verb, speaker, speaker_name, follow_target, hard_to_hear)
 
 	if(!can_hear())
-		if(prob(20))
+		if(MAYBE)
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else if(track)
 		to_chat(src, "[part_a][track][part_b][message]</span></span>")
@@ -166,7 +166,7 @@
 
 /mob/proc/hear_sleep(message)
 	var/heard = ""
-	if(prob(15))
+	if(MAYBE)
 		message = strip_html_properly(message)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")

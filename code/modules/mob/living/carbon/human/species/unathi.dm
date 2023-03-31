@@ -92,7 +92,7 @@
 			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
 			add_attack_logs(user, C, "tail whipped")
 			if(user.restrained())
-				if(prob(50))
+				if(MAYBE)
 					user.Weaken(10 SECONDS)
 					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
 					return

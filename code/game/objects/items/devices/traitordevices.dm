@@ -65,7 +65,7 @@
 	attempt_teleport(user, FALSE)
 
 /obj/item/teleporter/process()
-	if(prob(10) && charges < max_charges)
+	if(MAYBE && charges < max_charges)
 		charges++
 
 /obj/item/teleporter/emp_act(severity)
@@ -152,12 +152,12 @@
 	var/saving_throw
 	switch(direction)
 		if(NORTH, SOUTH)
-			if(prob(50))
+			if(MAYBE)
 				saving_throw = EAST
 			else
 				saving_throw = WEST
 		if(EAST, WEST)
-			if(prob(50))
+			if(MAYBE)
 				saving_throw = NORTH
 			else
 				saving_throw = SOUTH

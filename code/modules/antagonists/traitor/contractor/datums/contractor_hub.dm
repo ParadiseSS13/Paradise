@@ -146,7 +146,7 @@
 		"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [creds] credits.",
 	))
 	var/transaction_person
-	if(prob(50))
+	if(MAYBE)
 		transaction_person = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 	else
 		transaction_person = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))

@@ -26,7 +26,7 @@ BONUS
 
 /datum/symptom/vitiligo/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(MAYBE)
 		var/mob/living/M = A.affected_mob
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
@@ -69,7 +69,7 @@ BONUS
 
 /datum/symptom/revitiligo/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(MAYBE)
 		var/mob/living/M = A.affected_mob
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M

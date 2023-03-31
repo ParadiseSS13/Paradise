@@ -74,7 +74,7 @@
 	to_chat(usr, "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>")
 
 /obj/item/pda/silicon/attack_self(mob/user as mob)
-	if((honkamt > 0) && (prob(60)))//For clown virus.
+	if((honkamt > 0) && (MAYBE))//For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
 	return

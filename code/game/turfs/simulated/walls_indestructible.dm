@@ -91,7 +91,7 @@
 
 
 /turf/simulated/wall/indestructible/hierophant/proc/collapse()
-	if(prob(15))
+	if(MAYBE)
 		visible_message("<span class='warning'>[src] starts to rumble and groan as the lights fade on it, and it begins to collapse to rubble!</span>",\
 		"<span class='warning'>You hear metal groaning and tearing!</span>")
 		ChangeTurf(/turf/simulated/floor/indestructible/hierophant/two)

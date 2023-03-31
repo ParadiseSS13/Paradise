@@ -46,7 +46,7 @@
 	add_fingerprint(user)
 	if(on && user.zone_selected == "eyes")
 
-		if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
+		if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && MAYBE)	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
 
 		if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity

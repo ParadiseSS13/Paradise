@@ -51,7 +51,7 @@
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
 	if(istype(A) && A.checkpass(PASSGLASS))
-		return prob(60)
+		return MAYBE
 
 	var/obj/structure/bed/B = A
 	if(istype(A, /obj/structure/bed) && (B.has_buckled_mobs() || B.density))//if it's a bed/chair and is dense or someone is buckled, it will not pass

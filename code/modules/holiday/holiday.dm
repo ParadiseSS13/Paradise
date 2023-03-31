@@ -233,7 +233,7 @@
 
 /datum/holiday/xmas/greet()
 	var/greeting = "Have a merry Christmas!"
-	if(prob(30))
+	if(MAYBE)
 		greeting += "<br><br>To celebrate, choose a random crewmate on the Manifest and give them a gift!"
 	return greeting
 

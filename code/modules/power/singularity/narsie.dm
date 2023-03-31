@@ -75,10 +75,10 @@
 
 /obj/singularity/narsie/process()
 	eat()
-	if(!target || prob(5))
+	if(!target || MAYBE)
 		pickcultist()
 	move()
-	if(prob(25))
+	if(MAYBE)
 		mezzer()
 
 

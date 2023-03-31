@@ -46,7 +46,7 @@
 	open_door_sprite = "white_secure_door"
 
 /obj/structure/closet/secure_closet/medical3/populate_contents()
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack/medic(src)
 	else
 		new /obj/item/storage/backpack/satchel_med(src)
@@ -137,7 +137,7 @@
 	open_door_sprite = "cmo_door"
 
 /obj/structure/closet/secure_closet/CMO/populate_contents()
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack/medic(src)
 	else
 		new /obj/item/storage/backpack/satchel_med(src)

@@ -73,7 +73,7 @@
 
 /obj/machinery/bluespace_beacon/syndicate/Initialize(mapload)
 	. = ..()
-	if(!GAMEMODE_IS_NUCLEAR && prob(50))
+	if(!GAMEMODE_IS_NUCLEAR && MAYBE)
 		enabled = TRUE
 
 /obj/machinery/bluespace_beacon/syndicate/Destroy()

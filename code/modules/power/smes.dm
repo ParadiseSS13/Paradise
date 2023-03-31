@@ -172,7 +172,7 @@
 			if(!terminal && panel_open)
 				T = get_turf(user)
 				var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
-				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
+				if(MAYBE && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 					do_sparks(5, 1, src)
 					return
 
@@ -197,7 +197,7 @@
 
 		if(do_after(user, 50 * I.toolspeed, target = src))
 			if(terminal && panel_open)
-				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
+				if(MAYBE && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 					do_sparks(5, 1, src)
 					return
 
@@ -419,7 +419,7 @@
 
 /obj/machinery/power/smes/proc/ion_act()
 	if(is_station_level(src.z))
-		if(prob(1)) //explosion
+		if(MAYBE) //explosion
 			for(var/mob/M in viewers(src))
 				M.show_message("<span class='warning'>[src] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
 			sleep(10*pick(4,5,6,7,10,14))
@@ -430,13 +430,13 @@
 			explosion(src.loc, -1, 0, 1, 3, 1, 0)
 			qdel(src)
 			return
-		if(prob(15)) //Power drain
+		if(MAYBE) //Power drain
 			do_sparks(3, 1, src)
-			if(prob(50))
+			if(MAYBE)
 				emp_act(1)
 			else
 				emp_act(2)
-		if(prob(5)) //smoke only
+		if(MAYBE) //smoke only
 			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(3, FALSE, loc)
 			smoke.attach(src)

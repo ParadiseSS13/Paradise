@@ -58,7 +58,7 @@
 	M.AdjustConfused(-10 SECONDS)
 	M.AdjustDizzy(-10 SECONDS)
 	M.SetSleeping(0)
-	if(prob(50))
+	if(MAYBE)
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	return ..() | update_flags
 
@@ -273,10 +273,10 @@
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(33))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(ishuman(M) && prob(33))
+	if(ishuman(M) && MAYBE)
 		var/mob/living/carbon/human/H = M
 		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -321,7 +321,7 @@
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(-1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(prob(50))
+	if(MAYBE)
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
 				M.reagents.remove_reagent(R.id,1)
@@ -347,7 +347,7 @@
 	update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(prob(50))
+	if(MAYBE)
 		M.AdjustLoseBreath(-2 SECONDS)
 	return ..() | update_flags
 
@@ -403,7 +403,7 @@
 			M.reagents.remove_reagent(R.id,5)
 	if(M.health > 20)
 		update_flags |= M.adjustToxLoss(5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(prob(6))
+	if(MAYBE)
 		M.fakevomit()
 	return ..() | update_flags
 
@@ -416,7 +416,7 @@
 	taste_description = "cleansing"
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
-	if(prob(80))
+	if(MAYBE)
 		M.radiation = max(0, M.radiation-10)
 	return ..()
 
@@ -435,9 +435,9 @@
 		if(R != src)
 			M.reagents.remove_reagent(R.id,4)
 	M.radiation = max(0, M.radiation-70)
-	if(prob(75))
+	if(MAYBE)
 		update_flags |= M.adjustToxLoss(-4*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(prob(33))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
@@ -456,7 +456,7 @@
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(55))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.bodytemperature > 310.15)
 		M.bodytemperature = max(310.15, M.bodytemperature - 10)
@@ -473,7 +473,7 @@
 
 /datum/reagent/medicine/menthol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(55))
+	if(MAYBE)
 		update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(M.bodytemperature > 280)
 		M.bodytemperature = max(280, M.bodytemperature - 10)
@@ -512,7 +512,7 @@
 	update_flags |= M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(volume >= 4)
 		M.LoseBreath(12 SECONDS)
-	if(prob(33))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
@@ -543,7 +543,7 @@
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 75)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
-	if(M.health < 0 || M.health > 0 && prob(33))
+	if(M.health < 0 || M.health > 0 && MAYBE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
@@ -588,9 +588,9 @@
 	M.AdjustJitter(-40 SECONDS)
 	M.reagents.remove_reagent("histamine",3)
 	M.reagents.remove_reagent("itching_powder",3)
-	if(prob(7))
+	if(MAYBE)
 		M.emote("yawn")
-	if(prob(3))
+	if(MAYBE)
 
 		M.AdjustDrowsy(2 SECONDS)
 		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
@@ -614,7 +614,7 @@
 	M.AdjustJitter(-50 SECONDS)
 	switch(current_cycle)
 		if(1 to 15)
-			if(prob(7))
+			if(MAYBE)
 				M.emote("yawn")
 		if(16 to 35)
 			M.Drowsy(40 SECONDS)
@@ -633,7 +633,7 @@
 
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(80))
+	if(MAYBE)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
@@ -642,13 +642,13 @@
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
 				ears.AdjustEarDamage(-1)
-				if(ears.ear_damage < 25 && prob(30))
+				if(ears.ear_damage < 25 && MAYBE)
 					ears.deaf = 0
 		M.AdjustEyeBlurry(-2 SECONDS)
 		update_flags |= M.AdjustEarDamage(-1)
-	if(prob(50))
+	if(MAYBE)
 		update_flags |= M.cure_nearsighted(EYE_DAMAGE, FALSE)
-	if(prob(30))
+	if(MAYBE)
 		update_flags |= M.cure_blind(EYE_DAMAGE, FALSE)
 		M.SetEyeBlind(0)
 	return ..() | update_flags
@@ -668,7 +668,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDizzy(2 SECONDS)
 	M.Confused(10 SECONDS)
-	if(prob(4))
+	if(MAYBE)
 		M.emote("collapse")
 	M.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 65)
@@ -696,9 +696,9 @@
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-10 SECONDS)
-	if(prob(5))
+	if(MAYBE)
 		M.SetSleeping(0)
-	if(prob(5))
+	if(MAYBE)
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
 	holder.remove_reagent("histamine", 15)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 6 SECONDS)
@@ -747,7 +747,7 @@
 
 /datum/reagent/medicine/lazarus_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(10))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
@@ -766,7 +766,7 @@
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
-		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
+		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && MAYBE))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
@@ -791,7 +791,7 @@
 							// Per non-vital body part:
 							// 0% chance of necrosis within 1 minute of death
 							// 40% chance of necrosis after 20 minutes of death
-							if(!O.vital && prob(necrosis_prob))
+							if(!O.vital && MAYBE)
 								// side effects may include: Organ failure
 								O.necrotize(FALSE)
 								if(O.status & ORGAN_DEAD)
@@ -889,7 +889,7 @@
 		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
 		update_flags |= M.adjustToxLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(1, FALSE)
-		if(prob(10))
+		if(MAYBE)
 			M.Stun(6 SECONDS)
 
 	return ..() | update_flags
@@ -927,7 +927,7 @@
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(33))
+	if(MAYBE)
 		update_flags |= M.adjustStaminaLoss(2.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		M.AdjustLoseBreath(2 SECONDS)
@@ -1029,13 +1029,13 @@
 	M.AdjustDruggy(-10 SECONDS)
 	M.AdjustHallucinate(-5 SECONDS)
 	M.AdjustJitter(-10 SECONDS)
-	if(prob(40))
+	if(MAYBE)
 		M.EyeBlurry(10 SECONDS)
-	if(prob(75))
+	if(MAYBE)
 		M.Confused(6 SECONDS)
-	if(prob(10))
+	if(MAYBE)
 		M.emote("drool")
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustBrainLoss(1, FALSE)
 	return ..() | update_flags
 
@@ -1054,7 +1054,7 @@
 	M.AdjustJitter(-50 SECONDS)
 	switch(current_cycle)
 		if(1 to 30)
-			if(prob(7))
+			if(MAYBE)
 				M.emote("yawn")
 		if(31 to 40)
 			M.Drowsy(40 SECONDS)
@@ -1131,7 +1131,7 @@
 
 /datum/reagent/medicine/degreaser/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(50))
+	if(MAYBE)
 		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
@@ -1284,7 +1284,7 @@
 	switch(current_cycle)
 		if(1 to 19)
 			M.AdjustJitter(8 SECONDS)
-			if(prob(10))
+			if(MAYBE)
 				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
 				update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			for(var/datum/reagent/R in M.reagents.reagent_list)
@@ -1295,7 +1295,7 @@
 			if(has_stimulant == TRUE)
 				update_flags |= M.adjustToxLoss(10, FALSE)
 			else //apply debilitating effects
-				if(prob(75))
+				if(MAYBE)
 					M.AdjustConfused(4 SECONDS)
 				else
 					M.AdjustKnockDown(10 SECONDS) //You can still crawl around a bit for now, but soon suffering kicks in.
@@ -1307,7 +1307,7 @@
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
-					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
+					if(MAYBE) // Each tick has a 25% chance of repearing a bone.
 						if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED)) //I can't just check for !E.status
 							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
 							E.rejuvenate() //Repair it completely.
@@ -1325,7 +1325,7 @@
 					update_flags |= M.adjustBruteLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 					update_flags |= M.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 				else
-					if(prob(25))
+					if(MAYBE)
 						to_chat(M, "<span class='warning'>Your skin feels like it is ripping apart and your veins are on fire!</span>") //It is experimental and does cause scars, after all.
 						update_flags |= M.adjustBruteLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 						update_flags |= M.adjustFireLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER, FALSE)

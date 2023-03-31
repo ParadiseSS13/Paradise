@@ -26,7 +26,7 @@
 	var/use_sound = 'sound/weapons/flash.ogg'
 
 /obj/item/flash/proc/clown_check(mob/user)
-	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 		flash_carbon(user, user, 30 SECONDS, 0)
 		return 0
 	return 1
@@ -53,7 +53,7 @@
 
 /obj/item/flash/random/New()
 	..()
-	if(prob(25))
+	if(MAYBE)
 		broken = TRUE
 		icon_state = "[initial(icon_state)]burnt"
 

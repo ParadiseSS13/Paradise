@@ -140,7 +140,7 @@
 	var/heal_prob = max(0, 80 - getCloneLoss())
 	var/mut_prob = min(80, getCloneLoss() + 10)
 	if(amount > 0) //cloneloss is being added
-		if(prob(mut_prob))
+		if(MAYBE)
 			var/list/obj/item/organ/external/candidates = list() //TYPECASTED LISTS ARE NOT A FUCKING THING WHAT THE FUCK
 			for(var/obj/item/organ/external/O in bodyparts)
 				if(O.is_robotic())
@@ -156,7 +156,7 @@
 				return
 
 	else //cloneloss is being subtracted
-		if(prob(heal_prob))
+		if(MAYBE)
 			for(var/obj/item/organ/external/O in bodyparts)
 				if(O.status & ORGAN_MUTATED)
 					O.unmutate()

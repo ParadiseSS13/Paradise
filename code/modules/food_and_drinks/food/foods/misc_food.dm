@@ -208,7 +208,7 @@
 	unpopped = rand(1,10)
 
 /obj/item/reagent_containers/food/snacks/popcorn/On_Consume(mob/M, mob/user)
-	if(prob(unpopped))	//lol ...what's the point?
+	if(MAYBE)	//lol ...what's the point?
 		to_chat(user, "<span class='userdanger'>You bite down on an un-popped kernel!</span>")
 		unpopped = max(0, unpopped-1)
 	..()

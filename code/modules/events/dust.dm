@@ -71,7 +71,7 @@
 /obj/effect/space_dust/Bump(atom/A)
 	if(QDELETED(src))
 		return
-	if(prob(shake_chance))
+	if(MAYBE)
 		for(var/mob/M in range(10, src))
 			if(!M.stat && !isAI(M))
 				shake_camera(M, 3, 1)

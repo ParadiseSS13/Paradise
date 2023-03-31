@@ -197,7 +197,7 @@
 					take_damage(10)
 				if(2)
 					M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
-					if(prob(50))
+					if(MAYBE)
 						M.Weaken(2 SECONDS)
 					M.apply_damage(10)
 					take_damage(25)

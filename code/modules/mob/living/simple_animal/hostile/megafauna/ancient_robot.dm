@@ -344,7 +344,7 @@ Difficulty: Hard
 		if(VORTEX)
 			visible_message("<span class='danger'>[src] begins vibrate rapidly. It's causing an earthquake!</span>")
 			for(var/turf/turf in range(9,get_turf(target)))
-				if(prob(11))
+				if(MAYBE)
 					new /obj/effect/temp_visual/target/ancient(turf)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/spawn_anomalies()
@@ -663,7 +663,7 @@ Difficulty: Hard
 		return
 	if(get_dist(target, core) < 3)
 		return
-	if(prob(33))
+	if(MAYBE)
 		return
 	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
 	..()

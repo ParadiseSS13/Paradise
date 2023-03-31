@@ -37,9 +37,9 @@
 
 /mob/living/simple_animal/hostile/winter/snowman/death(gibbed)
 	if(can_die())
-		if(prob(50) && !ranged)		//50% chance to drop candy cane sword on death, if it has one to drop
+		if(MAYBE && !ranged)		//50% chance to drop candy cane sword on death, if it has one to drop
 			loot = list(/obj/item/melee/candy_sword)
-		if(prob(20))	//chance to become a stationary snowman structure instead of a corpse
+		if(MAYBE)	//chance to become a stationary snowman structure instead of a corpse
 			loot.Add(/obj/structure/snowman)
 			deathmessage = "shimmers as its animating magic fades away!"
 			del_on_death = TRUE

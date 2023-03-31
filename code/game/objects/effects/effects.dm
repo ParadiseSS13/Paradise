@@ -42,10 +42,10 @@
 		if(1)
 			qdel(src)
 		if(2)
-			if(prob(60))
+			if(MAYBE)
 				qdel(src)
 		if(3)
-			if(prob(25))
+			if(MAYBE)
 				qdel(src)
 
 /**

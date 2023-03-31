@@ -190,7 +190,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/rise_animation(turf/tele_loc, mob/living/L, atom/A)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(tele_loc, L.dir, "jauntup")
-	if(prob(25) && isdemon(L))
+	if(MAYBE && isdemon(L))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice),50, 1, -1)
 	A.visible_message("<span class='warning'><b>[L] rises out of [A]!</b>")

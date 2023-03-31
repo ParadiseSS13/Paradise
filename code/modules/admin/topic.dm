@@ -1817,7 +1817,7 @@
 
 		var/turf/simulated/floor/T = get_turf(M)
 		if(istype(T))
-			if(prob(80))
+			if(MAYBE)
 				T.break_tile_to_plating()
 			else
 				T.break_tile()
@@ -2944,7 +2944,7 @@
 				while(!usr.stat)
 					//knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
-						if(M.stat != 2 && prob(25))
+						if(M.stat != 2 && MAYBE)
 							var/area/AffectedArea = get_area(M)
 							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
 								AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
@@ -2961,7 +2961,7 @@
 									if(4)
 										M.show_message(text("<span class='notice'>You notice something moving out of the corner of your eye, but nothing is there...</span>"), 1)
 								for(var/obj/W in orange(5,M))
-									if(prob(25) && !W.anchored)
+									if(MAYBE && !W.anchored)
 										step_rand(W)
 					sleep(rand(100,1000))
 				for(var/mob/M in GLOB.player_list)

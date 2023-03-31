@@ -87,7 +87,7 @@
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/under/color/black(src)
 	new /obj/item/clothing/under/color/black(src)
-	if(prob(25))
+	if(MAYBE)
 		new /obj/item/clothing/suit/jacket/leather(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
@@ -403,11 +403,11 @@
 	new /obj/item/clothing/head/soft/grey(src)
 	new /obj/item/clothing/head/soft/grey(src)
 	new /obj/item/clothing/head/soft/grey(src)
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack/duffel(src)
-	if(prob(40))
+	if(MAYBE)
 		new /obj/item/clothing/under/misc/assistantformal(src)
-	if(prob(40))
+	if(MAYBE)
 		new /obj/item/clothing/under/misc/assistantformal(src)
 
 
@@ -436,7 +436,7 @@
 	icon_state = "black"
 
 /obj/structure/closet/wardrobe/coroner/populate_contents()
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/storage/backpack/medic(src)
 	else
 		new /obj/item/storage/backpack/satchel_med(src)

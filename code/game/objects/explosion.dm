@@ -87,7 +87,7 @@
 						var/far_volume = clamp(far_dist / 2, FAR_LOWER, FAR_UPPER) // Volume is based on explosion size and dist
 						if(creaking_explosion)
 							M.playsound_local(epicenter, null, far_volume, 1, frequency, S = creaking_explosion_sound, distance_multiplier = 0)
-						else if(prob(PROB_SOUND)) // Sound variety during meteor storm/tesloose/other bad event
+						else if(MAYBE) // Sound variety during meteor storm/tesloose/other bad event
 							M.playsound_local(epicenter, null, far_volume, 1, frequency, S = far_explosion_sound, distance_multiplier = 0) // Far sound
 						else
 							M.playsound_local(epicenter, null, far_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0) // Echo sound
@@ -156,7 +156,7 @@
 			//------- TURF FIRES -------
 
 			if(T)
-				if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
+				if(flame_dist && MAYBE && !isspaceturf(T) && !T.density)
 					new /obj/effect/hotspot(T) //Mostly for ambience!
 				if(dist > 0)
 					if(issimulatedturf(T))

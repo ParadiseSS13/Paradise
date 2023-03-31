@@ -50,7 +50,7 @@
 
 /turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
-	if(prob(12))
+	if(MAYBE)
 		icon_state = "necro[rand(2,3)]"
 
 /turf/simulated/floor/indestructible/necropolis/air

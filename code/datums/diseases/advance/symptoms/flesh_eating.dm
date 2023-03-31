@@ -27,7 +27,7 @@ Bonus
 
 /datum/symptom/flesh_eating/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(MAYBE)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(2,3)

@@ -177,7 +177,7 @@
 /datum/species/machine/handle_brain_death(mob/living/carbon/human/H)
 	H.Weaken(60 SECONDS)
 	H.adjustBrainLoss(1) // 40 seconds to live
-	if(prob(20))
+	if(MAYBE)
 		var/static/list/error_messages = list("Error 196: motor functions failing.",
 								"Error 32: Process %^~#/£ cannot be reached, being used by another file.",
 								"Error 39: Cannot write to central memory unit, storage full.",

@@ -35,7 +35,7 @@
 
 /obj/structure/spider/stickyweb/Initialize(mapload)
 	. = ..()
-	if(prob(50))
+	if(MAYBE)
 		icon_state = "stickyweb2"
 
 /obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
@@ -44,11 +44,11 @@
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
 	else if(isliving(mover))
-		if(prob(50))
+		if(MAYBE)
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			return FALSE
 	else if(istype(mover, /obj/item/projectile))
-		return prob(30)
+		return MAYBE
 	return TRUE
 
 /obj/structure/spider/eggcluster
@@ -108,7 +108,7 @@
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/swarming)
-	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug") // Normally this is just used for mobs, but spiderlings are kind of that... 
+	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug") // Normally this is just used for mobs, but spiderlings are kind of that...
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -139,7 +139,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			if(prob(50))
+			if(MAYBE)
 				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
 								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 
@@ -153,7 +153,7 @@
 						entry_vent = null
 						return
 
-					if(prob(50))
+					if(MAYBE)
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 					sleep(travel_time)
 
@@ -168,10 +168,10 @@
 						new_area.Entered(src)
 	//=================
 
-	else if(prob(33))
-		if(random_skitter() && prob(40))
+	else if(MAYBE)
+		if(random_skitter() && MAYBE)
 			visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
-	else if(prob(10))
+	else if(MAYBE)
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)

@@ -98,7 +98,7 @@
 		return
 
 	var/turf/T = get_turf(current_victim)
-	if(prob(5))//checks roughly every 20 ticks
+	if(MAYBE)//checks roughly every 20 ticks
 		if(!admincluwne)
 			if(current_victim.stat == DEAD || current_victim.get_int_organ(/obj/item/organ/internal/honktumor/cursed) || is_type_in_typecache(get_area(T), invalid_area_typecache))
 				Acquire_Victim()
@@ -208,16 +208,16 @@
 
 		if(STAGE_HAUNT)
 
-			if(prob(5))
+			if(MAYBE)
 				H.AdjustEyeBlurry(2 SECONDS)
 
-			if(prob(5))
+			if(MAYBE)
 				H.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
 
-			if(prob(8))
+			if(MAYBE)
 				H.playsound_local(src,'sound/spookoween/ghost_whisper.ogg', 5)
 
-			if(prob(5))
+			if(MAYBE)
 				var/obj/item/I = locate() in orange(H, 8)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
@@ -225,27 +225,27 @@
 
 		if(STAGE_SPOOK)
 
-			if(prob(4))
+			if(MAYBE)
 				H.slip("???", 10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
-			if(prob(3))
+			if(MAYBE)
 				H.playsound_local(src,'sound/spookoween/scary_horn.ogg', 2)
 
-			if(prob(8))
+			if(MAYBE)
 				H.playsound_local(src,'sound/spookoween/scary_horn2.ogg', 2)
 
-			if(prob(5))
+			if(MAYBE)
 				H.playsound_local(src,'sound/hallucinations/growl1.ogg', 10)
 				to_chat(H, "<font face='Comic Sans MS'><i>knoh</i></font>")
 
-			if(prob(5))
+			if(MAYBE)
 				var/obj/item/I = locate() in orange(H, 8)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
 					to_chat(H, "<span class='warning'>What threw that?</span>")
 
-			if(prob(4))
+			if(MAYBE)
 				to_chat(H, "<font face='Comic Sans MS'><i>yalp ot tnaw I</i></font>")
 				Appear()
 				manifested = FALSE
@@ -253,45 +253,45 @@
 
 		if(STAGE_TORMENT)
 
-			if(prob(5))
+			if(MAYBE)
 				H.slip("???", 10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
-			if(prob(5))
+			if(MAYBE)
 				playsound(src, pick('sound/spookoween/scary_horn.ogg', 'sound/spookoween/scary_horn2.ogg', 'sound/spookoween/scary_horn3.ogg'), 30, 1)
 
-			if(prob(3))
+			if(MAYBE)
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg') , 30, 1)
 
 
-			if(prob(4))
+			if(MAYBE)
 				for(var/obj/item/I in orange(H, 5))
 					if(I && !I.anchored)
 						I.throw_at(H, 4, 3)
 				to_chat(H, "<span class='warning'>What the hell?!</span>")
 
-			if(prob(5))
+			if(MAYBE)
 				to_chat(H, "<span class='warning'>Something feels very wrong...</span>")
 				H.playsound_local(src,'sound/hallucinations/behind_you1.ogg', 25)
 				H.flash_eyes()
 
-			if(prob(5))
+			if(MAYBE)
 				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
 				to_chat(H, "<span class='warning'>Something grabs your foot!</span>")
 				H.playsound_local(src,'sound/hallucinations/i_see_you1.ogg', 25)
 				H.Stun(20 SECONDS)
 
-			if(prob(5))
+			if(MAYBE)
 				to_chat(H, "<font face='Comic Sans MS'><i>!KNOH ?od nottub siht seod tahW</i></font>")
 				for(var/obj/machinery/M in range(H, 6))
 					M.attack_hand(src)
 
-			if(prob(6))
+			if(MAYBE)
 				for(var/turf/simulated/floor/O in range(src, 6))
 					O.MakeSlippery(TURF_WET_WATER, 10 SECONDS)
 					playsound(src, 'sound/effects/clownstep1.ogg', 30, 1)
 
-			if(prob(5))
+			if(MAYBE)
 				to_chat(H, "<span class='userdanger'>WHAT THE FUCK IS THAT?!</span>")
 				to_chat(H, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
 				H.playsound_local(src,'sound/hallucinations/im_here1.ogg', 25)
@@ -340,7 +340,7 @@
 			step_towards(H, src)
 			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, 1, -4)
 			H.emote("scream")
-			if(prob(25))
+			if(MAYBE)
 				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/items/bikehorn.ogg'), 50, 1)
 
 	if(get_dist(src,H) <= 1)
@@ -377,7 +377,7 @@
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
 	if(do_after(src, 50, target = H))
-		if(prob(50) || smiting)
+		if(MAYBE || smiting)
 			H.makeCluwne()
 
 		H.adjustBruteLoss(30)
@@ -399,7 +399,7 @@
 	H.anchored = initial(H.anchored)
 
 	eating = FALSE
-	if(prob(2))
+	if(MAYBE)
 		switch_stage = max(switch_stage * 0.75, switch_stage_min) //he gets a chance to be faster after each feast
 	if(smiting)
 		playsound(loc, 'sound/spookoween/scary_horn2.ogg', 100, 0, -4)

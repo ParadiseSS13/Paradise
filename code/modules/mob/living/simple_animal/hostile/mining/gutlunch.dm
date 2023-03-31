@@ -96,11 +96,11 @@
 	name = "nutrient sac"
 
 /obj/item/udder/gutlunch/generateMilk()
-	if(prob(60))
+	if(MAYBE)
 		reagents.add_reagent("cream", rand(2, 5))
-	if(prob(45))
+	if(MAYBE)
 		reagents.add_reagent("salglu_solution", rand(2, 5))
-	if(prob(30))
+	if(MAYBE)
 		reagents.add_reagent("epinephrine", rand(2, 5))
 
 
@@ -152,7 +152,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/proc/growUp()
 	var/mob/living/L
-	if(prob(45))
+	if(MAYBE)
 		L = new /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck(loc)
 	else
 		L = new /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen(loc)

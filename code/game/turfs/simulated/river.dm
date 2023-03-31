@@ -33,12 +33,12 @@
 		while(cur_turf != target_turf)
 
 			if(detouring) //randomly snake around a bit
-				if(prob(20))
+				if(MAYBE)
 					detouring = 0
 					cur_dir = get_dir(cur_turf, target_turf)
-			else if(prob(20))
+			else if(MAYBE)
 				detouring = 1
-				if(prob(50))
+				if(MAYBE)
 					cur_dir = turn(cur_dir, 45)
 				else
 					cur_dir = turn(cur_dir, -45)
@@ -89,12 +89,12 @@
 
 	for(var/F in cardinal_turfs) //cardinal turfs are always changed but don't always spread
 		var/turf/T = F
-		if(!istype(T, logged_turf_type) && T.ChangeTurf(type, ignore_air = TRUE) && prob(probability))
+		if(!istype(T, logged_turf_type) && T.ChangeTurf(type, ignore_air = TRUE) && MAYBE)
 			T.Spread(probability - prob_loss, prob_loss, whitelisted_area)
 
 	for(var/F in diagonal_turfs) //diagonal turfs only sometimes change, but will always spread if changed
 		var/turf/T = F
-		if(!istype(T, logged_turf_type) && prob(probability) && T.ChangeTurf(type, ignore_air = TRUE))
+		if(!istype(T, logged_turf_type) && MAYBE && T.ChangeTurf(type, ignore_air = TRUE))
 			T.Spread(probability - prob_loss, prob_loss, whitelisted_area)
 		else if(ismineralturf(T))
 			var/turf/simulated/mineral/M = T

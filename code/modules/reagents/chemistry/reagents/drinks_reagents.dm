@@ -10,7 +10,7 @@
 
 /datum/reagent/consumable/drink/orangejuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(30))
+	if(MAYBE)
 		update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
@@ -36,7 +36,7 @@
 
 /datum/reagent/consumable/drink/tomatojuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
 
@@ -52,7 +52,7 @@
 
 /datum/reagent/consumable/drink/limejuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 	return ..() | update_flags
 
@@ -91,7 +91,7 @@
 
 /datum/reagent/consumable/drink/doctor_delight/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 	return ..() | update_flags
 
@@ -228,7 +228,7 @@
 
 /datum/reagent/consumable/drink/milk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	if(holder.has_reagent("capsaicin"))
 		holder.remove_reagent("capsaicin", 2)
@@ -327,7 +327,7 @@
 /datum/reagent/consumable/drink/coffee/soy_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetSleeping(0)
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
 
@@ -345,7 +345,7 @@
 /datum/reagent/consumable/drink/coffee/cafe_latte/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetSleeping(0)
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 	return ..() | update_flags
 
@@ -378,7 +378,7 @@
 
 /datum/reagent/consumable/drink/tea/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(20))
+	if(MAYBE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 	return ..() | update_flags
 

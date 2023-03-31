@@ -73,7 +73,7 @@
 	if(muted || (max_loops && looped > max_loops))
 		on_stop(looped)
 		return
-	if(!chance || prob(chance))
+	if(!chance || MAYBE)
 		play(get_sound(looped))
 	addtimer(CALLBACK(src, PROC_REF(sound_loop), ++looped), mid_length)
 

@@ -33,7 +33,7 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	if(!prob(60))
+	if(!MAYBE)
 		return
 
 	if(!ishuman(L))
@@ -49,8 +49,8 @@
 		if(HAS_TRAIT(H, TRAIT_GENELESS))
 			return
 		randmuti(H) // Applies bad mutation
-		if(prob(50))
-			if(prob(90))
+		if(MAYBE)
+			if(MAYBE)
 				randmutb(H)
 			else
 				randmutg(H)

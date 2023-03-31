@@ -22,7 +22,7 @@
 	var/possible_dirs = 4
 
 /obj/structure/chair/narsie_act()
-	if(prob(20))
+	if(MAYBE)
 		var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
 		W.setDir(dir)
 		qdel(src)
@@ -526,7 +526,7 @@
 	qdel(src)
 
 /obj/item/chair/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == UNARMED_ATTACK && prob(hit_reaction_chance))
+	if(attack_type == UNARMED_ATTACK && MAYBE)
 		owner.visible_message("<span class='danger'>[owner] fends off [attack_text] with [src]!</span>")
 		return 1
 	return 0
@@ -535,7 +535,7 @@
 	..()
 	if(!proximity)
 		return
-	if(prob(break_chance))
+	if(MAYBE)
 		user.visible_message("<span class='danger'>[user] smashes \the [src] to pieces against \the [target]</span>")
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
@@ -546,7 +546,7 @@
 		smash(user)
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
-	if(prob(5) && isliving(M))
+	if(MAYBE && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
 		user.unEquip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal

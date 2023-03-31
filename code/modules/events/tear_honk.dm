@@ -22,5 +22,5 @@
 
 /obj/effect/tear/honk/Initialize(mapload)
 	. = ..()
-	if(prob(5))
+	if(MAYBE)
 		leader = /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne

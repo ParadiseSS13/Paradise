@@ -33,7 +33,7 @@
 	var/list/items_to_throw = list()
 	switch(energy)
 		if(0 to 25)
-			if(prob(50))
+			if(MAYBE)
 				if(target.l_hand)
 					items_to_throw += target.l_hand
 			else

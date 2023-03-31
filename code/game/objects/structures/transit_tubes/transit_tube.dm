@@ -36,7 +36,7 @@
 			qdel(src)
 			return
 		if(2.0)
-			if(prob(50))
+			if(MAYBE)
 				for(var/atom/movable/AM in contents)
 					AM.loc = loc
 					AM.ex_act(severity++)

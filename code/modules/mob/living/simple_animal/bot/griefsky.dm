@@ -69,7 +69,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
-	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
+	if((icon_state == spin_icon) && (MAYBE)) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
@@ -85,7 +85,7 @@
 	var/threat = C.assess_threat(src)
 	if(ishuman(C))
 		C.apply_damage(dmg, BRUTE)
-		if(prob(stun_chance))
+		if(MAYBE)
 			C.Weaken(10 SECONDS)
 	if(dmg)
 		add_attack_logs(src, C, "sliced")
@@ -186,15 +186,15 @@
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
-	if(prob(50))
+	if(MAYBE)
 		new /obj/item/robot_parts/r_arm(Tsec)
-	if(prob(50)) //most of the time weapon will be destroyed
+	if(MAYBE) //most of the time weapon will be destroyed
 		new weapon(Tsec)
-	if(prob(25))
+	if(MAYBE)
 		new weapon(Tsec)
-	if(prob(10))
+	if(MAYBE)
 		new weapon(Tsec)
-	if(prob(5))
+	if(MAYBE)
 		new weapon(Tsec)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
@@ -204,7 +204,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
 	retaliate(P.firer)
-	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
+	if((icon_state == spin_icon) && (MAYBE)) //only when the eswords are on
 		visible_message("[src] deflects [P] with its energy swords!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
@@ -216,7 +216,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/special_retaliate_after_attack(mob/user)
 	if(icon_state != spin_icon)
 		return
-	if(prob(block_chance_melee))
+	if(MAYBE)
 		visible_message("[src] deflects [user]'s attack with his energy swords!")
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
 		return TRUE
@@ -230,7 +230,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/W, mob/user, params) //cant touch or attack him while spinning
 	if(src.icon_state == spin_icon)
-		if(prob(block_chance_melee))
+		if(MAYBE)
 			user.changeNext_move(CLICK_CD_MELEE)
 			user.do_attack_animation(src)
 			visible_message("[src] deflects [user]'s move with his energy swords!")

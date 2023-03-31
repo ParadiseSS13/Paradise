@@ -129,12 +129,12 @@
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/narsie_act()
-	if(prob(20))
+	if(MAYBE)
 		ChangeTurf(baseturf) //nar sie eats this shit
 
 /turf/simulated/floor/vines/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
-		if(prob(50))
+		if(MAYBE)
 			ChangeTurf(baseturf)
 
 /turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
@@ -210,7 +210,7 @@
 /datum/spacevine_mutation/toxicity/on_cross(obj/structure/spacevine/holder, mob/living/crosser)
 	if(issilicon(crosser))
 		return
-	if(prob(severity) && istype(crosser) && !isvineimmune(crosser))
+	if(MAYBE && istype(crosser) && !isvineimmune(crosser))
 		to_chat(crosser, "<span class='alert'>You accidently touch the vine and feel a strange sensation.</span>")
 		crosser.adjustToxLoss(5)
 
@@ -299,13 +299,13 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/thorns/on_cross(obj/structure/spacevine/holder, mob/living/crosser)
-	if(prob(severity) && istype(crosser) && !isvineimmune(holder))
+	if(MAYBE && istype(crosser) && !isvineimmune(holder))
 		var/mob/living/M = crosser
 		M.adjustBruteLoss(5)
 		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
 
 /datum/spacevine_mutation/thorns/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
-	if(prob(severity) && istype(hitter) && !isvineimmune(holder))
+	if(MAYBE && istype(hitter) && !isvineimmune(holder))
 		var/mob/living/M = hitter
 		M.adjustBruteLoss(5)
 		to_chat(M, "<span class='alert'>You cut yourself on the thorny vines.</span>")
@@ -335,11 +335,11 @@
 	severity = 10
 
 /datum/spacevine_mutation/flowering/on_grow(obj/structure/spacevine/holder)
-	if(holder.energy == 2 && prob(severity) && !locate(/obj/structure/alien/resin/flower_bud_enemy) in range(5,holder))
+	if(holder.energy == 2 && MAYBE && !locate(/obj/structure/alien/resin/flower_bud_enemy) in range(5,holder))
 		new /obj/structure/alien/resin/flower_bud_enemy(get_turf(holder))
 
 /datum/spacevine_mutation/flowering/on_cross(obj/structure/spacevine/holder, mob/living/crosser)
-	if(prob(25))
+	if(MAYBE)
 		holder.entangle(crosser)
 
 
@@ -364,7 +364,7 @@
 	)
 
 /datum/spacevine_mutation/mineral/on_death(obj/structure/spacevine/holder)
-	if(!prob(drop_rate))
+	if(!MAYBE)
 		return
 	var/itemtype = pickweight(mineral_results)
 	var/turf/pos = get_turf(holder)
@@ -467,7 +467,7 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		override += SM.on_chem(src, R)
 	if(!override && istype(R, /datum/reagent/glyphosate))
-		if(prob(50))
+		if(MAYBE)
 			wither()
 
 /obj/structure/spacevine/proc/eat(mob/eater)
@@ -475,7 +475,7 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		override += SM.on_eat(src, eater)
 	if(!override)
-		if(prob(10))
+		if(MAYBE)
 			eater.say("Nom")
 		wither()
 
@@ -581,7 +581,7 @@
 	if(parent)
 		SV.mutations |= parent.mutations
 		SV.color = parent.color
-		if(prob(mutativeness))
+		if(MAYBE)
 			var/list/random_mutations_picked = mutations_list - SV.mutations
 			if(random_mutations_picked.len)
 				var/datum/spacevine_mutation/randmut = pick(random_mutations_picked)
@@ -613,12 +613,12 @@
 		for(var/datum/spacevine_mutation/SM in SV.mutations)
 			SM.process_mutation(SV)
 		if(SV.energy < 2) //If tile isn't fully grown
-			if(prob(20))
+			if(MAYBE)
 				SV.grow()
 		else //If tile is fully grown
 			SV.entangle_mob()
 
-		//if(prob(25))
+		//if(MAYBE)
 		SV.spread()
 		if(i >= length)
 			break
@@ -638,7 +638,7 @@
 		SM.on_grow(src)
 
 /obj/structure/spacevine/proc/entangle_mob()
-	if(!has_buckled_mobs() && prob(25))
+	if(!has_buckled_mobs() && MAYBE)
 		for(var/mob/living/V in loc)
 			entangle(V)
 			if(has_buckled_mobs())

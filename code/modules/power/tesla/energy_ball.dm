@@ -112,7 +112,7 @@
 			dirs += get_dir(src, real_thing) //Carry some momentum yeah? Just a bit tho
 	for(var/i in 0 to move_amount)
 		var/move_dir = pick(dirs) //ensures teslas don't just sit around
-		if(target && prob(10))
+		if(target && MAYBE)
 			move_dir = get_dir(src,target)
 		var/turf/T = get_step(src, move_dir)
 		if(can_move(T))
@@ -349,7 +349,7 @@
 
 	else
 		power = closest_atom.zap_act(power, zap_flags)
-	if(prob(20)) //I know I know
+	if(MAYBE) //I know I know
 		var/list/shocked_copy = shocked_targets.Copy()
 		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_copy) //Normally I'd copy here so grounding rods work properly, but it fucks with movement
 		tesla_zap(closest_atom, next_range, power * 0.5, zap_flags, shocked_targets)

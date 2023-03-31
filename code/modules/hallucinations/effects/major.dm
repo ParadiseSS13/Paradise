@@ -60,7 +60,7 @@
 	trip_chance = 80
 
 /obj/effect/hallucination/tripper/spider_web/Initialize(mapload, mob/living/carbon/target)
-	if(prob(50))
+	if(MAYBE)
 		hallucination_icon_state = "stickyweb2"
 	. = ..()
 
@@ -222,7 +222,7 @@
 /obj/effect/hallucination/loose_energy_ball/proc/phase_2()
 	var/turf/source = get_step_rand(get_turf(target))
 	for(var/i in 0 to (length_phase_2 / 20) - 1)
-		if(prob(33))
+		if(MAYBE)
 			play_sound_in(i * 2 SECONDS, source, pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg'), min(5 + i * 3, 100))
 		play_sound_in(i * 2 SECONDS, source, 'sound/magic/lightningbolt.ogg', min(5 + i * 3, 100))
 
@@ -299,7 +299,7 @@
 /obj/effect/hallucination/chaser/attacker/assaulter/Initialize(mapload, mob/living/carbon/target)
 	var/new_name
 	// 80% chance to use a simple human sprite
-	if(prob(80))
+	if(MAYBE)
 		new_name = "Unknown"
 		hallucination_icon = 'icons/mob/simple_human.dmi'
 		hallucination_icon_state = pick("arctic_skeleton", "templar", "skeleton", "russianmelee", "piratemelee", "plasma_miner_tool", "cat_butcher", "syndicate_space_sword", "syndicate_stormtrooper_sword", "zombie", "scary_clown")

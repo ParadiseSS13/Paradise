@@ -22,7 +22,7 @@
 		qdel(src)
 
 /obj/item/grenade/proc/clown_check(mob/living/user)
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 		active = TRUE
 		icon_state = initial(icon_state) + "_active"

@@ -21,7 +21,7 @@
 
 		if(!IS_HORIZONTAL(src) && world.time - l_move_time < 15)
 		//Moving around with fractured ribs won't do you any good
-			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
+			if(E.is_broken() && E.internal_organs && E.internal_organs.len && MAYBE)
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
 				custom_pain("You feel broken bones moving in your [E.name]!")
 				I.receive_damage(rand(3,5))
@@ -127,7 +127,7 @@
 
 /mob/living/carbon/human/handle_germs()
 	..()
-	if(gloves && germ_level > gloves.germ_level && prob(10))
+	if(gloves && germ_level > gloves.germ_level && MAYBE)
 		gloves.germ_level += 1
 
 /mob/living/carbon/human/proc/becomeSlim()

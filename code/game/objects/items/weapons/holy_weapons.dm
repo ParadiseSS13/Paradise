@@ -472,7 +472,7 @@
 					praying = FALSE
 					return
 
-			if(prob(25))
+			if(MAYBE)
 				to_chat(target, "<span class='notice'>[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!</span>")
 				target.adjustToxLoss(-5)
 				target.adjustOxyLoss(-5)
@@ -526,7 +526,7 @@
 				if(H.mind.assigned_role == "Clown")
 					H.Silence(20 SECONDS)
 					animate_fade_grayscale(H,20)
-					if(prob(10))
+					if(MAYBE)
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
 
 
@@ -630,7 +630,7 @@
 		to_chat(missionary, "<span class='warning'>Your faith is strong, but [target.p_their()] mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
 		return
 	else if(target.mind.assigned_role == "Psychiatrist" || target.mind.assigned_role == "Librarian")		//fancy book lernin helps counter religion (day 0 job love, what madness!)
-		if(prob(35))	//35% chance to fail
+		if(MAYBE)	//35% chance to fail
 			to_chat(missionary, "<span class='warning'>This one is well trained in matters of the mind... They will not be swayed as easily as you thought...</span>")
 			faith -=50		//lose half your faith to the book-readers
 			return
@@ -638,7 +638,7 @@
 			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
 			faith -= 100
 	else if(target.mind.assigned_role == "Assistant")
-		if(prob(55))	//55% chance to take LESS faith than normal, because assistants are stupid and easily manipulated
+		if(MAYBE)	//55% chance to take LESS faith than normal, because assistants are stupid and easily manipulated
 			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting [target.p_them()] was much easier than expected.</span>")
 			faith -= 50
 		else		//45% chance to take the normal 100 faith cost

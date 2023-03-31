@@ -50,14 +50,14 @@
 	M.dna.check_integrity()
 	if(UI)
 		for(var/i = 1, i <= DNA_UI_LENGTH - 1, i++)
-			if(prob(prob))
+			if(MAYBE)
 				M.dna.SetUIValue(i, rand(1, 4095), 1)
 		M.dna.UpdateUI()
 		M.UpdateAppearance()
 
 	else
 		for(var/i = 1, i <= DNA_SE_LENGTH - 1, i++)
-			if(prob(prob))
+			if(MAYBE)
 				M.dna.SetSEValue(i, rand(1, 4095), 1)
 		M.dna.UpdateSE()
 		domutcheck(M)

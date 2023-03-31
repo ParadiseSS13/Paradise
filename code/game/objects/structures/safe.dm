@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(safes)
 	cut_overlay(progress_bar)
 	progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
 	add_overlay(progress_bar)
-	if(prob(DRILL_SPARK_CHANCE))
+	if(MAYBE)
 		drill.spark_system.start()
 
 /obj/structure/safe/examine(mob/user)
@@ -342,7 +342,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	if(current_tick == 2)
 		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
-	if(total_ticks == 1 || prob(SOUND_CHANCE))
+	if(total_ticks == 1 || MAYBE)
 		to_chat(user, "<span class='[correct_sound ? "bolditalics" : "italics"]'>You hear a [pick(sounds)] from [src].</span>")
 
 /**

@@ -202,8 +202,8 @@
 	playsound(loc, 'sound/effects/alert.ogg', 50, 0)
 	sleep(5)
 	H.rad_act(rand(150, 200))
-	if(prob(5))
-		if(prob(75))
+	if(MAYBE)
+		if(MAYBE)
 			randmutb(H) // Applies bad mutation
 			domutcheck(H, MUTCHK_FORCED)
 		else

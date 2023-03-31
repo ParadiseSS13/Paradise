@@ -181,7 +181,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/acid_processing()
 	. = TRUE
 	if(!(resistance_flags & ACID_PROOF))
-		if(prob(33))
+		if(MAYBE)
 			playsound(loc, 'sound/items/welder.ogg', 150, TRUE)
 		take_damage(min(1 + round(sqrt(acid_level) * 0.3), 300), BURN, ACID, 0)
 

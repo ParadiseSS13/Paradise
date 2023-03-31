@@ -58,7 +58,7 @@
 		if((current_area.type in skipped_areas_apc) || !is_station_level(A.z))
 			continue
 		// if we are going to break this one
-		if(prob(APC_BREAK_PROBABILITY))
+		if(MAYBE)
 			// if it has internal wires, cut the power wires
 			if(A.wires)
 				if(!A.wires.is_cut(WIRE_MAIN_POWER1))

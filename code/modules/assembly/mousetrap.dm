@@ -21,7 +21,7 @@
 	if(!armed)
 		if(ishuman(usr))
 			var/mob/living/carbon/human/user = usr
-			if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+			if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && MAYBE)
 				to_chat(user, "Your hand slips, setting off the trigger.")
 				pulse(0)
 
@@ -80,7 +80,7 @@
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else
-		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && MAYBE)
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"
@@ -97,7 +97,7 @@
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(armed)
-		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && MAYBE)
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"

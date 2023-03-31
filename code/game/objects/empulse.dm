@@ -42,7 +42,7 @@
 			will_affect = T.emp_act(1)
 
 		else if(distance == heavy_range)
-			if(prob(50))
+			if(MAYBE)
 				will_affect = T.emp_act(1)
 			else
 				will_affect = T.emp_act(2)

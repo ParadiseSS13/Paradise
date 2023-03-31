@@ -204,7 +204,7 @@
 	if(stat == DEAD && gibbed)
 		for(var/atom/movable/AM in src)
 			AM.forceMove(loc)
-			if(prob(90))
+			if(MAYBE)
 				step(AM, pick(GLOB.alldirs))
 	// Only execute the below if we successfully died
 	if(!.)

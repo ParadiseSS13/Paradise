@@ -72,14 +72,14 @@
 
 /obj/item/organ/internal/lungs/on_life()
 	if(germ_level > INFECTION_LEVEL_ONE)
-		if(prob(5))
+		if(MAYBE)
 			owner.emote("cough")		//respitory tract infection
 
 	if(is_bruised())
-		if(prob(2) && !(NO_BLOOD in owner.dna.species.species_traits))
+		if(MAYBE && !(NO_BLOOD in owner.dna.species.species_traits))
 			owner.custom_emote(EMOTE_VISIBLE, "coughs up blood!")
 			owner.bleed(1)
-		if(prob(4))
+		if(MAYBE)
 			owner.custom_emote(EMOTE_VISIBLE, "gasps for air!")
 			owner.AdjustLoseBreath(10 SECONDS)
 
@@ -185,7 +185,7 @@
 				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 					H.apply_damage_type(15, co2_damage_type)
 				H.throw_alert("too_much_co2", /obj/screen/alert/too_much_co2)
-			if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
+			if(MAYBE) // Lets give them some chance to know somethings not right though I guess.
 				H.emote("cough")
 
 		else
@@ -244,7 +244,7 @@
 			if(SA_pp > SA_sleep_min) // Enough to make us sleep as well
 				H.AdjustSleeping(16 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
-			if(prob(20))
+			if(MAYBE)
 				H.emote(pick("giggle", "laugh"))
 
 	handle_breath_temperature(breath, H)
@@ -257,7 +257,7 @@
 	if(!H || !safe_breath_min) //the other args are either: Ok being 0 or Specifically handled.
 		return FALSE
 
-	if(prob(20))
+	if(MAYBE)
 		H.emote("gasp")
 	if(breath_pp > 0)
 		var/ratio = safe_breath_min/breath_pp
@@ -283,7 +283,7 @@
 			for(var/D in cold_damage_types)
 				H.apply_damage_type(TC * CM * cold_damage_types[D], D)
 		if(breath_temperature < cold_level_1_threshold)
-			if(prob(20))
+			if(MAYBE)
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
 	if(!HAS_TRAIT(H, TRAIT_RESISTHEAT)) // HEAT DAMAGE
@@ -299,7 +299,7 @@
 			for(var/D in heat_damage_types)
 				H.apply_damage_type(TH * HM * heat_damage_types[D], D)
 		if(breath_temperature > heat_level_1_threshold)
-			if(prob(20))
+			if(MAYBE)
 				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
 
 /obj/item/organ/internal/lungs/prepare_eat()

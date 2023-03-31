@@ -328,15 +328,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//try and salvage its components
 			to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
 			if(do_after(user, 20 * I.toolspeed, target = src))
-				if(prob(70))
+				if(MAYBE)
 					to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 					if(installation)
 						var/obj/item/gun/energy/Gun = new installation(loc)
 						Gun.cell.charge = gun_charge
 						Gun.update_icon()
-					if(prob(50))
+					if(MAYBE)
 						new /obj/item/stack/sheet/metal(loc, rand(1,4))
-					if(prob(50))
+					if(MAYBE)
 						new /obj/item/assembly/prox_sensor(loc)
 				else
 					to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
@@ -435,7 +435,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			return
 
 	health -= damage_amount
-	if(damage_amount > 5 && prob(45) && spark_system)
+	if(damage_amount > 5 && MAYBE && spark_system)
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -456,12 +456,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(enabled && emp_vulnerable)
 		//if the turret is on, the EMP no matter how severe disables the turret for a while
 		//and scrambles its settings, with a slight chance of having an emag effect
-		check_arrest = prob(50)
-		check_records = prob(50)
-		check_weapons = prob(50)
-		check_access = prob(20)	// check_access is a pretty big deal, so it's least likely to get turned on
-		check_anomalies = prob(50)
-		if(prob(5))
+		check_arrest = MAYBE
+		check_records = MAYBE
+		check_weapons = MAYBE
+		check_access = MAYBE	// check_access is a pretty big deal, so it's least likely to get turned on
+		check_anomalies = MAYBE
+		if(MAYBE)
 			emagged = TRUE
 
 		enabled=0
@@ -476,7 +476,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(1)
 			qdel(src)
 		if(2)
-			if(prob(25))
+			if(MAYBE)
 				qdel(src)
 			else
 				take_damage(initial(health) * 8) //should instakill most turrets

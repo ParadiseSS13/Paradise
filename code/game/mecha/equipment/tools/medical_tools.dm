@@ -537,12 +537,12 @@
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/proc/push_aside(obj/mecha/M, mob/living/L)
 	switch(get_dir(M, L))
 		if(NORTH, SOUTH)
-			if(prob(50))
+			if(MAYBE)
 				step(L, WEST)
 			else
 				step(L, EAST)
 		if(WEST, EAST)
-			if(prob(50))
+			if(MAYBE)
 				step(L, NORTH)
 			else
 				step(L, SOUTH)

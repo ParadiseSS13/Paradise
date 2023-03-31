@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					return
 			else
 				return
-		else if(user.AmountHallucinate() > 50 SECONDS && prob(10) && !operating)
+		else if(user.AmountHallucinate() > 50 SECONDS && MAYBE && !operating)
 			if(user.electrocute_act(50, src, flags = SHOCK_ILLUSION)) // We'll just go with a flat 50 damage, instead of doing powernet checks
 				return
 	..(user)
@@ -778,7 +778,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 //Checks if the user can headbutt the airlock and does it if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
-	if(ishuman(user) && prob(40) && density)
+	if(ishuman(user) && MAYBE && density)
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60 && Adjacent(user))
 			playsound(loc, 'sound/effects/bang.ogg', 25, 1)
@@ -1555,7 +1555,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/narsie_act(weak = FALSE)
 	var/turf/T = get_turf(src)
-	var/runed = prob(20)
+	var/runed = MAYBE
 	var/obj/machinery/door/airlock/cult/A
 	if(weak)
 		A = new/obj/machinery/door/airlock/cult/weak(T)

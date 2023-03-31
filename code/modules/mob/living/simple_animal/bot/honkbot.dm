@@ -289,7 +289,7 @@
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
-	if(prob(50))
+	if(MAYBE)
 		drop_part(robot_arm, Tsec)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	var/datum/effect_system/spark_spread/s = new
@@ -305,7 +305,7 @@
 
 /mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
 	if(ismob(AM) && on) //only if its online
-		if(prob(30)) //you're far more likely to trip on a honkbot
+		if(MAYBE) //you're far more likely to trip on a honkbot
 			var/mob/living/carbon/C = AM
 			if(!istype(C) || !C || in_range(src, target))
 				return

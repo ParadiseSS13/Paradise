@@ -187,7 +187,7 @@
 
 /datum/language/tajaran/get_random_name(gender)
 	var/new_name = ..(gender,1)
-	if(prob(80))
+	if(MAYBE)
 		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
 	else
 		new_name += " [..(gender,1)]"
@@ -278,7 +278,7 @@
 
 /datum/language/trinary/get_random_name()
 	var/new_name
-	if(prob(70))
+	if(MAYBE)
 		new_name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
 	else
 		new_name = pick(GLOB.ai_names)

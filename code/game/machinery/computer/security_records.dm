@@ -450,7 +450,7 @@
 					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
 			continue
 
-		else if(prob(1))
+		else if(MAYBE)
 			qdel(R)
 			continue
 

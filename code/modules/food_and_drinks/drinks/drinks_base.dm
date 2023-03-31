@@ -58,7 +58,7 @@
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
 				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",
-					"<span class='notice'>You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>",
+					"<span class='notice'>You finish off [src]![MAYBE ? " Maybe that wasn't such a good idea..." : ""]</span>",
 					"<span class='notice'>You hear a gasp and a clink.</span>")
 				break
 		chugging = FALSE
@@ -200,7 +200,7 @@
 
 /obj/item/reagent_containers/food/drinks/tea/Initialize(mapload)
 	. = ..()
-	if(prob(20))
+	if(MAYBE)
 		reagents.add_reagent("mugwort", 3)
 
 /obj/item/reagent_containers/food/drinks/mugwort
@@ -241,7 +241,7 @@
 
 /obj/item/reagent_containers/food/drinks/dry_ramen/Initialize(mapload)
 	. = ..()
-	if(prob(20))
+	if(MAYBE)
 		reagents.add_reagent("enzyme", 3)
 
 /obj/item/reagent_containers/food/drinks/chicken_soup

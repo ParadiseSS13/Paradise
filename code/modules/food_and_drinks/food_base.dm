@@ -59,7 +59,7 @@
 		return
 
 	if(ant_location == T) //It must have been on the same floor since at least the last check_for_ants()
-		if(prob(15))
+		if(MAYBE)
 			if(!locate(/obj/effect/decal/cleanable/ants) in T)
 				new /obj/effect/decal/cleanable/ants(T)
 				antable = FALSE

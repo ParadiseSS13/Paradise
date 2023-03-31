@@ -30,7 +30,7 @@
 	B.icon = I
 
 	if(is_glass)
-		if(prob(33))
+		if(MAYBE)
 			new/obj/item/shard(new_location)
 		playsound(src, "shatter", 70, 1)
 	else

@@ -23,7 +23,7 @@
 	block = GLOB.hallucinationblock
 
 /datum/mutation/disability/hallucinate/on_life(mob/living/carbon/human/H)
-	if(prob(1))
+	if(MAYBE)
 		H.AdjustHallucinate(45 SECONDS)
 
 /datum/mutation/disability/epilepsy
@@ -37,7 +37,7 @@
 	block = GLOB.epilepsyblock
 
 /datum/mutation/disability/epilepsy/on_life(mob/living/carbon/human/H)
-	if((prob(1) && !H.IsParalyzed()))
+	if((MAYBE && !H.IsParalyzed()))
 		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 		H.Paralyse(20 SECONDS)
 		H.Jitter(2000 SECONDS)
@@ -53,7 +53,7 @@
 	block = GLOB.coughblock
 
 /datum/mutation/disability/cough/on_life(mob/living/carbon/human/H)
-	if((prob(5) && H.AmountParalyzed() <= 1))
+	if((MAYBE && H.AmountParalyzed() <= 1))
 		H.drop_item()
 		H.emote("cough")
 
@@ -78,12 +78,12 @@
 	block = GLOB.twitchblock
 
 /datum/mutation/disability/tourettes/on_life(mob/living/carbon/human/H)
-	if(prob(10))
+	if(MAYBE)
 		switch(rand(1, 3))
 			if(1)
 				H.emote("twitch")
 			if(2 to 3)
-				H.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
+				H.say("[MAYBE ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
 		var/x_offset_old = H.pixel_x
 		var/y_offset_old = H.pixel_y
 		var/x_offset = H.pixel_x + rand(-2, 2)
@@ -101,7 +101,7 @@
 	block = GLOB.nervousblock
 
 /datum/mutation/disability/nervousness/on_life(mob/living/carbon/human/H)
-	if(prob(10))
+	if(MAYBE)
 		H.Stuttering(20 SECONDS)
 
 /datum/mutation/disability/blindness
@@ -406,7 +406,7 @@
 	message = replacetextEx(message,"bo","bjo")
 	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
 	message = replacetextEx(message,"o",pick("ö","ø","o"))
-	if(prob(30) && !M.is_muzzled() && !M.is_facehugged())
+	if(MAYBE && !M.is_muzzled() && !M.is_facehugged())
 		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 

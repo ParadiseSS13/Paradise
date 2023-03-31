@@ -226,7 +226,7 @@
 	for(var/i in 1 to 5)
 		var/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
 		load(W)
-	if(prob(50))
+	if(MAYBE)
 		var/obj/item/storage/pill_bottle/dice/D = new(src)
 		load(D)
 	else

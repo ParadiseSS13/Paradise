@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/number_of = amount_get
 	if(!amount_get)
 		number_of = 1
-		while(prob(20))
+		while(MAYBE)
 			number_of += 1
 
 	for(var/i = 1; number_of >= i && possible_symptoms.len; i++)

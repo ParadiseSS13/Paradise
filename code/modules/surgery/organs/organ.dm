@@ -156,7 +156,7 @@
 			. += "<span class='notice'>It looks in need of repairs.</span>"
 
 /obj/item/organ/proc/handle_germs()
-	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
+	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && MAYBE)
 		germ_level--
 
 	if(germ_level >= INFECTION_LEVEL_ONE / 2)
@@ -171,7 +171,7 @@
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
 		//spread germs
-		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
+		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || MAYBE))
 			parent.germ_level++
 
 /obj/item/organ/proc/rejuvenate()

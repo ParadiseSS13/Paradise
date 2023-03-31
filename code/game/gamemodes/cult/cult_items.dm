@@ -492,7 +492,7 @@
 			// 10 * 3 gives it a 30% chance to shatter per hit.
 			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
 
-			if(prob(shatter_chance) || P.shield_buster)
+			if(MAYBE || P.shield_buster)
 				var/turf/T = get_turf(owner)
 				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
 				new /obj/effect/temp_visual/cult/sparks(T)
@@ -511,14 +511,14 @@
 			if(illusions > 0)
 				illusions--
 				addtimer(CALLBACK(src, PROC_REF(readd)), 45 SECONDS)
-				if(prob(60))
+				if(MAYBE)
 					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
 					spawn_illusion(owner, FALSE) // Running illusion
 			return TRUE
 
 	else // Non-cultist holding the shield
-		if(prob(50))
+		if(MAYBE)
 			spawn_illusion(owner, TRUE, TRUE)
 		return FALSE
 
@@ -549,7 +549,7 @@
 			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
 
 /obj/item/shield/mirror/IsReflect()
-	if(prob(reflect_chance))
+	if(MAYBE)
 		if(ismob(loc))
 			var/mob/user = loc
 			if(user.holy_check())

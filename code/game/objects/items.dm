@@ -404,7 +404,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) + prob(final_block_chance)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) + MAYBE
 	if(signal_result != 0)
 		if(hit_reaction_chance >= 0) //Normally used for non blocking hit reactions, but also used for displaying block message on actual blocks
 			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
@@ -610,7 +610,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			if(M.stat != 2)
 				if(!eyes.is_robotic())  //robot eyes bleeding might be a bit silly
 					to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
-			if(prob(50))
+			if(MAYBE)
 				if(M.stat != DEAD)
 					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
 					M.drop_item()

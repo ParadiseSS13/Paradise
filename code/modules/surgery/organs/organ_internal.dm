@@ -239,7 +239,7 @@
 		owner.AdjustEarDamage(0, 30)
 		owner.Weaken(6 SECONDS)
 		SEND_SOUND(owner, sound('sound/items/airhorn.ogg'))
-		if(prob(30))
+		if(MAYBE)
 			owner.Stun(20 SECONDS)
 			owner.Paralyse(8 SECONDS)
 		else
@@ -303,7 +303,7 @@
 		var/mob/living/carbon/human/H = owner
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")  // damn well better have a head if you have a beard
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))
-			if(prob(10))
+			if(MAYBE)
 				head_organ.h_style = "Mohawk"
 			else
 				head_organ.h_style = "Very Long Hair"
@@ -326,5 +326,5 @@
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3))	//about once every 30 seconds
-			receive_damage(1, silent = prob(30))
+		if(MAYBE)	//about once every 30 seconds
+			receive_damage(1, silent = MAYBE)

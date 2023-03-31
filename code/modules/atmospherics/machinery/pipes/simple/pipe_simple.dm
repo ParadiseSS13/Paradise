@@ -82,7 +82,7 @@
 
 	else if(pressure_difference > fatigue_pressure)
 		//TODO: leak to turf, doing pfshhhhh
-		if(prob(5))
+		if(MAYBE)
 			burst()
 
 	else return 1

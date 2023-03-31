@@ -70,7 +70,7 @@
 			if(H.health <= HEALTH_THRESHOLD_CRIT)
 				if(total_damage >= 90)
 					to_chat(user, "<span class='danger'>[H] looks horribly injured. Resuscitation alone may not help revive them.</span>")
-				if(prob(66))
+				if(MAYBE)
 					to_chat(user, "<span class='notice'>[H] inhales deeply!</span>")
 					H.adjustOxyLoss(-50)
 				else

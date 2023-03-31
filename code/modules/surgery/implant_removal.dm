@@ -67,7 +67,7 @@
 /datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	I = locate(/obj/item/implant) in target
-	if(I && prob(80)) //implant removal only works on the chest.
+	if(I && MAYBE) //implant removal only works on the chest.
 		user.visible_message(
 			"<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>",
 			"<span class='notice'>You take \an [I] out of [target]'s [affected.name]s with \the [tool].</span>"

@@ -20,7 +20,7 @@
 		while(cards.len)
 			var/datum/playingcard/P = pick(cards)
 			P.name = replacetext(P.name," reversed","")
-			if(prob(50))
+			if(MAYBE)
 				P.name += " reversed"
 			newcards += P
 			cards -= P

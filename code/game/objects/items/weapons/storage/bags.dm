@@ -403,13 +403,13 @@
 					step(I, pick(NORTH,SOUTH,EAST,WEST))
 					sleep(rand(2,4))
 
-	if(prob(50))
+	if(MAYBE)
 		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
 	else
 		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
 
 	if(ishuman(M))
-		if(prob(10))
+		if(MAYBE)
 			M.Weaken(4 SECONDS)
 
 /obj/item/storage/bag/tray/update_icon_state()

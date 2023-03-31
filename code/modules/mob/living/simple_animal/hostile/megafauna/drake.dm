@@ -138,7 +138,7 @@ Difficulty: Medium
 		return
 	target.visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
 	for(var/turf/turf in range(9,get_turf(target)))
-		if(prob(11))
+		if(MAYBE)
 			new /obj/effect/temp_visual/target(turf)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(amount, delay = 0.8)
@@ -241,7 +241,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_cone(atom/at = target, meteors = TRUE)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(0)
-	if(prob(50) && meteors)
+	if(MAYBE && meteors)
 		INVOKE_ASYNC(src, PROC_REF(fire_rain))
 	var/range = 15
 	var/list/turfs = list()
@@ -311,7 +311,7 @@ Difficulty: Medium
 	else if(target.x > initial_x)
 		negative = FALSE
 	else if(target.x == initial_x) //if their x is the same, pick a direction
-		negative = prob(50)
+		negative = MAYBE
 	var/obj/effect/temp_visual/dragon_flight/F = new /obj/effect/temp_visual/dragon_flight(loc, negative)
 
 	negative = !negative //invert it for the swoop down later

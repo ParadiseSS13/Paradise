@@ -43,10 +43,10 @@
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
 	. = ..()
 	//chance to go crazy and start wacking stuff
-	if(!enemies.len && prob(1))
+	if(!enemies.len && MAYBE)
 		Retaliate()
 
-	if(enemies.len && prob(10))
+	if(enemies.len && MAYBE)
 		enemies = list()
 		LoseTarget()
 		visible_message("<span class='notice'>[src] calms down.</span>")
@@ -91,7 +91,7 @@
 		qdel(GS)
 		eaten = TRUE
 
-	if(eaten && prob(10))
+	if(eaten && MAYBE)
 		say("Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/AttackingTarget()
@@ -319,14 +319,14 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/chicken/Life(seconds, times_fired)
 	. = ..()
-	if((. && prob(3) && eggsleft > 0) && egg_type)
+	if((. && MAYBE && eggsleft > 0) && egg_type)
 		visible_message("[src] [pick(layMessage)]")
 		eggsleft--
 		var/obj/item/E = new egg_type(get_turf(src))
 		E.pixel_x = rand(-6,6)
 		E.pixel_y = rand(-6,6)
 		if(eggsFertile)
-			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
+			if(GLOB.chicken_count < MAX_CHICKENS && MAYBE)
 				START_PROCESSING(SSobj, E)
 
 /obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
@@ -502,7 +502,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	create_reagents(50)
 
 /obj/item/udder/proc/generateMilk()
-	if(prob(5))
+	if(MAYBE)
 		reagents.add_reagent("milk", rand(5, 10))
 
 /obj/item/udder/proc/milkAnimal(obj/O, mob/user)

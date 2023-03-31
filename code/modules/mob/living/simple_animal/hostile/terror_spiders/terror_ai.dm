@@ -145,7 +145,7 @@
 				new web_type(loc)
 				visible_message("<span class='notice'>[src] puts up some spider webs.</span>")
 		else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
-			if(prob(idle_ventcrawl_chance))
+			if(MAYBE)
 				last_ventcrawl_time = world.time
 				var/vdistance = 99
 				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10, src))
@@ -289,7 +289,7 @@
 						forceMove(original_location)
 						entry_vent = null
 						return
-					if(prob(50))
+					if(MAYBE)
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 					spawn(travel_time)
 						if(!exit_vent || (exit_vent.welded && !ai_ventbreaker))

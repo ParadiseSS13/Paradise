@@ -9,7 +9,7 @@
 	..()
 	if(!turned_on)
 		return
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_themselves()] with [src]!</span>",
 			"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		deductcharge(hitcost)

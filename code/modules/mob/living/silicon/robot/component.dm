@@ -263,7 +263,7 @@
 	var/mode = 1
 
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && MAYBE)
 		user.visible_message("<span class='warning'>[user] has analyzed the floor's vitals!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
 		to_chat(user, "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Healthy</span>")
 		to_chat(user, "<span class='notice'>\t Damage Specifics: [0]-[0]-[0]-[0]</span>")
@@ -316,7 +316,7 @@
 					for(var/datum/robot_component/org in missing)
 						user.show_message("<span class='warning'>\t [capitalize(org.name)]: MISSING</span>")
 
-			if(H.emagged && prob(5))
+			if(H.emagged && MAYBE)
 				to_chat(user, "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>")
 
 		if("prosthetics")

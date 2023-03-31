@@ -263,12 +263,12 @@
 	switch(fitting)
 		if("tube")
 			brightness_range = 8
-			if(prob(2))
+			if(MAYBE)
 				break_light_tube(TRUE)
 		if("bulb")
 			brightness_range = 4
 			brightness_color = "#a0a080"
-			if(prob(5))
+			if(MAYBE)
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
 
@@ -479,7 +479,7 @@
 			user.visible_message("<span class='danger'>[user] smashed the light!</span>", "<span class='danger'>You hit the light, and it smashes!</span>", \
 			"<span class='danger'>You hear the tinkle of breaking glass.</span>")
 			if(on && (W.flags & CONDUCT))
-				if(prob(12))
+				if(MAYBE)
 					electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 			break_light_tube()
 		else
@@ -492,7 +492,7 @@
 	if(status == LIGHT_EMPTY)
 		if(has_power() && (W.flags & CONDUCT))
 			do_sparks(3, 1, src)
-			if(prob(75)) // If electrocuted
+			if(MAYBE) // If electrocuted
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
 				to_chat(user, "<span class='userdanger'>You are electrocuted by [src]!</span>")
 			else // If not electrocuted
@@ -541,7 +541,7 @@
 	..()
 	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
 		if(on && (I.flags & CONDUCT))
-			if(prob(12))
+			if(MAYBE)
 				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
 /obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)

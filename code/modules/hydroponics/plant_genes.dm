@@ -232,14 +232,14 @@
 
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
-	if(prob(power))
+	if(MAYBE)
 		C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
-		if(prob(power))
+		if(MAYBE)
 			C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
@@ -319,7 +319,7 @@
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
 		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
-		if(prob(50))
+		if(MAYBE)
 			do_teleport(G, T, teleport_radius)
 			C.apply_status_effect(STATUS_EFFECT_TELEPORTSICK)
 		else

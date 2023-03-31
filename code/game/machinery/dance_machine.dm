@@ -321,7 +321,7 @@
 				glow.light_range = glow.range * 0.85
 				glow.update_light()
 				continue
-		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
+		if(MAYBE)  // Unique effects for the dance floor that show up randomly to mix things up
 			INVOKE_ASYNC(src, PROC_REF(hierofunk))
 		sleep(selection.song_beat)
 
@@ -484,7 +484,7 @@
 				if(!L || !L.client)
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
-			else if(prob(9) && (L.mobility_flags & MOBILITY_STAND) && isliving(L))
+			else if(MAYBE && (L.mobility_flags & MOBILITY_STAND) && isliving(L))
 				dance(L)
 	else if(active)
 		active = FALSE

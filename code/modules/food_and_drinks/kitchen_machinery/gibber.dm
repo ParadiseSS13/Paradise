@@ -250,7 +250,7 @@
 
 	operating = TRUE
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-	var/offset = prob(50) ? -2 : 2
+	var/offset = MAYBE ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
 	var/slab_name = occupant.name

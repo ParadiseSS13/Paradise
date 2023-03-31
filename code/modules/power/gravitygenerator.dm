@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		set_broken()
 
 /obj/machinery/gravity_generator/blob_act(obj/structure/blob/B)
-	if(prob(20))
+	if(MAYBE)
 		set_broken()
 
 /obj/machinery/gravity_generator/zap_act(power, zap_flags)
@@ -328,10 +328,10 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		else if(charging_state == GRAV_POWER_DOWN)
 			charge_count -= 2
 
-		if(charge_count < 100 && prob(75)) // Let them know it is charging/discharging.
+		if(charge_count < 100 && MAYBE) // Let them know it is charging/discharging.
 			playsound(loc, 'sound/effects/empulse.ogg', 100, TRUE)
 
-		if(prob(25)) // To help stop "Your clothes feel warm" spam.
+		if(MAYBE) // To help stop "Your clothes feel warm" spam.
 			pulse_radiation()
 
 		switch(charge_count)

@@ -34,7 +34,7 @@
 		list("Confirmed outbreak of level 3-S biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak3.ogg'),
 		list("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 	)
-	if(prob(90))
+	if(MAYBE)
 		event = pick_n_take(minor_fake_events)
 		GLOB.minor_announcement.Announce(event[1], listgetindex(event, 2), listgetindex(event, 3))
 	else

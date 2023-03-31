@@ -249,7 +249,7 @@
 					if(!allowed)
 						to_chat(usr, "<span class='warning'>You set [item_to_add] on [src]'s back, but it falls off!</span>")
 						item_to_add.forceMove(drop_location())
-						if(prob(25))
+						if(MAYBE)
 							step_rand(item_to_add)
 						for(var/i in list(1,2,4,8,4,8,4,dir))
 							setDir(i)
@@ -310,7 +310,7 @@
 	else
 		to_chat(user, "<span class='warning'>You set [item_to_add] on [src]'s head, but it falls off!</span>")
 		item_to_add.forceMove(drop_location())
-		if(prob(25))
+		if(MAYBE)
 			step_rand(item_to_add)
 		for(var/i in list(1,2,4,8,4,8,4,dir))
 			setDir(i)
@@ -504,7 +504,7 @@
 					possible_target = I
 					break
 				else if(istype(I, /obj/item/paper)) // Important noms
-					if(prob(10))
+					if(MAYBE)
 						possible_target = I
 						break
 			if(possible_target && (isturf(possible_target.loc) || ishuman(possible_target.loc))) // On the ground or in someone's hand.
@@ -512,7 +512,7 @@
 		if(movement_target)
 			INVOKE_ASYNC(src, PROC_REF(move_to_target))
 
-	if(prob(1))
+	if(MAYBE)
 		chasetail()
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/proc/move_to_target()
@@ -532,7 +532,7 @@
 
 		if(isturf(movement_target.loc))
 			movement_target.attack_animal(src) // Eat the thing
-		else if(prob(30) && ishuman(movement_target.loc)) // mean hooman has stolen it
+		else if(MAYBE && ishuman(movement_target.loc)) // mean hooman has stolen it
 			custom_emote(EMOTE_VISIBLE, "stares at [movement_target.loc]'s [movement_target] with a sad puppy-face.")
 
 /obj/item/reagent_containers/food/snacks/meat/corgi
@@ -637,7 +637,7 @@
 /mob/living/simple_animal/pet/dog/corgi/Lisa/handle_automated_movement()
 	. = ..()
 	if(!IS_HORIZONTAL(src) && !buckled)
-		if(prob(1))
+		if(MAYBE)
 			custom_emote(EMOTE_VISIBLE, pick("dances around.","chases her tail."))
 			spin(20, 1)
 
@@ -701,11 +701,11 @@
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()
 	//spark for no reason
-	if(prob(5))
+	if(MAYBE)
 		do_sparks(3, 1, src)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/handle_automated_action()
-	if(emagged && prob(25))
+	if(emagged && MAYBE)
 		var/mob/living/carbon/target = locate() in view(10, src)
 		if(target)
 			shootAt(target)
@@ -733,7 +733,7 @@
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()
 	if(!IS_HORIZONTAL(src) && !buckled)
-		if(prob(1))
+		if(MAYBE)
 			custom_emote(EMOTE_VISIBLE, pick("chases its tail."))
 			spawn(0)
 				for(var/i in list(1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2))

@@ -41,7 +41,7 @@
 	if(!length(vendingMachines))	//if every machine is infected
 		for(var/thing in infectedMachines)
 			var/obj/machinery/economy/vending/upriser = thing
-			if(prob(70))
+			if(MAYBE)
 				var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null, 1) // it will delete upriser on creation and override any machine checks
 				M.faction = list("profit")
 				M.speak = rampant_speeches.Copy()

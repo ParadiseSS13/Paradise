@@ -370,7 +370,7 @@
 	if(!.)
 		return
 	owner.EyeBlurry(4 SECONDS)
-	if(prob(5))
+	if(MAYBE)
 		owner.AdjustSleeping(2 SECONDS)
 		owner.Paralyse(10 SECONDS)
 
@@ -460,11 +460,11 @@
 	if(actual_strength >= THRESHOLD_BLUR)
 		owner.EyeBlurry(20 SECONDS / alcohol_resistance)
 	// THRESHOLD_COLLAPSE (150 SECONDS)
-	if(actual_strength >= THRESHOLD_COLLAPSE && prob(1))
+	if(actual_strength >= THRESHOLD_COLLAPSE && MAYBE)
 		owner.emote("collapse")
 		do_sparks(3, 1, src)
 	// THRESHOLD_FAINT (180 SECONDS)
-	if(actual_strength >= THRESHOLD_FAINT && prob(1))
+	if(actual_strength >= THRESHOLD_FAINT && MAYBE)
 		owner.Paralyse(10 SECONDS / alcohol_resistance)
 		owner.Drowsy(60 SECONDS / alcohol_resistance)
 		if(L)
@@ -472,7 +472,7 @@
 		if(!is_ipc)
 			owner.adjustToxLoss(1)
 	// THRESHOLD_BRAIN_DAMAGE (240 SECONDS)
-	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && prob(1))
+	if(actual_strength >= THRESHOLD_BRAIN_DAMAGE && MAYBE)
 		owner.adjustBrainLoss(1)
 
 #undef THRESHOLD_SLUR
@@ -646,10 +646,10 @@
 	if(dreamer.get_drunkenness() > 0)
 		comfort += 1 //Aren't naps SO much better when drunk?
 		dreamer.AdjustDrunk(-0.4 SECONDS * comfort) //reduce drunkenness while sleeping.
-	if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
+	if(comfort > 1 && MAYBE)//You don't heal if you're just sleeping on the floor without a blanket.
 		dreamer.adjustBruteLoss(-1 * comfort, FALSE)
 		dreamer.adjustFireLoss(-1 * comfort)
-	if(prob(10) && dreamer.health && dreamer.health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
+	if(MAYBE && dreamer.health && dreamer.health_hud_override != HEALTH_HUD_OVERRIDE_CRIT)
 		dreamer.emote("snore")
 
 
@@ -726,7 +726,7 @@
 		return
 
 	next_hallucination = world.time + rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (strength * HALLUCINATE_COOLDOWN_FACTOR)
-	if(!prob(HALLUCINATE_CHANCE))
+	if(!MAYBE)
 		return
 
 	// Pick a severity
@@ -894,20 +894,20 @@
 	var/selected_fake_emote
 	switch(msg_stage)
 		if(0 to 300)
-			if(prob(1)) // First stage starts slow, stage 2 and 3 trigger fake msgs/emotes twice as often
-				if(prob(50) || !length(fake_emote[1])) // 50% chance to trigger either a msg or emote, 100% if it doesnt have an emote
+			if(MAYBE) // First stage starts slow, stage 2 and 3 trigger fake msgs/emotes twice as often
+				if(MAYBE || !length(fake_emote[1])) // 50% chance to trigger either a msg or emote, 100% if it doesnt have an emote
 					selected_fake_msg = safepick(fake_msg[1])
 				else
 					selected_fake_emote = safepick(fake_emote[1])
 		if(301 to 600)
-			if(prob(2))
-				if(prob(50) || !length(fake_emote[2]))
+			if(MAYBE)
+				if(MAYBE || !length(fake_emote[2]))
 					selected_fake_msg = safepick(fake_msg[2])
 				else
 					selected_fake_emote = safepick(fake_emote[2])
 		else
-			if(prob(2))
-				if(prob(50) || !length(fake_emote[3]))
+			if(MAYBE)
+				if(MAYBE || !length(fake_emote[3]))
 					selected_fake_msg = safepick(fake_msg[3])
 				else
 					selected_fake_emote = safepick(fake_emote[3])

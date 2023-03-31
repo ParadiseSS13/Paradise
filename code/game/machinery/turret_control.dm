@@ -243,11 +243,11 @@
 		//if the turret is on, the EMP no matter how severe disables the turret for a while
 		//and scrambles its settings, with a slight chance of having an emag effect
 
-		check_arrest = prob(50)
-		check_records = prob(50)
-		check_weapons = prob(50)
-		check_access = prob(20)	// check_access is a pretty big deal, so it's least likely to get turned on
-		check_anomalies = prob(50)
+		check_arrest = MAYBE
+		check_records = MAYBE
+		check_weapons = MAYBE
+		check_access = MAYBE	// check_access is a pretty big deal, so it's least likely to get turned on
+		check_anomalies = MAYBE
 
 		enabled=0
 		updateTurrets()

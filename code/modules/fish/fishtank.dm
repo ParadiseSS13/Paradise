@@ -121,7 +121,7 @@
 
 /obj/machinery/fishtank/tank/Initialize(mapload)
 	. = ..()
-	if(prob(5))					//5% chance to get the castle decoration
+	if(MAYBE)					//5% chance to get the castle decoration
 		icon_state = "tank2"
 
 //////////////////////////////
@@ -185,14 +185,14 @@
 
 	//Check if the water level can support the current number of fish
 	if((fish_count * 50) > water_level)
-		if(prob(50))								//Not enough water for all the fish, chance to kill one
+		if(MAYBE)								//Not enough water for all the fish, chance to kill one
 			fish_count--
 			kill_fish()								//Chance passed, kill a random fish
 			adjust_filth_level(2)					//Dead fish raise the filth level quite a bit, reflect this
 
 	//Check filth_level
 	if(filth_level == 10 && fish_count > 0)			//This tank is nasty and possibly unsuitable for fish if any are in it
-		if(prob(30))								//Chance for a fish to die each cycle while the tank is this nasty
+		if(MAYBE)								//Chance for a fish to die each cycle while the tank is this nasty
 			fish_count--
 			kill_fish()								//Kill a random fish, don't raise filth level since we're at cap already
 
@@ -205,7 +205,7 @@
 				ate_food = TRUE
 
 	//Handle standard food and filth adjustments
-	if(food_level > 0 && prob(50))					//Chance for the fish to eat some food
+	if(food_level > 0 && MAYBE)					//Chance for the fish to eat some food
 		if(food_level >= (fish_count * 0.05))		//If there is at least enough food to go around, feed all the fish
 			adjust_food_level(fish_count * -0.05)
 		else										//Use up the last of the food
@@ -214,10 +214,10 @@
 
 	if(water_level > 0)								//Don't dirty the tank if it has no water
 		if(fish_count == 0)							//If the tank has no fish, algae growth can occur
-			if(filth_level < 7.5 && prob(15))		//Algae growth is a low chance and cannot exceed filth_level of 7.5
+			if(filth_level < 7.5 && MAYBE)		//Algae growth is a low chance and cannot exceed filth_level of 7.5
 				adjust_filth_level(0.05)			//Algae growth is slower than fish filth build-up
-		else if(filth_level < 10 && prob(10))		//Chance for the tank to get dirtier if the filth_level isn't 10
-			if(ate_food && prob(25))				//If they ate this cycle, there is an additional chance they make a bigger mess
+		else if(filth_level < 10 && MAYBE)		//Chance for the tank to get dirtier if the filth_level isn't 10
+			if(ate_food && MAYBE)				//If they ate this cycle, there is an additional chance they make a bigger mess
 				adjust_filth_level(fish_count * 0.1)
 			else									//If they didn't make the big mess, make a little one
 				adjust_filth_level(0.1)
@@ -401,15 +401,15 @@
 		if(!parent2.crossbreeder)						//second fish refuses to crossbreed, spawn a dud
 			egg_list.Add(/obj/item/fish_eggs)
 		else if(parent1.type == parent2.type)						//both fish are the same type
-			if(prob(90))									//90% chance to get that type of egg
+			if(MAYBE)									//90% chance to get that type of egg
 				egg_list.Add(parent1.egg_item)
 			else											//10% chance to get a dud
 				egg_list.Add(/obj/item/fish_eggs)
 		else											//different types of fish
-			if(prob(30))									//30% chance to get dud
+			if(MAYBE)									//30% chance to get dud
 				egg_list.Add(/obj/item/fish_eggs)
 			else
-				if(prob(50))								//chance to get egg for either parent type (50/50 for either parent, 35% overall each)
+				if(MAYBE)								//chance to get egg for either parent type (50/50 for either parent, 35% overall each)
 					egg_list.Add(parent1.egg_item)
 				else
 					egg_list.Add(parent2.egg_item)
@@ -547,7 +547,7 @@
 			else
 				if(fish_count)								//Tank must actually have fish to try catching one
 					M.visible_message("<span class='warning'>[M.name] leaps up onto [src] and attempts to fish through the opening!</span>", "<span class='notice'>You jump up onto [src] and begin fishing through the opening!</span>")
-					if(water_level && prob(45))			//If there is water, there is a chance the cat will slip, Syndicat will spark like E-N when this happens
+					if(water_level && MAYBE)			//If there is water, there is a chance the cat will slip, Syndicat will spark like E-N when this happens
 						M.visible_message("<span class='notice'>[M.name] slipped and got soaked!</span>", "<span class='notice'>You slipped and got soaked!</span>")
 						if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
 							do_sparks(3, 1, src)
@@ -566,7 +566,7 @@
 			else
 				if(fish_count)								//Tank must actually have fish to try catching one
 					M.visible_message("<span class='warning'>[M.name] reaches into [src] and attempts to fish through the opening!</span>", "<span class='warning'>You reach into [src] and begin fishing through the opening!</span>")
-					if(water_level && prob(5))			//Bears are good at catching fish, only a 5% chance to fail
+					if(water_level && MAYBE)			//Bears are good at catching fish, only a 5% chance to fail
 						M.visible_message("<span class='warning'>[M.name] swipes at the water!</span>", "<span class='notice'>You just barely missed that fish!</span>")
 					else								//No water or didn't slip, get that fish!
 						M.visible_message("<span class='warning'>[M.name] catches and devours a live fish!</span>", "<span class='notice'>You catch and devour a live fish, yum!</span>")

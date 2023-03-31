@@ -140,7 +140,7 @@
 
 /obj/structure/flora/ash/cacti/Initialize(mapload)
 	. = ..()
-	// min dmg 3, max dmg 6, prob(70)
+	// min dmg 3, max dmg 6, MAYBE
 	AddComponent(/datum/component/caltrop, 3, 6, 70)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora

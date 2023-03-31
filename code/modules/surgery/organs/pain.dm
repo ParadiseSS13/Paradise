@@ -34,7 +34,7 @@
 			msg = "<b><font size=2>Your [partname] hurts badly.</font></b>"
 		if(91 to INFINITY)
 			msg = "<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>"
-	if(msg && (msg != last_pain_message || prob(10)))
+	if(msg && (msg != last_pain_message || MAYBE))
 		last_pain_message = msg
 		to_chat(src, msg)
 	next_pain_time = world.time + (100 - amount)
@@ -67,7 +67,7 @@
 		var/dam = E.get_damage()
 		// make the choice of the organ depend on damage,
 		// but also sometimes use one of the less damaged ones
-		if(dam > maxdam && (maxdam == 0 || prob(70)))
+		if(dam > maxdam && (maxdam == 0 || MAYBE))
 			damaged_organ = E
 			maxdam = dam
 		if(damaged_organ)
@@ -77,7 +77,7 @@
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(I.hidden_pain)
 			continue
-		if(prob(2) && I.damage > 2)
+		if(MAYBE && I.damage > 2)
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
 			var/intensity
 			switch(I.damage)

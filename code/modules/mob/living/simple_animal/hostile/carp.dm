@@ -70,7 +70,7 @@
 /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
 	if(random_color)
 		var/our_color
-		if(prob(rarechance))
+		if(MAYBE)
 			our_color = pick(carp_colors_rare)
 			add_atom_colour(carp_colors_rare[our_color], FIXED_COLOUR_PRIORITY)
 		else

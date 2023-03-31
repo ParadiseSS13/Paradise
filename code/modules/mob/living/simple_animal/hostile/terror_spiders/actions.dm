@@ -167,7 +167,7 @@
 
 /obj/structure/spider/terrorweb/Initialize(mapload)
 	. = ..()
-	if(prob(50))
+	if(MAYBE)
 		icon_state = "stickyweb2"
 
 /obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
@@ -179,9 +179,9 @@
 		var/mob/living/M = mover
 		if(!(M.mobility_flags & MOBILITY_MOVE))
 			return TRUE
-		return prob(80)
+		return MAYBE
 	if(istype(mover, /obj/item/projectile))
-		return prob(20)
+		return MAYBE
 	return ..()
 
 /obj/structure/spider/terrorweb/Crossed(atom/movable/AM, oldloc)

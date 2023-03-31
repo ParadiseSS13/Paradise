@@ -68,7 +68,7 @@
 		to_chat(src, "<span class='danger'>You cannot generate eggs while hiding in [loc].</span>")
 		return
 
-	if(!prob(grant_prob))
+	if(!MAYBE)
 		return
 
 	var/list/spider_array = CountSpidersDetailed(TRUE)

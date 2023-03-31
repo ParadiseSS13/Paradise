@@ -202,12 +202,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			if(!user.IsVocal())
 				user.custom_emote(EMOTE_VISIBLE, "makes frantic gestures!")
 			else
-				if(prob(50))//Auto-mute? Fuck that noise
+				if(MAYBE)//Auto-mute? Fuck that noise
 					user.say(invocation)
 				else
 					user.say(replacetext(invocation," ","`"))
 		if("whisper")
-			if(prob(50))
+			if(MAYBE)
 				user.whisper(invocation)
 			else
 				user.whisper(replacetext(invocation," ","`"))
@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(sound)
 		playMagSound()
 
-	if(prob(critfailchance))
+	if(MAYBE)
 		critfail(targets)
 	else
 		cast(targets, user = user)

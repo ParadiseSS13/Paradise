@@ -172,7 +172,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 	else
 		new_commando.real_name = "[commando_name]"
 
-	if(prob(50))
+	if(MAYBE)
 		new_commando.change_gender(MALE)
 	else
 		new_commando.change_gender(FEMALE)

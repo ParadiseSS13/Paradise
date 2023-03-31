@@ -36,11 +36,11 @@
 		qdel(src)
 		return 0
 
-	if(prob(5))
+	if(MAYBE)
 		playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 	for(var/obj/O in target)
-		if(prob(20) && !(resistance_flags & UNACIDABLE))
+		if(MAYBE && !(resistance_flags & UNACIDABLE))
 			if(O.acid_level < acid_level * 0.3)
 				var/acid_used = min(acid_level * 0.05, 20)
 				O.acid_act(10, acid_used)
@@ -56,7 +56,7 @@
 		var/mob/living/L = AM
 		if(L.flying)
 			return
-		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
+		if(L.m_intent != MOVE_INTENT_WALK && MAYBE)
 			var/acid_used = min(acid_level * 0.05, 20)
 			if(L.acid_act(10, acid_used, "feet"))
 				acid_level = max(0, acid_level - acid_used * 10)
@@ -71,7 +71,7 @@
 /obj/effect/acid/alien/process()
 	. = ..()
 	if(.)
-		if(prob(45))
+		if(MAYBE)
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 		target_strength--
 		if(target_strength <= 0)

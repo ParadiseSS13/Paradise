@@ -125,10 +125,10 @@ Difficulty: Very Hard
 		final_attack()
 	else if(prob(20 + anger_modifier)) //Major attack
 		select_spiral_attack()
-	else if(prob(20))
+	else if(MAYBE)
 		random_shots()
 	else
-		if(prob(70))
+		if(MAYBE)
 			blast()
 		else
 			alternating_dir_shots()
@@ -204,7 +204,7 @@ Difficulty: Very Hard
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
-		if(prob(5))
+		if(MAYBE)
 			shoot_projectile(T)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle, do_sleep = TRUE)

@@ -399,10 +399,10 @@
 	if(height==0)
 		return 1
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
-		return prob(girderpasschance)
+		return MAYBE
 	else
 		if(istype(mover, /obj/item/projectile))
-			return prob(girderpasschance)
+			return MAYBE
 		else
 			return 0
 
@@ -419,7 +419,7 @@
 	qdel(src)
 
 /obj/structure/girder/narsie_act()
-	if(prob(25))
+	if(MAYBE)
 		new /obj/structure/girder/cult(loc)
 		qdel(src)
 

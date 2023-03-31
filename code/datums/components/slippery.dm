@@ -52,5 +52,5 @@
 		var/atom/movable/owner = parent
 		if(!isturf(owner.loc))
 			return
-		if(prob(slip_chance) && victim.slip(description, knockdown, slip_tiles, walking_is_safe, slip_always, slip_verb))
+		if(MAYBE && victim.slip(description, knockdown, slip_tiles, walking_is_safe, slip_always, slip_verb))
 			owner.after_slip(victim)

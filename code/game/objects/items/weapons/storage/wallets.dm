@@ -108,7 +108,7 @@
 							/obj/item/coin/gold = 1))
 
 	new cash(src)
-	if(prob(50)) // 50% chance of a second
+	if(MAYBE) // 50% chance of a second
 		new cash(src)
 	new coin(src)
 

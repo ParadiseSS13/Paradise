@@ -82,7 +82,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/mushroom/adjustHealth(amount, updating_health = TRUE)//Possibility to flee from a fight just to make it more visually interesting
-	if(!retreat_distance && prob(33))
+	if(!retreat_distance && MAYBE)
 		retreat_distance = 5
 		addtimer(CALLBACK(src, PROC_REF(stop_retreat)), 30)
 	. = ..()
@@ -139,7 +139,7 @@
 /mob/living/simple_animal/hostile/mushroom/proc/LevelUp(level_gain)
 	if(powerlevel <= 9)
 		powerlevel += level_gain
-		if(prob(25))
+		if(MAYBE)
 			melee_damage_lower += (level_gain * rand(1,5))
 		else
 			melee_damage_upper += (level_gain * rand(1,5))

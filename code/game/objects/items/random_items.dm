@@ -32,7 +32,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize(mapload)
 	. = ..()
 	var/list/possible_drinks = GLOB.drinks.Copy()
-	if(prob(50))
+	if(MAYBE)
 		possible_drinks += list("pancuronium","lsd","omnizine","blood")
 
 	var/datum/reagent/R = pick(possible_drinks)
@@ -57,7 +57,7 @@
 	var/list/possible_meds_standard = GLOB.standard_medicines.Copy()
 	var/list/possible_meds_rare = GLOB.rare_medicines.Copy()
 	for(var/i in 1 to storage_slots)
-		var/is_rare = prob(33)
+		var/is_rare = MAYBE
 		var/possible_meds = is_rare ? possible_meds_rare : possible_meds_standard
 
 		var/datum/reagent/R = pick(possible_meds)

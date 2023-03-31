@@ -162,7 +162,7 @@
 	var/block_dir = get_dir(get_step(loc, dir), loc)
 	if(proj_dir != block_dir) // Back/side shots may pass
 		return
-	if(prob(40))
+	if(MAYBE)
 		return FALSE // Blocked
 
 /obj/structure/table/CheckExit(atom/movable/O, turf/target)
@@ -805,8 +805,8 @@
 		var/mob/living/M = user
 		if(M.UID() in held_items)
 			return FALSE
-	return ..()	
-	
+	return ..()
+
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
 	if(is_type_in_typecache(item, typecache_can_hold))
@@ -815,7 +815,7 @@
 			var/mob/living/M = item
 			if(M.pulling == src)
 				M.stop_pulling()
-			
+
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)

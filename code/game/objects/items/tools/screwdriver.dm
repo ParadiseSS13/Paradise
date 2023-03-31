@@ -47,7 +47,7 @@
 		icon_state = "screwdriver_[param_color]"
 		belt_icon = "screwdriver_[param_color]"
 
-	if (prob(75))
+	if (MAYBE)
 		src.pixel_y = rand(0, 16)
 
 /obj/item/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
@@ -55,7 +55,7 @@
 		return ..()
 	if(user.zone_selected != "eyes" && user.zone_selected != "head")
 		return ..()
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 		M = user
 	return eyestab(M,user)
 

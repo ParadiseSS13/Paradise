@@ -359,7 +359,7 @@
 
 	var/step_result
 
-	if((prob(prob_success) || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
+	if((MAYBE || isrobot(user) && !silicons_obey_prob) && chem_check_result && !try_to_fail)
 		step_result = end_step(user, target, target_zone, tool, surgery)
 	else
 		step_result = fail_step(user, target, target_zone, tool, surgery)
@@ -442,7 +442,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected)
 			spread_germs_to_organ(affected, user, tool)
-	if(ishuman(user) && !isalien(target) && prob(60))
+	if(ishuman(user) && !isalien(target) && MAYBE)
 		var/mob/living/carbon/human/H = user
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)

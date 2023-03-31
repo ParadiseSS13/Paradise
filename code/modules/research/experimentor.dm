@@ -222,7 +222,7 @@
 	var/counter = 1
 	while(!result)
 		var/probtocheck = from[counter]
-		if(prob(probtocheck))
+		if(MAYBE)
 			result = TRUE
 			return from[counter+1]
 		if(counter + 2 < from.len)
@@ -238,7 +238,7 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_POKE)
 		visible_message("[src] prods at [exp_on] with mechanical arms.")
-		if(prob(EFFECT_PROB_LOW) && criticalReaction)
+		if(MAYBE && criticalReaction)
 			visible_message("[exp_on] is gripped in just the right way, enhancing its focus.")
 			badThingCoeff++
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
@@ -262,7 +262,7 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_IRRADIATE)
 		visible_message("<span class='danger'>[src] reflects radioactive rays at [exp_on]!</span>")
-		if(prob(EFFECT_PROB_LOW) && criticalReaction)
+		if(MAYBE && criticalReaction)
 			visible_message("[exp_on] has activated an unknown subroutine!")
 			cloneMode = TRUE
 			cloneCount = badThingCoeff
@@ -276,7 +276,7 @@
 			visible_message("<span class='warning'>[src] malfunctions, spewing toxic waste!</span>")
 			for(var/turf/T in oview(1, src))
 				if(!T.density)
-					if(prob(EFFECT_PROB_VERYHIGH))
+					if(MAYBE)
 						new /obj/effect/decal/cleanable/greenglow(T)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			var/savedName = "[exp_on]"
@@ -292,7 +292,7 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_GAS)
 		visible_message("<span class='warning'>[src] fills its chamber with gas, [exp_on] included.</span>")
-		if(prob(EFFECT_PROB_LOW) && criticalReaction)
+		if(MAYBE && criticalReaction)
 			visible_message("[exp_on] achieves the perfect mix!")
 			new /obj/item/stack/sheet/mineral/plasma(get_turf(pick(oview(1,src))))
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
@@ -333,7 +333,7 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_HEAT)
 		visible_message("[src] raises [exp_on]'s temperature.")
-		if(prob(EFFECT_PROB_LOW) && criticalReaction)
+		if(MAYBE && criticalReaction)
 			visible_message("<span class='warning'>[src]'s emergency coolant system gives off a small ding!</span>")
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
@@ -385,7 +385,7 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_COLD)
 		visible_message("[src] lowers [exp_on]'s temperature.")
-		if(prob(EFFECT_PROB_LOW) && criticalReaction)
+		if(MAYBE && criticalReaction)
 			visible_message("<span class='warning'>[src]'s emergency coolant system gives off a small ding!</span>")
 			var/obj/item/reagent_containers/food/drinks/coffee/C = new /obj/item/reagent_containers/food/drinks/coffee(get_turf(pick(oview(1,src))))
 			playsound(loc, 'sound/machines/ding.ogg', 50, 1) //Ding! Your death coffee is ready!
@@ -430,7 +430,7 @@
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	if(exp == SCANTYPE_OBLITERATE)
 		visible_message("<span class='warning'>[exp_on] activates the crushing mechanism, [exp_on] is destroyed!</span>")
-		if(prob(EFFECT_PROB_LOW) && criticalReaction)
+		if(MAYBE && criticalReaction)
 			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening [exp_on]!</span>")
 			new /obj/item/stack/sheet/plasteel(get_turf(pick(oview(1,src))))
 		if(linked_console.linked_lathe)
@@ -475,14 +475,14 @@
 
 	//Global reactions
 
-	if(prob(EFFECT_PROB_VERYLOW) && prob(13))
+	if(MAYBE && MAYBE)
 		visible_message("<span class='warning'>Experimentor draws the life essence of those nearby!</span>")
 		for(var/mob/living/m in view(4,src))
 			to_chat(m, "<span class='danger'>You feel your flesh being torn from you, mists of blood drifting to [src]!</span>")
 			m.take_overall_damage(50)
 			investigate_log("Experimentor has taken 50 brute a blood sacrifice from [m]", "experimentor")
 
-	if(prob(EFFECT_PROB_VERYLOW-badThingCoeff) && prob(87))
+	if(prob(EFFECT_PROB_VERYLOW-badThingCoeff) && MAYBE)
 		var/globalMalf = rand(1,87)
 		if(globalMalf < 15)
 			visible_message("<span class='warning'>[src]'s onboard detection system has malfunctioned!</span>")
@@ -673,7 +673,7 @@
 		var/mobType = pick(valid_animals)
 		new mobType(get_turf(src))
 	warn_admins(user, "Mass Mob Spawn")
-	if(prob(60))
+	if(MAYBE)
 		to_chat(user, "<span class='warning'>[src] falls apart!</span>")
 		qdel(src)
 

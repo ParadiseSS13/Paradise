@@ -308,7 +308,7 @@
 			S.action.UpdateButtonIcon()
 
 /datum/antagonist/vampire/proc/vamp_burn(burn_chance)
-	if(prob(burn_chance) && owner.current.health >= 50)
+	if(MAYBE && owner.current.health >= 50)
 		switch(owner.current.health)
 			if(75 to 100)
 				to_chat(owner.current, "<span class='warning'>Your skin flakes away...</span>")
@@ -333,7 +333,7 @@
 	add_objective(/datum/objective/assassinate)
 	add_objective(/datum/objective/steal)
 
-	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
+	if(MAYBE) // 20% chance of getting survive. 80% chance of getting escape.
 		add_objective(/datum/objective/survive)
 	else
 		add_objective(/datum/objective/escape)

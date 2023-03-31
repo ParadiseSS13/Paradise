@@ -433,7 +433,7 @@
 		C.update_inv_wear_suit()
 
 /obj/item/clothing/suit/armor/reactive/proc/reaction_check(hitby)
-	if(prob(hit_reaction_chance))
+	if(MAYBE)
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
 			if(istype(P, /obj/item/projectile/ion))

@@ -36,29 +36,29 @@
 
 			if(RESIGNATION)
 				newMsg.body = "Nanotrasen regretfully announces the resignation of [pick("Sector Admiral","Division Admiral","Ship Admiral","Vice Admiral")] [random_name(pick(MALE,FEMALE))]."
-				if(prob(25))
+				if(MAYBE)
 					var/locstring = pick("Segunda","Salusa","Cepheus","Andromeda","Gruis","Corona","Aquila","Asellus") + " " + pick("I","II","III","IV","V","VI","VII","VIII")
 					newMsg.body += " In a ceremony on [affected_dest.name] this afternoon, they will be awarded the \
 					[pick("Red Star of Sacrifice","Purple Heart of Heroism","Blue Eagle of Loyalty","Green Lion of Ingenuity")] for "
-					if(prob(33))
+					if(MAYBE)
 						newMsg.body += "their actions at the Battle of [pick(locstring,"REDACTED")]."
-					else if(prob(50))
+					else if(MAYBE)
 						newMsg.body += "their contribution to the colony of [locstring]."
 					else
 						newMsg.body += "their loyal service over the years."
-				else if(prob(33))
+				else if(MAYBE)
 					newMsg.body += " They are expected to settle down in [affected_dest.name], where they have been granted a handsome pension."
-				else if(prob(50))
+				else if(MAYBE)
 					newMsg.body += " The news was broken on [affected_dest.name] earlier today, where they cited reasons of '[pick("health","family","REDACTED")]'"
 				else
 					newMsg.body += " Administration Aerospace wishes them the best of luck in their retirement ceremony on [affected_dest.name]."
 
 			if(CELEBRITY_DEATH)
 				newMsg.body = "It is with regret today that we announce the sudden passing of the "
-				if(prob(33))
+				if(MAYBE)
 					newMsg.body += "[pick("distinguished","decorated","veteran","highly respected")] \
 					[pick("Ship's Captain","Vice Admiral","Colonel","Lieutenant Colonel")] "
-				else if(prob(50))
+				else if(MAYBE)
 					newMsg.body += "[pick("award-winning","popular","highly respected","trend-setting")] \
 					[pick("comedian","singer/songwright","artist","playwright","TV personality","model")] "
 				else
@@ -92,11 +92,11 @@
 
 			if(BIG_GAME_HUNTERS)
 				newMsg.body += "Game hunters on [affected_dest.name] "
-				if(prob(33))
+				if(MAYBE)
 					newMsg.body += "were surprised when an unusual species experts have since identified as \
 					[pick("a subclass of mammal","a divergent abhuman species","an intelligent species of lemur","organic/cyborg hybrids")] turned up. Believed to have been brought in by \
 					[pick("alien smugglers","early colonists","Syndicate raiders","unwitting tourists")], this is the first such specimen discovered in the wild."
-				else if(prob(50))
+				else if(MAYBE)
 					newMsg.body += "were attacked by a vicious [pick("nas'r","diyaab","samak","predator which has not yet been identified")]\
 					. Officials urge caution, and locals are advised to stock up on armaments."
 				else
@@ -105,15 +105,15 @@
 
 			if(GOSSIP)
 				newMsg.body += "[pick("TV host","Webcast personality","Superstar","Model","Actor","Singer")] [random_name(pick(MALE,FEMALE))] "
-				if(prob(33))
+				if(MAYBE)
 					newMsg.body += "and their partner announced the birth of their [pick("first","second","third")] child on [affected_dest.name] early this morning. \
 					Doctors say the child is well, and the parents are considering "
-					if(prob(50))
+					if(MAYBE)
 						newMsg.body += capitalize(pick(GLOB.first_names_female))
 					else
 						newMsg.body += capitalize(pick(GLOB.first_names_male))
 					newMsg.body += " for the name."
-				else if(prob(50))
+				else if(MAYBE)
 					newMsg.body += "announced their [pick("split","break up","marriage","engagement")] with [pick("TV host","webcast personality","superstar","model","actor","singer")] \
 					[random_name(pick(MALE,FEMALE))] at [pick("a society ball","a new opening","a launch","a club")] on [affected_dest.name] yesterday, pundits are shocked."
 				else

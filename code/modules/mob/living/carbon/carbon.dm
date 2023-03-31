@@ -39,7 +39,7 @@
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster
-		if(germ_level < GERM_LEVEL_MOVE_CAP && prob(8))
+		if(germ_level < GERM_LEVEL_MOVE_CAP && MAYBE)
 			germ_level++
 
 #define STOMACH_ATTACK_DELAY 4
@@ -280,7 +280,7 @@
 		to_chat(src, "<span class='warning'>Stop drop and roll!</span>")
 		return
 	var/self_message = "<span class='warning'>You try to extinguish [target]!</span>"
-	if(prob(30) && ishuman(src)) // 30% chance of burning your hands
+	if(MAYBE && ishuman(src)) // 30% chance of burning your hands
 		var/mob/living/carbon/human/H = src
 		var/protected = FALSE // Protected from the fire
 		if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESISTHEAT) || HAS_TRAIT(H, TRAIT_RESISTHEATHANDS))
@@ -426,7 +426,7 @@
 		return 1
 
 	else if(damage == 0) // just enough protection
-		if(prob(20))
+		if(MAYBE)
 			to_chat(src, "<span class='notice'>Something bright flashes in the corner of your vision!</span>")
 
 

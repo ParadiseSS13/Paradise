@@ -51,7 +51,7 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
-	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
+	if(MAYBE || issilicon(user)) // Robots can never burn themselves trying to light it.
 		to_chat(user, "<span class='notice'>You light [src].</span>")
 	else
 		var/mob/living/carbon/human/H = user

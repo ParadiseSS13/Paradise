@@ -415,13 +415,13 @@
 	reset_overloaded()
 	do_sparks(2, 1, src)
 	update_icon()
-	if(prob(25))
+	if(MAYBE)
 		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
 		return
-	if(prob(50))
+	if(MAYBE)
 		var/list/mob_targets = list()
 		for(var/mob/living/M in oview(get_turf(src), 7))
 			mob_targets += M
@@ -523,7 +523,7 @@
 	return ..()
 
 /obj/item/gun/energy/bsg/process_chamber()
-	if(prob(25))
+	if(MAYBE)
 		shatter()
 	..()
 	update_icon()

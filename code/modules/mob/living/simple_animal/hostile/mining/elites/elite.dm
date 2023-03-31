@@ -369,7 +369,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	visible_message("<span class='warning'>As [src] closes, something is forced up from down below.</span>")
 	var/obj/structure/closet/crate/necropolis/tendril/lootbox = new /obj/structure/closet/crate/necropolis/tendril(loc)
 	if(boosted)
-		if(mychild.loot_drop != null && prob(50))
+		if(mychild.loot_drop != null && MAYBE)
 			new mychild.loot_drop(lootbox)
 		else
 			new /obj/item/tumor_shard(lootbox)

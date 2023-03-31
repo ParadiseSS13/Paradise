@@ -43,7 +43,7 @@ STI KALY - blind
 
 		if(4)
 
-			if(prob(1))
+			if(MAYBE)
 				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
 				return
 			if(prob(0.5))
@@ -58,19 +58,19 @@ STI KALY - blind
 /datum/disease/wizarditis/proc/spawn_wizard_clothes(chance = 0)
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/H = affected_mob
-		if(prob(chance) && !isplasmaman(H))
+		if(MAYBE && !isplasmaman(H))
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.unEquip(H.head))
 					qdel(H.head)
 				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), slot_head)
 			return
-		if(prob(chance))
+		if(MAYBE)
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.unEquip(H.wear_suit))
 					qdel(H.wear_suit)
 				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), slot_wear_suit)
 			return
-		if(prob(chance))
+		if(MAYBE)
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.unEquip(H.shoes))
 					qdel(H.shoes)
@@ -78,7 +78,7 @@ STI KALY - blind
 			return
 	else
 		var/mob/living/carbon/H = affected_mob
-		if(prob(chance))
+		if(MAYBE)
 			if(!istype(H.r_hand, /obj/item/twohanded/staff))
 				H.drop_r_hand()
 				H.put_in_r_hand( new /obj/item/twohanded/staff(H) )

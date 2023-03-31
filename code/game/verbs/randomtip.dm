@@ -4,10 +4,10 @@
 	set desc = "Shows you a random tip"
 
 	var/m
-	
+
 	var/list/randomtips = file2list("strings/tips.txt")
 	var/list/memetips = file2list("strings/sillytips.txt")
-	if(randomtips.len && prob(95))
+	if(randomtips.len && MAYBE)
 		m = pick(randomtips)
 	else if(memetips.len)
 		m = pick(memetips)

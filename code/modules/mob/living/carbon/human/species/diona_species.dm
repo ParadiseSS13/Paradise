@@ -116,11 +116,11 @@
 /datum/species/diona/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	switch(P.type)
 		if(/obj/item/projectile/energy/floramut)
-			if(prob(15))
+			if(MAYBE)
 				H.rad_act(rand(30, 80))
 				H.Weaken(10 SECONDS)
 				H.visible_message("<span class='warning'>[H] writhes in pain as [H.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-				if(prob(80))
+				if(MAYBE)
 					randmutb(H)
 					domutcheck(H)
 				else

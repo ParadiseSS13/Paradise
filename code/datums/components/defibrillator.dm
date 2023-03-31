@@ -345,7 +345,7 @@
 	target.KnockDown(10 SECONDS)
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	target.emote("gasp")
-	if(combat && prob(heart_attack_chance)) // If the victim is not having a heart attack, and a 10% chance passes, or the defib has heart attack variable to TRUE while being a combat defib, or if another 10% chance passes with combat being TRUE
+	if(combat && MAYBE) // If the victim is not having a heart attack, and a 10% chance passes, or the defib has heart attack variable to TRUE while being a combat defib, or if another 10% chance passes with combat being TRUE
 		target.set_heartattack(TRUE)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")

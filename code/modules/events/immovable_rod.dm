@@ -66,11 +66,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	return
 
 /obj/effect/immovablerod/Bump(atom/clong)
-	if(prob(10))
+	if(MAYBE)
 		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		audible_message("CLANG")
 
-	if(clong && prob(25))
+	if(clong && MAYBE)
 		x = clong.x
 		y = clong.y
 
@@ -85,7 +85,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				"<span class='userdanger'>The rod penetrates you!</span>" ,
 				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
-		if(clong.density || prob(10))
+		if(clong.density || MAYBE)
 			clong.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
@@ -96,7 +96,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/event/Move()
 	var/atom/oldloc = loc
 	. = ..()
-	if(prob(floor_rip_chance))
+	if(MAYBE)
 		var/turf/simulated/floor/T = get_turf(oldloc)
 		if(istype(T))
 			T.ex_act(EXPLODE_HEAVY)

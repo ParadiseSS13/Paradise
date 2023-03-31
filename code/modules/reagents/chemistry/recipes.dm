@@ -64,7 +64,7 @@
 			if(gold_core_spawn) //For tracking xenobiology mobs
 				S.xenobiology_spawned = TRUE
 			S.faction |= mob_faction
-			if(prob(50))
+			if(MAYBE)
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(S, pick(NORTH,SOUTH,EAST,WEST))
 

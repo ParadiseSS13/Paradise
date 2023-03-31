@@ -73,7 +73,7 @@
 
 
 			for(var/turf/T in linkedholodeck)
-				if(prob(30))
+				if(MAYBE)
 					do_sparks(2, 1, T)
 				T.ex_act(3)
 				T.hotspot_expose(1000,500,1)

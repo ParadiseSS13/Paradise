@@ -341,7 +341,7 @@
 				return
 
 			L.do_attack_animation(src)
-			if(prob(90))
+			if(MAYBE)
 				add_attack_logs(L, src, "Larva attacked")
 				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
 						"<span class='userdanger'>[L.name] bites [src]!</span>")

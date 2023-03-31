@@ -252,7 +252,7 @@
 		spawn(0)
 			for(var/thing in GLOB.landmarks_list)
 				var/obj/effect/landmark/L = thing
-				if(prob(50))
+				if(MAYBE)
 					if(L.name == "syndi_depot_backup")
 						var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
 						S.name = "Syndicate Backup " + "([rand(1, 1000)])"

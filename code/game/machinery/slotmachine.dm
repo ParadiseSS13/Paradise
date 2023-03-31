@@ -180,7 +180,7 @@
 	emagged_game_in_progress = FALSE
 
 	// Are we the lucky winner?
-	if(prob(emagged_win_chance))
+	if(MAYBE)
 		addtimer(CALLBACK(src, PROC_REF(emagged_winning), user), 1 SECONDS)
 
 /// With a chance of "emagged_win_chance", we win some money and reset the machine to a non-emagged state

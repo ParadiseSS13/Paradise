@@ -313,7 +313,7 @@
 		"<span class='notice'>[user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>",
 		"<span class='notice'>You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>"
 	)
-	if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
+	if((tool.w_class > get_max_wclass(affected) / 2 && MAYBE && !affected.is_robotic()))
 		user.visible_message(
 			"<span class='warning'>[user] tears some blood vessels trying to fit the object in the cavity!</span>",
 			"<span class='danger'>You tear some blood vessels trying to fit the object into the cavity!</span>",

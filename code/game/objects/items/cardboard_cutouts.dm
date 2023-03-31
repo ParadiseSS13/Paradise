@@ -136,7 +136,7 @@
 			name = "alien hunter ([rand(1, 999)])"
 			desc = "A cardboard cutout of a xenomorph."
 			icon_state = "cutout_fukken_xeno"
-			if(prob(10))
+			if(MAYBE)
 				alpha = 75 //Spooky sneaking!
 		if("Swarmer")
 			name = "Swarmer ([rand(1, 999)])"

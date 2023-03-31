@@ -60,7 +60,7 @@
 		adjusted_damage = 1
 	L.adjustFireLoss(adjusted_damage)
 	L.flash_eyes()
-	if(prob(25))
+	if(MAYBE)
 		to_chat(L, "<span class='warning'>The solar flare burns you! Seek shelter!</span>")
 
 /datum/weather/solar_flare/end()

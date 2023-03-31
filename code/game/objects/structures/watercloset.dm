@@ -15,7 +15,7 @@
 
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
-	open = prob(50)
+	open = MAYBE
 	update_icon()
 
 /obj/structure/toilet/Destroy()
@@ -688,5 +688,5 @@
 		S.update_icon()
 		user.unEquip(src, 1)
 		qdel(src)
-		if(prob(50))
+		if(MAYBE)
 			new /obj/item/stack/sheet/cardboard(T)

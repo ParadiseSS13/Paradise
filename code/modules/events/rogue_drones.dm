@@ -15,9 +15,9 @@
 
 /datum/event/rogue_drone/announce()
 	var/msg
-	if(prob(33))
+	if(MAYBE)
 		msg = "A combat drone wing operating out of the NSV Icarus has failed to return from a sweep of this sector, if any are sighted approach with caution."
-	else if(prob(50))
+	else if(MAYBE)
 		msg = "Contact has been lost with a combat drone wing operating out of the NSV Icarus. If any are sighted in the area, approach with caution."
 	else
 		msg = "Unidentified hackers have targeted a combat drone wing deployed from the NSV Icarus. If any are sighted in the area, approach with caution."

@@ -99,7 +99,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(HAS_TRAIT(usr, TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(usr, TRAIT_CLUMSY) && MAYBE)
 		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
 	if(!usr.is_literate())
@@ -185,7 +185,7 @@
 	D.last_eaten = world.time
 
 	// 90% chance of a crumpled paper with illegible text.
-	if(prob(90))
+	if(MAYBE)
 		var/message_ending = "."
 		var/obj/item/paper/crumpled/P = new(loc)
 		P.name = name
@@ -453,7 +453,7 @@
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 
 	if(is_hot(P))
-		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.unEquip(P)

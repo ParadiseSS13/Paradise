@@ -105,7 +105,7 @@
 			user.electrocute_act(shock_damage, src, 1)
 
 		else if(issilicon(user))
-			if(prob(20))
+			if(MAYBE)
 				user.Stun(4 SECONDS)
 			user.take_overall_damage(0, shock_damage)
 			user.visible_message("<span class='danger'>[user.name] was shocked by [src]!</span>", \

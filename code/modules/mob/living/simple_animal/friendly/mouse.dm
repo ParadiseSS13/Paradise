@@ -43,11 +43,11 @@
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
 
 /mob/living/simple_animal/mouse/handle_automated_action()
-	if(prob(chew_probability) && isturf(loc))
+	if(MAYBE && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
 		if(istype(F) && !F.intact)
 			var/obj/structure/cable/C = locate() in F
-			if(C && prob(15))
+			if(C && MAYBE)
 				if(C.avail() && !HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
 					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
@@ -59,15 +59,15 @@
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(prob(speak_chance) && !incapacitated())
+	if(MAYBE && !incapacitated())
 		playsound(src, squeak_sound, 100, 1)
 
 /mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
 	if(IS_HORIZONTAL(src))
-		if(prob(1))
+		if(MAYBE)
 			stand_up()
-		else if(prob(5))
+		else if(MAYBE)
 			custom_emote(EMOTE_AUDIBLE, "snuffles")
 	else if(prob(0.5))
 		lay_down()

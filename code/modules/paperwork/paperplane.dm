@@ -71,7 +71,7 @@
 		update_icon()
 
 	else if(is_hot(P))
-		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
 			user.unEquip(P)
@@ -93,7 +93,7 @@
 	if(!ishuman(hit_atom))
 		return
 	var/mob/living/carbon/human/H = hit_atom
-	if(prob(2))
+	if(MAYBE)
 		if(H.head && H.head.flags_cover & HEADCOVERSEYES)
 			return
 		if(H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES)

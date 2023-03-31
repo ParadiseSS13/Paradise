@@ -57,7 +57,7 @@
 
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
-	if(prob(90))
+	if(MAYBE)
 		icon_state = "[initial(icon_state)]_open"
 	else
 		icon_state = initial(icon_state)
@@ -76,7 +76,7 @@
 	. = ..()
 	if(.)
 		icon_state = initial(icon_state)
-		if(prob(15) && iscarbon(target))
+		if(MAYBE && iscarbon(target))
 			var/mob/living/carbon/C = target
 			C.Weaken(4 SECONDS)
 			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
@@ -191,7 +191,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/simple_animal/hostile/mimic/copy/AttackingTarget()
 	. = ..()
-	if(knockdown_people && . && prob(15) && iscarbon(target))
+	if(knockdown_people && . && MAYBE && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.Weaken(4 SECONDS)
 		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")

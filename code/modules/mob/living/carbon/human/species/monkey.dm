@@ -41,9 +41,9 @@
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return
-	if(prob(33) && (H.mobility_flags & MOBILITY_MOVE) && isturf(H.loc) && !H.pulledby) //won't move if being pulled
+	if(MAYBE && (H.mobility_flags & MOBILITY_MOVE) && isturf(H.loc) && !H.pulledby) //won't move if being pulled
 		step(H, pick(GLOB.cardinal))
-	if(prob(1))
+	if(MAYBE)
 		H.emote(pick("scratch","jump","roll","tail"))
 
 /datum/species/monkey/get_random_name()

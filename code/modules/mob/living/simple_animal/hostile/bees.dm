@@ -210,12 +210,12 @@
 	var/growth = health //Health also means how many bees are in the swarm, roughly.
 	//better healthier plants!
 	Hydro.adjustHealth(growth*0.5)
-	if(prob(BEE_POLLINATE_PEST_CHANCE))
+	if(MAYBE)
 		Hydro.adjustPests(-10)
-	if(prob(BEE_POLLINATE_YIELD_CHANCE))
+	if(MAYBE)
 		Hydro.myseed.adjust_yield(1)
 		Hydro.yieldmod = 2
-	if(prob(BEE_POLLINATE_POTENCY_CHANCE))
+	if(MAYBE)
 		Hydro.myseed.adjust_potency(1)
 
 	if(beehome)
@@ -230,11 +230,11 @@
 		if(!isqueen)
 			if(loc == beehome)
 				idle = min(100, ++idle)
-				if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
+				if(idle >= BEE_IDLE_ROAMING && MAYBE)
 					forceMove(beehome.drop_location())
 			else
 				idle = max(0, --idle)
-				if(idle <= BEE_IDLE_GOHOME && prob(BEE_PROB_GOHOME))
+				if(idle <= BEE_IDLE_GOHOME && MAYBE)
 					if(!FindTarget())
 						wanted_objects |= beehometypecache //so we don't attack beeboxes when not going home
 						target = beehome
@@ -326,7 +326,7 @@
 /mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
 	if(beehome && loc == beehome) // If bees are chilling in their nest, they're not actively looking for targets
 		idle = min(100, ++idle)
-		if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
+		if(idle >= BEE_IDLE_ROAMING && MAYBE)
 			toggle_ai(AI_ON)
 			forceMove(beehome.drop_location())
 	else

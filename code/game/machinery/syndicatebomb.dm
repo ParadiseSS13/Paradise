@@ -404,7 +404,7 @@
 	for(var/i = 0; i < amt_summon; i++)
 		var/atom/movable/X = new summon_path(get_turf(src))
 		X.admin_spawned = TRUE
-		if(prob(50))
+		if(MAYBE)
 			for(var/j = 1, j <= rand(1, 3), j++)
 				step(X, pick(NORTH,SOUTH,EAST,WEST))
 	qdel(B)

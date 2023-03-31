@@ -149,7 +149,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.","singulo")
 
 /obj/machinery/particle_accelerator/control_box/blob_act(obj/structure/blob/B)
-	if(prob(50))
+	if(MAYBE)
 		qdel(src)
 
 /obj/structure/particle_accelerator/update_icon_state()

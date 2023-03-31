@@ -187,7 +187,7 @@
 	return
 
 /datum/martial_art/proc/try_deflect(mob/user)
-		return prob(deflection_chance)
+		return MAYBE
 
 //ITEMS
 
@@ -330,7 +330,7 @@
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && MAYBE)
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
 		user.Weaken(6 SECONDS)
 		if(ishuman(user))
@@ -368,7 +368,7 @@
 								"<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
 			H.adjustStaminaLoss(rand(13,20))
-			if(prob(10))
+			if(MAYBE)
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									"<span class='userdanger'>Your legs give out!</span>")
 				H.Weaken(8 SECONDS)

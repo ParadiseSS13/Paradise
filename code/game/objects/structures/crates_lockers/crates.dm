@@ -188,7 +188,7 @@
 		. += greenlight
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
-	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
+	if(MAYBE && damage_amount >= DAMAGE_PRECISION)
 		boom()
 	else
 		return ..()
@@ -569,7 +569,7 @@
 	icon_closed = "electricalcrate"
 
 /obj/structure/closet/crate/tape/populate_contents()
-	if(prob(10))
+	if(MAYBE)
 		new /obj/item/bikehorn/rubberducky(src)
 
 //crates of gear in the free golem ship

@@ -66,7 +66,7 @@
 
 	//Suffocate
 	if(AmountLoseBreath())
-		if(prob(75))
+		if(MAYBE)
 			emote("gasp")
 		if(isobj(loc))
 			var/obj/loc_as_obj = loc
@@ -130,7 +130,7 @@
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
-		if(prob(20))
+		if(MAYBE)
 			emote("gasp")
 		if(O2_partialpressure > 0)
 			var/ratio = 1 - O2_partialpressure/safe_oxy_min
@@ -157,7 +157,7 @@
 			adjustOxyLoss(3)
 			if(world.time - co2overloadtime > 300)
 				adjustOxyLoss(8)
-		if(prob(20))
+		if(MAYBE)
 			emote("cough")
 
 	else
@@ -178,7 +178,7 @@
 			if(SA_partialpressure > SA_sleep_min)
 				AdjustSleeping(4 SECONDS, bound_lower = 0, bound_upper = 20 SECONDS)
 		else if(SA_partialpressure > 0.01)
-			if(prob(20))
+			if(MAYBE)
 				emote(pick("giggle","laugh"))
 
 	//BREATH TEMPERATURE
@@ -377,5 +377,5 @@
 				qdel(P)
 
 /mob/living/carbon/proc/handle_germs()
-	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
+	if(germ_level < GERM_LEVEL_AMBIENT && MAYBE)	//if you're just standing there, you shouldn't get more germs beyond an ambient level
 		germ_level++

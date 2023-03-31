@@ -77,11 +77,11 @@
 //Procs
 
 /obj/item/rpd/proc/activate_rpd(delay) //Maybe makes sparks and activates cooldown if there is a delay
-	if(alt_sound && prob(3))
+	if(alt_sound && MAYBE)
 		playsound(src, alt_sound, 50, 1)
 	else
 		playsound(src, primary_sound, 50, 1)
-	if(prob(15) && !ranged)
+	if(MAYBE && !ranged)
 		spark_system.start()
 	if(delay)
 		lastused = world.time

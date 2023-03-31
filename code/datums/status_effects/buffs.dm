@@ -312,7 +312,7 @@
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
 					for(var/obj/item/organ/external/E in H.bodyparts)
-						if(prob(10))
+						if(MAYBE)
 							E.mend_fracture()
 							E.fix_internal_bleeding()
 							heal_points--
@@ -323,7 +323,7 @@
 			else if(isanimal(L))
 				var/mob/living/simple_animal/SM = L
 				SM.adjustHealth(-3.5)
-				if(prob(50))
+				if(MAYBE)
 					heal_points -- // Animals are simpler
 
 /obj/screen/alert/status_effect/regenerative_core
@@ -540,7 +540,7 @@
 							"Git Gud, [owner]",
 							"I bet a [pick("vox", "vulp", "nian", "tajaran", "baldie")] could do better than you!",
 							"You hear people making fun of you for getting robusted.")
-	if(prob(99))
+	if(MAYBE)
 		to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
 	else
 		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")

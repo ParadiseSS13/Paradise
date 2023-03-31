@@ -41,6 +41,6 @@
 					continue
 				if(istype(E, /obj/item/organ/external/groin))
 					continue
-				if(prob(7))
+				if(MAYBE)
 					to_chat(H, "<span class='userdanger'>Your [E] was severed by the explosion!</span>")
 					E.droplimb(1, DROPLIMB_SHARP, 0, 1)

@@ -27,7 +27,7 @@ Bonus
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(MAYBE)
 
 		var/mob/living/carbon/M = A.affected_mob
 		switch(A.stage)

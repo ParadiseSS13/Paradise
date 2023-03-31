@@ -129,7 +129,7 @@
 
 		if(contamination_strength > remaining_contam)
 			contamination_strength = remaining_contam
-		if(!prob(contamination_chance))
+		if(!MAYBE)
 			continue
 		if(SEND_SIGNAL(thing, COMSIG_ATOM_RAD_CONTAMINATING, strength) & COMPONENT_BLOCK_CONTAMINATION)
 			continue

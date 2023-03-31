@@ -138,7 +138,7 @@
 						if(O.air)
 							var/datum/gas_mixture/G = O.air
 							G.copy_from(O.air)
-						if(prob(florachance) && NewFlora.len && !is_blocked_turf(O))
+						if(MAYBE && NewFlora.len && !is_blocked_turf(O))
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
 						continue

@@ -26,7 +26,7 @@ Bonus
 
 /datum/symptom/deafness/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(MAYBE)
 		var/mob/living/M = A.affected_mob
 		var/obj/item/organ/internal/ears/ears = M.get_organ_slot("ears")
 		if(!ears)

@@ -117,10 +117,10 @@
 	..()
 	switch(severity)
 		if(1)
-			if(prob(50))
+			if(MAYBE)
 				obj_break(ENERGY)
 		if(2)
-			if(prob(10))
+			if(MAYBE)
 				obj_break(ENERGY)
 
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)

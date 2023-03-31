@@ -37,7 +37,7 @@
 
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in GLOB.cardinal)
-			if(prob(spreadChance))
+			if(MAYBE)
 				var/turf/T = get_step(src, dir)
 				if(istype(T, /turf/simulated/mineral/random))
 					Spread(T)
@@ -124,10 +124,10 @@
 	..()
 	switch(severity)
 		if(3)
-			if (prob(75))
+			if (MAYBE)
 				gets_drilled(null, 1)
 		if(2)
-			if (prob(90))
+			if (MAYBE)
 				gets_drilled(null, 1)
 		if(1)
 			gets_drilled(null, 1)
@@ -144,7 +144,7 @@
 	mineralSpawnChanceList = typelist("mineralSpawnChanceList", mineralSpawnChanceList)
 
 	. = ..()
-	if (prob(mineralChance))
+	if (MAYBE)
 		var/path = pickweight(mineralSpawnChanceList)
 		var/turf/T = ChangeTurf(path, FALSE, TRUE)
 
@@ -196,7 +196,7 @@
 		return attack_hand(user)
 
 /turf/simulated/mineral/ancient/blob_act(obj/structure/blob/B)
-	if(prob(50))
+	if(MAYBE)
 		blob_destruction()
 
 /turf/simulated/mineral/ancient/proc/blob_destruction()

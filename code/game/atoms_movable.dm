@@ -550,10 +550,10 @@
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
 		pixel_y_diff = 8
-		turn_dir = prob(50) ? -1 : 1
+		turn_dir = MAYBE ? -1 : 1
 	else if(direction & SOUTH)
 		pixel_y_diff = -8
-		turn_dir = prob(50) ? -1 : 1
+		turn_dir = MAYBE ? -1 : 1
 
 	if(direction & EAST)
 		pixel_x_diff = 8

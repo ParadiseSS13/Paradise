@@ -28,7 +28,7 @@ Bonus
 
 /datum/symptom/weight_loss/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(MAYBE)
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)

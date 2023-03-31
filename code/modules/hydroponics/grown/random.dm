@@ -15,9 +15,9 @@
 /obj/item/seeds/random/New()
 	randomize_stats()
 	..()
-	if(prob(60))
+	if(MAYBE)
 		add_random_reagents()
-	if(prob(50))
+	if(MAYBE)
 		add_random_traits()
 	add_random_plant_type(35)
 
@@ -40,6 +40,6 @@
 /obj/item/reagent_containers/food/snacks/grown/random/Initialize()
 	. = ..()
 	wine_power = rand(0.1,1.5)
-	if(prob(1))
+	if(MAYBE)
 		wine_power = 2.0
 

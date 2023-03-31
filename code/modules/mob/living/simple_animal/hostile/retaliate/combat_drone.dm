@@ -78,7 +78,7 @@
 			scramble_settings()
 
 /mob/living/simple_animal/hostile/malf_drone/proc/scramble_settings()
-	if(prob(50))
+	if(MAYBE)
 		do_sparks(3, 1, src)
 		passive_mode = !passive_mode
 		if(passive_mode)
@@ -100,13 +100,13 @@
 	//shards
 	var/obj/O = new /obj/item/shard(T)
 	step_to(O, get_turf(pick(view(7, src))))
-	if(prob(75))
+	if(MAYBE)
 		O = new /obj/item/shard(T)
 		step_to(O, get_turf(pick(view(7, src))))
-	if(prob(50))
+	if(MAYBE)
 		O = new /obj/item/shard(T)
 		step_to(O, get_turf(pick(view(7, src))))
-	if(prob(25))
+	if(MAYBE)
 		O = new /obj/item/shard(T)
 		step_to(O, get_turf(pick(view(7, src))))
 

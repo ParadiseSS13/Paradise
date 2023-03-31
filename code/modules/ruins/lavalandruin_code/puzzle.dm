@@ -257,7 +257,7 @@
 	reward_type = /obj/structure/closet/crate/necropolis/puzzle
 
 /obj/effect/sliding_puzzle/lavaland/dispense_reward()
-	if(prob(25))
+	if(MAYBE)
 		//If it's not roaming somewhere else already.
 		var/mob/living/simple_animal/hostile/megafauna/bubblegum/B = locate() in GLOB.mob_list
 		if(!B)

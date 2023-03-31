@@ -102,6 +102,6 @@
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called
 
-	if((honkamt > 0) && (prob(60))) //For clown virus.
+	if((honkamt > 0) && (MAYBE)) //For clown virus.
 		honkamt--
 		playsound(src, 'sound/items/bikehorn.ogg', 30, TRUE)

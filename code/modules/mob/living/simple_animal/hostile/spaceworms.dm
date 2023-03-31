@@ -188,7 +188,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	if(prob(catastrophicDeathProb))
+	if(MAYBE)
 		for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
 			SW.death()
 
@@ -203,7 +203,7 @@
 		if(nextWorm)
 			Detach(1)
 
-	if(prob(stomachProcessProbability))
+	if(MAYBE)
 		ProcessStomach()
 
 	update_icon()//While most mobs don't call this on Life(), the worm would probably look stupid without it
@@ -305,7 +305,7 @@
 //Process nom noms, things we've eaten have a chance to become plasma
 /mob/living/simple_animal/hostile/spaceWorm/proc/ProcessStomach()
 	for(var/atom/movable/stomachContent in contents)
-		if(prob(digestionProbability))
+		if(MAYBE)
 			new /obj/item/stack/sheet/mineral/plasma(src, plasmaPoopPotential)
 			if(ismob(stomachContent))
 				var/mob/M = stomachContent

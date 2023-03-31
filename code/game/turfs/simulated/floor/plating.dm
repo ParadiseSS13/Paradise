@@ -207,11 +207,11 @@
 		if(1)
 			ChangeTurf(baseturf)
 		if(2)
-			if(prob(50))
+			if(MAYBE)
 				ChangeTurf(baseturf)
 
 /turf/simulated/floor/engine/blob_act(obj/structure/blob/B)
-	if(prob(25))
+	if(MAYBE)
 		ChangeTurf(baseturf)
 
 /turf/simulated/floor/engine/cult
@@ -266,10 +266,10 @@
 	..()
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
-			if(prob(30))
+			if(MAYBE)
 				new floor_tile(src)
 				make_plating()
-		else if(prob(30))
+		else if(MAYBE)
 			ReplaceWithLattice()
 
 /turf/simulated/floor/engine/vacuum
@@ -345,7 +345,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
 		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
-		if(prob(smash_prob))
+		if(MAYBE)
 			// YAR BE CAUSIN A HULL BREACH
 			visible_message("<span class='danger'>[user] smashes through \the [src] with \the [C]!</span>")
 			smash()

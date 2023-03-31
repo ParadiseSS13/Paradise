@@ -79,7 +79,7 @@
 	if(r_hand)
 		drop_r_hand()
 
-	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
+	if(!isturf(loc) && MAYBE) //someone has stuffed us in their bag, or picked us up? Time to escape
 		visible_message("<span class='notice'>[src] refuses to be contained!</span>")
 		forceMove(get_turf(src))
 		if(possessed_item.loc != src) //safety so the item doesn't somehow become detatched from us while doing this

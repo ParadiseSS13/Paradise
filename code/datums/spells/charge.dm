@@ -36,7 +36,7 @@
 			if(istype(item, /obj/item/spellbook))
 				if(istype(item, /obj/item/spellbook/oneuse))
 					var/obj/item/spellbook/oneuse/I = item
-					if(prob(80))
+					if(MAYBE)
 						L.visible_message("<span class='warning'>[I] catches fire!</span>")
 						qdel(I)
 					else
@@ -49,7 +49,7 @@
 					burnt_out = TRUE
 			else if(istype(item, /obj/item/gun/magic))
 				var/obj/item/gun/magic/I = item
-				if(prob(80) && !I.can_charge)
+				if(MAYBE && !I.can_charge)
 					I.max_charges--
 				if(I.max_charges <= 0)
 					I.max_charges = 0
@@ -63,7 +63,7 @@
 			else if(istype(item, /obj/item/stock_parts/cell/))
 				var/obj/item/stock_parts/cell/C = item
 				if(!C.self_recharge)
-					if(prob(80))
+					if(MAYBE)
 						C.maxcharge -= 200
 					if(C.maxcharge <= 1) //Div by 0 protection
 						C.maxcharge = 1
@@ -77,7 +77,7 @@
 					if(istype(I, /obj/item/stock_parts/cell/))
 						var/obj/item/stock_parts/cell/C = I
 						if(!C.self_recharge)
-							if(prob(80))
+							if(MAYBE)
 								C.maxcharge -= 200
 							if(C.maxcharge <= 1) //Div by 0 protection
 								C.maxcharge = 1

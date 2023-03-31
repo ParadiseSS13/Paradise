@@ -112,7 +112,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	var/obj/item/I = D.get_active_hand()
-	if(prob(60) && D.unEquip(I))
+	if(MAYBE && D.unEquip(I))
 		if(!(QDELETED(I) || (I.flags & ABSTRACT)))
 			A.put_in_hands(I)
 		D.visible_message("<span class='danger'>[A] has disarmed [D]!</span>", \

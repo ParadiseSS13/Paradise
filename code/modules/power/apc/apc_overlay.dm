@@ -223,7 +223,7 @@
 			// Please don't cascade, thanks
 			if(M == src)
 				continue
-			if(prob(10))
+			if(MAYBE)
 				M.flicker()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later

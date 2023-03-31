@@ -26,7 +26,7 @@ BONUS
 
 /datum/symptom/shedding/Activate(datum/disease/advance/A)
 	..()
-	if(!prob(SYMPTOM_ACTIVATION_PROB))
+	if(!MAYBE)
 		return
 	if(!ishuman(A.affected_mob))
 		return

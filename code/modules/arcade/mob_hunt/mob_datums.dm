@@ -62,7 +62,7 @@
 		spawn_point = trap_turf
 	else
 		level = rand(min_level, max_level)
-	if(prob(1) && prob(1))
+	if(MAYBE && MAYBE)
 		is_shiny = 1
 	max_health = base_health + (level * health_multiplier)
 	cur_health = max_health
@@ -242,7 +242,7 @@
 
 /datum/mob_hunt/proc/get_attack_type()
 	var/datum/mob_type/attack_type = primary_type
-	if(secondary_type && prob(40))
+	if(secondary_type && MAYBE)
 		attack_type = secondary_type
 	return attack_type
 

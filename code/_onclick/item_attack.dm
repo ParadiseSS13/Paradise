@@ -102,7 +102,7 @@
 			bonus_damage = H.physiology.melee_bonus
 		apply_damage(I.force + bonus_damage, I.damtype, def_zone)
 		if(I.damtype == BRUTE)
-			if(prob(33))
+			if(MAYBE)
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)
 				add_splatter_floor(location)

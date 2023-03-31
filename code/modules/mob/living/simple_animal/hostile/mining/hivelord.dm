@@ -344,9 +344,9 @@
 		if("Miner")
 			mob_species = pickweight(list(/datum/species/human = 72, /datum/species/unathi = 28))
 			uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
-			if(prob(4))
+			if(MAYBE)
 				belt = pickweight(list(/obj/item/storage/belt/mining = 2, /obj/item/storage/belt/mining/alt = 2))
-			else if(prob(10))
+			else if(MAYBE)
 				belt = pickweight(list(/obj/item/pickaxe = 8, /obj/item/pickaxe/mini = 4, /obj/item/pickaxe/silver = 2, /obj/item/pickaxe/diamond = 1))
 			else
 				belt = /obj/item/tank/internals/emergency_oxygen/engi
@@ -354,51 +354,51 @@
 				shoes = /obj/item/clothing/shoes/workboots/mining
 			gloves = /obj/item/clothing/gloves/color/black
 			mask = /obj/item/clothing/mask/gas/explorer
-			if(prob(20))
+			if(MAYBE)
 				suit = pickweight(list(/obj/item/clothing/suit/hooded/explorer = 18, /obj/item/clothing/suit/hooded/goliath = 2))
-			if(prob(30))
+			if(MAYBE)
 				r_pocket = pickweight(list(/obj/item/stack/marker_beacon = 20, /obj/item/stack/spacecash/c200 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/damage = 1 ))
-			if(prob(10))
+			if(MAYBE)
 				l_pocket = pickweight(list(/obj/item/stack/spacecash/c200 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
 		if("Ashwalker")
 			mob_species = /datum/species/unathi/ashwalker
 			uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
-			if(prob(95))
+			if(MAYBE)
 				head = /obj/item/clothing/head/helmet/gladiator
 			else
 				head = /obj/item/clothing/head/helmet/skull
 				suit = /obj/item/clothing/suit/armor/bone
 				gloves = /obj/item/clothing/gloves/bracer
-			if(prob(5))
+			if(MAYBE)
 				back = pickweight(list(/obj/item/twohanded/spear/bonespear = 3, /obj/item/twohanded/fireaxe/boneaxe = 2))
-			if(prob(10))
+			if(MAYBE)
 				belt = /obj/item/storage/belt/mining/primitive
-			if(prob(30))
+			if(MAYBE)
 				r_pocket = /obj/item/kitchen/knife/combat/survival/bone
-			if(prob(30))
+			if(MAYBE)
 				l_pocket = /obj/item/kitchen/knife/combat/survival/bone
 		if("Clown")
 			name = pick(GLOB.clown_names)
 			outfit = /datum/outfit/job/clown
 			belt = null
 			backpack_contents = list()
-			if(prob(70))
+			if(MAYBE)
 				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1))
-			if(prob(30))
+			if(MAYBE)
 				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
-			if(prob(10))
+			if(MAYBE)
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
-			if(prob(10))
+			if(MAYBE)
 				r_pocket = /obj/item/implanter/sad_trombone
 		if("Golem")
 			mob_species = pick(list(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
-			if(prob(30))
+			if(MAYBE)
 				glasses = pickweight(list(/obj/item/clothing/glasses/meson = 2, /obj/item/clothing/glasses/hud/health = 2, /obj/item/clothing/glasses/hud/diagnostic =2, /obj/item/clothing/glasses/science = 2, /obj/item/clothing/glasses/welding = 2, /obj/item/clothing/glasses/night = 1))
-			if(prob(10))
+			if(MAYBE)
 				belt = pick(list(/obj/item/storage/belt/mining/vendor, /obj/item/storage/belt/utility/full))
-			if(prob(50))
+			if(MAYBE)
 				back = /obj/item/bedsheet/rd/royal_cape
-			if(prob(10))
+			if(MAYBE)
 				l_pocket = pick(list(/obj/item/crowbar/power, /obj/item/wrench/power, /obj/item/weldingtool/experimental))
 		if("YeOlde")
 			mob_gender = FEMALE
@@ -426,10 +426,10 @@
 			uniform = /obj/item/clothing/under/color/black
 			back = /obj/item/storage/backpack/cultpack
 			suit = /obj/item/clothing/suit/hooded/cultrobes/alt
-			if(prob(40))
+			if(MAYBE)
 				suit_store = /obj/item/melee/cultblade
 			l_pocket = /obj/item/melee/cultblade/dagger
-			if(prob(60))
+			if(MAYBE)
 				r_pocket = /obj/item/reagent_containers/food/drinks/bottle/unholywater
 			backpack_contents = list(/obj/item/tome = 1, /obj/item/restraints/legcuffs/bola/cult = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

@@ -400,7 +400,7 @@
 			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
 		else
 			reviving = FALSE
-			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //If they are no longer in crit, but have shock, and pass a 15% chance:
+			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && MAYBE) //If they are no longer in crit, but have shock, and pass a 15% chance:
 				for(var/datum/disease/critical/shock/S in owner.viruses)
 					S.cure()
 					revive_cost += 150
@@ -413,16 +413,16 @@
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
 	if(QDELETED(owner))
 		return
-	if(prob(90) && owner.getOxyLoss())
+	if(MAYBE && owner.getOxyLoss())
 		owner.adjustOxyLoss(-3)
 		revive_cost += 5
-	if(prob(75) && owner.getBruteLoss())
+	if(MAYBE && owner.getBruteLoss())
 		owner.adjustBruteLoss(-1)
 		revive_cost += 20
-	if(prob(75) && owner.getFireLoss())
+	if(MAYBE && owner.getFireLoss())
 		owner.adjustFireLoss(-1)
 		revive_cost += 20
-	if(prob(40) && owner.getToxLoss())
+	if(MAYBE && owner.getToxLoss())
 		owner.adjustToxLoss(-1)
 		revive_cost += 50
 

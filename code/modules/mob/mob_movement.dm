@@ -221,14 +221,14 @@
 
 				if(GRAB_AGGRESSIVE)
 					move_delay = world.time + 10
-					if(!prob(25))
+					if(!MAYBE)
 						return TRUE
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
-					if(!prob(5))
+					if(!MAYBE)
 						return TRUE
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
 					qdel(G)
@@ -248,7 +248,7 @@
 			L.forceMove(get_step(L, direct))
 			L.dir = direct
 		if(2)
-			if(prob(50))
+			if(MAYBE)
 				var/locx
 				var/locy
 				switch(direct)

@@ -58,7 +58,7 @@
 		var/mob/M = parent
 		if(M.stat == DEAD)
 			return
-	if(prob(squeak_chance))
+	if(MAYBE)
 		if(!override_squeak_sounds)
 			playsound(parent, pickweight(default_squeak_sounds), volume, TRUE, sound_extra_range, sound_falloff_exponent, falloff_distance = sound_falloff_distance)
 		else

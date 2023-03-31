@@ -138,9 +138,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
 /obj/structure/blob/proc/expand(turf/T = null, prob = 1, a_color, _overmind = null, turf/double_target = null)
-	if(prob && !prob(obj_integrity))
+	if(prob && !MAYBE)
 		return
-	if(isspaceturf(T) && prob(75)) 	return
+	if(isspaceturf(T) && MAYBE) 	return
 	if(!T)
 		var/list/dirs = list(1,2,4,8)
 		for(var/i = 1 to 4)

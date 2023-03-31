@@ -976,21 +976,21 @@
 		if(1 to 5)
 			M.Stuttering(2 SECONDS)
 			M.Dizzy(20 SECONDS)
-			if(prob(10))
+			if(MAYBE)
 				M.emote(pick("twitch","giggle"))
 		if(5 to 10)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(40 SECONDS)
 			M.Dizzy(40 SECONDS)
 			M.Druggy(90 SECONDS)
-			if(prob(20))
+			if(MAYBE)
 				M.emote(pick("twitch","giggle"))
 		if(10 to INFINITY)
 			M.Stuttering(2 SECONDS)
 			M.Jitter(80 SECONDS)
 			M.Dizzy(80 SECONDS)
 			M.Druggy(120 SECONDS)
-			if(prob(30))
+			if(MAYBE)
 				M.emote(pick("twitch","giggle"))
 	return ..() | update_flags
 
@@ -1094,15 +1094,15 @@
 /datum/reagent/ginsonic/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-10 SECONDS)
-	if(prob(25))
+	if(MAYBE)
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 		M.AdjustKnockDown(-2 SECONDS)
-	if(prob(8))
+	if(MAYBE)
 		M.reagents.add_reagent("methamphetamine",1.2)
 		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")
-		if(prob(50))
+		if(MAYBE)
 			M.say("[sonic_message]")
 		else
 			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
@@ -1164,7 +1164,7 @@
 	taste_description = "<span class='userdanger'>LIQUID FUCKING DEATH OH GOD WHAT THE FUCK</span>"
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_INGEST && prob(20))
+	if(method == REAGENT_INGEST && MAYBE)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
@@ -1175,21 +1175,21 @@
 		M.reagents.del_reagent("milk")
 		M.reagents.del_reagent("dragonsbreath")
 		return
-	if(prob(8))
+	if(MAYBE)
 		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
-	if(prob(50))
+	if(MAYBE)
 		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
 		M.emote(pick("scream","cry","choke","gasp"))
 		M.Stun(2 SECONDS, FALSE)
-	if(prob(8))
+	if(MAYBE)
 		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
-	if(prob(8))
+	if(MAYBE)
 		to_chat(M, "<span class='danger'>ARGHHHH!</span>")
 	if(prob(2 * volume))
 		to_chat(M, "<span class='userdanger'>OH GOD OH GOD PLEASE NO!!</b></span>")
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
-		if(prob(50))
+		if(MAYBE)
 			to_chat(M, "<span class='userdanger'>IT BURNS!!!!</span>")
 			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
 			M.dust()
@@ -1216,7 +1216,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
 		metabolization_rate += 3.6 //gets removed from organics very fast
-		if(prob(25))
+		if(MAYBE)
 			metabolization_rate += 15
 			M.fakevomit()
 	return ..()
@@ -1442,7 +1442,7 @@
 			else
 				pass()
 	else
-		if(prob(60))
+		if(MAYBE)
 			M.adjust_nutrition(-remove_nutrition)
 			M.overeatduration = 0
 	return ..() | update_flags
@@ -1644,7 +1644,7 @@
 	if(current_cycle % 10 != 0 || !isdrask(M))
 		return ..()
 
-	if(prob(50))
+	if(MAYBE)
 		to_chat(M, "<span class='warning'>Your skin emits a soapy liquid from its pores cleaning you in the process.</span>")
 		M.clean_blood()
 	return ..()
@@ -1663,7 +1663,7 @@
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
 	if(current_cycle % 10 != 0 || !isgrey(M))
 		return ..()
-	if(prob(50))
+	if(MAYBE)
 		var/list/mob/living/targets = list()
 		for(var/mob/living/L in orange(14, M))
 			if(L.is_dead() || !L.client) //we don't care about dead mobs
@@ -1720,7 +1720,7 @@
 	if(current_cycle % 10 != 0 || !isplasmaman(M))
 		return ..()
 
-	if(prob(30))
+	if(MAYBE)
 		var/mob/living/carbon/human/H = M
 		to_chat(M, "<span class='warning'>You expell flaming substance from within your suit.</span>")
 		var/obj/item/clothing/under/plasmaman/suit = H.w_uniform

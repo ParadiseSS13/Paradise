@@ -736,7 +736,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/bullet_act(obj/item/projectile/Proj)
 	..(Proj)
-	if(prob(75) && Proj.damage > 0) spark_system.start()
+	if(MAYBE && Proj.damage > 0) spark_system.start()
 	return 2
 
 

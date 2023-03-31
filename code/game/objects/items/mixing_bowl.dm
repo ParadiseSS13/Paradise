@@ -135,7 +135,7 @@
 /obj/item/mixing_bowl/proc/make_dirty(chance)
 	if(!chance)
 		return
-	if(prob(chance))
+	if(MAYBE)
 		dirty = TRUE
 		container_type = null
 		icon_state = dirty_icon

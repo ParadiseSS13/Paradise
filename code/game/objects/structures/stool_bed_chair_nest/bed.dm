@@ -118,7 +118,7 @@
 	H.emote("snore")
 
 	for(var/mob/living/carbon/human/viewer in viewers())
-		if(prob(50))
+		if(MAYBE)
 			viewer.emote("yawn")
 
 	return TRUE

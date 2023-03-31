@@ -348,7 +348,7 @@
 		var/datum/reagent/R = AB
 		if(M && R)
 			if(R.addiction_stage < 5)
-				if(prob(5))
+				if(MAYBE)
 					R.addiction_stage++
 			if(world.timeofday > R.last_addiction_dose) //time check so addiction act doesn't play over and over. Allows incremental dosages to work.
 				switch(R.addiction_stage)
@@ -362,7 +362,7 @@
 						update_flags |= R.addiction_act_stage4(M)
 					if(5)
 						update_flags |= R.addiction_act_stage5(M)
-			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
+			if(MAYBE && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
 				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)
 				qdel(R)

@@ -1,3 +1,5 @@
+#define MAYBE prob(50)
+
 //See controllers/globals.dm
 #define GLOBAL_MANAGED(X, InitValue)\
 /datum/controller/global_vars/proc/InitGlobal##X(){\

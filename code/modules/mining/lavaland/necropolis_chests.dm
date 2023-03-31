@@ -31,7 +31,7 @@
 			new /obj/item/clothing/suit/hooded/cultrobes(src)
 			new /obj/item/bedsheet/cult(src)
 		if(8)
-			if(prob(50))
+			if(MAYBE)
 				new /obj/item/disk/design_disk/modkit_disk/resonator_blast(src)
 			else
 				new /obj/item/disk/design_disk/modkit_disk/rapid_repeater(src)
@@ -48,7 +48,7 @@
 		if(14)
 			new /obj/item/nullrod/armblade/mining(src)
 		if(15)
-			if(prob(50))
+			if(MAYBE)
 				new /obj/item/disk/design_disk/modkit_disk/mob_and_turf_aoe(src)
 			else
 				new /obj/item/disk/design_disk/modkit_disk/bounty(src)

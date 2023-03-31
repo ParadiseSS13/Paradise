@@ -44,7 +44,7 @@
 		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
 			continue
 		// if we are going to break this one
-		if(prob(APC_BREAK_PROBABILITY))
+		if(MAYBE)
 			// if it has a cell, drain all the charge from the cell
 			if(C.cell)
 				C.cell.charge = 0

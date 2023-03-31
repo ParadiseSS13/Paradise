@@ -255,7 +255,7 @@
 		else
 			return
 
-	if(prob(70))
+	if(MAYBE)
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null
@@ -282,7 +282,7 @@
 	timer = world.time - timeLeft(1)
 	mode = SHUTTLE_RECALL
 
-	if(prob(70))
+	if(MAYBE)
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null

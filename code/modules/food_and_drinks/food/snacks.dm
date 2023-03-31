@@ -168,7 +168,7 @@
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
 			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
-			if(prob(50))
+			if(MAYBE)
 				N.visible_message("[N] nibbles away at [src].", "")
 			N.adjustHealth(-2)
 			N.taste(reagents)

@@ -520,7 +520,7 @@ emp_act
 						if(head)
 							head.add_mob_blood(src)
 							update_inv_head()
-						if(glasses && prob(33))
+						if(glasses && MAYBE)
 							glasses.add_mob_blood(src)
 							update_inv_glasses()
 

@@ -306,7 +306,7 @@
 
 /obj/item/reagent_containers/food/snacks/plump_pie/Initialize(mapload)
 	. = ..()
-	if(prob(10))
+	if(MAYBE)
 		name = "exceptional plump pie"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!" // What
 		reagents.add_reagent("omnizine", 5)
@@ -377,7 +377,7 @@
 
 /obj/item/reagent_containers/food/snacks/donut/Initialize(mapload)
 	. = ..()
-	if(randomized_sprinkles && prob(30))
+	if(randomized_sprinkles && MAYBE)
 		icon_state = "donut2"
 		name = "frosted donut"
 		reagents.add_reagent("sprinkles", 2)
@@ -402,7 +402,7 @@
 	. = ..()
 	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
 	reagents.add_reagent("[extra_reagent]", 3)
-	if(prob(30))
+	if(MAYBE)
 		icon_state = "donut2"
 		name = "frosted chaos donut"
 		reagents.add_reagent("sprinkles", 2)
@@ -419,7 +419,7 @@
 	. = ..()
 	if(extra_reagent)
 		reagents.add_reagent("[extra_reagent]", 3)
-	if(prob(30))
+	if(MAYBE)
 		icon_state = "jdonut2"
 		name = "frosted jelly Donut"
 		donut_sprite_type = DONUT_FROSTED
@@ -517,7 +517,7 @@
 
 /obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/Initialize(mapload)
 	. = ..()
-	if(prob(10))
+	if(MAYBE)
 		name = "exceptional plump helmet biscuit"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?
 		reagents.add_reagent("omnizine", 5)

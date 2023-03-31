@@ -23,7 +23,7 @@
 		for(var/i in 1 to deliveryamt)
 			var/atom/movable/x = new spawner_type(T)
 			x.admin_spawned = admin_spawned
-			if(prob(50))
+			if(MAYBE)
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(x, pick(NORTH,SOUTH,EAST,WEST))
 

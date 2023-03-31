@@ -149,7 +149,7 @@ Difficulty: Hard
 	SetRecoveryTime(15)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge()
-	if(!BUBBLEGUM_SMASH || prob(33))
+	if(!BUBBLEGUM_SMASH || MAYBE)
 		hallucination_charge_around(times = 6, delay = 12)
 		SetRecoveryTime(10)
 	else
@@ -206,7 +206,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/try_bloodattack()
 	var/list/targets = get_mobs_on_blood()
 	if(targets.len)
-		INVOKE_ASYNC(src, PROC_REF(bloodattack), targets, prob(50))
+		INVOKE_ASYNC(src, PROC_REF(bloodattack), targets, MAYBE)
 		return TRUE
 	return FALSE
 
@@ -217,7 +217,7 @@ Difficulty: Hard
 	if(targets.len)
 		target_two = pick_n_take(targets)
 		var/turf/target_two_turf = get_turf(target_two)
-		if(target_two.stat != CONSCIOUS || prob(10))
+		if(target_two.stat != CONSCIOUS || MAYBE)
 			bloodgrab(target_two_turf, handedness)
 		else
 			bloodsmack(target_two_turf, handedness)
@@ -227,7 +227,7 @@ Difficulty: Hard
 		if(pools.len)
 			target_one_turf = get_turf(target_one)
 			if(target_one_turf)
-				if(target_one.stat != CONSCIOUS || prob(10))
+				if(target_one.stat != CONSCIOUS || MAYBE)
 					bloodgrab(target_one_turf, !handedness)
 				else
 					bloodsmack(target_one_turf, !handedness)
@@ -237,7 +237,7 @@ Difficulty: Hard
 		if(poolstwo.len)
 			target_one_turf = get_turf(target_one)
 			if(target_one_turf)
-				if(target_one.stat != CONSCIOUS || prob(10))
+				if(target_one.stat != CONSCIOUS || MAYBE)
 					bloodgrab(target_one_turf, handedness)
 				else
 					bloodsmack(target_one_turf, handedness)
@@ -395,9 +395,9 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE)
 	. = ..()
-	if(. > 0 && prob(25))
+	if(. > 0 && MAYBE)
 		var/obj/effect/decal/cleanable/blood/gibs/bubblegum/B = new /obj/effect/decal/cleanable/blood/gibs/bubblegum(loc)
-		if(prob(40))
+		if(MAYBE)
 			step(B, pick(GLOB.cardinal))
 		else
 			B.setDir(pick(GLOB.cardinal))

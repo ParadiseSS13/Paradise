@@ -198,7 +198,7 @@ FIRE ALARM
 	. = ..()
 	if(.) //damage received
 		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
-			if(prob(33))
+			if(MAYBE)
 				alarm()
 
 /obj/machinery/firealarm/singularity_pull(S, current_size)

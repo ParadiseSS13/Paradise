@@ -115,7 +115,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			if(spider_mymother && (goto_mother || prob(10)))
+			if(spider_mymother && (goto_mother || MAYBE))
 				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(5, spider_mymother))
 					if(!v.welded)
 						exit_vent = v
@@ -140,7 +140,7 @@
 						forceMove(original_location)
 						entry_vent = null
 						return
-					if(prob(50))
+					if(MAYBE)
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 					spawn(travel_time)
 						if(!exit_vent || exit_vent.welded)
@@ -157,9 +157,9 @@
 			walk_to(src, entry_vent, 1)
 			if(frustration > 2)
 				entry_vent = null
-	else if(prob(33))
+	else if(MAYBE)
 		random_skitter()
-	else if(immediate_ventcrawl || prob(ventcrawl_chance))
+	else if(immediate_ventcrawl || MAYBE)
 		immediate_ventcrawl = FALSE
 		if(!stillborn && !goto_mother)
 			var/safety_score = score_surroundings(src)

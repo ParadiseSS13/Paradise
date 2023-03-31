@@ -79,7 +79,7 @@
 		if(issimulatedturf(TF))
 			var/turf/simulated/S = TF
 			affect_turf_temperature(S, cooling_speed)
-		if(prob(50))
+		if(MAYBE)
 			continue
 		make_snowcloud(TF)
 

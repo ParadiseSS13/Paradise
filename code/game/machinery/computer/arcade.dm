@@ -198,7 +198,7 @@
 		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
 		player_hp -= boomamt
 
-	else if((enemy_mp <= 5) && (prob(70)))
+	else if((enemy_mp <= 5) && (MAYBE))
 		var/stealamt = rand(2,3)
 		temp = "[enemy_name] steals [stealamt] of your power!"
 		playsound(loc, 'sound/arcade/steal.ogg', 50, TRUE)
@@ -432,13 +432,13 @@
 		else
 			food -= (alive+lings_aboard)*2
 			fuel -= 5
-			if(turns == 2 && prob(30))
+			if(turns == 2 && MAYBE)
 				event = ORION_TRAIL_COLLISION
 				event()
-			else if(prob(75))
+			else if(MAYBE)
 				event = pickweight(events)
 				if(lings_aboard)
-					if(event == ORION_TRAIL_LING || prob(55))
+					if(event == ORION_TRAIL_LING || MAYBE)
 						event = ORION_TRAIL_LING_ATTACK
 				event()
 			turns += 1
@@ -446,7 +446,7 @@
 			var/mob/living/carbon/M = usr //for some vars
 			switch(event)
 				if(ORION_TRAIL_RAIDERS)
-					if(prob(50))
+					if(MAYBE)
 						to_chat(usr, "<span class='userdanger'>You hear battle shouts. The tramping of boots on cold metal. Screams of agony. The rush of venting air. Are you going insane?</span>")
 						M.AdjustHallucinate(30 SECONDS)
 					else
@@ -472,7 +472,7 @@
 						if(issimulatedturf(location))
 							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
-					if(prob(75))
+					if(MAYBE)
 						M.Weaken(6 SECONDS)
 						atom_say("A sudden gust of powerful wind slams [M] into the floor!")
 						M.take_organ_damage(25)
@@ -480,7 +480,7 @@
 					else
 						to_chat(M, "<span class='userdanger'>A violent gale blows past you, and you barely manage to stay standing!</span>")
 				if(ORION_TRAIL_COLLISION) //by far the most damaging event
-					if(prob(90))
+					if(MAYBE)
 						playsound(loc, 'sound/effects/bang.ogg', 100, TRUE)
 						var/turf/simulated/floor/F
 						for(F in orange(1, src))
@@ -544,13 +544,13 @@
 		food -= ((alive+lings_aboard)*2)*3
 		event = null
 	else if(href_list["keepspeed"]) //keep speed
-		if(prob(75))
+		if(MAYBE)
 			event = "Breakdown"
 			event()
 		else
 			event = null
 	else if(href_list["blackhole"]) //keep speed past a black hole
-		if(prob(75))
+		if(MAYBE)
 			event = ORION_TRAIL_BLACKHOLE
 			event()
 			if(emagged) //has to be here because otherwise it doesn't work
@@ -623,7 +623,7 @@
 
 		var/FU = 0
 		var/FO = 0
-		if(prob(success))
+		if(MAYBE)
 			FU = rand(5,15)
 			FO = rand(5,15)
 			last_spaceport_action = "You successfully raided the spaceport! you gained [FU] Fuel and [FO] Food! (+[FU]FU,+[FO]FO)"
@@ -686,13 +686,13 @@
 	switch(event)
 		if(ORION_TRAIL_RAIDERS)
 			eventdat += "Raiders have come aboard your ship!"
-			if(prob(50))
+			if(MAYBE)
 				var/sfood = rand(1,10)
 				var/sfuel = rand(1,10)
 				food -= sfood
 				fuel -= sfuel
 				eventdat += "<br>They have stolen [sfood] <b>Food</b> and [sfuel] <b>Fuel</b>."
-			else if(prob(10))
+			else if(MAYBE)
 				var/deadname = remove_crewmember()
 				eventdat += "<br>[deadname] tried to fight back but was killed."
 			else
@@ -733,13 +733,13 @@
 
 		if(ORION_TRAIL_COLLISION)
 			eventdat += "Something hit us! Looks like there's some hull damage."
-			if(prob(25))
+			if(MAYBE)
 				var/sfood = rand(5,15)
 				var/sfuel = rand(5,15)
 				food -= sfood
 				fuel -= sfuel
 				eventdat += "<br>[sfood] <b>Food</b> and [sfuel] <b>Fuel</b> was vented out into space."
-			if(prob(10))
+			if(MAYBE)
 				var/deadname = remove_crewmember()
 				eventdat += "<br>[deadname] was killed by rapid depressurization."
 			eventdat += "<br>You can repair the damage with hull plates, or you can spend the next 3 days welding scrap together."
@@ -761,13 +761,13 @@
 				eventdat += "<br>Your crew's chance of reaching Orion is so slim the changelings likely avoided your ship..."
 				eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];eventclose=1'>Continue</a></P>"
 				eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
-				if(prob(10)) // "likely", I didn't say it was guaranteed!
+				if(MAYBE) // "likely", I didn't say it was guaranteed!
 					lings_aboard = min(++lings_aboard,2)
 			else
 				if(lings_aboard) //less likely to stack lings
-					if(prob(20))
+					if(MAYBE)
 						lings_aboard = min(++lings_aboard,2)
-				else if(prob(70))
+				else if(MAYBE)
 					lings_aboard = min(++lings_aboard,2)
 
 				eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];killcrew=1'>Kill a crewmember</a></P>"
@@ -791,9 +791,9 @@
 					eventdat += "<br>[ling1]'s arm twists and contorts into a grotesque blade!"
 
 				var/chance2attack = alive*20
-				if(prob(chance2attack))
+				if(MAYBE)
 					var/chancetokill = 30*lings_aboard-(5*alive) //eg: 30*2-(10) = 50%, 2 lings, 2 crew is 50% chance
-					if(prob(chancetokill))
+					if(MAYBE)
 						var/deadguy = remove_crewmember()
 						eventdat += "<br>The Changeling[ling2 ? "s":""] run[ling2 ? "":"s"] up to [deadguy] and capitulates them!"
 					else
@@ -841,11 +841,11 @@
 					var/FU = 10
 					var/FO = 10
 					var/freecrew = 0
-					if(prob(30))
+					if(MAYBE)
 						FU = 25
 						FO = 25
 
-					if(prob(10))
+					if(MAYBE)
 						add_crewmember()
 						freecrew++
 
@@ -915,7 +915,7 @@
 	if(specific)
 		newcrew = specific
 	else
-		if(prob(50))
+		if(MAYBE)
 			newcrew = pick(GLOB.first_names_male)
 		else
 			newcrew = pick(GLOB.first_names_female)

@@ -63,12 +63,12 @@
 	switch(severity)
 		if(1)
 			stat &= BROKEN
-			if(prob(75)) explode()
+			if(MAYBE) explode()
 		if(2)
-			if(prob(25)) stat &= BROKEN
-			if(prob(10)) explode()
+			if(MAYBE) stat &= BROKEN
+			if(MAYBE) explode()
 		if(3)
-			if(prob(10)) stat &= BROKEN
+			if(MAYBE) stat &= BROKEN
 			duration = 300
 
 	stat |= EMPED
@@ -262,7 +262,7 @@
 	..()
 
 /obj/machinery/power/port_gen/pacman/emag_act(remaining_charges, mob/user)
-	if(active && prob(25))
+	if(active && MAYBE)
 		explode() //if they're foolish enough to emag while it's running
 
 	if(!emagged)

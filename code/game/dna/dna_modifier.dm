@@ -556,13 +556,13 @@
 			if(connected.radiation_check())
 				return
 
-			if(prob(95))
-				if(prob(75))
+			if(MAYBE)
+				if(MAYBE)
 					randmutb(connected.occupant)
 				else
 					randmuti(connected.occupant)
 			else
-				if(prob(95))
+				if(MAYBE)
 					randmutg(connected.occupant)
 				else
 					randmuti(connected.occupant)
@@ -663,7 +663,7 @@
 
 					var/real_SE_block=selected_se_block
 					block = miniscramble(block, radiation_intensity, radiation_duration)
-					if(prob(20))
+					if(MAYBE)
 						if(selected_se_block > 1 && selected_se_block < DNA_SE_LENGTH/2)
 							real_SE_block++
 						else if(selected_se_block > DNA_SE_LENGTH/2 && selected_se_block < DNA_SE_LENGTH)

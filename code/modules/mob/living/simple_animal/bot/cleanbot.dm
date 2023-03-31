@@ -93,15 +93,15 @@
 
 	if(emagged == 2) //Emag functions
 		if(issimulatedturf(loc))
-			if(prob(10)) //Wets floors randomly
+			if(MAYBE) //Wets floors randomly
 				var/turf/simulated/T = loc
 				T.MakeSlippery()
 
-			if(prob(5)) //Spawns foam!
+			if(MAYBE) //Spawns foam!
 				visible_message("<span class='danger'>[src] whirs and bubbles violently, before releasing a plume of froth!</span>")
 				new /obj/effect/particle_effect/foam(loc)
 
-	else if(prob(5))
+	else if(MAYBE)
 		audible_message("[src] makes an excited beeping booping sound!")
 
 	if(!target) //Search for cleanables it can see.
@@ -182,7 +182,7 @@
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
-	if(prob(50))
+	if(MAYBE)
 		drop_part(robot_arm, Tsec)
 	do_sparks(3, 1, src)
 	..()

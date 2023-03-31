@@ -51,7 +51,7 @@ GLOBAL_VAR(claw_game_html)
 
 /obj/machinery/economy/arcade/claw/win()
 	icon_state = "clawmachine[machine_image]_win"
-	if(prob(bonus_prize_chance))	//double prize mania!
+	if(MAYBE)	//double prize mania!
 		atom_say("DOUBLE PRIZE!")
 		new /obj/item/toy/prizeball(get_turf(src))
 	else

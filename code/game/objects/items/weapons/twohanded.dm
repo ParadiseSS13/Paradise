@@ -319,11 +319,11 @@
 		unwield()
 		return
 	..()
-	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && prob(40))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && (wielded) && MAYBE)
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
-	if((wielded) && prob(50))
+	if((wielded) && MAYBE)
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 /obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
@@ -474,7 +474,7 @@
 		var/mob/living/L = AM
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
 			return
-		if(!L.stat && prob(50))
+		if(!L.stat && MAYBE)
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
 			M.attack_sound = hitsound
@@ -868,13 +868,13 @@
 		do_sparks(rand(1,6), 1, loc)
 		qdel(src)
 		return
-	if(prob(15))
+	if(MAYBE)
 		do_sparks(rand(1,6), 1, loc)
 
 /obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(prob(60))
+	if(MAYBE)
 		do_sparks(rand(1,6), 1, loc)
 	if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target

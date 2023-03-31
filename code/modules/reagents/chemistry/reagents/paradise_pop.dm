@@ -27,7 +27,7 @@
 	taste_description = "doomsday"
 
 /datum/reagent/consumable/drink/apple_pocalypse/on_mob_life(mob/living/M)
-	if(prob(1))
+	if(MAYBE)
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, TRUE, 0, TRUE) // Ignore the 0 volume
 		to_chat(M, "<span class='notice'>You briefly feel super-massive, like a black hole. Probably just your imagination...</span>")
@@ -44,7 +44,7 @@
 
 /datum/reagent/consumable/drink/berry_banned/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(10))
+	if(MAYBE)
 		var/heal_type = rand(0, 5)		//still prefer the string version
 		switch(heal_type)
 			if(0)
@@ -73,9 +73,9 @@
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(50))
+	if(MAYBE)
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)		//double strength of poison berry juice alone, because it's concentrated (this is equal to the damage of normal toxin, less often)
-	if(prob(10))
+	if(MAYBE)
 		to_chat(M, "<span class='notice'>You feel slightly rejuvinated!</span>")		//meta this!
 	return ..() | update_flags
 
@@ -94,7 +94,7 @@
 	taste_description = "greytide"
 
 /datum/reagent/consumable/drink/blackeye_brew/on_mob_life(mob/living/M)
-	if(prob(25))
+	if(MAYBE)
 		var/list/tider_talk = list("I OWN THIS STATION NOW, I JUST BOUGHT IT.",
 									"SECRET TECHNIQUE: TOOLBOX TO THE FACE!",
 									"SECRET TECHNIQUE: PLASMA CANISTER FIRE!",
@@ -118,12 +118,12 @@
 	taste_description = "old people"
 
 /datum/reagent/consumable/drink/grape_granade/on_mob_life(mob/living/M)
-	if(prob(1))
+	if(MAYBE)
 		var/turf/simulated/T = get_turf(M)
 		goonchem_vortex(T, FALSE, 30) //Capped at 30 to prevent sorium abuse
 		M.emote("burp")
 		to_chat(M, "<span class='notice'>You feel ready to burst! Oh wait, just a burp...</span>")
-	else if(prob(25))
+	else if(MAYBE)
 		M.emote("burp")
 	return ..()
 
@@ -137,10 +137,10 @@
 	taste_description = "flying space rocks"
 
 /datum/reagent/consumable/drink/meteor_malt/on_mob_life(mob/living/M)
-	if(prob(25))
+	if(MAYBE)
 		M << sound('sound/effects/meteorimpact.ogg',0,1,0,25)
 		shake_camera(M, 3, 1)
-	if(prob(5))
+	if(MAYBE)
 		var/amount = rand(1, 5)
 		var/mineral = pick("copper", "iron", "gold", "carbon", "silver", "aluminum", "silicon", "sodiumchloride", "plasma")
 		M.reagents.add_reagent(mineral, amount)

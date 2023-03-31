@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(sun)
 	// Lets work out an angle for the "sun" to rotate around the station
 	angle = rand (0,360)			// the station position to the sun is randomised at round start
 	rate = rand(50,200)/100			// 50% - 200% of standard rotation
-	if(prob(50))					// same chance to rotate clockwise than counter-clockwise
+	if(MAYBE)					// same chance to rotate clockwise than counter-clockwise
 		rate = -rate
 
 	// Solar consoles need to load after machines init, so this handles that

@@ -1,7 +1,7 @@
 /mob/living/carbon/alien/larva/attack_hand(mob/living/carbon/human/M)
 	if(..())
 		var/damage = rand(1, 9)
-		if(prob(90))
+		if(MAYBE)
 			playsound(loc, "punch", 25, 1, -1)
 			add_attack_logs(M, src, "Melee attacked with fists")
 			visible_message("<span class='danger'>[M] has kicked [src]!</span>", \

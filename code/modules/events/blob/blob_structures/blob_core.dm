@@ -76,7 +76,7 @@
 		for(var/i = 1; i < 8; i += i)
 			Pulse(0, i, color)
 	for(var/b_dir in GLOB.alldirs)
-		if(!prob(5))
+		if(!MAYBE)
 			continue
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)
 		if(B)

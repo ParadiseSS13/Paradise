@@ -180,7 +180,7 @@
 				var/child_colour
 				if(mutation_chance >= 100)
 					child_colour = "rainbow"
-				else if(prob(mutation_chance))
+				else if(MAYBE)
 					child_colour = slime_mutation[rand(1,4)]
 				else
 					child_colour = colour

@@ -658,7 +658,7 @@
 						newdir = NORTH
 					else if(newdir == 12) //E + W
 						newdir = EAST
-				if((newdir in GLOB.cardinal) && (prob(50)))
+				if((newdir in GLOB.cardinal) && (MAYBE))
 					newdir = turn(get_dir(T, loc), 180)
 				if(!blood_exists)
 					new /obj/effect/decal/cleanable/trail_holder(loc)
@@ -768,12 +768,12 @@
 				qdel(G)
 
 			if(GRAB_AGGRESSIVE)
-				if(prob(60))
+				if(MAYBE)
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
 			if(GRAB_NECK)
-				if(prob(5))
+				if(MAYBE)
 					visible_message("<span class='danger'>[src] has broken free of [G.assailant]'s headlock!</span>")
 					qdel(G)
 

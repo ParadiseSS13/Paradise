@@ -135,7 +135,7 @@
 /obj/item/stock_parts/cell/proc/corrupt()
 	charge /= 2
 	maxcharge = max(maxcharge / 2, chargerate)
-	if(prob(10))
+	if(MAYBE)
 		rigged = TRUE //broken batterys are dangerous
 
 /obj/item/stock_parts/cell/emp_act(severity)
@@ -149,10 +149,10 @@
 	if(!QDELETED(src))
 		switch(severity)
 			if(2)
-				if(prob(50))
+				if(MAYBE)
 					corrupt()
 			if(3)
-				if(prob(25))
+				if(MAYBE)
 					corrupt()
 
 /obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)

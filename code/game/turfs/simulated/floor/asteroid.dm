@@ -21,7 +21,7 @@
 	var/proper_name = name
 	. = ..()
 	name = proper_name
-	if(prob(floor_variance))
+	if(MAYBE)
 		icon_state = "[environment_type][rand(0,12)]"
 
 /turf/simulated/floor/plating/asteroid/proc/getDug()
@@ -58,7 +58,7 @@
 		if(3)
 			return
 		if(2)
-			if(prob(20))
+			if(MAYBE)
 				getDug()
 		if(1)
 			getDug()
@@ -256,7 +256,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 
 		if(istype(tunnel))
 			// Small chance to have forks in our tunnel; otherwise dig our tunnel.
-			if(i > 3 && prob(20))
+			if(i > 3 && MAYBE)
 				var/turf/simulated/floor/plating/asteroid/airless/cave/C = tunnel.ChangeTurf(data_having_type, FALSE, TRUE)
 				C.going_backwards = FALSE
 				C.produce_tunnel_from_data(rand(10, 15), dir)
@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			break
 
 		// Chance to change our direction left or right.
-		if(i > 2 && prob(33))
+		if(i > 2 && MAYBE)
 			// We can't go a full loop though
 			next_angle = -next_angle
 			setDir(angle2dir(dir2angle(dir) )+ next_angle)
@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	T.ChangeTurf(turf_type, FALSE, FALSE, TRUE)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnMonster(turf/T)
-	if(prob(30))
+	if(MAYBE)
 		if(istype(loc, /area/mine/explored) || !istype(loc, /area/lavaland/surface/outdoors/unexplored))
 			return
 		var/randumb = pickweight(mob_spawn_list)
@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 #undef SPAWN_BUBBLEGUM
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
-	if(prob(12))
+	if(MAYBE)
 		if(istype(loc, /area/mine/explored) || istype(loc, /area/lavaland/surface/outdoors/explored))
 			return
 		var/randumb = pickweight(flora_spawn_list)

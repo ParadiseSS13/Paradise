@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 					target = null //we sleep in this proc, clear reference NOW
 					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
 					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
-					var/offset = prob(50) ? -2 : 2
+					var/offset = MAYBE ? -2 : 2
 					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
 					use_power(500)
 					grinded++

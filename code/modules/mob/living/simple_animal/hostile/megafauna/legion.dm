@@ -66,7 +66,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
 	if(world.time >= ranged_cooldown && !charging)
-		if(prob(30))
+		if(MAYBE)
 			visible_message("<span class='warning'><b>[src] charges!</b></span>")
 			SpinAnimation(speed = 20, loops = 5, parallel = FALSE)
 			ranged = FALSE
@@ -78,7 +78,7 @@ Difficulty: Medium
 			ranged_cooldown = world.time + 3 SECONDS
 			SLEEP_CHECK_DEATH(3 SECONDS)
 			set_ranged()
-		else if(prob(60))
+		else if(MAYBE)
 			firing_laser = TRUE
 			var/beam_angle = get_angle(src, locate(target.x - 1, target.y, target.z)) // -1 to account for the legion sprite offset.
 			var/turf/target_location = locate(x + (50 * sin(beam_angle)), y + (50 * cos(beam_angle)), z)
@@ -89,7 +89,7 @@ Difficulty: Medium
 			ranged_cooldown = world.time + beam_time + 2 SECONDS
 			SLEEP_CHECK_DEATH(beam_time + 2 SECONDS)
 			firing_laser = FALSE
-		else if(prob(40))
+		else if(MAYBE)
 			var/mob/living/simple_animal/hostile/asteroid/big_legion/A = new(loc)
 			A.GiveTarget(target)
 			A.friends = friends
@@ -162,7 +162,7 @@ Difficulty: Medium
 		resize = 1 + (health / maxHealth)
 		M.Scale(resize, resize)
 		transform = M
-		if(amount > 0 && prob(33))
+		if(amount > 0 && MAYBE)
 			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
 			A.GiveTarget(target)
 			A.friends = friends

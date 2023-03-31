@@ -41,7 +41,7 @@
 		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 			return
 		if(volume > 25)
-			if(prob(75))
+			if(MAYBE)
 				H.take_organ_damage(5, 10)
 				H.emote("scream")
 				var/obj/item/organ/external/affecting = H.get_organ("head")

@@ -39,7 +39,7 @@
 		return
 	if(!target.stat)
 		to_chat(src, "<span class='revennotice'>This being's soul is too strong to harvest.</span>")
-		if(prob(10))
+		if(MAYBE)
 			to_chat(target, "You feel as if you are being watched.")
 		return
 	draining = TRUE
@@ -343,7 +343,7 @@
 
 		var/distance_from_user = max(get_dist(get_turf(nearby_item), get_turf(user)), 1) // get_dist() for same tile dists return -1, we do not want that
 		var/chance_of_haunting = 150 / distance_from_user // The further away things are, the less likely they are to be picked
-		if(!prob(chance_of_haunting))
+		if(!MAYBE)
 			continue
 
 		make_spooky(nearby_item, user)
@@ -448,8 +448,8 @@
 		emag_act(usr)
 
 /obj/rev_malfunction(cause_emp = TRUE)
-	if(prob(20))
-		if(prob(50))
+	if(MAYBE)
+		if(MAYBE)
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(usr)
 	else if(cause_emp)
@@ -478,7 +478,7 @@
 
 /turf/simulated/wall/defile()
 	..()
-	if(prob(15) && !rusted)
+	if(MAYBE && !rusted)
 		new/obj/effect/temp_visual/revenant(loc)
 		rust()
 
@@ -487,7 +487,7 @@
 
 /turf/simulated/wall/r_wall/defile()
 	..()
-	if(prob(15) && !rusted)
+	if(MAYBE && !rusted)
 		new/obj/effect/temp_visual/revenant(loc)
 		rust()
 
@@ -508,7 +508,7 @@
 
 /turf/simulated/floor/defile()
 	..()
-	if(prob(15))
+	if(MAYBE)
 		if(intact && floor_tile)
 			new floor_tile(src)
 		broken = FALSE

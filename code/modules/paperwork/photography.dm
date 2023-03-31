@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	on_cooldown = TRUE
 	if(istype(src,/obj/item/camera/spooky))
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
-			if(prob(24))
+			if(MAYBE)
 				handle_haunt(user)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // fucking magic numbers
 

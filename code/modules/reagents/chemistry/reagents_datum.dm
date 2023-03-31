@@ -112,7 +112,7 @@
 		M.reagents.addiction_threshold_accumulated[type] += consumption_rate
 		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[type]
 
-		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
+		if(addiction_threshold < current_threshold_accumulated && MAYBE && MAYBE)
 			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
 			var/datum/reagent/new_reagent = new type()
 			new_reagent.last_addiction_dose = world.timeofday
@@ -194,66 +194,66 @@
 
 /datum/reagent/proc/addiction_act_stage2(mob/living/M)
 	if(minor_addiction)
-		if(prob(4))
+		if(MAYBE)
 			to_chat(M, "<span class='notice'>You briefly think about getting some more [name].</span>")
 	else
-		if(prob(8))
+		if(MAYBE)
 			M.emote("shiver")
-		if(prob(8))
+		if(MAYBE)
 			M.emote("sneeze")
-		if(prob(4))
+		if(MAYBE)
 			to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage3(mob/living/M)
 	if(minor_addiction)
-		if(prob(4))
+		if(MAYBE)
 			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
 	else
-		if(prob(8))
+		if(MAYBE)
 			M.emote("twitch_s")
-		if(prob(8))
+		if(MAYBE)
 			M.emote("shiver")
-		if(prob(4))
+		if(MAYBE)
 			to_chat(M, "<span class='warning'>Your head hurts.</span>")
-		if(prob(4))
+		if(MAYBE)
 			to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage4(mob/living/M)
 	if(minor_addiction)
-		if(prob(8))
+		if(MAYBE)
 			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
 	else
-		if(prob(8))
+		if(MAYBE)
 			M.emote("twitch")
-		if(prob(4))
+		if(MAYBE)
 			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
-		if(prob(4))
+		if(MAYBE)
 			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
-		else if(prob(4))
+		else if(MAYBE)
 			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage5(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(minor_addiction)
-		if(prob(8))
+		if(MAYBE)
 			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
-		if(prob(4))
+		if(MAYBE)
 			M.emote(pick("twitch"))
 	else
-		if(prob(6))
+		if(MAYBE)
 			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
 			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
 			M.Weaken(rand(4 SECONDS, 8 SECONDS))
-		if(prob(8))
+		if(MAYBE)
 			M.emote(pick("twitch", "twitch_s", "shiver"))
-		if(prob(4))
+		if(MAYBE)
 			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
-		if(prob(5))
+		if(MAYBE)
 			to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
-		else if(prob(5))
+		else if(MAYBE)
 			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 	return update_flags
 

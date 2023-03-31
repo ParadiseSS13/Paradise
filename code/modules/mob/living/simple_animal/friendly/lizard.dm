@@ -27,11 +27,11 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/eating_sound = 'sound/weapons/bite.ogg'
 	/// Lizards start with a tail
-	var/has_tail = TRUE 
+	var/has_tail = TRUE
 
 /mob/living/simple_animal/lizard/handle_automated_action()
 	if(!stat && !buckled)
-		if(prob(1))
+		if(MAYBE)
 			custom_emote(EMOTE_VISIBLE, pick("sticks out its tongue.", "wags its tail.", "lies down."))
 
 	if(!isturf(loc))
@@ -45,7 +45,7 @@
 			break
 	for(var/obj/structure/spider/spiderling/spider in lizard_view)
 		if(Adjacent(spider) && HAS_TRAIT(spider, TRAIT_EDIBLE_BUG))
-			if(prob(90)) // Slippery things aren't they?
+			if(MAYBE) // Slippery things aren't they?
 				visible_message("<span class='notice'>The spiderling skitters away from the [src]!</span>")
 				spider.random_skitter()
 				return

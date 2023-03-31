@@ -446,7 +446,7 @@
 	L.can_change_intents = FALSE //Now you have no choice but to be helpful.
 
 /datum/reagent/love/on_mob_life(mob/living/M)
-	if(prob(8))
+	if(MAYBE)
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
 		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
 
@@ -495,7 +495,7 @@
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(10))
+	if(MAYBE)
 		M.emote("giggle")
 	if(!M.mind)
 		return ..() | update_flags
@@ -504,9 +504,9 @@
 	else
 		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
 		M.Druggy(30 SECONDS)
-		if(prob(10))
+		if(MAYBE)
 			M.EyeBlurry(10 SECONDS)
-		if(prob(6))
+		if(MAYBE)
 			var/list/clown_message = list("You feel light-headed.",
 			"You can't see straight.",
 			"You feel about as funny as the station clown.",
@@ -537,7 +537,7 @@
 	taste_description = "sweetness"
 
 /datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
-	if(prob(2))
+	if(MAYBE)
 		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
 	return ..()
 
@@ -617,7 +617,7 @@
 
 /datum/reagent/plantnutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(tox_prob))
+	if(MAYBE)
 		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
@@ -716,12 +716,12 @@
 		N.change_hair_color("#000000")
 		N.change_facial_hair_color("#000000")
 		set_skin_color(N)
-		if(prob(7))
+		if(MAYBE)
 			if(N.w_uniform)
 				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
 			else
 				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
-	if(prob(10))
+	if(MAYBE)
 		M.say(pick("Maybe he's born with it, maybe its Tangerine.", "Dude, Toasters are like...tanning beds for bread.", "They said I could become anything so I became beef jerky.", "I can't afford a leather couch so I became one.", "I've entered the bronze age!"))
 
 	return list(0, STATUS_UPDATE_NONE)

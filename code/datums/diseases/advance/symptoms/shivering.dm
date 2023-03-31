@@ -27,7 +27,7 @@ Bonus
 
 /datum/symptom/shivering/Activate(datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB))
+	if(MAYBE)
 		var/mob/living/carbon/M = A.affected_mob
 		to_chat(M, "<span class='warning'>[pick("You feel cold.", "You start shivering.")]</span>")
 		if(M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT)

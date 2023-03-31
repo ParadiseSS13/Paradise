@@ -156,13 +156,13 @@
 	absorb.owner = owner
 	objectives += absorb
 
-	if(prob(60))
+	if(MAYBE)
 		add_objective(/datum/objective/steal)
 	else
 		add_objective(/datum/objective/debrain)
 
 	var/list/active_ais = active_ais()
-	if(length(active_ais) && prob(4)) // Leaving this at a flat chance for now, problems with the num_players() proc due to latejoin antags.
+	if(length(active_ais) && MAYBE) // Leaving this at a flat chance for now, problems with the num_players() proc due to latejoin antags.
 		add_objective(/datum/objective/destroy)
 	else
 		var/datum/objective/assassinate/kill_objective = add_objective(/datum/objective/assassinate)
@@ -174,7 +174,7 @@
 			objectives += identity_theft
 
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()))
-		if(prob(70))
+		if(MAYBE)
 			add_objective(/datum/objective/escape)
 		else
 			add_objective(/datum/objective/escape/escape_with_identity) // If our kill target has no genes, 30% time pick someone else to steal the identity of

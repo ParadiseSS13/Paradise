@@ -203,7 +203,7 @@
 		h_boost = 0
 		chassis.take_damage(2, BURN) //short circuiting droids do damage
 		repaired = TRUE
-	else if(chassis.internal_damage && prob(15))
+	else if(chassis.internal_damage && MAYBE)
 		for(var/int_dam_flag in repairable_damage)
 			if(chassis.internal_damage & int_dam_flag)
 				chassis.clearInternalDamage(int_dam_flag)

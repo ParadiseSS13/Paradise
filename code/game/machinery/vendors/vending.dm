@@ -568,7 +568,7 @@
 		if(EXPLODE_DEVASTATE)
 			tilt_prob = 80
 
-	if(prob(tilt_prob))
+	if(MAYBE)
 		tilt()
 
 /obj/machinery/economy/vending/attack_ai(mob/user)
@@ -845,12 +845,12 @@
 		seconds_electrified--
 
 	//Pitch to the people!  Really sell it!
-	if(last_slogan + slogan_delay <= world.time && LAZYLEN(slogan_list) && !shut_up && prob(5))
+	if(last_slogan + slogan_delay <= world.time && LAZYLEN(slogan_list) && !shut_up && MAYBE)
 		var/slogan = pick(slogan_list)
 		speak(slogan)
 		last_slogan = world.time
 
-	if(shoot_inventory && prob(shoot_chance))
+	if(shoot_inventory && MAYBE)
 		throw_item()
 
 /obj/machinery/economy/vending/extinguish_light(force = FALSE)
@@ -898,7 +898,7 @@
 				continue
 			R.amount--
 			// busting open a vendor will destroy some of the contents
-			if(found_anything && prob(80))
+			if(found_anything && MAYBE)
 				continue
 
 			var/obj/O = new dump_path(loc)
@@ -974,7 +974,7 @@
 
 	// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
 	damage_to_deal = max(damage_to_deal - crit_rebate, 0)
-	if(prob(30))
+	if(MAYBE)
 		victim.apply_damage(damage_to_deal, BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
 	else
 		var/picked_zone

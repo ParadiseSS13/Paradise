@@ -221,7 +221,7 @@
 /mob/living/simple_animal/proc/handle_automated_speech(override)
 	set waitfor = FALSE
 	if(speak_chance)
-		if(prob(speak_chance) || override)
+		if(MAYBE || override)
 			if(speak && speak.len)
 				if((emote_hear && emote_hear.len) || (emote_see && emote_see.len))
 					var/length = speak.len

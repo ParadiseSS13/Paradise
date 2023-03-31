@@ -22,11 +22,11 @@
 		switch(M.a_intent)
 			if(INTENT_HARM)
 				var/damage = rand(1, 9)
-				if(prob(90))
+				if(MAYBE)
 					playsound(loc, "punch", 25, 1, -1)
 					visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 							"<span class='userdanger'>[M] has punched [src]!</span>")
-					if((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
+					if((stat != DEAD) && (damage > 9||MAYBE))//Regular humans have a very small chance of weakening an alien.
 						Paralyse(4 SECONDS)
 						visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 								"<span class='userdanger'>[M] has weakened [src]!</span>", \
@@ -39,14 +39,14 @@
 
 			if(INTENT_DISARM)
 				if(!IS_HORIZONTAL(src))
-					if(prob(5))//Very small chance to push an alien down.
+					if(MAYBE)//Very small chance to push an alien down.
 						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "Pushed over")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
 								"<span class='userdanger'>[M] has pushed down [src]!</span>")
 					else
-						if(prob(50))
+						if(MAYBE)
 							drop_item()
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 							visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
