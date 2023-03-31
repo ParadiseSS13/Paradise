@@ -596,9 +596,8 @@
 	zip_time = 0
 	resistance_flags = FIRE_PROOF
 	open_icon_sprite = "magic_nanny_bag_open"
-	/// Do we want the bag to be antidropped when zipped up?
 	antidrop_on_zip = TRUE
-	var/max_value = 7 //tweak / make define
+	var/max_value = 7 // make define
 	var/min_value = 6
 
 
@@ -628,9 +627,9 @@
 			new /obj/item/twohanded/spear/grey_tide(src)
 			value += 2 //Value 2, clones are strong
 		if(8)
-			if(prob(20))
+			if(prob(50))
 				new /obj/item/sord(src)
-				value -= 1 //Useless joke, might as well give them a value point back.
+				value -= 1 //Useless joke, might as well give them a value point back. Will only actually spawn if hierophant staff spawns as well, pft. Thus coinflip
 			else
 				new /obj/item/twohanded/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
 	//Wands
@@ -744,10 +743,9 @@
 			new /obj/item/guardiancreator(src)
 			value += 1
 		if(8)
-			if(prob(20))
+			if(prob(25))
 				new /obj/item/reagent_containers/food/snacks/grown/nymph_pod(src)
 				new /obj/item/slimepotion/sentience(src)
-				value -= 1 //Less useful than a pai. Probably will talk to you about morality.
 			else
 				new /obj/item/paicard(src) //Still useful, not a point useful.
 
@@ -764,7 +762,6 @@
 		if(5)
 			new /obj/item/reagent_containers/food/snacks/plum_pie(src) // Great healing over long period of time
 
-	message_admins("[value]")
 	if(value > max_value || value < min_value)
 		if(attempts >= 5)
 			message_admins("Failed to generate the wizard a properly priced magic nanny bag!")
@@ -778,7 +775,7 @@
 	icon_state = "holyflask"
 	color = "#DC0000"
 	volume = 100
-	list_reagents = list("dragonsbreath" = 80, "hellwater" = 20)
+	list_reagents = list("dragonsbreath" = 80, "hell_water" = 20)
 
 /obj/item/reagent_containers/food/drinks/bottle/immorality
 	name = "drop of immorality"
