@@ -26,9 +26,9 @@
 	..()
 	overload_action.Remove(user)
 
-/obj/mecha/combat/gygax/loaded/New()
-	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
+/obj/mecha/combat/gygax/loaded/Initialize(mapload)
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	ME.attach(src)
@@ -48,7 +48,7 @@
 	max_equip = 4
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
-	destruction_sleep_duration = 1
+	destruction_sleep_duration = 2 SECONDS
 
 /obj/mecha/combat/gygax/dark/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
@@ -58,8 +58,8 @@
 	. = ..()
 	thrusters_action.Remove(user)
 
-/obj/mecha/combat/gygax/dark/loaded/New()
-	..()
+/obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster

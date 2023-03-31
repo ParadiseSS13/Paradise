@@ -150,3 +150,21 @@
 
 /obj/effect/turf_decal/plaque
 	icon_state = "plaque"
+
+/obj/effect/turf_decal/woodsiding
+	icon_state = "woodsidingline"
+
+/obj/effect/turf_decal/woodsiding/end
+	icon_state = "woodsiding_end"
+
+/obj/effect/turf_decal/woodsiding/box
+	icon_state = "woodsiding_box"
+
+/obj/effect/turf_decal/siding
+	icon_state = "sidingline"
+
+/obj/effect/turf_decal/siding/end
+	icon_state = "siding_end"
+
+/obj/effect/turf_decal/siding/box
+	icon_state = "siding_box"

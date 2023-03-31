@@ -34,7 +34,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			return
 	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
 	var/tcamount = text2num(tctext)
-	tcamount = between(0, tcamount, 1000)
+	tcamount = clamp(tcamount, 0, 1000)
 	if(GLOB.sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
@@ -55,8 +55,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			infiltrators += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		var/mutable_appearance/ma = new('icons/mob/simple_human.dmi', "syndicate")
-		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, TRUE, source = ma)
+		var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
+		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a Syndicate infiltrator?", ROLE_TRAITOR, TRUE, source = I, role_cleanname = "Syndicate infiltrator")
 
 	if(!infiltrators.len)
 		to_chat(src, "Nobody volunteered.")
@@ -66,15 +66,12 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	var/list/sit_spawns = list()
 	var/list/sit_spawns_leader = list()
-	var/list/sit_spawns_mgmt = list()
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/L = thing
-		if(L.name == "Syndicate-Infiltrator")
+		if(istype(L, /obj/effect/landmark/spawner/syndicate_infiltrator))
 			sit_spawns += L
-		if(L.name == "Syndicate-Infiltrator-Leader")
+		if(istype(L, /obj/effect/landmark/spawner/syndicate_infiltrator_leader))
 			sit_spawns_leader += L
-		if(L.name == "Syndicate-Infiltrator-Admin")
-			sit_spawns_mgmt += L
 
 	var/num_spawned = 1
 	var/team_leader = null
@@ -90,7 +87,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy
 		to_chat(new_syndicate_infiltrator, "<span class='danger'>You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B></span>")
-		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink implant to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
+		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink bio-chip to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
 		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
 		if(syndicate_leader_selected)
@@ -105,7 +102,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You have more helpful information stored in your Notes.</span>")
 		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
-		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
+		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Bio-chip ((top left of screen)) <BR> - Dust Bio-chip ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink bio-chip")
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
 		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
@@ -115,7 +112,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			break
 	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
-	feedback_add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn SIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
 
@@ -124,16 +121,17 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
 
-	var/datum/preferences/A = new() //Randomize appearance
-	A.real_name = syndicate_infiltrator_name
-	A.copy_to(new_syndicate_infiltrator)
+	var/datum/character_save/S = new //Randomize appearance
+	S.randomise()
+	S.real_name = syndicate_infiltrator_name
+	S.copy_to(new_syndicate_infiltrator)
 	new_syndicate_infiltrator.dna.ready_dna(new_syndicate_infiltrator)
 
 	//Creates mind stuff.
 	new_syndicate_infiltrator.mind_initialize()
 	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
-	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to z2 so make them inelligible as antag targets
+	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to the syndicate base on the admin level so make them inelligible as antag targets
 	SSticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
 	return new_syndicate_infiltrator
@@ -180,8 +178,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	else
 		W.icon_state = "id"
 	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
-	W.assignment = "Civilian"
-	W.access += get_access("Civilian")
+	W.assignment = "Assistant"
+	W.access += get_access("Assistant")
 	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"

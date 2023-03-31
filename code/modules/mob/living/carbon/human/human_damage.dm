@@ -2,7 +2,7 @@
 /mob/living/carbon/human/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
-		stat = CONSCIOUS
+		set_stat(CONSCIOUS)
 		return
 
 	var/total_burn  = 0
@@ -14,9 +14,8 @@
 
 	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
 
-	//TODO: fix husking
-	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
-		ChangeToHusk()
+	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD * 2) && stat == DEAD)
+		become_husk(BURN)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 
@@ -65,6 +64,10 @@
 		if(sponge)
 			return min(sponge.damage,maxHealth*2)
 		else
+			if(ischangeling(src))
+				// if a changeling has no brain, they have no brain damage.
+				return 0
+
 			return 200
 	else
 		return 0
@@ -170,17 +173,11 @@
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
-	if(NO_BREATHE in dna.species.species_traits)
-		oxyloss = 0
-		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
 
 /mob/living/carbon/human/setOxyLoss(amount)
-	if(NO_BREATHE in dna.species.species_traits)
-		oxyloss = 0
-		return FALSE
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
 	. = ..()
@@ -241,7 +238,7 @@
 //Damages ONE external organ, organ gets randomly selected from damagable ones.
 //It automatically updates damage overlays if necesary
 //It automatically updates health status
-/mob/living/carbon/human/take_organ_damage(brute, burn, updating_health = TRUE, sharp = 0, edge = 0)
+/mob/living/carbon/human/take_organ_damage(brute, burn, updating_health = TRUE, sharp = FALSE, edge = 0)
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
 	if(!parts.len)
 		return
@@ -274,7 +271,7 @@
 		UpdateDamageIcon()
 
 // damage MANY external organs, in random order
-/mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = 0, edge = 0)
+/mob/living/carbon/human/take_overall_damage(brute, burn, updating_health = TRUE, used_weapon = null, sharp = FALSE, edge = 0)
 	if(status_flags & GODMODE)
 		return	//godmode
 	var/list/obj/item/organ/external/parts = get_damageable_organs()
@@ -311,10 +308,11 @@ This function restores all organs.
 /mob/living/carbon/human/restore_all_organs()
 	for(var/obj/item/organ/external/current_organ in bodyparts)
 		current_organ.rejuvenate()
+		current_organ.add_limb_flags()
 
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
 	var/obj/item/organ/external/E = get_organ(zone)
-	if(istype(E, /obj/item/organ/external))
+	if(isorgan(E))
 		if(E.heal_damage(brute, burn))
 			UpdateDamageIcon()
 	else
@@ -329,11 +327,5 @@ This function restores all organs.
 
 	return bodyparts_by_name[zone]
 
-/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
-	//Handle other types of damage
-	if((damagetype != BRUTE) && (damagetype != BURN))
-		..(damage, damagetype, def_zone, blocked)
-		return 1
-
-	//Handle species apply_damage procs
-	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon)
+/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone, blocked = 0, sharp = FALSE, obj/used_weapon, spread_damage = FALSE)
+	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon, spread_damage)

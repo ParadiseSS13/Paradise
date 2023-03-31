@@ -34,7 +34,7 @@
 
 /datum/novelty_mug/best/New()
 	var/locale = pick("Room's", "Department's", "Station's", "World's", "Sector's", "System's", "Galaxy's", "Universe's", "Multi-verse's", "Nanotrasen's", "Syndicate's")
-	var/what = pick("Crewmember", "Spessman", "Employee", "Coffee", "Coffee-drinker", "Survivor", "Personality", "Lifeform", "Doctor", "Scientist", "Engineer", "Officer", "Civillian", "Captain", "Agent")
+	var/what = pick("Crewmember", "Spessman", "Employee", "Coffee", "Coffee-drinker", "Survivor", "Personality", "Lifeform", "Doctor", "Scientist", "Engineer", "Officer", "Assistant", "Captain", "Agent")
 	name = "\"[locale] Best [what]\" mug"
 
 /datum/novelty_mug/worst
@@ -44,7 +44,7 @@
 
 /datum/novelty_mug/worst/New()
 	var/locale = pick("Room's", "Department's", "Station's", "World's", "Sector's", "System's", "Galaxy's", "Universe's", "Multi-verse's", "Nanotrasen's", "Syndicate's")
-	var/what = pick("Crewmember", "Spessman", "Employee", "Coffee", "Coffee-drinker", "Survivor", "Personality", "Lifeform", "Doctor", "Scientist", "Engineer", "Officer", "Civillian", "Captain", "Agent")
+	var/what = pick("Crewmember", "Spessman", "Employee", "Coffee", "Coffee-drinker", "Survivor", "Personality", "Lifeform", "Doctor", "Scientist", "Engineer", "Officer", "Assistant", "Captain", "Agent")
 	name = "\"[locale] Worst [what]\" mug"
 
 /datum/novelty_mug/insult
@@ -86,8 +86,8 @@
 	description = "So mesmerizing!"
 	state = "mug_rainbow"
 
-/obj/item/reagent_containers/food/drinks/mug/New()
-	..()
+/obj/item/reagent_containers/food/drinks/mug/Initialize(mapload)
+	. = ..()
 	if(preset)
 		return
 	if(novelty)

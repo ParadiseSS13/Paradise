@@ -43,7 +43,7 @@ Difficulty: Medium
 	icon_dead = "dragon_dead"
 	friendly = "stares down"
 	speak_emote = list("roars")
-	armour_penetration = 40
+	armour_penetration_percentage = 50
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	speed = 5
@@ -55,15 +55,16 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = NONE
 	var/player_cooldown = 0
-	internal_type = /obj/item/gps/internal/dragon
+	internal_gps = /obj/item/gps/internal/dragon
 	medal_type = BOSS_MEDAL_DRAKE
 	score_type = DRAKE_SCORE
 	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
 	death_sound = 'sound/misc/demon_dies.ogg'
+	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
-							   /datum/action/innate/megafauna_attack/fire_cone_meteors,
-							   /datum/action/innate/megafauna_attack/mass_fire,
-							   /datum/action/innate/megafauna_attack/lava_swoop)
+							/datum/action/innate/megafauna_attack/fire_cone_meteors,
+							/datum/action/innate/megafauna_attack/mass_fire,
+							/datum/action/innate/megafauna_attack/lava_swoop)
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
@@ -140,7 +141,7 @@ Difficulty: Medium
 		if(prob(11))
 			new /obj/effect/temp_visual/target(turf)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(var/amount, var/delay = 0.8)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(amount, delay = 0.8)
 	if(!target)
 		return
 	target.visible_message("<span class='boldwarning'>Lava starts to pool up around you!</span>")
@@ -152,10 +153,10 @@ Difficulty: Medium
 		amount--
 		SLEEP_CHECK_DEATH(delay)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(var/amount = 30)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(amount = 30)
 	if(health < maxHealth * 0.5)
 		return swoop_attack(lava_arena = TRUE, swoop_cooldown = 60)
-	INVOKE_ASYNC(src, .proc/lava_pools, amount)
+	INVOKE_ASYNC(src, PROC_REF(lava_pools), amount)
 	swoop_attack(FALSE, target, 1000) // longer cooldown until it gets reset below
 	SLEEP_CHECK_DEATH(0)
 	fire_cone()
@@ -166,7 +167,7 @@ Difficulty: Medium
 		fire_cone()
 	SetRecoveryTime(40)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/mass_fire(var/spiral_count = 12, var/range = 15, var/times = 3)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/mass_fire(spiral_count = 12, range = 15, times = 3)
 	SLEEP_CHECK_DEATH(0)
 	for(var/i = 1 to times)
 		SetRecoveryTime(50)
@@ -174,7 +175,7 @@ Difficulty: Medium
 		var/increment = 360 / spiral_count
 		for(var/j = 1 to spiral_count)
 			var/list/turfs = line_target(j * increment + i * increment / 2, range, src)
-			INVOKE_ASYNC(src, .proc/fire_line, turfs)
+			INVOKE_ASYNC(src, PROC_REF(fire_line), turfs)
 		SLEEP_CHECK_DEATH(25)
 	SetRecoveryTime(30)
 
@@ -237,21 +238,21 @@ Difficulty: Medium
 	remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
 	light_range = initial(light_range)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_cone(var/atom/at = target, var/meteors = TRUE)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_cone(atom/at = target, meteors = TRUE)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(0)
 	if(prob(50) && meteors)
-		INVOKE_ASYNC(src, .proc/fire_rain)
+		INVOKE_ASYNC(src, PROC_REF(fire_rain))
 	var/range = 15
 	var/list/turfs = list()
 	turfs = line_target(-40, range, at)
-	INVOKE_ASYNC(src, .proc/fire_line, turfs)
+	INVOKE_ASYNC(src, PROC_REF(fire_line), turfs)
 	turfs = line_target(0, range, at)
-	INVOKE_ASYNC(src, .proc/fire_line, turfs)
+	INVOKE_ASYNC(src, PROC_REF(fire_line), turfs)
 	turfs = line_target(40, range, at)
-	INVOKE_ASYNC(src, .proc/fire_line, turfs)
+	INVOKE_ASYNC(src, PROC_REF(fire_line), turfs)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/line_target(var/offset, var/range, var/atom/at = target)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/line_target(offset, range, atom/at = target)
 	if(!at)
 		return
 	var/angle = ATAN2(at.x - src.x, at.y - src.y) + offset
@@ -263,12 +264,12 @@ Difficulty: Medium
 		T = check
 	return (getline(src, T) - get_turf(src))
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(var/list/turfs)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_line(list/turfs)
 	SLEEP_CHECK_DEATH(0)
 	dragon_fire_line(src, turfs)
 
 //fire line keeps going even if dragon is deleted
-/proc/dragon_fire_line(var/source, var/list/turfs)
+/proc/dragon_fire_line(source, list/turfs)
 	var/list/hit_list = list()
 	for(var/turf/T in turfs)
 		if(T.density)
@@ -287,10 +288,10 @@ Difficulty: Medium
 			if(M in hit_list)
 				continue
 			hit_list += M
-			M.take_damage(45, BRUTE, "melee", 1)
+			M.take_damage(45, BRUTE, MELEE, 1)
 		sleep(1.5)
 
-/mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(lava_arena = FALSE, atom/movable/manual_target, var/swoop_cooldown = 30)
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(lava_arena = FALSE, atom/movable/manual_target, swoop_cooldown = 30)
 	if(stat || swooping)
 		return
 	if(manual_target)
@@ -371,7 +372,7 @@ Difficulty: Medium
 				L.throw_at(throwtarget, 3)
 				visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")
 	for(var/obj/mecha/M in orange(1, src))
-		M.take_damage(75, BRUTE, "melee", 1)
+		M.take_damage(75, BRUTE, MELEE, 1)
 
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
@@ -393,7 +394,7 @@ Difficulty: Medium
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message()
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message)
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
@@ -426,13 +427,13 @@ Difficulty: Medium
 /obj/effect/temp_visual/lava_warning/ex_act()
 	return
 
-/obj/effect/temp_visual/lava_warning/Initialize(mapload, var/reset_time = 10)
+/obj/effect/temp_visual/lava_warning/Initialize(mapload, reset_time = 10)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/fall, reset_time)
+	INVOKE_ASYNC(src, PROC_REF(fall), reset_time)
 	src.alpha = 63.75
 	animate(src, alpha = 255, time = duration)
 
-/obj/effect/temp_visual/lava_warning/proc/fall(var/reset_time)
+/obj/effect/temp_visual/lava_warning/proc/fall(reset_time)
 	var/turf/T = get_turf(src)
 	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
 	sleep(duration)
@@ -446,10 +447,10 @@ Difficulty: Medium
 
 	// deals damage to mechs
 	for(var/obj/mecha/M in T.contents)
-		M.take_damage(45, BRUTE, "melee", 1)
+		M.take_damage(45, BRUTE, MELEE, 1)
 
 	// changes turf to lava temporarily
-	if(!T.density && !istype(T, /turf/simulated/floor/plating/lava))
+	if(!T.density && !islava(T))
 		var/lava_turf = /turf/simulated/floor/plating/lava/smooth
 		var/reset_turf = T.type
 		T.ChangeTurf(lava_turf)
@@ -462,7 +463,7 @@ Difficulty: Medium
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "1"
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	density = TRUE
 	duration = 82
 	color = COLOR_DARK_ORANGE
@@ -498,7 +499,7 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/dragon_flight/Initialize(mapload, negative)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/flight, negative)
+	INVOKE_ASYNC(src, PROC_REF(flight), negative)
 
 /obj/effect/temp_visual/dragon_flight/proc/flight(negative)
 	if(negative)
@@ -524,7 +525,7 @@ Difficulty: Medium
 	else
 		animate(src, pixel_x = -16, pixel_z = 0, time = 5)
 
-obj/effect/temp_visual/fireball
+/obj/effect/temp_visual/fireball
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "fireball"
 	name = "fireball"
@@ -550,7 +551,7 @@ obj/effect/temp_visual/fireball
 
 /obj/effect/temp_visual/target/Initialize(mapload, list/flame_hit)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/fall, flame_hit)
+	INVOKE_ASYNC(src, PROC_REF(fall), flame_hit)
 
 /obj/effect/temp_visual/target/proc/fall(list/flame_hit)
 	var/turf/T = get_turf(src)
@@ -588,19 +589,6 @@ obj/effect/temp_visual/fireball
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/lesser/AltClickOn(atom/movable/A)
-	if(!istype(A))
-		return
-	if(player_cooldown >= world.time)
-		to_chat(src, "<span class='warning'>You need to wait [(player_cooldown - world.time) / 10] seconds before swooping again!</span>")
-		return
-	swoop_attack(FALSE, A)
-	lava_pools(10, 2) // less pools but longer delay before spawns
-	player_cooldown = world.time + 200 // needs seperate cooldown or cant use fire attacks
-
-/mob/living/simple_animal/hostile/megafauna/dragon/lesser/grant_achievement(medaltype,scoretype)
-	return
-
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
 	maxHealth = 250
@@ -625,22 +613,19 @@ obj/effect/temp_visual/fireball
 	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, life estinguished."
 	attack_action_types = list()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/grant_achievement(medaltype, scoretype)
-	return
-
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
-	var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/repulse_action = new /obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon(src)
+	var/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/repulse_action = new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src)
 	repulse_action.action.Grant(src)
 	mob_spell_list += repulse_action
 	. = ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(var/atom/at = target)
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(atom/at = target)
 	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(0)
 	var/range = 20
 	var/list/turfs = list()
 	turfs = line_target(0, range, at)
-	INVOKE_ASYNC(src, .proc/fire_line, turfs)
+	INVOKE_ASYNC(src, PROC_REF(fire_line), turfs)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/OpenFire()
 	if(swooping)
@@ -648,20 +633,20 @@ obj/effect/temp_visual/fireball
 	ranged_cooldown = world.time + ranged_cooldown_time
 	fire_stream()
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon
+/obj/effect/proc_holder/spell/aoe/repulse/spacedragon
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	sound = 'sound/magic/tail_swing.ogg'
-	charge_max = 150
+	base_cooldown = 150
 	clothes_req = FALSE
-	range = 1
 	cooldown_min = 150
 	invocation_type = "none"
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 	action_icon_state = "tailsweep"
 	action_background_icon_state = "bg_alien"
+	aoe_range = 1
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/cast(list/targets, mob/user = usr)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, TRUE)

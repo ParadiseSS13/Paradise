@@ -1,6 +1,6 @@
 /datum/buildmode_mode/boom
 	key = "boom"
-	
+
 	var/devastation = -1
 	var/heavy = -1
 	var/light = -1
@@ -29,4 +29,5 @@
 	var/left_click = pa.Find("left")
 
 	if(left_click)
+		log_admin("Build Mode: [key_name(user)] created an explosion at ([object.x],[object.y],[object.z])")
 		explosion(object, devastation, heavy, light, flash, null, TRUE, flames)

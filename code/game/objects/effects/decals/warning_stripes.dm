@@ -52,7 +52,8 @@
 
 /obj/effect/decal/warning_stripes/Initialize()
 	. = ..()
-	loc.overlays += src
+	var/image/I = image(icon, icon_state = icon_state, dir = dir)
+	loc.add_overlay(I)
 	qdel(src)
 
 // Credit to Neinhaus for making these into individual decals.

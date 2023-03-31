@@ -13,7 +13,7 @@
 	normal_step_energy_drain = 6
 	var/builtin_hud_user = 0
 
-/obj/mecha/medical/odysseus/moved_inside(var/mob/living/carbon/human/H)
+/obj/mecha/medical/odysseus/moved_inside(mob/living/carbon/human/H)
 	. = ..()
 	if(. && ishuman(H))
 		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
@@ -23,7 +23,7 @@
 			A.add_hud_to(H)
 			builtin_hud_user = 1
 
-/obj/mecha/medical/odysseus/mmi_moved_inside(var/obj/item/mmi/mmi_as_oc, mob/user)
+/obj/mecha/medical/odysseus/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
 	. = ..()
 	if(.)
 		if(occupant.client)

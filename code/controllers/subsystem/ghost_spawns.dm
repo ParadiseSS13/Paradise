@@ -1,10 +1,10 @@
 SUBSYSTEM_DEF(ghost_spawns)
 	name = "Ghost Spawns"
-	init_order = INIT_ORDER_EVENTS
-	flags = SS_BACKGROUND
+	flags = SS_BACKGROUND | SS_NO_INIT
 	wait = 1 SECONDS
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Ghosts will no longer be able to respawn as event mobs (Blob, etc..). Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// List of polls currently ongoing, to be checked on next fire()
 	var/list/datum/candidate_poll/currently_polling
@@ -41,9 +41,10 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * flash_window - Whether the poll should flash a potential candidate's game window
   * * check_antaghud - Whether to filter out potential candidates who enabled AntagHUD
   * * source - The atom, atom prototype, icon or mutable appearance to display as an icon in the alert
+  * * role_cleanname - The name override to display to clients
   */
-/datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source)
-	log_debug("Polling candidates [role ? "for [get_roletext(role)]" : "\"[question]\""] for [poll_time / 10] seconds")
+/datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source, role_cleanname)
+	log_debug("Polling candidates [role ? "for [role_cleanname || get_roletext(role)]" : "\"[question]\""] for [poll_time / 10] seconds")
 
 	// Start firing
 	polls_active = TRUE
@@ -58,11 +59,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	var/category = "[P.hash]_notify_action"
 
+	var/notice_sound = sound('sound/misc/notice2.ogg')
 	for(var/mob/dead/observer/M in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
 
-		SEND_SOUND(M, 'sound/misc/notice2.ogg')
+		SEND_SOUND(M, notice_sound)
 		if(flash_window)
 			window_flash(M.client)
 
@@ -94,7 +96,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(P != P2 && P.hash == P2.hash)
 				// If there's already a poll for an identical mob type ongoing and the client is signed up for it, sign them up for this one
 				if(!inherited_sign_up && (M in P2.signed_up) && P.sign_up(M, TRUE))
-					A.display_signed_up()
+					A.update_signed_up_alert()
 					inherited_sign_up = TRUE
 				// This number is used to display the number of polls the alert regroups
 				num_stack++
@@ -130,7 +132,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(isatom(source))
 			act_jump = "<a href='?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
 		var/act_signup = "<a href='?src=[A.UID()];signup=1'>\[Sign Up]</a>"
-		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [get_roletext(role)]" : "\"[question]\""]. [act_jump] [act_signup]</span></big>")
+		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [role_cleanname || get_roletext(role)]" : "\"[question]\""]. [act_jump] [act_signup]</span></big>")
 
 		// Start processing it so it updates visually the timer
 		START_PROCESSING(SSprocessing, A)
@@ -162,9 +164,9 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(!player_old_enough_antag(M.client, role))
 				return
 	if(role_text)
-		if(jobban_isbanned(M, role_text) || jobban_isbanned(M, "Syndicate"))
+		if(jobban_isbanned(M, role_text) || jobban_isbanned(M, ROLE_SYNDICATE))
 			return
-	if(config.use_exp_restrictions && min_hours)
+	if(GLOB.configuration.jobs.enable_exp_restrictions && min_hours)
 		if(M.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
 			return
 	if(check_antaghud && cannotPossess(M))
@@ -199,11 +201,12 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(!next_poll_to_finish || P2.time_left() < next_poll_to_finish.time_left())
 				next_poll_to_finish = P2
 
-/datum/controller/subsystem/ghost_spawns/stat_entry(msg)
+/datum/controller/subsystem/ghost_spawns/get_stat_details()
+	var/list/msg = list()
 	msg += "Active: [length(currently_polling)] | Total: [total_polls]"
 	if(next_poll_to_finish)
 		msg += " | Next: [DisplayTimeText(next_poll_to_finish.time_left())] ([length(next_poll_to_finish.signed_up)] candidates)"
-	..(msg)
+	return msg.Join("")
 
 // The datum that describes one instance of candidate polling
 /datum/candidate_poll
@@ -241,15 +244,16 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(!silent)
 			to_chat(M, "<span class='warning'>You have already signed up for this!</span>")
 		return
+
 	if(time_left() <= 0)
 		if(!silent)
 			to_chat(M, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
-			SEND_SOUND(M, 'sound/machines/buzz-sigh.ogg')
+			SEND_SOUND(M, sound('sound/machines/buzz-sigh.ogg'))
 		return
 
 	signed_up += M
 	if(!silent)
-		to_chat(M, "<span class='notice'>You have signed up for this role! A candidate will be picked randomly soon..</span>")
+		to_chat(M, "<span class='notice'>You have signed up for this role! A candidate will be picked randomly soon.</span>")
 		// Sign them up for any other polls with the same mob type
 		for(var/existing_poll in SSghost_spawns.currently_polling)
 			var/datum/candidate_poll/P = existing_poll
@@ -257,6 +261,40 @@ SUBSYSTEM_DEF(ghost_spawns)
 				P.sign_up(M, TRUE)
 
 	return TRUE
+
+/**
+ * Attempts to remove a signed-up mob from a poll.
+ *
+ * Arguments:
+ * * M - The mob to remove from the poll, if present.
+ * * silent - If TRUE, no messages will be sent to M about their removal.
+ */
+/datum/candidate_poll/proc/remove_candidate(mob/dead/observer/M, silent = FALSE)
+	. = FALSE
+	if(!istype(M) || !M.key || !M.client)
+		return
+	if(!(M in signed_up))
+		if(!silent)
+			to_chat(M, "<span class='warning'>You aren't signed up for this!</span>")
+		return
+
+	if(time_left() <= 0)
+		if(!silent)
+			to_chat(M, "<span class='danger'>It's too late to unregister yourself, selection has already begun!</span>")
+		return
+
+	signed_up -= M
+	if(!silent)
+		to_chat(M, "<span class='notice'>You have been unregistered as a candidate for this role. You can freely sign up again before the poll ends.</span>")
+
+		for(var/existing_poll in SSghost_spawns.currently_polling)
+			var/datum/candidate_poll/P = existing_poll
+			if(src != P && hash == P.hash && (M in P.signed_up))
+				P.remove_candidate(M, TRUE)
+	return TRUE
+
+
+
 
 /**
   * Deletes any candidates who may have disconnected from the list

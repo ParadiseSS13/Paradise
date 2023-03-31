@@ -3,7 +3,7 @@
 	desc = "A scroll for moving around."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
-	var/uses = 4.0
+	var/uses = 4
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "paper"
 	throw_speed = 4
@@ -16,92 +16,60 @@
 	uses = 1
 	origin_tech = "bluespace=5"
 
-/obj/item/teleportation_scroll/attack_self(mob/user as mob)
-	user.set_machine(src)
-	var/dat = "<B>Teleportation Scroll:</B><BR>"
-	dat += "Number of uses: [src.uses]<BR>"
-	dat += "<HR>"
-	dat += "<B>Four uses use them wisely:</B><BR>"
-	dat += "<A href='byond://?src=[UID()];spell_teleport=1'>Teleport</A><BR>"
-	dat += "Kind regards,<br>Wizards Federation<br><br>P.S. Don't forget to bring your gear, you'll need it to cast most spells.<HR>"
-	user << browse(dat, "window=scroll")
-	onclose(user, "scroll")
-	return
+/obj/item/teleportation_scroll/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Number of uses: [uses]. This scroll will vanish after the final use.</span>"
+	. += "<span class='notice'>P.S. Don't forget to bring your gear, you'll need it to cast most spells.</span>"
 
-/obj/item/teleportation_scroll/Topic(href, href_list)
-	..()
-	if(usr.stat || usr.restrained() || src.loc != usr)
-		return
-	var/mob/living/carbon/human/H = usr
-	if(!( istype(H, /mob/living/carbon/human)))
-		return 1
-	if((usr == src.loc || (in_range(src, usr) && istype(src.loc, /turf))))
-		usr.set_machine(src)
-		if(href_list["spell_teleport"])
-			if(src.uses >= 1)
-				teleportscroll(H)
-	attack_self(H)
-	return
-
-/obj/item/teleportation_scroll/proc/teleportscroll(var/mob/user)
-
-	var/A
-
-	A = input(user, "Area to jump to", "BOOYEA", A) as null|anything in GLOB.teleportlocs
-
-	if(!A)
+/obj/item/teleportation_scroll/attack_self(mob/user)
+	if(!uses) //somehow?
+		to_chat(user, "<span class='warning'>You attempt to read the scroll but it disintegrates in your hand, it appears that is has run out of charges!</span>")
+		qdel(src)
 		return
 
-	var/area/thearea = GLOB.teleportlocs[A]
+	var/picked_area
+	picked_area = input(user, "Area to jump to", "Teleport where?", picked_area) as null|anything in SSmapping.teleportlocs
+	if(!picked_area)
+		return
 
+	var/area/thearea = SSmapping.teleportlocs[picked_area]
 	if(user.stat || user.restrained())
 		return
-	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
-		return
 
-	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
+	if(!(user == loc || (in_range(src, user) && isturf(user.loc))))
+		return //They can't use it if they put it in their bag or drop it and walk off, but if they are stood next to it they can.
+
+	if(thearea.tele_proof && !istype(thearea, /area/wizard_station)) //Nowhere in SSmapping.teleportlocs should be tele_proof, but better safe than sorry
 		to_chat(user, "<span class='warning'>A mysterious force disrupts your arcane spell matrix, and you remain where you are.</span>")
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, 0, user.loc)
+	smoke.set_up(5, FALSE, get_turf(user))
 	smoke.attach(user)
 	smoke.start()
 	var/list/L = list()
-	for(var/turf/T in get_area_turfs(thearea.type))
-		if(!T.density)
-			var/clear = 1
-			for(var/obj/O in T)
-				if(O.density)
-					clear = 0
-					break
-			if(clear)
-				L+=T
 
-	if(!L.len)
+	for(var/turf/T in get_area_turfs(thearea.type))
+		if(is_blocked_turf(T))
+			continue
+		L.Add(T)
+
+	if(!length(L))
 		to_chat(user, "<span class='warning'>The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.</span>")
 		return
 
 	if(user && user.buckled)
 		user.buckled.unbuckle_mob(user, force = TRUE)
 
-	if(user && user.has_buckled_mobs())
+	if(user?.has_buckled_mobs())
 		user.unbuckle_all_mobs(force = TRUE)
 
-	var/list/tempL = L
-	var/attempt = null
-	var/success = 0
-	while(tempL.len)
-		attempt = pick(tempL)
-		success = user.Move(attempt)
-		if(!success)
-			tempL.Remove(attempt)
-		else
-			break
-
-	if(!success)
-		user.forceMove(pick(L))
-
+	user.forceMove(pick(L))
 	smoke.start()
-	src.uses -= 1
+	uses--
+
+	if(!uses)
+		to_chat(user, "<span class='warning'>The scroll fizzles out of existence as the last of the magic within fades.</span>")
+		qdel(src)
+
 	user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable

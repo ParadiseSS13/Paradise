@@ -55,7 +55,7 @@
 	)
 
 
-/datum/intercept_text/proc/build(var/mode_type, datum/mind/correct_person)
+/datum/intercept_text/proc/build(mode_type, datum/mind/correct_person)
 	switch(mode_type)
 		if("revolution")
 			src.text = ""
@@ -110,7 +110,7 @@
 /datum/intercept_text/proc/get_suspect()
 	var/list/dudes = list()
 	for(var/mob/living/carbon/human/man in GLOB.player_list)
-		if(man.client && man.client.prefs.nanotrasen_relation == "Opposed")
+		if(man.client && man.client.prefs.active_character.nanotrasen_relation == "Opposed")
 			//don't include suspects who can't possibly be the antag based on their job (no suspecting the captain of being a damned dirty tator)
 			if(man.mind && man.mind.assigned_role)
 				if((man.mind.assigned_role in SSticker.mode.protected_jobs) || (man.mind.assigned_role in SSticker.mode.restricted_jobs))
@@ -194,7 +194,7 @@
 	src.text += "Known attributes include: Brown sandals, a large blue hat, a voluptous white beard, and an inclination to cast spells."
 
 /datum/intercept_text/proc/build_nuke(datum/mind/correct_person)
-	src.text += "<BR><BR>Cent. Com recently recieved a report of a plot to destroy one of our stations in your area. We believe the Nuclear Authentication Disc "
+	src.text += "<BR><BR>Cent. Com recently received a report of a plot to destroy one of our stations in your area. We believe the Nuclear Authentication Disc "
 	src.text += "that is standard issue aboard your vessel may be a target. We recommend removal of this object, and it's storage in a safe "
 	src.text += "environment. As this may cause panic among the crew, all efforts should be made to keep this information a secret from all but "
 	src.text += "the most trusted crew-members."

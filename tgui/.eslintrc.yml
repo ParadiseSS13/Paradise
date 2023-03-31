@@ -1,4 +1,4 @@
-parser: babel-eslint
+parser: "@babel/eslint-parser"
 parserOptions:
   ecmaVersion: 2019
   sourceType: module
@@ -10,6 +10,8 @@ env:
   node: true
 plugins:
   - react
+extends:
+  - prettier
 settings:
   react:
     version: '16.10'
@@ -56,7 +58,7 @@ rules:
   ## Disallow unnecessary parentheses
   # no-extra-parens: warn
   ## Disallow unnecessary semicolons
-  no-extra-semi: error
+  # no-extra-semi: error
   ## Disallow reassigning function declarations
   no-func-assign: error
   ## Disallow assigning to imported bindings
@@ -81,7 +83,7 @@ rules:
   ## Disallow template literal placeholder syntax in regular strings
   no-template-curly-in-string: error
   ## Disallow confusing multiline expressions
-  no-unexpected-multiline: error
+  # no-unexpected-multiline: error
   ## Disallow unreachable code after return, throw, continue, and break
   ## statements
   # no-unreachable: warn
@@ -118,7 +120,7 @@ rules:
   ## Enforce default parameters to be last
   # default-param-last: error
   ## Enforce consistent newlines before and after dots
-  dot-location: [error, property]
+  # dot-location: [error, property]
   ## Enforce dot notation whenever possible
   # dot-notation: error
   ## Require the use of === and !==
@@ -178,7 +180,7 @@ rules:
   ## Disallow magic numbers
   # no-magic-numbers: error
   ## Disallow multiple spaces
-  no-multi-spaces: warn
+  # no-multi-spaces: warn
   ## Disallow multiline strings
   # no-multi-str: error
   ## Disallow new operators outside of assignments or comparisons
@@ -290,14 +292,14 @@ rules:
   ## Code style
   ## ----------------------------------------
   ## Enforce linebreaks after opening and before closing array brackets
-  array-bracket-newline: [error, consistent]
+  # array-bracket-newline: [error, consistent]
   ## Enforce consistent spacing inside array brackets
-  array-bracket-spacing: [error, never]
+  # array-bracket-spacing: [error, never]
   ## Enforce line breaks after each array element
   # array-element-newline: error
   ## Disallow or enforce spaces inside of blocks after opening block and
   ## before closing block
-  block-spacing: [error, always]
+  # block-spacing: [error, always]
   ## Enforce consistent brace style for blocks
   # brace-style: [error, stroustrup, { allowSingleLine: false }]
   ## Enforce camelcase naming convention
@@ -305,26 +307,26 @@ rules:
   ## Enforce or disallow capitalization of the first letter of a comment
   # capitalized-comments: error
   ## Require or disallow trailing commas
-  comma-dangle: [error, {
-    arrays: always-multiline,
-    objects: always-multiline,
-    imports: always-multiline,
-    exports: always-multiline,
-    functions: only-multiline, ## Optional on functions
-  }]
+  # comma-dangle: [error, {
+  #   arrays: always-multiline,
+  #   objects: always-multiline,
+  #   imports: always-multiline,
+  #   exports: always-multiline,
+  #   functions: only-multiline, ## Optional on functions
+  # }]
   ## Enforce consistent spacing before and after commas
-  comma-spacing: [error, { before: false, after: true }]
+  # comma-spacing: [error, { before: false, after: true }]
   ## Enforce consistent comma style
-  comma-style: [error, last]
+  # comma-style: [error, last]
   ## Enforce consistent spacing inside computed property brackets
-  computed-property-spacing: [error, never]
+  # computed-property-spacing: [error, never]
   ## Enforce consistent naming when capturing the current execution context
   # consistent-this: error
   ## Require or disallow newline at the end of files
   # eol-last: error
   ## Require or disallow spacing between function identifiers and their
   ## invocations
-  func-call-spacing: [error, never]
+  # func-call-spacing: [error, never]
   ## Require function names to match the name of the variable or property
   ## to which they are assigned
   # func-name-matching: error
@@ -346,15 +348,15 @@ rules:
   ## Enforce the location of arrow function bodies
   # implicit-arrow-linebreak: error
   ## Enforce consistent indentation
-  indent: [error, 2, { SwitchCase: 1 }]
+  # indent: [error, 2, { SwitchCase: 1 }]
   ## Enforce the consistent use of either double or single quotes in JSX
   ## attributes
-  jsx-quotes: [error, prefer-double]
+  # jsx-quotes: [error, prefer-double]
   ## Enforce consistent spacing between keys and values in object literal
   ## properties
-  key-spacing: [error, { beforeColon: false, afterColon: true }]
+  # key-spacing: [error, { beforeColon: false, afterColon: true }]
   ## Enforce consistent spacing before and after keywords
-  keyword-spacing: [error, { before: true, after: true }]
+  # keyword-spacing: [error, { before: true, after: true }]
   ## Enforce position of line comments
   # line-comment-position: error
   ## Enforce consistent linebreak style
@@ -366,13 +368,13 @@ rules:
   ## Enforce a maximum depth that blocks can be nested
   # max-depth: error
   ## Enforce a maximum line length
-  max-len: [error, {
-    code: 80,
+  #max-len: [error, {
+  #  code: 80,
     ## Ignore imports
-    ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
-    ignoreUrls: true,
-    ignoreRegExpLiterals: true,
-  }]
+    #ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
+    #ignoreUrls: true,
+    #ignoreRegExpLiterals: true,
+  #}]
   ## Enforce a maximum number of lines per file
   # max-lines: error
   ## Enforce a maximum number of line of code in a function
@@ -388,7 +390,7 @@ rules:
   ## Enforce a particular style for multiline comments
   # multiline-comment-style: error
   ## Enforce newlines between operands of ternary expressions
-  multiline-ternary: [error, always-multiline]
+  # multiline-ternary: [error, always-multiline]
   ## Require constructor names to begin with a capital letter
   # new-cap: error
   ## Enforce or disallow parentheses when invoking a constructor with no
@@ -409,7 +411,7 @@ rules:
   ## Disallow mixed binary operators
   # no-mixed-operators: error
   ## Disallow mixed spaces and tabs for indentation
-  no-mixed-spaces-and-tabs: error
+  # no-mixed-spaces-and-tabs: error
   ## Disallow use of chained assignment expressions
   # no-multi-assign: error
   ## Disallow multiple empty lines
@@ -435,13 +437,13 @@ rules:
   ## Disallow ternary operators when simpler alternatives exist
   # no-unneeded-ternary: error
   ## Disallow whitespace before properties
-  no-whitespace-before-property: error
+  # no-whitespace-before-property: error
   ## Enforce the location of single-line statements
   # nonblock-statement-body-position: error
   ## Enforce consistent line breaks inside braces
   # object-curly-newline: [error, { multiline: true }]
   ## Enforce consistent spacing inside braces
-  object-curly-spacing: [error, always]
+  # object-curly-spacing: [error, always]
   ## Enforce placing object properties on separate lines
   # object-property-newline: error
   ## Enforce variables to be declared either together or separately in
@@ -452,7 +454,7 @@ rules:
   ## Require or disallow assignment operator shorthand where possible
   # operator-assignment: error
   ## Enforce consistent linebreak style for operators
-  operator-linebreak: [error, before]
+  # operator-linebreak: [error, before]
   ## Require or disallow padding within blocks
   # padded-blocks: error
   ## Require or disallow padding lines between statements
@@ -465,25 +467,25 @@ rules:
   ## Enforce the consistent use of either backticks, double, or single quotes
   # quotes: [error, single]
   ## Require or disallow semicolons instead of ASI
-  semi: error
+  # semi: error
   ## Enforce consistent spacing before and after semicolons
-  semi-spacing: [error, { before: false, after: true }]
+  # semi-spacing: [error, { before: false, after: true }]
   ## Enforce location of semicolons
-  semi-style: [error, last]
+  # semi-style: [error, last]
   ## Require object keys to be sorted
   # sort-keys: error
   ## Require variables within the same declaration block to be sorted
   # sort-vars: error
   ## Enforce consistent spacing before blocks
-  space-before-blocks: [error, always]
+  # space-before-blocks: [error, always]
   ## Enforce consistent spacing before function definition opening parenthesis
-  space-before-function-paren: [error, {
-    anonymous: always,
-    named: never,
-    asyncArrow: always,
-  }]
+  # space-before-function-paren: [error, {
+  #   anonymous: always,
+  #   named: never,
+  #   asyncArrow: always,
+  # }]
   ## Enforce consistent spacing inside parentheses
-  space-in-parens: [error, never]
+  # space-in-parens: [error, never]
   ## Require spacing around infix operators
   # space-infix-ops: error
   ## Enforce consistent spacing before or after unary operators
@@ -491,9 +493,9 @@ rules:
   ## Enforce consistent spacing after the // or /* in a comment
   spaced-comment: [error, always]
   ## Enforce spacing around colons of switch statements
-  switch-colon-spacing: [error, { before: false, after: true }]
+  # switch-colon-spacing: [error, { before: false, after: true }]
   ## Require or disallow spacing between template tags and their literals
-  template-tag-spacing: [error, never]
+  # template-tag-spacing: [error, never]
   ## Require or disallow Unicode byte order mark (BOM)
   # unicode-bom: [error, never]
   ## Require parenthesis around regex literals
@@ -504,13 +506,13 @@ rules:
   ## Require braces around arrow function bodies
   # arrow-body-style: error
   ## Require parentheses around arrow function arguments
-  arrow-parens: [error, as-needed]
+  # arrow-parens: [error, as-needed]
   ## Enforce consistent spacing before and after the arrow in arrow functions
-  arrow-spacing: [error, { before: true, after: true }]
+  # arrow-spacing: [error, { before: true, after: true }]
   ## Require super() calls in constructors
   # constructor-super: error
   ## Enforce consistent spacing around * operators in generator functions
-  generator-star-spacing: [error, { before: false, after: true }]
+  # generator-star-spacing: [error, { before: false, after: true }]
   ## Disallow reassigning class members
   no-class-assign: error
   ## Disallow arrow functions where they could be confused with comparisons
@@ -567,7 +569,7 @@ rules:
   ## strings
   # template-curly-spacing: error
   ## Require or disallow spacing around the * in yield* expressions
-  yield-star-spacing: [error, { before: false, after: true }]
+  # yield-star-spacing: [error, { before: false, after: true }]
 
   ## React
   ## ----------------------------------------
@@ -580,7 +582,7 @@ rules:
   ## Rule enforces consistent usage of destructuring assignment in component
   # react/destructuring-assignment: [error, always, { ignoreClassFields: true }]
   ## Prevent missing displayName in a React component definition
-  react/display-name: error
+  # react/display-name: error
   ## Forbid certain props on Components
   # react/forbid-component-props: error
   ## Forbid certain props on DOM Nodes
@@ -681,21 +683,21 @@ rules:
   ## expressions.
   # react/jsx-child-element-spacing: error
   ## Validate closing bracket location in JSX (fixable)
-  react/jsx-closing-bracket-location: [error, {
-    ## NOTE: Not really sure about enforcing this one
-    selfClosing: false,
-    nonEmpty: after-props,
-  }]
+  # react/jsx-closing-bracket-location: [error, {
+  #   ## NOTE: Not really sure about enforcing this one
+  #   selfClosing: false,
+  #   nonEmpty: after-props,
+  # }]
   ## Validate closing tag location in JSX (fixable)
-  react/jsx-closing-tag-location: error
+  # react/jsx-closing-tag-location: error
   ## Enforce or disallow newlines inside of curly braces in JSX attributes and
   ## expressions (fixable)
-  react/jsx-curly-newline: error
+  # react/jsx-curly-newline: error
   ## Enforce or disallow spaces inside of curly braces in JSX attributes and
   ## expressions (fixable)
-  react/jsx-curly-spacing: error
+  # react/jsx-curly-spacing: error
   ## Enforce or disallow spaces around equal signs in JSX attributes (fixable)
-  react/jsx-equals-spacing: error
+  # react/jsx-equals-spacing: error
   ## Restrict file extensions that may contain JSX
   # react/jsx-filename-extension: error
   ## Enforce position of the first prop in JSX (fixable)
@@ -703,11 +705,11 @@ rules:
   ## Enforce event handler naming conventions in JSX
   react/jsx-handler-names: error
   ## Validate JSX indentation (fixable)
-  react/jsx-indent: [error, 2, {
-    checkAttributes: true,
-  }]
+  # react/jsx-indent: [error, 2, {
+  #   checkAttributes: true,
+  # }]
   ## Validate props indentation in JSX (fixable)
-  react/jsx-indent-props: [error, 2]
+  # react/jsx-indent-props: [error, 2]
   ## Validate JSX has key prop when in array or iterator
   react/jsx-key: error
   ## Validate JSX maximum depth
@@ -737,7 +739,7 @@ rules:
   ## Enforce PascalCase for user-defined JSX components
   react/jsx-pascal-case: error
   ## Disallow multiple spaces between inline JSX props (fixable)
-  react/jsx-props-no-multi-spaces: error
+  # react/jsx-props-no-multi-spaces: error
   ## Disallow JSX props spreading
   # react/jsx-props-no-spreading: error
   ## Enforce default props alphabetical sorting
@@ -746,10 +748,10 @@ rules:
   # react/jsx-sort-props: error
   ## Validate whitespace in and around the JSX opening and closing brackets
   ## (fixable)
-  react/jsx-tag-spacing: error
+  # react/jsx-tag-spacing: error
   ## Prevent React to be incorrectly marked as unused
   react/jsx-uses-react: error
   ## Prevent variables used in JSX to be incorrectly marked as unused
   react/jsx-uses-vars: error
   ## Prevent missing parentheses around multilines JSX (fixable)
-  react/jsx-wrap-multilines: error
+  # react/jsx-wrap-multilines: error

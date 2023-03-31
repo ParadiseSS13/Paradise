@@ -17,7 +17,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/fries
-	name = "Space fries"
+	name = "space fries"
 	desc = "AKA: French Fries, Freedom Fries, etc."
 	icon_state = "fries"
 	trash = /obj/item/trash/plate
@@ -115,4 +115,3 @@
 	list_reagents = list("nutriment" = 3, "vitamin" = 4)
 	filling_color = "#FF5500"
 	tastes = list("parsnip" = 1)
-

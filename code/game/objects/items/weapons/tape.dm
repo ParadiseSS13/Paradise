@@ -8,10 +8,9 @@
 	amount = 25
 	max_amount = 25
 
-/obj/item/stack/tape_roll/New(var/loc, var/amount=null)
+/obj/item/stack/tape_roll/New(loc, amount=null)
 	..()
-
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/M, mob/living/user)
 	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
@@ -42,7 +41,7 @@
 	M.equip_to_slot(G, slot_wear_mask)
 	G.add_fingerprint(user)
 
-/obj/item/stack/tape_roll/update_icon()
+/obj/item/stack/tape_roll/update_icon_state()
 	var/amount = get_amount()
 	if((amount <= 2) && (amount > 0))
 		icon_state = "taperoll"
@@ -54,4 +53,3 @@
 		icon_state = "taperoll-4"
 	else
 		icon_state = "taperoll-4"
-	..()

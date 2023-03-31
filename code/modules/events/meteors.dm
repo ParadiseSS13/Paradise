@@ -10,14 +10,14 @@
 /datum/event/meteor_wave/announce()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
+			GLOB.minor_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
 		else
-			GLOB.event_announcement.Announce("The station is now in a meteor shower.", "Meteor Alert")
+			GLOB.minor_announcement.Announce("The station is now in a meteor shower.", "Meteor Alert")
 
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
 	if(waves && activeFor >= next_meteor)
-		spawn() spawn_meteors(severity * rand(1,2), get_meteors())
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), get_meteor_count(), get_meteors())
 		next_meteor += rand(15, 30) / severity
 		waves--
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
@@ -25,9 +25,9 @@
 /datum/event/meteor_wave/end()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("The station has cleared the meteor storm.", "Meteor Alert")
+			GLOB.minor_announcement.Announce("The station has cleared the meteor storm.", "Meteor Alert")
 		else
-			GLOB.event_announcement.Announce("The station has cleared the meteor shower", "Meteor Alert")
+			GLOB.minor_announcement.Announce("The station has cleared the meteor shower", "Meteor Alert")
 
 /datum/event/meteor_wave/proc/get_meteors()
 	switch(severity)
@@ -37,3 +37,6 @@
 			return GLOB.meteors_threatening
 		else
 			return GLOB.meteors_normal
+
+/datum/event/meteor_wave/proc/get_meteor_count()
+	return severity * rand(1, 2)

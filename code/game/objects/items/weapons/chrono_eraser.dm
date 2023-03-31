@@ -1,7 +1,7 @@
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22
 /obj/item/chrono_eraser
-	name = "Timestream Eradication Device"
+	name = "\improper Timestream Eradication Device"
 	desc = "The result of outlawed time-bluespace research, this device is capable of wiping a being from the timestream. They never are, they never were, they never will be."
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronobackpack"
@@ -13,7 +13,7 @@
 	var/obj/item/gun/energy/chrono_gun/PA = null
 	var/list/erased_minds = list() //a collection of minds from the dead
 
-/obj/item/chrono_eraser/proc/pass_mind(var/datum/mind/M)
+/obj/item/chrono_eraser/proc/pass_mind(datum/mind/M)
 	erased_minds += M
 
 /obj/item/chrono_eraser/dropped()
@@ -41,7 +41,7 @@
 
 
 /obj/item/gun/energy/chrono_gun
-	name = "T.E.D. Projection Apparatus"
+	name = "\improper T.E.D. Projection Apparatus"
 	desc = "It's as if they never existed in the first place."
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
@@ -49,7 +49,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = NODROP | DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
-	can_charge = 0
+	can_charge = FALSE
 	fire_delay = 50
 	var/obj/item/chrono_eraser/TED = null
 	var/obj/structure/chrono_field/field = null
@@ -63,8 +63,8 @@
 		TED = new(src.loc)
 		qdel(src)
 
-/obj/item/gun/energy/chrono_gun/update_icon()
-	return
+/obj/item/gun/energy/chrono_gun/update_overlays()
+	return list()
 
 /obj/item/gun/energy/chrono_gun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	if(field)
@@ -108,12 +108,12 @@
 		if(field == F)
 			var/turf/currentpos = get_turf(src)
 			var/mob/living/user = src.loc
-			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && !user.lying && (user.stat == CONSCIOUS))
+			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && !IS_HORIZONTAL(user) && (user.stat == CONSCIOUS))
 				return 1
 		field_disconnect(F)
 		return 0
 
-/obj/item/gun/energy/chrono_gun/proc/pass_mind(var/datum/mind/M)
+/obj/item/gun/energy/chrono_gun/proc/pass_mind(datum/mind/M)
 	if(TED)
 		TED.pass_mind(M)
 
@@ -141,6 +141,8 @@
 /obj/item/ammo_casing/energy/chrono_beam
 	name = "eradication beam"
 	projectile_type = /obj/item/projectile/energy/chrono_beam
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	muzzle_flash_color = null
 	icon_state = "chronobolt"
 	e_cost = 0
 
@@ -175,7 +177,7 @@
 			cached_icon.Insert(mob_icon, "frame[i]")
 
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
 	START_PROCESSING(SSobj, src)
@@ -186,7 +188,7 @@
 		gun.field_disconnect(src)
 	return ..()
 
-/obj/structure/chrono_field/update_icon()
+/obj/structure/chrono_field/update_icon_state()
 	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
 	ttk_frame = clamp(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
 	if(ttk_frame != RPpos)
@@ -212,10 +214,10 @@
 			qdel(captured)
 			qdel(src)
 		else
-			captured.Paralyse(4)
+			captured.Paralyse(8 SECONDS)
 			if(captured.loc != src)
 				captured.forceMove(src)
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			if(gun)
 				if(gun.field_check(src))
 					tickstokill--
@@ -241,6 +243,7 @@
 	return 0
 
 /obj/structure/chrono_field/return_air() //we always have nominal air and temperature
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/GM = new
 	GM.oxygen = MOLES_O2STANDARD
 	GM.nitrogen = MOLES_N2STANDARD

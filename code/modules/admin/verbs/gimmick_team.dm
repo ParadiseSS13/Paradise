@@ -35,9 +35,9 @@
 	var/dresscode = input("Select Outfit", "Dress-a-mob") as null|anything in outfit_list
 	if(isnull(dresscode))
 		return
-	var/is_syndicate = 0
+	var/is_syndicate = FALSE
 	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
-		is_syndicate = 1
+		is_syndicate = TRUE
 
 	var/datum/outfit/O = outfit_list[dresscode]
 	var/list/players_to_spawn = list()
@@ -53,7 +53,7 @@
 			players_to_spawn += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [O.name]?")
+		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [initial(O.name)]?")
 
 	if(!players_to_spawn.len)
 		to_chat(src, "Nobody volunteered.")
@@ -63,9 +63,10 @@
 	for(var/mob/thisplayer in players_to_spawn)
 		var/mob/living/carbon/human/H = new /mob/living/carbon/human(T)
 		H.name = random_name(pick(MALE,FEMALE))
-		var/datum/preferences/A = new() //Randomize appearance
-		A.real_name = H.name
-		A.copy_to(H)
+		var/datum/character_save/S = new //Randomize appearance
+		S.randomise()
+		S.real_name = H.name
+		S.copy_to(H)
 		H.dna.ready_dna(H)
 
 		H.mind_initialize()
@@ -90,7 +91,6 @@
 
 	message_admins("[key_name_admin(src)] has spawned a Gimmick Team.", 1)
 	log_admin("[key_name(src)] used Spawn Gimmick Team.")
-	feedback_add_details("admin_verb","SPAWNGIM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Gimmick Team") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
-

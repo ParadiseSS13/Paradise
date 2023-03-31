@@ -6,6 +6,7 @@
 	icon_living = "bear"
 	icon_dead = "bear_dead"
 	icon_gib = "bear_gib"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak = list("RAWR!","Rawr!","GRR!","Growl!")
 	speak_emote = list("growls", "roars")
 	emote_hear = list("rawrs","grumbles","grawls")
@@ -17,7 +18,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
-	stop_automated_movement_when_pulled = 0
+	stop_automated_movement_when_pulled = FALSE
 	maxHealth = 60
 	health = 60
 	obj_damage = 60
@@ -33,24 +34,25 @@
 
 	faction = list("russian")
 	gold_core_spawnable = HOSTILE_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 //SPACE BEARS! SQUEEEEEEEE~     OW! FUCK! IT BIT MY HAND OFF!!
 /mob/living/simple_animal/hostile/bear/Hudson
 	name = "Hudson"
 	desc = "Feared outlaw, this guy is one bad news bear." //I'm sorry...
 
-/mob/living/simple_animal/hostile/bear/Hudson/New()
-	..()
+/mob/living/simple_animal/hostile/bear/Hudson/Initialize(mapload)
+	. = ..()
 	var/unbearable_pun = pick("He's unbearably cute.", "It looks like he is a bearer of bad news.", "Sadly, he is bearly able to comprehend puns.")
 	desc = "That's Hudson. " +  unbearable_pun// I am not sorry for this.
 
 /mob/living/simple_animal/hostile/bear/Move()
 	..()
 	if(stat != DEAD)
-		if(loc && istype(loc,/turf/space))
+		if(loc && isspaceturf(loc))
 			icon_state = "bear"
 		else
 			icon_state = "bearfloor"
 
-/mob/living/simple_animal/hostile/bear/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/bear/Process_Spacemove(movement_dir = 0)
 	return 1	//No drifting in space for space bears!

@@ -1,0 +1,6 @@
+/obj/machinery/firealarm : /obj/machinery/firealarm {@OLD;name="custom placement"}
+/obj/structure/extinguisher_cabinet : /obj/structure/extinguisher_cabinet {@OLD;name="custom placement"}
+/obj/item/radio/intercom : /obj/item/radio/intercom {@OLD;name="custom placement";dir=2}
+/obj/machinery/light_switch : /obj/machinery/light_switch {@OLD;name="custom placement"}
+/obj/machinery/alarm : /obj/machinery/alarm {@OLD;name="custom placement"}
+/obj/machinery/newscaster : /obj/machinery/newscaster {@OLD;name="custom placement"}

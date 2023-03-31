@@ -194,7 +194,7 @@
 
 /obj/structure/puzzle_element
 	name = "mysterious pillar"
-	desc = "puzzling..."
+	desc = "Puzzling..."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "puzzle_pillar"
 	anchored = FALSE
@@ -292,7 +292,7 @@
 
 //Some armor so it's harder to kill someone by mistake.
 /obj/structure/puzzle_element/prison
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 50, ACID = 50)
 
 /obj/structure/puzzle_element/prison/relaymove(mob/user)
 	return
@@ -317,7 +317,7 @@
 		to_chat(user,"<span class='warning'>You trap [victim] in the prison cube!</span>")
 		qdel(src)
 	else
-		to_chat(user,"<span class='notice'>[src] only accepts restrained or unconcious prisoners.</span>")
+		to_chat(user,"<span class='notice'>[src] only accepts restrained or unconscious prisoners.</span>")
 
 /proc/puzzle_imprison(mob/living/prisoner)
 	var/turf/T = get_turf(prisoner)

@@ -9,7 +9,7 @@
 GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 /client/proc/freeze(atom/movable/M)
-	set name = "Freeze"
+	set name = "\[Admin\] Freeze"
 	set category = null
 
 	if(!check_rights(R_ADMIN))
@@ -23,13 +23,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 	return
 
 ///mob freeze procs
-
-/mob/living
-	/// Used for preventing attacks on admin-frozen mobs.
-	var/frozen = null
-	/// Used for keeping track of previous sleeping value with admin freeze.
-	var/admin_prev_sleeping = 0
-
 /mob/living/admin_Freeze(client/admin, skip_overlays = FALSE, mech = null)
 	if(!istype(admin))
 		return
@@ -42,10 +35,9 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 			overlays += AO
 
 		anchored = TRUE
-		canmove = FALSE
-		admin_prev_sleeping = sleeping
-		AdjustSleeping(20000)
+		admin_prev_sleeping = AmountSleeping()
 		frozen = AO
+		PermaSleeping()
 
 	else
 		GLOB.frozen_atom_list -= src
@@ -54,9 +46,8 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 			overlays -= frozen
 
 		anchored = FALSE
-		canmove = TRUE
 		frozen = null
-		SetSleeping(admin_prev_sleeping)
+		SetSleeping(admin_prev_sleeping, TRUE)
 		admin_prev_sleeping = null
 
 	to_chat(src, "<b><font color= red>You have been [frozen ? "frozen" : "unfrozen"] by [admin]</b></font>")

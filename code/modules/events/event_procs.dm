@@ -1,5 +1,5 @@
 
-/client/proc/forceEvent(var/type in SSevents.allEvents)
+/client/proc/forceEvent(type in SSevents.allEvents)
 	set name = "Trigger Event"
 	set category = "Debug"
 
@@ -15,51 +15,33 @@
 	set category = "Event"
 	if(SSevents)
 		SSevents.Interact(usr)
-	feedback_add_details("admin_verb","EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
-	var/area/candidate = null
-
-	var/list/safe_areas = list(
+	var/list/safe_areas = typecacheof(list(
 	/area/turret_protected/ai,
 	/area/turret_protected/ai_upload,
 	/area/engine,
 	/area/solar,
 	/area/holodeck,
-	/area/shuttle/arrival,
-	/area/shuttle/escape,
-	/area/shuttle/escape_pod1/station,
-	/area/shuttle/escape_pod2/station,
-	/area/shuttle/escape_pod3/station,
-	/area/shuttle/escape_pod5/station,
-	/area/shuttle/specops/station,
-	/area/shuttle/prison/station,
-	/area/shuttle/administration/station
-	)
+	/area/shuttle,
+	/area/maintenance,
+	/area/toxins/test_area))
 
 	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
 	var/list/danger_areas = list(
 	/area/engine/break_room,
-	/area/engine/chiefs_office)
+	/area/engine/equipmentstorage,
+	/area/engine/chiefs_office,
+	/area/engine/controlroom)
 
-	var/list/event_areas = list()
+	var/list/allowed_areas = list()
 
-	for(var/areapath in GLOB.the_station_areas)
-		event_areas += typesof(areapath)
-	for(var/areapath in safe_areas)
-		event_areas -= typesof(areapath)
-	for(var/areapath in danger_areas)
-		event_areas += typesof(areapath)
+	allowed_areas = typecacheof(GLOB.the_station_areas) - safe_areas + danger_areas
+	var/list/possible_areas = typecache_filter_list(SSmapping.existing_station_areas, allowed_areas)
 
-	while(event_areas.len > 0)
-		var/list/event_turfs = null
-		candidate = locate(pick_n_take(event_areas))
-		event_turfs = get_area_turfs(candidate)
-		if(event_turfs.len > 0)
-			break
-
-	return candidate
+	return pick(possible_areas)
 
 // Returns how many characters are currently active(not logged out, not AFK for more than 10 minutes)
 // with a specific role.
@@ -80,7 +62,7 @@
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
-		if(istype(M, /mob/living/silicon/robot))
+		if(isrobot(M))
 			var/mob/living/silicon/robot/R = M
 			if(R.module && (R.module.name == "engineering robot module"))
 				active_with_role["Engineer"]++

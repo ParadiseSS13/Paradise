@@ -31,8 +31,7 @@
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
-	item_state = "trashbag"
-
+	belt_icon = "trashbag"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
@@ -42,27 +41,30 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return TOXLOSS
 
-/obj/item/storage/bag/trash/update_icon()
+/obj/item/storage/bag/trash/update_icon_state()
 	switch(contents.len)
-		if(20 to INFINITY)
+		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
 		if(11 to 20)
 			icon_state = "[initial(icon_state)]2"
-		if(1 to 11)
+		if(1 to 10)
 			icon_state = "[initial(icon_state)]1"
 		else
 			icon_state = "[initial(icon_state)]"
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
 
 /obj/item/storage/bag/trash/cyborg
 
 /obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	J.mybag = src
 	J.put_in_cart(src, user)
-	J.mybag=src
-	J.update_icon()
 
 /obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
@@ -71,6 +73,7 @@
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
 	icon_state = "bluetrashbag"
+	belt_icon = "trashbag_blue"
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
 	max_combined_w_class = 60
 	storage_slots = 60
@@ -103,7 +106,7 @@
 	return ..()
 
 
-/obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
+/obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
 	if(slot==slot_head)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
@@ -116,7 +119,7 @@
 			if(H.get_item_by_slot(slot_head) == src)
 				if(H.internal)
 					return
-				H.AdjustLoseBreath(1)
+				H.AdjustLoseBreath(2 SECONDS)
 	else
 		storage_slots = 7
 		STOP_PROCESSING(SSobj, src)
@@ -167,7 +170,7 @@
 	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora)
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora,/obj/item/reagent_containers/food/snacks/honeycomb)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
@@ -176,19 +179,28 @@
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
-	set category = "Object"
-	set desc = "Activate to convert your plants into plantable seeds."
+/obj/item/storage/bag/plants/portaseeder/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to convert the plants inside to seeds.</span>"
 
-	if(usr.incapacitated())
+/obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
+	if(!length(contents))
+		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
 		return
+	var/had_anything = FALSE
 	for(var/obj/item/O in contents)
-		seedify(O, 1)
-	for(var/mob/M in range(1))
-		if(M.s_active == src)
-			close(M)
+		had_anything |= seedify(O, 1)
+	hide_from_all()
+	if(had_anything)
+		to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
+	else
+		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
+	playsound(user, "sound/machines/ding.ogg", 25)
 
+/obj/item/storage/bag/plants/portaseeder/AltShiftClick(mob/user)
+	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
+		process_plants(user)
 
 // -----------------------------
 //        Sheet Snatcher
@@ -196,7 +208,7 @@
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
 
-/obj/item/storage/bag/sheetsnatcher
+/obj/item/storage/bag/sheetsnatcher // what is this even used for
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
 	name = "Sheet Snatcher"
@@ -206,10 +218,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 	allow_quick_empty = 1 // this function is superceded
-/obj/item/storage/bag/sheetsnatcher/New()
-	..()
-	//verbs -= /obj/item/storage/verb/quick_empty
-	//verbs += /obj/item/storage/bag/sheetsnatcher/quick_empty
 
 /obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
@@ -259,7 +267,6 @@
 		else
 			S.loc = src
 
-	orient2hud(usr)
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
@@ -286,7 +293,7 @@
 	var/col_count = min(7,storage_slots) -1
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
-	src.standard_orient_objs(row_num, col_count, numbered_contents)
+	standard_orient_objs(row_num, col_count, numbered_contents)
 	return
 
 
@@ -301,7 +308,6 @@
 			S.amount -= stacksize
 		if(!S.amount)
 			qdel(S) // todo: there's probably something missing here
-	orient2hud(usr)
 	if(usr.s_active)
 		usr.s_active.show_to(usr)
 	update_icon()
@@ -316,7 +322,7 @@
 	//Therefore, make a new stack internally that has the remainder.
 	// -Sayu
 
-	if(S.amount > S.max_amount)
+	if(S.get_amount() > S.max_amount)
 		var/obj/item/stack/sheet/temp = new S.type(src)
 		temp.amount = S.amount - S.max_amount
 		S.amount = S.max_amount
@@ -373,19 +379,21 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
 	desc = "A metal tray to lay food on."
+	storage_slots = 8
 	force = 5
-	throwforce = 10.0
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
+	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
-/obj/item/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
-	quick_empty()
+	drop_inventory(user)
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
@@ -402,72 +410,64 @@
 
 	if(ishuman(M))
 		if(prob(10))
-			M.Weaken(2)
+			M.Weaken(4 SECONDS)
 
-/obj/item/storage/bag/tray/proc/rebuild_overlays()
-	overlays.Cut()
+/obj/item/storage/bag/tray/update_icon_state()
+	return
+
+/obj/item/storage/bag/tray/update_overlays()
+	. = ..()
 	for(var/obj/item/I in contents)
-		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-
-/obj/item/storage/bag/tray/remove_from_storage(obj/item/W as obj, atom/new_location)
-	..()
-	rebuild_overlays()
-
-/obj/item/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
-	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
-	..()
+		. += image(icon = I.icon, icon_state = I.icon_state, layer = -1)
 
 /obj/item/storage/bag/tray/cyborg
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if( isturf(target) || istype(target,/obj/structure/table) )
-		var/foundtable = istype(target,/obj/structure/table/)
-		if( !foundtable ) //it must be a turf!
+		var/found_table = istype(target,/obj/structure/table/)
+		if(!found_table) //it must be a turf!
 			for(var/obj/structure/table/T in target)
-				foundtable = 1
+				found_table = TRUE
 				break
 
 		var/turf/dropspot
-		if( !foundtable ) // don't unload things onto walls or other silly places.
+		if(!found_table) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
 		else if( isturf(target) ) // they clicked on a turf with a table in it
 			dropspot = target
 		else					// they clicked on a table
 			dropspot = target.loc
 
-		overlays = null
-
-		var/droppedSomething = 0
+		var/dropped_something = FALSE
 
 		for(var/obj/item/I in contents)
 			I.loc = dropspot
 			contents.Remove(I)
-			droppedSomething = 1
-			if(!foundtable && isturf(dropspot))
+			dropped_something = TRUE
+			if(!found_table && isturf(dropspot))
 				// if no table, presume that the person just shittily dropped the tray on the ground and made a mess everywhere!
 				spawn()
 					for(var/i = 1, i <= rand(1,2), i++)
 						if(I)
 							step(I, pick(NORTH,SOUTH,EAST,WEST))
 							sleep(rand(2,4))
-		if( droppedSomething )
-			if( foundtable )
+		if(dropped_something)
+			if(found_table)
 				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
 			else
 				user.visible_message("<span class='notice'>[user] drops all the items on [user.p_their()] tray.</span>")
-
+		update_icon(UPDATE_OVERLAYS)
 	return ..()
 
 
 /obj/item/storage/bag/tray/cookies_tray
 	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
 
-/obj/item/storage/bag/tray/cookies_tray/New() /// By Azule Utama, thank you a lot!
-	..()
+/obj/item/storage/bag/tray/cookies_tray/populate_contents() // By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
-		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
-	rebuild_overlays()
+		C.in_inventory = TRUE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie

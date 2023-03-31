@@ -22,7 +22,7 @@
 		var/obj/effect/landmark/river_waypoint/W = A
 		if (W.z != target_z || W.connected)
 			continue
-		W.connected = 1
+		W.connected = TRUE
 		var/turf/cur_turf = get_turf(W)
 		cur_turf.ChangeTurf(turf_type, ignore_air = TRUE)
 		var/turf/target_turf = get_turf(pick(river_nodes - W))
@@ -62,7 +62,7 @@
 
 /obj/effect/landmark/river_waypoint
 	name = "river waypoint"
-	var/connected = 0
+	var/connected = FALSE
 	invisibility = INVISIBILITY_ABSTRACT
 
 
@@ -75,7 +75,7 @@
 	for(var/F in RANGE_TURFS(1, src) - src)
 		var/turf/T = F
 		var/area/new_area = get_area(T)
-		if(!T || (T.density && !ismineralturf(T)) || istype(T, /turf/unsimulated) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN) )
+		if(!T || (T.density && !ismineralturf(T)) || istype(T, /turf/simulated/floor/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN) )
 			continue
 
 		if(!logged_turf_type && ismineralturf(T))

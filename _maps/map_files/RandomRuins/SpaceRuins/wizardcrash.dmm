@@ -4,10 +4,10 @@
 /area/template_noop)
 "ab" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ac" = (
 /turf/simulated/mineral,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ad" = (
 /obj/structure/grille{
 	density = 0;
@@ -17,26 +17,23 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ae" = (
 /turf/simulated/wall/mineral/titanium,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "af" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ag" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken7";
 	icon_state = "wood-broken7"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ah" = (
 /obj/structure/grille{
 	density = 0;
@@ -44,36 +41,34 @@
 	},
 /obj/item/shard,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ai" = (
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aj" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ak" = (
 /obj/item/shard,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "al" = (
-/obj/structure/shuttle/window,
-/obj/structure/grille,
-/turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/obj/effect/spawner/window/shuttle,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "am" = (
 /obj/structure/table/wood,
 /obj/item/dice/d20,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "an" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -82,7 +77,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ao" = (
 /obj/item/flag/wiz,
 /obj/machinery/light{
@@ -90,15 +85,15 @@
 	in_use = 1
 	},
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ap" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aq" = (
 /obj/item/clothing/suit/wizrobe,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ar" = (
 /obj/item/flag/wiz,
 /obj/machinery/light{
@@ -106,110 +101,102 @@
 	in_use = 1
 	},
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "as" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "at" = (
 /obj/item/bedsheet/wiz,
 /obj/structure/bed,
 /turf/simulated/floor/carpet,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "au" = (
 /obj/structure/table/wood,
 /obj/item/pen,
 /obj/item/paper/fluff/ruins/wizardcrash,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "av" = (
 /obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aw" = (
 /obj/item/shard{
 	icon_state = "small"
 	},
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ax" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ay" = (
 /obj/effect/decal/remains/robot,
 /obj/item/clothing/head/wizard,
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "az" = (
 /obj/item/spellbook/oneuse/emp/used,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aA" = (
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
 	icon_state = "wood-broken6"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aB" = (
 /turf/simulated/floor/carpet,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aC" = (
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aD" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/storage/backpack/satchel,
 /obj/item/lighter/zippo,
 /turf/simulated/floor/carpet,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aE" = (
 /obj/structure/bookcase,
 /obj/item/book/codex_gigas,
 /obj/item/book/manual/hydroponics_pod_people,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
 	icon_state = "wood-broken6"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aG" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aH" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aI" = (
 /obj/structure/table/wood,
 /obj/item/toy/character/wizard,
 /turf/simulated/floor/carpet,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aJ" = (
 /obj/structure/cult/pylon,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aK" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -217,115 +204,110 @@
 	},
 /obj/machinery/door/window/westleft,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aL" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aM" = (
 /obj/machinery/door/airlock/external,
 /turf/space,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aN" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/barman_recipes,
-/obj/item/book/manual/engineering_hacking,
+/obj/item/book/manual/wiki/hacking,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aO" = (
 /obj/item/storage/bag/books,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aP" = (
 /obj/item/reagent_containers/food/drinks/oilcan,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aQ" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aR" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aS" = (
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aT" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 4
 	},
 /obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aU" = (
-/obj/structure/window/full/reinforced,
-/obj/structure/grille,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aV" = (
 /obj/item/flag/wiz,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aW" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/wood{
-	tag = "icon-wood-broken6";
 	icon_state = "wood-broken6"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aX" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aY" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "aZ" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "ba" = (
 /obj/structure/kitchenspike,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bb" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bc" = (
 /obj/effect/decal/remains/human,
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bd" = (
 /obj/structure/showcase,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "be" = (
 /obj/structure/grille{
 	density = 0;
@@ -333,65 +315,65 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bf" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bg" = (
 /obj/item/reagent_containers/food/snacks/meat/monkey,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bh" = (
 /obj/machinery/door/window,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bi" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bj" = (
 /obj/item/reagent_containers/food/snacks/meat/human,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bk" = (
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bl" = (
 /mob/living/simple_animal/hostile/creature{
 	health = 150;
 	name = "Experiment 17e"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bm" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bn" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bo" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bp" = (
 /obj/structure/rack,
 /obj/item/twohanded/staff,
@@ -399,66 +381,66 @@
 	dir = 4;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bq" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bs" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bt" = (
 /obj/structure/showcase,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bu" = (
 /obj/structure/rack,
 /obj/item/twohanded/staff/broom,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bv" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/wood,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bw" = (
 /obj/item/storage/toolbox/electrical,
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bx" = (
 /turf/simulated/floor/mineral/plasma,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "by" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plasma,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bz" = (
 /mob/living/simple_animal/hostile/mimic/crate,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bA" = (
 /obj/structure/table,
 /obj/item/wrench,
 /obj/item/weldingtool,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bB" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plasma,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bC" = (
 /obj/structure/rack,
 /obj/item/kitchen/knife/ritual,
@@ -470,18 +452,18 @@
 	dir = 4;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bD" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bE" = (
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bF" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
@@ -489,61 +471,54 @@
 	layer = 2.9
 	},
 /turf/simulated/floor/mineral/plasma,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/shuttle/plating,
-/area/ruin/unpowered)
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
 /area/space/nearstation)
 "bI" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/mineral/plasma,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bJ" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	pixel_x = 0
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plasma,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bK" = (
-/obj/singularity/academy,
+/obj/singularity/onetile,
 /turf/space,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bL" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plasma,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bM" = (
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
 	},
 /turf/simulated/floor/mineral/plasma,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bN" = (
-/obj/effect/spawner/lootdrop/wizardcrash,
 /obj/structure/closet/crate{
-	icon_state = "crateopen";
 	opened = 1
 	},
+/obj/effect/spawner/lootdrop/wizardcrash,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
-"bO" = (
-/obj/structure/shuttle/window,
-/obj/structure/grille,
-/turf/space,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "bP" = (
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/mineral/plasma,
 /obj/structure/table,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 aa
@@ -709,7 +684,7 @@ ae
 al
 ae
 ae
-bO
+al
 ae
 ae
 ae

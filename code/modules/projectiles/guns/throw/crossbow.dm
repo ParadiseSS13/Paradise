@@ -29,7 +29,7 @@
 	if(cell && severity)
 		emp_act(severity)
 
-/obj/item/gun/throw/crossbow/update_icon()
+/obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
 		if(!to_launch)
 			icon_state = "[initial(icon_state)]"
@@ -63,7 +63,7 @@
 	..()
 	if(to_launch)
 		modify_projectile(to_launch, 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/throw/crossbow/attack_self(mob/living/user)
 	if(tension)
@@ -77,7 +77,7 @@
 		else
 			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string.</span>","<span class='notice'>You relax the tension on [src]'s string.</span>")
 		tension = 0
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		draw(user)
 
@@ -92,7 +92,7 @@
 	if(do_after(user, 25 * drawtension, target = user))
 		tension = drawtension
 		user.visible_message("[usr] draws back the string of [src]!","[src] clunks as you draw the string to its maximum tension!!")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/stock_parts/cell))
@@ -117,6 +117,15 @@
 	cell.forceMove(get_turf(src))
 	to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [I].</span>")
 	cell = null
+
+/obj/item/gun/throw/crossbow/notify_ammo_count()
+	if(get_ammocount() >= 1)
+		return "<span class='notice'>[src] is loaded.</span>"
+	return "<span class='notice'>[src] is not loaded.</span>"
+
+/obj/item/gun/throw/crossbow/Destroy()
+	. = ..()
+	QDEL_NULL(cell)
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Adjust Tension"
@@ -145,7 +154,8 @@
 /obj/item/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	..()
 	tension = 0
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+
 /obj/item/gun/throw/crossbow/french
 	name = "french powered crossbow"
 	icon_state = "fcrossbow"
@@ -161,7 +171,7 @@
 	item_state = "bolt"
 	throwforce = 20
 	w_class = WEIGHT_CLASS_NORMAL
-	sharp = 1
+	sharp = TRUE
 
 /obj/item/arrow/proc/removed() //Helper for metal rods falling apart.
 	return

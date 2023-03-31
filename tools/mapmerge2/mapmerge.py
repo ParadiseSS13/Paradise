@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
-import frontend
 import shutil
-from dmm import *
 from collections import defaultdict
+
+# Import hacks to make this work as a normal script again
+try:
+    from . import frontend
+except:
+    import frontend
+
+try:
+    from .dmm import *
+except:
+    from dmm import *
 
 def merge_map(new_map, old_map, delete_unused=False):
     if new_map.key_length != old_map.key_length:
@@ -66,7 +75,7 @@ def merge_map(new_map, old_map, delete_unused=False):
 
     # step two: delete unused keys
     if unused_keys:
-        print(f"Notice: Trimming {len(unused_keys)} unused dictionary keys.")
+        #print(f"Notice: Trimming {len(unused_keys)} unused dictionary keys.")
         for key in unused_keys:
             del merged.dictionary[key]
 
@@ -88,7 +97,7 @@ def main(settings):
         shutil.copyfile(fname, fname + ".before")
         old_map = DMM.from_file(fname + ".backup")
         new_map = DMM.from_file(fname)
-        merge_map(new_map, old_map).to_file(fname, settings.tgm)
+        merge_map(new_map, old_map).to_file(fname, tgm=settings.tgm)
 
 if __name__ == '__main__':
     main(frontend.read_settings())

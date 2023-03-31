@@ -9,122 +9,119 @@
 "c" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "d" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "e" = (
 /obj/structure/table/reinforced,
 /obj/item/stock_parts/cell/hyper,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "f" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "g" = (
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "h" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "i" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "j" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "k" = (
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "l" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "m" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
 /obj/item/radio,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "n" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
-	icon_state = "chair";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "o" = (
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "p" = (
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "q" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "r" = (
 /obj/structure/rack,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "s" = (
 /obj/item/rack_parts,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "t" = (
 /obj/item/rack_parts,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "u" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "v" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "w" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 2;
-	name = "Outpost APC";
+/obj/machinery/power/apc/off_station{
 	keep_preset_name = 1;
+	name = "Outpost APC";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "x" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "y" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "z" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/head/ushanka,
@@ -132,14 +129,14 @@
 	dir = 4;
 	icon_state = "darkredfull"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "A" = (
 /obj/structure/table/reinforced,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "B" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -148,67 +145,66 @@
 	},
 /obj/item/radio,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "C" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "D" = (
 /obj/structure/rack,
 /obj/item/ammo_box/c9mm,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "E" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "F" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/swat,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "G" = (
 /obj/structure/rack,
 /obj/item/crowbar/red,
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "H" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "I" = (
 /obj/structure/chair/comfy/beige{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "J" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "K" = (
 /obj/structure/rack,
 /obj/item/grenade/chem_grenade/teargas,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "L" = (
 /obj/structure/table/reinforced,
 /obj/item/paper/crumpled,
@@ -216,23 +212,23 @@
 	dir = 4;
 	icon_state = "darkredfull"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "M" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
 /obj/item/camera_bug,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "N" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "O" = (
 /obj/structure/table/reinforced,
 /obj/item/pen/blue,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "P" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
@@ -243,33 +239,32 @@
 	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "Q" = (
 /obj/structure/rack,
 /obj/item/storage/belt/military,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "R" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/riot,
 /turf/simulated/floor/plasteel{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "S" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/rawcutlet,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a

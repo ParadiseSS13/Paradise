@@ -5,11 +5,10 @@
 	icon_state = "headset"
 	item_state = "headset"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/ears.dmi',
-		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/clothing/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
-	materials = list(MAT_METAL=75)
-	subspace_transmission = TRUE
+	materials = list(MAT_METAL = 200)
 	canhear_range = 0 // can't hear headsets from very far away
 
 	slot_flags = SLOT_EARS
@@ -44,10 +43,8 @@
 /obj/item/radio/headset/Destroy()
 	QDEL_NULL(keyslot1)
 	QDEL_NULL(keyslot2)
+	QDEL_NULL(syndiekey)
 	return ..()
-
-/obj/item/radio/headset/list_channels(var/mob/user)
-	return list_secure_channels()
 
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
@@ -86,11 +83,23 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/alt/deathsquad
+	name = "Deathsquad headset"
+	desc = "Special Operations only. Protects ears from flashbangs."
+	requires_tcomms = FALSE
+	instant = TRUE
+	freqlock = TRUE
+
+/obj/item/radio/headset/alt/deathsquad/Initialize()
+	. = ..()
+	set_frequency(DTH_FREQ)
+
 /obj/item/radio/headset/syndicate
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/syndicate/nukeops
 	requires_tcomms = FALSE
 	instant = TRUE // Work instantly if there are no comms
+	freqlock = TRUE
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
@@ -106,10 +115,10 @@
 /obj/item/radio/headset/syndicate/alt/syndteam
 	ks1type = /obj/item/encryptionkey/syndteam
 
-/obj/item/radio/headset/syndicate/alt/lavaland
-	name = "syndicate lavaland headset"
+/obj/item/radio/headset/syndicate/alt/nocommon
+	name = "syndicate researcher headset"
 
-/obj/item/radio/headset/syndicate/alt/lavaland/New()
+/obj/item/radio/headset/syndicate/alt/nocommon/New()
 	. = ..()
 	set_frequency(SYND_FREQ)
 
@@ -127,6 +136,20 @@
 /obj/item/radio/headset/headset_sec/alt
 	name = "security bowman headset"
 	desc = "This is used by your elite security force. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+
+/obj/item/radio/headset/headset_iaa
+	name = "internal affairs radio headset"
+	desc = "This is used by your elite legal team."
+	icon_state = "sec_headset"
+	item_state = "sec_headset"
+	ks2type = /obj/item/encryptionkey/headset_iaa
+
+/obj/item/radio/headset/headset_iaa/alt
+	name = "internal affairs bowman headset"
+	desc = "This is used by your elite legal team. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
@@ -181,14 +204,14 @@
 	ks2type = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads/captain/alt
-	name = "\proper the captain's bowman headset"
+	name = "captain's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/heads/rd
-	name = "Research Director's headset"
+	name = "research director's headset"
 	desc = "Headset of the researching God."
 	icon_state = "com_headset"
 	item_state = "headset"
@@ -202,7 +225,7 @@
 	ks2type = /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/alt
-	name = "\proper the head of security's bowman headset"
+	name = "head of security's bowman headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -263,7 +286,7 @@
 	ks2type = /obj/item/encryptionkey/heads/magistrate
 
 /obj/item/radio/headset/heads/magistrate/alt
-	name = "\proper magistrate's bowman headset"
+	name = "magistrate's bowman headset"
 	desc = "The headset of the Magistrate. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -277,7 +300,7 @@
 	ks2type = /obj/item/encryptionkey/heads/blueshield
 
 /obj/item/radio/headset/heads/blueshield/alt
-	name = "\proper blueshield's bowman headset"
+	name = "blueshield's bowman headset"
 	desc = "The headset of the Blueshield. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
@@ -289,21 +312,36 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/ert
+	freqlock = TRUE
 
 /obj/item/radio/headset/ert/alt
-	name = "\proper emergency response team's bowman headset"
+	name = "emergency response team's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 
+/obj/item/radio/headset/ert/alt/solgov
+	name = "\improper Trans-Solar Federation Marine's bowman headset"
+
+/obj/item/radio/headset/ert/alt/commander
+	name = "ERT commander's bowman headset"
+	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
+	requires_tcomms = FALSE
+	instant = TRUE
+
+/obj/item/radio/headset/ert/alt/commander/solgov
+	name = "\improper Trans-Solar Federation Lieutenant's bowman headset"
+
 /obj/item/radio/headset/centcom
-	name = "\proper centcom officer's bowman headset"
-	desc = "The headset of final authority. Protects ears from flashbangs."
+	name = "centcom officer's bowman headset"
+	desc = "The headset of final authority. Protects ears from flashbangs. Can transmit even if telecomms are down."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 	ks2type = /obj/item/encryptionkey/centcom
+	requires_tcomms = FALSE
+	instant = TRUE
 
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
@@ -313,7 +351,7 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ai_integrated
 	var/myAi = null    // Atlantis: Reference back to the AI which has this radio.
-	var/disabledAi = 0 // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
+	var/disabledAi = FALSE // Atlantis: Used to manually disable AI's integrated radio via intellicard menu.
 
 /obj/item/radio/headset/heads/ai_integrated/is_listening()
 	if(disabledAi)
@@ -322,7 +360,7 @@
 
 /obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/encryptionkey/))
-		user.set_machine(src)
+
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
 			return
@@ -335,15 +373,17 @@
 			user.drop_item()
 			W.loc = src
 			keyslot2 = W
+
 		recalculateChannels()
-	else
-		return ..()
+		return
+
+	return ..()
 
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	user.set_machine(src)
+
 	if(keyslot1 || keyslot2)
 
 		for(var/ch_name in channels)
@@ -367,7 +407,7 @@
 	else
 		to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
 
-/obj/item/radio/headset/proc/recalculateChannels(var/setDescription = FALSE)
+/obj/item/radio/headset/recalculateChannels(setDescription = FALSE)
 	channels = list()
 	translate_binary = FALSE
 	translate_hive = FALSE

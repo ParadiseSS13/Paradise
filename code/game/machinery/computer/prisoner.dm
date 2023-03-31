@@ -1,143 +1,188 @@
+#define IMPLANT_WARN_COOLDOWN (30 SECONDS)
+
 /obj/machinery/computer/prisoner
-	name = "implant management console"
+	name = "labor camp points manager"
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
-	req_access = list(ACCESS_ARMORY)
+	req_access = list(ACCESS_BRIG)
 	circuit = /obj/item/circuitboard/prisoner
-	var/id = 0.0
-	var/temp = null
-	var/status = 0
-	var/timeleft = 60
-	var/stop = 0.0
-	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
-	var/obj/item/card/id/prisoner/inserted_id
+
+	var/authenticated = FALSE // FALSE - No Access Denied, TRUE - Access allowed
+	var/inserted_id_uid
 
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
-
-/obj/machinery/computer/prisoner/New()
- 	GLOB.prisoncomputer_list += src
- 	return ..()
+/obj/machinery/computer/prisoner/Initialize(mapload)
+	. = ..()
+	GLOB.prisoncomputer_list += src
 
 /obj/machinery/computer/prisoner/Destroy()
- 	GLOB.prisoncomputer_list -= src
- 	return ..()
+	GLOB.prisoncomputer_list -= src
+	return ..()
 
-/obj/machinery/computer/prisoner/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
+	var/datum/ui_login/state = ui_login_get()
+	if(state.logged_in)
+		var/obj/item/card/id/prisoner/I = O
+		if(istype(I) && user.drop_item())
+			I.forceMove(src)
+			inserted_id_uid = I.UID()
+			return
+	if(ui_login_attackby(O, user))
+		return
+	return ..()
+
+/obj/machinery/computer/prisoner/attack_ai(mob/user)
+	ui_interact(user)
+
+/obj/machinery/computer/prisoner/attack_hand(mob/user)
 	if(..())
-		return 1
-	user.set_machine(src)
-	var/dat
-	dat += "<B>Prisoner Implant Manager System</B><BR>"
-	if(screen == 0)
-		dat += "<HR><A href='?src=[UID()];lock=1'>Unlock Console</A>"
-	else if(screen == 1)
-		if(istype(inserted_id))
-			var/p = inserted_id:points
-			var/g = inserted_id:goal
-			dat += text("<A href='?src=[UID()];id=1'>[inserted_id]</A><br>")
-			dat += text("Collected points: [p]. <A href='?src=[UID()];id=2'>Reset.</A><br>")
-			dat += text("Card goal: [g].  <A href='?src=[UID()];id=3'>Set </A><br>")
-			dat += text("Space Law recommends sentences of 100 points per minute they would normally serve in the brig.<BR>")
-		else
-			dat += text("<A href='?src=[UID()];id=0'>Insert Prisoner ID</A><br>")
-		var/turf/Tr = null
-		dat += "<HR>Chemical Implants<BR>"
-		for(var/obj/item/implant/chem/C in GLOB.tracked_implants)
-			Tr = get_turf(C)
-			if((Tr) && (Tr.z != src.z))	continue//Out of range
-			if(!C.implanted) continue
-			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\computer\prisoner.dm:41: dat += "[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject: "
-			dat += {"[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject:
-				<A href='?src=[UID()];inject1=\ref[C]'>(<font color=red>(1)</font>)</A>
-				<A href='?src=[UID()];inject5=\ref[C]'>(<font color=red>(5)</font>)</A>
-				<A href='?src=[UID()];inject10=\ref[C]'>(<font color=red>(10)</font>)</A><BR>
-				********************************<BR>"}
-			// END AUTOFIX
-		dat += "<HR>Tracking Implants<BR>"
-		for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
-			Tr = get_turf(T)
-			if((Tr) && (Tr.z != src.z))	continue//Out of range
-			if(!T.implanted) continue
-			var/mob/living/carbon/M = T.imp_in
-			var/loc_display = "Unknown"
-			var/health_display = "OK"
-			var/total_loss = (M.maxHealth - M.health)
-			if(M.stat == DEAD)
-				health_display = "DEAD"
-			else if(total_loss)
-				health_display = "HURT ([total_loss])"
-			if(is_station_level(Tr.z) && !istype(Tr.loc, /turf/space))
-				loc_display = "[get_area(Tr)]"
-			dat += "ID: [T.id] <BR>Subject: [M] <BR>Location: [loc_display] <BR>Health: [health_display] <BR>"
-			dat += "<A href='?src=[UID()];warn=\ref[T]'>(<font color=red><i>Message Holder</i></font>)</A> |<BR>"
-			dat += "********************************<BR>"
-		dat += "<HR><A href='?src=[UID()];lock=1'>Lock Console</A>"
+		return TRUE
+	add_fingerprint(user)
+	ui_interact(user)
 
-	user << browse(dat, "window=computer;size=400x500")
-	onclose(user, "computer")
-	return
+/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user)
+	if(ui_login_attackby(O, user))
+		return
+	return ..()
 
-/obj/machinery/computer/prisoner/process()
-	if(!..())
-		src.updateDialog()
-	return
+/obj/machinery/computer/prisoner/proc/check_implant(obj/item/implant/I)
+	var/turf/implant_location = get_turf(I)
+	if(!implant_location || implant_location.z != z)
+		return FALSE
+	if(!I.implanted)
+		return FALSE
+	return TRUE
 
-/obj/machinery/computer/prisoner/Topic(href, href_list)
+/obj/machinery/computer/prisoner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "PrisonerImplantManager", name, 500, 500, master_ui, state)
+		ui.open()
+
+/obj/machinery/computer/prisoner/ui_data(mob/user)
+	var/list/data = list()
+	ui_login_data(data, user)
+	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
+	data["prisonerInfo"] = list(
+		"name" = inserted_id?.name,
+		"points" = inserted_id?.mining_points,
+		"goal" = inserted_id?.goal,
+	)
+
+	data["chemicalInfo"] = list()
+	for(var/obj/item/implant/chem/C in GLOB.tracked_implants)
+		if(!check_implant(C))
+			continue
+		var/list/implant_info = list(
+			"name" = C.imp_in.name,
+			"volume" = C.reagents.total_volume,
+			"uid" = C.UID(),
+		)
+		data["chemicalInfo"] += list(implant_info)
+
+	data["trackingInfo"] = list()
+	for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
+		if(!check_implant(T))
+			continue
+		var/mob/living/carbon/M = T.imp_in
+		var/loc_display = "Unknown"
+		var/health_display = "OK"
+		var/total_loss = (M.maxHealth - M.health)
+		if(M.stat == DEAD)
+			health_display = "DEAD"
+		else if(total_loss)
+			health_display = "HURT ([total_loss])"
+		var/turf/implant_location = get_turf(T)
+		if(!isspaceturf(implant_location))
+			loc_display = "[get_area(implant_location)]"
+
+		var/list/implant_info = list(
+			"subject" = M.name,
+			"location" = loc_display,
+			"health" = health_display,
+			"uid" = T.UID()
+		)
+		data["trackingInfo"] += list(implant_info)
+
+	data["modal"] = ui_modal_data(src)
+
+	return data
+
+/obj/machinery/computer/prisoner/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return 1
+		return
 
-	usr.set_machine(src)
+	add_fingerprint(ui.user)
 
-	if(href_list["id"])
-		switch(href_list["id"])
-			if("0")
-				var/obj/item/card/id/prisoner/I = usr.get_active_hand()
-				if(istype(I))
-					usr.drop_item()
-					I.loc = src
-					inserted_id = I
-				else
-					to_chat(usr, "<span class='warning'>No valid ID.</span>")
-			if("1")
-				inserted_id.loc = get_step(src,get_turf(usr))
-				inserted_id = null
-			if("2")
-				inserted_id.points = 0
-			if("3")
-				var/num = round(input(usr, "Choose prisoner's goal:", "Input an Integer", null) as num|null)
-				if(num >= 0)
-					inserted_id.goal = num
-	if(href_list["inject1"])
-		var/obj/item/implant/I = locate(href_list["inject1"])
-		if(I)	I.activate(1)
+	if(ui_act_modal(action, params, ui))
+		return
+	if(ui_login_act(action, params))
+		return
 
-	else if(href_list["inject5"])
-		var/obj/item/implant/I = locate(href_list["inject5"])
-		if(I)	I.activate(5)
+	var/mob/living/user = ui.user
+	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
+	switch(action)
+		if("id_card")
+			if(inserted_id)
+				if(!ui.user.put_in_hands(inserted_id))
+					inserted_id.forceMove(get_turf(src))
+				inserted_id_uid = null
+				return
+			var/obj/item/card/id/prisoner/I = user.get_active_hand()
+			if(istype(I) && user.drop_item())
+				I.forceMove(src)
+				inserted_id_uid = I.UID()
+			else
+				to_chat(user, "<span class='warning'>No valid ID.</span>")
+		if("inject")
+			var/obj/item/implant/chem/implant = locateUID(params["uid"])
+			if(!implant)
+				return
+			implant.activate(text2num(params["amount"]))
+		if("reset_points")
+			if(inserted_id)
+				inserted_id.mining_points = 0
 
-	else if(href_list["inject10"])
-		var/obj/item/implant/I = locate(href_list["inject10"])
-		if(I)	I.activate(10)
+/obj/machinery/computer/prisoner/proc/ui_act_modal(action, list/params, datum/tgui/ui)
+	if(!ui_login_get().logged_in)
+		return
+	. = TRUE
+	var/id = params["id"]
+	var/mob/living/user = ui.user
+	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
 
-	else if(href_list["lock"])
-		if(src.allowed(usr))
-			screen = !screen
-		else
-			to_chat(usr, "<span class='warning'>Unauthorized access.</span>")
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
+			switch(id)
+				if("warn")
+					ui_modal_input(src, id, "Please enter your message:", null, arguments = list(
+						"uid" = arguments["uid"],
+					))
+				if("set_points")
+					ui_modal_input(src, id, "Please enter the new point goal:", null, arguments)
 
-	else if(href_list["warn"])
-		var/warning = sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
-		if(!warning) return
-		var/obj/item/implant/I = locate(href_list["warn"])
-		if((I)&&(I.imp_in))
-			var/mob/living/carbon/R = I.imp_in
-			to_chat(R, "<span class='boldnotice'>You hear a voice in your head saying: '[warning]'</span>")
+		if(UI_MODAL_ANSWER)
+			var/answer = params["answer"]
+			switch(id)
+				if("warn")
+					var/obj/item/implant/tracking/implant = locateUID(arguments["uid"])
+					if(!implant)
+						return
+					if(implant.warn_cooldown >= world.time)
+						to_chat(user, "<span class='warning'>The warning system for that bio-chip is still cooling down.</span>")
+						return
+					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
+					if(implant.imp_in)
+						var/mob/living/carbon/implantee = implant.imp_in
+						var/warning = copytext(sanitize(answer), 1, MAX_MESSAGE_LEN)
+						to_chat(implantee, "<span class='boldnotice'>Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'</span>")
 
-	src.add_fingerprint(usr)
-	src.updateUsrDialog()
-	return
+				if("set_points")
+					if(isnull(text2num(answer)))
+						return
+					var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
+					inserted_id?.goal = max(text2num(answer), 0)
+
+	return FALSE

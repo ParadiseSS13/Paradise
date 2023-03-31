@@ -4,8 +4,6 @@
 /area/survivalpod)
 "b" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (NORTH)";
-	icon_state = "survival";
 	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/survival,
@@ -30,7 +28,7 @@
 /area/survivalpod)
 "g" = (
 /obj/machinery/sleeper/survival_pod,
-/obj/machinery/vending/wallmed/survival_pod{
+/obj/machinery/economy/vending/wallmed/survival_pod{
 	pixel_x = -24
 	},
 /turf/simulated/floor/pod,
@@ -45,8 +43,6 @@
 /area/survivalpod)
 "j" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (EAST)";
-	icon_state = "survival";
 	dir = 4
 	},
 /turf/simulated/wall/mineral/titanium/survival,

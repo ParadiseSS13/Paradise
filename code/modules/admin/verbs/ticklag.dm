@@ -5,7 +5,7 @@
 	set name = "Set Ticklag"
 	set desc = "Sets a new tick lag. Recommend you don't mess with this too much! Stable, time-tested ticklag value is 0.9"
 
-	if(!check_rights(R_DEBUG))	return
+	if(!check_rights(R_MAINTAINER))	return
 
 	var/newtick = input("Sets a new tick lag. Please don't mess with this too much! The stable, time-tested ticklag value is 0.9","Lag of Tick", world.tick_lag) as num|null
 	//I've used ticks of 2 before to help with serious singulo lags
@@ -13,7 +13,7 @@
 		log_admin("[key_name(src)] has modified world.tick_lag to [newtick]", 0)
 		message_admins("[key_name_admin(src)] has modified world.tick_lag to [newtick]", 0)
 		world.tick_lag = newtick
-		feedback_add_details("admin_verb","TICKLAG") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Ticklag") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	else
 		to_chat(src, "<span class='warning'>Error: ticklag(): Invalid world.ticklag value. No changes made.</span>")

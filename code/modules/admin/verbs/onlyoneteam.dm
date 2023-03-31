@@ -12,20 +12,19 @@
 			continue
 		if(is_type_in_list(H.dna.species, incompatible_species))
 			H.set_species(/datum/species/human)
-			var/datum/preferences/A = new()	// Randomize appearance
-			A.copy_to(H)
+			var/datum/character_save/S = new	// Randomize appearance
+			S.randomise()
+			S.copy_to(H)
 
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
-				continue
-			if(istype (I, /obj/item/organ))
 				continue
 			qdel(I)
 
 		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
 
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), slot_l_ear)
-		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(H), slot_r_hand)
+		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball_team(H), slot_r_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 
 		if(!team_toggle)
@@ -62,14 +61,14 @@
 	log_admin("[key_name(usr)] used dodgeball.")
 	GLOB.nologevent = 1
 
-/obj/item/beach_ball/dodgeball
+/obj/item/beach_ball/dodgeball_team
 	name = "dodgeball"
+	desc = "Used for playing the most violent and degrading of childhood games."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
-	item_state = "basketball"
-	desc = "Used for playing the most violent and degrading of childhood games."
+	item_state = "dodgeball"
 
-/obj/item/beach_ball/dodgeball/throw_impact(atom/hit_atom)
+/obj/item/beach_ball/dodgeball_team/throw_impact(atom/hit_atom)
 	..()
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/human/H = hit_atom
@@ -77,7 +76,7 @@
 			return
 		if(H.l_hand == src)
 			return
-		var/mob/A = thrownby
+		var/mob/A = locateUID(thrownby)
 		if((H in GLOB.team_alpha) && (A in GLOB.team_alpha))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return

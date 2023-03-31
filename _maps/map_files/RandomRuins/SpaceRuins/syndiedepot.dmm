@@ -68,7 +68,6 @@
 "an" = (
 /obj/machinery/navbeacon/invisible{
 	codes_txt = "patrol;next_patrol=SDNW";
-	invisibility = 100;
 	location = "SDNE"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -292,15 +291,13 @@
 "aU" = (
 /obj/machinery/navbeacon/invisible{
 	codes_txt = "patrol;next_patrol=SDSW";
-	invisibility = 100;
 	location = "SDNW"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
 "aV" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
@@ -365,12 +362,6 @@
 "bf" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/outer)
-"bg" = (
-/obj/effect/spawner/random_spawners/syndicate/layout/spacepod,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "bh" = (
 /obj/machinery/light{
 	dir = 1;
@@ -396,7 +387,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -429,8 +420,7 @@
 /area/syndicate_depot/core)
 "bo" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel{
@@ -457,9 +447,7 @@
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
-/turf/unsimulated/floor{
-	name = "plating"
-	},
+/turf/simulated/floor/plating,
 /area/syndicate_depot/core)
 "br" = (
 /obj/machinery/door/airlock/external{
@@ -467,9 +455,7 @@
 	req_access_txt = "150"
 	},
 /obj/structure/fans/tiny,
-/turf/unsimulated/floor{
-	name = "plating"
-	},
+/turf/simulated/floor/plating,
 /area/syndicate_depot/outer)
 "bs" = (
 /obj/effect/spawner/random_spawners/syndicate/turret,
@@ -508,20 +494,19 @@
 /area/syndicate_depot/core)
 "by" = (
 /obj/machinery/door_control{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	id = "syndi_depot_rear";
-	idle_power_usage = 0;
+	idle_power_consumption = 0;
 	name = "mysterious button";
-	normaldoorcontrol = 0;
 	pixel_x = 24;
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
 "bz" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -559,7 +544,7 @@
 	},
 /area/syndicate_depot/core)
 "bG" = (
-/obj/machinery/vending/syndisnack,
+/obj/machinery/economy/vending/syndisnack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -642,7 +627,7 @@
 	},
 /area/syndicate_depot/core)
 "bQ" = (
-/obj/machinery/vending/syndicigs,
+/obj/machinery/economy/vending/syndicigs,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -663,8 +648,8 @@
 /obj/machinery/turretid/syndicate{
 	name = "external turret controls";
 	pixel_x = -32;
-	pixel_y = 0;
-	req_access = list(150)
+	req_access = null;
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -745,20 +730,17 @@
 /area/syndicate_depot/core)
 "ce" = (
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
-	icon_state = "bulb1";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "cf" = (
 /obj/machinery/door_control{
-	active_power_usage = 0;
+	active_power_consumption = 0;
 	id = "syndi_depot_rear";
-	idle_power_usage = 0;
+	idle_power_consumption = 0;
 	name = "mysterious button";
-	normaldoorcontrol = 0;
-	use_power = 0
+	power_state = 0
 	},
 /obj/structure/sign/poster/contraband/syndicate_recruitment,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -774,8 +756,8 @@
 /area/syndicate_depot/core)
 "ci" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/upgraded{
 	charge = 5e+006;
@@ -845,7 +827,6 @@
 "cr" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
 	pixel_x = 12
 	},
 /turf/simulated/floor/mineral/silver,
@@ -999,7 +980,7 @@
 /area/syndicate_depot/core)
 "cJ" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 4;
 	pixel_x = 24;
 	req_access = list(150)
@@ -1154,7 +1135,6 @@
 "dc" = (
 /obj/machinery/navbeacon/invisible{
 	codes_txt = "patrol;next_patrol=SDSE";
-	invisibility = 100;
 	location = "SDSW"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1169,7 +1149,7 @@
 	},
 /area/syndicate_depot/core)
 "de" = (
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 4;
 	pixel_x = 24
 	},
@@ -1179,7 +1159,6 @@
 "df" = (
 /obj/machinery/navbeacon/invisible{
 	codes_txt = "patrol;next_patrol=SDNE";
-	invisibility = 100;
 	location = "SDSE"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -1773,7 +1752,7 @@ aD
 aM
 at
 aD
-bg
+aD
 bn
 bu
 bz

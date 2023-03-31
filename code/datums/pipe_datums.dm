@@ -351,16 +351,6 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_CIRCULATOR
 	pipe_icon = "circ"
 
-/datum/pipes/atmospheric/omni_filter
-	pipe_name = "omni filter"
-	pipe_id = PIPE_OMNI_FILTER
-	pipe_icon = "omni_filter"
-
-/datum/pipes/atmospheric/omni_mixer
-	pipe_name = "omni mixer"
-	pipe_id = PIPE_OMNI_MIXER
-	pipe_icon = "omni_mixer"
-
 /datum/pipes/atmospheric/insulated
 	pipe_name = "insulated pipe"
 	pipe_id = PIPE_INSULATED_STRAIGHT
@@ -380,13 +370,13 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_DISPOSALS_JUNCTION_LEFT
 	pipe_icon = "pipe-j2"
 
-/proc/get_pipe_name(var/pipe_id, var/pipe_type)
+/proc/get_pipe_name(pipe_id, pipe_type)
 	for(var/datum/pipes/P in GLOB.construction_pipe_list)
 		if(P.pipe_id == pipe_id && P.pipe_type == pipe_type)
 			return P.pipe_name
 	return "unknown pipe"
 
-/proc/get_pipe_icon(var/pipe_id)
+/proc/get_pipe_icon(pipe_id)
 	for(var/datum/pipes/P in GLOB.construction_pipe_list)
 		if(P.pipe_id == pipe_id)
 			return P.pipe_icon

@@ -56,6 +56,26 @@ $border-radius: base.$border-radius !default;
   transform: translateX(-50%) translateY(-8px);
 }
 
+.Tooltip--top-left::after {
+  bottom: 100%;
+  right: 50%;
+  transform: translateX(12px) translateY(-8px);
+}
+
+.Tooltip--top-left:hover::after {
+  transform: translateX(12px) translateY(8px);
+}
+
+.Tooltip--top-right::after {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-12px) translateY(-8px);
+}
+
+.Tooltip--top-right:hover::after {
+  transform: translateX(-12px) translateY(8px);
+}
+
 .Tooltip--bottom::after {
   top: 100%;
   left: 50%;

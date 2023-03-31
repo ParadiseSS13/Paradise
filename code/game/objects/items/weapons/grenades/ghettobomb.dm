@@ -6,18 +6,18 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "improvised_grenade"
-	item_state = "flashbang"
+	item_state = "grenade"
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	active = 0
-	det_time = 50
-	display_timer = 0
+	active = FALSE
+	det_time = 5 SECONDS
+	display_timer = FALSE
 	var/list/times
 
-/obj/item/grenade/iedcasing/New()
-	..()
+/obj/item/grenade/iedcasing/Initialize(mapload)
+	. = ..()
 	overlays += "improvised_grenade_filled"
 	overlays += "improvised_grenade_wired"
 	times = list("5" = 10, "-1" = 20, "[rand(30, 80)]" = 50, "[rand(65, 180)]" = 20)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
@@ -40,7 +40,7 @@
 /obj/item/grenade/iedcasing/attack_self(mob/user) //
 	if(!active)
 		if(clown_check(user))
-			to_chat(user, "<span class='warning'>You light the [name]!</span>")
+			to_chat(user, "<span class='warning'>You light [src]!</span>")
 			active = TRUE
 			overlays -= "improvised_grenade_filled"
 			icon_state = initial(icon_state) + "_active"
@@ -48,13 +48,13 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 
-			message_admins("[ADMIN_LOOKUPFLW(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].")
 			log_game("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)].")
 			investigate_log("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)])", INVESTIGATE_BOMB)
+			add_attack_logs(user, src, "has primed for detonation", ATKLOG_FEW)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
-			addtimer(CALLBACK(src, .proc/prime), det_time)
+			addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()

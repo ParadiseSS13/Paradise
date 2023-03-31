@@ -1,5 +1,5 @@
 /proc/is_level_reachable(z)
- 	return check_level_trait(z, REACHABLE)
+	return check_level_trait(z, REACHABLE)
 
 /proc/is_station_level(z)
 	return check_level_trait(z, STATION_LEVEL)
@@ -36,7 +36,8 @@
 		secure = (z == level_name_to_num(CENTCOMM))
 	return secure
 
-GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
+// Only CC
+GLOBAL_LIST_INIT(default_map_traits, list(CC_TRANSITION_CONFIG))
 
 /proc/check_level_trait(z, trait)
 	if(!z)
@@ -60,6 +61,8 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 
 /proc/level_name_to_num(name)
 	var/datum/space_level/S = GLOB.space_manager.get_zlev_by_name(name)
+	if(!S)
+		CRASH("Unknown z-level name: [name]")
 	return S.zpos
 
 /**

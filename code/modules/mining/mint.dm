@@ -14,9 +14,13 @@
 	speed_process = TRUE
 
 
-/obj/machinery/mineral/mint/New()
-	..()
+/obj/machinery/mineral/mint/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_URANIUM, MAT_DIAMOND, MAT_BANANIUM, MAT_TRANQUILLITE), MINERAL_MATERIAL_AMOUNT * 50, FALSE, /obj/item/stack)
+
+/obj/machinery/mineral/mint/wrench_act(mob/user, obj/item/I)
+	default_unfasten_wrench(user, I, time = 4 SECONDS)
+	return TRUE
 
 /obj/machinery/mineral/mint/process()
 	var/turf/T = get_step(src, input_dir)
@@ -62,7 +66,7 @@
 		return
 	usr.set_machine(src)
 	add_fingerprint(usr)
-	if(processing == 1)
+	if(processing)
 		to_chat(usr, "<span class='notice'>The machine is processing.</span>")
 		return
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -81,8 +85,11 @@
 			updateUsrDialog()
 			return
 
-		while(coinsToProduce > 0 && materials.use_amount_type(coin_mat, chosen))
-			create_coins(M.coin_type)
+		while(coinsToProduce > 0 && materials.can_use_amount(coin_mat, chosen))
+			if(!create_coins(M.coin_type))
+				visible_message("<span class='notice'>[src] stops printing to prevent an overflow.</span>")
+				break
+			materials.use_amount_type(coin_mat, chosen)
 			coinsToProduce--
 			newCoins++
 			updateUsrDialog()
@@ -95,10 +102,15 @@
 
 /obj/machinery/mineral/mint/proc/create_coins(P)
 	var/turf/T = get_step(src,output_dir)
-	if(T)
-		var/obj/item/O = new P(src)
-		var/obj/item/storage/bag/money/M = locate(/obj/item/storage/bag/money, T)
-		if(!M)
-			M = new /obj/item/storage/bag/money(src)
-			unload_mineral(M)
-		O.forceMove(M)
+	if(!T)
+		return FALSE
+	var/obj/item/O = new P(src)
+	var/obj/item/storage/bag/money/M = locate(/obj/item/storage/bag/money, T)
+	if(!M)
+		M = new /obj/item/storage/bag/money(src)
+		unload_mineral(M)
+	else if(!M.can_be_inserted(O, FALSE)) // First coin will always fit. But will the Xth?
+		qdel(O)
+		return FALSE
+	O.forceMove(M)
+	return TRUE

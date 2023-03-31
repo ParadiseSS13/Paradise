@@ -5,8 +5,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	desc = "A highly precise directional sensor array which measures the release of quants from decaying tachyons. The doppler shifting of the mirror-image formed by these quants can reveal the size, location and temporal affects of energetic disturbances within a large radius ahead of the array."
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "tdoppler"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	atom_say_verb = "states coldly"
 	var/list/logged_explosions = list()
 	var/explosion_target
@@ -19,15 +19,15 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/actual_size_message
 	var/theoretical_size_message
 
-/datum/explosion_log/New(var/log_time, var/log_epicenter, var/log_actual_size_message, var/log_theoretical_size_message)
+/datum/explosion_log/New(log_time, log_epicenter, log_actual_size_message, log_theoretical_size_message)
 	..()
 	logged_time = log_time
 	epicenter = log_epicenter
 	actual_size_message = log_actual_size_message
 	theoretical_size_message = log_theoretical_size_message
 
-/obj/machinery/doppler_array/New()
-	..()
+/obj/machinery/doppler_array/Initialize(mapload)
+	. = ..()
 	GLOB.doppler_arrays += src
 	explosion_target = rand(8, 20)
 	toxins_tech = new /datum/tech/toxins(src)
@@ -36,9 +36,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	GLOB.doppler_arrays -= src
 	logged_explosions.Cut()
 	return ..()
-
-/obj/machinery/doppler_array/process()
-	return PROCESS_KILL
 
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/tech_disk))
@@ -59,6 +56,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		anchored = FALSE
 		WRENCH_UNANCHOR_MESSAGE
 	power_change()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
@@ -95,7 +93,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
 	atom_say("Printing explosive log. Standby...")
-	addtimer(CALLBACK(src, .proc/print), 50)
+	addtimer(CALLBACK(src, PROC_REF(print)), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
@@ -113,7 +111,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	<em>Printed at [station_time_timestamp()].</em>"
 
 /obj/machinery/doppler_array/proc/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,
-												  var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
+												var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
 	if(stat & NOPOWER)
 		return
 	if(z != z0)
@@ -144,8 +142,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		return
 
 	var/list/messages = list("Explosive disturbance detected.", \
-							 "Epicenter at: grid ([x0],[y0]). Temporal displacement of tachyons: [took] seconds.", \
-							 "Actual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
+							"Epicenter at: grid ([x0],[y0]). Temporal displacement of tachyons: [took] seconds.", \
+							"Actual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].")
 
 	// If the bomb was capped, say its theoretical size.
 	if(devastation_range < orig_dev_range || heavy_impact_range < orig_heavy_range || light_impact_range < orig_light_range)
@@ -165,58 +163,63 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	for(var/message in messages)
 		atom_say(message)
 
-/obj/machinery/doppler_array/power_change()
+/obj/machinery/doppler_array/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
-		if(powered() && anchored)
-			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
-		else
-			icon_state = "[initial(icon_state)]-off"
-			stat |= NOPOWER
+		icon_state = !(stat & NOPOWER) && anchored ? initial(icon_state) : "[initial(icon_state)]-off"
 
-/obj/machinery/doppler_array/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/// overrides base power_change to check to make sure machine is anchored
+/obj/machinery/doppler_array/power_change()
+	if(has_power(power_channel) && anchored)
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
+
+/obj/machinery/doppler_array/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "doppler_array.tmpl", "Tachyon-doppler array", 500, 650)
+		ui = new(user, src, ui_key, "TachyonArray", name, 500, 600, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	var/list/explosion_data = list()
-	for(var/D in logged_explosions)
-		var/datum/explosion_log/E = D
-		explosion_data += list(list(
+/obj/machinery/doppler_array/ui_data(mob/user)
+	var/list/data = list()
+	var/list/records = list()
+	for(var/i in 1 to length(logged_explosions))
+		var/datum/explosion_log/E = logged_explosions[i]
+		records += list(list(
 			"logged_time" = E.logged_time,
 			"epicenter" = E.epicenter,
 			"actual_size_message" = E.actual_size_message,
 			"theoretical_size_message" = E.theoretical_size_message,
-			"unique_datum_id" = E.UID()))
+			"index" = i))
 	data["explosion_target"] = explosion_target
 	data["toxins_tech"] = toxins_tech.level
-	data["explosion_data"] = explosion_data
+	data["records"] = records
 	data["printing"] = active_timers
 	return data
 
-/obj/machinery/doppler_array/Topic(href, href_list)
+/obj/machinery/doppler_array/ui_act(action, params)
 	if(..())
 		return
-	if(href_list["log_to_delete"])
-		var/log_to_delete = sanitize(href_list["log_to_delete"])
-		for(var/D in logged_explosions)
-			var/datum/explosion_log/E = D
-			if(E.UID() == log_to_delete)
-				logged_explosions -= E
-				qdel(E)
-				to_chat(usr, "<span class='notice'>Log deletion successful.</span>")
-				break
-	else if(href_list["print_logs"])
-		print_explosive_logs(usr)
-	else
-		return
-	SSnanoui.update_uis(src)
+	switch(action)
+		if("delete_logs")
+			QDEL_LIST_CONTENTS(logged_explosions)
+			to_chat(usr, "<span class='notice'>All logs deleted successfully.</span>")
+		if("delete_record")
+			var/index = text2num(params["index"])
+			if(index < 0 || index > length(logged_explosions))
+				return
+
+			var/datum/explosion_log/E = logged_explosions[index]
+			logged_explosions -= E
+			qdel(E)
+			to_chat(usr, "<span class='notice'>Log deletion successful.</span>")
+		if("print_logs")
+			print_explosive_logs(usr)
+		else
+			return
+	return TRUE
 
 /obj/item/paper/explosive_log
 	name = "explosive log"

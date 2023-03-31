@@ -1,269 +1,189 @@
-/datum/game_mode/cult/proc/blood_check()
-	max_spilled_blood = (max(bloody_floors.len,max_spilled_blood))
-	if((objectives[current_objective] == "bloodspill") && (bloody_floors.len >= spilltarget) && !spilled_blood)
-		spilled_blood = 1
-		additional_phase()
+/datum/cult_objectives //Replace with team antag datum objectives from tg once ported
+	var/cult_status = NARSIE_IS_ASLEEP
+	var/list/presummon_objs = list()
+	var/datum/objective/eldergod/obj_summon = new
+	var/sacrifices_done = 0
+	var/sacrifices_required = 2
 
-/datum/game_mode/cult/proc/check_numbers()
-	if((objectives[current_objective] == "convert") && (cult.len >= convert_target) && !mass_convert)
-		mass_convert = 1
-		additional_phase()
+/datum/cult_objectives/proc/setup()
+	if(cult_status != NARSIE_IS_ASLEEP)
+		return FALSE
+	cult_status = NARSIE_DEMANDS_SACRIFICE
+	var/datum/objective/sacrifice/obj_sac = new
+	if(obj_sac.find_target())
+		presummon_objs.Add(obj_sac)
+	else
+		ready_to_summon()
 
-/datum/game_mode/cult/proc/first_phase()
+/datum/cult_objectives/proc/study(mob/living/M, display_members = FALSE) //Called by cultists/cult constructs checking their objectives
+	if(!M)
+		return FALSE
 
-	var/new_objective = pick_objective()
-
-	objectives += new_objective
-
-	var/explanation
-
-	switch(new_objective)
-		if("convert")
-			explanation = "We must increase our influence before we can summon [SSticker.cultdat.entity_name], Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
-		if("bloodspill")
-			spilltarget = 100 + rand(0,GLOB.player_list.len * 3)
-			explanation = "We must prepare this place for [SSticker.cultdat.entity_title1]'s coming. Spill blood and gibs over [spilltarget] floor tiles."
-		if("sacrifice")
-			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
-
-	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
-		cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
-
-/datum/game_mode/cult/proc/bypass_phase()
-
-	switch(objectives[current_objective])
-		if("convert")
-			mass_convert = 1
-		if("bloodspill")
-			spilled_blood = 1
-		if("sacrifice")
-			sacrificed += sacrifice_target
-	additional_phase()
-
-/datum/game_mode/cult/proc/additional_phase()
-	if(objectives.Find("eldergod") || objectives.Find("slaughter"))
-		return
-	current_objective++
-
-	message_admins("Picking a new Cult objective.")
-	var/new_objective = "eldergod"
-	//the idea here is that if the cult performs well, the should get more objectives before they can summon Nar-Sie.
-	if(cult.len >= 4) //if there are less than 4 remaining cultists, they get a free pass to the summon objective.
-		if(current_objective <= prenarsie_objectives)
-			var/list/unconvertables = get_unconvertables()
-			if(unconvertables.len <= (cult.len * 2))//if cultists are getting radically outnumbered, they get a free pass to the summon objective.
-				new_objective = pick_objective()
+	switch(cult_status)
+		if(NARSIE_IS_ASLEEP)
+			to_chat(M, "<span class='cult'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] is asleep.</span>")
+		if(NARSIE_DEMANDS_SACRIFICE)
+			if(!length(presummon_objs))
+				to_chat(M, "<span class='danger'>Error: No objectives in sacrifice list. Something went wrong. Oof.</span>")
 			else
-				message_admins("There are over twice more unconvertables than there are cultists ([cult.len] cultists for [unconvertables.len]) unconvertables! Nar-Sie objective unlocked.")
-				log_admin("There are over twice more unconvertables than there are cultists ([cult.len] cultists for [unconvertables.len]) unconvertables! Nar-Sie objective unlocked.")
+				var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)] //get the last obj in the list, ie the current one
+				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"].</span>")
+				to_chat(M, "<span class='cult'>Current goal: [current_obj.explanation_text]</span>")
+		if(NARSIE_NEEDS_SUMMONING)
+			to_chat(M, "<span class='cult'>The Veil is weak! We can summon [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "The Dark One"]!</span>")
+			to_chat(M, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
+		if(NARSIE_HAS_RISEN)
+			to_chat(M, "<span class='cultlarge'>\"I am here.\"</span>")
+			to_chat(M, "<span class='cult'>Current goal:</span> <span class='cultlarge'>\"Feed me.\"</span>")
+		if(NARSIE_HAS_FALLEN)
+			to_chat(M, "<span class='cultlarge'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!</span>")
+			to_chat(M, "<span class='cult'>Current goal: Slaughter the unbelievers!</span>")
 		else
-			message_admins("The Cult has already completed [prenarsie_objectives] objectives! Nar-Sie objective unlocked.")
-			log_admin("The Cult has already completed [prenarsie_objectives] objectives! Nar-Sie objective unlocked.")
+			to_chat(M, "<span class='danger'>Error: Cult objective status currently unknown. Something went wrong. Oof.</span>")
+
+	if(display_members)
+		var/list/cult = SSticker.mode.get_cultists(TRUE)
+		var/total_cult = cult[1] + cult[2]
+		var/rise = SSticker.mode.rise_number - total_cult
+		var/ascend = SSticker.mode.ascend_number - total_cult
+
+		var/overview = "<span class='cultitalic'><br><b>Current cult members: [total_cult]"
+		if(!SSticker.mode.cult_ascendant)
+			if(rise > 0)
+				overview += " | Conversions until Rise: [rise]"
+			else if(ascend > 0)
+				overview += " | Conversions until Ascension: [ascend]"
+		to_chat(M, "[overview]</b></span>")
+
+		if(cult[2]) // If there are any constructs, separate them out
+			to_chat(M, "<span class='cultitalic'><b>Cultists:</b> [cult[1]]")
+			to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [cult[2]]")
+
+
+/datum/cult_objectives/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
+	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
+		var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
+		return current_obj
+	return FALSE
+
+/datum/cult_objectives/proc/is_sac_target(datum/mind/mind)
+	if(cult_status != NARSIE_DEMANDS_SACRIFICE || !length(presummon_objs))
+		return FALSE
+	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
+	if(current_obj.target == mind)
+		return TRUE
+	return FALSE
+
+/datum/cult_objectives/proc/find_new_sacrifice_target(datum/mind/mind)
+	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
+	if(current_obj.find_target())
+		for(var/datum/mind/cult_mind in SSticker.mode.cult)
+			if(cult_mind && cult_mind.current)
+				to_chat(cult_mind.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
+		return TRUE
+	return FALSE
+
+/datum/cult_objectives/proc/succesful_sacrifice()
+	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
+	current_obj.sacced = TRUE
+	sacrifices_done++
+	if(sacrifices_done >= sacrifices_required)
+		ready_to_summon()
 	else
-		message_admins("There are less than 4 cultists! [SSticker.cultdat.entity_name] objective unlocked.")
-		log_admin("There are less than 4 cultists! [SSticker.cultdat.entity_name] objective unlocked.")
-		gtfo_phase()
-		return
+		var/datum/objective/sacrifice/obj_sac = new
+		if(obj_sac.find_target())
+			presummon_objs += obj_sac
+			for(var/datum/mind/cult_mind in SSticker.mode.cult)
+				if(cult_mind && cult_mind.current)
+					to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!</span>")
+					to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_sac.explanation_text]</span>")
+		else
+			ready_to_summon()
 
-	if(!sacrificed.len && (new_objective != "sacrifice"))
-		sacrifice_target = null
-
-	if(new_objective == "eldergod" || new_objective == "slaughter")
-		second_phase()
-		return
-	else
-		objectives += new_objective
-
-		var/explanation
-
-		switch(new_objective)
-			if("convert")
-				explanation = "We must increase our influence before we can summon [SSticker.cultdat.entity_name]. Convert [convert_target] crew members. Take it slowly to avoid raising suspicions."
-			if("bloodspill")
-				spilltarget = 100 + rand(0,GLOB.player_list.len * 3)
-				explanation = "We must prepare this place for [SSticker.cultdat.entity_title1]'s coming. Spread blood and gibs over [spilltarget] of the Station's floor tiles."
-			if("sacrifice")
-				explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
-
-		for(var/datum/mind/cult_mind in cult)
-			if(cult_mind)
-				to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
-				to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
-				cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
-
-		message_admins("New Cult Objective: [new_objective]")
-		log_admin("New Cult Objective: [new_objective]")
-
-		blood_check()//in case there are already enough blood covered tiles when the objective is given.
-
-/datum/game_mode/cult/proc/gtfo_phase()//YOU HAD ONE JOB
-	var/explanation
-	objectives += "survive"
-	explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
-	for(var/datum/mind/cult_mind in cult)
-		if(cult_mind)
-			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
-			to_chat(cult_mind.current, "<b>Objective Survive</b>: [explanation]")
-			cult_mind.memory += "<b>Objective Survive</b>: [explanation]<br>"
-
-
-/datum/game_mode/cult/proc/second_phase()
-	narsie_condition_cleared = 1
-	var/explanation
-
-	if(prob(40))//split the chance of this
-		objectives += "eldergod"
-		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
-	else
-		objectives += "slaughter"
-		explanation = "Bring the Slaughter via the rune 'Call Forth The Slaughter'. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
-
-	for(var/datum/mind/cult_mind in cult)
-		if(cult_mind)
+/datum/cult_objectives/proc/ready_to_summon()
+	cult_status = NARSIE_NEEDS_SUMMONING
+	for(var/datum/mind/cult_mind in SSticker.mode.cult)
+		if(cult_mind && cult_mind.current)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
-			cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
+			to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
 
-/datum/game_mode/cult/proc/third_phase()
-	current_objective++
+/datum/cult_objectives/proc/succesful_summon()
+	cult_status = NARSIE_HAS_RISEN
+	obj_summon.summoned = TRUE
 
-	sleep(10)
+/datum/cult_objectives/proc/narsie_death()
+	cult_status = NARSIE_HAS_FALLEN
+	obj_summon.killed = TRUE
 
-	var/last_objective = pick_bonus_objective()
+//Objectives
 
-	objectives += last_objective
+/datum/objective/servecult //Given to cultists on conversion/roundstart
+	explanation_text = "Assist your fellow cultists and Tear the Veil! (Use the Study Veil action to check your progress.)"
+	completed = TRUE
 
-	var/explanation
+/datum/objective/sacrifice
+	var/sacced = FALSE
+	explanation_text = "Sacrifice a crewmember in order to prepare the summoning."
 
-	switch(last_objective)
-		if("harvest")
-			explanation = "[SSticker.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humanoids in sacrifice."
-		if("hijack")
-			explanation = "[SSticker.cultdat.entity_name] wishes for their troops to start the assault on CentCom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
-		if("massacre")
-			explanation = "[SSticker.cultdat.entity_name] wants to watch you as you massacre the remaining crew on the station (until less than [massacre_target] humans are left alive)."
+/datum/objective/sacrifice/check_completion()
+	return sacced || completed
 
-	for(var/datum/mind/cult_mind in cult)
-		if(cult_mind)
-			to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
-			cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
-
-	message_admins("Last Cult Objective: [last_objective]")
-	log_admin("Last Cult Objective: [last_objective]")
-
-/datum/game_mode/cult/proc/get_possible_sac_targets()
-	var/list/possible_sac_targets = list()
-	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD) && (!player.mind.offstation_role) )
-			possible_sac_targets += player.mind
-	if(!possible_sac_targets.len)
-	//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
-		for(var/mob/living/carbon/human/player in GLOB.player_list)
-			if(is_secure_level(player.z) || player.mind.offstation_role) //We can't sacrifice people that are on the centcom z-level or offstation roles
+/datum/objective/sacrifice/find_target()
+	var/list/target_candidates = list()
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
+			continue
+		if(H.mind && !iscultist(H) && !is_convertable_to_cult(H.mind) && (H.stat != DEAD) && !H.mind.offstation_role)
+			target_candidates += H.mind
+	if(!length(target_candidates))	//There are no living unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
+		for(var/mob/living/carbon/human/H in GLOB.player_list)
+			if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
 				continue
-			if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
-				possible_sac_targets += player.mind
-	return possible_sac_targets
-
-// Handles the updating of sacrifice objectives after the sacrifice target goes to cryo and ghosts
-/datum/game_mode/cult/proc/update_sac_objective(previous_target, previous_role)
-	for(var/datum/mind/cult_mind in cult)
-		if(cult_mind)
-			var/updated_memory = cult_mind.memory
-			updated_memory = replacetext("[cult_mind.memory]", "[previous_target]", "[sacrifice_target]")
-			updated_memory = replacetext("[updated_memory]", "[previous_role]", "[sacrifice_target.assigned_role]")
-			cult_mind.memory = updated_memory
+			if(H.mind && !iscultist(H) && (H.stat != DEAD) && !H.mind.offstation_role) // Same checks, but add them even if they could be converted
+				target_candidates += H.mind
+	if(length(target_candidates))
+		target = pick(target_candidates)
+		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking an Offer rune with [target.p_their()] body or brain on it and three acolytes around it."
+		return TRUE
+	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
+	return FALSE
 
 
-/datum/game_mode/cult/proc/pick_objective()
-	var/list/possible_objectives = list()
+/datum/objective/eldergod
+	var/summoned = FALSE
+	var/killed = FALSE
+	var/list/summon_spots = list()
 
-	if(!spilled_blood && (bloody_floors.len < spilltarget))
-		possible_objectives |= "bloodspill"
+/datum/objective/eldergod/New()
+	..()
+	find_summon_locations()
 
-	if(!sacrificed.len)
-		var/list/possible_targets = get_possible_sac_targets()
-		if(possible_targets.len > 0)
-			sacrifice_target = pick(possible_targets)
-			possible_objectives |= "sacrifice"
-		else
-			log_runtime(EXCEPTION("Didn't find a suitable sacrifice target...what the hell? Shout at a coder."))
+/datum/objective/eldergod/proc/find_summon_locations(reroll = FALSE)
+	if(reroll)
+		summon_spots = new()
+	var/sanity = 0
+	while(length(summon_spots) < SUMMON_POSSIBILITIES && sanity < 100)
+		var/area/summon = pick(return_sorted_areas() - summon_spots)
+		var/valid_spot = FALSE
+		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
+			for(var/turf/T in get_area_turfs(summon))
+				if(!T.density)
+					var/clear = TRUE
+					for(var/obj/O in T)
+						if(O.density)
+							clear = FALSE
+							break
+					if(clear)
+						valid_spot = TRUE
+						break
+		if(valid_spot)
+			summon_spots += summon
+		sanity++
+	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil' with 9 cultists, constructs, or summoned ghosts on it.\
+	\nThe summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin."
 
-	if(!mass_convert)
-		var/living_crew = 0
-		var/living_cultists = 0
-		for(var/mob/living/L in GLOB.player_list)
-			if(L.stat != DEAD)
-				if(L.mind in cult)
-					living_cultists++
-				else
-					if(istype(L, /mob/living/carbon/human))
-						living_crew++
 
-		var/total = living_crew + living_cultists
-
-		if((living_cultists * 2) < total)
-			if(total < 15)
-				message_admins("There are [total] players, too little for the mass convert objective!")
-				log_admin("There are [total] players, too little for the mass convert objective!")
-			else
-				possible_objectives |= "convert"
-				convert_target = rand(9,15)
-
-	if(!possible_objectives.len)//No more possible objectives, time to summon Nar-Sie
-		message_admins("No suitable objectives left! Nar-Sie objective unlocked.")
-		log_admin("No suitable objectives left! Nar-Sie objective unlocked.")
-		var/lastbit
-		if(prob(50))
-			lastbit = "eldergod"
-		else
-			lastbit = "slaughter"
-		return lastbit
-	else
-		return pick(possible_objectives)
-
-/datum/game_mode/cult/proc/pick_bonus_objective()//did we summon demons? TIME FOR THE BONUS STAGE
-	var/list/possible_objectives = list()
-
-	var/living_crew = 0
-	for(var/mob/living/carbon/C in GLOB.player_list)
-		if(C.stat != DEAD)
-			if(!(C.mind in cult))
-				var/turf/T = get_turf(C)
-				if(is_station_level(T.z))	//we're only interested in the remaining humans on the station
-					living_crew++
-
-	if(living_crew > 5)
-		possible_objectives |= "massacre"
-
-	if(living_crew > 10)
-		possible_objectives |= "harvest"
-
-	possible_objectives |= "hijack"	//we need at least one objective guarranted to fire
-
-	return pick(possible_objectives)
-
-/datum/game_mode/cult/proc/bonus_check()
-	switch(objectives[current_objective])
-		if("harvest")
-			if(harvested >= harvest_target)
-				bonus = 1
-
-		if("hijack")
-			for(var/mob/living/L in GLOB.player_list)
-				if(L.stat != DEAD && !(L.mind in cult))
-					var/area/A = get_area(L)
-					if(is_type_in_list(A.loc, GLOB.centcom_areas))
-						escaped_shuttle++
-			if(!escaped_shuttle)
-				bonus = 1
-
-		if("massacre")
-			for(var/mob/living/carbon/C in GLOB.player_list)
-				if(C.stat != DEAD && !(C.mind in cult))
-					var/turf/T = get_turf(C)
-					if(is_station_level(T.z))	//we're only interested in the remaining humans on the station
-						survivors++
-			if(survivors < massacre_target)
-				bonus = 1
+/datum/objective/eldergod/check_completion()
+	if(killed)
+		return NARSIE_HAS_FALLEN // You failed so hard that even the code went backwards.
+	return summoned || completed

@@ -16,12 +16,11 @@
 	var/tank_type = ""			// Type of aquarium, used for icon updating
 	var/water_capacity = 0		// Number of units the tank holds (varies with tank type)
 	var/water_level = 0			// Number of units currently in the tank (new tanks start empty)
-	var/light_switch = 0		// 0 = off, 1 = on (off by default)
+	var/light_switch = FALSE
 	var/filth_level = 0		// How dirty the tank is (max 10)
-	var/lid_switch = 0			// 0 = open, 1 = closed (open by default)
+	var/lid_switch = FALSE
 	var/max_fish = 0			// How many fish the tank can support (varies with tank type, 1 fish per 50 units sounds reasonable)
 	var/food_level = 0			// Amount of fishfood floating in the tank (max 10)
-	var/fish_count = 0			// Number of fish in the tank
 	var/list/fish_list = list()	// Tracks the current types of fish in the tank
 	var/egg_count = 0			// How many fish eggs can be harvested from the tank (capped at the max_fish value)
 	var/list/egg_list = list()	// Tracks the current types of harvestable eggs in the tank
@@ -94,7 +93,7 @@
 
 /obj/machinery/fishtank/proc/toggle_lid()
 	lid_switch = !lid_switch
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/fishtank/verb/toggle_light_verb()
 	set name = "Toggle Tank Light"
@@ -114,14 +113,14 @@
 //		NEW() PROCS			//
 //////////////////////////////
 
-/obj/machinery/fishtank/New()
-	..()
+/obj/machinery/fishtank/Initialize(mapload)
+	. = ..()
 	if(!has_lid)				//Tank doesn't have a lid/light, remove the verbs for then
 		verbs -= /obj/machinery/fishtank/verb/toggle_lid_verb
 		verbs -= /obj/machinery/fishtank/verb/toggle_light_verb
 
-/obj/machinery/fishtank/tank/New()
-	..()
+/obj/machinery/fishtank/tank/Initialize(mapload)
+	. = ..()
 	if(prob(5))					//5% chance to get the castle decoration
 		icon_state = "tank2"
 
@@ -129,24 +128,23 @@
 //		ICON PROCS			//
 //////////////////////////////
 
-/obj/machinery/fishtank/update_icon()
-	overlays.Cut()
-
+/obj/machinery/fishtank/update_overlays()
+	. = ..()
 	//Update Alert Lights
 	if(has_lid)											//Skip the alert lights for aquariums that don't have lids (fishbowls)
 		if(egg_count > 0)								//There is at least 1 egg to harvest
-			overlays += "over_egg"
-		if(lid_switch == 1)								//Lid is closed, lid status light is red
-			overlays += "over_lid_1"
+			. += "over_egg"
+		if(lid_switch)								//Lid is closed, lid status light is red
+			. += "over_lid_1"
 		else											//Lid is open, lid status light is green
-			overlays += "over_lid_0"
+			. += "over_lid_0"
 		if(food_level > 5)								//Food_level is high and isn't a concern yet
-			overlays += "over_food_0"
+			. += "over_food_0"
 		else if(food_level > 2)							//Food_level is starting to get low, but still above the breeding threshold
-			overlays += "over_food_1"
+			. += "over_food_1"
 		else											//Food_level is below breeding threshold, or fully consumed, feed the fish!
-			overlays += "over_food_2"
-		overlays += "over_leak_[leaking]"				//Green if we aren't leaking, light blue and slow blink if minor link, dark blue and rapid flashing for major leak
+			. += "over_food_2"
+		. += "over_leak_[leaking]"				//Green if we aren't leaking, light blue and slow blink if minor link, dark blue and rapid flashing for major leak
 
 	//Update water overlay
 	if(!water_level)
@@ -154,9 +152,23 @@
 	var/water_type = "_clean"							//Default to clean water
 	if(filth_level > 5)	water_type = "_dirty"			//Show dirty water above filth_level 5 (breeding threshold)
 	if(water_level > (water_capacity * 0.85))			//Show full if the water_level is over 85% of water_capacity
-		overlays += "over_[tank_type]_full[water_type]"
+		. += "over_[tank_type]_full[water_type]"
 	else if(water_level > (water_capacity * 0.35))		//Show half-full if the water_level is over 35% of water_capacity
-		overlays += "over_[tank_type]_half[water_type]"
+		. += "over_[tank_type]_half[water_type]"
+
+/obj/machinery/fishtank/wall/update_overlays()
+	. = ..()
+	// Update fish overlay for wall tanks
+	var/num_fish = length(fish_list)
+	if(!num_fish)
+		return
+	switch(num_fish)
+		if(1 to 3)
+			. += "over_tank_fish_33"
+		if(4 to 7)
+			. += "over_tank_fish_66"
+		if(7 to INFINITY)
+			. += "over_tank_fish_100"
 
 //////////////////////////////
 //		PROCESS PROC		//
@@ -168,38 +180,37 @@
 
 /obj/machinery/fishtank/process()
 	//Start by counting fish in the tank
-	fish_count = 0
-	var/ate_food = 0
-	for(var/fish in fish_list)
-		if(fish)
-			fish_count++
+	var/fish_count = get_num_fish()
+	var/ate_food = FALSE
 
 	//Check if the water level can support the current number of fish
 	if((fish_count * 50) > water_level)
 		if(prob(50))								//Not enough water for all the fish, chance to kill one
+			fish_count--
 			kill_fish()								//Chance passed, kill a random fish
 			adjust_filth_level(2)					//Dead fish raise the filth level quite a bit, reflect this
 
 	//Check filth_level
 	if(filth_level == 10 && fish_count > 0)			//This tank is nasty and possibly unsuitable for fish if any are in it
 		if(prob(30))								//Chance for a fish to die each cycle while the tank is this nasty
+			fish_count--
 			kill_fish()								//Kill a random fish, don't raise filth level since we're at cap already
 
 	//Check breeding conditions
 	if(fish_count >=2 && egg_count < max_fish)		//Need at least 2 fish to breed, but won't breed if there are as many eggs as max_fish
-		if(food_level >= 0.2 && filth_level <=5)	//Breeding is going to use extra food, and the filth_level shouldn't be too high
+		if(food_level >= 0.1 && filth_level <=5)	//Breeding is going to use extra food, and the filth_level shouldn't be too high
 			if(prob(((fish_count - 2) * 5)+10))		//Chances increase with each additional fish, 10% base + 5% per additional fish
 				breed_fish()
-				adjust_food_level(-0.2)				//Remove extra food for the breeding process
-				ate_food = 1
+				adjust_food_level(-0.1)				//Remove extra food for the breeding process
+				ate_food = TRUE
 
 	//Handle standard food and filth adjustments
 	if(food_level > 0 && prob(50))					//Chance for the fish to eat some food
-		if(food_level >= (fish_count * 0.1))		//If there is at least enough food to go around, feed all the fish
-			adjust_food_level(fish_count * -0.1)
+		if(food_level >= (fish_count * 0.05))		//If there is at least enough food to go around, feed all the fish
+			adjust_food_level(fish_count * -0.05)
 		else										//Use up the last of the food
 			adjust_food_level(-food_level)
-		ate_food = 1
+		ate_food = TRUE
 
 	if(water_level > 0)								//Don't dirty the tank if it has no water
 		if(fish_count == 0)							//If the tank has no fish, algae growth can occur
@@ -225,6 +236,9 @@
 //////////////////////////////
 //		SUPPORT PROCS		//
 //////////////////////////////
+
+/obj/machinery/fishtank/proc/get_num_fish()
+	return length(fish_list)
 
 /obj/machinery/fishtank/proc/handle_special_interactions()
 	for(var/datum/fish/fish in fish_list)
@@ -266,57 +280,94 @@
 	if(!fish_type)
 		fish_type = pick(fish_list)
 	fish_list.Remove(fish_type)						//Kill a fish of the specified type
-	fish_count --									//Lower fish_count to reflect the death of a fish, so the everything else works fine
 	if(istype(fish_type, /datum/fish/glofish))
 		adjust_tank_light()
 	qdel(fish_type)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/fishtank/proc/add_fish(datum/fish/fish_type = null)
 	//Check if we were passed a fish type
 	if(fish_type)
 		fish_type = new fish_type
 		fish_list.Add(fish_type)					//Add a fish of the specified type
-		fish_count++								//Increase fish_count to reflect the introduction of a fish, so the everything else works fine
 		//Announce the new fish
 		visible_message("A new [fish_type.fish_name] has hatched in [src]!")
+		update_icon(UPDATE_OVERLAYS)
 	//Null type fish are dud eggs, give a message to inform the player
 	else
 		to_chat(usr, "The eggs disolve in the water. They were duds!")
 
-/obj/machinery/fishtank/proc/harvest_eggs(mob/user)
+/obj/machinery/fishtank/proc/harvest_eggs(mob/user, obj/item/storage/bag/fish/fish_bag)
 	if(!egg_count)									//Can't harvest non-existant eggs
 		return
 
 	if(egg_count > max_fish)						//Make sure the number of eggs doesn't exceed the max_fish for the tank
 		egg_count = max_fish						//If you somehow exceeded the cap, set the egg_count to max, destroy the excess later
 
+	var/duds = 0
 	while(egg_count > 0)							//Loop until you've harvested all the eggs
 		var/obj/item/fish_eggs/egg = pick(egg_list)	//Select an egg at random
-		egg = new egg(get_turf(user))				//Spawn the egg at the user's feet
+		if(egg != /obj/item/fish_eggs) 				// Don't harvest duds
+			egg = new egg(get_turf(user))			//Spawn the egg at the user's feet
+			if(fish_bag?.can_be_inserted(egg))
+				fish_bag.handle_item_insertion(egg)
+		else
+			duds++
 		egg_list.Remove(egg)						//Remove the egg from the egg_list
 		egg_count --								//Decrease the egg_count and begin again
 
 	egg_list.Cut()									//Destroy any excess eggs, clearing the egg_list
+	if(duds)
+		to_chat(user, "<span class='notice'>[duds] egg\s [duds == 1 ? "was a dud" : "were duds"]!</span>")
 
 /obj/machinery/fishtank/proc/harvest_fish(mob/user)
-	if(fish_count <= 0)									//Can't catch non-existant fish!
-		to_chat(user, "There are no fish in [src] to catch!")
+	if(!get_num_fish())									//Can't catch non-existant fish!
+		to_chat(user, "<span class='warning'>There are no fish in [src] to catch!</span>")
 		return
-	var/list/fish_names_list = list()
-	for(var/datum/fish/fish_type in fish_list)
-		fish_names_list += list("[fish_type.fish_name]" = fish_type)
-	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_names_list		//Select a fish from the tank
-	if(fish_count <= 0)
-		to_chat(user, "There are no fish in [src] to catch!")
+	var/list/fish_types = list() // fish sorted by type. Key is type of fish, value is a list of fish of that type
+	var/list/fish_types_input = list() // The choices given to the player, and the types of fish those choices are for. Key is string shown to player, value is type of fish
+	for(var/datum/fish/F in fish_list) // Group up the fish first
+		fish_types[F.type] += list(F)
+	for(var/key in fish_types) // Then populate the list
+		var/datum/fish/fish_type = key
+		var/count = length(fish_types[key])
+		var/fish_description = "[initial(fish_type.fish_name)][count > 1 ? " (x[count])" : ""]"
+		fish_types_input[fish_description] = fish_type
+	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_types_input		//Select a fish from the tank
+	if(!caught_fish)
 		return
-	else if(caught_fish)
-		user.visible_message("[user.name] harvests \a [caught_fish] from [src].", "You scoop \a [caught_fish] out of [src].")
-		var/datum/fish/fish_type = fish_names_list[caught_fish]
-		var/fish_item = fish_type.fish_item
-		if(fish_item)
-			new fish_item(get_turf(user))			//Spawn the appropriate fish_item at the user's feet.
-		kill_fish(fish_type)						//Kill the caught fish from the tank
-													//Update the air for the turf, to avoid permanent atmos sealing with wall tanks
+	if(!Adjacent(user))
+		to_chat(user, "<span class='warning'>You are no longer next to [src], so you can't catch fish!</span>")
+		return
+	if(!get_num_fish())
+		to_chat(user, "<span class='warning'>There are no fish in [src] to catch!</span>")
+		return
+	var/fish_type_caught = fish_types_input[caught_fish]
+	var/list/fishes_of_type = list()
+	for(var/datum/fish/F in fish_list)
+		if(F.type == fish_type_caught)
+			fishes_of_type += list(F)
+	if(!length(fishes_of_type))
+		var/datum/fish/fish_type = fish_type_caught
+		to_chat(user, "<span class='warning'>There are no [fish_type.fish_name] in [src] to catch!</span>")
+		return
+	var/datum/fish/fish_to_scoop = pick(fishes_of_type)
+	// Is the user holding a fish bag?
+	var/obj/item/storage/bag/fish_bag
+	if(istype(user.r_hand, /obj/item/storage/bag/fish))
+		fish_bag = user.r_hand
+	else if(istype(user.l_hand, /obj/item/storage/bag/fish))
+		fish_bag = user.l_hand
+	var/fish_name = fish_to_scoop.fish_name
+	// Move the fish in
+	var/fish_item = fish_to_scoop.fish_item
+	if(fish_item)
+		var/obj/item/I = new fish_item(get_turf(user))
+		if(fish_bag?.can_be_inserted(I))
+			fish_bag.handle_item_insertion(I)
+	user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
+	kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
+
 /obj/machinery/fishtank/proc/spill_water()
 	var/turf/simulated/T = get_turf(src)
 	switch(tank_type)
@@ -326,7 +377,7 @@
 		if("tank")										//Fishtank: Wets it's own tile and the 4 adjacent tiles (cardinal directions)
 			if(istype(T))
 				T.MakeSlippery()
-				for(var/turf/simulated/ST in T.CardinalTurfs())
+				for(var/turf/simulated/ST in T.AdjacentTurfs(open_only = TRUE, cardinal_only = TRUE))
 					ST.MakeSlippery()
 		if("wall")										//Wall-tank: Wets it's own tile and the surrounding 8 tiles (3x3 square)
 			for(var/turf/simulated/ST in spiral_range_turfs(1, loc))
@@ -336,10 +387,10 @@
 	var/list/breed_candidates = fish_list.Copy()
 	var/datum/fish/parent1 = pick_n_take(breed_candidates)
 	if(!parent1.crossbreeder)							//fish with crossbreed = 0 will only breed with their own species, and only leave duds if they can't breed
-		var/match_found = 0
+		var/match_found = FALSE
 		for(var/datum/fish/possible in breed_candidates)
 			if(parent1.type == possible.type)
-				match_found = 1
+				match_found = TRUE
 				break
 		if(match_found)
 			egg_list.Add(parent1.egg_item)
@@ -377,6 +428,7 @@
 /obj/machinery/fishtank/examine(mob/user)
 	. = ..()
 	var/examine_message = ""
+	var/fish_count = get_num_fish()
 	//Approximate water level
 
 	examine_message += "Water level: "
@@ -483,10 +535,11 @@
 	. += "<span class='notice'>[examine_message]</span>"
 
 //////////////////////////////
-//		ATACK PROCS			//
+//		ATTACK PROCS		//
 //////////////////////////////
 
 /obj/machinery/fishtank/attack_animal(mob/living/simple_animal/M)
+	var/fish_count = get_num_fish()
 	if(istype(M, /mob/living/simple_animal/pet/cat))
 		if(M.a_intent == INTENT_HELP)							//Cats can try to fish in open tanks on help intent
 			if(lid_switch)									//Can't fish in a closed tank. Fishbowls are ALWAYS open.
@@ -527,16 +580,17 @@
 		return ..()
 
 /obj/machinery/fishtank/attack_hand(mob/user)
+	if(isAI(user))
+		return
 	user.changeNext_move(CLICK_CD_MELEE)
+	playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, TRUE)
 	if(user.a_intent == INTENT_HARM)
-		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
-		user.visible_message("<span class='danger'>[user.name] bangs against the [name]!</span>", \
-							"<span class='danger'>You bang against the [name]!</span>", \
+		user.visible_message("<span class='danger'>[user] bangs against [src]!</span>",
+							"<span class='danger'>You bang against [src]!</span>",
 							"You hear a banging sound.")
 	else
-		playsound(loc, 'sound/effects/glassknock.ogg', 80, 1)
-		user.visible_message("<span class='notice'>[user.name] taps on the [name].</span>", \
-							"<span class='notice'>You tap on the [name].</span>", \
+		user.visible_message("<span class='notice'>[user] taps on [src].</span>",
+							"<span class='notice'>You tap on [src].</span>",
 							"You hear a knocking sound.")
 
 /obj/machinery/fishtank/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -613,7 +667,7 @@
 			to_chat(user, "<span class='warning'>[src] has no water; [egg.name] won't hatch without water!</span>")
 		else
 			//Don't add eggs if the tank already has the max number of fish
-			if(fish_count >= max_fish)
+			if(get_num_fish() >= max_fish)
 				to_chat(user, "<span class='notice'>[src] can't hold any more fish.</span>")
 			else
 				add_fish(egg.fish_type)
@@ -623,7 +677,7 @@
 		//Only add food if there is water and it isn't already full of food
 		if(water_level)
 			if(food_level < 10)
-				if(fish_count == 0)
+				if(!get_num_fish())
 					user.visible_message("<span class='notice'>[user.name] shakes some fish food into the empty [src]... How sad.</span>", "<span class='notice'>You shake some fish food into the empty [src]... If only it had fish.</span>")
 				else
 					user.visible_message("<span class='notice'>[user.name] feeds the fish in [src]. The fish look excited!</span>", "<span class='notice'>You feed the fish in [src]. They look excited!</span>")
@@ -635,8 +689,14 @@
 	//Fish egg scoop
 	else if(istype(O, /obj/item/egg_scoop))
 		if(egg_count)
+			// Is the user holding a fish bag?
+			var/obj/item/storage/bag/fish_bag
+			if(istype(user.r_hand, /obj/item/storage/bag/fish))
+				fish_bag = user.r_hand
+			else if(istype(user.l_hand, /obj/item/storage/bag/fish))
+				fish_bag = user.l_hand
 			user.visible_message("<span class='notice'>[user.name] harvests some fish eggs from [src].</span>", "<span class='notice'>You scoop the fish eggs out of [src].</span>")
-			harvest_eggs(user)
+			harvest_eggs(user, fish_bag)
 		else
 			user.visible_message("<span class='notice'>[user.name] fails to harvest any fish eggs from [src].</span>", "<span class='notice'>There are no fish eggs in [src] to scoop out.</span>")
 	//Fish net

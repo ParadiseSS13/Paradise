@@ -18,7 +18,7 @@
 	var/map_path = "[map_prefix][map_name].dmm"
 	if(fexists(map_path))
 		fdel(map_path)
-	var/saved_map = file(map_path)
+	var/saved_map = wrap_file(map_path)
 	var/map_text = write_map(t1, t2, flags, saved_map)
 	saved_map << map_text
 	return saved_map
@@ -60,7 +60,7 @@
 	if(length(templates) == 0)
 		CRASH("No templates found!")
 
-	var/key_length = round(log(length(letter_digits), length(templates) - 1) + 1) // or floor
+	var/key_length = round(log(length(letter_digits), max(length(templates) - 1, 1)) + 1) // or floor
 	var/list/keys[length(templates)]
 
 	// Write the list of key/model pairs to the file
@@ -81,7 +81,8 @@
 	log_debug("Writing out key map...")
 
 	var/list/key_map = list()
-	for(var/z_pos = 1; TRUE; z_pos = findtext(template_buffer_text, ".", z_pos) + 1)
+	var/z_pos = 1
+	while(TRUE)
 		if(z_pos >= length(template_buffer_text))
 			break
 
@@ -89,14 +90,18 @@
 			key_map += "\n"
 
 		key_map += "\n(1,1,[++z_level]) = {\"\n"
+
 		var/z_block = copytext(template_buffer_text, z_pos, findtext(template_buffer_text, ".", z_pos))
-		for(var/y_pos = 1; TRUE; y_pos = findtext(z_block, ";", y_pos) + 1)
+		var/y_pos = 1
+		while(TRUE)
 			if(y_pos >= length(z_block))
 				break
 
 			var/y_block = copytext(z_block, y_pos, findtext(z_block, ";", y_pos))
 			// A row of keys
-			for(var/x_pos = 1; TRUE; x_pos = findtext(y_block, ",", x_pos) + 1)
+			y_pos = findtext(z_block, ";", y_pos) + 1
+			var/x_pos = 1
+			while(TRUE)
 				if(x_pos >= length(y_block))
 					break
 
@@ -105,8 +110,10 @@
 				var/temp_key = keys[key_number]
 				key_map += temp_key
 				CHECK_TICK
+				x_pos = findtext(y_block, ",", x_pos) + 1
 			key_map += "\n"
 		key_map += "\"}"
+		z_pos = findtext(template_buffer_text, ".", z_pos) + 1
 
 	dmm_text += jointext(key_map, "")
 	log_debug("Writing key map complete, took [stop_watch(timer)]s.")

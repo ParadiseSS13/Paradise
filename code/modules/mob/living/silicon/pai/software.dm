@@ -10,13 +10,7 @@ GLOBAL_LIST_INIT(pai_emotions, list(
 		"What" = 9
 ))
 
-
 GLOBAL_LIST_EMPTY(pai_software_by_key)
-GLOBAL_LIST_EMPTY(default_pai_software)
-
-/mob/living/silicon/pai/New()
-	..()
-	software = GLOB.default_pai_software.Copy()
 
 /mob/living/silicon/pai/verb/paiInterface()
 	set category = "pAI Commands"
@@ -24,99 +18,33 @@ GLOBAL_LIST_EMPTY(default_pai_software)
 
 	ui_interact(src)
 
-/mob/living/silicon/pai/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = GLOB.self_state)
-	if(ui_key != "main")
-		var/datum/pai_software/S = software[ui_key]
-		if(S && !S.toggle)
-			ui = SSnanoui.try_update_ui(user, src, S.id, ui, force_open)
-			if(!ui)
-				ui = new(user, src, S.id, S.template_file, S.ui_title, S.ui_width, S.ui_height, state = state)
-				ui.open()
-				if(S.autoupdate)
-					ui.set_auto_update(1)
-		else
-			if(ui)
-				ui.set_status(STATUS_CLOSE, 0)
-		return
-
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/silicon/pai/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.self_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "pai_interface.tmpl", "pAI Software Interface", 450, 600, state = state)
+		ui = new(user, src, ui_key, "PAI", name, 600, 650, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/mob/living/silicon/pai/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.self_state)
-	var/data[0]
-
-	if(ui_key != "main")
-		var/datum/pai_software/S = software[ui_key]
-		if(S && !S.toggle)
-			return S.on_ui_data(user, state)
-		log_runtime(EXCEPTION("Unrecognized/invalid pAI UI state '[ui_key]'"), src)
-		return
-	// Software we have bought
-	var/bought_software[0]
-	// Software we have not bought
-	var/not_bought_software[0]
-
-	for(var/key in GLOB.pai_software_by_key)
-		var/datum/pai_software/S = GLOB.pai_software_by_key[key]
-		var/software_data[0]
-		software_data["name"] = S.name
-		software_data["id"] = S.id
-		if(key in software)
-			software_data["on"] = S.is_active(src)
-			bought_software[++bought_software.len] = software_data
-		else
-			software_data["ram"] = S.ram_cost
-			not_bought_software[++not_bought_software.len] = software_data
-
-	data["bought"] = bought_software
-	data["not_bought"] = not_bought_software
-	data["available_ram"] = ram
-
-	// Emotions
-	var/emotions[0]
-	for(var/name in GLOB.pai_emotions)
-		var/emote[0]
-		emote["name"] = name
-		emote["id"] = GLOB.pai_emotions[name]
-		emotions[++emotions.len] = emote
-
-	data["emotions"] = emotions
-	data["current_emotion"] = card.current_emotion
+/mob/living/silicon/pai/ui_data(mob/user)
+	var/list/data = list()
+	data["app_template"] = active_software.template_file
+	data["app_icon"] = active_software.ui_icon
+	data["app_title"] = active_software.name
+	data["app_data"] = active_software.get_app_data(user)
 
 	return data
 
-/mob/living/silicon/pai/Topic(href, href_list)
+// Yes the stupid amount of args here is important, so we can proxy stuff to child UIs
+/mob/living/silicon/pai/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return 1
+		return
 
-	if(href_list["software"])
-		var/soft = href_list["software"]
-		var/datum/pai_software/S = software[soft]
-		if(S.toggle)
-			S.toggle(src)
+	. = TRUE
+
+	switch(action)
+		// This call is global to all templates, hence the prefix
+		if("MASTER_back")
+			active_software = installed_software["mainmenu"]
+			// Bail early
+			return
 		else
-			ui_interact(src, ui_key = soft)
-		return 1
-
-	else if(href_list["stopic"])
-		var/soft = href_list["stopic"]
-		var/datum/pai_software/S = software[soft]
-		if(S)
-			return S.Topic(href, href_list)
-
-	else if(href_list["purchase"])
-		var/soft = href_list["purchase"]
-		var/datum/pai_software/S = GLOB.pai_software_by_key[soft]
-		if(S && (ram >= S.ram_cost))
-			ram -= S.ram_cost
-			software[S.id] = S
-		return 1
-
-	else if(href_list["image"])
-		var/img = text2num(href_list["image"])
-		if(1 <= img && img <= 9)
-			card.setEmotion(img)
-		return 1
+			active_software.ui_act(action, params, ui, state)

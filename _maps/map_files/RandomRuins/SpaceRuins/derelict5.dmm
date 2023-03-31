@@ -4,69 +4,64 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/mineral,
-/area/ruin/unpowered)
-"c" = (
-/turf/simulated/mineral,
-/area/space/nearstation)
+/area/ruin/space/unpowered)
 "d" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "e" = (
 /turf/simulated/wall,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "f" = (
-/turf/simulated/wall/rust,
-/area/ruin/unpowered)
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/ruin/space/unpowered)
 "g" = (
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "h" = (
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "i" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "j" = (
 /obj/structure/barricade/wooden,
 /obj/structure/door_assembly,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "k" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "l" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "m" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "n" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "o" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "p" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "q" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
-"r" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space/nearstation)
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -852,8 +847,8 @@ b
 d
 d
 d
-r
-r
+d
+d
 a
 a
 a
@@ -894,8 +889,8 @@ b
 d
 d
 d
-r
-r
+d
+d
 d
 d
 d
@@ -936,7 +931,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -978,7 +973,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1020,7 +1015,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1062,7 +1057,7 @@ d
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1104,7 +1099,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1122,7 +1117,7 @@ b
 a
 a
 a
-c
+b
 a
 a
 a
@@ -1146,7 +1141,7 @@ b
 d
 d
 d
-r
+d
 d
 d
 d
@@ -1188,7 +1183,7 @@ b
 b
 b
 b
-r
+d
 d
 d
 d
@@ -1228,9 +1223,9 @@ b
 b
 b
 b
-c
-c
-c
+b
+b
+b
 d
 d
 d
@@ -1270,9 +1265,9 @@ b
 b
 b
 b
-c
-c
-c
+b
+b
+b
 d
 d
 d

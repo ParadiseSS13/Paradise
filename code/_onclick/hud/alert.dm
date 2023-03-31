@@ -3,19 +3,21 @@
 //PUBLIC -  call these wherever you want
 
 
-/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim)
-
-/*
- Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
- category is a text string. Each mob may only have one alert per category; the previous one will be replaced
- path is a type path of the actual alert type to throw
- severity is an optional number that will be placed at the end of the icon_state for this alert
- For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
- new_master is optional and sets the alert's icon state to "template" in the ui_style icons with the master as an overlay.
- Clicks are forwarded to master
- Override makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
+/**
+ * Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already.
+ * Each mob may only have one alert per category.
+ *
+ * Arguments:
+ * * category - a text string corresponding to what type of alert it is
+ * * type - a type path of the actual alert type to throw
+ * * severity - is an optional number that will be placed at the end of the icon_state for this alert
+ *   For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
+ * * obj/new_master - optional argument. Sets the alert's icon state to "template" in the ui_style icons with the master as an overlay. Clicks are forwarded to master
+ * * no_anim - whether the alert should play a small sliding animation when created on the player's screen
+ * * icon_override - makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
+ * * list/alert_args - a list of arguments to pass to the alert when creating it
  */
-
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override, list/alert_args)
 	if(!category)
 		return
 
@@ -37,10 +39,17 @@
 			else //no need to update
 				return 0
 	else
-		alert = new type()
+		if(alert_args)
+			alert_args.Insert(1, null) // So it's still created in nullspace.
+			alert = new type(arglist(alert_args))
+		else
+			alert = new type()
 		alert.override_alerts = override
 		if(override)
 			alert.timeout = null
+
+	if(icon_override)
+		alert.icon = icon_override
 
 	if(new_master)
 		var/old_layer = new_master.layer
@@ -66,7 +75,7 @@
 
 	var/timeout = timeout_override || alert.timeout
 	if(timeout)
-		addtimer(CALLBACK(alert, /obj/screen/alert/.proc/do_timeout, src, category), timeout)
+		addtimer(CALLBACK(alert, TYPE_PROC_REF(/obj/screen/alert, do_timeout), src, category), timeout)
 		alert.timeout = world.time + timeout - world.tick_lag
 
 	return alert
@@ -97,6 +106,7 @@
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
 /obj/screen/alert/MouseEntered(location,control,params)
+	. = ..()
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
 
 
@@ -122,14 +132,14 @@
 	icon_state = "too_much_oxy"
 
 /obj/screen/alert/not_enough_nitro
-    name = "Choking (No N)"
-    desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
-    icon_state = "not_enough_nitro"
+	name = "Choking (No N2)"
+	desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
+	icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
-    name = "Choking (N)"
-    desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
-    icon_state = "too_much_nitro"
+	name = "Choking (N2)"
+	desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
+	icon_state = "too_much_nitro"
 
 /obj/screen/alert/not_enough_co2
 	name = "Choking (No CO2)"
@@ -152,71 +162,89 @@
 	icon_state = "too_much_tox"
 //End gas alerts
 
+// Hunger alerts
 
-/obj/screen/alert/fat
+/obj/screen/alert/hunger
+	icon = 'icons/mob/screen_hunger.dmi'
+
+/obj/screen/alert/hunger/fat
 	name = "Fat"
 	desc = "You ate too much food, lardass. Run around the station and lose some weight."
 	icon_state = "fat"
 
-/obj/screen/alert/full
+/obj/screen/alert/hunger/full
 	name = "Full"
 	desc = "You feel full and satisfied, but you shouldn't eat much more."
 	icon_state = "full"
 
-/obj/screen/alert/well_fed
+/obj/screen/alert/hunger/well_fed
 	name = "Well Fed"
 	desc = "You feel quite satisfied, but you may be able to eat a bit more."
 	icon_state = "well_fed"
 
-/obj/screen/alert/fed
+/obj/screen/alert/hunger/fed
 	name = "Fed"
 	desc = "You feel moderately satisfied, but a bit more food may not hurt."
 	icon_state = "fed"
 
-/obj/screen/alert/hungry
+/obj/screen/alert/hunger/hungry
 	name = "Hungry"
 	desc = "Some food would be good right about now."
 	icon_state = "hungry"
 
-/obj/screen/alert/starving
+/obj/screen/alert/hunger/starving
 	name = "Starving"
 	desc = "You're severely malnourished. The hunger pains make moving around a chore."
 	icon_state = "starving"
 
+/// Machine "hunger"
+
+/obj/screen/alert/hunger/fat/machine
+	name = "Over Charged"
+	desc = "Your cell has excessive charge due to electrical shocks. Run around the station and spend some energy."
+
+/obj/screen/alert/hunger/full/machine
+	name = "Full Charge"
+	desc = "Your cell is at full charge. Might want to give APCs some space."
+
+/obj/screen/alert/hunger/well_fed/machine
+	name = "High Charge"
+	desc = "You're almost all charged, but could top up a bit more."
+
+/obj/screen/alert/hunger/fed/machine
+	name = "Half Charge"
+	desc = "You feel moderately charged, but a bit more juice couldn't hurt."
+
+/obj/screen/alert/hunger/hungry/machine
+	name = "Low Charge"
+	desc = "Could use a little charging right about now."
+
+/obj/screen/alert/hunger/starving/machine
+	name = "Nearly Discharged"
+	desc = "You're almost drained. The low power makes moving around a chore."
+
+// End of Machine "hunger"
 ///Vampire "hunger"
 
-/obj/screen/alert/fat/vampire
-	name = "Fat"
+/obj/screen/alert/hunger/fat/vampire
 	desc = "You somehow drank too much blood, lardass. Run around the station and lose some weight."
-	icon_state = "v_fat"
 
-/obj/screen/alert/full/vampire
-	name = "Full"
+/obj/screen/alert/hunger/full/vampire
 	desc = "You feel full and satisfied, but you know you will thirst for more blood soon..."
-	icon_state = "v_full"
 
-/obj/screen/alert/well_fed/vampire
-	name = "Well Fed"
+/obj/screen/alert/hunger/well_fed/vampire
 	desc = "You feel quite satisfied, but you could do with a bit more blood."
-	icon_state = "v_well_fed"
 
-/obj/screen/alert/fed/vampire
-	name = "Fed"
+/obj/screen/alert/hunger/fed/vampire
 	desc = "You feel moderately satisfied, but a bit more blood wouldn't hurt."
-	icon_state = "v_fed"
 
-/obj/screen/alert/hungry/vampire
-	name = "Hungry"
+/obj/screen/alert/hunger/hungry/vampire
 	desc = "You currently thirst for blood."
-	icon_state = "v_hungry"
 
-/obj/screen/alert/starving/vampire
-	name = "Starving"
+/obj/screen/alert/hunger/starving/vampire
 	desc = "You're severely thirsty. The thirst pains make moving around a chore."
-	icon_state = "v_starving"
 
 //End of Vampire "hunger"
-
 
 /obj/screen/alert/hot
 	name = "Too Hot"
@@ -224,7 +252,7 @@
 	icon_state = "hot"
 
 /obj/screen/alert/hot/robot
-    desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this enviroment."
+	desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this environment."
 
 /obj/screen/alert/cold
 	name = "Too Cold"
@@ -232,11 +260,11 @@
 	icon_state = "cold"
 
 /obj/screen/alert/cold/drask
-    name = "Cold"
-    desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
+	name = "Cold"
+	desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
 
 /obj/screen/alert/cold/robot
-    desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this enviroment."
+	desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this environment."
 
 /obj/screen/alert/lowpressure
 	name = "Low Pressure"
@@ -269,9 +297,9 @@ or something covering your eyes."
 	desc = "Whoa man, you're tripping balls! Careful you don't get addicted... if you aren't already."
 	icon_state = "high"
 
-/obj/screen/alert/drunk //Not implemented
+/obj/screen/alert/drunk
 	name = "Drunk"
-	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
+	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition."
 	icon_state = "drunk"
 
 /obj/screen/alert/embeddedobject
@@ -308,6 +336,11 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+//Constructs
+/obj/screen/alert/holy_fire
+	name = "Holy Fire"
+	desc = "Your body is crumbling from the holy energies. Get out."
+	icon_state = "fire"
 
 //ALIENS
 
@@ -429,7 +462,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/mech_port_available/Click()
 	if(!usr || !usr.client)
 		return
-	if(!istype(usr.loc, /obj/mecha) || !target)
+	if(!ismecha(usr.loc) || !target)
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.connect(target))
@@ -445,7 +478,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/mech_port_disconnect/Click()
 	if(!usr || !usr.client)
 		return
-	if(!istype(usr.loc, /obj/mecha))
+	if(!ismecha(usr.loc))
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.disconnect())
@@ -516,6 +549,7 @@ so as to remain in compliance with the most up-to-date laws."
 	var/action = NOTIFY_JUMP
 	var/show_time_left = FALSE // If true you need to call START_PROCESSING manually
 	var/image/time_left_overlay // The last image showing the time left
+	var/image/signed_up_overlay // image showing that you're signed up
 	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
 
 /obj/screen/alert/notify_action/process()
@@ -545,6 +579,9 @@ so as to remain in compliance with the most up-to-date laws."
 
 /obj/screen/alert/notify_action/Destroy()
 	target = null
+	if(signed_up_overlay)
+		overlays -= signed_up_overlay
+		qdel(signed_up_overlay)
 	return ..()
 
 /obj/screen/alert/notify_action/Click()
@@ -555,9 +592,14 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 
 	if(poll)
-		if(poll.sign_up(G))
+		var/success
+		if(G in poll.signed_up)
+			success = poll.remove_candidate(G)
+		else
+			success = poll.sign_up(G)
+		if(success)
 			// Add a small overlay to indicate we've signed up
-			display_signed_up()
+			update_signed_up_alert()
 	else if(target)
 		switch(action)
 			if(NOTIFY_ATTACK)
@@ -565,22 +607,31 @@ so as to remain in compliance with the most up-to-date laws."
 			if(NOTIFY_JUMP)
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
-					G.loc = T
+					G.forceMove(T)
 			if(NOTIFY_FOLLOW)
 				G.ManualFollow(target)
 
 /obj/screen/alert/notify_action/Topic(href, href_list)
-	if(..())
-		return TRUE
+	if(!href_list["signup"])
+		return
+	if(!poll)
+		return
+	var/mob/dead/observer/G = usr
+	if(G in poll.signed_up)
+		poll.remove_candidate(G)
+	else
+		poll.sign_up(G)
+	update_signed_up_alert()
 
-	if(href_list["signup"] && isobserver(usr) && poll?.sign_up(usr))
-		display_signed_up()
-
-/obj/screen/alert/notify_action/proc/display_signed_up()
-	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-	I.layer = FLOAT_LAYER
-	I.plane = FLOAT_PLANE + 2
-	overlays += I
+/obj/screen/alert/notify_action/proc/update_signed_up_alert()
+	if(!signed_up_overlay)
+		signed_up_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
+		signed_up_overlay.layer = FLOAT_LAYER
+		signed_up_overlay.plane = FLOAT_PLANE + 2
+	if(usr in poll.signed_up)
+		overlays += signed_up_overlay
+	else
+		overlays -= signed_up_overlay
 
 /obj/screen/alert/notify_action/proc/display_stacks(stacks = 1)
 	if(stacks <= 1)
@@ -614,12 +665,19 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stone)
 		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
 		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
-			stone.opt_in = TRUE
+			stone?.opt_in = TRUE
 
 /obj/screen/alert/notify_soulstone/Destroy()
 	stone = null
 	return ..()
 
+/obj/screen/alert/notify_mapvote
+	name = "Map Vote"
+	desc = "Vote on which map you would like to play on next!"
+	icon_state = "map_vote"
+
+/obj/screen/alert/notify_mapvote/Click()
+	usr.client.vote()
 
 //OBJECT-BASED
 
@@ -646,8 +704,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(L) || !L.can_resist())
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.last_special <= world.time)
-		return L.resist_buckle()
+	return L.resist_buckle()
 
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 

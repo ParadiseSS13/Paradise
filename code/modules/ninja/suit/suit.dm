@@ -12,9 +12,9 @@ Contents:
 	desc = "A unique, vaccum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
 	icon_state = "s-ninja"
 	item_state = "s-ninja_suit"
-	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank, /obj/item/stock_parts/cell)
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank/internals, /obj/item/stock_parts/cell)
 	slowdown = 0
-	armor = list("melee" = 60, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 75, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
 
 	var/suitActive = 0
 	var/suitBusy = 0

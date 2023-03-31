@@ -12,19 +12,19 @@
 	name = "formal closet"
 	desc = "It's a storage unit for formal clothing."
 	icon_state = "black"
-	icon_closed = "black"
+	icon_opened = "generic_open"
+	open_door_sprite = "generic_door"
 
-/obj/structure/closet/gmcloset/New()
-	..()
+/obj/structure/closet/gmcloset/populate_contents()
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/head/hairflower
-	new /obj/item/clothing/under/sl_suit(src)
-	new /obj/item/clothing/under/sl_suit(src)
-	new /obj/item/clothing/under/rank/bartender(src)
-	new /obj/item/clothing/under/rank/bartender(src)
+	new /obj/item/clothing/under/misc/sl_suit(src)
+	new /obj/item/clothing/under/misc/sl_suit(src)
+	new /obj/item/clothing/under/rank/civilian/bartender(src)
+	new /obj/item/clothing/under/rank/civilian/bartender(src)
 	new /obj/item/clothing/under/dress/dress_saloon
 	new /obj/item/clothing/suit/wcoat(src)
 	new /obj/item/clothing/suit/wcoat(src)
@@ -40,12 +40,12 @@
 	name = "chef's closet"
 	desc = "It's a storage unit for foodservice garments."
 	icon_state = "black"
-	icon_closed = "black"
+	icon_opened = "generic_open"
+	open_door_sprite = "generic_door"
 
-/obj/structure/closet/chefcloset/New()
-	..()
-	new /obj/item/clothing/under/waiter(src)
-	new /obj/item/clothing/under/waiter(src)
+/obj/structure/closet/chefcloset/populate_contents()
+	new /obj/item/clothing/under/misc/waiter(src)
+	new /obj/item/clothing/under/misc/waiter(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/accessory/waistcoat(src)
@@ -57,7 +57,7 @@
 	new /obj/item/clothing/head/soft/mime(src)
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/storage/box/mousetraps(src)
-	new /obj/item/clothing/under/rank/chef(src)
+	new /obj/item/clothing/under/rank/civilian/chef(src)
 	new /obj/item/clothing/head/chefhat(src)
 	new /obj/item/reagent_containers/glass/rag(src)
 
@@ -68,55 +68,41 @@
 	name = "custodial closet"
 	desc = "It's a storage unit for janitorial clothes and gear."
 	icon_state = "mixed"
-	icon_closed = "mixed"
+	icon_opened = "generic_open"
+	open_door_sprite = "generic_door"
 
-/obj/structure/closet/jcloset/New()
-	..()
-	new /obj/item/clothing/under/rank/janitor(src)
-	new /obj/item/radio/headset/headset_service(src)
-	new /obj/item/cartridge/janitor(src)
+/obj/structure/closet/jcloset/populate_contents()
+	new /obj/item/flashlight(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/melee/flyswatter(src)
+	new /obj/item/melee/flyswatter(src)
+	new /obj/item/clothing/shoes/galoshes(src)
 	new /obj/item/clothing/shoes/galoshes(src)
 	new /obj/item/soap(src)
+	new /obj/item/soap(src)
+	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
+	new /obj/item/twohanded/push_broom(src)
+	new /obj/item/twohanded/push_broom(src)
+	new /obj/item/storage/bag/trash(src)
 	new /obj/item/storage/bag/trash(src)
 	new /obj/item/lightreplacer(src)
-	new /obj/item/holosign_creator(src)
-	new /obj/item/clothing/gloves/color/black(src)
-	new /obj/item/clothing/head/soft/purple(src)
+	new /obj/item/lightreplacer(src)
+	new /obj/item/holosign_creator/janitor(src)
+	new /obj/item/holosign_creator/janitor(src)
+	new /obj/item/watertank/janitor(src)
 	new /obj/item/watertank/janitor(src)
 	new /obj/item/storage/belt/janitor(src)
-
-/*
- * Lawyer
- */
-/obj/structure/closet/lawcloset
-	name = "legal closet"
-	desc = "It's a storage unit for courtroom apparel and items."
-	icon_state = "blue"
-	icon_closed = "blue"
-
-/obj/structure/closet/lawcloset/New()
-	..()
-	new /obj/item/storage/box/tapes(src)
-	new /obj/item/book/manual/faxes(src)
-	new /obj/item/clothing/under/lawyer/female(src)
-	new /obj/item/clothing/under/lawyer/black(src)
-	new /obj/item/clothing/under/lawyer/red(src)
-	new /obj/item/clothing/under/lawyer/bluesuit(src)
-	new /obj/item/clothing/suit/storage/lawyer/bluejacket(src)
-	new /obj/item/clothing/under/lawyer/purpsuit(src)
-	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/glasses/sunglasses/big(src)
-	new /obj/item/clothing/glasses/sunglasses/big(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/storage/belt/janitor(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/head/soft/purple(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/clothing/under/rank/civilian/janitor(src)
+	new /obj/item/cartridge/janitor(src)
 
 //Paramedic
 
@@ -124,10 +110,11 @@
 	name = "paramedic wardrobe"
 	desc = "It's a storage unit for paramedic equipment."
 	icon_state = "blue"
-	icon_closed = "blue"
+	icon_opened = "generic_open"
+	open_door_sprite = "generic_door"
 
 
-/obj/structure/closet/paramedic/New()
+/obj/structure/closet/paramedic/populate_contents()
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/clothing/under/rank/medical/paramedic(src)
 	new /obj/item/radio/headset/headset_med(src)
@@ -138,9 +125,9 @@
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/head/soft/blue(src)
-	new /obj/item/clothing/head/soft/blue(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/clothing/suit/storage/labcoat/emt(src)
+	new /obj/item/clothing/suit/storage/labcoat/emt(src)

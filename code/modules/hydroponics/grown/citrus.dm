@@ -55,10 +55,10 @@
 	seed = /obj/item/seeds/orange
 	name = "orange"
 	desc = "It's an tangy fruit."
-	icon_state = "orange"
+	icon_state = "orange" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	tastes = list("orange" = 1)
 	filling_color = "#FFA500"
-	distill_reagent = "triple_sec"
+	distill_reagent = "tequilasunrise"
 
 // Lemon
 /obj/item/seeds/lemon
@@ -105,7 +105,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon
 	seed = /obj/item/seeds/firelemon
-	name = "Combustible Lemon"
+	name = "combustible lemon"
 	desc = "Made for burning houses down."
 	icon_state = "firelemon"
 	bitesize_mod = 2
@@ -115,17 +115,16 @@
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
 	var/area/A = get_area(user)
-	user.visible_message("<span class='warning'>[user] primes the [src]!</span>", "<span class='userdanger'>You prime the [src]!</span>")
-	var/message = "[ADMIN_LOOKUPFLW(user)] primed a combustible lemon for detonation at [A] [ADMIN_COORDJMP(user)]"
+	user.visible_message("<span class='warning'>[user] primes [src]!</span>", "<span class='userdanger'>You prime [src]!</span>")
 	investigate_log("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].", INVESTIGATE_BOMB)
-	message_admins(message)
+	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	log_game("[key_name(user)] primed a combustible lemon for detonation at [A] [COORD(user)].")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()
 	icon_state = "firelemon_active"
 	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
+	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/burn()
 	prime()

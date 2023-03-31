@@ -2,27 +2,26 @@ import { classes, pureComponentHooks } from 'common/react';
 import { IS_IE8 } from '../byond';
 import { Box, unit } from './Box';
 
-export const computeFlexProps = props => {
+export const computeFlexProps = (props) => {
   const {
     className,
     direction,
     wrap,
     align,
+    alignContent,
     justify,
     inline,
     spacing = 0,
+    spacingPrecise = 0,
     ...rest
   } = props;
   return {
     className: classes([
       'Flex',
-      IS_IE8 && (
-        direction === 'column'
-          ? 'Flex--ie8--column'
-          : 'Flex--ie8'
-      ),
+      IS_IE8 && (direction === 'column' ? 'Flex--ie8--column' : 'Flex--ie8'),
       inline && 'Flex--inline',
       spacing > 0 && 'Flex--spacing--' + spacing,
+      spacingPrecise > 0 && 'Flex--spacingPrecise--' + spacingPrecise,
       className,
     ]),
     style: {
@@ -30,19 +29,18 @@ export const computeFlexProps = props => {
       'flex-direction': direction,
       'flex-wrap': wrap,
       'align-items': align,
+      'align-content': alignContent,
       'justify-content': justify,
     },
     ...rest,
   };
 };
 
-export const Flex = props => (
-  <Box {...computeFlexProps(props)} />
-);
+export const Flex = (props) => <Box {...computeFlexProps(props)} />;
 
 Flex.defaultHooks = pureComponentHooks;
 
-export const computeFlexItemProps = props => {
+export const computeFlexItemProps = (props) => {
   const {
     className,
     grow,
@@ -55,11 +53,7 @@ export const computeFlexItemProps = props => {
     ...rest
   } = props;
   return {
-    className: classes([
-      'Flex__item',
-      IS_IE8 && 'Flex__item--ie8',
-      className,
-    ]),
+    className: classes(['Flex__item', IS_IE8 && 'Flex__item--ie8', className]),
     style: {
       ...rest.style,
       'flex-grow': grow,
@@ -72,9 +66,7 @@ export const computeFlexItemProps = props => {
   };
 };
 
-export const FlexItem = props => (
-  <Box {...computeFlexItemProps(props)} />
-);
+export const FlexItem = (props) => <Box {...computeFlexItemProps(props)} />;
 
 FlexItem.defaultHooks = pureComponentHooks;
 

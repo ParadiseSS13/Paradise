@@ -17,8 +17,14 @@
 	eject_abductee()
 	return ..()
 
+/obj/machinery/abductor/experiment/update_icon_state()
+	if(occupant)
+		icon_state = "experiment"
+	else
+		icon_state = "experiment-open"
+
 /obj/machinery/abductor/experiment/MouseDrop_T(mob/living/carbon/human/target, mob/user)
-	if(user.stat || user.lying || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
+	if(user.stat || HAS_TRAIT(user, TRAIT_UI_BLOCKED) || !Adjacent(user) || !target.Adjacent(user) || !ishuman(target))
 		return
 	if(isabductor(target))
 		return
@@ -30,11 +36,11 @@
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
 		return
-	visible_message("[user] puts [target] into the [src].")
+	visible_message("<span class='notice'>[user] puts [target] into [src].</span>")
 
 	target.forceMove(src)
 	occupant = target
-	icon_state = "experiment"
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
@@ -169,7 +175,7 @@
 
 
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)
-	H.Sleeping(8)
+	H.Sleeping(16 SECONDS)
 	if(console && console.pad && console.pad.teleport_target)
 		H.forceMove(console.pad.teleport_target)
 		H.uncuff()
@@ -187,16 +193,16 @@
 		if(isabductor(grabbed.affecting))
 			return
 		if(occupant)
-			to_chat(user, "<span class='notice'>The [src] is already occupied!</span>")
+			to_chat(user, "<span class='notice'>[src] is already occupied!</span>")
 			return
 		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")
 			return
-		visible_message("[user] puts [grabbed.affecting] into the [src].")
+		visible_message("<span class='notice'>[user] puts [grabbed.affecting] into [src].</span>")
 		var/mob/living/carbon/human/H = grabbed.affecting
 		H.forceMove(src)
 		occupant = H
-		icon_state = "experiment"
+		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(G)
 		return
@@ -212,11 +218,11 @@
 	if(A == occupant)
 		occupant = null
 		updateUsrDialog()
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/abductor/experiment/proc/eject_abductee()
 	if(!occupant)
 		return
 	occupant.forceMove(get_turf(src))
 	occupant = null
-	icon_state = "experiment-open"
+	update_icon(UPDATE_ICON_STATE)

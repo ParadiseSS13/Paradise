@@ -2,35 +2,39 @@
 
 /turf/simulated/mineral //wall piece
 	name = "rock"
-	icon = 'icons/turf/mining.dmi'
-	icon_state = "rock"
-	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = null
+	icon = 'icons/turf/walls/smoothrocks.dmi'
+	icon_state = "smoothrocks-0"
+	base_icon_state = "smoothrocks"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
+	rad_insulation = RAD_MEDIUM_INSULATION
 	layer = EDGED_TURF_LAYER
 	temperature = TCMB
+	color = COLOR_ROCK
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
 	var/mineralAmt = 3
 	var/spread = 0 //will the seam spread?
-	var/spreadChance = 0 //the percentual chance of an ore spreading to the neighbouring tiles
+	var/spreadChance = 0 //the percentile chance of an ore spreading to the neighboring tiles
 	var/last_act = 0
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = 0
+	var/mine_time = 4 SECONDS //Changes how fast the turf is mined by pickaxes, multiplied by toolspeed
+	/// Should this be set to the normal rock colour on init?
+	var/should_reset_color = TRUE
 
 /turf/simulated/mineral/Initialize(mapload)
-	if(!canSmoothWith)
-		canSmoothWith = list(/turf/simulated/mineral)
-	var/matrix/M = new
-	M.Translate(-4, -4)
-	transform = M
-	icon = smooth_icon
 	. = ..()
+	if(should_reset_color)
+		color = COLOR_ROCK
+
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in GLOB.cardinal)
 			if(prob(spreadChance))
@@ -42,15 +46,7 @@
 	T.ChangeTurf(type)
 
 /turf/simulated/mineral/shuttleRotate(rotation)
-	setDir(angle2dir(rotation + dir2angle(dir)))
-	queue_smooth(src)
-
-/turf/simulated/mineral/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	if(turf_type)
-		underlay_appearance.icon = initial(turf_type.icon)
-		underlay_appearance.icon_state = initial(turf_type.icon_state)
-		return TRUE
-	return ..()
+	QUEUE_SMOOTH(src)
 
 /turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
 	if(!user.IsAdvancedToolUser())
@@ -63,28 +59,29 @@
 		if(!isturf(T))
 			return
 
-		if(last_act + (40 * P.toolspeed) > world.time) // Prevents message spam
+		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
 			return
 		last_act = world.time
 		to_chat(user, "<span class='notice'>You start picking...</span>")
 		P.playDigSound()
 
-		if(do_after(user, 40 * P.toolspeed, target = src))
+		if(do_after(user, mine_time * P.toolspeed, target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				gets_drilled(user)
-				feedback_add_details("pick_used_mining","[P.name]")
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 	else
 		return attack_hand(user)
 
 /turf/simulated/mineral/proc/gets_drilled()
 	if(mineralType && (mineralAmt > 0))
 		new mineralType(src, mineralAmt)
-		feedback_add_details("ore_mined","[mineralType]|[mineralAmt]")
+		SSticker.score?.score_ore_mined++
+		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 	ChangeTurf(turf_type, defer_change)
-	addtimer(CALLBACK(src, .proc/AfterChange), 1, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 
 /turf/simulated/mineral/attack_animal(mob/living/simple_animal/user)
@@ -141,14 +138,11 @@
 		/turf/simulated/mineral/gibtonite = 4, /turf/simulated/floor/plating/asteroid/airless/cave = 2, /turf/simulated/mineral/bscrystal = 1)
 		//Currently, Adamantine won't spawn as it has no uses. -Durandan
 	var/mineralChance = 13
-	var/display_icon_state = "rock"
 
 /turf/simulated/mineral/random/Initialize(mapload)
 
 	mineralSpawnChanceList = typelist("mineralSpawnChanceList", mineralSpawnChanceList)
 
-	if(display_icon_state)
-		icon_state = display_icon_state
 	. = ..()
 	if (prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
@@ -163,8 +157,85 @@
 			src = M
 			M.levelupdate()
 
+/turf/simulated/mineral/ancient
+	name = "ancient rock"
+	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	smoothing_groups = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
+	mine_time = 6 SECONDS
+	color = COLOR_ANCIENT_ROCK
+	layer = TURF_LAYER
+	should_reset_color = FALSE
+	mineralAmt = 2
+	mineralType = /obj/item/stack/ore/glass/basalt/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient
+
+/turf/simulated/mineral/ancient/attackby(obj/item/I, mob/user, params)
+	if(!user.IsAdvancedToolUser())
+		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		return
+
+	if(istype(I, /obj/item/pickaxe))
+		var/obj/item/pickaxe/P = I
+		var/turf/T = user.loc
+		if(!isturf(T))
+			return
+
+		if(last_act + (mine_time * P.toolspeed) > world.time) // Prevents message spam
+			return
+		last_act = world.time
+		to_chat(user, "<span class='notice'>You start picking...</span>")
+		P.playDigSound()
+
+		if(do_after(user, mine_time * P.toolspeed, target = src))
+			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
+				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
+				gets_drilled(user)
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
+	else
+		return attack_hand(user)
+
+/turf/simulated/mineral/ancient/blob_act(obj/structure/blob/B)
+	if(prob(50))
+		blob_destruction()
+
+/turf/simulated/mineral/ancient/proc/blob_destruction()
+	playsound(src, pick(list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')), 30, 1 )
+
+	for(var/obj/O in contents) //Eject contents!
+		if(istype(O, /obj/structure/sign/poster))
+			var/obj/structure/sign/poster/P = O
+			P.roll_and_drop(src)
+		else
+			O.forceMove(src)
+
+	ChangeTurf(/turf/simulated/floor/plating/asteroid/ancient)
+	return TRUE
+
+/turf/simulated/mineral/ancient/outer
+	name = "cold ancient rock"
+	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
+	mine_time = 15 SECONDS
+	color = COLOR_COLD_ANCIENT_ROCK
+	var/static/list/allowed_picks_typecache
+
+/turf/simulated/mineral/ancient/outer/Initialize(mapload)
+	. = ..()
+	allowed_picks_typecache = typecacheof(list(
+			/obj/item/pickaxe/drill/jackhammer,
+			/obj/item/pickaxe/diamond,
+			/obj/item/pickaxe/drill/cyborg/diamond,
+			/obj/item/pickaxe/drill/diamonddrill,
+			))
+
+/turf/simulated/mineral/ancient/outer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
+		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
+		return
+	return ..()
+
 /turf/simulated/mineral/random/high_chance
-	icon_state = "rock_highchance"
+	color = COLOR_YELLOW
 	mineralChance = 25
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium = 35, /turf/simulated/mineral/diamond = 30, /turf/simulated/mineral/gold = 45, /turf/simulated/mineral/titanium = 45,
@@ -189,7 +260,7 @@
 		/turf/simulated/mineral/silver/volcanic = 50, /turf/simulated/mineral/plasma/volcanic = 50, /turf/simulated/mineral/bscrystal/volcanic = 20)
 
 /turf/simulated/mineral/random/low_chance
-	icon_state = "rock_lowchance"
+	color = COLOR_VIOLET
 	mineralChance = 6
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium = 2, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 4, /turf/simulated/mineral/titanium = 4,
@@ -216,7 +287,7 @@
 		/turf/simulated/mineral/uranium = 3, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 8, /turf/simulated/mineral/titanium = 8,
 		/turf/simulated/mineral/silver = 20, /turf/simulated/mineral/plasma = 30, /turf/simulated/mineral/iron = 95,
 		/turf/simulated/mineral/gibtonite = 2)
-	icon_state = "rock_labor"
+	color = COLOR_MAROON
 
 /turf/simulated/mineral/random/labormineral/volcanic
 	environment_type = "basalt"
@@ -429,7 +500,7 @@
 
 /turf/simulated/mineral/gibtonite/proc/explosive_reaction(mob/user = null, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK)
-		activated_overlay = mutable_appearance('icons/turf/smoothrocks.dmi', "rock_Gibtonite_active", ON_EDGED_TURF_LAYER)
+		activated_overlay = mutable_appearance(icon, "rock_Gibtonite_active", ON_EDGED_TURF_LAYER)
 		add_overlay(activated_overlay)
 		name = "gibtonite deposit"
 		desc = "An active gibtonite reserve. Run!"
@@ -476,7 +547,7 @@
 			det_time = 0
 		visible_message("<span class='notice'>The chain reaction was stopped! The gibtonite had [det_time] reactions left till the explosion!</span>")
 
-/turf/simulated/mineral/gibtonite/gets_drilled(var/mob/user, triggered_by_explosion = 0)
+/turf/simulated/mineral/gibtonite/gets_drilled(mob/user, triggered_by_explosion = 0)
 	if(stage == GIBTONITE_UNSTRUCK && mineralAmt >= 1) //Gibtonite deposit is activated
 		playsound(src,'sound/effects/hit_on_shattered_glass.ogg', 50, TRUE)
 		explosive_reaction(user, triggered_by_explosion)
@@ -496,7 +567,7 @@
 			G.icon_state = "Gibtonite ore 2"
 
 	ChangeTurf(turf_type, defer_change)
-	addtimer(CALLBACK(src, .proc/AfterChange), 1, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 
 
 /turf/simulated/mineral/gibtonite/volcanic

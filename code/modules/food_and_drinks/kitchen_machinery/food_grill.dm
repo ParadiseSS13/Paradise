@@ -4,14 +4,14 @@
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "grill_off"
 	thiscooktype = "grilled"
-	burns = 1
+	burns = TRUE
 	firechance = 20
 	cooktime = 50
 	foodcolor = "#A34719"
 	onicon = "grill_on"
 	officon = "grill_off"
 
-obj/machinery/cooker/foodgrill/putIn(obj/item/In, mob/chef)
+/obj/machinery/cooker/foodgrill/putIn(obj/item/In, mob/chef)
 	..()
 	var/image/img = new(In.icon, In.icon_state)
 	img.pixel_y = 5

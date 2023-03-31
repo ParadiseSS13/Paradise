@@ -7,17 +7,21 @@ const routingError = (type, name) => () => {
     <Window resizable>
       <Window.Content scrollable>
         {type === 'notFound' && (
-          <div>Interface <b>{name}</b> was not found.</div>
+          <div>
+            Interface <b>{name}</b> was not found.
+          </div>
         )}
         {type === 'missingExport' && (
-          <div>Interface <b>{name}</b> is missing an export.</div>
+          <div>
+            Interface <b>{name}</b> is missing an export.
+          </div>
         )}
       </Window.Content>
     </Window>
   );
 };
 
-export const getRoutedComponent = state => {
+export const getRoutedComponent = (state) => {
   if (process.env.NODE_ENV !== 'production') {
     // Show a kitchen sink
     if (state.showKitchenSink) {
@@ -28,8 +32,7 @@ export const getRoutedComponent = state => {
   let esModule;
   try {
     esModule = requireInterface(`./${name}.js`);
-  }
-  catch (err) {
+  } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       return routingError('notFound', name);
     }

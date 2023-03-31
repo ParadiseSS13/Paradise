@@ -11,8 +11,20 @@
 #define GAME_PLANE -1
 #define BLACKNESS_PLANE 0 //To keep from conflicts with SEE_BLACKNESS internals
 
-#define SPACE_LAYER 1.8
+#define AREA_PLANE 1
+
+#define SPACE_LAYER 1.5
+#define GRASS_UNDER_LAYER 1.6
+#define PLATING_LAYER 1.7
+#define LATTICE_LAYER 1.701
+#define DISPOSAL_PIPE_LAYER 1.71
+#define GAS_PIPE_HIDDEN_LAYER 1.72
+#define WIRE_LAYER 1.73
+#define WIRE_TERMINAL_LAYER 1.75
+#define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
+#define TRANSPARENT_TURF_LAYER 2
+#define ABOVE_TRANSPARENT_TURF_LAYER 2.01 // put wire terminals here if T.transparent_floor
 #define MID_TURF_LAYER 2.02
 #define HIGH_TURF_LAYER 2.03
 #define TURF_PLATING_DECAL_LAYER 2.031
@@ -22,15 +34,13 @@
 #define BULLET_HOLE_LAYER 2.06
 #define ABOVE_NORMAL_TURF_LAYER 2.08
 #define ABOVE_ICYOVERLAY_LAYER 2.11
-#define LATTICE_LAYER 2.2
-#define DISPOSAL_PIPE_LAYER 2.3
-#define GAS_PIPE_HIDDEN_LAYER 2.35
-#define WIRE_LAYER 2.4
-#define WIRE_TERMINAL_LAYER 2.45
-#define GAS_SCRUBBER_LAYER 2.46
+#define GAS_SCRUBBER_OFFSET -0.001
 #define GAS_PIPE_VISIBLE_LAYER 2.47
-#define GAS_FILTER_LAYER 2.48
-#define GAS_PUMP_LAYER 2.49
+#define GAS_PIPE_SCRUB_OFFSET 0.001
+#define GAS_PIPE_SUPPLY_OFFSET 0.002
+#define GAS_FILTER_OFFSET 0.003
+#define GAS_PUMP_OFFSET 0.004
+#define HOLOPAD_LAYER 2.491
 #define CONVEYOR_LAYER 2.495
 #define LOW_OBJ_LAYER 2.5
 #define LOW_SIGIL_LAYER 2.52
@@ -40,7 +50,6 @@
 #define BELOW_OPEN_DOOR_LAYER 2.6
 #define BLASTDOOR_LAYER 2.65
 #define OPEN_DOOR_LAYER 2.7
-#define DOOR_HELPER_LAYER 2.71 //keep this above OPEN_DOOR_LAYER
 #define PROJECTILE_HIT_THRESHHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
 #define TABLE_LAYER 2.8
 #define BELOW_OBJ_LAYER 2.9
@@ -52,6 +61,7 @@
 #define SHUTTER_LAYER 3.12 // HERE BE DRAGONS
 #define ABOVE_OBJ_LAYER 3.2
 #define ABOVE_WINDOW_LAYER 3.3
+#define DOOR_HELPER_LAYER 3.31 // Keep this above doors and windoors
 #define SIGN_LAYER 3.4
 #define NOT_HIGH_OBJ_LAYER 3.5
 #define HIGH_OBJ_LAYER 3.6
@@ -80,8 +90,20 @@
 #define MASSIVE_OBJ_LAYER 11
 #define POINT_LAYER 12
 
+#define CHAT_LAYER 12.0001 // Do not insert layers between these two values
+#define CHAT_LAYER_MAX 12.9999
+
+/// This plane masks out lighting to create an "emissive" effect, ie for glowing lights in otherwise dark areas.
+#define EMISSIVE_PLANE 13
+/// The render target used by the emissive.
+#define EMISSIVE_RENDER_TARGET "*EMISSIVE_PLANE"
+
+#define POINT_PLANE 14
+
 #define LIGHTING_PLANE 15
 #define LIGHTING_LAYER 15
+
+#define RAD_TEXT_LAYER 15.1
 
 #define ABOVE_LIGHTING_PLANE 16
 #define ABOVE_LIGHTING_LAYER 16
@@ -112,3 +134,11 @@
 
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
+
+#define HUD_PLANE_BUILDMODE 30
+
+// This should always be on top. No exceptions.
+#define HUD_PLANE_DEBUGVIEW 40
+
+///Plane master controller keys
+#define PLANE_MASTERS_GAME "plane_masters_game"

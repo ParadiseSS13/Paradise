@@ -6,16 +6,18 @@
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	circuit = /obj/item/circuitboard/drone_control
 
-	//Used when pinging drones.
-	var/drone_call_area = "Engineering"
-	//Used to enable or disable drone fabrication.
+	/// The linked fabricator
 	var/obj/machinery/drone_fabricator/dronefab
+	/// Used when pinging drones
+	var/drone_call_area = "Engineering"
+	/// Cooldown for area pings
+	var/ping_cooldown = 0
 
-/obj/machinery/computer/drone_control/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
+/obj/machinery/computer/drone_control/Initialize(mapload)
+	. = ..()
+	find_fab()
 
-
-/obj/machinery/computer/drone_control/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/drone_control/attack_hand(mob/user)
 	if(..())
 		return
 
@@ -23,105 +25,113 @@
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
-	interact(user)
+	ui_interact(user)
 
-/obj/machinery/computer/drone_control/attack_ghost(mob/user as mob)
-	interact(user)
+/obj/machinery/computer/drone_control/attack_ghost(mob/user)
+	ui_interact(user)
 
-/obj/machinery/computer/drone_control/interact(mob/user)
+// tgui\packages\tgui\interfaces\DroneConsole.js
+/obj/machinery/computer/drone_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "DroneConsole", "Drone Control Console", 420, 500, master_ui, state)
+		ui.open()
 
-	user.set_machine(src)
-	var/dat
-	dat += "<B>Maintenance Units</B><BR>"
+/obj/machinery/computer/drone_control/ui_data(mob/user)
+	var/list/data = list()
+	data["drone_fab"] = FALSE
+	data["fab_power"] = null
+	data["drone_prod"] = null
+	data["drone_progress"] = null
+	if(dronefab)
+		data["drone_fab"] = TRUE
+		data["fab_power"] = dronefab.stat & NOPOWER ? FALSE : TRUE
+		data["drone_prod"] = dronefab.produce_drones
+		data["drone_progress"] = dronefab.drone_progress
+	data["selected_area"] = drone_call_area
+	data["ping_cd"] = ping_cooldown > world.time ? TRUE : FALSE
 
+	data["drones"] = list()
 	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-		dat += "<BR>[D.real_name] ([D.stat == 2 ? "<font color='red'>INACTIVE" : "<font color='green'>ACTIVE"]</FONT>)"
-		dat += "<font dize = 9><BR>Cell charge: [D.cell.charge]/[D.cell.maxcharge]."
-		dat += "<BR>Currently located in: [get_area(D)]."
-		dat += "<BR><A href='?src=[UID()];resync=\ref[D]'>Resync</A> | <A href='?src=[UID()];shutdown=\ref[D]'>Shutdown</A></font>"
+		var/area/A = get_area(D)
+		var/turf/T = get_turf(D)
+		var/list/drone_data = list(
+			name = D.real_name,
+			uid = D.UID(),
+			stat = D.stat,
+			client = D.client ? TRUE : FALSE,
+			health = round(D.health / D.maxHealth, 0.1),
+			charge = round(D.cell.charge / D.cell.maxcharge, 0.1),
+			location = "[A] ([T.x], [T.y])",
+			sync_cd = D.sync_cooldown > world.time ? TRUE : FALSE
+		)
+		data["drones"] += list(drone_data)
+	return data
 
-	dat += "<BR><BR><B>Request drone presence in area:</B> <A href='?src=[UID()];setarea=1'>[drone_call_area]</A> (<A href='?src=[UID()];ping=1'>Send ping</A>)"
+/obj/machinery/computer/drone_control/ui_static_data(mob/user)
+	var/list/data = list()
+	data["area_list"] = GLOB.TAGGERLOCATIONS
+	return data
 
-	dat += "<BR><BR><B>Drone fabricator</B>: "
-	dat += "[dronefab ? "<A href='?src=[UID()];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "ACTIVE" : "INACTIVE"]</A>" : "<font color='red'><b>FABRICATOR NOT DETECTED.</b></font> (<A href='?src=[UID()];search_fab=1'>search</a>)"]"
-	user << browse(dat, "window=computer;size=400x500")
-	onclose(user, "computer")
-	return
-
-
-/obj/machinery/computer/drone_control/Topic(href, href_list)
+/obj/machinery/computer/drone_control/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
+	. = TRUE
 
-	if(!allowed(usr) && !usr.can_admin_interact())
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+	switch(action)
+		if("find_fab")
+			find_fab(usr)
+
+		if("toggle_fab")
+			if(QDELETED(dronefab))
+				dronefab = null
+				return
+
+			dronefab.produce_drones = !dronefab.produce_drones
+			var/toggle = dronefab.produce_drones ? "enable" : "disable"
+			to_chat(usr, "<span class='notice'>You [toggle] drone production in the nearby fabricator.</span>")
+			message_admins("[key_name_admin(usr)] [toggle]d maintenance drone production from the control console.")
+			log_game("[key_name(usr)] [toggle]d maintenance drone production from the control console.")
+
+		if("set_area")
+			drone_call_area = params["area"]
+
+		if("ping")
+			ping_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam
+			to_chat(usr, "<span class='notice'>You issue a maintenance request for all active drones, highlighting [drone_call_area].</span>")
+			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
+				if(D.client && D.stat == CONSCIOUS)
+					to_chat(D, "<span class='boldnotice'>-- Maintenance drone presence requested in: [drone_call_area].</span>")
+
+		if("resync")
+			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
+			if(D)
+				D.sync_cooldown = world.time + 1 MINUTES // One minute cooldown to prevent chat spam
+				to_chat(usr, "<span class='notice'>You issue a law synchronization directive for the drone.</span>")
+				D.law_resync()
+
+		if("shutdown")
+			var/mob/living/silicon/robot/drone/D = locateUID(params["uid"])
+			if(D)
+				to_chat(usr, "<span class='warning'>You issue a kill command for the unfortunate drone.</span>")
+				if(D != usr) // Don't need to bug admins about a suicide
+					message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
+				log_game("[key_name(usr)] issued kill order for [key_name(D)] from control console.")
+				D.shut_down()
+
+/obj/machinery/computer/drone_control/proc/find_fab(mob/user)
+	if(dronefab)
 		return
 
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
-		usr.set_machine(src)
+	for(var/obj/machinery/drone_fabricator/fab in get_area(src))
 
-	if(href_list["setarea"])
+		if(fab.stat & NOPOWER)
+			continue
 
-		//Probably should consider using another list, but this one will do.
-		var/t_area = input("Select the area to ping.", "Set Target Area", null) as null|anything in GLOB.TAGGERLOCATIONS
+		dronefab = fab
+		if(user)
+			to_chat(user, "<span class='notice'>Drone fabricator located.</span>")
+		return
 
-		if(!t_area || GLOB.TAGGERLOCATIONS[t_area])
-			return
-
-		drone_call_area = t_area
-		to_chat(usr, "<span class='notice'>You set the area selector to [drone_call_area].</span>")
-
-	else if(href_list["ping"])
-
-		to_chat(usr, "<span class='notice'>You issue a maintenance request for all active drones, highlighting [drone_call_area].</span>")
-		for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-			if(D.client && D.stat == 0)
-				to_chat(D, "-- Maintenance drone presence requested in: [drone_call_area].")
-
-	else if(href_list["resync"])
-
-		var/mob/living/silicon/robot/drone/D = locate(href_list["resync"])
-
-		if(D.stat != 2)
-			to_chat(usr, "<span class='warning'>You issue a law synchronization directive for the drone.</span>")
-			D.law_resync()
-
-	else if(href_list["shutdown"])
-
-		var/mob/living/silicon/robot/drone/D = locate(href_list["shutdown"])
-
-		if(D.stat != 2)
-			to_chat(usr, "<span class='warning'>You issue a kill command for the unfortunate drone.</span>")
-			message_admins("[key_name_admin(usr)] issued kill order for drone [key_name_admin(D)] from control console.")
-			log_game("[key_name(usr)] issued kill order for [key_name(src)] from control console.")
-			D.shut_down()
-
-	else if(href_list["search_fab"])
-		if(dronefab)
-			return
-
-		for(var/obj/machinery/drone_fabricator/fab in get_area(src))
-
-			if(fab.stat & NOPOWER)
-				continue
-
-			dronefab = fab
-			to_chat(usr, "<span class='notice'>Drone fabricator located.</span>")
-			return
-
-		to_chat(usr, "<span class='warning'>Unable to locate drone fabricator.</span>")
-
-	else if(href_list["toggle_fab"])
-
-		if(!dronefab)
-			return
-
-		if(get_dist(src,dronefab) > 3)
-			dronefab = null
-			to_chat(usr, "<span class='warning'>Unable to locate drone fabricator.</span>")
-			return
-
-		dronefab.produce_drones = !dronefab.produce_drones
-		to_chat(usr, "<span class='notice'>You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator.</span>")
-
-	src.updateUsrDialog()
+	if(user)
+		to_chat(user, "<span class='warning'>Unable to locate drone fabricator.</span>")

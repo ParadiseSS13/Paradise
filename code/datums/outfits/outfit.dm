@@ -44,9 +44,9 @@
 /datum/outfit/proc/equip_item(mob/living/carbon/human/H, path, slot)
 	var/obj/item/I = new path(H)
 	if(collect_not_del)
-		H.equip_or_collect(I, slot)
+		H.equip_or_collect(I, slot, TRUE)
 	else
-		H.equip_to_slot_or_del(I, slot)
+		H.equip_to_slot_or_del(I, slot, TRUE)
 
 /datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for toggling internals, id binding, access etc
@@ -111,11 +111,13 @@
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
+			if(!number)
+				number = 1
 			for(var/i in 1 to number)
 				H.equip_or_collect(new path(H), slot_in_backpack)
 
 		for(var/path in cybernetic_implants)
-			var/obj/item/organ/internal/O = new path(H)
+			var/obj/item/organ/internal/O = new path
 			O.insert(H)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
@@ -278,3 +280,12 @@
 	.["implants"] = implants
 	.["cybernetic_implants"] = cybernetic_implants
 	.["accessories"] = accessories
+
+// Butler outfit
+/datum/outfit/butler
+	name = "Butler"
+	uniform = /obj/item/clothing/under/suit/really_black
+	shoes = /obj/item/clothing/shoes/laceup
+	head = /obj/item/clothing/head/bowlerhat
+	glasses = /obj/item/clothing/glasses/monocle
+	gloves = /obj/item/clothing/gloves/color/white

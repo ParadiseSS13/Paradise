@@ -8,7 +8,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 	resistance_flags = FLAMMABLE
 
@@ -37,19 +37,22 @@
 				animate(user, pixel_y = pixel_y + 10 , time = 1, loop = 1)
 				animate(user, pixel_y = pixel_y, time = 10, loop = 1, easing = SINE_EASING)
 				animate(user)
-				if(user.lying)//aka. if they have just been stunned
-					user.pixel_y -= 6
 		else
 			if(wielded)
 				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
 
-/obj/item/twohanded/staff/broom/attackby(var/obj/O, mob/user)
+/obj/item/twohanded/staff/broom/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))
 		new/obj/item/twohanded/staff/broom/horsebroom(get_turf(src))
 		user.unEquip(O)
 		qdel(O)
 		qdel(src)
 		return
+	..()
+
+/obj/item/twohanded/staff/broom/dropped(mob/user)
+	if((user.mind in SSticker.mode.wizards) && user.flying)
+		user.flying = FALSE
 	..()
 
 /obj/item/twohanded/staff/broom/horsebroom

@@ -5,14 +5,15 @@
 	icon = 'icons/obj/curtain.dmi'
 	name = "curtain"
 	icon_state = "closed"
+	face_while_pulling = FALSE
 	layer = SHOWER_CLOSED_LAYER
-	opacity = 1
-	density = 0
+	opacity = TRUE
+	density = FALSE
 
 /obj/structure/curtain/open
 	icon_state = "open"
 	layer = SHOWER_OPEN_LAYER
-	opacity = 0
+	opacity = FALSE
 
 /obj/structure/curtain/attack_hand(mob/user)
 	playsound(get_turf(loc), "rustle", 15, 1, -5)

@@ -55,6 +55,11 @@
 	icon_state = "sec_cypherkey"
 	channels = list("Security" = 1)
 
+/obj/item/encryptionkey/headset_iaa
+	name = "IAA Radio Encryption Key"
+	icon_state = "sec_cypherkey"
+	channels = list("Security" = 1, "Procedure" = 1)
+
 /obj/item/encryptionkey/headset_eng
 	name = "Engineering Radio Encryption Key"
 	icon_state = "eng_cypherkey"
@@ -88,7 +93,7 @@
 /obj/item/encryptionkey/heads/captain
 	name = "Captain's Encryption Key"
 	icon_state = "cap_cypherkey"
-	channels = list("Command" = 1, "Security" = 1, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0)
+	channels = list("Command" = 1, "Security" = 1, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0, "Procedure" = 1)
 
 /obj/item/encryptionkey/heads/rd
 	name = "Research Director's Encryption Key"
@@ -118,12 +123,12 @@
 /obj/item/encryptionkey/heads/ntrep
 	name = "Nanotrasen Representative's Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Command" = 1, "Security" = 0, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0)
+	channels = list("Command" = 1, "Security" = 0, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0, "Procedure" = 1)
 
 /obj/item/encryptionkey/heads/magistrate
 	name = "Magistrate's Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Command" = 1, "Security" = 1)
+	channels = list("Command" = 1, "Security" = 1, "Procedure" = 1)
 
 /obj/item/encryptionkey/heads/blueshield
 	name = "Blueshield's Encryption Key"
@@ -153,14 +158,14 @@
 
 /obj/item/encryptionkey/ert
 	name = "Nanotrasen ERT Radio Encryption Key"
-	channels = list("Response Team" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1)
+	channels = list("Response Team" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1)
 
 /obj/item/encryptionkey/centcom
 	name = "Centcom Radio Encryption Key"
-	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1)
+	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1)
 
 /obj/item/encryptionkey/heads/ai_integrated //ported from bay, this goes 'inside' the AI.
 	name = "AI Integrated Encryption Key"
 	desc = "Integrated encryption key"
 	icon_state = "cap_cypherkey"
-	channels = list("Command" = 1, "Security" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1, "AI Private" = 1)
+	channels = list("Command" = 1, "Security" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1, "AI Private" = 1, "Procedure" = 1)

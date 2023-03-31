@@ -39,6 +39,10 @@
 	name = "Scaredy's Private Reserve Beef Jerky"
 	icon_state = "sosjerky"
 
+/obj/item/trash/spacetwinkie
+	name = "Space Twinkie"
+	icon_state = "space_twinkie"
+
 /obj/item/trash/syndi_cakes
 	name = "Syndi cakes"
 	icon_state = "syndi_cakes"
@@ -48,17 +52,25 @@
 	icon_state = "waffles"
 
 /obj/item/trash/plate
-	name = "Plate"
+	name = "plate"
 	icon_state = "plate"
 	resistance_flags = NONE
 
 /obj/item/trash/snack_bowl
-	name = "Snack bowl"
+	name = "snack bowl"
 	icon_state	= "snack_bowl"
 
 /obj/item/trash/fried_vox
 	name = "Kentucky Fried Vox"
 	icon_state = "fried_vox_empty"
+	item_state = "fried_vox_empty"
+	slot_flags = SLOT_HEAD
+	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
+	sprite_sheets = list(
+	"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
+	"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+	"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi'
+	)
 
 /obj/item/trash/pistachios
 	name = "Pistachios pack"

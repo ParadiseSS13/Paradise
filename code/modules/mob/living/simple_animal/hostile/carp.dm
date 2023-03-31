@@ -8,6 +8,7 @@
 	icon_living = "base"
 	icon_dead = "base_dead"
 	icon_gib = "carp_gib"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
@@ -62,6 +63,7 @@
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 	carp_randomify(rarechance)
 	update_icons()
 
@@ -123,7 +125,7 @@
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
 	gold_core_spawnable = NO_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 	random_color = FALSE
 
 /mob/living/simple_animal/hostile/carp/megacarp

@@ -1,19 +1,14 @@
 #define SOLAR_MAX_DIST 40
-#define SOLARGENRATE 1500
 
 /obj/machinery/power/solar
 	name = "solar panel"
 	desc = "A solar panel. Generates electricity when in contact with sunlight."
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "sp_base"
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
-	var/id = 0
-	var/obscured = 0
+	var/obscured = FALSE
 	var/sunfrac = 0
 	var/adir = SOUTH // actual dir
 	var/ndir = SOUTH // target dir
@@ -30,7 +25,7 @@
 	return ..()
 
 //set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
-/obj/machinery/power/solar/proc/set_control(var/obj/machinery/power/solar_control/SC)
+/obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
 	if(!SC || (get_dist(src, SC) > SOLAR_MAX_DIST))
 		return 0
 	control = SC
@@ -43,16 +38,16 @@
 		control.connected_panels.Remove(src)
 	control = null
 
-/obj/machinery/power/solar/proc/Make(var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/proc/Make(obj/item/solar_assembly/S)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
-		S.anchored = 1
+		S.anchored = TRUE
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
 		obj_integrity = max_integrity
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
@@ -80,7 +75,7 @@
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		stat |= BROKEN
 		unset_control()
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/solar/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -95,15 +90,16 @@
 			new /obj/item/shard(src.loc)
 	qdel(src)
 
-/obj/machinery/power/solar/update_icon()
-	..()
-	overlays.Cut()
+/obj/machinery/power/solar/update_overlays()
+	. = ..()
 	if(stat & BROKEN)
-		overlays += image('icons/obj/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
+		. += image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER)
 	else
-		overlays += image('icons/obj/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
-		src.dir = angle2dir(adir)
-	return
+		var/image/panel = image('icons/goonstation/objects/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER)
+		var/matrix/M = matrix()
+		M.Turn(adir)
+		panel.transform = M
+		. += panel
 
 //calculates the fraction of the sunlight that the panel recieves
 /obj/machinery/power/solar/proc/update_solar_exposure()
@@ -131,7 +127,7 @@
 		if(powernet == control.powernet)//check if the panel is still connected to the computer
 			if(obscured) //get no light from the sun, so don't generate power
 				return
-			var/sgen = SOLARGENRATE * sunfrac
+			var/sgen = SSsun.solar_gen_rate * sunfrac
 			add_avail(sgen)
 			control.gen += sgen
 		else //if we're no longer on the same powernet, remove from control computer
@@ -141,9 +137,9 @@
 	. = (!(stat & BROKEN))
 	stat |= BROKEN
 	unset_control()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/power/solar/fake/New(var/turf/loc, var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
 	..(loc, S, 0)
 
 /obj/machinery/power/solar/fake/process()
@@ -169,10 +165,10 @@
 			break
 
 		if(T.density)			// if we hit a solid turf, panel is obscured
-			obscured = 1
+			obscured = TRUE
 			return
 
-	obscured = 0		// if hit the edge or stepped 20 times, not obscured
+	obscured = FALSE		// if hit the edge or stepped 20 times, not obscured
 	update_solar_exposure()
 
 
@@ -183,16 +179,16 @@
 /obj/item/solar_assembly
 	name = "solar panel assembly"
 	desc = "A solar panel assembly kit, allows constructions of a solar panel, or with a tracking circuit board, a solar tracker"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/goonstation/objects/power.dmi'
 	icon_state = "sp_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = 0
+	anchored = FALSE
 	var/tracker = 0
 	var/glass_type = null
 
-/obj/item/solar_assembly/attack_hand(var/mob/user)
-	if(!anchored && isturf(loc)) // You can't pick it up
+/obj/item/solar_assembly/attack_hand(mob/user)
+	if(!anchored)
 		..()
 
 // Give back the glass type we were supplied with
@@ -202,18 +198,27 @@
 		S.amount = 2
 		glass_type = null
 
+/obj/item/solar_assembly/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The solar assembly is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.</span>"
+	if(tracker)
+		. += "<span class='notice'>The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.</span>"
+	else
+		. += "<span class='notice'>The solar assembly has a slot for a <i>tracking circuit<i> board.</span>"
+	if(anchored)
+		.+= "<span class='notice'>The solar assembly needs <i>glass<i> to be completed.</span>"
 
-/obj/item/solar_assembly/attackby(var/obj/item/W, var/mob/user, params)
+/obj/item/solar_assembly/attackby(obj/item/W, mob/user, params)
 
 	if(!anchored && isturf(loc))
 		if(istype(W, /obj/item/wrench))
-			anchored = 1
+			anchored = TRUE
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1
 	else
 		if(istype(W, /obj/item/wrench))
-			anchored = 0
+			anchored = FALSE
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1
@@ -221,7 +226,7 @@
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
 			var/obj/item/stack/sheet/S = W
 			if(S.use(2))
-				glass_type = W.type
+				glass_type = S.merge_type
 				playsound(loc, S.usesound, 50, 1)
 				user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
 				if(tracker)
@@ -254,35 +259,38 @@
 // Solar Control Computer
 //
 
+#define TRACKER_OFF 0
+#define TRACKER_TIMED 1
+#define TRACKER_AUTO 2
+
 /obj/machinery/power/solar_control
 	name = "solar panel control"
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
-	anchored = 1
-	density = 1
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 250
+	anchored = TRUE
+	density = TRUE
+	power_state = IDLE_POWER_USE
+	idle_power_consumption = 250
 	max_integrity = 200
 	integrity_failure = 100
 	var/icon_screen = "solar"
 	var/icon_keyboard = "power_key"
-	var/id = 0
 	var/cdir = 0
 	var/targetdir = 0		// target angle in manual tracking (since it updates every game minute)
 	var/gen = 0
 	var/lastgen = 0
-	var/track = 0			// 0= off  1=timed  2=auto (tracker)
+	var/track = TRACKER_OFF
 	var/trackrate = 600		// 300-900 seconds
 	var/nexttime = 0		// time for a panel to rotate of 1? in manual tracking
-	var/autostart = 0 		// Automatically search for connected devices
+	var/autostart = FALSE	// Automatically search for connected devices
 	var/obj/machinery/power/tracker/connected_tracker = null
 	var/list/connected_panels = list()
 
 // Used for mapping in solar array which automatically starts itself (telecomms, for example)
 /obj/machinery/power/solar_control/autostart
-	track = 2 // Auto tracking mode
-	autostart = 1 // Automatically start
+	track = TRACKER_AUTO
+	autostart = TRUE // Automatically search for connected devices
 
 /obj/machinery/power/solar_control/Initialize()
 	SSsun.solars |= src
@@ -294,8 +302,8 @@
 	set_panels(cdir)
 	if(autostart)
 		search_for_connected()
-		if(connected_tracker && track == 2)
-			connected_tracker.set_angle(SSsun.angle)
+		if(connected_tracker && track == TRACKER_AUTO)
+			connected_tracker.modify_angle(SSsun.angle)
 		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
@@ -334,32 +342,24 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 
-	switch(track)
-		if(1)
-			if(trackrate) //we're manual tracking. If we set a rotation speed...
-				cdir = targetdir //...the current direction is the targetted one (and rotates panels to it)
-		if(2) // auto-tracking
-			if(connected_tracker)
-				connected_tracker.set_angle(SSsun.angle)
-
-	set_panels(cdir)
+	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
+		connected_tracker.modify_angle(SSsun.angle)
+		set_panels(cdir)
 	updateDialog()
 
-/obj/machinery/power/solar_control/update_icon()
-	overlays.Cut()
+/obj/machinery/power/solar_control/update_overlays()
+	. = ..()
 	if(stat & NOPOWER)
-		overlays += "[icon_keyboard]_off"
+		. += "[icon_keyboard]_off"
 		return
-	overlays += icon_keyboard
+	. += icon_keyboard
 	if(stat & BROKEN)
-		overlays += "[icon_state]_broken"
+		. += "[icon_state]_broken"
 	else
-		overlays += icon_screen
-	if(cdir > -1)
-		overlays += image('icons/obj/computer.dmi', "solcon-o", FLY_LAYER, angle2dir(cdir))
+		. += icon_screen
 
 /obj/machinery/power/solar_control/attack_ai(mob/user as mob)
-	src.add_hiddenprint(user)
+	add_hiddenprint(user)
 	ui_interact(user)
 
 /obj/machinery/power/solar_control/attack_ghost(mob/user as mob)
@@ -367,65 +367,87 @@
 
 /obj/machinery/power/solar_control/attack_hand(mob/user)
 	if(..(user))
-		return 1
-
+		return TRUE
 	if(stat & BROKEN)
 		return
-
 	ui_interact(user)
 
-/obj/machinery/power/solar_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/solar_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "solar_control.tmpl", name, 490, 420)
+		ui = new(user, src, ui_key, "SolarControl", name, 490, 300)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/power/solar_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
-	data["generated"] = round(lastgen)
-	data["angle"] = cdir
-	data["direction"] = angle2text(cdir)
-
-	data["tracking_state"] = track
-	data["tracking_rate"] = trackrate
-	data["rotating_way"] = (trackrate<0 ? "CCW" : "CW")
-
+/obj/machinery/power/solar_control/ui_data(mob/user)
+	var/list/data = list()
+	data["generated"] = round(lastgen) //generated power by all connected panels
+	data["generated_ratio"] = data["generated"] / round(max(connected_panels.len, 1) * SSsun.solar_gen_rate) //power generation ratio. Used for the power bar
+	data["direction"] = angle2text(cdir)	//current orientation of the panels
+	data["cdir"] = cdir	//current orientation of the of the panels in degrees
+	data["tracking_state"] = track	//tracker status: TRACKER_OFF, TRACKER_TIMED, TRACKER_AUTO
+	data["tracking_rate"] = trackrate //rotation speed of tracker in degrees/h
+	data["rotating_direction"] = (trackrate < 0 ? "Counter clockwise" : "Clockwise") //direction of tracker
 	data["connected_panels"] = connected_panels.len
-	data["connected_tracker"] = (connected_tracker ? 1 : 0)
-
+	data["connected_tracker"] = (connected_tracker ? TRUE : FALSE)
 	return data
 
-/obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 20 * I.toolspeed, target = src))
-			if(src.stat & BROKEN)
-				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/shard( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
-				for(var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 3
-				A.icon_state = "3"
-				A.anchored = 1
-				qdel(src)
-			else
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
-				for(var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 4
-				A.icon_state = "4"
-				A.anchored = 1
-				qdel(src)
+/obj/machinery/power/solar_control/ui_act(action, params)
+	if(..())
+		return
+	. = TRUE
+
+	switch(action)
+		if("cdir") //change panel orientation
+			var/newAngle = text2num(params["cdir"])
+			if(!isnull(newAngle)) //0 is ok
+				cdir = clamp(newAngle, 0, 359)
+				targetdir = cdir
+				set_panels(cdir)
+		if("tdir") //change tracker rotation
+			var/newTrackrate = text2num(params["tdir"])
+			if(!newTrackrate)
+				newTrackrate = 1
+			trackrate = clamp(newTrackrate, -7200, 7200)
+			nexttime = world.time + 36000 / abs(trackrate)
+		if("track") //change tracker status
+			track = text2num(params["track"])
+			if(track == TRACKER_AUTO)
+				if(connected_tracker)
+					connected_tracker.modify_angle(SSsun.angle)
+					set_panels(cdir)
+			else if(track == TRACKER_TIMED)
+				targetdir = cdir
+				if(trackrate)
+					nexttime = world.time + 36000 / abs(trackrate)
+				set_panels(targetdir)
+		if("refresh")
+			search_for_connected()
+			if(connected_tracker && track == TRACKER_AUTO)
+				connected_tracker.modify_angle(SSsun.angle)
+			set_panels(cdir)
+
+/obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
+	var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)
+	for(var/obj/C in src)
+		C.forceMove(loc)
+	if(stat & BROKEN)
+		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		A.state = 4	// STATE_WIRES
+		new /obj/item/shard(drop_location())
 	else
-		return ..()
+		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		A.state = 5	// STATE_GLASS
+	A.dir = dir
+	A.circuit = M
+	A.update_icon()
+	A.anchored = TRUE
+	qdel(src)
 
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -450,63 +472,30 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 
-	if(connected_tracker) //NOTE : handled here so that we don't add trackers to the processing list
-		if(connected_tracker.powernet != powernet)
-			connected_tracker.unset_control()
+	if(connected_tracker && connected_tracker.powernet != powernet) //NOTE : handled here so that we don't add trackers to the processing list
+		connected_tracker.unset_control()
 
-	if(track==1 && trackrate) //manual tracking and set a rotation speed
-		if(nexttime <= world.time) //every time we need to increase/decrease the angle by 1?...
-			targetdir = (targetdir + trackrate/abs(trackrate) + 360) % 360 	//... do it
-			nexttime += 36000/abs(trackrate) //reset the counter for the next 1?
-
-/obj/machinery/power/solar_control/Topic(href, href_list)
-	if(..())
-		return
-
-	if(href_list["rate_control"])
-		if(href_list["cdir"])
-			src.cdir = dd_range(0,359,(360+src.cdir+text2num(href_list["cdir"]))%360)
-			src.targetdir = src.cdir
-			if(track == 2) //manual update, so losing auto-tracking
-				track = 0
-			spawn(1)
-				set_panels(cdir)
-		if(href_list["tdir"])
-			src.trackrate = dd_range(-7200,7200,src.trackrate+text2num(href_list["tdir"]))
-			if(src.trackrate) nexttime = world.time + 36000/abs(trackrate)
-
-	if(href_list["track"])
-		track = text2num(href_list["track"])
-		if(track == 2)
-			if(connected_tracker)
-				connected_tracker.set_angle(SSsun.angle)
-				set_panels(cdir)
-		else if(track == 1) //begin manual tracking
-			src.targetdir = src.cdir
-			if(src.trackrate) nexttime = world.time + 36000/abs(trackrate)
-			set_panels(targetdir)
-
-	if(href_list["search_connected"])
-		search_for_connected()
-		if(connected_tracker && track == 2)
-			connected_tracker.set_angle(SSsun.angle)
+	//manual tracking and set a rotation speed
+	if(track == TRACKER_TIMED && trackrate && nexttime <= world.time) //every time we need to increase/decrease the angle by 1?...
+		targetdir = (targetdir + trackrate / abs(trackrate) + 360) % 360 	//... do it
+		nexttime += 36000 / abs(trackrate) //reset the counter for the next 1?
+		cdir = targetdir
 		set_panels(cdir)
 
-	return
-
 //rotates the panel to the passed angle
-/obj/machinery/power/solar_control/proc/set_panels(var/cdir)
+/obj/machinery/power/solar_control/proc/set_panels(cdir)
 
 	for(var/obj/machinery/power/solar/S in connected_panels)
 		S.adir = cdir //instantly rotates the panel
 		S.occlusion()//and
-		S.update_icon() //update it
+		S.update_icon(UPDATE_OVERLAYS) //update it
 
 	update_icon()
 
 
 /obj/machinery/power/solar_control/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 

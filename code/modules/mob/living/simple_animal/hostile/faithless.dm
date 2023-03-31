@@ -1,9 +1,10 @@
 /mob/living/simple_animal/hostile/faithless
 	name = "Faithless"
-	desc = "The Wish Granter's faith in humanity, incarnate"
+	desc = "The Wish Granter's faith in humanity, incarnate."
 	icon_state = "faithless"
 	icon_living = "faithless"
 	icon_dead = "faithless_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_HUMANOID
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "passes through the"
@@ -27,15 +28,7 @@
 
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
+	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = 0)
 	return 1
-
-/mob/living/simple_animal/hostile/faithless/AttackingTarget()
-	. = ..()
-	if(. && iscarbon(target))
-		var/mob/living/carbon/C = target
-		if(prob(12))
-			C.Weaken(3)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", \
-					"<span class='userdanger'>\The [src] knocks you down!</span>")

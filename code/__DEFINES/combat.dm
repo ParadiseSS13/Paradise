@@ -10,8 +10,21 @@
 #define STAMINA 	"stamina"
 #define BRAIN		"brain"
 
+//damage flags
+#define MELEE 		"melee"
+#define BULLET 		"bullet"
+#define LASER 		"laser"
+#define ENERGY 		"energy"
+#define BOMB 		"bomb"
+#define BIO 		"bio"
+#define RAD 		"rad"
+#define FIRE 		"fire"
+#define ACID 		"acid"
+#define MAGIC		"magic"
+
 #define STUN		"stun"
 #define WEAKEN		"weaken"
+#define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
 #define IRRADIATE	"irradiate"
 #define STUTTER		"stutter"
@@ -19,6 +32,9 @@
 #define EYE_BLUR	"eye_blur"
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
+
+/// Jitter decays at a rate of 3 per life cycle, 15 if resting.
+#define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1
@@ -29,16 +45,12 @@
 #define OBLITERATION 32
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		1
-#define CANWEAKEN	2
-#define CANPARALYSE	4
-#define CANPUSH		8
-#define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define GOTTAGOFAST	32
-#define IGNORESLOWDOWN	128
-#define GODMODE		4096
-#define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
-#define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
+#define CANSTUN			1
+#define CANWEAKEN		2
+#define CANPARALYSE		4
+#define CANPUSH			8
+#define PASSEMOTES		16 //Mob has holders inside of it that need to see emotes.
+#define GODMODE			32
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
@@ -58,6 +70,11 @@
 #define PROJECTILE_ATTACK 3
 #define THROWN_PROJECTILE_ATTACK 4
 #define LEAP_ATTACK 5
+#define ALL_ATTACK_TYPES list(MELEE_ATTACK, UNARMED_ATTACK, PROJECTILE_ATTACK, THROWN_PROJECTILE_ATTACK, LEAP_ATTACK)
+#define NON_PROJECTILE_ATTACKS list(MELEE_ATTACK, UNARMED_ATTACK, LEAP_ATTACK)
+
+// the standard parry time out time
+#define PARRY_DEFAULT_TIMEOUT 1 SECONDS
 
 //attack visual effects
 #define ATTACK_EFFECT_PUNCH		"punch"
@@ -113,6 +130,17 @@
 #define WEAPON_MEDIUM 2
 #define WEAPON_HEAVY 3
 
+//His Grace.
+#define HIS_GRACE_SATIATED 0 //He hungers not. If bloodthirst is set to this, His Grace is asleep.
+#define HIS_GRACE_PECKISH 20 //Slightly hungry.
+#define HIS_GRACE_HUNGRY 60 //Getting closer. Increases damage up to a minimum of 20.
+#define HIS_GRACE_FAMISHED 100 //Dangerous. Increases damage up to a minimum of 25 and cannot be dropped.
+#define HIS_GRACE_STARVING 120 //Incredibly close to breaking loose. Increases damage up to a minimum of 30.
+#define HIS_GRACE_CONSUME_OWNER 140 //His Grace consumes His owner at this point and becomes aggressive.
+#define HIS_GRACE_FALL_ASLEEP 160 //If it reaches this point, He falls asleep and resets.
+
+#define HIS_GRACE_FORCE_BONUS 4 //How much force is gained per kill.
+
 #define EXPLODE_NONE 0				//Don't even ask me why we need this.
 #define EXPLODE_DEVASTATE 1
 #define EXPLODE_HEAVY 2
@@ -120,3 +148,11 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+
+/*
+* converts life cycle values into deciseconds. try and avoid usage of this.
+* this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.
+*/
+#define STATUS_EFFECT_CONSTANT * 20
+
+#define IS_HORIZONTAL(x) x.body_position

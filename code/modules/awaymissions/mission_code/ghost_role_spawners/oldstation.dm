@@ -10,10 +10,11 @@
 	death = FALSE
 	random = TRUE
 	mob_species = /datum/species/human
-	flavour_text = "<span class='big bold'>You are a security officer working for Nanotrasen,</span><b> stationed onboard a state of the art research station. You vaguely recall rushing into a \
+	description = "Work as a team with your fellow survivors aboard a ruined, ancient space station."
+	important_info = ""
+	flavour_text = "You are a security officer working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
 	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
-	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them.</b>"
+	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
 	uniform = /obj/item/clothing/under/retro/security
 	shoes = /obj/item/clothing/shoes/jackboots
 	id = /obj/item/card/id/away/old/sec
@@ -35,10 +36,11 @@
 	death = FALSE
 	random = TRUE
 	mob_species = /datum/species/human
-	flavour_text = "<span class='big bold'>You are a medical working for Nanotrasen,</span><b> stationed onboard a state of the art research station. You vaguely recall rushing into a \
+	description = "Work as a team with your fellow survivors aboard a ruined, ancient space station."
+	important_info = ""
+	flavour_text = "You are a medical doctor working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
 	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
-	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them.</b>"
+	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
 	uniform = /obj/item/clothing/under/retro/medical
 	shoes = /obj/item/clothing/shoes/black
 	id = /obj/item/card/id/away/old/med
@@ -60,15 +62,16 @@
 	death = FALSE
 	random = TRUE
 	mob_species = /datum/species/human
-	flavour_text = "<span class='big bold'>You are an engineer working for Nanotrasen,</span><b> stationed onboard a state of the art research station. You vaguely recall rushing into a \
+	description = "Work as a team with your fellow survivors aboard a ruined, ancient space station."
+	important_info = ""
+	flavour_text = "You are an engineer working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
 	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
-	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them.</b>"
+	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
 	uniform = /obj/item/clothing/under/retro/engineering
 	shoes = /obj/item/clothing/shoes/workboots
 	id = /obj/item/card/id/away/old/eng
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
-	l_pocket = /obj/item/tank/emergency_oxygen
+	l_pocket = /obj/item/tank/internals/emergency_oxygen
 	assignedrole = "Ancient Crew"
 
 /obj/effect/mob_spawn/human/oldeng/Destroy()
@@ -85,10 +88,11 @@
 	death = FALSE
 	random = TRUE
 	mob_species = /datum/species/human
-	flavour_text = "<span class='big bold'>You are a scientist working for Nanotrasen,</span><b> stationed onboard a state of the art research station. You vaguely recall rushing into a \
+	description = "Work as a team with your fellow survivors aboard a ruined, ancient space station."
+	important_info = ""
+	flavour_text = "You are a scientist working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
 	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
-	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
-	Work as a team with your fellow survivors and do not abandon them.</b>"
+	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
 	uniform = /obj/item/clothing/under/retro/science
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci

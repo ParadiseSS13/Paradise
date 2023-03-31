@@ -1,26 +1,25 @@
-/obj/structure/closet/statue
+/obj/structure/closet/statue //this type path is a crime, ponies what the fuck
 	name = "statue"
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	max_integrity = 0 //destroying the statue kills the mob within
 	var/intialTox = 0 	//these are here to keep the mob from taking damage from things that logically wouldn't affect a rock
 	var/intialFire = 0	//it's a little sloppy I know but it was this or the GODMODE flag. Lesser of two evils.
 	var/intialBrute = 0
 	var/intialOxy = 0
-	var/timer = 240 //eventually the person will be freed
+	var/timer = 240 // timer counts down durring process, eventually the person will be freed
 
-/obj/structure/closet/statue/New(loc, var/mob/living/L)
-
+/obj/structure/closet/statue/Initialize(mapload, mob/living/L)
+	. = ..()
 	if(ishuman(L) || iscorgi(L))
 		if(L.buckled)
-			L.buckled = 0
-			L.anchored = 0
+			L.unbuckle_mob()
 		L.forceMove(src)
-		L.mutations |= MUTE
-		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
+		ADD_TRAIT(L, TRAIT_MUTE, STATUE_MUTE)
+		max_integrity = max(L.health + 100, 100) //stoning damaged mobs will result in easier to shatter statues
 		intialTox = L.getToxLoss()
 		intialFire = L.getFireLoss()
 		intialBrute = L.getBruteLoss()
@@ -42,7 +41,6 @@
 		return
 
 	START_PROCESSING(SSobj, src)
-	..()
 
 /obj/structure/closet/statue/process()
 	timer--
@@ -69,10 +67,13 @@
 
 	for(var/mob/living/M in src)
 		M.forceMove(loc)
-		M.mutations -= MUTE
+		REMOVE_TRAIT(M, TRAIT_MUTE, STATUE_MUTE)
 		M.take_overall_damage((M.health - obj_integrity - 100),0) //any new damage the statue incurred is transfered to the mob
 
 	..()
+	
+/obj/structure/closet/statue/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
 
 /obj/structure/closet/statue/open()
 	return
@@ -107,8 +108,11 @@
 /obj/structure/closet/statue/verb_toggleopen()
 	return
 
-/obj/structure/closet/statue/update_icon()
+/obj/structure/closet/statue/update_icon_state()
 	return
+
+/obj/structure/closet/statue/update_overlays()
+	return list()
 
 /obj/structure/closet/statue/proc/shatter(mob/user)
 	if(user)

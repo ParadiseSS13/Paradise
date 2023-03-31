@@ -21,7 +21,6 @@
 #define CAT_MISCFOOD	"Misc. Food"
 #define CAT_PASTRY	"Pastries"
 #define CAT_PIE	"Pies"
-#define CAT_PIZZA	"Pizzas"
 #define CAT_SALAD	"Salads"
 #define CAT_SANDWICH	"Sandwiches"
 #define CAT_SOUP	"Soups"

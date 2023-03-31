@@ -8,8 +8,8 @@
 	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 4
 	req_access = list(ACCESS_ARMORY)
-	var/locked = 1
-	var/broken = 0
+	var/locked = TRUE
+	var/broken = FALSE
 	var/icon_locked = "lockbox+l"
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
@@ -61,8 +61,8 @@
 
 /obj/item/storage/lockbox/emag_act(user as mob)
 	if(!broken)
-		broken = 1
-		locked = 0
+		broken = TRUE
+		locked = FALSE
 		desc = "It appears to be broken."
 		icon_state = icon_broken
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
@@ -77,8 +77,7 @@
 	name = "Lockbox (Mindshield Implants)"
 	req_access = list(ACCESS_SECURITY)
 
-/obj/item/storage/lockbox/mindshield/New()
-	..()
+/obj/item/storage/lockbox/mindshield/populate_contents()
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implantcase/mindshield(src)
@@ -89,8 +88,7 @@
 	desc = "You have a bad feeling about opening this."
 	req_access = list(ACCESS_SECURITY)
 
-/obj/item/storage/lockbox/clusterbang/New()
-	..()
+/obj/item/storage/lockbox/clusterbang/populate_contents()
 	new /obj/item/grenade/clusterbuster(src)
 
 /obj/item/storage/lockbox/medal
@@ -107,8 +105,7 @@
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
 
-/obj/item/storage/lockbox/medal/New()
-	..()
+/obj/item/storage/lockbox/medal/populate_contents()
 	new /obj/item/clothing/accessory/medal/gold/captain(src)
 	new /obj/item/clothing/accessory/medal/silver/leadership(src)
 	new /obj/item/clothing/accessory/medal/silver/valor(src)
@@ -119,10 +116,9 @@
 	desc = "Contains three T4 breaching charges."
 	req_access = list(ACCESS_CENT_SPECOPS)
 
-/obj/item/storage/lockbox/t4/New()
-	..()
+/obj/item/storage/lockbox/t4/populate_contents()
 	for(var/i in 0 to 2)
-		new /obj/item/grenade/plastic/x4/thermite(src)
+		new /obj/item/grenade/plastic/c4/thermite(src)
 
 /obj/item/storage/lockbox/research
 

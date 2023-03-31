@@ -69,6 +69,7 @@
 
 /client/vv_get_dropdown()
 	. = list()
+	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
 	. += "---"
 	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
 	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
@@ -78,11 +79,11 @@
 
 /client/proc/debug_variables(datum/D in world)
 	set category = "Debug"
-	set name = "View Variables"
+	set name = "\[Admin\] View Variables"
 
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
-	if(!is_admin(usr))
+	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
 		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
 		return
 
@@ -445,7 +446,7 @@
 	usr << browse(html, "window=variables[refid];size=475x650")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE)
+/proc/debug_variable(name, value, level, datum/DA = null, sanitize = TRUE)
 	var/header
 	if(DA)
 		if(islist(DA))
@@ -489,7 +490,7 @@
 		var/datum/D = value
 		item = "<a href='?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
 
-	else if(istype(value, /client))
+	else if(isclient(value))
 		var/client/C = value
 		item = "<a href='?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
 //
@@ -523,8 +524,8 @@
 
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
-	if(!check_rights(R_ADMIN|R_MOD))
-		return
+	if(!check_rights(R_ADMIN|R_MOD, FALSE) && !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"]) && check_rights(R_VIEWRUNTIMES, FALSE)))
+		return // clients with R_VIEWRUNTIMES can still refresh the window/view references/view lists. they cannot edit anything else however.
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
 		return
@@ -543,7 +544,7 @@
 		else if(isclient(D))
 			var/client/C = D
 			href_list[paramname] = C.UID()
-		log_runtime(EXCEPTION("Found \\ref-based '[paramname]' param in VV topic for [datuminfo], should be UID: [href]"))
+		stack_trace("Found \\ref-based '[paramname]' param in VV topic for [datuminfo], should be UID: [href]")
 
 	if(href_list["Vars"])
 		debug_variables(locateUID(href_list["Vars"]))
@@ -568,7 +569,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumedit"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!istype(D,/datum) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 
@@ -578,7 +579,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/atom/D = locateUID(href_list["subject"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!istype(D,/datum) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 		if(!(href_list["var"] in D.vars))
@@ -593,7 +594,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumchange"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!istype(D,/datum) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 
@@ -672,7 +673,7 @@
 		href_list["datumrefresh"] = href_list["give_spell"]
 
 	else if(href_list["godmode"])
-		if(!check_rights(R_REJUVINATE))	return
+		if(!check_rights(R_EVENT))	return
 
 		var/mob/M = locateUID(href_list["godmode"])
 		if(!istype(M))
@@ -741,6 +742,25 @@
 		message_admins("[key_name(usr)] has turned [key_name(H)] into a skeleton")
 		log_admin("[key_name_admin(usr)] has turned [key_name_admin(H)] into a skeleton")
 		href_list["datumrefresh"] = href_list["make_skeleton"]
+
+	else if(href_list["hallucinate"])
+		if(!check_rights(R_SERVER | R_EVENT))
+			return
+
+		var/mob/living/carbon/C = locateUID(href_list["hallucinate"])
+		if(!istype(C))
+			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon</span>")
+			return
+
+		var/haltype = input(usr, "Select the hallucination type:", "Hallucinate") as null|anything in subtypesof(/obj/effect/hallucination)
+		if(!haltype)
+			return
+		C.Hallucinate(20 SECONDS)
+		var/datum/status_effect/transient/hallucination/H = C.has_status_effect(STATUS_EFFECT_HALLUCINATION)
+		H.hallucinate(haltype)
+		message_admins("[key_name(usr)] has given [key_name(C)] the [haltype] hallucination")
+		log_admin("[key_name_admin(usr)] has given [key_name_admin(C)] the [haltype] hallucination")
+		href_list["datumrefresh"] = href_list["hallucinate"]
 
 	else if(href_list["offer_control"])
 		if(!check_rights(R_ADMIN))	return
@@ -875,10 +895,10 @@
 		if(!result || !A)
 			return TRUE
 
-		A.armor = A.armor.setRating(armorlist["melee"], armorlist["bullet"], armorlist["laser"], armorlist["energy"], armorlist["bomb"], armorlist["bio"], armorlist["rad"], armorlist["fire"], armorlist["acid"], armorlist["magic"])
+		A.armor = A.armor.setRating(armorlist[MELEE], armorlist[BULLET], armorlist[LASER], armorlist[ENERGY], armorlist[BOMB], armorlist[BIO], armorlist[RAD], armorlist[FIRE], armorlist[ACID], armorlist[MAGIC])
 
-		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
-		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
+		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], bio = [armorlist[BIO]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
+		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist[MELEE]], bullet = [armorlist[BULLET]], laser = [armorlist[LASER]], energy = [armorlist[ENERGY]], bomb = [armorlist[BOMB]], bio = [armorlist[BIO]], rad = [armorlist[RAD]], fire = [armorlist[FIRE]], acid = [armorlist[ACID]], magic = [armorlist[MAGIC]]")
 		return TRUE
 
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
@@ -983,113 +1003,6 @@
 		message_admins("[key_name_admin(usr)] has rotated \the [A]")
 		log_admin("[key_name(usr)] has rotated \the [A]")
 		href_list["datumrefresh"] = href_list["rotatedatum"]
-
-	else if(href_list["makemonkey"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makemonkey"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("monkeyone"=href_list["makemonkey"]))
-
-	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makerobot"=href_list["makerobot"]))
-
-	else if(href_list["makealien"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makealien"=href_list["makealien"]))
-
-	else if(href_list["makeslime"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makeslime"=href_list["makeslime"]))
-
-	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makesuper"=href_list["makesuper"]))
-
-	else if(href_list["makeai"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makeai"=href_list["makeai"]))
-
-	else if(href_list["setspecies"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["setspecies"])
-		if(!istype(H))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
-			return
-
-		var/new_species = input("Please choose a new species.","Species",null) as null|anything in GLOB.all_species
-
-		if(!H)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-
-		var/datum/species/S = GLOB.all_species[new_species]
-		if(H.set_species(S.type))
-			to_chat(usr, "Set species of [H] to [H.dna.species].")
-			H.regenerate_icons()
-			message_admins("[key_name_admin(usr)] has changed the species of [key_name_admin(H)] to [new_species]")
-			log_admin("[key_name(usr)] has changed the species of [key_name(H)] to [new_species]")
-		else
-			to_chat(usr, "Failed! Something went wrong.")
 
 	else if(href_list["addlanguage"])
 		if(!check_rights(R_SPAWN))	return
@@ -1310,12 +1223,18 @@
 			return
 		src.debug_variables(DAT)
 
-	if(href_list["copyoutfit"])
-		if(!check_rights(R_EVENT))
+	if(href_list["manipcolours"])
+		if(!check_rights(R_DEBUG))
 			return
-		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
-		if(istype(H))
-			H.copy_outfit()
+
+		var/datum/target = locateUID(href_list["manipcolours"])
+		if(!(isatom(target) || isclient(target)))
+			to_chat(usr, "This can only be used on atoms and clients")
+			return
+
+		message_admins("[key_name_admin(usr)] is manipulating the colour matrix for [target]")
+		var/datum/ui_module/colour_matrix_tester/CMT = new(target=target)
+		CMT.ui_interact(usr)
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

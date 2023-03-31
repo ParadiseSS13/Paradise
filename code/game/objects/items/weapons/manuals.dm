@@ -1,39 +1,81 @@
-/*********************MANUALS (BOOKS)***********************/
+/**
+  * # MANUALS (BOOKS)
+  *
+  * These are "programmatic books," that is books that are hard-coded into the game. Just for the sake of maintainability, keep
+  * information subject to change (as in likely to change SOON) out of the non-wiki manuals as they require PRs to change
+  * and it is not an author's responsbility to update manuals if they change a mechanic/recipe/feature referenced in one of them
+  * Don't worry about adding them to the library, as long as they're one of these types it is automatically added.
+  *
+  * Longer Guides should really be a '/obj/item/book/manual/wiki' type book and be tethered to a wiki page, this is because wiki pages
+  * outside of SOP & Space Law can be very easily changed and do not require going through the Pull Request process. The benefits of
+  * these are that they can be illustrated, filled with tables, and changed without affecting the codebase.
+  *
+  * However, contributors should avoid making every book/page tethered to a wiki page for a few reasons:
+  * 1. many players who are likely just starting out would benefit from only getting a little bit of info to get started (think 5-10 bar recipes)
+  * 2. Wiki pages are purposefully dry and to the point, manuals benefit from having flavor/personality to them to make them interesting to read ICly
+  * 3. One can just open the damn wiki instead of reading a crusty-ass manual
+  * -Sirryan2002
+  */
 
-//Oh god what the fuck I am not good at computer
 /obj/item/book/manual
-	icon = 'icons/obj/library.dmi'
-	due_date = 0 // Game time in 1/10th seconds
-	unique = 1   // 0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
-	has_drm = TRUE // No reuploading. Piracy is a crime
+	//While piracy is a heinious deed, we don't want people uploading programmatic books into the player book DB for obvious reasons
+	copyright = TRUE
+	protected = FALSE //No reason players shouldn't write in regular manuals
+	name = "Book Manual"
+	desc = "Please make a report on the github if you somehow get ahold of one of these in-game"
+	summary = "This is a manual procured by Nanotrasen, it contains important information!"
+	//Pages has to be a list of strings, it will break the book otherwise
+	pages = list({"How did we get here? Anyway, if you are reading this please make a report on the Github as you should not
+					be able to possess this object in the first place!"})
 
-
-/obj/item/book/manual/engineering_construction
-	name = "Station Repairs and Construction"
-	icon_state ="bookEngineering"
-	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	title = "Station Repairs and Construction"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Guide_to_Construction&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
-		</body>
-
-		</html>
-
-		"}
+/obj/item/book/manual/detective
+	name = "The Film Noir: Proper Procedures for Investigations"
+	desc = "A gumshoe's guide to find out whodunnit, howdunnit, and wheredunnit."
+	icon_state ="bookDetective"
+	author = "Nanotrasen"
+	title = "The Film Noir: Proper Procedures for Investigations"
+	pages = list({"<html>
+			<head>
+			<style>
+			h1 {font-size: 18px; margin: 15px 0px 5px;}
+			h2 {font-size: 15px; margin: 15px 0px 5px;}
+			li {margin: 2px 0px 2px 15px;}
+			ul {list-style: none; margin: 5px; padding: 0px;}
+			ol {margin: 5px; padding: 0px 15px;}
+			</style>
+			</head>
+			<body>
+			<h3>Detective Work</h3>
+			Between your bouts of self-narration, and drinking whiskey on the rocks, you might get a case or two to solve.<br>
+			To have the best chance to solve your case, follow these directions:
+			<p>
+			<ol>
+			<li>Go to the crime scene. </li>
+			<li>Take your scanner and scan EVERYTHING (Yes, the doors, the tables, even the dog.) </li>
+			<li>Once you are reasonably certain you have every scrap of evidence you can use, find all possible entry points and scan them, too. </li>
+			<li>Return to your office. </li>
+			<li>Using your forensic scanning computer, scan your Scanner to upload all of your evidence into the database.</li>
+			<li>Browse through the resulting dossiers, looking for the one that either has the most complete set of prints, or the most suspicious items handled. </li>
+			<li>If you have 80% or more of the print (The print is displayed) go to step 10, otherwise continue to step 8.</li>
+			<li>Look for clues from the suit fibres you found on your perp, and go about looking for more evidence with this new information, scanning as you go. </li>
+			<li>Try to get a fingerprint card of your perp, as if used in the computer, the prints will be completed on their dossier.</li>
+			<li>Assuming you have enough of a print to see it, grab the biggest complete piece of the print and search the security records for it. </li>
+			<li>Since you now have both your dossier and the name of the person, print both out as evidence, and get security to nab your baddie.</li>
+			<li>Give yourself a pat on the back and a bottle of the ships finest vodka, you did it!. </li>
+			</ol>
+			<p>
+			It really is that easy! Good luck!
+			</body>
+			</html>"})
 
 /obj/item/book/manual/engineering_particle_accelerator
 	name = "Particle Accelerator User's Guide"
+	desc = "An engineer's guide to shooting relativistic particles out of a big gun."
 	icon_state ="bookParticleAccelerator"
-	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Engineering Encyclopedia"
 	title = "Particle Accelerator User's Guide"
-//big pile of shit below.
 
-	dat = {"<html>
+	pages = list({"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -66,16 +108,18 @@
 				</ol>
 
 				</body>
-				</html>"}
+				</html>"})
+
 
 
 /obj/item/book/manual/supermatter_engine
 	name = "Supermatter Engine User's Guide"
-	icon_state = "bookParticleAccelerator"   //TEMP FIXME
+	desc = "An engineer's best tool for dealing with their worst frenemy: The Supermatter."
+	icon_state = "bookParticleAccelerator"
 	author = "Waleed Asad"
 	title = "Supermatter Engine User's Guide"
 
-	dat = {"Engineering notes on single-stage Supermatter engine,</br>
+	pages = list({"Engineering notes on single-stage Supermatter engine,</br>
 			-Waleed Asad</br>
 
 			A word of caution, do not enter the engine room, for any reason, without radiation protection and mesons on. The status of the engine may be unpredictable even when you believe it is .off.. This is an important level of personal protection.</br></br>
@@ -150,36 +194,160 @@
 
 			Remember that the Supermatter is dangerous, and the core is dangerous still. Venting the core room is always an option if you are even remotely worried, utilizing Atmospherics to properly ready the room once more for core function. It is always a good idea to check up regularly on the temperature of gas leaving the chamber, as well as the power in the system lines. Lastly, once again remember, never touch the Supermatter with anything. Ever.</br></br>
 
-			-Waleed Asad, Senior Engine Technician."}
+			-Waleed Asad, Senior Engine Technician."})
 
-/obj/item/book/manual/engineering_hacking
-	name = "Hacking"
-	icon_state ="bookHacking"
-	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	title = "Hacking"
-//big pile of shit below.
+/obj/item/book/manual/atmospipes
+	name = "Pipes and You: Getting To Know Your Scary Tools"
+	desc = "A plumber's guide on how to efficiently plumb and clean out old drone shells."
+	icon_state = "pipingbook"
+	author = "Maria Crash, Senior Atmospherics Technician"
+	title = "Pipes and You: Getting To Know Your Scary Tools"
+	pages = list({"<html>
+				<head>
+				<style>
+				h1 {font-size: 18px; margin: 15px 0px 5px;}
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<font face="Verdana" color=black>
+				<h1><a name="Contents">Contents</a></h1>
+				<ol>
+					<li><a href="#Forward">Author's Forward</a></li>
+					<li><a href="#Basic">Basic Piping</a></li>
+					<li><a href="#Insulated">Insulated Pipes</a></li>
+					<li><a href="#Devices">Atmospherics Devices</a></li>
+					<li><a href="#HES">Heat Exchange Systems</a></li>
+					<li><a href="#Final">Final Checks</a></li>
+				</ol>
+				<br><BR>
+				<h1><a name="Forward"><U><B>HOW TO NOT SUCK QUITE SO HARD AT ATMOSPHERICS</B></U></a></h1><BR>
+				<I>Or: What the fuck does a "passive gate" do?</I><BR><BR>
+				Alright. It has come to my attention that a variety of people are unsure of what a "pipe" is and what it does.
+				Apparently there is an unnatural fear of these arcane devices and their "gases". Spooky, spooky. So,
+				this will tell you what every device constructable by an ordinary pipe dispenser within atmospherics actually does.
+				You are not going to learn what to do with them to be the super best person ever, or how to play guitar with passive gates,
+				or something like that. Just what stuff does.<BR><BR>
+				<h1><a name="Basic"><B>Basic Pipes</B></a></h1><BR>
+				<I>The boring ones.</I><BR>
+				TMost ordinary pipes are pretty straightforward. They hold gas. If gas is moving in a direction for some reason, gas will flow in that direction.
+				That's about it. Even so, here's all of your wonderful pipe options.<BR>
+				<li><I>Straight pipes:</I> They're pipes. One-meter sections. Straight line. Pretty simple. Just about every pipe and device is based around this
+				standard one-meter size, so most things will take up as much space as one of these.</li>
+				<li><I>Bent pipes:</I> Pipes with a 90 degree bend at the half-meter mark. My goodness.</li>
+				<li><I>Pipe manifolds:</I> Pipes that are essentially a "T" shape, allowing you to connect three things at one point.</li>
+				<li><I>4-way manifold:</I> A four-way junction.</li>
+				<li><I>Pipe cap:</I> Caps off the end of a pipe. Open ends don't actually vent air, because of the way the pipes are assembled, so, uh. Use them to decorate your house or something.</li>
+				<li><I>Manual Valve:</I> A valve that will block off airflow when turned. Can't be used by the AI or cyborgs, because they don't have hands.</li>
+				<li><I>Manual T-Valve:</I> Like a manual valve, but at the center of a manifold instead of a straight pipe.</li><BR><BR>
+				<h1><a name="Insulated"><B>Insulated Pipes</B></a></h1><BR>
+				<I>Special Public Service Announcement.</I><BR>
+				Our regular pipes are already insulated. These are completely worthless. Punch anyone who uses them.<BR><BR>
+				<h1><a name="Devices"><B>Devices: </B></a></h1><BR>
+				<I>They actually do something.</I><BR>
+				This is usually where people get frightened, </font><font face="Verdana" color=black>afraid, and start calling on their gods and/or cowering in fear. Yes, I can see you doing that right now.
+				Stop it. It's unbecoming. Most of these are fairly straightforward.<BR>
+				<li><I>Gas Pump:</I> Take a wild guess. It moves gas in the direction it's pointing (marked by the red line on one end). It moves it based on pressure, the maximum output being 4500 kPa (kilopascals).
+				Ordinary atmospheric pressure, for comparison, is 101.3 kPa, and the minimum pressure of room-temperature pure oxygen needed to not suffocate in a matter of minutes is 16 kPa
+				(though 18 is preferred using internals, for various reasons).</li>
+				<li><I>Volume pump:</I> This pump goes based on volume, instead of pressure, and the possible maximum pressure it can create in the pipe on the receiving end is double the gas pump because of this,
+				clocking in at an incredible 9000 kPa. If a pipe with this is destroyed or damaged, and this pressure of gas escapes, it can be incredibly dangerous depending on the size of the pipe filled.
+				Don't hook this to the distribution loop, or you will make babies cry and the Chief Engineer brutally beat you.</li>
+				<li><I>Passive gate:</I> This is essentially a cap on the pressure of gas allowed to flow in a specific direction.
+				When turned on, instead of actively pumping gas, it measures the pressure flowing through it, and whatever pressure you set is the maximum: it'll cap after that.
+				In addition, it only lets gas flow one way. The direction the gas flows is opposite the red handle on it, which is confusing to people used to the red stripe on pumps pointing the way.</li>
+				<li><I>Unary vent:</I> The basic vent used in rooms. It pumps gas into the room, but can't suck it back out. Controlled by the room's air alarm system.</li>
+				<li><I>Scrubber:</I> The other half of room equipment. Filters air, and can suck it in entirely in what's called a "panic siphon". Actvating a panic siphon without very good reason will kill someone. Don't do it.</li>
+				<li><I>Meter:</I> A little box with some gagues and numbers. Fasten it to any pipe or manifold, and it'll read you the pressure in it. Very useful.</li>
+				<li><I>Gas mixer:</I> Two sides are input, one side is output. Mixes the gases pumped into it at the ratio defined. The side perpendicular to the other two is "node 2", for reference.
+				Can output this gas at pressures from 0-4500 kPa.</li>
+				<li><I>Gas filter:</I> Essentially the opposite of a gas mixer. One side is input. The other two sides are output. One gas type will be filtered into the perpendicular output pipe,
+				the rest will continue out the other side. Can also output from 0-4500 kPa.</li>
+				<h1><a name="HES"><B>Heat Exchange Systems</B></a></h1><BR>
+				<I>Will not set you on fire.</I><BR>
+				These systems are used to transfer heat only between two pipes. They will not move gases or any other element, but will equalize the temperature (eventually). Note that because of how gases work (remember: pv=nRt),
+				a higher temperature will raise pressure, and a lower one will lower temperature.<BR>
+				<li><I>Pipe:</I> This is a pipe that will exchange heat with the surrounding atmosphere. Place in fire for superheating. Place in space for supercooling.</li>
+				<li><I>Bent Pipe:</I> Take a wild guess.</li>
+				<li><I>Junction:</I><I>Junction:</I>The point where you connect your normal pipes to heat exchange pipes. Not necessary for heat exchangers, but necessary for H/E pipes/bent pipes.</li>
+				<li><I>Heat Exchanger:</I> These funky-looking bits attach to an open pipe end. Put another heat exchanger directly across from it, and you can transfer heat across two pipes without having to have the gases touch.
+				This normally shouldn't exchange with the ambient air, despite being totally exposed. Just don't ask questions...</li><BR>
+				That's about it for pipes. Go forth, armed with this knowledge, and try not to break, burn down, or kill anything. Please.</font>
+				</body>
+				</html>
+			"})
 
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Hacking&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
-		</body>
-
-		</html>
-
-		"}
+/obj/item/book/manual/evaguide
+	name = "EVA Gear and You: Not Spending All Day Inside"
+	desc = "An enterprising explorer's expedition explainer. Helmet not included!"
+	icon_state = "evabook"
+	author = "Maria Crash, Senior Atmospherics Technician"
+	title = "EVA Gear and You: Not Spending All Day Inside"
+	pages = list({"<html>
+				<head>
+				<style>
+				h1 {font-size: 18px; margin: 15px 0px 5px;}
+				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				li {margin: 2px 0px 2px 15px;}
+				ul {list-style: none; margin: 5px; padding: 0px;}
+				ol {margin: 5px; padding: 0px 15px;}
+				</style>
+				</head>
+				<body>
+				<font face="Verdana" color=black>
+				<h1><a name="Contents">Contents</a></h1>
+				<ol>
+					<li><a href="#Forward">A forward on using EVA gear</a></li>
+					<li><a href="#Civilian">Donning a Civilian Suits</a></li>
+					<li><a href="#Hardsuit">Putting on a Hardsuit</a></li>
+					<li><a href="#Final">Final Checks</a></li>
+				</ol>
+				<br><BR>
+				<h1><a name="Forward">EVA Gear and You: Not Spending All Day Inside</a></h1><BR>
+				<I>Or: How not to suffocate because there's a hole in your shoes</I><BR><BR>
+				EVA gear. Wonderful to use. It's useful for mining, engineering, and occasionally just surviving, if things are that bad. Most people have EVA training,
+				but apparently there are some on a space station who don't. This guide should give you a basic idea of how to use this gear, safely. It's split into two sections:
+				Civilian suits and hardsuits.<BR><BR>
+				<h1><a name="Civilian">Civilian Suits</a></h1><BR>
+				<I>The bulkiest things this side of Alpha Centauri</I><BR>
+				These suits are the grey ones that are stored in EVA. They're the more simple to get on, but are also a lot bulkier, and provide less protection from environmental hazards such as radiaion or physical impact.
+				As Medical, Engineering, Security, and Mining all have hardsuits of their own, these don't see much use, but knowing how to put them on is quite useful anyways.<BR><BR>
+				First, take the suit. It should be in three pieces: A top, a bottom, </font><font face="Verdana" color=black>and a helmet. Put the bottom on first, shoes and the like will fit in it. If you have magnetic boots, however,
+				put them on on top of the suit's feet. Next, get the top on, as you would a shirt. It can be somewhat awkward putting these pieces on, due to the makeup of the suit,
+				but to an extent they will adjust to you. You can then find the snaps and seals around the waist, where the two pieces meet. Fasten these, and double-check their tightness.
+				The red indicators around the waist of the lower half will turn green when this is done correctly. Next, put on whatever breathing apparatus you're using, be it a gas mask or a breath mask. Make sure the oxygen tube is fastened into it.
+				Put on the helmet now, straight forward, and make sure the tube goes into the small opening specifically for internals. Again, fasten seals around the neck, a small indicator light in the inside of the helmet should go from red to off when all is fastened.
+				There is a small slot on the side of the suit where an emergency oxygen tank or</font><font face="Verdana" color=black> extended emergency oxygen tank will fit,
+				but it is reccomended to have a full-sized tank on your back for EVA.<BR><BR>
+				<h1><a name="Hardsuit">Hardsuits</a></h1><BR>
+				<I>Heavy, uncomfortable, still the best option.</I><BR>
+				These suits come in Engineering, Mining, and the Armory. There's also a couple Medical Hardsuits in EVA. These provide a lot more protection than the standard suits.<BR><BR>
+				Similarly to the other suits, these are split into three parts. Fastening the pant and top are mostly the same as the other spacesuits, with the exception that these are a bit heavier,
+				though not as bulky. The helmet goes on differently, with the air tube feeing into the suit and out a hole near the left shoulder, while the helmet goes on turned ninety degrees counter-clockwise,
+				and then is screwed in for one and a quarter full rotations clockwise, leaving the faceplate directly in front of you. There is a small button on the right side of the helmet that activates the helmet light.
+				The tanks that fasten onto the side slot are emergency tanks, as</font><font face="Verdana" color=black> well as full-sized oxygen tanks, leaving your back free for a backpack or satchel.<BR><BR>
+				<h1><a name="Final">FINAL CHECKS:</a></h1><BR>
+				<li>Are all seals fastened correctly?</li>
+				<li>Do you either have shoes on under the suit, or magnetic boots on over it?</li>
+				<li>Do you have a mask on and internals on the suit or your back?</li>
+				<li>Do you have a way to communicate with the station in case something goes wrong?</li>
+				<li>Do you have a second person watching if this is a training session?</li><BR>
+				If you don't have any further issues, go out and do whatever is necessary.</font>
+				</body>
+				</html>
+			"})
 
 /obj/item/book/manual/engineering_singularity_safety
 	name = "Singularity Safety in Special Circumstances"
+	desc = "A sufficiently succinct suppliment to securing singularities."
 	icon_state ="bookEngineeringSingularitySafety"
-	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Engineering Encyclopedia"
 	title = "Singularity Safety in Special Circumstances"
-//big pile of shit below.
 
-	dat = {"<html>
+	pages = list({"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -218,51 +386,16 @@
 				Step one: <b>GET THE FUCK OUT OF THERE!!! FORGET THE WOMEN AND CHILDREN, SAVE YOURSELF!!!</b><br>
 				</body>
 				</html>
-				"}
-
-/obj/item/book/manual/hydroponics_pod_people
-	name = "The Human Harvest - From seed to market"
-	icon_state ="bookHydroponicsPodPeople"
-	author = "Farmer John"
-	title = "The Human Harvest - From seed to market"
-	dat = {"<html>
-				<head>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-				<h3>Growing Humans</h3>
-
-				Why would you want to grow humans? Well I'm expecting most readers to be in the slave trade, but a few might actually
-				want to revive fallen comrades. Growing pod people is easy, but prone to disaster.
-				<p>
-				<ol>
-				<li>Find a dead person who is in need of cloning. </li>
-				<li>Take a blood sample with a syringe. </li>
-				<li>Inject a seed pack with the blood sample. </li>
-				<li>Plant the seeds. </li>
-				<li>Tend to the plants water and nutrition levels until it is time to harvest the cloned human.</li>
-				</ol>
-				<p>
-				It really is that easy! Good luck!
-
-				</body>
-				</html>
-				"}
+				"})
 
 /obj/item/book/manual/medical_cloning
 	name = "Cloning techniques of the 26th century"
+	desc = "A clinical explanation on how to resurrect your patients."
 	icon_state ="bookCloning"
-	author = "Medical Journal, volume 3"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Medical Journal, volume 3"
 	title = "Cloning techniques of the 26th century"
-//big pile of shit below.
 
-	dat = {"<html>
+	pages = list({"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -330,17 +463,16 @@
 
 				</body>
 				</html>
-				"}
-
+				"})
 
 /obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
+	desc = "A guide from a little-known corporation on how to operate a heavy lifter mech. It's filled with disclaimers and pre-signed waivers."
 	icon_state ="book"
-	author = "Weyland-Yutani Corp"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	author = "Weyland-Yutani Corp"
 	title = "APLU \"Ripley\" Construction and Operation Manual"
-//big pile of shit below.
 
-	dat = {"<html>
+	pages = list({"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -406,146 +538,15 @@
 
 				<h2>Operation</h2>
 				Coming soon...
-			"}
-
-/obj/item/book/manual/experimentor
-	name = "Mentoring your Experiments"
-	icon_state = "rdbook"
-	author = "Dr. H.P. Kritz"
-	title = "Mentoring your Experiments"
-	dat = {"<html>
-		<head>
-		<style>
-		h1 {font-size: 18px; margin: 15px 0px 5px;}
-		h2 {font-size: 15px; margin: 15px 0px 5px;}
-		li {margin: 2px 0px 2px 15px;}
-		ul {list-style: none; margin: 5px; padding: 0px;}
-		ol {margin: 5px; padding: 0px 15px;}
-		</style>
-		</head>
-		<body>
-		<h1>THE E.X.P.E.R.I-MENTOR</h1>
-		The Enhanced Xenobiological Period Extraction (and) Restoration Instructor is a machine designed to discover the secrets behind every item in existence.
-		With advanced technology, it can process 99.95% of items, and discover their uses and secrets.
-		The E.X.P.E.R.I-MENTOR is a Research apparatus that takes items, and through a process of elimination, it allows you to deduce new technological designs from them.
-		Due to the volatile nature of the E.X.P.E.R.I-MENTOR, there is a slight chance for malfunction, potentially causing irreparable damage to you or your environment.
-		However, upgrading the apparatus has proven to decrease the chances of undesirable, potentially life-threatening outcomes.
-		Please note that the E.X.P.E.R.I-MENTOR uses a state-of-the-art random generator, which has a larger entropy than the observable universe,
-		therefore it can generate wildly different results each day, therefore it is highly suggested to re-scan objects of interests frequently (e.g. each shift).
-
-		<h2>BASIC PROCESS</h2>
-		The usage of the E.X.P.E.R.I-MENTOR is quite simple:
-		<ol>
-			<li>Find an item with a technological background</li>
-			<li>Insert the item into the E.X.P.E.R.I-MENTOR</li>
-			<li>Cycle through each processing method of the device.</li>
-			<li>Stand back, even in case of a successful experiment, as the machine might produce undesired behaviour.</li>
-		</ol>
-
-		<h2>ADVANCED USAGE</h2>
-		The E.X.P.E.R.I-MENTOR has a variety of uses, beyond menial research work. The different results can be used to combat localised events, or even to get special items.
-
-		The E.X.P.E.R.I-MENTOR's OBLITERATE function has the added use of transferring the destroyed item's material into a linked lathe.
-
-		The IRRADIATE function can be used to transform items into other items, resulting in potential upgrades (or downgrades).
-
-		Users should remember to always wear appropriate protection when using the machine, because malfunction can occur at any moment!
-
-		<h1>EVENTS</h1>
-		<h2>GLOBAL (happens at any time):</h2>
-			<ol>
-			<li>DETECTION MALFUNCTION - The machine's onboard sensors have malfunctioned, causing it to redefine the item's experiment type.
-			Produces the message: The E.X.P.E.R.I-MENTOR's onboard detection system has malfunctioned!</li>
-
-			<li>IANIZATION - The machine's onboard corgi-filter has malfunctioned, causing it to produce a corgi from.. somewhere.
-			Produces the message: The E.X.P.E.R.I-MENTOR melts the banana, ian-izing the air around it!</li>
-
-			<li>RUNTIME ERROR - The machine's onboard C4T-P processor has encountered a critical error, causing it to produce a cat from.. somewhere.
-			Produces the message: The E.X.P.E.R.I-MENTOR encounters a run-time error!</li>
-
-			<li>B100DG0D.EXE - The machine has encountered an unknown subroutine, which has been injected into it's runtime. It upgrades the held item!
-			Produces the message: The E.X.P.E.R.I-MENTOR improves the banana, drawing the life essence of those nearby!</li>
-
-			<li>POWERSINK - The machine's PSU has tripped the charging mechanism! It consumes massive amounts of power!
-			Produces the message: The E.X.P.E.R.I-MENTOR begins to smoke and hiss, shaking violently!</li>
-			</ol>
-		<h2>FAIL:</h2>
-			This event is produced when the item mismatches the selected experiment.
-			Produces a random message similar to: "the Banana rumbles, and shakes, the experiment was a failure!"
-
-		<h2>POKE:</h2>
-			<ol>
-			<li>WILD ARMS - The machine's gryoscopic processors malfunction, causing it to lash out at nearby people with it's arms.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions and destroys the banana, lashing it's arms out at nearby people!</li>
-
-			<li>MISTYPE - The machine's interface has been garbled, and it switches to OBLITERATE.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions!</li>
-
-			<li>THROW - The machine's spatial recognition device has shifted several meters across the room, causing it to try and repostion the item there.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, throwing the banana!</li>
-			</ol>
-		<h2>IRRADIATE:</h2>
-			<ol>
-			<li>RADIATION LEAK - The machine's shield has failed, resulting in a toxic radiation leak.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, melting the banana and leaking radiation!</li>
-
-			<li>RADIATION DUMP - The machine's recycling and containment functions have failed, resulting in a dump of toxic waste around it
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, spewing toxic waste!</li>
-
-			<li>MUTATION - The machine's radio-isotope level meter has malfunctioned, causing it over-irradiate the item, making it transform.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, transforming the banana!</li>
-			</ol>
-		<h2>GAS:</h2>
-			<ol>
-			<li>TOXIN LEAK - The machine's filtering and vent systems have failed, resulting in a cloud of toxic gas being expelled.
-			Produces the message: The E.X.P.E.R.I-MENTOR destroys the banana, leaking dangerous gas!</li>
-
-			<li>GAS LEAK - The machine's vent systems have failed, resulting in a cloud of harmless, but obscuring gas.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, spewing harmless gas!</li>
-
-			<li>ELECTROMAGNETIC IONS - The machine's electrolytic scanners have failed, causing a dangerous Electromagnetic reaction.
-			Produces the message: The E.X.P.E.R.I-MENTOR melts the banana, ionizing the air around it!</li>
-			</ol>
-		<h2>HEAT:</h2>
-			<ol>
-			<li>TOASTER - The machine's heating coils have come into contact with the machine's gas storage, causing a large, sudden blast of flame.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, melting the banana and releasing a burst of flame!</li>
-
-			<li>SAUNA - The machine's vent loop has sprung a leak, resulting in a large amount of superheated air being dumped around it.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, melting the banana and leaking hot air!</li>
-
-			<li>EMERGENCY VENT - The machine's temperature gauge has malfunctioned, resulting in it attempting to cool the area around it, but instead, dumping a cloud of steam.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, activating it's emergency coolant systems!</li>
-			</ol>
-		<h2>COLD:</h2>
-			<ol>
-			<li>FREEZER - The machine's cooling loop has sprung a leak, resulting in a cloud of super-cooled liquid being blasted into the air.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, shattering the banana and releasing a dangerous cloud of coolant!</li>
-
-			<li>FRIDGE - The machine's cooling loop has been exposed to the outside air, resulting in a large decrease in temperature.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, shattering the banana and leaking cold air!</li>
-
-			<li>SNOWSTORM - The machine's cooling loop has come into contact with the heating coils, resulting in a sudden blast of cool air.
-			Produces the message: The E.X.P.E.R.I-MENTOR malfunctions, releasing a flurry of chilly air as the banana pops out!</li>
-			</ol>
-		<h2>OBLITERATE:</h2>
-			<ol>
-			<li>IMPLOSION - The machine's pressure leveller has malfunctioned, causing it to pierce the space-time momentarily, making everything in the area fly towards it.
-			Produces the message: The E.X.P.E.R.I-MENTOR's crusher goes way too many levels too high, crushing right through space-time!</li>
-
-			<li>DISTORTION - The machine's pressure leveller has completely disabled, resulting in a momentary space-time distortion, causing everything to fly around.
-			Produces the message: The E.X.P.E.R.I-MENTOR's crusher goes one level too high, crushing right into space-time!</li>
-			</ol>
-		</body>
-	</html>
-	"}
+			"})
 
 /obj/item/book/manual/research_and_development
 	name = "Research and Development 101"
+	desc = "The mad scientist's second best friend, after coffee."
 	icon_state = "rdbook"
 	author = "Dr. L. Ight"
 	title = "Research and Development 101"
-	dat = {"
+	pages = list({"
 	<html>
 				<head>
 				<style>
@@ -588,315 +589,15 @@
 				Many machines produces from circuit boards and inserted into a machine frame require a variety of parts to construct. These are parts like capacitors, batteries, matter bins, and so forth. As your knowledge of science improves, more advanced versions are unlocked. If you use these parts when constructing something, its attributes may be improved. For example, if you use an advanced matter bin when constructing an autolathe (rather then a regular one), it'll hold more materials. Experiment around with stock parts of various qualities to see how they affect the end results! Be warned, however: Tier 3 and higher stock parts don't have 100% reliability and their low reliability may affect the reliability of the end machine.
 				</body>
 				</html>
-			"}
-
-
-/obj/item/book/manual/robotics_cyborgs
-	name = "Cyborgs for Dummies"
-	icon_state = "borgbook"
-	author = "XISC"
-	title = "Cyborgs for Dummies"
-	dat = {"<html>
-				<head>
-				<style>
-				h1 {font-size: 21px; margin: 15px 0px 5px;}
-				h2 {font-size: 18px; margin: 15px 0px 5px;}
-        h3 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-
-				<h1>Cyborgs for Dummies</h1>
-
-				<h2>Chapters</h2>
-
-				<ol>
-					<li><a href="#Equipment">Cyborg Related Equipment</a></li>
-					<li><a href="#Modules">Cyborg Modules</a></li>
-					<li><a href="#Construction">Cyborg Construction</a></li>
-					<li><a href="#Maintenance">Cyborg Maintenance</a></li>
-					<li><a href="#Repairs">Cyborg Repairs</a></li>
-					<li><a href="#Emergency">In Case of Emergency</a></li>
-				</ol>
-
-
-				<h2><a name="Equipment">Cyborg Related Equipment</h2>
-
-				<h3>Exosuit Fabricator</h3>
-				The Exosuit Fabricator is the most important piece of equipment related to cyborgs. It allows the construction of the core cyborg parts. Without these machines, cyborgs can not be built. It seems that they may also benefit from advanced research techniques.
-
-				<h3>Cyborg Recharging Station</h3>
-				This useful piece of equipment will suck power out of the power systems to charge a cyborg's power cell back up to full charge.
-
-				<h3>Robotics Control Console</h3>
-				This useful piece of equipment can be used to immobolize or destroy a cyborg. A word of warning: Cyborgs are expensive pieces of equipment, do not destroy them without good reason, or Nanotrasen may see to it that it never happens again.
-
-
-				<h2><a name="Modules">Cyborg Modules</h2>
-				When a cyborg is created it picks out of an array of modules to designate its purpose. There are 6 different cyborg modules.
-
-				<h3>Standard Cyborg</h3>
-				The standard cyborg module is a multi-purpose cyborg. It is equipped with various modules, allowing it to do basic tasks.<br>A Standard Cyborg comes with:
-				<ul>
-				  <li>Crowbar</li>
-				  <li>Stun Baton</li>
-				  <li>Health Analyzer</li>
-				  <li>Fire Extinguisher</li>
-				</ul>
-
-				<h3>Engineering Cyborg</h3>
-				The Engineering cyborg module comes equipped with various engineering-related tools to help with engineering-related tasks.<br>An Engineering Cyborg comes with:
-				<ul>
-				  <li>A basic set of engineering tools</li>
-				  <li>Metal Synthesizer</li>
-				  <li>Reinforced Glass Synthesizer</li>
-				  <li>An RCD</li>
-				  <li>Wire Synthesizer</li>
-				  <li>Fire Extinguisher</li>
-				  <li>Built-in Optical Meson Scanners</li>
-				</ul>
-
-				<h3>Mining Cyborg</h3>
-				The Mining Cyborg module comes equipped with the latest in mining equipment. They are efficient at mining due to no need for oxygen, but their power cells limit their time in the mines.<br>A Mining Cyborg comes with:
-				<ul>
-				  <li>Jackhammer</li>
-				  <li>Shovel</li>
-				  <li>Mining Satchel</li>
-				  <li>Built-in Optical Meson Scanners</li>
-				</ul>
-
-				<h3>Security Cyborg</h3>
-				The Security Cyborg module is equipped with effective security measures used to apprehend and arrest criminals without harming them a bit.<br>A Security Cyborg comes with:
-				<ul>
-				  <li>Stun Baton</li>
-				  <li>Handcuffs</li>
-				  <li>Taser</li>
-				</ul>
-
-				<h3>Janitor Cyborg</h3>
-				The Janitor Cyborg module is equipped with various cleaning-facilitating devices.<br>A Janitor Cyborg comes with:
-				<ul>
-				  <li>Mop</li>
-				  <li>Hand Bucket</li>
-				  <li>Cleaning Spray Synthesizer and Spray Nozzle</li>
-				</ul>
-
-				<h3>Service Cyborg</h3>
-				The service cyborg module comes ready to serve your human needs. It includes various entertainment and refreshment devices. Occasionally some service cyborgs may have been referred to as "Bros"<br>A Service Cyborg comes with:
-				<ul>
-				  <li>Shaker</li>
-				  <li>Industrail Dropper</li>
-				  <li>Platter</li>
-				  <li>Beer Synthesizer</li>
-				  <li>Zippo Lighter</li>
-				  <li>Rapid-Service-Fabricator (Produces various entertainment and refreshment objects)</li>
-				  <li>Pen</li>
-				</ul>
-
-				<h2><a name="Construction">Cyborg Construction</h2>
-				Cyborg construction is a rather easy process, requiring a decent amount of metal and a few other supplies.<br>The required materials to make a cyborg are:
-				<ul>
-				  <li>Metal</li>
-				  <li>Two Flashes</li>
-				  <li>One Power Cell (Preferrably rated to 15000w)</li>
-				  <li>Some electrical wires</li>
-				  <li>One Human Brain</li>
-				  <li>One Man-Machine Interface</li>
-				</ul>
-				Once you have acquired the materials, you can start on construction of your cyborg.<br>To construct a cyborg, follow the steps below:
-				<ol>
-				  <li>Start the Exosuit Fabricators constructing all of the cyborg parts</li>
-				  <li>While the parts are being constructed, take your human brain, and place it inside the Man-Machine Interface</li>
-				  <li>Once you have a Robot Head, place your two flashes inside the eye sockets</li>
-				  <li>Once you have your Robot Chest, wire the Robot chest, then insert the power cell</li>
-				  <li>Attach all of the Robot parts to the Robot frame</li>
-				  <li>Insert the Man-Machine Interface (With the Brain inside) Into the Robot Body</li>
-				  <li>Congratulations! You have a new cyborg!</li>
-				</ol>
-
-				<h2><a name="Maintenance">Cyborg Maintenance</h2>
-				Occasionally Cyborgs may require maintenance of a couple types, this could include replacing a power cell with a charged one, or possibly maintaining the cyborg's internal wiring.
-
-				<h3>Replacing a Power Cell</h3>
-				Replacing a Power cell is a common type of maintenance for cyborgs. It usually involves replacing the cell with a fully charged one, or upgrading the cell with a larger capacity cell.<br>The steps to replace a cell are follows:
-				<ol>
-				  <li>Unlock the Cyborg's Interface by swiping your ID on it</li>
-				  <li>Open the Cyborg's outer panel using a crowbar</li>
-				  <li>Remove the old power cell</li>
-				  <li>Insert the new power cell</li>
-				  <li>Close the Cyborg's outer panel using a crowbar</li>
-				  <li>Lock the Cyborg's Interface by swiping your ID on it, this will prevent non-qualified personnel from attempting to remove the power cell</li>
-				</ol>
-
-				<h3>Exposing the Internal Wiring</h3>
-				Exposing the internal wiring of a cyborg is fairly easy to do, and is mainly used for cyborg repairs.<br>You can easily expose the internal wiring by following the steps below:
-				<ol>
-				  <li>Follow Steps 1 - 3 of "Replacing a Cyborg's Power Cell"</li>
-				  <li>Open the cyborg's internal wiring panel by using a screwdriver to unsecure the panel</li>
-			  </ol>
-			  To re-seal the cyborg's internal wiring:
-			  <ol>
-			    <li>Use a screwdriver to secure the cyborg's internal panel</li>
-			    <li>Follow steps 4 - 6 of "Replacing a Cyborg's Power Cell" to close up the cyborg</li>
-			  </ol>
-
-			  <h2><a name="Repairs">Cyborg Repairs</h2>
-			  Occasionally a Cyborg may become damaged. This could be in the form of impact damage from a heavy or fast-travelling object, or it could be heat damage from high temperatures, or even lasers or Electromagnetic Pulses (EMPs).
-
-			  <h3>Dents</h3>
-			  If a cyborg becomes damaged due to impact from heavy or fast-moving objects, it will become dented. Sure, a dent may not seem like much, but it can compromise the structural integrity of the cyborg, possibly causing a critical failure.
-			  Dents in a cyborg's frame are rather easy to repair, all you need is to apply a welding tool to the dented area, and the high-tech cyborg frame will repair the dent under the heat of the welder.
-
-        <h3>Excessive Heat Damage</h3>
-        If a cyborg becomes damaged due to excessive heat, it is likely that the internal wires will have been damaged. You must replace those wires to ensure that the cyborg remains functioning properly.<br>To replace the internal wiring follow the steps below:
-        <ol>
-          <li>Unlock the Cyborg's Interface by swiping your ID</li>
-          <li>Open the Cyborg's External Panel using a crowbar</li>
-          <li>Remove the Cyborg's Power Cell</li>
-          <li>Using a screwdriver, expose the internal wiring or the Cyborg</li>
-          <li>Replace the damaged wires inside the cyborg</li>
-          <li>Secure the internal wiring cover using a screwdriver</li>
-          <li>Insert the Cyborg's Power Cell</li>
-          <li>Close the Cyborg's External Panel using a crowbar</li>
-          <li>Lock the Cyborg's Interface by swiping your ID</li>
-        </ol>
-        These repair tasks may seem difficult, but are essential to keep your cyborgs running at peak efficiency.
-
-        <h2><a name="Emergency">In Case of Emergency</h2>
-        In case of emergency, there are a few steps you can take.
-
-        <h3>"Rogue" Cyborgs</h3>
-        If the cyborgs seem to become "rogue", they may have non-standard laws. In this case, use extreme caution.
-        To repair the situation, follow these steps:
-        <ol>
-          <li>Locate the nearest robotics console</li>
-          <li>Determine which cyborgs are "Rogue"</li>
-          <li>Press the lockdown button to immobolize the cyborg</li>
-          <li>Locate the cyborg</li>
-          <li>Expose the cyborg's internal wiring</li>
-          <li>Check to make sure the LawSync and AI Sync lights are lit</li>
-          <li>If they are not lit, pulse the LawSync wire using a multitool to enable the cyborg's Law Sync</li>
-          <li>Proceed to a cyborg upload console. Nanotrasen usually places these in the same location as AI uplaod consoles.</li>
-          <li>Use a "Reset" upload moduleto reset the cyborg's laws</li>
-          <li>Proceed to a Robotics Control console</li>
-          <li>Remove the lockdown on the cyborg</li>
-        </ol>
-
-        <h3>As a last resort</h3>
-        If all else fails in a case of cyborg-related emergency. There may be only one option. Using a Robotics Control console, you may have to remotely detonate the cyborg.
-        <h3>WARNING:</h3> Do not detonate a borg without an explicit reason for doing so. Cyborgs are expensive pieces of Nanotrasen equipment, and you may be punished for detonating them without reason.
-
-        </body>
-		</html>
-		"}
-
-/obj/item/book/manual/security_space_law
-	name = "Space Law"
-	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
-	icon_state = "bookSpaceLaw"
-	force = 4 //advanced magistrate tactics
-	author = "Nanotrasen"
-	title = "Space Law"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Space_law&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/security_space_law/black
-	name = "Space Law - Limited Edition"
-	desc = "A leather-bound, immaculately-written copy of JUSTICE."
-	icon_state = "bookSpaceLawblack"
-	title = "Space Law - Limited Edition"
-
-/obj/item/book/manual/engineering_guide
-	name = "Engineering Textbook"
-	icon_state ="bookEngineering2"
-	author = "Engineering Encyclopedia"
-	title = "Engineering Textbook"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Guide_to_Engineering&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-
-/obj/item/book/manual/chef_recipes
-	name = "Chef Recipes"
-	icon_state = "cooked_book"
-	author = "Victoria Ponsonby"
-	title = "Chef Recipes"
-	dat = {"<html>
-				<head>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-
-				<h1>Food for Dummies</h1>
-				Here is a guide on basic food recipes and also how to not poison your customers accidentally.
-
-				<h2>Basics:<h2>
-				Knead an egg and some flour to make dough. Bake that to make a bun or flatten and cut it.
-
-				<h2>Burger:<h2>
-				Put a bun and some meat into the microwave and turn it on. Then wait.
-
-				<h2>Bread:<h2>
-				Put some dough and an egg into the microwave and then wait.
-
-				<h2>Waffles:<h2>
-				Add two lumps of dough and 10u of sugar to the microwave and then wait.
-
-				<h2>Popcorn:<h2>
-				Add 1 corn to the microwave and wait.
-
-				<h2>Meat Steak:<h2>
-				Put a slice of meat, 1 unit of salt and 1 unit of pepper into the microwave and wait.
-
-				<h2>Meat Pie:<h2>
-				Put a flattened piece of dough and some meat into the microwave and wait.
-
-				<h2>Boiled Spaghetti:<h2>
-				Put the spaghetti (processed flour) and 5 units of water into the microwave and wait.
-
-				<h2>Donuts:<h2>
-				Add some dough and 5 units of sugar to the microwave and wait.
-
-				<h2>Fries:<h2>
-				Add one potato to the processor, then bake them in the microwave.
-
-
-				</body>
-				</html>
-			"}
+			"})
 
 /obj/item/book/manual/barman_recipes
 	name = "Barman Recipes"
+	desc = "A coffee-stained guide to mixing drinks."
 	icon_state = "barbook"
 	author = "Sir John Rose"
 	title = "Barman Recipes"
-	dat = {"<html>
+	pages = list({"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -907,90 +608,40 @@
 				</style>
 				</head>
 				<body>
-
 				<h1>Drinks for dummies</h1>
 				Heres a guide for some basic drinks.
-
 				<h2>Manly Dorf:</h2>
 				Mix ale and beer into a glass.
-
 				<h2>Grog:</h2>
 				Mix rum and water into a glass.
-
 				<h2>Black Russian:</h2>
 				Mix vodka and kahlua into a glass.
-
 				<h2>Irish Cream:</h2>
 				Mix cream and whiskey into a glass.
-
 				<h2>Screwdriver:</h2>
 				Mix vodka and orange juice into a glass.
-
 				<h2>Cafe Latte:</h2>
 				Mix milk and coffee into a glass.
-
 				<h2>Mead:</h2>
 				Mix Enzyme, water and sugar into a glass.
-
 				<h2>Gin Tonic:</h2>
 				Mix gin and tonic into a glass.
-
 				<h2>Classic Martini:</h2>
 				Mix vermouth and gin into a glass.
-
-
 				</body>
 				</html>
-			"}
+			"})
 
-
-/obj/item/book/manual/detective
-	name = "The Film Noir: Proper Procedures for Investigations"
-	icon_state ="bookDetective"
-	author = "Nanotrasen"
-	title = "The Film Noir: Proper Procedures for Investigations"
-	dat = {"<html>
-			<head>
-			<style>
-			h1 {font-size: 18px; margin: 15px 0px 5px;}
-			h2 {font-size: 15px; margin: 15px 0px 5px;}
-			li {margin: 2px 0px 2px 15px;}
-			ul {list-style: none; margin: 5px; padding: 0px;}
-			ol {margin: 5px; padding: 0px 15px;}
-			</style>
-			</head>
-			<body>
-			<h3>Detective Work</h3>
-
-			Between your bouts of self-narration, and drinking whiskey on the rocks, you might get a case or two to solve.<br>
-			To have the best chance to solve your case, follow these directions:
-			<p>
-			<ol>
-			<li>Go to the crime scene. </li>
-			<li>Take your scanner and scan EVERYTHING (Yes, the doors, the tables, even the dog.) </li>
-			<li>Once you are reasonably certain you have every scrap of evidence you can use, find all possible entry points and scan them, too. </li>
-			<li>Return to your office. </li>
-			<li>Using your forensic scanning computer, scan your Scanner to upload all of your evidence into the database.</li>
-			<li>Browse through the resulting dossiers, looking for the one that either has the most complete set of prints, or the most suspicious items handled. </li>
-			<li>If you have 80% or more of the print (The print is displayed) go to step 10, otherwise continue to step 8.</li>
-			<li>Look for clues from the suit fibres you found on your perp, and go about looking for more evidence with this new information, scanning as you go. </li>
-			<li>Try to get a fingerprint card of your perp, as if used in the computer, the prints will be completed on their dossier.</li>
-			<li>Assuming you have enough of a print to see it, grab the biggest complete piece of the print and search the security records for it. </li>
-			<li>Since you now have both your dossier and the name of the person, print both out as evidence, and get security to nab your baddie.</li>
-			<li>Give yourself a pat on the back and a bottle of the ships finest vodka, you did it!. </li>
-			</ol>
-			<p>
-			It really is that easy! Good luck!
-
-			</body>
-			</html>"}
-
+//*    NON-STATION Manuals    *//
+//These are manuals that should not be available on-station through spawners or the library AT ALL
 /obj/item/book/manual/nuclear
 	name = "Fission Mailed: Nuclear Sabotage 101"
+	desc = "A blood-spattered book filled with block text, educating the reader on how to detonate nuclear bombs."
 	icon_state ="bookNuclear"
 	author = "Syndicate"
+	protected = TRUE
 	title = "Fission Mailed: Nuclear Sabotage 101"
-	dat = {"<html>
+	pages = list({"<html>
 			Nuclear Explosives 101:<br>
 			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
 			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
@@ -1018,391 +669,229 @@
 			<b>Disk, Code, Safety, Timer, Disk, RUN!</b><br>
 			Intelligence Analysts believe that normal Nanotrasen procedure is for the Captain to secure the nuclear authorisation disk.<br>
 			Good luck!
-			</html>"}
+			</html>"})
 
-/obj/item/book/manual/atmospipes
-	name = "Pipes and You: Getting To Know Your Scary Tools"
-	icon_state = "pipingbook"
-	author = "Maria Crash, Senior Atmospherics Technician"
-	title = "Pipes and You: Getting To Know Your Scary Tools"
-	dat = {"<html>
+/obj/item/book/manual/hydroponics_pod_people
+	name = "The Human Harvest - From seed to market"
+	desc = "Blurry pictures of people coming out of pods are taped to the cover."
+	icon_state ="bookHydroponicsPodPeople"
+	author = "Farmer John"
+	title = "The Human Harvest - From seed to market"
+	pages = list({"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h1 {font-size: 15px; margin: 15px 0px 5px;}
+				h2 {font-size: 15px; margin: 15px 0px 5px;}
 				li {margin: 2px 0px 2px 15px;}
 				ul {list-style: none; margin: 5px; padding: 0px;}
 				ol {margin: 5px; padding: 0px 15px;}
 				</style>
 				</head>
 				<body>
-				<font face="Verdana" color=black>
+				<h3>Growing Humans</h3>
 
-				<h1><a name="Contents">Contents</a></h1>
+				Why would you want to grow humans? Well I'm expecting most readers to be in the slave trade, but a few might actually
+				want to revive fallen comrades. Growing pod people is easy, but prone to disaster.
+				<p>
 				<ol>
-					<li><a href="#Forward">Author's Forward</a></li>
-					<li><a href="#Basic">Basic Piping</a></li>
-					<li><a href="#Insulated">Insulated Pipes</a></li>
-					<li><a href="#Devices">Atmospherics Devices</a></li>
-					<li><a href="#HES">Heat Exchange Systems</a></li>
-					<li><a href="#Final">Final Checks</a></li>
+				<li>Find a dead person who is in need of cloning. </li>
+				<li>Take a blood sample with a syringe. </li>
+				<li>Inject a seed pack with the blood sample. </li>
+				<li>Plant the seeds. </li>
+				<li>Tend to the plants water and nutrition levels until it is time to harvest the cloned human.</li>
 				</ol>
-				<br><BR>
-
-				<h1><a name="Forward"><U><B>HOW TO NOT SUCK QUITE SO HARD AT ATMOSPHERICS</B></U></a></h1><BR>
-				<I>Or: What the fuck does a "passive gate" do?</I><BR><BR>
-
-				Alright. It has come to my attention that a variety of people are unsure of what a "pipe" is and what it does.
-				Apparently there is an unnatural fear of these arcane devices and their "gases". Spooky, spooky. So,
-				this will tell you what every device constructable by an ordinary pipe dispenser within atmospherics actually does.
-				You are not going to learn what to do with them to be the super best person ever, or how to play guitar with passive gates,
-				or something like that. Just what stuff does.<BR><BR>
-
-
-				<h1><a name="Basic"><B>Basic Pipes</B></a></h1><BR>
-				<I>The boring ones.</I><BR>
-				TMost ordinary pipes are pretty straightforward. They hold gas. If gas is moving in a direction for some reason, gas will flow in that direction.
-				That's about it. Even so, here's all of your wonderful pipe options.<BR>
-
-				<li><I>Straight pipes:</I> They're pipes. One-meter sections. Straight line. Pretty simple. Just about every pipe and device is based around this
-				standard one-meter size, so most things will take up as much space as one of these.</li>
-				<li><I>Bent pipes:</I> Pipes with a 90 degree bend at the half-meter mark. My goodness.</li>
-				<li><I>Pipe manifolds:</I> Pipes that are essentially a "T" shape, allowing you to connect three things at one point.</li>
-				<li><I>4-way manifold:</I> A four-way junction.</li>
-				<li><I>Pipe cap:</I> Caps off the end of a pipe. Open ends don't actually vent air, because of the way the pipes are assembled, so, uh. Use them to decorate your house or something.</li>
-				<li><I>Manual Valve:</I> A valve that will block off airflow when turned. Can't be used by the AI or cyborgs, because they don't have hands.</li>
-				<li><I>Manual T-Valve:</I> Like a manual valve, but at the center of a manifold instead of a straight pipe.</li><BR><BR>
-
-				<h1><a name="Insulated"><B>Insulated Pipes</B></a></h1><BR>
-				<I>Special Public Service Announcement.</I><BR>
-				Our regular pipes are already insulated. These are completely worthless. Punch anyone who uses them.<BR><BR>
-
-				<h1><a name="Devices"><B>Devices: </B></a></h1><BR>
-				<I>They actually do something.</I><BR>
-				This is usually where people get frightened, </font><font face="Verdana" color=black>afraid, and start calling on their gods and/or cowering in fear. Yes, I can see you doing that right now.
-				Stop it. It's unbecoming. Most of these are fairly straightforward.<BR>
-
-				<li><I>Gas Pump:</I> Take a wild guess. It moves gas in the direction it's pointing (marked by the red line on one end). It moves it based on pressure, the maximum output being 4500 kPa (kilopascals).
-				Ordinary atmospheric pressure, for comparison, is 101.3 kPa, and the minimum pressure of room-temperature pure oxygen needed to not suffocate in a matter of minutes is 16 kPa
-				(though 18 is preferred using internals, for various reasons).</li>
-				<li><I>Volume pump:</I> This pump goes based on volume, instead of pressure, and the possible maximum pressure it can create in the pipe on the recieving end is double the gas pump because of this,
-				clocking in at an incredible 9000 kPa. If a pipe with this is destroyed or damaged, and this pressure of gas escapes, it can be incredibly dangerous depending on the size of the pipe filled.
-				Don't hook this to the distribution loop, or you will make babies cry and the Chief Engineer brutally beat you.</li>
-				<li><I>Passive gate:</I> This is essentially a cap on the pressure of gas allowed to flow in a specific direction.
-				When turned on, instead of actively pumping gas, it measures the pressure flowing through it, and whatever pressure you set is the maximum: it'll cap after that.
-				In addition, it only lets gas flow one way. The direction the gas flows is opposite the red handle on it, which is confusing to people used to the red stripe on pumps pointing the way.</li>
-				<li><I>Unary vent:</I> The basic vent used in rooms. It pumps gas into the room, but can't suck it back out. Controlled by the room's air alarm system.</li>
-				<li><I>Scrubber:</I> The other half of room equipment. Filters air, and can suck it in entirely in what's called a "panic siphon". Actvating a panic siphon without very good reason will kill someone. Don't do it.</li>
-				<li><I>Meter:</I> A little box with some gagues and numbers. Fasten it to any pipe or manifold, and it'll read you the pressure in it. Very useful.</li>
-				<li><I>Gas mixer:</I> Two sides are input, one side is output. Mixes the gases pumped into it at the ratio defined. The side perpendicular to the other two is "node 2", for reference.
-				Can output this gas at pressures from 0-4500 kPa.</li>
-				<li><I>Gas filter:</I> Essentially the opposite of a gas mixer. One side is input. The other two sides are output. One gas type will be filtered into the perpendicular output pipe,
-				the rest will continue out the other side. Can also output from 0-4500 kPa.</li>
-
-				<h1><a name="HES"><B>Heat Exchange Systems</B></a></h1><BR>
-				<I>Will not set you on fire.</I><BR>
-				These systems are used to transfer heat only between two pipes. They will not move gases or any other element, but will equalize the temperature (eventually). Note that because of how gases work (remember: pv=nRt),
-				a higher temperature will raise pressure, and a lower one will lower temperature.<BR>
-
-				<li><I>Pipe:</I> This is a pipe that will exchange heat with the surrounding atmosphere. Place in fire for superheating. Place in space for supercooling.</li>
-				<li><I>Bent Pipe:</I> Take a wild guess.</li>
-				<li><I>Junction:</I><I>Junction:</I>The point where you connect your normal pipes to heat exchange pipes. Not necessary for heat exchangers, but necessary for H/E pipes/bent pipes.</li>
-				<li><I>Heat Exchanger:</I> These funky-looking bits attach to an open pipe end. Put another heat exchanger directly across from it, and you can transfer heat across two pipes without having to have the gases touch.
-				This normally shouldn't exchange with the ambient air, despite being totally exposed. Just don't ask questions...</li><BR>
-
-
-				That's about it for pipes. Go forth, armed with this knowledge, and try not to break, burn down, or kill anything. Please.</font>
+				<p>
+				It really is that easy! Good luck!
 
 				</body>
 				</html>
-			"}
+				"})
 
-/obj/item/book/manual/evaguide
-	name = "EVA Gear and You: Not Spending All Day Inside"
-	icon_state = "evabook"
-	author = "Maria Crash, Senior Atmospherics Technician"
-	title = "EVA Gear and You: Not Spending All Day Inside"
-	dat = {"<html>
-				<head>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h1 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-				<font face="Verdana" color=black>
+/**
+  * # Wiki Page Based Book Manuals
+  *
+  * These are programmatic books that source its pages / "content" straight from the wiki
+  * That means that this content can **ONLY** be changed by editing the wiki
+  * Space Law and SOP Manuals can only be edited by Wiki Admins
+  *
+  * These are automated well enough that as long as the link to the wiki is set correctly in the config and the article name is correct
+  * these will display (mostly) CSS stripped wiki pages in them.
+  */
 
-				<h1><a name="Contents">Contents</a></h1>
-				<ol>
-					<li><a href="#Forward">A forward on using EVA gear</a></li>
-					<li><a href="#Civilian">Donning a Civilian Suits</a></li>
-					<li><a href="#Hardsuit">Putting on a Hardsuit</a></li>
-					<li><a href="#Final">Final Checks</a></li>
-				</ol>
-				<br><BR>
+/obj/item/book/manual/wiki
+	name = "Wiki Book Manual"
+	desc = "This REALLY shouldn't exist in-game, please contact a coder"
+	copyright = TRUE
+	protected = TRUE //We absolutely do not want players editing these books, it might fuck up the iframes in them :)
+	pages = null //we don't want people opening this book until it fully initializes
+	//Wiki Iframes need a decent bit of room, this will be enough to make the readable without having to expand the window immediately
+	book_height = 800
+	book_width = 800
+	///The Article title of the wiki page being opened in the <iframe>, must use underscores '_' and not whitespace for spaces in title
+	var/wiki_article_title = "Space_Law"
 
-				<h1><a name="Forward">EVA Gear and You: Not Spending All Day Inside</a></h1><BR>
-				<I>Or: How not to suffocate because there's a hole in your shoes</I><BR><BR>
+/obj/item/book/manual/wiki/Initialize()
+	. = ..()
+	pages = list({"
+		<html><head></head><body bgcolor='[book_bgcolor]'>
+		<iframe width='100%' height='97%' src="[GLOB.configuration.url.wiki_url]/index.php/[wiki_article_title]?action=render" frameborder="0" id="main_frame"></iframe>
+		</body></html>"})
 
-				EVA gear. Wonderful to use. It's useful for mining, engineering, and occasionally just surviving, if things are that bad. Most people have EVA training,
-				but apparently there are some on a space station who don't. This guide should give you a basic idea of how to use this gear, safely. It's split into two sections:
-				 Civilian suits and hardsuits.<BR><BR>
+//*    MISCELANIOUS WIKI PAGE MANUALS    *//
+/obj/item/book/manual/wiki/hacking
+	name = "Hacking"
+	desc = "H4ck3r's H3lp3r: How to rewire almost anything."
+	icon_state ="bookHacking"
+	author = "Greytider Supreme"
+	title = "Hacking"
+	wiki_article_title = "Hacking"
 
-				<h1><a name="Civilian">Civilian Suits</a></h1><BR>
-				<I>The bulkiest things this side of Alpha Centauri</I><BR>
-				These suits are the grey ones that are stored in EVA. They're the more simple to get on, but are also a lot bulkier, and provide less protection from environmental hazards such as radiaion or physical impact.
-				As Medical, Engineering, Security, and Mining all have hardsuits of their own, these don't see much use, but knowing how to put them on is quite useful anyways.<BR><BR>
+/obj/item/book/manual/wiki/engineering_guide
+	name = "Engineering Textbook"
+	desc = "A wrenches' guide to build simple structures."
+	icon_state ="bookEngineering2"
+	author = "Engineering Encyclopedia"
+	title = "Engineering Textbook"
+	wiki_article_title = "Guide_to_Engineering"
 
-				First, take the suit. It should be in three pieces: A top, a bottom, </font><font face="Verdana" color=black>and a helmet. Put the bottom on first, shoes and the like will fit in it. If you have magnetic boots, however,
-				put them on on top of the suit's feet. Next, get the top on, as you would a shirt. It can be somewhat awkward putting these pieces on, due to the makeup of the suit,
-				but to an extent they will adjust to you. You can then find the snaps and seals around the waist, where the two pieces meet. Fasten these, and double-check their tightness.
-				The red indicators around the waist of the lower half will turn green when this is done correctly. Next, put on whatever breathing apparatus you're using, be it a gas mask or a breath mask. Make sure the oxygen tube is fastened into it.
-				Put on the helmet now, straight forward, and make sure the tube goes into the small opening specifically for internals. Again, fasten seals around the neck, a small indicator light in the inside of the helmet should go from red to off when all is fastened.
-				There is a small slot on the side of the suit where an emergency oxygen tank or</font><font face="Verdana" color=black> extended emergency oxygen tank will fit,
-				but it is reccomended to have a full-sized tank on your back for EVA.<BR><BR>
+//This robotics manual used to take up 400+ lines of code, never again.
+/obj/item/book/manual/wiki/robotics_cyborgs
+	name = "Cyborgs for Dummies"
+	desc = "Precise instructions on how to construct your very own robotic friend."
+	icon_state = "borgbook"
+	author = "XISC"
+	title = "Cyborgs for Dummies"
+	wiki_article_title = "Guide_to_Robotics"
 
-				<h1><a name="Hardsuit">Hardsuits</a></h1><BR>
-				<I>Heavy, uncomfortable, still the best option.</I><BR>
-				These suits come in Engineering, Mining, and the Armory. There's also a couple Medical Hardsuits in EVA. These provide a lot more protection than the standard suits.<BR><BR>
+/obj/item/book/manual/wiki/experimentor
+	name = "Mentoring your Experiments"
+	desc = "A madman's ramblings on how to experiment with the E.X.P.E.R.I-MENTOR."
+	icon_state = "rdbook"
+	author = "Dr. H.P. Kritz"
+	title = "Mentoring your Experiments"
+	wiki_article_title = "Guide_to_the_E.X.P.E.R.I-MENTOR"
 
-				Similarly to the other suits, these are split into three parts. Fastening the pant and top are mostly the same as the other spacesuits, with the exception that these are a bit heavier,
-				though not as bulky. The helmet goes on differently, with the air tube feeing into the suit and out a hole near the left shoulder, while the helmet goes on turned ninety degrees counter-clockwise,
-				and then is screwed in for one and a quarter full rotations clockwise, leaving the faceplate directly in front of you. There is a small button on the right side of the helmet that activates the helmet light.
-				The tanks that fasten onto the side slot are emergency tanks, as</font><font face="Verdana" color=black> well as full-sized oxygen tanks, leaving your back free for a backpack or satchel.<BR><BR>
+/obj/item/book/manual/wiki/chef_recipes
+	name = "Chef Recipes"
+	desc = "Knives, Ovens, and You: A guide to cooking."
+	icon_state = "cook_book"
+	author = "NanoTrasen"
+	title = "Chef Recipes"
+	wiki_article_title = "Guide_to_Food_and_Drinks#Food"
 
-				<h1><a name="Final">FINAL CHECKS:</a></h1><BR>
-				<li>Are all seals fastened correctly?</li>
-				<li>Do you either have shoes on under the suit, or magnetic boots on over it?</li>
-				<li>Do you have a mask on and internals on the suit or your back?</li>
-				<li>Do you have a way to communicate with the station in case something goes wrong?</li>
-				<li>Do you have a second person watching if this is a training session?</li><BR>
+/obj/item/book/manual/wiki/engineering_construction
+	name = "Station Repairs and Construction"
+	desc = "A guide on how to fix things without duct tape."
+	icon_state ="bookEngineering"
+	author = "Engineering Encyclopedia"
+	title = "Station Repairs and Construction"
+	wiki_article_title = "Guide_to_Construction"
 
-				If you don't have any further issues, go out and do whatever is necessary.</font>
-
-				</body>
-				</html>
-			"}
-
-/obj/item/book/manual/faxes
-	name = "A Guide to Faxes"
-	desc = "A Nanotrasen-approved guide to writing faxes"
-	icon_state = "book6"
+/obj/item/book/manual/wiki/faxes
+	name = "Guide to Faxes"
+	desc = "NanoTrasen's own manual on how to write faxes."
+	icon_state ="bookEngineering"
 	author = "Nanotrasen"
-	title = "A Guide to Faxes"
-	dat = {"
+	title = "Faxes and You!"
+	wiki_article_title = "Guide_to_Faxes"
 
-		<html>
-				<head>
-				<style>
-				h1 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-				<font face="Verdana" color=black>
+ //* STANDARD OPERATING PROCEDURE MANUALS *// (and space Law)
 
-				<h1><a name="Contents">Contents</a></h1>
-				<ol>
-					<li><a href="#what">What's a Fax?</a></li>
-					<li><a href="#when">When to Fax?</a></li>
-					<li><a href="#how">How to Fax?</a></li>
-				</ol>
-				<br><BR>
-
-				<h1><a name="what"><U><B>What's a Fax?</B></U></a></h1><BR>
-				<li>Faxes are your main method of communicating with the NAS Trurl, better known as Central Command.</li>
-				<li>Faxes allow personnel on the station to maintain open lines of communication with the NAS Trurl, allowing for vital information to flow both ways.</li>
-				<li>Being written communications, proper grammar, syntax and typography is required, in addition to a signature and, if applicable, a stamp. Failure to sign faxes will lead to an automatic rejection.</li>
-				<li>We at Nanotrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, Nanotrasen Representative, and Internal Affairs Agents.</li>
-				<li>This means that we trust the recipients of these fax machines to only use them in the proper circumstances (see <B>When to Fax?</B>).</li>
-
-				<h1><a name="when"><B>When to Fax?</B></a></h1><BR>
-				<li>While it is up to the discretion of each individual person to decide when to fax Central Command, there are some simple guidelines on when to do this.</li>
-				<li>Firstly, any situation that can reasonably be solved on-site, <I>should</I> be handled on-site. Knowledge of Standard Operating Procedure is <B>mandatory</B> for everyone with access to a fax machine.</li>
-				<li>Resolving issues on-site not only leads to more expedient problem-solving, it also frees up company resources and provides valuable work experience for all parties involved.</li>
-				<li>This means that you should work with the Heads of Staff concerning personnel and workplace issues, and attempt to resolve situations with them. If, for whatever reason, the relevent Head of Staff is not available or receptive, consider speaking with the Captain and/or Nanotrasen Representative.</li>
-				<li>If, for whatever reason, these issues cannot be solved on-site, either due to incompetence or just plain refusal to cooperate, faxing Central Command becomes a viable option.</li>
-				<li>Secondly, station status reports should be sent occasionally, but never at the start of the shift. Remember, we assign personnel to the station. We do not need a repeat of what we just signed off on.</li>
-				<li>Thirdly, staff/departmental evaluations are always welcome, especially in cases of noticeable (in)competence. Just as a brilliant coworker can be rewarded, an incompetent one can be punished.</li>
-				<li>Fourthly, do not issue faxes asking for sentences. You have an entire Security department and an associated Detective, not to mention on-site Space Law manuals.</li>
-				<li>Lastly, please pay attention to context. If the station is facing a massive emergency, such as a Class 7-10 Blob Organism, most, if not all, non-relevant faxes will be duly ignored.</li>
-
-				<h1><a name="how"><B>How to Fax?</B></a></h1><BR>
-				<li>Sending a fax is simple. Simply insert your ID into the fax machine, then log in.</li>
-				<li>Once logged in, insert a piece of paper and select the destination from the provided list. Remember, you can rename your fax from within the fax machine's menu.</li>
-				<li>You can send faxes to any other fax machine on the station, which can be a very useful tool when you need to issue broad communications to all of the Heads of Staff.</li>
-				<li>To send a fax to Central Command, simply select the correct destination, and send the fax. Keep in mind, the communication arrays need to recharge after sending a fax to Central Command, so make sure you sent everything you need.</li>
-				<li>Lastly, paper bundles can also be faxed as a single item, so feel free to bundle up all relevant documentation and send it in at once.</li>
-
-				</ol><BR>
-				</body>
-				</html>
-
-		"}
-
-/obj/item/book/manual/sop_science
-	name = "Science Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all scientific activities."
-	icon_state = "sop_science"
+/obj/item/book/manual/wiki/security_space_law
+	name = "Space Law"
+	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
+	icon_state = "bookSpaceLaw"
+	force = 4 //advanced magistrate tactics
 	author = "Nanotrasen"
-	title = "Science Standard Operating Procedures"
-	dat = {"
+	title = "Space Law"
+	wiki_article_title = "Space_law"
 
-		<html><head>
-		</head>
+/obj/item/book/manual/wiki/security_space_law/black
+	name = "Space Law - Limited Edition"
+	desc = "A leather-bound, immaculately-written copy of JUSTICE."
+	icon_state = "bookSpaceLawblack"
+	title = "Space Law - Limited Edition"
 
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Science)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/sop_medical
-	name = "Medical Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all medical activities."
-	icon_state = "sop_medical"
-	author = "Nanotrasen"
-	title = "Medical Standard Operating Procedures"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Medical)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/sop_engineering
-	name = "Engineering Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all engineering activities."
-	icon_state = "sop_engineering"
-	author = "Nanotrasen"
-	title = "Engineering Standard Operating Procedures"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Engineering)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/sop_service
-	name = "Service Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all service activities."
-	icon_state = "sop_service"
-	author = "Nanotrasen"
-	title = "Service Standard Operating Procedures"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Service)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/sop_supply
-	name = "Supply Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all supply activities."
-	icon_state = "sop_cargo"
-	author = "Nanotrasen"
-	title = "Supply Standard Operating Procedures"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Supply)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/sop_security
-	name = "Security Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all security activities."
-	icon_state = "sop_security"
-	author = "Nanotrasen"
-	title = "Security Standard Operating Procedures"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Security)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/sop_legal
-	name = "Legal Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all legal activities."
-	icon_state = "sop_legal"
-	author = "Nanotrasen"
-	title = "Legal Standard Operating Procedures"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Legal_Standard_Operating_Procedure&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/sop_general
-	name = "Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all station activities."
-	icon_state = "sop"
-	author = "Nanotrasen"
-	title = "Standard Operating Procedures"
-	dat = {"
-
-		<html><head>
-		</head>
-
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
-
-		</html>
-
-		"}
-
-/obj/item/book/manual/sop_command
+/obj/item/book/manual/wiki/sop_command
 	name = "Command Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all Command activities."
 	icon_state = "sop_command"
 	author = "Nanotrasen"
 	title = "Command Standard Operating Procedures"
-	dat = {"
+	wiki_article_title = "Standard_Operating_Procedure_(Command)"
 
-		<html><head>
-		</head>
+/obj/item/book/manual/wiki/sop_general
+	name = "Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all station activities."
+	icon_state = "sop"
+	author = "Nanotrasen"
+	title = "Standard Operating Procedures"
+	wiki_article_title = "Standard_Operating_Procedure"
 
-		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Command)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+/obj/item/book/manual/wiki/sop_legal
+	name = "Legal Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all legal activities."
+	icon_state = "sop_legal"
+	author = "Nanotrasen"
+	title = "Legal Standard Operating Procedures"
+	wiki_article_title = "Legal_Standard_Operating_Procedure"
 
-		</html>
+/obj/item/book/manual/wiki/sop_supply
+	name = "Supply Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all supply activities."
+	icon_state = "sop_cargo"
+	author = "Nanotrasen"
+	title = "Supply Standard Operating Procedures"
+	wiki_article_title = "Standard_Operating_Procedure_(Supply)"
 
-		"}
+/obj/item/book/manual/wiki/sop_security
+	name = "Security Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all security activities."
+	icon_state = "sop_security"
+	author = "Nanotrasen"
+	title = "Security Standard Operating Procedures"
+	wiki_article_title = "Standard_Operating_Procedure_(Security)"
+
+/obj/item/book/manual/wiki/sop_service
+	name = "Service Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all service activities."
+	icon_state = "sop_service"
+	author = "Nanotrasen"
+	title = "Service Standard Operating Procedures"
+	wiki_article_title = "Standard_Operating_Procedure_(Service)"
+
+/obj/item/book/manual/wiki/sop_engineering
+	name = "Engineering Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all engineering activities."
+	icon_state = "sop_engineering"
+	author = "Nanotrasen"
+	title = "Engineering Standard Operating Procedures"
+	wiki_article_title = "Standard_Operating_Procedure_(Engineering)"
+
+/obj/item/book/manual/wiki/sop_medical
+	name = "Medical Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all medical activities."
+	icon_state = "sop_medical"
+	author = "Nanotrasen"
+	title = "Medical Standard Operating Procedures"
+	wiki_article_title = "Standard_Operating_Procedure_(Medical)"
+
+/obj/item/book/manual/wiki/sop_science
+	name = "Science Standard Operating Procedures"
+	desc = "A set of guidelines aiming at the safe conduct of all scientific activities."
+	icon_state = "sop_science"
+	author = "Nanotrasen"
+	title = "Science Standard Operating Procedures"
+	wiki_article_title = "Standard_Operating_Procedure_(Science)"
+
+ //* MANUAL SPAWNERS *// (and space Law)
+
+/obj/item/book/manual/random
+	icon_state = "random_book"
+	var/static/list/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear, /obj/item/book/manual/wiki)
+
+/obj/item/book/manual/random/Initialize()
+	..()
+	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
+	new newtype(loc)
+	return INITIALIZE_HINT_QDEL

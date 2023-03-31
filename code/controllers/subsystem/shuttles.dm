@@ -1,51 +1,35 @@
 #define CALL_SHUTTLE_REASON_LENGTH 12
-
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
 	wait = 10
 	init_order = INIT_ORDER_SHUTTLE
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
-	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
+	offline_implications = "Shuttles will no longer function. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
 
-		//emergency shuttle stuff
+	//emergency shuttle stuff
 	var/obj/docking_port/mobile/emergency/emergency
 	var/obj/docking_port/mobile/emergency/backup/backup_shuttle
-	var/emergencyCallTime = 6000	//time taken for emergency shuttle to reach the station when called (in deciseconds)
-	var/emergencyDockTime = 1800	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
-	var/emergencyEscapeTime = 1200	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
+	var/emergencyCallTime = SHUTTLE_CALLTIME	//time taken for emergency shuttle to reach the station when called (in deciseconds)
+	var/emergencyDockTime = SHUTTLE_DOCKTIME	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
+	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 
-		//supply shuttle stuff
+	//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
-	var/ordernum = 1					//order number given to next order
-	var/points = 50						//number of trade-points we have
-	var/points_per_decisecond = 0.005	//points gained every decisecond
-	var/points_per_slip = 2				//points gained per slip returned
-	var/points_per_crate = 5			//points gained per crate returned
-	var/points_per_intel = 250			//points gained per intel returned
-	var/points_per_plasma = 5			//points gained per plasma returned
-	var/points_per_design = 25			//points gained per research design returned
-	var/centcom_message = ""			//Remarks from Centcom on how well you checked the last order.
-	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentComm, associated with their potencies
-	var/list/techLevels = list()
-	var/list/researchDesigns = list()
-	var/list/shoppinglist = list()
-	var/list/requestlist = list()
-	var/list/supply_packs = list()
-	var/datum/round_event/shuttle_loan/shuttle_loan
-	var/sold_atoms = ""
+
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
+	/// Default refuel delay
+	var/refuel_delay = 20 MINUTES
 
-/datum/controller/subsystem/shuttle/Initialize(start_timeofday)
-	ordernum = rand(1,9000)
-
+/datum/controller/subsystem/shuttle/Initialize()
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
 	if(!backup_shuttle)
@@ -54,17 +38,10 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
 
 	initial_load()
-
-	for(var/typepath in subtypesof(/datum/supply_packs))
-		var/datum/supply_packs/P = new typepath()
-		if(P.name == "HEADER") continue		// To filter out group headers
-		supply_packs["[P.type]"] = P
 	initial_move()
 
-	return ..()
-
-/datum/controller/subsystem/shuttle/stat_entry(msg)
-	..("M:[mobile.len] S:[stationary.len] T:[transit.len]")
+/datum/controller/subsystem/shuttle/get_stat_details()
+	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)
@@ -72,7 +49,6 @@ SUBSYSTEM_DEF(shuttle)
 		CHECK_TICK
 
 /datum/controller/subsystem/shuttle/fire(resumed = FALSE)
-	points += points_per_decisecond * wait
 	for(var/thing in mobile)
 		if(thing)
 			var/obj/docking_port/mobile/P = thing
@@ -93,6 +69,11 @@ SUBSYSTEM_DEF(shuttle)
 			return S
 	WARNING("couldn't find dock with id: [id]")
 
+/datum/controller/subsystem/shuttle/proc/secondsToRefuel()
+	var/elapsed = world.time - SSticker.round_start_time
+	var/remaining = round((refuel_delay - elapsed) / 10)
+	return remaining > 0 ? remaining : 0
+
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
@@ -107,8 +88,8 @@ SUBSYSTEM_DEF(shuttle)
 			return
 		emergency = backup_shuttle
 
-	if(world.time - SSticker.round_start_time < config.shuttle_refuel_delay)
-		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
+	if(secondsToRefuel())
+		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - refuel_delay)/600))] minutes before trying again.")
 		return
 
 	switch(emergency.mode)
@@ -128,10 +109,8 @@ SUBSYSTEM_DEF(shuttle)
 			to_chat(user, "The emergency shuttle has been disabled by Centcom.")
 			return
 
-	call_reason = trim(html_encode(call_reason))
-
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
-		to_chat(user, "You must provide a reason.")
+		to_chat(user, "Reason is too short. [CALL_SHUTTLE_REASON_LENGTH] character minimum.")
 		return
 
 	var/area/signal_origin = get_area(user)
@@ -170,8 +149,6 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	if(!emergency.canRecall)
 		return
-	if(SSticker.mode.name == "meteor")
-		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)
 			return
@@ -184,7 +161,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/callShuttle = 1
 
 	for(var/thing in GLOB.shuttle_caller_list)
-		if(istype(thing, /mob/living/silicon/ai))
+		if(isAI(thing))
 			var/mob/living/silicon/ai/AI = thing
 			if(AI.stat || !AI.client)
 				continue
@@ -192,7 +169,7 @@ SUBSYSTEM_DEF(shuttle)
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
-		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/circuitboard/communications))
+		else if(istype(thing, /obj/item/circuitboard/communications))
 			continue
 
 		var/turf/T = get_turf(thing)
@@ -227,6 +204,12 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
+	//check if the shuttle is on lockdown
+	if(M.lockeddown)
+		return 3
+	if(M.uses_lockdown)
+		M.lockeddown = TRUE
+		addtimer(VARSET_CALLBACK(M, lockeddown, FALSE), 15 SECONDS)
 	if(!M)
 		return 1
 	M.last_caller = user // Save the caller of the shuttle for later logging
@@ -243,25 +226,6 @@ SUBSYSTEM_DEF(shuttle)
 		if(!M.roundstart_move)
 			continue
 		M.dockRoundstart()
-
-/datum/controller/subsystem/shuttle/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
-	if(!packId)
-		return
-	var/datum/supply_packs/P = supply_packs["[packId]"]
-	if(!P)
-		return
-
-	var/datum/supply_order/O = new()
-	O.ordernum = ordernum++
-	O.object = P
-	O.orderedby = _orderedby
-	O.orderedbyRank = _orderedbyRank
-	O.comment = _comment
-	O.crates = _crates
-
-	requestlist += O
-
-	return O
 
 /datum/controller/subsystem/shuttle/proc/get_dock_overlap(x0, y0, x1, y1, z)
 	. = list()
@@ -311,6 +275,6 @@ SUBSYSTEM_DEF(shuttle)
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/C = V
 		C.update_hidden_docking_ports(remove_images, add_images)
 
-	QDEL_LIST(remove_images)
+	QDEL_LIST_CONTENTS(remove_images)
 
 #undef CALL_SHUTTLE_REASON_LENGTH

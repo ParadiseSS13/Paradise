@@ -23,6 +23,7 @@
 						<A href='?src=[UID()];secretsadmin=showgm'>Show Game Mode</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsadmin=manifest'>Show Crew Manifest</A><br>
 						<A href='?src=[UID()];secretsadmin=check_antagonist'>Show current traitors and objectives</A><BR>
+						<A href='?src=[UID()];secretsadmin=view_codewords'>Show code phrases and responses</A><BR>
 						<a href='?src=[UID()];secretsadmin=night_shift_set'>Set Night Shift Mode</a><br>
 						<B>Bombs</b><br>
 						[check_rights(R_SERVER, 0) ? "&nbsp;&nbsp;<A href='?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</A><br>" : "<br>"]
@@ -68,8 +69,7 @@
 					<b>Teams</b><br>
 					<A href='?src=[UID()];secretsfun=infiltrators_syndicate'>Send SIT - Syndicate Infiltration Team</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=striketeam_syndicate'>Send in a Syndie Strike Team</A>&nbsp;&nbsp;
-					<BR><A href='?src=[UID()];secretsfun=striketeam'>Send in the Deathsquad</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=honksquad'>Send in a HONKsquad</A><BR>
+					<BR><A href='?src=[UID()];secretsfun=deathsquad'>Send in the Deathsquad</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=gimmickteam'>Send in a Gimmick Team</A><BR>
 					<b>Change Security Level</b><BR>
 					<A href='?src=[UID()];secretsfun=securitylevel0'>Security Level - Green</A>&nbsp;&nbsp;
@@ -80,6 +80,9 @@
 					<A href='?src=[UID()];secretsfun=securitylevel5'>Security Level - Delta</A><BR>
 					<b>Create Weather</b><BR>
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
+					<BR>
+					<b>Reinforce Station</b><BR>
+					<A href='?src=[UID()];secretsfun=gammashuttle'>Move the Gamma Armory</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
 

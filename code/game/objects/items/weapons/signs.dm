@@ -13,7 +13,7 @@
 	var/label = ""
 
 /obj/item/picket_sign/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
+	if(is_pen(W) || istype(W, /obj/item/toy/crayon))
 		var/txt = stripped_input(user, "What would you like to write on the sign?", "Sign Label", null , 30)
 		if(txt)
 			label = txt
@@ -38,7 +38,7 @@
 
 /datum/crafting_recipe/picket_sign
 	name = "Picket Sign"
-	result = /obj/item/picket_sign
+	result = list(/obj/item/picket_sign)
 	reqs = list(/obj/item/stack/rods = 1,
 				/obj/item/stack/sheet/cardboard = 2)
 	time = 80

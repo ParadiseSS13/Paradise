@@ -4,7 +4,7 @@
 	icon_state = "wizard"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
 	permeability_coefficient = 0.01
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	//Not given any special protective value since the magic robes are full-body protection --NEO
 	strip_delay = 50
@@ -22,7 +22,7 @@
 	name = "black wizard hat"
 	desc = "Strange-looking black hat-wear that most certainly belongs to a real skeleton. Spooky."
 	icon_state = "blackwizard"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/black_wizard
 
 /obj/item/clothing/head/wizard/clown
 	name = "purple wizard hat"
@@ -38,9 +38,9 @@
 	item_state = "wizhatmime"
 	dog_fashion = null
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
 /obj/item/clothing/head/wizard/fake
@@ -49,23 +49,30 @@
 	icon_state = "wizard-fake"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	magical = FALSE
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
+
 
 /obj/item/clothing/head/wizard/marisa
-	name = "Witch Hat"
+	name = "witch hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/wizard/marisa
 
 /obj/item/clothing/head/wizard/magus
-	name = "Magus Helm"
+	name = "magus helm"
 	desc = "A mysterious helmet that hums with an unearthly power"
 	icon_state = "magus"
 	item_state = "magus"
-	dog_fashion = null
+	dog_fashion = /datum/dog_fashion/head/wizard/magus
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
@@ -81,7 +88,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	allowed = list(/obj/item/teleportation_scroll)
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
@@ -113,25 +120,25 @@
 	icon_state = "wizzmime"
 	item_state = "wizzmime"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 
 /obj/item/clothing/suit/wizrobe/marisa
-	name = "Witch Robe"
+	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
 	item_state = "marisarobe"
 
 /obj/item/clothing/suit/wizrobe/magusblue
-	name = "Magus Robe"
+	name = "magus robe"
 	desc = "A set of armoured robes that seem to radiate a dark power"
 	icon_state = "magusblue"
 	item_state = "magusblue"
 
 /obj/item/clothing/suit/wizrobe/magusred
-	name = "Magus Robe"
+	name = "magus robe"
 	desc = "A set of armoured robes that seem to radiate a dark power"
 	icon_state = "magusred"
 	item_state = "magusred"
@@ -149,35 +156,35 @@
 	item_state = "wizrobe"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
 /obj/item/clothing/head/wizard/marisa/fake
-	name = "Witch Hat"
+	name = "witch hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
-	name = "Witch Robe"
+	name = "witch robe"
 	desc = "Magic is all about the spell power, ZE!"
 	icon_state = "marisa"
 	item_state = "marisarobe"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	resistance_flags = FLAMMABLE
 	magical = FALSE
 
 //Shielded Armour
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard
-	name = "battlemage armour"
+	name = "battlemage armor"
 	desc = "Not all wizards are afraid of getting up close and personal. Not spaceproof despite its appearance."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
@@ -189,7 +196,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
-	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	slowdown = 0
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
@@ -211,7 +218,7 @@
 	item_color = "wiz"
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
+	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
 	actions_types = list() //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE

@@ -6,8 +6,10 @@
 	var/list/steps
 	var/atom/holder
 	var/result
+	var/index
 	var/list/steps_desc
-	var/taskpath = null // Path of job objective completed.
+	///Path of job objective completed.
+	var/taskpath
 
 /datum/construction/New(atom)
 	..()
@@ -47,7 +49,7 @@
 /datum/construction/proc/custom_action(step, used_atom, user)
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
-		if(C.amount<4)
+		if(C.get_amount() < 4)
 			to_chat(user, ("<span class='warning'>There's not enough cable to finish the task.</span>"))
 			return 0
 		else
@@ -55,7 +57,7 @@
 			playsound(holder, C.usesound, 50, 1)
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
-		if(S.amount < 5)
+		if(S.get_amount() < 5)
 			to_chat(user, ("<span class='warning'>There's not enough material in this stack.</span>"))
 			return 0
 		else
@@ -79,12 +81,12 @@
 	return 0
 
 
-/datum/construction/proc/spawn_result(mob/user as mob)
+/datum/construction/proc/spawn_result(mob/user, result_name)
 	if(result)
 		if(taskpath)
-			var/datum/job_objective/task = user.mind.findJobTask(taskpath)
+			var/datum/job_objective/task = user.mind.find_job_task(taskpath)
 			if(istype(task))
-				task.unit_completed()
+				task.completed = TRUE
 
 		new result(get_turf(holder))
 		spawn()
@@ -113,7 +115,7 @@
 		// STACKS
 		if(istype(used_atom,/obj/item/stack))
 			var/obj/item/stack/stack=used_atom
-			if(stack.amount < amount)
+			if(stack.get_amount() < amount)
 				to_chat(user, "<span class='warning'>You don't have enough [stack]! You need at least [amount].</span>")
 				return 0
 			stack.use(amount)
@@ -128,7 +130,6 @@
 			return TRUE
 
 /datum/construction/reversible
-	var/index
 
 /datum/construction/reversible/New(atom)
 	..()
@@ -168,7 +169,6 @@
 #define state_prev "prev"
 
 /datum/construction/reversible2
-	var/index
 	var/base_icon = "durand"
 
 /datum/construction/reversible2/New(atom)
@@ -217,7 +217,7 @@
 	text = replacetext(text,"{HOLDER}","[holder]")
 	return text
 
-/datum/construction/reversible2/custom_action(index, diff, used_atom, var/mob/user)
+/datum/construction/reversible2/custom_action(index, diff, used_atom, mob/user)
 	if(!..(index,used_atom,user))
 		return 0
 

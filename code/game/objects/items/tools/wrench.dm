@@ -4,21 +4,24 @@
 	desc = "A wrench with common uses. Can be found in your hand."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "wrench"
+	belt_icon = "wrench"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL=150)
+	materials = list(MAT_METAL = 600)
+	drop_sound = 'sound/items/handling/wrench_drop.ogg'
+	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WRENCH
 
 /obj/item/wrench/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is beating [user.p_themselves()] to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -48,6 +51,7 @@
 	desc = "A simple powered drill with a bolt bit."
 	icon_state = "drill_bolt"
 	item_state = "drill"
+	belt_icon = "hand_drill"
 	usesound = 'sound/items/drill_use.ogg'
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
@@ -76,13 +80,24 @@
 	origin_tech = "materials=1;engineering=1;biotech=3"
 	attack_verb = list("wrenched", "medicaled", "tapped", "jabbed", "whacked")
 
-/obj/item/wrench/medical/suicide_act(mob/user)
+/obj/item/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	// TODO Make them glow with the power of the M E D I C A L W R E N C H
-	// during their ascension
+	// HAVE THEM GLOW WITH THE BRIGHTNESS OF A THOUSAND SUNS
+	user.set_light(10, 25, rgb(255, 252, 82))
+
+	var/previous_color = user.color
+
+	user.color = rgb(255, 252, 82)
+
+	// thank you vi3
+	user.add_filter("sacrifice_glow", 2, list("type" = "outline", "color" = "#55dcfdd2", "size" = 2))
+	var/filter = user.get_filter("sacrifice_glow")
+	// Pulse in and out
+	animate(filter, alpha = 110, time = 3, loop = -1)
+	animate(alpha = 40, time = 6)
 
 	// Stun stops them from wandering off
-	user.Stun(5)
+	user.Stun(10 SECONDS)
 	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
 
 	// Let the sound effect finish playing
@@ -94,6 +109,10 @@
 	for(var/obj/item/W in user)
 		user.unEquip(W)
 
+	for(var/mob/living/M in orange(2, src))
+		// you're close enough, it's pretty fuckin bright
+		M.flash_eyes(1, TRUE, TRUE)
+
 	var/obj/item/wrench/medical/W = new /obj/item/wrench/medical(loc)
 	W.add_fingerprint(user)
 	W.desc += " For some reason, it reminds you of [user.name]."
@@ -101,5 +120,8 @@
 	if(!user)
 		return
 
+	user.color = previous_color  // for the sake of their ghost
+
 	user.dust()
+	user.visible_message("<span class='suicide'>[user]'s soul coalesces into a new [W.name]!</span>")
 	return OBLITERATION

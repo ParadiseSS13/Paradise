@@ -21,7 +21,7 @@
 		wormholes += new /obj/effect/portal/wormhole(T, null, null, -1)
 
 /datum/event/wormholes/announce()
-	GLOB.event_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
+	GLOB.minor_announcement.Announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", new_sound = 'sound/AI/spanomalies.ogg')
 
 /datum/event/wormholes/tick()
 	if(activeFor % shift_frequency == 0)
@@ -44,7 +44,7 @@
 /obj/effect/portal/wormhole/can_teleport(atom/movable/M)
 	. = ..()
 
-	if(istype(M, /obj/singularity))
+	if(istype(M, /obj/singularity) || istype(M, /obj/structure/transit_tube_pod))
 		. = FALSE
 
 /obj/effect/portal/wormhole/teleport(atom/movable/M)

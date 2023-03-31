@@ -22,7 +22,6 @@
 //Middle left indicators
 #define ui_lingchemdisplay "WEST:6,CENTER-1:15"
 #define ui_lingstingdisplay "WEST:6,CENTER-3:11"
-#define ui_devilsouldisplay "WEST:6,CENTER-1:15"
 
 //Lower center, persistant menu
 #define ui_sstore1 "CENTER-5:10,SOUTH:5"
@@ -153,21 +152,18 @@
 #define ui_ai_take_picture "SOUTH:6,WEST+12"
 #define ui_ai_view_images "SOUTH:6,WEST+13"
 #define ui_ai_sensor "SOUTH:6,WEST+14"
-#define ui_ai_multicam "SOUTH+1:6,WEST+13"
-#define ui_ai_add_multicam "SOUTH+1:6,WEST+14"
 
 // Bots
 #define ui_bot_radio "EAST-1:28,SOUTH:7"
 #define ui_bot_pull "EAST-2:26,SOUTH:7"
 
 //Ghosts
-#define ui_ghost_jumptomob "SOUTH:6,CENTER-2"
-#define ui_ghost_orbit "SOUTH:6,CENTER-1"
-#define ui_ghost_reenter_corpse "SOUTH:6,CENTER"
-#define ui_ghost_teleport "SOUTH:6,CENTER+1"
-#define ui_ghost_respawn_list "SOUTH:6,CENTER+2"
-#define ui_ghost_respawn_mob "SOUTH:6+1,CENTER+2"
-#define ui_ghost_respawn_pai "SOUTH:6+2,CENTER+2"
+#define ui_ghost_orbit "SOUTH:6,CENTER-1.5"
+#define ui_ghost_reenter_corpse "SOUTH:6,CENTER-.5"
+#define ui_ghost_teleport "SOUTH:6,CENTER+.5"
+#define ui_ghost_respawn_list "SOUTH:6,CENTER+1.5"
+#define ui_ghost_respawn_mob "SOUTH:6+1,CENTER+1.5"
+#define ui_ghost_respawn_pai "SOUTH:6+2,CENTER+1.5"
 
 //HUD styles. Please ensure HUD_VERSIONS is the same as the maximum index. Index order defines how they are cycled in F12.
 #define HUD_STYLE_STANDARD 1
@@ -179,8 +175,3 @@
 //1 = standard hud
 //2 = reduced hud (just hands and intent switcher)
 //3 = no hud (for screenshots)
-
-
-#define HUD_LAYER_SCREEN 20
-
-#define HUD_LAYER_BUILDMODE 30

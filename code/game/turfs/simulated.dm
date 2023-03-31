@@ -1,3 +1,4 @@
+#define WATER_WEAKEN_TIME 4 SECONDS //Weaken time for slipping on water
 /turf/simulated
 	name = "station"
 	var/wet = 0
@@ -14,6 +15,18 @@
 
 /turf/simulated/proc/burn_tile()
 	return
+
+/turf/simulated/cleaning_act(mob/user, atom/cleaner, cleanspeed = 50, text_verb = "clean", text_description = " with [cleaner].", text_targetname = name)
+	if(!..())
+		return
+
+	if(!cleaner.can_clean())
+		return
+
+	clean_blood()
+	for(var/obj/effect/O in src)
+		if(O.is_cleanable())
+			qdel(O)
 
 /turf/simulated/water_act(volume, temperature, source)
 	. = ..()
@@ -59,7 +72,7 @@
 		return
 	if(!time)
 		time =	rand(790, 820)
-	addtimer(CALLBACK(src, .proc/MakeDry, wet_setting), time)
+	addtimer(CALLBACK(src, PROC_REF(MakeDry), wet_setting), time)
 
 /turf/simulated/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)
@@ -73,7 +86,7 @@
 	if(!ignoreRest)
 		if(ishuman(A))
 			var/mob/living/carbon/human/M = A
-			if(M.lying)
+			if(IS_HORIZONTAL(M))
 				return 1
 
 			if(M.flying)
@@ -81,16 +94,16 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
+					if(!(M.slip("the wet floor", WATER_WEAKEN_TIME, tilesSlipped = 0, walkSafely = 1)))
 						M.inertia_dir = 0
 						return
 
 				if(TURF_WET_LUBE) //lube
-					M.slip("the floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
+					M.slip("the floor", 10 SECONDS, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
 
 
 				if(TURF_WET_ICE) // Ice
-					if(M.slip("the icy floor", 4, 2, tilesSlipped = 0, walkSafely = 0))
+					if(M.slip("the icy floor", 8 SECONDS, tilesSlipped = 0, walkSafely = 0))
 						M.inertia_dir = 0
 						if(prob(5))
 							var/obj/item/organ/external/affected = M.get_organ("head")
@@ -100,10 +113,12 @@
 								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
 
 				if(TURF_WET_PERMAFROST) // Permafrost
-					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
+					M.slip("the frosted floor", 10 SECONDS, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 
-/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
+/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
 	. = ..()
-	queue_smooth_neighbors(src)
+	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/simulated/proc/is_shielded()
+
+#undef WATER_WEAKEN_TIME

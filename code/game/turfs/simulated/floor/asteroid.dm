@@ -7,7 +7,10 @@
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
-	footstep_sounds = list()
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
@@ -85,7 +88,7 @@
 
 	else if(istype(I, /obj/item/storage/bag/ore))
 		var/obj/item/storage/bag/ore/S = I
-		if(S.collection_mode == 1)
+		if(S.pickup_all_on_tile)
 			for(var/obj/item/stack/ore/O in contents)
 				O.attackby(I, user)
 				return
@@ -116,6 +119,15 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
+	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/plating/asteroid/ancient
+	digResult = /obj/item/stack/ore/glass/basalt/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
+
+/turf/simulated/floor/plating/asteroid/ancient/airless
 	temperature = TCMB
 	oxygen = 0
 	nitrogen = 0
@@ -153,7 +165,7 @@
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 #define SPAWN_BUBBLEGUM 6
 
-GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = SPAWN_BUBBLEGUM))
+GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = SPAWN_BUBBLEGUM, /mob/living/simple_animal/hostile/megafauna/ancient_robot = 4))
 
 /turf/simulated/floor/plating/asteroid/airless/cave
 	var/length = 100
@@ -172,10 +184,10 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic
-	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 3,
-		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40, /obj/structure/spawner/lavaland = 2,
-		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30, /obj/structure/spawner/lavaland/legion = 3,
-		SPAWN_MEGAFAUNA = 6, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10)
+	mob_spawn_list = list(/obj/effect/landmark/mob_spawner/goliath = 50, /obj/structure/spawner/lavaland/goliath = 3,
+		/obj/effect/landmark/mob_spawner/watcher = 40, /obj/structure/spawner/lavaland = 2,
+		/obj/effect/landmark/mob_spawner/legion = 30, /obj/structure/spawner/lavaland/legion = 3,
+		SPAWN_MEGAFAUNA = 6, /obj/effect/landmark/mob_spawner/goldgrub = 10)
 
 	data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
@@ -289,14 +301,17 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		for(var/thing in urange(12, T)) //prevents mob clumps
 			if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
 				continue
-			if((ispath(randumb, /mob/living/simple_animal/hostile/megafauna) || ismegafauna(thing)) && get_dist(src, thing) <= 7)
+			if((ismegafauna(randumb) || ismegafauna(thing)) && get_dist(T, thing) <= 7)
 				return //if there's a megafauna within standard view don't spawn anything at all
 			if(ispath(randumb, /mob/living/simple_animal/hostile/asteroid) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
 				return //if the random is a standard mob, avoid spawning if there's another one within 12 tiles
-			if((ispath(randumb, /obj/structure/spawner/lavaland) || istype(thing, /obj/structure/spawner/lavaland)) && get_dist(src, thing) <= 2)
+			if((ispath(randumb, /obj/structure/spawner/lavaland) || istype(thing, /obj/structure/spawner/lavaland)) && get_dist(T, thing) <= 2)
 				return //prevents tendrils spawning in each other's collapse range
 
 		if(ispath(randumb, /mob/living/simple_animal/hostile/megafauna/bubblegum)) //there can be only one bubblegum, so don't waste spawns on it
+			megafauna_spawn_list.Remove(randumb)
+
+		if(ispath(randumb, /mob/living/simple_animal/hostile/megafauna/ancient_robot)) //same as above, we do not want multiple of these robots
 			megafauna_spawn_list.Remove(randumb)
 
 		new randumb(T)

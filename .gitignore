@@ -19,7 +19,6 @@ data/
 /_maps/map_files/**/backup/*
 /_maps/map_files/**/*.dmm.backup
 /_maps/quicksave/*
-/nano/debug.html
 **/__pycache__/*
 *.db
 stddef.dm
@@ -37,4 +36,22 @@ stddef.dm
 # ignore midi2piano build cache
 /tools/midi2piano/midi2piano/obj/*
 
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
+# ignore python cache
+.cache
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# pyenv
+.python-version
+
+# Tools some of us like to keep in the repo
+dmm-tools.exe

@@ -1,36 +1,36 @@
 /datum/wires/explosive
 	wire_count = 1
+	proper_name = "Explosive"
+	window_x = 320
+	window_y = 50
 
-#define WIRE_EXPLODE 1
-
-/datum/wires/explosive/GetWireName(index)
-	switch(index)
-		if(WIRE_EXPLODE)
-			return "Explode"
+/datum/wires/explosive/New(atom/_holder)
+	wires = list(WIRE_EXPLODE)
+	return ..()
 
 /datum/wires/explosive/proc/explode()
 	return
 
-/datum/wires/explosive/UpdatePulsed(index)
-	switch(index)
+/datum/wires/explosive/on_pulse(wire)
+	switch(wire)
 		if(WIRE_EXPLODE)
 			explode()
 	..()
 
-/datum/wires/explosive/UpdateCut(index, mended)
-	switch(index)
+/datum/wires/explosive/on_cut(wire, mend)
+	switch(wire)
 		if(WIRE_EXPLODE)
-			if(!mended)
+			if(!mend)
 				explode()
 	..()
 
 /datum/wires/explosive/gibtonite
 	holder_type = /obj/item/twohanded/required/gibtonite
 
-/datum/wires/explosive/gibtonite/CanUse(mob/L)
-	return 1
+/datum/wires/explosive/gibtonite/interactable(mob/user)
+	return TRUE
 
-/datum/wires/explosive/gibtonite/UpdateCut(index, mended)
+/datum/wires/explosive/gibtonite/on_cut(wire, mend)
 	return
 
 /datum/wires/explosive/gibtonite/explode()

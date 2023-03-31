@@ -37,8 +37,8 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/OnExamine)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
 	for(var/mat_type in subtypesof(/datum/material))
@@ -48,6 +48,10 @@
 		if(possible_mats[id])
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
+
+/datum/component/material_container/Destroy(force, silent)
+	QDEL_LIST_ASSOC_VAL(materials)
+	return ..()
 
 /datum/component/material_container/proc/OnExamine(datum/source, mob/user, list/examine_list)
 	if(show_on_examine)
@@ -130,13 +134,13 @@
 
 /datum/component/material_container/proc/insert_stack(obj/item/stack/S, amt, multiplier = 1)
 	if(isnull(amt))
-		amt = S.amount
+		amt = S.get_amount()
 
 	if(amt <= 0)
 		return FALSE
 
-	if(amt > S.amount)
-		amt = S.amount
+	if(amt > S.get_amount())
+		amt = S.get_amount()
 
 	var/material_amt = get_item_material_amount(S)
 	if(!material_amt)
@@ -205,7 +209,7 @@
 			return amt
 	return FALSE
 
-/datum/component/material_container/proc/transer_amt_to(var/datum/component/material_container/T, amt, id)
+/datum/component/material_container/proc/transer_amt_to(datum/component/material_container/T, amt, id)
 	if((amt==0)||(!T)||(!id))
 		return FALSE
 	if(amt<0)
@@ -315,6 +319,8 @@
 /datum/component/material_container/proc/get_item_material_amount(obj/item/I)
 	if(!istype(I))
 		return FALSE
+	if(!I.materials) // some objects have no materials and this will cause runtimes without this check
+		return 0
 	var/material_amount = 0
 	for(var/MAT in materials)
 		material_amount += I.materials[MAT]
@@ -327,69 +333,81 @@
 	var/id = null
 	var/sheet_type = null
 	var/coin_type = null
+	var/ore_type = null
 
 /datum/material/metal
 	name = "Metal"
 	id = MAT_METAL
 	sheet_type = /obj/item/stack/sheet/metal
 	coin_type = /obj/item/coin/iron
+	ore_type = /obj/item/stack/ore/iron
 
 /datum/material/glass
 	name = "Glass"
 	id = MAT_GLASS
 	sheet_type = /obj/item/stack/sheet/glass
+	ore_type = /obj/item/stack/ore/glass
 
 /datum/material/silver
 	name = "Silver"
 	id = MAT_SILVER
 	sheet_type = /obj/item/stack/sheet/mineral/silver
 	coin_type = /obj/item/coin/silver
+	ore_type = /obj/item/stack/ore/silver
 
 /datum/material/gold
 	name = "Gold"
 	id = MAT_GOLD
 	sheet_type = /obj/item/stack/sheet/mineral/gold
 	coin_type = /obj/item/coin/gold
+	ore_type = /obj/item/stack/ore/gold
 
 /datum/material/diamond
 	name = "Diamond"
 	id = MAT_DIAMOND
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	coin_type = /obj/item/coin/diamond
+	ore_type = /obj/item/stack/ore/diamond
 
 /datum/material/uranium
 	name = "Uranium"
 	id = MAT_URANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	coin_type = /obj/item/coin/uranium
+	ore_type = /obj/item/stack/ore/uranium
 
 /datum/material/plasma
 	name = "Solid Plasma"
 	id = MAT_PLASMA
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	coin_type = /obj/item/coin/plasma
+	ore_type = /obj/item/stack/ore/plasma
 
 /datum/material/bluespace
 	name = "Bluespace Mesh"
 	id = MAT_BLUESPACE
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal
+	ore_type = /obj/item/stack/ore/bluespace_crystal
 
 /datum/material/bananium
 	name = "Bananium"
 	id = MAT_BANANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/bananium
 	coin_type = /obj/item/coin/clown
+	ore_type = /obj/item/stack/ore/bananium
 
 /datum/material/tranquillite
 	name = "Tranquillite"
 	id = MAT_TRANQUILLITE
 	sheet_type = /obj/item/stack/sheet/mineral/tranquillite
 	coin_type = /obj/item/coin/mime
+	ore_type = /obj/item/stack/ore/tranquillite
 
 /datum/material/titanium
 	name = "Titanium"
 	id = MAT_TITANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
+	ore_type = /obj/item/stack/ore/titanium
 
 /datum/material/biomass
 	name = "Biomass"

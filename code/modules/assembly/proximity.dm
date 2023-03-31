@@ -5,18 +5,24 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	origin_tech = "magnets=1;engineering=1"
 
-	secured = 0
+	secured = FALSE
 
 	bomb_name = "proximity mine"
 
-	var/scanning = 0
-	var/timing = 0
+	var/scanning = FALSE
+	var/timing = FALSE
 	var/time = 10
 
-/obj/item/assembly/prox_sensor/describe()
+/obj/item/assembly/prox_sensor/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor, _always_active = TRUE)
+
+/obj/item/assembly/prox_sensor/examine(mob/user)
+	. = ..()
 	if(timing)
-		return "<span class='notice'>The proximity sensor is arming.</span>"
-	return "The proximity sensor is [scanning ? "armed" : "disarmed"]."
+		. += "<span class='notice'>The proximity sensor is arming.</span>"
+	else
+		. += "The proximity sensor is [scanning ? "armed" : "disarmed"]."
 
 /obj/item/assembly/prox_sensor/activate()
 	if(!..())
@@ -30,8 +36,8 @@
 	if(secured)
 		START_PROCESSING(SSobj, src)
 	else
-		scanning = 0
-		timing = 0
+		scanning = FALSE
+		timing = FALSE
 		STOP_PROCESSING(SSobj, src)
 	update_icon()
 	return secured
@@ -39,7 +45,7 @@
 /obj/item/assembly/prox_sensor/HasProximity(atom/movable/AM)
 	if(!isobj(AM) && !isliving(AM))
 		return
-	if(istype(AM, /obj/effect))
+	if(iseffect(AM))
 		return
 	if(AM.move_speed < 12)
 		sense()
@@ -50,13 +56,13 @@
 	cooldown = 2
 	pulse(FALSE)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
 /obj/item/assembly/prox_sensor/process()
 	if(timing && (time >= 0))
 		time--
 	if(timing && time <= 0)
-		timing = 0
+		timing = FALSE
 		toggle_scan()
 		time = 10
 
@@ -72,14 +78,14 @@
 	scanning = !scanning
 	update_icon()
 
-/obj/item/assembly/prox_sensor/update_icon()
-	overlays.Cut()
+/obj/item/assembly/prox_sensor/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(timing)
-		overlays += "prox_timing"
+		. += "prox_timing"
 		attached_overlays += "prox_timing"
 	if(scanning)
-		overlays += "prox_scanning"
+		. += "prox_scanning"
 		attached_overlays += "prox_scanning"
 	if(holder)
 		holder.update_icon()
@@ -93,7 +99,7 @@
 
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
+		user.show_message("<span class='warning'>[src] is unsecured!</span>")
 		return FALSE
 	var/second = time % 60
 	var/minute = (time - second) / 60
@@ -108,7 +114,7 @@
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || usr.restrained() || !in_range(loc, usr))
 		usr << browse(null, "window=prox")
 		onclose(usr, "prox")
 		return

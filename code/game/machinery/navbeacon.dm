@@ -8,27 +8,29 @@
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
 	level = 1		// underfloor
-	layer = 2.5
-	anchored = 1
+	layer = WIRE_LAYER
+	plane = FLOOR_PLANE
+	anchored = TRUE
 	max_integrity = 500
 	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
-	var/open = 0		// true if cover is open
-	var/locked = 1		// true if controls are locked
+	var/open = FALSE		// true if cover is open
+	var/locked = TRUE		// true if controls are locked
 	var/location = ""	// location response text
 	var/list/codes		// assoc. list of transponder codes
 	var/codes_txt = ""	// codes as set on map: "tag1;tag2" or "tag1=value;tag2=value"
 
 	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 
-/obj/machinery/navbeacon/New()
-	..()
+/obj/machinery/navbeacon/Initialize(mapload)
+	. = ..()
 
 	set_codes()
 
 	var/turf/T = loc
-	hide(T.intact)
-	if(!codes || !codes.len)
-		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
+	if(!T.transparent_floor)
+		hide(T.intact)
+	if(!length(codes))
+		stack_trace("Empty codes datum at ([x],[y],[z]) (codes_txt: [codes_txt])")
 	if("patrol" in codes)
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()
@@ -74,29 +76,16 @@
 // hide the object if turf is intact
 /obj/machinery/navbeacon/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)
 
-// update the icon_state
-/obj/machinery/navbeacon/proc/updateicon()
-	var/state="navbeacon[open]"
-
-	if(invisibility)
-		icon_state = "[state]-f"	// if invisible, set icon to faded version
-									// in case revealed by T-scanner
-	else
-		icon_state = "[state]"
+/obj/machinery/navbeacon/update_icon_state()
+	icon_state = "navbeacon[open][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
+																// in case revealed by T-scanner
 
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/T = loc
 	if(T.intact)
 		return		// prevent intraction when T-scanner revealed
-
-	if(istype(I, /obj/item/screwdriver))
-		open = !open
-
-		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
-
-		updateicon()
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(open)
@@ -110,6 +99,12 @@
 			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
 	else
 		return ..()
+
+/obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/I)
+	open = !open
+	user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
 /obj/machinery/navbeacon/attack_ai(mob/user)
 	interact(user, 1)
@@ -219,4 +214,4 @@ Transponder Codes:<UL>"}
 
 /obj/machinery/navbeacon/invisible/hide(intact)
 	invisibility = INVISIBILITY_MAXIMUM
-	updateicon()
+	update_icon(UPDATE_ICON_STATE)

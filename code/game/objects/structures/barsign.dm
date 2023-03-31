@@ -6,43 +6,63 @@
 	req_access = list(ACCESS_BAR)
 	max_integrity = 500
 	integrity_failure = 250
-	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
-	var/emagged = 0
-	var/state = 0
-	var/prev_sign = ""
-	var/panel_open = 0
+	var/datum/barsign/current_sign
+	var/datum/barsign/prev_sign
+	var/panel_open = FALSE
+	blocks_emissive = FALSE
+	does_emissive = TRUE
 
-/obj/structure/sign/barsign/New()
-	..()
+/obj/structure/sign/barsign/Initialize(mapload)
+	. = ..()
 
-
-//filling the barsigns list
+	//filling the barsigns list
 	for(var/bartype in subtypesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
 		if(!signinfo.hidden)
 			barsigns += signinfo
 
-
-//randomly assigning a sign
+	//randomly assigning a sign
 	set_sign(pick(barsigns))
 
-
-
-/obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
+/obj/structure/sign/barsign/proc/set_sign(datum/barsign/sign)
 	if(!istype(sign))
 		return
-	icon_state = sign.icon
+	current_sign = sign
 	name = sign.name
+
 	if(sign.desc)
 		desc = sign.desc
 	else
 		desc = "It displays \"[name]\"."
 
+	update_icon()
+
+/obj/structure/sign/barsign/update_icon_state()
+	. = ..()
+
+	if(!current_sign || broken)
+		icon_state = "empty"
+		return
+	icon_state = current_sign.icon
+
+/obj/structure/sign/barsign/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(current_sign == "empty" || broken || !current_sign)
+		return
+
+	underlays |= emissive_appearance(icon, current_sign.icon)
+
 /obj/structure/sign/barsign/obj_break(damage_flag)
 	if(!broken && !(flags & NODECONSTRUCT))
 		broken = TRUE
+		prev_sign = current_sign
+		set_light(0)
+		update_icon()
 
 /obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
@@ -59,8 +79,6 @@
 /obj/structure/sign/barsign/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-
-
 /obj/structure/sign/barsign/attack_hand(mob/user as mob)
 	if(!src.allowed(user))
 		to_chat(user, "<span class = 'info'>Access denied.</span>")
@@ -70,25 +88,7 @@
 		return
 	pick_sign()
 
-
-
-
-/obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
-	if( istype(I, /obj/item/screwdriver))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
-			set_sign(new /datum/barsign/hiddensigns/signoff)
-			panel_open = 1
-		else
-			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
-			if(!broken && !emagged)
-				set_sign(pick(barsigns))
-			else if(emagged)
-				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-			else
-				set_sign(new /datum/barsign/hiddensigns/empbarsign)
-			panel_open = 0
-
+/obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
 		if(emagged) //Emagged, not broken by EMP
@@ -100,37 +100,46 @@
 
 		if(C.use(2))
 			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
-			broken = 0
+			broken = FALSE
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
 	else
 		return ..()
 
-
+/obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+		prev_sign = current_sign
+		set_sign(new /datum/barsign/hiddensigns/signoff)
+	else
+		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+		if(!broken && !emagged)
+			set_sign(prev_sign)
+			set_light(1, LIGHTING_MINIMUM_POWER)
+		else if(emagged)
+			set_sign(new /datum/barsign/hiddensigns/syndibarsign)
+		else
+			set_sign(new /datum/barsign/hiddensigns/empbarsign)
+	panel_open = !panel_open
+	return TRUE
 
 /obj/structure/sign/barsign/emp_act(severity)
-    set_sign(new /datum/barsign/hiddensigns/empbarsign)
-    broken = 1
-
-
-
+	set_sign(new /datum/barsign/hiddensigns/empbarsign)
+	broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(CALLBACK(src, .proc/post_emag), 100)
+	addtimer(CALLBACK(src, PROC_REF(post_emag)), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)
 		return
 	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-	emagged = 1
+	emagged = TRUE
 	req_access = list(ACCESS_SYNDICATE)
-
-
-
 
 /obj/structure/sign/barsign/proc/pick_sign()
 	var/picked_name = input("Available Signage", "Bar Sign") as null|anything in barsigns
@@ -138,34 +147,23 @@
 		return
 	set_sign(picked_name)
 
-
-
 //Code below is to define useless variables for datums. It errors without these
-
-
-
 /datum/barsign
 	var/name = "Name"
 	var/icon = "Icon"
 	var/desc = "desc"
 	var/hidden = 0
 
-
 //Anything below this is where all the specific signs are. If people want to add more signs, add them below.
-
-
-
 /datum/barsign/maltesefalcon
 	name = "Maltese Falcon"
 	icon = "maltesefalcon"
 	desc = "The Maltese Falcon, Space Bar and Grill."
 
-
 /datum/barsign/thebark
 	name = "The Bark"
 	icon = "thebark"
 	desc = "Ian's bar of choice."
-
 
 /datum/barsign/harmbaton
 	name = "The Harmbaton"
@@ -178,66 +176,55 @@
 	icon = "thesingulo"
 	desc = "Where people go that'd rather not be called by their name."
 
-
 /datum/barsign/thedrunkcarp
 	name = "The Drunk Carp"
 	icon = "thedrunkcarp"
 	desc = "Don't drink and swim."
-
 
 /datum/barsign/scotchservinwill
 	name = "Scotch Servin Willy's"
 	icon = "scotchservinwill"
 	desc = "Willy sure moved up in the world from clown to bartender."
 
-
 /datum/barsign/officerbeersky
 	name = "Officer Beersky's"
 	icon = "officerbeersky"
 	desc = "Man eat a dong, these drinks are great."
-
 
 /datum/barsign/thecavern
 	name = "The Cavern"
 	icon = "thecavern"
 	desc = "Fine drinks while listening to some fine tunes."
 
-
 /datum/barsign/theouterspess
 	name = "The Outer Spess"
 	icon = "theouterspess"
 	desc = "This bar isn't actually located in outer space."
-
 
 /datum/barsign/slipperyshots
 	name = "Slippery Shots"
 	icon = "slipperyshots"
 	desc = "Slippery slope to drunkeness with our shots!"
 
-
 /datum/barsign/thegreytide
 	name = "The Grey Tide"
 	icon = "thegreytide"
 	desc = "Abandon your toolboxing ways and enjoy a lazy beer!"
-
 
 /datum/barsign/honkednloaded
 	name = "Honked 'n' Loaded"
 	icon = "honkednloaded"
 	desc = "Honk."
 
-
 /datum/barsign/thenest
 	name = "The Nest"
 	icon = "thenest"
 	desc = "A good place to retire for a drink after a long night of crime fighting."
 
-
 /datum/barsign/thecoderbus
 	name = "The Coderbus"
 	icon = "thecoderbus"
 	desc = "A very controversial bar known for its wide variety of constantly-changing drinks."
-
 
 /datum/barsign/theadminbus
 	name = "The Adminbus"
@@ -389,30 +376,26 @@
 	icon = "spaceasshole"
 	desc = "Open since 2125, Not much has changed since then; the engineers still release the singulo and the damn miners still are more likely to cave your face in that deliver ores."
 
+/datum/barsign/themaint
+	name = "The Maint"
+	icon = "themaint"
+	desc = "Home to Greytiders, Security and other unholy creations."
+
 /datum/barsign/hiddensigns
 	hidden = 1
 
-
 //Hidden signs list below this point
-
-
-
 /datum/barsign/hiddensigns/empbarsign
 	name = "Haywire Barsign"
 	icon = "empbarsign"
 	desc = "Something has gone very wrong."
-
-
 
 /datum/barsign/hiddensigns/syndibarsign
 	name = "Syndi Cat Takeover"
 	icon = "syndibarsign"
 	desc = "Syndicate or die."
 
-
-
 /datum/barsign/hiddensigns/signoff
 	name = "Bar Sign"
 	icon = "empty"
 	desc = "This sign doesn't seem to be on."
-

@@ -14,7 +14,7 @@
 	var/list/datum/mind/agents = list()
 	var/list/datum/objective/team_objectives = list()
 	var/list/team_names = list()
-	var/finished = 0
+	var/finished = FALSE
 	var/list/datum/mind/possible_abductors = list()
 
 /datum/game_mode/abduction/announce()
@@ -50,7 +50,7 @@
 	team_names[team_number] = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
 	//Team Objective
 	var/datum/objective/experiment/team_objective = new
-	team_objective.team = team_number
+	team_objective.abductor_team_number = team_number
 	team_objectives[team_number] = team_objective
 	//Team Members
 
@@ -155,9 +155,12 @@
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
+	SEND_SOUND(abductor.current, sound('sound/ambience/antag/abductors.ogg'))
 	to_chat(abductor.current, "<span class='notice'>You are an agent of [team_name]!</span>")
 	to_chat(abductor.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
 	to_chat(abductor.current, "<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
+	to_chat(abductor.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
+	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor agent")
 
 	abductor.announce_objectives()
 
@@ -167,9 +170,12 @@
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
+	SEND_SOUND(abductor.current, sound('sound/ambience/antag/abductors.ogg'))
 	to_chat(abductor.current, "<span class='notice'>You are a scientist of [team_name]!</span>")
 	to_chat(abductor.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
 	to_chat(abductor.current, "<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
+	to_chat(abductor.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
+	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
 
 	abductor.announce_objectives()
 
@@ -186,7 +192,7 @@
 			if(con.experiment.points >= objective.target_amount)
 				SSshuttle.emergency.request(null, 0.5, reason = "Large amount of abnormal thought patterns detected. All crew are recalled for mandatory evaluation and reconditioning.")
 				SSshuttle.emergency.canRecall = FALSE
-				finished = 1
+				finished = TRUE
 				return ..()
 	return ..()
 
@@ -223,6 +229,8 @@
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships
 /obj/effect/landmark/abductor
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "Abductor"
 	var/team = 1
 
 /obj/effect/landmark/abductor/agent
@@ -232,7 +240,8 @@
 // OBJECTIVES
 /datum/objective/experiment
 	target_amount = 6
-	var/team
+	/// Which abductor team number does this belong to.
+	var/abductor_team_number
 
 /datum/objective/stay_hidden
 
@@ -245,13 +254,12 @@
 	explanation_text = "Experiment on [target_amount] humans."
 
 /datum/objective/experiment/check_completion()
-	var/ab_team = team
-	if(owner)
-		if(!owner.current || !ishuman(owner.current))
+	var/ab_team = abductor_team_number
+	var/list/owners = get_owners()
+	for(var/datum/mind/M in owners)
+		if(!M.current || !ishuman(M.current) || !isabductor(M.current))
 			return FALSE
-		var/mob/living/carbon/human/H = owner.current
-		if(!isabductor(H))
-			return FALSE
+		var/mob/living/carbon/human/H = M.current
 		var/datum/species/abductor/S = H.dna.species
 		ab_team = S.team
 	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)

@@ -1,10 +1,10 @@
 /obj/item/clothing/head/helmet/space/chronos
-	name = "Chronosuit Helmet"
+	name = "chronosuit helmet"
 	desc = "A white helmet with an opaque blue visor."
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, BIO = 90, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
@@ -19,22 +19,22 @@
 
 
 /obj/item/clothing/suit/space/chronos
-	name = "Chronosuit"
+	name = "chronosuit"
 	desc = "An advanced spacesuit equipped with teleportation and anti-compression technology"
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 1000)
+	armor = list(MELEE = 75, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 30, BIO = 90, RAD = 90, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
-	var/activating = 0
-	var/activated = 0
-	var/cooldowntime = 50 //deciseconds
-	var/teleporting = 0
+	var/activating = FALSE
+	var/activated = FALSE
+	var/cooldowntime = 5 SECONDS
+	var/teleporting = FALSE
 
 
-/obj/item/clothing/suit/space/chronos/proc/new_camera(var/mob/user)
+/obj/item/clothing/suit/space/chronos/proc/new_camera(mob/user)
 	if(camera)
 		qdel(camera)
 	camera = new /obj/effect/chronos_cam(get_turf(user))
@@ -58,19 +58,19 @@
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/emp_act(severity)
-	var/mob/living/carbon/human/user = src.loc
+	var/mob/living/carbon/human/user = loc
 	switch(severity)
 		if(1)
 			if(user && ishuman(user) && (user.wear_suit == src))
 				to_chat(user, "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>")
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/proc/chronowalk(var/mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/chronos/proc/chronowalk(mob/living/carbon/human/user)
 	if(!teleporting && user && (user.stat == CONSCIOUS))
-		teleporting = 1
+		teleporting = TRUE
 		var/turf/from_turf = get_turf(user)
 		if(!from_turf) //sanity, things happen
-			teleporting = 0
+			teleporting = FALSE
 			return
 		var/turf/to_turf = from_turf
 		var/atom/movable/overlay/phaseanim = new(from_turf)
@@ -78,7 +78,7 @@
 		phaseanim.name = "phasing [user.name]"
 		phaseanim.icon = 'icons/mob/mob.dmi'
 		phaseanim.icon_state = "chronostuck"
-		phaseanim.density = 1
+		phaseanim.density = TRUE
 		phaseanim.layer = FLY_LAYER
 		phaseanim.master = user
 		user.ExtinguishMob()
@@ -107,14 +107,14 @@
 				user.loc = from_turf
 			if(phaseanim)
 				qdel(phaseanim)
-			teleporting = 0
+			teleporting = FALSE
 			if(user && !user.loc) //ubersanity
 				user.loc = locate(0,0,1)
 				user.gib()
 
 /obj/item/clothing/suit/space/chronos/process()
 	if(activated)
-		var/mob/living/carbon/human/user = src.loc
+		var/mob/living/carbon/human/user = loc
 		if(user && ishuman(user) && (user.wear_suit == src))
 			if(camera && (user.remote_control == camera))
 				if(!teleporting && !((camera.x == user.x) && (camera.y == user.y) && (camera.z == user.z))) //cheaper than a couple get_turf calls???
@@ -126,8 +126,8 @@
 
 /obj/item/clothing/suit/space/chronos/proc/activate()
 	if(!activating && !activated && !teleporting)
-		activating = 1
-		var/mob/living/carbon/human/user = src.loc
+		activating = TRUE
+		var/mob/living/carbon/human/user = loc
 		if(user && ishuman(user))
 			if(user.wear_suit == src)
 				to_chat(user, "\nChronosuitMK4 login: root")
@@ -138,24 +138,24 @@
 					helmet = user.head
 					helmet.flags |= NODROP
 					helmet.suit = src
-					src.flags |= NODROP
+					flags |= NODROP
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
 					new_camera(user)
 					START_PROCESSING(SSobj, src)
-					activated = 1
+					activated = TRUE
 				else
 					to_chat(user, "\[ <span style='color: #ff0000;'>fail</span> \] Mounting /dev/helmet")
 					to_chat(user, "<span style='color: #ff0000;'><b>FATAL: </b>Unable to locate /dev/helmet. <b>Aborting...</b>")
 		cooldown = world.time + cooldowntime
-		activating = 0
+		activating = FALSE
 		return 0
 
 /obj/item/clothing/suit/space/chronos/proc/deactivate()
 	if(activated)
-		activating = 1
-		var/mob/living/carbon/human/user = src.loc
+		activating = TRUE
+		var/mob/living/carbon/human/user = loc
 		if(user && ishuman(user))
 			if(user.wear_suit == src)
 				to_chat(user, "\nroot@ChronosuitMK4# chronowalk4 --stop\n")
@@ -171,18 +171,18 @@
 					helmet.suit = null
 					helmet = null
 				to_chat(user, "logout")
-		src.flags &= ~NODROP
+		flags &= ~NODROP
 		cooldown = world.time + cooldowntime * 1.5
-		activated = 0
-		activating = 0
+		activated = FALSE
+		activating = FALSE
 
 
 /obj/effect/chronos_cam
-	name = "Chronosuit View"
-	density = 0
-	anchored = 1
+	name = "chronosuit view"
+	density = FALSE
+	anchored = TRUE
 	invisibility = 101
-	opacity = 0
+	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 
@@ -192,19 +192,19 @@
 /obj/effect/chronos_cam/singularity_pull()
 	return
 
-/obj/effect/chronos_cam/relaymove(var/mob/user, direction)
+/obj/effect/chronos_cam/relaymove(mob/user, direction)
 	if(holder)
 		if(user == holder)
 			if(user.client && user.client.eye != src)
-				src.loc = get_turf(user)
+				loc = get_turf(user)
 				user.client.eye = src
 			var/step = get_step(src, direction)
 			if(step)
-				if(istype(step, /turf/space))
-					if(!src.Move(step))
-						src.loc = step
+				if(isspaceturf(step))
+					if(!Move(step))
+						loc = step
 				else
-					src.loc = step
+					loc = step
 	else
 		qdel(src)
 

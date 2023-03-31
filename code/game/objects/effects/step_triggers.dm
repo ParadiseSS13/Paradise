@@ -5,12 +5,11 @@
 	var/stopper = TRUE // stops throwers
 	var/mobs_only = FALSE
 	invisibility = INVISIBILITY_ABSTRACT // nope cant see this shit
-	anchored = TRUE
 
-/obj/effect/step_trigger/proc/Trigger(var/atom/movable/A)
+/obj/effect/step_trigger/proc/Trigger(atom/movable/A)
 	return FALSE
 
-/obj/effect/step_trigger/Crossed(var/H, oldloc)
+/obj/effect/step_trigger/Crossed(H, oldloc)
 	. = ..()
 	if(!H)
 		return
@@ -46,7 +45,6 @@
 	var/tiles = 3	// if 0: forever until atom hits a stopper
 	var/immobilize = 1 // if nonzero: prevents mobs from moving while they're being flung
 	var/speed = 1	// delay of movement
-	var/facedir = 0 // if 1: atom faces the direction of movement
 	var/nostop = 0 // if 1: will only be stopped by teleporters
 	var/list/affecting = list()
 
@@ -60,10 +58,8 @@
 		if(AM in T.affecting)
 			return
 
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(immobilize)
-			M.canmove = FALSE
+	if(immobilize)
+		ADD_TRAIT(A, TRAIT_IMMOBILIZED, "[UID()]")
 
 	affecting.Add(AM)
 	while(AM && !stopthrow)
@@ -88,19 +84,9 @@
 					stopthrow = 1
 
 		if(AM)
-			var/predir = AM.dir
 			step(AM, direction)
-			if(!facedir)
-				AM.setDir(predir)
 
-
-
-	affecting.Remove(AM)
-
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(immobilize)
-			M.canmove = TRUE
+	REMOVE_TRAIT(A, TRAIT_IMMOBILIZED, "[UID()]")
 
 /* Stops things thrown by a thrower, doesn't do anything */
 
@@ -160,11 +146,11 @@
 
 	if(entersmoke)
 		var/datum/effect_system/smoke_spread/s = new
-		s.set_up(4, 1, src, 0)
+		s.set_up(4, TRUE, src, 0)
 		s.start()
 	if(exitsmoke)
 		var/datum/effect_system/smoke_spread/s = new
-		s.set_up(4, 1, dest, 0)
+		s.set_up(4, TRUE, dest, 0)
 		s.start()
 
 	uses--

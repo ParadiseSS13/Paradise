@@ -64,7 +64,7 @@
 /obj/item/form_printer/attack_self(mob/user as mob)
 	deploy_paper(get_turf(src))
 
-/obj/item/form_printer/proc/deploy_paper(var/turf/T)
+/obj/item/form_printer/proc/deploy_paper(turf/T)
 	T.visible_message("<span class='notice'>\The [src.loc] dispenses a sheet of crisp white paper.</span>")
 	new /obj/item/paper(T)
 

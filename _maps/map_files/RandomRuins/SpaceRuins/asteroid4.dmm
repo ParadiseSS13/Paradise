@@ -4,65 +4,52 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/mineral,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "c" = (
 /turf/simulated/mineral/random/high_chance,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "d" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "e" = (
 /turf/simulated/mineral/clown,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "f" = (
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "g" = (
 /obj/item/shard,
 /obj/item/paper{
 	info = "Extraction was successful! The disguise was perfect, the clowns never knew what hit 'em! Once I get back to base with the bananium samples I'll be rich, I tell you! RICH!"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "h" = (
 /obj/item/stack/sheet/mineral/bananium{
 	amount = 15
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "i" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/ruin/unpowered)
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/unpowered)
 "j" = (
 /obj/item/shard,
-/turf/simulated/shuttle/floor,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/unpowered)
 "k" = (
-/turf/simulated/shuttle/floor,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/unpowered)
 "l" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_s5";
-	dir = 2
-	},
-/area/ruin/unpowered)
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/unpowered)
 "m" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Escape Pod Airlock"
 	},
-/turf/simulated/shuttle/floor,
-/area/ruin/unpowered)
-"n" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_s9";
-	dir = 2
-	},
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -369,7 +356,7 @@ f
 f
 i
 i
-n
+l
 a
 "}
 (15,1,1) = {"

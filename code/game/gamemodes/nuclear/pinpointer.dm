@@ -1,3 +1,16 @@
+#define MODE_OFF 0
+#define MODE_DISK 1
+#define MODE_NUKE 2
+#define MODE_ADV 3
+#define MODE_SHIP 4
+#define MODE_OPERATIVE 5
+#define MODE_CREW 6
+#define MODE_DET 7
+#define MODE_TENDRIL 8
+#define SETTING_DISK 0
+#define SETTING_LOCATION 1
+#define SETTING_OBJECT 2
+
 /obj/item/pinpointer
 	name = "pinpointer"
 	icon = 'icons/obj/device.dmi'
@@ -11,8 +24,13 @@
 	materials = list(MAT_METAL=500)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/obj/item/disk/nuclear/the_disk = null
-	var/active = 0
+	var/obj/machinery/nuclearbomb/the_bomb = null
+	var/obj/machinery/nuclearbomb/syndicate/the_s_bomb = null // used by syndicate pinpointers.
+	var/cur_index = 1 // Which index the current mode is
+	var/mode = MODE_OFF // On which mode the pointer is at
+	var/modes = list(MODE_DISK, MODE_NUKE) // Which modes are there
 	var/shows_nuke_timer = TRUE
+	var/syndicate = FALSE // Indicates pointer is syndicate, and points to the syndicate nuke.
 	var/icon_off = "pinoff"
 	var/icon_null = "pinonnull"
 	var/icon_direct = "pinondirect"
@@ -25,28 +43,70 @@
 	GLOB.pinpointer_list += src
 
 /obj/item/pinpointer/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
 	GLOB.pinpointer_list -= src
-	active = 0
+	mode = MODE_OFF
 	the_disk = null
 	return ..()
 
-/obj/item/pinpointer/attack_self()
-	if(!active)
-		active = 1
+/obj/item/pinpointer/process()
+	if(mode == MODE_DISK)
 		workdisk()
-		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
-	else
-		active = 0
+	else if(mode == MODE_NUKE)
+		workbomb()
+
+/obj/item/pinpointer/attack_self(mob/user)
+	if(mode == MODE_DET)
+		return
+	cycle(user)
+
+/obj/item/pinpointer/proc/cycle(mob/user)
+	if(cur_index > length(modes))
+		mode = MODE_OFF
+		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+		STOP_PROCESSING(SSfastprocess, src)
 		icon_state = icon_off
-		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
+		cur_index = 1
+		return
+	if(cur_index == 1)
+		START_PROCESSING(SSfastprocess, src)
+	mode = modes[cur_index++]
+	activate_mode(mode, user)
+	to_chat(user, "<span class='notice'>[get_mode_text(mode)]</span>")
+
+/obj/item/pinpointer/proc/get_mode_text(mode)
+	switch(mode)
+		if(MODE_DISK)
+			return "Authentication Disk Locator active."
+		if(MODE_NUKE)
+			return "Nuclear Device Locator active."
+		if(MODE_ADV)
+			return "Advanced Pinpointer Online."
+		if(MODE_SHIP)
+			return "Shuttle Locator active."
+		if(MODE_OPERATIVE)
+			return "You point the pinpointer to the nearest operative."
+		if(MODE_CREW)
+			return "You turn on the pinpointer."
+		if(MODE_TENDRIL)
+			return "High energy scanner active"
+
+/obj/item/pinpointer/proc/activate_mode(mode, mob/user) //for crew pinpointer
+	return
 
 /obj/item/pinpointer/proc/scandisk()
 	if(!the_disk)
 		the_disk = locate()
 
-/obj/item/pinpointer/proc/point_at(atom/target, spawnself = 1)
-	if(!active)
-		return
+/obj/item/pinpointer/proc/scanbomb()
+	if(!syndicate)
+		if(!the_bomb)
+			the_bomb = locate()
+	else
+		if(!the_s_bomb)
+			the_s_bomb = locate()
+
+/obj/item/pinpointer/proc/point_at_target(atom/target)
 	if(!target)
 		icon_state = icon_null
 		return
@@ -67,15 +127,18 @@
 				icon_state = icon_medium
 			if(16 to INFINITY)
 				icon_state = icon_far
-	if(spawnself)
-		spawn(5)
-			.()
 
 /obj/item/pinpointer/proc/workdisk()
 	scandisk()
-	point_at(the_disk, 0)
-	spawn(5)
-		.()
+	point_at_target(the_disk)
+
+/obj/item/pinpointer/proc/workbomb()
+	if(!syndicate)
+		scanbomb()
+		point_at_target(the_bomb)
+	else
+		scanbomb()
+		point_at_target(the_s_bomb)
 
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
@@ -86,33 +149,31 @@
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
-	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
-	var/mode = 0  // Mode 0 locates disk, mode 1 locates coordinates.
+	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal. \n \
+			<span class='notice'>Alt-click to toggle mode.</span>"
+	modes = list(MODE_ADV)
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
 	var/obj/target = null
+	var/setting = 0
 
-/obj/item/pinpointer/advpinpointer/attack_self()
-	if(!active)
-		active = 1
-		if(mode == 0)
+/obj/item/pinpointer/advpinpointer/process()
+	switch(setting)
+		if(SETTING_DISK)
 			workdisk()
-		if(mode == 1)
-			point_at(location)
-		if(mode == 2)
-			point_at(target)
-		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
-	else
-		active = 0
-		icon_state = icon_off
-		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
+		if(SETTING_LOCATION)
+			point_at_target(location)
+		if(SETTING_OBJECT)
+			point_at_target(target)
 
-/obj/item/pinpointer/advpinpointer/workdisk()
-	if(mode == 0)
-		scandisk()
-		point_at(the_disk, 0)
-		spawn(5)
-			.()
+/obj/item/pinpointer/advpinpointer/workdisk() //since mode works diffrently for advpinpointer
+	scandisk()
+	point_at_target(the_disk)
+
+/obj/item/pinpointer/advpinpointer/AltClick(mob/user)
+	if(!isliving(user) || !Adjacent(user))
+		return ..()
+	toggle_mode()
 
 /obj/item/pinpointer/advpinpointer/verb/toggle_mode()
 	set category = "Object"
@@ -126,14 +187,14 @@
 		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
-	active = 0
+	mode = MODE_OFF
 	icon_state = icon_off
 	target = null
 	location = null
 
 	switch(alert("Please select the mode you want to put the pinpointer in.", "Pinpointer Mode Select", "Location", "Disk Recovery", "Other Signature"))
 		if("Location")
-			mode = 1
+			setting = SETTING_LOCATION
 
 			var/locationx = input(usr, "Please input the x coordinate to search for.", "Location?" , "") as num
 			if(!locationx || !(usr in view(1,src)))
@@ -149,14 +210,14 @@
 			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
 
-			return attack_self()
+			return attack_self(usr)
 
 		if("Disk Recovery")
-			mode = 0
-			return attack_self()
+			setting = SETTING_DISK
+			return attack_self(usr)
 
 		if("Other Signature")
-			mode = 2
+			setting = SETTING_OBJECT
 			switch(alert("Search for item signature or DNA fragment?" , "Signature Mode Select" , "Item" , "DNA"))
 				if("Item")
 					var/list/item_names[0]
@@ -191,67 +252,50 @@
 							target = C
 							break
 
-			return attack_self()
+			return attack_self(usr)
 
 ///////////////////////
 //nuke op pinpointers//
 ///////////////////////
 /obj/item/pinpointer/nukeop
-	var/mode = 0	//Mode 0 locates disk, mode 1 locates the shuttle
 	var/obj/docking_port/mobile/home = null
 	slot_flags = SLOT_BELT | SLOT_PDA
+	syndicate = TRUE
+	modes = list(MODE_DISK, MODE_NUKE)
 
-/obj/item/pinpointer/nukeop/attack_self(mob/user as mob)
-	if(!active)
-		active = 1
-		if(!mode)
+/obj/item/pinpointer/nukeop/process()
+	switch(mode)
+		if(MODE_DISK)
 			workdisk()
-			to_chat(user, "<span class='notice'>Authentication Disk Locator active.</span>")
-		else
+		if(MODE_NUKE)
+			workbomb()
+		if(MODE_SHIP)
 			worklocation()
-			to_chat(user, "<span class='notice'>Shuttle Locator active.</span>")
-	else
-		active = 0
-		icon_state = icon_off
-		to_chat(user, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/pinpointer/nukeop/workdisk()
-	if(!active) return
-	if(mode)		//Check in case the mode changes while operating
-		worklocation()
-		return
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
-		mode = 1	//Ensures worklocation() continues to work
-		worklocation()
+		mode = MODE_SHIP	//Ensures worklocation() continues to work
+		modes = list(MODE_SHIP)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
 		return		//Get outta here
 	scandisk()
-	if(!the_disk)
-		icon_state = icon_null
-		return
-	dir = get_dir(src, the_disk)
-	switch(get_dist(src, the_disk))
-		if(0)
-			icon_state = icon_direct
-		if(1 to 8)
-			icon_state = icon_close
-		if(9 to 16)
-			icon_state = icon_medium
-		if(16 to INFINITY)
-			icon_state = icon_far
+	point_at_target(the_disk)
 
-	spawn(5) .()
+/obj/item/pinpointer/nukeop/workbomb()
+	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
+		mode = MODE_SHIP	//Ensures worklocation() continues to work
+		modes = list(MODE_SHIP)
+		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
+		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
+		return		//Get outta here
+	scanbomb()
+	point_at_target(the_s_bomb)
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
-	if(!active)
-		return
-	if(!mode)
-		workdisk()
-		return
 	if(!GLOB.bomb_set)
-		mode = 0
-		workdisk()
+		mode = MODE_DISK
+		modes = list(MODE_DISK, MODE_NUKE)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
 		return
@@ -263,40 +307,22 @@
 	if(loc.z != home.z)	//If you are on a different z-level from the shuttle
 		icon_state = icon_null
 	else
-		dir = get_dir(src, home)
-		switch(get_dist(src, home))
-			if(0)
-				icon_state = icon_direct
-			if(1 to 8)
-				icon_state = icon_close
-			if(9 to 16)
-				icon_state = icon_medium
-			if(16 to INFINITY)
-				icon_state = icon_far
-
-	spawn(5)
-		.()
+		point_at_target(home)
 
 /obj/item/pinpointer/operative
 	name = "operative pinpointer"
 	desc = "A pinpointer that leads to the first Syndicate operative detected."
 	var/mob/living/carbon/nearest_op = null
+	modes = list(MODE_OPERATIVE)
 
-/obj/item/pinpointer/operative/attack_self()
-	if(!usr.mind || !(usr.mind in SSticker.mode.syndicates))
-		to_chat(usr, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
-		return 0
-	if(!active)
-		active = 1
+/obj/item/pinpointer/operative/process()
+	if(mode == MODE_OPERATIVE)
 		workop()
-		to_chat(usr, "<span class='notice'>You activate the pinpointer.</span>")
 	else
-		active = 0
 		icon_state = icon_off
-		to_chat(usr, "<span class='notice'>You deactivate the pinpointer.</span>")
 
 /obj/item/pinpointer/operative/proc/scan_for_ops()
-	if(active)
+	if(mode == MODE_OPERATIVE)
 		nearest_op = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/mob/living/carbon/M in GLOB.mob_list)
@@ -305,17 +331,15 @@
 					nearest_op = M
 
 /obj/item/pinpointer/operative/proc/workop()
-	if(active)
+	if(mode == MODE_OPERATIVE)
 		scan_for_ops()
-		point_at(nearest_op, 0)
-		spawn(5)
-			.()
+		point_at_target(nearest_op, FALSE)
 	else
-		return 0
+		return FALSE
 
 /obj/item/pinpointer/operative/examine(mob/user)
 	. = ..()
-	if(active)
+	if(mode == MODE_OPERATIVE)
 		if(nearest_op)
 			. += "Nearest operative detected is <i>[nearest_op.real_name].</i>"
 		else
@@ -332,28 +356,84 @@
 	icon_close = "pinonclose_crew"
 	icon_medium = "pinonmedium_crew"
 	icon_far = "pinonfar_crew"
+	modes = list(MODE_CREW)
+	var/target = null //for targeting in processing
+	var/target_set = FALSE //have we set a target at any point?
+	///Var to track the linked detective gun
+	var/linked_gun_UID
+
+/obj/item/pinpointer/crew/attackby(obj/item/I, mob/living/user)
+	. = ..()
+	if(istype(I, /obj/item/gun/energy/detective))
+		link_gun(I.UID())
+
+/obj/item/pinpointer/crew/emp_act(severity)
+	var/obj/item/gun/energy/detective/D = locateUID(linked_gun_UID)
+	if(!D)
+		return
+	D.unlink()
+	atom_say("EMP detected. Connection to revolver tracking system lost.")
+
+/obj/item/pinpointer/crew/proc/link_gun(gun_UID)
+	var/obj/item/gun/energy/detective/D = locateUID(gun_UID)
+	if(!D)
+		return
+	if((D.linked_pinpointer_UID && D.linked_pinpointer_UID != UID()) || linked_gun_UID)
+		visible_message("<span class='notice'>The pinpointer pings to indicate either it or the gun is already linked.</span>", "<span class='notice'>You hear a pinpointer pinging.</span>")
+		return
+	D.link_pinpointer(UID())
+	linked_gun_UID = gun_UID
+	visible_message("<span class='notice'>The pinpointer pings twice to indicate a successful link.</span>", "<span class='notice'>You hear a pinpointer pinging twice.</span>")
+
+/obj/item/pinpointer/crew/proc/start_tracking()
+	if(!linked_gun_UID)
+		return
+	var/obj/item/gun/energy/detective/D = locateUID(linked_gun_UID)
+	if(!D)
+		return
+	var/target_UID = D.tracking_target_UID
+	target = locateUID(target_UID)
+	target_set = TRUE
+	mode = MODE_DET
+	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
+	addtimer(CALLBACK(src, PROC_REF(stop_tracking)), 1 MINUTES, TIMER_UNIQUE)
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/pinpointer/crew/proc/stop_tracking()
+	visible_message("<span class='notice'>The pinpointer powers down, no longer receiving signals from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer powering down.</span>")
+	target = null
+	target_set = FALSE
+	mode = MODE_OFF
+	icon_state = icon_off
+	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/trackable(mob/living/carbon/human/H)
-	var/turf/here = get_turf(src)
-	if(istype(H.w_uniform, /obj/item/clothing/under))
+	if(mode == MODE_DET) // Sensors? Where we're going, we dont need sensors!
+		var/turf/here = get_turf(src)
+		var/turf/there = get_turf(H)
+		return istype(there) && istype(here) && there.z == here.z
+	if(H && istype(H.w_uniform, /obj/item/clothing/under))
+		var/turf/here = get_turf(src)
 		var/obj/item/clothing/under/U = H.w_uniform
-
 		// Suit sensors must be on maximum.
 		if(!U.has_sensor || U.sensor_mode < 3)
 			return FALSE
-
 		var/turf/there = get_turf(U)
-		return there && there.z == here.z
-
+		return istype(there) && there.z == here.z
 	return FALSE
 
-/obj/item/pinpointer/crew/attack_self(mob/living/user)
-	if(active)
-		active = FALSE
-		icon_state = icon_off
-		user.visible_message("<span class='notice'>[user] deactivates [user.p_their()] pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
+/obj/item/pinpointer/crew/process()
+	if(mode != MODE_OFF && target_set)
+		point_at_target(target)
+
+/obj/item/pinpointer/crew/point_at_target(atom/target)
+	if(!target || !trackable(target))
+		icon_state = icon_null
 		return
 
+	..(target)
+
+/obj/item/pinpointer/crew/activate_mode(mode, mob/user)
 	var/list/name_counts = list()
 	var/list/names = list()
 
@@ -382,23 +462,9 @@
 	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
 		return
 
-	var/target = names[A]
-	active = TRUE
+	target = names[A]
+	target_set = TRUE
 	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
-	point_at(target)
-
-/obj/item/pinpointer/crew/point_at(atom/target, spawnself = 1)
-	if(!active)
-		return
-
-	if(!trackable(target) || !target)
-		icon_state = icon_null
-		return
-
-	..(target, spawnself = 0)
-	if(spawnself)
-		spawn(5)
-			.()
 
 /obj/item/pinpointer/crew/centcom
 	name = "centcom pinpointer"
@@ -407,4 +473,59 @@
 /obj/item/pinpointer/crew/centcom/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(H)
-	return there && there.z == here.z
+	return istype(there) && istype(here) && there.z == here.z
+
+/obj/item/pinpointer/tendril
+	name = "ancient scanning unit"
+	desc = "Convenient that the scanning unit for the robot survived. Seems to point to the tendrils around here."
+	icon_state = "pinoff_ancient"
+	icon_off = "pinoff_ancient"
+	icon_null = "pinonnull_ancient"
+	icon_direct = "pinondirect_ancient"
+	icon_close = "pinonclose_ancient"
+	icon_medium = "pinonmedium_ancient"
+	icon_far = "pinonfar_ancient"
+	modes = list(MODE_TENDRIL)
+	var/obj/structure/spawner/lavaland/target
+
+/obj/item/pinpointer/tendril/process()
+	if(mode == MODE_TENDRIL)
+		worktendril()
+		point_at_target(target, FALSE)
+	else
+		icon_state = icon_off
+
+/obj/item/pinpointer/tendril/proc/worktendril()
+	if(mode == MODE_TENDRIL)
+		scan_for_tendrils()
+		point_at_target(target)
+	else
+		return FALSE
+
+/obj/item/pinpointer/tendril/proc/scan_for_tendrils()
+	if(mode == MODE_TENDRIL)
+		target = null //Resets nearest_op every time it scans
+		var/closest_distance = 1000
+		for(var/obj/structure/spawner/lavaland/T in GLOB.tendrils)
+			var/temp_distance = get_dist(T, get_turf(src))
+			if(temp_distance < closest_distance)
+				target = T
+				closest_distance = temp_distance
+
+/obj/item/pinpointer/tendril/examine(mob/user)
+	. = ..()
+	if(mode == MODE_TENDRIL)
+		. += "Number of high energy signatures remaining: [length(GLOB.tendrils)]"
+
+
+#undef MODE_OFF
+#undef MODE_DISK
+#undef MODE_NUKE
+#undef MODE_ADV
+#undef MODE_SHIP
+#undef MODE_OPERATIVE
+#undef MODE_CREW
+#undef MODE_TENDRIL
+#undef SETTING_DISK
+#undef SETTING_LOCATION
+#undef SETTING_OBJECT

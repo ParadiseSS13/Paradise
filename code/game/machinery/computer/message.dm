@@ -34,6 +34,24 @@
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
+/obj/machinery/computer/message_monitor/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD // Give the message server time to initialize
+
+/obj/machinery/computer/message_monitor/LateInitialize()
+	//If the monitor isn't linked to a server, and there's a server available, default it to the first one in the list.
+	if(!linkedServer && length(GLOB.message_servers))
+		linkedServer = GLOB.message_servers[1]
+		RegisterSignal(linkedServer, COMSIG_PARENT_QDELETING, PROC_REF(unlink_server))
+
+/obj/machinery/computer/message_monitor/proc/unlink_server()
+	SIGNAL_HANDLER
+	linkedServer = null
+
+/obj/machinery/computer/message_monitor/Destroy()
+	customrecepient = null
+	linkedServer = null
+	return ..()
 
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
 	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
@@ -63,23 +81,13 @@
 		else
 			to_chat(user, "<span class='notice'>A no server error appears on the screen.</span>")
 
-/obj/machinery/computer/message_monitor/update_icon()
+/obj/machinery/computer/message_monitor/update_icon_state()
 	if(emag || hacking)
 		icon_screen = hack_icon
 	else
 		icon_screen = normal_icon
 
-	..()
-
-/obj/machinery/computer/message_monitor/Initialize()
-	..()
-	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
-	if(!linkedServer)
-		if(GLOB.message_servers && GLOB.message_servers.len > 0)
-			linkedServer = GLOB.message_servers[1]
-	return
-
-/obj/machinery/computer/message_monitor/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/message_monitor/attack_hand(mob/user as mob)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -87,7 +95,9 @@
 	//If the computer is being hacked or is emagged, display the reboot message.
 	if(hacking || emag)
 		message = rebootmsg
-	var/dat = "<head><title>Message Monitor Console</title></head><body>"
+	var/dat = "<head><title>Message Monitor Console</title>"
+	dat += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /></head>"
+	dat += "<body>"
 	dat += "<center><h2>Message Monitor Console</h2></center><hr>"
 	dat += "<center><h4><font color='blue'[message]</h5></center>"
 
@@ -123,7 +133,7 @@
 			else
 				for(var/n = ++i; n <= optioncount; n++)
 					dat += "<dd><font color='blue'>&#09;[n]. ---------------</font><br></dd>"
-			if((istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot)) && (user.mind.special_role && user.mind.original == user))
+			if((isAI(user) || isrobot(user)) && (user.mind.special_role && user.mind.is_original_mob(user)))
 				//Malf/Traitor AIs can bruteforce into the system to gain the Key.
 				dat += "<dd><A href='?src=[UID()];hack=1'><i><font color='Red'>*&@#. Bruteforce Key</font></i></font></a><br></dd>"
 			else
@@ -153,7 +163,7 @@
 			dat += "</table>"
 		//Hacking screen.
 		if(2)
-			if(istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot))
+			if(isAI(user) || isrobot(user))
 				dat += "Brute-forcing for server key.<br> It will take 20 seconds for every character that the password has."
 				dat += "In the meantime, this console can reveal your true intentions if you let someone access it. Make sure no humans enter the room during that time."
 			else
@@ -269,7 +279,7 @@
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && isturf(src.loc))) || (issilicon(usr)))
 		//Authenticate
 		if(href_list["auth"])
 			if(auth)
@@ -343,7 +353,7 @@
 
 		//Hack the Console to get the password
 		if(href_list["hack"])
-			if((istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot)) && (usr.mind.special_role && usr.mind.original == usr))
+			if((isAI(usr) || isrobot(usr)) && (usr.mind.special_role && usr.mind.is_original_mob(usr)))
 				src.hacking = 1
 				src.screen = 2
 				src.icon_screen = hack_icon
@@ -459,6 +469,15 @@
 
 							recipient_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='?src=[recipient_messenger.UID()];choice=Message;target=\ref[PDARec]'>Reply</a>)")
 							log_pda("(PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
+						var/log_message = "sent PDA message \"[custommessage]\" using [src] as [customsender] ([customjob])"
+						var/receiver
+						if(ishuman(customrecepient.loc))
+							receiver = customrecepient.loc
+							log_message = "[log_message] to [customrecepient]"
+						else
+							receiver = customrecepient
+							log_message = "[log_message] (no holder)"
+						usr.create_log(MISC_LOG, log_message, receiver)
 						//Finally..
 						ResetMessage()
 
@@ -479,18 +498,18 @@
 
 
 /obj/item/paper/monitorkey
-	//..()
 	name = "Monitor Decryption Key"
 	var/obj/machinery/message_server/server = null
 
-/obj/item/paper/monitorkey/New()
+/obj/item/paper/monitorkey/Initialize(mapload)
 	..()
-	spawn(10)
-		if(GLOB.message_servers)
-			for(var/obj/machinery/message_server/server in GLOB.message_servers)
-				if(!isnull(server))
-					if(!isnull(server.decryptkey))
-						info = "<center><h2>Daily Key Reset</h2></center>\n\t<br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
-						info_links = info
-						overlays += "paper_words"
-						break
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/paper/monitorkey/LateInitialize()
+	for(var/obj/machinery/message_server/server in GLOB.message_servers)
+		if(!isnull(server))
+			if(!isnull(server.decryptkey))
+				info = "<center><h2>Daily Key Reset</h2></center>\n\t<br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
+				info_links = info
+				overlays += "paper_words"
+				break

@@ -1,5 +1,3 @@
-#define TANK_MAX_RELEASE_PRESSURE (3*ONE_ATMOSPHERE)
-
 /obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
@@ -8,11 +6,11 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
-	force = 5.0
-	throwforce = 10.0
+	force = 5
+	throwforce = 10
 	throw_speed = 1
 	throw_range = 4
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 80, ACID = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
@@ -26,6 +24,8 @@
 	air_contents.volume = volume //liters
 	air_contents.temperature = T20C
 
+	populate_gas()
+
 	START_PROCESSING(SSobj, src)
 	return
 
@@ -36,6 +36,8 @@
 
 	return ..()
 
+/obj/item/tank/proc/populate_gas()
+	return
 
 /obj/item/tank/ui_action_click(mob/user)
 	toggle_internals(user)
@@ -43,35 +45,31 @@
 /obj/item/tank/proc/toggle_internals(mob/user, silent = FALSE)
 	var/mob/living/carbon/C = user
 	if(!istype(C))
-		return 0
+		return FALSE
 
 	if(C.internal == src)
 		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
 		C.internal = null
 	else
-		var/can_open_valve = 0
-		if(C.get_organ_slot("breathing_tube"))
-			can_open_valve = 1
-		else if(C.wear_mask && C.wear_mask.flags & AIRTIGHT)
-			can_open_valve = 1
-		else if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			if(H.head && H.head.flags & AIRTIGHT)
-				can_open_valve = 1
+		if(!C.get_organ_slot("breathing_tube")) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
+			if(!C.wear_mask) // Do we have a mask equipped?
+				return FALSE
 
-		if(can_open_valve)
+			var/obj/item/clothing/mask/M = C.wear_mask
+			// If the "mask" isn't actually a mask OR That mask isn't internals compatible AND Their headgear isn't internals compatible
+			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head && C.head.flags & AIRTIGHT)))
+				if(!silent)
+					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
+				return FALSE
+			if(M.up) // If the mask is equipped but pushed away
+				M.adjustmask(C) // Adjust it back
+
+		if(!silent)
 			if(C.internal)
-				if(!silent)
-					to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
+				to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
 			else
-				if(!silent)
-					to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
-			C.internal = src
-		else
-			if(!silent)
-				to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
-			return 0
-
+				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
+		C.internal = src
 	C.update_action_buttons_icon()
 
 
@@ -87,7 +85,7 @@
 			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
 		return
 
-	var/celsius_temperature = air_contents.temperature-T0C
+	var/celsius_temperature = air_contents.temperature - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
@@ -104,6 +102,7 @@
 		descriptive = "furiously hot"
 
 	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
+	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
@@ -115,6 +114,20 @@
 			location.assume_air(air_contents)
 
 		qdel(src)
+
+/obj/item/tank/suicide_act(mob/user)
+	var/mob/living/carbon/human/H = user
+	user.visible_message("<span class='suicide'>[user] is putting [src]'s valve to [user.p_their()] lips! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+
+	if(!QDELETED(H) && air_contents && air_contents.return_pressure() >= 1000)
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		head?.disfigure()
+		H.inflate_gib()
+		return OBLITERATION
+
+	to_chat(user, "<span class='warning'>There isn't enough pressure in [src] to commit suicide with...</span>")
+	return SHAME
 
 /obj/item/tank/deconstruct(disassembled = TRUE)
 	if(!disassembled)
@@ -144,73 +157,59 @@
 
 	ui_interact(user)
 
-/obj/item/tank/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/tank/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "tanks.tmpl", "Tank", 500, 300)
-		// open the new ui window
+		ui = new(user, src, ui_key, "Tank",  name, 300, 150, master_ui, state)
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
-/obj/item/tank/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/using_internal
-	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		if(C.internal == src)
-			using_internal = 1
-
-	var/data[0]
-	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
-	data["releasePressure"] = round(distribute_pressure ? distribute_pressure : 0)
+/obj/item/tank/ui_data(mob/user)
+	var/list/data = list()
+	data["tankPressure"] = round(air_contents.return_pressure())
+	data["releasePressure"] = round(distribute_pressure)
 	data["defaultReleasePressure"] = round(TANK_DEFAULT_RELEASE_PRESSURE)
+	data["minReleasePressure"] = round(TANK_MIN_RELEASE_PRESSURE)
 	data["maxReleasePressure"] = round(TANK_MAX_RELEASE_PRESSURE)
-	data["valveOpen"] = using_internal ? 1 : 0
-
-	data["maskConnected"] = 0
-
-	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		if(C.internal == src)
-			data["maskConnected"] = 1
-		else
-			if(C.wear_mask && (C.wear_mask.flags & AIRTIGHT))
-				data["maskConnected"] = 1
-			else if(ishuman(C))
-				var/mob/living/carbon/human/H = C
-				if(H.head && (H.head.flags & AIRTIGHT))
-					data["maskConnected"] = 1
-
+	var/mob/living/carbon/C = user
+	if(!istype(C))
+		C = loc.loc
+	if(!istype(C))
+		return data
+	data["has_mask"] = C.wear_mask ? TRUE : FALSE
+	data["connected"] = (C.internal && C.internal == src) ? TRUE : FALSE
 	return data
 
-/obj/item/tank/Topic(href, href_list)
+/obj/item/tank/ui_act(action, params)
 	if(..())
-		return 1
-
-	if(href_list["dist_p"])
-		if(href_list["dist_p"] == "reset")
-			distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
-		else if(href_list["dist_p"] == "max")
-			distribute_pressure = TANK_MAX_RELEASE_PRESSURE
+		return
+	. = TRUE
+	switch(action)
+		if("pressure")
+			var/pressure = params["pressure"]
+			if(pressure == "reset")
+				pressure = initial(distribute_pressure)
+			else if(pressure == "min")
+				pressure = TANK_MIN_RELEASE_PRESSURE
+			else if(pressure == "max")
+				pressure = TANK_MAX_RELEASE_PRESSURE
+			else if(text2num(pressure) != null)
+				pressure = text2num(pressure)
+			else
+				. = FALSE
+			if(.)
+				distribute_pressure = clamp(round(pressure), TANK_MIN_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
+		if("internals")
+			toggle_internals(usr)
 		else
-			var/cp = text2num(href_list["dist_p"])
-			distribute_pressure += cp
-		distribute_pressure = min(max(round(distribute_pressure), 0), TANK_MAX_RELEASE_PRESSURE)
-
-	if(href_list["stat"])
-		toggle_internals(usr)
-
-	add_fingerprint(usr)
-	return 1
-
+			. = FALSE
+	if(.)
+		add_fingerprint(usr)
 
 /obj/item/tank/remove_air(amount)
 	return air_contents.remove(amount)
 
 /obj/item/tank/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/item/tank/assume_air(datum/gas_mixture/giver)
@@ -224,10 +223,9 @@
 		return null
 
 	var/tank_pressure = air_contents.return_pressure()
-	if(tank_pressure < distribute_pressure)
-		distribute_pressure = tank_pressure
+	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = distribute_pressure*volume_to_return/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	return remove_air(moles_needed)
 

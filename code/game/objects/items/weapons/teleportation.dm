@@ -10,19 +10,19 @@
 /obj/item/locator
 	name = "locator"
 	desc = "Used to track those with locater implants."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/implants.dmi'
 	icon_state = "locator"
 	var/temp = null
 	var/frequency = 1451
-	var/broadcasting = null
-	var/listening = 1.0
+	var/broadcasting = FALSE
+	var/listening = TRUE
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=400)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	origin_tech = "magnets=3;bluespace=2"
 
 /obj/item/locator/attack_self(mob/user as mob)
@@ -73,7 +73,7 @@ Frequency:
 				var/turf/Tr = get_turf(T)
 
 				if(Tr && Tr.z == sr.z)
-					temp += "[T.id]: [Tr.x], [Tr.y], [Tr.z]<BR>"
+					temp += " [Tr.x], [Tr.y], [Tr.z]<BR>"
 
 			temp += "<B>You are at \[[sr.x],[sr.y],[sr.z]\]</B>."
 			temp += "<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A><BR>"
@@ -105,11 +105,15 @@ Frequency:
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
 	origin_tech = "magnets=3;bluespace=4"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/active_portals = 0
 
-/obj/item/hand_tele/attack_self(mob/user as mob)
+/obj/item/hand_tele/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
+/obj/item/hand_tele/attack_self(mob/user)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
 	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
@@ -124,10 +128,13 @@ Frequency:
 	var/list/turfs = list(	)
 	var/area/A
 	for(var/turf/T in orange(10))
-		if(T.x>world.maxx-8 || T.x<8)	continue	//putting them at the edge is dumb
-		if(T.y>world.maxy-8 || T.y<8)	continue
+		if(T.x>world.maxx-8 || T.x<8)
+			continue	//putting them at the edge is dumb
+		if(T.y>world.maxy-8 || T.y<8)
+			continue
 		A = get_area(T)
-		if(A.tele_proof == 1) continue // Telescience-proofed areas require a beacon.
+		if(A.tele_proof)
+			continue // Telescience-proofed areas require a beacon.
 		turfs += T
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
@@ -139,11 +146,10 @@ Frequency:
 		return
 	var/T = L[t1]
 	user.show_message("<span class='notice'>Locked In.</span>", 2)
-	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(src), T, src)
+	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(src), T, src, creation_mob = user)
 	try_move_adjacent(P)
 	active_portals++
 	add_fingerprint(user)
-	return
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
-    active_portals--
+	active_portals--

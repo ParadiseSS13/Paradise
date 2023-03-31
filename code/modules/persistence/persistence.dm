@@ -18,7 +18,7 @@
 * Also, this should only be called by `list_to_object` in persistence.dm - at least
 * with current plans - that way it can actually initialize the type from the list
 */
-/datum/proc/deserialize(var/list/data)
+/datum/proc/deserialize(list/data)
 	return
 
 /atom
@@ -28,11 +28,11 @@
 
 // This is so specific atoms can override these, and ignore certain ones
 /atom/proc/vars_to_save()
- 	return list("color","dir","icon","icon_state","name","pixel_x","pixel_y")
+	return list("color","dir","icon","icon_state","name","pixel_x","pixel_y")
 
 /atom/proc/map_important_vars()
 	// A list of important things to save in the map editor
- 	return list("color","dir","icon","icon_state","layer","name","pixel_x","pixel_y")
+	return list("color","dir","icon","icon_state","layer","name","pixel_x","pixel_y")
 
 /area/map_important_vars()
 	// Keep the area default icons, to keep things nice and legible
@@ -50,7 +50,7 @@
 	return data
 
 
-/atom/deserialize(var/list/data)
+/atom/deserialize(list/data)
 	for(var/thing in vars_to_save())
 		if(thing in data)
 			vars[thing] = data[thing]
@@ -70,11 +70,11 @@ If you're clever, you can do neat things with SDQL and this, though be careful -
 some objects, like humans, are dependent that certain extra things are defined
 in their list
 */
-/proc/json_to_object(var/json_data, var/loc)
+/proc/json_to_object(json_data, loc)
 	var/data = json_decode(json_data)
 	return list_to_object(data, loc)
 
-/proc/list_to_object(var/list/data, var/loc)
+/proc/list_to_object(list/data, loc)
 	if(!islist(data))
 		throw EXCEPTION("You didn't give me a list, bucko")
 	if(!("type" in data))

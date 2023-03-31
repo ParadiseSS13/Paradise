@@ -1,4 +1,4 @@
-/client/proc/cmd_mass_modify_object_variables(atom/A, var/var_name)
+/client/proc/cmd_mass_modify_object_variables(atom/A, var_name)
 	set category = "Debug"
 	set name = "Mass Edit Variables"
 	set desc="(target) Edit all instances of a target item's variables"
@@ -6,6 +6,10 @@
 	var/method = 0	//0 means strict type detection while 1 means this type and all subtypes (IE: /obj/item with this set to 1 will set it to ALL itms)
 
 	if(!check_rights(R_VAREDIT))	return
+
+	// Make sure we can actually edit this var
+	if(!vv_varname_lockcheck(var_name))
+		return FALSE
 
 	if(A && A.type)
 		if(typesof(A.type))
@@ -20,7 +24,7 @@
 					return
 
 	src.massmodify_variables(A, var_name, method)
-	feedback_add_details("admin_verb","MEV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Mass Edit Variables") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/massmodify_variables(datum/O, var_name = "", method = 0)
 	if(!check_rights(R_VAREDIT))
@@ -202,10 +206,10 @@
 		to_chat(src, "[rejected] out of [count] objects rejected your edit")
 
 	log_world("### MassVarEdit by [src]: [O.type] (A/R [accepted]/[rejected]) [variable]=[html_encode("[O.vars[variable]]")]([list2params(value)])")
-	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
-	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
+	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] (Type: [class]) ([accepted] objects modified)")
+	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [html_encode("[O.vars[variable]]")] (Type: [class]) ([accepted] objects modified)")
 
-/proc/get_all_of_type(var/T, subtypes = TRUE)
+/proc/get_all_of_type(T, subtypes = TRUE)
 	var/list/typecache = list()
 	typecache[T] = 1
 	if(subtypes)

@@ -14,5 +14,6 @@
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
-	can_collar = 1
+	can_collar = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN

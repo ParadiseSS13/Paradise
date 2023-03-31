@@ -12,14 +12,18 @@
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
 	var/allow_duplicates = TRUE // Allow accessories of the same type.
 
-/obj/item/clothing/accessory/New()
-	..()
+/obj/item/clothing/accessory/Initialize(mapload)
+	. = ..()
 	inv_overlay = image("icon" = 'icons/obj/clothing/ties_overlay.dmi', "icon_state" = "[item_color? "[item_color]" : "[icon_state]"]")
+
+/obj/item/clothing/accessory/Moved(atom/OldLoc, Dir, Forced)
+	. = ..()
+	if(has_suit)
+		has_suit.detach_accessory(src, null)
 
 /obj/item/clothing/accessory/Destroy()
 	if(has_suit)
-		has_suit.accessories -= src
-		on_removed(null)
+		has_suit.detach_accessory(src, null)
 	return ..()
 
 //when user attached an accessory to S
@@ -70,7 +74,7 @@
 
 /obj/item/clothing/accessory/attack(mob/living/carbon/human/H, mob/living/user)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
-	if(istype(H))
+	if(istype(H) && !ismonkeybasic(H)) //Monkeys are a snowflake because you can't remove accessories once added
 		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
 			to_chat(user, "[H]'s body is covered, and you cannot attach \the [src].")
 			return 1
@@ -94,6 +98,12 @@
 	if(has_suit)
 		return	//we aren't an object on the ground so don't call parent
 	..()
+
+/obj/item/clothing/accessory/proc/attached_unequip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
+/obj/item/clothing/accessory/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
 
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
@@ -124,7 +134,7 @@
 	item_color = "waistcoat"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/stethoscope
@@ -141,7 +151,7 @@
 			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
 		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
 		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
-		if((H && M.pulse) || (L && !(BREATHLESS in M.mutations) && !(NO_BREATHE in M.dna.species.species_traits)))
+		if(M.pulse && (H || (L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
 			var/color = "notice"
 			if(H)
 				var/heart_sound
@@ -199,9 +209,13 @@
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
-	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
+	desc = "An extremely rare golden medal awarded only by CentComm. To receive such a medal is the highest honor and as such, very few exist."
 
 // SILVER (awarded by Captain)
 
@@ -270,53 +284,52 @@
 	item_color = "holobadge"
 	slot_flags = SLOT_BELT | SLOT_TIE
 
-	var/emagged = 0 //Emagging removes Sec check.
 	var/stored_name = null
 
 /obj/item/clothing/accessory/holobadge/cord
 	icon_state = "holobadge-cord"
 	item_color = "holobadge-cord"
 
-/obj/item/clothing/accessory/holobadge/attack_self(mob/user as mob)
+/obj/item/clothing/accessory/holobadge/attack_self(mob/user)
 	if(!stored_name)
 		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
 		return
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>","<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
+		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>",
+		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
-/obj/item/clothing/accessory/holobadge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
+/obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 
 		var/obj/item/card/id/id_card = null
 
-		if(istype(O, /obj/item/card/id))
-			id_card = O
+		if(istype(I, /obj/item/card/id))
+			id_card = I
 		else
-			var/obj/item/pda/pda = O
+			var/obj/item/pda/pda = I
 			id_card = pda.id
 
-		if(ACCESS_SECURITY in id_card.access || emagged)
-			to_chat(user, "You imprint your ID details onto the badge.")
+		if(ACCESS_SEC_DOORS in id_card.access || emagged)
+			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
 		else
-			to_chat(user, "[src] rejects your insufficient access rights.")
+			to_chat(user, "<span class='warning'>[src] rejects your insufficient access rights.</span>")
 		return
 	..()
 
-/obj/item/clothing/accessory/holobadge/emag_act(user as mob)
+/obj/item/clothing/accessory/holobadge/emag_act(mob/user)
 	if(emagged)
 		to_chat(user, "<span class='warning'>[src] is already cracked.</span>")
-		return
 	else
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='warning'>You swipe the card and crack the holobadge security checks.</span>")
-		return
 
-/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/M, mob/living/user)
+/obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/H, mob/living/user)
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into [M.p_their()] face insistently.</span>","<span class='warning'>You invade [M]'s personal space, thrusting [src] into [M.p_their()] face insistently. You are the law.</span>")
+		user.visible_message("<span class='warning'>[user] invades [H]'s personal space, thrusting [src] into [H.p_their()] face insistently.</span>",
+		"<span class='warning'>You invade [H]'s personal space, thrusting [src] into [H.p_their()] face insistently. You are the law.</span>")
 
 //////////////
 //OBJECTION!//
@@ -455,7 +468,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -464,7 +477,7 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 5, FIRE = 0, ACID = 15)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket
@@ -502,12 +515,12 @@
 	else
 		icon_state = "[base_icon]"
 
-/obj/item/clothing/accessory/necklace/locket/attackby(var/obj/item/O as obj, mob/user as mob)
+/obj/item/clothing/accessory/necklace/locket/attackby(obj/item/O as obj, mob/user as mob)
 	if(!open)
 		to_chat(user, "You have to open it first.")
 		return
 
-	if(istype(O,/obj/item/paper) || istype(O, /obj/item/photo) && !(istype(O, /obj/item/paper/talisman)))
+	if(istype(O,/obj/item/paper) || istype(O, /obj/item/photo))
 		if(held)
 			to_chat(usr, "[src] already has something inside it.")
 		else
@@ -527,7 +540,7 @@
 	item_color = "cowboyshirt"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved
@@ -538,7 +551,7 @@
 	item_color = "cowboyshirt_s"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/white
@@ -549,7 +562,7 @@
 	item_color = "cowboyshirt_white"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/white/short_sleeved
@@ -560,7 +573,7 @@
 	item_color = "cowboyshirt_whites"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink
@@ -571,7 +584,7 @@
 	item_color = "cowboyshirt_pink"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/pink/short_sleeved
@@ -582,7 +595,7 @@
 	item_color = "cowboyshirt_pinks"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy
@@ -593,7 +606,7 @@
 	item_color = "cowboyshirt_navy"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/navy/short_sleeved
@@ -604,7 +617,7 @@
 	item_color = "cowboyshirt_navys"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/red
@@ -615,7 +628,7 @@
 	item_color = "cowboyshirt_red"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/cowboyshirt/red/short_sleeved
@@ -626,9 +639,9 @@
 	item_color = "cowboyshirt_reds"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 		)
 
 /obj/item/clothing/accessory/corset
@@ -652,80 +665,6 @@
 	icon_state = "corset_blue"
 	item_state = "corset_blue"
 	item_color = "corset_blue"
-
-/obj/item/clothing/accessory/petcollar
-	name = "pet collar"
-	desc = "The latest fashion accessory for your favorite pets!"
-	icon_state = "petcollar"
-	item_color = "petcollar"
-	var/tagname = null
-	var/obj/item/card/id/access_id
-
-/obj/item/clothing/accessory/petcollar/Destroy()
-	QDEL_NULL(access_id)
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/item/clothing/accessory/petcollar/attack_self(mob/user as mob)
-	var/option = "Change Name"
-	if(access_id)
-		option = input(user, "What do you want to do?", "[src]", option) as null|anything in list("Change Name", "Remove ID")
-
-	switch(option)
-		if("Change Name")
-			var/t = input(user, "Would you like to change the name on the tag?", "Name your new pet", tagname ? tagname : "Spot") as null|text
-			if(t)
-				tagname = copytext(sanitize(t), 1, MAX_NAME_LEN)
-				name = "[initial(name)] - [tagname]"
-		if("Remove ID")
-			if(access_id)
-				user.visible_message("<span class='warning'>[user] starts unclipping \the [access_id] from \the [src].</span>")
-				if(do_after(user, 50, target = user) && access_id)
-					user.visible_message("<span class='warning'>[user] unclips \the [access_id] from \the [src].</span>")
-					access_id.forceMove(get_turf(user))
-					user.put_in_hands(access_id)
-					access_id = null
-
-/obj/item/clothing/accessory/petcollar/attackby(obj/item/card/id/W, mob/user, params)
-	if(!istype(W))
-		return ..()
-	if(access_id)
-		to_chat(user, "<span class='warning'>There is already \a [access_id] clipped onto \the [src]</span>")
-	user.drop_item()
-	W.forceMove(src)
-	access_id = W
-	to_chat(user, "<span class='notice'>\The [W] clips onto \the [src] snugly.</span>")
-
-/obj/item/clothing/accessory/petcollar/GetAccess()
-	return access_id ? access_id.GetAccess() : ..()
-
-/obj/item/clothing/accessory/petcollar/examine(mob/user)
-	. = ..()
-	if(access_id)
-		. += "There is [bicon(access_id)] \a [access_id] clipped onto it."
-
-/obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
-	if(istype(user))
-		START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/accessory/petcollar/dropped(mob/living/simple_animal/user)
-	STOP_PROCESSING(SSobj, src)
-
-/obj/item/clothing/accessory/petcollar/process()
-	var/mob/living/simple_animal/M = loc
-	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
-	if(istype(M) && src == M.pcollar && M.stat != DEAD)
-		return
-
-	var/area/t = get_area(M)
-	var/obj/item/radio/headset/a = new /obj/item/radio/headset(src)
-	if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite))
-		//give the syndicats a bit of stealth
-		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")
-	else
-		a.autosay("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm")
-	qdel(a)
-	STOP_PROCESSING(SSobj, src)
 
 /proc/english_accessory_list(obj/item/clothing/under/U)
 	if(!istype(U) || !U.accessories.len)

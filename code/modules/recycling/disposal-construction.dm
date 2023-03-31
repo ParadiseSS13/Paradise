@@ -7,8 +7,8 @@
 	desc = "A huge pipe segment used for constructing disposal systems."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "conpipe-s"
-	anchored = 0
-	density = 0
+	anchored = FALSE
+	density = FALSE
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	level = 2
 	max_integrity = 200
@@ -16,8 +16,8 @@
 	var/base_state
 	var/dpdir = 0	// directions as disposalpipe
 
-/obj/structure/disposalconstruct/New(loc, pipe_type, direction)
-	..()
+/obj/structure/disposalconstruct/Initialize(mapload, pipe_type, direction)
+	. = ..()
 	if(pipe_type)
 		ptype = pipe_type
 	if(dir)
@@ -49,7 +49,7 @@
 			dpdir = dir | right | flip
 		if(PIPE_DISPOSALS_SORT_LEFT)
 			dpdir = dir | left | flip
-		 // disposal bin has only one dir, thus we don't need to care about setting it
+		// disposal bin has only one dir, thus we don't need to care about setting it
 		if(PIPE_DISPOSALS_BIN)
 			if(!anchored)
 				icon_state = "[base_state]-unanchored"
@@ -68,14 +68,15 @@
 
 // hide called by levelupdate if turf intact status changes
 // change visibility status and force update of icon
-/obj/structure/disposalconstruct/hide(var/intact)
-	invisibility = (intact && level==1) ? 101: 0	// hide if floor is intact
+/obj/structure/disposalconstruct/hide(intact)
+	invisibility = (intact && level == 1) ? INVISIBILITY_MAXIMUM : 0	// hide if floor is intact
 	update()
 
 
 // flip and rotate verbs
 /obj/structure/disposalconstruct/verb/rotate()
 	set name = "Rotate Pipe"
+	set category = "Object"
 	set src in view(1)
 
 	if(usr.stat)
@@ -98,6 +99,7 @@
 
 /obj/structure/disposalconstruct/verb/flip()
 	set name = "Flip Pipe"
+	set category = "Object"
 	set src in view(1)
 	if(usr.stat)
 		return
@@ -144,7 +146,7 @@
 // wrench: (un)anchor
 // weldingtool: convert to real pipe
 
-/obj/structure/disposalconstruct/attackby(var/obj/item/I, var/mob/user, params)
+/obj/structure/disposalconstruct/attackby(obj/item/I, mob/user, params)
 	var/nicetype = "pipe"
 	var/ispipe = 0 // Indicates if we should change the level of this pipe
 	src.add_fingerprint(user)
@@ -169,20 +171,20 @@
 
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			if(ispipe)
 				level = 2
-				density = 0
+				density = FALSE
 			else
-				density = 1
+				density = TRUE
 			to_chat(user, "You detach the [nicetype] from the underfloor.")
 		else
-			anchored = 1
+			anchored = TRUE
 			if(ispipe)
 				level = 1 // We don't want disposal bins to disappear under the floors
-				density = 0
+				density = FALSE
 			else
-				density = 1 // We don't want disposal bins or outlets to go density 0
+				density = TRUE // We don't want disposal bins or outlets to go density 0
 			to_chat(user, "You attach the [nicetype] to the underfloor.")
 		playsound(src.loc, I.usesound, 100, 1)
 		update()
@@ -220,7 +222,7 @@
 						P.base_icon_state = base_state
 						P.dir = dir
 						P.dpdir = dpdir
-						P.update_icon()
+						P.update_icon(UPDATE_ICON_STATE)
 
 						//Needs some special treatment ;)
 						if(ptype == PIPE_DISPOSALS_SORT_RIGHT || ptype == PIPE_DISPOSALS_SORT_LEFT)

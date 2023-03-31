@@ -1,0 +1,189 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/mineral/random/volcanic,
+/area/template_noop)
+"d" = (
+/obj/effect/decal/remains/human,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"m" = (
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"r" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"u" = (
+/obj/item/stack/sheet/bone,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"w" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/template_noop)
+"E" = (
+/obj/structure/flora/ash/cacti,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"V" = (
+/obj/structure/flora/ash/leaf_shroom,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"W" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"X" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"Z" = (
+/obj/structure/nest/lavaland,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+w
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+X
+X
+X
+X
+X
+r
+X
+X
+X
+a
+"}
+(3,1,1) = {"
+a
+a
+X
+X
+r
+u
+r
+r
+X
+X
+X
+a
+"}
+(4,1,1) = {"
+a
+a
+X
+X
+r
+r
+Z
+r
+V
+r
+X
+a
+"}
+(5,1,1) = {"
+a
+a
+X
+E
+r
+X
+W
+d
+r
+r
+r
+w
+"}
+(6,1,1) = {"
+a
+a
+X
+Z
+u
+X
+r
+m
+m
+r
+X
+a
+"}
+(7,1,1) = {"
+a
+a
+X
+X
+X
+X
+r
+m
+m
+Z
+X
+a
+"}
+(8,1,1) = {"
+a
+a
+X
+X
+X
+X
+r
+r
+r
+E
+X
+a
+"}
+(9,1,1) = {"
+a
+a
+X
+X
+X
+X
+X
+X
+X
+X
+X
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

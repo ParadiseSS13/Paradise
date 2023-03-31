@@ -3,8 +3,8 @@
 	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
@@ -17,12 +17,12 @@
 		if(istype(W, /obj/item/gun/energy/plasmacutter))
 			playsound(src, W.usesound, 100, 1)
 			user.visible_message("[user] is slicing apart the [name]...", \
-								 "<span class='notice'>You are slicing apart the [name]...</span>")
+								"<span class='notice'>You are slicing apart the [name]...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc)
 					return
 				user.visible_message("[user] slices apart the [name].", \
-									 "<span class='notice'>You slice apart the [name].</span>")
+									"<span class='notice'>You slice apart the [name].</span>")
 				deconstruct(TRUE)
 			return
 	return ..()
@@ -44,10 +44,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	user.visible_message("[user] rubs some dust off from the [name]'s surface.", \
-						 "<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
-
-/obj/structure/statue/CanAtmosPass()
-	return !density
+						"<span class='notice'>You rub some dust off from the [name]'s surface.</span>")
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -64,7 +61,7 @@
 	light_range = 2
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	var/last_event = 0
-	var/active = null
+	var/active = FALSE
 
 /obj/structure/statue/uranium/nuke
 	name = "statue of a nuclear fission explosive"
@@ -90,12 +87,11 @@
 
 /obj/structure/statue/uranium/proc/radiate()
 	if(!active)
-		if(world.time > last_event+15)
-			active = 1
-			for(var/mob/living/L in range(3,src))
-				L.apply_effect(12,IRRADIATE,0)
+		if(world.time > last_event + 1.5 SECONDS)
+			active = TRUE
+			radiation_pulse(src, 30)
 			last_event = world.time
-			active = null
+			active = FALSE
 
 /obj/structure/statue/plasma
 	max_integrity = 200
@@ -207,6 +203,14 @@
 	name = "statue of a medical cyborg"
 	icon_state = "medborg"
 
+/obj/structure/statue/silver/corgi
+	name = "statue of a corgi"
+	icon_state = "corgi"
+
+/obj/structure/statue/silver/monkey
+	name = "statue of a monkey"
+	icon_state = "monkey"
+
 /obj/structure/statue/diamond
 	max_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
@@ -267,6 +271,7 @@
 	desc = "An ancient marble statue. The subject is depicted with a floor-length braid and is wielding a toolbox. By Jove, it's easily the most gorgeous depiction of a woman you've ever seen. The artist must truly be a master of his craft. Shame about the broken arm, though."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "venus"
+	oreAmount = 20
 
 /obj/structure/statue/tranquillite
 	max_integrity = 300
@@ -288,25 +293,27 @@
 		return
 	setDir(turn(dir, 90))
 
-/obj/structure/statue/kidanstatue
-	name = "Obsidian Kidan warrior statue"
-	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of obsidian. It looks very heavy."
+/obj/structure/statue/plastitanium
+	max_integrity = 600
+	material_drop_type = /obj/item/stack/sheet/mineral/plastitanium
+
+/obj/structure/statue/plastitanium/kidanstatue
+	name = "kidan warrior statue"
+	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of plastitanium. It looks very heavy."
 	icon_state = "kidan"
-	anchored = TRUE
-	oreAmount = 0
 
 /obj/structure/statue/chickenstatue
-	name = "Bronze Chickenman Statue"
+	name = "bronze chickenman statue"
 	desc = "An antique and oriental-looking statue of a Chickenman made of bronze."
 	icon_state = "chicken"
 	anchored = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/russian_mulebot
+	name = "OXENbot"
 	desc = "Like a MULEbot, but more Russian and less functional.";
 	icon = 'icons/obj/aibots.dmi';
 	icon_state = "mulebot0";
-	name = "OXENbot"
 	anchored = TRUE
 	oreAmount = 10
 

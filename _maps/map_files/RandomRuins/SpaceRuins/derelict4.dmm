@@ -4,97 +4,91 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/mineral,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "c" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "d" = (
 /turf/simulated/mineral/random/high_chance,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "e" = (
-/turf/simulated/shuttle/wall,
-/area/ruin/unpowered)
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/space/unpowered)
 "f" = (
-/obj/machinery/door/airlock/shuttle,
+/obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "g" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "h" = (
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
 "i" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (WEST)";
-	icon_state = "rwindow";
 	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
 "j" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
 "k" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
 "l" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (WEST)"
+	dir = 4
 	},
-/turf/simulated/shuttle/plating,
-/area/ruin/unpowered)
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "m" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "n" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "o" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "p" = (
 /obj/structure/table,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
 "q" = (
 /obj/item/shard,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
 "r" = (
 /obj/structure/window/reinforced{
-	tag = "icon-rwindow (WEST)";
-	icon_state = "rwindow";
 	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/ruin/unpowered)
+/turf/simulated/floor/mineral/titanium/blue/airless,
+/area/ruin/space/unpowered)
 "s" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "t" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a

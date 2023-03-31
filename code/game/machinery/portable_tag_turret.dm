@@ -6,6 +6,14 @@
 	// Reasonable defaults, in case someone manually spawns us
 	var/lasercolor = "r"	//Something to do with lasertag turrets, blame Sieve for not adding a comment.
 	installation = /obj/item/gun/energy/laser/tag/red
+	targetting_is_configurable = FALSE
+	lethal_is_configurable = FALSE
+	shot_delay = 30
+	iconholder = 1
+	has_cover = FALSE
+	always_up = TRUE
+	raised = TRUE
+	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
 
 /obj/machinery/porta_turret/tag/red
 
@@ -17,54 +25,26 @@
 	. = ..()
 	icon_state = "[lasercolor]grey_target_prism"
 
-/obj/machinery/porta_turret/tag/weapon_setup(var/obj/item/gun/energy/E)
-	switch(E.type)
-		if(/obj/item/gun/energy/laser/tag/blue)
-			eprojectile = /obj/item/gun/energy/laser/tag/blue
-			lasercolor = "b"
-			req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
-			check_arrest = 0
-			check_records = 0
-			check_weapons = 1
-			check_access = 0
-			check_anomalies = 0
-			shot_delay = 30
+/obj/machinery/porta_turret/tag/weapon_setup(obj/item/gun/energy/E)
+	return
 
-		if(/obj/item/gun/energy/laser/tag/red)
-			eprojectile = /obj/item/gun/energy/laser/tag/red
-			lasercolor = "r"
-			req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
-			check_arrest = 0
-			check_records = 0
-			check_weapons = 1
-			check_access = 0
-			check_anomalies = 0
-			shot_delay = 30
-			iconholder = 1
-
-/obj/machinery/porta_turret/tag/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
-		ui.open()
-		ui.set_auto_update(1)
-
-/obj/machinery/porta_turret/tag/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	data["access"] = !isLocked(user)
-	data["locked"] = locked
-	data["enabled"] = enabled
-	data["is_lethal"] = 0
+/obj/machinery/porta_turret/tag/ui_data(mob/user)
+	var/list/data = list(
+		"locked" = isLocked(user), // does the current user have access?
+		"on" = enabled, // is turret turned on?
+		"lethal" = FALSE,
+		"lethal_is_configurable" = lethal_is_configurable
+	)
 	return data
 
-/obj/machinery/porta_turret/tag/update_icon()
+/obj/machinery/porta_turret/tag/update_icon_state()
 	if(!anchored)
 		icon_state = "turretCover"
 		return
 	if(stat & BROKEN)
 		icon_state = "[lasercolor]destroyed_target_prism"
 	else
-		if(powered())
+		if(has_power())
 			if(enabled)
 				if(iconholder)
 					//lasers have a orange icon
@@ -91,11 +71,11 @@
 				spawn(100)
 					disabled  = FALSE
 
-/obj/machinery/porta_turret/tag/assess_living(var/mob/living/L)
+/obj/machinery/porta_turret/tag/assess_living(mob/living/L)
 	if(!L)
 		return TURRET_NOT_TARGET
 
-	if(L.lying)
+	if(IS_HORIZONTAL(L))
 		return TURRET_NOT_TARGET
 
 	var/target_suit
@@ -113,7 +93,7 @@
 		if((istype(L.r_hand, target_weapon)) || (istype(L.l_hand, target_weapon)))
 			return TURRET_PRIORITY_TARGET
 
-		if(istype(L, /mob/living/carbon/human))
+		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
 			if(istype(H.wear_suit, target_suit))
 				return TURRET_PRIORITY_TARGET

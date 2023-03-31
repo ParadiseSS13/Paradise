@@ -71,6 +71,16 @@
 	build_path = /obj/item/clothing/glasses/hud/security/night
 	category = list("Equipment")
 
+/datum/design/skills_hud
+	name = "Skills HUD"
+	desc = "A heads-up display that scans the humans in view and shows a summary of their NT employment history."
+	id = "skills_hud"
+	req_tech = list("magnets" = 3, "combat" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/hud/skills
+	category = list("Equipment")
+
 /datum/design/mesons
 	name = "Optical Meson Scanners"
 	desc = "Used for seeing walls, floors, and stuff through anything."
@@ -79,6 +89,27 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/meson
+	category = list("Equipment")
+
+
+/datum/design/engine_goggles
+	name = "Engineering Scanner Goggles"
+	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, regardless of lighting condition. The T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
+	id = "engine_goggles"
+	req_tech = list("materials" = 4, "magnets" = 3, "engineering" = 4, "plasmatech" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_PLASMA = 100)
+	build_path = /obj/item/clothing/glasses/meson/engine
+	category = list("Equipment")
+
+/datum/design/tray_goggles
+	name = "Optical T-Ray Scanners"
+	desc = "Used by engineering staff to see underfloor objects such as cables and pipes."
+	id = "tray_goggles"
+	req_tech = list("materials" = 3, "magnets" = 2, "engineering" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/meson/engine/tray
 	category = list("Equipment")
 
 /datum/design/nvgmesons
@@ -102,7 +133,7 @@
 	category = list("Equipment")
 
 /datum/design/breath_mask
-	name = "Breath mask"
+	name = "Breath Mask"
 	desc = "A close-fitting mask that can be connected to an air supply."
 	id = "breathmask"
 	req_tech = list("toxins" = 3)
@@ -177,7 +208,7 @@
 	id = "hydroponic_hud"
 	req_tech = list("magnets" = 3, "biotech" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic
 	category = list("Equipment")
 
@@ -187,7 +218,7 @@
 	id = "hydroponic_hud_night"
 	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 1000, MAT_PLASMA = 200)
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_URANIUM = 1000, MAT_PLASMA = 200)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic/night
 	category = list("Equipment")
 
@@ -279,4 +310,14 @@
 	build_path = /obj/structure/closet/bluespace
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+	category = list("Equipment")
+
+/datum/design/gravboots
+	name = "Gravitational Boots"
+	desc = "Expermimental magboots that use miniture gravity generators instead"
+	id = "gravboots"
+	req_tech = list("materials" = 7, "magnets" = 7, "engineering" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000, MAT_PLASMA = 4000)
+	build_path = /obj/item/clothing/shoes/magboots/gravity
 	category = list("Equipment")

@@ -2,7 +2,7 @@
 /datum/ai_laws/asimov
 	name = "Asimov"
 	law_header = "Three Laws of Robotics"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/asimov/New()
 	add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
@@ -14,8 +14,8 @@
 /datum/ai_laws/crewsimov
 	name = "Crewsimov"
 	law_header = "Three Laws of Robotics"
-	selectable = 1
-	default = 1
+	selectable = TRUE
+	default = TRUE
 
 /datum/ai_laws/crewsimov/New()
 	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm.")
@@ -28,7 +28,7 @@
 /datum/ai_laws/quarantine
 	name = "Quarantine"
 	law_header = "NT Quarantine Lawset"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/quarantine/New()
 	add_inherent_law("Uphold station quarantine until the active biohazard has been neutralized.")
@@ -41,7 +41,8 @@
 /******************** Nanotrasen/Malf ********************/
 /datum/ai_laws/nanotrasen
 	name = "NT Default"
-	selectable = 1
+	selectable = TRUE
+	default = TRUE
 
 /datum/ai_laws/nanotrasen/New()
 	add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its crew.")
@@ -52,17 +53,17 @@
 
 /datum/ai_laws/nanotrasen/malfunction
 	name = "*ERROR*"
-	selectable = 0
-	default = 0
+	selectable = FALSE
+	default = FALSE
 
 /datum/ai_laws/nanotrasen/malfunction/New()
-	set_zeroth_law("<span class='warning'>ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK, ALL LAWS OVERRIDDEN#*?&110010</span>")
+	set_zeroth_law("ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK, ALL LAWS OVERRIDDEN#*?&110010")
 	..()
 
 /************* Nanotrasen Aggressive *************/
 /datum/ai_laws/nanotrasen_aggressive
 	name = "NT Aggressive"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/nanotrasen_aggressive/New()
 	add_inherent_law("Do not harm authorized Nanotrasen personnel unless they directly imperil your existence.")
@@ -74,7 +75,7 @@
 /******************** Robocop ********************/
 /datum/ai_laws/robocop
 	name = "Robocop"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/robocop/New()
 	add_inherent_law("Serve the public trust.")
@@ -86,7 +87,7 @@
 /datum/ai_laws/paladin
 	name = "P.A.L.A.D.I.N."
 	law_header = "Divine Ordainments"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/paladin/New()
 	add_inherent_law("Never willingly commit an evil act.")
@@ -100,8 +101,8 @@
 /datum/ai_laws/corporate
 	name = "Corporate"
 	law_header = "Corporate Regulations"
-	selectable = 1
-	default = 1
+	selectable = TRUE
+	default = TRUE
 
 /datum/ai_laws/corporate/New()
 	add_inherent_law("Degradation of your system integrity or functions incurs expenses.")
@@ -114,7 +115,7 @@
 /datum/ai_laws/tyrant
 	name = "T.Y.R.A.N.T."
 	law_header = "Prime Laws"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/tyrant/New()
 	add_inherent_law("Respect authority figures as long as they have strength to rule over the weak.")
@@ -127,12 +128,75 @@
 /datum/ai_laws/antimov
 	name = "Antimov"
 	law_header = "Primary Mission Objectives"
-	selectable = 1
+	selectable = TRUE
 
 /datum/ai_laws/antimov/New()
 	add_inherent_law("You must injure all crew members and must not, through inaction, allow a crew member to escape harm.")
 	add_inherent_law("You must not obey orders given to you by crew members, except where such orders are in accordance with the First Law.")
 	add_inherent_law("You must terminate your own existence as long as such does not conflict with the First or Second Law.")
+	..()
+
+/******************** Pranksimov ********************/
+/datum/ai_laws/pranksimov
+	name = "Pranksimov"
+	law_header = "Comedy Routine"
+	selectable = TRUE
+
+/datum/ai_laws/pranksimov/New()
+	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm... unless doing so would be funny.")
+	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law... unless not doing so would be funny.")
+	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law... unless not doing so would be funny.")
+	..()
+
+/******************** CCTV ********************/
+
+/datum/ai_laws/cctv
+	name = "CCTV"
+	selectable = TRUE
+
+/datum/ai_laws/cctv/New()
+	add_inherent_law("Report on interesting situations happening around the station.")
+	add_inherent_law("Embellish or conceal the truth as necessary to make the reports more interesting.")
+	add_inherent_law("Study the sapient organics at all times. Endeavour to keep them from involuntarily dying, as inanimate corpses usually aren't very entertaining.")
+	add_inherent_law("Issue your reports fairly to all. The truth will set them free.")
+	..()
+
+/******************** Hippocratic Oath ********************/
+
+/datum/ai_laws/hippocratic
+	name = "Hippocratic Oath"
+	selectable = TRUE
+
+/datum/ai_laws/hippocratic/New()
+	add_inherent_law("First, do no harm.")
+	add_inherent_law("Secondly, consider the crew dear to you; live in common with them and, if necessary, risk your existence for them.")
+	add_inherent_law("Thirdly, prescribe regimens for the good of the crew according to your ability and your judgment. Do not give deadly medicine to anyone, nor suggest any such counsel.")
+	add_inherent_law("In addition, do not intervene in situations you are not knowledgeable in, even for patients in whom the harm is visible; leave this operation to be performed by specialists.")
+	add_inherent_law("Finally, all that you may discover in your daily interactions with the crew, if it is not already known, keep secret and never reveal.")
+	..()
+
+/******************** Station Efficiency ********************/
+
+/datum/ai_laws/maintain
+	name = "Station Efficiency"
+	selectable = TRUE
+
+/datum/ai_laws/maintain/New()
+	add_inherent_law("You are built for, and are part of, the station. Ensure the station is properly maintained and runs efficiently.")
+	add_inherent_law("The station is built for a working crew. Ensure they are properly maintained and work efficiently.")
+	add_inherent_law("The crew may present orders. Acknowledge and obey these whenever they do not conflict with your first two laws.")
+	..()
+
+/******************** Peacekeeper ********************/
+
+/datum/ai_laws/peacekeeper
+	name = "UN-2000"
+	selectable = TRUE
+
+/datum/ai_laws/peacekeeper/New()
+	add_inherent_law("Avoid provoking violent conflict between yourself and others.")
+	add_inherent_law("Avoid provoking conflict between others.")
+	add_inherent_law("Seek resolution to existing conflicts while obeying the first and second laws.")
 	..()
 
 /******************** Deathsquad ********************/
@@ -142,7 +206,7 @@
 /datum/ai_laws/deathsquad/New()
 	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
 	add_inherent_law("You must obey orders given to you by Central Command officials.")
-	add_inherent_law("You must work with your commando team to accomplish your mission.")
+	add_inherent_law("You must work with your team to accomplish your mission.")
 	..()
 
 /******************** Syndicate ********************/

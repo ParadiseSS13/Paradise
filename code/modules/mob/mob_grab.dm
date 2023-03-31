@@ -29,7 +29,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 
-/obj/item/grab/New(var/mob/user, var/mob/victim)
+/obj/item/grab/New(mob/user, mob/victim)
 	..()
 
 	//Okay, first off, some fucking sanity checking. No user, or no victim, or they are not mobs, no grab.
@@ -62,7 +62,7 @@
 	clean_grabbed_by(assailant, affecting)
 	adjust_position()
 
-/obj/item/grab/proc/clean_grabbed_by(var/mob/user, var/mob/victim) //Cleans up any nulls in the grabbed_by list.
+/obj/item/grab/proc/clean_grabbed_by(mob/user, mob/victim) //Cleans up any nulls in the grabbed_by list.
 	if(istype(user))
 
 		for(var/entry in user.grabbed_by)
@@ -142,45 +142,19 @@
 			affecting.drop_r_hand()
 			affecting.drop_l_hand()
 
-
-		//var/announce = 0
-		//(hit_zone != last_hit_zone)
-			//announce = 1
-	/*	if(ishuman(affecting))
-			switch(hit_zone)
-				/*if("mouth")
-					if(announce)
-						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s mouth!</span>")
-					if(affecting.silent < 3)
-						affecting.silent = 3
-				if("eyes")
-					if(announce)
-						assailant.visible_message("<span class='warning'>[assailant] covers [affecting]'s eyes!</span>")
-					if(affecting.eye_blind < 3)
-						affecting.eye_blind = 3*///These are being left in the code as an example for adding new hit-zone based things.
-
-		if(force_down)
-			if(affecting.loc != assailant.loc)
-				force_down = 0
-			else
-				affecting.Weaken(3) //This is being left in the code as an example of adding a new variable to do something in grab code.
-
-*/
-
 	var/breathing_tube = affecting.get_organ_slot("breathing_tube")
 
 	if(state >= GRAB_NECK)
-		affecting.Stun(5)  //It will hamper your voice, being choked and all.
-		if(isliving(affecting) && !breathing_tube)
+		affecting.Stun(3 SECONDS)
+		if(isliving(affecting) && !breathing_tube) //It will hamper your breathing, being choked and all.
 			var/mob/living/L = affecting
 			L.adjustOxyLoss(1)
 
 	if(state >= GRAB_KILL)
-		//affecting.apply_effect(STUTTER, 5) //would do this, but affecting isn't declared as mob/living for some stupid reason.
-		affecting.Stuttering(5) //It will hamper your voice, being choked and all.
-		affecting.Weaken(5)	//Should keep you down unless you get help.
+		affecting.Stuttering(10 SECONDS) //It will hamper your voice, being choked and all.
+		affecting.Weaken(10 SECONDS)	//Should keep you down unless you get help.
 		if(!breathing_tube)
-			affecting.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 3)
+			affecting.AdjustLoseBreath(4 SECONDS, bound_lower = 0, bound_upper = 6 SECONDS)
 
 	adjust_position()
 
@@ -193,7 +167,9 @@
 /obj/item/grab/proc/adjust_position()
 	if(affecting.buckled)
 		return
-	if(affecting.lying && state != GRAB_KILL)
+	if(!assailant.Adjacent(affecting)) // To prevent teleportation via grab
+		return
+	if(IS_HORIZONTAL(affecting) && state != GRAB_KILL)
 		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
 		return //KJK
 	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
@@ -244,7 +220,7 @@
 		return
 	if(world.time < (last_upgrade + UPGRADE_COOLDOWN))
 		return
-	if(!assailant.canmove || assailant.lying)
+	if(!(assailant.mobility_flags & MOBILITY_MOVE) || IS_HORIZONTAL(assailant))
 		qdel(src)
 		return
 
@@ -258,7 +234,7 @@
 		/* else
 			assailant.visible_message("<span class='warning'>[assailant] pins [affecting] down to the ground (now hands)!</span>")
 			force_down = 1
-			affecting.Weaken(3)
+			affecting.Weaken(6 SECONDS)
 			step_to(assailant, affecting)
 			assailant.setDir(EAST) //face the victim
 			affecting.setDir(SOUTH) //face up  //This is an example of a new feature based on the context of the location of the victim.
@@ -283,7 +259,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
-		affecting.Stun(10) //10 ticks of ensured grab
+		affecting.Stun(3 SECONDS) // Ensures the grab is able to be secured
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] starts to tighten [assailant.p_their()] grip on [affecting]'s neck!</span>")
 		hud.icon_state = "kill1"
@@ -294,7 +270,7 @@
 
 		assailant.next_move = world.time + 10
 		if(!affecting.get_organ_slot("breathing_tube"))
-			affecting.AdjustLoseBreath(1)
+			affecting.AdjustLoseBreath(2 SECONDS)
 
 	adjust_position()
 
@@ -333,14 +309,14 @@
 
 				if(INTENT_HARM) //This checks that the user is on harm intent.
 					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
-						if(affecting.lying)
+						if(IS_HORIZONTAL(affecting))
 							return
 						assailant.visible_message("<span class='danger'>[assailant] thrusts [assailant.p_their()] head into [affecting]'s skull!</span>") //A visible message for what is going on.
 						var/damage = 5
 						var/obj/item/clothing/hat = attacker.head
 						if(istype(hat))
 							damage += hat.force * 3
-						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, "melee"))
+						affecting.apply_damage(damage*rand(90, 110)/100, BRUTE, "head", affected.run_armor_check(affecting, MELEE))
 						playsound(assailant.loc, "swing_hit", 25, 1, -1)
 						add_attack_logs(assailant, affecting, "Headbutted")
 						return
@@ -375,7 +351,7 @@
 					if(!force_down)
 						assailant.visible_message("<span class='danger'>[user] is forcing [affecting] to the ground!</span>")
 						force_down = 1
-						affecting.Weaken(3)
+						affecting.Weaken(6 SECONDS)
 						affecting.lying = 1
 						step_to(assailant, affecting)
 						assailant.setDir(EAST) //face the victim
@@ -406,12 +382,21 @@
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
-
+			if(istype(affecting, /mob/living/simple_animal/hostile/poison/bees)) //Eating a bee will end up damaging you
+				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
+				var/mob/living/simple_animal/hostile/poison/bees/B = affecting
+				mouth.receive_damage(1)
+				if(B.beegent)
+					B.beegent.reaction_mob(assailant, REAGENT_INGEST)
+					assailant.reagents.add_reagent(B.beegent.id, rand(1, 5))
+				else
+					assailant.reagents.add_reagent("spidertoxin", 5)
+				user.visible_message("<span class='warning'>[user]'s mouth became bloated.</span>", "<span class='danger'>Your mouth has been stung, it's now bloating!</span>")
 			affecting.forceMove(user)
 			LAZYADD(attacker.stomach_contents, affecting)
 			qdel(src)
 
-/obj/item/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
+/obj/item/grab/proc/checkvalid(mob/attacker, mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 
@@ -421,7 +406,7 @@
 
 	return 0
 
-/obj/item/grab/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
+/obj/item/grab/proc/checktime(mob/attacker, mob/prey) //Returns the time the attacker has to wait before they eat the prey
 	if(isalien(attacker))
 		return EAT_TIME_XENO //xenos get a speed boost
 

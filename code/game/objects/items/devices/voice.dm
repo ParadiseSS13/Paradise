@@ -1,6 +1,6 @@
 /obj/item/voice_changer
 	name = "voice changer"
-	desc = "A voice scrambling module."
+	desc = "A voice mimicking module."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "voice_changer_off"
 
@@ -42,3 +42,9 @@
 
 	voice = sanitize(copytext(chosen_voice, 1, MAX_MESSAGE_LEN))
 	to_chat(user, "<span class='notice'>You are now mimicking <b>[voice]</b>.</span>")
+
+/obj/item/voice_changer/voice_modulator
+	name = "voice modulator"
+	desc = "A voice scrambling module."
+	voice = "Unknown"
+	actions_types = list(/datum/action/item_action/voice_changer/toggle)

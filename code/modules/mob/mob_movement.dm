@@ -1,22 +1,29 @@
 /mob/CanPass(atom/movable/mover, turf/target, height=0)
+	var/horizontal = FALSE
+	if(isliving(src))
+		var/mob/living/L = src
+		horizontal = IS_HORIZONTAL(L)
+
 	if(height==0)
 		return 1
 	if(istype(mover, /obj/item/projectile))
-		return (!density || lying)
+		return projectile_hit_check(mover)
 	if(mover.throwing)
-		return (!density || lying || (mover.throwing.thrower == src))
+		return (!density || horizontal || (mover.throwing.thrower == src))
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if((other_mobs && moving_mob.other_mobs))
-			return TRUE
+		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
+			return FALSE
 		if(mover in buckled_mobs)
 			return TRUE
-	return (!mover.density || !density || lying)
+	return (!mover.density || !density || horizontal)
 
+/mob/proc/projectile_hit_check(obj/item/projectile/P)
+	return !density
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1
@@ -39,12 +46,17 @@
 
 #define MOVEMENT_DELAY_BUFFER 0.75
 #define MOVEMENT_DELAY_BUFFER_DELTA 1.25
+#define CONFUSION_LIGHT_COEFFICIENT		0.15
+#define CONFUSION_HEAVY_COEFFICIENT		0.075
+#define CONFUSION_MAX					80 SECONDS
+
+
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
 	else
-		next_move_dir_add = 0
-		next_move_dir_sub = 0
+		input_data.desired_move_dir_add = NONE
+		input_data.desired_move_dir_sub = NONE
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 	if(!mob || !mob.loc)
@@ -69,9 +81,10 @@
 	if(moving)
 		return 0
 
+	var/mob/living/living_mob = null
 	if(isliving(mob))
-		var/mob/living/L = mob
-		if(L.incorporeal_move)//Move though walls
+		living_mob = mob
+		if(living_mob.incorporeal_move)//Move though walls
 			Process_Incorpmove(direct)
 			return
 
@@ -91,7 +104,7 @@
 	if(mob.buckled) //if we're buckled to something, tell it we moved.
 		return mob.buckled.relaymove(mob, direct)
 
-	if(!mob.canmove)
+	if(living_mob && !(living_mob.mobility_flags & MOBILITY_MOVE))
 		return
 
 	if(!mob.lastarea)
@@ -126,62 +139,44 @@
 
 	delay = TICKS2DS(-round(-(DS2TICKS(delay)))) //Rounded to the next tick in equivalent ds
 
+
 	if(locate(/obj/item/grab, mob))
 		delay += 7
-		var/list/L = mob.ret_grab()
-		if(istype(L, /list))
-			if(L.len == 2)
-				L -= mob
-				var/mob/M = L[1]
-				if(M)
-					if((get_dist(mob, M) <= 1 || M.loc == mob.loc))
-						var/turf/prev_loc = mob.loc
-						. = mob.SelfMove(n, direct, delay)
-						if(M && isturf(M.loc)) // Mob may get deleted during parent call
-							var/diag = get_dir(mob, M)
-							if((diag - 1) & diag)
-							else
-								diag = null
-							if((get_dist(mob, M) > 1 || diag))
-								M.Move(prev_loc, get_dir(M.loc, prev_loc), delay)
-			else
-				for(var/mob/M in L)
-					M.other_mobs = 1
-					if(mob != M)
-						M.animate_movement = 3
-				for(var/mob/M in L)
-					spawn(0)
-						M.Move(get_step(M,direct), direct, delay)
-					spawn(1)
-						M.other_mobs = null
-						M.animate_movement = 2
 
-	else if(mob.confused)
-		var/newdir = 0
-		if(mob.confused > 40)
+	if(istype(living_mob))
+		var/newdir = NONE
+		var/confusion = living_mob.get_confusion()
+		if(confusion > CONFUSION_MAX)
 			newdir = pick(GLOB.alldirs)
-		else if(prob(mob.confused * 1.5))
+		else if(prob(confusion * CONFUSION_HEAVY_COEFFICIENT))
 			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
-		else if(prob(mob.confused * 3))
+		else if(prob(confusion * CONFUSION_LIGHT_COEFFICIENT))
 			newdir = angle2dir(dir2angle(direct) + pick(45, -45))
 		if(newdir)
 			direct = newdir
 			n = get_step(mob, direct)
 
-	. = mob.SelfMove(n, direct, delay)
-	mob.setDir(direct)
+	var/prev_pulling_loc = null
+	if(mob.pulling)
+		prev_pulling_loc = mob.pulling.loc
 
-	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		delay = mob.movement_delay() * 2 //Will prevent mob diagonal moves from smoothing accurately, sadly
-
+	if(!(direct & (direct - 1))) // cardinal direction
+		. = mob.SelfMove(n, direct, delay)
+	else // diagonal movements take longer
+		var/diag_delay = delay * SQRT_2
+		. = mob.SelfMove(n, direct, diag_delay)
+		if(mob.loc == n)
+			// only incur the extra delay if the move was *actually* diagonal
+			// There would be a bit of visual jank if we try to walk diagonally next to a wall
+			// and the move ends up being cardinal, rather than diagonal,
+			// but that's better than it being jank on every *successful* diagonal move.
+			delay = diag_delay
 	move_delay += delay
 
-	for(var/obj/item/grab/G in mob)
-		if(G.state == GRAB_NECK)
-			mob.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
-		G.adjust_position()
-	for(var/obj/item/grab/G in mob.grabbed_by)
-		G.adjust_position()
+	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
+		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
+	else
+		mob.setDir(direct)
 
 	moving = 0
 	if(mob && .)
@@ -190,6 +185,10 @@
 
 	for(var/obj/O in mob)
 		O.on_mob_move(direct, mob)
+
+#undef CONFUSION_LIGHT_COEFFICIENT
+#undef CONFUSION_HEAVY_COEFFICIENT
+#undef CONFUSION_MAX
 
 
 /mob/proc/SelfMove(turf/n, direct, movetime)
@@ -200,6 +199,8 @@
 ///Checks to see if you are being grabbed and if so attemps to break it
 /client/proc/Process_Grab()
 	if(mob.grabbed_by.len)
+		if(mob.incapacitated(FALSE, TRUE)) // Can't break out of grabs if you're incapacitated
+			return TRUE
 		var/list/grabbing = list()
 
 		if(istype(mob.l_hand, /obj/item/grab))
@@ -221,17 +222,17 @@
 				if(GRAB_AGGRESSIVE)
 					move_delay = world.time + 10
 					if(!prob(25))
-						return 1
+						return TRUE
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s grip!</span>")
 					qdel(G)
 
 				if(GRAB_NECK)
 					move_delay = world.time + 10
 					if(!prob(5))
-						return 1
+						return TRUE
 					mob.visible_message("<span class='danger'>[mob] has broken free of [G.assailant]'s headlock!</span>")
 					qdel(G)
-	return 0
+	return FALSE
 
 
 ///Process_Incorpmove
@@ -289,9 +290,9 @@
 			var/turf/simulated/floor/stepTurf = get_step(L, direct)
 			if(stepTurf.flags & NOJAUNT)
 				to_chat(L, "<span class='warning'>Holy energies block your path.</span>")
-				L.notransform = 1
+				L.notransform = TRUE
 				spawn(2)
-					L.notransform = 0
+					L.notransform = FALSE
 			else
 				L.forceMove(get_step(L, direct))
 				L.dir = direct
@@ -305,7 +306,7 @@
 /mob/Process_Spacemove(movement_dir = 0)
 	if(..())
 		return 1
-	var/atom/movable/backup = get_spacemove_backup()
+	var/atom/movable/backup = get_spacemove_backup(movement_dir)
 	if(backup)
 		if(istype(backup) && movement_dir && !backup.anchored)
 			var/opposite_dir = turn(movement_dir, 180)
@@ -314,13 +315,13 @@
 		return 1
 	return 0
 
-/mob/get_spacemove_backup()
+/mob/get_spacemove_backup(movement_dir)
 	for(var/A in orange(1, get_turf(src)))
 		if(isarea(A))
 			continue
 		else if(isturf(A))
 			var/turf/turf = A
-			if(istype(turf, /turf/space))
+			if(isspaceturf(turf))
 				continue
 			if(!turf.density && !mob_negates_gravity())
 				continue
@@ -334,6 +335,8 @@
 					return AM
 				if(pulling == AM)
 					continue
+				if(get_turf(AM) == get_step(get_turf(src), movement_dir)) // No pushing off objects in front of you, while simultaneously pushing them fowards to go faster in space.
+					continue
 				. = AM
 
 
@@ -344,7 +347,7 @@
 	return 0
 
 /mob/proc/Move_Pulled(atom/A)
-	if(!canmove || restrained() || !pulling)
+	if(HAS_TRAIT(src, TRAIT_CANNOT_PULL) || restrained() || !pulling)
 		return
 	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
 		stop_pulling()
@@ -482,13 +485,26 @@
 	set hidden = TRUE
 	set instant = TRUE
 	if(mob)
-		mob.toggle_move_intent(usr)
+		mob.toggle_move_intent()
 
-/mob/proc/toggle_move_intent(mob/user)
+/mob/proc/toggle_move_intent()
+	if(iscarbon(src))
+		var/mob/living/carbon/C = src
+		if(C.legcuffed)
+			to_chat(C, "<span class='notice'>You are legcuffed! You cannot run until you get [C.legcuffed] removed!</span>")
+			C.m_intent = MOVE_INTENT_WALK	//Just incase
+			C.hud_used.move_intent.icon_state = "walking"
+			return
+
+	var/icon_toggle
 	if(m_intent == MOVE_INTENT_RUN)
 		m_intent = MOVE_INTENT_WALK
+		icon_toggle = "walking"
 	else
 		m_intent = MOVE_INTENT_RUN
-	if(hud_used && hud_used.static_inventory)
+		icon_toggle = "running"
+
+	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
+		hud_used.move_intent.icon_state = icon_toggle
 		for(var/obj/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon(src)
+			selector.update_icon()

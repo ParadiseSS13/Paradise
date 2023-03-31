@@ -2,10 +2,12 @@
 	name = "chasm"
 	desc = "Watch your step."
 	baseturf = /turf/simulated/floor/chasm
-	smooth = SMOOTH_TRUE | SMOOTH_BORDER | SMOOTH_MORE
 	icon = 'icons/turf/floors/Chasms.dmi'
-	icon_state = "smooth"
-	canSmoothWith = list(/turf/simulated/floor/chasm)
+	icon_state = "chasms-255"
+	base_icon_state = "chasms"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
+	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_TURF_CHASM)
+	canSmoothWith = list(SMOOTH_GROUP_TURF_CHASM)
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
 	var/static/list/forbidden_types = typecacheof(list(
@@ -20,11 +22,13 @@
 		/obj/effect/temp_visual,
 		/obj/effect/light_emitter/tendril,
 		/obj/effect/collapse,
-		/obj/effect/particle_effect/ion_trails
+		/obj/effect/particle_effect/ion_trails,
+		/obj/effect/abstract,
+		/obj/effect/ebeam
 		))
 	var/drop_x = 1
 	var/drop_y = 1
-	var/drop_z = 1
+	var/drop_z = 2 // so that it doesn't send you to CC if something fucks up.
 
 /turf/simulated/floor/chasm/Entered(atom/movable/AM)
 	..()
@@ -67,18 +71,17 @@
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 
-/turf/simulated/floor/chasm/proc/is_safe()
-	//if anything matching this typecache is found in the chasm, we don't drop things
-	var/static/list/chasm_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
-	var/list/found_safeties = typecache_filter_list(contents, chasm_safeties_typecache)
-	for(var/obj/structure/stone_tile/S in found_safeties)
-		if(S.fallen)
-			LAZYREMOVE(found_safeties, S)
-	return LAZYLEN(found_safeties)
+/turf/simulated/floor/chasm/is_safe()
+	if(find_safeties() && ..())
+		return TRUE
+	return FALSE
+
+/turf/simulated/floor/chasm/ex_act(severity)
+	return
 
 /turf/simulated/floor/chasm/proc/drop_stuff(AM)
 	. = 0
-	if(is_safe())
+	if(find_safeties())
 		return FALSE
 	var/thing_to_check = src
 	if(AM)
@@ -86,7 +89,7 @@
 	for(var/thing in thing_to_check)
 		if(droppable(thing))
 			. = 1
-			INVOKE_ASYNC(src, .proc/drop, thing)
+			INVOKE_ASYNC(src, PROC_REF(drop), thing)
 
 /turf/simulated/floor/chasm/proc/droppable(atom/movable/AM)
 	if(falling_atoms[AM])
@@ -122,7 +125,7 @@
 		AM.forceMove(T)
 		if(isliving(AM))
 			var/mob/living/L = AM
-			L.Weaken(5)
+			L.Weaken(10 SECONDS)
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
@@ -131,10 +134,6 @@
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
-	var/turf/T = locate(drop_x, drop_y, drop_z)
-	if(T)
-		T.visible_message("<span class='boldwarning'>The ceiling gives way!</span>")
-		playsound(T, 'sound/effects/break_stone.ogg', 50, 1)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	oxygen = 14
@@ -156,8 +155,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE
-		L.Stun(200)
-		L.resting = TRUE
+		L.Weaken(400 SECONDS)
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha
@@ -182,7 +180,7 @@
 	qdel(AM)
 
 	if(AM && !QDELETED(AM))	//It's indestructible
-		visible_message("<span class='boldwarning'>[src] spits out the [AM]!</span>")
+		visible_message("<span class='boldwarning'>[src] spits out [AM]!</span>")
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform
@@ -195,3 +193,10 @@
 
 /turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
 	return 1
+
+/turf/simulated/floor/chasm/pride/Initialize(mapload)
+	. = ..()
+	drop_x = x
+	drop_y = y
+	var/list/target_z = levels_by_trait(SPAWN_RUINS)
+	drop_z = pick(target_z)

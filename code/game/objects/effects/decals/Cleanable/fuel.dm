@@ -3,7 +3,6 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "fuel"
 	layer = LATTICE_LAYER
-	anchored = TRUE
 	var/amount = 1 //Basically moles.
 
 /obj/effect/decal/cleanable/liquid_fuel/Initialize(mapload, amt = 1)

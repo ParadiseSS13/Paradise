@@ -21,6 +21,8 @@
 	var/list/ticket_holders = list()
 	var/list/tickets = list()
 	var/id = 1
+	/// If FALSE, the ticket machine will not dispense tickets. Toggled by swiping  aHoP ID
+	var/dispense_enabled = TRUE
 
 /obj/machinery/ticket_machine/Destroy()
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
@@ -75,7 +77,7 @@
 /obj/machinery/door_control/ticket_machine_button/attack_hand(mob/user)
 	if(allowed(usr) || user.can_advanced_admin_interact())
 		icon_state = "doorctrl1"
-		addtimer(CALLBACK(src, /obj/machinery/door_control/ticket_machine_button/.proc/update_icon), 15)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
 		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
 			if(M.id == id)
 				if(cooldown)
@@ -87,11 +89,11 @@
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		flick("doorctrl-denied", src)
 
-/obj/machinery/door_control/ticket_machine_button/update_icon()
+/obj/machinery/door_control/ticket_machine_button/update_icon_state()
 	if(!(stat & NOPOWER))
 		icon_state = "doorctrl0"
 
-/obj/machinery/ticket_machine/update_icon()
+/obj/machinery/ticket_machine/update_icon_state()
 	switch(ticket_number) //Gives you an idea of how many tickets are left
 		if(0 to 49)
 			icon_state = "ticketmachine_100"
@@ -102,6 +104,10 @@
 	handle_maptext()
 
 /obj/machinery/ticket_machine/proc/handle_maptext()
+	if(!dispense_enabled)
+		maptext_x = 6
+		maptext = "<font face='Small Fonts' color='#960b0b'>OFF</font>"
+		return
 	switch(ticket_number) //This is here to handle maptext offsets so that the numbers align.
 		if(0 to 9)
 			maptext_x = 13
@@ -130,8 +136,16 @@
 			max_number = initial(max_number)
 			update_icon()
 			return
-	else
-		return ..()
+	else if(istype(I, /obj/item/card/id))
+		var/obj/item/card/id/heldID = I
+		if(ACCESS_HOP in heldID.access)
+			dispense_enabled = !dispense_enabled
+			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
+			handle_maptext()
+			return
+		to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
+		return
+	return ..()
 
 /obj/machinery/ticket_machine/proc/reset_cooldown()
 	ready = TRUE
@@ -140,6 +154,9 @@
 	. = ..()
 	if(!ready)
 		to_chat(user,"<span class='warning'>You press the button, but nothing happens...</span>")
+		return
+	if(!dispense_enabled)
+		to_chat(user, "<span class='warning'>[src] is disabled.</span>")
 		return
 	if(ticket_number >= max_number)
 		to_chat(user,"<span class='warning'>Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!</span>")
@@ -162,7 +179,7 @@
 	tickets += theirticket
 	if(emagged) //Emag the machine to destroy the HOP's life.
 		ready = FALSE
-		addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown)//Small cooldown to prevent piles of flaming tickets
+		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)//Small cooldown to prevent piles of flaming tickets
 		theirticket.fire_act()
 		user.drop_item()
 		user.adjust_fire_stacks(1)
@@ -171,6 +188,10 @@
 // Stop AI penetrating the bureaucracy
 /obj/machinery/ticket_machine/attack_ai(mob/user)
 	return
+
+/obj/machinery/ticket_machine/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>Use an ID card with <b>Head of Personnel</b> access on this machine to [dispense_enabled ? "disable" : "enable"] ticket dispensing.</span>"
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
@@ -194,8 +215,8 @@
 /obj/item/ticket_machine_ticket/attackby(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
 	..()
 	if(is_hot(P))
-		if((CLUMSY in user.mutations) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.drop_item()
 			user.adjust_fire_stacks(1)

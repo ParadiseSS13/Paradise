@@ -4,9 +4,9 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "syringe_0"
 	icon_state = "lepopen"
-	var/used = null
+	var/used = FALSE
 
-/obj/item/dnascrambler/update_icon()
+/obj/item/dnascrambler/update_icon_state()
 	if(used)
 		icon_state = "lepopen0"
 	else
@@ -22,14 +22,12 @@
 	if(used)
 		return
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(NO_DNA in H.dna.species.species_traits)
-			to_chat(user, "<span class='warning'>You failed to inject [M], as [M.p_they()] [M.p_have()] no DNA to scramble, nor flesh to inject.</span>")
-			return
+	if(HAS_TRAIT(M, TRAIT_GENELESS))
+		to_chat(user, "<span class='warning'>You failed to inject [M], as [M.p_they()] [M.p_have()] no DNA to scramble, nor flesh to inject.</span>")
+		return
 
 	if(M == user)
-		user.visible_message("<span class='danger'>[user] injects [user.p_them()]self with [src]!</span>")
+		user.visible_message("<span class='danger'>[user] injects [user.p_themselves()] with [src]!</span>")
 		injected(user, user)
 	else
 		user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
@@ -39,7 +37,7 @@
 		else
 			to_chat(user, "<span class='warning'>You failed to inject [M].</span>")
 
-/obj/item/dnascrambler/proc/injected(var/mob/living/carbon/human/target, var/mob/living/carbon/user)
+/obj/item/dnascrambler/proc/injected(mob/living/carbon/human/target, mob/living/carbon/user)
 	if(istype(target))
 		var/mob/living/carbon/human/H = target
 		scramble(1, H, 100)
@@ -53,6 +51,6 @@
 	target.update_icons()
 
 	add_attack_logs(user, target, "injected with [src]")
-	used = 1
-	update_icon()
+	used = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	name = "used " + name

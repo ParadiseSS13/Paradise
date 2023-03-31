@@ -13,7 +13,7 @@
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))
 		return 0
-	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
+	if(isrobot(M))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
 		if(R.getBruteLoss() || R.getFireLoss() )
 			R.heal_overall_damage(15, 15)
@@ -23,7 +23,7 @@
 		else
 			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
 
-	if(istype(M,/mob/living/carbon/human)) //Repairing robotic limbs and IPCs
+	if(ishuman(M)) //Repairing robotic limbs and IPCs
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_selected)
 
@@ -63,3 +63,16 @@
 				to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
+
+/obj/item/stack/nanopaste/cyborg
+	energy_type = /datum/robot_energy_storage/medical/nanopaste
+	is_cyborg = TRUE
+
+/obj/item/stack/nanopaste/cyborg/attack(mob/living/M, mob/user)
+	if(get_amount() <= 0)
+		to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
+	else
+		return ..()
+
+/obj/item/stack/nanopaste/cyborg/syndicate
+	energy_type = /datum/robot_energy_storage/medical/nanopaste/syndicate

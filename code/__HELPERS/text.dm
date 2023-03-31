@@ -8,34 +8,17 @@
  *			Misc
  */
 
-
-/*
- * SQL sanitization
- */
-
-// Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
-/proc/sanitizeSQL(var/t as text)
-	if(isnull(t))
-		return null
-	if(!istext(t))
-		t = "[t]" // Just quietly assume any non-texts are supposed to be text
-	var/sqltext = GLOB.dbcon.Quote(t);
-	return copytext(sqltext, 2, length(sqltext));//Quote() adds quotes around input, we already do that
-
-/proc/format_table_name(table as text)
-	return sqlfdbktableprefix + table
-
 /*
  * Text sanitization
  */
 // Can be used almost the same way as normal input for text
 /proc/clean_input(Message, Title, Default, mob/user=usr)
-	var/txt = input(user, Message, Title, Default) as text | null
+	var/txt = input(user, Message, Title, html_decode(Default)) as text | null
 	if(txt)
 		return html_encode(txt)
 
 //Simply removes < and > and limits the length of the message
-/proc/strip_html_simple(var/t,var/limit=MAX_MESSAGE_LEN)
+/proc/strip_html_simple(t, limit=MAX_MESSAGE_LEN)
 	var/list/strip_chars = list("<",">")
 	t = copytext(t,1,limit)
 	for(var/char in strip_chars)
@@ -46,22 +29,13 @@
 	return t
 
 //Removes a few problematic characters
-/proc/sanitize_simple(var/t,var/list/repl_chars = list("\n"="#","\t"="#"))
+/proc/sanitize_simple(t, list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
 
-/proc/readd_quotes(var/t)
-	var/list/repl_chars = list("&#34;" = "\"")
-	for(var/char in repl_chars)
-		var/index = findtext(t, char)
-		while(index)
-			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+5)
-			index = findtext(t, char)
-	return t
-
 //Runs byond's sanitization proc along-side sanitize_simple
-/proc/sanitize(var/t,var/list/repl_chars = null)
+/proc/sanitize(t, list/repl_chars = null)
 	return html_encode(sanitize_simple(t,repl_chars))
 
 // Gut ANYTHING that isnt alphanumeric, or brackets
@@ -76,12 +50,12 @@
 
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
-/proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
+/proc/strip_html(t, limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
 // Used to get a properly sanitized multiline input, of max_length
 /proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = input(user, message, title, default) as message|null
+	var/name = input(user, message, title, html_decode(default)) as message|null
 	if(no_trim)
 		return copytext(html_encode(name), 1, max_length)
 	else
@@ -89,12 +63,12 @@
 
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
-/proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
+/proc/adminscrub(t, limit=MAX_MESSAGE_LEN)
 	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
 
 //Returns null if there is any bad text in the string
-/proc/reject_bad_text(var/text, var/max_length=512)
+/proc/reject_bad_text(text, max_length=512)
 	if(length(text) > max_length)	return			//message too long
 	var/non_whitespace = 0
 	for(var/i=1, i<=length(text), i++)
@@ -108,7 +82,7 @@
 
 // Used to get a sanitized input.
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = html_encode(input(user, message, title, default) as text|null)
+	var/name = sanitize(input(user, message, title, html_decode(default)) as text|null)
 	if(!no_trim)
 		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 	return copytext(name, 1, max_length)
@@ -119,7 +93,7 @@
 		return null
 	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
 	C.typing = TRUE
-	var/msg = input(user, message, title, default) as text|null
+	var/msg = input(user, message, title, html_decode(default)) as text|null
 	if(!C)
 		return null
 	C.typing = FALSE
@@ -128,7 +102,7 @@
 	return msg
 
 //Filters out undesirable characters from names
-/proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)
+/proc/reject_bad_name(t_in, allow_numbers=0, max_length=MAX_NAME_LEN)
 	// Decode so that names with characters like < are still rejected
 	t_in = html_decode(t_in)
 	if(!t_in || length(t_in) > max_length)
@@ -196,7 +170,7 @@
 //checks text for html tags
 //if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
 //relpaces < with &lt;
-proc/checkhtml(var/t)
+/proc/checkhtml(t)
 	t = sanitize_simple(t, list("&#"="."))
 	var/p = findtext(t,"<",1)
 	while(p)	//going through all the tags
@@ -248,7 +222,7 @@ proc/checkhtml(var/t)
  * Text modification
  */
 // See bygex.dm
-/proc/replace_characters(var/t,var/list/repl_chars)
+/proc/replace_characters(t, list/repl_chars)
 	for(var/char in repl_chars)
 		t = replacetext(t, char, repl_chars[char])
 	return t
@@ -299,7 +273,7 @@ proc/checkhtml(var/t)
 	return trim_left(trim_right(text))
 
 //Returns a string with the first element of the string capitalized.
-/proc/capitalize(var/t as text)
+/proc/capitalize(t as text)
 	return uppertext(copytext(t, 1, 2)) + copytext(t, 2)
 
 //Centers text by adding spaces to either side of the string.
@@ -327,7 +301,7 @@ proc/checkhtml(var/t)
 	return copytext(message, 1, length + 1)
 
 
-/proc/stringmerge(var/text,var/compare,replace = "*")
+/proc/stringmerge(text, compare,replace = "*")
 //This proc fills in all spaces with the "replace" var (* by default) with whatever
 //is in the other string at the same spot (assuming it is not a replace char).
 //This is used for fingerprints
@@ -348,7 +322,7 @@ proc/checkhtml(var/t)
 				return 0
 	return newtext
 
-/proc/stringpercent(var/text,character = "*")
+/proc/stringpercent(text, character = "*")
 //This proc returns the number of chars of the string that is the character
 //This is used for detective work to determine fingerprint completion.
 	if(!text || !character)
@@ -360,7 +334,7 @@ proc/checkhtml(var/t)
 			count++
 	return count
 
-/proc/reverse_text(var/text = "")
+/proc/reverse_text(text = "")
 	var/new_text = ""
 	for(var/i = length(text); i > 0; i--)
 		new_text += copytext(text, i, i+1)
@@ -369,7 +343,7 @@ proc/checkhtml(var/t)
 //This proc strips html properly, but it's not lazy like the other procs.
 //This means that it doesn't just remove < and > and call it a day.
 //Also limit the size of the input, if specified.
-/proc/strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+/proc/strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
 	if(!input)
 		return
 	var/opentag = 1 //These store the position of < and > respectively.
@@ -393,12 +367,12 @@ proc/checkhtml(var/t)
 		input = copytext(input,1,max_length)
 	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
 
-/proc/trim_strip_html_properly(var/input, var/max_length = MAX_MESSAGE_LEN, allow_lines = 0)
-    return trim(strip_html_properly(input, max_length, allow_lines))
+/proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
+	return trim(strip_html_properly(input, max_length, allow_lines))
 
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
-/proc/TextPreview(var/string,var/len=40)
+/proc/TextPreview(string, len=40)
 	if(length(string) <= len)
 		if(!length(string))
 			return "\[...\]"
@@ -408,14 +382,14 @@ proc/checkhtml(var/t)
 		return "[copytext_preserve_html(string, 1, 37)]..."
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
-/proc/copytext_preserve_html(var/text, var/first, var/last)
+/proc/copytext_preserve_html(text, first, last)
 	return html_encode(copytext(html_decode(text), first, last))
 
 //Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
 //Best used for sanitize object names, window titles.
 //If you have a problem with sanitize() in chat, when quotes and >, < are displayed as html entites -
 //this is a problem of double-encode(when & becomes &amp;), use sanitize() with encode=0, but not the sanitizeSafe()!
-/proc/sanitizeSafe(var/input, var/max_length = MAX_MESSAGE_LEN, var/encode = 1, var/trim = 1, var/extra = 1)
+/proc/sanitizeSafe(input, max_length = MAX_MESSAGE_LEN, encode = 1, trim = 1, extra = 1)
 	return sanitize(replace_characters(input, list(">"=" ","<"=" ", "\""="'")), max_length, encode, trim, extra)
 
 
@@ -425,8 +399,8 @@ proc/checkhtml(var/t)
 	return text_macro.Replace(rest, /proc/replace_text_macro)
 
 /proc/macro2html(text)
-    var/static/regex/text_macro = new("(\\xFF.)(.*)$")
-    return text_macro.Replace(text, /proc/replace_text_macro)
+	var/static/regex/text_macro = new("(\\xFF.)(.*)$")
+	return text_macro.Replace(text, /proc/replace_text_macro)
 
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
@@ -437,7 +411,7 @@ proc/checkhtml(var/t)
 		var/index = findtext(text, char)
 		var/keylength = length(char)
 		while(index)
-			log_runtime(EXCEPTION("Bad string given to dmm encoder! [text]"))
+			stack_trace("Bad string given to dmm encoder! [text]")
 			// Replace w/ underscore to prevent "&#3&#123;4;" from cheesing the radar
 			// Should probably also use canon text replacing procs
 			text = copytext(text, 1, index) + "_" + copytext(text, index+keylength)
@@ -518,6 +492,8 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
+		text = replacetext(text, "\[syndielogo\]", 	"")
+
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
@@ -533,8 +509,11 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[/grid\]",	"</td></tr></table>")
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
-		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
+		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src='ntlogo.png'>")
+		text = replacetext(text, "\[syndielogo\]", 	"&ZeroWidthSpace;<img src='syndielogo.png'>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
+		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
+		text = replacetext(text, "\[station\]", "[SSmapping.map_datum.fluff_name]")
 		if(!no_font)
 			if(P)
 				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
@@ -613,7 +592,145 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "</td></tr></table>",		"\[/grid\]")
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
-	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src='ntlogo.png'>",	"\[logo\]")
+	text = replacetext(text, "<img src='syndielogo.png'>",	"\[syndielogo\]")
 	return text
 
-#define string2charlist(string) (splittext(string, regex("(\\x0A|.)")) - splittext(string, ""))
+/datum/html/split_holder
+	var/list/opening
+	var/inner_text
+	var/list/closing
+
+/datum/html/split_holder/New()
+	opening = list()
+	inner_text = ""
+	closing = list()
+
+/proc/split_html(raw_text="")
+	// gently borrowed and re-purposed from code/modules/pda/utilities.dm
+	// define a datum to hold our result
+	var/datum/html/split_holder/s = new()
+
+	// copy the raw_text to get started
+	var/text = copytext_char(raw_text, 1)
+
+	// search for tag brackets
+	var/tag_start = findtext_char(text, "<")
+	var/tag_stop = findtext_char(text, ">")
+
+	// until we run out of opening tags
+	while((tag_start != 0) && (tag_stop != 0))
+		// if the tag isn't at the beginning of the string
+		if(tag_start > 1)
+			// we've found our text, so copy it out
+			s.inner_text = copytext_char(text, 1, tag_start)
+			// and chop the text for the next round
+			text = copytext_char(text, tag_start)
+			break
+		// otherwise, we found an opening tag, so add it to the list
+		var/tag = copytext_char(text, tag_start, tag_stop+1)
+		s.opening.Add(tag)
+		// and chop the text for the next round
+		text = copytext_char(text, tag_stop+1)
+		// look for the next tag in what's left
+		tag_start = findtext(text, "<")
+		tag_stop = findtext(text, ">")
+
+	// search for tag brackets
+	tag_start = findtext(text, "<")
+	tag_stop = findtext(text, ">")
+
+	// until we run out of closing tags
+	while((tag_start != 0) && (tag_stop != 0))
+		// we found a closing tag, so add it to the list
+		var/tag = copytext_char(text, tag_start, tag_stop+1)
+		s.closing.Add(tag)
+		// and chop the text for the next round
+		text = copytext_char(text, tag_stop+1)
+		// look for the next tag in what's left
+		tag_start = findtext(text, "<")
+		tag_stop = findtext(text, ">")
+
+	// return the split html object to the caller
+	return s
+
+//Used for applying byonds text macros to strings that are loaded at runtime
+/proc/apply_text_macros(string)
+	var/next_backslash = findtext(string, "\\")
+	if(!next_backslash)
+		return string
+
+	var/leng = length(string)
+
+	var/next_space = findtext(string, " ", next_backslash + length(string[next_backslash]))
+	if(!next_space)
+		next_space = leng - next_backslash
+
+	if(!next_space)	//trailing bs
+		return string
+
+	var/base = next_backslash == 1 ? "" : copytext(string, 1, next_backslash)
+	var/macro = lowertext(copytext(string, next_backslash + length(string[next_backslash]), next_space))
+	var/rest = next_backslash > leng ? "" : copytext(string, next_space + length(string[next_space]))
+
+	//See https://secure.byond.com/docs/ref/info.html#/DM/text/macros
+	switch(macro)
+		//prefixes/agnostic
+		if("the")
+			rest = text("\the []", rest)
+		if("a")
+			rest = text("\a []", rest)
+		if("an")
+			rest = text("\an []", rest)
+		if("proper")
+			rest = text("\proper []", rest)
+		if("improper")
+			rest = text("\improper []", rest)
+		if("roman")
+			rest = text("\roman []", rest)
+		//postfixes
+		if("th")
+			base = text("[]\th", rest)
+		if("s")
+			base = text("[]\s", rest)
+		if("he")
+			base = text("[]\he", rest)
+		if("she")
+			base = text("[]\she", rest)
+		if("his")
+			base = text("[]\his", rest)
+		if("himself")
+			base = text("[]\himself", rest)
+		if("herself")
+			base = text("[]\herself", rest)
+		if("hers")
+			base = text("[]\hers", rest)
+
+	. = base
+	if(rest)
+		. += .(rest)
+
+/**
+  * Proc to generate a "rank colour" from a client
+  *
+  * This takes the client and looks at various factors in order, such as patreon status, staff rank, and more
+  * Arguments:
+  * * C - The client were looking up
+  */
+/proc/client2rankcolour(client/C)
+	// First check if end user is an admin
+	if(C.holder)
+		if(C.holder.rank in GLOB.configuration.admin.rank_colour_map)
+			// Return their rank colour if they are in here
+			return GLOB.configuration.admin.rank_colour_map[C.holder.rank]
+
+	// If they arent an admin, see if they are a patreon. Just accept any level
+	if(C.donator_level)
+		return "#e67e22" // Patreon orange
+	return null
+
+
+// Removes HTML tags, preserving text
+/proc/strip_html_tags(the_text)
+	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
+	return html_replacer.Replace(the_text, "")

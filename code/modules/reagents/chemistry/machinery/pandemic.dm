@@ -1,27 +1,25 @@
 /obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "mixer0"
+	icon_state = "pandemic0"
 	circuit = /obj/item/circuitboard/pandemic
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 20
+	idle_power_consumption = 20
 	resistance_flags = ACID_PROOF
 	var/temp_html = ""
 	var/printing = null
 	var/wait = null
 	var/obj/item/reagent_containers/beaker = null
 
-/obj/machinery/computer/pandemic/New()
-	..()
+/obj/machinery/computer/pandemic/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/machinery/computer/pandemic/set_broken()
-	icon_state = (beaker ? "mixer1_b" : "mixer0_b")
-	overlays.Cut()
 	stat |= BROKEN
+	update_icon()
 
 /obj/machinery/computer/pandemic/proc/GetVirusByIndex(index)
 	if(beaker && beaker.reagents)
@@ -54,17 +52,16 @@
 		update_icon()
 		playsound(loc, 'sound/machines/ping.ogg', 30, 1)
 
-/obj/machinery/computer/pandemic/update_icon()
+/obj/machinery/computer/pandemic/update_icon_state()
 	if(stat & BROKEN)
-		icon_state = (beaker ? "mixer1_b" : "mixer0_b")
+		icon_state = (beaker ? "pandemic1_b" : "pandemic0_b")
 		return
+	icon_state = "pandemic[(beaker)?"1":"0"][(has_power()) ? "" : "_nopower"]"
 
-	icon_state = "mixer[(beaker)?"1":"0"][(powered()) ? "" : "_nopower"]"
-
-	if(wait)
-		overlays.Cut()
-	else
-		overlays += "waitlight"
+/obj/machinery/computer/pandemic/update_overlays()
+	. = list()
+	if(!wait)
+		. += "waitlight"
 
 /obj/machinery/computer/pandemic/Topic(href, href_list)
 	if(..())
@@ -176,10 +173,10 @@
 /obj/machinery/computer/pandemic/proc/eject_beaker()
 	beaker.forceMove(loc)
 	beaker = null
-	icon_state = "mixer0"
+	icon_state = "pandemic0"
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
-/obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/advance/D, mob/living/user)
+/obj/machinery/computer/pandemic/proc/print_form(datum/disease/advance/D, mob/living/user)
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
 		var/reason = input(user,"Enter a reason for the release", "Write", null) as message
@@ -323,10 +320,10 @@
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I))
+	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		power_change()
 		return
-	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
+	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(stat & (NOPOWER|BROKEN))
 			return
 		if(beaker)
@@ -339,10 +336,12 @@
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		updateUsrDialog()
-		icon_state = "mixer1"
-
-	else if(istype(I, /obj/item/screwdriver))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
+		icon_state = "pandemic1"
 	else
 		return ..()
+
+/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+	if(beaker)
+		eject_beaker()
+		return TRUE
+	return ..()

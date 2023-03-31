@@ -6,16 +6,16 @@
 	permeability_coefficient = 0.01
 	flags = BLOCKHAIR | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 80, "fire" = 30, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 200, FIRE = 20, ACID = INFINITY)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	resistance_flags = ACID_PROOF
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Unathi" = 'icons/mob/species/unathi/head.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/head.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 /obj/item/clothing/suit/bio_suit
@@ -29,17 +29,17 @@
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 1
-	allowed = list(/obj/item/tank/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 80, "fire" = 30, "acid" = 100)
+	allowed = list(/obj/item/tank/internals/emergency_oxygen,/obj/item/pen,/obj/item/flashlight/pen)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = INFINITY, RAD = 200, FIRE = 20, ACID = INFINITY)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = ACID_PROOF
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 
@@ -61,11 +61,11 @@
 
 //Security biosuit, grey with red stripe across the chest
 /obj/item/clothing/head/bio_hood/security
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 80, "fire" = 30, "acid" = 100)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 200, FIRE = 20, ACID = INFINITY)
 	icon_state = "bio_security"
 
 /obj/item/clothing/suit/bio_suit/security
-	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 100, "rad" = 80, "fire" = 30, "acid" = 100)
+	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 200, FIRE = 20, ACID = INFINITY)
 	icon_state = "bio_security"
 
 
@@ -95,7 +95,7 @@
 
 //Plague Dr mask can be found in clothing/masks/gasmask.dm
 /obj/item/clothing/suit/bio_suit/plaguedoctorsuit
-	name = "Plague doctor suit"
+	name = "plague doctor suit"
 	desc = "It protected doctors from the Black Death, back then. You bet your arse it's gonna help you against viruses."
 	icon_state = "plaguedoctor"
 	item_state = "bio_suit"
@@ -103,8 +103,8 @@
 	put_on_delay = 20
 
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
 	hide_tail_by_species = list("Unathi, Tajaran, Vulpkanin")

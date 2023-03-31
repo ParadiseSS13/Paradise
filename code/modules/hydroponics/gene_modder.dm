@@ -4,8 +4,8 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	pass_flags = PASSTABLE
 	icon_state = "dnamod"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 	var/obj/item/seeds/seed
 	var/obj/item/disk/plantgene/disk
@@ -23,8 +23,8 @@
 	var/min_wchance = 67
 	var/min_wrate = 10
 
-/obj/machinery/plantgenes/New()
-	..()
+/obj/machinery/plantgenes/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
@@ -33,8 +33,8 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
-/obj/machinery/plantgenes/seedvault/New()
-	..()
+/obj/machinery/plantgenes/seedvault/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes/vault(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
@@ -82,21 +82,22 @@
 			min_wchance = 0
 			min_wrate = 0
 
-/obj/machinery/plantgenes/update_icon()
-	..()
-	overlays.Cut()
+/obj/machinery/plantgenes/update_icon_state()
 	if((stat & (BROKEN|NOPOWER)))
 		icon_state = "dnamod-off"
 	else
 		icon_state = "dnamod"
+
+/obj/machinery/plantgenes/update_overlays()
+	. = ..()
 	if(seed)
-		overlays += "dnamod-dna"
+		. += "dnamod-dna"
 	if(panel_open)
-		overlays += "dnamod-open"
+		. += "dnamod-open"
 
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 		return
 	if(exchange_parts(user, I))
 		return
@@ -277,13 +278,20 @@
 			if(can_insert && istype(disk.gene, /datum/plant_gene/trait))
 				dat += "<a href='?src=[UID()];op=insert'>Insert: [disk.gene.get_name()]</a>"
 			dat += "</div>"
+
+		dat += "<div class='line'><h3>Variant</h3></div><div class='statusDisplay'><table>"
+		dat += "<tr><td width='260px'>[seed.variant ? seed.variant : "None"]</td>"
+		dat += "<td><a href='?src=[UID()];set_v=1'>Edit</a></td>"
+		if(seed.variant)
+			dat += "<td><a href='?src=[UID()];del_v=1'>Remove</a></td>"
+		dat += "</tr></table></div>"
 	else
 		dat += "<br>No sample found.<br><span class='highlight'>Please, insert a plant sample to use this device.</span>"
 	popup.set_content(dat)
 	popup.open()
 
 
-/obj/machinery/plantgenes/Topic(var/href, var/list/href_list)
+/obj/machinery/plantgenes/Topic(href, list/href_list)
 	if(..())
 		return 1
 	usr.set_machine(src)
@@ -294,7 +302,7 @@
 			seed.verb_pickup()
 			seed = null
 			update_genes()
-			update_icon()
+			update_icon(UPDATE_OVERLAYS)
 		else
 			var/obj/item/I = usr.get_active_hand()
 			if(istype(I, /obj/item/seeds))
@@ -302,7 +310,7 @@
 					return
 				insert_seed(I)
 				to_chat(usr, "<span class='notice'>You add [I] to the machine.</span>")
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	else if(href_list["eject_disk"] && !operation)
 		if(disk)
 			disk.forceMove(loc)
@@ -369,7 +377,7 @@
 								gene.value = max(gene.value, min_wchance)
 						disk.update_name()
 						QDEL_NULL(seed)
-						update_icon()
+						update_icon(UPDATE_OVERLAYS)
 				if("replace")
 					if(disk && disk.gene && istype(disk.gene, G.type) && istype(G, /datum/plant_gene/core))
 						seed.genes -= G
@@ -391,6 +399,16 @@
 	else if(href_list["abort"])
 		operation = ""
 		target = null
+	else if(href_list["set_v"])
+		if(!seed)
+			return
+		seed.variant_prompt(usr, src)
+	else if(href_list["del_v"])
+		if(!seed)
+			return
+		seed.variant = null
+		seed.apply_variant_name()
+		to_chat(usr, "<span class='notice'>You remove the [seed.plantname]'s variant designation.</span>")
 
 	interact(usr)
 
@@ -400,7 +418,7 @@
 	S.forceMove(src)
 	seed = S
 	update_genes()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/plantgenes/proc/update_genes()
 	core_genes = list()
@@ -447,7 +465,7 @@
 
 /obj/item/disk/plantgene/New()
 	..()
-	overlays += "datadisk_gene"
+	update_icon(UPDATE_OVERLAYS)
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -457,31 +475,65 @@
 
 /obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "What would you like the label to be?", name, null)
-		if(user.get_active_hand() != W)
-			return
-		if(!in_range(src, user) && loc != user)
-			return
-		if(t)
-			name = "plant data disk - '[t]'"
-		else
-			name = "plant data disk"
+	if(is_pen(W))
+		rename_interactive(user, W)
 
-/obj/item/disk/plantgene/proc/update_name()
+/obj/item/disk/plantgene/update_name()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		name = "nuclear authentication disk"
+		return
 	if(gene)
 		name = "[gene.get_name()] (Plant Data Disk)"
 	else
 		name = "plant data disk"
 
+/obj/item/disk/plantgene/update_desc()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		desc = "Better keep this safe."
+		return
+
+	desc = "A disk for storing plant genetic data."
+
+/obj/item/disk/plantgene/update_icon_state()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		icon_state = "nucleardisk"
+		return
+
+	icon_state = "datadisk_hydro"
+
+/obj/item/disk/plantgene/update_overlays()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+
+	. += "datadisk_gene"
+
 /obj/item/disk/plantgene/attack_self(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
 	read_only = !read_only
 	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
 
+/obj/item/disk/plantgene/cmag_act(mob/user)
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
+		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+/obj/item/disk/plantgene/uncmag()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()
-	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
-
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
+		return
+	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
+		. += "<span class='warning'>... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
 
 /*
  *  Plant DNA Disks Box
@@ -490,7 +542,6 @@
 	name = "plant data disks box"
 	icon_state = "disk_kit"
 
-/obj/item/storage/box/disks_plantgene/New()
-	..()
+/obj/item/storage/box/disks_plantgene/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)

@@ -2,17 +2,21 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
-	opacity = 1
-	density = 1
+	icon_state = "reinforced_wall-0"
+	base_icon_state = "reinforced_wall"
+	smoothing_flags = SMOOTH_BITMASK
+	opacity = TRUE
+	density = TRUE
 	explosion_block = 2
+	rad_insulation = RAD_HEAVY_INSULATION
 	damage_cap = 600
-	max_temperature = 6000
 	hardness = 10
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
@@ -49,15 +53,7 @@
 			d_state = RWALL_SHEATH
 			update_icon()
 		return
-	else if(d_state == RWALL_SUPPORT_LINES && istype(I, /obj/item/stack/rods))
-		var/obj/item/stack/S = I
-		if(S.use(1))
-			d_state = RWALL_INTACT
-			update_icon()
-			to_chat(user, "<span class='notice'>You replace the outer grille.</span>")
-		else
-			to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
-		return
+
 	else if(d_state)
 		// Repairing
 		if(istype(I, /obj/item/stack/sheet/metal))
@@ -69,26 +65,9 @@
 					return
 				d_state = RWALL_INTACT
 				update_icon()
-				queue_smooth_neighbors(src)
+				QUEUE_SMOOTH_NEIGHBORS(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
 			return
-
-	else if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/PS = I
-		if(!can_be_reinforced)
-			to_chat(user, "<span class='notice'>The wall is already coated!</span>")
-			return
-		to_chat(user, "<span class='notice'>You begin adding an additional layer of coating to the wall with [PS]...</span>")
-		if(do_after(user, 40 * PS.toolspeed, target = src) && !d_state)
-			if(!PS.use(2))
-				to_chat(user, "<span class='warning'>You don't have enough [PS.name] for that!</span>")
-				return
-			to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall.</span>")
-			ChangeTurf(/turf/simulated/wall/r_wall/coated)
-			update_icon()
-			queue_smooth_neighbors(src)
-			can_be_reinforced = FALSE
-		return
 	else
 		return ..()
 
@@ -168,15 +147,18 @@
 	update_icon()
 
 /turf/simulated/wall/r_wall/wirecutter_act(mob/user, obj/item/I)
-	if(d_state != RWALL_INTACT)
+	if(d_state != RWALL_INTACT && d_state != RWALL_SUPPORT_LINES)
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	d_state = RWALL_SUPPORT_LINES
+	if(d_state == RWALL_INTACT)
+		d_state = RWALL_SUPPORT_LINES
+		to_chat(user, "<span class='notice'>You cut the outer grille.</span>")
+	else
+		d_state = RWALL_INTACT
+		to_chat(user, "<span class='notice'>You mend the outer grille.</span>")
 	update_icon()
-	new /obj/item/stack/rods(src)
-	to_chat(user, "<span class='notice'>You cut the outer grille.</span>")
 
 /turf/simulated/wall/r_wall/wrench_act(mob/user, obj/item/I)
 	if(d_state != RWALL_BOLTS && d_state != RWALL_SUPPORT_RODS)
@@ -219,22 +201,27 @@
 			dismantle_wall()
 		return TRUE
 
+	if(istype(I, /obj/item/twohanded/required/pyro_claws))
+		to_chat(user, "<span class='notice'>You begin to melt the wall...</span>")
+		if(do_after(user, 50 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 2.5 seconds
+			to_chat(user, "<span class='notice'>Your [I] melt the reinforced plating.</span>")
+			dismantle_wall()
+		return TRUE
 
 /turf/simulated/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(30))
 			dismantle_wall()
 
-/turf/simulated/wall/r_wall/update_icon()
-	. = ..()
-
+/turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
-		smooth = SMOOTH_FALSE
-		clear_smooth_overlays()
+		smoothing_flags = NONE
 	else
-		smooth = SMOOTH_TRUE
-		icon_state = ""
+		smoothing_flags = SMOOTH_BITMASK
+		icon_state = "[base_icon_state]-[smoothing_junction]"
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH(src)
 
 /turf/simulated/wall/r_wall/devastate_wall()
 	new sheet_type(src, sheet_amount)

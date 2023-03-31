@@ -4,50 +4,47 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
 	icon = 'icons/obj/machines/gateway.dmi'
 	icon_state = "off"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	var/active = 0
+	flags_2 = NO_MALF_EFFECT_2
+	var/active = FALSE
 
 /obj/machinery/gateway/Initialize()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
 
 /obj/machinery/gateway/proc/update_density_from_dir()
 	if(dir == 2)
-		density = 0
+		density = FALSE
 
-
-/obj/machinery/gateway/update_icon()
-	if(active)
-		icon_state = "on"
-		return
-	icon_state = "off"
-
+/obj/machinery/gateway/update_icon_state()
+	icon_state = active ? "on" : "off"
 
 
 //this is da important part wot makes things go
 /obj/machinery/gateway/centerstation
-	density = 1
+	density = TRUE
 	icon_state = "offcenter"
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 
 	//warping vars
 	var/list/linked = list()
-	var/ready = 0				//have we got all the parts for a gateway?
+	var/ready = FALSE				//have we got all the parts for a gateway?
 	var/wait = 0				//this just grabs world.time at world start
 	var/obj/machinery/gateway/centeraway/awaygate = null
 
-/obj/machinery/gateway/centerstation/New()
-	..()
+/obj/machinery/gateway/centerstation/Initialize(mapload)
+	. = ..()
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
 
-/obj/machinery/gateway/centerstation/Initialize()
-	..()
-	update_icon()
-	wait = world.time + config.gateway_delay	//+ thirty minutes default
+	update_icon(UPDATE_ICON_STATE)
+	wait = world.time + GLOB.configuration.gateway.away_mission_delay
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/gateway/centerstation/LateInitialize()
 	awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
 
 /obj/machinery/gateway/centerstation/update_density_from_dir()
@@ -58,12 +55,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		GLOB.the_gateway = null
 	return ..()
 
-/obj/machinery/gateway/centerstation/update_icon()
-	if(active)
-		icon_state = "oncenter"
-		return
-	icon_state = "offcenter"
-
+/obj/machinery/gateway/centerstation/update_icon_state()
+	icon_state = active ? "oncenter" : "offcenter"
 
 
 /obj/machinery/gateway/centerstation/process()
@@ -87,12 +80,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			continue
 
 		//this is only done if we fail to find a part
-		ready = 0
+		ready = FALSE
 		toggleoff()
 		break
 
 	if(linked.len == 8)
-		ready = 1
+		ready = TRUE
 
 
 /obj/machinery/gateway/centerstation/proc/toggleon(mob/user as mob)
@@ -100,7 +93,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 	if(linked.len != 8)
 		return
-	if(!powered())
+	if(!has_power())
 		return
 	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
@@ -112,18 +105,18 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = 1
-		G.update_icon()
-	active = 1
-	update_icon()
+		G.active = TRUE
+		G.update_icon(UPDATE_ICON_STATE)
+	active = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centerstation/proc/toggleoff()
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = 0
-		G.update_icon()
-	active = 0
-	update_icon()
+		G.active = FALSE
+		G.update_icon(UPDATE_ICON_STATE)
+	active = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centerstation/attack_hand(mob/user as mob)
@@ -168,29 +161,27 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centeraway
-	density = 1
+	density = TRUE
 	icon_state = "offcenter"
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
+
 	var/calibrated = 1
 	var/list/linked = list()	//a list of the connected gateway chunks
-	var/ready = 0
+	var/ready = FALSE
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
 /obj/machinery/gateway/centeraway/Initialize()
 	..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
 
 
 /obj/machinery/gateway/centeraway/update_density_from_dir()
 	return
 
-/obj/machinery/gateway/centeraway/update_icon()
-	if(active)
-		icon_state = "oncenter"
-		return
-	icon_state = "offcenter"
+/obj/machinery/gateway/centeraway/update_icon_state()
+	icon_state = active ? "oncenter" : "offcenter"
 
 
 /obj/machinery/gateway/centeraway/proc/detect()
@@ -205,12 +196,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			continue
 
 		//this is only done if we fail to find a part
-		ready = 0
+		ready = FALSE
 		toggleoff()
 		break
 
 	if(linked.len == 8)
-		ready = 1
+		ready = TRUE
 
 
 /obj/machinery/gateway/centeraway/proc/toggleon(mob/user as mob)
@@ -225,18 +216,18 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			return
 
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = 1
-		G.update_icon()
-	active = 1
-	update_icon()
+		G.active = TRUE
+		G.update_icon(UPDATE_ICON_STATE)
+	active = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centeraway/proc/toggleoff()
 	for(var/obj/machinery/gateway/G in linked)
-		G.active = 0
-		G.update_icon()
-	active = 0
-	update_icon()
+		G.active = FALSE
+		G.update_icon(UPDATE_ICON_STATE)
+	active = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/gateway/centeraway/attack_hand(mob/user as mob)
@@ -262,12 +253,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	else
 		for(var/mob/living/L in AM.contents)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in contained lifeform.")
+				atom_say("Rejecting [AM]: Exile bio-chip detected in contained lifeform.")
 				return
 	if(AM.has_buckled_mobs())
 		for(var/mob/living/L in AM.buckled_mobs)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in close proximity lifeform.")
+				atom_say("Rejecting [AM]: Exile bio-chip detected in close proximity lifeform.")
 				return
 	AM.forceMove(get_step(stationgate.loc, SOUTH))
 	AM.setDir(SOUTH)
@@ -276,10 +267,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		if(M.client)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
-/obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
-	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
+/obj/machinery/gateway/centeraway/proc/exilecheck(mob/living/carbon/M)
+	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile bio-chip in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
-			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
+			to_chat(M, "<span class='notice'>The station gate has detected your exile bio-chip and is blocking your entry.</span>")
 			return 1
 	return 0
 

@@ -33,4 +33,12 @@
       margin: 0 3px * $i;
     }
   }
+
+  .Flex--spacingPrecise--#{$i} {
+    margin: -1px * $i -1px * $i;
+
+    & > .Flex__item {
+      margin: 1px * $i 1px * $i;
+    }
+  }
 }

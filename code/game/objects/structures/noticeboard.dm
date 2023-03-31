@@ -3,8 +3,8 @@
 	desc = "A board for pinning important notices upon."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nboard00"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	max_integrity = 150
 	var/notices = 0
 
@@ -18,7 +18,7 @@
 	icon_state = "nboard0[notices]"
 
 //attaching papers!!
-/obj/structure/noticeboard/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/structure/noticeboard/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/paper))
 		if(notices < 5)
 			O.add_fingerprint(user)
@@ -65,11 +65,11 @@
 		var/obj/item/P = locate(href_list["write"])
 
 		if((P && P.loc == src)) //ifthe paper's on the board
-			if(istype(usr.r_hand, /obj/item/pen)) //and you're holding a pen
+			if(is_pen(usr.r_hand)) //and you're holding a pen
 				add_fingerprint(usr)
 				P.attackby(usr.r_hand, usr) //then do ittttt
 			else
-				if(istype(usr.l_hand, /obj/item/pen)) //check other hand for pen
+				if(is_pen(usr.l_hand)) //check other hand for pen
 					add_fingerprint(usr)
 					P.attackby(usr.l_hand, usr)
 				else

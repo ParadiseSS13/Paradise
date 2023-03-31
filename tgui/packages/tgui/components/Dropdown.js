@@ -7,7 +7,6 @@ export class Dropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: props.selected,
       open: false,
     };
     this.handleClick = () => {
@@ -26,29 +25,26 @@ export class Dropdown extends Component {
     if (open) {
       setTimeout(() => window.addEventListener('click', this.handleClick));
       this.menuRef.focus();
-    }
-    else {
+    } else {
       window.removeEventListener('click', this.handleClick);
     }
   }
 
   setSelected(selected) {
-    this.setState({
-      selected: selected,
-    });
     this.setOpen(false);
     this.props.onSelected(selected);
   }
 
   buildMenu() {
     const { options = [] } = this.props;
-    const ops = options.map(option => (
+    const ops = options.map((option) => (
       <div
         key={option}
         className="Dropdown__menuentry"
         onClick={() => {
           this.setSelected(option);
-        }}>
+        }}
+      >
         {option}
       </div>
     ));
@@ -68,24 +64,24 @@ export class Dropdown extends Component {
       disabled,
       ...boxProps
     } = props;
-    const {
-      className,
-      ...rest
-    } = boxProps;
+    const { className, ...rest } = boxProps;
 
     const adjustedOpen = over ? !this.state.open : this.state.open;
 
     const menu = this.state.open ? (
       <div
-        ref={menu => { this.menuRef = menu; }}
+        ref={(menu) => {
+          this.menuRef = menu;
+        }}
         tabIndex="-1"
         style={{
           'width': width,
         }}
         className={classes([
-          noscroll && 'Dropdown__menu-noscroll' || 'Dropdown__menu',
+          (noscroll && 'Dropdown__menu-noscroll') || 'Dropdown__menu',
           over && 'Dropdown__over',
-        ])}>
+        ])}
+      >
         {this.buildMenu()}
       </div>
     ) : null;
@@ -107,10 +103,9 @@ export class Dropdown extends Component {
               return;
             }
             this.setOpen(!this.state.open);
-          }}>
-          <span className="Dropdown__selected-text">
-            {this.state.selected}
-          </span>
+          }}
+        >
+          <span className="Dropdown__selected-text">{selected}</span>
           {!!nochevron || (
             <span className="Dropdown__arrow-button">
               <Icon name={adjustedOpen ? 'chevron-up' : 'chevron-down'} />

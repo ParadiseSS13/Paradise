@@ -1,84 +1,66 @@
-GLOBAL_LIST_EMPTY(priority_air_alarms)
-GLOBAL_LIST_EMPTY(minor_air_alarms)
-
-
 /obj/machinery/computer/atmos_alert
 	name = "atmospheric alert computer"
 	desc = "Used to access the station's atmospheric sensors."
 	circuit = /obj/item/circuitboard/atmos_alert
+	var/ui_x = 350
+	var/ui_y = 300
 	icon_keyboard = "atmos_key"
 	icon_screen = "alert:0"
 	light_color = LIGHT_COLOR_CYAN
+	// List of alarms and their state in areas. This is sent to TGUI
+	var/list/alarm_cache
 
-/obj/machinery/computer/atmos_alert/New()
-	..()
-	SSalarms.atmosphere_alarm.register(src, /obj/machinery/computer/station_alert/.proc/update_icon)
+/obj/machinery/computer/atmos_alert/Initialize(mapload)
+	. = ..()
+	alarm_cache = list()
+	alarm_cache["minor"] = list()
+	alarm_cache["priority"] = list()
 
-/obj/machinery/computer/atmos_alert/Destroy()
-    SSalarms.atmosphere_alarm.unregister(src)
-    return ..()
+/obj/machinery/computer/atmos_alert/process()
+	// This is relatively cheap because the areas list is pretty small
+	for(var/area/A as anything in GLOB.all_areas)
+		if(!A.master_air_alarm)
+			continue // No alarm
+		if(A.master_air_alarm.z != z)
+			continue // Not on our z-level
+		if(!A.master_air_alarm.report_danger_level)
+			continue
+
+		switch(A.atmosalm)
+			if(ATMOS_ALARM_DANGER)
+				alarm_cache["priority"] |= A.name
+				alarm_cache["minor"] -= A.name
+			if(ATMOS_ALARM_WARNING)
+				alarm_cache["priority"] -= A.name
+				alarm_cache["minor"] |= A.name
+			else
+				alarm_cache["priority"] -= A.name
+				alarm_cache["minor"] -= A.name
+
+	update_icon()
 
 /obj/machinery/computer/atmos_alert/attack_hand(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/atmos_alert/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/atmos_alert/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_alert.tmpl", src.name, 500, 500)
+		ui = new(user, src, ui_key, "AtmosAlertConsole", name, ui_x, ui_y, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/computer/atmos_alert/ui_data(mob/user, datum/topic_state/state)
-	var/data[0]
-	var/major_alarms[0]
-	var/minor_alarms[0]
+/obj/machinery/computer/atmos_alert/ui_data(mob/user)
+	return alarm_cache
 
-	for(var/datum/alarm/alarm in SSalarms.atmosphere_alarm.major_alarms())
-		major_alarms[++major_alarms.len] = list("name" = sanitize(alarm.alarm_name()), "ref" = "\ref[alarm]")
+/obj/machinery/computer/atmos_alert/update_icon_state()
+	if(!length(alarm_cache)) // This happens if were mid init
+		icon_screen = "alert:0"
+		return ..()
 
-	for(var/datum/alarm/alarm in SSalarms.atmosphere_alarm.minor_alarms())
-		minor_alarms[++minor_alarms.len] = list("name" = sanitize(alarm.alarm_name()), "ref" = "\ref[alarm]")
 
-	data["priority_alarms"] = major_alarms
-	data["minor_alarms"] = minor_alarms
-
-	return data
-
-/obj/machinery/computer/atmos_alert/update_icon()
-	var/list/alarms = SSalarms.atmosphere_alarm.major_alarms()
-	if(alarms.len)
+	if(length(alarm_cache["priority"]))
 		icon_screen = "alert:2"
+	else if(length(alarm_cache["minor"]))
+		icon_screen = "alert:1"
 	else
-		alarms = SSalarms.atmosphere_alarm.minor_alarms()
-		if(alarms.len)
-			icon_screen = "alert:1"
-		else
-			icon_screen = "alert:0"
+		icon_screen = "alert:0"
 	..()
-
-/obj/machinery/computer/atmos_alert/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(href_list["clear_alarm"])
-		var/datum/alarm/alarm = locate(href_list["clear_alarm"]) in SSalarms.atmosphere_alarm.alarms
-		if(alarm)
-			for(var/datum/alarm_source/alarm_source in alarm.sources)
-				var/obj/machinery/alarm/air_alarm = alarm_source.source
-				if(istype(air_alarm))
-					var/list/new_ref = list("atmos_reset" = 1)
-					air_alarm.Topic(href, new_ref, state = GLOB.air_alarm_topic)
-					update_icon()
-		return 1
-
-GLOBAL_DATUM_INIT(air_alarm_topic, /datum/topic_state/air_alarm_topic, new)
-
-/datum/topic_state/air_alarm_topic/href_list(var/mob/user)
-	var/list/extra_href = list()
-	extra_href["remote_connection"] = 1
-	extra_href["remote_access"] = 1
-
-	return extra_href
-
-/datum/topic_state/air_alarm_topic/can_use_topic(var/src_object, var/mob/user)
-	return STATUS_INTERACTIVE

@@ -12,7 +12,7 @@
 	throw_range = 7
 	force = 10
 	container_type = AMOUNT_VISIBLE
-	materials = list(MAT_METAL=90)
+	materials = list(MAT_METAL = 200)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
@@ -45,10 +45,11 @@
 	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
 
 
-/obj/item/extinguisher/New()
-	..()
-	create_reagents(max_water)
-	reagents.add_reagent("water", max_water)
+/obj/item/extinguisher/Initialize(mapload)
+	. = ..()
+	if(!reagents)
+		create_reagents(max_water)
+		reagents.add_reagent("water", max_water)
 
 /obj/item/extinguisher/attack_self(mob/user as mob)
 	safety = !safety
@@ -57,7 +58,7 @@
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
 	return
 
-/obj/item/extinguisher/attack_obj(obj/O, mob/living/user)
+/obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
 	if(AttemptRefill(O, user))
 		refilling = TRUE
 		return FALSE
@@ -106,11 +107,13 @@
 
 		src.last_use = world.time
 
+		if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
+			add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
 		playsound(src.loc, 'sound/effects/extinguish.ogg', 75, 1, -3)
 
 		var/direction = get_dir(src,target)
 
-		if(usr.buckled && isobj(usr.buckled) && !usr.buckled.anchored )
+		if(usr.buckled && isobj(usr.buckled) && !usr.buckled.anchored && !istype(usr.buckled, /obj/vehicle))
 			spawn(0)
 				var/obj/structure/chair/C = null
 				if(istype(usr.buckled, /obj/structure/chair))
@@ -178,3 +181,6 @@
 					sleep(2)
 	else
 		return ..()
+
+/obj/item/extinguisher/cyborg_recharge(coeff, emagged)
+	reagents.check_and_add("water", max_water, 5 * coeff)

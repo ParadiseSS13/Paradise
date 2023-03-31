@@ -13,8 +13,8 @@ let resizeMatrix;
 let initialSize;
 let size;
 
-const getWindowPosition = ref => {
-  return winget(ref, 'pos').then(pos => [pos.x, pos.y]);
+const getWindowPosition = (ref) => {
+  return winget(ref, 'pos').then((pos) => [pos.x, pos.y]);
 };
 
 const setWindowPosition = (ref, vec) => {
@@ -25,7 +25,7 @@ const setWindowSize = (ref, vec) => {
   return winset(ref, 'size', vec[0] + ',' + vec[1]);
 };
 
-export const setupDrag = async state => {
+export const setupDrag = async (state) => {
   logger.log('setting up');
   ref = state.config.window;
   // Calculate offset caused by windows taskbar
@@ -46,7 +46,7 @@ export const setupDrag = async state => {
  * Constraints window position to safe screen area, accounting for safe
  * margins which could be a system taskbar.
  */
-const constraintPosition = position => {
+const constraintPosition = (position) => {
   let x = position[0];
   let y = position[1];
   let relocated = false;
@@ -73,7 +73,7 @@ const constraintPosition = position => {
   return [relocated, [x, y]];
 };
 
-export const dragStartHandler = event => {
+export const dragStartHandler = (event) => {
   logger.log('drag start');
   dragging = true;
   dragPointOffset = [
@@ -85,7 +85,7 @@ export const dragStartHandler = event => {
   dragMoveHandler(event);
 };
 
-const dragEndHandler = event => {
+const dragEndHandler = (event) => {
   logger.log('drag end');
   dragMoveHandler(event);
   document.removeEventListener('mousemove', dragMoveHandler);
@@ -93,18 +93,18 @@ const dragEndHandler = event => {
   dragging = false;
 };
 
-const dragMoveHandler = event => {
+const dragMoveHandler = (event) => {
   if (!dragging) {
     return;
   }
   event.preventDefault();
-  setWindowPosition(ref, vecAdd(
-    [event.screenX, event.screenY],
-    screenOffset,
-    dragPointOffset));
+  setWindowPosition(
+    ref,
+    vecAdd([event.screenX, event.screenY], screenOffset, dragPointOffset)
+  );
 };
 
-export const resizeStartHandler = (x, y) => event => {
+export const resizeStartHandler = (x, y) => (event) => {
   resizeMatrix = [x, y];
   logger.log('resize start', resizeMatrix);
   resizing = true;
@@ -112,16 +112,13 @@ export const resizeStartHandler = (x, y) => event => {
     window.screenLeft - event.screenX,
     window.screenTop - event.screenY,
   ];
-  initialSize = [
-    window.innerWidth,
-    window.innerHeight,
-  ];
+  initialSize = [window.innerWidth, window.innerHeight];
   document.addEventListener('mousemove', resizeMoveHandler);
   document.addEventListener('mouseup', resizeEndHandler);
   resizeMoveHandler(event);
 };
 
-const resizeEndHandler = event => {
+const resizeEndHandler = (event) => {
   logger.log('resize end', size);
   resizeMoveHandler(event);
   document.removeEventListener('mousemove', resizeMoveHandler);
@@ -129,16 +126,23 @@ const resizeEndHandler = event => {
   resizing = false;
 };
 
-const resizeMoveHandler = event => {
+const resizeMoveHandler = (event) => {
   if (!resizing) {
     return;
   }
   event.preventDefault();
-  size = vecAdd(initialSize, vecMultiply(resizeMatrix, vecAdd(
-    [event.screenX, event.screenY],
-    vecInverse([window.screenLeft, window.screenTop]),
-    dragPointOffset,
-    [1, 1])));
+  size = vecAdd(
+    initialSize,
+    vecMultiply(
+      resizeMatrix,
+      vecAdd(
+        [event.screenX, event.screenY],
+        vecInverse([window.screenLeft, window.screenTop]),
+        dragPointOffset,
+        [1, 1]
+      )
+    )
+  );
   // Sane window size values
   size[0] = Math.max(size[0], 250);
   size[1] = Math.max(size[1], 120);

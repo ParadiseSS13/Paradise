@@ -2,16 +2,16 @@
 	desc = "It is set to detonate in 2 seconds."
 	name = "smoke bomb"
 	icon = 'icons/obj/grenade.dmi'
-	icon_state = "flashbang"
+	icon_state = "smoke"
 	det_time = 20
-	item_state = "flashbang"
+	item_state = "smoke"
 	slot_flags = SLOT_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
-/obj/item/grenade/smokebomb/New()
-	..()
-	src.smoke = new /datum/effect_system/smoke_spread/bad
-	src.smoke.attach(src)
+/obj/item/grenade/smokebomb/Initialize(mapload)
+	. = ..()
+	smoke = new /datum/effect_system/smoke_spread/bad
+	smoke.attach(src)
 
 /obj/item/grenade/smokebomb/Destroy()
 	QDEL_NULL(smoke)
@@ -19,7 +19,7 @@
 
 /obj/item/grenade/smokebomb/prime()
 	playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
-	src.smoke.set_up(10, 0, usr.loc)
+	smoke.set_up(10, FALSE)
 	spawn(0)
 		src.smoke.start()
 		sleep(10)
@@ -31,7 +31,7 @@
 
 	for(var/obj/structure/blob/B in view(8,src))
 		var/damage = round(30/(get_dist(B,src)+1))
-		B.take_damage(damage, BURN, "melee", 0)
+		B.take_damage(damage, BURN, MELEE, 0)
 	sleep(80)
 	qdel(src)
 	return

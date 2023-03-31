@@ -34,9 +34,7 @@
 	. = ..(user, P)
 	if(.)
 		user.show_message("<span class='notice'>Virus sent!</span>", 1)
-		var/datum/data/pda/app/M = P.find_program(/datum/data/pda/app/messenger)
-		if(M)
-			M.notify_silent = 1
+		P.silent = TRUE
 		P.ttone = "silence"
 
 
@@ -67,8 +65,8 @@
 			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up", 1)
 		else
 			user.show_message("<span class='notice'>Success!</span>", 1)
-			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded")
-			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded", 1)
+			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge and succeeded")
+			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeeded", 1)
 			P.explode()
 
 /datum/data/pda/messenger_plugin/virus/frame

@@ -1,5 +1,5 @@
 /datum/reagent/phlogiston
-	name = "phlogiston"
+	name = "Phlogiston"
 	id = "phlogiston"
 	description = "It appears to be liquid fire."
 	reagent_state = LIQUID
@@ -15,6 +15,7 @@
 	if(holder.chem_temp <= T0C - 50)
 		return
 	var/radius = min(max(0, volume / size_divisor), 8)
+	fire_flash_log(holder, id)
 	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
 
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -35,7 +36,7 @@
 	return ..()
 
 /datum/reagent/phlogiston/firedust
-	name = "phlogiston dust"
+	name = "Phlogiston dust"
 	id = "phlogiston_dust"
 	description = "And this is solid fire. However that works."
 	temp_fire = 1500
@@ -44,7 +45,7 @@
 	mob_burning = 3 // 15
 
 /datum/reagent/napalm
-	name = "napalm"
+	name = "Napalm"
 	id = "napalm"
 	description = "A highly flammable jellied fuel."
 	reagent_state = LIQUID
@@ -55,9 +56,11 @@
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
 		var/radius = min(max(0, volume * 0.15), 8)
-		fireflash_sm(get_turf(holder.my_atom), radius, rand(3000, 6000), 500)
+		var/turf/T = get_turf(holder.my_atom)
+		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id)
+		fireflash_sm(T, radius, rand(3000, 6000), 500)
 
 /datum/reagent/napalm/reaction_turf(turf/T, volume)
 	if(isspaceturf(T))
@@ -110,19 +113,24 @@
 			if(holder)
 				holder.del_reagent(id)
 			return
+
+		var/will_explode = volume >= explosion_threshold
+		if(will_explode && holder.my_atom)
+			// Log beforehand
+			holder.my_atom.visible_message("<span class='danger'>[holder.my_atom] explodes!</span>")
+			message_admins("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+			log_game("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
+			holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
+
 		var/turf/T = get_turf(holder.my_atom)
+		if(holder) // Delete the fuel from the holder before we trigger the fireball
+			holder.del_reagent(id)
+
 		var/radius = min(max(min_radius, volume * volume_radius_multiplier + volume_radius_modifier), max_radius)
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
-		if(holder && volume >= explosion_threshold)
-			if(holder.my_atom)
-				holder.my_atom.visible_message("<span class='danger'>[holder.my_atom] explodes!</span>")
-				message_admins("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-				log_game("Fuel explosion ([holder.my_atom], reagent type: [id]) at [COORD(holder.my_atom.loc)]. Last touched by: [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"].")
-				holder.my_atom.investigate_log("A fuel explosion, last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
+		if(will_explode)
 			var/boomrange = min(max(min_explosion_radius, round(volume * volume_explosion_radius_multiplier + volume_explosion_radius_modifier)), max_explosion_radius)
 			explosion(T, -1, -1, boomrange, 1)
-		if(holder)
-			holder.del_reagent(id)
 
 /datum/reagent/fuel/reaction_turf(turf/T, volume) //Don't spill the fuel, or you'll regret it
 	if(isspaceturf(T))
@@ -147,9 +155,11 @@
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
-		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
+		var/turf/T = get_turf(holder.my_atom)
+		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+		fireflash(T, min(max(0, volume / 10), 8))
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -158,7 +168,7 @@
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(10)
+		C.add_plasma(10)
 	return ..() | update_flags
 
 /datum/reagent/plasma/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)//Splashing people with plasma is stronger than fuel!
@@ -190,6 +200,7 @@
 		var/datum/reagents/Holder = holder
 		var/Id = id
 		var/Volume = volume
+		fire_flash_log(holder, id)
 		Holder.del_reagent(Id)
 		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
 
@@ -199,8 +210,6 @@
 			S.create_reagents(volume)
 		S.reagents.add_reagent("thermite", volume)
 		S.thermite = TRUE
-		S.overlays.Cut()
-		S.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
 		if(S.active_hotspot)
 			S.reagents.temperature_reagents(S.active_hotspot.temperature, 10, 300)
 
@@ -239,6 +248,7 @@
 	if(volume < 3)
 		return
 	var/radius = min((volume - 3) * 0.15, 3)
+	fire_flash_log(holder, id)
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
 
 /datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -436,16 +446,18 @@
 
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
-		fireflash(get_turf(holder.my_atom), min(max(0, volume / 10), 8))
+		var/turf/T = get_turf(holder.my_atom)
+		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+		fireflash(T, min(max(0, volume / 10), 8))
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(3, FALSE)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		C.adjustPlasma(20)
+		C.add_plasma(20)
 	return ..() | update_flags
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!

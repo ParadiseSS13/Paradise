@@ -12,15 +12,17 @@
 	list_reagents = list("nutriment" = 1, "sugar" = 1)
 	tastes = list("ice cream" = 1)
 
-/obj/item/reagent_containers/food/snacks/icecream/New()
-	..()
-	update_icon()
+/obj/item/reagent_containers/food/snacks/icecream/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/food/snacks/icecream/update_icon()
-	cut_overlays()
+/obj/item/reagent_containers/food/snacks/icecream/update_overlays()
+	. = ..()
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/kitchen.dmi', "icecream_color")
-	filling.color = mix_color_from_reagents(reagents.reagent_list)
-	add_overlay(filling)
+	var/list/reagent_colors = rgb2num(mix_color_from_reagents(reagents.reagent_list), COLORSPACE_HSV)  //switching to HSV colorspace lets us easily manipulate the saturation and brightness independently
+	//Clamping the brightness keeps us from having greyish ice cream while still alowing for a range of colours
+	filling.color = rgb(reagent_colors[1], ((1.5 * reagent_colors[2]) - 10), (clamp(reagent_colors[3], 85, 100) - 10), space = COLORSPACE_HSV)
+	. += filling
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcone
 	name = "ice cream cone"
@@ -30,17 +32,25 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
 
+/obj/item/reagent_containers/food/snacks/icecream/wafflecone
+	name = "ice cream in a waffle cone"
+	desc = "Delicious ice cream."
+	icon_state = "icecream_cone_waffle"
+	volume = 50
+	bitesize = 3
+	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
+
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcup
 	name = "chocolate ice cream cone"
 	desc = "Delicious ice cream."
-	icon_state = "icecream_cup"
+	icon_state = "icecream_cone_chocolate"
 	volume = 50
-	bitesize = 6
+	bitesize = 3
 	list_reagents = list("nutriment" = 5, "chocolate" = 8, "ice" = 2)
 
 /obj/item/reagent_containers/food/snacks/icecreamsandwich
 	name = "icecream sandwich"
-	desc = "Portable Ice-cream in it's own packaging."
+	desc = "Portable ice cream in its own packaging."
 	icon_state = "icecreamsandwich"
 	list_reagents = list("nutriment" = 2, "ice" = 2)
 
@@ -50,13 +60,13 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/friedbanana
-	name = "Fried Banana"
+	name = "fried banana"
 	desc = "Goreng Pisang, also known as fried bananas."
 	icon_state = "friedbanana"
 	list_reagents = list("sugar" = 5, "nutriment" = 8, "cornoil" = 4)
 
 /obj/item/reagent_containers/food/snacks/ricepudding
-	name = "Rice Pudding"
+	name = "rice pudding"
 	desc = "Where's the Jam!"
 	icon_state = "rpudding"
 	trash = /obj/item/trash/snack_bowl
@@ -65,7 +75,7 @@
 	tastes = list("rice" = 1, "sweetness" = 1)
 
 /obj/item/reagent_containers/food/snacks/spacylibertyduff
-	name = "Spacy Liberty Duff"
+	name = "spacy liberty duff"
 	desc = "Jello gelatin, from Alfred Hubbard's cookbook."
 	icon_state = "spacylibertyduff"
 	trash = /obj/item/trash/snack_bowl
@@ -75,7 +85,7 @@
 	tastes = list("jelly" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/amanitajelly
-	name = "Amanita Jelly"
+	name = "amanita jelly"
 	desc = "Looks curiously toxic."
 	icon_state = "amanitajelly"
 	trash = /obj/item/trash/snack_bowl
@@ -85,7 +95,7 @@
 	tastes = list("jelly" = 1, "mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/candiedapple
-	name = "Candied Apple"
+	name = "candied apple"
 	desc = "An apple coated in sugary sweetness."
 	icon_state = "candiedapple"
 	filling_color = "#F21873"

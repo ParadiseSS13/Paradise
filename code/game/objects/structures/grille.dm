@@ -6,10 +6,11 @@
 	density = TRUE
 	anchored = TRUE
 	flags = CONDUCT
+	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER
 	level = 3
-	armor = list("melee" = 50, "bullet" = 70, "laser" = 70, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
+	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
 	var/rods_type = /obj/item/stack/rods
@@ -18,12 +19,19 @@
 	var/grille_type
 	var/broken_type = /obj/structure/grille/broken
 	var/shockcooldown = 0
-	var/my_shockcooldown = 1 SECONDS
+	var/my_shockcooldown = 2 SECONDS
 
-/obj/structure/grille/fence/
+/obj/structure/grille/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A powered wire underneath this will cause the grille to shock anyone who touches the grill. An electric shock may leap forth if the grill is damaged.</span>"
+	. += "<span class='notice'>Use <b>wirecutters</b> to deconstruct this item.</span>"
+
+
+/obj/structure/grille/fence
 	var/width = 3
 
-/obj/structure/grille/fence/New()
+/obj/structure/grille/fence/Initialize(mapload)
+	. = ..()
 	if(width > 1)
 		if(dir in list(EAST, WEST))
 			bound_width = width * world.icon_size
@@ -44,7 +52,17 @@
 
 /obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/structure/grille/update_icon_state()
+	if(QDELETED(src) || broken)
+		return
+
+	var/ratio = obj_integrity / max_integrity
+
+	if(ratio > 0.5)
+		return
+	icon_state = "grille50_[rand(0,3)]"
 
 /obj/structure/grille/examine(mob/user)
 	. = ..()
@@ -52,13 +70,6 @@
 		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
 	if(!anchored)
 		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
-
-/obj/structure/grille/ratvar_act()
-	if(broken)
-		new /obj/structure/grille/ratvar/broken(loc)
-	else
-		new /obj/structure/grille/ratvar(loc)
-	qdel(src)
 
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
@@ -70,7 +81,7 @@
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
 	if(. && !QDELETED(src) && !shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/hulk_damage()
 	return 60
@@ -89,14 +100,14 @@
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] hits [src].</span>")
 	if(!shock(user, 70))
-		take_damage(rand(5,10), BRUTE, "melee", 1)
+		take_damage(rand(5,10), BRUTE, MELEE, 1)
 
 /obj/structure/grille/attack_alien(mob/living/user)
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
 	if(!shock(user, 70))
-		take_damage(20, BRUTE, "melee", 1)
+		take_damage(20, BRUTE, MELEE, 1)
 
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
@@ -109,33 +120,34 @@
 		else
 			return !density
 
-/obj/structure/grille/CanAStarPass(ID, dir, caller)
+/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSGRILLE)
 
-/obj/structure/grille/attackby(obj/item/W, mob/user, params)
+/obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/stack/rods) && broken)
-		var/obj/item/stack/rods/R = W
-		if(!shock(user, 90))
-			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
-								 "<span class='notice'>You rebuild the broken grille.</span>")
-			new grille_type(loc)
-			R.use(1)
-			qdel(src)
-			return
+	if(istype(I, /obj/item/stack/rods) && broken)
+		repair(user, I)
 
 //window placing begin
-	else if(is_glass_sheet(W))
-		build_window(W, user)
+	else if(is_glass_sheet(I))
+		build_window(I, user)
 		return
 //window placing end
 
-	else if(istype(W, /obj/item/shard) || !shock(user, 70))
+	else if(istype(I, /obj/item/shard) || !shock(user, 70))
 		return ..()
+
+/obj/structure/grille/proc/repair(mob/user, obj/item/stack/rods/R)
+	if(R.get_amount() >= 1)
+		user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>",
+			"<span class='notice'>You rebuild the broken grille.</span>")
+		new grille_type(loc)
+		R.use(1)
+		qdel(src)
 
 /obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -146,7 +158,7 @@
 	deconstruct()
 
 /obj/structure/grille/screwdriver_act(mob/user, obj/item/I)
-	if(!(istype(loc, /turf/simulated) || anchored))
+	if(!(anchored || issimulatedturf(loc) || locate(/obj/structure/lattice) in get_turf(src)))
 		return
 	. = TRUE
 	if(shock(user, 90))
@@ -154,58 +166,44 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
+	var/support = locate(/obj/structure/lattice) in get_turf(src)
+	if(!support)
+		support = get_turf(src)
 	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
+							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] \the [support].</span>")
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
-	var/dir_to_set = NORTH
+	var/dir_to_set = SOUTHWEST
 	if(!istype(S) || !user)
 		return
 	if(broken)
 		to_chat(user, "<span class='warning'>You must repair or replace [src] first!</span>")
 		return
-	if(S.get_amount() < 1)
-		to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
+	if(S.get_amount() < 2)
+		to_chat(user, "<span class='warning'>You need at least two sheets of glass for that!</span>")
 		return
 	if(!anchored)
 		to_chat(user, "<span class='warning'>[src] needs to be fastened to the floor first!</span>")
 		return
-	if(!getRelativeDirection(src, user) && (user.loc != loc))	//essentially a cardinal direction adjacent or sharing same loc check
-		to_chat(user, "<span class='warning'>You can't reach.</span>")
-		return
-	if(loc == user.loc)
-		dir_to_set = user.dir
-	else
-		if(x == user.x)
-			if(y > user.y)
-				dir_to_set = SOUTH
-			else
-				dir_to_set = NORTH
-		else if(y == user.y)
-			if(x > user.x)
-				dir_to_set = WEST
-			else
-				dir_to_set = EAST
 	for(var/obj/structure/window/WINDOW in loc)
-		if(WINDOW.dir == dir_to_set)
-			to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
-			return
+		to_chat(user, "<span class='warning'>There is already a window there!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start placing the window...</span>")
 	if(do_after(user, 20, target = src))
 		if(!loc || !anchored) //Grille destroyed or unanchored while waiting
 			return
-		for(var/obj/structure/window/WINDOW in loc)
-			if(WINDOW.dir == dir_to_set)//checking this for a 2nd time to check if a window was made while we were waiting.
-				to_chat(user, "<span class='notice'>There is already a window facing this way there.</span>")
-				return
-		var/obj/structure/window/W = new S.created_window(get_turf(src))
-		S.use(1)
+		for(var/obj/structure/window/WINDOW in loc) //checking this for a 2nd time to check if a window was made while we were waiting.
+			to_chat(user, "<span class='warning'>There is already a window there!</span>")
+			return
+		var/obj/structure/window/W = new S.full_window(drop_location())
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.anchored = FALSE
-		W.state = WINDOW_OUT_OF_FRAME
-		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
+		air_update_turf(TRUE)
 		W.update_nearby_icons()
+		W.state = WINDOW_OUT_OF_FRAME
+		S.use(2)
+		to_chat(user, "<span class='notice'>You place [W] on [src].</span>")
 
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -269,15 +267,15 @@
 				var/obj/structure/cable/C = T.get_cable_node()
 				if(C)
 					playsound(src, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
-					tesla_zap(src, 3, C.newavail() * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+					tesla_zap(src, 3, C.newavail() * 0.01, ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN | ZAP_ALLOW_DUPLICATES) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
 					C.add_delayedload(C.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement
 	icon_state = "brokengrille"
-	density = 0
+	density = FALSE
 	obj_integrity = 20
-	broken = 1
+	broken = TRUE
 	rods_amount = 1
 	rods_broken = 0
 	grille_type = /obj/structure/grille
@@ -289,8 +287,8 @@
 	desc = "A strangely-shaped grille."
 	broken_type = /obj/structure/grille/ratvar/broken
 
-/obj/structure/grille/ratvar/New()
-	..()
+/obj/structure/grille/ratvar/Initialize(mapload)
+	. = ..()
 	if(broken)
 		new /obj/effect/temp_visual/ratvar/grille/broken(get_turf(src))
 	else
@@ -303,9 +301,6 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-
-/obj/structure/grille/ratvar/ratvar_act()
-	return
 
 /obj/structure/grille/ratvar/broken
 	icon_state = "brokenratvargrille"

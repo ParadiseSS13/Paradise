@@ -11,6 +11,7 @@
 #define COLOR_WHITE 		   "#FFFFFF"
 #define COLOR_GRAY      	   "#808080"
 #define COLOR_BLACK            "#000000"
+#define COLOR_HALF_TRANSPARENT_BLACK    "#0000007A"
 #define COLOR_NAVY_BLUE        "#000080"
 #define COLOR_LIGHT_GREEN      "#008000"
 #define COLOR_DARK_GRAY        "#404040"
@@ -80,8 +81,12 @@
 #define COLOR_ALUMINIUM        "#bbbbbb"
 #define COLOR_CRYSTAL          "#00c8a5"
 #define COLOR_ASTEROID_ROCK    "#735555"
+#define COLOR_ROCK             "#464646"
 #define COLOR_NULLGLASS        "#ff6088"
 #define COLOR_DIAMOND          "#d8d4ea"
+#define COLOR_ANCIENT_ROCK     "#575757"
+#define COLOR_COLD_ANCIENT_ROCK "#575764"
+#define COLOR_HEALING_GREEN    "#375637"
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"
@@ -100,6 +105,11 @@
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
 
+//blood colors
+
+#define COLOR_BLOOD_BASE "#A10808"
+#define COLOR_BLOOD_MACHINE "#1F181F"
+
 // Pipe colours
 #define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey
 #define	PIPE_COLOR_RED		"#ff0000"
@@ -108,3 +118,36 @@
 #define	PIPE_COLOR_GREEN	"#00ff00"
 #define	PIPE_COLOR_YELLOW	"#ffcc00"
 #define	PIPE_COLOR_PURPLE	"#5c1ec0"
+
+///Main colors for UI themes
+#define COLOR_THEME_MIDNIGHT "#6086A0"
+#define COLOR_THEME_PLASMAFIRE "#FFB200"
+#define COLOR_THEME_RETRO "#24CA00"
+#define COLOR_THEME_SLIMECORE "#4FB259"
+#define COLOR_THEME_OPERATIVE "#B8221F"
+#define COLOR_THEME_GLASS "#75A4C4"
+#define COLOR_THEME_CLOCKWORK "#CFBA47"
+
+// Color matrix utilities
+#define COLOR_MATRIX_ADD(C) list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, C)
+#define COLOR_MATRIX_OVERLAY(C) list(COLOR_BLACK, COLOR_BLACK, COLOR_BLACK, C)
+
+// Blob primary colours
+#define COLOR_RIPPING_TENDRILS "#7F0000"
+#define COLOR_BOILING_OIL "#B68D00"
+#define COLOR_ENVENOMED_FILAMENTS "#9ACD32"
+#define COLOR_LEXORIN_JELLY "#00FFC5"
+#define COLOR_KINETIC_GELATIN "#FFA500"
+#define COLOR_CRYOGENIC_LIQUID "#8BA6E9"
+#define COLOR_SORIUM "#808000"
+#define COLOR_TESLIUM_PASTE "#20324D"
+
+// Blob complementary colours
+#define COMPLEMENTARY_COLOR_RIPPING_TENDRILS "#a15656"
+#define COMPLEMENTARY_COLOR_BOILING_OIL "#c0a856"
+#define COMPLEMENTARY_COLOR_ENVENOMED_FILAMENTS "#b0cd73"
+#define COMPLEMENTARY_COLOR_LEXORIN_JELLY "#56ebc9"
+#define COMPLEMENTARY_COLOR_KINETIC_GELATIN "#ebb756"
+#define COMPLEMENTARY_COLOR_CRYOGENIC_LIQUID "#a8b7df"
+#define COMPLEMENTARY_COLOR_SORIUM "#a2a256"
+#define COMPLEMENTARY_COLOR_TESLIUM_PASTE "#412968"

@@ -62,7 +62,7 @@
 		if(!over_object)
 			return
 
-		if(istype(M.loc, /obj/mecha))
+		if(ismecha(M.loc))
 			return
 
 		if(!M.restrained() && !M.stat)
@@ -104,7 +104,7 @@
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list("flightpotion" = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/glass/bottle/potion/update_icon_state()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -166,6 +166,8 @@
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	held_key_type = /obj/item/oar
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	/// The last time we told the user that they can't drive on land, so we don't spam them
+	var/last_message_time = 0
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
 	var/turf/next = get_step(src, direction)
@@ -174,8 +176,23 @@
 	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
-		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
+		if(last_message_time + 1 SECONDS < world.time)
+			to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
+			last_message_time = world.time
 		return FALSE
+
+/obj/vehicle/lavaboat/Destroy()
+	for(var/mob/living/M in buckled_mobs)
+		M.weather_immunities -= "lava"
+	return ..()
+
+/obj/vehicle/lavaboat/user_buckle_mob(mob/living/M, mob/user)
+	M.weather_immunities |= "lava"
+	return ..()
+
+/obj/vehicle/lavaboat/unbuckle_mob(mob/living/buckled_mob, force)
+	. = ..()
+	buckled_mob.weather_immunities -= "lava"
 
 /obj/item/oar
 	name = "oar"
@@ -189,14 +206,14 @@
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
-	result = /obj/item/oar
+	result = list(/obj/item/oar)
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	time = 15
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/boat
 	name = "goliath hide boat"
-	result = /obj/vehicle/lavaboat
+	result = list(/obj/vehicle/lavaboat)
 	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
 	time = 50
 	category = CAT_PRIMAL
@@ -243,17 +260,17 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
+		wisp.orbit(user, 20, lock_in_orbit = TRUE)
 		set_light(0)
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
 
-		feedback_add_details("wisp_lantern","F") // freed
+		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
@@ -266,7 +283,7 @@
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
 
 		icon_state = "lantern-blue"
-		feedback_add_details("wisp_lantern","R") // returned
+		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
@@ -300,6 +317,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
 	var/obj/item/warp_cube/linked
+	var/cooldown = FALSE
 
 /obj/item/warp_cube/Destroy()
 	if(linked)
@@ -315,17 +333,27 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
+	if(cooldown)
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1, 0, user.loc)
+	smoke.set_up(1, FALSE, user)
 	smoke.start()
 
 	user.forceMove(get_turf(linked))
-	feedback_add_details("warp_cube","[src.type]")
+	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
 	var/datum/effect_system/smoke_spread/smoke2 = new
-	smoke2.set_up(1, 0, user.loc)
+	smoke2.set_up(1, FALSE, user)
 	smoke2.start()
+	cooldown = TRUE
+	linked.cooldown = TRUE
+	addtimer(CALLBACK(src, PROC_REF(reset)), 20 SECONDS)
+
+/obj/item/warp_cube/proc/reset()
+	cooldown = FALSE
+	linked.cooldown = FALSE
 
 /obj/item/warp_cube/red
 	name = "red cube"
@@ -358,6 +386,7 @@
 	projectile_type = /obj/item/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
+	muzzle_flash_effect = null
 
 /obj/item/projectile/hook
 	name = "hook"
@@ -365,11 +394,11 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	pass_flags = PASSTABLE
 	damage = 25
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 	damage_type = BRUTE
 	hitsound = 'sound/effects/splat.ogg'
-	weaken = 3
-	var/chain
+	weaken = 1 SECONDS
+	knockdown = 6 SECONDS
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)
@@ -414,7 +443,7 @@
 
 /obj/item/immortality_talisman/attack_self(mob/user)
 	if(cooldown < world.time)
-		feedback_add_details("immortality_talisman","U") // usage
+		SSblackbox.record_feedback("amount", "immortality_talisman_uses", 1) // usage
 		cooldown = world.time + 600
 		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in [user.p_their()] place!</span>")
 		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))
@@ -422,11 +451,11 @@
 		Z.desc = "It's shaped an awful lot like [user.name]."
 		Z.setDir(user.dir)
 		user.forceMove(Z)
-		user.notransform = 1
+		user.notransform = TRUE
 		user.status_flags |= GODMODE
 		spawn(100)
 			user.status_flags &= ~GODMODE
-			user.notransform = 0
+			user.notransform = FALSE
 			user.forceMove(get_turf(Z))
 			user.visible_message("<span class='danger'>[user] pops back into reality!</span>")
 			Z.can_destroy = TRUE

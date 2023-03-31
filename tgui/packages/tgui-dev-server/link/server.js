@@ -29,7 +29,7 @@ export const broadcastMessage = (link, msg) => {
   }
 };
 
-const deserializeObject = str => {
+const deserializeObject = (str) => {
   return JSON.parse(str, (key, value) => {
     if (typeof value === 'object' && value !== null) {
       if (value.__error__) {
@@ -54,7 +54,7 @@ const deserializeObject = str => {
   });
 };
 
-const handleLinkMessage = msg => {
+const handleLinkMessage = (msg) => {
   const { type, payload } = msg;
 
   if (type === 'log') {
@@ -63,16 +63,19 @@ const handleLinkMessage = msg => {
     if (level <= 0 && !DEBUG) {
       return;
     }
-    directLog(ns, ...args.map(arg => {
-      if (typeof arg === 'object') {
-        return inspect(arg, {
-          depth: Infinity,
-          colors: true,
-          compact: 8,
-        });
-      }
-      return arg;
-    }));
+    directLog(
+      ns,
+      ...args.map((arg) => {
+        if (typeof arg === 'object') {
+          return inspect(arg, {
+            depth: Infinity,
+            colors: true,
+            compact: 8,
+          });
+        }
+        return arg;
+      })
+    );
     return;
   }
 
@@ -84,10 +87,10 @@ const setupWebSocketLink = () => {
   const port = 3000;
   const wss = new WebSocket.Server({ port });
 
-  wss.on('connection', ws => {
+  wss.on('connection', (ws) => {
     logger.log('client connected');
 
-    ws.on('message', json => {
+    ws.on('message', (json) => {
       const msg = deserializeObject(json);
       handleLinkMessage(msg);
     });
@@ -108,7 +111,7 @@ const setupHttpLink = () => {
   const server = http.createServer((req, res) => {
     if (req.method === 'POST') {
       let body = '';
-      req.on('data', chunk => {
+      req.on('data', (chunk) => {
         body += chunk.toString();
       });
       req.on('end', () => {

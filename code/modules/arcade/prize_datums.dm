@@ -7,7 +7,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	for(var/itempath in subtypesof(/datum/prize_item))
 		prizes += new itempath()
 
-/datum/prizes/proc/PlaceOrder(var/obj/machinery/prize_counter/prize_counter, var/itemID)
+/datum/prizes/proc/PlaceOrder(obj/machinery/prize_counter/prize_counter, itemID)
 	if(!prize_counter.Adjacent(usr))
 		to_chat(usr, "<span class='warning'>You need to be closer!</span>")
 		return
@@ -45,6 +45,30 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/balloon
 	cost = 10
 
+/datum/prize_item/plasticring
+	name = "White Plastic Ring"
+	desc = "A cheap ring made of plastic."
+	typepath = /obj/item/clothing/gloves/ring/plastic
+	cost = 10
+
+/datum/prize_item/plasticringb
+	name = "Blue Plastic Ring"
+	desc = "A cheap blue ring made of plastic."
+	typepath = /obj/item/clothing/gloves/ring/plastic/blue
+	cost = 10
+
+/datum/prize_item/plasticringr
+	name = "Red Plastic Ring"
+	desc = "A cheap red ring made of plastic."
+	typepath = /obj/item/clothing/gloves/ring/plastic/red
+	cost = 10
+
+/datum/prize_item/glassring
+	name = "Glass Ring"
+	desc = "No refunds if you end up dropping it."
+	typepath = /obj/item/clothing/gloves/ring/glass
+	cost = 15
+
 /datum/prize_item/spinningtoy
 	name = "Spinning Toy"
 	desc = "Looks like an authentic Singularity!"
@@ -81,6 +105,18 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/deck/cards
 	cost = 25
 
+/datum/prize_item/tiny_cards
+	name = "Deck of Tiny Cards"
+	desc = "Anyone fancy a tiny game of 52-card Pickup?"
+	typepath = /obj/item/deck/cards/tiny
+	cost = 25
+
+/datum/prize_item/capgunammo
+	name = "Capgun Revolver Cylinder"
+	desc = "Reload your toy revolver with style."
+	typepath = /obj/item/ammo_box/caps
+	cost = 30
+
 /datum/prize_item/crayons
 	name = "Box of Crayons"
 	desc = "A six-pack of crayons, just like back in kindergarten."
@@ -92,6 +128,18 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "A mystical ball that can divine the future!"
 	typepath = /obj/item/toy/eight_ball
 	cost = 40
+
+/datum/prize_item/shadowring
+	name = "Shadow Ring"
+	desc = "Only darklords can wear this ring."
+	typepath = /obj/item/clothing/gloves/ring/shadow
+	cost = 40
+
+/datum/prize_item/double_tiny_cards
+	name = "Double Deck of Tiny Cards"
+	desc = "Anyone fancy a tiny game of 108-card Pickup?"
+	typepath = /obj/item/deck/cards/tiny/doublecards
+	cost = 50
 
 /datum/prize_item/wallet
 	name = "Colored Wallet"
@@ -129,6 +177,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	name = "Toy Flash"
 	desc = "AUGH! MY EYES!"
 	typepath = /obj/item/toy/flash
+	cost = 50
+
+/datum/prize_item/toycuffs
+	name = "Toy Handcuffs"
+	desc = "Plastic and extremely cheaply made."
+	typepath = /obj/item/restraints/handcuffs/toy
 	cost = 50
 
 /datum/prize_item/minimeteor
@@ -191,6 +245,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/gun/projectile/revolver/capgun
 	cost = 75
 
+/datum/prize_item/codex_gigas
+	name = "Toy Codex Gigas"
+	desc = "For helping you come up with writing ideas for your diabolical adventures."
+	typepath = /obj/item/toy/codex_gigas
+	cost = 75
+
 /datum/prize_item/pet_rock
 	name = "Pet Rock"
 	desc = "A pet of your very own!"
@@ -200,7 +260,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/toy_xeno
 	name = "Xeno Action Figure"
 	desc = "A lifelike replica of the horrific xeno scourge."
-	typepath = /obj/item/toy/toy_xeno
+	typepath = /obj/item/toy/figure/xeno
+	cost = 80
+
+/datum/prize_item/rubberducky
+	name = "Rubber Ducky"
+	desc = "Your favorite bathtime buddy, all squeaks and quacks quality assured."
+	typepath = /obj/item/bikehorn/rubberducky
 	cost = 80
 
 /datum/prize_item/tacticool
@@ -245,6 +311,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/foamblade
 	cost = 100
 
+/datum/prize_item/wind_up_toolbox
+	name = "Wind Up Toolbox"
+	desc = "A replica toolbox that rumbles when you turn the key."
+	typepath = /obj/item/toy/windup_toolbox
+	cost = 100
+
 /datum/prize_item/redbutton
 	name = "Shiny Red Button"
 	desc = "PRESS IT!"
@@ -266,20 +338,14 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/owl
 	name = "Owl Action Figure"
 	desc = "Remember: heroes don't grief!"
-	typepath = /obj/item/toy/owl
+	typepath = /obj/item/toy/figure/owl
 	cost = 125
 
 /datum/prize_item/griffin
 	name = "Griffin Action Figure"
 	desc = "If you can't be the best, you can always be the WORST."
-	typepath = /obj/item/toy/griffin
+	typepath = /obj/item/toy/figure/griffin
 	cost = 125
-
-/datum/prize_item/codex_gigas
-	name = "Toy Codex Gigas"
-	desc = "For helping you come up with writing ideas for your diabolical adventures."
-	typepath = /obj/item/toy/codex_gigas/
-	cost = 75
 
 /datum/prize_item/esword
 	name = "Toy Energy Sword"
@@ -299,6 +365,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/stack/tile/arcade_carpet/loaded
 	cost = 150
 
+/datum/prize_item/headpat
+	name = "Gloves of Headpats"
+	desc = "Gloves that fill you with an irresistable urge to give headpats."
+	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
+	cost = 150
+
 /datum/prize_item/tommygun
 	name = "Tommy Gun"
 	desc = "A replica tommy gun that fires foam darts."
@@ -316,12 +388,6 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "A full-scale model chainsaw, based on that massacre in Space Texas."
 	typepath = /obj/item/twohanded/toy/chainsaw
 	cost = 200
-
-/datum/prize_item/headpat
-	name = "Gloves of Headpats"
-	desc = "Gloves that fill you with an irresistable urge to give headpats."
-	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
-	cost = 150
 
 /datum/prize_item/bike
 	name = "Awesome Bike!"

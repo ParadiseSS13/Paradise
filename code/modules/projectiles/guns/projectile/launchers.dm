@@ -4,13 +4,14 @@
 /obj/item/gun/projectile/revolver/grenadelauncher//this is only used for underbarrel grenade launchers at the moment, but admins can still spawn it if they feel like being assholes
 	desc = "A break-operated grenade launcher."
 	name = "grenade launcher"
-	icon_state = "dshotgun-sawn"
+	icon_state = "dbshotgun_sawn"
 	item_state = "gun"
 	mag_type = /obj/item/ammo_box/magazine/internal/grenadelauncher
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
+	can_holster = FALSE  // Not your normal revolver
 
-/obj/item/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/grenadelauncher/attackby(obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
@@ -37,20 +38,17 @@
 	fire_sound = 'sound/effects/explosion1.ogg'
 	origin_tech = "combat=5"
 	mag_type = /obj/item/ammo_box/magazine/m75
+	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/gyropistol/isHandgun()
-	return 1
 
 /obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
 	..()
 
-/obj/item/gun/projectile/automatic/gyropistol/update_icon()
-	..()
+/obj/item/gun/projectile/automatic/gyropistol/update_icon_state()
 	icon_state = "[initial(icon_state)][magazine ? "loaded" : ""]"
-	return
 
 /obj/item/gun/projectile/automatic/speargun
 	name = "kinetic speargun"
@@ -58,9 +56,10 @@
 	icon_state = "speargun"
 	item_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = SLOT_BACK
 	origin_tech = "combat=4;engineering=4"
 	force = 10
-	can_suppress = 0
+	can_suppress = FALSE
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	burst_size = 1
@@ -68,7 +67,7 @@
 	select = 0
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/speargun/update_icon()
+/obj/item/gun/projectile/automatic/speargun/update_icon_state()
 	return
 
 /obj/item/gun/projectile/automatic/speargun/attack_self()

@@ -1,9 +1,9 @@
 //CONTAINS: Suit fibers and Detective's Scanning Computer
 
-atom/var/list/suit_fibers
+/atom/var/list/suit_fibers
 
-atom/proc/add_fibers(mob/living/carbon/human/M)
-	if(M.gloves && istype(M.gloves,/obj/item/clothing/))
+/atom/proc/add_fibers(mob/living/carbon/human/M)
+	if(M.gloves && isclothing(M.gloves))
 		var/obj/item/clothing/gloves/G = M.gloves
 		if(G.transfer_blood > 1) //bloodied gloves transfer blood to touched objects
 			if(add_blood(G.blood_DNA, G.blood_color)) //only reduces the bloodiness of our gloves if the item wasn't already bloody
@@ -13,7 +13,7 @@ atom/proc/add_fibers(mob/living/carbon/human/M)
 			M.bloody_hands--
 	if(!suit_fibers) suit_fibers = list()
 	var/fibertext
-	var/item_multiplier = istype(src,/obj/item)?1.2:1
+	var/item_multiplier = isitem(src)?1.2:1
 	if(M.wear_suit)
 		fibertext = "Material from \a [M.wear_suit]."
 		if(prob(10*item_multiplier) && !(fibertext in suit_fibers) && M.wear_suit.can_leave_fibers)

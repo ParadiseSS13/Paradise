@@ -3,8 +3,8 @@
 	desc = "Completely impassable - or are they?"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	layer = 4
 	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 50, acid = 50)
 	var/state = PLASTIC_FLAPS_NORMAL
@@ -71,12 +71,12 @@
 			return TRUE
 		if(M.buckled && istype(M.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
 			return TRUE
-		if(!M.lying && !M.ventcrawler && M.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
+		if(!IS_HORIZONTAL(M) && !M.ventcrawler && M.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE
 	return ..()
 
 
-/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
+/obj/structure/plasticflaps/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
 	if(isliving(caller))
 		if(isbot(caller))
 			return TRUE
@@ -86,7 +86,7 @@
 			return FALSE
 	var/atom/movable/M = caller
 	if(M && M.pulling)
-		return CanAStarPass(ID, to_dir, M.pulling)
+		return CanPathfindPass(ID, to_dir, M.pulling)
 	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)

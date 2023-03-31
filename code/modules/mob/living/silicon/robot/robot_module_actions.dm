@@ -7,13 +7,13 @@
 	var/mob/living/silicon/robot/R = owner
 	R.sight_mode |= sight_mode
 	R.update_sight()
-	active = 1
+	active = TRUE
 
 /datum/action/innate/robot_sight/Deactivate()
 	var/mob/living/silicon/robot/R = owner
 	R.sight_mode &= ~sight_mode
 	R.update_sight()
-	active = 0
+	active = FALSE
 
 /datum/action/innate/robot_sight/xray
 	name = "X-ray Vision"

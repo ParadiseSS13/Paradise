@@ -17,31 +17,17 @@ export const refocusLayout = () => {
   }
 };
 
-export const Layout = props => {
-  const {
-    className,
-    theme = 'nanotrasen',
-    children,
-  } = props;
+export const Layout = (props) => {
+  const { className, theme = 'nanotrasen', children } = props;
   return (
     <div className={'theme-' + theme}>
-      <div
-        className={classes([
-          'Layout',
-          className,
-        ])}>
-        {children}
-      </div>
+      <div className={classes(['Layout', className])}>{children}</div>
     </div>
   );
 };
 
-const LayoutContent = props => {
-  const {
-    className,
-    scrollable,
-    children,
-  } = props;
+const LayoutContent = (props) => {
+  const { className, scrollable, children } = props;
   return (
     <div
       id="Layout__content"
@@ -49,7 +35,8 @@ const LayoutContent = props => {
         'Layout__content',
         scrollable && 'Layout__content--scrollable',
         className,
-      ])}>
+      ])}
+    >
       {children}
     </div>
   );

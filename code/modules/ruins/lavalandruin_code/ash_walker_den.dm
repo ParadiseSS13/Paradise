@@ -25,7 +25,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/deconstruct(disassembled)
-	new /obj/item/assembly/signaler/anomaly(get_step(loc, pick(GLOB.alldirs)))
+	new /obj/item/assembly/signaler/anomaly/random(get_step(loc, pick(GLOB.alldirs)))
 	new	/obj/effect/collapse(loc)
 	return ..()
 
@@ -67,15 +67,19 @@
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
-	flavour_text = "<span class='big bold'>You are an ash walker.</span><b> Your tribe worships <span class='danger'>the Necropolis</span>. The wastes are sacred ground, its monsters a blessed bounty. \
-	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest. \
-	<br><i>You are free to attack miners and other outsiders. <font size=6>DO NOT</font> leave Lavaland without admin permission! <font size=6>DO NOT</font> attack the mining outpost without being provoked.</b></i>"
+	death_cooldown = 300 SECONDS
+	important_info = "Do not leave Lavaland without admin permission. Do not attack the mining outpost without being provoked."
+	description = "You are an ashwalker, a native inhabitant of Lavaland. Try to survive with nothing but spears and other tribal technology. Bring dead bodies back to your tendril to create more of your kind. You are free to attack miners and other outsiders."
+	flavour_text = "Your tribe worships the Necropolis. The wastes are sacred ground, its monsters a blessed bounty. \
+	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest."
 	assignedrole = "Ash Walker"
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
+	new_spawn.mind.offstation_role = TRUE
 
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis!</b>")
+	to_chat(new_spawn, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Ash_Walker)</span>")
 
 /obj/effect/mob_spawn/human/ash_walker/New()
 	. = ..()
@@ -86,4 +90,4 @@
 /datum/outfit/ashwalker
 	name ="Ashwalker"
 	head = /obj/item/clothing/head/helmet/gladiator
-	uniform = /obj/item/clothing/under/gladiator/ash_walker
+	uniform = /obj/item/clothing/under/costume/gladiator/ash_walker

@@ -11,10 +11,7 @@
 	var/shuttlePortName = "custom location"
 	var/list/jumpto_ports = list() //list of ports to jump to
 	var/access_station = TRUE //can we park near X?
-	var/access_tcomms = TRUE
-	var/access_construction = TRUE
 	var/access_mining = TRUE
-	var/access_derelict = FALSE
 	var/obj/docking_port/stationary/my_port //the custom docking port placed by this console
 	var/obj/docking_port/mobile/shuttle_port //the mobile docking port of the connected shuttle
 	var/view_range = 7
@@ -29,17 +26,13 @@
 	. = ..()
 	GLOB.navigation_computers += src
 	if(access_station)
-		jumpto_ports += list("nav_z1" = 1)
-	if(access_tcomms)
-		jumpto_ports += list("nav_z3" = 1)
-	if(access_mining)
-		jumpto_ports += list("nav_z5" = 1)
-	if(access_derelict)
-		jumpto_ports += list("nav_z6" = 1)
+		jumpto_ports += list("nav_z[level_name_to_num(MAIN_STATION)]" = 1)
+	if(access_mining && GLOB.configuration.ruins.enable_lavaland)
+		jumpto_ports += list("nav_z[level_name_to_num(MINING)]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
-	. = ..()
 	GLOB.navigation_computers -= src
+	return ..()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/attack_hand(mob/user)
 	if(!shuttle_port && !SSshuttle.getShuttle(shuttleId))
@@ -122,7 +115,7 @@
 	if(designate_time && (landing_clear != SHUTTLE_DOCKER_BLOCKED))
 		to_chat(current_user, "<span class='warning'>Targeting transit location, please wait [DisplayTimeText(designate_time)]...</span>")
 		designating_target_loc = the_eye.loc
-		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, /obj/machinery/computer/camera_advanced/shuttle_docker/proc/canDesignateTarget))
+		var/wait_completed = do_after(current_user, designate_time, FALSE, designating_target_loc, TRUE, CALLBACK(src, PROC_REF(canDesignateTarget)))
 		designating_target_loc = null
 		if(!current_user)
 			return
@@ -154,7 +147,7 @@
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
 
-	QDEL_LIST(the_eye.placed_images)
+	QDEL_LIST_CONTENTS(the_eye.placed_images)
 
 	for(var/V in the_eye.placement_images)
 		var/image/I = V
@@ -271,6 +264,8 @@
 	visible_icon = FALSE
 	use_static = FALSE
 	simulated = FALSE
+	// The Shuttle Docker does not trigger the AI Detector
+	ai_detector_visible = FALSE
 	var/list/placement_images = list()
 	var/list/placed_images = list()
 
@@ -279,7 +274,7 @@
 	return ..()
 
 /mob/camera/aiEye/remote/shuttle_docker/setLoc(T)
-	if(istype(get_turf(T), /turf/space) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
+	if(isspaceturf(get_turf(T)) || istype(get_area(T), /area/space) || istype(get_area(T), /area/shuttle))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()

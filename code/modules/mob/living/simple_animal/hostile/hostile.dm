@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile
 	faction = list("hostile")
-	stop_automated_movement_when_pulled = 0
+	stop_automated_movement_when_pulled = FALSE
 	obj_damage = 40
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
 	var/atom/target
@@ -29,13 +29,13 @@
 	var/ranged_cooldown = 0 //What the current cooldown on ranged attacks is, generally world.time + ranged_cooldown_time
 	var/ranged_cooldown_time = 30 //How long, in deciseconds, the cooldown of ranged attacks is
 	var/ranged_ignores_vision = FALSE //if it'll fire ranged attacks even if it lacks vision on its target, only works with environment smash
-	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
+	var/check_friendly_fire = FALSE // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
 	var/minimum_distance = 1 //Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set higher to make mobs keep distance
 
 
 //These vars are related to how mobs locate and target
-	var/robust_searching = 0 //By default, mobs have a simple searching method, set this to 1 for the more scrutinous searching (stat_attack, stat_exclusive, etc), should be disabled on most mobs
+	var/robust_searching = FALSE //By default, mobs have a simple searching method, set this to TRUE for the more scrutinous searching (stat_attack, stat_exclusive, etc), should be disabled on most mobs
 	var/vision_range = 9 //How big of an area to search for targets in, a vision of 9 attempts to find targets as soon as they walk into screen view
 	var/aggro_vision_range = 9 //If a mob is aggro, we search in this radius. Defaults to 9 to keep in line with original simple mob aggro radius
 	var/search_objects = 0 //If we want to consider objects when searching around, set this to 1. If you want to search for objects while also ignoring mobs until hurt, set it to 2. To completely ignore mobs, even when attacked, set it to 3
@@ -44,7 +44,7 @@
 	var/list/wanted_objects = list() //A typecache of objects types that will be checked against to attack, should we have search_objects enabled
 	var/stat_attack = CONSCIOUS //Mobs with stat_attack to UNCONSCIOUS will attempt to attack things that are unconscious, Mobs with stat_attack set to DEAD will attempt to attack the dead.
 	var/stat_exclusive = FALSE //Mobs with this set to TRUE will exclusively attack things defined by stat_attack, stat_attack DEAD means they will only attack corpses
-	var/attack_same = 0 //Set us to 1 to allow us to attack our own faction
+	var/attack_same = FALSE //Set to TRUE to allow us to attack our own faction
 	var/atom/targets_from = null //all range/attack/etc. calculations should be done from this atom, defaults to the mob itself, useful for Vehicles and such
 	var/attack_all_objects = FALSE //if true, equivalent to having a wanted_objects list containing ALL objects.
 
@@ -59,6 +59,8 @@
 	wanted_objects = typecacheof(wanted_objects)
 
 /mob/living/simple_animal/hostile/Destroy()
+	if(lose_patience_timer_id)
+		deltimer(lose_patience_timer_id)
 	targets_from = null
 	target = null
 	return ..()
@@ -88,7 +90,7 @@
 /mob/living/simple_animal/hostile/handle_automated_movement()
 	. = ..()
 	if(dodging && target && in_melee && isturf(loc) && isturf(target.loc))
-		var/datum/cb = CALLBACK(src,.proc/sidestep)
+		var/datum/cb = CALLBACK(src, PROC_REF(sidestep))
 		if(sidestep_per_cycle > 1) //For more than one just spread them equally - this could changed to some sensible distribution later
 			var/sidestep_delay = SSnpcpool.wait / sidestep_per_cycle
 			for(var/i in 1 to sidestep_per_cycle)
@@ -131,7 +133,7 @@
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
 
-		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod))
+		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
 
 		for(var/HM in typecache_filter_list(range(vision_range, targets_from), hostile_machines))
 			if(can_see(targets_from, HM, vision_range))
@@ -139,7 +141,7 @@
 	else
 		. = oview(vision_range, targets_from)
 
-/mob/living/simple_animal/hostile/proc/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
+/mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets, HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
 	. = list()
 	if(!HasTargetsList)
 		possible_targets = ListTargets()
@@ -166,7 +168,7 @@
 			. += A
 			continue
 
-/mob/living/simple_animal/hostile/proc/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
+/mob/living/simple_animal/hostile/proc/Found(atom/A)//This is here as a potential override to pick a specific target if available
 	return
 
 /mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
@@ -216,12 +218,6 @@
 				if(CanAttack(M.occupant))
 					return TRUE
 
-		if(isspacepod(the_target))
-			var/obj/spacepod/S = the_target
-			if(S.pilot)//Just so we don't attack empty pods
-				if(CanAttack(S.pilot))
-					return TRUE
-
 		if(istype(the_target, /obj/machinery/porta_turret))
 			var/obj/machinery/porta_turret/P = the_target
 			if(P.faction in faction)
@@ -249,7 +245,7 @@
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
 	if(rapid_melee > 1)
-		var/datum/callback/cb = CALLBACK(src, .proc/CheckAndAttack)
+		var/datum/callback/cb = CALLBACK(src, PROC_REF(CheckAndAttack))
 		var/delay = SSnpcpool.wait / rapid_melee
 		for(var/i in 1 to rapid_melee)
 			addtimer(cb, (i - 1)*delay)
@@ -263,7 +259,7 @@
 		AttackingTarget()
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)//Step 5, handle movement between us and our target
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	if(!target || !CanAttack(target))
 		LoseTarget()
 		return 0
@@ -336,11 +332,11 @@
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
 	if(target && emote_taunt.len && prob(taunt_chance))
-		emote("me", 1, "[pick(emote_taunt)] at [target].")
+		custom_emote(EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
 
 /mob/living/simple_animal/hostile/proc/LoseAggro()
-	stop_automated_movement = 0
+	stop_automated_movement = FALSE
 	vision_range = initial(vision_range)
 	taunt_chance = initial(taunt_chance)
 
@@ -386,7 +382,7 @@
 
 
 	if(rapid > 1)
-		var/datum/callback/cb = CALLBACK(src, .proc/Shoot, A)
+		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
 		for(var/i in 1 to rapid)
 			addtimer(cb, (i - 1)*rapid_fire_delay)
 	else
@@ -400,13 +396,14 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, 1)
-		casing.fire(targeted_atom, src, zone_override = ran_zone())
+		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
 	else if(projectiletype)
 		var/obj/item/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
 		P.current = startloc
 		P.starting = startloc
 		P.firer = src
+		P.firer_source_atom = src
 		P.yo = targeted_atom.y - startloc.y
 		P.xo = targeted_atom.x - startloc.x
 		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
@@ -494,7 +491,7 @@
 
 
 ////// AI Status ///////
-/mob/living/simple_animal/hostile/proc/AICanContinue(var/list/possible_targets)
+/mob/living/simple_animal/hostile/proc/AICanContinue(list/possible_targets)
 	switch(AIStatus)
 		if(AI_ON)
 			. = 1
@@ -505,16 +502,18 @@
 			else
 				. = 0
 
-/mob/living/simple_animal/hostile/proc/AIShouldSleep(var/list/possible_targets)
+/mob/living/simple_animal/hostile/proc/AIShouldSleep(list/possible_targets)
 	return !FindTarget(possible_targets, 1)
 
 
 //These two procs handle losing our target if we've failed to attack them for
 //more than lose_patience_timeout deciseconds, which probably means we're stuck
 /mob/living/simple_animal/hostile/proc/GainPatience()
+	if(QDELING(src))
+		return
 	if(lose_patience_timeout)
 		LosePatience()
-		lose_patience_timer_id = addtimer(CALLBACK(src, .proc/LoseTarget), lose_patience_timeout, TIMER_STOPPABLE)
+		lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget)), lose_patience_timeout, TIMER_STOPPABLE)
 
 
 /mob/living/simple_animal/hostile/proc/LosePatience()
@@ -525,7 +524,7 @@
 /mob/living/simple_animal/hostile/proc/LoseSearchObjects()
 	search_objects = 0
 	deltimer(search_objects_timer_id)
-	search_objects_timer_id = addtimer(CALLBACK(src, .proc/RegainSearchObjects), search_objects_regain_time, TIMER_STOPPABLE)
+	search_objects_timer_id = addtimer(CALLBACK(src, PROC_REF(RegainSearchObjects)), search_objects_regain_time, TIMER_STOPPABLE)
 
 
 /mob/living/simple_animal/hostile/proc/RegainSearchObjects(value)
@@ -556,8 +555,8 @@
 			FindTarget()
 		toggle_ai(AI_ON)
 
-/mob/living/simple_animal/hostile/proc/ListTargetsLazy(var/_Z)//Step 1, find out what we can see
-	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod))
+/mob/living/simple_animal/hostile/proc/ListTargetsLazy(_Z)//Step 1, find out what we can see
+	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
 	. = list()
 	for(var/I in SSmobs.clients_by_zlevel[_Z])
 		var/mob/M = I

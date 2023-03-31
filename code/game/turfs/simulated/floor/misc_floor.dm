@@ -1,12 +1,12 @@
 /turf/simulated/floor/vault
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
 
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
 
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'
@@ -42,6 +42,10 @@
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
 /turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
@@ -49,32 +53,54 @@
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
+	baseturf = /turf/simulated/floor/beach/sand
 
 /turf/simulated/floor/beach/coastline
 	name = "coastline"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
+	baseturf = /turf/simulated/floor/beach/coastline
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/coastline_t
 	name = "coastline"
 	desc = "Tide's high tonight. Charge your batons."
 	icon_state = "sandwater_t"
+	baseturf = /turf/simulated/floor/beach/coastline_t
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/coastline_b
 	name = "coastline"
 	icon_state = "sandwater_b"
+	baseturf = /turf/simulated/floor/beach/coastline_b
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
+	baseturf = /turf/simulated/floor/beach/water
+	footstep = FOOTSTEP_WATER
+	barefootstep = FOOTSTEP_WATER
+	clawfootstep = FOOTSTEP_WATER
+	heavyfootstep = FOOTSTEP_WATER
 
 /turf/simulated/floor/beach/water/Initialize(mapload)
 	. = ..()
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	overlays += overlay_image
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
@@ -90,7 +116,7 @@
 	if(ismob(AM))
 		linkedcontroller.mobinpool -= AM
 
-/turf/simulated/floor/beach/water/InitializedOn(atom/A)
+/turf/simulated/floor/beach/water/proc/InitializedOn(atom/A)
 	if(!linkedcontroller)
 		return
 	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
@@ -125,7 +151,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
-		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
 	return
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
@@ -151,11 +177,6 @@
 		QDEL_NULL(realappearence)
 	return ..()
 
-/turf/simulated/floor/clockwork/ReplaceWithLattice()
-	. = ..()
-	for(var/obj/structure/lattice/L in src)
-		L.ratvar_act()
-
 /turf/simulated/floor/clockwork/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -180,7 +201,7 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
-		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
 
 /turf/simulated/floor/clockwork/reebe
 	name = "cogplate"

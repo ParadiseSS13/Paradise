@@ -7,10 +7,11 @@
 	icon_state = "syndicate-bomb"
 	desc = "A large and menacing device. Can be bolted down with a wrench."
 
-	anchored = 0
-	density = 0
+	anchored = FALSE
+	density = FALSE
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_2 = CRITICAL_ATOM_2
 
 	var/datum/wires/syndicatebomb/wires = null
 	var/minimum_timer = 90
@@ -74,7 +75,7 @@
 	if(active && !defused && ((detonation_timer <= world.time) || explode_now))
 		active = FALSE
 		timer_set = initial(timer_set)
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 		try_detonate(TRUE)
 	//Counter terrorists win
 	else if(defused)
@@ -82,15 +83,16 @@
 		if(payload in src)
 			payload.defuse()
 
-/obj/machinery/syndicatebomb/New()
-	wires 	= new(src)
+/obj/machinery/syndicatebomb/Initialize(mapload)
+	. = ..()
+	wires = new(src)
 	if(payload)
 		payload = new payload(src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	countdown = new(src)
-	..()
 
 /obj/machinery/syndicatebomb/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
 	STOP_PROCESSING(SSfastprocess, src)
@@ -100,7 +102,7 @@
 	. = ..()
 	. += "A digital display on it reads \"[seconds_remaining()]\"."
 
-/obj/machinery/syndicatebomb/update_icon()
+/obj/machinery/syndicatebomb/update_icon_state()
 	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
 
 /obj/machinery/syndicatebomb/proc/seconds_remaining()
@@ -151,7 +153,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	open_panel = !open_panel
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
 
 /obj/machinery/syndicatebomb/wirecutter_act(mob/user, obj/item/I)
@@ -174,7 +176,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(open_panel && wires.IsAllCut())
+	if(open_panel && wires.is_all_cut())
 		if(payload)
 			to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
 			payload.loc = user.loc
@@ -188,7 +190,7 @@
 
 /obj/machinery/syndicatebomb/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(payload || !wires.IsAllCut() || !open_panel)
+	if(payload || !wires.is_all_cut() || !open_panel)
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -253,19 +255,16 @@
 		else
 			loc.visible_message("<span class='danger'>[bicon(src)] [timer_set] seconds until detonation, please clear the area.</span>")
 			activate()
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 			add_fingerprint(user)
 
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			if(payload && !istype(payload, /obj/item/bombcore/training))
-				msg_admin_attack("[key_name_admin(user)] has primed a [name] ([payload]) for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.", ATKLOG_FEW)
 				log_game("[key_name(user)] has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]")
 				investigate_log("[key_name(user)] has has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", INVESTIGATE_BOMB)
+				add_attack_logs(user, src, "has primed a [name] ([payload]) for detonation", ATKLOG_FEW)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
-
-/obj/machinery/syndicatebomb/proc/isWireCut(var/index)
-	return wires.IsIndexCut(index)
 
 ///Bomb Subtypes///
 
@@ -274,6 +273,12 @@
 	icon_state = "training-bomb"
 	desc = "A salvaged syndicate device gutted of its explosives to be used as a training aid for aspiring bomb defusers."
 	payload = /obj/item/bombcore/training
+
+/obj/machinery/syndicatebomb/emp
+	name = "emp bomb"
+	icon_state = "emp-bomb"
+	desc = "A large bomb, seemingly made to make a large electromagnetic pulse."
+	payload = /obj/item/bombcore/emp
 
 /obj/machinery/syndicatebomb/badmin
 	name = "generic summoning badmin bomb"
@@ -295,26 +300,10 @@
 	open_panel = TRUE
 	timer_set = 120
 
-/obj/machinery/syndicatebomb/empty/New()
-	..()
-	wires.CutAll()
-
-/obj/machinery/syndicatebomb/self_destruct
-	name = "self destruct device"
-	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age."
-	req_access = list(ACCESS_SYNDICATE)
-	payload = /obj/item/bombcore/large
-	can_unanchor = FALSE
-	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE // If set, this bomb will also cause explosive walls in the same group to explode
-
-/obj/machinery/syndicatebomb/self_destruct/try_detonate(ignore_active = FALSE)
+/obj/machinery/syndicatebomb/empty/Initialize(mapload)
 	. = ..()
-	if(. && explosive_wall_group)
-		for(var/wall in GLOB.explosive_walls)
-			var/turf/simulated/wall/mineral/plastitanium/explosive/E = wall
-			if(E.explosive_wall_group == explosive_wall_group)
-				E.self_destruct()
-				sleep(5)
+	wires.cut_all()
+
 
 ///Bomb Cores///
 
@@ -368,13 +357,13 @@
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		if(holder.wires)
-			holder.wires.Shuffle()
+			holder.wires.shuffle_wires()
 		holder.defused = 0
 		holder.open_panel = 0
 		holder.delayedbig = FALSE
 		holder.delayedlittle = FALSE
 		holder.explode_now = FALSE
-		holder.update_icon()
+		holder.update_icon(UPDATE_ICON_STATE)
 		holder.updateDialog()
 
 /obj/item/bombcore/training/detonate()
@@ -413,9 +402,8 @@
 /obj/item/bombcore/badmin/summon/detonate()
 	var/obj/machinery/syndicatebomb/B = src.loc
 	for(var/i = 0; i < amt_summon; i++)
-		var/atom/movable/X = new summon_path
+		var/atom/movable/X = new summon_path(get_turf(src))
 		X.admin_spawned = TRUE
-		X.loc = get_turf(src)
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
 				step(X, pick(NORTH,SOUTH,EAST,WEST))
@@ -451,6 +439,35 @@
 	range_light = 4
 	range_flame = 2
 
+/obj/item/bombcore/emp
+	name = "\improper EMP bomb core"
+	var/light_emp = 36
+	var/heavy_emp = 18
+	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
+	var/adminlogged = FALSE //If it exploded once, don't do it again.
+
+/obj/item/bombcore/emp/ex_act(severity) //It's an EMP bomb, not a chemical explosive
+	return
+
+/obj/item/bombcore/emp/burn()
+	return
+
+/obj/item/bombcore/emp/detonate()
+	if(adminlog && !adminlogged)
+		message_admins(adminlog)
+		log_game(adminlog)
+		adminlogged = TRUE
+	empulse(src, heavy_emp, light_emp, 1)
+	if(pulse_number <= 1)
+		src.visible_message("<span class='warning'>The bomb's core burns out, and the bomb disintegrates into ash.</span>")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
+		if(loc && istype(loc, /obj/machinery/syndicatebomb))
+			qdel(loc)
+		qdel(src)
+	else
+		pulse_number -= 1
+		addtimer(CALLBACK(src, PROC_REF(detonate)), 20) // every 2 seconds go off again till pulses run out
+
 /obj/item/bombcore/chemical
 	name = "chemical payload"
 	desc = "An explosive payload designed to spread chemicals, dangerous or otherwise, across a large area. It is able to hold up to four chemical containers, and must be loaded before use."
@@ -483,7 +500,7 @@
 		chem_splash(get_turf(src), spread_range, list(reactants), temp_boost)
 
 		// Detonate it again in one second, until it's out of juice.
-		addtimer(CALLBACK(src, .proc/detonate), 10)
+		addtimer(CALLBACK(src, PROC_REF(detonate)), 10)
 
 	// If it's not a time release bomb, do normal explosion
 
@@ -523,7 +540,7 @@
 			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
 			I.loc = src
 		else
-			to_chat(user, "<span class='warning'>The [I] wont fit! The [src] can only hold up to [max_beakers] containers.</span>")
+			to_chat(user, "<span class='warning'>[I] won't fit! [src] can only hold up to [max_beakers] containers.</span>")
 			return
 	else
 		return ..()
@@ -654,8 +671,8 @@
 			var/turf/T = get_turf(src)
 			var/area/A = get_area(T)
 			detonated--
-			message_admins("[key_name_admin(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 			investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
+			add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
 			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
 		detonated =	0
 		existant =	0

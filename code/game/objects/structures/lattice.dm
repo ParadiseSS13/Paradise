@@ -2,19 +2,18 @@
 	name = "lattice"
 	desc = "A lightweight support lattice."
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
-	icon_state = "lattice"
+	icon_state = "lattice-255"
+	base_icon_state = "lattice"
 	density = FALSE
 	anchored = TRUE
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
 	var/number_of_rods = 1
-	canSmoothWith = list(/obj/structure/lattice,
-						/turf/simulated/floor,
-						/turf/simulated/wall,
-						/obj/structure/falsewall)
-	smooth = SMOOTH_MORE
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_LATTICE)
+	canSmoothWith = list(SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_TURF, SMOOTH_GROUP_WINDOW_FULLTILE)
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
@@ -25,6 +24,10 @@
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
+
+/obj/structure/lattice/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Add a floor tile to build a floor on top of the lattice.</span>"
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
@@ -61,27 +64,17 @@
 
 /obj/structure/lattice/clockwork/Initialize(mapload)
 	. = ..()
-	ratvar_act()
-
-/obj/structure/lattice/clockwork/ratvar_act()
-	if((x + y) % 2 != 0)
-		icon = 'icons/obj/smooth_structures/lattice_clockwork_large.dmi'
-		pixel_x = -9
-		pixel_y = -9
-	else
-		icon = 'icons/obj/smooth_structures/lattice_clockwork.dmi'
-		pixel_x = 0
-		pixel_y = 0
-	return TRUE
 
 /obj/structure/lattice/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier EVA maneuvering and cable placement."
 	icon = 'icons/obj/smooth_structures/catwalk.dmi'
-	icon_state = "catwalk"
+	icon_state = "catwalk-0"
+	base_icon_state = "catwalk"
 	number_of_rods = 2
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CATWALK, SMOOTH_GROUP_LATTICE, SMOOTH_GROUP_FLOOR)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_CATWALK)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
@@ -98,29 +91,22 @@
 		C.deconstruct()
 	..()
 
+/obj/structure/lattice/catwalk/mining
+	name = "reinforced catwalk"
+	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
+	return
+
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
-	canSmoothWith = list(/obj/structure/lattice,
-	/turf/simulated/floor,
-	/turf/simulated/wall,
-	/obj/structure/falsewall)
-	smooth = SMOOTH_MORE
+	smoothing_flags = SMOOTH_CORNERS
+	smoothing_groups = null
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
 	. = ..()
-	ratvar_act()
 	if(!mapload)
 		new /obj/effect/temp_visual/ratvar/floor/catwalk(loc)
 		new /obj/effect/temp_visual/ratvar/beam/catwalk(loc)
-
-/obj/structure/lattice/catwalk/clockwork/ratvar_act()
-	if((x + y) % 2 != 0)
-		icon = 'icons/obj/smooth_structures/catwalk_clockwork_large.dmi'
-		pixel_x = -9
-		pixel_y = -9
-	else
-		icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
-		pixel_x = 0
-		pixel_y = 0
-	return TRUE

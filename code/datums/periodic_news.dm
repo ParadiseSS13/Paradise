@@ -28,11 +28,11 @@
 /datum/news_announcement/revolution_inciting_event/human_experiments
 	round_time = 60*90
 	message = {"Unbelievable reports about human experimentation have reached our ears. According
-			 	to a refugee from one of the Tau Ceti Research Stations, their station, in order
-			 	to increase revenue, has refactored several of their facilities to perform experiments
-			 	on live humans, including virology research, genetic manipulation, and \"feeding them
-			 	to the slimes to see what happens\". Allegedly, these test subjects were neither
-			 	humanified monkeys nor volunteers, but rather unqualified staff that were forced into
+				to a refugee from one of the Tau Ceti Research Stations, their station, in order
+				to increase revenue, has refactored several of their facilities to perform experiments
+				on live humans, including virology research, genetic manipulation, and \"feeding them
+				to the slimes to see what happens\". Allegedly, these test subjects were neither
+				humanified monkeys nor volunteers, but rather unqualified staff that were forced into
 				the experiments, and reported to have died in a \"work accident\" by Nanotrasen Inc."}
 	author = "Unauthorized"
 
@@ -119,27 +119,22 @@ GLOBAL_LIST_EMPTY(announced_news_types)
 
 /proc/announce_newscaster_news(datum/news_announcement/news)
 
-	var/datum/feed_channel/sendto
-	for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-		if(FC.channel_name == news.channel_name)
-			sendto = FC
-			break
-
+	var/datum/feed_channel/sendto = GLOB.news_network.get_channel_by_name(news.channel_name)
 	if(!sendto)
 		sendto = new /datum/feed_channel
 		sendto.channel_name = news.channel_name
 		sendto.author = news.author
-		sendto.locked = 1
-		sendto.is_admin_channel = 1
-		GLOB.news_network.network_channels += sendto
+		sendto.frozen = TRUE
+		sendto.admin_locked = TRUE
+		GLOB.news_network.channels += sendto
 
 	var/datum/feed_message/newMsg = new /datum/feed_message
 	newMsg.author = news.author ? news.author : sendto.author
-	newMsg.is_admin_message = !news.can_be_redacted
+	newMsg.admin_locked = !news.can_be_redacted
 	newMsg.body = news.message
-	newMsg.message_type = news.message_type
 
-	sendto.messages += newMsg
+	sendto.add_message(newMsg)
 
-	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-		NEWSCASTER.newsAlert(news.channel_name)
+	for(var/nc in GLOB.allNewscasters)
+		var/obj/machinery/newscaster/NC = nc
+		NC.alert_news(news.channel_name)

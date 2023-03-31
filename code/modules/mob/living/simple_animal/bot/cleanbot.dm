@@ -4,8 +4,8 @@
 	desc = "A little cleaning robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot0"
-	density = 0
-	anchored = 0
+	density = FALSE
+	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	radio_channel = "Service" //Service
@@ -13,14 +13,13 @@
 	bot_type = CLEAN_BOT
 	model = "Cleanbot"
 	bot_purpose = "seek out messes and clean them"
-	bot_core_type = /obj/machinery/bot_core/cleanbot
+	req_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 	window_id = "autoclean"
 	window_name = "Automatic Station Cleaner v1.1"
 	pass_flags = PASSMOB
-	path_image_color = "#993299"
 
 
-	var/blood = 1
+	var/blood = TRUE
 	var/list/target_types = list()
 	var/obj/effect/decal/cleanable/target
 	var/max_targets = 50 //Maximum number of targets a cleanbot can ignore.
@@ -31,8 +30,8 @@
 	var/next_dest
 	var/next_dest_loc
 
-/mob/living/simple_animal/bot/cleanbot/New()
-	..()
+/mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
+	. = ..()
 	get_targets()
 	icon_state = "cleanbot[on]"
 
@@ -61,7 +60,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(bot_core.allowed(user) && !open && !emagged)
+		if(allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
 		else
@@ -93,7 +92,7 @@
 		return
 
 	if(emagged == 2) //Emag functions
-		if(istype(loc,/turf/simulated))
+		if(issimulatedturf(loc))
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
 				T.MakeSlippery()
@@ -115,10 +114,15 @@
 		if(mode == BOT_PATROL)
 			bot_patrol()
 
+	if(target && loc == get_turf(target))
+		start_clean(target)
+		path = list()
+		target = null
+
 	if(target)
-		if(!path || path.len == 0) //No path, need a new one
+		if(!path || !length(path)) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target.loc, /turf/proc/Distance_cardinal, 0, 30, id=access_card)
+			path = get_path_to(src, target, 30, id=access_card)
 			if(!bot_move(target))
 				add_to_ignore(target)
 				target = null
@@ -129,11 +133,6 @@
 			target = null
 			mode = BOT_IDLE
 			return
-
-	if(target && loc == target.loc)
-		clean(target)
-		path = list()
-		target = null
 
 	oldloc = loc
 
@@ -163,20 +162,22 @@
 		target_types += /obj/effect/decal/cleanable/dirt
 		target_types += /obj/effect/decal/cleanable/trail_holder
 
-/mob/living/simple_animal/bot/cleanbot/proc/clean(obj/effect/decal/cleanable/target)
-	anchored = 1
+/mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
+	anchored = TRUE
 	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
-	spawn(50)
-		if(mode == BOT_CLEANING)
-			QDEL_NULL(target)
-			anchored = 0
-		mode = BOT_IDLE
-		icon_state = "cleanbot[on]"
+	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
+
+/mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
+	if(mode == BOT_CLEANING)
+		QDEL_NULL(target)
+		anchored = FALSE
+	mode = BOT_IDLE
+	icon_state = "cleanbot[on]"
 
 /mob/living/simple_animal/bot/cleanbot/explode()
-	on = 0
+	on = FALSE
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(Tsec)
@@ -186,36 +187,61 @@
 	do_sparks(3, 1, src)
 	..()
 
-/obj/machinery/bot_core/cleanbot
-	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
+/mob/living/simple_animal/bot/cleanbot/show_controls(mob/M)
+	ui_interact(M)
 
+/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotClean", name, 500, 500)
+		ui.open()
 
-/mob/living/simple_animal/bot/cleanbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += text({"
-<TT><B>Cleaner v1.1 controls</B></TT><BR><BR>
-Status: []<BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]"},
-text("<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>"))
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += text({"<BR>Cleans Blood: []<BR>"}, text("<A href='?src=[UID()];operation=blood'>[blood ? "Yes" : "No"]</A>"))
-		dat += text({"<BR>Patrol station: []<BR>"}, text("<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A>"))
-	return dat
+/mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
+	var/list/data = list(
+		"locked" = locked, // controls, locked or not
+		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
+		"maintpanel" = open,
+		"on" = on,
+		"autopatrol" = auto_patrol,
+		"painame" = paicard ? paicard.pai.name : null,
+		"canhack" = canhack(user),
+		"emagged" = emagged, // this is an int, NOT a boolean
+		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
+		"cleanblood" = blood
+	)
+	return data
 
-/mob/living/simple_animal/bot/cleanbot/Topic(href, href_list)
-	if(..())
-		return 1
-	switch(href_list["operation"])
+/mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
+	if (..())
+		return
+	if(topic_denied(usr))
+		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(usr)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
 		if("blood")
 			blood =!blood
 			get_targets()
-			update_controls()
+		if("ejectpai")
+			ejectpai()
+
+
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
 	if(istype(A,/obj/effect/decal/cleanable))
-		clean(A)
+		start_clean(A)
 	else
 		..()

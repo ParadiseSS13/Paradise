@@ -36,7 +36,7 @@ Be sure to include required js functions in your page, or it'll raise an excepti
 
 And yes I know this is a proc in a defines file, but its highly relevant so it can be here
 */
-proc/send_byjax(receiver, control_id, target_element, new_content=null, callback=null, list/callback_args=null)
+/proc/send_byjax(receiver, control_id, target_element, new_content=null, callback=null, list/callback_args=null)
 	if(receiver && target_element && control_id) // && winexists(receiver, control_id))
 		var/list/argums = list(target_element, new_content)
 		if(callback)
@@ -54,38 +54,38 @@ proc/send_byjax(receiver, control_id, target_element, new_content=null, callback
 // Misc JS for some dropdowns
 #define JS_DROPDOWNS {"
 function dropdowns() {
-    var divs = document.getElementsByTagName('div');
-    var headers = new Array();
-    var links = new Array();
-    for(var i=0;i<divs.length;i++){
-        if(divs\[i\].className=='header') {
-            divs\[i\].className='header closed';
-            divs\[i\].innerHTML = divs\[i\].innerHTML+' +';
-            headers.push(divs\[i\]);
-        }
-        if(divs\[i\].className=='links') {
-            divs\[i\].className='links hidden';
-            links.push(divs\[i\]);
-        }
-    }
-    for(var i=0;i<headers.length;i++){
-        if(typeof(links\[i\])!== 'undefined' && links\[i\]!=null) {
-            headers\[i\].onclick = (function(elem) {
-                return function() {
-                    if(elem.className.search('visible')>=0) {
-                        elem.className = elem.className.replace('visible','hidden');
-                        this.className = this.className.replace('open','closed');
-                        this.innerHTML = this.innerHTML.replace('-','+');
-                    }
-                    else {
-                        elem.className = elem.className.replace('hidden','visible');
-                        this.className = this.className.replace('closed','open');
-                        this.innerHTML = this.innerHTML.replace('+','-');
-                    }
-                return false;
-                }
-            })(links\[i\]);
-        }
-    }
+	var divs = document.getElementsByTagName('div');
+	var headers = new Array();
+	var links = new Array();
+	for(var i=0;i<divs.length;i++){
+		if(divs\[i\].className=='header') {
+			divs\[i\].className='header closed';
+			divs\[i\].innerHTML = divs\[i\].innerHTML+' +';
+			headers.push(divs\[i\]);
+		}
+		if(divs\[i\].className=='links') {
+			divs\[i\].className='links hidden';
+			links.push(divs\[i\]);
+		}
+	}
+	for(var i=0;i<headers.length;i++){
+		if(typeof(links\[i\])!== 'undefined' && links\[i\]!=null) {
+			headers\[i\].onclick = (function(elem) {
+				return function() {
+					if(elem.className.search('visible')>=0) {
+						elem.className = elem.className.replace('visible','hidden');
+						this.className = this.className.replace('open','closed');
+						this.innerHTML = this.innerHTML.replace('-','+');
+					}
+					else {
+						elem.className = elem.className.replace('hidden','visible');
+						this.className = this.className.replace('closed','open');
+						this.innerHTML = this.innerHTML.replace('+','-');
+					}
+				return false;
+				}
+			})(links\[i\]);
+		}
+	}
 }
 "}

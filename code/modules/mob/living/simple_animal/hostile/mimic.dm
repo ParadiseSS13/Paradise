@@ -12,6 +12,8 @@
 	maxHealth = 250
 	health = 250
 
+	mob_biotypes = NONE
+
 	harm_intent_damage = 5
 	melee_damage_lower = 8
 	melee_damage_upper = 12
@@ -29,7 +31,7 @@
 
 	var/is_electronic = 0
 	gold_core_spawnable = HOSTILE_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/mimic/emp_act(severity)
 	if(is_electronic)
@@ -43,9 +45,9 @@
 // Aggro when you try to open them. Will also pickup loot when spawns and drop it when dies.
 /mob/living/simple_animal/hostile/mimic/crate
 	attacktext = "bites"
-	stop_automated_movement = 1
-	wander = 0
-	var/attempt_open = 0
+	stop_automated_movement = TRUE
+	wander = FALSE
+	var/attempt_open = FALSE
 
 // Pickup loot
 /mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)
@@ -56,7 +58,7 @@
 /mob/living/simple_animal/hostile/mimic/crate/DestroyPathToTarget()
 	..()
 	if(prob(90))
-		icon_state = "[initial(icon_state)]open"
+		icon_state = "[initial(icon_state)]_open"
 	else
 		icon_state = initial(icon_state)
 
@@ -76,13 +78,13 @@
 		icon_state = initial(icon_state)
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
-			C.Weaken(2)
+			C.Weaken(4 SECONDS)
 			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
 		visible_message("<b>[src]</b> starts to move!")
-		attempt_open = 1
+		attempt_open = TRUE
 
 /mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE)
 	trigger()
@@ -106,15 +108,19 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 /mob/living/simple_animal/hostile/mimic/copy
 	health = 100
 	maxHealth = 100
+	gold_core_spawnable = NO_SPAWN
 	var/mob/living/creator = null // the creator
 	var/destroy_objects = 0
 	var/knockdown_people = 0
 	var/image/googly_eyes = null
-	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/mimic/copy/New(loc, obj/copy, mob/living/creator, destroy_original = 0)
-	..(loc)
+/mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/copy, mob/living/creator, destroy_original = 0)
+	. = ..()
 	CopyObject(copy, creator, destroy_original)
+
+/mob/living/simple_animal/hostile/mimic/copy/Destroy()
+	creator = null
+	return ..()
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
 	..()
@@ -134,18 +140,18 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	return . - creator
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(var/mob/owner)
+/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)
 		LoseTarget()
 		creator = owner
 		faction |= "\ref[owner]"
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(var/obj/O)
-	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, GLOB.protected_objects))
+/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(obj/O)
+	if((isitem(O) || isstructure(O)) && !is_type_in_list(O, GLOB.protected_objects))
 		return 1
 	return 0
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(var/obj/O, var/mob/living/user, var/destroy_original = 0)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0)
 	if(destroy_original || CheckObject(O))
 		O.loc = src
 		name = O.name
@@ -156,16 +162,16 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		overlays = O.overlays
 		googly_eyes = image('icons/mob/mob.dmi',"googly_eyes")
 		overlays += googly_eyes
-		if(istype(O, /obj/structure) || istype(O, /obj/machinery))
+		if(isstructure(O) || ismachinery(O))
 			health = (anchored * 50) + 50
 			destroy_objects = 1
 			if(O.density && O.anchored)
 				knockdown_people = 1
 				melee_damage_lower *= 2
 				melee_damage_upper *= 2
-			if(istype(O, /obj/machinery))
+			if(ismachinery(O))
 				is_electronic = 1
-		else if(istype(O, /obj/item))
+		else if(isitem(O))
 			var/obj/item/I = O
 			health = 15 * I.w_class
 			melee_damage_lower = 2 + I.force
@@ -187,7 +193,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	if(knockdown_people && . && prob(15) && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.Weaken(2)
+		C.Weaken(4 SECONDS)
 		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
 
 /mob/living/simple_animal/hostile/mimic/copy/Aggro()
@@ -196,10 +202,10 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/simple_animal/hostile/mimic/copy/machine
 	speak = list("HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
-				 "My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
+				"My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
 	speak_chance = 15
 
-/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(var/atom/the_target)
+/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(atom/the_target)
 	if(the_target == creator) // Don't attack our creator AI.
 		return 0
 	if(isrobot(the_target))
@@ -219,7 +225,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		emote_see = list("aims menacingly")
 		obj_damage = 0
 		environment_smash = 0 //needed? seems weird for them to do so
-		ranged = 1
+		ranged = TRUE
 		retreat_distance = 1 //just enough to shoot
 		minimum_distance = 6
 		var/obj/item/gun/G = O
@@ -275,7 +281,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			Pewgun.chambered.loc = Pewgun
 			visible_message("<span class='danger'>The <b>[src]</b> cocks itself!</span>")
 	else
-		ranged = 0 //BANZAIIII
+		ranged = FALSE //BANZAIIII
 		retreat_distance = 0
 		minimum_distance = 1
 		return

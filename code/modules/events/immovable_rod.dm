@@ -11,12 +11,12 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("What the fuck was that?!", "General Alert")
+	GLOB.minor_announcement.Announce("What the fuck was that?!", "General Alert")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
-	var/turf/startT = spaceDebrisStartLoc(startside, 1)
-	var/turf/endT = spaceDebrisFinishLoc(startside, 1)
+	var/turf/startT = spaceDebrisStartLoc(startside, level_name_to_num(MAIN_STATION))
+	var/turf/endT = spaceDebrisFinishLoc(startside, level_name_to_num(MAIN_STATION))
 	new /obj/effect/immovablerod/event(startT, endT)
 
 /obj/effect/immovablerod
@@ -25,14 +25,15 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "immrod"
 	throwforce = 100
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/z_original = 0
 	var/destination
 	var/notify = TRUE
 	var/move_delay = 1
 
 /obj/effect/immovablerod/New(atom/start, atom/end, delay)
+	. = ..()
 	loc = start
 	z_original = z
 	destination = end
@@ -40,9 +41,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	if(notify)
 		notify_ghosts("\A [src] is inbound!",
 				enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>",
-				source=src, action=NOTIFY_FOLLOW)
+				source = src, action = NOTIFY_FOLLOW)
 	GLOB.poi_list |= src
-	if(end && end.z==z_original)
+	if(end?.z == z_original)
 		walk_towards(src, destination, move_delay)
 
 /obj/effect/immovablerod/Topic(href, href_list)
@@ -66,31 +67,38 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 /obj/effect/immovablerod/Bump(atom/clong)
 	if(prob(10))
-		playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		audible_message("CLANG")
 
 	if(clong && prob(25))
 		x = clong.x
 		y = clong.y
 
-	if(istype(clong, /turf) || istype(clong, /obj))
+	if(isturf(clong) || isobj(clong))
 		if(clong.density)
 			clong.ex_act(2)
 
-	else if(istype(clong, /mob))
-		if(istype(clong, /mob/living/carbon/human))
+	else if(ismob(clong))
+		if(ishuman(clong))
 			var/mob/living/carbon/human/H = clong
-			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")
+			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>" ,
+				"<span class='userdanger'>The rod penetrates you!</span>" ,
+				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
-			clong.ex_act(2)
+			clong.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
-	var/tiles_moved = 0
+	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
+	// Chance to expose the tile to space is like 60% of this value.
+	var/floor_rip_chance = 40
 
 /obj/effect/immovablerod/event/Move()
 	var/atom/oldloc = loc
 	. = ..()
-	tiles_moved++
-	if(get_dist(oldloc, loc) > 2 && tiles_moved > 10) // We went on a journey, commit sudoku
+	if(prob(floor_rip_chance))
+		var/turf/simulated/floor/T = get_turf(oldloc)
+		if(istype(T))
+			T.ex_act(EXPLODE_HEAVY)
+	if(loc == destination)
 		qdel(src)

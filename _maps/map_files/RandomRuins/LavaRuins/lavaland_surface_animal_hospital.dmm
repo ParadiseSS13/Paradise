@@ -17,8 +17,8 @@
 "ad" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -45,7 +45,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "ai" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -89,7 +89,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "am" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -194,8 +194,8 @@
 /obj/item/bodybag,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -256,7 +256,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aF" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Restroom"
 	},
 /obj/effect/turf_decal/tile/bar,
@@ -266,13 +266,15 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aG" = (
-/obj/structure/extinguisher_cabinet,
+/obj/structure/extinguisher_cabinet{
+	name = "custom placement"
+	},
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/ruin/powered/animal_hospital)
 "aJ" = (
 /turf/simulated/floor/plasteel/grimy{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -367,7 +369,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aW" = (
-/obj/machinery/vending/wallmed{
+/obj/machinery/economy/vending/wallmed{
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel/white,
@@ -492,7 +494,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/machinery/vending/crittercare/free,
+/obj/machinery/economy/vending/crittercare/free,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bn" = (
@@ -595,13 +597,13 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bE" = (
-/obj/structure/closet/crate/critter,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/structure/closet/critter/random,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bF" = (
@@ -629,15 +631,15 @@
 /area/ruin/powered/animal_hospital)
 "bH" = (
 /obj/structure/table,
-/obj/item/tank/oxygen,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bI" = (
@@ -655,24 +657,24 @@
 /area/ruin/powered/animal_hospital)
 "bL" = (
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
 "bM" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
 "bO" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -743,8 +745,8 @@
 	dir = 6
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -753,8 +755,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -763,8 +765,8 @@
 	dir = 10
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -773,16 +775,16 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
 "cb" = (
 /obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -801,7 +803,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cf" = (
@@ -809,7 +811,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cg" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Break Room"
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -821,39 +823,39 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ch" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Operating Theatre"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "ci" = (
 /obj/structure/fans/tiny/invisible,
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	desc = "There's a smudged note wedged into it that says something about pizza dropoffs.";
 	name = "Staff Entrance"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
 "cj" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Morgue"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
 "ck" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Medical Supplies"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cl" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Safety Supplies"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "cm" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	name = "Storage"
 	},
 /turf/simulated/floor/plating,
@@ -861,8 +863,8 @@
 "cn" = (
 /obj/machinery/light,
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -932,8 +934,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -964,8 +966,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -975,8 +977,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/grass{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
@@ -988,7 +990,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cG" = (
-/obj/machinery/door/airlock/shuttle{
+/obj/machinery/door/airlock/titanium{
 	desc = "There's a smudged note wedged into it that says something about pizza dropoffs.";
 	name = "Staff Entrance"
 	},

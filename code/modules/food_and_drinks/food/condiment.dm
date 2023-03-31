@@ -12,18 +12,20 @@
 	icon_state = "emptycondiment"
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
+	visible_transfer_rate = TRUE
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
-	 "ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
-	 "capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
-	 "enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
-	 "soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
-	 "frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
-	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
-	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
-	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
+	"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
+	"capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
+	"enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
+	"soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
+	"frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
+	"sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
+	"blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
+	"cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
+	"wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
+	"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
@@ -113,6 +115,9 @@
 	icon_state = "enzyme"
 	list_reagents = list("enzyme" = 50)
 
+/obj/item/reagent_containers/food/condiment/enzyme/cyborg_recharge(coeff, emagged)
+	reagents.check_and_add("enzyme", volume, 2 * coeff) // Only recharge if the current amount of enzyme is under `volume`.
+
 /obj/item/reagent_containers/food/condiment/sugar
 	name = "sugar bottle"
 	desc = "Tasty spacey sugar!"
@@ -135,7 +140,7 @@
 	user.name = newname
 	user.real_name = newname
 	desc = "Salt. From dead crew, presumably."
-	return TOXLOSS
+	return BRUTELOSS
 
 /obj/item/reagent_containers/food/condiment/peppermill
 	name = "pepper mill"
@@ -200,7 +205,7 @@
 	icon_state = "condi_empty"
 	volume = 10
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list()
+	possible_transfer_amounts = null
 	possible_states = list("ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."), "capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"), "soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"), "frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"), "sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"), "blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"), "cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"), "sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"))
 
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.

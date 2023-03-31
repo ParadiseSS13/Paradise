@@ -30,11 +30,11 @@ proc
 process()
 check_build()
 
-Setup map
-  |EC|
-CC|FC|
-  |PB|
-PE|PE|PE
+* Setup map
+*   |EC|
+* CC|FC|
+*   |PB|
+* PE|PE|PE
 
 
 Icon Addemdum
@@ -64,14 +64,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "none"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	max_integrity = 500
-	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80)
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = 0
 	var/reference = null
-	var/powered = 0
+	var/powered = FALSE
 	var/strength = null
 	var/desc_holder = null
 
@@ -87,17 +87,12 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "end_cap"
 	reference = "end_cap"
 
-/obj/structure/particle_accelerator/update_icon()
-	..()
-	return
-
-
 /obj/structure/particle_accelerator/verb/rotate()
 	set name = "Rotate Clockwise"
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
@@ -118,7 +113,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
@@ -127,18 +122,20 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 1
 
 /obj/structure/particle_accelerator/examine(mob/user)
+	. = ..()
 	switch(construction_state)
-		if(0)
-			desc = text("A [name], looks like it's not attached to the flooring")
-		if(1)
-			desc = text("A [name], it is missing some cables")
-		if(2)
-			desc = text("A [name], the panel is open")
-		if(3)
-			desc = text("The [name] is assembled")
+		if(ACCELERATOR_UNWRENCHED)
+			. += "<span class='notice'>\The [name]'s <i>anchoring bolts</i> are loose.</span>"
+		if(ACCELERATOR_WRENCHED)
+			. += "<span class='notice'>\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.</span>"
+		if(ACCELERATOR_WIRED)
+			. +=  "<span class='notice'>\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+		if(ACCELERATOR_READY)
+			. += "<span class='notice'>\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.</span>"
 			if(powered)
 				desc = desc_holder
-	. = ..()
+	if(!anchored)
+		. += "<span class='notice'>Alt-click to rotate it.</span>"
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -155,7 +152,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(prob(50))
 		qdel(src)
 
-/obj/structure/particle_accelerator/update_icon()
+/obj/structure/particle_accelerator/update_icon_state()
 	switch(construction_state)
 		if(0,1)
 			icon_state="[reference]"
@@ -166,7 +163,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				icon_state="[reference]p[strength]"
 			else
 				icon_state="[reference]c"
-	return
 
 /obj/structure/particle_accelerator/proc/update_state()
 	if(master)
@@ -174,7 +170,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return 0
 
 
-/obj/structure/particle_accelerator/proc/report_ready(var/obj/O)
+/obj/structure/particle_accelerator/proc/report_ready(obj/O)
 	if(O && (O == master))
 		if(construction_state >= 3)
 			return 1
@@ -187,7 +183,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 0
 
 
-/obj/structure/particle_accelerator/proc/connect_master(var/obj/O)
+/obj/structure/particle_accelerator/proc/connect_master(obj/O)
 	if(O && istype(O,/obj/machinery/particle_accelerator/control_box))
 		if(O.dir == dir)
 			master = O
@@ -201,7 +197,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		var/obj/item/stack/cable_coil/C = W
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user.name] adds wires to the [name].", \
+			user.visible_message("[user] adds wires to [src].", \
 				"You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()
@@ -253,15 +249,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "none"
-	anchored = 0
-	density = 1
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
+	anchored = FALSE
+	density = TRUE
+	power_state = NO_POWER_USE
+
 	var/construction_state = 0
-	var/active = 0
+	var/active = FALSE
 	var/reference = null
-	var/powered = null
+	var/powered = FALSE
 	var/strength = 0
 	var/desc_holder = null
 
@@ -271,7 +266,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
@@ -284,16 +279,13 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
 		return
 	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
 		return 0
 	dir = turn(dir, 90)
 	return 1
-
-/obj/machinery/particle_accelerator/update_icon()
-	return
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(!iscoil(W))
@@ -302,7 +294,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		var/obj/item/stack/cable_coil/C = W
 		if(C.use(1))
 			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user.name] adds wires to the [name].", \
+			user.visible_message("[user] adds wires to [src].", \
 				"You add some wires.")
 			construction_state = ACCELERATOR_WIRED
 	update_icon()
@@ -316,11 +308,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		construction_state = ACCELERATOR_READY
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 	else
 		construction_state = ACCELERATOR_WIRED
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
-		use_power = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 		update_state()
 	update_icon()
 

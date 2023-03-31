@@ -42,18 +42,14 @@
 	if(dropped)
 		return
 	dropped = 1
-	var/obj/item/ammo_casing/caseless/foam_dart/newdart = new ammo_type(loc)
+	var/obj/item/ammo_casing/caseless/foam_dart/newdart = new ammo_type(get_turf(src))
 	var/obj/item/ammo_casing/caseless/foam_dart/old_dart = ammo_casing
 	newdart.modified = old_dart.modified
-	if(pen)
-		var/obj/item/projectile/bullet/reusable/foam_dart/newdart_FD = newdart.BB
-		newdart_FD.pen = pen
-		pen.loc = newdart_FD
-		pen = null
-	newdart.BB.damage = damage
-	newdart.BB.nodamage = nodamage
 	newdart.BB.damage_type = damage_type
-	newdart.update_icon()
+	if(pen)
+		newdart.add_pen(pen)
+		pen = null
+	newdart.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/projectile/bullet/reusable/foam_dart/Destroy()
 	QDEL_NULL(pen)

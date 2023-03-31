@@ -27,8 +27,6 @@
 /area/survivalpod)
 "g" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (NORTH)";
-	icon_state = "survival";
 	dir = 1
 	},
 /turf/simulated/wall/mineral/titanium/survival,
@@ -39,7 +37,7 @@
 /area/survivalpod)
 "i" = (
 /obj/machinery/sleeper/survival_pod,
-/obj/machinery/vending/wallmed/survival_pod{
+/obj/machinery/economy/vending/wallmed/survival_pod{
 	pixel_x = -24
 	},
 /turf/simulated/floor/pod,
@@ -60,7 +58,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "l" = (
@@ -79,9 +77,7 @@
 /obj/machinery/shower{
 	pixel_y = 20
 	},
-/turf/simulated/floor/pod{
-	pixel_y = 0
-	},
+/turf/simulated/floor/pod,
 /area/survivalpod)
 "o" = (
 /obj/structure/window/reinforced/survival_pod{
@@ -143,8 +139,6 @@
 /area/survivalpod)
 "x" = (
 /obj/structure/sign/mining/survival{
-	tag = "icon-survival (EAST)";
-	icon_state = "survival";
 	dir = 4
 	},
 /turf/simulated/wall/mineral/titanium/survival,

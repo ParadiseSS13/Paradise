@@ -7,6 +7,12 @@
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
+	///For handling persistent filters
+	var/list/filter_data
+
+	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
+	var/pass_flags_self = NONE
+
 	var/list/blood_DNA
 	var/blood_color
 	var/last_bumped = 0
@@ -35,8 +41,6 @@
 	//Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
 	var/can_leave_fibers = TRUE
 
-	var/allow_spin = TRUE //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
-
 	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
 
 	var/initialized = FALSE
@@ -44,11 +48,41 @@
 	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
 	var/list/remove_overlays // a very temporary list of overlays to remove
 	var/list/add_overlays // a very temporary list of overlays to add
+	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
+	var/list/managed_overlays
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
+	/// Radiation insulation types
+	var/rad_insulation = RAD_NO_INSULATION
+
+	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
+	var/chat_color_name
+	/// Last color calculated for the the chatmessage overlays. Used for caching.
+	var/chat_color
+
+	///Icon-smoothing behavior.
+	var/smoothing_flags = NONE
+	///Smoothing variable
+	var/top_left_corner
+	///Smoothing variable
+	var/top_right_corner
+	///Smoothing variable
+	var/bottom_left_corner
+	///Smoothing variable
+	var/bottom_right_corner
+	///What smoothing groups does this atom belongs to, to match canSmoothWith. If null, nobody can smooth with it.
+	var/list/smoothing_groups = null
+	///List of smoothing groups this atom can smooth with. If this is null and atom is smooth, it smooths only with itself.
+	var/list/canSmoothWith = null
+	///What directions this is currently smoothing with. IMPORTANT: This uses the smoothing direction flags as defined in icon_smoothing.dm, instead of the BYOND flags.
+	var/smoothing_junction = null //This starts as null for us to know when it's first set, but after that it will hold a 8-bit mask ranging from 0 to 255.
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
+
 /atom/New(loc, ...)
+	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		GLOB._preloader.load(src)
 	. = ..()
@@ -76,6 +110,7 @@
 // /turf/open/space/Initialize
 
 /atom/proc/Initialize(mapload, ...)
+	SHOULD_CALL_PARENT(TRUE)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
@@ -91,21 +126,21 @@
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
 
 	if(loc)
-		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
-	ComponentInitialize()
+	if(length(smoothing_groups))
+		sortTim(smoothing_groups) //In case it's not properly ordered, let's avoid duplicate entries with the same values.
+		SET_BITFLAG_LIST(smoothing_groups)
+	if(length(canSmoothWith))
+		sortTim(canSmoothWith)
+		if(canSmoothWith[length(canSmoothWith)] > MAX_S_TURF) //If the last element is higher than the maximum turf-only value, then it must scan turf contents for smoothing targets.
+			smoothing_flags |= SMOOTH_OBJ
+		SET_BITFLAG_LIST(canSmoothWith)
 
 	return INITIALIZE_HINT_NORMAL
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
 /atom/proc/LateInitialize()
-	return
-
-// Put your AddComponent() calls here
-/atom/proc/ComponentInitialize()
-	return
-
-/atom/proc/InitializedOn(atom/A) // Proc for when something is initialized on a atom - Optional to call. Useful for observer pattern etc.
 	return
 
 /atom/proc/onCentcom()
@@ -145,10 +180,13 @@
 			qdel(AA)
 		alternate_appearances = null
 
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	QDEL_NULL(reagents)
 	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)
+
+	managed_overlays = null
 
 	QDEL_NULL(light)
 
@@ -207,7 +245,7 @@
 			reagents.conditional_update()
 		else if(istype(A, /atom/movable))
 			var/atom/movable/M = A
-			if(istype(M.loc, /mob/living))
+			if(isliving(M.loc))
 				var/mob/living/L = M.loc
 				L.unEquip(M)
 			M.forceMove(src)
@@ -220,6 +258,7 @@
 	return null
 
 /atom/proc/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(loc)
 		return loc.return_air()
 	else
@@ -231,7 +270,7 @@
 /atom/proc/on_reagent_change()
 	return
 
-/atom/proc/Bumped(AM as mob|obj)
+/atom/proc/Bumped(atom/movable/AM)
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -257,11 +296,20 @@
 /atom/proc/CheckExit()
 	return TRUE
 
-/atom/proc/HasProximity(atom/movable/AM as mob|obj)
+/atom/proc/HasProximity(atom/movable/AM)
 	return
 
+/**
+ * Proc which will make the atom act accordingly to an EMP.
+ * This proc can sleep depending on the implementation. So assume it sleeps!
+ *
+ * severity - The severity of the EMP. Either EMP_HEAVY or EMP_LIGHT
+ */
 /atom/proc/emp_act(severity)
-	return
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
+
+/atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
+	return TRUE
 
 /atom/proc/bullet_act(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
@@ -300,9 +348,7 @@
 			found += A.search_contents_for(path, filter_path)
 	return found
 
-
-//All atoms
-/atom/proc/examine(mob/user, infix = "", suffix = "")
+/atom/proc/build_base_description(infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
@@ -318,6 +364,8 @@
 	if(desc)
 		. += desc
 
+/atom/proc/build_reagent_description(mob/user)
+	. = list()
 	if(reagents)
 		if(container_type & TRANSPARENT)
 			. += "<span class='notice'>It contains:</span>"
@@ -337,7 +385,78 @@
 			else
 				. += "<span class='danger'>It's empty.</span>"
 
+/atom/proc/examine(mob/user, infix = "", suffix = "")
+	. = build_base_description(infix, suffix)
+	. += build_reagent_description(user)
+
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/**
+ * Updates the appearence of the icon
+ *
+ * Mostly delegates to update_name, update_desc, and update_icon
+ *
+ * Arguments:
+ * - updates: A set of bitflags dictating what should be updated. Defaults to [ALL]
+ */
+/atom/proc/update_appearance(updates=ALL)
+	SHOULD_NOT_SLEEP(TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
+	/// Signal sent should the appearance be updated. This is more broad if listening to a more specific signal doesn't cut it
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_APPEARANCE, updates)
+	if(updates & UPDATE_NAME)
+		update_name(updates)
+	if(updates & UPDATE_DESC)
+		update_desc(updates)
+	if(updates & UPDATE_ICON)
+		update_icon(updates)
+
+/// Updates the name of the atom
+/atom/proc/update_name(updates=ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_NAME, updates)
+
+/// Updates the description of the atom
+/atom/proc/update_desc(updates=ALL)
+	SHOULD_CALL_PARENT(TRUE)
+	return SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_DESC, updates)
+
+/// Updates the icon of the atom
+/atom/proc/update_icon(updates=ALL)
+	SIGNAL_HANDLER
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(updates & NONE)
+		return // NONE is being sent on purpose, and thus no signal should be sent.
+
+	updates &= ~SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON, updates)
+	if(updates & UPDATE_ICON_STATE)
+		update_icon_state()
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_ICON_STATE)
+
+	if(updates & UPDATE_OVERLAYS)
+		var/list/new_overlays = update_overlays(updates)
+		if(managed_overlays)
+			cut_overlay(managed_overlays)
+			managed_overlays = null
+		if(length(new_overlays))
+			if(length(new_overlays) == 1)
+				managed_overlays = new_overlays[1]
+			else
+				managed_overlays = new_overlays
+			add_overlay(new_overlays)
+		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS)
+
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATED_ICON, updates)
+
+/// Updates the icon state of the atom
+/atom/proc/update_icon_state()
+	return
+
+/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/atom/proc/update_overlays()
+	return list()
 
 /atom/proc/relaymove()
 	return
@@ -394,8 +513,25 @@
 /atom/proc/welder_act(mob/living/user, obj/item/I)
 	return
 
-/atom/proc/emag_act()
+/atom/proc/emag_act(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+
+/atom/proc/unemag()
 	return
+
+/atom/proc/cmag_act()
+	return
+
+/atom/proc/uncmag()
+	return
+
+/**
+ * Respond to a radioactive wave hitting this atom
+ *
+ * Default behaviour is to send [COMSIG_ATOM_RAD_ACT] and return
+ */
+/atom/proc/rad_act(amount)
+	SEND_SIGNAL(src, COMSIG_ATOM_RAD_ACT, amount)
 
 /atom/proc/fart_act(mob/living/M)
 	return FALSE
@@ -409,14 +545,86 @@
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
+		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
+
+/atom/proc/add_filter(name, priority, list/params)
+	LAZYINITLIST(filter_data)
+	var/list/p = params.Copy()
+	p["priority"] = priority
+	filter_data[name] = p
+	update_filters()
+
+/atom/proc/update_filters()
+	filters = null
+	filter_data = sortTim(filter_data, GLOBAL_PROC_REF(cmp_filter_data_priority), TRUE)
+	for(var/f in filter_data)
+		var/list/data = filter_data[f]
+		var/list/arguments = data.Copy()
+		arguments -= "priority"
+		filters += filter(arglist(arguments))
+	UNSETEMPTY(filter_data)
+
+/atom/proc/transition_filter(name, time, list/new_params, easing = LINEAR_EASING, loop = 1)
+	var/filter = get_filter(name)
+	if(!filter)
+		return
+
+	var/list/old_filter_data = filter_data[name]
+
+	var/list/params = old_filter_data.Copy()
+	for(var/thing in new_params)
+		params[thing] = new_params[thing]
+
+	animate(filter, new_params, time = time, easing = easing, loop = loop)
+	for(var/param in params)
+		filter_data[name][param] = params[param]
+
+/atom/proc/change_filter_priority(name, new_priority)
+	if(!filter_data || !filter_data[name])
+		return
+
+	filter_data[name]["priority"] = new_priority
+	update_filters()
+
+/obj/item/update_filters()
+	. = ..()
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/atom/proc/get_filter(name)
+	if(filter_data && filter_data[name])
+		return filters[filter_data.Find(name)]
+
+/atom/proc/remove_filter(name_or_names)
+	if(!filter_data)
+		return
+
+	var/list/names = islist(name_or_names) ? name_or_names : list(name_or_names)
+
+	for(var/name in names)
+		if(filter_data[name])
+			filter_data -= name
+	update_filters()
+
+/atom/proc/clear_filters()
+	filter_data = null
+	filters = null
+
+/*
+ * Base proc, terribly named but it's all over the code so who cares I guess right?
+ *
+ * Returns FALSE by default, if a child returns TRUE it is implied that the atom has in
+ * some way done a spooky thing. Current usage is so that Boo knows if it needs to cool
+ * down or not, but this could be expanded upon if you were a bad enough dude.
+ */
 /atom/proc/get_spooked()
-	return
+	return FALSE
 
 /**
 	Base proc, intended to be overriden.
@@ -443,7 +651,7 @@
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)
 					fingerprintshidden = list()
-				fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []", H.real_name, H.key)
+				fingerprintshidden += text("\[[all_timestamps()]\] (Wearing gloves). Real name: [], Key: []", H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return FALSE
 		if(!fingerprints)
@@ -451,7 +659,7 @@
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)
 					fingerprintshidden = list()
-				fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []", H.real_name, H.key)
+				fingerprintshidden += text("\[[all_timestamps()]\] Real name: [], Key: []", H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return TRUE
 	else
@@ -459,7 +667,7 @@
 			//Add the list if it does not exist.
 			if(!fingerprintshidden)
 				fingerprintshidden = list()
-			fingerprintshidden += text("\[[time_stamp()]\] Real name: [], Key: []", M.real_name, M.key)
+			fingerprintshidden += text("\[[all_timestamps()]\] Real name: [], Key: []", M.real_name, M.key)
 			fingerprintslast = M.ckey
 	return
 
@@ -479,7 +687,7 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if(FINGERPRINTS in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_NOFINGERPRINTS))
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
@@ -502,14 +710,14 @@
 		if(!ignoregloves)
 			if(H.gloves && H.gloves != src)
 				if(fingerprintslast != H.ckey)
-					fingerprintshidden += text("\[[]\](Wearing gloves). Real name: [], Key: []", time_stamp(), H.real_name, H.key)
+					fingerprintshidden += text("\[[all_timestamps()]\] (Wearing gloves). Real name: [], Key: []", H.real_name, H.key)
 					fingerprintslast = H.ckey
 				H.gloves.add_fingerprint(M)
 				return FALSE
 
 		//More adminstuffz
 		if(fingerprintslast != H.ckey)
-			fingerprintshidden += text("\[[]\]Real name: [], Key: []", time_stamp(), H.real_name, H.key)
+			fingerprintshidden += text("\[[all_timestamps()]\] Real name: [], Key: []", H.real_name, H.key)
 			fingerprintslast = H.ckey
 
 		//Make the list if it does not exist.
@@ -526,7 +734,7 @@
 	else
 		//Smudge up dem prints some
 		if(fingerprintslast != M.ckey)
-			fingerprintshidden += text("\[[]\]Real name: [], Key: []", time_stamp(), M.real_name, M.key)
+			fingerprintshidden += text("\[[all_timestamps()]\] Real name: [], Key: []", M.real_name, M.key)
 			fingerprintslast = M.ckey
 
 	return
@@ -551,9 +759,6 @@
 	A.fingerprintslast = fingerprintslast
 
 GLOBAL_LIST_EMPTY(blood_splatter_icons)
-
-/atom/proc/blood_splatter_index()
-	return "\ref[initial(icon)]-[initial(icon_state)]"
 
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
@@ -621,56 +826,52 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return add_blood(blood_dna, bloodcolor)
 
 //to add blood onto something, with blood dna info to include.
-/atom/proc/add_blood(list/blood_dna, color)
+/atom/proc/add_blood(list/blood_dna, b_color)
 	return FALSE
 
-/obj/add_blood(list/blood_dna, color)
+/obj/add_blood(list/blood_dna, b_color)
 	return transfer_blood_dna(blood_dna)
 
-/obj/item/add_blood(list/blood_dna, color)
-	var/blood_count = !blood_DNA ? 0 : blood_DNA.len
+/obj/item/add_blood(list/blood_dna, b_color)
+	var/blood_count = !blood_DNA ? 0 : length(blood_DNA)
 	if(!..())
 		return FALSE
-	if(!blood_count)//apply the blood-splatter overlay if it isn't already in there
-		add_blood_overlay(color)
+	blood_color = b_color // update the blood color
+	if(!blood_count) //apply the blood-splatter overlay if it isn't already in there
+		add_blood_overlay()
 	return TRUE //we applied blood to the item
 
-/obj/item/clothing/gloves/add_blood(list/blood_dna, color)
+/obj/item/clothing/gloves/add_blood(list/blood_dna, b_color)
 	. = ..()
 	transfer_blood = rand(2, 4)
 
-/turf/add_blood(list/blood_dna, color)
+/turf/add_blood(list/blood_dna, b_color)
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
-	B.basecolor = color
+	B.basecolor = b_color
 	return TRUE //we bloodied the floor
 
-/mob/living/carbon/human/add_blood(list/blood_dna, color)
+/mob/living/carbon/human/add_blood(list/blood_dna, b_color)
 	if(wear_suit)
-		wear_suit.add_blood(blood_dna, color)
-		wear_suit.blood_color = color
+		wear_suit.add_blood(blood_dna, b_color)
 		update_inv_wear_suit()
 	else if(w_uniform)
-		w_uniform.add_blood(blood_dna, color)
-		w_uniform.blood_color = color
+		w_uniform.add_blood(blood_dna, b_color)
 		update_inv_w_uniform()
 	if(head)
-		head.add_blood(blood_dna, color)
-		head.blood_color = color
+		head.add_blood(blood_dna, b_color)
 		update_inv_head()
 	if(glasses)
-		glasses.add_blood(blood_dna, color)
-		glasses.blood_color = color
+		glasses.add_blood(blood_dna, b_color)
 		update_inv_glasses()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
-		G.add_blood(blood_dna, color)
-		G.blood_color = color
+		G.add_blood(blood_dna, b_color)
 		verbs += /mob/living/carbon/human/proc/bloody_doodle
 	else
-		hand_blood_color = color
+		hand_blood_color = b_color
 		bloody_hands = rand(2, 4)
 		transfer_blood_dna(blood_dna)
 		verbs += /mob/living/carbon/human/proc/bloody_doodle
@@ -678,43 +879,52 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return TRUE
 
-/obj/item/proc/add_blood_overlay(color)
+/obj/item/proc/add_blood_overlay()
 	if(initial(icon) && initial(icon_state))
-		//try to find a pre-processed blood-splatter. otherwise, make a new one
-		var/index = blood_splatter_index()
-		var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
-		if(!blood_splatter_icon)
-			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
-			blood_splatter_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
-			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-			GLOB.blood_splatter_icons[index] = blood_splatter_icon
+		var/list/params = GLOB.blood_splatter_icons["[blood_color]"]
+		if(!params)
+			params = layering_filter(icon = icon('icons/effects/blood.dmi', "itemblood"), color = blood_color, blend_mode = BLEND_INSET_OVERLAY)
+			GLOB.blood_splatter_icons["[blood_color]"] = params
+		add_filter("blood_splatter", 1, params)
 
-		blood_overlay = image(blood_splatter_icon)
-		blood_overlay.color = color
-		overlays += blood_overlay
-
-/atom/proc/clean_blood()
+/atom/proc/clean_blood(radiation_clean = FALSE)
 	germ_level = 0
+	if(radiation_clean)
+		clean_radiation()
 	if(islist(blood_DNA))
 		blood_DNA = null
 		return TRUE
 
-/obj/effect/decal/cleanable/blood/clean_blood()
+/**
+  * Removes some radiation from an atom
+  *
+  * Removes a configurable amount of radiation from an atom
+  * and stops green glow if radiation gets low enough through it.
+  * Arguments:
+  * * clean_factor - How much radiation to remove, as a multiple of RAD_BACKGROUND_RADIATION (currently 9)
+  */
+/atom/proc/clean_radiation(clean_factor = 2)
+	var/datum/component/radioactive/healthy_green_glow = GetComponent(/datum/component/radioactive)
+	if(!QDELETED(healthy_green_glow))
+		healthy_green_glow.strength = max(0, (healthy_green_glow.strength - (RAD_BACKGROUND_RADIATION * clean_factor)))
+		if(healthy_green_glow.strength <= RAD_BACKGROUND_RADIATION)
+			qdel(healthy_green_glow)
+
+/obj/effect/decal/cleanable/blood/clean_blood(radiation_clean = FALSE)
 	return // While this seems nonsensical, clean_blood isn't supposed to be used like this on a blood decal.
 
-/obj/item/clean_blood()
+/obj/item/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
-		if(blood_overlay)
-			overlays -= blood_overlay
+		if(initial(icon) && initial(icon_state))
+			remove_filter("blood_splatter")
 
-/obj/item/clothing/gloves/clean_blood()
+/obj/item/clothing/gloves/clean_blood(radiation_clean = FALSE)
 	. = ..()
 	if(.)
 		transfer_blood = 0
 
-/obj/item/clothing/shoes/clean_blood()
+/obj/item/clothing/shoes/clean_blood(radiation_clean = FALSE)
 	..()
 	bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 	blood_state = BLOOD_STATE_NOT_BLOODY
@@ -722,36 +932,36 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mob/M = loc
 		M.update_inv_shoes()
 
-/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+/mob/living/carbon/human/clean_blood(radiation_clean = FALSE, clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
-		if(w_uniform.clean_blood())
+		if(w_uniform.clean_blood(radiation_clean))
 			update_inv_w_uniform()
 	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
-		if(gloves.clean_blood())
+		if(gloves.clean_blood(radiation_clean))
 			update_inv_gloves()
 			gloves.germ_level = 0
 			clean_hands = FALSE
 	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
-		if(shoes.clean_blood())
+		if(shoes.clean_blood(radiation_clean))
 			update_inv_shoes()
 			clean_feet = FALSE
 	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
-		if(s_store.clean_blood())
+		if(s_store.clean_blood(radiation_clean))
 			update_inv_s_store()
 	if(lip_style && !(head && head.flags_inv & HIDEMASK))
 		lip_style = null
 		update_body()
 	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEEYES))
-		if(glasses.clean_blood())
+		if(glasses.clean_blood(radiation_clean))
 			update_inv_glasses()
 	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
-		if(l_ear.clean_blood())
+		if(l_ear.clean_blood(radiation_clean))
 			update_inv_ears()
 	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
-		if(r_ear.clean_blood())
+		if(r_ear.clean_blood(radiation_clean))
 			update_inv_ears()
 	if(belt)
-		if(belt.clean_blood())
+		if(belt.clean_blood(radiation_clean))
 			update_inv_belt()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
@@ -828,7 +1038,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/narsie_act()
 	return
 
-/atom/proc/ratvar_act()
+/**
+ * Respond to an electric bolt action on our item
+ *
+ * Default behaviour is to return, we define here to allow for cleaner code later on
+ */
+/atom/proc/zap_act(power, zap_flags)
 	return
 
 /atom/proc/handle_ricochet(obj/item/projectile/P)
@@ -847,17 +1062,18 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
+		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
+			M.create_chat_message(src, message)
+
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_hearers, 30)
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return
 
 /atom/vv_edit_var(var_name, var_value)
-	if(!GLOB.debug2)
-		admin_spawned = TRUE
 	. = ..()
 	switch(var_name)
 		if("light_power", "light_range", "light_color")
@@ -868,6 +1084,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/vv_get_dropdown()
 	. = ..()
+	.["Manipulate Colour Matrix"] = "?_src_=vars;manipcolours=[UID()]"
 	var/turf/curturf = get_turf(src)
 	if(curturf)
 		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
@@ -941,3 +1158,139 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else if(C)
 			color = C
 			return
+
+/*
+	Checks whether this atom can traverse the destination object when used as source for AStar.
+	This should only be used as an override to /obj/proc/CanPathfindPass. Aka don't use this unless you can't change the object's proc.
+	Returning TRUE here will override the above proc's result.
+*/
+/atom/proc/CanPathfindPassTo(ID, dir, obj/destination)
+	return FALSE
+
+/** Call this when you want to present a renaming prompt to the user.
+
+	It's a simple proc, but handles annoying edge cases such as forgetting to add a "cancel" button,
+	or being able to rename stuff remotely.
+
+	Arguments:
+	* user - the renamer.
+	* implement - the tool doing the renaming (usually, a pen).
+	* use_prefix - whether the new name should follow the format of "thing - user-given label" or
+		if we allow to change the name completely arbitrarily.
+	* actually_rename - whether we want to really change the `src.name`, or if we want to do everything *except* that.
+	* prompt - a custom "what do you want rename this thing to be?" prompt shown in the inpit box.
+
+	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
+ **/
+/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE,
+		actually_rename = TRUE, prompt = null)
+	// Sanity check that the user can, indeed, rename the thing.
+	// This, sadly, means you can't rename things with a telekinetic pen, but that's
+	// too much of a hassle to make work nicely.
+	if((implement && implement.loc != user) || !in_range(src, user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return null
+
+	var/prefix = ""
+	if(use_prefix)
+		prefix = "[initial(name)] - "
+
+	var/default_value
+	if(!use_prefix)
+		default_value = name
+	else if(findtext(name, prefix) != 0)
+		default_value = copytext(name, length(prefix) + 1)
+	else
+		// Either the thing has a non-conforming name due to being set in the map
+		// OR (much more likely) the thing is unlabeled yet.
+		default_value = ""
+	if(!prompt)
+		prompt = "What would you like the label on [src] to be?"
+
+	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	if(isnull(t))
+		// user pressed Cancel
+		return null
+
+	// Things could have changed between when `input` is called and when it returns.
+	if(!user)
+		return null
+	else if(implement && implement.loc != user)
+		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		return null
+	else if(!in_range(src, user))
+		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		return null
+	else if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		return null
+
+
+	t = sanitize(copytext(t, 1, MAX_NAME_LEN))
+
+	// Logging
+	var/logged_name = initial(name)
+	if(t)
+		logged_name = "[use_prefix ? "[prefix][t]" : t]"
+	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
+
+	if(actually_rename)
+		if(t == "")
+			name = "[initial(name)]"
+		else
+			name = "[prefix][t]"
+	return t
+
+/atom/proc/set_angle(degrees)
+	var/matrix/M = matrix()
+	M.Turn(degrees)
+	// If we aint 0, make it NN transform
+	if(degrees)
+		appearance_flags |= PIXEL_SCALE
+	transform = M
+
+//Update the screentip to reflect what we're hovering over
+/atom/MouseEntered(location, control, params)
+	if(!usr || !usr.client)
+		return
+	var/datum/hud/active_hud = usr.hud_used
+	if(!active_hud)
+		return
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	var/screentip_color = usr.client.prefs.screentip_color
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [screentip_color]'>[name]</span>"
+
+/*
+	Setter for the `density` variable.
+	Arguments:
+	* new_value - the new density you would want it to set.
+	Returns: Either null if identical to existing density, or the new density if different.
+*/
+/atom/proc/set_density(new_value)
+	if(density == new_value)
+		return
+	. = density
+	density = new_value
+
+
+/**
+ * This proc is used for telling whether something can pass by this atom in a given direction, for use by the pathfinding system.
+ *
+ * Trying to generate one long path across the station will call this proc on every single object on every single tile that we're seeing if we can move through, likely
+ * multiple times per tile since we're likely checking if we can access said tile from multiple directions, so keep these as lightweight as possible.
+ *
+ * For turfs this will only be used if pathing_pass_method is TURF_PATHING_PASS_PROC
+ *
+ * Arguments:
+ * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
+ * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
+ * * caller- The movable we're checking pass flags for, if we're making any such checks
+ * * no_id: When true, doors with public access will count as impassible
+ **/
+/atom/proc/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	if(caller && (caller.pass_flags & pass_flags_self))
+		return TRUE
+	. = !density

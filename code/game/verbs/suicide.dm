@@ -6,7 +6,7 @@
 
 	var/damage_mod = 1
 	switch(damagetype) //Sorry about the magic numbers.
-					   //brute = 1, burn = 2, tox = 4, oxy = 8
+					//brute = 1, burn = 2, tox = 4, oxy = 8
 		if(15) //4 damage types
 			damage_mod = 4
 
@@ -37,7 +37,7 @@
 
 	// Failing that...
 	if(!(damagetype & BRUTELOSS) && !(damagetype & FIRELOSS) && !(damagetype & TOXLOSS) && !(damagetype & OXYLOSS))
-		if(NO_BREATHE in dna.species.species_traits)
+		if(HAS_TRAIT(src, TRAIT_NOBREATH))
 			// the ultimate fallback
 			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0, updating_health = FALSE)
 		else
@@ -63,11 +63,6 @@
 		to_chat(src, "You can't commit suicide before the game starts!")
 		return
 
-	// No more borergrief, one way or the other
-	if(has_brain_worms())
-		to_chat(src, "You try to bring yourself to commit suicide, but - something prevents you!")
-		return
-
 	if(suiciding)
 		to_chat(src, "You're already committing suicide! Be patient!")
 		return
@@ -77,8 +72,13 @@
 	if(!forced)
 		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
+	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
+		to_chat(src, "You're already dead!")
+		return
+
 	if(forced || (confirm == "Yes"))
 		suiciding = TRUE
+		create_log(ATTACK_LOG, "Attempted suicide")
 		var/obj/item/held_item = get_active_hand()
 		if(held_item)
 			var/damagetype = held_item.suicide_act(src)
@@ -176,18 +176,20 @@
 	set category = "pAI Commands"
 	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt)"
 	set name = "pAI Suicide"
-	var/answer = input("REALLY kill yourself? This action can't be undone.", "Suicide", "No") in list ("Yes", "No")
-	if(answer == "Yes")
-		if(canmove || resting)
-			close_up()
-		var/obj/item/paicard/card = loc
-		card.removePersonality()
-		var/turf/T = get_turf_or_move(card.loc)
-		for(var/mob/M in viewers(T))
-			M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
-		death(0, 1)
-	else
+
+	var/answer = input(src, "REALLY kill yourself? This action can't be undone.", "Suicide", "No") in list ("Yes", "No")
+	if(answer != "Yes")
 		to_chat(src, "Aborting suicide attempt.")
+		return
+
+	if(mobility_flags & MOBILITY_MOVE)
+		close_up()
+	card.removePersonality()
+	var/turf/T = get_turf(card.loc)
+	for(var/mob/M in viewers(T))
+		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
+	death(gibbed = FALSE, cleanWipe = TRUE)
+
 
 /mob/living/carbon/alien/humanoid/verb/suicide()
 	set hidden = 1

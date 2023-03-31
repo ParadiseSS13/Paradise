@@ -3,8 +3,8 @@
 	desc = "Gets rid of those pesky bloodstains, or your money back!"
 	icon = 'icons/obj/machines/washing_machine.dmi'
 	icon_state = "wm_10"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	var/state = 1
 	//1 = empty, open door
 	//2 = empty, closed door
@@ -14,12 +14,10 @@
 	//6 = blood, open door
 	//7 = blood, closed door
 	//8 = blood, running
-	var/panel = 0
-	//0 = closed
-	//1 = open
-	var/hacked = 1 //Bleh, screw hacking, let's have it hacked by default.
-	//0 = not hacked
-	//1 = hacked
+	var/panel = FALSE
+	//FALSE = closed
+	//TRUE = open
+	var/hacked = TRUE //Bleh, screw hacking, let's have it hacked by default.
 	var/gibs_ready = 0
 	var/obj/crayon
 
@@ -28,7 +26,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!istype(usr, /mob/living)) //ew ew ew usr, but it's the only way to check.
+	if(!isliving(usr)) //ew ew ew usr, but it's the only way to check.
 		return
 
 	if( state != 4 )
@@ -39,7 +37,7 @@
 		state = 8
 	else
 		state = 5
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	sleep(200)
 	for(var/atom/A in contents)
 		A.clean_blood()
@@ -74,6 +72,7 @@
 			var/new_shoe_name = ""
 			var/new_sheet_icon_state = ""
 			var/new_sheet_name = ""
+			var/new_sheet_item_state = ""
 			var/new_softcap_icon_state = ""
 			var/new_softcap_name = ""
 			var/new_desc = "The colors are a bit dodgy."
@@ -117,6 +116,7 @@
 				if(wash_color == B.item_color)
 					new_sheet_icon_state = B.icon_state
 					new_sheet_name = B.name
+					new_sheet_item_state = B.item_state
 					qdel(B)
 					break
 				qdel(B)
@@ -130,6 +130,8 @@
 				qdel(H)
 			if(new_jumpsuit_icon_state && new_jumpsuit_item_state && new_jumpsuit_name)
 				for(var/obj/item/clothing/under/J in contents)
+					if(!J.dyeable)
+						continue
 					J.item_state = new_jumpsuit_item_state
 					J.icon_state = new_jumpsuit_icon_state
 					J.item_color = wash_color
@@ -137,6 +139,8 @@
 					J.desc = new_desc
 			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
 				for(var/obj/item/clothing/gloves/color/G in contents)
+					if(!G.dyeable)
+						continue
 					G.item_state = new_glove_item_state
 					G.icon_state = new_glove_icon_state
 					G.item_color = wash_color
@@ -145,6 +149,8 @@
 						G.desc = new_desc
 			if(new_shoe_icon_state && new_shoe_name)
 				for(var/obj/item/clothing/shoes/S in contents)
+					if(!S.dyeable)
+						continue
 					if(S.chained == 1)
 						S.chained = 0
 						S.slowdown = SHOES_SLOWDOWN
@@ -155,6 +161,8 @@
 					S.desc = new_desc
 			if(new_bandana_icon_state && new_bandana_name)
 				for(var/obj/item/clothing/mask/bandana/M in contents)
+					if(!M.dyeable)
+						continue
 					M.item_state = new_bandana_item_state
 					M.icon_state = new_bandana_icon_state
 					M.item_color = wash_color
@@ -164,10 +172,13 @@
 				for(var/obj/item/bedsheet/B in contents)
 					B.icon_state = new_sheet_icon_state
 					B.item_color = wash_color
+					B.item_state = new_sheet_item_state
 					B.name = new_sheet_name
 					B.desc = new_desc
 			if(new_softcap_icon_state && new_softcap_name)
 				for(var/obj/item/clothing/head/soft/H in contents)
+					if(!H.dyeable)
+						continue
 					H.icon_state = new_softcap_icon_state
 					H.item_color = wash_color
 					H.name = new_softcap_name
@@ -180,7 +191,7 @@
 		gibs_ready = 1
 	else
 		state = 4
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/washing_machine/verb/climb_out()
 	set name = "Climb out"
@@ -192,15 +203,11 @@
 		usr.loc = src.loc
 
 
-/obj/machinery/washing_machine/update_icon()
+/obj/machinery/washing_machine/update_icon_state()
 	icon_state = "wm_[state][panel]"
 
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
-	/*if(istype(W,/obj/item/screwdriver))
-		panel = !panel
-		to_chat(user, "<span class='notice'>you [panel ? </span>"open" : "close"] the [src]'s maintenance panel")*/
 	if(default_unfasten_wrench(user, W))
-		power_change()
 		return
 	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/stamp))
 		if( state in list(	1, 3, 6 ) )
@@ -208,7 +215,7 @@
 				user.drop_item()
 				crayon = W
 				crayon.loc = src
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 			else
 				return ..()
 		else
@@ -220,7 +227,7 @@
 				G.affecting.loc = src
 				qdel(G)
 				state = 3
-			update_icon()
+			update_icon(UPDATE_ICON_STATE)
 		else
 			return ..()
 	else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \
@@ -233,6 +240,9 @@
 		istype(W,/obj/item/bedsheet))
 
 		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
+		if( istype(W,/obj/item/clothing/under/plasmaman ) )
+			to_chat(user, "This item does not fit.")
+			return
 		if( istype(W,/obj/item/clothing/suit/space ) )
 			to_chat(user, "This item does not fit.")
 			return
@@ -246,9 +256,6 @@
 			to_chat(user, "This item does not fit.")
 			return
 		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/armor ) )
 			to_chat(user, "This item does not fit.")
 			return
 		if( istype(W,/obj/item/clothing/suit/armor ) )
@@ -272,6 +279,9 @@
 		if( istype(W,/obj/item/clothing/gloves/furgloves ) )
 			to_chat(user, "This item does not fit.")
 			return
+		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
+			to_chat(user, "<span class='warning'>Washing these gloves would fry the electronics!</span>")
+			return
 		if(W.flags & NODROP) //if "can't drop" item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
 			return
@@ -285,7 +295,7 @@
 				to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")
 		else
 			to_chat(user, "<span class='notice'>The washing machine is full.</span>")
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 	else
 		return ..()
 
@@ -306,7 +316,7 @@
 			crayon = null
 			state = 1
 		if(5)
-			to_chat(user, "<span class='warning'>The [src] is busy.</span>")
+			to_chat(user, "<span class='warning'>[src] is busy.</span>")
 		if(6)
 			state = 7
 		if(7)
@@ -321,7 +331,7 @@
 			state = 1
 
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)

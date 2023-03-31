@@ -2,7 +2,6 @@
 	name = "Tajaran"
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
-	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	language = "Siik'tajr"
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
@@ -26,7 +25,7 @@
 
 	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
+	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING | TAIL_OVERLAPPED
 	dietflags = DIET_OMNI
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
@@ -43,11 +42,10 @@
 		"brain" =    /obj/item/organ/internal/brain/tajaran,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/tajaran /*Most Tajara see in full colour as a result of genetic augmentation, although it cost them their darksight (darksight = 2)
-															 unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
+															unless they choose otherwise by selecting the colourblind disability in character creation (darksight = 8 but colourblind).*/
 		)
 
-	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot,
-								 /mob/living/simple_animal/tribble)
+	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/chick, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/hostile/poison/bees)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",

@@ -7,6 +7,9 @@
 	move_force = null
 	pull_force = null
 
+	/// Flag to enable these making trees semi-transparent if behind them
+	flags_2 = CRITICAL_ATOM_2
+
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
@@ -35,10 +38,9 @@
 
 	var/floating = FALSE
 	var/mob_size = MOB_SIZE_HUMAN
+	// What type of mob is this
+	var/mob_biotypes = MOB_ORGANIC
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
-	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
-
-	var/holder = null //The holder for blood crawling
 
 	var/ventcrawler = 0 //0 No vent crawling, 1 vent crawling in the nude, 2 vent crawling always
 	var/list/icon/pipes_shown = list()
@@ -57,10 +59,6 @@
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
 
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
-
-	var/tesla_ignore = FALSE
-
 	var/list/say_log = list() //a log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/emote_log = list() //like say_log but for emotes
 
@@ -74,3 +72,22 @@
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_paralyzed = FALSE //knocks you down
+
+	/// Number of degrees of rotation of a mob. 0 means no rotation, up-side facing NORTH. 90 means up-side rotated to face EAST, and so on.
+	VAR_PROTECTED/lying_angle = 0
+	/// if a mob is choosing to lay down
+	var/resting = FALSE
+	var/body_position = STANDING_UP
+	var/mobility_flags = MOBILITY_FLAGS_DEFAULT
+
+	/// Used for preventing attacks on admin-frozen mobs.
+	var/frozen = null
+	/// Used for keeping track of previous sleeping value with admin freeze.
+	var/admin_prev_sleeping = 0
+
+	/// the type of holder that will be created when a mob gets scooped up
+	var/holder_type
+
+	var/datum/language/default_language
+
+

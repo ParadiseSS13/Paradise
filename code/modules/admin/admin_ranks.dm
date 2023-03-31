@@ -7,25 +7,15 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 	var/previous_rights = 0
 
-	//load text from file
-	var/list/Lines = file2list("config/admin_ranks.txt")
-
-	//process each line seperately
-	for(var/line in Lines)
-		if(!length(line))				continue
-		if(copytext(line,1,2) == "#")	continue
-
-		var/list/List = splittext(line,"+")
-		if(!List.len)					continue
-
-		var/rank = ckeyEx(List[1])
-		switch(rank)
-			if(null,"")		continue
-			if("Removed")	continue				//Reserved
+	// Process each rank set seperately
+	// key: rank name | value: list of rights
+	for(var/rankname in GLOB.configuration.admin.rank_rights_map)
+		var/list/rank_right_tokens = GLOB.configuration.admin.rank_rights_map[rankname]
 
 		var/rights = 0
-		for(var/i=2, i<=List.len, i++)
-			switch(ckey(List[i]))
+		for(var/right_token in rank_right_tokens)
+			var/token = lowertext(splittext(right_token, "+")[2])
+			switch(token)
 				if("@","prev")					rights |= previous_rights
 				if("buildmode","build")			rights |= R_BUILDMODE
 				if("admin")						rights |= R_ADMIN
@@ -45,8 +35,9 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 				if("mentor")					rights |= R_MENTOR
 				if("proccall")					rights |= R_PROCCALL
 				if("viewruntimes")				rights |= R_VIEWRUNTIMES
+				if("maintainer")				rights |= R_MAINTAINER
 
-		GLOB.admin_ranks[rank] = rights
+		GLOB.admin_ranks[rankname] = rights
 		previous_rights = rights
 
 	#ifdef TESTING
@@ -56,7 +47,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	testing(msg)
 	#endif
 
-/proc/load_admins()
+/proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to reload admins via advanced proc-call")
@@ -73,29 +64,13 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	for(var/A in world.GetConfig("admin"))
 		world.SetConfig("APP/admin", A, null)
 
-	if(config.admin_legacy_system)
+	if(!GLOB.configuration.admin.use_database_admins)
 		load_admin_ranks()
 
-		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
-
 		//process each line seperately
-		for(var/line in Lines)
-			if(!length(line))				continue
-			if(copytext(line,1,2) == "#")	continue
-
-			//Split the line at every "-"
-			var/list/List = splittext(line, "-")
-			if(!List.len)					continue
-
-			//ckey is before the first "-"
-			var/ckey = ckey(List[1])
-			if(!ckey)						continue
-
-			//rank follows the first "-"
-			var/rank = ""
-			if(List.len >= 2)
-				rank = ckeyEx(List[2])
+		for(var/iterator_key in GLOB.configuration.admin.ckey_rank_map)
+			var/ckey = ckey(iterator_key) // Snip out formatting
+			var/rank = GLOB.configuration.admin.ckey_rank_map[iterator_key]
 
 			//load permissions associated with this rank
 			var/rights = GLOB.admin_ranks[rank]
@@ -111,16 +86,17 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 	else
 		//The current admin system uses SQL
-
-		establish_db_connection()
-		if(!GLOB.dbcon.IsConnected())
+		if(!SSdbcore.IsConnected())
 			log_world("Failed to connect to database in load_admins(). Reverting to legacy system.")
-			config.admin_legacy_system = 1
+			GLOB.configuration.admin.use_database_admins = FALSE
 			load_admins()
 			return
 
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, rank, level, flags FROM [format_table_name("admin")]")
-		query.Execute()
+		var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, admin_rank, level, flags FROM admin")
+		if(!query.warn_execute(async=run_async))
+			qdel(query)
+			return
+
 		while(query.NextRow())
 			var/ckey = query.item[1]
 			var/rank = query.item[2]
@@ -135,9 +111,12 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
 			D.associate(GLOB.directory[ckey])
+
+		qdel(query)
+
 		if(!GLOB.admin_datums)
 			log_world("The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system.")
-			config.admin_legacy_system = 1
+			GLOB.configuration.admin.use_database_admins = FALSE
 			load_admins()
 			return
 

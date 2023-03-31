@@ -20,6 +20,9 @@
 
 	var/list/files = list(  )
 
+/obj/item/card/proc/get_card_account()
+	return GLOB.station_money_database.find_user_account(associated_account_number)
+
 /obj/item/card/data
 	name = "data card"
 	desc = "A disk containing data."
@@ -80,6 +83,27 @@
 		return
 	A.emag_act(user)
 
+/obj/item/card/cmag
+	desc = "It's a card coated in a slurry of electromagnetic bananium."
+	name = "jestographic sequencer"
+	icon_state = "cmag"
+	item_state = "card-id"
+	origin_tech = "magnets=2;syndicate=2"
+	flags = NOBLUDGEON
+	flags_2 = NO_MAT_REDEMPTION_2
+
+/obj/item/card/cmag/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, src, 16 SECONDS, 100)
+
+/obj/item/card/cmag/attack()
+	return
+
+/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+	target.cmag_act(user)
+
 /obj/item/card/id
 	name = "identification card"
 	desc = "A card used to provide ID and determine access across the station."
@@ -89,7 +113,7 @@
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -102,6 +126,7 @@
 	var/rank = null			//actual job
 	var/owner_uid
 	var/owner_ckey
+	var/lastlog
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
 	var/sex
@@ -156,7 +181,7 @@
 /obj/item/card/id/proc/UpdateName()
 	name = "[src.registered_name]'s ID Card ([src.assignment])"
 
-/obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
+/obj/item/card/id/proc/SetOwnerInfo(mob/living/carbon/human/H)
 	if(!H || !H.dna)
 		return
 
@@ -227,6 +252,9 @@
 
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
+/obj/item/card/id/proc/get_departments()
+	return get_departments_from_job(rank)
+
 /obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
@@ -242,11 +270,17 @@
 		qdel(W)
 		return
 
+	else if(istype(W, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/B = W
+		B.scanID(src, user)
+		return
+
 	else if(istype (W,/obj/item/stamp))
 		if(!stamped)
 			dat+="<img src=large_[W.icon_state].png>"
 			stamped = 1
 			to_chat(user, "You stamp the ID card!")
+			playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		else
 			to_chat(user, "This ID has already been stamped!")
 
@@ -273,7 +307,7 @@
 	set category = "Object"
 	set src in range(0)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.stat || HAS_TRAIT(usr, TRAIT_UI_BLOCKED) || usr.restrained())
 		return
 
 	if(guest_pass)
@@ -331,11 +365,12 @@
 	var/list/initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
 	origin_tech = "syndicate=1"
 	var/registered_user = null
-	untrackable = 1
-	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
+	untrackable = TRUE
 
-/obj/item/card/id/syndicate/anyone
-	anyone = TRUE
+/obj/item/card/id/syndicate/researcher
+	initial_access = list(ACCESS_SYNDICATE)
+	assignment = "Syndicate Researcher"
+	icon_state = "syndie"
 
 /obj/item/card/id/syndicate/New()
 	access = initial_access.Copy()
@@ -349,19 +384,19 @@
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 	icon_state = "commander"
 
-/obj/item/card/id/syndicate/afterattack(var/obj/item/O as obj, mob/user as mob, proximity)
+/obj/item/card/id/syndicate/afterattack(obj/item/O as obj, mob/user as mob, proximity)
 	if(!proximity)
 		return
 	if(istype(O, /obj/item/card/id))
 		var/obj/item/card/id/I = O
-		if(istype(user, /mob/living) && user.mind)
-			if(user.mind.special_role || anyone)
+		if(isliving(user) && user.mind)
+			if(user.mind.special_role)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/syndicate/attack_self(mob/user as mob)
 	if(!src.registered_name)
-		var/t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name))
+		var/t = reject_bad_name(input(user, "What name would you like to use on this card?", "Agent Card name", ishuman(user) ? user.real_name : user.name), TRUE)
 		if(!t)
 			to_chat(user, "<span class='warning'>Invalid name.</span>")
 			return
@@ -386,7 +421,7 @@
 			if("Edit")
 				switch(input(user,"What would you like to edit on \the [src]?") in list("Name", "Photo", "Appearance", "Sex", "Age", "Occupation", "Money Account", "Blood Type", "DNA Hash", "Fingerprint Hash", "Reset Access", "Delete Card Information"))
 					if("Name")
-						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name))
+						var/new_name = reject_bad_name(input(user,"What name would you like to put on this card?","Agent Card Name", ishuman(user) ? user.real_name : user.name), TRUE)
 						if(!Adjacent(user))
 							return
 						src.registered_name = new_name
@@ -414,18 +449,40 @@
 							"gold",
 							"silver",
 							"centcom",
-							"centcom_old",
 							"security",
+							"detective",
+							"warden",
+							"internalaffairsagent",
 							"medical",
-							"HoS",
+							"coroner",
+							"virologist",
+							"chemist",
+							"paramedic",
+							"psychiatrist",
 							"research",
+							"robotcist",
+							"quartermaster",
 							"cargo",
+							"shaftminer",
 							"engineering",
+							"atmostech",
+							"captain",
+							"HoP",
+							"HoS",
 							"CMO",
 							"RD",
 							"CE",
+							"assistant",
 							"clown",
 							"mime",
+							"barber",
+							"botanist",
+							"librarian",
+							"chaplain",
+							"bartender",
+							"chef",
+							"janitor",
+							"explorer",
 							"rainbow",
 							"prisoner",
 							"syndie",
@@ -436,6 +493,7 @@
 							"ERT_engineering",
 							"ERT_medical",
 							"ERT_janitorial",
+							"ERT_paranormal",
 						)
 						var/choice = input(user, "Select the appearance for this card.", "Agent Card Appearance") in appearances
 						if(!Adjacent(user))
@@ -482,7 +540,7 @@
 
 					if("Occupation")
 						var/list/departments =list(
-							"Civilian",
+							"Assistant",
 							"Engineering",
 							"Medical",
 							"Science",
@@ -493,11 +551,11 @@
 						)
 
 						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
-						var/new_job = "Civilian"
+						var/new_job = "Assistant"
 
 						if(department == "Custom")
-							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
-						else if(department != "Civilian")
+							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
+						else if(department != "Assistant")
 							switch(department)
 								if("Engineering")
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
@@ -600,7 +658,7 @@
 	registered_name = "Syndicate"
 	icon_state = "syndie"
 	assignment = "Syndicate Overlord"
-	untrackable = 1
+	untrackable = TRUE
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 
 /obj/item/card/id/captains_spare
@@ -622,7 +680,7 @@
 	item_state = "gold_id"
 	registered_name = "Admin"
 	assignment = "Testing Shit"
-	untrackable = 1
+	untrackable = TRUE
 
 /obj/item/card/id/admin/New()
 	access = get_absolutely_all_accesses()
@@ -639,9 +697,6 @@
 	access = get_all_centcom_access()
 	..()
 
-/obj/item/card/id/nanotrasen
-	name = "nanotrasen ID card"
-	icon_state = "nanotrasen"
 
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
@@ -650,38 +705,47 @@
 	item_state = "orange-id"
 	assignment = "Prisoner"
 	registered_name = "Scum"
+	access = list(ACCESS_LIBRARY)
 	var/goal = 0 //How far from freedom?
-	var/points = 0
 
-/obj/item/card/id/prisoner/attack_self(mob/user as mob)
-	to_chat(usr, "You have accumulated [points] out of the [goal] points you need for freedom.")
+/obj/item/card/id/prisoner/examine(mob/user)
+	. = ..()
+	if(goal)
+		. += "\nYou have accumulated [mining_points] out of the [goal] points assigned to gain freedom."
 
 /obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
+	icon_state = "prisonerone"
 	registered_name = "Prisoner #13-001"
 
 /obj/item/card/id/prisoner/two
 	name = "Prisoner #13-002"
+	icon_state = "prisonertwo"
 	registered_name = "Prisoner #13-002"
 
 /obj/item/card/id/prisoner/three
 	name = "Prisoner #13-003"
+	icon_state = "prisonerthree"
 	registered_name = "Prisoner #13-003"
 
 /obj/item/card/id/prisoner/four
 	name = "Prisoner #13-004"
+	icon_state = "prisonerfour"
 	registered_name = "Prisoner #13-004"
 
 /obj/item/card/id/prisoner/five
 	name = "Prisoner #13-005"
+	icon_state = "prisonerfive"
 	registered_name = "Prisoner #13-005"
 
 /obj/item/card/id/prisoner/six
 	name = "Prisoner #13-006"
+	icon_state = "prisonersix"
 	registered_name = "Prisoner #13-006"
 
 /obj/item/card/id/prisoner/seven
 	name = "Prisoner #13-007"
+	icon_state = "prisonerseven"
 	registered_name = "Prisoner #13-007"
 
 /obj/item/card/id/prisoner/random
@@ -704,11 +768,65 @@
 	icon_state = "medical"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/coroner
+	name = "Coroner ID"
+	registered_name = "Coroner"
+	icon_state = "coroner"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/virologist
+	name = "Virologist ID"
+	registered_name = "Virologist"
+	icon_state = "virologist"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
+
+/obj/item/card/id/chemist
+	name = "Chemist ID"
+	registered_name = "Chemist"
+	icon_state = "chemist"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/paramedic
+	name = "Paramedic ID"
+	registered_name = "Paramedic"
+	icon_state = "paramedic"
+	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
+
+/obj/item/card/id/psychiatrist
+	name = "Psychiatrist ID"
+	registered_name = "Psychiatrist"
+	icon_state = "psychiatrist"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
+
 /obj/item/card/id/security
 	name = "Security ID"
 	registered_name = "Officer"
 	icon_state = "security"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/detective
+	name = "Detective ID"
+	registered_name = "Detective"
+	icon_state = "detective"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
+
+/obj/item/card/id/warden
+	name = "Warden ID"
+	registered_name = "Warden"
+	icon_state = "warden"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
+
+/obj/item/card/id/internalaffairsagent
+	name = "Internal Affairs Agent ID"
+	registered_name = "Internal Affairs Agent"
+	icon_state = "internalaffairsagent"
+	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
+
+/obj/item/card/id/geneticist
+	name = "Geneticist ID"
+	registered_name = "Geneticist"
+	icon_state = "geneticist"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/research
 	name = "Research ID"
@@ -716,11 +834,29 @@
 	icon_state = "research"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/roboticist
+	name = "Roboticist ID"
+	registered_name = "Roboticist"
+	icon_state = "roboticist"
+	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
+
 /obj/item/card/id/supply
 	name = "Supply ID"
 	registered_name = "Cargonian"
 	icon_state = "cargo"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/quartermaster
+	name = "Quartermaster ID"
+	registered_name = "Quartermaster"
+	icon_state = "quartermaster"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/shaftminer
+	name = "Shaftminer ID"
+	registered_name = "Shaftminer"
+	icon_state = "shaftminer"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/engineering
 	name = "Engineering ID"
@@ -728,14 +864,36 @@
 	icon_state = "engineering"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
 
+/obj/item/card/id/atmostech
+	name = "Life Support Specialist ID"
+	registered_name = "Life Support Specialist"
+	icon_state = "atmostech"
+	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
+
+/obj/item/card/id/captains_spare/assigned
+	name = "Captain ID"
+	registered_name = "Captain"
+	icon_state = "captain"
+
+/obj/item/card/id/hop
+	name = "Head of Personal ID"
+	registered_name = "HoP"
+	icon_state = "HoP"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_EVA, ACCESS_HEADS,
+						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+						ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+
 /obj/item/card/id/hos
 	name = "Head of Security ID"
 	registered_name = "HoS"
 	icon_state = "HoS"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
+						ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+						ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+						ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
 
 /obj/item/card/id/cmo
 	name = "Chief Medical Officer ID"
@@ -750,18 +908,57 @@
 	registered_name = "RD"
 	icon_state = "RD"
 	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
-			            ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
-			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
-			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
+						ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
+						ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
+						ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/ce
 	name = "Chief Engineer ID"
 	registered_name = "CE"
 	icon_state = "CE"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
-			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
-			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
-			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
+						ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
+						ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
+						ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/ntrep
+	name = "Nanotrasen Representative ID"
+	registered_name = "NTRep"
+	icon_state = "ntrep"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+						ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP)
+
+/obj/item/card/id/blueshield
+	name = "Blueshield ID"
+	registered_name = "Blueshield"
+	icon_state = "blueshield"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+						ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_BLUESHIELD)
+
+/obj/item/card/id/magistrate
+	name = "Magistrate ID"
+	registered_name = "Magistrate"
+	icon_state = "magistrate"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+						ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+						ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+						ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+						ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+						ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAGISTRATE)
+
+/obj/item/card/id/assistant
+	name = "Assistant ID"
+	registered_name = "Assistant"
+	icon_state = "assistant"
+	access = list(ACCESS_MAINT_TUNNELS)
 
 /obj/item/card/id/clown
 	name = "Pink ID"
@@ -776,6 +973,53 @@
 	icon_state = "mime"
 	desc = "..."
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
+
+/obj/item/card/id/barber
+	name = "Barber ID"
+	registered_name = "Barber"
+	icon_state = "barber"
+	access = list(ACCESS_MAINT_TUNNELS)
+
+/obj/item/card/id/botanist
+	name = "Botanist ID"
+	registered_name = "Botanist"
+	icon_state = "botanist"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+
+/obj/item/card/id/librarian
+	name = "Librarian ID"
+	registered_name = "Librarian"
+	icon_state = "librarian"
+	access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
+
+/obj/item/card/id/chaplain
+	name = "Chaplain ID"
+	registered_name = "Chaplain"
+	icon_state = "chaplain"
+	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
+
+/obj/item/card/id/bartender
+	name = "Bartender ID"
+	registered_name = "Bartender"
+	icon_state = "bartender"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/chef
+	name = "Chef ID"
+	registered_name = "Chef"
+	icon_state = "chef"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+
+/obj/item/card/id/janitor
+	name = "Janitor ID"
+	registered_name = "Janitor"
+	icon_state = "janitor"
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+
+/obj/item/card/id/explorer
+	name = "Explorer ID"
+	registered_name = "Explorer"
+	icon_state = "explorer"
 
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
@@ -806,12 +1050,24 @@
 
 /obj/item/card/id/ert/commander
 	icon_state = "ERT_leader"
+
 /obj/item/card/id/ert/security
 	icon_state = "ERT_security"
+
 /obj/item/card/id/ert/engineering
 	icon_state = "ERT_engineering"
+
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
+
+/obj/item/card/id/ert/paranormal
+	icon_state = "ERT_paranormal"
+
+/obj/item/card/id/ert/janitorial
+	icon_state = "ERT_janitorial"
+
+/obj/item/card/id/ert/deathsquad
+	icon_state = "deathsquad"
 
 /obj/item/card/id/golem
 	name = "Free Golem ID"
@@ -886,10 +1142,10 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","medical","research","cargo","engineering","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","barber","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
 
 /proc/get_centcom_card_skins()
-	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
+	return list("centcom","blueshield","magistrate","ntrep","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","ERT_paranormal","deathsquad","commander","syndie","TDred","TDgreen")
 
 /proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
@@ -897,9 +1153,23 @@
 /proc/get_skin_desc(skin)
 	switch(skin)
 		if("id")
-			return "Standard"
+			return "Blank"
 		if("cargo")
-			return "Supply"
+			return "Cargo Technician"
+		if("shaftminer")
+			return "Shaft Miner"
+		if("medical")
+			return "Medical Doctor"
+		if("engineering")
+			return "Station Engineer"
+		if("security")
+			return "Security Officer"
+		if("internalaffairsagent")
+			return "Internal Affairs Agent"
+		if("atmostech")
+			return "Life Support Specialist"
+		if("HoP")
+			return "Head of Personal"
 		if("HoS")
 			return "Head of Security"
 		if("CMO")
@@ -908,8 +1178,6 @@
 			return "Research Director"
 		if("CE")
 			return "Chief Engineer"
-		if("centcom_old")
-			return "Centcom Old"
 		if("ERT_leader")
 			return "ERT Leader"
 		if("ERT_empty")
@@ -922,6 +1190,10 @@
 			return "ERT Medical"
 		if("ERT_janitorial")
 			return "ERT Janitorial"
+		if("ERT_paranormal")
+			return "ERT Paranormal"
+		if("deathsquad")
+			return "Deathsquad"
 		if("syndie")
 			return "Syndicate"
 		if("TDred")

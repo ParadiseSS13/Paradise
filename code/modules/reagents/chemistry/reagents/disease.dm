@@ -1,5 +1,5 @@
 /datum/reagent/spider_eggs
-	name = "spider eggs"
+	name = "Spider eggs"
 	id = "spidereggs"
 	description = "A fine dust containing spider eggs. Oh gosh."
 	reagent_state = SOLID
@@ -109,22 +109,8 @@
 		M.ForceContractDisease(new /datum/disease/kuru(0))
 	return ..()
 
-/datum/reagent/grave_dust
-	name = "Grave Dust"
-	id = "grave_dust"
-	description = "Moldy old dust taken from a grave site."
-	reagent_state = LIQUID
-	color = "#465046"
-	can_synth = FALSE
-	taste_mult = 0
-
-/datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
-	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/vampire(0))
-	return ..()
-
 /datum/reagent/bacon_grease
-	name = "pure bacon grease"
+	name = "Pure bacon grease"
 	id = "bacon_grease"
 	description = "Hook me up to an IV of that sweet, sweet stuff!"
 	reagent_state = LIQUID
@@ -185,30 +171,30 @@
 	taste_description = "watery milk"
 
 /datum/reagent/mutagen/mutagenvirusfood
-	name = "mutagenic agar"
+	name = "Mutagenic agar"
 	id = "mutagenvirusfood"
 	description = "mutates blood"
 	color = "#A3C00F" // rgb: 163,192,15
 
 /datum/reagent/mutagen/mutagenvirusfood/sugar
-	name = "sucrose agar"
+	name = "Sucrose agar"
 	id = "sugarvirusfood"
 	color = "#41B0C0" // rgb: 65,176,192
 	taste_mult = 1.5
 
 /datum/reagent/medicine/diphenhydramine/diphenhydraminevirusfood
-	name = "virus rations"
+	name = "Virus rations"
 	id = "diphenhydraminevirusfood"
 	description = "mutates blood"
 	color = "#D18AA5" // rgb: 209,138,165
 
 /datum/reagent/plasma_dust/plasmavirusfood
-	name = "virus plasma"
+	name = "Virus plasma"
 	id = "plasmavirusfood"
 	description = "mutates blood"
 	color = "#A69DA9" // rgb: 166,157,169
 
 /datum/reagent/plasma_dust/plasmavirusfood/weak
-	name = "weakened virus plasma"
+	name = "Weakened virus plasma"
 	id = "weakplasmavirusfood"
 	color = "#CEC3C6" // rgb: 206,195,198

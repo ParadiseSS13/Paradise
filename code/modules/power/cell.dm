@@ -28,7 +28,7 @@
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -49,16 +49,16 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/stock_parts/cell/update_icon()
-	overlays.Cut()
+/obj/item/stock_parts/cell/update_overlays()
+	. = ..()
 	if(grown_battery)
-		overlays += image('icons/obj/power.dmi', "grown_wires")
+		. += image('icons/obj/power.dmi', "grown_wires")
 	if(charge < 0.01)
 		return
 	else if(charge/maxcharge >=0.995)
-		overlays += "cell-o2"
+		. += "cell-o2"
 	else
-		overlays += "cell-o1"
+		. += "cell-o1"
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -92,7 +92,7 @@
 		. += "The charge meter reads [round(percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return FIRELOSS
 
 /obj/item/stock_parts/cell/attackby(obj/item/W, mob/user, params)
@@ -179,7 +179,7 @@
 /obj/item/stock_parts/cell/crap/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
@@ -204,7 +204,11 @@
 /obj/item/stock_parts/cell/secborg/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/stock_parts/cell/hos_gun
+	name = "\improper X-01 multiphase energy gun power cell"
+	maxcharge = 1200
 
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
@@ -239,7 +243,7 @@
 /obj/item/stock_parts/cell/high/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
@@ -253,7 +257,7 @@
 /obj/item/stock_parts/cell/super/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
@@ -267,7 +271,7 @@
 /obj/item/stock_parts/cell/hyper/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
@@ -282,7 +286,13 @@
 /obj/item/stock_parts/cell/bluespace/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/stock_parts/cell/bluespace/charging
+	name = "self-charging bluespace power cell"
+	desc = "An experimental, self-charging, transdimensional power cell."
+	origin_tech =  "powerstorage=10;bluespace=10"
+	self_recharge = TRUE
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
@@ -294,7 +304,7 @@
 	chargerate = 30000
 
 /obj/item/stock_parts/cell/infinite/use()
-	return 1
+	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
@@ -305,9 +315,8 @@
 	rating = 12
 	ratingdesc = FALSE
 
-/obj/item/stock_parts/cell/infinite/abductor/update_icon()
-	return
-
+/obj/item/stock_parts/cell/infinite/abductor/update_overlays()
+	return list()
 
 /obj/item/stock_parts/cell/potato
 	name = "potato battery"
@@ -341,7 +350,7 @@
 /obj/item/stock_parts/cell/emproof/empty/New()
 	..()
 	charge = 0
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/stock_parts/cell/emproof/emp_act(severity)
 	return
@@ -354,3 +363,14 @@
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
+
+/obj/item/stock_parts/cell/bsg
+	name = "\improper B.S.G power cell"
+	desc = "A high capacity, slow charging cell for the B.S.G."
+	maxcharge = 40000
+	chargerate = 2600 // about 30 seconds to charge with a default recharger
+
+/obj/item/stock_parts/cell/emproof/reactive // EMP proof so emp_act does not double dip.
+	name = "reactive armor power cell"
+	desc = "A cell used to power reactive armors."
+	maxcharge = 2400

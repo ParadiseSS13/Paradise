@@ -30,7 +30,7 @@
 	attached = null
 	return ..()
 
-/obj/item/powersink/update_icon()
+/obj/item/powersink/update_icon_state()
 	icon_state = "powersink[mode == OPERATING]"
 
 /obj/item/powersink/proc/set_mode(value)
@@ -60,7 +60,7 @@
 			density = TRUE
 
 	mode = value
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	set_light(0)
 
 /obj/item/powersink/screwdriver_act(mob/user, obj/item/I)
@@ -88,7 +88,7 @@
 /obj/item/powersink/attack_ai()
 	return
 
-/obj/item/powersink/attack_hand(var/mob/user)
+/obj/item/powersink/attack_hand(mob/user)
 	switch(mode)
 		if(DISCONNECTED)
 			..()
@@ -132,8 +132,8 @@
 					if(A.operating && A.cell)
 						A.cell.charge = max(0, A.cell.charge - 50)
 						power_drained += 50
-						if(A.charging == 2) // If the cell was full
-							A.charging = 1 // It's no longer full
+						if(A.charging == APC_FULLY_CHARGED) // If the cell was full
+							A.charging = APC_IS_CHARGING // It's no longer full
 				if(drained >= drain_rate)
 					break
 

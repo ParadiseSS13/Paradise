@@ -52,38 +52,37 @@
 			user.drop_item()
 			W.loc = src
 			diode = W
-			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
+			to_chat(user, "<span class='notice'>You install [diode] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
-	else if(istype(W, /obj/item/screwdriver))
-		if(diode)
-			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
-			diode.loc = get_turf(src.loc)
-			diode = null
-			return
-		..()
-	return
+/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
+	if(!diode)
+		return
 
-/obj/item/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
+	to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
+	diode.forceMove(get_turf(loc))
+	diode = null
+	return TRUE
+
+/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
 		return
 	laser_act(target, user, params)
 
-/obj/item/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
-	if( !(user in (viewers(7,target))) )
-		return
+/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
 	if(!diode)
 		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
 		return
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if((HULK in H.mutations) || (NOGUNS in H.dna.species.species_traits))
-			user << "<span class='warning'>Your fingers can't press the button!</span>"
-			return
+	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
+		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
+		return
+	if(!(target in view(7, get_turf(src)))) // Use the turf as center so it won't use the potential xray of the user
+		to_chat(user, "<span class='warning'>There is something in the way!</span>")
+		return
 
 	add_fingerprint(user)
 
@@ -108,10 +107,8 @@
 				severity = 0
 
 			//20% chance to actually hit the eyes
-			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
+			if(prob(effectchance * diode.rating) && C.flash_eyes(severity, laser_pointer = TRUE))
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
-				if(C.weakeyes)
-					C.Stun(1)
 			else
 				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
 
@@ -121,7 +118,7 @@
 		//20% chance to actually hit the sensors
 		if(prob(effectchance * diode.rating))
 			S.flash_eyes(affect_silicon = 1)
-			S.Weaken(rand(5,10))
+			S.Weaken(rand(10 SECONDS, 20 SECONDS))
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
 

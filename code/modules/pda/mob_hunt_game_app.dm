@@ -13,8 +13,8 @@
 
 	var/list/my_collection = list()
 	var/current_index = 0
-	var/connected = 0
-	var/hacked = 0		//if set, this cartridge is able to spawn trap mobs from its collection (set via emag_act on the cartridge)
+	var/connected = FALSE
+	var/hacked = FALSE		//if set, this cartridge is able to spawn trap mobs from its collection (set via emag_act on the cartridge)
 	var/catch_mod = 0	//used to adjust the likelihood of a mob running from this client, a negative value means it is less likely to run (support for temporary bonuses)
 	var/wild_captures = 0		//used to track the total number of mobs captured from the wild (does not count card mobs) by this client
 	var/scan_range = 3			//maximum distance (in tiles) from which the client can reveal nearby mobs
@@ -27,6 +27,12 @@
 	..()
 	disconnect("Program Terminated")
 	STOP_PROCESSING(SSobj, pda)
+
+/datum/data/pda/app/mob_hunter_game/Destroy()
+	if(pda)
+		STOP_PROCESSING(SSobj, pda)
+	SSmob_hunt.connected_clients -= src
+	return ..()
 
 /datum/data/pda/app/mob_hunter_game/proc/scan_nearby()
 	if(!SSmob_hunt || !connected)
@@ -45,7 +51,7 @@
 		//show a message about the server being unavailable (because it doesn't exist / didn't get set to the global var / is offline)
 		return 0
 	SSmob_hunt.connected_clients += src
-	connected = 1
+	connected = TRUE
 	if(pda)
 		pda.atom_say("Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!")
 	return 1
@@ -64,7 +70,7 @@
 	SSmob_hunt.connected_clients -= src
 	for(var/obj/effect/nanomob/N in (SSmob_hunt.normal_spawns + SSmob_hunt.trap_spawns))
 		N.conceal(list(get_player()))
-	connected = 0
+	connected = FALSE
 	//show a disconnect message if we were disconnected involuntarily (reason argument provided)
 	if(pda && reason)
 		pda.atom_say("Disconnected from server. Reason: [reason].")
@@ -74,13 +80,14 @@
 		return
 	scan_nearby()
 
-/datum/data/pda/app/mob_hunter_game/proc/register_capture(datum/mob_hunt/captured, wild = 0)
+/datum/data/pda/app/mob_hunter_game/proc/register_capture(datum/mob_hunt/captured, wild = FALSE)
 	if(!captured)
-		return 0
-	my_collection.Add(captured)
+		return FALSE
+	my_collection += captured
+	RegisterSignal(captured, COMSIG_PARENT_QDELETING, PROC_REF(remove_mob))
 	if(wild)
 		wild_captures++
-	return 1
+	return TRUE
 
 /datum/data/pda/app/mob_hunter_game/update_ui(mob/user, list/data)
 	if(!SSmob_hunt || !(src in SSmob_hunt.connected_clients))
@@ -138,12 +145,27 @@
 	card.forceMove(get_turf(pda))
 	remove_mob()
 
-/datum/data/pda/app/mob_hunter_game/proc/remove_mob()
-	if(!my_collection.len)
+/**
+  * Removes a Nanomob from the [my_collection] list.
+  *
+  * The Nanomob that is currently selected in the app ([current_index]) will be removed from the list unless a `mob_override` argument is given, in which case that will be removed instead.
+  *
+  * Arguments:
+  * * mob_override - A specific Nanomob to remove from the list. (Optional)
+  */
+/datum/data/pda/app/mob_hunter_game/proc/remove_mob(datum/mob_hunt/mob_override = null)
+	SIGNAL_HANDLER
+	if(!length(my_collection))
 		return
-	my_collection.Remove(my_collection[current_index])
-	if(current_index > my_collection.len)
-		current_index = my_collection.len
+
+	if(mob_override)
+		my_collection -= mob_override
+	else
+		my_collection -= my_collection[current_index]
+
+	var/collection_length = length(my_collection)
+	if(current_index > collection_length)
+		current_index = collection_length
 
 /datum/data/pda/app/mob_hunter_game/proc/set_trap()
 	if(!my_collection.len || !pda || !hacked)
@@ -152,8 +174,15 @@
 	bait = bait.type
 	new bait(1, get_turf(pda))
 
-/datum/data/pda/app/mob_hunter_game/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/mob_hunter_game/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+	. = TRUE
+	switch(action)
 		if("Rename")
 			assign_nickname()
 		if("Release")

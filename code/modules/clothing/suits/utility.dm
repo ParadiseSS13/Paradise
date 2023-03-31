@@ -18,9 +18,9 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/extinguisher)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/extinguisher)
 	slowdown = 1
-	armor = list("melee" = 15, "bullet" = 5, "laser" = 20, "energy" = 10, "bomb" = 20, "bio" = 10, "rad" = 20, "fire" = 100, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 10, ENERGY = 5, BOMB = 10, BIO = 5, RAD = 10, FIRE = INFINITY, ACID = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -36,7 +36,7 @@
 	item_state = "firefighter"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/suit/fire/heavy
@@ -55,7 +55,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /*
@@ -67,7 +67,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bombsuit"
 	flags = BLOCKHAIR | THICKMATERIAL
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 20,"energy" = 10, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 5, BOMB = INFINITY, BIO = 0, RAD = 0, FIRE = 200, ACID = 50)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	cold_protection = HEAD
@@ -79,8 +79,8 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/helmet.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
 /obj/item/clothing/suit/bomb_suit
@@ -94,7 +94,7 @@
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 2
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 20,"energy" = 10, "bomb" = 100, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 10, ENERGY = 5, BOMB = INFINITY, BIO = 0, RAD = 0, FIRE = 200, ACID = 50)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -105,7 +105,7 @@
 	resistance_flags = NONE
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 /obj/item/clothing/head/bomb_hood/security
@@ -122,23 +122,23 @@
  * Radiation protection
  */
 /obj/item/clothing/head/radiation
-	name = "Radiation Hood"
+	name = "radiation hood"
 	icon_state = "rad"
 	desc = "A hood with radiation protective properties. Label: Made with lead, do not eat insulation"
 	flags = BLOCKHAIR|THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 60, "rad" = 100, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 75, RAD = INFINITY, FIRE = 20, ACID = 20)
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
-
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 		)
 
 /obj/item/clothing/suit/radiation
-	name = "Radiation suit"
+	name = "radiation suit"
 	desc = "A suit that protects against radiation. Label: Made with lead, do not eat insulation."
 	icon_state = "rad"
 	item_state = "rad_suit"
@@ -147,14 +147,14 @@
 	permeability_coefficient = 0.50
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen, /obj/item/geiger_counter)
 	slowdown = 1.5
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 60, "rad" = 100, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 75, RAD = INFINITY, FIRE = 20, ACID = 20)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = NONE
-
+	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)

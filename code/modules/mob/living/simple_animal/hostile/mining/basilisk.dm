@@ -8,10 +8,11 @@
 	icon_aggro = "Basilisk_alert"
 	icon_dead = "Basilisk_dead"
 	icon_gib = "syndicate_gib"
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	move_to_delay = 20
 	projectiletype = /obj/item/projectile/temp/basilisk
 	projectilesound = 'sound/weapons/pierce.ogg'
-	ranged = 1
+	ranged = TRUE
 	ranged_message = "stares"
 	ranged_cooldown_time = 30
 	throw_message = "does nothing against the hard shell of"
@@ -40,7 +41,7 @@
 	damage = 0
 	damage_type = BURN
 	nodamage = TRUE
-	flag = "energy"
+	flag = ENERGY
 	temperature = 50
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
@@ -76,19 +77,10 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	stat_attack = UNCONSCIOUS
 	flying = TRUE
-	robust_searching = 1
+	robust_searching = TRUE
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
-	. = ..()
-	if(prob(1))
-		if(prob(75))
-			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing(loc)
-		else
-			new /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing(loc)
-		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
 	name = "magmawing watcher"

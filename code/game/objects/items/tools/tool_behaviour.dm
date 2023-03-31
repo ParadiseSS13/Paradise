@@ -13,7 +13,7 @@
 
 	if(delay)
 		// Create a callback with checks that would be called every tick by do_after.
-		var/datum/callback/tool_check = CALLBACK(src, .proc/tool_check_callback, user, target, amount, extra_checks)
+		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, target, amount, extra_checks)
 
 		if(ismob(target))
 			if(!do_mob(user, target, delay, extra_checks = list(tool_check)))
@@ -43,7 +43,7 @@
 	return tool_use_check(user, amount)
 
 // A check called by tool_start_check once, and by use_tool on every tick of delay.
-/obj/item/proc/tool_use_check(mob/living/user, amount)
+/obj/item/proc/tool_use_check(mob/living/user, amount, silent = FALSE)
 	return !amount
 
 /obj/item/proc/play_tool_sound(atom/target, volume = tool_volume)
@@ -57,4 +57,8 @@
 
 // Used in a callback that is passed by use_tool into do_after call. Do not override, do not call manually.
 /obj/item/proc/tool_check_callback(mob/living/user, atom/target, amount, datum/callback/extra_checks)
-	return tool_use_check(user, amount) && (extra_checks && !extra_checks.Invoke())
+	if(!tool_use_check(user, amount))
+		return TRUE
+	if(extra_checks && !extra_checks.Invoke())
+		return TRUE
+	return FALSE

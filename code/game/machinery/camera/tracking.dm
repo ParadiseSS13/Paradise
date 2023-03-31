@@ -33,7 +33,7 @@
 	return T
 
 
-/mob/living/silicon/ai/proc/ai_camera_list(var/camera in get_camera_list())
+/mob/living/silicon/ai/proc/ai_camera_list(camera in get_camera_list())
 	set category = "AI Commands"
 	set name = "Show Camera List"
 
@@ -126,7 +126,7 @@
 
 		// Human check
 		var/human = 0
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			human = 1
 
 		var/name = M.name
@@ -160,7 +160,7 @@
 
 	ai_actual_track(target)
 
-/mob/living/silicon/ai/proc/ai_cancel_tracking(var/forced = 0)
+/mob/living/silicon/ai/proc/ai_cancel_tracking(forced = 0)
 	if(!cameraFollow)
 		return
 
@@ -173,12 +173,12 @@
 	var/mob/living/silicon/ai/U = usr
 
 	U.cameraFollow = target
-	U.tracking = 1
+	U.tracking = TRUE
 
 	to_chat(U, "<span class='notice'>Attempting to track [target.get_visible_name()]...</span>")
 	sleep(min(30, get_dist(target, U.eyeobj) / 4))
 	spawn(15) //give the AI a grace period to stop moving.
-		U.tracking = 0
+		U.tracking = FALSE
 
 	if(!target || !target.can_track(usr))
 		to_chat(U, "<span class='warning'>Target is not near any active cameras.</span>")
@@ -194,14 +194,14 @@
 				return
 
 			if(!target.can_track(usr))
-				U.tracking = 1
+				U.tracking = TRUE
 				if(!cameraticks)
 					to_chat(U, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
 				cameraticks++
 				if(cameraticks > 9)
 					U.cameraFollow = null
 					to_chat(U, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
-					U.tracking = 0
+					U.tracking = FALSE
 					return
 				else
 					sleep(10)
@@ -209,7 +209,7 @@
 
 			else
 				cameraticks = 0
-				U.tracking = 0
+				U.tracking = FALSE
 
 			if(U.eyeobj)
 				U.eyeobj.setLoc(get_turf(target))

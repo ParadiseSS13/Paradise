@@ -1,6 +1,6 @@
 //goat
 /mob/living/simple_animal/hostile/retaliate/goat
-	name = "goat"
+	name = "\improper goat"
 	desc = "Not known for their pleasant disposition."
 	icon_state = "goat"
 	icon_living = "goat"
@@ -17,21 +17,24 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	faction = list("neutral")
-	attack_same = 1
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	attack_same = TRUE
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 40
 	maxHealth = 40
 	melee_damage_lower = 1
 	melee_damage_upper = 2
-	stop_automated_movement_when_pulled = 1
-	can_collar = 1
+	stop_automated_movement_when_pulled = TRUE
+	can_collar = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
-	var/obj/item/udder/udder = null
+	var/obj/item/udder/cow/udder = null
+	gender = FEMALE
+	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/retaliate/goat/New()
-	udder = new()
+/mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	. = ..()
+	udder = new()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Destroy()
 	QDEL_NULL(udder)
@@ -70,7 +73,7 @@
 	if(!stat)
 		eat_plants()
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 	else
@@ -99,15 +102,20 @@
 		H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")
 		NB.droplimb()
 
+/mob/living/simple_animal/hostile/retaliate/goat/chef
+	name = "Pete"
+	desc = "Pete, the Chef's pet goat from the Caribbean. Not known for their pleasant disposition."
+	unique_pet = TRUE
+
 //cow
 /mob/living/simple_animal/cow
-	name = "cow"
+	name = "\improper cow"
 	desc = "Known for their milk, just don't tip them over."
 	icon_state = "cow"
 	icon_living = "cow"
 	icon_dead = "cow_dead"
 	icon_gib = "cow_gib"
-	speak = list("moo?","moo","MOOOOOO")
+	speak = list("Moo?","Moo","MOOOOOO")
 	speak_emote = list("moos","moos hauntingly")
 	emote_hear = list("brays")
 	emote_see = list("shakes its head")
@@ -115,32 +123,33 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
-	var/obj/item/udder/udder = null
+	var/obj/item/udder/cow/udder = null
 	gender = FEMALE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
 	. = ..()
 
 /mob/living/simple_animal/cow/Destroy()
-	qdel(udder)
-	udder = null
+	QDEL_NULL(udder)
 	return ..()
 
 /mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
-		return 1
+		return TRUE
 	else
 		return ..()
 
@@ -152,7 +161,7 @@
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
 		M.visible_message("<span class='warning'>[M] tips over [src].</span>","<span class='notice'>You tip over [src].</span>")
-		Weaken(30)
+		Weaken(60 SECONDS)
 		icon_state = icon_dead
 		spawn(rand(20,50))
 			if(!stat && M)
@@ -165,6 +174,18 @@
 	else
 		..()
 
+
+/mob/living/simple_animal/cow/npc_safe(mob/user)
+	return TRUE
+
+/mob/living/simple_animal/cow/betsy
+	name = "Betsy"
+	real_name = "Betsy"
+	unique_pet = TRUE
+
+/mob/living/simple_animal/cow/betsy/npc_safe(mob/user) // depriving the chef of his animals is not cool
+	return FALSE
+
 /mob/living/simple_animal/chick
 	name = "\improper chick"
 	desc = "Adorable! They make such a racket though."
@@ -173,17 +194,18 @@
 	icon_dead = "chick_dead"
 	icon_gib = "chick_gib"
 	gender = FEMALE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
 	speak_emote = list("cheeps")
 	emote_hear = list("cheeps")
 	emote_see = list("pecks at the ground","flaps its tiny wings")
-	density = 0
+	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 3
 	maxHealth = 3
@@ -191,9 +213,10 @@
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
-	can_hide = 1
-	can_collar = 1
+	can_hide = TRUE
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -210,6 +233,10 @@
 				mind.transfer_to(C)
 			qdel(src)
 
+
+/mob/living/simple_animal/chick/npc_safe(mob/user)
+	return TRUE
+
 #define MAX_CHICKENS 50
 GLOBAL_VAR_INIT(chicken_count, 0)
 
@@ -217,6 +244,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	name = "\improper chicken"
 	desc = "Hopefully the eggs are good this season."
 	gender = FEMALE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"
 	icon_dead = "chicken_brown_dead"
@@ -224,15 +252,15 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	speak_emote = list("clucks","croons")
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
-	density = 0
+	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
 	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 15
 	maxHealth = 15
@@ -243,12 +271,14 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	var/icon_prefix = "chicken"
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	can_hide = 1
-	can_collar = 1
+	holder_type = /obj/item/holder/chicken
+	can_hide = TRUE
+	can_collar = TRUE
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
 	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -282,6 +312,11 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	else
 		..()
 
+/mob/living/simple_animal/chicken/attack_hand(mob/living/carbon/human/M)
+	if(M.a_intent == INTENT_HELP)
+		get_scooped(M, TRUE)
+	..()
+
 /mob/living/simple_animal/chicken/Life(seconds, times_fired)
 	. = ..()
 	if((. && prob(3) && eggsleft > 0) && egg_type)
@@ -306,9 +341,35 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	else
 		STOP_PROCESSING(SSobj, src)
 
+/mob/living/simple_animal/chicken/npc_safe(mob/user)
+	return TRUE
+
+/mob/living/simple_animal/chicken/clucky
+	name = "Commander Clucky"
+	real_name = "Commander Clucky"
+	unique_pet = TRUE
+
+/mob/living/simple_animal/chicken/clucky/npc_safe(mob/user) // depriving the chef of his animals is not cool
+	return FALSE
+
+/mob/living/simple_animal/chicken/kentucky
+	name = "Kentucky"
+	real_name = "Kentucky"
+	unique_pet = TRUE
+
+/mob/living/simple_animal/chicken/kentucky/npc_safe(mob/user)
+	return FALSE
+
+/mob/living/simple_animal/chicken/featherbottom
+	name = "Featherbottom"
+	real_name = "Featherbottom"
+	unique_pet = TRUE
+
+/mob/living/simple_animal/chicken/featherbottom/npc_safe(mob/user)
+	return FALSE
 
 /mob/living/simple_animal/pig
-	name = "pig"
+	name = "\improper pig"
 	desc = "Oink oink."
 	icon_state = "pig"
 	icon_living = "pig"
@@ -321,18 +382,20 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
+	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/turkey
-	name = "turkey"
+	name = "\improper turkey"
 	desc = "Benjamin Franklin would be proud."
 	icon_state = "turkey"
 	icon_living = "turkey"
@@ -345,17 +408,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "pecks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/goose
-	name = "goose"
+	name = "\improper goose"
 	desc = "A pretty goose. Would make a nice comforter."
 	icon_state = "goose"
 	icon_living = "goose"
@@ -368,17 +433,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
+	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal
-	name = "seal"
+	name = "\improper seal"
 	desc = "A beautiful white seal."
 	icon_state = "seal"
 	icon_living = "seal"
@@ -391,18 +458,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/walrus
-	name = "walrus"
+	name = "\improper walrus"
 	desc = "A big brown walrus."
 	icon_state = "walrus"
 	icon_living = "walrus"
@@ -415,23 +483,23 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 5
 	see_in_dark = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
-	response_help  = "pets the"
-	response_disarm = "gently pushes aside the"
-	response_harm   = "kicks the"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "kicks"
 	attacktext = "kicks"
 	health = 50
 	maxHealth = 50
-	can_collar = 1
+	can_collar = TRUE
+	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /obj/item/udder
 	name = "udder"
 
-/obj/item/udder/New()
-	create_reagents(50)
-	reagents.add_reagent("milk", 20)
+/obj/item/udder/Initialize(mapload)
 	. = ..()
+	create_reagents(50)
 
 /obj/item/udder/proc/generateMilk()
 	if(prob(5))
@@ -447,3 +515,9 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
 	else
 		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")
+
+/obj/item/udder/cow
+
+/obj/item/udder/cow/Initialize(mapload)
+	. = ..()
+	reagents.add_reagent("milk", 20)

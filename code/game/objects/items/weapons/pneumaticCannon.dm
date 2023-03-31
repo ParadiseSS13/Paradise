@@ -9,17 +9,17 @@
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
-	var/obj/item/tank/tank = null //The gas tank that is drawn from to fire things
+	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
 	var/gasPerThrow = 3 //How much gas is drawn from a tank's pressure to fire
 	var/list/loadedItems = list() //The items loaded into the cannon that will be fired out
 	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
 
 /obj/item/pneumatic_cannon/Destroy()
 	QDEL_NULL(tank)
-	QDEL_LIST(loadedItems)
+	QDEL_LIST_CONTENTS(loadedItems)
 	return ..()
 
 /obj/item/pneumatic_cannon/examine(mob/user)
@@ -34,8 +34,8 @@
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/tank/) && !tank)
-		if(istype(W, /obj/item/tank/emergency_oxygen))
+	if(istype(W, /obj/item/tank/internals/) && !tank)
+		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
 			to_chat(user, "<span class='warning'>\The [W] is too small for \the [src].</span>")
 			return
 		updateTank(W, 0, user)
@@ -53,14 +53,14 @@
 				pressureSetting = 1
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
 		return
-	if(istype(W, /obj/item/screwdriver) && tank)
-		updateTank(tank, 1, user)
-		return
 	if(loadedWeightClass >= maxWeightClass)
 		to_chat(user, "<span class='warning'>\The [src] can't hold any more items!</span>")
 		return
-	if(istype(W, /obj/item))
+	if(isitem(W))
 		var/obj/item/IW = W
+		if(IW.flags & (ABSTRACT | NODROP | DROPDEL))
+			to_chat(user, "<span class='warning'>You can't put [IW] into [src]!</span>")
+			return
 		if((loadedWeightClass + IW.w_class) > maxWeightClass)
 			to_chat(user, "<span class='warning'>\The [IW] won't fit into \the [src]!</span>")
 			return
@@ -75,9 +75,15 @@
 		IW.loc = src
 		return
 
+/obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
+	if(!tank)
+		return
+
+	updateTank(tank, 1, user)
+	return TRUE
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
-	if(istype(target, /obj/item/storage)) //So you can store it in backpacks
+	if(isstorage(target)) //So you can store it in backpacks
 		return ..()
 	if(istype(target, /obj/structure/closet)) //So you can store it in closets
 		return ..()
@@ -88,7 +94,7 @@
 	Fire(user, target)
 
 
-/obj/item/pneumatic_cannon/proc/Fire(var/mob/living/carbon/human/user, var/atom/target)
+/obj/item/pneumatic_cannon/proc/Fire(mob/living/carbon/human/user, atom/target)
 	if(!istype(user) && !target)
 		return
 	var/discharge = 0
@@ -101,7 +107,7 @@
 	if(tank && !tank.air_contents.remove(gasPerThrow * pressureSetting))
 		to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
 		return
-	if(user && (CLUMSY in user.mutations) && prob(75))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [src], causing it to go off!</span>", "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
 		user.drop_item()
 		if(prob(10))
@@ -112,7 +118,7 @@
 		discharge = 1
 	if(!discharge)
 		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
-				    		 "<span class='danger'>You fire \the [src]!</span>")
+							"<span class='danger'>You fire \the [src]!</span>")
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge
@@ -137,7 +143,7 @@
 
 /datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
 	name = "Pneumatic Cannon"
-	result = /obj/item/pneumatic_cannon/ghetto
+	result = list(/obj/item/pneumatic_cannon/ghetto)
 	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(/obj/item/stack/sheet/metal = 4,
 				/obj/item/stack/packageWrap = 8,

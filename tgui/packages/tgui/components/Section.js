@@ -1,13 +1,15 @@
 import { classes, isFalsy, pureComponentHooks } from 'common/react';
 import { Box } from './Box';
 
-export const Section = props => {
+export const Section = (props) => {
   const {
     className,
     title,
     level = 1,
     buttons,
     content,
+    stretchContents,
+    noTopPadding,
     children,
     ...rest
   } = props;
@@ -18,24 +20,28 @@ export const Section = props => {
       className={classes([
         'Section',
         'Section--level--' + level,
+        props.flexGrow && 'Section--flex',
         className,
       ])}
-      {...rest}>
+      {...rest}
+    >
       {hasTitle && (
         <div className="Section__title">
-          <span className="Section__titleText">
-            {title}
-          </span>
-          <div className="Section__buttons">
-            {buttons}
-          </div>
+          <span className="Section__titleText">{title}</span>
+          <div className="Section__buttons">{buttons}</div>
         </div>
       )}
       {hasContent && (
-        <div className="Section__content">
+        <Box
+          className={classes([
+            'Section__content',
+            !!stretchContents && 'Section__content--stretchContents',
+            !!noTopPadding && 'Section__content--noTopPadding',
+          ])}
+        >
           {content}
           {children}
-        </div>
+        </Box>
       )}
     </Box>
   );

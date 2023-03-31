@@ -9,14 +9,13 @@
 	throwforce = 10
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 40)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=5;powerstorage=3;syndicate=3"
 	var/click_delay = 1.5
 	var/fisto_setting = 1
-	var/gasperfist = 3
-	var/obj/item/tank/tank = null //Tank used for the gauntlet's piston-ram.
-
+	var/gasperfist = 0.5
+	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
 
 /obj/item/melee/powerfist/Destroy()
 	QDEL_NULL(tank)
@@ -30,9 +29,9 @@
 		. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
+	if(istype(W, /obj/item/tank/internals))
 		if(!tank)
-			var/obj/item/tank/IT = W
+			var/obj/item/tank/internals/IT = W
 			if(IT.volume <= 3)
 				to_chat(user, "<span class='warning'>[IT] is too small for [src].</span>")
 				return
@@ -66,7 +65,8 @@
 		if(!tank)
 			to_chat(user, "<span class='notice'>[src] currently has no tank attached to it.</span>")
 			return
-		to_chat(user, "<span class='notice'>You detach [thetank] from [src].</span>")
+		to_chat(user, "<span class='notice'>As you detach [thetank] from [src], the fist unlocks.</span>")
+		flags &= ~NODROP
 		tank.forceMove(get_turf(user))
 		user.put_in_hands(tank)
 		tank = null
@@ -76,9 +76,10 @@
 			return
 		if(!user.unEquip(thetank))
 			return
-		to_chat(user, "<span class='notice'>You hook [thetank] up to [src].</span>")
+		to_chat(user, "<span class='notice'>As you hook [thetank] up to [src], the fist locks into place around your arm.</span>")
 		tank = thetank
 		thetank.forceMove(src)
+		flags |= NODROP
 
 
 /obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)
@@ -101,7 +102,7 @@
 
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 
-	target.throw_at(throw_target, 5 * fisto_setting, 0.2)
+	target.throw_at(throw_target, 5 * fisto_setting, 3 * fisto_setting)
 
 	add_attack_logs(user, target, "POWER FISTED with [src]")
 

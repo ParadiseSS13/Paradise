@@ -5,11 +5,11 @@
 	desc = "A block of stone used to sharpen things."
 	w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/items/screwdriver.ogg'
-	var/used = 0
+	var/used = FALSE
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
-	var/requires_sharpness = 1
+	var/requires_sharpness = TRUE
 	var/claw_damage_increase = 2
 
 
@@ -25,22 +25,28 @@
 		return
 	if(istype(I, /obj/item/twohanded))//some twohanded items should still be sharpenable, but handle force differently. therefore i need this stuff
 		var/obj/item/twohanded/TH = I
-		if(TH.force_wielded >= max)
+		if(TH.force_wielded >= max || TH.force_wielded > initial(TH.force_wielded))
 			to_chat(user, "<span class='warning'>[TH] is much too powerful to sharpen further!</span>")
 			return
-		if(TH.wielded)
-			to_chat(user, "<span class='warning'>[TH] must be unwielded before it can be sharpened!</span>")
-			return
-		if(TH.force_wielded > initial(TH.force_wielded))
-			to_chat(user, "<span class='warning'>[TH] has already been refined before. It cannot be sharpened further!</span>")
-			return
 		TH.force_wielded = clamp(TH.force_wielded + increment, 0, max)//wieldforce is increased since normal force wont stay
+		TH.force_unwielded = clamp(TH.force_unwielded + increment, 0, max)
+
+	if(istype(I, /obj/item/melee/energy))
+		var/obj/item/melee/energy/E = I
+		if(E.force_on > initial(E.force_on) || (E.force > initial(E.force)))
+			to_chat(user, "<span class='warning'>[E] is much too powerful to sharpen further!</span>")
+			return
+		E.throwforce_on = clamp(E.throwforce_on + increment, 0, max)
+		E.throwforce_off = clamp(E.throwforce_off + increment, 0, max)
+		E.force_on = clamp(E.force_on + increment, 0, max)
+		E.force_off = clamp(E.force_off + increment, 0, max)
+
 	if(I.force > initial(I.force))
 		to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
 	if(!requires_sharpness)
-		I.sharp = 1
+		set_sharpness(TRUE)
 	I.force = clamp(I.force + increment, 0, max)
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
@@ -77,5 +83,5 @@
 	increment = 200
 	max = 200
 	prefix = "super-sharpened"
-	requires_sharpness = 0
+	requires_sharpness = FALSE
 	claw_damage_increase = 200

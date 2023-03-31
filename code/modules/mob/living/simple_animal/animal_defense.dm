@@ -1,5 +1,5 @@
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
-	if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
+	if(can_collar && istype(O, /obj/item/petcollar) && !pcollar)
 		add_collar(O, user)
 		return
 	else
@@ -42,13 +42,18 @@
 
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.
-		var/damage = rand(15, 30)
-		visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
-				"<span class='userdanger'>[M] has slashed at [src]!</span>")
-		playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-		add_attack_logs(M, src, "Alien attacked")
-		attack_threshold_check(damage)
-	return
+		if(M.a_intent == INTENT_DISARM)
+			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
+			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", "<span class='userdanger'>[M] [response_disarm] you!</span>")
+			add_attack_logs(M, src, "Alien disarmed")
+		else
+			var/damage = rand(15, 30)
+			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
+					"<span class='userdanger'>[M] has slashed at [src]!</span>")
+			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			add_attack_logs(M, src, "Alien attacked")
+			attack_threshold_check(damage)
+		return TRUE
 
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite
@@ -71,7 +76,7 @@
 			damage = rand(20, 35)
 		return attack_threshold_check(damage)
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = "melee")
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -96,7 +101,7 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
-	var/bomb_armor = getarmor(null, "bomb")
+	var/bomb_armor = getarmor(null, BOMB)
 	switch(severity)
 		if(1)
 			if(prob(bomb_armor))

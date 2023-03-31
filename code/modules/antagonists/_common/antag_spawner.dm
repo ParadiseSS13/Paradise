@@ -14,11 +14,16 @@
 /obj/item/antag_spawner/nuke_ops
 	name = "syndicate operative teleporter"
 	desc = "A single-use teleporter designed to quickly reinforce operatives in the field."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/implants.dmi'
 	icon_state = "locator"
 	var/borg_to_spawn
 	var/checking = FALSE
 	var/rolename = "Syndicate Operative"
+	var/image/poll_icon
+
+/obj/item/antag_spawner/nuke_ops/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = 'icons/mob/simple_human.dmi', icon_state = "syndicate_space_sword")
 
 /obj/item/antag_spawner/nuke_ops/proc/before_candidate_search(user)
 	return TRUE
@@ -46,9 +51,8 @@
 	checking = TRUE
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
-	var/mutable_appearance/ma = new('icons/mob/simple_human.dmi', "syndicate_space_sword")
-	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = ma)
-	if(LAZYLEN(nuke_candidates))
+	var/list/nuke_candidates = SSghost_spawns.poll_candidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 15 SECONDS, source = poll_icon)
+	if(length(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
 			return
@@ -95,14 +99,29 @@
 /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	name = "syndicate assault cyborg teleporter"
 	borg_to_spawn = "Assault"
+	rolename = "Syndicate Assault Cyborg"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/assault/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndie-bloodhound-preview")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/medical
 	name = "syndicate medical teleporter"
 	borg_to_spawn = "Medical"
+	rolename = "Syndicate Medical Cyborg"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/medical/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndi-medi")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/saboteur
 	name = "syndicate saboteur teleporter"
 	borg_to_spawn = "Saboteur"
+	rolename = "Syndicate Saboteur Cyborg"
+
+/obj/item/antag_spawner/nuke_ops/borg_tele/saboteur/Initialize(mapload)
+	. = ..()
+	poll_icon = image(icon = 'icons/mob/robots.dmi', icon_state = "syndi-engi-preview")
 
 /obj/item/antag_spawner/nuke_ops/borg_tele/before_candidate_search(mob/user)
 	var/switch_roles_choice = input("Would you like to continue playing as an operative or take over as the cyborg? If you play as the cyborg, another player will control your old self.", "Play As") as null|anything in list("Nuclear Operative", "Syndicate Cyborg")
@@ -111,10 +130,9 @@
 
 	if(switch_roles_choice == "Syndicate Cyborg")
 		switch_roles = TRUE
-		rolename = initial(rolename)
+		rolename = "Syndicate Operative"
 	else
 		switch_roles = FALSE
-		rolename = "Syndicate [borg_to_spawn] Cyborg"
 
 	return TRUE
 
@@ -165,7 +183,7 @@
 	var/veil_msg = "<span class='warning'>You sense a dark presence lurking \
 		just beyond the veil...</span>"
 	var/objective_verb = "Kill"
-	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
+	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter
 
 /obj/item/antag_spawner/slaughter_demon/attack_self(mob/user)
 	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a demon from the Den..
@@ -179,7 +197,7 @@
 	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the dire spirits of the underworld...</span>")
 
 	var/type = "slaughter"
-	if(demon_type == /mob/living/simple_animal/slaughter/laughter)
+	if(demon_type == /mob/living/simple_animal/demon/slaughter/laughter)
 		type = "laughter"
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [type] demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
 
@@ -196,25 +214,27 @@
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
-	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
-	S.vialspawned = TRUE
-	S.holder = holder
-	S.key = C.key
-	S.mind.assigned_role = S.name
-	S.mind.special_role = S.name
-	SSticker.mode.traitors += S.mind
+	var/mob/living/simple_animal/demon/D = new demon_type(holder)
+	if(istype(D, /mob/living/simple_animal/demon/slaughter))
+		var/mob/living/simple_animal/demon/slaughter/S = D
+		S.vialspawned = TRUE
+
+	D.key = C.key
+	D.mind.assigned_role = D.name
+	D.mind.special_role = D.name
+	SSticker.mode.traitors += D.mind
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = S.mind
+	KillDaWiz.owner = D.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
-	S.mind.objectives += KillDaWiz
+	D.mind.objectives += KillDaWiz
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = S.mind
+	KillDaCrew.owner = D.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
-	S.mind.objectives += KillDaCrew
-	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	D.mind.objectives += KillDaCrew
+	to_chat(D, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
+	to_chat(D, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -226,7 +246,19 @@
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and tickle"
-	demon_type = /mob/living/simple_animal/slaughter/laughter
+	demon_type = /mob/living/simple_animal/demon/slaughter/laughter
+
+/obj/item/antag_spawner/slaughter_demon/shadow
+	name = "vial of shadow"
+	desc = "A magically infused bottle of pure darkness, distilled from \
+		ground up shadowling bones. Used in dark rituals to attract \
+		dark creatures."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "vialshadows"
+	veil_msg = "<span class='warning'>You sense a dark presence \
+		lurking in the shadows...</span>"
+	objective_verb = "Kill"
+	demon_type = /mob/living/simple_animal/demon/shadow
 
 ///////////MORPH
 
@@ -269,10 +301,7 @@
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
 	M.key = C.key
-	M.mind.assigned_role = SPECIAL_ROLE_MORPH
-	M.mind.special_role = SPECIAL_ROLE_MORPH
-	to_chat(M, M.playstyle_string)
-	SSticker.mode.traitors += M.mind
+	M.make_morph_antag(FALSE)
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind
@@ -285,4 +314,58 @@
 	M.mind.objectives += KillDaCrew
 	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
-	M << 'sound/magic/mutate.ogg'
+
+///////////Revenant
+
+/obj/item/antag_spawner/revenant
+	name = "vial of ectoplasm"
+	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "vialectoplasm"
+	var/shatter_msg = "<span class='notice'>You shatter the bottle, no \
+		turning back now!</span>"
+	var/veil_msg = "<span class='warning'>The ectoplasm is awake and seeps \
+		away...</span>"
+	var/objective_verb = "Harvest"
+	var/mob/living/revenant = /mob/living/simple_animal/revenant
+
+/obj/item/antag_spawner/revenant/attack_self(mob/user)
+	if(level_blocks_magic(user.z)) //this is to make sure the wizard does NOT summon a revenant from the Den..
+		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		return
+
+	if(used)
+		to_chat(user, "<span class='notice'>This bottle already has a broken seal.</span>")
+		return
+	used = TRUE
+	to_chat(user, "<span class='notice'>You break the seal on the bottle, calling upon the salty specter to awaken...</span>")
+
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant awakened by [user.real_name]?", ROLE_REVENANT, 1, 10 SECONDS, source = revenant)
+
+	if(!length(candidates))
+		used = FALSE
+		to_chat(user, "<span class='notice'>The ectoplasm does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
+		return
+
+	var/mob/C = pick(candidates)
+	spawn_antag(C, get_turf(src), initial(revenant.name), user)
+	to_chat(user, "[shatter_msg]")
+	to_chat(user, "[veil_msg]")
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
+	qdel(src)
+
+/obj/item/antag_spawner/revenant/spawn_antag(client/C, turf/T, type = "", mob/user)
+	var/mob/living/simple_animal/revenant/M = new /mob/living/simple_animal/revenant(pick(GLOB.xeno_spawn))
+	M.key = C.key
+	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
+	KillDaWiz.owner = M.mind
+	KillDaWiz.target = user.mind
+	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
+	M.mind.objectives += KillDaWiz
+	var/datum/objective/KillDaCrew = new /datum/objective
+	KillDaCrew.owner = M.mind
+	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	KillDaCrew.completed = TRUE
+	M.mind.objectives += KillDaCrew
+	to_chat(M, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
+	to_chat(M, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")

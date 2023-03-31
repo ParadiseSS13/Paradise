@@ -41,7 +41,7 @@
 		new /obj/effect/temp_visual/resonance(T, user, src, burst_time)
 		user.changeNext_move(CLICK_CD_MELEE)
 
-/obj/item/resonator/pre_attackby(atom/target, mob/user, params)
+/obj/item/resonator/pre_attack(atom/target, mob/user, params)
 	if(check_allowed_items(target, 1))
 		CreateResonance(target, user)
 	return TRUE
@@ -70,7 +70,7 @@
 	transform = matrix() * 0.75
 	animate(src, transform = matrix() * 1.5, time = duration)
 	deltimer(timerid)
-	timerid = addtimer(CALLBACK(src, .proc/burst), duration, TIMER_STOPPABLE)
+	timerid = addtimer(CALLBACK(src, PROC_REF(burst)), duration, TIMER_STOPPABLE)
 
 /obj/effect/temp_visual/resonance/Destroy()
 	if(res)
@@ -94,8 +94,11 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(T)
 	if(ismineralturf(T))
-		var/turf/simulated/mineral/M = T
-		M.gets_drilled(creator)
+		if(is_ancient_rock(T))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			var/turf/simulated/mineral/M = T
+			M.gets_drilled(creator)
 	check_pressure(T)
 	playsound(T,'sound/weapons/resonator_blast.ogg',50,1)
 	for(var/mob/living/L in T)

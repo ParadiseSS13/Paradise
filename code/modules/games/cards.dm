@@ -17,11 +17,46 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	actions_types = list(/datum/action/item_action/draw_card, /datum/action/item_action/deal_card, /datum/action/item_action/deal_card_multi, /datum/action/item_action/shuffle)
 	var/list/cards = list()
-	var/cooldown = 0 // to prevent spam shuffle
+	/// To prevent spam shuffle
+	var/cooldown = 0
+	/// Decks default to a single pack, setting it higher will multiply them by that number
+	var/deck_size = 1
+	/// The total number of cards. Set on init after the deck is fully built
+	var/deck_total = 0
+	/// Styling for the cards, if they have multiple sets of sprites
+	var/card_style = null
+	/// Styling for the deck, it they has multiple sets of sprites
+	var/deck_style = null
+	/// For decks without a full set of sprites
+	var/simple_deck = FALSE
 	throw_speed = 3
 	throw_range = 10
 	throwforce = 0
 	force = 0
+	/// Inherited card hit sound
+	var/card_hitsound
+	/// Inherited card force
+	var/card_force = 0
+	/// Inherited card throw force
+	var/card_throwforce = 0
+	/// Inherited card throw speed
+	var/card_throw_speed = 4
+	/// Inherited card throw range
+	var/card_throw_range = 20
+	/// Inherited card verbs
+	var/card_attack_verb
+	/// Inherited card resistance
+	var/card_resistance_flags = FLAMMABLE
+
+/obj/item/deck/Initialize(mapload)
+	. = ..()
+	for(var/deck in 1 to deck_size)
+		build_deck()
+	deck_total = length(cards)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/deck/proc/build_deck()
+	return
 
 /obj/item/deck/attackby(obj/O as obj, mob/user as mob)
 	if(istype(O,/obj/item/cardhand))
@@ -31,6 +66,7 @@
 				cards += P
 			qdel(H)
 			to_chat(user,"<span class='notice'>You place your cards on the bottom of [src]</span>.")
+			update_icon(UPDATE_ICON_STATE)
 			return
 		else
 			to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
@@ -40,7 +76,7 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. +="<span class='notice'>It contains [cards.len ? cards.len : "no"] cards</span>"
+	. +="<span class='notice'>It contains [length(cards) ? length(cards) : "no"] cards</span>"
 
 /obj/item/deck/attack_hand(mob/user as mob)
 	draw_card(user)
@@ -104,15 +140,15 @@
 	if(user.incapacitated() || !Adjacent(user))
 		return
 
-	if(!cards.len)
+	if(!length(cards))
 		to_chat(user,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
 	var/obj/item/cardhand/H = M.is_in_hands(/obj/item/cardhand)
-	if(H && !(H.parentdeck == src))
+	if(H && (H.parentdeck != src))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
-	if(H && ((1 + H.cards.len) > H.maxcardlen))
+	if(H && length(H.cards) >= H.maxcardlen)
 		to_chat(user,"<span class = 'warning'>You can't hold that many cards in one hand!</span>")
 		return
 
@@ -123,10 +159,12 @@
 	var/datum/playingcard/P = cards[1]
 	H.cards += P
 	cards -= P
+	update_icon(UPDATE_ICON_STATE)
 	H.parentdeck = src
-	H.update_icon()
-	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draws a card.</span>")
-	to_chat(user,"<span class='notice'>It's [P].</span>")
+	H.update_values()
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
+	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
 /obj/item/deck/verb/deal_card()
 
@@ -138,7 +176,7 @@
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
-	if(!cards.len)
+	if(!length(cards))
 		to_chat(usr,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
@@ -163,7 +201,7 @@
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
-	if(!cards.len)
+	if(!length(cards))
 		to_chat(usr,"<span class='notice'>There are no cards in the deck.</span>")
 		return
 
@@ -171,7 +209,7 @@
 	for(var/mob/living/player in viewers(3))
 		if(!player.incapacitated())
 			players += player
-	var/maxcards = max(min(cards.len,10),1)
+	var/maxcards = clamp(length(cards), 1, 10)
 	var/dcard = input("How many card(s) do you wish to deal? You may deal up to [maxcards] cards.") as num
 	if(dcard > maxcards)
 		return
@@ -186,11 +224,13 @@
 	for(var/i in 1 to dcard)
 		H.cards += cards[1]
 		cards -= cards[1]
+		update_icon(UPDATE_ICON_STATE)
 		H.parentdeck = src
+		H.update_values()
 		H.concealed = TRUE
-		H.update_icon()
+		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to \himself.</span>")
+		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [user.p_themselves()].</span>")
 	else
 		user.visible_message("<span class='notice'>[user] deals [dcard] card(s) to [target].</span>")
 	H.throw_at(get_step(target,target.dir),3,1,H)
@@ -200,11 +240,12 @@
 	deckshuffle()
 
 /obj/item/deck/verb/verb_shuffle()
-	set category = "Object"
-	set name = "Shuffle"
-	set desc = "Shuffle the cards in the deck."
-	set src in view(1)
-	deckshuffle()
+	if(!isobserver(usr))
+		set category = "Object"
+		set name = "Shuffle"
+		set desc = "Shuffle the cards in the deck."
+		set src in view(1)
+		deckshuffle()
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
@@ -238,7 +279,7 @@
 		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
-	name = "Card Pack"
+	name = "card pack"
 	desc = "For those with disposable income."
 
 	icon_state = "card_pack"
@@ -249,7 +290,7 @@
 
 
 /obj/item/pack/attack_self(mob/user as mob)
-	user.visible_message("<span class='notice'>[name] rips open the [src]!</span>", "<span class='notice'>You rips open the [src]!</span>")
+	user.visible_message("<span class='notice'>[name] rips open [src]!</span>", "<span class='notice'>You rip open [src]!</span>")
 	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
@@ -257,7 +298,7 @@
 	user.unEquip(src, force = 1)
 	qdel(src)
 
-	H.update_icon()
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.put_in_hands(H)
 
 /obj/item/cardhand
@@ -266,55 +307,99 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
-	throw_speed = 4
-	throw_range = 20
-	throwforce = 0
-	force = 0
 	var/maxcardlen = 20
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
 
 	var/concealed = FALSE
 	var/list/cards = list()
+	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
+	var/direction = NORTH
 	var/parentdeck = null
+	/// The player's picked card they want to take out. Stored in the hand so it can be passed onto the verb
+	var/pickedcard = null
 
-/obj/item/cardhand/attackby(obj/O as obj, mob/user as mob)
-	if(cards.len == 1 && istype(O, /obj/item/pen))
+/obj/item/cardhand/proc/update_values()
+	if(!parentdeck)
+		return
+	var/obj/item/deck/D = parentdeck
+	hitsound = D.card_hitsound
+	force = D.card_force
+	throwforce = D.card_throwforce
+	throw_speed = D.card_throw_speed
+	throw_range = D.card_throw_range
+	attack_verb = D.card_attack_verb
+	resistance_flags = D.card_resistance_flags
+
+/obj/item/cardhand/attackby(obj/O, mob/user)
+	if(length(cards) == 1 && is_pen(O))
 		var/datum/playingcard/P = cards[1]
 		if(P.name != "Blank Card")
 			to_chat(user,"<span class='notice'>You cannot write on that card.</span>")
 			return
-		var/cardtext = sanitize(input(user, "What do you wish to write on the card?", "Card Editing") as text|null, MAX_PAPER_MESSAGE_LEN)
-		if(!cardtext)
-			return
-		P.name = cardtext
+		var/t = rename_interactive(user, P, use_prefix = FALSE, actually_rename = FALSE)
+		if(t && P.name == "Blank Card")
+			P.name = t
 		// SNOWFLAKE FOR CAG, REMOVE IF OTHER CARDS ARE ADDED THAT USE THIS.
 		P.card_icon = "cag_white_card"
-		update_icon()
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
-		if((H.cards.len + cards.len) > maxcardlen)
+		if((length(H.cards) + length(cards)) > maxcardlen)
 			to_chat(user,"<span class='warning'>You can't hold that many cards in one hand!</span>")
 			return
-		if(H.parentdeck == src.parentdeck)
+		if(H.parentdeck == parentdeck)
 			for(var/datum/playingcard/P in cards)
 				H.cards += P
-			H.concealed = src.concealed
+			H.concealed = concealed
 			qdel(src)
-			H.update_icon()
+			H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 			return
 		else
 			to_chat(user,"<span class='notice'>You cannot mix cards from other deck!</span>")
 			return
 	..()
 
-/obj/item/cardhand/attack_self(var/mob/user as mob)
+/obj/item/cardhand/attack_self(mob/user)
+	if(length(cards) == 1)
+		turn_hand(user)
+		return
+	user.set_machine(src)
+	interact(user)
+
+/obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	user.visible_message("<span class='notice'>[user] [concealed ? "conceals" : "reveals"] their hand.</span>")
+
+/obj/item/cardhand/interact(mob/user)
+	var/dat = "You have:<br>"
+	for(var/t in cards)
+		dat += "<a href='?src=[UID()];pick=[t]'>The [t]</a><br>"
+	dat += "Which card will you remove next?<br>"
+	dat += "<a href='?src=[UID()];pick=Turn'>Turn the hand over</a>"
+	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
+	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
+	popup.set_content(dat)
+	popup.open()
+
+/obj/item/cardhand/Topic(href, href_list)
+	if(..())
+		return
+	if(usr.stat || !ishuman(usr))
+		return
+	var/mob/living/carbon/human/cardUser = usr
+	if(href_list["pick"])
+		if(href_list["pick"] == "Turn")
+			turn_hand(usr)
+		else
+			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+				pickedcard = href_list["pick"]
+				Removecard()
+		cardUser << browse(null, "window=cardhand")
 
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
-	if((!concealed) && cards.len)
+	if(!concealed && length(cards))
 		. +="<span class='notice'>It contains:</span>"
 		for(var/datum/playingcard/P in cards)
 			. +="<span class='notice'>the [P.name].</span>"
@@ -326,7 +411,15 @@
 	button_icon_state = "remove_card"
 	use_itemicon = FALSE
 
+/datum/action/item_action/remove_card/IsAvailable()
+	var/obj/item/cardhand/C = target
+	if(length(C.cards) <= 1)
+		return FALSE
+	return ..()
+
 /datum/action/item_action/remove_card/Trigger()
+	if(!IsAvailable())
+		return
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
 		return C.Removecard()
@@ -360,33 +453,42 @@
 	var/pickablecards = list()
 	for(var/datum/playingcard/P in cards)
 		pickablecards[P.name] = P
-	var/pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
+	if(!pickedcard)
+		pickedcard = input("Which card do you want to remove from the hand?") as null|anything in pickablecards
+		if(!pickedcard)
+			return
 
 	if(QDELETED(src))
 		return
 
 	var/datum/playingcard/card = pickablecards[pickedcard]
+	if(loc != user) // Don't want people teleporting cards
+		return
+	user.visible_message("<span class='notice'>[user] draws a card from [user.p_their()] hand.</span>", "<span class='notice'>You take the [pickedcard] from your hand.</span>")
+	pickedcard = null
 
 	var/obj/item/cardhand/H = new(get_turf(src))
 	user.put_in_hands(H)
 	H.cards += card
 	cards -= card
 	H.parentdeck = parentdeck
+	H.update_values()
 	H.concealed = concealed
-	H.update_icon()
-
-	if(!cards.len)
+	H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+	if(!length(cards))
 		qdel(src)
 		return
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
-/obj/item/cardhand/verb/discard(var/mob/user as mob)
+/obj/item/cardhand/verb/discard()
 
 	set category = "Object"
 	set name = "Discard"
 	set desc = "Place (a) card(s) from your hand in front of you."
 
-	var/maxcards = min(cards.len,5)
+	var/mob/living/carbon/user = usr
+
+	var/maxcards = min(length(cards), 5)
 	var/discards = input("How many cards do you want to discard? You may discard up to [maxcards] card(s)") as num
 	if(discards > maxcards)
 		return
@@ -396,63 +498,87 @@
 			to_discard[P.name] = P
 		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
 
+		if(!discarding)
+			continue
+
+		if(loc != user) // Don't want people teleporting cards
+			return
+
 		if(QDELETED(src))
 			return
 
 		var/datum/playingcard/card = to_discard[discarding]
 		to_discard.Cut()
 
-		var/obj/item/cardhand/H = new(get_turf(src))
+		var/obj/item/cardhand/H = new type(get_turf(src))
 		H.cards += card
 		cards -= card
 		H.concealed = FALSE
 		H.parentdeck = parentdeck
-		H.update_icon()
-		if(cards.len)
-			update_icon()
-		if(H.cards.len)
-			usr.visible_message("<span class='notice'>The [usr] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
-		H.loc = get_step(usr,usr.dir)
+		H.update_values()
+		H.direction = user.dir
+		H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+		if(length(cards))
+			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+		if(length(H.cards))
+			user.visible_message("<span class='notice'>[user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+		H.loc = get_step(user, user.dir)
 
-	if(!cards.len)
+	if(!length(cards))
 		qdel(src)
 
-/obj/item/cardhand/update_icon(var/direction = 0)
-
-	if(!cards.len)
+/obj/item/cardhand/update_appearance(updates=ALL)
+	if(!length(cards))
 		return
-	else if(cards.len > 1)
+	if(length(cards) <= 2)
+		for(var/X in actions)
+			var/datum/action/A = X
+			A.UpdateButtonIcon()
+	..()
+
+/obj/item/cardhand/update_name()
+	. = ..()
+	if(length(cards) > 1)
 		name = "hand of cards"
-		desc = "Some playing cards."
 	else
 		name = "a playing card"
+
+/obj/item/cardhand/update_desc()
+	. = ..()
+	if(length(cards) > 1)
+		desc = "Some playing cards."
+	else
 		desc = "A playing card."
 
-	overlays.Cut()
+/obj/item/cardhand/update_icon_state()
+	return
 
-	if(cards.len == 1)
+/obj/item/cardhand/update_overlays()
+	. = ..()
+	var/matrix/M = matrix()
+	switch(direction)
+		if(NORTH)
+			M.Translate( 0,  0)
+		if(SOUTH)
+			M.Turn(180)
+			M.Translate( 0,  4)
+		if(WEST)
+			M.Turn(-90)
+			M.Translate( 3,  0)
+		if(EAST)
+			M.Turn(90)
+			M.Translate(-2,  0)
+
+	if(length(cards) == 1)
 		var/datum/playingcard/P = cards[1]
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
+		I.transform = M
 		I.pixel_x += (-5+rand(10))
 		I.pixel_y += (-5+rand(10))
-		overlays += I
+		. += I
 		return
 
-	var/offset = FLOOR(20/cards.len + 1, 1)
-
-	var/matrix/M = matrix()
-	if(direction)
-		switch(direction)
-			if(NORTH)
-				M.Translate( 0,  0)
-			if(SOUTH)
-				M.Translate( 0,  4)
-			if(WEST)
-				M.Turn(90)
-				M.Translate( 3,  0)
-			if(EAST)
-				M.Turn(90)
-				M.Translate(-2,  0)
+	var/offset = FLOOR(20/length(cards) + 1, 1)
 	var/i = 0
 	for(var/datum/playingcard/P in cards)
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
@@ -467,16 +593,18 @@
 			else
 				I.pixel_x = -7+(offset*i)
 		I.transform = M
-		overlays += I
+		. += I
 		i++
 
-/obj/item/cardhand/dropped(mob/user as mob)
+/obj/item/cardhand/dropped(mob/user)
 	..()
-	if(locate(/obj/structure/table, loc))
-		update_icon(user.dir)
+	if(user)
+		direction = user.dir
 	else
-		update_icon()
+		direction = NORTH
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
 /obj/item/cardhand/pickup(mob/user as mob)
 	. = ..()
-	update_icon()
+	direction = NORTH
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)

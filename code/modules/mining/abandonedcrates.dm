@@ -10,8 +10,8 @@
 	var/codelen = 4
 	integrity_failure = 0 //no breaking open the crate
 
-/obj/structure/closet/crate/secure/loot/New()
-	..()
+/obj/structure/closet/crate/secure/loot/Initialize(mapload)
+	. = ..()
 	var/list/digits = list("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 	code = ""
 	for(var/i = 0, i < codelen, i++)
@@ -19,6 +19,7 @@
 		code += dig
 		digits -= dig  //Player can enter codes with matching digits, but there are never matching digits in the answer
 
+/obj/structure/closet/crate/secure/loot/populate_contents()
 	var/loot = rand(1,100) //100 different crates with varying chances of spawning
 	switch(loot)
 		if(1 to 5) //5% chance
@@ -49,8 +50,8 @@
 		if(36 to 40)
 			new /obj/item/melee/baton(src)
 		if(41 to 45)
-			new /obj/item/clothing/under/shorts/red(src)
-			new /obj/item/clothing/under/shorts/blue(src)
+			new /obj/item/clothing/under/pants/shorts/red(src)
+			new /obj/item/clothing/under/pants/shorts/blue(src)
 		if(46 to 50)
 			new /obj/item/clothing/under/chameleon(src)
 			for(var/i in 1 to 7)
@@ -60,7 +61,7 @@
 		if(53 to 54)
 			new /obj/item/toy/balloon(src)
 		if(55 to 56)
-			var/newitem = pick(subtypesof(/obj/item/toy/prize))
+			var/newitem = pick(subtypesof(/obj/item/toy/figure/mech))
 			new newitem(src)
 		if(57 to 58)
 			new /obj/item/toy/syndicateballoon(src)
@@ -71,7 +72,7 @@
 		if(61 to 62)
 			for(var/i in 1 to 5)
 				new /obj/item/clothing/head/kitty(src)
-				new /obj/item/clothing/accessory/petcollar(src)
+				new /obj/item/petcollar(src)
 		if(63 to 64)
 			for(var/i in 1 to rand(4, 7))
 				var/newcoin = pick(/obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/gold, /obj/item/coin/diamond, /obj/item/coin/plasma, /obj/item/coin/uranium)
@@ -103,23 +104,9 @@
 			new /obj/item/toy/katana(src)
 		if(85 to 86)
 			new /obj/item/defibrillator/compact(src)
-		if(87) //1% chance
-			new /obj/item/weed_extract(src)
-		if(88)
-			new /obj/item/organ/internal/brain(src)
-		if(89)
-			new /obj/item/organ/internal/brain/xeno(src)
-		if(90)
-			new /obj/item/organ/internal/heart(src)
-		if(91)
-			new /obj/item/soulstone/anybody(src)
-		if(92)
-			new /obj/item/katana(src)
-		if(93)
-			new /obj/item/dnainjector/xraymut(src)
-		if(94)
+		if(87 to 88)
 			new /obj/item/storage/backpack/clown(src)
-			new /obj/item/clothing/under/rank/clown(src)
+			new /obj/item/clothing/under/rank/civilian/clown(src)
 			new /obj/item/clothing/shoes/clown_shoes(src)
 			new /obj/item/pda/clown(src)
 			new /obj/item/clothing/mask/gas/clown_hat(src)
@@ -127,8 +114,20 @@
 			new /obj/item/toy/crayon/rainbow(src)
 			new /obj/item/reagent_containers/spray/waterflower(src)
 			new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
+		if(89) //1% chance
+			new /obj/item/weed_extract(src)
+		if(90)
+			new /obj/item/organ/internal/brain(src)
+		if(91)
+			new /obj/item/organ/internal/brain/xeno(src)
+		if(92)
+			new /obj/item/organ/internal/heart(src)
+		if(93)
+			new /obj/item/soulstone/anybody(src)
+		if(94)
+			new /obj/item/katana(src)
 		if(95)
-			new /obj/item/clothing/under/mime(src)
+			new /obj/item/clothing/under/rank/civilian/mime(src)
 			new /obj/item/clothing/shoes/black(src)
 			new /obj/item/pda/mime(src)
 			new /obj/item/clothing/gloves/color/white(src)
@@ -144,7 +143,7 @@
 			new /obj/item/gun/projectile/automatic/pistol(src)
 			new /obj/item/ammo_box/magazine/m10mm(src)
 		if(98)
-			new /obj/item/katana/cursed(src)
+			new /obj/item/organ/internal/cyberimp/arm/katana(src)
 		if(99)
 			new /obj/item/storage/belt/champion(src)
 			new /obj/item/clothing/mask/luchador(src)
@@ -158,7 +157,7 @@
 		if(in_range(src, user))
 			if(input == code)
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
-				locked = 0
+				locked = FALSE
 				overlays.Cut()
 				overlays += "securecrateg"
 			else if(input == null || length(input) != codelen)
@@ -209,7 +208,7 @@
 
 /obj/structure/closet/crate/secure/loot/togglelock(mob/user)
 	if(locked)
-		boom(user)
+		attack_hand(user)
 	else
 		..()
 

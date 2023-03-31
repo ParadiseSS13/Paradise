@@ -12,34 +12,35 @@
 	var/projectiles
 	var/projectile_energy_cost
 
-/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(var/obj/mecha/combat/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/combat/M as obj)
 	if(..())
 		if(istype(M))
 			if(size > M.maxsize)
-				return 0
-			return 1
-		else if(M.emagged == 1)
-			return 1
-	return 0
+				return FALSE
+			return TRUE
+		else if(M.emagged)
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
 /obj/item/mecha_parts/mecha_equipment/weapon/action(target, params)
 	if(!action_checks(target))
-		return 0
+		return
 
 	var/turf/curloc = get_turf(chassis)
 	var/turf/targloc = get_turf(target)
 	if(!targloc || !istype(targloc) || !curloc)
-		return 0
+		return
 	if(targloc == curloc)
-		return 0
+		return
 
 	set_ready_state(0)
 	for(var/i=1 to get_shot_amount())
 		var/obj/item/projectile/A = new projectile(curloc)
 		A.firer = chassis.occupant
+		A.firer_source_atom = src
 		A.original = target
 		A.current = curloc
 
@@ -59,19 +60,15 @@
 		sleep(max(0, projectile_delay))
 	set_ready_state(0)
 	log_message("Fired from [name], targeting [target].")
-	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
-	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
+	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	do_after_cooldown()
-	return
-
 /obj/item/mecha_parts/mecha_equipment/weapon/energy
-	name = "General Energy Weapon"
+	name = "general energy weapon"
 	size = 2
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 8
-	name = "CH-PS \"Firedart\" Laser"
+	name = "\improper CH-PS \"Firedart\" Laser"
 	icon_state = "mecha_laser"
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
@@ -79,17 +76,19 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
-	name = "CH-PD Disabler"
-	origin_tech = "combat=3"
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
+	equip_cooldown = 8
+	name = "\improper CH-DS \"Peacemaker\" disabler"
+	desc = "A weapon for combat exosuits. Shoots basic disablers."
+	icon_state = "mecha_disabler"
+	energy_drain = 30
 	projectile = /obj/item/projectile/beam/disabler
-	projectiles_per_shot = 2
-	projectile_delay = 1
+	fire_sound = 'sound/weapons/taser2.ogg'
 	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 10
-	name = "CH-LC \"Solaris\" Laser Cannon"
+	name = "\improper CH-LC \"Solaris\" Laser Cannon"
 	icon_state = "mecha_laser"
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
@@ -97,28 +96,36 @@
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
-	equip_cooldown = 40
-	name = "mkIV Ion Heavy Cannon"
+	equip_cooldown = 4 SECONDS
+	name = "mkIV Ion Heavy Scatter Cannon"
+	desc = "An ion shotgun, that when fired gives the mecha a second of EMP shielding with the excess energy from the discharge."
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
-	energy_drain = 120
-	projectile = /obj/item/projectile/ion
-	fire_sound = 'sound/weapons/laser.ogg'
+	energy_drain = 300 // This is per shot + 1x cost, so 1500 per shotgun shot
+	projectile = /obj/item/projectile/ion/weak
+	projectiles_per_shot = 4
+	variance = 35
+	fire_sound = 'sound/weapons/ionrifle.ogg'
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion/action()
+	chassis.emp_proof = TRUE
+	addtimer(VARSET_CALLBACK(chassis, emp_proof, FALSE), 1 SECONDS)
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
-	name = "P-X Tesla Cannon"
+	name = "\improper P-X Tesla Cannon"
 	desc = "A weapon for combat exosuits. Fires bolts of electricity similar to the experimental tesla engine"
 	icon_state = "mecha_laser"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
-	projectile = /obj/item/projectile/energy/shock_revolver
+	projectile = /obj/item/projectile/energy/tesla_bolt
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
 	equip_cooldown = 35
-	name = "S-1 X-Ray Projector"
+	name = "\improper S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
 	icon_state = "mecha_laser"
 	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
@@ -128,13 +135,13 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
-	name = "X-XR Triple-barrel X-Ray Stream Projector"
+	name = "\improper X-XR Triple-barrel X-Ray Stream Projector"
 	projectiles_per_shot = 3
 	projectile_delay = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
 	equip_cooldown = 35
-	name = "ZFI Immolation Beam Gun"
+	name = "\improper ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
 	icon_state = "mecha_laser"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
@@ -145,7 +152,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
 	equip_cooldown = 30
-	name = "eZ-13 mk2 Heavy pulse rifle"
+	name = "eZ-13 mk2 Heavy Pulse Rifle"
 	icon_state = "mecha_pulse"
 	energy_drain = 120
 	origin_tech = "materials=3;combat=6;powerstorage=4"
@@ -164,17 +171,16 @@
 	life -= 10
 	if(ismob(A))
 		var/mob/M = A
-		if(istype(firer, /mob))
+		if(ismob(firer))
 			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
 		else
-			add_attack_logs(null, M, "Mecha-shot with <b>[src]</b>")
+			add_attack_logs(src, M, "Mecha-shot with <b>[src]</b> (no firer)")
 	if(life <= 0)
 		qdel(src)
-	return
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
-	name = "PBT \"Pacifier\" Mounted Taser"
+	name = "\improper PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
 	origin_tech = "combat=3"
 	energy_drain = 20
@@ -184,7 +190,7 @@
 	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker
-	name = "HoNkER BlAsT 5000"
+	name = "\improper HoNkER BlAsT 5000"
 	icon_state = "mecha_honker"
 	energy_drain = 200
 	equip_cooldown = 150
@@ -193,36 +199,32 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/action(target, params)
 	if(!chassis)
-		return 0
+		return
 	if(energy_drain && chassis.get_charge() < energy_drain)
-		return 0
+		return
 	if(!equip_ready)
-		return 0
+		return
 
 	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
-		M.Stuttering(20)
-		M.MinimumDeafTicks(30)
-		M.Weaken(3)
-		if(prob(30))
-			M.Stun(10)
-			M.Paralyse(4)
-		else
-			M.Jitter(500)
+		M.Stuttering(40 SECONDS)
+		M.AdjustEarDamage(0, 30)
+		M.KnockDown(6 SECONDS)
+		M.Jitter(40 SECONDS)
 		///else the mousetraps are useless
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
@@ -238,19 +240,19 @@
 	chassis.use_power(energy_drain)
 	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] used a Mecha Honker in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
+	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
 	log_game("[key_name(chassis.occupant)] used a Mecha Honker in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
-	name = "General Ballisic Weapon"
+	name = "general ballisic weapon"
 	size = 2
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/action_checks(atom/target)
 	if(..())
 		if(projectiles > 0)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/get_equip_info()
 	return "[..()]\[[projectiles]\][(projectiles < initial(projectiles))?" - <a href='?src=[UID()];rearm=1'>Rearm</a>":null]"
@@ -265,16 +267,14 @@
 	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	log_message("Rearmed [name].")
 	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, 1)
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
 	..()
 	if(href_list["rearm"])
 		rearm()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
-	name = "FNX-66 Carbine"
+	name = "\improper FNX-66 Carbine"
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
@@ -289,22 +289,22 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
-	projectile = /obj/item/projectile/bullet/mime
+	projectile = /obj/item/projectile/bullet/mime/nonlethal
 	projectiles = 20
 	projectile_energy_cost = 50
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/reticence/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
-	name = "LBX AC 10 \"Scattershot\""
+	name = "\improper LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
 	equip_cooldown = 20
-	projectile = /obj/item/projectile/bullet/midbullet
+	projectile = /obj/item/projectile/bullet/midbullet2
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
@@ -313,7 +313,7 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
-	name = "Ultra AC 2"
+	name = "\improper Ultra AC 2"
 	icon_state = "mecha_uac2"
 	origin_tech = "combat=4"
 	equip_cooldown = 10
@@ -327,11 +327,11 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual
-	name = "XMG-9 Autocannon"
+	name = "\improper XMG-9 Autocannon"
 	projectiles_per_shot = 6
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	name = "SRM-8 Light Missile Rack"
+	name = "\improper SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
 	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/missile
@@ -357,13 +357,12 @@
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
+	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
 	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
-	name = "SRX-13 Heavy Missile Launcher"
+	name = "\improper SRX-13 Heavy Missile Launcher"
 	heavy_missile = 1
 
 /obj/item/missile
@@ -382,10 +381,9 @@
 		qdel(src)
 	else
 		..()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	name = "SGL-6 Flashbang Launcher"
+	name = "\improper SGL-6 Flashbang Launcher"
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
@@ -408,10 +406,9 @@
 	spawn(det_time)
 		F.prime()
 	do_after_cooldown()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
-	name = "SOB-3 Clusterbang Launcher"
+	name = "\improper SOB-3 Clusterbang Launcher"
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
 	origin_tech = "combat=4;materials=4"
 	projectiles = 3
@@ -427,7 +424,7 @@
 	return//Extra bit of security
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
-	name = "Banana Mortar"
+	name = "banana mortar"
 	icon_state = "mecha_bananamrtr"
 	projectile = /obj/item/grown/bananapeel
 	fire_sound = 'sound/items/bikehorn.ogg'
@@ -440,8 +437,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/action(target, params)
 	if(!action_checks(target))
@@ -453,11 +450,10 @@
 	projectiles--
 	log_message("Bananed from [name], targeting [target]. HONK!")
 	do_after_cooldown()
-	return
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
-	name = "Mousetrap Mortar"
+	name = "mousetrap mortar"
 	icon_state = "mecha_mousetrapmrtr"
 	projectile = /obj/item/assembly/mousetrap
 	fire_sound = 'sound/items/bikehorn.ogg'
@@ -470,24 +466,23 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/action(target, params)
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
 	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
-	M.secured = 1
+	M.secured = TRUE
 	playsound(chassis, fire_sound, 60, 1)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
 	do_after_cooldown()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
-	name = "PCMK-6 Bola Launcher"
+	name = "\improper PCMK-6 Bola Launcher"
 	icon_state = "mecha_bola"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/restraints/legcuffs/bola
@@ -502,8 +497,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/gygax/M as obj)
 	if(..())
 		if(istype(M))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, params)
 	if(!action_checks(target))
@@ -515,12 +510,11 @@
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
 	do_after_cooldown()
-	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
 	equip_cooldown = 10
-	name = "217-D Heavy Plasma Cutter"
-	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demloishing solid obstacles."
+	name = "\improper 217-D Heavy Plasma Cutter"
+	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
 	icon_state = "mecha_plasmacutter"
 	item_state = "plasmacutter"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'

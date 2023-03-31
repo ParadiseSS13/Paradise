@@ -2,8 +2,8 @@
 	name = "ragin' mages"
 	config_tag = "raginmages"
 	required_players = 20
-	use_huds = 1
-	but_wait_theres_more = 1
+	use_huds = TRUE
+	but_wait_theres_more = TRUE
 	var/max_mages = 0
 	var/making_mage = FALSE
 	var/mages_made = 1
@@ -16,7 +16,7 @@
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
 	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
 
-/datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
+/datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizard Federation has given you the following tasks:</B>")
@@ -26,7 +26,7 @@
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	return
+	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
@@ -35,13 +35,13 @@
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
-		if(istype(wizard.current,/mob/living/carbon/brain))
+		if(isbrain(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
@@ -78,14 +78,14 @@
 			make_more_mages()
 	else
 		if(wizards.len >= wizard_cap)
-			finished = 1
+			finished = TRUE
 			return 1
 		else
 			make_more_mages()
 	return ..()
 
 // To silence all struggles within the wizard's lair
-/datum/game_mode/wizard/raginmages/proc/end_squabble(var/area/wizard_station/A)
+/datum/game_mode/wizard/raginmages/proc/end_squabble(area/wizard_station/A)
 	if(!istype(A)) return // You could probably do mean things with this otherwise
 	var/list/marked_for_death = list()
 	for(var/mob/living/L in A) // To hit non-wizard griefers
@@ -100,10 +100,10 @@
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
 			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
 		L.ghostize()
-		if(istype(L, /mob/living/carbon/brain))
+		if(isbrain(L))
 			// diediedie
 			var/mob/living/carbon/brain/B = L
-			if(istype(B.loc, /obj/item))
+			if(isitem(B.loc))
 				qdel(B.loc)
 			if(B && B.container)
 				qdel(B.container)
@@ -137,22 +137,22 @@
 			mages_made++
 			return TRUE
 		else
-			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
-			return FALSE
+			. = FALSE
+			CRASH("The candidates list for ragin' mages contained non-observer entries!")
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS
 // Lemme know if this causes species to mess up spectacularly or anything
-/datum/game_mode/wizard/raginmages/proc/makeBody(var/mob/dead/observer/G)
+/datum/game_mode/wizard/raginmages/proc/makeBody(mob/dead/observer/G)
 	if(!G || !G.key)
 		return // Let's not steal someone's soul here
 	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))
-	G.client.prefs.copy_to(new_character)
+	G.client.prefs.active_character.copy_to(new_character)
 	new_character.key = G.key
 	return new_character
 
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
-		feedback_set_details("round_end_result", "raging wizard loss - wizard killed")
+		SSticker.mode_result = "raging wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..(1)

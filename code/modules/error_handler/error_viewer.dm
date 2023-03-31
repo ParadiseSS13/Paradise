@@ -24,7 +24,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 /datum/ErrorViewer/
 	var/name = ""
 
-/datum/ErrorViewer/proc/browseTo(var/user, var/html)
+/datum/ErrorViewer/proc/browseTo(user, html)
 	if(user)
 		var/datum/browser/popup = new(user, "error_viewer", "Runtime Viewer", 700, 500)
 		popup.add_head_content({"<style>
@@ -47,7 +47,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 		popup.set_content(html)
 		popup.open(0)
 
-/datum/ErrorViewer/proc/buildHeader(var/datum/ErrorViewer/back_to, var/linear, var/refreshable)
+/datum/ErrorViewer/proc/buildHeader(datum/ErrorViewer/back_to, linear, refreshable)
 	// Common starter HTML for showTo
 	var/html = ""
 
@@ -59,11 +59,11 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 		html += "<br><br>"
 	return html
 
-/datum/ErrorViewer/proc/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
+/datum/ErrorViewer/proc/showTo(user, datum/ErrorViewer/back_to, linear)
 	// Specific to each child type
 	return
 
-/datum/ErrorViewer/proc/makeLink(var/linktext, var/datum/ErrorViewer/back_to, var/linear)
+/datum/ErrorViewer/proc/makeLink(linktext, datum/ErrorViewer/back_to, linear)
 	var/back_to_param = ""
 	if(!linktext)
 		linktext = name
@@ -78,7 +78,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	var/list/error_sources = list()
 	var/list/errors_silenced = list()
 
-/datum/ErrorViewer/ErrorCache/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
+/datum/ErrorViewer/ErrorCache/showTo(user, datum/ErrorViewer/back_to, linear)
 	var/html = buildHeader(null, linear, refreshable=1)
 	html += "[GLOB.total_runtimes] runtimes, [GLOB.total_runtimes_skipped] skipped<br><br>"
 	if(!linear)
@@ -86,14 +86,17 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 		var/datum/ErrorViewer/ErrorSource/error_source
 		for(var/erroruid in error_sources)
 			error_source = error_sources[erroruid]
-			html += "<p class='runtime_list'>[error_source.makeLink(null, src)]<br></p>"
+			var/e_count_text = length(error_source.errors)
+			if(e_count_text >= ERROR_LIMIT)
+				e_count_text = "[e_count_text]+"
+			html += "<p class='runtime_list'>([e_count_text]) [error_source.makeLink(null, src)]<br></p>"
 	else
 		html += "[makeLink("organized", null)] | linear<hr>"
 		for(var/datum/ErrorViewer/ErrorEntry/error_entry in errors)
 			html += "<p class='runtime_list'>[error_entry.makeLink(null, src, 1)]<br></p>"
 	browseTo(user, html)
 
-/datum/ErrorViewer/ErrorCache/proc/logError(var/exception/e, var/list/desclines, var/skipCount, var/datum/e_src)
+/datum/ErrorViewer/ErrorCache/proc/logError(exception/e, list/desclines, skipCount, datum/e_src)
 	if(!istype(e))
 		return // Abnormal exception, don't even bother
 
@@ -112,8 +115,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 
 	// Show the error to admins with debug messages turned on, but only if one
 	//  from the same source hasn't been shown too recently
-	// (Also, make sure config is initialized, or log_debug will runtime)
-	if(config && error_source.next_message_at <= world.time)
+	if(error_source.next_message_at <= world.time)
 		var/const/viewtext = "\[view]" // Nesting these in other brackets went poorly
 		log_debug("Runtime in [e.file],[e.line]: [html_encode(e.name)] [error_entry.makeLink(viewtext)]")
 		error_source.next_message_at = world.time + ERROR_MSG_DELAY
@@ -122,13 +124,13 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	var/list/errors = list()
 	var/next_message_at = 0
 
-/datum/ErrorViewer/ErrorSource/New(var/exception/e)
+/datum/ErrorViewer/ErrorSource/New(exception/e)
 	if(!istype(e))
 		name = "\[[time_stamp()]] Uncaught exceptions"
 		return
 	name = "\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]"
 
-/datum/ErrorViewer/ErrorSource/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
+/datum/ErrorViewer/ErrorSource/showTo(user, datum/ErrorViewer/back_to, linear)
 	if(!istype(back_to))
 		back_to = GLOB.error_cache
 	var/html = buildHeader(back_to, refreshable=1)
@@ -149,7 +151,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 	var/turf/usrLoc
 	var/isSkipCount
 
-/datum/ErrorViewer/ErrorEntry/New(var/exception/e, var/list/desclines, var/skipCount, var/datum/e_src)
+/datum/ErrorViewer/ErrorEntry/New(exception/e, list/desclines, skipCount, datum/e_src)
 	if(!istype(e))
 		name = "\[[time_stamp()]] Uncaught exception: [e]"
 		return
@@ -173,30 +175,38 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 		usrUID = usr.UID()
 		usrLoc = get_turf(usr)
 
-/datum/ErrorViewer/ErrorEntry/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
+/datum/ErrorViewer/ErrorEntry/showTo(user, datum/ErrorViewer/back_to, linear)
 	if(!istype(back_to))
 		back_to = error_source
+
 	var/html = buildHeader(back_to, linear)
+	html += "<div class='bad'><b>Be sure to censor out ckeys when copying runtimes!</b></div><br>"
 	html += "<div class='runtime'>[html_encode(name)]<br>[desc]</div>"
+
 	if(srcRef)
 		html += "<br>src: <a href='?_src_=vars;Vars=[srcUID]'>VV</a>"
+
 		if(ispath(srcType, /mob))
 			html += " <a href='?_src_=holder;adminplayeropts=[srcUID]'>PP</a>"
 			html += " <a href='?_src_=holder;adminplayerobservefollow=[srcUID]'>Follow</a>"
+
 		if(istype(srcLoc))
 			html += "<br>src.loc: <a href='?_src_=vars;Vars=[srcLoc.UID()]'>VV</a>"
 			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[srcLoc.x];Y=[srcLoc.y];Z=[srcLoc.z]'>JMP</a>"
+
 	if(usrRef)
 		html += "<br>usr: <a href='?_src_=vars;Vars=[usrUID]'>VV</a>"
 		html += " <a href='?_src_=holder;adminplayeropts=[usrUID]'>PP</a>"
 		html += " <a href='?_src_=holder;adminplayerobservefollow=[usrUID]'>Follow</a>"
+
 		if(istype(usrLoc))
 			html += "<br>usr.loc: <a href='?_src_=vars;Vars=[usrLoc.UID()]'>VV</a>"
 			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[usrLoc.x];Y=[usrLoc.y];Z=[usrLoc.z]'>JMP</a>"
+
 	browseTo(user, html)
 
-/datum/ErrorViewer/ErrorEntry/makeLink(var/linktext, var/datum/ErrorViewer/back_to, var/linear)
+/datum/ErrorViewer/ErrorEntry/makeLink(linktext, datum/ErrorViewer/back_to, linear)
 	if(isSkipCount)
 		return html_encode(name)
-	else
-		return ..()
+
+	return ..()

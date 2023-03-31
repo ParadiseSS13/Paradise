@@ -19,8 +19,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	singular_name = "marker beacon"
 	desc = "Prism-brand path illumination devices. Used by miners to mark paths and warn of danger."
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "marker"
-	armor = list("melee" = 50, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 25, "acid" = 0)
+	icon_state = "markerrandom"
+	base_icon_state = "marker"
+	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0)
 	max_integrity = 50
 	merge_type = /obj/item/stack/marker_beacon
 	max_amount = 100
@@ -34,15 +35,15 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/marker_beacon/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Use in-hand to place a [singular_name].</span>"
 	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
-/obj/item/stack/marker_beacon/update_icon()
-	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
+/obj/item/stack/marker_beacon/update_icon_state()
+	icon_state = "[base_icon_state][lowertext(picked_color)]"
 
 /obj/item/stack/marker_beacon/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -58,14 +59,14 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		transfer_fingerprints_to(M)
 
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
-	if(!istype(user) || CanUseTopic(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || CanUseTopic(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/marker_beacon
 	name = "marker beacon"
@@ -73,7 +74,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
 	layer = BELOW_OPEN_DOOR_LAYER
-	armor = list("melee" = 50, "bullet" = 75, "laser" = 75, "energy" = 75, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 25, "acid" = 0)
+	armor = list(MELEE = 50, BULLET = 75, LASER = 75, ENERGY = 75, BOMB = 25, BIO = 100, RAD = 100, FIRE = 25, ACID = 0)
 	max_integrity = 50
 	anchored = TRUE
 	light_range = 2
@@ -84,20 +85,21 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 /obj/structure/marker_beacon/Initialize(mapload, set_color)
 	. = ..()
 	picked_color = set_color
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/marker_beacon/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
-		M.update_icon()
+		M.update_icon(UPDATE_ICON_STATE)
 	qdel(src)
 
 /obj/structure/marker_beacon/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
+	if(picked_color)
+		. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
-/obj/structure/marker_beacon/update_icon()
+/obj/structure/marker_beacon/update_icon_state()
 	while(!picked_color || !GLOB.marker_beacon_colors[picked_color])
 		picked_color = pick(GLOB.marker_beacon_colors)
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]-on"
@@ -107,15 +109,18 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	. = ..()
 	if(.)
 		return
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
 	if(do_after(user, remove_speed, target = src))
 		var/obj/item/stack/marker_beacon/M = new(loc)
 		M.picked_color = picked_color
-		M.update_icon()
+		M.update_icon(UPDATE_ICON_STATE)
 		transfer_fingerprints_to(M)
-		if(user.put_in_hands(M, TRUE)) //delete the beacon if it fails
-			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			qdel(src) //otherwise delete us
+		user.put_in_hands(M)
+		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+		qdel(src)
 
 /obj/structure/marker_beacon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/marker_beacon))
@@ -130,11 +135,37 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)
 	..()
-	if(!istype(user) || CanUseTopic(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	var/input_color = input(user, "Choose a color.", "Beacon Color") as null|anything in GLOB.marker_beacon_colors
-	if(!istype(user) || CanUseTopic(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
+
+/obj/structure/marker_beacon/dock_marker
+	name = "docking beacon"
+	desc = "An illumination device used to designate docking ports. It is anchored in place and pulsing steadily."
+	icon_state = "dockingmarker"
+	flags = NODECONSTRUCT
+
+/obj/structure/marker_beacon/dock_marker/update_icon_state()
+	set_light(light_range, light_power, LIGHT_COLOR_BLUE)
+
+/obj/structure/marker_beacon/dock_marker/attackby()
+	return
+
+/obj/structure/marker_beacon/dock_marker/attack_hand()
+	return
+
+/obj/structure/marker_beacon/dock_marker/AltClick()
+	return
+
+/obj/structure/marker_beacon/dock_marker/collision
+	name = "collision beacon"
+	desc = "A Prism-brand collision illumination device. It is anchored in place and glowing steadily."
+	icon_state = "markerburgundy-on"
+
+/obj/structure/marker_beacon/dock_marker/collision/update_icon_state()
+	set_light(light_range, light_power, LIGHT_COLOR_FLARE)

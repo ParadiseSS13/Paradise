@@ -16,7 +16,9 @@
 	var/death = TRUE //Kill the mob
 	var/roundstart = TRUE //fires on initialize
 	var/instant = FALSE	//fires on New
-	var/flavour_text = "The mapper forgot to set this!"
+	var/flavour_text = ""	//flavour/fluff about the role, optional.
+	var/description = "A description for this has not been set. This is either an oversight or an admin-spawned spawner not in normal use."	//intended as OOC info about the role
+	var/important_info = ""	//important info such as rules that apply to you, etc. Optional.
 	var/faction = null
 	var/permanent = FALSE	//If true, the spawner will not disappear upon running out of uses.
 	var/random = FALSE		//Don't set a name or gender, just go random
@@ -31,22 +33,21 @@
 	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
 	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
+	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	var/mob/dead/observer/O = user
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(jobban_isbanned(user, banType))
+	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return
 	if(cannotPossess(user))
 		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
-	if(!O.can_reenter_corpse)
-		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
+	if(time_check(user))
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
@@ -84,11 +85,32 @@
 /obj/effect/mob_spawn/proc/equip(mob/M)
 	return
 
+/obj/effect/mob_spawn/proc/time_check(mob/user)
+	var/deathtime = world.time - user.timeofdeath
+	var/joinedasobserver = FALSE
+	if(isobserver(user))
+		var/mob/dead/observer/G = user
+		if(G.started_as_observer)
+			joinedasobserver = TRUE
+
+	var/deathtimeminutes = round(deathtime / 600)
+	var/pluralcheck = "minute"
+	if(deathtimeminutes == 0)
+		pluralcheck = ""
+	else if(deathtimeminutes == 1)
+		pluralcheck = " [deathtimeminutes] minute and"
+	else if(deathtimeminutes > 1)
+		pluralcheck = " [deathtimeminutes] minutes and"
+	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10, 1)
+
+	if(deathtime <= death_cooldown && !joinedasobserver)
+		to_chat(user, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(user, "<span class='warning'>You must wait [death_cooldown / 600] minutes to respawn!</span>")
+		return TRUE
+	return FALSE
+
 /obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
-	var/mob/living/carbon/human/H = M
-	if(H && !H.dna)
-		H.Initialize(null)
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
 		if(!mob_gender)
@@ -125,13 +147,15 @@
 	if(!permanent && !uses)
 		qdel(src)
 
+	return M
+
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
-	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
+	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona", "Nian")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -190,11 +214,13 @@
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
 		H.set_species(mob_species)
+	if(random)
+		H.real_name = random_name(H.gender, H.dna.species)
 
 	if(husk)
-		H.ChangeToHusk()
+		H.Drain()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
-		H.mutations.Remove(HUSK)
+		H.cure_husk()
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
@@ -211,15 +237,13 @@
 			D.f_style = random_facial_hair_style(gender, D.dna.species.name)
 		D.facial_colour = rand_hex_color()
 	if(skin_tone)
-		H.change_skin_tone(skin_tone)
+		H.s_tone = skin_tone
 	else
-		H.change_skin_tone(random_skin_tone())
-		H.change_skin_color(rand_hex_color())
-	H.update_hair()
-	H.update_fhair()
-	H.update_body()
-	H.update_dna()
-	H.regenerate_icons()
+		H.s_tone = random_skin_tone()
+		H.skin_colour = rand_hex_color()
+
+	H.update_body(rebuild_base = TRUE)
+
 	if(outfit)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
@@ -229,7 +253,8 @@
 		H.equipOutfit(outfit)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
-			qdel(I)
+			if(I)
+				qdel(I)
 
 		if(disable_pda)
 			// We don't want corpse PDAs to show up in the messenger list.
@@ -336,7 +361,7 @@
 	name = "sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "<span class='big bold'>You are a space doctor!</span>"
+	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
 
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
@@ -359,7 +384,7 @@
 /datum/outfit/job/engineer/suit
 	name = "Station Engineer"
 
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	shoes = /obj/item/clothing/shoes/workboots
@@ -399,7 +424,7 @@
 
 /datum/outfit/clownsoldier
 	name = "Clown Soldier"
-	uniform = /obj/item/clothing/under/soldieruniform
+	uniform = /obj/item/clothing/under/costume/soldieruniform
 	suit = /obj/item/clothing/suit/soldiercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	l_ear = /obj/item/radio/headset
@@ -410,14 +435,14 @@
 
 /datum/outfit/clownofficer
 	name = "Clown Officer"
-	uniform = /obj/item/clothing/under/officeruniform
+	uniform = /obj/item/clothing/under/costume/officeruniform
 	suit = /obj/item/clothing/suit/officercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
 	back = /obj/item/storage/backpack/clown
-	head = /obj/item/clothing/head/naziofficer
+	head = /obj/item/clothing/head/armyofficer
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"
@@ -444,11 +469,11 @@
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	uniform = /obj/item/clothing/under/rank/miner
+	uniform = /obj/item/clothing/under/rank/cargo/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/supply
+	id = /obj/item/card/id/shaftminer
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
@@ -470,19 +495,22 @@
 	name = "bartender sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "<span class='big bold'>You are a space bartender!</span><b> Time to mix drinks and change lives.</b>"
+	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
+	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
 	assignedrole = "Space Bartender"
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
-	flavour_text = "<span class='big bold'>You're a spunky lifeguard!</span><b> It's up to you to make sure nobody drowns or gets eaten by sharks and stuff.</b>"
+	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell. \
+	You aren't trained for this, but you'll still keep your guests alive!"
+	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
 	mob_gender = "female"
 	name = "lifeguard sleeper"
 	id_job = "Lifeguard"
-	uniform = /obj/item/clothing/under/shorts/red
+	uniform = /obj/item/clothing/under/pants/shorts/red
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/black
@@ -502,27 +530,30 @@
 	name = "beach bum sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "You are a beach bum!"
+	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
+	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
 	assignedrole = "Beach Bum"
 
 /datum/outfit/beachbum
 	name = "Beach Bum"
 	glasses = /obj/item/clothing/glasses/sunglasses
-	uniform = /obj/item/clothing/under/shorts/red
+	uniform = /obj/item/clothing/under/pants/shorts/red
 
 /////////////////Spooky Undead//////////////////////
 
 /obj/effect/mob_spawn/human/skeleton
 	name = "skeletal remains"
 	mob_name = "skeleton"
-	mob_species = /datum/species/skeleton
+	mob_species = /datum/species/skeleton/brittle
 	mob_gender = NEUTER
 
 /obj/effect/mob_spawn/human/skeleton/alive
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/effects/blood.dmi'
+	mob_species = /datum/species/skeleton
 	icon_state = "remains"
+	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."
 	assignedrole = "Skeleton"
 
@@ -538,7 +569,7 @@
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
 	l_ear = /obj/item/radio/headset/heads/hop
-	uniform = /obj/item/clothing/under/rank/centcom_officer
+	uniform = /obj/item/clothing/under/rank/centcom
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/black
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -594,7 +625,7 @@
 
 /datum/outfit/cryobartender
 	name = "Cryogenic Bartender"
-	uniform = /obj/item/clothing/under/rank/bartender
+	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/black
 	suit = /obj/item/clothing/suit/armor/vest

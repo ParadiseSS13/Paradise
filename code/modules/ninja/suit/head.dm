@@ -5,5 +5,5 @@
 	name = "ninja hood"
 	icon_state = "s-ninja"
 	item_state = "s-ninja_hood"
-	armor = list("melee" = 60, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 25, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 75, BULLET = 50, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 20, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
 	blockTracking = 1

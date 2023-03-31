@@ -3,20 +3,21 @@
 
 /*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
-In all, this is a lot like the monkey code. /N
+In all, this is a lot like the monkey code.
+This code could certainly use with a touch of TLC, but it functions alright. Bit odd aliens attacking other aliens are like, full logged though
 */
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
+	if(isturf(loc) && istype(loc.loc, /area/start))
 		to_chat(M, "No attacking people at spawn, you jackass.")
 		return
-
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			AdjustSleeping(-5)
-			StopResting()
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
+			AdjustSleeping(-10 SECONDS)
+			AdjustParalysis(-6 SECONDS)
+			AdjustStunned(-6 SECONDS)
+			AdjustWeakened(-6 SECONDS)
+			AdjustKnockDown(-6 SECONDS)
+			stand_up()
 			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
 
 		if(INTENT_GRAB)
@@ -38,19 +39,22 @@ In all, this is a lot like the monkey code. /N
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
-		return 0
+		return FALSE
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			help_shake_act(M)
+			if(M.on_fire)
+				pat_out(M)
+			else
+				help_shake_act(M)
 		if(INTENT_GRAB)
 			grabbedby(M)
 		if(INTENT_HARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 		if(INTENT_DISARM)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -71,9 +75,9 @@ In all, this is a lot like the monkey code. /N
 				adjustStaminaLoss(damage)
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
-	return 0 //aliens are immune to acid.
+	return FALSE //aliens are immune to acid.
 
-/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M) // This is very RNG based, maybe come back to this later - GDN
 	if(..()) //successful slime attack
 		var/damage = rand(5, 35)
 		if(M.is_adult)

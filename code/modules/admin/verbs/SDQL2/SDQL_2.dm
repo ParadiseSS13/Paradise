@@ -129,18 +129,18 @@
 								var/i = 0
 								for(var/v in sets)
 									if(++i == sets.len)
-										if(istype(temp, /turf) && (v == "x" || v == "y" || v == "z"))
+										if(isturf(temp) && (v == "x" || v == "y" || v == "z"))
 											continue
 										if(!temp.vv_edit_var(v, SDQL_expression(d, set_list[sets])))
 											to_chat(usr, "[temp] rejected your varedit.")
 										break
-									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || istype(temp.vars[v], /client)))
+									if(temp.vars.Find(v) && (istype(temp.vars[v], /datum) || isclient(temp.vars[v])))
 										temp = temp.vars[v]
 									else
 										break
 
 	catch(var/exception/e)
-		to_chat(usr, "<span class='danger'>An exception has occured during the execution of your query and your query has been aborted.</span>")
+		to_chat(usr, "<span class='danger'>An exception has occurred during the execution of your query and your query has been aborted.</span>")
 		to_chat(usr, "  [e.name]")
 		to_chat(usr, "  at: [e.file]:[e.line]")
 
@@ -437,7 +437,7 @@
 
 	return v
 
-/proc/SDQL_function(var/datum/object, var/procname, var/list/arguments, source)
+/proc/SDQL_function(datum/object, procname, list/arguments, source)
 	var/list/new_args = list()
 	for(var/arg in arguments)
 		new_args[++new_args.len] = SDQL_expression(source, arg)

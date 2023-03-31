@@ -15,7 +15,7 @@
 
 /datum/game_mode/traitor/autotraitor/pre_setup()
 
-	if(config.protect_roles_from_antagonist)
+	if(GLOB.configuration.gamemode.prevent_mindshield_antags)
 		restricted_jobs += protected_jobs
 
 	possible_traitors = get_players_for_role(ROLE_TRAITOR)
@@ -35,7 +35,7 @@
 	if(!possible_traitors.len)
 		return 0
 
-	if(config.traitor_scaling)
+	if(GLOB.configuration.gamemode.traitor_scaling)
 		num_traitors = max_traitors - 1 + prob(traitor_prob)
 		log_game("Number of traitors: [num_traitors]")
 		message_admins("Players counted: [num_players]  Number of traitors chosen: [num_traitors]")
@@ -52,7 +52,7 @@
 		if(!traitor || !istype(traitor))
 			pre_traitors.Remove(traitor)
 			continue
-		if(istype(traitor)) 
+		if(istype(traitor))
 			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
 
@@ -83,8 +83,8 @@
 				if(player.mind.special_role)
 					traitorcount += 1
 					continue
-				if(ishuman(player) || isrobot(player) || isAI(player))
-					if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+				if(ishuman(player) || isAI(player))
+					if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, ROLE_SYNDICATE))
 						possible_traitors += player.mind
 		for(var/datum/mind/player in possible_traitors)
 			for(var/job in restricted_jobs)
@@ -144,7 +144,7 @@
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 	//message_admins("Late Join Check")
-	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, "Syndicate"))
+	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, ROLE_SYNDICATE))
 		//message_admins("Late Joiner has Be Syndicate")
 		//message_admins("Checking number of players")
 		var/playercount = 0

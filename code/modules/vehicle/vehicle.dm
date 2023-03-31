@@ -4,12 +4,12 @@
 	desc = "A basic vehicle, vroom"
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "scooter"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
 	var/key_type
 	var/held_key_type //Similar to above, but the vehicle needs the key in hands as opposed to inserted into the ignition
 	var/obj/item/key/inserted_key
@@ -18,7 +18,7 @@
 	var/last_move_diagonal = FALSE
 	var/vehicle_move_delay = 2 //tick delay between movements, lower = faster, higher = slower
 	var/auto_door_open = TRUE
-	var/needs_gravity = 0 //To allow non-space vehicles to move in no gravity or not, mostly for adminbus
+	var/needs_gravity = FALSE //To allow non-space vehicles to move in no gravity or not, mostly for adminbus
 	//Pixels
 	var/generic_pixel_x = 0 //All dirs show this pixel_x for the driver
 	var/generic_pixel_y = 0 //All dirs shwo this pixel_y for the driver
@@ -32,6 +32,13 @@
 /obj/vehicle/Destroy()
 	QDEL_NULL(inserted_key)
 	return ..()
+
+// So that beepsky can't push the janicart
+/obj/vehicle/CanPass(atom/movable/mover, turf/target, height)
+	if(istype(mover) && mover.checkpass(PASSMOB))
+		return TRUE
+	else
+		return ..()
 
 /obj/vehicle/examine(mob/user)
 	. = ..()
@@ -61,6 +68,11 @@
 			inserted_key = I
 		else
 			to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
+		return
+	if(istype(I, /obj/item/borg/upgrade/vtec) && vehicle_move_delay > 1)
+		vehicle_move_delay = 1
+		qdel(I)
+		to_chat(user, "<span class='notice'>You upgrade [src] with [I].</span>")
 		return
 	return ..()
 
@@ -106,9 +118,8 @@
 			buckled_mob.pixel_y = generic_pixel_y
 
 
-/obj/vehicle/update_icon()
+/obj/vehicle/update_icon_state()
 	return
-
 
 /obj/item/key
 	name = "key"
@@ -153,7 +164,7 @@
 		unbuckle_mob(user)
 		return
 
-	var/delay = (last_move_diagonal? 2 : 1) * (vehicle_move_delay + config.human_delay)
+	var/delay = (last_move_diagonal? 2 : 1) * (vehicle_move_delay + GLOB.configuration.movement.human_delay)
 	if(world.time < last_vehicle_move + delay)
 		return
 	last_vehicle_move = world.time
@@ -176,7 +187,7 @@
 					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
 					for(var/m in buckled_mobs)
 						var/mob/living/buckled_mob = m
-						buckled_mob.Weaken(5)
+						buckled_mob.KnockDown(10 SECONDS)
 					unbuckle_all_mobs()
 					step(src, dir)
 
@@ -201,7 +212,7 @@
 			for(var/m in buckled_mobs)
 				M.Bumped(m)
 
-/obj/vehicle/proc/RunOver(var/mob/living/carbon/human/H)
+/obj/vehicle/proc/RunOver(mob/living/carbon/human/H)
 	return		//write specifics for different vehicles
 
 
@@ -223,3 +234,7 @@
 
 /obj/vehicle/space/Process_Spacemove(direction)
 	return TRUE
+
+/obj/vehicle/zap_act(power, zap_flags)
+	zap_buckle_check(power)
+	return ..()

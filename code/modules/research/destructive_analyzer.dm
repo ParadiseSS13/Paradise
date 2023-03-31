@@ -11,8 +11,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 	icon_state = "d_analyzer"
 	var/decon_mod = 0
 
-/obj/machinery/r_n_d/destructive_analyzer/New()
-	..()
+/obj/machinery/r_n_d/destructive_analyzer/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -20,14 +20,19 @@ Note: Must be placed within 3 tiles of the R&D Console
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
 
-/obj/machinery/r_n_d/destructive_analyzer/upgraded/New()
-	..()
+/obj/machinery/r_n_d/destructive_analyzer/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	RefreshParts()
+
+/obj/machinery/r_n_d/destructive_analyzer/Destroy()
+	if(linked_console)
+		linked_console.linked_destroy = null
+	return ..()
 
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
@@ -36,17 +41,14 @@ Note: Must be placed within 3 tiles of the R&D Console
 	decon_mod = T
 
 
-/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(var/list/source_list)
+/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
 
 
-/obj/machinery/r_n_d/destructive_analyzer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(shocked)
-		if(shock(user,50))
-			return TRUE
+/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(default_deconstruction_screwdriver(user, "d_analyzer_t", "d_analyzer", O))
 		if(linked_console)
 			linked_console.linked_destroy = null
@@ -59,15 +61,15 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(default_deconstruction_crowbar(user, O))
 		return
 
-	if(disabled)
-		return
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>The [src.name] must be linked to an R&D console first!</span>")
+		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
 		return
+
 	if(busy)
-		to_chat(user, "<span class='warning'>The [src.name] is busy right now.</span>")
+		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
 		return
-	if(istype(O, /obj/item) && !loaded_item)
+
+	if(isitem(O) && !loaded_item)
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
@@ -76,13 +78,13 @@ Note: Must be placed within 3 tiles of the R&D Console
 			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand, you cannot put it in the [src.name]!</span>")
+			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return
-		busy = 1
+		busy = TRUE
 		loaded_item = O
 		O.loc = src
-		to_chat(user, "<span class='notice'>You add the [O.name] to the [src.name]!</span>")
+		to_chat(user, "<span class='notice'>You add [O] to [src]!</span>")
 		flick("d_analyzer_la", src)
 		spawn(10)
 			icon_state = "d_analyzer_l"
-			busy = 0
+			busy = FALSE

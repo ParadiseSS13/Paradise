@@ -1,47 +1,31 @@
 /datum/wires/syndicatebomb
-	random = TRUE
+	randomize = TRUE
 	holder_type = /obj/machinery/syndicatebomb
 	wire_count = 5
+	proper_name = "Syndicate bomb"
+	window_x = 320
+	window_y = 22
 
-#define BOMB_WIRE_BOOM 1			// Explodes if pulsed or cut while active, defuses a bomb that isn't active on cut
-#define BOMB_WIRE_UNBOLT 2		// Unbolts the bomb if cut, hint on pulsed
-#define BOMB_WIRE_DELAY 4		// Raises the timer on pulse, does nothing on cut
-#define BOMB_WIRE_PROCEED 8		// Lowers the timer, explodes if cut while the bomb is active
-#define BOMB_WIRE_ACTIVATE 16	// Will start a bombs timer if pulsed, will hint if pulsed while already active, will stop a timer a bomb on cut
+/datum/wires/syndicatebomb/New(atom/_holder)
+	wires = list(WIRE_BOMB_DELAY, WIRE_EXPLODE, WIRE_BOMB_UNBOLT,WIRE_BOMB_PROCEED, WIRE_BOMB_ACTIVATE)
+	return ..()
 
-/datum/wires/syndicatebomb/GetWireName(index)
-	switch(index)
-		if(BOMB_WIRE_BOOM)
-			return "Explode"
-
-		if(BOMB_WIRE_UNBOLT)
-			return "Unbolt"
-
-		if(BOMB_WIRE_DELAY)
-			return "Delay"
-
-		if(BOMB_WIRE_PROCEED)
-			return "Proceed"
-
-		if(BOMB_WIRE_ACTIVATE)
-			return "Activate"
-
-/datum/wires/syndicatebomb/CanUse(mob/living/L)
+/datum/wires/syndicatebomb/interactable(mob/user)
 	var/obj/machinery/syndicatebomb/P = holder
 	if(P.open_panel)
 		return TRUE
 	return FALSE
 
-/datum/wires/syndicatebomb/UpdatePulsed(index)
+/datum/wires/syndicatebomb/on_pulse(wire)
 	var/obj/machinery/syndicatebomb/B = holder
-	switch(index)
-		if(BOMB_WIRE_BOOM)
+	switch(wire)
+		if(WIRE_EXPLODE)
 			if(B.active)
 				holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
-		if(BOMB_WIRE_UNBOLT)
+		if(WIRE_BOMB_UNBOLT)
 			holder.visible_message("<span class='notice'>[bicon(holder)] The bolts spin in place for a moment.</span>")
-		if(BOMB_WIRE_DELAY)
+		if(WIRE_BOMB_DELAY)
 			if(B.delayedbig)
 				holder.visible_message("<span class='notice'>[bicon(B)] The bomb has already been delayed.</span>")
 			else
@@ -49,7 +33,7 @@
 				playsound(B, 'sound/machines/chime.ogg', 30, 1)
 				B.detonation_timer += 300
 				B.delayedbig = TRUE
-		if(BOMB_WIRE_PROCEED)
+		if(WIRE_BOMB_PROCEED)
 			holder.visible_message("<span class='danger'>[bicon(B)] The bomb buzzes ominously!</span>")
 			playsound(B, 'sound/machines/buzz-sigh.ogg', 30, 1)
 			var/seconds = B.seconds_remaining()
@@ -59,7 +43,7 @@
 				B.detonation_timer -= 100
 			else if(seconds >= 11) // Both to prevent negative timers and to have a little mercy.
 				B.detonation_timer = world.time + 100
-		if(BOMB_WIRE_ACTIVATE)
+		if(WIRE_BOMB_ACTIVATE)
 			if(!B.active && !B.defused)
 				holder.visible_message("<span class='danger'>[bicon(B)] You hear the bomb start ticking!</span>")
 				B.activate()
@@ -72,11 +56,11 @@
 				B.delayedlittle = TRUE
 	..()
 
-/datum/wires/syndicatebomb/UpdateCut(index, mended)
+/datum/wires/syndicatebomb/on_cut(wire, mend)
 	var/obj/machinery/syndicatebomb/B = holder
-	switch(index)
-		if(BOMB_WIRE_BOOM)
-			if(mended)
+	switch(wire)
+		if(WIRE_EXPLODE)
+			if(mend)
 				B.defused = FALSE // Cutting and mending all the wires of an inactive bomb will thus cure any sabotage.
 			else
 				if(B.active)
@@ -84,17 +68,17 @@
 					B.explode_now = TRUE
 				else
 					B.defused = TRUE
-		if(BOMB_WIRE_UNBOLT)
-			if(!mended && B.anchored)
+		if(WIRE_BOMB_UNBOLT)
+			if(!mend && B.anchored)
 				holder.visible_message("<span class='notice'>[bicon(B)] The bolts lift out of the ground!</span>")
 				playsound(B, 'sound/effects/stealthoff.ogg', 30, 1)
 				B.anchored = FALSE
-		if(BOMB_WIRE_PROCEED)
-			if(!mended && B.active)
+		if(WIRE_BOMB_PROCEED)
+			if(!mend && B.active)
 				holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
-		if(BOMB_WIRE_ACTIVATE)
-			if(!mended && B.active)
+		if(WIRE_BOMB_ACTIVATE)
+			if(!mend && B.active)
 				holder.visible_message("<span class='notice'>[bicon(B)] The timer stops! The bomb has been defused!</span>")
 				B.defused = TRUE
 				B.update_icon()

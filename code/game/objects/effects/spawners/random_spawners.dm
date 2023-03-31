@@ -1,21 +1,21 @@
 /obj/effect/spawner/random_spawners
 	name = "random spawners"
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
+	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "questionmark"
 	var/list/result = list(
-	/turf/simulated/floor/plasteel = 1,
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/blood/splatter = 1,
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
 	var/spawn_inside = null
 
 // This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
+// AA 2022-08-11: The above comment doesnt even make sense. If extra atoms are loaded during SSatoms.Initialize(), they still get initialised!
 /obj/effect/spawner/random_spawners/New()
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
-		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
+		stack_trace("Spawner placed in nullspace!")
 		return
 	randspawn(T)
 
@@ -36,84 +36,117 @@
 
 /obj/effect/spawner/random_spawners/blood_maybe
 	name = "blood maybe"
+	icon_state = "blood"
 	result = list(
-	/turf/simulated/floor/plating = 20,
+	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/splatter = 1)
 
 /obj/effect/spawner/random_spawners/blood_often
 	name = "blood often"
+	icon_state = "blood"
 	result = list(
-	/turf/simulated/floor/plating = 5,
+	/datum/nothing = 5,
 	/obj/effect/decal/cleanable/blood/splatter = 1)
 
 /obj/effect/spawner/random_spawners/oil_maybe
 	name = "oil maybe"
+	icon_state = "oil"
 	result = list(
-	/turf/simulated/floor/plating = 20,
+	/datum/nothing = 20,
 	/obj/effect/decal/cleanable/blood/oil = 1)
 
 /obj/effect/spawner/random_spawners/oil_maybe
 	name = "oil often"
+	icon_state = "oil"
 	result = list(
-	/turf/simulated/floor/plating = 5,
+	/datum/nothing = 5,
 	/obj/effect/decal/cleanable/blood/oil = 1)
+
+/obj/effect/spawner/random_spawners/proc/rustify(turf/T)
+	var/turf/simulated/wall/W = T
+	if(istype(W) && !W.rusted)
+		W.rust()
 
 /obj/effect/spawner/random_spawners/wall_rusted_probably
 	name = "rusted wall probably"
-	result = list(
-	/turf/simulated/wall = 2,
-	/turf/simulated/wall/rust = 7)
+	icon_state = "rust"
+
+/obj/effect/spawner/random_spawners/wall_rusted_probably/randspawn(turf/T)
+	if(prob(75))
+		rustify(T)
+	qdel(src)
 
 /obj/effect/spawner/random_spawners/wall_rusted_maybe
 	name = "rusted wall maybe"
-	result = list(
-	/turf/simulated/wall = 7,
-	/turf/simulated/wall/rust = 1)
+	icon_state = "rust"
+
+/obj/effect/spawner/random_spawners/wall_rusted_maybe/randspawn(turf/T)
+	if(prob(25))
+		rustify(T)
+	qdel(src)
+
+/obj/effect/spawner/random_spawners/wall_rusted_always
+	name = "rusted wall always"
+	icon_state = "rust"
+
+/obj/effect/spawner/random_spawners/wall_rusted_always/randspawn(turf/T)
+	rustify(T)
+	qdel(src)
 
 /obj/effect/spawner/random_spawners/cobweb_left_frequent
 	name = "cobweb left frequent"
+	icon_state = "cobwebl"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_frequent
 	name = "cobweb right frequent"
+	icon_state = "cobwebr"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/cobweb2 = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_left_rare
 	name = "cobweb left rare"
+	icon_state = "cobwebl"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/cobweb = 1)
 
 /obj/effect/spawner/random_spawners/cobweb_right_rare
 	name = "cobweb right rare"
+	icon_state = "cobwebr"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/cobweb2 = 1)
 
 /obj/effect/spawner/random_spawners/dirt_frequent
 	name = "dirt frequent"
+	icon_state = "dirt"
 	result = list(
-	/turf/simulated/floor/plating = 1,
+	/datum/nothing = 1,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/dirt_rare
 	name = "dirt rare"
+	icon_state = "dirt"
 	result = list(
-	/turf/simulated/floor/plating = 10,
+	/datum/nothing = 10,
 	/obj/effect/decal/cleanable/dirt = 1)
 
 /obj/effect/spawner/random_spawners/fungus_maybe
-	name = "rusted wall maybe"
+	name = "fungus maybe"
+	icon_state = "fungus"
+	color = "#D5820B"
 	result = list(
 	/turf/simulated/wall = 7,
 	/obj/effect/decal/cleanable/fungus = 1)
 
 /obj/effect/spawner/random_spawners/fungus_probably
-	name = "rusted wall maybe"
+	name = "fungus probably"
+	icon_state = "fungus"
+	color = "#D5820B"
 	result = list(
 	/turf/simulated/wall = 1,
 	/obj/effect/decal/cleanable/fungus = 7)
@@ -157,10 +190,16 @@
 	color = "#000000"
 
 /obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb
-	name = "50pc trap pizza"
+	name = "33pc trap pizza"
 	result = list(/obj/item/pizzabox/meat = 1,
 		/obj/item/pizzabox/hawaiian = 1,
-		/obj/item/pizza_bomb/autoarm = 1)
+		/obj/item/pizzabox/margherita = 1,
+		/obj/item/pizzabox/vegetable = 1,
+		/obj/item/pizzabox/mushroom = 1,
+		/obj/item/pizzabox/pepperoni = 7, //Higher weight as a pizza bomb looks like pepperoni by default
+		/obj/item/pizzabox/garlic = 1,
+		/obj/item/pizzabox/firecracker = 1,
+		/obj/item/pizzabox/pizza_bomb/autoarm = 7)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/medbot
 	name = "50pc trap medibot"
@@ -190,7 +229,7 @@
 	result = list(/datum/nothing = 13,
 		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
-		/obj/item/toy/cards/deck/syndicate = 1,
+		/obj/item/deck/cards/syndicate = 1,
 		/obj/item/storage/secure/briefcase/syndie = 1,
 		/obj/item/toy/syndicateballoon = 1,
 		/obj/item/soap/syndie = 1,
@@ -223,7 +262,7 @@
 		/obj/item/storage/pill_bottle/happy = 1,
 		/obj/item/storage/pill_bottle/zoom = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 2,
-		/obj/item/storage/backpack/duffel/syndie/surgery = 1,
+		/obj/item/storage/backpack/duffel/syndie/med/surgery = 1,
 		/obj/item/clothing/shoes/chameleon/noslip = 1,
 		/obj/item/storage/belt/military = 1,
 		/obj/item/clothing/under/chameleon = 1,
@@ -266,9 +305,7 @@
 		/obj/item/ammo_box/magazine/m10mm/ap = 1,
 		/obj/item/ammo_box/magazine/m10mm/fire = 1,
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
-		/obj/item/rad_laser = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
-		/obj/item/batterer = 1,
 		/obj/item/toy/carpplushie/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1)
 
@@ -285,11 +322,11 @@
 		/obj/item/clothing/gloves/color/yellow/power = 1,
 		/obj/item/twohanded/chainsaw = 1,
 		/obj/item/bee_briefcase = 1,
-		/obj/item/twohanded/energizedfireaxe = 1,
+		/obj/item/twohanded/fireaxe/energized = 1,
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/grenade/plastic/x4 = 1)
+		/obj/item/grenade/plastic/c4/x4 = 1)
 
 
 // Layout-affecting spawns
@@ -307,9 +344,3 @@
 	name = "80pc vaultdoor 20pc wall"
 	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
 		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1)
-
-
-/obj/effect/spawner/random_spawners/syndicate/layout/spacepod
-	name = "50pc loot spacepod"
-	result = list(/obj/spacepod/syndi = 1,
-		/obj/spacepod/syndi/unlocked = 1)

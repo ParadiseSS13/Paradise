@@ -9,7 +9,7 @@
 	outfit = /datum/outfit/syndicatesoldiercorpse
 
 /datum/outfit/syndicatesoldiercorpse
-	name = "Syndicate Operative Corpse"
+	name = "Corpse of a Syndicate Operative"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/combat
@@ -31,7 +31,7 @@
 	outfit = /datum/outfit/syndicatecommandocorpse
 
 /datum/outfit/syndicatecommandocorpse
-	name = "Syndicate Commando Corpse"
+	name = "Corpse of a Syndicate Commando"
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/combat
@@ -39,7 +39,7 @@
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/syndicate
 	back = /obj/item/tank/jetpack/oxygen
-	r_pocket = /obj/item/tank/emergency_oxygen
+	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
 
@@ -59,8 +59,8 @@
 	outfit = /datum/outfit/piratecorpse
 
 /datum/outfit/piratecorpse
-	name = "Pirate Corpse"
-	uniform = /obj/item/clothing/under/pirate
+	name = "Corpse of a Pirate"
+	uniform = /obj/item/clothing/under/costume/pirate
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
 	head = /obj/item/clothing/head/bandana
@@ -72,7 +72,7 @@
 	outfit = /datum/outfit/piratecorpse/ranged
 
 /datum/outfit/piratecorpse/ranged
-	name = "Pirate Gunner Corpse"
+	name = "Corpse of a Pirate Gunner"
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
 
@@ -85,8 +85,8 @@
 	outfit = /datum/outfit/russiancorpse
 
 /datum/outfit/russiancorpse
-	name = "Russian Corpse"
-	uniform = /obj/item/clothing/under/soviet
+	name = "Corpse of a Russian"
+	uniform = /obj/item/clothing/under/costume/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/bearpelt
 
@@ -95,12 +95,12 @@
 	outfit = /datum/outfit/russiancorpse/ranged
 
 /datum/outfit/russiancorpse/ranged
-	name = "Ranged Russian Corpse"
+	name = "Corpse of a Ranged Russian"
 	head = /obj/item/clothing/head/ushanka
 
 
 /obj/effect/mob_spawn/human/corpse/wizard
-	name = "Space Wizard Corpse"
+	name = "Corpse of a Space Wizard"
 	outfit = /datum/outfit/wizardcorpse
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
@@ -108,7 +108,7 @@
 	. = ..()
 
 /datum/outfit/wizardcorpse
-	name = "Space Wizard Corpse"
+	name = "Corpse of a Space Wizard"
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
 	shoes = /obj/item/clothing/shoes/sandal

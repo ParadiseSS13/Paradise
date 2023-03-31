@@ -1,75 +1,80 @@
 #define TS_HIGHPOP_TRIGGER 80
+#define GREEN_SPIDER 1
+#define PRINCE_SPIDER 2
+#define WHITE_SPIDER 3
+#define PRINCESS_SPIDER 4
+#define QUEEN_SPIDER 5
 
 /datum/event/spider_terror
 	announceWhen = 240
 	var/spawncount = 1
+	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
 /datum/event/spider_terror/setup()
 	announceWhen = rand(announceWhen, announceWhen + 30)
 	spawncount = 1
 
 /datum/event/spider_terror/announce()
-	GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg')
+	if(successSpawn)
+		GLOB.major_announcement.Announce("Confirmed outbreak of level 3-S biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
+	else
+		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
 /datum/event/spider_terror/start()
+	// It is necessary to wrap this to avoid the event triggering repeatedly.
+	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
 
-	var/list/vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in GLOB.all_vent_pumps)
-		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			if(!temp_vent.parent)
-				// Issue happening more often with vents. Log and continue. Delete once solved
-				log_debug("spider_terror/start(), vent has no parent: [temp_vent], qdeled: [QDELETED(temp_vent)], loc: [temp_vent.loc]")
-				continue
-			if(temp_vent.parent.other_atmosmch.len > 50)
-				vents += temp_vent
+/datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
 	var/infestation_type
 	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
-		infestation_type = pick(1, 2, 3, 4)
+		infestation_type = pick(GREEN_SPIDER, PRINCE_SPIDER, WHITE_SPIDER, PRINCESS_SPIDER)
 	else
-		infestation_type = pick(2, 3, 4, 5)
+		infestation_type = pick(PRINCE_SPIDER, WHITE_SPIDER, PRINCESS_SPIDER, QUEEN_SPIDER)
 	switch(infestation_type)
-		if(1)
+		if(GREEN_SPIDER)
 			// Weakest, only used during lowpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			spawncount = 5
-		if(2)
+		if(PRINCE_SPIDER)
 			// Fairly weak. Dangerous in single combat but has little staying power. Always gets whittled down.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/prince
 			spawncount = 1
-		if(3)
+		if(WHITE_SPIDER)
 			// Variable. Depends how many they infect.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/white
 			spawncount = 2
-		if(4)
+		if(PRINCESS_SPIDER)
 			// Pretty strong.
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/princess
-			spawncount = 2
-		if(5)
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
+			spawncount = 3
+		if(QUEEN_SPIDER)
 			// Strongest, only used during highpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
-	while(spawncount >= 1 && vents.len)
-		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(vents)
-
-		if(vent.welded)
-			vents -= vent
-			continue
-
-		// If the vent we picked has any living mob nearby, just remove it from the list, loop again, and pick something else.
-
-		var/turf/T = get_turf(vent)
-		var/hostiles_present = FALSE
-		for(var/mob/living/L in viewers(T))
-			if(L.stat != DEAD)
-				hostiles_present = TRUE
-				break
-
-		vents -= vent
-		if(!hostiles_present)
-			new spider_type(vent.loc)
-			spawncount--
-
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a terror spider?", null, TRUE, source = spider_type)
+	if(length(candidates) < spawncount)
+		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE)
+	if(!length(vents))
+		message_admins("Warning: No suitable vents detected for spawning terrors. Force picking from station vents regardless of state!")
+		vents = get_valid_vent_spawns(unwelded_only = FALSE, min_network_size = 0)
+	while(spawncount && length(vents) && length(candidates))
+		var/obj/vent = pick_n_take(vents)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
+		var/mob/M = pick_n_take(candidates)
+		S.key = M.key
+		if(infestation_type != PRINCE_SPIDER)
+			S.forceMove(vent)
+			S.add_ventcrawl(vent)
+		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
+		S.give_intro_text()
+		spawncount--
+		successSpawn = TRUE
 
 #undef TS_HIGHPOP_TRIGGER
-
+#undef GREEN_SPIDER
+#undef PRINCE_SPIDER
+#undef WHITE_SPIDER
+#undef PRINCESS_SPIDER
+#undef QUEEN_SPIDER

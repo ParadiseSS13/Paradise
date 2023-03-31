@@ -49,7 +49,7 @@
 			return FALSE
 		G.forceMove(src)
 		to_chat(user, "<span class='notice'>You place [G] into [src] to start the fermentation process.</span>")
-		addtimer(CALLBACK(src, .proc/makeWine, G), rand(80, 120) * speed_multiplier)
+		addtimer(CALLBACK(src, PROC_REF(makeWine), G), rand(80, 120) * speed_multiplier)
 	else if(I.is_refillable())
 		return FALSE // To refill via afterattack proc
 	else
@@ -63,7 +63,7 @@
 	else
 		container_type = DRAINABLE | AMOUNT_VISIBLE
 		to_chat(user, "<span class='notice'>You close [src], letting you draw from its tap.</span>")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/fermenting_barrel/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -85,7 +85,7 @@
 	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
 	..()
 
-/obj/structure/fermenting_barrel/update_icon()
+/obj/structure/fermenting_barrel/update_icon_state()
 	if(open)
 		icon_state = "barrel_open"
 	else
@@ -93,7 +93,7 @@
 
 /datum/crafting_recipe/fermenting_barrel
 	name = "Wooden Barrel"
-	result = /obj/structure/fermenting_barrel
+	result = list(/obj/structure/fermenting_barrel)
 	reqs = list(/obj/item/stack/sheet/wood = 30)
 	time = 50
 	category = CAT_PRIMAL

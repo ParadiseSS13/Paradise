@@ -45,57 +45,54 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			break
 
 	// Find ghosts willing to be SST
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
-	if(!commando_ghosts.len)
+	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
+	if(!length(commando_ghosts))
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
 		return
 
 	GLOB.sent_syndicate_strike_team = 1
 
 	//Spawns commandos and equips them.
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
-
-		if(syndicate_commando_number <= 0)
+	for(var/obj/effect/landmark/spawner/syndicate_commando/L in GLOB.landmarks_list)
+		if(!syndicate_commando_number)
 			break
 
-		if(L.name == "Syndicate-Commando")
+		if(!length(commando_ghosts))
+			break
 
-			if(!commando_ghosts.len)
-				break
+		var/mob/ghost_mob = pick(commando_ghosts)
+		commando_ghosts -= ghost_mob
 
-			var/mob/ghost_mob = pick(commando_ghosts)
-			commando_ghosts -= ghost_mob
+		if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
+			continue
 
-			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
-				continue
+		var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, is_leader)
 
-			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, is_leader)
+		if(!new_syndicate_commando)
+			continue
 
-			if(!new_syndicate_commando)
-				continue
+		new_syndicate_commando.key = ghost_mob.key
+		new_syndicate_commando.internal = new_syndicate_commando.s_store
+		new_syndicate_commando.update_action_buttons_icon()
 
-			new_syndicate_commando.key = ghost_mob.key
-			new_syndicate_commando.internal = new_syndicate_commando.s_store
-			new_syndicate_commando.update_action_buttons_icon()
+		//So they don't forget their code or mission.
+		if(nuke_code)
+			new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code]</span>.")
+		new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input]</span>.")
 
-			//So they don't forget their code or mission.
-			if(nuke_code)
-				new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code]</span>.")
-			new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input]</span>.")
-
-			to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
-			new_syndicate_commando.faction += "syndicate"
-			var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
-			opshud.join_hud(new_syndicate_commando.mind.current)
-			set_antag_hud(new_syndicate_commando.mind.current, "hudoperative")
-			new_syndicate_commando.regenerate_icons()
-			is_leader = FALSE
-			syndicate_commando_number--
+		to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
+		new_syndicate_commando.faction += "syndicate"
+		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
+		opshud.join_hud(new_syndicate_commando.mind.current)
+		set_antag_hud(new_syndicate_commando.mind.current, "hudoperative")
+		new_syndicate_commando.regenerate_icons()
+		is_leader = FALSE
+		syndicate_commando_number--
 
 	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>", 1)
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
-	feedback_add_details("admin_verb","SDTHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send SST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/create_syndicate_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
@@ -103,13 +100,14 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
-	var/datum/preferences/A = new()//Randomize appearance for the commando.
+	var/datum/character_save/S = new //Randomize appearance for the commando.
+	S.randomise()
 	if(is_leader)
-		A.age = rand(35,45)
-		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+		S.age = rand(35, 45)
+		S.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
 	else
-		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
-	A.copy_to(new_syndicate_commando)
+		S.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+	S.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
 
@@ -138,12 +136,12 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
 	if(is_leader)
 		equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
 	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/card/emag(src), slot_r_store)
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), slot_l_store)
 
@@ -152,7 +150,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), slot_wear_suit)
 		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
 		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), slot_belt)
-		equip_to_slot_or_del(new /obj/item/tank/jetpack/oxygen/harness(src), slot_s_store)
+		equip_to_slot_or_del(new /obj/item/tank/internals/oxygen/red(src), slot_s_store)
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
 		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
 		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), slot_in_backpack)

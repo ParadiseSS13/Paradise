@@ -45,12 +45,12 @@
 	if(W.amount < FABRIC_PER_SHEET)
 		user.show_message("<span class='notice'>You need at least [FABRIC_PER_SHEET] units of fabric before using this.</span>", 1)
 		return FALSE
-	user.show_message("<span class='notice'>You start weaving \the [W.name] through the loom..</span>", 1)
+	user.show_message("<span class='notice'>You start weaving [W] through the loom...</span>", 1)
 	if(do_after(user, W.pull_effort, target = src))
 		if(W.amount >= FABRIC_PER_SHEET)
 			new W.loom_result(drop_location())
 			W.use(FABRIC_PER_SHEET)
-			user.show_message("<span class='notice'>You weave \the [W.name] into a workable fabric.</span>", 1)
+			user.show_message("<span class='notice'>You weave [W] into a workable fabric.</span>", 1)
 	return TRUE
 
 #undef FABRIC_PER_SHEET

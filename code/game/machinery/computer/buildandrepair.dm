@@ -1,59 +1,34 @@
-/obj/structure/computerframe
-	density = 1
-	anchored = 0
-	name = "computer frame"
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "0"
-	max_integrity = 100
-	var/state = 0
-	var/obj/item/circuitboard/circuit = null
-	var/base_mineral = /obj/item/stack/sheet/metal
-
-/obj/structure/computerframe/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		drop_computer_parts()
-	return ..() // will qdel the frame
-
-/obj/structure/computerframe/obj_break(damage_flag)
-	deconstruct()
-
-/obj/structure/computerframe/proc/drop_computer_parts()
-	new base_mineral(loc, 5)
-	if(circuit)
-		circuit.forceMove(loc)
-		circuit = null
-	if(state >= 3)
-		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-		A.amount = 5
-	if(state >= 4)
-		new /obj/item/stack/sheet/glass(loc, 2)
-
 /obj/item/circuitboard
-	density = 0
-	anchored = 0
-	w_class = WEIGHT_CLASS_SMALL
+	/// Use `board_name` instead of this.
 	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "id_mod"
 	item_state = "electronic"
 	origin_tech = "programming=2"
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_GLASS=200)
-	var/id = null
-	var/frequency = null
+	usesound = 'sound/items/deconstruct.ogg'
+	/// Use this instead of `name`. Formats as: `circuit board ([board_name])`
+	var/board_name = null
 	var/build_path = null
 	var/board_type = "computer"
 	var/list/req_components = null
-	var/powernet = null
-	var/list/records = null
-	var/contain_parts = 1
-	toolspeed = 1
-	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/circuitboard/computer
 	board_type = "computer"
 
 /obj/item/circuitboard/machine
 	board_type = "machine"
+
+/obj/item/circuitboard/Initialize(mapload)
+	. = ..()
+	format_board_name()
+
+/obj/item/circuitboard/proc/format_board_name()
+	if(board_name) // Should always have this, but just in case.
+		name = "[initial(name)] ([board_name])"
+	else
+		name = "[initial(name)]"
 
 /obj/item/circuitboard/examine(mob/user)
 	. = ..()
@@ -67,604 +42,724 @@
 		. += "<span class='notice'>Required components: [english_list(nice_list)].</span>"
 
 /obj/item/circuitboard/message_monitor
-	name = "Circuit board (Message Monitor)"
+	board_name = "Message Monitor"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/message_monitor
 	origin_tech = "programming=2"
+
 /obj/item/circuitboard/camera
-	name = "Circuit board (Camera Monitor)"
+	board_name = "Camera Monitor"
+	desc = "A monitor board whose type can be changed when screwed."
+	icon_state = "security"
 	build_path = /obj/machinery/computer/security
 	origin_tech = "programming=2;combat=2"
+	var/static/list/monitor_names_paths = list(
+							"Camera Monitor" = /obj/machinery/computer/security,
+							"Wooden TV" = /obj/machinery/computer/security/wooden_tv,
+							"Outpost Camera Monitor" = /obj/machinery/computer/security/mining,
+							"Engineering Camera Monitor" = /obj/machinery/computer/security/engineering,
+							"Research Monitor" = /obj/machinery/computer/security/telescreen/research,
+							"Research Director Monitor" = /obj/machinery/computer/security/telescreen/rd,
+							"Prison Monitor" = /obj/machinery/computer/security/telescreen/prison,
+							"Interrogation Monitor" = /obj/machinery/computer/security/telescreen/interrogation,
+							"MiniSat Monitor" = /obj/machinery/computer/security/telescreen/minisat,
+							"AI Upload Monitor" = /obj/machinery/computer/security/telescreen/upload,
+							"Vault Monitor" = /obj/machinery/computer/security/telescreen/vault,
+							"Turbine Vent Monitor" = /obj/machinery/computer/security/telescreen/turbine,
+							"Engine Camera Monitor" = /obj/machinery/computer/security/telescreen/engine)
+
+/obj/item/circuitboard/camera/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in monitor_names_paths
+	if(!choice)
+		return
+	board_name = choice
+	build_path = monitor_names_paths[choice]
+	format_board_name()
+	to_chat(user, "<span class='notice'>You set the board to [board_name].</span>")
 
 /obj/item/circuitboard/camera/telescreen
-	name = "Circuit board (Telescreen)"
+	board_name = "Telescreen"
+	icon_state = "security"
 	build_path = /obj/machinery/computer/security/telescreen
-/obj/item/circuitboard/camera/telescreen/entertainment
-	name = "Circuit board (Entertainment Monitor)"
-	build_path = /obj/machinery/computer/security/telescreen/entertainment
+
+/obj/item/circuitboard/camera/engine
+	board_name = "Engine Camera Monitor"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/security/telescreen/engine
+
+/obj/item/circuitboard/camera/research
+	board_name = "Research Monitor"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/security/telescreen/research
+
+/obj/item/circuitboard/camera/rd
+	board_name = "Research Director Monitor"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/security/telescreen/rd
+
+/obj/item/circuitboard/camera/prison
+	board_name = "Prison Monitor"
+	icon_state = "security"
+	build_path = /obj/machinery/computer/security/telescreen/prison
+
+/obj/item/circuitboard/camera/interrogation
+	board_name = "Interrogation Monitor"
+	icon_state = "security"
+	build_path = /obj/machinery/computer/security/telescreen/interrogation
+
+/obj/item/circuitboard/camera/minisat
+	board_name = "MiniSat Monitor"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/security/telescreen/minisat
+
+/obj/item/circuitboard/camera/upload
+	board_name = "AI Upload Monitor"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/security/telescreen/upload
+
+/obj/item/circuitboard/camera/vault
+	board_name = "Vault Monitor"
+	icon_state = "command"
+	build_path = /obj/machinery/computer/security/telescreen/vault
+
+/obj/item/circuitboard/camera/turbine
+	board_name = "Turbine Vent Monitor"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/security/telescreen/turbine
+
 /obj/item/circuitboard/camera/wooden_tv
-	name = "Circuit board (Wooden TV)"
+	board_name = "Wooden TV"
+	icon_state = "security"
 	build_path = /obj/machinery/computer/security/wooden_tv
+
 /obj/item/circuitboard/camera/mining
-	name = "Circuit board (Outpost Camera Monitor)"
+	board_name = "Outpost Camera Monitor"
+	icon_state = "supply"
 	build_path = /obj/machinery/computer/security/mining
+
 /obj/item/circuitboard/camera/engineering
-	name = "Circuit board (Engineering Camera Monitor)"
+	board_name = "Engineering Camera Monitor"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/security/engineering
 
-
 /obj/item/circuitboard/xenobiology
-	name = "Circuit board (Xenobiology Console)"
+	board_name = "Xenobiology Console"
+	icon_state = "science"
 	build_path = /obj/machinery/computer/camera_advanced/xenobio
 	origin_tech = "programming=3;biotech=3"
+
 /obj/item/circuitboard/aicore
-	name = "Circuit board (AI Core)"
+	board_name = "AI Core"
+	icon_state = "science"
 	origin_tech = "programming=3"
 	board_type = "other"
+
 /obj/item/circuitboard/aiupload
-	name = "Circuit board (AI Upload)"
+	board_name = "AI Upload"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/aiupload
 	origin_tech = "programming=4;engineering=4"
+
 /obj/item/circuitboard/borgupload
-	name = "Circuit board (Cyborg Upload)"
+	board_name = "Cyborg Upload"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/borgupload
 	origin_tech = "programming=4;engineering=4"
+
 /obj/item/circuitboard/med_data
-	name = "Circuit board (Medical Records)"
+	board_name = "Medical Records"
+	icon_state = "medical"
 	build_path = /obj/machinery/computer/med_data
 	origin_tech = "programming=2;biotech=2"
+
 /obj/item/circuitboard/pandemic
-	name = "circuit board (PanD.E.M.I.C. 2200)"
+	board_name = "PanD.E.M.I.C. 2200"
+	icon_state = "medical"
 	build_path = /obj/machinery/computer/pandemic
 	origin_tech = "programming=2;biotech=2"
+
 /obj/item/circuitboard/scan_consolenew
-	name = "Circuit board (DNA Machine)"
+	board_name = "DNA Machine"
+	icon_state = "medical"
 	build_path = /obj/machinery/computer/scan_consolenew
 	origin_tech = "programming=2;biotech=2"
+
 /obj/item/circuitboard/communications
-	name = "Circuit board (Communications Console)"
+	board_name = "Communications Console"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/communications
 	origin_tech = "programming=3;magnets=3"
+
 /obj/item/circuitboard/card
-	name = "Circuit board (ID Computer)"
+	board_name = "ID Computer"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/card
 	origin_tech = "programming=3"
+
 /obj/item/circuitboard/card/minor
-	name = "Circuit board (Dept ID Computer)"
+	board_name = "Dept ID Computer"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/card/minor
 	var/target_dept = TARGET_DEPT_GENERIC
+
 /obj/item/circuitboard/card/minor/hos
-	name = "Circuit board (Sec ID Computer)"
+	board_name = "Sec ID Computer"
+	icon_state = "security"
 	build_path = /obj/machinery/computer/card/minor/hos
 	target_dept = TARGET_DEPT_SEC
+
 /obj/item/circuitboard/card/minor/cmo
-	name = "Circuit board (Medical ID Computer)"
+	board_name = "Medical ID Computer"
+	icon_state = "medical"
 	build_path = /obj/machinery/computer/card/minor/cmo
 	target_dept = TARGET_DEPT_MED
+
 /obj/item/circuitboard/card/minor/rd
-	name = "Circuit board (Science ID Computer)"
+	board_name = "Science ID Computer"
+	icon_state = "science"
 	build_path = /obj/machinery/computer/card/minor/rd
 	target_dept = TARGET_DEPT_SCI
+
 /obj/item/circuitboard/card/minor/ce
-	name = "Circuit board (Engineering ID Computer)"
+	board_name = "Engineering ID Computer"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/card/minor/ce
 	target_dept = TARGET_DEPT_ENG
+
 /obj/item/circuitboard/card/centcom
-	name = "Circuit board (CentComm ID Computer)"
+	board_name = "CentComm ID Computer"
+	icon_state = "command"
 	build_path = /obj/machinery/computer/card/centcom
+
 /obj/item/circuitboard/teleporter
-	name = "Circuit board (Teleporter Console)"
+	board_name = "Teleporter Console"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/teleporter
 	origin_tech = "programming=3;bluespace=3;plasmatech=3"
+
 /obj/item/circuitboard/secure_data
-	name = "Circuit board (Security Records)"
+	board_name = "Security Records"
+	icon_state = "security"
 	build_path = /obj/machinery/computer/secure_data
 	origin_tech = "programming=2;combat=2"
-/obj/item/circuitboard/skills
-	name = "Circuit board (Employment Records)"
-	build_path = /obj/machinery/computer/skills
+
 /obj/item/circuitboard/stationalert_engineering
-	name = "Circuit Board (Station Alert Console (Engineering))"
+	board_name = "Station Alert Console - Engineering"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert_security
-	name = "Circuit Board (Station Alert Console (Security))"
+
+/obj/item/circuitboard/stationalert
+	board_name = "Station Alert Console"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert_all
-	name = "Circuit Board (Station Alert Console (All))"
-	build_path = /obj/machinery/computer/station_alert/all
+
 /obj/item/circuitboard/atmos_alert
-	name = "Circuit Board (Atmospheric Alert Computer)"
+	board_name = "Atmospheric Alert Computer"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/atmos_alert
+
 /obj/item/circuitboard/atmoscontrol
-	name = "Circuit Board (Central Atmospherics Computer)"
+	board_name = "Central Atmospherics Computer"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/atmoscontrol
+
 /obj/item/circuitboard/air_management
-	name = "Circuit board (Atmospheric Monitor)"
+	board_name = "Atmospheric Monitor"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/general_air_control
-/obj/item/circuitboard/injector_control
-	name = "Circuit board (Injector Control)"
-	build_path = /obj/machinery/computer/general_air_control/fuel_injection
-/obj/item/circuitboard/pod
-	name = "Circuit board (Massdriver Control)"
-	build_path = /obj/machinery/computer/pod
-/obj/item/circuitboard/pod/deathsquad
-	name = "Circuit board (Deathsquad Massdriver control)"
-	build_path = /obj/machinery/computer/pod/deathsquad
+
 /obj/item/circuitboard/robotics
-	name = "Circuit board (Robotics Control Console)"
+	board_name = "Robotics Control Console"
+	icon_state = "science"
 	build_path = /obj/machinery/computer/robotics
 	origin_tech = "programming=3"
+
 /obj/item/circuitboard/drone_control
-	name = "Circuit board (Drone Control)"
+	board_name = "Drone Control"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/drone_control
 	origin_tech = "programming=3"
+
 /obj/item/circuitboard/cloning
-	name = "Circuit board (Cloning Machine Console)"
+	board_name = "Cloning Machine Console"
+	icon_state = "medical"
 	build_path = /obj/machinery/computer/cloning
 	origin_tech = "programming=2;biotech=2"
+
 /obj/item/circuitboard/arcade/battle
-	name = "circuit board (Arcade Battle)"
+	board_name = "Arcade Battle"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/battle
 	origin_tech = "programming=1"
+
 /obj/item/circuitboard/arcade/orion_trail
-	name = "circuit board (Orion Trail)"
+	board_name = "Orion Trail"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/orion_trail
 	origin_tech = "programming=1"
+
 /obj/item/circuitboard/solar_control
-	name = "Circuit board (Solar Control)"
+	board_name = "Solar Control"
+	icon_state = "engineering"
 	build_path = /obj/machinery/power/solar_control
 	origin_tech = "programming=2;powerstorage=2"
+
 /obj/item/circuitboard/powermonitor
-	name = "Circuit board (Power Monitor)"
+	board_name = "Power Monitor"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/monitor
 	origin_tech = "programming=2;powerstorage=2"
+
 /obj/item/circuitboard/powermonitor/secret
-	name = "Circuit board (Outdated Power Monitor)"
+	board_name = "Outdated Power Monitor"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/monitor/secret
 	origin_tech = "programming=2;powerstorage=2"
-/obj/item/circuitboard/olddoor
-	name = "Circuit board (DoorMex)"
-	build_path = /obj/machinery/computer/pod/old
-/obj/item/circuitboard/syndicatedoor
-	name = "Circuit board (ProComp Executive)"
-	build_path = /obj/machinery/computer/pod/old/syndicate
-/obj/item/circuitboard/swfdoor
-	name = "Circuit board (Magix)"
-	build_path = /obj/machinery/computer/pod/old/swf
+
 /obj/item/circuitboard/prisoner
-	name = "Circuit board (Prisoner Management)"
+	board_name = "Prisoner Management"
+	icon_state = "security"
 	build_path = /obj/machinery/computer/prisoner
+
 /obj/item/circuitboard/brigcells
-	name = "Circuit board (Brig Cell Control)"
+	board_name = "Brig Cell Control"
+	icon_state = "security"
 	build_path = /obj/machinery/computer/brigcells
 
+/obj/item/circuitboard/sm_monitor
+	board_name = "Supermatter Monitoring Console"
+	icon_state = "engineering"
+	build_path = /obj/machinery/computer/sm_monitor
+	origin_tech = "programming=2;powerstorage=2"
 
-// RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
+// RD console circuits, so that de/reconstructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
-	name = "Circuit Board (RD Console)"
+	board_name = "RD Console"
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
+	icon_state = "science"
 	build_path = /obj/machinery/computer/rdconsole/core
-	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
-	var/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
-	id = 1
-/obj/item/circuitboard/rdconsole/robotics
-	name = "Circuit Board (RD Console - Robotics)"
-	build_path = /obj/machinery/computer/rdconsole/robotics
-	id = 2
-/obj/item/circuitboard/rdconsole/experiment
-	name = "Circuit Board (RD Console - E.X.P.E.R.I-MENTOR)"
-	build_path = /obj/machinery/computer/rdconsole/experiment
-	id = 3
-/obj/item/circuitboard/rdconsole/mechanics
-	name = "Circuit Board (RD Console - Mechanics)"
-	build_path = /obj/machinery/computer/rdconsole/mechanics
-	id = 4
-/obj/item/circuitboard/rdconsole/public
-	name = "Circuit Board (RD Console - Public)"
-	build_path = /obj/machinery/computer/rdconsole/public
-	id = 5
+	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics console
+	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Public")
 
+/obj/item/circuitboard/rdconsole/robotics
+	board_name = "RD Console - Robotics"
+	build_path = /obj/machinery/computer/rdconsole/robotics
+
+/obj/item/circuitboard/rdconsole/experiment
+	board_name = "RD Console - E.X.P.E.R.I-MENTOR"
+	build_path = /obj/machinery/computer/rdconsole/experiment
+
+/obj/item/circuitboard/rdconsole/public
+	board_name = "RD Console - Public"
+	build_path = /obj/machinery/computer/rdconsole/public
 
 /obj/item/circuitboard/mecha_control
-	name = "Circuit Board (Exosuit Control Console)"
+	board_name = "Exosuit Control Console"
+	icon_state = "science"
 	build_path = /obj/machinery/computer/mecha
-/obj/item/circuitboard/pod_locater
-	name = "Circuit Board (Pod Location Console)"
-	build_path = /obj/machinery/computer/podtracker
+
 /obj/item/circuitboard/rdservercontrol
-	name = "Circuit Board (RD Server Control)"
+	board_name = "RD Server Control"
+	icon_state = "science"
 	build_path = /obj/machinery/computer/rdservercontrol
+
 /obj/item/circuitboard/crew
-	name = "Circuit board (Crew Monitoring Computer)"
+	board_name = "Crew Monitoring Computer"
+	icon_state = "medical"
 	build_path = /obj/machinery/computer/crew
 	origin_tech = "programming=2;biotech=2"
+
 /obj/item/circuitboard/mech_bay_power_console
-	name = "Circuit board (Mech Bay Power Control Console)"
+	board_name = "Mech Bay Power Control Console"
+	icon_state = "science"
 	build_path = /obj/machinery/computer/mech_bay_power_console
 	origin_tech = "programming=3;powerstorage=3"
+
 /obj/item/circuitboard/ordercomp
-	name = "Circuit board (Supply Ordering Console)"
-	build_path = /obj/machinery/computer/ordercomp
+	board_name = "Supply Ordering Console"
+	icon_state = "supply"
+	build_path = /obj/machinery/computer/supplycomp/public
 	origin_tech = "programming=3"
+
 /obj/item/circuitboard/supplycomp
-	name = "Circuit board (Supply Shuttle Console)"
+	board_name = "Supply Shuttle Console"
+	icon_state = "supply"
 	build_path = /obj/machinery/computer/supplycomp
 	origin_tech = "programming=3"
 	var/contraband_enabled = 0
 
 /obj/item/circuitboard/operating
-	name = "Circuit board (Operating Computer)"
+	board_name = "Operating Computer"
+	icon_state = "medical"
 	build_path = /obj/machinery/computer/operating
 	origin_tech = "programming=2;biotech=3"
 
 /obj/item/circuitboard/shuttle
-	name = "circuit board (Shuttle)"
+	board_name = "Shuttle"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle
 	var/shuttleId
 	var/possible_destinations = ""
 
 /obj/item/circuitboard/labor_shuttle
-	name = "circuit Board (Labor Shuttle)"
+	board_name = "Labor Shuttle"
+	icon_state = "security"
 	build_path = /obj/machinery/computer/shuttle/labor
+
 /obj/item/circuitboard/labor_shuttle/one_way
-	name = "circuit Board (Prisoner Shuttle Console)"
+	board_name = "Prisoner Shuttle Console"
+	icon_state = "security"
 	build_path = /obj/machinery/computer/shuttle/labor/one_way
+
 /obj/item/circuitboard/ferry
-	name = "circuit Board (Transport Ferry)"
+	board_name = "Transport Ferry"
 	build_path = /obj/machinery/computer/shuttle/ferry
+
 /obj/item/circuitboard/ferry/request
-	name = "circuit Board (Transport Ferry Console)"
+	board_name = "Transport Ferry Console"
+	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle/ferry/request
+
 /obj/item/circuitboard/mining_shuttle
-	name = "circuit Board (Mining Shuttle)"
+	board_name = "Mining Shuttle"
+	icon_state = "supply"
 	build_path = /obj/machinery/computer/shuttle/mining
+
 /obj/item/circuitboard/white_ship
-	name = "circuit Board (White Ship)"
+	board_name = "White Ship"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/white_ship
+
 /obj/item/circuitboard/shuttle/syndicate
-	name = "circuit board (Syndicate Shuttle)"
+	board_name = "Syndicate Shuttle"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/syndicate
+
 /obj/item/circuitboard/shuttle/syndicate/recall
-	name = "circuit board (Syndicate Shuttle Recall Terminal)"
+	board_name = "Syndicate Shuttle Recall Terminal"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/syndicate/recall
+
 /obj/item/circuitboard/shuttle/syndicate/drop_pod
-	name = "circuit board (Syndicate Drop Pod)"
+	board_name = "Syndicate Drop Pod"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
+
 /obj/item/circuitboard/shuttle/golem_ship
-	name = "circuit Board (Golem Ship)"
+	board_name = "Golem Ship"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/shuttle/golem_ship
 
 /obj/item/circuitboard/HolodeckControl
-	name = "Circuit board (Holodeck Control)"
+	board_name = "Holodeck Control"
+	icon_state = "generic"
 	build_path = /obj/machinery/computer/HolodeckControl
 	origin_tech = "programming=4"
+
 /obj/item/circuitboard/aifixer
-	name = "Circuit board (AI Integrity Restorer)"
+	board_name = "AI Integrity Restorer"
+	icon_state = "science"
 	build_path = /obj/machinery/computer/aifixer
 	origin_tech = "programming=2;biotech=2"
+
 /obj/item/circuitboard/area_atmos
-	name = "Circuit board (Area Air Control)"
+	board_name = "Area Air Control"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/area_atmos
 	origin_tech = "programming=2"
+
 /obj/item/circuitboard/telesci_console
-	name = "Circuit board (Telepad Control Console)"
+	board_name = "Telepad Control Console"
+	icon_state = "science"
 	build_path = /obj/machinery/computer/telescience
 	origin_tech = "programming=3;bluespace=3;plasmatech=4"
 
 /obj/item/circuitboard/large_tank_control
-	name = "Circuit board (Atmospheric Tank Control)"
+	board_name = "Atmospheric Tank Control"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/general_air_control/large_tank_control
 	origin_tech = "programming=2;engineering=3;materials=2"
 
 /obj/item/circuitboard/turbine_computer
-	name = "circuit board (Turbine Computer)"
+	board_name = "Turbine Computer"
+	icon_state = "engineering"
 	build_path = /obj/machinery/computer/turbine_computer
 	origin_tech = "programming=4;engineering=4;powerstorage=4"
 
-/obj/item/circuitboard/HONKputer
-	name = "Circuit board (HONKputer)"
-	build_path = /obj/machinery/computer/HONKputer
-	origin_tech = "programming=2"
-	icon = 'icons/obj/machines/HONKputer.dmi'
-	icon_state = "bananium_board"
-	board_type = "honkcomputer"
+/obj/item/circuitboard/supplycomp/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/catastasis // Why is it called this
+	var/opposite_catastasis
+	if(contraband_enabled)
+		catastasis = "BROAD"
+		opposite_catastasis = "STANDARD"
+	else
+		catastasis = "STANDARD"
+		opposite_catastasis = "BROAD"
 
-
-/obj/item/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/multitool))
-		var/catastasis = contraband_enabled
-		var/opposite_catastasis
-		if(catastasis)
-			opposite_catastasis = "STANDARD"
-			catastasis = "BROAD"
-		else
-			opposite_catastasis = "BROAD"
-			catastasis = "STANDARD"
-
-		switch( alert("Current receiver spectrum is set to: [catastasis]","Multitool-Circuitboard interface","Switch to [opposite_catastasis]","Cancel") )
-		//switch( alert("Current receiver spectrum is set to: " {(contraband_enabled) ? ("BROAD") : ("STANDARD")} , "Multitool-Circuitboard interface" , "Switch to " {(contraband_enabled) ? ("STANDARD") : ("BROAD")}, "Cancel") )
-			if("Switch to STANDARD","Switch to BROAD")
-				contraband_enabled = !contraband_enabled
-
-			if("Cancel")
-				return
-			else
-				to_chat(user, "DERP! BUG! Report this (And what you were doing to cause it) to Agouri")
+	var/choice = alert("Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", "Switch to [opposite_catastasis]", "Cancel")
+	if(choice == "Cancel")
 		return
-	return ..()
 
-/obj/item/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))
+	contraband_enabled = !contraband_enabled
+	playsound(src, 'sound/effects/pop.ogg', 50)
+
+/obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
-			user.visible_message("<span class='notice'>\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
+			user.visible_message("<span class='notice'>[user] waves [user.p_their()] ID past [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past [src]'s access protocol scanner.</span>")
 			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types
-			if(console_choice == null)
+			if(!console_choice)
 				return
 			switch(console_choice)
 				if("R&D Core")
-					name = "Circuit Board (RD Console)"
+					board_name = "RD Console"
 					build_path = /obj/machinery/computer/rdconsole/core
-					id = 1
 				if("Robotics")
-					name = "Circuit Board (RD Console - Robotics)"
+					board_name = "RD Console - Robotics"
 					build_path = /obj/machinery/computer/rdconsole/robotics
-					id = 2
 				if("E.X.P.E.R.I-MENTOR")
-					name = "Circuit Board (RD Console - E.X.P.E.R.I-MENTOR)"
+					board_name = "RD Console - E.X.P.E.R.I-MENTOR"
 					build_path = /obj/machinery/computer/rdconsole/experiment
-					id = 3
-				if("Mechanics")
-					name = "Circuit Board (RD Console - Mechanics)"
-					build_path = /obj/machinery/computer/rdconsole/mechanics
-					id = 4
 				if("Public")
-					name = "Circuit Board (RD Console - Public)"
+					board_name = "RD Console - Public"
 					build_path = /obj/machinery/computer/rdconsole/public
-					id = 5
 
+			format_board_name()
 			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
 		else
 			to_chat(user, "<span class='warning'>Access Denied</span>")
 		return
 	return ..()
 
-/obj/structure/computerframe/attackby(obj/item/P as obj, mob/user as mob, params)
-	switch(state)
-		if(0)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
-					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
-					anchored = 1
-					state = 1
-				return
-		if(1)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
-					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
-					anchored = 0
-					state = 0
-				return
-			if(istype(P, /obj/item/circuitboard) && !circuit)
-				var/obj/item/circuitboard/B = P
-				if(B.board_type == "computer")
-					playsound(loc, B.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
-					icon_state = "1"
-					circuit = P
-					user.drop_item()
-					P.loc = src
-				else
-					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
-				return
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
-				state = 2
-				icon_state = "2"
-				return
-			if(istype(P, /obj/item/crowbar) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				state = 1
-				icon_state = "0"
-				circuit.loc = loc
-				circuit = null
-				return
-		if(2)
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
-				state = 1
-				icon_state = "1"
-				return
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
-				if(C.amount >= 5)
-					playsound(loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
-						if(state == 2 && C.amount >= 5 && C.use(5))
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
-							state = 3
-							icon_state = "3"
-						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
-							return
-				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-				return
-		if(3)
-			if(istype(P, /obj/item/wirecutters))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
-				state = 2
-				icon_state = "2"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-				A.amount = 5
-				return
-			if(istype(P, /obj/item/stack/sheet/glass))
-				var/obj/item/stack/sheet/glass/G = P
-				if(G.amount >= 2)
-					playsound(loc, G.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20 * G.toolspeed, target = src))
-						if(state == 3 && G.amount >= 2 && G.use(2))
-							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
-							state = 4
-							icon_state = "4"
-						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
-							return
-				else
-					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
-				return
-		if(4)
-			if(istype(P, /obj/item/crowbar))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
-				state = 3
-				icon_state = "3"
-				new /obj/item/stack/sheet/glass(loc, 2)
-				return
-			if(istype(P, /obj/item/screwdriver))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-				var/B = new circuit.build_path (loc)
-				if(circuit.powernet) B:powernet = circuit.powernet
-				if(circuit.id) B:id = circuit.id
-				if(circuit.records) B:records = circuit.records
-				if(circuit.frequency) B:frequency = circuit.frequency
-				if(istype(circuit,/obj/item/circuitboard/supplycomp))
-					var/obj/machinery/computer/supplycomp/SC = B
-					var/obj/item/circuitboard/supplycomp/C = circuit
-					SC.can_order_contraband = C.contraband_enabled
-				qdel(src)
-				return
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+// Construction | Deconstruction
+#define STATE_EMPTY 	 1 // Add a circuitboard		   | Weld to destroy
+#define STATE_CIRCUIT	 2 // Screwdriver the cover closed | Crowbar the circuit
+#define STATE_NOWIRES	 3 // Add wires					   | Screwdriver the cover open
+#define STATE_WIRES		 4 // Add glass					   | Remove wires
+#define STATE_GLASS		 5 // Screwdriver to complete	   | Crowbar glass out
 
+/obj/structure/computerframe
+	name = "computer frame"
+	icon = 'icons/obj/stock_parts.dmi'
+	icon_state = "comp_frame_1"
+	density = TRUE
+	anchored = TRUE
+	max_integrity = 100
+	var/state = STATE_EMPTY
+	var/obj/item/circuitboard/circuit = null
+
+/obj/structure/computerframe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is <b>[anchored ? "bolted to the floor" : "unbolted"]</b>.</span>"
+	switch(state)
+		if(STATE_EMPTY)
+			. += "<span class='notice'>The frame is <b>welded together</b>, but it is missing a <i>circuit board</i>.</span>"
+		if(STATE_CIRCUIT)
+			. += "<span class='notice'>A circuit board is <b>firmly connected</b>, but the cover is <i>unscrewed and open</i>.</span>"
+		if(STATE_NOWIRES)
+			. += "<span class='notice'>The cover is <b>screwed shut</b>, but the frame is missing <i>wiring</i>.</span>"
+		if(STATE_WIRES)
+			. += "<span class='notice'>The frame is <b>wired</b>, but the <i>glass</i> is missing.</span>"
+		if(STATE_GLASS)
+			. += "<span class='notice'>The glass is <b>loosely connected</b> and needs to be <i>screwed into place</i>.</span>"
+	if(!anchored)
+		. += "<span class='notice'>Alt-Click to rotate it.</span>"
+
+/obj/structure/computerframe/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		drop_computer_parts()
+	return ..() // will qdel the frame
+
+/obj/structure/computerframe/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>The frame is anchored to the floor!</span>")
+		return
+	setDir(turn(dir, 90))
+
+/obj/structure/computerframe/obj_break(damage_flag)
+	deconstruct()
+
+/obj/structure/computerframe/proc/drop_computer_parts()
+	var/location = drop_location()
+	new /obj/item/stack/sheet/metal(location, 5)
+	if(circuit)
+		circuit.forceMove(location)
+		circuit = null
+	if(state >= STATE_WIRES)
+		var/obj/item/stack/cable_coil/C = new(location)
+		C.amount = 5
+	if(state == STATE_GLASS)
+		new /obj/item/stack/sheet/glass(location, 2)
+
+/obj/structure/computerframe/update_icon_state()
+	icon_state = "comp_frame_[state]"
 
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
-	if(state)
+	if(state != STATE_EMPTY)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume) && !state)
-		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
 		deconstruct(TRUE)
 
+/obj/structure/computerframe/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return
 
+	if(anchored)
+		to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
+		anchored = FALSE
+	else
+		to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
+		anchored = TRUE
 
-/obj/structure/computerframe/HONKputer
-	name = "Bananium Computer-frame"
-	icon = 'icons/obj/machines/HONKputer.dmi'
-	base_mineral = /obj/item/stack/sheet/mineral/bananium
+/obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user))
+		return
 
-/obj/structure/computerframe/HONKputer/attackby(obj/item/P as obj, mob/user as mob, params)
+	if(state == STATE_CIRCUIT)
+		to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+		state = STATE_EMPTY
+		name = initial(name)
+		circuit.forceMove(drop_location())
+		circuit = null
+	else if(state == STATE_GLASS)
+		to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+		state = STATE_WIRES
+		new /obj/item/stack/sheet/glass(drop_location(), 2)
+	else
+		return
+
+	I.play_tool_sound(src)
+	update_icon()
+
+/obj/structure/computerframe/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user))
+		return
+
 	switch(state)
-		if(0)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20, target = src))
-					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
-					anchored = 1
-					state = 1
-		if(1)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
-					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
-					anchored = 0
-					state = 0
-			if(istype(P, /obj/item/circuitboard) && !circuit)
-				var/obj/item/circuitboard/B = P
-				if(B.board_type == "honkcomputer")
-					playsound(loc, P.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
-					icon_state = "1"
-					circuit = P
-					user.drop_item()
-					P.loc = src
-				else
-					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
-				state = 2
-				icon_state = "2"
-			if(istype(P, /obj/item/crowbar) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				state = 1
-				icon_state = "0"
-				circuit.loc = loc
-				circuit = null
-			return
-		if(2)
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
-				state = 1
-				icon_state = "1"
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
-				if(C.amount >= 5)
-					playsound(loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed, target = src))
-						if(state == 2 && C.amount >= 5 && C.use(5))
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
-							state = 3
-							icon_state = "3"
-						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
-							return
-				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-			return
-		if(3)
-			if(istype(P, /obj/item/wirecutters))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
-				state = 2
-				icon_state = "2"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-				A.amount = 5
+		if(STATE_CIRCUIT)
+			to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
+			state = STATE_NOWIRES
+			I.play_tool_sound(src)
+			update_icon()
+		if(STATE_NOWIRES)
+			to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+			state = STATE_CIRCUIT
+			I.play_tool_sound(src)
+			update_icon()
+		if(STATE_GLASS)
+			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+			I.play_tool_sound(src)
+			var/obj/machinery/computer/B = new circuit.build_path(loc)
+			B.setDir(dir)
+			if(istype(circuit, /obj/item/circuitboard/supplycomp))
+				var/obj/machinery/computer/supplycomp/SC = B
+				var/obj/item/circuitboard/supplycomp/C = circuit
+				SC.can_order_contraband = C.contraband_enabled
+			qdel(src)
 
-			if(istype(P, /obj/item/stack/sheet/glass))
-				var/obj/item/stack/sheet/glass/G = P
-				if(G.amount >= 2)
-					playsound(loc, G.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
-					if(do_after(user, 20 * G.toolspeed, target = src))
-						if(state == 3 && G.amount >= 2 && G.use(2))
-							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
-							state = 4
-							icon_state = "4"
-						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
-							return
-				else
-					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
+/obj/structure/computerframe/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user))
+		return
+
+	if(state == STATE_WIRES)
+		to_chat(user, "<span class='notice'>You remove the cables.</span>")
+		var/obj/item/stack/cable_coil/C = new(drop_location())
+		C.amount = 5
+		state = STATE_NOWIRES
+		I.play_tool_sound(src)
+		update_icon()
+
+/obj/structure/computerframe/attackby(obj/item/I, mob/user, params)
+	switch(state)
+		if(STATE_EMPTY)
+			if(!istype(I, /obj/item/circuitboard))
+				return ..()
+
+			var/obj/item/circuitboard/B = I
+			if(B.board_type != "computer")
+				to_chat(user, "<span class='warning'>[src] does not accept circuit boards of this type!</span>")
+				return
+
+			if(!B.build_path)
+				to_chat(user, "<span class='warning'>This is not a functional computer circuit board!</span>")
+				return
+
+			B.play_tool_sound(src)
+			to_chat(user, "<span class='notice'>You place [B] inside [src].</span>")
+			name += " ([B.board_name])"
+			state = STATE_CIRCUIT
+			user.drop_item()
+			B.forceMove(src)
+			circuit = B
+			update_icon()
 			return
-		if(4)
-			if(istype(P, /obj/item/crowbar))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
-				state = 3
-				icon_state = "3"
-				new /obj/item/stack/sheet/glass(loc, 2)
-			if(istype(P, /obj/item/screwdriver))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-				var/B = new circuit.build_path (loc)
-				if(circuit.powernet) B:powernet = circuit.powernet
-				if(circuit.id) B:id = circuit.id
-				if(circuit.records) B:records = circuit.records
-				if(circuit.frequency) B:frequency = circuit.frequency
-				qdel(src)
+
+		if(STATE_NOWIRES)
+			if(!istype(I, /obj/item/stack/cable_coil))
+				return ..()
+
+			var/obj/item/stack/cable_coil/C = I
+			if(C.get_amount() < 5)
+				to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
+				return
+
+			C.play_tool_sound(src)
+			to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
+			if(!do_after(user, 2 SECONDS * C.toolspeed, target = src))
+				return
+			if(C.get_amount() < 5 || !C.use(5))
+				to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+				return
+
+			to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+			state = STATE_WIRES
+			update_icon()
 			return
+
+		if(STATE_WIRES)
+			if(!istype(I, /obj/item/stack/sheet/glass))
+				return ..()
+
+			var/obj/item/stack/sheet/glass/G = I
+			if(G.get_amount() < 2)
+				to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
+				return
+
+			G.play_tool_sound(src)
+			to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
+			if(!do_after(user, 2 SECONDS * G.toolspeed, target = src))
+				return
+			if(G.get_amount() < 2 || !G.use(2))
+				to_chat(user, "<span class='warning'>At some point during construction you lost some glass. Make sure you have two sheets before trying again.</span>")
+				return
+
+			to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
+			state = STATE_GLASS
+			update_icon()
+			return
+
 	return ..()
+
+#undef STATE_EMPTY
+#undef STATE_CIRCUIT
+#undef STATE_NOWIRES
+#undef STATE_WIRES
+#undef STATE_GLASS

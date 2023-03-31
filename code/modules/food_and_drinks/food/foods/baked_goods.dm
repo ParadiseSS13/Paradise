@@ -1,3 +1,5 @@
+#define DONUT_NORMAL	1
+#define DONUT_FROSTED	2
 
 //////////////////////
 //		Cakes		//
@@ -36,7 +38,7 @@
 
 /obj/item/reagent_containers/food/snacks/braincakeslice
 	name = "brain cake slice"
-	desc = "Lemme tell you something about prions. THEY'RE DELICIOUS."
+	desc = "Lemme tell you something about brains. THEY'RE DELICIOUS."
 	icon_state = "braincakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#E6AEDB"
@@ -302,15 +304,15 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 2)
 	tastes = list("pie" = 1, "mushroom" = 1)
 
-/obj/item/reagent_containers/food/snacks/plump_pie/New()
-	..()
+/obj/item/reagent_containers/food/snacks/plump_pie/Initialize(mapload)
+	. = ..()
 	if(prob(10))
 		name = "exceptional plump pie"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!" // What
 		reagents.add_reagent("omnizine", 5)
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
-	name = "Xeno-pie"
+	name = "xeno-pie"
 	icon_state = "xenomeatpie"
 	desc = "A delicious meatpie. Probably heretical."
 	trash = /obj/item/trash/plate
@@ -370,14 +372,16 @@
 	var/extra_reagent = null
 	filling_color = "#D2691E"
 	var/randomized_sprinkles = 1
+	var/donut_sprite_type = DONUT_NORMAL
 	tastes = list("donut" = 1)
 
-/obj/item/reagent_containers/food/snacks/donut/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/Initialize(mapload)
+	. = ..()
 	if(randomized_sprinkles && prob(30))
 		icon_state = "donut2"
 		name = "frosted donut"
 		reagents.add_reagent("sprinkles", 2)
+		donut_sprite_type = DONUT_FROSTED
 		filling_color = "#FF69B4"
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
@@ -385,6 +389,7 @@
 	icon_state = "donut2"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
 	filling_color = "#FF69B4"
+	donut_sprite_type = DONUT_FROSTED
 	randomized_sprinkles = 0
 
 /obj/item/reagent_containers/food/snacks/donut/chaos
@@ -393,8 +398,8 @@
 	bitesize = 10
 	tastes = list("donut" = 3, "chaos" = 1)
 
-/obj/item/reagent_containers/food/snacks/donut/chaos/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/chaos/Initialize(mapload)
+	. = ..()
 	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
 	reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -410,13 +415,14 @@
 	extra_reagent = "berryjuice"
 	tastes = list("jelly" = 1, "donut" = 3)
 
-/obj/item/reagent_containers/food/snacks/donut/jelly/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/jelly/Initialize(mapload)
+	. = ..()
 	if(extra_reagent)
 		reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
 		icon_state = "jdonut2"
 		name = "frosted jelly Donut"
+		donut_sprite_type = DONUT_FROSTED
 		reagents.add_reagent("sprinkles", 2)
 		filling_color = "#FF69B4"
 
@@ -432,6 +438,44 @@
 	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
 
+//////////////////////
+//		Pancakes	//
+//////////////////////
+
+/obj/item/reagent_containers/food/snacks/pancake
+	name = "pancake"
+	desc = "A plain pancake."
+	icon_state = "pancake"
+	filling_color = "#E7D8AB"
+	bitesize = 2
+	list_reagents = list("nutriment" = 3, "sugar" = 3)
+
+/obj/item/reagent_containers/food/snacks/pancake/attack_tk(mob/user)
+	if(src in user.tkgrabbed_objects)
+		to_chat(user, "<span class='notice'>You start channeling psychic energy into [src].</span>")
+		visible_message("<span class='danger'>The syrup on [src] starts to boil...</span>")
+		if(do_after_once(user, 4 SECONDS, target = src))
+			visible_message("<span class='danger'>[src] suddenly combust!</span>")
+			to_chat(user, "<span class='warning'>You combust [src] with your mind!</span>")
+			explosion(get_turf(src), light_impact_range = 2, flash_range = 2)
+			add_attack_logs(user, src, "blew up [src] with TK", ATKLOG_ALL)
+			qdel(src)
+			return
+		to_chat(user, "<span class='notice'>You decide against the destruction of [src].</span>")
+		return
+	return ..()
+
+/obj/item/reagent_containers/food/snacks/pancake/berry_pancake
+	name = "berry pancake"
+	desc = "A pancake loaded with berries."
+	icon_state = "berry_pancake"
+	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
+
+/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
+	name = "choc-chip pancake"
+	desc = "A pancake loaded with chocolate chips."
+	icon_state = "choc_chip_pancake"
+	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)
 
 //////////////////////
 //		Misc		//
@@ -471,8 +515,8 @@
 	list_reagents = list("nutriment" = 5)
 	tastes = list("mushroom" = 1, "biscuit" = 1)
 
-/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/New()
-	..()
+/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/Initialize(mapload)
+	. = ..()
 	if(prob(10))
 		name = "exceptional plump helmet biscuit"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?
@@ -497,3 +541,15 @@
 	filling_color = "#F5DEB8"
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
+
+/obj/item/reagent_containers/food/snacks/croissant
+	name = "croissant"
+	desc = "Once a pastry reserved for the bourgeois, this flaky goodness is now on your table."
+	icon_state = "croissant"
+	bitesize = 4
+	filling_color = "#ecb54f"
+	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	tastes = list("croissant" = 1)
+
+#undef DONUT_NORMAL
+#undef DONUT_FROSTED

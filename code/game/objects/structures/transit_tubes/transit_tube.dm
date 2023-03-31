@@ -6,9 +6,9 @@
 /obj/structure/transit_tube
 	icon = 'icons/obj/pipes/transit_tube.dmi'
 	icon_state = "E-W"
-	density = 1
+	density = TRUE
 	layer = 3.1
-	anchored = 1.0
+	anchored = TRUE
 	var/list/tube_dirs = null
 	var/exit_delay = 1
 	var/enter_delay = 0
@@ -26,7 +26,7 @@
 	return !density
 
 // When destroyed by explosions, properly handle contents.
-obj/structure/transit_tube/ex_act(severity)
+/obj/structure/transit_tube/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/AM in contents)
@@ -138,7 +138,7 @@ obj/structure/transit_tube/ex_act(severity)
 		tube_dirs = parse_dirs(icon_state)
 
 		if(copytext(icon_state, 1, 3) == "D-" || findtextEx(icon_state, "Pass"))
-			density = 0
+			density = FALSE
 
 
 

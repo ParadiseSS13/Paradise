@@ -1,10 +1,11 @@
 //Simple borg hand.
 //Limited use.
-/obj/item/gripper
+/obj/item/gripper_engineering // This isn't a drone item, also in engineering cyborg kits
 	name = "magnetic gripper"
 	desc = "A simple grasping tool for synthetic assets."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
+	actions_types = list(/datum/action/item_action/drop_gripped_item)
 
 	//Has a list of items that it can hold.
 	var/list/can_hold = list(
@@ -21,10 +22,11 @@
 		/obj/item/mounted/frame/apc_frame,
 		/obj/item/mounted/frame/alarm_frame,
 		/obj/item/mounted/frame/firealarm,
-		/obj/item/mounted/frame/newscaster_frame,
+		/obj/item/mounted/frame/display/newscaster_frame,
 		/obj/item/mounted/frame/intercom,
 		/obj/item/mounted/frame/extinguisher,
 		/obj/item/mounted/frame/light_switch,
+		/obj/item/assembly/prox_sensor,
 		/obj/item/rack_parts,
 		/obj/item/camera_assembly,
 		/obj/item/tank,
@@ -36,64 +38,60 @@
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
-/obj/item/gripper/medical
+/obj/item/gripper_medical
 	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete."
-	can_hold = list()
+	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gripper"
 
-/obj/item/gripper/medical/attack_self(mob/user)
-	return
 
-/obj/item/gripper/medical/afterattack(atom/target, mob/living/user, proximity, params)
-	var/mob/living/carbon/human/H
-	if(!gripped_item && proximity && target && ishuman(target))
-		H = target
-		if(H.lying)
-			H.AdjustSleeping(-5)
-			if(H.sleeping == 0)
-				H.StopResting()
-			H.AdjustParalysis(-3)
-			H.AdjustStunned(-3)
-			H.AdjustWeakened(-3)
-			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			user.visible_message( \
-				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
-				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
-				)
+/obj/item/gripper_medical/afterattack(atom/target, mob/living/user, proximity, params)
+	if(!proximity || !target || !ishuman(target))
+		return
+	var/mob/living/carbon/human/pickup_target = target
+	if(!IS_HORIZONTAL(pickup_target))
+		return
+	pickup_target.AdjustSleeping(-10 SECONDS)
+	pickup_target.AdjustParalysis(-6 SECONDS)
+	pickup_target.AdjustStunned(-6 SECONDS)
+	pickup_target.AdjustWeakened(-6 SECONDS)
+	pickup_target.AdjustKnockDown(-6 SECONDS)
+	pickup_target.stand_up()
+	playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+	user.visible_message( \
+		"<span class='notice'>[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",\
+		"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",\
+		)
 
-/obj/item/gripper/New()
-	..()
+/obj/item/gripper_engineering/Initialize(mapload)
+	. = ..()
 	can_hold = typecacheof(can_hold)
 
-/obj/item/gripper/verb/drop_item_gripped()
-	set name = "Drop Gripped Item"
-	set desc = "Release an item from your magnetic gripper."
-	set category = "Drone"
-
+/obj/item/gripper_engineering/ui_action_click(mob/user)
 	drop_gripped_item()
 
-/obj/item/gripper/attack_self(mob/user)
-	if(gripped_item)
-		gripped_item.attack_self(user)
-	else
+/obj/item/gripper_engineering/attack_self(mob/user)
+	if(!gripped_item)
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		return
+	gripped_item.attack_self(user)
 
-/obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
-	if(gripped_item)
-		if(!silent)
-			to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
-		gripped_item.forceMove(get_turf(src))
-		gripped_item = null
+/obj/item/gripper_engineering/proc/drop_gripped_item(silent = FALSE)
+	if(!gripped_item)
+		return
+	if(!silent)
+		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
+	gripped_item.forceMove(get_turf(src))
+	gripped_item = null
 
-/obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/gripper_engineering/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
 
-/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's.
-/obj/item/gripper/forceMove(atom/destination)
+/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's. // What does this even MEAN - GDN
+/obj/item/gripper_engineering/forceMove(atom/destination)
 	return
 
-/obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
-
+/obj/item/gripper_engineering/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!target || !proximity) //Target is invalid or we are not adjacent.
 		return FALSE
 
@@ -112,7 +110,7 @@
 		else if(gripped_item && !contents.len)
 			gripped_item = null
 
-	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
+	else if(isitem(target)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
 			to_chat(user, "<span class='notice'>You collect [I].</span>")
@@ -134,7 +132,7 @@
 				A.cell.forceMove(src)
 				A.cell = null
 
-				A.charging = 0
+				A.charging = APC_NOT_CHARGING
 				A.update_icon()
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
@@ -178,62 +176,6 @@
 	else
 		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
 	return
-
-//PRETTIER TOOL LIST.
-/mob/living/silicon/robot/drone/installed_modules()
-
-	if(weapon_lock)
-		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
-		return
-
-	if(!module)
-		module = new /obj/item/robot_module/drone(src)
-
-	var/dat = "<HEAD><TITLE>Drone modules</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
-	dat += {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
-	<BR>
-	<BR>
-	<B>Activated Modules</B>
-	<BR>
-	Module 1: [module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]<BR>
-	Module 2: [module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]<BR>
-	Module 3: [module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]<BR>
-	<BR>
-	<B>Installed Modules</B><BR><BR>"}
-
-
-	var/tools = "<B>Tools and devices</B><BR>"
-	var/resources = "<BR><B>Resources</B><BR>"
-
-	for(var/O in module.modules)
-
-		var/module_string = ""
-
-		if(!O)
-			module_string += text("<B>Resource depleted</B><BR>")
-		else if(activated(O))
-			module_string += text("[O]: <B>Activated</B><BR>")
-		else
-			module_string += text("[O]: <A HREF=?src=[UID()];act=\ref[O]>Activate</A><BR>")
-
-		if((istype(O,/obj/item) || istype(O,/obj/item)) && !(istype(O,/obj/item/stack/cable_coil)))
-			tools += module_string
-		else
-			resources += module_string
-
-	dat += tools
-
-	if(emagged)
-		if(!module.emag)
-			dat += text("<B>Resource depleted</B><BR>")
-		else if(activated(module.emag))
-			dat += text("[module.emag]: <B>Activated</B><BR>")
-		else
-			dat += text("[module.emag]: <A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A><BR>")
-
-	dat += resources
-
-	src << browse(dat, "window=robotmod&can_close=0")
 
 //Putting the decompiler here to avoid doing list checks every tick.
 /mob/living/silicon/robot/drone/use_power()

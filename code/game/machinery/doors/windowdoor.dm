@@ -6,47 +6,53 @@
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
 	resistance_flags = ACID_PROOF
-	visible = 0
 	flags = ON_BORDER
-	opacity = 0
+	opacity = FALSE
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
+	glass = TRUE // Used by polarized helpers. Windoors are always glass.
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
-	var/reinf = 0
-	var/cancolor = TRUE
+	var/reinf = FALSE
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
-	var/list/debris = list()
+	/// Color for the window if it gets changed at some point, to preserve painter functionality
+	var/old_color
 
 /obj/machinery/door/window/New(loc, set_dir)
 	..()
 	if(set_dir)
 		setDir(set_dir)
+
+/obj/machinery/door/window/Initialize(mapload)
+	. = ..()
 	if(req_access && req_access.len)
-		icon_state = "[icon_state]"
 		base_state = icon_state
-	if(!color && cancolor)
-		color = color_windows(src)
-	for(var/i in 1 to shards)
-		debris += new /obj/item/shard(src)
-	if(rods)
-		debris += new /obj/item/stack/rods(src, rods)
-	if(cable)
-		debris += new /obj/item/stack/cable_coil(src, cable)
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
-	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	QDEL_NULL(electronics)
 	return ..()
 
-/obj/machinery/door/window/update_icon()
+/obj/machinery/door/window/toggle_polarization()
+	polarized_on = !polarized_on
+
+	if(!polarized_on)
+		if(!old_color)
+			old_color = "#FFFFFF"
+		animate(src, color = old_color, time = 0.5 SECONDS)
+		set_opacity(FALSE)
+	else
+		old_color = color
+		animate(src, color = "#222222", time = 0.5 SECONDS)
+		set_opacity(TRUE)
+
+/obj/machinery/door/window/update_icon_state()
 	if(density)
 		icon_state = base_state
 	else
@@ -56,13 +62,29 @@
 	. = ..()
 	if(emagged)
 		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>The access panel is coated in yellow ooze...</span>"
+
+/obj/machinery/door/window/emp_act(severity)
+	. = ..()
+	if(prob(20 / severity))
+		open()
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
-	if(check_access(null))
-		sleep(50)
-	else //secure doors close faster
-		sleep(20)
+	addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
+
+
+/// Check whether or not this door can close, based on whether or not someone's standing in front of it holding it open
+/obj/machinery/door/window/proc/check_close()
+	var/mob/living/blocker = locate(/mob/living) in get_turf(get_step(src, dir))  // check the facing turf
+	if(!blocker || blocker.stat || !allowed(blocker))
+		blocker = locate(/mob/living) in get_turf(src)
+	if(blocker && !blocker.stat && allowed(blocker))
+		// kick the can down the road, someone's holding the door.
+		addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
+		return
+
 	close()
 
 /obj/machinery/door/window/Bumped(atom/movable/AM)
@@ -72,8 +94,14 @@
 		if(ismecha(AM))
 			var/obj/mecha/mecha = AM
 			if(mecha.occupant && allowed(mecha.occupant))
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(FALSE)
+					return
 				open_and_close()
 			else
+				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+					cmag_switch(TRUE)
+					return
 				do_animate("deny")
 		return
 	if(!SSticker)
@@ -87,9 +115,22 @@
 		return
 	add_fingerprint(user)
 	if(!requiresID() || allowed(user))
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(FALSE, user)
+			return
 		open_and_close()
 	else
+		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+			cmag_switch(TRUE, user)
+			return
 		do_animate("deny")
+
+/obj/machinery/door/window/unrestricted_side(mob/M)
+	var/mob_dir = get_dir(src, M)
+	if(mob_dir == 0) // If the mob is inside the tile
+		mob_dir = GetOppositeDir(dir) // Set it to the inside direction of the windoor
+
+	return mob_dir & unres_sides
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
@@ -116,7 +157,7 @@
 		return 1
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir)
+/obj/machinery/door/window/CanPathfindPass(obj/item/card/id/ID, to_dir, no_id = FALSE)
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
@@ -137,8 +178,9 @@
 		if(emagged)
 			return 0
 	if(!operating) //in case of emag
-		operating = TRUE
+		operating = DOOR_OPENING
 	do_animate("opening")
+	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
 	sleep(10)
@@ -149,7 +191,7 @@
 	update_freelook_sight()
 
 	if(operating) //emag again
-		operating = FALSE
+		operating = NONE
 	return 1
 
 /obj/machinery/door/window/close(forced=0)
@@ -161,19 +203,19 @@
 	if(forced < 2)
 		if(emagged)
 			return 0
-	operating = TRUE
+	operating = DOOR_CLOSING
 	do_animate("closing")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
 
-	density = 1
-//	if(visible)
-//		set_opacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
+	density = TRUE
+	if(polarized_on)
+		set_opacity(TRUE)
 	air_update_turf(1)
 	update_freelook_sight()
 	sleep(10)
 
-	operating = 0
+	operating = NONE
 	return 1
 
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -185,19 +227,21 @@
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT) && !disassembled)
-		for(var/obj/fragment in debris)
-			fragment.forceMove(get_turf(src))
-			transfer_fingerprints_to(fragment)
-			debris -= fragment
+		for(var/obj/item/shard/debris in spawnDebris(drop_location()))
+			transfer_fingerprints_to(debris) // transfer fingerprints to shards only
 	qdel(src)
+
+/obj/machinery/door/window/proc/spawnDebris(location)
+	. = list()
+	for(var/i in 1 to shards)
+		. += new /obj/item/shard(location)
+	if(rods)
+		. += new /obj/item/stack/rods(location, rods)
+	if(cable)
+		. += new /obj/item/stack/cable_coil(location, cable)
 
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
-
-/obj/machinery/door/window/ratvar_act()
-	var/obj/machinery/door/window/clockwork/C = new(loc, dir)
-	C.name = name
-	qdel(src)
 
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -217,13 +261,25 @@
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
 		emagged = TRUE
-		operating = TRUE
+		operating = DOOR_MALF
+		electronics = new /obj/item/airlock_electronics/destroyed()
 		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		sleep(6)
-		operating = FALSE
+		operating = NONE
 		open(2)
 		return 1
+
+/obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
+	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	operating = DOOR_MALF
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	sleep(6)
+	operating = NONE
+	return TRUE
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
@@ -256,7 +312,7 @@
 		return
 	if(panel_open && !density && !operating)
 		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
-							 "You start to remove electronics from the [name]...")
+							"You start to remove electronics from the [name]...")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
@@ -271,17 +327,16 @@
 					if("rightsecure")
 						WA.facing = "r"
 						WA.secure = TRUE
+				WA.polarized_glass = polarized_glass
 				WA.anchored = TRUE
 				WA.state= "02"
 				WA.setDir(dir)
 				WA.ini_dir = dir
 				WA.update_icon()
-				WA.created_name = name
-
-				if(emagged)
-					to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
-					qdel(src)
-					return
+				if(WA.secure)
+					WA.name = "secure wired windoor assembly"
+				else
+					WA.name = "wired windoor assembly"
 
 				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 
@@ -291,9 +346,9 @@
 					if(!req_access)
 						check_access()
 					if(req_access.len)
-						ae.conf_access = req_access
+						ae.selected_accesses = req_access
 					else if(req_one_access.len)
-						ae.conf_access = req_one_access
+						ae.selected_accesses = req_one_access
 						ae.one_access = 1
 				else
 					ae = electronics
@@ -327,9 +382,8 @@
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
-	reinf = 1
+	reinf = TRUE
 	explosion_block = 1
-	var/id = null
 
 /obj/machinery/door/window/brigdoor/security/cell
 	name = "cell door"
@@ -343,13 +397,43 @@
 	base_state = "clockwork"
 	shards = 0
 	rods = 0
+	cable = 0
 	resistance_flags = ACID_PROOF | FIRE_PROOF
-	cancolor = FALSE
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/New(loc, set_dir)
-	..()
-	debris += new/obj/item/stack/tile/brass(src, 2)
+/obj/machinery/door/window/clockwork/crowbar_act(mob/user, obj/item/I)
+	if(operating)
+		return
+	if(flags & NODECONSTRUCT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	try_to_crowbar(user, I)
+
+/obj/machinery/door/window/clockwork/welder_act(mob/user, obj/item/I)
+	if(operating)
+		return
+	if(flags & NODECONSTRUCT)
+		return
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		return
+	if(!panel_open && operating && !loc)
+		return
+	WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+	var/obj/item/stack/tile/brass/B = new (get_turf(src), 2)
+	B.add_fingerprint(user)
+	qdel(src)
+
+/obj/machinery/door/window/clockwork/spawnDebris(location)
+	. = ..()
+	. = new /obj/item/stack/tile/brass(location, 2)
 
 /obj/machinery/door/window/clockwork/setDir(direct)
 	if(!made_glow)
@@ -361,9 +445,6 @@
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))
 		open()
-
-/obj/machinery/door/window/clockwork/ratvar_act()
-	obj_integrity = max_integrity
 
 /obj/machinery/door/window/clockwork/hasPower()
 	return TRUE //yup that's power all right

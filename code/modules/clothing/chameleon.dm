@@ -161,10 +161,11 @@
 			I.sprite_sheets = P.sprite_sheets
 			qdel(P)
 
-		if(istype(I, /obj/item/clothing) && istype(initial(picked_item), /obj/item/clothing))
+		if(isclothing(I) && isclothing(picked_item))
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
+		I.update_appearance()
 
 	target.icon = initial(picked_item.icon)
 
@@ -175,7 +176,7 @@
 	select_look(owner)
 	return 1
 
-/datum/action/item_action/chameleon/change/proc/emp_randomise(var/amount = EMP_RANDOMISE_TIME)
+/datum/action/item_action/chameleon/change/proc/emp_randomise(amount = EMP_RANDOMISE_TIME)
 	START_PROCESSING(SSprocessing, src)
 	random_look(owner)
 
@@ -198,7 +199,16 @@
 	sensor_mode = SENSOR_OFF //Hey who's this guy on the Syndicate Shuttle??
 	random_sensor = FALSE
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+
+	icon = 'icons/obj/clothing/under/color.dmi'
+
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/color.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
+		)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -207,7 +217,24 @@
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/under
 	chameleon_action.chameleon_name = "Jumpsuit"
-	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/under, /obj/item/clothing/under/color, /obj/item/clothing/under/rank), only_root_path = TRUE)
+	chameleon_action.chameleon_blacklist = typecacheof(list(
+		/obj/item/clothing/under,
+		/obj/item/clothing/under/misc,
+		/obj/item/clothing/under/dress,
+		/obj/item/clothing/under/pants,
+		/obj/item/clothing/under/color,
+		/obj/item/clothing/under/retro,
+		/obj/item/clothing/under/solgov,
+		/obj/item/clothing/under/suit,
+		/obj/item/clothing/under/costume,
+		/obj/item/clothing/under/rank,
+		/obj/item/clothing/under/rank/cargo,
+		/obj/item/clothing/under/rank/civilian,
+		/obj/item/clothing/under/rank/engineering,
+		/obj/item/clothing/under/rank/medical,
+		/obj/item/clothing/under/rank/rnd,
+		/obj/item/clothing/under/rank/security,
+		), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
 /obj/item/clothing/under/chameleon/Destroy()
@@ -229,10 +256,10 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -263,12 +290,13 @@
 	icon_state = "meson"
 	item_state = "meson"
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	prescription_upgradable = TRUE
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -297,11 +325,11 @@
 	origin_tech = "magnets=3;syndicate=4"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/hud/security/chameleon
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -332,7 +360,7 @@
 	item_state = "ygloves"
 
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -363,10 +391,10 @@
 	item_color = "grey"
 
 	resistance_flags = NONE
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -397,7 +425,7 @@
 	icon_state = "gas_alt"
 	item_state = "gas_alt"
 	resistance_flags = NONE
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	flags = AIRTIGHT | BLOCK_GAS_SMOKE_EFFECT
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	gas_transfer_coefficient = 0.01
@@ -405,12 +433,12 @@
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
 	)
 
 	var/obj/item/voice_changer/voice_changer
@@ -448,7 +476,7 @@
 	desc = "A pair of black shoes."
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -483,7 +511,7 @@
 	name = "backpack"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/back.dmi'
 	)
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
@@ -508,8 +536,8 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/storage/belt/chameleon
-	name = "toolbelt"
-	desc = "Holds tools."
+	name = "tool-belt"
+	desc = "Can hold various tools."
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/storage/belt/chameleon/Initialize(mapload)

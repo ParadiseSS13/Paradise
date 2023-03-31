@@ -16,12 +16,20 @@
 	var/datum/map_template/shelter/template
 	var/used = FALSE
 
+/obj/item/survivalcapsule/emag_act()
+	if(!emagged)
+		to_chat(usr, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+		emagged = TRUE
+		return
+
+	to_chat(usr, "<span class='warning'>The safeties are already shorted out!</span>")
+
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
 		return
 	template = GLOB.shelter_templates[template_id]
 	if(!template)
-		log_runtime("Shelter template ([template_id]) not found!", src)
+		stack_trace("Shelter template ([template_id]) not found!")
 		qdel(src)
 
 /obj/item/survivalcapsule/examine(mob/user)
@@ -39,6 +47,12 @@
 		sleep(50)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
+		var/turf/UT = get_turf(usr)
+		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
+			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
+			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
+			used = FALSE
+			return
 		switch(status)
 			if(SHELTER_DEPLOY_BAD_AREA)
 				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")
@@ -70,23 +84,15 @@
 //Pod turfs and objects
 
 //Window
-/obj/structure/window/shuttle/survival_pod
+/obj/structure/window/full/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/pod_window.dmi'
-	icon_state = "smooth"
-	dir = FULLTILE_WINDOW_DIR
-	max_integrity = 100
-	fulltile = TRUE
-	flags = PREVENT_CLICK_UNDER
-	reinf = TRUE
-	heat_resistance = 1600
-	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/shuttle/survival_pod)
-	explosion_block = 3
-	level = 3
+	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
+	icon_state = "pod_window-0"
+	base_icon_state = "pod_window"
+	smoothing_flags = SMOOTH_BITMASK
 	glass_type = /obj/item/stack/sheet/titaniumglass
-	glass_amount = 2
+	smoothing_groups = list(SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
+	canSmoothWith = list(SMOOTH_GROUP_SURVIVAL_TIANIUM_POD)
 
 /obj/structure/window/reinforced/survival_pod
 	name = "pod window"
@@ -138,7 +144,9 @@
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "table"
-	smooth = SMOOTH_FALSE
+	smoothing_flags = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 
 //Sleeper
 /obj/machinery/sleeper/survival_pod
@@ -146,8 +154,8 @@
 	icon_state = "sleeper-open"
 	density = FALSE
 
-/obj/machinery/sleeper/survival_pod/New()
-	..()
+/obj/machinery/sleeper/survival_pod/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/survival(null)
 	var/obj/item/stock_parts/matter_bin/B = new(null)
@@ -160,7 +168,7 @@
 	RefreshParts()
 
 //NanoMed
-/obj/machinery/vending/wallmed/survival_pod
+/obj/machinery/economy/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
@@ -173,8 +181,8 @@
 	name = "pod computer"
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	pixel_y = -32
 
 /obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
@@ -225,8 +233,11 @@
 		var/obj/item/instrument/guitar/G = new(src)
 		load(G)
 
-/obj/machinery/smartfridge/survival_pod/update_icon()
+/obj/machinery/smartfridge/survival_pod/update_icon_state()
 	return
+
+/obj/machinery/smartfridge/survival_pod/update_overlays()
+	return list()
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
 	return isitem(O)
@@ -245,8 +256,8 @@
 	icon_state = "fans"
 	name = "environmental regulation system"
 	desc = "A large machine releasing a constant gust of air."
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	var/arbitraryatmosblockingvar = 1
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5
@@ -273,7 +284,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+							"<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			deconstruct()
 			return ..()
@@ -282,7 +293,7 @@
 	name = "tiny fan"
 	desc = "A tiny fan, releasing a thin gust of air."
 	layer = TURF_LAYER+0.1
-	density = 0
+	density = FALSE
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
@@ -308,15 +319,15 @@
 	icon_state = "tubes"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
-	anchored = 1
+	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = 0
+	density = FALSE
 
 /obj/structure/tubes/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+							"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/stack/rods(loc)
 			qdel(src)
@@ -333,10 +344,10 @@
 						/obj/item/lava_staff,
 						/obj/item/katana/energy,
 						/obj/item/hierophant_club,
-						/obj/item/storage/toolbox/green/memetic,
+						/obj/item/his_grace,
 						/obj/item/gun/projectile/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
-						/obj/item/gun/magic/staff/spellblade,
+						/obj/item/melee/spellblade,
 						/obj/item/gun/magic/wand/death,
 						/obj/item/gun/magic/wand/fireball,
 						/obj/item/stack/telecrystal/twenty,

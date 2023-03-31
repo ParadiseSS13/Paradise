@@ -26,7 +26,7 @@
 /datum/plant_gene/core/proc/apply_stat(obj/item/seeds/S)
 	return
 
-/datum/plant_gene/core/New(var/i = null)
+/datum/plant_gene/core/New(i = null)
 	..()
 	if(!isnull(i))
 		value = i
@@ -159,7 +159,7 @@
 			return FALSE
 	return TRUE
 
-/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/proc/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	if(!origin_tech) // This ugly code segment adds RnD tech levels to resulting plants.
 		return
 
@@ -206,25 +206,25 @@
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 	dangerous = TRUE
 
-/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	. = ..()
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return
 
-	var/stun_len = G.seed.potency * rate * 0.8
+	var/stun_len = G.seed.potency * rate * 1.6 SECONDS
 
 	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
 		stun_len /= 3
 
-	stun_len = min(stun_len, 7) // No fun allowed
+	stun_len = min(stun_len, 14 SECONDS)// No fun allowed
 
-	G.AddComponent(/datum/component/slippery, G, stun_len, stun_len, 100, 0, FALSE)
+	G.AddComponent(/datum/component/slippery, G, stun_len, 100, 0, FALSE)
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
 	// Generates sparks on squash.
 	// Small (potency*rate*5) chance to shock squish or slip target for (potency*rate*5) damage.
-	// Multiplies max charge by (rate*1000) when used in potato power cells.
+	// Multiplies max charge by (rate*100) when used in potato power cells.
 	name = "Electrical Activity"
 	rate = 0.2
 	origin_tech = list("powerstorage" = 5)
@@ -233,14 +233,14 @@
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
-		C.electrocute_act(round(power), G, 1, TRUE)
+		C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			C.electrocute_act(round(power), G, 1, TRUE)
+			C.electrocute_act(round(power), G, 1, SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
@@ -274,7 +274,7 @@
 /datum/plant_gene/trait/glow/proc/glow_power(obj/item/seeds/S)
 	return max(S.potency*(rate + 0.01), 0.1)
 
-/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
 
@@ -307,10 +307,12 @@
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
+		var/mob/living/L = target
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
-		var/turf/T = get_turf(target)
+		var/turf/T = get_turf(L)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
-		do_teleport(target, T, teleport_radius)
+		do_teleport(L, T, teleport_radius)
+		L.apply_status_effect(STATUS_EFFECT_TELEPORTSICK)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
@@ -319,6 +321,7 @@
 		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 		if(prob(50))
 			do_teleport(G, T, teleport_radius)
+			C.apply_status_effect(STATUS_EFFECT_TELEPORTSICK)
 		else
 			new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 			qdel(G)
@@ -327,27 +330,12 @@
 		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
 
-
-/datum/plant_gene/trait/noreact
-	// Makes plant reagents not react until squashed.
-	name = "Separated Chemicals"
-
-/datum/plant_gene/trait/noreact/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
-	..()
-	G.reagents.set_reacting(FALSE)
-
-/datum/plant_gene/trait/noreact/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	if(G && G.reagents)
-		G.reagents.set_reacting(TRUE)
-		G.reagents.handle_reactions()
-
-
 /datum/plant_gene/trait/maxchem
 	// 2x to max reagents volume.
 	name = "Densified Chemicals"
 	rate = 2
 
-/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/maxchem/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
 	G.reagents.maximum_volume *= rate
 
@@ -375,8 +363,8 @@
 
 			// The secret of potato supercells!
 			var/datum/plant_gene/trait/cell_charge/CG = G.seed.get_gene(/datum/plant_gene/trait/cell_charge)
-			if(CG) // 10x charge for deafult cell charge gene - 20 000 with 100 potency.
-				pocell.maxcharge *= CG.rate*1000
+			if(CG) // 20x charge for deafult cell charge gene - 40 000 with 100 potency.
+				pocell.maxcharge *= CG.rate*100
 			pocell.charge = pocell.maxcharge
 			pocell.name = "[G] battery"
 			pocell.desc = "A rechargable plant based power cell. This one has a power rating of [pocell.maxcharge], and you should not swallow it."
@@ -396,7 +384,10 @@
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
 		var/mob/living/L = target
-		if(L.reagents && L.can_inject(null, FALSE))
+		// It would be nice to inject the body part the original thrower aimed at,
+		// but we don't have this kind of information here. So pick something at random.
+		var/target_zone = pick("chest", "chest", "chest", "l_leg", "r_leg", "l_arm", "r_arm", "head")
+		if(L.reagents && L.can_inject(null, FALSE, target_zone))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, REAGENT_INGEST, fraction)
@@ -421,7 +412,7 @@
 	if(!(S.resistance_flags & FIRE_PROOF))
 		S.resistance_flags |= FIRE_PROOF
 
-/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	if(!(G.resistance_flags & FIRE_PROOF))
 		G.resistance_flags |= FIRE_PROOF
 

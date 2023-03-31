@@ -18,7 +18,8 @@
 	var/pre_maint_all_access
 	area_type = /area
 	protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer,
-	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle)
+	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig,
+	/area/shuttle, /area/survivalpod) //although survivalpods are off-station, creating one on station no longer protects pods on station from the rad storm
 	target_trait = STATION_LEVEL
 
 	immunity_type = "rad"
@@ -32,33 +33,40 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, "rad")
-	if(prob(40))
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			if(!(RADIMMUNE in H.dna.species.species_traits))
-				if(prob(max(0, 100 - resist)))
-					randmuti(H) // Applies bad mutation
-					if(prob(50))
-						if(prob(90))
-							randmutb(H)
-						else
-							randmutg(H)
-					domutcheck(H, null, 1)
+	if(!prob(60))
+		return
 
-		L.apply_effect(20, IRRADIATE, resist)
+	if(!ishuman(L))
+		return
+
+	var/mob/living/carbon/human/H = L
+	var/resist = H.getarmor(null, RAD)
+	if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || resist == INFINITY)
+		return
+
+	if(prob(max(0, 100 - ARMOUR_VALUE_TO_PERCENTAGE(resist))))
+		L.rad_act(400)
+		if(HAS_TRAIT(H, TRAIT_GENELESS))
+			return
+		randmuti(H) // Applies bad mutation
+		if(prob(50))
+			if(prob(90))
+				randmutb(H)
+			else
+				randmutg(H)
+
+		domutcheck(H, MUTCHK_FORCED)
 
 /datum/weather/rad_storm/end()
 	if(..())
 		return
-	GLOB.priority_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
+	GLOB.minor_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
 	status_alarm(FALSE)
 	if(!pre_maint_all_access)
 		revoke_maint_all_access()
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	if(active)
-		post_status("alert", "radiation")
+		post_status(STATUS_DISPLAY_ALERT, "radiation")
 	else
-		post_status("blank")
-		post_status("shuttle")
+		post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)

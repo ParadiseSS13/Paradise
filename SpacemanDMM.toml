@@ -1,0 +1,36 @@
+# Keep the keys in this file alphabetical please
+[code_standards]
+disallow_relative_proc_definitions = true
+disallow_relative_type_definitions = true
+
+[debugger]
+engine = "auxtools"
+
+[dmdoc]
+use_typepath_names = true
+
+[langserver]
+dreamchecker = true
+
+[map_renderer]
+hide_invisible = [
+	"/obj/effect/landmark",
+	"/obj/effect/mapping_helpers",
+	"/obj/effect/spawner/random_barrier",
+	"/obj/effect/spawner/random_spawners",
+]
+
+[map_renderer.fancy_layers]
+# -10
+"/turf/simulated/floor/plating" = -10
+"/turf/space" = -10
+# -2
+"/turf/simulated/floor/bluegrid" = -2
+"/turf/simulated/floor/carpet" = -2
+"/turf/simulated/floor/engine" = -2
+"/turf/simulated/floor/plasteel" = -2
+"/turf/simulated/floor/wood" = -2
+"/turf/simulated/wall" = -2
+
+[map_renderer.render_passes]
+smart-cables = false

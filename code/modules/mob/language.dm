@@ -5,21 +5,23 @@
 */
 
 /datum/language
-	var/name = "an unknown language" // Fluff name of language if any.
-	var/desc = "A language."         // Short description for 'Check Languages'.
-	var/speech_verb = "says"         // 'says', 'hisses', 'farts'.
-	var/ask_verb = "asks"            // Used when sentence ends in a ?
-	var/exclaim_verb = "exclaims"    // Used when sentence ends in a !
-	var/whisper_verb                 // Optional. When not specified speech_verb + quietly/softly is used instead.
-	var/colour = "body"              // CSS style to use for strings in this language.
-	var/key = "x"                    // Character used to speak in language eg. :o for Unathi.
-	var/flags = 0                    // Various language flags.
-	var/native                       // If set, non-native speakers will have trouble speaking.
-	var/list/syllables               // Used when scrambling text for a non-speaker.
-	var/list/space_chance = 55       // Likelihood of getting a space in the random scramble string.
-	var/follow = 0					 // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
-	var/english_names = 0			 // Do we want English names by default, no matter what?
+	var/name = "an unknown language"            // Fluff name of language if any.
+	var/desc = "A language."                    // Short description for 'Check Languages'.
+	var/speech_verb = "says"                    // 'says', 'hisses', 'farts'.
+	var/ask_verb = "asks"                       // Used when sentence ends in a ?
+	var/list/exclaim_verbs = list("exclaims")   // Used when sentence ends in a !
+	var/whisper_verb                            // Optional. When not specified speech_verb + quietly/softly is used instead.
+	var/colour = "body"                         // CSS style to use for strings in this language.
+	var/key = "x"                               // Character used to speak in language eg. :o for Unathi.
+	var/flags = 0                               // Various language flags.
+	var/native                                  // If set, non-native speakers will have trouble speaking.
+	var/list/syllables                          // Used when scrambling text for a non-speaker.
+	var/list/space_chance = 55                  // Likelihood of getting a space in the random scramble string.
+	var/follow = 0                              // Applies to HIVEMIND languages - should a follow link be included for dead mobs?
+	var/english_names = 0                       // Do we want English names by default, no matter what?
 	var/list/scramble_cache = list()
+	/// Do we want to override the word-join character for scrambled text? If null, defaults to " " or ". "
+	var/join_override
 
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
@@ -62,7 +64,9 @@
 			capitalize = 0
 		scrambled_text += next
 		var/chance = rand(100)
-		if(chance <= 5)
+		if(join_override)
+			scrambled_text += join_override
+		else if(chance <= 5)
 			scrambled_text += ". "
 			capitalize = 1
 		else if(chance > 5 && chance <= space_chance)
@@ -70,7 +74,7 @@
 
 	scrambled_text = trim(scrambled_text)
 	var/ending = copytext(scrambled_text, length(scrambled_text))
-	if(ending == ".")
+	if(ending == "." || ending == "-")
 		scrambled_text = copytext(scrambled_text,1,length(scrambled_text)-1)
 	var/input_ending = copytext(input, input_size)
 	if(input_ending in list("!","?","."))
@@ -124,7 +128,7 @@
 /datum/language/proc/get_spoken_verb(msg_end)
 	switch(msg_end)
 		if("!")
-			return exclaim_verb
+			return pick(exclaim_verbs)
 		if("?")
 			return ask_verb
 	return speech_verb
@@ -151,7 +155,7 @@
 	desc = "The common language of Moghes, composed of sibilant hisses and rattles. Spoken natively by Unathi."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
-	exclaim_verb = "roars"
+	exclaim_verbs = list("roars")
 	colour = "soghun"
 	key = "o"
 	flags = RESTRICTED
@@ -172,7 +176,7 @@
 	desc = "The traditionally employed tongue of Ahdomai, composed of expressive yowls and chirps. Native to the Tajaran."
 	speech_verb = "mrowls"
 	ask_verb = "mrowls"
-	exclaim_verb = "yowls"
+	exclaim_verbs = list("yowls")
 	colour = "tajaran"
 	key = "j"
 	flags = RESTRICTED
@@ -186,7 +190,7 @@
 	if(prob(80))
 		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
 	else
-		new_name += ..(gender,1)
+		new_name += " [..(gender,1)]"
 	return new_name
 
 /datum/language/vulpkanin
@@ -194,7 +198,7 @@
 	desc = "The guttural language spoken and utilized by the inhabitants of Vazzend system, composed of growls, barks, yaps, and heavy utilization of ears and tail movements.Vulpkanin speak this language with ease."
 	speech_verb = "rawrs"
 	ask_verb = "rurs"
-	exclaim_verb = "barks"
+	exclaim_verbs = list("barks")
 	colour = "vulpkanin"
 	key = "7"
 	flags = RESTRICTED
@@ -203,12 +207,21 @@
 	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
 	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
 
+/datum/language/vulpkanin/get_random_name(gender)
+	var/new_name
+	if(gender == FEMALE)
+		new_name = pick(GLOB.first_names_female_vulp)
+	else
+		new_name = pick(GLOB.first_names_male_vulp)
+	new_name += " " + pick(GLOB.last_names_vulp)
+	return new_name
+
 /datum/language/skrell
 	name = "Skrellian"
 	desc = "A melodic and complex language spoken by the Skrell of Qerrbalak. Some of the notes are inaudible to humans."
 	speech_verb = "warbles"
 	ask_verb = "warbles"
-	exclaim_verb = "warbles"
+	exclaim_verbs = list("warbles")
 	colour = "skrell"
 	key = "k"
 	flags = RESTRICTED
@@ -219,21 +232,21 @@
 	desc = "The common tongue of the various Vox ships making up the Shoal. It sounds like chaotic shrieking to everyone else."
 	speech_verb = "shrieks"
 	ask_verb = "creels"
-	exclaim_verb = "SHRIEKS"
+	exclaim_verbs = list("loudly skrees")
 	colour = "vox"
 	key = "v"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya", "yi", "chi","cha","kah", \
+	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya","yi","chi","cha","kah", \
 	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
 
 /datum/language/vox/get_random_name()
 	var/sounds = rand(2, 8)
 	var/i = 0
 	var/newname = ""
-
+	var/static/list/vox_name_syllables = list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah")
 	while(i <= sounds)
 		i++
-		newname += pick(GLOB.vox_name_syllables)
+		newname += pick(vox_name_syllables)
 	return capitalize(newname)
 
 /datum/language/diona
@@ -241,7 +254,7 @@
 	desc = "A creaking, subvocal language spoken instinctively by the Dionaea. Due to the unique makeup of the average Diona, a phrase of Rootspeak can be a combination of anywhere from one to twelve individual voices and notes."
 	speech_verb = "creaks and rustles"
 	ask_verb = "creaks"
-	exclaim_verb = "rustles"
+	exclaim_verbs = list("rustles")
 	colour = "diona"
 	key = "q"
 	flags = RESTRICTED
@@ -257,7 +270,7 @@
 	desc = "A modification of binary to allow fuzzy logic. 0 is no, 1 is maybe, 2 is yes. Credited with giving Machine People the ability to think creatively."
 	speech_verb = "states"
 	ask_verb = "queries"
-	exclaim_verb = "exclaims"
+	exclaim_verbs = list("exclaims")
 	colour = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
@@ -274,9 +287,9 @@
 /datum/language/kidan
 	name = "Chittin"
 	desc = "The noise made by rubbing its antennae together is actually a complex form of communication for Kidan."
-	speech_verb = "rubs its antennae together"
-	ask_verb = "rubs its antennae together"
-	exclaim_verb = "rubs its antennae together"
+	speech_verb = "rubs their antennae together"
+	ask_verb = "rubs their antennae together"
+	exclaim_verbs = list("rubs their antennae together")
 	colour = "kidan"
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
@@ -296,18 +309,27 @@
 	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."
 	speech_verb = "bubbles and pops"
 	ask_verb = "bubbles and pops"
-	exclaim_verb = "bubbles and pops"
+	exclaim_verbs = list("bubbles and pops")
 	colour = "slime"
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
+
+/datum/language/slime/get_random_name(gender)
+	var/new_name
+	if(gender == FEMALE)
+		new_name = pick(GLOB.first_names_female_slime)
+	else
+		new_name = pick(GLOB.first_names_male_slime)
+	new_name += " " + pick(GLOB.last_names_slime)
+	return new_name
 
 /datum/language/grey
 	name = "Psionic Communication"
 	desc = "The grey's psionic communication, less potent version of their distant cousin's telepathy. Talk to other greys within a limited radius."
 	speech_verb = "expresses"
 	ask_verb = "inquires"
-	exclaim_verb = "imparts"
+	exclaim_verbs = list("imparts")
 	colour = "abductor"
 	key = "^"
 	flags = RESTRICTED | HIVEMIND
@@ -316,6 +338,9 @@
 	..(speaker,message,speaker.real_name)
 
 /datum/language/grey/check_can_speak(mob/living/speaker)
+	if(speaker.mind?.miming) // Because its a hivemind, mimes would be able to speak otherwise
+		to_chat(speaker,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
+		return FALSE
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
 		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
@@ -323,7 +348,7 @@
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
 			return FALSE
-	if(speaker.incapacitated(ignore_lying = 1))
+	if(HAS_TRAIT(speaker, TRAIT_HANDS_BLOCKED))
 		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
 		return FALSE
 
@@ -341,7 +366,7 @@
 	desc = "The droning, vibrous language of the Drask. It sounds somewhat like whalesong."
 	speech_verb = "drones"
 	ask_verb = "hums"
-	exclaim_verb = "rumbles"
+	exclaim_verbs = list("rumbles")
 	colour = "drask"
 	key = "%"
 	flags = RESTRICTED | WHITELISTED
@@ -353,43 +378,50 @@
 	new_name += "-[pick(list("Hoorm","Viisk","Saar","Mnoo","Oumn","Fmong","Gnii","Vrrm","Oorm","Dromnn","Ssooumn","Ovv", "Hoorb","Vaar","Gaar","Goom","Ruum","Rumum"))]"
 	return new_name
 
+/datum/language/moth
+	name = "Tkachi"
+	desc = "The language of the Nianae mothpeople borders on complete unintelligibility."
+	speech_verb = "buzzes"
+	ask_verb = "flaps"
+	exclaim_verbs = list("chatters")
+	colour = "moth"
+	key = "#"
+	flags = RESTRICTED | WHITELISTED
+	join_override = "-"
+	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+					"lit", "ygg", "van", "dår", "næ", "møt", "idd", "hvo", "ja", "på", "han",
+					"så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+					"må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+					"huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
+
+/datum/language/moth/get_random_name()
+	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
+	new_name += "[pick(list(" of"," for"," in Service of",", Servant of"," for the Good of",", Student of"," to"))]"
+	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
+	return new_name
+
 /datum/language/common
 	name = "Galactic Common"
 	desc = "The common galactic tongue."
 	speech_verb = "says"
+	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	key = "9"
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
 	english_names = 1
 
-//TODO flag certain languages to use the mob-type specific say_quote and then get rid of these.
-/datum/language/common/get_spoken_verb(msg_end)
-	switch(msg_end)
-		if("!")
-			return pick("exclaims","shouts","yells") //TODO: make the basic proc handle lists of verbs.
-		if("?")
-			return ask_verb
-	return speech_verb
-
 /datum/language/human
 	name = "Sol Common"
 	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
 	speech_verb = "says"
+	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	colour = "solcom"
 	key = "1"
 	flags = RESTRICTED
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
 	english_names = 1
-
-/datum/language/human/get_spoken_verb(msg_end)
-	switch(msg_end)
-		if("!")
-			return pick("exclaims","shouts","yells") //TODO: make the basic proc handle lists of verbs.
-		if("?")
-			return ask_verb
-	return speech_verb
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
@@ -400,20 +432,20 @@
 	key = "2"
 	space_chance = 100
 	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
-					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
-					 "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
-					 "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
-					 "consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
-					 "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
-					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
-					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
+					"sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
+					"magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
+					"exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
+					"consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
+					"voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
+					"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
+					"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
 
 /datum/language/gutter
 	name = "Gutter"
 	desc = "Much like Standard, this crude pidgin tongue descended from numerous languages and serves as Tradeband for criminal elements."
 	speech_verb = "growls"
 	ask_verb = "gnarls"
-	exclaim_verb = "snarls"
+	exclaim_verbs = list("snarls")
 	colour = "gutter"
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
@@ -423,7 +455,7 @@
 	desc = "The language of clown planet. Mother tongue of clowns throughout the Galaxy."
 	speech_verb = "honks"
 	ask_verb = "honks"
-	exclaim_verb = "honks"
+	exclaim_verbs = list("toots", "wubs", "honks")
 	colour = "clown"
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
@@ -433,40 +465,20 @@
 	desc = "Neo-Russkiya, a bastard mix of Gutter, Sol Common, and old Russian. The official language of the USSP. It has started to see use outside of the fringe in hobby circles and protest groups. The linguistic spirit of Sol-Gov criticisms."
 	speech_verb = "articulates"
 	whisper_verb = "mutters"
-	exclaim_verb = "exaggerates"
+	exclaim_verbs = list("exaggerates")
 	colour = "com_srus"
 	key = "?"
 	space_chance = 65
 	english_names = 1
 	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
-					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
-					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
-					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
-					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
-					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
-					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
-					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
-					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
-
-/datum/language/wryn
-	name = "Wryn Hivemind"
-	desc = "Wryn have the strange ability to commune over a psychic hivemind."
-	speech_verb = "chitters"
-	ask_verb = "chitters"
-	exclaim_verb = "chitters"
-	colour = "alien"
-	key = "y"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
-/datum/language/wryn/check_special_condition(mob/other)
-	var/mob/living/carbon/M = other
-	if(!istype(M))
-		return TRUE
-	if(locate(/obj/item/organ/internal/wryn/hivenode) in M.internal_organs)
-		return TRUE
-
-	return FALSE
+					"nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+					"comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+					"ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+					"key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+					"tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+					"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
 /datum/language/xenocommon
 	name = "Xenomorph"
@@ -474,7 +486,7 @@
 	desc = "The common tongue of the xenomorphs."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
-	exclaim_verb = "hisses"
+	exclaim_verbs = list("hisses")
 	key = "6"
 	flags = RESTRICTED
 	syllables = list("sss","sSs","SSS")
@@ -484,22 +496,37 @@
 	desc = "Xenomorphs have the strange ability to commune over a psychic hivemind."
 	speech_verb = "hisses"
 	ask_verb = "hisses"
-	exclaim_verb = "hisses"
+	exclaim_verbs = list("hisses")
 	colour = "alien"
 	key = "a"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
+
+/datum/language/xenos/broadcast(mob/living/speaker, message, speaker_mask)
+	if(isalien(speaker))
+		var/mob/living/carbon/alien/humanoid/alienspeaker = speaker
+		if(alienspeaker.loudspeaker)
+			return ..(speaker, "<font size=3><b>[message]</b></font>")
+	return ..()
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
 	desc = "Terror spiders have a limited ability to commune over a psychic hivemind, similar to xenomorphs."
 	speech_verb = "chitters"
 	ask_verb = "chitters"
-	exclaim_verb = "chitters"
+	exclaim_verbs = list("chitters")
 	colour = "terrorspider"
 	key = "ts"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
+
+/datum/language/terrorspider/broadcast(mob/living/speaker, message, speaker_mask)
+	if(isterrorspider(speaker))
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = speaker
+		if(T.loudspeaker)
+			..(speaker, "<font size=3><b>[message]</b></font>")
+			return
+	..(speaker, message)
 
 /datum/language/ling
 	name = "Changeling"
@@ -511,36 +538,19 @@
 	follow = TRUE
 
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
-	if(speaker.mind && speaker.mind.changeling)
-		..(speaker, message, speaker.mind.changeling.changelingID)
-	else if(speaker.mind && speaker.mind.linglink)
-		..()
+	var/datum/antagonist/changeling/cling = speaker.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(cling)
+		..(speaker, message, cling.changelingID)
 	else
 		..(speaker,message)
 
-/datum/language/shadowling
-	name = "Shadowling Hivemind"
-	desc = "Shadowlings and their thralls are capable of communicating over a psychic hivemind."
-	speech_verb = "says"
-	colour = "shadowling"
-	key = "8"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
-/datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
-	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
-		..(speaker,"<font size=3><b>[message]</b></font>", "<span class='shadowling'><font size=3>([speaker.mind.special_role]) [speaker]</font></span>")
-	else if(speaker.mind && speaker.mind.special_role)
-		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
-	else
-		..(speaker, message)
 
 /datum/language/abductor
 	name = "Abductor Mindlink"
 	desc = "Abductors are incapable of speech, but have a psychic link attuned to their own team."
 	speech_verb = "gibbers"
 	ask_verb = "gibbers"
-	exclaim_verb = "gibbers"
+	exclaim_verbs = list("gibbers")
 	colour = "abductor"
 	key = "zw" //doesn't matter, this is their default and only language
 	flags = RESTRICTED | HIVEMIND | NOBABEL
@@ -564,37 +574,13 @@
 /datum/language/abductor/golem/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
 	return TRUE
 
-/datum/language/corticalborer
-	name = "Cortical Link"
-	desc = "Cortical borers possess a strange link between their tiny minds."
-	speech_verb = "sings"
-	ask_verb = "sings"
-	exclaim_verb = "sings"
-	colour = "alien"
-	key = "bo"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
-/datum/language/corticalborer/broadcast(mob/living/speaker, message, speaker_mask)
-	var/mob/living/simple_animal/borer/B
-
-	if(iscarbon(speaker))
-		var/mob/living/carbon/M = speaker
-		B = M.has_brain_worms()
-	else if(istype(speaker,/mob/living/simple_animal/borer))
-		B = speaker
-
-	if(B)
-		speaker_mask = B.truename
-	..(speaker,message,speaker_mask)
-
 /datum/language/binary
 	name = "Robot Talk"
 	desc = "Most human stations support free-use communications protocols and routing hubs for synthetic use."
 	colour = "say_quote"
 	speech_verb = "states"
 	ask_verb = "queries"
-	exclaim_verb = "declares"
+	exclaim_verbs = list("declares")
 	key = "b"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
@@ -620,7 +606,7 @@
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
-		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
+		if(drone_only && !isdrone(S))
 			continue
 		else if(isAI(S))
 			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
@@ -642,7 +628,7 @@
 	desc = "A heavily encoded damage control coordination stream."
 	speech_verb = "transmits"
 	ask_verb = "transmits"
-	exclaim_verb = "transmits"
+	exclaim_verbs = list("transmits")
 	colour = "say_quote"
 	key = "d"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
@@ -654,22 +640,11 @@
 	desc = "An encrypted stream of data converted to speech patterns."
 	speech_verb = "states"
 	ask_verb = "queries"
-	exclaim_verb = "declares"
+	exclaim_verbs = list("declares")
 	key = "]"
 	flags = RESTRICTED
 	follow = TRUE
 	syllables = list ("beep", "boop")
-
-/datum/language/swarmer
-	name = "Swarmer"
-	desc = "A heavily encoded alien binary pattern."
-	speech_verb = "tones"
-	ask_verb = "tones"
-	exclaim_verb = "tones"
-	colour = "say_quote"
-	key = "z"//Zwarmer...Or Zerg!
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
 
 // Language handling.
 /mob/proc/add_language(language)
@@ -744,7 +719,7 @@
 	desc = "Ook ook ook."
 	speech_verb = "chimpers"
 	ask_verb = "chimpers"
-	exclaim_verb = "screeches"
+	exclaim_verbs = list("screeches")
 	key = "mo"
 
 /datum/language/skrell/monkey

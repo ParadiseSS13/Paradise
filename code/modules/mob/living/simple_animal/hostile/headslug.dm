@@ -14,12 +14,15 @@
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
-	robust_searching = 1
+	robust_searching = TRUE
 	stat_attack = DEAD
 	obj_damage = 0
 	environment_smash = 0
 	speak_emote = list("squeaks")
+	pass_flags = PASSTABLE | PASSMOB
+	density = FALSE
 	ventcrawler = 2
+	a_intent = INTENT_HARM
 	var/datum/mind/origin
 	var/egg_lain = 0
 	sentience_type = SENTIENCE_OTHER
@@ -48,12 +51,12 @@
 		// Changeling egg can survive in aliens!
 		var/mob/living/carbon/C = target
 		if(C.stat == DEAD)
-			if(C.status_flags & XENO_HOST)
+			if(HAS_TRAIT(C, TRAIT_XENO_HOST))
 				to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 				return
 			Infect(target)
 			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
-			addtimer(CALLBACK(src, .proc/death), 100)
+			addtimer(CALLBACK(src, PROC_REF(death)), 10 SECONDS)
 
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"
@@ -67,7 +70,7 @@
 	time++
 	if(time >= EGG_INCUBATION_TIME)
 		Pop()
-		remove(owner)
+		STOP_PROCESSING(SSobj, src)
 		qdel(src)
 
 /obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
@@ -79,17 +82,25 @@
 
 	if(origin && origin.current && (origin.current.stat == DEAD))
 		origin.transfer_to(M)
-		if(!origin.changeling)
-			M.make_changeling()
-		if(origin.changeling.can_absorb_dna(M, owner))
-			origin.changeling.absorb_dna(owner, M)
+		var/datum/antagonist/changeling/cling = M.mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling.can_absorb_dna(owner))
+			cling.absorb_dna(owner)
 
-		var/datum/action/changeling/humanform/HF = new
-		HF.Grant(M)
-		for(var/power in origin.changeling.purchasedpowers)
-			var/datum/action/changeling/S = power
-			if(istype(S) && S.needs_button)
-				S.Grant(M)
+		cling.update_languages()
+
+		// When they became a headslug, power typepaths were added to this list, so we need to make new ones from the paths.
+		for(var/power_path in cling.acquired_powers)
+			cling.give_power(new power_path, M, FALSE)
+			cling.acquired_powers -= power_path
+
+		var/datum/action/changeling/evolution_menu/E = locate() in cling.acquired_powers
+
+		// Add purchasable powers they have back to the evolution menu's purchased list.
+		for(var/datum/action/changeling/power as anything in cling.acquired_powers)
+			if(power.power_type == CHANGELING_PURCHASABLE_POWER)
+				E.purchased_abilities += power.type
+
+		cling.give_power(new /datum/action/changeling/humanform)
 		M.key = origin.key
 	owner.gib()
 

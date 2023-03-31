@@ -1,13 +1,15 @@
 /obj
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	var/crit_fail = FALSE
 	animate_movement = 2
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = FALSE		// whether this object cuts
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
+	// You can define armor as a list in datum definition (e.g. `armor = list("fire" = 80, "brute" = 10)`),
+	// which would be converted to armor datum during initialization.
+	// Setting `armor` to a list on an *existing* object would inevitably runtime. Use `getArmor()` instead.
 	var/datum/armor/armor
 	var/obj_integrity	//defaults to max_integrity
 	var/max_integrity = 500
@@ -16,12 +18,11 @@
 	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+	var/custom_fire_overlay // Update_fire_overlay will check if a different icon state should be used
 
 	var/acid_level = 0 //how much acid is on that obj
 
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
-
-	var/Mtoollink = FALSE // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
 	var/being_shocked = FALSE
 	var/speed_process = FALSE
@@ -29,6 +30,8 @@
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
+	/// Is it emagged or not?
+	var/emagged = FALSE
 
 /obj/New()
 	..()
@@ -49,15 +52,17 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+	if(sharp)
+		AddComponent(/datum/component/surgery_initiator)
 
-/obj/Topic(href, href_list, nowindow = FALSE, datum/topic_state/state = GLOB.default_state)
+/obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
 		return TRUE
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(CanUseTopic(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
@@ -65,7 +70,7 @@
 	return TRUE
 
 /obj/proc/CouldUseTopic(mob/user)
-	var/atom/host = nano_host()
+	var/atom/host = ui_host()
 	host.add_fingerprint(user)
 
 /obj/proc/CouldNotUseTopic(mob/user)
@@ -77,7 +82,6 @@
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
 		else
 			STOP_PROCESSING(SSfastprocess, src)
-	SSnanoui.close_uis(src)
 	return ..()
 
 //user: The mob that is suiciding
@@ -106,6 +110,7 @@
 		return null
 
 /obj/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(loc)
 		return loc.return_air()
 	else
@@ -116,8 +121,11 @@
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
 	//DEFAULT: Take air from turf to give to have mob process
+
 	if(breath_request > 0)
-		return remove_air(breath_request)
+		var/datum/gas_mixture/environment = return_air()
+		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
+		return remove_air(environment.total_moles() * breath_percentage)
 	else
 		return null
 
@@ -129,7 +137,7 @@
 			if((M.client && M.machine == src))
 				is_in_use = TRUE
 				src.attack_hand(M)
-		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
+		if(isAI(usr) || isrobot(usr))
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
@@ -137,7 +145,7 @@
 
 		// check for TK users
 
-		if(istype(usr, /mob/living/carbon/human))
+		if(ishuman(usr))
 			if(istype(usr.l_hand, /obj/item/tk_grab) || istype(usr.r_hand, /obj/item/tk_grab/))
 				if(!(usr in nearby))
 					if(usr.client && usr.machine == src)
@@ -162,11 +170,9 @@
 /obj/proc/interact(mob/user)
 	return
 
-/obj/proc/update_icon()
-	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
-
 /mob/proc/unset_machine()
 	if(machine)
+		UnregisterSignal(machine, COMSIG_PARENT_QDELETING)
 		machine.on_unset_machine(src)
 		machine = null
 
@@ -180,6 +186,7 @@
 	src.machine = O
 	if(istype(O))
 		O.in_use = TRUE
+		RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(unset_machine))
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
@@ -193,87 +200,7 @@
 	return
 
 /obj/proc/hear_message(mob/M, text)
-
-/obj/proc/multitool_menu(mob/user, obj/item/multitool/P)
-	return "<b>NO MULTITOOL_MENU!</b>"
-
-/obj/proc/linkWith(mob/user, obj/buffer, context)
-	return FALSE
-
-/obj/proc/unlinkFrom(mob/user, obj/buffer)
-	return FALSE
-
-/obj/proc/canLink(obj/O, list/context)
-	return FALSE
-
-/obj/proc/isLinkedWith(obj/O)
-	return FALSE
-
-/obj/proc/getLink(idx)
-	return null
-
-/obj/proc/linkMenu(obj/O)
-	var/dat = ""
-	if(canLink(O, list()))
-		dat += " <a href='?src=[UID()];link=1'>\[Link\]</a> "
-	return dat
-
-/obj/proc/format_tag(label, varname, act = "set_tag")
-	var/value = vars[varname]
-	if(!value || value == "")
-		value = "-----"
-	return "<b>[label]:</b> <a href=\"?src=[UID()];[act]=[varname]\">[value]</a>"
-
-
-/obj/proc/update_multitool_menu(mob/user)
-	var/obj/item/multitool/P = get_multitool(user)
-
-	if(!istype(P))
-		return FALSE
-
-	var/dat = {"<html>
-	<head>
-		<title>[name] Configuration</title>
-		<style type="text/css">
-html,body {
-	font-family:courier;
-	background:#999999;
-	color:#333333;
-}
-
-a {
-	color:#000000;
-	text-decoration:none;
-	border-bottom:1px solid black;
-}
-		</style>
-	</head>
-	<body>
-		<h3>[name]</h3>
-"}
-	if(allowed(user))//no, assistants, you're not ruining all vents on the station with just a multitool
-		dat += multitool_menu(user, P)
-		if(Mtoollink)
-			if(P)
-				if(P.buffer)
-					var/id = null
-					if("id_tag" in P.buffer.vars)
-						id = P.buffer:id_tag
-					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] [id ? "([id])" : ""]"
-
-					dat += linkMenu(P.buffer)
-
-					if(P.buffer)
-						dat += "<a href='?src=[UID()];flush=1'>\[Flush\]</a>"
-					dat += "</p>"
-				else
-					dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=[UID()];buffer=1'>\[Add Machine\]</a></p>"
-	else
-		dat += "<b>ACCESS DENIED</a>"
-	dat += "</body></html>"
-	user << browse(dat, "window=mtcomputer")
-	user.set_machine(src)
-	onclose(user, "mtcomputer")
+	return
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	if(obj_integrity >= max_integrity)
@@ -320,9 +247,6 @@ a {
 /obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/CanAStarPass(ID, dir, caller)
-	. = !density
-
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 
@@ -352,8 +276,24 @@ a {
 /obj/proc/check_uplink_validity()
 	return TRUE
 
-/obj/proc/force_eject_occupant()
+/obj/proc/cult_conceal() //Called by cult conceal spell
+	return
+
+/obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
+	return
+
+/// Set whether the item should be sharp or not
+/obj/proc/set_sharpness(new_sharp_val)
+	if(sharp == new_sharp_val)
+		return
+	sharp = new_sharp_val
+	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
+	if(!sharp && new_sharp_val)
+		AddComponent(/datum/component/surgery_initiator)
+
+
+/obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
-	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
+	CRASH("Proc force_eject_occupant() is not overridden on a machine containing a mob.")
 

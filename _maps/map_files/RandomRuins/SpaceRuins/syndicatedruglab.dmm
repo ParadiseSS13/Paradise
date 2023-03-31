@@ -1,0 +1,1579 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"cq" = (
+/obj/structure/table,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"dL" = (
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"en" = (
+/obj/machinery/economy/vending/hydronutrients/syndicate_druglab,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"fb" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"fW" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "syndicatedruglab";
+	name = "Syndicate Drug Lab";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"gI" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"gU" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"hJ" = (
+/obj/structure/closet/crate/secure/plasma,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 30
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"ig" = (
+/obj/structure/bed,
+/obj/item/bedsheet/syndie,
+/obj/item/clothing/ears/headphones,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/syndicate_druglab)
+"jE" = (
+/obj/item/reagent_containers/glass/beaker/large,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"kG" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	name = "Hydroponics"
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"mA" = (
+/obj/machinery/power/apc/syndicate/off{
+	pixel_x = 24;
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"mO" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"nc" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/obj/machinery/reagentgrinder,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"nj" = (
+/obj/item/paper/crumpled,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/syndicate_druglab/asteroid)
+"nP" = (
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"oi" = (
+/obj/item/trash/syndi_cakes,
+/obj/item/trash/plate,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/syndicate_druglab/asteroid)
+"os" = (
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"pI" = (
+/obj/structure/table/wood,
+/obj/item/circuitboard/chem_master{
+	pixel_y = 9;
+	pixel_x = 4
+	},
+/obj/item/paper/syndicate_druglab,
+/obj/item/pen,
+/obj/item/flashlight/lamp/green/off{
+	pixel_y = 12;
+	pixel_x = -6
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/syndicate_druglab)
+"qa" = (
+/obj/item/stock_parts/matter_bin/adv,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"qf" = (
+/obj/item/trash/waffles,
+/obj/item/trash/tray,
+/obj/item/trash/syndi_cakes,
+/obj/item/trash/plate,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/syndicate_druglab/asteroid)
+"qD" = (
+/obj/item/circuitboard/biogenerator,
+/obj/item/stock_parts/manipulator/nano,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"rn" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/disposalpipe/segment,
+/obj/structure/closet/walllocker/emerglocker/west,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"rJ" = (
+/obj/machinery/door/airlock/survival_pod/glass{
+	name = "Bedroom"
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"sb" = (
+/turf/template_noop,
+/area/ruin/space/syndicate_druglab/asteroid)
+"sD" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/queen_bee/bought,
+/obj/item/clothing/suit/hooded/bee_costume,
+/obj/item/clothing/mask/face/bee,
+/obj/item/wrench,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/obj/item/honey_frame,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"te" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"tf" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"tL" = (
+/obj/item/reagent_containers/glass/bucket,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"ue" = (
+/obj/structure/nest/carppuppy,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/syndicate_druglab/asteroid)
+"uC" = (
+/obj/structure/beebox/unwrenched,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"vz" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"vZ" = (
+/turf/simulated/mineral,
+/area/ruin/space/syndicate_druglab/asteroid)
+"wh" = (
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/syndicate_druglab)
+"wD" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"xF" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/syndicate_druglab/asteroid)
+"xO" = (
+/obj/machinery/smartfridge/food/syndicate_druglab,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"ym" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"yI" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/syndicate_druglab/asteroid)
+"yV" = (
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"AE" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"AI" = (
+/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/machinery/door_control{
+	id = "syndicatedruglab";
+	name = "Syndicate Drug Lab Hangar";
+	pixel_x = 24;
+	pixel_y = 4;
+	req_access_txt = null
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"BD" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"Dj" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/decal/remains/robot,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/syndicate_druglab/asteroid)
+"DG" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
+/obj/structure/disposaloutlet,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Fq" = (
+/obj/structure/closet/cabinet,
+/obj/item/soap/syndie,
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/syndicate_druglab)
+"Fx" = (
+/obj/effect/spawner/window/shuttle/survival_pod,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"Fz" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"FE" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/survival_pod{
+	name = "Syndicate Drug Lab"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Gm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Hj" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"HP" = (
+/obj/item/paper/syndicate_druglab/delivery,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"HR" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"Im" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stock_parts/manipulator/nano,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"II" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"JP" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/trash/plate,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"KI" = (
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"LQ" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Nr" = (
+/turf/simulated/wall/mineral/titanium/survival,
+/area/ruin/space/syndicate_druglab)
+"Ou" = (
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Oy" = (
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Oz" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Pd" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"Pl" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"QL" = (
+/obj/machinery/porta_turret/syndicate/assault_pod,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/syndicate_druglab/asteroid)
+"Rk" = (
+/obj/machinery/seed_extractor,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"RS" = (
+/turf/template_noop,
+/area/template_noop)
+"SG" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/survival_pod{
+	name = "Syndicate Drug Lab"
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"Tz" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/space/syndicate_druglab)
+"TJ" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/decal/cleanable/blood/oil/streak,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Ue" = (
+/obj/machinery/economy/vending/hydroseeds/syndicate_druglab,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"US" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/titanium/survival,
+/area/ruin/space/syndicate_druglab)
+"VC" = (
+/obj/machinery/smartfridge,
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/syndicate_druglab)
+"Wd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/mineral,
+/area/ruin/space/syndicate_druglab)
+"Xz" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+"Yw" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plating,
+/area/ruin/space/syndicate_druglab)
+
+(1,1,1) = {"
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+"}
+(2,1,1) = {"
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+"}
+(3,1,1) = {"
+RS
+RS
+sb
+sb
+vZ
+vZ
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+vZ
+sb
+sb
+vZ
+vZ
+vZ
+sb
+sb
+sb
+sb
+sb
+sb
+yI
+yI
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(4,1,1) = {"
+RS
+RS
+sb
+vZ
+vZ
+sb
+sb
+sb
+vZ
+sb
+sb
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+sb
+sb
+sb
+vZ
+vZ
+sb
+sb
+sb
+yI
+yI
+sb
+sb
+sb
+RS
+RS
+"}
+(5,1,1) = {"
+RS
+RS
+sb
+vZ
+vZ
+sb
+sb
+vZ
+sb
+sb
+sb
+xF
+xF
+xF
+xF
+vZ
+xF
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(6,1,1) = {"
+RS
+RS
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+xF
+xF
+xF
+vZ
+vZ
+xF
+xF
+xF
+xF
+xF
+vZ
+xF
+xF
+vZ
+vZ
+sb
+sb
+sb
+sb
+sb
+vZ
+vZ
+RS
+RS
+"}
+(7,1,1) = {"
+RS
+RS
+sb
+sb
+sb
+sb
+sb
+sb
+xF
+xF
+vZ
+vZ
+vZ
+xF
+xF
+xF
+xF
+vZ
+xF
+xF
+xF
+vZ
+vZ
+sb
+sb
+sb
+sb
+sb
+sb
+vZ
+vZ
+RS
+RS
+"}
+(8,1,1) = {"
+RS
+RS
+sb
+sb
+vZ
+xF
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+xF
+QL
+xF
+vZ
+vZ
+vZ
+xF
+xF
+xF
+xF
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(9,1,1) = {"
+RS
+RS
+sb
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+xF
+vZ
+vZ
+xF
+xF
+xF
+xF
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(10,1,1) = {"
+RS
+RS
+sb
+vZ
+yI
+vZ
+vZ
+vZ
+vZ
+vZ
+xF
+xF
+xF
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+yI
+vZ
+sb
+vZ
+sb
+sb
+RS
+RS
+"}
+(11,1,1) = {"
+RS
+RS
+sb
+sb
+yI
+yI
+vZ
+vZ
+xF
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+vZ
+vZ
+vZ
+vZ
+xF
+vZ
+vZ
+yI
+yI
+sb
+sb
+sb
+vZ
+RS
+RS
+"}
+(12,1,1) = {"
+RS
+RS
+vZ
+sb
+yI
+yI
+vZ
+vZ
+xF
+Nr
+uC
+sD
+nP
+Hj
+nP
+nP
+dL
+Nr
+vZ
+vZ
+vZ
+xF
+xF
+ue
+vZ
+vZ
+vZ
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(13,1,1) = {"
+RS
+RS
+sb
+sb
+vZ
+vZ
+vZ
+xF
+xF
+Nr
+nP
+HP
+os
+os
+os
+tL
+os
+Nr
+Nr
+vZ
+xF
+ue
+xF
+xF
+xF
+vZ
+vZ
+xF
+sb
+sb
+sb
+RS
+RS
+"}
+(14,1,1) = {"
+RS
+RS
+sb
+xF
+vZ
+vZ
+vZ
+xF
+xF
+Nr
+nP
+qD
+VC
+Im
+nc
+os
+os
+en
+Nr
+vZ
+xF
+DG
+qf
+nj
+oi
+xF
+xF
+xF
+xF
+sb
+sb
+RS
+RS
+"}
+(15,1,1) = {"
+RS
+RS
+vZ
+xF
+xF
+vZ
+vZ
+vZ
+vZ
+Nr
+nP
+os
+yV
+Rk
+cq
+os
+os
+Ue
+Nr
+vZ
+vZ
+Gm
+ue
+xF
+vZ
+vZ
+vZ
+xF
+xF
+xF
+sb
+RS
+RS
+"}
+(16,1,1) = {"
+RS
+RS
+vZ
+xF
+xF
+xF
+xF
+vZ
+vZ
+Nr
+nP
+qa
+tL
+os
+os
+jE
+tL
+Nr
+Nr
+vZ
+vZ
+Wd
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+xF
+vZ
+RS
+RS
+"}
+(17,1,1) = {"
+RS
+RS
+vZ
+xF
+xF
+QL
+xF
+vZ
+vZ
+Nr
+mO
+os
+nP
+Pd
+nP
+nP
+dL
+Nr
+vZ
+vZ
+vZ
+Wd
+vZ
+vZ
+vZ
+vZ
+vZ
+xF
+xF
+xF
+vZ
+RS
+RS
+"}
+(18,1,1) = {"
+RS
+RS
+vZ
+xF
+xF
+xF
+xF
+vZ
+Nr
+Nr
+Fx
+kG
+Fx
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+US
+Nr
+vZ
+vZ
+xF
+xF
+xF
+vZ
+vZ
+vZ
+RS
+RS
+"}
+(19,1,1) = {"
+RS
+RS
+vZ
+xF
+vZ
+xF
+xF
+vZ
+Nr
+xO
+os
+os
+tf
+Nr
+Fz
+Nr
+gI
+LQ
+rn
+ym
+te
+vz
+Nr
+vZ
+xF
+xF
+xF
+xF
+xF
+vZ
+vZ
+RS
+RS
+"}
+(20,1,1) = {"
+RS
+RS
+sb
+xF
+vZ
+vZ
+vZ
+vZ
+Nr
+BD
+os
+os
+gU
+SG
+wD
+FE
+Pl
+II
+gI
+gI
+gI
+Oy
+Nr
+vZ
+xF
+QL
+xF
+xF
+vZ
+vZ
+vZ
+RS
+RS
+"}
+(21,1,1) = {"
+RS
+RS
+vZ
+xF
+xF
+xF
+vZ
+vZ
+Nr
+JP
+HR
+os
+os
+Nr
+Nr
+Nr
+gI
+TJ
+gI
+gI
+gI
+Oy
+Nr
+vZ
+xF
+xF
+xF
+xF
+xF
+yI
+sb
+RS
+RS
+"}
+(22,1,1) = {"
+RS
+RS
+vZ
+vZ
+xF
+xF
+vZ
+vZ
+Nr
+Nr
+Fx
+rJ
+Fx
+Nr
+AE
+gI
+gI
+KI
+gI
+gI
+gI
+Oy
+Nr
+vZ
+vZ
+xF
+xF
+xF
+xF
+yI
+sb
+RS
+RS
+"}
+(23,1,1) = {"
+RS
+RS
+sb
+yI
+yI
+xF
+vZ
+vZ
+xF
+Nr
+Fq
+wh
+pI
+Nr
+fb
+gI
+gI
+KI
+gI
+gI
+gI
+Oy
+Nr
+vZ
+vZ
+vZ
+xF
+vZ
+xF
+yI
+sb
+RS
+RS
+"}
+(24,1,1) = {"
+RS
+RS
+sb
+sb
+xF
+xF
+vZ
+vZ
+xF
+Nr
+ig
+wh
+Tz
+Nr
+hJ
+Xz
+mA
+AI
+Oz
+Yw
+Yw
+Ou
+Nr
+vZ
+vZ
+vZ
+vZ
+vZ
+xF
+sb
+vZ
+RS
+RS
+"}
+(25,1,1) = {"
+RS
+RS
+sb
+sb
+xF
+vZ
+vZ
+vZ
+xF
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+Nr
+fW
+fW
+fW
+Nr
+Nr
+vZ
+vZ
+vZ
+vZ
+xF
+xF
+sb
+vZ
+RS
+RS
+"}
+(26,1,1) = {"
+RS
+RS
+sb
+sb
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+xF
+xF
+xF
+xF
+xF
+xF
+xF
+xF
+xF
+vZ
+vZ
+vZ
+xF
+sb
+sb
+sb
+RS
+RS
+"}
+(27,1,1) = {"
+RS
+RS
+sb
+sb
+vZ
+vZ
+vZ
+yI
+yI
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+xF
+QL
+xF
+xF
+xF
+xF
+xF
+Dj
+xF
+vZ
+vZ
+vZ
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(28,1,1) = {"
+RS
+RS
+sb
+sb
+vZ
+vZ
+vZ
+yI
+yI
+yI
+vZ
+yI
+yI
+vZ
+vZ
+xF
+xF
+xF
+xF
+xF
+xF
+xF
+xF
+xF
+vZ
+yI
+yI
+sb
+vZ
+sb
+sb
+RS
+RS
+"}
+(29,1,1) = {"
+RS
+RS
+sb
+sb
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+vZ
+yI
+vZ
+vZ
+vZ
+xF
+xF
+vZ
+xF
+xF
+xF
+vZ
+xF
+xF
+vZ
+yI
+yI
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(30,1,1) = {"
+RS
+RS
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+vZ
+vZ
+vZ
+xF
+xF
+xF
+vZ
+vZ
+vZ
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(31,1,1) = {"
+RS
+RS
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+xF
+xF
+xF
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+sb
+RS
+RS
+"}
+(32,1,1) = {"
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+"}
+(33,1,1) = {"
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+RS
+"}

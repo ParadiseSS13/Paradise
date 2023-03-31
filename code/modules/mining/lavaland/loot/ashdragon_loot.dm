@@ -1,8 +1,7 @@
 /obj/structure/closet/crate/necropolis/dragon
 	name = "dragon chest"
 
-/obj/structure/closet/crate/necropolis/dragon/New()
-	..()
+/obj/structure/closet/crate/necropolis/dragon/populate_contents()
 	var/loot = rand(1,4)
 	switch(loot)
 		if(1)
@@ -19,8 +18,8 @@
 /obj/structure/closet/crate/necropolis/dragon/crusher
 	name = "firey dragon chest"
 
-/obj/structure/closet/crate/necropolis/dragon/crusher/New()
-	..()
+/obj/structure/closet/crate/necropolis/dragon/crusher/populate_contents()
+	. = ..()
 	new /obj/item/crusher_trophy/tail_spike(src)
 
 
@@ -28,32 +27,42 @@
 
 /obj/item/melee/ghost_sword
 	name = "spectral blade"
-	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage. It glows weakly."
+	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage."
 	icon_state = "spectral"
 	item_state = "spectral"
 	flags = CONDUCT
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	force = 1
 	throwforce = 1
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
+	flags_2 = RANDOM_BLOCKER_2
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 
 /obj/item/melee/ghost_sword/New()
 	..()
 	spirits = list()
-	START_PROCESSING(SSobj, src)
+	register_signals(src)
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in spirits)
-		G.invisibility = initial(G.invisibility)
+		remove_ghost(G)
 	spirits.Cut()
-	STOP_PROCESSING(SSobj, src)
+	remove_signals(src)
+	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
 	GLOB.poi_list -= src
 	. = ..()
+
+/obj/item/melee/ghost_sword/examine()
+	. = ..()
+	if(length(spirits))
+		. += "It appears to pulse with the power of [length(spirits)] vengeful spirits!"
+	else
+		. += "It glows weakly."
 
 /obj/item/melee/ghost_sword/attack_self(mob/user)
 	if(summon_cooldown > world.time)
@@ -71,38 +80,71 @@
 		if(istype(ghost))
 			ghost.ManualFollow(src)
 
-/obj/item/melee/ghost_sword/process()
-	ghost_check()
+/obj/item/melee/ghost_sword/proc/add_ghost(atom/movable/orbited, atom/orbiter)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_BEGIN
+	var/mob/dead/observer/ghost = orbiter
+	if(!istype(ghost) || !isobserver(orbiter) || (ghost in spirits))
+		return
 
-/obj/item/melee/ghost_sword/proc/ghost_check()
-	var/ghost_counter = 0
-	var/turf/T = get_turf(src)
-	var/list/contents = T.GetAllContents()
-	var/mob/dead/observer/current_spirits = list()
+	if(!ismob(loc))
+		// Don't count any new ghosts while the sword isn't being held in hand
+		// they'll get added to spirits (and turned visible) when the sword enters a mob's hand then
+		return
 
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if((O.orbiting in contents))
-			ghost_counter++
-			O.invisibility = 0
-			current_spirits |= O
+	register_signals(ghost) // Pull in any ghosts that may be orbiting other ghosts TODO THIS MIGHT BE THE FUCKIN PROBLEM
 
-	for(var/mob/dead/observer/G in spirits - current_spirits)
-		G.invisibility = initial(G.invisibility)
+	spirits |= ghost
+	ghost.invisibility = 0
 
-	spirits = current_spirits
+/obj/item/melee/ghost_sword/proc/remove_ghost(atom/movable/orbited, atom/orbiter)
+	SIGNAL_HANDLER	// COMSIG_ATOM_ORBIT_STOP
 
-	return ghost_counter
+	var/mob/dead/observer/ghost = orbiter
+
+	if(!istype(ghost) || !isobserver(ghost) || !(ghost in spirits))
+		return
+
+	remove_signals(ghost)
+
+	spirits -= ghost
+	ghost.invisibility = initial(ghost.invisibility)
+
+/obj/item/melee/ghost_sword/proc/remove_signals(atom/A)
+	UnregisterSignal(A, COMSIG_ATOM_ORBIT_STOP)
+	UnregisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN)
+
+/obj/item/melee/ghost_sword/proc/register_signals(atom/A)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(add_ghost), override = TRUE)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, PROC_REF(remove_ghost), override = TRUE)
+
+/**
+ *  When moving into something's contents
+ */
+/obj/item/melee/ghost_sword/proc/on_move(atom/movable/this, atom/old_loc, direction)
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
+	// We should only really care about the wielder of the sword and the sword itself when checking ghosts
+
+	if(ismob(old_loc))
+		remove_signals(old_loc)
+		for(var/mob/dead/observer/orbiter in spirits)
+			remove_ghost(src, orbiter)
+
+	if(ismob(loc))
+		register_signals(loc)
+		// Add ghosts directly orbiting
+		for(var/mob/dead/observer/orbiter in get_orbiters_up_hierarchy(recursive = TRUE))
+			add_ghost(src, orbiter)
 
 /obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
 	force = 0
-	var/ghost_counter = ghost_check()
+	var/ghost_counter = length(spirits)
 
 	force = clamp((ghost_counter * 4), 0, 75)
 	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
 	..()
 
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/ghost_counter = ghost_check()
+	var/ghost_counter = length(spirits)
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
 	return ..()
@@ -120,17 +162,22 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/random = rand(1,2)
+	var/random = rand(1, 3)
 
 	switch(random)
 		if(1)
 			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
 			H.set_species(/datum/species/skeleton)
 		if(2)
+			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
+			if(user.mind)
+				var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
+				user.mind.AddSpell(D)
+		if(3)
 			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
 			H.weather_immunities |= "lava"
 
-	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	playsound(user.loc, 'sound/items/drink.ogg', rand(10, 50), 1)
 	qdel(src)
 
 /datum/disease/transformation/dragon
@@ -153,7 +200,7 @@
 
 /obj/item/lava_staff
 	name = "staff of lava"
-	desc = "The ability to fill the emergency shuttle with lava. What more could you want out of life?"
+	desc = "The power of fire and rocks in your hands!"
 	icon_state = "staffofstorms"
 	item_state = "staffofstorms"
 	icon = 'icons/obj/guns/magic.dmi'
@@ -164,6 +211,7 @@
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	needs_permit = TRUE
 	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
@@ -176,7 +224,7 @@
 
 /obj/item/lava_staff/New()
 	. = ..()
-	banned_turfs = typecacheof(list(/turf/space/transit, /turf/unsimulated))
+	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
@@ -184,6 +232,12 @@
 		return
 
 	if(is_type_in_typecache(target, banned_turfs))
+		return
+
+	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
+		timer = world.time + create_delay + 1
+		user.visible_message("<span class='danger'>[user]'s [src] malfunctions!</span>")
+		do_sparks(5, FALSE, user)
 		return
 
 	if(target in view(user.client.view, get_turf(user)))

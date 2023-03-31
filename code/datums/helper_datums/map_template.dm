@@ -5,6 +5,8 @@
 	var/mappath = null
 	var/mapfile = null
 	var/loaded = 0 // Times loaded this round
+	/// Do we exclude this from CI checks? If so, set this to the templates pathtype itself to avoid it getting passed down
+	var/ci_exclude = null // DO NOT SET THIS IF YOU DO NOT KNOW WHAT YOU ARE DOING
 
 /datum/map_template/New(path = null, map = null, rename = null)
 	if(path)
@@ -49,15 +51,21 @@
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
 	GLOB.space_manager.add_dirt(placement.z)
-	var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
-	if(!bounds)
-		return 0
-	if(bot_left == null || top_right == null)
-		log_runtime(EXCEPTION("One of the late setup corners is bust"), src)
+	try
+		var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
+		if(!bounds)
+			return 0
+		if(bot_left == null || top_right == null)
+			stack_trace("One of the late setup corners is bust")
 
-	if(ST_bot_left == null || ST_top_right == null)
-		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
-
+		if(ST_bot_left == null || ST_top_right == null)
+			stack_trace("One of the smoothing corners is bust")
+	catch(var/exception/e)
+		GLOB.space_manager.remove_dirt(placement.z)
+		late_setup_level(block(bot_left, top_right), block(ST_bot_left, ST_top_right))
+		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
+		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
+		throw e
 	GLOB.space_manager.remove_dirt(placement.z)
 	late_setup_level(
 		block(bot_left, top_right),
@@ -70,10 +78,10 @@
 	if(mapfile)
 		. = mapfile
 	else if(mappath)
-		. = file(mappath)
+		. = wrap_file(mappath)
 
 	if(!.)
-		log_runtime(EXCEPTION("  The file of [src] appears to be empty/non-existent."), src)
+		stack_trace("  The file of [src] appears to be empty/non-existent.")
 
 /datum/map_template/proc/get_affected_turfs(turf/T, centered = 0)
 	var/turf/placement = T
@@ -110,19 +118,16 @@
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 			GLOB.map_templates[T.name] = T
 
-	if(!config.disable_space_ruins) // so we don't unnecessarily clutter start-up
+	if(GLOB.configuration.ruins.enable_space_ruins) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
 
 /proc/preloadRuinTemplates()
-	// Still supporting bans by filename
-	var/list/banned
-	if(fexists("config/spaceRuinBlacklist.txt"))
-		banned = generateMapList("config/spaceRuinBlacklist.txt")
-	else
-		banned = generateMapList("config/example/spaceRuinBlacklist.txt")
-	banned += generateMapList("config/lavaRuinBlacklist.txt")
+	// Merge the active lists together
+	var/list/space_ruins = GLOB.configuration.ruins.active_space_ruins.Copy()
+	var/list/lava_ruins = GLOB.configuration.ruins.active_lava_ruins.Copy()
+	var/list/all_ruins = space_ruins | lava_ruins
 
 	for(var/item in subtypesof(/datum/map_template/ruin))
 		var/datum/map_template/ruin/ruin_type = item
@@ -131,7 +136,8 @@
 			continue
 		var/datum/map_template/ruin/R = new ruin_type()
 
-		if(banned.Find(R.mappath))
+		// If not in the active list, skip it
+		if(!(R.mappath in all_ruins))
 			continue
 
 		GLOB.map_templates[R.name] = R

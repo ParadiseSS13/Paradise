@@ -71,23 +71,4 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "focus"
 	item_state = "focus"
-	ammo_type = list(/obj/item/ammo_casing/forcebolt)
-
-/obj/item/gun/magic/staff/spellblade
-	name = "spellblade"
-	desc = "A deadly combination of laziness and boodlust, this blade allows the user to dismember their enemies without all the hard work of actually swinging the sword."
-	fire_sound = 'sound/magic/fireball.ogg'
-	ammo_type = /obj/item/ammo_casing/magic/spellblade
-	icon_state = "spellblade"
-	item_state = "spellblade"
-	hitsound = 'sound/weapons/rapierhit.ogg'
-	force = 20
-	armour_penetration = 75
-	block_chance = 50
-	sharp = 1
-	max_charges = 4
-
-/obj/item/gun/magic/staff/spellblade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()
+	ammo_type = /obj/item/ammo_casing/magic/forcebolt

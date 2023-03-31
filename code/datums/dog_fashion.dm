@@ -31,7 +31,7 @@
 	if(speak_emote)
 		D.speak_emote = speak_emote
 
-/datum/dog_fashion/proc/get_overlay(var/dir)
+/datum/dog_fashion/proc/get_overlay(dir)
 	if(icon_file && obj_icon_state)
 		var/image/corgI = image(icon_file, obj_icon_state, dir = dir)
 		corgI.alpha = obj_alpha
@@ -48,6 +48,18 @@
 /datum/dog_fashion/head/hardhat/apply(mob/living/simple_animal/pet/dog/D)
 	..()
 	D.set_light(4)
+
+/datum/dog_fashion/head/hardhat
+	name = "Engineer REAL_NAME"
+	desc = "Trust him, he's an engineer."
+
+/datum/dog_fashion/head/hardhat/white
+	name = "Chief engineer REAL_NAME"
+	desc = "Hasn't delamed the engine once."
+
+/datum/dog_fashion/head/hardhat/red
+	name = "Fire chief REAL_NAME"
+	desc = "Some days you're the dog, some days you're the hydrant."
 
 /datum/dog_fashion/head/helmet
 	name = "Sergeant REAL_NAME"
@@ -124,6 +136,10 @@
 	name = "Pyromancer REAL_NAME"
 	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU", "ONI SOMA!")
 
+/datum/dog_fashion/head/black_wizard
+	name = "Necromancer REAL_NAME"
+	speak = list("YAP", "Woof!", "Bark!", "AUUUUUU")
+
 /datum/dog_fashion/head/cardborg
 	name = "Borgi"
 	speak = list("Ping!","Beep!","Woof!")
@@ -147,6 +163,8 @@
 /datum/dog_fashion/head/cargo_tech
 	name = "Corgi Tech REAL_NAME"
 	desc = "The reason your yellow gloves have chew-marks."
+
+/datum/dog_fashion/head/softcap
 
 /datum/dog_fashion/head/reindeer
 	name = "REAL_NAME the red-nosed Corgi"
@@ -191,12 +209,55 @@
 	..()
 	desc = "That's Definitely Not [M.real_name]."
 
+/datum/dog_fashion/head/cone
+	name = "REAL_NAME"
+	desc = "Omnicone's Chosen Champion"
+
 /datum/dog_fashion/back/hardsuit
 	name = "Space Explorer REAL_NAME"
 	desc = "That's one small step for a corgi. One giant yap for corgikind."
 
 /datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
 	..()
-	D.mutations.Add(BREATHLESS)
+	ADD_TRAIT(D, TRAIT_NOBREATH, DOGGO_SPACESUIT)
 	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	D.minbodytemp = 0
+
+/datum/dog_fashion/head/fried_vox_empty
+	name = "Colonel REAL_NAME"
+	desc = "Keep away from live vox."
+
+/datum/dog_fashion/head/HoS
+	name = "Head of Security REAL_NAME"
+	desc = "Probably better than the last HoS."
+
+/datum/dog_fashion/head/beret/sec
+	name = "Officer REAL_NAME"
+	desc = "Ever-loyal, ever-vigilant."
+
+/datum/dog_fashion/head/bowlerhat
+	name = "REAL_NAME"
+	desc = "A sophisticated city gent."
+
+/datum/dog_fashion/head/surgery
+	name = "Nurse-in-Training REAL_NAME"
+	desc = "The most adorable bed-side manner ever."
+
+/datum/dog_fashion/head/bucket
+	name = "REAL_NAME"
+	desc = "A janitor's best friend."
+
+/datum/dog_fashion/head/justice_wig
+	name = "Arbiter REAL_NAME"
+	desc = "Head of the High Court of Cute."
+
+/datum/dog_fashion/head/wizard/magus
+	name = "Battlemage REAL_NAME"
+
+/datum/dog_fashion/head/wizard/marisa
+	name = "Witch REAL_NAME"
+	desc = "Flying broom not included."
+
+/datum/dog_fashion/head/roman
+	name = "Imperator REAL_NAME"
+	desc = "For the Senate and the people of Rome!"

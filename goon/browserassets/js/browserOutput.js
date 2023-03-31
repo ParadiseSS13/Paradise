@@ -69,10 +69,17 @@ var opts = {
 	'macros': {},
 
 	// Emoji toggle
-	'enableEmoji': true
+	'enableEmoji': true,
+
+	// Reboot message stuff
+	'rebootIntervalHandler': null,
+
+	// Syndicate codewords
+	'codePhrases': [],
+	'codeResponses': []
 };
 
-var regexHasError = false; //variable to check if regex has excepted 
+var regexHasError = false; //variable to check if regex has excepted
 
 function outerHTML(el) {
     var wrap = document.createElement('div');
@@ -96,13 +103,13 @@ if (typeof String.prototype.trim !== 'function') {
 //Polyfill for string.prototype.includes. Why the fuck. Just why the fuck.
 if (!String.prototype.includes) {
 	String.prototype.includes = function(search, start) {
-	  'use strict';
-  
-	  if (search instanceof RegExp) {
-		throw TypeError('first argument must not be a RegExp');
-	  } 
-	  if (start === undefined) { start = 0; }
-	  return this.indexOf(search, start) !== -1;
+		'use strict';
+
+		if (search instanceof RegExp) {
+			throw TypeError('first argument must not be a RegExp');
+		}
+	if (start === undefined) { start = 0; }
+	return this.indexOf(search, start) !== -1;
 	};
 }
 
@@ -124,7 +131,7 @@ function byondDecode(message) {
 	// The replace for + is because FOR SOME REASON, BYOND replaces spaces with a + instead of %20, and a plus with %2b.
 	// Marvelous.
 	message = message.replace(/\+/g, "%20");
-	try { 
+	try {
 		// This is a workaround for the above not always working when BYOND's shitty url encoding breaks.
 		// Basically, sometimes BYOND's double encoding trick just arbitrarily produces something that makes decodeURIComponent
 		// throw an "Invalid Encoding URI" URIError... the simplest way to work around this is to just ignore it and use unescape instead
@@ -183,11 +190,18 @@ function highlightTerms(el) {
 
 	if (regexHasError) return; //just stop right there ig the regex is gonna except
 
-	function highlightRecursor(element, term){ //recursor function to do the highlighting proper
+	function highlightRecursor(element, term, className){ //recursor function to do the highlighting proper
 		var regex = new RegExp(term, "gi");
 
-		function replace(str) {
-			return str.replace(regex, '<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>');
+		var replace;
+		if (className) {
+			replace = function(str) {
+				return str.replace(regex, '<span class="' + className + '">$&</span>');
+			};
+		} else {
+			replace = function(str) {
+				return str.replace(regex, '<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>');
+			};
 		}
 
 		var s = '';
@@ -217,10 +231,10 @@ function highlightTerms(el) {
 				ind = next_tag;
 			}
 		}
-		
+
 		element.innerHTML = s;
 	}
-	
+
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
 			if(!opts.highlightRegexEnable){
@@ -240,6 +254,14 @@ function highlightTerms(el) {
 				highlightRecursor(el, opts.highlightTerms[i]);
 			}
 		}
+	}
+
+	// Code phrases
+	for (var i = 0; i < opts.codePhrases.length; i++) {
+		highlightRecursor(el, escapeRegexCharacters(opts.codePhrases[i]), "codephrases");
+	}
+	for (var i = 0; i < opts.codeResponses.length; i++) {
+		highlightRecursor(el, escapeRegexCharacters(opts.codeResponses[i]), "coderesponses");
 	}
 }
 
@@ -285,7 +307,7 @@ function output(message, flag) {
 				if (!!$(messageHtml).children().attr('class')) {
 					messageClasses = messageClasses.concat($(messageHtml).children().attr('class').split(/\s+/));
 				}
-				var tempCount = 0;
+
 				for (var i = 0; i < messageClasses.length; i++) { //Every class
 					var thisClass = messageClasses[i];
 					$.each(opts.showMessagesFilters, function(key, val) { //Every filter
@@ -301,7 +323,6 @@ function output(message, flag) {
 						if (filteredOut) return false;
 					});
 					if (filteredOut) break;
-					tempCount++;
 				}
 			} else {
 				if (!opts.showMessagesFilters['Misc'].show) {
@@ -391,7 +412,7 @@ function output(message, flag) {
 	}
 
 	//Stuff we can do after the message shows can go here, in the interests of responsiveness
-	if (opts.highlightTerms && opts.highlightTerms.length > 0) {
+	if ((opts.highlightTerms && opts.highlightTerms.length > 0) || (opts.codePhrases.length > 0 && opts.codeResponses.length > 0)) {
 		highlightTerms(entry);
 	}
 }
@@ -573,6 +594,55 @@ function toggleWasd(state) {
 	opts.wasd = (state == 'on' ? true : false);
 }
 
+function reboot(timeRaw) {
+	var timeLeftSecs = parseInt(timeRaw);
+	const intervalSecs = 1; // tick every 1 second
+
+	rebootFinished();
+	internalOutput('<div class="rebooting internal">The server is restarting. <a href="byond://winset?command=.reconnect" id="reconnectTimer">Reconnect (' + timeLeftSecs + ')</a></div>', 'internal');
+
+	opts.rebootIntervalHandler = setInterval(function() {
+		timeLeftSecs -= intervalSecs;
+		if (timeLeftSecs <= 0) {
+			$("#reconnectTimer").text('Reconnecting...');
+			window.location.href = 'byond://winset?command=.reconnect';
+			clearInterval(opts.rebootIntervalHandler)
+			opts.rebootIntervalHandler = null;
+		} else {
+			$("#reconnectTimer").text('Reconnect (' + timeLeftSecs + ')');
+		}
+	}, intervalSecs * 1000);
+}
+
+function rebootFinished() {
+	if (opts.rebootIntervalHandler != null) {
+		clearInterval(opts.rebootIntervalHandler)
+	}
+	$("<span> Reconnected automatically!</span>").insertBefore("#reconnectTimer");
+	$("#reconnectTimer").remove();
+}
+
+function codewords(phrases, responses) {
+	function cleanCodewords(words) {
+		var arr = [];
+		for (var i in words) {
+			var trimmed = words[i].trim();
+			if (trimmed.length > 0) {
+				arr.push(trimmed);
+			}
+		}
+		return arr;
+	}
+
+	opts.codePhrases = cleanCodewords(phrases.split(","));
+	opts.codeResponses = cleanCodewords(responses.split(","));
+}
+
+function codewordsClear() {
+	opts.codePhrases = [];
+	opts.codeResponses = [];
+}
+
 /*****************************************
 *
 * MAKE MACRO DICTIONARY
@@ -652,7 +722,7 @@ $(function() {
 		'shideSpam': getCookie('hidespam'),
 		'darkChat': getCookie('darkChat'),
 	};
-	
+
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
 		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
@@ -695,21 +765,21 @@ $(function() {
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
 	if (savedConfig.darkChat == "on") {
-		   $("head").append("<link>");
-		   var css = $("head").children(":last");
-		   css.attr({
-		     rel:  "stylesheet",
-		     type: "text/css",
-		     href: "./browserOutput-dark.css"
-		  });
+		$("head").append("<link>");
+		var css = $("head").children(":last");
+		css.attr({
+			rel:  "stylesheet",
+			type: "text/css",
+			href: "./browserOutput-dark.css"
+		});
 	} else {
-		   $("head").append("<link>");
-		   var css = $("head").children(":last");
-		   css.attr({
-		     rel:  "stylesheet",
-		     type: "text/css",
-		     href: "./browserOutput.css"
-		  });
+		$("head").append("<link>");
+		var css = $("head").children(":last");
+		css.attr({
+			rel:  "stylesheet",
+			type: "text/css",
+			href: "./browserOutput.css"
+		});
 	}
 	if(localStorage){
 		var backlog = localStorage.getItem('backlog')
@@ -1010,18 +1080,18 @@ $(function() {
 		} else {
 			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		
+
 		// synchronous requests are depricated in modern browsers
-		xmlHttp.open('GET', 'browserOutput.css', true);			
+		xmlHttp.open('GET', 'browserOutput.css', true);
 		xmlHttp.onload = function (e) {
 			if (xmlHttp.status === 200) {	// request successful
-				
+
 				// Generate Log
 				var saved = '<style>'+xmlHttp.responseText+'</style>';
 				saved += $messages.html();
 				saved = saved.replace(/&/g, '&amp;');
 				saved = saved.replace(/</g, '&lt;');
-				
+
 				// Generate final output and open the window
 				var finalText = '<head><title>Chat Log</title></head> \
 					<iframe src="saveInstructions.html" id="instructions" style="border:none;" height="220" width="100%"></iframe>'+
@@ -1031,7 +1101,7 @@ $(function() {
 				openWindow('Style Doc Retrieve Error: '+xmlHttp.statusText);
 			}
 		}
-		
+
 		// timeout and request errors
 		xmlHttp.timeout = 300;
 		xmlHttp.ontimeout = function (e) {
@@ -1049,13 +1119,13 @@ $(function() {
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';
 		for (var i = 0; i < opts.highlightLimit; i++) {
-			termInputs += '<div><input type="text" name="highlightTermInput'+i+'" id="highlightTermInput'+i+'" class="highlightTermInput'+i+'" maxlength="255" value="'+(opts.highlightTerms[i] ? opts.highlightTerms[i] : '')+'" /></div>';
+			termInputs += '<div><input type="text" name="highlightTermInput'+i+'" id="highlightTermInput'+i+'" class="highlightTermInput'+i+'" maxlength="255" value="" /></div>';
 		}
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
 				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
-		    			'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
-		    		'<br><a href="" onclick="window.open(\'https://www.paradisestation.org/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
+					'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
+					'<br><a href="" onclick="window.open(\'https://www.paradisestation.org/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
@@ -1064,6 +1134,9 @@ $(function() {
 				'</form>' +
 			'</div>';
 		createPopup(popupContent, 250);
+		for(var i = 0; i < opts.highlightLimit; i++){
+			document.querySelector(".highlightTermInput"+i).setAttribute("value",(opts.highlightTerms[i] ? opts.highlightTerms[i] : ''));
+		}
 		document.querySelector(".popup #highlightRegexEnable").checked = opts.highlightRegexEnable;
 	});
 	$('body').on('keyup', '#highlightColor', function() {

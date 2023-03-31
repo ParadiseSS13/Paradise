@@ -11,8 +11,8 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
-	var/cover_open = 0
-	can_suppress = 0
+	var/cover_open = FALSE
+	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 1
 
@@ -22,7 +22,7 @@
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/l6_saw/update_icon()
+/obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
 	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(0)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
@@ -63,11 +63,11 @@
 
 /obj/item/projectile/bullet/saw
 	damage = 45
-	armour_penetration = 5
+	armour_penetration_flat = 5
 
 /obj/item/projectile/bullet/saw/bleeding
 	damage = 20
-	armour_penetration = 0
+	armour_penetration_flat = 0
 
 /obj/item/projectile/bullet/saw/bleeding/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
@@ -77,17 +77,17 @@
 
 /obj/item/projectile/bullet/saw/hollow
 	damage = 60
-	armour_penetration = -10
+	armour_penetration_flat = -30
 
 /obj/item/projectile/bullet/saw/ap
 	damage = 40
-	armour_penetration = 75
+	armour_penetration_percentage = 100
 
 /obj/item/projectile/bullet/saw/incen
 	damage = 7
-	armour_penetration = 0
+	armour_penetration_flat = 0
 
-obj/item/projectile/bullet/saw/incen/Move()
+/obj/item/projectile/bullet/saw/incen/Move()
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
@@ -105,11 +105,12 @@ obj/item/projectile/bullet/saw/incen/Move()
 
 /obj/item/ammo_box/magazine/mm556x45
 	name = "box magazine (5.56x45mm)"
-	icon_state = "a762-50"
+	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/mm556x45
 	caliber = "mm55645"
 	max_ammo = 50
+	multi_sprite_step = 10
 
 /obj/item/ammo_box/magazine/mm556x45/bleeding
 	name = "box magazine (Bleeding 5.56x45mm)"
@@ -131,10 +132,6 @@ obj/item/projectile/bullet/saw/incen/Move()
 	origin_tech = "combat=4"
 	ammo_type = /obj/item/ammo_casing/mm556x45/incen
 
-/obj/item/ammo_box/magazine/mm556x45/update_icon()
-	..()
-	icon_state = "a762-[round(ammo_count(),10)]"
-
 //casings//
 
 /obj/item/ammo_casing/mm556x45
@@ -142,6 +139,8 @@ obj/item/projectile/bullet/saw/incen/Move()
 	icon_state = "762-casing"
 	caliber = "mm55645"
 	projectile_type = /obj/item/projectile/bullet/saw
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
 /obj/item/ammo_casing/mm556x45/bleeding
 	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
@@ -159,3 +158,4 @@ obj/item/projectile/bullet/saw/incen/Move()
 /obj/item/ammo_casing/mm556x45/incen
 	desc = "A 556x45mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
 	projectile_type = /obj/item/projectile/bullet/saw/incen
+	muzzle_flash_color = LIGHT_COLOR_FIRE

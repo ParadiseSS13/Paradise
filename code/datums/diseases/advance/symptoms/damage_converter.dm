@@ -37,7 +37,7 @@ Bonus
 
 	var/get_damage = rand(1, 2)
 
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
 		var/list/parts = H.get_damaged_organs(TRUE, TRUE, AFFECT_ORGANIC_ORGAN) //1,1 because it needs inputs.
@@ -49,6 +49,7 @@ Bonus
 			healed += min(E.brute_dam, get_damage) + min(E.burn_dam, get_damage)
 			E.heal_damage(get_damage, get_damage, 0, 0)
 		M.adjustToxLoss(healed)
+		M.UpdateAppearance()
 
 
 	else
@@ -56,6 +57,7 @@ Bonus
 			M.adjustFireLoss(-get_damage)
 			M.adjustBruteLoss(-get_damage)
 			M.adjustToxLoss(get_damage)
+			M.UpdateAppearance()
 		else
 			return
 

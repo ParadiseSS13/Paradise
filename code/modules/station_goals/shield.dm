@@ -13,10 +13,10 @@
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
-	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat]"]
+	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat]"]
 	P.special_enabled = TRUE
 
-	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
+	P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/station_shield/check_completion()
@@ -35,7 +35,7 @@
 	return coverage.len
 
 /obj/item/circuitboard/computer/sat_control
-	name = "Satellite Network Control (Computer Board)"
+	board_name = "Satellite Network Control"
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
 
@@ -44,7 +44,7 @@
 	desc = "Used to control the satellite network."
 	circuit = /obj/item/circuitboard/computer/sat_control
 	icon_screen = "accelerator"
-	icon_keyboard = "accelerator_key"
+	icon_keyboard = "rd_key"
 	var/notice
 
 /obj/machinery/computer/sat_control/attack_hand(mob/user)
@@ -52,26 +52,13 @@
 		return 1
 	ui_interact(user)
 
-/obj/machinery/computer/sat_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/sat_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "sat_control.tmpl", name, 475, 400)
+		ui = new(user, src, ui_key, "SatelliteControl", name, 475, 400)
 		ui.open()
 
-/obj/machinery/computer/sat_control/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(href_list["toggle"])
-		toggle(text2num(href_list["id"]))
-		. = TRUE
-
-/obj/machinery/computer/sat_control/proc/toggle(id)
-	for(var/obj/machinery/satellite/S in GLOB.machines)
-		if(S.id == id && atoms_share_level(src, S))
-			S.toggle()
-
-/obj/machinery/computer/sat_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/sat_control/ui_data(mob/user)
 	var/list/data = list()
 
 	data["satellites"] = list()
@@ -91,6 +78,24 @@
 		data["meteor_shield_coverage_percentage"] = (G.get_coverage() / G.coverage_goal) * 100
 	return data
 
+/obj/machinery/computer/sat_control/ui_act(action, params)
+	if(..())
+		return
+
+	switch(action)
+		if("toggle")
+			toggle(text2num(params["id"]))
+			. = TRUE
+
+/obj/machinery/computer/sat_control/proc/toggle(id)
+	for(var/obj/machinery/satellite/S in GLOB.machines)
+		if(S.id == id && atoms_share_level(src, S))
+			if(!S.toggle())
+				notice = "You can only activate satellites which are in space"
+			else
+				notice = null
+
+
 /obj/machinery/satellite
 	name = "Defunct Satellite"
 	desc = ""
@@ -98,13 +103,13 @@
 	icon_state = "sat_inactive"
 	var/mode = "NTPROBEV0.8"
 	var/active = FALSE
-	density = 1
-	use_power = FALSE
+	density = TRUE
+	power_state = NO_POWER_USE
 	var/static/gid = 0
 	var/id = 0
 
-/obj/machinery/satellite/New()
-	..()
+/obj/machinery/satellite/Initialize(mapload)
+	. = ..()
 	id = gid++
 
 /obj/machinery/satellite/attack_hand(mob/user)
@@ -118,20 +123,21 @@
 /obj/machinery/satellite/proc/toggle(mob/user)
 	if(!active && !isinspace())
 		if(user)
-			to_chat(user, "<span class='warning'>You can only active the [src] in space.</span>")
-		return TRUE
+			to_chat(user, "<span class='warning'>You can only activate satellites which are in space.</span>")
+		return FALSE
 	if(user)
-		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] the [src]</span>")
+		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] [src]</span>")
 	active = !active
 	if(active)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
-		anchored = 1
+		anchored = TRUE
 	else
 		animate(src, pixel_y = 0, time = 10)
-		anchored = 0
-	update_icon()
+		anchored = FALSE
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
-/obj/machinery/satellite/update_icon()
+/obj/machinery/satellite/update_icon_state()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
 /obj/machinery/satellite/attackby(obj/item/I, mob/user, params)
@@ -156,13 +162,15 @@
 /obj/machinery/satellite/meteor_shield/process()
 	if(!active)
 		return
-	for(var/obj/effect/meteor/M in GLOB.meteor_list)
+	for(var/obj/effect/M in GLOB.meteor_list)
 		if(M.z != z)
 			continue
 		if(get_dist(M, src) > kill_range)
 			continue
 		if(!emagged && space_los(M))
 			Beam(get_turf(M), icon_state = "sat_beam", time = 5, maxdistance = kill_range)
+			if(istype(M, /obj/effect/space_dust/meaty))
+				new /obj/item/reagent_containers/food/snacks/meatsteak(get_turf(M))
 			qdel(M)
 
 /obj/machinery/satellite/meteor_shield/toggle(user)
@@ -178,7 +186,7 @@
 	for(var/datum/event_container/container in SSevents.event_containers)
 		for(var/datum/event_meta/M in container.available_events)
 			if(M.event_type == /datum/event/meteor_wave)
-				M.weight *= mod
+				M.weight_mod *= mod
 
 /obj/machinery/satellite/meteor_shield/Destroy()
 	. = ..()
@@ -188,6 +196,6 @@
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(!emagged)
 		to_chat(user, "<span class='danger'>You override the shield's circuits, causing it to attract meteors instead of destroying them.</span>")
-		emagged = 1
+		emagged = TRUE
 		if(active)
 			change_meteor_chance(2)

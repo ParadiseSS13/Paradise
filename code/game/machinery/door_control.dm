@@ -3,11 +3,12 @@
 	desc = "A remote control-switch for a door."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl0"
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	var/id = null
-	var/safety_z_check = 1
-	var/normaldoorcontrol = 0
-	var/desiredstate = 0 // Zero is closed, 1 is open.
+	var/safety_z_check = TRUE
+	var/normaldoorcontrol = FALSE
+	/// FALSE is closed, TRUE is open.
+	var/desiredstate_open = FALSE
 	var/specialfunctions = 1
 	/*
 	Bitflag, 	1= open
@@ -18,17 +19,15 @@
 
 	*/
 
-	var/exposedwires = 0
 	var/wires = 3
 	/*
 	Bitflag,	1=checkID
 				2=Network Access
 	*/
 
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
+	anchored = TRUE
+	idle_power_consumption = 2
+	active_power_consumption = 4
 
 /obj/machinery/door_control/attack_ai(mob/user as mob)
 	if(wires & 2)
@@ -43,10 +42,10 @@
 
 /obj/machinery/door_control/emag_act(user as mob)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		req_access = list()
 		req_one_access = list()
-		playsound(loc, "sparks", 100, 1)
+		playsound(src, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -80,7 +79,7 @@
 						spawn(0)
 							D.close()
 							return
-				if(desiredstate == 1)
+				if(desiredstate_open)
 					if(specialfunctions & IDSCAN)
 						D.aiDisabledIdScanner = 1
 					if(specialfunctions & BOLTS)
@@ -113,14 +112,23 @@
 						M.close()
 						return
 
-	desiredstate = !desiredstate
+	desiredstate_open = !desiredstate_open
 	spawn(15)
 		if(!(stat & NOPOWER))
 			icon_state = "doorctrl0"
 
 /obj/machinery/door_control/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		icon_state = "doorctrl-p"
 	else
 		icon_state = "doorctrl0"
+
+/obj/machinery/door_control/no_emag
+	desc = "A remote control-switch for a door. Looks tougher than usual."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/machinery/door_control/no_emag/emag_act(user as mob)
+	to_chat(user, "<span class='notice'>The electronic systems in this button are far too advanced for your primitive hacking peripherals.</span>")
+	return

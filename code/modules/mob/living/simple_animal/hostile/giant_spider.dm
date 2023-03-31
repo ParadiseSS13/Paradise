@@ -12,12 +12,14 @@
 	var/butcher_state = 8 // Icon state for dead spider icons
 	icon_living = "guard"
 	icon_dead = "guard_dead"
+	mob_biotypes = MOB_ORGANIC | MOB_BUG
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	speak_chance = 5
 	turns_per_move = 5
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -46,6 +48,13 @@
 		var/inject_target = pick("chest", "head")
 		if(C.can_inject(null, FALSE, inject_target, FALSE))
 			C.reagents.add_reagent("spidertoxin", venom_per_bite)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup()
+	. = ..()
+	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
+	if(!.)
+		for(var/obj/structure/spider/S in range(1, get_turf(src)))
+			return S
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -81,10 +90,10 @@
 	if(AIStatus == AI_IDLE)
 		//1% chance to skitter madly away
 		if(!busy && prob(1))
-			stop_automated_movement = 1
+			stop_automated_movement = TRUE
 			Goto(pick(urange(20, src, 1)), move_to_delay)
 			spawn(50)
-				stop_automated_movement = 0
+				stop_automated_movement = FALSE
 				walk(src,0)
 		return 1
 
@@ -94,7 +103,7 @@
 			if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
 				cocoon_target = null
 			busy = 0
-			stop_automated_movement = 0
+			stop_automated_movement = FALSE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_movement() //Hacky and ugly.
 	if(..())
@@ -126,7 +135,7 @@
 						if(isitem(O) || isstructure(O) || ismachinery(O))
 							cocoon_target = O
 							busy = MOVING_TO_TARGET
-							stop_automated_movement = 1
+							stop_automated_movement = TRUE
 							Goto(O, move_to_delay)
 							//give up if we can't reach them after 10 seconds
 							GiveUp(O)
@@ -137,7 +146,7 @@
 
 	else
 		busy = 0
-		stop_automated_movement = 0
+		stop_automated_movement = FALSE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/verb/Web()
 	set name = "Lay Web"
@@ -149,12 +158,12 @@
 	if(busy != SPINNING_WEB)
 		busy = SPINNING_WEB
 		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
-		stop_automated_movement = 1
+		stop_automated_movement = TRUE
 		spawn(40)
 			if(busy == SPINNING_WEB && src.loc == T)
 				new /obj/structure/spider/stickyweb(T)
 			busy = 0
-			stop_automated_movement = 0
+			stop_automated_movement = FALSE
 
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/Wrap()
@@ -164,24 +173,36 @@
 
 	if(!cocoon_target)
 		var/list/choices = list()
-		for(var/mob/living/L in view(1,src))
+		for(var/mob/living/L in view(1, src))
 			if(L == src)
+				continue
+			if(L.stat != DEAD)
+				continue
+			if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
 				continue
 			if(Adjacent(L))
 				choices += L
-		for(var/obj/O in src.loc)
+		for(var/obj/O in get_turf(src))
+			if(O.anchored)
+				continue
+			if(!(isitem(O) || isstructure(O) || ismachinery(O)))
+				continue
 			if(Adjacent(O))
 				choices += O
-		cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		if(length(choices))
+			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		else
+			to_chat(src, "<span class='warning'>No suitable dead prey or wrappable objects found nearby.")
+			return
 
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
 		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")
-		stop_automated_movement = 1
+		stop_automated_movement = TRUE
 		walk(src,0)
 		spawn(50)
 			if(busy == SPINNING_COCOON)
-				if(cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)
+				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)
 					var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
 					var/large_cocoon = 0
 					C.pixel_x = cocoon_target.pixel_x
@@ -199,6 +220,8 @@
 					for(var/mob/living/L in C.loc)
 						if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
 							continue
+						if(L.stat != DEAD)
+							continue
 						large_cocoon = 1
 						L.loc = C
 						C.pixel_x = L.pixel_x
@@ -211,7 +234,7 @@
 						C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
 			cocoon_target = null
 			busy = 0
-			stop_automated_movement = 0
+			stop_automated_movement = FALSE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/LayEggs()
 	set name = "Lay Eggs"
@@ -226,7 +249,7 @@
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
 		src.visible_message("<span class='notice'>\the [src] begins to lay a cluster of eggs.</span>")
-		stop_automated_movement = 1
+		stop_automated_movement = TRUE
 		spawn(50)
 			if(busy == LAYING_EGGS)
 				E = locate() in get_turf(src)
@@ -234,11 +257,12 @@
 					var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
 					C.faction = faction.Copy()
 					C.master_commander = master_commander
+					C.xenobiology_spawned = xenobiology_spawned
 					if(ckey)
-						C.player_spiders = 1
+						C.player_spiders = TRUE
 					fed--
 			busy = 0
-			stop_automated_movement = 0
+			stop_automated_movement = FALSE
 
 #undef SPINNING_WEB
 #undef LAYING_EGGS

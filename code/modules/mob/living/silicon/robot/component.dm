@@ -2,9 +2,9 @@
 
 /datum/robot_component
 	var/name = "Component"
-	var/installed = 0
-	var/powered = 1
-	var/toggled = 1
+	var/installed = FALSE
+	var/powered = TRUE
+	var/toggled = TRUE
 	var/brute_damage = 0
 	var/electronics_damage = 0
 	var/max_damage = 30
@@ -16,27 +16,33 @@
 /datum/robot_component/New(mob/living/silicon/robot/R)
 	owner = R
 
-/datum/robot_component/proc/install()
+// Should only ever be destroyed when a borg gets destroyed
+/datum/robot_component/Destroy(force, ...)
+	owner = null
+	QDEL_NULL(wrapped)
+	return ..()
+
+/datum/robot_component/proc/install(obj/item/I, update_health = TRUE)
+	wrapped = I
+	installed = TRUE
 	go_online()
-	owner.updatehealth("component '[src]' installed")
+	if(update_health)
+		owner.updatehealth("component '[src]' installed")
 
 /datum/robot_component/proc/uninstall()
+	wrapped = null
+	installed = FALSE
 	go_offline()
 	owner.updatehealth("component '[src]' removed")
 
 /datum/robot_component/proc/destroy()
 	if(wrapped)
 		qdel(wrapped)
-
-
+	uninstall()
 	wrapped = new/obj/item/broken_device
 
-	// The thing itself isn't there anymore, but some fried remains are.
-	installed = -1
-	uninstall()
-
 /datum/robot_component/proc/take_damage(brute, electronics, sharp, updating_health = TRUE)
-	if(installed != 1)
+	if(!installed)
 		return
 
 	if(owner && updating_health)
@@ -48,8 +54,10 @@
 	if(brute_damage + electronics_damage >= max_damage)
 		destroy()
 
+	SStgui.update_uis(owner.self_diagnosis)
+
 /datum/robot_component/proc/heal_damage(brute, electronics, updating_health = TRUE)
-	if(installed != 1)
+	if(!installed)
 		// If it's not installed, can't repair it.
 		return 0
 
@@ -59,14 +67,25 @@
 	brute_damage = max(0, brute_damage - brute)
 	electronics_damage = max(0, electronics_damage - electronics)
 
+	SStgui.update_uis(owner.self_diagnosis)
+
 /datum/robot_component/proc/is_powered()
-	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)
+	return installed && (brute_damage + electronics_damage < max_damage) && (powered)
+
+/datum/robot_component/proc/is_destroyed()
+	return istype(wrapped, /obj/item/broken_device)
+
+
+/datum/robot_component/proc/is_missing()
+	return isnull(wrapped)
 
 /datum/robot_component/proc/consume_power()
-	if(toggled == 0)
-		powered = 0
+	if(!toggled)
+		powered = FALSE
 		return
-	powered = 1
+	powered = TRUE
+
+	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/disable()
 	if(!component_disabled)
@@ -84,6 +103,8 @@
 		go_online()
 	else
 		go_offline()
+
+	SStgui.update_uis(owner.self_diagnosis)
 
 /datum/robot_component/proc/go_online()
 	return
@@ -105,15 +126,21 @@
 	name = "power cell"
 	max_damage = 50
 
-/datum/robot_component/cell/New(mob/living/silicon/robot/R)
-	. = ..()
-	// sets `external_type` to the borg's currently installed cell type
-	if(owner.cell)
-		var/obj/item/stock_parts/cell/C = owner.cell
-		external_type = C.type
+/datum/robot_component/cell/install(obj/item/stock_parts/cell/C)
+	external_type = C.type // Update the cell component's `external_type` to the path of new cell
+	owner.cell = C
+	..()
+
+/datum/robot_component/cell/uninstall()
+	..()
+	owner.cell = null
 
 /datum/robot_component/cell/is_powered()
 	return ..() && owner.cell
+
+/datum/robot_component/cell/Destroy(force, ...)
+	owner.cell = null
+	return ..()
 
 /datum/robot_component/cell/destroy()
 	..()
@@ -160,7 +187,7 @@
 
 /mob/living/silicon/robot/proc/is_component_functioning(module_name)
 	var/datum/robot_component/C = components[module_name]
-	return C && C.installed == 1 && C.toggled && C.is_powered() && !C.component_disabled
+	return C && C.installed && C.toggled && C.is_powered() && !C.component_disabled
 
 /mob/living/silicon/robot/proc/disable_component(module_name, duration)
 	var/datum/robot_component/D = get_component(module_name)
@@ -169,17 +196,19 @@
 		D.enable()
 
 // Returns component by it's string name
-/mob/living/silicon/robot/proc/get_component(var/component_name)
+/mob/living/silicon/robot/proc/get_component(component_name)
 	var/datum/robot_component/C = components[component_name]
 	return C
 
 /obj/item/broken_device
 	name = "broken component"
+	desc = "A component of a robot, broken to the point of being unidentifiable."
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "broken"
 
 /obj/item/robot_parts/robot_component
 	icon = 'icons/obj/robot_component.dmi'
+	desc = "One of the numerous parts required to make a robot work."
 	icon_state = "working"
 	var/brute = 0
 	var/burn = 0
@@ -187,28 +216,32 @@
 
 /obj/item/robot_parts/robot_component/binary_communication_device
 	name = "binary communication device"
+	desc = "A module used for binary communications over encrypted frequencies, commonly used by synthetic robots."
 	icon_state = "binary_translator"
 
 /obj/item/robot_parts/robot_component/actuator
 	name = "actuator"
+	desc = "A modular, hydraulic actuator used by robots for movement and manipulation."
 	icon_state = "actuator"
 
 /obj/item/robot_parts/robot_component/armour
 	name = "armour plating"
+	desc = "A pair of flexible, adaptable armor plates, used to protect the internals of robots."
 	icon_state = "armor_plating"
 
 /obj/item/robot_parts/robot_component/camera
 	name = "camera"
+	desc = "A modified camera module used as a visual receptor for robots and exosuits, also serving as a relay for wireless video feed."
 	icon_state = "camera"
-
-
 
 /obj/item/robot_parts/robot_component/diagnosis_unit
 	name = "diagnosis unit"
+	desc = "An internal computer and sensors used by robots and exosuits to accurately diagnose any system discrepancies on their components."
 	icon_state = "diagnosis_unit"
 
 /obj/item/robot_parts/robot_component/radio
 	name = "radio"
+	desc = "A modular, multi-frequency radio used by robots and exosuits to enable communication systems. Comes with built-in subspace receivers."
 	icon_state = "radio"
 
 //
@@ -230,7 +263,7 @@
 	var/mode = 1
 
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
-	if(( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message("<span class='warning'>[user] has analyzed the floor's vitals!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
 		to_chat(user, "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Healthy</span>")
 		to_chat(user, "<span class='notice'>\t Damage Specifics: [0]-[0]-[0]-[0]</span>")
@@ -243,11 +276,11 @@
 	add_fingerprint(user)
 
 
-proc/robot_healthscan(mob/user, mob/living/M)
+/proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
-	if(istype(M, /mob/living/silicon/robot))
+	if(isrobot(M))
 		scan_type = "robot"
-	else if(istype(M, /mob/living/carbon/human))
+	else if(ishuman(M))
 		scan_type = "prosthetics"
 	else
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
@@ -274,7 +307,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 					for(var/datum/robot_component/org in damaged)
 						user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
 						capitalize(org.name),					\
-						(org.installed == -1)	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
+						(org.is_destroyed())	?	"<font color='red'><b>DESTROYED</b></font> "							:"",\
 						(org.electronics_damage > 0)	?	"<font color='#FFA500'>[org.electronics_damage]</font>"	:0,	\
 						(org.brute_damage > 0)	?	"<font color='red'>[org.brute_damage]</font>"							:0,		\
 						(org.toggled)	?	"Toggled ON"	:	"<font color='red'>Toggled OFF</font>",\
@@ -306,14 +339,18 @@ proc/robot_healthscan(mob/user, mob/living/M)
 			organ_found = null
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!O.is_robotic())
+					if(!O.is_robotic() || istype(O, /obj/item/organ/internal/cyberimp))
 						continue
 					organ_found = TRUE
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
-
-			if(ismachineperson(H))
-				to_chat(user, "<span class='notice'>Internal Fluid Level:[H.blood_volume]/[H.max_blood]</span>")
-				if(H.bleed_rate)
-					to_chat(user, "<span class='warning'>Warning:External component leak detected!</span>")
+			to_chat(user, "<hr>")
+			to_chat(user, "<span class='notice'>Cybernetic implants:</span>")
+			organ_found = null
+			if(LAZYLEN(H.internal_organs))
+				for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+					organ_found = TRUE
+					to_chat(user, "[capitalize(I.name)]: <font color='red'>[I.crit_fail ? "CRITICAL FAILURE" : I.damage]</font>")
+			if(!organ_found)
+				to_chat(user, "<span class='warning'>No implants located.</span>")

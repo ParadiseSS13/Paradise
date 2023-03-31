@@ -6,12 +6,12 @@
 	item_state = "mender"
 	volume = 200
 	possible_transfer_amounts = null
+	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
 	container_type = REFILLABLE | AMOUNT_VISIBLE
 	temperature_min = 270
 	temperature_max = 350
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
 	var/measured_health = 0 // Used for measuring health; we don't want this to stop applying once the person's health isn't changing.
@@ -37,15 +37,30 @@
 				to_chat(loc, "<span class='warning'>[src] identifies and removes a harmful substance.</span>")
 			else
 				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/applicator/update_icon()
-	cut_overlays()
+/obj/item/reagent_containers/applicator/update_icon_state()
+	if(applying)
+		icon_state = "mender-active"
+	else
+		icon_state = "mender"
 
+/obj/item/reagent_containers/applicator/update_overlays()
+	. = ..()
 	if(reagents.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/goonstation/objects/objects.dmi', "mender-fluid")
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling)
+		. += filling
+	var/reag_pct = round((reagents.total_volume / volume) * 100)
+	var/mutable_appearance/applicator_bar = mutable_appearance('icons/goonstation/objects/objects.dmi', "app_e")
+	switch(reag_pct)
+		if(51 to 100)
+			applicator_bar.icon_state = "app_hf"
+		if(1 to 50)
+			applicator_bar.icon_state = "app_he"
+		if(0)
+			applicator_bar.icon_state = "app_e"
+	. += applicator_bar
 
 /obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
@@ -59,21 +74,23 @@
 
 	if(ignore_flags || M.can_inject(user, TRUE))
 		if(M == user)
-			M.visible_message("[user] begins mending [user.p_them()]self with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
+			M.visible_message("[user] begins mending [user.p_themselves()] with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
 		else
 			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", "<span class='notice'>You begin mending [M] with [src].</span>")
 		if(M.reagents)
 			applying = TRUE
-			icon_state = "mender-active"
-			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
+			update_icon(UPDATE_ICON_STATE)
 			while(do_after(user, 10, target = M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
-				if((measured_health == M.health) || !reagents.total_volume)
+				if(measured_health == M.health)
 					to_chat(user, "<span class='notice'>[M] is finished healing and [src] powers down automatically.</span>")
 					break
+				if(!reagents.total_volume)
+					to_chat(user, "<span class='notice'>[src] is out of reagents and powers down automatically.</span>")
+					break
 		applying = FALSE
-		icon_state = "mender"
+		update_icon()
 		user.changeNext_move(CLICK_CD_MELEE)
 
 

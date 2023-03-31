@@ -16,7 +16,7 @@
 	GLOB.space_manager.do_transition_setup()
 	log_admin("[key_name(usr)] re-assigned all space transitions")
 
-	feedback_add_details("admin_verb","SPCRST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Remake Space Transitions") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 

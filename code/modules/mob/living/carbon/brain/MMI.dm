@@ -1,5 +1,5 @@
 /obj/item/mmi
-	name = "Man-Machine Interface"
+	name = "\improper Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
@@ -9,7 +9,8 @@
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
-	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
+	var/syndiemmi = FALSE //Whether or not this is a Syndicate MMI
+	var/mmi_item_name = "Man-Machine Interface" //Used to name the item when installing a brain
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
@@ -23,9 +24,14 @@
 	// Needed to fix a rather insane bug when a posibrain/robotic brain commits suicide
 	var/dead_icon = "mmi_dead"
 
-/obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
+	var/next_possible_ghost_ping
+	//Used by syndie MMIs, stores the master's mind UID for later referencing
+	var/master_uid = null
+
+/obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal))
-		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
+		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with [src].</span>")
 		return
 	if(istype(O, /obj/item/organ/internal/brain/golem))
 		to_chat(user, "<span class='warning'>You can't find a way to plug [O] into [src].</span>")
@@ -37,35 +43,36 @@
 			return
 		if(held_brain)
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
-			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
-			return
+			CRASH("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 		if(user.drop_item())
 			B.forceMove(src)
-			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
+			if(!syndiemmi)
+				visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
-			brainmob.forceMove(src)
 			brainmob.container = src
-			brainmob.stat = CONSCIOUS
-			GLOB.respawnable_list -= brainmob
+			brainmob.forceMove(src)
+			brainmob.set_stat(CONSCIOUS)
+			brainmob.see_invisible = initial(brainmob.see_invisible)
+			brainmob.remove_from_respawnable_list()
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
-				name = "Man-Machine Interface: Alien - [brainmob.real_name]"
+				name = "\improper [mmi_item_name]: Alien - [brainmob.real_name]"
 				icon = 'icons/mob/alien.dmi'
 				become_occupied("AlienMMI")
 				alien = 1
 			else
-				name = "Man-Machine Interface: [brainmob.real_name]"
+				name = "\improper [mmi_item_name]: [brainmob.real_name]"
 				icon = B.mmi_icon
 				become_occupied("[B.mmi_icon_state]")
 				alien = 0
 
 			if(radio_action)
 				radio_action.UpdateButtonIcon()
-			feedback_inc("cyborg_mmis_filled",1)
+			SSblackbox.record_feedback("amount", "mmis_filled", 1)
 		else
 			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
 
@@ -75,8 +82,8 @@
 		if(radio)
 			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
 		else
-			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
-				"<span class='notice'>You start to install the [O] into [src]...</span>")
+			user.visible_message("<span class='notice'>[user] begins to install [O] into [src]...</span>", \
+				"<span class='notice'>You start to install [O] into [src]...</span>")
 			if(do_after(user, 20, target=src))
 				if(user.drop_item())
 					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
@@ -92,6 +99,7 @@
 	// Maybe later add encryption key support, but that's a pain in the neck atm
 
 	if(brainmob)
+		user.changeNext_move(CLICK_CD_MELEE)
 		O.attack(brainmob, user)//Oh noooeeeee
 		// Brainmobs can take damage, but they can't actually die. Maybe should fix.
 		return
@@ -105,13 +113,13 @@
 		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
 		return
 	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-							 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+							"<span class='notice'>You start to uninstall the radio from [src]...</span>")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
 	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-						 "<span class='notice'>You uninstall the radio from [src].</span>")
+						"<span class='notice'>You uninstall the radio from [src].</span>")
 
 
 /obj/item/mmi/attack_self(mob/user as mob)
@@ -122,9 +130,9 @@
 		dropbrain(get_turf(user))
 		icon = 'icons/obj/assemblies.dmi'
 		icon_state = "mmi_empty"
-		name = "Man-Machine Interface"
+		name = initial(name)
 
-/obj/item/mmi/proc/transfer_identity(var/mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
+/obj/item/mmi/proc/transfer_identity(mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
 	brainmob.name = H.real_name
 	brainmob.real_name = H.real_name
@@ -141,14 +149,14 @@
 	held_brain.dna = brainmob.dna.Clone()
 	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
 
-	name = "Man-Machine Interface: [brainmob.real_name]"
+	name = "\improper [mmi_item_name]: [brainmob.real_name]"
 	become_occupied("mmi_full")
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
-/obj/item/mmi/proc/dropbrain(var/turf/dropspot)
+/obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
-		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
+		stack_trace("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)].")
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
@@ -156,7 +164,7 @@
 
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.forceMove(held_brain) //Throw mob into brain.
-	GLOB.respawnable_list += brainmob
+	brainmob.add_to_respawnable_list()
 	GLOB.alive_mob_list -= brainmob//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()
@@ -164,10 +172,10 @@
 	held_brain.forceMove(dropspot)
 	held_brain = null
 
-/obj/item/mmi/proc/become_occupied(var/new_icon)
+/obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
-		radio_action.ApplyIcon()
+		radio_action.UpdateButtonIcon()
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
@@ -192,7 +200,7 @@
 	procname = "ui_interact"
 	var/obj/item/mmi = null
 
-/datum/action/generic/configure_mmi_radio/New(var/Target, var/obj/item/mmi/M)
+/datum/action/generic/configure_mmi_radio/New(Target, obj/item/mmi/M)
 	. = ..()
 	mmi = M
 
@@ -201,17 +209,9 @@
 	return ..()
 
 /datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
-	// A copy/paste of the item action icon code
-	current_button.overlays.Cut()
-	if(target)
-		var/obj/item/I = mmi
-		var/old_layer = I.layer
-		var/old_plane = I.plane
-		I.layer = 21
-		I.plane = HUD_PLANE
-		current_button.overlays += I
-		I.layer = old_layer
-		I.plane = old_plane
+	icon_icon = mmi.icon
+	button_icon_state = mmi.icon_state
+	..()
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
@@ -241,18 +241,13 @@
 // Also neatly handles basically every case where a brain
 // is inserted or removed from an MMI
 /obj/item/mmi/Entered(atom/movable/A)
-	if(radio && istype(A, /mob/living/carbon/brain))
+	if(radio && isbrain(A))
 		radio_action.Grant(A)
 
 /obj/item/mmi/Exited(atom/movable/A)
-	if(radio && istype(A, /mob/living/carbon/brain))
+	if(radio && isbrain(A))
 		radio_action.Remove(A)
 
-/obj/item/mmi/syndie
-	name = "Syndicate Man-Machine Interface"
-	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
-	origin_tech = "biotech=4;programming=4;syndicate=2"
-	syndiemmi = 1
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(!brainmob)
@@ -275,18 +270,61 @@
 	return 1
 
 // As a synthetic, the only limit on visibility is view range
-/obj/item/mmi/contents_nano_distance(var/src_object, var/mob/living/user)
+/obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
+	. = ..()
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
-	return user.shared_living_nano_distance(src_object)
+	return user.shared_living_ui_distance()
 
-// For now the only thing that is helped by this is radio access
-// Later a more intricate system for MMI UI interaction can be established
-/obj/item/mmi/contents_nano_interact(var/src_object, var/mob/living/user)
-	if(!istype(user, /mob/living/carbon/brain))
-		log_runtime(EXCEPTION("Somehow a non-brain mob is inside an MMI!"), user)
+/obj/item/mmi/forceMove(atom/destination)
+	if(!brainmob)
 		return ..()
-	var/mob/living/carbon/brain/BM = user
-	if(BM.container == src && src_object == radio)
-		return STATUS_INTERACTIVE
-	return ..()
+
+	var/atom/old_loc = loc
+	if(issilicon(old_loc) && !issilicon(destination))
+		var/mob/living/silicon/S = old_loc
+		brainmob.weather_immunities -= S.weather_immunities
+	else if(issilicon(destination))
+		var/mob/living/silicon/S = destination
+		brainmob.weather_immunities |= S.weather_immunities
+
+	. = ..()
+	brainmob.update_runechat_msg_location()
+
+
+/obj/item/mmi/syndie
+	name = "\improper Syndicate Man-Machine Interface"
+	desc = "Syndicate's own brand of MMI. Mindslaves any brain inserted into it for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AI cores."
+	origin_tech = "biotech=4;programming=4;syndicate=2"
+	syndiemmi = TRUE
+	mmi_item_name = "Syndicate Man-Machine Interface"
+
+/obj/item/mmi/syndie/attackby(obj/item/O, mob/user, params)
+	if(!master_uid && ishuman(user) && user.mind && istype(O,/obj/item/organ/internal/brain))
+		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
+		master_uid = user.mind.UID()
+		if(!user.mind.has_antag_datum(/datum/antagonist/traitor))
+			message_admins("[user] has mindslaved [O] using a Syndicate MMI, but they are not a traitor!")
+	..()
+
+/obj/item/mmi/syndie/become_occupied(new_icon)
+	..()
+	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
+
+	if(master_uid)
+		var/datum/mind/master = locateUID(master_uid)
+
+		if(master)
+			to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will!</span>")
+			brainmob.mind.add_antag_datum(new /datum/antagonist/mindslave(master))
+			return
+
+	//Edgecase handling, shouldn't get here
+	to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
+	message_admins("[src] received a brain but has no master. A generic syndicate zeroth law will be installed instead of a full mindslaving.")
+
+/obj/item/mmi/syndie/dropbrain(turf/dropspot)
+	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
+	master_uid = null
+	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: You have complete and free control of your own faculties once more!</span>")
+	..()

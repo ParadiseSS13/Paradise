@@ -1,19 +1,20 @@
 /obj/item/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
-	damage = 25
+	damage = 20
 	damage_type = BRUTE
-	armour_penetration = 100
+	armour_penetration_percentage = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	damage_transfer = 0.9
+	damage_transfer = 1
+	can_strip = TRUE
 	projectiletype = /obj/item/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
-	ranged = 1
+	ranged = TRUE
 	range = 13
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	see_in_dark = 8
@@ -27,7 +28,7 @@
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleMode()
 	if(loc == summoner)
 		if(toggle)
-			ranged = 1
+			ranged = TRUE
 			melee_damage_lower = 10
 			melee_damage_upper = 10
 			obj_damage = initial(obj_damage)
@@ -35,10 +36,11 @@
 			alpha = 255
 			range = 13
 			incorporeal_move = 0
+			can_strip = TRUE
 			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
 			toggle = FALSE
 		else
-			ranged = 0
+			ranged = FALSE
 			melee_damage_lower = 0
 			melee_damage_upper = 0
 			obj_damage = 0
@@ -46,6 +48,7 @@
 			alpha = 60
 			range = 255
 			incorporeal_move = 1
+			can_strip = FALSE  //spiritual pickpocketting is forbidden
 			to_chat(src, "<span class='danger'>You switch to scout mode.</span>")
 			toggle = TRUE
 	else
@@ -112,7 +115,7 @@
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)
 			to_chat(spawner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
-			if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
+			if(isguardian(spawner))
 				var/mob/living/simple_animal/hostile/guardian/G = spawner
 				if(G.summoner)
 					to_chat(G.summoner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")

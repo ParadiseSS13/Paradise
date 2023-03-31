@@ -1,18 +1,21 @@
 
 //The advanced pea-green monochrome lcd of tomorrow.
+// EDIT 2020-09-21: We have had NanoUI PDAs for years, and I am now finally TGUI-ing them
+// They arent pea green trash. I DEFY YOU COMMENTS!!! -aa
 
+/// Global list of all PDAs in the world
 GLOBAL_LIST_EMPTY(PDAs)
 
 
 /obj/item/pda
-	name = "PDA"
+	name = "\improper PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
 
@@ -22,16 +25,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/cartridge/cartridge = null //current cartridge
 	var/datum/data/pda/app/current_app = null
 	var/datum/data/pda/app/lastapp = null
-	var/ui_tick = 0
 
 	//Secondary variables
 	var/model_name = "Thinktronic 5230 Personal Data Assistant"
 	var/datum/data/pda/utility/scanmode/scanmode = null
 
 	var/lock_code = "" // Lockcode to unlock uplink
+	var/silent = FALSE //To beep or not to beep, that is the question
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
-	var/detonate = 1 // Can the PDA be blown up?
+	var/detonate = TRUE // Can the PDA be blown up?
 	var/ttone = "beep" //The ringtone!
 	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
 								"boom" = 'sound/effects/explosionfar.ogg',
@@ -46,8 +49,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		new/datum/data/pda/app/notekeeper,
 		new/datum/data/pda/app/messenger,
 		new/datum/data/pda/app/manifest,
+		new/datum/data/pda/app/nanobank,
 		new/datum/data/pda/app/atmos_scanner,
-		new/datum/data/pda/utility/scanmode/notes,
 		new/datum/data/pda/utility/flashlight)
 	var/list/shortcut_cache = list()
 	var/list/shortcut_cat_order = list()
@@ -58,6 +61,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/ownrank = null // this one is rank, never alt title
 
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
+	// The slot where you can store a pen
+	var/obj/item/held_pen
 	var/retro_mode = 0
 
 
@@ -66,14 +71,16 @@ GLOBAL_LIST_EMPTY(PDAs)
  */
 /obj/item/pda/Initialize(mapload)
 	. = ..()
+	silent = TRUE // We don't want to hear the first program start up
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
 	update_programs()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	new /obj/item/pen(src)
+	add_pen(new /obj/item/pen(src))
 	start_program(find_program(/datum/data/pda/app/main_menu))
+	silent = initial(silent)
 
 /obj/item/pda/proc/can_use()
 	if(!ismob(loc))
@@ -82,7 +89,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/mob/M = loc
 	if(M.incapacitated())
 		return 0
-	if((src in M.contents) || ( istype(loc, /turf) && in_range(src, M) ))
+	if((src in M.contents) || ( isturf(loc) && in_range(src, M) ))
 		return 1
 	else
 		return 0
@@ -101,92 +108,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if((!istype(over_object, /obj/screen)) && can_use())
 		return attack_self(M)
 
-/obj/item/pda/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
-	ui_tick++
-	var/datum/nanoui/old_ui = SSnanoui.get_open_ui(user, src, "main")
-	var/auto_update = 1
-	if(!current_app)
-		return
-
-	if(current_app.update == PDA_APP_NOUPDATE && current_app == lastapp)
-		auto_update = 0
-	if(old_ui && (current_app == lastapp && ui_tick % 5 && current_app.update == PDA_APP_UPDATE_SLOW))
-		return
-
-	lastapp = current_app
-
-	var/title = "Personal Data Assistant"
-
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "pda.tmpl", title, 630, 600, state = state)
-		ui.set_state_key("pda")
-
-		// open the new ui window
-		ui.open()
-
-	// auto update every Master Controller tick
-	ui.set_auto_update(auto_update)
-
-/obj/item/pda/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
-	var/data[0]
-
-	data["owner"] = owner					// Who is your daddy...
-	data["ownjob"] = ownjob					// ...and what does he do?
-
-	// update list of shortcuts, only if they changed
-	if(!shortcut_cache.len)
-		shortcut_cache = list()
-		shortcut_cat_order = list()
-		var/prog_list = programs.Copy()
-		if(cartridge)
-			prog_list |= cartridge.programs
-
-		for(var/A in prog_list)
-			var/datum/data/pda/P = A
-
-			if(P.hidden)
-				continue
-			var/list/cat
-			if(P.category in shortcut_cache)
-				cat = shortcut_cache[P.category]
-			else
-				cat = list()
-				shortcut_cache[P.category] = cat
-				shortcut_cat_order += P.category
-			cat |= list(list(name = P.name, icon = P.icon, notify_icon = P.notify_icon, ref = "\ref[P]"))
-
-		// force the order of a few core categories
-		shortcut_cat_order = list("General") \
-			+ sortList(shortcut_cat_order - list("General", "Scanners", "Utilities")) \
-			+ list("Scanners", "Utilities")
-
-	data["idInserted"] = (id ? 1 : 0)
-	data["idLink"] = (id ? text("[id.registered_name], [id.assignment]") : "--------")
-
-	data["useRetro"] = retro_mode
-
-	data["cartridge_name"] = cartridge ? cartridge.name : ""
-	data["stationTime"] = station_time_timestamp()
-
-	data["app"] = list()
-	current_app.update_ui(user, data)
-	data["app"] |= list(
-		"name" = current_app.title,
-		"icon" = current_app.icon,
-		"template" = current_app.template,
-		"has_back" = current_app.has_back)
-
-	return data
-
 /obj/item/pda/attack_self(mob/user as mob)
-	user.set_machine(src)
 	if(active_uplink_check(user))
 		return
-	ui_interact(user) //NanoUI requires this proc
+	ui_interact(user)
 
 /obj/item/pda/proc/start_program(datum/data/pda/P)
 	if(P && ((P in programs) || (cartridge && (P in cartridge.programs))))
@@ -212,79 +137,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 		var/datum/data/pda/P = A
 		P.pda = src
 
-/obj/item/pda/Topic(href, href_list)
+/obj/item/pda/update_overlays()
 	. = ..()
-	if(.)
-		return
-
-	var/mob/user = usr
-	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
-	var/mob/living/U = usr
-	if(usr.stat == DEAD)
-		return 0
-	if(!can_use()) //Why reinvent the wheel? There's a proc that does exactly that.
-		U.unset_machine()
-		if(ui)
-			ui.close()
-		return 0
-
-	add_fingerprint(U)
-	U.set_machine(src)
-
-	if(href_list["radiomenu"] && !isnull(cartridge) && !isnull(cartridge.radio))
-		cartridge.radio.Topic(href, href_list)
-		return 1
-
-	. = 1
-
-	switch(href_list["choice"])
-		if("Home")//Go home, largely replaces the old Return
-			var/datum/data/pda/app/main_menu/A = find_program(/datum/data/pda/app/main_menu)
-			if(A)
-				start_program(A)
-		if("StartProgram")
-			if(href_list["program"])
-				var/datum/data/pda/app/A = locate(href_list["program"])
-				if(A)
-					start_program(A)
-		if("Eject")//Ejects the cart, only done from hub.
-			if(!isnull(cartridge))
-				var/turf/T = loc
-				if(ismob(T))
-					T = T.loc
-				var/obj/item/cartridge/C = cartridge
-				C.forceMove(T)
-				if(scanmode in C.programs)
-					scanmode = null
-				if(current_app in C.programs)
-					start_program(find_program(/datum/data/pda/app/main_menu))
-				if(C.radio)
-					C.radio.hostpda = null
-				for(var/datum/data/pda/P in notifying_programs)
-					if(P in C.programs)
-						P.unnotify()
-				cartridge = null
-				update_shortcuts()
-		if("Authenticate")//Checks for ID
-			id_check(usr, 1)
-		if("Retro")
-			retro_mode = !retro_mode
-		if("Ringtone")
-			return set_ringtone()
-		else
-			if(current_app)
-				. = current_app.Topic(href, href_list)
-
-//EXTRA FUNCTIONS===================================
-	if((honkamt > 0) && (prob(60)))//For clown virus.
-		honkamt--
-		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
-
-	return // return 1 tells it to refresh the UI in NanoUI
+	if(id)
+		. += image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+	if(length(notifying_programs))
+		. += image('icons/obj/pda.dmi', "pda-r")
 
 /obj/item/pda/proc/close(mob/user)
-	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
-	ui.close()
+	SStgui.close_uis(src)
 
 /obj/item/pda/verb/verb_reset_pda()
 	set category = "Object"
@@ -297,8 +158,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(can_use(usr))
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
-		overlays -= image('icons/obj/pda.dmi', "pda-r")
+		update_icon(UPDATE_OVERLAYS)
 		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
+		SStgui.update_uis(src)
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
@@ -326,11 +188,18 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(id)
-			to_chat(user, "<span class='notice'>You remove the ID from the [name].</span>")
+			to_chat(user, "<span class='notice'>You remove the ID from [src].</span>")
+			SStgui.update_uis(src)
 		else
 			id.forceMove(get_turf(src))
-		overlays -= image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
 		id = null
+		update_icon(UPDATE_OVERLAYS)
+		playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID()
 
 /obj/item/pda/verb/verb_remove_id()
 	set category = "Object"
@@ -359,16 +228,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(issilicon(user))
 		return
 
-	if( can_use(user) )
-		var/obj/item/pen/O = locate() in src
-		if(O)
-			to_chat(user, "<span class='notice'>You remove the [O] from [src].</span>")
-			if(istype(loc, /mob))
-				var/mob/M = loc
-				if(M.get_active_hand() == null)
-					M.put_in_hands(O)
-					return
-			O.forceMove(get_turf(src))
+	if(can_use(user))
+		if(held_pen)
+			to_chat(user, "<span class='notice'>You remove [held_pen] from [src].</span>")
+			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+			user.put_in_hands(held_pen)
+			clear_pen()
 		else
 			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
 	else
@@ -392,9 +257,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 			I.forceMove(src)
 			id = I
 			user.put_in_hands(old_id)
-	return
+			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
-/obj/item/pda/attackby(obj/item/C as obj, mob/user as mob, params)
+	if(ishuman(loc))
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID()
+
+/obj/item/pda/attackby(obj/item/C, mob/user, params)
 	..()
 	if(istype(C, /obj/item/cartridge) && !cartridge)
 		cartridge = C
@@ -403,47 +273,68 @@ GLOBAL_LIST_EMPTY(PDAs)
 		cartridge.update_programs(src)
 		update_shortcuts()
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
-		if(cartridge.radio)
-			cartridge.radio.hostpda = src
+		SStgui.update_uis(src)
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
 		if(!idcard.registered_name)
 			to_chat(user, "<span class='notice'>\The [src] rejects the ID.</span>")
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return
 		if(!owner)
+			var/datum/data/pda/app/nanobank/nanobank_program = (locate(/datum/data/pda/app/nanobank) in programs)
+			if(nanobank_program && idcard.associated_account_number)
+				nanobank_program.reconnect_database()
+				nanobank_program.user_account = nanobank_program.account_database?.find_user_account(idcard.associated_account_number)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
 			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
 			to_chat(user, "<span class='notice'>Card scanned.</span>")
+			SStgui.update_uis(src)
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
+			if(((src in user.contents) && (C in user.contents)) || (isturf(loc) && in_range(src, user) && (C in user.contents)) )
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
-					overlays += image('icons/goonstation/objects/pda_overlay.dmi', C.icon_state)
+					update_icon(UPDATE_OVERLAYS)
+					SStgui.update_uis(src)
 
 	else if(istype(C, /obj/item/paicard) && !src.pai)
 		user.drop_item()
 		C.forceMove(src)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
-	else if(istype(C, /obj/item/pen))
-		var/obj/item/pen/O = locate() in src
-		if(O)
+		SStgui.update_uis(src)
+		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+	else if(is_pen(C))
+		if(held_pen)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
 		else
 			user.drop_item()
-			C.forceMove(src)
+			add_pen(C)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
+			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	else if(istype(C, /obj/item/nanomob_card))
 		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
 			cartridge.attackby(C, user, params)
 
+/obj/item/pda/proc/add_pen(obj/item/P)
+	P.forceMove(src)
+	held_pen = P
+	RegisterSignal(held_pen, COMSIG_PARENT_QDELETING, PROC_REF(clear_pen))
+
+/obj/item/pda/proc/clear_pen()
+	UnregisterSignal(held_pen, COMSIG_PARENT_QDELETING)
+	held_pen = null
+
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
-	if(istype(C, /mob/living/carbon) && scanmode)
+	if(iscarbon(C) && scanmode)
 		scanmode.scan_mob(C, user)
 
 /obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
@@ -475,7 +366,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		pai.forceMove(T)
 	current_app = null
 	scanmode = null
-	QDEL_LIST(programs)
+	QDEL_NULL(held_pen)
+	QDEL_LIST_CONTENTS(programs)
 	QDEL_NULL(cartridge)
 	return ..()
 
@@ -490,7 +382,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(ttone in ttone_sound)
 		S = ttone_sound[ttone]
 	else
-		S = 'sound/machines/twobeep.ogg'
+		S = 'sound/machines/twobeep_high.ogg'
 	playsound(loc, S, 50, 1)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
@@ -514,7 +406,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(current_app)
 		current_app.program_process()
 
-/obj/item/pda/extinguish_light()
+/obj/item/pda/extinguish_light(force = FALSE)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()
+
+/obj/item/pda/get_ID_assignment(if_no_id = "No id")
+	. = ..()
+	if(. == if_no_id) // We dont have an ID in us, check our cached job
+		return ownjob
+
+/obj/item/pda/get_ID_rank(if_no_id = "No id")
+	. = ..()
+	if(. == if_no_id) // Ditto but rank
+		return ownrank

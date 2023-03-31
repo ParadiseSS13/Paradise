@@ -18,6 +18,15 @@
 	..()
 	update_icon()
 
+/obj/item/clipboard/AltClick(mob/user)
+	if(in_range(user, src) && !user.incapacitated())
+		if(is_pen(user.get_active_hand()))
+			penPlacement(user, user.get_active_hand(), TRUE)
+		else
+			removePen(user)
+		return
+	. = ..()
+
 /obj/item/clipboard/verb/removePen(mob/user)
 	set category = "Object"
 	set name = "Remove clipboard pen"
@@ -31,18 +40,12 @@
 	if(istype(W, /obj/item/photo))
 		return PHOTO
 
-/obj/item/clipboard/proc/checkTopPaper()
-	if(toppaper.loc != src) //Oh no! We're missing a top sheet! Better get another one to be at the top.
-		toppaper = locate(/obj/item/paper) in src
-		if(!toppaper) //In case there's no paper, try find a paper bundle instead (why is paper_bundle not a subtype of paper?)
-			toppaper = locate(/obj/item/paper_bundle) in src
-
 /obj/item/clipboard/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
 
-obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
+/obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	if(placing)
 		if(containedpen)
 			to_chat(user, "<span class='warning'>There's already a pen in [src]!</span>")
@@ -76,15 +79,21 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/clipboard/update_icon()
-	overlays.Cut()
+/obj/item/clipboard/update_overlays()
+	. = ..()
 	if(toppaper)
-		overlays += toppaper.icon_state
-		overlays += toppaper.overlays
+		. += toppaper.icon_state
+		. += toppaper.overlays
 	if(containedpen)
-		overlays += "clipboard_pen"
-	overlays += "clipboard_over"
-	..()
+		. += "clipboard_pen"
+	for(var/obj/O in src)
+		if(istype(O, /obj/item/photo))
+			var/image/img = image('icons/obj/bureaucracy.dmi')
+			var/obj/item/photo/Ph = O
+			img = Ph.tiny
+			. += img
+			break
+	. += "clipboard_over"
 
 /obj/item/clipboard/attackby(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
@@ -99,19 +108,9 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
 			penPlacement(user, W, TRUE)
 			return
-		if(containedpen) //If there's a pen in the clipboard, let's just let them write and not bother asking about the pen
-			toppaper.attackby(W, user)
-			return
-		var/writeonwhat = input(user, "Write on [toppaper.name], or place your pen in [src]?", "Pick one!") as null|anything in list("Write", "Place pen")
 		if(!Adjacent(user) || user.incapacitated())
 			return
-		switch(writeonwhat)
-			if("Write")
-				toppaper.attackby(W, user)
-			if("Place pen")
-				penPlacement(user, W, TRUE)
-			else
-				return
+		toppaper.attackby(W, user)
 	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
 		toppaper.attackby(W, user)
 		update_icon()
@@ -136,7 +135,9 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 		if(isPaperwork(P))
 			usr.put_in_hands(P)
 			to_chat(usr, "<span class='notice'>You remove [P] from [src].</span>")
-			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
+			toppaper = locate(/obj/item/paper) in src
+			if(!toppaper) //In case there's no paper, try find a paper bundle instead
+				toppaper = locate(/obj/item/paper_bundle) in src
 	else if(href_list["viewOrWrite"])
 		var/obj/item/P = locate(href_list["viewOrWrite"]) in src
 		if(!isPaperwork(P))

@@ -672,12 +672,12 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_taser
-	name = "Exosuit Weapon (PBT \"Pacifier\" Mounted Taser)"
-	id = "mech_taser"
+/datum/design/mech_disabler
+	name = "Exosuit Weapon (CH-DS \"Peacemaker\" Disabler)"
+	id = "mech_disabler"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
+	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -777,17 +777,6 @@
 	build_type = MECHFAB
 	req_tech = list("bluespace" = 4, "magnets" = 3, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/gravcatapult
-	materials = list(MAT_METAL=10000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
-/datum/design/mech_wormhole_gen
-	name = "Exosuit Module (Localized Wormhole Generator)"
-	desc = "An exosuit module that allows generating of small quasi-stable wormholes."
-	id = "mech_wormhole_gen"
-	build_type = MECHFAB
-	req_tech = list("bluespace" = 4, "magnets" = 4, "plasmatech" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/wormhole_generator
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
@@ -903,17 +892,6 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
-/datum/design/mech_disabler
-	name = "Exosuit Weapon (CH-PD Disabler)"
-	desc = "Allows for the construction of CH-PD Disabler."
-	id = "mech_disabler"
-	build_type = MECHFAB
-	req_tech = list("combat" = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
-	materials = list(MAT_METAL=10000)
-	construction_time = 100
-	category = list("Exosuit Equipment")
-
 /datum/design/mech_carbine
 	name = "Exosuit Weapon (FNX-99 \"Hades\" Carbine)"
 	desc = "Allows for the construction of FNX-99 \"Hades\" Carbine."
@@ -1005,7 +983,7 @@
 //Cyborg Upgrade Modules
 
 /datum/design/borg_upgrade_reset
-	name = "Cyborg Upgrade Module (Reset)"
+	name = "Cyborg Upgrade Module (Module Reset)"
 	id = "borg_upgrade_reset"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/reset
@@ -1051,16 +1029,6 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_disablercooler
-	name = "Cyborg Upgrade Module (Rapid Disabler Cooling)"
-	id = "borg_upgrade_disablercooler"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/disablercooler
-	req_tech = list("combat" = 5, "powerstorage" = 4, "engineering" = 4)
-	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_GOLD= 2000, MAT_DIAMOND = 500)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
 /datum/design/borg_upgrade_diamonddrill
 	name = "Cyborg Upgrade (Diamond Drill)"
 	id = "borg_upgrade_diamonddrill"
@@ -1081,6 +1049,26 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_abductor_engi
+	name = "Cyborg Upgrade (Abdcutor Engineering Equipment)"
+	id = "borg_upgade_abductor_engi"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/abductor_engi
+	req_tech = list("engineering" = 7, "materials" = 7, "abductor" = 4)
+	materials = list(MAT_METAL = 25000, MAT_SILVER = 12500, MAT_PLASMA = 5000, MAT_TITANIUM = 10000, MAT_DIAMOND = 10000) //Base abductor engineering tools * 4
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_abductor_medi
+	name = "Cyborg Upgrade (Abdcutor Medical Equipment)"
+	id = "borg_upgade_abductor_medi"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/abductor_medi
+	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 3)
+	materials = list(MAT_METAL = 18000, MAT_GLASS = 1500, MAT_SILVER = 13000, MAT_GOLD = 1000, MAT_PLASMA = 4000, MAT_TITANIUM = 12000, MAT_DIAMOND = 1000) //Base abductor engineering tools *8 + IMS cost
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_lavaproof
 	name = "Cyborg Upgrade (Lavaproof Chassis)"
 	id = "borg_upgrade_lavaproof"
@@ -1094,7 +1082,7 @@
 	name = "Cyborg Upgrade (Safety Override)"
 	id = "borg_syndicate_module"
 	build_type = MECHFAB
-	req_tech = list("combat" = 4, "syndicate" = 2)
+	req_tech = list("combat" = 7, "programming" = 7)
 	build_path = /obj/item/borg/upgrade/syndicate
 	materials = list(MAT_METAL=10000,MAT_GLASS=15000,MAT_DIAMOND = 10000)
 	construction_time = 120
@@ -1107,6 +1095,26 @@
 	build_path = /obj/item/borg/upgrade/selfrepair
 	req_tech = list("materials" = 4, "engineering" = 4)
 	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_floorbuffer
+	name = "Cyborg Upgrade (Floor buffer)"
+	id = "borg_upgrade_floorbuffer"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/floorbuffer
+	req_tech = list("materials" = 4, "engineering" = 4)
+	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_rcd
+	name = "Cyborg Upgrade (Rapid Construction Device)"
+	id = "borg_upgrade_RCD"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/rcd
+	req_tech = list("materials" = 6, "engineering" = 5, "powerstorage" = 5)
+	materials = list(MAT_METAL=30000, MAT_GLASS=15000,)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 

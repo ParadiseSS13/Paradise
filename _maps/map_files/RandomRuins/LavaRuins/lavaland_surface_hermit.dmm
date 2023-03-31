@@ -44,7 +44,7 @@
 	},
 /area/ruin/powered)
 "k" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/simulated/floor/plating/asteroid{
 	name = "dirt"
 	},
@@ -78,13 +78,13 @@
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "q" = (
-/obj/structure/glowshroom/single,
+/obj/structure/glowshroom,
 /turf/simulated/floor/plating,
 /area/ruin/powered)
 "r" = (
 /obj/structure/rack,
 /obj/item/pickaxe/emergency,
-/obj/item/tank/oxygen,
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/plating/asteroid/basalt,
 /area/ruin/powered)
 "s" = (
@@ -170,8 +170,8 @@
 "J" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating{
-	oxygen = 14;
 	nitrogen = 23;
+	oxygen = 14;
 	temperature = 300
 	},
 /area/ruin/powered)

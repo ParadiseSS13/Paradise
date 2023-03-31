@@ -70,7 +70,7 @@ research holder datum.
 
 //Checks to see if tech has all the required pre-reqs.
 //Input: datum/tech; Output: 0/1 (false/true)
-/datum/research/proc/TechHasReqs(var/datum/tech/T)
+/datum/research/proc/TechHasReqs(datum/tech/T)
 	if(T.req_tech.len == 0)
 		return TRUE
 	for(var/req in T.req_tech)
@@ -81,7 +81,7 @@ research holder datum.
 
 //Checks to see if design has all the required pre-reqs.
 //Input: datum/design; Output: 0/1 (false/true)
-/datum/research/proc/DesignHasReqs(var/datum/design/D)
+/datum/research/proc/DesignHasReqs(datum/design/D)
 	if(D.req_tech.len == 0)
 		return TRUE
 	for(var/req in D.req_tech)
@@ -92,7 +92,7 @@ research holder datum.
 
 //Adds a tech to known_tech list. Checks to make sure there aren't duplicates and updates existing tech's levels if needed.
 //Input: datum/tech; Output: Null
-/datum/research/proc/AddTech2Known(var/datum/tech/T)
+/datum/research/proc/AddTech2Known(datum/tech/T)
 	if(T.id in known_tech)
 		var/datum/tech/known = known_tech[T.id]
 		if(T.level > known.level)
@@ -100,11 +100,19 @@ research holder datum.
 		return
 	known_tech[T.id] = T
 
-/datum/research/proc/AddDesign2Known(var/datum/design/D)
-	if(D.id in known_designs)
-		return
+/datum/research/proc/CanAddDesign2Known(datum/design/D)
+	if (D.id in known_designs)
+		return FALSE
+	return TRUE
+
+/datum/research/proc/AddDesign2Known(datum/design/D)
+	if(!D)
+		return FALSE
+	if(!CanAddDesign2Known(D))
+		return TRUE
 	// Global datums make me nervous
 	known_designs[D.id] = D
+	return TRUE
 
 //Refreshes known_tech and known_designs list.
 //Input/Output: n/a
@@ -114,14 +122,15 @@ research holder datum.
 			AddTech2Known(PT)
 	for(var/datum/design/PD in possible_designs)
 		if(DesignHasReqs(PD))
-			AddDesign2Known(PD)
+			if(!AddDesign2Known(PD))
+				stack_trace("Game attempted to add a null design to list of known designs! Design: [PD] with ID: [PD.id]")
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
 		T.level = clamp(T.level, 0, 20)
 
 //Refreshes the levels of a given tech.
 //Input: Tech's ID and Level; Output: null
-/datum/research/proc/UpdateTech(var/ID, var/level)
+/datum/research/proc/UpdateTech(ID, level)
 	var/datum/tech/KT = known_tech[ID]
 	if(KT)
 		if(KT.level <= level)
@@ -129,6 +138,7 @@ research holder datum.
 			// after that it'll bump it up by 1 until it's greater
 			// than the source tech
 			KT.level = max((KT.level + 1), level)
+			SSblackbox.log_research(KT.name, KT.level)
 
 //Checks if the origin level can raise current tech levels
 //Input: Tech's ID and Level; Output: TRUE for yes, FALSE for no
@@ -140,7 +150,7 @@ research holder datum.
 		else
 			return FALSE
 
-/datum/research/proc/FindDesignByID(var/id)
+/datum/research/proc/FindDesignByID(id)
 	return known_designs[id]
 
 // A common task is for one research datum to copy over its techs and designs
@@ -160,13 +170,30 @@ research holder datum.
 //Autolathe files
 /datum/research/autolathe
 
-/datum/research/autolathe/DesignHasReqs(var/datum/design/D)
+/datum/research/autolathe/DesignHasReqs(datum/design/D)
 	return D && (D.build_type & AUTOLATHE) && ("initial" in D.category)
 
-/datum/research/autolathe/AddDesign2Known(var/datum/design/D)
-	if(!(D.build_type & AUTOLATHE))
-		return
-	..()
+/datum/research/autolathe/CanAddDesign2Known(datum/design/design)
+	// Specifically excludes circuit imprinter and mechfab
+	if(design.locked || !(design.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)))
+		return FALSE
+
+	for(var/mat in design.materials)
+		if(mat != MAT_METAL && mat != MAT_GLASS)
+			return FALSE
+
+	return ..()
+
+///Gamma Armoury autolathe files
+/datum/research/autolathe/gamma
+
+/datum/research/autolathe/gamma/DesignHasReqs(datum/design/D)
+	return D && ((D.build_type & GAMMALATHE) || (D.build_type & (AUTOLATHE) && ("initial" in D.category)))
+
+/datum/research/autolathe/gamma/CanAddDesign2Known(datum/design/design)
+	if(design.build_type & GAMMALATHE)
+		return TRUE
+	return ..()
 
 //Biogenerator files
 /datum/research/biogenerator/New()
@@ -178,10 +205,10 @@ research holder datum.
 		if((D.build_type & BIOGENERATOR) && ("initial" in D.category))
 			AddDesign2Known(D)
 
-/datum/research/biogenerator/AddDesign2Known(datum/design/D)
+/datum/research/biogenerator/CanAddDesign2Known(datum/design/D)
 	if(!(D.build_type & BIOGENERATOR))
-		return
-	..()
+		return FALSE
+	return ..()
 
 //Smelter files
 /datum/research/smelter/New()
@@ -193,10 +220,10 @@ research holder datum.
 		if((D.build_type & SMELTER) && ("initial" in D.category))
 			AddDesign2Known(D)
 
-/datum/research/smelter/AddDesign2Known(datum/design/D)
+/datum/research/smelter/CanAddDesign2Known(datum/design/D)
 	if(!(D.build_type & SMELTER))
-		return
-	..()
+		return FALSE
+	return ..()
 
 /***************************************************************
 **						Technology Datums					  **
@@ -319,7 +346,7 @@ datum/tech/robotics
 	req_tech = list("materials" = 3, "programming" = 3)
 */
 
-/datum/tech/proc/getCost(var/current_level = null)
+/datum/tech/proc/getCost(current_level = null)
 	// Calculates tech disk's supply points sell cost
 	if(!current_level)
 		current_level = initial(level)
@@ -328,7 +355,7 @@ datum/tech/robotics
 		return 0
 
 	var/cost = 0
-	for(var/i=current_level+1, i<=level, i++)
+	for(var/i = current_level + 1, i <= level, i++)
 		if(i == initial(level))
 			continue
 		cost += i*5*rare
@@ -344,14 +371,14 @@ datum/tech/robotics
 	var/default_name = "\improper Technology Disk"
 	var/default_desc = "A disk for storing technology data for further research."
 
-/obj/item/disk/tech_disk/New()
-	..()
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
+/obj/item/disk/tech_disk/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
 
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
-	desc = T.desc + " Level: '[T.level]'"
+	desc = T.desc + "\n <span class='notice'>Level: [T.level]</span>"
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
 	stored = T
@@ -372,8 +399,8 @@ datum/tech/robotics
 	var/default_name = "\improper Component Design Disk"
 	var/default_desc = "A disk for storing device design data for construction in lathes."
 
-/obj/item/disk/design_disk/New()
-	..()
+/obj/item/disk/design_disk/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -398,3 +425,11 @@ datum/tech/robotics
 	. = ..()
 	var/datum/design/golem_shell/G = new
 	blueprint = G
+
+/datum/research/autolathe/syndicate/New()
+	// Used by syndi autolathe in syndie space base ruin. Removes methods of contacting main station.
+	. = ..()
+	known_designs -= "intercom_electronics"
+	known_designs -= "radio_headset"
+	known_designs -= "bounced_radio"
+	known_designs -= "newscaster_frame"

@@ -1,16 +1,16 @@
 /obj/item/chameleon
-	name = "chameleon-projector"
+	name = "chameleon projector"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "electronic"
-	throwforce = 5.0
+	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "syndicate=4;magnets=4"
-	var/can_use = 1
+	var/can_use = TRUE
 	var/obj/effect/dummy/chameleon/active_dummy = null
 	var/saved_item = /obj/item/cigbutt
 	var/saved_icon = 'icons/obj/clothing/masks.dmi'
@@ -19,6 +19,7 @@
 	var/saved_underlays = null
 
 /obj/item/chameleon/dropped()
+	..()
 	disrupt()
 
 /obj/item/chameleon/equipped()
@@ -27,10 +28,17 @@
 /obj/item/chameleon/attack_self()
 	toggle()
 
-/obj/item/chameleon/afterattack(atom/target, mob/user , proximity)
-	if(!proximity) return
+/obj/item/chameleon/afterattack(atom/target, mob/user, proximity)
+	if(!proximity)
+		return
+	if(!check_sprite(target))
+		return
+	if(target.alpha < 255)
+		return
+	if(target.invisibility != 0)
+		return
 	if(!active_dummy)
-		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
+		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>Scanned [target].</span>")
 			saved_item = target.type
@@ -39,8 +47,12 @@
 			saved_overlays = target.overlays
 			saved_underlays = target.underlays
 
+/obj/item/chameleon/proc/check_sprite(atom/target)
+	return (target.icon_state in icon_states(target.icon))
+
 /obj/item/chameleon/proc/toggle()
-	if(!can_use || !saved_item) return
+	if(!can_use || !saved_item)
+		return
 	if(active_dummy)
 		eject_all()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
@@ -54,7 +66,8 @@
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		var/obj/O = new saved_item(src)
-		if(!O) return
+		if(!O)
+			return
 		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(usr.loc)
 		C.activate(O, usr, saved_icon, saved_icon_state, saved_overlays, saved_underlays, src)
 		qdel(O)
@@ -65,15 +78,15 @@
 		spawn(8)
 			qdel(T)
 
-/obj/item/chameleon/proc/disrupt(var/delete_dummy = 1)
+/obj/item/chameleon/proc/disrupt(delete_dummy = 1)
 	if(active_dummy)
 		do_sparks(5, 0, src)
 		eject_all()
 		if(delete_dummy)
 			qdel(active_dummy)
 		active_dummy = null
-		can_use = 0
-		spawn(50) can_use = 1
+		can_use = FALSE
+		addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
@@ -85,12 +98,12 @@
 /obj/effect/dummy/chameleon
 	name = ""
 	desc = ""
-	density = 0
-	anchored = 1
-	var/can_move = 1
+	density = FALSE
+	anchored = TRUE
+	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
-/obj/effect/dummy/chameleon/proc/activate(var/obj/O, var/mob/M, new_icon, new_iconstate, new_overlays, new_underlays, var/obj/item/chameleon/C)
+/obj/effect/dummy/chameleon/proc/activate(obj/O, mob/M, new_icon, new_iconstate, new_overlays, new_underlays, obj/item/chameleon/C)
 	name = O.name
 	desc = O.desc
 	icon = new_icon
@@ -104,12 +117,12 @@
 
 /obj/effect/dummy/chameleon/attackby()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_hand()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_animal()
@@ -123,34 +136,34 @@
 
 /obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 		spawn()
 			M.ex_act(severity)
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/bullet_act()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
+		to_chat(M, "<span class='danger'>Your [src] deactivates.</span>")
 	..()
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/relaymove(var/mob/user, direction)
-	if(istype(loc, /turf/space) || !direction)
-		return //No magical space movement!
+/obj/effect/dummy/chameleon/relaymove(mob/user, direction)
+	if(!isturf(loc) || isspaceturf(loc) || !direction)
+		return // No magical movement!
 
 	if(can_move)
-		can_move = 0
+		can_move = FALSE
 		switch(user.bodytemperature)
 			if(300 to INFINITY)
-				spawn(10) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1 SECONDS)
 			if(295 to 300)
-				spawn(13) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1.3 SECONDS)
 			if(280 to 295)
-				spawn(16) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 1.6 SECONDS)
 			if(260 to 280)
-				spawn(20) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2 SECONDS)
 			else
-				spawn(25) can_move = 1
+				addtimer(VARSET_CALLBACK(src, can_move, TRUE), 2.5 SECONDS)
 		step(src, direction)
 	return
 
@@ -167,7 +180,7 @@
 	var/active = FALSE
 	var/activationCost = 300
 	var/activationUpkeep = 50
-	var/disguise = "landmate"
+	var/image/disguise
 	var/mob/living/silicon/robot/syndicate/saboteur/S
 
 /obj/item/borg_chameleon/Destroy()
@@ -194,63 +207,78 @@
 
 /obj/item/borg_chameleon/proc/toggle(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, -6)
-		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
-		deactivate(user)
+		to_chat(user, "<span class='notice'>You reconfigure [src].</span>")
+		activate(user)
+		return
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	apply_wibbly_filters(user)
+	if(do_after(user, 5 SECONDS, target = user) && user.cell.use(activationCost))
+		activate(user)
 	else
-		to_chat(user, "<span class='notice'>You activate [src].</span>")
-		var/start = user.filters.len
-		var/X
-		var/Y
-		var/rsq
-		var/i
-		var/f
-		for(i in 1 to 7)
-			do
-				X = 60 * rand() - 30
-				Y = 60 * rand() - 30
-				rsq = X * X + Y * Y
-			while(rsq < 100 || rsq > 900)
-			user.filters += filter(type = "wave", x = X, y = Y, size = rand() * 2.5 + 0.5, offset = rand())
-		for(i in 1 to 7)
-			f = user.filters[start+i]
-			animate(f, offset = f:offset, time = 0, loop = 3, flags = ANIMATION_PARALLEL)
-			animate(offset = f:offset - 1, time = rand() * 20 + 10)
-		if(do_after(user, 50, target = user) && user.cell.use(activationCost))
-			playsound(src, 'sound/effects/bamf.ogg', 100, 1, -6)
-			to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen engineering cyborg.</span>")
-			activate(user)
-		else
-			to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
-			do_sparks(3, FALSE, user)
-			for(i in 1 to min(7, user.filters.len)) // removing filters that are animating does nothing, we gotta stop the animations first
-				f = user.filters[start + i]
-				animate(f)
-		user.filters = null
+		to_chat(user, "<span class='warning'>The chameleon field fizzles.</span>")
+		do_sparks(3, FALSE, user)
+	remove_wibbly_filters(user)
 
 /obj/item/borg_chameleon/process()
 	if(S)
 		if(!S.cell || !S.cell.use(activationUpkeep))
 			disrupt(S)
-	else
-		return PROCESS_KILL
+		return
+	return PROCESS_KILL
 
 /obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user)
+	var/static/list/module_options = list(
+		"Engineering" = image('icons/mob/robots.dmi', "engi-radial"),
+		"Janitor" = image('icons/mob/robots.dmi', "jan-radial"),
+		"Medical" = image('icons/mob/robots.dmi', "med-radial"),
+		"Mining" = image('icons/mob/robots.dmi', "mining-radial"),
+		"Service" = image('icons/mob/robots.dmi', "serv-radial"),
+		"Cancel Cloaking" = image('icons/mob/screen_gen.dmi', "x"))
+	var/selected_module = show_radial_menu(user, user, module_options, radius = 42)
+	if(!selected_module)
+		return
+	var/examine_text = "you shouldn't see this"
+	switch(selected_module)
+		if("Mining")
+			examine_text = "miner robot module"
+		if("Service")
+			examine_text = "service robot module"
+		if("Medical")
+			examine_text = "medical robot module"
+		if("Janitor")
+			examine_text = "janitorial robot module"
+		if("Engineering")
+			examine_text = "engineering robot module"
+		if("Cancel Cloaking")
+			deactivate(user)
+			return
+	var/module_sprites = user.get_module_sprites(selected_module)
+	var/selected_sprite = show_radial_menu(user, user, module_sprites, radius = 42)
+	if(!selected_sprite)
+		return
+	disguise = module_sprites[selected_sprite]
+	var/list/name_check = splittext(selected_sprite, "-")
+	user.custom_panel = trim(name_check[1])
 	START_PROCESSING(SSobj, src)
 	S = user
-	user.base_icon = disguise
-	user.icon_state = disguise
+	user.icon = disguise.icon
+	user.icon_state = disguise.icon_state
 	user.cham_proj = src
+	user.module.name = examine_text
 	user.bubble_icon = "robot"
 	active = TRUE
 	user.update_icons()
+	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE, -6)
+	to_chat(user, "<span class='notice'>You are now disguised as a Nanotrasen [selected_module] cyborg.</span>")
 
 /obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
 	STOP_PROCESSING(SSobj, src)
 	S = user
-	user.base_icon = initial(user.base_icon)
+	user.icon = initial(user.icon)
 	user.icon_state = initial(user.icon_state)
+	user.module.name = initial(user.module.name)
 	user.bubble_icon = "syndibot"
+	user.custom_panel = null
 	active = FALSE
 	user.update_icons()
 

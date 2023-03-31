@@ -12,7 +12,7 @@
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	armor = list(MELEE = 100, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
 	max_integrity = 40
 	resistance_flags = ACID_PROOF
 	sharp = TRUE
@@ -25,9 +25,7 @@
 									"<span class='danger'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
 		return BRUTELOSS
 
-/obj/item/shard/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/caltrop, force)
+/obj/item/shard/proc/set_initial_icon_state()
 	icon_state = pick("large", "medium", "small")
 	switch(icon_state)
 		if("small")
@@ -42,16 +40,21 @@
 	if(icon_prefix)
 		icon_state = "[icon_prefix][icon_state]"
 
+/obj/item/shard/Initialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, force)
+	set_initial_icon_state()
+
 /obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity || !(src in user))
 		return
 	if(isturf(AM))
 		return
-	if(istype(AM, /obj/item/storage))
+	if(isstorage(AM))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(!H.gloves && !(PIERCEIMMUNE in H.dna.species.species_traits))
+		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 			if(affecting.is_robotic())
 				return

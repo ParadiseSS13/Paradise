@@ -1,11 +1,10 @@
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "I Better stay away from that thing."
-	density = 0
-	anchored = 1
+	density = FALSE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
-	var/triggered = 0
+	var/triggered = FALSE
 	var/faction = "syndicate"
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
@@ -27,7 +26,7 @@
 	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
 	do_sparks(3, 1, src)
 	mineEffect(victim)
-	triggered = 1
+	triggered = TRUE
 	qdel(src)
 
 /obj/effect/mine/ex_act(severity)
@@ -47,7 +46,7 @@
 
 /obj/effect/mine/stun
 	name = "stun mine"
-	var/stun_time = 8
+	var/stun_time = 16 SECONDS
 
 /obj/effect/mine/stun/mineEffect(mob/living/victim)
 	if(isliving(victim))
@@ -57,7 +56,7 @@
 	name = "sentry mine"
 
 /obj/effect/mine/depot/mineEffect(mob/living/victim)
-	var/area/syndicate_depot/core/depotarea = areaMaster
+	var/area/syndicate_depot/core/depotarea = get_area(src)
 	if(istype(depotarea))
 		if(depotarea.mine_triggered(victim))
 			explosion(loc, 1, 0, 0, 1) // devastate the tile you are on, but leave everything else untouched
@@ -67,13 +66,11 @@
 	var/radiation_amount
 
 /obj/effect/mine/dnascramble/mineEffect(mob/living/victim)
-	victim.apply_effect(radiation_amount, IRRADIATE, 0)
-	if(ishuman(victim))
-		var/mob/living/carbon/human/V = victim
-		if(NO_DNA in V.dna.species.species_traits)
-			return
+	victim.rad_act(radiation_amount)
+	if(!victim.dna || HAS_TRAIT(victim, TRAIT_GENELESS))
+		return
 	randmutb(victim)
-	domutcheck(victim ,null)
+	domutcheck(victim)
 
 /obj/effect/mine/gas
 	name = "oxygen mine"
@@ -107,7 +104,7 @@
 	desc = "pick me up"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
-	density = 0
+	density = FALSE
 	var/duration = 0
 
 /obj/effect/mine/pickup/New()
@@ -117,7 +114,7 @@
 /obj/effect/mine/pickup/triggermine(mob/living/victim)
 	if(triggered)
 		return
-	triggered = 1
+	triggered = TRUE
 	invisibility = 101
 	mineEffect(victim)
 	qdel(src)
@@ -132,13 +129,10 @@
 	if(!istype(victim) || !victim.client)
 		return
 	to_chat(victim, "<span class='reallybig redtext'>RIP AND TEAR</span>")
-	victim << 'sound/misc/e1m1.ogg'
-	var/old_color = victim.client.color
+	SEND_SOUND(victim, sound('sound/misc/e1m1.ogg'))
 	var/red_splash = list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0)
-	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
 
-	spawn(0)
-		new /obj/effect/hallucination/delusion(victim.loc, victim, force_kind = "demon", duration = duration, skip_nearby = 0)
+	new /obj/effect/hallucination/delusion(get_turf(victim), victim, 'icons/mob/mob.dmi', "daemon")
 
 	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
 	chainsaw.flags |= NODROP | DROPDEL
@@ -149,10 +143,8 @@
 	chainsaw.wield(victim)
 	victim.reagents.add_reagent("adminordrazine", 25)
 
-	victim.client.color = pure_red
-	animate(victim.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
-	spawn(10)
-		animate(victim.client,color = old_color, time = duration)//, easing = SINE_EASING|EASE_OUT)
+	victim.flash_screen_color(red_splash, 10)
+
 	spawn(duration)
 		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
 		qdel(chainsaw)
@@ -179,7 +171,7 @@
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.status_flags |= GOTTAGOFAST
+	ADD_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
 	spawn(duration)
-		victim.status_flags &= ~GOTTAGOFAST
+		REMOVE_TRAIT(victim, TRAIT_GOTTAGOFAST, "mine")
 		to_chat(victim, "<span class='notice'>You slow down.</span>")

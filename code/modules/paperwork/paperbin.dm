@@ -19,7 +19,7 @@
 	..()
 
 /obj/item/paper_bin/Destroy()
-	QDEL_LIST(papers)
+	QDEL_LIST_CONTENTS(papers)
 	return ..()
 
 /obj/item/paper_bin/burn()
@@ -79,13 +79,13 @@
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
-					P.rigged = 1
+					P.rigged = TRUE
 					P.updateinfolinks()
 
 		P.loc = user.loc
 		user.put_in_hands(P)
 		P.add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 
@@ -113,12 +113,11 @@
 			. += "<span class='notice'>There are no papers in the bin.</span>"
 
 
-/obj/item/paper_bin/update_icon()
+/obj/item/paper_bin/update_icon_state()
 	if(amount < 1)
 		icon_state = "paper_bin0"
 	else
 		icon_state = "paper_bin1"
-	..()
 
 /obj/item/paper_bin/carbon
 	name = "carbonless paper bin"
@@ -138,7 +137,7 @@
 			P = new /obj/item/paper/carbon
 		P.loc = user.loc
 		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 

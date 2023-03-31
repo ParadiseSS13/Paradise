@@ -35,16 +35,18 @@
 	icon_state = "seed-lily"
 	species = "lily"
 	plantname = "Lily Plants"
+	icon_grow = "lily-grow"
+	icon_dead = "lily-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/lily
 	mutatelist = list()
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/lily
 	seed = /obj/item/seeds/poppy/lily
 	name = "lily"
-	desc = "A beautiful orange flower"
+	desc = "A beautiful white flower"
 	icon_state = "lily"
 	tastes = list("lily" = 1)
-	filling_color = "#FFA500"
+	filling_color = "#C7BBAD"
 
 // Geranium
 /obj/item/seeds/poppy/geranium
@@ -53,16 +55,18 @@
 	icon_state = "seed-geranium"
 	species = "geranium"
 	plantname = "Geranium Plants"
+	icon_grow = "geranium-grow"
+	icon_dead = "geranium-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
 	mutatelist = list()
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
 	seed = /obj/item/seeds/poppy/geranium
 	name = "geranium"
-	desc = "A beautiful blue flower"
+	desc = "A beautiful purple flower"
 	icon_state = "geranium"
 	tastes = list("geranium" = 1)
-	filling_color = "#008B8B"
+	filling_color = "#A463FB"
 
 
 // Harebell
@@ -128,8 +132,8 @@
 	throw_range = 3
 
 /obj/item/grown/sunflower/attack(mob/M, mob/user)
-	to_chat(M, "<font color='green'><b> [user] smacks you with a sunflower!</font><font color='yellow'><b>FLOWER POWER<b></font>")
-	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'>strikes [M]</font>")
+	to_chat(M, "<font color='green'><b>[user] smacks you with a sunflower!</font><font color='yellow'><b> FLOWER POWER<b></font>")
+	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'> strikes [M]</font>")
 
 // Moonflower
 /obj/item/seeds/sunflower/moonflower
@@ -191,7 +195,7 @@
 /obj/item/grown/novaflower/attack(mob/living/carbon/M, mob/user)
 	..()
 	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
+		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of [src]!</span>")
 		M.adjust_fire_stacks(seed.potency / 20)
 		if(M.IgniteMob())
 			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
@@ -203,12 +207,12 @@
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else
-		to_chat(usr, "<span class='warning'>All the petals have fallen off the [name] from violent whacking!</span>")
+		to_chat(usr, "<span class='warning'>All the petals have fallen off [src] from violent whacking!</span>")
 		usr.unEquip(src)
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)
 	. = ..()
 	if(!user.gloves)
-		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
+		to_chat(user, "<span class='danger'>[src] burns your bare hand!</span>")
 		user.adjustFireLoss(rand(1, 5))

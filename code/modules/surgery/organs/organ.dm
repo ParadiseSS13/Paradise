@@ -15,8 +15,8 @@
 	var/parent_organ = "chest"
 
 	var/list/datum/autopsy_data/autopsy_data = list()
-	var/list/trace_chemicals = list() // traces of chemicals in the organ,
-									  // links chemical IDs to number of ticks for which they'll stay in the blood
+	var/list/trace_chemicals = list()	// traces of chemicals in the organ,
+										// links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 	var/datum/dna/dna
 
@@ -31,11 +31,14 @@
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
 
+	///Should this organ be destroyed on removal?
+	var/destroy_on_removal = FALSE
+
 
 /obj/item/organ/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(owner)
-		remove(owner, 1)
+		remove(owner, TRUE)
 	QDEL_LIST_ASSOC_VAL(autopsy_data)
 	QDEL_NULL(dna)
 	return ..()
@@ -51,7 +54,7 @@
 		if(holder.dna)
 			dna = holder.dna.Clone()
 		else
-			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
+			stack_trace("[holder] spawned without a proper DNA.")
 		var/mob/living/carbon/human/H = holder
 		if(istype(H))
 			if(dna)
@@ -72,7 +75,7 @@
 		return
 	return ..()
 
-/obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
+/obj/item/organ/proc/set_dna(datum/dna/new_dna)
 	if(new_dna)
 		dna = new_dna.Clone()
 		if(blood_DNA)
@@ -96,15 +99,14 @@
 	if(status & ORGAN_DEAD)
 		return
 
-	if(is_preserved())
-		return
-
 	//Process infections
-	if(is_robotic() || sterile || (owner && (NO_GERMS in owner.dna.species.species_traits)))
+	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NOGERMS)))
 		germ_level = 0
 		return
 
 	if(!owner)
+		if(is_preserved())
+			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
 		// Another mercy for surgeons preparing transplant organs
 		germ_level++
@@ -164,19 +166,13 @@
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
 		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5) * min(germ_level / INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
-		owner.bodytemperature += between(0, (fever_temperature - T20C) / BODYTEMP_COLD_DIVISOR + 1, fever_temperature - owner.bodytemperature)
+		owner.bodytemperature += clamp((fever_temperature - T20C) / BODYTEMP_COLD_DIVISOR + 1, 0, fever_temperature - owner.bodytemperature)
 
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
 		//spread germs
 		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
 			parent.germ_level++
-
-/obj/item/organ/internal/handle_germs()
-	..()
-	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3))	//about once every 30 seconds
-			receive_damage(1, silent = prob(30))
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
@@ -199,7 +195,7 @@
 	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
 
 //Adds autopsy data for used_weapon.
-/obj/item/organ/proc/add_autopsy_data(var/used_weapon = "Unknown", var/damage)
+/obj/item/organ/proc/add_autopsy_data(used_weapon = "Unknown", damage)
 	var/datum/autopsy_data/W = autopsy_data[used_weapon]
 	if(!W)
 		W = new()
@@ -214,7 +210,7 @@
 /obj/item/organ/proc/receive_damage(amount, silent = 0)
 	if(tough)
 		return
-	damage = between(0, damage + amount, max_damage)
+	damage = clamp(damage + amount, 0, max_damage)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ && amount > 0)
@@ -236,62 +232,43 @@
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
 
-/obj/item/organ/external/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	if(tough)
-		switch(severity)
-			if(1)
-				receive_damage(0, 5.5)
-				if(owner)
-					owner.Stun(10)
-			if(2)
-				receive_damage(0, 2.8)
-				if(owner)
-					owner.Stun(5)
-	else
-		switch(severity)
-			if(1)
-				receive_damage(0, 20)
-			if(2)
-				receive_damage(0, 7)
-
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
-
-/obj/item/organ/proc/shock_organ(intensity)
-	return
-
-/obj/item/organ/proc/remove(var/mob/living/user,special = 0)
+/*
+  * remove
+  *
+  * Removes the organ from the user properly.
+  * If the organ is vital, it will kill the user.
+  * The proc returns the organ removed (i.e. `src`) assuming it was removed successfully;
+* otherwise, or if the organ gets destroyed in the process, it returns null.
+*/
+/obj/item/organ/proc/remove(mob/living/user, special = 0)
 	if(!istype(owner))
 		return
+
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
 	if(affected) affected.internal_organs -= src
 
-	loc = get_turf(owner)
+	forceMove(get_turf(owner))
 	START_PROCESSING(SSobj, src)
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
 		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user ? ATKLOG_FEW : ATKLOG_ALL)
 		owner.death()
 	owner = null
+	if(destroy_on_removal && !QDELETED(src))
+		qdel(src)
+		return
 	return src
 
-/obj/item/organ/proc/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/proc/replaced(mob/living/carbon/human/target)
 	return // Nothing uses this, it is always overridden
 
 // A version of `replaced` that "flattens" the process of insertion, making organs "Plug'n'play"
 // (Particularly the heart, which stops beating when removed)
-/obj/item/organ/proc/safe_replace(var/mob/living/carbon/human/target)
+/obj/item/organ/proc/safe_replace(mob/living/carbon/human/target)
 	replaced(target)
 
 /obj/item/organ/proc/surgeryize()
@@ -302,7 +279,7 @@ Returns 1 if this is the organ that is handling all the functionalities of that 
 Returns 0 if it isn't
 I use this so that this can be made better once the organ overhaul rolls out -- Crazylemon
 */
-/obj/item/organ/proc/is_primary_organ(var/mob/living/carbon/human/O = null)
+/obj/item/organ/proc/is_primary_organ(mob/living/carbon/human/O = null)
 	if(isnull(O))
 		O = owner
 	if(!istype(owner)) // You're not the primary organ of ANYTHING, bucko
@@ -316,13 +293,8 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 
 /obj/item/organ/serialize()
 	var/data = ..()
-	if(status != 0)
+	if(status)
 		data["status"] = status
-
-	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match
-	// the owner
-	if(!(owner && dna.unique_enzymes == owner.dna.unique_enzymes))
-		data["dna"] = dna.serialize()
 	return data
 
 /obj/item/organ/deserialize(data)
@@ -330,8 +302,4 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		if(data["status"] & ORGAN_ROBOT)
 			robotize()
 		status = data["status"]
-	if(islist(data["dna"]))
-		// The only thing the official proc does is
-	 	//instantiate the list and call this proc
-		dna.deserialize(data["dna"])
-		..()
+	..()

@@ -10,7 +10,7 @@
 
 	var/datum/gas_mixture/GM = target.return_air()
 	var/burning = 0
-	if(istype(target, /turf/simulated))
+	if(issimulatedturf(target))
 		var/turf/simulated/T = target
 		if(T.active_hotspot)
 			burning = 1
@@ -20,7 +20,7 @@
 	message_admins("[key_name_admin(usr)] has checked the air status of [target]")
 	log_admin("[key_name(usr)] has checked the air status of [target]")
 
-	feedback_add_details("admin_verb","DAST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Display Air Status") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/fix_next_move()
 	set category = "Debug"
@@ -59,7 +59,7 @@
 	message_admins("[key_name_admin(largest_click_mob)] had the largest click delay with [largest_click_time] frames / [largest_click_time/10] seconds!", 1)
 	message_admins("world.time = [world.time]", 1)
 
-	feedback_add_details("admin_verb","UFE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Unfreeze Everyone") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/radio_report()
@@ -104,7 +104,7 @@
 	message_admins("[key_name_admin(usr)] has generated a radio report")
 	log_admin("[key_name(usr)] has generated a radio report")
 
-	feedback_add_details("admin_verb","RR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Radio Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/reload_admins()
 	set name = "Reload Admins"
@@ -116,44 +116,8 @@
 	message_admins("[key_name_admin(usr)] has manually reloaded admins")
 	log_admin("[key_name(usr)] has manually reloaded admins")
 
-	load_admins()
-	feedback_add_details("admin_verb","RLDA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-/client/proc/print_jobban_old()
-	set name = "Print Jobban Log"
-	set desc = "This spams all the active jobban entries for the current round to standard output."
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	to_chat(usr, "<b>Jobbans active in this round.</b>")
-	for(var/t in GLOB.jobban_keylist)
-		to_chat(usr, "[t]")
-
-	message_admins("[key_name_admin(usr)] has printed the jobban log")
-	log_admin("[key_name(usr)] has printed the jobban log")
-
-/client/proc/print_jobban_old_filter()
-	set name = "Search Jobban Log"
-	set desc = "This searches all the active jobban entries for the current round and outputs the results to standard output."
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	var/filter = clean_input("Contains what?","Filter")
-	if(!filter)
-		return
-
-	to_chat(usr, "<b>Jobbans active in this round.</b>")
-	for(var/t in GLOB.jobban_keylist)
-		if(findtext(t, filter))
-			to_chat(usr, "[t]")
-
-	message_admins("[key_name_admin(usr)] has searched the jobban log for [filter]")
-	log_admin("[key_name(usr)] has searched the jobban log for [filter]")
+	load_admins(run_async=TRUE)
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reload Admins") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/vv_by_ref()
 	set name = "VV by Ref"
@@ -161,7 +125,8 @@
 	set category = "Debug"
 
 	// It's gated by "Debug Verbs", so might as well gate it to the debug permission
-	if(!check_rights(R_DEBUG))
+	// AA: This seems harmless but is **incredibly** powerful and dangerous. Maints only.
+	if(!check_rights(R_MAINTAINER))
 		return
 
 	var/refstring = clean_input("Which reference?","Ref")

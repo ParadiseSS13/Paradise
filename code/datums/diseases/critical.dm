@@ -25,7 +25,7 @@
 	max_stages = 3
 	spread_flags = SPECIAL
 	cure_text = "Saline-Glucose Solution"
-	cures = list("salglu_solution")
+	cures = list("salglu_solution", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 6
@@ -74,7 +74,7 @@
 					affected_mob.emote(pick("faint", "collapse", "groan"))
 				if(prob(7))
 					to_chat(affected_mob, "<span class='danger'>You can't breathe!</span>")
-					affected_mob.AdjustLoseBreath(1)
+					affected_mob.AdjustLoseBreath(2 SECONDS)
 				if(prob(5))
 					var/datum/disease/D = new /datum/disease/critical/heart_failure
 					affected_mob.ForceContractDisease(D)
@@ -86,7 +86,7 @@
 	max_stages = 3
 	spread_flags = SPECIAL
 	cure_text = "Atropine, Epinephrine, or Heparin"
-	cures = list("atropine", "epinephrine", "heparin")
+	cures = list("atropine", "epinephrine", "heparin", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
 	needs_all_cures = FALSE
 	viable_mobtypes = list(/mob/living/carbon/human)
@@ -96,12 +96,6 @@
 	required_organs = list(/obj/item/organ/internal/heart)
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
-
-/datum/disease/critical/heart_failure/has_cure()
-	if(affected_mob.has_status_effect(STATUS_EFFECT_EXERCISED))
-		return TRUE
-
-	return ..()
 
 /datum/disease/critical/heart_failure/stage_act()
 	if(..())
@@ -126,10 +120,10 @@
 					affected_mob.emote(pick("pale", "groan"))
 				if(prob(5))
 					to_chat(affected_mob, "<span class='danger'>Your heart lurches in your chest!</span>")
-					affected_mob.AdjustLoseBreath(1)
+					affected_mob.AdjustLoseBreath(2 SECONDS)
 				if(prob(3))
 					to_chat(affected_mob, "<span class='danger'>Your heart stops beating!</span>")
-					affected_mob.AdjustLoseBreath(3)
+					affected_mob.AdjustLoseBreath(6 SECONDS)
 				if(prob(5))
 					affected_mob.emote(pick("faint", "collapse", "groan"))
 			if(3)
@@ -157,7 +151,7 @@
 /datum/disease/critical/hypoglycemia/has_cure()
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/H = affected_mob
-		if(NO_HUNGER in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_NOHUNGER))
 			return TRUE
 		if(ismachineperson(H))
 			return TRUE
@@ -165,6 +159,8 @@
 
 /datum/disease/critical/hypoglycemia/stage_act()
 	if(..())
+		if(isLivingSSD(affected_mob)) // We don't want AFK people dying from this.
+			return
 		if(affected_mob.nutrition > NUTRITION_LEVEL_HYPOGLYCEMIA)
 			to_chat(affected_mob, "<span class='notice'>You feel a lot better!</span>")
 			cure()
@@ -181,11 +177,11 @@
 				if(prob(4))
 					to_chat(affected_mob, "<span class='warning'>You feel like everything is wrong with your life!</span>")
 				if(prob(5))
-					affected_mob.Slowed(rand(4, 16))
+					affected_mob.Slowed(rand(8 SECONDS, 32 SECONDS))
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
 				if(prob(5))
-					affected_mob.Weaken(6)
-					affected_mob.Stuttering(10)
+					affected_mob.Weaken(12 SECONDS)
+					affected_mob.Stuttering(20 SECONDS)
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
 					affected_mob.emote("collapse")
 			if(3)
@@ -193,10 +189,10 @@
 					var/datum/disease/D = new /datum/disease/critical/shock
 					affected_mob.ForceContractDisease(D)
 				if(prob(12))
-					affected_mob.Weaken(6)
-					affected_mob.Stuttering(10)
+					affected_mob.Weaken(12 SECONDS)
+					affected_mob.Stuttering(20 SECONDS)
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
 					affected_mob.emote("collapse")
 				if(prob(12))
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
-					affected_mob.Slowed(rand(4, 16))
+					affected_mob.Slowed(rand(8 SECONDS, 32 SECONDS))

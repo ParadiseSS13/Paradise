@@ -29,35 +29,35 @@
 	sentience_type = SENTIENCE_MINEBOT
 	speak_emote = list("states")
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						  /obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
-						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
-						  /obj/item/stack/ore/titanium)
-	healable = 0
-	loot = list(/obj/effect/decal/cleanable/robot_debris)
+						/obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
+						/obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
+						/obj/item/stack/ore/titanium)
+	healable = FALSE
 	del_on_death = TRUE
 	var/mode = MINEDRONE_COLLECT
-	var/light_on = 0
+	var/light_on = FALSE
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
-	var/datum/action/innate/minedrone/toggle_light/toggle_light_action
-	var/datum/action/innate/minedrone/toggle_meson_vision/toggle_meson_vision_action
-	var/datum/action/innate/minedrone/toggle_mode/toggle_mode_action
-	var/datum/action/innate/minedrone/dump_ore/dump_ore_action
 
-/mob/living/simple_animal/hostile/mining_drone/New()
-	..()
+/mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
+	. = ..()
 	stored_gun = new(src)
-	toggle_light_action = new()
-	toggle_light_action.Grant(src)
-	toggle_meson_vision_action = new()
-	toggle_meson_vision_action.Grant(src)
-	toggle_mode_action = new()
-	toggle_mode_action.Grant(src)
-	dump_ore_action = new()
-	dump_ore_action.Grant(src)
+	var/static/list/action_paths = list(
+		/datum/action/innate/minedrone/toggle_light,
+		/datum/action/innate/minedrone/toggle_meson_vision,
+		/datum/action/innate/minedrone/toggle_mode,
+		/datum/action/innate/minedrone/dump_ore,
+	)
+	for(var/action_path in action_paths)
+		var/datum/action/act = new action_path
+		act.Grant(src)
 
 	SetCollectBehavior()
+
+/mob/living/simple_animal/hostile/mining_drone/Destroy()
+	QDEL_NULL(stored_gun)
+	return ..()
 
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
@@ -66,7 +66,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone/sentience_act()
 	..()
-	check_friendly_fire = 0
+	check_friendly_fire = FALSE
 
 /mob/living/simple_animal/hostile/mining_drone/examine(mob/user)
 	. = ..()
@@ -249,7 +249,7 @@
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 		user.update_sight()
 	else
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 		user.update_sight()
 
 	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")
@@ -336,6 +336,8 @@
 		M.move_to_delay = initial(M.move_to_delay) + base_speed_add
 		if(M.stored_gun)
 			M.stored_gun.overheat_time += base_cooldown_add
+		if(M.mind)
+			M.mind.offstation_role = TRUE
 
 /**********************Mining drone cube**********************/
 

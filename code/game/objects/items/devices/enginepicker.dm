@@ -44,7 +44,7 @@
 			list_enginebeacons += B
 
 //Spawns and logs / announces the appropriate engine based on the choice made
-/obj/item/enginepicker/proc/processchoice(var/obj/item/radio/beacon/engine/choice, mob/living/carbon/user)
+/obj/item/enginepicker/proc/processchoice(obj/item/radio/beacon/engine/choice, mob/living/carbon/user)
 	var/issuccessful = FALSE	//Check for a successful choice
 	var/engtype					//Engine type
 	var/G						//Generator that will be spawned
@@ -90,7 +90,7 @@
 		return
 
 //Deletes objects and mobs from the beacon's turf.
-/obj/item/enginepicker/proc/clearturf(var/turf/T)
+/obj/item/enginepicker/proc/clearturf(turf/T)
 	for(var/obj/item/I in T)
 		I.visible_message("\The [I] gets crushed to dust!")
 		qdel(I)

@@ -1,5 +1,5 @@
 /****************************************************
-			   ORGAN DEFINES
+			ORGAN DEFINES
 ****************************************************/
 
 /obj/item/organ/external/chest
@@ -12,10 +12,21 @@
 	body_part = UPPER_TORSO
 	vital = TRUE
 	amputation_point = "spine"
-	gendered_icon = 1
+	gendered_icon = TRUE
 	parent_organ = null
 	encased = "ribcage"
 	convertable_children = list(/obj/item/organ/external/groin)
+
+/obj/item/organ/external/chest/emp_act(severity)
+	..()
+	if(!is_robotic() || emp_proof || !tough) // Augmented chest suffocates the user on EMP.
+		return
+	switch(severity)
+		if(1)
+			owner?.adjustStaminaLoss(20)
+		if(2)
+			owner?.adjustStaminaLoss(10)
+	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, causing fatigue!</span>")
 
 /obj/item/organ/external/groin
 	name = "lower body"
@@ -28,7 +39,7 @@
 	vital = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
-	gendered_icon = 1
+	gendered_icon = TRUE
 
 /obj/item/organ/external/arm
 	limb_name = "l_arm"
@@ -42,6 +53,16 @@
 	amputation_point = "left shoulder"
 	can_grasp = 1
 	convertable_children = list(/obj/item/organ/external/hand)
+
+/obj/item/organ/external/arm/emp_act(severity)
+	..()
+	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
+		return
+	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
+	if(hand && owner.canUnEquip(hand))
+		owner.unEquip(hand)
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
+		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
@@ -65,6 +86,22 @@
 	can_stand = 1
 	convertable_children = list(/obj/item/organ/external/foot)
 
+/obj/item/organ/external/leg/emp_act(severity)
+	..()
+	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
+		return
+	if(owner.AmountWeakened())
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
+		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+	else
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
+		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+	switch(severity)
+		if(1)
+			owner.AdjustWeakened(8 SECONDS)
+		if(2)
+			owner.AdjustWeakened(4 SECONDS)
+
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
 	name = "right leg"
@@ -86,6 +123,22 @@
 	parent_organ = "l_leg"
 	amputation_point = "left ankle"
 	can_stand = 1
+
+/obj/item/organ/external/foot/emp_act(severity)
+	..()
+	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
+		return
+	if(owner.AmountWeakened())
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, preventing you from getting back up!</span>")
+		owner.custom_emote(EMOTE_VISIBLE, "is unable to get back up, [owner.p_their()] [name] malfunctioning!")
+	else
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping you to the ground!</span>")
+		owner.custom_emote(EMOTE_VISIBLE, "drops to the ground, [owner.p_their()] [name] malfunctioning!")
+	switch(severity)
+		if(1)
+			owner.AdjustWeakened(8 SECONDS)
+		if(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/remove()
 	if(owner && owner.shoes) owner.unEquip(owner.shoes)
@@ -111,6 +164,16 @@
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
+
+/obj/item/organ/external/hand/emp_act(severity)
+	..()
+	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
+		return
+	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
+	if(hand && owner.canUnEquip(hand))
+		owner.unEquip(hand)
+		to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, dropping what it was holding!</span>")
+		owner.custom_emote(EMOTE_VISIBLE, "drops what [owner.p_they()] [owner.p_were()] holding, [owner.p_their()] [name] malfunctioning!")
 
 /obj/item/organ/external/hand/remove()
 	if(owner)
@@ -141,7 +204,7 @@
 	body_part = HEAD
 	parent_organ = "chest"
 	amputation_point = "neck"
-	gendered_icon = 1
+	gendered_icon = TRUE
 	encased = "skull"
 	var/can_intake_reagents = 1
 	var/alt_head = "None"
@@ -150,6 +213,11 @@
 	var/hair_colour = "#000000"
 	var/sec_hair_colour = "#000000"
 	var/h_style = "Bald"
+	var/h_grad_style = "None"
+	var/h_grad_offset_x = 0
+	var/h_grad_offset_y = 0
+	var/h_grad_colour = "#000000"
+	var/h_grad_alpha = 255
 
 	//Head accessory colour and style
 	var/headacc_colour = "#000000"
@@ -160,21 +228,29 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+/obj/item/organ/external/head/examine(mob/user)
+	. = ..()
+	if(!length(contents))
+		. += "<span class='warning'>There is nothing left inside!</span>"
+
+/obj/item/organ/external/head/vars_to_save()
+	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses)
+			owner.unEquip(owner.glasses, force = TRUE)
 		if(owner.head)
-			owner.unEquip(owner.head)
+			owner.unEquip(owner.head, force = TRUE)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear)
+			owner.unEquip(owner.l_ear, force = TRUE)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear)
+			owner.unEquip(owner.r_ear, force = TRUE)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask)
+			owner.unEquip(owner.wear_mask, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
@@ -186,10 +262,9 @@
 	..()
 
 /obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
-	..()
-	if(!disfigured)
-		if(brute_dam + burn_dam > 50)
-			disfigure()
+	. = ..()
+	if(brute_dam + burn_dam > 50 && !(status & ORGAN_DISFIGURED))
+		disfigure()
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
 	if(alt_head && GLOB.alt_heads_list[alt_head])
@@ -210,3 +285,14 @@
 /obj/item/organ/external/head/set_dna(datum/dna/new_dna)
 	..()
 	new_dna.write_head_attributes(src)
+
+/obj/item/organ/external/head/emp_act(severity)
+	..()
+	if(!is_robotic() || emp_proof || !tough) // Augmented head confuses the user on EMP.
+		return
+	switch(severity)
+		if(1)
+			owner?.AdjustConfused(60 SECONDS)
+		if(2)
+			owner?.AdjustConfused(40 SECONDS)
+	to_chat(owner, "<span class='userdanger'>Your [name] malfunctions, overloading your motor control!</span>")

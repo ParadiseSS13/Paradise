@@ -1,25 +1,29 @@
 
-/obj/effect/proc_holder/spell/targeted/chaplain_bless
+/obj/effect/proc_holder/spell/chaplain_bless
 	name = "Bless"
 	desc = "Blesses a single person."
 
 	school = "transmutation"
-	charge_max = 60
-	clothes_req = 0
+	base_cooldown = 6 SECONDS
+	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
 
-	max_targets = 1
-	include_user = 0
-	humans_only = 1
-
-	range = 1
+	selection_activated_message = "<span class='notice'>You prepare a blessing. Click on a target to start blessing.</span>"
+	selection_deactivated_message = "<span class='notice'>The crew will be blessed another time.</span>"
 	cooldown_min = 20
 	action_icon_state = "shield"
 
+/obj/effect/proc_holder/spell/chaplain_bless/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.range = 1
+	T.click_radius = -1
+	return T
 
-/obj/effect/proc_holder/spell/targeted/chaplain_bless/cast(list/targets, mob/living/user = usr, distanceoverride)
+/obj/effect/proc_holder/spell/chaplain_bless/valid_target(mob/living/carbon/human/target, mob/user)
+	return target.mind && target.ckey && !target.stat
 
+/obj/effect/proc_holder/spell/chaplain_bless/cast(list/targets, mob/living/user = usr)
 	if(!istype(user))
 		to_chat(user, "Somehow, you are not a living mob. This should never happen. Report this bug.")
 		revert_cast()
@@ -35,32 +39,7 @@
 		revert_cast()
 		return
 
-	var/mob/living/carbon/human/target = targets[range]
-
-	if(!istype(target))
-		to_chat(user, "No target.")
-		revert_cast()
-		return
-
-	if(!(target in oview(range)) && !distanceoverride)//If they are not in overview after selection. Do note that !() is necessary for in to work because ! takes precedence over it.
-		to_chat(user, "[target] is too far away!")
-		revert_cast()
-		return
-
-	if(!target.mind)
-		to_chat(user, "[target] appears to be catatonic. Your blessing would have no effect.")
-		revert_cast()
-		return
-
-	if(!target.ckey)
-		to_chat(user, "[target] appears to be too out of it to benefit from this.")
-		revert_cast()
-		return
-
-	if(target.stat == DEAD)
-		to_chat(user, "[target] is already dead. There is no point.")
-		revert_cast()
-		return
+	var/mob/living/carbon/human/target = targets[1]
 
 	spawn(0) // allows cast to complete even if recipient ignores the prompt
 		if(alert(target, "[user] wants to bless you, in the name of [user.p_their()] religion. Accept?", "Accept Blessing?", "Yes", "No") == "Yes") // prevents forced conversions

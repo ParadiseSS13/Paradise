@@ -188,7 +188,8 @@
 	var/list/sig_types = islist(sig_type_or_types) ? sig_type_or_types : list(sig_type_or_types)
 	for(var/sig_type in sig_types)
 		if(!override && procs[target][sig_type])
-			stack_trace("[sig_type] overridden. Use override = TRUE to suppress this warning")
+			stack_trace("RegisterSignal overrode a signal without having 'override = TRUE' set.\n \
+						src: [src], signal type: [sig_type], target: [target], new proc: [proctype], previous proc: [procs[target][sig_type]].")
 
 		procs[target][sig_type] = proctype
 
@@ -531,7 +532,29 @@
 			target.TakeComponent(comps)
 
 /**
+  * Transfer a single component from the source datum, to the target.
+  *
+  * Arguments:
+  * * datum/target - the target to move the component to
+  * * component_instance_or_typepath - either an already created component, or a component typepath
+  */
+/datum/proc/TransferComponent(datum/target, component_instance_or_typepath)
+	if(!datum_components)
+		return
+	// If the proc was fed a typepath.
+	var/datum/component/comp = datum_components[component_instance_or_typepath]
+	if(comp?.can_transfer)
+		target.TakeComponent(comp)
+		return
+	// if the proc was fed a component instance.
+	for(var/component in datum_components)
+		var/datum/component/C = datum_components[component]
+		if(istype(C, component_instance_or_typepath) && C.can_transfer)
+			target.TakeComponent(C)
+			return
+
+/**
   * Return the object that is the host of any UI's that this component has
   */
-/datum/component/nano_host()
+/datum/component/ui_host(mob/user)
 	return parent

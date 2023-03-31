@@ -12,120 +12,99 @@
 		"message1" = message1 ? message1 : "(none)",
 		"message2" = message2 ? message2 : "(none)")
 
-/datum/data/pda/app/status_display/Topic(href, list/href_list)
-	switch(href_list["choice"])
-		if("Status")
-			switch(href_list["statdisp"])
-				if("message")
-					post_status("message", message1, message2)
-				if("alert")
-					post_status("alert", href_list["alert"])
-				if("setmsg1")
-					message1 = clean_input("Line 1", "Enter Message Text", message1)
-				if("setmsg2")
-					message2 = clean_input("Line 2", "Enter Message Text", message2)
-				else
-					post_status(href_list["statdisp"])
-
-/datum/data/pda/app/status_display/proc/post_status(var/command, var/data1, var/data2)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-	if(!frequency)
+/datum/data/pda/app/status_display/ui_act(action, list/params)
+	if(..())
 		return
 
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
-	switch(command)
-		if("message")
-			status_signal.data["msg1"] = data1
-			status_signal.data["msg2"] = data2
-			var/mob/user = pda.fingerprintslast
-			if(istype(pda.loc, /mob/living))
-				name = pda.loc
-			log_admin("STATUS: [user] set status screen with [pda]. Message: [data1] [data2]")
-			message_admins("STATUS: [user] set status screen with [pda]. Message: [data1] [data2]")
+	. = TRUE
+	switch(action)
+		if("SetMessage")
+			if(params["msgnum"])
+				switch(text2num(params["msgnum"]))
+					if(1)
+						message1 = clean_input("Line 1", "Enter Message Text", message1)
+					if(2)
+						message2 = clean_input("Line 2", "Enter Message Text", message2)
 
-		if("alert")
-			status_signal.data["picture_state"] = data1
+		if("Status")
+			switch(text2num(params["statdisp"]))
+				if(STATUS_DISPLAY_MESSAGE)
+					post_status(STATUS_DISPLAY_MESSAGE, message1, message2)
 
-	spawn(0)
-		frequency.post_signal(src, status_signal)
+				if(STATUS_DISPLAY_ALERT)
+					post_status(STATUS_DISPLAY_ALERT, params["alert"])
 
+				else
+					post_status(text2num(params["statdisp"]))
 
 /datum/data/pda/app/signaller
 	name = "Signaler System"
 	icon = "rss"
-	template = "pda_signaller"
+	template = "pda_signaler"
 	category = "Utilities"
 
 /datum/data/pda/app/signaller/update_ui(mob/user as mob, list/data)
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
-		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
-		data["signal_freq"] = format_frequency(R.frequency)
-		data["signal_code"] = R.code
+	if(pda?.cartridge?.integ_signaler)
+		var/obj/item/assembly/signaler/S = pda.cartridge.integ_signaler // Simpler access
+		data["frequency"] = S.frequency
+		data["code"] = S.code
+		data["minFrequency"] = PUBLIC_LOW_FREQ
+		data["maxFrequency"] = PUBLIC_HIGH_FREQ
 
-/datum/data/pda/app/signaller/Topic(href, list/href_list)
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
-		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
+/datum/data/pda/app/signaller/ui_act(action, list/params)
+	if(..())
+		return
 
-		switch(href_list["choice"])
-			if("Send Signal")
-				spawn(0)
-					R.send_signal("ACTIVATE")
+	. = TRUE
 
-			if("Signal Frequency")
-				var/new_frequency = sanitize_frequency(R.frequency + text2num(href_list["sfreq"]))
-				R.set_frequency(new_frequency)
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
-			if("Signal Code")
-				R.code += text2num(href_list["scode"])
-				R.code = round(R.code)
-				R.code = min(100, R.code)
-				R.code = max(1, R.code)
+	if(pda?.cartridge?.integ_signaler)
+		var/obj/item/assembly/signaler/S = pda.cartridge.integ_signaler // Simpler access
+
+		switch(action)
+			if("signal")
+				S.activate()
+
+			if("freq")
+				S.frequency = sanitize_frequency(text2num(params["freq"]) * 10)
+
+			if("code")
+				S.code = clamp(text2num(params["code"]), 1, 100)
 
 /datum/data/pda/app/power
 	name = "Power Monitor"
-	icon = "exclamation-triangle"
+	icon = "bolt"
 	template = "pda_power"
 	category = "Engineering"
 	update = PDA_APP_UPDATE_SLOW
 
-	var/obj/machinery/computer/monitor/powmonitor = null
+	var/datum/ui_module/power_monitor/digital/pm = new
 
 /datum/data/pda/app/power/update_ui(mob/user as mob, list/data)
-	update = PDA_APP_UPDATE_SLOW
+	data.Add(pm.ui_data())
 
-	if(powmonitor && !isnull(powmonitor.powernet))
-		data["records"] = list(
-			"powerconnected" = 1,
-			"poweravail" = powmonitor.powernet.avail,
-			"powerload" = num2text(powmonitor.powernet.viewload, 10),
-			"powerdemand" = powmonitor.powernet.load,
-			"apcs" = GLOB.apc_repository.apc_data(powmonitor.powernet))
-		has_back = 1
-	else
-		data["records"] = list(
-			"powerconnected" = 0,
-			"powermonitors" = GLOB.powermonitor_repository.powermonitor_data())
-		has_back = 0
+// All 4 args are important here because proxying matters
+/datum/data/pda/app/power/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
 
-/datum/data/pda/app/power/Topic(href, list/href_list)
-	switch(href_list["choice"])
-		if("Power Select")
-			var/pref = href_list["target"]
-			powmonitor = locate(pref)
-			update = PDA_APP_UPDATE
-		if("Back")
-			powmonitor = null
-			update = PDA_APP_UPDATE
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+	. = TRUE
+	// Observe
+	pm.ui_act(action, params, ui, state)
 
 /datum/data/pda/app/crew_records
 	var/datum/data/record/general_records = null
 
 /datum/data/pda/app/crew_records/update_ui(mob/user as mob, list/data)
-	var/list/records[0]
+	var/list/records = list()
 
 	if(general_records && (general_records in GLOB.data_core.general))
 		data["records"] = records
@@ -135,23 +114,34 @@
 		for(var/A in sortRecord(GLOB.data_core.general))
 			var/datum/data/record/R = A
 			if(R)
-				records += list(list(Name = R.fields["name"], "ref" = "\ref[R]"))
+				records += list(list(Name = R.fields["name"], "uid" = "[R.UID()]"))
 		data["recordsList"] = records
+		data["records"] = null
 		return null
 
-/datum/data/pda/app/crew_records/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/crew_records/ui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+
+	if(pda && !pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+	switch(action)
 		if("Records")
-			var/datum/data/record/R = locate(href_list["target"])
+			var/datum/data/record/R = locateUID(params["target"])
 			if(R && (R in GLOB.data_core.general))
 				load_records(R)
+			return
 		if("Back")
 			general_records = null
-			has_back = 0
+			has_back = FALSE
+			return
 
 /datum/data/pda/app/crew_records/proc/load_records(datum/data/record/R)
 	general_records = R
-	has_back = 1
+	has_back = TRUE
 
 /datum/data/pda/app/crew_records/medical
 	name = "Medical Records"
@@ -181,7 +171,7 @@
 
 /datum/data/pda/app/crew_records/security
 	name = "Security Records"
-	icon = "tags"
+	icon = "id-badge"
 	template = "pda_security"
 	category = "Security"
 
@@ -211,47 +201,72 @@
 	template = "pda_secbot"
 	category = "Security"
 
-/datum/data/pda/app/secbot_control/update_ui(mob/user as mob, list/data)
-	var/botsData[0]
-	var/beepskyData[0]
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
-		var/obj/item/integrated_radio/beepsky/SC = pda.cartridge.radio
-		beepskyData["active"] = SC.active ? sanitize(SC.active.name) : null
-		has_back = SC.active ? 1 : 0
-		if(SC.active && !isnull(SC.botstatus))
-			var/area/loca = SC.botstatus["loca"]
-			var/loca_name = sanitize(loca.name)
-			beepskyData["botstatus"] = list("loca" = loca_name, "mode" = SC.botstatus["mode"])
-		else
-			beepskyData["botstatus"] = list("loca" = null, "mode" = -1)
-		var/botsCount=0
-		if(SC.botlist && SC.botlist.len)
-			for(var/mob/living/simple_animal/bot/B in SC.botlist)
-				botsCount++
-				if(B.loc)
-					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "ref" = "\ref[B]")
+	var/active_uid = null
 
-		if(!botsData.len)
-			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
+/datum/data/pda/app/secbot_control/update_ui(mob/user as mob, list/data)
+	var/list/botsData = list()
+	var/list/beepskyData = list()
+
+	var/mob/living/simple_animal/bot/secbot/active_bot = locateUID(active_uid)
+
+	if(active_bot && !QDELETED(active_bot))
+		beepskyData["active"] = active_bot ? sanitize(active_bot.name) : null
+		has_back = !!active_bot
+		if(active_bot && !isnull(active_bot.mode))
+			var/area/loca = get_area(active_bot)
+			var/loca_name = sanitize(loca.name)
+			beepskyData["botstatus"] = list("loca" = loca_name, "mode" = active_bot.mode)
+
+	else
+		var/botsCount = 0
+		var/list/mob/living/simple_animal/bot/bots = list()
+		for(var/mob/living/simple_animal/bot/secbot/SB in GLOB.bots_list)
+			bots += SB
+		for(var/mob/living/simple_animal/bot/ed209/ED in GLOB.bots_list)
+			bots += ED
+
+		for(var/mob/living/simple_animal/bot/B in bots)
+			botsCount++
+			if(B.loc)
+				botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(get_area(B).name), "uid" = "[B.UID()]")
+
+		if(!length(botsData))
+			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		beepskyData["bots"] = botsData
 		beepskyData["count"] = botsCount
 
-	else
-		beepskyData["active"] = 0
-		botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
-		beepskyData["botstatus"] = list("loca" = null, "mode" = null)
-		beepskyData["bots"] = botsData
-		beepskyData["count"] = 0
-		has_back = 0
-
 	data["beepsky"] = beepskyData
 
-/datum/data/pda/app/secbot_control/Topic(href, list/href_list)
-	switch(href_list["choice"])
-		if("Back")
-			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
-				pda.cartridge.radio.Topic(null, list(radiomenu = "1", op = "botlist"))
+/datum/data/pda/app/secbot_control/ui_act(action, list/params)
+	if(..())
+		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+	. = TRUE
+
+	switch(action)
+		if("control")
+			active_uid = params["bot"]
+
+		if("botlist", "Back") // "Back" is part of the PDA TGUI itself.
+			active_uid = null
+
+		if("stop", "go", "home")
+			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			if(active_bot && !QDELETED(active_bot))
+				active_bot.handle_command(usr, action)
+			else
+				active_uid = null
+
+		if("summon")
+			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			if(active_bot && !QDELETED(active_bot))
+				active_bot.handle_command(usr, "summon", list("target" = get_turf(usr), "useraccess" = usr.get_access()))
+			else
+				active_uid = null
 
 /datum/data/pda/app/mule_control
 	name = "Delivery Bot Control"
@@ -259,59 +274,85 @@
 	template = "pda_mule"
 	category = "Quartermaster"
 
+	var/active_uid = null
+
 /datum/data/pda/app/mule_control/update_ui(mob/user as mob, list/data)
-	var/muleData[0]
-	var/mulebotsData[0]
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
-		var/obj/item/integrated_radio/mule/QC = pda.cartridge.radio
-		muleData["active"] = QC.active ? sanitize(QC.active.name) : null
-		has_back = QC.active ? 1 : 0
-		if(QC.active && !isnull(QC.botstatus))
-			var/area/loca = QC.botstatus["loca"]
+	var/list/muleData = list()
+	var/list/mulebotsData = list()
+
+	var/mob/living/simple_animal/bot/mulebot/active_bot = locateUID(active_uid)
+
+	if(active_bot && !QDELETED(active_bot))
+		muleData["active"] = active_bot ? sanitize(active_bot.name) : null
+		has_back = !!active_bot
+		if(active_bot && !isnull(active_bot.mode))
+			var/area/loca = get_area(active_bot)
 			var/loca_name = sanitize(loca.name)
-			muleData["botstatus"] =  list("loca" = loca_name, "mode" = QC.botstatus["mode"],"home"=QC.botstatus["home"],"powr" = QC.botstatus["powr"],"retn" =QC.botstatus["retn"], "pick"=QC.botstatus["pick"], "load" = QC.botstatus["load"], "dest" = sanitize(QC.botstatus["dest"]))
+			muleData["botstatus"] =  list(
+				"loca" = loca_name,
+				"mode" = active_bot.mode,
+				"home" = active_bot.home_destination,
+				"powr" = (active_bot.cell ? active_bot.cell.percent() : 0),
+				"retn" = active_bot.auto_return,
+				"pick" = active_bot.auto_pickup,
+				"load" = active_bot.load,
+				"dest" = sanitize(active_bot.destination)
+			)
 
-		else
-			muleData["botstatus"] = list("loca" = null, "mode" = -1,"home"=null,"powr" = null,"retn" =null, "pick"=null, "load" = null, "dest" = null)
-
-
-		var/mulebotsCount=0
-		for(var/mob/living/simple_animal/bot/B in QC.botlist)
+	else
+		var/mulebotsCount = 0
+		for(var/mob/living/simple_animal/bot/mulebot/B in GLOB.bots_list)
 			mulebotsCount++
 			if(B.loc)
-				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "ref" = "\ref[B]")
+				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = get_area(B).name, "uid" = "[B.UID()]")
 
 		if(!mulebotsData.len)
-			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
+			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		muleData["bots"] = mulebotsData
 		muleData["count"] = mulebotsCount
 
-	else
-		muleData["botstatus"] =  list("loca" = null, "mode" = -1,"home"=null,"powr" = null,"retn" =null, "pick"=null, "load" = null, "dest" = null)
-		muleData["active"] = 0
-		mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
-		muleData["bots"] = mulebotsData
-		muleData["count"] = 0
-		has_back = 0
-
 	data["mulebot"] = muleData
 
-/datum/data/pda/app/mule_control/Topic(href, list/href_list)
-	switch(href_list["choice"])
-		if("Back")
-			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
-				pda.cartridge.radio.Topic(null, list(radiomenu = "1", op = "botlist"))
+/datum/data/pda/app/mule_control/ui_act(action, list/params)
+	if(..())
+		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+	. = TRUE
+
+	switch(action)
+		if("control")
+			active_uid = params["bot"]
+
+		if("botlist", "Back") // "Back" is part of the PDA TGUI itself.
+			active_uid = null
+
+		if("stop", "start", "home", "unload", "target")
+			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			if(active_bot && !QDELETED(active_bot))
+				active_bot.handle_command(usr, action)
+			else
+				active_uid = null
+
+		if("set_auto_return", "set_pickup_type")
+			var/mob/living/simple_animal/bot/active_bot = locateUID(active_uid)
+			if(active_bot && !QDELETED(active_bot))
+				active_bot.handle_command(usr, action, params)
+			else
+				active_uid = null
 
 /datum/data/pda/app/supply
 	name = "Supply Records"
-	icon = "file-text-o"
-	template = "pda_supply"
+	icon = "archive"
+	template = "pda_supplyrecords"
 	category = "Quartermaster"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/supply/update_ui(mob/user as mob, list/data)
-	var/supplyData[0]
+	var/list/supplyData = list()
 
 	if(SSshuttle.supply.mode == SHUTTLE_CALL)
 		supplyData["shuttle_moving"] = 1
@@ -324,8 +365,8 @@
 	supplyData["shuttle_time"] = "([SSshuttle.supply.timeLeft(600)] Mins)"
 
 	var/supplyOrderCount = 0
-	var/supplyOrderData[0]
-	for(var/S in SSshuttle.shoppinglist)
+	var/list/supplyOrderData = list()
+	for(var/S in SSeconomy.shopping_list)
 		var/datum/supply_order/SO = S
 		supplyOrderCount++
 		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
@@ -337,8 +378,8 @@
 	supplyData["approved_count"] = supplyOrderCount
 
 	var/requestCount = 0
-	var/requestData[0]
-	for(var/S in SSshuttle.requestlist)
+	var/list/requestData = list()
+	for(var/S in SSeconomy.request_list)
 		var/datum/supply_order/SO = S
 		requestCount++
 		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
@@ -353,13 +394,13 @@
 
 /datum/data/pda/app/janitor
 	name = "Custodial Locator"
-	icon = "trash-o"
+	icon = "trash"
 	template = "pda_janitor"
 	category = "Utilities"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/janitor/update_ui(mob/user as mob, list/data)
-	var/JaniData[0]
+	var/list/JaniData = list()
 	var/turf/cl = get_turf(pda)
 
 	if(cl)
@@ -367,7 +408,7 @@
 	else
 		JaniData["user_loc"] = list("x" = 0, "y" = 0)
 
-	var/MopData[0]
+	var/list/MopData = list()
 	for(var/obj/item/mop/M in GLOB.janitorial_equipment)
 		var/turf/ml = get_turf(M)
 		if(ml)
@@ -376,7 +417,7 @@
 			var/direction = get_dir(pda, M)
 			MopData[++MopData.len] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2text(direction)), "status" = M.reagents.total_volume ? "Wet" : "Dry")
 
-	var/BucketData[0]
+	var/list/BucketData = list()
 	for(var/obj/structure/mopbucket/B in GLOB.janitorial_equipment)
 		var/turf/bl = get_turf(B)
 		if(bl)
@@ -385,7 +426,7 @@
 			var/direction = get_dir(pda,B)
 			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
-	var/CbotData[0]
+	var/list/CbotData = list()
 	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
 		var/turf/bl = get_turf(B)
 		if(bl)
@@ -394,7 +435,7 @@
 			var/direction = get_dir(pda,B)
 			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
 
-	var/CartData[0]
+	var/list/CartData = list()
 	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)
 		var/turf/bl = get_turf(B)
 		if(bl)

@@ -12,7 +12,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(MAT_METAL=500)
+	materials = list(MAT_METAL = 5000)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	var/status = FALSE
@@ -20,7 +20,7 @@
 	var/operating = FALSE//cooldown
 	var/obj/item/weldingtool/weldtool = null
 	var/obj/item/assembly/igniter/igniter = null
-	var/obj/item/tank/plasma/ptank = null
+	var/obj/item/tank/internals/plasma/ptank = null
 	var/warned_admins = FALSE //for the message_admins() when lit
 	//variables for prebuilt flamethrowers
 	var/create_full = FALSE
@@ -40,7 +40,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return null
 	var/turf/location = loc
-	if(istype(location, /mob/))
+	if(ismob(location))
 		var/mob/M = location
 		if(M.l_hand == src || M.r_hand == src)
 			location = M.loc
@@ -48,14 +48,8 @@
 		igniter.flamethrower_process(location)
 
 
-/obj/item/flamethrower/update_icon()
-	cut_overlays()
-	if(igniter)
-		add_overlay("+igniter[status]")
-	if(ptank)
-		add_overlay("+ptank")
+/obj/item/flamethrower/update_icon_state()
 	if(lit)
-		add_overlay("+lit")
 		item_state = "flamethrower_1"
 	else
 		item_state = "flamethrower_0"
@@ -64,11 +58,35 @@
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
+/obj/item/flamethrower/update_overlays()
+	. = ..()
+	if(igniter)
+		. += "+igniter[status]"
+	if(ptank)
+		. += "+ptank"
+	if(lit)
+		. += "+lit"
+
+/obj/item/flamethrower/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
+
 /obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)
 		return // too close
-	if(user && user.get_active_hand() == src) // Make sure our user is still holding us
+	if(!user)
+		return
+	if(user.mind?.martial_art?.no_guns)
+		to_chat(user, "<span class='warning'>[user.mind.martial_art.no_guns_message]</span>")
+		return
+	if(HAS_TRAIT(user, TRAIT_CHUNKYFINGERS))
+		to_chat(user, "<span class='warning'>Your meaty finger is far too large for the trigger guard!</span>")
+		return
+	if(user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
 			var/turflist = getline(user, target_turf)
@@ -89,7 +107,7 @@
 		update_icon()
 		return
 
-	else if(istype(I, /obj/item/tank/plasma))
+	else if(istype(I, /obj/item/tank/internals/plasma))
 		if(ptank)
 			if(user.drop_item())
 				I.forceMove(src)
@@ -227,7 +245,7 @@
 		igniter.secured = FALSE
 		status = TRUE
 		if(create_with_tank)
-			ptank = new /obj/item/tank/plasma/full(src)
+			ptank = new /obj/item/tank/internals/plasma/full(src)
 		update_icon()
 
 /obj/item/flamethrower/full

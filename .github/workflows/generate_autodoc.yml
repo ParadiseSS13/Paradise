@@ -1,0 +1,34 @@
+name: Generate Documentation
+
+on:
+  schedule:
+  - cron: "0 0 * * *" # Every day at the very start of the day. Except it happens an hour and a half later because actions backlog
+  workflow_dispatch:
+
+jobs:
+  generate_docs:
+    name: 'Generate Documentation'
+    runs-on: ubuntu-18.04
+    steps:
+    - name: 'Update Branch'
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+        ref: master
+    - name: 'Install DMDOC'
+      run: bash tools/ci/install_dmdoc.sh
+    - name: 'Generate Documentation'
+      run: |
+        ~/dmdoc
+        touch dmdoc/.nojekyll
+      # Nojekyll is important to disable jeykll syntax, which can mess with files that start with underscores
+
+    - name: 'Deploy Documentation'
+      uses: crazy-max/ghaction-github-pages@v3
+      with:
+        keep_history: false
+        build_dir: dmdoc
+        jekyll: false
+        fqdn: codedocs.paradisestation.org
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

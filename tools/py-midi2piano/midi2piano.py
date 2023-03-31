@@ -7,8 +7,8 @@ import midi as mi
 import easygui as egui
 import pyperclip as pclip
 
-LINE_LENGTH_LIM = 50
-LINES_LIMIT = 200
+LINE_LENGTH_LIM = 300
+LINES_LIMIT = 10000
 TICK_LAG = 0.5
 OVERALL_IMPORT_LIM = 2*LINE_LENGTH_LIM*LINES_LIMIT
 END_OF_LINE_CHAR = """

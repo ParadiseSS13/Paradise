@@ -7,10 +7,10 @@
  * the response with already existing state.
  */
 
-import { UI_DISABLED, UI_INTERACTIVE } from './constants';
 import { callByond } from './byond';
+import { UI_DISABLED, UI_INTERACTIVE } from './constants';
 
-export const backendUpdate = state => ({
+export const backendUpdate = (state) => ({
   type: 'backend/update',
   payload: state,
 });
@@ -18,6 +18,11 @@ export const backendUpdate = state => ({
 export const backendSetSharedState = (key, nextState) => ({
   type: 'backend/setSharedState',
   payload: { key, nextState },
+});
+
+export const backendDeleteSharedState = (keys) => ({
+  type: 'backend/deleteSharedState',
+  payload: keys,
 });
 
 export const backendReducer = (state, action) => {
@@ -42,8 +47,7 @@ export const backendReducer = (state, action) => {
         const value = payload.shared[key];
         if (value === '') {
           shared[key] = undefined;
-        }
-        else {
+        } else {
           shared[key] = JSON.parse(value);
         }
       }
@@ -70,6 +74,15 @@ export const backendReducer = (state, action) => {
         ...state.shared,
         [key]: nextState,
       },
+    };
+  }
+
+  if (type === 'backend/deleteSharedState') {
+    let shared = { ...state.shared };
+    payload.forEach((key) => delete shared[key]);
+    return {
+      ...state,
+      shared: shared,
     };
   }
 
@@ -106,7 +119,7 @@ export const backendReducer = (state, action) => {
  *   act: (action: string, params?: object) => void,
  * }}
  */
-export const useBackend = context => {
+export const useBackend = (context) => {
   const { store } = context;
   const state = store.getState();
   const ref = state.config.ref;
@@ -137,15 +150,24 @@ export const useLocalState = (context, key, initialState) => {
   const { store } = context;
   const state = store.getState();
   const sharedStates = state.shared ?? {};
-  const sharedState = (key in sharedStates)
-    ? sharedStates[key]
-    : initialState;
+  const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
-    nextState => {
+    (nextState) => {
       store.dispatch(backendSetSharedState(key, nextState));
     },
   ];
+};
+
+/**
+ * Deletes local states from the Redux store.
+ *
+ * @param {any} context React context.
+ * @param {string} ...keys Keys of states to delete from the store.
+ */
+export const deleteLocalState = (context, ...keys) => {
+  const { store } = context;
+  store.dispatch(backendDeleteSharedState(keys));
 };
 
 /**
@@ -167,12 +189,10 @@ export const useSharedState = (context, key, initialState) => {
   const state = store.getState();
   const ref = state.config.ref;
   const sharedStates = state.shared ?? {};
-  const sharedState = (key in sharedStates)
-    ? sharedStates[key]
-    : initialState;
+  const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
-    nextState => {
+    (nextState) => {
       callByond('', {
         src: ref,
         action: 'tgui:setSharedState',

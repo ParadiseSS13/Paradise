@@ -11,9 +11,9 @@ html, body {
 }
 body {
 	background: #fff;
-    font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 9pt;
-    line-height: 1.2;
+	font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 9pt;
+	line-height: 1.2;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	word-wrap: break-word;
@@ -69,9 +69,9 @@ a.popt {text-decoration: none;}
 	padding: 8px;
 	background: #ddd;
 	text-decoration: none;
-    font-variant: small-caps;
-    font-size: 1.1em;
-    font-weight: bold;
+	font-variant: small-caps;
+	font-size: 1.1em;
+	font-weight: bold;
 	color: #333;
 }
 #newMessages:hover {background: #ccc;}
@@ -99,21 +99,21 @@ a.popt {text-decoration: none;}
 }
 #options a {
 	background: #ddd;
-    height: 30px;
+	height: 30px;
 	padding: 5px 0;
 	display: block;
 	color: #333;
 	text-decoration: none;
-    line-height: 28px;
-    border-top: 1px solid #b4b4b4;
+	line-height: 28px;
+	border-top: 1px solid #b4b4b4;
 }
 #options a:hover {background: #ccc;}
 #options .toggle {
 	width: 40px;
-    background: #ccc;
-    border-top: 0;
-    float: right;
-    text-align: center;
+	background: #ccc;
+	border-top: 0;
+	float: right;
+	text-align: center;
 }
 #options .sub {clear: both; display: none; width: 160px;}
 #options .sub.scroll {overflow-y: scroll;}
@@ -225,17 +225,17 @@ a.popt {text-decoration: none;}
 
 /* BADGE */
 .repeatBadge {
-    display: inline-block;
-    min-width: 0.5em;
-    font-size: 0.7em;
-    padding: 0.2em 0.3em;
-    line-height: 1;
-    color: white;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    background-color: crimson;
-    border-radius: 10px;
+	display: inline-block;
+	min-width: 0.5em;
+	font-size: 0.7em;
+	padding: 0.2em 0.3em;
+	line-height: 1;
+	color: white;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	background-color: crimson;
+	border-radius: 10px;
 }
 
 /* OUTPUT COLORS */
@@ -279,7 +279,9 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .supradio				{color: #7F6539;}
 .srvradio				{color: #80A000;}
+.proradio				{color: #E3027A;}
 .admin_channel			{color: #9A04D1;	font-weight: bold;}
+.all_admin_ping			{color: #12A5F4;	font-weight: bold; font-size: 120%; text-align: center;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
 .djradio				{color: #663300;}
@@ -304,11 +306,10 @@ h1.alert, h2.alert			{color: #000000;}
 
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
-.bnotice				{color: #000099; 	font-weight: bold;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
-.announce 				{color: #228b22;	font-weight: bold;}
+.pr_announce 				{color: #228b22;	font-weight: bold;}
 .boldannounce				{color: #ff0000;	font-weight: bold;}
 .greenannounce				{color: #00ff00;	font-weight: bold;}
 
@@ -316,6 +317,7 @@ h1.alert, h2.alert			{color: #000000;}
 .noticealien				{color: #00c000;}
 .alertalien				{color: #00c000; font-weight: bold;}
 .terrorspider				{color: #320E32;}
+.dantalion				{color: #6A2148;}
 
 
 .sinister				{color: #800080;	font-weight: bold;	font-style: italic;} /* /vg/ */
@@ -325,7 +327,7 @@ h1.alert, h2.alert			{color: #000000;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
 .robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;	font-stye: italic;}
+.ancient				{color: #008B8B;	font-style: italic;}
 .newscaster				{color: #800000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
@@ -343,8 +345,8 @@ h1.alert, h2.alert			{color: #000000;}
 .kidan					{color: #664205;}
 .slime					{color: #0077AA;}
 .drask					{color: #a3d4eb; font-family: "Arial Black";}
+.moth					{color: #869b29; font-family: "Copperplate";}
 .clown					{color: #ff0000;}
-.shadowling				{color: #3b2769;}
 .vulpkanin				{color: #B97A57;}
 .abductor				{color: #800080; font-style: italic;}
 .mind_control				{color: #A00D6F; font-size: 3; font-weight: bold; font-style: italic;}
@@ -362,6 +364,7 @@ h1.alert, h2.alert			{color: #000000;}
 .greentext				{color: #00FF00;	font-size: 150%;}
 .redtext				{color: #FF0000;	font-size: 150%;}
 .bold					{font-weight: bold;}
+.his_grace 				{color: #15D512; font-family: "Courier New", cursive, sans-serif; font-style: italic;}
 .center					{text-align: center;}
 .red					{color: #FF0000;}
 .purple					{color: #5e2d79;}
@@ -400,6 +403,10 @@ h1.alert, h2.alert			{color: #000000;}
 .connectionClosed.restored {background: green;}
 .internal.boldnshit {color: blue; font-weight: bold;}
 
+.rebooting {background: #2979AF; color: white; padding: 5px;}
+.rebooting a {color: white !important; text-decoration-color: white !important;}
+#reconnectTimer {font-weight: bold;}
+
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
@@ -417,3 +424,15 @@ h1.alert, h2.alert			{color: #000000;}
 .adminticket {color: #3e7336; font-weight: bold}
 
 .adminticketalt {color: #014c8a; font-weight: bold}
+
+/* Syndicate codewords */
+span.body .codephrases {color: #0000FF;}
+span.body .coderesponses {color: #FF0000;}
+
+.announcement h1, .announcement h2 { color: #000; margin: 8pt 0; line-height: 1.2; }
+.announcement p { color: #d82020; line-height: 1.3; }
+.announcement.minor h1 { font-size: 180%; }
+.announcement.minor h2 { font-size: 170%; }
+.announcement.sec h1 { color: #f00; font-size: 180%; font-family: Verdana, sans-serif; }
+
+.bolditalics {font-style: italic; font-weight: bold;}

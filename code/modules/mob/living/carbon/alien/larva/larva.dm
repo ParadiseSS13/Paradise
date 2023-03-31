@@ -7,7 +7,7 @@
 
 	maxHealth = 25
 	health = 25
-	density = 0
+	density = FALSE
 
 	var/amount_grown = 0
 	var/max_grown = 200
@@ -16,22 +16,26 @@
 	death_sound = null
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/larva/New()
+/mob/living/carbon/alien/larva/Initialize(mapload)
+	. = ..()
 	if(name == "alien larva")
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
-	..()
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
 
-//This needs to be fixed
+/mob/living/carbon/alien/larva/get_caste_organs()
+	. = ..()
+	. += /obj/item/organ/internal/alien/plasmavessel/larva
+
+
 /mob/living/carbon/alien/larva/Stat()
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/adjustPlasma(amount)
+/mob/living/carbon/alien/larva/add_plasma(amount)
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
@@ -39,30 +43,24 @@
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()
 
-	var/b_loss = null
-	var/f_loss = null
+	var/brute_loss = null
+	var/fire_loss = null
 	switch(severity)
 		if(1.0)
 			gib()
 			return
-
 		if(2.0)
-
-			b_loss += 60
-
-			f_loss += 60
-
+			brute_loss += 60
+			fire_loss += 60
 			AdjustEarDamage(30, 120)
-
 		if(3.0)
-			b_loss += 30
+			brute_loss += 30
 			if(prob(50))
-				Paralyse(1)
+				Paralyse(2 SECONDS)
 			AdjustEarDamage(15, 60)
 
-	adjustBruteLoss(b_loss)
-	adjustFireLoss(f_loss)
-
+	adjustBruteLoss(brute_loss)
+	adjustFireLoss(fire_loss)
 	updatehealth()
 
 //can't equip anything
@@ -70,7 +68,7 @@
 	return
 
 /mob/living/carbon/alien/larva/restrained()
-	return 0
+	return FALSE
 
 /mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
 
@@ -84,11 +82,3 @@
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
-/* Commented out because it's duplicated in life.dm
-/mob/living/carbon/alien/larva/proc/grow() // Larvae can grow into full fledged Xenos if they survive long enough -- TLE
-	if(icon_state == "larva_l" && !canmove) // This is a shit death check. It is made of shit and death. Fix later.
-		return
-	else
-		var/mob/living/carbon/alien/humanoid/A = new(loc)
-		A.key = key
-		qdel(src) */

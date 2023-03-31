@@ -1,3 +1,4 @@
+#define INVISIBILITY_MINIMUM 0 //not really minimum, but we will lie
 #define SEE_INVISIBLE_MINIMUM 5
 
 #define SEE_INVISIBLE_OBSERVER_NOLIGHTING 15
@@ -5,6 +6,10 @@
 #define INVISIBILITY_LIGHTING 20
 
 #define SEE_INVISIBLE_LIVING 25
+
+// Hidden cult runes
+#define INVISIBILITY_HIDDEN_RUNES  30
+#define SEE_INVISIBLE_HIDDEN_RUNES 30
 
 #define SEE_INVISIBLE_LEVEL_ONE 35	//Used by some stuff in code. It's really poorly organized.
 

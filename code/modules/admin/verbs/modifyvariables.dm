@@ -1,8 +1,18 @@
-GLOBAL_LIST_INIT(VVlocked, list("vars", "var_edited", "client", "firemut", "ishulk", "telekinesis", "xray", "ka", "virus", "viruses", "cuffed", "last_eaten", "unlock_content")) // R_DEBUG
+GLOBAL_LIST_INIT(VVlocked, list("client", "firemut", "ishulk", "telekinesis", "xray", "ka", "virus", "viruses", "cuffed", "last_eaten", "unlock_content")) // R_DEBUG
 GLOBAL_LIST_INIT(VVicon_edit_lock, list("icon", "icon_state", "overlays", "underlays", "resize")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVckey_edit, list("key", "ckey")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_height", "bound_width", "bound_x", "bound_y")) // R_DEBUG + warning
-/client/proc/vv_get_class(var/var_value)
+// Stuff that can break the server in weird ways and shouldnt be messed with unless you actually know what you are doing
+GLOBAL_LIST_INIT(VVmaint_only, list("vars", "var_edited", "contents"))
+
+// Protect ALL these
+GLOBAL_PROTECT(VVlocked)
+GLOBAL_PROTECT(VVicon_edit_lock)
+GLOBAL_PROTECT(VVckey_edit)
+GLOBAL_PROTECT(VVpixelmovement)
+GLOBAL_PROTECT(VVmaint_only)
+
+/client/proc/vv_get_class(var_value)
 	if(isnull(var_value))
 		. = VV_NULL
 
@@ -21,13 +31,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	else if(ismob(var_value))
 		. = VV_MOB_REFERENCE
 
-	else if(isloc(var_value))
+	else if(isatom(var_value))
 		. = VV_ATOM_REFERENCE
 
 	else if(istype(var_value, /matrix))
 		. = VV_MATRIX
 
-	else if(istype(var_value,/client))
+	else if(isclient(var_value))
 		. = VV_CLIENT
 
 	else if(istype(var_value, /datum))
@@ -139,7 +149,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, seperated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
+			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, separated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -268,7 +278,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 //FALSE = no subtypes, strict exact type pathing (or the type doesn't have subtypes)
 //TRUE = Yes subtypes
 //NULL = User cancelled at the prompt or invalid type given
-/client/proc/vv_subtype_prompt(var/type)
+/client/proc/vv_subtype_prompt(type)
 	if(!ispath(type))
 		return
 	var/list/subtypes = subtypesof(type)
@@ -355,7 +365,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			return
 	log_world("### ListVarEdit by [src]: [(O ? O.type : "/list")] [objectvar]: ADDED=[var_value]")
 	log_admin("[key_name(src)] modified [original_name]'s [objectvar]: ADDED=[var_value]")
-	message_admins("[key_name_admin(src)] modified [original_name]'s [objectvar]: ADDED=[var_value]")
+	message_admins("[key_name_admin(src)] modified [original_name]'s [objectvar]: ADDED=[html_encode("[var_value]")]")
 
 /client/proc/mod_list(list/L, atom/O, original_name, objectvar, index, autodetect_class = FALSE)
 	if(!check_rights(R_VAREDIT))
@@ -495,7 +505,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 					return
 			log_world("### ListVarEdit by [src]: [O.type] [objectvar]: REMOVED=[html_encode("[original_var]")]")
 			log_admin("[key_name(src)] modified [original_name]'s [objectvar]: REMOVED=[original_var]")
-			message_admins("[key_name_admin(src)] modified [original_name]'s [objectvar]: REMOVED=[original_var]")
+			message_admins("[key_name_admin(src)] modified [original_name]'s [objectvar]: REMOVED=[html_encode("[original_var]")]")
 			return
 
 		if(VV_TEXT)
@@ -514,7 +524,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			return
 	log_world("### ListVarEdit by [src]: [(O ? O.type : "/list")] [objectvar]: [original_var]=[new_var]")
 	log_admin("[key_name(src)] modified [original_name]'s [objectvar]: [original_var]=[new_var]")
-	message_admins("[key_name_admin(src)] modified [original_name]'s varlist [objectvar]: [original_var]=[new_var]")
+	message_admins("[key_name_admin(src)] modified [original_name]'s varlist [objectvar]: [original_var]=[html_encode("[new_var]")]")
 
 /proc/vv_varname_lockcheck(param_var_name)
 	if(param_var_name in GLOB.VVlocked)
@@ -532,6 +542,11 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		var/prompt = alert(usr, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")
 		if(prompt != "Continue")
 			return FALSE
+	if(param_var_name in GLOB.VVmaint_only)
+		if(!check_rights(R_MAINTAINER))
+			alert(usr, "Editing this variable is restricted to Maintainers only.", "Error", "Ok")
+			return FALSE
+
 	return TRUE
 
 /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
@@ -628,7 +643,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		to_chat(src, "Your edit was rejected by the object.")
 		return
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_VAR_EDIT, args)
-	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")]")
-	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new]")
-	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [var_new]"
+	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")] (Type: [class])")
+	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new] (Type: [class])")
+	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [html_encode("[var_new]")] (Type: [class])"
 	message_admins(msg)

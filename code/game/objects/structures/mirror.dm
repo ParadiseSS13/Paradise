@@ -4,14 +4,14 @@
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
 	var/list/ui_users = list()
 
-/obj/structure/mirror/New(turf/T, newdir = SOUTH, building = FALSE)
-	..()
+/obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
+	. = ..()
 	if(building)
 		switch(newdir)
 			if(NORTH)
@@ -22,16 +22,22 @@
 				pixel_x = -32
 			if(WEST)
 				pixel_x = 32
+	GLOB.mirrors += src
+
+/obj/structure/mirror/Destroy()
+	QDEL_LIST_ASSOC_VAL(ui_users)
+	GLOB.mirrors -= src
+	return ..()
 
 /obj/structure/mirror/attack_hand(mob/user)
 	if(broken)
 		return
 
 	if(ishuman(user))
-		var/datum/nano_module/appearance_changer/AC = ui_users[user]
+		var/datum/ui_module/appearance_changer/AC = ui_users[user]
 		if(!AC)
 			AC = new(src, user)
-			AC.name = "SalonPro Nano-Mirror&trade;"
+			AC.name = "SalonPro Nano-Mirror"
 			AC.flags = APPEARANCE_ALL_BODY
 			ui_users[user] = AC
 		AC.ui_interact(user)
@@ -44,6 +50,7 @@
 		if(desc == initial(desc))
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
+		GLOB.mirrors -= src
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -88,13 +95,16 @@
 /obj/structure/mirror/magic
 	name = "magic mirror"
 	icon_state = "magic_mirror"
+	var/options = list("Name", "Body", "Voice")
+	var/organ_warn = FALSE
+	var/actually_magical = TRUE
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
 	if(!ishuman(user) || broken)
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in options
 
 	switch(choice)
 		if("Name")
@@ -113,15 +123,13 @@
 				curse(user)
 
 		if("Body")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
-			if(config.usealienwhitelist)
-				for(var/Spec in GLOB.whitelisted_species)
-					if(is_alien_whitelisted(H, Spec))
-						race_list += Spec
-			else
-				race_list += GLOB.whitelisted_species
+			if(organ_warn)
+				to_chat(user, "<span class='boldwarning'>Using the mirror will destroy any non biochip implants in you!</span>")
+			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask")
+			if(actually_magical)
+				race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian", "Grey", "Drask", "Vox", "Plasmaman", "Kidan")
 
-			var/datum/nano_module/appearance_changer/AC = ui_users[user]
+			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
 				AC = new(src, user)
 				AC.name = "Magic Mirror"
@@ -147,15 +155,15 @@
 			if(voice_mutation)
 				if(H.dna.GetSEState(voice_mutation))
 					H.dna.SetSEState(voice_mutation, FALSE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+					singlemutcheck(H, voice_mutation, MUTCHK_FORCED)
 				else
 					H.dna.SetSEState(voice_mutation, TRUE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+					singlemutcheck(H, voice_mutation, MUTCHK_FORCED)
 
 			if(voice_choice)
 				curse(user)
 
-/obj/structure/mirror/magic/on_ui_close(mob/user)
+/obj/structure/mirror/magic/ui_close(mob/user)
 	curse(user)
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
@@ -163,3 +171,11 @@
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return
+
+/obj/structure/mirror/magic/nuclear
+	name = "M.A.G.I.C mirror"
+	desc = "The M.A.G.I.C mirror will let you change your species in a flash! Be careful, any implants (not biochips) in you will be destroyed on use."
+	options = list("Body")
+	organ_warn = TRUE
+	actually_magical = FALSE
+

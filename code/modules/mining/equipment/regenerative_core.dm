@@ -15,7 +15,7 @@
 		return ..()
 
 	C.preserved()
-	to_chat(user, "<span class='notice'>You inject the [M] with the stabilizer. It will no longer go inert.</span>")
+	to_chat(user, "<span class='notice'>You inject [M] with the stabilizer. It will no longer go inert.</span>")
 	qdel(src)
 
 /************************Hivelord core*******************/
@@ -32,7 +32,7 @@
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/inert_check), 2400)
+	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
 
 /obj/item/organ/internal/regenerative_core/proc/inert_check()
 	if(!preserved)
@@ -44,15 +44,15 @@
 	update_icon()
 	desc = "All that remains of a hivelord. It is preserved, allowing you to use it to heal completely without danger of decay."
 	if(implanted)
-		feedback_add_details("hivelord_core", "[type]|implanted")
+		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "implanted"))
 	else
-		feedback_add_details("hivelord_core", "[type]|stabilizer")
+		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "stabilizer"))
 
 /obj/item/organ/internal/regenerative_core/proc/go_inert()
 	inert = TRUE
 	name = "decayed regenerative core"
 	desc = "All that remains of a hivelord. It has decayed, and is completely useless."
-	feedback_add_details("hivelord_core", "[src.type]|inert")
+	SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "inert"))
 	update_icon()
 
 /obj/item/organ/internal/regenerative_core/ui_action_click()
@@ -80,10 +80,10 @@
 				return
 			if(H != user)
 				H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
-				feedback_add_details("hivelord_core","[src.type]|used|other")
+				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 			else
 				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?</span>")
-				feedback_add_details("hivelord_core","[src.type]|used|self")
+				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 			user.drop_item()
 			qdel(src)
@@ -120,11 +120,13 @@
 	. = ..()
 	update_icon()
 
-/obj/item/organ/internal/regenerative_core/legion/update_icon()
+/obj/item/organ/internal/regenerative_core/legion/update_icon_state()
 	icon_state = inert ? "legion_soul_inert" : "legion_soul"
-	cut_overlays()
+
+/obj/item/organ/internal/regenerative_core/legion/update_overlays()
+	. = ..()
 	if(!inert && !preserved)
-		add_overlay("legion_soul_crackle")
+		. += "legion_soul_crackle"
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

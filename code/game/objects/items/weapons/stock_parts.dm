@@ -8,38 +8,41 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_hold = list(/obj/item/stock_parts)
 	storage_slots = 50
-	use_to_pickup = 1
-	allow_quick_gather = 1
-	allow_quick_empty = 1
-	collection_mode = 1
-	display_contents_with_number = 1
+	use_to_pickup = TRUE
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
+	pickup_all_on_tile = TRUE
+	display_contents_with_number = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
-	var/works_from_distance = 0
+	var/works_from_distance = FALSE
 	var/primary_sound = 'sound/items/rped.ogg'
 	var/alt_sound = null
 	toolspeed = 1
 	usesound = 'sound/items/rped.ogg'
 
-/obj/item/storage/part_replacer/afterattack(obj/machinery/T as obj, mob/living/carbon/human/user as mob, flag, params)
-	if(flag)
-		return
-	else if(works_from_distance)
-		if(istype(T))
-			if(T.component_parts)
-				T.exchange_parts(user, src)
-				user.Beam(T,icon_state="rped_upgrade",icon='icons/effects/effects.dmi',time=5)
-	return
+/obj/item/storage/part_replacer/afterattack(obj/machinery/M, mob/user, flag, params)
+	if(!flag && works_from_distance && istype(M))
+		// Make sure its in range
+		if(get_dist(src, M) <= (user.client.view + 2))
+			if(M.component_parts)
+				M.exchange_parts(user, src)
+				user.Beam(M,icon_state="rped_upgrade", icon='icons/effects/effects.dmi', time=5)
+		else
+			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to upgrade machinery with a BRPED via a camera console. (Attempted range exploit)")
+			playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
+			to_chat(user, "<span class='notice'>ERROR: [M] is out of [src]'s range!</span>")
 
 /obj/item/storage/part_replacer/bluespace
 	name = "bluespace rapid part exchange device"
 	desc = "A version of the RPED that allows for replacement of parts and scanning from a distance, along with higher capacity for parts."
 	icon_state = "BS_RPED"
+	item_state = "BS_RPED"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 400
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 800
-	works_from_distance = 1
+	works_from_distance = TRUE
 	primary_sound = 'sound/items/pshoom.ogg'
 	alt_sound = 'sound/items/pshoom_2.ogg'
 	usesound = 'sound/items/pshoom.ogg'
@@ -54,7 +57,7 @@
 
 //Sorts stock parts inside an RPED by their rating.
 //Only use /obj/item/stock_parts/ with this sort proc!
-/proc/cmp_rped_sort(var/obj/item/stock_parts/A, var/obj/item/stock_parts/B)
+/proc/cmp_rped_sort(obj/item/stock_parts/A, obj/item/stock_parts/B)
 	return B.rating - A.rating
 
 /obj/item/stock_parts
@@ -104,7 +107,7 @@
 
 /obj/item/stock_parts/matter_bin
 	name = "matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
+	desc = "A container used to hold compressed matter awaiting re-construction."
 	icon_state = "matter_bin"
 	origin_tech = "materials=1"
 	materials = list(MAT_METAL=80)
@@ -145,7 +148,7 @@
 
 /obj/item/stock_parts/matter_bin/adv
 	name = "advanced matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
+	desc = "A container used to hold compressed matter awaiting re-construction."
 	icon_state = "advanced_matter_bin"
 	origin_tech = "materials=3"
 	rating = 2
@@ -187,7 +190,7 @@
 
 /obj/item/stock_parts/matter_bin/super
 	name = "super matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
+	desc = "A container used to hold compressed matter awaiting re-construction."
 	icon_state = "super_matter_bin"
 	origin_tech = "materials=4;engineering=4"
 	rating = 3
@@ -229,7 +232,7 @@
 
 /obj/item/stock_parts/matter_bin/bluespace
 	name = "bluespace matter bin"
-	desc = "A container for hold compressed matter awaiting re-construction."
+	desc = "A container used to hold compressed matter awaiting re-construction."
 	icon_state = "bluespace_matter_bin"
 	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4

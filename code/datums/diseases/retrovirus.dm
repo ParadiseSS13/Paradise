@@ -26,11 +26,12 @@
 
 
 /datum/disease/dna_retrovirus/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(restcure)
-				if(affected_mob.lying && prob(30))
+				if(IS_HORIZONTAL(affected_mob) && prob(30))
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 					cure()
 					return
@@ -42,7 +43,7 @@
 				to_chat(affected_mob, "<span class='danger'>You feel angry.</span>")
 		if(2)
 			if(restcure)
-				if(affected_mob.lying && prob(20))
+				if(IS_HORIZONTAL(affected_mob) && prob(20))
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 					cure()
 					return
@@ -52,12 +53,12 @@
 				to_chat(affected_mob, "You feel very strange.")
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>You feel a stabbing pain in your head!</span>")
-				affected_mob.Paralyse(2)
+				affected_mob.Paralyse(4 SECONDS)
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>Your stomach churns.</span>")
 		if(3)
 			if(restcure)
-				if(affected_mob.lying && prob(20))
+				if(IS_HORIZONTAL(affected_mob) && prob(20))
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 					cure()
 					return
@@ -72,7 +73,7 @@
 
 		if(4)
 			if(restcure)
-				if(affected_mob.lying && prob(5))
+				if(IS_HORIZONTAL(affected_mob) && prob(5))
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 					cure()
 					return

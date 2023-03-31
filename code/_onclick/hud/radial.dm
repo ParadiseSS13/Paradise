@@ -10,6 +10,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	plane = ABOVE_HUD_PLANE
 	var/datum/radial_menu/parent
 
+/obj/screen/radial/Destroy()
+	parent = null
+	return ..()
+
 /obj/screen/radial/slice
 	icon_state = "radial_slice"
 	var/choice
@@ -256,8 +260,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	if(current_user)
 		current_user.images -= menu_holder
 
-/datum/radial_menu/proc/wait()
-	while (current_user && !finished && !selected_choice)
+/datum/radial_menu/proc/wait(mob/user, atom/anchor, require_near = FALSE)
+	while(current_user && !finished && !selected_choice)
+		if(require_near && !user.Adjacent(anchor))
+			return
 		if(custom_check_callback && next_check < world.time)
 			if(!custom_check_callback.Invoke())
 				return
@@ -268,6 +274,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/Destroy()
 	Reset()
 	hide()
+	QDEL_LIST_CONTENTS(elements)
+	QDEL_NULL(close_button)
+	anchor = null
 	. = ..()
 
 /*
@@ -275,7 +284,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	Choices should be a list where list keys are movables or text used for element names and return value
 	and list values are movables/icons/images used for element icons
 */
-/proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check)
+/proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE)
 	if(!user || !anchor || !length(choices))
 		return
 	if(!uniqueid)
@@ -294,7 +303,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	menu.check_screen_border(user) //Do what's needed to make it look good near borders or on hud
 	menu.set_choices(choices)
 	menu.show_to(user)
-	menu.wait()
+	menu.wait(user, anchor, require_near)
 	var/answer = menu.selected_choice
 	qdel(menu)
 	GLOB.radial_menus -= uniqueid

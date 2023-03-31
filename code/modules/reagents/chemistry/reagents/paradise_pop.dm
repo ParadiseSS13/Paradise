@@ -29,7 +29,7 @@
 /datum/reagent/consumable/drink/apple_pocalypse/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
-		goonchem_vortex(T, 1, 0)
+		goonchem_vortex(T, TRUE, 0, TRUE) // Ignore the 0 volume
 		to_chat(M, "<span class='notice'>You briefly feel super-massive, like a black hole. Probably just your imagination...</span>")
 	return ..()
 
@@ -80,7 +80,7 @@
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_death(mob/living/M)
-	M << sound('sound/effects/adminhelp.ogg',0,1,0,25)
+	SEND_SOUND(M, sound('sound/effects/adminhelp.ogg', 0, 1, 0, 25))
 	to_chat(M, "<span class='adminhelp'>PM from-<b>Administrator</b>: BWOINK!</span>")
 	..()
 
@@ -99,6 +99,7 @@
 									"SECRET TECHNIQUE: TOOLBOX TO THE FACE!",
 									"SECRET TECHNIQUE: PLASMA CANISTER FIRE!",
 									"SECRET TECHNIQUE: TABLE AND DISPOSAL!",
+									// Borers got removed but the below reference stays because its hilarious
 									"[pick("MY BROTHER", " MY DOG", "MY BEST FRIEND", "THE BORER", "GEORGE MELONS", "BADMINS")] DID IT!",
 									";s WHATS SPACE LAW?!",
 									"I BOUGHT THESE GLOVES, NOT STEAL THEM",
@@ -119,7 +120,7 @@
 /datum/reagent/consumable/drink/grape_granade/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
-		goonchem_vortex(T, 0, 0)
+		goonchem_vortex(T, FALSE, 30) //Capped at 30 to prevent sorium abuse
 		M.emote("burp")
 		to_chat(M, "<span class='notice'>You feel ready to burst! Oh wait, just a burp...</span>")
 	else if(prob(25))

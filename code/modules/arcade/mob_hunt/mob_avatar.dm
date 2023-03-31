@@ -1,27 +1,38 @@
-
 /obj/effect/nanomob
 	name = "Nano-Mob Avatar"					//will be overridden by the mob datum name value when created
 	desc = "A wild Nano-Mob appeared! Hit it with your PDA with the game open to attempt to capture it!"
 	invisibility = 101
 	alpha = 128
-	anchored = 1								//just in case
-	density = 0
+	anchored = TRUE								//just in case
+	density = FALSE
 	icon = 'icons/effects/mob_hunt.dmi'
 	var/state_name
 	var/datum/mob_hunt/mob_info = null
 	var/list/clients_encountered = list()		//tracks who has already interacted with us, so they can't attempt a second capture
 	var/image/avatar
 
-/obj/effect/nanomob/New(loc, datum/mob_hunt/new_info)
-	..()
+/obj/effect/nanomob/Initialize(mapload, datum/mob_hunt/new_info)
+	. = ..()
 	if(!new_info)
-		qdel(src)
-		return
+		return INITIALIZE_HINT_QDEL
 	mob_info = new_info
+	RegisterSignal(mob_info, COMSIG_PARENT_QDELETING, PROC_REF(delete_wrapper))
 	update_self()
 	forceMove(mob_info.spawn_point)
 	if(!mob_info.is_trap)
-		addtimer(CALLBACK(src, .proc/despawn), mob_info.lifetime)
+		addtimer(CALLBACK(src, PROC_REF(despawn)), mob_info.lifetime)
+
+/obj/effect/nanomob/Destroy()
+	SSmob_hunt.trap_spawns -= src
+	SSmob_hunt.normal_spawns -= src
+	mob_info = null // Can't delete this since multiple players can get the exact same /datum/mob_hunt. (This should be refactored)
+	clients_encountered.Cut()
+	QDEL_NULL(avatar)
+	return ..()
+
+/obj/effect/nanomob/proc/delete_wrapper()
+	SIGNAL_HANDLER
+	qdel(src)
 
 /obj/effect/nanomob/proc/update_self()
 	if(!mob_info)
@@ -131,11 +142,6 @@
 	invisibility = 0
 	icon_state = "placeholder"
 	var/obj/machinery/computer/mob_battle_terminal/my_terminal
-
-/obj/effect/nanomob/battle/New(loc, datum/mob_hunt/new_info)
-	if(new_info)
-		mob_info = new_info
-		update_self()
 
 /obj/effect/nanomob/battle/update_self()
 	if(!mob_info)

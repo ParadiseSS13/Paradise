@@ -46,7 +46,7 @@
 	name = harvested_name
 	desc = harvested_desc
 	harvested = TRUE
-	addtimer(CALLBACK(src, .proc/regrow), rand(regrowth_time_low, regrowth_time_high))
+	addtimer(CALLBACK(src, PROC_REF(regrow)), rand(regrowth_time_low, regrowth_time_high))
 	return 1
 
 /obj/structure/flora/ash/proc/regrow()
@@ -267,7 +267,7 @@
 //what you can craft with these things
 /datum/crafting_recipe/mushroom_bowl
 	name = "Mushroom Bowl"
-	result = /obj/item/reagent_containers/food/drinks/mushroom_bowl
+	result = list(/obj/item/reagent_containers/food/drinks/mushroom_bowl)
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings = 5)
 	time = 30
 	category = CAT_PRIMAL

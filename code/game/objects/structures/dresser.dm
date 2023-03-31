@@ -3,8 +3,8 @@
 	desc = "A nicely-crafted wooden dresser. It's filled with lots of undies."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "dresser"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 /obj/structure/dresser/attack_hand(mob/user as mob)
 	if(!Adjacent(user))//no tele-grooming
@@ -67,7 +67,7 @@
 	. = TRUE
 	default_unfasten_wrench(user, I, time = 20)
 
-obj/structure/dresser/deconstruct(disassembled = FALSE)
+/obj/structure/dresser/deconstruct(disassembled = FALSE)
 	var/mat_drop = 15
 	if(disassembled)
 		mat_drop = 30

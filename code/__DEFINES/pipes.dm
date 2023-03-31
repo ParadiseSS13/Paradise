@@ -21,8 +21,6 @@
 #define PIPE_TVALVE					18
 #define PIPE_MANIFOLD4W				19
 #define PIPE_CAP					20
-#define PIPE_OMNI_MIXER				21
-#define PIPE_OMNI_FILTER			22
 #define PIPE_UNIVERSAL				23
 #define PIPE_SUPPLY_STRAIGHT		24
 #define PIPE_SUPPLY_BENT			25
@@ -74,3 +72,9 @@
 
 #define PIPETYPE_ATMOS		1
 #define PIPETYPE_DISPOSAL	2
+
+// Connection types
+
+#define CONNECT_TYPE_NORMAL 1
+#define CONNECT_TYPE_SUPPLY 2
+#define CONNECT_TYPE_SCRUBBER 3

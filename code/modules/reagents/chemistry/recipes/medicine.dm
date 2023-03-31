@@ -188,10 +188,10 @@
 	mix_message = "Tiny white crystals precipitate out of the solution."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/strange_reagent
-	name = "Strange Reagent"
-	id = "strange_reagent"
-	result = "strange_reagent"
+/datum/chemical_reaction/lazarus_reagent
+	name = "Lazarus Reagent"
+	id = "lazarus_reagent"
+	result = "lazarus_reagent"
 	required_reagents = list("omnizine" = 1, "holywater" = 1, "mutagen" = 1)
 	result_amount = 3
 	mix_message = "The substance begins moving on its own somehow."
@@ -200,7 +200,7 @@
 	name = "Life"
 	id = "life"
 	result = null
-	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "blood" = 1)
+	required_reagents = list("lazarus_reagent" = 1, "synthflesh" = 1, "blood" = 1)
 	result_amount = 1
 	min_temp = T0C + 100
 
@@ -210,7 +210,7 @@
 /datum/chemical_reaction/life/friendly
 	name = "Life (Friendly)"
 	id = "life_friendly"
-	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "sugar" = 1)
+	required_reagents = list("lazarus_reagent" = 1, "synthflesh" = 1, "sugar" = 1)
 
 /datum/chemical_reaction/life/friendly/on_reaction(datum/reagents/holder, created_volume)
 	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (friendly)", FRIENDLY_SPAWN)
@@ -280,3 +280,13 @@
 	result_amount = 3
 	min_temp = T0C + 100
 	mix_message = "The solution gently swirls with a metallic sheen."
+
+/datum/chemical_reaction/menthol
+	name = "Menthol"
+	id = "menthol"
+	result = "menthol"
+	required_reagents = list("mint" = 1, "ethanol" = 1)
+	result_amount = 1
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	min_temp = T0C + 50
+	mix_message = "Large white crystals precipitate out of the mixture."

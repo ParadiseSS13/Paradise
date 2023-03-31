@@ -46,9 +46,17 @@
 	for(var/mob/living/carbon/C in range(T, 1))
 		if(C.can_breathe_gas())
 			C.emote("gasp")
-			C.AdjustLoseBreath(1)
+			C.AdjustLoseBreath(2 SECONDS)
 			C.reagents.add_reagent("toxin", 10)
 			C.reagents.add_reagent("neurotoxin2", 20)
+
+/datum/chemical_reaction/pump_up
+	name = "pump up"
+	id = "pump_up"
+	result = "pump_up"
+	required_reagents = list("epinephrine" = 1, "coffee" = 2, "nicotine" = 1)
+	result_amount = 4
+	mix_message = "The mixture congeals into a black paste"
 
 /datum/chemical_reaction/bath_salts
 	name = "bath_salts"

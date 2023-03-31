@@ -1,95 +1,25 @@
-#define WHITELISTFILE "data/whitelist.txt"
-
-GLOBAL_LIST_EMPTY(whitelist)
-
-/proc/init_whitelists()
-	if(config.usewhitelist)
-		load_whitelist()
-	if(config.usealienwhitelist)
-		load_alienwhitelist()
-
-/proc/load_whitelist()
-	GLOB.whitelist = file2list(WHITELISTFILE)
-	if(!GLOB.whitelist.len)	GLOB.whitelist = null
-/*
-/proc/check_whitelist(mob/M, var/rank)
-	if(!whitelist)
-		return 0
-	return ("[M.ckey]" in whitelist)
-*/
-
-/proc/is_job_whitelisted(mob/M, var/rank)
-	if(guest_jobbans(rank))
-		if(!config.usewhitelist)
-			return 1
-		if(config.disable_karma)
-			return 1
-		if(check_rights(R_ADMIN, 0, M))
-			return 1
-		if(!GLOB.dbcon.IsConnected())
-			to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
-			return 0
-		else
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT job FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
-			query.Execute()
-
-
-			while(query.NextRow())
-				var/joblist = query.item[1]
-				if(joblist!="*")
-					var/allowed_jobs = splittext(joblist,",")
-					if(rank in allowed_jobs) return 1
-				else return 1
-			return 0
-	else
-		return 1
-
-
-
-
-GLOBAL_LIST_EMPTY(alien_whitelist)
-
-/proc/load_alienwhitelist()
-	var/text = file2text("config/alienwhitelist.txt")
-	if(!text)
-		log_config("Failed to load config/alienwhitelist.txt\n")
-	else
-		GLOB.alien_whitelist = splittext(text, "\n")
-
-//todo: admin aliens
-/proc/is_alien_whitelisted(mob/M, var/species)
-	if(!config.usealienwhitelist)
-		return 1
-	if(config.disable_karma)
-		return 1
+// This needs moving somewhere more sensible
+// Code reviewers I choose you to help me
+// If this PR gets merged with this comment in you're all fired
+// -aa07
+/proc/can_use_species(mob/M, species)
+	// Always if human
 	if(species == "human" || species == "Human")
-		return 1
-	if(check_rights(R_ADMIN, 0))
-		return 1
-	if(!GLOB.alien_whitelist)
-		return 0
-	if(!GLOB.dbcon.IsConnected())
-		to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
-		return 0
-	else
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT species FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
-		query.Execute()
+		return TRUE
 
-		while(query.NextRow())
-			var/specieslist = query.item[1]
-			if(specieslist!="*")
-				var/allowed_species = splittext(specieslist,",")
-				if(species in allowed_species) return 1
-			else return 1
-		return 0
-/*
-	if(M && species)
-		for(var/s in alien_whitelist)
-			if(findtext(s,"[M.ckey] - [species]"))
-				return 1
-			if(findtext(s,"[M.ckey] - All"))
-				return 1
-*/
+	var/datum/species/S = GLOB.all_species[species]
+	// Part of me feels like the below checks could be merged but ehh
 
+	// No if species is not selectable
+	if(NOT_SELECTABLE in S.species_traits)
+		return FALSE
 
-#undef WHITELISTFILE
+	// Yes if admin
+	if(check_rights(R_ADMIN, FALSE))
+		return TRUE
+
+	// No if species is blacklisted
+	if(S.blacklisted)
+		return FALSE
+
+	return TRUE
