@@ -29,7 +29,7 @@ RSF
 			list("Dice Pack", 50, /obj/item/storage/pill_bottle/dice),
 			list("Cigarette", 50, /obj/item/clothing/mask/cigarette/menthol),
 			list("Deck of cards", 50, /obj/item/deck/cards),
-			list("Prize ticket", 500, /obj/item/stack/tickets/five)
+			list("Prize ticket", 250, /obj/item/stack/tickets/five)
 		)
 		update_desc()
 
