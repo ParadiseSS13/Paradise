@@ -120,7 +120,7 @@
 		food += teleatom
 	if(food.len)
 		for(var/obj/item/reagent_containers/food/fooditem in food)
-			if(fooditem.bread == TRUE)
+			if(fooditem.bread)
 				if(prob(10))
 					new /mob/living/simple_animal/hostile/mimic/copy/bread(get_turf(fooditem), fooditem, null, 1)
 					if(isliving(teleatom))
