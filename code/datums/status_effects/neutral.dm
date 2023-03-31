@@ -246,7 +246,6 @@
 
 /datum/status_effect/revolver_spinning/tick()
 	. = ..()
-	var/mob/living/carbon/human/H = owner
 	if(!can_spin())
 		qdel(src)
 
