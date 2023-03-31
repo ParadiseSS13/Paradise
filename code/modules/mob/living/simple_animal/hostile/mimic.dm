@@ -292,7 +292,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 /mob/living/simple_animal/hostile/mimic/copy/bread
 	var/image/tumors = null
 
-/mob/living/simple_animal/hostile/mimic/copy/bread/CopyObject(obj/O, mob/living/user, destroy_original, var_has_googly_eyes = FALSE)
+/mob/living/simple_animal/hostile/mimic/copy/bread/CopyObject(obj/O, mob/living/user, destroy_original, has_googly_eyes = FALSE)
 	. = ..()
 	tumors = image('icons/mob/mob.dmi',"tumor_overlay_grown")
 	overlays += tumors
