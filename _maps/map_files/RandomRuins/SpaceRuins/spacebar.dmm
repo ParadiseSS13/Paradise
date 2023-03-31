@@ -9,24 +9,21 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "ad" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "ae" = (
 /turf/simulated/wall,
 /area/ruin/unpowered)
 "af" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ag" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "ah" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "ai" = (
@@ -177,13 +174,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "aQ" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "aR" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/wall,
 /area/ruin/space/powered/bar)
 "aS" = (

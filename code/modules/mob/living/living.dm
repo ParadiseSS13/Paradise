@@ -1089,7 +1089,6 @@
 /mob/living/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
-	SSticker.mode.transit_z(src)
 
 /mob/living/rad_act(amount)
 	. = ..()
