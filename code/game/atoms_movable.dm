@@ -447,6 +447,8 @@
 	if(pulledby)
 		pulledby.stop_pulling()
 
+	if(throwing)
+		throwing.finalize()
 	throwing = TT
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
