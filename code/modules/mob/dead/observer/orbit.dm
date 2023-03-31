@@ -138,6 +138,10 @@
 					var/list/antag_serialized = serialized.Copy()
 					antag_serialized["antag"] = "Demon"
 					antagonists += list(antag_serialized)
+				else if(HAS_TRAIT(M, TRAIT_HAS_MONKEY_VIRUS))
+					var/list/antag_serialized = serialized.Copy()
+					antag_serialized["antag"] = "Infected Monkey"
+					antagonists += list(antag_serialized)
 		else
 			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.
 				highlights += list(serialized)

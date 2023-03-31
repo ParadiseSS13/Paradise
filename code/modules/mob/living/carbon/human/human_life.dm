@@ -919,6 +919,14 @@
 	AdjustLoseBreath(40 SECONDS, bound_lower = 0, bound_upper = 50 SECONDS)
 	adjustOxyLoss(20)
 
+/mob/living/carbon/human/proc/infect_with_monkey_virus(mob/user)
+	var/datum/disease/transformation/monkey/monkey_disease = new /datum/disease/transformation/monkey
+	if(!HasDisease(monkey_disease))
+		ForceContractDisease(monkey_disease)
+	else
+		if(user.a_intent == INTENT_HARM)
+			for(monkey_disease in viruses)
+				monkey_disease.stage++
 
 
 // Need this in species.

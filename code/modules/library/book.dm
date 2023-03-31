@@ -76,6 +76,14 @@
 	if(user.a_intent == INTENT_HELP)
 		force = 0
 		attack_verb = list("educated")
+		if(HAS_TRAIT(M, TRAIT_HAS_MONKEY_VIRUS))
+			M.visible_message("<span class='notice'>[user] is trying to educate [M] on proper etiquette!</span>", "<span class='notice'>[user] is attempting to deconvert you from your monkey lifestyle!</span>")
+			if(!do_after_once(user, 7 SECONDS, target = M, attempt_cancel_message = "You give up hope of [M] ever becoming a proper crewmate."))
+				return
+			REMOVE_TRAIT(M, TRAIT_HAS_MONKEY_VIRUS, "Monkey virus")
+			to_chat(M, "<span class='danger'>You're no longer a silly little infected monkey, Rather a smart and inteligent crewmate!</span>")
+			M.visible_message("<span class='danger'>Looks like [M] is done monkeying around!</span>", "<span class='userdanger'>You have been deconverted, you are no longer an antagonist!</span>")
+			return
 	else
 		force = initial(force)
 		attack_verb = list("bashed", "whacked")
