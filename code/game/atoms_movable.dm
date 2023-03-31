@@ -379,7 +379,7 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE, do_hit_check = TRUE)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
@@ -420,6 +420,7 @@
 	TT.diagonals_first = diagonals_first
 	TT.callback = callback
 	TT.dodgeable = dodgeable
+	TT.do_hit_check = do_hit_check
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)
@@ -446,6 +447,8 @@
 	if(pulledby)
 		pulledby.stop_pulling()
 
+	if(throwing)
+		throwing.finalize()
 	throwing = TT
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
