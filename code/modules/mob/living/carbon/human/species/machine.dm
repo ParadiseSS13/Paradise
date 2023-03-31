@@ -53,7 +53,7 @@
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
 		"eyes" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
+		"charger" = /obj/item/organ/internal/cyberimp/arm/v1_arm
 		)
 	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(
