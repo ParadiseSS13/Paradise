@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		return 1
 	return 0
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = 0, var/has_googly_eyes = TRUE)
 	if(destroy_original || CheckObject(O))
 		O.loc = src
 		name = O.name
@@ -160,8 +160,9 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		icon_state = O.icon_state
 		icon_living = icon_state
 		overlays = O.overlays
-		googly_eyes = image('icons/mob/mob.dmi',"googly_eyes")
-		overlays += googly_eyes
+		if(googly_eyes)
+			googly_eyes = image('icons/mob/mob.dmi',"googly_eyes")
+			overlays += googly_eyes
 		if(isstructure(O) || ismachinery(O))
 			health = (anchored * 50) + 50
 			destroy_objects = 1
@@ -287,3 +288,12 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		return
 	icon_state = TrueGun.icon_state
 	icon_living = TrueGun.icon_state
+
+/mob/living/simple_animal/hostile/mimic/copy/bread
+	var/image/tumors = null
+
+/mob/living/simple_animal/hostile/mimic/copy/bread/CopyObject(obj/O, mob/living/user, destroy_original, var_has_googly_eyes = FALSE)
+	. = ..()
+	tumors = image('icons/mob/mob.dmi',"tumor_overlay_grown")
+	overlays += tumors
+	
