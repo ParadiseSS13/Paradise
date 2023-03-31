@@ -19,7 +19,7 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/squish_chance = 50
-	var/isdancer = FALSE
+	var/isdancer = TRUE
 	var/ispreforming = FALSE
 	loot = list(/obj/effect/decal/cleanable/insectguts)
 	del_on_death = TRUE
