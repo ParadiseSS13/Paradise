@@ -19,6 +19,8 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/squish_chance = 50
+	var/isdancer = FALSE
+	var/ispreforming = FALSE
 	loot = list(/obj/effect/decal/cleanable/insectguts)
 	del_on_death = TRUE
 
@@ -30,18 +32,81 @@
 	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug")
 
 /mob/living/simple_animal/cockroach/Crossed(atom/movable/AM, oldloc)
-	if(isliving(AM))
-		var/mob/living/A = AM
-		if(A.mob_size > MOB_SIZE_SMALL)
-			if(prob(squish_chance))
-				A.visible_message("<span class='notice'>\The [A] squashed \the [name].</span>", "<span class='notice'>You squashed \the [name].</span>")
-				death()
-			else
-				visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
-	else if(isstructure(AM))
-		visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
-		death()
+	if(!ispreforming)
+		if(isliving(AM))
+			var/mob/living/A = AM
+			if(A.mob_size > MOB_SIZE_SMALL)
+				if(prob(squish_chance))
+					A.visible_message("<span class='notice'>\The [A] squashed \the [name].</span>", "<span class='notice'>You squashed \the [name].</span>")
+					death()
+				else
+					visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
+		else if(isstructure(AM))
+			visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
+			death()
 
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return
+
+/mob/living/simple_animal/cockroach/handle_automated_movement()
+	if(!ispreforming)
+		..()
+	return
+
+/mob/living/simple_animal/cockroach/Initialize()
+	..()
+	if(prob(1))
+		isdancer = TRUE
+
+/mob/living/simple_animal/cockroach/Destroy()
+	for(var/i in src.active_timers)
+		deltimer(i)
+	..()
+
+/mob/living/simple_animal/cockroach/attack_hand(mob/living/carbon/human/M)
+	..()
+	if(prob(10))
+		if(M.a_intent == INTENT_HELP && isdancer)
+			startpreformance()
+	if(M.a_intent == INTENT_HARM && ispreforming)
+		M.gib()
+		to_chat(M,"<span class='danger'>No.</span>")
+
+/mob/living/simple_animal/cockroach/attackby(obj/item/W, mob/living/user)
+	..()
+	if(prob(10))
+		if(user.a_intent == INTENT_HELP && isdancer)
+			startpreformance()
+	else if(user.a_intent == INTENT_HARM && ispreforming)
+		to_chat(user,"<span class='danger'>You have been punished for your crime.</span>")
+		user.gib()
+
+/mob/living/simple_animal/cockroach/proc/startpreformance()
+	if(!ispreforming)
+		ispreforming = TRUE
+		name = "dancing cockroach"
+		icon_state = "cockroach_dance"
+
+		for(var/mob/living/Mi in range(12, src))
+			if(get_dist(Mi, src) <= 6)
+				to_chat(Mi,"<span class='warning'>You are struck dumb.</span>")
+				observepreformance(Mi)
+				Mi.Stun(18)
+			else
+				to_chat(Mi,"<span class='notice'><span class='italics'>What the fuck is that?</span></span>")
+		playsound(src, 'sound/hallucinations/dancing_roach_autotune.ogg', 200)
+		addtimer(CALLBACK(src, PROC_REF(endpreformance)), 34 SECONDS, TIMER_STOPPABLE)
+
+/mob/living/simple_animal/cockroach/proc/observepreformance(mob/living/Mu)
+	if(!Mu)
+		return
+	if(ispreforming && !istype(Mu, /mob/living/simple_animal/cockroach))
+		var/outputmessage = pick("<span class='notice'>[Mu] drools.</span>", "<span class='notice'>[Mu] stares dumbly at [src].</span>", "<span class='notice'>[Mu] blinks slowly.</span>")
+		Mu.visible_message("[outputmessage]")
+		Mu.reagents.add_reagent("krokodil", 1)
+		addtimer(CALLBACK(src, PROC_REF(observepreformance), Mu), rand(5,15) SECONDS, TIMER_STOPPABLE)
+
+/mob/living/simple_animal/cockroach/proc/endpreformance()
+	ispreforming = FALSE
+	icon_state = "cockroach"
 
