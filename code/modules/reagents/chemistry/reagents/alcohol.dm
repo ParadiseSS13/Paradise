@@ -1175,6 +1175,9 @@
 		M.reagents.del_reagent("milk")
 		M.reagents.del_reagent("dragonsbreath")
 		return
+	if(iswizard(M))
+		M.reagents.del_reagent("dragonsbreath") //As funny as it is, let's not have new wizards dust themselfs.
+		return
 	if(prob(8))
 		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")
 	if(prob(50))

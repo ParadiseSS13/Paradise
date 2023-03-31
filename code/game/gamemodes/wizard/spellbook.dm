@@ -451,6 +451,15 @@
 	log_name = "WA"
 	category = "Artefacts"
 
+/datum/spellbook_entry/item/magic_nanny_bag
+	name = "Magic Nanny Bag"
+	desc = "A magical bottomless bag that comes filled with many random goodies, and sticks well in your hand. Will have a melee weapon, a staff, a wand, an artifact, and a special food treat! Can't fit on your back."
+	item_path = /obj/item/storage/backpack/duffel/magic_nanny_bag
+	cost = 4
+	spawn_on_floor = TRUE // it isn't happy if it has to remake itself in hand
+	log_name = "MNB"
+	category = "Artefacts"
+
 /datum/spellbook_entry/item/cursed_heart
 	name = "Cursed Heart"
 	desc = "A heart that has been empowered with magic to heal the user. The user must ensure the heart is manually beaten or their blood circulation will suffer, but every beat heals their injuries. It must beat every 6 seconds. Not reccomended for first time wizards."
