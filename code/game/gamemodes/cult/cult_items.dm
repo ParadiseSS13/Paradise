@@ -481,11 +481,11 @@
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
 			// var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
-			var/threshold // Depends on the damage Type (Brute or Burn)
+			// var/threshold // Depends on the damage Type (Brute or Burn)
 			if(P.damage_type == BRUTE)
-				threshold = ballistic_threshold
+				// threshold = ballistic_threshold
 			else if(P.damage_type == BURN)
-				threshold = energy_threshold
+				// threshold = energy_threshold
 			else
 				return FALSE
 			// Assuming the projectile damage is 20 (WT-550), 'shatter_chance' will be 10
