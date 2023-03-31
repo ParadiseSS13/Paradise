@@ -72,3 +72,7 @@
 
 	if(hit_something)
 		user.playsound_local(user, "swing_hit", 50)
+
+#undef NORMAL_GHOST_CHARGE_POWER
+#undef ADMIN_GHOST_CHARGE_POWER
+#undef MAINT_GHOST_CHARGE_POWER
