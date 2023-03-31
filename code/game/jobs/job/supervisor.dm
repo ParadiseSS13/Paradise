@@ -30,7 +30,7 @@
 	name = "Captain"
 	jobtype = /datum/job/captain
 	uniform = /obj/item/clothing/under/rank/captain
-	suit = /obj/item/clothing/suit/armor/vest/capcarapace
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/caphat
 	l_ear = /obj/item/radio/headset/heads/captain/alt
@@ -89,6 +89,7 @@
 	name = "Head of Personnel"
 	jobtype = /datum/job/hop
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hopcap
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -137,7 +138,7 @@
 	name = "Nanotrasen Representative"
 	jobtype = /datum/job/nanotrasenrep
 	uniform = /obj/item/clothing/under/rank/centcom/representative
-	suit = /obj/item/clothing/suit/storage/ntrep
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/centcom
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
 	l_ear = /obj/item/radio/headset/heads/ntrep
@@ -180,7 +181,7 @@
 	name = "Blueshield"
 	jobtype = /datum/job/blueshield
 	uniform = /obj/item/clothing/under/rank/centcom/blueshield
-	suit = /obj/item/clothing/suit/armor/vest/blueshield
+	suit = /obj/item/clothing/suit/drip
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/heads/blueshield/alt
@@ -225,7 +226,7 @@
 	name = "Magistrate"
 	jobtype = /datum/job/judge
 	uniform = /obj/item/clothing/under/rank/centcom/magistrate
-	suit = /obj/item/clothing/suit/magirobe
+	suit = /obj/item/clothing/suit/drip
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	l_ear = /obj/item/radio/headset/heads/magistrate/alt
@@ -266,7 +267,7 @@
 	name = "Internal Affairs Agent"
 	jobtype = /datum/job/lawyer
 	uniform = /obj/item/clothing/under/rank/civilian/internalaffairs
-	suit = /obj/item/clothing/suit/storage/internalaffairs
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_iaa/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
