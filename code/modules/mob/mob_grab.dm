@@ -394,6 +394,7 @@
 				user.visible_message("<span class='warning'>[user]'s mouth became bloated.</span>", "<span class='danger'>Your mouth has been stung, it's now bloating!</span>")
 			affecting.forceMove(user)
 			LAZYADD(attacker.stomach_contents, affecting)
+			affecting.gib()
 			qdel(src)
 
 /obj/item/grab/proc/checkvalid(mob/attacker, mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
