@@ -178,6 +178,27 @@
 	else
 		return attack_hand(user)
 
+
+/turf/simulated/mineral/ancient/burn_down()
+	return
+
+/turf/simulated/mineral/ancient/rpd_act()
+	return
+
+/turf/simulated/mineral/ancient/acid_act(acidpwr, acid_volume)
+	return
+
+/turf/simulated/mineral/ancient/ex_act(severity)
+	switch(severity)
+		if(3)
+			return
+		if(2)
+			if(prob(75))
+				gets_drilled(null, 1)
+		if(1)
+			gets_drilled(null, 1)
+	return TRUE
+
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"
 	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
@@ -199,6 +220,9 @@
 		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
 		return
 	return ..()
+
+/turf/simulated/mineral/ancient/outer/ex_act(severity)
+	return
 
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList = list(/turf/simulated/mineral/uranium = 5, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 10,

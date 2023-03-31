@@ -38,13 +38,15 @@ GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons
 
 //If you don't want to fuck up disposals, add to this list, and don't change the order.
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
+//keep the number comments so it would be easy for you and others to set correct sortype -Beeb
 
-GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals",
-	"Cargo Bay", "QM Office", "Engineering", "CE Office",
-	"Atmospherics", "HoS Office", "Security", "Medbay",
-	"CMO Office", "Chemistry", "Research", "RD Office",
-	"Robotics", "HoP Office", "Library", "Chapel", "Captain's Office",
-	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics","Brig Physician", "Morgue"))
+GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals", //1
+	"Cargo Bay", "QM Office", "Engineering", "CE Office", //2, 3, 4, 5
+	"Atmospherics", "HoS Office", "Security", "Medbay", //6, 7, 8, 9
+	"CMO Office", "Chemistry", "Research", "RD Office", //10, 11, 12 ,13
+	"Robotics", "HoP Office", "Library", "Chapel", //14, 15, 16, 17
+	"Captain's Office", "Bar", "Kitchen", "Hydroponics", //18, 19, 20, 21
+	"Janitor Closet","Genetics","Brig Physician", "Morgue")) //22, 23, 24, 25
 
 GLOBAL_LIST_INIT(hit_appends, list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF"))
 
