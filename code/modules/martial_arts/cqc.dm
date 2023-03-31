@@ -24,8 +24,8 @@
 	var/list/held_items = list(H.get_active_hand(), H.get_inactive_hand())
 	if(!(is_type_in_typecache(entered_area, areas_under_siege)))
 		for(var/obj/item in held_items)
-			if(istype(item, /obj/item/slapper/cqc))
-				var/obj/item/slapper/cqc/smacking_hand = item
+			if(istype(item, /obj/item/slapper/parry))
+				var/obj/item/slapper/parry/smacking_hand = item
 				qdel(smacking_hand)
 		can_parry = FALSE
 	else
@@ -46,26 +46,6 @@
 	for(var/datum/action/defensive_stance/defensive in H.actions)
 		defensive.Remove(H)
 	return ..()
-
-/datum/action/defensive_stance
-	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
-	button_icon_state = "block"
-
-/datum/action/defensive_stance/Trigger()
-	var/mob/living/carbon/human/H = owner
-	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial users anyway
-	if(!MA.can_parry)
-		to_chat(H, "<span class='warning'>You can't use this outside your kitchen.</span>")
-		return
-	if(H.incapacitated())
-		to_chat(H, "<span class='warning'>You can't defend yourself while you're incapacitated.</span>")
-		return
-	var/obj/item/slapper/cqc/slap = new(H)
-	if(H.put_in_hands(slap))
-		H.visible_message("<span class='danger'>[H] assumes a defensive stance!</span>", "<b><i>You drop back into a defensive stance.</i></b>")
-	else
-		qdel(slap)
-		to_chat(H, "<span class='warning'>Your hands are full.</span>")
 
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE

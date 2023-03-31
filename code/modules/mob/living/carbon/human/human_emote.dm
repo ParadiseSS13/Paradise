@@ -270,7 +270,7 @@
 		return FALSE
 	var/obj/item/slapper/smacking_hand
 	if(user.mind && user.mind.martial_art?.can_parry)
-		smacking_hand = new /obj/item/slapper/cqc(user)
+		smacking_hand = new /obj/item/slapper/parry(user)
 	else
 		smacking_hand = new /obj/item/slapper(user)
 	if(user.put_in_hands(smacking_hand))
