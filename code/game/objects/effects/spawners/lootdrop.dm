@@ -58,7 +58,7 @@
 	//port:					5  items,  5 spots 0 extra (08/08/2014)
 	loot = list(
 				/obj/item/bodybag = 10,
-				/obj/item/gun/energy/disabler/ducky = 10,
+				/obj/item/gun/energy/disabler/ducky = 50,
 				/obj/item/clothing/glasses/meson = 20,
 				/obj/item/clothing/glasses/sunglasses = 10,
 				/obj/item/clothing/gloves/color/yellow/fake = 15,
