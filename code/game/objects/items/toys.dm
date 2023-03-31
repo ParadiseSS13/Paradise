@@ -1586,4 +1586,5 @@
 		if(!user.unEquip(user.wear_mask))
 			qdel(user.wear_mask)
 		user.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
-		qdel(src)
+
+	qdel(src)
