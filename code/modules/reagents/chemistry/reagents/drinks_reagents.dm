@@ -746,4 +746,4 @@
 	drink_icon = "lean"
 	drink_name = "Lean"
 	drink_desc = "Also known as Purple Drank."
-	taste_description = "LEAN"
+	taste_description = "sweet druggy soda"
