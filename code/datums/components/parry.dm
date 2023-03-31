@@ -107,7 +107,7 @@
 		if(attack_type == PROJECTILE_ATTACK)
 			sound_to_play = pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg')
 		else
-			sound_to_play = 'sound/weapons/parry.ogg'
+			sound_to_play = 'sound/weapons/sugarcoat.ogg'
 
 		playsound(owner, sound_to_play, clamp(stamina_damage, 40, 120))
 	if(time_since_parry <= parry_time_out_time * 0.5) // a perfect parry
