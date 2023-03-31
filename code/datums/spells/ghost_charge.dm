@@ -11,13 +11,11 @@
 	action_icon_state = "ghost_charge"
 	school = "transmutation"
 	base_cooldown = 5 SECONDS
-	//starts_charged = FALSE
 	clothes_req = FALSE
 	stat_allowed = UNCONSCIOUS
 	invocation = ""
 	invocation_type = "none"
 	var/power_level
-	// no need to spam admins regarding boo casts
 	create_attack_logs = FALSE
 
 /obj/effect/proc_holder/spell/ghost_charge/create_new_targeting()
@@ -55,13 +53,22 @@
 	var/charge_angle = get_angle(OldLoc, user.loc)
 	var/hit_something
 	for(var/mob/dead/observer/O in user.loc)
-		if(O == user || get_power_level(O) > power_level)
+		if(O == user)
 			continue
+
+		if(get_power_level(O) > power_level)
+			// Get bounced, nerd
+			var/throw_dir = angle2dir(charge_angle + 180 + rand(-45, 45))
+			var/atom/throw_target = get_edge_target_turf(user.loc, throw_dir)
+			user.playsound_local(user, "explosion", 50)
+			user.throw_at(throw_target, get_power_level(O), 2, O, do_hit_check = FALSE)
+			break
+
 		hit_something = TRUE
 		var/throw_dir = angle2dir(charge_angle + rand(-45, 45))
-
 		var/atom/throw_target = get_edge_target_turf(user.loc, throw_dir)
 		O.playsound_local(user, "swing_hit", 50)
 		O.throw_at(throw_target, power_level, 1, src, do_hit_check = FALSE)
+
 	if(hit_something)
 		user.playsound_local(user, "swing_hit", 50)
