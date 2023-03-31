@@ -263,12 +263,12 @@
 	switch(fitting)
 		if("tube")
 			brightness_range = 8
-			if(prob(50))
+			if(prob(rand(50,100)))
 				break_light_tube(TRUE)
 		if("bulb")
 			brightness_range = 4
 			brightness_color = "#a0a080"
-			if(prob(50))
+			if(prob(rand(50,100)))
 				break_light_tube(TRUE)
 	update(FALSE, TRUE, FALSE)
 
