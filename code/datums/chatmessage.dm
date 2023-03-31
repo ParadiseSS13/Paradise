@@ -33,7 +33,7 @@
 	set category = "OOC"
 
 	show_checkmark = !show_checkmark
-	to_chat(src, "If you have a checkmark, it's been [show_checkmark ? 'enabled' : 'disabled']")
+	to_chat(src, "If you have a checkmark, it's been [show_checkmark ? "enabled" : "disabled"]")
 
 
 /**
