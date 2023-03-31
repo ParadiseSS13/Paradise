@@ -222,7 +222,6 @@
 			if(isliving(teleatom))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
-
 	return 1
 
 // Random safe location finder
