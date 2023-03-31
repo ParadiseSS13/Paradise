@@ -296,4 +296,3 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	tumors = image('icons/mob/mob.dmi',"tumor_overlay_grown")
 	overlays += tumors
-	
