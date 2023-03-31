@@ -115,7 +115,7 @@
 /datum/emote/living/silicon/dap/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/silicon/user_carbon = user
 	if(user_carbon.has_status_effect(status))
-		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to [key].")
+		user.visible_message("[user.name] shakes [user.p_their()] dapping actuator around slightly, impatiently waiting for someone to [key].")
 		return TRUE
 	user_carbon.apply_status_effect(status)
 
