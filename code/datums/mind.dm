@@ -2156,7 +2156,7 @@
 	if(src in SSticker.mode.space_ninjas)
 		SSticker.mode.remove_ninja(src, usr, TRUE)
 
-/datum/mind/proc/remove_all_antag_roles() // Except abductor, because it isnt implemented in admin panel
+/datum/mind/proc/remove_all_antag_roles(adminlog = TRUE) // Except abductor, because it isnt implemented in admin panel
 	remove_revolutionary_role()
 	remove_cult_role()
 	remove_clocker_role()
@@ -2171,8 +2171,9 @@
 	remove_shadow_role()
 	remove_ninja_role()
 
-	message_admins("[key_name(current)] lost all antag roles")
-	log_admin("[key_name(current)] lost all antag roles")
+	if(adminlog)
+		message_admins("[ADMIN_LOOKUP(current)] lost all antag roles")
+		log_admin("[key_name_log(current)] lost all antag roles")
 
 /datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
 	if(!datum_type)

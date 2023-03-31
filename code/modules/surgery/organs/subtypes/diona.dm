@@ -114,7 +114,8 @@
 			var/loc = owner.loc
 			var/datum/mind/mind = owner.mind
 			if(!is_dead)
-				mind.remove_all_antag_roles()
+				mind.remove_all_antag_roles(FALSE)
+				log_and_message_admins("diona-evacuated into nymph and lost all possible antag roles.")
 			brain.remove(owner)
 
 			for(var/mob/living/simple_animal/diona/nymph in get_turf(loc))
