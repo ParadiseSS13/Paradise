@@ -1,6 +1,6 @@
 /obj/structure/spikes
 	name = "anti-hobo spikes"
-	desc = "For when you run out of options."
+	desc = "A pointy piece of metal, engineered to deter the laziest of employees."
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "spikes"
 	anchored = TRUE
