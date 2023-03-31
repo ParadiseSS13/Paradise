@@ -174,6 +174,7 @@
 		/obj/item/gun/projectile/revolver/russian/soul,
 		/obj/item/toy/russian_revolver,
 		/obj/item/toy/russian_revolver/trick_revolver,
+		/obj/item/gun/energy/arc_revolver  // don't gib people with this one
 	)
 
 	/// guns that will kill you
