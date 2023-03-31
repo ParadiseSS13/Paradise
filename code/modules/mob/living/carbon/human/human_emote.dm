@@ -378,7 +378,9 @@
 
 	var/valid_revolver_types = initial(spinning.valid_revolver_types)
 
-	spinning = null  // appease the linter so it looks like I'm doing something with this variable
+	spinning = FALSE  // appease the linter so it looks like I'm doing something with this variable
+	if(spinning)
+		spinning = TRUE  // fuck I don't know
 
 	return ((user.l_hand.type in valid_revolver_types) && (user.r_hand.type in valid_revolver_types))
 
