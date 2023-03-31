@@ -122,6 +122,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/datum/action/spell_action/action = null
 	var/action_icon = 'icons/mob/actions/actions.dmi'
 	var/action_icon_state = "spell_default"
+	var/action_background_icon = 'icons/mob/actions/actions.dmi'
 	var/action_background_icon_state = "bg_spell"
 
 	var/sound = null //The sound the spell makes when it is cast
