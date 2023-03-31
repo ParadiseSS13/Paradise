@@ -396,7 +396,24 @@
 			LAZYADD(attacker.stomach_contents, affecting)
 			affecting.gib()
 			qdel(src)
-
+/*
+VVVVVVVV           VVVVVVVV     OOOOOOOOO     RRRRRRRRRRRRRRRRR   EEEEEEEEEEEEEEEEEEEEEE
+V::::::V           V::::::V   OO:::::::::OO   R::::::::::::::::R  E::::::::::::::::::::E
+V::::::V           V::::::V OO:::::::::::::OO R::::::RRRRRR:::::R E::::::::::::::::::::E
+V::::::V           V::::::VO:::::::OOO:::::::ORR:::::R     R:::::REE::::::EEEEEEEEE::::E
+ V:::::V           V:::::V O::::::O   O::::::O  R::::R     R:::::R  E:::::E       EEEEEE
+  V:::::V         V:::::V  O:::::O     O:::::O  R::::R     R:::::R  E:::::E
+   V:::::V       V:::::V   O:::::O     O:::::O  R::::RRRRRR:::::R   E::::::EEEEEEEEEE
+    V:::::V     V:::::V    O:::::O     O:::::O  R:::::::::::::RR    E:::::::::::::::E
+     V:::::V   V:::::V     O:::::O     O:::::O  R::::RRRRRR:::::R   E:::::::::::::::E
+      V:::::V V:::::V      O:::::O     O:::::O  R::::R     R:::::R  E::::::EEEEEEEEEE
+       V:::::V:::::V       O:::::O     O:::::O  R::::R     R:::::R  E:::::E
+        V:::::::::V        O::::::O   O::::::O  R::::R     R:::::R  E:::::E       EEEEEE
+         V:::::::V         O:::::::OOO:::::::ORR:::::R     R:::::REE::::::EEEEEEEE:::::E
+          V:::::V           OO:::::::::::::OO R::::::R     R:::::RE::::::::::::::::::::E
+           V:::V              OO:::::::::OO   R::::::R     R:::::RE::::::::::::::::::::E
+            VVV                 OOOOOOOOO     RRRRRRRR     RRRRRRREEEEEEEEEEEEEEEEEEEEEE
+Shamelessy stolen trademark for Kentucky Fried Vox Inc.*/
 /obj/item/grab/proc/checkvalid(mob/attacker, mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
