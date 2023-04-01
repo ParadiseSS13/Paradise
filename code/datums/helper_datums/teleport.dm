@@ -114,6 +114,21 @@
 			playsound(location,sound,60,1)
 	return
 
+/datum/teleport/proc/teleportBread()
+	var/list/food = teleatom.search_contents_for(/obj/item/reagent_containers/food)
+	if(istype(teleatom, /obj/item/reagent_containers/food))
+		food += teleatom
+	if(food.len)
+		for(var/obj/item/reagent_containers/food/fooditem in food)
+			if(fooditem.bread)
+				if(prob(10))
+					new /mob/living/simple_animal/hostile/mimic/copy/bread(get_turf(fooditem), fooditem, null, 1)
+					if(isliving(teleatom))
+						var/mob/living/MM = teleatom
+						to_chat(MM, "<span class='warning'>The [fooditem] comes to life!</span>")
+	
+	return 1
+
 //do the monkey dance
 /datum/teleport/proc/doTeleport()
 
@@ -172,6 +187,8 @@
 			L.unbuckle_all_mobs(force = TRUE)
 
 	destarea.Entered(teleatom)
+
+	teleportBread()
 
 	return 1
 
