@@ -21,6 +21,21 @@
 /// Macro from Lummox used to get height from a MeasureText proc
 #define WXH_TO_HEIGHT(x)			text2num(copytext(x, findtextEx(x, "x") + 1))
 
+/obj/verified
+	icon = 'icons/mob/verified.dmi'
+	icon_state = "verified"
+
+/client
+	var/show_checkmark = TRUE
+
+/client/verb/toggle_checkmark()
+	set name = "Toggle Verified Checkmark"
+	set category = "OOC"
+
+	show_checkmark = !show_checkmark
+	to_chat(src, "If you have a checkmark, it's been [show_checkmark ? "enabled" : "disabled"]")
+
+
 /**
   * # Chat Message Overlay
   *
@@ -45,6 +60,8 @@
 	var/datum/chatmessage/next
 	/// Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem
 	var/datum/chatmessage/prev
+	/// Verified icon
+	var/static/obj/verified/checkmark
 
 /**
   * Constructs a chat message overlay
@@ -61,6 +78,9 @@
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
+	if(!checkmark)
+		checkmark = new()
+		bicon(checkmark)  // just to cache it
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
@@ -132,7 +152,15 @@
 			symbol = "<span style='font-size: 9px; color: #3399FF;'>*</span> "
 			size = size || "small"
 		else
-			symbol = null
+			// afd or not, we don't want to actually make people's lives harder
+			var/member_or_donor = owned_by.prefs.unlock_content || owned_by.donator_level
+			if(owned_by.prefs)  // for local shenanigans
+				member_or_donor = (owned_by.prefs.unlock_content && (owned_by.prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)) || (owned_by.donator_level && (owned_by.prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
+			var/no_symbol_regardless = (owned_by.holder?.fakekey || (owned_by.prefs.toggles2 & PREFTOGGLE_2_ANON) || !owned_by.show_checkmark)
+			if(member_or_donor && !no_symbol_regardless)
+				symbol = "<img src='icons/mob/verified.dmi' icon='icons/mob/verified.dmi' iconstate='verified'>"
+			else
+				symbol = null
 
 	// Approximate text height
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
