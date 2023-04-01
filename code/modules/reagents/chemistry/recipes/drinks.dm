@@ -1433,3 +1433,11 @@
 	required_reagents = list("moonlight_skuma" = 3, "devilskiss" = 1, "manhattan" = 2, "watermelonjuice" = 1, "ice" = 1  )
 	result_amount = 8
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/restart
+	name = "Restart"
+	id = "restart"
+	result = "restart"
+	required_reagents = list("trinary" = 1, "codelibre" = 1, "rewriter" = 1, "irishempbomb" = 1, "synthanol" = 1  )
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
