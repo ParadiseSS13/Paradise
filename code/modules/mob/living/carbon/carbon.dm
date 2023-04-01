@@ -32,7 +32,7 @@
 	. = ..()
 	if(.)
 		if(m_intent == MOVE_INTENT_RUN && prob(1))
-			KnockDown(2)
+			KnockDown(0.2 SECONDS)
 			visible_message("<span class='danger'>[src] trips and falls!</span>", \
 							"<span class='italics'>You tripped! Slow down!")
 		if(nutrition && stat != DEAD)
