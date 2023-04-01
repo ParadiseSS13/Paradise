@@ -14,6 +14,7 @@
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
+	can_buckle = TRUE					// you can buckle someone if they have cuffs
 
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
@@ -58,6 +59,8 @@
 		return
 	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
 		return
+	if(user_buckle_mob(O, user, check_loc = FALSE))
+		return TRUE
 	take_patient(O, user)
 
 /**
