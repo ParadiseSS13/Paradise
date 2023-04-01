@@ -65,6 +65,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/reagent_containers/food/drinks/flask/barflask(src)
+	new /obj/item/gun/energy/taser/HoS(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"

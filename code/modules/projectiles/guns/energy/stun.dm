@@ -8,6 +8,16 @@
 	ammo_x_offset = 3
 	can_holster = TRUE  // Pistol size
 
+/obj/item/gun/energy/taser/HoS
+	name = "taser gun"
+	desc = "A small, low capacity gun used for shooting clowns."
+	icon_state = "taser"
+	item_state = null	//so the human update icon uses the icon_state instead.
+	origin_tech = "combat=3"
+	ammo_type = list(/obj/item/ammo_casing/energy/clown)
+	ammo_x_offset = 3
+	can_holster = TRUE  // Pistol size
+
 /obj/item/gun/energy/arc_revolver
 	name = "arc revolver"
 	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
