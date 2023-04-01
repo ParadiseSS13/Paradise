@@ -243,7 +243,7 @@
 						new /obj/item/coin/gold(M)
 		if(14)
 			//Tator Item
-			var/traitor_item = pick(/obj/item/chameleon,
+			var/list/traitor_items = list(/obj/item/chameleon,
 				/obj/item/chameleon_counterfeiter,
 				/obj/item/clothing/shoes/chameleon/noslip,
 				/obj/item/pinpointer/advpinpointer,
@@ -260,15 +260,17 @@
 				/obj/item/storage/box/syndie_kit/hardsuit,
 				/obj/item/implanter/storage,
 				/obj/item/toy/syndicateballoon)
+			var/selected_item = pick(traitor_items)
 			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")
-			new traitor_item(drop_location())
+			new selected_item(drop_location())
 			create_smoke(2)
 		if(15)
 			//Random One-use spellbook
-			var/selected_spellbook = pick(/obj/item/spellbook/oneuse/smoke,
+			var/list/oneuse_spellbook = list(/obj/item/spellbook/oneuse/smoke,
 				/obj/item/spellbook/oneuse/blind,
 				/obj/item/spellbook/oneuse/knock,
 				/obj/item/spellbook/oneuse/summonitem)
+			var/selected_spellbook = pick(oneuse_spellbook)
 			T.visible_message("<span class='userdanger'>A magical looking book drops to the floor!</span>")
 			create_smoke(2)
 			new selected_spellbook(drop_location())
