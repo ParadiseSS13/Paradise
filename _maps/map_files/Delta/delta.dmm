@@ -24573,7 +24573,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/maintenance{
 	name = "Engineering Maintenance";
-	req_access = list()
+	req_access = list(10)
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
