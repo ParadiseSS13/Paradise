@@ -31,7 +31,9 @@
 	var/last_hit = 0
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
-
+	/// If the user is drop kicking or not
+	var/drop_kicking = FALSE
+	var/datum/action/drop_kick/dropkick = new/datum/action/drop_kick()
 /datum/martial_art/New()
 	. = ..()
 	reset_combos()
@@ -144,6 +146,7 @@
 	else
 		base = src
 	H.mind.martial_art = src
+	dropkick.Grant(H)
 
 /datum/martial_art/proc/remove(mob/living/carbon/human/H)
 	if(!H.mind)
@@ -151,6 +154,7 @@
 	if(H.mind.martial_art != src)
 		return
 	H.mind.martial_art = null // Remove reference
+	dropkick.Remove(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 	if(base)
 		base.teach(H)
@@ -387,6 +391,67 @@
 	if(wielded)
 		return ..()
 	return 0
+/mob/living/carbon/human/throw_impact(atom/A)
+	if(!src.mind?.martial_art)
+		return ..()
+	if(!src.mind.martial_art?.drop_kicking)
+		return ..()
 
+	if(A)
+		if(isliving(A))
+			var/mob/living/L = A
+			var/blocked = 0
+			if(ishuman(A))
+				var/mob/living/carbon/human/H = A
+				if(H.check_shields(src, 0, "the [name]", attack_type = LEAP_ATTACK))
+					blocked = 1
+			if(!blocked)
+				L.visible_message("<span class ='danger'>[src] dropkicks [L]!</span>", "<span class ='userdanger'>[src] dropkicks you!</span>")
+				if(ishuman(L))
+					var/mob/living/carbon/human/H = L
+					H.apply_effect(10 SECONDS, KNOCKDOWN, H.run_armor_check(null, MELEE))
+					H.adjustBruteLoss(60)
+				else
+					L.Weaken(10 SECONDS)
+				sleep(2)//Runtime prevention (infinite bump() calls on hulks)
+				step_towards(src,L)
+			else
+				Weaken(4 SECONDS, TRUE)
+		else if(A.density && !A.CanPass(src))
+			visible_message("<span class ='danger'>[src] smashes into [A]!</span>", "<span class ='userdanger'>[src] smashes into [A]!</span>")
+			Weaken(4 SECONDS, TRUE)
+
+		if(src.mind.martial_art.drop_kicking)
+			src.mind.martial_art.drop_kicking = 0
+			update_icons()
+
+/datum/action/drop_kick
+	name = "Dropkick"
+	desc = "Leap forward and dropkick anyone you collide into"
+	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state ="spell_default"
+/datum/action/drop_kick/Trigger(mob/user, action)
+	var/jumpdistance = 3 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
+	var/jumpspeed = 2
+	var/recharging_rate = 60
+	var/recharging_time = 0
+	var/mob/living/carbon/human/H = owner
+	if(recharging_time > world.time)
+		to_chat(owner, "<span class='warning'>You're still preparing to dropkick again!</span>")
+		return
+
+	var/atom/target = get_edge_target_turf(owner, owner.dir) //gets the user's direction
+	var/do_callback = FALSE
+	if(!owner.flying)
+		owner.flying = TRUE
+		do_callback  = TRUE
+
+	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
+		owner.mind.martial_art.drop_kicking = TRUE
+		playsound(src, 'sound/weapons/thudswoosh.ogg', 50, 1, 1)
+		H.visible_message("<span class='warning'>[usr] Jumps forward and prepares to dropkick!</span>")
+		recharging_time = world.time + recharging_rate
+	else
+		to_chat(H, "<span class='warning'>Something prevents you from dropkicking!</span>")
 #undef HAS_COMBOS
 #undef COMBO_ALIVE_TIME
