@@ -31,6 +31,10 @@
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
 	if(.)
+		if(m_intent == MOVE_INTENT_RUN && prob(1))
+			src.KnockDown(2)
+			visible_message("<span class='danger'>[src] trips and falls!</span>", \
+							"<span class='italics'>You tripped! Slow down!")
 		if(nutrition && stat != DEAD)
 			adjust_nutrition(-(hunger_drain * 0.1))
 			if(m_intent == MOVE_INTENT_RUN)
