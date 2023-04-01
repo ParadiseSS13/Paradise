@@ -329,7 +329,10 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
       <Box float="left">
         <LabeledList>
           {general.fields.map((field, i) => (
-            <LabeledList.Item key={i} label={field.field}>
+            <LabeledList.Item
+              key={i}
+              label={field.field}
+              prewrap>
               {decodeHtmlEntities('' + field.value)}
               {!!field.edit && (
                 <Button
