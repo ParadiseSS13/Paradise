@@ -434,7 +434,7 @@
 	var/jumpdistance = 3 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 2
 	var/recharging_rate = 60
-	var/recharging_time = 0
+	var/recharging_time = 10
 	var/mob/living/carbon/human/H = owner
 	if(recharging_time > world.time)
 		to_chat(owner, "<span class='warning'>You're still preparing to dropkick again!</span>")
