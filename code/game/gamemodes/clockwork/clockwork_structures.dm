@@ -175,7 +175,6 @@
 
 	var/first_stage = FALSE // Did convert started?
 	var/second_stage = FALSE // Did we started to gib someone?
-	var/third_stage = FALSE // Did we already made a cube?
 	var/convert_timer = 0
 
 /obj/structure/clockwork/functional/altar/Initialize(mapload)
@@ -205,14 +204,25 @@
 			toggle_hide()//cuz we sure its unhidden
 			if(isprocessing)
 				STOP_PROCESSING(SSprocessing, src)
+				if(glow)
+					QDEL_NULL(glow)
+				first_stage = FALSE
+				second_stage = FALSE
+				convert_timer = 0
+				converting = null
 			to_chat(user, "<span class='notice'>You disguise [src].</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			I.deplete_spell()
 			return TRUE
+		if(!anchored)
+			for(var/obj/structure/clockwork/functional/altar in range(0, src))
+				if(altar != src)
+					to_chat(user, "<span class='warning'>You can not place the credence into another credence!</span>")
+					return FALSE
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
-			icon_state = "[initial(icon_state)]-off"
+			stop_convert(TRUE)
 			STOP_PROCESSING(SSprocessing, src)
 		else
 			icon_state = "[initial(icon_state)]"
@@ -250,70 +260,42 @@
 			icon_state = "stool"
 	return hidden
 
-/obj/structure/clockwork/functional/altar/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(!has_clocker)
-		for(var/mob/living/M in range(1, src))
-			if(isclocker(M) && M.stat == CONSCIOUS)
-				has_clocker = M
-				break
-	if(!converting && ishuman(AM) && !isclocker(AM) && !hidden && anchored && has_clocker)
-		converting = AM
-		first_stage_check(converting)
-
-
-/obj/structure/clockwork/functional/altar/Uncrossed(atom/movable/AM)
-	. = ..()
-	if(AM == converting)
-		if(first_stage)
-			stop_convert()
-		converting = null
-		convert_timer = 1
-
 /obj/structure/clockwork/functional/altar/process()
-	if(!converting)
-		var/list/mob/living/carbon/human/bodies = list()
+	for(var/mob/living/M in range(1, src))
+		if(isclocker(M) && M.stat == CONSCIOUS)
+			has_clocker = M
+			break
+	if(!converting && has_clocker)
 		for(var/mob/living/carbon/human/H in range(0, src))
 			if(isclocker(H))
 				continue
 			if(!H.mind)
 				continue
-			bodies += H
-		if(bodies.len)
-			converting = pick(bodies)
-		convert_timer = 0
-	else if(!has_clocker)
-		for(var/mob/living/M in range(1, src))
-			if(isclocker(M) && M.stat == CONSCIOUS)
-				has_clocker = M
+			if(H)
+				converting = H
 				break
-	else
-		convert_timer++
-		has_clocker = null
-		for(var/mob/living/M in range(1, src))
-			if(isclocker(M) && M.stat == CONSCIOUS)
-				has_clocker = M
-				break
-		if(!has_clocker)
-			stop_convert()
+	if(converting && (converting in range(0, src)) && (has_clocker || second_stage))
 		if(!anchored || hidden)
 			stop_convert()
-		if(isclocker(converting))
-			stop_convert(TRUE)
+			return
+		convert_timer++
+		has_clocker = null
 		switch(convert_timer)
-			if(-INFINITY to 8)
+			if(0 to 8)
 				if(!first_stage)
 					first_stage_check(converting)
-			if(8 to 16)
+			if(9 to 16)
 				if(!second_stage)
 					second_stage_check(converting)
 				else
 					converting.adjustBruteLoss(5)
 					converting.adjustFireLoss(5)
-			if(16 to INFINITY)
-				if(!third_stage)
-					convert_to_cube(converting)
-				stop_convert() // one time the third stage activates
+			if(17)
+				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
+				cube.try_to_transfer(converting)
+	else if(first_stage)
+		stop_convert()
 
 /obj/structure/clockwork/functional/altar/proc/first_stage_check(var/mob/living/carbon/human/target)
 	first_stage = TRUE
@@ -321,7 +303,6 @@
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
 	icon_state = "[initial(icon_state)]-fast"
-	convert_timer = 0
 
 /obj/structure/clockwork/functional/altar/proc/second_stage_check(var/mob/living/carbon/human/target)
 	second_stage = TRUE
@@ -340,17 +321,10 @@
 		target.EyeBlind(5)
 		stop_convert(TRUE)
 
-/obj/structure/clockwork/functional/altar/proc/convert_to_cube(var/mob/living/carbon/human/target)
-	third_stage = TRUE
-	var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
-	cube.try_to_transfer(target)
-	adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
-
 /obj/structure/clockwork/functional/altar/proc/stop_convert(var/silent = FALSE)
 	QDEL_NULL(glow)
 	first_stage = FALSE
 	second_stage = FALSE
-	third_stage = FALSE
 	convert_timer = 0
 	converting = null
 	if(anchored)
@@ -364,7 +338,7 @@
 	. = ..()
 	if(istype(I, /obj/item/clockwork/shard))
 		if(!ishuman(user))
-			to_chat(user, "span class='warning'>You are too weak to push the shard inside!</span>")
+			to_chat(user, "<span class='warning'>You are too weak to push the shard inside!</span>")
 			return
 		var/area/A = get_area(src)
 		if(!anchored)

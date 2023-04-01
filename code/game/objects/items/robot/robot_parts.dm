@@ -219,6 +219,11 @@
 	if(istype(W, /obj/item/mmi))
 		var/obj/item/mmi/M = W
 		if(check_completion())
+			if(M.clock && !isclocker(user))
+				to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to put the soul vessel into the frame.</span>")
+				user.Confused(10)
+				user.Jitter(6)
+				return
 			if(!isturf(loc))
 				to_chat(user, "<span class='warning'>You can't put [M] in, the frame has to be standing on the ground to be perfectly precise.</span>")
 				return
@@ -328,6 +333,7 @@
 			O.robot_suit = src
 
 			if(O.mmi.clock) // so robots created from vessel have magic
+				O.UnlinkSelf()
 				SSticker.mode.add_clock_actions(O.mind)
 
 			if(!locomotion)

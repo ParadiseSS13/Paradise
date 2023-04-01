@@ -143,9 +143,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	var/constructs = 0
 	for(var/I in clockwork_cult)
 		var/datum/mind/M = I
-		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		if(ishuman(M.current))
 			clockers++
-		else if(isconstruct(M.current) && isclocker(M.current))
+		else if(istype(M.current, /mob/living/simple_animal/hostile/clockwork/marauder) && isclocker(M.current))
 			constructs++
 	if(separate)
 		return list(clockers, constructs)

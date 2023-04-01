@@ -613,6 +613,7 @@
 #include "code\game\gamemodes\clockwork\clockwork_misc.dm"
 #include "code\game\gamemodes\clockwork\clockwork_mob.dm"
 #include "code\game\gamemodes\clockwork\clockwork_objectives.dm"
+#include "code\game\gamemodes\clockwork\clockwork_soulvessel.dm"
 #include "code\game\gamemodes\clockwork\clockwork_structures.dm"
 #include "code\game\gamemodes\clockwork\clockwork_workshop.dm"
 #include "code\game\gamemodes\clockwork\cogscarab.dm"
