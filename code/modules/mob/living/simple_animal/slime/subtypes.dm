@@ -5,12 +5,12 @@
 		if("grey")
 			slime_mutation[1] = "orange"
 			slime_mutation[2] = "metal"
-			slime_mutation[3] = "blue"
-			slime_mutation[4] = "purple"
+			slime_mutation[3] = "cyan"
+			slime_mutation[4] = "violet"
 		//Tier 2
-		if("purple")
-			slime_mutation[1] = "dark purple"
-			slime_mutation[2] = "dark blue"
+		if("violet")
+			slime_mutation[1] = "purple"
+			slime_mutation[2] = "blue"
 			slime_mutation[3] = "green"
 			slime_mutation[4] = "green"
 		if("metal")
@@ -19,23 +19,23 @@
 			slime_mutation[3] = "gold"
 			slime_mutation[4] = "gold"
 		if("orange")
-			slime_mutation[1] = "dark purple"
+			slime_mutation[1] = "purple"
 			slime_mutation[2] = "yellow"
 			slime_mutation[3] = "red"
 			slime_mutation[4] = "red"
-		if("blue")
-			slime_mutation[1] = "dark blue"
+		if("cyan")
+			slime_mutation[1] = "blue"
 			slime_mutation[2] = "silver"
-			slime_mutation[3] = "pink"
-			slime_mutation[4] = "pink"
+			slime_mutation[3] = "magenta"
+			slime_mutation[4] = "magenta"
 		//Tier 3
-		if("dark blue")
-			slime_mutation[1] = "purple"
-			slime_mutation[2] = "blue"
+		if("blue")
+			slime_mutation[1] = "violet"
+			slime_mutation[2] = "cyan"
 			slime_mutation[3] = "cerulean"
 			slime_mutation[4] = "cerulean"
-		if("dark purple")
-			slime_mutation[1] = "purple"
+		if("purple")
+			slime_mutation[1] = "violet"
 			slime_mutation[2] = "orange"
 			slime_mutation[3] = "sepia"
 			slime_mutation[4] = "sepia"
@@ -46,15 +46,15 @@
 			slime_mutation[4] = "bluespace"
 		if("silver")
 			slime_mutation[1] = "metal"
-			slime_mutation[2] = "blue"
+			slime_mutation[2] = "cyan"
 			slime_mutation[3] = "pyrite"
 			slime_mutation[4] = "pyrite"
 		//Tier 4
-		if("pink")
-			slime_mutation[1] = "pink"
-			slime_mutation[2] = "pink"
-			slime_mutation[3] = "light pink"
-			slime_mutation[4] = "light pink"
+		if("magenta")
+			slime_mutation[1] = "magenta"
+			slime_mutation[2] = "magenta"
+			slime_mutation[3] = "pink"
+			slime_mutation[4] = "pink"
 		if("red")
 			slime_mutation[1] = "red"
 			slime_mutation[2] = "red"

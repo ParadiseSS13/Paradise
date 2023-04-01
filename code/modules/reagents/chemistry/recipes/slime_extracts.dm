@@ -238,14 +238,14 @@
 					step(B, pick(NORTH,SOUTH,EAST,WEST))
 
 
-//Blue
+//Blue (cyan in game)
 /datum/chemical_reaction/slimefrost
 	name = "Slime Frost Oil"
 	id = "m_frostoil"
 	result = "frostoil"
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 10
-	required_container = /obj/item/slime_extract/blue
+	required_container = /obj/item/slime_extract/cyan
 	required_other = TRUE
 
 /datum/chemical_reaction/slimefrost/on_reaction(datum/reagents/holder)
@@ -257,7 +257,7 @@
 	result = null
 	required_reagents = list("blood" = 1)
 	result_amount = 1
-	required_container = /obj/item/slime_extract/blue
+	required_container = /obj/item/slime_extract/cyan
 	required_other = TRUE
 
 /datum/chemical_reaction/slimestabilizer/on_reaction(datum/reagents/holder)
@@ -265,14 +265,14 @@
 	var/obj/item/slimepotion/slime/stabilizer/P = new /obj/item/slimepotion/slime/stabilizer
 	P.forceMove(get_turf(holder.my_atom))
 
-//Dark Blue
+//Dark Blue (blue in game)
 /datum/chemical_reaction/slimefreeze
 	name = "Slime Freeze"
 	id = "m_freeze"
 	result = null
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
-	required_container = /obj/item/slime_extract/darkblue
+	required_container = /obj/item/slime_extract/blue
 	required_other = TRUE
 
 /datum/chemical_reaction/slimefreeze/on_reaction(datum/reagents/holder)
@@ -293,7 +293,7 @@
 	result = null
 	required_reagents = list("water" = 1)
 	result_amount = 1
-	required_container = /obj/item/slime_extract/darkblue
+	required_container = /obj/item/slime_extract/blue
 	required_other = TRUE
 
 /datum/chemical_reaction/slimefireproof/on_reaction(datum/reagents/holder)
@@ -334,7 +334,6 @@
 				T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 50)
 
 //Yellow
-
 /datum/chemical_reaction/slimeoverload
 	name = "Slime EMP"
 	id = "m_emp"
@@ -379,15 +378,14 @@
 	var/obj/item/flashlight/slime/F = new /obj/item/flashlight/slime
 	F.forceMove(get_turf(holder.my_atom))
 
-//Purple
-
+//Purple (violet in game)
 /datum/chemical_reaction/slimepsteroid
 	name = "Slime Steroid"
 	id = "m_steroid"
 	result = null
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
-	required_container = /obj/item/slime_extract/purple
+	required_container = /obj/item/slime_extract/violet
 	required_other = TRUE
 
 /datum/chemical_reaction/slimepsteroid/on_reaction(datum/reagents/holder)
@@ -401,21 +399,21 @@
 	result = "slimejelly"
 	required_reagents = list("sugar" = 1)
 	result_amount = 10
-	required_container = /obj/item/slime_extract/purple
+	required_container = /obj/item/slime_extract/violet
 	required_other = TRUE
 
 /datum/chemical_reaction/slimejam/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 
-//Dark Purple
+//Dark Purple (purple in game)
 /datum/chemical_reaction/slimeplasma
 	name = "Slime Plasma"
 	id = "m_plasma"
 	result = null
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
-	required_container = /obj/item/slime_extract/darkpurple
+	required_container = /obj/item/slime_extract/purple
 	required_other = TRUE
 
 /datum/chemical_reaction/slimeplasma/on_reaction(datum/reagents/holder)
@@ -474,14 +472,14 @@
 	P.forceMove(get_turf(holder.my_atom))
 
 
-//Pink
+//Pink (magenta in game)
 /datum/chemical_reaction/docility
 	name = "Docility Potion"
 	id = "m_potion"
 	result = null
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
-	required_container = /obj/item/slime_extract/pink
+	required_container = /obj/item/slime_extract/magenta
 	required_other = TRUE
 
 /datum/chemical_reaction/docility/on_reaction(datum/reagents/holder)
@@ -528,13 +526,13 @@
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	explosion(extract_turf, 1, 3, 6)
 
-//Light Pink
+//Light Pink (pink in game)
 /datum/chemical_reaction/slimepotion2
 	name = "Slime Potion 2"
 	id = "m_potion2"
 	result = null
 	result_amount = 1
-	required_container = /obj/item/slime_extract/lightpink
+	required_container = /obj/item/slime_extract/pink
 	required_reagents = list("plasma_dust" = 1)
 	required_other = TRUE
 
@@ -672,8 +670,6 @@
 
 
 //Pyrite
-
-
 /datum/chemical_reaction/slimepaint
 	name = "Slime Paint"
 	id = "s_paint"

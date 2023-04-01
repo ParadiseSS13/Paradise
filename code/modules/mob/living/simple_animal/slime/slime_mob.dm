@@ -66,8 +66,8 @@
 	var/list/slime_mutation[4]
 
 	var/static/list/slime_colours = list("rainbow", "grey", "purple", "metal", "orange",
-	"blue", "dark blue", "dark purple", "yellow", "silver", "pink", "red",
-	"gold", "green", "adamantine", "oil", "light pink", "bluespace",
+	"cyan", "blue", "purple", "yellow", "silver", "violet", "red",
+	"gold", "green", "adamantine", "oil", "pink", "bluespace",
 	"cerulean", "sepia", "black", "pyrite")
 
 	///////////CORE-CROSSING CODE

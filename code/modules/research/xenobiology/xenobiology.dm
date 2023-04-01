@@ -50,13 +50,13 @@
 	name = "metal slime extract"
 	icon_state = "metal slime extract"
 
+/obj/item/slime_extract/violet
+	name = "violet slime extract"
+	icon_state = "violet slime extract"
+
 /obj/item/slime_extract/purple
 	name = "purple slime extract"
 	icon_state = "purple slime extract"
-
-/obj/item/slime_extract/darkpurple
-	name = "dark purple slime extract"
-	icon_state = "dark purple slime extract"
 
 /obj/item/slime_extract/orange
 	name = "orange slime extract"
@@ -70,25 +70,25 @@
 	name = "red slime extract"
 	icon_state = "red slime extract"
 
+/obj/item/slime_extract/cyan
+	name = "cyan slime extract"
+	icon_state = "cyan slime extract"
+
 /obj/item/slime_extract/blue
 	name = "blue slime extract"
 	icon_state = "blue slime extract"
 
-/obj/item/slime_extract/darkblue
-	name = "dark blue slime extract"
-	icon_state = "dark blue slime extract"
-
-/obj/item/slime_extract/pink
-	name = "pink slime extract"
-	icon_state = "pink slime extract"
+/obj/item/slime_extract/magenta
+	name = "magenta slime extract"
+	icon_state = "magenta slime extract"
 
 /obj/item/slime_extract/green
 	name = "green slime extract"
 	icon_state = "green slime extract"
 
-/obj/item/slime_extract/lightpink
-	name = "light pink slime extract"
-	icon_state = "light pink slime extract"
+/obj/item/slime_extract/pink
+	name = "pink slime extract"
+	icon_state = "pink slime extract"
 
 /obj/item/slime_extract/black
 	name = "black slime extract"
