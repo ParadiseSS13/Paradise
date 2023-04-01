@@ -52,10 +52,14 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 
 /obj/effect/proc_holder/spell/ghost_charge/proc/on_moved(mob/user, atom/OldLoc)
+	if(user.orbiting_uid)
+		// Ensure orbiting doesn't break
+		at_end(user)
+		return
 	var/charge_angle = get_angle(OldLoc, user.loc)
 	var/hit_something
 	for(var/mob/dead/observer/O in user.loc)
-		if(O == user)
+		if(O == user || O.orbiting_uid) // Skip yourself and those orbiting things
 			continue
 
 		if(get_power_level(O) > power_level)
