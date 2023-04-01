@@ -60,6 +60,8 @@
 	var/obj/item/item_path = /obj/item/latexballon
 	/// Sound effect played when this emote is completed.
 	var/sound_effect = 'sound/weapons/slap.ogg'
+	/// Silicon activation message
+	var/silicon_message = "activates its high-five modules."
 
 /// So we don't leave folks with god-mode
 /datum/status_effect/high_five/proc/wiz_cleanup(mob/user, mob/highfived)
@@ -67,13 +69,13 @@
 	highfived.status_flags &= ~GODMODE
 
 /datum/status_effect/high_five/on_apply()
-	if(!iscarbon(owner))
+	if(!isliving(owner))
 		return FALSE
 	. = ..()
 
-	var/mob/living/carbon/user = owner
+	var/mob/living/user = owner
 	var/is_wiz = iswizard(user)
-	for(var/mob/living/carbon/C in orange(1, user))
+	for(var/mob/living/C in orange(1, user))
 		if(!C.has_status_effect(type) || C == user)
 			continue
 		if(is_wiz && iswizard(C))
@@ -95,13 +97,15 @@
 		C.remove_status_effect(type)
 		return FALSE
 
-	owner.custom_emote(EMOTE_VISIBLE, request)
+	owner.custom_emote(EMOTE_VISIBLE, isrobot(owner) ? silicon_message : request)
 	owner.create_point_bubble_from_path(item_path, FALSE)
 
 /datum/status_effect/high_five/on_timeout()
 	owner.visible_message("[owner] [get_missed_message()]")
 
 /datum/status_effect/high_five/proc/get_missed_message()
+	if(isrobot(owner))
+		return "sadly activates [owner.p_their()] high-five inhibitors."
 	var/list/missed_highfive_messages = list(
 		"lowers [owner.p_their()] hand, it looks like [owner.p_they()] [owner.p_were()] left hanging...",
 		"seems to awkwardly wave at nobody in particular.",
@@ -110,6 +114,8 @@
 		"high-fives [owner.p_their()] other hand shamefully before wiping away a tear.",
 		"goes for a handshake, then a fistbump, before pulling [owner.p_their()] hand back...? <i>What [owner.p_are()] [owner.p_they()] doing?</i>"
 	)
+
+
 
 	return pick(missed_highfive_messages)
 
@@ -120,8 +126,11 @@
 	request = "requests someone to dap them up!"
 	sound_effect = 'sound/effects/snap.ogg'
 	item_path = /obj/item/melee/touch_attack/fake_disintegrate  // EI-NATH!
+	silicon_message = "activates its dapping subroutines."
 
 /datum/status_effect/high_five/dap/get_missed_message()
+	if(issilicon(owner))
+		return "catastrophically fails to dap, displaying a flashing error message."
 	return "sadly can't find anybody to give daps to, and daps [owner.p_themselves()]. Shameful."
 
 /datum/status_effect/high_five/handshake
