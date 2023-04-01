@@ -462,7 +462,6 @@
 	button_icon_state = "jetboot"
 	use_itemicon = FALSE
 
-
 /datum/action/item_action/gravity_jump
 	name = "Gravity jump"
 	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
