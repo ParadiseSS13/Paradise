@@ -89,10 +89,15 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
+	fire_delay = 0.5 SECONDS
+	var/cooldown
 
 /obj/item/gun/energy/disabler/ducky/newshot()
+	if(cooldown > world.time)
+		return
 	if(prob(98))
 		atom_say(pick("Stop touching me!", "I am a duck not a gun!", "Stop squeaking me, its useless!", "You still think I can shoot something?", "I hate you.", "I miss my rubber ducky family.", "I am not shooting anything!", "Still thinking I am a gun?!", "This is not a trigger, its my leg!"))
+		cooldown = world.time + fire_delay
 		return
 	else
 		atom_say(pick("Are you happy now?", "Only shooting once, now stop!"))
