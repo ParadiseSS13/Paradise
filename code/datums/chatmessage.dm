@@ -134,6 +134,12 @@
 		target.chat_color = colorize_string(target.name)
 		target.chat_color_name = target.name
 
+	var/client/target_client
+	if(istype(target, /mob))
+		var/mob/tg = target
+		if(tg.client)
+			target_client = tg.client
+
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
 	text = replacetext(text, url_scheme, "")
@@ -153,12 +159,13 @@
 			size = size || "small"
 		else
 			// afd or not, we don't want to actually make people's lives harder
-			var/member_or_donor = owned_by.prefs.unlock_content || owned_by.donator_level
-			if(owned_by.prefs)  // for local shenanigans
-				member_or_donor = (owned_by.prefs.unlock_content && (owned_by.prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)) || (owned_by.donator_level && (owned_by.prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
-			var/no_symbol_regardless = (owned_by.holder?.fakekey || (owned_by.prefs.toggles2 & PREFTOGGLE_2_ANON) || !owned_by.show_checkmark)
-			if(member_or_donor && !no_symbol_regardless)
-				symbol = "<img src='icons/mob/verified.dmi' icon='icons/mob/verified.dmi' iconstate='verified'>"
+			if(target_client)
+				var/member_or_donor = target_client.prefs.unlock_content || target_client.donator_level
+				if(target_client.prefs)  // for local shenanigans
+					member_or_donor = (target_client.prefs.unlock_content && (target_client.prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)) || (target_client.donator_level && (target_client.prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
+				var/no_symbol_regardless = (target_client.holder?.fakekey || (target_client.prefs.toggles2 & PREFTOGGLE_2_ANON) || !target_client.show_checkmark)
+				if(member_or_donor && !no_symbol_regardless)
+					symbol = "<img src='icons/mob/verified.dmi' icon='icons/mob/verified.dmi' iconstate='verified'>"
 			else
 				symbol = null
 
