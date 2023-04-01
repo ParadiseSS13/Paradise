@@ -241,7 +241,7 @@
 
 	for(var/obj/effect/spinning_gun in list(spinning_gun_effect_l, spinning_gun_effect_r))
 		// set random direction and speed
-		playsound(owner.loc, pick(sound_effects), 45, TRUE, 22000)
+		playsound(owner.loc, pick(sound_effects), 45, TRUE)
 		spinning_gun.SpinAnimation(rand(3, 15), -1, rand(0, 1), parallel = FALSE)
 
 	H.visible_message(
@@ -276,7 +276,7 @@
 	for(var/obj/effect/spinning_gun in list(spinning_gun_effect_l, spinning_gun_effect_r))
 		if(prob(70))
 			// set random direction and speed
-			playsound(owner.loc, pick(sound_effects), 45, TRUE, 22000)
+			playsound(owner.loc, pick(sound_effects), 45, TRUE)
 			spinning_gun.SpinAnimation(rand(3, 15), -1, rand(0, 1), parallel = FALSE)
 
 	if(prob(5))
