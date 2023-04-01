@@ -224,7 +224,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	message = trim_left(message)
 
 	var/ending = copytext(message, length(message))
-	if(!(ending in list("!", "?", ",", ".")))
+	if(!(ending in list("!", "?", ",", ".")) && length(message) != 0)
 		message += "."
 
 	//parse the language code and consume it
