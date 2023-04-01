@@ -132,6 +132,3 @@
 
 /datum/martial_art/cqc/explaination_header(user)
 	to_chat(user, "<b><i>You try to remember some of the basics of CQC.</i></b>")
-
-/datum/martial_art/cqc/explaination_footer(user)
-	to_chat(user, "<b>Your slaps hit considerably harder, and allow you to parry incoming melee attacks.</b>")
