@@ -292,7 +292,7 @@
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "disabler"
+	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
 	selfcharge = TRUE
