@@ -18,6 +18,7 @@
 	var/transformation_text = null
 	var/new_form = /mob/living/carbon/human
 	var/job_role = null
+	var/trait = null
 
 /datum/disease/transformation/stage_act()
 	if(!..())
@@ -72,6 +73,8 @@
 				affected_mob.mind.transfer_to(new_mob)
 			else
 				new_mob.key = affected_mob.key
+			if(trait)
+				ADD_TRAIT(new_mob, trait, "Monkey virus")
 		qdel(affected_mob)
 
 
@@ -253,3 +256,40 @@
 	transformation_text = "<span class='userdanger'>This transformation does NOT make you an antagonist if you were not one already. If you were not an antagonist, you should not eat any steal objectives or the contents of the armory.</span>"
 	new_form = /mob/living/simple_animal/hostile/morph
 	job_role = ROLE_MORPH
+
+/datum/disease/transformation/monkey
+	name = "Bananium infused Retrovirus"
+	cure_text = "Some bananas"
+	cures = list("banana")
+	agent = "Bananium infused Retrovirus"
+	desc = "A dangerous bio-engineered syndicate virus designed to turn crew members in to zombie-like monkeys"
+	stage_prob = 4
+	severity = BIOHAZARD
+	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
+	visibility_flags = 0
+	stage1	= list("<span class='notice'You feel funny.</span>")
+	stage2	= list("<span class='notice'>You could go for some bananas... ook ook.</span>")
+	stage3	= list("<span class='danger'>You notice some hair growing on your arm.</span>")
+	stage4	= list("<span class='danger'>You feel rather silly.</span>")
+	stage5	= list("<span class='danger'>You have an extremely strong urge to jump on the nearest bed.</span>")
+	transformation_text = "<span class='userdanger'>You are an infected monkey! The touch of your hairy hands can infect anyone, and using your harm intent bite on people will cause them to turn to your side quicker.</span>"
+	new_form = /mob/living/carbon/human/monkey
+	job_role = ROLE_MONKEY
+	trait = TRAIT_HAS_MONKEY_VIRUS
+
+/datum/disease/transformation/monkey/stage_act()
+	..()
+	switch(stage)
+		if(4)
+			if(prob(8))
+				affected_mob.say(pick("OOK!", "ooho ahahha!"))
+		if(3)
+			if(prob(20))
+				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."))
+			if(prob(1))
+				if(prob(1))
+					affected_mob.say(pick("FREE ANTAG WOOOOOOO!1!1!"))
+
+/datum/disease/transformation/monkey/do_disease_transformation(mob/living/affected_mob)
+	affected_mob.unequip_everything()
+	return ..()

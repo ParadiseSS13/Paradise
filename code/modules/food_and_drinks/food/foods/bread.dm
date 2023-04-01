@@ -12,6 +12,7 @@
 	filling_color = "#FF7575"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
 	tastes = list("bread" = 10, "meat" = 10)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/meatbreadslice
 	name = "meatbread slice"
@@ -28,6 +29,7 @@
 	filling_color = "#8AFF75"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
 	tastes = list("bread" = 10, "acid" = 10)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	name = "xenomeatbread slice"
@@ -43,6 +45,7 @@
 	slices_num = 5
 	list_reagents = list("protein" = 20, "nutriment" = 10, "toxin" = 15, "vitamin" = 5)
 	tastes = list("bread" = 10, "cobwebs" = 5)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	name = "spider meat bread slice"
@@ -59,6 +62,7 @@
 	filling_color = "#EDE5AD"
 	list_reagents = list("banana" = 20, "nutriment" = 20)
 	tastes = list("bread" = 10)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/bananabreadslice
 	name = "banana-nut bread slice"
@@ -76,6 +80,7 @@
 	filling_color = "#F7FFE0"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("bread" = 10, "tofu" = 10)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/tofubreadslice
 	name = "tofubread slice"
@@ -92,6 +97,7 @@
 	filling_color = "#FFE396"
 	list_reagents = list("nutriment" = 10)
 	tastes = list("bread" = 10)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/breadslice
 	name = "bread slice"
@@ -110,6 +116,7 @@
 	filling_color = "#FFF896"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("bread" = 10, "cheese" = 10)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/creamcheesebreadslice
 	name = "cream cheese bread slice"
@@ -128,6 +135,7 @@
 	filling_color = "#6F0000"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
 	tastes = list("heresy" = 10, "banana" = 10)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/banarnarbreadslice
 	name = "banarnarbread slice"
@@ -158,6 +166,7 @@
 	icon_state = "flatbread"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bread" = 2)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/baguette
 	name = "baguette"
@@ -169,6 +178,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
 	tastes = list("bread" = 2)
+	bread = TRUE
 
 /obj/item/reagent_containers/food/snacks/twobread
 	name = "two bread"

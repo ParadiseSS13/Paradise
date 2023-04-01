@@ -876,7 +876,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/fall()
 	..()
-	loc.handle_fall()//it's loc so it doesn't call the mob's handle_fall which does nothing
+	loc.handle_fall(src)//it's loc so it doesn't call the mob's handle_fall which does nothing
 
 /mob/living/carbon/is_muzzled()
 	return(istype(wear_mask, /obj/item/clothing/mask/muzzle))
@@ -1113,7 +1113,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
-	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
+	playsound(loc, 'sound/misc/sliiip.ogg', 50, 1, -3)
+	for(var/obj/structure/holosign/wetsign/S in range(3, src))
+		addtimer(CALLBACK(null, GLOBAL_PROC_REF(playsound), loc, 'sound/misc/sign_says_walk.ogg', 50), 1 SECONDS)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	KnockDown(knockdown)

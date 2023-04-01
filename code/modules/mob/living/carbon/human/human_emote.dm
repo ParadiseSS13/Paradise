@@ -357,6 +357,49 @@
 	mob_type_allowed_typecache = list(/mob/living/carbon/human)
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/ocelot
+	key = "ocelot"
+	key_third_person = "ocelots"
+	hands_use_check = TRUE
+
+/datum/emote/living/carbon/human/ocelot/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
+	. = ..()
+	if(!.)
+		return .
+
+	if(!istype(user))
+		return FALSE
+
+	if(user.has_status_effect(/datum/status_effect/revolver_spinning))
+		return FALSE
+
+	// fuck it we ball
+	// when this gets serious consideration find a better way to do this that references the effect's list
+	var/static/list/valid_revolver_types = list(
+		/obj/item/gun/projectile/revolver,
+		/obj/item/gun/projectile/revolver/mateba,
+		/obj/item/gun/projectile/revolver/capgun,
+		/obj/item/gun/projectile/revolver/golden,
+		/obj/item/gun/projectile/revolver/russian,
+		/obj/item/gun/projectile/revolver/russian/soul,
+		/obj/item/gun/projectile/revolver/nagant,
+		/obj/item/toy/russian_revolver,
+		/obj/item/toy/russian_revolver/trick_revolver,
+		/obj/item/gun/energy/arc_revolver
+	)
+
+
+	return ((user.l_hand.type in valid_revolver_types) && (user.r_hand.type in valid_revolver_types))
+
+
+
+
+/datum/emote/living/carbon/human/ocelot/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
+	. = ..()
+	if(!istype(user))
+		return
+
+	user.apply_status_effect(/datum/status_effect/revolver_spinning)
 
 /////////
 // Species-specific emotes

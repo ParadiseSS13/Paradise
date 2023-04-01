@@ -70,6 +70,7 @@ SUBSYSTEM_DEF(throwing)
 	var/last_move = 0
 	///When this variable is false, non dense mobs will be hit by a thrown item. useful for things that you dont want to be cheesed by crawling, EG. gravitational anomalies
 	var/dodgeable = TRUE
+	var/do_hit_check = TRUE
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -81,7 +82,7 @@ SUBSYSTEM_DEF(throwing)
 		delayed_time += world.time - last_move
 		return
 
-	if(dist_travelled && hitcheck()) //to catch sneaky things moving on our tile while we slept
+	if(dist_travelled && do_hit_check && hitcheck()) //to catch sneaky things moving on our tile while we slept
 		finalize()
 		return
 
@@ -93,7 +94,8 @@ SUBSYSTEM_DEF(throwing)
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
-			hitcheck() //Just to be sure
+			if(do_hit_check)
+				hitcheck() //Just to be sure
 			finalize()
 			return
 

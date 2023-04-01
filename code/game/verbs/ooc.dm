@@ -38,6 +38,14 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!msg)
 		return
 
+	var/lower_msg = lowertext(msg)
+	var/list/bad_tastes = list("i like mercedes-amg", "i like the toyota prius", "i want a g-wiz", "automatic cars are fine", "everyone should own an f150", "cycling is a valid mode of transport")
+	if (lower_msg in bad_tastes)
+		message_admins("[key_name_admin(usr)] got kicked for having shit taste in cars (msg: [lower_msg]).")
+		to_chat(usr, "<span class='warning'>You have been disconnected for having shit taste in cars.</span>")
+		qdel(src)
+		return
+
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_OOC))
 		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
 		return

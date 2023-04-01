@@ -417,8 +417,13 @@
 /turf/proc/acid_melt()
 	return
 
-/turf/handle_fall()
+/turf/handle_fall(atom/falling)
 	if(has_gravity(src))
+		if(istype(falling, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = falling
+			if(ismachineperson(H))
+				playsound(src, "sound/effects/mob_effects/pipe_clang.ogg", 50, TRUE)
+				return
 		playsound(src, "bodyfall", 50, TRUE)
 
 /turf/singularity_act()

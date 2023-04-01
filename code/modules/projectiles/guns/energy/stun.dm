@@ -8,6 +8,16 @@
 	ammo_x_offset = 3
 	can_holster = TRUE  // Pistol size
 
+/obj/item/gun/energy/taser/HoS
+	name = "taser gun"
+	desc = "A small, low capacity gun used for shooting clowns."
+	icon_state = "taser"
+	item_state = null	//so the human update icon uses the icon_state instead.
+	origin_tech = "combat=3"
+	ammo_type = list(/obj/item/ammo_casing/energy/clown)
+	ammo_x_offset = 3
+	can_holster = TRUE  // Pistol size
+
 /obj/item/gun/energy/arc_revolver
 	name = "arc revolver"
 	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers. These shots charge whatever they hit, causing arcs of electricity to form between them."
@@ -80,3 +90,28 @@
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
 	suppressed = TRUE
+
+/obj/item/gun/energy/disabler/ducky
+	name = "rubber ducky gun"
+	desc = "A plastic yellow duck with a trigger below the base. 'DO NOT SQUEEZE' is inscribed on it's back."
+	icon = 'icons/obj/watercloset.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	icon_state = "rubberducky"
+	item_state = "rubberducky"
+	fire_delay = 0.5 SECONDS
+	var/cooldown
+
+/obj/item/gun/energy/disabler/ducky/newshot()
+	if(cooldown > world.time)
+		return
+	if(prob(98))
+		atom_say(pick("Stop touching me!", "I am a duck not a gun!", "Stop squeaking me, its useless!", "You still think I can shoot something?", "I hate you.", "I miss my rubber ducky family.", "I am not shooting anything!", "Still thinking I am a gun?!", "This is not a trigger, its my leg!"))
+		cooldown = world.time + fire_delay
+		return
+	else
+		atom_say(pick("Are you happy now?", "Only shooting once, now stop!"))
+	. = ..()
+
+/obj/item/gun/energy/disabler/ducky/shoot_with_empty_chamber(mob/living/user)
+	playsound(user, 'sound/items/squeaktoy.ogg', 100, TRUE)

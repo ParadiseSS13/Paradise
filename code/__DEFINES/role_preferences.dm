@@ -75,6 +75,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
-//	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported
+//	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported // :)
 //	ROLE_GANG = /datum/game_mode/gang
 ))

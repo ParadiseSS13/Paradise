@@ -138,6 +138,19 @@
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
+	var/static/list/ocelot = list(  // 35TC + CLOTHING
+		/obj/item/storage/belt/holster, // 0TC
+		/obj/item/storage/belt/holster, // 0TC
+		/obj/item/ammo_box/a357, // 3TC
+		/obj/item/ammo_box/a357, // 3TC
+		/obj/item/ammo_box/a357, // 3TC
+		/obj/item/gun/projectile/revolver,  // 13TC
+		/obj/item/gun/projectile/revolver,  // 13TC
+		/obj/item/clothing/under/costume/soviet, // 0TC
+		/obj/item/clothing/head/ushanka, // 0TC
+		/obj/item/clothing/gloves/combat, // 0TC
+	)
+
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
 	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier)
 	for(var/item in bundle)

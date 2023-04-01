@@ -19,6 +19,7 @@
 	jobtype = /datum/job/chaplain
 
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
+	suit = /obj/item/clothing/suit/drip
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/chaplain

@@ -114,6 +114,7 @@ do {\
 	basename = "bread"
 	snack_overlays = 0
 	top = 0
+	bread = TRUE
 	tastes = list("bread" = 10)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/pie

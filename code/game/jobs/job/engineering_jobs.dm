@@ -28,6 +28,7 @@
 	jobtype = /datum/job/chief_engineer
 
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
+	suit = /obj/item/clothing/suit/drip
 	belt = /obj/item/storage/belt/utility/chief/full
 	gloves = /obj/item/clothing/gloves/color/black/ce
 	shoes = /obj/item/clothing/shoes/brown
@@ -68,6 +69,7 @@
 	jobtype = /datum/job/engineer
 
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
+	suit = /obj/item/clothing/suit/drip
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat
@@ -105,6 +107,7 @@
 	jobtype = /datum/job/atmos
 
 	uniform = /obj/item/clothing/under/rank/engineering/atmospheric_technician
+	suit = /obj/item/clothing/suit/drip
 	belt = /obj/item/storage/belt/utility/atmostech
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_eng
