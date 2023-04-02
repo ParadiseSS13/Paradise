@@ -583,6 +583,9 @@
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)
 
+#define MAX_VALUE 7
+#define MIN_VALUE 6
+
 /obj/item/storage/backpack/duffel/magic_nanny_bag
 	name = "magic nanny bag"
 	desc = "Not to be confused with a magic granny bag. Zip it up to make it unable to be dropped while closed."
@@ -597,8 +600,6 @@
 	resistance_flags = FIRE_PROOF
 	open_icon_sprite = "magic_nanny_bag_open"
 	antidrop_on_zip = TRUE
-	var/max_value = 7 // make define
-	var/min_value = 6
 
 
 /obj/item/storage/backpack/duffel/magic_nanny_bag/populate_contents(attempts = 0)
@@ -762,12 +763,15 @@
 		if(5)
 			new /obj/item/reagent_containers/food/snacks/plum_pie(src) // Great healing over long period of time
 
-	if(value > max_value || value < min_value)
+	if(value > MAX_VALUE || value < MIN_VALUE)
 		if(attempts >= 5)
 			message_admins("Failed to generate the wizard a properly priced magic nanny bag!")
 		else
 			new /obj/item/storage/backpack/duffel/magic_nanny_bag(get_turf(loc), attempts += 1)
 		qdel(src)
+
+#undef MAX_VALUE
+#undef MIN_VALUE
 
 /obj/item/reagent_containers/food/drinks/bottle/dragonsbreath
 	name = "flask of dragons breath"
