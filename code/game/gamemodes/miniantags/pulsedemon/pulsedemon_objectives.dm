@@ -1,6 +1,6 @@
 /datum/objective/pulse_demon/infest
 	name = "Hijack APCs"
-	var/amount = 20
+	var/amount
 
 /datum/objective/pulse_demon/infest/New()
 	. = ..()
@@ -20,7 +20,7 @@
 
 /datum/objective/pulse_demon/drain
 	name = "Drain Power"
-	var/amount = 500000
+	var/amount
 
 /datum/objective/pulse_demon/drain/New()
 	. = ..()
