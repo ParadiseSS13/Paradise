@@ -771,7 +771,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/dragonsbreath
 	name = "flask of dragons breath"
-	desc = "Not reccomended for wizardly consumption. Reccomended for mundane consumption!"
+	desc = "Not recommended for wizardly consumption. Recommended for mundane consumption!"
 	icon_state = "holyflask"
 	color = "#DC0000"
 	volume = 100
