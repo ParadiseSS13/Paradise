@@ -6,6 +6,7 @@
 /datum/action/item_action/advanced/ninja/SpiderOS
 	name = "SpiderOS"
 	desc = "Your personal integrated suit AI that will help you configure yourself for the upcoming mission!"
+	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	use_itemicon = FALSE
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -176,7 +177,7 @@
 				return
 			switch(SSshuttle.moveShuttle(shuttle_controller.shuttleId, destination, TRUE, usr))
 				if(0)
-					atom_say("Shuttle departing!")
+					atom_say("Шаттл отправляется!")
 					usr.create_log(MISC_LOG, "remotedly used [shuttle_controller] to call the [shuttle_controller.shuttleId] shuttle")
 					if(!shuttle_controller.moved)
 						shuttle_controller.moved = TRUE

@@ -704,7 +704,6 @@
 
 // This item actions have their own charges/cooldown system like spell procholders, but without all the unnecessary magic stuff
 /datum/action/item_action/advanced
-	check_flags = 0
 	var/recharge_text_color = "#FFFFFF"
 	var/charge_type = ADV_ACTION_TYPE_RECHARGE //can be recharge, toggle, toggle_recharge or charges, see description in the defines file
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or "toggle_recharge", alternatively counts as starting charges if charge_type = "charges"
@@ -719,11 +718,14 @@
 	var/coold_overlay_icon = 'icons/mob/screen_white.dmi'
 	var/coold_overlay_icon_state = "template"
 	var/no_count = FALSE  // This means that the action is charged but unavailable due to something else
+	var/wait_time = 2 SECONDS // Prevents spamming the button. Only for "charges" type actions
+	var/last_use_time = null
 
 /datum/action/item_action/advanced/New()
 	. = ..()
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	icon_state_disabled = background_icon_state
+	last_use_time = world.time
 	if(charge_type == ADV_ACTION_TYPE_CHARGES)
 		UpdateButtonIcon()
 		add_charges_overlay()
@@ -773,6 +775,7 @@
 			start_recharge()
 		if(ADV_ACTION_TYPE_CHARGES)
 			charge_counter--
+			last_use_time = world.time
 			UpdateButtonIcon()
 			add_charges_overlay()
 
@@ -782,7 +785,8 @@
  * ignore_ready - Are we ignoring the "action_ready" flag? Usefull when u call this check indirrectly.
  */
 /datum/action/item_action/advanced/IsAvailable(show_message = FALSE, ignore_ready = FALSE)
-	. = ..()
+	if(!..())
+		return FALSE
 	switch(charge_type)
 		if(ADV_ACTION_TYPE_RECHARGE)
 			if(charge_counter < charge_max)
@@ -797,6 +801,10 @@
 					to_chat(owner, still_recharging_msg)
 				return FALSE
 		if(ADV_ACTION_TYPE_CHARGES)
+			if(world.time < last_use_time + wait_time)
+				if(show_message)
+					to_chat(owner, "<span class='warning'>[name] is already being used.</span>")
+				return FALSE
 			if(!charge_counter)
 				if(show_message)
 					to_chat(owner, "<span class='notice'>[name] has no charges left.</span>")

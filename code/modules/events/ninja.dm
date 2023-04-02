@@ -15,6 +15,12 @@
 
 /datum/event/space_ninja/start()
 	processing = 0 //so it won't fire again in next tick
+	var/list/check_list = GLOB.player_list
+	for(var/mob/new_player/lobby_player in check_list)
+		check_list -= lobby_player
+	if(length(check_list) < 25)
+		message_admins("Space Ninja event failed to start. Not enough players.")
+		return
 	if(!get_ninja())
 		message_admins("Space Ninja event failed to find players. Retrying in 30s.")
 		addtimer(CALLBACK(src, .proc/get_ninja), 5 SECONDS)

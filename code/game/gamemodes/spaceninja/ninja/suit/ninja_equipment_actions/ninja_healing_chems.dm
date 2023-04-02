@@ -17,10 +17,9 @@
 	if(ninjacost(0,N_HEAL))
 		return
 	var/mob/living/carbon/human/ninja = affecting
-	if(alert(ninja, "Вы уверены что хотите ввести себе эксперементальную лечащую сыворотку? Реагент не стабилен и может вызывать редкие парадоксы времени и пространства!",,"Да","Нет") == "Нет")
-		return
 	ninja.reagents.add_reagent("chiyurizine", 25)	//The 25 dose is important. Reagent won't work if you add less. And it will overdose if you add 30 or more
 	to_chat(ninja, span_notice("Реагенты успешно введены в пользователя."))
+	atom_say("Spider-OS напоминает вам, вы можете отслеживать количество реагента в крови с помощью встроенных сканеров.")
 	add_attack_logs(ninja, null, "Activated healing chems.")
 	for(var/datum/action/item_action/advanced/ninja/ninjaheal/ninja_action in actions)
 		ninja_action.use_action()

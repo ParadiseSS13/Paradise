@@ -123,29 +123,29 @@
 	if(!occupant)
 		return
 	if(occupant.stat == DEAD)
-		atom_say("ERROR! Occupant is DEAD! Aborting!")
+		atom_say("ОШИБКА! Пациент МЁРТВ! Отмена сканирования!")
 		return
 	if("[occupant.mind]" in objective.scanned_occupants)
-		atom_say("ERROR! Occupant was already scanned before! Aborting!")
+		atom_say("ОШИБКА! Пациент уже сканировался ранее! Отмена сканирования!")
 		return
 	if(!(occupant.mind.assigned_role in objective.possible_roles))
-		atom_say("ERROR! Occupant's job is not on the list! Aborting!")
+		atom_say("ОШИБКА! Профессия пациент не сопадает с требуемыми кланом. Отмена сканирования!")
 		return
-	atom_say("Mind Scan initiated!")
+	atom_say("Сканирование разума начато!")
 	sleep(30)
-	atom_say("Analyzing nerve pattern for [occupant.real_name]")
+	atom_say("Анализ нервной системы пациента: [occupant.real_name]")
 	sleep(30)
 	atom_say("[rand(1, 50)]%")
 	sleep(50)
 	atom_say("[rand(51, 99)]%")
 	sleep(30)
-	atom_say("Mind Scan - Task completed!")
+	atom_say("Сканирование разума - Задача завершена!")
 	objective.scanned_occupants.Add("[occupant.mind]")
 	if(objective.target == occupant.mind || objective.scanned_occupants.len >= objective.scans_to_win)
 		objective.completed = TRUE
-		atom_say("Occupant knows valuable information! Info has been transferred to the clan! Well done [ninja]!")
+		atom_say("Пациенту известна ценная информация! Данные переданы клану! Отличная работа, [ninja]!")
 	else
-		atom_say("Occupant does not know the information requested by the Clan! Still some information was usefull... Search more!")
+		atom_say("Пациенту неизвестна требуемая клану информация! И всё же были получены ценные обрывки информации... Продолжайте поиски!")
 
 /obj/machinery/ninja_mindscan_machine/proc/take_occupant(var/mob/living/carbon/possible_occupant)
 	if(occupant)

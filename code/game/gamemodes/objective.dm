@@ -1013,9 +1013,9 @@ GLOBAL_LIST_EMPTY(all_objectives)
 				killer.assigned_targets.Add("[steal_objective.steal_target]")
 				killer.add_objective(steal_objective)
 				//Ну и банальное - Выживи
-				var/datum/objective/survive/survive_objective = new
-				survive_objective.owner = newtraitormind
-				killer.add_objective(survive_objective)
+				var/datum/objective/escape/escape_objective = new
+				escape_objective.owner = newtraitormind
+				killer.add_objective(escape_objective)
 			killer.greet()	// Вот теперь здороваемся!
 			killer.update_traitor_icons_added()	// Фикс худа, а то порой те кому выпал хиджак при ниндзя - получали замену целек, но не худа
 
@@ -1178,7 +1178,11 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		if(player.current)
 			if(ismindshielded(player.current))
 				possible_changelings -= player
+				continue
 			if(player.current.dna.species.name in temp_gameMode.protected_species)
+				possible_changelings -= player
+				continue
+			if(player.assigned_role in temp_gameMode.protected_jobs)
 				possible_changelings -= player
 	if(possible_changelings.len)
 		var/changeling_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling))+1)
@@ -1216,7 +1220,11 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		if(player.current)
 			if(ismindshielded(player.current))
 				possible_vampires -= player
+				continue
 			if(player.current.dna.species.name in temp_gameMode.protected_species)
+				possible_vampires -= player
+				continue
+			if(player.assigned_role in temp_gameMode.protected_jobs)
 				possible_vampires -= player
 	if(possible_vampires.len)
 		var/vampires_num = max(1, round((SSticker.mode.num_players_started())/(config.traitor_scaling))+1)
