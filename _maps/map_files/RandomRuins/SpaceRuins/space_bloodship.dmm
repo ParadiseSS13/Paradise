@@ -1,0 +1,2585 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"dJ" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"ge" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"iG" = (
+/obj/structure/cult/altar,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"jV" = (
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"lw" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/mineral/random,
+/area/ruin/unpowered)
+"nl" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"oc" = (
+/turf/simulated/mineral/random,
+/area/ruin/unpowered)
+"oo" = (
+/obj/item/clothing/shoes/cult,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"pf" = (
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/brute,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"pj" = (
+/obj/item/flag/cult,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"qE" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"sW" = (
+/turf/simulated/wall/shuttle,
+/area/ruin/unpowered)
+"vK" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"vW" = (
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"xv" = (
+/turf/space,
+/area/template_noop)
+"xZ" = (
+/turf/simulated/wall/cult,
+/area/ruin/unpowered)
+"yu" = (
+/turf/simulated/wall/indestructible/necropolis,
+/area/ruin/unpowered)
+"AW" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/candle/eternal,
+/obj/effect/temp_visual/cult/sparks,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Bg" = (
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Bs" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Cb" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"Cj" = (
+/obj/item/clothing/head/helmet/space/cult,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"CJ" = (
+/turf/simulated/wall/shuttle/nosmooth,
+/area/ruin/unpowered)
+"CO" = (
+/obj/structure/cult/forge,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"CT" = (
+/obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/obj/effect/decal/cleanable/crayon{
+	color = "#cc3300";
+	desc = null
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Dp" = (
+/obj/machinery/door/airlock/public,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Dq" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon_state = "white_walls_corners"
+	},
+/area/ruin/unpowered)
+"Dz" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ruin/unpowered)
+"EE" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon_state = "white_walls_corners"
+	},
+/area/ruin/unpowered)
+"EI" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
+"GR" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon_state = "white_walls_corners"
+	},
+/area/ruin/unpowered)
+"Hm" = (
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Jn" = (
+/obj/structure/cult/pylon,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Kp" = (
+/obj/structure/computerframe,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"KT" = (
+/obj/structure/table/wood,
+/obj/item/candle/eternal,
+/obj/item/whetstone/cult,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"KY" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/space,
+/area/template_noop)
+"Li" = (
+/obj/structure/cult/archives,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Lp" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Mi" = (
+/obj/item/clothing/suit/hooded/cultrobes,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Mt" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"MO" = (
+/obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"MV" = (
+/obj/effect/rune/narsie{
+	color = "#ff0000";
+	used = 1
+	},
+/obj/item/clothing/accessory/medal/fluff/elo{
+	name = "Bloody Medal";
+	desc = "Rusted and bloodstained medal. Given to who believes in... illegible to you, rust erased last words."
+	},
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 350;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"NA" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
+"NF" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"NU" = (
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 350;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Pz" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon_state = "white_walls_corners"
+	},
+/area/ruin/unpowered)
+"RD" = (
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 350;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"TZ" = (
+/obj/structure/table/wood,
+/obj/item/spellbook/oneuse/fake_gib,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Uv" = (
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/doctor,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"UX" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1;
+	tag = "icon-propulsion (NORTH)"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"Vn" = (
+/obj/structure/bookcase,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Wh" = (
+/obj/effect/decal/cleanable/crayon{
+	color = "#cc3300";
+	desc = null
+	},
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"WW" = (
+/obj/structure/table/wood,
+/obj/item/candle/eternal,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Xi" = (
+/obj/item/melee/cultblade,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+"Yt" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/storage/toolbox/emergency,
+/turf/simulated/floor/engine/cult{
+	oxygen = 24;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(2,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(3,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(4,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+oc
+oc
+oc
+oc
+oc
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(5,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+oc
+oc
+oc
+oc
+oc
+oc
+oc
+oc
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(6,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+oc
+oc
+oc
+yu
+yu
+yu
+yu
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(7,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+oc
+oc
+oc
+yu
+Bg
+Xi
+Bg
+Bg
+yu
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+"}
+(8,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+oc
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+oc
+oc
+oc
+yu
+oo
+Bg
+qE
+Bg
+Bg
+yu
+oc
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+"}
+(9,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+oc
+EI
+EI
+EI
+xv
+xv
+KY
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+oc
+oc
+yu
+RD
+NU
+Wh
+xZ
+Wh
+Cj
+Bg
+yu
+oc
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+"}
+(10,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+yu
+Bg
+Bg
+Wh
+Bg
+Bg
+Bg
+Wh
+Bg
+Bg
+yu
+oc
+oc
+oc
+EI
+xv
+xv
+xv
+"}
+(11,1,1) = {"
+xv
+xv
+xv
+KY
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+yu
+Bg
+qE
+xZ
+Bg
+MV
+Bg
+xZ
+Bg
+Bg
+yu
+oc
+oc
+oc
+EI
+xv
+xv
+xv
+"}
+(12,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+oc
+yu
+Bg
+Bg
+Wh
+Bg
+Bg
+Bg
+Wh
+Bg
+Bg
+yu
+oc
+oc
+oc
+xv
+xv
+xv
+xv
+"}
+(13,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+oc
+yu
+Bg
+Bg
+CT
+xZ
+Wh
+MO
+Mi
+yu
+oc
+oc
+oc
+oc
+xv
+xv
+xv
+xv
+"}
+(14,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+oc
+oc
+yu
+dJ
+Bg
+qE
+Bg
+NU
+yu
+oc
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+"}
+(15,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+oc
+oc
+yu
+Jn
+Bg
+Bg
+Jn
+yu
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+"}
+(16,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+oc
+oc
+yu
+lw
+lw
+yu
+oc
+oc
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(17,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+oc
+oc
+oc
+oc
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(18,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+Dq
+Cb
+Dp
+Cb
+GR
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+oc
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(19,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+Dq
+sW
+Dz
+Cb
+sW
+Dz
+sW
+Bg
+Bg
+Bg
+sW
+Dz
+sW
+Dz
+GR
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(20,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+Dq
+Dz
+sW
+CO
+CO
+Xi
+Jn
+sW
+jV
+Bg
+Bg
+sW
+AW
+Yt
+AW
+sW
+GR
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+NA
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(21,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+Dq
+Dz
+Bg
+sW
+dJ
+dJ
+Bg
+Bg
+sW
+Cb
+Dp
+Cb
+sW
+pj
+Bg
+Bg
+Bg
+Dz
+GR
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(22,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+Dq
+Dz
+sW
+Bg
+Bg
+sW
+jV
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+sW
+Bg
+Bg
+qE
+Bg
+Bg
+sW
+GR
+xv
+xv
+xv
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(23,1,1) = {"
+xv
+xv
+xv
+xv
+UX
+vK
+sW
+NF
+dJ
+Bg
+sW
+Bg
+Bg
+jV
+Bg
+Bg
+Bg
+Bg
+Bg
+jV
+sW
+Bg
+Hm
+Bg
+Bg
+Bg
+Dz
+GR
+xv
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(24,1,1) = {"
+xv
+xv
+xv
+xv
+UX
+vK
+Dz
+NF
+dJ
+Bg
+sW
+Bg
+qE
+KT
+ge
+WW
+Bg
+Bg
+Bg
+Bg
+Bg
+sW
+Bg
+Bg
+Bg
+Mt
+Kp
+Cb
+EI
+EI
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(25,1,1) = {"
+xv
+xv
+xv
+xv
+UX
+vK
+sW
+NF
+dJ
+jV
+Dp
+Bg
+dJ
+pf
+pj
+Uv
+Bg
+Bg
+dJ
+Bg
+Bg
+Dp
+Bg
+Bg
+Bg
+Mt
+Kp
+Cb
+EI
+oc
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(26,1,1) = {"
+xv
+xv
+xv
+xv
+UX
+vK
+Dz
+NF
+nl
+Bg
+sW
+Bg
+Bg
+ge
+TZ
+WW
+Bg
+Bg
+qE
+Bg
+Bg
+sW
+Bg
+Hm
+qE
+Mt
+Kp
+Cb
+EI
+EI
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(27,1,1) = {"
+xv
+xv
+xv
+xv
+UX
+vK
+sW
+NF
+dJ
+Bg
+sW
+Vn
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+sW
+Bg
+Bg
+Bg
+Bg
+Bg
+Dz
+Pz
+EI
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(28,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+EE
+Dz
+sW
+Bg
+Bg
+sW
+Vn
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+Bg
+sW
+Bg
+Bg
+qE
+Bg
+Bg
+sW
+Pz
+xv
+xv
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(29,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EE
+sW
+Bs
+sW
+dJ
+vW
+Bg
+Bg
+sW
+Cb
+Dp
+Cb
+sW
+pj
+Bg
+Bg
+Bg
+Dz
+Pz
+xv
+xv
+xv
+xv
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(30,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EE
+sW
+sW
+iG
+iG
+Li
+Jn
+sW
+jV
+Bg
+Bg
+sW
+AW
+Lp
+AW
+sW
+Pz
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(31,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EE
+Dz
+sW
+Cb
+Cb
+Dz
+sW
+Bg
+Bg
+Bg
+sW
+Dz
+CJ
+Dz
+Pz
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+KY
+xv
+xv
+xv
+"}
+(32,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EE
+Cb
+Dp
+Cb
+Pz
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+oc
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(33,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+oc
+oc
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(34,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+oc
+oc
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+xv
+xv
+"}
+(35,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+oc
+oc
+oc
+oc
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+xv
+"}
+(36,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+oc
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+oc
+oc
+EI
+"}
+(37,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+oc
+oc
+oc
+EI
+"}
+(38,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+oc
+oc
+oc
+EI
+EI
+"}
+(39,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+oc
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+oc
+EI
+EI
+"}
+(40,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+KY
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+xv
+"}
+(41,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+KY
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+oc
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+xv
+xv
+"}
+(42,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(43,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(44,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}
+(45,1,1) = {"
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+"}

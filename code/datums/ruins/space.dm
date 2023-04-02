@@ -336,3 +336,9 @@
 	always_place = TRUE // This is on the always spawn list
 	cost = 0 // Force spawned so shouldnt have a cost
 */
+/datum/map_template/ruin/space/blood_ship
+	id = "blood_ship"
+	suffix = "space_bloodship.dmm"
+	name = "Space bloodship "
+	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice." 
+
