@@ -30,6 +30,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	var/gas_scan = FALSE
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
@@ -510,12 +511,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
 		health_scan = TRUE
 
-/mob/dead/observer/verb/analyze_air()
-	set name = "Analyze Air"
+/mob/dead/observer/verb/toggle_gas_scan()
+	set name = "Toggle Gas Scan"
+	set desc = "Toggles whether you analyze gas contents on click"
 	set category = "Ghost"
 
-	if(!istype(usr, /mob/dead/observer)) return
-	atmos_scan(user=usr, target=get_turf(src), silent=TRUE, print=TRUE)
+	if(gas_scan)
+		to_chat(src, span_notice("Gas scan disabled."))
+		gas_scan = FALSE
+	else
+		to_chat(src, span_notice("Gas scan enabled."))
+		gas_scan = TRUE
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
