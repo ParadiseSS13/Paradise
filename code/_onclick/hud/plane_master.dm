@@ -6,6 +6,13 @@
 	var/show_alpha = 255
 	var/hide_alpha = 0
 
+/obj/screen/plane_master/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, 	TYPE_PROC_REF(/atom, add_filter), "displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10)), 2 SECONDS)//Why a timer vs just apply on initialize? I don't know. It just can't be.
+
+/obj/screen/plane_master/proc/bullshitiest()
+	add_filter("displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
+
 /obj/screen/plane_master/proc/Show(override)
 	alpha = override || show_alpha
 
@@ -98,3 +105,11 @@
 	color = list(null, null, null, "#0000", "#000f")
 	blend_mode = BLEND_ADD
 	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR | PIXEL_SCALE
+
+/obj/screen/plane_master/gravpulse
+	name = "gravpulse plane"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = GRAVITY_PULSE_PLANE
+	blend_mode = BLEND_ADD
+	render_target = GRAVITY_PULSE_RENDER_TARGET
+	appearance_flags = PLANE_MASTER | NO_CLIENT_COLOR

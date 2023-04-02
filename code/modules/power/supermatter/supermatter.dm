@@ -872,8 +872,8 @@
 		if(!warp)
 			warp = new(src)
 			vis_contents += warp
-			animate(warp, time = 1, transform = matrix().Scale(0.5,0.5))
-			animate(time = 9, transform = matrix())
+		animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
+		animate(time = 9, transform = matrix())
 		if(final_countdown)
 			add_filter(name = "icon", priority = 3, params = list(
 				type = "layer",
