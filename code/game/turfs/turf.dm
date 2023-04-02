@@ -423,7 +423,7 @@
 			var/mob/living/carbon/human/H = falling
 			// isn't it awful that this is where this is scoped
 			// ah well
-			if(ismachineperson(H) && prob(1) && prob(50))  // 0.5 % chance
+			if(ismachineperson(H) && prob(0.5))  // 0.5 % chance
 				playsound(src, "sound/effects/mob_effects/pipe_clang.ogg", 50, TRUE)
 				return
 		playsound(src, "bodyfall", 50, TRUE)
