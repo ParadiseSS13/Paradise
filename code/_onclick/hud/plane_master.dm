@@ -28,6 +28,10 @@
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
+/obj/screen/plane_master/game_world/Initialize(mapload)
+	. = ..()
+	add_filter("displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
+
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
 	clear_filters()
 	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))

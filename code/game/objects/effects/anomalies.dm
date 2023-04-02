@@ -100,9 +100,12 @@
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
+	var/atom/movable/supermatter_warp_effect/warp
 
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE, event_spawned = TRUE)
 	. = ..()
+	warp = new(src)
+	vis_contents += warp
 	if(!event_spawned) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
 		return
 	for(var/I in 1 to 3)
@@ -110,6 +113,11 @@
 			new /obj/item/stack/rods(loc)
 		if(prob(75))
 			new /obj/item/shard(loc)
+
+/obj/effect/anomaly/grav/Destroy()
+	vis_contents -= warp
+	warp = null
+	return ..()
 
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
@@ -127,6 +135,10 @@
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10, dodgeable = FALSE)
+	//anomaly quickly contracts then slowly expands it's ring
+	animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
+	animate(time = 14, transform = matrix())
+	warp.add_filter("displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
 
 /obj/effect/anomaly/grav/Crossed(atom/movable/AM)
 	. = ..()
