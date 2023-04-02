@@ -14,7 +14,6 @@
 	flags_2 = RAD_NO_CONTAMINATE_2 //Don't have the item itself become irradiated when it makes radiation.
 	var/cooldown = 0
 	var/pulseicon = "plutonium_core_pulse"
-	var/atom/movable/supermatter_warp_effect/warp
 
 /obj/item/nuke_core/Initialize()
 	. = ..()
@@ -35,10 +34,6 @@
 		cooldown = world.time
 		flick(pulseicon, src)
 		radiation_pulse(src, 400, 2)
-		warp = new(src)
-		vis_contents += warp
-		animate(warp, time = 1, transform = matrix().Scale(0.5,0.5))
-		animate(time = 9, transform = matrix())
 
 /obj/item/nuke_core/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
