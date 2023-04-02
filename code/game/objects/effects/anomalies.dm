@@ -138,7 +138,6 @@
 	//anomaly quickly contracts then slowly expands it's ring
 	animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
 	animate(time = 14, transform = matrix())
-	warp.add_filter("displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
 
 /obj/effect/anomaly/grav/Crossed(atom/movable/AM)
 	. = ..()
