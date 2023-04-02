@@ -373,8 +373,9 @@
 	if(user.has_status_effect(/datum/status_effect/revolver_spinning))
 		return FALSE
 
-	// fuck it we ball
-	// when this gets serious consideration find a better way to do this that references the effect's list
+	// yeah I really don't like how this is done either
+	// but it was borderline impossible to pull a static list from the effect without instantiating one...
+	// just keep this up to date with the other one and everything will be peachy.
 	var/static/list/valid_revolver_types = list(
 		/obj/item/gun/projectile/revolver,
 		/obj/item/gun/projectile/revolver/mateba,
@@ -387,7 +388,6 @@
 		/obj/item/toy/russian_revolver/trick_revolver,
 		/obj/item/gun/energy/arc_revolver
 	)
-
 
 	return ((user.l_hand.type in valid_revolver_types) && (user.r_hand.type in valid_revolver_types))
 
@@ -608,12 +608,23 @@
 	key_third_person = "hisses"
 	message = "hisses."
 	message_param = "hisses at %t."
-	species_type_whitelist_typecache = list(/datum/species/unathi)
+	species_type_whitelist_typecache = list(/datum/species/unathi, /datum/species/tajaran)
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	age_based = TRUE
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = "sound/effects/unathihiss.ogg"
 	muzzled_noises = list("weak hissing")
+
+/datum/emote/living/carbon/human/meow
+	key = "meow"
+	key_third_person = "meows"
+	message = "meows."
+	message_param = "meows at %t."
+	species_type_whitelist_typecache = list(/datum/species/tajaran)
+	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	age_based = TRUE
+	// Sound credit: https://freesound.org/people/skymary/sounds/412017/ by CC0
+	sound = "sound/effects/mob_effects/taj_meow"
 
 /datum/emote/living/carbon/human/creak
 	key = "creak"
