@@ -834,7 +834,7 @@
 
 	cooldown = (world.time + 300) // Sets cooldown at 30 seconds
 	user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='notice'>The button clicks loudly.</span>")
-	playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, 0)
+	playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
 	flick("bigred_press", src)
 	for(var/mob/M in range(10, src)) // Checks range
 		if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI

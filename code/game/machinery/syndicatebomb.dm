@@ -669,7 +669,7 @@
 			detonated++
 		existant++
 
-	playsound(user, 'sound/machines/click.ogg', 20, 1)
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 	flick("bigred_press", src)
 	to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
 	if(detonated)
