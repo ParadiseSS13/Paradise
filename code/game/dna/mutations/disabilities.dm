@@ -376,7 +376,7 @@
 
 /datum/mutation/disability/speech/chav/on_say(mob/M, message)
 	var/static/regex/R = regex("\\b([chavlinks.Join("|")])\\b", "g")
-	message = R.Replace(message, /datum/mutation/disability/speech/chav/proc/replace_speech)
+	message = R.Replace(message, TYPE_PROC_REF(/datum/mutation/disability/speech/chav, replace_speech))
 	return message
 
 /datum/mutation/disability/speech/chav/proc/replace_speech(matched)

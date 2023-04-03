@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 
 		if(HAS_TRAIT(src, TRAIT_SOAPY_MOUTH))
 			var/static/regex/R = regex("\\b([GLOB.soapy_words.Join("|")])\\b", "gi")
-			S.message = R.Replace(S.message, /mob/living/carbon/human/proc/replace_speech)
+			S.message = R.Replace(S.message, TYPE_PROC_REF(/mob/living/carbon/human, replace_speech))
 
 		if(dna)
 			for(var/mutation_type in active_mutations)
