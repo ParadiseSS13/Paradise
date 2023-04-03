@@ -248,7 +248,7 @@
 		"<span class='warning'>[user] tosses one revolver over the other!</span>",
 		"<span class='danger'>[user] flips one revolver around behind [user.p_their()] back and catches it, wow!</span>",
 		"<span class='warning'>[user] spins both revolvers around their fingers skillfully.</span>",
-		"[user] spins one revolver neatly into their pocket, dancing the other around before drawing it out again.",
+		"<span class='notice'>[user] spins one revolver neatly into their pocket, dancing the other around before drawing it out again.</span>",
 		"<span class='danger'>You're scared shitless by the display in front of you!</span>"
 	)
 
