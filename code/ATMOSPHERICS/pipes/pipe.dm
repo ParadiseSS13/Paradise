@@ -65,6 +65,11 @@
 		return 0
 	return parent.air
 
+/obj/machinery/atmospherics/pipe/remove_air(amount)
+	if(!parent)
+		return 0
+	return parent.air.remove(amount)
+
 /obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
 	if(!parent)
 		parent = new /datum/pipeline()
