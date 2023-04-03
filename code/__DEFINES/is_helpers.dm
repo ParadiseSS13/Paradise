@@ -24,6 +24,8 @@
 
 #define iseffect(A) (istype(A, /obj/effect))
 
+#define isprojectile(A) (istype(A, /obj/item/projectile))
+
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
 #define is_pen(W) (istype(W, /obj/item/pen))

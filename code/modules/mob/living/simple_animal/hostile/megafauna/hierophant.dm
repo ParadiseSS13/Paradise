@@ -297,10 +297,9 @@ Difficulty: Hard
 	arena_cooldown = world.time + initial(arena_cooldown)
 	for(var/d in GLOB.cardinal)
 		INVOKE_ASYNC(src, .proc/arena_squares, T, d)
-	for(var/t in RANGE_TURFS(11, T))
-		if(t && get_dist(t, T) == 11)
-			new /obj/effect/temp_visual/hierophant/wall(t, src)
-			new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
+	for(var/t in RANGE_EDGE_TURFS(11, T))
+		new /obj/effect/temp_visual/hierophant/wall(t, src)
+		new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
 	if(get_dist(src, T) >= 11) //hey you're out of range I need to get closer to you!
 		INVOKE_ASYNC(src, .proc/blink, T)
 
@@ -668,7 +667,7 @@ Difficulty: Hard
 		return
 	for(var/mob/living/L in T.contents - hit_things) //find and damage mobs...
 		hit_things += L
-		if((friendly_fire_check && caster && caster.faction_check_mob(L)) || L.stat == DEAD)
+		if((friendly_fire_check && caster && L.faction_check_mob(caster)) || L.stat == DEAD)
 			continue
 		if(L.client)
 			flash_color(L.client, "#660099", 1)

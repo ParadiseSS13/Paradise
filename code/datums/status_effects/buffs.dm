@@ -246,5 +246,54 @@
 	duration = 250
 	alert_type = null
 
+
 /datum/status_effect/terror/food_regen/tick()
 	owner.adjustBruteLoss(-(owner.maxHealth/20))
+
+
+/datum/status_effect/hope
+	id = "hope"
+	duration = -1
+	tick_interval = 2 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /obj/screen/alert/status_effect/hope
+
+/obj/screen/alert/status_effect/hope
+	name = "Hope."
+	desc = "A ray of hope beyond dispair."
+	icon_state = "hope"
+
+/datum/status_effect/hope/tick()
+	if(owner.stat == DEAD || owner.health <= HEALTH_THRESHOLD_DEAD) // No dead healing, or healing in dead crit
+		return
+	if(owner.health > 50)
+		if(prob(0.5))
+			hope_message()
+		return
+	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
+	owner.adjustBruteLoss(-heal_multiplier * 0.5)
+	owner.adjustFireLoss(-heal_multiplier * 0.5)
+	owner.adjustOxyLoss(-heal_multiplier)
+	if(prob(heal_multiplier * 2))
+		hope_message()
+
+/datum/status_effect/hope/proc/hope_message()
+	var/list/hope_messages = list("You are filled with [pick("hope", "determination", "strength", "peace", "confidence", "robustness")].",
+							"Don't give up!",
+							"You see your [pick("friends", "family", "coworkers", "self")] [pick("rooting for you", "cheering you on", "worrying about you")].",
+							"You can't give up now, keep going!",
+							"But you refused to die!",
+							"You have been through worse, you can do this!",
+							"People need you, do not [pick("give up", "stop", "rest", "pass away", "falter", "lose hope")] yet!",
+							"This person is not nearly as robust as you!",
+							"You ARE robust, don't let anyone tell you otherwise!",
+							"[owner], don't lose hope, the future of the station depends on you!",
+							"Do not follow the light yet!")
+	var/list/un_hopeful_messages = list("DON'T FUCKING DIE NOW COWARD!",
+							"Git Gud, [owner]",
+							"I bet a [pick("vox", "vulp", "nian", "tajaran", "baldie")] could do better than you!",
+							"You hear people making fun of you for getting robusted.")
+	if(prob(99))
+		to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
+	else
+		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")

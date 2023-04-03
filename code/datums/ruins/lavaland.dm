@@ -229,10 +229,19 @@
 	always_place = TRUE
 	allow_duplicates = FALSE
 
+/datum/map_template/ruin/lavaland/tumor
+	name = "Elite Tumor"
+	id = "tumor"
+	description = "The victor freed, the loser the next fighter. The ghosts, the endless spectators. And thus the cycle loops..."
+	suffix = "lavaland_surface_elite_tumor.dmm"
+	cost = 5
+	always_place = TRUE
+
 /datum/map_template/ruin/lavaland/monster_nest
 	name = "Monster Nest"
 	id = "monsternest"
 	description = "A cave of several tunnels, housing the local fauna deep underground."
 	suffix = "lavaland_surface_monster_nest.dmm"
-	allow_duplicates = FALSE
 	cost = 5
+	allow_duplicates = FALSE
+

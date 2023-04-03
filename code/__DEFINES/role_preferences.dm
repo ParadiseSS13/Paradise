@@ -46,6 +46,7 @@
 #define ROLE_DEATHSQUAD			"deathsquad"
 #define ROLE_EVENTMISC			"eventmisc"
 #define ROLE_GHOST				"ghost role"
+#define ROLE_ELITE				"lavaland elite"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -60,6 +61,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_DEVIL = /datum/game_mode/devil/devil_agents, 	// Devil
 	ROLE_GSPIDER, 										// Giant spider
 	ROLE_GUARDIAN, 										// Guardian
+	ROLE_ELITE,											// Lavaland Elite
 	ROLE_MORPH, 										// Morph
 	ROLE_OPERATIVE = /datum/game_mode/nuclear, 			// Operative
 	ROLE_PAI, 											// PAI

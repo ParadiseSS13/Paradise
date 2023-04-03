@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(antag_roles, list(
 	ROLE_REVENANT,
 	ROLE_GUARDIAN,
 	ROLE_MORPH,
-	ROLE_GSPIDER,
+	ROLE_GSPIDER
 ))
 
 // Bannable other roles
@@ -28,6 +28,7 @@ GLOBAL_LIST_INIT(other_roles, list(
 	ROLE_NYMPH,
 	ROLE_ERT,
 	ROLE_GHOST,
+	ROLE_ELITE,
 	"AntagHUD",
 	"Records"
 ))

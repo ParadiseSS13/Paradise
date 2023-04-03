@@ -95,6 +95,12 @@
 		return	//we aren't an object on the ground so don't call parent
 	..()
 
+/obj/item/clothing/accessory/proc/attached_unequip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
+/obj/item/clothing/accessory/proc/attached_equip(mob/user) // If we need to do something special when clothing is removed from the user
+	return
+
 /obj/item/clothing/accessory/blue
 	name = "blue tie"
 	icon_state = "bluetie"

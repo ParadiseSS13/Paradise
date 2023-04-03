@@ -22,6 +22,7 @@
 	mob_size = MOB_SIZE_LARGE
 	var/icon_aggro = null
 	var/crusher_drop_mod = 25
+	var/has_laser_resist = TRUE //If we want the mob to have 66% resist from burn damage projectiles
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
 	..()
@@ -37,7 +38,7 @@
 /mob/living/simple_animal/hostile/asteroid/bullet_act(obj/item/projectile/P)//Reduces damage from most projectiles to curb off-screen kills
 	if(!stat)
 		Aggro()
-	if(P.damage < 30 && P.damage_type != BRUTE)
+	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
 		visible_message("<span class='danger'>[P] has a reduced effect on [src]!</span>")
 	..()
