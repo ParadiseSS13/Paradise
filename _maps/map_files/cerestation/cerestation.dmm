@@ -3838,7 +3838,6 @@
 /area/security/hos)
 "awG" = (
 /obj/structure/table/wood,
-/obj/item/megaphone,
 /obj/item/stamp/hos,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -6448,10 +6447,6 @@
 /obj/structure/table/reinforced{
 	layer = 2.5
 	},
-/obj/item/paper_bin{
-	pixel_x = -3
-	},
-/obj/item/pen,
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
@@ -15678,7 +15673,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/hop2,
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-21"
+	},
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "bAK" = (
@@ -26384,7 +26381,10 @@
 /obj/structure/table/reinforced{
 	layer = 2.5
 	},
-/obj/item/megaphone,
+/obj/item/paper_bin{
+	pixel_x = -3
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -31585,7 +31585,6 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/stamp/ce,
 /obj/item/pen,
-/obj/item/megaphone,
 /turf/simulated/floor/plasteel,
 /area/engine/chiefs_office)
 "cQL" = (
@@ -43828,7 +43827,6 @@
 	pixel_y = 2
 	},
 /obj/item/cartridge/signal/toxins,
-/obj/item/megaphone,
 /obj/item/clothing/glasses/welding/superior,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -76827,7 +76825,6 @@
 	pixel_x = -24
 	},
 /obj/structure/closet/secure_closet/CMO,
-/obj/item/megaphone,
 /obj/item/cartridge/medical{
 	pixel_x = -2;
 	pixel_y = 6

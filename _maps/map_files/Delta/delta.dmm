@@ -6348,8 +6348,6 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/item/stamp/denied,
-/obj/item/stamp/granted,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -34458,7 +34456,6 @@
 /area/crew_quarters/serviceyard)
 "dpw" = (
 /obj/structure/closet/secure_closet/CMO,
-/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42312,8 +42309,6 @@
 	pixel_y = -4
 	},
 /obj/structure/closet/secure_closet/chaplain,
-/obj/item/storage/fancy/candle_box/eternal,
-/obj/item/storage/fancy/candle_box/eternal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -61908,7 +61903,6 @@
 	c_tag = "Head of Personal's bedroom";
 	dir = 1
 	},
-/obj/item/clothing/shoes/leather,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -65962,8 +65956,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/closet/secure_closet/hos,
-/obj/item/megaphone,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -105296,7 +105288,6 @@
 /area/medical/cmo)
 "spH" = (
 /obj/structure/closet/secure_closet/RD,
-/obj/item/megaphone,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -109278,7 +109269,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/hop2,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -122254,9 +122245,6 @@
 /area/maintenance/bar)
 "wkl" = (
 /obj/structure/closet/secure_closet/warden,
-/obj/item/megaphone,
-/obj/item/book/manual/security_space_law,
-/obj/item/clothing/accessory/holster,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -129189,7 +129177,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
-/obj/item/megaphone,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/chief)
 "xKK" = (

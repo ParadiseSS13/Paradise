@@ -1394,8 +1394,6 @@
 /area/security/prisonershuttle)
 "afe" = (
 /obj/structure/closet/secure_closet/hos,
-/obj/item/reagent_containers/food/drinks/flask/barflask,
-/obj/item/megaphone,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -5388,7 +5386,6 @@
 /area/security/warden)
 "apj" = (
 /obj/structure/table/reinforced,
-/obj/item/megaphone,
 /obj/item/clipboard,
 /obj/item/paper/armory,
 /turf/simulated/floor/plasteel{
@@ -10713,7 +10710,6 @@
 "aAN" = (
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
-/obj/item/megaphone,
 /obj/item/radio/intercom/department/security{
 	name = "custom station intercom (Security)";
 	pixel_x = 28;
@@ -42617,7 +42613,6 @@
 	},
 /obj/structure/table/glass,
 /obj/item/paper/monitorkey,
-/obj/item/megaphone,
 /obj/item/stamp/rd{
 	pixel_x = 5;
 	pixel_y = -2
@@ -44003,7 +43998,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "cbe" = (
-/obj/structure/closet/secure_closet/hop2,
 /obj/machinery/camera{
 	c_tag = "Head of Personal's bedroom";
 	dir = 1
@@ -44013,6 +44007,7 @@
 	name = "south fire alarm";
 	pixel_y = -24
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "cbf" = (
@@ -45706,14 +45701,6 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/stamp/qm,
-/obj/item/stamp/granted{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/stamp/denied{
-	pixel_x = 4;
-	pixel_y = -4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
@@ -63062,7 +63049,6 @@
 /obj/item/clothing/glasses/meson{
 	pixel_y = 4
 	},
-/obj/item/megaphone,
 /obj/item/lock_buster,
 /mob/living/simple_animal/parrot/Poly,
 /turf/simulated/floor/plasteel{
@@ -73303,7 +73289,6 @@
 /obj/structure/closet/secure_closet/CMO,
 /obj/item/clothing/mask/gas,
 /obj/item/storage/briefcase,
-/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},

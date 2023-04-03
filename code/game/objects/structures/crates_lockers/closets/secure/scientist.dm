@@ -63,26 +63,19 @@
 	icon_off = "rdsecureoff"
 
 /obj/structure/closet/secure_closet/RD/populate_contents()
-	new /obj/item/clothing/suit/bio_suit/scientist(src)
-	new /obj/item/clothing/head/bio_hood/scientist(src)
-	new /obj/item/clothing/under/rank/research_director(src)
-	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/neck/mantle/research_director(src)
-	new /obj/item/clothing/neck/cloak/research_director(src)
-	new /obj/item/clothing/head/beret/purple/rd(src)
 	new /obj/item/cartridge/rd(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/radio/headset/heads/rd(src)
 	new /obj/item/tank/internals/air(src)
 	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/suit/armor/reactive/teleport(src)
+	new /obj/item/clothing/suit/armor/reactive/teleport(src) //avoid to put in garmentbag
 	new /obj/item/flash(src)
 	new /obj/item/laser_pointer(src)
 	new /obj/item/door_remote/research_director(src)
 	new /obj/item/reagent_containers/food/drinks/mug/rd(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 	new /obj/item/clothing/accessory/medal/science(src)
+	new /obj/item/megaphone(src)	//added here deleted on maps
+	new /obj/item/storage/garmentbag/RD(src)
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"

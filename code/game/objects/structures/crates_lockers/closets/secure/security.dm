@@ -15,17 +15,7 @@
 		new /obj/item/storage/backpack/satchel_cap(src)
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
-	new /obj/item/clothing/suit/captunic(src)
-	new /obj/item/clothing/neck/mantle/captain(src)
-	new /obj/item/clothing/neck/cloak/captain(src)
-	new /obj/item/clothing/under/captainparade(src)
-	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/under/rank/captain(src)
-	new /obj/item/clothing/under/dress/dress_cap(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
 	new /obj/item/cartridge/captain(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/storage/belt/rapier(src)
@@ -33,19 +23,7 @@
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
-	new /obj/item/clothing/head/caphat/blue(src)
-	new /obj/item/clothing/head/caphat/office(src)
-	new /obj/item/clothing/head/caphat/beret(src)
-	new /obj/item/clothing/under/captainparade/alt(src)
-	new /obj/item/clothing/under/captainparade/dress(src)
-	new /obj/item/clothing/under/captainparade/office(src)
-	new /obj/item/clothing/suit/captunic/coat(src)
-	new /obj/item/clothing/suit/captunic/parade(src)
-	new /obj/item/clothing/suit/captunic/parade/alt(src)
-	new /obj/item/clothing/shoes/laceup/cap(src)
-	new /obj/item/clothing/suit/captunic/bomber(src)
-	new /obj/item/clothing/suit/captunic/jacket(src)
-
+	new /obj/item/storage/garmentbag/captains(src)
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
 	req_access = list(ACCESS_HOP)
@@ -58,20 +36,19 @@
 
 /obj/structure/closet/secure_closet/hop/populate_contents()
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/head/hopcap(src)
 	new /obj/item/cartridge/hop(src)
 	new /obj/item/radio/headset/heads/hop(src)
 	new /obj/item/storage/box/ids(src)
 	new /obj/item/storage/box/PDAs(src)
-	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/gun/energy/gun/mini(src)
 	new /obj/item/flash(src)
 	new /obj/item/clothing/accessory/petcollar(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
+	new /obj/item/storage/garmentbag/hop(src)
 
-/obj/structure/closet/secure_closet/hop2
+/*/obj/structure/closet/secure_closet/hop2 //dont realy need this because of garment bag
 	name = "head of personnel's attire"
 	req_access = list(ACCESS_HOP)
 	icon_state = "hopsecure1"
@@ -98,7 +75,7 @@
 	new /obj/item/clothing/under/rank/head_of_personnel_f(src)
 	new /obj/item/clothing/suit/hop_jacket(src)
 	new /obj/item/clothing/suit/hop_jacket/female(src)
-
+*/
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
@@ -117,17 +94,6 @@
 		new /obj/item/storage/backpack/satchel_sec(src)
 	new /obj/item/cartridge/hos(src)
 	new /obj/item/radio/headset/heads/hos/alt(src)
-	new /obj/item/clothing/under/rank/head_of_security(src)
-	new /obj/item/clothing/under/rank/head_of_security/formal(src)
-	new /obj/item/clothing/under/rank/head_of_security/corp(src)
-	new /obj/item/clothing/under/rank/head_of_security/skirt(src)
-	new /obj/item/clothing/under/rank/head_of_security/alt(src)
-	new /obj/item/clothing/suit/armor/hos(src)
-	new /obj/item/clothing/suit/armor/hos/alt(src)
-	new /obj/item/clothing/head/HoS(src)
-	new /obj/item/clothing/head/HoS/beret(src)
-	new /obj/item/clothing/neck/mantle/head_of_security(src)
-	new /obj/item/clothing/neck/cloak/head_of_security(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/lockbox/mindshield(src)
@@ -144,6 +110,9 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/aviators(src)
+	new /obj/item/megaphone(src)	//added here deleted on maps
+	new /obj/item/reagent_containers/food/drinks/flask(src)
+	new /obj/item/storage/garmentbag/hos(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -161,14 +130,6 @@
 	else
 		new /obj/item/storage/backpack/satchel_sec(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clothing/suit/armor/vest/warden(src)
-	new /obj/item/clothing/head/warden(src)
-	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
-	new /obj/item/clothing/head/beret/sec/warden(src)
-	new /obj/item/clothing/under/rank/warden(src)
-	new /obj/item/clothing/under/rank/warden/formal(src)
-	new /obj/item/clothing/under/rank/warden/corp(src)
-	new /obj/item/clothing/under/rank/warden/skirt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/mask/gas/sechailer/warden(src)
@@ -179,7 +140,9 @@
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
-
+	new /obj/item/megaphone(src)	//added here deleted on maps
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/storage/garmentbag/warden(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
@@ -206,7 +169,6 @@
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)
-
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
@@ -236,7 +198,6 @@
 	new /obj/item/radio/headset/headset_brigphys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
-
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
 	req_access = list(ACCESS_BLUESHIELD)
@@ -257,21 +218,11 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/head/beret/centcom/officer(src)
-	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
-	new /obj/item/clothing/neck/cloak/blueshield(src)
-	new /obj/item/clothing/suit/armor/vest/blueshield(src)
-	new /obj/item/clothing/suit/storage/blueshield(src)
-	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/accessory/holster(src)
-	new /obj/item/clothing/accessory/blue(src)
-	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
-	new /obj/item/clothing/under/rank/centcom/blueshield(src)
-	new /obj/item/clothing/under/fluff/jay_turtleneck(src)
 	new /obj/item/clothing/mask/gas/sechailer/blue(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/sensor_device/command(src)
-
+	new /obj/item/storage/garmentbag/blueshield(src)
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
 	req_access = list(ACCESS_NTREP)
@@ -288,17 +239,9 @@
 	new /obj/item/paicard(src)
 	new /obj/item/flash(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/gloves/color/white(src)
-	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/clothing/neck/cloak/nanotrasen_representative(src)
-	new /obj/item/clothing/under/lawyer/oldman(src)
-	new /obj/item/clothing/under/lawyer/black(src)
-	new /obj/item/clothing/under/lawyer/female(src)
-	new /obj/item/clothing/under/rank/centcom/representative(src)
-	new /obj/item/clothing/head/ntrep(src)
-	new /obj/item/clothing/shoes/sandal/fancy(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/taperecorder(src)
+	new /obj/item/storage/garmentbag/ntrep(src)
 
 
 /obj/structure/closet/secure_closet/security/cargo
@@ -343,18 +286,11 @@
 
 /obj/structure/closet/secure_closet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)
-	new /obj/item/clothing/under/det(src)
-	new /obj/item/clothing/suit/storage/det_suit(src)
-	new /obj/item/clothing/suit/storage/det_suit/forensics/blue(src)
-	new /obj/item/clothing/suit/storage/det_suit/forensics/red(src)
 	new /obj/item/clothing/gloves/color/black/forensics(src)
-	new /obj/item/clothing/head/det_hat(src)
-	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/clipboard(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/detective_scanner(src)
-	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/ammo_box/c38(src)
 	new /obj/item/ammo_box/c38(src)
 	new /obj/item/gun/projectile/revolver/detective(src)
@@ -362,10 +298,10 @@
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/holosign_creator/security(src)
-	new /obj/item/clothing/accessory/black(src)
 	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/storage/belt/security/detective(src)
+	new /obj/item/storage/garmentbag/detective(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
 	if(broken)
@@ -464,14 +400,10 @@
 	new /obj/item/storage/secure/briefcase(src)
 	new /obj/item/flash(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/gloves/color/white(src)
-	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/clothing/under/suit_jacket/really_black(src)
-	new /obj/item/clothing/under/rank/centcom/magistrate(src)
-	new /obj/item/clothing/suit/judgerobe(src)
-	new /obj/item/clothing/head/powdered_wig(src)
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
-	new /obj/item/clothing/head/justice_wig(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
 	new /obj/item/clothing/accessory/lawyers_badge(src)
+	new /obj/item/radio/headset/heads/magistrate/alt(src)	//added here deleted on maps
+	new /obj/item/megaphone(src)
+	new /obj/item/storage/garmentbag/magistrate(src)
