@@ -64,12 +64,13 @@
 
 /obj/vehicle/janicart/post_buckle_mob(mob/living/M)
 	. = ..()
-	if(buffer_installed)
-		var/datum/action/floor_buffer/floorbuffer_action = new(src)
-		if(has_buckled_mobs())
-			floorbuffer_action.Grant(M)
-		else
-			floorbuffer_action.Remove(M)
+	if(!buffer_installed)
+		return
+	var/datum/action/floor_buffer/floorbuffer_action = new(src)
+	if(has_buckled_mobs())
+		floorbuffer_action.Grant(M)
+	else
+		floorbuffer_action.Remove(M)
 
 /obj/vehicle/janicart/post_unbuckle_mob(mob/living/M)
 	for(var/datum/action/floor_buffer/floorbuffer_action in M.actions)
