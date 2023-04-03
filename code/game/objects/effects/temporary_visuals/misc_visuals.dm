@@ -364,6 +364,25 @@
 	pixel_y = -32
 	duration = 42
 
+/obj/effect/temp_visual/bsg_kaboom/Initialize(mapload)
+	. = ..()
+	new /atom/movable/bsg_warp_effect(loc)
+
+/atom/movable/bsg_warp_effect
+	plane = GRAVITY_PULSE_PLANE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	icon = 'icons/effects/seismic_stomp_effect.dmi'
+	icon_state = "stomp_effect"
+	pixel_y = -16
+	pixel_x = -16
+
+/atom/movable/bsg_warp_effect/Initialize(mapload)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
+	QDEL_IN(src, 0.8 SECONDS)
+
 /obj/effect/temp_visual/rcd_effect
 	icon = 'icons/effects/effects_rcd.dmi'
 	icon_state = "rcd"
