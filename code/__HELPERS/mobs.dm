@@ -338,7 +338,7 @@
 	if(target)
 		Tloc = target.loc
 
-	var/atom/Uloc = user.loc
+	var/turf/Uturf = get_turf(user)
 
 	var/drifting = FALSE
 	if(!user.Process_Spacemove(0) && user.inertia_dir)
@@ -371,9 +371,9 @@
 
 		if(drifting && !user.inertia_dir)
 			drifting = FALSE
-			Uloc = user.loc
+			Uturf = get_turf(user)
 
-		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
+		if(!user || user.stat || (!drifting && get_turf(user) != Uturf) || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 

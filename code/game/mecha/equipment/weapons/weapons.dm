@@ -36,7 +36,6 @@
 	if(targloc == curloc)
 		return 0
 
-	set_ready_state(0)
 	for(var/i=1 to get_shot_amount())
 		var/obj/item/projectile/A = new projectile(curloc)
 		A.firer = chassis.occupant
@@ -57,11 +56,9 @@
 		playsound(chassis, fire_sound, 50, 1)
 
 		sleep(max(0, projectile_delay))
-	set_ready_state(0)
 	log_message("Fired from [name], targeting [target].")
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
-	do_after_cooldown()
-	return
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy
 	name = "General Energy Weapon"
@@ -239,8 +236,7 @@
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
 	add_game_logs("used a Mecha Honker in [COORD(T)]", chassis.occupant)
-	do_after_cooldown()
-	return
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic
 	name = "General Ballisic Weapon"
@@ -359,7 +355,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
 	if(!action_checks(target))
 		return
-	set_ready_state(0)
 	var/obj/item/missile/M = new projectile(chassis.loc)
 	M.primed = 1
 	playsound(chassis, fire_sound, 50, 1)
@@ -368,9 +363,8 @@
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
 	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
-	add_game_logs("fired a [src] in [COORD(T)]", chassis.occupant)
-	do_after_cooldown()
-	return
+	add_game_logs("Fired a [src] in [COORD(T)]", chassis.occupant)
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "SRX-13 Heavy Missile Launcher"
@@ -415,10 +409,10 @@
 	equip_cooldown = 60
 	var/det_time = 20
 	size=1
+
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/action(target, params)
 	if(!action_checks(target))
 		return
-	set_ready_state(0)
 	var/obj/item/grenade/flashbang/F = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, 1)
 	F.throw_at(target, missile_range, missile_speed)
@@ -426,8 +420,7 @@
 	log_message("Fired from [name], targeting [target].")
 	spawn(det_time)
 		F.prime()
-	do_after_cooldown()
-	return
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
 	name = "SOB-3 Clusterbang Launcher"
@@ -465,15 +458,12 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/action(target, params)
 	if(!action_checks(target))
 		return
-	set_ready_state(0)
 	var/obj/item/grown/bananapeel/B = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 60, 1)
 	B.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Bananed from [name], targeting [target]. HONK!")
-	do_after_cooldown()
-	return
-
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
 	name = "Mousetrap Mortar"
@@ -495,15 +485,13 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/action(target, params)
 	if(!action_checks(target))
 		return
-	set_ready_state(0)
 	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
 	M.secured = 1
 	playsound(chassis, fire_sound, 60, 1)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Launched a mouse-trap from [name], targeting [target]. HONK!")
-	do_after_cooldown()
-	return
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
 	name = "PCMK-6 Bola Launcher"
@@ -527,14 +515,12 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, params)
 	if(!action_checks(target))
 		return
-	set_ready_state(0)
 	var/obj/item/restraints/legcuffs/bola/M = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, 1)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
-	do_after_cooldown()
-	return
+	start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
 	equip_cooldown = 10
