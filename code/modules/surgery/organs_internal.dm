@@ -235,22 +235,26 @@
 		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
 			tool_name = "regenerative membrane"
 		else if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
+			tool_name = "[tool.name]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
 			to_chat(user, "They do not have organs to mend!")
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					if(!(I.sterile))
+			if(I.damage)
+				var/can_treat_robotic = I.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
+				var/can_treat_organic = !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
+				if(can_treat_robotic || can_treat_organic)
+					if(I.status & ORGAN_DEAD)
+						to_chat(user, "<span class='warning'>You can't treat [I]! Dead organs can't be treated with [tool_name]!</span>")
+						continue
+					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
+						"You start treating damage to [target]'s [I.name] with [tool_name].")
+					if(can_treat_organic && !I.sterile)
 						spread_germs_to_organ(I, user, tool)
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-						"You start treating damage to [target]'s [I.name] with [tool_name].")
-				else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-						"You start treating damage to [target]'s [I.name] with [tool_name].")
+				else
+					to_chat(user, "[I] can't be treated with [tool_name].")
 
 			else
 				to_chat(user, "[I] does not appear to be damaged.")
@@ -267,28 +271,27 @@
 /datum/surgery_step/internal/manipulate_organs/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(current_type == "mend")
 		var/tool_name = "[tool]"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/medical/bruise_pack))
 			tool_name = "the bandaid"
+		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
+			tool_name = "regenerative membrane"
 		if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
+			tool_name = "[tool.name]" //what else do you call nanopaste medically?
 
 		if(!hasorgans(target))
 			return
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
+			var/treated_robotic = I.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
+			var/treated_organic = !I.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
+			if(treated_robotic || treated_organic)
+				if(I.status & ORGAN_DEAD)
+					continue
+				if(I.damage)
+					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
+						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
+					I.damage = 0
 				I.surgeryize()
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
-					I.damage = 0
-				else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'>[user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-						"<span class='notice'>You treat damage to [target]'s [I.name] with [tool_name].</span>")
-					I.damage = 0
 
 	else if(current_type == "insert")
 		I = tool
