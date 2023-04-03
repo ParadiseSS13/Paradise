@@ -381,6 +381,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/mecha/combat/lockersyndie/loaded
 	cost = 10
 	job = list("Civilian")
+	surplus = 0
 
 /datum/uplink_item/jobspecific/stungloves
 	name = "Stungloves"

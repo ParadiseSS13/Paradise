@@ -186,9 +186,9 @@
 	equip_cooldown = 150
 	range = MECHA_MELEE | MECHA_RANGED
 
-/obj/item/mecha_parts/mecha_equipment/weapon/honker/can_attach(obj/mecha/combat/honker/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/honker/can_attach(obj/mecha/combat/M as obj)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/combat/honker) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -288,9 +288,9 @@
 	projectiles = 20
 	projectile_energy_cost = 50
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/reticence/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/M as obj)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/combat/reticence) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -449,9 +449,9 @@
 	equip_cooldown = 20
 	harmful = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/honker/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/M as obj)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/combat/honker) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -476,9 +476,9 @@
 	equip_cooldown = 10
 	harmful = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/can_attach(obj/mecha/combat/honker/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/can_attach(obj/mecha/combat/M as obj)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/combat/honker) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -506,9 +506,9 @@
 	equip_cooldown = 10
 	harmful = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/gygax/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/M as obj)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -537,7 +537,7 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/working))
+	if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
 		if(M.equipment.len<M.max_equip)
 			return TRUE
 	return FALSE

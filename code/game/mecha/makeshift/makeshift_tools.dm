@@ -6,8 +6,9 @@
 	drill_delay = 15
 
 /obj/item/mecha_parts/mecha_equipment/drill/makeshift/can_attach(obj/mecha/M as obj)
-	if(istype(M, /obj/mecha/makeshift))
-		return TRUE
+	if(..())
+		if(istype(M, /obj/mecha/makeshift) || istype(M, /obj/mecha/combat/lockersyndie))
+			return TRUE
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/makeshift
@@ -17,6 +18,7 @@
 	dam_force = 10
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/makeshift/can_attach(obj/mecha/M as obj)
-	if(istype(M, /obj/mecha/makeshift))
-		return TRUE
+	if(..())
+		if(istype(M, /obj/mecha/makeshift) || istype(M, /obj/mecha/combat/lockersyndie))
+			return TRUE
 	return FALSE

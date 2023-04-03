@@ -10,9 +10,9 @@
 	var/obj/mecha/working/cargo_holder
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/M)
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/M)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -177,9 +177,9 @@
 /obj/item/mecha_parts/mecha_equipment/extinguisher/on_reagent_change()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/can_attach(obj/mecha/working/M)
+/obj/item/mecha_parts/mecha_equipment/extinguisher/can_attach(obj/mecha/M)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -252,9 +252,9 @@
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
 
-/obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
+/obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/M)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/combat/reticence) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
@@ -289,9 +289,9 @@
 	cable.amount = 0
 	..()
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/working/M)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/M)
 	if(..())
-		if(istype(M))
+		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
 			return 1
 	return 0
 
