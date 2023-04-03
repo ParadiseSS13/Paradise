@@ -910,7 +910,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/maintenance/chapel
 	name = "\improper Abandoned Chapel"
 	icon_state = "chapel"
-	ambientsounds = HOLY_SOUNDS
+	ambientsounds = list('sound/ambience/ambimo2.ogg', 'sound/ambience/spooky/moan1.ogg', 'sound/ambience/spooky/muffled_cry1.ogg', 'sound/ambience/spooky/scared_breathing1.ogg', 'sound/ambience/spooky/scared_breathing2.ogg', 'sound/ambience/spooky/scared_sob1.ogg', 'sound/ambience/spooky/scared_sob2.ogg')
 	is_haunted = TRUE
 
 /area/maintenance/livingcomplex
