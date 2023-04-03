@@ -396,11 +396,11 @@
 //Replace BYOND text macros with span classes for to_chat
 /proc/replace_text_macro(match, code, rest)
 	var/regex/text_macro = new("(\\xFF.)(.*)$")
-	return text_macro.Replace(rest, GLOBAL_PROC_REF(replace_text_macro))
+	return text_macro.Replace(rest, /proc/replace_text_macro)
 
 /proc/macro2html(text)
 	var/static/regex/text_macro = new("(\\xFF.)(.*)$")
-	return text_macro.Replace(text, GLOBAL_PROC_REF(replace_text_macro))
+	return text_macro.Replace(text, /proc/replace_text_macro)
 
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
@@ -552,7 +552,7 @@
 /proc/admin_pencode_to_html()
 	var/text = pencode_to_html(arglist(args))
 	var/regex/R = new(@"\[(.*?) (.*?)\]", "ge")
-	text = R.Replace(text, GLOBAL_PROC_REF(convert_pencode_arg))
+	text = R.Replace(text, /proc/convert_pencode_arg)
 
 	text = replacetext(text, "\[/class\]", "</span>")
 	text = replacetext(text, "\[/style\]", "</span>")
