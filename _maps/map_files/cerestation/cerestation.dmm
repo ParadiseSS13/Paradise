@@ -24813,21 +24813,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
-"cti" = (
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	pixel_x = 32;
-	pixel_y = 32
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	color = "#954535"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central)
 "ctk" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -33057,7 +33042,9 @@
 "dkb" = (
 /obj/machinery/requests_console{
 	name = "Detective Requests Console";
-	pixel_y = -30
+	pixel_y = -30;
+	department = "Detective";
+	departmentType = 5
 	},
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -41388,7 +41375,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/window/brigdoor/northright{
 	name = "Arrival Security Checkpoint";
-	req_access_txt = "1"
+	req_access_txt = "63"
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -62761,16 +62748,27 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/structure/sign/directions/security{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	color = "#954535"
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_x = -32;
+	pixel_y = 32
+	},
+/obj/structure/sign/directions/security{
+	dir = 1;
+	pixel_x = -32;
+	pixel_y = 24
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 1;
+	pixel_x = -32;
+	pixel_y = 40
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -63347,7 +63345,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
 	name = "Criminal Deposit";
-	req_access_txt = "2"
+	req_access_txt = "63"
 	},
 /obj/structure/disposalpipe/trunk{
 	color = "#954535"
@@ -128075,7 +128073,7 @@ bbU
 uep
 aYJ
 rHQ
-cti
+tvF
 bgf
 vWb
 aYJ
