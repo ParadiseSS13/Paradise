@@ -608,23 +608,12 @@
 	key_third_person = "hisses"
 	message = "hisses."
 	message_param = "hisses at %t."
-	species_type_whitelist_typecache = list(/datum/species/unathi, /datum/species/tajaran)
+	species_type_whitelist_typecache = list(/datum/species/unathi)
 	emote_type = EMOTE_SOUND | EMOTE_MOUTH
 	age_based = TRUE
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = "sound/effects/unathihiss.ogg"
 	muzzled_noises = list("weak hissing")
-
-/datum/emote/living/carbon/human/meow
-	key = "meow"
-	key_third_person = "meows"
-	message = "meows."
-	message_param = "meows at %t."
-	species_type_whitelist_typecache = list(/datum/species/tajaran)
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
-	age_based = TRUE
-	// Sound credit: https://freesound.org/people/skymary/sounds/412017/ by CC0
-	sound = "sound/effects/mob_effects/taj_meow"
 
 /datum/emote/living/carbon/human/creak
 	key = "creak"

@@ -437,10 +437,6 @@
 	linked_emote = /datum/emote/living/carbon/human/ocelot
 	name = "Ocelot"
 
-/datum/keybinding/emote/carbon/human/meow
-	linked_emote = /datum/emote/living/carbon/human/meow
-	name = "Meow"
-
 /datum/keybinding/emote/carbon/human/wag
 	linked_emote = /datum/emote/living/carbon/human/wag
 	name = "Wag"
