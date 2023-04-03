@@ -71,14 +71,20 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+		if("Bartender")
 			O = new /datum/outfit/plasmaman/bar
+
+		if("Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer")
+			O = new /datum/outfit/plasmaman/nt
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Cadet", "Security Pod Pilot", "Special Operations Officer")
+		if("Security Officer", "Security Cadet", "Special Operations Officer")
 			O = new /datum/outfit/plasmaman/security
+
+		if("Security Pod Pilot")
+			O = new /datum/outfit/plasmaman/security/pod
 
 		if("Detective")
 			O = new /datum/outfit/plasmaman/detective
@@ -116,11 +122,17 @@
 		if("Scientist", "Student Scientist")
 			O = new /datum/outfit/plasmaman/science
 
+		if("Xenobiologist")
+			O = new /datum/outfit/plasmaman/xeno
+
 		if("Research Director")
 			O = new /datum/outfit/plasmaman/rd
 
-		if("Station Engineer", "Trainee Engineer", "Mechanic")
+		if("Station Engineer", "Trainee Engineer",)
 			O = new /datum/outfit/plasmaman/engineering
+
+		if("Mechanic")
+			O = new /datum/outfit/plasmaman/engineering/mecha
 
 		if("Chief Engineer")
 			O = new /datum/outfit/plasmaman/ce

@@ -436,6 +436,11 @@
 			if(hudglasses?.examine_extensions)
 				have_hudtypes += hudglasses.examine_extensions
 
+		if(istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman))
+			var/obj/item/clothing/head/helmet/space/plasmaman/helmet = H.head
+			if(helmet?.examine_extensions)
+				have_hudtypes += helmet.examine_extensions
+
 		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		if(CIH?.examine_extensions)
 			have_hudtypes += CIH.examine_extensions

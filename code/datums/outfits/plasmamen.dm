@@ -12,6 +12,12 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/white
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 
+/datum/outfit/plasmaman/nt
+	name = "NanoTrasen Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/nt
+	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
+
 /datum/outfit/plasmaman/chef
 	name = "Chef Plasmaman"
 
@@ -48,10 +54,17 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security
 	uniform = /obj/item/clothing/under/plasmaman/security
 
+/datum/outfit/plasmaman/security/pod
+	name = "Security Pod Pilot Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/security
+	uniform = /obj/item/clothing/under/plasmaman/security
+	glasses = /obj/item/clothing/glasses/hud/diagnostic/sunglasses
+
 /datum/outfit/plasmaman/detective
 	name = "Detective Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/white
+	head = /obj/item/clothing/head/helmet/space/plasmaman/security/dec
 	uniform = /obj/item/clothing/under/plasmaman/enviroslacks
 	l_ear = /obj/item/radio/headset/headset_sec
 
@@ -112,7 +125,13 @@
 /datum/outfit/plasmaman/science
 	name = "Science Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/science
+	head = /obj/item/clothing/head/helmet/space/plasmaman/science/xeno
+	uniform = /obj/item/clothing/under/plasmaman/science
+
+/datum/outfit/plasmaman/xeno
+	name = "Xenobiologist Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/science/xeno
 	uniform = /obj/item/clothing/under/plasmaman/science
 
 /datum/outfit/plasmaman/rd
@@ -131,6 +150,11 @@
 	name = "Engineering Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering
+	uniform = /obj/item/clothing/under/plasmaman/engineering
+
+/datum/outfit/plasmaman/engineering/mecha
+	name = "Mechanic Plasmaman"
+	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/mecha
 	uniform = /obj/item/clothing/under/plasmaman/engineering
 
 /datum/outfit/plasmaman/ce
