@@ -365,7 +365,7 @@
 /datum/emote/living/carbon/human/ocelot/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
 	if(!.)
-		return .
+		return
 
 	if(!istype(user))
 		return FALSE
@@ -373,25 +373,9 @@
 	if(user.has_status_effect(/datum/status_effect/revolver_spinning))
 		return FALSE
 
-	// yeah I really don't like how this is done either
-	// but it was borderline impossible to pull a static list from the effect without instantiating one...
-	// just keep this up to date with the other one and everything will be peachy.
-	var/static/list/valid_revolver_types = list(
-		/obj/item/gun/projectile/revolver,
-		/obj/item/gun/projectile/revolver/mateba,
-		/obj/item/gun/projectile/revolver/capgun,
-		/obj/item/gun/projectile/revolver/golden,
-		/obj/item/gun/projectile/revolver/russian,
-		/obj/item/gun/projectile/revolver/russian/soul,
-		/obj/item/gun/projectile/revolver/nagant,
-		/obj/item/toy/russian_revolver,
-		/obj/item/toy/russian_revolver/trick_revolver,
-		/obj/item/gun/energy/arc_revolver
-	)
-
-	return ((user.l_hand.type in valid_revolver_types) && (user.r_hand.type in valid_revolver_types))
-
-
+	// yes, this means that it will almost always appear in a user's emote list, but it really feels like the cleanest way to couple the two bits together
+	// without stringing the usable gun list somewhere.
+	return TRUE
 
 
 /datum/emote/living/carbon/human/ocelot/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
@@ -400,6 +384,10 @@
 		return
 
 	user.apply_status_effect(/datum/status_effect/revolver_spinning)
+
+	var/datum/status_effect/existing_effect = user.has_status_effect(/datum/status_effect/revolver_spinning)
+	if(QDELETED(existing_effect))
+		to_chat(user, "<span class='warning'>You need two revolvers in your hands to do that!</span>")
 
 /////////
 // Species-specific emotes

@@ -152,6 +152,8 @@
 
 	var/obj/effect/spinning_gun_effect_l
 	var/obj/effect/spinning_gun_effect_r
+	/// Used to show that we stopped spinning, usually when cancelling.
+	var/show_stopped_spinning_message = FALSE
 
 	// necessary because shotguns are revolvers too lol
 	var/static/list/valid_revolver_types = list(
@@ -206,7 +208,7 @@
 	return spinning_gun_effect
 
 /datum/status_effect/revolver_spinning/proc/on_user_move()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOVABLE_MOVED
 	qdel(src)
 
 /datum/status_effect/revolver_spinning/proc/can_spin()
@@ -239,6 +241,8 @@
 		"<span class='danger'>[owner] begins spinning the revolvers in [owner.p_their()] hands around!</span>",
 	)
 
+	show_stopped_spinning_message = TRUE
+
 /datum/status_effect/revolver_spinning/proc/get_fluff_message(mob/user)
 	var/list/messages = list(
 		"<span class='warning'>[user] tosses one revolver over the other!</span>",
@@ -257,7 +261,8 @@
 	qdel(spinning_gun_effect_l)
 	qdel(spinning_gun_effect_r)
 
-	owner.visible_message("<span class='warning'>[owner] stops spinning [owner.p_their()] revolvers around.</span>")
+	if(show_stopped_spinning_message)
+		owner.visible_message("<span class='warning'>[owner] stops spinning [owner.p_their()] revolvers around.</span>")
 
 /datum/status_effect/revolver_spinning/tick()
 	. = ..()
@@ -323,6 +328,8 @@
 
 /datum/status_effect/revolver_spinning/on_timeout()
 	. = ..()
+
+	show_stopped_spinning_message = FALSE  // don't show the message again
 
 	var/mob/living/carbon/human/H = owner
 	var/obj/item/l_revolver = H.l_hand
