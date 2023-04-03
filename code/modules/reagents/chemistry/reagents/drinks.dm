@@ -251,6 +251,7 @@
 	id ="chocolate_milk"
 	description = "Chocolate-flavored milk, tastes like being a kid again."
 	color = "#85432C"
+	drink_name = "Glass of chocolate milk"
 	taste_description = "chocolate milk"
 
 /datum/reagent/consumable/drink/hot_coco

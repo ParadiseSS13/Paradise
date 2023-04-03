@@ -7,6 +7,48 @@
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/hot_coco
+	name = "Hot Coco"
+	id = "hot_coco"
+	result = "hot_coco"
+	required_reagents = list("chocolate" = 1)
+	result_amount = 1
+	min_temp = T0C + 100
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/chocolate
+	name = "Chocolate"
+	id = "chocolate"
+	result = "chocolate"
+	required_reagents = list("hot_coco" = 1, "cryostylane" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cocoa
+	name = "Chocolate"
+	id = "chocolate"
+	result = "chocolate"
+	required_reagents = list("icecoco" = 1)
+	result_amount = 1
+	min_temp = T0C + 100
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/icecoco
+	name = "Iced Cocoa"
+	id = "icecoco"
+	result = "icecoco"
+	required_reagents = list("chocolate" = 1, "ice" = 1)
+	result_amount = 1
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/icecoco
+	name = "Iced Cocoa"
+	id = "icecoco"
+	result = "icecoco"
+	required_reagents = list("ice" = 1, "hot_coco" = 3)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/chocolate_milk
 	name = "Chocolate Milk"
 	id = "chocolate_milk"
@@ -868,14 +910,6 @@
 	required_reagents = list("hooch" = 1, "absinthe" = 1, "manlydorf" = 1, "syndicatebomb" = 1)
 	result_amount = 4
 	mix_message = "<span class='warning'>The mixture turns to a sickening froth.</span>"
-
-/datum/chemical_reaction/icecoco
-	name = "Iced Cocoa"
-	id = "icecoco"
-	result = "icecoco"
-	required_reagents = list("ice" = 1, "hot_coco" = 3)
-	result_amount = 4
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/fernet_cola
 	name = "Fernet Cola"
