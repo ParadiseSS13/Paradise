@@ -19566,6 +19566,7 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/gloves/color/yellow,
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},

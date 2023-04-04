@@ -29387,6 +29387,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bzP" = (

@@ -8848,7 +8848,6 @@
 /obj/item/stack/sheet/glass{
 	amount = 12
 	},
-/obj/item/crowbar,
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/effect/turf_decal/bot,
@@ -8857,6 +8856,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
 "aLq" = (

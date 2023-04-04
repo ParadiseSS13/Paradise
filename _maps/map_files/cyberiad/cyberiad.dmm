@@ -57150,7 +57150,6 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
-/obj/item/crowbar/large,
 /obj/item/storage/box/lights/mixed,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -57160,6 +57159,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cTU" = (
