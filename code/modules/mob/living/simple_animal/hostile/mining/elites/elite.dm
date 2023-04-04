@@ -6,7 +6,7 @@
 #define REVIVE_COOLDOWN_MULT_ANTAG 2
 #define REVIVE_HEALTH_MULT 0.2
 #define REVIVE_HEALTH_MULT_ANTAG 0.3
-#define FULL_STRENGHT_TIME 30 MINUTES
+#define STRENGHT_INCREASE_TIME 60 MINUTES
 
 //Elite mining mobs
 /mob/living/simple_animal/hostile/asteroid/elite
@@ -32,6 +32,7 @@
 	var/scale_with_time = TRUE
 	var/reviver = null
 	var/dif_mult = 1 // Scales with number of enemies
+	var/dif_mult_dmg = 1
 	var/chosen_attack = 1
 	var/list/attack_action_types = list()
 	var/obj/loot_drop = null
@@ -82,7 +83,7 @@
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)
 				OpenFire()
-		else
+		else if(L.health < -400)
 			L.gib()
 
 
@@ -112,13 +113,14 @@
 			adjustBruteLoss(25)
 
 /mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(var/list/activators)
-	dif_mult = enemies_count_scale ** length(activators)
-	if(scale_with_time && world.time > FULL_STRENGHT_TIME)
-		dif_mult *= (world.time / (FULL_STRENGHT_TIME))
+	dif_mult = enemies_count_scale ** (length(activators)-1)
+	dif_mult_dmg = (dif_mult + 1) * 0.5
+	if(scale_with_time && world.time > STRENGHT_INCREASE_TIME)
+		dif_mult *= 1.4
 	maxHealth = initial(maxHealth) * dif_mult
 	health = initial(health) * dif_mult
-	melee_damage_lower = initial(melee_damage_lower) * (dif_mult+1) / 0.5
-	melee_damage_upper = initial(melee_damage_upper) * (dif_mult+1) / 0.5
+	melee_damage_lower = initial(melee_damage_lower) * dif_mult_dmg
+	melee_damage_upper = initial(melee_damage_upper) * dif_mult_dmg
 
 /mob/living/simple_animal/hostile/asteroid/elite/can_die()
 	return ..() && health <= 0
@@ -357,9 +359,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/arena_checks()
 	if(activity != TUMOR_ACTIVE || QDELETED(src))
 		return
-	INVOKE_ASYNC(src, .proc/fighters_check)  //Checks to see if our fighters died.
 	INVOKE_ASYNC(src, .proc/arena_trap)  //Gets another arena trap queued up for when this one runs out.
 	INVOKE_ASYNC(src, .proc/border_check)  //Checks to see if our fighters got out of the arena somehow.
+	INVOKE_ASYNC(src, .proc/fighters_check)  //Checks to see if our fighters died.
 	addtimer(CALLBACK(src, .proc/arena_checks), 5 SECONDS)
 
 /obj/structure/elite_tumor/proc/fighters_check()
@@ -412,14 +414,14 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/lootloc = loc
 	if(boosted)
 		lootloc = new /obj/structure/closet/crate/necropolis/tendril(loc)
-		if(prob(75))
-			new /obj/item/tumor_shard(lootloc)
-			to_chat(mychild, "<span class='warning'>Dont leave your body, if you want to be revived.</span>")
+		new /obj/item/tumor_shard(lootloc)
+		to_chat(mychild, "<span class='warning'>Dont leave your body, if you want to be revived.</span>")
 		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
 	new mychild.loot_drop(lootloc)
 	mychild.dif_mult = 1
+	mychild.dif_mult_dmg = 1
 	qdel(src)
 
 /obj/structure/elite_tumor/proc/onEliteWon()
@@ -522,4 +524,4 @@ While using this makes the system rely on OnFire, it still gives options for tim
 #undef REVIVE_COOLDOWN_MULT_ANTAG
 #undef REVIVE_HEALTH_MULT
 #undef REVIVE_HEALTH_MULT_ANTAG
-#undef FULL_STRENGHT_TIME
+#undef STRENGHT_INCREASE_TIME

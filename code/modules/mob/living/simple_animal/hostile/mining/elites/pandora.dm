@@ -30,7 +30,7 @@
 	health = 1000
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	armour_penetration = 50
+	armour_penetration = 70
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
@@ -119,7 +119,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/spawn_blast(turf)
 	var/obj/effect/temp_visual/hierophant/blast/damaging/pandora/blast = new (turf, src, TRUE)
-	blast.damage *= dif_mult
+	blast.damage = blast.damage * dif_mult_dmg
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/chaser_burst(target)
 	ranged_cooldown = world.time + cooldown_time * 2.5 // this shreads people incredibly effectivly at low hp, so needs higher cooldown than other attacks

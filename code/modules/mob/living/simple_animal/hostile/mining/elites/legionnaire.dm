@@ -28,7 +28,7 @@
 	health = 1400
 	melee_damage_lower = 35
 	melee_damage_upper = 35
-	armour_penetration = 50
+	armour_penetration = 40
 	attacktext = "slashes its arms at"
 	attack_sound = 'sound/effects/hit_punch.ogg'
 	throw_message = "doesn't affect the sturdiness of"
@@ -57,7 +57,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/scale_stats(list/activators)
 	. = ..()
-	charge_damage *= dif_mult
+	charge_damage = charge_damage * dif_mult_dmg
 
 /datum/action/innate/elite_attack/legionnaire_charge
 	name = "Legionnaire Charge"
@@ -315,7 +315,7 @@
 	var/obj/item/projectile/legionnaire/P = new(startloc)
 	P.preparePixelProjectile(marker, marker, src)
 	P.firer = src
-	P.damage *= dif_mult
+	P.damage = P.damage * dif_mult_dmg
 	if(target)
 		P.original = target
 	P.fire()

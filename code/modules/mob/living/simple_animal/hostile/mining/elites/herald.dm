@@ -28,7 +28,7 @@
 	health = 1300
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	armour_penetration = 50
+	armour_penetration = 30
 	light_power = 5
 	light_range = 2
 	light_color = "#FF0000"
@@ -130,7 +130,7 @@
 		var/obj/item/projectile/herald/H = new(startloc)
 		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
-		H.damage *= dif_mult
+		H.damage = H.damage * dif_mult_dmg
 		if(target)
 			H.original = target
 		H.fire(set_angle)
@@ -141,7 +141,7 @@
 		var/obj/item/projectile/herald/teleshot/H = new(startloc)
 		H.preparePixelProjectile(marker, marker, startloc)
 		H.firer = src
-		H.damage *= dif_mult
+		H.damage = H.damage * dif_mult_dmg
 		if(target)
 			H.original = target
 		H.fire(set_angle)
@@ -163,6 +163,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/herald_circleshot(offset)
 	var/static/list/directional_shot_angles = list(1, 45, 90, 135, 180, 225, 270, 315) //Trust me, use 1. It really doesn't like zero.
 	for(var/i in directional_shot_angles)
+		playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 		shoot_projectile(get_turf(src), i + offset, FALSE, FALSE)
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/unenrage()
@@ -227,7 +228,7 @@
 	name = "death bolt"
 	icon_state = "chronobolt"
 	damage = 15
-	armour_penetration = 30
+	armour_penetration = 35
 	speed = 2
 
 /obj/item/projectile/herald/teleshot

@@ -68,11 +68,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_JESTER			"jester"
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
 
-//***** ITEM TRAITS *****//
-/// Show what machine/door wires do when held.
-#define TRAIT_SHOW_WIRE_INFO "show_wire_info"
-#define TRAIT_BUTCHERS_HUMANS "butchers_humans"
-
 //item traits
 #define TRAIT_CMAGGED "cmagged"
 #define CMAGGED "clown_emag"
