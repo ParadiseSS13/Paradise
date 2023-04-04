@@ -165,7 +165,7 @@
 	icon_state = "tube1"
 	desc = "A lighting fixture."
 	anchored = 1
-	layer = 5
+	layer = WALL_OBJ_LAYER
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
@@ -249,6 +249,9 @@
 	var/area/A = get_area(src)
 	if(A && !A.requires_power)
 		on = TRUE
+
+	if(dir == SOUTH)
+		layer = ABOVE_ALL_MOB_LAYER
 
 	switch(fitting)
 		if("tube")
