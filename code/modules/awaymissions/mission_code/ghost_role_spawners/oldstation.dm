@@ -98,6 +98,11 @@
 	name = "opened cryogenic pod"
 	desc = "A cryogenic pod that has recently discharged its occupant. The pod appears non-functional."
 
+/datum/outfit/oldstation/post_equip(mob/living/carbon/human/H)
+	. = ..()
+	H.remove_language("Galactic Common")
+	H.set_default_language("Sol Common")
+
 /datum/outfit/oldstation/officer
 	name = "Old station officer"
 	uniform = /obj/item/clothing/under/retro/security
