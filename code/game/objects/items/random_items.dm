@@ -92,13 +92,13 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize()
 	. = ..()
-	var/datum/reagent/R
-	if (prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
-		R = pick(special_drinks)
+	var/datum/reagent/reagent
+	if(prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
+		reagent = pick(special_drinks)
 	else
-		R = pick(GLOB.drinks)
-
-	var/datum/reagent/reagent = R
+		reagent = pick(GLOB.drinks)
+		if(initial(reagent.id) in GLOB.blocked_chems)
+			reagent = pick(special_drinks)
 
 	reagents.add_reagent(initial(reagent.id), volume)
 	name = "unlabelled bottle"
