@@ -1,7 +1,3 @@
-#define TALL_CANDLE 1
-#define MID_CANDLE 2
-#define SHORT_CANDLE 3
-
 /obj/item/candle
 	name = "red candle"
 	desc = "In Greek myth, Prometheus stole fire from the Gods and gave it to humankind. The jewelry he kept for himself."
@@ -10,8 +6,6 @@
 	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
 	var/wax = 200
-	/// Index for the icon state
-	var/wax_index = TALL_CANDLE
 	var/lit = FALSE
 	var/infinite = FALSE
 	var/start_lit = FALSE
@@ -30,9 +24,9 @@
 
 /obj/item/candle/update_icon_state()
 	if(flickering)
-		icon_state = "candle[wax_index]_flicker"
+		icon_state = "candle[get_icon_index()]_flicker"
 	else
-		icon_state = "candle[wax_index][lit ? "_lit" : ""]"
+		icon_state = "candle[get_icon_index()][lit ? "_lit" : ""]"
 
 /obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
@@ -66,23 +60,18 @@
 		START_PROCESSING(SSobj, src)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/candle/proc/update_wax_index()
-	var/new_wax_index
+/obj/item/candle/proc/get_icon_index()
 	if(wax > 150)
-		new_wax_index = TALL_CANDLE
+		. = 1
 	else if(wax > 80)
-		new_wax_index = MID_CANDLE
+		. = 2
 	else
-		new_wax_index = SHORT_CANDLE
-	if(wax_index != new_wax_index)
-		wax_index = new_wax_index
-		return TRUE
-	return FALSE
+		. = 3
 
 /obj/item/candle/proc/start_flickering()
 	flickering = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	addtimer(CALLBACK(src, PROC_REF(stop_flickering)), 4 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, .proc/stop_flickering), 4 SECONDS, TIMER_UNIQUE)
 
 /obj/item/candle/proc/stop_flickering()
 	flickering = FALSE
@@ -93,30 +82,24 @@
 		return
 	if(!infinite)
 		wax--
-		if(wax_index != SHORT_CANDLE) // It's not at its shortest
-			if(update_wax_index())
-				update_icon(UPDATE_ICON_STATE)
 	if(!wax)
 		new/obj/item/trash/candle(src.loc)
-		if(ismob(src.loc))
+		if(istype(src.loc, /mob))
 			var/mob/M = src.loc
 			M.unEquip(src, 1) //src is being deleted anyway
 		qdel(src)
+	update_icon(UPDATE_ICON_STATE)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
-
-/obj/item/candle/proc/unlight()
-	if(lit)
-		lit = FALSE
-		update_icon(UPDATE_ICON_STATE)
-		set_light(0)
 
 
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
-		unlight()
+		lit = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		set_light(0)
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
@@ -129,29 +112,3 @@
 		return TRUE
 
 	return FALSE
-
-/obj/item/candle/eternal/wizard
-	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
-	start_lit = TRUE
-
-/obj/item/candle/eternal/wizard/attack_self(mob/user)
-	return
-
-/obj/item/candle/eternal/wizard/process()
-	return
-
-/obj/item/candle/eternal/wizard/light(show_message)
-	. = ..()
-	if(lit)
-		set_light(CANDLE_LUM * 2)
-
-
-/obj/item/candle/extinguish_light(force)
-	if(!force)
-		return
-	infinite = FALSE
-	wax = 1 // next process will burn it out
-
-#undef TALL_CANDLE
-#undef MID_CANDLE
-#undef SHORT_CANDLE

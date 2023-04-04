@@ -15,13 +15,7 @@
 	var/client/C = mymob.client
 	if(!apply_parallax_pref())
 		return
-	// this is needed so it blends properly with the space plane and blackness plane.
-	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
-	S.color = list(1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,
-				1, 1, 1, 1,)
-	S.appearance_flags |= NO_CLIENT_COLOR
+
 	if(!length(C.parallax_layers_cached))
 		C.parallax_layers_cached = list()
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_1(null, C.view)
@@ -42,15 +36,12 @@
 	var/client/C = mymob.client
 	C.screen -= (C.parallax_layers_cached + C.parallax_static_layers_tail)
 	C.parallax_layers = null
-	var/obj/screen/plane_master/space/S = plane_masters["[PLANE_SPACE]"]
-	S.color = null
-	S.appearance_flags &= ~NO_CLIENT_COLOR
 
 /datum/hud/proc/apply_parallax_pref()
 	var/client/C = mymob.client
 	if(C.prefs)
 		var/pref = C.prefs.parallax
-		if(isnull(pref))
+		if (isnull(pref))
 			pref = PARALLAX_HIGH
 		switch(C.prefs.parallax)
 			if (PARALLAX_INSANE)
@@ -130,7 +121,7 @@
 	C.parallax_movedir = new_parallax_movedir
 	if(C.parallax_animate_timer)
 		deltimer(C.parallax_animate_timer)
-	var/datum/callback/CB = CALLBACK(src, PROC_REF(update_parallax_motionblur), C, animatedir, new_parallax_movedir, newtransform)
+	var/datum/callback/CB = CALLBACK(src, .proc/update_parallax_motionblur, C, animatedir, new_parallax_movedir, newtransform)
 	if(skip_windups)
 		CB.Invoke()
 	else

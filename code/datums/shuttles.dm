@@ -101,15 +101,11 @@
 		constructs. Put players in constructs if you want them to move. \
 		Cloning pods in 'medbay' area are showcases and nonfunctional."
 
+
 /datum/map_template/shuttle/emergency/old
 	suffix = "old"
 	name = "Retired Station shuttle."
 	description = "an older model of the station shuttle."
-
-/datum/map_template/shuttle/emergency/jungle
-	suffix = "jungle"
-	name = "emergency shuttle (Jungle)."
-	description = "You can hear screeching and hissing as this shuttle docks."
 
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"

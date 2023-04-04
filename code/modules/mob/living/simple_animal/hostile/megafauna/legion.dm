@@ -18,43 +18,38 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion
 	name = "Legion"
-	health = 2500
-	maxHealth = 2500
-	icon_state = "mega_legion"
-	icon_living = "mega_legion"
+	health = 800
+	maxHealth = 800
+	icon_state = "legion"
+	icon_living = "legion"
 	desc = "One of many."
-	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
+	icon = 'icons/mob/lavaland/legion.dmi'
 	attacktext = "chomps"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	speak_emote = list("echoes")
 	armour_penetration_percentage = 50
-	melee_damage_lower = 40
-	melee_damage_upper = 40
+	melee_damage_lower = 25
+	melee_damage_upper = 25
 	wander = FALSE
 	speed = 2
 	ranged = TRUE
 	del_on_death = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
-	pixel_x = -32
 	ranged_cooldown_time = 20
+	var/size = 5
 	var/charging = FALSE
-	var/firing_laser = FALSE
-	internal_gps = /obj/item/gps/internal/legion
+	internal_type = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
-	loot = list(/obj/item/staff/storm)
-	crusher_loot = list(/obj/item/staff/storm, /obj/item/crusher_trophy/empowered_legion_skull)
+	pixel_y = -90
+	pixel_x = -75
+	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
 	elimination = TRUE
 	appearance_flags = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
-	appearance_flags = 512
-
-/mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
-	. = ..()
-	transform *= 2
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()
@@ -66,107 +61,80 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
 	if(world.time >= ranged_cooldown && !charging)
-		if(prob(30))
+		if(prob(75))
+			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
+			A.GiveTarget(target)
+			A.friends = friends
+			A.faction = faction
+			ranged_cooldown = world.time + ranged_cooldown_time
+		else
 			visible_message("<span class='warning'><b>[src] charges!</b></span>")
 			SpinAnimation(speed = 20, loops = 5, parallel = FALSE)
 			ranged = FALSE
 			retreat_distance = 0
 			minimum_distance = 0
-			move_to_delay = 2
 			speed = 0
 			charging = TRUE
-			ranged_cooldown = world.time + 3 SECONDS
-			SLEEP_CHECK_DEATH(3 SECONDS)
-			set_ranged()
-		else if(prob(60))
-			firing_laser = TRUE
-			var/beam_angle = get_angle(src, locate(target.x - 1, target.y, target.z)) // -1 to account for the legion sprite offset.
-			var/turf/target_location = locate(x + (50 * sin(beam_angle)), y + (50 * cos(beam_angle)), z)
-			var/beam_time = 0.25 SECONDS + ((health / maxHealth) SECONDS)
-			playsound(loc, 'sound/effects/basscannon.ogg', 200, TRUE)
-			Beam(target_location, icon_state = "death_laser", time = beam_time, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration_telegraph)
-			addtimer(CALLBACK(src, PROC_REF(fire_disintegration_laser), target_location), beam_time)
-			ranged_cooldown = world.time + beam_time + 2 SECONDS
-			SLEEP_CHECK_DEATH(beam_time + 2 SECONDS)
-			firing_laser = FALSE
-		else if(prob(40))
-			var/mob/living/simple_animal/hostile/asteroid/big_legion/A = new(loc)
-			A.GiveTarget(target)
-			A.friends = friends
-			A.faction = faction
-			visible_message("<span class='danger'>A monstrosity emerges from [src]</span>",
-			"<span class='userdanger'>You summon a big [A]!</span>")
-			ranged_cooldown = world.time + 5 SECONDS
-		else
-			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril/A = new(loc)
-			A.GiveTarget(target)
-			A.friends = friends
-			A.faction = faction
-			visible_message("<span class='danger'>A [A] emerges from [src]!</span>",
-			"<span class='userdanger'>You summon a [A]!</span>")
-			ranged_cooldown = world.time + 2 SECONDS
+			spawn(50)
+				reset_charge()
 
-/mob/living/simple_animal/hostile/megafauna/legion/MoveToTarget()
-	if(firing_laser)
-		return
-	..()
-
-/mob/living/simple_animal/hostile/megafauna/legion/Move()
-	if(firing_laser)
-		return FALSE
-	. = ..()
-
-/mob/living/simple_animal/hostile/megafauna/legion/Goto(target, delay, minimum_distance)
-	if(firing_laser)
-		return
-	..()
-
-/mob/living/simple_animal/hostile/megafauna/legion/proc/set_ranged()
+/mob/living/simple_animal/hostile/megafauna/legion/proc/reset_charge()
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
-	move_to_delay = 2
 	speed = 2
 	charging = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/legion/proc/fire_disintegration_laser(location)
-	playsound(loc, 'sound/weapons/marauder.ogg', 200, TRUE)
-	Beam(location, icon_state = "death_laser", time = 2 SECONDS, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration)
-	for(var/turf/t in getline(src, location))
-		if(ismineralturf(t))
-			var/turf/simulated/mineral/M = t
-			M.gets_drilled(src)
-		for(var/mob/living/M in t)
-			if(faction_check(M.faction, faction, FALSE))
-				continue
+/mob/living/simple_animal/hostile/megafauna/legion/can_die()
+	return ..() && health <= 0
 
-			if(M.stat == DEAD)
-				visible_message("<span class='danger'>[M] is disintegrated by the beam!</span>")
-				M.dust()
-			else if(M != src)
-				playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
-				to_chat(M, "<span class='userdanger'>You're struck by a disintegration laser!</span>")
-				var/limb_to_hit = M.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-				var/armor = M.run_armor_check(limb_to_hit, LASER)
-				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
+/mob/living/simple_animal/hostile/megafauna/legion/death()
+	if(!can_die())
+		return FALSE
+	if(size > 1)
+		adjustHealth(-maxHealth) //heal ourself to full in prep for splitting
+		var/mob/living/simple_animal/hostile/megafauna/legion/L = new(loc)
+
+		L.maxHealth = maxHealth * 0.6
+		maxHealth = L.maxHealth
+
+		L.health = L.maxHealth
+		health = maxHealth
+
+		size--
+		L.size = size
+
+		L.resize = L.size * 0.2
+		transform = initial(transform)
+		resize = size * 0.2
+
+		L.update_transform()
+		update_transform()
+
+		L.faction = faction.Copy()
+
+		L.GiveTarget(target)
+
+		visible_message("<span class='boldannounce'>[src] splits in twain!</span>")
+		return FALSE // not dead
+	else
+		// this must come before the parent call due to the setting of `loot` here
+		var/last_legion = TRUE
+		for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
+			if(other != src)
+				last_legion = FALSE
+				break
+		if(last_legion)
+			loot = list(/obj/item/staff/storm)
+			elimination = FALSE
+		else if(prob(5))
+			loot = list(/obj/structure/closet/crate/necropolis/tendril)
+			if(!true_spawn)
+				loot = null
+		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
 	return 1
-
-/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE)
-	. = ..()
-	if(QDELETED(src))
-		return
-	if(.)
-		var/matrix/M = new
-		resize = 1 + (health / maxHealth)
-		M.Scale(resize, resize)
-		transform = M
-		if(amount > 0 && prob(33))
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
-			A.GiveTarget(target)
-			A.friends = friends
-			A.faction = faction
 
 /obj/item/gps/internal/legion
 	icon_state = null

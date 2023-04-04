@@ -126,7 +126,7 @@
 
 		// Human check
 		var/human = 0
-		if(ishuman(M))
+		if(istype(M, /mob/living/carbon/human))
 			human = 1
 
 		var/name = M.name

@@ -322,18 +322,15 @@
 				glow.update_light()
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
-			INVOKE_ASYNC(src, PROC_REF(hierofunk))
+			INVOKE_ASYNC(src, .proc/hierofunk)
 		sleep(selection.song_beat)
 
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
-	if(M.client)
-		if(!(M.client.prefs.sound & SOUND_DISCO)) //they dont want music or dancing
-			rangers -= M //Doing that here as it'll be checked less often than in processing.
-			return
-		if(!(M.client.prefs.toggles2 & PREFTOGGLE_2_DANCE_DISCO)) //they just dont wanna dance
-			return
+	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
+		rangers -= M //Doing that here as it'll be checked less often than in processing.
+		return
 	switch(rand(0,9))
 		if(0 to 1)
 			dance2(M)
@@ -413,7 +410,7 @@
 				M.stand_up()
 			else
 				M.lay_down()
-		time--
+		 time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
@@ -457,8 +454,8 @@
 	lying_prev = 0
 
 /obj/machinery/disco/proc/dance_over()
-	QDEL_LIST_CONTENTS(spotlights)
-	QDEL_LIST_CONTENTS(sparkles)
+	QDEL_LIST(spotlights)
+	QDEL_LIST(sparkles)
 	for(var/mob/living/L in rangers)
 		if(!L || !L.client)
 			continue

@@ -28,8 +28,8 @@
 		return
 
 	user.visible_message("<span class='notice'>[user] labels [A] as [label].</span>", \
-						"<span class='notice'>You label [A] as [label].</span>")
-	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) labelled \"[A]\" ([ADMIN_VV(A, "VV")]) with \"[label]\" at [COORD(A.loc)] [ADMIN_JMP(A)].", INVESTIGATE_RENAME) // Investigate goes BEFORE rename so the original name is preserved in the log
+						 "<span class='notice'>You label [A] as [label].</span>")
+	investigate_log("[key_name(user)] labelled [A] as [label].", INVESTIGATE_LABEL) // Investigate goes BEFORE rename so the original name is preserved in the log
 	A.AddComponent(/datum/component/label, label)
 	playsound(A, 'sound/items/handling/component_pickup.ogg', 20, TRUE)
 	labels_left--

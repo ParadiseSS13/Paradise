@@ -34,7 +34,7 @@
 
 /obj/item/grenade/chem_grenade/Destroy()
 	QDEL_NULL(nadeassembly)
-	QDEL_LIST_CONTENTS(beakers)
+	QDEL_LIST(beakers)
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)
@@ -78,7 +78,7 @@
 				else
 					icon_state += "_locked"
 				name = payload_name + "grenade" + label
-
+	
 	underlays.Cut()
 	if(nadeassembly)
 		underlays += "[nadeassembly.a_left.icon_state]_left"
@@ -133,6 +133,38 @@
 				update_icon(UPDATE_ICON_STATE)
 				to_chat(user, "You remove the label from [src].")
 				return 1
+	if(istype(I, /obj/item/screwdriver))
+		if(stage == WIRED)
+			if(beakers.len)
+				to_chat(user, "<span class='notice'>You lock the assembly.</span>")
+				playsound(loc, prime_sound, 25, -3)
+				stage = READY
+				update_icon(UPDATE_ICON_STATE)
+				contained = ""
+				cores = "" // clear them out so no recursive logging by accidentally
+				for(var/obj/O in beakers)
+					if(!O.reagents) continue
+					if(istype(O,/obj/item/slime_extract))
+						cores += " [O]"
+					for(var/R in O.reagents.reagent_list)
+						var/datum/reagent/reagent = R
+						contained += "[reagent.volume] [reagent], "
+				if(contained)
+					if(cores)
+						contained = "\[[cores]; [contained]\]"
+					else
+						contained = "\[ [contained]\]"
+				var/turf/bombturf = get_turf(loc)
+				add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
+				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
+			else
+				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
+		else if(stage == READY && !nadeassembly)
+			det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
+			to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
+		else if(stage == EMPTY)
+			to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
+
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
 		if(beakers.len == 2)
 			to_chat(user, "<span class='notice'>[src] can not hold more containers.</span>")
@@ -190,44 +222,10 @@
 			beakers = list()
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/grenade/chem_grenade/screwdriver_act(mob/living/user, obj/item/I)
-	if(stage == WIRED)
-		if(!length(beakers))
-			to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
-			return TRUE
 
-		to_chat(user, "<span class='notice'>You lock the assembly.</span>")
-		playsound(loc, prime_sound, 25, -3)
-		stage = READY
-		update_icon(UPDATE_ICON_STATE)
-		contained = ""
-		cores = "" // clear them out so no recursive logging by accidentally
-		for(var/obj/O in beakers)
-			if(!O.reagents)
-				continue
-			if(istype(O, /obj/item/slime_extract))
-				cores += " [O]"
-			for(var/R in O.reagents.reagent_list)
-				var/datum/reagent/reagent = R
-				contained += "[reagent.volume] [reagent], "
-		if(contained)
-			if(cores)
-				contained = "\[[cores]; [contained]\]"
-			else
-				contained = "\[ [contained]\]"
-		var/turf/bombturf = get_turf(loc)
-		add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
-		log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
-		return TRUE
-
-	else if(stage == READY && !nadeassembly)
-		det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
-		to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
-		return TRUE
-
-	else if(stage == EMPTY)
-		to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
-		return TRUE
+//assembly stuff
+/obj/item/grenade/chem_grenade/receive_signal()
+	prime()
 
 /obj/item/grenade/chem_grenade/HasProximity(atom/movable/AM)
 	if(nadeassembly)
@@ -295,8 +293,7 @@
 		var/area/A = get_area(T)
 		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
-		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
-		add_attack_logs(last, src, "has armed for detonation", ATKLOG_FEW)
+
 	update_mob()
 
 	qdel(src)
@@ -426,10 +423,8 @@
 		var/area/A = get_area(T)
 		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
-		investigate_log("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.", INVESTIGATE_BOMB)
-		add_attack_logs(last, src, "has armed for detonation", ATKLOG_FEW)
 	else
-		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
+		addtimer(CALLBACK(src, .proc/prime), det_time)
 	var/turf/DT = get_turf(src)
 	var/area/DA = get_area(DT)
 	log_game("A grenade detonated at [DA.name] ([DT.x], [DT.y], [DT.z])")

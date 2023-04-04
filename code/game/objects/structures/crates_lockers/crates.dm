@@ -40,7 +40,7 @@
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/electropack) in src)
+	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, src))
@@ -103,9 +103,9 @@
 			to_chat(user, "<span class='notice'>You rig [src].</span>")
 			rigged = TRUE
 		else
-			to_chat(user, "<span class='warning'>You need at least 15 wires to rig [src]!</span>")
+			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
 		return TRUE
-	if(istype(W, /obj/item/electropack))
+	if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
@@ -140,7 +140,7 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/electropack) in src)
+		if(rigged && locate(/obj/item/radio/electropack) in src)
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.electrocute_act(17, src))
@@ -148,9 +148,6 @@
 					return
 		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
-
-/obj/structure/closet/crate/shove_impact(mob/living/target, mob/living/attacker)
-	return FALSE
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)
@@ -219,13 +216,6 @@
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
-
-/obj/structure/closet/crate/secure/AltClick(mob/user)
-	if(Adjacent(user) && !opened)
-		verb_togglelock()
-		return
-
-	. = ..()
 
 /obj/structure/closet/crate/secure/verb/verb_togglelock()
 	set src in oview(1) // One square distance
@@ -349,7 +339,6 @@
 	var/cooling_power = 40
 
 /obj/structure/closet/crate/freezer/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/gas = (..())
 	if(!gas)	return null
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
@@ -383,7 +372,6 @@
 	new /obj/item/reagent_containers/iv_bag/blood/random(src)
 	new /obj/item/reagent_containers/iv_bag/salglu(src)
 	new /obj/item/reagent_containers/iv_bag/slime(src)
-	new /obj/item/reagent_containers/iv_bag/blood/vox(src)
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."

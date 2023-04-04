@@ -48,8 +48,7 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	GLOB.major_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(set_security_level), SEC_LEVEL_GAMMA), 30 SECONDS)
+	GLOB.event_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 	to_chat(user, "<b>Your bonus telecrystals have been split between your team's uplinks.</b>")
@@ -58,7 +57,7 @@
 		S.challenge = TRUE
 		S.challenge_time = world.time
 
-	// No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
+	 // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
 	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
 	share_telecrystals()
 	SSshuttle.refuel_delay = CHALLENGE_SHUTTLE_DELAY
@@ -91,7 +90,7 @@
 		to_chat(user, "You have to be at your base to use this.")
 		return FALSE
 	if((world.time - SSticker.round_start_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
-		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make do with what you have on hand.")
+		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make  do with what you have on hand.")
 		return FALSE
 	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		if(S.moved)

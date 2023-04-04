@@ -76,7 +76,12 @@ const IntroductionAndCard = (props, context) => {
   const { machine_id, held_card_name } = data;
   return (
     <Section title="Nanotrasen Automatic Teller Machine">
-      <Box>For all your monetary needs!</Box>
+      <Box>For all your monetary need!</Box>
+      <Divider />
+      <Box>
+        <Icon name="info-circle" /> This terminal is <i>{machine_id}</i>, report
+        this code when contacting Nanotrasen IT Support.
+      </Box>
       <Divider />
       <LabeledList>
         <LabeledList.Item label="Card">
@@ -100,32 +105,48 @@ const ChangeSecurityLevel = (props, context) => {
         <Divider />
         <LabeledList.Item label="Level">
           <Button
-            content="Account Number"
+            content="Zero"
             icon="unlock"
             selected={security_level === 0}
+            onClick={() =>
+              act('change_security_level', { new_security_level: 0 })
+            }
+          />
+        </LabeledList.Item>
+        <LabeledList.Item label="Description">
+          Either the account number or card is required to access this account.
+          EFTPOS transactions will require a card and ask for a pin, but not
+          verify the pin is correct.
+        </LabeledList.Item>
+        <Divider />
+        <LabeledList.Item label="Level">
+          <Button
+            content="One"
+            icon="unlock"
+            selected={security_level === 1}
             onClick={() =>
               act('change_security_level', { new_security_level: 1 })
             }
           />
         </LabeledList.Item>
         <LabeledList.Item label="Description">
-          Either the account number or card is required to access this account.
-          EFTPOS transactions will require a card.
+          An account number and pin must be manually entered to access this
+          account and process transactions.
         </LabeledList.Item>
         <Divider />
         <LabeledList.Item label="Level">
           <Button
-            content="Account Pin"
-            icon="unlock"
+            content="Two"
             selected={security_level === 2}
+            icon="unlock"
             onClick={() =>
               act('change_security_level', { new_security_level: 2 })
             }
           />
         </LabeledList.Item>
         <LabeledList.Item label="Description">
-          An account number and pin must be manually entered to access this
-          account and process transactions.
+          In addition to account number and pin, a card is required to access
+          this account and process transactions.
         </LabeledList.Item>
       </LabeledList>
       <Divider />
@@ -152,13 +173,13 @@ const TransferFunds = (props, context) => {
     <Section title="Transfer Fund">
       <LabeledList>
         <LabeledList.Item label="Account Balance">${money}</LabeledList.Item>
-        <LabeledList.Item label="Target Account Number">
+        <LabeledList.Item label="Target account number">
           <Input
-            placeholder="7 Digit Number"
+            placeholder="6 Digit Number"
             onInput={(e, value) => setTargetAccNumber(value)}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Funds to Transfer">
+        <LabeledList.Item label="Funds to transfer">
           <Input onInput={(e, value) => setFundsAmount(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Transaction Purpose">
@@ -210,7 +231,7 @@ const DefaultScreen = (props, context) => {
           </LabeledList.Item>
           <LabeledList.Item>
             <Button
-              content="Withdraw Funds"
+              content="Withdraw Fund"
               icon="sign-out-alt"
               onClick={() => act('withdrawal', { funds_amount: fundsAmount })}
             />
@@ -300,16 +321,20 @@ const ViewTransactionLogs = (props, context) => {
       <Table>
         <Table.Row header>
           <Table.Cell>Timestamp</Table.Cell>
+          <Table.Cell>Target</Table.Cell>
           <Table.Cell>Reason</Table.Cell>
           <Table.Cell>Value</Table.Cell>
           <Table.Cell>Terminal</Table.Cell>
         </Table.Row>
         {transaction_log.map((t) => (
           <Table.Row key={t}>
-            <Table.Cell>{t.time}</Table.Cell>
-            <Table.Cell>{t.purpose}</Table.Cell>
-            <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
+            <Table.Cell p="1rem">
+              {t.date} {t.time}
+            </Table.Cell>
             <Table.Cell>{t.target_name}</Table.Cell>
+            <Table.Cell>{t.purpose}</Table.Cell>
+            <Table.Cell>${t.amount}</Table.Cell>
+            <Table.Cell>{t.source_terminal}</Table.Cell>
           </Table.Row>
         ))}
       </Table>

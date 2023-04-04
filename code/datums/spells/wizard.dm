@@ -120,7 +120,7 @@
 	invocation_type = "none"
 	cooldown_min = 20 //25 deciseconds reduction per rank
 
-	smoke_type = SMOKE_COUGHING
+	smoke_spread = 2
 	smoke_amt = 10
 
 	action_icon_state = "smoke"
@@ -154,7 +154,7 @@
 	cooldown_min = 5 //4 deciseconds reduction per rank
 
 
-	smoke_type = SMOKE_HARMLESS
+	smoke_spread = 1
 	smoke_amt = 1
 
 	inner_tele_radius = 0
@@ -181,7 +181,9 @@
 	invocation_type = "shout"
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
+	smoke_spread = 1
 	smoke_amt = 5
+
 	action_icon_state = "spell_teleport"
 
 	sound1 = 'sound/magic/teleport_diss.ogg'
@@ -192,31 +194,42 @@
 
 /obj/effect/proc_holder/spell/forcewall
 	name = "Force Wall"
-	desc = "This spell creates a 3 tile wide unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
+	desc = "This spell creates a small unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
 	school = "transmutation"
-	base_cooldown = 15 SECONDS
+	base_cooldown = 100
 	clothes_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
 	invocation_type = "whisper"
 	sound = 'sound/magic/forcewall.ogg'
 	action_icon_state = "shield"
-	cooldown_min = 5 SECONDS //25 deciseconds reduction per rank
+	cooldown_min = 50 //12 deciseconds reduction per rank
 	var/wall_type = /obj/effect/forcefield/wizard
+	var/large = FALSE
 
 /obj/effect/proc_holder/spell/forcewall/create_new_targeting()
 	return new /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/forcewall/cast(list/targets, mob/user = usr)
 	new wall_type(get_turf(user), user)
-	if(user.dir == SOUTH || user.dir == NORTH)
-		new wall_type(get_step(user, EAST), user)
-		new wall_type(get_step(user, WEST), user)
-	else
-		new wall_type(get_step(user, NORTH), user)
-		new wall_type(get_step(user, SOUTH), user)
+	if(large) //Extra THICK
+		if(user.dir == SOUTH || user.dir == NORTH)
+			new wall_type(get_step(user, EAST), user)
+			new wall_type(get_step(user, WEST), user)
+		else
+			new wall_type(get_step(user, NORTH), user)
+			new wall_type(get_step(user, SOUTH), user)
 
-/obj/effect/proc_holder/spell/aoe/conjure/timestop
+/obj/effect/proc_holder/spell/forcewall/greater
+	name = "Greater Force Wall"
+	desc = "Create a larger magical barrier that only you can pass through, but requires wizard garb. Lasts 30 seconds."
+
+	clothes_req = TRUE
+	invocation = "TARCOL GRANDI ZHERI"
+	invocation_type = "shout"
+	large = TRUE
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
 	name = "Stop Time"
 	desc = "This spell stops time for everyone except for you, allowing you to move freely while your enemies and even projectiles are frozen."
 	base_cooldown = 500
@@ -228,9 +241,13 @@
 	action_icon_state = "time"
 
 	summon_type = list(/obj/effect/timestop/wizard)
-	aoe_range = 0
 
-/obj/effect/proc_holder/spell/aoe/conjure/carp
+/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 0
+	return T
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
 
@@ -243,9 +260,13 @@
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
 	cast_sound = 'sound/magic/summon_karp.ogg'
-	aoe_range = 1
 
-/obj/effect/proc_holder/spell/aoe/conjure/construct
+/obj/effect/proc_holder/spell/aoe_turf/conjure/carp/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 1
+	return T
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/construct
 	name = "Artificer"
 	desc = "This spell conjures a construct which may be controlled by Shades"
 
@@ -259,9 +280,13 @@
 
 	action_icon_state = "artificer"
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
-	aoe_range = 0
 
-/obj/effect/proc_holder/spell/aoe/conjure/creature
+/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 0
+	return T
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/creature
 	name = "Summon Creature Swarm"
 	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth"
 
@@ -274,7 +299,11 @@
 
 	summon_type = list(/mob/living/simple_animal/hostile/creature)
 	cast_sound = 'sound/magic/summonitems_generic.ogg'
-	aoe_range = 3
+
+/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 3
+	return T
 
 /obj/effect/proc_holder/spell/trigger/blind
 	name = "Blind"
@@ -350,15 +379,13 @@
 
 	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
 	FB.current = get_turf(user)
-	FB.original = target
-	FB.firer = user
 	FB.preparePixelProjectile(target, get_turf(target), user)
 	FB.fire()
 	user.newtonian_move(get_dir(U, T))
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/aoe/repulse
+/obj/effect/proc_holder/spell/aoe_turf/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	base_cooldown = 400
@@ -370,14 +397,13 @@
 	var/maxthrow = 5
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
-	aoe_range = 5
 
-/obj/effect/proc_holder/spell/aoe/repulse/create_new_targeting()
-	var/datum/spell_targeting/aoe/turf/targeting = new()
-	targeting.range = aoe_range
-	return targeting
+/obj/effect/proc_holder/spell/aoe_turf/repulse/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = 5
+	return T
 
-/obj/effect/proc_holder/spell/aoe/repulse/cast(list/targets, mob/user = usr, stun_amt = 4 SECONDS)
+/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 4 SECONDS)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster

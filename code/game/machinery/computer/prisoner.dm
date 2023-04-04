@@ -5,11 +5,11 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
-	req_access = list(ACCESS_BRIG)
+	req_access = list(ACCESS_ARMORY)
 	circuit = /obj/item/circuitboard/prisoner
 
 	var/authenticated = FALSE // FALSE - No Access Denied, TRUE - Access allowed
-	var/inserted_id_uid
+	var/obj/item/card/id/prisoner/inserted_id
 
 	light_color = LIGHT_COLOR_DARKRED
 
@@ -18,20 +18,8 @@
 	GLOB.prisoncomputer_list += src
 
 /obj/machinery/computer/prisoner/Destroy()
-	GLOB.prisoncomputer_list -= src
-	return ..()
-
-/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user, params)
-	var/datum/ui_login/state = ui_login_get()
-	if(state.logged_in)
-		var/obj/item/card/id/prisoner/I = O
-		if(istype(I) && user.drop_item())
-			I.forceMove(src)
-			inserted_id_uid = I.UID()
-			return
-	if(ui_login_attackby(O, user))
-		return
-	return ..()
+ 	GLOB.prisoncomputer_list -= src
+ 	return ..()
 
 /obj/machinery/computer/prisoner/attack_ai(mob/user)
 	ui_interact(user)
@@ -39,13 +27,8 @@
 /obj/machinery/computer/prisoner/attack_hand(mob/user)
 	if(..())
 		return TRUE
-	add_fingerprint(user)
-	ui_interact(user)
 
-/obj/machinery/computer/prisoner/attackby(obj/item/O, mob/user)
-	if(ui_login_attackby(O, user))
-		return
-	return ..()
+	ui_interact(user)
 
 /obj/machinery/computer/prisoner/proc/check_implant(obj/item/implant/I)
 	var/turf/implant_location = get_turf(I)
@@ -58,16 +41,15 @@
 /obj/machinery/computer/prisoner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "PrisonerImplantManager", name, 500, 500, master_ui, state)
+		ui = new(user, src, ui_key, "PrisonerImplantManager", name, 475, 500, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/prisoner/ui_data(mob/user)
 	var/list/data = list()
 	ui_login_data(data, user)
-	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
 	data["prisonerInfo"] = list(
 		"name" = inserted_id?.name,
-		"points" = inserted_id?.mining_points,
+		"points" = inserted_id?.points,
 		"goal" = inserted_id?.goal,
 	)
 
@@ -95,10 +77,11 @@
 		else if(total_loss)
 			health_display = "HURT ([total_loss])"
 		var/turf/implant_location = get_turf(T)
-		if(!isspaceturf(implant_location))
+		if(!istype(implant_location, /turf/space))
 			loc_display = "[get_area(implant_location)]"
 
 		var/list/implant_info = list(
+			"id" = T.id,
 			"subject" = M.name,
 			"location" = loc_display,
 			"health" = health_display,
@@ -114,7 +97,7 @@
 	if(..())
 		return
 
-	add_fingerprint(ui.user)
+	add_fingerprint(usr)
 
 	if(ui_act_modal(action, params, ui))
 		return
@@ -122,18 +105,19 @@
 		return
 
 	var/mob/living/user = ui.user
-	var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
+
+
+
 	switch(action)
 		if("id_card")
 			if(inserted_id)
-				if(!ui.user.put_in_hands(inserted_id))
-					inserted_id.forceMove(get_turf(src))
-				inserted_id_uid = null
+				inserted_id.forceMove(loc)
+				inserted_id = null
 				return
 			var/obj/item/card/id/prisoner/I = user.get_active_hand()
 			if(istype(I) && user.drop_item())
 				I.forceMove(src)
-				inserted_id_uid = I.UID()
+				inserted_id = I
 			else
 				to_chat(user, "<span class='warning'>No valid ID.</span>")
 		if("inject")
@@ -143,7 +127,8 @@
 			implant.activate(text2num(params["amount"]))
 		if("reset_points")
 			if(inserted_id)
-				inserted_id.mining_points = 0
+				inserted_id.points = 0
+
 
 /obj/machinery/computer/prisoner/proc/ui_act_modal(action, list/params, datum/tgui/ui)
 	if(!ui_login_get().logged_in)
@@ -152,7 +137,6 @@
 	var/id = params["id"]
 	var/mob/living/user = ui.user
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
-
 	switch(ui_modal_act(src, action, params))
 		if(UI_MODAL_OPEN)
 			switch(id)
@@ -162,7 +146,8 @@
 					))
 				if("set_points")
 					ui_modal_input(src, id, "Please enter the new point goal:", null, arguments)
-
+				else
+					return FALSE
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
@@ -171,18 +156,18 @@
 					if(!implant)
 						return
 					if(implant.warn_cooldown >= world.time)
-						to_chat(user, "<span class='warning'>The warning system for that bio-chip is still cooling down.</span>")
+						to_chat(user, "<span class='warning'>The warning system for that implant is still cooling down.</span>")
 						return
 					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
 					if(implant.imp_in)
 						var/mob/living/carbon/implantee = implant.imp_in
-						var/warning = copytext(sanitize(answer), 1, MAX_MESSAGE_LEN)
+						var/warning = copytext(sanitize(text2num(answer)), 1, MAX_MESSAGE_LEN)
 						to_chat(implantee, "<span class='boldnotice'>Your skull vibrates violently as a loud announcement is broadcasted to you: '[warning]'</span>")
-
 				if("set_points")
 					if(isnull(text2num(answer)))
 						return
-					var/obj/item/card/id/prisoner/inserted_id = locateUID(inserted_id_uid)
-					inserted_id?.goal = max(text2num(answer), 0)
-
-	return FALSE
+					inserted_id.goal = max(text2num(answer), 0)
+				else
+					return FALSE
+		else
+			return FALSE

@@ -28,7 +28,7 @@
 
 		if(metal)
 			var/turf/T = get_turf(src)
-			if(isspaceturf(T) && !istype(T, /turf/space/transit))
+			if(istype(T, /turf/space) && !istype(T, /turf/space/transit))
 				T.ChangeTurf(/turf/simulated/floor/plating/metalfoam)
 				var/turf/simulated/floor/plating/metalfoam/MF = get_turf(src)
 				MF.metal = metal

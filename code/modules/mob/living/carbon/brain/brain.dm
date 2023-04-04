@@ -18,7 +18,7 @@
 	return ..()
 
 /mob/living/carbon/brain/say_understands(other)//Goddamn is this hackish, but this say code is so odd
-	if(isAI(other))
+	if(istype(other, /mob/living/silicon/ai))
 		if(!(container && istype(container, /obj/item/mmi)))
 			return 0
 		else
@@ -28,19 +28,19 @@
 			return 0
 		else
 			return 1
-	if(ispAI(other))
+	if(istype(other, /mob/living/silicon/pai))
 		if(!(container && istype(container, /obj/item/mmi)))
 			return 0
 		else
 			return 1
-	if(isrobot(other))
+	if(istype(other, /mob/living/silicon/robot))
 		if(!(container && istype(container, /obj/item/mmi)))
 			return 0
 		else
 			return 1
-	if(ishuman(other))
+	if(istype(other, /mob/living/carbon/human))
 		return 1
-	if(isslime(other))
+	if(istype(other, /mob/living/simple_animal/slime))
 		return 1
 	return ..()
 
@@ -84,7 +84,7 @@ I'm using this for Stat to give it a more nifty interface to work with
 
 		if(client.statpanel == "Status")
 			//Knowing how well-off your mech is doing is really important as an MMI
-			if(ismecha(src.loc))
+			if(istype(src.loc, /obj/mecha))
 				var/obj/mecha/M = src.loc
 				stat("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
 				stat("Exosuit Integrity", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")

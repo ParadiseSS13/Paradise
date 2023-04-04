@@ -62,7 +62,7 @@
 /obj/item/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, params)
 	..()
 
-	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
+	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
 		return
 
@@ -72,7 +72,7 @@
 
 	else if(is_hot(P))
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
+			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
 			user.unEquip(P)
 			user.adjust_fire_stacks(1)
@@ -109,11 +109,6 @@
 		H.emote("scream")
 
 /obj/item/paper/AltClick(mob/user, obj/item/I)
-	if(in_range(user, src) && !user.incapacitated())
-		if(is_pen(user.get_active_hand()))
-			rename()
-			return
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		I = H.is_in_hands(/obj/item/paper)

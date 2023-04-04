@@ -9,9 +9,10 @@
 	icon_state = "turretCover"
 	anchored = TRUE
 	density = FALSE
-	idle_power_consumption = 50		//when inactive, this turret takes up constant 50 Equipment power
-	active_power_consumption = 300	//when active, this turret takes up constant 300 Equipment power
-	power_channel = PW_CHANNEL_EQUIPMENT	//drains power from the EQUIPMENT channel
+	use_power = IDLE_POWER_USE				//this turret uses and requires power
+	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
+	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
+	power_channel = EQUIP	//drains power from the EQUIPMENT channel
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 	var/raised = FALSE			//if the turret cover is "open" and the turret is raised
 	var/raising= FALSE			//if the turret is currently opening or closing its cover
@@ -157,7 +158,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(stat & BROKEN)
 		icon_state = "destroyed_target_prism"
 	else if(raised || raising)
-		if(has_power() && enabled)
+		if(powered() && enabled)
 			if(iconholder)
 				//lasers have a orange icon
 				icon_state = "orange_target_prism"
@@ -316,8 +317,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				one_access = !one_access
 
 /obj/machinery/porta_turret/power_change()
-	if(!..())
-		return
+	if(powered() || !use_power)
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -380,6 +383,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		//if the turret was attacked with the intention of harming it:
 		user.changeNext_move(CLICK_CD_MELEE)
+		take_damage(I.force * 0.5)
 		playsound(src.loc, 'sound/weapons/smash.ogg', 60, 1)
 		if(I.force * 0.5 > 1) //if the force of impact dealt at least 1 damage, the turret gets pissed off
 			if(!attacked && !emagged)
@@ -396,7 +400,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 	if(!(stat & BROKEN))
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
-		..()
+		take_damage(M.melee_damage_upper)
 	else
 		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
 	return
@@ -426,16 +430,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = TRUE //turns it back on. The cover pop_up() pop_down() are automatically called in process(), no need to define it here
 
-
-/obj/machinery/porta_turret/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
-	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration_flat, armour_penetration_percentage)
+/obj/machinery/porta_turret/take_damage(force)
 	if(!raised && !raising)
-		damage_amount = damage_amount / 8
-		if(damage_amount < 5)
+		force = force / 8
+		if(force < 5)
 			return
 
-	health -= damage_amount
-	if(damage_amount > 5 && prob(45) && spark_system)
+	health -= force
+	if(force > 5 && prob(45) && spark_system)
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -450,7 +452,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			spawn(60)
 				attacked = FALSE
 
-	return ..()
+	..()
+
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)
 	if(enabled && emp_vulnerable)
@@ -515,7 +520,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(AA.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
 			continue
 
-		if(ismecha(A))
+		if(istype(A, /obj/mecha))
 			var/obj/mecha/ME = A
 			assess_and_assign(ME.occupant, targets, secondarytargets)
 
@@ -724,14 +729,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(power_channel, reqpower * (2 * (emagged || lethal)) * (2 * emagged))
+	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged))
 
 	if(istype(A))
 		A.original = target
 		A.current = T
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
-		A.starting = loc
 		A.fire()
 	else
 		A.throw_at(target, scan_range, 1)
@@ -896,8 +900,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//attack_hand() removes the gun
 
 		if(5)
-			return
-			//screwdriver_act() handles screwing the panel closed
+			if(istype(I, /obj/item/screwdriver))
+				playsound(loc, I.usesound, 100, 1)
+				build_step = 6
+				to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
+				return
+
 			//attack_hand() removes the prox sensor
 
 		if(6)
@@ -910,15 +918,19 @@ GLOBAL_LIST_EMPTY(turret_icons)
 					to_chat(user, "<span class='warning'>You need two sheets of metal to continue construction.</span>")
 				return
 
-		if(7)
-			if(istype(I, /obj/item/crowbar))
+			else if(istype(I, /obj/item/screwdriver))
+				playsound(loc, I.usesound, 100, 1)
+				build_step = 5
+				to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
+				return
+			else if(istype(I, /obj/item/crowbar))
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
 				new /obj/item/stack/sheet/metal(loc, 2)
 				build_step = 6
 				return
 
-	if(is_pen(I))	//you can rename turrets like bots!
+	if(istype(I, /obj/item/pen))	//you can rename turrets like bots!
 		var/t = input(user, "Enter new turret name", name, finish_name) as text
 		t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
 		if(!t)
@@ -929,20 +941,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		finish_name = t
 		return
 	..()
-
-/obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
-	if(build_step != 6 && build_step != 5)
-		return
-
-	if(build_step == 5)
-		build_step = 6
-		to_chat(user, "<span class='notice'>You close the internal access hatch.</span>")
-	else
-		build_step = 5
-		to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
-
-	I.play_tool_sound(src)
-	return TRUE
 
 /obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1017,8 +1015,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	syndicate = TRUE
 	installation = null
 	always_up = TRUE
-	requires_power = FALSE
-	power_state = NO_POWER_USE
+	use_power = NO_POWER_USE
 	has_cover = FALSE
 	raised = TRUE
 	scan_range = 9
@@ -1037,12 +1034,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_synth	= TRUE
 	ailock = TRUE
 	var/area/syndicate_depot/core/depotarea
-
-/obj/machinery/porta_turret/syndicate/CanPass(atom/A)
-	return ((stat & BROKEN) || !isliving(A))
-
-/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return ((stat & BROKEN) || !isliving(caller))
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
@@ -1105,6 +1096,3 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	health = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
-
-/obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior
-	health = 100

@@ -21,6 +21,7 @@
 	var/datum/looping_sound/geiger/soundloop
 
 	//Species-specific stuff.
+	species_restricted = list("exclude","Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -56,7 +57,7 @@
 	on = !on
 	icon_state = "[basestate][on]-[item_color]"
 
-	if(ishuman(user))
+	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_head()
 
@@ -68,7 +69,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
+/obj/item/clothing/head/helmet/space/hardsuit/extinguish_light()
 	if(on)
 		toggle_light()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
@@ -154,6 +155,7 @@
 	var/obj/item/tank/jetpack/suit/jetpack = null
 
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
+	species_restricted = list("exclude", "Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
@@ -411,14 +413,12 @@
 			linkedsuit.slowdown = 1
 			linkedsuit.flags |= STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-			linkedsuit.on = TRUE
 		else
 			linkedsuit.name += " (combat)"
 			linkedsuit.desc = linkedsuit.alt_desc
 			linkedsuit.slowdown = 0
 			linkedsuit.flags &= ~STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection &= ~(UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS)
-			linkedsuit.on = FALSE
 
 		linkedsuit.update_icon()
 		user.update_inv_wear_suit()

@@ -98,6 +98,9 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/proc/find_safeties()
 	var/static/list/safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
 	var/list/found_safeties = typecache_filter_list(contents, safeties_typecache)
+	for(var/obj/structure/stone_tile/S in found_safeties)
+		if(S.fallen)
+			LAZYREMOVE(found_safeties, S)
 	return LAZYLEN(found_safeties)
 
 /turf/simulated/floor/blob_act(obj/structure/blob/B)
@@ -131,7 +134,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	if(!isfloorturf(src))
+	if(!istype(src, /turf/simulated/floor))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T, /turf/simulated/floor))
 		return ..()
@@ -139,23 +142,19 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/old_icon = icon_regular_floor
 	var/old_plating = icon_plating
 	var/old_dir = dir
-	var/old_transparent_floor = transparent_floor
 
 	var/turf/simulated/floor/W = ..()
 
 	var/obj/machinery/atmospherics/R
-	var/obj/machinery/power/terminal/term
 
 	if(keep_icon)
 		W.icon_regular_floor = old_icon
 		W.icon_plating = old_plating
 	if(W.keep_dir)
 		W.dir = old_dir
-	if(W.transparent_floor != old_transparent_floor)
+	if(W.transparent_floor)
 		for(R in W)
 			R.update_icon()
-		for(term in W)
-			term.update_icon()
 	for(R in W)
 		R.update_underlays()
 	W.update_icon()
@@ -170,7 +169,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 	if(intact && istype(C, /obj/item/stack/tile))
 		try_replace_tile(C, user, params)
-		return TRUE
 
 	if(istype(C, /obj/item/pipe))
 		var/obj/item/pipe/P = C

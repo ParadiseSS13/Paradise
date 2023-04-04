@@ -102,8 +102,7 @@
 /area/shuttle/escape)
 "ar" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
-	dir = 4
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -141,9 +140,7 @@
 	},
 /area/shuttle/escape)
 "ax" = (
-/obj/machinery/computer/station_alert{
-	dir = 8
-	},
+/obj/machinery/computer/station_alert,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
 	},
@@ -153,9 +150,7 @@
 	},
 /area/shuttle/escape)
 "ay" = (
-/obj/machinery/computer/secure_data{
-	dir = 4
-	},
+/obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -186,9 +181,7 @@
 	},
 /area/shuttle/escape)
 "aC" = (
-/obj/machinery/computer/atmos_alert{
-	dir = 8
-	},
+/obj/machinery/computer/atmos_alert,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -766,6 +759,7 @@
 /area/shuttle/escape)
 "cl" = (
 /obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -821,6 +815,7 @@
 /area/shuttle/escape)
 "cu" = (
 /obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{

@@ -5,7 +5,7 @@
 	attacktext = "sears"
 	damage_transfer = 0.8
 	range = 10
-	playstyle_string = "As a <b>Chaos</b> type, you have only light damage resistance, but will ignite any enemy you bump into. In addition, you can toggle modes to make your attacks teleport enemies or make them hallucinate."
+	playstyle_string = "As a <b>Chaos</b> type, you have only light damage resistance, but will ignite any enemy you bump into. In addition, your melee attacks will randomly teleport enemies."
 	environment_smash = 1
 	magic_fluff_string = "..And draw the Wizard, bringer of endless chaos!"
 	tech_fluff_string = "Boot sequence complete. Crowd control modules activated. Holoparasite swarm online."
@@ -19,12 +19,13 @@
 		summoner.adjust_fire_stacks(-20)
 
 /mob/living/simple_animal/hostile/guardian/fire/ToggleMode()
-	if(toggle)
-		to_chat(src, "<span class='notice'>You switch to dispersion mode, and will teleport victims away from your master.</span>")
-		toggle = FALSE
-	else
-		to_chat(src, "<span class='notice'>You switch to deception mode, and will turn your victims against their allies.</span>")
-		toggle = TRUE
+	if(loc == summoner)
+		if(toggle)
+			to_chat(src, "<span class='notice'>You switch to dispersion mode, and will teleport victims away from your master.</span>")
+			toggle = FALSE
+		else
+			to_chat(src, "<span class='notice'>You switch to deception mode, and will turn your victims against their allies.</span>")
+			toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	. = ..()

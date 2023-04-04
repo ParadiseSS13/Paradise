@@ -57,7 +57,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 						if(!members.Find(item))
 
 							if(item.parent)
-								stack_trace("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z].")
+								log_runtime(EXCEPTION("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z]."))
 							members += item
 							possible_expansions += item
 
@@ -140,7 +140,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	var/total_heat_capacity = air.heat_capacity()
 	var/partial_heat_capacity = total_heat_capacity*(share_volume/air.volume)
 
-	if(issimulatedturf(target))
+	if(istype(target, /turf/simulated))
 		var/turf/simulated/modeled_location = target
 
 		if(modeled_location.blocks_air)

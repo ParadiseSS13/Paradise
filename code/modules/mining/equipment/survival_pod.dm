@@ -29,7 +29,7 @@
 		return
 	template = GLOB.shelter_templates[template_id]
 	if(!template)
-		stack_trace("Shelter template ([template_id]) not found!")
+		log_runtime("Shelter template ([template_id]) not found!", src)
 		qdel(src)
 
 /obj/item/survivalcapsule/examine(mob/user)
@@ -42,17 +42,16 @@
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(used == FALSE)
+		var/turf/UT = get_turf(usr)
+		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
+			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
+			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
+			return
 		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
 		used = TRUE
 		sleep(50)
 		var/turf/deploy_location = get_turf(src)
 		var/status = template.check_deploy(deploy_location)
-		var/turf/UT = get_turf(usr)
-		if((UT.z == level_name_to_num(MAIN_STATION)) && !emagged)
-			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
-			playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
-			used = FALSE
-			return
 		switch(status)
 			if(SHELTER_DEPLOY_BAD_AREA)
 				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")
@@ -86,7 +85,7 @@
 //Window
 /obj/structure/window/full/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
+	icon = 'icons/obj/smooth_structures/pod_window.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
 	smoothing_flags = SMOOTH_BITMASK
@@ -168,7 +167,7 @@
 	RefreshParts()
 
 //NanoMed
-/obj/machinery/economy/vending/wallmed/survival_pod
+/obj/machinery/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
@@ -284,7 +283,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-							"<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			deconstruct()
 			return ..()
@@ -327,7 +326,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-							"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/stack/rods(loc)
 			qdel(src)

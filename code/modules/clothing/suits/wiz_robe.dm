@@ -53,10 +53,6 @@
 	magical = FALSE
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
-
 
 /obj/item/clothing/head/wizard/marisa
 	name = "witch hat"
@@ -70,9 +66,6 @@
 	icon_state = "magus"
 	item_state = "magus"
 	dog_fashion = /datum/dog_fashion/head/wizard/magus
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
-		)
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"

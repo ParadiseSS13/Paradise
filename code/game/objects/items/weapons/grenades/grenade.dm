@@ -88,29 +88,25 @@
 		var/mob/M = loc
 		M.unEquip(src)
 
-/obj/item/grenade/screwdriver_act(mob/living/user, obj/item/I)
-	switch(det_time)
-		if(1)
-			det_time = 10
-			to_chat(user, "<span class='notice'>You set [src] for 1 second detonation time.</span>")
-		if(10)
-			det_time = 30
-			to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
-		if(30)
-			det_time = 50
-			to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
-		if(50)
-			det_time = 1
-			to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
-	add_fingerprint(user)
-	return TRUE
 
-/obj/item/grenade/attack_hand()
-	///We need to clear the walk_to on grabbing a moving grenade to have it not leap straight out of your hand
-	walk(src, null, null)
+/obj/item/grenade/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/screwdriver))
+		switch(det_time)
+			if("1")
+				det_time = 10
+				to_chat(user, "<span class='notice'>You set [src] for 1 second detonation time.</span>")
+			if("10")
+				det_time = 30
+				to_chat(user, "<span class='notice'>You set [src] for 3 second detonation time.</span>")
+			if("30")
+				det_time = 50
+				to_chat(user, "<span class='notice'>You set [src] for 5 second detonation time.</span>")
+			if("50")
+				det_time = 1
+				to_chat(user, "<span class='notice'>You set [src] for instant detonation.</span>")
+		add_fingerprint(user)
 	..()
 
-/obj/item/grenade/Destroy()
-	///We need to clear the walk_to on destroy to allow a grenade which uses walk_to or related to properly GC
-	walk_to(src, 0)
-	return ..()
+/obj/item/grenade/attack_hand()
+	walk(src, null, null)
+	..()

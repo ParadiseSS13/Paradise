@@ -44,7 +44,7 @@
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, FALSE, get_turf(user))
+	smoke.set_up(5, 0, get_turf(user))
 	smoke.attach(user)
 	smoke.start()
 	var/list/L = list()

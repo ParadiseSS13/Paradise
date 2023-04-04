@@ -30,10 +30,6 @@
 	..()
 	LoseTarget()
 
-/obj/item/gun/medbeam/equipped(mob/user, slot, initial)
-	..()
-	LoseTarget()
-
 /obj/item/gun/medbeam/proc/LoseTarget()
 	if(active)
 		qdel(locateUID(beam_UID))
@@ -54,7 +50,7 @@
 	active = TRUE
 	var/datum/beam/current_beam = new(user,current_target,time=6000,beam_icon_state="medbeam",btype=/obj/effect/ebeam/medical)
 	beam_UID = current_beam.UID()
-	INVOKE_ASYNC(current_beam, TYPE_PROC_REF(/datum/beam, Start))
+	INVOKE_ASYNC(current_beam, /datum/beam.proc/Start)
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 

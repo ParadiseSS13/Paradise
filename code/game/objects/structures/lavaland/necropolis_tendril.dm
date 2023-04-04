@@ -44,6 +44,17 @@ GLOBAL_LIST_INIT(tendrils, list())
 
 
 /obj/structure/spawner/lavaland/Destroy()
+	var/last_tendril = TRUE
+	if(GLOB.tendrils.len>1)
+		last_tendril = FALSE
+
+	if(last_tendril && !admin_spawned)
+		if(SSmedals.hub_enabled)
+			for(var/mob/living/L in view(7,src))
+				if(L.stat || !L.client)
+					continue
+				SSmedals.UnlockMedal("[BOSS_MEDAL_TENDRIL] [ALL_KILL_MEDAL]", L.client)
+				SSmedals.SetScore(TENDRIL_CLEAR_SCORE, L.client, 1)
 	GLOB.tendrils -= src
 	QDEL_NULL(emitted_light)
 	return ..()
@@ -69,7 +80,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	visible_message("<span class='boldannounce'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
 	visible_message("<span class='warning'>Something falls free of the tendril!</span>")
 	playsound(loc, 'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(collapse)), 50)
+	addtimer(CALLBACK(src, .proc/collapse), 50)
 
 /obj/effect/collapse/Destroy()
 	QDEL_NULL(emitted_light)

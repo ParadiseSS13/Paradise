@@ -1,4 +1,11 @@
 //TODO: Make these simple_animals
+
+#define MIN_IMPREGNATION_TIME 100 //time it takes to impregnate someone
+#define MAX_IMPREGNATION_TIME 150
+
+#define MIN_ACTIVE_TIME 200 //time between being dropped and going idle
+#define MAX_ACTIVE_TIME 400
+
 /obj/item/clothing/mask/facehugger
 	name = "alien"
 	desc = "It has some sort of a tube at the end of its tail."
@@ -15,16 +22,14 @@
 	max_integrity = 100
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
+
 	var/sterile = FALSE
 	var/real = TRUE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
 	var/strength = 5
-	var/attached = FALSE
-	var/impregnation_time = 12 SECONDS //Time it takes for facehugger to deposit its eggs and die.
-	///Time it takes for a facehugger to become active again after going idle.
-	var/min_active_time = 20 SECONDS
-	var/max_active_time = 40 SECONDS
 
-/obj/item/clothing/mask/facehugger/Initialize(mapload)
+	var/attached = 0
+
+/obj/item/clothing/mask/facehugger/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
@@ -83,7 +88,7 @@
 		return Attach(AM)
 	return 0
 
-/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, dodgeable)
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	if(!..())
 		return
 	if(stat == CONSCIOUS)
@@ -101,11 +106,14 @@
 /obj/item/clothing/mask/facehugger/proc/Attach(mob/living/M)
 	if(!isliving(M))
 		return FALSE
+	if((!iscorgi(M) && !iscarbon(M)) || isalien(M))
+		return FALSE
 	if(attached)
 		return FALSE
 	else
-		attached = TRUE
-		addtimer(VARSET_CALLBACK(src, attached, FALSE), impregnation_time)
+		attached++
+		spawn(MAX_IMPREGNATION_TIME)
+			attached = 0
 	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
 		return FALSE
 	if(loc == M)
@@ -126,6 +134,8 @@
 	if(iscarbon(M))
 		var/mob/living/carbon/target = M
 		if(target.wear_mask)
+			if(prob(20))
+				return FALSE
 			if(istype(target.wear_mask, /obj/item/clothing/mask/muzzle))
 				var/obj/item/clothing/mask/muzzle/S = target.wear_mask
 				if(S.do_break())
@@ -142,18 +152,16 @@
 		src.loc = target
 		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
 		if(!sterile)
-			M.KnockDown(impregnation_time + 2 SECONDS)
-			M.EyeBlind(impregnation_time + 2 SECONDS)
-			flags |= NODROP //You can't take it off until it dies... or figures out you're an IPC.
+			M.Paralyse(MAX_IMPREGNATION_TIME * 10 / 6) //something like 25 ticks = 20 seconds with the default settings
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
-	addtimer(CALLBACK(src, PROC_REF(Impregnate), M), impregnation_time)
+	spawn(rand(MIN_IMPREGNATION_TIME,MAX_IMPREGNATION_TIME))
+		Impregnate(M)
+
 	return TRUE
 
-/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
-	flags &= ~NODROP
-
+/obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target as mob)
 	if(!target || target.stat == DEAD || loc != target) //was taken off or something
 		return
 
@@ -165,19 +173,18 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(!H.check_has_mouth())
-			target.show_message("<span class='notice'>[src] relaxes its grip on your head... it seems indifferent to you.</span>")
 			return
 
 	if(!sterile)
 		//target.contract_disease(new /datum/disease/alien_embryo(0)) //so infection chance is same as virus infection chance
 		target.visible_message("<span class='danger'>[src] falls limp after violating [target]'s face!</span>", \
 								"<span class='userdanger'>[src] falls limp after violating [target]'s face!</span>")
+
 		Die()
 		icon_state = "[initial(icon_state)]_impregnated"
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
-			SSblackbox.record_feedback("tally", "alien_growth", 1, "people_infected")
 	else
 		target.visible_message("<span class='danger'>[src] violates [target]'s face!</span>", \
 								"<span class='userdanger'>[src] violates [target]'s face!</span>")
@@ -195,7 +202,10 @@
 
 	stat = UNCONSCIOUS
 	icon_state = "[initial(icon_state)]_inactive"
-	addtimer(CALLBACK(src, PROC_REF(GoActive)), rand(min_active_time, max_active_time))
+
+	spawn(rand(MIN_ACTIVE_TIME,MAX_ACTIVE_TIME))
+		GoActive()
+	return
 
 /obj/item/clothing/mask/facehugger/proc/Die()
 	if(stat == DEAD)
@@ -215,6 +225,9 @@
 		return FALSE
 	if(HAS_TRAIT(M, TRAIT_XENO_IMMUNE))
 		return FALSE
+
+	if(iscorgi(M))
+		return TRUE
 
 	var/mob/living/carbon/C = M
 	if(ishuman(C))

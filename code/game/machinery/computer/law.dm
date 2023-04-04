@@ -16,7 +16,7 @@
 	set category = "Object"
 	set name = "Access Computer's Internals"
 	set src in oview(1)
-	if(get_dist(src, usr) > 1 || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || issilicon(usr))
+	if(get_dist(src, usr) > 1 || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.stat || istype(usr, /mob/living/silicon))
 		return
 
 	opened = !opened

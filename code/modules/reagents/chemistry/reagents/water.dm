@@ -55,10 +55,9 @@
 	color = "#61C2C2"
 	harmless = TRUE
 	taste_description = "floor cleaner"
-	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(iseffect(O))
+	if(istype(O, /obj/effect))
 		var/obj/effect/E = O
 		if(E.is_cleanable())
 			var/obj/effect/decal/cleanable/blood/B = E
@@ -76,22 +75,7 @@
 	M.clean_blood()
 
 /datum/reagent/blood
-	data = list("donor" = null,
-				"viruses" = null,
-				"blood_DNA" = null,
-				"blood_type" = null,
-				"blood_colour" = "#A10808",
-				"resistances" = null,
-				"trace_chem" = null,
-				"mind" = null,
-				"ckey" = null,
-				"gender" = null,
-				"real_name" = null,
-				"cloneable" = null,
-				"factions" = null,
-				"dna" = null,
-				"species" = "Synthetic Humanoid",
-				"species_only" = FALSE)
+	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	name = "Blood"
 	id = "blood"
 	reagent_state = LIQUID
@@ -128,13 +112,7 @@
 
 /datum/reagent/blood/on_merge(list/mix_data)
 	if(data && mix_data)
-		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc coagulated
-		if(data["species"] != mix_data["species"] && (data["species_only"] == TRUE || mix_data["species_only"] == TRUE))
-			data["species"] = "Cogulated blood"
-			data["blood_type"] = "<span class='warning'>UNUSABLE!</span>"
-			data["species_only"] = TRUE
-		else if(data["species"] != mix_data["species"])
-			data["species"] = "Mixed Humanoid blood"
+		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
 		if(data["viruses"] || mix_data["viruses"])
 
 			var/list/mix1 = data["viruses"]
@@ -170,13 +148,13 @@
 		return
 	if(volume < 3)
 		return
-	if(!data["donor"] || ishuman(data["donor"]))
+	if(!data["donor"] || istype(data["donor"], /mob/living/carbon/human))
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
 		if(!blood_prop) //first blood!
 			blood_prop = new(T)
 			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-	else if(isalien(data["donor"]))
+	else if(istype(data["donor"], /mob/living/carbon/alien))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
@@ -356,7 +334,7 @@
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
 	id = "unholywater"
-	description = "Something that shouldn't exist on this plane of existence."
+	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
 	taste_description = "sulfur"

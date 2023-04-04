@@ -3,7 +3,7 @@
 	var/datum/pipeline/parent
 	var/volume = 0
 	force = 20
-	power_state = NO_POWER_USE
+	use_power = NO_POWER_USE
 	can_unwrench = TRUE
 	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
@@ -18,7 +18,7 @@
 /obj/machinery/atmospherics/pipe/Initialize(mapload)
 	. = ..()
 	//so pipes under walls are hidden
-	if(iswallturf(get_turf(src)))
+	if(istype(get_turf(src), /turf/simulated/wall))
 		level = 1
 
 /obj/machinery/atmospherics/pipe/Destroy()
@@ -31,20 +31,18 @@
 			var/obj/item/pipe_meter/PM = new (T)
 			meter.transfer_fingerprints_to(PM)
 			qdel(meter)
+	. = ..()
 
 	// if we're somehow by ourself
 	if(parent && !QDELETED(parent) && parent.members.len == 1 && parent.members[1] == src)
 		qdel(parent)
 	parent = null
 
-	return ..()
-
-/obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
-	return parent
-
-/obj/machinery/atmospherics/pipe/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"
+/obj/machinery/atmospherics/pipe/detailed_examine()
+	return "This pipe, and all other pipes, can be connected or disconnected by a wrench. The internal pressure of the pipe must \
+			be below 300 kPa to do this. More pipes can be obtained from the pipe dispenser.<br> \
+			Most pipes and atmospheric devices can be connected or disconnected with a wrench. The pipe's pressure must not be too high, \
+			or if it is a device, it must be turned off first."
 
 /obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))
@@ -68,7 +66,6 @@
 		air_update_turf()
 
 /obj/machinery/atmospherics/pipe/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
 	if(!parent)
 		return 0
 	return parent.air

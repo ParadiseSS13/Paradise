@@ -1,5 +1,3 @@
-#define EFFECT_COOLDOWN 0.5 SECONDS
-
 /obj/effect/portal
 	name = "portal"
 	desc = "Looks unstable. Best to test it with the clown."
@@ -19,8 +17,6 @@
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
 	var/one_use = FALSE // Does this portal go away after one teleport?
-	/// The time after which the effects should play again. Too many effects can lag the server
-	var/effect_cooldown = 0
 
 /obj/effect/portal/New(loc, turf/_target, obj/creation_object = null, lifespan = 300, mob/creation_mob = null)
 	..()
@@ -116,26 +112,15 @@
 		icon_state = fail_icon
 		var/list/target_z = levels_by_trait(SPAWN_RUINS)
 		target_z -= M.z
-		if(!attempt_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), pick(target_z)), 0, FALSE)) // Try to send them to deep space.
+		if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), pick(target_z)), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
+			invalid_teleport()
 			return FALSE
 	else
-		if(!attempt_teleport(M, target, precision)) // Try to send them to a turf adjacent to target.
+		if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
+			invalid_teleport()
 			return FALSE
 	if(one_use)
 		qdel(src)
-
-	return TRUE
-
-/obj/effect/portal/proc/attempt_teleport(atom/movable/victim, turf/destination, variance = 0, force_teleport = TRUE)
-	var/use_effects = world.time >= effect_cooldown
-	var/effect = null // Will result in the default effect being used
-	if(!use_effects)
-		effect = NONE // No effect
-
-	if(!do_teleport(victim, destination, variance, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting))
-		invalid_teleport()
-		return FALSE
-	effect_cooldown = world.time + EFFECT_COOLDOWN
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()
@@ -150,5 +135,3 @@
 	failchance = 0
 	precision = 0
 	ignore_tele_proof_area_setting = TRUE
-
-#undef EFFECT_COOLDOWN

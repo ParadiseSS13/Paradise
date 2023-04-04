@@ -6,7 +6,7 @@
 
 
 /datum/buildmode_mode/link/proc/clear_lines()
-	QDEL_LIST_CONTENTS(link_lines)
+	QDEL_LIST(link_lines)
 
 /datum/buildmode_mode/link/proc/form_connection(atom/source, atom/dest, valid)
 	var/obj/effect/buildmode_line/L = new(BM.holder, source, dest, "[source.name] to [dest.name]")
@@ -37,9 +37,9 @@
 	var/list/pa = params2list(params)
 	var/left_click = pa.Find("left")
 	var/right_click = pa.Find("right")
-	if(left_click && ismachinery(object))
+	if(left_click && istype(object, /obj/machinery))
 		link_obj = object
-	if(right_click && ismachinery(object))
+	if(right_click && istype(object, /obj/machinery))
 		if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/airlock))
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/airlock/P = object

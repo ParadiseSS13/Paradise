@@ -120,7 +120,7 @@
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
-	uniform = /obj/item/clothing/under/suit/really_black
+	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	uplink_uses = 40
 	id_access = "Syndicate Agent"
@@ -133,7 +133,7 @@
 /datum/outfit/admin/nt_vip
 	name = "VIP Guest"
 
-	uniform = /obj/item/clothing/under/suit/really_black
+	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	back = /obj/item/storage/backpack/satchel
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/black
@@ -269,7 +269,7 @@
 	back = /obj/item/storage/backpack/ert/deathsquad
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat
-	uniform = /obj/item/clothing/under/rank/centcom/deathsquad
+	uniform = /obj/item/clothing/under/rank/deathsquad
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/deathsquad
 	suit_store = /obj/item/gun/energy/pulse
@@ -319,7 +319,7 @@
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
 
-	uniform = /obj/item/clothing/under/costume/pirate
+	uniform = /obj/item/clothing/under/pirate
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/combat
@@ -386,7 +386,7 @@
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"
 
-	uniform = /obj/item/clothing/under/rank/civilian/clown
+	uniform = /obj/item/clothing/under/rank/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
@@ -421,7 +421,7 @@
 /datum/outfit/admin/mime_assassin
 	name = "Mime Assassin"
 
-	uniform = /obj/item/clothing/under/rank/civilian/mime
+	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
 	back = /obj/item/storage/backpack/mime
 	belt = /obj/item/storage/belt/utility/full/multitool
@@ -449,7 +449,7 @@
 /datum/outfit/admin/mime_assassin/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/civilian/mime/sexy
+		uniform = /obj/item/clothing/under/sexymime
 		suit = /obj/item/clothing/mask/gas/sexymime
 
 /datum/outfit/admin/mime_assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -547,7 +547,7 @@
 /datum/outfit/admin/musician
 	name = "Musician"
 
-	uniform = /obj/item/clothing/under/costume/singerb
+	uniform = /obj/item/clothing/under/singerb
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/singerb
 	gloves = /obj/item/clothing/gloves/color/white
@@ -584,7 +584,7 @@
 /datum/outfit/admin/soviet
 	name = "Soviet Generic"
 	gloves = /obj/item/clothing/gloves/combat
-	uniform = /obj/item/clothing/under/costume/soviet
+	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/storage/backpack/satchel
 	head = /obj/item/clothing/head/ushanka
 	id = /obj/item/card/id
@@ -802,7 +802,7 @@
 /datum/outfit/admin/sol_trader
 	name = "Sol Trader"
 
-	uniform = /obj/item/clothing/under/rank/cargo/tech
+	uniform = /obj/item/clothing/under/rank/cargotech
 	back = /obj/item/storage/backpack/industrial
 	belt = /obj/item/melee/classic_baton
 	head = /obj/item/clothing/head/soft
@@ -949,7 +949,7 @@
 /datum/outfit/admin/tournament_gangster //gangster are supposed to fight each other. --rastaf0
 	name = "Tournament Gangster"
 
-	uniform = /obj/item/clothing/under/rank/security/detective
+	uniform = /obj/item/clothing/under/det
 	suit = /obj/item/clothing/suit/storage/det_suit
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/det_hat
@@ -960,7 +960,7 @@
 /datum/outfit/admin/tournament_chef //Steven Seagal FTW
 	name = "Tournament Chef"
 
-	uniform = /obj/item/clothing/under/rank/civilian/chef
+	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/chef
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
@@ -972,7 +972,7 @@
 /datum/outfit/admin/tournament_janitor
 	name = "Tournament Janitor"
 
-	uniform = /obj/item/clothing/under/rank/civilian/janitor
+	uniform = /obj/item/clothing/under/rank/janitor
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/black
 	l_hand = /obj/item/reagent_containers/glass/bucket
@@ -993,7 +993,7 @@
 /datum/outfit/admin/survivor
 	name = "Survivor"
 
-	uniform = /obj/item/clothing/under/misc/overalls
+	uniform = /obj/item/clothing/under/overalls
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
 	shoes = /obj/item/clothing/shoes/white
@@ -1020,7 +1020,7 @@
 /datum/outfit/admin/masked_killer
 	name = "Masked Killer"
 
-	uniform = /obj/item/clothing/under/misc/overalls
+	uniform = /obj/item/clothing/under/overalls
 	suit = /obj/item/clothing/suit/apron
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
@@ -1115,7 +1115,7 @@
 /datum/outfit/admin/ancient_vampire
 	name = "Ancient Vampire"
 
-	uniform = /obj/item/clothing/under/suit/victsuit/red
+	uniform = /obj/item/clothing/under/victsuit/red
 	suit = /obj/item/clothing/suit/draculacoat
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/combat
@@ -1263,7 +1263,7 @@
 /datum/outfit/admin/honksquad
 	name = "Honksquad"
 
-	uniform = /obj/item/clothing/under/rank/civilian/clown
+	uniform = /obj/item/clothing/under/rank/clown
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	back = /obj/item/storage/backpack/clown
 	id = /obj/item/card/id/clown
@@ -1286,7 +1286,7 @@
 /datum/outfit/admin/honksquad/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/civilian/clown/sexy
+		uniform = /obj/item/clothing/under/rank/clown/sexy
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
 
 	if(prob(50))

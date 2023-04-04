@@ -4,8 +4,6 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	var/obj/item/clothing/head/hooded/hood
 	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
-	/// If this variable is true, the hood can not be removed if the hood is nodrop
-	var/respects_nodrop = FALSE
 
 /obj/item/clothing/suit/hooded/Initialize(mapload)
 	. = ..()
@@ -69,11 +67,6 @@
 					var/datum/action/A = X
 					A.UpdateButtonIcon()
 	else
-		if((hood.flags & NODROP) && respects_nodrop)
-			if(ishuman(loc))
-				var/mob/living/carbon/human/H = loc
-				to_chat(H, "<span class='warning'>[hood] is stuck to your head!</span>")
-			return
 		RemoveHood()
 
 /obj/item/clothing/head/hooded

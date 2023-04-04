@@ -69,11 +69,6 @@
 		else
 			to_chat(user, "<span class='warning'>[I] seems to be stuck to your hand!</span>")
 		return
-	if(istype(I, /obj/item/borg/upgrade/vtec) && vehicle_move_delay > 1)
-		vehicle_move_delay = 1
-		qdel(I)
-		to_chat(user, "<span class='notice'>You upgrade [src] with [I].</span>")
-		return
 	return ..()
 
 /obj/vehicle/AltClick(mob/user)

@@ -18,15 +18,6 @@
 	..()
 	update_icon()
 
-/obj/item/clipboard/AltClick(mob/user)
-	if(in_range(user, src) && !user.incapacitated())
-		if(is_pen(user.get_active_hand()))
-			penPlacement(user, user.get_active_hand(), TRUE)
-		else
-			removePen(user)
-		return
-	. = ..()
-
 /obj/item/clipboard/verb/removePen(mob/user)
 	set category = "Object"
 	set name = "Remove clipboard pen"
@@ -86,13 +77,6 @@
 		. += toppaper.overlays
 	if(containedpen)
 		. += "clipboard_pen"
-	for(var/obj/O in src)
-		if(istype(O, /obj/item/photo))
-			var/image/img = image('icons/obj/bureaucracy.dmi')
-			var/obj/item/photo/Ph = O
-			img = Ph.tiny
-			. += img
-			break
 	. += "clipboard_over"
 
 /obj/item/clipboard/attackby(obj/item/W, mob/user)
@@ -108,9 +92,19 @@
 		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
 			penPlacement(user, W, TRUE)
 			return
+		if(containedpen) //If there's a pen in the clipboard, let's just let them write and not bother asking about the pen
+			toppaper.attackby(W, user)
+			return
+		var/writeonwhat = input(user, "Write on [toppaper.name], or place your pen in [src]?", "Pick one!") as null|anything in list("Write", "Place pen")
 		if(!Adjacent(user) || user.incapacitated())
 			return
-		toppaper.attackby(W, user)
+		switch(writeonwhat)
+			if("Write")
+				toppaper.attackby(W, user)
+			if("Place pen")
+				penPlacement(user, W, TRUE)
+			else
+				return
 	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
 		toppaper.attackby(W, user)
 		update_icon()

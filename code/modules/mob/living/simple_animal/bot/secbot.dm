@@ -17,9 +17,10 @@
 	bot_filter = RADIO_SECBOT
 	model = "Securitron"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
-	req_access = list(ACCESS_SECURITY)
+	bot_core_type = /obj/machinery/bot_core/secbot
 	window_id = "autosec"
 	window_name = "Automatic Security Unit v1.6"
+	path_image_color = "#FF0000"
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 
 	var/base_icon = "secbot"
@@ -92,6 +93,11 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
+	//SECHUD
+	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
+	secsensor.add_hud_to(src)
+	permanent_huds |= secsensor
+
 /mob/living/simple_animal/bot/secbot/turn_on()
 	..()
 	icon_state = "[base_icon][on]"
@@ -106,7 +112,6 @@
 	oldtarget_name = null
 	anchored = FALSE
 	walk_to(src,0)
-	set_path(null)
 	last_found = world.time
 
 /mob/living/simple_animal/bot/secbot/set_custom_texts()
@@ -192,7 +197,7 @@
 	..()
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return
-	if(!isscrewdriver(W) && !locked && (W.force) && (!target) && (W.damtype != STAMINA))//If the target is locked, they are recieving damage from the screwdriver
+	if(!istype(W, /obj/item/screwdriver) && (W.force) && (!target) && (W.damtype != STAMINA) ) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
 		retaliate(user)
 
 /mob/living/simple_animal/bot/secbot/emag_act(mob/user)
@@ -230,7 +235,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(isitem(AM))
+	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/mob/thrower = locateUID(I.thrownby)
 		if(I.throwforce < src.health && ishuman(thrower))
@@ -243,7 +248,7 @@
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
-	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
+	INVOKE_ASYNC(src, .proc/cuff_callback, C)
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
 	if(do_after(src, 60, target = C))
@@ -254,19 +259,20 @@
 			back_to_idle()
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 	if(harmbaton)
 		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
 	do_attack_animation(C)
 	icon_state = "[base_icon]-c"
-	addtimer(VARSET_CALLBACK(src, icon_state, "[base_icon][on]"), 2)
+	spawn(2)
+		icon_state = "[base_icon][on]"
 	var/threat = C.assess_threat(src)
 	if(ishuman(C) && harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
 		C.apply_damage(10, BRUTE)
 	C.SetStuttering(10 SECONDS)
 	C.adjustStaminaLoss(60)
 	baton_delayed = TRUE
-	addtimer(CALLBACK(C, PROC_REF(KnockDown), 10 SECONDS), 2.5 SECONDS)
+	addtimer(CALLBACK(C, .proc/KnockDown, 10 SECONDS), 2.5 SECONDS)
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
@@ -306,7 +312,6 @@
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			walk_to(src,0)
-			set_path(null)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
@@ -315,7 +320,6 @@
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
 				walk_to(src,0)
-				set_path(null)
 				back_to_idle()
 				return
 
@@ -391,13 +395,15 @@
 	target = null
 	last_found = world.time
 	frustration = 0
-	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+	spawn(0)
+		handle_automated_action() //ensure bot quickly responds
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
 	anchored = FALSE
 	frustration = 0
 	mode = BOT_HUNT
-	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+	spawn(0)
+		handle_automated_action() //ensure bot quickly responds
 // look for a criminal in view of the bot
 
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
@@ -421,7 +427,8 @@
 			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, 0)
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+			spawn(0)
+				handle_automated_action()	// ensure bot quickly responds to a perp
 			break
 		else
 			continue
@@ -459,14 +466,17 @@
 		if(!istype(C) || !C || in_range(src, target))
 			return
 		C.visible_message("<span class='warning'>[pick( \
-						"[C] dives out of [src]'s way!", \
-						"[C] stumbles over [src]!", \
-						"[C] jumps out of [src]'s path!", \
-						"[C] trips over [src] and falls!", \
-						"[C] topples over [src]!", \
-						"[C] leaps out of [src]'s way!")]</span>")
-		C.KnockDown(4 SECONDS)
+						  "[C] dives out of [src]'s way!", \
+						  "[C] stumbles over [src]!", \
+						  "[C] jumps out of [src]'s path!", \
+						  "[C] trips over [src] and falls!", \
+						  "[C] topples over [src]!", \
+						  "[C] leaps out of [src]'s way!")]</span>")
+		C.Weaken(4 SECONDS)
 		return
 	..()
+
+/obj/machinery/bot_core/secbot
+	req_access = list(ACCESS_SECURITY)
 
 #undef BATON_COOLDOWN

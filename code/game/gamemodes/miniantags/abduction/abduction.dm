@@ -50,7 +50,7 @@
 	team_names[team_number] = "Mothership [pick(GLOB.possible_changeling_IDs)]" //TODO Ensure unique and actual alieny names
 	//Team Objective
 	var/datum/objective/experiment/team_objective = new
-	team_objective.abductor_team_number = team_number
+	team_objective.team = team_number
 	team_objectives[team_number] = team_objective
 	//Team Members
 
@@ -160,7 +160,6 @@
 	to_chat(abductor.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
 	to_chat(abductor.current, "<span class='notice'>Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve.</span>")
 	to_chat(abductor.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
-	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor agent")
 
 	abductor.announce_objectives()
 
@@ -175,7 +174,6 @@
 	to_chat(abductor.current, "<span class='notice'>With the help of your teammate, kidnap and experiment on station crew members!</span>")
 	to_chat(abductor.current, "<span class='notice'>Use your tool and ship consoles to support the agent and retrieve human specimens.</span>")
 	to_chat(abductor.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Abductor)</span>")
-	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
 
 	abductor.announce_objectives()
 
@@ -240,8 +238,7 @@
 // OBJECTIVES
 /datum/objective/experiment
 	target_amount = 6
-	/// Which abductor team number does this belong to.
-	var/abductor_team_number
+	var/team
 
 /datum/objective/stay_hidden
 
@@ -254,12 +251,13 @@
 	explanation_text = "Experiment on [target_amount] humans."
 
 /datum/objective/experiment/check_completion()
-	var/ab_team = abductor_team_number
-	var/list/owners = get_owners()
-	for(var/datum/mind/M in owners)
-		if(!M.current || !ishuman(M.current) || !isabductor(M.current))
+	var/ab_team = team
+	if(owner)
+		if(!owner.current || !ishuman(owner.current))
 			return FALSE
-		var/mob/living/carbon/human/H = M.current
+		var/mob/living/carbon/human/H = owner.current
+		if(!isabductor(H))
+			return FALSE
 		var/datum/species/abductor/S = H.dna.species
 		ab_team = S.team
 	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)

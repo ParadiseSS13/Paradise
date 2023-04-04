@@ -21,8 +21,6 @@
 	var/move_delay		= 1
 	var/moving			= null
 	var/area			= null
-
-	// why the hell do we track this when you can just file > reconnect to bypass it
 	var/time_died_as_mouse = null //when the client last died as a mouse
 
 	var/typing = FALSE // Prevents typing window stacking
@@ -115,6 +113,9 @@
 	/// List of the clients CUIs
 	var/list/datum/custom_user_item/cui_entries = list()
 
+	/// The client's karma holder
+	var/datum/karma_holder/karmaholder
+
 	/// The client's job ban holder
 	var/datum/job_ban_holder/jbh = new()
 
@@ -133,6 +134,9 @@
 			return FALSE
 		// Dont fuck with this
 		if("cui_entries")
+			return FALSE
+		// or this
+		if("karmaholder")
 			return FALSE
 		// or this
 		if("jbh")

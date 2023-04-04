@@ -29,15 +29,14 @@
 
 	var/message_cooldown
 	var/centcomm_message_cooldown
-	var/alert_level_cooldown = 0
 	var/tmp_alertlevel = 0
 
 	var/stat_msg1
 	var/stat_msg2
-	var/display_type = STATUS_DISPLAY_TIME
+	var/display_type = "blank"
 	var/display_icon
 
-	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/comms_console)
+	var/datum/announcement/priority/crew_announcement = new
 
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
@@ -47,6 +46,7 @@
 
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
+	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = 1)
 	if(user.can_admin_interact())
@@ -88,7 +88,7 @@
 		// Logout function.
 		if(authenticated != COMM_AUTHENTICATION_NONE)
 			authenticated = COMM_AUTHENTICATION_NONE
-			announcer.author = null
+			crew_announcement.announcer = null
 			setMenuState(usr, COMM_SCREEN_MAIN)
 			return
 		// Login function.
@@ -100,7 +100,7 @@
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id = H.get_idcard(TRUE)
 			if(istype(id))
-				announcer.author = GetNameAndAssignmentFromId(id)
+				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 		if(authenticated == COMM_AUTHENTICATION_NONE)
 			to_chat(usr, "<span class='warning'>You need to wear a command or Captain-level ID.</span>")
 		return
@@ -123,11 +123,7 @@
 			else if(!ishuman(usr))
 				to_chat(usr, "<span class='warning'>Security measures prevent you from changing the alert level.</span>")
 				return
-			else if(alert_level_cooldown > world.time)
-				to_chat(usr, "<span class='warning'>Please allow at least one minute between manual changes to the alert level.</span>")
-				return
 
-			alert_level_cooldown = world.time + 60 SECONDS
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id/I = H.get_idcard(TRUE)
 			if(istype(I))
@@ -150,7 +146,7 @@
 				if(length(input) < COMM_MSGLEN_MINIMUM)
 					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum.</span>")
 					return
-				announcer.Announce(input)
+				crew_announcement.Announce(input)
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
@@ -159,7 +155,7 @@
 				return
 			call_shuttle_proc(usr, input)
 			if(SSshuttle.emergency.timer)
-				post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
+				post_status("shuttle")
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("cancelshuttle")
@@ -170,7 +166,7 @@
 			if(response == "Yes")
 				cancel_call_proc(usr)
 				if(SSshuttle.emergency.timer)
-					post_status(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)
+					post_status("shuttle")
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
 		if("messagelist")
@@ -202,17 +198,17 @@
 
 		// Status display stuff
 		if("setstat")
-			display_type = text2num(params["statdisp"])
+			display_type = params["statdisp"]
 			switch(display_type)
-				if(STATUS_DISPLAY_MESSAGE)
+				if("message")
 					display_icon = null
-					post_status(STATUS_DISPLAY_MESSAGE, stat_msg1, stat_msg2)
-				if(STATUS_DISPLAY_ALERT)
+					post_status("message", stat_msg1, stat_msg2, usr)
+				if("alert")
 					display_icon = params["alert"]
-					post_status(STATUS_DISPLAY_ALERT, params["alert"])
+					post_status("alert", params["alert"], user = usr)
 				else
 					display_icon = null
-					post_status(display_type)
+					post_status(params["statdisp"], user = usr)
 			setMenuState(usr, COMM_SCREEN_STAT)
 
 		if("setmsg1")
@@ -237,7 +233,7 @@
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
-				GLOB.major_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
@@ -341,9 +337,9 @@
 		"line_2" = (stat_msg2 ? stat_msg2 : "-----"),
 
 		"presets" = list(
-			list("name" = STATUS_DISPLAY_BLANK,    "label" = "Clear",       "desc" = "Blank slate"),
-			list("name" = STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME,  "label" = "Shuttle ETA", "desc" = "Display how much time is left."),
-			list("name" = STATUS_DISPLAY_MESSAGE,  "label" = "Message",     "desc" = "A custom message.")
+			list("name" = "blank",    "label" = "Clear",       "desc" = "Blank slate"),
+			list("name" = "shuttle",  "label" = "Shuttle ETA", "desc" = "Display how much time is left."),
+			list("name" = "message",  "label" = "Message",     "desc" = "A custom message.")
 		),
 
 		"alerts"=list(
@@ -454,7 +450,6 @@
 			to_chat(user, "<span class='warning'>Central Command does not allow the shuttle to be called at this time. Please stand by.</span>") //This may show up before Epsilon Alert/Before DS arrives
 			return
 
-		// AA 2022-08-18 - Why is this not a round time offset??
 		if(world.time < 54000) // 30 minute grace period to let the game get going
 			to_chat(user, "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again.")
 			return
@@ -474,7 +469,7 @@
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
 	return
 
-// Why the hell are all these procs global?
+
 /proc/cancel_call_proc(mob/user)
 	if(SSshuttle.cancelEvac(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
@@ -483,6 +478,28 @@
 		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
 		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
 		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
+
+/proc/post_status(command, data1, data2, mob/user = null)
+
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
+
+	if(!frequency) return
+
+	var/datum/signal/status_signal = new
+	status_signal.transmission_method = 1
+	status_signal.data["command"] = command
+
+	switch(command)
+		if("message")
+			status_signal.data["msg1"] = data1
+			status_signal.data["msg2"] = data2
+			log_admin("STATUS: [user] set status screen message: [data1] [data2]")
+			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
+		if("alert")
+			status_signal.data["picture_state"] = data1
+
+	spawn(0)
+		frequency.post_signal(null, status_signal)
 
 
 /obj/machinery/computer/communications/Destroy()

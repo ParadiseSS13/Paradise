@@ -33,7 +33,7 @@
 		revert_cast(user)
 		return
 	user.visible_message("<span class='warning'>[user] starts pushing itself against [A]!</span>", "<span class='sinister'>You try to pry [A] open enough to get through.</span>")
-	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, PROC_REF(pass_check), user, A)), FALSE))
+	if(!do_after(user, 6 SECONDS, FALSE, user, TRUE, list(CALLBACK(src, .proc/pass_check, user, A)), FALSE))
 		if(user.morphed)
 			to_chat(user, "<span class='warning'>You need to stay in your true form to pass through [A]!</span>")
 		else if(A.locked)

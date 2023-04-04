@@ -27,7 +27,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "photo"
 	item_state = "paper"
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	var/blueprints = 0 // Does this have the blueprints?
@@ -40,7 +40,7 @@
 	user.examinate(src)
 
 /obj/item/photo/attackby(obj/item/P as obj, mob/user as mob, params)
-	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
+	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
 		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
@@ -56,17 +56,20 @@
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-		"[class]You hold [P] up to [src], burning it slowly.</span>")
+		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!", \
+		"[class]You hold [P] up to [src], burning it slowly.")
 
-		if(do_after(user, 50, target = src))
-			if(user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+		spawn(20)
+			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
+				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
+				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
+
 				if(user.is_in_inactive_hand(src))
 					user.unEquip(src)
+
 				new /obj/effect/decal/cleanable/ash(get_turf(src))
 				qdel(src)
+
 			else
 				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
@@ -114,20 +117,15 @@
 **************/
 /obj/item/storage/photo_album
 	name = "Photo album"
-	desc = "A slim book with little plastic coverings to keep photos from deteriorating, it reminds you of the good ol' days."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "album"
-	item_state = "syringe_kit"
+	item_state = "briefcase"
 	can_hold = list(/obj/item/photo)
 	resistance_flags = FLAMMABLE
-	w_class = WEIGHT_CLASS_SMALL
-	storage_slots = 14
-	drop_sound = 'sound/items/handling/book_drop.ogg'
-	pickup_sound =  'sound/items/handling/book_pickup.ogg'
 
 /obj/item/storage/photo_album/MouseDrop(obj/over_object as obj)
 
-	if(ishuman(usr))
+	if((istype(usr, /mob/living/carbon/human)))
 		var/mob/M = usr
 		if(!( istype(over_object, /obj/screen) ))
 			return ..()
@@ -155,7 +153,7 @@
 /obj/item/camera
 	name = "camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "A polaroid camera."
+	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
@@ -171,12 +169,7 @@
 	var/size = 3
 	var/see_ghosts = FALSE //for the spoop of it
 	var/current_photo_num = 1
-	var/digital = FALSE
 
-/obj/item/camera/examine(mob/user)
-	. = ..()
-	if(!digital)
-		. += "<span class='notice'>There is [pictures_left] photos left.</span>"
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
 	..()
@@ -194,12 +187,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
 	see_ghosts = TRUE
-
-/obj/item/camera/AltClick(mob/user)
-	if(in_range(user, src) && !user.incapacitated())
-		change_size()
-		return
-	. = ..()
 
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -252,7 +239,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
 			if(A.invisibility)
-				if(see_ghosts && isobserver(A))
+				if(see_ghosts && istype(A,/mob/dead/observer))
 					var/mob/dead/observer/O = A
 					if(O.orbiting_uid)
 						continue
@@ -288,7 +275,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			// If what we got back is actually a picture, draw it.
 			if(istype(img, /icon))
 				// Check if we're looking at a mob that's lying down
-				if(isliving(A))
+				if(istype(A, /mob/living))
 					var/mob/living/L = A
 					if(IS_HORIZONTAL(L))
 						// If they are, apply that effect to their picture.
@@ -314,7 +301,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		if(M.invisibility)
-			if(see_ghosts && isobserver(M))
+			if(see_ghosts && istype(M,/mob/dead/observer))
 				var/mob/dead/observer/O = M
 				if(O.orbiting_uid)
 					continue
@@ -327,7 +314,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 		var/holding = null
 
-		if(iscarbon(M))
+		if(istype(M, /mob/living/carbon))
 			var/mob/living/carbon/A = M
 			if(A.l_hand || A.r_hand)
 				if(A.l_hand) holding = "They are holding \a [A.l_hand]"
@@ -350,8 +337,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
 	pictures_left--
+	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
 	on = FALSE
@@ -360,7 +348,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
-	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // fucking magic numbers
+	addtimer(CALLBACK(src, .proc/reset_cooldown), 6.4 SECONDS) // fucking magic numbers
 
 /obj/item/camera/proc/reset_cooldown()
 	icon_state = icon_on
@@ -464,27 +452,23 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 ******************/
 /obj/item/camera/digital
 	name = "digital camera"
-	desc = "A digital camera."
-	digital = TRUE
+	desc = "A digital camera. A small screen shows there is space for 10 photos left."
 	var/list/datum/picture/saved_pictures = list()
 	pictures_left = 30
 	var/max_storage = 10
 
-/obj/item/camera/digital/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>A small screen shows that there are currently [length(saved_pictures)] pictures stored.</span>"
-
-/obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
-	if(!on || !pictures_left || ismob(target.loc))
-		return
-
+/obj/item/camera/digital/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
+	if(!on || !pictures_left || ismob(target.loc)) return
 	captureimage(target, user, flag)
+
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
 
+	desc = "A digital camera. A small screen shows that there are currently [saved_pictures.len] pictures stored."
 	icon_state = icon_off
 	on = FALSE
-	on_cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 6.4 SECONDS) // magic numbers here too
+	spawn(64)
+		icon_state = icon_on
+		on = TRUE
 
 /obj/item/camera/digital/captureimage(atom/target, mob/user, flag)
 	if(saved_pictures.len >= max_storage)
@@ -543,60 +527,46 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /**************
 *video camera *
 ***************/
-#define CAMERA_STATE_COOLDOWN 2 SECONDS
 
 /obj/item/videocam
 	name = "video camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "This video camera can send live feeds to the entertainment network. You must hold to use it."
+	desc = "video camera that can send live feed to the entertainment network."
 	icon_state = "videocam"
 	item_state = "videocam"
-	w_class = WEIGHT_CLASS_NORMAL
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = SLOT_BELT
+	materials = list(MAT_METAL=2000)
 	var/on = FALSE
-	var/video_cooldown = 0
 	var/obj/machinery/camera/camera
 	var/icon_on = "videocam_on"
 	var/icon_off = "videocam"
 	var/canhear_range = 7
 
-/obj/item/videocam/proc/camera_state(mob/living/carbon/user)
-	if(!on)
-		on = TRUE
-		camera = new /obj/machinery/camera(src)
-		icon_state = icon_on
-		camera.network = list("news")
-		camera.c_tag = user.name
-	else
-		on = FALSE
-		icon_state = icon_off
-		camera.c_tag = null
-		QDEL_NULL(camera)
-	visible_message("<span class='notice'>The video camera has been turned [on ? "on" : "off"].</span>")
-	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
-		if(on)
-			TV.feeds_on++
-		else
-			TV.feeds_on--
-		TV.update_icon(UPDATE_OVERLAYS)
-	video_cooldown = world.time + CAMERA_STATE_COOLDOWN
-
 /obj/item/videocam/attack_self(mob/user)
-	if(world.time < video_cooldown)
-		to_chat(user, "<span class='warning'>[src] is overheating, give it some time.</span>")
-		return
-	camera_state(user)
+	on = !on
+	if(camera)
+		if(!on)
+			src.icon_state = icon_off
+			camera.c_tag = null
+			camera.network = list()
+		else
+			src.icon_state = icon_on
+			camera.network = list("news")
+			camera.c_tag = user.name
+	else
 
-/obj/item/videocam/dropped()
-	. = ..()
-	if(!on)
-		return
-	camera_state()
+		src.icon_state = icon_on
+		camera = new /obj/machinery/camera(src)
+		camera.network = list("news")
+		GLOB.cameranet.removeCamera(camera)
+		camera.c_tag = user.name
+	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
 /obj/item/videocam/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "It's [on ? "" : "in"]active."
+		. += "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
 
 /obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)
@@ -613,12 +583,6 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(T.watchers[M] == camera)
 				T.atom_say(msg)
 
-/obj/item/videocam/advanced
-	name = "advanced video camera"
-	desc = "This video camera allows you to send live feeds even when attached to a belt."
-	slot_flags = SLOT_BELT
-
-#undef CAMERA_STATE_COOLDOWN
 
 ///hauntings, like hallucinations but more spooky
 

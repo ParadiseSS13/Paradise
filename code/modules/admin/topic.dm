@@ -37,6 +37,9 @@
 				return
 			SSmentor_tickets.showDetailUI(usr, ticketID)
 
+	if(href_list["stickyban"])
+		stickyban(href_list["stickyban"],href_list)
+
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
 			if("1")
@@ -380,7 +383,7 @@
 		if(!check_rights(R_SPAWN))	return
 
 		var/mob/M = locateUID(href_list["mob"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -427,7 +430,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["jobban2"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -444,9 +447,9 @@
 		var/jobs = ""
 
 		/***********************************WARNING!************************************
-						The jobban stuff looks mangled and disgusting
-								But it looks beautiful in-game
-											-Nodrak
+					      The jobban stuff looks mangled and disgusting
+							      But it looks beautiful in-game
+							                -Nodrak
 		************************************WARNING!***********************************/
 		var/counter = 0
 //Regular jobs
@@ -654,7 +657,7 @@
 		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locateUID(href_list["jobban4"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -866,7 +869,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["newban"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
@@ -967,7 +970,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["mute"])
-		if(!ismob(M))	return
+		if(!istype(M, /mob))	return
 		if(!M.client)	return
 
 		var/mute_type = href_list["mute_type"]
@@ -1087,7 +1090,7 @@
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1105,10 +1108,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["sendtoprison"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(istype(M, /mob/living/silicon/ai))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1138,7 +1141,7 @@
 			return
 
 		M.loc = prison_cell
-		if(ishuman(M))
+		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
@@ -1178,7 +1181,7 @@
 
 		var/mob/M = locateUID(href_list["eraseflavortext"])
 
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1209,7 +1212,7 @@
 
 		var/mob/M = locateUID(href_list["userandomname"])
 
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1244,10 +1247,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome1"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(istype(M, /mob/living/silicon/ai))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1276,10 +1279,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome2"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(istype(M, /mob/living/silicon/ai))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1308,10 +1311,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeadmin"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(istype(M, /mob/living/silicon/ai))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1332,10 +1335,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeobserve"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(istype(M, /mob/living/silicon/ai))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1347,9 +1350,9 @@
 				I.plane = initial(I.plane)
 				I.dropped(M)
 
-		if(ishuman(M))
+		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit(observer), slot_w_uniform)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), slot_w_uniform)
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
 		if(isliving(M))
 			var/mob/living/L = M
@@ -1406,7 +1409,7 @@
 		if(time_seconds < 0)
 			return
 
-		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, TYPE_PROC_REF(/datum/syndicate_contract, handle_target_return), M), time_seconds * 10, TIMER_STOPPABLE)
+		contract.prisoner_timer_handle = addtimer(CALLBACK(contract, /datum/syndicate_contract.proc/handle_target_return, M), time_seconds * 10, TIMER_STOPPABLE)
 		to_chat(usr, "Started automatic return of [M] from the Syndicate Jail in [time_seconds] second\s.")
 		message_admins("[key_name_admin(usr)] has started the automatic return of [key_name_admin(M)] from the Syndicate Jail in [time_seconds] second\s")
 		log_admin("[key_name(usr)] has started the automatic return of [key_name(M)] from the Syndicate Jail in [time_seconds] second\s")
@@ -1439,10 +1442,10 @@
 			return
 
 		var/mob/M = locateUID(href_list["aroomwarp"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
-		if(isAI(M))
+		if(istype(M, /mob/living/silicon/ai))
 			to_chat(usr, "<span class='warning'>This cannot be used on instances of type /mob/living/silicon/ai</span>")
 			return
 
@@ -1584,7 +1587,7 @@
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locateUID(href_list["adminplayeropts"])
 
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1598,7 +1601,7 @@
 			C.admin_ghost()
 		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
 
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1608,49 +1611,6 @@
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
-
-	else if(href_list["check_teams"])
-		if(!check_rights(R_ADMIN))
-			return
-		check_teams()
-
-	else if(href_list["team_command"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/datum/team/team
-		var/datum/mind/member
-		if(href_list["team"])
-			team = locateUID(href_list["team"])
-			if(QDELETED(team))
-				to_chat(usr, "<span class='warning'>This team doesn't exist anymore!</span>")
-				return
-		if(href_list["member"])
-			member = locateUID(href_list["member"])
-			if(QDELETED(member))
-				to_chat(usr, "<span class='warning'>This team member doesn't exist anymore!</span>")
-				return
-		switch(href_list["team_command"])
-			if("communicate")
-				team.admin_communicate(usr)
-			if("delete_team")
-				message_admins("[key_name_admin(usr)] has deleted the '[team.name]' team.")
-				log_admin("[key_name_admin(usr)] has deleted the '[team.name]' team.")
-				qdel(team)
-			if("rename_team")
-				team.admin_rename_team(usr)
-			if("admin_add_member")
-				team.admin_add_member(usr)
-			if("remove_member")
-				team.admin_remove_member(usr, member)
-			if("view_member")
-				show_player_panel(member.current)
-			if("add_objective")
-				team.admin_add_objective(usr)
-			if("remove_objective")
-				var/datum/objective/O = locateUID(href_list["objective"])
-				if(O)
-					team.admin_remove_objective(usr, O)
-		check_teams()
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
@@ -1762,7 +1722,7 @@
 	else if(href_list["adminmoreinfo"])
 		var/mob/M = locateUID(href_list["adminmoreinfo"])
 
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1835,7 +1795,7 @@
 
 		var/mob/M = locateUID(href_list["CentcommReply"])
 
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1847,7 +1807,7 @@
 
 		var/mob/M = locateUID(href_list["SyndicateReply"])
 
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1859,7 +1819,7 @@
 
 		var/mob/M = locateUID(href_list["HeadsetMessage"])
 
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 
@@ -1996,7 +1956,7 @@
 					P.universal_understand = TRUE
 					P.can_collar = TRUE
 					P.faction = list("neutral")
-					var/obj/item/petcollar/C = new
+					var/obj/item/clothing/accessory/petcollar/C = new
 					P.add_collar(C)
 					var/obj/item/card/id/I = H.wear_id
 					if(I)
@@ -2239,21 +2199,21 @@
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><br><br><br><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><br><br><br><font size='4'>NAS Trurl Communications Department Report</font></center><br><br>"
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>[SSmapping.map_datum.fluff_name]</b></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
 		if(stype == "Handle it yourselves!")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<br><br><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Illegible fax")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<br><br>Please consult your nearest dictionary and/or thesaurus and try again.<br><br><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax's grammar, syntax and/or typography are of a sub-par level and do not allow us to understand the contents of the message.<BR><BR>Please consult your nearest dictionary and/or thesaurus and try again.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Fax not signed")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Your fax has not been correctly signed and, as such, we cannot verify your identity.<br><br>Please sign your faxes before sending them so that we may verify your identity.<br><br><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Your fax has not been correctly signed and, as such, we cannot verify your identity.<BR><BR>Please sign your faxes before sending them so that we may verify your identity.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Not Right Now")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<br><br>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<br><br>Please try again later.<br><br><i><small>This is an automatic message.</small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Due to pressing concerns of a matter above your current paygrade, we are unable to provide assistance in whatever matter your fax referenced.<BR><BR>This can be either due to a power outage, bureaucratic audit, pest infestation, Ascendance Event, corgi outbreak, or any other situation that would affect the proper functioning of the NAS Trurl.<BR><BR>Please try again later.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "You are wasting our time")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<br><br>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of professionalism. Do not test our patience.<br><br><i><small>This is an automatic message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>In the interest of preventing further mismanagement of company resources, please avoid wasting our time with such petty drivel.<BR><BR>Do kindly remember that we expect our workforce to maintain at least a semi-decent level of profesionalism. Do not test our patience.<BR><BR><i><small>This is an automatic message.</i></small>"
 		else if(stype == "Keep up the good work")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<br><br>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<br><br><i><small>This is absolutely not an automated message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been received successfully by NAS Trurl Fax Registration.<BR><BR>We at the NAS Trurl appreciate the good work that you have done here, and sincerely recommend that you continue such a display of dedication to the company.<BR><BR><i><small>This is absolutely not an automated message.</i></small>"
 		else if(stype == "ERT Instructions")
-			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><i>DECLINED</i></b> automatically by NAS Trurl Fax Registration.<br><br>Please utilize the Card Swipers if you wish to call for an ERT.<br><br><i><small>This is an automated message.</i></small>"
+			tmsg += "Greetings, esteemed crewmember. Your fax has been <b><I>DECLINED</I></b> automatically by NAS Trurl Fax Registration.<BR><BR>Please utilize the Card Swipers if you wish to call for an ERT.<BR><BR><i><small>This is an automated message.</i></small>"
 		else
 			return
 		tmsg += "</font>"
@@ -2317,7 +2277,7 @@
 			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
 			if(announce_to_crew)
-				GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
+				GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time. Your ERT request has been denied for the following reasons:\n[reason]", "ERT Unavailable")
 				return
 
 			if(H.stat != CONSCIOUS)
@@ -2542,7 +2502,7 @@
 		if(!check_rights(R_ADMIN | R_MOD | R_MENTOR))
 			return
 		var/mob/M = locateUID(href_list["getplaytimewindow"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		cmd_mentor_show_exp_panel(M.client)
@@ -2551,7 +2511,7 @@
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["jumpto"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.jumptomob(M)
@@ -2561,7 +2521,7 @@
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locateUID(href_list["getmob"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.Getmob(M)
@@ -2570,7 +2530,7 @@
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["sendmob"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.sendmob(M)
@@ -2579,7 +2539,7 @@
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["narrateto"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.cmd_admin_direct_narrate(M)
@@ -2589,7 +2549,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["subtlemessage"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		usr.client.cmd_admin_subtle_message(M)
@@ -2602,7 +2562,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["traitor"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
 			return
 		show_traitor_panel(M)
@@ -2707,10 +2667,10 @@
 							O.dir = obj_dir
 							if(obj_name)
 								O.name = obj_name
-								if(ismob(O))
+								if(istype(O,/mob))
 									var/mob/M = O
 									M.real_name = obj_name
-							if(where == "inhand" && isliving(usr) && isitem(O))
+							if(where == "inhand" && isliving(usr) && istype(O, /obj/item))
 								var/mob/living/L = usr
 								var/obj/item/I = O
 								L.put_in_hands(I)
@@ -2829,11 +2789,11 @@
 				if(GLOB.gravity_is_on)
 					log_admin("[key_name(usr)] toggled gravity on.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity on.</span>", 1)
-					GLOB.minor_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
+					GLOB.event_announcement.Announce("Gravity generators are again functioning within normal parameters. Sorry for any inconvenience.")
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity off.</span>", 1)
-					GLOB.minor_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					GLOB.event_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
 				switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs", "Repair and Power APCs")) //Alert notification in this code for standarization purposes
@@ -2942,14 +2902,16 @@
 			if("flicklights")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
 				while(!usr.stat)
-					//knock yourself out to stop the ghosts
+//knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
 							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
-								AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
-								spawn(rand(55, 185))
-									AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, TRUE)
+								AffectedArea.power_light = 0
+								AffectedArea.power_change()
+								spawn(rand(55,185))
+									AffectedArea.power_light = 1
+									AffectedArea.power_change()
 								var/Message = rand(1,4)
 								switch(Message)
 									if(1)
@@ -3013,7 +2975,7 @@
 			if("fakeguns")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
-					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
+					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
 					W.icon = 'icons/obj/guns/projectile.dmi'
 					W.icon_state = "revolver"
@@ -3033,7 +2995,7 @@
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
-				GLOB.minor_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
+				GLOB.event_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
@@ -3091,7 +3053,12 @@
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
 				if(confirmation == "No")
 					return
-				makeThunderdomeTeams()
+				if(makeThunderdomeTeams())
+					log_admin("[key_name(usr)] started a Thunderdome match!", 1)
+					message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started a Thunderdome match!</span>")
+				else
+					log_admin("[key_name(usr)] attempted to start a Thunderdome match, but no ghosts signed up.", 1)
+					message_admins("<span class='adminnotice'>[key_name_admin(usr)] tried starting a Thunderdome match, but no ghosts signed up.</span>")
 			if("securitylevel0")
 				set_security_level(0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
@@ -3350,16 +3317,29 @@
 		if(!check_rights(R_ADMIN))
 			return
 		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
-
-	else if(href_list["who_advanced"])
-		usr.client.who_advanced()
-
-	else if(href_list["adminalert"])
+	else if(href_list["viewkarma"])
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
-		usr.client.cmd_admin_alert_message(about_to_be_banned)
+		var/client/C = GLOB.directory[href_list["viewkarma"]]
+		if(!C)
+			return
+
+		// Pack it into a dat
+		var/dat = {"
+		<ul>
+		<li>Total Karma: [C.karmaholder.karma_earned]</li>
+		<li>Spent Karma: [C.karmaholder.karma_spent]</li>
+		<li>Available Karma: [C.karmaholder.karma_earned - C.karmaholder.karma_spent]</li>
+		<li>Unlocked Packages: [C.karmaholder.purchased_packages.Join(", ")]</li>
+		</ul>
+		"}
+
+		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [C.ckey]", 600, 300)
+		popup.set_content(dat)
+		popup.open(FALSE)
+	else if(href_list["who_advanced"])
+		usr.client.who_advanced()
 
 /client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))
@@ -3430,7 +3410,7 @@
 		var/mob/living/silicon/ai/A = target
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
 			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"
-	else if(isobserver(target))
+	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target
 		if(O.mind && O.mind.current)
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"

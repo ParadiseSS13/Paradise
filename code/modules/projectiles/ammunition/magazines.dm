@@ -180,7 +180,7 @@
 	max_ammo = 5
 
 /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
-	max_ammo = 10
+ 	max_ammo = 10
 
 ///////////EXTERNAL MAGAZINES////////////////
 
@@ -306,36 +306,12 @@
 	ammo_type = /obj/item/ammo_casing/c9mm/inc
 	materials = list(MAT_METAL = 3000)
 
-/obj/item/ammo_box/magazine/apsm10mm
-	name = "stechkin aps magazine (10mm)"
-	icon_state = "10mmaps"
-	ammo_type = /obj/item/ammo_casing/c10mm
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = 5
-
-/obj/item/ammo_box/magazine/apsm10mm/fire
-	name = "stechkin aps magazine (10mm incendiary)"
-	icon_state = "10mmapsI"
-	ammo_type = /obj/item/ammo_casing/c10mm/fire
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = 5
-
-/obj/item/ammo_box/magazine/apsm10mm/hp
-	name = "stechkin aps magazine (10mm HP)"
-	icon_state = "10mmapsH"
-	ammo_type = /obj/item/ammo_casing/c10mm/hp
-	caliber = "10mm"
-	max_ammo = 20
-	multi_sprite_step = 5
-
-/obj/item/ammo_box/magazine/apsm10mm/ap
-	name = "stechkin aps magazine (10mm AP)"
-	icon_state = "10mmapsA"
-	ammo_type = /obj/item/ammo_casing/c10mm/ap
-	caliber = "10mm"
-	max_ammo = 20
+/obj/item/ammo_box/magazine/apsm9mm
+	name = "stechkin aps magazine (9mm)"
+	icon_state = "9mmaps"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = "9mm"
+	max_ammo = 15
 	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/smgm45
@@ -495,14 +471,14 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/laser
-	name = "laser carbine projector magazine"
-	desc = "Fits experimental laser ammo casings. Compatible with laser rifles and carbines."
+	name = "encased laser projector magazine"
+	desc = "Fits experimental laser ammo casings."
 	icon_state = "laser"
-	ammo_type = /obj/item/ammo_casing/caseless/laser
+	ammo_type = /obj/item/ammo_casing/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
-	multi_sprite_step = 5
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"

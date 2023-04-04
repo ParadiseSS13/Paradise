@@ -21,7 +21,8 @@
 									/obj/effect/proc_holder/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,
 									/obj/effect/proc_holder/spell/vampire/self/specialize = 150,
-									/datum/vampire_passive/regen = 200)
+									/datum/vampire_passive/regen = 200,
+									/obj/effect/proc_holder/spell/turf_teleport/shadow_step = 250)
 
 	/// list of the peoples UIDs that we have drained, and how much blood from each one
 	var/list/drained_humans = list()
@@ -263,9 +264,9 @@
 			hud.show_hud(hud.hud_version)
 		hud.vampire_blood_display.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font face='Small Fonts' color='#ce0202'>[bloodusable]</font></div>"
 	handle_vampire_cloak()
-	if(isspaceturf(get_turf(owner.current)))
+	if(istype(get_turf(owner.current), /turf/space))
 		check_sun()
-	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full) && bloodtotal > 0)
+	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn(7)
 	nullified = max(0, nullified - 2)
 

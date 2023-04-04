@@ -61,8 +61,9 @@
 	icon_state = "scanner_open"
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 50
-	active_power_consumption = 300
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 50
+	active_power_usage = 300
 	interact_offline = TRUE
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
@@ -133,9 +134,9 @@
 	go_out(user, force)
 	for(var/obj/O in src)
 		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
-			!istype(O,/obj/item/stock_parts) && \
-			!istype(O,/obj/item/stack/cable_coil) && \
-			O != beaker)
+		   !istype(O,/obj/item/stock_parts) && \
+		   !istype(O,/obj/item/stack/cable_coil) && \
+		   O != beaker)
 			O.forceMove(get_turf(src))//Ejects items that manage to get in there (exluding the components and beaker)
 	if(!occupant)
 		for(var/mob/M in src)//Failsafe so you can get mobs out
@@ -184,13 +185,13 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(isanimal(O) || issilicon(O)) //animals and robutts dont fit
+	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
+	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		to_chat(user, "<span class='boldnotice'>[src] is already occupied!</span>")
@@ -252,16 +253,9 @@
 	return ..()
 
 /obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
-	if(!panel_open)
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(flags & NODECONSTRUCT)//We need to check for this early or the contents could be moved before it checks for the flag normally
-		return
-	for(var/obj/thing in contents) // in case there is something in the scanner
-		thing.forceMove(loc)
-	default_deconstruction_crowbar(user, I)
+	if(default_deconstruction_crowbar(user, I))
+		for(var/obj/thing in contents) // in case there is something in the scanner
+			thing.forceMove(loc)
 
 /obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
 	if(occupant)
@@ -355,8 +349,9 @@
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
 	anchored = TRUE
-	idle_power_consumption = 10
-	active_power_consumption = 400
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 10
+	active_power_usage = 400
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
@@ -374,8 +369,8 @@
 	. = ..()
 	for(var/i=0;i<3;i++)
 		buffers[i+1]=new /datum/dna2/record
-	addtimer(CALLBACK(src, PROC_REF(find_machine)), 1 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(ready)), 25 SECONDS)
+	addtimer(CALLBACK(src, .proc/find_machine), 1 SECONDS)
+	addtimer(CALLBACK(src, .proc/ready), 25 SECONDS)
 
 /obj/machinery/computer/scan_consolenew/proc/find_machine()
 	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
@@ -513,7 +508,7 @@
 /obj/machinery/computer/scan_consolenew/ui_act(action, params)
 	if(..())
 		return FALSE // don't update uis
-	if(!isturf(usr.loc))
+	if(!istype(usr.loc, /turf))
 		return FALSE // don't update uis
 	if(!src || !connected)
 		return FALSE // don't update uis
@@ -806,7 +801,7 @@
 
 	// Cooldown
 	injector_ready = FALSE
-	addtimer(CALLBACK(src, PROC_REF(injector_cooldown_finish)), 30 SECONDS)
+	addtimer(CALLBACK(src, .proc/injector_cooldown_finish), 30 SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]

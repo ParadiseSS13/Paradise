@@ -9,30 +9,30 @@
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
-	plane = AREA_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
+	plane = BLACKNESS_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	luminosity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
-
-	/// used for cult summoning areas on station zlevel
-	var/valid_territory = TRUE
-	/// Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
-	var/map_name
-	/// Is the lightswitch in this area on? Controls whether or not lights are on and off
+	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
+	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/lightswitch = TRUE
-	/// If TRUE, the local powernet in this area will have all its power channels switched off
-	var/apc_starts_off = FALSE
-	/// If TRUE, this area's local powernet will require power to properly operate machines
+
+	var/debug = FALSE
 	var/requires_power = TRUE
-	/// If TRUE, machines that require power in this area will never be powered
-	var/always_unpowered = FALSE
-	/// The local powernet of this area, this is where all machine/apc/object power related operations are handled
-	var/datum/local_powernet/powernet = null
-	/// All APCs currently constructed in this area
-	var/list/apc = list()
+	var/always_unpowered = FALSE	//this gets overriden to 1 for space in area/New()
+
+	var/power_equip = TRUE
+	var/power_light = TRUE
+	var/power_environ = TRUE
+	var/used_equip = FALSE
+	var/used_light = FALSE
+	var/used_environ = FALSE
+	var/static_equip
+	var/static_light = FALSE
+	var/static_environ
 
 	var/has_gravity = TRUE
-
+	var/list/apc = list()
 	var/no_air = null
 
 	var/air_doors_activated = FALSE
@@ -92,11 +92,13 @@
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
-	if(!powernet) // we may already have a powernet due to machine init, better to be safe than sorry
-		create_powernet() // no powernet yet, create one
+	if(requires_power)
+		luminosity = 0
+	else
+		power_light = TRUE
+		power_equip = TRUE
+		power_environ = TRUE
 
-	//setting lighting
-	if(!requires_power)
 		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
 			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 			luminosity = 0
@@ -116,26 +118,9 @@
 
 	return INITIALIZE_HINT_LATELOAD
 
-/area/proc/create_powernet()
-	powernet = new()
-	powernet.powernet_area = src
-
-	//setting power flags and channel breakers
-	if(always_unpowered) //area will never be powered, set all power channels to off
-		powernet.lighting_powered = FALSE
-		powernet.equipment_powered = FALSE
-		powernet.environment_powered = FALSE
-		powernet.power_flags |= PW_ALWAYS_UNPOWERED  //ensures all power checks will return FALSE
-	else if(requires_power) //area does require power
-		luminosity = 0
-		if(apc_starts_off) //flip all the channels off if apc starts off
-			powernet.lighting_powered = FALSE
-			powernet.equipment_powered = FALSE
-			powernet.environment_powered = FALSE
-	else // area doesn't require power
-		powernet.power_flags |= PW_ALWAYS_POWERED //ensures all power checks will return TRUE
-
-	return powernet
+/area/LateInitialize()
+	. = ..()
+	power_change()		// all machines set to current power level, also updates lighting icon
 
 /area/proc/reg_in_areas_in_z()
 	if(contents.len)
@@ -161,34 +146,29 @@
 	return cameras
 
 /area/proc/air_doors_close()
-	if(air_doors_activated)
-		return
-	air_doors_activated = TRUE
-	for(var/obj/machinery/door/firedoor/D in src)
-		if(!D.is_operational())
-			continue
-		D.activate_alarm()
-		if(D.welded)
-			continue
-		if(D.operating && D.operating != DOOR_CLOSING)
-			D.nextstate = FD_CLOSED
-		else if(!D.density)
-			INVOKE_ASYNC(D, TYPE_PROC_REF(/obj/machinery/door/firedoor, close))
+	if(!air_doors_activated)
+		air_doors_activated = TRUE
+		for(var/obj/machinery/door/firedoor/D in src)
+			if(!D.welded)
+				D.activate_alarm()
+				if(D.operating)
+					D.nextstate = FD_CLOSED
+				else if(!D.density)
+					spawn(0)
+						D.close()
 
 /area/proc/air_doors_open()
-	if(!air_doors_activated)
-		return
-	air_doors_activated = FALSE
-	for(var/obj/machinery/door/firedoor/D in src)
-		if(!D.is_operational())
-			continue
-		D.deactivate_alarm()
-		if(D.welded)
-			continue
-		if(D.operating && D.operating != DOOR_OPENING)
-			D.nextstate = FD_OPEN
-		else if(D.density)
-			INVOKE_ASYNC(D, TYPE_PROC_REF(/obj/machinery/door/firedoor, open))
+	if(air_doors_activated)
+		air_doors_activated = FALSE
+		for(var/obj/machinery/door/firedoor/D in src)
+			if(!D.welded)
+				D.deactivate_alarm()
+				if(D.operating)
+					D.nextstate = OPEN
+				else if(D.density)
+					spawn(0)
+						D.open()
+
 
 /area/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -200,23 +180,21 @@
   * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
   */
 /area/proc/poweralert(state, obj/source)
-	if(state == poweralm)
-		return
-	poweralm = state
-	if(!istype(source))	//Only report power alarms on the z-level where the source is located.
-		return
-	for(var/thing in cameras)
-		var/obj/machinery/camera/C = locateUID(thing)
-		if(!QDELETED(C) && is_station_level(C.z))
-			if(state)
-				C.network -= "Power Alarms"
-			else
-				C.network |= "Power Alarms"
+	if(state != poweralm)
+		poweralm = state
+		if(istype(source))	//Only report power alarms on the z-level where the source is located.
+			for(var/thing in cameras)
+				var/obj/machinery/camera/C = locateUID(thing)
+				if(!QDELETED(C) && is_station_level(C.z))
+					if(state)
+						C.network -= "Power Alarms"
+					else
+						C.network |= "Power Alarms"
 
-	if(state)
-		GLOB.alarm_manager.cancel_alarm("Power", src, source)
-	else
-		GLOB.alarm_manager.trigger_alarm("Power", src, cameras, source)
+			if(state)
+				SSalarm.cancelAlarm("Power", src, source)
+			else
+				SSalarm.triggerAlarm("Power", src, cameras, source)
 
 /**
   * Generate an atmospheric alert for this area
@@ -233,7 +211,7 @@
 					C.network |= "Atmosphere Alarms"
 
 
-			GLOB.alarm_manager.trigger_alarm("Atmosphere", src, cameras, source)
+			SSalarm.triggerAlarm("Atmosphere", src, cameras, source)
 
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
@@ -241,7 +219,7 @@
 				if(!QDELETED(C) && is_station_level(C.z))
 					C.network -= "Atmosphere Alarms"
 
-			GLOB.alarm_manager.cancel_alarm("Atmosphere", src, source)
+			SSalarm.cancelAlarm("Atmosphere", src, source)
 
 		atmosalm = danger_level
 		return TRUE
@@ -251,34 +229,23 @@
   * Try to close all the firedoors in the area
   */
 /area/proc/ModifyFiredoors(opening)
-	if(!firedoors)
-		return
-	firedoors_last_closed_on = world.time
-	for(var/obj/machinery/door/firedoor/D in firedoors)
-		if(!D.is_operational())
-			continue
-		var/valid = TRUE
-		if(opening)	//don't open if adjacent area is on fire
-			for(var/I in D.affecting_areas)
-				var/area/A = I
-				if(A.fire)
-					valid = FALSE
-					break
-		if(!valid)
-			continue
-
-		// At this point, the area is safe and the door is technically functional.
-
-		INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, deactivate_alarm) : TYPE_PROC_REF(/obj/machinery/door/firedoor, activate_alarm)))
-		if(D.welded)
-			continue // Alarm is toggled, but door stuck
-		if(D.operating)
-			if((D.operating == DOOR_OPENING && opening) || (D.operating == DOOR_CLOSING && !opening))
-				continue
-			else
-				D.nextstate = opening ? FD_OPEN : FD_CLOSED
-		else if(D.density == opening)
-			INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/firedoor, close)))
+	if(firedoors)
+		firedoors_last_closed_on = world.time
+		for(var/FD in firedoors)
+			var/obj/machinery/door/firedoor/D = FD
+			var/cont = !D.welded
+			if(cont && opening)	//don't open if adjacent area is on fire
+				for(var/I in D.affecting_areas)
+					var/area/A = I
+					if(A.fire)
+						cont = FALSE
+						break
+			if(cont && D.is_operational())
+				if(D.operating)
+					D.nextstate = opening ? FD_OPEN : FD_CLOSED
+				else if(!(D.density ^ opening))
+					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/deactivate_alarm : /obj/machinery/door/firedoor.proc/activate_alarm))
 
 /**
   * Generate a firealarm alert for this area
@@ -304,7 +271,7 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network |= "Fire Alarms"
 
-	GLOB.alarm_manager.trigger_alarm("Fire", src, cameras, source)
+	SSalarm.triggerAlarm("Fire", src, cameras, source)
 
 	START_PROCESSING(SSobj, src)
 
@@ -330,7 +297,7 @@
 		if(!QDELETED(C) && is_station_level(C.z))
 			C.network -= "Fire Alarms"
 
-	GLOB.alarm_manager.cancel_alarm("Fire", src, source)
+	SSalarm.cancelAlarm("Fire", src, source)
 
 	STOP_PROCESSING(SSobj, src)
 
@@ -369,9 +336,9 @@
 	for(var/obj/machinery/door/DOOR in src)
 		close_and_lock_door(DOOR)
 
-	if(GLOB.alarm_manager.trigger_alarm("Burglar", src, cameras, trigger))
+	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
 		//Cancel silicon alert after 1 minute
-		addtimer(CALLBACK(GLOB.alarm_manager, TYPE_PROC_REF(/datum/alarm_manager, cancel_alarm), "Burglar", src, trigger), 1 MINUTES)
+		addtimer(CALLBACK(SSalarm, /datum/controller/subsystem/alarm.proc/cancelAlarm, "Burglar", src, trigger), 600)
 
 /**
   * Trigger the fire alarm visual affects in an area
@@ -416,12 +383,101 @@
 /area/space/update_icon_state()
 	icon_state = null
 
+/*
+#define EQUIP 1
+#define LIGHT 2
+#define ENVIRON 3
+*/
+
+/area/proc/powered(chan)		// return true if the area has power to given channel
+
+	if(!requires_power)
+		return 1
+	if(always_unpowered)
+		return 0
+	switch(chan)
+		if(EQUIP)
+			return power_equip
+		if(LIGHT)
+			return power_light
+		if(ENVIRON)
+			return power_environ
+
+	return 0
+
+/area/space/powered(chan) //Nope.avi
+	return 0
+
+/**
+  * Called when the area power status changes
+  *
+  * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
+  */
+/area/proc/power_change()
+	for(var/obj/machinery/M in src)	// for each machine in the area
+		M.power_change()			// reverify power status (to update icons etc.)
+	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
+	update_icon(UPDATE_ICON_STATE)
+
+/area/proc/usage(chan)
+	var/used = 0
+	switch(chan)
+		if(LIGHT)
+			used += used_light
+		if(EQUIP)
+			used += used_equip
+		if(ENVIRON)
+			used += used_environ
+		if(TOTAL)
+			used += used_light + used_equip + used_environ
+		if(STATIC_EQUIP)
+			used += static_equip
+		if(STATIC_LIGHT)
+			used += static_light
+		if(STATIC_ENVIRON)
+			used += static_environ
+	return used
+
+/area/proc/addStaticPower(value, powerchannel)
+	switch(powerchannel)
+		if(STATIC_EQUIP)
+			static_equip += value
+		if(STATIC_LIGHT)
+			static_light += value
+		if(STATIC_ENVIRON)
+			static_environ += value
+
+/area/proc/clear_usage()
+
+	used_equip = 0
+	used_light = 0
+	used_environ = 0
+
+/area/proc/use_power(amount, chan)
+	switch(chan)
+		if(EQUIP)
+			used_equip += amount
+		if(LIGHT)
+			used_light += amount
+		if(ENVIRON)
+			used_environ += amount
+
+/area/proc/use_battery_power(amount, chan)
+	switch(chan)
+		if(EQUIP)
+			used_equip += amount
+		if(LIGHT)
+			used_light += amount
+		if(ENVIRON)
+			used_environ += amount
+
+
 /area/Entered(A)
 	var/area/newarea
 	var/area/oldarea
 
-	if(ismob(A))
-		var/mob/M = A
+	if(istype(A,/mob))
+		var/mob/M=A
 
 		if(!M.lastarea)
 			M.lastarea = get_area(M)
@@ -432,7 +488,7 @@
 
 		M.lastarea = src
 
-	if(!isliving(A))	return
+	if(!istype(A,/mob/living))	return
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
@@ -454,11 +510,9 @@
 			thunk(M)
 
 /area/proc/thunk(mob/living/carbon/human/M)
-	if(!istype(M)) // Rather not have non-humans get hit with a THUNK
-		return
-
-	if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP)) // Only humans can wear magboots, so we give them a chance to.
-		return
+	if(istype(M,/mob/living/carbon/human/))  // Only humans can wear magboots, so we give them a chance to.
+		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
+			return
 
 	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
 		return
@@ -466,13 +520,13 @@
 	if(M.buckled) //Cam't fall down if you are buckled
 		return
 
-	if(isspaceturf(get_turf(M))) // Can't fall onto nothing.
+	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
 		return
 
-	if((ishuman(M)) && (M.m_intent == MOVE_INTENT_RUN))
+	if((istype(M,/mob/living/carbon/human/)) && (M.m_intent == MOVE_INTENT_RUN))
 		M.Weaken(10 SECONDS)
 
-	else if(ishuman(M))
+	else if(istype(M,/mob/living/carbon/human/))
 		M.Weaken(4 SECONDS)
 
 
@@ -482,7 +536,7 @@
 	if(!T)
 		T = get_turf(AT)
 	var/area/A = get_area(T)
-	if(isspaceturf(T)) // Turf never has gravity
+	if(istype(T, /turf/space)) // Turf never has gravity
 		return 0
 	else if(A && A.has_gravity) // Areas which always has gravity
 		return 1
@@ -495,11 +549,11 @@
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in src)
-		INVOKE_ASYNC(temp_apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting), 70)
+		INVOKE_ASYNC(temp_apc, /obj/machinery/power/apc.proc/overload_lighting, 70)
 	for(var/obj/machinery/door/airlock/temp_airlock in src)
-		INVOKE_ASYNC(temp_airlock, TYPE_PROC_REF(/obj/machinery/door/airlock, prison_open))
+		INVOKE_ASYNC(temp_airlock, /obj/machinery/door/airlock.proc/prison_open)
 	for(var/obj/machinery/door/window/temp_windoor in src)
-		INVOKE_ASYNC(temp_windoor, TYPE_PROC_REF(/obj/machinery/door, open))
+		INVOKE_ASYNC(temp_windoor, /obj/machinery/door.proc/open)
 
 /area/AllowDrop()
 	CRASH("Bad op: area/AllowDrop() called")

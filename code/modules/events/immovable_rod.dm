@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.minor_announcement.Announce("What the fuck was that?!", "General Alert")
+	GLOB.event_announcement.Announce("What the fuck was that?!", "General Alert")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -89,6 +89,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 			clong.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
+	var/tiles_moved = 0
 	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
 	// Chance to expose the tile to space is like 60% of this value.
 	var/floor_rip_chance = 40
@@ -96,9 +97,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/event/Move()
 	var/atom/oldloc = loc
 	. = ..()
+	tiles_moved++
 	if(prob(floor_rip_chance))
 		var/turf/simulated/floor/T = get_turf(oldloc)
 		if(istype(T))
 			T.ex_act(EXPLODE_HEAVY)
-	if(loc == destination)
+	if(get_dist(oldloc, loc) > 2 && tiles_moved > 10) // We went on a journey, commit sudoku
 		qdel(src)

@@ -1,10 +1,9 @@
 /obj/machinery/atmospherics/binary
 	dir = SOUTH
 	initialize_directions = SOUTH|NORTH
-	power_state = IDLE_POWER_USE
+	use_power = IDLE_POWER_USE
 
-	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
-	layer_offset = GAS_PUMP_OFFSET
+	layer = GAS_PUMP_LAYER
 
 	var/datum/gas_mixture/air1
 	var/datum/gas_mixture/air2
@@ -128,9 +127,6 @@
 		return parent1
 	else if(A == node2)
 		return parent2
-
-/obj/machinery/atmospherics/binary/is_pipenet_split()
-	return TRUE
 
 /obj/machinery/atmospherics/binary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)

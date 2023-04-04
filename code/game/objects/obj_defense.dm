@@ -230,7 +230,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(QDELETED(src))
 		return FALSE
 	being_shocked = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 1 SECONDS)
+	addtimer(CALLBACK(src, .proc/reset_shocked), 1 SECONDS)
 	return power / 2
 
 /obj/proc/reset_shocked()

@@ -51,9 +51,9 @@
 
 /datum/effect_system/explosion/smoke/proc/create_smoke()
 	var/datum/effect_system/smoke_spread/S = new
-	S.set_up(5, FALSE, location, null)
+	S.set_up(5,0,location,null)
 	S.start()
 
 /datum/effect_system/explosion/smoke/start()
 	..()
-	addtimer(CALLBACK(src, PROC_REF(create_smoke)), 5)
+	addtimer(CALLBACK(src, .proc/create_smoke), 5)

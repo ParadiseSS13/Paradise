@@ -44,4 +44,4 @@
 		target.AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
 		target.AdjustStuttering(4 SECONDS)
 		target.Slowed(6 SECONDS)
-		addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, AdjustJitter), -2000 SECONDS, 10), 2 SECONDS) //Still jittery, but vastly less
+		addtimer(CALLBACK(target, /mob/living.proc/AdjustJitter, -2000 SECONDS, 10), 2 SECONDS) //Still jittery, but vastly less

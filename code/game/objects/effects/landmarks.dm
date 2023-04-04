@@ -214,19 +214,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	name = "Holocarp Spawn"
 
 /obj/effect/landmark/spawner/nuclear_bomb
-	icon_state = "Nuke_bomb"
-
-/obj/effect/landmark/spawner/nuclear_bomb/syndicate
-	name = "Syndicate Nuclear Bomb"
-
-/obj/effect/landmark/spawner/nuclear_bomb/death_squad
-	name = "Death Squad Nuclear Bomb"
+	name = "Nuclear-Bomb"
 
 /obj/effect/landmark/spawner/teleport_scroll
 	name = "Teleport-Scroll"
 
 /obj/effect/landmark/spawner/nuke_code
 	name = "nukecode"
+
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
@@ -235,6 +230,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/proc/set_tag()
 	tag = text("landmark*[]", name)
+
 
 /obj/effect/landmark/singularity_act()
 	return
@@ -431,13 +427,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/gladiator/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/costume/gladiator(src.loc)
+	new /obj/item/clothing/under/gladiator(src.loc)
 	new /obj/item/clothing/head/helmet/gladiator(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/suit/storage/labcoat/mad(src.loc)
 	new /obj/item/clothing/glasses/gglasses(src.loc)
@@ -445,7 +441,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/gimmick/rank/captain/suit(src.loc)
+	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
 	new /obj/item/clothing/mask/cigarette/cigar/havana(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
@@ -453,12 +449,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/schoolgirl/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/dress/schoolgirl(src.loc)
+	new /obj/item/clothing/under/schoolgirl(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/maid/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/dress/blackskirt(src.loc)
+	new /obj/item/clothing/under/blackskirt(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/beret , /obj/item/clothing/head/rabbitears )
 	new CHOICE(src.loc)
 	new /obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
@@ -467,7 +463,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/costume/butler/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(src.loc)
-	new /obj/item/clothing/under/suit/black(loc)
+	new /obj/item/clothing/under/suit_jacket(src.loc)
 	new /obj/item/clothing/head/that(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -475,14 +471,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	. = ..()
 	new /obj/item/clothing/gloves/color/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)
-	new /obj/item/clothing/under/misc/scratch(src.loc)
+	new /obj/item/clothing/under/scratch(src.loc)
 	if(prob(30))
 		new /obj/item/clothing/head/cueball(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/highlander/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/costume/kilt(src.loc)
+	new /obj/item/clothing/under/kilt(src.loc)
 	new /obj/item/clothing/head/beret(src.loc)
 	qdel(src)
 
@@ -494,7 +490,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	new CHOICE(src.loc)
 	new /obj/item/clothing/shoes/black(src.loc)
 	new /obj/item/cane(src.loc)
-	new /obj/item/clothing/under/misc/sl_suit(src.loc)
+	new /obj/item/clothing/under/sl_suit(src.loc)
 	new /obj/item/clothing/mask/fakemoustache(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -506,13 +502,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/nightowl/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/costume/owl(src.loc)
+	new /obj/item/clothing/under/owl(src.loc)
 	new /obj/item/clothing/mask/gas/owl_mask(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/waiter/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/misc/waiter(src.loc)
+	new /obj/item/clothing/under/waiter(src.loc)
 	var/CHOICE= pick( /obj/item/clothing/head/kitty, /obj/item/clothing/head/rabbitears)
 	new CHOICE(src.loc)
 	new /obj/item/clothing/suit/apron(src.loc)
@@ -520,7 +516,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/pirate/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/costume/pirate(src.loc)
+	new /obj/item/clothing/under/pirate(src.loc)
 	new /obj/item/clothing/suit/pirate_black(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/pirate , /obj/item/clothing/head/bandana )
 	new CHOICE(src.loc)
@@ -529,7 +525,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/commie/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/costume/soviet(src.loc)
+	new /obj/item/clothing/under/soviet(src.loc)
 	new /obj/item/clothing/head/ushanka(src.loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -554,7 +550,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/costume/cutewitch/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/dress/sundress(src.loc)
+	new /obj/item/clothing/under/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
 	new /obj/item/twohanded/staff/broom(src.loc)
 	return INITIALIZE_HINT_QDEL
@@ -569,13 +565,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/costume/sexyclown/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/clown_hat/sexy(loc)
-	new /obj/item/clothing/under/rank/civilian/clown/sexy(loc)
+	new /obj/item/clothing/under/rank/clown/sexy(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/sexymime/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/sexymime(src.loc)
-	new /obj/item/clothing/under/rank/civilian/mime/sexy(src.loc)
+	new /obj/item/clothing/under/sexymime(src.loc)
 	qdel(src)
 
 /obj/effect/landmark/ruin
@@ -591,53 +587,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	GLOB.ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
-
-
-/// Mob spawners, spawns a mob and deletes the landmark
-
-/obj/effect/landmark/mob_spawner
-	///The mob we use for the spawner
-	var/mobtype = null
-	icon = 'icons/effects/spawner_icons.dmi'
-
-/obj/effect/landmark/mob_spawner/Initialize(mapload)
-	. = ..()
-	new mobtype(loc)
-	return INITIALIZE_HINT_QDEL
-
-/obj/effect/landmark/mob_spawner/goliath
-	mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast
-	icon_state = "questionmark"
-
-/obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
-	if(prob(1))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
-	. = ..()
-
-/obj/effect/landmark/mob_spawner/legion
-	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
-	icon_state = "questionmark"
-
-/obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
-	if(prob(5))
-		mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
-	. = ..()
-
-/obj/effect/landmark/mob_spawner/watcher
-	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
-	icon_state = "questionmark"
-
-/obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
-	if(prob(1))
-		if(prob(25)) /// 75% chance to get a magmawing watcher, and 25% chance to get a icewing watcher (1/133, 1/400 respectively)
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
-		else
-			mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing
-	. = ..()
-
-/obj/effect/landmark/mob_spawner/goldgrub
-	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
-	icon_state = "questionmark"
 
 // Damage tiles
 /obj/effect/landmark/damageturf

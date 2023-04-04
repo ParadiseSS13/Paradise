@@ -27,7 +27,7 @@
 	return TRUE
 
 /datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || isobserver(M) )
+	if(check_sensors(H) || istype(M,/mob/dead/observer) )
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
@@ -49,7 +49,10 @@
 	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD)
 
 /datum/atom_hud/data/diagnostic/advanced
-	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD)
+	hud_icons = list(DIAG_HUD, DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_BOT_HUD, DIAG_TRACK_HUD, DIAG_AIRLOCK_HUD, DIAG_PATH_HUD)
+
+/datum/atom_hud/data/bot_path
+	hud_icons = list(DIAG_PATH_HUD)
 
 /datum/atom_hud/abductor
 	hud_icons = list(GLAND_HUD)
@@ -220,7 +223,7 @@
 	var/image/holder = hud_list[ID_HUD]
 	holder.icon_state = "hudunknown"
 	if(wear_id)
-		holder.icon_state = "hud[ckey(wear_id.get_job_name())]"
+		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
 	sec_hud_set_security_status()
 
 
@@ -267,7 +270,7 @@
 					holder.icon_state = "huddemote"
 					return
 				if(SEC_RECORD_STATUS_INCARCERATED)
-					holder.icon_state = "hudincarcerated"
+					holder.icon_state = "hudprisoner"
 					return
 				if(SEC_RECORD_STATUS_PAROLLED)
 					holder.icon_state = "hudparolled"

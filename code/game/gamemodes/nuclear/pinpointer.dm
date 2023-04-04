@@ -106,7 +106,7 @@
 		if(!the_s_bomb)
 			the_s_bomb = locate()
 
-/obj/item/pinpointer/proc/point_at_target(atom/target)
+/obj/item/pinpointer/proc/point_at(atom/target)
 	if(!target)
 		icon_state = icon_null
 		return
@@ -130,15 +130,15 @@
 
 /obj/item/pinpointer/proc/workdisk()
 	scandisk()
-	point_at_target(the_disk)
+	point_at(the_disk)
 
 /obj/item/pinpointer/proc/workbomb()
 	if(!syndicate)
 		scanbomb()
-		point_at_target(the_bomb)
+		point_at(the_bomb)
 	else
 		scanbomb()
-		point_at_target(the_s_bomb)
+		point_at(the_s_bomb)
 
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
@@ -149,8 +149,7 @@
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
-	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal. \n \
-			<span class='notice'>Alt-click to toggle mode.</span>"
+	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
 	modes = list(MODE_ADV)
 	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
@@ -162,18 +161,13 @@
 		if(SETTING_DISK)
 			workdisk()
 		if(SETTING_LOCATION)
-			point_at_target(location)
+			point_at(location)
 		if(SETTING_OBJECT)
-			point_at_target(target)
+			point_at(target)
 
 /obj/item/pinpointer/advpinpointer/workdisk() //since mode works diffrently for advpinpointer
 	scandisk()
-	point_at_target(the_disk)
-
-/obj/item/pinpointer/advpinpointer/AltClick(mob/user)
-	if(!isliving(user) || !Adjacent(user))
-		return ..()
-	toggle_mode()
+	point_at(the_disk)
 
 /obj/item/pinpointer/advpinpointer/verb/toggle_mode()
 	set category = "Object"
@@ -280,7 +274,7 @@
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
 		return		//Get outta here
 	scandisk()
-	point_at_target(the_disk)
+	point_at(the_disk)
 
 /obj/item/pinpointer/nukeop/workbomb()
 	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
@@ -290,7 +284,7 @@
 		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
 		return		//Get outta here
 	scanbomb()
-	point_at_target(the_s_bomb)
+	point_at(the_s_bomb)
 
 /obj/item/pinpointer/nukeop/proc/worklocation()
 	if(!GLOB.bomb_set)
@@ -307,7 +301,7 @@
 	if(loc.z != home.z)	//If you are on a different z-level from the shuttle
 		icon_state = icon_null
 	else
-		point_at_target(home)
+		point_at(home)
 
 /obj/item/pinpointer/operative
 	name = "operative pinpointer"
@@ -333,7 +327,7 @@
 /obj/item/pinpointer/operative/proc/workop()
 	if(mode == MODE_OPERATIVE)
 		scan_for_ops()
-		point_at_target(nearest_op, FALSE)
+		point_at(nearest_op, FALSE)
 	else
 		return FALSE
 
@@ -396,11 +390,11 @@
 	target_set = TRUE
 	mode = MODE_DET
 	visible_message("<span class='notice'>The pinpointer flickers as it begins tracking a target relayed from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer flickering.</span>")
-	addtimer(CALLBACK(src, PROC_REF(stop_tracking)), 1 MINUTES, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, .proc/stop_tracking), 1 MINUTES, TIMER_UNIQUE)
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/stop_tracking()
-	visible_message("<span class='notice'>The pinpointer powers down, no longer receiving signals from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer powering down.</span>")
+	visible_message("<span class='notice'>The pinpointer powers down, no longer recieving signals from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer powering down.</span>")
 	target = null
 	target_set = FALSE
 	mode = MODE_OFF
@@ -424,9 +418,9 @@
 
 /obj/item/pinpointer/crew/process()
 	if(mode != MODE_OFF && target_set)
-		point_at_target(target)
+		point_at(target)
 
-/obj/item/pinpointer/crew/point_at_target(atom/target)
+/obj/item/pinpointer/crew/point_at(atom/target)
 	if(!target || !trackable(target))
 		icon_state = icon_null
 		return
@@ -491,14 +485,14 @@
 /obj/item/pinpointer/tendril/process()
 	if(mode == MODE_TENDRIL)
 		worktendril()
-		point_at_target(target, FALSE)
+		point_at(target, FALSE)
 	else
 		icon_state = icon_off
 
 /obj/item/pinpointer/tendril/proc/worktendril()
 	if(mode == MODE_TENDRIL)
 		scan_for_tendrils()
-		point_at_target(target)
+		point_at(target)
 	else
 		return FALSE
 

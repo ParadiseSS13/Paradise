@@ -14,8 +14,9 @@
 	origin_tech = "combat=5;powerstorage=3;syndicate=3"
 	var/click_delay = 1.5
 	var/fisto_setting = 1
-	var/gasperfist = 0.5
+	var/gasperfist = 3
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
+
 
 /obj/item/melee/powerfist/Destroy()
 	QDEL_NULL(tank)
@@ -65,8 +66,7 @@
 		if(!tank)
 			to_chat(user, "<span class='notice'>[src] currently has no tank attached to it.</span>")
 			return
-		to_chat(user, "<span class='notice'>As you detach [thetank] from [src], the fist unlocks.</span>")
-		flags &= ~NODROP
+		to_chat(user, "<span class='notice'>You detach [thetank] from [src].</span>")
 		tank.forceMove(get_turf(user))
 		user.put_in_hands(tank)
 		tank = null
@@ -76,10 +76,9 @@
 			return
 		if(!user.unEquip(thetank))
 			return
-		to_chat(user, "<span class='notice'>As you hook [thetank] up to [src], the fist locks into place around your arm.</span>")
+		to_chat(user, "<span class='notice'>You hook [thetank] up to [src].</span>")
 		tank = thetank
 		thetank.forceMove(src)
-		flags |= NODROP
 
 
 /obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)
@@ -102,7 +101,7 @@
 
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 
-	target.throw_at(throw_target, 5 * fisto_setting, 3 * fisto_setting)
+	target.throw_at(throw_target, 5 * fisto_setting, 0.2)
 
 	add_attack_logs(user, target, "POWER FISTED with [src]")
 

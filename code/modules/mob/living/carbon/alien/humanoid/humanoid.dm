@@ -13,20 +13,16 @@
 	var/leap_on_click = 0
 	var/custom_pixel_x_offset = 0 //for admin fuckery.
 	var/custom_pixel_y_offset = 0
-	var/alien_disarm_damage = 30 //Aliens deal a good amount of stamina damage on disarm intent
-	var/alien_slash_damage = 20 //Aliens deal a good amount of damage on harm intent
-	var/alien_movement_delay = 0 //This can be + or -, how fast an alien moves
 	pass_flags = PASSTABLE
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/humanoid/Initialize(mapload)
+/mob/living/carbon/alien/humanoid/New()
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
-	. = ..()
+	..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)
@@ -76,10 +72,6 @@
 
 
 /mob/living/carbon/alien/humanoid/var/temperature_resistance = T0C+75
-
-/mob/living/carbon/alien/humanoid/movement_delay() //Aliens have a varied movespeed
-	. = ..()
-	. += alien_movement_delay
 
 /mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
 	user.set_machine(src)

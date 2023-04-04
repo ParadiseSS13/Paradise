@@ -14,15 +14,27 @@ const BotList = (props, context) => {
   const { mulebot } = data;
   const { bots } = mulebot;
 
-  return bots.map((b) => (
-    <Box key={b.Name}>
-      <Button
-        content={b.Name}
-        icon="cog"
-        onClick={() => act('control', { bot: b.uid })}
-      />
+  return (
+    <Box>
+      {bots.map((b) => (
+        <Box key={b.Name}>
+          <Button
+            content={b.Name}
+            icon="cog"
+            onClick={() => act('AccessBot', { uid: b.uid })}
+          />
+        </Box>
+      ))}
+      <Box mt={2}>
+        <Button
+          fluid
+          icon="rss"
+          content="Re-scan for bots"
+          onClick={() => act('Rescan')}
+        />
+      </Box>
     </Box>
-  ));
+  );
 };
 
 const BotStatus = (props, context) => {
@@ -78,14 +90,14 @@ const BotStatus = (props, context) => {
         <LabeledList.Item label="Destination">
           <Button
             content={dest ? dest + ' (Set)' : 'None (Set)'}
-            onClick={() => act('target')}
+            onClick={() => act('SetDest')}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Current Load">
           <Button
             content={load ? load + ' (Unload)' : 'None'}
             disabled={!load}
-            onClick={() => act('unload')}
+            onClick={() => act('Unload')}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Auto Pickup">
@@ -93,9 +105,8 @@ const BotStatus = (props, context) => {
             content={pick ? 'Yes' : 'No'}
             selected={pick}
             onClick={() =>
-              act('set_pickup_type', {
-                // Using just ! doesnt work here, because !null is still null
-                autopick: (pick ? 0 : 1),
+              act('SetAutoPickup', {
+                autoPickupType: pick ? 'pickoff' : 'pickon',
               })
             }
           />
@@ -105,20 +116,19 @@ const BotStatus = (props, context) => {
             content={retn ? 'Yes' : 'No'}
             selected={retn}
             onClick={() =>
-              act('set_auto_return', {
-                // Using just ! doesnt work here, because !null is still null
-                autoret: (retn ? 0 : 1),
+              act('SetAutoReturn', {
+                autoReturnType: retn ? 'retoff' : 'reton',
               })
             }
           />
         </LabeledList.Item>
         <LabeledList.Item label="Controls">
-          <Button content="Stop" icon="stop" onClick={() => act('stop')} />
-          <Button content="Proceed" icon="play" onClick={() => act('start')} />
+          <Button content="Stop" icon="stop" onClick={() => act('Stop')} />
+          <Button content="Proceed" icon="play" onClick={() => act('Start')} />
           <Button
             content="Return Home"
             icon="home"
-            onClick={() => act('home')}
+            onClick={() => act('ReturnHome')}
           />
         </LabeledList.Item>
       </LabeledList>

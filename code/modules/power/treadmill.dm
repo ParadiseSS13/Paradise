@@ -7,6 +7,7 @@
 	name = "treadmill"
 	desc = "A power-generating treadmill."
 	layer = 2.2
+	use_power = NO_POWER_USE
 
 	var/speed = 0
 	var/friction = 0.15		// lose this much speed every ptick
@@ -54,7 +55,7 @@
 		var/atom/movable/AM = A
 		if(AM.anchored)
 			continue
-		if(isliving(A))
+		if(istype(A, /mob/living))
 			var/mob/living/M = A
 			var/last_move
 			// get/update old step count
@@ -163,8 +164,7 @@
 	frame = !frame
 
 /obj/machinery/treadmill_monitor/power_change()
-	if(!..())
-		return
+	..()
 	update_icon()
 
 /obj/machinery/treadmill_monitor/examine(mob/user)

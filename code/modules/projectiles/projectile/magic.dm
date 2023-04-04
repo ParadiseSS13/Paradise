@@ -35,7 +35,7 @@
 			else if(target.stat != DEAD)
 				to_chat(target, "<span class='notice'>You feel great!</span>")
 			return
-		if(ismachineperson(target) || issilicon(target)) //speshul snowfleks deserv speshul treetment
+		if(ismachineperson(target)) //speshul snowfleks deserv speshul treetment
 			target.adjustFireLoss(6969)  //remember - slimes love fire
 		target.death(FALSE)
 
@@ -116,7 +116,7 @@
 			teleammount++
 			do_teleport(stuff, stuff, 10)
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(max(round(10 - teleammount), 1), FALSE, stuff) //Smoke drops off if a lot of stuff is moved for the sake of sanity
+			smoke.set_up(max(round(10 - teleammount),1), 0, stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()
 
 /obj/item/projectile/magic/door
@@ -297,7 +297,7 @@
 
 /obj/item/projectile/magic/animate/Bump(atom/change)
 	..()
-	if(isitem(change) || isstructure(change) && !is_type_in_list(change, GLOB.protected_objects))
+	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
 				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc, firer)

@@ -1,6 +1,3 @@
-/// The amount of time necessary for a structure to be able to produce items after being built
-#define CULT_STRUCTURE_COOLDOWN 60 SECONDS
-
 /obj/structure/cult
 	density = TRUE
 	anchored = TRUE
@@ -96,7 +93,7 @@
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type
-		if(isstructure(O) || !user.put_in_hands(O))
+		if(istype(O, /obj/structure) || !user.put_in_hands(O))
 			O.forceMove(get_turf(src))
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
@@ -158,7 +155,6 @@
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.altar_icon_state
-	cooldowntime = world.time + CULT_STRUCTURE_COOLDOWN
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
@@ -250,7 +246,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/pylon/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	return ..()
+	..()
 
 /obj/structure/cult/functional/pylon/cult_conceal()
 	STOP_PROCESSING(SSobj, src)
@@ -298,9 +294,9 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 		var/turf/T = safepick(validturfs)
 		if(T)
-			if(isfloorturf(T))
+			if(istype(T, /turf/simulated/floor))
 				T.ChangeTurf(/turf/simulated/floor/engine/cult)
-			if(iswallturf(T))
+			if(istype(T, /turf/simulated/wall))
 				T.ChangeTurf(/turf/simulated/wall/cult/artificer)
 		else
 			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
@@ -350,5 +346,3 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
-
-#undef CULT_STRUCTURE_COOLDOWN

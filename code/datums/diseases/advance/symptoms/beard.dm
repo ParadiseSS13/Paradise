@@ -28,11 +28,9 @@ BONUS
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
-		if(ishuman(M))
+		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-			if(!istype(head_organ))
-				return
 			switch(A.stage)
 				if(1, 2)
 					to_chat(H, "<span class='warning'>Your chin itches.</span>")

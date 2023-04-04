@@ -45,8 +45,6 @@
 	return blood_cost
 
 /datum/spell_handler/vampire/after_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
-	if(!spell.should_recharge_after_cast)
-		return
 	if(!required_blood)
 		return
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)

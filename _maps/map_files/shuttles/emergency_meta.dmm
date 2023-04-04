@@ -142,7 +142,7 @@
 /area/shuttle/escape)
 "aC" = (
 /obj/structure/table,
-/obj/item/storage/fancy/donut_box,
+/obj/item/storage/fancy,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aD" = (
@@ -188,9 +188,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "aJ" = (
-/obj/machinery/computer/communications{
-	dir = 4
-	},
+/obj/machinery/computer/communications,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aK" = (
@@ -262,9 +260,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "aP" = (
-/obj/machinery/computer/emergency_shuttle{
-	dir = 4
-	},
+/obj/machinery/computer/emergency_shuttle,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -284,9 +280,9 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aS" = (
-/obj/machinery/economy/vending/wallmed{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
-	power_state = 0
+	use_power = 0
 	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -295,9 +291,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "aU" = (
-/obj/machinery/computer/atmos_alert{
-	dir = 4
-	},
+/obj/machinery/computer/atmos_alert,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aW" = (
@@ -308,6 +302,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/escape)
 "aX" = (
+/obj/machinery/hologram/holopad,
 /obj/machinery/status_display{
 	dir = 4;
 	layer = 4;
@@ -329,9 +324,9 @@
 "ba" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	active_power_consumption = 0;
-	idle_power_consumption = 0;
-	power_state = 0
+	active_power_usage = 0;
+	idle_power_usage = 0;
+	use_power = 0
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -383,6 +378,7 @@
 "bh" = (
 /obj/machinery/door/airlock/command{
 	name = "Emergency Recovery Airlock";
+	req_access = null;
 	req_access_txt = "19"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -396,6 +392,7 @@
 /area/shuttle/escape)
 "bl" = (
 /obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -445,6 +442,10 @@
 "bu" = (
 /obj/structure/table,
 /obj/item/defibrillator,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"bv" = (
+/obj/machinery/shower,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bw" = (
@@ -635,9 +636,9 @@
 "bR" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	active_power_consumption = 0;
-	idle_power_consumption = 0;
-	power_state = 0
+	active_power_usage = 0;
+	idle_power_usage = 0;
+	use_power = 0
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
@@ -670,6 +671,10 @@
 	name = "Station Intercom (General)";
 	pixel_y = -27
 	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/escape)
+"bV" = (
+/obj/structure/sink,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bW" = (
@@ -869,9 +874,9 @@ ac
 ac
 ap
 au
+aK
 aQ
-aQ
-aQ
+aD
 au
 bb
 ab
@@ -1035,10 +1040,10 @@ av
 au
 aL
 ac
+bv
 au
 au
-au
-au
+bV
 ac
 "}
 (16,1,1) = {"

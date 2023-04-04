@@ -17,8 +17,10 @@
 	. += "<span class='notice'>A small counter shows it has: [uses] use\s remaining.</span>"
 
 /obj/machinery/ai_slipper/power_change()
-	if(!..())
-		return
+	if(powered())
+		stat &= ~NOPOWER
+	else
+		stat |= NOPOWER
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/ai_slipper/attack_ai(mob/user)
@@ -51,8 +53,8 @@
 		new /obj/effect/particle_effect/foam(loc)
 		uses--
 		cooldown_on = TRUE
-		update_icon(UPDATE_ICON_STATE)
-		addtimer(CALLBACK(src, PROC_REF(recharge)), cooldown_time)
+		power_change()
+		addtimer(CALLBACK(src, .proc/recharge), cooldown_time)
 
 /obj/machinery/ai_slipper/update_icon_state()
 	if(stat & (NOPOWER|BROKEN) || cooldown_on || !uses)
@@ -64,4 +66,4 @@
 	if(!uses)
 		return
 	cooldown_on = FALSE
-	update_icon(UPDATE_ICON_STATE)
+	power_change()

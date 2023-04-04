@@ -47,15 +47,13 @@
 			log_admin("Build Mode: [key_name(user)] modified [T] ([T.x],[T.y],[T.z]) to [objholder]")
 			T.ChangeTurf(objholder)
 		else if(!isnull(objholder))
-			//we only want to set the direction of mobs or objects, not turfs or areas.
-			var/atom/movable/A = new objholder(get_turf(object))
-			if(istype(A))
-				A.setDir(BM.build_dir)
-				log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [BM.build_dir]")
+			var/obj/A = new objholder (get_turf(object))
+			A.setDir(BM.build_dir)
+			log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [BM.build_dir]")
 		else
 			to_chat(user, "<span class='warning'>Select object type first.</span>")
 	else if(right_click)
 		if(isobj(object))
 			log_admin("Build Mode: [key_name(user)] deleted [object] at ([object.x],[object.y],[object.z])")
 			qdel(object)
-
+	

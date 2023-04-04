@@ -44,7 +44,7 @@
 	var/ctrl_click = pa.Find("ctrl")
 	if(left_click) //rectangular
 		for(var/turf/T in block(cornerA,cornerB))
-			if(issimulatedturf(T))
+			if(istype(T, /turf/simulated))
 				// fill the turf with the appropriate gasses
 				// this feels slightly icky
 				var/turf/simulated/S = T

@@ -2,8 +2,8 @@
 	name = "Berserker"
 	max_stages = 2
 	stage_prob = 5
-	spread_text = "Non-contagious"
-	spread_flags = NON_CONTAGIOUS
+	spread_text = "Non-Contagious"
+	spread_flags = SPECIAL
 	cure_text = "Anti-Psychotics"
 	cures = list("haloperidol")
 	agent = "Jagged Crystals"
@@ -12,10 +12,10 @@
 	desc = "Swearing, shouting, attacking nearby crew members uncontrollably."
 	severity = DANGEROUS
 	disease_flags = CURABLE
+	spread_flags = NON_CONTAGIOUS
 
 /datum/disease/berserker/stage_act()
-	if(!..())
-		return FALSE
+	..()
 	if(affected_mob.reagents.has_reagent("thc"))
 		to_chat(affected_mob, "<span class='notice'>You mellow out.</span>")
 		cure()

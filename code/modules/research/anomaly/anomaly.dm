@@ -8,10 +8,10 @@
 	receiving = TRUE
 	var/anomaly_type = /obj/effect/anomaly
 
-/obj/item/assembly/signaler/anomaly/signal_callback()
-	if(istype(loc, /obj/effect/anomaly))
-		var/obj/effect/anomaly/A = loc
-		A.anomalyNeutralize()
+/obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
+	if(..())
+		for(var/obj/effect/anomaly/A in get_turf(src))
+			A.anomalyNeutralize()
 
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return

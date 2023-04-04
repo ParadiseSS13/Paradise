@@ -61,8 +61,3 @@
 	mymob.pullin.icon_state = "pull0"
 	mymob.pullin.name = "pull"
 	mymob.pullin.screen_loc = ui_construct_pull
-	var/obj/screen/using
-	using = new /obj/screen/act_intent/simple_animal()
-	using.icon_state = mymob.a_intent
-	static_inventory += using
-	action_intent = using

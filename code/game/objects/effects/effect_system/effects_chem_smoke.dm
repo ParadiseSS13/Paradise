@@ -106,7 +106,7 @@
 				new /obj/effect/particle_effect/chem_smoke(location, color)
 
 		if(x % 10 == 0) //Once every 10 ticks.
-			INVOKE_ASYNC(src, PROC_REF(SmokeEm), effect_range)
+			INVOKE_ASYNC(src, .proc/SmokeEm, effect_range)
 
 		sleep(1)
 	qdel(src)

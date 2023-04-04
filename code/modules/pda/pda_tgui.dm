@@ -86,6 +86,8 @@
 					scanmode = null
 				if(current_app in C.programs)
 					start_program(find_program(/datum/data/pda/app/main_menu))
+				if(C.radio)
+					C.radio.hostpda = null
 				for(var/datum/data/pda/P in notifying_programs)
 					if(P in C.programs)
 						P.unnotify()

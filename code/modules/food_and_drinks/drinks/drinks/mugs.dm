@@ -86,8 +86,8 @@
 	description = "So mesmerizing!"
 	state = "mug_rainbow"
 
-/obj/item/reagent_containers/food/drinks/mug/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/food/drinks/mug/New()
+	..()
 	if(preset)
 		return
 	if(novelty)

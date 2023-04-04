@@ -5,7 +5,8 @@
 	density = TRUE
 	anchored = TRUE
 	integrity_failure = 100
-	idle_power_consumption = 40
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 40
 	var/dye_color = "#FFFFFF"
 
 /obj/machinery/dye_generator/Initialize()
@@ -17,7 +18,7 @@
 	qdel(src)
 
 /obj/machinery/dye_generator/power_change()
-	if(has_power() && anchored)
+	if(powered() && anchored)
 		stat &= ~NOPOWER
 		set_light(2, l_color = dye_color)
 	else
@@ -25,7 +26,7 @@
 		set_light(0)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/dye_generator/extinguish_light(force = FALSE)
+/obj/machinery/dye_generator/extinguish_light()
 	set_light(0)
 	underlays.Cut()
 

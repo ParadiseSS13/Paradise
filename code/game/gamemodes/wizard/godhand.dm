@@ -26,8 +26,7 @@
 	..()
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
-	if(catchphrase)
-		user.say(catchphrase)
+	user.say(catchphrase)
 	playsound(get_turf(user), on_use_sound,50,1)
 	attached_spell.attached_hand = null
 	qdel(src)
@@ -102,7 +101,7 @@
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
-	s.set_up(5, FALSE, target)
+	s.set_up(5, 0, target)
 	s.start()
 
 	var/mob/living/carbon/human/H = target

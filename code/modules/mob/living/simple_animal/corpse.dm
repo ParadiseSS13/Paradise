@@ -60,7 +60,7 @@
 
 /datum/outfit/piratecorpse
 	name = "Corpse of a Pirate"
-	uniform = /obj/item/clothing/under/costume/pirate
+	uniform = /obj/item/clothing/under/pirate
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
 	head = /obj/item/clothing/head/bandana
@@ -86,7 +86,7 @@
 
 /datum/outfit/russiancorpse
 	name = "Corpse of a Russian"
-	uniform = /obj/item/clothing/under/costume/soviet
+	uniform = /obj/item/clothing/under/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/bearpelt
 

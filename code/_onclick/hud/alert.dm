@@ -3,21 +3,19 @@
 //PUBLIC -  call these wherever you want
 
 
-/**
- * Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already.
- * Each mob may only have one alert per category.
- *
- * Arguments:
- * * category - a text string corresponding to what type of alert it is
- * * type - a type path of the actual alert type to throw
- * * severity - is an optional number that will be placed at the end of the icon_state for this alert
- *   For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
- * * obj/new_master - optional argument. Sets the alert's icon state to "template" in the ui_style icons with the master as an overlay. Clicks are forwarded to master
- * * no_anim - whether the alert should play a small sliding animation when created on the player's screen
- * * icon_override - makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
- * * list/alert_args - a list of arguments to pass to the alert when creating it
+/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override)
+
+/*
+ Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already
+ category is a text string. Each mob may only have one alert per category; the previous one will be replaced
+ path is a type path of the actual alert type to throw
+ severity is an optional number that will be placed at the end of the icon_state for this alert
+ For example, high pressure's icon_state is "highpressure" and can be serverity 1 or 2 to get "highpressure1" or "highpressure2"
+ new_master is optional and sets the alert's icon state to "template" in the ui_style icons with the master as an overlay.
+ Clicks are forwarded to master
+ Override makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.
  */
-/mob/proc/throw_alert(category, type, severity, obj/new_master, override = FALSE, timeout_override, no_anim, icon_override, list/alert_args)
+
 	if(!category)
 		return
 
@@ -39,11 +37,7 @@
 			else //no need to update
 				return 0
 	else
-		if(alert_args)
-			alert_args.Insert(1, null) // So it's still created in nullspace.
-			alert = new type(arglist(alert_args))
-		else
-			alert = new type()
+		alert = new type()
 		alert.override_alerts = override
 		if(override)
 			alert.timeout = null
@@ -75,7 +69,7 @@
 
 	var/timeout = timeout_override || alert.timeout
 	if(timeout)
-		addtimer(CALLBACK(alert, TYPE_PROC_REF(/obj/screen/alert, do_timeout), src, category), timeout)
+		addtimer(CALLBACK(alert, /obj/screen/alert/.proc/do_timeout, src, category), timeout)
 		alert.timeout = world.time + timeout - world.tick_lag
 
 	return alert
@@ -132,14 +126,14 @@
 	icon_state = "too_much_oxy"
 
 /obj/screen/alert/not_enough_nitro
-	name = "Choking (No N2)"
-	desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
-	icon_state = "not_enough_nitro"
+    name = "Choking (No N2)"
+    desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
+    icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
-	name = "Choking (N2)"
-	desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
-	icon_state = "too_much_nitro"
+    name = "Choking (N2)"
+    desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
+    icon_state = "too_much_nitro"
 
 /obj/screen/alert/not_enough_co2
 	name = "Choking (No CO2)"
@@ -199,10 +193,6 @@
 
 /// Machine "hunger"
 
-/obj/screen/alert/hunger/fat/machine
-	name = "Over Charged"
-	desc = "Your cell has excessive charge due to electrical shocks. Run around the station and spend some energy."
-
 /obj/screen/alert/hunger/full/machine
 	name = "Full Charge"
 	desc = "Your cell is at full charge. Might want to give APCs some space."
@@ -252,7 +242,7 @@
 	icon_state = "hot"
 
 /obj/screen/alert/hot/robot
-	desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this environment."
+    desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this enviroment."
 
 /obj/screen/alert/cold
 	name = "Too Cold"
@@ -260,11 +250,11 @@
 	icon_state = "cold"
 
 /obj/screen/alert/cold/drask
-	name = "Cold"
-	desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
+    name = "Cold"
+    desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
 
 /obj/screen/alert/cold/robot
-	desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this environment."
+    desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this enviroment."
 
 /obj/screen/alert/lowpressure
 	name = "Low Pressure"
@@ -462,7 +452,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/mech_port_available/Click()
 	if(!usr || !usr.client)
 		return
-	if(!ismecha(usr.loc) || !target)
+	if(!istype(usr.loc, /obj/mecha) || !target)
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.connect(target))
@@ -478,7 +468,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/mech_port_disconnect/Click()
 	if(!usr || !usr.client)
 		return
-	if(!ismecha(usr.loc))
+	if(!istype(usr.loc, /obj/mecha))
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.disconnect())
@@ -607,7 +597,7 @@ so as to remain in compliance with the most up-to-date laws."
 			if(NOTIFY_JUMP)
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
-					G.forceMove(T)
+					G.loc = T
 			if(NOTIFY_FOLLOW)
 				G.ManualFollow(target)
 

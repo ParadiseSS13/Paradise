@@ -15,7 +15,7 @@
 		"eyes" = /obj/item/organ/internal/eyes/night_vision/nightmare //8 darksight.
 		)
 
-	species_traits = list(NO_BLOOD, NOT_SELECTABLE)
+	species_traits = list(NO_BLOOD)
 	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_RADIMMUNE)
 	dies_at_threshold = TRUE
 

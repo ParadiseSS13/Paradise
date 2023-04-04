@@ -19,7 +19,7 @@
 
 /obj/item/pneumatic_cannon/Destroy()
 	QDEL_NULL(tank)
-	QDEL_LIST_CONTENTS(loadedItems)
+	QDEL_LIST(loadedItems)
 	return ..()
 
 /obj/item/pneumatic_cannon/examine(mob/user)
@@ -53,10 +53,13 @@
 				pressureSetting = 1
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
 		return
+	if(istype(W, /obj/item/screwdriver) && tank)
+		updateTank(tank, 1, user)
+		return
 	if(loadedWeightClass >= maxWeightClass)
 		to_chat(user, "<span class='warning'>\The [src] can't hold any more items!</span>")
 		return
-	if(isitem(W))
+	if(istype(W, /obj/item))
 		var/obj/item/IW = W
 		if(IW.flags & (ABSTRACT | NODROP | DROPDEL))
 			to_chat(user, "<span class='warning'>You can't put [IW] into [src]!</span>")
@@ -75,15 +78,9 @@
 		IW.loc = src
 		return
 
-/obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
-	if(!tank)
-		return
-
-	updateTank(tank, 1, user)
-	return TRUE
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
-	if(isstorage(target)) //So you can store it in backpacks
+	if(istype(target, /obj/item/storage)) //So you can store it in backpacks
 		return ..()
 	if(istype(target, /obj/structure/closet)) //So you can store it in closets
 		return ..()
@@ -118,7 +115,7 @@
 		discharge = 1
 	if(!discharge)
 		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
-							"<span class='danger'>You fire \the [src]!</span>")
+				    		 "<span class='danger'>You fire \the [src]!</span>")
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge

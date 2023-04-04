@@ -11,7 +11,7 @@
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL = 600)
+	materials = list(MAT_METAL=150)
 	drop_sound = 'sound/items/handling/wrench_drop.ogg'
 	pickup_sound =  'sound/items/handling/wrench_pickup.ogg'
 	origin_tech = "materials=1;engineering=1"
@@ -21,7 +21,7 @@
 	tool_behaviour = TOOL_WRENCH
 
 /obj/item/wrench/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is beating [user.p_themselves()] to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	playsound(loc, 'sound/weapons/genhit.ogg', 50, 1, -1)
 	return BRUTELOSS
 
@@ -82,19 +82,8 @@
 
 /obj/item/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	// HAVE THEM GLOW WITH THE BRIGHTNESS OF A THOUSAND SUNS
-	user.set_light(10, 25, rgb(255, 252, 82))
-
-	var/previous_color = user.color
-
-	user.color = rgb(255, 252, 82)
-
-	// thank you vi3
-	user.add_filter("sacrifice_glow", 2, list("type" = "outline", "color" = "#55dcfdd2", "size" = 2))
-	var/filter = user.get_filter("sacrifice_glow")
-	// Pulse in and out
-	animate(filter, alpha = 110, time = 3, loop = -1)
-	animate(alpha = 40, time = 6)
+	// TODO Make them glow with the power of the M E D I C A L W R E N C H
+	// during their ascension
 
 	// Stun stops them from wandering off
 	user.Stun(10 SECONDS)
@@ -109,10 +98,6 @@
 	for(var/obj/item/W in user)
 		user.unEquip(W)
 
-	for(var/mob/living/M in orange(2, src))
-		// you're close enough, it's pretty fuckin bright
-		M.flash_eyes(1, TRUE, TRUE)
-
 	var/obj/item/wrench/medical/W = new /obj/item/wrench/medical(loc)
 	W.add_fingerprint(user)
 	W.desc += " For some reason, it reminds you of [user.name]."
@@ -120,8 +105,5 @@
 	if(!user)
 		return
 
-	user.color = previous_color  // for the sake of their ghost
-
 	user.dust()
-	user.visible_message("<span class='suicide'>[user]'s soul coalesces into a new [W.name]!</span>")
 	return OBLITERATION

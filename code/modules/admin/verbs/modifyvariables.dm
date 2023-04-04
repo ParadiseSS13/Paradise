@@ -31,13 +31,13 @@ GLOBAL_PROTECT(VVmaint_only)
 	else if(ismob(var_value))
 		. = VV_MOB_REFERENCE
 
-	else if(isatom(var_value))
+	else if(isloc(var_value))
 		. = VV_ATOM_REFERENCE
 
 	else if(istype(var_value, /matrix))
 		. = VV_MATRIX
 
-	else if(isclient(var_value))
+	else if(istype(var_value,/client))
 		. = VV_CLIENT
 
 	else if(istype(var_value, /datum))
@@ -149,7 +149,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, separated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
+			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, seperated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -632,7 +632,8 @@ GLOBAL_PROTECT(VVmaint_only)
 			return
 
 		if(VV_RESTORE_DEFAULT)
-			var_new = initial(O.vars[variable])
+			// This originally did initial(O.vars[variable]) but initial() doesn't work on a list index
+			var_new = O.vars[variable]
 
 		if(VV_TEXT)
 			var/list/varsvars = vv_parse_text(O, var_new)
@@ -643,7 +644,7 @@ GLOBAL_PROTECT(VVmaint_only)
 		to_chat(src, "Your edit was rejected by the object.")
 		return
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_VAR_EDIT, args)
-	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")] (Type: [class])")
-	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new] (Type: [class])")
-	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [html_encode("[var_new]")] (Type: [class])"
+	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")]")
+	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new]")
+	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [html_encode("[var_new]")]"
 	message_admins(msg)

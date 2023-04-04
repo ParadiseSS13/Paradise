@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	disease_flags = CAN_CARRY|CAN_RESIST|CURABLE
 	permeability_mod = 0.75
-	desc = "Some speculate, that this virus is the cause of Wizard Federation existence. Subjects affected show the signs of dementia, yelling obscure sentences or total gibberish. On late stages subjects sometime express the feelings of inner power, and, cite, 'the ability to control the forces of cosmos themselves!' A gulp of strong, manly spirits usually reverts them to normal, humanlike, condition."
+	desc = "Some speculate, that this virus is the cause of Wizard Federation existance. Subjects affected show the signs of dementia, yelling obscure sentences or total gibberish. On late stages subjects sometime express the feelings of inner power, and, cite, 'the ability to control the forces of cosmos themselves!' A gulp of strong, manly spirits usually reverts them to normal, humanlike, condition."
 	severity = HARMFUL
 	required_organs = list(/obj/item/organ/external/head)
 
@@ -24,8 +24,7 @@ STI KALY - blind
 */
 
 /datum/disease/wizarditis/stage_act()
-	if(!..())
-		return FALSE
+	..()
 
 	switch(stage)
 		if(2)
@@ -56,7 +55,7 @@ STI KALY - blind
 
 
 /datum/disease/wizarditis/proc/spawn_wizard_clothes(chance = 0)
-	if(ishuman(affected_mob))
+	if(istype(affected_mob, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = affected_mob
 		if(prob(chance) && !isplasmaman(H))
 			if(!istype(H.head, /obj/item/clothing/head/wizard))

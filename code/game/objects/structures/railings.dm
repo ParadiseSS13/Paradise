@@ -53,7 +53,7 @@
 	if(flags & NODECONSTRUCT)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
-	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
+	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the railing to":"unfasten the railing from"] the floor.</span>")
 	return TRUE
@@ -61,7 +61,7 @@
 /obj/structure/railing/corner/CanPass()
 	return TRUE
 
-/obj/structure/railing/corner/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/corner/CanAStarPass(ID, to_dir, caller)
 	return TRUE
 
 /obj/structure/railing/corner/CheckExit()
@@ -86,7 +86,7 @@
 		return density
 	return FALSE
 
-/obj/structure/railing/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/CanAStarPass(ID, to_dir, caller)
 	if(to_dir == dir)
 		return FALSE
 	if(ordinal_direction_check(to_dir))

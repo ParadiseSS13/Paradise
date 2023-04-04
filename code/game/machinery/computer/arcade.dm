@@ -54,7 +54,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/arcade/battle
-	var/enemy_name = "Space Villain"
+	var/enemy_name = "Space Villian"
 	var/temp = "Winners Don't Use Spacedrugs" //Temporary message, for attack messages, etc
 	var/player_hp = 30 //Player health/attack points
 	var/player_mp = 10
@@ -98,7 +98,7 @@
 
 	//user << browse(dat, "window=arcade")
 	//onclose(user, "arcade")
-	var/datum/browser/popup = new(user, "arcade", "Space Villain 2000")
+	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000")
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
@@ -296,14 +296,14 @@
 	var/event = null
 	var/list/settlers = list("Harry","Larry","Bob")
 	var/list/events = list(ORION_TRAIL_RAIDERS		= 3,
-						ORION_TRAIL_FLUX			= 1,
-						ORION_TRAIL_ILLNESS		= 3,
-						ORION_TRAIL_BREAKDOWN	= 2,
-						ORION_TRAIL_LING			= 3,
-						ORION_TRAIL_MALFUNCTION	= 2,
-						ORION_TRAIL_COLLISION	= 1,
-						ORION_TRAIL_SPACEPORT	= 2
-						)
+						   ORION_TRAIL_FLUX			= 1,
+						   ORION_TRAIL_ILLNESS		= 3,
+						   ORION_TRAIL_BREAKDOWN	= 2,
+						   ORION_TRAIL_LING			= 3,
+						   ORION_TRAIL_MALFUNCTION	= 2,
+						   ORION_TRAIL_COLLISION	= 1,
+						   ORION_TRAIL_SPACEPORT	= 2
+						   )
 	var/list/stops = list()
 	var/list/stopblurbs = list()
 	var/lings_aboard = 0
@@ -469,7 +469,7 @@
 						playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
-						if(issimulatedturf(location))
+						if(istype(location, /turf/simulated))
 							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))
@@ -860,14 +860,14 @@
 				eventdat += "<P ALIGN=Right>Crew Management:</P>"
 
 				//Buy crew
-				if(food > 10 && fuel > 10)
+				if(food >= 10 && fuel >= 10)
 					eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];buycrew=1'>Hire a new Crewmember (-10FU,-10FO)</a></P>"
 				else
 					eventdat += "<P ALIGN=Right>Cant afford a new Crewmember</P>"
 
 				//Sell crew
-				if(length(settlers) > 1)
-					eventdat += "<p ALIGN=Right><a href='byond://?src=[UID()];sellcrew=1'>Sell crew for Fuel and Food (+7FU,+7FO)</a></p>"
+				if(settlers.len > 1)
+					eventdat += "<P ALIGN=Right><a href='byond://?src=[UID()];sellcrew=1'>Sell crew for Fuel and Food (+15FU,+15FO)</a></P>"
 				else
 					eventdat += "<P ALIGN=Right>Cant afford to sell a Crewmember</P>"
 

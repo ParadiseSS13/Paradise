@@ -37,7 +37,7 @@ GLOBAL_VAR_INIT(slower_restart, FALSE)
 			server_announce_global("Server update complete. Changes will be applied on the next round.")
 		if(TGS_EVENT_WATCHDOG_DETACH)
 			server_announce_adminonly("\[Info] Server manager restarting...")
-			reattach_timer = addtimer(CALLBACK(src, PROC_REF(LateOnReattach)), 1 MINUTES, TIMER_STOPPABLE)
+			reattach_timer = addtimer(CALLBACK(src, .proc/LateOnReattach), 1 MINUTES, TIMER_STOPPABLE)
 		if(TGS_EVENT_WATCHDOG_REATTACH)
 			var/datum/tgs_version/old_version = world.TgsVersion()
 			var/datum/tgs_version/new_version = args[2]

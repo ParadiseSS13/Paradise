@@ -37,23 +37,20 @@
 	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
-/datum/emote/living/carbon/human/crack
-	key = "crack"
-	key_third_person = "cracks"
-	message = "cracks their knuckles."
-	emote_type = EMOTE_AUDIBLE | EMOTE_SOUND
-	// knuckles.ogg by CGEffex. Shortened and cut.
-	// https://freesound.org/people/CGEffex/sounds/93981/
-	sound = "sound/effects/mob_effects/knuckles.ogg"
-	// These species all have overrides, see below
-	species_type_blacklist_typecache = list(/datum/species/slime, /datum/species/machine, /datum/species/plasmaman, /datum/species/skeleton, /datum/species/diona)
-
 /datum/emote/living/carbon/human/cry
 	key = "cry"
 	key_third_person = "cries"
 	message = "cries."
 	muzzled_noises = list("weak", "pathetic", "sad")
 	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/human/dap
+	key = "dap"
+	key_third_person = "daps"
+	message = "sadly can't find anybody to give daps to, and daps themself. Shameful."
+	message_param = "give daps to %t."
+	emote_target_type = EMOTE_TARGET_MOB
+	hands_use_check = TRUE
 
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
@@ -102,7 +99,6 @@
 	vary = TRUE
 	age_based = TRUE
 	cooldown = 5 SECONDS
-	unintentional_audio_cooldown = 3.5 SECONDS
 	mob_type_blacklist_typecache = list(
 		/mob/living/carbon/human/monkey, // screech instead
 		/mob/living/silicon // Robot sounds
@@ -275,10 +271,9 @@
 /datum/emote/living/carbon/human/highfive
 	key = "highfive"
 	key_third_person = "highfives"
+	message = "requests a highfive."
 	hands_use_check = TRUE
-	cooldown = 5 SECONDS
-	/// Status effect to apply when this emote is used. Should be a subtype
-	var/status = STATUS_EFFECT_HIGHFIVE
+	cooldown = 3 SECONDS
 
 /datum/emote/living/carbon/human/highfive/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
@@ -286,24 +281,81 @@
 	if(user_carbon.restrained())
 		return FALSE
 
+/datum/emote/living/carbon/human/highfive/proc/wiz_cleanup(mob/user, mob/highfived)
+	user.status_flags &= ~GODMODE
+	highfived.status_flags &= ~GODMODE
+
 /datum/emote/living/carbon/human/highfive/run_emote(mob/user, params, type_override, intentional)
 	var/mob/living/carbon/user_carbon = user
-	if(user_carbon.has_status_effect(status))
-		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to [key].")
+	if(user_carbon.has_status_effect(STATUS_EFFECT_HIGHFIVE))
+		user.visible_message("[user.name] shakes [user.p_their()] hand around slightly, impatiently waiting for someone to high-five them.")
 		return TRUE
-	user_carbon.apply_status_effect(status)
-
+	user_carbon.apply_status_effect(STATUS_EFFECT_HIGHFIVE)
+	for(var/mob/living/L in orange(1))
+		if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE) && L != user)
+			if(iswizard(user) && iswizard(L))
+				user.visible_message("<span class='biggerdanger'><b>[user.name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
+				user_carbon.status_flags |= GODMODE
+				L.status_flags |= GODMODE
+				explosion(get_turf(user), 5, 2, 1, 3)
+				// explosions have a spawn so this makes sure that we don't get gibbed
+				addtimer(CALLBACK(src, .proc/wiz_cleanup, user_carbon, L), 1)
+				user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
+				L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
+				return TRUE
+			user.visible_message("<b>[user.name]</b> and <b>[L.name]</b> high-five!")
+			playsound(user, 'sound/effects/snap.ogg', 50)
+			user_carbon.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
+			L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
+			return TRUE
 	return ..()
 
-/datum/emote/living/carbon/human/highfive/dap
-	key = "dap"
-	status = STATUS_EFFECT_DAP
-	key_third_person = "daps"
-
-/datum/emote/living/carbon/human/highfive/handshake
+/datum/emote/living/carbon/human/handshake
 	key = "handshake"
-	key_third_person = "handshakes"
-	status = STATUS_EFFECT_HANDSHAKE
+	message = "holds out their hand."
+	hands_use_check = TRUE
+	emote_target_type = EMOTE_TARGET_MOB
+	target_behavior = EMOTE_TARGET_BHVR_DEFAULT_TO_BASE
+
+/datum/emote/living/carbon/human/handshake/act_on_target(mob/user, target)
+	. = ..()
+	if(!target)
+		user.visible_message(
+			"[user] seems to shake hands with empty space.",
+			"You shake the air's hand."
+		)
+		return EMOTE_ACT_STOP_EXECUTION
+
+	if(!user.Adjacent(target) || !ishuman(target))
+		message_param = "extends a hand towards %t."
+		return TRUE
+
+	var/mob/living/carbon/human/human_target = target
+
+	if(!HAS_TRAIT(human_target, TRAIT_HANDS_BLOCKED) && !human_target.r_hand && !human_target.restrained())
+		message_param = "shakes hands with %t."
+	else
+		message_param = "holds out [user.p_their()] hand to %t."
+
+/datum/emote/living/carbon/human/handshake/run_emote(mob/user, params, type_override, intentional)
+	var/mob/living/target
+	for(var/mob/living/A in oview(5, user))
+		if(params == A.name)
+			target = A
+
+	if(!target)
+		user.visible_message(
+			"[user] seems to shake hands with empty space.",
+			"You shake the air's hand."
+		)
+		return TRUE
+
+	if(!HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) && !target.r_hand && !target.restrained())
+		message_param = "shakes hands with %t."
+	else
+		message_param = "holds out [user.p_their()] hand to %t."
+
+	return ..()
 
 /datum/emote/living/carbon/human/snap
 	key = "snap"
@@ -330,7 +382,7 @@
 		return TRUE
 
 	if(prob(5))
-		user.visible_message("<span class='danger'><b>[user]</b> snaps [user.p_their()] fingers right off!</span>")
+		user.visible_message("<span class='danger'><b>[user]</b> snaps [p_their()] fingers right off!</span>")
 		playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
 		return TRUE
 	return ..()
@@ -534,7 +586,7 @@
 	message = "clicks their mandibles."
 	message_param = "clicks their mandibles at %t."
 	// Credit to DrMinky (freesound.org) for the sound.
-	sound = "sound/effects/kidanclack2.ogg"
+	sound = "sound/effects/Kidanclack2.ogg"
 
 /datum/emote/living/carbon/human/drask_talk
 	species_type_whitelist_typecache = list(/datum/species/drask)
@@ -636,37 +688,4 @@
 	key_third_person = "rattles"
 	message = "rattles their bones."
 	message_param = "rattles their bones at %t."
-	sound = "sound/voice/plas_rattle.ogg"
-	volume = 80
 	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)
-
-/datum/emote/living/carbon/human/crack/slime
-	message = "squishes their knuckles!"
-	sound = "sound/effects/slime_squish.ogg"
-	species_type_whitelist_typecache = list(/datum/species/slime)
-	species_type_blacklist_typecache = null
-
-/datum/emote/living/carbon/human/crack/machine
-	message = "cracks their actuators!"
-	sound = "sound/effects/mob_effects/ipc_crunch.ogg"
-	species_type_whitelist_typecache = list(/datum/species/machine)
-	species_type_blacklist_typecache = null
-
-/datum/emote/living/carbon/human/crack/diona
-	message = "cracks a twig!"
-	sound = "sound/effects/mob_effects/diona_crunch.ogg"
-	species_type_whitelist_typecache = list(/datum/species/diona)
-	species_type_blacklist_typecache = null
-	volume = 85  // the sound effect is a bit quiet
-
-/datum/emote/living/carbon/human/crack/skelly
-	message = "cracks something!"  // placeholder
-	species_type_whitelist_typecache = list(/datum/species/skeleton, /datum/species/plasmaman)
-	species_type_blacklist_typecache = null
-
-/datum/emote/living/carbon/human/crack/skelly/run_emote(mob/user, params, type_override, intentional)
-	var/mob/living/carbon/human/H = user
-	var/obj/item/organ/external/bodypart = pick(H.bodyparts)
-	message = "cracks their [bodypart.name]!"
-	. = ..()
-

@@ -35,7 +35,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		if(lastchar == "/" || lastchar == "\\")
 			log_debug("Attempted to load map template without filename (Attempted [tfile])")
 			return
-		tfile = wrap_file2text(tfile)
+		tfile = file2text(tfile)
 		if(!length(tfile))
 			throw EXCEPTION("Map path '[fname]' does not exist!")
 
@@ -156,14 +156,20 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
-		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
+		log_runtime(EXCEPTION("Bad Map bounds in [fname]"), src, list(
+		"Min x: [bounds[MAP_MINX]]",
+		"Min y: [bounds[MAP_MINY]]",
+		"Min z: [bounds[MAP_MINZ]]",
+		"Max x: [bounds[MAP_MAXX]]",
+		"Max y: [bounds[MAP_MAXY]]",
+		"Max z: [bounds[MAP_MAXZ]]"))
+		return null
 	else
 		if(!measureOnly)
 			for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
 				var/turf/T = t
 				// we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
 				T.AfterChange(TRUE, keep_cabling = TRUE)
-				CHECK_TICK
 		return bounds
 
 /**
@@ -220,7 +226,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			old_position = dpos + 1
 
 			if(!atom_def) // Skip the item if the path does not exist.  Fix your crap, mappers!
-				stack_trace("Bad path: [atom_text] | Source String: [model] | dpos: [dpos]")
+				log_runtime(EXCEPTION("Bad path: [atom_text]"), src, list("Source String: [model]", "dpos: [dpos]"))
 				continue
 			members.Add(atom_def)
 
@@ -288,7 +294,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		var/mlen = members.len - 1
 		while(index <= mlen) // Last item is an /area
 			var/underlay
-			if(isturf(T)) // I blame this on the stupid clown who coded the BYOND map editor
+			if(istype(T, /turf)) // I blame this on the stupid clown who coded the BYOND map editor
 				underlay = T.appearance
 			T = instance_atom(members[index], members_attributes[index], xcrd, ycrd, zcrd) // instance new turf
 			if(ispath(members[index], /turf))
@@ -407,7 +413,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	// Check for file
 	else if(copytext(value_text, 1, 2) == "'")
-		. = wrap_file(copytext(value_text, 2, length(value_text)))
+		. = file(copytext(value_text, 2, length(value_text)))
 
 	// Check for path
 	else if(ispath(text2path(value_text)))
@@ -446,7 +452,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		try
 			A.deserialize(json_decode(json_data))
 		catch(var/exception/E)
-			stack_trace("Bad json data: '[json_data]'")
+			log_runtime(EXCEPTION("Bad json data: '[json_data]'"), src)
 			throw E
 	for(var/attribute in attributes)
 		var/value = attributes[attribute]

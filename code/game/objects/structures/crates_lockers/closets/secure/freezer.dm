@@ -73,8 +73,8 @@
 
 /obj/structure/closet/secure_closet/freezer/money/populate_contents()
 	for(var/i in 1 to 3)
-		new /obj/item/stack/spacecash/c200(src)
+		new /obj/item/stack/spacecash/c1000(src)
 	for(var/i in 1 to 5)
-		new /obj/item/stack/spacecash/c100(src)
+		new /obj/item/stack/spacecash/c500(src)
 	for(var/i in 1 to 6)
-		new /obj/item/stack/spacecash/c50(src)
+		new /obj/item/stack/spacecash/c200(src)

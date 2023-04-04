@@ -1,11 +1,8 @@
 /obj/item/jammer
 	name = "radio jammer"
-	desc = "Fog of war that fits your pocket. Flicking the switch and extending the antenna will scramble nearby radio comms, making outgoing messages hard to understand."
+	desc = "Device used to disrupt nearby radio communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
-	item_state = "jammer"
-	w_class = WEIGHT_CLASS_TINY
-	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	var/active = FALSE
 	var/range = 12
 
@@ -13,22 +10,13 @@
 	GLOB.active_jammers -= src
 	return ..()
 
-/obj/item/jammer/update_icon_state()
-	if(active)
-		icon_state = "[initial(icon_state)]-on"
-	else
-		icon_state = "[initial(icon_state)]"
-
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You [active ? "deactivate [src]. It goes quiet with a small click." : "activate [src]. It starts to hum softly."] </span>")
+	to_chat(user, "<span class='notice'>You [active ? "deactivate" : "activate"] [src].</span>")
 	active = !active
-	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		GLOB.active_jammers |= src
 	else
 		GLOB.active_jammers -= src
-	for(var/datum/action/item_action/toggle_radio_jammer/A in actions)
-		A.UpdateButtonIcon()
 
 /obj/item/teleporter
 	name = "syndicate teleporter"
@@ -71,7 +59,7 @@
 /obj/item/teleporter/emp_act(severity)
 	var/teleported_something = FALSE
 	if(prob(50 / severity))
-		if(ishuman(loc))
+		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='userdanger'>[src] buzzes and activates!</span>")
 			attempt_teleport(user, TRUE)
@@ -137,7 +125,7 @@
 		to_chat(M, "<span class='danger'>[src] will not work here!</span>")
 
 /obj/item/teleporter/proc/tile_check(turf/T)
-	if(isfloorturf(T) || isspaceturf(T))
+	if(istype(T, /turf/simulated/floor) || istype(T, /turf/space))
 		return TRUE
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first

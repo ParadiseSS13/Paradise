@@ -34,7 +34,7 @@
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon(UPDATE_ICON_STATE)
 		return TRUE
-	if(is_pen(O))
+	if(istype(O, /obj/item/pen))
 		rename_interactive(user, O)
 		return TRUE
 
@@ -249,7 +249,7 @@
 			if(!printing)
 				printing = TRUE
 				visible_message("<span class='notice'>[src] begins to hum as it warms up its printing drums.</span>")
-				addtimer(CALLBACK(src, PROC_REF(print_book)), 5 SECONDS)
+				addtimer(CALLBACK(src, .proc/print_book), 5 SECONDS)
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
 		if("toggle_binder_category")
@@ -345,15 +345,12 @@
 	if(computer == library_computer)
 		return TRUE //we're succesfully connected already, let player know it was a "succesful connection"
 
-	disconnect() //clear references to old computer, we have to unregister signals
+	UnregisterSignal(computer, COMSIG_PARENT_QDELETING)
 	computer = library_computer
-	RegisterSignal(library_computer, COMSIG_PARENT_QDELETING, PROC_REF(disconnect))
+	RegisterSignal(library_computer, COMSIG_PARENT_QDELETING, .proc/disconnect)
 	return TRUE
 
 /obj/item/barcodescanner/proc/disconnect()
-	if(!computer)
-		return //proc will runtime if computer is null
-	UnregisterSignal(computer, COMSIG_PARENT_QDELETING)
 	computer = null
 
 /obj/item/barcodescanner/proc/scanID(obj/item/card/id/ID, mob/user)
@@ -407,14 +404,14 @@
 				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
 		if(BARCODE_MODE_CHECKIN)
 			if(computer.checkin(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked back into general inventory.'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
 
 /obj/item/barcodescanner/proc/check_connection(mob/user as mob) //fuck you null references!
 	if(computer)

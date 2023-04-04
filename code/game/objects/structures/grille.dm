@@ -21,11 +21,9 @@
 	var/shockcooldown = 0
 	var/my_shockcooldown = 2 SECONDS
 
-/obj/structure/grille/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>A powered wire underneath this will cause the grille to shock anyone who touches the grill. An electric shock may leap forth if the grill is damaged.</span>"
-	. += "<span class='notice'>Use <b>wirecutters</b> to deconstruct this item.</span>"
-
+/obj/structure/grille/detailed_examine()
+	return "A powered and knotted wire underneath this will cause the grille to shock anyone not wearing insulated gloves.<br>\
+			Wirecutters will turn the grille into metal rods instantly. Grilles are made with metal rods."
 
 /obj/structure/grille/fence
 	var/width = 3
@@ -120,7 +118,7 @@
 		else
 			return !density
 
-/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
+/obj/structure/grille/CanAStarPass(ID, dir, caller)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
@@ -158,7 +156,7 @@
 	deconstruct()
 
 /obj/structure/grille/screwdriver_act(mob/user, obj/item/I)
-	if(!(anchored || issimulatedturf(loc) || locate(/obj/structure/lattice) in get_turf(src)))
+	if(!(anchored || istype(loc, /turf/simulated) || locate(/obj/structure/lattice) in get_turf(src)))
 		return
 	. = TRUE
 	if(shock(user, 90))

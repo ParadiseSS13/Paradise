@@ -8,10 +8,8 @@ Code shamelessly copied from apc_frame
 	desc = "Used for building Air Alarms"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm_bitem"
-
 	materials = list(MAT_METAL=2000)
-	metal_sheets_refunded = 1
-	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	mount_reqs = list("simfloor", "nospace")
 
 /obj/item/mounted/frame/alarm_frame/do_build(turf/on_wall, mob/user)
 	new /obj/machinery/alarm(get_turf(src), get_dir(on_wall, user), 1)

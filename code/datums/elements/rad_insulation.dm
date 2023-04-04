@@ -9,11 +9,11 @@
 		return ELEMENT_INCOMPATIBLE
 
 	if(protects) // Does this protect things in its contents from being affected?
-		RegisterSignal(target, COMSIG_ATOM_RAD_PROBE, PROC_REF(rad_probe_react))
+		RegisterSignal(target, COMSIG_ATOM_RAD_PROBE, .proc/rad_probe_react)
 	if(contamination_proof) // Can this object be contaminated?
-		RegisterSignal(target, COMSIG_ATOM_RAD_CONTAMINATING, PROC_REF(rad_contaminating))
+		RegisterSignal(target, COMSIG_ATOM_RAD_CONTAMINATING, .proc/rad_contaminating)
 	if(_amount != 1) // If it's 1 it won't have any impact on radiation passing through anyway
-		RegisterSignal(target, COMSIG_ATOM_RAD_WAVE_PASSING, PROC_REF(rad_pass))
+		RegisterSignal(target, COMSIG_ATOM_RAD_WAVE_PASSING, .proc/rad_pass)
 
 	amount = _amount
 

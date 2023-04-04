@@ -11,8 +11,7 @@
 	severity = BIOHAZARD
 
 /datum/disease/fake_gbs/stage_act()
-	if(!..())
-		return FALSE
+	..()
 	switch(stage)
 		if(2)
 			if(prob(1))

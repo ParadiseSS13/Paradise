@@ -1,25 +1,24 @@
-GLOBAL_LIST_INIT(rod_recipes, list (
-	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor_or_lattice = TRUE),
-	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+GLOBAL_LIST_INIT(rod_recipes, list ( \
+	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor_or_lattice = 1), \
+	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, one_per_turf = 1, on_floor = 1), \
 	null,
-	new /datum/stack_recipe_list("chainlink fence", list(
-		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		)),
+	new /datum/stack_recipe_list("chainlink fence", list( \
+		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence door", /obj/structure/fence/door, 10, time = 10, one_per_turf = 1, on_floor = 1), \
+		new /datum/stack_recipe("chainlink fence end", /obj/structure/fence/end, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+		)), \
 	))
 
 /obj/item/stack/rods
 	name = "metal rod"
 	desc = "Some rods. Can be used for building, or something."
 	singular_name = "metal rod"
-	icon = 'icons/obj/stacks/minerals.dmi'
-	icon_state = "rods-5"
+	icon_state = "rods"
 	item_state = "rods"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_NORMAL
@@ -35,12 +34,9 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/rods
 
-
-
-/obj/item/stack/rods/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>Using rods on a floor plating will install a reinforced floor. You can make reinforced glass by combining rods and normal glass sheets.</span>"
-
+/obj/item/stack/rods/detailed_examine()
+	return "Made from metal sheets. You can build a grille by using it in your hand. \
+			Clicking on a floor without any tiles will reinforce the floor. You can make reinforced glass by combining rods and normal glass sheets."
 
 /obj/item/stack/rods/cyborg
 	energy_type = /datum/robot_energy_storage/rods
@@ -66,7 +62,10 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 
 /obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
-	icon_state = "rods-[clamp(amount, 1, 5)]"
+	if((amount <= 5) && (amount > 0))
+		icon_state = "rods-[amount]"
+	else
+		icon_state = "rods"
 
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)
@@ -80,7 +79,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 		// stack was moved into another one on the pile
 		new_item = locate() in user.loc
 	visible_message("<span class='notice'>[user.name] shapes [src] into metal with [I]!</span>", \
-					"<span class='notice'>You shape [src] into metal with [I]!</span>", \
+				 	"<span class='notice'>You shape [src] into metal with [I]!</span>", \
 					"<span class='warning'>You hear welding.</span>")
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)

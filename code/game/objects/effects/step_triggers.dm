@@ -146,11 +146,11 @@
 
 	if(entersmoke)
 		var/datum/effect_system/smoke_spread/s = new
-		s.set_up(4, TRUE, src, 0)
+		s.set_up(4, 1, src, 0)
 		s.start()
 	if(exitsmoke)
 		var/datum/effect_system/smoke_spread/s = new
-		s.set_up(4, TRUE, dest, 0)
+		s.set_up(4, 1, dest, 0)
 		s.start()
 
 	uses--

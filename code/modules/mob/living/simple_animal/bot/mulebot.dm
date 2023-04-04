@@ -25,15 +25,11 @@
 	bot_filter = RADIO_MULEBOT
 	model = "MULE"
 	bot_purpose = "deliver crates and other packages between departments, as requested"
-	req_access = list(ACCESS_CARGO)
+	bot_core_type = /obj/machinery/bot_core/mulebot
+	path_image_color = "#7F5200"
 
 
 	suffix = ""
-
-	/// Delay in deciseconds between each step
-	var/step_delay = 0
-	/// world.time of next move
-	var/next_move_time = 0
 
 	var/global/mulebot_count = 0
 	var/atom/movable/load = null
@@ -54,8 +50,6 @@
 	var/currentBloodColor = "#A10808"
 	var/currentDNA = null
 
-	var/num_steps
-
 /mob/living/simple_animal/bot/mulebot/get_cell()
 	return cell
 
@@ -70,7 +64,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(human_squish_check))
+	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, .proc/human_squish_check)
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	SStgui.close_uis(wires)
@@ -78,9 +72,6 @@
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
 	return ..()
-
-/mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
-	return FALSE
 
 /mob/living/simple_animal/bot/mulebot/can_buckle()
 	return FALSE //no ma'am, you cannot buckle mulebots to chairs
@@ -97,7 +88,12 @@
 	reached_target = 0
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
-	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
+	if(istype(I, /obj/item/screwdriver))
+		..()
+		if(open)
+			on = FALSE
+		update_controls()
+	else if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
 		var/obj/item/stock_parts/cell/C = I
@@ -137,16 +133,6 @@
 		..()
 	update_icon()
 	return
-
-/mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(!.)
-		return
-
-	if(open)
-		on = FALSE
-	update_controls()
-	update_icon()
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(emagged < 1)
@@ -264,7 +250,7 @@
 	update_controls()
 
 /mob/living/simple_animal/bot/mulebot/proc/toggle_lock(mob/user)
-	if(allowed(user))
+	if(bot_core.allowed(user))
 		locked = !locked
 		update_controls()
 		return 1
@@ -375,7 +361,7 @@
 
 	//I'm sure someone will come along and ask why this is here... well people were dragging screen items onto the mule, and that was not cool.
 	//So this is a simple fix that only allows a selection of item types to be considered. Further narrowing-down is below.
-	if(!isitem(AM) && !ismachinery(AM) && !isstructure(AM) && !ismob(AM))
+	if(!istype(AM, /obj/item) && !istype(AM, /obj/machinery) && !istype(AM, /obj/structure) && !ismob(AM))
 		return
 	if(!isturf(AM.loc)) //To prevent the loading from stuff from someone's inventory or screen icons.
 		return
@@ -456,7 +442,7 @@
 	// with items dropping as mobs are loaded
 
 	for(var/atom/movable/AM in src)
-		if(AM == cell || AM == access_card || AM == Radio || AM == paicard)
+		if(AM == cell || AM == access_card || AM == Radio || AM == bot_core || AM == paicard)
 			continue
 
 		AM.forceMove(loc)
@@ -467,7 +453,7 @@
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()
 	var/area/dest_area
-	if(path && length(path))
+	if(path && path.len)
 		target = ai_waypoint //Target is the end point of the path, the waypoint set by the AI.
 		dest_area = get_area(target)
 		destination = format_text(dest_area.name)
@@ -480,108 +466,115 @@
 	if(!has_power())
 		on = FALSE
 		return
+	if(on)
+		var/speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
+		var/num_steps = 0
+		switch(speed)
+			if(0)
+				// do nothing
+			if(1)
+				num_steps = 10
+			if(2)
+				num_steps = 5
+			if(3)
+				num_steps = 3
+
+		if(num_steps)
+			process_bot()
+			num_steps--
+			if(mode != BOT_IDLE)
+				spawn(0)
+					for(var/i=num_steps,i>0,i--)
+						sleep(2)
+						process_bot()
+
+/mob/living/simple_animal/bot/mulebot/proc/process_bot()
 	if(!on)
 		return
-
-	var/new_speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
-	if(!new_speed)//Devide by zero man bad
-		return
-
-
-	num_steps = round(10 / new_speed) //10, 5, or 3 steps, depending on how many wires we have cut
-	step_delay = num_steps // step_delay shouldnt change, num_steps should
-	START_PROCESSING(SSfastprocess, src)
-
-/mob/living/simple_animal/bot/mulebot/process()
-	if(!on)
-		return PROCESS_KILL
-
-	num_steps--
+	update_icon()
 
 	switch(mode)
 		if(BOT_IDLE) // idle
 			return
 
 		if(BOT_DELIVER, BOT_GO_HOME, BOT_BLOCKED) // navigating to deliver,home, or blocked
-			if(world.time < next_move_time)
-				return
-
-			next_move_time = world.time + step_delay
-
 			if(loc == target) // reached target
 				at_target()
 				return
 
-			else if(length(path) && target) // valid path
+			else if(path.len > 0 && target) // valid path
 				var/turf/next = path[1]
-				reached_target = FALSE
+				reached_target = 0
 				if(next == loc)
 					increment_path()
-					path -= next
 					return
-				if(isturf(next))
+				if(istype(next, /turf/simulated))
+//					to_chat(world, "at ([x],[y]) moving to ([next.x],[next.y])")
+
 					var/oldloc = loc
-					var/moved = step_towards(src, next) // attempt to move
-					if(moved && oldloc!=loc) // successful move
+					var/moved = step_towards(src, next)	// attempt to move
+					if(cell) cell.use(1)
+					if(moved && oldloc!=loc)	// successful move
+//						to_chat(world, "Successful move.")
 						blockcount = 0
 						increment_path()
-						path -= loc
+
 						if(destination == home_destination)
 							mode = BOT_GO_HOME
 						else
 							mode = BOT_DELIVER
 
-					else // failed to move
+					else		// failed to move
 
+//						to_chat(world, "Unable to move.")
 						blockcount++
 						mode = BOT_BLOCKED
 						if(blockcount == 3)
 							buzz(ANNOYED)
 
-						if(blockcount > 10) // attempt 10 times before recomputing
+						if(blockcount > 10)	// attempt 10 times before recomputing
 							// find new path excluding blocked turf
 							buzz(SIGH)
 							mode = BOT_WAIT_FOR_NAV
 							blockcount = 0
-							addtimer(CALLBACK(src, PROC_REF(process_blocked), next), 2 SECONDS)
+							spawn(20)
+								calc_path(avoid=next)
+								if(path.len > 0)
+									buzz(DELIGHT)
+								mode = BOT_BLOCKED
 							return
 						return
 				else
 					buzz(ANNOYED)
+//					to_chat(world, "Bad turf.")
 					mode = BOT_NAV
 					return
 			else
+//				to_chat(world, "No path.")
 				mode = BOT_NAV
 				return
 
-		if(BOT_NAV) // calculate new path
+		if(BOT_NAV)	// calculate new path
+//			to_chat(world, "Calc new path.")
 			mode = BOT_WAIT_FOR_NAV
-			INVOKE_ASYNC(src, PROC_REF(process_nav))
+			spawn(0)
+				calc_path()
 
-/mob/living/simple_animal/bot/mulebot/proc/process_blocked(turf/next)
-	calc_path(avoid=next)
-	if(length(path))
-		buzz(DELIGHT)
-	mode = BOT_BLOCKED
+				if(path.len > 0)
+					blockcount = 0
+					mode = BOT_BLOCKED
+					buzz(DELIGHT)
 
-/mob/living/simple_animal/bot/mulebot/proc/process_nav()
-	calc_path()
+				else
+					buzz(SIGH)
 
-	if(length(path))
-		blockcount = 0
-		mode = BOT_BLOCKED
-		buzz(DELIGHT)
-
-	else
-		buzz(SIGH)
-
-		mode = BOT_NO_ROUTE
+					mode = BOT_NO_ROUTE
 
 // calculates a path to the current destination
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
 	check_bot_access()
-	set_path(get_path_to(src, target, 250, id=access_card, exclude=avoid))
+	set_path(get_path_to(src, target, /turf/proc/Distance_cardinal, 0, 250, id=access_card, exclude=avoid))
 
 // sets the current destination
 // signals all beacons matching the delivery code
@@ -606,11 +599,9 @@
 /mob/living/simple_animal/bot/mulebot/proc/start_home()
 	if(!on)
 		return
-	INVOKE_ASYNC(src, PROC_REF(do_start_home))
-
-/mob/living/simple_animal/bot/mulebot/proc/do_start_home()
-	set_destination(home_destination)
-	mode = BOT_BLOCKED
+	spawn(0)
+		set_destination(home_destination)
+		mode = BOT_BLOCKED
 	update_icon()
 
 // called when bot reaches current target
@@ -691,7 +682,7 @@
 	if(wires.is_cut(WIRE_MOB_AVOIDANCE))	// usually just bumps, but if avoidance disabled knock over mobs
 		var/mob/living/L = obs
 		if(ismob(L))
-			if(isrobot(L))
+			if(istype(L,/mob/living/silicon/robot))
 				visible_message("<span class='danger'>[src] bumps into [L]!</span>")
 			else
 				if(!paicard)
@@ -741,52 +732,72 @@
 				to_chat(src, "<span class='warning big'>DELIVER [load] TO [destination]</span>")
 			else
 				to_chat(src, "<span class='warning big'>PICK UP DELIVERY AT [destination]</span>")
-
-		if("unload", "load")
+		if("unload")
 			if(load)
 				to_chat(src, "<span class='warning big'>UNLOAD</span>")
 			else
 				to_chat(src, "<span class='warning big'>LOAD</span>")
+		if("autoret", "autopick", "target")
+		else
+			..()
 
+/mob/living/simple_animal/bot/mulebot/receive_signal(datum/signal/signal)
+	if(wires.is_cut(WIRE_REMOTE_RX) || ..())
+		return TRUE
 
-
-/mob/living/simple_animal/bot/mulebot/handle_command(mob/user, command, list/params)
-	if(wires.is_cut(WIRE_REMOTE_RX) || !..())
-		return FALSE
-
-	if(client)
-		bot_control_message(command, user, null)
-		return
-
-	. = TRUE
+	var/recv = signal.data["command"]
 
 	// process control input
-	switch(command)
+	switch(recv)
 		if("start")
 			start()
 
-		if("stop")
-			bot_reset()
-
-		if("home")
-			start_home()
+		if("target")
+			set_destination(signal.data["destination"])
 
 		if("unload")
+			if(client)
+				return 1
 			if(loc == target)
 				unload(loaddir)
 			else
 				unload(0)
 
-		if("target")
-			var/dest = input("Select Bot Destination", "Mulebot [suffix] Interlink", destination) as null|anything in GLOB.deliverybeacontags
-			if(dest)
-				set_destination(dest)
+		if("home")
+			start_home()
 
-		if("set_auto_return")
-			auto_return = text2num(params["autoret"])
+		if("autoret")
+			auto_return = text2num(signal.data["value"])
 
-		if("set_pickup_type")
-			auto_pickup = text2num(params["autopick"])
+		if("autopick")
+			auto_pickup = text2num(signal.data["value"])
+
+		else
+			return 0
+	return 1
+
+// send a radio signal with multiple data key/values
+/mob/living/simple_animal/bot/mulebot/post_signal_multiple(freq, list/keyval)
+	if(wires.is_cut(WIRE_REMOTE_TX))
+		return
+
+	..()
+
+// signals bot status etc. to controller
+/mob/living/simple_animal/bot/mulebot/send_status()
+	var/list/kv = list(
+		"type" = MULE_BOT,
+		"name" = suffix,
+		"loca" = get_area(src),
+		"mode" = mode,
+		"powr" = (cell ? cell.percent() : 0),
+		"dest" = destination,
+		"home" = home_destination,
+		"load" = load,
+		"retn" = auto_return,
+		"pick" = auto_pickup,
+	)
+	post_signal_multiple(control_freq, kv)
 
 // player on mulebot attempted to move
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
@@ -843,8 +854,8 @@
 	else
 		return null
 
-/mob/living/simple_animal/bot/mulebot/run_resist()
-	. = ..()
+/mob/living/simple_animal/bot/mulebot/resist()
+	..()
 	if(load)
 		unload()
 
@@ -863,3 +874,5 @@
 #undef ANNOYED
 #undef DELIGHT
 
+/obj/machinery/bot_core/mulebot
+	req_access = list(ACCESS_CARGO)

@@ -135,11 +135,11 @@
 	M.emote("scream")
 	M.AdjustWeakened(20 SECONDS)
 
-
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
-	M.set_lying_angle(0)
-	M.update_transform()
+	var/matrix/m180 = matrix(M.transform)
+	m180.Turn(180)
+	animate(M, transform = m180, time = 3)
 
 /obj/structure/kitchenspike/Destroy()
 	if(has_buckled_mobs())

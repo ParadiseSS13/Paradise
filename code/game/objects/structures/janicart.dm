@@ -10,26 +10,24 @@
 	face_while_pulling = FALSE
 	container_type = OPENCONTAINER
 	//copypaste sorry
-	var/maximum_volume = 150
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
-	var/obj/item/storage/bag/trash/mybag = null
+	var/obj/item/storage/bag/trash/mybag	= null
 	var/obj/item/mop/mymop = null
-	var/obj/item/twohanded/push_broom/mybroom = null
 	var/obj/item/reagent_containers/spray/cleaner/myspray = null
 	var/obj/item/lightreplacer/myreplacer = null
 	var/signs = 0
 	var/const/max_signs = 4
 
+
 /obj/structure/janitorialcart/Initialize(mapload)
 	. = ..()
-	create_reagents(150)
+	create_reagents(100)
 	GLOB.janitorial_equipment += src
 
 /obj/structure/janitorialcart/Destroy()
 	GLOB.janitorial_equipment -= src
 	QDEL_NULL(mybag)
 	QDEL_NULL(mymop)
-	QDEL_NULL(mybroom)
 	QDEL_NULL(myspray)
 	QDEL_NULL(myreplacer)
 	return ..()
@@ -39,7 +37,6 @@
 	I.forceMove(src)
 	updateUsrDialog()
 	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
-	update_icon(UPDATE_OVERLAYS)
 	return
 
 /obj/structure/janitorialcart/on_reagent_change()
@@ -58,12 +55,7 @@
 				m.janicart_insert(user, src)
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/twohanded/push_broom))
-			if(!mybroom)
-				var/obj/item/twohanded/push_broom/B = I
-				B.janicart_insert(user, src)
-			else
-				to_chat(user, fail_msg)
+
 		else if(istype(I, /obj/item/storage/bag/trash))
 			if(!mybag)
 				var/obj/item/storage/bag/trash/t=I
@@ -72,8 +64,9 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 			if(!myspray)
-				myspray = I
 				put_in_cart(I, user)
+				myspray=I
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/lightreplacer))
@@ -84,8 +77,9 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/caution))
 			if(signs < max_signs)
-				signs++
 				put_in_cart(I, user)
+				signs++
+				update_icon(UPDATE_OVERLAYS)
 			else
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
 		else if(istype(I, /obj/item/crowbar))
@@ -121,8 +115,6 @@
 		dat += "<a href='?src=[UID()];garbage=1'>[mybag.name]</a><br>"
 	if(mymop)
 		dat += "<a href='?src=[UID()];mop=1'>[mymop.name]</a><br>"
-	if(mybroom)
-		dat += "<a href='?src=[UID()];broom=1'>[mybroom.name]</a><br>"
 	if(myspray)
 		dat += "<a href='?src=[UID()];spray=1'>[myspray.name]</a><br>"
 	if(myreplacer)
@@ -132,6 +124,7 @@
 	var/datum/browser/popup = new(user, "janicart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()
+
 
 /obj/structure/janitorialcart/Topic(href, href_list)
 	if(!in_range(src, usr))
@@ -149,11 +142,6 @@
 			user.put_in_hands(mymop)
 			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
 			mymop = null
-	if(href_list["broom"])
-		if(mybroom)
-			user.put_in_hands(mybroom)
-			to_chat(user, "<span class='notice'>You take [mybroom] from [src].</span>")
-			mybroom = null
 	if(href_list["spray"])
 		if(myspray)
 			user.put_in_hands(myspray)
@@ -178,14 +166,13 @@
 	update_icon(UPDATE_OVERLAYS)
 	updateUsrDialog()
 
+
 /obj/structure/janitorialcart/update_overlays()
 	. = ..()
 	if(mybag)
 		. += "cart_garbage"
 	if(mymop)
 		. += "cart_mop"
-	if(mybroom)
-		. += "cart_broom"
 	if(myspray)
 		. += "cart_spray"
 	if(myreplacer)
@@ -195,14 +182,14 @@
 	if(reagents.total_volume > 0)
 		var/image/reagentsImage = image(icon,src,"cart_reagents0")
 		reagentsImage.alpha = 150
-		switch((reagents.total_volume / maximum_volume) * 100)
-			if(1 to 37)
+		switch((reagents.total_volume/reagents.maximum_volume)*100)
+			if(1 to 25)
 				reagentsImage.icon_state = "cart_reagents1"
-			if(38 to 75)
+			if(26 to 50)
 				reagentsImage.icon_state = "cart_reagents2"
-			if(76 to 112)
+			if(51 to 75)
 				reagentsImage.icon_state = "cart_reagents3"
-			if(113 to 150)
+			if(76 to 100)
 				reagentsImage.icon_state = "cart_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
 		. += reagentsImage

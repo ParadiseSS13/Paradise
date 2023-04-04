@@ -8,8 +8,6 @@
  * Step 7: Crowbar the door to complete
  */
 
-#define EMPTY_ASSEMBLY "01"
-#define WIRED_ASSEMBLY "02"
 
 /obj/structure/windoor_assembly
 	icon = 'icons/obj/doors/windoor.dmi'
@@ -23,30 +21,14 @@
 	var/ini_dir
 	var/obj/item/airlock_electronics/electronics
 	var/created_name
-	var/polarized_glass = FALSE
 
 	//Vars to help with the icon's name
 	var/facing = "l"	//Does the windoor open to the left or right?
 	var/secure = FALSE		//Whether or not this creates a secure windoor
-	var/state = EMPTY_ASSEMBLY	//How far the door assembly has progressed
+	var/state = "01"	//How far the door assembly has progressed
 
 /obj/structure/windoor_assembly/examine(mob/user)
 	. = ..()
-	switch(state)
-		if(EMPTY_ASSEMBLY)
-			if(anchored)
-				. += "<span class='notice'>The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.</span>"
-			else
-				. += "<span class='notice'>The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.</span>"
-			if(!secure)
-				. += "<span class='notice'>The frame has <i>empty</i> slots for <i>plasteel reinforcements</i>.</span>"
-		if(WIRED_ASSEMBLY)
-			if(electronics)
-				. += "<span class='notice'>The circuit is <b>connected</b> to its slot, but the windoor is not <i>lifted into the frame</i>.</span>"
-				. += "<span class='notice'>The assembly has its electrochromic panel <b>[polarized_glass ? "enabled" : "disabled"]</b> and can be <i>configured</i>.</span>"
-			else
-				. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
-
 	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
 /obj/structure/windoor_assembly/Initialize(mapload, set_dir)
@@ -106,7 +88,7 @@
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	add_fingerprint(user)
 	switch(state)
-		if(EMPTY_ASSEMBLY)
+		if("01")
 			//Adding plasteel makes the assembly a secure windoor assembly. Step 2 (optional) complete.
 			if(istype(W, /obj/item/stack/sheet/plasteel) && !secure)
 				var/obj/item/stack/sheet/plasteel/P = W
@@ -133,13 +115,13 @@
 				user.visible_message("[user] wires the windoor assembly.", "You start to wire the windoor assembly...")
 
 				if(do_after(user, 40 * W.toolspeed, target = src))
-					if(!src || !anchored || state != EMPTY_ASSEMBLY)
+					if(!src || !anchored || state != "01")
 						return
 					var/obj/item/stack/cable_coil/CC = W
 					CC.use(1)
 					to_chat(user, "<span class='notice'>You wire the windoor.</span>")
 					playsound(loc, CC.usesound, 100, 1)
-					state = WIRED_ASSEMBLY
+					state = "02"
 					if(secure)
 						name = "secure wired windoor assembly"
 					else
@@ -147,7 +129,7 @@
 			else
 				return ..()
 
-		if(WIRED_ASSEMBLY)
+		if("02")
 			//Adding airlock electronics for access. Step 6 complete.
 			if(istype(W, /obj/item/airlock_electronics) && !istype(W, /obj/item/airlock_electronics/destroyed))
 				playsound(loc, W.usesound, 100, 1)
@@ -165,7 +147,7 @@
 				else
 					W.forceMove(loc)
 
-			else if(is_pen(W))
+			else if(istype(W, /obj/item/pen))
 				var/t = rename_interactive(user, W)
 				if(!isnull(t))
 					created_name = t
@@ -177,7 +159,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
-	if(state != WIRED_ASSEMBLY)
+	if(state != "02")
 		return
 	. = TRUE
 	if(!electronics)
@@ -216,7 +198,6 @@
 				windoor.base_state = "right"
 		windoor.setDir(dir)
 		windoor.density = FALSE
-		windoor.polarized_glass = polarized_glass
 
 		if(electronics.one_access)
 			windoor.req_one_access = electronics.selected_accesses
@@ -232,7 +213,7 @@
 		windoor.close()
 
 /obj/structure/windoor_assembly/screwdriver_act(mob/user, obj/item/I)
-	if(state != WIRED_ASSEMBLY || !electronics)
+	if(state != "02" || !electronics)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -248,17 +229,17 @@
 	ae.forceMove(loc)
 
 /obj/structure/windoor_assembly/wirecutter_act(mob/user, obj/item/I)
-	if(state != WIRED_ASSEMBLY)
+	if(state != "02")
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] cuts the wires from the windoor assembly.", "You start to cut the wires from windoor assembly...")
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != WIRED_ASSEMBLY)
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != "02")
 		return
 	to_chat(user, "<span class='notice'>You cut the windoor wires.</span>")
 	new/obj/item/stack/cable_coil(get_turf(user), 1)
-	state = EMPTY_ASSEMBLY
+	state = "01"
 	if(secure)
 		name = "secure anchored windoor assembly"
 	else
@@ -266,7 +247,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/wrench_act(mob/user, obj/item/I)
-	if(state != EMPTY_ASSEMBLY)
+	if(state != "01")
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -278,7 +259,7 @@
 				return
 		user.visible_message("[user] secures the windoor assembly to the floor.", "You start to secure the windoor assembly to the floor...")
 
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || anchored || state != EMPTY_ASSEMBLY)
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || anchored || state != "01")
 			return
 		for(var/obj/machinery/door/window/WD in loc)
 			if(WD.dir == dir)
@@ -293,7 +274,7 @@
 
 	else	//Unwrenching an unsecure assembly un-anchors it. Step 4 undone
 		user.visible_message("[user] unsecures the windoor assembly from the floor.", "You start to unsecure the windoor assembly from the floor...")
-		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !anchored || state != EMPTY_ASSEMBLY)
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !anchored || state != "01")
 			return
 		to_chat(user, "<span class='notice'>You unsecure the windoor assembly.</span>")
 		anchored = FALSE
@@ -304,13 +285,13 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/windoor_assembly/welder_act(mob/user, obj/item/I)
-	if(state != EMPTY_ASSEMBLY)
+	if(state != "01")
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 40, volume = I.tool_volume) && state == EMPTY_ASSEMBLY)
+	if(I.use_tool(src, user, 40, volume = I.tool_volume) && state == "01")
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
 		RG.add_fingerprint(user)
@@ -319,23 +300,6 @@
 			R.add_fingerprint(user)
 		qdel(src)
 
-
-/obj/structure/windoor_assembly/multitool_act(mob/user, obj/item/I)
-	if(state != WIRED_ASSEMBLY)
-		return
-	. = TRUE
-	if(!electronics)
-		to_chat(user, "<span class='warning'>[src] is missing electronics!</span>")
-		return
-	if(!I.tool_use_check(user, 0))
-		return
-	user.visible_message("[user] is configuring the glass panel in the windoor assembly...", "You start to configure the glass panel in the airlock assembly...")
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || !electronics)
-		return
-
-	polarized_glass = !polarized_glass
-
-	to_chat(user, "<span class='notice'>You [polarized_glass ? "enable" : "disable"] the electrochromic panel in the windoor assembly.</span>")
 
 //Rotates the windoor assembly clockwise
 /obj/structure/windoor_assembly/verb/revrotate()
@@ -386,6 +350,3 @@
 
 	update_icon(UPDATE_ICON_STATE)
 	return
-
-#undef EMPTY_ASSEMBLY
-#undef WIRED_ASSEMBLY

@@ -44,7 +44,7 @@
 	if(stat & BROKEN)
 		icon_state = "[lasercolor]destroyed_target_prism"
 	else
-		if(has_power())
+		if(powered())
 			if(enabled)
 				if(iconholder)
 					//lasers have a orange icon
@@ -93,7 +93,7 @@
 		if((istype(L.r_hand, target_weapon)) || (istype(L.l_hand, target_weapon)))
 			return TURRET_PRIORITY_TARGET
 
-		if(ishuman(L))
+		if(istype(L, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = L
 			if(istype(H.wear_suit, target_suit))
 				return TURRET_PRIORITY_TARGET

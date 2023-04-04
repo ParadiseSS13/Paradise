@@ -6,40 +6,21 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
+	materials = list(MAT_METAL=60, MAT_GLASS=30)
 	force = 2
 	throwforce = 0
 	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
 	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
-	/// If its currently recording
-	var/recording
-	/// If its playing back auto via atom_say
-	var/playing
-	/// The amount of time between something said during playback
+	var/recording = 0
+	var/playing = 0
 	var/playsleepseconds = 0
-	/// The tape we are recording to
 	var/obj/item/tape/mytape
-	/// The next worldtime we'll be able to print
-	var/cooldown = 0
+	var/open_panel = 0
+	var/canprint = 1
 	var/starts_with_tape = TRUE
-	/// Sound loop that plays when recording or playing back.
+	///Sound loop that plays when recording or playing back.
 	var/datum/looping_sound/tape_recorder_hiss/soundloop
 
-/obj/item/taperecorder/examine(mob/user)
-	. = ..()
-	if(in_range(user, src) && mytape)
-		if(mytape.ruined)
-			. += "<span class='notice'>[mytape]'s internals are unwound.'.</span>"
-		if(mytape.max_capacity <= mytape.used_capacity)
-			. += "<span class='notice'>[mytape] is full.</span>"
-		else if((mytape.remaining_capacity % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
-			. += "<span class='notice'>[mytape] has [mytape.remaining_capacity / 60] minutes remaining.</span>"
-		else
-			if(mytape.used_capacity >= mytape.max_capacity - 60)
-				. += "<span class='notice'>[mytape] has [mytape.remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
-			else
-				. += "<span class='notice'>[mytape] has [seconds_to_time(mytape.remaining_capacity)] remaining.</span>"
-		. += "<span class='notice'>Alt-Click to access the tape.</span>"
 
 /obj/item/taperecorder/New()
 	..()
@@ -52,6 +33,12 @@
 	QDEL_NULL(mytape)
 	QDEL_NULL(soundloop)
 	return ..()
+
+/obj/item/taperecorder/examine(mob/user)
+	. = ..()
+	if(in_range(user, src))
+		. += "The wire panel is [open_panel ? "opened" : "closed"]."
+
 
 /obj/item/taperecorder/proc/update_sound()
 	if(!playing && !recording)
@@ -68,6 +55,16 @@
 			playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
 			update_icon(UPDATE_ICON_STATE)
 
+/obj/item/taperecorder/proc/eject(mob/user)
+	if(mytape)
+		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
+		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
+		stop()
+		user.put_in_hands(mytape)
+		mytape = null
+		update_icon(UPDATE_ICON_STATE)
+
+
 /obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	mytape?.ruin() //Fires destroy the tape
 	return ..()
@@ -82,7 +79,30 @@
 			return
 	..()
 
-/obj/item/taperecorder/hear_talk(mob/living/M, list/message_pieces) // Currently can't tell if you're whispering, but can hear it if nearby
+
+/obj/item/taperecorder/verb/ejectverb()
+	set name = "Eject Tape"
+	set category = "Object"
+
+	if(usr.incapacitated())
+		return
+	if(!mytape)
+		return
+
+	eject(usr)
+
+
+/obj/item/taperecorder/update_icon_state()
+	if(!mytape)
+		icon_state = "taperecorder_empty"
+	else if(recording)
+		icon_state = "taperecorder_recording"
+	else if(playing)
+		icon_state = "taperecorder_playing"
+	else
+		icon_state = "taperecorder_idle"
+
+/obj/item/taperecorder/hear_talk(mob/living/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)
 	if(mytape && recording)
 		var/ending = copytext(msg, length(msg))
@@ -106,32 +126,12 @@
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] [msg]"
 
-/obj/item/taperecorder/attack_self(mob/user)
-	if(!mytape || mytape.ruined)
+/obj/item/taperecorder/verb/record()
+	set name = "Start Recording"
+	set category = "Object"
+
+	if(usr.incapacitated())
 		return
-	if(recording)
-		stop()
-	else
-		record()
-
-/obj/item/taperecorder/AltClick(mob/user)
-	if(in_range(user, src) && mytape && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
-						)
-		var/choice = show_radial_menu(user, src, options)
-		if(user.incapacitated())
-			return
-		switch(choice)
-			if("Playback Tape")
-				play(user)
-			if("Print Transcript")
-				print_transcript(user)
-			if("Eject Tape")
-				eject(user)
-
-/obj/item/taperecorder/proc/record(mob/user)
 	if(!mytape || mytape.ruined)
 		return
 	if(recording)
@@ -155,15 +155,20 @@
 				break
 			mytape.used_capacity++
 			used++
-			mytape.remaining_capacity = mytape.max_capacity - mytape.used_capacity
 			sleep(10)
 		stop()
 	else
-		atom_say("[mytape] is full!")
+		atom_say("The tape is full!")
 		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
 
 
-/obj/item/taperecorder/proc/stop(PlaybackOverride = FALSE)
+/obj/item/taperecorder/verb/stop()
+	set name = "Stop"
+	set category = "Object"
+
+	if(usr.incapacitated())
+		return
+
 	if(recording)
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] Recording stopped."
@@ -172,25 +177,23 @@
 		recording = FALSE
 	else if(playing)
 		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
-		if(!PlaybackOverride)
-			atom_say("Playback stopped.")
+		atom_say("Playback stopped.")
 		playing = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	update_sound()
 
 
-/obj/item/taperecorder/proc/play(mob/user)
+/obj/item/taperecorder/verb/play()
+	set name = "Play Tape"
+	set category = "Object"
+
+	if(usr.incapacitated())
+		return
 	if(!mytape || mytape.ruined)
 		return
 	if(recording)
 		return
 	if(playing)
-		stop()
-		return
-	if(!length(mytape.storedinfo))
-		atom_say("There is no stored data.")
-		playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
-		playsound(src, 'sound/items/taperecorder/taperecorder_stop.ogg', 50, FALSE)
 		return
 
 	playing = TRUE
@@ -200,33 +203,49 @@
 	playsound(src, 'sound/items/taperecorder/taperecorder_play.ogg', 50, FALSE)
 	var/used = mytape.used_capacity	//to stop runtimes when you eject the tape
 	var/max = mytape.max_capacity
-	for(var/i = 1, used <= max) // <= to let it play if the tape is full
-		sleep(playsleepseconds)
+	for(var/i = 1, used < max, sleep(10 * playsleepseconds))
 		if(!mytape)
 			break
 		if(playing == 0)
 			break
-		if(length(mytape.storedinfo) < i)
+		if(mytape.storedinfo.len < i)
 			atom_say("End of recording.")
 			break
 		atom_say("[mytape.storedinfo[i]]")
-		if(length(mytape.storedinfo) < i + 1)
-			playsleepseconds = 1 SECONDS
-		else
-			playsleepseconds = (mytape.timestamp[i + 1] - mytape.timestamp[i]) SECONDS
-		if(playsleepseconds > 1.4 SECONDS)
+		if(mytape.storedinfo.len < i + 1)
+			playsleepseconds = 1
 			sleep(10)
-			atom_say("Skipping [playsleepseconds / 10] seconds of silence.")
-			playsleepseconds = 1 SECONDS
+			atom_say("End of recording.")
+		else
+			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
+		if(playsleepseconds > 14)
+			sleep(10)
+			atom_say("Skipping [playsleepseconds] seconds of silence.")
+			playsleepseconds = 1
 		i++
 
-	stop(TRUE)
+	stop()
 
-/obj/item/taperecorder/proc/print_transcript(mob/user)
+
+/obj/item/taperecorder/attack_self(mob/user)
+	if(!mytape || mytape.ruined)
+		return
+	if(recording)
+		stop()
+	else
+		record()
+
+
+/obj/item/taperecorder/verb/print_transcript()
+	set name = "Print Transcript"
+	set category = "Object"
+
+	if(usr.incapacitated())
+		return
 	if(!mytape)
 		return
-	if(world.time < cooldown)
-		to_chat(user, "<span class='notice'>The recorder can't print that fast!</span>")
+	if(!canprint)
+		to_chat(usr, "<span class='notice'>The recorder can't print that fast!</span>")
 		return
 	if(recording || playing)
 		return
@@ -239,33 +258,15 @@
 		t1 += "[mytape.storedinfo[i]]<BR>"
 	P.info = t1
 	P.name = "paper- 'Transcript'"
-	user.put_in_hands(P)
-	cooldown = world.time + 3 SECONDS
-
-/obj/item/taperecorder/proc/eject(mob/user)
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-	if(mytape)
-		playsound(src, 'sound/items/taperecorder/taperecorder_open.ogg', 50, FALSE)
-		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
-		stop()
-		user.put_in_hands(mytape)
-		mytape = null
-		update_icon(UPDATE_ICON_STATE)
-
-/obj/item/taperecorder/update_icon_state()
-	if(!mytape)
-		icon_state = "taperecorder_empty"
-	else if(recording)
-		icon_state = "taperecorder_recording"
-	else if(playing)
-		icon_state = "taperecorder_playing"
-	else
-		icon_state = "taperecorder_idle"
+	usr.put_in_hands(P)
+	canprint = 0
+	sleep(300)
+	canprint = 1
 
 //empty tape recorders
 /obj/item/taperecorder/empty
 	starts_with_tape = FALSE
+
 
 /obj/item/tape
 	name = "tape"
@@ -274,32 +275,16 @@
 	icon_state = "tape_white"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(MAT_METAL = 40, MAT_GLASS = 10)
+	materials = list(MAT_METAL=20, MAT_GLASS=5)
 	force = 1
 	throwforce = 0
 	drop_sound = 'sound/items/handling/tape_drop.ogg'
 	pickup_sound = 'sound/items/handling/tape_pickup.ogg'
 	var/max_capacity = 600
 	var/used_capacity = 0
-	var/remaining_capacity = 600
 	var/list/storedinfo = list()
 	var/list/timestamp = list()
 	var/ruined = FALSE
-
-/obj/item/tape/examine(mob/user)
-	. = ..()
-	if(in_range(user, src))
-		if(ruined)
-			. += "<span class='notice'>It's tape is all pulled out, it looks it could be <b>screwed</b> back into place.</span>"
-		else if(max_capacity <= used_capacity)
-			. += "<span class='notice'>It is full.</span>"
-		else if((remaining_capacity % 60) == 0) // if there is no seconds (modulo = 0), then only show minutes
-			. += "<span class='notice'>It has [remaining_capacity / 60] minutes remaining.</span>"
-		else
-			if(used_capacity >= (max_capacity - 60))
-				. += "<span class='notice'>It has [remaining_capacity] seconds remaining.</span>" // to avoid having 0 minutes
-			else
-				. += "<span class='notice'>It has [seconds_to_time(remaining_capacity)] remaining.</span>"
 
 /obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -307,7 +292,8 @@
 
 /obj/item/tape/attack_self(mob/user)
 	if(!ruined)
-		ruin(user)
+		to_chat(user, "<span class='notice'>You pull out all the tape!</span>")
+		ruin()
 
 /obj/item/tape/verb/wipe()
 	set name = "Wipe Tape"
@@ -319,38 +305,34 @@
 		return
 
 	to_chat(usr, "<span class='notice'>You erase the data from [src].</span>")
-	used_capacity = 0
-	storedinfo.Cut()
-	timestamp.Cut()
+	clear()
 
 /obj/item/tape/update_overlays()
 	. = ..()
 	if(ruined)
 		. += "ribbonoverlay"
 
-/obj/item/tape/proc/ruin(mob/user)
-	if(user)
-		to_chat(user, "<span class='notice'>You start pulling the tape out.</span>")
-		if(!do_after(user, 1 SECONDS, target = src))
-			return
-		to_chat(user, "<span class='notice'>You pull the tape out of [src].</span>")
+/obj/item/tape/proc/clear()
+	used_capacity = 0
+	storedinfo.Cut()
+	timestamp.Cut()
+
+/obj/item/tape/proc/ruin()
 	ruined = TRUE
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/tape/attackby(obj/item/I, mob/user)
-	if(is_pen(I))
-		rename_interactive(user, I)
+/obj/item/tape/proc/fix()
+	ruined = FALSE
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/tape/screwdriver_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(ruined)
-		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-			return
+/obj/item/tape/attackby(obj/item/I, mob/user)
+	if(ruined && istype(I, /obj/item/screwdriver))
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
 		if(do_after(user, 120 * I.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You wind the tape back in!</span>")
-			ruined = FALSE
-			update_icon(UPDATE_OVERLAYS)
+			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
+			fix()
+	else if(istype(I, /obj/item/pen))
+		rename_interactive(user, I)
 
 //Random colour tapes
 /obj/item/tape/random/New()

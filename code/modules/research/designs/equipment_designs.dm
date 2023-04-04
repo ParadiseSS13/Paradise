@@ -133,7 +133,7 @@
 	category = list("Equipment")
 
 /datum/design/breath_mask
-	name = "Breath Mask"
+	name = "Breath mask"
 	desc = "A close-fitting mask that can be connected to an air supply."
 	id = "breathmask"
 	req_tech = list("toxins" = 3)
@@ -208,7 +208,7 @@
 	id = "hydroponic_hud"
 	req_tech = list("magnets" = 3, "biotech" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic
 	category = list("Equipment")
 
@@ -218,7 +218,7 @@
 	id = "hydroponic_hud_night"
 	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_URANIUM = 1000, MAT_PLASMA = 200)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_URANIUM = 1000, MAT_PLASMA = 200)
 	build_path = /obj/item/clothing/glasses/hud/hydroponic/night
 	category = list("Equipment")
 

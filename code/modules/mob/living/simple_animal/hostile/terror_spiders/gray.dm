@@ -12,10 +12,6 @@
 	name = "Gray Terror spider"
 	desc = "An ominous-looking gray spider. It seems to blend into webs, making it hard to see."
 	spider_role_summary = "Stealth spider that ambushes weak humans."
-	spider_intro_text = "As a Gray Terror Spider, your role is to ambush prey by creating and waiting on webs. \
-	You create webs much faster than other spiders and said webs are also harder for the crew to see. \
-	While stood on your special webs you are almost invisible and will deal double damage to prey unlucky enough to get webbed. \
-	However, you have low health and only deal moderate damage."
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_gray"
 	icon_living = "terror_gray"

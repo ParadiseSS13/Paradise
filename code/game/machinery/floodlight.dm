@@ -109,6 +109,16 @@
 			anchored = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		return
+	if(istype(W, /obj/item/screwdriver))
+		if(!open)
+			if(unlocked)
+				unlocked = FALSE
+				to_chat(user, "You screw the battery panel in place.")
+			else
+				unlocked = TRUE
+				to_chat(user, "You unscrew the battery panel.")
+		update_icon(UPDATE_ICON_STATE)
+		return
 	if(istype(W, /obj/item/crowbar))
 		if(unlocked)
 			if(open)
@@ -133,19 +143,7 @@
 		return
 	return ..()
 
-/obj/machinery/floodlight/screwdriver_act(mob/living/user, obj/item/I)
-	if(open)
-		return
-
-	if(unlocked)
-		to_chat(user, "You screw the battery panel in place.")
-	else
-		to_chat(user, "You unscrew the battery panel.")
-	unlocked = !unlocked
-	update_icon(UPDATE_ICON_STATE)
-	return TRUE
-
-/obj/machinery/floodlight/extinguish_light(force = FALSE)
+/obj/machinery/floodlight/extinguish_light()
 	on = FALSE
 	set_light(0)
 	update_icon(UPDATE_ICON_STATE)

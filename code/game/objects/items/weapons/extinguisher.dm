@@ -12,7 +12,7 @@
 	throw_range = 7
 	force = 10
 	container_type = AMOUNT_VISIBLE
-	materials = list(MAT_METAL = 200)
+	materials = list(MAT_METAL=90)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
@@ -45,11 +45,10 @@
 	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
 
 
-/obj/item/extinguisher/Initialize(mapload)
-	. = ..()
-	if(!reagents)
-		create_reagents(max_water)
-		reagents.add_reagent("water", max_water)
+/obj/item/extinguisher/New()
+	..()
+	create_reagents(max_water)
+	reagents.add_reagent("water", max_water)
 
 /obj/item/extinguisher/attack_self(mob/user as mob)
 	safety = !safety

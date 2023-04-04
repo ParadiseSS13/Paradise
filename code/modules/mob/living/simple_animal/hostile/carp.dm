@@ -63,7 +63,6 @@
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
-	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 	carp_randomify(rarechance)
 	update_icons()
 

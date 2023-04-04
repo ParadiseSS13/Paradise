@@ -6,16 +6,16 @@
 	open_door_sprite = "generic_door"
 
 /obj/structure/closet/athletic_mixed/populate_contents()
-	new /obj/item/clothing/under/pants/shorts/grey(src)
-	new /obj/item/clothing/under/pants/shorts/black(src)
-	new /obj/item/clothing/under/pants/shorts/red(src)
-	new /obj/item/clothing/under/pants/shorts/blue(src)
-	new /obj/item/clothing/under/pants/shorts/green(src)
-	new /obj/item/clothing/under/misc/swimsuit/red(src)
-	new /obj/item/clothing/under/misc/swimsuit/black(src)
-	new /obj/item/clothing/under/misc/swimsuit/blue(src)
-	new /obj/item/clothing/under/misc/swimsuit/green(src)
-	new /obj/item/clothing/under/misc/swimsuit/purple(src)
+	new /obj/item/clothing/under/shorts/grey(src)
+	new /obj/item/clothing/under/shorts/black(src)
+	new /obj/item/clothing/under/shorts/red(src)
+	new /obj/item/clothing/under/shorts/blue(src)
+	new /obj/item/clothing/under/shorts/green(src)
+	new /obj/item/clothing/under/swimsuit/red(src)
+	new /obj/item/clothing/under/swimsuit/black(src)
+	new /obj/item/clothing/under/swimsuit/blue(src)
+	new /obj/item/clothing/under/swimsuit/green(src)
+	new /obj/item/clothing/under/swimsuit/purple(src)
 
 
 /obj/structure/closet/boxinggloves
@@ -51,7 +51,6 @@
 	open_door_sprite = "generic_door"
 
 /obj/structure/closet/lasertag/red/populate_contents()
-	new /obj/item/beach_ball/dodgeball(src)
 	new /obj/item/gun/energy/laser/tag/red(src)
 	new /obj/item/gun/energy/laser/tag/red(src)
 	new /obj/item/gun/energy/laser/tag/red(src)
@@ -68,7 +67,6 @@
 	open_door_sprite = "generic_door"
 
 /obj/structure/closet/lasertag/blue/populate_contents()
-	new /obj/item/beach_ball/dodgeball(src)
 	new /obj/item/gun/energy/laser/tag/blue(src)
 	new /obj/item/gun/energy/laser/tag/blue(src)
 	new /obj/item/gun/energy/laser/tag/blue(src)

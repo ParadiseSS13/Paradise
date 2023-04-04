@@ -11,7 +11,7 @@
 		break
 	//The following spawn is necessary as both the timer and the shuttle systems initialise after the events system does, so we can't add stuff to the shuttle system as it doesn't exist yet and we can't use a timer
 	spawn(60 SECONDS)
-		var/datum/supply_packs/misc/snow_machine/xmas = SSeconomy.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
+		var/datum/supply_packs/misc/snow_machine/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
 		xmas.special = FALSE
 
 /datum/holiday/xmas/handle_event()
@@ -34,7 +34,7 @@
 	var/cracked = 0
 
 /obj/item/toy/xmas_cracker/attack(mob/target, mob/user)
-	if( !cracked && ishuman(target) && (target.stat == CONSCIOUS) && !target.get_active_hand() )
+	if( !cracked && istype(target,/mob/living/carbon/human) && (target.stat == CONSCIOUS) && !target.get_active_hand() )
 		target.visible_message("<span class='notice'>[user] and [target] pop \an [src]! *pop*</span>", "<span class='notice'>You pull \an [src] with [target]! *pop*</span>", "<span class='notice'>You hear a *pop*.</span>")
 		var/obj/item/paper/Joke = new /obj/item/paper(user.loc)
 		Joke.name = "[pick("awful","terrible","unfunny")] joke"

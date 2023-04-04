@@ -37,7 +37,6 @@
 	throwforce = 1
 	hitsound = 'sound/effects/ghost2.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
-	flags_2 = RANDOM_BLOCKER_2
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 
@@ -45,7 +44,7 @@
 	..()
 	spirits = list()
 	register_signals(src)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/on_move)
 	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
@@ -114,8 +113,8 @@
 	UnregisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN)
 
 /obj/item/melee/ghost_sword/proc/register_signals(atom/A)
-	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(add_ghost), override = TRUE)
-	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, PROC_REF(remove_ghost), override = TRUE)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_BEGIN, .proc/add_ghost, override = TRUE)
+	RegisterSignal(A, COMSIG_ATOM_ORBIT_STOP, .proc/remove_ghost, override = TRUE)
 
 /**
  *  When moving into something's contents

@@ -59,7 +59,7 @@
 	if(!holstered)
 		return
 
-	if(isobj(user.get_active_hand()) && isobj(user.get_inactive_hand()))
+	if(istype(user.get_active_hand(),/obj) && istype(user.get_inactive_hand(),/obj))
 		to_chat(user, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
 	else
 		if(user.a_intent == INTENT_HARM)
@@ -108,7 +108,7 @@
 	set name = "Holster"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
+	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
 
 	var/obj/item/clothing/accessory/holster/H = null

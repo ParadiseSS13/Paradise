@@ -22,13 +22,16 @@
 
 /obj/machinery/recycler/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/recycler/ComponentInitialize()
+	..()
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
@@ -49,8 +52,7 @@
 	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
 
 /obj/machinery/recycler/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
@@ -68,7 +70,7 @@
 		return TRUE
 
 /obj/machinery/recycler/wrench_act(mob/user, obj/item/I)
-	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
+	if(default_unfasten_wrench(user, I))
 		return TRUE
 
 
@@ -109,7 +111,7 @@
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
-	if(isitem(AM0))
+	if(istype(AM0, /obj/item))
 		to_eat += AM0.GetAllContents()
 	var/items_recycled = 0
 
@@ -122,7 +124,7 @@
 				crush_living(AM)
 			else
 				emergency_stop(AM)
-		else if(isitem(AM))
+		else if(istype(AM, /obj/item))
 			recycle_item(AM)
 			items_recycled++
 		else
@@ -150,7 +152,7 @@
 	emergency_mode = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	L.loc = loc
-	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)

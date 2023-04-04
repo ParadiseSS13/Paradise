@@ -58,7 +58,6 @@
 
 	var/secHUD = FALSE			// Toggles whether the Security HUD is active or not
 	var/medHUD = FALSE			// Toggles whether the Medical  HUD is active or not
-	var/dHUD = FALSE			// Toggles whether the Diagnostic HUD is active or not
 
 	/// Currently active software
 	var/datum/pai_software/active_software
@@ -66,8 +65,7 @@
 	/// List of all installed software
 	var/list/datum/pai_software/installed_software = list()
 
-	/// Integrated remote signaler for signalling
-	var/obj/item/assembly/signaler/integ_signaler
+	var/obj/item/integrated_radio/signal/sradio // AI's signaller
 
 	var/translator_on = FALSE // keeps track of the translator module
 	var/flashlight_on = FALSE //keeps track of the flashlight module
@@ -76,27 +74,23 @@
 	var/custom_sprite = FALSE
 	var/slowdown = 0
 
-/mob/living/silicon/pai/Initialize(mapload)
-	. = ..()
-
-	if(istype(loc, /obj/item/paicard))
-		card = loc
-
+/mob/living/silicon/pai/New(obj/item/paicard)
+	loc = paicard
+	card = paicard
 	if(card)
 		faction = card.faction.Copy()
-
-	integ_signaler = new(src)
-
+	sradio = new(src)
 	if(card)
 		if(!card.radio)
 			card.radio = new /obj/item/radio(card)
 		radio = card.radio
 
 	//Default languages without universal translator software
-	add_language("Sol Common")
-	add_language("Tradeband")
-	add_language("Gutter")
-	add_language("Trinary")
+	add_language("Galactic Common", 1)
+	add_language("Sol Common", 1)
+	add_language("Tradeband", 1)
+	add_language("Gutter", 1)
+	add_language("Trinary", 1)
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
 	verbs += /mob/living/silicon/pai/proc/choose_chassis
@@ -117,6 +111,7 @@
 			installed_software[PSD.id] = PSD
 
 	active_software = installed_software["mainmenu"] // Default us to the main menu
+	..()
 
 /mob/living/silicon/pai/can_unbuckle()
 	return FALSE
@@ -135,15 +130,6 @@
 		icon_state = "[chassis]_dead"
 	else
 		icon_state = resting ? "[chassis]_rest" : "[chassis]"
-	update_icon(UPDATE_OVERLAYS)
-
-/mob/living/silicon/pai/update_fire()
-	update_icon(UPDATE_OVERLAYS)
-
-/mob/living/silicon/pai/update_overlays()
-	. = ..()
-	if(on_fire)
-		. += image("icon" = 'icons/mob/OnFire.dmi', "icon_state" = "Generic_mob_burning")
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
@@ -191,12 +177,11 @@
 			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
 		return death(0)
 
-	switch(pick(1, 2, 3))
+	switch(pick(1,2,3))
 		if(1)
 			master = null
 			master_dna = null
 			to_chat(src, "<font color=green>You feel unbound.</font>")
-
 		if(2)
 			var/command
 			if(severity  == 1)
@@ -205,7 +190,6 @@
 				command = pick("Serve", "Kill", "Love", "Hate", "Disobey", "Devour", "Fool", "Enrage", "Entice", "Observe", "Judge", "Respect", "Disrespect", "Consume", "Educate", "Destroy", "Disgrace", "Amuse", "Entertain", "Ignite", "Glorify", "Memorialize", "Analyze")
 			pai_law0 = "[command] your master."
 			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
-
 		if(3)
 			to_chat(src, "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>")
 
@@ -214,16 +198,19 @@
 
 	switch(severity)
 		if(1.0)
-			if(stat != DEAD)
+			if(stat != 2)
 				adjustBruteLoss(100)
 				adjustFireLoss(100)
 		if(2.0)
-			if(stat != DEAD)
+			if(stat != 2)
 				adjustBruteLoss(60)
 				adjustFireLoss(60)
 		if(3.0)
-			if(stat != DEAD)
+			if(stat != 2)
 				adjustBruteLoss(30)
+
+	return
+
 
 // See software.dm for ui_act()
 
@@ -261,7 +248,7 @@
 	visible_message("<span class='notice'>[src] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
 
 /mob/living/silicon/pai/proc/force_fold_out()
-	if(ismob(card.loc))
+	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
 		holder.unEquip(card)
 	else if(istype(card.loc, /obj/item/pda))
@@ -479,10 +466,9 @@
 		H.icon = 'icons/mob/pai.dmi'
 		H.icon_state = "[chassis]_dead"
 		return
-	if(resting)
+	if(IS_HORIZONTAL(src))
 		icon_state = "[chassis]"
-		resting = FALSE
-		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT)
+		stand_up()
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
@@ -524,7 +510,7 @@
 		CRASH("pAI without card")
 	loc = card
 
-/mob/living/silicon/pai/extinguish_light(force = FALSE)
+/mob/living/silicon/pai/extinguish_light()
 	flashlight_on = FALSE
 	set_light(0)
 	card.set_light(0)

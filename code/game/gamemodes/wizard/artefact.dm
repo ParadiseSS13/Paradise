@@ -56,7 +56,7 @@
 				M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), slot_r_hand)
 				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
 			if("robeless")
-				M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
+				M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
 				M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 				to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
 
@@ -499,13 +499,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/black(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(M), slot_glasses)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/suit/really_black(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket/really_black(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("roman")
 				var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
 				M.equip_to_slot_or_del(new hat(M), slot_head)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/roman(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/shield/riot/roman(M), slot_l_hand)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
@@ -545,7 +545,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(M), slot_head)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("cultist")
@@ -555,14 +555,14 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("highlander")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/kilt(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/beret(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("clown")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(M), slot_wear_mask)
@@ -570,7 +570,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("killer")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/misc/overalls(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/overalls(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), slot_wear_mask)
@@ -585,7 +585,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 						carried_item.add_mob_blood(M)
 
 			if("pirate")
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), slot_glasses)
@@ -598,7 +598,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hgpirate(M), slot_wear_suit)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/soviet(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/soviet(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("officer")
@@ -614,7 +614,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			if("gladiator")
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/gladiator(M), slot_head)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/gladiator(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/gladiator(M), slot_w_uniform)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
@@ -704,7 +704,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(heresy)
 		spawnheresy(M)//oh god why
 	else
-		M.set_species(/datum/species/skeleton) // OP skellybones
+		M.set_species(/datum/species/skeleton)
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()
@@ -718,7 +718,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(unlimited) //no point, the list isn't used.
 		return
 	for(var/X in spooky_scaries)
-		if(!ishuman(X))
+		if(!istype(X, /mob/living/carbon/human))
 			spooky_scaries.Remove(X)
 			continue
 		var/mob/living/carbon/human/H = X
@@ -739,13 +739,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if("roman")
 			var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
 			H.equip_to_slot_or_del(new hat(H), slot_head)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/roman(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/claymore(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
 		if("pirate")
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(H),  slot_wear_suit)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(H), slot_head)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
@@ -756,13 +756,13 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if("yand")//mine is an evil laugh
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 			H.equip_to_slot_or_del(new /obj/item/katana(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
 		if("clown")
-			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(H), slot_w_uniform)
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), slot_wear_mask)
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(H), slot_head)
@@ -791,7 +791,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	H.revive()
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/kitty(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/dress/schoolgirl(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/schoolgirl(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H),  slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/katana(H), slot_r_hand)
 	H.equip_to_slot_or_del(new /obj/item/shield/riot/roman(H), slot_l_hand)
@@ -814,43 +814,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	unlimited = 1
 
 /obj/item/organ/internal/heart/cursed/wizard
-	max_shocks_allowed = 3
 	pump_delay = 60
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
-
-/obj/item/reagent_containers/food/drinks/everfull
-	name = "everfull mug"
-	desc = "An enchanted mug which can be filled with any of various liquids on command."
-	icon_state = "evermug"
-
-/obj/item/reagent_containers/food/drinks/everfull/attack_self(mob/user)
-	var/static/list/options = list("Omnizine" = image(icon = 'icons/obj/storage.dmi', icon_state = "firstaid"),
-							"Ale" = image(icon = 'icons/obj/drinks.dmi', icon_state = "alebottle"),
-							"Wine" = image(icon = 'icons/obj/drinks.dmi', icon_state = "wineglass"),
-							"Holy Water" = image(icon = 'icons/obj/drinks.dmi', icon_state = "holyflask"),
-							"Welder Fuel" = image(icon = 'icons/obj/objects.dmi', icon_state = "fuel"),
-							"Vomit" = image(icon = 'icons/effects/blood.dmi', icon_state = "vomit_1"))
-	var/static/list/options_to_reagent = list("Omnizine" = "omnizine",
-									"Ale" = "ale",
-									"Wine" = "wine",
-									"Holy Water" = "holywater",
-									"Welder Fuel" = "fuel",
-									"Vomit" = "vomit")
-	var/static/list/options_to_descriptions = list("Omnizine" = "a strange pink-white liquid",
-												"Ale" = "foamy amber ale",
-												"Wine" = "deep red wine",
-												"Holy Water" = "sparkling clear water",
-												"Welder Fuel" = "a dark, pungent, oily substance",
-												"Vomit" = "warm chunky vomit")
-
-	var/choice = show_radial_menu(user, src, options)
-	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
-		return
-	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")
-	magic_fill(options_to_reagent[choice])
-
-/obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
-	reagents.clear_reagents()
-	reagents.add_reagent(reagent_choice, volume)

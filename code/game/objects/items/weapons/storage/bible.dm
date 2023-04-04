@@ -1,8 +1,6 @@
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Apply to head repeatedly."
-	lefthand_file = 'icons/mob/inhands/religion_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/religion_righthand.dmi'
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
@@ -20,21 +18,17 @@
 		"Bible" =			   list("state" = "bible",		  "inhand" = "bible"),
 		"Koran" =			   list("state" = "koran",		  "inhand" = "koran"),
 		"Scrapbook" =		   list("state" = "scrapbook",	  "inhand" = "scrapbook"),
-		"Creeper" =			   list("state" = "creeper",	  "inhand" = "generic_bible"),
-		"White Bible" =		   list("state" = "white",		  "inhand" = "generic_bible"),
-		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "generic_bible"),
-		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "generic_bible"),
-		"Tome" =			   list("state" = "tome",		  "inhand" = "generic_bible"),
+		"Creeper" =			   list("state" = "creeper",	  "inhand" = "syringe_kit"),
+		"White Bible" =		   list("state" = "white",		  "inhand" = "syringe_kit"),
+		"Holy Light" =		   list("state" = "holylight",	  "inhand" = "syringe_kit"),
+		"PlainRed" =		   list("state" = "athiest",	  "inhand" = "syringe_kit"),
+		"Tome" =			   list("state" = "tome",		  "inhand" = "syringe_kit"),
 		"The King in Yellow" = list("state" = "kingyellow",	  "inhand" = "kingyellow"),
 		"Ithaqua" =			   list("state" = "ithaqua",	  "inhand" = "ithaqua"),
 		"Scientology" =		   list("state" = "scientology",  "inhand" = "scientology"),
 		"the bible melts" =	   list("state" = "melted",		  "inhand" = "melted"),
 		"Necronomicon" =	   list("state" = "necronomicon", "inhand" = "necronomicon"),
 		"Greentext" =		   list("state" = "greentext",	  "inhand" = "greentext"),
-		"Honkmother" =		   list("state" = "honk",		  "inhand" = "honk"),
-		"Silentfather" =	   list("state" = "mime",		  "inhand" = "mime"),
-		"Clockwork" =		   list("state" = "clock_bible",  "inhand" = "clock_bible"),
-		"Nanotrasen" =		   list("state" = "nanotrasen",	  "inhand" = "nanotrasen")
 	)
 
 /obj/item/storage/bible/suicide_act(mob/user)
@@ -99,13 +93,13 @@
 		var/mob/living/carbon/human/H = M
 		if(prob(60))
 			bless(H)
-			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_themselves()]" : "[H]"] with the power of [deity_name]!</span>",
+			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_them()]self" : "[H]"] with the power of [deity_name]!</span>",
 				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")
 			playsound(loc, "punch", 25, 1, -1)
 		else
 			M.adjustBrainLoss(10)
 			to_chat(M, "<span class='warning'>You feel dumber.</span>")
-			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_themselves()]" : "[H]"] over the head with [src]!</span>")
+			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
 			playsound(src.loc, "punch", 25, 1, -1)
 	else
 		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
@@ -151,7 +145,7 @@
 		var/image/bible_image = image('icons/obj/storage.dmi', icon_state = icons["state"])
 		skins[I] = bible_image
 
-	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, PROC_REF(radial_check), user), TRUE)
+	var/choice = show_radial_menu(user, src, skins, null, 40, CALLBACK(src, .proc/radial_check, user), TRUE)
 	if(!choice || !radial_check(user))
 		return
 	var/choice_icons = bible_variants[choice]
@@ -189,9 +183,3 @@
 	if(!src || !H.is_in_hands(src) || H.incapacitated())
 		return FALSE
 	return TRUE
-
-/obj/item/storage/bible/syndi
-	name = "suspicious bible"
-	desc = "For treading the line between cultist, contraband, and a hostile corporation."
-	customisable = FALSE
-	icon_state = "syndi"

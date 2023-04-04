@@ -141,11 +141,11 @@ GLOBAL_LIST_EMPTY(safes)
 	if(..())
 		return TRUE
 
-	if(drill && !broken)
+	if(drill)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
 				if(do_after(user, 2 SECONDS, target = src))
-					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
+					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()
@@ -155,7 +155,6 @@ GLOBAL_LIST_EMPTY(safes)
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
-					cut_overlay(progress_bar)
 					update_icon()
 					STOP_PROCESSING(SSobj, src)
 			if("Remove Drill")
@@ -167,10 +166,6 @@ GLOBAL_LIST_EMPTY(safes)
 					update_icon()
 			if("Cancel")
 				return
-	else if(drill && broken)
-		user.put_in_hands(drill)
-		drill = null
-		update_icon()
 	else
 		ui_interact(user)
 
@@ -182,7 +177,6 @@ GLOBAL_LIST_EMPTY(safes)
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
 			broken = FALSE
-			locked = FALSE
 			update_icon()
 		else if(I.w_class + space <= maxspace)
 			if(!user.drop_item())
@@ -249,14 +243,8 @@ GLOBAL_LIST_EMPTY(safes)
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		var/list/accessories = H.w_uniform?.accessories
-		if(H.can_hear()) // This is cursed but is_type_in_list somehow fails
-			if(H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
-				canhear = TRUE
-			else
-				for(var/obj/item/clothing/accessory/stethoscope/S in accessories)
-					canhear = TRUE
-					break
+		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+			canhear = TRUE
 
 	. = TRUE
 	switch(action)
@@ -282,7 +270,7 @@ GLOBAL_LIST_EMPTY(safes)
 					current_tumbler_index = 1
 
 				if(!invalid_turn && dial == tumblers[current_tumbler_index])
-					notify_user(usr, canhear, list("tink", "krink", "plink"), ticks, i, TRUE)
+					notify_user(usr, canhear, list("tink", "krink", "plink"), ticks, i)
 					current_tumbler_index++
 				else
 					notify_user(usr, canhear, list("clack", "scrape", "clank"), ticks, i)
@@ -302,7 +290,7 @@ GLOBAL_LIST_EMPTY(safes)
 					current_tumbler_index = 1
 
 				if(!invalid_turn && dial == tumblers[current_tumbler_index])
-					notify_user(usr, canhear, list("tonk", "krunk", "plunk"), ticks, i, TRUE)
+					notify_user(usr, canhear, list("tonk", "krunk", "plunk"), ticks, i)
 					current_tumbler_index++
 				else
 					notify_user(usr, canhear, list("click", "chink", "clink"), ticks, i)
@@ -336,14 +324,14 @@ GLOBAL_LIST_EMPTY(safes)
 /**
   * Called every dial turn to provide feedback if possible.
   */
-/obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick, correct_sound)
+/obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick)
 	if(!canhear)
 		return
 
 	if(current_tick == 2)
 		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
 	if(total_ticks == 1 || prob(SOUND_CHANCE))
-		to_chat(user, "<span class='[correct_sound ? "bolditalics" : "italics"]'>You hear a [pick(sounds)] from [src].</span>")
+		to_chat(user, "<span class='italics'>You hear a [pick(sounds)] from [src].</span>")
 
 /**
   * Returns the combination to unlock the safe as text.
@@ -358,8 +346,6 @@ GLOBAL_LIST_EMPTY(safes)
 	broken = TRUE
 	drill_timer = null
 	drill.soundloop.stop()
-	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	cut_overlay(progress_bar)
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
 
@@ -373,8 +359,7 @@ GLOBAL_LIST_EMPTY(safes)
 	icon_state = "floorsafe"
 	density = FALSE
 	level = 1 //Under the floor
-	plane = FLOOR_PLANE
-	layer = ABOVE_PLATING_LAYER
+	layer = LOW_OBJ_LAYER
 	drill_x_offset = -1
 	drill_y_offset = 20
 

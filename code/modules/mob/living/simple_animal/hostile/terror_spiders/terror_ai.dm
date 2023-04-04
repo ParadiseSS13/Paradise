@@ -181,7 +181,7 @@
 			var/mob/living/M = A
 			if(!("terrorspiders" in M.faction))
 				enemies |= M
-		else if(ismecha(A))
+		else if(istype(A, /obj/mecha))
 			var/obj/mecha/M = A
 			if(M.occupant)
 				enemies |= M
@@ -225,7 +225,7 @@
 	for(var/obj/O in can_see)
 		if(O.anchored)
 			continue
-		if(isitem(O) || isstructure(O) || ismachinery(O))
+		if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
 			if(!istype(O, /obj/item/paper))
 				cocoon_target = O
 				stop_automated_movement = TRUE
@@ -345,3 +345,12 @@
 	if(!target)
 		return
 	. = ..()
+
+// --------------------------------------------------------------------------------
+// --------------------- TERROR SPIDERS: MISC AI CODE -----------------------------
+// --------------------------------------------------------------------------------
+
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/UnlockBlastDoors(target_id_tag)
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
+		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
+			P.open()

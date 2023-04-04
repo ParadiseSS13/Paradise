@@ -12,6 +12,7 @@
 	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."
 	icon_state = "smes"
 	density = TRUE
+	use_power = NO_POWER_USE
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -157,7 +158,7 @@
 			if(NORTHWEST, SOUTHWEST)
 				tempDir = WEST
 		var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
-		if(isspaceturf(tempLoc))
+		if(istype(tempLoc, /turf/space))
 			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
 			return
 		else if(istype(tempLoc))
@@ -424,7 +425,7 @@
 				M.show_message("<span class='warning'>[src] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
 			sleep(10*pick(4,5,6,7,10,14))
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(3, FALSE, loc)
+			smoke.set_up(3, 0, src.loc)
 			smoke.attach(src)
 			smoke.start()
 			explosion(src.loc, -1, 0, 1, 3, 1, 0)
@@ -438,7 +439,7 @@
 				emp_act(2)
 		if(prob(5)) //smoke only
 			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(3, FALSE, loc)
+			smoke.set_up(3, 0, src.loc)
 			smoke.attach(src)
 			smoke.start()
 

@@ -55,14 +55,9 @@
 				return TRUE
 		if("shock")
 			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
-			if(!istype(MT))
-				return
-			// Is it sabotaged already?
-			var/error_message = MT.shock()
-			if(error_message)
-				atom_say(error_message)
-				return FALSE
-			return TRUE
+			if(istype(MT))
+				MT.shock()
+				return TRUE
 		if("get_log")
 			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
 			if(istype(MT))
@@ -80,7 +75,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "programming=2;magnets=2"
 	var/ai_beacon = FALSE //If this beacon allows for AI control. Exists to avoid using istype() on checking.
-	var/charges_left = 2
 
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info()
 	if(!in_mecha())
@@ -141,7 +135,7 @@
 	data["cell"] = M.cell
 	if(M.cell)
 		data["cellCharge"] = M.cell.charge
-		data["cellMaxCharge"] = M.cell.maxcharge
+		data["cellMaxCharge"] = M.cell.charge
 	data["airtank"] = M.return_pressure()
 	data["pilot"] = M.occupant
 	data["location"] = get_area(M)
@@ -156,32 +150,15 @@
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_tracking/proc/in_mecha()
-	if(ismecha(loc))
+	if(istype(loc, /obj/mecha))
 		return loc
 	return FALSE
 
-// Makes the user lose control over the exosuit's coordination system.
-// They can still move around and use tools, they just cannot tell the exosuit which way to go.
 /obj/item/mecha_parts/mecha_tracking/proc/shock()
-	var/obj/mecha/mech = in_mecha()
-	var/error_message
-
-	if(!mech)
-		error_message = "This tracking beacon is no longer in an exosuit."
-		return error_message
-
-	if(mech.internal_damage & MECHA_INT_CONTROL_LOST)
-		error_message = "The exosuit's coordination system is not responding."
-		return error_message
-
-	mech.setInternalDamage(MECHA_INT_CONTROL_LOST)
-	if(mech.occupant)
-		mech.occupant_message("<span class='danger'>Coordination system calibration failure. Manual restart required.</span>")
-		SEND_SOUND(mech.occupant, sound('sound/machines/warning-buzzer.ogg'))
-
-	charges_left--
-	if(charges_left < 1)
-		qdel(src)
+	var/obj/mecha/M = in_mecha()
+	if(M)
+		M.emp_act(2)
+	qdel(src)
 
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_log()
 	if(!in_mecha())

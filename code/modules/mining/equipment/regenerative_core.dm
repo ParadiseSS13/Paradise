@@ -32,7 +32,7 @@
 
 /obj/item/organ/internal/regenerative_core/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(inert_check)), 2400)
+	addtimer(CALLBACK(src, .proc/inert_check), 2400)
 
 /obj/item/organ/internal/regenerative_core/proc/inert_check()
 	if(!preserved)
@@ -122,7 +122,7 @@
 
 /obj/item/organ/internal/regenerative_core/legion/update_icon_state()
 	icon_state = inert ? "legion_soul_inert" : "legion_soul"
-
+	
 /obj/item/organ/internal/regenerative_core/legion/update_overlays()
 	. = ..()
 	if(!inert && !preserved)

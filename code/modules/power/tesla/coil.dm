@@ -92,7 +92,7 @@
 		//don't lose arc power when it's not connected to anything
 		//please place tesla coils all around the station to maximize effectiveness
 		being_shocked = TRUE
-		addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 1 SECONDS)
+		addtimer(CALLBACK(src, .proc/reset_shocked), 1 SECONDS)
 		zap_buckle_check(power)
 		if(zap_flags & ZAP_GENERATES_POWER) //I don't want no tesla revolver making 8GW you hear
 			return power / 2

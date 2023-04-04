@@ -48,8 +48,6 @@
 				qdel(S)
 			else
 				S.be_replaced()
-	if(mind?.current == src)
-		mind.current = null
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -150,7 +148,9 @@
 	if(!(M.status_flags & CANPUSH))
 		return TRUE
 	//anti-riot equipment is also anti-push
-	if(M.r_hand?.GetComponent(/datum/component/parry) || M.l_hand?.GetComponent(/datum/component/parry))
+	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
+		return TRUE
+	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
 		return TRUE
 
 //Called when we bump into an obj
@@ -201,9 +201,6 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return TRUE // Unless you're a mule, something's trying to run you over.
-
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
@@ -251,24 +248,18 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
-	return ..()
-
-/mob/living/run_pointed(atom/A)
 	if(!..())
 		return FALSE
 	var/obj/item/hand_item = get_active_hand()
-	var/pointed_object = "\the [A]"
-	if(A.loc in src)
-		pointed_object += " inside [A.loc]"
 	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
-			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
+			visible_message("<b>[src]</b> points to [A] with [hand_item]")
 			return TRUE
-		A.visible_message("<span class='danger'>[src] points [hand_item] at [pointed_object]!</span>",
+		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
 		SEND_SOUND(A, sound('sound/weapons/targeton.ogg'))
 		return TRUE
-	visible_message("<b>[src]</b> points to [pointed_object]")
+	visible_message("<b>[src]</b> points to [A]")
 	return TRUE
 
 /mob/living/verb/succumb()
@@ -361,12 +352,12 @@
 
 		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
 			L += G.gift
-			if(isstorage(G.gift))
+			if(istype(G.gift, /obj/item/storage))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
-			if(isstorage(D.wrapped)) //this should never happen
+			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
 				L += get_contents(D.wrapped)
 		return L
 
@@ -383,12 +374,12 @@
 			L += I.get_contents()
 		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
-			if(isstorage(G.gift))
+			if(istype(G.gift, /obj/item/storage))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
-			if(isstorage(D.wrapped)) //this should never happen
+			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
 				L += get_contents(D.wrapped)
 		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
@@ -433,7 +424,7 @@
 
 		if(C.reagents)
 			C.reagents.clear_reagents()
-			QDEL_LIST_CONTENTS(C.reagents.addiction_list)
+			QDEL_LIST(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
 		if(iscultist(src))
 			if(SSticker.mode.cult_risen)
@@ -441,7 +432,7 @@
 			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(src)
 
-		QDEL_LIST_CONTENTS(C.processing_patches)
+		QDEL_LIST(C.processing_patches)
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
@@ -726,10 +717,6 @@
 	set name = "Resist"
 	set category = "IC"
 
-	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
-
-///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
-/mob/living/proc/run_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -808,9 +795,6 @@
 /mob/living/proc/get_visible_name()
 	return name
 
-/mob/living/proc/is_facehugged()
-	return FALSE
-
 /mob/living/update_gravity(has_gravity)
 	if(!SSticker)
 		return
@@ -839,18 +823,11 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
-//Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
-/mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
-	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
-		return FALSE
-
-	return TRUE
-
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
-	if(can_be_flashed(intensity, override_blindness_check))
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
+		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
 
 /mob/living/proc/check_eye_prot()
@@ -940,14 +917,14 @@
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	var/loc_temp = T0C
-	if(ismecha(loc))
+	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature
 
-	else if(isspaceturf(get_turf(src)))
+	else if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
 		loc_temp = heat_turf.temperature
 
@@ -998,15 +975,6 @@
 		visible_message("<span class='notice'>[user] butchers [src].</span>")
 		gib()
 
-/mob/living/proc/can_use(atom/movable/M, be_close = FALSE)
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
-		return FALSE
-	if(be_close && !in_range(M, src))
-		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	return TRUE
-
 /mob/living/movement_delay(ignorewalk = 0)
 	. = ..()
 	if(isturf(loc))
@@ -1032,10 +1000,7 @@
 /mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return FALSE
-	if(G.trigger_guard == TRIGGER_GUARD_NONE)
-		to_chat(src, "<span class='warning'>This gun is only built to be fired by machines!</span>")
-		return FALSE
+		return 0
 	return 1
 
 /mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
@@ -1111,10 +1076,10 @@
 /mob/living/proc/fakefire()
 	return
 
-/mob/living/extinguish_light(force = FALSE)
+/mob/living/extinguish_light()
 	for(var/atom/A in src)
 		if(A.light_range > 0)
-			A.extinguish_light(force)
+			A.extinguish_light()
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1134,6 +1099,6 @@
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force)
 	stop_pulling()
 	return ..()

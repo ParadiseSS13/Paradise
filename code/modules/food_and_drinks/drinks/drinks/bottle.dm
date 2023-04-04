@@ -107,8 +107,8 @@
 		target.visible_message("<span class='danger'>[user] has hit [target][head_attack_message] with a bottle of [name]!</span>", \
 				"<span class='userdanger'>[user] has hit [target][head_attack_message] with a bottle of [name]!</span>")
 	else
-		user.visible_message("<span class='danger'>[target] hits [target.p_themselves()] with a bottle of [name][head_attack_message]!</span>", \
-				"<span class='userdanger'>[target] hits [target.p_themselves()] with a bottle of [name][head_attack_message]!</span>")
+		user.visible_message("<span class='danger'>[target] hits [target.p_them()]self with a bottle of [name][head_attack_message]!</span>", \
+				"<span class='userdanger'>[target] hits [target.p_them()]self with a bottle of [name][head_attack_message]!</span>")
 
 	//Attack logs
 	add_attack_logs(user, target, "Hit with [src]")
@@ -386,7 +386,7 @@
 					var/counter
 					var/target = loc
 					for(counter = 0, counter < 2, counter++)
-						if(isstorage(target))
+						if(istype(target, /obj/item/storage))
 							var/obj/item/storage/S = target
 							target = S.loc
 					if(istype(target, /atom))

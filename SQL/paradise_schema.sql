@@ -287,8 +287,6 @@ CREATE TABLE `player` (
   `ghost_darkness_level` tinyint(1) UNSIGNED NOT NULL DEFAULT '255',
   `colourblind_mode` VARCHAR(48) NOT NULL DEFAULT 'None' COLLATE 'utf8mb4_general_ci',
   `keybindings` LONGTEXT COLLATE 'utf8mb4_unicode_ci' DEFAULT NULL,
-  `server_region` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
-  `muted_adminsounds_ckeys` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
@@ -313,6 +311,56 @@ CREATE TABLE `privacy` (
   PRIMARY KEY (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `karma_log`
+--
+
+DROP TABLE IF EXISTS `karma_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `karma_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `spendername` text NOT NULL,
+  `spenderkey` text NOT NULL,
+  `receivername` text NOT NULL,
+  `receiverkey` text NOT NULL,
+  `receiverrole` text,
+  `receiverspecial` text,
+  `isnegative` tinyint(1) DEFAULT NULL,
+  `spenderip` text NOT NULL,
+  `server_id` TEXT NULL DEFAULT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=73614 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `karma_totals`
+--
+
+DROP TABLE IF EXISTS `karma_totals`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `karma_totals` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `byondkey` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `karma` int(11) NOT NULL,
+  `karmaspent` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `byondkey` (`byondkey`)
+) ENGINE=InnoDB AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `karma_purchases`;
+CREATE TABLE `karma_purchases` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`ckey` VARCHAR(32) NOT NULL COLLATE 'utf8_general_ci',
+	`purchase` VARCHAR(64) NOT NULL COLLATE 'utf8_general_ci',
+	`purchase_time` DATETIME NOT NULL DEFAULT current_timestamp(),
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `ckey` (`ckey`, `purchase`) USING BTREE
+) COLLATE='utf8_general_ci' ENGINE=InnoDB;
 
 --
 -- Table structure for table `library`
@@ -580,25 +628,3 @@ CREATE TABLE `instance_data_cache` (
 	`last_updated` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
 	PRIMARY KEY (`server_id`, `key_name`) USING HASH
 ) COLLATE='utf8mb4_general_ci' ENGINE=MEMORY;
-
---
--- Table structure for table `tickets`
---
-DROP TABLE IF EXISTS `tickets`;
-CREATE TABLE `tickets` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`ticket_num` INT(11) NOT NULL,
-	`ticket_type` ENUM('ADMIN','MENTOR') NOT NULL COLLATE 'utf8mb4_general_ci',
-	`real_filetime` DATETIME NOT NULL,
-	`relative_filetime` TIME NOT NULL,
-	`ticket_creator` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`ticket_topic` TEXT NOT NULL COLLATE 'utf8mb4_general_ci',
-	`ticket_taker` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
-	`ticket_take_time` DATETIME NULL DEFAULT NULL,
-	`all_responses` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
-	`awho` LONGTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
-	`end_round_state` ENUM('OPEN','CLOSED','RESOLVED','STALE','UNKNOWN') NOT NULL COLLATE 'utf8mb4_general_ci',
-	PRIMARY KEY (`id`) USING BTREE,
-	CONSTRAINT `all_responses` CHECK (json_valid(`all_responses`)),
-	CONSTRAINT `awho` CHECK (json_valid(`awho`))
-) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;

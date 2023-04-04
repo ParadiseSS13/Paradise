@@ -13,10 +13,11 @@
 	bot_type = CLEAN_BOT
 	model = "Cleanbot"
 	bot_purpose = "seek out messes and clean them"
-	req_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
+	bot_core_type = /obj/machinery/bot_core/cleanbot
 	window_id = "autoclean"
 	window_name = "Automatic Station Cleaner v1.1"
 	pass_flags = PASSMOB
+	path_image_color = "#993299"
 
 
 	var/blood = TRUE
@@ -60,7 +61,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
-		if(allowed(user) && !open && !emagged)
+		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
 		else
@@ -92,7 +93,7 @@
 		return
 
 	if(emagged == 2) //Emag functions
-		if(issimulatedturf(loc))
+		if(istype(loc,/turf/simulated))
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
 				T.MakeSlippery()
@@ -114,15 +115,10 @@
 		if(mode == BOT_PATROL)
 			bot_patrol()
 
-	if(target && loc == get_turf(target))
-		start_clean(target)
-		path = list()
-		target = null
-
 	if(target)
-		if(!path || !length(path)) //No path, need a new one
+		if(!path || path.len == 0) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target, 30, id=access_card)
+			path = get_path_to(src, target.loc, /turf/proc/Distance_cardinal, 0, 30, id=access_card)
 			if(!bot_move(target))
 				add_to_ignore(target)
 				target = null
@@ -133,6 +129,11 @@
 			target = null
 			mode = BOT_IDLE
 			return
+
+	if(target && loc == target.loc)
+		clean(target)
+		path = list()
+		target = null
 
 	oldloc = loc
 
@@ -162,19 +163,17 @@
 		target_types += /obj/effect/decal/cleanable/dirt
 		target_types += /obj/effect/decal/cleanable/trail_holder
 
-/mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
+/mob/living/simple_animal/bot/cleanbot/proc/clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
 	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
-	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
-
-/mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
-	if(mode == BOT_CLEANING)
-		QDEL_NULL(target)
-		anchored = FALSE
-	mode = BOT_IDLE
-	icon_state = "cleanbot[on]"
+	spawn(50)
+		if(mode == BOT_CLEANING)
+			QDEL_NULL(target)
+			anchored = FALSE
+		mode = BOT_IDLE
+		icon_state = "cleanbot[on]"
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
@@ -186,6 +185,10 @@
 		drop_part(robot_arm, Tsec)
 	do_sparks(3, 1, src)
 	..()
+
+/obj/machinery/bot_core/cleanbot
+	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
+
 
 /mob/living/simple_animal/bot/cleanbot/show_controls(mob/M)
 	ui_interact(M)
@@ -242,6 +245,6 @@
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
 	if(istype(A,/obj/effect/decal/cleanable))
-		start_clean(A)
+		clean(A)
 	else
 		..()

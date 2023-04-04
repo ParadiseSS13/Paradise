@@ -7,7 +7,7 @@
 
 /obj/item/stack/ore
 	name = "rock"
-	icon = 'icons/obj/stacks/ores.dmi'
+	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
 	max_amount = 50
 	singular_name = "ore chunk"
@@ -71,8 +71,8 @@
 
 /obj/item/stack/ore/uranium
 	name = "uranium ore"
-	icon_state = "uranium_ore"
-	item_state = "uranium_ore"
+	icon_state = "Uranium ore"
+	item_state = "Uranium ore"
 	origin_tech = "materials=5"
 	singular_name = "uranium ore chunk"
 	points = 30
@@ -81,8 +81,8 @@
 
 /obj/item/stack/ore/iron
 	name = "iron ore"
-	icon_state = "iron_ore"
-	item_state = "iron_ore"
+	icon_state = "Iron ore"
+	item_state = "Iron ore"
 	origin_tech = "materials=1"
 	singular_name = "iron ore chunk"
 	points = 1
@@ -91,8 +91,8 @@
 
 /obj/item/stack/ore/glass
 	name = "sand pile"
-	icon_state = "sand"
-	item_state = "sand"
+	icon_state = "Glass ore"
+	item_state = "Glass ore"
 	origin_tech = "materials=1"
 	singular_name = "sand pile"
 	points = 1
@@ -136,18 +136,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon_state = "volcanic_sand"
 	item_state = "volcanic_sand"
 	singular_name = "volcanic ash pile"
-	desc = "Looks like you could shove some on a girder to make a false rock wall"
-
-/obj/item/stack/ore/glass/basalt/ancient
-	name = "ancient sand"
-	icon_state = "volcanic_sand"
-	item_state = "volcanic_sand"
-	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
-	icon_state = "plasma_ore"
-	item_state = "plasma_ore"
+	icon_state = "Plasma ore"
+	item_state = "Plasma ore"
 	origin_tech = "plasmatech=2;materials=2"
 	singular_name = "plasma ore chunk"
 	points = 15
@@ -156,8 +149,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/silver
 	name = "silver ore"
-	icon_state = "silver_ore"
-	item_state = "silver_ore"
+	icon_state = "Silver ore"
+	item_state = "Silver ore"
 	origin_tech = "materials=3"
 	singular_name = "silver ore chunk"
 	points = 16
@@ -166,8 +159,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/gold
 	name = "gold ore"
-	icon_state = "gold_ore"
-	item_state = "gold_ore"
+	icon_state = "Gold ore"
+	item_state = "Gold ore"
 	origin_tech = "materials=4"
 	singular_name = "gold ore chunk"
 	points = 18
@@ -176,8 +169,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/diamond
 	name = "diamond ore"
-	icon_state = "diamond_ore"
-	item_state = "diamond_ore"
+	icon_state = "Diamond ore"
+	item_state = "Diamond ore"
 	origin_tech = "materials=6"
 	singular_name = "diamond ore chunk"
 	points = 50
@@ -186,8 +179,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
-	icon_state = "bananium_ore"
-	item_state = "bananium_ore"
+	icon_state = "Clown ore"
+	item_state = "Clown ore"
 	origin_tech = "materials=4"
 	singular_name = "bananium ore chunk"
 	points = 60
@@ -196,8 +189,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/tranquillite
 	name = "tranquillite ore"
-	icon_state = "tranquillite_ore"
-	item_state = "tranquillite_ore"
+	icon_state = "Mime ore"
+	item_state = "Mime ore"
 	origin_tech = "materials=4"
 	singular_name = "transquillite ore chunk"
 	points = 60
@@ -206,8 +199,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/stack/ore/titanium
 	name = "titanium ore"
-	icon_state = "titanium_ore"
-	item_state = "titanium_ore"
+	icon_state = "Titanium ore"
+	item_state = "Titanium ore"
 	singular_name = "titanium ore chunk"
 	points = 50
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -481,8 +474,8 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
 		if(do_after(user, 15, target = src))
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
-								"<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
-								"<span class='notice'>You hear the clattering of loose change.</span>")
+								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
+								 "<span class='notice'>You hear the clattering of loose change.</span>")
 
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM

@@ -7,7 +7,7 @@
 	target.visible_message("<span class='danger'>[user] throws an invisible smoke bomb!!</span>")
 
 	var/datum/effect_system/smoke_spread/bad/smoke = new
-	smoke.set_up(5, FALSE, target)
+	smoke.set_up(5, 0, target.loc)
 	smoke.start()
 
 	return MARTIAL_COMBO_DONE_BASIC_HIT

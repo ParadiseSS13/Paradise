@@ -70,7 +70,7 @@
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
 
 /obj/item/seeds/Destroy()
-	QDEL_LIST_CONTENTS(genes)
+	QDEL_LIST(genes)
 	return ..()
 
 /obj/item/seeds/proc/Copy()
@@ -327,7 +327,7 @@
 			to_chat(user, "<span class='notice'>[text]</span>")
 
 		return
-	if(is_pen(O))
+	if(istype(O, /obj/item/pen))
 		variant_prompt(user)
 		return
 	..() // Fallthrough to item/attackby() so that bags can pick seeds up
@@ -378,14 +378,14 @@
 		for(var/i in 1 to seed.growthstages)
 			if("[seed.icon_grow][i]" in states)
 				continue
-			stack_trace("[seed.name] ([seed.type]) lacks the [seed.icon_grow][i] icon!")
+			log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_grow][i] icon!")
 
 		if(!(seed.icon_dead in states))
-			stack_trace("[seed.name] ([seed.type]) lacks the [seed.icon_dead] icon!")
+			log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_dead] icon!")
 
 		if(seed.icon_harvest) // mushrooms have no grown sprites, same for items with no product
 			if(!(seed.icon_harvest in states))
-				stack_trace("[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
+				log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
 
 /obj/item/seeds/proc/randomize_stats()
 	set_lifespan(rand(25, 60))

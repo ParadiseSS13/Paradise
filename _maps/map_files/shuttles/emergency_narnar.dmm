@@ -64,9 +64,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "an" = (
-/obj/machinery/computer/robotics{
-	dir = 4
-	},
+/obj/machinery/computer/robotics,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ao" = (
@@ -77,6 +75,12 @@
 /area/shuttle/escape)
 "ap" = (
 /obj/machinery/light/spot,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/escape)
+"aq" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "ar" = (
@@ -583,7 +587,7 @@ ab
 ab
 ak
 am
-aj
+aq
 ab
 aj
 aj
@@ -609,7 +613,7 @@ aa
 ab
 ac
 ab
-ao
+aj
 ab
 aj
 aj

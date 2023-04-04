@@ -1,7 +1,6 @@
 /obj/item/gun/projectile/revolver
 	name = "\improper .357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
-	materials = list()
 	icon_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
@@ -29,8 +28,6 @@
 
 /obj/item/gun/projectile/revolver/attackby(obj/item/A, mob/user, params)
 	. = ..()
-	if(istype(A, /obj/item/ammo_box/b357))
-		return
 	if(.)
 		return
 	var/num_loaded = magazine.attackby(A, user, params, 1)
@@ -317,8 +314,8 @@
 		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
-	. = ..()
-	weapon_weight = WEAPON_MEDIUM
+    . = ..()
+    weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0

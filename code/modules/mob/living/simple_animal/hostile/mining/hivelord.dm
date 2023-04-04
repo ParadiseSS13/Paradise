@@ -90,7 +90,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(death)), 100)
+	addtimer(CALLBACK(src, .proc/death), 100)
 	AddComponent(/datum/component/swarming)
 
 
@@ -179,6 +179,11 @@
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize(mapload)
+	. = ..()
+	if(prob(5))
+		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
+		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
@@ -274,51 +279,42 @@
 	can_infest_dead = TRUE
 
 //Legion that spawns Legions
-/mob/living/simple_animal/hostile/asteroid/big_legion
-	name = "big legion"
-	desc = "This monstrosity has clearly been corrupting for centuries, and is looking for a fight. Rumours claim it is capable of throwing the strongest of miners and his name is Billy."
+/mob/living/simple_animal/hostile/big_legion
+	name = "legion"
+	desc = "One of many."
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "legion"
 	icon_living = "legion"
-	icon_dead = "legion-dead"
-	health = 350
-	maxHealth = 350
-	melee_damage_lower = 30
-	melee_damage_upper = 30
+	icon_dead = "legion"
+	health = 450
+	maxHealth = 450
+	melee_damage_lower = 20
+	melee_damage_upper = 20
+	anchored = FALSE
+	AIStatus = AI_ON
+	stop_automated_movement = FALSE
 	wander = TRUE
+	maxbodytemp = INFINITY
 	layer = MOB_LAYER
-	move_force = MOVE_FORCE_VERY_STRONG
-	move_resist = MOVE_FORCE_VERY_STRONG
-	pull_force = MOVE_FORCE_VERY_STRONG
+	del_on_death = TRUE
 	sentience_type = SENTIENCE_BOSS
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	speed = 0
+	loot = list(/obj/item/organ/internal/regenerative_core/legion = 3, /obj/effect/mob_spawn/human/corpse/damaged/legioninfested = 5)
+	move_to_delay = 14
+	vision_range = 5
+	aggro_vision_range = 9
+	speed = 3
+	faction = list("mining")
+	weather_immunities = list("lava","ash")
+	obj_damage = 30
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-/mob/living/simple_animal/hostile/asteroid/big_legion/AttackingTarget()
-	if(!isliving(target))
-		return ..()
-	var/mob/living/L = target
-	var/datum/status_effect/stacking/ground_pound/G = L.has_status_effect(STATUS_EFFECT_GROUNDPOUND)
-	if(!G)
-		L.apply_status_effect(STATUS_EFFECT_GROUNDPOUND, 1, src)
-		return ..()
-	if(G.add_stacks(stacks_added = 1, attacker = src))
-		return ..()
 
-/mob/living/simple_animal/hostile/asteroid/big_legion/proc/throw_mobs()
-	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
-	for(var/mob/living/L in range(3, src))
-		if(faction_check(faction, L.faction, FALSE))
-			continue
-
-		L.visible_message("<span class='danger'>[L] was thrown by [src]!</span>",
-		"<span class='userdanger'>You feel a strong force throwing you!</span>",
-		"<span class='danger'>You hear a thud.</span>")
-		var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
-		L.throw_at(throw_target, 4, 4)
-		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-		var/armor = L.run_armor_check(def_zone = limb_to_hit, attack_flag = MELEE, armour_penetration_percentage = 50)
-		L.apply_damage(40, BRUTE, limb_to_hit, armor)
+/mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
+	.=..()
+	AddComponent(/datum/component/spawner, list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion), 200, faction, "peels itself off from", 3)
 
 //Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
@@ -327,7 +323,7 @@
 	mob_name = "ashen skeleton"
 	mob_gender = NEUTER
 	husk = FALSE
-	mob_species = /datum/species/skeleton/brittle
+	mob_species = /datum/species/skeleton
 	mob_color = "#454545"
 
 //Legion infested mobs
@@ -343,7 +339,7 @@
 	switch(type)
 		if("Miner")
 			mob_species = pickweight(list(/datum/species/human = 72, /datum/species/unathi = 28))
-			uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
+			uniform = /obj/item/clothing/under/rank/miner/lavaland
 			if(prob(4))
 				belt = pickweight(list(/obj/item/storage/belt/mining = 2, /obj/item/storage/belt/mining/alt = 2))
 			else if(prob(10))
@@ -357,12 +353,12 @@
 			if(prob(20))
 				suit = pickweight(list(/obj/item/clothing/suit/hooded/explorer = 18, /obj/item/clothing/suit/hooded/goliath = 2))
 			if(prob(30))
-				r_pocket = pickweight(list(/obj/item/stack/marker_beacon = 20, /obj/item/stack/spacecash/c200 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/damage = 1 ))
+				r_pocket = pickweight(list(/obj/item/stack/marker_beacon = 20, /obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/damage = 1 ))
 			if(prob(10))
-				l_pocket = pickweight(list(/obj/item/stack/spacecash/c200 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
+				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
 		if("Ashwalker")
 			mob_species = /datum/species/unathi/ashwalker
-			uniform = /obj/item/clothing/under/costume/gladiator/ash_walker
+			uniform = /obj/item/clothing/under/gladiator/ash_walker
 			if(prob(95))
 				head = /obj/item/clothing/head/helmet/gladiator
 			else
@@ -402,7 +398,7 @@
 				l_pocket = pick(list(/obj/item/crowbar/power, /obj/item/wrench/power, /obj/item/weldingtool/experimental))
 		if("YeOlde")
 			mob_gender = FEMALE
-			uniform = /obj/item/clothing/under/costume/maid
+			uniform = /obj/item/clothing/under/maid
 			gloves = /obj/item/clothing/gloves/color/white
 			shoes = /obj/item/clothing/shoes/laceup
 			head = /obj/item/clothing/head/helmet/riot/knight

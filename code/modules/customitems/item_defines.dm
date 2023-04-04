@@ -42,7 +42,7 @@
 		to_chat(user, "<span class= 'notice'>[src] is out of ink.</span>")
 		return
 
-	if(!ishuman(M))
+	if(!istype(M, /mob/living/carbon/human))
 		to_chat(user, "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>")
 		return
 
@@ -226,14 +226,6 @@
 	icon_on = "rybysfluffopen"
 	icon_off = "rybysfluff"
 
-/obj/item/lighter/zippo/fluff/warriorstar // Warriorstar: DEADLOCK
-	name = "zippo"
-	desc = "The lighter is made of a pastel purple metal which seems to glimmer even in complete darkness."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "deadlock_zippo"
-	icon_on = "deadlock_zippo_on"
-	icon_off = "deadlock_zippo"
-
 /obj/item/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
 	desc = "This whistle seems to have a strange aura about it. Maybe you should blow on it?"
@@ -244,7 +236,7 @@
 
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
-	addtimer(CALLBACK(src, PROC_REF(summon_sax), user), 20)
+	addtimer(CALLBACK(src, .proc/summon_sax, user), 20)
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
 	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
@@ -1062,15 +1054,6 @@
 	adjust_flavour = "unzip"
 
 //////////// Uniforms ////////////
-
-/obj/item/clothing/under/fluff
-	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/donator.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/under/donator.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/under/donator.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/donator.dmi'
-		)
-
 /obj/item/clothing/under/fluff/counterfeitguise_uniform 	// thatdanguy23 : Rissa Williams
 	icon = 'icons/obj/custom_items.dmi'
 	name = "Rissa's hand-me-downs"
@@ -1090,12 +1073,12 @@
 	item_color = "fallout_dress"
 
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
-	icon = 'icons/obj/custom_items.dmi'
-	name = "Soviet Casual Uniform"
-	desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
-	icon_state = "soviet_casual_uniform"
-	item_state = "soviet_casual_uniform"
-	item_color = "soviet_casual_uniform"
+    icon = 'icons/obj/custom_items.dmi'
+    name = "Soviet Casual Uniform"
+    desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
+    icon_state = "soviet_casual_uniform"
+    item_state = "soviet_casual_uniform"
+    item_color = "soviet_casual_uniform"
 
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
@@ -1169,7 +1152,7 @@
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"
 	desc = "A set of chainmail adorned with a hide mantle. \"Greenwood\" is engraved into the right breast."
-	icon = 'icons/obj/clothing/under/costumes.dmi'
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "roman"
 	item_state = "maximus_armor"
 	item_color = "maximus_armor"
@@ -1191,6 +1174,7 @@
 	name = "E.L.O's Turtleneck"
 	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
 	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
+	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"
 	displays_id = FALSE
@@ -1249,7 +1233,7 @@
 	actions_types = list(/datum/action/item_action/adjust)
 	var/prompting_change = FALSE
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
-								"coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
+								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
 
 /obj/item/toy/plushie/fluff/fox/proc/change_color()
 	if(prompting_change)
@@ -1276,7 +1260,7 @@
 /obj/item/clothing/under/fluff/arachno_suit
 	name = "Arachno-Man costume"
 	desc = "It's what an evil genius would design if he switched brains with the Amazing Arachno-Man. Actually, he'd probably add weird tentacles that come out the back, too."
-	icon = 'icons/obj/clothing/under/donator.dmi'
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "superior_suit"
 	item_state = "superior_suit"
 	item_color = "superior_suit"
@@ -1370,15 +1354,8 @@
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
 	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chaps"
 	item_color = "combat_pants"
-	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/donator.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/under/donator.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/under/donator.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/donator.dmi'
-		)
 
 /obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"
@@ -1613,12 +1590,20 @@
 	slot_flags = SLOT_TIE
 
 /obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
-	name = "Old purple scarf"
-	desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
+    name = "Old purple scarf"
+    desc = "An old, striped purple scarf. It appears to be hand-knitted and has the name 'Isthel' written on it in bad handwriting."
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "rbscarf"
+    item_state = "rbscarf"
+    item_color = "rbscarf"
+
+/obj/item/instrument/accordion/fluff/asmer_accordion //Asmerath: Coloratura
+	name = "Rara's Somber Accordion"
+	desc = "A blue colored accordion with claw indentations on the keys made special for vulpkanins."
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "rbscarf"
-	item_state = "rbscarf"
-	item_color = "rbscarf"
+	icon_state = "asmer_accordion"
+	item_state = "asmer_accordion"
+
 
 /obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello
 	name = "Bluespace Horns"
@@ -1641,6 +1626,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
@@ -1696,6 +1682,7 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"
@@ -1713,18 +1700,6 @@
 	icon_state = "kikerimask"
 	item_state = "kikerimask"
 	item_color = "kikerimask"
-	species_restricted = list("Vox")
-
-/obj/item/clothing/mask/gas/fluff/yahiyamask //Asmerath: Yahiya
-	name = "Yahiya's Mask"
-	desc = "A dark brown and silver mask resembling that of an eagle. There is a fiery red gem embedded into the forehead."
-	icon = 'icons/obj/custom_items.dmi'
-	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
-	icon_state = "yahiyamask"
-	item_state = "yahiyamask"
-	item_color = "yahiyamask"
 	species_restricted = list("Vox")
 
 /obj/item/id_decal/aa07

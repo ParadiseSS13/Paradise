@@ -11,10 +11,6 @@
 	name = "Empress of Terror"
 	desc = "The unholy offspring of spiders, nightmares, and lovecraft fiction."
 	spider_role_summary = "Adminbus spider"
-	spider_intro_text = "As an Empress of Terror Spider, you role is to bring unholy terror to all living things. \
-	You have more health than any other terror spider and deal extremely high damage to anything you attack. \
-	You can also lay eggs at an incredibly fast rate. \
-	You can also break through practically anything, so the crew will have zero hope of containing you. Have fun!"
 	ai_target_method = TS_DAMAGE_SIMPLE
 	maxHealth = 1000
 	health = 1000

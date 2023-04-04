@@ -14,7 +14,7 @@
 	taste_description = "metal"
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
-	if(isturf(M.loc) && !isspaceturf(M.loc))
+	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(5))
@@ -50,7 +50,7 @@
 /datum/reagent/space_drugs/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	M.Druggy(30 SECONDS)
-	if(isturf(M.loc) && !isspaceturf(M.loc))
+	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if((M.mobility_flags & MOBILITY_MOVE) && !M.restrained())
 			step(M, pick(GLOB.cardinal))
 	if(prob(7))
@@ -263,7 +263,7 @@
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE)
-				M.KnockDown(1 SECONDS)
+				M.Weaken(1 SECONDS) // change to knockdown after crawling
 			else
 				update_flags |= M.adjustStaminaLoss(10, FALSE)
 		if(2)

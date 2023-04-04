@@ -1,8 +1,3 @@
-/obj/item/restraints
-	name = "bugged restraints" //This item existed before this pr, but had no name or such. Better warn people if it exists
-	desc = "Should not exist. Report me to a(n) coder/admin!"
-	var/cuffed_state = "handcuff"
-
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
@@ -22,6 +17,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	// Icon state for cuffed overlay on a mob
+	var/cuffed_state = "handcuff"
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
 
@@ -100,7 +96,7 @@
 	icon_state = "cablecuff"
 	item_state = "cablecuff"
 	cuffed_state = "cablecuff"
-	belt_icon = "cablecuff"
+	belt_icon = null
 	origin_tech = "engineering=2"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 30 SECONDS
@@ -153,7 +149,7 @@
 
 /obj/item/restraints/handcuffs/pinkcuffs
 	name = "fluffy pink handcuffs"
-	desc = "Use this to keep prisoners in line, they are really itchy."
+	desc = "Use this to keep prisoners in line. Or you know, your significant other."
 	icon_state = "pinkcuffs"
 	cuffed_state = "pinkcuff"
 

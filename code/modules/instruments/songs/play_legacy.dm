@@ -71,7 +71,7 @@
 
 	// now generate name
 	var/filename = "sound/instruments/[cached_legacy_dir]/[ascii2text(note + 64)][acc][oct].[cached_legacy_ext]"
-	var/soundfile = wrap_file(filename)
+	var/soundfile = file(filename)
 	// make sure the note exists
 	var/cached_fexists = valid_files[filename]
 	if(!isnull(cached_fexists))

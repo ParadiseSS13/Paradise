@@ -167,8 +167,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		clockwise = FALSE
 
 /obj/machinery/conveyor/power_change()
-	if(!..())
-		return
+	..()
 	update_icon()
 
 /obj/machinery/conveyor/process()
@@ -185,7 +184,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		// spawn hundreds of callbacks for the same thing.
 		// (they don't behave weirdly or anything, just eat CPU)
 		affecting.Add(AM)
-		addtimer(CALLBACK(src, PROC_REF(move_thing), AM), slow_factor)
+		addtimer(CALLBACK(src, .proc/move_thing, AM), slow_factor)
 		CHECK_TICK
 
 	// Use speedy process only if the belt is actually in use, and use normal process otherwise.
@@ -275,7 +274,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	if(C.id != id)
 		return
 	conveyors += C
-	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(unlink_conveyer)) // so it GCs properly
+	RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/unlink_conveyer) // so it GCs properly
 
 /obj/machinery/conveyor_switch/proc/unlink_conveyer(obj/machinery/conveyor/C)
 	conveyors -= C
@@ -401,8 +400,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 
 /obj/machinery/conveyor_switch/power_change()
-	if(!..())
-		return
+	..()
 	update_icon()
 
 // CONVEYOR CONSTRUCTION STARTS HERE
@@ -430,7 +428,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	if(user.incapacitated())
 		return
-	if(!isfloorturf(T))
+	if(!istype(T, /turf/simulated/floor))
 		return
 	if(T == get_turf(user))
 		to_chat(user, "<span class='notice'>You cannot place [src] under yourself.</span>")
@@ -465,7 +463,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	if(user.incapacitated())
 		return
-	if(!isfloorturf(T))
+	if(!istype(T, /turf/simulated/floor))
 		return
 	var/found = FALSE
 	for(var/obj/machinery/conveyor/C in view())
@@ -504,10 +502,6 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	..(loc, newdir)
 	operating = TRUE
 	update_icon()
-
-/obj/machinery/conveyor/auto/ccw
-	icon_state = "conveyor_stopped_ccw"
-	clockwise = FALSE
 
 //Other types of conveyor, mostly for saving yourself a headache during mapping
 

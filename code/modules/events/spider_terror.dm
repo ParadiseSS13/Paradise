@@ -1,9 +1,4 @@
 #define TS_HIGHPOP_TRIGGER 80
-#define GREEN_SPIDER 1
-#define PRINCE_SPIDER 2
-#define WHITE_SPIDER 3
-#define PRINCESS_SPIDER 4
-#define QUEEN_SPIDER 5
 
 /datum/event/spider_terror
 	announceWhen = 240
@@ -16,39 +11,39 @@
 
 /datum/event/spider_terror/announce()
 	if(successSpawn)
-		GLOB.major_announcement.Announce("Confirmed outbreak of level 3-S biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
+		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
 /datum/event/spider_terror/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
-	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
+	INVOKE_ASYNC(src, .proc/wrappedstart)
 
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type
 	var/infestation_type
 	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
-		infestation_type = pick(GREEN_SPIDER, PRINCE_SPIDER, WHITE_SPIDER, PRINCESS_SPIDER)
+		infestation_type = pick(1, 2, 3, 4)
 	else
-		infestation_type = pick(PRINCE_SPIDER, WHITE_SPIDER, PRINCESS_SPIDER, QUEEN_SPIDER)
+		infestation_type = pick(2, 3, 4, 5)
 	switch(infestation_type)
-		if(GREEN_SPIDER)
+		if(1)
 			// Weakest, only used during lowpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			spawncount = 5
-		if(PRINCE_SPIDER)
+		if(2)
 			// Fairly weak. Dangerous in single combat but has little staying power. Always gets whittled down.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/prince
 			spawncount = 1
-		if(WHITE_SPIDER)
+		if(3)
 			// Variable. Depends how many they infect.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/white
 			spawncount = 2
-		if(PRINCESS_SPIDER)
+		if(4)
 			// Pretty strong.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 			spawncount = 3
-		if(QUEEN_SPIDER)
+		if(5)
 			// Strongest, only used during highpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
@@ -64,17 +59,9 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
-		if(infestation_type != PRINCE_SPIDER)
-			S.forceMove(vent)
-			S.add_ventcrawl(vent)
 		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
-		S.give_intro_text()
+		to_chat(S, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Terror_Spider)</span>")
 		spawncount--
 		successSpawn = TRUE
 
 #undef TS_HIGHPOP_TRIGGER
-#undef GREEN_SPIDER
-#undef PRINCE_SPIDER
-#undef WHITE_SPIDER
-#undef PRINCESS_SPIDER
-#undef QUEEN_SPIDER

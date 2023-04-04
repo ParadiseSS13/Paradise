@@ -14,12 +14,10 @@
 	var/repeat = FALSE
 	var/set_time = 10
 
-/obj/item/assembly/timer/examine(mob/user)
-	. = ..()
+/obj/item/assembly/timer/describe()
 	if(timing)
-		. += "The timer is counting down from [time]!"
-	else
-		. += "The timer is set for [time] seconds."
+		return "The timer is counting down from [time]!"
+	return "The timer is set for [time] seconds."
 
 /obj/item/assembly/timer/activate()
 	if(!..())
@@ -45,7 +43,7 @@
 	pulse(FALSE)
 	if(loc)
 		loc.visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
+	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
 
 /obj/item/assembly/timer/process()
 	if(timing && (time > 0))

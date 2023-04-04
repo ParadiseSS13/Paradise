@@ -32,28 +32,34 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
 	if(can_use_shortcut(user))
 		toggle(user)
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
-	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/binary/volume_pump/AltClick(mob/living/user)
 	if(can_use_shortcut(user))
 		set_max(user)
-		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/binary/volume_pump/AIAltClick(mob/living/silicon/user)
 	set_max(user)
-	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
+
+/obj/machinery/atmospherics/binary/volume_pump/Destroy()
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/on
 	on = TRUE
 	icon_state = "map_on"
 
+/obj/machinery/atmospherics/binary/volume_pump/atmos_init()
+	..()
+	set_frequency(frequency)
+
 /obj/machinery/atmospherics/binary/volume_pump/update_icon_state()
-	if(!has_power())
+	if(!powered())
 		icon_state = "off"
 	else
 		icon_state = "[on ? "on" : "off"]"
@@ -90,6 +96,54 @@ Thus, the two variables affect pump operation are set in New():
 	parent2.update = 1
 
 	return 1
+
+/obj/machinery/atmospherics/binary/volume_pump/proc/broadcast_status()
+	if(!radio_connection)
+		return 0
+
+	var/datum/signal/signal = new
+	signal.transmission_method = 1 //radio signal
+	signal.source = src
+
+	signal.data = list(
+		"tag" = id,
+		"device" = "APV",
+		"power" = on,
+		"transfer_rate" = transfer_rate,
+		"sigtype" = "status"
+	)
+	radio_connection.post_signal(src, signal)
+
+	return 1
+
+/obj/machinery/atmospherics/binary/volume_pump/receive_signal(datum/signal/signal)
+	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
+		return 0
+
+	var/old_on = on //for logging
+
+	if(signal.data["power"])
+		on = text2num(signal.data["power"])
+
+	if(signal.data["power_toggle"])
+		on = !on
+
+	if(signal.data["set_transfer_rate"])
+		transfer_rate = clamp(
+			text2num(signal.data["set_transfer_rate"]),
+			0,
+			air1.volume
+		)
+
+	if(on != old_on)
+		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
+
+	if(signal.data["status"])
+		broadcast_status()
+		return //do not update_icon
+
+	broadcast_status()
+	update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attack_hand(mob/user)
 	if(..())
@@ -146,12 +200,13 @@ Thus, the two variables affect pump operation are set in New():
 		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/binary/volume_pump/power_change()
-	if(!..())
-		return
-	update_icon()
+	var/old_stat = stat
+	..()
+	if(old_stat != stat)
+		update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
+	if(istype(W, /obj/item/pen))
 		rename_interactive(user, W)
 		return
 	else if(!istype(W, /obj/item/wrench))

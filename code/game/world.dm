@@ -1,9 +1,5 @@
 GLOBAL_LIST_INIT(map_transition_config, list(CC_TRANSITION_CONFIG))
 
-#ifdef UNIT_TESTS
-GLOBAL_DATUM(test_runner, /datum/test_runner)
-#endif
-
 /world/New()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
@@ -46,9 +42,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	GLOB.revision_info.log_info()
 	load_admins(run_async = FALSE) // This better happen early on.
 
-	if(TgsAvailable())
-		world.log = file("[GLOB.log_directory]/dd.log") //not all runtimes trigger world/Error, so this is the only way to ensure we can see all of them.
-
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
 	#endif
@@ -57,6 +50,8 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
+
+	investigate_reset()
 
 	update_status()
 
@@ -68,8 +63,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 
 
 	#ifdef UNIT_TESTS
-	GLOB.test_runner = new
-	GLOB.test_runner.Start()
+	HandleTestRun()
 	#endif
 
 
@@ -143,7 +137,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	// If we were running unit tests, finish that run
 	#ifdef UNIT_TESTS
-	GLOB.test_runner.Finalize()
+	FinishTestRun()
 	return
 	#endif
 
@@ -162,13 +156,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
-		if(C.prefs.server_region)
-			// Keep them on the same relay
-			C << link(GLOB.configuration.system.region_map[C.prefs.server_region])
-		else
-			// Use the default
-			if(GLOB.configuration.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-				C << link("byond://[GLOB.configuration.url.server_url]")
+		if(GLOB.configuration.url.server_url) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[GLOB.configuration.url.server_url]")
 
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
@@ -261,6 +250,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
 	GLOB.chat_debug_log = "[GLOB.log_directory]/chat_debug.log"
+	GLOB.karma_log = "[GLOB.log_directory]/karma.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -269,6 +259,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
 	start_log(GLOB.chat_debug_log)
+	start_log(GLOB.karma_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
@@ -295,7 +286,4 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	disable_auxtools_debugger() // Disables the debugger if running. See above comment
 	rustg_redis_disconnect() // Disconnects the redis connection. See above.
-	#ifdef ENABLE_BYOND_TRACY
-	CALL_EXT("prof.dll", "destroy")() // Setup Tracy integration
-	#endif
 	..()

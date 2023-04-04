@@ -48,9 +48,6 @@
 /obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
 		return
-	if(HAS_TRAIT(D, TRAIT_CMAGGED))
-		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
-		return
 	if(D.is_special)
 		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
 		return

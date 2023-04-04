@@ -1,18 +1,10 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dyeable = TRUE
-	icon = 'icons/obj/clothing/under/color.dmi'
-
-	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/under/color.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/under/color.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/under/color.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/color.dmi'
-		)
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
-	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
+	var/list/excluded = list(/obj/item/clothing/under/color/random, /obj/item/clothing/under/color/blackf, /obj/item/clothing/under/color/blue/dodgeball, /obj/item/clothing/under/color/orange/prison, /obj/item/clothing/under/color/red/dodgeball, /obj/item/clothing/under/color/red/jersey, /obj/item/clothing/under/color/blue/jersey)
 	var/obj/item/clothing/under/color/C = pick(subtypesof(/obj/item/clothing/under/color) - excluded)
 	name = initial(C.name)
 	icon_state = initial(C.icon_state)
@@ -25,6 +17,13 @@
 	item_state = "bl_suit"
 	item_color = "black"
 	resistance_flags = NONE
+
+/obj/item/clothing/under/color/blackf
+	name = "feminine black jumpsuit"
+	desc = "It's very smart and in a ladies-size!"
+	icon_state = "black"
+	item_state = "bl_suit"
+	item_color = "blackf"
 
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
@@ -54,9 +53,10 @@
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
 	desc = "A terribly ragged and frayed grey jumpsuit. It looks like it hasn't been washed in over a decade."
-	icon_state = "ancient"
-	item_state = "gy_suit"
-	item_color = "ancient"
+
+/obj/item/clothing/under/color/grey/glorf/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	owner.forcesay(GLOB.hit_appends)
+	return
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
@@ -102,11 +102,15 @@
 	item_state = "y_suit"
 	item_color = "yellow"
 
-/obj/item/clothing/under/color/psyche
+/obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
 	desc = "Groovy!"
 	icon_state = "psyche"
 	item_color = "psyche"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi'
+		)
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
@@ -172,13 +176,6 @@
 	name = "dark red jumpsuit"
 	icon_state = "darkred"
 	item_color = "darkred"
-
-/obj/item/clothing/under/color/rainbow
-	name = "rainbow"
-	desc = "rainbow"
-	icon_state = "rainbow"
-	item_state = "rainbow"
-	item_color = "rainbow"
 
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"

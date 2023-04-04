@@ -1,28 +1,7 @@
-/**
- * Will teleport the given atom to the given destination using the other parameters
- *
- * Arguments:
- * - atom_to_teleport - Atom to teleport
- * - destination - Where to teleport the atom to
- * - variance_range - With what precision to do the teleport. 0 means on target. Higher means that many turfs around it
- * - force_teleport - Whether to use forceMove instead of Move to move the atom to the destination
- * - effect_in - The effect started at the starting turf. If set to NONE then no effect is used
- * - effect_out - The effect started at the destination turf. If set to NONE then no effect is used
- * - sound_in - The sound played at the starting turf
- * - sound_out - The sound played at the destination turf
- * - bypass_area_flag - Whether is_teleport_allowed is skipped or not
- * - safe_turf_pick - Whether the chosen random turf from the variance is prefered to be a safe turf or not
- */
-/proc/do_teleport(atom_to_teleport, destination, variance_range = 0, force_teleport = TRUE, datum/effect_system/effect_in = null, datum/effect_system/effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
-	var/datum/teleport/instant/science/D = new // default here
-	if(isnull(effect_in) || isnull(effect_out)) // Set default effects
-		var/datum/effect_system/spark_spread/effect = new
-		effect.set_up(5, 1, atom_to_teleport)
-		if(isnull(effect_in))
-			effect_in = effect
-		if(isnull(effect_out))
-			effect_out = effect
-	if(D.start(atom_to_teleport, destination, variance_range, force_teleport, effect_in, effect_out, sound_in, sound_out, bypass_area_flag, safe_turf_pick))
+//wrapper
+/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+	var/datum/teleport/instant/science/D = new
+	if(D.start(arglist(args)))
 		return 1
 	return 0
 
@@ -73,7 +52,7 @@
 
 //must succeed in most cases
 /datum/teleport/proc/setTeleatom(atom/movable/ateleatom)
-	if(iseffect(ateleatom) && !istype(ateleatom, /obj/effect/dummy/chameleon))
+	if(istype(ateleatom, /obj/effect) && !istype(ateleatom, /obj/effect/dummy/chameleon))
 		qdel(ateleatom)
 		return 0
 	if(istype(ateleatom))
@@ -128,7 +107,7 @@
 			center = destination
 		if(safe_turf_first)
 			for(var/turf/T in range(precision, center))
-				if(isspaceturf(T))
+				if(istype(T, /turf/space))
 					continue
 				if(T.density)
 					continue
@@ -180,7 +159,7 @@
 		return doTeleport()
 	return 0
 
-/datum/teleport/instant/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+/datum/teleport/instant/start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null)
 	if(..())
 		if(teleport())
 			return 1
@@ -188,6 +167,16 @@
 
 
 /datum/teleport/instant/science
+
+/datum/teleport/instant/science/setEffects(datum/effect_system/aeffectin,datum/effect_system/aeffectout)
+	if(aeffectin==null || aeffectout==null)
+		var/datum/effect_system/spark_spread/aeffect = new
+		aeffect.set_up(5, 1, teleatom)
+		effectin = effectin || aeffect
+		effectout = effectout || aeffect
+		return 1
+	else
+		return ..()
 
 /datum/teleport/instant/science/setPrecision(aprecision)
 	..()
@@ -201,8 +190,8 @@
 				safe_turf_first = FALSE
 			else
 				precision = max(rand(1, 100) * length(bagholding), 100)
-
-			if(isliving(teleatom))
+			
+			if(istype(teleatom, /mob/living))
 				var/mob/living/MM = teleatom
 				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
 	return 1

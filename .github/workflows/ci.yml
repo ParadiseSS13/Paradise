@@ -28,11 +28,9 @@ jobs:
           tools/ci/build_tgui.sh
           tools/ci/check_grep.sh
           python3 tools/ci/check_line_endings.py
-          python3 tools/ci/check_file_names.py
-          python3 tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
       - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v2
+        uses: yogstation13/DreamAnnotate@v1
         if: always()
         with:
           outputFile: output-annotations.txt
@@ -58,10 +56,8 @@ jobs:
     name: Unit Tests + SQL Validation
     runs-on: ubuntu-20.04
     strategy:
-      fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation', '/datum/map/shepard', '/datum/map/cerestation']
-        byondtype: ['STABLE', 'BETA']
+        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation', '/datum/map/shepard']
     services:
       mariadb:
         image: mariadb:latest
@@ -89,12 +85,12 @@ jobs:
           sudo apt install libssl1.1:i386
           ldd librust_g.so
       - name: Start Redis
-        uses: supercharge/redis-github-action@1.5.0
+        uses: supercharge/redis-github-action@1.4.0
         with:
           redis-version: 6
       - name: Compile & Run Unit Tests
         run: |
-          tools/ci/install_byond.sh '${{ matrix.byondtype }}'
+          tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/dm.sh -DCIBUILDING paradise.dme
           echo '${{ matrix.maptype }}' > data/next_map.txt

@@ -1,28 +1,17 @@
-/mob/living/carbon
+/mob/living/carbon/human
 	var/last_pain_message = ""
 	var/next_pain_time = 0
 
-/**
- * Whether or not a mob can feel pain.
- *
- * Returns TRUE if the mob can feel pain, FALSE otherwise
- */
-/mob/living/carbon/proc/can_feel_pain()
-	if(stat >= UNCONSCIOUS)
-		return FALSE
-	if(reagents.has_reagent("morphine"))
-		return FALSE
-	if(reagents.has_reagent("hydrocodone"))
-		return FALSE
-	if(HAS_TRAIT(src, TRAIT_NOPAIN))
-		return FALSE
-
-	return TRUE
-
 // partname is the name of a body part
 // amount is a num from 1 to 100
-/mob/living/carbon/proc/pain(partname, amount)
-	if(!can_feel_pain())
+/mob/living/carbon/human/proc/pain(partname, amount)
+	if(stat >= UNCONSCIOUS)
+		return
+	if(reagents.has_reagent("sal_acid"))
+		return
+	if(reagents.has_reagent("morphine"))
+		return
+	if(reagents.has_reagent("hydrocodone"))
 		return
 	if(world.time < next_pain_time)
 		return
@@ -41,8 +30,15 @@
 
 
 // message is the custom message to be displayed
-/mob/living/carbon/proc/custom_pain(message)
-	if(!can_feel_pain())
+/mob/living/carbon/human/proc/custom_pain(message)
+	if(stat >= UNCONSCIOUS)
+		return
+
+	if(HAS_TRAIT(src, TRAIT_NOPAIN))
+		return
+	if(reagents.has_reagent("morphine"))
+		return
+	if(reagents.has_reagent("hydrocodone"))
 		return
 
 	var/msg = "<span class='userdanger'>[message]</span>"
@@ -56,7 +52,13 @@
 /mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
-	if(!can_feel_pain())
+	if(stat >= UNCONSCIOUS)
+		return
+	if(HAS_TRAIT(src, TRAIT_NOPAIN))
+		return
+	if(reagents.has_reagent("morphine"))
+		return
+	if(reagents.has_reagent("hydrocodone"))
 		return
 
 	var/maxdam = 0

@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/emp_act(severity)
 	emped = TRUE
 	update_icon(UPDATE_OVERLAYS)
-	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
+	addtimer(CALLBACK(src, .proc/reboot), EMP_DISABLE_TIME)
 
 /obj/item/gps/AltClick(mob/user)
 	if(ui_status(user, GLOB.inventory_state) != STATUS_INTERACTIVE)

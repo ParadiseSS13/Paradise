@@ -49,7 +49,7 @@
 /mob/living/simple_animal/hostile/bear/Move()
 	..()
 	if(stat != DEAD)
-		if(loc && isspaceturf(loc))
+		if(loc && istype(loc,/turf/space))
 			icon_state = "bear"
 		else
 			icon_state = "bearfloor"

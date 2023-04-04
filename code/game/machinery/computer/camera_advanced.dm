@@ -50,7 +50,7 @@
 	if(current_user)
 		current_user.unset_machine()
 	QDEL_NULL(eyeobj)
-	QDEL_LIST_CONTENTS(actions)
+	QDEL_LIST(actions)
 	return ..()
 
 /obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)

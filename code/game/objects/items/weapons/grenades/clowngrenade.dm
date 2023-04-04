@@ -29,8 +29,10 @@
 	qdel(src)
 	return
 
-/obj/item/grown/bananapeel/traitorpeel/Initialize(mapload)
+/obj/item/grown/bananapeel/traitorpeel/New(newloc, obj/item/seeds/new_seed)
 	. = ..()
+	// The reason this AddComponent is here and not in ComponentInitialize() is because if it's put there, it will be ran before the parent New proc for /grown types.
+	// And then be overriden by the generic component placed onto it by the `/datum/plant_gene/trait/slip`.
 	AddComponent(/datum/component/slippery, src, 14 SECONDS, 100, 4, FALSE)
 
 /obj/item/grown/bananapeel/traitorpeel/after_slip(mob/living/carbon/human/H)
@@ -41,7 +43,7 @@
 
 /obj/item/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
 	var/burned = rand(1,3)
-	if(isliving(hit_atom))
+	if(istype(hit_atom ,/mob/living))
 		var/mob/living/M = hit_atom
 		M.take_organ_damage(0, burned)
 	return ..()

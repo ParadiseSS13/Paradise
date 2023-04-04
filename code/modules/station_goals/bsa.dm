@@ -16,7 +16,7 @@
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_packs/misc/station_goal/bsa/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
+	var/datum/supply_packs/misc/station_goal/bsa/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_cannon/check_completion()
@@ -202,17 +202,9 @@
 			top_layer.layer = 4.1
 			icon_state = "cannon_east"
 	overlays += top_layer
+	reload()
 
-/obj/machinery/bsa/full/Initialize(mapload)
-	. = ..()
-	return INITIALIZE_HINT_LATELOAD
-
-/obj/machinery/bsa/full/LateInitialize(mapload)
-	. = ..()
-	reload() // so we don't try and use the powernet before it initializes
-
-
-/obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye, target)
+/obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
 	var/turf/point = get_front_turf()
 	for(var/turf/T in getline(get_step(point,dir),get_target_turf()))
 		T.ex_act(1)
@@ -221,13 +213,8 @@
 
 	point.Beam(get_target_turf(), icon_state = "bsa_beam", time = 50, maxdistance = world.maxx, beam_type = /obj/effect/ebeam/deadly) //ZZZAP
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
-	if(istype(target, /obj/item/gps))
-		var/obj/item/gps/G = target
-		message_admins("[key_name_admin(user)] has launched an artillery strike at GPS named [G.gpstag].")
 
-	else
-		message_admins("[key_name_admin(user)] has launched an artillery strike.")//Admin BSA firing, just targets a room, which the explosion says
-
+	message_admins("[key_name_admin(user)] has launched an artillery strike.")
 	log_admin("[key_name(user)] has launched an artillery strike.") // Line below handles logging the explosion to disk
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
 
@@ -239,7 +226,6 @@
 
 /obj/item/circuitboard/machine/bsa/back
 	board_name = "Bluespace Artillery Generator"
-	icon_state = "command"
 	build_path = /obj/machinery/bsa/back
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -248,7 +234,6 @@
 
 /obj/item/circuitboard/machine/bsa/middle
 	board_name = "Bluespace Artillery Fusor"
-	icon_state = "command"
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -257,7 +242,6 @@
 
 /obj/item/circuitboard/machine/bsa/front
 	board_name = "Bluespace Artillery Bore"
-	icon_state = "command"
 	build_path = /obj/machinery/bsa/front
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
@@ -266,7 +250,6 @@
 
 /obj/item/circuitboard/computer/bsa_control
 	board_name = "Bluespace Artillery Controls"
-	icon_state = "command"
 	build_path = /obj/machinery/computer/bsa_control
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 
@@ -275,7 +258,7 @@
 	var/obj/machinery/bsa/full/cannon
 	var/notice
 	var/target
-	power_state = NO_POWER_USE
+	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_boxp"
@@ -377,7 +360,7 @@
 	target = options[V]
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
-	if(isarea(target))
+	if(istype(target,/area))
 		var/area/A = target
 		return A.name
 	else if(istype(target,/obj/item/gps))
@@ -385,7 +368,7 @@
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
-	if(isarea(target))
+	if(istype(target,/area))
 		return pick(get_area_turfs(target))
 	else if(istype(target,/obj/item/gps))
 		return get_turf(target)
@@ -397,7 +380,7 @@
 		notice = "Cannon unpowered!"
 		return
 	notice = null
-	cannon.fire(user, get_impact_turf(), target)
+	cannon.fire(user, get_impact_turf())
 
 /obj/machinery/computer/bsa_control/proc/deploy()
 	var/obj/machinery/bsa/full/prebuilt = locate() in range(7, src) //In case of adminspawn
@@ -414,7 +397,7 @@
 		return null
 	//Totally nanite construction system not an immersion breaking spawning
 	var/datum/effect_system/smoke_spread/s = new
-	s.set_up(4, FALSE, centerpiece)
+	s.set_up(4, 0, get_turf(centerpiece))
 	s.start()
 	var/obj/machinery/bsa/full/cannon = new(get_turf(centerpiece),centerpiece.get_cannon_direction())
 	cannon.controller = src

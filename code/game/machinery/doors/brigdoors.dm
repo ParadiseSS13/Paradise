@@ -1,3 +1,7 @@
+#define CHARS_PER_LINE 5
+#define FONT_SIZE "5pt"
+#define FONT_COLOR "#09f"
+#define FONT_STYLE "Small Fonts"
 #define CELL_NONE "None"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,22 +132,22 @@
 	for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
 		if(M.id == id)
 			targets += M
-			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/machinery/flasher/F in GLOB.machines)
 		if(F.id == id)
 			targets += F
-			RegisterSignal(F, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
+			RegisterSignal(F, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/structure/closet/secure_closet/brig/C in world)
 		if(C.id == id)
 			targets += C
-			RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
+			RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
 		if(T.id == id)
 			targets += T
-			RegisterSignal(T, COMSIG_PARENT_QDELETING, PROC_REF(on_target_qdel))
+			RegisterSignal(T, COMSIG_PARENT_QDELETING, .proc/on_target_qdel)
 
 	if(!length(targets))
 		stat |= BROKEN
@@ -178,8 +182,7 @@
 
 // has the door power situation changed, if so update icon.
 /obj/machinery/door_timer/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -244,7 +247,7 @@
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(!door.density)
 			continue
-		INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door/window/brigdoor, open))
+		INVOKE_ASYNC(door, /obj/machinery/door/window/brigdoor.proc/open)
 
 	for(var/obj/structure/closet/secure_closet/brig/C in targets)
 		if(C.broken)
@@ -413,7 +416,7 @@
 		var/disp1 = id
 		var/timeleft = timeleft()
 		var/disp2 = "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-		if(length(disp2) > DISPLAY_CHARS_PER_LINE)
+		if(length(disp2) > CHARS_PER_LINE)
 			disp2 = "Error"
 		update_display(disp1, disp2)
 	else
@@ -437,7 +440,7 @@
 /obj/machinery/door_timer/proc/update_display(line1, line2)
 	line1 = uppertext(line1)
 	line2 = uppertext(line2)
-	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
+	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
 
@@ -482,12 +485,8 @@
 	name = "Cell 6"
 	id = "Cell 6"
 
-/obj/machinery/door_timer/cell_7
-	name = "Cell 7"
-	id = "Cell 7"
-
-/obj/machinery/door_timer/cell_8
-	name = "Cell 8"
-	id = "Cell 8"
-
+#undef FONT_SIZE
+#undef FONT_COLOR
+#undef FONT_STYLE
+#undef CHARS_PER_LINE
 #undef CELL_NONE

@@ -10,14 +10,13 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ac" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/admin/vox{
-	dir = 8
-	},
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin/vox,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ad" = (
 /obj/machinery/door/airlock/hatch{
-	id_tag = "voxwest_door_ext";
+	frequency = 1331;
+	id_tag = "vox_northwest_lock";
 	locked = 1;
 	req_access_txt = "152"
 	},
@@ -25,9 +24,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ae" = (
-/obj/machinery/computer/shuttle/admin/vox{
-	dir = 4
-	},
+/obj/machinery/computer/shuttle/admin/vox,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "ai" = (
@@ -65,6 +62,12 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/shuttle/administration)
 "aq" = (
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "vox_west_sensor";
+	pixel_x = 25;
+	req_access_txt = "152"
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -79,7 +82,9 @@
 /area/shuttle/administration)
 "av" = (
 /obj/machinery/access_button{
-	autolink_id = "voxwest_btn_ext";
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "vox_west_control";
 	req_one_access_txt = "152"
 	},
 /turf/simulated/wall/mineral/plastitanium,
@@ -88,19 +93,27 @@
 /turf/space,
 /area/shuttle/administration)
 "aB" = (
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "vox_east_sensor";
+	pixel_x = -25;
+	req_access_txt = "152"
+	},
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "aG" = (
-/obj/machinery/airlock_controller/access_controller{
-	ext_button_link_id = "voxwest_btn_ext";
-	ext_door_link_id = "voxwest_door_ext";
-	int_button_link_id = "voxwest_btn_int";
-	int_door_link_id = "voxwest_door_int";
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "vox_west_control";
 	pixel_x = 24;
-	req_access_txt = "152"
+	req_access_txt = "152";
+	tag_airpump = "vox_west_vent";
+	tag_chamber_sensor = "vox_west_sensor";
+	tag_exterior_door = "vox_northwest_lock";
+	tag_interior_door = "vox_southwest_lock"
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
@@ -131,7 +144,8 @@
 /area/shuttle/administration)
 "aM" = (
 /obj/machinery/door/airlock/hatch{
-	id_tag = "voxeast_door_ext";
+	frequency = 1331;
+	id_tag = "vox_northeast_lock";
 	locked = 1;
 	req_access_txt = "152"
 	},
@@ -140,7 +154,8 @@
 /area/shuttle/administration)
 "aN" = (
 /obj/machinery/door/airlock/hatch{
-	id_tag = "voxwest_door_int";
+	frequency = 1331;
+	id_tag = "vox_southwest_lock";
 	locked = 1;
 	req_access_txt = "152"
 	},
@@ -234,7 +249,9 @@
 /area/shuttle/administration)
 "bO" = (
 /obj/machinery/access_button{
-	autolink_id = "voxeast_btn_ext";
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "vox_east_control";
 	req_access_txt = "152"
 	},
 /turf/simulated/wall/mineral/plastitanium,
@@ -280,22 +297,26 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cf" = (
-/obj/machinery/airlock_controller/access_controller{
-	ext_door_link_id = "voxeast_door_ext";
-	int_door_link_id = "voxeast_door_int";
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "vox_east_control";
 	pixel_x = -24;
 	req_access_txt = "152";
-	ext_button_link_id = "voxeast_btn_ext";
-	int_button_link_id = "voxeast_btn_int"
+	tag_airpump = "vox_east_vent";
+	tag_chamber_sensor = "vox_east_sensor";
+	tag_exterior_door = "vox_northeast_lock";
+	tag_interior_door = "vox_southeast_lock"
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/administration)
 "cg" = (
 /obj/machinery/access_button{
-	autolink_id = "voxwest_btn_int";
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "vox_west_control";
 	req_one_access_txt = "152"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
 "ci" = (
 /obj/effect/spawner/window/plastitanium,
@@ -331,14 +352,17 @@
 /area/shuttle/administration)
 "cn" = (
 /obj/machinery/access_button{
-	autolink_id = "voxeast_btn_int";
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "vox_east_control";
 	req_one_access_txt = "152"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/administration)
 "co" = (
 /obj/machinery/door/airlock/hatch{
-	id_tag = "voxeast_door_int";
+	frequency = 1331;
+	id_tag = "vox_southeast_lock";
 	locked = 1;
 	req_access_txt = "152"
 	},

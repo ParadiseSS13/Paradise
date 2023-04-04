@@ -10,25 +10,28 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = "Your armor absorbs the blow!", soften_text = "Your armor softens the blow!", armour_penetration_flat = 0, penetrated_text = "Your armor was penetrated!", armour_penetration_percentage = 0)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = MELEE, absorb_text = null, soften_text = null, armour_penetration_flat = 0, penetrated_text, armour_penetration_percentage = 0)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	if(armor == INFINITY)
-		to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
-		return armor
-	if(armor <= 0)
-		return armor
-	if(!armour_penetration_flat && armour_penetration_percentage <= 0)
-		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
+		if(absorb_text)
+			to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
+		else
+			to_chat(src, "<span class='userdanger'>Your armor absorbs the blow!</span>")
 		return armor
 
-	var/armor_original = armor
-	armor = max(0, (armor * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat)
-	if(armor_original <= armor)
-		to_chat(src, "<span class='userdanger'>[soften_text]</span>")
-	else
-		to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
-
+	if(armor > 0)
+		if(armour_penetration_flat > 0 || armour_penetration_percentage > 0)
+			armor = max(0, (armor * ((100 - armour_penetration_percentage) / 100)) - armour_penetration_flat)
+			if(penetrated_text)
+				to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
+			else
+				to_chat(src, "<span class='userdanger'>Your armor was penetrated!</span>")
+		else
+			if(soften_text)
+				to_chat(src, "<span class='userdanger'>[soften_text]</span>")
+			else
+				to_chat(src, "<span class='userdanger'>Your armor softens the blow!</span>")
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)

@@ -18,7 +18,7 @@
 	var/map_path = "[map_prefix][map_name].dmm"
 	if(fexists(map_path))
 		fdel(map_path)
-	var/saved_map = wrap_file(map_path)
+	var/saved_map = file(map_path)
 	var/map_text = write_map(t1, t2, flags, saved_map)
 	saved_map << map_text
 	return saved_map

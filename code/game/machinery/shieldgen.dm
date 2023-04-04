@@ -142,7 +142,7 @@
 	var/locked = FALSE
 
 /obj/machinery/shieldgen/Destroy()
-	QDEL_LIST_CONTENTS(deployed_shields)
+	QDEL_LIST(deployed_shields)
 	deployed_shields = null
 	return ..()
 
@@ -156,10 +156,10 @@
 	anchored = TRUE
 
 	for(var/turf/target_tile in range(2, src))
-		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
+		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				var/obj/machinery/shield/new_shield = new(target_tile)
-				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, PROC_REF(remove_shield)) // Ensures they properly GC
+				RegisterSignal(new_shield, COMSIG_PARENT_QDELETING, .proc/remove_shield) // Ensures they properly GC
 				deployed_shields += new_shield
 
 /obj/machinery/shieldgen/proc/remove_shield(obj/machinery/shield/S)
@@ -172,7 +172,7 @@
 	active = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
-	QDEL_LIST_CONTENTS(deployed_shields)
+	QDEL_LIST(deployed_shields)
 
 /obj/machinery/shieldgen/process()
 	if(malfunction && active)
@@ -287,7 +287,7 @@
 			visible_message("<span class='warning'>[src] shuts off!</span>")
 			shields_down()
 	else
-		if(isspaceturf(get_turf(src)))
+		if(istype(get_turf(src), /turf/space))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
 	anchored = !anchored
@@ -296,7 +296,7 @@
 	icon_state = "shield[active ? "on" : "off"][malfunction ? "br" : ""]"
 
 ////FIELD GEN START //shameless copypasta from fieldgen, powersink, and grille
-#define MAX_STORED_POWER 500
+#define maxstoredpower 500
 /obj/machinery/shieldwallgen
 	name = "Shield Generator"
 	desc = "A shield generator."
@@ -305,118 +305,142 @@
 	anchored = FALSE
 	density = TRUE
 	req_access = list(ACCESS_TELEPORTER)
-	flags = CONDUCT
-	power_state = NO_POWER_USE
-
-	var/activated = FALSE
+	var/active = FALSE
+	var/power = FALSE
+	var/state = FALSE
+	var/steps = 0
 	var/locked = TRUE
-	var/list/active_shields
-	var/stored_power = 0
-
-/obj/machinery/shieldwallgen/Initialize(mapload)
-	. = ..()
-	active_shields = list() // Doing it here since you can't cast numeral defines to strings using "[NORTH]" in the definition
-	for(var/direction in GLOB.cardinal)
-		active_shields["[direction]"] = list()
-	if(!activated)
-		STOP_PROCESSING(SSmachines, src)
+	var/storedpower = 0
+	flags = CONDUCT
+	use_power = NO_POWER_USE
 
 /obj/machinery/shieldwallgen/update_icon_state()
-	icon_state = "Shield_Gen[activated ? " +a" : ""]"
+	icon_state = "Shield_Gen[active ? " +a" : ""]"
 
-/obj/machinery/shieldwallgen/proc/try_charge_shields_power()
+/obj/machinery/shieldwallgen/proc/power()
+	if(!anchored)
+		power = FALSE
+		return
 	var/turf/T = loc
 
 	var/obj/structure/cable/C = T.get_cable_node()
-	var/datum/powernet/PN = C?.powernet // find the powernet of the connected cable
+	var/datum/powernet/PN
+	if(C)
+		PN = C.powernet		// find the powernet of the connected cable
 
 	if(!PN)
-		deactivate()
-		return FALSE
+		power = FALSE
+		return
 
-	var/surplus = max(PN.avail - PN.load, 0)
-	var/shieldload = min(rand(50, 200), surplus)
-	if(!shieldload && stored_power <= 0)		// no cable or no power, and no power stored
-		deactivate()
-		return FALSE
-
-	stored_power += min(shieldload, MAX_STORED_POWER - stored_power)
-	PN.load += shieldload //uses powernet power.
-	return TRUE
+	var/surplus = max(PN.avail-PN.load, 0)
+	var/shieldload = min(rand(50,200), surplus)
+	if(shieldload == 0 && !storedpower)		// no cable or no power, and no power stored
+		power = FALSE
+		return
+	else
+		power = TRUE	// IVE GOT THE POWER!
+		if(PN) //runtime errors fixer. They were caused by PN.load trying to access missing network in case of working on stored power.
+			storedpower += shieldload
+			PN.load += shieldload //uses powernet power.
+//		message_admins("[PN.load]", 1)
+//		use_power(250) //uses APC power
 
 /obj/machinery/shieldwallgen/attack_hand(mob/user)
-	if(!anchored)
+	if(state != 1)
 		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
 		return TRUE
 	if(locked && !issilicon(user))
 		to_chat(user, "<span class='warning'>The controls are locked!</span>")
 		return TRUE
-	var/turf/T = loc
-	if(!T.get_cable_node())
+	if(!power)
 		to_chat(user, "<span class='warning'>The shield generator needs to be powered by wire underneath.</span>")
 		return TRUE
 
-	if(!activated)
-		activate()
-	else
-		deactivate()
-
-	user.visible_message("<span class='notice'>[user] turned the shield generator [activated ? "on" : "off"].</span>", \
-		"<span class='notice'>You turn [activated ? "on" : "off"] the shield generator.</span>", \
-		"You hear heavy droning [activated ? "" : "fade out"].")
-
+	active = !active
+	user.visible_message("[user] turned the shield generator [active ? "on" : "off"].", \
+	"You turn [active ? "on" : "off"] the shield generator.", \
+	"You hear heavy droning [active ? "" : "fade out"].")
+	if(active)
+		for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+			cleanup(dir)
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 
 /obj/machinery/shieldwallgen/process()
-	if(!try_charge_shields_power())
-		visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
-				"You hear heavy droning fade out")
-		deactivate()
-		update_icon(UPDATE_ICON_STATE)
+	spawn(100)
+		power()
+		if(power)
+			storedpower -= 50 //this way it can survive longer and survive at all
+	if(storedpower >= maxstoredpower)
+		storedpower = maxstoredpower
+	if(storedpower <= 0)
+		storedpower = 0
 
-
-/obj/machinery/shieldwallgen/proc/activate()
-	activated = TRUE
-	START_PROCESSING(SSmachines, src)
-	for(var/direction in GLOB.cardinal)
-		INVOKE_ASYNC(src, PROC_REF(try_link_generators), direction)
-
-/obj/machinery/shieldwallgen/proc/try_link_generators(direction)
-	var/turf/current_turf = loc
-	var/obj/machinery/shieldwallgen/other_generator
-	var/list/traveled_turfs = list()
-	for(var/distance in 1 to 9)
-		current_turf = get_step(current_turf, direction)
-		if(iswallturf(current_turf)) // Should go through windows etc
+	if(active)
+		if(state)
+			active = FALSE
 			return
-		other_generator = locate(/obj/machinery/shieldwallgen) in current_turf
-		if(other_generator)
-			break
-		traveled_turfs += current_turf
+		spawn(1)
+			setup_field(1)
+		spawn(2)
+			setup_field(2)
+		spawn(3)
+			setup_field(4)
+		spawn(4)
+			setup_field(8)
+	if(active)
+		if(!power)
+			visible_message("<span class='warning'>[name] shuts down due to lack of power!</span>", \
+				"You hear heavy droning fade out")
+			active = FALSE
+			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+				cleanup(dir)
+			update_icon(UPDATE_ICON_STATE)
 
-	if(!other_generator?.activated)
+/obj/machinery/shieldwallgen/proc/setup_field(NSEW = 0)
+	var/turf/T = loc
+	var/turf/T2 = loc
+	var/obj/machinery/shieldwallgen/G
+	var/steps = 0
+	var/oNSEW = 0
+
+	if(!NSEW)//Make sure its ran right
 		return
 
-	sleep(rand(1, 4)) // TODO check if we want this behaviour
+	if(NSEW == 1)
+		oNSEW = 2
+	else if(NSEW == 2)
+		oNSEW = 1
+	else if(NSEW == 4)
+		oNSEW = 8
+	else if(NSEW == 8)
+		oNSEW = 4
 
-	var/opposite_direction = turn(direction, 180)
-	for(var/T in traveled_turfs)
-		var/obj/machinery/shieldwall/SW = new /obj/machinery/shieldwall(T, src, other_generator) //(ref to this gen, ref to connected gen)
-		SW.dir = direction
-		active_shields["[direction]"] += SW
-		other_generator.active_shields["[opposite_direction]"] += SW
+	for(var/dist = 0, dist <= 9, dist += 1) // checks out to 8 tiles away for another generator
+		T = get_step(T2, NSEW)
+		T2 = T
+		steps += 1
+		if(locate(/obj/machinery/shieldwallgen) in T)
+			G = (locate(/obj/machinery/shieldwallgen) in T)
+			steps -= 1
+			if(!G.active)
+				return
+			G.cleanup(oNSEW)
+			break
 
-/obj/machinery/shieldwallgen/proc/deactivate()
-	activated = FALSE
-	STOP_PROCESSING(SSmachines, src)
-	for(var/direction in GLOB.cardinal)
-		var/list/L = active_shields["[direction]"]
-		QDEL_LIST_CONTENTS(L) // Don't want to clean the assoc keys so no QDEL_LIST_ASSOC_VAL
+	if(isnull(G))
+		return
 
-/obj/machinery/shieldwallgen/proc/remove_active_shield(obj/machinery/shieldwall/SW, direction)
-	var/list/L = active_shields["[direction]"]
-	L -= SW
+	T2 = loc
+
+	for(var/dist = 0, dist < steps, dist += 1) // creates each field tile
+		var/field_dir = get_dir(T2,get_step(T2, NSEW))
+		T = get_step(T2, NSEW)
+		T2 = T
+		var/obj/machinery/shieldwall/CF = new/obj/machinery/shieldwall/(src, G) //(ref to this gen, ref to connected gen)
+		CF.loc = T
+		CF.dir = field_dir
+
 
 /obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
@@ -432,20 +456,43 @@
 
 /obj/machinery/shieldwallgen/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(activated)
-		to_chat(user, "<span class='warning'>Turn off the field generator first.</span>")
+	if(active)
+		to_chat(user, "Turn off the field generator first.")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	state = !state
 	anchored = !anchored
 	to_chat(user, anchored ? "You secure the external reinforcing bolts to the floor." : "You undo the external reinforcing bolts.")
 
+/obj/machinery/shieldwallgen/proc/cleanup(NSEW)
+	var/obj/machinery/shieldwall/F
+	var/obj/machinery/shieldwallgen/G
+	var/turf/T = loc
+	var/turf/T2 = loc
+
+	for(var/dist = 0, dist <= 9, dist += 1) // checks out to 8 tiles away for fields
+		T = get_step(T2, NSEW)
+		T2 = T
+		if(locate(/obj/machinery/shieldwall) in T)
+			F = (locate(/obj/machinery/shieldwall) in T)
+			if(F.gen_primary == src || F.gen_secondary == src)
+				qdel(F)
+
+		if(locate(/obj/machinery/shieldwallgen) in T)
+			G = (locate(/obj/machinery/shieldwallgen) in T)
+			if(!G.active)
+				break
+
 /obj/machinery/shieldwallgen/Destroy()
-	deactivate()
+	cleanup(1)
+	cleanup(2)
+	cleanup(4)
+	cleanup(8)
 	return ..()
 
 /obj/machinery/shieldwallgen/bullet_act(obj/item/projectile/Proj)
-	stored_power -= Proj.damage
+	storedpower -= Proj.damage
 	..()
 	return
 
@@ -466,19 +513,12 @@
 	var/obj/machinery/shieldwallgen/gen_primary
 	var/obj/machinery/shieldwallgen/gen_secondary
 
-/obj/machinery/shieldwall/Initialize(mapload, obj/machinery/shieldwallgen/A, obj/machinery/shieldwallgen/B)
-	. = ..()
+/obj/machinery/shieldwall/New(obj/machinery/shieldwallgen/A, obj/machinery/shieldwallgen/B)
+	..()
 	gen_primary = A
 	gen_secondary = B
 	if(A && B)
 		needs_power = TRUE
-
-/obj/machinery/shieldwall/Destroy()
-	gen_primary?.remove_active_shield(src, dir)
-	gen_secondary?.remove_active_shield(src, turn(dir, 180))
-	gen_primary = null
-	gen_secondary = null
-	return ..()
 
 /obj/machinery/shieldwall/attack_hand(mob/user)
 	return
@@ -488,10 +528,18 @@
 
 /obj/machinery/shieldwall/process()
 	if(needs_power)
+		if(isnull(gen_primary)||isnull(gen_secondary))
+			qdel(src)
+			return
+
+		if(!(gen_primary.active)||!(gen_secondary.active))
+			qdel(src)
+			return
+
 		if(prob(50))
-			gen_primary.stored_power = max(gen_primary.stored_power - 10, 0)
+			gen_primary.storedpower -= 10
 		else
-			gen_secondary.stored_power = max(gen_secondary.stored_power - 10, 0)
+			gen_secondary.storedpower -=10
 
 
 /obj/machinery/shieldwall/bullet_act(obj/item/projectile/Proj)
@@ -501,7 +549,7 @@
 			G = gen_primary
 		else
 			G = gen_secondary
-		G.stored_power -= Proj.damage
+		G.storedpower -= Proj.damage
 	..()
 	return
 
@@ -515,21 +563,21 @@
 					G = gen_primary
 				else
 					G = gen_secondary
-				G.stored_power -= 200
+				G.storedpower -= 200
 
 			if(2.0) //medium boom
 				if(prob(50))
 					G = gen_primary
 				else
 					G = gen_secondary
-				G.stored_power -= 50
+				G.storedpower -= 50
 
 			if(3.0) //lil boom
 				if(prob(50))
 					G = gen_primary
 				else
 					G = gen_secondary
-				G.stored_power -= 20
+				G.storedpower -= 20
 	return
 
 
@@ -560,7 +608,7 @@
 		return FALSE
 	return ..(mover, target, height)
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/machinery/shieldwall/syndicate/CanAStarPass(ID, to_dir, caller)
 	if(isliving(caller))
 		var/mob/living/M = caller
 		if("syndicate" in M.faction)

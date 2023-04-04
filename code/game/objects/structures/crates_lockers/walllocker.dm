@@ -12,7 +12,7 @@
 	icon_opened = "wall-lockeropen"
 
 /obj/structure/closet/walllocker/close()
-	. = ..()
+	..()
 	density = FALSE //It's a locker in a wall, you aren't going to be walking into it.
 
 /obj/structure/closet/walllocker/emerglocker

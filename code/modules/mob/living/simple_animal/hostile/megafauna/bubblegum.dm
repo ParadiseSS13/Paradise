@@ -59,15 +59,15 @@ Difficulty: Hard
 	var/enrage_till = 0
 	var/enrage_time = 70
 	var/revving_charge = FALSE
-	internal_gps = /obj/item/gps/internal/bubblegum
+	internal_type = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
 	attack_action_types = list(/datum/action/innate/megafauna_attack/triple_charge,
-							/datum/action/innate/megafauna_attack/hallucination_charge,
-							/datum/action/innate/megafauna_attack/hallucination_surround,
-							/datum/action/innate/megafauna_attack/blood_warp)
+							   /datum/action/innate/megafauna_attack/hallucination_charge,
+							   /datum/action/innate/megafauna_attack/hallucination_surround,
+							   /datum/action/innate/megafauna_attack/blood_warp)
 
 /obj/item/gps/internal/bubblegum
 	icon_state = null
@@ -161,7 +161,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/surround_with_hallucinations()
 	for(var/i = 1 to 5)
-		INVOKE_ASYNC(src, PROC_REF(hallucination_charge_around), 2, 8, 2, 0, 4)
+		INVOKE_ASYNC(src, .proc/hallucination_charge_around, 2, 8, 2, 0, 4)
 		if(ismob(target))
 			charge(delay = 9)
 		else
@@ -206,7 +206,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/try_bloodattack()
 	var/list/targets = get_mobs_on_blood()
 	if(targets.len)
-		INVOKE_ASYNC(src, PROC_REF(bloodattack), targets, prob(50))
+		INVOKE_ASYNC(src, .proc/bloodattack, targets, prob(50))
 		return TRUE
 	return FALSE
 
@@ -272,7 +272,7 @@ Difficulty: Hard
 				var/turf/targetturf = get_step(src, dir)
 				L.forceMove(targetturf)
 				playsound(targetturf, 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
-				addtimer(CALLBACK(src, PROC_REF(devour), L), 2)
+				addtimer(CALLBACK(src, .proc/devour, L), 2)
 	SLEEP_CHECK_DEATH(1)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_warp()
@@ -295,9 +295,6 @@ Difficulty: Hard
 	animate(DA, alpha = 255, color = initial(DA.color), transform = oldtransform, time = 3)
 	SLEEP_CHECK_DEATH(3)
 	qdel(DA)
-
-	if(target.z != z)
-		return FALSE
 
 	var/obj/effect/decal/cleanable/blood/found_bloodpool
 	pools = get_pools(get_turf(target), 5)
@@ -342,7 +339,7 @@ Difficulty: Hard
 	change_move_delay(5)
 	var/newcolor = rgb(149, 10, 10)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
-	var/datum/callback/cb = CALLBACK(src, PROC_REF(blood_enrage_end))
+	var/datum/callback/cb = CALLBACK(src, .proc/blood_enrage_end)
 	addtimer(cb, enrage_time)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/blood_enrage_end(newcolor = rgb(149, 10, 10))
@@ -389,7 +386,7 @@ Difficulty: Hard
 				continue
 		var/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/B = new /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination(loc)
 		B.forceMove(place)
-		INVOKE_ASYNC(B, PROC_REF(charge), chargeat, delay, chargepast)
+		INVOKE_ASYNC(B, .proc/charge, chargeat, delay, chargepast)
 	if(useoriginal)
 		charge(chargeat, delay, chargepast)
 
@@ -464,8 +461,8 @@ Difficulty: Hard
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/A, yes)
-	if(charging && yes)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/A)
+	if(charging)
 		if(isturf(A) || isobj(A) && A.density)
 			A.ex_act(EXPLODE_HEAVY)
 		DestroySurroundings()
@@ -519,8 +516,6 @@ Difficulty: Hard
 	deathmessage = "Explodes into a pool of blood!"
 	death_sound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE
-	internal_gps = null // No gps for this lad
-	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)
 	. = ..()

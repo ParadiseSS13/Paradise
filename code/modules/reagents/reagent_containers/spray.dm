@@ -19,7 +19,7 @@
 	possible_transfer_amounts = null
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
-	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
+	if(istype(A, /obj/item/storage) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
 	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
 		return
 
@@ -44,7 +44,7 @@
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
-	INVOKE_ASYNC(src, PROC_REF(spray), A)
+	INVOKE_ASYNC(src, .proc/spray, A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
@@ -112,26 +112,8 @@
 //space cleaner
 /obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
-	desc = "Your standard spritz cleaner bottle designed to keep ALL of your workplaces spotless."
-	spray_maxrange = 2
-	spray_currentrange = 2
-	amount_per_transfer_from_this = 10
-	list_reagents = list("cleaner" = 250)
-
-/obj/item/reagent_containers/spray/cleaner/attack_self(mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
-	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
-
-/obj/item/reagent_containers/spray/cleaner/advanced
-	name = "advanced space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
-	icon_state = "adv_cleaner"
-	item_state = "adv_cleaner"
-	volume = 500
-	spray_maxrange = 3
-	spray_currentrange = 3
-	list_reagents = list("cleaner" = 500)
+	list_reagents = list("cleaner" = 250)
 
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
@@ -149,22 +131,11 @@
 /obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
-	spray_maxrange = 3
-	spray_currentrange = 3
-	amount_per_transfer_from_this = 5
 	volume = 50
 	list_reagents = list("cleaner" = 50)
 
 /obj/item/reagent_containers/spray/cleaner/drone/cyborg_recharge(coeff, emagged)
 	reagents.check_and_add("cleaner", volume, 3 * coeff)
-
-/obj/item/reagent_containers/spray/cyborg_lube
-	name = "lube spray"
-	list_reagents = list("lube" = 250)
-
-/obj/item/reagent_containers/spray/cyborg_lube/cyborg_recharge(coeff, emagged)
-	if(emagged)
-		reagents.check_and_add("lube", volume, 2 * coeff)
 
 //spray tan
 /obj/item/reagent_containers/spray/spraytan

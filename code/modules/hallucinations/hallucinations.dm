@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
   * * delay - Delay in deciseconds.
   */
 /obj/effect/hallucination/proc/clear_icon_in(image/I, delay)
-	addtimer(CALLBACK(src, PROC_REF(clear_icon), I), delay)
+	addtimer(CALLBACK(src, .proc/clear_icon, I), delay)
 
 /**
   * Clears all images from the hallucination.
@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	if(!images)
 		return
 	target?.client?.images -= images
-	QDEL_LIST_CONTENTS(images)
+	QDEL_LIST(images)
 
 /**
   * Plays a sound to the target only.
@@ -141,4 +141,4 @@ GLOBAL_LIST_INIT(hallucinations, list(
 	if(time == 0) // whatever
 		target?.playsound_local(source, snd, volume, vary, frequency)
 		return
-	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), source, snd, volume, vary, frequency), time)
+	addtimer(CALLBACK(target, /mob/.proc/playsound_local, source, snd, volume, vary, frequency), time)

@@ -30,8 +30,8 @@
 		GLOB.cameranet.updateVisibility(src)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		var/turf/T = get_turf(src)
-		QUEUE_SMOOTH_NEIGHBORS(T)
-	REMOVE_FROM_SMOOTH_QUEUE(src)
+		spawn(0)
+			QUEUE_SMOOTH_NEIGHBORS(T)
 	return ..()
 
 /obj/structure/proc/climb_on()

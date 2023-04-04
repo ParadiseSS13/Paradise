@@ -11,8 +11,6 @@
 	bitesize = 3
 	list_reagents = list("protein" = 3)
 	tastes = list("meat" = 1)
-	ingredient_name = "slab of meat"
-	ingredient_name_plural = "slabs of meat"
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -194,13 +192,9 @@
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
 
-/obj/item/reagent_containers/food/snacks/telebacon/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/food/snacks/telebacon/New()
+	..()
 	baconbeacon = new /obj/item/radio/beacon/bacon(src)
-
-/obj/item/reagent_containers/food/snacks/telebacon/Destroy()
-	QDEL_NULL(baconbeacon)
-	return ..()
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -355,6 +349,7 @@
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 
+
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()
 	var/turf/T = get_turf(hit_atom)
@@ -413,8 +408,8 @@
 /obj/item/reagent_containers/food/snacks/egg/gland
 	desc = "An egg! It looks weird..."
 
-/obj/item/reagent_containers/food/snacks/egg/gland/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/food/snacks/egg/gland/New()
+	..()
 	reagents.add_reagent(get_random_reagent_id(), 15)
 
 	var/reagent_color = mix_color_from_reagents(reagents.reagent_list)

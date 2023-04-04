@@ -42,7 +42,7 @@
 			return
 	reagents.remove_reagent(25,"water")
 	var/datum/effect_system/smoke_spread/bad/smoke = new
-	smoke.set_up(5, FALSE, user)
+	smoke.set_up(5, 0, user.loc)
 	smoke.start()
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 2)
 
@@ -62,7 +62,7 @@
 
 /obj/item/reagent_containers/spray/alien/stun
 	name = "paralytic toxin synthesizer"
-	desc = "squirts ether."
+	desc = "squirts viagra."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-stun"
 	list_reagents = list("ether" = 250)

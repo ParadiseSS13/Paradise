@@ -10,7 +10,7 @@
 	icon_state = "0"
 	belt_icon = "syringe"
 	amount_per_transfer_from_this = 5
-	possible_transfer_amounts = null
+	possible_transfer_amounts = list()
 	volume = 15
 	sharp = TRUE
 	var/busy = FALSE
@@ -19,8 +19,8 @@
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 
-/obj/item/reagent_containers/syringe/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/syringe/New()
+	..()
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 		update_icon()
@@ -179,32 +179,32 @@
 		M.update_inv_r_hand()
 
 /obj/item/reagent_containers/syringe/antiviral
-	name = "syringe (spaceacillin)"
+	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
 	list_reagents = list("spaceacillin" = 15)
 
 /obj/item/reagent_containers/syringe/charcoal
-	name = "syringe (charcoal)"
+	name = "Syringe (charcoal)"
 	desc = "Contains charcoal - used to treat toxins and damage from toxins."
 	list_reagents = list("charcoal" = 15)
 
 /obj/item/reagent_containers/syringe/epinephrine
-	name = "syringe (Epinephrine)"
+	name = "Syringe (Epinephrine)"
 	desc = "Contains epinephrine - used to stabilize patients."
 	list_reagents = list("epinephrine" = 15)
 
 /obj/item/reagent_containers/syringe/insulin
-	name = "syringe (insulin)"
+	name = "Syringe (insulin)"
 	desc = "Contains insulin - used to treat diabetes."
 	list_reagents = list("insulin" = 15)
 
 /obj/item/reagent_containers/syringe/calomel
-	name = "syringe (calomel)"
+	name = "Syringe (calomel)"
 	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
 	list_reagents = list("calomel" = 15)
 
 /obj/item/reagent_containers/syringe/heparin
-	name = "syringe (heparin)"
+	name = "Syringe (heparin)"
 	desc = "Contains heparin, a blood anticoagulant."
 	list_reagents = list("heparin" = 15)
 

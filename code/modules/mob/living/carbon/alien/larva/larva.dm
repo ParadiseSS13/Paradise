@@ -24,18 +24,18 @@
 	regenerate_icons()
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve_larva)
 
 /mob/living/carbon/alien/larva/get_caste_organs()
 	. = ..()
-	. += /obj/item/organ/internal/alien/plasmavessel/larva
+	. += /obj/item/organ/internal/xenos/plasmavessel/larva
 
 
+//This needs to be fixed
 /mob/living/carbon/alien/larva/Stat()
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-/mob/living/carbon/alien/larva/add_plasma(amount)
+/mob/living/carbon/alien/larva/adjustPlasma(amount)
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
@@ -43,24 +43,30 @@
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()
 
-	var/brute_loss = null
-	var/fire_loss = null
+	var/b_loss = null
+	var/f_loss = null
 	switch(severity)
 		if(1.0)
 			gib()
 			return
+
 		if(2.0)
-			brute_loss += 60
-			fire_loss += 60
+
+			b_loss += 60
+
+			f_loss += 60
+
 			AdjustEarDamage(30, 120)
+
 		if(3.0)
-			brute_loss += 30
+			b_loss += 30
 			if(prob(50))
 				Paralyse(2 SECONDS)
 			AdjustEarDamage(15, 60)
 
-	adjustBruteLoss(brute_loss)
-	adjustFireLoss(fire_loss)
+	adjustBruteLoss(b_loss)
+	adjustFireLoss(f_loss)
+
 	updatehealth()
 
 //can't equip anything
@@ -68,7 +74,7 @@
 	return
 
 /mob/living/carbon/alien/larva/restrained()
-	return FALSE
+	return 0
 
 /mob/living/carbon/alien/larva/var/temperature_resistance = T0C+75
 

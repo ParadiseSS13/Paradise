@@ -17,13 +17,14 @@
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
-		CRASH("Barrier spawner placed in nullspace!")
+		log_runtime(EXCEPTION("Barrier spawner placed in nullspace!"), src)
+		return
 	var/thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /turf))
 		T.ChangeTurf(thing_to_place)
 	else
 		new thing_to_place(T)
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/effect/spawner/random_barrier/wall_probably
 	name = "probably a wall"

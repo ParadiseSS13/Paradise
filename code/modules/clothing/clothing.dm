@@ -87,7 +87,7 @@
 	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
 		return 1
 
-	if(species_restricted && ishuman(M))
+	if(species_restricted && istype(M,/mob/living/carbon/human))
 
 		var/wearable = null
 		var/exclusive = null
@@ -114,7 +114,7 @@
 	//Set species_restricted list
 	switch(target_species)
 		if("Human", "Skrell")	//humanoid bodytypes
-			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Drask")
+			species_restricted = list("exclude","Unathi","Tajaran","Diona","Vox","Wryn","Drask")
 		else
 			species_restricted = list(target_species)
 
@@ -222,13 +222,13 @@
 	resistance_flags = NONE
 
 /*
- * SEE_SELF  // can see self, no matter what
- * SEE_MOBS  // can see all mobs, no matter what
- * SEE_OBJS  // can see all objs, no matter what
- * SEE_TURFS // can see all turfs (and areas), no matter what
- * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
- *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
- * BLIND     // can't see anything
+SEE_SELF  // can see self, no matter what
+SEE_MOBS  // can see all mobs, no matter what
+SEE_OBJS  // can see all objs, no matter what
+SEE_TURFS // can see all turfs (and areas), no matter what
+SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
+          // in a lit area (via pixel_x,y or smooth movement), can see those pixels
+BLIND     // can't see anything
 */
 
 /obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
@@ -257,8 +257,7 @@
 //Gloves
 /obj/item/clothing/gloves
 	name = "gloves"
-	///Carn: for grammarically correct text-parsing
-	gender = PLURAL
+	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
@@ -266,11 +265,8 @@
 	slot_flags = SLOT_GLOVES
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
-	///Master pickpocket?
-	var/pickpocket = 0
+	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
-	///Do they protect the wearer from poison ink?
-	var/safe_from_poison = FALSE
 	strip_delay = 20
 	put_on_delay = 40
 
@@ -339,12 +335,12 @@
 				to_chat(user, "Your suit will now report your vital lifesigns.")
 			if(SUIT_SENSOR_TRACKING)
 				to_chat(user, "Your suit will now report your vital lifesigns as well as your coordinate position.")
-		if(ishuman(user))
+		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if(ismob(src.loc))
+	else if(istype(src.loc, /mob))
 		switch(sensor_mode)
 			if(SUIT_SENSOR_OFF)
 				for(var/mob/V in viewers(user, 1))
@@ -358,7 +354,7 @@
 			if(SUIT_SENSOR_TRACKING)
 				for(var/mob/V in viewers(user, 1))
 					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
-		if(ishuman(src))
+		if(istype(src,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
@@ -639,6 +635,7 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
+	species_restricted = list("exclude","Wryn")
 	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50
 	put_on_delay = 50
@@ -668,13 +665,14 @@
 	put_on_delay = 80
 	resistance_flags = NONE
 	hide_tail_by_species = null
+	species_restricted = list("exclude","Wryn")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
 //Under clothing
 /obj/item/clothing/under
-	icon = 'icons/obj/clothing/under/misc.dmi'
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
@@ -685,9 +683,9 @@
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/under/misc.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/misc.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/uniform.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/uniform.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/uniform.dmi'
 		)
 
 	///For the crew computer 2 = unable to change mode
@@ -710,7 +708,7 @@
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
 
 /obj/item/clothing/under/Destroy()
-	QDEL_LIST_CONTENTS(accessories)
+	QDEL_LIST(accessories)
 	return ..()
 
 
@@ -831,31 +829,17 @@
 	set name = "Roll Down Jumpsuit"
 	set category = "Object"
 	set src in usr
-	if(!isliving(usr)) return
+	if(!istype(usr, /mob/living)) return
 	if(usr.stat) return
-
-	var/mob/living/carbon/human/H = usr
 
 	if(!usr.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-
-		if(usr.get_item_by_slot(slot_w_uniform) != src)
-			to_chat(usr, "<span class='notice'>You must wear the uniform to adjust it!</span>")
-
+		if((basecolor + "_d_s") in icon_states('icons/mob/clothing/uniform.dmi'))
+			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
+			usr.update_inv_w_uniform()
 		else
-			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name]))
-				if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
-					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-					usr.update_inv_w_uniform()
-
-			else
-				if(H.w_uniform.sprite_sheets["Human"] && icon_exists(H.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
-					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
-					usr.update_inv_w_uniform()
-				else
-					to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
-
+			to_chat(usr, "<span class='notice'>You cannot roll down this uniform!</span>")
 	else
 		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
 

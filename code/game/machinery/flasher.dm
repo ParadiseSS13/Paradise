@@ -29,22 +29,23 @@
 	base_state = "pflash"
 	density = TRUE
 
-/obj/machinery/flasher/portable/Initialize(mapload)
+/obj/machinery/flasher/portable/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
 /obj/machinery/flasher/power_change()
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light(0)
-	else
+	if( powered() )
+		stat &= ~NOPOWER
 		set_light(1, LIGHTING_MINIMUM_POWER)
+	else
+		stat |= ~NOPOWER
+		set_light(0)
 	update_icon()
 
 /obj/machinery/flasher/update_icon_state()
 	. = ..()
-	if((stat & NOPOWER) || !anchored)
+
+	if(stat & NOPOWER)
 		icon_state = "[base_state]1-p"
 	else
 		icon_state = "[base_state]1"
@@ -52,13 +53,11 @@
 /obj/machinery/flasher/update_overlays()
 	. = ..()
 	underlays.Cut()
-	cut_overlays()
+
 	if(stat & NOPOWER)
 		return
 
-	if(anchored)
-		. += "[base_state]-s"
-		underlays += emissive_appearance(icon, "[base_state]_lightmask")
+	underlays += emissive_appearance(icon, "[base_state]_lightmask")
 
 
 //Let the AI trigger them directly.
@@ -71,7 +70,7 @@
 		return flash()
 
 /obj/machinery/flasher/proc/flash()
-	if(!has_power())
+	if(!(powered()))
 		return
 
 	if((disable) || (last_flash && world.time < last_flash + 150))
@@ -80,7 +79,7 @@
 	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
 	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
 	last_flash = world.time
 	use_power(1000)
 
@@ -103,7 +102,7 @@
 	if((disable) || (last_flash && world.time < last_flash + 150))
 		return
 
-	if(iscarbon(AM))
+	if(istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
 		if((M.m_intent != MOVE_INTENT_WALK) && (anchored))
 			flash()
@@ -126,9 +125,10 @@
 	anchored = !anchored
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
+		overlays.Cut()
 	else
 		WRENCH_UNANCHOR_MESSAGE
-	update_icon()
+		overlays += "[base_state]-s"
 
 // Flasher button
 /obj/machinery/flasher_button
@@ -139,8 +139,9 @@
 	var/id = null
 	var/active = FALSE
 	anchored = TRUE
-	idle_power_consumption = 2
-	active_power_consumption = 4
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 2
+	active_power_usage = 4
 
 /obj/machinery/flasher_button/attack_ai(mob/user as mob)
 	return attack_hand(user)

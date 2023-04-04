@@ -23,6 +23,8 @@
 					TYPE_ICE,
 					TYPE_STEEL)
 	area_blacklist = list(/area/crew_quarters/toilet,
+						/area/crew_quarters/sleep_male/toilet_male,
+						/area/crew_quarters/sleep_female/toilet_female,
 						/area/crew_quarters/locker/locker_toilet,
 						/area/toxins/server_coldroom)
 	area_whitelist = list(/area/maintenance/turbine,
@@ -42,6 +44,8 @@
 						/area/maintenance/incinerator,
 						/area/crew_quarters/kitchen)
 	area_whitelist = list(/area/crew_quarters/toilet,
+						/area/crew_quarters/sleep_male/toilet_male,
+						/area/crew_quarters/sleep_female/toilet_female,
 						/area/crew_quarters/locker/locker_toilet)
 	turf_whitelist = list(/turf/simulated/floor/beach/water)
 

@@ -39,7 +39,7 @@
 				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 				update_icon(UPDATE_ICON_STATE)
 			return
-		else if(isitem(O))
+		else if(istype(O, /obj/item))
 			user.changeNext_move(CLICK_CD_MELEE)
 			var/obj/item/W = O
 			if(smashed || localopened)
@@ -122,10 +122,6 @@
 		update_icon(UPDATE_ICON_STATE)
 		return
 	attack_hand(user)
-
-/obj/structure/closet/fireaxecabinet/shove_impact(mob/living/target, mob/living/attacker)
-	// no, you can't shove people into a fireaxe cabinet either
-	return FALSE
 
 /obj/structure/closet/fireaxecabinet/verb/toggle_openness() //nice name, huh? HUH?! -Erro //YEAH -Agouri
 	set name = "Open/Close"

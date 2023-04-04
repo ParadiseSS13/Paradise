@@ -54,10 +54,10 @@
 /obj/effect/proc_holder/spell/mimic/cast(list/targets, mob/user)
 	var/atom/movable/A = targets[1]
 	if(A == user)
-		INVOKE_ASYNC(src, PROC_REF(pick_form), user)
+		INVOKE_ASYNC(src, .proc/pick_form, user)
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(remember_form), A, user)
+	INVOKE_ASYNC(src, .proc/remember_form, A, user)
 
 /obj/effect/proc_holder/spell/mimic/proc/remember_form(atom/movable/A, mob/user)
 	if(A.name in available_forms)
@@ -127,8 +127,8 @@
 	user.create_log(MISC_LOG, "Mimicked into [user]")
 
 	if(!selected_form)
-		RegisterSignal(user, COMSIG_PARENT_EXAMINE, PROC_REF(examine_override))
-		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+		RegisterSignal(user, COMSIG_PARENT_EXAMINE, .proc/examine_override)
+		RegisterSignal(user, COMSIG_MOB_DEATH, .proc/on_death)
 
 	selected_form = form
 

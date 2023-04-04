@@ -18,7 +18,10 @@ SUBSYSTEM_DEF(overlays)
 	stats = list()
 
 /datum/controller/subsystem/overlays/Initialize()
+	initialized = TRUE
 	fire(mc_check = FALSE)
+	return ..()
+
 
 /datum/controller/subsystem/overlays/get_stat_details()
 	return "Ov:[length(queue)]"
@@ -81,7 +84,9 @@ SUBSYSTEM_DEF(overlays)
 /atom/proc/build_appearance_list(old_overlays)
 	var/static/image/appearance_bro = new()
 	var/list/new_overlays = list()
-	for(var/overlay in (islist(old_overlays) ? old_overlays : list(old_overlays)))
+	if(!islist(old_overlays))
+		old_overlays = list(old_overlays)
+	for(var/overlay in old_overlays)
 		if(!overlay)
 			continue
 		if(istext(overlay))
@@ -89,7 +94,7 @@ SUBSYSTEM_DEF(overlays)
 		else if(isicon(overlay))
 			new_overlays += icon2appearance(overlay)
 		else
-			if(isatom(overlay))
+			if(isloc(overlay))
 				var/atom/A = overlay
 				if(A.flags_2 & OVERLAY_QUEUED_2)
 					COMPILE_OVERLAYS(A)

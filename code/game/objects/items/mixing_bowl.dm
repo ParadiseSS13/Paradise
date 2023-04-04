@@ -2,7 +2,7 @@
 /obj/item/mixing_bowl
 	name = "mixing bowl"
 	desc = "Mixing it up in the kitchen."
-	container_type = OPENCONTAINER
+	flags = OPENCONTAINER
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mixing_bowl"
 	var/max_n_of_items = 25
@@ -107,7 +107,7 @@
 			dat = {"<B>[src] is empty</B><BR>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
-		dat += {"<hr><br> <a href='?src=[UID()];action=dispose'>Dispose ingredients!</a><br>"}
+		dat += {"<HR><BR> <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
 
 	var/datum/browser/popup = new(user, name, name, 400, 400)
 	popup.set_content(dat)
@@ -118,9 +118,8 @@
 /obj/item/mixing_bowl/Topic(href, href_list)
 	if(..())
 		return
-	switch(href_list["action"])
-		if("dispose")
-			dispose()
+	if(href_list["dispose"])
+		dispose()
 	return
 
 /obj/item/mixing_bowl/proc/dispose()
@@ -137,12 +136,12 @@
 		return
 	if(prob(chance))
 		dirty = TRUE
-		container_type = null
+		flags = null
 		icon_state = dirty_icon
 
 /obj/item/mixing_bowl/proc/clean()
 	dirty = FALSE
-	container_type = OPENCONTAINER
+	flags = OPENCONTAINER
 	icon_state = clean_icon
 
 /obj/item/mixing_bowl/wash(mob/user, atom/source)
@@ -165,7 +164,7 @@
 		if(id)
 			amount += reagents.get_reagent_amount(id)
 	reagents.clear_reagents()
-	var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(get_turf(source))
-	mysteryfood.reagents.add_reagent("carbon", amount)
-	mysteryfood.reagents.add_reagent("????", amount / 10)
+	var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(get_turf(source))
+	ffuu.reagents.add_reagent("carbon", amount)
+	ffuu.reagents.add_reagent("????", amount/10)
 	make_dirty(75)

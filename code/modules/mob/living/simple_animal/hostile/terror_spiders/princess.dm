@@ -12,11 +12,6 @@
 	name = "Princess of Terror spider"
 	desc = "An enormous spider. It looks strangely cute and fluffy."
 	spider_role_summary = "Mini-Queen"
-	spider_intro_text = "As a Princess of Terror Spider, your role is to build and maintain a small nest. \
-	You constantly generate eggs at a slow rate which you can lay at a desired location, though you are limited mostly to basic terror spider eggs. Eggs generated while you are in a pipe will be lost. \
-	You can also open powered doors and your webs are airtight, being capable of blocking off exposure to space. \
-	You do not take damage from weaker weapons or projectiles. \
-	However, you only have moderate health and deal moderate damage, making you weak in direct fights and reliant on other spiders for defence."
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"

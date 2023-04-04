@@ -91,7 +91,7 @@
 	src.visible_message("<span class='danger'>\The [src] bursts!</span>")
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1, FALSE, loc)
+	smoke.set_up(1,0, src.loc, 0)
 	smoke.start()
 	qdel(src)
 
@@ -157,5 +157,5 @@
 	return
 
 /obj/machinery/atmospherics/pipe/simple/hide(i)
-	if(level == 1 && issimulatedturf(loc))
+	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0

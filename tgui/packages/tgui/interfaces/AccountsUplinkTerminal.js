@@ -9,10 +9,8 @@ import {
   LabeledList,
   Section,
   Table,
-  Tabs,
 } from '../components';
 import { FlexItem } from '../components/Flex';
-import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
@@ -32,7 +30,7 @@ export const AccountsUplinkTerminal = (properties, context) => {
     );
   } else {
     if (currentPage === 1) {
-      body = <AccountsUplinkTerminalContent />;
+      body = <AccountsRecordList />;
     } else if (currentPage === 2) {
       body = <DetailedAccountInfo />;
     } else if (currentPage === 3) {
@@ -44,47 +42,10 @@ export const AccountsUplinkTerminal = (properties, context) => {
     <Window resizable>
       <Window.Content scrollable>
         <LoginInfo />
-        <AccountsUplinkTerminalNavigation />
         {body}
       </Window.Content>
     </Window>
   );
-};
-
-const AccountsUplinkTerminalNavigation = (properties, context) => {
-  const { data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const {
-    login_state,
-  } = data
-  return (
-    <Tabs>
-      <Tabs.Tab
-        selected={0 === tabIndex}
-        onClick={() => setTabIndex(0)}>
-        <Icon name="list" />
-        User Accounts
-      </Tabs.Tab>
-      <Tabs.Tab
-        selected={1 === tabIndex}
-        onClick={() => setTabIndex(1)}>
-        <Icon name="list" />
-        Department Accounts
-      </Tabs.Tab>
-    </Tabs>
-  );
-};
-
-const AccountsUplinkTerminalContent = (props, context) => {
-  const [tabIndex] = useLocalState(context, 'tabIndex', 0);
-  switch (tabIndex) {
-    case 0:
-      return <AccountsRecordList />;
-    case 1:
-      return <DepartmentAccountsList />;
-    default:
-      return "You are somehow on a tab that doesn't exist! Please let a coder know.";
-  }
 };
 
 const AccountsRecordList = (properties, context) => {
@@ -103,7 +64,6 @@ const AccountsRecordList = (properties, context) => {
               <SortButton id="owner_name">Account Holder</SortButton>
               <SortButton id="account_number">Account Number</SortButton>
               <SortButton id="suspended">Account Status</SortButton>
-              <SortButton id="money">Account Balance</SortButton>
             </Table.Row>
             {accounts
               .filter(
@@ -113,9 +73,7 @@ const AccountsRecordList = (properties, context) => {
                     '|' +
                     account.account_number +
                     '|' +
-                    account.suspended +
-                    '|' +
-                    account.money
+                    account.suspended
                   );
                 })
               )
@@ -125,12 +83,9 @@ const AccountsRecordList = (properties, context) => {
               })
               .map((account) => (
                 <Table.Row
-                  key={account.account_number}
-                  className={
-                    'AccountsUplinkTerminal__listRow--' + account.suspended
-                  }
+                  key={account.id}
                   onClick={() =>
-                    act('view_account_detail', { account_num: account.account_number })
+                    act('view_account_detail', { index: account.account_index })
                   }
                 >
                   <Table.Cell>
@@ -138,47 +93,6 @@ const AccountsRecordList = (properties, context) => {
                   </Table.Cell>
                   <Table.Cell>#{account.account_number}</Table.Cell>
                   <Table.Cell>{account.suspended}</Table.Cell>
-                  <Table.Cell>{account.money}</Table.Cell>
-                </Table.Row>
-              ))}
-          </Table>
-        </Section>
-      </Flex.Item>
-    </Flex>
-  );
-};
-
-const DepartmentAccountsList = (properties, context) => {
-  const { act, data } = useBackend(context);
-  const { department_accounts } = data;
-  return (
-    <Flex direction="column" height="100%">
-      <AccountsActions />
-      <Flex.Item flexGrow="1" mt="0.5rem">
-        <Section height="100%">
-          <Table className="AccountsUplinkTerminal__list">
-            <Table.Row bold>
-              <TableCell>Department Name</TableCell>
-              <TableCell>Account Number</TableCell>
-              <TableCell>Account Status</TableCell>
-              <TableCell>Account Balance</TableCell>
-            </Table.Row>
-            {department_accounts
-              .map((account) => (
-                <Table.Row
-                  key={account.account_number}
-                  className={
-                    'AccountsUplinkTerminal__listRow--' + account.suspended
-                  }
-                  onClick={() => act('view_account_detail', {
-                    account_num: account.account_number
-                  })}>
-                  <Table.Cell>
-                    <Icon name="wallet"/> {account.name}
-                  </Table.Cell>
-                  <Table.Cell>#{account.account_number}</Table.Cell>
-                  <Table.Cell>{account.suspended}</Table.Cell>
-                  <Table.Cell>{account.money}</Table.Cell>
                 </Table.Row>
               ))}
           </Table>
@@ -227,6 +141,13 @@ const AccountsActions = (properties, context) => {
           icon="plus"
           onClick={() => act('create_new_account')}
         />
+        <Button
+          icon="print"
+          content="Print Account List"
+          disabled={is_printing}
+          ml="0.25rem"
+          onClick={() => act('print_records')}
+        />
       </FlexItem>
       <FlexItem grow="1" ml="0.5rem">
         <Input
@@ -242,13 +163,12 @@ const AccountsActions = (properties, context) => {
 const DetailedAccountInfo = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
+    is_printing,
     account_number,
     owner_name,
     money,
     suspended,
     transactions,
-    account_pin,
-    is_department_account
   } = data;
   return (
     <Fragment>
@@ -256,31 +176,24 @@ const DetailedAccountInfo = (properties, context) => {
         title={'#' + account_number + ' / ' + owner_name}
         mt={1}
         buttons={
-          <Button
-            icon="arrow-left"
-            content="Back"
-            onClick={() => act('back')}
-          />
+          <Fragment>
+            <Button
+              icon="print"
+              content="Print Account Details"
+              disabled={is_printing}
+              onClick={() => act('print_account_details')}
+            />
+            <Button
+              icon="arrow-left"
+              content="Back"
+              onClick={() => act('back')}
+            />
+          </Fragment>
         }
       >
         <LabeledList>
           <LabeledList.Item label="Account Number">
             #{account_number}
-          </LabeledList.Item>
-          {!!is_department_account &&
-            <LabeledList.Item label="Account Pin">
-              {account_pin}
-            </LabeledList.Item>
-          }
-          <LabeledList.Item label="Account Pin Actions">
-            <Button ml={1}
-              icon="user-cog"
-              content="Set New Pin"
-              disabled={Boolean(is_department_account)}
-              onClick={() => act('set_account_pin', {
-                account_number: account_number,
-              })}
-            />
           </LabeledList.Item>
           <LabeledList.Item label="Account Holder">
             {owner_name}
@@ -304,16 +217,20 @@ const DetailedAccountInfo = (properties, context) => {
         <Table>
           <Table.Row header>
             <Table.Cell>Timestamp</Table.Cell>
+            <Table.Cell>Target</Table.Cell>
             <Table.Cell>Reason</Table.Cell>
             <Table.Cell>Value</Table.Cell>
             <Table.Cell>Terminal</Table.Cell>
           </Table.Row>
           {transactions.map((t) => (
             <Table.Row key={t}>
-              <Table.Cell>{t.time}</Table.Cell>
-              <Table.Cell>{t.purpose}</Table.Cell>
-              <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
+              <Table.Cell>
+                {t.date} {t.time}
+              </Table.Cell>
               <Table.Cell>{t.target_name}</Table.Cell>
+              <Table.Cell>{t.purpose}</Table.Cell>
+              <Table.Cell>${t.amount}</Table.Cell>
+              <Table.Cell>{t.source_terminal}</Table.Cell>
             </Table.Row>
           ))}
         </Table>

@@ -18,12 +18,9 @@
 	var/recentpump = 0 // to prevent spammage
 	weapon_weight = WEAPON_HEAVY
 
-/obj/item/gun/projectile/shotgun/examine(mob/user)
-	. = ..()
-	. += get_shotgun_info()
-
-/obj/item/gun/projectile/shotgun/proc/get_shotgun_info()
-	return "<span class='notice'>After firing a shot, use this item in hand to remove the spent shell.</span>"
+/obj/item/gun/projectile/shotgun/detailed_examine()
+	return "This is a ballistic weapon. After firing, you will need to pump the gun, by clicking on the gun in your hand. To reload, load more shotgun \
+			shells into the gun."
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
@@ -72,7 +69,7 @@
 
 /obj/item/gun/projectile/shotgun/proc/pump_reload(mob/M)
 	if(!magazine.ammo_count())
-		return FALSE
+		return 0
 	var/obj/item/ammo_casing/AC = magazine.get_round() //load next casing.
 	chambered = AC
 
@@ -111,7 +108,7 @@
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
 		return
-	if(isstorage(loc))	//To prevent inventory exploits
+	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
@@ -152,7 +149,7 @@
 	if(sawn_state == SAWN_INTACT)
 		to_chat(user, "<span class='warning'>[src] has not been shortened!</span>")
 		return
-	if(isstorage(loc))	//To prevent inventory exploits
+	if(istype(loc, /obj/item/storage))	//To prevent inventory exploits
 		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
 		return
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
@@ -207,7 +204,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction
 	name = "\improper Mosin Nagant"
-	desc = "This piece of junk looks like something that could have been used 700 years ago. Has a bayonet lug for attaching a knife."
+	desc = "This piece of junk looks like something that could have been used 700 years ago."
 	icon_state = "moistnugget"
 	item_state = "moistnugget"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -216,7 +213,7 @@
 	inhand_y_dimension = 32
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
-	var/bolt_open = FALSE
+	var/bolt_open = 0
 	can_bayonet = TRUE
 	knife_x_offset = 27
 	knife_y_offset = 13
@@ -228,11 +225,7 @@
 	else
 		pump_unload(M)
 	bolt_open = !bolt_open
-	update_icon(UPDATE_ICON_STATE)
 	return 1
-
-/obj/item/gun/projectile/shotgun/boltaction/update_icon_state()
-	icon_state = "[initial(icon_state)][bolt_open ? "-open" : ""]"
 
 /obj/item/gun/projectile/shotgun/blow_up(mob/user)
 	. = 0
@@ -305,8 +298,9 @@
 
 /obj/item/gun/projectile/shotgun/automatic
 
-/obj/item/gun/projectile/shotgun/automatic/get_shotgun_info()
-	return "<span class='notice'>Automatically releases spent shotgun shells.</span>"
+/obj/item/gun/projectile/shotgun/automatic/detailed_examine()
+	return "This is a ballistic weapon. After firing, it will automatically cycle the next shell. To reload, load more shotgun \
+			shells into the gun."
 
 /obj/item/gun/projectile/shotgun/automatic/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	..()

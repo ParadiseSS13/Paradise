@@ -146,7 +146,7 @@
 
 			atom_say("Processing hub calibration to target...")
 			calibrating = TRUE
-			addtimer(CALLBACK(src, PROC_REF(calibrateCallback)), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
+			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
 /**
 *	Resets the connected powerstation to initial values. Helper function of ui_act
@@ -296,9 +296,9 @@
 /proc/find_loc(obj/R as obj)
 	if(!R)	return null
 	var/turf/T = R.loc
-	while(!isturf(T))
+	while(!istype(T, /turf))
 		T = T.loc
-		if(!T || isarea(T))	return null
+		if(!T || istype(T, /area))	return null
 	return T
 
 /obj/machinery/teleport
@@ -313,9 +313,9 @@
 	Prevents AI from using the teleporter, prints out failure messages for clarity
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
-	if(isAI(A) || istype(A, /obj/structure/AIcore))
+	if(istype(A, /mob/living/silicon/ai) || istype(A, /obj/structure/AIcore))
 		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
-		if(isAI(A))
+		if(istype(A, /mob/living/silicon/ai))
 			var/mob/living/silicon/ai/T = A
 			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
 			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
@@ -330,8 +330,9 @@
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
 	var/accurate = 0
-	idle_power_consumption = 10
-	active_power_consumption = 2000
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 10
+	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on CC level. If 0, doesn't. Used for admin room teleport.
@@ -448,10 +449,11 @@
 	name = "permanent teleporter"
 	desc = "A teleporter with the target pre-set on the circuit board."
 	icon_state = "tele0"
-	idle_power_consumption = 10
-	active_power_consumption = 2000
-
 	var/recalibrating = FALSE
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 10
+	active_power_usage = 2000
+
 	var/target
 	var/tele_delay = 50
 
@@ -482,7 +484,7 @@
 			recalibrating = TRUE
 			update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 			update_lighting()
-			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
+			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
@@ -490,8 +492,7 @@
 	update_lighting()
 
 /obj/machinery/teleport/perma/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_lighting()
 
@@ -533,14 +534,14 @@
 	name = "station"
 	desc = "The power control station for a bluespace teleporter."
 	icon_state = "controller"
-	idle_power_consumption = 10
-	active_power_consumption = 2000
-
+	var/engaged = FALSE
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 10
+	active_power_usage = 2000
 	var/obj/machinery/computer/teleporter/teleporter_console
 	var/obj/machinery/teleport/hub/teleporter_hub
 	var/list/linked_stations = list()
 	var/efficiency = 0
-	var/engaged = FALSE
 
 /obj/machinery/teleport/station/Initialize(mapload)
 	. = ..()
@@ -587,12 +588,9 @@
 	if(exchange_parts(user, I))
 		return
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
-		if(!teleporter_console)
-			to_chat(user, "<span class='caution'>[src] is not linked to a teleporter console.</span>")
-			return
 		var/obj/item/circuitboard/teleporter_perma/C = I
 		C.target = teleporter_console.target
-		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C].</span>")
+		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
 		return
 	return ..()
 
@@ -660,8 +658,7 @@
 		add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
-	if(!..())
-		return
+	..()
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 	if(teleporter_hub)

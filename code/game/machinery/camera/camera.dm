@@ -3,9 +3,9 @@
 	desc = "It's used to monitor rooms."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "camera"
-	power_state = ACTIVE_POWER_USE
-	idle_power_consumption = 5
-	active_power_consumption = 10
+	use_power = ACTIVE_POWER_USE
+	idle_power_usage = 5
+	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 12
@@ -45,7 +45,7 @@
 	GLOB.cameranet.cameras += src
 	GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
-		LAZYADD(get_area(src).cameras, UID())
+		LAZYADD(myArea.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.cut_all()
@@ -60,25 +60,14 @@
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
-	if(isarea(get_area(src)))
-		LAZYREMOVE(get_area(src).cameras, UID())
+	if(isarea(myArea))
+		LAZYREMOVE(myArea.cameras, UID())
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
 	area_motion = null
 	cancelAlarm()
 	return ..()
-
-/obj/machinery/camera/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>[src]'s maintenance panel can be <b>screwed [panel_open ? "closed" : "open"]</b>.</span>"
-	if(panel_open)
-		. += "<span class='notice'>Upgrades can be added to [src] or <b>pried out</b>.</span>"
-		if(!wires.CanDeconstruct())
-			. += "<span class='notice'>[src]'s <b>internal wires</b> are preventing you from cutting it free.</span>"
-		else
-			. += "<span class='notice'>[src]'s <i>internal wires</i> are disconnected, but it can be <b>cut free</b>.</span>"
-
 
 /obj/machinery/camera/emp_act(severity)
 	if(!status)
@@ -174,7 +163,7 @@
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
 		for(var/mob/O in GLOB.player_list)
-			if(isAI(O))
+			if(istype(O, /mob/living/silicon/ai))
 				var/mob/living/silicon/ai/AI = O
 				if(AI.control_disabled || (AI.stat == DEAD))
 					return
@@ -266,12 +255,15 @@
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
 		if(isturf(loc))
-			LAZYADD(get_area(src).cameras, UID())
+			myArea = get_area(src)
+			LAZYADD(myArea.cameras, UID())
+		else
+			myArea = null
 	else
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
-		if(isarea(get_area(src)))
-			LAZYREMOVE(get_area(src).cameras, UID())
+		if(isarea(myArea))
+			LAZYREMOVE(myArea.cameras, UID())
 	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
 	if(status)

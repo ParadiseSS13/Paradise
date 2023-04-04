@@ -3,14 +3,14 @@
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters"
-	belt_icon = "wirecutters_red"
+	belt_icon = "wirecutters"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL = 370)
+	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("pinched", "nipped")
 	hitsound = 'sound/items/wirecutter.ogg'
@@ -28,7 +28,6 @@
 	if(random_color)
 		if(!param_color)
 			param_color = pick("yellow", "red")
-		belt_icon = "wirecutters_[param_color]"
 		icon_state = "cutters_[param_color]"
 
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)

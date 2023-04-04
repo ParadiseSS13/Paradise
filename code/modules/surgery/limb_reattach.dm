@@ -6,33 +6,29 @@
 /datum/surgery/amputation
 	name = "Amputation"
 	steps = list(/datum/surgery_step/generic/amputate)
-	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
-	requires_organic_bodypart = TRUE
-	cancel_on_organ_change = FALSE  // don't stop the surgery when removing limbs
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+
 
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
-	. = ..()
-	if(!.)
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(affected.limb_flags & CANNOT_DISMEMBER)
-		return FALSE
-	return TRUE
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return FALSE
+		if(affected.is_robotic())
+			return FALSE
+		if(affected.limb_flags & CANNOT_DISMEMBER)
+			return FALSE
+
+		return TRUE
+
 
 /datum/surgery/reattach
 	name = "Limb Reattachment"
-	requires_bodypart = FALSE
-	steps = list(
-		/datum/surgery_step/limb/attach,
-		/datum/surgery_step/limb/connect
-	)
-	cancel_on_organ_change = FALSE
-	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
+	steps = list(/datum/surgery_step/limb/attach,/datum/surgery_step/limb/connect)
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
-	. = ..()
-	if(!.)
-		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
@@ -41,97 +37,97 @@
 			return FALSE
 		if(!affected)
 			return TRUE
-		// make sure they can actually have this limb
-		var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
-		return !isnull(organ_data)
-
 	return FALSE
 
 /datum/surgery/reattach_synth
 	name = "Synthetic Limb Reattachment"
-	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/attach/robo)
-	abstract = TRUE  // these shouldn't show in the list; they'll be replaced by attach_robotic_limb
-	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
+
+/datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return TRUE
+
+		return FALSE
+
 
 /datum/surgery/robo_attach
 	name = "Apply Robotic Prosthetic"
-	requires_bodypart = FALSE
 	steps = list(/datum/surgery_step/limb/mechanize)
-	abstract = TRUE
-	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
+	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 
+/datum/surgery/robo_attach/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return TRUE
 
-/datum/surgery_step/proxy/robo_limb_attach
-	name = "apply robotic limb (proxy)"
-	branches = list(
-		/datum/surgery/robo_attach,
-		/datum/surgery/reattach_synth
-	)
-	insert_self_after = FALSE
+		return FALSE
 
-/datum/surgery/attach_robotic_limb
-	name = "Apply Robotic or Synthetic Limb"
-	requires_bodypart = FALSE
-	steps = list(
-		/datum/surgery_step/proxy/robo_limb_attach
-	)
-	cancel_on_organ_change = FALSE
-	possible_locs = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_GROIN)
-
-
-/datum/surgery_step/limb
+/datum/surgery_step/limb/
 	can_infect = FALSE
+/datum/surgery_step/limb/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+	if(!hasorgans(target))
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(affected)
+		return FALSE
+	var/list/organ_data = target.dna.species.has_limbs["[target_zone]"]
+	return !isnull(organ_data)
 
 /datum/surgery_step/limb/attach
 	name = "attach limb"
 	allowed_tools = list(/obj/item/organ/external = 100)
 
-	time = 3.2 SECONDS
+	time = 32
 
-/datum/surgery_step/limb/attach/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-
+/datum/surgery_step/limb/attach/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+	if(!..())
+		return FALSE
+	if(!istype(tool, /obj/item/organ/external))
+		return FALSE
 	var/obj/item/organ/external/E = tool
 	if(target.get_organ(E.limb_name))
 		// This catches attaching an arm to a missing hand while the arm is still there
 		to_chat(user, "<span class='warning'>[target] already has an [E.name]!</span>")
-		return SURGERY_BEGINSTEP_ABORT
+		return FALSE
 	if(E.limb_name != target_zone)
 		// This ensures you must be aiming at the appropriate location to attach
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
 		to_chat(user, "<span class='warning'>The [E.name] does not go there.</span>")
-		return SURGERY_BEGINSTEP_ABORT
+		return FALSE
+	// if(E.parent_organ && !target.get_organ(E.parent_organ))
+	// 	// No rayman allowed
+	// 	return FALSE
 	if(!is_correct_limb(E))
 		to_chat(user, "<span class='warning'>This is not the correct limb type for this surgery!</span>")
-		return SURGERY_BEGINSTEP_ABORT
-	var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
-	if(isnull(organ_data))
-		to_chat(user, "<span class='warning'>[target.dna.species] don't have the anatomy for [E.name]!")
-		return SURGERY_BEGINSTEP_ABORT
+		return FALSE
 
-	user.visible_message(
-		"[user] starts attaching [E.name] to [target]'s [E.amputation_point].",
-		"You start attaching [E.name] to [target]'s [E.amputation_point]."
-	)
-	return ..()
+	return TRUE
+
+
+/datum/surgery_step/limb/attach/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+	var/obj/item/organ/external/E = tool
+	user.visible_message("[user] starts attaching [E.name] to [target]'s [E.amputation_point].", \
+	"You start attaching [E.name] to [target]'s [E.amputation_point].")
 
 /datum/surgery_step/limb/attach/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
-	user.visible_message(
-		"<span class='notice'>[user] has attached [target]'s [E.name] to the [E.amputation_point].</span>",
-		"<span class='notice'>You have attached [target]'s [E.name] to the [E.amputation_point].</span>"
-	)
+	user.visible_message("<span class='notice'>[user] has attached [target]'s [E.name] to the [E.amputation_point].</span>",	\
+	"<span class='notice'>You have attached [target]'s [E.name] to the [E.amputation_point].</span>")
 	attach_limb(user, target, E)
-	return SURGERY_STEP_CONTINUE
+	return TRUE
 
 /datum/surgery_step/limb/attach/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = tool
-	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>"
-	)
+	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
+	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return SURGERY_STEP_RETRY
+	return FALSE
 
 
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E)
@@ -142,8 +138,6 @@
 /datum/surgery_step/limb/attach/proc/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
 	user.unEquip(E)
 	E.replaced(target)
-	if(!E.is_robotic())
-		E.properly_attached = FALSE
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
@@ -164,8 +158,8 @@
 	if(!(E.dna) && E.is_robotic() && target.dna)
 		E.set_dna(target.dna)
 	..()
-	if(E.limb_name == BODY_ZONE_HEAD)
-		var/obj/item/organ/external/head/H = target.get_organ(BODY_ZONE_HEAD)
+	if(E.limb_name == "head")
+		var/obj/item/organ/external/head/H = target.get_organ("head")
 		var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 		if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
 			H.h_style = "Bald"
@@ -176,69 +170,64 @@
 /datum/surgery_step/limb/connect
 	name = "connect limb"
 	allowed_tools = list(
-		TOOL_HEMOSTAT = 100,
-		/obj/item/stack/cable_coil = 90,
-		/obj/item/assembly/mousetrap = 25
+	/obj/item/hemostat = 100,	\
+	/obj/item/stack/cable_coil = 90, 	\
+	/obj/item/assembly/mousetrap = 25
 	)
 	can_infect = TRUE
 
-	time = 3.2 SECONDS
+	time = 32
+
+
+/datum/surgery_step/limb/connect/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+	if(!hasorgans(target))
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/limb/connect/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
-	user.visible_message(
-		"[user] starts connecting tendons and muscles in [target]'s [E.amputation_point] with [tool].",
-		"You start connecting tendons and muscle in [target]'s [E.amputation_point]."
-	)
-	return ..()
+	user.visible_message("[user] starts connecting tendons and muscles in [target]'s [E.amputation_point] with [tool].", \
+	"You start connecting tendons and muscle in [target]'s [E.amputation_point].")
 
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
-	user.visible_message(
-		"<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",
-		"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>"
-	)
-	E.properly_attached = TRUE
+	user.visible_message("<span class='notice'>[user] has connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>",	\
+	"<span class='notice'>You have connected tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>")
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
-	return SURGERY_STEP_CONTINUE
+	return TRUE
 
 /datum/surgery_step/limb/connect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
-	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>"
-	)
+	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
+	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return SURGERY_STEP_RETRY
+	return FALSE
 
 /datum/surgery_step/limb/mechanize
 	name = "apply robotic prosthetic"
 	allowed_tools = list(/obj/item/robot_parts = 100)
 
-	time = 3.2 SECONDS
+	time = 32
+
+/datum/surgery_step/limb/mechanize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+	if(..())
+		var/obj/item/robot_parts/p = tool
+		if(p.part)
+			if(!(target_zone in p.part))
+				to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
+				return FALSE
+		return isnull(target.get_organ(target_zone))
 
 /datum/surgery_step/limb/mechanize/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-
-	var/obj/item/robot_parts/P = tool
-	if(P.part)
-		if(!(target_zone in P.part))
-			to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
-			return SURGERY_BEGINSTEP_ABORT
-
-	user.visible_message(
-		"[user] starts attaching \the [tool] to [target].",
-		"You start attaching \the [tool] to [target]."
-	)
-	return ..()
+		user.visible_message("[user] starts attaching \the [tool] to [target].", \
+		"You start attaching \the [tool] to [target].")
 
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/robot_parts/L = tool
-	user.visible_message(
-		"<span class='notice'>[user] has attached \the [tool] to [target].</span>",
-		"<span class='notice'>You have attached \the [tool] to [target].</span>"
-	)
+	user.visible_message("<span class='notice'>[user] has attached \the [tool] to [target].</span>",	\
+	"<span class='notice'>You have attached \the [tool] to [target].</span>")
 
 	if(L.part)
 		for(var/part_name in L.part)
@@ -262,12 +251,10 @@
 
 	qdel(tool)
 
-	return SURGERY_STEP_CONTINUE
+	return TRUE
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	user.visible_message(
-		"<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>",
-		"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>"
-	)
+	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>", \
+	"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
-	return SURGERY_STEP_RETRY
+	return FALSE

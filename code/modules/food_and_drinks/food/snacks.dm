@@ -80,10 +80,10 @@
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
+	if(istype(W,/obj/item/pen))
 		rename_interactive(user, W, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return
-	if(isstorage(W))
+	if(istype(W,/obj/item/storage))
 		..() // -> item/attackby(, params)
 
 	else if(istype(W,/obj/item/kitchen/utensil))
@@ -118,7 +118,7 @@
 				var/obj/item/TrashItem
 				if(ispath(trash,/obj/item))
 					TrashItem = new trash(src)
-				else if(isitem(trash))
+				else if(istype(trash,/obj/item))
 					TrashItem = trash
 				TrashItem.forceMove(loc)
 			qdel(src)
@@ -132,7 +132,7 @@
 			. = new trash(location)
 			trash = null
 			return
-		else if(isitem(trash))
+		else if(istype(trash, /obj/item))
 			var/obj/item/trash_item = trash
 			trash_item.forceMove(location)
 			. = trash
@@ -216,7 +216,7 @@
 	var/slices_lost = 0
 	if(!inaccurate)
 		user.visible_message("<span class='notice'>[user] slices [src]!</span>",
-		"<span class='notice'>You slice [src]!</span>")
+		 "<span class='notice'>You slice [src]!</span>")
 	else
 		user.visible_message("<span class='notice'>[user] crudely slices [src] with [I]!</span>",
 			"<span class='notice'>You crudely slice [src] with your [I]</span>!")
@@ -275,11 +275,11 @@
 	filling_color = "#211F02"
 	list_reagents = list("????" = 30)
 
-/obj/item/reagent_containers/food/snacks/badrecipe/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/food/snacks/badrecipe/New()
+	..()
 	// it's burned! it should start off being classed as any cooktype that burns
-	cooktype["grilled"] = TRUE
-	cooktype["deep fried"] = TRUE
+	cooktype["grilled"] = 1
+	cooktype["deep fried"] = 1
 
 // MISC
 

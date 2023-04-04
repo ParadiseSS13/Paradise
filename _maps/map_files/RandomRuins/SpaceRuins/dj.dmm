@@ -84,7 +84,8 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "am" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -93,7 +94,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "an" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -105,7 +107,8 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "ap" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -122,7 +125,8 @@
 /turf/simulated/wall/mineral/titanium/interior,
 /area/ruin/space/djstation)
 "as" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -267,7 +271,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aK" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -281,7 +286,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aL" = (
-/obj/effect/spawner/window/shuttle,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
 "aM" = (
@@ -289,7 +295,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/off_station{
+/obj/machinery/power/apc/noalarm{
 	name = "Worn-out APC";
 	pixel_y = -24
 	},
@@ -303,7 +309,10 @@
 	icon_state = "4-8"
 	},
 /obj/item/storage/box/lights/mixed,
-/obj/structure/sign/electricshock{
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'HIGH VOLTAGE'";
+	icon_state = "shock";
+	name = "HIGH VOLTAGE";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -381,9 +390,9 @@
 "aX" = (
 /obj/machinery/newscaster{
 	name = "north bump";
-	pixel_y = 28
+	pixel_y = 32
 	},
-/obj/machinery/economy/vending/cigarette/free{
+/obj/machinery/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -414,7 +423,7 @@
 	},
 /area/ruin/space/djstation)
 "ba" = (
-/obj/machinery/economy/vending/sovietsoda,
+/obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -692,7 +701,9 @@
 	dir = 6
 	},
 /obj/machinery/access_button{
-	autolink_id = "djstation_btn_int";
+	command = "cycle_interior";
+	frequency = 1479;
+	master_tag = "dj_station_airlock";
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = -25
@@ -762,10 +773,12 @@
 /area/ruin/space/djstation)
 "bU" = (
 /obj/machinery/door/airlock/external{
+	frequency = 1479;
 	icon_state = "door_locked";
-	id_tag = "djstation_door_int";
+	id_tag = "dj_station_inner";
 	locked = 1;
-	name = "DJ Station Interior Access"
+	name = "DJ Station Interior Access";
+	req_access = null
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
@@ -773,15 +786,23 @@
 "bV" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
-	autolink_id = "djstation_vent"
+	frequency = 1479;
+	id_tag = "dj_station_pump"
 	},
-/obj/machinery/airlock_controller/air_cycler{
-	ext_button_link_id = "djstation_btn_ext";
-	ext_door_link_id = "djstation_door_ext";
-	int_button_link_id = "djstation_btn_int";
-	int_door_link_id = "djstation_door_int";
+/obj/machinery/airlock_sensor{
+	frequency = 1479;
+	id_tag = "dj_station_sensor";
+	pixel_x = 25;
+	pixel_y = -5
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1479;
+	id_tag = "dj_station_airlock";
 	pixel_x = -25;
-	vent_link_id = "djstation_vent"
+	tag_airpump = "dj_station_pump";
+	tag_chamber_sensor = "dj_station_sensor";
+	tag_exterior_door = "dj_station_outer";
+	tag_interior_door = "dj_station_inner"
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -790,10 +811,12 @@
 /area/ruin/space/djstation)
 "bW" = (
 /obj/machinery/door/airlock/external{
+	frequency = 1479;
 	icon_state = "door_locked";
-	id_tag = "djstation_door_ext";
+	id_tag = "dj_station_outer";
 	locked = 1;
-	name = "DJ Station External Access"
+	name = "DJ Station External Access";
+	req_access = null
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/djstation)
@@ -802,7 +825,9 @@
 /area/ruin/space/djstation)
 "bY" = (
 /obj/machinery/access_button{
-	autolink_id = "djstation_btn_ext";
+	command = "cycle_exterior";
+	frequency = 1479;
+	master_tag = "dj_station_airlock";
 	name = "exterior access button";
 	pixel_x = 23;
 	pixel_y = 35

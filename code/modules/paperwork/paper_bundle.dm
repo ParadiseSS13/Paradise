@@ -1,5 +1,6 @@
 /obj/item/paper_bundle
 	name = "paper bundle"
+	gender = PLURAL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
 	item_state = "paper"
@@ -7,14 +8,12 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 2
 	throw_speed = 1
+	layer = 4
 	pressure_resistance = 2
 	attack_verb = list("bapped")
-	var/amount = 0 //Amount of total items clipped to the paper. Note: If you have 2 paper, this should be 1
-	var/photos = 0 //Amount of photos clipped to the paper.
+	var/amount = 0 //Amount of items clipped to the paper. Note: If you have 2 paper, this should be 1
 	var/page = 1
 	var/screen = 0
-	drop_sound = 'sound/items/handling/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 
 /obj/item/paper_bundle/New(default_papers = TRUE)
 	. = ..()
@@ -41,13 +40,12 @@
 		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(P)
 		P.loc = src
-		if(ishuman(user))
+		if(istype(user,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
 	else if(istype(W, /obj/item/photo))
 		amount++
-		photos++
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
@@ -66,16 +64,18 @@
 		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		qdel(W)
 	else
-		if(is_pen(W) || istype(W, /obj/item/toy/crayon))
+		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
 		P = src[page]
 		P.attackby(W, user, params)
+
 
 	update_icon()
 	if(winget(usr, "PaperBundle[UID()]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
 		attack_self(usr) //Update the browsed page.
 	add_fingerprint(usr)
 	return
+
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
@@ -84,13 +84,13 @@
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
-		user.visible_message("[class][user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-		"[class]You hold [P] up to [src], burning it slowly.</span>")
+		user.visible_message("[class][user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!", \
+		"[class]You hold [P] up to [src], burning it slowly.")
 
 		spawn(20)
 			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
+				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
 
 				if(user.is_in_inactive_hand(src))
 					user.unEquip(src)
@@ -140,12 +140,14 @@
 /obj/item/paper_bundle/attack_self(mob/user as mob)
 	show_content(user)
 	add_fingerprint(usr)
+	update_icon()
 	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
 	if(..())
 		return
-	if(src in usr.contents)
+
+	if((src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents)))
 		if(href_list["next_page"])
 			if(page == amount)
 				screen = 2
@@ -154,7 +156,7 @@
 			else if(page == amount+1)
 				return
 			page++
-			playsound(loc, "pageturn", 50, 1)
+			playsound(src.loc, "pageturn", 50, 1)
 
 		if(href_list["prev_page"])
 			if(page == 1)
@@ -164,7 +166,7 @@
 			else if(page == amount+1)
 				screen = 1
 			page--
-			playsound(loc, "pageturn", 50, 1)
+			playsound(src.loc, "pageturn", 50, 1)
 
 		if(href_list["remove"])
 			var/obj/item/W = src[page]
@@ -175,11 +177,6 @@
 				usr.unEquip(src)
 				usr.put_in_hands(P)
 				usr.unset_machine() // Ensure the bundle GCs
-				for(var/obj/O in src) // just in case we somehow lose something (it's happened, especially with photos)
-					O.forceMove(usr.loc)
-					O.layer = initial(O.layer)
-					O.plane = initial(O.plane)
-					O.add_fingerprint(usr)
 				qdel(src)
 				return
 
@@ -193,16 +190,11 @@
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
-	if(ismob(loc))
+
+	if(istype(loc, /mob))
 		attack_self(loc)
 
-/obj/item/paper_bundle/AltClick(mob/user)
-	if(in_range(user, src) && !user.incapacitated())
-		if(is_pen(user.get_active_hand()))
-			rename()
-		return
 
-	. = ..()
 
 /obj/item/paper_bundle/verb/rename()
 	set name = "Rename bundle"
@@ -235,48 +227,39 @@
 
 /obj/item/paper_bundle/update_desc()
 	. = ..()
-	if(amount == (photos - 1))
-		desc = "[photos] photos clipped together." // In case you clip 2 photos together and remove the paper
-		return
 
-	else if(((amount + 1) - photos) >= 2) // extra papers + original paper - photos
-		desc = "[(amount + 1) - photos] papers clipped to each other."
-
+	if(amount > 1)
+		desc =  "[amount] papers clipped to each other."
 	else
 		desc = "A single sheet of paper."
-	if(photos)
-		desc += "\nThere [photos == 1 ? "is a photo" : "are [photos] photos"] attached to it."
+
+	if(locate(/obj/item/photo) in src)
+		desc += "\nThere is a photo attached to it."
+
 /obj/item/paper_bundle/update_icon_state()
-	if(length(contents))
-		var/obj/item/paper/P = contents[1]
-		icon_state = P.icon_state // must have an icon_state to show up on clipboards
+	if(contents.len)
+		var/obj/item/paper/P = src[1]
+		icon_state = P.overlays
 
 /obj/item/paper_bundle/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(length(contents))
-		var/obj/item/paper/P = contents[1]
+	if(contents.len)
+		var/obj/item/paper/P = src[1]
 		. += P.overlays
 
-	var/counter = 0
 	for(var/obj/O in src)
 		var/image/sheet = image('icons/obj/bureaucracy.dmi')
 		if(istype(O, /obj/item/paper))
-			if(length(underlays) == 3)
-				continue
-
 			sheet.icon_state = O.icon_state
-			sheet.pixel_x -= min(1 * counter, 2)
-			sheet.pixel_y -= min(1 * counter, 2)
-			pixel_x = min(0.5 * counter, 1)
-			pixel_y = min(1 * counter, 2)
+			sheet.pixel_x -= min(1 * amount, 2)
+			sheet.pixel_y -= min(1 * amount, 2)
+			pixel_x = min(0.5 * amount, 1)
+			pixel_y = min(1 * amount, 2)
 			underlays += sheet
-			counter++
 
 		else if(istype(O, /obj/item/photo))
 			var/obj/item/photo/picture = O
-			sheet = picture.tiny
-			. += sheet
+			. += picture.tiny
 
 	. += "clip"
-	update_desc()

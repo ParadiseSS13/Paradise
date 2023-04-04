@@ -15,14 +15,11 @@
 	var/old_mclick_override
 	var/datum/middleClickOverride/power_gloves/mclick_override = new /datum/middleClickOverride/power_gloves
 	var/last_shocked = 0
-	var/shock_delay = 3 SECONDS
+	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
-	var/shock_range = 7
 
-/obj/item/clothing/gloves/color/yellow/power/examine(mob/user)
-	. = ..()
-	if(isAntag(user))
-		. += "<span class='warning'>These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables.</span>"
+/obj/item/clothing/gloves/color/yellow/power/detailed_examine_antag()
+	return "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
 
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -92,12 +89,6 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	var/can_be_cut = 1
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
-		)
 
 
 /obj/item/clothing/gloves/color/black/hos
@@ -125,10 +116,6 @@
 				qdel(src)
 				return
 	..()
-
-/obj/item/clothing/gloves/color/black/poisoner
-	desc = "These gloves are fire-resistant. They seem thicker than usual."
-	safe_from_poison = TRUE
 
 /obj/item/clothing/gloves/color/orange
 	name = "orange gloves"
@@ -237,12 +224,6 @@
 	icon_state = "white"
 	item_state = "wgloves"
 	item_color="mime"
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
-		)
 
 /obj/item/clothing/gloves/color/white/redcoat
 	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
@@ -252,7 +233,7 @@
 	name = "captain's gloves"
 	desc = "Regal blue gloves, with a nice gold trim. Swanky."
 	icon_state = "captain"
-	item_state = "captain"
+	item_state = "egloves"
 	item_color = "captain"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
@@ -262,12 +243,6 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	strip_delay = 60
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 115, ACID = 50)
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
-		)
 
 /obj/item/clothing/gloves/furgloves
 	desc = "These gloves are warm and furry."

@@ -392,14 +392,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/baguette
 
-/datum/recipe/oven/croissant
-	items = list(
-		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/egg
-	)
-	reagents = list("sodiumchloride" = 1, "milk" = 5, "sugar" = 5)
-	result = /obj/item/reagent_containers/food/snacks/croissant
-
 /datum/recipe/oven/birthdaycake
 	reagents = list("milk" = 5, "sugar" = 5)
 	items = list(

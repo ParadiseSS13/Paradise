@@ -56,14 +56,14 @@
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
-/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
-	if(!diode)
-		return
-
-	to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
-	diode.forceMove(get_turf(loc))
-	diode = null
-	return TRUE
+	else if(istype(W, /obj/item/screwdriver))
+		if(diode)
+			to_chat(user, "<span class='notice'>You remove [diode] from [src].</span>")
+			diode.loc = get_turf(src.loc)
+			diode = null
+			return
+		..()
+	return
 
 /obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
@@ -107,7 +107,7 @@
 				severity = 0
 
 			//20% chance to actually hit the eyes
-			if(prob(effectchance * diode.rating) && C.flash_eyes(severity, laser_pointer = TRUE))
+			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
 			else
 				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"

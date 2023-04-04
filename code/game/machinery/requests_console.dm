@@ -20,12 +20,12 @@
 #define RCS_SHIP_LOG 10	// View Shipping Label Log
 
 //Radio list
-#define ENGI_ROLES list("Atmospherics", "Engineering", "Chief Engineer's Desk")
-#define SEC_ROLES list("Warden", "Security", "Detective", "Head of Security's Desk")
-#define MISC_ROLES list("Bar", "Chapel", "Kitchen", "Hydroponics", "Janitorial")
-#define MED_ROLES list("Virology", "Chief Medical Officer's Desk", "Medbay")
-#define COM_ROLES list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge")
-#define SCI_ROLES list("Robotics", "Science", "Research Director's Desk")
+#define ENGI_ROLES list("Atmospherics","Engineering","Chief Engineer's Desk","Telecoms Admin")
+#define SEC_ROLES list("Warden","Security","Brig Medbay","Head of Security's Desk")
+#define MISC_ROLES list("Bar","Chapel","Kitchen","Hydroponics","Janitorial")
+#define MED_ROLES list("Virology","Chief Medical Officer's Desk","Medbay")
+#define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
+#define SCI_ROLES list("Robotics","Science","Research Director's Desk")
 
 #define RQ_NONEW_MESSAGES 0
 #define RQ_NORMALPRIORITY 1
@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
-	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
+	var/datum/announcement/announcement = new
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
@@ -72,8 +72,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/radiochannel = ""
 
 /obj/machinery/requests_console/power_change()
-	if(!..())
-		return
+	..()
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -107,7 +106,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	Radio.follow_target = src
 	. = ..()
 
-	announcer.config.default_title = "[department] announcement"
+	announcement.title = "[department] announcement"
+	announcement.newscast = FALSE
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src
@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcer.Announce(message)
+			announcement.Announce(message)
 			reset_message(TRUE)
 
 		if("department")
@@ -310,7 +310,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			var/obj/item/card/id/ID = I
 			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
 				announceAuth = 1
-				announcer.author = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
+				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 			else
 				reset_message()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
@@ -336,7 +336,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	msgVerified = ""
 	msgStamped = ""
 	announceAuth = FALSE
-	announcer.author = ""
+	announcement.announcer = ""
 	ship_tag_name = ""
 	ship_tag_index = FALSE
 	if(mainmenu)

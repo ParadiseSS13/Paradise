@@ -76,7 +76,7 @@
 	return ..()
 
 
-/obj/structure/plasticflaps/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
 	if(isliving(caller))
 		if(isbot(caller))
 			return TRUE
@@ -86,7 +86,7 @@
 			return FALSE
 	var/atom/movable/M = caller
 	if(M && M.pulling)
-		return CanPathfindPass(ID, to_dir, M.pulling)
+		return CanAStarPass(ID, to_dir, M.pulling)
 	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)

@@ -22,7 +22,7 @@
 /area/ruin/space/powered)
 "g" = (
 /obj/structure/table/wood,
-/obj/item/clothing/under/pants/shorts/black,
+/obj/item/clothing/under/shorts/black,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "h" = (
@@ -41,7 +41,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "k" = (
-/obj/machinery/economy/vending/assist/free,
+/obj/machinery/vending/assist,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "l" = (

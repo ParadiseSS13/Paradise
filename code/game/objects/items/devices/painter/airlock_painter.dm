@@ -58,5 +58,5 @@
 		A.icon = initial(airlock.icon)
 		A.overlays_file = initial(airlock.overlays_file)
 		A.assemblytype = initial(airlock.assemblytype)
-		A.update_icon()
+		A.update_appearance()
 		return TRUE

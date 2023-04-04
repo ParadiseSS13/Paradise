@@ -13,7 +13,7 @@
 	if(can_opened)
 		. += "<span class='notice'>It has been opened.</span>"
 	else
-		. += "<span class='info'>Ctrl-click to shake it up!</span>"
+		. += "<span class='info'>Alt-click to shake it up!</span>"
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(can_opened)
@@ -41,31 +41,32 @@
 	qdel(src)
 	return crushed_can
 
-/obj/item/reagent_containers/food/drinks/cans/CtrlClick(mob/user)
+/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/user)
 	var/mob/living/carbon/human/H
 	if(!can_shake || !ishuman(user))
 		return ..()
 	H = user
 	if(can_opened)
 		to_chat(H, "<span class='warning'>You can't shake up an already opened drink!")
-		return
+		return ..()
 	if(src == H.l_hand || src == H.r_hand)
 		can_shake = FALSE
-		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, .proc/reset_shakable), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
 		if(do_after(H, 1 SECONDS, target = H))
 			visible_message("<span class='warning'>[user] shakes up [src]!</span>")
 			if(times_shaken == 0)
 				times_shaken++
-				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 			else if(times_shaken < 5)
 				times_shaken++
-				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+				addtimer(CALLBACK(src, .proc/reset_shaken), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 			else
-				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+				addtimer(CALLBACK(src, .proc/reset_shaken), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 				handle_bursting(user)
 	else
-		return ..()
+		to_chat(H, "<span class='warning'>You need to hold [src] in order to shake it.</span>")
+	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
 	if(!can_opened)
@@ -157,7 +158,7 @@
 		can_burst = FALSE
 		burst_chance = 0
 	if(times_shaken)
-		addtimer(CALLBACK(src, PROC_REF(reset_shaken)), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+		addtimer(CALLBACK(src, .proc/reset_shaken), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 
 /obj/item/reagent_containers/food/drinks/cans/cola
 	name = "space cola"

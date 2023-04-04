@@ -49,7 +49,7 @@
 			return FALSE
 		G.forceMove(src)
 		to_chat(user, "<span class='notice'>You place [G] into [src] to start the fermentation process.</span>")
-		addtimer(CALLBACK(src, PROC_REF(makeWine), G), rand(80, 120) * speed_multiplier)
+		addtimer(CALLBACK(src, .proc/makeWine, G), rand(80, 120) * speed_multiplier)
 	else if(I.is_refillable())
 		return FALSE // To refill via afterattack proc
 	else

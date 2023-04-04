@@ -128,16 +128,16 @@
 
 	var/obj/item/watertank/tank
 
-/obj/item/reagent_containers/spray/mister/Initialize(mapload)
-	if(!check_tank_exists(loc, src))
-		return INITIALIZE_HINT_QDEL
-	tank = loc
-	reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-	return ..()
+/obj/item/reagent_containers/spray/mister/New(parent_tank)
+	..()
+	if(check_tank_exists(parent_tank, src))
+		tank = parent_tank
+		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
+		loc = tank
+	return
 
 /obj/item/reagent_containers/spray/mister/Destroy()
 	tank = null
-	reagents = null // Unset, this is the tanks reagents
 	return ..()
 
 /obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
@@ -151,9 +151,11 @@
 
 /proc/check_tank_exists(parent_tank, mob/living/carbon/human/M, obj/O)
 	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
-		return FALSE
+		M.unEquip(O)
+		qdel(0)
+		return 0
 	else
-		return TRUE
+		return 1
 
 /obj/item/reagent_containers/spray/mister/Move()
 	..()
@@ -182,18 +184,15 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "misterjani"
 	item_state = "misterjani"
-	spray_maxrange = 4
-	spray_currentrange = 4
-	amount_per_transfer_from_this = 10
+	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
 /obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
-	spray_currentrange = (spray_currentrange == 2 ? spray_maxrange : 2)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
+	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -240,20 +239,14 @@
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
-/obj/item/extinguisher/mini/nozzle/Initialize(mapload)
-	if(!check_tank_exists(loc, src))
-		return INITIALIZE_HINT_QDEL
-
-	tank = loc
-	reagents = tank.reagents
-	max_water = tank.volume
-
-	return ..()
-
-/obj/item/extinguisher/mini/nozzle/Destroy()
-	tank = null
-	reagents = null // Unset, this is the tanks reagents
-	return ..()
+/obj/item/extinguisher/mini/nozzle/New(parent_tank)
+	. = ..()
+	if(check_tank_exists(parent_tank, src))
+		tank = parent_tank
+		reagents = tank.reagents
+		max_water = tank.volume
+		loc = tank
+	return
 
 /obj/item/extinguisher/mini/nozzle/Move()
 	..()
@@ -317,7 +310,7 @@
 				nanofrost_cooldown = 0
 		return
 	if(nozzle_mode == METAL_FOAM)
-		if(!Adj|| !isturf(target))
+		if(!Adj|| !istype(target, /turf))
 			return
 		if(metal_synthesis_cooldown < 5)
 			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), 1)
@@ -340,7 +333,7 @@
 
 /obj/effect/nanofrost_container/proc/Smoke()
 	var/datum/effect_system/smoke_spread/freezing/S = new
-	S.set_up(6, FALSE, loc, null, 1)
+	S.set_up(6, 0, loc, null, 1)
 	S.start()
 	var/obj/effect/decal/cleanable/flour/F = new /obj/effect/decal/cleanable/flour(src.loc)
 	F.color = "#B2FFFF"

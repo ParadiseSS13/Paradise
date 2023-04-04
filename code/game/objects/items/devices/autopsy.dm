@@ -4,8 +4,7 @@
 	icon = 'icons/obj/autopsy_scanner.dmi'
 	icon_state = ""
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=1;biotech=1"
 	var/list/datum/autopsy_data_scanner/wdata = list()
 	var/list/chemtraces = list()
@@ -19,8 +18,8 @@
 
 /datum/autopsy_data_scanner
 	var/weapon = null // this is the DEFINITE weapon type that was used
-	var/list/organs_scanned = list()	// this maps a number of scanned organs to
-										// the wounds to those organs with this data's weapon type
+	var/list/organs_scanned = list() // this maps a number of scanned organs to
+									 // the wounds to those organs with this data's weapon type
 	var/organ_names = ""
 
 /datum/autopsy_data_scanner/Destroy()
@@ -67,7 +66,7 @@
 				chemtraces += V
 
 /obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
-	if(is_pen(P))
+	if(istype(P, /obj/item/pen))
 		var/dead_name = input("Insert name of deceased individual")
 		var/dead_rank = input("Insert rank of deceased individual")
 		var/dead_tod = input("Insert time of death")
@@ -155,7 +154,7 @@
 	if(!istype(M))
 		return
 
-	if(!on_operable_surface(M))
+	if(!can_operate(M))
 		return
 
 	if(target_UID != M.UID())

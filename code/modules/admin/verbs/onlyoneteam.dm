@@ -24,7 +24,7 @@
 		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
 
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), slot_l_ear)
-		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball_team(H), slot_r_hand)
+		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(H), slot_r_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 
 		if(!team_toggle)
@@ -61,14 +61,14 @@
 	log_admin("[key_name(usr)] used dodgeball.")
 	GLOB.nologevent = 1
 
-/obj/item/beach_ball/dodgeball_team
+/obj/item/beach_ball/dodgeball
 	name = "dodgeball"
-	desc = "Used for playing the most violent and degrading of childhood games."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
 	item_state = "dodgeball"
+	desc = "Used for playing the most violent and degrading of childhood games."
 
-/obj/item/beach_ball/dodgeball_team/throw_impact(atom/hit_atom)
+/obj/item/beach_ball/dodgeball/throw_impact(atom/hit_atom)
 	..()
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/human/H = hit_atom

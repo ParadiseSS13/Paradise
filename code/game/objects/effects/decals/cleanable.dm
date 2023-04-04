@@ -2,19 +2,10 @@
 	var/list/random_icon_states = list()
 	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
 	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
-	plane = FLOOR_PLANE //prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
 		return TRUE
-
-/obj/effect/decal/cleanable/cleaning_act(mob/user, atom/cleaner, cleanspeed = 5 SECONDS, text_verb = "scrub out", text_description = " with [cleaner].")
-	if(issimulatedturf(loc))
-		var/turf/simulated/T = get_turf(src)
-		T.cleaning_act(user, cleaner, cleanspeed = cleanspeed, text_verb = text_verb, text_description = text_description, text_targetname = name) //Strings are deliberately "A = A" to avoid overrides
-		return
-	else
-		..()
 
 //Add "bloodiness" of this blood's type, to the human's shoes
 //This is on /cleanable because fuck this ancient mess
@@ -25,9 +16,6 @@
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
 		var/hasfeet = TRUE
-		if(IS_HORIZONTAL(H) && !H.buckled) //Make people bloody if they're lying down and move into blood
-			if(bloodiness > 0 && length(blood_DNA))
-				H.add_blood(H.blood_DNA, basecolor)
 		if(!l_foot && !r_foot)
 			hasfeet = FALSE
 		if(H.shoes && blood_state && bloodiness)
@@ -82,8 +70,6 @@
 	if(smoothing_flags)
 		QUEUE_SMOOTH(src)
 		QUEUE_SMOOTH_NEIGHBORS(src)
-	if(iswallturf(loc) && plane == FLOOR_PLANE)
-		plane = GAME_PLANE // so they can be seen above walls
 
 /obj/effect/decal/cleanable/Destroy()
 	if(smoothing_flags)

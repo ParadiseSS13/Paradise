@@ -33,8 +33,6 @@
 	var/falloff_distance
 	/// Channel of the audio, random otherwise
 	var/channel
-	/// If this sound is based off of an area
-	var/area_sound = FALSE
 
 /datum/looping_sound/New(list/_output_atoms = list(), start_immediately = FALSE, _direct = FALSE)
 	if(!mid_sounds)
@@ -75,17 +73,11 @@
 		return
 	if(!chance || prob(chance))
 		play(get_sound(looped))
-	addtimer(CALLBACK(src, PROC_REF(sound_loop), ++looped), mid_length)
+	addtimer(CALLBACK(src, .proc/sound_loop, ++looped), mid_length)
 
 /datum/looping_sound/proc/play(soundfile)
 	var/list/atoms_cache = output_atoms
 	var/sound/S = sound(soundfile)
-	if(area_sound)
-		for(var/area/sound_outputs in atoms_cache)
-			for(var/mob/listener in mobs_in_area(sound_outputs, TRUE))
-				S.volume = volume * (USER_VOLUME(listener, channel))
-				SEND_SOUND(listener, S)
-		return
 	if(direct)
 		S.channel = channel || SSsounds.random_available_channel()
 	for(var/atom/thing in atoms_cache)
@@ -110,7 +102,7 @@
 	if(start_sound)
 		play(start_sound)
 		start_wait = start_length
-	addtimer(CALLBACK(src, PROC_REF(sound_loop)), start_wait)
+	addtimer(CALLBACK(src, .proc/sound_loop), start_wait)
 
 /datum/looping_sound/proc/on_stop(looped)
 	if(end_sound)

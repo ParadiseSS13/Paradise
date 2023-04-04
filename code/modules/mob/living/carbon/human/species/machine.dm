@@ -2,7 +2,7 @@
 	name = "Machine"
 	name_plural = "Machines"
 
-	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independent, free-willed \
+	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
 	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
 	to corporate operations. IPCs (Integrated Positronic Chassis) are a loose category of self-willed robots with a humanoid form, \
 	generally self-owned after being 'born' into servitude; they are reliable and dedicated workers, albeit more than slightly \
@@ -11,7 +11,6 @@
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
-	inherent_factions = list("slime")
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
@@ -22,11 +21,11 @@
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
-	species_traits = list(NO_BLOOD, NO_CLONESCAN, NO_INTORGANS)
+	species_traits = list(IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN, NO_INTORGANS)
 	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS | SHAVED
+	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = COLOR_BLOOD_MACHINE
@@ -78,10 +77,11 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
+	var/datum/action/innate/change_monitor/monitor
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/change_monitor/monitor = new()
+	monitor = new()
 	monitor.Grant(H)
 	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
 		medhud.remove_from_hud(H)
@@ -92,7 +92,7 @@
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/H)
 	..()
-	for(var/datum/action/innate/change_monitor/monitor in H.actions)
+	if(monitor)
 		monitor.Remove(H)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.remove_from_hud(H)
@@ -103,7 +103,7 @@
 
 /datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!istype(head_organ))
+	if(!head_organ)
 		return
 	head_organ.h_style = "Bald"
 	head_organ.f_style = "Shaved"
@@ -163,8 +163,6 @@
 			H.change_hair_color(new_color)
 
 /datum/species/machine/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, source, siemens_coeff, flags)
-	if(flags & SHOCK_ILLUSION)
-		return
 	H.adjustBrainLoss(shock_damage)
 	H.adjust_nutrition(shock_damage)
 

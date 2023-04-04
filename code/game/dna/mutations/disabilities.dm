@@ -127,7 +127,7 @@
 /datum/mutation/disability/colourblindness
 	name = "Colourblindness"
 	activation_messages = list("You feel a peculiar prickling in your eyes while your perception of colour changes.")
-	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become a lot more colourful.")
+	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become alot more colourful.")
 	instability = -GENE_INSTABILITY_MODERATE
 	traits_to_add = list(TRAIT_COLORBLIND)
 
@@ -393,7 +393,7 @@
 	..()
 	block = GLOB.swedeblock
 
-/datum/mutation/disability/speech/swedish/on_say(mob/living/M, message)
+/datum/mutation/disability/speech/swedish/on_say(mob/M, message)
 	// svedish
 	message = replacetextEx(message,"W","V")
 	message = replacetextEx(message,"w","v")
@@ -406,7 +406,7 @@
 	message = replacetextEx(message,"bo","bjo")
 	message = replacetextEx(message,"O",pick("Ö","Ø","O"))
 	message = replacetextEx(message,"o",pick("ö","ø","o"))
-	if(prob(30) && !M.is_muzzled() && !M.is_facehugged())
+	if(prob(30) && !M.is_muzzled())
 		message += " Bork[pick("",", bork",", bork, bork")]!"
 	return message
 

@@ -19,7 +19,6 @@
 		A = pick(SSmapping.teleportlocs)
 
 	if(!A)
-		smoke_type = SMOKE_NONE
 		return
 
 	var/area/thearea = SSmapping.teleportlocs[A]
@@ -35,7 +34,6 @@
 		revert_cast(user)
 		return
 
-	smoke_type = SMOKE_HARMLESS
 	playsound(get_turf(user), sound1, 50,1)
 	for(var/mob/living/target in targets)
 		var/list/L = list()
@@ -80,10 +78,15 @@
 
 /obj/effect/proc_holder/spell/area_teleport/invocation(mob/user)
 	if(!invocation_area || !selected_area)
-		return
-	switch(invocation_type)
-		if("shout")
-			user.say("[invocation] [uppertext(selected_area.name)]")
-		if("whisper")
-			user.whisper("[invocation] [uppertext(selected_area.name)]")
+		..()
+	else
+		switch(invocation_type)
+			if("shout")
+				user.say("[invocation] [uppertext(selected_area.name)]")
+				if(user.gender==MALE)
+					playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
+				else
+					playsound(user.loc, pick('sound/misc/null.ogg','sound/misc/null.ogg'), 100, 1)
+			if("whisper")
+				user.whisper("[invocation] [uppertext(selected_area.name)]")
 

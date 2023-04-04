@@ -22,7 +22,7 @@
 /datum/data/pda/proc/program_hit_check()
 	return
 
-/datum/data/pda/proc/notify(message, blink = 1, silence_ringtone = FALSE)
+/datum/data/pda/proc/notify(message, blink = 1)
 	if(message)
 		//Search for holder of the PDA.
 		var/mob/living/L = null
@@ -36,18 +36,18 @@
 			to_chat(L, "[bicon(pda)] [message]")
 			SStgui.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
-	if(!pda.silent && !silence_ringtone)
+	if(!pda.silent)
 		pda.play_ringtone()
 
 	if(blink && !(src in pda.notifying_programs))
-		pda.update_icon(UPDATE_OVERLAYS)
+		pda.overlays += image('icons/obj/pda.dmi', "pda-r")
 		pda.notifying_programs |= src
 
 /datum/data/pda/proc/unnotify()
 	if(src in pda.notifying_programs)
 		pda.notifying_programs -= src
 		if(!pda.notifying_programs.len)
-			pda.update_icon(UPDATE_OVERLAYS)
+			pda.overlays -= image('icons/obj/pda.dmi', "pda-r")
 
 // An app has a button on the home screen and its own UI
 /datum/data/pda/app

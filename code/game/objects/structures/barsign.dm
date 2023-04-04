@@ -89,6 +89,22 @@
 	pick_sign()
 
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
+	if( istype(I, /obj/item/screwdriver))
+		if(!panel_open)
+			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
+			set_sign(new /datum/barsign/hiddensigns/signoff)
+			panel_open = TRUE
+		else
+			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			if(!broken && !emagged)
+				set_sign(prev_sign)
+				set_light(1, LIGHTING_MINIMUM_POWER)
+			else if(emagged)
+				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
+			else
+				set_sign(new /datum/barsign/hiddensigns/empbarsign)
+			panel_open = FALSE
+
 	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
 		if(emagged) //Emagged, not broken by EMP
@@ -106,33 +122,16 @@
 	else
 		return ..()
 
-/obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
-	if(!panel_open)
-		to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
-		prev_sign = current_sign
-		set_sign(new /datum/barsign/hiddensigns/signoff)
-	else
-		to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
-		if(!broken && !emagged)
-			set_sign(prev_sign)
-			set_light(1, LIGHTING_MINIMUM_POWER)
-		else if(emagged)
-			set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-		else
-			set_sign(new /datum/barsign/hiddensigns/empbarsign)
-	panel_open = !panel_open
-	return TRUE
-
 /obj/structure/sign/barsign/emp_act(severity)
-	set_sign(new /datum/barsign/hiddensigns/empbarsign)
-	broken = TRUE
+    set_sign(new /datum/barsign/hiddensigns/empbarsign)
+    broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(CALLBACK(src, PROC_REF(post_emag)), 100)
+	addtimer(CALLBACK(src, .proc/post_emag), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)

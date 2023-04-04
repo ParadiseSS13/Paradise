@@ -56,45 +56,8 @@
 	cooldown = world.time + 30 SECONDS
 	var/turf/T = get_turf(src)
 	for(var/mob/living/carbon/M in ohearers(7, T))
-		if(ishuman(M))
+		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			if(!H.can_hear())
 				continue
 		M.emote("flip")
-
-#define LAUGH_COOLDOWN 30 SECONDS
-#define LAUGH_COOLDOWN_CMAG 10 SECONDS
-
-/obj/item/clown_recorder
-	name = "clown recorder"
-	desc = "When you just can't get those laughs coming the natural way!"
-	icon = 'icons/obj/device.dmi'
-	icon_state = "clown_recorder"
-	item_state = "analyzer"
-	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
-	force = 2
-	throwforce = 0
-	drop_sound = 'sound/items/handling/taperecorder_drop.ogg'
-	pickup_sound = 'sound/items/handling/taperecorder_pickup.ogg'
-	actions_types = list(/datum/action/item_action/laugh_track)
-	var/cooldown = 0
-
-/obj/item/clown_recorder/attack_self(mob/user)
-	if(cooldown > world.time)
-		to_chat(user, "<span class='notice'>The tape is still winding back.</span>")
-		return
-	playsound(src, pick('sound/voice/sitcom_laugh.ogg', 'sound/voice/sitcom_laugh2.ogg'), 50, FALSE)
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		cooldown = world.time + LAUGH_COOLDOWN
-	else
-		cooldown = world.time + LAUGH_COOLDOWN_CMAG
-
-/obj/item/clown_recorder/cmag_act(mob/user)
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, "<span class='notice'>Winding back speed has been improved by the bananium ooze!</span>")
-		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-
-#undef LAUGH_COOLDOWN
-#undef LAUGH_COOLDOWN_CMAG

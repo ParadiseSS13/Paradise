@@ -8,7 +8,7 @@
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2
-	power_state = NO_POWER_USE
+	use_power = NO_POWER_USE
 	light_range = 4
 	layer = OBJ_LAYER + 0.1
 	var/obj/machinery/field/generator/FG1 = null
@@ -59,7 +59,7 @@
 	if(isliving(mover))
 		shock_field(mover)
 
-	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
+	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
 		bump_field(mover)
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)
@@ -90,7 +90,7 @@
 	if(isliving(mover)) // Don't let mobs through
 		shock_field(mover)
 		return 0
-	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
+	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
 		bump_field(mover)
 		return 0
 	return ..()

@@ -249,7 +249,7 @@
 	wine_power = 0.5
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/attack_self(mob/user)
-	if(isspaceturf(user.loc))
+	if(istype(user.loc, /turf/space))
 		return FALSE
 	if(!isturf(user.loc))
 		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")

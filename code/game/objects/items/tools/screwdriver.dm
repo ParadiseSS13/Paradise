@@ -12,7 +12,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	materials = list(MAT_METAL = 350)
+	materials = list(MAT_METAL=75)
 	attack_verb = list("stabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'
@@ -23,15 +23,10 @@
 	tool_behaviour = TOOL_SCREWDRIVER
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
-/obj/item/screwdriver/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/surgery_initiator/robo)
-
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
 	desc = "A screwdriver with an ultra thin tip."
 	icon_state = "screwdriver_nuke"
-	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
 
@@ -45,7 +40,6 @@
 		if(!param_color)
 			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
 		icon_state = "screwdriver_[param_color]"
-		belt_icon = "screwdriver_[param_color]"
 
 	if (prob(75))
 		src.pixel_y = rand(0, 16)
@@ -85,7 +79,6 @@
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
 	force = 8 //might or might not be too high, subject to change
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 8
 	throw_speed = 2
 	throw_range = 3//it's heavier than a screw driver/wrench, so it does more damage, but can't be thrown as far
@@ -94,10 +87,6 @@
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.25
 	random_color = FALSE
-
-/obj/item/screwdriver/power/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_ADVANCED_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/screwdriver/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")

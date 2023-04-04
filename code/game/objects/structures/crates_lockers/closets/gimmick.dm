@@ -10,20 +10,14 @@
 	close_sound_volume = 50
 	max_integrity = 70
 
-/obj/structure/closet/cabinet/wizard
-	name = "magical cabinet"
+/obj/structure/closet/cabinet/update_icon_state()
+	if(!opened)
+		icon_state = icon_closed
+	else
+		icon_state = icon_opened
 
-/obj/structure/closet/cabinet/wizard/populate_contents()
-	new /obj/item/clothing/shoes/sandal(src)
-	new /obj/item/clothing/shoes/sandal(src)
-	new /obj/item/clothing/suit/wizrobe(src)
-	new /obj/item/clothing/head/wizard(src)
-	new /obj/item/clothing/suit/wizrobe/red(src)
-	new /obj/item/storage/backpack/satchel(src)
-	new /obj/item/storage/backpack/satchel(src)
-	new /obj/item/clothing/head/wizard/red(src)
-	new /obj/item/clothing/under/color/purple(src)
-	new /obj/item/clothing/under/color/lightpurple(src)
+/obj/structure/closet/cabinet/update_overlays()
+	return list()
 
 /obj/structure/closet/acloset
 	name = "strange closet"
@@ -50,11 +44,11 @@
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/under/costume/soviet(src)
-	new /obj/item/clothing/under/costume/soviet(src)
-	new /obj/item/clothing/under/costume/soviet(src)
-	new /obj/item/clothing/under/costume/soviet(src)
-	new /obj/item/clothing/under/costume/soviet(src)
+	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/soviet(src)
 
 
 /obj/structure/closet/gimmick/tacticool

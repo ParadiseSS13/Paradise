@@ -13,7 +13,7 @@
 
 /obj/effect/waterfall/New()
 	. = ..()
-	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE)
+	water_timer = addtimer(CALLBACK(src, .proc/drip), water_frequency, TIMER_STOPPABLE)
 
 /obj/effect/waterfall/Destroy()
 	if(water_timer)
@@ -26,7 +26,7 @@
 	W.dir = dir
 	spawn(1)
 		W.loc = get_step(W, dir)
-	water_timer = addtimer(CALLBACK(src, PROC_REF(drip)), water_frequency, TIMER_STOPPABLE)
+	water_timer = addtimer(CALLBACK(src, .proc/drip), water_frequency, TIMER_STOPPABLE)
 
 /turf/simulated/floor/beach/away
 	name = "Beach"
@@ -90,7 +90,7 @@
 
 /turf/simulated/floor/beach/away/water/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(InitializedOn))
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, .proc/InitializedOn)
 
 /turf/simulated/floor/beach/away/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()

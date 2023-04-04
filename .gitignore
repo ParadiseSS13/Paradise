@@ -52,6 +52,3 @@ __pycache__/
 
 # pyenv
 .python-version
-
-# Tools some of us like to keep in the repo
-dmm-tools.exe

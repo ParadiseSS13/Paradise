@@ -8,11 +8,12 @@
 	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	anchored = TRUE
-	idle_power_consumption = 4
-	active_power_consumption = 200
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 4
+	active_power_usage = 200
 	pass_flags = PASSTABLE
 
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/clothing/suit/armor/reactive)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser)
 	var/recharge_coeff = 1
 
 	var/obj/item/charging = null // The item that is being charged
@@ -49,7 +50,7 @@
 
 	//Checks to make sure he's not in space doing it, and that the area got proper power.
 	var/area/A = get_area(src)
-	if(!istype(A) || !A.powernet.equipment_powered)
+	if(!istype(A) || !A.power_equip)
 		to_chat(user, "<span class='warning'>[src] blinks red as you try to insert [G].</span>")
 		return
 
@@ -64,7 +65,7 @@
 
 	G.forceMove(src)
 	charging = G
-	change_power_mode(ACTIVE_POWER_USE)
+	use_power = ACTIVE_POWER_USE
 	using_power = check_cell_needs_recharging(get_cell_from(G))
 	update_icon()
 
@@ -87,6 +88,7 @@
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	
 	update_icon()
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
@@ -115,7 +117,7 @@
 		charging.forceMove(loc)
 		user.put_in_hands(charging)
 		charging = null
-		change_power_mode(IDLE_POWER_USE)
+		use_power = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/recharger/attack_tk(mob/user)
@@ -123,19 +125,15 @@
 		charging.update_icon()
 		charging.forceMove(loc)
 		charging = null
-		change_power_mode(IDLE_POWER_USE)
+		use_power = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/recharger/process()
 	if(stat & (NOPOWER|BROKEN) || !anchored || panel_open)
 		return
-	if(!charging)
-		return
 
-	var/old_power_state = using_power
 	using_power = try_recharging_if_possible()
-	if(using_power != old_power_state)
-		update_icon()
+	update_icon()
 
 /obj/machinery/recharger/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
@@ -154,8 +152,7 @@
 	..(severity)
 
 /obj/machinery/recharger/power_change()
-	if(!..())
-		return
+	..()
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -202,10 +199,6 @@
 	if(istype(I, /obj/item/bodyanalyzer))
 		var/obj/item/bodyanalyzer/B = I
 		return B.cell
-
-	if(istype(I, /obj/item/clothing/suit/armor/reactive))
-		var/obj/item/clothing/suit/armor/reactive/A = I
-		return A.cell
 
 	return null
 

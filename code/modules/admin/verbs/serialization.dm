@@ -24,5 +24,3 @@
 	var/json_text = input("Enter the JSON code:","Text") as message|null
 	if(json_text)
 		json_to_object(json_text, get_turf(usr))
-		message_admins("[key_name_admin(usr)] spawned an atom from a custom JSON object.")
-		log_admin("[key_name(usr)] spawned an atom from a custom JSON object, JSON Text: [json_text]")

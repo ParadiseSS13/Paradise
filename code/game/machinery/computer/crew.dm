@@ -3,8 +3,9 @@
 	desc = "Used to monitor active health sensors built into most of the crew's uniforms."
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
-	idle_power_consumption = 250
-	active_power_consumption = 500
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 250
+	active_power_usage = 500
 	light_color = LIGHT_COLOR_DARKBLUE
 	circuit = /obj/item/circuitboard/crew
 	var/datum/ui_module/crew_monitor/crew_monitor

@@ -30,11 +30,11 @@ proc
 process()
 check_build()
 
-* Setup map
-*   |EC|
-* CC|FC|
-*   |PB|
-* PE|PE|PE
+Setup map
+  |EC|
+CC|FC|
+  |PB|
+PE|PE|PE
 
 
 Icon Addemdum
@@ -122,20 +122,18 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return 1
 
 /obj/structure/particle_accelerator/examine(mob/user)
-	. = ..()
 	switch(construction_state)
-		if(ACCELERATOR_UNWRENCHED)
-			. += "<span class='notice'>\The [name]'s <i>anchoring bolts</i> are loose.</span>"
-		if(ACCELERATOR_WRENCHED)
-			. += "<span class='notice'>\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.</span>"
-		if(ACCELERATOR_WIRED)
-			. +=  "<span class='notice'>\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.</span>"
-		if(ACCELERATOR_READY)
-			. += "<span class='notice'>\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.</span>"
+		if(0)
+			desc = text("A [name], looks like it's not attached to the flooring")
+		if(1)
+			desc = text("A [name], it is missing some cables")
+		if(2)
+			desc = text("A [name], the panel is open")
+		if(3)
+			desc = text("The [name] is assembled")
 			if(powered)
 				desc = desc_holder
-	if(!anchored)
-		. += "<span class='notice'>Alt-click to rotate it.</span>"
+	. = ..()
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -251,8 +249,9 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "none"
 	anchored = FALSE
 	density = TRUE
-	power_state = NO_POWER_USE
-
+	use_power = NO_POWER_USE
+	idle_power_usage = 0
+	active_power_usage = 0
 	var/construction_state = 0
 	var/active = FALSE
 	var/reference = null
@@ -308,11 +307,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		construction_state = ACCELERATOR_READY
-		change_power_mode(IDLE_POWER_USE)
+		use_power = IDLE_POWER_USE
 	else
 		construction_state = ACCELERATOR_WIRED
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
-		change_power_mode(NO_POWER_USE)
+		use_power = NO_POWER_USE
 		update_state()
 	update_icon()
 

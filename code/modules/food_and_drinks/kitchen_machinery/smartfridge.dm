@@ -10,8 +10,9 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 5
-	active_power_consumption = 100
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 5
+	active_power_usage = 100
 	face_while_pulling = TRUE
 	/// The maximum number of items the fridge can hold. Multiplicated by the matter bin component's rating.
 	var/max_n_of_items = 1500
@@ -31,8 +32,6 @@
 	var/drying = FALSE
 	/// Whether the fridge's contents are visible on the world icon.
 	var/visible_contents = TRUE
-	/// Whether the fridge is electric and thus silicon controllable.
-	var/silicon_controllable = TRUE
 	/// The wires controlling the fridge.
 	var/datum/wires/smartfridge/wires
 	/// Typecache of accepted item types, init it in [/obj/machinery/smartfridge/Initialize].
@@ -105,15 +104,16 @@
 		throw_item()
 
 /obj/machinery/smartfridge/power_change()
-	. = ..()
-	if(stat & (BROKEN|NOPOWER))
+	var/old_stat = stat
+	..()
+	if((stat & (BROKEN|NOPOWER)))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	if(.)
+	if(old_stat != stat)
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/smartfridge/extinguish_light(force = FALSE)
+/obj/machinery/smartfridge/extinguish_light()
 	set_light(0)
 	underlays.Cut()
 
@@ -157,7 +157,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
-	. = default_unfasten_wrench(user, I, time = 4 SECONDS)
+	. = default_unfasten_wrench(user, I)
 	if(.)
 		power_change()
 
@@ -206,9 +206,7 @@
 		return TRUE
 
 /obj/machinery/smartfridge/attack_ai(mob/user)
-	if(!silicon_controllable)
-		return FALSE
-	return attack_hand(user)
+	return FALSE
 
 /obj/machinery/smartfridge/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -222,8 +220,6 @@
 
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user)
-	if(issilicon(user))
-		return
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
 		return
 	if(stat & (BROKEN|NOPOWER))
@@ -332,11 +328,8 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(isstorage(I.loc))
+			if(istype(I.loc, /obj/item/storage))
 				var/obj/item/storage/S = I.loc
-				if(!S.removal_allowed_check(user))
-					return
-
 				S.remove_from_storage(I, src)
 			else if(ismob(I.loc))
 				var/mob/M = I.loc
@@ -376,7 +369,7 @@
 	if(!throw_item)
 		return FALSE
 
-	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
+	INVOKE_ASYNC(throw_item, /atom/movable.proc/throw_at, target, 16, 3, src)
 	visible_message("<span class='warning'>[src] launches [throw_item.name] at [target.name]!</span>")
 	return TRUE
 
@@ -433,7 +426,7 @@
   * # Seed Storage
   *
   * Seeds variant of the [Smart Fridge][/obj/machinery/smartfridge].
-  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/economy/vending/hydroseeds].
+  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
   */
 /obj/machinery/smartfridge/seeds
 	name = "\improper Seed Storage"
@@ -454,16 +447,14 @@
   * Variant of the [Smart Fridge][/obj/machinery/smartfridge] that holds food and drinks in a mobile form
   */
 /obj/machinery/smartfridge/foodcart
-	name = "food and drink cart"
+	name = "\improper Food and Drink Cart"
 	desc = "A portable cart for hawking your food and drink wares around the station"
-	icon = 'icons/obj/kitchen.dmi'
-	icon_state = "foodcart"
+	icon = 'icons/obj/foodcart.dmi'
+	icon_state = "cart"
 	anchored = FALSE
-	requires_power = FALSE
-	power_state = NO_POWER_USE
+	use_power = NO_POWER_USE
 	visible_contents = FALSE
 	face_while_pulling = FALSE
-	silicon_controllable = FALSE
 
 
 /obj/machinery/smartfridge/foodcart/Initialize(mapload)
@@ -690,22 +681,6 @@
 		/obj/item/disk,
 	))
 
-/obj/machinery/smartfridge/id
-	name = "identification card compartmentalizer"
-	desc = "A machine capable of storing identification cards and PDAs. It's great for lost and terminated cards."
-	icon_state = "idbox"
-	icon_lightmask = FALSE
-	pass_flags = PASSTABLE
-	visible_contents = FALSE
-	board_type = /obj/machinery/smartfridge/id
-
-/obj/machinery/smartfridge/id/Initialize(mapload)
-	. = ..()
-	accepted_items_typecache = typecacheof(list(
-		/obj/item/card/id,
-		/obj/item/pda,
-	))
-
 /**
   * # Smart Virus Storage
   *
@@ -796,19 +771,19 @@
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying_rack"
-	idle_power_consumption = 5
-	active_power_consumption = 200
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 5
+	active_power_usage = 200
 	can_dry = TRUE
 	visible_contents = FALSE
 	light_range_on = null
 	light_power_on = null
-	silicon_controllable = FALSE
 
 
 /obj/machinery/smartfridge/drying_rack/Initialize(mapload)
 	. = ..()
 	// Remove components, this is wood duh
-	QDEL_LIST_CONTENTS(component_parts)
+	QDEL_LIST(component_parts)
 	component_parts = null
 	// Accepted items
 	accepted_items_typecache = typecacheof(list(
@@ -824,7 +799,7 @@
 	return
 
 /obj/machinery/smartfridge/drying_rack/power_change()
-	if(has_power() && anchored)
+	if(powered() && anchored)
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
@@ -853,7 +828,7 @@
 	switch(action)
 		if("drying")
 			drying = !drying
-			change_power_mode(drying ? ACTIVE_POWER_USE : IDLE_POWER_USE)
+			use_power = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/drying_rack/update_overlays()
@@ -887,10 +862,10 @@
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
 		drying = FALSE
-		change_power_mode(IDLE_POWER_USE)
+		use_power = IDLE_POWER_USE
 	else
 		drying = TRUE
-		change_power_mode(ACTIVE_POWER_USE)
+		use_power = ACTIVE_POWER_USE
 	update_icon(UPDATE_OVERLAYS)
 
 /**

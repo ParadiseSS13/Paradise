@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
+	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
@@ -49,7 +49,7 @@
 		if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
 
-		if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
+		if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
 			to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
 			return
 
@@ -61,14 +61,14 @@
 		if(M == user)	//they're using it on themselves
 			if(M.flash_eyes(visual = 1))
 				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
-									"<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
+									 "<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
 			else
 				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
-									"<span class='notice'>You wave the light in front of your eyes.</span>")
+									 "<span class='notice'>You wave the light in front of your eyes.</span>")
 		else
 
 			user.visible_message("<span class='notice'>[user] directs [src] to [M]'s eyes.</span>", \
-								"<span class='notice'>You direct [src] to [M]'s eyes.</span>")
+								 "<span class='notice'>You direct [src] to [M]'s eyes.</span>")
 
 			if(istype(H)) //robots and aliens are unaffected
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -82,21 +82,20 @@
 	else
 		return ..()
 
-/obj/item/flashlight/extinguish_light(force = FALSE)
+/obj/item/flashlight/extinguish_light()
 	if(on)
 		on = FALSE
 		update_brightness()
 
 /obj/item/flashlight/pen
 	name = "penlight"
-	desc = "A pen, and a light. Used by medical staff."
+	desc = "A pen-sized light, used by medical staff."
 	icon_state = "penlight"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
 	brightness_on = 2
-	var/colour = "blue" // Ink color
 
 /obj/item/flashlight/seclite
 	name = "seclite"
@@ -283,12 +282,8 @@
 	new T(loc)
 	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
 
-/obj/item/flashlight/flare/extinguish_light(force = FALSE)
-	if(force)
-		fuel = 0
-		visible_message("<span class='danger'>[src] burns up rapidly!</span>")
-	else
-		visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+/obj/item/flashlight/flare/extinguish_light()
+	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
@@ -325,12 +320,8 @@
 /obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
 
-/obj/item/flashlight/slime/extinguish_light(force = FALSE)
-	if(force)
-		visible_message("<span class='danger'>[src] withers away.</span>")
-		qdel(src)
-	else
-		visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
+/obj/item/flashlight/slime/extinguish_light()
+	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"

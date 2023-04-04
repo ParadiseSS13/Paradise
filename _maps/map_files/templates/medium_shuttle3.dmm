@@ -1,0 +1,699 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/space,
+/area/space)
+"b" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"c" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"d" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"h" = (
+/turf/simulated/wall/mineral/titanium,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"j" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"k" = (
+/obj/machinery/power/smes/magical,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"l" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"m" = (
+/turf/simulated/floor/plating,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"n" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"o" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"p" = (
+/obj/machinery/door/airlock/public/glass,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"q" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"r" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"t" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"v" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteyellowfull"
+	},
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"w" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteyellowfull"
+	},
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"x" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteyellowfull"
+	},
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"z" = (
+/obj/machinery/sleeper,
+/turf/simulated/floor/plasteel{
+	icon_state = "bluefull"
+	},
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"A" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"C" = (
+/obj/machinery/door/airlock/public/glass,
+/turf/simulated/floor/plating,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"D" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "bluefull"
+	},
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"E" = (
+/obj/structure/table,
+/obj/item/storage/firstaid,
+/turf/simulated/floor/plasteel{
+	icon_state = "bluefull"
+	},
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"F" = (
+/obj/structure/shuttle/engine/heater,
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+"G" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
+/area/ruin/powered{
+	name = "Shuttle"
+	})
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+n
+a
+a
+a
+a
+n
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+a
+n
+c
+o
+a
+a
+a
+a
+o
+c
+n
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+a
+a
+c
+o
+c
+c
+c
+a
+a
+c
+c
+c
+o
+c
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+a
+c
+c
+c
+c
+c
+c
+a
+a
+c
+c
+c
+c
+c
+c
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+c
+c
+h
+h
+c
+c
+c
+j
+j
+c
+c
+c
+h
+h
+c
+c
+a
+a
+a
+"}
+(6,1,1) = {"
+a
+a
+c
+c
+h
+k
+l
+h
+h
+h
+m
+m
+h
+h
+h
+l
+k
+h
+c
+c
+a
+a
+"}
+(7,1,1) = {"
+a
+b
+d
+c
+h
+l
+l
+l
+l
+p
+l
+l
+p
+l
+l
+l
+l
+h
+c
+F
+G
+a
+"}
+(8,1,1) = {"
+a
+c
+c
+c
+c
+h
+l
+l
+l
+h
+C
+C
+h
+l
+l
+l
+h
+c
+c
+c
+c
+a
+"}
+(9,1,1) = {"
+b
+d
+c
+c
+c
+h
+l
+l
+h
+z
+D
+D
+E
+h
+l
+l
+h
+c
+c
+c
+F
+G
+"}
+(10,1,1) = {"
+a
+a
+c
+c
+c
+h
+p
+h
+v
+h
+D
+D
+h
+A
+h
+p
+h
+c
+c
+c
+a
+a
+"}
+(11,1,1) = {"
+a
+a
+a
+a
+j
+m
+l
+t
+w
+w
+l
+l
+A
+A
+t
+l
+m
+j
+a
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+a
+a
+a
+j
+m
+l
+t
+x
+w
+l
+l
+A
+A
+t
+l
+m
+j
+a
+a
+a
+a
+"}
+(13,1,1) = {"
+a
+a
+c
+c
+c
+h
+p
+h
+w
+h
+A
+A
+h
+A
+h
+p
+h
+c
+c
+c
+a
+a
+"}
+(14,1,1) = {"
+b
+d
+c
+c
+c
+h
+l
+l
+h
+A
+A
+A
+A
+h
+l
+l
+h
+c
+c
+c
+F
+G
+"}
+(15,1,1) = {"
+a
+c
+c
+c
+c
+h
+l
+l
+l
+h
+C
+C
+h
+l
+l
+l
+h
+c
+c
+c
+c
+a
+"}
+(16,1,1) = {"
+a
+b
+d
+c
+h
+l
+l
+l
+l
+p
+l
+l
+p
+l
+l
+l
+l
+h
+c
+F
+G
+a
+"}
+(17,1,1) = {"
+a
+a
+c
+c
+h
+k
+l
+h
+h
+h
+m
+m
+h
+h
+h
+l
+k
+h
+c
+c
+a
+a
+"}
+(18,1,1) = {"
+a
+a
+a
+c
+c
+h
+h
+c
+c
+c
+j
+j
+c
+c
+c
+h
+h
+c
+c
+a
+a
+a
+"}
+(19,1,1) = {"
+a
+a
+a
+a
+c
+c
+c
+c
+c
+c
+a
+a
+c
+c
+c
+c
+c
+c
+a
+a
+a
+a
+"}
+(20,1,1) = {"
+a
+a
+a
+a
+a
+c
+q
+c
+c
+c
+a
+a
+c
+c
+c
+q
+c
+a
+a
+a
+a
+a
+"}
+(21,1,1) = {"
+a
+a
+a
+a
+a
+a
+r
+c
+q
+a
+a
+a
+a
+q
+c
+r
+a
+a
+a
+a
+a
+a
+"}
+(22,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+r
+a
+a
+a
+a
+r
+a
+a
+a
+a
+a
+a
+a
+a
+"}

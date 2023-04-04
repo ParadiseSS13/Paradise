@@ -84,6 +84,10 @@
 	name = "Electromagnetic Storm"
 	payload = /obj/item/grenade/empgrenade
 
+/obj/item/grenade/clusterbuster/smoke
+	name = "Ninja Vanish"
+	payload = /obj/item/grenade/smokebomb
+
 /obj/item/grenade/clusterbuster/metalfoam
 	name = "Instant Concrete"
 	payload = /obj/item/grenade/chem_grenade/metalfoam
@@ -92,9 +96,17 @@
 	name = "Inferno"
 	payload = /obj/item/grenade/chem_grenade/incendiary
 
+/obj/item/grenade/clusterbuster/antiweed
+	name = "RoundDown"
+	payload = /obj/item/grenade/chem_grenade/antiweed
+
 /obj/item/grenade/clusterbuster/cleaner
 	name = "Mr. Proper"
 	payload = /obj/item/grenade/chem_grenade/cleaner
+
+/obj/item/grenade/clusterbuster/teargas
+	name = "\improper Oignon Teargas Grenade"
+	payload = /obj/item/grenade/chem_grenade/teargas
 
 /obj/item/grenade/clusterbuster/facid
 	name = "Aciding Rain"
@@ -120,6 +132,10 @@
 	name = "\improper Mega Meat Grenade"
 	payload = /obj/item/grenade/chem_grenade/meat
 
+/obj/item/grenade/clusterbuster/nervegas
+	name = "\improper Nerve Gas Clusterbomb"
+	payload = /obj/item/grenade/chem_grenade/saringas
+
 /obj/item/grenade/clusterbuster/megadirt
 	name = "\improper Megamaid's Revenge Grenade"
 	payload = /obj/item/grenade/chem_grenade/dirt
@@ -134,10 +150,20 @@
 	desc = "An object in motion remains in motion."
 	payload = /obj/item/grenade/chem_grenade/lube
 
+/obj/item/grenade/clusterbuster/hippie
+	name = "\improper Hippie Grenade"
+	desc = "Almost as good as the summer of '69."
+	payload = /obj/item/grenade/chem_grenade/drugs
+
 /obj/item/grenade/clusterbuster/holy
 	name = "\improper Purification Grenade"
 	desc = "Blessed excessively."
 	payload = /obj/item/grenade/chem_grenade/holywater
+
+/obj/item/grenade/clusterbuster/hellwater
+	name = "Righteous Fury"
+	desc = "It's righteous, not badminnery."
+	payload = /obj/item/grenade/chem_grenade/hellwater
 
 /obj/item/grenade/clusterbuster/booze
 	name = "\improper Booze Grenade"

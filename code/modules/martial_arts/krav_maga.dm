@@ -105,7 +105,7 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
-					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	return TRUE
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -151,10 +151,6 @@
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
-
-/obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/clothing/gloves/color/black/krav_maga/combat // for nukies
 	name = "combat gloves plus"

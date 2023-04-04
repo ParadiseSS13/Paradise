@@ -6,7 +6,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "paint_neutral"
 	item_state = "paintcan"
-	materials = list(MAT_METAL = 400)
+	materials = list(MAT_METAL=200)
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	max_integrity = 100

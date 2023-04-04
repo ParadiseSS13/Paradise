@@ -6,7 +6,6 @@ SUBSYSTEM_DEF(ticker)
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
@@ -66,8 +65,6 @@ SUBSYSTEM_DEF(ticker)
 	var/real_reboot_time = 0
 	/// Datum used to generate the end of round scoreboard.
 	var/datum/scoreboard/score = null
-	/// List of ckeys who had antag rolling issues flagged
-	var/list/flagged_antag_rollers = list()
 
 /datum/controller/subsystem/ticker/Initialize()
 	login_music = pick(\
@@ -76,6 +73,8 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/title1.ogg',\
 	'sound/music/title2.ogg',\
 	'sound/music/title3.ogg',)
+
+	return ..()
 
 
 /datum/controller/subsystem/ticker/fire()
@@ -114,6 +113,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
 			mode.process()
+			mode.process_job_tasks()
 
 			if(world.time > next_autotransfer)
 				SSvote.start_vote(new /datum/vote/crew_transfer)
@@ -131,23 +131,9 @@ SUBSYSTEM_DEF(ticker)
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
 			declare_completion()
-			addtimer(CALLBACK(src, PROC_REF(call_reboot)), 5 SECONDS)
-			// Start a map vote IF
-			// - Map rotate doesnt have a mode for today and map voting is enabled
-			// - Map rotate has a mode for the day and it ISNT full random
-			if(((!SSmaprotate.setup_done) && GLOB.configuration.vote.enable_map_voting) || (SSmaprotate.setup_done && (SSmaprotate.rotation_mode != MAPROTATION_MODE_FULL_RANDOM)))
+			addtimer(CALLBACK(src, .proc/call_reboot), 5 SECONDS)
+			if(GLOB.configuration.vote.enable_map_voting)
 				SSvote.start_vote(new /datum/vote/map)
-			else
-				// Pick random map
-				var/list/pickable_types = list()
-				for(var/x in subtypesof(/datum/map))
-					var/datum/map/M = x
-					if(initial(M.voteable))
-						pickable_types += M
-
-				var/datum/map/target_map = pick(pickable_types)
-				SSmapping.next_map = new target_map
-				to_chat(world, "<span class='interface'>Map for next round: [SSmapping.next_map.fluff_name] ([SSmapping.next_map.technical_name])</span>")
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
@@ -200,35 +186,13 @@ SUBSYSTEM_DEF(ticker)
 		if(player.client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			player.client.prefs.load_random_character_slot(player.client)
 
-	// Lets check if people who ready should or shouldnt be
-	for(var/mob/new_player/P in GLOB.player_list)
-		// Not logged in
-		if(!P.client)
-			continue
-		// Not ready
-		if(!P.ready)
-			continue
-		// Not set to return if nothing available
-		if(P.client.prefs.active_character.alternate_option != RETURN_TO_LOBBY)
-			continue
-
-		var/has_antags = (length(P.client.prefs.be_special) > 0)
-		if(!P.client.prefs.active_character.check_any_job())
-			to_chat(P, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
-			if(has_antags)
-				// We add these to a list so we can deal with them as a batch later
-				// A lot of DB tracking stuff needs doing, so we may as well async it
-				flagged_antag_rollers |= P.ckey
-
-			P.ready = FALSE
-
 	//Configure mode and assign player to special mode stuff
 	mode.pre_pre_setup()
-	var/can_continue = FALSE
-	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
+	var/can_continue
+	can_continue = mode.pre_setup() //Setup special modes
 	SSjobs.DivideOccupations() //Distribute jobs
 	if(!can_continue)
-		QDEL_NULL(mode)
+		qdel(mode)
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
 		current_state = GAME_STATE_PREGAME
 		force_start = FALSE
@@ -306,7 +270,7 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
-	GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** Round has started")
+	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
 
@@ -330,13 +294,8 @@ SUBSYSTEM_DEF(ticker)
 	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
-	// Run map tests first in case unit tests futz with map state
-	GLOB.test_runner.RunMap()
-	GLOB.test_runner.Run()
+	RunUnitTests()
 	#endif
-
-	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
-	addtimer(CALLBACK(src, PROC_REF(handle_antagfishing_reporting)), 10 SECONDS)
 	return TRUE
 
 
@@ -351,7 +310,7 @@ SUBSYSTEM_DEF(ticker)
 	cinematic.icon_state = "station_intact"
 	cinematic.layer = 21
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	cinematic.screen_loc = "1,1"
+	cinematic.screen_loc = "1,0"
 
 	if(station_missed)
 		for(var/mob/M in GLOB.mob_list)
@@ -479,7 +438,7 @@ SUBSYSTEM_DEF(ticker)
 		if(desc_override)
 			I.desc = desc_override
 
-		if(isstorage(H.back)) // Try to place it in something on the mob's back
+		if(istype(H.back, /obj/item/storage)) // Try to place it in something on the mob's back
 			var/obj/item/storage/S = H.back
 			if(length(S.contents) < S.storage_slots)
 				I.forceMove(H.back)
@@ -521,7 +480,6 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
-	set_observer_default_invisibility(0) //spooks things up
 	//Round statistics report
 	var/datum/station_state/ending_station_state = new /datum/station_state()
 	ending_station_state.count()
@@ -552,7 +510,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/living/silicon/robot/robo in GLOB.mob_list)
 
-		if(isdrone(robo))
+		if(istype(robo,/mob/living/silicon/robot/drone))
 			dronecount++
 			continue
 
@@ -684,53 +642,3 @@ SUBSYSTEM_DEF(ticker)
 	sleep(sound_length)
 
 	world.Reboot()
-
-// Timers invoke this async
-/datum/controller/subsystem/ticker/proc/handle_antagfishing_reporting()
-	// This needs the DB
-	if(!SSdbcore.IsConnected())
-		return
-	// Dont need to do anything
-	if(!length(flagged_antag_rollers))
-		return
-
-	// Records themselves
-	var/list/datum/antag_record/records = list()
-	// Queries to load data (executed as async batch)
-	var/list/datum/db_query/load_queries = list()
-	// Queries to save data (executed as async batch)
-	var/list/datum/db_query/save_queries = list()
-
-
-	for(var/ckey in flagged_antag_rollers)
-		var/datum/antag_record/AR = new /datum/antag_record(ckey)
-		records[ckey] = AR
-		load_queries[ckey] = AR.get_load_query()
-
-	// Explanation for parameters:
-	// TRUE: We want warnings if these fail
-	// FALSE: Do NOT qdel() queries here, otherwise they wont be read. At all.
-	// TRUE: This is an assoc list, so it needs to prepare for that
-	SSdbcore.MassExecute(load_queries, TRUE, FALSE, TRUE)
-
-	// Report on things
-	var/list/log_text = list("The following players attempted to roll antag with no jobs (total infractions listed)")
-
-	for(var/ckey in flagged_antag_rollers)
-		var/datum/antag_record/AR = records[ckey]
-		AR.handle_data(load_queries[ckey])
-		save_queries[ckey] = AR.get_save_query()
-
-		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a>: [AR.infraction_count]</small>"
-
-	log_text += "Investigation advised if there are a high number of infractions"
-
-	message_admins(log_text.Join("<br>"))
-
-	// Now do a ton of saves
-	SSdbcore.MassExecute(save_queries, TRUE, TRUE, TRUE)
-
-	// And cleanup
-	QDEL_LIST_ASSOC_VAL(load_queries)
-	records.Cut()
-	flagged_antag_rollers.Cut()

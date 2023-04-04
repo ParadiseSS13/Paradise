@@ -1,3 +1,99 @@
+/*
+Overview:
+   Used to create objects that need a per step proc call.  Default definition of 'New()'
+   stores a reference to src machine in global 'machines list'.  Default definition
+   of 'Del' removes reference to src machine in global 'machines list'.
+
+Class Variables:
+   use_power (num)
+      current state of auto power use.
+      Possible Values:
+         0 -- no auto power use
+         1 -- machine is using power at its idle power level
+         2 -- machine is using power at its active power level
+
+   active_power_usage (num)
+      Value for the amount of power to use when in active power mode
+
+   idle_power_usage (num)
+      Value for the amount of power to use when in idle power mode
+
+   power_channel (num)
+      What channel to draw from when drawing power for power mode
+      Possible Values:
+         EQUIP:0 -- Equipment Channel
+         LIGHT:2 -- Lighting Channel
+         ENVIRON:3 -- Environment Channel
+
+   component_parts (list)
+      A list of component parts of machine used by frame based machines.
+
+   uid (num)
+      Unique id of machine across all machines.
+
+   gl_uid (global num)
+      Next uid value in sequence
+
+   stat (bitflag)
+      Machine status bit flags.
+      Possible bit flags:
+         BROKEN:1 -- Machine is broken
+         NOPOWER:2 -- No power is being supplied to machine.
+         POWEROFF:4 -- tbd
+         MAINT:8 -- machine is currently under going maintenance.
+         EMPED:16 -- temporary broken by EMP pulse
+
+   manual (num)
+      Currently unused.
+
+Class Procs:
+   initialize()                     'game/machinery/machine.dm'
+
+   Destroy()                     'game/machinery/machine.dm'
+
+   auto_use_power()            'game/machinery/machine.dm'
+      This proc determines how power mode power is deducted by the machine.
+      'auto_use_power()' is called by the 'master_controller' game_controller every
+      tick.
+
+      Return Value:
+         return:1 -- if object is powered
+         return:0 -- if object is not powered.
+
+      Default definition uses 'use_power', 'power_channel', 'active_power_usage',
+      'idle_power_usage', 'powered()', and 'use_power()' implement behavior.
+
+   powered(chan = EQUIP)         'modules/power/power.dm'
+      Checks to see if area that contains the object has power available for power
+      channel given in 'chan'.
+
+   use_power(amount, chan=EQUIP, autocalled)   'modules/power/power.dm'
+      Deducts 'amount' from the power channel 'chan' of the area that contains the object.
+      If it's autocalled then everything is normal, if something else calls use_power we are going to
+      need to recalculate the power two ticks in a row.
+
+   power_change()               'modules/power/power.dm'
+      Called by the area that contains the object when ever that area under goes a
+      power state change (area runs out of power, or area channel is turned off).
+
+   RefreshParts()               'game/machinery/machine.dm'
+      Called to refresh the variables in the machine that are contributed to by parts
+      contained in the component_parts list. (example: glass and material amounts for
+      the autolathe)
+
+      Default definition does nothing.
+
+   assign_uid()               'game/machinery/machine.dm'
+      Called by machine to assign a value to the uid variable.
+
+   process()                  'game/machinery/machine.dm'
+      Called by the 'master_controller' once per game tick for each machine that is listed in the 'machines' list.
+
+
+	Compiled by Aygar
+*/
+
+#define MACHINE_FLICKER_CHANCE 0.05 // roughly 1/2000 chance of a machine flickering on any given tick. That means in a two hour round each machine will flicker on average a little less than two times.
 
 /obj/machinery
 	name = "machinery"
@@ -5,49 +101,51 @@
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
-	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
-	atom_say_verb = "beeps"
 	var/stat = 0
-
-	/// How is this machine currently passively consuming power?
-	var/power_state = IDLE_POWER_USE
-	/// Does this machine require power?
-	var/requires_power = TRUE
-	/// How much power does this machine consume when it is idling
-	var/idle_power_consumption = 0
-	/// How much power does this machine consume when it is in use
-	var/active_power_consumption = 0
-	/// The power channel this machine uses, idle/passive power consumption will pull from this channel and machine won't work if power channel has no power
-	var/power_channel = PW_CHANNEL_EQUIPMENT
-	/// The powernet this machine is connected to
-	var/datum/local_powernet/machine_powernet = null
-
-	/// how badly will it shock you?
-	var/siemens_strength = 0.7
-
+	var/use_power = IDLE_POWER_USE
+		//0 = dont run the auto
+		//1 = run auto, use idle
+		//2 = run auto, use active
+	var/idle_power_usage = 0
+	var/active_power_usage = 0
+	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
+	var/uid
+	var/global/gl_uid = 1
 	var/panel_open = FALSE
+	var/area/myArea
 	var/interact_offline = FALSE // Can the machine be interacted with while de-powered.
+	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
+	atom_say_verb = "beeps"
+	var/siemens_strength = 0.7 // how badly will it shock you?
+	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
+	var/frequency = NONE
+	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
+	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+
+/*
+ * reimp, attempts to flicker this machinery if the behavior is supported.
+ */
+/obj/machinery/get_spooked()
+	return flicker()
+
+/*
+ * Base class, attempt to flicker. Returns TRUE if we complete our 'flicker
+ * behavior', false otherwise.
+ */
+/obj/machinery/proc/flicker()
+	return FALSE
 
 /obj/machinery/Initialize(mapload)
 	. = ..()
+
 	GLOB.machines += src
 
-	var/area/machine_area = get_area(src)
-	if(machine_area)
-		// areas don't always initialize before machines so we need to check to see if the powernet exists first
-		if(machine_area.powernet)
-			machine_powernet = machine_area.powernet
-		else
-			machine_powernet = machine_area.create_powernet()
-		machine_powernet.register_machine(src)
-		switch(power_state)
-			if(IDLE_POWER_USE)
-				add_static_power(power_channel, idle_power_consumption)
-			if(ACTIVE_POWER_USE)
-				add_static_power(power_channel, active_power_consumption)
+	if(use_power)
+		myArea = get_area(src)
 
 	if(!speed_process)
 		START_PROCESSING(SSmachines, src)
@@ -73,8 +171,8 @@
 	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/Destroy()
-	change_power_mode(NO_POWER_USE) //we want to clear our static power usage on the local powernet
-	machine_powernet?.unregister_machine(src)
+	if(myArea)
+		myArea = null
 	GLOB.machines.Remove(src)
 	if(!speed_process)
 		STOP_PROCESSING(SSmachines, src)
@@ -82,94 +180,142 @@
 		STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-// This needs to die
 /obj/machinery/proc/locate_machinery()
+	return
+
+/obj/machinery/proc/set_frequency()
 	return
 
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
-////POWER RELATED PROCS
-
-// returns true if the area has power on given channel (or doesn't require power).
-// defaults to power_channel
-/obj/machinery/proc/has_power(channel = power_channel) // defaults to power_channel
-	if(!requires_power)
-		return TRUE
-	if(!machine_powernet)
-		return FALSE
-	return machine_powernet.has_power(channel)	// return power status of the area
-
-// use active power from the local powernet
-/obj/machinery/proc/use_power(channel, amount)
-	if(!has_power())
-		return FALSE
-	if(!channel)
-		channel = power_channel
-	return machine_powernet.use_active_power(channel, amount)
-
-/obj/machinery/proc/add_static_power(channel, amount)
-	machine_powernet.adjust_static_power(channel, amount)
-
-/obj/machinery/proc/remove_static_power(channel, amount)
-	machine_powernet.adjust_static_power(channel, -amount)
-
-/*
-	* # power_change()
-	*
-	* Checks to see if the machines set power channel is powered and updates stat accordingly
-	* returns TRUE if machine's stat changes, returns FALSE if it does not, this is to make sure machines dont
-	* update their icon/overlays/lighting uneccesarily if it's contigent on NOPOWER
-	*
-	* NOTE:Subtypes of machinery should call parent here unless they change this proc's behaviour regarding NOPOWER
-*/
-/obj/machinery/proc/power_change()
-	var/old_stat = stat
-	if(has_power(power_channel) || !requires_power) //if we don't require power, we don't give a shit about the power channel!
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-	return old_stat != stat //performance saving for machines that use power_change() to update icons!
-
-/// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
-/obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
-	if(isnull(use_type) || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
-		return
-	switch(power_state)
-		if(IDLE_POWER_USE)
-			remove_static_power(power_channel, idle_power_consumption)
-		if(ACTIVE_POWER_USE)
-			remove_static_power(power_channel, active_power_consumption)
-
-	switch(use_type)
-		if(IDLE_POWER_USE)
-			add_static_power(power_channel, idle_power_consumption)
-		if(ACTIVE_POWER_USE)
-			add_static_power(power_channel, active_power_consumption)
-
-	power_state = use_type
-
-/obj/machinery/proc/update_idle_power_consumption(channel = power_channel, amount)
-	if(power_state == IDLE_POWER_USE)
-		machine_powernet.adjust_static_power(power_channel, amount - idle_power_consumption)
-	idle_power_consumption = amount
-
-/obj/machinery/proc/update_active_power_consumption(channel = power_channel, amount)
-	if(power_state == ACTIVE_POWER_USE)
-		machine_powernet.adjust_static_power(power_channel, amount - active_power_consumption)
-	active_power_consumption = amount
+/obj/machinery/emp_act(severity)
+	if(use_power && !stat)
+		use_power(7500/severity)
+		. = TRUE
+	..()
 
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
 	. = ..()
 	if(.)
 		stat &= ~BROKEN
 
-// This proc is only staying because of the fingerprint adding
-// IT NEEDS TO DIE
+//sets the use_power var and then forces an area power update
+/obj/machinery/proc/update_use_power(new_use_power)
+	use_power = new_use_power
+
+/obj/machinery/proc/auto_use_power()
+	if(!powered(power_channel))
+		return 0
+	if(use_power == IDLE_POWER_USE)
+		use_power(idle_power_usage,power_channel, 1)
+	else if(use_power >= ACTIVE_POWER_USE)
+		use_power(active_power_usage,power_channel, 1)
+	if(prob(MACHINE_FLICKER_CHANCE))
+		flicker()
+	return 1
+
+/obj/machinery/proc/multitool_topic(mob/user, list/href_list, obj/O)
+	if("set_id" in href_list)
+		if(!("id_tag" in vars))
+			warning("set_id: [type] has no id_tag var.")
+		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
+		if(newid)
+			src:id_tag = newid
+			return TRUE
+	if("set_freq" in href_list)
+		if(!("frequency" in vars))
+			warning("set_freq: [type] has no frequency var.")
+			return FALSE
+		var/newfreq=src:frequency
+		if(href_list["set_freq"]!="-1")
+			newfreq=text2num(href_list["set_freq"])
+		else
+			newfreq = input(usr, "Specify a new frequency (GHz). Decimals assigned automatically.", src, src:frequency) as null|num
+		if(newfreq)
+			if(findtext(num2text(newfreq), "."))
+				newfreq *= 10 // shift the decimal one place
+			set_frequency(sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ))
+			return TRUE
+	return FALSE
+
+/obj/machinery/proc/handle_multitool_topic(href, list/href_list, mob/user)
+	if(!allowed(user))//no, not even HREF exploits
+		return FALSE
+	var/obj/item/multitool/P = get_multitool(usr)
+	if(P && istype(P))
+		var/update_mt_menu = FALSE
+		if("set_tag" in href_list && settagwhitelist)
+			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
+				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name_admin(user)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				return FALSE
+			if(!(href_list["set_tag"] in vars))
+				to_chat(usr, "<span class='warning'>Something went wrong: Unable to find [href_list["set_tag"]] in vars!</span>")
+				return FALSE
+			var/current_tag = vars[href_list["set_tag"]]
+			var/newid = copytext(reject_bad_text(input(usr, "Specify the new value", src, current_tag) as null|text),1,MAX_MESSAGE_LEN)
+			if(newid)
+				vars[href_list["set_tag"]] = newid
+				update_mt_menu = TRUE
+
+		if("unlink" in href_list)
+			var/idx = text2num(href_list["unlink"])
+			if(!idx)
+				return FALSE
+
+			var/obj/O = getLink(idx)
+			if(!O)
+				return FALSE
+			if(!canLink(O))
+				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
+				return FALSE
+
+			if(unlinkFrom(usr, O))
+				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was removed.</span>")
+			else
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when unlinking the two devices.</span>")
+			update_mt_menu = TRUE
+
+		if("link" in href_list)
+			var/obj/O = P.buffer
+			if(!O)
+				return FALSE
+			if(!canLink(O,href_list))
+				to_chat(usr, "<span class='warning'>You can't link with that device.</span>")
+				return FALSE
+			if(isLinkedWith(O))
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P]. The two devices are already linked.</span>")
+				return FALSE
+
+			if(linkWith(usr, O, href_list))
+				to_chat(usr, "<span class='notice'>A green light flashes on \the [P], confirming the link was added.</span>")
+			else
+				to_chat(usr, "<span class='warning'>A red light flashes on \the [P].  It appears something went wrong when linking the two devices.</span>")
+			update_mt_menu = TRUE
+
+		if("buffer" in href_list)
+			P.buffer = src
+			to_chat(usr, "<span class='notice'>A green light flashes, and the device appears in the multitool buffer.</span>")
+			update_mt_menu = TRUE
+
+		if("flush" in href_list)
+			to_chat(usr, "<span class='notice'>A green light flashes, and the device disappears from the multitool buffer.</span>")
+			P.buffer = null
+			update_mt_menu = TRUE
+
+		var/ret = multitool_topic(usr,href_list,P.buffer)
+		if(ret)
+			update_mt_menu = TRUE
+
+		if(update_mt_menu)
+			update_multitool_menu(usr)
+			return TRUE
+
 /obj/machinery/Topic(href, href_list, nowindow = 0, datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 
+	handle_multitool_topic(href,href_list,usr)
 	add_fingerprint(usr)
 	return 0
 
@@ -251,6 +397,10 @@
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
 
+/obj/machinery/proc/assign_uid()
+	uid = gl_uid
+	gl_uid++
+
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
@@ -284,8 +434,8 @@
 		deconstruct(TRUE)
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 		I.play_tool_sound(user, I.tool_volume)
-		return TRUE
-	return FALSE
+		return 1
+	return 0
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)
@@ -435,7 +585,7 @@
 		return threatcount
 
 	//Agent cards lower threatlevel.
-	var/obj/item/card/id/id = perp.get_id_card()
+	var/obj/item/card/id/id = GetIdCard(perp)
 	if(id && istype(id, /obj/item/card/id/syndicate))
 		threatcount -= 2
 	// A proper	CentCom id is hard currency.
@@ -487,12 +637,6 @@
 /obj/machinery/proc/on_deconstruction()
 	return
 
-/obj/machinery/emp_act(severity)
-	if(power_state && !stat)
-		use_power(7500/severity)
-		. = TRUE
-	..()
-
 /obj/machinery/zap_act(power, zap_flags)
 	if(prob(85) && (zap_flags & ZAP_MACHINE_EXPLOSIVE) && !(resistance_flags & INDESTRUCTIBLE))
 		explosion(src, 1, 2, 4, flame_range = 2, adminlog = FALSE, smoke = FALSE)
@@ -525,18 +669,4 @@
 		return TRUE
 	if(issilicon(user))
 		return TRUE
-	return FALSE
-
-
-/*
- * reimp, attempts to flicker this machinery if the behavior is supported.
- */
-/obj/machinery/get_spooked()
-	return flicker()
-
-/*
- * Base class, attempt to flicker. Returns TRUE if we complete our 'flicker
- * behavior', false otherwise.
- */
-/obj/machinery/proc/flicker()
 	return FALSE

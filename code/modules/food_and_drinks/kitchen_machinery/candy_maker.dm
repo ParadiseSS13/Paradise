@@ -8,6 +8,7 @@
 	recipe_type = RECIPE_CANDY
 	off_icon = "candymaker_off"
 	on_icon = "candymaker_on"
+	broken_icon = "candymaker_broke"
 	dirty_icon = "candymaker_dirty"
 	open_icon = "candymaker_open"
 

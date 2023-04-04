@@ -34,10 +34,15 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	location = null
 	return ..()
 
-/datum/effect_system/proc/set_up(amount = 3, only_cardinals = FALSE, source)
-	number = clamp(amount, amount, 10)
-	cardinals = only_cardinals
-	location = get_turf(source)
+/datum/effect_system/proc/set_up(n = 3, c = 0, loca)
+	if(n > 10)
+		n = 10
+	number = n
+	cardinals = c
+	if(isturf(loca))
+		location = loca
+	else
+		location = get_turf(loca)
 
 /datum/effect_system/proc/attach(atom/atom)
 	holder = atom
@@ -48,7 +53,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	for(var/i in 1 to number)
 		if(total_effects > 20)
 			return
-		INVOKE_ASYNC(src, PROC_REF(generate_effect))
+		INVOKE_ASYNC(src, .proc/generate_effect)
 
 /datum/effect_system/proc/generate_effect()
 	if(holder)
@@ -65,7 +70,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		sleep(5)
 		step(E,direction)
 	if(!QDELETED(src))
-		addtimer(CALLBACK(src, PROC_REF(decrement_total_effect)), 20)
+		addtimer(CALLBACK(src, .proc/decrement_total_effect), 20)
 
 /datum/effect_system/proc/decrement_total_effect()
 	total_effects--

@@ -76,7 +76,7 @@
 //alldir includes adjacent diagonal tiles that can share
 //	air with both of the related adjacent cardinal tiles
 /turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
-	if(!issimulatedturf(src))
+	if(!istype(src, /turf/simulated))
 		return list()
 
 	var/adjacent_turfs = atmos_adjacent_turfs.Copy()
@@ -102,7 +102,7 @@
 	return adjacent_turfs
 
 /atom/movable/proc/air_update_turf(command = 0)
-	if(!isturf(loc) && command)
+	if(!istype(loc,/turf) && command)
 		return
 	for(var/turf/T in locs) // used by double wide doors and other nonexistant multitile structures
 		T.air_update_turf(command)
@@ -114,9 +114,9 @@
 		SSair.add_to_active(src,command)
 
 /atom/movable/proc/move_update_air(turf/T)
-	if(isturf(T))
-		T.air_update_turf(1)
-	air_update_turf(1)
+    if(istype(T,/turf))
+        T.air_update_turf(1)
+    air_update_turf(1)
 
 
 

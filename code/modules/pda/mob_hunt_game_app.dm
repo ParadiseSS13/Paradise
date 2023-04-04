@@ -84,7 +84,7 @@
 	if(!captured)
 		return FALSE
 	my_collection += captured
-	RegisterSignal(captured, COMSIG_PARENT_QDELETING, PROC_REF(remove_mob))
+	RegisterSignal(captured, COMSIG_PARENT_QDELETING, .proc/remove_mob)
 	if(wild)
 		wild_captures++
 	return TRUE

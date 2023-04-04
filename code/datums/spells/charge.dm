@@ -18,7 +18,7 @@
 		var/charged_item = null
 		var/burnt_out = FALSE
 
-		if(L.pulling && (isliving(L.pulling)))
+		if(L.pulling && (istype(L.pulling, /mob/living)))
 			var/mob/living/M =	L.pulling
 			if(M.mob_spell_list.len != 0 || (M.mind && M.mind.spell_list.len != 0))
 				for(var/obj/effect/proc_holder/spell/S in M.mob_spell_list)

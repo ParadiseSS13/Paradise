@@ -100,7 +100,7 @@
 				var/turf/T = get_turf(src)
 				T.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 				qdel(src)
-			return //return is need to prevent people from exploiting zero-hit cooldowns with the do_after here
+				return
 	return ..()
 
 /obj/structure/barricade/wooden/crude
@@ -148,7 +148,7 @@
 
 /obj/structure/barricade/security/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(deploy)), deploy_time)
+	addtimer(CALLBACK(src, .proc/deploy), deploy_time)
 
 /obj/structure/barricade/security/proc/deploy()
 	icon_state = "barrier1"
@@ -309,14 +309,14 @@
 		deploy(direction, uptime)
 
 /obj/structure/dropwall_generator/Destroy()
-	QDEL_LIST_CONTENTS(connected_shields)
+	QDEL_LIST(connected_shields)
 	core_shield = null
 	return ..()
 
 /obj/structure/dropwall_generator/proc/deploy(direction, uptime)
 	anchored = TRUE
 	protected = TRUE
-	addtimer(CALLBACK(src, PROC_REF(power_out)), uptime)
+	addtimer(CALLBACK(src, .proc/power_out), uptime)
 	timer_overlay_proc(uptime/10)
 
 	connected_shields += new /obj/structure/barricade/dropwall(get_turf(loc), src, TRUE, direction)
@@ -366,7 +366,7 @@
 	if(cycle != 1)
 		cut_overlay("[(cycle - 1)]")
 	if(cycle < 12)
-		addtimer(CALLBACK(src, PROC_REF(timer_overlay_proc), uptime - 1), DROPWALL_UPTIME / 12 SECONDS)
+		addtimer(CALLBACK(src, .proc/timer_overlay_proc, uptime - 1), DROPWALL_UPTIME / 12 SECONDS)
 
 
 /obj/item/used_dropwall
@@ -375,7 +375,7 @@
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead"
 	item_state = "grenade"
-	materials = list(MAT_METAL = 500, MAT_GLASS = 300) //plasma burned up for power or something, plus not that much to reclaim
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2500) //plasma burned up for power or something, plus not that much to reclaim
 
 
 /obj/item/storage/box/syndie_kit/dropwall

@@ -18,7 +18,7 @@
 		active_on += target
 		target.regenerate_icons()
 		if(duration < base_cooldown)
-			addtimer(CALLBACK(src, PROC_REF(remove), target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
+			addtimer(CALLBACK(src, .proc/remove, target), duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 /obj/effect/proc_holder/spell/genetic/Destroy()
 	for(var/V in active_on)

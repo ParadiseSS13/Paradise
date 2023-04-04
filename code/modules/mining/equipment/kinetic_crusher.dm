@@ -28,12 +28,8 @@
 	var/brightness_on = 5
 	var/adaptive_damage_bonus = 0
 
-/obj/item/twohanded/kinetic_crusher/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.7, _parryable_attack_types = MELEE_ATTACK, _parry_cooldown = (7 / 3) SECONDS ) // 2.3333 seconds of cooldown for 30% uptime
-
 /obj/item/twohanded/kinetic_crusher/Destroy()
-	QDEL_LIST_CONTENTS(trophies)
+	QDEL_LIST(trophies)
 	return ..()
 
 /obj/item/twohanded/kinetic_crusher/examine(mob/living/user)
@@ -94,14 +90,6 @@
 	. = ..()
 	if(!wielded)
 		return
-	if(user.has_status_effect(STATUS_EFFECT_DASH) && user.a_intent == INTENT_HELP)
-		if(user.throw_at(target, range = 3, speed = 3, spin = FALSE, diagonals_first = TRUE))
-			playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
-			user.visible_message("<span class='warning'>[user] dashes!</span>")
-		else
-			to_chat(user, "<span class='warning'>Something prevents you from dashing!</span>")
-		user.remove_status_effect(STATUS_EFFECT_DASH)
-		return
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = user.loc
 		if(!isturf(proj_turf))
@@ -118,7 +106,7 @@
 		D.fire()
 		charged = FALSE
 		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(Recharge)), charge_time)
+		addtimer(CALLBACK(src, .proc/Recharge), charge_time)
 		return
 	if(proximity_flag && isliving(target))
 		var/mob/living/L = target
@@ -207,12 +195,9 @@
 				T.on_mark_application(target, CM, had_effect)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
-		if(is_ancient_rock(target_turf))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
-		else
-			var/turf/simulated/mineral/M = target_turf
-			new /obj/effect/temp_visual/kinetic_blast(M)
-			M.gets_drilled(firer)
+		var/turf/simulated/mineral/M = target_turf
+		new /obj/effect/temp_visual/kinetic_blast(M)
+		M.gets_drilled(firer)
 	..()
 
 //trophies
@@ -255,12 +240,6 @@
 	H.trophies -= src
 	return TRUE
 
-/obj/item/crusher_trophy/Destroy()
-	if(istype(loc, /obj/item/twohanded/kinetic_crusher))
-		var/obj/item/twohanded/kinetic_crusher/crusher = loc
-		crusher.trophies -= src
-	return ..()
-
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
 
 /obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
@@ -288,13 +267,6 @@
 	missing_health *= bonus_value //multiply the remaining amount by bonus_value
 	if(missing_health > 0)
 		target.adjustBruteLoss(missing_health) //and do that much damage
-
-
-/obj/item/crusher_trophy/goliath_tentacle/ancient
-	name = "ancient goliath tentacle"
-	desc = "A HUGE sliced-off goliath tentacle. Suitable as a trophy for a kinetic crusher."
-	icon_state = "ancient_goliath_tentacle"
-	bonus_value = 4
 
 //watcher
 /obj/item/crusher_trophy/watcher_wing
@@ -371,24 +343,10 @@
 	denied_type = /obj/item/crusher_trophy/miner_eye
 
 /obj/item/crusher_trophy/miner_eye/effect_desc()
-	return "mark detonation to grant stun immunity and <b>75%</b> damage reduction for <b>1</b> second"
+	return "mark detonation to grant stun immunity and <b>90%</b> damage reduction for <b>1</b> second"
 
 /obj/item/crusher_trophy/miner_eye/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_BLOODDRUNK)
-
-//legion
-
-/obj/item/crusher_trophy/empowered_legion_skull
-	name = "empowered legion skull"
-	desc = "A powerful looking skull with glowing red eyes."
-	icon_state = "ashen_skull"
-	denied_type = /obj/item/crusher_trophy/empowered_legion_skull
-
-/obj/item/crusher_trophy/empowered_legion_skull/effect_desc()
-	return "mark detonation grants the ability to dash a short distance on help intent"
-
-/obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
-	user.apply_status_effect(STATUS_EFFECT_DASH)
 
 //ash drake
 /obj/item/crusher_trophy/tail_spike
@@ -405,7 +363,7 @@
 			continue
 		playsound(L, 'sound/magic/fireball.ogg', 20, 1)
 		new /obj/effect/temp_visual/fire(L.loc)
-		addtimer(CALLBACK(src, PROC_REF(pushback), L, user), 1) //no free backstabs, we push AFTER module stuff is done
+		addtimer(CALLBACK(src, .proc/pushback, L, user), 1) //no free backstabs, we push AFTER module stuff is done
 		L.adjustFireLoss(bonus_value)
 
 /obj/item/crusher_trophy/tail_spike/proc/pushback(mob/living/target, mob/living/user)
@@ -471,7 +429,7 @@
 
 /obj/item/crusher_trophy/blaster_tubes/on_mark_detonation(mob/living/target, mob/living/user)
 	deadly_shot = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reset_deadly_shot)), 300, TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, .proc/reset_deadly_shot), 300, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /obj/item/crusher_trophy/blaster_tubes/proc/reset_deadly_shot()
 	deadly_shot = FALSE
@@ -495,7 +453,7 @@
 	duration = 75
 
 /obj/item/crusher_trophy/adaptive_intelligence_core
-	name = "adaptive intelligence core"
+	name = "adaptive inteligence core"
 	desc = "Seems to be one of the cores from a massive robot. Suitable as a trophy for a kinetic crusher."
 	icon_state = "adaptive_core"
 	denied_type = /obj/item/crusher_trophy/adaptive_intelligence_core

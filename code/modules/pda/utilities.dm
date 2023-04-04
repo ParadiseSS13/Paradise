@@ -58,7 +58,7 @@
 	icon = "link"
 
 /datum/data/pda/utility/scanmode/dna/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	if(ishuman(C))
+	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		if(!istype(H.dna, /datum/dna))
 			to_chat(user, "<span class='notice'>No fingerprints found on [H]</span>")

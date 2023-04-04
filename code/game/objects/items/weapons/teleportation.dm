@@ -10,7 +10,7 @@
 /obj/item/locator
 	name = "locator"
 	desc = "Used to track those with locater implants."
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/device.dmi'
 	icon_state = "locator"
 	var/temp = null
 	var/frequency = 1451
@@ -73,7 +73,7 @@ Frequency:
 				var/turf/Tr = get_turf(T)
 
 				if(Tr && Tr.z == sr.z)
-					temp += " [Tr.x], [Tr.y], [Tr.z]<BR>"
+					temp += "[T.id]: [Tr.x], [Tr.y], [Tr.z]<BR>"
 
 			temp += "<B>You are at \[[sr.x],[sr.y],[sr.z]\]</B>."
 			temp += "<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A><BR>"
@@ -108,10 +108,6 @@ Frequency:
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/active_portals = 0
-
-/obj/item/hand_tele/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/hand_tele/attack_self(mob/user)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
@@ -152,4 +148,4 @@ Frequency:
 	add_fingerprint(user)
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
-	active_portals--
+    active_portals--

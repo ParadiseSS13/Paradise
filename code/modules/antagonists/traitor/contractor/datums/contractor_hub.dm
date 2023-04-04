@@ -136,7 +136,7 @@
 	completed_contracts++
 	reward_tc_available += tc
 	rep += rep_per_completion
-	var/notify_text = pick(list(
+	owner?.initial_account?.credit(creds, pick(list(
 		"CONGRATULATIONS. You are the 10,000th visitor of SquishySlimes.squish. Please find attached your [creds] credits.",
 		"Congratulations on winning your bet in the latest Clown vs. Mime match! Your account was credited with [creds] credits.",
 		"Deer fund beneficiary, We have please to imform you that overdue fund payments has finally is approved and yuor account credited with [creds] creadits.",
@@ -144,17 +144,8 @@
 		"Thank you for your initial investment of 500 credits! We have credited your account with [creds] as a token of appreciation.",
 		"Your refund request for 100 Dr. Maxman pills with the reason \"I need way more than 100 pills!\" has been received. We have credited your account with [creds] credits.",
 		"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [creds] credits.",
-	))
-	var/transaction_person
-	if(prob(50))
-		transaction_person = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
-	else
-		transaction_person = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
-	//we want to make this transfer look real as possible, only if someone is really really closely looking at it will they notic the transaction person isn't real
-	if(GLOB.station_money_database.credit_account(owner?.initial_account, creds, "Transfer From [transaction_person]", "NanoBank Transfer Services", FALSE))
-		if(LAZYLEN(owner.initial_account.associated_nanobank_programs))
-			for(var/datum/data/pda/app/nanobank/program as anything in owner.initial_account.associated_nanobank_programs)
-				program.notify(notify_text, TRUE)
+	)))
+	// Clean up
 	current_contract = null
 
 /**

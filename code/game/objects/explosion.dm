@@ -105,7 +105,7 @@
 						M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
 
 					if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
-						addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
+						addtimer(CALLBACK(M, /mob/proc/playsound_local, epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
 
 		if(heavy_impact_range > 1)
 			var/datum/effect_system/explosion/E
@@ -156,10 +156,10 @@
 			//------- TURF FIRES -------
 
 			if(T)
-				if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
+				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
 					new /obj/effect/hotspot(T) //Mostly for ambience!
 				if(dist > 0)
-					if(issimulatedturf(T))
+					if(istype(T, /turf/simulated))
 						var/turf/simulated/S = T
 						var/affecting_level
 						if(dist == 1)

@@ -209,9 +209,9 @@
 		return area_created
 	var/area/A = new
 	A.name = str
-	A.powernet.equipment_powered = FALSE
-	A.powernet.lighting_powered = FALSE
-	A.powernet.environment_powered = FALSE
+	A.power_equip = FALSE
+	A.power_light = FALSE
+	A.power_environ = FALSE
 	A.always_unpowered = FALSE
 	A.set_dynamic_lighting()
 
@@ -271,15 +271,15 @@
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
 /obj/item/areaeditor/proc/check_tile_is_border(turf/T2, dir)
-	if(isspaceturf(T2))
+	if(istype(T2, /turf/space))
 		return BORDER_SPACE //omg hull breach we all going to die here
 	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
-	if(iswallturf(T2))
+	if(istype(T2, /turf/simulated/wall))
 		return BORDER_2NDTILE
-	if(ismineralturf(T2))
+	if(istype(T2, /turf/simulated/mineral))
 		return BORDER_2NDTILE
-	if(!issimulatedturf(T2))
+	if(!istype(T2, /turf/simulated))
 		return BORDER_BETWEEN
 
 	for(var/obj/structure/window/W in T2)
@@ -341,8 +341,3 @@
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 
 /obj/item/areaeditor/blueprints/ce
-
-/obj/item/areaeditor/blueprints/ce/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))

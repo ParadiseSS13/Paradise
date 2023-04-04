@@ -25,10 +25,6 @@
 /mob/living/simple_animal/cockroach/can_die()
 	return ..() && !SSticker.cinematic //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 
-/mob/living/simple_animal/cockroach/Initialize(mapload) //Lizards are a great way to deal with cockroaches
-	. = ..()
-	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug")
-
 /mob/living/simple_animal/cockroach/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/A = AM
@@ -38,7 +34,7 @@
 				death()
 			else
 				visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
-	else if(isstructure(AM))
+	else if(istype(AM, /obj/structure))
 		visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
 		death()
 

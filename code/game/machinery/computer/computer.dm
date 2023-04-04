@@ -4,8 +4,9 @@
 	icon_state = "computer"
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 300
-	active_power_consumption = 300
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 300
+	active_power_usage = 300
 	max_integrity = 200
 	integrity_failure = 100
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
@@ -29,7 +30,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/extinguish_light(force = FALSE)
+/obj/machinery/computer/extinguish_light()
 	set_light(0)
 	underlays.Cut()
 	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
@@ -45,7 +46,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/computer, flicker_event))
+	INVOKE_ASYNC(src, /obj/machinery/computer/.proc/flicker_event)
 
 	return TRUE
 
@@ -87,13 +88,12 @@
 		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask")
 
 /obj/machinery/computer/power_change()
-	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
+	..()
 	if((stat & (BROKEN|NOPOWER)))
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
-	if(.)
-		update_icon()
+	update_icon()
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -165,8 +165,7 @@
 
 /obj/machinery/computer/attack_hand(mob/user)
 	/* Observers can view computers, but not actually use them via Topic*/
-	if(isobserver(user))
-		return FALSE
+	if(istype(user, /mob/dead/observer)) return 0
 	return ..()
 
 /obj/machinery/computer/screwdriver_act(mob/user, obj/item/I)

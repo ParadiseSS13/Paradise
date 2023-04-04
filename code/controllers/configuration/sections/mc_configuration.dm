@@ -3,7 +3,7 @@
 	/// Server ticklag
 	var/ticklag = 0.5
 	/// Tick limit % during world Init
-	var/world_init_tick_limit = 98
+	var/world_init_tick_limit = TICK_LIMIT_MC_INIT_DEFAULT
 	/// Base MC tick rate
 	var/base_tickrate = 1
 	/// Highpop MC tickrate

@@ -1,11 +1,10 @@
 //Simple borg hand.
 //Limited use.
-/obj/item/gripper_engineering // This isn't a drone item, also in engineering cyborg kits
+/obj/item/gripper
 	name = "magnetic gripper"
 	desc = "A simple grasping tool for synthetic assets."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
-	actions_types = list(/datum/action/item_action/drop_gripped_item)
 
 	//Has a list of items that it can hold.
 	var/list/can_hold = list(
@@ -22,11 +21,10 @@
 		/obj/item/mounted/frame/apc_frame,
 		/obj/item/mounted/frame/alarm_frame,
 		/obj/item/mounted/frame/firealarm,
-		/obj/item/mounted/frame/display/newscaster_frame,
+		/obj/item/mounted/frame/newscaster_frame,
 		/obj/item/mounted/frame/intercom,
 		/obj/item/mounted/frame/extinguisher,
 		/obj/item/mounted/frame/light_switch,
-		/obj/item/assembly/prox_sensor,
 		/obj/item/rack_parts,
 		/obj/item/camera_assembly,
 		/obj/item/tank,
@@ -38,60 +36,64 @@
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
-/obj/item/gripper_medical
+/obj/item/gripper/medical
 	name = "medical gripper"
-	desc = "A grasping tool used to help patients up once surgery is complete, or to substitute for hands in surgical operations."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "gripper"
+	desc = "A grasping tool used to help patients up once surgery is complete."
+	can_hold = list()
 
+/obj/item/gripper/medical/attack_self(mob/user)
+	return
 
-/obj/item/gripper_medical/afterattack(atom/target, mob/living/user, proximity, params)
-	if(!proximity || !target || !ishuman(target))
-		return
-	var/mob/living/carbon/human/pickup_target = target
-	if(!IS_HORIZONTAL(pickup_target))
-		return
-	pickup_target.AdjustSleeping(-10 SECONDS)
-	pickup_target.AdjustParalysis(-6 SECONDS)
-	pickup_target.AdjustStunned(-6 SECONDS)
-	pickup_target.AdjustWeakened(-6 SECONDS)
-	pickup_target.AdjustKnockDown(-6 SECONDS)
-	pickup_target.stand_up()
-	playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	user.visible_message( \
-		"<span class='notice'>[user] shakes [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",\
-		"<span class='notice'>You shake [pickup_target] trying to wake [pickup_target.p_them()] up!</span>",\
-		)
+/obj/item/gripper/medical/afterattack(atom/target, mob/living/user, proximity, params)
+	var/mob/living/carbon/human/H
+	if(!gripped_item && proximity && target && ishuman(target))
+		H = target
+		if(IS_HORIZONTAL(H))
+			H.AdjustSleeping(-10 SECONDS)
+			H.AdjustParalysis(-6 SECONDS)
+			H.AdjustStunned(-6 SECONDS)
+			H.AdjustWeakened(-6 SECONDS)
+			H.AdjustKnockDown(-6 SECONDS)
+			H.stand_up()
+			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			user.visible_message( \
+				"<span class='notice'>[user] shakes [H] trying to wake [H.p_them()] up!</span>",\
+				"<span class='notice'>You shake [H] trying to wake [H.p_them()] up!</span>",\
+				)
 
-/obj/item/gripper_engineering/Initialize(mapload)
-	. = ..()
+/obj/item/gripper/New()
+	..()
 	can_hold = typecacheof(can_hold)
 
-/obj/item/gripper_engineering/ui_action_click(mob/user)
+/obj/item/gripper/verb/drop_item_gripped()
+	set name = "Drop Gripped Item"
+	set desc = "Release an item from your magnetic gripper."
+	set category = "Drone"
+
 	drop_gripped_item()
 
-/obj/item/gripper_engineering/attack_self(mob/user)
-	if(!gripped_item)
+/obj/item/gripper/attack_self(mob/user)
+	if(gripped_item)
+		gripped_item.attack_self(user)
+	else
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
-		return
-	gripped_item.attack_self(user)
 
-/obj/item/gripper_engineering/proc/drop_gripped_item(silent = FALSE)
-	if(!gripped_item)
-		return
-	if(!silent)
-		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
-	gripped_item.forceMove(get_turf(src))
-	gripped_item = null
+/obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
+	if(gripped_item)
+		if(!silent)
+			to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
+		gripped_item.forceMove(get_turf(src))
+		gripped_item = null
 
-/obj/item/gripper_engineering/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
 
-/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's. // What does this even MEAN - GDN
-/obj/item/gripper_engineering/forceMove(atom/destination)
+/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's.
+/obj/item/gripper/forceMove(atom/destination)
 	return
 
-/obj/item/gripper_engineering/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
+
 	if(!target || !proximity) //Target is invalid or we are not adjacent.
 		return FALSE
 
@@ -110,7 +112,7 @@
 		else if(gripped_item && !contents.len)
 			gripped_item = null
 
-	else if(isitem(target)) //Check that we're not pocketing a mob.
+	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
 			to_chat(user, "<span class='notice'>You collect [I].</span>")

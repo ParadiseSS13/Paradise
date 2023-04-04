@@ -4,8 +4,8 @@
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BLOOD, NO_HAIR, NOT_SELECTABLE)
-	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS, TRAIT_XENO_IMMUNE)
+	species_traits = list(NO_BLOOD, NO_HAIR)
+	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_CHUNKYFINGERS, TRAIT_RADIMMUNE, TRAIT_PIERCEIMMUNE, TRAIT_NOPAIN, TRAIT_NO_BONES, TRAIT_STURDY_LIMBS)
 	inherent_biotypes = MOB_HUMANOID | MOB_MINERAL
 	dies_at_threshold = TRUE
 	speed_mod = 2
@@ -118,6 +118,7 @@
 	prefix = "Plasma"
 	special_names = list("Flood", "Fire", "Bar", "Man")
 	var/boom_warning = FALSE
+	var/datum/action/innate/ignite/ignite
 
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
@@ -142,11 +143,11 @@
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		var/datum/action/innate/ignite/ignite = new()
+		ignite = new
 		ignite.Grant(C)
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/C)
-	for(var/datum/action/innate/ignite/ignite in C.actions)
+	if(ignite)
 		ignite.Remove(C)
 	..()
 
@@ -415,7 +416,9 @@
 			H.visible_message("<span class='danger'>[P] gets reflected by [H]'s glass skin!</span>", \
 			"<span class='userdanger'>[P] gets reflected by [H]'s glass skin!</span>")
 
-			return FALSE //Reflect back must be handled on the human bullet act for some arcane reason
+			P.reflect_back(H)
+
+			return FALSE
 	return TRUE
 
 /datum/unarmed_attack/golem/glass
@@ -431,6 +434,7 @@
 	special_names = list("Crystal", "Polycrystal")
 	unarmed_type = /datum/unarmed_attack/golem/bluespace
 
+	var/datum/action/innate/unstable_teleport/unstable_teleport
 	var/teleport_cooldown = 100
 	var/last_teleport = 0
 	var/tele_range = 6
@@ -459,7 +463,7 @@
 /datum/species/golem/bluespace/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
-	if(isitem(AM))
+	if(istype(AM, /obj/item))
 		I = AM
 		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to trigger the teleport
 			return 0
@@ -484,12 +488,12 @@
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
 	if(ishuman(C))
-		var/datum/action/innate/unstable_teleport/unstable_teleport = new()
+		unstable_teleport = new
 		unstable_teleport.Grant(C)
 		last_teleport = world.time
 
 /datum/species/golem/bluespace/on_species_loss(mob/living/carbon/C)
-	for(var/datum/action/innate/unstable_teleport/unstable_teleport in C.actions)
+	if(unstable_teleport)
 		unstable_teleport.Remove(C)
 	..()
 
@@ -514,14 +518,14 @@
 	var/mob/living/carbon/human/H = owner
 	H.visible_message("<span class='warning'>[H] starts vibrating!</span>", "<span class='danger'>You start charging your bluespace core...</span>")
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
-	addtimer(CALLBACK(src, PROC_REF(teleport), H), 15)
+	addtimer(CALLBACK(src, .proc/teleport, H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
 	H.visible_message("<span class='warning'>[H] teleports!</span>", "<span class='danger'>You teleport!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
-		if(isspaceturf(T))
+		if(istype(T, /turf/space))
 			continue
 		if(T.density)
 			continue
@@ -604,7 +608,7 @@
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
-	if(isitem(AM))
+	if(istype(AM, /obj/item))
 		I = AM
 		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to make bananas
 			return 0
@@ -652,7 +656,7 @@
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
 	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = TRUE
 
@@ -723,7 +727,7 @@
 		H.forceMove(src)
 		cloth_golem = H
 		to_chat(cloth_golem, "<span class='notice'>You start gathering your life energy, preparing to rise again...</span>")
-		addtimer(CALLBACK(src, PROC_REF(revive)), revive_time)
+		addtimer(CALLBACK(src, .proc/revive), revive_time)
 	else
 		return INITIALIZE_HINT_QDEL
 

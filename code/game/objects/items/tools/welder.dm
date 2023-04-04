@@ -17,7 +17,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
-	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 70, MAT_GLASS = 20)
 	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
@@ -71,13 +71,6 @@
 		if(GET_FUEL < maximum_fuel)
 			reagents.add_reagent("fuel", 1)
 	..()
-
-/obj/item/weldingtool/extinguish_light(force)
-	if(!force)
-		return
-	if(!tool_enabled)
-		return
-	remove_fuel(maximum_fuel)
 
 /obj/item/weldingtool/attack_self(mob/user)
 	if(tool_enabled) //Turn off the welder if it's on
@@ -205,7 +198,7 @@
 	icon_state = "indwelder"
 	belt_icon = "welder_ind"
 	maximum_fuel = 40
-	materials = list(MAT_METAL = 400, MAT_GLASS = 300)
+	materials = list(MAT_METAL=70, MAT_GLASS=60)
 	origin_tech = "engineering=2;plasmatech=2"
 
 /obj/item/weldingtool/largetank/cyborg
@@ -219,7 +212,7 @@
 	icon_state = "miniwelder"
 	maximum_fuel = 10
 	w_class = WEIGHT_CLASS_TINY
-	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
+	materials = list(MAT_METAL=30, MAT_GLASS=10)
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/abductor

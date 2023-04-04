@@ -103,7 +103,7 @@
 	orbiter_list += orbiter
 
 	// make sure orbits get cleaned up nicely if the parent qdels
-	RegisterSignal(orbiter, COMSIG_PARENT_QDELETING, PROC_REF(end_orbit))
+	RegisterSignal(orbiter, COMSIG_PARENT_QDELETING, .proc/end_orbit)
 
 	var/orbit_flags = 0
 	if(lock_in_orbit)
@@ -114,8 +114,7 @@
 	orbiter.orbiting_uid = parent.UID()
 	store_orbit_data(orbiter, orbit_flags)
 
-	if(!lock_in_orbit)
-		RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, PROC_REF(orbiter_move_react))
+	RegisterSignal(orbiter, COMSIG_MOVABLE_MOVED, .proc/orbiter_move_react)
 
 	// Head first!
 	if(pre_rotation)
@@ -274,13 +273,13 @@
 		return
 	var/atom/cur_atom = start
 	while(cur_atom.loc && !isturf(cur_atom.loc) && !(cur_atom.loc in orbiter_list))
-		RegisterSignal(cur_atom, COMSIG_MOVABLE_MOVED, PROC_REF(on_intermediate_move), TRUE)
-		RegisterSignal(cur_atom, COMSIG_ATOM_EXITED, PROC_REF(on_remove_child), TRUE)
+		RegisterSignal(cur_atom, COMSIG_MOVABLE_MOVED, .proc/on_intermediate_move, TRUE)
+		RegisterSignal(cur_atom, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
 		cur_atom = cur_atom.loc
 
 	// Set the topmost atom (right before the turf) to be our new leader
-	RegisterSignal(cur_atom, COMSIG_MOVABLE_MOVED, PROC_REF(parent_move_react), TRUE)
-	RegisterSignal(cur_atom, COMSIG_ATOM_EXITED, PROC_REF(on_remove_child), TRUE)
+	RegisterSignal(cur_atom, COMSIG_MOVABLE_MOVED, .proc/parent_move_react, TRUE)
+	RegisterSignal(cur_atom, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
 	return cur_atom
 
 /**
@@ -296,9 +295,9 @@
 		return
 	// Remove all signals upwards of the child and re-register them as the new parent
 	remove_signals(exiting)
-	RegisterSignal(exiting, COMSIG_MOVABLE_MOVED, PROC_REF(parent_move_react), TRUE)
-	RegisterSignal(exiting, COMSIG_ATOM_EXITED, PROC_REF(on_remove_child), TRUE)
-	INVOKE_ASYNC(src, PROC_REF(handle_parent_move), exiting, exiting.loc, new_loc)
+	RegisterSignal(exiting, COMSIG_MOVABLE_MOVED, .proc/parent_move_react, TRUE)
+	RegisterSignal(exiting, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
+	INVOKE_ASYNC(src, .proc/handle_parent_move, exiting, exiting.loc, new_loc)
 
 /**
  * Called when an intermediate (somewhere between the topmost and the orbited) atom moves.
@@ -312,9 +311,9 @@
 		return
 
 	remove_signals(old_loc)  // TODO this doesn't work if something's removed from hand
-	RegisterSignal(tracked, COMSIG_MOVABLE_MOVED, PROC_REF(parent_move_react), TRUE)
-	RegisterSignal(tracked, COMSIG_ATOM_EXITED, PROC_REF(on_remove_child), TRUE)
-	INVOKE_ASYNC(src, PROC_REF(handle_parent_move), tracked, old_loc, tracked.loc)
+	RegisterSignal(tracked, COMSIG_MOVABLE_MOVED, .proc/parent_move_react, TRUE)
+	RegisterSignal(tracked, COMSIG_ATOM_EXITED, .proc/on_remove_child, TRUE)
+	INVOKE_ASYNC(src, .proc/handle_parent_move, tracked, old_loc, tracked.loc)
 
 /**
  * Returns TRUE if atom_to_find is transitively a parent of src.

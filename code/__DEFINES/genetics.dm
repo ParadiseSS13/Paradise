@@ -74,10 +74,10 @@
 
 //Species traits.
 #define NO_BLOOD		"no_blood"
+#define IS_WHITELISTED 	"whitelisted"
 #define LIPS			"lips"
 #define EXOTIC_COLOR	"exotic_blood_color"
 #define NO_INTORGANS	"no_internal_organs"
 #define CAN_WINGDINGS	"can_wingdings"
 #define NO_CLONESCAN 	"no_clone_scan"
 #define NO_HAIR			"no_hair"
-#define NOT_SELECTABLE	"not_selectable"

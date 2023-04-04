@@ -6,7 +6,7 @@
 
 	var/damage_mod = 1
 	switch(damagetype) //Sorry about the magic numbers.
-					//brute = 1, burn = 2, tox = 4, oxy = 8
+					   //brute = 1, burn = 2, tox = 4, oxy = 8
 		if(15) //4 damage types
 			damage_mod = 4
 
@@ -71,10 +71,6 @@
 	var/confirm = null
 	if(!forced)
 		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
-
-	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
-		to_chat(src, "You're already dead!")
-		return
 
 	if(forced || (confirm == "Yes"))
 		suiciding = TRUE

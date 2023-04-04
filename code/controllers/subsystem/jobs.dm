@@ -4,7 +4,6 @@ SUBSYSTEM_DEF(jobs)
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_LOW
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -18,15 +17,11 @@ SUBSYSTEM_DEF(jobs)
 	//Debug info
 	var/list/job_debug = list()
 
-	///list of station departments and their associated roles and economy payments
-	var/list/station_departments = list()
-
-/datum/controller/subsystem/jobs/Initialize()
-	if(!length(occupations))
+/datum/controller/subsystem/jobs/Initialize(timeofday)
+	if(!occupations.len)
 		SetupOccupations()
-	for(var/department_type in subtypesof(/datum/station_department))
-		station_departments += new department_type()
 	LoadJobs(FALSE)
+	return ..()
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
@@ -96,6 +91,11 @@ SUBSYSTEM_DEF(jobs)
 			player.mind.job_objectives.Cut()
 			for(var/objectiveType in job.required_objectives)
 				new objectiveType(player.mind)
+
+			// 50/50 chance of getting optional objectives.
+			for(var/objectiveType in job.optional_objectives)
+				if(prob(50))
+					new objectiveType(player.mind)
 
 			unassigned -= player
 			job.current_positions++
@@ -276,12 +276,12 @@ SUBSYSTEM_DEF(jobs)
 
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.mind && !player.mind.assigned_role)
+		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
 			unassigned += player
 
 	Debug("DO, Len: [unassigned.len]")
-	if(!length(unassigned))
-		return FALSE
+	if(unassigned.len == 0)
+		return 0
 
 	//Shuffle players and jobs
 	unassigned = shuffle(unassigned)
@@ -392,9 +392,9 @@ SUBSYSTEM_DEF(jobs)
 			unassigned -= player
 
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
-	return TRUE
+	return 1
 
-/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE, log_to_db = TRUE)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = 0)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -435,9 +435,6 @@ SUBSYSTEM_DEF(jobs)
 	if(job.important_information)
 		to_chat(H, "<center><div class='userdanger' style='width: 80%'>[job.important_information]</div></center>")
 	to_chat(H, "<center><span class='green'>----------------</span><br><br></center>")
-
-	if(log_to_db)
-		SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (joined_late ? "latejoin" : "roundstart")))
 
 	return H
 
@@ -502,9 +499,11 @@ SUBSYSTEM_DEF(jobs)
 					G.prescription = TRUE
 					G.name = "prescription [G.name]"
 					H.update_nearsighted_effects()
-
-	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
 	return H
+
+
+
+
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
 	if(!GLOB.configuration.jobs.enable_job_amount_overrides)
@@ -572,67 +571,43 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", young, list("[job.title]", "young"))
 		SSblackbox.record_feedback("nested tally", "job_preferences", disabled, list("[job.title]", "disabled"))
 
-//fuck
+
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/starting_balance = job?.department_account_access ? COMMAND_MEMBER_STARTING_BALANCE : CREW_MEMBER_STARTING_BALANCE
-	var/datum/money_account/account = GLOB.station_money_database.create_account(H.real_name, starting_balance, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
-
-	for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
-		objective.owner_account = account
-
+	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
 	var/remembered_info = ""
-	remembered_info += "<b>Your account number is:</b> #[account.account_number]<br>"
-	remembered_info += "<b>Your account pin is:</b> [account.account_pin]<br>"
 
+	remembered_info += "<b>Your account number is:</b> #[M.account_number]<br>"
+	remembered_info += "<b>Your account pin is:</b> [M.remote_access_pin]<br>"
+	remembered_info += "<b>Your account funds are:</b> $[M.money]<br>"
+
+	if(M.transaction_log.len)
+		var/datum/transaction/T = M.transaction_log[1]
+		remembered_info += "<b>Your account was created:</b> [T.time], [T.date] at [T.source_terminal]<br>"
 	H.mind.store_memory(remembered_info)
-	H.mind.set_initial_account(account)
-
-	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
-	to_chat(H, "<span class='boldnotice'>Your account number is: [account.account_number], your account pin is: [account.account_pin]</span>")
-
-	if(!job) //if their job datum is null (looking at you ERTs...), we don't need to do anything past this point
-		return
-
-	//add them to their department datum, (this relates a lot to money account I promise)
-	var/list/users_departments = get_departments_from_job(job.title)
-	for(var/datum/station_department/department as anything in users_departments)
-		var/datum/department_member/member = new
-		member.name = H.real_name
-		member.role = job.title
-		member.set_member_account(account) //we need to set this through a proc so we can register signals
-		member.can_approve_crates = job?.department_account_access
-		department.members += member
 
 	// If they're head, give them the account info for their department
-	if(!job.department_account_access)
-		return
+	if(job && job.head_position)
+		remembered_info = ""
+		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 
-	announce_department_accounts(users_departments, H, job)
-
-/datum/controller/subsystem/jobs/proc/announce_department_accounts(users_departments, mob/living/H, datum/job/job)
-	var/remembered_info = ""
-	for(var/datum/station_department/department as anything in users_departments)
-		if(job.title != department.head_of_staff && job.title != "Quartermaster")
-			continue
-		var/datum/money_account/department_account = department.department_account
-		if(!department_account)
-			return
-
-		remembered_info += "As a head of staff you have access to your department's money account through your PDA's NanoBank or a station ATM<br>"
-		remembered_info += "<b>The [department.department_name] department's account number is:</b> #[department_account.account_number]<br>"
-		remembered_info += "<b>The [department.department_name] department's account pin is:</b> [department_account.account_pin]<br>"
-		remembered_info += "<b>Your department's account funds are:</b> $[department_account.credit_balance]<br>"
+		if(department_account)
+			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
+			remembered_info += "<b>Your department's account pin is:</b> [department_account.remote_access_pin]<br>"
+			remembered_info += "<b>Your department's account funds are:</b> $[department_account.money]<br>"
 
 		H.mind.store_memory(remembered_info)
-		to_chat(H, "<span class='boldnotice'>Your department will receive a $[department_account.payday_amount] credit stipend every 30 minutes</span>")
-		to_chat(H, "<span class='boldnotice'>The [department.department_name] department's account number is: #[department_account.account_number], Your department's account pin is: [department_account.account_pin]</span>")
+
+	H.mind.initial_account = M
+
+	spawn(0)
+		to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
 	if(tgtcard)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
-			if(tgtcard.rank && tgtcard.rank == job.title)
+			if(tgtcard.assignment && tgtcard.assignment == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"
@@ -676,7 +651,7 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/job/tgt_job = GetJob(jobtitle)
 	if(!tgt_job)
 		return
-	if(!length(tgt_job.department_head))
+	if(!tgt_job.department_head[1])
 		return
 	var/boss_title = tgt_job.department_head[1]
 	var/obj/item/pda/target_pda

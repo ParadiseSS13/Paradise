@@ -15,7 +15,6 @@ GLOBAL_LIST_INIT(prisoncomputer_list, list())
 GLOBAL_LIST_INIT(celltimers_list, list()) // list of all cell timers
 GLOBAL_LIST_INIT(cell_logs, list())
 GLOBAL_LIST_INIT(navigation_computers, list())
-GLOBAL_LIST_INIT(hierophant_walls, list())
 
 GLOBAL_LIST_INIT(all_areas, list())
 GLOBAL_LIST_INIT(all_unique_areas, list()) // List of all unique areas. AKA areas with there_can_be_many = FALSE
@@ -45,11 +44,11 @@ GLOBAL_LIST_INIT(poi_list, list())					//list of points of interest for observe/
 GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jammers
 GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(mirrors) //list of all mirrors and mirror shields.
-GLOBAL_LIST_EMPTY(arc_emitters) 					//list of all arc emitters
 
 GLOBAL_LIST_INIT(active_diseases, list()) 			//List of Active disease in all mobs; purely for quick referencing.
 
 GLOBAL_LIST_EMPTY(mob_spawners) 		    // All mob_spawn objects
+GLOBAL_LIST_EMPTY(alert_consoles)			// Station alert consoles, /obj/machinery/computer/station_alert
 GLOBAL_LIST_EMPTY(explosive_walls)
 
 GLOBAL_LIST_EMPTY(engine_beacon_list)

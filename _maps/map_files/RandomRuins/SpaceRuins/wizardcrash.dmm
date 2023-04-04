@@ -160,7 +160,11 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aD" = (
-/obj/structure/closet/cabinet,
+/obj/structure/closet{
+	icon_closed = "cabinet_closed";
+	icon_opened = "cabinet_open";
+	icon_state = "cabinet_closed"
+	},
 /obj/item/storage/backpack/satchel,
 /obj/item/lighter/zippo,
 /turf/simulated/floor/carpet,
@@ -255,7 +259,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aU" = (
-/obj/effect/spawner/window/reinforced,
+/obj/structure/window/full/reinforced,
+/obj/structure/grille,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aV" = (
@@ -263,13 +268,15 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aW" = (
-/obj/effect/spawner/window/reinforced,
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
 /area/ruin/space/unpowered)
 "aX" = (
-/obj/effect/spawner/window/reinforced,
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
 "aY" = (

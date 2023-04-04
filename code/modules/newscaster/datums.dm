@@ -58,8 +58,6 @@
 /datum/feed_message
 	/// The author of the story.
 	var/author = ""
-	/// The author's ckey (admins are watching you post WGW in the newscaster)
-	var/author_ckey = ""
 	/// The title of the story.
 	var/title = ""
 	/// The textual contents of the story.
@@ -103,8 +101,6 @@
 	var/channel_name = ""
 	/// The author of the channel.
 	var/author = ""
-	/// The author's ckey
-	var/author_ckey = ""
 	/// The description of the channel.
 	var/description = ""
 	/// The channel's icon.

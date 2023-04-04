@@ -81,8 +81,6 @@
 			return TRUE
 
 /datum/action/changeling/evolution_menu/proc/try_purchase_power(power_type)
-	if(!(power_type in cling.purchaseable_powers))
-		return FALSE
 	if(power_type in purchased_abilities)
 		to_chat(owner, "<span class='warning'>We have already evolved this ability!</span>")
 		return FALSE

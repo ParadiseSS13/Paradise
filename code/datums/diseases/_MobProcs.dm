@@ -32,7 +32,7 @@
 	AddDisease(D)
 
 
-/mob/proc/AddDisease(datum/disease/D, respect_carrier = FALSE)
+/mob/proc/AddDisease(datum/disease/D)
 	var/datum/disease/DD = new D.type(1, D, 0)
 	viruses += DD
 	DD.affected_mob = src
@@ -40,8 +40,6 @@
 
 	//Copy properties over. This is so edited diseases persist.
 	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
-	if(respect_carrier)
-		skipped -= "carrier"
 	for(var/V in DD.vars)
 		if(V in skipped)
 			continue
@@ -51,7 +49,6 @@
 		else
 			DD.vars[V] = D.vars[V]
 
-	create_log(MISC_LOG, "has contacted the virus \"[DD]\"")
 	DD.affected_mob.med_hud_set_status()
 
 
@@ -86,7 +83,7 @@
 
 	var/target_zone = pick(head_ch;1,body_ch;2,hands_ch;3,feet_ch;4)
 
-	if(ishuman(src))
+	if(istype(src, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = src
 
 		switch(target_zone)
@@ -135,17 +132,12 @@
  *
  * Arguments:
  * * D - the disease the mob will try to contract
- * * respect_carrier - if set to TRUE will not ignore the disease carrier flag
- * * notify_ghosts - will notify ghosts of infection if set to TRUE
  */
 //Same as ContractDisease, except never overidden clothes checks
-/mob/proc/ForceContractDisease(datum/disease/D, respect_carrier, notify_ghosts = FALSE)
+/mob/proc/ForceContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
 		return FALSE
-	if(notify_ghosts)
-		for(var/mob/ghost as anything in GLOB.dead_mob_list) //Announce outbreak to dchat
-			to_chat(ghost, "<span class='deadsay'><b>Disease outbreak: </b>[src] ([ghost_follow_link(src, ghost)]) [D.carrier ? "is now a carrier of" : "has contracted"] [D]!</span>")
-	AddDisease(D, respect_carrier)
+	AddDisease(D)
 	return TRUE
 
 

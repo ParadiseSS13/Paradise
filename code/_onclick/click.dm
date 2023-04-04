@@ -112,7 +112,7 @@
 	if(!modifiers["catcher"] && A.IsObscured())
 		return
 
-	if(ismecha(loc))
+	if(istype(loc,/obj/mecha))
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
@@ -223,8 +223,7 @@
 	animals lunging, etc.
 */
 /mob/proc/RangedAttack(atom/A, params)
-	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
-		return TRUE
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
 /*
 	Restrained ClickOn
 
@@ -441,7 +440,7 @@
 
 /obj/screen/click_catcher/Click(location, control, params)
 	var/list/modifiers = params2list(params)
-	if(modifiers["middle"] && iscarbon(usr))
+	if(modifiers["middle"] && istype(usr, /mob/living/carbon))
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else

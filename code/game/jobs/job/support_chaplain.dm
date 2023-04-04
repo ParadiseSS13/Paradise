@@ -18,10 +18,9 @@
 	name = "Chaplain"
 	jobtype = /datum/job/chaplain
 
-	uniform = /obj/item/clothing/under/rank/civilian/chaplain
+	uniform = /obj/item/clothing/under/rank/chaplain
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
-	id = /obj/item/card/id/chaplain
 	pda = /obj/item/pda/chaplain
 	backpack_contents = list(
 		/obj/item/camera/spooky = 1,
@@ -37,7 +36,7 @@
 	if(H.mind)
 		H.mind.isholy = TRUE
 
-	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
+	INVOKE_ASYNC(src, .proc/religion_pick, H)
 
 /datum/outfit/job/chaplain/proc/religion_pick(mob/living/carbon/human/user)
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(get_turf(user))

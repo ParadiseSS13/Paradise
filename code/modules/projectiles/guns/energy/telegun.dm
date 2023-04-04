@@ -2,9 +2,9 @@
 
 /obj/item/gun/energy/telegun
 	name = "teleporter gun"
-	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to Bluespace Beacons."
+	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
 	icon_state = "telegun"
-	item_state = "telegun"
+	item_state = "ionrifle"
 	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/teleport)
 	shaded_charge = TRUE
@@ -20,12 +20,11 @@
 
 	for(var/obj/item/radio/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
-		var/turf/M = get_turf(user)
 		if(!T)
 			continue
 		if(!is_teleport_allowed(T.z))
 			continue
-		if(T.z != M.z && !R.emagged)
+		if(R.syndicate)
 			continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])

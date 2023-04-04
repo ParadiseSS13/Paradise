@@ -11,9 +11,10 @@
 	name = "Electromagnetic Generator"
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
-	layer = WIRE_LAYER + 0.001
+	layer = WIRE_LAYER+0.001
 	anchored = TRUE
-	idle_power_consumption = 50
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 50
 
 	var/freq = AIRLOCK_FREQ		// radio frequency
 	var/electricity_level = 1 // intensity of the magnetic pull
@@ -53,13 +54,14 @@
 	icon_state = "floor_magnet[on ? "" : "0"][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
 											// in case of being revealed by T-scanner
 
-// This is the LAST thing allowed to use this
 /obj/machinery/magnetic_module/receive_signal(datum/signal/signal)
 	var/command = signal.data["command"]
 	var/modifier = signal.data["modifier"]
 	var/signal_code = signal.data["code"]
 	if(command && (signal_code == code))
 		Cmd(command, modifier)
+
+
 
 /obj/machinery/magnetic_module/proc/Cmd(command, modifier)
 	if(command)
@@ -138,10 +140,10 @@
 
 	// Update power usage:
 	if(on)
-		change_power_mode(ACTIVE_POWER_USE)
-		active_power_consumption = electricity_level*15
+		use_power = 2
+		active_power_usage = electricity_level*15
 	else
-		change_power_mode(NO_POWER_USE)
+		use_power = 0
 		update_icon(UPDATE_ICON_STATE)
 
 
@@ -157,7 +159,7 @@
 					step_towards(M, center)
 
 			for(var/mob/living/silicon/S in orange(magnetic_field, center))
-				if(isAI(S)) continue
+				if(istype(S, /mob/living/silicon/ai)) continue
 				step_towards(S, center)
 
 		use_power(electricity_level * 5)
@@ -171,11 +173,9 @@
 	icon_state = "airlock_control_standby"
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 45
-
-	// this is a temp measure
-	var/frequency = AIRLOCK_FREQ
-	var/datum/radio_frequency/radio_connection
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 45
+	frequency = AIRLOCK_FREQ
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"
@@ -220,7 +220,7 @@
 	for(var/obj/machinery/magnetic_module/M in GLOB.machines)
 		if(M.freq == frequency && M.code == code)
 			magnets.Add(M)
-			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_magnet_del))
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/on_magnet_del)
 
 /obj/machinery/magnetic_controller/process()
 	if(magnets.len == 0 && autolink)

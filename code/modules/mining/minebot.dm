@@ -29,10 +29,11 @@
 	sentience_type = SENTIENCE_MINEBOT
 	speak_emote = list("states")
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
-						/obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
-						/obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
-						/obj/item/stack/ore/titanium)
+						  /obj/item/stack/ore/plasma,  /obj/item/stack/ore/uranium,    /obj/item/stack/ore/iron,
+						  /obj/item/stack/ore/bananium, /obj/item/stack/ore/tranquillite, /obj/item/stack/ore/glass,
+						  /obj/item/stack/ore/titanium)
 	healable = FALSE
+	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	var/mode = MINEDRONE_COLLECT
 	var/light_on = FALSE
@@ -249,7 +250,7 @@
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 		user.update_sight()
 	else
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
 		user.update_sight()
 
 	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")

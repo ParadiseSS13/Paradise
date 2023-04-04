@@ -145,7 +145,7 @@
 	if(do_after(src, delay_web, target = loc))
 		if(loc != mylocation)
 			return
-		else if(isspaceturf(loc))
+		else if(istype(loc, /turf/space))
 			to_chat(src, "<span class='danger'>Webs cannot be spun in space.</span>")
 		else
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
@@ -192,7 +192,7 @@
 		M.Weaken(8 SECONDS)
 		if(iscarbon(M))
 			web_special_ability(M)
-			addtimer(CALLBACK(src, PROC_REF(after_carbon_crossed), M), 7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+			addtimer(CALLBACK(src, .proc/after_carbon_crossed, M), 7 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /**
   * Called some time after a carbon mob crossed the terror web.
@@ -264,12 +264,12 @@
 					cocoon_target.extinguish_light()
 					for(var/obj/O in C.loc)
 						if(!O.anchored)
-							if(isitem(O))
+							if(istype(O, /obj/item))
 								O.loc = C
-							else if(ismachinery(O))
+							else if(istype(O, /obj/machinery))
 								O.loc = C
 								large_cocoon = 1
-							else if(isstructure(O) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
+							else if(istype(O, /obj/structure) && !istype(O, /obj/structure/spider)) // can't wrap spiderlings/etc
 								O.loc = C
 								large_cocoon = 1
 					for(var/mob/living/L in C.loc)

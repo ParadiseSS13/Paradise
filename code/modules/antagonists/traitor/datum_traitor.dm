@@ -44,27 +44,7 @@
 		slaved.leave_serv_hud(owner)
 		owner.som = null
 
-	owner.current.client?.chatOutput?.clear_syndicate_codes()
-
-	// Try removing their uplink, check PDA
-	var/mob/M = owner.current
-	var/obj/item/uplink_holder = locate(/obj/item/pda) in M.contents
-
-	// No PDA or it has no uplink? Check headset
-	if(!uplink_holder || !uplink_holder.hidden_uplink)
-		uplink_holder = locate(/obj/item/radio) in M.contents
-
-	// If the headset has an uplink, delete it
-	if(uplink_holder && uplink_holder.hidden_uplink)
-		var/uplink = locate(/obj/item/uplink/hidden) in uplink_holder.contents
-		uplink_holder.hidden_uplink = null
-		qdel(uplink)
-
-	// Check for an uplink implant
-	var/uplink_implant = locate(/obj/item/implant/uplink) in M.contents
-	if(uplink_implant)
-		qdel(uplink_implant)
-
+	owner.current.client.chatOutput?.clear_syndicate_codes()
 	return ..()
 
 /datum/antagonist/traitor/add_owner_to_gamemode()
@@ -208,7 +188,7 @@
 		to_chat(traitor_mob, "<span class='warning'>Unfortunately, the Syndicate wasn't able to give you an uplink.</span>")
 		return FALSE // They had no PDA or radio for whatever reason.
 
-	if(isradio(R))
+	if(istype(R, /obj/item/radio))
 		// generate list of radio freqs
 		var/obj/item/radio/target_radio = R
 		var/freq = PUBLIC_LOW_FREQ

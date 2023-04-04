@@ -107,7 +107,7 @@ const CrewMonitorDataView = (_properties, context) => {
                 {getStatText(cm, data.critThreshold)}
               </Box>
               {cm.sensor_type >= 2 ? (
-                <Box inline ml={1}>
+                <Box inline>
                   {'('}
                   <Box inline color={COLORS.damageType.oxy}>
                     {cm.oxy}
@@ -145,9 +145,7 @@ const CrewMonitorDataView = (_properties, context) => {
                   cm.area + ' (' + cm.x + ', ' + cm.y + ')'
                 )
               ) : (
-                <Box inline color='grey'>
-                  Not Available
-                </Box>
+                'Not Available'
               )}
             </TableCell>
           </Table.Row>

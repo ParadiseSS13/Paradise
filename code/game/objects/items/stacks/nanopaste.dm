@@ -13,7 +13,7 @@
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))
 		return 0
-	if(isrobot(M))	//Repairing cyborgs
+	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
 		if(R.getBruteLoss() || R.getFireLoss() )
 			R.heal_overall_damage(15, 15)
@@ -23,7 +23,7 @@
 		else
 			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
 
-	if(ishuman(M)) //Repairing robotic limbs and IPCs
+	if(istype(M,/mob/living/carbon/human)) //Repairing robotic limbs and IPCs
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.get_organ(user.zone_selected)
 

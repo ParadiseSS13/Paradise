@@ -123,7 +123,7 @@
 /obj/machinery/space_heater/Topic(href, href_list)
 	if(..())
 		return 1
-	if((in_range(src, usr) && isturf(src.loc)) || (issilicon(usr)))
+	if((in_range(src, usr) && istype(src.loc, /turf)) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
 		switch(href_list["op"])

@@ -8,12 +8,12 @@
 	if(!istype(I)) //Something went wrong
 		return
 	if(!hide_tape) //if TRUE this hides the tape overlay and added examine text
-		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_tape_overlay))
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(add_tape_text))
+		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, .proc/add_tape_overlay)
+		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/add_tape_text)
 	x_offset = x
 	y_offset = y
-	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
-	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(pick_up))
+	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, .proc/afterattack)
+	RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/pick_up)
 	I.update_icon() //Do this first so the action button properly shows the icon
 	if(!hide_tape) //the tape can no longer be removed if TRUE
 		var/datum/action/item_action/remove_tape/RT = new(I)

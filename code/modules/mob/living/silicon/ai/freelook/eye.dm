@@ -64,7 +64,7 @@
 	return ..()
 
 /atom/proc/move_camera_by_click()
-	if(isAI(usr))
+	if(istype(usr, /mob/living/silicon/ai))
 		var/mob/living/silicon/ai/AI = usr
 		if(AI.eyeobj && (AI.client.eye == AI.eyeobj) && (AI.eyeobj.z == z))
 			AI.cameraFollow = null

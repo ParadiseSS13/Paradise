@@ -12,10 +12,8 @@
 	name = "Black Terror spider"
 	desc = "An ominous-looking spider, black as the darkest night. It has merciless eyes, and a blood-red hourglass pattern on its back."
 	spider_role_summary = "Hit-and-run attacker with extremely venomous bite."
-	spider_intro_text = "As a Black Terror Spider, your role is to perform hit and run attacks with your venom. \
-	Anyone you bite or who falls into your webs will be injected with black terror venom, dealing heavy damage over time. Your webs will not inject victims wearing full hardsuits. \
-	However, you have low health and deal low direct damage, so you should avoid prolonged combat with the crew."
 	ai_target_method = TS_DAMAGE_POISON
+
 	icon_state = "terror_widow"
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"

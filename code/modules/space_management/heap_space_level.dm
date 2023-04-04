@@ -47,7 +47,7 @@
 	C.set_occupied(FALSE)
 	for(var/turf/T in block(locate(C.x, C.y, C.zpos), locate(C.x+C.width-1, C.y+C.height-1, C.zpos)))
 		for(var/atom/movable/M in T)
-			if(isobserver(M))
+			if(istype(M, /mob/dead/observer))
 				continue
 			M.loc = null
 			qdel(M, TRUE)

@@ -3,20 +3,20 @@
 	name = "Space Kuru"
 	max_stages = 4
 	stage_prob = 5
-	spread_text = "Non-contagious"
-	spread_flags = NON_CONTAGIOUS
+	spread_text = "Non-Contagious"
+	spread_flags = SPECIAL
 	cure_text = "Incurable"
 	agent = "Prions"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	desc = "Uncontrollable laughing."
 	severity = BIOHAZARD
+	spread_flags = NON_CONTAGIOUS
 	disease_flags = CAN_CARRY
 	bypasses_immunity = TRUE //Kuru is a prion disorder, not a virus
 	virus_heal_resistant = TRUE
 
 /datum/disease/kuru/stage_act()
-	if(!..())
-		return FALSE
+	..()
 	switch(stage)
 		if(1)
 			if(prob(50))

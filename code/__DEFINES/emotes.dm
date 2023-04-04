@@ -37,11 +37,8 @@
 
 // Each mob can only play an emote with audio every AUDIO_EMOTE_COOLDOWN seconds, unless a given emote overrides its own audio cooldown.
 
-/// Default cooldown for emote-emitted audio.
+/// Default cooldown for audio that comes from emotes.
 #define AUDIO_EMOTE_COOLDOWN (5 SECONDS)
-
-/// Cooldown for emotes that are emitted unintentionally, to prevent them from getting audibly spammy.
-#define AUDIO_EMOTE_UNINTENTIONAL_COOLDOWN (2 SECONDS)
 
 // Emote parameter types
 // If nothing is passed in for a target, this can determine the possible target.

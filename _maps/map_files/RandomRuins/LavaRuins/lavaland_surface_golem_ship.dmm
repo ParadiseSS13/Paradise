@@ -55,11 +55,11 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "m" = (
-/obj/machinery/economy/vending/hydronutrients,
+/obj/machinery/vending/hydronutrients,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "n" = (
-/obj/machinery/economy/vending/hydroseeds,
+/obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "o" = (
@@ -201,11 +201,11 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "J" = (
-/obj/machinery/economy/vending/coffee/free,
+/obj/machinery/vending/coffee/free,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "K" = (
-/obj/machinery/economy/vending/snack/free,
+/obj/machinery/vending/snack/free,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "L" = (

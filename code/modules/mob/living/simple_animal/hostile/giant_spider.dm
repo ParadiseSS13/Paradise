@@ -202,7 +202,7 @@
 		walk(src,0)
 		spawn(50)
 			if(busy == SPINNING_COCOON)
-				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)
+				if(cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)
 					var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
 					var/large_cocoon = 0
 					C.pixel_x = cocoon_target.pixel_x

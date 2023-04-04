@@ -40,6 +40,12 @@
 		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
 			emag_act(user, W)
 
+		if(istype(W, /obj/item/screwdriver))
+			if(do_after(user, 20 * W.toolspeed, target = src))
+				open = !open
+				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
+			return
+
 		if(istype(W, /obj/item/multitool) && open && !l_hacking)
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = TRUE
@@ -62,12 +68,6 @@
 		return
 
 	return ..()
-
-/obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
-	if(do_after(user, 20 * I.toolspeed, target = src))
-		open = !open
-		user.visible_message("<span class='notice'>[user] [open ? "opens" : "closes"] the service panel on [src].</span>", "<span class='notice'>You [open ? "open" : "close"] the service panel.</span>")
-	return TRUE
 
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)
@@ -219,8 +219,8 @@
 
 /obj/item/storage/secure/briefcase/syndie/populate_contents()
 	..()
-	for(var/I in 1 to 3)
-		new /obj/item/stack/spacecash/c200(src)
+	for(var/I in 1 to 5)
+		new /obj/item/stack/spacecash/c1000(src)
 
 // -----------------------------
 //        Secure Safe

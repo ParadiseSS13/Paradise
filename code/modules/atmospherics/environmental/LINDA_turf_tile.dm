@@ -11,7 +11,6 @@
 	return 0
 
 /turf/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
 	//Create gas mixture to hold data for passing
 	var/datum/gas_mixture/GM = new
 
@@ -59,8 +58,10 @@
 
 	var/atmos_overlay_type = null //current active overlay
 
-/turf/simulated/Initialize(mapload)
-	. = ..()
+// Dont make this Initialize(), youll break all of atmos
+// Challenge accepted in a few years -aa07
+/turf/simulated/New()
+	..()
 	if(!blocks_air)
 		air = new
 
@@ -100,7 +101,6 @@
 		air.copy_from(copy)
 
 /turf/simulated/return_air()
-	RETURN_TYPE(/datum/gas_mixture)
 	if(air)
 		return air
 
@@ -164,7 +164,7 @@
 	for(var/t in adjacent_turfs)
 		var/turf/enemy_tile = t
 
-		if(issimulatedturf(enemy_tile))
+		if(istype(enemy_tile, /turf/simulated))
 			var/turf/simulated/enemy_simulated = enemy_tile
 
 			if(fire_count > enemy_simulated.current_cycle)
@@ -443,7 +443,7 @@
 				if(!neighbor.thermal_conductivity)
 					continue
 
-				if(issimulatedturf(neighbor)) //anything under this subtype will share in the exchange
+				if(istype(neighbor, /turf/simulated)) //anything under this subtype will share in the exchange
 					var/turf/simulated/T = neighbor
 
 					if(T.archived_cycle < SSair.times_fired)
@@ -519,7 +519,7 @@
 	update_visuals()
 	for(var/tile in atmos_adjacent_turfs)
 		var/turf/enemy_tile = tile
-		if(issimulatedturf(enemy_tile))
+		if(istype(enemy_tile, /turf/simulated))
 			var/turf/simulated/enemy_simulated = enemy_tile
 			if(!air.compare(enemy_simulated.air))
 				excited = 1

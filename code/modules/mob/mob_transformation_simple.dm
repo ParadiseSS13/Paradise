@@ -43,7 +43,7 @@
 	if(src.dna)
 		M.dna = src.dna.Clone()
 
-	if((mind && isliving(M)) && !forcekey)
+	if((mind && istype(M, /mob/living)) && !forcekey)
 		mind.transfer_to(M)
 	else
 		M.key = key

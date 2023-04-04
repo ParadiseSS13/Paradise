@@ -62,7 +62,7 @@
 		if(!over_object)
 			return
 
-		if(ismecha(M.loc))
+		if(istype(M.loc, /obj/mecha))
 			return
 
 		if(!M.restrained() && !M.stat)
@@ -166,8 +166,6 @@
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	held_key_type = /obj/item/oar
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	/// The last time we told the user that they can't drive on land, so we don't spam them
-	var/last_message_time = 0
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
 	var/turf/next = get_step(src, direction)
@@ -176,23 +174,8 @@
 	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
-		if(last_message_time + 1 SECONDS < world.time)
-			to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
-			last_message_time = world.time
+		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
 		return FALSE
-
-/obj/vehicle/lavaboat/Destroy()
-	for(var/mob/living/M in buckled_mobs)
-		M.weather_immunities -= "lava"
-	return ..()
-
-/obj/vehicle/lavaboat/user_buckle_mob(mob/living/M, mob/user)
-	M.weather_immunities |= "lava"
-	return ..()
-
-/obj/vehicle/lavaboat/unbuckle_mob(mob/living/buckled_mob, force)
-	. = ..()
-	buckled_mob.weather_immunities -= "lava"
 
 /obj/item/oar
 	name = "oar"
@@ -260,11 +243,11 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
 
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20, lock_in_orbit = TRUE)
+		wisp.orbit(user, 20)
 		set_light(0)
 
 		user.update_sight()
@@ -338,18 +321,18 @@
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1, FALSE, user)
+	smoke.set_up(1, 0, user.loc)
 	smoke.start()
 
 	user.forceMove(get_turf(linked))
 	SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
 	var/datum/effect_system/smoke_spread/smoke2 = new
-	smoke2.set_up(1, FALSE, user)
+	smoke2.set_up(1, 0, user.loc)
 	smoke2.start()
 	cooldown = TRUE
 	linked.cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reset)), 20 SECONDS)
+	addtimer(CALLBACK(src, .proc/reset), 20 SECONDS)
 
 /obj/item/warp_cube/proc/reset()
 	cooldown = FALSE

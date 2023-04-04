@@ -65,12 +65,6 @@
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 
-/mob/living/simple_animal/hostile/morph/Destroy()
-	QDEL_NULL(mimic_spell)
-	QDEL_NULL(ambush_spell)
-	QDEL_NULL(pass_airlock_spell)
-	return ..()
-
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
 	if(statpanel("Status"))
@@ -145,8 +139,8 @@
  */
 /mob/living/simple_animal/hostile/morph/proc/add_food(amount)
 	gathered_food += amount
-	for(var/datum/action/spell_action/action in actions)
-		action.UpdateButtonIcon()
+	for(var/obj/effect/proc_holder/spell/morph_spell/MS in mind.spell_list)
+		MS.updateButtonIcon()
 
 
 /mob/living/simple_animal/hostile/morph/proc/assume()
@@ -180,7 +174,7 @@
 	ambush_prepared = TRUE
 	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise.</span>")
 	apply_status_effect(/datum/status_effect/morph_ambush)
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/on_move)
 
 /mob/living/simple_animal/hostile/morph/proc/failed_ambush()
 	ambush_prepared = FALSE
@@ -289,7 +283,7 @@
 		if(ambush_prepared)
 			ambush_attack(L)
 			return TRUE // No double attack
-	else if(isitem(target)) // Eat items just to be annoying
+	else if(istype(target,/obj/item)) // Eat items just to be annoying
 		var/obj/item/I = target
 		if(!I.anchored)
 			try_eat(I)

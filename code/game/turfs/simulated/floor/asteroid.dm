@@ -123,15 +123,6 @@
 	oxygen = 0
 	nitrogen = 0
 
-/turf/simulated/floor/plating/asteroid/ancient
-	digResult = /obj/item/stack/ore/glass/basalt/ancient
-	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
-
-/turf/simulated/floor/plating/asteroid/ancient/airless
-	temperature = TCMB
-	oxygen = 0
-	nitrogen = 0
-
 /turf/simulated/floor/plating/asteroid/basalt/Initialize(mapload)
 	. = ..()
 	set_basalt_light(src)
@@ -184,10 +175,10 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	has_data = TRUE
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic
-	mob_spawn_list = list(/obj/effect/landmark/mob_spawner/goliath = 50, /obj/structure/spawner/lavaland/goliath = 3,
-		/obj/effect/landmark/mob_spawner/watcher = 40, /obj/structure/spawner/lavaland = 2,
-		/obj/effect/landmark/mob_spawner/legion = 30, /obj/structure/spawner/lavaland/legion = 3,
-		SPAWN_MEGAFAUNA = 6, /obj/effect/landmark/mob_spawner/goldgrub = 10)
+	mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/random = 50, /obj/structure/spawner/lavaland/goliath = 3,
+		/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random = 40, /obj/structure/spawner/lavaland = 2,
+		/mob/living/simple_animal/hostile/asteroid/hivelord/legion/random = 30, /obj/structure/spawner/lavaland/legion = 3,
+		SPAWN_MEGAFAUNA = 6, /mob/living/simple_animal/hostile/asteroid/goldgrub = 10)
 
 	data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
@@ -301,7 +292,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		for(var/thing in urange(12, T)) //prevents mob clumps
 			if(!ishostile(thing) && !istype(thing, /obj/structure/spawner))
 				continue
-			if((ismegafauna(randumb) || ismegafauna(thing)) && get_dist(T, thing) <= 7)
+			if((ispath(randumb, /mob/living/simple_animal/hostile/megafauna) || ismegafauna(thing)) && get_dist(T, thing) <= 7)
 				return //if there's a megafauna within standard view don't spawn anything at all
 			if(ispath(randumb, /mob/living/simple_animal/hostile/asteroid) || istype(thing, /mob/living/simple_animal/hostile/asteroid))
 				return //if the random is a standard mob, avoid spawning if there's another one within 12 tiles
