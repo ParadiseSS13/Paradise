@@ -433,14 +433,14 @@
 		return
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -449,7 +449,7 @@
 /obj/machinery/economy/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -468,7 +468,7 @@
 /obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
@@ -476,7 +476,7 @@
 /obj/machinery/economy/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
@@ -1083,6 +1083,7 @@
 	transform = M
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
+	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 	tilt(target, from_combat = TRUE)
 	return TRUE
 

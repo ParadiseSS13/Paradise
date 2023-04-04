@@ -371,7 +371,7 @@
 
 /datum/keybinding/emote/carbon/human/shake
 	linked_emote = /datum/emote/living/carbon/human/shake
-	name = "Shake"
+	name = "Shake Head"
 
 /datum/keybinding/emote/carbon/human/pale
 	linked_emote = /datum/emote/living/carbon/human/pale
