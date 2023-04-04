@@ -110,6 +110,7 @@
 	name = "command multitool"
 	desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain."
 	icon_state = "multitool_command"
+	item_state = "multitool_command"
 	belt_icon = "multitool_command"
 	toolspeed = 0.95 //command those wires / that fireaxe cabinet!
 	var/list/victims = list()
