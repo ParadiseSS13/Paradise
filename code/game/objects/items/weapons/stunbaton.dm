@@ -64,6 +64,10 @@
 		if(cell.use(chrgdeductamt))
 			return 1
 		else
+			if(cell.rigged)
+				cell = null
+				status = 0
+				update_icon()
 			return 0
 
 /obj/item/melee/baton/update_icon()
