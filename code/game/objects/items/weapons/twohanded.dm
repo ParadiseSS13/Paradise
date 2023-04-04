@@ -984,6 +984,8 @@
 
 /obj/item/twohanded/push_broom/wield(mob/user)
 	. = ..()
+	if(!.)
+		return
 	to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
 
