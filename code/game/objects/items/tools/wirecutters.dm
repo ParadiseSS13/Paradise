@@ -47,6 +47,36 @@
 	playsound(loc, usesound, 50, 1, -1)
 	return BRUTELOSS
 
+/obj/item/wirecutters/security
+	name = "security wirecutters"
+	desc = "A pair of wirecutters with a tactical grip and robust build."
+	icon_state = "cutters_sec"
+	belt_icon = "wirecutters_sec"
+	item_state = "cutters_red" //shh
+	attack_verb = list("reformed", "robusted", "102'd") //102: battery in space law
+	force = 9 //same as seclites
+	toolspeed = 0.75
+	random_color = FALSE
+
+/obj/item/wirecutters/security/suicide_act(mob/living/user)
+	user.visible_message("<span class='suicide'>[user] is cutting [user.p_themselves()] free from the mortal coil! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	if(!user)
+		return
+
+	user.Stun(10 SECONDS)
+	sleep(20)
+	add_fingerprint(user)
+
+	playsound(loc, usesound, 50, TRUE, -1)
+
+	new /obj/item/restraints/handcuffs/cable/zipties/used(user.loc)
+
+	for(var/obj/item/W in user)
+		user.unEquip(W)
+
+	user.dust()
+	return OBLITERATION
+
 /obj/item/wirecutters/brass
 	name = "brass wirecutters"
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
