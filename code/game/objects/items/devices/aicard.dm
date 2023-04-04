@@ -10,6 +10,13 @@
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 
+/obj/item/aicard/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/aiModule))
+		var/obj/item/aiModule/module = I
+		module.install(src, user)
+		return
+	return ..()
+
 /obj/item/aicard/afterattack(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)

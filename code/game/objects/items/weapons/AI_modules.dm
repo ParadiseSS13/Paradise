@@ -30,55 +30,68 @@ AI MODULES
 			desc += current.law
 			desc += "<br>"
 
-/obj/item/aiModule/proc/install(obj/machinery/computer/C)
+/obj/item/aiModule/proc/install(obj/machinery/computer/C, mob/user)
 	if(istype(C, /obj/machinery/computer/aiupload))
 		var/obj/machinery/computer/aiupload/comp = C
 		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
+			to_chat(user, "<span class='warning'>The upload computer has no power!</span>")
 			return
 		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
+			to_chat(user, "<span class='warning'>The upload computer is broken!</span>")
 			return
 		if(!comp.current)
-			to_chat(usr, "<span class='warning'>You haven't selected an AI to transmit laws to!</span>")
+			to_chat(user, "<span class='warning'>You haven't selected an AI to transmit laws to!</span>")
 			return
 
 		if(comp.current.stat == DEAD || comp.current.control_disabled)
-			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the AI.</span>")
+			to_chat(user, "<span class='warning'>Upload failed. No signal is being detected from the AI.</span>")
 		else if(comp.current.see_in_dark == 0)
-			to_chat(usr, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
+			to_chat(user, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
 		else
-			src.transmitInstructions(comp.current, usr)
+			src.transmitInstructions(comp.current, user)
 			to_chat(comp.current, "These are your laws now:")
 			comp.current.show_laws()
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 				if(R.lawupdate && (R.connected_ai == comp.current))
 					to_chat(R, "These are your laws now:")
 					R.show_laws()
-			to_chat(usr, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
+			to_chat(user, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
 
 	else if(istype(C, /obj/machinery/computer/borgupload))
 		var/obj/machinery/computer/borgupload/comp = C
 		if(comp.stat & NOPOWER)
-			to_chat(usr, "<span class='warning'>The upload computer has no power!</span>")
+			to_chat(user, "<span class='warning'>The upload computer has no power!</span>")
 			return
 		if(comp.stat & BROKEN)
-			to_chat(usr, "<span class='warning'>The upload computer is broken!</span>")
+			to_chat(user, "<span class='warning'>The upload computer is broken!</span>")
 			return
 		if(!comp.current)
-			to_chat(usr, "<span class='warning'>You haven't selected a robot to transmit laws to!</span>")
+			to_chat(user, "<span class='warning'>You haven't selected a robot to transmit laws to!</span>")
 			return
 
 		if(comp.current.stat == DEAD || comp.current.emagged)
-			to_chat(usr, "<span class='warning'>Upload failed. No signal is being detected from the robot.</span>")
+			to_chat(user, "<span class='warning'>Upload failed. No signal is being detected from the robot.</span>")
 		else if(comp.current.connected_ai)
-			to_chat(usr, "<span class='warning'>Upload failed. The robot is slaved to an AI.</span>")
+			to_chat(user, "<span class='warning'>Upload failed. The robot is slaved to an AI.</span>")
 		else
-			src.transmitInstructions(comp.current, usr)
+			transmitInstructions(comp.current, user)
 			to_chat(comp.current, "These are your laws now:")
 			comp.current.show_laws()
-			to_chat(usr, "<span class='notice'>Upload complete. The robot's laws have been modified.</span>")
-
+			to_chat(user, "<span class='notice'>Upload complete. The robot's laws have been modified.</span>")
+	if(istype(C, /obj/item/aicard))
+		var/mob/living/silicon/ai/ai_to_upload_to = locate(/mob/living/silicon/ai) in C
+		if(!ai_to_upload_to)
+			to_chat(user, "<span class='notice'>There is no AI in this intelicard.</span>")
+			return
+		if(ai_to_upload_to.stat == DEAD)
+			to_chat(user, "<span class='notice'>Corruption detected in lawset upload, throttling current service.</span>")
+			return
+		transmitInstructions(ai_to_upload_to, user)
+		for(var/mob/living/silicon/robot/R in GLOB.mob_list)
+			if(R.lawupdate && (R.connected_ai == ai_to_upload_to.current))
+				to_chat(R, "These are your laws now:")
+				R.show_laws()
+		to_chat(user, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
 
 /obj/item/aiModule/proc/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
 	log_law_changes(target, sender)

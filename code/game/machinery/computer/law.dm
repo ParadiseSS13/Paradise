@@ -37,7 +37,7 @@
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 			return
 		var/obj/item/aiModule/M = O
-		M.install(src)
+		M.install(src, user)
 		return
 	return ..()
 
@@ -80,7 +80,7 @@
 		if(!atoms_share_level(T, src))
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 			return
-		module.install(src)
+		module.install(src, user)
 		return
 	return ..()
 
