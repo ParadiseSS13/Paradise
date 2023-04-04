@@ -3817,7 +3817,7 @@
 	},
 /area/centcom/specops)
 "bUu" = (
-/obj/machinery/suit_storage_unit/syndicate/secure{
+/obj/machinery/suit_storage_unit/syndicate{
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/stripes/line{

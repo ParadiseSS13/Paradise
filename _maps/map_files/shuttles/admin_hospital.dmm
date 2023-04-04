@@ -41,7 +41,7 @@
 	},
 /area/shuttle/administration)
 "av" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"

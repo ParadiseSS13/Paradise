@@ -47118,7 +47118,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "eMN" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -57854,7 +57854,7 @@
 	name = "Hardsuit storage";
 	req_access = list(5)
 	},
-/obj/machinery/suit_storage_unit/brigmed/secure{
+/obj/machinery/suit_storage_unit/brigmed{
 	req_access = list(5)
 	},
 /turf/simulated/floor/plasteel{
@@ -60171,7 +60171,7 @@
 	},
 /area/maintenance/starboard)
 "hPb" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
@@ -87380,7 +87380,7 @@
 	},
 /area/security/permahallway)
 "onr" = (
-/obj/machinery/suit_storage_unit/rd/secure,
+/obj/machinery/suit_storage_unit/rd,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -102728,7 +102728,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "rJG" = (
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -102858,7 +102858,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
 "rLl" = (
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/light{
 	dir = 1
@@ -102936,7 +102936,7 @@
 /area/maintenance/asmaint4)
 "rLF" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -130607,14 +130607,14 @@
 /turf/simulated/floor/plating,
 /area/medical/virology)
 "xYy" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
 /area/medical/cmostore)
 "xYM" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"

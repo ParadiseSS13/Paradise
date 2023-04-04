@@ -58765,7 +58765,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "lfX" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -68705,7 +68705,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -79980,7 +79980,7 @@
 	},
 /area/maintenance/atmospherics)
 "sVv" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -92253,7 +92253,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
 "xyF" = (
-/obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
+/obj/machinery/suit_storage_unit/cmo/sec_storage,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	dir = 4;

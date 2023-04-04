@@ -952,7 +952,7 @@
 	},
 /area/shuttle/administration)
 "Bc" = (
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
@@ -1081,7 +1081,7 @@
 /area/shuttle/administration)
 "FU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 1
@@ -1419,7 +1419,7 @@
 	},
 /area/shuttle/administration)
 "PE" = (
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
@@ -1439,7 +1439,7 @@
 	},
 /area/shuttle/administration)
 "Rh" = (
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},

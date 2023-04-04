@@ -63,6 +63,7 @@ const StoredItems = (props, context) => {
             content={open ? "Close unit" : "Open unit"}
             icon={open ? "times-circle" : "expand"}
             color={open ? "red" : "green"}
+            disabled={locked}
             onClick={() => act('toggle_open')}
           />
         </Fragment>
@@ -133,6 +134,7 @@ const Disinfect = (props, context) => {
         icon="cog"
         textAlign="center"
         content="Start Disinfection Cycle"
+        disabled={data.locked}
         onClick={() => act('cook')}
       />
     </Section>

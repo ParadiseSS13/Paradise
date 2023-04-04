@@ -12,7 +12,7 @@
 /datum/wires/suitstorage/get_status()
 	. = ..()
 	var/obj/machinery/suit_storage_unit/A = holder
-	. += "The blue light is [A.secure ? "on" : "off"]."
+	. += "The blue light is [A.locked ? "on" : "off"]."
 	. += "The red light is [A.safeties ? "off" : "blinking"]."
 	. += "The green light is [A.shocked ? "on" : "off"]."
 	. += "The UV display shows [A.uv_super ? "15 nm" : "185 nm"]."
@@ -27,7 +27,12 @@
 	var/obj/machinery/suit_storage_unit/A = holder
 	switch(wire)
 		if(WIRE_IDSCAN)
-			A.secure = mend
+			if(!A.emagged)
+				A.locked = mend
+				if(A.locked && A.state_open)
+					A.state_open = FALSE
+				SStgui.update_uis(A)
+				A.update_icon()
 
 		if(WIRE_SAFETY)
 			A.safeties = mend
@@ -46,7 +51,12 @@
 		return
 	switch(wire)
 		if(WIRE_IDSCAN)
-			A.secure = !A.secure
+			if(!A.emagged)
+				A.locked = !A.locked
+				if(A.locked && A.state_open)
+					A.state_open = FALSE
+				SStgui.update_uis(A)
+				A.update_icon()
 
 		if(WIRE_SAFETY)
 			A.safeties = !A.safeties
