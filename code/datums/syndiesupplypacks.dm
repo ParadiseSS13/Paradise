@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/security/armory/shield_and_sword
 	name = "Syndicate Energy Combo Crate"
-	contains = list(/obj/item/shield/energy,
+	contains = list(/obj/item/shield/energy/syndie,
 					/obj/item/melee/energy/sword/saber,
 					/obj/item/pen/edagger)
 	cost = 20000

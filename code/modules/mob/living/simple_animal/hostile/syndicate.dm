@@ -40,7 +40,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 28
 	status_flags = 0
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy/syndie)
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
@@ -311,7 +311,7 @@
 	icon_state = "syndicate_space_sword"
 	icon_living = "syndicate_space_sword"
 	speed = 1
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy/syndie)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return TRUE

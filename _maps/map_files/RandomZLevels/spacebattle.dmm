@@ -1327,7 +1327,7 @@
 	},
 /area/awaymission/spacebattle/bridge)
 "eL" = (
-/obj/item/shield/energy,
+/obj/item/shield/energy/syndie,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/bridge)
