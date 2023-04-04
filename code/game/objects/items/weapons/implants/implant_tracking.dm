@@ -19,18 +19,15 @@
 	return ..()
 
 /obj/item/implant/tracking/implant(mob/target)
-	if(!..())
-		return FALSE
-
+	. = ..()
+	if(!.)
+		return
 	internal_gps = new internal_gps_path(src)
-	return TRUE
 
 /obj/item/implant/tracking/removed(mob/target)
-	if(..())
+	. = ..()
+	if(.)
 		QDEL_NULL(internal_gps)
-		return TRUE
-
-	return FALSE
 
 /obj/item/gps/internal/tracking_implant
 	gpstag = "TRACK0"
