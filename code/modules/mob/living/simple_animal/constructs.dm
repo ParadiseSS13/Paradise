@@ -26,6 +26,8 @@
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
+	/// The body/brain of the player inside this construct, transferred over from the soulstone.
+	var/atom/movable/held_body
 	var/list/construct_spells = list()
 	/// Is this a holy/purified construct?
 	var/holy = FALSE
@@ -51,13 +53,17 @@
 	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	for(var/atom/movable/AM in src)
-		AM.forceMove(get_turf(src))
-		SSticker.mode.add_cult_immunity(AM)
-		if(isliving(AM))
-			var/mob/living/L = AM
-			L.key = key
-			L.cancel_camera()
+	SSticker.mode.remove_cultist(mind, FALSE)
+
+	held_body.forceMove(get_turf(src))
+	SSticker.mode.add_cult_immunity(held_body)
+	if(isliving(held_body))
+		var/mob/living/L = held_body
+		L.key = key
+		L.cancel_camera()
+	held_body = null
+	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	. = ..()
 	SSticker.mode.remove_cultist(mind, FALSE)
 

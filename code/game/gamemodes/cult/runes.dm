@@ -229,13 +229,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	animate(src, transform = matrix() * 2, alpha = 0, time = 5) // Fade out
 	animate(transform = oldtransform, alpha = 255, time = 0)
 
-/obj/effect/rune/proc/fail_invoke(mob/living/target)
+/obj/effect/rune/proc/fail_invoke(show_message = TRUE)
 	//This proc contains the effects of a rune if it is not invoked correctly, through either invalid wording or not enough cultists. By default, it's just a basic fizzle.
-	if(!invisibility) // No visible messages if not visible
-		if(HAS_TRAIT(target, TRAIT_CULT_IMMUNITY))
-			visible_message("<spacn class='warning'>This sacrifice was already converted recently. Wait a moment before trying again!</span>")
-		else
-			visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
+	if(!invisibility && show_message) // No visible messages if not visible
+		visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
 	animate(src, color = rgb(255, 0, 0), time = 0)
 	animate(src, color = rune_blood_color, time = 5)
 
@@ -315,8 +312,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	rune_in_use = TRUE
 	var/mob/living/L = pick(offer_targets)
 	if(HAS_TRAIT(L, TRAIT_CULT_IMMUNITY))
-		fail_invoke(L)
-		to_chat("<spacn class='warning'>This sacrifice was already converted recently. Wait a moment before trying again!</span>")
+		fail_invoke(FALSE)
+		for(var/I in invokers)
+			to_chat(I, "<span class='warning'>This sacrifice was already converted recently. Wait a minute before trying again!</span>")
 		rune_in_use = FALSE
 		return
 
