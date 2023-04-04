@@ -8,7 +8,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "en" = (
-/obj/machinery/vending/hydronutrients/syndicate_druglab,
+/obj/machinery/economy/vending/hydronutrients/syndicate_druglab,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "fb" = (
@@ -392,7 +392,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "Ue" = (
-/obj/machinery/vending/hydroseeds/syndicate_druglab,
+/obj/machinery/economy/vending/hydroseeds/syndicate_druglab,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "US" = (

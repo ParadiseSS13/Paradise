@@ -4,9 +4,8 @@
 	icon_state = "juicer1"
 	layer = 2.9
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 100
+	idle_power_consumption = 5
+	active_power_consumption = 100
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
 	var/operating = FALSE
@@ -52,8 +51,7 @@
 
 		//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
 		/obj/item/slime_extract = list(),
-		/obj/item/reagent_containers/food = list(),
-		/obj/item/reagent_containers/honeycomb = list()
+		/obj/item/reagent_containers/food = list()
 	)
 
 	var/list/juice_items = list (
@@ -73,7 +71,7 @@
 		/obj/item/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/berries/poison = list("poisonberryjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/pumpkin = list("pumpkinjuice" = 0),
-		/obj/item/reagent_containers/food/snacks/grown/blumpkin = list("blumpkinjuice" = 0),
+		/obj/item/reagent_containers/food/snacks/grown/pumpkin/blumpkin = list("blumpkinjuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
@@ -142,7 +140,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_crowbar(I)
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -163,7 +161,7 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
+	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(beaker)
 			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
 		else if(panel_open)

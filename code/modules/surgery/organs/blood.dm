@@ -9,7 +9,7 @@
 		return
 	else
 		bleedsuppress = TRUE
-		addtimer(CALLBACK(src, .proc/resume_bleeding), amount)
+		addtimer(CALLBACK(src, PROC_REF(resume_bleeding)), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = FALSE
@@ -164,7 +164,7 @@
 						if((D.spread_flags & SPECIAL) || (D.spread_flags & NON_CONTAGIOUS))
 							continue
 						C.ForceContractDisease(D)
-				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)))
+				if(!(blood_data?["blood_type"] in get_safe_blood(C.dna.blood_type)) || C.dna.species.name != blood_data["species"] && (blood_data["species_only"] || C.dna.species.own_species_blood))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 
@@ -208,6 +208,8 @@
 		blood_data["blood_color"] = dna.species.blood_color
 		blood_data["factions"] = faction
 		blood_data["dna"] = dna.Clone()
+		blood_data["species"] = dna.species.name
+		blood_data["species_only"] = dna.species.own_species_blood
 		return blood_data
 	if(blood_id == "slimejelly")
 		var/blood_data = list()

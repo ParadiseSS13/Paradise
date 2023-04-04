@@ -41,28 +41,7 @@
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
 	. = ..()
 	. += list(
-		/obj/item/organ/internal/xenos/plasmavessel,
-		/obj/item/organ/internal/xenos/acidgland,
-		/obj/item/organ/internal/xenos/neurotoxin,
+		/obj/item/organ/internal/alien/plasmavessel,
+		/obj/item/organ/internal/alien/acidgland,
+		/obj/item/organ/internal/alien/neurotoxin,
 	)
-
-/*
-/mob/living/carbon/alien/humanoid/sentinel/verb/evolve() // -- TLE
-	set name = "Evolve (250)"
-	set desc = "Become a Praetorian, Royal Guard to the Queen."
-	set category = "Alien"
-
-	if(powerc(250))
-		adjustToxLoss(-250)
-		to_chat(src, "<span class=notice'>You begin to evolve!</span>")
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
-		var/mob/living/carbon/alien/humanoid/sentinel/praetorian/new_xeno = new(loc)
-		if(mind)
-			mind.transfer_to(new_xeno)
-		else
-			new_xeno.key = key
-		new_xeno.mind.name = new_xeno.name
-		qdel(src)
-	return
-*/

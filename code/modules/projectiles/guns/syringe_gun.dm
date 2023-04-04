@@ -1,6 +1,6 @@
 /obj/item/gun/syringe
 	name = "syringe gun"
-	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance."
+	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance. Not compatible with DNA-Injectors."
 	icon_state = "syringegun"
 	item_state = "syringegun"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -77,17 +77,20 @@
 			return TRUE
 		else
 			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
-	else
-		return ..()
+	else if(istype(A, /obj/item/dnainjector))
+		to_chat(user, "<span class='notice'>[src] is incompatible with DNA-Injectors.</span>")
+		return
+
+	return ..()
 /obj/item/gun/syringe/rapidsyringe_old
 	name = "rapid syringe gun"
-	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
+	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes. Not compatible with DNA-Injectors."
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
 
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"
-	desc = "A small spring-loaded sidearm that functions identically to a syringe gun."
+	desc = "A small spring-loaded sidearm that functions identically to a syringe gun. Not compatible with DNA-Injectors."
 	icon_state = "syringe_pistol"
 	item_state = "gun" //Smaller inhand
 	w_class = WEIGHT_CLASS_SMALL
@@ -121,7 +124,7 @@
 	create_reagents(reservoir_volume)
 
 /obj/item/gun/syringe/rapidsyringe/Destroy()
-	QDEL_LIST(syringes)
+	QDEL_LIST_CONTENTS(syringes)
 
 	if(chambered)
 		if(chambered.BB)
@@ -174,7 +177,7 @@
 
 /obj/item/gun/syringe/rapidsyringe/attackby(obj/item/A, mob/user, params, show_msg)
 
-	if(istype(A, /obj/item/storage))
+	if(isstorage(A))
 		// Boxes can be dumped in.
 		var/obj/item/storage/container = A
 		if(!length(container.contents))

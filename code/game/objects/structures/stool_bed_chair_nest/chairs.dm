@@ -360,6 +360,7 @@
 	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
 	icon_state = "pewmiddle"
 	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
 	color = null
 	colorable = FALSE
 
@@ -545,7 +546,7 @@
 		smash(user)
 
 /obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
-	if(prob(5) && istype(M,/mob/living))
+	if(prob(5) && isliving(M))
 		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
 		user.unEquip(src)
 		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal

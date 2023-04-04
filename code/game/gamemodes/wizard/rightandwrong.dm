@@ -29,7 +29,6 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/projectile/automatic/l6_saw,
 	/obj/item/gun/projectile/automatic/m90,
 	/obj/item/gun/energy/alien,
-	/obj/item/gun/energy/gun/turret,
 	/obj/item/gun/energy/pulse/carbine,
 	/obj/item/gun/energy/decloner,
 	/obj/item/gun/energy/mindflayer,
@@ -124,7 +123,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 		if(iswizard(H))
 			return
 
-	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors))
+	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors) && !jobban_isbanned(H, ROLE_SYNDICATE))
 		SSticker.mode.traitors += H.mind
 
 		H.mind.add_antag_datum(/datum/antagonist/survivalist/magic)

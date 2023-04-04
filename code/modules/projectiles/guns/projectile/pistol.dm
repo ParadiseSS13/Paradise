@@ -4,7 +4,7 @@
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=3;materials=2;syndicate=4"
+	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
 	mag_type = /obj/item/ammo_box/magazine/m10mm
 	fire_sound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
@@ -97,11 +97,11 @@
 //APS Pistol//
 /obj/item/gun/projectile/automatic/pistol/APS
 	name = "stechkin APS pistol"
-	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo."
+	desc = "The original russian version of a widely used Syndicate sidearm. Uses 10mm ammo."
 	icon_state = "aps"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=3;materials=2;syndicate=3"
-	mag_type = /obj/item/ammo_box/magazine/apsm9mm
+	mag_type = /obj/item/ammo_box/magazine/apsm10mm
 	can_suppress = FALSE
 	burst_size = 3
 	fire_delay = 2

@@ -63,7 +63,7 @@
 /datum/fish/feederfish/special_interact(obj/machinery/fishtank/my_tank)
 	if(!my_tank || !istype(my_tank))
 		return
-	if(my_tank.fish_count < 2)
+	if(my_tank.get_num_fish() < 2)
 		return
 	if(my_tank.food_level <= 5 && prob(25))
 		my_tank.adjust_food_level(1)

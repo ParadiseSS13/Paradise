@@ -103,7 +103,7 @@
 /datum/chemical_reaction/slimemobspawn/proc/summon_mobs(datum/reagents/holder, turf/T)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
 	if(SSmobs.xenobiology_mobs < MAX_GOLD_CORE_MOBS)
-		addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 5, "Gold Slime", HOSTILE_SPAWN, "chemicalsummon", TRUE, TRUE), 50)
+		addtimer(CALLBACK(src, PROC_REF(chemical_mob_spawn), holder, 5, "Gold Slime", HOSTILE_SPAWN, "chemicalsummon", TRUE, TRUE), 50)
 		SSmobs.xenobiology_mobs += 5
 	else
 		T.visible_message("<span class='danger'>The slime extract sputters out, there's too many mobs to make any more!</span>")
@@ -116,7 +116,7 @@
 /datum/chemical_reaction/slimemobspawn/lesser/summon_mobs(datum/reagents/holder, turf/T)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
 	if(SSmobs.xenobiology_mobs < MAX_GOLD_CORE_MOBS)
-		addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 3, "Lesser Gold Slime", HOSTILE_SPAWN, "neutral", TRUE, TRUE), 50)
+		addtimer(CALLBACK(src, PROC_REF(chemical_mob_spawn), holder, 3, "Lesser Gold Slime", HOSTILE_SPAWN, "neutral", TRUE, TRUE), 50)
 		SSmobs.xenobiology_mobs += 3
 	else
 		T.visible_message("<span class='danger'>The slime extract sputters out, there's too many mobs to make any more!</span>")
@@ -129,7 +129,7 @@
 /datum/chemical_reaction/slimemobspawn/friendly/summon_mobs(datum/reagents/holder, turf/T)
 	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably!</span>")
 	if(SSmobs.xenobiology_mobs < MAX_GOLD_CORE_MOBS)
-		addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral", TRUE, TRUE), 50)
+		addtimer(CALLBACK(src, PROC_REF(chemical_mob_spawn), holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral", TRUE, TRUE), 50)
 		SSmobs.xenobiology_mobs += 1
 	else
 		T.visible_message("<span class='danger'>The slime extract sputters out, there's too many mobs to make any more!</span>")
@@ -150,6 +150,7 @@
 	var/list/blocked = list(/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/sliceable,
+		/obj/item/reagent_containers/food/snacks/sliceable/pizza,
 		/obj/item/reagent_containers/food/snacks/margheritapizzaslice,
 		/obj/item/reagent_containers/food/snacks/meatpizzaslice,
 		/obj/item/reagent_containers/food/snacks/mushroompizzaslice,
@@ -165,8 +166,11 @@
 		/obj/item/reagent_containers/food/snacks/meat,
 		/obj/item/reagent_containers/food/snacks/meat/slab,
 		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/reagent_containers/food/snacks/grown/shell,
 		/obj/item/reagent_containers/food/snacks/grown/mushroom,
 		/obj/item/reagent_containers/food/snacks/deepfryholder,
+		/obj/item/reagent_containers/food/snacks/chinese,
+		/obj/item/reagent_containers/food/snacks/human,
 		/obj/item/reagent_containers/food/snacks/monstermeat
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
@@ -513,7 +517,7 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/obj/item/slime_extract/oil/extract = holder.my_atom
 	extract.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
-	addtimer(CALLBACK(src, .proc/explode, extract), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(explode), extract), 5 SECONDS)
 
 /datum/chemical_reaction/slime_explosion/proc/explode(obj/item/slime_extract/oil/extract)
 	if(QDELETED(extract))

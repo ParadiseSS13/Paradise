@@ -128,7 +128,7 @@
 
 // Simpler. Don't specify UI in order for the mob to use its own.
 /mob/proc/UpdateAppearance(list/UI = null)
-	if(istype(src, /mob/living/carbon/human)) // WHY?!
+	if(ishuman(src)) // WHY?!
 		if(UI!=null)
 			dna.UI = UI
 			dna.UpdateUI()
@@ -241,8 +241,7 @@
 
 /datum/dna/proc/head_traits_to_dna(mob/living/carbon/human/character, obj/item/organ/external/head/head_organ)
 	if(!head_organ)
-		log_runtime(EXCEPTION("Attempting to reset DNA from a missing head!"), src)
-		return
+		CRASH("Attempting to reset DNA from a missing head!")
 	if(!head_organ.h_style)
 		head_organ.h_style = "Skinhead"
 	var/hair = GLOB.hair_styles_full_list.Find(head_organ.h_style)

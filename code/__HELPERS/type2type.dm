@@ -42,23 +42,6 @@
 		i--
 	return num
 
-//Returns the hex value of a number given a value assumed to be a base-ten value
-/proc/num2hex(num, placeholder = 2)
-	if(!isnum(num) || num < 0)
-		return
-
-	var/hex = ""
-	while(num)
-		var/val = num % 16
-		num = round(num / 16)
-
-		if(val > 9)
-			val = ascii2text(55 + val) // 65 - 70 correspond to "A" - "F"
-		hex = "[val][hex]"
-	while(length(hex) < placeholder)
-		hex = "0[hex]"
-	return hex || "0"
-
 //Returns an integer value for R of R/G/B given a hex color input.
 /proc/color2R(hex)
 	if(!(istext(hex)))
@@ -100,7 +83,7 @@
 		if(4.0) return EAST
 		if(8.0) return WEST
 		else
-			log_runtime(EXCEPTION("UNKNOWN DIRECTION: [direction]"))
+			stack_trace("UNKNOWN DIRECTION: [direction]")
 
 /proc/dir2text(direction)
 	switch(direction)

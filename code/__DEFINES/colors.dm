@@ -81,8 +81,11 @@
 #define COLOR_ALUMINIUM        "#bbbbbb"
 #define COLOR_CRYSTAL          "#00c8a5"
 #define COLOR_ASTEROID_ROCK    "#735555"
+#define COLOR_ROCK             "#464646"
 #define COLOR_NULLGLASS        "#ff6088"
 #define COLOR_DIAMOND          "#d8d4ea"
+#define COLOR_ANCIENT_ROCK     "#575757"
+#define COLOR_COLD_ANCIENT_ROCK "#575764"
 #define COLOR_HEALING_GREEN    "#375637"
 
 //Color defines used by the assembly detailer.
@@ -137,7 +140,6 @@
 #define COLOR_KINETIC_GELATIN "#FFA500"
 #define COLOR_CRYOGENIC_LIQUID "#8BA6E9"
 #define COLOR_SORIUM "#808000"
-#define COLOR_RADIOACTIVE_GEL "#2476f0"
 #define COLOR_TESLIUM_PASTE "#20324D"
 
 // Blob complementary colours
@@ -148,5 +150,4 @@
 #define COMPLEMENTARY_COLOR_KINETIC_GELATIN "#ebb756"
 #define COMPLEMENTARY_COLOR_CRYOGENIC_LIQUID "#a8b7df"
 #define COMPLEMENTARY_COLOR_SORIUM "#a2a256"
-#define COMPLEMENTARY_COLOR_RADIOACTIVE_GEL "#24f0f0"
 #define COMPLEMENTARY_COLOR_TESLIUM_PASTE "#412968"

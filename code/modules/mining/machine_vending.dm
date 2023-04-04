@@ -40,7 +40,7 @@
 		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
 		EQUIPMENT("Mining Hardsuit", /obj/item/clothing/suit/space/hardsuit/mining, 2000),
-		EQUIPMENT("Tracking Implant Kit", /obj/item/storage/box/minertracker, 600),
+		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
 	)
 	prize_list["Consumables"] = list(
 		EQUIPMENT("10 Marker Beacons", /obj/item/stack/marker_beacon/ten, 100),
@@ -88,20 +88,21 @@
 		EQUIPMENT("Laser Pointer", /obj/item/laser_pointer, 300),
 		EQUIPMENT("Luxury Shelter Capsule", /obj/item/survivalcapsule/luxury, 3000),
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
-		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c1000, 2000),
+		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 
 /obj/machinery/mineral/equipment_vendor/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !powered())
+	if(inserted_id && !(stat & NOPOWER))
 		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/equipment_vendor/update_icon_state()
-	if(powered())
+	if(has_power())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
@@ -207,12 +208,12 @@
 			default_deconstruction_crowbar(user, I)
 		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
-		if(!powered())
+		if(!has_power())
 			return
 		redeem_voucher(I, user)
 		return
 	if(istype(I, /obj/item/card/id))
-		if(!powered())
+		if(!has_power())
 			return
 		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))
@@ -340,7 +341,8 @@
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
 		EQUIPMENT("Guitar", /obj/item/instrument/guitar, 750),
 		EQUIPMENT("Synthesizer", /obj/item/instrument/piano_synth, 1500),
-		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000)
+		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
+		EQUIPMENT("Analyzer", /obj/item/analyzer, 50)
 	)
 
 /**********************Mining Equipment Datum**************************/

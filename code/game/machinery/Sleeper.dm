@@ -6,13 +6,13 @@
 
 /obj/machinery/sleeper
 	name = "sleeper"
+	desc = "Injects chemicals into the bloodstream of the occupant, can remove chemicals from the bloodstream of the occupant through dialysis."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
 	density = TRUE
 	anchored = TRUE
 	dir = WEST
-	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
 	var/emergency_chems = list("ephedrine") // Desnowflaking
@@ -26,25 +26,18 @@
 	var/min_health = -25
 	var/controls_inside = FALSE
 	var/auto_eject_dead = FALSE
-	idle_power_usage = 1250
-	active_power_usage = 2500
+	idle_power_consumption = 1250
+	active_power_consumption = 2500
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/sleeper/detailed_examine()
-	return "The sleeper allows you to clean the blood by means of dialysis, and to administer medication in a controlled environment.<br>\
-			<br>\
-			Click on your target then drag their sprite onto the sleeper to put them into it. Click the sleeper, with an empty hand, to open the menu. \
-			Click 'Start Dialysis' to begin filtering unwanted chemicals from the occupant's blood. The beaker contained will begin to fill with their \
-			contaminated blood, and will need to be emptied when full.<br>\
-			<br>\
-			You can also inject common medicines directly into their bloodstream.\
-			<br>\
-			Right-click the cell and click 'Eject Occupant' to remove them. You can enter the cell yourself by right clicking and selecting 'Enter Sleeper'. \
-			Note that you cannot control the sleeper while inside of it."
+/obj/machinery/sleeper/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the sleeper to place them in it after a short delay.</span>"
 
 /obj/machinery/sleeper/power_change()
-	..()
+	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -203,7 +196,7 @@
 				occupantData["temperatureSuitability"] = 2
 			else if(occupant.bodytemperature > sp.heat_level_1)
 				occupantData["temperatureSuitability"] = 1
-		else if(istype(occupant, /mob/living/simple_animal))
+		else if(isanimal(occupant))
 			var/mob/living/simple_animal/silly = occupant
 			if(silly.bodytemperature < silly.minbodytemp)
 				occupantData["temperatureSuitability"] = -3
@@ -308,7 +301,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(!beaker)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
@@ -383,12 +376,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-	if(dir == EAST)
-		orient = "LEFT"
-		setDir(WEST)
-	else
-		orient = "RIGHT"
-		setDir(EAST)
+
+	setDir(turn(dir, -90))
 
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
@@ -464,19 +453,17 @@
 	else
 		to_chat(user, "There's no occupant in the sleeper!")
 
-/obj/machinery/sleeper/verb/eject()
-	set name = "Eject Sleeper"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+/obj/machinery/sleeper/AltClick(mob/user)
+	if(issilicon(user))
+		eject()
 		return
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+	eject()
 
+/obj/machinery/sleeper/proc/eject(mob/user)
 	go_out()
 	add_fingerprint(usr)
-	return
 
 /obj/machinery/sleeper/verb/remove_beaker()
 	set name = "Remove Beaker"
@@ -527,13 +514,13 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robots dont fit
+	if(isanimal(O) || issilicon(O)) //animals and robots dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
 	if(!user.loc) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(panel_open)
 		to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")

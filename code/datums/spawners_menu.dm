@@ -44,8 +44,7 @@
 	var/list/possible_spawners = params2list(spawners)
 	var/obj/effect/mob_spawn/MS = locate(pick(possible_spawners))
 	if(!MS || !istype(MS))
-		log_runtime(EXCEPTION("A ghost tried to interact with an invalid spawner, or the spawner didn't exist."))
-		return
+		CRASH("A ghost tried to interact with an invalid spawner, or the spawner didn't exist.")
 	switch(action)
 		if("jump")
 			owner.forceMove(get_turf(MS))

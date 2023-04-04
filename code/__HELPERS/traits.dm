@@ -193,12 +193,28 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOPAIN			"no_pain"
 #define TRAIT_FORCE_DOORS 		"force_doors"
 #define TRAIT_AI_UNTRACKABLE	"AI_untrackable"
+#define TRAIT_REPEATSURGERY		"master_surgeon"  // Lets you automatically repeat surgeries regardless of tool
+#define TRAIT_EDIBLE_BUG		"edible_bug" // Lets lizards and other animals that can eat bugs eat ya
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
+#define TRAIT_SOAPY_MOUTH		"soapy_mouth"
+#define TRAIT_UNREVIVABLE 		"unrevivable" // Prevents changeling revival
 
-//***** ITEM TRAITS *****//
+//***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+
+//***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
+#define TRAIT_CMAGGED "cmagged"
+/// Forces open doors after a delay specific to the item
+#define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
+
+/// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
+#define TRAIT_SURGICAL			"surgical_tool"
+
+/// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
+#define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
+
 
 //
 // common trait sources
@@ -217,6 +233,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define CHANGELING_TRAIT "changeling"
 #define LYING_DOWN_TRAIT "lying_down"
 #define SLIME_TRAIT "slime"
+#define BERSERK_TRAIT "berserk"
+#define EYES_OF_GOD "eyes_of_god"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
@@ -233,6 +251,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRANSFORMING_TRAIT "transforming"
 #define BUCKLING_TRAIT "buckled"
 #define TRAIT_WAS_BATONNED "batonged"
+#define CLOWN_EMAG "clown_emag"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

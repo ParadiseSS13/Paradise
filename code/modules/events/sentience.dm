@@ -1,7 +1,7 @@
 /datum/event/sentience
 
 /datum/event/sentience/start()
-	INVOKE_ASYNC(src, .proc/make_sentient_mob)
+	INVOKE_ASYNC(src, PROC_REF(make_sentient_mob))
 
 /datum/event/sentience/proc/make_sentient_mob()
 	var/list/potential = list()
@@ -47,3 +47,4 @@
 	to_chat(M, "<span class='warning'>Due to freak radiation, you have gained \
 							human level intelligence and the ability to speak and understand \
 							human language!</span>")
+	M.create_log(MISC_LOG, "[M] was made into a sentient animal")

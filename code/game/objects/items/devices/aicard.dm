@@ -1,5 +1,6 @@
 /obj/item/aicard
 	name = "inteliCard"
+	desc = "A handy pocket card used to extract an artificial intelligence for transport."
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
 	item_state = "electronic"
@@ -8,7 +9,6 @@
 	flags = NOBLUDGEON
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
-
 
 /obj/item/aicard/afterattack(atom/target, mob/user, proximity)
 	..()
@@ -24,28 +24,35 @@
 
 /obj/item/aicard/proc/update_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
+	update_icon(UPDATE_OVERLAYS)
 	if(AI)
 		name = "intelliCard - [AI.name]"
-		if(AI.stat == DEAD)
-			icon_state = "aicard-404"
-		else
-			icon_state = "aicard-full"
 		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
 	else
-		icon_state = "aicard"
 		name = "intelliCard"
-		overlays.Cut()
+
+/obj/item/aicard/update_overlays()
+	. = ..()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
+	if(AI)
+		var/list/aicard_icon_state_names = icon_states(icon)
+		var/aicard_new_display = AI.icon_state
+
+		if(aicard_new_display in aicard_icon_state_names)
+			. += aicard_new_display
+		else if(AI.stat == DEAD)
+			. += "ai_dead"
+		else
+			. += "ai"
 
 /obj/item/aicard/attack_self(mob/user)
 	ui_interact(user)
-
 
 /obj/item/aicard/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AICard", "[name]", 600, 394,  master_ui, state)
 		ui.open()
-
 
 /obj/item/aicard/ui_data(mob/user)
 	var/list/data = list()
@@ -74,7 +81,6 @@
 
 	return data
 
-
 /obj/item/aicard/ui_act(action, params)
 	if(..())
 		return
@@ -93,7 +99,7 @@
 			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == STATUS_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
 				msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].", ATKLOG_FEW)
 				add_attack_logs(user, AI, "Wiped with [src].")
-				INVOKE_ASYNC(src, .proc/wipe_ai)
+				INVOKE_ASYNC(src, PROC_REF(wipe_ai))
 
 		if("radio")
 			AI.aiRadio.disabledAi = !AI.aiRadio.disabledAi

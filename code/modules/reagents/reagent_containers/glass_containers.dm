@@ -17,8 +17,8 @@
 	blocks_emissive = FALSE
 	var/label_text = ""
 
-/obj/item/reagent_containers/glass/New()
-	..()
+/obj/item/reagent_containers/glass/Initialize(mapload)
+	. = ..()
 	base_name = name
 
 /obj/item/reagent_containers/glass/examine(mob/user)
@@ -65,7 +65,7 @@
 
 			var/fraction = min(5 / reagents.total_volume, 1)
 			reagents.reaction(M, REAGENT_INGEST, fraction)
-			addtimer(CALLBACK(reagents, /datum/reagents.proc/trans_to, M, 5), 5)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, 5), 5)
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
@@ -110,7 +110,7 @@
 			reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I))
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
 			label_text = t
@@ -124,7 +124,7 @@
 	icon_state = "beaker"
 	item_state = "beaker"
 	belt_icon = "beaker"
-	materials = list(MAT_GLASS=500)
+	materials = list(MAT_GLASS = 1000)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
@@ -240,7 +240,7 @@
 	desc = "A baggie. Can hold up to 10 units."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
-	possible_transfer_amounts = 2
+	possible_transfer_amounts = null
 	volume = 10
 	container_type = OPENCONTAINER
 	can_assembly = 0
@@ -256,8 +256,8 @@
 	container_type = OPENCONTAINER
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-/obj/item/reagent_containers/glass/beaker/noreact/New()
-	..()
+/obj/item/reagent_containers/glass/beaker/noreact/Initialize(mapload)
+	. = ..()
 	reagents.set_reacting(FALSE)
 
 /obj/item/reagent_containers/glass/beaker/bluespace
@@ -312,11 +312,11 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
-    ..()
-    if(slot == slot_head && reagents.total_volume)
-        to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
-        reagents.reaction(user, REAGENT_TOUCH)
-        reagents.clear_reagents()
+	..()
+	if(slot == slot_head && reagents.total_volume)
+		to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
+		reagents.reaction(user, REAGENT_TOUCH)
+		reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/bucket/attackby(obj/D, mob/user, params)
 	if(istype(D, /obj/item/mop))

@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(remote_signalers)
+
 /obj/item/assembly/signaler
 	name = "remote signaling device"
 	desc = "Used to remotely activate devices."
@@ -6,147 +8,95 @@
 	materials = list(MAT_METAL=400, MAT_GLASS=120)
 	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
-
 	secured = TRUE
-	var/receiving = FALSE
-
 	bomb_name = "remote-control bomb"
-
+	/// Are we set to receieve a signal?
+	var/receiving = FALSE
+	/// Signal code
 	var/code = 30
+	/// Signal freqency itself
 	var/frequency = RSD_FREQ
-	var/delay = 0
-	var/datum/radio_frequency/radio_connection
-	var/airlock_wire = null
-
-/obj/item/assembly/signaler/New()
-	..()
-	if(SSradio)
-		set_frequency(frequency)
 
 /obj/item/assembly/signaler/Initialize()
-	..()
-	if(SSradio)
-		set_frequency(frequency)
+	. = ..()
+	GLOB.remote_signalers |= src
 
 /obj/item/assembly/signaler/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
+	GLOB.remote_signalers -= src
 	return ..()
 
-/obj/item/assembly/signaler/describe()
-	return "[src]'s power light is [receiving ? "on" : "off"]"
+/obj/item/assembly/signaler/examine(mob/user)
+	. = ..()
+	. += "The power light is [receiving ? "on" : "off"]"
 
+/// Called from activate(), actually invokes the signal on other signallers in the world
+/obj/item/assembly/signaler/proc/signal()
+	for(var/obj/item/assembly/signaler/S as anything in GLOB.remote_signalers)
+		if(S == src)
+			continue
+		if(S.receiving && (S.code == code) && (S.frequency == frequency))
+			S.signal_callback()
+
+	var/turf/T = get_turf(src)
+	var/invoking_ckey = "unknown"
+	if(usr) // sometimes (like when a prox sensor sends a signal) there is no usr
+		invoking_ckey = usr.key
+	GLOB.lastsignalers.Add("[SQLtime()] <b>:</b> [invoking_ckey] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
+
+/obj/item/assembly/signaler/proc/signal_callback()
+	pulse(1)
+	visible_message("[bicon(src)] *beep* *beep*")
+
+// Activation pre-runner, handles cooldown and calls signal(), invoked from ui_act()
 /obj/item/assembly/signaler/activate()
 	if(cooldown > 0)
-		return FALSE
+		return
+
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
 
 	signal()
-	return TRUE
 
 /obj/item/assembly/signaler/update_icon_state()
 	if(holder)
 		holder.update_icon()
 
-/obj/item/assembly/signaler/interact(mob/user, flag1)
-	var/t1 = "-------"
-	var/dat = {"
-		<TT>
-	"}
-	if(!flag1)
-		dat += {"
-			<A href='byond://?src=[UID()];send=1'>Send Signal</A><BR>
-			Receiver is <A href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</A><BR>
-		"}
-	dat += {"
-		<B>Frequency/Code</B> for signaler:<BR>
-		Frequency:
-		<A href='byond://?src=[UID()];freq=-10'>-</A>
-		<A href='byond://?src=[UID()];freq=-2'>-</A>
-		[format_frequency(frequency)]
-		<A href='byond://?src=[UID()];freq=2'>+</A>
-		<A href='byond://?src=[UID()];freq=10'>+</A><BR>
+// UI STUFF //
 
-		Code:
-		<A href='byond://?src=[UID()];code=-5'>-</A>
-		<A href='byond://?src=[UID()];code=-1'>-</A>
-		[code]
-		<A href='byond://?src=[UID()];code=1'>+</A>
-		<A href='byond://?src=[UID()];code=5'>+</A><BR>
-		[t1]
-		</TT>
-	"}
-	var/datum/browser/popup = new(user, "radio", name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "radio")
+/obj/item/assembly/signaler/attack_self(mob/user)
+	ui_interact(user)
 
-/obj/item/assembly/signaler/Topic(href, href_list)
-	..()
+/obj/item/assembly/signaler/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.deep_inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "RemoteSignaler", name, 300, 200, master_ui, state)
+		ui.open()
 
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)|| usr.stat || usr.restrained() || !in_range(loc, usr))
-		usr << browse(null, "window=radio")
-		onclose(usr, "radio")
+/obj/item/assembly/signaler/ui_data(mob/user)
+	var/list/data = list()
+	data["on"] = receiving
+	data["frequency"] = frequency
+	data["code"] = code
+	data["minFrequency"] = PUBLIC_LOW_FREQ
+	data["maxFrequency"] = PUBLIC_HIGH_FREQ
+	return data
+
+/obj/item/assembly/signaler/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
 		return
 
-	if(href_list["freq"])
-		var/new_frequency = (frequency + text2num(href_list["freq"]))
-		if(new_frequency < RADIO_LOW_FREQ || new_frequency > RADIO_HIGH_FREQ)
-			new_frequency = sanitize_frequency(new_frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
-		set_frequency(new_frequency)
+	. = TRUE
 
-	if(href_list["code"])
-		code += text2num(href_list["code"])
-		code = round(code)
-		code = min(100, code)
-		code = max(1, code)
-	if(href_list["receive"])
-		receiving = !receiving
+	switch(action)
+		if("recv_power")
+			receiving = !receiving
 
-	if(href_list["send"])
-		spawn( 0 )
-			signal()
+		if("signal")
+			activate()
 
-	if(usr)
-		attack_self(usr)
+		if("freq")
+			frequency = sanitize_frequency(text2num(params["freq"]) * 10)
 
-/obj/item/assembly/signaler/proc/signal()
-	if(!radio_connection)
-		return
+		if("code")
+			code = clamp(text2num(params["code"]), 1, 100)
 
-	var/datum/signal/signal = new
-	signal.source = src
-	signal.encryption = code
-	signal.data["message"] = "ACTIVATE"
-	radio_connection.post_signal(src, signal)
-
-	var/time = time2text(world.realtime,"hh:mm:ss")
-	var/turf/T = get_turf(src)
-	if(usr)
-		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
-
-/obj/item/assembly/signaler/receive_signal(datum/signal/signal)
-	if(!receiving || !signal)
-		return FALSE
-
-	if(signal.encryption != code)
-		return FALSE
-
-	if(!(wires & WIRE_RADIO_RECEIVE))
-		return FALSE
-	pulse(1)
-
-	for(var/mob/O in hearers(1, loc))
-		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
-	return TRUE
-
-/obj/item/assembly/signaler/proc/set_frequency(new_frequency)
-	if(!SSradio)
-		sleep(20)
-	if(!SSradio)
-		return
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)

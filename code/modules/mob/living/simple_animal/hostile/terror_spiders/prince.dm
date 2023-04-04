@@ -12,6 +12,10 @@
 	name = "Prince of Terror spider"
 	desc = "An enormous, terrifying spider. It looks like it is judging everything it sees. Its hide seems armored, and it bears the scars of many battles."
 	spider_role_summary = "Miniboss terror spider. Lightning bruiser."
+	spider_intro_text = "As a Prince of Terror Spider, your role is to slaughter the crew with no remorse. \
+	You have extremely high health and your attacks deal massive brute damage, while also dealing high stamina damage and knocking down crew. \
+	You can also force open powered doors, smash down walls and lay webs which take longer to destroy and block vision. \
+	However, your large size makes you unable to ventcrawl and you regenerate health slower than other spiders."
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_allblack"
 	icon_living = "terror_allblack"
@@ -32,11 +36,7 @@
 	ai_spins_webs = FALSE
 	gender = MALE
 
-/mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)
-	if(can_die() && !hasdied && spider_uo71)
-		UnlockBlastDoors("UO71_SciStorage")
-	return ..()
-
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
 	L.KnockDown(10 SECONDS)
+	L.adjustStaminaLoss(40)
 	return ..()

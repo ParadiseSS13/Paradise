@@ -1,18 +1,20 @@
 /datum/surgery/organ_extraction
 	name = "Experimental Dissection"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest")
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/open_encased/saw,
+		/datum/surgery_step/open_encased/retract,
+		/datum/surgery_step/internal/extract_organ,
+		/datum/surgery_step/internal/gland_insert,
+		/datum/surgery_step/generic/cauterize
+	)
+	possible_locs = list(BODY_ZONE_CHEST)
+	requires_organic_bodypart = TRUE
+	requires_bodypart = TRUE
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!ishuman(user))
-		return FALSE
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(target_zone)
-		if(!affected)
-			return FALSE
-		if(affected.is_robotic())
-			return FALSE
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant
 	if((isabductor(H) || (locate(/obj/item/implant/abductor) in H)))
@@ -40,17 +42,17 @@
 		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
 		user.put_in_hands(IC)
 		IC.remove(target, special = 1)
-		return TRUE
+		return SURGERY_STEP_CONTINUE
 	if(NO_INTORGANS in AB.dna.species.species_traits)
 		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
-		return TRUE
+		return SURGERY_STEP_CONTINUE
 	else
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
-		return TRUE
+		return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='warning'>[user]'s hand slips, failing to extract anything!</span>", "<span class='warning'>Your hand slips, failing to extract anything!</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/internal/gland_insert
 	name = "insert gland"
@@ -68,35 +70,26 @@
 	var/obj/item/organ/internal/heart/gland/gland = tool
 	gland.insert(target, 2)
 	affected.mend_fracture() // Look, any sufficiently advanced technology is indistinguishable from magic.
-	return TRUE
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='warning'>[user]'s hand slips, failing to insert the gland!</span>", "<span class='warning'>Your hand slips, failing to insert the gland!</span>")
-	return FALSE
+	return SURGERY_STEP_RETRY
 
 //IPC Gland Surgery//
 
 /datum/surgery/organ_extraction/synth
 	name = "Experimental Robotic Dissection"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/extract_organ/synth,/datum/surgery_step/internal/gland_insert,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest")
+	steps = list(
+		/datum/surgery_step/robotics/external/unscrew_hatch,
+		/datum/surgery_step/robotics/external/open_hatch,
+		/datum/surgery_step/internal/extract_organ/synth,
+		/datum/surgery_step/internal/gland_insert,
+		/datum/surgery_step/robotics/external/close_hatch
+	)
+	possible_locs = list(BODY_ZONE_CHEST)
 	requires_organic_bodypart = FALSE
-
-/datum/surgery/organ_extraction/synth/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!ishuman(user))
-		return FALSE
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(target_zone)
-		if(!affected)
-			return FALSE
-		if(!affected.is_robotic())
-			return FALSE
-	var/mob/living/carbon/human/H = user
-	// You must either: Be of the abductor species, or contain an abductor implant
-	if((isabductor(H) || (locate(/obj/item/implant/abductor) in H)))
-		return TRUE
-	return FALSE
+	requires_bodypart = TRUE
 
 /datum/surgery_step/internal/extract_organ/synth
 	name = "remove cell"

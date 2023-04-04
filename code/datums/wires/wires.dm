@@ -162,7 +162,7 @@
 	holder.add_hiddenprint(user)
 
 	switch(action)
-		 // Toggles the cut/mend status.
+		// Toggles the cut/mend status.
 		if("cut")
 			if(!istype(I, /obj/item/wirecutters) && !user.can_admin_interact())
 				to_chat(user, "<span class='error'>You need wirecutters!</span>")
@@ -188,7 +188,7 @@
 
 			return TRUE
 
-		 // Attach a signaler to a wire.
+		// Attach a signaler to a wire.
 		if("attach")
 			if(is_attached(color))
 				var/obj/item/O = detach_assembly(color)
@@ -219,6 +219,8 @@
 		return TRUE
 	var/obj/item/held_item = user.get_active_hand()
 	if(istype(held_item) && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO))
+		return TRUE
+	if(HAS_TRAIT(user, TRAIT_SHOW_WIRE_INFO))
 		return TRUE
 	return FALSE
 

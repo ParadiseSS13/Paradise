@@ -40,7 +40,7 @@
 		W.loc = src
 		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		rename_interactive(user, W)
 	else
 		return ..()
@@ -53,7 +53,7 @@
 	for(var/obj/item/photo/Ph in src)
 		dat += "<A href='?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	for(var/obj/item/paper_bundle/Pa in src)
-		dat += "<A href='?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='?src=[UID()];look=\ref[Pa]'>[Pa.name]</A><BR>"
+		dat += "<A href='?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='?src=[UID()];browse=\ref[Pa]'>[Pa.name]</A><BR>"
 	for(var/obj/item/documents/doc in src)
 		dat += "<A href='?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
 	user << browse(dat, "window=folder")

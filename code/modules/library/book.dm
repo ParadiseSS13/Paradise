@@ -91,7 +91,7 @@
 	read_book(user)
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		edit_book(user)
 	else if(istype(I, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = I
@@ -255,14 +255,14 @@
 			if(!length(pages))
 				to_chat(user, "<span class='notice'>There aren't any pages in this book!</span>")
 				return
-			var/page_choice = stripped_input(user, "There are [length(pages)] pages, which page number would you like to remove?")
+			var/page_choice = input(user, "There are [length(pages)] pages, which page number would you like to remove?", "Input Page Number", null) as num|null
 			if(!page_choice)
 				to_chat(user, "<span class='notice'>You change your mind.</span>")
 				return
-			if(!isnum(page_choice) || page_choice <= 0 || page_choice > length(pages))
+			if(page_choice <= 0 || page_choice > length(pages))
 				to_chat(user, "<span class='notice'>That is not an acceptable value.</span")
 				return
-			pages -= pages[page_choice]
+			remove_page(page_choice)
 
 /obj/item/book/proc/edit_page(content, page_number)
 	if(!content)
@@ -282,10 +282,8 @@
 	return TRUE
 
 /obj/item/book/proc/remove_page(page_number)
-	if(length(pages) < page_number) //can't remove the page if it doesn't exist
-		return FALSE
 	pages -= pages[page_number]
-	page_number = length(pages) //if page_number is somehow at a value it shouldn't be we fix it here aswell
+	current_page = min(current_page, length(pages)) //if page_number is somehow at a value it shouldn't be we fix it here aswell
 	return TRUE //we want to make sure whatever is calling this proc knows the operation was succesful
 
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
@@ -322,7 +320,7 @@
 
 	user.drop_item()
 	I.forceMove(src)
-	RegisterSignal(I, COMSIG_PARENT_QDELETING, .proc/clear_stored_item) //ensure proper GC'ing
+	RegisterSignal(I, COMSIG_PARENT_QDELETING, PROC_REF(clear_stored_item)) //ensure proper GC'ing
 	store = I
 	to_chat(user, "<span class='notice'>You hide [I] in [name].</span>")
 	return TRUE

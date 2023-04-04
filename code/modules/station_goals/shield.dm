@@ -13,10 +13,10 @@
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
-	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat]"]
+	var/datum/supply_packs/P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat]"]
 	P.special_enabled = TRUE
 
-	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
+	P = SSeconomy.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/station_shield/check_completion()
@@ -104,7 +104,7 @@
 	var/mode = "NTPROBEV0.8"
 	var/active = FALSE
 	density = TRUE
-	use_power = FALSE
+	power_state = NO_POWER_USE
 	var/static/gid = 0
 	var/id = 0
 

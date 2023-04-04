@@ -152,8 +152,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 //do not use, use QUEUE_SMOOTH(atom)
 /atom/proc/smooth_icon()
 	smoothing_flags &= ~SMOOTH_QUEUED
-	if(!z) //nullspace are not sending their best
-		error("[type] called smooth_icon() without being on a z-level")
+	if(!z)
 		return
 	if(smoothing_flags & SMOOTH_CORNERS)
 		if(smoothing_flags & SMOOTH_DIAGONAL_CORNERS)
@@ -470,16 +469,6 @@ DEFINE_BITFIELD(smoothing_junction, list(
 			return SOUTHEAST
 		else
 			return NONE
-
-
-//Example smooth wall
-/turf/simulated/wall/smooth
-	name = "smooth wall"
-	icon = 'icons/turf/smooth_wall.dmi'
-	icon_state = "smooth"
-	smoothing_flags = SMOOTH_CORNERS|SMOOTH_DIAGONAL_CORNERS|SMOOTH_BORDER
-	smoothing_groups = null
-	canSmoothWith = null
 
 #undef NORTH_JUNCTION
 #undef SOUTH_JUNCTION

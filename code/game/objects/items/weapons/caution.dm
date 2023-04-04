@@ -15,7 +15,7 @@
 	var/armed = FALSE
 	var/timepassed = 0
 
-/obj/item/caution/proximity_sign/ComponentInitialize()
+/obj/item/caution/proximity_sign/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
@@ -46,7 +46,7 @@
 
 /obj/item/caution/proximity_sign/HasProximity(atom/movable/AM)
 	if(armed)
-		if(istype(AM, /mob/living/carbon) && !istype(AM, /mob/living/carbon/brain))
+		if(iscarbon(AM) && !isbrain(AM))
 			var/mob/living/carbon/C = AM
 			if(C.m_intent != MOVE_INTENT_WALK)
 				src.visible_message("[src] beeps, \"Running on wet floors is hazardous to your health.\"")

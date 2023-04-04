@@ -48,8 +48,8 @@
 		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
-	INVOKE_ASYNC(src, .proc/narsie_spawn_animation)
-	addtimer(CALLBACK(src, .proc/call_shuttle), 7 SECONDS)
+	INVOKE_ASYNC(src, PROC_REF(narsie_spawn_animation))
+	addtimer(CALLBACK(src, PROC_REF(call_shuttle)), 7 SECONDS)
 
 /obj/singularity/narsie/large/proc/call_shuttle()
 	SSshuttle.emergency.request(null, 0.3)
@@ -91,7 +91,7 @@
 	return
 
 /obj/singularity/narsie/proc/godsmack(atom/A)
-	if(istype(A,/obj/))
+	if(isobj(A))
 		var/obj/O = A
 		O.ex_act(1)
 		if(O) qdel(O)
@@ -122,6 +122,8 @@
 	var/list/noncultists = list()
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
+		if(!pos) // The GLOB mob list (alive or dead) can contain null entries, so we gotta check if we're trying to get the turf of something that doesn't exist
+			return
 		if(pos.z != src.z)
 			continue
 

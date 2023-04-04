@@ -16,7 +16,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "aP" = (
-/obj/machinery/vending/security,
+/obj/machinery/economy/vending/security,
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -63,7 +63,8 @@
 /area/shuttle/administration)
 "dn" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	name = "NRV Sparta navigation computer"
+	name = "NRV Sparta navigation computer";
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -90,7 +91,9 @@
 	name = "Shuttle Turret Control";
 	pixel_y = 30
 	},
-/obj/machinery/computer/camera_advanced,
+/obj/machinery/computer/camera_advanced{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "eL" = (
@@ -130,7 +133,8 @@
 /area/shuttle/administration)
 "gj" = (
 /obj/machinery/computer/communications{
-	name = "NRV Sparta Communications Console"
+	name = "NRV Sparta Communications Console";
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
@@ -227,6 +231,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
+"rA" = (
+/obj/structure/sign/securearea,
+/turf/simulated/wall/mineral/titanium/nodiagonal,
+/area/shuttle/administration)
 "sq" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife/combat{
@@ -266,7 +274,6 @@
 	name = "Airlock Blast Door Control";
 	pixel_x = 5;
 	pixel_y = 35;
-	req_access = null;
 	req_access_txt = "19"
 	},
 /obj/structure/chair/comfy/shuttle{
@@ -620,9 +627,13 @@
 /area/shuttle/administration)
 "Ir" = (
 /obj/machinery/computer/shuttle/admin{
-	name = "NRV Sparta shuttle console"
+	name = "NRV Sparta shuttle console";
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/administration)
+"Iv" = (
+/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/administration)
 "Jt" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -678,7 +689,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Mj" = (
-/obj/machinery/vending/medical,
+/obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/administration)
 "Mo" = (
@@ -805,7 +816,6 @@
 "TD" = (
 /obj/machinery/door/airlock/command{
 	name = "Command Center";
-	req_access = null;
 	req_access_txt = "19"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -1020,7 +1030,7 @@ vk
 xH
 NQ
 NQ
-kf
+rA
 "}
 (6,1,1) = {"
 vk
@@ -1264,22 +1274,22 @@ vk
 "}
 (18,1,1) = {"
 vk
-vk
+Iv
 uW
 uW
+Iv
 vk
 vk
-vk
-vk
+Iv
 uW
 uW
+Iv
 vk
 vk
-vk
-vk
+Iv
 uW
 uW
-vk
+Iv
 vk
 "}
 (19,1,1) = {"

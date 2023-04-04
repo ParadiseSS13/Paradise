@@ -257,8 +257,8 @@
 /datum/pai_software/signaler/get_app_data(mob/living/silicon/pai/user)
 	var/list/data = list()
 
-	data["frequency"] = user.sradio.frequency
-	data["code"] = user.sradio.code
+	data["frequency"] = user.integ_signaler.frequency
+	data["code"] = user.integ_signaler.code
 	data["minFrequency"] = PUBLIC_LOW_FREQ
 	data["maxFrequency"] = PUBLIC_HIGH_FREQ
 
@@ -270,14 +270,14 @@
 
 	switch(action)
 		if("signal")
-			pai_holder.sradio.send_signal("ACTIVATE")
+
+			pai_holder.integ_signaler.activate()
 
 		if("freq")
-			var/new_frequency = sanitize_frequency(text2num(params["freq"]) * 10)
-			pai_holder.sradio.set_frequency(new_frequency)
+			pai_holder.integ_signaler.frequency = sanitize_frequency(text2num(params["freq"]) * 10)
 
 		if("code")
-			pai_holder.sradio.code = clamp(text2num(params["code"]), 1, 100)
+			pai_holder.integ_signaler.code = clamp(text2num(params["code"]), 1, 100)
 
 // Door Jack //
 /datum/pai_software/door_jack
@@ -317,7 +317,7 @@
 					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
 				else
 					hacking = TRUE
-					INVOKE_ASYNC(src, .proc/hackloop)
+					INVOKE_ASYNC(src, PROC_REF(hackloop))
 		if("cancel")
 			hackdoor = null
 		if("cable")

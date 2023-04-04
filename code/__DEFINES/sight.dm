@@ -1,3 +1,4 @@
+#define INVISIBILITY_MINIMUM 0 //not really minimum, but we will lie
 #define SEE_INVISIBLE_MINIMUM 5
 
 #define SEE_INVISIBLE_OBSERVER_NOLIGHTING 15

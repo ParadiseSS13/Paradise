@@ -78,6 +78,8 @@
 #define NO_MALF_EFFECT_2		(1<<17)
 /// Use when this shouldn't be obscured by large icons.
 #define CRITICAL_ATOM_2			(1<<18)
+/// Use this flag for items that can block randomly
+#define RANDOM_BLOCKER_2		(1<<19)
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -104,6 +106,7 @@
 #define HAS_BODYACC_COLOR	8192
 #define BALD				16384
 #define ALL_RPARTS			32768
+#define SHAVED				65536
 
 //Pre-baked combinations of the above body flags
 #define HAS_BODY_ACCESSORY 	HAS_TAIL|HAS_WING
@@ -130,6 +133,7 @@
 #define PASSMOB			16
 #define LETPASSTHROW	32
 #define PASSFENCE		64
+#define PASSDOOR		128
 
 //turf-only flags
 #define NOJAUNT		1

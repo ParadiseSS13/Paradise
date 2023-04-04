@@ -11,6 +11,7 @@
 	bitesize = 3
 	list_reagents = list("plantmatter" = 2)
 	tastes = list("tofu" = 1)
+	ingredient_name = "tofu chunk"
 
 /obj/item/reagent_containers/food/snacks/fried_tofu
 	name = "fried tofu"
@@ -23,8 +24,8 @@
 
 /obj/item/reagent_containers/food/snacks/soydope
 	name = "soy dope"
-	desc = "Like regular dope, but for the health concious consumer."
 	icon_state = "soydope"
+	desc = "Like regular dope, but for the health conscious consumer."
 	trash = /obj/item/trash/plate
 	filling_color = "#C4BF76"
 	list_reagents = list("nutriment" = 2)

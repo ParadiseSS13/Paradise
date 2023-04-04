@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation
 	density = TRUE
 	icon_state = "offcenter"
-	use_power = IDLE_POWER_USE
+	power_state = IDLE_POWER_USE
 
 	//warping vars
 	var/list/linked = list()
@@ -93,7 +93,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 	if(linked.len != 8)
 		return
-	if(!powered())
+	if(!has_power())
 		return
 	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
@@ -163,7 +163,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centeraway
 	density = TRUE
 	icon_state = "offcenter"
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
+
 	var/calibrated = 1
 	var/list/linked = list()	//a list of the connected gateway chunks
 	var/ready = FALSE
@@ -252,12 +253,12 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	else
 		for(var/mob/living/L in AM.contents)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in contained lifeform.")
+				atom_say("Rejecting [AM]: Exile bio-chip detected in contained lifeform.")
 				return
 	if(AM.has_buckled_mobs())
 		for(var/mob/living/L in AM.buckled_mobs)
 			if(exilecheck(L))
-				atom_say("Rejecting [AM]: Exile implant detected in close proximity lifeform.")
+				atom_say("Rejecting [AM]: Exile bio-chip detected in close proximity lifeform.")
 				return
 	AM.forceMove(get_step(stationgate.loc, SOUTH))
 	AM.setDir(SOUTH)
@@ -267,9 +268,9 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
 /obj/machinery/gateway/centeraway/proc/exilecheck(mob/living/carbon/M)
-	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
+	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile bio-chip in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
-			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
+			to_chat(M, "<span class='notice'>The station gate has detected your exile bio-chip and is blocking your entry.</span>")
 			return 1
 	return 0
 

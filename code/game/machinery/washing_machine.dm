@@ -26,7 +26,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(!istype(usr, /mob/living)) //ew ew ew usr, but it's the only way to check.
+	if(!isliving(usr)) //ew ew ew usr, but it's the only way to check.
 		return
 
 	if( state != 4 )
@@ -72,6 +72,7 @@
 			var/new_shoe_name = ""
 			var/new_sheet_icon_state = ""
 			var/new_sheet_name = ""
+			var/new_sheet_item_state = ""
 			var/new_softcap_icon_state = ""
 			var/new_softcap_name = ""
 			var/new_desc = "The colors are a bit dodgy."
@@ -115,6 +116,7 @@
 				if(wash_color == B.item_color)
 					new_sheet_icon_state = B.icon_state
 					new_sheet_name = B.name
+					new_sheet_item_state = B.item_state
 					qdel(B)
 					break
 				qdel(B)
@@ -170,6 +172,7 @@
 				for(var/obj/item/bedsheet/B in contents)
 					B.icon_state = new_sheet_icon_state
 					B.item_color = wash_color
+					B.item_state = new_sheet_item_state
 					B.name = new_sheet_name
 					B.desc = new_desc
 			if(new_softcap_icon_state && new_softcap_name)
@@ -204,11 +207,7 @@
 	icon_state = "wm_[state][panel]"
 
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
-	/*if(istype(W,/obj/item/screwdriver))
-		panel = !panel
-		to_chat(user, "<span class='notice'>you [panel ? </span>"open" : "close"] the [src]'s maintenance panel")*/
 	if(default_unfasten_wrench(user, W))
-		power_change()
 		return
 	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/stamp))
 		if( state in list(	1, 3, 6 ) )

@@ -53,7 +53,7 @@
 	name = "Side Frills"
 	icon_state = "sidefrills"
 	secondary_theme = "webbing"
-    
+
 /datum/sprite_accessory/facial_hair/unathi/una_frills_dorsal
 	over_hair = null
 	name = "Dorsal Frills"

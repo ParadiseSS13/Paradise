@@ -16,12 +16,6 @@
 
 /proc/setupgenetics()
 
-	if(prob(50))
-		GLOB.blockadd = rand(-300,300)
-	if(prob(75))
-		GLOB.diffmut = rand(0,20)
-
-
 //Thanks to nexis for the fancy code
 // BITCH I AIN'T DONE YET
 
@@ -148,6 +142,6 @@
 	picked_cult = new random_cult()
 
 	if(!picked_cult)
-		log_runtime(EXCEPTION("Cult datum creation failed"))
+		stack_trace("Cult datum creation failed")
 	//todo:add adminonly datum var, check for said var here...
 	return picked_cult

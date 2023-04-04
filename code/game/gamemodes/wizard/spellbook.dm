@@ -47,6 +47,7 @@
 						aspell.name = "Instant [aspell.name]"
 				if(aspell.spell_level >= aspell.level_max)
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
+				aspell.on_purchase_upgrade()
 				return TRUE
 	//No same spell found - just learn it
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
@@ -184,16 +185,16 @@
 	category = "Defensive"
 	cost = 1
 
-/datum/spellbook_entry/greaterforcewall
-	name = "Greater Force Wall"
-	spell_type = /obj/effect/proc_holder/spell/forcewall/greater
-	log_name = "GFW"
+/datum/spellbook_entry/rathens
+	name = "Rathen's Secret"
+	spell_type = /obj/effect/proc_holder/spell/rathens
+	log_name = "RS"
 	category = "Defensive"
-	cost = 1
+	cost = 2
 
 /datum/spellbook_entry/repulse
 	name = "Repulse"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/repulse
+	spell_type = /obj/effect/proc_holder/spell/aoe/repulse
 	log_name = "RP"
 	category = "Defensive"
 	cost = 1
@@ -220,7 +221,7 @@
 
 /datum/spellbook_entry/timestop
 	name = "Time Stop"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop
+	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/timestop
 	log_name = "TS"
 	category = "Defensive"
 
@@ -246,7 +247,7 @@
 //Mobility
 /datum/spellbook_entry/knock
 	name = "Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock
+	spell_type = /obj/effect/proc_holder/spell/aoe/knock
 	log_name = "KN"
 	category = "Mobility"
 	cost = 1
@@ -263,9 +264,16 @@
 	log_name = "EJ"
 	category = "Mobility"
 
+/datum/spellbook_entry/spacetime_dist
+	name = "Spacetime Distortion"
+	spell_type = /obj/effect/proc_holder/spell/spacetime_dist
+	cost = 1 //Better defence than greater forcewall (maybe) but good luck hitting anyone, so 1 point.
+	log_name = "STD" //listen it can't be SD and no one ever sees this unless they are stat profiling
+	category = "Mobility"
+
 /datum/spellbook_entry/greaterknock
 	name = "Greater Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock/greater
+	spell_type = /obj/effect/proc_holder/spell/aoe/knock/greater
 	log_name = "GK"
 	category = "Mobility"
 	refundable = 0 //global effect on cast
@@ -317,10 +325,10 @@
 /datum/spellbook_entry/summon/GetInfo()
 	var/dat =""
 	dat += "<b>[name]</b>"
-	if(cost>0)
-		dat += " Cost:[cost]<br>"
-	else
+	if(cost == 0)
 		dat += " No Cost<br>"
+	else
+		dat += " Cost:[cost]<br>"
 	dat += "<i>[desc]</i><br>"
 	if(active)
 		dat += "<b>Already cast!</b><br>"
@@ -357,7 +365,8 @@
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
-	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
+	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first. Hopefully. Gives you 2 extra spell points on purchase."
+	cost = -2
 	log_name = "SG"
 	is_ragin_restricted = TRUE
 
@@ -371,7 +380,8 @@
 
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
-	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
+	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time. Gives you 2 extra spell points on purchase."
+	cost = -2
 	log_name = "SU"
 	is_ragin_restricted = TRUE
 
@@ -431,7 +441,7 @@
 /datum/spellbook_entry/item/soulstones/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
 	if(.)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/construct(null))
 	return .
 
 /datum/spellbook_entry/item/wands
@@ -465,6 +475,14 @@
 	spawn_on_floor = TRUE // breaks if spawned in hand
 	category = "Artefacts"
 
+/datum/spellbook_entry/item/everfull_mug
+	name = "Everfull Mug"
+	desc = "A magical mug that can be filled with omnizine at will, though beware of addiction! It can also produce alchohol and other less useful substances."
+	item_path = /obj/item/reagent_containers/food/drinks/everfull
+	log_name = "EM"
+	cost = 1
+	category = "Artefacts"
+
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
@@ -494,6 +512,14 @@
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everything nearby to the point of impact."
 	item_path = /obj/item/twohanded/singularityhammer
 	log_name = "SI"
+	category = "Weapons and Armors"
+
+/datum/spellbook_entry/item/cursed_katana
+	name = "Cursed Katana"
+	desc = "A cursed artefact, used to seal a horrible being inside the katana, which has now reformed. Can be used to make multiple powerful combos, examine it to see them. Can not be dropped. On death, you will dust."
+	item_path = /obj/item/organ/internal/cyberimp/arm/katana
+	cost = 1
+	log_name = "CK"
 	category = "Weapons and Armors"
 
 /datum/spellbook_entry/item/spell_blade
@@ -590,6 +616,24 @@
 	log_name = "BB"
 	category = "Summons"
 	limit = 3
+
+/datum/spellbook_entry/item/shadowbottle
+	name = "Bottle of Shadows"
+	desc = "A bottle of pure darkness, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned from the shadows are indiscriminate in their killing, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
+	log_name = "BOS"
+	category = "Summons"
+	limit = 3
+	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
+
+/datum/spellbook_entry/item/revenantbottle
+	name = "Bottle of Ectoplasm"
+	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm. Be careful though, these salty spirits are indiscriminate in their harvesting, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/revenant
+	log_name = "RB"
+	category = "Summons"
+	limit = 3
+	cost = 1 //Needs essence to live. Needs crew to die for essence, doubt xenobio will be making many monkeys. As such, weaker. Also can hardstun the wizard.
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
@@ -709,6 +753,11 @@
 			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
 				if(!isnull(HB.limit))
 					HB.limit++
+		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
+			uses += 1
+			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
+				if(!isnull(SB.limit))
+					SB.limit++
 		else
 			uses += 2
 			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
@@ -723,6 +772,15 @@
 		for(var/datum/spellbook_entry/item/oozebottle/OB in entries)
 			if(!isnull(OB.limit))
 				OB.limit++
+		qdel(O)
+		return
+
+	if(istype(O, /obj/item/antag_spawner/revenant))
+		to_chat(user, "<span class='notice'>On second thought, maybe the ghosts have been salty enough today. You refund your points.</span>")
+		uses += 1
+		for(var/datum/spellbook_entry/item/revenantbottle/RB in entries)
+			if(!isnull(RB.limit))
+				RB.limit++
 		qdel(O)
 		return
 	return ..()
@@ -774,21 +832,21 @@
 	dat += {"
 	<head>
 		<style type="text/css">
-      		body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-      		ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.6em 0; }
-      		ul#tabs li { display: inline; }
-      		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
-      		ul#tabs li a:hover { background-color: #f1f0ee; }
-      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; border-bottom: 1px solid #f1f0ee; font-weight: bold; padding: 0.6em 0.6em 0.6em 0.6em; }
+			body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
+			ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.6em 0; }
+			ul#tabs li { display: inline; }
+			ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
+			ul#tabs li a:hover { background-color: #f1f0ee; }
+			ul#tabs li a.selected { color: #000; background-color: #f1f0ee; border-bottom: 1px solid #f1f0ee; font-weight: bold; padding: 0.6em 0.6em 0.6em 0.6em; }
 			ul#maintabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 1em 0; font-size: 14px; }
 			ul#maintabs li { display: inline; }
-      		ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; padding: 1em; text-decoration: none; }
-      		ul#maintabs li a:hover { background-color: #f1f0ee; }
-      		ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1.4em 1.2em 1em 1.2em; }
-      		div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
-      		div.tabContent.hide { display: none; }
-    	</style>
-  	</head>
+			ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; padding: 1em; text-decoration: none; }
+			ul#maintabs li a:hover { background-color: #f1f0ee; }
+			ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1.4em 1.2em 1em 1.2em; }
+			div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
+			div.tabContent.hide { display: none; }
+		</style>
+	</head>
 	"}
 	dat += {"[content]</body></html>"}
 	return dat
@@ -868,7 +926,7 @@
 		return 1
 
 	var/datum/spellbook_entry/E = null
-	if(loc == H || (in_range(src, H) && istype(loc, /turf)))
+	if(loc == H || (in_range(src, H) && isturf(loc)))
 		H.set_machine(src)
 		if(href_list["buy"])
 			E = entries[text2num(href_list["buy"])]
@@ -1025,7 +1083,7 @@
 	user.drop_item()
 
 /obj/item/spellbook/oneuse/knock
-	spell = /obj/effect/proc_holder/spell/aoe_turf/knock
+	spell = /obj/effect/proc_holder/spell/aoe/knock
 	spellname = "knock"
 	icon_state = "bookknock"
 	desc = "This book is hard to hold closed properly."
@@ -1042,7 +1100,7 @@
 	desc = "This book is more horse than your mind has room for."
 
 /obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user as mob)
-	if(istype(user, /mob/living/carbon/human))
+	if(ishuman(user))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		magichead.flags |= NODROP | DROPDEL	//curses!

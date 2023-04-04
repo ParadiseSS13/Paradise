@@ -28,6 +28,7 @@
 	health = 1000
 	melee_damage_lower = 35
 	melee_damage_upper = 35
+	armour_penetration_percentage = 50
 	attacktext = "slashes its arms at"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	throw_message = "doesn't affect the sturdiness of"
@@ -66,7 +67,7 @@
 /datum/action/innate/elite_attack/bonfire_teleport
 	name = "Bonfire Teleport"
 	button_icon_state = "bonfire_teleport"
-	chosen_message = "<span class='boldwarning'>You will leave a bonfire.  Second use will let you swap positions with it indefintiely.  Using this move on the same tile as your active bonfire removes it.</span>"
+	chosen_message = "<span class='boldwarning'>You will leave a bonfire. Second use will let you swap positions with it indefintiely. Using this move on the same tile as your active bonfire removes it.</span>"
 	chosen_attack_num = BONFIRE_TELEPORT
 
 /datum/action/innate/elite_attack/spew_smoke
@@ -127,9 +128,9 @@
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
 	visible_message("<span class='danger'>[src] prepares to charge!</span>")
-	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, dir_to_target, 0), 4)
+	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), dir_to_target, 0), 4)
 
-/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran)
+/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran, list/hit_targets = list())
 	if(times_ran >= 6)
 		charging = FALSE
 		return
@@ -147,20 +148,30 @@
 		if(D.density)
 			charging = FALSE
 			return
+	if(T.x > world.maxx - 2 || T.x < 2) //Keep them from runtiming
+		charging = FALSE
+		return
+	if(T.y > world.maxy - 2 || T.y < 2)
+		charging = FALSE
+		return
 	forceMove(T)
 	playsound(src,'sound/effects/bang.ogg', 200, 1)
-	var/list/hit_things = list()
 	var/throwtarget = get_edge_target_turf(src, move_dir)
-	for(var/mob/living/L in T.contents - hit_things - src)
+	for(var/mob/living/L in T.contents - src)
 		if(faction_check_mob(L))
+			charging = FALSE
 			return
-		hit_things += L
 		visible_message("<span class='danger'>[src] tramples and kicks [L]!</span>")
 		to_chat(L, "<span class='userdanger'>[src] tramples you and kicks you away!</span>")
 		L.throw_at(throwtarget, 10, 1, src)
-		L.KnockDown(1 SECONDS)
-		L.adjustBruteLoss(melee_damage_upper)
-	addtimer(CALLBACK(src, .proc/legionnaire_charge_to, move_dir, (times_ran + 1)), 0.7)
+		L.Weaken(1 SECONDS) //Pain Train has no breaks.
+		if(L in hit_targets)
+			L.adjustBruteLoss(15)
+		else
+			hit_targets += L
+			L.adjustBruteLoss(25)
+
+	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), move_dir, (times_ran + 1), hit_targets), 0.7)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/head_detach(target)
 	ranged_cooldown = world.time + 1 SECONDS * revive_multiplier()
@@ -187,7 +198,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/onHeadDeath()
 	myhead = null
-	addtimer(CALLBACK(src, .proc/regain_head), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(regain_head)), 5 SECONDS)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/regain_head()
 	has_head = TRUE
@@ -199,7 +210,7 @@
 	visible_message("<span class='danger'>The top of [src]'s spine leaks a black liquid, forming into a skull!</span>")
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
-	ranged_cooldown = world.time + 0.5 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 2 SECONDS * revive_multiplier()
 	if(isnull(mypile))
 		var/obj/structure/legionnaire_bonfire/newpile = new /obj/structure/legionnaire_bonfire(loc)
 		mypile = newpile
@@ -221,7 +232,7 @@
 		mypile.forceMove(legionturf)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/spew_smoke()
-	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
+	ranged_cooldown = world.time + 2.5 SECONDS * revive_multiplier()
 	var/smoke_location = null
 	if(isnull(myhead))
 		smoke_location = src
@@ -234,7 +245,7 @@
 	else
 		visible_message("<span class='danger'>[src] spews smoke from its maw!</span>")
 	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(6, 0, smoke_location)
+	smoke.set_up(6, FALSE, smoke_location)
 	smoke.attach(smoke_location)
 	smoke.start()
 
@@ -311,7 +322,7 @@
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "legionnaire_spine"
 	denied_type = /obj/item/crusher_trophy/legionnaire_spine
-	bonus_value = 25
+	bonus_value = 75 // listen this dies in one hit, this can be a high chance.
 	/// Time at which the item becomes usable again
 	var/next_use_time
 

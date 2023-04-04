@@ -335,7 +335,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "aH" = (
-/obj/machinery/vending/clothing,
+/obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
@@ -483,8 +483,7 @@
 	},
 /area/ruin/space/unpowered)
 "bc" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bd" = (
@@ -668,7 +667,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bG" = (
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 8;
 	keep_preset_name = 1;
 	name = "Bunker APC";
@@ -723,7 +722,7 @@
 	},
 /area/ruin/space/unpowered)
 "bN" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bO" = (
@@ -753,7 +752,7 @@
 	},
 /area/ruin/space/unpowered)
 "bT" = (
-/obj/machinery/vending/hydroseeds{
+/obj/machinery/economy/vending/hydroseeds{
 	slogan_delay = 700
 	},
 /turf/simulated/floor/plasteel,

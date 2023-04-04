@@ -1,13 +1,13 @@
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall
+/obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates into physical reality."
 	school = "mime"
 	panel = "Mime"
-	summon_type = list(/obj/effect/forcefield/mime)
+	summon_type = list(/obj/structure/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
-	summon_lifespan = 300
-	base_cooldown = 300
+	summon_lifespan = 20 SECONDS
+	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	cast_sound = null
 	human_req = TRUE
@@ -15,7 +15,7 @@
 	action_icon_state = "mime"
 	action_background_icon_state = "bg_mime"
 
-/obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall/Click()
+/obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall/Click()
 	if(usr && usr.mind)
 		if(!usr.mind.miming)
 			to_chat(usr, "<span class='notice'>You must dedicate yourself to silence first.</span>")
@@ -34,7 +34,7 @@
 	school = "mime"
 	panel = "Mime"
 	clothes_req = FALSE
-	base_cooldown = 3000
+	base_cooldown = 5 MINUTES
 	human_req = TRUE
 
 	action_icon_state = "mime_silence"
@@ -70,13 +70,12 @@
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
-	base_cooldown = 600
+	base_cooldown = 60 SECONDS
 	sound =  null
 	clothes_req = FALSE
 
 	action_icon_state = "mime_bigwall"
 	action_background_icon_state = "bg_mime"
-	large = TRUE
 
 /obj/effect/proc_holder/spell/forcewall/mime/Click()
 	if(usr && usr.mind)
@@ -94,7 +93,7 @@
 	school = "mime"
 	panel = "Mime"
 	clothes_req = FALSE
-	base_cooldown = 300
+	base_cooldown = 30 SECONDS
 	human_req = TRUE
 
 	action_icon_state = "fingergun"
@@ -118,7 +117,7 @@
 // Mime Spellbooks
 
 /obj/item/spellbook/oneuse/mime
-	spell = /obj/effect/proc_holder/spell/aoe_turf/conjure/build/mime_wall
+	spell = /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall
 	spellname = "Invisible Wall"
 	name = "Miming Manual : "
 	desc = "It contains various pictures of mimes mid-performance, aswell as some illustrated tutorials."

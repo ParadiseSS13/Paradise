@@ -24,7 +24,7 @@
 			return
 
 	if(!special)
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 120)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 120)
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(!is_robotic() || emp_proof)
@@ -42,7 +42,7 @@
 		return
 	if(!beating)
 		Restart()
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 80)
+		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
 	Restart()
@@ -79,6 +79,16 @@
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
 	var/blood_loss = 100 //600 blood is human default, so 5 failures (below 122 blood is where humans die because reasons?)
 
+	// Give the user a chance to be shocked to life with the heart in, since defibs put them to sleep.
+	/// How long the shock pumps their heart for them.
+	var/revival_grace_period = 10 SECONDS
+	/// If true, the user doesn't need to pump their heart.
+	var/in_grace_period = FALSE
+	/// Times that it's been shocked.
+	var/times_shocked = 0
+	/// Max times that the shock will work before it'll just refuse.
+	var/max_shocks_allowed = 5
+
 	//How much to heal per pump, negative numbers would HURT the player
 	var/heal_brute = 0
 	var/heal_burn = 0
@@ -96,7 +106,7 @@
 		return ..()
 
 /obj/item/organ/internal/heart/cursed/on_life()
-	if(world.time > (last_pump + pump_delay))
+	if(world.time > (last_pump + pump_delay) && !in_grace_period)
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
 			if(!(NO_BLOOD in H.dna.species.species_traits))
@@ -111,9 +121,70 @@
 	..()
 	if(owner)
 		to_chat(owner, "<span class='userdanger'>Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!</span>")
+		RegisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, PROC_REF(just_before_revive))
+		RegisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
+
+/obj/item/organ/internal/heart/cursed/remove(mob/living/carbon/M, special)
+	if(owner?.client?.prefs.colourblind_mode == COLOURBLIND_MODE_NONE)
+		owner.client.color = ""
+
+	UnregisterSignal(owner, COMSIG_LIVING_PRE_DEFIB, PROC_REF(just_before_revive))
+	UnregisterSignal(owner, COMSIG_LIVING_DEFIBBED, PROC_REF(on_defib_revive))
+	return ..()
+
+
+/obj/item/organ/internal/heart/cursed/proc/on_defib_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, obj/item/defib, mob/dead/observer/ghost = null)
+	SIGNAL_HANDLER  // COMSIG_LIVING_DEFIBBED
+
+	if(!owner || !istype(owner) || owner.stat != DEAD)
+		return
+
+	if(times_shocked >= max_shocks_allowed)
+		shocker.visible_message(
+			"<span class='userdanger'>Tendrils of ghastly electricity surge from [shocked] as [shocked.p_their()] heart seems to outright refuse defibrillation!<span>",
+			blind_message = "<span class='danger'>You hear a loud shock.</span>"
+		)
+		tesla_zap(owner, 4, 8000, ZAP_MOB_STUN | ZAP_MOB_DAMAGE)
+		// NO, YOU!
+		playsound(get_turf(owner), 'sound/magic/lightningshock.ogg', 50, 1)
+
+		defib.audible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Anomalous heart activity detected while administering shock.</span>")
+		playsound(defib, "defib_saftyon.ogg", 50, FALSE)
+
+		return COMPONENT_DEFIB_OVERRIDE
+
+	in_grace_period = TRUE
+	times_shocked++
+	// wake up
+	addtimer(CALLBACK(src, PROC_REF(after_revive)), 2 SECONDS)  // grab a brush and put a little make-up
+	addtimer(CALLBACK(src, PROC_REF(on_end_grace_period)), revival_grace_period)  // hide the scars to fade away the shake-up
+
+/obj/item/organ/internal/heart/cursed/proc/after_revive()
+	owner.SetSleeping(0)
+	owner.SetParalysis(0)
+
+/// Run this just before the shock is applied so we end up with enough blood to revive.
+/obj/item/organ/internal/heart/cursed/proc/just_before_revive(mob/living/carbon/shocked, mob/living/carbon/shocker, mob/dead/observer/ghost = null)
+	SIGNAL_HANDLER  // COMSIG_LIVING_PRE_DEFIB
+
+	if(owner.stat == DEAD)
+		owner.blood_volume = BLOOD_VOLUME_OKAY
+
+/obj/item/organ/internal/heart/cursed/proc/on_end_grace_period()
+	in_grace_period = FALSE
+	if(!owner)
+		return
+	to_chat(owner, "<span class='userdanger'>The effects of the shock seem to wear off, and you feel a familiar tightness in your chest! Get pumping!</span>")
+
+	if(times_shocked < max_shocks_allowed - 1)
+		to_chat(owner, "<span class='warning'>It doesn't feel like your [name] enjoyed that.</span>")
+	else if(times_shocked == max_shocks_allowed - 1)
+		to_chat(owner, "<span class='danger'>Your [name] starts to feel heavy in your chest. It doesn't seem like it'll be able to take many more shocks!</span>")
+	else
+		to_chat(owner, "<span class='userdanger'>Your [name] feels like lead. Something tells you that if you die with it again, you won't get another chance!</span>")
 
 /datum/action/item_action/organ_action/cursed_heart
-	name = "pump your blood"
+	name = "Pump your heart"
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_heart/Trigger()
@@ -127,7 +198,7 @@
 
 		cursed_heart.last_pump = world.time
 		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-		to_chat(owner, "<span class = 'notice'>Your heart beats.</span>")
+		to_chat(owner, "<span class='notice'>Your heart beats.</span>")
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
@@ -158,8 +229,8 @@
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/M, special = FALSE)
 	..()
-	RegisterSignal(M, COMSIG_LIVING_MINOR_SHOCK, .proc/shock_heart)
-	RegisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT, .proc/shock_heart)
+	RegisterSignal(M, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(shock_heart))
+	RegisterSignal(M, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(shock_heart))
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/remove(mob/living/carbon/M, special = FALSE)
 	UnregisterSignal(M, COMSIG_LIVING_MINOR_SHOCK)
@@ -176,20 +247,20 @@
 		if(prob(20) && emagged)
 			attempted_restart = TRUE
 			Restart()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(10))
 			attempted_restart = TRUE
 			Restart()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, .proc/recharge), 200)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
-				addtimer(CALLBACK(src, .proc/recharge), 300)
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
 	if(!(status & ORGAN_DEAD) && !attempted_restart && owner.HasDisease(new /datum/disease/critical/heart_failure(0)))
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
@@ -197,21 +268,21 @@
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else if(prob(25))
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.viruses)
 				HF.cure()
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
-			addtimer(CALLBACK(src, .proc/recharge), 200)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] returns to its normal rhythm!</span>"), 30)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else
 			attempted_restart = TRUE
 			if(emagged)
-				addtimer(CALLBACK(src, .proc/recharge), 200)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
-				addtimer(CALLBACK(src, .proc/recharge), 300)
-			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
+				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
+			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
 	if(!(status & ORGAN_DEAD))
 		var/boost = emagged ? 2 : 1

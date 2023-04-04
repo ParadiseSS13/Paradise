@@ -8,7 +8,7 @@
 	put_on_delay = 25
 	resistance_flags = FLAMMABLE
 
-/obj/item/clothing/ears/earmuffs/ComponentInitialize()
+/obj/item/clothing/ears/earmuffs/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/earhealing)
 

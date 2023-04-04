@@ -46,8 +46,12 @@
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
 		var/obj/item/organ/external/E = bodyparts_by_name[limb_tag]
-		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning())
-			stance_damage += 2 // let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs
+		if(!E || (E.status & ORGAN_DEAD) || E.is_malfunctioning() || !E.properly_attached)
+			if(E && !E.properly_attached && life_tick % 24 == 0)
+				to_chat(src, "<span class='danger'>Your [E] is hanging on by a thread! You need someone to surgically attach it for you!</span>")
+			// let it fail even if just foot&leg. Also malfunctioning happens sporadically so it should impact more when it procs.
+			// Also, if you haven't gotten your leg properly attached surgically, you're not gonna have a good time trying to walk.
+			stance_damage += 2
 		else if(E.is_broken() || !E.is_usable())
 			stance_damage += 1
 
@@ -80,7 +84,8 @@
 		if(!E || !E.can_grasp || (E.status & ORGAN_SPLINTED))
 			continue
 
-		if(E.is_broken())
+
+		if(E.is_broken() || !E.properly_attached)
 			if((E.body_part == HAND_LEFT) || (E.body_part == ARM_LEFT))
 				if(!l_hand)
 					continue
@@ -91,6 +96,14 @@
 					continue
 				if(!unEquip(r_hand))
 					continue
+
+			if(!E.properly_attached)
+				visible_message(
+					"<span class='warning'>[src]'s [E.name] seems to be hanging loosely from [p_their()] wrist, completely fumbling what [p_they()] [p_were()] holding!</span>",
+					"<span class='userdanger'>You feel pain shoot through your [E.name] as it dangles limply from your [E.amputation_point], you need to get it surgically attached before you can hold anything with it!</span>"
+				)
+
+				return
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
 			custom_emote(EMOTE_VISIBLE, "[HAS_TRAIT(src, TRAIT_NOPAIN) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
@@ -157,12 +170,12 @@ I use this to standardize shadowling dethrall code
 	return O.parent_organ
 
 /mob/living/carbon/human/has_organic_damage()
-	var/odmg = 0
-	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.is_robotic())
-			odmg += O.brute_dam
-			odmg += O.burn_dam
-	return (health < (100 - odmg))
+	var/robo_damage = 0
+	for(var/obj/item/organ/external/E in bodyparts)
+		if(E.is_robotic())
+			robo_damage += E.brute_dam
+			robo_damage += E.burn_dam
+	return health < maxHealth - robo_damage
 
 /mob/living/carbon/human/proc/handle_splints() //proc that rebuilds the list of splints on this person, for ease of processing
 	splinted_limbs.Cut()

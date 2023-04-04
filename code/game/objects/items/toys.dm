@@ -169,7 +169,7 @@
 		item_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
 
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
@@ -304,7 +304,7 @@
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
+	addtimer(CALLBACK(src, PROC_REF(respawn)), respawn_time)
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
@@ -424,7 +424,7 @@
 	..()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 40, 1)
 	for(var/mob/M in range(10, src))
-		if(!M.stat && !istype(M, /mob/living/silicon/ai))\
+		if(!M.stat && !isAI(M))\
 			shake_camera(M, 3, 1)
 	qdel(src)
 
@@ -572,7 +572,7 @@
 	name = "grumpy fox"
 	desc = "An ancient plushie that seems particularly grumpy."
 
-/obj/item/toy/plushie/orange_fox/grump/ComponentInitialize()
+/obj/item/toy/plushie/orange_fox/grump/Initialize(mapload)
 	. = ..()
 	var/static/list/grumps = list("Ahh, yes, you're so clever, var editing that.", "Really?", "If you make a runtime with var edits, it's your own damn fault.",
 	"Don't you dare post issues on the git when you don't even know how this works.", "Was that necessary?", "Ohhh, setting admin edited var must be your favorite pastime!",
@@ -642,7 +642,7 @@
 	if(scream_cooldown)
 		return
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
-	addtimer(CALLBACK(src, .proc/reset_screamdown), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
+	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
 	visible_message("<span class='danger'>AAAAAAH!</span>")
 	if(singed)
@@ -663,7 +663,7 @@
 	if(hug_cooldown)
 		return
 	hug_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reset_hugdown), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
+	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
 	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
 		visible_message("<span class='danger'>Ow...</span>")
 	else//If the plushie has not touched water they'll say Greetings in wingdings.
@@ -788,7 +788,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		playsound(src, 'sound/effects/pope_entry.ogg', 100)
 		animate_rumble(src)
-		addtimer(CALLBACK(src, .proc/stopRumble), 60 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(stopRumble)), 60 SECONDS)
 	else
 		to_chat(user, "<span class='warning'>[src] is already active!</span>")
 
@@ -833,7 +833,7 @@
 		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='notice'>The button clicks loudly.</span>")
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, 0)
 		for(var/mob/M in range(10, src)) // Checks range
-			if(!M.stat && !istype(M, /mob/living/silicon/ai)) // Checks to make sure whoever's getting shaken is alive/not the AI
+			if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
 				sleep(8) // Short delay to match up with the explosion sound
 				shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 
@@ -1089,10 +1089,6 @@
 	. = ..()
 	. += "Has [fake_bullets] round\s remaining."
 	. += "[fake_bullets] of those are live rounds."
-
-/obj/item/toy/russian_revolver/trick_revolver/detailed_examine() //oh no
-	return "This is a ballistic weapon. To reload, click the weapon in your hand to unload (if needed), then add the appropriate ammo. The description \
-			will tell you what caliber you need."
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
@@ -1406,12 +1402,12 @@
 /obj/item/toy/figure/xeno/activate(mob/user)
 	user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
 	icon_state = "[initial(icon_state)]_used"
-	addtimer(CALLBACK(src, .proc/hiss), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(hiss)), 0.5 SECONDS)
 
 /obj/item/toy/figure/xeno/proc/hiss()
 	atom_say("Hiss!")
 	playsound(src, get_sfx("hiss"), 50, TRUE)
-	addtimer(CALLBACK(src, .proc/reset_icon), 4.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reset_icon)), 4.5 SECONDS)
 
 /obj/item/toy/figure/xeno/proc/reset_icon()
 	icon_state = "[initial(icon_state)]"

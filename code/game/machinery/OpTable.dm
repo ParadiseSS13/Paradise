@@ -5,10 +5,9 @@
 	icon_state = "table2-idle"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 1
-	active_power_usage = 5
-	var/mob/living/carbon/human/patient
+	idle_power_consumption = 1
+	active_power_consumption = 5
+	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
 	buckle_lying = -1
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
@@ -31,8 +30,9 @@
 	patient = null
 	return ..()
 
-/obj/machinery/optable/detailed_examine()
-	return "Click your target and drag them onto the table to place them onto it."
+/obj/machinery/optable/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Click-drag</b> someone to the table to place them on top of the table.</span>"
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
@@ -64,13 +64,13 @@
   * Updates the `patient` var to be the mob occupying the table
   */
 /obj/machinery/optable/proc/update_patient()
-	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-	if(M && IS_HORIZONTAL(M))
-		patient = M
+	var/mob/living/carbon/C = locate(/mob/living/carbon, loc)
+	if(C && IS_HORIZONTAL(C))
+		patient = C
 	else
 		patient = null
 	if(!no_icon_updates)
-		if(patient && patient.pulse)
+		if(C && C.pulse)
 			icon_state = "table2-active"
 		else
 			icon_state = "table2-idle"
@@ -84,6 +84,8 @@
 	update_patient()
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
+			if(C.stat == DEAD)
+				continue
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
 				R.check_and_add(chemical,reagent_target_amount,inject_amount)
@@ -107,7 +109,7 @@
 	set name = "Climb On Table"
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat || !ishuman(usr) || usr.restrained() || !check_table())
+	if(usr.stat || !iscarbon(usr) || usr.restrained() || !check_table())
 		return
 	take_patient(usr, usr)
 

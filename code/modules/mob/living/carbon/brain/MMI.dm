@@ -43,8 +43,7 @@
 			return
 		if(held_brain)
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
-			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
-			return
+			CRASH("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared")
 		if(user.drop_item())
 			B.forceMove(src)
 			if(!syndiemmi)
@@ -114,13 +113,13 @@
 		to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
 		return
 	user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
-							 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+							"<span class='notice'>You start to uninstall the radio from [src]...</span>")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || !radio)
 		return
 	uninstall_radio()
 	new /obj/item/mmi_radio_upgrade(get_turf(src))
 	user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
-						 "<span class='notice'>You uninstall the radio from [src].</span>")
+						"<span class='notice'>You uninstall the radio from [src].</span>")
 
 
 /obj/item/mmi/attack_self(mob/user as mob)
@@ -157,7 +156,7 @@
 //problem i was having with alien/nonalien brain drops.
 /obj/item/mmi/proc/dropbrain(turf/dropspot)
 	if(isnull(held_brain))
-		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
+		stack_trace("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)].")
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
 		held_brain = new(dropspot) // Let's not ruin someone's round because of something dumb -- Crazylemon
 		held_brain.dna = brainmob.dna.Clone()
@@ -176,7 +175,7 @@
 /obj/item/mmi/proc/become_occupied(new_icon)
 	icon_state = new_icon
 	if(radio)
-		radio_action.ApplyIcon()
+		radio_action.UpdateButtonIcon()
 
 /obj/item/mmi/examine(mob/user)
 	. = ..()
@@ -210,17 +209,9 @@
 	return ..()
 
 /datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
-	// A copy/paste of the item action icon code
-	current_button.overlays.Cut()
-	if(target)
-		var/obj/item/I = mmi
-		var/old_layer = I.layer
-		var/old_plane = I.plane
-		I.layer = 21
-		I.plane = HUD_PLANE
-		current_button.overlays += I
-		I.layer = old_layer
-		I.plane = old_plane
+	icon_icon = mmi.icon
+	button_icon_state = mmi.icon_state
+	..()
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
@@ -250,11 +241,11 @@
 // Also neatly handles basically every case where a brain
 // is inserted or removed from an MMI
 /obj/item/mmi/Entered(atom/movable/A)
-	if(radio && istype(A, /mob/living/carbon/brain))
+	if(radio && isbrain(A))
 		radio_action.Grant(A)
 
 /obj/item/mmi/Exited(atom/movable/A)
-	if(radio && istype(A, /mob/living/carbon/brain))
+	if(radio && isbrain(A))
 		radio_action.Remove(A)
 
 

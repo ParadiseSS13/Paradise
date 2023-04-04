@@ -8,13 +8,14 @@
 #define CHANNEL_AMBIENCE 1018
 #define CHANNEL_ENGINE 1017 // Engine ambient sounds
 #define CHANNEL_FIREALARM 1016 //fire alarm alarms
+#define CHANNEL_ASH_STORM 1015
 
 #define USER_VOLUME(M, C) M?.client?.prefs.get_channel_volume(C)
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
 
-#define CHANNEL_HIGHEST_AVAILABLE 1015
+#define CHANNEL_HIGHEST_AVAILABLE 1014
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 
@@ -71,7 +72,7 @@
 #define SPOOKY_SOUNDS list('sound/ambience/ambimo1.ogg','sound/ambience/ambimo2.ogg','sound/ambience/ambiruin7.ogg','sound/ambience/ambiruin6.ogg',\
 										'sound/ambience/ambiodd.ogg', 'sound/ambience/ambimystery.ogg')
 
-#define SPACE_SOUNDS list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/title2.ogg', 'sound/ambience/ambiatmos.ogg')
+#define SPACE_SOUNDS list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/ambience/ambispace3.ogg', 'sound/music/title2.ogg', 'sound/ambience/ambiatmos.ogg')
 
 #define MAINTENANCE_SOUNDS list('sound/ambience/ambimaint1.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimaint3.ogg', 'sound/ambience/ambimaint4.ogg',\
 											'sound/ambience/ambimaint5.ogg', 'sound/voice/lowHiss2.ogg', 'sound/voice/lowHiss3.ogg', 'sound/voice/lowHiss4.ogg', 'sound/ambience/ambitech2.ogg' )
