@@ -20,8 +20,8 @@
 
 /obj/machinery/computer/shuttle/syndicate/can_call_shuttle(user, action)
 	if(action == "move")
-		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
+		if(challenge && (world.time - SSticker.round_start_time) < SYNDICATE_CHALLENGE_TIMER)
+			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - (world.time - SSticker.round_start_time)) / 10) / 60)] more minutes to allow them to prepare.</span>")
 			return FALSE
 	return TRUE
 
