@@ -119,7 +119,7 @@
 		return
 
 	user.Stun(10 SECONDS)
-	playsound(loc, 'sound/effects/supermatter.ogg', 50, 1, -1)
+	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	sleep(20)
 
 	add_fingerprint(user)
