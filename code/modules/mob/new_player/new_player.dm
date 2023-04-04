@@ -497,7 +497,14 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "прибыл на станцию"].", "Arrivals Announcement Computer")
+					var/arrivalmessage = GLOB.global_announcer_base_text
+					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
+					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
+					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
+					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
+					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
+					arrivalmessage = replacetext(arrivalmessage,"$join_message",join_message)
+					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)

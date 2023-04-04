@@ -6,6 +6,7 @@ GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a perce
 
 // Announcer intercom, because too much stuff creates an intercom for one message then qdel()s it.
 GLOBAL_DATUM_INIT(global_announcer, /obj/item/radio/intercom, create_global_announcer())
+GLOBAL_VAR_INIT(global_announcer_base_text, "$name, $rank, $join_message.")
 GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_command_announcer())
 
 // Load order issues means this can't be new'd until other code runs
