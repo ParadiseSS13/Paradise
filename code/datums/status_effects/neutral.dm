@@ -155,6 +155,8 @@
 	/// Used to show that we stopped spinning, usually when cancelling.
 	var/show_stopped_spinning_message = FALSE
 
+	var/started_at
+
 	// necessary because shotguns are revolvers too lol
 	var/static/list/valid_revolver_types = list(
 		/obj/item/gun/projectile/revolver,
@@ -166,7 +168,8 @@
 		/obj/item/gun/projectile/revolver/nagant,
 		/obj/item/toy/russian_revolver,
 		/obj/item/toy/russian_revolver/trick_revolver,
-		/obj/item/gun/energy/arc_revolver
+		/obj/item/gun/energy/arc_revolver,
+		/obj/item/gun/energy/detective
 	)
 
 	/// Revolvers that won't actually kill a target (but might kill you)
@@ -176,6 +179,7 @@
 		/obj/item/gun/projectile/revolver/russian/soul,
 		/obj/item/toy/russian_revolver,
 		/obj/item/toy/russian_revolver/trick_revolver,
+		/obj/item/gun/energy/detective,
 		/obj/item/gun/energy/arc_revolver  // don't gib people with this one
 	)
 
@@ -218,6 +222,7 @@
 /datum/status_effect/revolver_spinning/on_apply()
 	. = ..()
 	var/mob/living/carbon/human/H = owner
+	started_at = world.time
 	if(!istype(owner))
 		return FALSE
 
@@ -234,8 +239,8 @@
 
 	for(var/obj/effect/spinning_gun in list(spinning_gun_effect_l, spinning_gun_effect_r))
 		// set random direction and speed
-		playsound(owner.loc, pick(sound_effects), 45, TRUE)
-		spinning_gun.SpinAnimation(rand(3, 15), -1, rand(0, 1), parallel = FALSE)
+		playsound(owner.loc, 'sound/weapons/effects/ocelot_whoosh.ogg', 45, TRUE)
+		spinning_gun.SpinAnimation(rand(2, 5), -1, rand(0, 1), parallel = FALSE)
 
 	H.visible_message(
 		"<span class='danger'>[owner] begins spinning the revolvers in [owner.p_their()] hands around!</span>",
@@ -269,11 +274,14 @@
 	if(!can_spin())
 		qdel(src)
 
+	// try to stop it early
+	if(started_at + duration - world.time > 6 SECONDS)
+		playsound(owner.loc, 'sound/weapons/effects/ocelot_whoosh.ogg', 45, TRUE, frequency = rand(35000, 48000))
+
 	for(var/obj/effect/spinning_gun in list(spinning_gun_effect_l, spinning_gun_effect_r))
 		if(prob(70))
 			// set random direction and speed
-			playsound(owner.loc, pick(sound_effects), 45, TRUE)
-			spinning_gun.SpinAnimation(rand(1, 5), -1, rand(0, 1), parallel = FALSE)
+			spinning_gun.SpinAnimation(rand(2, 5), -1, rand(0, 1), parallel = FALSE)
 
 	if(prob(5))
 		for(var/mob/living/carbon/human/fan in oviewers(owner))
@@ -307,6 +315,8 @@
 		var/shot = shooting_revolver.can_shoot()
 		shooting_revolver.chambered?.BB?.damage *= 2 * extra_multiplier  // ow
 		shooting_revolver.process_fire(target, owner, FALSE)
+		if(shot)
+			add_attack_logs(owner, null, "fired [shooting_revolver] with the *ocelot emote")
 		return shot
 
 	if(istype(firing_thing, /obj/item/toy/russian_revolver))
@@ -342,7 +352,6 @@
 	if(!ahead)
 		ahead = get_edge_target_turf(owner, owner.dir)  // shoot straight ahead
 
-	// meow here
 	owner.visible_message(get_message(ahead, l_revolver, r_revolver))
 	var/extra_multiplier = istajaran(H) ? 2 : 1  // meow
 
@@ -359,7 +368,5 @@
 			add_attack_logs(owner, L, "ocelot emote gibbed")
 			L.gib()
 
-
 	to_chat(owner, "<i><span class=narsie>You're pretty good...</span></i>")
 	playsound(owner, 'sound/effects/ocelot.ogg', 120, FALSE)
-
