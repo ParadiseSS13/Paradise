@@ -94,6 +94,7 @@
 		toggle_light()
 
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/carbon/human/user, slot)
+	..()
 	if(HUDType && slot == slot_head)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
