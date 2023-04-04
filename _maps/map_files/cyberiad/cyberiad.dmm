@@ -16132,12 +16132,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/bed/dogbed/pet,
-/obj/structure/bed/dogbed/pet,
-/obj/structure/bed/dogbed/pet,
-/obj/structure/bed/dogbed/pet,
-/obj/structure/bed/dogbed/pet,
-/obj/structure/bed/dogbed/pet,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aOc" = (
