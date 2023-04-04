@@ -5,7 +5,7 @@
 	icon_state = "papershredder0"
 	density = 1
 	anchored = 1
-	var/max_paper = 10
+	var/max_paper = 15
 	var/paperamount = 0
 	var/list/shred_amounts = list(
 		/obj/item/photo = 1,
@@ -14,10 +14,11 @@
 		/obj/item/newspaper = 3,
 		/obj/item/card/id = 3,
 		/obj/item/paper_bundle = 3,
-		/obj/item/folder = 4
+		/obj/item/folder = 4,
+		/obj/item/book = 5
 		)
 
-/obj/machinery/papershredder/attackby(obj/item/W, mob/user)
+/obj/machinery/papershredder/attackby(obj/item/W, mob/user, params)
 
 	if(istype(W, /obj/item/storage))
 		empty_bin(user, W)
@@ -46,6 +47,16 @@
 	..()
 
 	return
+
+/obj/machinery/papershredder/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/papershredder/verb/empty_contents()
 	set name = "Empty bin"
@@ -95,8 +106,7 @@
 	return new /obj/item/shredded_paper(get_turf(src))
 
 /obj/machinery/papershredder/update_icon()
-	icon_state = "papershredder[clamp(round(paperamount/2), 0, 5)]"
-
+	icon_state = "papershredder[clamp(round(paperamount/3), 0, 5)]"
 
 /obj/item/shredded_paper/attackby(obj/item/W as obj, mob/user)
 	if(resistance_flags & ON_FIRE)
