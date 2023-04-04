@@ -26673,6 +26673,7 @@
 	listening = 0;
 	pixel_y = 28
 	},
+/obj/item/wirecutters/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

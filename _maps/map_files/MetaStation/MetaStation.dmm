@@ -63975,6 +63975,7 @@
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
 /obj/item/flashlight/lamp,
+/obj/item/wirecutters/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

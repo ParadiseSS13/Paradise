@@ -9064,6 +9064,7 @@
 	name = "east bump"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/wirecutters/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
