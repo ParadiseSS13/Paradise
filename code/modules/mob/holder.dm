@@ -364,7 +364,7 @@
 /obj/item/holder/headslug
 	name = "headslug"
 	desc = "It's a headslug. Ewwww..."
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/mob.dmi'
 	icon_state = "headslug"
 	origin_tech = "biotech=6"
 
