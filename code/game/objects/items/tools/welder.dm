@@ -213,6 +213,16 @@
 	desc = "An advanced welder designed to be used in robotic systems."
 	toolspeed = 0.5
 
+/obj/item/weldingtool/research
+	name = "research welding tool"
+	desc = "A scratched-up welder that's been modified many times. Is it still the same tool?"
+	icon_state = "welder_research"
+	item_state = "welder_research"
+	belt_icon = "welder_research"
+	maximum_fuel = 40
+	toolspeed = 0.75
+	light_intensity = 1
+
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."
