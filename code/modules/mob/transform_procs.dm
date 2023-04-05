@@ -261,3 +261,25 @@
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
 	pai.update_pipe_vision()
 	qdel(src)
+
+/mob/living/carbon/proc/gorillize()
+	if(notransform)
+		return
+
+	for(var/obj/item/W in src)
+		unEquip(W)
+
+	regenerate_icons()
+	notransform = TRUE
+	icon = null
+	invisibility = INVISIBILITY_MAXIMUM
+	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
+	new_gorilla.a_intent = INTENT_HARM
+
+	if(mind)
+		mind.transfer_to(new_gorilla)
+	else
+		new_gorilla.key = key
+
+	to_chat(new_gorilla, "<B>You are now a gorilla. Ooga ooga!</B>")
+	qdel(src)
