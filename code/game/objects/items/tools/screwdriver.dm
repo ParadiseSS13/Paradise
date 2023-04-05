@@ -67,6 +67,28 @@
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/screwdriver/cargo
+	name = "cargo screwdriver"
+	desc = "A brownish screwdriver belonging to the supply department. Unfortunately, it can't do all the paperwork for you..."
+	icon_state = "screwdriver_cargo"
+	belt_icon = "screwdriver_cargo"
+	toolspeed = 0.75
+	random_color = FALSE
+
+/obj/item/screwdriver/cargo/suicide_act(mob/living/user)
+	user.visible_message("<span class='suicide'>[user] is trying to take [src]'s independence! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	if(!user)
+		return
+
+	user.Immobilize(10 SECONDS)
+	sleep(20)
+	add_fingerprint(user)
+
+	to_chat(user, "<span class='userdanger'>[src] retaliates viciously!</span>")
+	playsound(loc, hitsound, 50, TRUE, -1)
+
+	return BRUTELOSS
+
 /obj/item/screwdriver/abductor
 	name = "alien screwdriver"
 	desc = "An ultrasonic screwdriver."
