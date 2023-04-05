@@ -224,11 +224,11 @@
 	light_intensity = 1
 
 /obj/item/weldingtool/research/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is tinkering with the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	if(!user)
 		return
 
-	to_chat(user, "<span class='notice'> You begin tinkering with the [src]...")
+	to_chat(user, "<span class='notice'> You begin tinkering with [src]...")
 	user.Immobilize(10 SECONDS)
 	sleep(20)
 	add_fingerprint(user)
