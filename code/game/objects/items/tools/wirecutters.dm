@@ -63,7 +63,7 @@
 	if(!user)
 		return
 
-	user.Stun(10 SECONDS)
+	user.Immobilize(10 SECONDS)
 	sleep(20)
 	add_fingerprint(user)
 

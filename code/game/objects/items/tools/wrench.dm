@@ -96,8 +96,8 @@
 	animate(filter, alpha = 110, time = 3, loop = -1)
 	animate(alpha = 40, time = 6)
 
-	// Stun stops them from wandering off
-	user.Stun(10 SECONDS)
+	// Stun stops them from wandering off (changed to immobilize later so they don't drop the wrench)
+	user.Immobilize(10 SECONDS)
 	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
 
 	// Let the sound effect finish playing

@@ -74,7 +74,7 @@
 	if(!user)
 		return
 
-	user.Stun(10 SECONDS)
+	user.Immobilize(10 SECONDS)
 	playsound(loc, 'sound/items/crowbar.ogg', 50, TRUE, -1)
 
 	sleep(20)
