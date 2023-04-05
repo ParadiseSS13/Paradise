@@ -42,11 +42,6 @@
 	nitrogen = 82
 	temperature = 180
 
-/turf/simulated/floor/wood/hot
-	oxygen = 22
-	nitrogen = 82
-	temperature = 358
-
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon = 'icons/turf/floors/grass.dmi'
