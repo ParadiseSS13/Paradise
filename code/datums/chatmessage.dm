@@ -29,8 +29,10 @@
 /datum/chatmessage
 	/// The visual element of the chat messsage
 	var/image/message
-	/// The location in which the message is appearing
-	var/atom/message_loc
+	/// The original source of this message
+	var/atom/movable/message_source
+	/// The list of locs chained from message_source to that with loc == turf
+	var/list/signal_targets = list()
 	/// The client who heard this message
 	var/client/owned_by
 	/// Contains the scheduled destruction time, used for scheduling EOL
@@ -57,23 +59,26 @@
   * * italics - Should we use italics or not
   * * lifespan - The lifespan of the message in deciseconds
   */
-/datum/chatmessage/New(text, atom/target, mob/owner, radio_speech, italics, emote, lifespan = CHAT_MESSAGE_LIFESPAN)
+/datum/chatmessage/New(text, atom/movable/source, mob/owner, radio_speech, italics, emote, lifespan = CHAT_MESSAGE_LIFESPAN)
 	. = ..()
-	if (!istype(target))
-		CRASH("Invalid target given for chatmessage")
+	if (!istype(source))
+		CRASH("Invalid source given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, radio_speech, lifespan, italics, emote)
+	INVOKE_ASYNC(src, .proc/generate_image, text, source, owner, radio_speech, lifespan, italics, emote)
 
 /datum/chatmessage/Destroy()
+	for(var/target in signal_targets)
+		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
+	signal_targets = null
 	if (owned_by)
 		if (owned_by.seen_messages)
-			LAZYREMOVEASSOC(owned_by.seen_messages, message_loc, src)
+			LAZYREMOVEASSOC(owned_by.seen_messages, message_source, src)
 		owned_by.images.Remove(message)
 	owned_by = null
-	message_loc = null
+	message_source = null
 	message = null
 	leave_subsystem()
 	return ..()
@@ -89,13 +94,13 @@
   *
   * Arguments:
   * * text - The text content of the overlay
-  * * target - The target atom to display the overlay at
+  * * source - The source atom of spoken message
   * * owner - The mob that owns this overlay, only this mob will be able to view it
   * * radio_speech - Fancy shmancy radio icon represents that we use radio
   * * lifespan - The lifespan of the message in deciseconds
   * * italics - Just copy and paste, sir
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, radio_speech, lifespan, italics, emote)
+/datum/chatmessage/proc/generate_image(text, atom/movable/source, mob/owner, radio_speech, lifespan, italics, emote)
 	if(!owner && !owner.client)
 		qdel(src)
 		return
@@ -110,12 +115,6 @@
 	if (length_char(s.inner_text) > maxlen)
 		var/chattext = copytext_char(s.inner_text, 1, maxlen + 1) + "..."
 		text = jointext(s.opening, "") + chattext + jointext(s.closing, "")
-
-	// Calculate target color if not already present
-//	if (!target.chat_color || target.chat_color_name != target.name)
-//		target.chat_color = colorize_string(target.name)
-//		target.chat_color_darkened = colorize_string(target.name, 0.85, 0.85)
-//		target.chat_color_name = target.name
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
 	var/static/regex/url_scheme = new(@"[A-Za-z][A-Za-z0-9+-\.]*:\/\/", "g")
@@ -137,7 +136,7 @@
 		text =  "\icon[e_icon]&nbsp;" + text
 
 	// We dim italicized text to make it more distinguishable from regular text
-	var/tgt_color = radio_speech ? target.chat_color_darkened : target.chat_color
+	var/tgt_color = radio_speech ? source.chat_color_darkened : source.chat_color
 
 	// Approximate text height
 	// Note we have to replace HTML encoded metacharacters otherwise MeasureText will return a zero height
@@ -149,11 +148,10 @@
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
-	message_loc = target
 	if (owned_by.seen_messages)
 		var/idx = 1
 		var/combined_height = approx_lines
-		for(var/msg in owned_by.seen_messages[message_loc])
+		for(var/msg in owned_by.seen_messages[source])
 			var/datum/chatmessage/m = msg
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
@@ -167,7 +165,7 @@
 		current_z_idx = 0
 
 	// Build message image
-	message = image(loc = message_loc, layer = CHAT_LAYER + CHAT_LAYER_Z_STEP * current_z_idx++)
+	message = image(loc = null, layer = CHAT_LAYER + CHAT_LAYER_Z_STEP * current_z_idx++)
 	message.plane = GAME_PLANE
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.alpha = 0
@@ -177,14 +175,41 @@
 	message.maptext_x = (CHAT_MESSAGE_WIDTH - owner.bound_width) * -0.5
 	message.maptext = complete_text
 
+	message_source = source
+	adjust_message_loc(message_source, null, null, TRUE)
+
 	// View the message
-	LAZYADDASSOC(owned_by.seen_messages, message_loc, src)
+	LAZYADDASSOC(owned_by.seen_messages, source, src)
 	owned_by.images |= message
 	animate(message, alpha = 255, time = CHAT_MESSAGE_SPAWN_TIME)
 
 	// Prepare for destruction
 	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
 	enter_subsystem()
+
+/datum/chatmessage/proc/adjust_message_loc(atom/movable/caller, oldLoc, dir, forced)
+	SIGNAL_HANDLER
+	if(!forced)
+		return
+
+	var/list/previous_signal_targets = signal_targets
+	var/list/next_signal_targets = list(message_source)
+
+	var/atom/movable/message_loc = message_source
+	while(!isturf(message_loc.loc))
+		message_loc = message_loc.loc
+		next_signal_targets += message_loc
+	message.loc = message_loc
+
+	for(var/previous_target in previous_signal_targets)
+		if(!(previous_target in next_signal_targets))
+			UnregisterSignal(previous_target, COMSIG_MOVABLE_MOVED)
+
+	for(var/next_target in next_signal_targets)
+		if(!(next_target in previous_signal_targets))
+			RegisterSignal(next_target, COMSIG_MOVABLE_MOVED, .proc/adjust_message_loc)
+
+	signal_targets = next_signal_targets
 
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion

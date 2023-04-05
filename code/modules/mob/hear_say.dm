@@ -148,7 +148,7 @@
 
 		// Create map text message
 		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
-			create_chat_message(speaker.runechat_msg_location, message_clean, FALSE, italics)
+			create_chat_message(speaker, message_clean, FALSE, italics)
 
 		var/effect = SOUND_EFFECT_NONE
 		if(isrobot(speaker))

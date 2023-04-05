@@ -1309,7 +1309,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//This communication is imperfect because the holopad "filters" voices and is only designed to connect to the master only.
 	var/rendered = "<i><span class='game say'>Relayed Speech: <span class='name'>[name_used]</span> [message]</span></i>"
 	if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-		create_chat_message(M.runechat_msg_location, message_clean, TRUE, FALSE)
+		create_chat_message(M, message_clean, TRUE, FALSE)
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/proc/malfhacked(obj/machinery/power/apc/apc)
@@ -1459,10 +1459,3 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
-
-/mob/living/silicon/ai/update_runechat_msg_location()
-	if(istype(loc, /obj/item/aicard) || ismecha(loc))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src

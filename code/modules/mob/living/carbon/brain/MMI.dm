@@ -286,8 +286,3 @@
 	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
 		return STATUS_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()
-
-
-/obj/item/mmi/forceMove(atom/destination)
-	. = ..()
-	brainmob?.update_runechat_msg_location()

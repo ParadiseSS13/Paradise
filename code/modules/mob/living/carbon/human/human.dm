@@ -1943,12 +1943,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/get_runechat_color()
    return dna.species.get_species_runechat_color(src)
 
-/mob/living/carbon/human/update_runechat_msg_location()
-	if(ismecha(loc))
-		runechat_msg_location = loc
-	else
-		runechat_msg_location = src
-
 /mob/living/carbon/human/limb_attack_self()
 	var/obj/item/organ/external/arm = hand ? get_organ(BODY_ZONE_L_ARM) : get_organ(BODY_ZONE_R_ARM)
 	if(arm)

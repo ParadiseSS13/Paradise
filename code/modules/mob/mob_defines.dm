@@ -205,9 +205,5 @@
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
-
-	/// The location our runechat message should appear. Should be src by default.
-	var/atom/runechat_msg_location
-
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
