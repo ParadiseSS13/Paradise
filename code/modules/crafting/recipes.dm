@@ -547,6 +547,15 @@
 				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/tribalspear
+	name = "Spear"
+	result = /obj/item/twohanded/spear
+	reqs = list(/obj/item/restraints/handcuffs/sinew = 1,
+				/obj/item/shard = 1,
+				/obj/item/stack/rods = 1)
+	time = 20
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/bonebow
 	name = "Wooden Bow"
 	result = /obj/item/gun/projectile/bow
