@@ -1189,6 +1189,22 @@
 	update_flags |= M.adjustBrainLoss(-3, FALSE)
 	return ..() | update_flags
 
+//Coolant: Antihol
+/datum/reagent/medicine/coolant
+	name = "Coolant"
+	id = "coolant"
+	description = "Fixes speech bugs"
+	reagent_state = LIQUID
+	color = "#0af0f0"
+	process_flags = SYNTHETIC
+	taste_description = "error"
+
+/datum/reagent/medicine/coolant/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.SetSlur(0)
+	M.AdjustDrunk(-4)
+	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol/synthanol, 8, 0, 1)
+	return ..() | update_flags
 
 
 //Trek-Chems. DO NOT USE THES OUTSIDE OF BOTANY OR FOR VERY SPECIFIC PURPOSES. NEVER GIVE A RECIPE UNDER ANY CIRCUMSTANCES//

@@ -266,6 +266,15 @@
 	mix_message = "A minty and refreshing smell drifts from the effervescent mixture."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/coolant
+	name = "Coolant"
+	id = "coolant"
+	result = "coolant"
+	required_reagents = list("cryostylane" = 1, "liquid_solder" = 1)
+	result_amount = 2
+	mix_message = "You swear you saw a blue cat.. nevermind"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/teporone
 	name = "Teporone"
 	id = "teporone"
