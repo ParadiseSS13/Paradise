@@ -122,9 +122,12 @@
 	/// This demon's progressbar helper, used for the hijacking timer on APCs and all charger types (cell, gun, cyborg).
 	var/datum/progressbar_helper/pb_helper
 
-// TODO: setting name to be unambigious (incase of multiple pulse demons)? numbering/namefile?
 /mob/living/simple_animal/pulse_demon/Initialize(mapload)
 	. = ..()
+	if(!mapload)
+		name += " ([rand(100, 999)])"
+		real_name = name
+
 	remove_from_all_data_huds()
 	flags_2 |= RAD_NO_CONTAMINATE_2
 
