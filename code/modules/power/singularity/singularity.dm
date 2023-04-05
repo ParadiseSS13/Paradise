@@ -80,7 +80,7 @@
 		var/mob/living/carbon/C = user
 		investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
 		C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
-		"<span class='userdanger'>As you mentally focus on the endless void you feel your very consciousness and soul sucked into the void. That was a infinitely dense idea.</span>")
+		"<span class='userdanger'>As you mentally focus on the endless void you feel your very consciousness and soul get sucked into the singularity. That was an infinitely dense idea.</span>")
 		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
 		C.ghostize(0)
 		if(B)
