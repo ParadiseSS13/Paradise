@@ -57,33 +57,43 @@
 	can_be_on_fire = FALSE
 	has_unlimited_silicon_privilege = TRUE
 
+	/// List of sounds that is picked from when the demon speaks.
 	var/list/speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
+	/// List of sounds that is picked from when the demon dies or is EMP'd.
 	var/list/hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
 
 	/// Current quantity of power the demon currently holds, spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
 	var/charge = 1000
+	/// Maximum quantity of power the demon can hold at once.
 	var/maxcharge = 1000
 	/// Book keeping for objective win conditions.
 	var/charge_drained = 0
+	/// Controls whether the demon will drain power from sources. Toggled by a spell.
 	var/do_drain = TRUE
 	/// Amount of power (in watts) to drain from power sources every Life tick.
 	var/power_drain_rate = 1000
 
 	/// Amount of power (in watts) required to regenerate health.
 	var/power_per_regen = 1000
+	/// Amount of health lost per Life tick when the power requirement was not met.
 	var/health_loss_rate = 5
+	/// Amount of health regenerated per Life tick when the power requirement was met.
 	var/health_regen_rate = 3
 	/// Lock health regeneration while this is not 0, decreases by 1 every Life tick.
 	var/regen_lock = 0
 
+	/// Controls whether the demon can move outside of cables. Toggled by a spell.
 	var/can_exit_cable = FALSE
+	/// Speed used while moving inside cables.
 	var/inside_cable_speed = -1
+	/// Speed used while moving outside cables. Can be upgraded.
 	var/outside_cable_speed = 4
 
 	/// The time it takes to hijack APCs and cyborgs.
 	var/hijack_time = 30 SECONDS
 
-	var/glow_color = "#bbbb00" // for varedit funsies
+	/// The color of light the demon emits. The range of the light is proportional to charge.
+	var/glow_color = "#bbbb00"
 
 	/// Area being controlled, should be maintained as long as the demon does not move outside a container (APC, object, robot, bot).
 	var/area/controlling_area
@@ -98,13 +108,18 @@
 	/// Inhabited bot, only maintained while inside the bot.
 	var/mob/living/simple_animal/bot/current_bot
 
+	/// Delay tracker for movement inside bots.
 	var/bot_movedelay = 0
 	/// A cyborg that has already been hijacked can be re-entered instantly.
 	var/list/mob/living/silicon/robot/hijacked_robots
 
+	/// Images currently being shown on the client.
 	var/list/image/images_shown = list()
+	/// List of all previously hijacked APCs.
 	var/list/obj/machinery/power/apc/hijacked_apcs = list()
+	/// Reference to the APC currently being hijacked.
 	var/obj/machinery/power/apc/apc_being_hijacked
+	/// This demon's progressbar helper, used for the hijacking timer on APCs and all charger types (cell, gun, cyborg).
 	var/datum/progressbar_helper/pb_helper
 
 // TODO: setting name to be unambigious (incase of multiple pulse demons)? numbering/namefile?
