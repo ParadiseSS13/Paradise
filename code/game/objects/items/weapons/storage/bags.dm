@@ -79,6 +79,11 @@
 	storage_slots = 60
 	flags_2 = NO_MAT_REDEMPTION_2
 
+/obj/item/storage/bag/trash/bluespace/cyborg
+
+/obj/item/storage/bag/trash/bluespace/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+	return
+
 // -----------------------------
 //        Plastic Bag
 // -----------------------------
@@ -170,7 +175,7 @@
 	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora)
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora,/obj/item/reagent_containers/food/snacks/honeycomb)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
@@ -179,19 +184,28 @@
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
-/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
-	set category = "Object"
-	set desc = "Activate to convert your plants into plantable seeds."
+/obj/item/storage/bag/plants/portaseeder/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Shift-Click</b> to convert the plants inside to seeds.</span>"
 
-	if(usr.incapacitated())
+/obj/item/storage/bag/plants/portaseeder/proc/process_plants(mob/user)
+	if(!length(contents))
+		to_chat(user, "<span class='warning'>[src] has no seeds inside!</span>")
 		return
+	var/had_anything = FALSE
 	for(var/obj/item/O in contents)
-		seedify(O, 1)
-	for(var/mob/M in range(1))
-		if(M.s_active == src)
-			close(M)
+		had_anything |= seedify(O, 1)
+	hide_from_all()
+	if(had_anything)
+		to_chat(user, "<span class='notice'>[src] whirrs a bit as it converts the plants inside to seeds.</span>")
+	else
+		to_chat(user, "<span class='warning'>[src] whirrs a bit but stops. Doesn't seem like it could convert anything inside.</span>")
+	playsound(user, "sound/machines/ding.ogg", 25)
 
+/obj/item/storage/bag/plants/portaseeder/AltShiftClick(mob/user)
+	if(Adjacent(user) && ishuman(user) && !user.incapacitated(FALSE, TRUE))
+		process_plants(user)
 
 // -----------------------------
 //        Sheet Snatcher

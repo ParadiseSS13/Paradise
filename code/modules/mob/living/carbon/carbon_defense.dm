@@ -1,7 +1,7 @@
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(!skipcatch)
 		if(in_throw_mode && !HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) && !restrained())  //Makes sure player is in throw mode
-			if(!istype(AM,/obj/item) || !isturf(AM.loc))
+			if(!isitem(AM) || !isturf(AM.loc))
 				return FALSE
 			if(get_active_hand())
 				return FALSE
@@ -11,6 +11,7 @@
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
 			throw_mode_off()
+			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 			return TRUE
 	return ..()
 
@@ -20,11 +21,11 @@
 		wetlevel = min(wetlevel + 1,5)
 
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	if(IS_HORIZONTAL(src) && surgeries.len)
-		if(user != src && user.a_intent == INTENT_HELP)
+	if(length(surgeries))
+		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
-					return 1
+					return TRUE
 	return ..()
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
@@ -45,8 +46,8 @@
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
-					return 1
-	return 0
+					return TRUE
+	return FALSE
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack

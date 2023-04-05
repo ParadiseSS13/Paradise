@@ -55,11 +55,12 @@
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
-	max_w_class = WEIGHT_CLASS_HUGE
-	max_combined_w_class = 35
+	max_w_class = WEIGHT_CLASS_BULKY
+	max_combined_w_class = 28
 	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
-	cant_hold = list(/obj/item/storage/backpack/holding)
+	cant_hold = list(/obj/item/storage/backpack, /obj/item/storage/belt/bluespace)
+	cant_hold_override = list(/obj/item/storage/backpack/satchel_flat)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
@@ -109,7 +110,7 @@
 /obj/item/storage/backpack/clown/syndie
 
 /obj/item/storage/backpack/clown/syndie/populate_contents()
-	new /obj/item/clothing/under/rank/clown(src)
+	new /obj/item/clothing/under/rank/civilian/clown(src)
 	new /obj/item/clothing/shoes/magboots/clown(src)
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/radio/headset/headset_service(src)
@@ -356,16 +357,84 @@
 	new /obj/item/crowbar(src)
 
 /*
- * Duffelbags - My thanks to MrSnapWalk for the original icon and Neinhaus for the job variants - Dave.
+ * Duffelbags
  */
 
 /obj/item/storage/backpack/duffel
 	name = "duffelbag"
-	desc = "A large grey duffelbag designed to hold more items than a regular bag."
+	desc = "A large grey duffelbag designed to hold more items than a regular bag. It slows you down when unzipped."
 	icon_state = "duffel"
 	item_state = "duffel"
 	max_combined_w_class = 30
-	slowdown = 1
+	/// Is the bag zipped up?
+	var/zipped = TRUE
+	/// How long it takes to toggle the zip state of this bag
+	var/zip_time = 0.7 SECONDS
+
+/obj/item/storage/backpack/duffel/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>It is currently [zipped ? "zipped" : "unzipped"]. Alt+Shift+Click to [zipped ? "un-" : ""]zip it!</span>"
+
+/obj/item/storage/backpack/duffel/AltShiftClick(mob/user)
+	. = ..()
+	handle_zipping(user)
+
+/obj/item/storage/backpack/duffel/proc/handle_zipping(mob/user)
+	if(!Adjacent(user))
+		return
+
+	if(!zip_time || do_after(user, zip_time, target = src))
+		playsound(src, 'sound/items/zip.ogg', 75, TRUE)
+		zipped = !zipped
+
+		if(!zipped) // Handle slowdown and stuff now that we just zipped it
+			show_to(user)
+
+			if(zip_time)
+				slowdown = 1
+
+			return
+
+		slowdown = 0
+		hide_from_all()
+		for(var/obj/item/storage/container in src)
+			container.hide_from_all() // Hide everything inside the bag too
+
+// The following three procs handle refusing access to contents if the duffel is zipped
+
+/obj/item/storage/backpack/duffel/handle_item_insertion(obj/item/I, prevent_warning, bypass_zip = FALSE)
+	if(bypass_zip)
+		return ..()
+
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return ..()
+
+/obj/item/storage/backpack/duffel/removal_allowed_check(mob/user)
+	if(zipped)
+		to_chat(user, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return TRUE
+
+/obj/item/storage/backpack/duffel/drop_inventory(user)
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return ..()
+
+/obj/item/storage/backpack/duffel/show_to(mob/user)
+	if(isobserver(user))
+		return ..()
+
+	if(zipped)
+		to_chat(usr, "<span class='notice'>[src] is zipped shut!</span>")
+		return FALSE
+
+	return ..()
 
 /obj/item/storage/backpack/duffel/syndie
 	name = "suspicious looking duffelbag"
@@ -374,7 +443,7 @@
 	item_state = "duffel-syndiammo"
 	origin_tech = "syndicate=1"
 	silent = TRUE
-	slowdown = 0
+	zip_time = 0
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/syndie/med
@@ -410,7 +479,7 @@
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore(src)
-	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/clothing/under/rank/cargo/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)

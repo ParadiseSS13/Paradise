@@ -43,7 +43,7 @@
 
 /obj/screen/close/Click()
 	if(master)
-		if(istype(master, /obj/item/storage))
+		if(isstorage(master))
 			var/obj/item/storage/S = master
 			S.close(usr)
 	return 1
@@ -155,7 +155,7 @@
 		return TRUE
 	if(usr.incapacitated(ignore_restraints = TRUE))
 		return TRUE
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return TRUE
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
@@ -181,7 +181,7 @@
 	return FALSE
 
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE) || istype(user.loc, /obj/mecha) || !master)
+	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE) || ismecha(user.loc) || !master)
 		return
 
 	var/obj/item/storage/S = master
@@ -410,7 +410,7 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return 1
 
 	if(hud?.mymob && slot_id)
@@ -453,7 +453,7 @@
 		return 1
 	if(usr.incapacitated())
 		return 1
-	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+	if(ismecha(usr.loc)) // stops inventory actions in a mech
 		return 1
 
 	if(ismob(usr))

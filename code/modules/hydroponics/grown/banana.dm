@@ -27,7 +27,7 @@
 	tastes = list("banana" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
 	if(!user)
@@ -126,7 +126,8 @@
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
 
-/obj/item/grown/bananapeel/specialpeel/ComponentInitialize()
+/obj/item/grown/bananapeel/specialpeel/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
 
 /obj/item/grown/bananapeel/specialpeel/after_slip(mob/living/carbon/human/H)

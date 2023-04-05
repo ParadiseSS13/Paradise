@@ -5,12 +5,10 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
+	idle_power_consumption = 5
+	active_power_consumption = 50
 
 	var/processing = FALSE
-
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 50
 	var/rating_speed = 1
 	var/rating_amount = 1
 
@@ -21,6 +19,13 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
+
+/obj/machinery/processor/update_icon_state()
+	. = ..()
+	if(processing)
+		icon_state = "processor_on"
+		return
+	icon_state = initial(icon_state)
 
 /obj/machinery/processor/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
@@ -53,6 +58,7 @@
 	var/output
 	var/time = 40
 
+/// WHO NAME A PARAMETER FOR A PROC "what" holy hell
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)
@@ -171,7 +177,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	if(default_unfasten_wrench(user, O))
+	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		return
 
 	default_deconstruction_crowbar(user, O)
@@ -208,6 +214,7 @@
 		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
 		return 1
 	processing = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	user.visible_message("[user] turns on [src].", \
 		"<span class='notice'>You turn on [src].</span>", \
 		"<span class='italics'>You hear a food processor.</span>")
@@ -229,6 +236,7 @@
 			continue
 		P.process_food(loc, O, src)
 	processing = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
 		"<span class='notice'>\the [src] has finished processing.</span>", \

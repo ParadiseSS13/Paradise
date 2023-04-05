@@ -10,29 +10,43 @@ Pipelines + Other Objects -> Pipe network
 */
 /obj/machinery/atmospherics
 	anchored = TRUE
-	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	plane = GAME_PLANE
-	idle_power_usage = 0
-	active_power_usage = 0
-	power_channel = ENVIRON
+	power_state = NO_POWER_USE
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
-	var/nodealert = FALSE
+
+	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
+	var/layer_offset = 0.0 // generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things
+
+	/// Can this be unwrenched?
 	var/can_unwrench = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
 	/// The amount of pressure the machine wants to operate at.
 	var/target_pressure = 0
+
+
+	// Vars below this point are all pipe related
+	// I know not all subtypes are pipes, but this helps
+
+	/// Type of pipes this machine can connect to
 	var/list/connect_types = list(CONNECT_TYPE_NORMAL)
-	var/connected_to = 1 //same as above, currently not used for anything
-	var/icon_connect_type = "" //"-supply" or "-scrubbers"
-
+	/// What this machine is connected to
+	var/connected_to = CONNECT_TYPE_NORMAL
+	/// Icon suffix for connection, can be "-supply" or "-scrubbers"
+	var/icon_connect_type = ""
+	/// Directions to initialize in to grab pipes
 	var/initialize_directions = 0
-
+	/// Pipe colour, not used for all subtypes
 	var/pipe_color
+	/// Pipe image, not used for all subtypes
 	var/image/pipe_image
+
+	/// ID for automatic linkage of stuff. This is used to assist in connections at mapload. Dont try use it for other stuff
+	var/autolink_id = null
 
 
 /obj/machinery/atmospherics/Initialize(mapload)
@@ -64,12 +78,6 @@ Pipelines + Other Objects -> Pipe network
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
 
-/obj/machinery/atmospherics/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	if(check_icon_cache())
@@ -78,14 +86,13 @@ Pipelines + Other Objects -> Pipe network
 		..(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/update_icon_state()
-	var/turf/T = get_turf(loc)
-	if(T && T.transparent_floor)
-		plane = FLOOR_PLANE
-	else
-		if(!T || level == 2 || !T.intact)
-			plane = GAME_PLANE
-		else
+	switch(level)
+		if(1)
 			plane = FLOOR_PLANE
+			layer = GAS_PIPE_HIDDEN_LAYER + layer_offset
+		if(2)
+			plane = GAME_PLANE
+			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
@@ -147,6 +154,13 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/returnPipenet()
 	return
 
+/**
+ * Whether or not this atmos machine has multiple pipenets attached to it
+ * Used to determine if a ventcrawler should update their vision or not
+ */
+/obj/machinery/atmospherics/proc/is_pipenet_split()
+	return FALSE
+
 /obj/machinery/atmospherics/proc/returnPipenetAir()
 	return
 
@@ -206,6 +220,12 @@ Pipelines + Other Objects -> Pipe network
 				to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
+			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
+				if(usermagboots.gustprotection && usermagboots.magpulse) // Check again, incase they change magpulse mid-wrench
+					safefromgusts = TRUE
+				else
+					safefromgusts = FALSE
+
 			user.visible_message( \
 				"<span class='notice'>[user] unfastens \the [src].</span>", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
@@ -301,7 +321,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(returnPipenet(target_move) != target_move.returnPipenet())
+			if(is_pipenet_split()) // Going away from a split means we want to update the view of the pipenet
 				user.update_pipe_vision(target_move)
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
@@ -390,7 +410,7 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is toggling the machine.
  */
 /obj/machinery/atmospherics/proc/toggle(mob/living/user)
-	if(!powered())
+	if(!has_power())
 		return
 	on = !on
 	update_icon()
@@ -406,7 +426,7 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is setting the output pressure to maximum.
  */
 /obj/machinery/atmospherics/proc/set_max(mob/living/user)
-	if(!powered())
+	if(!has_power())
 		return
 	target_pressure = MAX_OUTPUT_PRESSURE
 	update_icon()

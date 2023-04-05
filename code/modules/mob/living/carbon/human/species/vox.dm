@@ -16,17 +16,16 @@
 	smell.<br/><br/>Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
 
-	oxy_mod = 2 // die slightly faster in crit or areas without N2
-
 	breathid = "n2"
 
 	eyes = "vox_eyes_s"
 
-	species_traits = list(NO_CLONESCAN, IS_WHITELISTED)
+	species_traits = list(NO_CLONESCAN)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_BODYACC_COLOR
+	own_species_blood = TRUE
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
@@ -145,7 +144,7 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_CLONESCAN, NO_BLOOD, IS_WHITELISTED)
+	species_traits = list(NO_CLONESCAN, NO_BLOOD)
 	inherent_traits = list(TRAIT_RESISTHEAT, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE, TRAIT_NOFIRE, TRAIT_NOPAIN, TRAIT_NOGERMS, TRAIT_NODECAY)
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL

@@ -20,8 +20,21 @@
 
 
 /obj/item/camera_assembly/Destroy()
-	QDEL_LIST(upgrades)
+	QDEL_LIST_CONTENTS(upgrades)
 	return ..()
+
+/obj/item/camera_assembly/examine(mob/user)
+	. = ..()
+	switch(state)
+		if(ASSEMBLY_UNBUILT)
+			. += "<span class='notice'>The camera assembly's <i>bolts</i> need to be secured in a wall.</span>"
+		if(ASSEMBLY_WRENCHED)
+			. += "<span class='notice'>The camera assembly is <b>bolted</b>, but it needs to be <i>welded</i> into place.</span>"
+		if(ASSEMBLY_WELDED)
+			. += "<span class='notice'>The camera assembly is <b>welded</b> to the wall, it's lacking <i>wires</i>.</span>"
+		if(ASSEMBLY_WIRED)
+			. += "<span class='notice'>The camera assembly is <b>wired</b>, but the maintenence panel needs to be <i>screwed shut</i>.</span>"
+			. += "<span class='notice'>Upgrades can be added to the camera assembly, and removed with a crowbar.</span>"
 
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	if(state == ASSEMBLY_WELDED && iscoil(I))
@@ -67,7 +80,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	state = HEY_IM_WORKING_HERE
-	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Seperate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
+	var/input = strip_html(input(usr, "Which networks would you like to connect this camera to? Separate networks with a comma. No Spaces!\nFor example: SS13,Security,Secret ", "Set Network", "SS13"))
 	if(!input)
 		state = ASSEMBLY_WIRED
 		to_chat(usr, "<span class='warning'>No input found please hang up and try your call again.</span>")

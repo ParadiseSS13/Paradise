@@ -69,7 +69,7 @@
 /datum/theft_objective/ai/check_special_completion(obj/item/aicard/C)
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
-			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.
+			if(isAI(A) && A.stat != 2) //See if any AI's are alive inside that card.
 				return 1
 	return 0
 
@@ -92,7 +92,7 @@
 	altitems = list(/obj/item/photo)
 	location_override = "the Chief Engineer's Office"
 
-/datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
+/datum/theft_objective/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
 		return 1
 	if(istype(I, /obj/item/photo))
@@ -125,16 +125,10 @@
 	location_override = "the Vault"
 
 /datum/theft_objective/hypospray
-	name = "the Chief Medical Officer's hypospray"
+	name = "the chief medical officer's advanced hypospray"
 	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 	location_override = "the Chief Medical Officer's Office"
-
-/datum/theft_objective/ablative
-	name = "an ablative armor vest"
-	typepath = /obj/item/clothing/suit/armor/laserproof
-	protected_jobs = list("Head of Security", "Warden")
-	location_override = "the Armory"
 
 /datum/theft_objective/krav
 	name = "the warden's krav maga martial arts gloves"

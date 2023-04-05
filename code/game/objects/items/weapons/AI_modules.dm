@@ -265,6 +265,12 @@ AI MODULES
 	origin_tech = "programming=3;materials=4"
 	laws = new /datum/ai_laws/crewsimov
 
+/obj/item/aiModule/crewsimov/cmag_act(mob/user)
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(user, "<span class='warning'>Yellow ooze seeps into [src]'s circuits...</span>")
+	new /obj/item/aiModule/pranksimov(user.loc)
+	qdel(src)
+
 /******************* Quarantine ********************/
 /obj/item/aiModule/quarantine
 	name = "\improper Quarantine core AI module"
@@ -320,6 +326,13 @@ AI MODULES
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=4"
 	laws = new /datum/ai_laws/antimov()
+
+/******************** Pranksimov ********************/
+/obj/item/aiModule/pranksimov
+	name = "\improper Pranksimov core AI module"
+	desc = "A 'Pranksimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+	origin_tech = "programming=3;syndicate=2"
+	laws = new /datum/ai_laws/pranksimov()
 
 /******************** NT Aggressive ********************/
 /obj/item/aiModule/nanotrasen_aggressive

@@ -6,9 +6,9 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
+	idle_power_consumption = 5
+
 	var/candy = FALSE
-	idle_power_usage = 5
 	var/on = FALSE	//Is it making food already?
 	var/list/food_choices = list()
 

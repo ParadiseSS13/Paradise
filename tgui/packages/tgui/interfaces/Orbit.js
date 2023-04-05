@@ -89,7 +89,7 @@ const OrbitedButton = (props, context) => {
 
 export const Orbit = (props, context) => {
   const { act, data } = useBackend(context);
-  const { alive, antagonists, auto_observe, dead, ghosts, misc, npcs } = data;
+  const { alive, antagonists, highlights, auto_observe, dead, ghosts, misc, npcs } = data;
 
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
@@ -109,6 +109,7 @@ export const Orbit = (props, context) => {
   const orbitMostRelevant = (searchText) => {
     for (const source of [
       sortedAntagonists.map(([_, antags]) => antags),
+      highlights,
       alive,
       ghosts,
       dead,
@@ -171,6 +172,14 @@ export const Orbit = (props, context) => {
               </Section>
             ))}
           </Section>
+        )}
+        {highlights.length > 0 && (
+          <BasicSection
+            title="Highlights"
+            source={highlights}
+            searchText={searchText}
+            color={'teal'}
+          />
         )}
 
         <BasicSection

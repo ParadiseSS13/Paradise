@@ -65,7 +65,7 @@
 	RefreshParts()
 
 /obj/machinery/seed_extractor/Destroy()
-	QDEL_LIST(piles)
+	QDEL_LIST_CONTENTS(piles)
 	return ..()
 
 /obj/machinery/seed_extractor/RefreshParts()
@@ -79,7 +79,7 @@
 		return
 	if(exchange_parts(user, O))
 		return
-	if(default_unfasten_wrench(user, O))
+	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		return
 	if(default_deconstruction_crowbar(user, O))
 		return
@@ -203,6 +203,9 @@
 			return
 	else if(isstorage(O.loc))
 		var/obj/item/storage/S = O.loc
+		if(!S.removal_allowed_check(user))
+			return
+
 		S.remove_from_storage(O, src)
 
 	for(var/datum/seed_pile/N in piles) //this for loop physically hurts me

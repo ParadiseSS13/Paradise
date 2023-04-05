@@ -30,6 +30,7 @@
 	health = 1000
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	armour_penetration_percentage = 50
 	attacktext = "smashes into the side of"
 	attack_sound = 'sound/weapons/sonic_jackhammer.ogg'
 	throw_message = "merely dinks off of the"
@@ -116,10 +117,12 @@
 		recalculation_speed = 2
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/chaser_burst(target)
-	ranged_cooldown = world.time + cooldown_time * 2
+	ranged_cooldown = world.time + cooldown_time * 2.5 // this shreads people incredibly effectivly at low hp, so needs higher cooldown than other attacks
 	var/active_chasers = 0
 	for(var/mob/living/M in orange(7, src))
 		if(M.faction_check_mob(src))
+			continue
+		if(M.stat == DEAD) //Let us not have dead mobs be used to make a disco inferno.
 			continue
 		if(active_chasers >= MAX_CHASERS)
 			return
@@ -135,7 +138,7 @@
 	new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(T, src, TRUE)
 	T = get_step(T, angleused)
 	procsleft = procsleft - 1
-	addtimer(CALLBACK(src, .proc/singular_shot_line, procsleft, angleused, T), cooldown_time * 0.1)
+	addtimer(CALLBACK(src, PROC_REF(singular_shot_line), procsleft, angleused, T), cooldown_time * 0.1)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/magic_box(target)
 	ranged_cooldown = world.time + cooldown_time
@@ -153,7 +156,7 @@
 	new /obj/effect/temp_visual/hierophant/telegraph(turf_target, src)
 	new /obj/effect/temp_visual/hierophant/telegraph(source, src)
 	playsound(source,'sound/machines/airlock_open.ogg', 200, 1)
-	addtimer(CALLBACK(src, .proc/pandora_teleport_2, turf_target, source), 2)
+	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_2), turf_target, source), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_2(turf/T, turf/source)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
@@ -165,7 +168,7 @@
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	visible_message("<span class='hierophant'>[src] fades out!</span>")
 	set_density(FALSE)
-	addtimer(CALLBACK(src, .proc/pandora_teleport_3, T), 2)
+	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/pandora_teleport_3(turf/T)
 	forceMove(T)
@@ -178,7 +181,7 @@
 	var/turf/T = get_turf(target)
 	new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(T, src, TRUE)
 	var/max_size = 3
-	addtimer(CALLBACK(src, .proc/aoe_squares_2, T, 0, max_size), 2)
+	addtimer(CALLBACK(src, PROC_REF(aoe_squares_2), T, 0, max_size), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares_2(turf/T, ring, max_size)
 	if(ring > max_size)
@@ -186,7 +189,7 @@
 	for(var/t in spiral_range_turfs(ring, T))
 		if(get_dist(t, T) == ring)
 			new /obj/effect/temp_visual/hierophant/blast/damaging/pandora(t, src, TRUE)
-	addtimer(CALLBACK(src, .proc/aoe_squares_2, T, (ring + 1), max_size), cooldown_time * 0.1)
+	addtimer(CALLBACK(src, PROC_REF(aoe_squares_2), T, (ring + 1), max_size), cooldown_time * 0.1)
 
 //The specific version of hiero's squares pandora uses
 /obj/effect/temp_visual/hierophant/blast/damaging/pandora

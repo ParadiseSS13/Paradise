@@ -1,10 +1,20 @@
 /obj/item/ammo_box/a357
 	name = "speed loader (.357)"
 	desc = "Designed to quickly reload revolvers."
+	materials = list()
 	ammo_type = /obj/item/ammo_casing/a357
 	max_ammo = 7
 	multi_sprite_step = 1 // see: /obj/item/ammo_box/update_icon()
 	icon_state = "357"
+
+/obj/item/ammo_box/b357
+	name = "ammo box (.357)"
+	desc = "Contains up to seven .357 bullets, intended to either be inserted into a speed loader or into the gun manually."
+	w_class = WEIGHT_CLASS_NORMAL
+	ammo_type = /obj/item/ammo_casing/a357
+	max_ammo = 7
+	multi_sprite_step = 1
+	icon_state = "357_box"
 
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"

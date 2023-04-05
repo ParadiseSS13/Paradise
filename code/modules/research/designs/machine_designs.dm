@@ -342,6 +342,16 @@
 	build_path = /obj/item/circuitboard/smartfridge
 	category = list ("Misc. Machinery")
 
+/datum/design/dish_drive
+	name = "Machine Design (Dish Drive Board)"
+	desc = "The circuit board for a dish drive."
+	id = "dishdrive"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/dish_drive
+	category = list("Misc. Machinery")
+
 /datum/design/monkey_recycler
 	name = "Machine Design (Monkey Recycler Board)"
 	desc = "The circuit board for a monkey recycler."
@@ -521,3 +531,23 @@
 	materials = list(MAT_GLASS=1000)
 	build_path = /obj/item/circuitboard/plantgenes
 	category = list("Hydroponics Machinery")
+
+/datum/design/slot_machine
+	name = "Machine Design (Slot Machine Board)"
+	desc = "The circuit board for a slot machine."
+	id = "slotmachine"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000)
+	build_path = /obj/item/circuitboard/slot_machine
+	category = list("Misc. Machinery")
+
+/datum/design/bottler
+	name = "Machine Design (Bottler Board)"
+	desc = "The circuit board for a bottler."
+	id = "bottlers"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000)
+	build_path = /obj/item/circuitboard/bottler
+	category = list("Misc. Machinery")

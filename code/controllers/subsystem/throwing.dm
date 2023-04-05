@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(throwing)
 	flags = SS_NO_INIT|SS_KEEP_TIMING|SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Thrown objects may not react properly. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	var/list/currentrun
 	var/list/processing = list()
@@ -67,6 +68,8 @@ SUBSYSTEM_DEF(throwing)
 	var/paused = FALSE
 	var/delayed_time = 0
 	var/last_move = 0
+	///When this variable is false, non dense mobs will be hit by a thrown item. useful for things that you dont want to be cheesed by crawling, EG. gravitational anomalies
+	var/dodgeable = TRUE
 
 /datum/thrownthing/proc/tick()
 	var/atom/movable/AM = thrownthing
@@ -90,6 +93,7 @@ SUBSYSTEM_DEF(throwing)
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && has_gravity(AM, AM.loc))
+			hitcheck() //Just to be sure
 			finalize()
 			return
 
@@ -148,6 +152,6 @@ SUBSYSTEM_DEF(throwing)
 		var/atom/movable/AM = thing
 		if(AM == thrownthing || AM == thrower)
 			continue
-		if(AM.density && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
+		if((AM.density || isliving(AM) && !dodgeable) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
 			finalize(hit = TRUE, target = AM)
 			return TRUE

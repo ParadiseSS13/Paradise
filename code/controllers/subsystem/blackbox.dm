@@ -2,12 +2,14 @@
 
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
-	flags = SS_NO_FIRE | SS_NO_INIT
-	// Even though we dont initialize, we need this init_order
 	// On Master.Shutdown(), it shuts down subsystems in the REVERSE order
 	// The database SS has INIT_ORDER_DBCORE=20, and this SS has INIT_ORDER_BLACKBOX=19
 	// So putting this ensures it shuts down in the right order
 	init_order = INIT_ORDER_BLACKBOX
+	wait = 10 MINUTES
+	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	offline_implications = "Player count and admin count statistics will no longer be logged to the database. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// List of all recorded feedback
 	var/list/datum/feedback_variable/feedback = list()
@@ -17,6 +19,26 @@ SUBSYSTEM_DEF(blackbox)
 	var/list/research_levels = list()
 	/// Associative list of any feedback variables that have had their format changed since creation and their current version, remember to update this
 	var/list/versions = list()
+
+/datum/controller/subsystem/blackbox/Initialize()
+	if(!SSdbcore.IsConnected())
+		flags |= SS_NO_FIRE // Disable firing if SQL is disabled
+
+/datum/controller/subsystem/blackbox/fire(resumed = 0)
+	sql_poll_players()
+
+/datum/controller/subsystem/blackbox/proc/sql_poll_players()
+	var/datum/db_query/statquery = SSdbcore.NewQuery(
+		"INSERT INTO legacy_population (playercount, admincount, time, server_id) VALUES (:playercount, :admincount, NOW(), :server_id)",
+		list(
+			"playercount" = length(GLOB.clients),
+			"admincount" = length(GLOB.admins),
+			"server_id" = GLOB.configuration.system.instance_id
+		)
+	)
+	statquery.warn_execute()
+	qdel(statquery)
+
 
 /datum/controller/subsystem/blackbox/Recover()
 	feedback = SSblackbox.feedback
@@ -288,8 +310,8 @@ SUBSYSTEM_DEF(blackbox)
 		lakey = L.lastattackerckey
 
 	var/datum/db_query/deathquery = SSdbcore.NewQuery({"
-		INSERT INTO death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord, server_id)
-		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord, :server_id)"},
+		INSERT INTO death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss, coord, server_id, death_rid)
+		VALUES (:name, :key, :job, :special, :pod, NOW(), :laname, :lakey, :gender, :bruteloss, :fireloss, :brainloss, :oxyloss, :coord, :server_id, :rid)"},
 		list(
 			"name" = L.real_name,
 			"key" = L.key,
@@ -304,7 +326,8 @@ SUBSYSTEM_DEF(blackbox)
 			"brainloss" = L.getBrainLoss(),
 			"oxyloss" = L.getOxyLoss(),
 			"coord" = "[L.x], [L.y], [L.z]",
-			"server_id" = GLOB.configuration.system.instance_id
+			"server_id" = GLOB.configuration.system.instance_id,
+			"rid" = GLOB.round_id
 		)
 	)
 	deathquery.warn_execute()

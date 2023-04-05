@@ -16,9 +16,9 @@
 		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
 		)
 
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS, NO_HAIR)
+	species_traits = list(LIPS, CAN_WINGDINGS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags =  HAS_BODY_MARKINGS | HAS_BODYACC_COLOR
+	bodyflags =  HAS_BODY_MARKINGS | HAS_BODYACC_COLOR | SHAVED | BALD
 	dietflags = DIET_HERB
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG

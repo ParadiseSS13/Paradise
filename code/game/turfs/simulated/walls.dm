@@ -9,8 +9,8 @@
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
 
 	var/rotting = FALSE
 
@@ -80,10 +80,7 @@
 
 	if(rotting)
 		. += "<span class='warning'>There is fungus growing on [src].</span>"
-
-/turf/simulated/wall/detailed_examine()
-	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
-			You can build a wall by using metal sheets and making a girder, then adding more metal or plasteel."
+	. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /// Apply rust effects to the wall
 /turf/simulated/wall/proc/rust()
@@ -343,7 +340,7 @@
 	if(try_wallmount(I, user, params))
 		return
 	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
+	if(istype(I, /obj/item/gripper_engineering))
 		return
 
 	return ..()
@@ -424,7 +421,7 @@
 			to_chat(user, "<span class='notice'>Your [I.name] tears though the last of the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through [src]!</span>", "<span class='warning'>You hear the grinding of metal.</span>")
-			return TRUE
+		return TRUE
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
@@ -433,8 +430,16 @@
 			to_chat(user, "<span class='notice'>Your [I.name] disintegrates the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
-			return TRUE
+		return TRUE
 
+	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
+		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
+
+		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
+			to_chat(user, "<span class='notice'>Your [I.name] melts the reinforced plating.</span>")
+			dismantle_wall()
+			visible_message("<span class='warning'>[user] melts [src]!</span>","<span class='warning'>You hear the hissing of steam.</span>")
+		return TRUE
 	return FALSE
 
 /turf/simulated/wall/proc/try_wallmount(obj/item/I, mob/user, params)

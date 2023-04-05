@@ -149,11 +149,11 @@
 	if(noms in totalWormSegments)
 		return //Trying to eat part of self.
 
-	if(istype(noms, /turf))
-		if(istype(noms, /turf/simulated/wall))
+	if(isturf(noms))
+		if(iswallturf(noms))
 			W = noms
 			nomDelay *= 2
-			if(istype(W, /turf/simulated/wall/r_wall))
+			if(isreinforcedwallturf(W))
 				nomDelay *= 2
 		else
 			return

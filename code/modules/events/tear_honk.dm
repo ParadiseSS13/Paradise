@@ -8,7 +8,7 @@
 	HE = new /obj/effect/tear/honk(location)
 
 /datum/event/tear/honk/announce()
-	GLOB.event_announcement.Announce("A Honknomoly has opened. Expected location: [impact_area.name].", "Honknomoly Alert", 'sound/items/airhorn.ogg')
+	GLOB.minor_announcement.Announce("A Honknomoly has opened. Expected location: [impact_area.name].", "Honknomoly Alert", 'sound/items/airhorn.ogg')
 
 /datum/event/tear/honk/end()
 	if(HE)
@@ -18,6 +18,9 @@
 	name = "honkmensional tear"
 	desc = "A tear in the dimensional fabric of sanity."
 	possible_mobs = list(/mob/living/simple_animal/hostile/retaliate/clown/goblin)
+	leader = null // Doesn't spawn with a leader always
 
-/obj/effect/tear/honk/spawn_leader()
-	return
+/obj/effect/tear/honk/Initialize(mapload)
+	. = ..()
+	if(prob(5))
+		leader = /mob/living/simple_animal/hostile/retaliate/clown/goblin/cluwne

@@ -55,12 +55,10 @@
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
 
-/obj/machinery/mineral/ore_redemption/ComponentInitialize()
-	..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, .proc/on_material_insert))
 
 /obj/machinery/mineral/ore_redemption/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack, null, CALLBACK(src, PROC_REF(on_material_insert)))
 	ore_buffer = list()
 	files = new /datum/research/smelter(src)
 	// Stock parts
@@ -155,21 +153,22 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/mineral/ore_redemption/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !powered())
+	if(inserted_id && !(stat & NOPOWER))
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
 /obj/machinery/mineral/ore_redemption/update_icon_state()
-	if(powered())
+	if(has_power())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
 
 /obj/machinery/mineral/ore_redemption/process()
-	if(panel_open || !powered())
+	if(panel_open || !has_power())
 		return
 	// Check if the input turf has a [/obj/structure/ore_box] to draw ore from. Otherwise suck ore from the turf
 	var/atom/input = get_step(src, input_dir)
@@ -196,7 +195,7 @@
 /obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
 		return
-	if(!powered())
+	if(!has_power())
 		return ..()
 
 	if(istype(I, /obj/item/card/id))
@@ -211,7 +210,7 @@
 		SStgui.update_uis(src)
 		interact(user)
 		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
-						 	 "<span class='notice'>You insert [I] into [src].</span>")
+							"<span class='notice'>You insert [I] into [src].</span>")
 		return
 	return ..()
 
@@ -223,7 +222,7 @@
 	if(!panel_open)
 		return
 	. = TRUE
-	if(!powered())
+	if(!has_power())
 		return
 	if(!I.tool_start_check(src, user, 0))
 		return
@@ -237,7 +236,7 @@
 		return TRUE
 
 /obj/machinery/mineral/ore_redemption/wrench_act(mob/user, obj/item/I)
-	if(default_unfasten_wrench(user, I))
+	if(default_unfasten_wrench(user, I, time = 6 SECONDS))
 		return TRUE
 
 /obj/machinery/mineral/ore_redemption/attack_ghost(mob/user)
@@ -288,6 +287,7 @@
 		alloys += list(list(
 			"id" = D.id,
 			"name" = D.name,
+			"description" = D.desc,
 			"amount" = get_num_smeltable_alloy(D)
 		))
 	data["alloys"] = alloys
@@ -377,7 +377,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreRedemption", name, 400, 600)
+		ui = new(user, src, ui_key, "OreRedemption", name, 500, 600)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

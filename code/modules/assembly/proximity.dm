@@ -13,14 +13,16 @@
 	var/timing = FALSE
 	var/time = 10
 
-/obj/item/assembly/prox_sensor/ComponentInitialize()
+/obj/item/assembly/prox_sensor/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor, _always_active = TRUE)
 
-/obj/item/assembly/prox_sensor/describe()
+/obj/item/assembly/prox_sensor/examine(mob/user)
+	. = ..()
 	if(timing)
-		return "<span class='notice'>The proximity sensor is arming.</span>"
-	return "The proximity sensor is [scanning ? "armed" : "disarmed"]."
+		. += "<span class='notice'>The proximity sensor is arming.</span>"
+	else
+		. += "The proximity sensor is [scanning ? "armed" : "disarmed"]."
 
 /obj/item/assembly/prox_sensor/activate()
 	if(!..())
@@ -43,7 +45,7 @@
 /obj/item/assembly/prox_sensor/HasProximity(atom/movable/AM)
 	if(!isobj(AM) && !isliving(AM))
 		return
-	if(istype(AM, /obj/effect))
+	if(iseffect(AM))
 		return
 	if(AM.move_speed < 12)
 		sense()
@@ -54,7 +56,7 @@
 	cooldown = 2
 	pulse(FALSE)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 
 /obj/item/assembly/prox_sensor/process()
 	if(timing && (time >= 0))

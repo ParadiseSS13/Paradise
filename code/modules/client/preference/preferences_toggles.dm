@@ -49,7 +49,7 @@
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Admin Bwoinks"
 	set category = "Preferences"
-	set desc = "Toggle hearing a notification when admin PMs are recieved"
+	set desc = "Toggle hearing a notification when admin PMs are received"
 	if(!check_rights(R_ADMIN))
 		return
 	prefs.sound ^= SOUND_ADMINHELP
@@ -60,7 +60,7 @@
 /client/proc/togglementorhelpsound()
 	set name = "Hear/Silence Mentorhelp Bwoinks"
 	set category = "Preferences"
-	set desc = "Toggle hearing a notification when mentorhelps are recieved"
+	set desc = "Toggle hearing a notification when mentorhelps are received"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	prefs.sound ^= SOUND_MENTORHELP
@@ -108,15 +108,6 @@
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_DISABLE_SCOREBOARD) ? "no longer" : "now"] see the end of round scoreboard.")
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Scoreboard") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/verb/togglekarmareminder()
-	set name = "Hide/Display End Round Karma Reminder"
-	set category = "Preferences"
-	set desc = "Toggles displaying end of round karma reminder"
-	prefs.toggles ^= PREFTOGGLE_DISABLE_KARMA_REMINDER
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_DISABLE_KARMA_REMINDER) ? "no longer" : "now"] see the end of round karma reminder.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Karma Reminder") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence LobbyMusic"
@@ -254,17 +245,6 @@
 		deactivate_darkmode()
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/verb/toggle_karma()
-	set name = "Toggle Karma Gains"
-	set category = "Special Verbs"
-	set desc = "This button will allow you to stop other people giving you karma."
-	prefs.toggles ^= PREFTOGGLE_DISABLE_KARMA
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA)
-		to_chat(usr, "<span class='notice'>You have disabled karma gains.")
-	else
-		to_chat(usr, "<span class='notice'>You have enabled karma gains.")
-
 /client/verb/toggle_popup_limiter()
 	set name = "Toggle Text Popup Limiter"
 	set category = "Preferences"
@@ -357,3 +337,36 @@
 	client.prefs.toggles2 ^= PREFTOGGLE_2_ANON
 	to_chat(src, "Your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? "no longer" : "now"] be shown in certain events (end round reports, deadchat, etc).</span>")
 	client.prefs.save_preferences(src)
+
+/client/proc/toggle_mctabs()
+	set name = "Show/Hide MC Tabs"
+	set category = "Preferences"
+	set desc = "Shows or hides the MC tabs."
+	prefs.toggles2 ^= PREFTOGGLE_2_MC_TABS
+	prefs.save_preferences(src)
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "now" : "no longer"] see the MC tabs on the top right.")
+
+/client/verb/toggle_dance()
+	set name = "Toggle Disco Machine Dancing"
+	set category = "Preferences"
+	set desc = "Toggles automatic dancing from the radiant dance machine"
+	prefs.toggles2 ^= PREFTOGGLE_2_DANCE_DISCO
+	prefs.save_preferences(src)
+	to_chat(usr, "You will [(prefs.toggles2 & PREFTOGGLE_2_DANCE_DISCO) ? "now" : "no longer"] dance to the radiant dance machine.")
+
+/client/verb/manage_adminsound_mutes()
+	set name = "Manage Admin Sound Mutes"
+	set category = "Preferences"
+	set desc = "Manage admins that you wont hear played audio from"
+
+	if(!length(prefs.admin_sound_ckey_ignore))
+		to_chat(usr, "You have no admins with muted sounds.")
+		return
+
+	var/choice  = input(usr, "Select an admin to unmute sounds from.", "Pick an admin") as null|anything in prefs.admin_sound_ckey_ignore
+	if(!choice)
+		return
+
+	prefs.admin_sound_ckey_ignore -= choice
+	to_chat(usr, "You will now hear sounds from <code>[choice]</code> again.")
+	prefs.save_preferences(src)

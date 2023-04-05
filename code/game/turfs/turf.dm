@@ -39,6 +39,10 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
+	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
+	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
+	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
+
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)
@@ -88,12 +92,13 @@
 		for(var/A in B.contents)
 			qdel(A)
 		return
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	// Adds the adjacent turfs to the current atmos processing
 	for(var/turf/simulated/T in atmos_adjacent_turfs)
 		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	visibilityChanged()
-	QDEL_LIST(blueprint_data)
+	QDEL_LIST_CONTENTS(blueprint_data)
 	initialized = FALSE
 	..()
 
@@ -197,7 +202,7 @@
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-	if(L)
+	if(L && !(L.resistance_flags & INDESTRUCTIBLE))
 		qdel(L)
 
 /turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
@@ -269,15 +274,20 @@
 	levelupdate()
 	CalculateAdjacentTurfs()
 
-	if(SSair && !ignore_air)
+	if(!ignore_air)
 		SSair.add_to_active(src)
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
-	for(var/I in turfs_to_check)
-		var/turf/T = I
+	for(var/turf/T in turfs_to_check)
 		for(var/obj/machinery/door/firedoor/FD in T)
 			FD.CalculateAffectingAreas()
+
+	// Check for weeds and either update, create or delete wall weeds
+	turfs_to_check = AdjacentTurfs(open_only = TRUE, cardinal_only = FALSE)
+	for(var/turf/T in turfs_to_check)
+		for(var/obj/structure/alien/weeds/W in T)
+			W.check_surroundings()
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
@@ -303,10 +313,10 @@
 		var/turf_count = 0
 
 		for(var/turf/T in atmos_adjacent_turfs)
-			if(istype(T, /turf/space))//Counted as no air
+			if(isspaceturf(T))//Counted as no air
 				turf_count++//Considered a valid turf for air calcs
 				continue
-			else if(istype(T, /turf/simulated/floor))
+			else if(isfloorturf(T))
 				var/turf/simulated/S = T
 				if(S.air)//Add the air's contents to the holders
 					aoxy += S.air.oxygen
@@ -339,9 +349,9 @@
 	for(var/mob/living/M in src)
 		if(M == U)
 			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		INVOKE_ASYNC(M, /mob/.proc/gib)
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, gib))
 	for(var/obj/mecha/M in src)//Mecha are not gibbed but are damaged.
-		INVOKE_ASYNC(M, /obj/mecha/.proc/take_damage, 100, "brute")
+		INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/mecha, take_damage), 100, "brute")
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
@@ -367,106 +377,24 @@
 /turf/proc/burn_down()
 	return
 
-/////////////////////////////////////////////////////////////////////////
-// Navigation procs
-// Used for A-star pathfinding
-////////////////////////////////////////////////////////////////////////
-
-///////////////////////////
-//Cardinal only movements
-///////////////////////////
-
-// Returns the surrounding cardinal turfs with open links
-// Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(obj/item/card/id/ID)
-	var/list/L = new()
-	var/turf/simulated/T
-
-	for(var/dir in GLOB.cardinal)
-		T = get_step(src, dir)
-		if(istype(T) && !T.density)
-			if(!LinkBlockedWithAccess(src, T, ID))
-				L.Add(T)
-	return L
-
-// Returns the surrounding cardinal turfs with open links
-// Don't check for ID, doors passable only if open
-/turf/proc/CardinalTurfs()
-	var/list/L = new()
-	var/turf/simulated/T
-
-	for(var/dir in GLOB.cardinal)
-		T = get_step(src, dir)
-		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
-				L.Add(T)
-	return L
-
-///////////////////////////
-//All directions movements
-///////////////////////////
-
-// Returns the surrounding simulated turfs with open links
-// Including through doors openable with the ID
-/turf/proc/AdjacentTurfsWithAccess(obj/item/card/id/ID = null, list/closed)//check access if one is passed
-	var/list/L = new()
-	var/turf/simulated/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
-		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded in A*
-			continue
-		if(istype(T) && !T.density)
-			if(!LinkBlockedWithAccess(src, T, ID))
-				L.Add(T)
-	return L
-
-//Idem, but don't check for ID and goes through open doors
-/turf/proc/AdjacentTurfs(list/closed)
-	var/list/L = new()
-	var/turf/simulated/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
-		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded by A*
-			continue
-		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T))
-				L.Add(T)
-	return L
-
-// check for all turfs, including space ones
-/turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
+/// Returns the adjacent turfs. Can check for density or cardinal directions only instead of all 8, or just dense turfs entirely. dense_only takes precedence over open_only.
+/turf/proc/AdjacentTurfs(open_only = FALSE, cardinal_only = FALSE, dense_only = FALSE)
 	var/list/L = new()
 	var/turf/T
-	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+	var/list/directions = cardinal_only ? GLOB.cardinal : GLOB.alldirs
+	for(var/dir in directions)
 		T = get_step(src, dir)
-		if(T in closed) //turf already proceeded by A*
+		if(!istype(T))
 			continue
-		if(istype(T) && !T.density)
-			if(!ID)
-				if(!CanAtmosPass(T))
-					L.Add(T)
-			else
-				if(!LinkBlockedWithAccess(src, T, ID))
-					L.Add(T)
+		if(dense_only && !T.density)
+			continue
+		if((open_only && T.density) && !dense_only)
+			continue
+		L.Add(T)
 	return L
 
-//////////////////////////////
-//Distance procs
-//////////////////////////////
-
-//Distance associates with all directions movement
 /turf/proc/Distance(turf/T)
 	return get_dist(src, T)
-
-//  This Distance proc assumes that only cardinal movement is
-//  possible. It results in more efficient (CPU-wise) pathing
-//  for bots and anything else that only moves in cardinal dirs.
-/turf/proc/Distance_cardinal(turf/T)
-	if(!src || !T)
-		return 0
-	return abs(src.x - T.x) + abs(src.y - T.y)
-
-////////////////////////////////////////////////////
 
 /turf/acid_act(acidpwr, acid_volume)
 	. = TRUE
@@ -577,3 +505,39 @@
 
 /turf/AllowDrop()
 	return TRUE
+
+/**
+ * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
+ *
+ * Arguments:
+ * * caller: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * ID: An ID card that decides if we can gain access to doors that would otherwise block a turf
+ * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
+ * * no_id: When true, doors with public access will count as impassible
+*/
+/turf/proc/reachableAdjacentTurfs(caller, ID, simulated_only, no_id = FALSE)
+	var/static/space_type_cache = typecacheof(/turf/space)
+	. = list()
+
+	for(var/iter_dir in GLOB.cardinal)
+		var/turf/turf_to_check = get_step(src, iter_dir)
+		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))
+			continue
+		if(turf_to_check.density || LinkBlockedWithAccess(turf_to_check, caller, ID, no_id = no_id))
+			continue
+		. += turf_to_check
+
+// Makes an image of up to 20 things on a turf + the turf
+/turf/proc/photograph(limit = 20)
+	var/image/I = new()
+	I.add_overlay(src)
+	for(var/V in contents)
+		var/atom/A = V
+		if(A.invisibility)
+			continue
+		I.add_overlay(A)
+		if(limit)
+			limit--
+		else
+			return I
+	return I

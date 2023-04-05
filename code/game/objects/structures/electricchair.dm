@@ -18,9 +18,9 @@
 	if(isnull(part)) //This e-chair was not custom built
 		part = new(src)
 		var/obj/item/clothing/head/helmet/part1 = new(part)
-		var/obj/item/radio/electropack/part2 = new(part)
-		part2.set_frequency(1445)
-		part2.code = 6
+		var/obj/item/electropack/part2 = new(part)
+		part2.integrated_signaler.frequency = 1445
+		part2.integrated_signaler.code = 6
 		part2.master = part
 		part.part1 = part1
 		part.part2 = part2
@@ -75,10 +75,9 @@
 	var/area/A = get_area(src)
 	if(!isarea(A))
 		return
-	if(!A.powered(EQUIP))
+	if(!A.powernet.has_power(PW_CHANNEL_EQUIPMENT))
 		return
-	A.use_power(5000, EQUIP)
-	var/light = A.power_light
+	A.powernet.use_active_power(PW_CHANNEL_EQUIPMENT, 5000)
 	A.update_icon(UPDATE_ICON_STATE)
 
 	flick("echair_shock", src)
@@ -91,5 +90,3 @@
 			to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
 			spawn(1)
 				buckled_mob.electrocute_act(110, src, 1)
-	A.power_light = light
-	A.update_icon(UPDATE_ICON_STATE)

@@ -1,5 +1,5 @@
 /****************************************************
-			   ORGAN DEFINES
+			ORGAN DEFINES
 ****************************************************/
 
 /obj/item/organ/external/chest
@@ -233,21 +233,24 @@
 	if(!length(contents))
 		. += "<span class='warning'>There is nothing left inside!</span>"
 
+/obj/item/organ/external/head/vars_to_save()
+	return list("color", "name", "h_grad_style", "h_grad_offset_x", "h_grad_offset_y", "h_grad_colour", "h_grad_alpha")
+
 /obj/item/organ/external/head/remove()
 	if(owner)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
 		name = "[dna.real_name]'s head"
 		if(owner.glasses)
-			owner.unEquip(owner.glasses)
+			owner.unEquip(owner.glasses, force = TRUE)
 		if(owner.head)
-			owner.unEquip(owner.head)
+			owner.unEquip(owner.head, force = TRUE)
 		if(owner.l_ear)
-			owner.unEquip(owner.l_ear)
+			owner.unEquip(owner.l_ear, force = TRUE)
 		if(owner.r_ear)
-			owner.unEquip(owner.r_ear)
+			owner.unEquip(owner.r_ear, force = TRUE)
 		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask)
+			owner.unEquip(owner.wear_mask, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
@@ -259,7 +262,7 @@
 	..()
 
 /obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
-	..()
+	. = ..()
 	if(brute_dam + burn_dam > 50 && !(status & ORGAN_DISFIGURED))
 		disfigure()
 

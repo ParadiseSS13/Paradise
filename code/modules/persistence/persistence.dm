@@ -28,11 +28,11 @@
 
 // This is so specific atoms can override these, and ignore certain ones
 /atom/proc/vars_to_save()
- 	return list("color","dir","icon","icon_state","name","pixel_x","pixel_y")
+	return list("color","dir","icon","icon_state","name","pixel_x","pixel_y")
 
 /atom/proc/map_important_vars()
 	// A list of important things to save in the map editor
- 	return list("color","dir","icon","icon_state","layer","name","pixel_x","pixel_y")
+	return list("color","dir","icon","icon_state","layer","name","pixel_x","pixel_y")
 
 /area/map_important_vars()
 	// Keep the area default icons, to keep things nice and legible
@@ -45,7 +45,8 @@
 /atom/serialize()
 	var/list/data = ..()
 	for(var/thing in vars_to_save())
-		data[thing] = vars[thing] // Can't check initial() because it doesn't work on a list index
+		if(vars[thing] != initial(vars[thing]))
+			data[thing] = vars[thing]
 	return data
 
 

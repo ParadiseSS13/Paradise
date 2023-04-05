@@ -149,7 +149,7 @@
 				. += "inject"
 
 /obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I))
 		rename_interactive(user, I)
 
 // PRE-FILLED IV BAGS BELOW
@@ -163,13 +163,16 @@
 
 /obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
 	var/blood_type
+	var/blood_species = "Synthetic humanoid"
+	var/iv_blood_colour = "#A10808"
+	var/one_species_only = FALSE
 	amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
 	. = ..()
 	if(blood_type != null)
 		name = "[initial(name)] - [blood_type]"
-		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_colour"=iv_blood_colour,"resistances"=null,"trace_chem"=null,"species"=blood_species,"species_only"=one_species_only))
 		update_icon(UPDATE_OVERLAYS)
 
 
@@ -194,6 +197,16 @@
 
 /obj/item/reagent_containers/iv_bag/blood/OMinus
 	blood_type = "O-"
+
+/obj/item/reagent_containers/iv_bag/blood/vox
+	blood_type = "O-"
+	blood_species = "Vox"
+	iv_blood_colour = "#2299FC"
+	one_species_only = TRUE
+
+/obj/item/reagent_containers/iv_bag/blood/vox/Initialize(mapload)
+	. = ..()
+	name = "[initial(name)] - O- Vox Blood"
 
 /obj/item/reagent_containers/iv_bag/slime
 	list_reagents = list("slimejelly" = 200)

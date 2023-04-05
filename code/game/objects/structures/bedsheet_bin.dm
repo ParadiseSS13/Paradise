@@ -10,7 +10,7 @@ LINEN BINS
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
 	item_state = "bedsheet"
-	layer = 4.0
+	layer = 4
 	throwforce = 1
 	throw_speed = 1
 	throw_range = 2
@@ -108,7 +108,7 @@ LINEN BINS
 /obj/item/bedsheet/black
 	icon_state = "sheetblack"
 	item_state = "bedsheetblack"
-	item_color = "sheetblack"
+	item_color = "black"
 	dream_messages = list("black")
 	nightmare_messages = list("the void of space")
 
@@ -267,7 +267,7 @@ LINEN BINS
 	var/obj/item/hidden = null
 
 /obj/structure/bedsheetbin/Destroy()
-	QDEL_LIST(sheets)
+	QDEL_LIST_CONTENTS(sheets)
 	if(hidden)
 		hidden.forceMove(get_turf(src))
 		hidden = null
@@ -304,6 +304,11 @@ LINEN BINS
 	amount = 0
 	extinguish()
 	update_icon()
+
+/obj/structure/bedsheetbin/wrench_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		default_unfasten_wrench(user, I, time = 20)
+		return TRUE
 
 /obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))

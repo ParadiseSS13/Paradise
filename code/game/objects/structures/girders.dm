@@ -27,11 +27,9 @@
 			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
 		if(GIRDER_DISASSEMBLED)
 			. += "<span class='notice'>[src] is disassembled! You probably shouldn't be able to see this examine message.</span>"
+	. += "<span class='notice'>Various types of metal sheets can be used on this to create different kinds of walls.</span>"
+	. += "<span class='notice'>Apply a crowbar to this item to cause any walls to be made to be false walls. Use a wrench on this item to deconstruct it.</span>"
 
-/obj/structure/girder/detailed_examine()
-	return "Use metal sheets on this to build a normal wall. Adding plasteel instead will make a reinforced wall.<br>\
-			A false wall can be made by using a crowbar on this girder, and then adding metal or plasteel.<br>\
-			You can dismantle the girder with a wrench."
 
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
 	for(var/i=0;i < metalAmount;i++)
@@ -63,6 +61,12 @@
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You disintegrate the girder!</span>")
+		refundMetal(metalUsed)
+		qdel(src)
+
+	else if(istype(W, /obj/item/twohanded/required/pyro_claws))
+		playsound(loc, W.usesound, 100, 1)
+		to_chat(user, "<span class='notice'>You melt the girder!</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
@@ -108,6 +112,37 @@
 					var/turf/T = get_turf(src)
 					T.ChangeTurf(/turf/simulated/wall/mineral/iron)
 					transfer_fingerprints_to(T)
+					qdel(src)
+				return
+
+		if(istype(W, /obj/item/stack/ore/glass/basalt))
+			var/obj/item/stack/ore/glass/basalt/A = W
+			if(state == GIRDER_DISPLACED)
+				if(A.get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need at least two [A] to create a false wall!</span>")
+					return
+				if(do_after(user, 2 SECONDS, target = src))
+					if(!loc || !A || A.get_amount() < 2)
+						return
+					A.use(2)
+					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
+					var/obj/structure/falsewall/rock_ancient/FW = new (loc)
+					transfer_fingerprints_to(FW)
+					qdel(src)
+			else
+				if(A.get_amount() < 2)
+					to_chat(user, "<span class='warning'>You need at least two [A] to add plating!</span>")
+					return
+				to_chat(user, "<span class='notice'>You start adding [A]...</span>")
+				if(do_after(user, 4 SECONDS, target = src))
+					if(!src || !A || A.get_amount() < 2)
+						return
+					A.use(2)
+					to_chat(user, "<span class='notice'>You add [A].</span>")
+					var/turf/parent_turf = get_turf(src)
+					parent_turf.ChangeTurf(/turf/simulated/mineral/ancient)
+					for(var/turf/simulated/mineral/X in parent_turf.loc)
+						X.add_hiddenprint(usr)
 					qdel(src)
 				return
 
@@ -263,13 +298,6 @@
 
 		add_hiddenprint(user)
 
-	else if(istype(W, /obj/item/pipe))
-		var/obj/item/pipe/P = W
-		if(P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
-			if(!user.drop_item())
-				return
-			P.loc = src.loc
-			to_chat(user, "<span class='notice'>You fit the pipe into \the [src].</span>")
 	else
 		return ..()
 
@@ -378,7 +406,7 @@
 		else
 			return 0
 
-/obj/structure/girder/CanAStarPass(ID, dir, caller)
+/obj/structure/girder/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
 		var/atom/movable/mover = caller
@@ -409,9 +437,6 @@
 	state = GIRDER_REINF
 	girderpasschance = 0
 	max_integrity = 350
-
-/obj/structure/girder/reinforced/detailed_examine()
-	return "Add another sheet of plasteel to finish."
 
 /obj/structure/girder/cult
 	name = "runed girder"

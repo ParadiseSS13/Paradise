@@ -4,9 +4,8 @@
 /area/space)
 "ab" = (
 /obj/machinery/shieldwallgen{
-	active = 2;
-	anchored = 1;
-	power = 1
+	activated = 1;
+	anchored = 1
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -15,8 +14,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ac" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -26,9 +24,8 @@
 /area/ruin/space/unpowered)
 "ad" = (
 /obj/machinery/shieldwallgen{
-	active = 2;
-	anchored = 1;
-	power = 1
+	activated = 1;
+	anchored = 1
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -43,9 +40,8 @@
 /area/ruin/space/unpowered)
 "ae" = (
 /obj/machinery/shieldwallgen{
-	active = 2;
-	anchored = 1;
-	power = 1
+	activated = 1;
+	anchored = 1
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -61,9 +57,8 @@
 /area/ruin/space/unpowered)
 "af" = (
 /obj/machinery/shieldwallgen{
-	active = 2;
-	anchored = 1;
-	power = 1
+	activated = 1;
+	anchored = 1
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -72,8 +67,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ag" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ah" = (
@@ -87,8 +81,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "ak" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -210,9 +203,8 @@
 /area/ruin/space/unpowered)
 "aE" = (
 /obj/machinery/shieldwallgen{
-	active = 2;
-	anchored = 1;
-	power = 1
+	activated = 1;
+	anchored = 1
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -278,9 +270,8 @@
 /area/ruin/space/unpowered)
 "aJ" = (
 /obj/machinery/shieldwallgen{
-	active = 2;
-	anchored = 1;
-	power = 1
+	activated = 1;
+	anchored = 1
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -561,9 +552,8 @@
 /area/ruin/space/unpowered)
 "bo" = (
 /obj/machinery/shieldwallgen{
-	active = 2;
-	anchored = 1;
-	power = 1
+	activated = 1;
+	anchored = 1
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -679,7 +669,7 @@
 /area/ruin/space/unpowered)
 "bA" = (
 /obj/structure/table/reinforced,
-/obj/machinery/juicer,
+/obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -761,9 +751,8 @@
 /area/space/nearstation)
 "bQ" = (
 /obj/machinery/shieldwallgen{
-	active = 2;
-	anchored = 1;
-	power = 1
+	activated = 1;
+	anchored = 1
 	},
 /obj/structure/cable{
 	d1 = 1;

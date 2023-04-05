@@ -12,8 +12,9 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	cryo_AI()
 
 /mob/living/silicon/ai/proc/cryo_AI()
-	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
-	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
+	var/dead_aicore = new /obj/structure/AIcore/deactivated(loc)
+	GLOB.empty_playable_ai_cores += dead_aicore
+	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight", follow_target_override = dead_aicore)
 
 	//Handle job slot/tater cleanup.
 	var/job = mind.assigned_role
@@ -29,7 +30,10 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 			current_mode.possible_traitors.Remove(src)
 
 	// Ghost the current player and disallow them to return to the body
-	ghostize()
+	if(TOO_EARLY_TO_GHOST)
+		ghostize(FALSE)
+	else
+		ghostize(TRUE)
 	// Delete the old AI shell
 	qdel(src)
 
@@ -56,8 +60,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 // Before calling this, make sure an empty core exists, or this will no-op
 /mob/living/silicon/ai/proc/moveToEmptyCore()
 	if(!GLOB.empty_playable_ai_cores.len)
-		log_runtime(EXCEPTION("moveToEmptyCore called without any available cores"), src)
-		return
+		CRASH("moveToEmptyCore called without any available cores")
 
 	// IsJobAvailable for AI checks that there is an empty core available in this list
 	var/obj/structure/AIcore/deactivated/C = GLOB.empty_playable_ai_cores[1]

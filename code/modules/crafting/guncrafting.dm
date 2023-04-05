@@ -31,9 +31,9 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 
 /obj/item/weaponcrafting/gunkit/tesla
-	name = "\improper tesla revolver parts kit"
-	desc = "A suitcase containing the necessary gun parts to construct a tesla revolver around a laser rifle. Handle with care."
-	origin_tech = "combat=4;materials=4;powerstorage=4"
+	name = "\improper arc revolver parts kit"
+	desc = "A suitcase containing the necessary gun parts to construct a arc revolver around a laser rifle. Handle with care."
+	origin_tech = "combat=5;materials=5;powerstorage=5"
 
 /obj/item/weaponcrafting/gunkit/xray
 	name = "\improper x-ray laser gun parts kit"
@@ -57,7 +57,7 @@
 
 /obj/item/weaponcrafting/gunkit/ebow
 	name = "\improper energy crossbow parts kit"
-	desc = "Highly illegal weapons refurbishment kit that allows you to turn the standard proto-kinetic accelerator into a near-duplicate energy crossbow. Almost like the real thing!"
+	desc = "Highly illegal weapons refurbishment kit that allows you to turn a laser gun into a near-duplicate energy crossbow. Almost like the real thing!"
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 
 /obj/item/weaponcrafting/gunkit/immolator
@@ -70,10 +70,20 @@
 	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into an accelerator laser cannon."
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 
+/obj/item/weaponcrafting/gunkit/lwap
+	name = "\improper lwap laser sniper parts kit"
+	desc = "A suitcase containing the necessary gun parts to transform an accelerator laser cannon into an even meaner laser sniper. Somehow turns the laser purple!"
+	origin_tech = "combat=6;magnets=6;powerstorage=4"
+
 /obj/item/weaponcrafting/gunkit/plasma
 	name = "\improper plasma pistol parts kit"
 	desc = "A suitcase containing the necessary gun parts to transform a standard laser gun into a plasma pistol. Wort, wort, wort!"
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
+
+/obj/item/weaponcrafting/gunkit/u_ionsilencer
+	name = "\improper u-ion silencer parts kit"
+	desc = "A suitcase containing the necessary gun parts to transform a standard disabler into a silenced and lethal disabling weapon. Look officer, he has no wounds from me!"
+	origin_tech = "combat=6;magnets=6;syndicate=2"
 
 // CRAFTING //
 
@@ -95,14 +105,13 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction/attackby(obj/item/I, mob/user as mob, params)
-	..()
-	if(istype(I, /obj/item/screwdriver))
-		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
-		user.unEquip(src)
-		user.put_in_hands(C)
-		to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
-		qdel(src)
+/obj/item/weaponcrafting/ishotgunconstruction/screwdriver_act(mob/living/user, obj/item/I)
+	var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
+	user.unEquip(src)
+	user.put_in_hands(C)
+	to_chat(user, "<span class='notice'>You screw the pins into place, securing the pipe to the receiver.</span>")
+	qdel(src)
+	return TRUE
 
 /obj/item/weaponcrafting/ishotgunconstruction2
 	name = "very conspicuous metal construction"

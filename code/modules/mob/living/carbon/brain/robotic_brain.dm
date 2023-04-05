@@ -86,7 +86,7 @@
 
 // This should not ever happen, but let's be safe
 /obj/item/mmi/robotic_brain/dropbrain(turf/dropspot)
-	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
+	CRASH("[src] at [loc] attempted to drop brain without a contained brain.")
 
 /obj/item/mmi/robotic_brain/transfer_identity(mob/living/carbon/H)
 	name = "[src] ([H])"
@@ -105,8 +105,6 @@
 		H.mind.transfer_to(brainmob)
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [ejected_flavor_text].</span>")
 	become_occupied(occupied_icon)
-	if(radio)
-		radio_action.ApplyIcon()
 
 /obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/H)
 	if(..())

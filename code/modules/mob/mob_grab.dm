@@ -259,7 +259,7 @@
 			affecting.LAssailant = assailant
 		hud.icon_state = "kill"
 		hud.name = "kill"
-		affecting.Stun(20 SECONDS) //10 ticks of ensured grab
+		affecting.Stun(3 SECONDS) // Ensures the grab is able to be secured
 	else if(state < GRAB_UPGRADING)
 		assailant.visible_message("<span class='danger'>[assailant] starts to tighten [assailant.p_their()] grip on [affecting]'s neck!</span>")
 		hud.icon_state = "kill1"
@@ -382,7 +382,16 @@
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
-
+			if(istype(affecting, /mob/living/simple_animal/hostile/poison/bees)) //Eating a bee will end up damaging you
+				var/obj/item/organ/external/mouth = user.get_organ(BODY_ZONE_PRECISE_MOUTH)
+				var/mob/living/simple_animal/hostile/poison/bees/B = affecting
+				mouth.receive_damage(1)
+				if(B.beegent)
+					B.beegent.reaction_mob(assailant, REAGENT_INGEST)
+					assailant.reagents.add_reagent(B.beegent.id, rand(1, 5))
+				else
+					assailant.reagents.add_reagent("spidertoxin", 5)
+				user.visible_message("<span class='warning'>[user]'s mouth became bloated.</span>", "<span class='danger'>Your mouth has been stung, it's now bloating!</span>")
 			affecting.forceMove(user)
 			LAZYADD(attacker.stomach_contents, affecting)
 			qdel(src)

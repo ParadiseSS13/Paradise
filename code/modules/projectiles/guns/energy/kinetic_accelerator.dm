@@ -103,7 +103,7 @@
 	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand
 		// calls dropped().
-		addtimer(CALLBACK(src, .proc/empty_if_not_held), 2)
+		addtimer(CALLBACK(src, PROC_REF(empty_if_not_held)), 2)
 
 /obj/item/gun/energy/kinetic_accelerator/proc/empty_if_not_held()
 	if(!ismob(loc))
@@ -131,7 +131,7 @@
 		carried = 1
 
 	deltimer(recharge_timerid)
-	recharge_timerid = addtimer(CALLBACK(src, .proc/reload), recharge_time * carried, TIMER_STOPPABLE)
+	recharge_timerid = addtimer(CALLBACK(src, PROC_REF(reload)), recharge_time * carried, TIMER_STOPPABLE)
 
 /obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
 	return
@@ -241,8 +241,11 @@
 		for(var/obj/item/borg/upgrade/modkit/M in mods)
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
-		var/turf/simulated/mineral/M = target_turf
-		M.gets_drilled(firer)
+		if(is_ancient_rock(target_turf))
+			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+		else
+			var/turf/simulated/mineral/M = target_turf
+			M.gets_drilled(firer)
 	var/obj/effect/temp_visual/kinetic_blast/K = new /obj/effect/temp_visual/kinetic_blast(target_turf)
 	K.color = color
 
@@ -320,6 +323,12 @@
 /obj/item/borg/upgrade/modkit/proc/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	forceMove(get_turf(KA))
 	KA.modkits -= src
+
+/obj/item/borg/upgrade/modkit/Destroy()
+	if(istype(loc, /obj/item/gun/energy/kinetic_accelerator))
+		var/obj/item/gun/energy/kinetic_accelerator/accelerator = loc
+		accelerator.modkits -= src
+	return ..()
 
 /obj/item/borg/upgrade/modkit/proc/modify_projectile(obj/item/projectile/kinetic/K)
 
@@ -408,7 +417,7 @@
 	new /obj/effect/temp_visual/explosion/fast(target_turf)
 	if(turf_aoe)
 		for(var/T in RANGE_TURFS(1, target_turf) - target_turf)
-			if(ismineralturf(T))
+			if(ismineralturf(T) && !is_ancient_rock(T))
 				var/turf/simulated/mineral/M = T
 				M.gets_drilled(K.firer)
 	if(modifier)
@@ -574,12 +583,14 @@
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	. = ..()
 	if(.)
-		KA.icon_state = chassis_icon
+		KA.current_skin = chassis_icon
 		KA.name = chassis_name
+		KA.update_icon()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
-	KA.icon_state = initial(KA.icon_state)
+	KA.current_skin = initial(KA.current_skin)
 	KA.name = initial(KA.name)
+	KA.update_icon()
 	..()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange

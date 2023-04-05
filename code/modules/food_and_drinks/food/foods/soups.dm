@@ -68,8 +68,8 @@
 	list_reagents = list("nutriment" = 6)
 	tastes = list("chaos" = 1)
 
-/obj/item/reagent_containers/food/snacks/soup/mysterysoup/New()
-	..()
+/obj/item/reagent_containers/food/snacks/soup/mysterysoup/Initialize(mapload)
+	. = ..()
 	extra_reagent = pick("capsaicin", "frostoil", "omnizine", "banana", "blood", "slimejelly", "toxin", "banana", "carbon", "oculine")
 	reagents.add_reagent("[extra_reagent]", 5)
 
@@ -81,8 +81,8 @@
 	list_reagents = list("water" = 10)
 	tastes = list("wishes" = 1)
 
-/obj/item/reagent_containers/food/snacks/soup/wishsoup/New()
-	..()
+/obj/item/reagent_containers/food/snacks/soup/wishsoup/Initialize(mapload)
+	. = ..()
 	if(prob(25))
 		desc = "A wish come true!" // hue
 		reagents.add_reagent("nutriment", 9)
@@ -119,8 +119,8 @@
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
 	tastes = list("beet" = 1)
 
-/obj/item/reagent_containers/food/snacks/soup/beetsoup/New()
-	..()
+/obj/item/reagent_containers/food/snacks/soup/beetsoup/Initialize(mapload)
+	. = ..()
 	name = pick("borsch", "bortsch", "borstch", "borsh", "borshch", "borscht")
 
 

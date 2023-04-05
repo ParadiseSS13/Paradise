@@ -368,7 +368,7 @@
 	return sanitize(input, allow_lines ? list("\t" = " ") : list("\n" = " ", "\t" = " "))
 
 /proc/trim_strip_html_properly(input, max_length = MAX_MESSAGE_LEN, allow_lines = 0)
-    return trim(strip_html_properly(input, max_length, allow_lines))
+	return trim(strip_html_properly(input, max_length, allow_lines))
 
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
@@ -399,8 +399,8 @@
 	return text_macro.Replace(rest, /proc/replace_text_macro)
 
 /proc/macro2html(text)
-    var/static/regex/text_macro = new("(\\xFF.)(.*)$")
-    return text_macro.Replace(text, /proc/replace_text_macro)
+	var/static/regex/text_macro = new("(\\xFF.)(.*)$")
+	return text_macro.Replace(text, /proc/replace_text_macro)
 
 /proc/dmm_encode(text)
 	// First, go through and nix out any of our escape sequences so we don't leave ourselves open to some escape sequence attack
@@ -411,7 +411,7 @@
 		var/index = findtext(text, char)
 		var/keylength = length(char)
 		while(index)
-			log_runtime(EXCEPTION("Bad string given to dmm encoder! [text]"))
+			stack_trace("Bad string given to dmm encoder! [text]")
 			// Replace w/ underscore to prevent "&#3&#123;4;" from cheesing the radar
 			// Should probably also use canon text replacing procs
 			text = copytext(text, 1, index) + "_" + copytext(text, index+keylength)
@@ -492,6 +492,8 @@
 		text = replacetext(text, "\[row\]", 	"")
 		text = replacetext(text, "\[cell\]", 	"")
 		text = replacetext(text, "\[logo\]", 	"")
+		text = replacetext(text, "\[syndielogo\]", 	"")
+
 	if(istype(P, /obj/item/toy/crayon))
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
@@ -507,7 +509,8 @@
 		text = replacetext(text, "\[/grid\]",	"</td></tr></table>")
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
-		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src = ntlogo.png>")
+		text = replacetext(text, "\[logo\]",	"&ZeroWidthSpace;<img src='ntlogo.png'>")
+		text = replacetext(text, "\[syndielogo\]", 	"&ZeroWidthSpace;<img src='syndielogo.png'>")
 		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
 		text = replacetext(text, "\[date\]",	"[GLOB.current_date_string]")
 		text = replacetext(text, "\[station\]", "[SSmapping.map_datum.fluff_name]")
@@ -589,7 +592,8 @@
 	text = replacetext(text, "</td></tr></table>",		"\[/grid\]")
 	text = replacetext(text, "</td><tr>",				"\[row\]")
 	text = replacetext(text, "<td>",					"\[cell\]")
-	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
+	text = replacetext(text, "<img src='ntlogo.png'>",	"\[logo\]")
+	text = replacetext(text, "<img src='syndielogo.png'>",	"\[syndielogo\]")
 	return text
 
 /datum/html/split_holder
@@ -725,3 +729,8 @@
 		return "#e67e22" // Patreon orange
 	return null
 
+
+// Removes HTML tags, preserving text
+/proc/strip_html_tags(the_text)
+	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
+	return html_replacer.Replace(the_text, "")

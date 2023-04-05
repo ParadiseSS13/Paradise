@@ -123,37 +123,22 @@
 	throw_range = 0
 	throw_speed = 0
 
+/obj/item/melee/arm_blade/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/table))
 		var/obj/structure/table/T = target
 		T.deconstruct(FALSE)
+		return
 
-	else if(istype(target, /obj/machinery/computer))
+	if(istype(target, /obj/machinery/computer))
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
 
-	else if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
-
-		if(!A.requiresID() || A.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.
-			return
-
-		if(A.locked)
-			to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
-			return
-
-		if(A.arePowerSystemsOn())
-			user.visible_message("<span class='warning'>[user] jams [src] into the airlock and starts prying it open!</span>", "<span class='warning'>We start forcing the airlock open.</span>", \
-			"<span class='italics'>You hear a metal screeching sound.</span>")
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 100, target = A))
-				return
-
-		//user.say("Heeeeeeeeeerrre's Johnny!")
-		user.visible_message("<span class='warning'>[user] forces the airlock to open with [user.p_their()] [name]!</span>", "<span class='warning'>We force the airlock to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
-		A.open(2)
 
 /***************************************\
 |***********COMBAT TENTACLES*************|
@@ -163,10 +148,10 @@
 	name = "Tentacle"
 	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
 	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on the intent: \
-	Help will drag the target closer. \
-	Disarm will grab whatever the target is holding. \
-	Grab will put the target in our grip after we catch it. \
-	Harm will drag the target closer and stab it if we are holding a sharp weapon in our other hand. \
+	Help will drag the target closer and shake them up. \
+	Disarm will grab whatever the target is holding, and knock them down if they are not holding anything. \
+	Grab will immobilize the target and wrap a tentacle around them. \
+	Harm will drag the target closer and hit them with the object in our other hand. \
 	Cannot be used while in our lesser form."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
@@ -215,6 +200,7 @@
 	caliber = "tentacle"
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
+	muzzle_flash_color = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
 /obj/item/ammo_casing/magic/tentacle/New(obj/item/gun/magic/tentacle/tentacle_gun)
@@ -233,6 +219,7 @@
 	damage_type = BRUTE
 	range = 8
 	hitsound = 'sound/weapons/thudswoosh.ogg'
+	reflectability = REFLECTABILITY_NEVER //Let us not reflect this ever. It's not quite a bullet, and a cling should never wrap its tentacle around itself, it controls its body well
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
 /obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
@@ -244,30 +231,15 @@
 		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
 	..()
 
-/obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/H)
-	if(H.in_throw_mode)
-		H.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
-
-/mob/proc/tentacle_grab(mob/living/carbon/C)
-	if(Adjacent(C))
-		var/obj/item/grab/G = C.grabbedby(src,1)
-		if(istype(G))
-			G.state = GRAB_AGGRESSIVE //Instant aggressive grab
-
 /mob/proc/tentacle_stab(mob/living/carbon/C)
 	if(Adjacent(C))
 		var/obj/item/I = r_hand
-		if(!is_sharp(I))
+		if(!I || istype(I, /obj/item/gun/magic/tentacle))
 			I = l_hand
-		if(!is_sharp(I))
+		if(!I || istype(I, /obj/item/gun/magic/tentacle))
 			return
-
-		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
-		add_attack_logs(src, C, "[src] pulled [C] with a tentacle, attacking them with [I]") //Attack log is here so we can fetch the item they're stabbing with.
-		C.apply_damage(I.force, BRUTE, "chest")
-		do_item_attack_animation(C, used_item = I)
-		add_blood(C)
-		playsound(get_turf(src), I.hitsound, 75, 1)
+		add_attack_logs(src, C, "[src] pulled [C] with a tentacle, attacking them with [I]")
+		I.melee_attack_chain(src, C)//Hits the victim with whatever they are holding that is no the zero force tentacle
 
 
 /obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
@@ -275,13 +247,13 @@
 	if(blocked >= 100)
 		return 0
 	var/mob/living/carbon/human/H = firer
-	if(istype(target, /obj/item))
+	if(isitem(target))
 		var/obj/item/I = target
 		if(!I.anchored)
-			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
-			add_attack_logs(src, I, "[src] pulled [I] towards them with a tentacle")
-			H.throw_mode_on()
-			I.throw_at(H, 10, 2)
+			to_chat(firer, "<span class='notice'>You grab [I] with your tentacle.</span>")
+			add_attack_logs(H, I, "[src] grabs [I] with a tentacle")
+			I.forceMove(H.loc)
+			I.attack_hand(H)//The tentacle takes the item back with them and makes them pick it up. No silly throw mode.
 			. = 1
 
 	else if(isliving(target))
@@ -291,47 +263,76 @@
 				var/mob/living/carbon/C = L
 				switch(firer.a_intent)
 					if(INTENT_HELP)
-						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+						C.visible_message("<span class='danger'>[L] is pulled to their feet towards [H]!</span>","<span class='userdanger'>A tentacle grabs you and pulls you up towards [H]!</span>")
 						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
 						C.throw_at(get_step_towards(H,C), 8, 2)
-						return 1
+						C.AdjustParalysis(-2 SECONDS)
+						C.AdjustStunned(-4 SECONDS)
+						C.AdjustWeakened(-4 SECONDS)
+						C.AdjustKnockDown(-4 SECONDS)
+						C.adjustStaminaLoss(-25)
+						return TRUE
 
 					if(INTENT_DISARM)
 						var/obj/item/I = C.get_active_hand()
 						if(I)
 							if(C.drop_item())
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
-								add_attack_logs(src, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
+								add_attack_logs(H, C, "[H] has grabbed [I] out of [C]'s hand with a tentacle")
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
-								return 1
-							else
-								to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
-								add_attack_logs(src, C, "[src] tried to grab [I] out of [C]'s hand with a tentacle, but failed")
-								return 0
-						else
-							to_chat(firer, "<span class='danger'>[C] has nothing in hand to disarm!</span>")
-							return 0
+								return TRUE
+							to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
+							add_attack_logs(H, C, "[H] tried to grab [I] out of their hand with a tentacle, but failed")
+						C.visible_message("<span class='danger'>[C] is knocked over by [src]!</span>", "<span class='userdanger'>A tentacle hits you in the chest and knocks you over!</span>")
+						add_attack_logs(H, C, "[H] knocked over with a tentacle")
+						C.KnockDown(2 SECONDS) //Not useless with antidrop.
+						return TRUE
 
 					if(INTENT_GRAB)
-						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
-						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_grab, C))
-						return 1
+						C.visible_message("<span class='danger'>[L] is entangled by [H]'s tentacle!</span>", "<span class='userdanger'>A tentacle grabs you and wraps around your legs!</span>")
+						add_attack_logs(H, C, "imobilised with a changeling tentacle")
+						if(!iscarbon(H))
+							return TRUE
+						var/obj/item/restraints/legcuffs/beartrap/changeling/B = new(H.loc)
+						B.Crossed(C)
+						return TRUE
 
 					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_stab, C))
-						return 1
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, TYPE_PROC_REF(/mob, tentacle_stab), C))
+						return TRUE
 			else
 				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 				L.throw_at(get_step_towards(H,L), 8, 2)
-				. = 1
+				. = TRUE
 
 /obj/item/projectile/tentacle/Destroy()
 	qdel(chain)
 	source = null
 	return ..()
 
+/obj/item/restraints/legcuffs/beartrap/changeling
+	name = "tentacle mass"
+	desc = "A disgusting mass of flesh wrapped around some poor persons legs."
+	icon_state = "fleshtrap" //Never on ground, only on examine, so doesn't need to be super detaled
+	trap_damage = 5
+	armed = TRUE
+	anchored = TRUE
+	silent_arming = TRUE
+	breakouttime = 5 SECONDS
+	cuffed_state = "fleshlegcuff"
+	flags = DROPDEL
+
+/obj/item/restraints/legcuffs/beartrap/changeling/Crossed(AM, oldloc)
+	if(!iscarbon(AM) || !armed)
+		return
+	var/mob/living/carbon/C = AM
+	C.apply_status_effect(STATUS_EFFECT_CLINGTENTACLE)
+
+	..()
+
+	if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
+		qdel(src)
 
 /***************************************\
 |****************SHIELD*****************|
@@ -360,12 +361,12 @@
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
-	block_chance = 50
 
 	var/remaining_uses //Set by the changeling ability.
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
@@ -453,6 +454,7 @@
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
+	var/armor_durability = 600
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -462,6 +464,38 @@
 	. = ..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+
+/obj/item/clothing/suit/armor/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage)
+	. = ..()
+	if(istype(hitby, /obj/item/projectile/energy/charged_plasma))
+		armor_durability -= 200 // the plasma pistol is designed to be a niche tool for blasting through shields, may as well let it cut away armor
+	else if(istype(hitby, /obj/item/projectile/plasma))
+		armor_durability -= damage * 4
+	else if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.damage_type == BURN)
+			armor_durability -= damage * 2
+		else
+			armor_durability -= damage
+	else
+		var/obj/item/I = hitby
+		if(istype(I, /obj/item/circular_saw))
+			armor_durability -= 25 // saws used to cut away armor through an interaction, so let's keep them somewhat more effective
+		else if(istype(I))
+			if(I.damtype == BURN)
+				armor_durability -= damage * 2
+			else
+				armor_durability -= damage
+		else
+			armor_durability--
+		
+	if(armor_durability <= 0)
+		visible_message("<span class='warning'>[owner]'s chitinous armor collapses in clumps onto the ground.</span>")
+		new /obj/effect/decal/cleanable/shreds(owner.loc)
+		// just unequip them since they qdel on drop
+		owner.unEquip(src, TRUE, TRUE)
+		if(istype(owner.head, /obj/item/clothing/head/helmet/changeling))
+			owner.unEquip(owner.head, TRUE, TRUE)
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"

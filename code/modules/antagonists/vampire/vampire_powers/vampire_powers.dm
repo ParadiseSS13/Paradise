@@ -68,7 +68,7 @@
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
-		INVOKE_ASYNC(src, .proc/heal, U, rejuv_bonus)
+		INVOKE_ASYNC(src, PROC_REF(heal), U, rejuv_bonus)
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
 	for(var/i in 1 to 5)
@@ -106,7 +106,7 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 1200, 600, master_ui, state)
+		ui = new(user, src, ui_key, "SpecMenu", "Specialisation Menu", 1200, 760, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -153,7 +153,7 @@
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Glare"
-	desc = "Your eyes flash, stunning and silencing anyone infront of you. It has lesser effects for those around you."
+	desc = "Your eyes flash, stunning and silencing anyone in front of you. It has lesser effects for those around you."
 	action_icon_state = "vampire_glare"
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
@@ -330,30 +330,3 @@
 	H.mind.make_vampire()
 	H.revive()
 	H.Weaken(40 SECONDS)
-
-/obj/effect/proc_holder/spell/turf_teleport/shadow_step
-	name = "Shadow Step (30)"
-	desc = "Teleport to a nearby dark region"
-	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
-	action_icon_state = "shadowblink"
-	base_cooldown = 2 SECONDS
-	clothes_req = FALSE
-	centcom_cancast = FALSE
-	include_space = FALSE
-	panel = "Vampire"
-	school = "vampire"
-	action_background_icon_state = "bg_vampire"
-
-	// Teleport radii
-	inner_tele_radius = 0
-	outer_tele_radius = 6
-
-	include_light_turfs = FALSE
-
-	sound1 = null
-	sound2 = null
-
-/obj/effect/proc_holder/spell/turf_teleport/shadow_step/create_new_handler()
-	var/datum/spell_handler/vampire/H = new
-	H.required_blood = 30
-	return H

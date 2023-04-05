@@ -58,14 +58,11 @@
 /obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
-/obj/item/clothing/suit/space/hostile_environment/ComponentInitialize()
-	..()
-	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/space/hostile_environment/process()
 	var/mob/living/carbon/C = loc
@@ -88,9 +85,6 @@
 /obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
 	. = ..()
 	update_icon()
-
-/obj/item/clothing/head/helmet/space/hostile_environment/ComponentInitialize()
-	..()
 	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()

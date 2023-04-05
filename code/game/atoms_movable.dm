@@ -35,6 +35,8 @@
 	var/blocks_emissive = FALSE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
 	var/atom/movable/emissive_blocker/em_block
+	/// Icon state for thought bubbles. Normally set by mobs.
+	var/thought_bubble_image = "thought_bubble"
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -146,6 +148,8 @@
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(show_message)
 			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
+		return FALSE
+	if(user in buckled_mobs)
 		return FALSE
 	return TRUE
 
@@ -311,13 +315,13 @@
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
-		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m
-			addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
+			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
 	if(pulling)
-		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
@@ -375,7 +379,7 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
@@ -415,6 +419,7 @@
 	TT.thrower = thrower
 	TT.diagonals_first = diagonals_first
 	TT.callback = callback
+	TT.dodgeable = dodgeable
 
 	var/dist_x = abs(target.x - src.x)
 	var/dist_y = abs(target.y - src.y)

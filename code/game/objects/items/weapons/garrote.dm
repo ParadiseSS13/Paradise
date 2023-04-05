@@ -45,7 +45,7 @@
 	if(garrote_time > world.time) // Cooldown
 		return
 
-	if(!istype(user, /mob/living/carbon/human)) // spap_hand is a proc of /mob/living, user is simply /mob
+	if(!ishuman(user)) // spap_hand is a proc of /mob/living, user is simply /mob
 		return
 
 	var/mob/living/carbon/human/U = user
@@ -54,7 +54,7 @@
 		to_chat(user, "<span class = 'warning'>You must use both hands to garrote [M]!</span>")
 		return
 
-	if(!istype(M, /mob/living/carbon/human))
+	if(!ishuman(M))
 		to_chat(user, "<span class = 'warning'>You don't think that garroting [M] would be very effective...</span>")
 		return
 
@@ -96,8 +96,8 @@
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 
 	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with [src]!</span>", \
-				  "<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
-				  "You hear struggling and wire strain against flesh!")
+				"<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
+				"You hear struggling and wire strain against flesh!")
 
 	return
 
@@ -109,7 +109,7 @@
 		return
 
 
-	if(!istype(loc, /mob/living/carbon/human))
+	if(!ishuman(loc))
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
@@ -126,7 +126,7 @@
 
 	else
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
-				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
+				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
@@ -153,7 +153,7 @@
 		return
 
 
-	strangling.Silence(6 SECONDS) // Non-improvised effects
+	strangling.AbsoluteSilence(6 SECONDS) // Non-improvised effects
 	strangling.apply_damage(4, OXY, "head")
 
 

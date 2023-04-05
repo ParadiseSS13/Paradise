@@ -76,6 +76,9 @@
 		return TRUE
 	return FALSE
 
+/turf/simulated/floor/chasm/ex_act(severity)
+	return
+
 /turf/simulated/floor/chasm/proc/drop_stuff(AM)
 	. = 0
 	if(find_safeties())
@@ -86,7 +89,7 @@
 	for(var/thing in thing_to_check)
 		if(droppable(thing))
 			. = 1
-			INVOKE_ASYNC(src, .proc/drop, thing)
+			INVOKE_ASYNC(src, PROC_REF(drop), thing)
 
 /turf/simulated/floor/chasm/proc/droppable(atom/movable/AM)
 	if(falling_atoms[AM])

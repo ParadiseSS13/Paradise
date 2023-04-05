@@ -117,8 +117,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
 "au" = (
-/obj/structure/grille,
-/obj/structure/window/full/basic,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
 "av" = (
@@ -399,7 +398,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/challenge/main)
 "bu" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
 "bv" = (
@@ -589,7 +588,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 4;
 	name = "Worn-out APC";
 	pixel_x = 24
@@ -659,7 +658,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 4;
 	name = "Worn-out APC";
 	pixel_x = 24

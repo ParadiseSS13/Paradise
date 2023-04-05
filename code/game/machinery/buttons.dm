@@ -5,28 +5,27 @@
 
 /obj/machinery/driver_button
 	name = "mass driver button"
+	desc = "A remote control switch for a mass driver."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
-	desc = "A remote control switch for a mass driver."
-	var/id_tag = "default"
-	var/active = FALSE
-	settagwhitelist = list("id_tag", "logic_id_tag")
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
+	idle_power_consumption = 2
+	active_power_consumption = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	/// ID tag of the driver to hook to
+	var/id_tag = "default"
+	/// Are we active?
+	var/active = FALSE
+	/// Range of drivers + blast doors to hit
 	var/range = 7
-	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
-	var/logic_connect = FALSE						//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
 
 /obj/machinery/button/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/machinery/driver_button/New(turf/loc, w_dir=null)
-	..()
-	switch(w_dir)
+/obj/machinery/driver_button/Initialize(mapload, place_dir)
+	. = ..()
+	switch(place_dir)
 		if(NORTH)
 			pixel_y = 25
 		if(SOUTH)
@@ -35,122 +34,90 @@
 			pixel_x = 25
 		if(WEST)
 			pixel_x = -25
-	if(SSradio)
-		set_frequency(frequency)
 
-/obj/machinery/driver_button/Initialize(mapload)
-	. = ..()
-	set_frequency(frequency)
-
-/obj/machinery/driver_button/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
-	return
-
-/obj/machinery/driver_button/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
-
-/obj/machinery/driver_button/attack_ai(mob/user as mob)
-	return attack_hand(user)
+/obj/machinery/driver_button/attack_ai(mob/user)
+	attack_hand(user)
 
 /obj/machinery/driver_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		return attack_hand(user)
+		attack_hand(user)
 
-/obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
+/obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
+	. = TRUE
 
-	if(istype(W, /obj/item/detective_scanner))
+	if(!I.tool_use_check(user, 0))
 		return
 
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
+	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return
 
-	if(istype(W, /obj/item/wrench))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
-			new/obj/item/mounted/frame/driver_button(get_turf(src))
-			qdel(src)
-		return 1
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new/obj/item/mounted/frame/driver_button(get_turf(src))
+	qdel(src)
 
-	return ..()
-
-/obj/machinery/driver_button/multitool_menu(mob/user, obj/item/multitool/P)
-	return {"
-	<ul>
-	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag","set_id")]</li>
-	<li><b>Logic Connection:</b> <a href='?src=[UID()];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
-	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
-	</ul>"}
-
-/obj/machinery/driver_button/attack_hand(mob/user as mob)
-
-	add_fingerprint(usr)
+/obj/machinery/driver_button/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
+
 	if(active)
 		return
+
 	add_fingerprint(user)
 
 	use_power(5)
 
+	// Start us off
 	launch_sequence()
 
 /obj/machinery/driver_button/proc/launch_sequence()
 	active = TRUE
 	icon_state = "launcheract"
 
-	if(logic_connect)
-		if(!radio_connection)		//can't output without this
-			return
+	// Time sequence
+	// OPEN DOORS
+	// Wait 2 seconds
+	// LAUNCH
+	// Wait 5 seconds
+	// CLOSE
+	// Then make not active
 
-		if(logic_id_tag == null)	//Don't output to an undefined id_tag
-			return
-
-		var/datum/signal/signal = new
-		signal.transmission_method = 1	//radio signal
-		signal.source = src
-
-		signal.data = list(
-				"tag" = logic_id_tag,
-				"sigtype" = "logic",
-				"state" = LOGIC_FLICKER,	//Buttons are a FLICKER source, since they only register as ON when you press it, then turn OFF after you release
-		)
-
-		radio_connection.post_signal(src, signal, filter = RADIO_LOGIC)
-
-	for(var/obj/machinery/door/poddoor/M in range(src,range))
+	for(var/obj/machinery/door/poddoor/M in range(src, range))
 		if(M.id_tag == id_tag && !M.protected)
-			spawn()
-				M.open()
+			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/door, open))
 
-	sleep(20)
+	// 2 seconds after previous invocation
 
-	for(var/obj/machinery/mass_driver/M in range(src,range))
+	for(var/obj/machinery/mass_driver/M in range(src, range))
 		if(M.id_tag == id_tag)
-			M.drive()
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/obj/machinery/mass_driver, drive)), 2 SECONDS)
 
-	sleep(50)
+	// We want this 5 seconds after open, so the delay is 7 seconds from this proc
 
-	for(var/obj/machinery/door/poddoor/M in range(src,range))
+	for(var/obj/machinery/door/poddoor/M in range(src, range))
 		if(M.id_tag == id_tag && !M.protected)
-			spawn()
-				M.close()
-				return
+			addtimer(CALLBACK(M, TYPE_PROC_REF(/obj/machinery/door, close)), 7 SECONDS)
 
+	// And rearm us
+	addtimer(CALLBACK(src, PROC_REF(rearm)), 7 SECONDS)
+
+/obj/machinery/driver_button/proc/rearm()
 	icon_state = "launcherbtt"
 	active = FALSE
 
-/obj/machinery/driver_button/multitool_topic(mob/user, list/href_list, obj/O)
-	..()
-	if("toggle_logic" in href_list)
-		logic_connect = !logic_connect
+/obj/machinery/driver_button/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+
+	if(!Adjacent(user))
+		return
+
+	var/new_tag = clean_input("Enter a new ID tag", "ID Tag", id_tag, user)
+
+	if(new_tag && Adjacent(user))
+		id_tag = new_tag
+
 
 //////////////////////////////////////
 //			Ignition Switch			//
@@ -164,9 +131,8 @@
 	var/id = null
 	var/active = FALSE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
+	idle_power_consumption = 2
+	active_power_consumption = 4
 
 /obj/machinery/ignition_switch/attack_ai(mob/user)
 	return attack_hand(user)
@@ -178,6 +144,7 @@
 /obj/machinery/ignition_switch/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
+
 	if(active)
 		return
 
@@ -188,16 +155,16 @@
 
 	for(var/obj/machinery/sparker/M in GLOB.machines)
 		if(M.id == id)
-			spawn( 0 )
-				M.spark()
+			INVOKE_ASYNC(M, TYPE_PROC_REF(/obj/machinery/sparker, spark))
 
 	for(var/obj/machinery/igniter/M in GLOB.machines)
 		if(M.id == id)
 			use_power(50)
-			M.on = !( M.on )
-			M.icon_state = text("igniter[]", M.on)
+			M.on = !M.on
+			M.icon_state = "igniter[M.on]"
 
-	sleep(50)
+	addtimer(CALLBACK(src, PROC_REF(rearm)), 5 SECONDS)
 
+/obj/machinery/ignition_switch/proc/rearm()
 	icon_state = "launcherbtt"
 	active = FALSE

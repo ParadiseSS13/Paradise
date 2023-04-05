@@ -86,12 +86,12 @@
 	armour_penetration_flat = -10
 
 /obj/item/projectile/bullet/pellet/rubber/on_hit(atom/target, blocked = 0)
-    . = ..()
-    if(!ishuman(target))
-        return
-    var/mob/living/carbon/human/H = target
-    if(H.getStaminaLoss() >= 60)
-        H.KnockDown(8 SECONDS)
+	. = ..()
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	if(H.getStaminaLoss() >= 60)
+		H.KnockDown(8 SECONDS)
 
 /obj/item/projectile/bullet/pellet/weak
 	tile_dropoff = 0.55		//Come on it does 6 damage don't be like that.
@@ -102,8 +102,8 @@
 	..()
 
 /obj/item/projectile/bullet/pellet/weak/on_range()
- 	do_sparks(1, 1, src)
- 	..()
+	do_sparks(1, 1, src)
+	..()
 
 /obj/item/projectile/bullet/pellet/overload
 	damage = 3
@@ -122,13 +122,13 @@
 		M.AdjustSilence(4 SECONDS)	// HELP MIME KILLING ME IN MAINT
 
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
- 	..()
- 	explosion(target, 0, 0, 2)
+	..()
+	explosion(target, 0, 0, 2)
 
 /obj/item/projectile/bullet/pellet/overload/on_range()
- 	explosion(src, 0, 0, 2)
- 	do_sparks(3, 3, src)
- 	..()
+	explosion(src, 0, 0, 2)
+	do_sparks(3, 3, src)
+	..()
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
@@ -191,7 +191,7 @@
 	icon = 'icons/obj/meteor.dmi'
 	icon_state = "dust"
 	damage = 30
-	weaken = 8 SECONDS
+	knockdown = 8 SECONDS
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/item/projectile/bullet/meteorshot/on_hit(atom/target, blocked = 0)
@@ -222,6 +222,10 @@
 			chassis.use_power(chassis.get_charge() / 2)
 			for(var/obj/item/mecha_parts/mecha_equipment/weapon/honker in chassis.equipment)
 				honker.set_ready_state(0)
+
+/obj/item/projectile/bullet/mime/nonlethal
+	damage = 0 /// We deal no normal damage...
+	stamina = 40 /// ...Rather a large amount of stamina damage. Used in the mime mecha
 
 /obj/item/projectile/bullet/mime/fake
 	damage = 0
@@ -282,12 +286,13 @@
 	icon_state = "neurotoxin"
 	damage = 5
 	damage_type = TOX
-	weaken = 10 SECONDS
+	stamina = 40
+	knockdown = 10 SECONDS
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(atom/target, blocked = 0)
 	if(isalien(target))
-		weaken = 0
-		nodamage = 1
+		knockdown = 0
+		nodamage = TRUE
 	. = ..() // Execute the rest of the code.
 
 /obj/item/projectile/bullet/cap
