@@ -2246,7 +2246,6 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/photocopier{
-	icon_state = "fax";
 	layer = 3.5;
 	pixel_y = 8
 	},
