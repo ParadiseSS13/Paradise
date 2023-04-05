@@ -60,7 +60,7 @@
 	name = "engineering crowbar"
 	desc = "It's a big crowbar, perfect for fending off those assistants trying to get at your gloves."
 	force = 12
-	w_class = WEIGHT_CLASS_NORMAL
+	//w_class = WEIGHT_CLASS_NORMAL Commented out so it can fit in belts
 	throw_speed = 3
 	throw_range = 3
 	materials = list(MAT_METAL = 400)
