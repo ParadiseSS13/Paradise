@@ -739,6 +739,14 @@
 	var/static/regex/html_replacer = regex("<\[^>]*>", "g")
 	return html_replacer.Replace(the_text, "")
 
+/**
+  * Formats num with an SI prefix.
+  *
+  * Returns a string formatted with a multiple of num and an SI prefix corresponding to an exponent of 10.
+  * Only considers exponents that are multiples of 3 (deca, deci, hecto, and centi are not included).
+  * A unit is not included in the string, the prefix is placed after the number with no spacing added anywhere.
+  * Listing of prefixes: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
+  */
 /proc/format_si_suffix(num)
 	if(num == 0)
 		return "[num]"

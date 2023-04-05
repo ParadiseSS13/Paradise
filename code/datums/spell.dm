@@ -123,6 +123,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/action_icon = 'icons/mob/actions/actions.dmi'
 	var/action_icon_state = "spell_default"
 	var/action_background_icon_state = "bg_spell"
+	/// Whether this spell has a specific alt-click proc. Will be copied onto this spell's action for the real check, not used elsewhere.
 	var/has_altclick = FALSE
 
 	var/sound = null //The sound the spell makes when it is cast

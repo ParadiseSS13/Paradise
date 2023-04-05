@@ -2,7 +2,7 @@
 #define PD_HIJACK_FAIL(pd) (CALLBACK(pd, TYPE_PROC_REF(/mob/living/simple_animal/pulse_demon, fail_hijack)))
 
 /mob/living/simple_animal/pulse_demon/ClickOn(atom/A, params)
-	if(client && client.click_intercept)
+	if(client?.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 

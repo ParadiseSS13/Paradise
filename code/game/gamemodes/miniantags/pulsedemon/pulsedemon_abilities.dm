@@ -68,7 +68,7 @@
 		to_chat(user, "<span class='warning'>You can only use this ability in your controlled area!</span>")
 		return FALSE
 	if(try_cast_action(user, targets[1]))
-		user.adjustCharge(-cast_cost)
+		user.adjust_charge(-cast_cost)
 		return TRUE
 	else
 		revert_cast(user)
@@ -87,7 +87,7 @@
 
 	if(locked)
 		if(user.charge >= unlock_cost)
-			user.adjustCharge(-unlock_cost)
+			user.adjust_charge(-unlock_cost)
 			locked = FALSE
 			to_chat(user, "<span class='notice'>You have unlocked [initial(name)]!</span>")
 
@@ -103,7 +103,7 @@
 		if(spell_level >= level_max)
 			to_chat(user, "<span class='warning'>You have already fully upgraded this ability!</span>")
 		else if(user.charge >= upgrade_cost)
-			user.adjustCharge(-upgrade_cost)
+			user.adjust_charge(-upgrade_cost)
 			spell_level = min(spell_level + 1, level_max)
 			upgrade_cost = round(initial(upgrade_cost) * (1.5 ** spell_level))
 			do_upgrade(user)
@@ -222,13 +222,13 @@
 
 /obj/effect/proc_holder/spell/pulse_demon/remotedrain/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
 	if(istype(target, /obj/machinery/power/apc))
-		var/drained = user.drainAPC(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
+		var/drained = user.drain_APC(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
 		if(drained == -1)
 			to_chat(user, "<span class='warning'>This APC is being hijacked, you cannot drain from it right now.</span>")
 		else
 			to_chat(user, "<span class='notice'>You drain [format_si_suffix(drained)]W from [target].</span>")
 	else if(istype(target, /obj/machinery/power/smes))
-		var/drained = user.drainSMES(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
+		var/drained = user.drain_SMES(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
 		to_chat(user, "<span class='notice'>You drain [format_si_suffix(drained)]W from [target].</span>")
 	else
 		to_chat(user, "<span class='warning'>That is not a valid source.</span>")
@@ -435,7 +435,7 @@
 		to_chat(user, "<span class='warning'>You do not have enough charge to purchase this upgrade!</span>")
 		return FALSE
 
-	user.adjustCharge(-cost)
+	user.adjust_charge(-cost)
 	switch(choice)
 		if(PD_UPGRADE_HIJACK_SPEED)
 			user.hijack_time = max(round(user.hijack_time / 1.5), 1 SECONDS)

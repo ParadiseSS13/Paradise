@@ -16,8 +16,11 @@
 	gender = NEUTER
 	speak_chance = 20
 
-	var/list/speech_sounds
-	var/list/hurt_sounds
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+
+	emote_hear = list("vibrates", "sizzles")
+	speak_emote = list("modulates")
 
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "pulsedem"
@@ -57,6 +60,10 @@
 	can_be_on_fire = FALSE
 	has_unlimited_silicon_privilege = TRUE
 
+	var/list/speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
+	var/list/hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
+
+	/// Current quantity of power the demon currently holds, spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
 	var/charge = 1000
 	var/maxcharge = 1000
 	/// Book keeping for objective win conditions.
@@ -98,8 +105,8 @@
 	/// A cyborg that has already been hijacked can be re-entered instantly.
 	var/list/mob/living/silicon/robot/hijacked_robots
 
-	var/list/image/images_shown
-	var/list/obj/machinery/power/apc/hijacked_apcs
+	var/list/image/images_shown = list()
+	var/list/obj/machinery/power/apc/hijacked_apcs = list()
 	var/obj/machinery/power/apc/apc_being_hijacked
 	var/datum/progressbar_helper/pb_helper
 
@@ -115,18 +122,6 @@
 
 	pb_helper = new()
 
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	damage_coeff = list(BRUTE = 0, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-
-	emote_hear = list("vibrates", "sizzles")
-	speak_emote = list("modulates")
-	speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
-	hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
-
-	hijacked_apcs = list()
-	hijacked_robots = list()
-	images_shown = list()
-
 	current_power = locate(/obj/machinery/power) in loc
 	// in the case that both current_power and current_cable are null, the pulsedemon will die the next tick
 	if(!current_power)
@@ -141,7 +136,7 @@
 	. = ..()
 	switch(var_name)
 		if("charge")
-			adjustCharge(var_value - charge, TRUE)
+			adjust_charge(var_value - charge, TRUE)
 		if("glow_color")
 			update_glow()
 
@@ -229,14 +224,14 @@
 	var/area/prev = controlling_area
 	if(reset || current_power == null)
 		controlling_area = null
-	else
+	else if(isapc(current_power))
 		var/obj/machinery/power/apc/A = current_power
-		if(istype(A) && (A in hijacked_apcs))
+		if(A in hijacked_apcs)
 			controlling_area = A.apc_area
 		else
 			controlling_area = null
 
-	if((prev == null && controlling_area == null) || (prev != null && controlling_area != null))
+	if((!prev && !controlling_area) || (prev && controlling_area))
 		return // only update icons when we get or no longer have ANY area
 	for(var/obj/effect/proc_holder/spell/pulse_demon/S in mob_spell_list)
 		if(!S.action || S.locked)
@@ -324,7 +319,7 @@
 				demon.pb_helper.cancel()
 			demon.update_controlling_area(TRUE)
 
-/mob/living/simple_animal/pulse_demon/proc/adjustCharge(amount, adjust_max = FALSE)
+/mob/living/simple_animal/pulse_demon/proc/adjust_charge(amount, adjust_max = FALSE)
 	if(amount == 0)
 		return 0
 	if(adjust_max)
@@ -358,16 +353,16 @@
 	range = max(range, 1.5)
 	set_light(range, 2, glow_color)
 
-/mob/living/simple_animal/pulse_demon/proc/drainAPC(obj/machinery/power/apc/A, multiplier = 1)
+/mob/living/simple_animal/pulse_demon/proc/drain_APC(obj/machinery/power/apc/A, multiplier = 1)
 	if(A.being_hijacked)
 		return -1
 	var/amount_to_drain = clamp(A.cell.charge, 0, power_drain_rate * multiplier)
 	A.cell.use(min(amount_to_drain, maxcharge - charge)) // calculated seperately because the apc charge multiplier shouldn't affect the actual consumption
-	return adjustCharge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER)
+	return adjust_charge(amount_to_drain * PULSEDEMON_APC_CHARGE_MULTIPLIER)
 
-/mob/living/simple_animal/pulse_demon/proc/drainSMES(obj/machinery/power/smes/S, multiplier = 1)
+/mob/living/simple_animal/pulse_demon/proc/drain_SMES(obj/machinery/power/smes/S, multiplier = 1)
 	var/amount_to_drain = clamp(S.charge, 0, power_drain_rate * multiplier * PULSEDEMON_SMES_DRAIN_MULTIPLIER)
-	var/drained = adjustCharge(amount_to_drain)
+	var/drained = adjust_charge(amount_to_drain)
 	S.charge -= drained
 	return drained
 
@@ -382,14 +377,14 @@
 
 			var/excess = initial(power_per_regen) - power_per_regen
 			if(excess > 0 && current_cable.avail() >= excess && do_drain)
-				adjustCharge(excess)
+				adjust_charge(excess)
 				current_cable.add_load(excess)
 	else if(current_power)
 		if(isapc(current_power) && loc == current_power && do_drain)
-			if(drainAPC(current_power) > power_per_regen)
+			if(drain_APC(current_power) > power_per_regen)
 				got_power = TRUE
 		else if(istype(current_power, /obj/machinery/power/smes) && do_drain)
-			if(drainSMES(current_power) > power_per_regen)
+			if(drain_SMES(current_power) > power_per_regen)
 				got_power = TRUE
 		// try to take power from the powernet if the APC or SMES is empty (or we're not /really/ in the APC)
 		if(!got_power && current_power.avail() >= power_per_regen)
@@ -417,10 +412,9 @@
 		. += pick("!", "@", "#", "$", "%", "^", "&", "*")
 
 /mob/living/simple_animal/pulse_demon/say(message, verb, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
-	if(client)
-		if(check_mute(client.ckey, MUTE_IC))
-			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
-			return FALSE
+	if(client && check_mute(client.ckey, MUTE_IC))
+		to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
+		return FALSE
 
 	if(sanitize)
 		message = trim_strip_html_properly(message)
@@ -498,10 +492,10 @@
 
 /mob/living/simple_animal/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
-	if(check_valid_apc(A, loc) && !(A in hijacked_apcs) && !apc_being_hijacked && !A.being_hijacked)
-		to_chat(src, "<span class='notice'>You are now attempting to hijack [A], this will take approximately [hijack_time / 10] seconds.</span>")
+	if(is_valid_apc(A) && !(A in hijacked_apcs) && !apc_being_hijacked && !A.being_hijacked)
+		do_hijack_notice(A)
 		if(pb_helper.start(src, A, hijack_time, TRUE, \
-		  CALLBACK(src, PROC_REF(check_valid_apc), A), \
+		  CALLBACK(src, PROC_REF(is_valid_apc), A), \
 		  CALLBACK(src, PROC_REF(finish_hijack_apc), A, remote), \
 		  CALLBACK(src, PROC_REF(fail_hijack)), \
 		  CALLBACK(src, PROC_REF(cleanup_hijack_apc), A)))
@@ -512,9 +506,6 @@
 		else
 			to_chat(src, "<span class='warning'>You are already performing an action!</span>")
 	return FALSE
-
-/mob/living/simple_animal/pulse_demon/proc/check_valid_apc(obj/machinery/power/apc/A, atom/startloc)
-	return is_valid_apc(A)
 
 // TODO: this formula is eeeeeehhhhhhhhhhhhhhhhhhhhhhhhhhhh but figuring out what would actually fit is not easy, discover in testing sometime
 // note: the station maps supposedly average ~150 APCs, so the upper levels here are certainly possible, also you can manually upgrade the capacity stat
@@ -557,7 +548,7 @@
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
 	else if(charge >= 1000)
 		dealt = L.electrocute_act(30, src, siemens_coeff)
-		adjustCharge(-1000)
+		adjust_charge(-1000)
 	if(dealt > 0)
 		do_sparks(rand(2, 4), FALSE, src)
 	add_attack_logs(src, L, "shocked ([dealt] damage)")
@@ -649,7 +640,7 @@
 	var/obj/item/stock_parts/cell/C = O.get_cell()
 	if(C && C.charge)
 		C.use(min(C.charge, power_drain_rate))
-		adjustCharge(min(C.charge, power_drain_rate))
+		adjust_charge(min(C.charge, power_drain_rate))
 		to_chat(user, "<span class='warning'>You touch [src] with [O] and [src] drains it!</span>")
 		to_chat(src, "<span class='notice'>[user] touches you with [O] and you drain its power!</span>")
 	visible_message("<span class='notice'>[O] goes right through [src].</span>")
