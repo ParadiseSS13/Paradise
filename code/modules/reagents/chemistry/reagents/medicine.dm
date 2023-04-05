@@ -1357,3 +1357,21 @@
 	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/medicine/pure_plasma   //unique chemical for plasmaman
+	name = "Pure plasma"
+	id = "pure_plasma"
+	description = "A product of plasma metabolism in the body of plasmaman, confirming their weak susceptibility to pain. Extremely toxic."
+	reagent_state = LIQUID
+	color = "#b521c2"
+	metabolization_rate = REAGENTS_METABOLISM
+	shock_reduction = 20
+	taste_description = "Superiority"
+	can_synth = FALSE
+
+/datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(-4, FALSE)
+	if(M.bodytemperature < 310)
+		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	return ..() | update_flags

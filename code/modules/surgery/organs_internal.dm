@@ -18,6 +18,13 @@
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
 	requires_organic_bodypart = 1
 
+/datum/surgery/organ_manipulation/plasmaman
+	name = "Plasmaman Organ Manipulation"
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
+	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone/plasma, /datum/surgery_step/generic/cauterize)
+	possible_locs = list("chest","head")
+	requires_organic_bodypart = 1
+
 /datum/surgery/organ_manipulation/alien
 	name = "Alien Organ Manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
@@ -29,6 +36,8 @@
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(isplasmaman(H))
+			return 0
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
 			return 0
@@ -58,6 +67,21 @@
 		return 1
 	else return 0
 
+/datum/surgery/organ_manipulation/plasmaman/can_start(mob/user, mob/living/carbon/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+		if(!affected)
+			return 0
+		if(affected.is_robotic())
+			return 0
+		if(!affected.encased)
+			return 0
+		if(isplasmaman(H))
+			return 1
+	return 0
+
+
 // Internal surgeries.
 /datum/surgery_step/internal
 	priority = 2
@@ -71,7 +95,7 @@
 	var/implements_extract = list(/obj/item/hemostat = 100, /obj/item/kitchen/utensil/fork = 70)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
 	var/implements_clean = list(/obj/item/reagent_containers/dropper = 100,
-                /obj/item/reagent_containers/syringe = 100,
+                				/obj/item/reagent_containers/syringe = 100,
 								/obj/item/reagent_containers/glass/bottle = 90,
 								/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
 								/obj/item/reagent_containers/food/drinks/bottle = 80,

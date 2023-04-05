@@ -46,7 +46,8 @@
 					/obj/item/robot_parts/r_arm,
 					/obj/item/robot_parts/l_leg,
 					/obj/item/robot_parts/r_leg,
-					/obj/item/robot_parts/chest)
+					/obj/item/robot_parts/chest,
+					/obj/item/stack/sheet/mineral/plasma) //for repair plasmamans
 
 /obj/item/gripper/medical/attack_self(mob/user)
 	return

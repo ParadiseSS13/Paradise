@@ -6,10 +6,14 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING)
+	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING, NO_PAIN, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOCLONE)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	reagent_tag = PROCESS_ORG
+
+	cold_level_1 = 240
+	cold_level_2 = 180
+	cold_level_3 = 100
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
@@ -17,6 +21,7 @@
 
 	breathid = "tox"
 
+	brute_mod = 0.9
 	burn_mod = 1.5
 	heatmod = 1.5
 
@@ -185,7 +190,7 @@
 	..()
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "plasma" || R.id == "plasma_dust")
+	if(R.id == "plasma" || R.id == "plasma_dust" || R.id == "pure_plasma")
 		H.adjustBruteLoss(-0.25)
 		H.adjustFireLoss(-0.25)
 		H.adjustPlasma(20)
@@ -193,3 +198,9 @@
 		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
 
 	return ..()
+
+/datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
+	if(H.stat == DEAD)
+		return
+	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
+		H.reagents.add_reagent("pure_plasma", 1)
