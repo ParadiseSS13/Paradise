@@ -75,6 +75,18 @@
 	consume(user)
 	return 1
 
+/obj/singularity/attack_tk(mob/user)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
+		C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
+		"<span class='userdanger'>As you mentally focus on the endless void you feel your very consciousness and soul sucked into the void. That was a infinitely dense idea.</span>")
+		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
+		C.ghostize(0)
+		if(B)
+			B.remove(C)
+			qdel(B)
+
 /obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
 	return 0
 
@@ -421,7 +433,7 @@
 		M.Stun(6 SECONDS)
 		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
 						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
-	return 
+	return
 
 
 /obj/singularity/proc/emp_area()
