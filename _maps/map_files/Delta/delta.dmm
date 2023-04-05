@@ -95808,6 +95808,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/wrench,
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "vzo" = (

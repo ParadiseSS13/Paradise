@@ -69714,6 +69714,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

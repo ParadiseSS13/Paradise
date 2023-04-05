@@ -46149,6 +46149,7 @@
 "cNu" = (
 /obj/structure/table,
 /obj/item/crowbar,
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

@@ -58813,6 +58813,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
