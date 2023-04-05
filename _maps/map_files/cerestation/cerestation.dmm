@@ -25941,6 +25941,7 @@
 	name = "cargo display";
 	pixel_y = 32
 	},
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"

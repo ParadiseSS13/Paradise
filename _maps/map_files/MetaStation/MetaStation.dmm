@@ -73847,6 +73847,7 @@
 	},
 /obj/item/book/manual/wiki/sop_supply,
 /obj/item/storage/belt/utility,
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"

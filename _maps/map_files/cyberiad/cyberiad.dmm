@@ -39523,6 +39523,7 @@
 "bWW" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bWY" = (
