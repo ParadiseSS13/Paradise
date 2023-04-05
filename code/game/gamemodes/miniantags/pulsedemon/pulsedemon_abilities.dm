@@ -221,7 +221,7 @@
 	upgrade_cost = 100 KW
 
 /obj/effect/proc_holder/spell/pulse_demon/remotedrain/try_cast_action(mob/living/simple_animal/pulse_demon/user, atom/target)
-	if(istype(target, /obj/machinery/power/apc))
+	if(isapc(target))
 		var/drained = user.drain_APC(target, PULSEDEMON_REMOTE_DRAIN_MULTIPLIER)
 		if(drained == -1)
 			to_chat(user, "<span class='warning'>This APC is being hijacked, you cannot drain from it right now.</span>")
@@ -308,7 +308,7 @@
 		return
 	current_camera = 0
 
-	if(!istype(user.current_power, /obj/machinery/power/apc))
+	if(!isapc(user.current_power))
 		return
 	if(get_area(user.loc) != user.controlling_area)
 		return
@@ -318,7 +318,7 @@
 	if(length(user.controlling_area.cameras) < 1)
 		return FALSE
 
-	if(istype(user.loc, /obj/machinery/power/apc))
+	if(isapc(user.loc))
 		current_camera = 0
 	else if(istype(user.loc, /obj/machinery/camera))
 		current_camera = (current_camera + 1) % length(user.controlling_area.cameras)

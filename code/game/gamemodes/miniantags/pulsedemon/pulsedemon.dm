@@ -6,9 +6,6 @@
 #define ALERT_CATEGORY_NOPOWER "pulse_nopower"
 #define ALERT_CATEGORY_NOREGEN "pulse_noregen"
 
-// used a lot here, undef'd after
-#define isapc(A) (istype(A, /obj/machinery/power/apc))
-
 /mob/living/simple_animal/pulse_demon
 	name = "pulse demon"
 	real_name = "pulse demon"
@@ -700,5 +697,3 @@
 
 #undef ALERT_CATEGORY_NOPOWER
 #undef ALERT_CATEGORY_NOREGEN
-
-#undef isapc

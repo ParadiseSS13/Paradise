@@ -43,6 +43,8 @@
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
+#define isapc(A) (istype(A, /obj/machinery/power/apc))
+
 #define ismecha(A) (istype(A, /obj/mecha))
 
 #define iseffect(A) (istype(A, /obj/effect))
