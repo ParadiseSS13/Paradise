@@ -363,6 +363,10 @@
 	if(use_default_checks)
 		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
 		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
+		if(istype(holding, /obj/item/gripper/))
+			var/obj/item/gripper/gripper = holding
+			if(!(gripper.isEmpty()))
+				extra_checks += CALLBACK(gripper, /obj/item/gripper.proc/isEmpty)
 
 	while(world.time < endtime)
 		sleep(1)

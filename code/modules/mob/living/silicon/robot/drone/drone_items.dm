@@ -166,6 +166,9 @@
 /obj/item/gripper/forceMove(atom/destination)
 	return
 
+/obj/item/gripper/proc/isEmpty()
+	return isnull(gripped_item)
+
 /obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
 
 	if(!target || !proximity) //Target is invalid or we are not adjacent.
