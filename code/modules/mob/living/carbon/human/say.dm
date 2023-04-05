@@ -67,7 +67,7 @@
 			continue
 
 		var/obj/item/voice_changer/changer = locate() in gear
-		if(changer && changer.active)
+		if(changer?.active)
 			if(changer.voice)
 				return changer.voice
 			else if(wear_id)
@@ -77,19 +77,45 @@
 
 	return FALSE
 
+/mob/living/carbon/human/proc/HasTTSVoiceChanger()
+	for(var/obj/item/gear in list(wear_mask, wear_suit, head))
+		if(!gear)
+			continue
+
+		var/obj/item/voice_changer/changer = locate() in gear
+		if(changer?.active)
+			if(changer.tts_voice)
+				return changer.tts_voice
+
+	return FALSE
+
 /mob/living/carbon/human/GetVoice()
 	var/has_changer = HasVoiceChanger()
 
 	if(has_changer)
 		return has_changer
 
-	if(mind && mind.changeling && mind.changeling.mimicing)
+	if(mind?.changeling?.mimicing)
 		return mind.changeling.mimicing
 
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
 
 	return real_name
+
+/mob/living/carbon/human/GetTTSVoice()
+	var/has_changer_tts = HasTTSVoiceChanger()
+
+	if(has_changer_tts)
+		return has_changer_tts
+
+	if(mind?.changeling?.mimicing)
+		return mind.changeling.tts_mimicing
+
+	if(GetSpecialTTSVoice())
+		return GetSpecialTTSVoice()
+
+	return dna.tts_seed_dna
 
 /mob/living/carbon/human/IsVocal()
 	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
@@ -110,14 +136,22 @@
 /mob/living/carbon/human/proc/SetSpecialVoice(var/new_voice)
 	if(new_voice)
 		special_voice = new_voice
-	return
 
 /mob/living/carbon/human/proc/UnsetSpecialVoice()
 	special_voice = ""
-	return
 
 /mob/living/carbon/human/proc/GetSpecialVoice()
 	return special_voice
+
+/mob/living/carbon/human/proc/SetSpecialTTSVoice(var/new_voice)
+	if(new_voice)
+		special_tts_voice = new_voice
+
+/mob/living/carbon/human/proc/UnsetSpecialTTSVoice()
+	special_tts_voice = ""
+
+/mob/living/carbon/human/proc/GetSpecialTTSVoice()
+	return special_tts_voice
 
 /mob/living/carbon/human/handle_speech_problems(list/message_pieces, var/verb)
 	var/span = ""

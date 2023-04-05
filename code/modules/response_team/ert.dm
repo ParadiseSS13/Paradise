@@ -124,7 +124,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 				new_commando.mind.key = M.key
 				new_commando.key = M.key
 				new_commando.update_icons()
-				new_commando.change_voice(new_commando)
+				new_commando.change_voice()
 				break
 	GLOB.send_emergency_team = FALSE
 

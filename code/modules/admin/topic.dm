@@ -1466,7 +1466,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /living</span>")
 			return
 		var/old_tts_seed = M.tts_seed
-		var/new_tts_seed = M.change_voice(usr)
+		var/new_tts_seed = M.change_voice(usr, override = TRUE)
 		to_chat(M, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>")
 		log_and_message_admins("has changed [key_name_admin(M)]'s voice from [old_tts_seed] to [new_tts_seed]")
 

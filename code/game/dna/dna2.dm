@@ -45,6 +45,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
 	var/list/default_blocks = list() //list of all blocks toggled at roundstart
+	var/tts_seed_dna
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -65,6 +66,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			new_dna.UI[b] = 0
 	new_dna.UpdateUI()
 	new_dna.UpdateSE()
+	new_dna.tts_seed_dna = tts_seed_dna
 	return new_dna
 
 ///////////////////////////////////////

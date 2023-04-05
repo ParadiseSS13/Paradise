@@ -11,6 +11,7 @@
 	var/inform_about_toggle = TRUE
 
 	var/voice
+	var/tts_voice
 	var/active
 
 /obj/item/voice_changer/New()
@@ -37,15 +38,34 @@
 		A.UpdateButtonIcon()
 
 /obj/item/voice_changer/proc/set_voice(mob/user, var/chosen_voice = null)
+	var/mimic_voice
+	var/mimic_voice_tts
 	if(!chosen_voice)
-		chosen_voice = clean_input("What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer", voice, user)
+		var/mimic_option = input(user, "What voice do you want to mimic?", "Set Voice Changer") in list("Real Voice", "Custom Voice", "Cancel")
+		switch(mimic_option)
+			if("Real Voice")
+				var/mob/living/carbon/human/human = input(user, "Select a voice to copy from.", "Set Voice Changer") in GLOB.human_list
+				mimic_voice = human.real_name
+				mimic_voice_tts = human.dna.tts_seed_dna
+			if("Custom Voice")
+				mimic_voice = reject_bad_name(stripped_input(user, "Enter a name to mimic.", "Set Voice Changer", null, MAX_NAME_LEN), TRUE)
+				if(!mimic_voice)
+					to_chat(user, span_warning("Invalid name, try again."))
+					return
+				mimic_voice_tts = user.select_voice(user, override = TRUE)
+			if("Cancel")
+				return
+		chosen_voice = mimic_voice
+
 	if(!chosen_voice)
 		voice = null
+		tts_voice = null
 		if(inform_about_toggle)
 			to_chat(user, "<span class='notice'>You are now mimicking the voice on your ID card.</span>")
 		return
 
-	voice = sanitize(copytext_char(chosen_voice, 1, MAX_MESSAGE_LEN))
+	voice = mimic_voice
+	tts_voice = mimic_voice_tts
 	if(inform_about_toggle)
 		to_chat(user, "<span class='notice'>You are now mimicking <b>[voice]</b>.</span>")
 

@@ -13,15 +13,32 @@
 	var/datum/changeling/changeling=user.mind.changeling
 	if(changeling.mimicing)
 		changeling.mimicing = ""
+		changeling.tts_mimicing = ""
 		changeling.chem_recharge_slowdown -= 0.5
 		to_chat(user, "<span class='notice'>We return our vocal glands to their original position.</span>")
 		return
 
-	var/mimic_voice = stripped_input(user, "Enter a name to mimic.", "Mimic Voice", null, MAX_NAME_LEN)
-	if(!mimic_voice)
-		return
+	var/mimic_voice
+	var/mimic_voice_tts
+
+	var/mimic_option = input(user, "What voice do you want to mimic?", "Mimic Voice") in list("Real Voice", "Custom Voice", "Cancel")
+	switch(mimic_option)
+		if("Real Voice")
+			var/mob/living/carbon/human/human = input(user, "Select a voice to copy from.", "Mimic Voice") in GLOB.human_list
+			mimic_voice = human.real_name
+			mimic_voice_tts = human.dna.tts_seed_dna
+		if("Custom Voice")
+			mimic_voice = reject_bad_name(stripped_input(user, "Enter a name to mimic.", "Mimic Voice", null, MAX_NAME_LEN), TRUE)
+			if(!mimic_voice)
+				to_chat(user, span_warning("Invalid name, try again."))
+				return
+			mimic_voice_tts = user.select_voice(user, override = TRUE)
+		if("Cancel")
+			return
 
 	changeling.mimicing = mimic_voice
+	changeling.tts_mimicing = mimic_voice_tts
+
 	changeling.chem_recharge_slowdown += 0.5
 	to_chat(user, "<span class='notice'>We shape our glands to take the voice of <b>[mimic_voice]</b>, this will stop us from regenerating chemicals while active.</span>")
 	to_chat(user, "<span class='notice'>Use this power again to return to our original voice and reproduce chemicals again.</span>")

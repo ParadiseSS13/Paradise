@@ -189,6 +189,7 @@
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
 	mimicing = ""
+	tts_mimicing = ""
 
 /mob/proc/remove_changeling_powers(var/keep_free_powers=0)
 	if(ishuman(src))
