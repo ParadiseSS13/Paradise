@@ -230,3 +230,9 @@
 	name = "cargorilla ID"
 	registered_name = "Cargorilla"
 	desc = "A card used to provide ID and determine access across the station. A gorilla-sized ID for a gorilla-sized cargo technician."
+
+/mob/living/simple_animal/hostile/gorilla/rampaging
+	name = "Rampaging Gorilla"
+	desc = "A gorilla that has gone wild. Run!"
+	speed = 1
+	color = "#740303"
