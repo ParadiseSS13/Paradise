@@ -27,6 +27,7 @@
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields		//Amount of user created fields
+	var/language = "Galactic Common" //The language of paper. For now using only in case of Thetta
 	var/list/stamped
 	var/ico[0]      //Icons and
 	var/offset_x[0] //offsets stored for later
@@ -79,7 +80,7 @@
 	assets.send(user)
 
 	var/data
-	var/stars = (!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars
+	var/stars = (!user.say_understands(null, GLOB.all_languages[language]) && !forceshow) || forcestars
 	if(stars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "[header][stars(info)][footer][stamps]"
 	else
