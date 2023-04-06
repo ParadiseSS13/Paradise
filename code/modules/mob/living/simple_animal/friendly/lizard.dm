@@ -15,6 +15,7 @@
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
+	faction = list("neutral", "jungle")
 	ventcrawler = VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
@@ -27,7 +28,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/eating_sound = 'sound/weapons/bite.ogg'
 	/// Lizards start with a tail
-	var/has_tail = TRUE 
+	var/has_tail = TRUE
 
 /mob/living/simple_animal/lizard/handle_automated_action()
 	if(!stat && !buckled)

@@ -35,6 +35,7 @@
 	pass_flags = PASSTABLE
 	can_collar = TRUE
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	faction = list("neutral", "jungle")
 
 	var/list/clean_speak = list(
 		"Hi",

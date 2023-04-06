@@ -20,7 +20,7 @@
 	attack_same = 2 // this is usually a bool, but mushrooms are a special case
 	attacktext = "chomps"
 	attack_sound = 'sound/weapons/bite.ogg'
-	faction = list("mushroom")
+	faction = list("mushroom", "jungle")
 	environment_smash = 0
 	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON

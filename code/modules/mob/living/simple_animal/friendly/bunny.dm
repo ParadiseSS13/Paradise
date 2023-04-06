@@ -7,6 +7,7 @@
 	icon_dead = "bunny_dead"
 	icon_resting = "bunny_stretch"
 	emote_see = list("thumps", "sniffs at something", "hops around", "flips their ears up")
+	faction = list("neutral", "jungle")
 	turns_per_move = 5
 	see_in_dark = 6
 	maxHealth = 10

@@ -448,64 +448,6 @@
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
 
-/obj/structure/closet/crate/large
-	name = "large crate"
-	desc = "A hefty metal crate."
-	icon_state = "largemetal"
-	icon_opened = "largemetal_open"
-	icon_closed = "largemetal"
-	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
-
-/obj/structure/closet/crate/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
-/obj/structure/closet/crate/secure/large
-	name = "large crate"
-	desc = "A hefty metal crate with an electronic locking system."
-	icon_state = "largemetal"
-	icon_opened = "largemetal_open"
-	icon_closed = "largemetal"
-	redlight = "largemetalr"
-	greenlight = "largemetalg"
-
-/obj/structure/closet/crate/secure/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
-//fluff variant
-/obj/structure/closet/crate/secure/large/reinforced
-	desc = "A hefty, reinforced metal crate with an electronic locking system."
-	icon_state = "largermetal"
-	icon_opened = "largermetal_open"
-	icon_closed = "largermetal"
-
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
 	desc = "All you need to destroy those pesky weeds and pests."

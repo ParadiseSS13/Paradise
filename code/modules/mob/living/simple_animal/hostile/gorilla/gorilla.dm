@@ -21,16 +21,17 @@
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS | ENVIRONMENT_SMASH_STRUCTURES
 	attack_sound = 'sound/weapons/punch1.ogg'
-	faction = list("monkey", "jungle")
+	faction = list("hostile", "monkey", "jungle")
 	robust_searching = TRUE
 	minbodytemp = 270
 	maxbodytemp = 350
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
+	a_intent = INTENT_HARM // Angrilla
 
 // Gorillas like to dismember limbs from unconscious mobs.
 // Returns null when the target is not an unconscious carbon mob; a list of limbs (possibly empty) otherwise.
 /mob/living/simple_animal/hostile/gorilla/proc/get_target_bodyparts(atom/hit_target)
-	if(!iscarbon(hit_target))
+	if(!ishuman(hit_target))
 		return
 
 	var/mob/living/carbon/human/target = hit_target
@@ -40,9 +41,9 @@
 	var/list/parts = list()
 	for(var/obj/item/organ/external/part as anything in target.bodyparts)
 		if(istype(part, /obj/item/organ/external/chest) || istype(part, /obj/item/organ/external/head))
-			continue
+			continue // No chest or head removal please
 		if(part.limb_flags & CANNOT_DISMEMBER)
-			continue
+			continue // No dismembering of limbs that cannot be dismembered
 		parts += part
 	return parts
 
@@ -102,10 +103,12 @@
 	health = 200
 	faction = list("neutral", "monkey", "jungle")
 	gold_core_spawnable = NO_SPAWN
+	a_intent = INTENT_HELP
+	unique_pet = TRUE
 	/// The ID card that the gorilla is currently wearing.
 	var/obj/item/card/id/access_card
 	/// The max number of crates we can carry
-	var/crate_limit = 3
+	var/crate_limit = 2
 	/// Typecache of all the types we can pick up and carry
 	var/list/carriable_cache
 	/// A lazylist of all crates we are carrying
@@ -122,6 +125,10 @@
 	LAZYCLEARLIST(crates_in_hand)
 	QDEL_NULL(access_card)
 	return ..()
+
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic/get_active_hand()
+	if(LAZYLEN(crates_in_hand))
+		return pick(crates_in_hand)
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/AttackingTarget(atom/attacked_target)
 	if(is_type_in_typecache(target, carriable_cache))
@@ -159,7 +166,7 @@
 	if(!LAZYLEN(crates_in_hand))
 		return
 	var/atom/movable/random_crate = pick(crates_in_hand)
-	. += mutable_appearance(random_crate)
+	. += mutable_appearance(random_crate.icon, random_crate.icon_state)
 	. += mutable_appearance('icons/mob/cargorillia.dmi', "standing_overlay")
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/death(gibbed)
@@ -172,8 +179,13 @@
 	if(num_crates)
 		. += "<span class='notice'>[p_theyre(TRUE)] carrying [num_crates == 1 ? "a crate" : "[num_crates] crates"].</span>"
 
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic/drop_item_v()
+	drop_random_crate(drop_location())
+
 /// Drops one random crates from our crate list.
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/proc/drop_random_crate(atom/drop_to)
+	if(!Adjacent(drop_to))
+		return
 	var/obj/structure/closet/crate/held_crate = pick(crates_in_hand)
 	held_crate.forceMove(drop_to)
 	LAZYREMOVE(crates_in_hand, held_crate)
@@ -181,6 +193,8 @@
 
 /// Drops all the crates in our crate list.
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/proc/drop_all_crates(atom/drop_to)
+	if(!Adjacent(drop_to))
+		return
 	for(var/obj/structure/closet/crate/held_crate as anything in crates_in_hand)
 		held_crate.forceMove(drop_to)
 		LAZYREMOVE(crates_in_hand, held_crate)
