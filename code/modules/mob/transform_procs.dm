@@ -275,7 +275,7 @@
 	invisibility = INVISIBILITY_MAXIMUM
 	visible_message("<span class='warning'>[src] transforms into a gorilla!</span>", "<span class='warning'>You transform into a gorilla!</span>", "<span class='warning'>You hear a loud roar!</span>")
 	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
-	new_gorilla.playsound(src, 'sound/creatures/gorilla.ogg', 50)
+	playsound(new_gorilla, 'sound/creatures/gorilla.ogg', 50)
 	if(mind)
 		mind.transfer_to(new_gorilla)
 	else

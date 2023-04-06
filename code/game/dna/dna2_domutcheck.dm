@@ -52,5 +52,6 @@
 			//testing("[gene.name] deactivated!")
 			mutation.deactivate(M)
 
-	if(prob(RAD_MOB_GORILLIZE_PROB))
-		M.gorillize() // OH SHIT A GORILLA
+	var/mob/living/carbon/C = M
+	if(prob(RAD_MOB_GORILLIZE_PROB) && istype(C))
+		C.gorillize() // OH SHIT A GORILLA
