@@ -132,17 +132,7 @@
 		desc = base_desc + english_list(victims) + ": executed for mutiny.\""
 	else
 		desc = base_desc + english_list(victims) + ", all executed for mutiny. Impressive.\""
-/*	switch(length(victims))
-		if(0)
-			desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
-		if(1)
-			desc = base_desc + " Its screen displays the text \"[victims[1]] & [user.name]: executed for mutiny.\""
-		else
-			desc = base_desc + " Its screen displays the text \""
-			for(var/victim_name in victims)
-				desc += "[victim_name], "
-			desc += "and [user.name], all executed for mutiny. Impressive.\""
-	victims += user.name */
+
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	for(var/obj/item/W in user)
 		user.unEquip(W)
