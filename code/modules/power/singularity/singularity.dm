@@ -76,16 +76,17 @@
 	return 1
 
 /obj/singularity/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
-		C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
-		"<span class='userdanger'>As you mentally focus on the singularity, you feel your knowlage of the universe grow. So much raw information is there for the taking, and you won't waste a speck of it. within fractions of a millisecond you absorb as much information as possible, more than even an AI would have access to, you feel like a god. Suddenly, the gravity of this situation dawns on you. As you feel your skull begining to collapse, you think to yourself. That was a really dence idea, wasn't it? </span>")
-		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-		C.ghostize(0)
-		if(B)
-			B.remove(C)
-			qdel(B)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/C = user
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
+	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
+	"<span class='userdanger'>As you mentally focus on the singularity, you feel your knowlage of the universe grow. So much raw information is there for the taking, and you won't waste a speck of it. Within fractions of a millisecond you absorb as much information as possible, more than even an AI would have access to, you feel like a god. Suddenly, the gravity of this situation dawns on you. As you feel your skull begining to collapse, you think to yourself. That was a really dense idea, wasn't it? </span>")
+	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
+	C.ghostize(0)
+	if(B)
+		B.remove(C)
+		qdel(B)
 
 /obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
 	return 0
