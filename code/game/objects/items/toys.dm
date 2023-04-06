@@ -537,27 +537,23 @@
 
 /obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	var/mob/M = usr
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(M.incapacitated() || !Adjacent(M))
 		return
-	if(Adjacent(usr))
-		if(over_object == M  && loc != M)
-			M.put_in_hands(src)
-			to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
-
-		else if(istype(over_object, /obj/screen))
+	if(!ishuman(M))
+		return
+	if(over_object == M)
+		M.put_in_hands(src)
+	if(istype(over_object, /obj/screen))
+		if(!remove_item_from_storage(M))
+			M.unEquip(src)
+		if(over_object != M)
 			switch(over_object.name)
 				if("l_hand")
-					if(!remove_item_from_storage(M))
-						M.unEquip(src)
 					M.put_in_l_hand(src)
-					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
 				if("r_hand")
-					if(!remove_item_from_storage(M))
-						M.unEquip(src)
 					M.put_in_r_hand(src)
-					to_chat(usr, "<span class='notice'>You pick up the deck.</span>")
-	else
-		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
+	add_fingerprint(M)
+	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/toy/cards/deck/update_icon()
 	switch(cards.len)
@@ -598,7 +594,9 @@
 /obj/item/toy/cards/cardhand/Topic(href, href_list)
 	if(..())
 		return
-	if(usr.stat || !ishuman(usr) || !usr.canmove)
+	if(usr.incapacitated() || !Adjacent(usr))
+		return
+	if(!ishuman(usr))
 		return
 	var/mob/living/carbon/human/cardUser = usr
 	var/O = src
@@ -680,7 +678,9 @@
 	set name = "Flip Card"
 	set category = "Object"
 	set src in range(1)
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || !Adjacent(usr))
+		return
+	if(!ishuman(usr))
 		return
 	if(!flipped)
 		flipped = 1
@@ -742,7 +742,9 @@
 
 
 /obj/item/toy/cards/singlecard/attack_self(mob/user)
-	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
+	if(usr.incapacitated() || !Adjacent(usr))
+		return
+	if(!ishuman(usr))
 		return
 	Flip()
 
