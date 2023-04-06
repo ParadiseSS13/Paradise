@@ -24,7 +24,7 @@
 	var/list/held_items = list(H.get_active_hand(), H.get_inactive_hand())
 	if(!is_type_in_typecache(entered_area, areas_under_siege))
 		for(var/obj/item/slapper/parry/smacking_hand in held_items)
-				qdel(smacking_hand)
+			qdel(smacking_hand)
 		can_parry = FALSE
 	else
 		can_parry = TRUE
