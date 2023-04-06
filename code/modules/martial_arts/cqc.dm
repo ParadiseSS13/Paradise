@@ -22,7 +22,7 @@
 /datum/martial_art/cqc/under_siege/proc/kitchen_check(mob/living/carbon/human/H, area/entered_area)
 	SIGNAL_HANDLER //COMSIG_AREA_ENTERED
 	var/list/held_items = list(H.get_active_hand(), H.get_inactive_hand())
-	if(!(is_type_in_typecache(entered_area, areas_under_siege)))
+	if(!is_type_in_typecache(entered_area, areas_under_siege))
 		for(var/obj/item in held_items)
 			if(istype(item, /obj/item/slapper/parry))
 				var/obj/item/slapper/parry/smacking_hand = item
