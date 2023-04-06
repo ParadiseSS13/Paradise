@@ -7285,7 +7285,9 @@
 	},
 /area/quartermaster/office)
 "aSk" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47884,6 +47886,11 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
+"hQA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/carpet,
+/area/lawoffice)
 "hQJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -109902,7 +109909,7 @@ cwh
 dby
 bHD
 cEC
-cEZ
+hQA
 cEZ
 djt
 vFG

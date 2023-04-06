@@ -26,9 +26,9 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 
-//Cargo Sloth
+//IAA Sloth
 /mob/living/simple_animal/pet/sloth/paperwork
 	name = "Paperwork"
-	desc = "Cargo's pet sloth. About as useful as the rest of the techs."
+	desc = "Internal Affairs' pet sloth. About as useful as the rest of the agents."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN

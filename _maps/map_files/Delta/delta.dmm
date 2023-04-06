@@ -16335,11 +16335,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"aWu" = (
-/obj/effect/decal/warning_stripes/south,
-/mob/living/simple_animal/pet/sloth/paperwork,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "aWv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -31287,9 +31282,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/mech_bay_power_console{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/mech_bay_power_console,
 /obj/item/circuitboard/mech_recharger{
 	pixel_x = 3;
 	pixel_y = -3
@@ -33851,9 +33844,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/teleporter{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/teleporter,
 /obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = -3
@@ -34598,9 +34589,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/stationalert{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/stationalert,
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
@@ -85856,6 +85845,14 @@
 	icon_state = "redcorner"
 	},
 /area/security/permabrig)
+"jLM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/south,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "jMN" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -88564,6 +88561,18 @@
 	icon_state = "neutralfull"
 	},
 /area/engine/break_room)
+"nhx" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/carpet,
+/area/lawoffice)
 "nij" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -142336,7 +142345,7 @@ aIe
 aBS
 aEZ
 aCN
-aWz
+jLM
 azL
 ssy
 aVa
@@ -142593,7 +142602,7 @@ aBS
 aBS
 aBS
 aCN
-aWu
+aKK
 azL
 aBS
 aBS
@@ -147261,7 +147270,7 @@ hiO
 ccB
 cep
 chO
-chO
+nhx
 chO
 ckU
 oDy

@@ -13014,7 +13014,9 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aWN" = (
@@ -15413,9 +15415,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/mech_bay_power_console{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/mech_bay_power_console,
 /obj/item/circuitboard/mech_recharger{
 	pixel_x = 3;
 	pixel_y = -3
@@ -15487,9 +15487,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/stationalert{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/stationalert,
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
@@ -16741,9 +16739,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/teleporter{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/teleporter,
 /obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = -3
@@ -18078,7 +18074,6 @@
 	pixel_y = -24
 	},
 /obj/item/healthanalyzer{
-	pixel_y = 0;
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -65778,6 +65773,12 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/biostorage)
+"kDG" = (
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/lawoffice)
 "kDU" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -124032,7 +124033,7 @@ aHW
 aHW
 aMn
 alC
-krF
+kDG
 acv
 krF
 krF
