@@ -44,15 +44,39 @@
 			else
 				to_chat(user, "<span class='warning'>[C]'s face is obscured, so[C.p_they()] cant eat.</span>")
 			return FALSE
+
+		var/list/transfer_data = reagents.get_transferred_reagents(C, amount_per_transfer_from_this)
 		if(C.eat(src, user))
 			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				var/mob/living/silicon/robot/borg = user
-				borg.cell.use(30)
-				var/refill = reagents.get_master_reagent_id()
-				if(refill in GLOB.drinks) // Only synthesize drinks
-					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, bitesize), 600)
+				if(length(transfer_data))
+					SynthesizeDrinkFromTransfer(user, transfer_data)
 			return TRUE
 	return FALSE
+
+/obj/item/reagent_containers/food/drinks/proc/SynthesizeDrinkFromTransfer(mob/user, list/transfer_data)
+
+	var/list/ids_data = list()
+	var/trans = 0
+
+	transfer_data &= GLOB.drinks
+
+	for(var/thing in transfer_data)
+		var/datum/reagent/R = thing
+		ids_data[initial(R.id)] = transfer_data[R]
+		trans += transfer_data[R]
+
+	if(length(ids_data))
+		if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
+			var/mob/living/silicon/robot/bro = user
+			var/chargeAmount = max(30,4*trans)
+			bro.cell.use(chargeAmount)
+			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
+			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent_list, ids_data), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 30 SECONDS)
+		else
+			reagents.add_reagent_list(ids_data)
+	else
+		return
 
 /obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
 	if(!iscarbon(over_object))
@@ -95,27 +119,13 @@
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
 
-		var/list/transfer_data
-		var/list/ids_data = list()
-		if(isrobot(user))
-			transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
-
+		var/list/transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
+
+		if(isrobot(user))
+			SynthesizeDrinkFromTransfer(user, transfer_data)
+
 		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
-
-		transfer_data &= GLOB.drinks
-
-		for(var/thing in transfer_data)
-			var/datum/reagent/R = thing
-			ids_data[initial(R.id)] = transfer_data[R]
-
-		if(isrobot(user) && ids_data) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-			var/mob/living/silicon/robot/bro = user
-			var/chargeAmount = max(30,4*trans)
-			bro.cell.use(chargeAmount)
-			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
-			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent_list, ids_data), 300)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
