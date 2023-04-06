@@ -111,6 +111,8 @@
 	var/my_z // I don't want to confuse this with client registered_z
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
+	/// Can this simple mob crawl or not? If FALSE, it won't get immobilized by crawling
+	var/can_crawl = FALSE
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -174,7 +176,8 @@
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
 			regenerate_icons()
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl
+	if(!can_crawl)
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //simple mobs cannot crawl (unless they can)
 
 /mob/living/simple_animal/on_standing_up()
 	..()

@@ -27,6 +27,34 @@
 	maxbodytemp = 350
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	a_intent = INTENT_HARM // Angrilla
+	/// Is the gorilla stood up or not?
+	var/is_bipedal = FALSE
+
+/mob/living/simple_animal/hostile/gorilla/Initialize()
+	. = ..()
+	var/datum/action/innate/gorilla/gorilla_toggle/toggle = new
+	toggle.Grant(src)
+
+/datum/action/innate/gorilla/gorilla_toggle
+	name = "Toggle Stand"
+	desc = "Toggles between crawling and standing up."
+	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon_state = "gorilla_toggle"
+
+/datum/action/innate/gorilla/gorilla_toggle/Activate()
+	. = ..()
+	var/mob/living/simple_animal/hostile/gorilla/gorilla = owner
+	if(!istype(gorilla))
+		return
+
+	var/mob/living/simple_animal/hostile/gorilla/cargo_domestic/domesticated = gorilla
+	if(istype(domesticated) && LAZYLEN(domesticated.crates_in_hand))
+		to_chat(domesticated, "<span class='warning'>You can't get on all fours while carrying something!</span>")
+		return
+
+	gorilla.is_bipedal =! gorilla.is_bipedal // Toggle
+	gorilla.visible_message("<span class='notice'>[gorilla] [gorilla.is_bipedal ? "stands up menacingly." : "drops back to all fours."]</span>", "<span class='notice'>You [gorilla.is_bipedal ? "stand up" : "get down on all fours."]</span>", "<span class='notice'>You hear the sound of a gorilla rustling.</span>")
+	gorilla.update_icon(UPDATE_ICON_STATE)
 
 // Gorillas like to dismember limbs from unconscious mobs.
 // Returns null when the target is not an unconscious carbon mob; a list of limbs (possibly empty) otherwise.
@@ -69,6 +97,13 @@
 
 		living_target.Paralyse(2 SECONDS)
 		visible_message("<span class='warning'>[src] knocks [living_target] down!</span>")
+
+/mob/living/simple_animal/hostile/gorilla/update_icon_state()
+	. = ..()
+	if(is_bipedal) // Yes it's a little jank but whatever, it's a gorilla!
+		icon_state = "standing"
+		return
+	icon_state = initial(icon_state)
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = get_target_bodyparts(target)
@@ -114,10 +149,16 @@
 	/// A lazylist of all crates we are carrying
 	var/list/atom/movable/crates_in_hand
 
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic/Login()
+	. = ..()
+	// Github copilot wrote the below fluff IDK
+	to_chat(src, "<span class='boldnotice'>You are [name]. You are a domesticated gorilla, and you are Cargo's pet. You are a loyal and hardworking gorilla, and you love your job. You are a good gorilla, and Cargo loves you.</span>")
+	to_chat(src, "<span class='boldnotice'>You can pick up crates by clicking them, and drop them by clicking on an open floor. You can carry [crate_limit] crates at a time.</span>")
+
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id/supply/cargo_gorilla(src)
-	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate))
+	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate)) // Normal crates only please, no weird sized ones
 	carriable_cache = default_cache
 	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
 
@@ -144,6 +185,7 @@
 			return COMPONENT_CANCEL_ATTACK_CHAIN
 
 		LAZYADD(crates_in_hand, target)
+		is_bipedal = TRUE
 		update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 		movable_target.forceMove(src)
 		return COMPONENT_CANCEL_ATTACK_CHAIN
@@ -156,7 +198,7 @@
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/update_icon_state()
 	. = ..()
-	if(LAZYLEN(crates_in_hand))
+	if(LAZYLEN(crates_in_hand) || is_bipedal)
 		icon_state = "standing"
 		return
 	icon_state = initial(icon_state)
@@ -184,8 +226,6 @@
 
 /// Drops one random crates from our crate list.
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/proc/drop_random_crate(atom/drop_to)
-	if(!Adjacent(drop_to))
-		return
 	var/obj/structure/closet/crate/held_crate = pick(crates_in_hand)
 	held_crate.forceMove(drop_to)
 	LAZYREMOVE(crates_in_hand, held_crate)
@@ -193,8 +233,6 @@
 
 /// Drops all the crates in our crate list.
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/proc/drop_all_crates(atom/drop_to)
-	if(!Adjacent(drop_to))
-		return
 	for(var/obj/structure/closet/crate/held_crate as anything in crates_in_hand)
 		held_crate.forceMove(drop_to)
 		LAZYREMOVE(crates_in_hand, held_crate)
