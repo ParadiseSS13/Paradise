@@ -38,7 +38,6 @@
 	if(dna)
 		dna.ready_dna(src)
 		dna.real_name = real_name
-		dna.tts_seed_dna = tts_seed
 		sync_organ_dna(1)
 
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)

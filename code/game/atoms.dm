@@ -938,13 +938,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
 
-/atom/proc/select_voice(mob/user, silent_target = FALSE, override = FALSE)
+/atom/proc/select_voice(mob/user, silent_target = FALSE)
 	if(!ismob(src) && !user)
 		return null
 	var/tts_test_str = "Так звучит мой голос."
 
 	var/tts_seeds
-	if(user && (check_rights(R_ADMIN, 0, user) || override))
+	if(user && check_rights(R_ADMIN, 0, user))
 		tts_seeds = SStts.tts_seeds_names
 	else
 		tts_seeds = SStts.get_available_seeds(src)
@@ -958,16 +958,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, user, tts_test_str, new_tts_seed, FALSE)
 	return new_tts_seed
 
-/atom/proc/change_voice(mob/user, override = FALSE)
+/atom/proc/change_voice(mob/user)
 	set waitfor = FALSE
-	var/new_tts_seed = select_voice(user, override = override)
+	var/new_tts_seed = select_voice(user)
 	if(!new_tts_seed)
 		return null
 	tts_seed = new_tts_seed
-	if(ismob(src))
-		var/mob/mob = src
-		if(mob?.dna)
-			mob.dna.tts_seed_dna = new_tts_seed
 	return new_tts_seed
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())

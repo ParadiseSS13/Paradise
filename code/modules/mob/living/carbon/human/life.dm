@@ -11,7 +11,6 @@
 	life_tick++
 
 	voice = GetVoice()
-	tts_seed = GetTTSVoice()
 
 	if(.) //not dead
 

@@ -43,7 +43,6 @@
 	var/datum/personal_crafting/handcrafting
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
-	var/special_tts_voice = ""
 
 	var/hand_blood_color
 

@@ -377,9 +377,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/proc/GetVoice()
 	return name
 
-/mob/living/proc/GetTTSVoice()
-	return tts_seed
-
 /mob/living/emote(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
 	if(client)
 		client.check_say_flood(5)

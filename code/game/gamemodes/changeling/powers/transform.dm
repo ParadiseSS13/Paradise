@@ -22,6 +22,10 @@
 	if(!chosen_dna)
 		return
 
+	for(var/mob/living/M in GLOB.human_list)
+		if(M.real_name == chosen_dna.real_name)
+			user.tts_seed = M.tts_seed
+
 	transform_dna(user,chosen_dna)
 
 	user.changeling_update_languages(changeling.absorbed_languages)

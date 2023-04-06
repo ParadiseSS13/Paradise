@@ -24,6 +24,7 @@ Bonus
 	transmittable = -1
 	level = 6
 	severity = 2
+	var/tts_seeds_memory = list()
 
 /datum/symptom/voice_change/Activate(datum/disease/advance/A)
 	..()
@@ -37,7 +38,8 @@ Bonus
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					H.SetSpecialVoice(H.dna.species.get_random_name(H.gender))
-					H.SetSpecialTTSVoice(SStts.get_random_seed(H))
+					tts_seeds_memory[H] = H.tts_seed
+					H.tts_seed = SStts.get_random_seed(H)
 
 	return
 
@@ -46,5 +48,5 @@ Bonus
 	if(ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
 		H.UnsetSpecialVoice()
-		H.UnsetSpecialTTSVoice()
+		H.tts_seed = tts_seeds_memory[H]
 	return

@@ -244,7 +244,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
 	var/mimicing = ""
-	var/tts_mimicing = ""
 	var/canrespec = FALSE //set to TRUE in absorb.dm
 	var/changeling_speak = 0
 	var/datum/dna/chosen_dna
