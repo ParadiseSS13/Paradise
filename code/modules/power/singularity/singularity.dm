@@ -407,7 +407,7 @@
 	return
 
 /obj/singularity/proc/notify_dead()
-	if(!isnt_shutting_down)
+	if(isnt_shutting_down)
 		return
 	notify_ghosts(
 		"IT'S LOOSE",
