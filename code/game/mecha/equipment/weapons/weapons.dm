@@ -37,25 +37,24 @@
 		return 0
 
 	for(var/i=1 to get_shot_amount())
-		var/obj/item/projectile/A = new projectile(curloc)
-		A.firer = chassis.occupant
-		A.original = target
-		A.current = curloc
+		spawn((i - 1) * projectile_delay)
+			var/obj/item/projectile/A = new projectile(curloc)
+			A.firer = chassis.occupant
+			A.original = target
+			A.current = curloc
 
-		var/spread = 0
-		if(variance)
-			if(randomspread)
-				spread = round((rand() - 0.5) * variance)
-			else
-				spread = round((i / projectiles_per_shot - 0.5) * variance)
-		A.preparePixelProjectile(target, targloc, chassis.occupant, params, spread)
+			var/spread = 0
+			if(variance)
+				if(randomspread)
+					spread = round((rand() - 0.5) * variance)
+				else
+					spread = round((i / projectiles_per_shot - 0.5) * variance)
+			A.preparePixelProjectile(target, targloc, chassis.occupant, params, spread)
 
-		chassis.use_power(energy_drain)
-		projectiles--
-		A.fire()
-		playsound(chassis, fire_sound, 50, 1)
-
-		sleep(max(0, projectile_delay))
+			chassis.use_power(energy_drain)
+			projectiles--
+			A.fire()
+			playsound(chassis, fire_sound, 50, 1)
 	log_message("Fired from [name], targeting [target].")
 	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	start_cooldown()
