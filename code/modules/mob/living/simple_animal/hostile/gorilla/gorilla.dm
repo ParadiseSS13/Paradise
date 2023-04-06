@@ -42,6 +42,7 @@
 	toggle.Grant(src)
 	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate)) // Normal crates only please, no weird sized ones
 	carriable_cache = default_cache
+	ADD_TRAIT(src, TRAIT_GORILLA_CRATE, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/gorilla/Destroy()
 	LAZYCLEARLIST(crates_in_hand)
@@ -88,7 +89,7 @@
 	return parts
 
 /mob/living/simple_animal/hostile/gorilla/AttackingTarget(atom/attacked_target)
-	if(client && HAS_TRAIT(src, TRAIT_GORILLA_CRATE))
+	if(client)
 		if(is_type_in_typecache(target, carriable_cache))
 			var/atom/movable/movable_target = target
 			if(LAZYLEN(crates_in_hand) >= crate_limit)
@@ -220,7 +221,6 @@
 	. = ..()
 	access_card = new /obj/item/card/id/supply/cargo_gorilla(src)
 	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_GORILLA_CRATE, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Destroy()
 	QDEL_NULL(access_card)
