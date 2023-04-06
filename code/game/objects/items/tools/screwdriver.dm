@@ -85,7 +85,7 @@
 	sleep(2 SECONDS)
 	add_fingerprint(user)
 
-	to_chat(user, "<span class='userdanger'>[src] retaliates viciously!</span>")
+	user.visible_message("<span class='warn'>[src] retaliates viciously!</span>", "<span class='userdanger'>[src] retaliates viciously!</span>")
 	playsound(loc, hitsound, 50, TRUE, -1)
 
 	return BRUTELOSS

@@ -235,7 +235,7 @@
 	sleep(2 SECONDS)
 	add_fingerprint(user)
 
-	to_chat(user, "<span class='userdanger'>Oh, shit!</span>")
+	user.visible_message("<span class='danger'>[src] blows up in [user]'s face!</span>", "<span class='userdanger'>Oh, shit!</span>")
 	playsound(loc, "sound/effects/explosion1.ogg", 50, TRUE, -1)
 	user.gib()
 

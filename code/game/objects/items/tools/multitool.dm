@@ -125,8 +125,14 @@
 	sleep(20)
 	add_fingerprint(user)
 
-	var/base_desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain."
-	switch(length(victims))
+	var/base_desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain. Its screen displays the text \""
+	victims += user.name
+
+	if(length(victims) < 3)
+		desc = base_desc + english_list(victims) + ": executed for mutiny.\""
+	else
+		desc = base_desc + english_list(victims) + ", all executed for mutiny. Impressive.\""
+/*	switch(length(victims))
 		if(0)
 			desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
 		if(1)
@@ -136,7 +142,7 @@
 			for(var/victim_name in victims)
 				desc += "[victim_name], "
 			desc += "and [user.name], all executed for mutiny. Impressive.\""
-	victims += user.name
+	victims += user.name */
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	for(var/obj/item/W in user)
 		user.unEquip(W)
