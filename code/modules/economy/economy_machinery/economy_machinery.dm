@@ -83,6 +83,16 @@
 	cash_money.use(amount_to_insert)
 	return TRUE
 
+/obj/machinery/economy/proc/insert_cash_arcade(obj/item/stack/spacecash/cash_money, mob/user, amount)
+	if(amount > cash_money.amount)
+		return
+	var/amount_to_insert = amount ? amount : cash_money.amount
+	visible_message("<span class='info'>[user] inserts [amount] credits into [src].</span>")
+	cash_stored += amount_to_insert
+	cash_transaction += amount_to_insert
+	cash_money.use(amount_to_insert)
+	return TRUE
+
 /**
   * create the most effective combination of space cash piles to make up the requested amount
   *
