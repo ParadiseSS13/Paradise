@@ -6,6 +6,10 @@
 	if(hand)	return l_hand
 	else		return r_hand
 
+/// Specal proc for special mobs that use "hands" in weird ways
+/mob/proc/special_get_hands_check()
+	return
+
 /mob/verb/quick_equip()
 	set name = "quick-equip"
 	set hidden = 1

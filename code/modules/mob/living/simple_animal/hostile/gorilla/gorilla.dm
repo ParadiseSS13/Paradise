@@ -29,11 +29,23 @@
 	a_intent = INTENT_HARM // Angrilla
 	/// Is the gorilla stood up or not?
 	var/is_bipedal = FALSE
+	/// The max number of crates we can carry
+	var/crate_limit = 0
+	/// Typecache of all the types we can pick up and carry
+	var/list/carriable_cache
+	/// A lazylist of all crates we are carrying
+	var/list/atom/movable/crates_in_hand
 
 /mob/living/simple_animal/hostile/gorilla/Initialize()
 	. = ..()
 	var/datum/action/innate/gorilla/gorilla_toggle/toggle = new
 	toggle.Grant(src)
+	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate)) // Normal crates only please, no weird sized ones
+	carriable_cache = default_cache
+
+/mob/living/simple_animal/hostile/gorilla/Destroy()
+	LAZYCLEARLIST(crates_in_hand)
+	return ..()
 
 /datum/action/innate/gorilla/gorilla_toggle
 	name = "Toggle Stand"
@@ -76,6 +88,29 @@
 	return parts
 
 /mob/living/simple_animal/hostile/gorilla/AttackingTarget(atom/attacked_target)
+	if(client && HAS_TRAIT(src, TRAIT_GORILLA_CRATE))
+		if(is_type_in_typecache(target, carriable_cache))
+			var/atom/movable/movable_target = target
+			if(LAZYLEN(crates_in_hand) >= crate_limit)
+				to_chat(src, "<span class='warning'>You are carrying too many crates!</span>")
+				return COMPONENT_CANCEL_ATTACK_CHAIN
+
+			for(var/mob/living/inside_mob in movable_target.contents)
+				if(inside_mob.mob_size < MOB_SIZE_HUMAN)
+					continue
+				to_chat(src, "<span class='warning'>This crate is too heavy!</span>")
+				return COMPONENT_CANCEL_ATTACK_CHAIN
+
+			LAZYADD(crates_in_hand, target)
+			is_bipedal = TRUE
+			update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+			movable_target.forceMove(src)
+			return COMPONENT_CANCEL_ATTACK_CHAIN
+
+		if(isturf(target) && !is_blocked_turf(target) && LAZYLEN(crates_in_hand))
+			drop_random_crate(target)
+			return COMPONENT_CANCEL_ATTACK_CHAIN
+
 	. = ..()
 	if(!.)
 		return
@@ -100,10 +135,19 @@
 
 /mob/living/simple_animal/hostile/gorilla/update_icon_state()
 	. = ..()
-	if(is_bipedal) // Yes it's a little jank but whatever, it's a gorilla!
+	if(is_bipedal || LAZYLEN(crates_in_hand))
 		icon_state = "standing"
 		return
+
 	icon_state = initial(icon_state)
+
+/mob/living/simple_animal/hostile/gorilla/update_overlays()
+	. = ..()
+	if(!LAZYLEN(crates_in_hand))
+		return
+	var/atom/movable/random_crate = pick(crates_in_hand)
+	. += mutable_appearance(random_crate.icon, random_crate.icon_state)
+	. += mutable_appearance(icon, "standing_overlay")
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = get_target_bodyparts(target)
@@ -117,18 +161,40 @@
 		playsound(src, 'sound/creatures/gorilla.ogg', 50)
 	return ..()
 
-/mob/living/simple_animal/hostile/gorilla/can_use_guns(obj/item/G)
-	to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-	return FALSE
-
 /mob/living/simple_animal/hostile/gorilla/proc/oogaooga()
 	if(prob(rand(15, 50)))
 		playsound(src, 'sound/creatures/gorilla.ogg', 50)
 
-/obj/item/card/id/supply/cargo_gorilla
-	name = "cargorilla ID"
-	registered_name = "Cargorilla"
-	desc = "A card used to provide ID and determine access across the station. A gorilla-sized ID for a gorilla-sized cargo technician."
+/mob/living/simple_animal/hostile/gorilla/special_get_hands_check()
+	if(LAZYLEN(crates_in_hand))
+		return pick(crates_in_hand)
+
+/mob/living/simple_animal/hostile/gorilla/death(gibbed)
+	drop_all_crates(drop_location())
+	return ..()
+
+/mob/living/simple_animal/hostile/gorilla/examine(mob/user)
+	. = ..()
+	var/num_crates = LAZYLEN(crates_in_hand)
+	if(num_crates)
+		. += "<span class='notice'>[p_theyre(TRUE)] carrying [num_crates == 1 ? "a crate" : "[num_crates] crates"].</span>"
+
+/mob/living/simple_animal/hostile/gorilla/drop_item_v()
+	drop_random_crate(drop_location())
+
+/// Drops one random crates from our crate list.
+/mob/living/simple_animal/hostile/gorilla/proc/drop_random_crate(atom/drop_to)
+	var/obj/structure/closet/crate/held_crate = pick(crates_in_hand)
+	held_crate.forceMove(drop_to)
+	LAZYREMOVE(crates_in_hand, held_crate)
+	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+
+/// Drops all the crates in our crate list.
+/mob/living/simple_animal/hostile/gorilla/proc/drop_all_crates(atom/drop_to)
+	for(var/obj/structure/closet/crate/held_crate as anything in crates_in_hand)
+		held_crate.forceMove(drop_to)
+		LAZYREMOVE(crates_in_hand, held_crate)
+	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic
 	name = "Cargorilla" // Overriden, normally
@@ -142,12 +208,7 @@
 	unique_pet = TRUE
 	/// The ID card that the gorilla is currently wearing.
 	var/obj/item/card/id/access_card
-	/// The max number of crates we can carry
-	var/crate_limit = 2
-	/// Typecache of all the types we can pick up and carry
-	var/list/carriable_cache
-	/// A lazylist of all crates we are carrying
-	var/list/atom/movable/crates_in_hand
+	crate_limit = 2
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Login()
 	. = ..()
@@ -158,82 +219,14 @@
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Initialize(mapload)
 	. = ..()
 	access_card = new /obj/item/card/id/supply/cargo_gorilla(src)
-	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate)) // Normal crates only please, no weird sized ones
-	carriable_cache = default_cache
 	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_GORILLA_CRATE, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Destroy()
-	LAZYCLEARLIST(crates_in_hand)
 	QDEL_NULL(access_card)
 	return ..()
 
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/get_active_hand()
-	if(LAZYLEN(crates_in_hand))
-		return pick(crates_in_hand)
-
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/AttackingTarget(atom/attacked_target)
-	if(is_type_in_typecache(target, carriable_cache))
-		var/atom/movable/movable_target = target
-		if(LAZYLEN(crates_in_hand) >= crate_limit)
-			to_chat(src, "<span class='warning'>You are carrying too many crates!</span>")
-			return COMPONENT_CANCEL_ATTACK_CHAIN
-
-		for(var/mob/living/inside_mob in movable_target.contents)
-			if(inside_mob.mob_size < MOB_SIZE_HUMAN)
-				continue
-			to_chat(src, "<span class='warning'>This crate is too heavy!</span>")
-			return COMPONENT_CANCEL_ATTACK_CHAIN
-
-		LAZYADD(crates_in_hand, target)
-		is_bipedal = TRUE
-		update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-		movable_target.forceMove(src)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
-
-	if(isturf(target) && !is_blocked_turf(target) && LAZYLEN(crates_in_hand))
-		drop_random_crate(target)
-		return COMPONENT_CANCEL_ATTACK_CHAIN
-
-	return ..()
-
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/update_icon_state()
-	. = ..()
-	if(LAZYLEN(crates_in_hand) || is_bipedal)
-		icon_state = "standing"
-		return
-	icon_state = initial(icon_state)
-
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/update_overlays()
-	. = ..()
-	if(!LAZYLEN(crates_in_hand))
-		return
-	var/atom/movable/random_crate = pick(crates_in_hand)
-	. += mutable_appearance(random_crate.icon, random_crate.icon_state)
-	. += mutable_appearance('icons/mob/cargorillia.dmi', "standing_overlay")
-
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/death(gibbed)
-	drop_all_crates(drop_location())
-	return ..()
-
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/examine(mob/user)
-	. = ..()
-	var/num_crates = LAZYLEN(crates_in_hand)
-	if(num_crates)
-		. += "<span class='notice'>[p_theyre(TRUE)] carrying [num_crates == 1 ? "a crate" : "[num_crates] crates"].</span>"
-
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/drop_item_v()
-	drop_random_crate(drop_location())
-
-/// Drops one random crates from our crate list.
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/proc/drop_random_crate(atom/drop_to)
-	var/obj/structure/closet/crate/held_crate = pick(crates_in_hand)
-	held_crate.forceMove(drop_to)
-	LAZYREMOVE(crates_in_hand, held_crate)
-	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-
-/// Drops all the crates in our crate list.
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic/proc/drop_all_crates(atom/drop_to)
-	for(var/obj/structure/closet/crate/held_crate as anything in crates_in_hand)
-		held_crate.forceMove(drop_to)
-		LAZYREMOVE(crates_in_hand, held_crate)
-	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
+/obj/item/card/id/supply/cargo_gorilla
+	name = "cargorilla ID"
+	registered_name = "Cargorilla"
+	desc = "A card used to provide ID and determine access across the station. A gorilla-sized ID for a gorilla-sized cargo technician."
