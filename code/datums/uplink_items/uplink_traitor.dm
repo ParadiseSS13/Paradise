@@ -260,6 +260,17 @@
 	cost = 8
 	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
+// Genetics
+
+/datum/uplink_item/jobspecific/magillitis_serum
+	name = "Magillitis Serum Autoinjector"
+	desc = "A single-use autoinjector which contains an experimental serum that causes rapid muscular growth in Hominidae. \
+			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
+	reference = "MAG"
+	item = /obj/item/reagent_containers/hypospray/autoinjector/magillitis
+	cost = 5
+	job = list("Research Director", "Geneticist")
+
 //Tator Poison Bottles
 
 /datum/uplink_item/jobspecific/poisonbottle
