@@ -14,8 +14,7 @@
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
-	can_buckle = TRUE					// you can buckle someone if they have cuffs
-
+	can_buckle = TRUE // you can buckle someone if they have cuffs
 
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
