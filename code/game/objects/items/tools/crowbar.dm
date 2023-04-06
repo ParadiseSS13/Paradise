@@ -70,14 +70,16 @@
 	toolspeed = 0.5
 
 /obj/item/crowbar/engineering/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] looks up and hooks [src] into a ceiling tile! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
 	if(!user)
 		return
+
+	user.visible_message("<span class='suicide'>[user] looks up and hooks [src] into a ceiling tile! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
 	user.Immobilize(10 SECONDS)
 	playsound(loc, 'sound/items/crowbar.ogg', 50, TRUE, -1)
 
-	sleep(20)
+	sleep(2 SECONDS)
 	add_fingerprint(user)
 
 	to_chat(user, "<span class='userdanger'>You pry open the ceiling tile above you and look beyond it.. oh God, what the hell is <i>that?!</i></span>")

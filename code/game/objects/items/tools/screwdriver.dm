@@ -76,12 +76,13 @@
 	random_color = FALSE
 
 /obj/item/screwdriver/cargo/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is trying to take [src]'s independence! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
 	if(!user)
 		return
+	user.visible_message("<span class='suicide'>[user] is trying to take [src]'s independence! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 
 	user.Immobilize(10 SECONDS)
-	sleep(20)
+	sleep(2 SECONDS)
 	add_fingerprint(user)
 
 	to_chat(user, "<span class='userdanger'>[src] retaliates viciously!</span>")

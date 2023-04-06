@@ -59,12 +59,14 @@
 	random_color = FALSE
 
 /obj/item/wirecutters/security/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is cutting [user.p_themselves()] free from the mortal coil! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
 	if(!user)
 		return
+	user.visible_message("<span class='suicide'>[user] is cutting [user.p_themselves()] free from the mortal coil! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
 
 	user.Immobilize(10 SECONDS)
-	sleep(20)
+	sleep(2 SECONDS)
 	add_fingerprint(user)
 
 	playsound(loc, usesound, 50, TRUE, -1)

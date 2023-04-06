@@ -126,7 +126,7 @@
 	add_fingerprint(user)
 
 	var/base_desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain."
-	switch(victims.len)
+	switch(length(victims))
 		if(0)
 			desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
 		if(1)
@@ -136,8 +136,7 @@
 			for(var/victim_name in victims)
 				desc += "[victim_name], "
 			desc += "and [user.name], all executed for mutiny. Impressive.\""
-	victims.Add(user.name)
-
+	victims += user.name
 	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	for(var/obj/item/W in user)
 		user.unEquip(W)
