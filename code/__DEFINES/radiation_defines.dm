@@ -35,8 +35,8 @@ Ask ninjanomnom if they're around
 #define RAD_MOB_KNOCKDOWN_PROB 1					// Chance of knockdown per tick when over threshold
 #define RAD_MOB_KNOCKDOWN_AMOUNT 6 SECONDS 			// Amount of knockdown when it occurs
 
-#define RAD_MOB_GORILLIZE 2500						// How much stored radiation to check for gorillization
-#define RAD_MOB_GORILLIZE_PROB 0.5					// Chance of gorillization per tick when over threshold
+#define RAD_MOB_GORILLIZE 1500						// How much stored radiation to check for gorillization
+#define RAD_MOB_GORILLIZE_PROB 1					// Chance of gorillization per tick when over threshold
 
 #define RAD_NO_INSULATION 1.0						// For things that shouldn't become irradiated for whatever reason
 #define RAD_VERY_LIGHT_INSULATION 0.9				// What girders have

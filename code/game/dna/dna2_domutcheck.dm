@@ -51,3 +51,6 @@
 		else
 			//testing("[gene.name] deactivated!")
 			mutation.deactivate(M)
+
+	if(prob(RAD_MOB_GORILLIZE_PROB))
+		M.gorillize() // OH SHIT A GORILLA
