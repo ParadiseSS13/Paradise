@@ -90,7 +90,7 @@
 
 /obj/item/spacepod_equipment/weaponry/taser
 	name = "disabler system"
-	desc = "A weak taser system for space pods, fires disabler beams."
+	desc = "A weak disabler system for space pods, fires disabler beams."
 	icon_state = "weapon_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 800
@@ -99,12 +99,12 @@
 	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/burst_taser
-	name = "burst taser system"
-	desc = "A weak taser system for space pods, this one fires 3 at a time."
+	name = "burst disabler system"
+	desc = "A weak disabler system for space pods, this one fires 3 round burst at a time."
 	icon_state = "weapon_burst_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
-	shot_cost = 800
-	shots_per = 2
+	shot_cost = 1200
+	shots_per = 3
 	fire_sound = 'sound/weapons/taser.ogg'
 	fire_delay = 30
 	harmful = FALSE
@@ -129,8 +129,8 @@
 
 // MINING LASERS
 /obj/item/spacepod_equipment/weaponry/mining_laser_basic
-	name = "weak mining laser system"
-	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock."
+	name = "kinetic accelerator system"
+	desc = "A kinetic accelerator system for space pods, fires bursts of kinetic force that cut through rock."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_taser"
 	projectile_type = /obj/item/projectile/kinetic/pod
@@ -139,8 +139,8 @@
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
 /obj/item/spacepod_equipment/weaponry/mining_laser
-	name = "mining laser system"
-	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock."
+	name = "industrial kinetic accelerator system"
+	desc = "A industrial kinetic accelerator system for space pods, fires heavy bursts of kinetic force that cut through rock."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_m_laser"
 	projectile_type = /obj/item/projectile/kinetic/pod/regular
