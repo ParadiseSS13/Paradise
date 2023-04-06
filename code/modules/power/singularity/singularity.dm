@@ -208,6 +208,7 @@
 				dissipate_strength = 10
 				if(!isnt_shutting_down)
 					notify_dead()
+					isnt_shutting_down = TRUE
 		if(STAGE_FIVE)//this one also lacks a check for gens because it eats everything
 			current_size = STAGE_FIVE
 			icon = 'icons/effects/288x288.dmi'
@@ -408,6 +409,8 @@
 	return
 
 /obj/singularity/proc/notify_dead()
+	if(!isnt_shutting_down)
+		return
 	notify_ghosts(
 		"IT'S LOOSE",
 		ghost_sound = 'sound/machines/warning-buzzer.ogg',
