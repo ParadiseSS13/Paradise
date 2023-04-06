@@ -170,14 +170,18 @@
 	if(!parts)
 		return ", missing component."
 
-	var/atom/movable/I = new R.result (get_turf(user.loc))
-	user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
-	I.CheckParts(parts, R)
-	if(isitem(I))
-		user.put_in_hands(I)
+	var/result_list = R.result
+	if(!islist(result_list))
+		result_list = list(result_list)
+	for(var/result in result_list)
+		var/atom/movable/I = new result(get_turf(user.loc))
+		user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
+		I.CheckParts(parts, R)
+		if(isitem(I))
+			user.put_in_hands(I)
 
-	if(send_feedback)
-		SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+		if(send_feedback)
+			SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 	return 0
 
 /datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)

@@ -566,8 +566,10 @@
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/arrow
-	name = "Arrow"
-	result = /obj/item/ammo_casing/caseless/arrow
+	name = "Arrows"
+	result = list(/obj/item/ammo_casing/caseless/arrow,
+				/obj/item/ammo_casing/caseless/arrow,
+				/obj/item/ammo_casing/caseless/arrow)
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 1,
 				 /obj/item/stack/sheet/wood = 1)
@@ -580,6 +582,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
+
 /datum/crafting_recipe/boneaxe
 	name = "Bone Axe"
 	result = /obj/item/twohanded/fireaxe/boneaxe

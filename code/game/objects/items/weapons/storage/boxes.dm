@@ -1243,7 +1243,6 @@
 	new /obj/item/restraints/legcuffs/bola/energy(src)
 	new /obj/item/restraints/legcuffs/bola/energy(src)
 
-
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."
