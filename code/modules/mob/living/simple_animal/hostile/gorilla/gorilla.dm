@@ -30,7 +30,7 @@
 	/// Is the gorilla stood up or not?
 	var/is_bipedal = FALSE
 	/// The max number of crates we can carry
-	var/crate_limit = 0
+	var/crate_limit = 1
 	/// Typecache of all the types we can pick up and carry
 	var/list/carriable_cache
 	/// A lazylist of all crates we are carrying

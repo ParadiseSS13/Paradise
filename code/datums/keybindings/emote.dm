@@ -587,6 +587,13 @@
 /datum/keybinding/emote/simple_animal/diona_chirp/can_use(client/C, mob/M)
 	return isnymph(M) && ..()
 
+/datum/keybinding/emote/simple_animal/gorilla_ooga
+	linked_emote = /datum/emote/living/simple_animal/gorilla/ooga
+	name = "Ooga (Gorilla)"
+
+/datum/keybinding/emote/simple_animal/gorilla_ooga/can_use(client/C, mob/M)
+	return isgorilla(M) && ..()
+
 /datum/keybinding/emote/simple_animal/pet/dog/bark
 	linked_emote = /datum/emote/living/simple_animal/pet/dog/bark
 	name = "Bark (Dog)"
