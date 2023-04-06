@@ -759,6 +759,7 @@ BLIND     // can't see anything
 			A.attached_unequip()
 
 /obj/item/clothing/under/equipped(mob/user, slot, initial)
+	..()
 	if(!ishuman(user))
 		return
 	if(slot == slot_w_uniform)
