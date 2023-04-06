@@ -61,7 +61,7 @@
 		return
 	if(!freeplay)
 		if(isspacecash(O))
-			insert_cash_arcade(O, user, token_price)
+			insert_cash(O, user, token_price)
 			if(pay_with_cash(token_price, "Arcade Token Purchase", "DonkBook Gaming", user, account_database.vendor_account))
 				tokens += 1
 			return

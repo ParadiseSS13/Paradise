@@ -77,17 +77,7 @@
 	if(amount > cash_money.amount)
 		return
 	var/amount_to_insert = amount ? amount : cash_money.amount
-	visible_message("<span class='info'>[user] inserts [cash_money] into [src].</span>")
-	cash_stored += amount_to_insert
-	cash_transaction += amount_to_insert
-	cash_money.use(amount_to_insert)
-	return TRUE
-
-/obj/machinery/economy/proc/insert_cash_arcade(obj/item/stack/spacecash/cash_money, mob/user, amount)
-	if(amount > cash_money.amount)
-		return
-	var/amount_to_insert = amount ? amount : cash_money.amount
-	visible_message("<span class='info'>[user] inserts [amount] credits into [src].</span>")
+	visible_message("<span class='info'>[user] inserts [amount_to_insert] credits into [src].</span>")
 	cash_stored += amount_to_insert
 	cash_transaction += amount_to_insert
 	cash_money.use(amount_to_insert)
