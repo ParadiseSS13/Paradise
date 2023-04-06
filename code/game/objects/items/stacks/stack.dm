@@ -31,6 +31,8 @@
 	var/table_type
 	/// If this stack has a dynamic icon_state based on amount / max_amount
 	var/dynamic_icon_state = FALSE
+	/// if true, then this item can stack with children
+	var/parent_stack = FALSE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -355,7 +357,11 @@
 	use(amount)
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, merge_type))
+	if(!parent_stack && istype(W, merge_type))
+		var/obj/item/stack/S = W
+		merge(S)
+		to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
+	if(parent_stack==TRUE && W.type == type)
 		var/obj/item/stack/S = W
 		merge(S)
 		to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
