@@ -139,7 +139,14 @@
 
 	var/heal_prob = max(0, 80 - getCloneLoss())
 	var/mut_prob = min(80, getCloneLoss() + 10)
-	if(amount > 0) //cloneloss is being added
+
+	if(getCloneLoss() == 0)  // All cloneloss was purged - fix all organs
+		for(var/obj/item/organ/external/O in bodyparts)
+			if(O.status & ORGAN_MUTATED)
+				O.unmutate()
+				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+		return
+	else if(amount > 0) // Cloneloss was added
 		if(prob(mut_prob))
 			var/list/obj/item/organ/external/candidates = list() //TYPECASTED LISTS ARE NOT A FUCKING THING WHAT THE FUCK
 			for(var/obj/item/organ/external/O in bodyparts)
@@ -154,22 +161,13 @@
 				to_chat(src, "<span class='notice'>Something is not right with your [O.name]...</span>")
 				O.add_autopsy_data("Mutation", amount)
 				return
-
-	else //cloneloss is being subtracted
+	else if (amount < 0) // Cloneloss was subtracted
 		if(prob(heal_prob))
 			for(var/obj/item/organ/external/O in bodyparts)
 				if(O.status & ORGAN_MUTATED)
 					O.unmutate()
 					to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
 					return
-
-
-	if(getCloneLoss() < 1) //no cloneloss, fixes organs
-		for(var/obj/item/organ/external/O in bodyparts)
-			if(O.status & ORGAN_MUTATED)
-				O.unmutate()
-				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
-
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
