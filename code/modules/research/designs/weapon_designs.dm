@@ -195,6 +195,16 @@
 	materials = list(MAT_METAL = 60500, MAT_SILVER = 6000, MAT_URANIUM = 8000)
 	build_path = /obj/item/ammo_box/tox46x30mm
 
+/datum/design/lmag
+	name = "LR-30 Laser rifle magazine"
+	desc = "A 12 round magazine for the LR-30 Laser Rifle"
+	id = "lmag"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 4, "powerstorage" = 4)
+	materials = list(MAT_METAL = 16000, MAT_GLASS = 5000, MAT_PLASMA = 6000)
+	build_path = /obj/item/ammo_box/magazine/lr30mag
+	category = list("Weapons")
+
 /datum/design/rapidsyringe
 	name = "Rapid Syringe Gun"
 	desc = "A gun that fires many syringes."

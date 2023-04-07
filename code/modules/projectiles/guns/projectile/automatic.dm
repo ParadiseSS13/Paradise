@@ -342,6 +342,25 @@
 	..()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
 
+/obj/item/gun/projectile/automatic/lr30
+	name = "\improper IR-30 Laser Rifle"
+	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
+	icon_state = "lr30"
+	item_state = "lr30"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=3;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/lr30mag
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	can_suppress = 0
+	burst_size = 1
+	actions_types = list()
+
+/obj/item/gun/projectile/automatic/lr30/update_icon()
+	..()
+	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(0)/3, 1)*3]" : ""]"
+
 //Semi-Machine Gun SFG
 
 /obj/item/gun/projectile/automatic/sfg

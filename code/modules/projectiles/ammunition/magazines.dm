@@ -539,6 +539,20 @@
 	..()
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
 
+/obj/item/ammo_box/magazine/lr30mag
+	name = "encased laser projector magazine"
+	desc = "Fits experimental laser ammo casings."
+	icon_state = "lmag-12"
+	ammo_type = /obj/item/ammo_casing/laser
+	origin_tech = "combat=3"
+	caliber = "laser"
+	max_ammo = 12
+
+/obj/item/ammo_box/magazine/lr30mag/update_icon()
+	..()
+	icon_state = "lmag-[round(ammo_count(),3)]"
+
+
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
