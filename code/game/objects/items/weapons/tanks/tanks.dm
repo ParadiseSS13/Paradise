@@ -16,6 +16,7 @@
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
 	var/volume = 70
+	var/fillable = TRUE
 
 /obj/item/tank/New()
 	..()
@@ -72,8 +73,11 @@
 		C.internal = src
 	C.update_action_buttons_icon()
 
-/obj/item/tank/examine(mob/user)
+/obj/item/tank/examine(mob/user, show_contents_info = TRUE)
 	. = ..()
+
+	if(!show_contents_info)
+		return
 
 	var/obj/icon = src
 	if(istype(loc, /obj/item/assembly))

@@ -19,12 +19,6 @@
 			if("carbon dioxide")
 				air_contents.carbon_dioxide = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
-/obj/item/tank/jetpack/on_mob_move(direction, mob/user)
-	if(on)
-		var/turf/T = get_step(src, GetOppositeDir(direction))
-		if(!has_gravity(T))
-			new /obj/effect/particle_effect/ion_trails(T, direction)
-
 /obj/item/tank/jetpack/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/toggle_jetpack || actiontype == /datum/action/item_action/toggle_jetpack/ninja)
 		cycle(user)
@@ -41,8 +35,12 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/tank/jetpack/proc/cycle(mob/user)
+/obj/item/tank/jetpack/proc/cycle(mob/user, must_be_on_back = TRUE)
 	if(user.incapacitated())
+		return
+
+	if(must_be_on_back && src != user.back)
+		to_chat(user, "<span class='warning'>You need [src] to be on your back!</span>")
 		return
 
 	if(!on)
@@ -65,7 +63,7 @@
 	stabilizers = FALSE
 	icon_state = initial(icon_state)
 
-/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
+/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user, should_leave_trail)
 	if(!on)
 		return 0
 	if((num < 0.005 || air_contents.total_moles() < num))
@@ -79,7 +77,17 @@
 
 	var/turf/T = get_turf(user)
 	T.assume_air(removed)
+
+	if(!has_gravity(T) && should_leave_trail)
+		new /obj/effect/particle_effect/ion_trails(T)
+
 	return 1
+
+/obj/item/tank/jetpack/Moved(OldLoc, Dir, Forced)
+	var/mob/living/carbon/human/holder = loc
+	if(on && !(istype(loc) && holder.back == src))
+		turn_off()
+	..()
 
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"
@@ -89,7 +97,7 @@
 	volume = 20 //normal jetpacks have 70 volume
 	gas_type = null //it starts empty
 
-/obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user)
+/obj/item/tank/jetpack/improvised/allow_thrust(num, mob/living/user, should_leave_trail)
 	if(rand(0, 250) == 0)
 		to_chat(user, "<span class='notice'>You feel your jetpack's engines cut out.</span>")
 		turn_off(user)
@@ -159,6 +167,7 @@
 	volume = 1
 	slot_flags = null
 	gas_type = null
+	fillable = FALSE
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
 	var/mob/living/carbon/human/cur_user
@@ -173,6 +182,9 @@
 /obj/item/tank/jetpack/suit/attack_self()
 	return
 
+/obj/item/tank/jetpack/suit/examine(mob/user)
+	. = ..(user, show_contents_info = FALSE)
+
 /obj/item/tank/jetpack/suit/cycle(mob/user)
 	if(!istype(loc, req_suit_type))
 		to_chat(user, "<span class='warning'>[src] must be connected to a [req_suit_name]!</span>")
@@ -182,7 +194,7 @@
 	if(!istype(H.s_store, /obj/item/tank))
 		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
 		return
-	..()
+	..(user, must_be_on_back = FALSE)
 
 /obj/item/tank/jetpack/suit/turn_on(mob/user)
 	if(!istype(loc, req_suit_type) || !ishuman(loc.loc) || loc.loc != user)
@@ -226,3 +238,6 @@
 	for(jetpack_action in actions)
 		jetpack_action.button_icon = 'icons/mob/actions/actions_ninja.dmi'
 		jetpack_action.background_icon_state = "background_green"
+
+/obj/item/tank/jetpack/suit/ninja/allow_thrust(num, mob/living/user, should_leave_trail)
+	. = ..(num, user, cur_user?.alpha != NINJA_ALPHA_INVISIBILITY && should_leave_trail)

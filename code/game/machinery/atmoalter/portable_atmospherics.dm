@@ -116,11 +116,11 @@
 	return TRUE
 
 /obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank))
+	var/obj/item/tank/T = W
+	if(istype(T) && T.fillable)
 		if(!(stat & BROKEN))
 			if(!user.drop_item())
 				return
-			var/obj/item/tank/T = W
 			user.drop_item()
 			if(src.holding)
 				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")

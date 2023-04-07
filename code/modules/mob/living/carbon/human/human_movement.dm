@@ -5,25 +5,29 @@
 	. += dna.species.movement_delay(src)
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
-
 	if(..())
 		return TRUE
 
-	//Do we have a working jetpack?
-	var/obj/item/tank/jetpack/thrust
+	var/jetpacks = list()
+
 	if(istype(back, /obj/item/tank/jetpack))
-		thrust = back
-	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
-		thrust = C.jetpack
-	else if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja))
-		var/obj/item/clothing/suit/space/space_ninja/C = wear_suit
-		thrust = C.jetpack
-	if(thrust)
-		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
+		jetpacks += back
+
+	var/obj/item/clothing/suit/space/hardsuit/H = wear_suit
+	if(istype(H) && H.jetpack)
+		jetpacks += H.jetpack
+
+	var/obj/item/clothing/suit/space/space_ninja/SN = wear_suit
+	if(istype(SN) && SN.jetpack)
+		jetpacks += SN.jetpack
+
+	for(var/obj/item/tank/jetpack/jetpack in jetpacks)
+		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))
 			return TRUE
+
 	if(dna.species.spec_Process_Spacemove(src))
 		return TRUE
+
 	return FALSE
 
 /mob/living/carbon/human/mob_has_gravity()
