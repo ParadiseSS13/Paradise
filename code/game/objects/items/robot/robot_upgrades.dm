@@ -411,6 +411,16 @@
 	cyborg = null
 	return ..()
 
+/obj/item/borg/upgrade/bluespace_trash_bag
+	name = "janitor cyborg trash bag of holding upgrade"
+	desc = "An advanced trash bag upgrade board with bluespace properties that can be attached to janitorial cyborgs."
+	icon_state = "cyborg_upgrade4"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/janitor
+	items_to_replace = list(
+		/obj/item/storage/bag/trash/cyborg = /obj/item/storage/bag/trash/bluespace/cyborg
+	)
+
 /obj/item/borg/upgrade/rcd
 	name = "R.C.D. upgrade"
 	desc = "A modified rapid construction device, able to pull energy directly from a cyborgs internal power cell."
