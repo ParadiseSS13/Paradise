@@ -215,18 +215,9 @@
 	if(!can_hear())
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
-	else if(track)
-		to_chat(src, "[part_a][track][part_b][message]</span></span>")
-		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			create_chat_message(speaker, message_clean, TRUE, FALSE)
-		if(src != speaker || isrobot(src) || isAI(src))
-			var/effect = SOUND_EFFECT_RADIO
-			if(isrobot(speaker))
-				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
 	else
-		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
-		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
+		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT && !istype(speaker, /mob/living/automatedannouncer))
 			create_chat_message(speaker, message_clean, TRUE, FALSE)
 		if(src != speaker || isrobot(src) || isAI(src))
 			var/effect = SOUND_EFFECT_RADIO
