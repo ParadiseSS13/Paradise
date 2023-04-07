@@ -361,6 +361,9 @@
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
+/obj/structure/chair/stool/handle_layer()
+	return
+
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
