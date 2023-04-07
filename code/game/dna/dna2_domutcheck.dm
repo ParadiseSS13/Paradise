@@ -24,7 +24,6 @@
 	var/datum/mutation/mutation = GLOB.assigned_mutation_blocks[block]
 	domutation(mutation, M, flags)
 
-
 /proc/domutation(datum/mutation/mutation, mob/living/M, flags = 0)
 	if(!mutation || !istype(mutation))
 		return FALSE
@@ -51,7 +50,3 @@
 		else
 			//testing("[gene.name] deactivated!")
 			mutation.deactivate(M)
-
-	var/mob/living/carbon/C = M
-	if(prob(RAD_MOB_GORILLIZE_PROB) && istype(C))
-		C.gorillize() // OH SHIT A GORILLA

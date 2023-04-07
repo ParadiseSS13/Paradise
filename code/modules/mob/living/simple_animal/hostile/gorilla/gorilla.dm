@@ -42,7 +42,6 @@
 	toggle.Grant(src)
 	var/static/default_cache = typecacheof(list(/obj/structure/closet/crate)) // Normal crates only please, no weird sized ones
 	carriable_cache = default_cache
-	ADD_TRAIT(src, TRAIT_GORILLA_CRATE, INNATE_TRAIT)
 
 /mob/living/simple_animal/hostile/gorilla/Destroy()
 	LAZYCLEARLIST(crates_in_hand)
