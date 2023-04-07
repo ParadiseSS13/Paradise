@@ -27,7 +27,8 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/screwdriver,
 		/obj/item/stamp,
-		/obj/item/encryptionkey)
+		/obj/item/encryptionkey,
+		/obj/item/clothing/gloves/ring)
 	slot_flags = SLOT_ID
 
 	var/obj/item/card/id/front_id = null
@@ -117,32 +118,6 @@
 	storage_slots = 5		//smaller storage than normal wallets
 	icon = 'icons/obj/wallets.dmi'
 	item_state = "wallet"
-	w_class = WEIGHT_CLASS_SMALL
-	resistance_flags = FLAMMABLE
-	can_hold = list(
-		/obj/item/stack/spacecash,
-		/obj/item/card,
-		/obj/item/clothing/mask/cigarette,
-		/obj/item/flashlight/pen,
-		/obj/item/seeds,
-		/obj/item/stack/medical,
-		/obj/item/toy/crayon,
-		/obj/item/coin,
-		/obj/item/dice,
-		/obj/item/disk,
-		/obj/item/implanter,
-		/obj/item/lighter,
-		/obj/item/match,
-		/obj/item/paper,
-		/obj/item/pen,
-		/obj/item/photo,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/screwdriver,
-		/obj/item/stamp,
-		/obj/item/encryptionkey)
-	slot_flags = SLOT_ID
-
-
 
 /obj/item/storage/wallet/color/New()
 	..()
