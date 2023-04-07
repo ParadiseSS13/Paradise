@@ -264,8 +264,8 @@
 /datum/reagent/consumable/drink/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
-	description = "Made with love! And coco beans."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	description = "Made with love! And cocoa beans."
+	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#401101"
 	drink_icon = "hot_coco"
 	drink_name = "Glass of hot coco"

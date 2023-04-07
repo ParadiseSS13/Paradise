@@ -330,15 +330,6 @@
 	color = "#FEFEFE"
 	taste_description = "bitter vanilla"
 
-/datum/reagent/consumable/hot_coco
-	name = "Hot Chocolate"
-	id = "hot_coco"
-	description = "Made with love! And cocoa beans."
-	reagent_state = LIQUID
-	nutriment_factor = 2 * REAGENTS_METABOLISM
-	color = "#403010" // rgb: 64, 48, 16
-	taste_description = "chocolate"
-
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
