@@ -169,12 +169,18 @@
 				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
 				return
 
-// Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/setCloneLoss(amount)
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.clone_mod
 	. = ..()
 
+	if(amount == 0) // Cloneloss was set to 0 - fix all organs
+		for(var/obj/item/organ/external/O in bodyparts)
+			if(O.status & ORGAN_MUTATED)
+				O.unmutate()
+				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+
+// Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
 	if(dna.species && amount > 0)
 		amount = amount * dna.species.oxy_mod
