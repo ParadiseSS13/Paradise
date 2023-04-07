@@ -27,13 +27,13 @@
 
 /obj/structure/bed/post_buckle_mob(mob/living/M)
 	. = ..()
-	M.resting = TRUE
-	M.update_canmove()
+	if(!M.resting)
+		M.StartResting()
 
 /obj/structure/bed/post_unbuckle_mob(mob/living/M)
 	. = ..()
-	M.resting = FALSE
-	M.update_canmove()
+	if(M.resting)
+		M.StopResting()
 
 /obj/structure/bed/psych
 	name = "psych bed"
