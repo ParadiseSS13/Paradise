@@ -1,4 +1,5 @@
 /obj/structure/musician/piano
+	name = "space minimoog"
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "minimoog"
 	anchored = TRUE
