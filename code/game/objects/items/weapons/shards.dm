@@ -63,6 +63,12 @@
 	if(istype(I, /obj/item/lightreplacer))
 		I.attackby(src, user)
 		return
+	if(istype(I, /obj/item/stack/sheet/cloth))
+		var/obj/item/stack/sheet/cloth/CL = I
+		CL.use(1)
+		to_chat(user, "<span class='notice'>You wrap the [name] with some cloth.</span>")
+		new /obj/item/kitchen/knife/glassshiv(user.loc, src)
+		qdel(src)
 	return ..()
 
 /obj/item/shard/welder_act(mob/user, obj/item/I)

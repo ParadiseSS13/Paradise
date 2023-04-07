@@ -209,6 +209,35 @@
 	attack_verb = list("shanked", "shivved")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
+/obj/item/kitchen/knife/glassshiv
+	name = "glass shiv"
+	icon_state = "glass_shiv"
+	item_state = "knife"
+	desc = "A glass shard with some cloth wrapped around it"
+	force = 7
+	throwforce = 8
+	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
+	attack_verb = list("shanked", "shivved")
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	var/size
+
+/obj/item/kitchen/knife/glassshiv/Initialize(mapload, obj/item/shard/sh)
+	. = ..()
+	if(sh)
+		size = sh.icon_state
+	if(istype(sh, /obj/item/shard/plasma))
+		name = "plasma glass shiv"
+		desc = "A plasma glass shard with some cloth wrapped around it"
+		force = 9
+		throwforce = 11
+		materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT * 0.5, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
+	update_icon()
+
+/obj/item/kitchen/knife/glassshiv/update_icon()
+	if(!size)
+		size = pick("large", "medium", "small")
+	icon_state = "[size]_[initial(icon_state)]"
+
 
 /*
  * Rolling Pins
