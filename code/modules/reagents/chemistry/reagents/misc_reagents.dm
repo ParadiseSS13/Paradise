@@ -1,37 +1,3 @@
-/*/datum/reagent/silicate
-	name = "Silicate"
-	id = "silicate"
-	description = "A compound that can be used to reinforce glass."
-	reagent_state = LIQUID
-	color = "#C7FFFF" // rgb: 199, 255, 255
-
-/datum/reagent/silicate/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/structure/window))
-		if(O:silicate <= 200)
-
-			O:silicate += volume
-			O:health += volume * 3
-
-			if(!O:silicateIcon)
-				var/icon/I = icon(O.icon,O.icon_state,O.dir)
-
-				var/r = (volume / 100) + 1
-				var/g = (volume / 70) + 1
-				var/b = (volume / 50) + 1
-				I.SetIntensity(r,g,b)
-				O.icon = I
-				O:silicateIcon = I
-			else
-				var/icon/I = O:silicateIcon
-
-				var/r = (volume / 100) + 1
-				var/g = (volume / 70) + 1
-				var/b = (volume / 50) + 1
-				I.SetIntensity(r,g,b)
-				O.icon = I
-				O:silicateIcon = I */
-
-
 /datum/reagent/oxygen
 	name = "Oxygen"
 	id = "oxygen"
@@ -732,3 +698,17 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
+
+/datum/reagent/magillitis
+	name = "Magillitis"
+	id = "magillitis"
+	description = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
+	reagent_state = LIQUID
+	color = "#00f041"
+	taste_description = "muscular"
+
+/datum/reagent/magillitis/on_mob_life(mob/living/carbon/human/M)
+	..()
+	if((istype(M)) && current_cycle >= 10)
+		M.gorillize(TRUE)
+		to_chat(M, "<span class='notice'>You feel your muscles swell and your hair grow as you return to monke.</span>")

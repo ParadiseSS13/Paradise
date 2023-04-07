@@ -262,7 +262,7 @@
 	pai.update_pipe_vision()
 	qdel(src)
 
-/mob/living/carbon/proc/gorillize()
+/mob/living/carbon/proc/gorillize(rage = FALSE)
 	if(notransform)
 		return
 
@@ -273,13 +273,19 @@
 	notransform = TRUE
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
-	visible_message("<span class='warning'>[src] transforms into a gorilla!</span>", "<span class='warning'>You transform into a gorilla!</span>", "<span class='warning'>You hear a loud roar!</span>")
-	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
+	visible_message("<span class='warning'>[src] transforms into a gorilla!</span>", "<span class='warning'>You transform into a gorilla! Ooga ooga!</span>", "<span class='warning'>You hear a loud roar!</span>")
+	var/mob/living/simple_animal/hostile/gorilla/new_gorilla
+	if(rage)
+		var/mob/living/simple_animal/hostile/gorilla/rampaging/rampaging_gorilla = new (get_turf(src))
+		new_gorilla = rampaging_gorilla
+	else
+		new_gorilla = new (get_turf(src))
+
 	playsound(new_gorilla, 'sound/creatures/gorilla.ogg', 50)
+
 	if(mind)
 		mind.transfer_to(new_gorilla)
 	else
 		new_gorilla.key = key
 
-	to_chat(new_gorilla, "<B>You are now a gorilla. Ooga ooga!</B>")
-	dust()
+	qdel(src)
