@@ -93084,6 +93084,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/stack/spacechips/c5000,
 /turf/simulated/floor/carpet/orange,
 /area/crew_quarters/bar)
 "xOD" = (

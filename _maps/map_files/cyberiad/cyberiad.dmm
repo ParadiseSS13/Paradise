@@ -29308,6 +29308,7 @@
 "bto" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
+/obj/item/stack/spacechips/c5000,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "btp" = (

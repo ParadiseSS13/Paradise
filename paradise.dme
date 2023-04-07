@@ -1162,6 +1162,7 @@
 #include "code\game\objects\items\weapons\shields.dm"
 #include "code\game\objects\items\weapons\signs.dm"
 #include "code\game\objects\items\weapons\soap.dm"
+#include "code\game\objects\items\weapons\spacechips.dm"
 #include "code\game\objects\items\weapons\staff.dm"
 #include "code\game\objects\items\weapons\stock_parts.dm"
 #include "code\game\objects\items\weapons\stunbaton.dm"

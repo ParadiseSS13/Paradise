@@ -45,6 +45,11 @@
 	typepath = /obj/item/storage/box/snappops
 	cost = 100
 
+/datum/storeitem/space_chips
+	name = "Poker Chips"
+	desc = "Chips for playing poker"
+	typepath = /obj/item/stack/spacechips/c2000
+	cost = 100
 /datum/storeitem/dnd
 	name = "Dungeons & Dragons Set"
 	desc = "A box containing minifigures suitable for a good game of D&D."
