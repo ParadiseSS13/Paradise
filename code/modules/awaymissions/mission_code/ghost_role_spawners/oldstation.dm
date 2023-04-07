@@ -101,7 +101,8 @@
 /datum/outfit/oldstation/post_equip(mob/living/carbon/human/H)
 	. = ..()
 	H.remove_language("Galactic Common")
-	H.set_default_language("Sol Common")
+	H.set_default_language(GLOB.all_languages["Sol Common"])
+	H.dna.species.default_language = "Sol Common"
 
 /datum/outfit/oldstation/officer
 	name = "Old station officer"
