@@ -473,7 +473,7 @@
 	qdel(src)
 
 
-/mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
+/mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
 		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
@@ -483,28 +483,25 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
-					if(character.mind.role_alt_title)
-						rank = character.mind.role_alt_title
-					var/arrivalmessage = announcer.arrivalmsg
-					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
-					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
-					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
-					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
-					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
+					var/arrivalmessage = create_announce_message(character, rank, join_message, announcer.arrivalmsg)
 					announcer.say(";[arrivalmessage]")
+
 		else
 			if(character.mind)
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
-					if(character.mind.role_alt_title)
-						rank = character.mind.role_alt_title
-					var/arrivalmessage = GLOB.global_announcer_base_text
-					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
-					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
-					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
-					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
-					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
-					arrivalmessage = replacetext(arrivalmessage,"$join_message",join_message)
+					var/arrivalmessage = create_announce_message(character, rank, join_message, GLOB.global_announcer_base_text)
 					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer")
+
+/mob/new_player/proc/create_announce_message(mob/living/carbon/human/arrived, rank, join_message, message)
+	if(arrived.mind.role_alt_title)
+		rank = arrived.mind.role_alt_title
+	message = replacetext(message,"$name",arrived.real_name)
+	message = replacetext(message,"$rank",rank ? "[rank]" : "visitor")
+	message = replacetext(message,"$species",arrived.dna.species.name)
+	message = replacetext(message,"$age",num2text(arrived.age))
+	message = replacetext(message,"$gender",arrived.gender == FEMALE ? "Female" : "Male")
+	message = replacetext(message,"$join_message",join_message)
+	return message
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)
