@@ -12,6 +12,7 @@
 	emote_see = list("shakes its beak.", "flaps it's wings.","preens itself.")
 	tts_seed = "Narrator"
 	faction = list("penguin")
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
@@ -29,7 +30,7 @@
 	icon_state = "penguin"
 	icon_living = "penguin"
 	icon_dead = "penguin_dead"
-	butcher_results = list()
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/pet/penguin/eldrich
@@ -53,6 +54,7 @@
 	desc = "Shameful of all he surveys."
 	icon_state = "penguin_shamebrero"
 	icon_living = "penguin_shamebrero"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
@@ -64,6 +66,7 @@
 	icon_state = "penguin_baby"
 	icon_living = "penguin_baby"
 	icon_dead = "penguin_baby_dead"
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 2)
 	density = FALSE
 	pass_flags = PASSMOB
 	mob_size = MOB_SIZE_SMALL

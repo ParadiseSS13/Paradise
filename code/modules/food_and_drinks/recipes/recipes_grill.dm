@@ -29,6 +29,13 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/friedegg
 
+/datum/recipe/grill/birdsteak
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/bird
+	)
+	result = /obj/item/reagent_containers/food/snacks/birdsteak
+
 /datum/recipe/grill/meatsteak
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(
