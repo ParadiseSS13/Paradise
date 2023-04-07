@@ -70,7 +70,7 @@
 	gorilla.update_icon(UPDATE_ICON_STATE)
 
 // Gorillas like to dismember limbs from unconscious mobs.
-// Returns null when the target is not an unconscious carbon mob; a list of limbs (possibly empty) otherwise.
+/// Returns null when the target is not an unconscious carbon mob; a list of limbs (possibly empty) otherwise.
 /mob/living/simple_animal/hostile/gorilla/proc/get_target_bodyparts(atom/hit_target)
 	if(!ishuman(hit_target))
 		return
@@ -201,8 +201,6 @@
 	name = "Cargorilla" // Overriden, normally
 	icon = 'icons/mob/cargorillia.dmi'
 	desc = "Cargo's pet gorilla. They seem to have an 'I love Mom' tattoo."
-	maxHealth = 200
-	health = 200
 	faction = list("neutral", "monkey", "jungle")
 	gold_core_spawnable = NO_SPAWN
 	a_intent = INTENT_HELP
@@ -234,5 +232,13 @@
 /mob/living/simple_animal/hostile/gorilla/rampaging
 	name = "Rampaging Gorilla"
 	desc = "A gorilla that has gone wild. Run!"
-	speed = 1
-	color = "#740303"
+	speed = 0
+	color = "#ff0000"
+	health = 350
+	maxHealth = 350
+	damage_coeff = list(BRUTE = 1.25, BURN = 1, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1)
+
+/mob/living/simple_animal/hostile/gorilla/rampaging/Initialize(mapload)
+	. = ..()
+	add_overlay(mutable_appearance('icons/effects/effects.dmi', "electricity"))  // I wanna be Winston
+

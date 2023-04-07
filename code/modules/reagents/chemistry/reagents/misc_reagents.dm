@@ -711,3 +711,4 @@
 	..()
 	if((istype(M)) && current_cycle >= 10)
 		M.gorillize(TRUE)
+		to_chat(M, "<span class='notice'>You feel your muscles swell and your hair grow as you return to monke.</span>")
