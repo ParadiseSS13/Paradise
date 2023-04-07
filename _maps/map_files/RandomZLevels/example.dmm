@@ -710,7 +710,7 @@
 	},
 /area/awaymission/example)
 "bQ" = (
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

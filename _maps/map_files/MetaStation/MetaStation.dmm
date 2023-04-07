@@ -71481,7 +71481,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "nhR" = (

@@ -28813,7 +28813,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cOa" = (
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

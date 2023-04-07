@@ -16881,7 +16881,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/crew_quarters/theatre)
 "aXD" = (
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/grimy,
 /area/crew_quarters/theatre)
@@ -84570,7 +84570,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "iiY" = (

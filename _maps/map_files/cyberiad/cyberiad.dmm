@@ -25731,7 +25731,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bok" = (
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /obj/machinery/light{
 	dir = 8
 	},

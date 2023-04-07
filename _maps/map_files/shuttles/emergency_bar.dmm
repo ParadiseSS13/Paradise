@@ -122,7 +122,7 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aD" = (

@@ -1710,7 +1710,7 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /obj/machinery/power/apc/off_station{
 	dir = 1;
 	pixel_y = 24
