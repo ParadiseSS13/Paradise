@@ -20187,7 +20187,7 @@
 	name = "west station intercom (General)";
 	pixel_x = -28
 	},
-/obj/item/storage/belt/champion,
+/obj/item/storage/belt/champion/wrestling/true,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"

@@ -210,13 +210,17 @@
 	name = "Wrestling Belt"
 	var/datum/martial_art/wrestling/style = new
 
+/obj/item/storage/belt/champion/wrestling/true
+	name = "Пояс Истинного Чемпиона"
+	desc = "Вы - лучший! и Вы это знаете!"
+
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
-		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
+		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the show info verb in the martial arts tab.</span>")
 	return
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user)

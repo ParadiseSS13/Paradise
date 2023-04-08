@@ -59177,7 +59177,7 @@
 /obj/structure/closet/crate{
 	name = "Silver Crate"
 	},
-/obj/item/storage/belt/champion,
+/obj/item/storage/belt/champion/wrestling/true,
 /obj/item/stack/sheet/mineral/gold{
 	pixel_y = 2
 	},

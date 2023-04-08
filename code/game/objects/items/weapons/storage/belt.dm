@@ -324,9 +324,7 @@
 	item_state = "champion"
 	materials = list(MAT_GOLD=400)
 	storage_slots = 1
-	can_hold = list(
-		"/obj/item/clothing/mask/luchador"
-		)
+	can_hold = list("/obj/item/clothing/mask")
 
 /obj/item/storage/belt/military
 	name = "military belt"

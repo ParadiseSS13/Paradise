@@ -17169,7 +17169,7 @@
 	},
 /obj/machinery/light/small,
 /obj/structure/closet/crate,
-/obj/item/storage/belt/champion,
+/obj/item/storage/belt/champion/wrestling/true,
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/plasteel{

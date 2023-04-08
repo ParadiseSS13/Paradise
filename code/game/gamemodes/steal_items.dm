@@ -205,8 +205,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_obj
 	name = "золотой кубок"
 
 /datum/theft_objective/hard/belt_champion
-	typepath = /obj/item/storage/belt/champion
-	name = "чемпионский пояс"
+	typepath = /obj/item/storage/belt/champion/wrestling/true
+	name = "пояс Истинного Чемпиона"
 
 /datum/theft_objective/hard/unica
 	typepath = /obj/item/gun/projectile/revolver/mateba
