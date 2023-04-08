@@ -47,9 +47,9 @@
 		sleep(2)
 
 /datum/spacepod/equipment
+
 	var/obj/spacepod/my_atom
 	var/list/obj/item/spacepod_equipment/installed_modules = list() // holds an easy to access list of installed modules
-
 	var/obj/item/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/spacepod_equipment/misc/misc_system // misc system
 	var/obj/item/spacepod_equipment/cargo/cargo_system // cargo system
@@ -63,6 +63,7 @@
 
 /obj/item/spacepod_equipment
 	name = "equipment"
+	icon = 'icons/obj/spacepod.dmi'
 	var/obj/spacepod/my_atom
 	var/occupant_mod = 0	// so any module can modify occupancy
 	var/list/storage_mod = list("slots" = 0, "w_class" = 0)		// so any module can modify storage slots
@@ -79,7 +80,6 @@
 /obj/item/spacepod_equipment/weaponry
 	name = "pod weapon"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 	var/obj/item/projectile/projectile_type
 	var/shot_cost = 0
@@ -184,7 +184,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/cargo
 	name = "pod cargo"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "cargo_blank"
 	var/obj/storage = null
 
@@ -225,7 +224,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/sec_cargo
 	name = "secondary cargo"
 	desc = "you shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 
 // Passenger Seat
@@ -251,7 +249,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/lock
 	name = "pod lock"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 	var/mode = 0
 	var/id = null
@@ -271,7 +268,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_key
 	name = "spacepod key"
 	desc = "A key for a spacepod lock."
-	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "podkey"
 	w_class = WEIGHT_CLASS_TINY
 	var/id = 0

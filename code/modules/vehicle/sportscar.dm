@@ -1,7 +1,7 @@
 /obj/vehicle/car
 	name = "sports car"
 	desc = "A very luxurious vehicle."
-	icon = 'icons/vehicles/sportscar.dmi'
+	icon = 'icons/obj/vehicles/sportscar.dmi'
 	icon_state = "sportscar"
 	generic_pixel_x = 0
 	generic_pixel_y = 4

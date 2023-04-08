@@ -183,7 +183,7 @@
 
 /obj/item/oar
 	name = "oar"
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "oar"
 	item_state = "rods"
 	desc = "Not to be confused with the kind Research hassles you for."

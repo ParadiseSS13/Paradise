@@ -2,7 +2,7 @@
 /obj/vehicle
 	name = "vehicle"
 	desc = "A basic vehicle, vroom"
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "scooter"
 	density = 1
 	anchored = 0
@@ -121,7 +121,7 @@
 /obj/item/key
 	name = "key"
 	desc = "A small grey key."
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "key"
 	w_class = WEIGHT_CLASS_TINY
 

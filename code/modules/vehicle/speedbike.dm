@@ -1,6 +1,6 @@
 /obj/vehicle/space/speedbike
 	name = "Speedbike"
-	icon = 'icons/obj/bike.dmi'
+	icon = 'icons/obj/vehicles/bike.dmi'
 	icon_state = "speedbike_blue"
 	layer = MOB_LAYER - 0.1
 	vehicle_move_delay = 0

@@ -1,7 +1,7 @@
 /obj/vehicle/motorcycle
 	name = "motorcycle"
 	desc = "A fast and highly maneuverable vehicle."
-	icon = 'icons/vehicles/motorcycle.dmi'
+	icon = 'icons/obj/vehicles/motorcycle.dmi'
 	icon_state = "motorcycle_4dir"
 	generic_pixel_x = 0
 	generic_pixel_y = 4

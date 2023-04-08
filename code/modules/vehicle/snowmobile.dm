@@ -1,7 +1,7 @@
 /obj/vehicle/snowmobile
 	name = "red snowmobile"
 	desc = "Wheeeeeeeeeeee."
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "snowmobile"
 	move_speed = 0
 	key_type = /obj/item/key/snowmobile

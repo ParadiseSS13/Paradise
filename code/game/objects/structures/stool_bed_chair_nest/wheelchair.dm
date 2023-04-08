@@ -104,7 +104,7 @@
 	name = "bicycle"
 	desc = "Two wheels of FURY!"
 	//placeholder until i get a bike sprite
-	icon = 'icons/vehicles/motorcycle.dmi'
+	icon = 'icons/obj/vehicles/motorcycle.dmi'
 	icon_state = "motorcycle_4dir"
 
 /obj/structure/chair/wheelchair/bike/relaymove(mob/user, direction)
