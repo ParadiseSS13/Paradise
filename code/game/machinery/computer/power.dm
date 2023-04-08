@@ -35,20 +35,26 @@
 
 /obj/machinery/computer/monitor/Initialize()
 	..()
-	GLOB.powermonitor_repository.update_cache()
+	if(!is_secret_monitor && !(stat & (NOPOWER|BROKEN)))
+		GLOB.powermonitor_repository.add_to_cache(src)
 	powernet = find_powernet()
 	history["supply"] = list()
 	history["demand"] = list()
 
 /obj/machinery/computer/monitor/Destroy()
 	GLOB.power_monitors -= src
-	GLOB.powermonitor_repository.update_cache()
+	GLOB.powermonitor_repository.remove_from_cache(src)
 	QDEL_NULL(power_monitor)
 	return ..()
 
 /obj/machinery/computer/monitor/power_change()
 	..()
-	GLOB.powermonitor_repository.update_cache()
+	if(is_secret_monitor)
+		return
+	if(!(stat & (NOPOWER|BROKEN)))
+		GLOB.powermonitor_repository.add_to_cache(src)
+	else
+		GLOB.powermonitor_repository.remove_from_cache(src)
 
 /obj/machinery/computer/monitor/proc/find_powernet()
 	var/obj/structure/cable/attached = null

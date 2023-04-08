@@ -1,14 +1,14 @@
 /datum/ui_module/power_monitor
 	name = "Power monitor"
-	var/select_monitor = FALSE
+	var/can_select_monitor = FALSE
 	var/obj/machinery/computer/monitor/powermonitor
 
 /datum/ui_module/power_monitor/digital
-	select_monitor = TRUE
+	can_select_monitor = TRUE
 
 /datum/ui_module/power_monitor/New()
 	..()
-	if(!select_monitor)
+	if(!can_select_monitor)
 		powermonitor = ui_host()
 
 /datum/ui_module/power_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -25,12 +25,12 @@
 		powermonitor = null
 
 	data["powermonitor"] = powermonitor
-	if(select_monitor)
-		data["select_monitor"] = TRUE
-		data["powermonitors"] = GLOB.powermonitor_repository.powermonitor_data()
+	if(can_select_monitor && !powermonitor)
+		data["can_select_monitor"] = TRUE
+		data["powermonitors"] = GLOB.powermonitor_repository.get_data(user.z)
 
 	if(powermonitor)
-		if(select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
+		if(can_select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
 			powermonitor = null
 			return
 		if(powermonitor.powernet)
@@ -49,7 +49,7 @@
 		return
 
 	// Dont allow people to break regular ones
-	if(!select_monitor)
+	if(!can_select_monitor)
 		return
 
 	. = TRUE

@@ -25,11 +25,11 @@ export const PowerMonitorMainContent = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     powermonitor,
-    select_monitor,
+    can_select_monitor,
   } = data;
   return (
     <Box m={0}>
-      {(!powermonitor && select_monitor) && (
+      {(!powermonitor && can_select_monitor) && (
         <SelectionView />
       )}
       {(powermonitor && (
@@ -45,16 +45,19 @@ const SelectionView = (props, context) => {
     powermonitors,
   } = data;
 
+  if (!powermonitors) {
+    return 'No working power monitor consoles in this sector detected.';
+  }
 
   return (
     <Section title="Select Power Monitor">
-      {powermonitors.map(p => (
-        <Box key={p}>
+      {Object.keys(powermonitors).sort((a, b) => powermonitors[a] < powermonitors[b] ? -1 : 1).map(uid => (
+        <Box key={uid}>
           <Button
-            content={p.Name}
+            content={`${powermonitors[uid]} Power Monitoring Console`}
             icon="arrow-right"
             onClick={() => act('selectmonitor', {
-              selectmonitor: p.uid,
+              selectmonitor: uid,
             })}
           />
         </Box>
@@ -69,7 +72,7 @@ const DataView = (props, context) => {
     powermonitor,
     history,
     apcs,
-    select_monitor,
+    can_select_monitor,
     no_powernet,
   } = data;
 
@@ -231,7 +234,7 @@ const DataView = (props, context) => {
     <Section title={powermonitor}
       buttons={
         <Box m={0}>
-          {select_monitor && (
+          {can_select_monitor && (
             <Button
               content="Back"
               icon="arrow-up"

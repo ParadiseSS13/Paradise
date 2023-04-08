@@ -101,7 +101,7 @@
 	var/datum/ui_module/power_monitor/digital/pm = new
 
 /datum/data/pda/app/power/update_ui(mob/user as mob, list/data)
-	data.Add(pm.ui_data())
+	data.Add(pm.ui_data(user))
 
 // All 4 args are important here because proxying matters
 /datum/data/pda/app/power/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
