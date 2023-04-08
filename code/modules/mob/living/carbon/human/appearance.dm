@@ -488,9 +488,6 @@
 		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
 		if(isnull(A))
 			continue
-		else if(check_rights(R_ADMIN, FALSE, src))
-			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
-			break
 		else if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
 			valid_body_accessories += B
 	if(dna.species.optional_body_accessory)
