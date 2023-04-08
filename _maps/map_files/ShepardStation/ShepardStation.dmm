@@ -3441,7 +3441,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "aRf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -3517,7 +3517,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "aRR" = (
 /obj/structure/grille,
 /turf/simulated/floor/wood{
@@ -6763,7 +6763,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "bBS" = (
 /obj/structure/cable/cyan{
 	d2 = 2;
@@ -7262,9 +7262,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
-"bHu" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "bHE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -8794,7 +8791,7 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "bYM" = (
 /obj/structure/cable/cyan{
 	d2 = 8;
@@ -9932,7 +9929,7 @@
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "cjx" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -14130,7 +14127,7 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "daT" = (
 /obj/structure/cable/cyan{
 	d2 = 2;
@@ -16106,7 +16103,7 @@
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "dxf" = (
 /obj/structure/disposalpipe/segment,
 /obj/item/radio/intercom{
@@ -18907,7 +18904,7 @@
 "efP" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
-	name = "Mixed Air Supply Control";
+	name = "Mixed Air Supply Control"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -22323,7 +22320,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "eQY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -27541,7 +27538,7 @@
 	},
 /obj/structure/cable/cyan,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "fXE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -28494,7 +28491,7 @@
 "giy" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "giD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -28766,7 +28763,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "gme" = (
 /obj/structure/cable/cyan{
 	d2 = 2;
@@ -32032,7 +32029,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "gVw" = (
 /obj/structure/disposalpipe/junction{
 	dir = 8
@@ -32176,7 +32173,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "gXd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/effect/spawner/airlock/e_to_w,
@@ -32819,7 +32816,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "hdQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -33336,7 +33333,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "hjq" = (
 /obj/effect/spawner/lootdrop/maintenance/two{
 	color = null
@@ -35799,7 +35796,7 @@
 /area/library)
 "hLB" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
+	dir = 4
 	},
 /obj/effect/decal/warning_stripes,
 /turf/simulated/floor/plating,
@@ -37317,7 +37314,7 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "icm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -38103,7 +38100,7 @@
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 4;
-	name = "Kill Chamber Atmos Monitor";
+	name = "Kill Chamber Atmos Monitor"
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/paper{
@@ -39731,13 +39728,6 @@
 	icon_state = "long"
 	},
 /area/maintenance/fsmaint)
-"iCp" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	},
-/obj/effect/decal/warning_stripes,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/south)
 "iCz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -40096,7 +40086,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "iGB" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -40590,7 +40580,7 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "iLA" = (
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
@@ -41887,7 +41877,7 @@
 	req_access_txt = "18"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "iYB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -42099,7 +42089,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "jbg" = (
 /obj/machinery/camera{
 	c_tag = "Brig Prisoner Processing East";
@@ -45388,7 +45378,7 @@
 /obj/item/storage/backpack/explorer,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "jJc" = (
 /obj/item/cigbutt/cigarbutt,
 /turf/simulated/floor/plasteel/grimy,
@@ -50033,7 +50023,7 @@
 /area/maintenance/starboard2)
 "kHl" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
+	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -51303,7 +51293,7 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "kWf" = (
 /obj/item/rack_parts,
 /turf/simulated/floor/plating,
@@ -52456,7 +52446,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "liV" = (
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -55672,7 +55662,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeastsouth,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "lOV" = (
 /obj/machinery/light{
 	dir = 8
@@ -55734,7 +55724,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "lPL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -56243,7 +56233,7 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "lUU" = (
 /obj/structure/table,
 /obj/item/paper_bin/nanotrasen,
@@ -58811,7 +58801,7 @@
 /obj/item/paper/pamphlet,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "muH" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -59264,7 +59254,7 @@
 "myS" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
-	name = "Toxins Venting Bay Door";
+	name = "Toxins Venting Bay Door"
 	},
 /obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/engine/vacuum,
@@ -63848,7 +63838,7 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "nzp" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -72364,7 +72354,7 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "poM" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -74506,7 +74496,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "pOp" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
@@ -79606,7 +79596,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "qSb" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
@@ -82080,7 +82070,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "rqH" = (
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -92920,7 +92910,7 @@
 	dir = 6;
 	icon_state = "whiteblue"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "tIp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -95438,7 +95428,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "uiE" = (
 /obj/machinery/field/generator{
 	anchored = 1;
@@ -96493,7 +96483,7 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "utn" = (
 /obj/item/radio/intercom,
 /turf/simulated/wall,
@@ -97486,7 +97476,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "uDy" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -99449,7 +99439,7 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "uYx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -102248,7 +102238,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "vzU" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -103130,7 +103120,7 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "vJA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -103606,8 +103596,6 @@
 	},
 /area/medical/cryo)
 "vNr" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -106467,7 +106455,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "wpX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -110893,7 +110881,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/fpmaint2)
 "xjV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -111482,7 +111470,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/space)
+/area/maintenance/fpmaint2)
 "xpG" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -123535,11 +123523,11 @@ kef
 kef
 tzi
 kef
-bHu
+sUL
 uiy
-bHu
-bHu
-bHu
+sUL
+sUL
+sUL
 liS
 uiy
 ydz
@@ -123792,14 +123780,14 @@ kef
 wlY
 rgq
 oUF
-bHu
+sUL
 hji
 bBO
 pOm
 gVs
 qRU
 tIl
-bHu
+sUL
 bsG
 etZ
 xlK
@@ -124049,7 +124037,7 @@ kef
 wwW
 leS
 rZx
-bHu
+sUL
 aQZ
 uDs
 lUT
@@ -124306,7 +124294,7 @@ jSg
 qWF
 wag
 lEz
-bHu
+sUL
 xpF
 rqB
 cjv
@@ -124563,9 +124551,9 @@ jSg
 bxl
 sDZ
 vUZ
-bHu
-bHu
-bHu
+sUL
+sUL
+sUL
 jIJ
 bYL
 glN
@@ -124822,12 +124810,12 @@ dRT
 efQ
 kef
 xCi
-bHu
+sUL
 eQX
 kVW
 vzR
 uth
-bHu
+sUL
 gMF
 jTr
 oIQ
@@ -125079,7 +125067,7 @@ jRq
 vAO
 kef
 dbC
-bHu
+sUL
 lPD
 ick
 lOC
@@ -125593,7 +125581,7 @@ sUL
 kef
 kef
 uxX
-bHu
+sUL
 dwO
 iGp
 muy
@@ -127673,7 +127661,7 @@ dtK
 xRz
 avI
 avI
-iCp
+hLB
 avI
 avI
 xRz
