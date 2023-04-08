@@ -43,7 +43,7 @@
 	item_state = "toolbox_red"
 
 /obj/item/storage/toolbox/emergency/populate_contents()
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/extinguisher/mini(src)
 	if(prob(50))
@@ -109,7 +109,7 @@
 	new /obj/item/screwdriver/nuke(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/multitool/red(src)
 	new /obj/item/clothing/gloves/combat(src)
