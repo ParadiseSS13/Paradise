@@ -334,6 +334,11 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/weldingtool,
+		/obj/item/multitool
+		)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -673,6 +678,11 @@
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/weldingtool,
+		/obj/item/multitool
+		)
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
