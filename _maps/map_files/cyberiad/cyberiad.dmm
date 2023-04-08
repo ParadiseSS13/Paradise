@@ -26270,7 +26270,7 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_command,
 /obj/item/aicard,
-/obj/item/multitool,
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"

@@ -57,6 +57,9 @@ REAGENT SCANNER
 			var/mutable_appearance/MA = new(O)
 			MA.alpha = 128
 			MA.dir = O.dir
+			if(MA.layer < TURF_LAYER)
+				MA.layer += TRAY_SCAN_LAYER_OFFSET
+			MA.plane = GAME_PLANE
 			I.appearance = MA
 			t_ray_images += I
 	if(length(t_ray_images))
