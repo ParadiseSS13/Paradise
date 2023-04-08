@@ -26,13 +26,15 @@
 
 	w_class = WEIGHT_CLASS_BULKY
 
+/obj/item/storage/belt/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	update_weight()
+
 /obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	if(isstorage(loc))
-		if(!storable)
-			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
-    return FALSE
-  . = ..()
+	if(isstorage(loc) && !storable && !stop_messages)
+		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+		return FALSE
+	. = ..()
 
 /obj/item/storage/belt/Initialize(mapload)
 	. = ..()
@@ -40,7 +42,6 @@
 
 /obj/item/storage/belt/update_overlays()
 	. = ..()
-	update_weight()
 	if(!use_item_overlays)
 		return
 	for(var/obj/item/I in contents)
@@ -49,6 +50,10 @@
 		var/image/belt_image = image(icon, I.belt_icon)
 		belt_image.color = I.color
 		. += belt_image
+
+/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
+	. = ..()
+	update_weight()
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
