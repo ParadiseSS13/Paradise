@@ -674,7 +674,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_BELT))
 				return
@@ -696,7 +696,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_ID))
 				return FALSE
@@ -708,7 +708,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_PDA))
 				return FALSE
@@ -722,7 +722,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return
@@ -737,7 +737,7 @@
 
 			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return FALSE
@@ -751,15 +751,11 @@
 				return FALSE
 			if(!H.wear_suit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>Вам нужен костюм перед тем как вы сможете прикрепить [name].</span>")
+					to_chat(H, "<span class='alert'>Вам нужен костюм перед тем как вы сможете прикрепить [I].</span>")
 				return FALSE
 			if(!H.wear_suit.allowed)
 				if(!disable_warning)
 					to_chat(H, "Вы как-то достали костюм без хранения разрешенных предметов. Прекратите это.")
-				return FALSE
-			if(I.w_class > WEIGHT_CLASS_BULKY)
-				if(!disable_warning)
-					to_chat(H, "[name] слишком большой, чтобы прикрепить.")
 				return FALSE
 			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
@@ -777,7 +773,7 @@
 		if(slot_tie)
 			if(!H.w_uniform)
 				if(!disable_warning)
-					to_chat(H, "<span class='warning'>Вам нужен комбинезон перед тем как вы сможете прикрепить [name].</span>")
+					to_chat(H, "<span class='warning'>Вам нужен комбинезон перед тем как вы сможете прикрепить [I].</span>")
 				return FALSE
 			var/obj/item/clothing/under/uniform = H.w_uniform
 			if(uniform.accessories.len && !uniform.can_attach_accessory(H))
