@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/item/slapper/parry/attack(mob/M, mob/living/carbon/human/user)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.Confused(10 SECONDS) //SMACK CAM
+	if(isliving(M))
+		var/mob/living/creature = M
+		creature.Confused(10 SECONDS) //SMACK CAM
 	return ..()
