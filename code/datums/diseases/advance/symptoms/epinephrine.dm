@@ -17,6 +17,7 @@ Bonus
 /datum/symptom/epinephrine
 
 	name = "Inotropical Hyperfunction"
+	id = "epinephrine"
 	stealth = -5
 	resistance = -4
 	stage_speed = -1

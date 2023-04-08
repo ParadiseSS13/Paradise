@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/deafness
 
 	name = "Deafness"
+	id = "deafness"
 	stealth = -1
 	resistance = -2
 	stage_speed = -1

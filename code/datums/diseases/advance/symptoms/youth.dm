@@ -18,6 +18,7 @@ BONUS
 /datum/symptom/youth
 
 	name = "Eternal Youth"
+	id = "youth"
 	stealth = 3
 	resistance = 4
 	stage_speed = 4

@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/fire
 
 	name = "Spontaneous Combustion"
+	id = "fire"
 	stealth = 1
 	resistance = -4
 	stage_speed = -4

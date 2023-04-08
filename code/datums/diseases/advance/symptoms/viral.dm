@@ -15,6 +15,7 @@ BONUS
 */
 /datum/symptom/viraladaptation
 	name = "Viral self-adaptation"
+	id = "viraladaptation"
 	stealth = 3
 	resistance = 5
 	stage_speed = -3
@@ -48,6 +49,7 @@ BONUS
 */
 /datum/symptom/viralevolution
 	name = "Viral evolutionary acceleration"
+	id = "viralevolution"
 	stealth = -2
 	resistance = -3
 	stage_speed = 5

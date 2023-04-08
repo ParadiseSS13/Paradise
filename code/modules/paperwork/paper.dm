@@ -767,7 +767,7 @@
 	STOP_PROCESSING(SSobj, src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
-		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+		target.ForceContractDisease(new /datum/disease/transformation/corgi)
 	return ..()
 
 
@@ -791,10 +791,10 @@
 			var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 			if(myeffect == "Borgification")
 				to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/robot(0))
+				target.ForceContractDisease(new /datum/disease/transformation/robot)
 			else if(myeffect == "Corgification")
 				to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
-				target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
+				target.ForceContractDisease(new /datum/disease/transformation/corgi)
 			else if(myeffect == "Death By Fire")
 				to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(target)

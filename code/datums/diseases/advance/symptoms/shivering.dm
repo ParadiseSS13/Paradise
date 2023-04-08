@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/shivering
 
 	name = "Shivering"
+	id = "shivering"
 	stealth = 0
 	resistance = 2
 	stage_speed = 2

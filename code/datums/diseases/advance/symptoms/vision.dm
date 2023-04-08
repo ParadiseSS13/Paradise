@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/visionloss
 
 	name = "Hyphema"
+	id = "visionloss"
 	stealth = -1
 	resistance = -4
 	stage_speed = -4

@@ -21,7 +21,7 @@
 	var/activated = FALSE
 
 /obj/item/storage/toolbox/green/memetic/ui_action_click(mob/user)
-	if(user.HasDisease(new /datum/disease/memetic_madness(0)))
+	if(user.HasDisease(new /datum/disease/memetic_madness))
 		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
 		if(istype(M))
 			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
@@ -40,9 +40,9 @@
 	..()
 
 /obj/item/storage/toolbox/green/memetic/proc/link_user(mob/living/carbon/user)
-	if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
+	if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness))
 		activated = TRUE
-		user.ForceContractDisease(new /datum/disease/memetic_madness(0))
+		user.ForceContractDisease(new /datum/disease/memetic_madness)
 		for(var/datum/disease/memetic_madness/DD in user.viruses)
 			DD.progenitor = src
 			servantlinks.Add(DD)
@@ -73,7 +73,7 @@
 		if(istype(I, /obj/item/grab))
 			var/obj/item/grab/G = I
 			var/mob/living/victim = G.affecting
-			if(!user.HasDisease(new /datum/disease/memetic_madness(0)))
+			if(!user.HasDisease(new /datum/disease/memetic_madness))
 				to_chat(user, "<span class='warning'>You can't seem to find the latch to open this.</span>")
 				return
 			if(!victim)

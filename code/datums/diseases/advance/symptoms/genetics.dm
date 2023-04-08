@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/genetic_mutation
 
 	name = "Deoxyribonucleic Acid Saboteur"
+	id = "genetic_mutation"
 	stealth = -2
 	resistance = -3
 	stage_speed = 0

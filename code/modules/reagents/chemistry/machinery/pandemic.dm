@@ -90,7 +90,7 @@
 							vaccine_name = D.name
 							vaccine_type = path
 				else if(vaccine_type)
-					var/datum/disease/D = new vaccine_type(0, null)
+					var/datum/disease/D = new vaccine_type
 					if(D)
 						vaccine_name = D.name
 
@@ -111,10 +111,10 @@
 				D = GetVirusByIndex(text2num(href_list["create_virus_culture"]))
 				var/datum/disease/advance/A = GLOB.archive_diseases[D.GetDiseaseID()]
 				if(A)
-					D = new A.type(0, A)
+					D = A.Copy()
 			else if(type)
 				if(type in GLOB.diseases) // Make sure this is a disease
-					D = new type(0, null)
+					D = new type()
 			if(!D)
 				return
 			var/name = stripped_input(usr,"Name:","Name the culture",D.name,MAX_NAME_LEN)
@@ -305,7 +305,7 @@
 							if(A)
 								disease_name = A.name
 						else
-							var/datum/disease/D = new type(0, null)
+							var/datum/disease/D = new type()
 							disease_name = D.name
 
 						dat += "<li>[disease_name] - <A href='?src=[UID()];create_vaccine=[i]'>Создать бутылёк с вакциной</A></li>"

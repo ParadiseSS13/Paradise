@@ -211,7 +211,7 @@
 /obj/item/organ/internal/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
 	if(max_symptoms > VIRUS_SYMPTOM_LIMIT)
 		max_symptoms = VIRUS_SYMPTOM_LIMIT
-	var/datum/disease/advance/A = new /datum/disease/advance()
+	var/datum/disease/advance/A = new
 	var/list/datum/symptom/possible_symptoms = list()
 	for(var/symptom in subtypesof(/datum/symptom))
 		var/datum/symptom/S = symptom

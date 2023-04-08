@@ -22,6 +22,7 @@ Bonus
 /datum/symptom/vomit
 
 	name = "Vomiting"
+	id = "vomit"
 	stealth = -2
 	resistance = -1
 	stage_speed = 0
@@ -67,6 +68,7 @@ Bonus
 /datum/symptom/vomit/blood
 
 	name = "Blood Vomiting"
+	id = "vomitblood"
 	stealth = -2
 	resistance = -1
 	stage_speed = -1
@@ -99,6 +101,7 @@ Bonus
 /datum/symptom/vomit/projectile
 
 	name = "Projectile Vomiting"
+	id = "vomitprojectile"
 	stealth = -2
 	level = 4
 

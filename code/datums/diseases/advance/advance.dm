@@ -6,7 +6,18 @@
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
 */
-GLOBAL_LIST_EMPTY(archive_diseases)
+GLOBAL_LIST_INIT(archive_diseases, list(
+	"sneeze" = new /datum/disease/advance/preset/cold(),
+	"cough" = new /datum/disease/advance/preset/flu(),
+	"voice_change" = new /datum/disease/advance/preset/voice_change(),
+	"heal" = new /datum/disease/advance/preset/heal(),
+	"hallucigen" = new /datum/disease/advance/preset/hullucigen(),
+	"sensory_restoration" = new /datum/disease/advance/preset/sensory_restoration(),
+	"mind_restoration" = new /datum/disease/advance/preset/mind_restoration(),
+	"damage_converter:heal:viralevolution" = new /datum/disease/advance/preset/advanced_regeneration(),
+	"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/advance/preset/stealth_necrosis(),
+	"beard:itching:voice_change" = new /datum/disease/advance/preset/pre_kingstons()
+))
 
 // The order goes from easy to cure to hard to cure.
 GLOBAL_LIST_INIT(advance_cures, list(
@@ -38,28 +49,12 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/id = ""
 	var/processing = 0
 
-/*
-
-	OLD PROCS
-
- */
-
-/datum/disease/advance/New(var/process = 1, var/datum/disease/advance/D)
-	if(!istype(D))
-		D = null
-	// Generate symptoms if we weren't given any.
-
+/datum/disease/advance/proc/Initialize()
 	if(!symptoms || !symptoms.len)
+		symptoms = GenerateSymptoms(0, 2)
 
-		if(!D || !D.symptoms || !D.symptoms.len)
-			symptoms = GenerateSymptoms(0, 2)
-		else
-			for(var/datum/symptom/S in D.symptoms)
-				symptoms += new S.type
-
-	Refresh()
-	..(process, D)
-	return
+	AssignProperties(GenerateProperties())
+	id = GetDiseaseID()
 
 /datum/disease/advance/Destroy()
 	if(processing)
@@ -88,11 +83,11 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/IsSame(datum/disease/advance/D)
 
 	if(!(istype(D, /datum/disease/advance)))
-		return 0
+		return FALSE
 
 	if(GetDiseaseID() != D.GetDiseaseID())
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 // To add special resistances.
 /datum/disease/advance/cure(resistance=1)
@@ -104,14 +99,19 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	qdel(src)	//delete the datum to stop it processing
 
 // Returns the advance disease with a different reference memory.
-/datum/disease/advance/Copy(process = 0)
-	return new /datum/disease/advance(process, src, 1)
-
-/*
-
-	NEW PROCS
-
- */
+/datum/disease/advance/Copy()
+	var/datum/disease/advance/copy = new
+	var/list/skipped = list("symptoms","affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")
+	for(var/V in vars - skipped)
+		if(istype(vars[V], /list))
+			var/list/L = vars[V]
+			copy.vars[V] = L.Copy()
+		else
+			copy.vars[V] = vars[V]
+	copy.symptoms = list()
+	for(var/datum/symptom/S in symptoms)
+		copy.symptoms += new S.type
+	return copy
 
 // Mix the symptoms of two diseases (the src and the argument)
 /datum/disease/advance/proc/Mix(datum/disease/advance/D)
@@ -154,19 +154,29 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = 0)
-	var/list/properties = GenerateProperties()
-	AssignProperties(properties)
-	id = null
+/datum/disease/advance/proc/Refresh(var/update_mutations = TRUE, var/reset_name = FALSE)
+	AssignProperties(GenerateProperties())
+	id = GetDiseaseID()
 
-	if(!GLOB.archive_diseases[GetDiseaseID()])
-		if(new_name)
-			AssignName()
-		GLOB.archive_diseases[GetDiseaseID()] = src // So we don't infinite loop
-		GLOB.archive_diseases[GetDiseaseID()] = new /datum/disease/advance(0, src, 1)
+	var/datum/disease/advance/A = GLOB.archive_diseases[id]
+	if(update_mutations)
+		UpdateMutationsProps(A)
 
-	var/datum/disease/advance/A = GLOB.archive_diseases[GetDiseaseID()]
-	AssignName(A.name)
+	if(A)
+		name = A.name
+	else
+		if(reset_name)
+			name = "Unknown"
+		AddToArchive()
+
+/datum/disease/advance/proc/AddToArchive()
+	GLOB.archive_diseases[id] = Copy()
+
+/datum/disease/advance/proc/UpdateMutationsProps(var/datum/disease/advance/A)
+	var/datum/disease/advance/AA = A ? A : new
+
+	mutation_reagents = AA.mutation_reagents.Copy()
+	possible_mutations = AA.possible_mutations?.Copy()
 
 //Generate disease properties based on the effects. Returns an associated list.
 /datum/disease/advance/proc/GenerateProperties()
@@ -174,13 +184,13 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(!symptoms || !symptoms.len)
 		CRASH("We did not have any symptoms before generating properties.")
 
-	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
+	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_speed" = 1, "transmittable" = 1, "severity" = 0)
 
 	for(var/datum/symptom/S in symptoms)
 
 		properties["resistance"] += S.resistance
 		properties["stealth"] += S.stealth
-		properties["stage_rate"] += S.stage_speed
+		properties["stage_speed"] += S.stage_speed
 		properties["transmittable"] += S.transmittable
 		properties["severity"] = max(properties["severity"], S.severity) // severity is based on the highest severity symptom
 
@@ -200,7 +210,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
 		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
-		stage_prob = max(properties["stage_rate"], 2)
+		stage_prob = max(properties["stage_speed"], 2)
 		SetSeverity(properties["severity"])
 		GenerateCure(properties)
 	else
@@ -247,7 +257,6 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && properties.len)
 		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
-//		to_chat(world, "Res = [res]")
 		cures = list(GLOB.advance_cures[res])
 
 		// Get the cure name from the cure_id
@@ -262,7 +271,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/s = safepick(GenerateSymptoms(min_level, max_level, 1))
 	if(s)
 		AddSymptom(s)
-		Refresh(1)
+		Refresh(reset_name = TRUE)
 	return
 
 // Randomly remove a symptom.
@@ -271,7 +280,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		var/s = safepick(symptoms)
 		if(s)
 			RemoveSymptom(s)
-			Refresh(1)
+			Refresh(reset_name = TRUE)
 	return
 
 // Name the disease.
@@ -281,15 +290,11 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 // Return a unique ID of the disease.
 /datum/disease/advance/GetDiseaseID()
-	if(!id)
-		var/list/L = list()
-		for(var/datum/symptom/S in symptoms)
-			L += S.id
-		L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in.
-		var/result = jointext(L, ":")
-		id = result
-	return id
-
+	var/list/L = list()
+	for(var/datum/symptom/S in symptoms)
+		L += S.id
+	L = sortList(L) // Sort the list so it doesn't matter which order the symptoms are in.
+	return jointext(L, ":")
 
 // Add a symptom, if it is over the limit (with a small chance to be able to go over)
 // we take a random symptom away and add the new one.
@@ -346,7 +351,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	 // Should be only 1 entry left, but if not let's only return a single entry
 //	to_chat(world, "END MIXING!!!!!")
 	var/datum/disease/advance/to_return = pick(diseases)
-	to_return.Refresh(1)
+	to_return.Refresh(reset_name = TRUE)
 	return to_return
 
 /proc/SetViruses(datum/reagent/R, list/data)
@@ -366,7 +371,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	var/i = VIRUS_SYMPTOM_LIMIT
 
-	var/datum/disease/advance/D = new(0, null)
+	var/datum/disease/advance/D = new
+	D.Refresh()
 	D.symptoms = list()
 
 	var/list/symptoms = list()

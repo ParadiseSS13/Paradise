@@ -180,7 +180,7 @@
 				addtimer(CALLBACK(src, .proc/recharge), 300)
 			addtimer(CALLBACK(src, .proc/message_to_owner, owner, "<span class='warning'>Your [name] fails to return to its normal rhythm!</span>"), 30)
 
-	if(!(status & ORGAN_DEAD) && !attempted_restart && owner.HasDisease(new /datum/disease/critical/heart_failure(0)))
+	if(!(status & ORGAN_DEAD) && !attempted_restart && owner.HasDisease(new /datum/disease/critical/heart_failure))
 		to_chat(owner, "<span class='warning'>Your [name] detects a cardiac event and attempts to return to its normal rhythm!</span>")
 		if(prob(40) && emagged)
 			attempted_restart = TRUE
@@ -256,7 +256,7 @@
 			owner.adjustFireLoss(numHigh)
 		if(prob(numMid))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
-			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+			owner.ForceContractDisease(new /datum/disease/critical/heart_failure)
 		if(prob(numMid))
 			to_chat(owner, "<span class='danger'>Your [name] stops beating!</span>")
 			Stop()
@@ -272,4 +272,4 @@
 			owner.adjustFireLoss(numMid)
 		if(prob(numLow))
 			to_chat(owner, "<span class='warning'>Your [name] lurches awkwardly!</span>")
-			owner.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+			owner.ForceContractDisease(new /datum/disease/critical/heart_failure)

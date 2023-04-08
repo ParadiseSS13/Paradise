@@ -18,6 +18,7 @@ BONUS
 /datum/symptom/cough
 
 	name = "Cough"
+	id = "cough"
 	stealth = -1
 	resistance = 3
 	stage_speed = 1

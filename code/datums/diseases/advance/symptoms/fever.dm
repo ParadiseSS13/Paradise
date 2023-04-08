@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/fever
 
 	name = "Fever"
+	id = "fever"
 	stealth = 0
 	resistance = 3
 	stage_speed = 3

@@ -17,6 +17,7 @@ Bonus
 */
 /datum/symptom/mind_restoration
 	name = "Mind Restoration"
+	id = "mind_restoration"
 	stealth = -1
 	resistance = -4
 	stage_speed = -4
@@ -46,6 +47,7 @@ Bonus
 
 /datum/symptom/sensory_restoration
 	name = "Sensory Restoration"
+	id = "sensory_restoration"
 	stealth = -1
 	resistance = -3
 	stage_speed = -2

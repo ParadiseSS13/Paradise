@@ -17,6 +17,7 @@ BONUS
 /datum/symptom/beard
 
 	name = "Facial Hypertrichosis"
+	id = "beard"
 	stealth = -3
 	resistance = -1
 	stage_speed = -3

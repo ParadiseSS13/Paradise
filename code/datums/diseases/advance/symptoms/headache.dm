@@ -19,6 +19,7 @@ BONUS
 /datum/symptom/headache
 
 	name = "Headache"
+	id = "headache"
 	stealth = -1
 	resistance = 4
 	stage_speed = 2

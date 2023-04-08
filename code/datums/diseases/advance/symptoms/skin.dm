@@ -17,6 +17,7 @@ BONUS
 /datum/symptom/vitiligo
 
 	name = "Vitiligo"
+	id = "vitiligo"
 	stealth = -3
 	resistance = -1
 	stage_speed = -1
@@ -61,6 +62,7 @@ BONUS
 /datum/symptom/revitiligo
 
 	name = "Revitiligo"
+	id = "revitiligo"
 	stealth = -3
 	resistance = -1
 	stage_speed = -1

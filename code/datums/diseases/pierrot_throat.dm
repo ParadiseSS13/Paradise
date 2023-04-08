@@ -10,6 +10,7 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity."
 	severity = MEDIUM
+	possible_mutations = list(/datum/disease/pierrot_throat/advanced, /datum/disease/wizarditis)
 
 /datum/disease/pierrot_throat/stage_act()
 	..()
@@ -39,6 +40,7 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity and go insane themselves."
 	severity = DANGEROUS
+	possible_mutations = null
 
 /datum/disease/pierrot_throat/advanced/stage_act()
 	..()

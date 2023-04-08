@@ -33,7 +33,7 @@
 
 
 /mob/proc/AddDisease(datum/disease/D)
-	var/datum/disease/DD = new D.type(1, D, 0)
+	var/datum/disease/DD = new D.type()
 	viruses += DD
 	DD.affected_mob = src
 	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.

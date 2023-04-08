@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/voice_change
 
 	name = "Voice Change"
+	id = "voice_change"
 	stealth = -2
 	resistance = -3
 	stage_speed = -3

@@ -25,7 +25,7 @@
 
 /datum/reagent/nanomachines/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
-		M.ForceContractDisease(new /datum/disease/transformation/robot(0))
+		M.ForceContractDisease(new /datum/disease/transformation/robot)
 	return ..()
 
 
@@ -52,7 +52,7 @@
 
 /datum/reagent/fungalspores/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
-		M.ForceContractDisease(new /datum/disease/tuberculosis(0))
+		M.ForceContractDisease(new /datum/disease/tuberculosis)
 	return ..()
 
 /datum/reagent/jagged_crystals
@@ -65,7 +65,7 @@
 	taste_mult = 0
 
 /datum/reagent/jagged_crystals/on_mob_life(mob/living/carbon/M)
-	M.ForceContractDisease(new /datum/disease/berserker(0))
+	M.ForceContractDisease(new /datum/disease/berserker)
 	return ..()
 
 /datum/reagent/salmonella
@@ -78,7 +78,7 @@
 	taste_mult = 0
 
 /datum/reagent/salmonella/on_mob_life(mob/living/carbon/M)
-	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
+	M.ForceContractDisease(new /datum/disease/food_poisoning)
 	return ..()
 
 /datum/reagent/gibbis
@@ -92,7 +92,7 @@
 
 /datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
-		M.ForceContractDisease(new /datum/disease/gbs/curable(0))
+		M.ForceContractDisease(new /datum/disease/gbs/curable)
 	return ..()
 
 /datum/reagent/prions
@@ -106,7 +106,7 @@
 
 /datum/reagent/prions/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/kuru(0))
+		M.ForceContractDisease(new /datum/disease/kuru)
 	return ..()
 
 /datum/reagent/grave_dust
@@ -120,7 +120,7 @@
 
 /datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/vampire(0))
+		M.ForceContractDisease(new /datum/disease/vampire)
 	return ..()
 
 /datum/reagent/bacon_grease
@@ -134,7 +134,7 @@
 
 /datum/reagent/bacon_grease/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+		M.ForceContractDisease(new /datum/disease/critical/heart_failure)
 	return ..()
 
 /datum/reagent/heartworms

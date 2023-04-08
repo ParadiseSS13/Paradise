@@ -1248,7 +1248,7 @@
 	taste_description = "decay"
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
-	L.ForceContractDisease(new /datum/disease/transformation/morph())
+	L.ForceContractDisease(new /datum/disease/transformation/morph)
 
 /datum/reagent/bungotoxin
 	name = "Bungotoxin"

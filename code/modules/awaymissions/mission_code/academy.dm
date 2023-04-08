@@ -140,7 +140,7 @@
 			explosion(get_turf(user),-1,0,2, flame_range = 2, cause = src)
 		if(9)
 			//Cold
-			var/datum/disease/D = new /datum/disease/cold()
+			var/datum/disease/D = new /datum/disease/cold
 			T.visible_message("<span class='userdanger'>[user] looks a little under the weather!</span>")
 			user.ForceContractDisease(D)
 		if(10)

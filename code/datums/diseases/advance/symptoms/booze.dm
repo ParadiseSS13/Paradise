@@ -17,6 +17,7 @@ Bonus
 /datum/symptom/booze
 
 	name = "Alco-chlorians"
+	id = "booze"
 	stealth = -4
 	resistance = 4
 	stage_speed = 3

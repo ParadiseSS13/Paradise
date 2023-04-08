@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/damage_converter
 
 	name = "Toxic Compensation"
+	id = "damage_converter"
 	stealth = 1
 	resistance = -4
 	stage_speed = -4

@@ -8,7 +8,7 @@
 /datum/event/disease_outbreak/setup()
 	announceWhen = rand(15, 30)
 	if(prob(25))
-		var/virus_type = pick(/datum/disease/advance/flu, /datum/disease/advance/cold, /datum/disease/brainrot, /datum/disease/magnitis, /datum/disease/beesease, /datum/disease/anxiety, /datum/disease/fake_gbs, /datum/disease/fluspanish, /datum/disease/pierrot_throat, /datum/disease/lycan)
+		var/virus_type = pick(/datum/disease/advance/preset/flu, /datum/disease/advance/preset/cold, /datum/disease/brainrot, /datum/disease/magnitis, /datum/disease/beesease, /datum/disease/anxiety, /datum/disease/fake_gbs, /datum/disease/fluspanish, /datum/disease/pierrot_throat, /datum/disease/lycan)
 		D = new virus_type()
 	else
 		var/datum/disease/advance/A = new /datum/disease/advance

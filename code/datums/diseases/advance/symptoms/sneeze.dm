@@ -19,6 +19,7 @@ Bonus
 /datum/symptom/sneeze
 
 	name = "Sneezing"
+	id = "sneeze"
 	stealth = -2
 	resistance = 3
 	stage_speed = 0

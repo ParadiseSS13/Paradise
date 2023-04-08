@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/choking
 
 	name = "Choking"
+	id = "choking"
 	stealth = -3
 	resistance = -2
 	stage_speed = -2

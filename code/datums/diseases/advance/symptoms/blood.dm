@@ -16,6 +16,7 @@ Bonus
 /datum/symptom/blood
 
 	name = "Viral Hematopoiesis"
+	id = "blood"
 	stealth = -2
 	resistance = -2
 	stage_speed = -4

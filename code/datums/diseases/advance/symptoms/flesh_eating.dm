@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/flesh_eating
 
 	name = "Necrotizing Fasciitis"
+	id = "flesh_eating"
 	stealth = -3
 	resistance = -4
 	stage_speed = 0

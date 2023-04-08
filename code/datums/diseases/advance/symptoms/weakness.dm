@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/weakness
 
 	name = "Weakness"
+	id = "weakness"
 	stealth = -1
 	resistance = -1
 	stage_speed = -2

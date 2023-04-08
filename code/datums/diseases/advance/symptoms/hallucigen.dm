@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/hallucigen
 
 	name = "Hallucigen"
+	id = "hallucigen"
 	stealth = -2
 	resistance = -3
 	stage_speed = -3

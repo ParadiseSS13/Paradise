@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/heal
 
 	name = "Toxic Filter"
+	id = "heal"
 	stealth = 1
 	resistance = -4
 	stage_speed = -4
@@ -58,6 +59,7 @@ Bonus
 /datum/symptom/heal/metabolism
 
 	name = "Anti-Bodies Metabolism"
+	id = "metabolism"
 	stealth = -1
 	resistance = -1
 	stage_speed = -1
@@ -108,6 +110,7 @@ Bonus
 /datum/symptom/heal/longevity
 
 	name = "Longevity"
+	id = "longevity"
 	stealth = 3
 	resistance = 4
 	stage_speed = 4

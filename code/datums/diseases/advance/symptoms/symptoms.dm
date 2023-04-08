@@ -2,6 +2,7 @@
 
 GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 
+
 /datum/symptom
 	// Buffs/Debuffs the symptom has to the overall engineered disease.
 	var/name = ""
@@ -15,14 +16,6 @@ GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 	var/severity = 0
 	// The hash tag for our diseases, we will add it up with our other symptoms to get a unique id! ID MUST BE UNIQUE!!!
 	var/id = ""
-
-/datum/symptom/New()
-	var/list/S = GLOB.list_symptoms
-	for(var/i = 1; i <= S.len; i++)
-		if(type == S[i])
-			id = "[i]"
-			return
-	CRASH("We couldn't assign an ID!")
 
 // Called when processing of the advance disease, which holds this symptom, starts.
 /datum/symptom/proc/Start(datum/disease/advance/A)

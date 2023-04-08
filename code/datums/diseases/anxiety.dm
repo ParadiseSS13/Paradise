@@ -10,6 +10,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/lesser/monkey)
 	desc = "If left untreated subject will regurgitate butterflies."
 	severity = MEDIUM
+	possible_mutations = list(/datum/disease/beesease)
 
 /datum/disease/anxiety/stage_act()
 	..()

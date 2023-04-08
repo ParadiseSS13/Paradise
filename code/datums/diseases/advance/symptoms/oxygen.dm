@@ -18,6 +18,7 @@ Bonus
 /datum/symptom/oxygen
 
 	name = "Self-Respiration"
+	id = "oxygen"
 	stealth = 1
 	resistance = -3
 	stage_speed = -3

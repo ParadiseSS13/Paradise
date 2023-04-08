@@ -17,6 +17,7 @@ BONUS
 /datum/symptom/shedding
 
 	name = "Alopecia"
+	id = "shedding"
 	stealth = -1
 	resistance = -1
 	stage_speed = -1
