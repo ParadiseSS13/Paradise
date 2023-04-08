@@ -35,7 +35,7 @@
 
 /obj/machinery/holosign_switch
 	name = "holosign switch"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light0"
 	desc = "A remote control switch for holosign."
 	var/id = null

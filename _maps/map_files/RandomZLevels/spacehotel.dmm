@@ -3356,7 +3356,7 @@
 "iJ" = (
 /obj/structure{
 	desc = "It appears to be similar to a SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "WaffeCo PSU"
 	},
@@ -3365,7 +3365,7 @@
 "iK" = (
 /obj/structure{
 	desc = "It appears to be some sort of generator.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "teg";
 	name = "WaffeCo PGU"
 	},
@@ -3598,7 +3598,7 @@
 "jn" = (
 /obj/structure{
 	desc = "It appears to be similar to a SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "WaffeCo PSU"
 	},

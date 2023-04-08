@@ -780,7 +780,7 @@
 "cS" = (
 /obj/structure{
 	desc = "It appears to be some sort of generator.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "teg";
 	name = "WaffeCo PGU"
 	},
@@ -829,7 +829,7 @@
 	},
 /obj/structure{
 	desc = "It appears to be broken SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "Nanotrasen PSU"
 	},
@@ -873,7 +873,7 @@
 "dj" = (
 /obj/structure{
 	desc = "It appears to be some sort of generator.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "teg";
 	name = "WaffeCo PGU"
 	},
@@ -1403,7 +1403,7 @@
 "eX" = (
 /obj/structure{
 	desc = "It appearce to be broken.";
-	icon = 'icons/obj/machines/particle_accelerator3.dmi';
+	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi';
 	icon_state = "control_boxp";
 	name = "Bluespace Artillery Control"
 	},
@@ -1924,7 +1924,7 @@
 /obj/structure/window/plasmareinforced,
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines_and_power/supermatter.dmi';
 	icon_state = "darkmatter_shard";
 	name = "supermatter shard"
 	},
@@ -3241,7 +3241,7 @@
 	},
 /obj/structure{
 	desc = "It appears to be broken SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "Nanotrasen PSU"
 	},
@@ -3642,7 +3642,7 @@
 	},
 /obj/structure{
 	desc = "It appears to be broken SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "Nanotrasen PSU"
 	},
@@ -3885,7 +3885,7 @@
 	},
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines_and_power/supermatter.dmi';
 	icon_state = "darkmatter_shard";
 	name = "supermatter shard"
 	},
@@ -4154,7 +4154,7 @@
 	},
 /obj/structure{
 	desc = "It appears to be broken SMES.";
-	icon = 'icons/obj/power.dmi';
+	icon = 'icons/obj/engines_and_power/power.dmi';
 	icon_state = "smes";
 	name = "Nanotrasen PSU"
 	},
@@ -4178,7 +4178,7 @@
 /obj/structure/window/plasmareinforced,
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines_and_power/supermatter.dmi';
 	icon_state = "darkmatter_shard";
 	name = "supermatter shard"
 	},
@@ -4678,7 +4678,7 @@
 	},
 /obj/structure{
 	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/supermatter.dmi';
+	icon = 'icons/obj/engines_and_power/supermatter.dmi';
 	icon_state = "darkmatter_shard";
 	name = "supermatter shard"
 	},

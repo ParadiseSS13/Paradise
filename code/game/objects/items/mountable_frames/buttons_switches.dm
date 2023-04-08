@@ -13,7 +13,7 @@
 /obj/item/mounted/frame/light_switch
 	name = "light switch frame"
 	desc = "Used for repairing or building light switches"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light-p"
 	mount_reqs = list("simfloor", "nospace")
 	sheets_refunded = 1

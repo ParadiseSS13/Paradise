@@ -116,7 +116,7 @@
 	species_type = /datum/species/machine
 	name = "microbattery"
 	desc = "A small, powerful cell for use in fully prosthetic bodies."
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "scell"
 	organ_tag = "heart"
 	parent_organ = "chest"

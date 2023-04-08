@@ -1,7 +1,7 @@
 /obj/machinery/power/emitter
 	name = "Emitter"
 	desc = "A heavy duty industrial laser"
-	icon = 'icons/obj/singularity.dmi'
+	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "emitter"
 	anchored = 0
 	density = 1

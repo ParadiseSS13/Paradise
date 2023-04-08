@@ -75,9 +75,9 @@
 		overlays.Cut()
 
 		if(lastgenlev != 0)
-			overlays += image('icons/obj/power.dmi', "teg-op[lastgenlev]")
+			overlays += image('icons/obj/engines_and_power/power.dmi', "teg-op[lastgenlev]")
 
-		overlays += image('icons/obj/power.dmi', "teg-oc[lastcirc]")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "teg-oc[lastcirc]")
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))

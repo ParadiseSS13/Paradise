@@ -29,7 +29,7 @@
 	return FALSE
 
 /obj/machinery/bsa
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi'
 	density = 1
 	anchored = 1
 
@@ -261,7 +261,7 @@
 	var/target
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
-	icon = 'icons/obj/machines/particle_accelerator3.dmi'
+	icon = 'icons/obj/engines_and_power/particle_accelerator3.dmi'
 	icon_state = "control_boxp"
 	var/icon_state_broken = "control_box"
 	var/icon_state_nopower = "control_boxw"

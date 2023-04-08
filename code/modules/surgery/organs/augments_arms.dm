@@ -385,7 +385,7 @@
 /obj/item/apc_powercord
 	name = "power cable"
 	desc = "Insert into a nearby APC to draw power from it."
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "wire1"
 	flags = NOBLUDGEON
 	var/drawing_power = FALSE

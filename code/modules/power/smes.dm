@@ -91,19 +91,19 @@
 	overlays.Cut()
 	if(stat & BROKEN)	return
 
-	overlays += image('icons/obj/power.dmi', "smes-op[outputting]")
+	overlays += image('icons/obj/engines_and_power/power.dmi', "smes-op[outputting]")
 
 	if(inputting == 2)
-		overlays += image('icons/obj/power.dmi', "smes-oc2")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc2")
 	else if(inputting == 1)
-		overlays += image('icons/obj/power.dmi', "smes-oc1")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc1")
 	else
 		if(input_attempt)
-			overlays += image('icons/obj/power.dmi', "smes-oc0")
+			overlays += image('icons/obj/engines_and_power/power.dmi', "smes-oc0")
 
 	var/clevel = chargedisplay()
 	if(clevel>0)
-		overlays += image('icons/obj/power.dmi', "smes-og[clevel]")
+		overlays += image('icons/obj/engines_and_power/power.dmi', "smes-og[clevel]")
 	return
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
