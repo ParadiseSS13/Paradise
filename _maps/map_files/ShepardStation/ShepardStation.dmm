@@ -2863,7 +2863,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	name = "Captain's Office";
-	sortType = 18
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -5769,7 +5768,6 @@
 	name = "Super Matter Engine Access";
 	id_tag = "SM_atmos_outer";
 	locked = 1;
-	frequency = 1379
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
@@ -7112,14 +7110,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
 	id_tag = "prison_airlock_interior";
-	frequency = 1379;
 	locked = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2";
 	pixel_y = 21
@@ -8084,7 +8078,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Janitor";
-	sortType = 22
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel{
@@ -8230,7 +8223,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/access_button{
-	master_tag = "admin_home_inner_button";
 	req_one_access_txt = "160;19";
 	pixel_y = 26
 	},
@@ -8620,11 +8612,7 @@
 /area/maintenance/asmaint2)
 "bXc" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
-	input_tag = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
-	output_tag = "n2o_out";
-	sensors = list("n2o_sensor"="Tank")
 	},
 /obj/machinery/light{
 	dir = 1
@@ -10440,7 +10428,6 @@
 /obj/item/storage/box/bodybags,
 /obj/item/assembly/signaler{
 	code = 6;
-	frequency = 1445
 	},
 /obj/machinery/camera{
 	c_tag = "Prison Execution Chamber";
@@ -11749,8 +11736,6 @@
 	on = 1
 	},
 /obj/machinery/access_button{
-	command = "cycle_interior";
-	master_tag = "turbine_control";
 	name = "Gas Turbine Airlock Control";
 	pixel_x = -23;
 	pixel_y = -10
@@ -12510,9 +12495,6 @@
 /area/engine/engineering)
 "cKb" = (
 /obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "ai_airlock";
 	name = "exterior access button";
 	pixel_x = -24;
 	pixel_y = -24;
@@ -16388,7 +16370,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	name = "HoP Office";
-	sortType = 15
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -16986,7 +16967,6 @@
 	req_access_txt = "10;30";
 	locked = 1;
 	id_tag = "SM_engi_inner";
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -17540,7 +17520,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Genetics";
-	sortType = 23
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
@@ -18559,7 +18538,6 @@
 "ebK" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "n2_in"
 	},
 /turf/simulated/floor/engine/n2,
@@ -18936,12 +18914,8 @@
 "efP" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
-	frequency = 1443;
-	input_tag = "air_in";
 	name = "Mixed Air Supply Control";
-	output_tag = "air_out";
 	pressure_setting = 2000;
-	sensors = list("air_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -23866,7 +23840,6 @@
 /area/medical/genetics)
 "fia" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
-	frequency = 1443;
 	icon_state = "on";
 	id = "air_in";
 	on = 1
@@ -26699,9 +26672,6 @@
 /area/maintenance/electrical)
 "fNr" = (
 /obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "ai_airlock";
 	name = "exterior access button";
 	pixel_x = 22;
 	pixel_y = -24;
@@ -29370,7 +29340,6 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_home_inner";
 	locked = 1;
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -29957,7 +29926,6 @@
 /area/crew_quarters/heads/hop)
 "gyq" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1379;
 	id_tag = "ai_outer";
 	locked = 1;
 	name = "MiniSat External Access";
@@ -33860,14 +33828,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
 	id_tag = "prison_airlock_interior";
-	frequency = 1379;
 	locked = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2";
 	pixel_y = -21
@@ -35845,7 +35809,6 @@
 "hLB" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
-	frequency = 1379;
 	id_tag = "arrivals_ferry_pump"
 	},
 /obj/effect/decal/warning_stripes,
@@ -36183,7 +36146,6 @@
 	dir = 4;
 	icon_state = "pipe-j2s";
 	name = "Eng Chief Engineer's Office";
-	sortType = 5
 	},
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
@@ -38151,10 +38113,8 @@
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 4;
-	frequency = 1443;
 	name = "Kill Chamber Atmos Monitor";
 	pressure_setting = 2000;
-	sensors = list("kill_sensor"="Kill Chamber")
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/paper{
@@ -39394,11 +39354,7 @@
 "ixa" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
-	frequency = 1441;
-	input_tag = "n2_in";
 	name = "Nitrogen Supply Control";
-	output_tag = "n2_out";
-	sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/light{
 	dir = 4
@@ -39789,7 +39745,6 @@
 "iCp" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
-	frequency = 1379;
 	id_tag = "arrivals_specops_pump"
 	},
 /obj/effect/decal/warning_stripes,
@@ -39897,7 +39852,6 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "Chapel";
-	sortType = 17
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -41408,7 +41362,6 @@
 /area/janitor)
 "iSy" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "tox_in"
 	},
 /turf/simulated/floor/engine/plasma,
@@ -41648,7 +41601,6 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_home_inner";
 	locked = 1;
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -41866,7 +41818,6 @@
 	dir = 4;
 	icon_state = "pipe-j2s";
 	name = "Engineering Main";
-	sortType = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
@@ -43185,7 +43136,6 @@
 "jlw" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	external_pressure_bound = 0;
-	frequency = 1441;
 	id_tag = "co2_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
@@ -45234,7 +45184,6 @@
 /area/security/lobby)
 "jGv" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "n2o_in"
 	},
 /turf/simulated/floor/engine/n20,
@@ -46939,7 +46888,6 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_home";
 	locked = 1;
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -47544,7 +47492,6 @@
 	dir = 4;
 	icon_state = "pipe-j2s";
 	name = "Eng Atmospherics";
-	sortType = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -48711,7 +48658,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Brig Equipment Storage";
-	sortType = 8;
 	icon_state = "pipe-j2s"
 	},
 /turf/simulated/floor/plasteel{
@@ -48879,13 +48825,10 @@
 	dir = 9
 	},
 /obj/machinery/access_button{
-	command = "cycle_interior";
 	layer = 4.1;
-	master_tag = "arrivals_ferry";
 	pixel_x = -25;
 	pixel_y = 28;
 	req_one_access_txt = "114;19";
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/south)
@@ -49592,7 +49535,6 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "Hydroponics Junction";
-	sortType = 21
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -50026,7 +49968,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 8;
 	external_pressure_bound = 0;
-	frequency = 1441;
 	id_tag = "waste_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
@@ -50136,7 +50077,6 @@
 "kHl" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1443;
 	id = "air_in"
 	},
 /turf/simulated/floor/engine,
@@ -50723,7 +50663,6 @@
 	req_access_txt = "10";
 	locked = 1;
 	id_tag = "SM_engi_outer";
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -51421,7 +51360,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	name = "Bar";
-	sortType = 19
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -55363,7 +55301,6 @@
 "lKH" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
-	frequency = 1379;
 	autolink_id = "admin_home"
 	},
 /turf/simulated/floor/plasteel{
@@ -55890,7 +55827,6 @@
 "lPZ" = (
 /obj/machinery/door/airlock/public/glass{
 	autoclose = 0;
-	frequency = 1449;
 	heat_proof = 1;
 	id_tag = "gas_turbine_exterior";
 	locked = 1;
@@ -56982,7 +56918,6 @@
 	},
 /obj/item/radio/intercom{
 	broadcasting = 1;
-	frequency = 1447;
 	name = "custom placement";
 	pixel_x = -3;
 	pixel_y = 28
@@ -57231,7 +57166,6 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "Sci RD Office 1";
-	sortType = 13
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -57422,7 +57356,6 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "Med Chemistry";
-	sortType = 11
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -65900,7 +65833,6 @@
 "nVg" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	external_pressure_bound = 0;
-	frequency = 1441;
 	id_tag = "tox_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
@@ -65936,11 +65868,7 @@
 /area/maintenance/aft)
 "nVP" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
-	input_tag = "tox_in";
 	name = "Toxin Supply Control";
-	output_tag = "tox_out";
-	sensors = list("tox_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light{
@@ -67627,7 +67555,6 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "QM Office";
-	sortType = 3
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
@@ -68391,7 +68318,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	name = "Sorting Office";
-	sortType = 2
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
@@ -69099,10 +69025,8 @@
 "oDW" = (
 /obj/machinery/computer/general_air_control{
 	dir = 8;
-	frequency = 1443;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -72455,9 +72379,7 @@
 	on = 1
 	},
 /obj/machinery/access_button{
-	command = "cycle_exterior";
 	layer = 3.1;
-	master_tag = "turbine_control";
 	name = "Gas Turbine Airlock Control";
 	pixel_x = 23;
 	pixel_y = 10
@@ -72557,14 +72479,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
 	id_tag = "prison_airlock_exterior";
-	frequency = 1379;
 	locked = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2";
 	pixel_x = 23
@@ -75309,7 +75227,6 @@
 /area/crew_quarters/locker)
 "pVC" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	frequency = 1441;
 	id = "co2_in"
 	},
 /turf/simulated/floor/engine/co2,
@@ -75491,7 +75408,6 @@
 /area/security/prison/cell_block/A)
 "pYF" = (
 /obj/machinery/door/airlock/external{
-	frequency = 1379;
 	id_tag = "ai_outer";
 	locked = 1;
 	name = "MiniSat External Access";
@@ -76286,11 +76202,7 @@
 /area/hallway/primary/central/ne)
 "qfC" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	frequency = 1441;
-	input_tag = "co2_in";
 	name = "Carbon Dioxide Supply Control";
-	output_tag = "co2_out";
-	sensors = list("co2_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -79770,7 +79682,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 8;
 	external_pressure_bound = 0;
-	frequency = 1441;
 	id_tag = "n2_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
@@ -79826,7 +79737,6 @@
 "qSK" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "o2_in"
 	},
 /turf/simulated/floor/engine/o2,
@@ -80091,9 +80001,7 @@
 /area/bridge)
 "qVn" = (
 /obj/machinery/computer/general_air_control{
-	frequency = 1441;
 	name = "Tank Monitor";
-	sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -80642,7 +80550,6 @@
 "raP" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "waste_in"
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -81005,7 +80912,6 @@
 	locked = 1
 	},
 /obj/machinery/access_button{
-	master_tag = "admin_home_button";
 	pixel_x = -25;
 	req_one_access_txt = "160;19"
 	},
@@ -81060,9 +80966,6 @@
 /area/medical/cmo)
 "rfy" = (
 /obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "ai_airlock";
 	name = "interior access button";
 	pixel_x = -25;
 	pixel_y = 7
@@ -81073,7 +80976,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/external{
-	frequency = 1379;
 	id_tag = "ai_inner";
 	locked = 1;
 	name = "MiniSat External Access";
@@ -81278,7 +81180,6 @@
 "rgN" = (
 /obj/machinery/door/airlock/public/glass{
 	autoclose = 0;
-	frequency = 1449;
 	heat_proof = 1;
 	id_tag = "gas_turbine_interior";
 	locked = 1;
@@ -81907,13 +81808,10 @@
 	dir = 10
 	},
 /obj/machinery/access_button{
-	command = "cycle_interior";
 	layer = 4.1;
-	master_tag = "arrivals_specops";
 	pixel_x = -25;
 	pixel_y = 28;
 	req_one_access_txt = "114;19";
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/south)
@@ -82096,7 +81994,6 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "Brig HoS Office";
-	sortType = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -82428,7 +82325,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 8;
 	external_pressure_bound = 0;
-	frequency = 1441;
 	id_tag = "o2_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
@@ -82882,7 +82778,6 @@
 	req_access_txt = "10";
 	locked = 1;
 	id_tag = "SM_engi_outer";
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -82932,7 +82827,6 @@
 "rxC" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1443;
 	id = "air_in"
 	},
 /turf/simulated/floor/engine/air,
@@ -83900,7 +83794,6 @@
 "rGS" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	frequency = 1441;
 	id = "co2_in";
 	pixel_y = 1
 	},
@@ -85039,9 +84932,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	dir = 8;
-	frequency = 1222;
 	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor"="Burn Mix")
 	},
 /obj/machinery/ignition_switch{
 	id = "toxinsigniter";
@@ -87202,7 +87093,6 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "Kitchen Junction";
-	sortType = 20
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
@@ -91195,9 +91085,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2"
 	},
@@ -91360,9 +91247,6 @@
 	dir = 4
 	},
 /obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "xeno_airlock_control";
 	name = "Xenobiology Access Button";
 	pixel_y = 24;
 	req_access_txt = "55"
@@ -91370,7 +91254,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
 	autoclose = 0;
-	frequency = 1379;
 	id_tag = "xeno_airlock_interior";
 	locked = 1;
 	name = "Xenobiology Internal Airlock";
@@ -91871,7 +91754,6 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "Library";
-	sortType = 16
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -92141,7 +92023,6 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_home";
 	locked = 1;
-	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -94423,7 +94304,6 @@
 	name = "Super Matter Engine Access";
 	id_tag = "SM_atmos_inner";
 	locked = 1;
-	frequency = 1379
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
@@ -94940,7 +94820,6 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 8;
-	frequency = 1443;
 	icon_state = "on";
 	id = "air_in";
 	on = 1
@@ -95331,7 +95210,6 @@
 "ufz" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	external_pressure_bound = 0;
-	frequency = 1441;
 	id_tag = "n2o_out";
 	internal_pressure_bound = 4000;
 	pressure_checks = 2
@@ -96870,7 +96748,6 @@
 	})
 "uvC" = (
 /obj/machinery/camera{
-	active_power_usage = 0;
 	c_tag = "Turbine Vent";
 	network = list("Turbine")
 	},
@@ -98344,11 +98221,7 @@
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
-	frequency = 1441;
-	input_tag = "waste_in";
 	name = "Gas Mix Tank Control";
-	output_tag = "waste_out";
-	sensors = list("waste_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -100950,11 +100823,7 @@
 "vkj" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
-	frequency = 1441;
-	input_tag = "o2_in";
 	name = "Oxygen Supply Control";
-	output_tag = "o2_out";
-	sensors = list("o2_sensor"="Tank")
 	},
 /obj/machinery/light{
 	dir = 4
@@ -101056,12 +100925,9 @@
 /area/assembly/assembly_line)
 "vle" = (
 /obj/machinery/access_button{
-	command = "cycle_exterior";
-	master_tag = "science_research_airlock";
 	pixel_x = -23;
 	pixel_y = 25;
 	req_access_txt = "47";
-	frequency = 1379
 	},
 /turf/simulated/floor/plating,
 /area/medical/research)
@@ -101509,7 +101375,6 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Sci Robotics";
-	sortType = 14
 	},
 /obj/structure/cable/cyan{
 	d2 = 8;
@@ -101649,9 +101514,6 @@
 /area/storage/tools)
 "vsC" = (
 /obj/machinery/access_button{
-	command = "cycle_interior";
-	frequency = 1379;
-	master_tag = "ai_airlock";
 	name = "interior access button";
 	pixel_x = 23;
 	pixel_y = 7
@@ -101662,7 +101524,6 @@
 	d1 = 1
 	},
 /obj/machinery/door/airlock/external{
-	frequency = 1379;
 	id_tag = "ai_inner";
 	locked = 1;
 	name = "MiniSat External Access";
@@ -102861,9 +102722,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2"
 	},
@@ -103120,9 +102978,6 @@
 	dir = 4
 	},
 /obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "xeno_airlock_control";
 	name = "Xenobiology Access Button";
 	pixel_y = 24;
 	req_access_txt = "55"
@@ -103130,7 +102985,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
 	autoclose = 0;
-	frequency = 1379;
 	id_tag = "xeno_airlock_exterior";
 	locked = 1;
 	name = "Xenobiology External Airlock";
@@ -103865,7 +103719,6 @@
 /area/medical/cryo)
 "vNr" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1379;
 	id_tag = "ai_pump"
 	},
 /obj/structure/cable/yellow{
@@ -105599,7 +105452,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
 	dir = 8;
 	external_pressure_bound = 0;
-	frequency = 1443;
 	id_tag = "air_out";
 	internal_pressure_bound = 2000;
 	pressure_checks = 2
@@ -106048,7 +105900,6 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "Disposals Maint";
-	sortType = 1
 	},
 /obj/structure/cable/cyan{
 	d2 = 2;
@@ -108028,14 +107879,10 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Prison Wing";
 	id_tag = "prison_airlock_exterior";
-	frequency = 1379;
 	locked = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1379;
-	master_tag = "prison_airlock_control";
 	name = "Prison Wing Access Button";
 	req_access_txt = "2";
 	pixel_x = -23
@@ -108205,7 +108052,6 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "Sci R&D";
-	sortType = 12
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -112429,7 +112275,6 @@
 	dir = 8;
 	icon_state = "pipe-j2s";
 	name = "Medbay Hall";
-	sortType = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -113585,7 +113430,6 @@
 	dir = 1;
 	icon_state = "pipe-j2s";
 	name = "Med. CMO";
-	sortType = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
