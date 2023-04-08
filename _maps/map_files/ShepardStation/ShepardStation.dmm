@@ -2862,7 +2862,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "Captain's Office";
+	name = "Captain's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -5767,7 +5767,7 @@
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Super Matter Engine Access";
 	id_tag = "SM_atmos_outer";
-	locked = 1;
+	locked = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
@@ -8077,7 +8077,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Janitor";
+	name = "Janitor"
 	},
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel{
@@ -8612,7 +8612,7 @@
 /area/maintenance/asmaint2)
 "bXc" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	name = "Nitrous Oxide Supply Control";
+	name = "Nitrous Oxide Supply Control"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -10427,7 +10427,7 @@
 /obj/structure/table,
 /obj/item/storage/box/bodybags,
 /obj/item/assembly/signaler{
-	code = 6;
+	code = 6
 	},
 /obj/machinery/camera{
 	c_tag = "Prison Execution Chamber";
@@ -16369,7 +16369,7 @@
 "dzN" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
-	name = "HoP Office";
+	name = "HoP Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -16966,7 +16966,7 @@
 	name = "Supermatter Engine Room";
 	req_access_txt = "10;30";
 	locked = 1;
-	id_tag = "SM_engi_inner";
+	id_tag = "SM_engi_inner"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -17519,7 +17519,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Genetics";
+	name = "Genetics"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
@@ -18535,13 +18535,6 @@
 /obj/item/restraints/handcuffs/cable,
 /turf/simulated/floor/wood,
 /area/maintenance/starboard)
-"ebK" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	id = "n2_in"
-	},
-/turf/simulated/floor/engine/n2,
-/area/atmos)
 "ebY" = (
 /obj/machinery/door_control{
 	id = "qm_warehouse";
@@ -18915,7 +18908,6 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
 	name = "Mixed Air Supply Control";
-	pressure_setting = 2000;
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -29339,7 +29331,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_home_inner";
-	locked = 1;
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -36145,7 +36137,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	icon_state = "pipe-j2s";
-	name = "Eng Chief Engineer's Office";
+	name = "Eng Chief Engineer's Office"
 	},
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
@@ -38114,7 +38106,6 @@
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 4;
 	name = "Kill Chamber Atmos Monitor";
-	pressure_setting = 2000;
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/paper{
@@ -39354,7 +39345,7 @@
 "ixa" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
-	name = "Nitrogen Supply Control";
+	name = "Nitrogen Supply Control"
 	},
 /obj/machinery/light{
 	dir = 4
@@ -39851,7 +39842,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	icon_state = "pipe-j2s";
-	name = "Chapel";
+	name = "Chapel"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -41360,12 +41351,6 @@
 	icon_state = "delivery"
 	},
 /area/janitor)
-"iSy" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	id = "tox_in"
-	},
-/turf/simulated/floor/engine/plasma,
-/area/atmos)
 "iSB" = (
 /obj/item/stack/sheet/glass/fifty,
 /turf/simulated/floor/wood,
@@ -41600,7 +41585,7 @@
 	},
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_home_inner";
-	locked = 1;
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -41817,7 +41802,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	icon_state = "pipe-j2s";
-	name = "Engineering Main";
+	name = "Engineering Main"
 	},
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
@@ -43133,15 +43118,6 @@
 	icon_state = "delivery"
 	},
 /area/crew_quarters/courtroom)
-"jlw" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	external_pressure_bound = 0;
-	id_tag = "co2_out";
-	internal_pressure_bound = 4000;
-	pressure_checks = 2
-	},
-/turf/simulated/floor/engine/co2,
-/area/atmos)
 "jlA" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -45182,12 +45158,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/lobby)
-"jGv" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	id = "n2o_in"
-	},
-/turf/simulated/floor/engine/n20,
-/area/atmos)
 "jGC" = (
 /obj/item/radio/intercom{
 	name = "south bump";
@@ -46887,7 +46857,7 @@
 "jZl" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "ferry_home";
-	locked = 1;
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -47491,7 +47461,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
 	icon_state = "pipe-j2s";
-	name = "Eng Atmospherics";
+	name = "Eng Atmospherics"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -48828,7 +48798,7 @@
 	layer = 4.1;
 	pixel_x = -25;
 	pixel_y = 28;
-	req_one_access_txt = "114;19";
+	req_one_access_txt = "114;19"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/south)
@@ -49534,7 +49504,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	icon_state = "pipe-j2s";
-	name = "Hydroponics Junction";
+	name = "Hydroponics Junction"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -49964,16 +49934,6 @@
 	icon_state = "grimy"
 	},
 /area/library)
-"kFe" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	dir = 8;
-	external_pressure_bound = 0;
-	id_tag = "waste_out";
-	internal_pressure_bound = 4000;
-	pressure_checks = 2
-	},
-/turf/simulated/floor/engine/vacuum,
-/area/atmos)
 "kFk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
@@ -50662,7 +50622,7 @@
 	name = "Supermatter Engine Room";
 	req_access_txt = "10";
 	locked = 1;
-	id_tag = "SM_engi_outer";
+	id_tag = "SM_engi_outer"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -51359,7 +51319,7 @@
 "kWj" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 4;
-	name = "Bar";
+	name = "Bar"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -57165,7 +57125,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	icon_state = "pipe-j2s";
-	name = "Sci RD Office 1";
+	name = "Sci RD Office 1"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -57355,7 +57315,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	icon_state = "pipe-j2s";
-	name = "Med Chemistry";
+	name = "Med Chemistry"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -59309,7 +59269,6 @@
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
 	name = "Toxins Venting Bay Door";
-	use_power = 0
 	},
 /obj/effect/turf_decal/stripes/full,
 /turf/simulated/floor/engine/vacuum,
@@ -65830,15 +65789,6 @@
 	icon_state = "whitepurplechecker"
 	},
 /area/medical/research)
-"nVg" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	external_pressure_bound = 0;
-	id_tag = "tox_out";
-	internal_pressure_bound = 4000;
-	pressure_checks = 2
-	},
-/turf/simulated/floor/engine/plasma,
-/area/atmos)
 "nVh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -65868,7 +65818,7 @@
 /area/maintenance/aft)
 "nVP" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	name = "Toxin Supply Control";
+	name = "Toxin Supply Control"
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light{
@@ -67554,7 +67504,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	icon_state = "pipe-j2s";
-	name = "QM Office";
+	name = "QM Office"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
@@ -68317,7 +68267,7 @@
 "ovC" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Sorting Office";
+	name = "Sorting Office"
 	},
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
@@ -69026,7 +68976,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 8;
 	level = 3;
-	name = "Distribution and Waste Monitor";
+	name = "Distribution and Waste Monitor"
 	},
 /obj/item/radio/intercom{
 	name = "north bump";
@@ -75225,12 +75175,6 @@
 	icon_state = "barber"
 	},
 /area/crew_quarters/locker)
-"pVC" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	id = "co2_in"
-	},
-/turf/simulated/floor/engine/co2,
-/area/atmos)
 "pVJ" = (
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/pipe,
@@ -76202,7 +76146,7 @@
 /area/hallway/primary/central/ne)
 "qfC" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
-	name = "Carbon Dioxide Supply Control";
+	name = "Carbon Dioxide Supply Control"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -79678,16 +79622,6 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat_interior)
-"qSc" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	dir = 8;
-	external_pressure_bound = 0;
-	id_tag = "n2_out";
-	internal_pressure_bound = 4000;
-	pressure_checks = 2
-	},
-/turf/simulated/floor/engine/n2,
-/area/atmos)
 "qSg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -79734,13 +79668,6 @@
 	icon_state = "titanium_white"
 	},
 /area/shuttle/arrival/station)
-"qSK" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	id = "o2_in"
-	},
-/turf/simulated/floor/engine/o2,
-/area/atmos)
 "qSM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -80001,7 +79928,7 @@
 /area/bridge)
 "qVn" = (
 /obj/machinery/computer/general_air_control{
-	name = "Tank Monitor";
+	name = "Tank Monitor"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -80547,13 +80474,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/engine/equipmentstorage)
-"raP" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	id = "waste_in"
-	},
-/turf/simulated/floor/engine/vacuum,
-/area/atmos)
 "raR" = (
 /obj/machinery/light_construct/small{
 	dir = 4
@@ -81811,7 +81731,7 @@
 	layer = 4.1;
 	pixel_x = -25;
 	pixel_y = 28;
-	req_one_access_txt = "114;19";
+	req_one_access_txt = "114;19"
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/south)
@@ -81993,7 +81913,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	icon_state = "pipe-j2s";
-	name = "Brig HoS Office";
+	name = "Brig HoS Office"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -82321,16 +82241,6 @@
 	icon_state = "yellow"
 	},
 /area/engine/engineering)
-"rrF" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	dir = 8;
-	external_pressure_bound = 0;
-	id_tag = "o2_out";
-	internal_pressure_bound = 4000;
-	pressure_checks = 2
-	},
-/turf/simulated/floor/engine/o2,
-/area/atmos)
 "rrL" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment,
@@ -82777,7 +82687,7 @@
 	name = "Supermatter Engine Room";
 	req_access_txt = "10";
 	locked = 1;
-	id_tag = "SM_engi_outer";
+	id_tag = "SM_engi_outer"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -82824,13 +82734,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/crew_quarters/fitness)
-"rxC" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	id = "air_in"
-	},
-/turf/simulated/floor/engine/air,
-/area/atmos)
 "rxH" = (
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/northwest,
@@ -84932,7 +84835,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	dir = 8;
-	name = "Bomb Mix Monitor";
+	name = "Bomb Mix Monitor"
 	},
 /obj/machinery/ignition_switch{
 	id = "toxinsigniter";
@@ -87092,7 +86995,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	icon_state = "pipe-j2s";
-	name = "Kitchen Junction";
+	name = "Kitchen Junction"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
@@ -91753,7 +91656,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	icon_state = "pipe-j2s";
-	name = "Library";
+	name = "Library"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -92022,7 +91925,7 @@
 "twE" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "specops_home";
-	locked = 1;
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -94303,7 +94206,7 @@
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Super Matter Engine Access";
 	id_tag = "SM_atmos_inner";
-	locked = 1;
+	locked = 1
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
@@ -95206,15 +95109,6 @@
 	target_pressure = 4500
 	},
 /turf/simulated/floor/plasteel,
-/area/atmos)
-"ufz" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	external_pressure_bound = 0;
-	id_tag = "n2o_out";
-	internal_pressure_bound = 4000;
-	pressure_checks = 2
-	},
-/turf/simulated/floor/engine/n20,
 /area/atmos)
 "ufA" = (
 /turf/simulated/floor/engine/n2,
@@ -98221,7 +98115,7 @@
 	},
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
-	name = "Gas Mix Tank Control";
+	name = "Gas Mix Tank Control"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -100823,7 +100717,7 @@
 "vkj" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 8;
-	name = "Oxygen Supply Control";
+	name = "Oxygen Supply Control"
 	},
 /obj/machinery/light{
 	dir = 4
@@ -100927,7 +100821,7 @@
 /obj/machinery/access_button{
 	pixel_x = -23;
 	pixel_y = 25;
-	req_access_txt = "47";
+	req_access_txt = "47"
 	},
 /turf/simulated/floor/plating,
 /area/medical/research)
@@ -101374,7 +101268,7 @@
 	},
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
-	name = "Sci Robotics";
+	name = "Sci Robotics"
 	},
 /obj/structure/cable/cyan{
 	d2 = 8;
@@ -105448,16 +105342,6 @@
 	icon_state = "brown"
 	},
 /area/maintenance/starboard)
-"wey" = (
-/obj/machinery/atmospherics/unary/vent_pump/siphon/on{
-	dir = 8;
-	external_pressure_bound = 0;
-	id_tag = "air_out";
-	internal_pressure_bound = 2000;
-	pressure_checks = 2
-	},
-/turf/simulated/floor/engine/air,
-/area/atmos)
 "weI" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -105899,7 +105783,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	icon_state = "pipe-j2s";
-	name = "Disposals Maint";
+	name = "Disposals Maint"
 	},
 /obj/structure/cable/cyan{
 	d2 = 2;
@@ -108051,7 +107935,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	icon_state = "pipe-j2s";
-	name = "Sci R&D";
+	name = "Sci R&D"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -112274,7 +112158,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
 	icon_state = "pipe-j2s";
-	name = "Medbay Hall";
+	name = "Medbay Hall"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
@@ -113429,7 +113313,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	icon_state = "pipe-j2s";
-	name = "Med. CMO";
+	name = "Med. CMO"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner"
@@ -141621,7 +141505,7 @@ scF
 luB
 aCC
 aCC
-pVC
+aCC
 wus
 mVH
 mKL
@@ -142135,7 +142019,7 @@ scF
 luB
 aCC
 aCC
-jlw
+aCC
 wus
 mVH
 jDL
@@ -142649,7 +142533,7 @@ scF
 luB
 vga
 vga
-iSy
+vga
 wus
 mVH
 mKL
@@ -143163,7 +143047,7 @@ scF
 luB
 vga
 vga
-nVg
+vga
 wus
 mVH
 jDL
@@ -143677,7 +143561,7 @@ scF
 luB
 eyZ
 eyZ
-jGv
+eyZ
 wus
 mVH
 mKL
@@ -144191,7 +144075,7 @@ scF
 luB
 eyZ
 eyZ
-ufz
+eyZ
 wus
 mVH
 jDL
@@ -145497,9 +145381,9 @@ luB
 scF
 eYj
 luB
-raP
 sTq
-kFe
+sTq
+sTq
 luB
 sVX
 kbo
@@ -145739,17 +145623,17 @@ hDW
 fBi
 scF
 luB
-ebK
 ufA
-qSc
+ufA
+ufA
 luB
-qSK
 vCq
-rrF
+vCq
+vCq
 luB
-rxC
 cnR
-wey
+cnR
+cnR
 luB
 scF
 eYj
