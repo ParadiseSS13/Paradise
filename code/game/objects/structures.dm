@@ -123,6 +123,8 @@
 		AM.throwforce *= force_mult //no killing using shards :lul:
 		throwtarget = get_edge_target_turf(user, get_dir(src, get_step_away(AM, src)))
 		AM.throw_at(target = throwtarget, range = 1, speed = 1)
+		AM.pixel_x = rand(-6, 6)
+		AM.pixel_y = rand(0, 10)
 		AM.force /= force_mult
 		AM.throwforce /= force_mult
 

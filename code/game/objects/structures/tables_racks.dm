@@ -110,6 +110,12 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
+/obj/structure/table/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(AM.throwing && isliving(AM))
+		var/mob/living/user = AM
+		clumse_stuff(user)
+
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
 		return 1
