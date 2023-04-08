@@ -23833,7 +23833,6 @@
 "fia" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	icon_state = "on";
-	id = "air_in";
 	on = 1
 	},
 /obj/structure/disposalpipe/segment,
@@ -35801,7 +35800,6 @@
 "hLB" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
-	id_tag = "arrivals_ferry_pump"
 	},
 /obj/effect/decal/warning_stripes,
 /turf/simulated/floor/plating,
@@ -39736,7 +39734,6 @@
 "iCp" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
-	id_tag = "arrivals_specops_pump"
 	},
 /obj/effect/decal/warning_stripes,
 /turf/simulated/floor/plating,
@@ -50037,7 +50034,6 @@
 "kHl" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	id = "air_in"
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/turbine)
@@ -83697,7 +83693,6 @@
 "rGS" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
-	id = "co2_in";
 	pixel_y = 1
 	},
 /obj/structure/grille,
@@ -94724,7 +94719,6 @@
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 8;
 	icon_state = "on";
-	id = "air_in";
 	on = 1
 	},
 /turf/simulated/floor/engine/vacuum,
@@ -103613,7 +103607,6 @@
 /area/medical/cryo)
 "vNr" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	id_tag = "ai_pump"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
