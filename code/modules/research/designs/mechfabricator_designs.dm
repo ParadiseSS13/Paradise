@@ -1324,6 +1324,16 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_gps
+	name = "Cyborg Upgrade (GPS amplifier)"
+	id = "borg_upgrade_gps"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/gps
+	req_tech = list("engineerin" = 7, "programming" = 7, "materials" = 5, "magnets" = 6)
+	materials = list(MAT_METAL = 10000, MAT_GOLD = 2000, MAT_SILVER = 2000, MAT_TITANIUM = 500)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_abductor_engi
 	name = "Cyborg Upgrade (Abdcutor Engineering Equipment)"
 	id = "borg_upgade_abductor_engi"

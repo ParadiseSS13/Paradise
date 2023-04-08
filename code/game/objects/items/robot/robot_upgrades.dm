@@ -201,6 +201,29 @@
 		R.module.modules += new /obj/item/storage/bag/ore/cyborg(R.module)
 		R.module.rebuild()
 
+/obj/item/borg/upgrade/gps
+	name = "cyborg gps upgrade"
+	desc = "upgraded GPS for cyborgs."
+	icon_state = "cyborg_upgrade3"
+
+/obj/item/borg/upgrade/gps/action(mob/living/silicon/robot/R)
+	if(..())
+		for(var/obj/item/gps/cyborg/G in R.module.modules)
+			qdel(G)
+
+		R.module.modules += new /obj/item/gps/cyborg/upgraded(R.module)
+		R.module.rebuild()
+
+		return TRUE
+
+/obj/item/borg/upgrade/gps/deactivate(mob/living/silicon/robot/R, user = usr)
+	if(..())
+		for(var/obj/item/gps/cyborg/upgraded/U in R.module)
+			qdel(U)
+
+		R.module.modules += new /obj/item/gps/cyborg(R.module)
+		R.module.rebuild()
+
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces an engineering cyborgs tools with the abductor version."
