@@ -39748,13 +39748,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "dLD" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Checkpoint";
-	req_access = list(1)
-	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Checkpoint";
+	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -46684,7 +46684,7 @@
 	hackProof = 1;
 	id_tag = "emergency_home";
 	name = "Security Escape Airlock";
-	req_access = list(1);
+	req_access = list(63);
 	locked = 1
 	},
 /turf/simulated/floor/plating,
@@ -94057,7 +94057,7 @@
 	hackProof = 1;
 	id_tag = "emergency_home";
 	name = "Security Escape Airlock";
-	req_access = list(1);
+	req_access = list(63);
 	locked = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -127792,10 +127792,6 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain/bedroom)
 "xxb" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Checkpoint";
-	req_access = list(1)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -127804,6 +127800,11 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Checkpoint";
+	req_access = list(63)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
