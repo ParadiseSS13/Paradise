@@ -6127,7 +6127,6 @@
 /area/ruin/space/ancientstation/hydroponics)
 "WO" = (
 /obj/structure/table,
-/obj/item/book/manual/security_space_law,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
