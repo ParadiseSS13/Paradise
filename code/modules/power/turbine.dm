@@ -25,7 +25,7 @@
 /obj/machinery/power/compressor
 	name = "compressor"
 	desc = "The compressor stage of a gas turbine generator."
-	icon = 'icons/obj/pipes.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "compressor"
 	anchored = 1
 	density = 1
@@ -44,7 +44,7 @@
 /obj/machinery/power/turbine
 	name = "gas turbine generator"
 	desc = "A gas turbine used for backup power generation."
-	icon = 'icons/obj/pipes.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "turbine"
 	anchored = 1
 	density = 1
@@ -173,13 +173,13 @@
 
 
 	if(rpm>50000)
-		overlays += image('icons/obj/pipes.dmi', "comp-o4", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o4", FLY_LAYER)
 	else if(rpm>10000)
-		overlays += image('icons/obj/pipes.dmi', "comp-o3", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o3", FLY_LAYER)
 	else if(rpm>2000)
-		overlays += image('icons/obj/pipes.dmi', "comp-o2", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o2", FLY_LAYER)
 	else if(rpm>500)
-		overlays += image('icons/obj/pipes.dmi', "comp-o1", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "comp-o1", FLY_LAYER)
 	 //TODO: DEFERRED
 
 // These are crucial to working of a turbine - the stats modify the power output. TurbGenQ modifies how much raw energy can you get from
@@ -259,7 +259,7 @@
 // If it works, put an overlay that it works!
 
 	if(lastgen > 100)
-		overlays += image('icons/obj/pipes.dmi', "turb-o", FLY_LAYER)
+		overlays += image('icons/obj/pipes_and_stuff/atmospherics/pipes.dmi', "turb-o", FLY_LAYER)
 
 	updateDialog()
 

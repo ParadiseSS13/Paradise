@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging
-	icon = 'icons/atmos/heat.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/heat.dmi'
 	icon_state = "intact"
 	pipe_icon = "hepipe"
 	level = 2
@@ -90,7 +90,7 @@
 // JUNCTION
 /////////////////////////////////
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
-	icon = 'icons/atmos/junction.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/junction.dmi'
 	icon_state = "intact"
 	pipe_icon = "hejunction"
 	level = 2

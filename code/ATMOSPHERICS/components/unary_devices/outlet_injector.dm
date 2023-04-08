@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/outlet_injector
-	icon = 'icons/atmos/injector.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/injector.dmi'
 	icon_state = "map_injector"
 	use_power = IDLE_POWER_USE
 	layer = GAS_SCRUBBER_LAYER

@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/binary/passive_gate
 	//Tries to achieve target pressure at output (like a normal pump) except
 	//	Uses no power but can not transfer gases from a low pressure area to a high pressure area
-	icon = 'icons/atmos/passive_gate.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/passive_gate.dmi'
 	icon_state = "map"
 
 	name = "passive gate"

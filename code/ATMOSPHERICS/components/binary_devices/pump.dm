@@ -13,7 +13,7 @@ Thus, the two variables affect pump operation are set in New():
 */
 
 /obj/machinery/atmospherics/binary/pump
-	icon = 'icons/atmos/pump.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pump.dmi'
 	icon_state = "map_off"
 
 	name = "gas pump"

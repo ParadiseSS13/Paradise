@@ -2,7 +2,7 @@
 /obj/machinery/atmospherics/unary/thermal_plate
 //Based off Heat Reservoir and Space Heater
 //Transfers heat between a pipe system and environment, based on which has a greater thermal energy concentration
-	icon = 'icons/obj/atmospherics/cold_sink.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/cold_sink.dmi'
 	icon_state = "off"
 
 	can_unwrench = 1

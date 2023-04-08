@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/trinary/mixer
-	icon = 'icons/atmos/mixer.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/mixer.dmi'
 	icon_state = "map"
 
 	can_unwrench = 1

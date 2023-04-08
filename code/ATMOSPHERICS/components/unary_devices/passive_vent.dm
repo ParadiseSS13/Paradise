@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/passive_vent
-	icon = 'icons/atmos/vent_pump.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 	layer = GAS_SCRUBBER_LAYER
 	name = "passive vent"

@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/binary/dp_vent_pump
-	icon = 'icons/atmos/vent_pump.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	icon_state = "map_dp_vent"
 
 	//node2 is output port

@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/binary/valve
-	icon = 'icons/atmos/valve.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/valve.dmi'
 	icon_state = "map_valve0"
 
 	name = "manual valve"
@@ -69,7 +69,7 @@
 /obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
 	name = "digital valve"
 	desc = "A digitally controlled valve."
-	icon = 'icons/atmos/digital_valve.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/digital_valve.dmi'
 
 	req_access = list(ACCESS_ATMOSPHERICS,ACCESS_ENGINE)
 

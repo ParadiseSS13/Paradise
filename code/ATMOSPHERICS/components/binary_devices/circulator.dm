@@ -6,7 +6,7 @@
 /obj/machinery/atmospherics/binary/circulator
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the south side, and its output port is on the north side."
-	icon = 'icons/obj/atmospherics/circulator.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/circulator.dmi'
 	icon_state = "circ1-off"
 
 	var/side = CIRC_LEFT

@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/pipe/simple
-	icon = 'icons/atmos/pipes.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
 	icon_state = ""
 	var/pipe_icon = "" //what kind of pipe it is and from which dmi is the icon manager getting its icons, "" for simple pipes, "hepipe" for HE pipes, "hejunction" for HE junctions
 	name = "pipe"

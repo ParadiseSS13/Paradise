@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/portables_connector
-	icon = 'icons/atmos/connector.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/connector.dmi'
 	icon_state = "map_connector"
 
 	name = "connector port"

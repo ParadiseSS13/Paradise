@@ -2,7 +2,7 @@
 #define TVALVE_STATE_SIDE 1
 
 /obj/machinery/atmospherics/trinary/tvalve
-	icon = 'icons/atmos/tvalve.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/tvalve.dmi'
 	icon_state = "map_tvalve0"
 
 	name = "manual switching valve"
@@ -102,7 +102,7 @@
 /obj/machinery/atmospherics/trinary/tvalve/digital		// can be controlled by AI
 	name = "digital switching valve"
 	desc = "A digitally controlled valve."
-	icon = 'icons/atmos/digital_tvalve.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/digital_tvalve.dmi'
 
 	var/id = null
 
