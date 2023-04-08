@@ -188,19 +188,17 @@
 				P.Extinguish(H)
 	H.update_fire()
 	..()
+	if(H.stat == DEAD)
+		return
+	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
+		H.reagents.add_reagent("pure_plasma", 5)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "plasma" || R.id == "plasma_dust" || R.id == "pure_plasma")
+	if(R.id == "plasma" || R.id == "plasma_dust")
 		H.adjustBruteLoss(-0.25)
 		H.adjustFireLoss(-0.25)
 		H.adjustPlasma(20)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmamen.
+		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
 
 	return ..()
-
-/datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
-	if(H.stat == DEAD)
-		return
-	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
-		H.reagents.add_reagent("pure_plasma", 1)

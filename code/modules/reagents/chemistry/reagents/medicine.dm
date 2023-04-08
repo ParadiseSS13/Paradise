@@ -1385,9 +1385,13 @@
 	taste_description = "Superiority"
 	can_synth = FALSE
 
-/datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/M)
+/datum/reagent/medicine/pure_plasma/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-4, FALSE)
-	if(M.bodytemperature < 310)
-		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	if(isplasmaman(M))
+		if(M.bodytemperature < 310)
+			M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+		update_flags |= M.adjustFireLoss(-0.25, FALSE)
+	else
+		update_flags |= M.adjustToxLoss(4, FALSE)
 	return ..() | update_flags

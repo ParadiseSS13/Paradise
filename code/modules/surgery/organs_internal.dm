@@ -25,6 +25,11 @@
 	possible_locs = list("chest","head")
 	requires_organic_bodypart = 1
 
+/datum/surgery/organ_manipulation/plasmaman/soft
+	possible_locs = list("groin", "eyes", "mouth")
+	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
+	requires_organic_bodypart = 1
+
 /datum/surgery/organ_manipulation/alien
 	name = "Alien Organ Manipulation"
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
