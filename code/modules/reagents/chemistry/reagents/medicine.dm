@@ -416,8 +416,7 @@
 	taste_description = "cleansing"
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
-	if(prob(80))
-		M.radiation = max(0, M.radiation-10)
+	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
 /datum/reagent/medicine/pen_acid
