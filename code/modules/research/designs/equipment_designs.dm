@@ -247,6 +247,7 @@
 	desc = "A lightweight and portable version of the Crowbar that fits into smaller storages."
 	id = "minicrowbar"
 	req_tech = list("materials" = 3, "engineering" = 4)
+	build_path = /obj/item/crowbar/small
 	materials = list(MAT_TITANIUM = 250)
 	category = list("Equipment")
 
