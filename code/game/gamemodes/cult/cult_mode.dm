@@ -172,11 +172,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
 		return TRUE
 
-/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE)
+/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
 	if(!(cult_mind in cult)) // Not actually a cultist in the first place
 		return
 
-	var/mob/cultist = cult_mind.current
+	var/mob/cultist = target_mob
+	if(!cultist)
+		cultist = cult_mind.current
 	cult -= cult_mind
 	cultist.faction -= "cult"
 	cult_mind.special_role = null

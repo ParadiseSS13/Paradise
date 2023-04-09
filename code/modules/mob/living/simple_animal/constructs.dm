@@ -53,19 +53,16 @@
 	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
-	SSticker.mode.remove_cultist(mind, FALSE)
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
 		SSticker.mode.add_cult_immunity(held_body)
-
 		held_body.key = key
 		held_body.cancel_camera()
-
 		held_body = null
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	. = ..()
-
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()

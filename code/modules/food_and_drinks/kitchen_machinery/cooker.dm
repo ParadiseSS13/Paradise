@@ -20,6 +20,10 @@
 	///Set to TRUE if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
 	var/upgradeable = FALSE
 	var/datum/looping_sound/kitchen/deep_fryer/soundloop
+	/// Time between special attacks
+	var/special_attack_cooldown_time = 5 SECONDS
+	/// Whether or not a special attack can be performed right now
+	var/special_attack_on_cooldown = FALSE
 
 /obj/machinery/cooker/Initialize(mapload)
 	. = ..()
@@ -45,13 +49,67 @@
 /obj/machinery/cooker/proc/setRegents(obj/item/reagent_containers/OldReg, obj/item/reagent_containers/NewReg)
 	OldReg.reagents.trans_to(NewReg, OldReg.reagents.total_volume)
 
+/**
+ * Perform the special grab interaction.
+ * Return TRUE to drop the grab or FALSE to keep the grab afterwards.
+ */
+/obj/machinery/cooker/proc/special_attack(mob/user, mob/living/carbon/target, obj/item/grab/G)
+	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
+	return FALSE
+
+/obj/machinery/cooker/shove_impact(mob/living/target, mob/living/attacker)
+	if(special_attack_on_cooldown)
+		return FALSE
+
+	if(!on)
+		// only do a special interaction if it's actually cooking something
+		return FALSE
+
+	. = special_attack_shove(target, attacker)
+	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
+
+/**
+ * Perform a special shove attack.
+ * The return value of this proc gets passed up to shove_impact, so returning TRUE will prevent any further shove handling (like knockdown).
+ */
+/obj/machinery/cooker/proc/special_attack_shove(mob/living/target, mob/living/attacker)
+	return FALSE
+
+/**
+ * Verify if we would be able to perform our grab attack.
+ */
+/obj/machinery/cooker/proc/can_grab_attack(obj/item/grab/G, mob/user, verbose = FALSE)
+	if(special_attack_on_cooldown)
+		return FALSE
+	if(!istype(G))
+		return FALSE
+	if(!iscarbon(G.affecting))
+		if(verbose)
+			to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
+		return FALSE
+	if(G.state < GRAB_AGGRESSIVE)
+		if(verbose)
+			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		return FALSE
+	return TRUE
+
+/obj/machinery/cooker/proc/special_attack_grab(obj/item/grab/G, mob/user)
+	if(!can_grab_attack(G, user, FALSE))  // do it silently, but still make sure this isn't called without sanity checking first
+		return FALSE
+	var/result = special_attack(user, G.affecting, G)
+	user.changeNext_move(CLICK_CD_MELEE)
+	special_attack_on_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
+	if(result && !isnull(G) && !QDELETED(G))
+		qdel(G)
+
+	return TRUE  // end the attack chain
+
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
 		return FALSE
-	if(istype(check, /obj/item/grab))
-		return special_attack(check, user)
 	if(has_specials && checkSpecials(check))
 		return TRUE
 	if(istype(check, /obj/item/reagent_containers/food/snacks) || emagged)
@@ -131,6 +189,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the panel first!</span>")
 		return
+	if(istype(I, /obj/item/grab))
+		return special_attack_grab(I, user)
 	if(!checkValid(I, user))
 		return
 	if(!burns)
@@ -147,6 +207,7 @@
 			else
 				L.death()
 		break
+
 	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
 
 /obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)
@@ -189,11 +250,6 @@
 		return
 	if(default_deconstruction_screwdriver(user, openicon, officon, I))
 		return TRUE
-
-
-
-/obj/machinery/cooker/proc/special_attack(obj/item/grab/G, mob/user)
-	return 0
 
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!
 // FAILURE TO OVERRIDE WILL RESULT IN FAILURE TO PROPERLY HANDLE SPECIAL INTERACTIONS!		--FalseIncarnate
