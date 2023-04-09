@@ -297,6 +297,8 @@
 
 /obj/item/stack/proc/get_amount()
 	if(is_cyborg)
+		if(!source) // The energy source has not yet been initializied
+			return 0
 		return round(source.energy / cost)
 	return amount
 
