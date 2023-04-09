@@ -46333,8 +46333,8 @@
 /area/library)
 "gDk" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
 /obj/item/paper_bin,
+/obj/item/reagent_containers/food/drinks/mug/sci,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -61860,6 +61860,7 @@
 /obj/item/storage/belt/medical,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/regular,
+/obj/item/reagent_containers/food/drinks/mug/med,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -64720,6 +64721,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/item/reagent_containers/food/drinks/mug/serv,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "ntV" = (
@@ -91466,6 +91468,7 @@
 "xgr" = (
 /obj/structure/closet/secure_closet/engineering_personal,
 /obj/item/pickaxe/mini,
+/obj/item/reagent_containers/food/drinks/mug/eng,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"

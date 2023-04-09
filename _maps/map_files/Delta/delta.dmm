@@ -15359,7 +15359,6 @@
 /obj/item/radio{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/drinks/mug/sec,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "bNC" = (
@@ -28368,6 +28367,7 @@
 /obj/item/storage/belt/medical,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/regular,
+/obj/item/reagent_containers/food/drinks/mug/med,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -52933,6 +52933,7 @@
 /obj/item/paper_bin,
 /obj/structure/table,
 /obj/item/pen,
+/obj/item/reagent_containers/food/drinks/mug/serv,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -68209,6 +68210,12 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/maintenance/asmaint4)
+"jJc" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/secure_closet/engineering_personal,
+/obj/item/reagent_containers/food/drinks/mug/eng,
+/turf/simulated/floor/plasteel,
+/area/engine/engineering)
 "jJj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -79397,6 +79404,7 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
+/obj/item/reagent_containers/food/drinks/mug/sci,
 /turf/simulated/floor/plasteel,
 /area/toxins/explab)
 "mAq" = (
@@ -154114,7 +154122,7 @@ mrH
 tdv
 tPh
 dDP
-dQD
+jJc
 tXp
 uXS
 nnT
