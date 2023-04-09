@@ -31,8 +31,9 @@
 	update_weight()
 
 /obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	if(isstorage(loc) && !storable && !stop_messages)
-		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+	if(isstorage(loc) && !storable)
+		if(!stop_messages)
+			to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
 		return FALSE
 	. = ..()
 
