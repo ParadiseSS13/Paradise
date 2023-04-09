@@ -336,7 +336,10 @@
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
 	w_class_override = list(
 		/obj/item/crowbar,
+		/obj/item/screwdriver,
 		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
 		/obj/item/multitool
 		)
 
@@ -680,7 +683,10 @@
 	can_hold = list()
 	w_class_override = list(
 		/obj/item/crowbar,
+		/obj/item/screwdriver,
 		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
 		/obj/item/multitool
 		)
 
