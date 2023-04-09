@@ -70,14 +70,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	parallax_movedir = NORTH
 	sound_environment = SOUND_ENVIRONMENT_ROOM
-
-/area/shuttle/arrival
+/*
+/area/shuttle/arrival //dont have this, but at once...
 	name = "\improper Arrival Shuttle"
-	parallax_movedir = EAST
 
 /area/shuttle/arrival/pre_game
 	icon_state = "shuttle2"
-
+*/
 /area/shuttle/arrival/station
 	icon_state = "shuttle"
 
@@ -103,13 +102,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Escape Pod Three"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
-	parallax_movedir = EAST
 
 /area/shuttle/pod_4
 	name = "\improper Escape Pod Four"
 	icon_state = "shuttle"
 	nad_allowed = TRUE
-	parallax_movedir = EAST
 
 /area/shuttle/escape_pod1
 	name = "\improper Escape Pod One"
@@ -247,7 +244,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/shuttle/administration
 	name = "\improper Nanotrasen Vessel"
 	icon_state = "shuttlered"
-	parallax_movedir = EAST
+	parallax_movedir = WEST
 
 /area/shuttle/administration/centcom
 	name = "\improper Nanotrasen Vessel Centcom"
@@ -387,7 +384,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
-	parallax_movedir = EAST
+	parallax_movedir = WEST
 
 /area/shuttle/freegolem
 	name = "Free Golem Ship"
