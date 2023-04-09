@@ -120400,6 +120400,7 @@
 	pixel_x = 28;
 	pixel_y = -2
 	},
+/obj/item/toy/figure/geneticist,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
