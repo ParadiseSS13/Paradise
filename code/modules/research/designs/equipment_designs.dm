@@ -242,6 +242,15 @@
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	category = list("Equipment")
 
+/datum/design/minicrowbar
+	name = "Miniature Titanium Crowbar"
+	desc = "A lightweight and portable version of the Crowbar that fits into smaller storages."
+	id = "minicrowbar"
+	req_tech = list("materials" = 3, "engineering" = 4)
+	build_path = /obj/item/crowbar/small
+	materials = list(MAT_TITANIUM = 250)
+	category = list("Equipment")
+
 /datum/design/alienwrench
 	name = "Alien Wrench"
 	desc = "An advanced wrench obtained through Abductor technology."
