@@ -361,6 +361,10 @@
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
+/obj/structure/chair/stool/bar/dark
+	icon_state = "bar_dark"
+	item_chair = /obj/item/chair/stool/bar/dark
+
 /obj/structure/chair/stool/handle_layer()
 	return
 
@@ -399,6 +403,11 @@
 	icon_state = "bar_toppled"
 	item_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
+
+/obj/item/chair/stool/bar/dark
+	icon_state = "bar_toppled_dark"
+	item_state = "stool_bar_dark"
+	origin_type = /obj/structure/chair/stool/bar/dark
 
 /obj/item/chair/attack_self(mob/user)
 	plant(user)
