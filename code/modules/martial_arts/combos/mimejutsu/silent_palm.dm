@@ -9,5 +9,5 @@
 						"<span class='userdanger'>[user] hovers [user.p_their()] palm over your face!</span>")
 
 		var/atom/throw_target = get_edge_target_turf(target, get_dir(target, get_step_away(target, user)))
-		target.throw_at(throw_target, 200, 4, user)
+		target.throw_at(throw_target, 4, 4, user)
 	return MARTIAL_COMBO_DONE_BASIC_HIT

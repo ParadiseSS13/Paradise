@@ -107,8 +107,8 @@
 	var/armor_block = D.run_armor_check(affecting, "melee")
 
 	playsound(D.loc, attack.attack_sound, 25, 1, -1)
-	D.visible_message("<span class='danger'>[A] has [atk_verb]ed [D]!</span>", \
-								"<span class='userdanger'>[A] has [atk_verb]ed [D]!</span>")
+	D.visible_message("<span class='danger'>[A] has [atk_verb] [D]!</span>", \
+								"<span class='userdanger'>[A] has [atk_verb] [D]!</span>")
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 	objective_damage(A, D, damage, BRUTE)
