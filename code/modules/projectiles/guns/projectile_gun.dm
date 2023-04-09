@@ -49,13 +49,13 @@
 		. += knife_overlay
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
-	var/obj/item/ammo_casing/AC = chambered //Find chambered round
-	if(isnull(AC) || !istype(AC))
+	var/obj/item/ammo_casing/ammo_chambered = chambered //Find chambered round
+	if(!istype(ammo_chambered))
 		chamber_round()
 		return
-	if(eject_casing)
-		AC.loc = get_turf(src) //Eject casing onto ground.
-		AC.SpinAnimation(10, 1) //next gen special effects
+	if(eject_casing && !QDELETED(ammo_chambered))
+		ammo_chambered.forceMove(get_turf(src)) //Eject casing onto ground.
+		ammo_chambered.SpinAnimation(10, 1) //next gen special effects
 		playsound(src, chambered.casing_drop_sound, 100, 1)
 	if(empty_chamber)
 		chambered = null

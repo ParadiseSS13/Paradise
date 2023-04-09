@@ -1098,6 +1098,16 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_bluespace_trash_bag
+	name = "Cyborg Upgrade (Trash bag of holding)"
+	id = "borg_upgrade_bluespace_trash_bag"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/bluespace_trash_bag
+	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
+	materials = list(MAT_GOLD = 1500, MAT_URANIUM = 250, MAT_PLASMA = 1500)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_floorbuffer
 	name = "Cyborg Upgrade (Floor buffer)"
 	id = "borg_upgrade_floorbuffer"
