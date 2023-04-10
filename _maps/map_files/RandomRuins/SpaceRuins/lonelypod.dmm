@@ -1,0 +1,1139 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aO" = (
+/obj/structure/table/wood,
+/obj/item/trash/can{
+	pixel_x = 9
+	},
+/obj/item/trash/can,
+/obj/item/trash/can{
+	pixel_x = -9
+	},
+/obj/item/trash/candle{
+	pixel_y = 11
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"by" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/cigbutt{
+	pixel_x = -10;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"bL" = (
+/obj/item/trash/semki,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"ck" = (
+/obj/item/toy/russian_revolver{
+	pixel_x = -15;
+	pixel_y = 3
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"eL" = (
+/obj/item/clothing/under/pants/blackjeans,
+/obj/item/clothing/shoes/black,
+/obj/item/clothing/accessory/cowboyshirt/short_sleeved,
+/obj/item/clothing/head/cowboyhat/black,
+/obj/structure/closet{
+	anchored = 1
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/effect/landmark/costume/random,
+/obj/item/poster/random_contraband,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"ic" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"jO" = (
+/turf/simulated/wall/shuttle,
+/area/ruin/powered)
+"kt" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 8;
+	height = 20;
+	id = "sos";
+	name = "Emergency Signal";
+	width = 16
+	},
+/turf/template_noop,
+/area/template_noop)
+"lI" = (
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/transparent/glass/reinforced,
+/area/ruin/unpowered)
+"mE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/twohanded/required/kirbyplants/dead,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"pP" = (
+/obj/structure/table/wood,
+/obj/item/paper/crumpled/bloody{
+	desc = "Небольшой кусок бумаги, залитый кровью.";
+	info = "*Здесь было очень много текста... увы, большая часть залита кровью, но кое-что вам удаётся разобрать.* ...застрял тут... топливо... еда на исходе... у меня нет выбора, мне ж...";
+	name = "Окровавленная записка"
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"rf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/freezer,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"sE" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"tq" = (
+/obj/structure/safe,
+/obj/item/stack/spacecash/c1000{
+	amount = 5000
+	},
+/obj/item/gun/projectile/automatic/pistol,
+/obj/item/ammo_box/magazine/pistolm9mm,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"tz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/tomato_smudge,
+/obj/item/twohanded/required/kirbyplants/dead,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"tD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"ua" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1379;
+	layer = 3.3;
+	master_tag = "exit_airlock";
+	name = "interior access button";
+	pixel_x = -22;
+	pixel_y = -20
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"yj" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	amount = 3;
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/item/pen{
+	pixel_x = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"zf" = (
+/obj/item/trash/candy,
+/obj/item/trash/candy{
+	pixel_x = -5;
+	pixel_y = 9
+	},
+/obj/item/trash/candy{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"zs" = (
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Bp" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ruin/unpowered)
+"Cv" = (
+/obj/item/trash/tray,
+/obj/item/trash/plate,
+/obj/item/trash/plate{
+	pixel_y = 2
+	},
+/obj/item/trash/plate{
+	pixel_y = 4
+	},
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"CZ" = (
+/obj/machinery/door/airlock/public/glass{
+	light_power = 0;
+	locked = 1
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"DL" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor,
+/area/ruin/unpowered)
+"Et" = (
+/obj/machinery/door/airlock/public/glass{
+	locked = 1
+	},
+/obj/effect/decal/cleanable/dirt{
+	light_power = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Fu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette/free,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Fy" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 8;
+	tag = "icon-heater (WEST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/unpowered)
+"FI" = (
+/obj/structure/closet/walllocker/emerglocker/south{
+	pixel_y = 2
+	},
+/turf/simulated/wall/shuttle,
+/area/ruin/unpowered)
+"FU" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/figure/clown{
+	pixel_x = 8;
+	pixel_y = 3
+	},
+/obj/item/toy/figure/mime{
+	pixel_x = -8;
+	pixel_y = 3
+	},
+/obj/item/toy/figure/assistant,
+/obj/effect/decal/cleanable/cobweb,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"FV" = (
+/obj/item/trash/chips,
+/obj/effect/decal/cleanable/vomit,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"GX" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Ib" = (
+/obj/structure/table/reinforced,
+/obj/item/instrument/guitar,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Is" = (
+/obj/structure/table/reinforced,
+/obj/item/trash/snack_bowl,
+/obj/item/trash/plate,
+/obj/item/trash/plate{
+	pixel_y = 2
+	},
+/obj/item/trash/plate{
+	pixel_y = 4
+	},
+/obj/item/trash/plate{
+	pixel_y = 6
+	},
+/obj/item/trash/plate{
+	pixel_y = 8
+	},
+/obj/item/trash/plate{
+	pixel_y = 10
+	},
+/obj/machinery/light_construct,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Jg" = (
+/obj/item/flashlight{
+	pixel_x = -15;
+	pixel_y = 9
+	},
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"Js" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	id_tag = "exit_outer";
+	locked = 1;
+	name = "Arrivals External Access"
+	},
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1379;
+	layer = 3.3;
+	master_tag = "exit_airlock";
+	name = "exterior access button";
+	pixel_x = -12;
+	pixel_y = -20
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"LN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"MU" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/obj/effect/decal/ants,
+/obj/effect/decal/cleanable/blood/old{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/effect/decal/remains/human{
+	pixel_y = 9
+	},
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"Nk" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Pc" = (
+/obj/structure/bed,
+/obj/item/bedsheet/red,
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"PI" = (
+/obj/machinery/computer,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"PK" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"PO" = (
+/turf/simulated/wall/shuttle,
+/area/ruin/unpowered)
+"Qi" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"QF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	layer = 2
+	},
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"QG" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/ruin/unpowered)
+"QK" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor,
+/area/ruin/powered)
+"Ry" = (
+/obj/structure/sign/vacuum/external,
+/turf/simulated/wall/shuttle,
+/area/ruin/powered)
+"Rz" = (
+/mob/living/simple_animal/hostile/carp{
+	health = 50
+	},
+/turf/template_noop,
+/area/template_noop)
+"Sd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"SX" = (
+/turf/simulated/floor/carpet/black,
+/area/ruin/unpowered)
+"Te" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	frequency = 1379;
+	id_tag = "exit_inner";
+	locked = 1;
+	name = "Arrivals External Access"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"TU" = (
+/obj/machinery/vending/snack/free{
+	icon_state = "snack-broken";
+	obj_integrity = 95;
+	products = list()
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"TW" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct,
+/obj/effect/spawner/lootdrop/maintenance/double,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Ue" = (
+/obj/structure/table/reinforced,
+/obj/item/toy/carpplushie,
+/obj/item/trash/candle{
+	pixel_y = 13
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Vh" = (
+/obj/structure/sign/poster/contraband/random,
+/turf/simulated/wall/shuttle,
+/area/ruin/unpowered)
+"Wl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"XI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1379;
+	id_tag = "exit_pump"
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	id_tag = "exit_airlock";
+	pixel_x = -23;
+	pixel_y = -31;
+	tag_airpump = "exit_pump";
+	tag_chamber_sensor = "exit_sensor";
+	tag_exterior_door = "exit_outer";
+	tag_interior_door = "exit_inner"
+	},
+/obj/machinery/airlock_sensor{
+	id_tag = "exit_sensor";
+	pixel_x = -22;
+	pixel_y = -20
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"Yf" = (
+/obj/effect/decal/cleanable/dust,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor,
+/area/ruin/unpowered)
+"YP" = (
+/obj/structure/reagent_dispensers/watertank,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light_construct,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Zf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Zm" = (
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(2,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(3,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(4,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(5,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Rz
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(6,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Rz
+Zm
+Zm
+Zm
+Zm
+Zm
+kt
+Zm
+Zm
+Zm
+Zm
+Zm
+Rz
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(7,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+QG
+QG
+Bp
+Ry
+Js
+jO
+Bp
+QG
+QG
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(8,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Bp
+Fy
+Fy
+PO
+PK
+XI
+ic
+PO
+Fy
+Fy
+Bp
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(9,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+PO
+PO
+PO
+PO
+QK
+Te
+QK
+PO
+PO
+PO
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(10,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+PO
+yj
+aO
+PO
+QF
+ua
+Sd
+FI
+GX
+TW
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(11,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+PO
+pP
+MU
+Yf
+tz
+lI
+LN
+Yf
+TU
+Zf
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(12,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Vh
+Jg
+ck
+CZ
+by
+lI
+Wl
+Et
+Zf
+Zf
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(13,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Rz
+Zm
+PO
+sE
+SX
+Yf
+mE
+lI
+Zf
+Yf
+Fu
+Zf
+PO
+Zm
+Rz
+Zm
+Zm
+Zm
+Zm
+"}
+(14,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+PO
+tq
+SX
+PO
+Qi
+Zf
+YP
+PO
+rf
+Zf
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(15,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+PO
+eL
+Pc
+PO
+Yf
+Nk
+Yf
+PO
+tD
+Sd
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(16,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+PO
+PO
+PO
+Bp
+Cv
+zs
+zf
+Bp
+PO
+PO
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(17,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+PO
+PO
+FU
+FV
+Zf
+bL
+Is
+PO
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(18,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+PO
+Bp
+Ue
+PI
+Ib
+Bp
+PO
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(19,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Rz
+Zm
+Zm
+PO
+PO
+DL
+DL
+DL
+PO
+PO
+Zm
+Zm
+Rz
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(20,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Rz
+Rz
+Rz
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(21,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(22,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(23,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(24,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
+(25,1,1) = {"
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+Zm
+"}
