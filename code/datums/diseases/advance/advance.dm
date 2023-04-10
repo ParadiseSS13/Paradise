@@ -6,6 +6,15 @@
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
 */
+
+// The order goes from easy to cure to hard to cure.
+GLOBAL_LIST_INIT(advance_cures, list(
+									"sodiumchloride", "sugar", "orangejuice",
+									"spaceacillin", "salglu_solution", "ethanol",
+									"teporone", "diphenhydramine", "lipolicide",
+									"silver", "gold"
+))
+
 GLOBAL_LIST_INIT(archive_diseases, list(
 	"sneeze" = new /datum/disease/advance/preset/cold(),
 	"cough" = new /datum/disease/advance/preset/flu(),
@@ -17,14 +26,6 @@ GLOBAL_LIST_INIT(archive_diseases, list(
 	"damage_converter:heal:viralevolution" = new /datum/disease/advance/preset/advanced_regeneration(),
 	"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/advance/preset/stealth_necrosis(),
 	"beard:itching:voice_change" = new /datum/disease/advance/preset/pre_kingstons()
-))
-
-// The order goes from easy to cure to hard to cure.
-GLOBAL_LIST_INIT(advance_cures, list(
-									"sodiumchloride", "sugar", "orangejuice",
-									"spaceacillin", "salglu_solution", "ethanol",
-									"teporone", "diphenhydramine", "lipolicide",
-									"silver", "gold"
 ))
 
 /*
@@ -49,7 +50,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/id = ""
 	var/processing = 0
 
-/datum/disease/advance/proc/Initialize()
+/datum/disease/advance/New()
 	if(!symptoms || !symptoms.len)
 		symptoms = GenerateSymptoms(0, 2)
 
@@ -258,6 +259,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	if(properties && properties.len)
 		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
 		cures = list(GLOB.advance_cures[res])
+		cure_text = GLOB.advance_cures[res]
 
 		// Get the cure name from the cure_id
 		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]

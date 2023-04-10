@@ -317,11 +317,29 @@
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/preset/cold
 
+/obj/item/reagent_containers/glass/bottle/mind_restoration
+	name = "Reality Purifier culture bottle"
+	desc = "A small bottle. Contains Reality Purifier culture in synthblood medium."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/mind_restoration
+
+/obj/item/reagent_containers/glass/bottle/advanced_regeneration
+	name = "Advanced Neogenesis culture bottle"
+	desc = "A small bottle. Contains Advanced Neogenesis culture in synthblood medium."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/advanced_regeneration
+
 /obj/item/reagent_containers/glass/bottle/stealth_necrosis
-	name = "stealth_necrosis"
-	desc = "stealth_necrosis"
+	name = "Necroeyrosis culture bottle"
+	desc = "A small bottle. Contains Necroeyrosis culture in synthblood medium."
 	icon_state = "round_bottle"
 	spawned_disease = /datum/disease/advance/preset/stealth_necrosis
+
+/obj/item/reagent_containers/glass/bottle/pre_kingstons
+	name = "Neverlasting Stranger culture bottle"
+	desc = "A small bottle. Contains Neverlasting Stranger culture in synthblood medium."
+	icon_state = "round_bottle"
+	spawned_disease = /datum/disease/advance/preset/pre_kingstons
 
 /obj/item/reagent_containers/glass/bottle/retrovirus
 	name = "Retrovirus culture bottle"
