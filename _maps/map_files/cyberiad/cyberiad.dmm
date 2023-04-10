@@ -23520,9 +23520,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -25175,9 +25172,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -26418,15 +26412,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
+/obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -27225,8 +27211,11 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "boq" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -35633,6 +35622,15 @@
 /area/crew_quarters/toilet)
 "bJV" = (
 /obj/structure/foodcart,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -36578,7 +36576,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -70640,8 +70638,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "doq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -74602,11 +74602,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -78759,12 +78756,16 @@
 	},
 /area/hydroponics)
 "jgB" = (
-/obj/item/radio/intercom{
-	name = "north station intercom (General)";
-	pixel_y = 28
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/starboard/west)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/crew_quarters/kitchen)
 "jib" = (
 /obj/effect/turf_decal/stripes{
 	dir = 5
@@ -80264,8 +80265,9 @@
 	},
 /area/maintenance/cafeteria)
 "ktd" = (
-/obj/machinery/camera{
-	c_tag = "East Primary Hallway 2"
+/obj/item/radio/intercom{
+	name = "north station intercom (General)";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
@@ -84436,6 +84438,12 @@
 	icon_state = "cmo"
 	},
 /area/maintenance/medroom)
+"nHF" = (
+/obj/machinery/camera{
+	c_tag = "East Primary Hallway 2"
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/primary/starboard/west)
 "nJp" = (
 /obj/effect/decal/warning_stripes/green,
 /obj/machinery/vending/hydroseeds,
@@ -87554,9 +87562,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -90164,9 +90169,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -96367,6 +96369,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"xgD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/crew_quarters/kitchen)
 "xgQ" = (
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/wood,
@@ -97305,6 +97313,14 @@
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"xVC" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/crew_quarters/kitchen)
 "xVT" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plating,
@@ -135748,10 +135764,10 @@ bjd
 boV
 bdT
 esq
-brY
-bof
-bof
-bof
+boq
+xgD
+xgD
+xVC
 bof
 bof
 bof
@@ -136005,7 +136021,7 @@ bdT
 bdT
 bdT
 bqH
-brY
+jgB
 bof
 bof
 bof
@@ -136013,7 +136029,7 @@ bof
 lGW
 bxJ
 bdT
-bAk
+nHF
 bHy
 buW
 bEu
@@ -136262,7 +136278,7 @@ bLU
 bjv
 bdT
 bmy
-brY
+jgB
 btM
 brm
 bsU
@@ -136776,7 +136792,7 @@ bjx
 bjx
 smS
 fIA
-boq
+bof
 bpS
 uVb
 dOP
@@ -137041,7 +137057,7 @@ buK
 bwr
 rUR
 beb
-jgB
+bAk
 bHy
 bAk
 bEu
