@@ -704,7 +704,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	if(href_list["track"])
-		var/mob/living/target = locate(href_list["track"]) in GLOB.mob_living_list
+		var/mob/living/target = locate(href_list["track"]) in GLOB.mob_list
 		if(target && target.can_track())
 			ai_actual_track(target)
 		else

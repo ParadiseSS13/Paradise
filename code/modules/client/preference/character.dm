@@ -458,14 +458,14 @@
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
 	if(!SP)
-		CRASH("Couldn't find a species matching [species], character name is [real_name].")
+		stack_trace("Couldn't find a species matching [species], character name is [real_name].")
 
 	metadata = sanitize_text(metadata, initial(metadata))
 	real_name = reject_bad_name(real_name, TRUE)
 
 	if(isnull(species))
 		species = "Human"
-		CRASH("Character doesn't have a species, character name is [real_name]. Defaulting to human.")
+		stack_trace("Character doesn't have a species, character name is [real_name]. Defaulting to human.")
 
 	if(isnull(language))
 		language = "None"
