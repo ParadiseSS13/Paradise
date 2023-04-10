@@ -370,7 +370,7 @@
 				to_chat(usr, "Cancelled")
 				return
 		if("makepublic")
-			if(alert("Make this ban public", "Warning", "Yes", "No") == "Yes")
+			if(alert("Make this ban public? You cannot undo this action.", "Warning", "Yes", "No") == "Yes")
 				var/datum/db_query/make_public_query = SSdbcore.NewQuery("UPDATE ban SET exportable=1 WHERE id=:banid", list(
 					"banid" = banid
 				))
