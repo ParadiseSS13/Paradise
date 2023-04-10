@@ -115,7 +115,9 @@
 /proc/offer_control(mob/M)
 	to_chat(M, "Control of your mob has been offered to dead players.")
 	log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-	var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
+	var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as null|num
+	if(isnull(minhours))
+		return
 	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
 	var/question = "Do you want to play as [M.real_name ? M.real_name : M.name][M.job ? " ([M.job])" : ""]"
 	if(alert("Do you want to show the antag status?","Show antag status","Yes","No") == "Yes")
