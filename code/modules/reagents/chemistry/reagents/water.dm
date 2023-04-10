@@ -359,17 +359,18 @@
 	description = "Something that shouldn't exist on this plane of existence."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
+	overdose_threshold = 20
 	taste_description = "sulfur"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(iscultist(M))
-		M.AdjustDrowsy(-10 SECONDS)
+		M.AdjustDrowsy(-2 SECONDS)
 		M.AdjustParalysis(-2 SECONDS)
-		M.AdjustStunned(-4 SECONDS)
-		M.AdjustWeakened(-4 SECONDS)
-		M.AdjustKnockDown(-4 SECONDS)
-		update_flags |= M.adjustStaminaLoss(-25, FALSE)
+		M.AdjustStunned(-2 SECONDS)
+		M.AdjustWeakened(-2 SECONDS)
+		M.AdjustKnockDown(-2 SECONDS)
+		update_flags |= M.adjustStaminaLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 		update_flags |= M.adjustOxyLoss(-1, FALSE)
@@ -382,6 +383,49 @@
 		update_flags |= M.adjustBruteLoss(2, FALSE)
 		M.AdjustCultSlur(20 SECONDS) //CUASE WHY THE HELL NOT
 	return ..() | update_flags
+
+/datum/reagent/fuel/unholywater/overdose_process(mob/living/M, severity)
+	var/multiplier = 1
+	if(!iscultist(M))
+		multiplier = 2
+
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] starts to grab [M.p_their()] head in pain!</span>")
+			update_flags |= M.adjustCloneLoss(5 * multiplier, FALSE)
+			M.EyeBlurry(7 SECONDS * multiplier)
+
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] freezes up!</span>")
+			update_flags |= M.adjustCloneLoss(5 * multiplier, FALSE)
+			M.Jitter(30 SECONDS * multiplier)
+			M.Stun(8 SECONDS * multiplier)
+			M.emote("gasp")
+
+		else if(effect <= 7)
+			M.AdjustCultSlur(10 SECONDS * multiplier)
+
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M]'s is bleeding from [M.p_their()] eyes!</span>")
+			update_flags |= M.adjustCloneLoss(10 * multiplier, FALSE)
+			M.EyeBlind(10 SECONDS * multiplier)
+
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
+			update_flags |= M.adjustCloneLoss(10 * multiplier, FALSE)
+			M.Jitter(30 SECONDS * multiplier)
+			M.Weaken(10 SECONDS * multiplier)
+
+		else if(effect <= 7)
+			M.emote("scream")
+			M.AdjustCultSlur(20 SECONDS * multiplier)
+
+	return list(effect, update_flags)
 
 /datum/reagent/hellwater
 	name = "Hell Water"
