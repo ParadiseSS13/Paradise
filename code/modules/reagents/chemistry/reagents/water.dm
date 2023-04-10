@@ -365,7 +365,7 @@
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(iscultist(M))
-		M.AdjustDrowsy(-2 SECONDS)
+		M.AdjustDrowsy(-10 SECONDS)
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
