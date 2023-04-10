@@ -396,13 +396,12 @@
 	if(severity == 1)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] starts to grab [M.p_their()] head in pain!</span>")
-			update_flags |= M.adjustCloneLoss(5 * multiplier, FALSE)
 			M.EyeBlurry(7 SECONDS * multiplier)
+			M.Confused ( 7 seconds * multiplier)
 
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] freezes up!</span>")
-			update_flags |= M.adjustCloneLoss(5 * multiplier, FALSE)
-			M.Jitter(30 SECONDS * multiplier)
+			M.Jitter(15 SECONDS * multiplier)
 			M.Stun(8 SECONDS * multiplier)
 			M.emote("gasp")
 
@@ -412,12 +411,11 @@
 	else if(severity == 2)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M]'s is bleeding from [M.p_their()] eyes!</span>")
-			update_flags |= M.adjustCloneLoss(10 * multiplier, FALSE)
 			M.EyeBlind(10 SECONDS * multiplier)
+			M.Weaken (15 seconds * multiplier)
 
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
-			update_flags |= M.adjustCloneLoss(10 * multiplier, FALSE)
 			M.Jitter(30 SECONDS * multiplier)
 			M.Weaken(10 SECONDS * multiplier)
 
