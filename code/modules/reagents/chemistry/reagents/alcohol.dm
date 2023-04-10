@@ -136,10 +136,11 @@
 	taste_description = "pure resignation"
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind && M.mind.assigned_role == "Assistant")
-		M.heal_organ_damage(1, 1)
-		. = 1
-	return ..() || .
+	if(M.mind && M.mind.assigned_role == "Civilian")
+		var/update_flags = STATUS_UPDATE_NONE
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+		return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/rum
 	name = "Rum"
@@ -157,7 +158,7 @@
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
-	return list(0, update_flags)
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/mojito
 	name = "Mojito"
