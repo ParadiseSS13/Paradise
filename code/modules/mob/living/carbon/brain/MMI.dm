@@ -56,6 +56,7 @@
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
 			GLOB.alive_mob_list += brainmob
+			brainmob.update_sight()
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
@@ -149,6 +150,7 @@
 
 	name = "Man-Machine Interface: [brainmob.real_name]"
 	become_occupied("mmi_full")
+	brainmob.update_sight()
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
