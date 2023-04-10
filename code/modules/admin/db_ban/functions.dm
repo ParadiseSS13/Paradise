@@ -380,6 +380,7 @@
 
 				qdel(make_public_query)
 				to_chat(usr, "Ban publicised")
+				log_admin("[usr.ckey] made ban #[banid] on [pckey] public.")
 			else
 				to_chat(usr, "Cancelled")
 				return
