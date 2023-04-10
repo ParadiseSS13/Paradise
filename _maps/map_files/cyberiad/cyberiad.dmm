@@ -2954,7 +2954,7 @@
 	name = "west light switch";
 	pixel_x = -24
 	},
-/obj/item/spacepod_key{
+/obj/item/spacepod_equipment/key{
 	id = 100000
 	},
 /obj/item/gps,
@@ -95079,7 +95079,7 @@
 	pixel_y = 8
 	},
 /obj/item/stamp/hos,
-/obj/item/spacepod_key{
+/obj/item/spacepod_equipment/key{
 	id = 100000
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{

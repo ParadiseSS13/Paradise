@@ -51536,7 +51536,7 @@
 /obj/structure/closet/secure_closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/light,
-/obj/item/spacepod_key{
+/obj/item/spacepod_equipment/key{
 	id = 100000
 	},
 /obj/item/spacepod_equipment/weaponry/laser,
@@ -82567,7 +82567,7 @@
 "njj" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mug/hos,
-/obj/item/spacepod_key{
+/obj/item/spacepod_equipment/key{
 	id = 100000
 	},
 /obj/machinery/firealarm{

@@ -371,8 +371,8 @@
 			add_equipment(user, W, "lock_system")
 			return
 
-	else if(istype(W, /obj/item/spacepod_key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
-		var/obj/item/spacepod_key/key = W
+	else if(istype(W, /obj/item/spacepod_equipment/key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
+		var/obj/item/spacepod_equipment/key/key = W
 		if(key.id == equipment_system.lock_system.id)
 			lock_pod()
 			return

@@ -250,5 +250,5 @@
 	req_tech = list("materials" = 1) //The most basic kind of locking system
 	build_type = PODFAB
 	materials = list(MAT_METAL=500)
-	build_path = /obj/item/spacepod_key
+	build_path = /obj/item/spacepod_equipment/key
 	category = list("Pod_Parts")

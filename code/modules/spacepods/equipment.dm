@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	id = ++id_source
 
 // The key
-/obj/item/spacepod_key
+/obj/item/spacepod_equipment/key
 	name = "spacepod key"
 	desc = "A key for a spacepod lock."
 	icon_state = "podkey"
@@ -274,8 +274,8 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 
 // Key - Lock Interactions
 /obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/spacepod_key))
-		var/obj/item/spacepod_key/key = I
+	if(istype(I, /obj/item/spacepod_equipment/key))
+		var/obj/item/spacepod_equipment/key/key = I
 		if(!key.id)
 			key.id = id
 			to_chat(user, "<span class='notice'>You grind the blank key to fit the lock.</span>")
