@@ -18,6 +18,7 @@ GLOBAL_LIST_INIT(create_object_forms, list(/obj, /obj/structure, /obj/machinery,
 		var/objectjs = jointext(typesof(path), ";")
 		html_form = file2text('html/create_object.html')
 		html_form = replacetext(html_form, "null /* object types */", "\"[objectjs]\"")
+		html_form = replacetext(html_form, "Create Object", "Create Object [path]")
 		GLOB.create_object_forms[path] = html_form
 
 	user << browse(replacetext(html_form, "/* ref src */", UID()), "window=qco[path];size=425x475")

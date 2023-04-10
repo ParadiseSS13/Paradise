@@ -5,5 +5,6 @@ GLOBAL_VAR(create_mob_html)
 		mobjs = jointext(typesof(/mob), ";")
 		GLOB.create_mob_html = file2text('html/create_object.html')
 		GLOB.create_mob_html = replacetext(GLOB.create_mob_html, "null /* object types */", "\"[mobjs]\"")
+		GLOB.create_mob_html = replacetext(GLOB.create_mob_html, "Create Object", "Create Mob")
 
 	user << browse(replacetext(GLOB.create_mob_html, "/* ref src */", UID()), "window=create_mob;size=425x475")
