@@ -63,7 +63,7 @@
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
 	desc = "For the love of god, make sure you're aiming this the right way!"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "c20r"
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
@@ -245,7 +245,7 @@
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
 	icon_state = "l6closed0"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = 0
@@ -320,7 +320,7 @@
 // Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
-	icon = 'icons/obj/guns/gun_temperature.dmi'
+	icon = 'icons/obj/weapons/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
 	slot_flags = SLOT_BACK
@@ -521,7 +521,7 @@
 /obj/item/gun/energy/dominator
 	name = "Доминатор"
 	desc = "Проприетарное высокотехнологичное оружие правоохранительной организации Sibyl System, произведённое специально для борьбы с преступностью."
-	icon = 'icons/obj/guns/sibyl.dmi'
+	icon = 'icons/obj/weapons/sibyl.dmi'
 	icon_state = "dominator"
 	item_state = null
 

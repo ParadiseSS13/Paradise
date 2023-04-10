@@ -180,7 +180,7 @@
 
 /obj/effect/anomaly/bluespace
 	name = "bluespace anomaly"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "bluespace"
 	density = TRUE
 	aSignal = /obj/item/assembly/signaler/anomaly/bluespace

@@ -4,7 +4,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/sibyl_system_mod
 	name = "модуль Sibyl System"
 	desc = "Проприетарный модуль от правоохранительной организации на энергетические оружия для подключения к системе Sibyl System"
-	icon = 'icons/obj/guns/sibyl.dmi'
+	icon = 'icons/obj/weapons/sibyl.dmi'
 	icon_state = "sibyl_chip"
 	item_state = "sibyl_chip"
 	w_class = WEIGHT_CLASS_TINY

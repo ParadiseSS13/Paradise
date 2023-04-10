@@ -1,7 +1,7 @@
 /obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
 	name = "\improper Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "spikethrower"
 	item_state = "spikethrower"
 	w_class = WEIGHT_CLASS_SMALL

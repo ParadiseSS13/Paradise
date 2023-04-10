@@ -4,7 +4,7 @@
 /obj/item/grenade/clusterbuster
 	desc = "Use of this weapon may constiute a war crime in your area, consult your local captain."
 	name = "clusterbang"
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "clusterbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
 
@@ -34,7 +34,7 @@
 /obj/item/grenade/clusterbuster/segment
 	desc = "A smaller segment of a clusterbang. Better run."
 	name = "clusterbang segment"
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
 /obj/item/grenade/clusterbuster/segment/New(var/loc, var/payload_type = /obj/item/grenade/flashbang/cluster)

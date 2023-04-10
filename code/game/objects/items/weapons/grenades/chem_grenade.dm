@@ -73,7 +73,7 @@
 			else
 				name = payload_name + A.bomb_name + label // time bombs, remote mines, etc
 	else
-		icon = 'icons/obj/grenade.dmi'
+		icon = 'icons/obj/weapons/grenade.dmi'
 		icon_state = initial(icon_state)
 		overlays = list()
 		switch(stage)

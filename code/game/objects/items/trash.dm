@@ -116,7 +116,7 @@
 	icon_state = "tastybread"
 
 /obj/item/trash/spentcasing
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	name = "bullet casing"
 	desc = "A spent bullet casing. Smells like cordite."
 	icon_state = "gshell"

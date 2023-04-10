@@ -209,7 +209,7 @@
 
 /obj/effect/beam/i_beam
 	name = "i beam"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "ibeam"
 	var/obj/effect/beam/i_beam/next = null
 	var/obj/effect/beam/i_beam/previous = null

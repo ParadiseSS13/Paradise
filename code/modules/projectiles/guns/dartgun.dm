@@ -1,7 +1,7 @@
 /obj/item/dart_cartridge
 	name = "dart cartridge"
 	desc = "A rack of hollow darts."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "darts-5"
 	item_state = "rcdammo"
 	opacity = 0
@@ -278,7 +278,7 @@
 /obj/item/gun/dartgun/vox
 	name = "alien dart gun"
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "dartgun-e"
 
 /obj/item/gun/dartgun/vox/medical

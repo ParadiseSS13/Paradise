@@ -141,7 +141,7 @@
 	for(var/mob/M in viewers(7,targloc))
 		if(M.client)
 			showto.Add(M.client)
-	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)
+	var/image/I = image('icons/obj/weapons/projectiles.dmi',targloc,pointer_icon_state,10)
 	var/list/click_params = params2list(params)
 	if(click_params)
 		if(click_params["icon-x"])

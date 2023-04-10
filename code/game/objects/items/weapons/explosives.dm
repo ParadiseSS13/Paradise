@@ -14,7 +14,7 @@
 	var/assemblyattacher
 
 /obj/item/grenade/plastic/New()
-	image_overlay = image('icons/obj/grenade.dmi', "[item_state]2")
+	image_overlay = image('icons/obj/weapons/grenade.dmi', "[item_state]2")
 	..()
 
 /obj/item/grenade/plastic/Destroy()

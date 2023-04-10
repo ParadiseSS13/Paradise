@@ -5,7 +5,7 @@
 	name = "bananade"
 	desc = "A yellow grenade."
 	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "banana"
 	item_state = "flashbang"
 	var/deliveryamt = 8

@@ -153,7 +153,7 @@
 //FOAM DARTS
 /obj/item/ammo_box/foambox
 	name = "ammo box (Foam Darts)"
-	icon = 'icons/obj/guns/toy.dmi'
+	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foambox"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 40
@@ -164,7 +164,7 @@
 
 /obj/item/ammo_box/foambox/sniper
 	name = "ammo box (Foam Sniper Darts)"
-	icon = 'icons/obj/guns/toy.dmi'
+	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foambox_sniper"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
 	max_ammo = 40

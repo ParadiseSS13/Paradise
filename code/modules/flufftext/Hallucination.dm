@@ -978,7 +978,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					halitem.plane = HUD_PLANE
 					switch(rand(1,6))
 						if(1) //revolver
-							halitem.icon = 'icons/obj/guns/projectile.dmi'
+							halitem.icon = 'icons/obj/weapons/projectile.dmi'
 							halitem.icon_state = "revolver"
 							halitem.name = "Revolver"
 						if(2) //c4
@@ -1000,7 +1000,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 							halitem.icon_state = "emag"
 							halitem.name = "Cryptographic Sequencer"
 						if(6) //flashbang
-							halitem.icon = 'icons/obj/grenade.dmi'
+							halitem.icon = 'icons/obj/weapons/grenade.dmi'
 							halitem.icon_state = "flashbang1"
 							halitem.name = "Flashbang"
 					if(client) client.screen += halitem

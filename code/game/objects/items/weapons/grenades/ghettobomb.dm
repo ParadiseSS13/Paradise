@@ -4,7 +4,7 @@
 	name = "improvised firebomb"
 	desc = "A weak, improvised incendiary device."
 	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/grenade.dmi'
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "improvised_grenade"
 	item_state = "flashbang"
 	throw_speed = 3

@@ -3,7 +3,7 @@
 	var/projectile_type = ""
 	var/activate_on_collision = 1
 
-	var/proj_icon = 'icons/obj/projectiles.dmi'
+	var/proj_icon = 'icons/obj/weapons/projectiles.dmi'
 	var/proj_icon_state = "spell"
 	var/proj_name = "a spell projectile"
 

@@ -135,7 +135,7 @@
 /obj/item/rcd_ammo/syndicate
 	name = "suspicious matter cartridge"
 	desc = "Highly compressed matter for the RCD."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "syndie_rcd"
 	item_state = "syndie_rcdammo"
 	origin_tech = "materials=3,syndicate=2"

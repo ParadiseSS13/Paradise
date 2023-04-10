@@ -278,8 +278,8 @@
 
 	var/ammo = ammo_count()
 	if(ammo && istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/sniper/riot))
-		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-r")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = ".50mag-r")
 	else if(ammo)
-		overlays += image('icons/obj/ammo.dmi', icon_state = ".50mag-f")
+		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = ".50mag-f")
 	else
 		icon_state = "[initial(icon_state)]"

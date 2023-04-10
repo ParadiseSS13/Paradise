@@ -405,7 +405,7 @@
 /obj/item/ammo_casing/caseless/foam_dart
 	name = "foam dart"
 	desc = "It's nerf or nothing! Ages 8 and up."
-	icon = 'icons/obj/guns/toy.dmi'
+	icon = 'icons/obj/weapons/toy.dmi'
 	icon_state = "foamdart"
 	materials = list(MAT_METAL = 10)
 	caliber = "foam_force"

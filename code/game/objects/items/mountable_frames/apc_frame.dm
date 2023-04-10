@@ -1,7 +1,7 @@
 /obj/item/mounted/frame/apc_frame
 	name = "APC frame"
 	desc = "Used for repairing or building APCs"
-	icon = 'icons/obj/apc_repair.dmi'
+	icon = 'icons/obj/engines_and_power/apc_repair.dmi'
 	icon_state = "apc_frame"
 	mount_reqs = list("simfloor", "nospace")
 
