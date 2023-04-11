@@ -211,6 +211,8 @@
 	SSair.atmos_machinery -= src
 	QDEL_NULL(radio)
 	GLOB.poi_list -= src
+	if(!processes)
+		GLOB.frozen_atom_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(soundloop)
 	return ..()
