@@ -412,7 +412,7 @@
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M]'s is bleeding from [M.p_their()] eyes!</span>")
 			M.EyeBlind(10 SECONDS * multiplier)
-			M.Weaken (15 seconds * multiplier)
+			M.Weaken(15 SECONDS * multiplier)
 
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] falls to the floor and flails uncontrollably!</span>")
