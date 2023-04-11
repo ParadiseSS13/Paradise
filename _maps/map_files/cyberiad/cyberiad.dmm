@@ -16709,12 +16709,15 @@
 /turf/simulated/wall,
 /area/hallway/secondary/garden)
 "aTv" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/shovel,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+	icon_state = "darkbluefull"
 	},
 /area/gateway)
 "aTw" = (
@@ -16726,21 +16729,22 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aTx" = (
-/obj/machinery/gateway{
-	dir = 5
-	},
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/item/flashlight,
+/obj/item/flashlight,
+/obj/item/flashlight,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "darkbluefull"
 	},
 /area/gateway)
 "aTy" = (
-/obj/machinery/gateway{
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "darkbluefull"
 	},
 /area/gateway)
 "aTz" = (
@@ -17212,21 +17216,27 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aUC" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "darkbluefull"
 	},
 /area/gateway)
 "aUD" = (
-/obj/machinery/gateway{
-	dir = 4
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "darkbluefull"
 	},
 /area/gateway)
 "aUE" = (
@@ -17252,9 +17262,8 @@
 	},
 /area/crew_quarters/dorms)
 "aUH" = (
-/obj/machinery/gateway/centerstation,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkbluefull"
 	},
 /area/gateway)
 "aUI" = (
@@ -17535,16 +17544,13 @@
 	},
 /area/crew_quarters/dorms)
 "aVr" = (
-/obj/machinery/gateway{
-	density = 0
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	dir = 5;
+	icon_state = "dark"
 	},
 /area/gateway)
 "aVs" = (
@@ -19586,16 +19592,18 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	dir = 5;
+	icon_state = "dark"
 	},
 /area/gateway)
 "ban" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	dir = 5;
+	icon_state = "dark"
 	},
 /area/gateway)
 "bao" = (
@@ -21737,8 +21745,18 @@
 	},
 /area/crew_quarters/dorms)
 "bfe" = (
-/obj/structure/sign/securearea,
-/turf/simulated/wall/r_wall,
+/obj/machinery/camera{
+	c_tag = "Gateway";
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/gps,
+/obj/item/gps,
+/obj/item/gps,
+/obj/item/gps,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
 /area/gateway)
 "bff" = (
 /obj/machinery/door/airlock/maintenance{
@@ -22461,31 +22479,18 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "bgK" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
-/obj/machinery/camera{
-	c_tag = "Gateway";
-	dir = 4
-	},
-/obj/machinery/light{
+/obj/structure/chair/stool{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	dir = 1;
+	icon_state = "darkbluecorners"
 	},
 /area/gateway)
 "bgL" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+	dir = 4;
+	icon_state = "darkbluecorners"
 	},
 /area/gateway)
 "bgM" = (
@@ -22867,35 +22872,30 @@
 /turf/simulated/floor/plasteel,
 /area/storage/office)
 "bhG" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
-/area/gateway)
-"bhH" = (
 /obj/structure/table,
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
+/area/gateway)
+"bhH" = (
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = -32
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 4;
+	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/gateway)
 "bhI" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/north,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/gateway)
 "bhJ" = (
@@ -22904,9 +22904,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/machinery/door/window/southright{
+	name = "EVA Equipment"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
+	dir = 5;
+	icon_state = "dark"
 	},
 /area/gateway)
 "bhK" = (
@@ -22961,24 +22964,12 @@
 	},
 /area/hallway/secondary/entry)
 "bhP" = (
-/obj/structure/table,
-/obj/item/radio{
-	pixel_y = 6
-	},
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/radio{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/radio,
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/gateway)
@@ -23440,10 +23431,6 @@
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
 /turf/simulated/floor/plasteel{
@@ -24482,6 +24469,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -24757,8 +24745,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	icon_state = "dark"
 	},
 /area/gateway)
 "blT" = (
@@ -24941,6 +24928,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -34259,6 +34247,24 @@
 	icon_state = "whitehall"
 	},
 /area/medical/reception)
+"bJC" = (
+/obj/structure/table,
+/obj/item/radio{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_y = 6
+	},
+/obj/item/radio,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
+/area/gateway)
 "bJE" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -52489,6 +52495,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52504,15 +52511,14 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/assembly_line)
 "cGV" = (
-/obj/structure/closet/secure_closet/exile,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkbluecorners"
 	},
 /area/gateway)
 "cGW" = (
@@ -52546,6 +52552,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -56362,6 +56369,8 @@
 	pixel_x = 28
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
+/obj/item/storage/belt/utility,
+/obj/item/multitool,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58629,7 +58638,6 @@
 /turf/simulated/wall,
 /area/engine/engine_smes)
 "cYN" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/machinery/alarm{
 	dir = 4;
 	name = "west bump";
@@ -58638,10 +58646,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkbluecorners"
 	},
 /area/gateway)
 "cYO" = (
@@ -58702,9 +58709,6 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cZa" = (
-/obj/structure/table,
-/obj/item/paper/pamphlet,
-/obj/item/storage/firstaid/regular,
 /obj/machinery/door_control{
 	id = "stationawaygate";
 	name = "Gateway Shutters Access Control";
@@ -58712,7 +58716,8 @@
 	req_access_txt = "62"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkbluecorners"
 	},
 /area/gateway)
 "cZb" = (
@@ -81702,6 +81707,13 @@
 	icon_state = "dark"
 	},
 /area/maintenance/asmaint)
+"qvo" = (
+/obj/structure/closet/secure_closet/personal,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbluecorners"
+	},
+/area/gateway)
 "qvO" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -90111,6 +90123,14 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/toxins/hallway)
+"xaf" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
+/area/gateway)
 "xag" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -115741,7 +115761,7 @@ aRr
 aMA
 aSA
 aSA
-aUF
+bhG
 bfe
 bhH
 blf
@@ -116000,7 +116020,7 @@ aSA
 aTv
 aUC
 bgK
-bhG
+bhI
 bam
 cGT
 aUF
@@ -116769,11 +116789,11 @@ aRr
 aPi
 aSA
 aSA
-aUF
-bfe
+bJC
+xaf
 bhP
 bmk
-aUF
+qvo
 cZa
 aSA
 djW
