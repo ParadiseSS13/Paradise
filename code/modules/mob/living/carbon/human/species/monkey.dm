@@ -43,7 +43,6 @@
 	. = ..()
 	if(H.radiation > RAD_MOB_GORILLIZE && prob(RAD_MOB_GORILLIZE_PROB))
 		H.gorillize()
-		return
 
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)

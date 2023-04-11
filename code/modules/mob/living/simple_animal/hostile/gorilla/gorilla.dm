@@ -64,8 +64,11 @@
 		to_chat(domesticated, "<span class='warning'>You can't get on all fours while carrying something!</span>")
 		return
 
-	gorilla.is_bipedal =! gorilla.is_bipedal // Toggle
-	gorilla.visible_message("<span class='notice'>[gorilla] [gorilla.is_bipedal ? "stands up menacingly." : "drops back to all fours."]</span>", "<span class='notice'>You [gorilla.is_bipedal ? "stand up" : "get down on all fours."]</span>", "<span class='notice'>You hear the sound of a gorilla rustling.</span>")
+	gorilla.is_bipedal = !gorilla.is_bipedal // Toggle
+	gorilla.visible_message("<span class='notice'>[gorilla] [gorilla.is_bipedal ? "stands up menacingly." : "drops back to all fours."]</span>",
+		"<span class='notice'>You [gorilla.is_bipedal ? "stand up" : "get down on all fours."]</span>",
+		"<span class='notice'>You hear the sound of a gorilla rustling.</span>")
+
 	gorilla.update_icon(UPDATE_ICON_STATE)
 
 // Gorillas like to dismember limbs from unconscious mobs.
@@ -204,9 +207,9 @@
 	gold_core_spawnable = NO_SPAWN
 	a_intent = INTENT_HELP
 	unique_pet = TRUE
+	crate_limit = 2
 	/// The ID card that the gorilla is currently wearing.
 	var/obj/item/card/id/access_card
-	crate_limit = 2
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Login()
 	. = ..()
