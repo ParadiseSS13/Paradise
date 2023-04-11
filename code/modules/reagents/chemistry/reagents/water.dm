@@ -397,7 +397,7 @@
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] starts to grab [M.p_their()] head in pain!</span>")
 			M.EyeBlurry(7 SECONDS * multiplier)
-			M.Confused ( 7 seconds * multiplier)
+			M.Confused ( 7 SECONDS * multiplier)
 
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] freezes up!</span>")
