@@ -118,7 +118,7 @@
 			"Engineering Equipment Storage",
 			"Engineering Foyer",
 			"EVA Storage",
-			"Gateway",
+			"Expedition",
 			"Genetics Lab",
 			"Gravity Generator",
 			"Head of Personnel's Office",

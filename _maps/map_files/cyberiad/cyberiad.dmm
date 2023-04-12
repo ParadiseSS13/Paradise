@@ -21746,7 +21746,7 @@
 /area/crew_quarters/dorms)
 "bfe" = (
 /obj/machinery/camera{
-	c_tag = "Gateway";
+	c_tag = "Expedition";
 	dir = 4
 	},
 /obj/structure/table,
@@ -58710,7 +58710,7 @@
 "cZa" = (
 /obj/machinery/door_control{
 	id = "stationawaygate";
-	name = "Gateway Shutters Access Control";
+	name = "Expedition Shutters Access Control";
 	pixel_y = -24;
 	req_access_txt = "62"
 	},
@@ -61401,7 +61401,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "stationawaygate";
-	name = "Gateway Access Shutters"
+	name = "Expedition Access Shutters"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -61426,7 +61426,7 @@
 "div" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Gateway Access";
+	name = "Expedition Access";
 	req_access_txt = "62"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,

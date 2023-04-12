@@ -24548,7 +24548,7 @@
 	dir = 8
 	},
 /obj/item/paper{
-	info = "Congratulations,<br><br>Your station has been selected to carry out the Gateway Project.<br><br>The equipment will be shipped to you at the start of the next quarter.<br> You are to prepare a secure location to house the equipment as outlined in the attached documents.<br><br>--Nanotrasen Blue Space Research";
+	info = "Congratulations,<br><br>Your station has been selected to carry out the Expedition Project.<br><br>The equipment will be shipped to you at the start of the next quarter.<br> You are to prepare a secure location to house the equipment as outlined in the attached documents.<br><br>--Nanotrasen Blue Space Research";
 	name = "Confidential Correspondence, Pg 1"
 	},
 /obj/item/coin/plasma,
@@ -25714,7 +25714,7 @@
 	},
 /obj/machinery/door_control{
 	id = "gateshutter";
-	name = "Gateway Shutter Control";
+	name = "Expedition Shutter Control";
 	pixel_y = -34;
 	req_access_txt = "62"
 	},
@@ -26202,7 +26202,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Gateway Maintenance"
+	name = "Expedition Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
@@ -29602,7 +29602,7 @@
 /obj/structure/closet/l3closet/scientist,
 /obj/machinery/door_control{
 	id = "gateshutter";
-	name = "Gateway Shutter Control";
+	name = "Expedition Shutter Control";
 	pixel_y = -26;
 	req_access_txt = "62"
 	},
@@ -30441,7 +30441,7 @@
 	pixel_x = -28
 	},
 /obj/machinery/camera{
-	c_tag = "Gateway"
+	c_tag = "Expedition"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -32802,7 +32802,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Gateway Maintenance"
+	name = "Expedition Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/expedition,
@@ -33842,7 +33842,7 @@
 "bZX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Gateway Access"
+	name = "Expedition Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/expedition,
 /obj/effect/turf_decal/delivery,
@@ -44245,7 +44245,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/expedition,
 /obj/machinery/door/window/southleft{
-	name = "Gateway Supplies"
+	name = "Expedition Supplies"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -62537,7 +62537,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "gateshutter";
-	name = "Gateway Access Shutter"
+	name = "Expedition Access Shutter"
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/plasteel{
@@ -87475,7 +87475,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "gateshutter";
-	name = "Gateway Access Shutter"
+	name = "Expedition Access Shutter"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

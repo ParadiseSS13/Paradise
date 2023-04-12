@@ -33226,7 +33226,7 @@
 "bHt" = (
 /obj/machinery/door_control{
 	id = "stationawaygate";
-	name = "Gateway Shutters Access Control";
+	name = "Expedition Shutters Access Control";
 	pixel_x = 7;
 	pixel_y = -26;
 	req_access_txt = "62"
@@ -49508,7 +49508,7 @@
 "csY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Gateway Access";
+	name = "Expedition Access";
 	req_access_txt = "62"
 	},
 /obj/structure/cable{
@@ -51725,7 +51725,7 @@
 "cyr" = (
 /obj/structure/rack,
 /obj/machinery/camera{
-	c_tag = "Gateway Access";
+	c_tag = "Expedition Access";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -51782,7 +51782,7 @@
 /area/expedition)
 "cyy" = (
 /obj/machinery/camera{
-	c_tag = "Gateway";
+	c_tag = "Expedition";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -53116,7 +53116,7 @@
 "cBA" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Gateway Access";
+	name = "Expedition Access";
 	req_access_txt = "62"
 	},
 /obj/structure/cable{
@@ -54078,7 +54078,7 @@
 "cEk" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Gateway Access";
+	name = "Expedition Access";
 	req_access_txt = "62"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -54087,14 +54087,14 @@
 "cEl" = (
 /obj/machinery/door_control{
 	id = "stationawaygate";
-	name = "Gateway Shutters Access Control";
+	name = "Expedition Shutters Access Control";
 	pixel_x = -24;
 	req_access_txt = "62"
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "stationawaygate";
-	name = "Gateway Access Shutters"
+	name = "Expedition Access Shutters"
 	},
 /turf/simulated/floor/plasteel,
 /area/expedition)
@@ -54110,7 +54110,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "stationawaygate";
-	name = "Gateway Access Shutters"
+	name = "Expedition Access Shutters"
 	},
 /turf/simulated/floor/plasteel,
 /area/expedition)

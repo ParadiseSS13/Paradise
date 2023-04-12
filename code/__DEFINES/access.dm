@@ -59,7 +59,7 @@
 #define ACCESS_RC_ANNOUNCE 59 //Request console announcements
 #define ACCESS_KEYCARD_AUTH 60 //Used for events which require at least two people to confirm them
 #define ACCESS_TCOMSAT 61 // has access to the entire telecomms satellite / machinery
-#define ACCESS_GATEWAY 62
+#define ACCESS_EXPEDITION 62
 #define ACCESS_SEC_DOORS 63 // Security front doors
 #define ACCESS_PSYCHIATRIST 64 // Psychiatrist's office
 #define ACCESS_XENOARCH 65
