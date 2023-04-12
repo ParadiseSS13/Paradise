@@ -16711,9 +16711,7 @@
 "aTv" = (
 /obj/structure/rack,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/shovel,
-/obj/item/shovel,
-/obj/item/shovel,
+/obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /turf/simulated/floor/plasteel{
@@ -17215,28 +17213,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
-"aUC" = (
-/obj/structure/rack,
-/obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/welding,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
-/area/expedition)
 "aUD" = (
-/obj/structure/rack,
-/obj/effect/decal/warning_stripes/blue/hollow,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
+/obj/machinery/door/airlock/maintenance{
+	name = "Expedition Maintenance";
+	req_one_access_txt = "18"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
+	dir = 5;
+	icon_state = "dark"
 	},
 /area/expedition)
 "aUE" = (
@@ -17544,10 +17528,6 @@
 	},
 /area/crew_quarters/dorms)
 "aVr" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark"
@@ -19565,6 +19545,14 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20932,6 +20920,7 @@
 	},
 /obj/item/tank/jetpack/carbondioxide,
 /obj/effect/decal/warning_stripes/white/hollow,
+/obj/item/tank/jetpack/carbondioxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21750,10 +21739,8 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/gps,
-/obj/item/gps,
-/obj/item/gps,
-/obj/item/gps,
+/obj/item/storage/fancy/donut_box,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
@@ -22885,31 +22872,15 @@
 	layer = 4;
 	pixel_x = -32
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/expedition)
 "bhI" = (
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
-	},
-/area/expedition)
-"bhJ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/window/southright{
-	name = "EVA Equipment"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark"
 	},
 /area/expedition)
 "bhK" = (
@@ -22967,7 +22938,6 @@
 /obj/machinery/ai_status_display{
 	pixel_x = 32
 	},
-/obj/structure/window/reinforced,
 /obj/machinery/recharge_station,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -24741,16 +24711,6 @@
 "blR" = (
 /turf/simulated/wall,
 /area/storage/emergency2)
-"blS" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/expedition)
 "blT" = (
 /turf/simulated/wall,
 /area/civilian/pet_store)
@@ -52593,11 +52553,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58647,9 +58602,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -61402,16 +61354,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/storage/office)
-"din" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "stationawaygate";
-	name = "Expedition Access Shutters"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/expedition)
 "diq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/window/reinforced/tinted,
@@ -82958,6 +82900,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"rmK" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/expedition)
 "rmT" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
@@ -116023,13 +115971,13 @@ aVE
 aQj
 aSA
 aTv
-aUC
+aTx
 bgK
 bhI
 bam
 cGT
 aUF
-din
+aSA
 bgP
 bmV
 bkq
@@ -116282,11 +116230,11 @@ aSA
 aTy
 aUH
 aVr
-bhJ
-blS
-cGZ
+aVr
 aUF
-din
+cGZ
+rmK
+aSA
 bgP
 bmV
 ukX
@@ -116535,9 +116483,9 @@ aEl
 aEl
 aRr
 aPi
-aSA
-aTx
 aUD
+aUH
+aUH
 bgL
 bhI
 ban

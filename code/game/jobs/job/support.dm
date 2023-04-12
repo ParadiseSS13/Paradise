@@ -484,6 +484,10 @@
 /datum/outfit/job/explorer
 	name = "Explorer"
 	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black
+	uniform = /obj/item/clothing/under/color/orange
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/workboots
+	glasses = /obj/item/clothing/glasses/welding
+	belt = /obj/item/storage/belt/utility
+	l_pocket = /obj/item/gps
 	id = /obj/item/card/id/explorer

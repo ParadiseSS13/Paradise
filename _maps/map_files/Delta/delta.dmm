@@ -48906,7 +48906,6 @@
 /area/hallway/primary/central/south)
 "crH" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/donut_box,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -50695,8 +50694,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/table,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cvM" = (
@@ -50727,10 +50726,10 @@
 	pixel_y = 32
 	},
 /obj/structure/table,
-/obj/item/gps,
-/obj/item/gps,
-/obj/item/gps,
-/obj/item/gps,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cvT" = (
@@ -50784,8 +50783,6 @@
 /area/hallway/primary/central)
 "cvY" = (
 /obj/structure/table,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cvZ" = (
@@ -51130,6 +51127,7 @@
 	name = "Magboot Storage"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/eva,
+/obj/item/clothing/shoes/magboots,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
 "cwS" = (
@@ -51249,8 +51247,8 @@
 	},
 /area/crew_quarters/locker)
 "cxe" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/secure_closet/personal,
+/obj/structure/table,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cxf" = (
@@ -51295,9 +51293,6 @@
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
-	},
-/obj/structure/chair/stool{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/expedition)
@@ -51743,8 +51738,6 @@
 	c_tag = "Expedition Access";
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/personal,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cys" = (
@@ -51783,14 +51776,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
+/obj/structure/chair/stool{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/expedition)
@@ -51811,6 +51798,7 @@
 	c_tag = "Expedition";
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cyz" = (
@@ -51887,8 +51875,6 @@
 	pixel_x = 28
 	},
 /obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cyJ" = (
@@ -53121,6 +53107,10 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/item/flashlight,
+/obj/item/flashlight,
+/obj/item/flashlight,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cBy" = (
@@ -53684,14 +53674,6 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cCX" = (
@@ -53726,7 +53708,6 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cDd" = (
@@ -53745,7 +53726,7 @@
 /turf/simulated/wall,
 /area/crew_quarters/locker/locker_toilet)
 "cDf" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cDg" = (
@@ -54114,20 +54095,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/expedition)
-"cEl" = (
-/obj/machinery/door_control{
-	id = "stationawaygate";
-	name = "Expedition Shutters Access Control";
-	pixel_x = -24;
-	req_access_txt = "62"
-	},
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "stationawaygate";
-	name = "Expedition Access Shutters"
-	},
-/turf/simulated/floor/plasteel,
-/area/expedition)
 "cEo" = (
 /obj/structure/toilet{
 	dir = 8
@@ -54136,14 +54103,6 @@
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plating,
 /area/crew_quarters/locker/locker_toilet)
-"cEp" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "stationawaygate";
-	name = "Expedition Access Shutters"
-	},
-/turf/simulated/floor/plasteel,
-/area/expedition)
 "cEq" = (
 /obj/machinery/light/small,
 /obj/machinery/recharge_station,
@@ -54430,13 +54389,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/medbay)
-"cFf" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central)
 "cFg" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -55445,22 +55397,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/medical/research)
-"cGK" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central)
-"cGL" = (
-/obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/central)
 "cGM" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -72518,6 +72454,10 @@
 	dir = 4;
 	name = "Jetpack Storage"
 	},
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = -4;
+	pixel_y = 3
+	},
 /obj/effect/mapping_helpers/airlock/access/any/command/eva,
 /turf/simulated/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -87638,6 +87578,7 @@
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "miL" = (
@@ -139560,7 +139501,7 @@ crP
 csV
 cxe
 cvK
-cxe
+cCX
 cyr
 czW
 cBw
@@ -140851,7 +140792,7 @@ cvO
 cBA
 cCZ
 csV
-cFf
+cFa
 bqu
 cHO
 cJj
@@ -141106,9 +141047,9 @@ cuk
 cyw
 cCX
 cBC
-cDf
-cEl
-cGK
+cCX
+csV
+cFa
 bqu
 cHN
 cJh
@@ -141364,8 +141305,8 @@ cyx
 cAb
 cBD
 cDc
-cEp
-cGK
+csV
+cFa
 bqu
 cHN
 ppu
@@ -141619,10 +141560,10 @@ eXJ
 cCX
 cyy
 mhU
-cCX
 cDf
-cEp
-cGK
+cDf
+csV
+cFa
 bqu
 cHN
 ppu
@@ -141879,7 +141820,7 @@ csV
 csV
 csV
 csV
-cGL
+cnO
 dxV
 lso
 hjK

@@ -1146,8 +1146,10 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 			if(JOB_EXPLORER)
-				clothes_s = new /icon('icons/mob/clothing/under/civilian.dmi', "ge_s")
+				clothes_s = new /icon('icons/mob/clothing/under/color.dmi', "orange_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "workboots"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/hands.dmi', "bgloves"), ICON_OVERLAY)
+				has_gloves = TRUE
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "backpack"), ICON_OVERLAY)

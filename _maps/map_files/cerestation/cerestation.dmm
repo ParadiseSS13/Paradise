@@ -5828,9 +5828,6 @@
 	icon_state = "dark"
 	},
 /area/security/evidence)
-"aJA" = (
-/turf/simulated/wall,
-/area/expedition)
 "aJE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -9620,6 +9617,7 @@
 	dir = 4
 	},
 /obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9813,6 +9811,7 @@
 "bdz" = (
 /obj/structure/rack,
 /obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9838,6 +9837,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/item/clothing/shoes/magboots,
 /obj/item/clothing/shoes/magboots,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -27097,6 +27097,7 @@
 /area/hallway/secondary/garden)
 "cGr" = (
 /obj/structure/rack,
+/obj/item/clothing/shoes/magboots,
 /obj/item/clothing/shoes/magboots,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -46410,26 +46411,6 @@
 /area/bridge)
 "hou" = (
 /obj/structure/table,
-/obj/item/gps{
-	gpstag = "QM0";
-	pixel_x = -4;
-	pixel_y = 10
-	},
-/obj/item/gps{
-	gpstag = "QM0";
-	pixel_x = -4;
-	pixel_y = 10
-	},
-/obj/item/gps{
-	gpstag = "QM0";
-	pixel_x = -4;
-	pixel_y = 10
-	},
-/obj/item/gps{
-	gpstag = "QM0";
-	pixel_x = -4;
-	pixel_y = 10
-	},
 /obj/item/radio{
 	pixel_x = 7;
 	pixel_y = 4
@@ -56104,7 +56085,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/expedition)
+/area/ai_monitored/storage/eva)
 "kCe" = (
 /obj/machinery/atmospherics/binary/volume_pump/on{
 	dir = 1;
@@ -67711,7 +67692,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/expedition)
+/area/ai_monitored/storage/eva)
 "oKm" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -84034,22 +84015,7 @@
 /area/hallway/primary/port/south)
 "uyj" = (
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90333,10 +90299,7 @@
 	pixel_y = 24
 	},
 /obj/structure/table,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/welding,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -92074,10 +92037,6 @@
 /area/maintenance/maintcentral)
 "xgO" = (
 /obj/structure/table,
-/obj/item/shovel,
-/obj/item/shovel,
-/obj/item/shovel,
-/obj/item/shovel,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
 /obj/item/pickaxe,
@@ -134113,16 +134072,16 @@ aXR
 aXD
 aXD
 xbO
-aJA
-aJA
-aJA
+sUW
+sUW
+sUW
 oKk
-aJA
-aJA
-aJA
-juo
+sUW
+sUW
+sUW
+baS
 kCa
-aJA
+sUW
 aYJ
 aZK
 aZK

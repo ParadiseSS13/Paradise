@@ -23901,6 +23901,14 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/clothing/shoes/magboots{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -29957,6 +29965,14 @@
 	pixel_x = 3;
 	pixel_y = 6
 	},
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = -4;
+	pixel_y = 1
+	},
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = 3;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -31099,26 +31115,6 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
-/obj/item/gps{
-	gpstag = "QM0";
-	pixel_x = -4;
-	pixel_y = 10
-	},
-/obj/item/gps{
-	gpstag = "QM0";
-	pixel_x = -4;
-	pixel_y = 10
-	},
-/obj/item/gps{
-	gpstag = "QM0";
-	pixel_x = -4;
-	pixel_y = 10
-	},
-/obj/item/gps{
-	gpstag = "QM0";
-	pixel_x = -4;
-	pixel_y = 10
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31710,18 +31706,10 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/pickaxe{
-	pixel_x = 5
-	},
-/obj/item/pickaxe{
-	pixel_x = 5
-	},
-/obj/item/shovel{
-	pixel_x = -5
-	},
-/obj/item/shovel{
-	pixel_x = -5
-	},
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32791,22 +32779,8 @@
 	pixel_x = -24
 	},
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/storage/belt/utility{
-	pixel_y = 3
-	},
-/obj/item/storage/belt/utility{
-	pixel_y = 3
-	},
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/welding,
+/obj/item/storage/fancy/donut_box,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -33739,14 +33713,12 @@
 /turf/simulated/wall/r_wall,
 /area/ntrep)
 "bZo" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/obj/structure/window/reinforced,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/expedition)
+/area/hallway/primary/central)
 "bZt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
@@ -44310,21 +44282,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cGX" = (
-/obj/structure/table,
-/obj/item/flashlight,
-/obj/item/flashlight{
-	pixel_x = 1;
-	pixel_y = 5
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/expedition,
-/obj/machinery/door/window/southleft{
-	name = "Expedition Supplies"
-	},
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/expedition)
+/area/hallway/primary/central)
 "cGY" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -89479,25 +89442,12 @@
 /turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing)
 "wxb" = (
-/obj/structure/table,
-/obj/item/radio{
-	pixel_y = 6
-	},
-/obj/item/radio{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/obj/item/radio{
-	pixel_x = -6;
-	pixel_y = 4
-	},
-/obj/item/radio,
-/obj/structure/window/reinforced,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/expedition)
+/area/hallway/primary/central)
 "wxE" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -122057,7 +122007,7 @@ bZn
 bZn
 bZn
 bZn
-bNh
+aZJ
 caR
 nWH
 bcX
