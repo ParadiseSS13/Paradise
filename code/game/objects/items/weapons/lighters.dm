@@ -47,6 +47,7 @@
 	attack_verb = list("burnt", "singed")
 
 	attempt_light(user)
+	playsound(src, 'sound/items/lighter/plastic_strike.ogg', 40, TRUE)
 	set_light(2)
 	START_PROCESSING(SSobj, src)
 
@@ -71,6 +72,7 @@
 
 	if(user)
 		show_off_message(user)
+	playsound(src, 'sound/items/lighter/plastic_close.ogg', 40, TRUE)
 	set_light(0)
 	STOP_PROCESSING(SSobj, src)
 
@@ -98,6 +100,7 @@
 				cig.light("<span class='rose'>[user] whips [src] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
 				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 50, TRUE)
 			M.update_inv_wear_mask()
 	else
 		..()
@@ -269,6 +272,7 @@
 			cig.attackby(src, user)
 		else
 			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 50, TRUE)
 	else
 		..()
 
