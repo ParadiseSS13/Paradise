@@ -514,6 +514,11 @@
 	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
 
+	if(actual_selected_rune.z != src.z)
+		to_chat(user, "<span class='cultitalic'>You are too far away from the station to teleport!</span>")
+		log_game("Teleport rune failed - target rune not on the same Z-level")
+		return
+
 	if(HAS_TRAIT(user, TRAIT_FLOORED))
 		to_chat(user, "<span class='cultitalic'>You cannot cast this spell while knocked down!</span>")
 		return
