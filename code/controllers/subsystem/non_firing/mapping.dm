@@ -45,12 +45,6 @@ SUBSYSTEM_DEF(mapping)
 	// Load lavaland
 	loadLavaland()
 
-	// Pick a random away mission.
-	if(GLOB.configuration.gateway.enable_away_mission)
-		load_away_mission()
-	else
-		log_startup_progress("Skipping away mission...")
-
 	// Seed space ruins
 	if(GLOB.configuration.ruins.enable_space_ruins)
 		handleRuins()
@@ -256,27 +250,6 @@ SUBSYSTEM_DEF(mapping)
 				ruins_availible -= R
 
 	log_world("Ruin loader finished with [budget] left to spend.")
-
-/datum/controller/subsystem/mapping/proc/load_away_mission()
-	if(length(GLOB.configuration.gateway.enabled_away_missions))
-		var/watch = start_watch()
-		log_startup_progress("Loading away mission...")
-
-		var/map = pick(GLOB.configuration.gateway.enabled_away_missions)
-		var/file = wrap_file(map)
-		if(isfile(file))
-			var/zlev = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))
-			GLOB.space_manager.add_dirt(zlev)
-			GLOB.maploader.load_map(file, z_offset = zlev)
-			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-			GLOB.space_manager.remove_dirt(zlev)
-			log_world("Away mission loaded: [map]")
-
-		log_startup_progress("Away mission loaded in [stop_watch(watch)]s.")
-
-	else
-		log_startup_progress("No away missions found.")
-		return
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT

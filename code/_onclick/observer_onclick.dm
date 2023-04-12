@@ -79,7 +79,7 @@
 
 // ---------------------------------------
 // And here are some good things for free:
-// Now you can click through portals, wormholes, gateways, and teleporters while observing. -Sayu
+// Now you can click through portals, wormholes, and teleporters while observing. -Sayu
 
 /obj/machinery/teleport/hub/attack_ghost(mob/user as mob)
 	var/obj/machinery/teleport/station/S = power_station

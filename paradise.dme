@@ -221,7 +221,6 @@
 #include "code\controllers\configuration\sections\discord_configuration.dm"
 #include "code\controllers\configuration\sections\event_configuration.dm"
 #include "code\controllers\configuration\sections\gamemode_configuration.dm"
-#include "code\controllers\configuration\sections\gateway_configuration.dm"
 #include "code\controllers\configuration\sections\general_configuration.dm"
 #include "code\controllers\configuration\sections\ipintel_configuration.dm"
 #include "code\controllers\configuration\sections\job_configuration.dm"
