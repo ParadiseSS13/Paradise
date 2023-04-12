@@ -50720,24 +50720,9 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/gateway)
-"cvP" = (
-/obj/machinery/gateway{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/gateway)
 "cvQ" = (
-/obj/machinery/gateway{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/gateway)
-"cvR" = (
-/obj/machinery/gateway{
-	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/gateway)
@@ -51298,14 +51283,7 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/gateway)
-"cxj" = (
-/obj/machinery/gateway{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/gateway)
 "cxk" = (
-/obj/machinery/gateway/centerstation,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -51313,9 +51291,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/gateway)
 "cxl" = (
-/obj/machinery/gateway{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/gateway)
 "cxm" = (
@@ -51479,9 +51454,6 @@
 /area/engine/hardsuitstorage)
 "cxJ" = (
 /obj/structure/table,
-/obj/item/paper/pamphlet,
-/obj/item/paper/pamphlet,
-/obj/item/paper/pamphlet,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -51791,18 +51763,12 @@
 /turf/simulated/wall,
 /area/gateway)
 "cyw" = (
-/obj/machinery/gateway{
-	dir = 10
-	},
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/gateway)
 "cyx" = (
-/obj/machinery/gateway{
-	density = 0
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -51815,9 +51781,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/gateway)
 "cyy" = (
-/obj/machinery/gateway{
-	dir = 6
-	},
 /obj/machinery/camera{
 	c_tag = "Gateway";
 	dir = 8
@@ -58084,20 +58047,6 @@
 /area/medical/reception)
 "cNU" = (
 /obj/structure/rack/holorack,
-/obj/item/paper/pamphlet{
-	pixel_x = -5;
-	pixel_y = 3
-	},
-/obj/item/paper/pamphlet{
-	pixel_x = 7;
-	pixel_y = 3
-	},
-/obj/item/paper/pamphlet{
-	pixel_x = -3
-	},
-/obj/item/paper/pamphlet{
-	pixel_x = 10
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -141103,8 +141052,8 @@ cre
 crP
 uaS
 csV
-cvP
-cxj
+cxl
+cxl
 cyw
 cBv
 cBC
@@ -141617,7 +141566,7 @@ ygv
 crP
 nSv
 csV
-cvR
+cxl
 cxl
 cyy
 mhU
