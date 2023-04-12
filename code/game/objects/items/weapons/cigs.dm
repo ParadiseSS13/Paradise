@@ -57,7 +57,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
 		light("<span class='notice'>[user] coldly lights [src] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
-		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 		return TRUE
 	else
 		return ..()
@@ -88,19 +87,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/lighter/zippo/Z = I
 		if(Z.lit)
 			light("<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [name] with [user.p_their()] [Z]. Damn [user.p_theyre()] cool.</span>")
-			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 	else if(istype(I, /obj/item/lighter))
 		var/obj/item/lighter/L = I
 		if(L.lit)
 			light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [L].</span>")
-			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 	else if(istype(I, /obj/item/match))
 		var/obj/item/match/M = I
 		if(M.lit)
 			light("<span class='notice'>[user] lights [user.p_their()] [name] with [user.p_their()] [M].</span>")
-			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 	else if(istype(I, /obj/item/melee/energy/sword/saber))
 		var/obj/item/melee/energy/sword/saber/S = I
@@ -180,6 +176,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				C.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
+		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 
 /obj/item/clothing/mask/cigarette/process()
