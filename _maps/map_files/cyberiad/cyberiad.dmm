@@ -53534,7 +53534,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/table/reinforced,
-/obj/item/paper/pamphlet,
 /obj/machinery/alarm{
 	dir = 4;
 	name = "west bump";
