@@ -22968,6 +22968,8 @@
 	pixel_x = 32
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/recharge_station,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -24470,6 +24472,7 @@
 	pixel_x = -24
 	},
 /obj/structure/closet/secure_closet/personal,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -24929,6 +24932,7 @@
 	pixel_x = 24
 	},
 /obj/structure/closet/secure_closet/personal,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -52516,6 +52520,7 @@
 	pixel_x = -28
 	},
 /obj/structure/closet/secure_closet/personal,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -81708,6 +81713,7 @@
 /area/maintenance/asmaint)
 "qvo" = (
 /obj/structure/closet/secure_closet/personal,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"

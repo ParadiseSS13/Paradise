@@ -29599,7 +29599,6 @@
 /turf/simulated/floor/carpet,
 /area/bridge)
 "bNU" = (
-/obj/structure/closet/l3closet/scientist,
 /obj/machinery/door_control{
 	id = "gateshutter";
 	name = "Expedition Shutter Control";
@@ -29611,6 +29610,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -30486,9 +30486,9 @@
 /turf/simulated/floor/engine/vacuum,
 /area/maintenance/turbine)
 "bQB" = (
+/obj/structure/closet/secure_closet/exile,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/expedition)
 "bQC" = (
@@ -30501,9 +30501,11 @@
 	},
 /area/crew_quarters/bar)
 "bQD" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/expedition)
 "bQE" = (
@@ -30926,9 +30928,9 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/expedition)
 "bRQ" = (
@@ -31080,9 +31082,45 @@
 /turf/simulated/floor/engine/vacuum,
 /area/maintenance/turbine)
 "bSo" = (
+/obj/structure/table,
+/obj/item/radio{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/radio{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/gps{
+	gpstag = "QM0";
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/gps{
+	gpstag = "QM0";
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/gps{
+	gpstag = "QM0";
+	pixel_x = -4;
+	pixel_y = 10
+	},
+/obj/item/gps{
+	gpstag = "QM0";
+	pixel_x = -4;
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/expedition)
 "bSp" = (
@@ -31653,9 +31691,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/closet/secure_closet/exile,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/expedition)
 "bTT" = (
@@ -31664,17 +31702,28 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/expedition)
 "bTU" = (
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/table,
+/obj/item/pickaxe{
+	pixel_x = 5
+	},
+/obj/item/pickaxe{
+	pixel_x = 5
+	},
+/obj/item/shovel{
+	pixel_x = -5
+	},
+/obj/item/shovel{
+	pixel_x = -5
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "vault"
+	icon_state = "dark"
 	},
 /area/expedition)
 "bTV" = (
@@ -32732,7 +32781,6 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "bWV" = (
-/obj/structure/closet/secure_closet/exile,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -32742,6 +32790,23 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = 3
+	},
+/obj/item/storage/belt/utility{
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -33775,6 +33840,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34694,6 +34760,7 @@
 /turf/simulated/floor/engine/co2,
 /area/atmos)
 "ccl" = (
+/obj/structure/closet/secure_closet/exile,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -34705,6 +34772,11 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/structure/table,
+/obj/item/flashlight,
+/obj/item/flashlight,
+/obj/item/flashlight,
+/obj/item/flashlight,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -35142,6 +35214,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -77647,6 +77720,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
+"qrT" = (
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/expedition)
 "qse" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -123515,11 +123594,11 @@ bLg
 wkM
 bNh
 bQB
-bSo
+bQB
 bTS
 ccl
 bWW
-bZz
+qrT
 iSE
 caM
 bek
@@ -123772,7 +123851,7 @@ bLg
 bOY
 bNh
 bRP
-bSo
+bZz
 bTT
 cdB
 bWX

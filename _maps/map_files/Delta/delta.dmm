@@ -50008,8 +50008,11 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/south)
 "cuk" = (
-/obj/structure/closet/secure_closet/exile,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
+/obj/item/radio,
+/obj/item/radio,
+/obj/item/radio,
+/obj/item/radio,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cul" = (
@@ -50684,17 +50687,16 @@
 	pixel_x = 30
 	},
 /obj/item/storage/toolbox/emergency,
-/obj/item/flashlight,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cvK" = (
-/obj/structure/closet/secure_closet/medical1,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cvM" = (
@@ -50724,7 +50726,12 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/table,
+/obj/item/gps,
+/obj/item/gps,
+/obj/item/gps,
+/obj/item/gps,
+/turf/simulated/floor/plasteel,
 /area/expedition)
 "cvT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -50777,7 +50784,8 @@
 /area/hallway/primary/central)
 "cvY" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cvZ" = (
@@ -51241,8 +51249,8 @@
 	},
 /area/crew_quarters/locker)
 "cxe" = (
-/obj/structure/bed/roller,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cxf" = (
@@ -51288,10 +51296,16 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/expedition)
 "cxl" = (
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/table,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/plasteel,
 /area/expedition)
 "cxm" = (
 /obj/machinery/camera{
@@ -51459,6 +51473,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cxK" = (
@@ -51723,11 +51739,12 @@
 	},
 /area/ai_monitored/storage/eva)
 "cyr" = (
-/obj/structure/rack,
 /obj/machinery/camera{
 	c_tag = "Expedition Access";
 	dir = 4
 	},
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cys" = (
@@ -51766,7 +51783,16 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/turf/simulated/floor/plasteel,
 /area/expedition)
 "cyx" = (
 /obj/structure/cable{
@@ -51778,14 +51804,14 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/expedition)
 "cyy" = (
 /obj/machinery/camera{
 	c_tag = "Expedition";
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel,
 /area/expedition)
 "cyz" = (
 /obj/item/radio/intercom{
@@ -51856,12 +51882,13 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/dispenser/oxygen,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/table,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cyJ" = (
@@ -52522,7 +52549,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cAc" = (
@@ -53085,7 +53111,7 @@
 /turf/simulated/floor/carpet,
 /area/assembly/showroom)
 "cBv" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cBw" = (
@@ -53095,8 +53121,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/item/storage/belt,
-/obj/item/radio,
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cBy" = (
@@ -53655,13 +53679,19 @@
 /area/expedition)
 "cCW" = (
 /obj/structure/table,
-/obj/machinery/cell_charger,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/item/stock_parts/cell/high,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
 /turf/simulated/floor/plasteel,
 /area/expedition)
 "cCX" = (
@@ -81673,6 +81703,11 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
+"eXJ" = (
+/obj/structure/dispenser/oxygen,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel,
+/area/expedition)
 "eXP" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/armor/bulletproof/sec,
@@ -87599,7 +87634,6 @@
 /turf/simulated/wall/r_wall,
 /area/security/permasolitary)
 "mhU" = (
-/obj/effect/decal/warning_stripes/north,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -90748,6 +90782,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
+"pLm" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel,
+/area/expedition)
 "pLs" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/white,
@@ -139509,7 +139558,7 @@ cht
 ygv
 crP
 csV
-cuk
+cxe
 cvK
 cxe
 cyr
@@ -139770,8 +139819,8 @@ cul
 cxh
 cCX
 cyt
-cCX
-cCX
+cBv
+cBv
 cCW
 csV
 cEZ
@@ -140284,8 +140333,8 @@ cuX
 cCX
 cxh
 cyu
-cCX
-cBC
+cBv
+pLm
 dte
 csV
 cFa
@@ -141053,9 +141102,9 @@ crP
 uaS
 csV
 cxl
-cxl
+cuk
 cyw
-cBv
+cCX
 cBC
 cDf
 cEl
@@ -141566,8 +141615,8 @@ ygv
 crP
 nSv
 csV
-cxl
-cxl
+eXJ
+cCX
 cyy
 mhU
 cCX
