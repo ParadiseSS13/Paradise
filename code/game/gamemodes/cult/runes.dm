@@ -487,6 +487,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
+	// Check if the target rune's Z-level is the same as the source rune's Z-level
+	if(actual_selected_rune.z != src.z)
+		to_chat(user, "<span class='cultitalic'>You are too far away from the station to teleport!</span>")
+		log_game("Teleport rune failed - target rune not on the same Z-level")
+		fail_invoke()
+		return
+
 	var/turf/T = get_turf(src)
 	var/turf/target = get_turf(actual_selected_rune)
 	var/movedsomething = FALSE
