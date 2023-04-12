@@ -160,8 +160,7 @@
 						/area/medical/research,
 						/area/crew_quarters/hor,
 						/area/maintenance/asmaint2,
-						/area/teleporter,
-						/area/gateway)
+						/area/teleporter)
 	area_whitelist = list(/area/library,
 						/area/chapel,
 						/area/medical/psych)

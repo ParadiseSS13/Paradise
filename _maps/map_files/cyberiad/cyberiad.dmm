@@ -16362,7 +16362,7 @@
 /area/maintenance/fpmaint)
 "aSA" = (
 /turf/simulated/wall/r_wall,
-/area/gateway)
+/area/expedition)
 "aSB" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -16719,7 +16719,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "aTw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -16738,7 +16738,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "aTy" = (
 /obj/machinery/light{
 	dir = 1
@@ -16746,7 +16746,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "aTz" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -17223,7 +17223,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "aUD" = (
 /obj/structure/rack,
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -17238,7 +17238,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "aUE" = (
 /turf/simulated/wall/r_wall,
 /area/security/nuke_storage)
@@ -17246,7 +17246,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "aUG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -17265,7 +17265,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "aUI" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -17552,7 +17552,7 @@
 	dir = 5;
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "aVs" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -19597,7 +19597,7 @@
 	dir = 5;
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "ban" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/landmark/start/explorer,
@@ -19605,7 +19605,7 @@
 	dir = 5;
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "bao" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -21757,7 +21757,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "bff" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -22486,13 +22486,13 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/gateway)
+/area/expedition)
 "bgL" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/gateway)
+/area/expedition)
 "bgM" = (
 /obj/structure/table/glass,
 /obj/item/hatchet,
@@ -22879,7 +22879,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "bhH" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -22890,14 +22890,14 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/gateway)
+/area/expedition)
 "bhI" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/gateway)
+/area/expedition)
 "bhJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -22911,7 +22911,7 @@
 	dir = 5;
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "bhK" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -22972,7 +22972,7 @@
 	dir = 1;
 	icon_state = "darkblue"
 	},
-/area/gateway)
+/area/expedition)
 "bhQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -24474,7 +24474,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/gateway)
+/area/expedition)
 "blg" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -24747,7 +24747,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "blT" = (
 /turf/simulated/wall,
 /area/civilian/pet_store)
@@ -24933,7 +24933,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/gateway)
+/area/expedition)
 "bml" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "E.V.A. Maintenance";
@@ -34264,7 +34264,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "bJE" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -52499,7 +52499,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "cGU" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -52520,7 +52520,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/gateway)
+/area/expedition)
 "cGW" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -52556,7 +52556,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "cGY" = (
 /obj/structure/chair{
 	dir = 8
@@ -52596,7 +52596,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "cHa" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "CE"
@@ -58649,7 +58649,7 @@
 	dir = 4;
 	icon_state = "darkbluecorners"
 	},
-/area/gateway)
+/area/expedition)
 "cYO" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -58689,7 +58689,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "cYT" = (
 /obj/machinery/atmospherics/trinary/tvalve/digital/flipped,
 /turf/simulated/floor/plasteel,
@@ -58718,7 +58718,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/gateway)
+/area/expedition)
 "cZb" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -61406,7 +61406,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "diq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/window/reinforced/tinted,
@@ -61439,7 +61439,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/gateway)
+/area/expedition)
 "diw" = (
 /obj/item/flag/nt,
 /obj/machinery/camera{
@@ -81712,7 +81712,7 @@
 	dir = 1;
 	icon_state = "darkbluecorners"
 	},
-/area/gateway)
+/area/expedition)
 "qvO" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -90129,7 +90129,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
 	},
-/area/gateway)
+/area/expedition)
 "xag" = (
 /obj/structure/cable{
 	d1 = 4;

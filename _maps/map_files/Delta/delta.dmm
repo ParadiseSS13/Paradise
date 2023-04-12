@@ -49486,7 +49486,7 @@
 /area/hallway/primary/central/south)
 "csV" = (
 /turf/simulated/wall/r_wall,
-/area/gateway)
+/area/expedition)
 "csW" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -49519,7 +49519,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "ctb" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -50011,7 +50011,7 @@
 /obj/structure/closet/secure_closet/exile,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cul" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -50023,7 +50023,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cum" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -50038,7 +50038,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cun" = (
 /obj/machinery/light{
 	dir = 8
@@ -50392,7 +50392,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cuY" = (
 /obj/machinery/suit_storage_unit/engine,
 /obj/machinery/ai_status_display{
@@ -50672,7 +50672,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/gateway)
+/area/expedition)
 "cvJ" = (
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/metal/fifty,
@@ -50686,7 +50686,7 @@
 /obj/item/storage/toolbox/emergency,
 /obj/item/flashlight,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cvK" = (
 /obj/structure/closet/secure_closet/medical1,
 /obj/structure/cable{
@@ -50696,7 +50696,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cvM" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -50711,7 +50711,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cvO" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -50719,13 +50719,13 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/gateway)
+/area/expedition)
 "cvQ" = (
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/gateway)
+/area/expedition)
 "cvT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -50779,7 +50779,7 @@
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cvZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -51244,7 +51244,7 @@
 /obj/structure/bed/roller,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cxf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -51261,7 +51261,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/gateway)
+/area/expedition)
 "cxh" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -51269,7 +51269,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cxi" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -51282,17 +51282,17 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/gateway)
+/area/expedition)
 "cxk" = (
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/gateway)
+/area/expedition)
 "cxl" = (
 /turf/simulated/floor/plasteel/dark,
-/area/gateway)
+/area/expedition)
 "cxm" = (
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway East";
@@ -51460,7 +51460,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cxK" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -51729,7 +51729,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cys" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -51746,28 +51746,28 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/gateway)
+/area/expedition)
 "cyt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cyu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cyv" = (
 /turf/simulated/wall,
-/area/gateway)
+/area/expedition)
 "cyw" = (
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/gateway)
+/area/expedition)
 "cyx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -51779,14 +51779,14 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/gateway)
+/area/expedition)
 "cyy" = (
 /obj/machinery/camera{
 	c_tag = "Gateway";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/gateway)
+/area/expedition)
 "cyz" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -51863,7 +51863,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cyJ" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -52469,7 +52469,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/gateway)
+/area/expedition)
 "czW" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/suit/storage/hazardvest,
@@ -52508,7 +52508,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "czY" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -52524,7 +52524,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cAc" = (
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
@@ -53087,7 +53087,7 @@
 "cBv" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cBw" = (
 /obj/structure/table,
 /obj/machinery/firealarm{
@@ -53098,7 +53098,7 @@
 /obj/item/storage/belt,
 /obj/item/radio,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cBy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -53112,7 +53112,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cBA" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
@@ -53141,7 +53141,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cBC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -53155,7 +53155,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cBD" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -53170,7 +53170,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cBE" = (
 /turf/simulated/floor/plating,
 /area/crew_quarters/locker/locker_toilet)
@@ -53652,7 +53652,7 @@
 /obj/structure/table,
 /obj/machinery/recharger,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cCW" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -53663,10 +53663,10 @@
 	},
 /obj/item/stock_parts/cell/high,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cCX" = (
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cCY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -53686,19 +53686,19 @@
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/gateway)
+/area/expedition)
 "cDa" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cDc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cDd" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -53717,7 +53717,7 @@
 "cDf" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cDg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -54083,7 +54083,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cEl" = (
 /obj/machinery/door_control{
 	id = "stationawaygate";
@@ -54097,7 +54097,7 @@
 	name = "Gateway Access Shutters"
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cEo" = (
 /obj/structure/toilet{
 	dir = 8
@@ -54113,7 +54113,7 @@
 	name = "Gateway Access Shutters"
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "cEq" = (
 /obj/machinery/light/small,
 /obj/machinery/recharge_station,
@@ -70298,7 +70298,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "dtf" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -87605,7 +87605,7 @@
 	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel,
-/area/gateway)
+/area/expedition)
 "miL" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start/head_of_security,
