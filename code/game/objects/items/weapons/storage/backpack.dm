@@ -583,8 +583,8 @@
 		new /obj/item/circular_saw(src)
 		new /obj/item/surgicaldrill(src)
 
-#define MAX_VALUE 7
-#define MIN_VALUE 6
+#define NANNY_MAX_VALUE 7
+#define NANNY_MIN_VALUE 6
 
 /obj/item/storage/backpack/duffel/magic_nanny_bag
 	name = "magic nanny bag"
@@ -593,7 +593,7 @@
 	item_state = "magic_nanny_bag"
 	max_w_class = WEIGHT_CLASS_HUGE
 	slot_flags = 0
-	storage_slots = 256
+	storage_slots = 98 //Most that fits on your screen. Good luck getting that much in there.
 	max_combined_w_class = 256 //get your 8 bit magic bags here. Also it's wizard, at some point this many items will just make it crowded.
 	silent = TRUE
 	zip_time = 0
@@ -763,15 +763,15 @@
 		if(5)
 			new /obj/item/reagent_containers/food/snacks/plum_pie(src) // Great healing over long period of time
 
-	if(value > MAX_VALUE || value < MIN_VALUE)
+	if(value > NANNY_MAX_VALUE || value < NANNY_MIN_VALUE)
 		if(attempts >= 5)
 			message_admins("Failed to generate the wizard a properly priced magic nanny bag!")
 		else
 			new /obj/item/storage/backpack/duffel/magic_nanny_bag(get_turf(loc), attempts + 1)
 		qdel(src)
 
-#undef MAX_VALUE
-#undef MIN_VALUE
+#undef NANNY_MAX_VALUE
+#undef NANNY_MIN_VALUE
 
 /obj/item/reagent_containers/food/drinks/bottle/dragonsbreath
 	name = "flask of dragons breath"
