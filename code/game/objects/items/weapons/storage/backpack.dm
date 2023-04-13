@@ -767,7 +767,7 @@
 		if(attempts >= 5)
 			message_admins("Failed to generate the wizard a properly priced magic nanny bag!")
 		else
-			new /obj/item/storage/backpack/duffel/magic_nanny_bag(get_turf(loc), attempts += 1)
+			new /obj/item/storage/backpack/duffel/magic_nanny_bag(get_turf(loc), attempts + 1)
 		qdel(src)
 
 #undef MAX_VALUE
