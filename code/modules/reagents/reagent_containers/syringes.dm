@@ -178,9 +178,8 @@
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
-/obj/item/reagent_containers/syringe/Crossed(AM as mob|obj, oldloc)
-	var/mob/living/carbon/human/H = AM
-	if(ishuman(H) && H.reagents && !(HAS_TRAIT(H,TRAIT_PIERCEIMMUNE) || ismachineperson(H) || H.floating || H.flying || H.buckled || H.shoes || (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))))
+/obj/item/reagent_containers/syringe/Crossed(mob/living/carbon/human/H, oldloc)
+	if(H.reagents && !(HAS_TRAIT(H,TRAIT_PIERCEIMMUNE) || ismachineperson(H) || H.floating || H.flying || H.buckled || H.shoes || (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))))
 		H.visible_message("<span class='danger'>[H] is injected by \the [src].</span>", \
 					"<span class='userdanger'>You are injected by \the [src]!</span>")
 		if(IS_HORIZONTAL(H))
