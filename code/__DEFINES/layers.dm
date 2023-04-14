@@ -15,6 +15,8 @@
 
 #define SPACE_LAYER 1.5
 #define GRASS_UNDER_LAYER 1.6
+/// Which layer turfs appear on by default in the map editor. Should be unique!
+#define MAP_EDITOR_TURF_LAYER 1.6999
 #define PLATING_LAYER 1.7
 #define LATTICE_LAYER 1.701
 #define DISPOSAL_PIPE_LAYER 1.71
@@ -22,8 +24,8 @@
 #define WIRE_LAYER 1.73
 #define WIRE_TERMINAL_LAYER 1.75
 #define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
+#define TRAY_SCAN_LAYER_OFFSET 0.5 // place images above TURF_LAYER
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
-#define TRANSPARENT_TURF_LAYER 2
 #define ABOVE_TRANSPARENT_TURF_LAYER 2.01 // put wire terminals here if T.transparent_floor
 #define MID_TURF_LAYER 2.02
 #define HIGH_TURF_LAYER 2.03
