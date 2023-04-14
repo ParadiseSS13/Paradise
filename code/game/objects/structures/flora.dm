@@ -266,9 +266,11 @@
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
+	/// Method to track plant overlay on mob for later removal
+	var/mutable_appearance/mob_overlay
 
-/obj/item/twohanded/required/kirbyplants/New()
-	..()
+/obj/item/twohanded/required/kirbyplants/Initialize(mapload)
+	. = ..()
 	icon_state = "plant-[rand(1,35)]"
 	if(prob(1))
 		icon_state = "plant-36"
@@ -276,15 +278,16 @@
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	. = ..()
 	if(wielded)
-		var/image/I = image(icon, user, icon_state)
-		I.override = TRUE
-		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
-		user.remove_from_all_data_huds()
+		var/mutable_appearance/MA = mutable_appearance(icon, icon_state, user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
+		user.add_overlay(MA)
+		mob_overlay = MA
+		user.alpha = 0
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()
-	user.remove_alt_appearance("sneaking_mission")
-	user.add_to_all_human_data_huds()
+	user.cut_overlay(mob_overlay)
+	qdel(mob_overlay)
+	user.alpha = initial(user.alpha)
 
 /obj/item/twohanded/required/kirbyplants/dead
 	name = "\improper RD's potted plant"
