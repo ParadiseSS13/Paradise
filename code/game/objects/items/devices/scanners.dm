@@ -225,7 +225,7 @@ REAGENT SCANNER
 	if(internal_bleed)
 		to_chat(user, "<span class='warning'>Internal bleeding detected. Advanced scanner required for location.</span>")
 	if(burn_wound)
-		to_chat(user, "<span class='warning'>Critical Burn detected. Examine patients body for location.</span>")
+		to_chat(user, "<span class='warning'>Critical burn detected. Examine patient's body for location.</span>")
 
 	var/blood_id = H.get_blood_id()
 	if(blood_id)
