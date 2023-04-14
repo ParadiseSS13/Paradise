@@ -469,7 +469,7 @@
 			if(e.status & ORGAN_SALVED)
 				ointment = "Salved:"
 			if(e.status & ORGAN_BURNT)
-				burn_wound= "Critical Burn:"
+				burn_wound = "Critical Burn:"
 			if(e.status & ORGAN_DEAD)
 				dead = "DEAD:"
 			if(e.is_robotic())
