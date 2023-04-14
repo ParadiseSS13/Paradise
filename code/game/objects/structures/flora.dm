@@ -279,10 +279,12 @@
 		var/image/I = image(icon, user, icon_state)
 		I.override = TRUE
 		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+		user.remove_from_all_data_huds()
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("sneaking_mission")
+	user.add_to_all_human_data_huds()
 
 /obj/item/twohanded/required/kirbyplants/dead
 	name = "\improper RD's potted plant"
