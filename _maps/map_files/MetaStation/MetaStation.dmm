@@ -5272,14 +5272,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "azY" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -15416,14 +15409,21 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = -1
+/obj/item/circuitboard/cyborgrecharger{
+	pixel_x = -3;
+	pixel_y = 3
 	},
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/t_scanner,
-/obj/item/multitool,
-/obj/item/clothing/glasses/meson,
+/obj/item/circuitboard/mech_bay_power_console{
+	pixel_y = 0
+	},
+/obj/item/circuitboard/mech_recharger{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/circuitboard/mechfab{
+	pixel_y = -6;
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15433,17 +15433,33 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/powermonitor{
+/obj/item/circuitboard/cloning{
+	pixel_y = 8;
+	pixel_x = -8
+	},
+/obj/item/circuitboard/clonescanner{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/item/circuitboard/clonepod{
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/circuitboard/stationalert{
+/obj/item/circuitboard/cryo_tube{
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/circuitboard/atmos_alert{
+/obj/item/circuitboard/pandemic{
 	pixel_x = 3;
 	pixel_y = -3
+	},
+/obj/item/circuitboard/bodyscanner{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/circuitboard/sleeper{
+	pixel_x = 9;
+	pixel_y = -9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15467,14 +15483,21 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/cloning,
-/obj/item/circuitboard/med_data{
+/obj/item/circuitboard/powermonitor{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/circuitboard/stationalert{
+	pixel_y = 0
+	},
+/obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/circuitboard/clonescanner,
-/obj/item/circuitboard/clonepod,
-/obj/item/circuitboard/scan_consolenew,
+/obj/item/circuitboard/smes{
+	pixel_x = 6;
+	pixel_y = -6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16625,6 +16648,10 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
+/obj/item/circuitboard/aicore{
+	pixel_x = 5;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16658,15 +16685,22 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/message_monitor{
-	pixel_y = -5
+/obj/item/circuitboard/rdconsole{
+	pixel_x = -6;
+	pixel_y = 6
 	},
-/obj/item/circuitboard/arcade/battle{
-	pixel_x = -4;
-	pixel_y = 2
+/obj/item/circuitboard/rdserver{
+	pixel_x = -3;
+	pixel_y = 3
 	},
-/obj/item/circuitboard/arcade/orion_trail{
-	pixel_x = 4
+/obj/item/circuitboard/destructive_analyzer,
+/obj/item/circuitboard/protolathe{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/circuitboard/circuit_imprinter{
+	pixel_y = -6;
+	pixel_x = 6
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -16683,6 +16717,10 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/autolathe{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/item/circuitboard/ore_redemption{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -16695,13 +16733,25 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/rdconsole,
-/obj/item/circuitboard/rdserver{
+/obj/item/circuitboard/message_monitor{
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/obj/item/circuitboard/aifixer{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/circuitboard/teleporter{
+	pixel_y = 0
+	},
+/obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/circuitboard/destructive_analyzer,
-/obj/item/circuitboard/protolathe,
+/obj/item/circuitboard/teleporter_station{
+	pixel_x = 6;
+	pixel_y = -6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16719,8 +16769,7 @@
 /area/storage/tech)
 "bgt" = (
 /obj/structure/table,
-/obj/item/apc_electronics,
-/obj/item/airlock_electronics,
+/obj/item/analyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16883,12 +16932,16 @@
 	layer = 2.9
 	},
 /obj/item/circuitboard/secure_data{
-	pixel_x = -2;
-	pixel_y = 2
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /obj/item/circuitboard/camera{
-	pixel_x = 1;
-	pixel_y = -1
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/item/circuitboard/prisoner{
+	pixel_x = 5;
+	pixel_y = -5
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = 31
@@ -17223,10 +17276,6 @@
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
-	},
-/obj/item/circuitboard/crew{
-	pixel_x = -1;
-	pixel_y = 1
 	},
 /obj/item/circuitboard/card{
 	pixel_x = 2;
@@ -18019,21 +18068,38 @@
 /area/storage/tech)
 "bjy" = (
 /obj/structure/table,
-/obj/item/plant_analyzer,
+/obj/item/plant_analyzer{
+	pixel_x = -4;
+	pixel_y = 4
+	},
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
+	},
+/obj/item/healthanalyzer{
+	pixel_y = 0;
+	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/storage/tech)
 "bjz" = (
-/obj/structure/table,
-/obj/item/analyzer,
-/obj/item/healthanalyzer,
-/obj/machinery/camera/autoname{
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = -1
+	},
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/t_scanner,
+/obj/item/multitool,
+/obj/item/clothing/glasses/meson,
+/obj/machinery/camera{
+	c_tag = "Starboard Primary Hallway - Auxiliary Tool Storage";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -24398,12 +24464,12 @@
 	pixel_y = -3
 	},
 /obj/item/wrench,
-/obj/item/multitool,
 /obj/machinery/newscaster{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -30013,6 +30079,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/item/eftpos/register{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
@@ -30426,10 +30495,7 @@
 	},
 /area/gateway)
 "bQC" = (
-/obj/structure/sign/securearea{
-	desc = "Under the painting a plaque reads: 'While the meat grinder may not have spared you, fear not. Not one part of you has gone to waste... You were delicious.'";
-	icon_state = "monkey_painting";
-	name = "Mr. Deempisi portrait";
+/obj/structure/sign/monkey_paint{
 	pixel_y = -28
 	},
 /obj/machinery/economy/vending/boozeomat,
@@ -31554,9 +31620,7 @@
 /turf/simulated/floor/wood,
 /area/assembly/showroom)
 "bTN" = (
-/obj/structure/sign/kiddieplaque{
-	desc = "A guide to the exhibit, explaining how recent developments in mindshield implant and cloning technologies by Nanotrasen Corporation have led to the development and the effective immortality of the 'perfect man', the loyal Nanotrasen Employee.";
-	name = "\improper 'Perfect Man' sign";
+/obj/structure/sign/kiddieplaque/perfect_man{
 	pixel_y = 32
 	},
 /obj/structure/showcase/machinery{
@@ -42751,10 +42815,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "cCs" = (
-/obj/structure/sign/atmosplaque{
-	desc = "A plaque commemorating the fallen, may they rest in peace, forever asleep amongst the stars. Someone has drawn a picture of a crying badger at the bottom.";
-	icon_state = "kiddieplaque";
-	name = "Remembrance Plaque";
+/obj/structure/sign/kiddieplaque/remembrance{
 	pixel_y = 32
 	},
 /obj/machinery/light/small{
@@ -53938,9 +53999,7 @@
 /area/toxins/explab)
 "eQf" = (
 /obj/structure/table/wood,
-/obj/structure/sign/kiddieplaque{
-	desc = "A guide to the drone shell dispenser, detailing the constructive and destructive applications of modern repair drones, as well as the development of the incorruptible cyborg servants of tomorrow, available today.";
-	name = "\improper 'Perfect Drone' sign";
+/obj/structure/sign/kiddieplaque/perfect_drone{
 	pixel_y = 32
 	},
 /obj/structure/showcase/machinery{
@@ -57712,11 +57771,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	desc = "Epsilon Eridani Sector - 'Meta' Class Outpost - Commissioned 11/03/2557 - NSS Cerebron";
-	icon_state = "plaque";
-	name = "Commission Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque/commission,
 /area/bridge/hall)
 "gHu" = (
 /obj/structure/table/wood,
@@ -65468,7 +65523,6 @@
 	},
 /area/security/permabrig)
 "kyo" = (
-/obj/structure/closet/lawcloset,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -69307,9 +69361,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "mik" = (
-/obj/structure/sign/goldenplaque{
-	desc = "A golden plaque commemorating excellence in medical care. God only knows how this ended up in this medbay.";
-	name = "The Hippocratic Award for Excellence in Medicine";
+/obj/structure/sign/goldenplaque/medical{
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -72008,12 +72060,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "nwC" = (
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access_txt = "1";
-	power_state = 0
-	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/impassable/gamma,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -84982,6 +85029,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"udl" = (
+/obj/structure/table/reinforced,
+/obj/item/eftpos/register,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/crew_quarters/bar)
 "udB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -126318,7 +126372,7 @@ mZL
 bCv
 bEv
 bHO
-bGd
+udl
 bJH
 bLx
 lUc

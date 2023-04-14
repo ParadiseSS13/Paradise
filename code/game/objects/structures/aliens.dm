@@ -164,7 +164,7 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/C = user
-	if(C.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+	if(C.get_int_organ(/obj/item/organ/internal/alien/hivenode))
 		if(world.time - C.last_bumped <= 60)
 			return
 		if(!C.handcuffed)
@@ -242,7 +242,7 @@
 	icon_state = "weeds"
 	base_icon_state = "weeds"
 	max_integrity = 15
-	layer = WIRE_TERMINAL_LAYER
+	layer = ABOVE_ICYOVERLAY_LAYER
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
@@ -492,7 +492,7 @@
 	return attack_hand(user)
 
 /obj/structure/alien/egg/attack_hand(mob/living/user)
-	if(user.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
+	if(user.get_int_organ(/obj/item/organ/internal/alien/plasmavessel))
 		switch(status)
 			if(BURST)
 				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")

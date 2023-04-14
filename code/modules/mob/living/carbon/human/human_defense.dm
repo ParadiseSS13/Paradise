@@ -104,12 +104,12 @@ emp_act
 			E = S
 		else if(LAZYLEN(childlist))
 			E = pick_n_take(childlist)
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				continue
 		else if(S.parent && !parenthealed)
 			E = S.parent
 			parenthealed = TRUE
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam  || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				break
 		else
 			break
@@ -481,7 +481,6 @@ emp_act
 		weapon_sharp = 0
 	if(armor == INFINITY)
 		return 0
-	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/bonus_damage = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -511,7 +510,7 @@ emp_act
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							KnockDown(10 SECONDS)
 							AdjustConfused(30 SECONDS)
-						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+						if(mind && prob(I.force + ((100 - health) / 2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
@@ -539,11 +538,6 @@ emp_act
 						if(w_uniform)
 							w_uniform.add_mob_blood(src)
 							update_inv_w_uniform()
-
-
-
-	if(Iforce > 10 || Iforce >= 5 && prob(33))
-		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 

@@ -74,14 +74,24 @@
 		. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
 	else
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
+	. += "<span class='notice'>When turned on this item will knockdown anyone it hits after a short delay. While on harm intent, this item will also do some brute damage, even if turned on.</span>"
+	. += "<span class='notice'>This item can be recharged in a recharger. Using a screwdriver on this item will allow you to access its power cell, which can be replaced.</span>"
 
-/obj/item/melee/baton/detailed_examine()
-	return "The baton needs to be turned on to apply the stunning effect. Use it in your hand to toggle it on or off.  If your intent is \
-			set to 'harm', you will inflict damage when using it, regardless if it is on or not. Each stun reduces the baton's charge, which can be replenished by \
-			putting it inside a weapon recharger."
 
 /obj/item/melee/baton/get_cell()
 	return cell
+
+/obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE)
+	if(turned_on && (slot == slot_belt || slot == slot_s_store))
+		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
+		return FALSE
+	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning
+
+/obj/item/melee/baton/can_enter_storage(obj/item/storage/S, mob/user)
+	if(turned_on)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's active!</span>")
+		return FALSE
+	return TRUE
 
 /**
   * Removes the specified amount of charge from the batons power cell.
@@ -191,7 +201,6 @@
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, TRUE)
 			return FALSE
-		H.forcesay(GLOB.hit_appends)
 		H.Confused(10 SECONDS)
 		H.Jitter(10 SECONDS)
 		H.adjustStaminaLoss(stam_damage)

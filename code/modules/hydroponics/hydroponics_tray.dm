@@ -379,7 +379,7 @@
 		oldPlantName = myseed.plantname
 		QDEL_NULL(myseed)
 	else
-		oldPlantName = "empty tray"
+		oldPlantName = "[name]"
 	switch(rand(1,18))		// randomly pick predominative weed
 		if(16 to 18)
 			myseed = new /obj/item/seeds/reishi(src)
@@ -710,7 +710,7 @@
 		adjustPests(rand(2,4))
 
 	// FEED ME SEYMOUR
-	if(S.has_reagent("strange_reagent", 1))
+	if(S.has_reagent("lazarus_reagent", 1))
 		spawnplant()
 
 	// The best stuff there is. For testing/debugging.
@@ -982,7 +982,7 @@
 	weedlevel = clamp(weedlevel + adjustamt, 0, 10)
 	plant_hud_set_weed()
 
-/obj/machinery/hydroponics/proc/spawnplant() // why would you put strange reagent in a hydro tray you monster I bet you also feed them blood
+/obj/machinery/hydroponics/proc/spawnplant() // why would you put Lazarus Reagent in a hydro tray you monster I bet you also feed them blood
 	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
 	var/chosen = pick(livingplants)
 	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))

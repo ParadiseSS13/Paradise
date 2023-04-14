@@ -41,7 +41,7 @@
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
-	if(jobban_isbanned(user, banType))
+	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return
 	if(cannotPossess(user))
@@ -544,13 +544,14 @@
 /obj/effect/mob_spawn/human/skeleton
 	name = "skeletal remains"
 	mob_name = "skeleton"
-	mob_species = /datum/species/skeleton
+	mob_species = /datum/species/skeleton/brittle
 	mob_gender = NEUTER
 
 /obj/effect/mob_spawn/human/skeleton/alive
 	death = FALSE
 	roundstart = FALSE
 	icon = 'icons/effects/blood.dmi'
+	mob_species = /datum/species/skeleton
 	icon_state = "remains"
 	description = "Be a spooky scary skeleton."	//not mapped in anywhere so admin spawner, who knows what they'll use this for.
 	flavour_text = "By unknown powers, your skeletal remains have been reanimated! Walk this mortal plain and terrorize all living adventurers who dare cross your path."

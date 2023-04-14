@@ -264,13 +264,21 @@
 /datum/reagent/consumable/drink/hot_coco
 	name = "Hot Chocolate"
 	id = "hot_coco"
-	description = "Made with love! And coco beans."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	description = "Made with love! And cocoa beans."
+	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#401101"
 	drink_icon = "hot_coco"
 	drink_name = "Glass of hot coco"
 	drink_desc = "Delicious and cozy."
 	taste_description = "chocolate"
+
+/datum/reagent/consumable/drink/hot_coco/on_mob_life(mob/living/M)
+	if(M.bodytemperature < 310) // 310 is the normal bodytemp. 310.055
+		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M) || isfarwa(M) || iswolpin(M))
+		update_flags |= M.adjustToxLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee
 	name = "Coffee"

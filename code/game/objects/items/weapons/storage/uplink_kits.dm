@@ -18,7 +18,7 @@
 		/obj/item/chameleon, // 7TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/agent13 = list( // 37TC
+	var/static/list/agent13 = list( // 36TC
 		/obj/item/clothing/under/chameleon, // 1TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
@@ -28,7 +28,7 @@
 		/obj/item/twohanded/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/implanter/freedom, // 6TC
+		/obj/item/implanter/freedom, // 5TC
 		/obj/item/coin/gold, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
@@ -81,8 +81,8 @@
 		/obj/item/thermal_drill/diamond_drill, // 1TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
-	var/static/list/implant = list( // 41TC
-		/obj/item/implanter/freedom, // 6TC
+	var/static/list/implant = list( // 40TC
+		/obj/item/implanter/freedom, // 5TC
 		/obj/item/implanter/uplink, // 14TC (ten free TC)
 		/obj/item/implanter/emp, // 1TC
 		/obj/item/implanter/adrenalin, // 8TC
@@ -181,6 +181,13 @@
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/implanter/emp/(src)
+
+/obj/item/storage/box/syndie_kit/poisoner
+	name = "poisoner's kit"
+
+/obj/item/storage/box/syndie_kit/poisoner/populate_contents()
+	new /obj/item/pen/multi/poison(src)
+	new /obj/item/clothing/gloves/color/black/poisoner(src)
 
 /obj/item/storage/box/syndie_kit/c4
 	name = "pack of C-4 explosives"

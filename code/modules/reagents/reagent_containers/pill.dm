@@ -146,3 +146,15 @@
 	desc = "Used to treat cranial swelling."
 	icon_state = "pill19"
 	list_reagents = list("mannitol" = 10)
+
+/obj/item/reagent_containers/food/pill/pentetic
+	name ="\improper Pentetic pill"
+	desc = "Used to purge substances and radiation."
+	icon_state = "pill7"
+	list_reagents = list("pen_acid" = 5)
+
+/obj/item/reagent_containers/food/pill/ironsaline
+	name = "\improper Iron saline pill"
+	desc = "Used to help with blood loss."
+	icon_state = "pill2"
+	list_reagents = list("iron" = 10, "salglu_solution" = 10)

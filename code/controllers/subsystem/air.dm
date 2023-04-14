@@ -86,6 +86,21 @@ SUBSYSTEM_DEF(air)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
 
+/datum/controller/subsystem/air/Recover()
+	excited_groups = SSair.excited_groups
+	active_turfs = SSair.active_turfs
+	hotspots = SSair.hotspots
+	deferred_pipenet_rebuilds = SSair.deferred_pipenet_rebuilds
+	networks = SSair.networks
+	atmos_machinery = SSair.atmos_machinery
+	pipe_init_dirs_cache = SSair.pipe_init_dirs_cache
+	machinery_to_construct = SSair.machinery_to_construct
+	active_super_conductivity = SSair.active_super_conductivity
+	high_pressure_delta = SSair.high_pressure_delta
+	icon_manager = SSair.icon_manager
+	currentrun = SSair.currentrun
+	currentpart = SSair.currentpart
+
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
 
@@ -371,7 +386,7 @@ SUBSYSTEM_DEF(air)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
-	appearance_flags = TILE_BOUND | RESET_TRANSFORM
+	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
 
 /obj/effect/overlay/turf/plasma
 	icon_state = "plasma"
