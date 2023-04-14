@@ -246,11 +246,11 @@
 	name = "Miniature Titanium Crowbar"
 	desc = "A lightweight and portable version of the Crowbar that fits into smaller storages."
 	id = "minicrowbar"
-	req_tech = list("materials" = 3, "engineering" = 4)
+	req_tech = list("engineering" = 4, "materials" = 3)
 	build_path = /obj/item/crowbar/small
+	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 250)
 	category = list("Equipment")
-
 /datum/design/alienwrench
 	name = "Alien Wrench"
 	desc = "An advanced wrench obtained through Abductor technology."
