@@ -8,10 +8,13 @@
 #define ORGAN_MUTATED      (1 << 4)
 #define ORGAN_INT_BLEEDING (1 << 5)
 #define ORGAN_DISFIGURED   (1 << 6)
+#define ORGAN_BURNT		   (1 << 7)
+#define ORGAN_SALVED	   (1 << 8)
 
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
+#define CANNOT_BURN			(1 << 2)
 
 #define PROCESS_ACCURACY 10
 
