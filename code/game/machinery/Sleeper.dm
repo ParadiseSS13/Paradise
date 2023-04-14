@@ -26,8 +26,8 @@
 	var/min_health = -25
 	var/controls_inside = FALSE
 	var/auto_eject_dead = FALSE
-	idle_power_usage = 1250
-	active_power_usage = 2500
+	idle_power_consumption = 1250
+	active_power_consumption = 2500
 
 	light_color = LIGHT_COLOR_CYAN
 
@@ -49,7 +49,7 @@
 			Note that you cannot control the sleeper while inside of it."
 
 /obj/machinery/sleeper/power_change()
-	..()
+	..() //we don't check parent return here because we also care about BROKEN
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else

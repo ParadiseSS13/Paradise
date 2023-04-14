@@ -147,7 +147,7 @@
 	atom_say("Software override initiated.")
 	playsound(src, 'sound/machines/terminal_on.ogg', 100, FALSE)
 	var/turf/console_hijack_turf = get_turf(src)
-	message_admins("[src] is being overriden for hijack by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(console_hijack_turf)]")
+	message_admins("[src] is being overridden for hijack by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(console_hijack_turf)]")
 	. = FALSE
 	if(do_after(user, speed, target = src))
 		increase_hijack_stage()

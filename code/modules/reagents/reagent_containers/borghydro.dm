@@ -15,7 +15,7 @@
 	var/recharge_time = 5 //Time it takes for shots to recharge (in seconds)
 	var/bypass_protection = 0 //If the hypospray can go through armor or thick material
 	var/list/datum/reagents/reagent_list = list()
-	var/list/reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "spaceacillin", "charcoal")
+	var/list/reagent_ids = list("salglu_solution", "epinephrine", "hydrocodone", "spaceacillin", "charcoal", "mannitol", "salbutamol")
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
