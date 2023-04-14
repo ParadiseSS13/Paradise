@@ -478,6 +478,7 @@
 	if(user.holy_check())
 		return
 	var/list/potential_runes = list()
+	var/list/filtered_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
 	var/atom/movable/teleportee
@@ -500,7 +501,13 @@
 			duplicaterunecount[resultkey] = 1
 		potential_runes[resultkey] = T
 
-	if(!length(potential_runes))
+	// Filter out runes that are not on the same z-level
+	for(var/rune_key in potential_runes)
+		var/obj/effect/rune/teleport/rune_to_check = potential_runes[rune_key]
+		if(rune_to_check.z == user.z)
+			filtered_runes[rune_key] = rune_to_check
+
+	if(!length(filtered_runes))
 		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
 		log_game("Teleport spell failed - no other teleport runes")
 		return
@@ -509,8 +516,8 @@
 		log_game("Teleport spell failed - user in away mission")
 		return
 
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
-	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
+	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in filtered_runes //we know what key they picked
+	var/obj/effect/rune/teleport/actual_selected_rune = filtered_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return
 
