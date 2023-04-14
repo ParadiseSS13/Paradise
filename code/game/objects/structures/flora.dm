@@ -288,15 +288,14 @@
 		hide_user(user)
 
 /obj/item/twohanded/required/kirbyplants/proc/hide_user(mob/living/user)
-	var/mutable_appearance/MA = mutable_appearance(icon, icon_state, user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
-	user.add_overlay(MA)
-	mob_overlay = MA
+	mob_overlay = mutable_appearance(icon, icon_state, user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
+	user.add_overlay(mob_overlay)
 	user.alpha = 0
 
 /obj/item/twohanded/required/kirbyplants/proc/unhide_user(mob/living/user)
 	user.cut_overlay(mob_overlay)
 	user.alpha = initial(user.alpha)
-	qdel(mob_overlay)
+	QDEL_NULL(mob_overlay)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()
