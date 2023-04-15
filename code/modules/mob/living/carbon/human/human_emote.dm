@@ -276,7 +276,6 @@
 	if(user.put_in_hands(smacking_hand))
 		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
 	else
-		qdel(smacking_hand)
 		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
 
 /datum/emote/living/carbon/human/wink
