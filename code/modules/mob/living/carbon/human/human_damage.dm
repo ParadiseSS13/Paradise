@@ -137,15 +137,20 @@
 		amount *= dna.species.clone_mod
 	. = ..()
 
+	if(!amount)
+		return
+
 	var/mut_prob = min(80, getCloneLoss() + 10)
 	var/heal_prob = max(0, 80 - getCloneLoss())
 
-	if(getCloneLoss() == 0)  // All cloneloss was purged - fix all organs
+	if(!getCloneLoss()) // All cloneloss was purged - fix all organs
 		for(var/obj/item/organ/external/O in bodyparts)
 			if(O.status & ORGAN_MUTATED)
 				O.unmutate()
 				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
-	else if(amount > 0) // Cloneloss was inflicted - chance to mutate an organ
+		return
+
+	if(amount > 0) // Cloneloss was inflicted - chance to mutate an organ
 		if(!prob(mut_prob))
 			return
 
@@ -159,7 +164,7 @@
 			O.mutate()
 			to_chat(src, "<span class='notice'>Something is not right with your [O.name]...</span>")
 			O.add_autopsy_data("Mutation", amount)
-	else if (amount < 0) // Cloneloss was healed - chance to unmutate an organ
+	else // Cloneloss was partially healed - chance to unmutate an organ
 		if(!prob(heal_prob))
 			return
 
@@ -174,7 +179,7 @@
 		amount *= dna.species.clone_mod
 	. = ..()
 
-	if(amount == 0) // Cloneloss was set to 0 - fix all organs
+	if(!amount) // Cloneloss was set to 0 - fix all organs
 		for(var/obj/item/organ/external/O in bodyparts)
 			if(O.status & ORGAN_MUTATED)
 				O.unmutate()
