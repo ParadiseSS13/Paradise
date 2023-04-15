@@ -81,7 +81,7 @@
 	var/mob/living/carbon/C = user
 	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
 	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
-		"<span class='userdanger'>As you focus on the singularity, you feel your knowledge of the universe grow. So much raw information is there for the taking; you won't waste a speck of it. Within fractions of a millisecond you absorb as much information as possible, more than even an AI would have access to, and you feel like a god. Suddenly, the gravity of this situation dawns on you. As you feel your skull beginning to collapse, you think to yourself. That was a really dense idea, wasn't it?</span>")
+		"<span class='userdanger'>As you concentrate on the singularity, your understanding of the cosmos expands exponentially. An immense wealth of raw information is at your fingertips, and you're determined not to squander a single morsel. Within mere microseconds, you absorb a staggering amount of information—more than any AI could ever hope to access—and you can't help but feel a godlike sense of power. However, the gravity of this situation swiftly sinks in. As you sense your skull starting to collapse under pressure, you can't help but admit to yourself: That was a really dense idea, wasn't it?</span>")
 	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
 	C.ghostize(0)
 	if(B)
