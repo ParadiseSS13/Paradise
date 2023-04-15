@@ -1310,7 +1310,7 @@
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
 					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
-						if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED)) //I can't just check for !E.status
+						if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT)) //I can't just check for !E.status
 							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
 							E.rejuvenate() //Repair it completely.
 				if(ishuman(M))

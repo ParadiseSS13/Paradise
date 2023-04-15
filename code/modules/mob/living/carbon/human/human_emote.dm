@@ -260,11 +260,14 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/obj/item/slapper/N = new(user)
-	if(user.put_in_hands(N))
+	var/obj/item/slapper/smacking_hand
+	if(user.mind && user.mind.martial_art?.can_parry)
+		smacking_hand = new /obj/item/slapper/parry(user)
+	else
+		smacking_hand = new /obj/item/slapper(user)
+	if(user.put_in_hands(smacking_hand))
 		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
 	else
-		qdel(N)
 		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
 
 /datum/emote/living/carbon/human/wink
