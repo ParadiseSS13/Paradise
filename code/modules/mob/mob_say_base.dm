@@ -221,4 +221,5 @@
 		. += S.message + " "
 	. = trim_right(.)
 
+#undef USABLE_DEAD_EMOTES
 #undef ILLEGAL_CHARACTERS_LIST
