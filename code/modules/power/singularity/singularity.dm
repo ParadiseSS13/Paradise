@@ -440,7 +440,6 @@
 		M.Stun(6 SECONDS)
 		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
 						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
-	return
 
 
 /obj/singularity/proc/emp_area()
