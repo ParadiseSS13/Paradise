@@ -1,6 +1,7 @@
 /datum/species/golem
 	name = "Golem"
 	name_plural = "Golems"
+	max_age = 150
 
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 

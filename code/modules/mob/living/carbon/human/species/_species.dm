@@ -3,6 +3,11 @@
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 
+	/// Minimum age this species can have
+	var/min_age = 17
+	/// Maximum age this species can have
+	var/max_age = 85
+
 	// Damage overlay and masks.
 	var/damage_overlays = 'icons/mob/human_races/masks/dam_human.dmi'
 	var/damage_mask = 'icons/mob/human_races/masks/dam_mask_human.dmi'
