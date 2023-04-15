@@ -32287,6 +32287,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = -3
 	},
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -41531,16 +41532,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "cae" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_command,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_science,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "caf" = (
@@ -42695,7 +42687,6 @@
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "ccC" = (
-/obj/structure/closet/lawcloset,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -51924,16 +51915,7 @@
 	},
 /area/crew_quarters/locker)
 "cyL" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_legal,
-/obj/item/book/manual/wiki/sop_command,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_science,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "cyM" = (
@@ -87511,19 +87493,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "map" = (
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access_txt = "1";
-	power_state = 0
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Secure Gate";
-	name = "Security Blast Door";
-	opacity = 0
-	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/impassable/gamma,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

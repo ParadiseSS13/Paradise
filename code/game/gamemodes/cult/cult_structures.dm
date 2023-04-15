@@ -1,3 +1,6 @@
+/// The amount of time necessary for a structure to be able to produce items after being built
+#define CULT_STRUCTURE_COOLDOWN 60 SECONDS
+
 /obj/structure/cult
 	density = TRUE
 	anchored = TRUE
@@ -155,6 +158,7 @@
 /obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.altar_icon_state
+	cooldowntime = world.time + CULT_STRUCTURE_COOLDOWN
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
@@ -346,3 +350,5 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
+
+#undef CULT_STRUCTURE_COOLDOWN

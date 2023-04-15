@@ -5272,14 +5272,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "azY" = (
-/obj/structure/bookcase,
-/obj/item/book/manual/wiki/sop_engineering,
-/obj/item/book/manual/wiki/sop_medical,
-/obj/item/book/manual/wiki/sop_security,
-/obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
-/obj/item/book/manual/wiki/sop_general,
-/obj/item/book/manual/wiki/sop_legal,
+/obj/structure/bookcase/sop,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -24471,12 +24464,12 @@
 	pixel_y = -3
 	},
 /obj/item/wrench,
-/obj/item/multitool,
 /obj/machinery/newscaster{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -65530,7 +65523,6 @@
 	},
 /area/security/permabrig)
 "kyo" = (
-/obj/structure/closet/lawcloset,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -72068,12 +72060,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "nwC" = (
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access_txt = "1";
-	power_state = 0
-	},
-/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/impassable/gamma,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

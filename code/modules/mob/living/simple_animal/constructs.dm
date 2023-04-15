@@ -52,7 +52,7 @@
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	. = ..()
-	SSticker.mode.remove_cultist(mind, FALSE)
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()

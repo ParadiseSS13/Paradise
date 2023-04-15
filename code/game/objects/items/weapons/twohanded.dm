@@ -984,6 +984,8 @@
 
 /obj/item/twohanded/push_broom/wield(mob/user)
 	. = ..()
+	if(!.)
+		return
 	to_chat(user, "<span class='notice'>You brace [src] against the ground in a firm sweeping stance.</span>")
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(sweep))
 
@@ -1021,7 +1023,7 @@
 		if(trash_amount > BROOM_PUSH_LIMIT)
 			break
 	if(trash_amount > 1)
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 10, TRUE, -1)
+		playsound(loc, 'sound/weapons/sweeping.ogg', 70, TRUE, -1)
 
 /obj/item/twohanded/push_broom/proc/move_into_storage(mob/user, obj/storage, obj/trash)
 	trash.forceMove(storage)

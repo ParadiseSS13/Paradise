@@ -4088,8 +4088,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "RM" = (
-/obj/structure/grille,
-/obj/structure/window/full/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

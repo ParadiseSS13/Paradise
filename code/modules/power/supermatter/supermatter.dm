@@ -201,6 +201,7 @@
 	GLOB.poi_list |= src
 	radio = new(src)
 	radio.listening = FALSE
+	radio.follow_target = src
 	radio.config(list("Engineering" = 0))
 	investigate_log("has been created.", "supermatter")
 
@@ -211,6 +212,8 @@
 	SSair.atmos_machinery -= src
 	QDEL_NULL(radio)
 	GLOB.poi_list -= src
+	if(!processes)
+		GLOB.frozen_atom_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(soundloop)
 	return ..()
@@ -289,6 +292,11 @@
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
 	radio.autosay(speaking, name, null, list(z))
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
+		if(!processes) // Stop exploding if you're frozen by an admin, damn you
+			cut_overlay(causality_field, TRUE)
+			final_countdown = FALSE
+			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
+			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
 			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null, list(z))
 			cut_overlay(causality_field, TRUE)
