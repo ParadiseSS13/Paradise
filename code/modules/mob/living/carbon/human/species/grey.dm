@@ -1,7 +1,7 @@
 /datum/species/grey
 	name = "Grey"
 	name_plural = "Greys"
-	max_age = 50
+	max_age = 45
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	language = "Psionic Communication"
 	eyes = "grey_eyes_s"

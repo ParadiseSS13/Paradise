@@ -7,7 +7,7 @@
 /datum/species/moth
 	name = "Nian"
 	name_plural = "Nianae"
-	max_age = 64
+	max_age = 58
 	language = "Tkachi"
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("nian")

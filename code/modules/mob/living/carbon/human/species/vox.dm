@@ -1,7 +1,7 @@
 /datum/species/vox
 	name = "Vox"
 	name_plural = "Vox"
-	max_age = 54
+	max_age = 49
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	dangerous_existence = TRUE
 	language = "Vox-pidgin"
