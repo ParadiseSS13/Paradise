@@ -10,6 +10,16 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
 
+//For emagging the console
+/obj/machinery/computer/aiupload/emag_act(mob/user)
+	if (!emagged)
+		emagged = TRUE
+		if(user)
+			user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
+								"<span class='notice'>You emag [src], scrambling the computer's law encoding system.</span>")
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
+		do_sparks(5, 1, src)
+		circuit = /obj/item/circuitboard/aiupload_broken
 
 // What the fuck even is this
 /obj/machinery/computer/aiupload/verb/AccessInternals()
@@ -36,9 +46,15 @@
 		if(!atoms_share_level(T, src))
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 			return
-		var/obj/item/aiModule/M = O
-		M.install(src)
-		return
+		if (!emagged)
+			var/obj/item/aiModule/M = O
+			M.install(src)
+			return
+		else
+			log_and_message_admins("[src] has uploaded a law at an emag'd AI Upload terminal")
+			do_sparks(5, 1, src)
+			log_and_message_admins(current.laws.all_laws())
+			return
 	return ..()
 
 
