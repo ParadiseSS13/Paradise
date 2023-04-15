@@ -713,7 +713,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(href_list["trackbot"])
 		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
-		if(target && istype(target))
+		if(istype(target))
 			ai_actual_track(target)
 		else
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
