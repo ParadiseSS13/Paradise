@@ -267,7 +267,7 @@
 	if(age_based && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
-		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch())
+		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(H.dna.species.max_age))
 	else
 		playsound(user.loc, sound_path, sound_volume, vary)
 
