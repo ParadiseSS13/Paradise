@@ -179,7 +179,7 @@
 		M.update_inv_r_hand()
 
 /obj/item/reagent_containers/syringe/Crossed(mob/living/carbon/human/H, oldloc)
-	if(!istype(H) || !H.reagents || (HAS_TRAIT(H,TRAIT_PIERCEIMMUNE) || ismachineperson(H)))
+	if(!istype(H) || !H.reagents || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || ismachineperson(H))
 		return
 
 	if(H.floating || H.flying || H.buckled)
