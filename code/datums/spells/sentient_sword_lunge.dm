@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/sentient_sword_lunge
 	name = "Lunge"
-	desc = "Lunge at something in your viewrange."
+	desc = "Lunge at something in your view range."
 	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
 	invocation = "EN GUARD!"
