@@ -45,6 +45,7 @@
 	if(!A)
 		number = rand(1, 100)
 		c_tag = "Unknown #[number]"
+		stack_trace("Camera with tag [c_tag] was spawned without an area, please report this to your nearest coder.")
 		return ..()
 
 	for(var/obj/machinery/camera/autoname/C in A.contents)
@@ -55,7 +56,7 @@
 
 	c_tag = "[sanitize(A.name)] #[number]"
 
-	..() // We do this here so the camera is not added to the cameranet until it has a name.
+	return ..() // We do this here so the camera is not added to the cameranet until it has a name.
 
 // CHECKS
 
