@@ -194,7 +194,7 @@
 	if(IS_HORIZONTAL(H))
 		H.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
 	else
-		H.apply_damage(5, BRUTE,(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)))
+		H.apply_damage(5, BRUTE, pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 
 	if(reagents.total_volume && H.reagents.total_volume < H.reagents.maximum_volume)
 		var/inject_amount = reagents.total_volume
