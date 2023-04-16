@@ -360,6 +360,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						E.mend_fracture()
 						E.fix_internal_bleeding()
+						E.fix_burn_wound()
 					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 						crit.cure()
 

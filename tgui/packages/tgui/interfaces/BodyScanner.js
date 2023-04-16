@@ -276,6 +276,7 @@ const BodyScannerMainOrgansExternal = (props) => {
               color={
                 (!!o.status.dead && 'bad') ||
                 ((!!o.internalBleeding ||
+                  !!o.burnWound ||
                   !!o.lungRuptured ||
                   !!o.status.broken ||
                   !!o.open ||
@@ -323,6 +324,7 @@ const BodyScannerMainOrgansExternal = (props) => {
               <Box color="average" display="inline">
                 {reduceOrganStatus([
                   !!o.internalBleeding && 'Internal bleeding',
+                  !!o.burnWound && 'Critical tissue burns',
                   !!o.lungRuptured && 'Ruptured lung',
                   !!o.status.broken && o.status.broken,
                   germStatus(o.germ_level),
