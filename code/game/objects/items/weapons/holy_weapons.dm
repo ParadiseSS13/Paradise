@@ -610,9 +610,12 @@
 	var/obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/robes = null		//the robes linked with this staff
 	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
 
-/obj/item/nullrod/missionary_staff/detailed_examine_antag()
-	return "This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
-			Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them."
+/obj/item/nullrod/missionary_staff/examine(mob/living/user)
+	. = ..()
+	if(isAntag(user))
+		. += "<span class='warning'>This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. \
+			<b>Use the staff in hand</b> while wearing robes to link them both, then aim the staff at your victim to try and convert them.</span>"
+
 
 /obj/item/nullrod/missionary_staff/New()
 	..()

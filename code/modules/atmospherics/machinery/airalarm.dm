@@ -406,7 +406,7 @@
 				S.scrub_Toxins = FALSE
 				S.scrub_N2O = FALSE
 				S.scrubbing = TRUE
-				S.widenet = TRUE
+				S.widenet = FALSE
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
@@ -414,7 +414,7 @@
 					continue
 				P.on = TRUE
 				P.pressure_checks = TRUE
-				P.internal_pressure_bound = ONE_ATMOSPHERE
+				P.external_pressure_bound = ONE_ATMOSPHERE
 				P.update_icon(UPDATE_ICON_STATE)
 
 

@@ -18,7 +18,8 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	name = "metal rod"
 	desc = "Some rods. Can be used for building, or something."
 	singular_name = "metal rod"
-	icon_state = "rods"
+	icon = 'icons/obj/stacks/minerals.dmi'
+	icon_state = "rods-5"
 	item_state = "rods"
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_NORMAL
@@ -34,9 +35,12 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	usesound = 'sound/items/deconstruct.ogg'
 	merge_type = /obj/item/stack/rods
 
-/obj/item/stack/rods/detailed_examine()
-	return "Made from metal sheets. You can build a grille by using it in your hand. \
-			Clicking on a floor without any tiles will reinforce the floor. You can make reinforced glass by combining rods and normal glass sheets."
+
+
+/obj/item/stack/rods/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Using rods on a floor plating will install a reinforced floor. You can make reinforced glass by combining rods and normal glass sheets.</span>"
+
 
 /obj/item/stack/rods/cyborg
 	energy_type = /datum/robot_energy_storage/rods
@@ -62,10 +66,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 
 /obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
-		icon_state = "rods-[amount]"
-	else
-		icon_state = "rods"
+	icon_state = "rods-[clamp(amount, 1, 5)]"
 
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)

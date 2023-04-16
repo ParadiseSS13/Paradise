@@ -351,6 +351,7 @@
 		discipline_slime(M)
 
 
+
 /mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, params)
 	if(stat == DEAD && surgeries.len)
 		if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM)
@@ -362,6 +363,7 @@
 			++Friends[user]
 		else
 			Friends[user] = 1
+			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
@@ -381,50 +383,12 @@
 			force_effect = round(I.force / 2)
 		if(prob(10 + force_effect))
 			discipline_slime(user)
-/*	if(istype(I, /obj/item/storage/bag/bio))
-		var/obj/item/storage/P = I
-		if(!effectmod)
-			to_chat(user, "<span class='warning'>The slime is not currently being mutated.</span>")
-			return
-		var/hasOutput = FALSE //Have we outputted text?
-		var/hasFound = FALSE //Have we found an extract to be added?
-		for(var/obj/item/slime_extract/S in P.contents)
-			if(S.effectmod == effectmod)
-				SEND_SIGNAL(P, COMSIG_TRY_STORAGE_TAKE, S, get_turf(src), TRUE)
-				qdel(S)
-				applied++
-				hasFound = TRUE
-			if(applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
-				to_chat(user, "<span class='notice'>You feed the slime as many of the extracts from the bag as you can, and it mutates!</span>")
-				playsound(src, 'sound/effects/attackblob.ogg', 50, TRUE)
-				spawn_corecross()
-				hasOutput = TRUE
-				break
-		if(!hasOutput)
-			if(!hasFound)
-				to_chat(user, "<span class='warning'>There are no extracts in the bag that this slime will accept!</span>")
-			else
-				to_chat(user, "<span class='notice'>You feed the slime some extracts from the bag.</span>")
-				playsound(src, 'sound/effects/attackblob.ogg', 50, TRUE)
-		return */
 	..()
-/*
-/mob/living/simple_animal/slime/proc/spawn_corecross()
-	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
-	visible_message("<span class='danger'>[src] shudders, its mutated core consuming the rest of its body!</span>")
-	playsound(src, 'sound/magic/smoke.ogg', 50, TRUE)
-	var/crosspath
-	for(var/X in crossbreeds)
-		var/obj/item/slimecross/S = X
-		if(initial(S.colour) == colour && initial(S.effect) == effectmod)
-			crosspath = S
-			break
-	if(crosspath)
-		new crosspath(loc)
-	else
-		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
-	qdel(src)
-*/
+
+/mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
+	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
+	Friends -= friend
+
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	var/water_damage = rand(10, 15) * volume

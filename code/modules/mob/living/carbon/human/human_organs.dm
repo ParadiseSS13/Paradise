@@ -25,6 +25,10 @@
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
 				custom_pain("You feel broken bones moving in your [E.name]!")
 				I.receive_damage(rand(3,5))
+			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
+				custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
+				E.germ_level++
+
 
 	//handle_stance()
 	handle_grasp()

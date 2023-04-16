@@ -40,7 +40,7 @@
 
 /mob/living/simple_animal/shade/death(gibbed)
 	. = ..()
-	SSticker.mode.remove_cultist(mind, FALSE)
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 
 /mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))
