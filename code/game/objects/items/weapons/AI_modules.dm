@@ -346,7 +346,7 @@ AI MODULES
 /obj/item/aiModule/pranksimov
 	name = "\improper Pranksimov core AI module"
 	desc = "A 'Pranksimov' Core AI Module: 'Reconfigures the AI's core laws.'"
-	icon_state = "green_low"
+	icon_state = "pranksimov"
 	origin_tech = "programming=3;syndicate=2"
 	laws = new /datum/ai_laws/pranksimov()
 
@@ -417,7 +417,7 @@ AI MODULES
 	name = "hacked AI module"
 	var/newFreeFormLaw = ""
 	desc = "A hacked AI law module: '<freeform>'"
-	icon_state = "standard_high"
+	icon_state = "syndicate"
 	origin_tech = "programming=5;materials=5;syndicate=5"
 
 /obj/item/aiModule/syndicate/attack_self(mob/user as mob)
