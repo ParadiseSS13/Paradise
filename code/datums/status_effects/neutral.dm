@@ -143,3 +143,67 @@
 /datum/status_effect/charging
 	id = "charging"
 	alert_type = null
+
+#define LWAP_LOCK_CAP 10
+
+/datum/status_effect/lwap_scope
+	id = "lwap_scope"
+	alert_type = null
+	duration = -1
+	tick_interval = 4
+	var/locks = 0
+
+/datum/status_effect/lwap_scope/tick()
+	locks = 0
+	for(var/mob/living/L in range(14, owner))// So. I would like this to be centered on the mobs client screen. Unsure how to do that at the moment.
+		if(locks >= LWAP_LOCK_CAP)
+			return
+		if(L == owner)
+			continue
+		if(L.stat == DEAD)
+			continue
+		if(isslime(L) || ismonkeybasic(L)) //xenobio moment
+			continue
+		new /obj/effect/temp_visual/lwap_ping(owner.loc, owner, L)
+		locks++
+		continue
+
+#undef LWAP_LOCK_CAP
+
+/obj/effect/temp_visual/lwap_ping
+	duration = 0.4 SECONDS
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	anchored = TRUE
+	randomdir = FALSE
+	/// The image shown to lwap users
+	var/image/lwap_image
+	/// The person in the modsuit at the moment, really just used to remove this from their screen
+	var/source_UID
+	icon = 'icons/obj/projectiles.dmi'
+	/// The icon state applied to the image created for this ping.
+	var/real_icon_state = "red_laser"
+
+/obj/effect/temp_visual/lwap_ping/Initialize(mapload, mob/living/looker, mob/living/creature)
+	. = ..()
+	if(!looker || !creature)
+		return INITIALIZE_HINT_QDEL
+	lwap_image = image(icon = icon, loc = looker.loc, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * 32), pixel_y = ((creature.y - looker.y) * 32))
+	lwap_image.plane = ABOVE_LIGHTING_PLANE
+	source_UID = looker.UID()
+	add_mind(looker)
+
+/obj/effect/temp_visual/lwap_ping/Destroy()
+	var/mob/living/previous_user = locateUID(source_UID)
+	if(previous_user)
+		remove_mind(previous_user)
+	// Null so we don't shit the bed when we delete
+	lwap_image = null
+	return ..()
+
+/// Add the image to the modsuit wearer's screen
+/obj/effect/temp_visual/lwap_ping/proc/add_mind(mob/living/looker)
+	looker?.client?.images |= lwap_image
+
+/// Remove the image from the modsuit wearer's screen
+/obj/effect/temp_visual/lwap_ping/proc/remove_mind(mob/living/looker)
+	looker?.client?.images -= lwap_image

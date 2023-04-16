@@ -72,7 +72,7 @@
 
 /obj/item/weaponcrafting/gunkit/lwap
 	name = "\improper lwap laser sniper parts kit"
-	desc = "A suitcase containing the necessary gun parts to transform an accelerator laser cannon into an even meaner laser sniper. Somehow turns the laser purple!"
+	desc = "A suitcase containing the necessary gun parts to transform an laser gun into an advanced piercing laser sniper. Now with wall hacks!"
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
 
 /obj/item/weaponcrafting/gunkit/plasma

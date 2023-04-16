@@ -113,33 +113,56 @@
 
 /obj/item/gun/energy/lwap
 	name = "LWAP laser sniper"
-	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly."
+	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly. Comes with a super advanced scope, which can highlight threats through walls, and pierce one object, after being deployed for a while."
 	icon_state = "esniper"
 	item_state = null
 	w_class = WEIGHT_CLASS_BULKY
 	force = 12
-	flags =  CONDUCT
+	flags = CONDUCT
 	slot_flags = SLOT_BACK
 	can_holster = FALSE
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/sniper, /obj/item/ammo_casing/energy/laser/sniper/pierce)
 	zoomable = TRUE
 	zoom_amt = 7
 	shaded_charge = TRUE
+	var/scope_active = FALSE //To ensure we don't activate the piercing ammo out of scope.
+
+/obj/item/gun/energy/lwap/zoom(mob/living/user, forced_zoom)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(scope_active)
+			select_fire(H)
+			H.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
+			scope_active = FALSE
+		else if(do_after(user, 3 SECONDS, target = src))
+			if(zoomed) //We check after.
+				scope_active = TRUE
+				to_chat(user, "<b><span class='robot'>SMRT-SCOPE Online.</span></b>")
+				select_fire(H)
+				H.apply_status_effect(STATUS_EFFECT_LWAPSCOPE)
+
+/obj/item/gun/energy/lwap/attack_self()
+	return //no manual ammo changing.
 
 /obj/item/ammo_casing/energy/laser/sniper
 	projectile_type = /obj/item/projectile/beam/laser/sniper
 	muzzle_flash_color = LIGHT_COLOR_PINK
-	select_name = "sniper"
+	select_name = null
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 5 SECONDS
+
+/obj/item/ammo_casing/energy/laser/sniper/pierce
+	projectile_type = /obj/item/projectile/beam/laser/sniper/pierce
 
 /obj/item/projectile/beam/laser/sniper
 	name = "sniper laser"
 	icon_state = "sniperlaser"
 	range = 255
 	damage = 10
+	var/can_knockdown = TRUE
 
 /obj/item/projectile/beam/laser/sniper/Range()
 	..()
@@ -147,9 +170,13 @@
 
 /obj/item/projectile/beam/laser/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	..()
-	var/mob/living/carbon/human/M = target
-	if(istype(M) && damage >= 40)
-		M.KnockDown(2 SECONDS * (damage / 10))
+	var/mob/living/carbon/human/H = target
+	if(istype(H) && damage >= 40 && can_knockdown)
+		H.KnockDown(2 SECONDS * (damage / 10))
+		can_knockdown = FALSE //Projectiles that pierce can not knockdown, no wall knockdowns.
+
+/obj/item/projectile/beam/laser/sniper/pierce
+	forcedodge = 1 // Can pierce one mob.
 
 /obj/item/gun/energy/xray
 	name = "xray laser gun"

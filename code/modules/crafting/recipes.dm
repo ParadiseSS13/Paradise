@@ -222,12 +222,16 @@
 	name = "LWAP Laser Sniper"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	result = list(/obj/item/gun/energy/lwap)
-	reqs = list(/obj/item/gun/energy/lasercannon = 1,
+	reqs = list(/obj/item/gun/energy/laser = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/lwap = 1)
 	time = 10 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/lwap/New()
+	..()
+	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
 /datum/crafting_recipe/silencer
 	name = "u-ION Silencer"
