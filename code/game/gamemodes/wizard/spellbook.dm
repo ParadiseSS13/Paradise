@@ -244,6 +244,12 @@
 	REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
+/datum/spellbook_entry/mass_mindswap
+	name = "Mass Mindswap"
+	spell_type = /obj/effect/proc_holder/spell/aoe/mass_mindswap
+	log_name = "ML"
+	category = "Defensive"
+
 //Mobility
 /datum/spellbook_entry/knock
 	name = "Knock"
@@ -1061,8 +1067,8 @@
 		return
 
 	var/obj/effect/proc_holder/spell/mind_transfer/swapper = new
-	swapper.cast(user, stored_swap)
-
+	swapper.swap_bodies(user, stored_swap)
+	qdel(swapper)
 	to_chat(stored_swap, "<span class='warning'>You're suddenly somewhere else... and someone else?!</span>")
 	to_chat(user, "<span class='warning'>Suddenly you're staring at [src] again... where are you, who are you?!</span>")
 	stored_swap = null

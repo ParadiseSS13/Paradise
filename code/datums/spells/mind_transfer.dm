@@ -34,11 +34,6 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/mob/living/target = targets[1]
 	if(target.mind.special_role in protected_roles)
 		return // base mindswap doesn't want cultists to suffer
-	swap_bodies(target, user)
-	target.Paralyse(paralysis_amount_caster)
-	user.Paralyse(paralysis_amount_victim)
-
-/obj/effect/proc_holder/spell/proc/swap_bodies(mob/living/target, mob/user)
 	if(user.suiciding)
 		to_chat(user, "<span class='warning'>You're killing yourself! You can't concentrate enough to do this!</span>")
 		return
@@ -46,6 +41,11 @@ Also, you never added distance checking after target is selected. I've went ahea
 	if(issilicon(target))
 		to_chat(user, "You feel this enslaved being is just as dead as its cold, hard exoskeleton.")
 		return
+	swap_bodies(target, user)
+	target.Paralyse(paralysis_amount_caster)
+	user.Paralyse(paralysis_amount_victim)
+
+/obj/effect/proc_holder/spell/proc/swap_bodies(mob/living/target, mob/user)
 
 	var/mob/living/victim = target//The target of the spell whos body will be transferred to.
 	var/mob/living/caster = user//The wizard/whomever doing the body transferring.
@@ -80,11 +80,11 @@ Also, you never added distance checking after target is selected. I've went ahea
 	name = "Mass mindswap"
 	desc = "Shuffles the minds of everyone in your general vicinity."
 	school = "transmutation"
-	base_cooldown = 5 MINUTES
+	base_cooldown = 3 MINUTES
 	clothes_req = FALSE
 	invocation = "CRYO`ENTH VOUTH"
 	invocation_type = "whisper"
-	cooldown_min = 2 MINUTES
+	cooldown_min = 1 MINUTES
 	action_icon_state = "mindswap"
 	aoe_range = 30 // normally 2 screens
 	smoke_type = SMOKE_HARMLESS
@@ -100,8 +100,8 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/list/mobs_to_swap = list()
 
 	for(var/mob/living/mind_we_will_transfer as anything in targets)
-		if(mind_we_will_transfer.stat != CONSCIOUS || !mind_we_will_transfer.mind || user == mind_we_will_transfer)
-			continue //spare the casters and the poor SSD lads
+	//	if(mind_we_will_transfer.stat != CONSCIOUS || !mind_we_will_transfer.mind || user == mind_we_will_transfer || mind_we_will_transfer.suiciding)
+//			continue //spare the casters and the poor SSD lads, don't want suiciding people getting slapped either
 		mobs_to_swap += mind_we_will_transfer
 
 	if(!length(mobs_to_swap))
