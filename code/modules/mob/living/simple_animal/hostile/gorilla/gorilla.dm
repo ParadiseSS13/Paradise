@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/gorilla
 	name = "Gorilla"
-	desc = "A ground-dwelling, predominantly herbivorous ape that inhabits the forests of central Africa."
+	desc = "A ground-dwelling, predominantly herbivorous ape that inhabits the forests of central Africa on Earrh."
 	icon = 'icons/mob/gorilla.dmi'
 	icon_state = "crawling"
 	icon_living = "crawling"
