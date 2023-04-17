@@ -37,7 +37,6 @@
 	var/area_sound = FALSE
 
 /datum/looping_sound/New(list/_output_atoms = list(), start_immediately = FALSE, _direct = FALSE)
-	GLOB.looping_sounds += src
 	if(!mid_sounds)
 		WARNING("A looping sound datum was created without sounds to play.")
 		return
@@ -49,12 +48,12 @@
 		start()
 
 /datum/looping_sound/Destroy()
-	GLOB.looping_sounds -= src
 	stop()
 	output_atoms = null
 	return ..()
 
 /datum/looping_sound/proc/start(atom/add_thing)
+	GLOB.looping_sounds += src
 	if(add_thing)
 		LAZYADD(output_atoms, add_thing)
 	if(!muted)
@@ -63,6 +62,7 @@
 	on_start()
 
 /datum/looping_sound/proc/stop(atom/remove_thing, do_not_mute)
+	GLOB.looping_sounds -= src
 	if(remove_thing)
 		LAZYREMOVE(output_atoms, remove_thing)
 		if(do_not_mute && length(output_atoms)) //if there are no output_atoms then we mute regardless of your preferance
