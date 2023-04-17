@@ -173,7 +173,7 @@
 	. = ..()
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
-	icon_state = "[icon_state]_spear"
+	icon_state = "[initial(icon_state)]_spear"
 
 	var/obj/item/twohanded/spear = inventory_hand
 
