@@ -26348,8 +26348,8 @@
 /area/hallway/primary/port)
 "bmt" = (
 /obj/structure/reagent_dispensers/fueltank{
-	desc = "Вагончик с топливом. Достаточно лёгкий, видать пустой. Интересно, кто его тут оставил...";
-	tank_volume = 0
+	desc = "Вагончик с топливом. Достаточно лёгкий, видать не полный. Интересно, кто его тут оставил...";
+	tank_volume = 1000
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
@@ -26412,7 +26412,19 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/cooker/deepfryer,
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
+/obj/structure/table,
+/obj/item/book/manual/sop_service{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5;
+	pixel_x = 11;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -27211,11 +27223,9 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "boq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/large{
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -28107,13 +28117,13 @@
 /turf/simulated/floor/plating,
 /area/storage/emergency2)
 "bqB" = (
-/obj/item/radio/intercom{
-	name = "north station intercom (General)";
-	pixel_y = 28
-	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	name = "north station intercom (General)";
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -28147,16 +28157,13 @@
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
 "bqH" = (
-/obj/structure/table,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/obj/machinery/alarm{
-	pixel_y = 24
+/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/structure/extinguisher_cabinet{
+	name = "north extinguisher cabinet";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -28587,9 +28594,7 @@
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/bar/atrium)
 "brY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -28923,12 +28928,6 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/crew_quarters/bar)
-"bsT" = (
-/obj/effect/landmark/start/chef,
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
 "bsU" = (
 /mob/living/simple_animal/chicken/Wife,
 /obj/structure/flora/ausbushes/pointybush,
@@ -29134,10 +29133,11 @@
 /turf/simulated/floor/carpet,
 /area/civilian/vacantoffice)
 "btI" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/bottle/cream{
-	pixel_x = -4;
-	pixel_y = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -29152,9 +29152,15 @@
 	},
 /area/crew_quarters/bar)
 "btK" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/large{
+/obj/effect/decal/warning_stripes/white,
+/obj/machinery/kitchen_machine/oven{
 	pixel_y = 3
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -29169,9 +29175,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "btM" = (
-/obj/machinery/icemachine{
-	pixel_x = -1;
-	pixel_y = -3
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -29355,8 +29363,8 @@
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bur" = (
-/obj/structure/table,
-/mob/living/simple_animal/mouse/rat/gray/Ratatui,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -29374,16 +29382,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
-"but" = (
-/obj/effect/decal/warning_stripes/white,
-/obj/machinery/kitchen_machine/grill{
-	pixel_x = 1;
-	pixel_y = 2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
 "buu" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -29415,6 +29413,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/mob/living/simple_animal/mouse/rat/gray/Ratatui,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -30164,25 +30163,7 @@
 	},
 /area/hallway/primary/central/ne)
 "bwn" = (
-/obj/structure/table,
-/obj/item/stack/packageWrap{
-	pixel_y = 4
-	},
-/obj/item/stack/packageWrap{
-	pixel_y = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
-"bwo" = (
-/obj/structure/table,
-/obj/item/kitchen/rollingpin{
-	pixel_x = 3
-	},
-/obj/item/kitchen/knife{
-	pixel_x = -8
-	},
+/obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -30835,7 +30816,7 @@
 	req_access = list(28)
 	},
 /obj/machinery/light,
-/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/machinery/processor,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -31284,8 +31265,9 @@
 /turf/simulated/wall,
 /area/quartermaster/office)
 "byE" = (
-/obj/structure/table,
-/mob/living/simple_animal/mouse/rat/irish/Remi,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -70638,12 +70620,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmospherics)
 "doq" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -71830,14 +71808,9 @@
 /area/maintenance/asmaint)
 "dwW" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5;
-	pixel_x = 11;
-	pixel_y = 5
-	},
-/obj/item/book/manual/sop_service{
-	pixel_x = -6;
-	pixel_y = 4
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -72667,13 +72640,10 @@
 	},
 /area/medical/research/restroom)
 "eiI" = (
-/obj/structure/table,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 2;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/glass/beaker{
-	pixel_x = 8
+/obj/effect/decal/warning_stripes/white,
+/obj/machinery/kitchen_machine/grill{
+	pixel_x = 1;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -72859,19 +72829,22 @@
 	},
 /area/security/permabrig)
 "esq" = (
-/obj/structure/extinguisher_cabinet{
-	name = "north extinguisher cabinet";
-	pixel_y = 30
-	},
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/processor,
-/obj/machinery/camera{
-	c_tag = "Kitchen"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 2;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/glass/beaker{
+	pixel_x = 5
+	},
+/obj/structure/sign/poster/official/fruit_bowl{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -76262,16 +76235,12 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "gYj" = (
-/obj/structure/table,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/kitchen_machine/microwave{
-	pixel_x = -1;
-	pixel_y = 7
-	},
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/machinery/camera{
+	c_tag = "Kitchen"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -76422,9 +76391,6 @@
 "hfe" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 28
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -78756,12 +78722,7 @@
 	},
 /area/hydroponics)
 "jgB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -80074,8 +80035,14 @@
 	},
 /area/maintenance/livingcomplex)
 "kli" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 4;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -4;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -81805,6 +81772,7 @@
 	icon_state = "siding4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/mob/living/simple_animal/mouse/rat/irish/Remi,
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
 	},
@@ -81974,7 +81942,11 @@
 	},
 /area/maintenance/library)
 "lGW" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/machinery/reagentgrinder{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -83283,8 +83255,12 @@
 	},
 /area/maintenance/gambling_den)
 "mJw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -83890,7 +83866,13 @@
 	},
 /area/toxins/xenobiology)
 "njX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/table,
+/obj/item/stack/packageWrap{
+	pixel_y = 4
+	},
+/obj/item/stack/packageWrap{
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -83939,6 +83921,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"nmo" = (
+/obj/effect/decal/warning_stripes/white,
+/obj/machinery/kitchen_machine/oven{
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/crew_quarters/kitchen)
 "nmq" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/yellow,
@@ -87720,16 +87711,15 @@
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	on = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Hydroponics Pasture";
 	dir = 9
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -88696,10 +88686,7 @@
 	},
 /area/hydroponics)
 "qUR" = (
-/obj/effect/decal/warning_stripes/white,
-/obj/machinery/kitchen_machine/oven{
-	pixel_y = 3
-	},
+/obj/effect/landmark/start/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -95143,10 +95130,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder{
+/obj/machinery/icemachine{
 	pixel_x = -1;
-	pixel_y = 9
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -96370,7 +96356,19 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "xgD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/table,
+/obj/item/kitchen/rollingpin{
+	pixel_x = 3
+	},
+/obj/item/kitchen/knife{
+	pixel_x = -8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -96886,9 +96884,6 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -97314,8 +97309,9 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "xVC" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/bottle/cream{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -134738,7 +134734,7 @@ odR
 bdT
 xAD
 njX
-njX
+boq
 kli
 bof
 bof
@@ -134996,8 +134992,8 @@ bdT
 hfe
 eiI
 qUR
-bsT
-qUR
+eiI
+bof
 dwW
 bof
 bzg
@@ -135253,7 +135249,7 @@ bqB
 brY
 btI
 bur
-bof
+jgB
 byE
 bwn
 bof
@@ -135507,12 +135503,12 @@ djT
 gUF
 bdT
 gYj
-brY
+bof
 btK
-but
-bsT
-but
-bwo
+qUR
+nmo
+bof
+dwW
 bof
 bzg
 bAk
@@ -135764,9 +135760,9 @@ bjd
 boV
 bdT
 esq
+bof
+xgD
 boq
-xgD
-xgD
 xVC
 bof
 bof
@@ -136021,8 +136017,8 @@ bdT
 bdT
 bdT
 bqH
-jgB
 bof
+btM
 bof
 bof
 bof
@@ -136278,7 +136274,7 @@ bLU
 bjv
 bdT
 bmy
-jgB
+bof
 btM
 brm
 bsU
