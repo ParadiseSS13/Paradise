@@ -30,6 +30,11 @@
 	var/wieldsound = null
 	var/unwieldsound = null
 	var/sharp_when_wielded = FALSE
+	var/wield_message = ""
+
+/obj/item/twohanded/Initialize(mapload)
+	. = ..()
+	wield_message = "<span class='notice'>You grab [src] with both hands.</span>"
 
 /obj/item/twohanded/proc/unwield(mob/living/carbon/user)
 	if(!wielded || !user)
@@ -86,7 +91,7 @@
 		if(isrobot(user))
 			to_chat(user, "<span class='notice'>You dedicate your module to [src].</span>")
 		else
-			to_chat(user, "<span class='notice'>You grab [src] with both hands.</span>")
+			to_chat(user, wield_message)
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~

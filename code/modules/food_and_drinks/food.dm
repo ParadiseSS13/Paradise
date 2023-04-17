@@ -22,6 +22,12 @@
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 
+	//decay variables
+	var/can_decompose = DECOMPOSE_MOLD
+	var/decay_counter = 0
+	var/decay_amount = 1 //starts @ 1 etc
+	var/last_temp_check_time
+
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5) //Randomizes postion
@@ -40,6 +46,9 @@
 /obj/item/reagent_containers/food/process()
 	if(!antable)
 		return PROCESS_KILL
+
+	GLOB.trash_handler.handle_decay(src)
+
 	if(world.time > last_ant_time + 5 MINUTES)
 		check_for_ants()
 

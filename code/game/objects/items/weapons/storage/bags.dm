@@ -5,7 +5,7 @@
  *	re-implemented in other classes.
  *
  *	Contains:
- *		Trash Bag
+ *      Trashbag ---> trash.dm
  *		Mining Satchel
  *		Plant Bag
  *		Sheet Snatcher
@@ -23,61 +23,7 @@
 	use_to_pickup = 1
 	slot_flags = SLOT_BELT
 
-// -----------------------------
-//          Trash bag
-// -----------------------------
-/obj/item/storage/bag/trash
-	name = "trash bag"
-	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
-	icon = 'icons/obj/janitor.dmi'
-	icon_state = "trashbag"
-	belt_icon = "trashbag"
-	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
-	slot_flags = null
-	storage_slots = 30
-	max_combined_w_class = 30
-	can_hold = list() // any
-	cant_hold = list(/obj/item/disk/nuclear)
-
-/obj/item/storage/bag/trash/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] puts [src] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
-	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
-	return TOXLOSS
-
-/obj/item/storage/bag/trash/update_icon_state()
-	switch(contents.len)
-		if(21 to INFINITY)
-			icon_state = "[initial(icon_state)]3"
-		if(11 to 20)
-			icon_state = "[initial(icon_state)]2"
-		if(1 to 10)
-			icon_state = "[initial(icon_state)]1"
-		else
-			icon_state = "[initial(icon_state)]"
-	if(ishuman(loc))
-		var/mob/living/carbon/human/H = loc
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
-
-/obj/item/storage/bag/trash/cyborg
-
-/obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.mybag = src
-	J.put_in_cart(src, user)
-
-/obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
-
-/obj/item/storage/bag/trash/bluespace
-	name = "trash bag of holding"
-	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
-	icon_state = "bluetrashbag"
-	belt_icon = "trashbag_blue"
-	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
-	max_combined_w_class = 60
-	storage_slots = 60
-	flags_2 = NO_MAT_REDEMPTION_2
+// ------------Moved Trashbags to trash.dm----------------
 
 // -----------------------------
 //        Plastic Bag

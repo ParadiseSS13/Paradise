@@ -72,6 +72,8 @@
 	open_door_sprite = "generic_door"
 
 /obj/structure/closet/jcloset/populate_contents()
+	new /obj/item/twohanded/trash_poker(src)
+	new /obj/item/twohanded/trash_poker(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/melee/flyswatter(src)
@@ -85,8 +87,8 @@
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
-	new /obj/item/storage/bag/trash(src)
-	new /obj/item/storage/bag/trash(src)
+	new /obj/item/storage/box/trash(src)
+	new /obj/item/storage/box/trash(src)
 	new /obj/item/lightreplacer(src)
 	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator/janitor(src)

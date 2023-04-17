@@ -13,7 +13,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1
-	layer = 4
+	layer = LYING_MOB_LAYER
 	pressure_resistance = 0
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
@@ -489,6 +489,25 @@
 
 /obj/item/paper/update_overlays()
 	return stamp_overlays
+
+/obj/item/paper/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+
+	if(!ismob(AM) || AM.throwing)
+		return
+
+	if(ishuman(AM))
+		var/mob/living/carbon/human/H = AM
+		if(H.resting)
+			return
+
+	if(isturf(loc)) //if its on the ground if tread on --> crumpled
+		var/obj/item/paper/crumpled/P = new(loc)
+		P.name = name
+		if(info) // Something written on the paper.
+			P.info = "<i>Whatever was once written here has been made completely illegible by multiple footprints and scuff marks.</i>"
+		P.update_icon()
+		qdel(src)
 
 /*
  * Premade paper

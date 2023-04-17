@@ -14,6 +14,7 @@
 	resistance_flags = NONE
 	antable = FALSE
 	var/chugging = FALSE
+	can_decompose = FALSE
 
 /obj/item/reagent_containers/food/drinks/Initialize(mapload)
 	. = ..()

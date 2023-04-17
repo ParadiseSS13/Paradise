@@ -13,7 +13,7 @@ import {
 import { Window } from '../layouts';
 import { createSearch, toTitleCase } from 'common/string';
 
-const canBeMade = (recipe, mavail, gavail, multi) => {
+const canBeMade = (recipe, mavail, gavail, pavail, multi) => {
   if (recipe.requirements === null) {
     return true;
   }
@@ -21,6 +21,9 @@ const canBeMade = (recipe, mavail, gavail, multi) => {
     return false;
   }
   if (recipe.requirements['glass'] * multi > gavail) {
+    return false;
+  }
+  if (recipe.requirements['plastic'] * multi > pavail) {
     return false;
   }
   return true;
@@ -51,6 +54,9 @@ export const Autolathe = (props, context) => {
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
   let glassReadable = glass_amount
+    .toString()
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  let plasticReadable = plastic_amount
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   let totalReadable = total_amount
@@ -152,6 +158,7 @@ export const Autolathe = (props, context) => {
                         recipe,
                         data.metal_amount,
                         data.glass_amount,
+                        data.plastic_amount,
                         1
                       )
                     }
@@ -175,6 +182,7 @@ export const Autolathe = (props, context) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
+                          data.plastic_amount,
                           10
                         )
                       }
@@ -199,6 +207,7 @@ export const Autolathe = (props, context) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
+                          data.plastic_amount,
                           25
                         )
                       }
@@ -224,6 +233,7 @@ export const Autolathe = (props, context) => {
                           recipe,
                           data.metal_amount,
                           data.glass_amount,
+                          data.plastic_amount,
                           recipe.max_multiplier
                         )
                       }
@@ -256,6 +266,7 @@ export const Autolathe = (props, context) => {
             <LabeledList>
               <LabeledList.Item label="Metal">{metalReadable}</LabeledList.Item>
               <LabeledList.Item label="Glass">{glassReadable}</LabeledList.Item>
+              <LabeledList.Item label="Plastic">{plasticReadable}</LabeledList.Item>
               <LabeledList.Item label="Total">{totalReadable}</LabeledList.Item>
               <LabeledList.Item label="Storage">
                 {data.fill_percent}% Full

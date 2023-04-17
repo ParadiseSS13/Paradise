@@ -178,6 +178,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/ears/earmuffs
 	category = list("initial", "Miscellaneous")
+
 /datum/design/painter
 	name = "Modular Painter"
 	id = "mod_painter"
@@ -906,3 +907,22 @@
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/desk_bell
 	category = list("initial", "Miscellaneous")
+
+/datum/design/trashbagroll
+	name = "Trashbag Roll"
+	desc = "Prints a roll of trashbags."
+	id = "trashroll"
+	build_type = AUTOLATHE
+	materials = list(MAT_PLASTIC = 1000)
+	build_path = /obj/item/stack/trashbag_roll
+	category = list("initial", "Miscellaneous")
+	maxstack = 10
+
+/datum/design/trashpoker
+	name = "Trash Poker"
+	desc = "Prints a poker for picking up trash."
+	id = "trash_poker0"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000)
+	build_path = /obj/item/twohanded/trash_poker
+	category = list("initial", "Tools")

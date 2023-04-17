@@ -480,7 +480,7 @@
 	else
 		I.forceMove(get_turf(src))
 
-	if(usr)
+	if(usr && obj_integrity)
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)

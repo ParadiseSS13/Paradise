@@ -40,7 +40,7 @@
 
 /obj/machinery/autolathe/Initialize()
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASTIC), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
 	component_parts = list()
 	component_parts += new board_type(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -110,6 +110,8 @@
 					matreq["metal"] = x["amount"]
 				if(x["name"] == "glass")
 					matreq["glass"] = x["amount"]
+				if(x["name"] == "plastic")
+					matreq["plastic"] = x["amount"]
 			var/obj/item/I = D.build_path
 			var/maxmult = 1
 			if(ispath(D.build_path, /obj/item/stack))
@@ -142,6 +144,7 @@
 	data["fill_percent"] = round((materials.total_amount / materials.max_amount) * 100)
 	data["metal_amount"] = materials.amount(MAT_METAL)
 	data["glass_amount"] = materials.amount(MAT_GLASS)
+	data["plastic_amount"] = materials.amount(MAT_PLASTIC)
 	data["busyname"] =  FALSE
 	data["busyamt"] = 1
 	if(length(being_built) > 0)
@@ -186,6 +189,9 @@
 			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough glass)</span>")
 				return
+			if(design_last_ordered.materials["$plastic"] / coeff > materials.amount(MAT_PLASTIC))
+				to_chat(usr, "<span class='warning'>Invalid design (not enough plastic)</span>")
+				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
 				to_chat(usr, "<span class='warning'>Invalid design (lathe requires hacking)</span>")
 				return
@@ -223,9 +229,13 @@
 	var/has_glass = 1
 	if(D.materials[MAT_GLASS] && (materials.amount(MAT_GLASS) < (D.materials[MAT_GLASS] / coeff)))
 		has_glass = 0
+	var/has_plastic = 1
+	if(D.materials[MAT_PLASTIC] && (materials.amount(MAT_PLASTIC) < (D.materials[MAT_PLASTIC] / coeff)))
+		has_plastic = 0
 
 	data[++data.len] = list("name" = "metal", "amount" = D.materials[MAT_METAL] / coeff, "is_red" = !has_metal)
 	data[++data.len] = list("name" = "glass", "amount" = D.materials[MAT_GLASS] / coeff, "is_red" = !has_glass)
+	data[++data.len] = list("name" = "plastic", "amount" = D.materials[MAT_PLASTIC] / coeff, "is_red" = !has_plastic)
 
 	return data
 
@@ -233,13 +243,14 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/temp_metal = materials.amount(MAT_METAL)
 	var/temp_glass = materials.amount(MAT_GLASS)
+	var/temp_plastic = materials.amount(MAT_PLASTIC)
 	data["processing"] = being_built.len ? get_processing_line() : null
 	if(istype(queue) && queue.len)
 		var/list/data_queue = list()
 		for(var/list/L in queue)
 			var/datum/design/D = L[1]
 			var/list/LL = get_design_cost_as_list(D, L[2])
-			data_queue[++data_queue.len] = list("name" = initial(D.name), "can_build" = can_build(D, L[2], temp_metal, temp_glass), "multiplier" = L[2])
+			data_queue[++data_queue.len] = list("name" = initial(D.name), "can_build" = can_build(D, L[2], temp_metal, temp_glass, temp_plastic), "multiplier" = L[2])
 			temp_metal = max(temp_metal - LL[1], 1)
 			temp_glass = max(temp_glass - LL[2], 1)
 		data["queue"] = data_queue
@@ -376,17 +387,18 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/metal_cost = D.materials[MAT_METAL]
 	var/glass_cost = D.materials[MAT_GLASS]
-	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
+	var/plastic_cost = D.materials[MAT_PLASTIC]
+	var/power = max(2000, (metal_cost+glass_cost+plastic_cost)*multiplier/5)
 	if(can_build(D, multiplier))
 		being_built = list(D, multiplier)
 		use_power(power)
 		icon_state = "autolathe"
 		flick("autolathe_n",src)
 		if(is_stack)
-			var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier)
+			var/list/materials_used = list(MAT_METAL=metal_cost*multiplier, MAT_GLASS=glass_cost*multiplier, MAT_PLASTIC=plastic_cost*multiplier)
 			materials.use_amount(materials_used)
 		else
-			var/list/materials_used = list(MAT_METAL=metal_cost/coeff, MAT_GLASS=glass_cost/coeff)
+			var/list/materials_used = list(MAT_METAL=metal_cost/coeff, MAT_GLASS=glass_cost/coeff, MAT_PLASTIC=plastic_cost/coeff)
 			materials.use_amount(materials_used)
 		SStgui.update_uis(src)
 		sleep(32/coeff)
@@ -397,10 +409,11 @@
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.materials[MAT_METAL] /= coeff
 			new_item.materials[MAT_GLASS] /= coeff
+			new_item.materials[MAT_PLASTIC] /= coeff
 	SStgui.update_uis(src)
 	desc = initial(desc)
 
-/obj/machinery/autolathe/proc/can_build(datum/design/D, multiplier = 1, custom_metal, custom_glass)
+/obj/machinery/autolathe/proc/can_build(datum/design/D, multiplier = 1, custom_metal, custom_glass, custom_plastic)
 	if(D.make_reagents.len)
 		return 0
 
@@ -412,10 +425,15 @@
 	var/glass_amount = materials.amount(MAT_GLASS)
 	if(custom_glass)
 		glass_amount = custom_glass
+	var/plastic_amount = materials.amount(MAT_PLASTIC)
+	if(custom_plastic)
+		plastic_amount = custom_plastic
 
 	if(D.materials[MAT_METAL] && (metal_amount < (multiplier*D.materials[MAT_METAL] / coeff)))
 		return 0
 	if(D.materials[MAT_GLASS] && (glass_amount < (multiplier*D.materials[MAT_GLASS] / coeff)))
+		return 0
+	if(D.materials[MAT_PLASTIC] && (plastic_amount < (multiplier*D.materials[MAT_PLASTIC] / coeff)))
 		return 0
 	return 1
 
@@ -426,6 +444,8 @@
 		OutputList[1] = (D.materials[MAT_METAL] / coeff)*multiplier
 	if(D.materials[MAT_GLASS])
 		OutputList[2] = (D.materials[MAT_GLASS] / coeff)*multiplier
+	if(D.materials[MAT_PLASTIC])
+		OutputList[2] = (D.materials[MAT_PLASTIC] / coeff)*multiplier
 	return OutputList
 
 /obj/machinery/autolathe/proc/get_processing_line()

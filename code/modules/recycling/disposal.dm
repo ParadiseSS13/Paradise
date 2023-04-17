@@ -98,7 +98,7 @@
 
 	if(istype(I, /obj/item/storage))
 		var/obj/item/storage/S = I
-		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
+		if((S.allow_quick_empty) && S.contents.len)
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
 			for(var/obj/item/O in S.contents)
@@ -106,6 +106,12 @@
 			S.update_icon() // For content-sensitive icons
 			update()
 			return
+
+	if(istype(I, /obj/item/twohanded/trash_poker) && length(I.contents))
+		to_chat(user, "<span class='notice'>You clean off [I] into the [src].</span>")
+		for(var/obj/item/O in I.contents)
+			O.forceMove(src)
+		return
 
 	var/obj/item/grab/G = I
 	if(istype(G))	// handle grabbed mob

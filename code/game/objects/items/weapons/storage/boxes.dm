@@ -648,6 +648,21 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
 
+/obj/item/storage/box/trash
+	name = "trash bags"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "trash"
+	desc = "This box is shaped on the inside so that only rolls of trashbags fit."
+	item_state = "syringe_kit"
+	storage_slots = 3
+	can_hold = list(/obj/item/stack/trashbag_roll)
+	max_combined_w_class = 3
+	use_to_pickup = FALSE
+
+/obj/item/storage/box/trash/populate_contents()
+	for(var/I in 1 to storage_slots)
+		new /obj/item/stack/trashbag_roll(src)
+
 /obj/item/storage/box/lights
 	name = "replacement bulbs"
 	icon = 'icons/obj/storage.dmi'
