@@ -49,7 +49,7 @@
 	item_color = "trainee"
 
 /obj/item/clothing/under/rank/engineer/trainee/skirt
-	name = "engineer trainee jumpsuit"
+	name = "engineer trainee jumpskirt"
 	icon_state = "traineef_s"
 	item_color = "traineef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -60,7 +60,7 @@
 	item_color = "eng_ass"
 
 /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
-	name = "engineer assistant jumpsuit"
+	name = "engineer assistant jumpskirt"
 	icon_state = "eng_ass_f_s"
 	item_color = "eng_ass_f"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
