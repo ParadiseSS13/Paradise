@@ -79,10 +79,10 @@
 	INVOKE_ASYNC(src, PROC_REF(generate_image), text, target, owner, lifespan, italics, size, symbol)
 
 /datum/chatmessage/Destroy()
-	if(REALTIMEOFDAY < animate_start + animate_lifespan)
+	if(REALTIMEOFDAY < (animate_start + animate_lifespan))
 		stack_trace("Del'd before we finished fading, with [(animate_start + animate_lifespan) - REALTIMEOFDAY] time left")
-	if (owned_by)
-		if (owned_by.seen_messages)
+	if(owned_by)
+		if(owned_by.seen_messages)
 			LAZYREMOVEASSOC(owned_by.seen_messages, message_loc, src)
 		owned_by.images.Remove(message)
 	owned_by = null
@@ -178,14 +178,14 @@
 
 			// When choosing to update the remaining time we have to be careful not to update the
 			// scheduled time once the EOL has been executed.
-			if (time_spent >= time_before_fade)
+			if(time_spent >= time_before_fade)
 				animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME, flags = ANIMATION_PARALLEL)
 				continue
 
 			var/remaining_time = time_before_fade * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** combined_height)
 			// Ensure we don't accidentially spike alpha up or something silly like that
 			m.message.alpha = m.get_current_alpha(time_spent)
-			if (remaining_time > 0)
+			if(remaining_time > 0)
 				// Stay faded in for a while, then
 				animate(m.message, alpha = 255, remaining_time)
 				// Fade out
