@@ -38,21 +38,25 @@
 /obj/machinery/camera/autoname
 	var/number = 0 //camera number in area
 
-//This camera type automatically sets it's name to whatever the area that it's in is called.
+// This camera type automatically sets it's name to whatever the area that it's in is called.
 /obj/machinery/camera/autoname/Initialize(mapload)
-	. = ..()
 	number = 1
 	var/area/A = get_area(src)
-	if(A)
-		for(var/obj/machinery/camera/autoname/C in GLOB.machines)
-			if(C == src)
-				continue
-			var/area/CA = get_area(C)
-			if(CA.type == A.type)
-				if(C.number)
-					number = max(number, C.number + 1)
-		c_tag = "[A.name] #[number]"
+	if(!A)
+		number = rand(1, 100)
+		c_tag = "Unknown #[number]"
+		stack_trace("Camera with tag [c_tag] was spawned without an area, please report this to your nearest coder.")
+		return ..()
 
+	for(var/obj/machinery/camera/autoname/C in A.contents)
+		if(C == src)
+			continue
+		if(C.number)
+			number = max(number, C.number + 1)
+
+	c_tag = "[sanitize(A.name)] #[number]"
+
+	return ..() // We do this here so the camera is not added to the cameranet until it has a name.
 
 // CHECKS
 

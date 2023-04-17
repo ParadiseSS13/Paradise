@@ -5,17 +5,13 @@
 		set_stat(CONSCIOUS)
 		return
 
-	var/total_burn  = 0
-	var/total_brute = 0
+	var/total_limb_damage = 0
 
-	for(var/obj/item/organ/external/O in bodyparts)	//hardcoded to streamline things a bit
-		total_brute += O.brute_dam //calculates health based on organ brute and burn
-		total_burn += O.burn_dam
+	for(var/obj/item/organ/external/O in bodyparts) /// sums up all the damage of all the limbs
+		total_limb_damage += O.get_damage()
 
-	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_burn - total_brute
+	health = maxHealth - getOxyLoss() - getToxLoss() - getCloneLoss() - total_limb_damage
 
-	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD * 2) && stat == DEAD)
-		become_husk(BURN)
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
 
@@ -102,6 +98,9 @@
 		take_overall_damage(0, amount, updating_health, used_weapon = damage_source)
 	else
 		heal_overall_damage(0, -amount, updating_health, FALSE, robotic)
+
+	if(((maxHealth - getFireLoss()) < HEALTH_THRESHOLD_DEAD * 2) && stat == DEAD)
+		become_husk(BURN)
 	// brainless default for now
 	return STATUS_UPDATE_HEALTH
 
