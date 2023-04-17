@@ -288,7 +288,9 @@ LINEN BINS
 	switch(amount)
 		if(0)
 			icon_state = "linenbin-empty"
-		if(1 to 10)
+		if(1 to 6)
+			icon_state = "linenbin-few"
+		if(7 to 15)
 			icon_state = "linenbin-half"
 		else
 			icon_state = "linenbin-full"
