@@ -123,14 +123,14 @@ GLOBAL_VAR(bomb_set)
 		set_light(1, LIGHTING_MINIMUM_POWER)
 
 	if(panel_open)
-		. += "npanel_open"
+		. += "hackpanel_open"
 
 	if(anchored) // Using anchored due to removal_stage deanchoring having multiple steps
 		. += "nukebolts"
 	switch(removal_stage)
-		if(NUKE_CORE_EVERYTHING_FINE)
+		if(NUKE_CORE_PANEL_EXPOSED)
 			. += "nukecore1"
-		if(NUKE_CORE_PANEL_EXPOSED, NUKE_CORE_PANEL_UNWELDED)
+		if(NUKE_CORE_PANEL_UNWELDED)
 			. += "nukecore2"
 		if(NUKE_CORE_FULLY_EXPOSED)
 			if(core)
