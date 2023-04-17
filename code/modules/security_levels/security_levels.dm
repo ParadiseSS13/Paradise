@@ -242,3 +242,5 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 /proc/stop_delta_alarm(mob/optional_remove_from_this)
 	for(var/datum/looping_sound/decreasing/delta_alarm/alarm in GLOB.looping_sounds)
 		alarm.stop(optional_remove_from_this)
+
+// TODO S34N: MAKE IT STOP WHEN THE STATION EXPLODES/EXITS DELTA, MAKE ADMIN MIDIS MUTE IT IF USERS HAVE THAT ADMIN'S MIDIS ON
