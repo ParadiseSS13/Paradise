@@ -399,16 +399,16 @@
 		if(result)
 			send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 
-/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(var/obj/item/I)
+/obj/item/mecha_parts/mecha_equipment/generator/proc/load_fuel(obj/item/I)
 	if(istype(I) && (fuel_type in I.materials))
 		if(istype(I, /obj/item/stack/sheet))
 			var/obj/item/stack/sheet/P = I
-			var/to_load = max(max_fuel - P.amount*P.perunit,0)
+			var/to_load = max(max_fuel - fuel_amount, 0)
 			if(to_load)
 				var/units = min(max(round(to_load / P.perunit),1),P.amount)
 				if(units)
 					var/added_fuel = units * P.perunit
-					fuel_amount += added_fuel
+					fuel_amount = min(fuel_amount + added_fuel, max_fuel)
 					P.use(units)
 					occupant_message("[units] unit\s of [fuel_name] successfully loaded.")
 					return added_fuel
