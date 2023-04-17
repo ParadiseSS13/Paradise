@@ -133,12 +133,12 @@
 	. = ..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(scope_active)
+		if(scope_active && !zoomed)
 			select_fire(H)
 			H.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
 			scope_active = FALSE
-		else if(do_after(user, 3 SECONDS, target = src))
-			if(zoomed) //We check after.
+		else if(do_after(user, 3 SECONDS, target = src) && zoomed)
+			if(zoomed && !scope_active) //We check after to be sure.
 				scope_active = TRUE
 				to_chat(user, "<b><span class='robot'>SMRT-SCOPE Online.</span></b>")
 				select_fire(H)
@@ -150,6 +150,8 @@
 /obj/item/ammo_casing/energy/laser/sniper
 	projectile_type = /obj/item/projectile/beam/laser/sniper
 	muzzle_flash_color = LIGHT_COLOR_PINK
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	select_name = null
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 5 SECONDS
@@ -162,6 +164,7 @@
 	icon_state = "sniperlaser"
 	range = 255
 	damage = 10
+	speed = 0.5
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	var/can_knockdown = TRUE
 
@@ -178,6 +181,7 @@
 
 /obj/item/projectile/beam/laser/sniper/pierce
 	forcedodge = 1 // Can pierce one mob.
+	speed = 0.33
 
 /obj/item/gun/energy/xray
 	name = "xray laser gun"
