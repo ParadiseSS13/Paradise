@@ -599,6 +599,13 @@
 	if(mode != OFF)
 		flush()
 
+/obj/machinery/disposal/deliveryChute/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(istype(AM, /obj/item/projectile))
+		return ..() //chutes won't eat bullets
+	if(dir == reverse_direction(throwingdatum.init_dir))
+		return
+	..()
+
 /obj/machinery/disposal/deliveryChute/flush_animation()
 	flick("intake-closing", src)
 
