@@ -9,13 +9,14 @@
 #define CHANNEL_ENGINE 1017 // Engine ambient sounds
 #define CHANNEL_FIREALARM 1016 //fire alarm alarms
 #define CHANNEL_ASH_STORM 1015
+#define CHANNEL_DELTA_ALARM 1014
 
 #define USER_VOLUME(M, C) M?.client?.prefs.get_channel_volume(C)
 
 //THIS SHOULD ALWAYS BE THE LOWEST ONE!
 //KEEP IT UPDATED
 
-#define CHANNEL_HIGHEST_AVAILABLE 1014
+#define CHANNEL_HIGHEST_AVAILABLE 1013
 
 #define MAX_INSTRUMENT_CHANNELS (128 * 6)
 

@@ -37,6 +37,7 @@
 	var/area_sound = FALSE
 
 /datum/looping_sound/New(list/_output_atoms = list(), start_immediately = FALSE, _direct = FALSE)
+	GLOB.looping_sounds += src
 	if(!mid_sounds)
 		WARNING("A looping sound datum was created without sounds to play.")
 		return
@@ -48,6 +49,7 @@
 		start()
 
 /datum/looping_sound/Destroy()
+	GLOB.looping_sounds -= src
 	stop()
 	output_atoms = null
 	return ..()
@@ -115,3 +117,22 @@
 /datum/looping_sound/proc/on_stop(looped)
 	if(end_sound)
 		play(end_sound)
+
+// Self-decreasing volume thingy
+/datum/looping_sound/decreasing
+	/// What volume level to eventually decrease to
+	var/decrease_to_amount = 50
+	/// How much to decrease the volume by each loop
+	var/decrease_by_amount = 1
+
+/datum/looping_sound/decreasing/sound_loop(looped = 0)
+	. = ..()
+	if(decrease_by_amount && decrease_to_amount && decrease_to_amount < volume)
+		volume = max(volume - decrease_by_amount, decrease_to_amount)
+
+/datum/looping_sound/decreasing/delta_alarm
+	mid_sounds = 'sound/effects/delta_alarm.ogg'
+	mid_length = 130
+	decrease_to_amount = 20
+	decrease_by_amount = 2
+	channel = CHANNEL_DELTA_ALARM

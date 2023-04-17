@@ -92,9 +92,9 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				return
 
 			if(SEC_LEVEL_DELTA)
-				GLOB.security_announcement.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", 'sound/effects/deltaalarm.ogg', new_sound2 = 'sound/AI/delta.ogg')
+				GLOB.security_announcement.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound2 = 'sound/AI/delta.ogg')
 				GLOB.security_level = SEC_LEVEL_DELTA
-
+				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(delta_alarm)), 3 SECONDS)
 				post_status(STATUS_DISPLAY_ALERT, "deltaalert")
 				update_firealarms()
 				set_stationwide_emergency_lighting()
@@ -219,3 +219,26 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			L.fire_mode = TRUE
 			L.update()
 	update_firealarms()
+
+/proc/delta_alarm()
+	var/station_z
+	var/list/mobs_for_alarm = list()
+	for(var/i in 1 to length(GLOB.space_manager.z_list))
+		if(!is_station_level(i))
+			continue
+		station_z = i
+		break
+
+	for(var/mob/M in get_mob_with_client_list())
+		if(M.z != station_z)
+			continue
+
+		mobs_for_alarm += M
+
+	var/datum/looping_sound/decreasing/delta_alarm/alarm = new(_output_atoms = mobs_for_alarm, _direct = TRUE)
+	alarm.channel = CHANNEL_DELTA_ALARM
+	alarm.start()
+
+/proc/stop_delta_alarm(mob/optional_remove_from_this)
+	for(var/datum/looping_sound/decreasing/delta_alarm/alarm in GLOB.looping_sounds)
+		alarm.stop(optional_remove_from_this)
