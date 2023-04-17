@@ -108,10 +108,9 @@
 	dat += "<BR><A href='?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
 	dat += "<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>"
 	dat += "<BR><BR><A href='?src=[UID()];close=1'>Close</A>"
-	var/datum/browser/popup = new(user, "prox", name, 400, 400)
+	var/datum/browser/popup = new(user, "prox", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "prox")
+	popup.open()
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()

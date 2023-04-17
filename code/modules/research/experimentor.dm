@@ -189,7 +189,6 @@
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
-	onclose(user, "experimentor")
 
 
 /obj/machinery/r_n_d/experimentor/proc/matchReaction(matching,reaction)

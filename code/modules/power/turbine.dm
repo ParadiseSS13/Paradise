@@ -311,7 +311,7 @@
 	t += "</PRE><HR><A href='?src=[UID()];close=1'>Close</A>"
 
 	t += "</TT>"
-	var/datum/browser/popup = new(user, "turbine", name)
+	var/datum/browser/popup = new(user, "turbine", name, 420, 240, src)
 	popup.set_content(t)
 	popup.open()
 
@@ -378,7 +378,7 @@
 		if(!compressor)
 			dat += "<A href='?src=[UID()];search=1'>Search for compressor</A>"
 
-	var/datum/browser/popup = new(user, "turbinecomputer", name)
+	var/datum/browser/popup = new(user, "turbinecomputer", name, 420, 240, src)
 	popup.set_content(dat)
 	popup.open()
 	return
