@@ -60,7 +60,8 @@
 		/obj/item/analyzer,
 		/obj/item/extinguisher/mini,
 		/obj/item/holosign_creator,
-		/obj/item/radio)
+		/obj/item/radio,
+		/obj/item/robotanalyzer)
 
 /obj/item/storage/belt/utility/full/New()
 	..()
