@@ -985,6 +985,6 @@
 	name = "Splints"
 
 /datum/robot_energy_storage/wood
-	max_energy = 40
+	max_energy = 160
 	recharge_rate = 2
 	name = "Wood Storage"
