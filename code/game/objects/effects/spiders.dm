@@ -43,7 +43,7 @@
 		return TRUE
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
-	else if(istype(mover, /mob/living))
+	else if(isliving(mover))
 		if(prob(50))
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			return FALSE
@@ -108,6 +108,7 @@
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
 	AddComponent(/datum/component/swarming)
+	ADD_TRAIT(src, TRAIT_EDIBLE_BUG, "edible_bug") // Normally this is just used for mobs, but spiderlings are kind of that... 
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -126,7 +127,7 @@
 
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
-		if(istype(loc, /turf))
+		if(isturf(loc))
 			travelling_in_vent = FALSE
 			entry_vent = null
 	else if(entry_vent)
@@ -217,7 +218,7 @@
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!istype(user, /mob/living/silicon/robot/drone))
+	if(!isdrone(user))
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		C.stored_comms["wood"] += 2

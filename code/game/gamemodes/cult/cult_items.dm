@@ -31,15 +31,16 @@
 		item_state = SSticker.cultdat.sword_icon
 	..()
 
-/obj/item/melee/cultblade/detailed_examine()
-	return "This blade is a powerful weapon, capable of severing limbs easily, if they are targeted. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic, will stun them completely."
+/obj/item/melee/cultblade/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This blade is a powerful weapon, capable of severing limbs easily. Nonbelievers are unable to use this weapon. Striking a nonbeliever after downing them with your cult magic will stun them completely.</span>"
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.Weaken(10 SECONDS)
 		user.unEquip(src, 1)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
-							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
+							"<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
@@ -74,10 +75,10 @@
 	knockdown_duration = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback)
-	. = ..()
-	if(!iscultist(thrower))
+	if(thrower && !iscultist(thrower)) // A couple of objs actually proc throw_at, so we need to make sure that yes, we got tossed by a person before trying to send a message
 		thrower.visible_message("<span class='danger'>The bola glows, and boomarangs back at [thrower]!</span>")
 		throw_impact(thrower)
+	. = ..()
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -303,7 +304,7 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
+	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
@@ -315,7 +316,7 @@
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/message = pick(CULT_CURSES)
-		GLOB.command_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
+		GLOB.major_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
 		qdel(src)
 
 /obj/item/cult_shift
@@ -505,11 +506,11 @@
 
 		// Hit by a melee weapon or blocked a projectile
 		. = ..()
-		if(.) // 50|50 chance
+		if(.) // they did parry the attack
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
-				addtimer(CALLBACK(src, .proc/readd), 45 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(readd)), 45 SECONDS)
 				if(prob(60))
 					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
@@ -549,7 +550,7 @@
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(reflect_chance))
-		if(istype(loc, /mob))
+		if(ismob(loc))
 			var/mob/user = loc
 			if(user.holy_check())
 				return FALSE
@@ -565,10 +566,9 @@
 	force = 17
 	force_unwielded = 17
 	force_wielded = 24
-	throwforce = 40
+	throwforce = 30
 	throw_speed = 2
 	armour_penetration_percentage = 50
-	block_chance = 30
 	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
 	sharp = TRUE
 	no_spin_thrown = TRUE
@@ -576,10 +576,14 @@
 	needs_permit = TRUE
 	var/datum/action/innate/cult/spear/spear_act
 
+/obj/item/twohanded/cult_spear/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.4, _parryable_attack_types = ALL_ATTACK_TYPES, _parry_cooldown = (2 / 3) SECONDS ) // 0.666667 seconds for 60% uptime.
+
 /obj/item/twohanded/cult_spear/Destroy()
 	if(spear_act)
 		qdel(spear_act)
-	..()
+	return ..()
 
 /obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[wielded]"
@@ -595,9 +599,24 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.null_rod_check())
-				L.Weaken(6 SECONDS)
-			break_spear(T)
+			if(L.null_rod_check())
+				return
+			var/datum/status_effect/cult_stun_mark/S = L.has_status_effect(STATUS_EFFECT_CULT_STUN)
+			if(S)
+				S.trigger()
+			else
+				L.KnockDown(10 SECONDS)
+				L.adjustStaminaLoss(60)
+				L.apply_status_effect(STATUS_EFFECT_CULT_STUN)
+				L.flash_eyes(1, TRUE)
+				if(issilicon(L))
+					L.emp_act(EMP_HEAVY)
+				else if(iscarbon(L))
+					L.Silence(6 SECONDS)
+					L.Stuttering(16 SECONDS)
+					L.CultSlur(20 SECONDS)
+					L.Jitter(16 SECONDS)
+		break_spear(T)
 	else
 		..()
 
@@ -610,20 +629,6 @@
 		new /obj/effect/decal/cleanable/blood/splatter(T)
 		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
-
-/obj/item/twohanded/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(wielded)
-		final_block_chance *= 2
-	if(prob(final_block_chance))
-		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
-			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, TRUE)
-			return TRUE
-		else
-			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
-			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
-			return TRUE
-	return FALSE
 
 /obj/item/twohanded/cult_spear/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
@@ -656,7 +661,7 @@
 			var/mob/living/L = spear.loc
 			L.unEquip(spear)
 			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
-		spear.throw_at(owner, 10, 2, null)
+		spear.throw_at(owner, 10, 2, null, dodgeable = FALSE)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
@@ -732,7 +737,7 @@
 		M.Confused(20 SECONDS)
 		M.flash_eyes(override_blindness_check = TRUE)
 		M.EyeBlind(20 SECONDS)
-		do_teleport(M, get_turf(M), 5, asoundin = 'sound/magic/cult_spell.ogg')
+		do_teleport(M, get_turf(M), 5, sound_in = 'sound/magic/cult_spell.ogg')
 		qdel(src)
 		return
 

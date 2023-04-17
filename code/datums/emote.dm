@@ -57,7 +57,9 @@
 	/// Types that can use this emote regardless of their state.
 	var/list/mob_type_ignore_stat_typecache
 	/// Species types which the emote will be exclusively available to. Should be subclasses of /datum/species
-	var/species_type_whitelist_typecache
+	var/list/species_type_whitelist_typecache
+	/// Species types which the emote will be exclusively not available to. Should be subclasses of /datum/species
+	var/list/species_type_blacklist_typecache
 	/// If we get a target, how do we want to treat it?
 	var/target_behavior = EMOTE_TARGET_BHVR_USE_PARAMS_ANYWAY
 	/// If our target behavior isn't to ignore, what should we look for with targets?
@@ -120,6 +122,7 @@
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 	species_type_whitelist_typecache = typecacheof(species_type_whitelist_typecache)
+	species_type_blacklist_typecache = typecacheof(species_type_blacklist_typecache)
 
 /datum/emote/Destroy(force)
 	if(force)
@@ -365,6 +368,8 @@
 		msg = replacetext(msg, "them", user.p_them())
 	if(findtext(msg, "they"))
 		msg = replacetext(msg, "they", user.p_they())
+	if(findtext(msg, "themselves"))
+		msg = replacetext(msg, "themselves", user.p_themselves())
 	if(findtext(msg, "%s"))
 		msg = replacetext(msg, "%s", user.p_s())
 	return msg
@@ -480,8 +485,13 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(species_type_whitelist_typecache && H.dna && !is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
-			return FALSE
+		if(H.dna)
+			// Since the typecaches might be null as a valid option, it looks like we do need to check that these exist first.
+			if(species_type_whitelist_typecache && !is_type_in_typecache(H.dna.species, species_type_whitelist_typecache))
+				return FALSE
+
+			if(species_type_blacklist_typecache && is_type_in_typecache(H.dna.species, species_type_blacklist_typecache))
+				return FALSE
 
 	if(intentional && only_unintentional)
 		return FALSE
@@ -583,6 +593,10 @@
 		return FALSE
 	if((emote_type & EMOTE_MOUTH) && !can_vocalize_emotes(user))
 		return FALSE
+	if(isliving(user))
+		var/mob/living/liveuser = user
+		if(liveuser.has_status_effect(STATUS_EFFECT_ABSSILENCED))
+			return FALSE
 	return TRUE
 
 /datum/emote/proc/remove_ending_punctuation(msg)

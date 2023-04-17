@@ -465,7 +465,7 @@
 
 /obj/item/disk/plantgene/New()
 	..()
-	overlays += "datadisk_gene"
+	update_icon(UPDATE_OVERLAYS)
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -475,7 +475,7 @@
 
 /obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 
 /obj/item/disk/plantgene/update_name()
@@ -492,15 +492,24 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		desc = "Better keep this safe."
-	else
-		desc = "A disk for storing plant genetic data."
+		return
+
+	desc = "A disk for storing plant genetic data."
 
 /obj/item/disk/plantgene/update_icon_state()
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		icon_state = "nucleardisk"
-	else
-		icon_state = "datadisk_hydro"
+		return
+
+	icon_state = "datadisk_hydro"
+
+/obj/item/disk/plantgene/update_overlays()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+
+	. += "datadisk_gene"
 
 /obj/item/disk/plantgene/attack_self(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -511,8 +520,9 @@
 /obj/item/disk/plantgene/cmag_act(mob/user)
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='warning'>The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!</span>")
-		ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+		ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/item/disk/plantgene/uncmag()
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)

@@ -116,6 +116,7 @@
 				chest.droplimb()
 			else //If we are discovered mid-surgery
 				owner.adjustBruteLoss(40)
+			SSblackbox.record_feedback("tally", "alien_growth", 1, "hatched_eggs")
 			qdel(src)
 
 /*----------------------------------------

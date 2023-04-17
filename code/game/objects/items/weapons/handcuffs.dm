@@ -1,3 +1,8 @@
+/obj/item/restraints
+	name = "bugged restraints" //This item existed before this pr, but had no name or such. Better warn people if it exists
+	desc = "Should not exist. Report me to a(n) coder/admin!"
+	var/cuffed_state = "handcuff"
+
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
@@ -17,7 +22,6 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/cuffsound = 'sound/weapons/handcuffs.ogg'
 	// Icon state for cuffed overlay on a mob
-	var/cuffed_state = "handcuff"
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
 
@@ -53,7 +57,7 @@
 		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
 							"<span class='userdanger'>[user] is trying to put [src.name] on [C]!</span>")
 
-		playsound(loc, cuffsound, 30, 1, -2)
+		playsound(loc, cuffsound, 15, 1, -10)
 		if(do_mob(user, C, 30))
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
@@ -96,7 +100,7 @@
 	icon_state = "cablecuff"
 	item_state = "cablecuff"
 	cuffed_state = "cablecuff"
-	belt_icon = null
+	belt_icon = "cablecuff"
 	origin_tech = "engineering=2"
 	materials = list(MAT_METAL=150, MAT_GLASS=75)
 	breakouttime = 30 SECONDS
@@ -149,7 +153,7 @@
 
 /obj/item/restraints/handcuffs/pinkcuffs
 	name = "fluffy pink handcuffs"
-	desc = "Use this to keep prisoners in line. Or you know, your significant other."
+	desc = "Use this to keep prisoners in line, they are really itchy."
 	icon_state = "pinkcuffs"
 	cuffed_state = "pinkcuff"
 

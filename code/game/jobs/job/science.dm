@@ -9,6 +9,7 @@
 	department_head = list("Captain")
 	selection_color = "#ffddff"
 	req_admin_notify = 1
+	department_account_access = TRUE
 	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
 					ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
@@ -31,7 +32,7 @@
 	name = "Research Director"
 	jobtype = /datum/job/rd
 
-	uniform = /obj/item/clothing/under/rank/research_director
+	uniform = /obj/item/clothing/under/rank/rnd/research_director
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/heads/rd
@@ -73,7 +74,7 @@
 	name = "Scientist"
 	jobtype = /datum/job/scientist
 
-	uniform = /obj/item/clothing/under/rank/scientist
+	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_sci
@@ -112,10 +113,10 @@
 	name = "Roboticist"
 	jobtype = /datum/job/roboticist
 
-	uniform = /obj/item/clothing/under/rank/roboticist
+	uniform = /obj/item/clothing/under/rank/rnd/roboticist
 	suit = /obj/item/clothing/suit/storage/labcoat
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_sci
-	id = /obj/item/card/id/research
+	id = /obj/item/card/id/roboticist
 	pda = /obj/item/pda/roboticist

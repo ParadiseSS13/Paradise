@@ -26,7 +26,7 @@
 	for(var/datum/objective/objective in wizard.objectives)
 		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
-	return
+	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 
 /datum/game_mode/wizard/raginmages/check_finished()
 	var/wizards_alive = 0
@@ -35,13 +35,13 @@
 	for(var/datum/mind/wizard in wizards)
 		if(isnull(wizard.current))
 			continue
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
-		if(istype(wizard.current,/mob/living/carbon/brain))
+		if(isbrain(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
@@ -100,10 +100,10 @@
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
 			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
 		L.ghostize()
-		if(istype(L, /mob/living/carbon/brain))
+		if(isbrain(L))
 			// diediedie
 			var/mob/living/carbon/brain/B = L
-			if(istype(B.loc, /obj/item))
+			if(isitem(B.loc))
 				qdel(B.loc)
 			if(B && B.container)
 				qdel(B.container)

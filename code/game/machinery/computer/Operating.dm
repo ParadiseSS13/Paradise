@@ -37,8 +37,11 @@
 		currentPatient = null
 	return ..()
 
-/obj/machinery/computer/operating/detailed_examine()
-	return "This console gives information on the status of the patient on the adjacent operating table, notably their consciousness."
+
+
+/obj/machinery/computer/operating/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This console gives information on the status of the patient on the adjacent operating table and the next surgery step required in the current surgery.</span>"
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -100,7 +103,7 @@
 				occupantData["temperatureSuitability"] = 2
 			else if(occupant.bodytemperature > sp.heat_level_1)
 				occupantData["temperatureSuitability"] = 1
-		else if(istype(occupant, /mob/living/simple_animal))
+		else if(isanimal(occupant))
 			var/mob/living/simple_animal/silly = occupant
 			if(silly.bodytemperature < silly.minbodytemp)
 				occupantData["temperatureSuitability"] = -3

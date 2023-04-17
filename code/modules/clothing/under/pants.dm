@@ -1,7 +1,16 @@
 /obj/item/clothing/under/pants
+	icon = 'icons/obj/clothing/under/pants.dmi'
 	gender = PLURAL
 	body_parts_covered = LOWER_TORSO|LEGS
 	displays_id = FALSE
+
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/under/pants.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/under/pants.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/under/pants.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/under/pants.dmi'
+		)
+
 
 /obj/item/clothing/under/pants/equipped(mob/user, slot)
 	if(ishuman(user) && slot == slot_w_uniform)
@@ -90,3 +99,32 @@
 	desc = "A pair of woodland camouflage pants. Probably not the best choice for a space station."
 	icon_state = "camopants"
 	item_color = "camopants"
+
+
+//Shorts ARE pants, right?
+/obj/item/clothing/under/pants/shorts
+	name = "athletic shorts"
+	desc = "95% Polyester, 5% Spandex!"
+	gender = PLURAL
+	body_parts_covered = LOWER_TORSO
+	displays_id = FALSE
+
+/obj/item/clothing/under/pants/shorts/red
+	icon_state = "redshorts"
+	item_color = "redshorts"
+
+/obj/item/clothing/under/pants/shorts/green
+	icon_state = "greenshorts"
+	item_color = "greenshorts"
+
+/obj/item/clothing/under/pants/shorts/blue
+	icon_state = "blueshorts"
+	item_color = "blueshorts"
+
+/obj/item/clothing/under/pants/shorts/black
+	icon_state = "blackshorts"
+	item_color = "blackshorts"
+
+/obj/item/clothing/under/pants/shorts/grey
+	icon_state = "greyshorts"
+	item_color = "greyshorts"

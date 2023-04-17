@@ -16,11 +16,11 @@
 	if(!new_info)
 		return INITIALIZE_HINT_QDEL
 	mob_info = new_info
-	RegisterSignal(mob_info, COMSIG_PARENT_QDELETING, .proc/delete_wrapper)
+	RegisterSignal(mob_info, COMSIG_PARENT_QDELETING, PROC_REF(delete_wrapper))
 	update_self()
 	forceMove(mob_info.spawn_point)
 	if(!mob_info.is_trap)
-		addtimer(CALLBACK(src, .proc/despawn), mob_info.lifetime)
+		addtimer(CALLBACK(src, PROC_REF(despawn)), mob_info.lifetime)
 
 /obj/effect/nanomob/Destroy()
 	SSmob_hunt.trap_spawns -= src

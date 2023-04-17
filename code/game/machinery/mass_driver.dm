@@ -4,9 +4,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 50
+	idle_power_consumption = 2
+	active_power_consumption = 50
 
 	/// Throw power
 	var/power = 1
@@ -45,7 +44,7 @@
 	var/O_limit = 0
 	var/atom/target = get_edge_target_turf(src, dir)
 	for(var/atom/movable/O in loc)
-		if((!O.anchored && O.move_resist != INFINITY) || istype(O, /obj/mecha)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
+		if((!O.anchored && O.move_resist != INFINITY) || ismecha(O)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
 			O_limit++
 
 			if(O_limit >= 20)//so no more than 20 items are sent at a time, probably for counter-lag purposes
@@ -55,7 +54,7 @@
 			var/coef = 1
 			if(emagged)
 				coef = 5
-			INVOKE_ASYNC(O, /atom/movable.proc/throw_at, target, (drive_range * power * coef), (power * coef))
+			INVOKE_ASYNC(O, TYPE_PROC_REF(/atom/movable, throw_at), target, (drive_range * power * coef), (power * coef))
 
 	flick("mass_driver1", src)
 

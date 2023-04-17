@@ -20,7 +20,7 @@
 	attack_sound = 'sound/items/bikehorn.ogg'
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
-	loot = list(/obj/item/clothing/mask/cursedclown)
+	loot = list(/obj/item/clothing/mask/false_cluwne_mask)
 	a_intent = INTENT_HARM
 	wander = FALSE
 	minimum_distance = 2
@@ -177,7 +177,7 @@
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
 	if(manifested)
 		new /obj/effect/temp_visual/fcluwne_manifest(loc)
-		addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Appear), MANIFEST_DELAY)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Appear)), MANIFEST_DELAY)
 
 	else
 		layer = GAME_PLANE
@@ -249,7 +249,7 @@
 				to_chat(H, "<font face='Comic Sans MS'><i>yalp ot tnaw I</i></font>")
 				Appear()
 				manifested = FALSE
-				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 1)
+				addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Manifest)), 1)
 
 		if(STAGE_TORMENT)
 
@@ -298,7 +298,7 @@
 				H.reagents.add_reagent("lsd", 3)
 				Appear()
 				manifested = FALSE
-				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 2)
+				addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Manifest)), 2)
 				for(var/obj/machinery/light/L in range(H, 8))
 					L.flicker()
 
@@ -324,7 +324,7 @@
 				H.emote("scream")
 				H.adjustBruteLoss(10)
 				if(!eating)
-					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Grab, H), 70)
+					addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Grab), H), 70)
 					for(var/turf/simulated/floor/O in range(src, 6))
 						O.MakeSlippery(TURF_WET_LUBE, 20 SECONDS)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
@@ -353,7 +353,7 @@
 			H.mouse_opacity = 0
 			H.density = FALSE
 			H.anchored = TRUE
-			addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Kill, H), 100)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
 			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
 		else//some fuck pulled away our food
 			stage = STAGE_TORMENT

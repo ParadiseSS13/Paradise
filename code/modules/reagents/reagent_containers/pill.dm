@@ -34,6 +34,10 @@
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
 	if(!proximity || !target.is_refillable())
 		return
+	if(target.reagents.holder_full())
+		to_chat(user, "<span class='warning'>[target] is full.</span>")
+		return
+
 	to_chat(user, "<span class='notice'>You [!target.reagents.total_volume ? "break open" : "dissolve"] [src] in [target].</span>")
 	for(var/mob/O in oviewers(2, user))
 		O.show_message("<span class='warning'>[user] puts something in [target].</span>", 1)
@@ -142,3 +146,27 @@
 	desc = "Used to treat cranial swelling."
 	icon_state = "pill19"
 	list_reagents = list("mannitol" = 10)
+
+/obj/item/reagent_containers/food/pill/pentetic
+	name ="\improper Pentetic pill"
+	desc = "Used to purge substances and radiation."
+	icon_state = "pill7"
+	list_reagents = list("pen_acid" = 5)
+
+/obj/item/reagent_containers/food/pill/ironsaline
+	name = "\improper Iron saline pill"
+	desc = "Used to help with blood loss."
+	icon_state = "pill2"
+	list_reagents = list("iron" = 10, "salglu_solution" = 10)
+
+/obj/item/reagent_containers/food/pill/lazarus_reagent
+	name = "\improper Lazarus Reagent pill"
+	desc = "Miraculous drug used for revival. Use with caution. Improper use may cause bodies to violently blow apart."
+	icon_state = "pill9"
+	list_reagents = list("lazarus_reagent" = 1)
+
+/obj/item/reagent_containers/food/pill/rezadone
+	name = "\improper Rezadone pill"
+	desc = "Used to rapidly repair cellular defects within a subject's cell structure."
+	icon_state = "pill10"
+	list_reagents = list("rezadone" = 1)

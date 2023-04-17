@@ -55,9 +55,10 @@
 	color = "#61C2C2"
 	harmless = TRUE
 	taste_description = "floor cleaner"
+	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/effect))
+	if(iseffect(O))
 		var/obj/effect/E = O
 		if(E.is_cleanable())
 			var/obj/effect/decal/cleanable/blood/B = E
@@ -169,13 +170,13 @@
 		return
 	if(volume < 3)
 		return
-	if(!data["donor"] || istype(data["donor"], /mob/living/carbon/human))
+	if(!data["donor"] || ishuman(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
 		if(!blood_prop) //first blood!
 			blood_prop = new(T)
 			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-	else if(istype(data["donor"], /mob/living/carbon/alien))
+	else if(isalien(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
@@ -355,7 +356,7 @@
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
 	id = "unholywater"
-	description = "Something that shouldn't exist on this plane of existance."
+	description = "Something that shouldn't exist on this plane of existence."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
 	taste_description = "sulfur"

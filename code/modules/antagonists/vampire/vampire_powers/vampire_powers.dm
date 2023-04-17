@@ -68,7 +68,7 @@
 	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
-		INVOKE_ASYNC(src, .proc/heal, U, rejuv_bonus)
+		INVOKE_ASYNC(src, PROC_REF(heal), U, rejuv_bonus)
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
 	for(var/i in 1 to 5)
@@ -153,7 +153,7 @@
 
 /obj/effect/proc_holder/spell/vampire/glare
 	name = "Glare"
-	desc = "Your eyes flash, stunning and silencing anyone infront of you. It has lesser effects for those around you."
+	desc = "Your eyes flash, stunning and silencing anyone in front of you. It has lesser effects for those around you."
 	action_icon_state = "vampire_glare"
 	base_cooldown = 30 SECONDS
 	stat_allowed = UNCONSCIOUS
@@ -304,6 +304,7 @@
 			if(prob(25))
 				E.mend_fracture()
 				E.fix_internal_bleeding()
+				E.fix_burn_wound()
 
 		return
 	if(H.stat != DEAD)

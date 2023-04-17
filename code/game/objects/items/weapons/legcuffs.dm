@@ -4,6 +4,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
+	cuffed_state = "legcuff"
 	flags = CONDUCT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
@@ -20,6 +21,8 @@
 	origin_tech = "engineering=4"
 	var/armed = FALSE
 	var/trap_damage = 20
+	///Do we want the beartrap not to make a visable message on arm? Use when a beartrap is applied by something else.
+	var/silent_arming = FALSE
 	var/obj/item/grenade/iedcasing/IED = null
 	var/obj/item/assembly/signaler/sig = null
 
@@ -92,13 +95,14 @@
 
 /obj/item/restraints/legcuffs/beartrap/Crossed(AM as mob|obj, oldloc)
 	if(armed && isturf(src.loc))
-		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !istype(AM, /mob/living/simple_animal/hostile/construct) && !istype(AM, /mob/living/simple_animal/shade) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
+		if( (iscarbon(AM) || isanimal(AM)) && !istype(AM, /mob/living/simple_animal/parrot) && !isconstruct(AM) && !isshade(AM) && !istype(AM, /mob/living/simple_animal/hostile/viscerator))
 			var/mob/living/L = AM
 			armed = FALSE
 			update_icon()
 			playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
-			L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
-					"<span class='userdanger'>You trigger \the [src]!</span>")
+			if(!silent_arming)
+				L.visible_message("<span class='danger'>[L] triggers \the [src].</span>", \
+						"<span class='userdanger'>You trigger \the [src]!</span>")
 
 			if(IED && isturf(src.loc))
 				IED.active = TRUE
@@ -136,7 +140,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/energy/New()
 	..()
-	addtimer(CALLBACK(src, .proc/dissipate), 100)
+	addtimer(CALLBACK(src, PROC_REF(dissipate)), 100)
 
 /obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
 	if(!ismob(loc))
@@ -174,12 +178,12 @@
 
 /obj/item/restraints/legcuffs/bola/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, .proc/spin_up_wrapper)
+	RegisterSignal(src, COMSIG_CARBON_TOGGLE_THROW, PROC_REF(spin_up_wrapper))
 
 /obj/item/restraints/legcuffs/bola/proc/spin_up_wrapper(datum/source, throw_mode_state) // so that signal handler works
 	SIGNAL_HANDLER
 	if(throw_mode_state) // if we actually turned throw mode on
-		INVOKE_ASYNC(src, .proc/spin_up)
+		INVOKE_ASYNC(src, PROC_REF(spin_up))
 
 /obj/item/restraints/legcuffs/bola/proc/spin_up()
 	if(spinning)
@@ -187,13 +191,13 @@
 	var/mob/living/L = loc // can only be called if the mob is holding the bola.
 	var/range_increment = round(max_range / max_spins)
 	var/speed_increment = round(max_speed / max_spins)
-	RegisterSignal(L, COMSIG_CARBON_SWAP_HANDS, .proc/reset_values, override = TRUE)
+	RegisterSignal(L, COMSIG_CARBON_SWAP_HANDS, PROC_REF(reset_values), override = TRUE)
 	item_state = "[initial(item_state)]_spin"
 	L.update_inv_r_hand()
 	L.update_inv_l_hand()
 	spinning = TRUE
 	for(var/i in 1 to max_spins)
-		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, .proc/can_spin_check, L))))
+		if(!do_mob(L, L, 1 SECONDS, only_use_extra_checks = TRUE, extra_checks = list(CALLBACK(src, PROC_REF(can_spin_check), L))))
 			reset_values(L)
 			break
 		throw_range += range_increment

@@ -1,6 +1,6 @@
 /mob/living/carbon/human/proc/monkeyize()
 	var/mob/H = src
-	H.dna.SetSEState(GLOB.monkeyblock,1)
+	H.dna.SetSEState(GLOB.monkeyblock, 1)
 	singlemutcheck(H, GLOB.monkeyblock, MUTCHK_FORCED)
 
 /mob/new_player/AIize()
@@ -35,9 +35,9 @@
 
 	O.add_ai_verbs()
 
-	O.rename_self("AI",1)
+	O.rename_self("AI", TRUE)
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src) // To prevent the proc from returning null. Todo: Convert to QDEL_IN
 	return O
 
 
@@ -107,9 +107,10 @@
 
 	O.update_pipe_vision()
 
+	O.check_custom_sprite()
 	O.Namepick()
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src) // To prevent the proc from returning null. Todo: Convert to QDEL_IN
 	return O
 
 //human -> alien

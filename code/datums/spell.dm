@@ -108,9 +108,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/overlay_lifespan = 0
 
 	var/sparks_spread = FALSE
-	var/sparks_amt = 0 //cropped at 10
-	var/smoke_spread = 0 //1 - harmless, 2 - harmful
-	var/smoke_amt = 0 //cropped at 10
+	var/sparks_amt = 0
+
+	///Determines if the spell has smoke, and if so what effect the smoke has. See spell defines.
+	var/smoke_type = SMOKE_NONE
+	var/smoke_amt = 0
 
 	var/critfailchance = 0
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on the admin zlevel
@@ -280,6 +282,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return
 	targeting.InterceptClickOn(user, params, A, src)
 
+///Lets the spell have a special effect applied to it when upgraded. By default, does nothing.
+/obj/effect/proc_holder/spell/proc/on_purchase_upgrade()
+	return
+
 /**
  * Will try to choose targets using the targeting variable and perform the spell if it can
  * Do not override this! Override create_new_targeting instead
@@ -375,9 +381,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(overlay)
 		for(var/atom/target in targets)
 			var/location
-			if(istype(target,/mob/living))
+			if(isliving(target))
 				location = target.loc
-			else if(istype(target,/turf))
+			else if(isturf(target))
 				location = target
 			var/obj/effect/overlay/spell = new /obj/effect/overlay(location)
 			spell.icon = overlay_icon
@@ -393,27 +399,25 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	SHOULD_CALL_PARENT(TRUE)
 	for(var/atom/target in targets)
 		var/location
-		if(istype(target,/mob/living))
+		if(isliving(target))
 			location = target.loc
-		else if(istype(target,/turf))
+		else if(isturf(target))
 			location = target
-		if(istype(target,/mob/living) && message)
+		if(isliving(target) && message)
 			to_chat(target, text("[message]"))
 		if(sparks_spread)
 			do_sparks(sparks_amt, 0, location)
-		if(smoke_spread)
-			if(smoke_spread == 1)
-				var/datum/effect_system/smoke_spread/smoke = new
-				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
-				smoke.start()
-			else if(smoke_spread == 2)
-				var/datum/effect_system/smoke_spread/bad/smoke = new
-				smoke.set_up(smoke_amt, 0, location) //no idea what the 0 is
-				smoke.start()
-			else if(smoke_spread == 3)
-				var/datum/effect_system/smoke_spread/sleeping/smoke = new
-				smoke.set_up(smoke_amt, 0, location) // same here
-				smoke.start()
+		if(smoke_type)
+			var/datum/effect_system/smoke_spread/smoke
+			switch(smoke_type)
+				if(SMOKE_HARMLESS)
+					smoke = new /datum/effect_system/smoke_spread()
+				if(SMOKE_COUGHING)
+					smoke = new /datum/effect_system/smoke_spread/bad()
+				if(SMOKE_SLEEPING)
+					smoke = new /datum/effect_system/smoke_spread/sleeping()
+			smoke.set_up(smoke_amt, FALSE, location)
+			smoke.start()
 
 	custom_handler?.after_cast(targets, user, src)
 
@@ -461,13 +465,16 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 	return
 
-/obj/effect/proc_holder/spell/aoe_turf
+/obj/effect/proc_holder/spell/aoe
+	name = "Spell"
 	create_attack_logs = FALSE
 	create_custom_logs = TRUE
+	/// How far does it effect
+	var/aoe_range = 7
 
 // Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
-// With this override, all /aoe_turf type spells will only generate 1 log, saying that the user has cast the spell.
-/obj/effect/proc_holder/spell/aoe_turf/write_custom_logs(list/targets, mob/user)
+// With this override, all /aoe type spells will only generate 1 log, saying that the user has cast the spell.
+/obj/effect/proc_holder/spell/aoe/write_custom_logs(list/targets, mob/user)
 	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
 
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)

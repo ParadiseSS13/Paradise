@@ -77,7 +77,6 @@
 			/datum/job/judge,
 			/datum/job/blueshield,
 			/datum/job/nanotrasenrep,
-			/datum/job/barber,
 			/datum/job/chaplain,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntspecops,
@@ -121,7 +120,8 @@
 			. += "crack3"
 
 /obj/machinery/newscaster/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -137,7 +137,7 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
-	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
@@ -147,7 +147,7 @@
 		new /obj/item/shard(loc)
 	else
 		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
-		new /obj/item/mounted/frame/newscaster_frame(loc)
+		new /obj/item/mounted/frame/display/newscaster_frame(loc)
 	qdel(src)
 
 /obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
@@ -299,6 +299,7 @@
 			uid = C.UID(),
 			name = C.channel_name,
 			author = C.author,
+			author_ckey = (is_admin(user) ? C.author_ckey : "N/A"),
 			description = C.description,
 			icon = C.icon,
 			public = C.is_public,
@@ -331,6 +332,7 @@
 	return list(list(
 		uid = FM.UID(),
 		author = (FM.censor_flags & CENSOR_AUTHOR) ? "" : FM.author,
+		author_ckey = (is_admin(M) ? FM.author_ckey : "N/A"),
 		title = (FM.censor_flags & CENSOR_STORY) ? "" : FM.title,
 		body = (FM.censor_flags & CENSOR_STORY) ? "" : FM.body,
 		admin_locked = FM.admin_locked,
@@ -517,9 +519,11 @@
 					FC.description = copytext(description, 1, CHANNEL_DESC_MAX_LENGTH)
 					FC.icon = usr.can_admin_interact() ? icon : "newspaper"
 					FC.author = usr.can_admin_interact() ? author : scanned_user
+					FC.author_ckey = usr.ckey
 					FC.is_public = public
 					FC.admin_locked = usr.can_admin_interact() && admin_locked
 					set_temp("Channel [FC.channel_name] created.", "good")
+					usr.create_log(MISC_LOG, "Newscaster channel [name] created with desc [description].")
 				if("create_story")
 					var/author = trim(arguments["author"])
 					var/channel = trim(arguments["channel"])
@@ -535,6 +539,7 @@
 						return
 					var/datum/feed_message/FM = new
 					FM.author = usr.can_admin_interact() ? author : scanned_user
+					FM.author_ckey = usr.ckey
 					FM.title = copytext(title, 1, STORY_NAME_MAX_LENGTH)
 					FM.body = copytext(body, 1, STORY_BODY_MAX_LENGTH)
 					FM.img = photo?.img
@@ -553,6 +558,7 @@
 					viewing_channel = FC
 					eject_photo(usr)
 					set_temp("Story published to channel [FC.channel_name].", "good")
+					usr.create_log(MISC_LOG, "Newscaster story [title] created with desc [body].")
 				if("wanted_notice")
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
@@ -581,6 +587,7 @@
 						NC.alert_news(wanted_notice = TRUE)
 					eject_photo(usr)
 					set_temp("Wanted notice distributed.", "good")
+					usr.create_log(MISC_LOG, "Wanted notice for [name] created with desc [description].")
 				else
 					return FALSE
 		else
@@ -666,7 +673,7 @@
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
-	addtimer(CALLBACK(src, .proc/print_newspaper_finish), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
   * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
@@ -703,7 +710,7 @@
 	else
 		return
 	alert = TRUE
-	addtimer(CALLBACK(src, .proc/alert_timer_finish), 30 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
 	update_icon(UPDATE_OVERLAYS)
 
 /**

@@ -22,44 +22,29 @@
 	var/framestackamount = 2
 
 /obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one plasteel sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src) && P.use(1))
-			make_new_table(/obj/structure/table/reinforced)
-
-	else if(istype(I, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = I
-		if(M.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one metal sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [M] to [src]...</span>")
-		if(do_after(user, 20, target = src) && M.use(1))
-			make_new_table(/obj/structure/table)
-
-	else if(istype(I, /obj/item/stack/sheet/glass))
-		var/obj/item/stack/sheet/glass/G = I
-		if(G.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one glass sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
-		if(do_after(user, 20, target = src) && G.use(1))
-			make_new_table(/obj/structure/table/glass)
-
-	else if(istype(I, /obj/item/stack/tile/carpet))
-		var/obj/item/stack/tile/carpet/C = I
-		if(C.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one [C.name] sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
-		if(do_after(user, 20, target = src) && C.use(1))
-			make_new_table(C.fancy_table_type)
-
-	else
+	if(!try_make_table(I, user))
 		return ..()
+
+///Try to make a table with the item used to attack. FALSE if you can't make a table and should attack. TRUE does not necessarily mean a table was made.
+/obj/structure/table_frame/proc/try_make_table(obj/item/stack/stack, mob/user)
+	if(!istype(stack))
+		return FALSE
+
+	if(!stack.table_type)
+		return FALSE
+
+	if(stack.get_amount() < 1)
+		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
+
+	if(!(do_after(user, 50, target = src) && stack.use(1)))
+		return TRUE
+
+	if(stack.table_type)
+		make_new_table(stack.table_type)
+		return TRUE
 
 /obj/structure/table_frame/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -99,46 +84,50 @@
 	framestackamount = 2
 	resistance_flags = FLAMMABLE
 
-/obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/wood))
-		var/obj/item/stack/sheet/wood/W = I
-		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one wood sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src) && W.use(1))
-			make_new_table(/obj/structure/table/wood)
-		return
-	else if(istype(I, /obj/item/stack/tile/carpet))
-		var/obj/item/stack/tile/carpet/C = I
-		if(C.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one carpet sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
-		if(do_after(user, 20, target = src) && C.use(1))
-			make_new_table(/obj/structure/table/wood/poker)
-	else
-		return ..()
+/obj/structure/table_frame/wood/try_make_table(obj/item/stack/stack, mob/user)
+	if(!istype(stack, /obj/item/stack/tile/carpet) && !istype(stack, /obj/item/stack/sheet/wood))
+		return FALSE
+
+	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
+		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
+
+	if(!(do_after(user, 50, target = src) && stack.use(1)))
+		return TRUE
+
+	if(istype(stack, /obj/item/stack/tile/carpet))
+		make_new_table(/obj/structure/table/wood/poker)
+		return TRUE
+
+	make_new_table(stack.table_type)
+	return TRUE
 
 /obj/structure/table_frame/brass
 	name = "brass table frame"
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
 	icon_state = "brass_frame"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	density = TRUE
+	anchored = TRUE
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1
 
-/obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tile/brass))
-		var/obj/item/stack/tile/brass/W = I
-		if(W.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src) && W.use(1))
-			make_new_table(/obj/structure/table/reinforced/brass)
-	else
-		return ..()
+/obj/structure/table_frame/brass/try_make_table(obj/item/stack/stack, mob/user)
+	if(!istype(stack, /obj/item/stack/tile/brass))
+		return FALSE
+
+	if(stack.get_amount() < 1) //no need for safeties as we did an istype earlier
+		to_chat(user, "<span class='warning'>You need at least one sheet of [stack] to do this!</span>")
+		return TRUE
+
+	to_chat(user, "<span class='notice'>You start adding [stack] to [src]...</span>")
+
+	if(do_after(user, 20, target = src) && stack.use(1))
+		make_new_table(stack.table_type)
+
+	return TRUE
 
 /obj/structure/table_frame/brass/narsie_act()
 	..()

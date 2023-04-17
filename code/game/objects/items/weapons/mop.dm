@@ -1,3 +1,5 @@
+#define MOP_SOUND_CD 2 SECONDS // How many seconds before the mopping sound triggers again
+
 /obj/item/mop
 	desc = "The world of janitalia wouldn't be complete without a mop."
 	name = "mop"
@@ -10,10 +12,10 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
 	resistance_flags = FLAMMABLE
-	var/mopping = 0
-	var/mopcount = 0
-	var/mopcap = 5
+	var/mopcap = 6
 	var/mopspeed = 30
+	/// The cooldown between each mopping sound effect
+	var/mop_sound_cooldown
 
 /obj/item/mop/New()
 	..()
@@ -27,11 +29,13 @@
 /obj/item/mop/proc/wet_mop(obj/o, mob/user)
 	if(o.reagents.total_volume < 1)
 		to_chat(user, "[o] is out of water!</span>")
-		if(!istype(o, /obj/item/reagent_containers/glass/bucket))
+		if(istype(o, /obj/structure/mopbucket))
+			mopbucket_insert(user, o)
+		if(istype(o, /obj/structure/janitorialcart))
 			janicart_insert(user, o)
 		return
 
-	o.reagents.trans_to(src, 5)
+	o.reagents.trans_to(src, 6)
 	to_chat(user, "<span class='notice'>You wet [src] in [o].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 
@@ -43,6 +47,9 @@
 	if(reagents.total_volume < 1)
 		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
 		return
+	if(world.time > mop_sound_cooldown)
+		playsound(loc, pick('sound/weapons/mopping1.ogg', 'sound/weapons/mopping2.ogg'), 30, TRUE, -1)
+		mop_sound_cooldown = world.time + MOP_SOUND_CD
 	A.cleaning_act(user, src, mopspeed, text_verb = "mop", text_description = ".")
 
 /obj/item/mop/can_clean()
@@ -78,7 +85,6 @@
 	name = "advanced mop"
 	mopcap = 10
 	icon_state = "advmop"
-	item_state = "mop"
 	origin_tech = "materials=3;engineering=3"
 	force = 6
 	throwforce = 8
@@ -119,3 +125,8 @@
 
 /obj/item/mop/advanced/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
+
+/obj/item/mop/advanced/cyborg/mopbucket_insert(mob/user, obj/structure/mopbucket/J)
+	return
+
+#undef MOP_SOUND_CD

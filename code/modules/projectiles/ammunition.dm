@@ -136,7 +136,7 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/Destroy()
-	QDEL_LIST(stored_ammo)
+	QDEL_LIST_CONTENTS(stored_ammo)
 	stored_ammo = null
 	return ..()
 
@@ -187,7 +187,7 @@
 	var/num_loaded = 0
 	if(!can_load(user))
 		return
-	if(istype(A, /obj/item/ammo_box))
+	if(istype(A, /obj/item/ammo_box) && !istype(A, /obj/item/ammo_box/b357))
 		var/obj/item/ammo_box/AM = A
 		for(var/obj/item/ammo_casing/AC in AM.stored_ammo)
 			var/did_load = give_round(AC, replace_spent)

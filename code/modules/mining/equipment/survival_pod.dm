@@ -86,7 +86,7 @@
 //Window
 /obj/structure/window/full/shuttle/survival_pod
 	name = "pod window"
-	icon = 'icons/obj/smooth_structures/pod_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/pod_window.dmi'
 	icon_state = "pod_window-0"
 	base_icon_state = "pod_window"
 	smoothing_flags = SMOOTH_BITMASK
@@ -168,7 +168,7 @@
 	RefreshParts()
 
 //NanoMed
-/obj/machinery/vending/wallmed/survival_pod
+/obj/machinery/economy/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
@@ -284,7 +284,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
+							"<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			deconstruct()
 			return ..()
@@ -327,7 +327,7 @@
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
+							"<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			new /obj/item/stack/rods(loc)
 			qdel(src)

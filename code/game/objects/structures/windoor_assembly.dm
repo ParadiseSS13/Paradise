@@ -165,7 +165,7 @@
 				else
 					W.forceMove(loc)
 
-			else if(istype(W, /obj/item/pen))
+			else if(is_pen(W))
 				var/t = rename_interactive(user, W)
 				if(!isnull(t))
 					created_name = t

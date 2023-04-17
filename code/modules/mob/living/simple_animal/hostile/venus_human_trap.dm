@@ -22,7 +22,7 @@
 	for(var/turf/T in anchors)
 		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
 		B.sleep_time = 10 //these shouldn't move, so let's slow down updates to 1 second (any slower and the deletion of the vines would be too slow)
-	addtimer(CALLBACK(src, .proc/bear_fruit), growth_time)
+	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
 
 /obj/structure/alien/resin/flower_bud_enemy/proc/bear_fruit()
 	visible_message("<span class='danger'>the plant has borne fruit!</span>")
@@ -114,6 +114,7 @@
 			if(O.density)
 				return
 	var/dist = get_dist(src,the_target)
+	changeNext_move(CLICK_CD_MELEE)
 	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/vine)
 	the_target.attack_animal(src)
 

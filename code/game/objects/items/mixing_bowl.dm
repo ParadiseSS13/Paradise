@@ -2,7 +2,7 @@
 /obj/item/mixing_bowl
 	name = "mixing bowl"
 	desc = "Mixing it up in the kitchen."
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mixing_bowl"
 	var/max_n_of_items = 25
@@ -137,12 +137,12 @@
 		return
 	if(prob(chance))
 		dirty = TRUE
-		flags = null
+		container_type = null
 		icon_state = dirty_icon
 
 /obj/item/mixing_bowl/proc/clean()
 	dirty = FALSE
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	icon_state = clean_icon
 
 /obj/item/mixing_bowl/wash(mob/user, atom/source)
@@ -165,7 +165,7 @@
 		if(id)
 			amount += reagents.get_reagent_amount(id)
 	reagents.clear_reagents()
-	var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(get_turf(source))
-	ffuu.reagents.add_reagent("carbon", amount)
-	ffuu.reagents.add_reagent("????", amount/10)
+	var/obj/item/reagent_containers/food/snacks/badrecipe/mysteryfood = new(get_turf(source))
+	mysteryfood.reagents.add_reagent("carbon", amount)
+	mysteryfood.reagents.add_reagent("????", amount / 10)
 	make_dirty(75)

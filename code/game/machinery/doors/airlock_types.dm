@@ -383,45 +383,6 @@
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 
-/obj/machinery/door/airlock/hatch/gamma
-	name = "gamma level hatch"
-	hackProof = TRUE
-	aiControlDisabled = AICONTROLDISABLED_ON
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	is_special = TRUE
-
-/obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
-	if(!issilicon(user))
-		if(isElectrified())
-			if(shock(user, 75))
-				return
-	if(istype(C, /obj/item/detective_scanner))
-		return
-
-	if(istype(C, /obj/item/grenade/plastic/c4))
-		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
-		return
-
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/rcd))
-		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
-		return
-
-	add_fingerprint(user)
-
-/obj/machinery/door/airlock/hatch/gamma/welder_act(mob/user, obj/item/I)
-	if(shock_user(user, 75))
-		return
-	if(operating || !density)
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, amount = 0, volume = I.tool_volume))
-		return
-	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
-	update_icon()
-
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
 	icon = 'icons/obj/doors/airlocks/hatch/maintenance.dmi'
@@ -545,7 +506,7 @@
 			var/atom/throwtarget
 			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
 			SEND_SOUND(L, pick(sound('sound/hallucinations/turn_around1.ogg', 0, 1, 50), sound('sound/hallucinations/turn_around2.ogg', 0, 1, 50)))
-			L.Weaken(4 SECONDS)
+			L.KnockDown(4 SECONDS)
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
 

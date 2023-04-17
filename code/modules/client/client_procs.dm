@@ -172,8 +172,30 @@
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])
+			return
+
+		if("silenceSound")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			return
+
+		if("muteAdmin")
+			usr.stop_sound_channel(CHANNEL_ADMIN)
+			prefs.admin_sound_ckey_ignore |= href_list["a"]
+			to_chat(usr, "You will no longer hear admin playsounds from <code>[href_list["a"]]</code>. To remove them, go to Preferences --&gt; <code>Manage Admin Sound Mutes</code>.")
+			prefs.save_preferences(src)
+			return
+
+	//fun fact: Topic() acts like a verb and is executed at the end of the tick like other verbs. So we have to queue it if the server is
+	//overloaded
+	if(hsrc && hsrc != holder && DEFAULT_TRY_QUEUE_VERB(VERB_CALLBACK(src, PROC_REF(_Topic), hsrc, href, href_list)))
+		return
 
 	..()	//redirect to hsrc.Topic()
+
+///dumb workaround because byond doesnt seem to recognize the Topic() typepath for /datum/proc/Topic() from the client Topic,
+///so we cant queue it without this
+/client/proc/_Topic(datum/hsrc, href, list/href_list)
+	return hsrc.Topic(href, href_list)
 
 
 /client/proc/get_display_key()
@@ -264,7 +286,7 @@
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
 	// We have a holder. Inform the relevant places
-	INVOKE_ASYNC(src, .proc/announce_join)
+	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
 	pai_save = new(src)
 
@@ -331,13 +353,13 @@
 			// This also has to be manually done since no mob to use check_rights() on
 			deadmin()
 			verbs += /client/proc/readmin
-			GLOB.deadmins += ckey
+			GLOB.de_admins += ckey
 
 		else
 			on_holder_add()
 			add_admin_verbs()
 			// Must be async because any sleeps (happen in sql queries) will break connectings clients
-			INVOKE_ASYNC(src, .proc/admin_memo_output, "Show", FALSE, TRUE)
+			INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
 
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
@@ -369,12 +391,6 @@
 	else
 		// activate_darkmode() calls the CL update button proc, so we dont want it double called
 		SSchangelog.UpdatePlayerChangelogButton(src)
-
-
-	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
-		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
-	else
-		to_chat(src,"<span class='notice'>You have enabled karma gains.")
 
 	generate_clickcatcher()
 	apply_clickcatcher()
@@ -410,10 +426,6 @@
 
 	if(_2fa_alert)
 		to_chat(src,"<span class='boldannounce'><big>You do not have 2FA enabled. Admin verbs will be unavailable until you have enabled 2FA.</big></span>") // Very fucking obvious
-
-	// This happens "asyncronously"
-	if(karmaholder)
-		karmaholder.processRefunds(mob)
 
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
@@ -574,7 +586,7 @@
 
 		qdel(query_update)
 		// After the regular update
-		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, FALSE) // Async to avoid other procs in the client chain being delayed by a web request
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), FALSE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	else
 		//New player!! Need to insert all the stuff
@@ -590,10 +602,10 @@
 		qdel(query_insert)
 		// This is their first connection instance, so TRUE here to notify admins
 		// This needs to happen here to ensure they actually have a row to update
-		INVOKE_ASYNC(src, /client/.proc/get_byond_account_date, TRUE) // Async to avoid other procs in the client chain being delayed by a web request
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/client, get_byond_account_date), TRUE) // Async to avoid other procs in the client chain being delayed by a web request
 
 	// Log player connections to DB
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/log_connection, ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(log_connection), ckey, address, computer_id, CONNECTION_TYPE_ESTABLISHED)
 
 /client/proc/check_ip_intel()
 	set waitfor = 0 //we sleep when getting the intel, no need to hold up the client connection while we sleep
@@ -607,11 +619,11 @@
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] connecting from localhost.")
 			return
 
-		if(SSipintel.vpn_whitelist_check(ckey))
+		if(GLOB.ipintel_manager.vpn_whitelist_check(ckey))
 			log_debug("check_ip_intel: skip check for player [key_name_admin(src)] [address] on whitelist.")
 			return
 
-		var/datum/ipintel/res = SSipintel.get_ip_intel(address)
+		var/datum/ipintel/res = GLOB.ipintel_manager.get_ip_intel(address)
 		ip_intel = res.intel
 		verify_ip_intel()
 
@@ -797,7 +809,7 @@
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
-				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
+				GLOB.discord_manager.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
@@ -811,7 +823,7 @@
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
 				message_admins("<span class='adminnotice'>[key_name_admin(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
-				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
+				GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 
 			if(cidcheck_spoofckeys[ckey])
@@ -924,33 +936,33 @@
 	///// BUTTONS /////
 	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
-	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.wikib", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.forumb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.rulesb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.githubb", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "rpane.webmap", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.forumb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
 	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=#40628a;text-color=#FFFFFF")
-	winset(src, "outputwindow.mebutton", "background-color=#40628a;text-color=#FFFFFF")
+	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
 	///// UI ELEMENTS /////
 	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#272727")
-	winset(src, "mainwindow.mainvsplit", "background-color=#272727")
-	winset(src, "mainwindow.tooltip", "background-color=#272727")
+	winset(src, "mainwindow", "background-color=#171717")
+	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
+	winset(src, "mainwindow.tooltip", "background-color=#171717")
 	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=#1d1d1d")
-	winset(src, "outputwindow.browseroutput", "background-color=#272727")
+	winset(src, "outputwindow", "background-color=#202020")
+	winset(src, "outputwindow.browseroutput", "background-color=#202020")
 	/* Rpane */
-	winset(src, "rpane", "background-color=#1d1d1d")
-	winset(src, "rpane.rpanewindow", "background-color=#1d1d1d")
+	winset(src, "rpane", "background-color=#202020")
+	winset(src, "rpane.rpanewindow", "background-color=#202020")
 	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#272727")
-	winset(src, "browserwindow.browser", "background-color=#272727")
+	winset(src, "browserwindow", "background-color=#171717")
+	winset(src, "browserwindow.browser", "background-color=#171717")
 	/* Infowindow */
-	winset(src, "infowindow", "background-color=#1d1d1d;text-color=#FFFFFF")
-	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#1d1d1d")
+	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
+	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
 	// NOTIFY USER
 	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
 
@@ -1229,6 +1241,13 @@
 	else
 		src << link(GLOB.configuration.system.region_map[choice])
 
+
+/client/verb/reload_graphics()
+	set category = "Special Verbs"
+	set name = "Reload Graphics"
+
+	winset(src, null, "command=\".configure graphics-hwmode off\"")
+	winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

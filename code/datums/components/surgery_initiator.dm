@@ -24,6 +24,9 @@
 	/// Also, note that for anything sharp, SURGERY_INITIATOR_ORGANIC should be set as well.
 	var/valid_starting_types = SURGERY_INITIATOR_ORGANIC
 
+	// Replace any other surgery initiator
+	dupe_type = /datum/component/surgery_initiator
+
 /**
  * Create a new surgery initiating component.
  *
@@ -38,8 +41,8 @@
 	src.forced_surgery = forced_surgery
 
 /datum/component/surgery_initiator/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, .proc/initiate_surgery_moment)
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, .proc/on_parent_sharpness_change)
+	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(initiate_surgery_moment))
+	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, PROC_REF(on_parent_sharpness_change))
 
 /datum/component/surgery_initiator/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
@@ -80,7 +83,7 @@
 	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		to_chat(user, "<span class='notice'>You realise that a ghost probably doesn't have any useful organs.</span>")
 		return //no cult ghost surgery please
-	INVOKE_ASYNC(src, .proc/do_initiate_surgery_moment, target, user)
+	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), target, user)
 	// This signal is actually part of the attack chain, so it needs to return true to stop it
 	return TRUE
 
@@ -135,16 +138,15 @@
 
 /datum/component/surgery_initiator/proc/get_available_surgeries(mob/user, mob/living/target)
 	var/list/available_surgeries = list()
-
 	for(var/datum/surgery/surgery in GLOB.surgeries_list)
-		if(surgery.abstract)  // no choosing abstract surgeries
+		if(surgery.abstract && !istype(surgery, forced_surgery))  // no choosing abstract surgeries, though they can be forced
+			continue
+		if(!is_type_in_list(target, surgery.target_mobtypes))
 			continue
 		if(!target.can_run_surgery(surgery, user))
 			continue
-		for(var/path in surgery.target_mobtypes)
-			if(istype(target, path))
-				available_surgeries += surgery
-				break
+
+		available_surgeries |= surgery
 
 	return available_surgeries
 

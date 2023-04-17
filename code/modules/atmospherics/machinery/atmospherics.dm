@@ -10,18 +10,21 @@ Pipelines + Other Objects -> Pipe network
 */
 /obj/machinery/atmospherics
 	anchored = TRUE
-	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
 	plane = GAME_PLANE
-	idle_power_usage = 0
-	active_power_usage = 0
-	power_channel = ENVIRON
+	power_state = NO_POWER_USE
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	on_blueprints = TRUE
 	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 
+	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
+	var/layer_offset = 0.0 // generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things
+
 	/// Can this be unwrenched?
 	var/can_unwrench = FALSE
+	/// Can this be put under a tile?
+	var/can_be_undertile = FALSE
 	/// If the machine is currently operating or not.
 	var/on = FALSE
 	/// The amount of pressure the machine wants to operate at.
@@ -43,6 +46,9 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	/// Pipe image, not used for all subtypes
 	var/image/pipe_image
+
+	/// ID for automatic linkage of stuff. This is used to assist in connections at mapload. Dont try use it for other stuff
+	var/autolink_id = null
 
 
 /obj/machinery/atmospherics/Initialize(mapload)
@@ -74,12 +80,6 @@ Pipelines + Other Objects -> Pipe network
 	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
 
-/obj/machinery/atmospherics/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	if(check_icon_cache())
@@ -88,14 +88,13 @@ Pipelines + Other Objects -> Pipe network
 		..(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/update_icon_state()
-	var/turf/T = get_turf(loc)
-	if(T && T.transparent_floor)
-		plane = FLOOR_PLANE
-	else
-		if(!T || level == 2 || !T.intact)
-			plane = GAME_PLANE
-		else
+	switch(level)
+		if(1)
 			plane = FLOOR_PLANE
+			layer = GAS_PIPE_HIDDEN_LAYER + layer_offset
+		if(2)
+			plane = GAME_PLANE
+			layer = GAS_PIPE_VISIBLE_LAYER + layer_offset
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
@@ -157,6 +156,13 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/returnPipenet()
 	return
 
+/**
+ * Whether or not this atmos machine has multiple pipenets attached to it
+ * Used to determine if a ventcrawler should update their vision or not
+ */
+/obj/machinery/atmospherics/proc/is_pipenet_split()
+	return FALSE
+
 /obj/machinery/atmospherics/proc/returnPipenetAir()
 	return
 
@@ -185,7 +191,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
 	var/turf/T = get_turf(src)
 	if(can_unwrench && istype(W, /obj/item/wrench))
-		if(T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe) && layer != GAS_PIPE_VISIBLE_LAYER) //pipes on GAS_PIPE_VISIBLE_LAYER are above the transparent floor and should be interactable
+		if(level == 1 && T.transparent_floor && istype(src, /obj/machinery/atmospherics/pipe))
 			to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 			return
 		if(level == 1 && isturf(T) && T.intact)
@@ -274,11 +280,10 @@ Pipelines + Other Objects -> Pipe network
 	initialize_directions = P
 	var/turf/T = loc
 	if(!T.transparent_floor)
-		level = T.intact ? 2 : 1
+		level = (T.intact || !can_be_undertile) ? 2 : 1
 	else
 		level = 2
-		plane = GAME_PLANE
-		layer = GAS_PIPE_VISIBLE_LAYER
+	update_icon_state()
 	add_fingerprint(usr)
 	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
 		SSair.machinery_to_construct.Add(src)
@@ -317,7 +322,7 @@ Pipelines + Other Objects -> Pipe network
 			user.forceMove(target_move.loc) //handles entering and so on
 			user.visible_message("You hear something squeezing through the ducts.", "You climb out of the ventilation system.")
 		else if(target_move.can_crawl_through())
-			if(returnPipenet(target_move) != target_move.returnPipenet())
+			if(is_pipenet_split()) // Going away from a split means we want to update the view of the pipenet
 				user.update_pipe_vision(target_move)
 			user.forceMove(target_move)
 			if(world.time - user.last_played_vent > VENT_SOUND_DELAY)
@@ -406,7 +411,7 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is toggling the machine.
  */
 /obj/machinery/atmospherics/proc/toggle(mob/living/user)
-	if(!powered())
+	if(!has_power())
 		return
 	on = !on
 	update_icon()
@@ -422,7 +427,7 @@ Pipelines + Other Objects -> Pipe network
  * * user - the mob who is setting the output pressure to maximum.
  */
 /obj/machinery/atmospherics/proc/set_max(mob/living/user)
-	if(!powered())
+	if(!has_power())
 		return
 	target_pressure = MAX_OUTPUT_PRESSURE
 	update_icon()

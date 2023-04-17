@@ -358,17 +358,26 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
+	desc = "A heavy, insulated box that reads, <b>Instructions:</b> <i>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</i>"
+	storage_slots = 6
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/donkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak,
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket)
 	icon_state = "donk_kit"
 
 /obj/item/storage/box/donkpockets/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/storage/box/donkpockets/empty/populate_contents()
+	return
+
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "This box feels slightly warm"
-	icon_state = "donk_kit"
+	icon_state = "donk_kit_synd"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
 	for(var/I in 1 to 6)
@@ -609,6 +618,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "matchbox"
+	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -626,6 +636,18 @@
 		W.matchignite()
 		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
 	return
+
+/obj/item/storage/box/matches/update_icon_state()
+	. = ..()
+	switch(length(contents))
+		if(10)
+			icon_state = base_icon_state
+		if(5 to 9)
+			icon_state = "[base_icon_state]_almostfull"
+		if(1 to 4)
+			icon_state = "[base_icon_state]_almostempty"
+		if(0)
+			icon_state = "[base_icon_state]_e"
 
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
@@ -761,7 +783,7 @@
 		icon_state = "[item_state]_closed"
 
 /obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		//if a pen is used on the sack, dialogue to change its design appears
 		if(contents.len)
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
@@ -844,7 +866,7 @@
 
 /obj/item/storage/box/clown
 	name = "clown box"
-	desc = "A colorful cardboard box for the clown"
+	desc = "A colorful cardboard box for the clown."
 	icon_state = "box_clown"
 	var/robot_arm // This exists for bot construction
 

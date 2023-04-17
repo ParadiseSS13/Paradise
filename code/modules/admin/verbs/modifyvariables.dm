@@ -31,13 +31,13 @@ GLOBAL_PROTECT(VVmaint_only)
 	else if(ismob(var_value))
 		. = VV_MOB_REFERENCE
 
-	else if(isloc(var_value))
+	else if(isatom(var_value))
 		. = VV_ATOM_REFERENCE
 
 	else if(istype(var_value, /matrix))
 		. = VV_MATRIX
 
-	else if(istype(var_value,/client))
+	else if(isclient(var_value))
 		. = VV_CLIENT
 
 	else if(istype(var_value, /datum))
@@ -149,7 +149,7 @@ GLOBAL_PROTECT(VVmaint_only)
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, seperated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
+			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, separated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
 			if(.["value"] == null)
 				.["class"] = null
 				return

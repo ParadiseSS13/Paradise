@@ -1,23 +1,21 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
+	desc = "A sophisticated device which reports most internal and external injuries."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
 	dir = WEST
 	anchored = TRUE
-	idle_power_usage = 1250
-	active_power_usage = 2500
+	idle_power_consumption = 1250
+	active_power_consumption = 2500
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
-/obj/machinery/bodyscanner/detailed_examine()
-	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
-			This is useful if you are about to perform surgery.<br>\
-			<br>\
-			Click your target and drag them onto the scanner to place them inside. Click the body scanner in order to operate it. \
-			Right-click the scanner and click 'Eject Occupant' to remove them. You can enter the scanner yourself in a similar way, using the 'Enter Body Scanner' \
-			verb."
+/obj/machinery/bodyscanner/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.</span>"
 
 
 /obj/machinery/bodyscanner/Destroy()
@@ -25,7 +23,8 @@
 	return ..()
 
 /obj/machinery/bodyscanner/power_change()
-	..()
+	if(!..())
+		return
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -167,15 +166,17 @@
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
-/obj/machinery/bodyscanner/verb/eject()
-	set src in oview(1)
-	set category = "Object"
-	set name = "Eject Body Scanner"
-
-	if(usr.incapacitated())
+/obj/machinery/bodyscanner/AltClick(mob/user)
+	if(issilicon(user))
+		eject()
 		return
+	if(!Adjacent(user) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	eject()
+
+/obj/machinery/bodyscanner/proc/eject(mob/user)
 	go_out()
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
 /obj/machinery/bodyscanner/proc/go_out()
 	if(!occupant)
@@ -222,7 +223,7 @@
 	var/occupantData[0]
 	if(occupant)
 		occupantData["name"] = occupant.name
-		occupantData["stat"] = occupant.stat
+		occupantData["stat"] = HAS_TRAIT(occupant, TRAIT_FAKEDEATH) ? DEAD : occupant.stat
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
 
@@ -309,6 +310,9 @@
 
 			if(E.status & ORGAN_INT_BLEEDING)
 				organData["internalBleeding"] = TRUE
+
+			if(E.status & ORGAN_BURNT)
+				organData["burnWound"] = TRUE
 
 			extOrganData.Add(list(organData))
 
@@ -451,6 +455,8 @@
 			var/bled = ""
 			var/splint = ""
 			var/internal_bleeding = ""
+			var/burn_wound = ""
+			var/ointment = ""
 			var/lung_ruptured = ""
 			if(e.status & ORGAN_INT_BLEEDING)
 				internal_bleeding = "<br>Internal bleeding"
@@ -460,6 +466,10 @@
 				splint = "Splinted:"
 			if(e.status & ORGAN_BROKEN)
 				AN = "[e.broken_description]:"
+			if(e.status & ORGAN_SALVED)
+				ointment = "Salved:"
+			if(e.status & ORGAN_BURNT)
+				burn_wound = "Critical Burn:"
 			if(e.status & ORGAN_DEAD)
 				dead = "DEAD:"
 			if(e.is_robotic())
@@ -490,7 +500,7 @@
 				imp += "Unknown body present:"
 			if(!AN && !open && !infected && !imp)
 				AN = "None:"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][burn_wound][ointment][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
 			var/mech = i.desc

@@ -39,7 +39,8 @@ GLOBAL_LIST_EMPTY(ai_displays)
 	..(severity)
 
 /obj/machinery/ai_status_display/power_change()
-	..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		set_light(0)
 	else
@@ -113,10 +114,13 @@ GLOBAL_LIST_EMPTY(ai_displays)
 
 /obj/machinery/ai_status_display/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0))
+	if(!I.use_tool(src, user, 0 SECONDS))
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+	if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		new /obj/item/stack/sheet/metal(drop_location(), 1)
 		deconstruct()
+
+/obj/machinery/ai_status_display/on_deconstruction()
+	. = ..()
+	new /obj/item/mounted/frame/display/ai_display_frame(drop_location())

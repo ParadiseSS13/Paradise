@@ -85,7 +85,8 @@
 					body += "<a href='?src=[UID()];traitor="+mobUID+"'>TP</a> - "
 					body += "<a href='?src=[usr.UID()];priv_msg="+client_ckey+"'>PM</a> - "
 					body += "<a href='?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
-					body += "<a href='?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a>"
+					body += "<a href='?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a> - "
+					body += "<a href='?src=[UID()];adminalert="+mobUID+"'>ALERT</a>"
 					if(eyeUID)
 						body += "|<a href='?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
 					body += "<br>"
@@ -363,6 +364,8 @@
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+		dat += "<br><b>Antagonist Teams</b><br>"
+		dat += "<a href='?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)
 			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)
@@ -375,11 +378,11 @@
 			for(var/obj/item/disk/nuclear/N in GLOB.poi_list)
 				dat += "<tr><td>[N.name], "
 				var/atom/disk_loc = N.loc
-				while(!istype(disk_loc, /turf))
-					if(istype(disk_loc, /mob))
+				while(!isturf(disk_loc))
+					if(ismob(disk_loc))
 						var/mob/M = disk_loc
 						dat += "carried by <a href='?src=[UID()];adminplayeropts=[M.UID()]'>[M.real_name]</a> "
-					if(istype(disk_loc, /obj))
+					if(isobj(disk_loc))
 						var/obj/O = disk_loc
 						dat += "in \a [O.name] "
 					disk_loc = disk_loc.loc
@@ -409,22 +412,10 @@
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
 
-		if(GAMEMODE_IS_BLOB)
-			var/datum/game_mode/blob/mode = SSticker.mode
-			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
-			dat += "<tr><td><i>Progress: [GLOB.blobs.len]/[mode.blobwincount]</i></td></tr>"
-
-			for(var/datum/mind/blob in mode.infected_crew)
-				var/mob/M = blob.current
-				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")]</td>"
-				else
-					dat += "<tr><td><i>Blob not found!</i></td></tr>"
-			dat += "</table>"
 
 		if(SSticker.mode.blob_overminds.len)
 			dat += check_role_table("Blob Overminds", SSticker.mode.blob_overminds)
+			dat += "<i>Blob Tiles: [length(GLOB.blobs)]</i>"
 
 		if(SSticker.mode.changelings.len)
 			dat += check_role_table("Changelings", SSticker.mode.changelings)
@@ -510,13 +501,15 @@
 
 				var/count_eggs = 0
 				var/count_spiderlings = 0
+				var/count_infected = 0
 				for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in GLOB.ts_egg_list)
 					if(is_station_level(E.z))
 						count_eggs += E.spiderling_number
 				for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
 					if(!L.stillborn && is_station_level(L.z))
 						count_spiderlings += 1
-				dat += "<table cellspacing=5><TR><TD>Growing TS on-station: [count_eggs] egg[count_eggs != 1 ? "s" : ""], [count_spiderlings] spiderling[count_spiderlings != 1 ? "s" : ""]. </TD></TR></TABLE>"
+				count_infected = length(GLOB.ts_infected_list)
+				dat += "<table cellspacing=5><tr><td>Growing TS on-station: [count_eggs] egg\s, [count_spiderlings] spiderling\s, [count_infected] infected</td></tr></table>"
 
 		if(SSticker.mode.ert.len)
 			dat += check_role_table("ERT", SSticker.mode.ert)

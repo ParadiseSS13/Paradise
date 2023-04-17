@@ -115,7 +115,7 @@
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)
 			to_chat(spawner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
-			if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
+			if(isguardian(spawner))
 				var/mob/living/simple_animal/hostile/guardian/G = spawner
 				if(G.summoner)
 					to_chat(G.summoner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")

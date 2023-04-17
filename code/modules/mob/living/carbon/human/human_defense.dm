@@ -11,7 +11,8 @@ emp_act
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
-		return FALSE
+		P.reflect_back(src) //It has to be here, not on species. Why? Who knows. Testing showed me no reason why it doesn't work on species, and neither did tracing. It has to be here, or it gets qdel'd by bump.
+		return -1
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/can_reflect = check_reflect(def_zone)
 		var/reflected = FALSE
@@ -25,14 +26,18 @@ emp_act
 
 		if(reflected)
 			visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", \
-				   "<span class='userdanger'>[P] gets reflected by [src]!</span>")
+				"<span class='userdanger'>[P] gets reflected by [src]!</span>")
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
 
 	//Shields
-	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage))
+	var/shield_check_result = check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage)
+	if(shield_check_result == 1)
 		return 2
+	else if(shield_check_result == -1)
+		P.reflect_back(src)
+		return -1
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!IS_HORIZONTAL(src) && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
@@ -99,12 +104,12 @@ emp_act
 			E = S
 		else if(LAZYLEN(childlist))
 			E = pick_n_take(childlist)
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				continue
 		else if(S.parent && !parenthealed)
 			E = S.parent
 			parenthealed = TRUE
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam  || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				break
 		else
 			break
@@ -161,7 +166,7 @@ emp_act
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, l_ear, r_ear, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)	continue
-		if(bp && istype(bp ,/obj/item/clothing))
+		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
 				protection += C.armor.getRating(type)
@@ -187,24 +192,24 @@ emp_act
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform)
 	for(var/bp in body_parts)
 		if(!bp)  continue
-		if(bp && istype(bp ,/obj/item/clothing))
+		if(bp && isclothing(bp))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & HEAD)
 				return 1
 	return 0
 
 /mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
-	if(wear_suit && istype(wear_suit, /obj/item/))
+	if(wear_suit && isitem(wear_suit))
 		var/obj/item/I = wear_suit
 		if(I.IsReflect(def_zone) == 1)
 			return 1
-	if(l_hand && istype(l_hand, /obj/item/))
+	if(l_hand && isitem(l_hand))
 		var/obj/item/I = l_hand
 		if(I.IsReflect(def_zone) == 1)
 			return 1
 		if(I.IsReflect(def_zone) == 2) //Toy swords
 			return 2
-	if(r_hand && istype(r_hand, /obj/item/))
+	if(r_hand && isitem(r_hand))
 		var/obj/item/I = r_hand
 		if(I.IsReflect(def_zone) == 1)
 			return 1
@@ -215,22 +220,14 @@ emp_act
 
 //End Here
 
-#define BLOCK_CHANCE_CALCULATION(hand_block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier) clamp((hand_block_chance * ((100-armour_penetration_percentage) / 100)) - max(armour_penetration_flat, 0) + block_chance_modifier, 0, 100)
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
-	var/block_chance_modifier = round(damage / -3)
-	var/l_block_chance = 0
-	var/r_block_chance = 0
-
-	if(l_hand)
-		l_block_chance = BLOCK_CHANCE_CALCULATION(l_hand.block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier)
-	if(r_hand)
-		r_block_chance = BLOCK_CHANCE_CALCULATION(r_hand.block_chance, armour_penetration_flat, armour_penetration_percentage, block_chance_modifier)
-
-	if(l_block_chance > r_block_chance && l_hand.hit_reaction(src, AM, attack_text, l_block_chance, damage, attack_type))
+	var/obj/item/shield = get_best_shield()
+	var/shield_result = shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type)
+	if(shield_result >= 1)
 		return TRUE
-	else if(r_block_chance > 0 && r_hand.hit_reaction(src, AM, attack_text, r_block_chance, damage, attack_type))
-		return TRUE
+	if(shield_result == -1)
+		return -1
 
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
@@ -243,7 +240,22 @@ emp_act
 
 	return FALSE
 
-#undef BLOCK_CHANCE_CALCULATION
+/mob/living/carbon/human/proc/get_best_shield()
+	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
+	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
+	if(!right_hand_parry && !left_hand_parry)
+		if(l_hand?.flags_2 & RANDOM_BLOCKER_2)
+			return l_hand
+		if(r_hand?.flags_2 & RANDOM_BLOCKER_2)
+			return r_hand
+		return null // no parry component
+
+	if(right_hand_parry && left_hand_parry)
+		if(right_hand_parry.stamina_coefficient > left_hand_parry.stamina_coefficient) // try and parry with your best item
+			return left_hand_parry.parent
+		else
+			return right_hand_parry.parent
+	return right_hand_parry?.parent || left_hand_parry?.parent // parry with whichever hand has an item that can parry
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
@@ -469,7 +481,6 @@ emp_act
 		weapon_sharp = 0
 	if(armor == INFINITY)
 		return 0
-	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/bonus_damage = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -483,7 +494,7 @@ emp_act
 		if(prob(I.force * 2)) //blood spatter!
 			bloody = 1
 			var/turf/location = loc
-			if(istype(location, /turf/simulated))
+			if(issimulatedturf(location))
 				add_splatter_floor(location)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -499,7 +510,7 @@ emp_act
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							KnockDown(10 SECONDS)
 							AdjustConfused(30 SECONDS)
-						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+						if(mind && prob(I.force + ((100 - health) / 2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
@@ -528,11 +539,6 @@ emp_act
 							w_uniform.add_mob_blood(src)
 							update_inv_w_uniform()
 
-
-
-	if(Iforce > 10 || Iforce >= 5 && prob(33))
-		forcesay(GLOB.hit_appends)	//forcesay checks stat already
-
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 
 //this proc handles being hit by a thrown atom
@@ -542,7 +548,7 @@ emp_act
 		return spec_return
 	var/obj/item/I
 	var/throwpower = 30
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		throwpower = I.throwforce
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
@@ -630,7 +636,7 @@ emp_act
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
- 				"<span class='userdanger'>[M] has slashed at [src]!</span>")
+				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
 			apply_damage(M.alien_slash_damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")
@@ -724,7 +730,7 @@ emp_act
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
-	if(shoes && istype(shoes, /obj/item/clothing))
+	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
 		if (S.flags & NOSLIP)
 			return FALSE

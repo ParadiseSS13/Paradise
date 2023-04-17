@@ -49,18 +49,18 @@
 
 
 /datum/looping_sound/ambulance_alarm
-    start_length = 0
-    mid_sounds = list('sound/items/weeoo1.ogg' = 1)
-    mid_length = 14
-    volume = 100
+	start_length = 0
+	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
+	mid_length = 14
+	volume = 100
 
 
 /obj/vehicle/ambulance/post_buckle_mob(mob/living/M)
-    . = ..()
-    if(has_buckled_mobs())
-        AA.Grant(M)
-    else
-        AA.Remove(M)
+	. = ..()
+	if(has_buckled_mobs())
+		AA.Grant(M)
+	else
+		AA.Remove(M)
 
 /obj/vehicle/ambulance/post_unbuckle_mob(mob/living/M)
 	AA.Remove(M)

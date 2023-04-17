@@ -72,7 +72,7 @@
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
-	addtimer(CALLBACK(src, .proc/check_close), check_access(null) ? 5 SECONDS : 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
 
 
 /// Check whether or not this door can close, based on whether or not someone's standing in front of it holding it open
@@ -82,7 +82,7 @@
 		blocker = locate(/mob/living) in get_turf(src)
 	if(blocker && !blocker.stat && allowed(blocker))
 		// kick the can down the road, someone's holding the door.
-		addtimer(CALLBACK(src, .proc/check_close), check_access(null) ? 5 SECONDS : 2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(check_close)), check_access(null) ? 5 SECONDS : 2 SECONDS)
 		return
 
 	close()
@@ -157,7 +157,7 @@
 		return 1
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir)
+/obj/machinery/door/window/CanPathfindPass(obj/item/card/id/ID, to_dir, no_id = FALSE)
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
@@ -273,7 +273,7 @@
 /obj/machinery/door/window/cmag_act(mob/user, obj/weapon)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
-	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	operating = DOOR_MALF
 	flick("[base_state]spark", src)
 	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -312,7 +312,7 @@
 		return
 	if(panel_open && !density && !operating)
 		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
-							 "You start to remove electronics from the [name]...")
+							"You start to remove electronics from the [name]...")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(panel_open && !density && !operating && loc)
 				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)

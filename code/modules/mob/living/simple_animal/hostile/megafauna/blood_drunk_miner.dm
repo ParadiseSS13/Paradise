@@ -56,8 +56,8 @@ Difficulty: Medium
 	death_sound = "bodyfall"
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/dash,
-							   /datum/action/innate/megafauna_attack/kinetic_accelerator,
-							   /datum/action/innate/megafauna_attack/transform_weapon)
+							/datum/action/innate/megafauna_attack/kinetic_accelerator,
+							/datum/action/innate/megafauna_attack/transform_weapon)
 
 /obj/item/gps/internal/miner
 	icon_state = null
@@ -187,7 +187,7 @@ Difficulty: Medium
 		wander = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/dash_attack()
-	INVOKE_ASYNC(src, .proc/dash, target)
+	INVOKE_ASYNC(src, PROC_REF(dash), target)
 	shoot_ka()
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/proc/shoot_ka()
@@ -271,7 +271,7 @@ Difficulty: Medium
 
 /obj/effect/temp_visual/dir_setting/miner_death/Initialize(mapload, set_dir)
 	. = ..()
-	INVOKE_ASYNC(src, .proc/fade_out)
+	INVOKE_ASYNC(src, PROC_REF(fade_out))
 
 /obj/effect/temp_visual/dir_setting/miner_death/proc/fade_out()
 	var/matrix/M = new
@@ -292,6 +292,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/hunter/AttackingTarget()
 	. = ..()
 	if(. && prob(12))
-		INVOKE_ASYNC(src, .proc/dash)
+		INVOKE_ASYNC(src, PROC_REF(dash))
 
 #undef MINER_DASH_RANGE

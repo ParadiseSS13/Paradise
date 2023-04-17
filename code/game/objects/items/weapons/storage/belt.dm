@@ -15,11 +15,14 @@
 
 /obj/item/storage/belt/update_overlays()
 	. = ..()
-	if(use_item_overlays)
-		for(var/obj/item/I in contents)
-			var/image/belt_image = image(icon, I.belt_icon)
-			belt_image.color = I.color
-			. += belt_image
+	if(!use_item_overlays)
+		return
+	for(var/obj/item/I in contents)
+		if(!I.belt_icon)
+			continue
+		var/image/belt_image = image(icon, I.belt_icon)
+		belt_image.color = I.color
+		. += belt_image
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
@@ -247,7 +250,8 @@
 		/obj/item/holosign_creator/security,
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
-		/obj/item/clothing/mask/gas/sechailer)
+		/obj/item/clothing/mask/gas/sechailer,
+		/obj/item/detective_scanner)
 
 /obj/item/storage/belt/security/full/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
@@ -364,6 +368,21 @@
 	new /obj/item/grenade/chem_grenade/facid(src) //1
 	new /obj/item/grenade/chem_grenade/saringas(src) //1
 
+/obj/item/storage/belt/grenade/tactical // Traitor bundle version
+	name = "tactical grenadier belt"
+	storage_slots = 20 // Not as many slots as the nukie one
+	max_combined_w_class = 40
+
+/obj/item/storage/belt/grenade/tactical/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/smokebomb(src)
+		new /obj/item/grenade/gluon(src)
+		new /obj/item/grenade/plastic/c4(src) // Five of each
+	for(var/I in 1 to 2)
+		new /obj/item/grenade/frag(src)
+		new /obj/item/grenade/empgrenade(src) // Two of each
+	new /obj/item/grenade/syndieminibomb(src) // One minibomb
+
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
 	desc = "A belt used by abductor agents."
@@ -403,6 +422,7 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
@@ -424,10 +444,10 @@
 		)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
-	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator/janitor(src)
-	new /obj/item/reagent_containers/spray/cleaner(src)
-	new /obj/item/soap(src)
+	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
+	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
+	new /obj/item/soap/deluxe(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	update_icon()
@@ -466,7 +486,8 @@
 	desc = "A bandolier for holding shotgun ammunition."
 	icon_state = "bandolier"
 	item_state = "bandolier"
-	storage_slots = 8
+	storage_slots = 16
+	max_combined_w_class = 16
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 	display_contents_with_number = TRUE
 
@@ -476,10 +497,10 @@
 
 /obj/item/storage/belt/bandolier/full/populate_contents()
 	for(var/I in 1 to 8)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
 
 /obj/item/storage/belt/bandolier/update_icon_state()
-	icon_state = "[initial(icon_state)]_[length(contents)]"
+	icon_state = "[initial(icon_state)]_[min(length(contents), 8)]"
 
 /obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user)
 	var/amount = length(contents)

@@ -15,8 +15,8 @@
 	var/parent_organ = "chest"
 
 	var/list/datum/autopsy_data/autopsy_data = list()
-	var/list/trace_chemicals = list() // traces of chemicals in the organ,
-									  // links chemical IDs to number of ticks for which they'll stay in the blood
+	var/list/trace_chemicals = list()	// traces of chemicals in the organ,
+										// links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 	var/datum/dna/dna
 
@@ -104,7 +104,7 @@
 		germ_level = 0
 		return
 
-	if(!owner)
+	if(!owner || ((status & ORGAN_BURNT) && !(status & ORGAN_SALVED)))
 		if(is_preserved())
 			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
@@ -243,6 +243,8 @@
 /obj/item/organ/proc/remove(mob/living/user, special = 0)
 	if(!istype(owner))
 		return
+
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	owner.internal_organs -= src
 

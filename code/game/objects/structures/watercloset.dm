@@ -251,7 +251,7 @@
 	icon_state = "shower"
 	density = FALSE
 	anchored = TRUE
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	///Is the shower on or off?
 	var/on = FALSE
 	///What temperature the shower reagents are set to.
@@ -351,10 +351,10 @@
 	// If there was already mist, and the shower was turned off (or made cold): remove the existing mist in 25 sec
 	var/obj/effect/mist/mist = locate() in loc
 	if(!mist && on && current_temperature != SHOWER_FREEZING)
-		addtimer(CALLBACK(src, .proc/make_mist), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(make_mist)), 5 SECONDS)
 
 	if(mist && (!on || current_temperature == SHOWER_FREEZING))
-		addtimer(CALLBACK(src, .proc/clear_mist), 25 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(clear_mist)), 25 SECONDS)
 
 
 /obj/machinery/shower/proc/make_mist()
@@ -444,7 +444,7 @@
 
 /obj/item/bikehorn/rubberducky/captainducky
 	name = "captain rubber ducky"
-	desc = "Captain favorite rubber ducky. This one squeaks with power."
+	desc = "Captain's favorite rubber ducky. This one squeaks with power."
 	icon_state = "cap_rubber_ducky"
 
 /obj/structure/sink
@@ -602,6 +602,7 @@
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
+	desc = "A puddle of clean water. Looks refreshing."
 	icon_state = "puddle"
 	can_move = 0
 	can_rotate = 0

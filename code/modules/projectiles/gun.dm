@@ -101,8 +101,6 @@
 	else if(can_bayonet)
 		. += "It has a <b>bayonet</b> lug on it."
 
-/obj/item/gun/detailed_examine() // Truly detailed
-	return "This is a gun."
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -199,7 +197,7 @@
 			else if(G.can_trigger_gun(user))
 				bonus_spread += 24 * G.weapon_weight
 				loop_counter++
-				addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
+				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
@@ -319,7 +317,7 @@
 					A.Grant(user)
 
 	if(unique_rename)
-		if(istype(I, /obj/item/pen))
+		if(is_pen(I))
 			var/t = rename_interactive(user, I, use_prefix = FALSE)
 			if(!isnull(t))
 				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
@@ -368,14 +366,11 @@
 
 	if(!gun_light)
 		return
-
-	var/mob/living/carbon/human/user = usr
-	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc]!</span>")
 	gun_light.on = !gun_light.on
-	to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
-
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+	var/mob/living/carbon/human/user = usr
+	if(user)
+		to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
+	playsound(src, 'sound/weapons/empty.ogg', 100, 1)
 	update_gun_light(user)
 
 /obj/item/gun/proc/update_gun_light(mob/user = null)
@@ -401,7 +396,7 @@
 		knife_overlay = null
 	return TRUE
 
-/obj/item/gun/extinguish_light()
+/obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
@@ -531,7 +526,7 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
-		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/ZoomGrantCheck)
+		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
 
 /**
  * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.

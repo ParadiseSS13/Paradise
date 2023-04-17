@@ -27,9 +27,15 @@
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 	var/recipe_width = 400 //Width of the recipe popup
 	var/recipe_height = 400 //Height of the recipe popup
+	/// What sort of table is made when applying this stack to a frame?
+	var/table_type
+	/// If this stack has a dynamic icon_state based on amount / max_amount
+	var/dynamic_icon_state = FALSE
 
-/obj/item/stack/New(loc, new_amount, merge = TRUE)
-	..()
+/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	if(dynamic_icon_state) //If we have a dynamic icon state, we don't want item states to follow the same pattern.
+		item_state = initial(icon_state)
 	if(new_amount != null)
 		amount = new_amount
 	while(amount > max_amount)
@@ -41,6 +47,17 @@
 		for(var/obj/item/stack/S in loc)
 			if(S.merge_type == merge_type)
 				merge(S)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/stack/update_icon_state()
+	. = ..()
+	if(!dynamic_icon_state)
+		return
+	var/temp_amount = get_amount()
+	if(temp_amount > 1)
+		icon_state = "[initial(icon_state)]_[min(temp_amount, 3)]" //2 if amount is 2, 3 if more.
+		return
+	icon_state = initial(icon_state)
 
 /obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
@@ -82,7 +99,7 @@
 		source.add_charge(newamount * cost)
 	else
 		amount += newamount
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/attack_self(mob/user)
 	list_recipes(user)
@@ -207,10 +224,10 @@
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return FALSE
 
-		if(R.on_floor && !istype(get_turf(src), /turf/simulated))
+		if(R.on_floor && !issimulatedturf(get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
-		if(R.on_floor_or_lattice && !(istype(get_turf(src), /turf/simulated) || locate(/obj/structure/lattice) in get_turf(src)))
+		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src)) || locate(/obj/structure/lattice) in get_turf(src)))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
 			return FALSE
 
@@ -218,7 +235,7 @@
 			if(usr.holy_check())
 				return
 			if(!is_level_reachable(usr.z))
-				to_chat(usr, "<span class='warning'>\The energies of this place interfere with the metal shaping!</span>")
+				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
 				return
 			if(locate(/obj/structure/cult) in get_turf(src))
 				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
@@ -252,12 +269,12 @@
 			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
-			if(istype(O, /obj/item))
+			if(isitem(O))
 				usr.put_in_hands(O)
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
+		if(isstorage(O))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
@@ -277,7 +294,7 @@
 	amount -= used
 	if(check)
 		zero_amount()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
 /obj/item/stack/proc/get_amount()

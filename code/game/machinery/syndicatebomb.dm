@@ -402,9 +402,8 @@
 /obj/item/bombcore/badmin/summon/detonate()
 	var/obj/machinery/syndicatebomb/B = src.loc
 	for(var/i = 0; i < amt_summon; i++)
-		var/atom/movable/X = new summon_path
+		var/atom/movable/X = new summon_path(get_turf(src))
 		X.admin_spawned = TRUE
-		X.loc = get_turf(src)
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
 				step(X, pick(NORTH,SOUTH,EAST,WEST))
@@ -467,7 +466,7 @@
 		qdel(src)
 	else
 		pulse_number -= 1
-		addtimer(CALLBACK(src, .proc/detonate), 20) // every 2 seconds go off again till pulses run out
+		addtimer(CALLBACK(src, PROC_REF(detonate)), 20) // every 2 seconds go off again till pulses run out
 
 /obj/item/bombcore/chemical
 	name = "chemical payload"
@@ -501,7 +500,7 @@
 		chem_splash(get_turf(src), spread_range, list(reactants), temp_boost)
 
 		// Detonate it again in one second, until it's out of juice.
-		addtimer(CALLBACK(src, .proc/detonate), 10)
+		addtimer(CALLBACK(src, PROC_REF(detonate)), 10)
 
 	// If it's not a time release bomb, do normal explosion
 
@@ -660,24 +659,29 @@
 	var/existant =	0
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
-	if(timer < world.time)
-		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
-			if(B.active)
-				B.detonation_timer = world.time + BUTTON_DELAY
-				detonated++
-			existant++
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
-		if(detonated)
-			var/turf/T = get_turf(src)
-			var/area/A = get_area(T)
-			detonated--
-			investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
-			add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
-			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
-		detonated =	0
-		existant =	0
-		timer = world.time + BUTTON_COOLDOWN
+	if(timer >= world.time)
+		to_chat(user, "<span class='alert'>Nothing happens.</span>")
+		return
+
+	for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+		if(B.active)
+			B.detonation_timer = world.time + BUTTON_DELAY
+			detonated++
+		existant++
+
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
+	flick("bigred_press", src)
+	to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
+	if(detonated)
+		var/turf/T = get_turf(src)
+		var/area/A = get_area(T)
+		detonated--
+		investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
+		log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
+	detonated =	0
+	existant = 0
+	timer = world.time + BUTTON_COOLDOWN
 
 #undef BUTTON_COOLDOWN
 #undef BUTTON_DELAY

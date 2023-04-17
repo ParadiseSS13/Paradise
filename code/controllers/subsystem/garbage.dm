@@ -4,8 +4,9 @@ SUBSYSTEM_DEF(garbage)
 	wait = 2 SECONDS
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
-	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
+	init_order = INIT_ORDER_GARBAGE // AA 2020: Why does this have an init order if it has SS_NO_INIT? | AA 2022: Its used for shutdown
 	offline_implications = "Garbage collection is no longer functional, and objects will not be qdel'd. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	var/list/collection_timeout = list(2 MINUTES, 10 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
 
@@ -136,17 +137,23 @@ SUBSYSTEM_DEF(garbage)
 
 	lastlevel = level
 
-	for(var/refID in queue)
-		if(!refID)
+	// The instinct is to use a for in loop here, to walk the entries in the queue
+	// The trouble is this performs a copy of the queue list, and since this can in theory balloon a LOT
+	// It's better to just go index by index. It's not a huge deal but it's worth doin IMO
+	for(var/i in 1 to length(queue))
+		var/list/packet = queue[i]
+		if(length(packet) != 2)
 			count++
 			if(MC_TICK_CHECK)
 				return
 			continue
 
-		var/GCd_at_time = queue[refID]
+		var/GCd_at_time = packet[2]
 		if(GCd_at_time > cut_off_time)
 			break // Everything else is newer, skip them
 		count++
+
+		var/refID = packet[1]
 
 		var/datum/D
 		D = locate(refID)
@@ -171,11 +178,11 @@ SUBSYSTEM_DEF(garbage)
 			if(GC_QUEUE_CHECK)
 				#ifdef REFERENCE_TRACKING
 				if(reference_find_on_fail[refID] && !ref_search_stop)
-					INVOKE_ASYNC(D, /datum/proc/find_references)
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum, find_references))
 					ref_searching = TRUE
 				#ifdef GC_FAILURE_HARD_LOOKUP
 				else if (!ref_search_stop)
-					INVOKE_ASYNC(D, /datum/proc/find_references)
+					INVOKE_ASYNC(D, TYPE_PROC_REF(/datum, find_references))
 					ref_searching = TRUE
 				#endif
 				reference_find_on_fail -= refID
@@ -212,14 +219,12 @@ SUBSYSTEM_DEF(garbage)
 		HardDelete(D)
 		return
 	var/gctime = world.time
-	var/refid = "\ref[D]"
 
 	D.gc_destroyed = gctime
-	var/list/queue = queues[level]
-	if(queue[refid])
-		queue -= refid // Removing any previous references that were GC'd so that the current object will be at the end of the list.
 
-	queue[refid] = gctime
+	var/list/queue = queues[level]
+	// I hate byond lists so much man
+	queue[++queue.len] = list("\ref[D]", gctime)
 
 //this is mainly to separate things profile wise.
 /datum/controller/subsystem/garbage/proc/HardDelete(datum/D)
@@ -410,6 +415,9 @@ SUBSYSTEM_DEF(garbage)
 	log_gc("Finished searching clients")
 
 	log_gc("Completed search for references to a [type].")
+	#ifdef FIND_REF_NOTIFY_ON_COMPLETE
+	rustg_create_toast("ParadiseSS13", "GC search complete for [type]")
+	#endif
 	if(usr && usr.client)
 		usr.client.running_find_references = null
 	running_find_references = null

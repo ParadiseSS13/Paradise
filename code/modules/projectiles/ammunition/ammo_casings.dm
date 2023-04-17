@@ -247,11 +247,13 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
 
-/obj/item/ammo_casing/shotgun/laserslug
-	name = "laser slug"
-	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
+/obj/item/ammo_casing/shotgun/lasershot
+	name = "lasershot"
+	desc = "An advanced shotgun shell that uses a multitude of lenses to split a high-powered laser into eight small pellets."
 	icon_state = "lshell"
-	projectile_type = /obj/item/projectile/beam/laser
+	projectile_type = /obj/item/projectile/beam/scatter
+	pellets = 8
+	variance = 25
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
@@ -327,10 +329,9 @@
 
 /obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom)
 	if(..())
-		loc = null
-		return 1
-	else
-		return 0
+		qdel(src)
+		return TRUE
+	return FALSE
 
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."
@@ -377,7 +378,7 @@
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if((istype(A, /obj/item/pen)) && modified && !FD.pen)
+	if((is_pen(A)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		add_pen(A)
@@ -464,8 +465,8 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
-/obj/item/ammo_casing/laser
-	desc = "An experimental laser casing."
+/obj/item/ammo_casing/caseless/laser
+	desc = "An experimental laser casing, designed to vaporize when fired."
 	caliber = "laser"
 	projectile_type = /obj/item/projectile/beam/laser
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy

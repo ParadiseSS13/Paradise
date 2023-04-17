@@ -154,6 +154,7 @@
 	name = "Radium"
 	id = "radium"
 	description = "Radium is an alkaline earth metal. It is extremely radioactive."
+	process_flags = ORGANIC | SYNTHETIC
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
@@ -296,7 +297,7 @@
 					H.take_organ_damage(5, 10)
 					H.emote("scream")
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					if(affecting)
+					if(istype(affecting))
 						affecting.disfigure()
 				else
 					H.take_organ_damage(5, 10)
@@ -339,7 +340,7 @@
 			if(volume > 9)
 				if(!H.wear_mask && !H.head)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					if(affecting)
+					if(istype(affecting))
 						affecting.disfigure()
 					H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
 					H.emote("scream")
@@ -379,7 +380,7 @@
 				return
 			if(volume >= 50 && prob(75))
 				var/obj/item/organ/external/affecting = H.get_organ("head")
-				if(affecting)
+				if(istype(affecting))
 					affecting.disfigure()
 				H.adjustBruteLoss(5)
 				H.adjustFireLoss(15)
@@ -716,7 +717,7 @@
 		update_flags |= M.adjustBruteLoss(5, FALSE)
 		M.Weaken(10 SECONDS)
 		M.AdjustJitter(12 SECONDS)
-		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
+		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_themselves()] violently!</span>")
 		M.emote("scream")
 	return ..() | update_flags
 
@@ -1058,7 +1059,7 @@
 			var/mob/living/carbon/C = M
 			if(!C.wear_mask) // If not wearing a mask
 				C.adjustToxLoss(lethality)
-		if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
+		if(isnymph(M)) //nymphs take EVEN MORE damage
 			var/mob/living/simple_animal/diona/D = M
 			D.adjustHealth(100)
 	..()

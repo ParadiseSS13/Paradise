@@ -7,8 +7,8 @@
 /obj/structure/closet/secure_closet/scientist/populate_contents()
 	new /obj/item/storage/backpack/science(src)
 	new /obj/item/storage/backpack/satchel_tox(src)
-	new /obj/item/clothing/under/rank/scientist(src)
-	new /obj/item/clothing/under/rank/scientist/skirt(src)
+	new /obj/item/clothing/under/rank/rnd/scientist(src)
+	new /obj/item/clothing/under/rank/rnd/scientist/skirt(src)
 	//new /obj/item/clothing/suit/labcoat/science(src)
 	new /obj/item/clothing/suit/storage/labcoat/science(src)
 	new /obj/item/clothing/shoes/white(src)
@@ -37,6 +37,7 @@
 	new /obj/item/radio/headset/headset_sci(src)
 	new /obj/item/radio/headset/headset_sci(src)
 
+
 /obj/structure/closet/secure_closet/RD
 	name = "research director's locker"
 	req_access = list(ACCESS_RD)
@@ -59,6 +60,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 	new /obj/item/clothing/accessory/medal/science(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
+
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"

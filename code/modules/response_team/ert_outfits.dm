@@ -36,7 +36,7 @@
 	rt_job = "Emergency Response Team Leader"
 	rt_mob_job = "ERT Commander"
 
-	uniform = /obj/item/clothing/under/rank/centcom_officer/sensor
+	uniform = /obj/item/clothing/under/rank/centcom/sensor
 	back = /obj/item/storage/backpack/ert/commander
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 
@@ -122,9 +122,10 @@
 
 /datum/outfit/job/centcom/response_team/security
 	name = "RT Security"
+	rt_assignment = "Emergency Response Team Officer"
 	rt_job = "Emergency Response Team Officer"
 	rt_mob_job = "ERT Security"
-	uniform = /obj/item/clothing/under/rank/security/sensor
+	uniform = /obj/item/clothing/under/rank/security/officer/sensor
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/response_team
 	pda = /obj/item/pda/heads/ert/security
@@ -211,10 +212,11 @@
 
 /datum/outfit/job/centcom/response_team/engineer
 	name = "RT Engineer"
+	rt_assignment = "Emergency Response Team Engineer"
 	rt_job = "Emergency Response Team Engineer"
 	rt_mob_job = "ERT Engineering"
 	back = /obj/item/storage/backpack/ert/engineer
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full/multitool
 	pda = /obj/item/pda/heads/ert/engineering
 	id = /obj/item/card/id/ert/engineering
@@ -226,6 +228,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface)
 
 	l_pocket = /obj/item/gun/energy/gun/mini
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -246,8 +249,9 @@
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/eyes/cybernetic/shield,
-	 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	/obj/item/organ/internal/eyes/cybernetic/shield,
+	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
+	/obj/item/organ/internal/cyberimp/brain/wire_interface
 	)
 	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -284,7 +288,8 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened,
 		/obj/item/organ/internal/eyes/cybernetic/shield,
-		/obj/item/organ/internal/cyberimp/arm/toolset
+		/obj/item/organ/internal/cyberimp/arm/toolset,
+		/obj/item/organ/internal/cyberimp/brain/wire_interface
 	)
 
 	implants = list(/obj/item/implant/mindshield,
@@ -295,9 +300,10 @@
 
 /datum/outfit/job/centcom/response_team/medic
 	name = "RT Medic"
+	rt_assignment = "Emergency Response Team Medic"
 	rt_job = "Emergency Response Team Medic"
 	rt_mob_job = "ERT Medical"
-	uniform = /obj/item/clothing/under/rank/medical
+	uniform = /obj/item/clothing/under/rank/medical/doctor
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
 	id = /obj/item/card/id/ert/medic
@@ -305,6 +311,7 @@
 /datum/outfit/job/centcom/response_team/medic/amber
 	name = "RT Medic (Amber)"
 
+	head = /obj/item/clothing/head/helmet/ert/medical
 	shoes = /obj/item/clothing/shoes/white
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
 	suit_store = /obj/item/gun/energy/gun/mini
@@ -318,27 +325,25 @@
 	l_hand = /obj/item/defibrillator/loaded
 
 	backpack_contents = list(
-		/obj/item/clothing/head/helmet/ert/medical = 1,
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/storage/firstaid/adv = 1,
-		/obj/item/storage/firstaid/doctor = 1,
+		/obj/item/storage/firstaid/ert_amber = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
-		/obj/item/storage/pill_bottle/ert = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/handheld_defibrillator = 1
+		/obj/item/handheld_defibrillator = 1,
+		/obj/item/soap/nanotrasen = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/red
 	name = "RT Medic (Red)"
 	rt_mob_job = "ERT Medical"
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit_store = /obj/item/gun/energy/gun
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/cyberimp/arm/surgery,
-	 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
+	/obj/item/organ/internal/cyberimp/arm/surgery,
+	/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 	belt = /obj/item/defibrillator/compact/advanced/loaded
 
@@ -347,15 +352,14 @@
 
 	backpack_contents = list(
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/storage/firstaid/toxin = 1,
-		/obj/item/storage/firstaid/doctor = 1,
-		/obj/item/storage/firstaid/adv = 1,
+		/obj/item/storage/firstaid/ert = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
-		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/handheld_defibrillator = 1,
-		/obj/item/storage/pill_bottle/painkillers = 1
+		/obj/item/storage/pill_bottle/ert_red = 1,
+		/obj/item/storage/pill_bottle/patch_pack/ert = 1,
+		/obj/item/soap/nanotrasen = 1
 	)
 
 	cybernetic_implants = list(
@@ -382,12 +386,13 @@
 
 	backpack_contents = list(
 		/obj/item/bodyanalyzer/advanced = 1,
-		/obj/item/storage/firstaid/doctor = 1,
-		/obj/item/storage/firstaid/adv = 1,
+		/obj/item/storage/firstaid/ert = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/handheld_defibrillator = 1,
-		/obj/item/storage/pill_bottle/painkillers = 1
+		/obj/item/storage/box/autoinjectors = 1,
+		/obj/item/storage/pill_bottle/ert_gamma = 1,
+		/obj/item/storage/pill_bottle/patch_pack/ert/gamma = 1
 		)
 
 	cybernetic_implants = list(
@@ -406,17 +411,18 @@
 
 /datum/outfit/job/centcom/response_team/paranormal
 	name = "RT Paranormal"
+	rt_assignment = "Emergency Response Team Inquisitor"
 	rt_job = "Emergency Response Team Inquisitor"
 	rt_mob_job = "ERT Paranormal"
-	uniform = /obj/item/clothing/under/rank/chaplain
+	uniform = /obj/item/clothing/under/rank/civilian/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/storage/belt/security/response_team
-	id = /obj/item/card/id/centcom
-	pda = /obj/item/pda/centcom
+	id = /obj/item/card/id/ert/paranormal
+	pda = /obj/item/pda/heads/ert/paranormal
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1
@@ -473,6 +479,7 @@
 
 /datum/outfit/job/centcom/response_team/janitorial
 	name = "RT Janitor"
+	rt_assignment = "Emergency Response Team Janitor"
 	rt_job = "Emergency Response Team Janitor"
 	rt_mob_job = "ERT Janitor"
 	uniform = /obj/item/clothing/under/color/purple/sensor
@@ -480,13 +487,14 @@
 	belt = /obj/item/storage/belt/janitor/full
 	shoes = /obj/item/clothing/shoes/galoshes
 	l_ear = /obj/item/radio/headset/ert/alt
-	id = /obj/item/card/id/centcom
-	pda = /obj/item/pda/centcom
+	id = /obj/item/card/id/ert/janitorial
+	pda = /obj/item/pda/heads/ert/janitor
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/lightreplacer = 1,
 		/obj/item/storage/bag/trash = 1,
+		/obj/item/twohanded/push_broom,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1)
 
@@ -514,6 +522,10 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
+	implants = list(/obj/item/implant/mindshield,
+		/obj/item/implant/death_alarm
+	)
+
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
@@ -527,7 +539,7 @@
 		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
-		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/lightreplacer/bluespace = 1,
 		/obj/item/melee/flyswatter = 1
 	)
 

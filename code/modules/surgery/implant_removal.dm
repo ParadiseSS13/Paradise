@@ -21,7 +21,7 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/robotics/repair_limb,
-		/datum/surgery_step/extract_implant,
+		/datum/surgery_step/extract_implant/synth,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
 	requires_organic_bodypart = FALSE
@@ -97,3 +97,7 @@
 			"<span class='notice'>You could not find anything inside [target]'s [affected.name].</span>"
 		)
 	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/extract_implant/synth
+	allowed_tools = list(TOOL_WIRECUTTER = 100, TOOL_HEMOSTAT = 60)
+

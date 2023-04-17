@@ -44,6 +44,8 @@
 
 	var/datum/job/assigned_job
 	var/list/datum/objective/objectives = list()
+	///a list of objectives that a player with this job could complete for space credit rewards
+	var/list/job_objectives = list()
 	var/list/datum/objective/special_verbs = list()
 	var/list/targets = list()
 
@@ -51,7 +53,6 @@
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
-	var/linglink
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -76,7 +77,7 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	QDEL_LIST(antag_datums)
+	remove_all_antag_datums()
 	current = null
 	return ..()
 
@@ -141,7 +142,6 @@
 			martial_art.remove(current)
 		else
 			martial_art.teach(current)
-
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
@@ -173,7 +173,7 @@
 
 		var/obj_count = 1
 		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
+			output += "<LI><B>Task #[obj_count]</B>: [objective.description]</LI>"
 			obj_count++
 		output += "</UL>"
 	if(window)
@@ -608,7 +608,7 @@
 				var/list/possible_targets = list()
 				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
-					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target.current // Allows for admins to pick off station roles
 						if(!is_invalid_target(possible_target))
 							possible_targets_random += possible_target.current // For random picking, only valid targets
@@ -704,12 +704,6 @@
 					return
 
 				switch(new_obj_type)
-					if("download")
-						new_objective = new /datum/objective/download
-						new_objective.explanation_text = "Download [target_number] research levels."
-					if("capture")
-						new_objective = new /datum/objective/capture
-						new_objective.explanation_text = "Accumulate [target_number] capture points."
 					if("absorb")
 						new_objective = new /datum/objective/absorb
 						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
@@ -839,6 +833,7 @@
 				special_role = SPECIAL_ROLE_REV
 				log_admin("[key_name(usr)] has rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has rev'd [key_name_admin(current)]")
+				current.create_log(MISC_LOG, "[current] was made into a revolutionary by [key_name_admin(usr)]")
 
 			if("headrev")
 				if(src in SSticker.mode.revolutionaries)
@@ -865,6 +860,7 @@
 				special_role = SPECIAL_ROLE_HEAD_REV
 				log_admin("[key_name(usr)] has head-rev'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has head-rev'd [key_name_admin(current)]")
+				current.create_log(MISC_LOG, "[current] was made into a head revolutionary by [key_name_admin(usr)]")
 
 			if("autoobjectives")
 				SSticker.mode.forge_revolutionary_objectives(src)
@@ -959,6 +955,7 @@
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
+					current.create_log(MISC_LOG, "[current] was made into a wizard by [key_name_admin(usr)]")
 			if("lair")
 				current.forceMove(pick(GLOB.wizardstart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
@@ -968,7 +965,7 @@
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
-				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
+				INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
@@ -1188,6 +1185,7 @@
 				SSticker.mode.update_eventmisc_icons_added(src)
 				message_admins("[key_name_admin(usr)] has eventantag'ed [current].")
 				log_admin("[key_name(usr)] has eventantag'ed [current].")
+				current.create_log(MISC_LOG, "[current] was made into an event antagonist by [key_name_admin(usr)]")
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -1199,10 +1197,7 @@
 
 			if("traitor")
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
-					var/datum/antagonist/traitor/T = new()
-					T.give_objectives = FALSE
-					T.give_uplink = FALSE
-					add_antag_datum(T)
+					add_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has traitored [key_name_admin(current)]")
 
@@ -1431,6 +1426,7 @@
 				make_Abductor()
 				log_admin("[key_name(usr)] turned [current] into abductor.")
 				SSticker.mode.update_abductor_icons_added(src)
+				current.create_log(MISC_LOG, "[current] was made into an abductor by [key_name_admin(usr)]")
 			if("equip")
 				if(!ishuman(current))
 					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
@@ -1541,14 +1537,20 @@
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
 	var/datum/antagonist/A = has_antag_datum(datum_type)
-	LAZYREMOVE(antag_datums, A)
 	qdel(A)
 
 /**
  * Removes all antag datums from the src mind.
+ *
+ * Use this over doing `QDEL_LIST_CONTENTS(antag_datums)`.
  */
-/datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
-	QDEL_LIST(antag_datums)
+/datum/mind/proc/remove_all_antag_datums()
+	// This is not `QDEL_LIST_CONTENTS(antag_datums)`because it's possible for the `antag_datums` list to be set to null during deletion of an antag datum.
+	// Then `QDEL_LIST` would runtime because it would be doing `null.Cut()`.
+	for(var/datum/antagonist/A as anything in antag_datums)
+		qdel(A)
+	antag_datums?.Cut()
+	antag_datums = null
 
 /// This proc sets the hijack speed for a mob. If greater than zero, they can hijack. Outputs in seconds.
 /datum/mind/proc/get_hijack_speed()
@@ -1652,7 +1654,7 @@
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
-		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
+		INVOKE_ASYNC(SSticker.mode, TYPE_PROC_REF(/datum/game_mode/wizard, name_wizard), current)
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
@@ -1733,6 +1735,7 @@
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
 		SEND_SOUND(H, sound('sound/ambience/antag/abductors.ogg'))
+	H.create_log(MISC_LOG, "[H] was made into an abductor")
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
@@ -1787,7 +1790,7 @@
 			H.update_inv_w_uniform()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
-	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
+	addtimer(CALLBACK(src, PROC_REF(remove_zealot), jumpsuit), convert_duration) //deconverts after the timer expires
 	return TRUE
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)

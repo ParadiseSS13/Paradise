@@ -86,7 +86,7 @@
 		return
 
 	if(GLOB.necropolis_gate == src) //funny override for knock knock gate
-		addtimer(CALLBACK(src, .proc/toggle_the_gate, user), 5 SECONDS, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(toggle_the_gate), user), 5 SECONDS, TIMER_UNIQUE)
 		return
 
 	toggle_the_gate(user)
@@ -112,14 +112,14 @@
 		if(sight_blocker_turf)
 			sight_blocker.pixel_y = initial(sight_blocker.pixel_y) - (32 * sight_blocker_distance)
 			sight_blocker.forceMove(sight_blocker_turf)
-		addtimer(CALLBACK(src, .proc/toggle_open_delayed_step, T), 0.5 SECONDS, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(toggle_open_delayed_step), T), 0.5 SECONDS, TIMER_UNIQUE)
 		return TRUE
 
 	cut_overlay(door_overlay)
 	new /obj/effect/temp_visual/necropolis/open(T)
 	visible_message("<span class='warning'>The door starts to grind open...</span>")
 	playsound(T, 'sound/effects/stonedoor_openclose.ogg', 300, TRUE, frequency = 20000)
-	addtimer(CALLBACK(src, .proc/toggle_closed_delayed_step), 2.2 SECONDS, TIMER_UNIQUE)
+	addtimer(CALLBACK(src, PROC_REF(toggle_closed_delayed_step)), 2.2 SECONDS, TIMER_UNIQUE)
 	return TRUE
 
 /obj/structure/necropolis_gate/proc/toggle_open_delayed_step(turf/T)

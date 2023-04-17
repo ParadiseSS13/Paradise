@@ -23,6 +23,7 @@ SUBSYSTEM_DEF(timer)
 
 	flags = SS_TICKER|SS_NO_INIT
 	offline_implications = "The game will no longer process timers. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	/// Queue used for storing timers that do not fit into the current buckets
 	var/list/datum/timedevent/second_queue = list()
@@ -277,7 +278,7 @@ SUBSYSTEM_DEF(timer)
 		return
 
 	// Sort all timers by time to run
-	sortTim(alltimers, .proc/cmp_timer)
+	sortTim(alltimers, GLOBAL_PROC_REF(cmp_timer))
 
 	// Get the earliest timer, and if the TTR is earlier than the current world.time,
 	// then set the head offset appropriately to be the earliest time tracked by the

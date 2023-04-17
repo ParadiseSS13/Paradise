@@ -487,7 +487,7 @@
 /turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "fn" = (
-/obj/machinery/vending/syndichem,
+/obj/machinery/economy/vending/syndichem,
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
 	pixel_x = -5;
@@ -805,7 +805,9 @@
 /turf/template_noop,
 /area/template_noop)
 "id" = (
-/obj/machinery/atmospherics/unary/passive_vent,
+/obj/machinery/atmospherics/unary/vent_pump{
+	autolink_id = "syndiebase_mix_out"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ii" = (
@@ -1475,7 +1477,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "pp" = (
-/obj/machinery/vending/hydronutrients,
+/obj/machinery/economy/vending/hydronutrients,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1582,7 +1584,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "rp" = (
-/obj/machinery/vending/toyliberationstation{
+/obj/machinery/economy/vending/toyliberationstation{
 	req_access_txt = "150"
 	},
 /obj/structure/cable{
@@ -1630,8 +1632,8 @@
 /obj/structure/rack{
 	dir = 8
 	},
-/obj/item/reagent_containers/spray/cleaner,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1705,7 +1707,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "sH" = (
-/obj/machinery/vending/artvend,
+/obj/machinery/economy/vending/artvend,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -2217,7 +2219,7 @@
 "xm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/economy/vending/medical/syndicate_access,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
@@ -2374,7 +2376,7 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/antiviral,
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -2511,7 +2513,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "AU" = (
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/economy/vending/cigarette/syndicate/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -3231,7 +3233,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "IA" = (
-/obj/machinery/vending/dinnerware,
+/obj/machinery/economy/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3517,7 +3519,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Le" = (
-/obj/machinery/vending/boozeomat,
+/obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -3644,7 +3646,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "syndbaseventing";
 	name = "Venting Bay Door";
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -3780,7 +3782,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "NE" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	autolink_id = "syndiebase_mix_in"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "NN" = (
@@ -3919,7 +3923,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "PE" = (
-/obj/machinery/vending/medical/syndicate_access,
+/obj/machinery/economy/vending/medical/syndicate_access,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"
@@ -4084,8 +4088,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "RM" = (
-/obj/structure/grille,
-/obj/structure/window/full/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4134,7 +4137,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -4165,7 +4168,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "SU" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/economy/vending/coffee/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4254,7 +4257,7 @@
 /obj/structure/window/basic{
 	dir = 4
 	},
-/obj/machinery/vending/hydroseeds,
+/obj/machinery/economy/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -4274,6 +4277,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "Tv" = (
+/obj/machinery/atmospherics/air_sensor{
+	autolink_id = "syndiebase_mix_sensor"
+	},
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Tw" = (
@@ -4585,7 +4591,7 @@
 /obj/item/screwdriver/nuke{
 	pixel_y = 18
 	},
-/obj/item/reagent_containers/spray/cleaner,
+/obj/item/reagent_containers/spray/cleaner/advanced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -4724,12 +4730,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Zo" = (
-/obj/machinery/computer/general_air_control{
-	frequency = 1222;
-	name = "Bomb Mix Monitor";
-	sensors = list("burn_sensor"="Burn Mix")
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/computer/general_air_control/large_tank_control{
+	inlet_injector_autolink_id = "syndiebase_mix_in";
+	outlet_vent_autolink_id = "syndiebase_mix_out";
+	autolink_sensors = list("syndiebase_mix_sensor" = "Burn Mix")
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Zy" = (

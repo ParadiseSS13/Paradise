@@ -7,7 +7,7 @@
 	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
-	power_channel = ENVIRON
+	power_channel = PW_CHANNEL_ENVIRONMENT
 	max_integrity = 350
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
@@ -45,17 +45,16 @@
 	var/polarized_glass = FALSE
 	var/polarized_on
 
-/obj/machinery/door/New()
-	..()
-	GLOB.airlocks += src
-	update_freelook_sight()
-
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
 	update_dir()
+	update_freelook_sight()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
+	// Yes I know this isnt an airlock but its required because of the dumb reason of
+	// pod doors and shutters similar using this list as well
+	GLOB.airlocks += src
 
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
@@ -74,7 +73,8 @@
 	update_dir()
 
 /obj/machinery/door/power_change()
-	..()
+	if(!..())
+		return
 	update_icon()
 
 /obj/machinery/door/proc/update_dir()
@@ -144,8 +144,11 @@
 			bound_height = width * world.icon_size
 
 /obj/machinery/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return !opacity
+	if(istype(mover))
+		if(mover.checkpass(PASSDOOR) && !locked)
+			return TRUE
+		if(mover.checkpass(PASSGLASS))
+			return !opacity
 	return !density
 
 /obj/machinery/door/CanAtmosPass()
@@ -253,12 +256,12 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED) && I.can_clean()) //If the cmagged door is being hit with cleaning supplies, don't open it, it's being cleaned!
 		return
 
-	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
+	if(user.a_intent != INTENT_HARM && HAS_TRAIT(I, TRAIT_FORCES_OPEN_DOORS_ITEM))
 		try_to_crowbar(user, I)
-		return 1
+		return TRUE
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
-		return 1
+		return TRUE
 	return ..()
 
 /obj/machinery/door/crowbar_act(mob/user, obj/item/I)
@@ -302,7 +305,7 @@
 		return
 	flick("door_spark", src)
 	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
-	ADD_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 	return TRUE
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
@@ -448,7 +451,7 @@
 		close()
 
 /obj/machinery/door/proc/autoclose_in(wait)
-	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)

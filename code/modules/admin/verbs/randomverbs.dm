@@ -24,7 +24,7 @@
 		return
 
 	if(ismob(M))
-		if(istype(M, /mob/living/silicon/ai))
+		if(isAI(M))
 			alert("The AI can't be sent to prison you jerk!", null, null, null, null, null)
 			return
 		//strip their stuff before they teleport into a cell :downs:
@@ -36,7 +36,7 @@
 			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
 		M.loc = pick(GLOB.prisonwarp)
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
@@ -629,27 +629,32 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(type == "Custom")
 		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
 
-	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
-	if(!customname)
+	var/subtitle = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
+	if(!subtitle)
 		return
-	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
-	if(!input)
+	var/message = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
+	if(!message)
 		return
 
 	switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
 		if("Yes")
 			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
 
-			GLOB.command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
-			print_command_report(input, customname)
+			GLOB.major_announcement.Announce(
+				message,
+				new_title = type,
+				new_subtitle = subtitle,
+				new_sound = MsgSound[beepsound]
+			)
+			print_command_report(message, subtitle)
 		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
 			GLOB.command_announcer.autosay("A classified message has been printed out at all communication consoles.")
-			print_command_report(input, "Classified: [customname]")
+			print_command_report(message, "Classified: [subtitle]")
 		else
 			return
 
-	log_admin("[key_name(src)] has created a communications report: [input]")
+	log_admin("[key_name(src)] has created a communications report: [message]")
 	message_admins("[key_name_admin(src)] has created a communications report", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Comms Report") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -693,7 +698,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		for(var/datum/job/job in SSjobs.occupations)
 			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
 			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
-			 <b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
+			<b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
 			if(job.total_positions != -1) // Only count position that isn't unlimited
 				currentpositiontally += job.current_positions
 				totalpositiontally += job.total_positions
@@ -769,7 +774,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(usr)] has gibbed [key_name(M)]")
 	message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]", 1)
 
-	if(istype(M, /mob/dead/observer))
+	if(isobserver(M))
 		gibs(M.loc)
 		return
 
@@ -785,7 +790,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm == "Yes")
-		if(istype(mob, /mob/dead/observer)) // so they don't spam gibs everywhere
+		if(isobserver(mob)) // so they don't spam gibs everywhere
 			return
 		else
 			mob.gib()
@@ -1185,3 +1190,50 @@ Traitors and the like can also be revived with the previous role mostly intact.
 					if(!source)
 						return
 			REMOVE_TRAIT(D, chosen_trait, source)
+
+/client/proc/create_crate(object as text)
+	set name = "Create Crate"
+	set desc = "Spawn a crate from a supplypack datum. Append a period to the text in order to exclude subtypes of paths matching the input."
+	set category = "Event"
+
+	if(!check_rights(R_SPAWN))
+		return
+
+	var/list/types = SSeconomy.supply_packs
+
+	var/list/matches = list()
+
+	var/include_subtypes = TRUE
+	if(copytext(object, -1) == ".")
+		include_subtypes = FALSE
+		object = copytext(object, 1, -1)
+
+	if(include_subtypes)
+		for(var/path in types)
+			if(findtext("[path]", object))
+				matches += path
+	else
+		var/needle_length = length(object)
+		for(var/path in types)
+			if(copytext("[path]", -needle_length) == object)
+				matches += path
+
+	if(!length(matches))
+		return
+
+	var/chosen = input("Select a supply crate type", "Create Crate", matches[1]) as null|anything in matches
+	if(!chosen)
+		return
+	var/datum/supply_packs/the_pack = new chosen()
+
+	var/spawn_location = get_turf(usr)
+	if(!spawn_location)
+		return
+	var/obj/structure/closet/crate/crate = the_pack.create_package(spawn_location)
+	crate.admin_spawned = TRUE
+	for(var/atom/A in crate.contents)
+		A.admin_spawned = TRUE
+	qdel(the_pack)
+
+	log_admin("[key_name(usr)] created a '[chosen]' crate at ([usr.x],[usr.y],[usr.z])")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Crate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

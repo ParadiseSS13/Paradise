@@ -156,7 +156,7 @@
 		attack_self(M)
 
 /obj/item/newspaper/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(rolled)
 			to_chat(user, "<span class='warning'>Unroll it first!</span>")
 			return
@@ -170,7 +170,7 @@
 			scribble_page = curr_page
 			scribble = s
 			user.visible_message("<span class='notice'>[user] scribbles something on [src].</span>",\
-								 "<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
+								"<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
 			attack_self(user)
 		return
 	return ..()

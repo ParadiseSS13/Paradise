@@ -32,7 +32,6 @@
 	force = 10
 	force_wielded = 10
 	armour_penetration_flat = 20
-	block_chance = 50
 	sharp = TRUE
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -66,11 +65,6 @@
 		if(durability <= 0)
 			qdel(src)
 			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
-
-/obj/item/twohanded/required/vamp_claws/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
-	if(attack_type == PROJECTILE_ATTACK)
-		final_block_chance = 0
-	return ..()
 
 /obj/item/twohanded/required/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
@@ -109,7 +103,7 @@
 			continue
 		new /obj/effect/temp_visual/blood_tendril(blood_turf)
 
-	addtimer(CALLBACK(src, .proc/apply_slowdown, T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(apply_slowdown), T, area_of_affect, 6 SECONDS, user), 0.5 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/proc/apply_slowdown(turf/T, distance, slowed_amount, mob/user)
 	for(var/mob/living/L in range(distance, T))
@@ -249,6 +243,7 @@
 	gain_desc = "Your senses are heightened, nobody can hide from you now."
 	action_icon_state = "predator_sense"
 	base_cooldown = 20 SECONDS
+	create_attack_logs = FALSE
 
 /obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
 	var/datum/spell_targeting/alive_mob_list/A = new()

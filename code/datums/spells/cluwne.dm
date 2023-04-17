@@ -79,5 +79,5 @@
 		unEquip(gloves, 1)
 		qdel(G)
 
-	equip_to_slot_if_possible(new /obj/item/clothing/under/lawyer/black, slot_w_uniform, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/civilian/lawyer/black, slot_w_uniform, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, slot_shoes, TRUE, TRUE)

@@ -23,14 +23,25 @@
 	owner.adjustFireLoss(0.1)
 	owner.adjustToxLoss(0.2)
 
-/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes
+/datum/status_effect/cultghost //is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
 	id = "cult_ghost"
 	duration = -1
 	alert_type = null
+	var/damage = 7.5
+	var/source_UID
+
+/datum/status_effect/cultghost/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
 
 /datum/status_effect/cultghost/tick()
 	if(owner.reagents)
 		owner.reagents.del_reagent("holywater") //can't be deconverted
+	var/mob/living/summoner = locateUID(source_UID)
+	if(get_dist_euclidian(summoner, owner) < 21)
+		return
+	owner.adjustBruteLoss(damage)
+	to_chat(owner, "<span class='userdanger'>You are too far away from the summoner!</span>")
 
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"
@@ -166,7 +177,7 @@
 
 /datum/status_effect/stacking/ground_pound/stacks_consumed_effect()
 	flick("legion-smash", latest_attacker)
-	addtimer(CALLBACK(latest_attacker, /mob/living/simple_animal/hostile/asteroid/big_legion/.proc/throw_mobs), 1 SECONDS)
+	addtimer(CALLBACK(latest_attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/asteroid/big_legion, throw_mobs)), 1 SECONDS)
 
 /datum/status_effect/stacking/ground_pound/on_remove()
 	latest_attacker = null
@@ -266,6 +277,17 @@
 		owner.apply_damage(damage, BRUTE)
 		shadow_to_animation(get_turf(attacker), get_turf(owner), attacker)
 
+/datum/status_effect/cling_tentacle
+	id = "cling_tentacle"
+	alert_type = null
+	duration = 3 SECONDS
+
+/datum/status_effect/cling_tentacle/on_apply()
+	ADD_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
+	return ..()
+
+/datum/status_effect/cling_tentacle/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
 // start of `living` level status procs.
 
@@ -652,6 +674,9 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_MUTE, id)
 
+/datum/status_effect/transient/silence/absolute // this one will mute all emote sounds including gasps
+	id = "abssilenced"
+
 /datum/status_effect/transient/jittery
 	id = "jittering"
 
@@ -682,7 +707,7 @@
 /// This is multiplied with [/mob/var/hallucination] to determine the final cooldown. A higher hallucination value means shorter cooldown.
 #define HALLUCINATE_COOLDOWN_FACTOR 0.003
 /// Percentage defining the chance at which an hallucination may spawn past the cooldown.
-#define HALLUCINATE_CHANCE 8
+#define HALLUCINATE_CHANCE 80
 // Severity weights, should sum up to 100!
 #define HALLUCINATE_MINOR_WEIGHT 60
 #define HALLUCINATE_MODERATE_WEIGHT 30
@@ -799,3 +824,101 @@
 
 /datum/status_effect/transient/drugged/on_remove()
 	owner.update_druggy_effects()
+
+#define FAKE_COLD 1
+#define FAKE_FOOD_POISONING 2
+#define FAKE_RETRO_VIRUS 3
+#define FAKE_TURBERCULOSIS 4
+
+/datum/status_effect/fake_virus
+	id = "fake_virus"
+	duration = 3 MINUTES
+	status_type = STATUS_EFFECT_REPLACE
+	tick_interval = 2
+	alert_type = null
+	/// So you dont get the most intense messages immediately
+	var/msg_stage = 0
+	/// Which disease we are going to fake?
+	var/current_fake_disease
+	/// Fake virus messages by with three stages
+	var/list/fake_msg
+	/// Fake virus emotes with three stages
+	var/list/fake_emote
+
+/datum/status_effect/fake_virus/on_creation()
+	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS)
+	switch(current_fake_disease)
+		if(FAKE_COLD)
+			fake_msg = list(
+						list("<span class='danger'>Your throat feels sore.</span>", "<span class='danger'>Mucous runs down the back of your throat.</span>"),
+						list("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>"),
+						list("<span class='danger'>Your muscles ache.</span>", "<span class='danger'>Your stomach hurts.</span>")
+			)
+			fake_emote = list(
+						list("sneeze", "cough"),
+						list("sneeze", "cough"),
+						list("sneeze", "cough")
+			)
+		if(FAKE_FOOD_POISONING)
+			fake_msg = list(
+						list("<span class='danger'>Your stomach feels weird.</span>", "<span class='danger'>You feel queasy.</span>"),
+						list("<span class='danger'>Your stomach aches.</span>", "<span class='danger'>You feel nauseous.</span>"),
+						list("<span class='danger'>Your stomach hurts.</span>", "<span class='danger'>You feel sick.</span>")
+			)
+			fake_emote = list(
+						list(),
+						list("groan"),
+						list("groan", "moan")
+			)
+		if(FAKE_RETRO_VIRUS)
+			fake_msg = list(
+						list("<span class='danger'>Your head hurts.</span>", "You feel a tingling sensation in your chest.", "<span class='danger'>You feel angry.</span>"),
+						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
+						list("<span class='danger'>Your entire body vibrates.</span>")
+			)
+		else
+			fake_msg = list(
+						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),
+						list("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>"),
+						list("<span class='danger'>You feel uncomfortably hot...</span>", "<span class='danger'>You feel like unzipping your jumpsuit</span>", "<span class='danger'>You feel like taking off some clothes...</span>")
+			)
+			fake_emote = list(
+						list("cough"),
+						list("gasp"),
+						list()
+			)
+	. = ..()
+
+/datum/status_effect/fake_virus/tick()
+	var/selected_fake_msg
+	var/selected_fake_emote
+	switch(msg_stage)
+		if(0 to 300)
+			if(prob(1)) // First stage starts slow, stage 2 and 3 trigger fake msgs/emotes twice as often
+				if(prob(50) || !length(fake_emote[1])) // 50% chance to trigger either a msg or emote, 100% if it doesnt have an emote
+					selected_fake_msg = safepick(fake_msg[1])
+				else
+					selected_fake_emote = safepick(fake_emote[1])
+		if(301 to 600)
+			if(prob(2))
+				if(prob(50) || !length(fake_emote[2]))
+					selected_fake_msg = safepick(fake_msg[2])
+				else
+					selected_fake_emote = safepick(fake_emote[2])
+		else
+			if(prob(2))
+				if(prob(50) || !length(fake_emote[3]))
+					selected_fake_msg = safepick(fake_msg[3])
+				else
+					selected_fake_emote = safepick(fake_emote[3])
+
+	if(selected_fake_msg)
+		to_chat(owner, selected_fake_msg)
+	else if(selected_fake_emote)
+		owner.emote(selected_fake_emote)
+	msg_stage++
+
+#undef FAKE_COLD
+#undef FAKE_FOOD_POISONING
+#undef FAKE_RETRO_VIRUS
+#undef FAKE_TURBERCULOSIS

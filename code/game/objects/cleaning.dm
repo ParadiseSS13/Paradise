@@ -29,15 +29,16 @@
 	if(!do_after(user, cleanspeed, target = src))
 		return FALSE
 
-	cleaner.post_clean(src, user)
-
 	if(!cleaner.can_clean())
+		cleaner.post_clean(src, user)
 		return FALSE
+
+	cleaner.post_clean(src, user)
 
 	to_chat(user, "<span class='notice'>You [text_verb] \the [text_targetname][text_description]</span>")
 
 	if(is_cmagged) //If we've cleaned a cmagged object
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, "clown_emag")
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 		uncmag()
 		return TRUE
 	else

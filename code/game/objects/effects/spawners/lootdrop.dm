@@ -71,7 +71,7 @@
 				/obj/item/clothing/head/welding = 10,
 				/obj/item/clothing/mask/gas = 10,
 				/obj/item/clothing/suit/storage/hazardvest = 10,
-				/obj/item/clothing/under/rank/vice = 10,
+				/obj/item/clothing/under/misc/vice = 10,
 				/obj/item/assembly/prox_sensor = 40,
 				/obj/item/assembly/timer = 30,
 				/obj/item/flashlight = 40,
@@ -89,6 +89,7 @@
 				/obj/item/stack/sheet/metal{amount = 20} = 10,
 				/obj/item/stack/sheet/mineral/plasma = 10,
 				/obj/item/stack/sheet/rglass = 10,
+				/obj/item/stack/sheet/cloth{amount = 3} = 40,
 				/obj/item/book/manual/wiki/engineering_construction = 10,
 				/obj/item/book/manual/wiki/hacking = 10,
 				/obj/item/clothing/head/cone = 10,
@@ -128,6 +129,8 @@
 				/obj/item/clothing/under/color/black = 30,
 				/obj/item/stack/tape_roll = 10,
 				/obj/item/storage/bag/plasticbag = 20,
+				/obj/item/storage/wallet = 20,
+				/obj/item/storage/wallet/random = 5,
 				/obj/item/caution = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
@@ -156,6 +159,7 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
+				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
 				"" = 60 // This should be a decently high number for chances where no loot will spawn
 				)
 
@@ -196,16 +200,15 @@
 				/obj/item/storage/belt/utility/full/multitool = 150,
 				/obj/item/clothing/gloves/combat = 100,
 				/obj/item/clothing/glasses/welding = 50,
-				/obj/item/reagent_containers/spray/cleaner = 100,
+				/obj/item/reagent_containers/spray/cleaner/advanced = 100,
 				/obj/item/clothing/shoes/magboots = 50,
 				/obj/item/soap = 50,
 				/obj/item/clothing/under/syndicate/combat = 50,
 				/obj/item/soap/syndie = 50,
 				/obj/item/lighter/zippo/gonzofist = 50,
 				/obj/item/stack/nanopaste = 50,
-				/obj/item/clothing/under/psyjump = 50,
+				/obj/item/clothing/under/costume/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
-				/obj/item/grenade/clusterbuster/smoke = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals
@@ -278,7 +281,7 @@
 				// Medchem
 				/obj/item/storage/pill_bottle/random_meds/labelled = 100, // random medical and other chems
 				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
-				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+				/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent = 50,
 
 				// Surgery
 				/obj/item/scalpel/laser/manager = 100,
@@ -315,7 +318,6 @@
 
 				// Cluster grenades
 				/obj/item/grenade/clusterbuster = 50, // cluster flashbang
-				/obj/item/grenade/clusterbuster/teargas = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
@@ -336,6 +338,7 @@
 	lootcount = 1
 	loot = list(
 				/obj/machinery/disco = 20,
+				/obj/structure/spirit_board = 20,
 				/obj/mecha/combat/durand/old = 20
 				)
 
@@ -373,6 +376,7 @@
 				// Clown
 				/obj/item/grenade/clusterbuster/honk = 100,
 				/obj/item/bikehorn/golden = 100,
+				/obj/item/gun/throw/piecannon = 100,
 
 				// Bartender
 				/obj/item/storage/box/bartender_rare_ingredients_kit = 100,

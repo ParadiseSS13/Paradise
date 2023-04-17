@@ -450,6 +450,21 @@
 	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
 
+/obj/item/reagent_containers/food/snacks/pancake/attack_tk(mob/user)
+	if(src in user.tkgrabbed_objects)
+		to_chat(user, "<span class='notice'>You start channeling psychic energy into [src].</span>")
+		visible_message("<span class='danger'>The syrup on [src] starts to boil...</span>")
+		if(do_after_once(user, 4 SECONDS, target = src))
+			visible_message("<span class='danger'>[src] suddenly combust!</span>")
+			to_chat(user, "<span class='warning'>You combust [src] with your mind!</span>")
+			explosion(get_turf(src), light_impact_range = 2, flash_range = 2)
+			add_attack_logs(user, src, "blew up [src] with TK", ATKLOG_ALL)
+			qdel(src)
+			return
+		to_chat(user, "<span class='notice'>You decide against the destruction of [src].</span>")
+		return
+	return ..()
+
 /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
 	name = "berry pancake"
 	desc = "A pancake loaded with berries."
@@ -526,6 +541,15 @@
 	filling_color = "#F5DEB8"
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
+
+/obj/item/reagent_containers/food/snacks/croissant
+	name = "croissant"
+	desc = "Once a pastry reserved for the bourgeois, this flaky goodness is now on your table."
+	icon_state = "croissant"
+	bitesize = 4
+	filling_color = "#ecb54f"
+	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	tastes = list("croissant" = 1)
 
 #undef DONUT_NORMAL
 #undef DONUT_FROSTED

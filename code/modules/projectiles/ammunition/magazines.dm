@@ -180,7 +180,7 @@
 	max_ammo = 5
 
 /obj/item/ammo_box/magazine/internal/shot/toy/tommygun
- 	max_ammo = 10
+	max_ammo = 10
 
 ///////////EXTERNAL MAGAZINES////////////////
 
@@ -495,14 +495,14 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/laser
-	name = "encased laser projector magazine"
-	desc = "Fits experimental laser ammo casings."
+	name = "laser carbine projector magazine"
+	desc = "Fits experimental laser ammo casings. Compatible with laser rifles and carbines."
 	icon_state = "laser"
-	ammo_type = /obj/item/ammo_casing/laser
+	ammo_type = /obj/item/ammo_casing/caseless/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
-	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
+	multi_sprite_step = 5
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"

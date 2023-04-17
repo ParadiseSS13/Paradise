@@ -29,6 +29,10 @@
 	var/hitsound = 'sound/effects/Glasshit.ogg'
 	/// Used to restore colours from polarised glass
 	var/old_color
+	/// Used to define what file the edging sprite is contained within
+	var/edge_overlay_file
+	/// Tracks the edging appearence sprite
+	var/mutable_appearance/edge_overlay
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -125,10 +129,10 @@
 		return 0
 	return 1
 
-/obj/structure/window/CanAStarPass(ID, to_dir)
+/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
 	if(!density)
 		return 1
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
+	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
 		return 0
 
 	return 1
@@ -225,7 +229,7 @@
 		return
 	if(decon_speed) // Only show this if it actually takes time
 		to_chat(user, "<span class='notice'>You begin to lever the window [state == WINDOW_OUT_OF_FRAME ? "into":"out of"] the frame...</span>")
-	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
+	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	state = (state == WINDOW_OUT_OF_FRAME ? WINDOW_IN_FRAME : WINDOW_OUT_OF_FRAME)
 	to_chat(user, "<span class='notice'>You pry the window [state == WINDOW_IN_FRAME ? "into":"out of"] the frame.</span>")
@@ -240,7 +244,7 @@
 		if(state == WINDOW_SCREWED_TO_FRAME || state == WINDOW_IN_FRAME)
 			if(decon_speed)
 				to_chat(user, "<span class='notice'>You begin to [state == WINDOW_SCREWED_TO_FRAME ? "unscrew the window from":"screw the window to"] the frame...</span>")
-			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
+			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
 			to_chat(user, "<span class='notice'>You [state == WINDOW_IN_FRAME ? "unfasten the window from":"fasten the window to"] the frame.</span>")
@@ -248,7 +252,7 @@
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)
 				to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the frame from":"screw the frame to"] the floor...</span>")
-			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
+			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			anchored = !anchored
 			air_update_turf(TRUE)
@@ -258,7 +262,7 @@
 	else //if we're not reinforced, we don't need to check or update state
 		if(decon_speed)
 			to_chat(user, "<span class='notice'>You begin to [anchored ? "unscrew the window from":"screw the window to"] the floor...</span>")
-		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_anchored, anchored)))
+		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		anchored = !anchored
 		air_update_turf(TRUE)
@@ -275,7 +279,7 @@
 		return
 	if(decon_speed)
 		TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
+	if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 		return
 	var/obj/item/stack/sheet/G = new glass_type(user.loc, glass_amount)
 	G.add_fingerprint(user)
@@ -445,6 +449,11 @@
 	setDir(ini_dir)
 	move_update_air(T)
 
+/obj/structure/window/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	. = ..()
+	anchored = FALSE
+	QUEUE_SMOOTH_NEIGHBORS(src)
+
 /obj/structure/window/CanAtmosPass(turf/T)
 	if(!anchored || !density)
 		return TRUE
@@ -452,25 +461,38 @@
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
 		QUEUE_SMOOTH_NEIGHBORS(src)
 
+/obj/structure/window/update_icon_state()
+	. = ..()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
+
 /obj/structure/window/update_overlays()
 	. = ..()
-	if(!QDELETED(src))
-		if(!fulltile)
-			return
-		var/ratio = obj_integrity / max_integrity
-		ratio = CEILING(ratio * 4, 1) * 25
+	if(QDELETED(src))
+		return
 
-		if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-			QUEUE_SMOOTH(src)
+	if(!fulltile)
+		return
 
-		if(ratio > 75)
-			return
-		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
+	var/ratio = obj_integrity / max_integrity
+	ratio = CEILING(ratio * 4, 1) * 25
+	if(ratio <= 75)
+		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer + 0.01), appearance_flags = RESET_COLOR)
 		. += crack_overlay
+
+	if(!edge_overlay_file)
+		return
+
+	edge_overlay = mutable_appearance(edge_overlay_file, "[smoothing_junction]", layer + 0.1, appearance_flags = RESET_COLOR)
+	. += edge_overlay
+
+/obj/structure/window/smooth_icon()
+	..()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -541,6 +563,10 @@
 
 	toggle_tint()
 
+/obj/machinery/button/windowtint/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
+
 /obj/machinery/button/windowtint/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -573,8 +599,9 @@
 			D.toggle_polarization()
 
 /obj/machinery/button/windowtint/power_change()
-	..()
-	if(active && !powered(power_channel))
+	if(!..())
+		return
+	if(active && (stat & NOPOWER))
 		toggle_tint()
 
 /obj/machinery/button/windowtint/update_icon_state()
@@ -624,20 +651,21 @@
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE)
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
-	icon = 'icons/obj/smooth_structures/window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/window.dmi'
 	icon_state = "window-0"
 	base_icon_state = "window"
 	max_integrity = 50
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
 	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
-	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/plasma_window.dmi'
 	icon_state = "plasma_window-0"
 	base_icon_state = "plasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -648,11 +676,12 @@
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
-	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/rplasma_window.dmi'
 	icon_state = "rplasma_window-0"
 	base_icon_state = "rplasma_window"
 	glass_decal = /obj/effect/decal/cleanable/glass/plasma
@@ -664,6 +693,7 @@
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -671,7 +701,7 @@
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
-	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/reinforced_window.dmi'
 	icon_state = "reinforced_window-0"
 	base_icon_state = "reinforced_window"
 	max_integrity = 100
@@ -681,6 +711,7 @@
 	rad_insulation = RAD_HEAVY_INSULATION
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
+	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
 
 /obj/structure/window/full/reinforced/polarized
 	name = "electrochromic window"
@@ -691,21 +722,15 @@
 /obj/structure/window/full/reinforced/tinted
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
-	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/tinted_window.dmi'
 	icon_state = "tinted_window-0"
 	base_icon_state = "tinted_window"
 	opacity = TRUE
 
-/obj/structure/window/full/reinforced/ice
-	icon = 'icons/obj/smooth_structures/rice_window.dmi'
-	icon_state = "rice_window-0" //Welcome to the rice fields, motherfucker.
-	base_icon_state = "rice_window"
-	max_integrity = 150
-
 /obj/structure/window/full/shuttle
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
-	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/shuttle_window.dmi'
 	icon_state = "shuttle_window-0"
 	base_icon_state = "shuttle_window"
 	max_integrity = 200
@@ -726,7 +751,7 @@
 /obj/structure/window/full/plastitanium
 	name = "plastitanium window"
 	desc = "An evil looking window of plasma and titanium."
-	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/plastitanium_window.dmi'
 	icon_state = "plastitanium_window-0"
 	base_icon_state = "plastitanium_window"
 	max_integrity = 1200
@@ -742,7 +767,7 @@
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"
 	desc = "A paper-thin pane of translucent yet reinforced brass."
-	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80

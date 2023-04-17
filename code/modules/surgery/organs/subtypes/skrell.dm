@@ -12,8 +12,17 @@
 	w_class = WEIGHT_CLASS_SMALL
 	parent_organ = "head"
 	slot = "headpocket"
-	actions_types = list(/datum/action/item_action/organ_action/toggle)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/headpocket)
 	var/obj/item/held_item
+
+/datum/action/item_action/organ_action/toggle/headpocket
+	use_itemicon = FALSE
+	button_icon_state = "skrell_headpocket_in"
+
+/obj/item/organ/internal/headpocket/proc/update_button_state()
+	for(var/datum/action/item_action/T in actions)
+		T.button_icon_state = "skrell_headpocket[held_item ? "_out" : "_in"]"
+		T.UpdateButtonIcon()
 
 /obj/item/organ/internal/headpocket/Destroy()
 	empty_contents()
@@ -31,12 +40,23 @@
 		owner.visible_message("<span class='notice'>[owner] removes [held_item] from [owner.p_their()] [name].</span>", "<span class='notice'>You remove [held_item] from your [name].</span>")
 		owner.put_in_hands(held_item)
 		held_item = null
+		update_button_state()
 	else
 		var/obj/item/I = owner.get_active_hand()
-		if(I && I.w_class <= WEIGHT_CLASS_SMALL && !istype(I, /obj/item/disk/nuclear) && owner.unEquip(I))
+		if(!I)
+			to_chat(owner, "<span class='notice'>You're not holding anything in your main hand to put in your [name].</span>")
+			return
+		if(istype(I, /obj/item/disk/nuclear))
+			to_chat(owner, "<span class='warning'>[I] slips out of your [name]!</span>")
+			return
+		if(I.w_class > WEIGHT_CLASS_SMALL)
+			to_chat(owner, "<span class='notice'>[I] is too large to fit in your [name].</span>")
+			return
+		if(owner.unEquip(I))
 			owner.visible_message("<span class='notice'>[owner] places [I] into [owner.p_their()] [name].</span>", "<span class='notice'>You place [I] into your [name].</span>")
 			I.forceMove(src)
 			held_item = I
+			update_button_state()
 
 /obj/item/organ/internal/headpocket/on_owner_death()
 	empty_contents()

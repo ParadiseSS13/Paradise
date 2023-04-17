@@ -1064,7 +1064,7 @@
 	id = "borg_upgade_abductor_medi"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/abductor_medi
-	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 4)
+	req_tech = list("biotech" = 7, "materials" = 7, "abductor" = 3)
 	materials = list(MAT_METAL = 18000, MAT_GLASS = 1500, MAT_SILVER = 13000, MAT_GOLD = 1000, MAT_PLASMA = 4000, MAT_TITANIUM = 12000, MAT_DIAMOND = 1000) //Base abductor engineering tools *8 + IMS cost
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
@@ -1095,6 +1095,36 @@
 	build_path = /obj/item/borg/upgrade/selfrepair
 	req_tech = list("materials" = 4, "engineering" = 4)
 	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_bluespace_trash_bag
+	name = "Cyborg Upgrade (Trash bag of holding)"
+	id = "borg_upgrade_bluespace_trash_bag"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/bluespace_trash_bag
+	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
+	materials = list(MAT_GOLD = 1500, MAT_URANIUM = 250, MAT_PLASMA = 1500)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_floorbuffer
+	name = "Cyborg Upgrade (Floor buffer)"
+	id = "borg_upgrade_floorbuffer"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/floorbuffer
+	req_tech = list("materials" = 4, "engineering" = 4)
+	materials = list(MAT_METAL=15000, MAT_GLASS=15000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
+/datum/design/borg_upgrade_rcd
+	name = "Cyborg Upgrade (Rapid Construction Device)"
+	id = "borg_upgrade_RCD"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/rcd
+	req_tech = list("materials" = 6, "engineering" = 5, "powerstorage" = 5)
+	materials = list(MAT_METAL=30000, MAT_GLASS=15000,)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 

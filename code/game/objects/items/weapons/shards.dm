@@ -41,16 +41,16 @@
 		icon_state = "[icon_prefix][icon_state]"
 
 /obj/item/shard/Initialize()
- 	. = ..()
- 	AddComponent(/datum/component/caltrop, force)
- 	set_initial_icon_state()
+	. = ..()
+	AddComponent(/datum/component/caltrop, force)
+	set_initial_icon_state()
 
 /obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity || !(src in user))
 		return
 	if(isturf(AM))
 		return
-	if(istype(AM, /obj/item/storage))
+	if(isstorage(AM))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

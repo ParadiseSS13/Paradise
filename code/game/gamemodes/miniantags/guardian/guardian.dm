@@ -43,6 +43,8 @@
 	var/bio_fluff_string = "Your scarabs fail to mutate. This shouldn't happen! Submit a bug report!"
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/name_color = "white"//only used with protector shields for the time being
+	/// If true, it will not make a message on host when hit, or make an effect when deploying or recalling
+	var/stealthy_deploying = FALSE
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
@@ -89,12 +91,13 @@
 		else
 			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
 			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
-			if(istype(summoner.loc, /obj/effect))
+			if(iseffect(summoner.loc))
 				Recall(TRUE)
 			else
-				new /obj/effect/temp_visual/guardian/phase/out(loc)
+				if(!stealthy_deploying)
+					new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+					new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
-				new /obj/effect/temp_visual/guardian/phase(loc)
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
@@ -139,7 +142,8 @@
 		summoner.adjustBruteLoss(damage)
 		if(damage)
 			to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
-			summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
+			if(!stealthy_deploying)
+				summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
 		if(summoner.stat == UNCONSCIOUS)
 			to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
 			summoner.adjustCloneLoss(damage/2)
@@ -169,8 +173,10 @@
 		return
 	if(!summoner) return
 	if(loc == summoner)
-		forceMove(get_turf(summoner))
-		new /obj/effect/temp_visual/guardian/phase(loc)
+		var/turf/T = get_turf(summoner)
+		forceMove(T)
+		if(!stealthy_deploying)
+			new /obj/effect/temp_visual/guardian/phase(T)
 		reset_perspective()
 		cooldown = world.time + 30
 
@@ -178,7 +184,8 @@
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
 	if(!summoner) return
-	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+	if(!stealthy_deploying)
+		new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
 	buckled = null
 	cooldown = world.time + 30

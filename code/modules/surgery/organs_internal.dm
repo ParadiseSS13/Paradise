@@ -81,7 +81,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(istype(target, /mob/living/carbon/human))
+	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(affected && affected.encased) //no bones no problem.

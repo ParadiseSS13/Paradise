@@ -181,7 +181,7 @@
 	E.GiveTarget(user) //so it starts running right away
 	E.Goto(user, E.move_to_delay, E.minimum_distance)
 	user.make_invisible()
-	addtimer(CALLBACK(user, /mob/living/.proc/reset_visibility), 6 SECONDS)
+	addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, reset_visibility)), 6 SECONDS)
 
 /obj/effect/proc_holder/spell/vampire/rally_thralls
 	name = "Rally Thralls (100)"
@@ -208,11 +208,11 @@
 		playsound(H, 'sound/magic/staff_healing.ogg', 30)
 		H.remove_CC()
 		H.add_overlay(I)
-		addtimer(CALLBACK(H, /atom/.proc/cut_overlay, I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
+		addtimer(CALLBACK(H, TYPE_PROC_REF(/atom, cut_overlay), I), 6 SECONDS) // this makes it obvious who your thralls are for a while.
 
 /obj/effect/proc_holder/spell/vampire/self/share_damage
 	name = "Blood Bond"
-	desc = "Creates a net between you and your nearby thralls that evenly shares all damage recieved."
+	desc = "Creates a net between you and your nearby thralls that evenly shares all damage received."
 	gain_desc = "You have gained the ability to share damage between you and your thralls."
 	action_icon_state = "blood_bond"
 	required_blood = 5
@@ -226,8 +226,8 @@
 
 /obj/effect/proc_holder/spell/vampire/hysteria
 	name = "Mass Hysteria (70)"
-	desc = "Casts a powerful illusion to make everyone nearby percieve others to looks like random animals after briefly blinding them."
-	gain_desc = "You have gained the ability to make everyone nearby percieve others to looks like random animals after briefly blinding them."
+	desc = "Casts a powerful illusion to make everyone nearby perceive others to looks like random animals after briefly blinding them."
+	gain_desc = "You have gained the ability to make everyone nearby perceive others to looks like random animals after briefly blinding them."
 	action_icon_state = "hysteria"
 	required_blood = 70
 	base_cooldown = 180 SECONDS

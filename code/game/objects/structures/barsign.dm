@@ -124,15 +124,15 @@
 	return TRUE
 
 /obj/structure/sign/barsign/emp_act(severity)
-    set_sign(new /datum/barsign/hiddensigns/empbarsign)
-    broken = TRUE
+	set_sign(new /datum/barsign/hiddensigns/empbarsign)
+	broken = TRUE
 
 /obj/structure/sign/barsign/emag_act(mob/user)
 	if(broken || emagged)
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(CALLBACK(src, .proc/post_emag), 100)
+	addtimer(CALLBACK(src, PROC_REF(post_emag)), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)
