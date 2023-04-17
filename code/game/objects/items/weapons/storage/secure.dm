@@ -118,7 +118,7 @@
 	data["locked"] = locked
 	data["l_set"] = l_set
 	data["l_setshort"] = l_setshort
-	data["current_code"] = (code) ? (isnum(text2num(code))) ? text2num(code) : "ERROR" : FALSE
+	data["current_code"] = (code) ? (isnum(text2num(code))) ? code : "ERROR" : FALSE
 	return data
 
 
