@@ -8,8 +8,8 @@ TIMER_SUBSYSTEM_DEF(runechat)
 
 /datum/controller/subsystem/timer/runechat/fire(resumed)
 	. = ..() //poggers
-	while(message_queue.len)
-		var/datum/callback/queued_message = message_queue[message_queue.len]
+	while(length(message_queue))
+		var/datum/callback/queued_message = message_queue[length(message_queue)]
 		queued_message.Invoke()
 		message_queue.len--
 		if(MC_TICK_CHECK)
