@@ -339,7 +339,7 @@
 "acG" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Processing";
-	req_access = list(1)
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -1465,7 +1465,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Processing";
-	req_access = list(1)
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -8968,7 +8968,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security{
 	name = "Execution Room";
-	req_access = list(1)
+	req_access = list(2)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9630,7 +9630,7 @@
 	id = "Execution Shutter";
 	name = "Execution Shutter Control";
 	pixel_x = -25;
-	req_access = list(1)
+	req_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10357,7 +10357,7 @@
 "azV" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Labor Camp Transfer";
-	req_access = list(1)
+	req_access = list(2)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

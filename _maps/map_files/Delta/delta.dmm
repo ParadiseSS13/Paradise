@@ -11524,7 +11524,7 @@
 	},
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Processing";
-	req_access = list(1)
+	req_access = list(2)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -98824,7 +98824,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id = "execution";
 	name = "Prisoner Lockers";
-	req_access = list(1)
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -110592,7 +110592,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
 	name = "Execution Access";
-	req_access = list(1)
+	req_access = list(2)
 	},
 /obj/machinery/atmospherics/binary/valve/digital,
 /obj/structure/cable{
