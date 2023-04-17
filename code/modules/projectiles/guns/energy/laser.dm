@@ -162,6 +162,7 @@
 	icon_state = "sniperlaser"
 	range = 255
 	damage = 10
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	var/can_knockdown = TRUE
 
 /obj/item/projectile/beam/laser/sniper/Range()
@@ -173,7 +174,7 @@
 	var/mob/living/carbon/human/H = target
 	if(istype(H) && damage >= 40 && can_knockdown)
 		H.KnockDown(2 SECONDS * (damage / 10))
-		can_knockdown = FALSE //Projectiles that pierce can not knockdown, no wall knockdowns.
+	can_knockdown = FALSE //Projectiles that pierce can not knockdown, no wall knockdowns.
 
 /obj/item/projectile/beam/laser/sniper/pierce
 	forcedodge = 1 // Can pierce one mob.
