@@ -48,6 +48,7 @@
 		start()
 
 /datum/looping_sound/Destroy()
+	GLOB.looping_sounds -= src
 	stop()
 	output_atoms = null
 	return ..()
