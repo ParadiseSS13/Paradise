@@ -83,6 +83,10 @@
 				current.show_laws()
 				current.throw_alert("newlaw", /obj/screen/alert/newlaw)
 				cooldown = world.time + 600
+				var/i
+				for (i=1,i<=current.connected_robots.len,i++) // push alert to the AI's borgs
+					current.connected_robots[i].show_laws()
+					current.connected_robots[i].throw_alert("newlaw", /obj/screen/alert/newlaw)
 				return
 	return ..()
 
