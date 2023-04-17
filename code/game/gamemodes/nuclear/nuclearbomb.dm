@@ -14,7 +14,7 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb
 	name = "\improper Nuclear Fission Explosive"
 	desc = "Uh oh. RUN!!!!"
-	icon = 'icons/obj/stationobjs.dmi'
+	icon = 'icons/obj/nuclearbomb.dmi'
 	icon_state = "nuclearbomb0"
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -23,13 +23,21 @@ GLOBAL_VAR(bomb_set)
 	power_state = NO_POWER_USE
 	requires_power = FALSE
 
+	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE
+	/// If true, prevents the lights on the nuke
 	var/lighthack = FALSE
+	/// Countdown to boom
 	var/timeleft = 120
+	/// Are we counting down?
 	var/timing = FALSE
+	/// Have we gone boom yet?
 	var/exploded = FALSE
+	/// Random code between 10000 and 99999
 	var/r_code = "ADMIN"
+	/// Code entered by user
 	var/code
+	/// Is the most recently inputed code correct?
 	var/yes_code = FALSE
 	var/safety = TRUE
 	var/obj/item/disk/nuclear/auth = null
@@ -64,6 +72,7 @@ GLOBAL_VAR(bomb_set)
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/Destroy()
 	SStgui.close_uis(wires)
@@ -116,6 +125,19 @@ GLOBAL_VAR(bomb_set)
 	if(panel_open)
 		. += "npanel_open"
 
+	if(anchored) // Using anchored due to removal_stage deanchoring having multiple steps
+		. += "nukebolts"
+	switch(removal_stage)
+		if(NUKE_CORE_EVERYTHING_FINE)
+			. += "nukecore1"
+		if(NUKE_CORE_PANEL_EXPOSED, NUKE_CORE_PANEL_UNWELDED)
+			. += "nukecore2"
+		if(NUKE_CORE_FULLY_EXPOSED)
+			if(core)
+				. += "nukecore3"
+			else
+				. += "nukecore4"
+
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
@@ -143,6 +165,7 @@ GLOBAL_VAR(bomb_set)
 			removal_stage = NUKE_CORE_PANEL_UNWELDED
 			if(core)
 				STOP_PROCESSING(SSobj, core)
+			update_icon(UPDATE_OVERLAYS)
 			return
 	if(istype(O, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
 		var/obj/item/stack/S = O
@@ -156,6 +179,7 @@ GLOBAL_VAR(bomb_set)
 			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", \
 								"<span class='notice'>You repair [src]'s outer core plate.</span>")
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
+			update_icon(UPDATE_OVERLAYS)
 			return
 	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
 		if(do_after(user, 2 SECONDS, target = src))
@@ -165,6 +189,7 @@ GLOBAL_VAR(bomb_set)
 			user.visible_message("<span class='notice'>[user] puts [O] back in [src].</span>", "<span class='notice'>You put [O] back in [src].</span>")
 			O.forceMove(src)
 			core = O
+			update_icon(UPDATE_OVERLAYS)
 
 	else if(istype(O, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
@@ -205,6 +230,7 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("[user] crowbars [src] off of the anchors. It can now be moved.", "You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!")
 		anchored = FALSE
 		removal_stage = NUKE_MOBILE
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/wrench_act(mob/user, obj/item/I)
 	if(!anchored)
@@ -219,6 +245,7 @@ GLOBAL_VAR(bomb_set)
 		return
 	user.visible_message("[user] unwrenches the anchoring bolts on [src].", "You unwrench the anchoring bolts.")
 	removal_stage = NUKE_UNWRENCHED
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/multitool_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -300,6 +327,7 @@ GLOBAL_VAR(bomb_set)
 		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
 		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
 		removal_stage = NUKE_SEALANT_OPEN
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	attack_hand(user)
@@ -317,6 +345,7 @@ GLOBAL_VAR(bomb_set)
 		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 		core.forceMove(loc)
 		core = null
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -371,7 +400,7 @@ GLOBAL_VAR(bomb_set)
 			if(!lighthack)
 				flick("nuclearbombc", src)
 				icon_state = "nuclearbomb1"
-				update_icon(UPDATE_OVERLAYS)
+			update_icon(UPDATE_OVERLAYS)
 			extended = TRUE
 			return
 		if("auth")
@@ -410,6 +439,7 @@ GLOBAL_VAR(bomb_set)
 		if("toggle_anchor")
 			if(removal_stage == NUKE_MOBILE)
 				anchored = FALSE
+				update_icon(UPDATE_OVERLAYS)
 				visible_message("<span class='warning'>[src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 				return
 
@@ -422,6 +452,7 @@ GLOBAL_VAR(bomb_set)
 				return
 
 			anchored = !(anchored)
+			update_icon(UPDATE_OVERLAYS)
 			if(anchored)
 				visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring.</span>")
 				return
