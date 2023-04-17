@@ -127,7 +127,12 @@ GLOBAL_VAR(bomb_set)
 
 	if(anchored) // Using anchored due to removal_stage deanchoring having multiple steps
 		. += "nukebolts"
-	switch(removal_stage)
+
+	// Selected stage lets us show the open core, even if the front panel is closed
+	var/selected_stage = removal_stage
+	if(removal_stage < NUKE_CORE_EVERYTHING_FINE) // Because we need to show the core
+		selected_stage = core_stage
+	switch(selected_stage)
 		if(NUKE_CORE_PANEL_EXPOSED)
 			. += "nukecore1"
 		if(NUKE_CORE_PANEL_UNWELDED)
