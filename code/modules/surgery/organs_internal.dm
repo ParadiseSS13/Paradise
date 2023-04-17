@@ -769,7 +769,7 @@
 	return ..()
 
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool]</span>."
+	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool].</span>"
 	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with [tool].</span>"
 	if(target_zone == BODY_ZONE_CHEST)
 		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with [tool].</span>"
