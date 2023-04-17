@@ -6,9 +6,9 @@
 	circuit = /obj/item/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
 	var/opened = FALSE
-
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
+	var/cooldown = 0
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
@@ -46,15 +46,44 @@
 		if(!atoms_share_level(T, src))
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 			return
-		if (!emagged)
+		if (!emagged) //non-emag law change
 			var/obj/item/aiModule/M = O
 			M.install(src)
 			return
 		else
-			log_and_message_admins("[src] has uploaded a law at an emag'd AI Upload terminal")
+			if(world.time < cooldown)
+				to_chat(user, "The program seems to have frozen. It will need some time to process")
+				return
 			do_sparks(5, 1, src)
-			log_and_message_admins(current.laws.all_laws())
-			return
+			var/foundlaws = 0 //
+			var/checked = FALSE
+			for(var/datum/ai_law/law in current.laws.all_laws())
+				foundlaws = foundlaws + 1
+				if(current.laws.ion_laws.len == 0 && checked == FALSE)
+					checked = TRUE
+					if (rand(1,10) >= 9)  // 20% chance to generate an ion law if none exists
+						current.add_ion_law(generate_ion_law())
+						cooldown = world.time + 600
+						return
+				else if(law in current.laws.ion_laws && checked == FALSE) //10% chance to overwrite a current ion
+					checked = TRUE
+					if (rand(1,10) >= 10)
+						current.clear_ion_laws()
+						current.add_ion_law()
+						cooldown = world.time + 600
+						return
+				if (law in current.laws.supplied_laws)
+					foundlaws = foundlaws - 1
+			if(current.laws.ion_laws.len > 0)
+				foundlaws = foundlaws - current.laws.ion_laws.len
+			var/lawposition = rand(1,foundlaws)
+			if (foundlaws != 0)
+				current.laws.inherent_laws[lawposition].law = new/datum/ai_law/inherent(generate_ion_law()).law
+				log_and_message_admins("has given [src] the inherent law: [current.laws.inherent_laws[lawposition].law]")
+				current.show_laws()
+				current.throw_alert("newlaw", /obj/screen/alert/newlaw)
+				cooldown = world.time + 600
+				return
 	return ..()
 
 
