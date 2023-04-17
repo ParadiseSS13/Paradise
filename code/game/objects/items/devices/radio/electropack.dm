@@ -102,7 +102,7 @@
 		if("freq")
 			var/value = params["freq"]
 			if(value)
-				frequency = sanitize_frequency(value)
+				frequency = sanitize_frequency(text2num(value) * 10)
 				set_frequency(frequency)
 			else
 				. = FALSE
