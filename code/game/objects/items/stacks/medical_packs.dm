@@ -126,7 +126,6 @@
 	heal_brute = 10
 	stop_bleeding = 1800
 	dynamic_icon_state = TRUE
-	parent_stack = TRUE
 
 /obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
@@ -203,7 +202,6 @@
 	healverb = "salve"
 	heal_burn = 10
 	dynamic_icon_state = TRUE
-	parent_stack = TRUE
 
 /obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
 	if(..())
