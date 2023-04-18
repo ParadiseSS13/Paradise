@@ -18042,11 +18042,12 @@
 	},
 /area/crew_quarters/dorms)
 "aSR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
+/obj/structure/chair/stool,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+	dir = 8;
+	icon_state = "caution"
 	},
 /area/crew_quarters/dorms)
 "aSS" = (
@@ -19045,6 +19046,12 @@
 /area/crew_quarters/dorms)
 "aVq" = (
 /obj/structure/chair/stool,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -19087,13 +19094,24 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aVu" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south fire alarm";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
 /area/crew_quarters/dorms)
 "aVv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -20900,6 +20918,8 @@
 	},
 /area/crew_quarters/dorms)
 "aZE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "rampbottom"
@@ -20932,8 +20952,6 @@
 	},
 /area/mimeoffice)
 "aZI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
 /obj/machinery/ai_status_display{
 	pixel_x = 32
@@ -21570,8 +21588,18 @@
 	},
 /area/crew_quarters/dorms)
 "bbw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atm{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -23323,6 +23351,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -23344,15 +23376,14 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
+	},
+/obj/structure/disposalpipe/junction{
+	icon_state = "pipe-y"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -23414,13 +23445,16 @@
 	},
 /area/crew_quarters/bar)
 "bfx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/light,
+/obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+	dir = 9
 	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -23430,12 +23464,10 @@
 /turf/simulated/wall,
 /area/clownoffice)
 "bfz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+/obj/structure/disposalpipe/trunk{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -88252,7 +88284,7 @@
 /area/maintenance/xenozoo)
 "qFg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -133436,7 +133468,7 @@ aWU
 aWU
 bbv
 aSD
-beW
+aVu
 aOI
 bjw
 fyG
@@ -134464,7 +134496,7 @@ aWW
 aZG
 bbv
 aPm
-bdN
+bbw
 aOI
 bjz
 fyG
@@ -134717,10 +134749,10 @@ aOI
 aQG
 qFg
 aVq
-aVq
+aSR
 aZE
-aPm
-aPm
+aWY
+aWY
 bfx
 aOI
 bjz
@@ -134972,12 +135004,12 @@ lkw
 fho
 aTb
 aTb
-aSR
-aVu
-aWY
+aTb
+aVv
+aPm
 aZI
-bbw
-bbw
+aTb
+aTb
 bfz
 aOI
 bjz
