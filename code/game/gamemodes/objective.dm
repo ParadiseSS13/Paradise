@@ -727,3 +727,50 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	needs_target = FALSE
 	completed = 1
+
+/datum/objective/heist
+
+/datum/objective/heist/proc/choose_target()
+	return
+
+/datum/objective/heist/kidnap
+/datum/objective/heist/kidnap/choose_target()
+	var/list/roles = list("Head of Security", "Head of Personnel", "Captain", "Nanotrasen Representative")
+	var/list/possible_targets = list()
+	var/list/priority_targets = list()
+
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != "MODE") && possible_target.current.ckey)
+			possible_targets += possible_target
+			for(var/role in roles)
+				if(possible_target.assigned_role == role)
+					priority_targets += possible_target
+
+	if(length(priority_targets))
+		target = pick(priority_targets)
+	else
+		target = pick(possible_targets)
+
+	if(target && target.current)
+		explanation_text = "A contractor from Tau Ceti has a need for [target.current.real_name], the [target.assigned_role]. Take them alive."
+	else
+		explanation_text = "Free Objective"
+	return target
+
+/datum/objective/heist/kidnap/check_completion()
+	if(target.current.stat == DEAD)
+		return
+
+	var/area/shuttle/pirate/A = locate() //stupid fucking hardcoding
+	var/area/pirate_station/B = locate() //but necessary
+
+	for(var/mob/living/carbon/human/M in A)
+		if(target.current == M)
+			return 1
+	for(var/mob/living/carbon/human/N in B)
+		if(target.current == N)
+			return 1
+
+	return 0
+
+

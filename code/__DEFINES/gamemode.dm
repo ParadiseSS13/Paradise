@@ -42,6 +42,7 @@
 #define SPECIAL_ROLE_SYNDICATE_DEATHSQUAD "Syndicate Commando"
 #define SPECIAL_ROLE_TRAITOR "Traitor"
 #define SPECIAL_ROLE_VAMPIRE "Vampire"
+#define SPECIAL_ROLE_PIRATE "Pirate"
 #define SPECIAL_ROLE_VAMPIRE_THRALL "Vampire Thrall"
 #define SPECIAL_ROLE_WIZARD "Wizard"
 #define SPECIAL_ROLE_WIZARD_APPRENTICE "Wizard Apprentice"

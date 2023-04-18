@@ -19,6 +19,7 @@
 		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
+		<a href='?src=[UID()];makeAntag=7'>Make Space Pirates (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
@@ -284,6 +285,17 @@
 
 		return 1
 	return 0
+
+/datum/admins/proc/makePirates()
+	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
+		return
+	var/datum/event/pirate_raid/E = new /datum/event/pirate_raid
+	E.spawncount = antnum
+	log_admin("[key_name(owner)] tried making Pirates with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Pirates with One-Click-Antag")
+
+	return TRUE
 
 /datum/admins/proc/makeThunderdomeTeams() // Not strictly an antag, but this seemed to be the best place to put it.
 	var/max_thunderdome_players = 10
