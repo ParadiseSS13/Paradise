@@ -9,6 +9,7 @@
 	width = 12
 	dwidth = 5
 	height = 7
+	var/obj/machinery/data_syphon/active_syphon
 
 /obj/docking_port/mobile/supply/register()
 	if(!..())
@@ -47,6 +48,9 @@
 
 /obj/docking_port/mobile/supply/canMove()
 	if(is_station_level(z))
+		if(active_syphon) // Check if there's an active data_syphon
+			to_chat(usr, "<span class='warning'>Cargo Shuttle is blocked by unknown Data Syphon!</span>")
+			return FALSE
 		return forbidden_atoms_check(areaInstance)
 	return ..()
 

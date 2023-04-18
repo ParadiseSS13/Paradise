@@ -693,6 +693,7 @@
 #include "code\game\machinery\constructable_frame.dm"
 #include "code\game\machinery\cryopod.dm"
 #include "code\game\machinery\dance_machine.dm"
+#include "code\game\machinery\data_syphon.dm"
 #include "code\game\machinery\defib_mount.dm"
 #include "code\game\machinery\deployable.dm"
 #include "code\game\machinery\dish_drive.dm"
