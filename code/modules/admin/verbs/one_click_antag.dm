@@ -290,7 +290,7 @@
 	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
 	if(!antnum || antnum <= 0)
 		return
-	var/datum/event/pirate_raid/E = new /datum/event/pirate_raid
+	var/datum/event/pirates/E = new /datum/event/pirates
 	E.spawncount = antnum
 	log_admin("[key_name(owner)] tried making Pirates with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Pirates with One-Click-Antag")

@@ -1,26 +1,26 @@
-/datum/event/pirate_raid
+/datum/event/pirates
 	announceWhen	= 400
 	var/highpop_trigger = 80
 	var/spawncount = 2
 	var/list/playercount
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
-/datum/event/pirate_raid/setup()
+/datum/event/pirates/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
 
-/datum/event/pirate_raid/announce()
+/datum/event/pirates/announce()
 	if(successSpawn)
 		GLOB.major_announcement.Announce("Confirmed outbreak of pirate activity aboard [station_name()]. All personnel must contain the threat.", "Pirate Alert", 'sound/effects/siren-spooky.ogg', new_sound2 = 'sound/AI/outbreak3.ogg')
 	else
 		log_and_message_admins("Warning: Could not spawn any mobs for event Pirate Infestation")
 
-/datum/event/pirate_raid/start()
+/datum/event/pirates/start()
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4
 	INVOKE_ASYNC(src, PROC_REF(spawn_pirates))
 
-/datum/event/pirate_raid/proc/spawn_pirates()
+/datum/event/pirates/proc/spawn_pirates()
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pirate?", ROLE_PIRATE, TRUE, source = /mob/living/carbon/human/pirate)
 	var/list/spawn_locations = get_valid_pirate_spawns()
 	if(!length(spawn_locations))
