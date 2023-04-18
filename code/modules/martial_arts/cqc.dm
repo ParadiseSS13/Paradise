@@ -12,7 +12,7 @@
 	name = "Close Quarters Cooking"
 
 /datum/martial_art/cqc/under_siege/teach(mob/living/carbon/human/H, make_temporary)
-	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(kitchen_check))
+	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(kitchen_check), override = TRUE)
 	return ..()
 
 /datum/martial_art/cqc/under_siege/remove(mob/living/carbon/human/H)
