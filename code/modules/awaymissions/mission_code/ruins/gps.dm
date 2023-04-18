@@ -3,7 +3,7 @@
 /obj/item/gps/ruin
 	name = "navigation console"
 	desc = "A console for navigation in local space, gives off a weak signal that can be picked up if sufficiently close."
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "gps_console"
 	anchored = TRUE
 	local = TRUE

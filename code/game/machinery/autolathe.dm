@@ -494,7 +494,7 @@
 /obj/machinery/autolathe/security
 	name = "Security Autolathe"
 	desc = "Autolathe with preloaded open recipes"
-	icon = 'icons/obj/sec_autolathe.dmi'
+	icon = 'icons/obj/machines/sec_autolathe.dmi'
 
 /obj/machinery/autolathe/security/New()
 	. = ..()

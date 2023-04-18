@@ -3,7 +3,7 @@
 
 /obj/machinery/computer/cloning
 	name = "cloning console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
 	circuit = /obj/item/circuitboard/cloning

@@ -4,7 +4,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "криокапсула"
 	desc = "Понижает температуру тела, позволяя применять определённые лекарства."
-	icon = 'icons/obj/cryogenics.dmi'
+	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
 	density = 1
 	anchored = 1.0

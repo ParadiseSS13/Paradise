@@ -13,7 +13,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 
 /obj/machinery/computer/specops_shuttle
 	name = "\improper Spec. Ops. shuttle console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "syndishuttle"
 	light_color = LIGHT_COLOR_PURE_CYAN

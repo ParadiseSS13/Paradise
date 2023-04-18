@@ -12,7 +12,7 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 
 /obj/machinery/computer/syndicate_elite_shuttle
 	name = "\improper Elite Syndicate Squad shuttle console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
 	light_color = LIGHT_COLOR_PURE_CYAN

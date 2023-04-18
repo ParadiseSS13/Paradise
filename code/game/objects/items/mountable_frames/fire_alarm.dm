@@ -1,7 +1,7 @@
 /obj/item/mounted/frame/firealarm
 	name = "fire alarm frame"
 	desc = "Used for building Fire Alarms"
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "fire_bitem"
 	mount_reqs = list("simfloor", "nospace")
 

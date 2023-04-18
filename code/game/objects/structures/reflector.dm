@@ -133,7 +133,7 @@
 
 /obj/structure/reflector/single
 	name = "reflector"
-	icon = 'icons/obj/reflector.dmi'
+	icon = 'icons/obj/engines_and_power/reflector.dmi'
 	icon_state = "reflector"
 	desc = "A double sided angled mirror for reflecting lasers. This one does so at a 90 degree angle."
 	finished = 1
@@ -150,7 +150,7 @@
 
 /obj/structure/reflector/double
 	name = "double sided reflector"
-	icon = 'icons/obj/reflector.dmi'
+	icon = 'icons/obj/engines_and_power/reflector.dmi'
 	icon_state = "reflector_double"
 	desc = "A double sided angled mirror for reflecting lasers. This one does so at a 90 degree angle."
 	finished = 1
@@ -167,7 +167,7 @@
 
 /obj/structure/reflector/box
 	name = "reflector box"
-	icon = 'icons/obj/reflector.dmi'
+	icon = 'icons/obj/engines_and_power/reflector.dmi'
 	icon_state = "reflector_box"
 	desc = "A box with an internal set of mirrors that reflects all laser fire in a single direction."
 	finished = 1

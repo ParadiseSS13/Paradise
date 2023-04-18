@@ -114,7 +114,7 @@
 	name = "mech bay power control console"
 	density = 1
 	anchored = 1
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
 	light_color = LIGHT_COLOR_FADEDPURPLE

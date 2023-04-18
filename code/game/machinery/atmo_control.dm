@@ -113,7 +113,7 @@
 	multitool_menu = new /datum/multitool_menu/idtag/freq/air_sensor(src)
 
 /obj/machinery/computer/general_air_control
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
@@ -462,7 +462,7 @@
 	src.updateUsrDialog()
 
 /obj/machinery/computer/general_air_control/fuel_injection
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "atmos"
 	circuit = /obj/item/circuitboard/injector_control
 

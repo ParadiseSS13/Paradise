@@ -2,7 +2,7 @@
 /obj/machinery/arcade
 	name = "Arcade Game"
 	desc = "One of the most generic arcade games ever."
-	icon = 'icons/obj/arcade.dmi'
+	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "clawmachine_on"
 	density = 1
 	anchored = 1

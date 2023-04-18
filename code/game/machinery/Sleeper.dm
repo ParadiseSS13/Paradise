@@ -6,7 +6,7 @@
 
 /obj/machinery/sleeper
 	name = "Sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 	var/base_icon = "sleeper"
 	density = 1

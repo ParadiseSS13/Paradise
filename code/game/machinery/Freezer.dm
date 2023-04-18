@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
 	name = "охладитель"
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "freezer"
 	density = 1
 	var/min_temperature = 0
@@ -164,7 +164,7 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
 	name = "нагреватель"
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "heater"
 	density = 1
 	var/max_temperature = 0

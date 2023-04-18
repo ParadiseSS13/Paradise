@@ -1,7 +1,7 @@
 /obj/machinery/cooking
 	name = "oven"
 	desc = "Cookies are ready, dear."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "oven_off"
 	layer = 2.9
 	density = 1
@@ -52,7 +52,7 @@
 /obj/machinery/cooking/oven
 	name = "oven"
 	desc = "Cookies are ready, dear."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "oven_off"
 
 /obj/machinery/cooking/oven/updatefood()
@@ -66,7 +66,7 @@
 /obj/machinery/cooking/candy
 	name = "candy machine"
 	desc = "Get yer box of deep fried deep fried deep fried deep fried cotton candy cereal sandwich cookies here!"
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "mixer_off"
 	candy = 1
 

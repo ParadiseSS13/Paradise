@@ -327,7 +327,7 @@
 	admin_controlled = 1
 	shuttleId = "pod"
 	possible_destinations = "pod_asteroid"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "dorm_available"
 	density = 0
 

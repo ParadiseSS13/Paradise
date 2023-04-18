@@ -1,6 +1,6 @@
 /obj/machinery/floodlight
 	name = "emergency floodlight"
-	icon = 'icons/obj/machines/floodlight.dmi'
+	icon = 'icons/obj/floodlight.dmi'
 	icon_state = "flood00"
 	anchored = FALSE
 	density = TRUE

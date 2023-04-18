@@ -5,7 +5,7 @@
 /obj/item/toy/prizeball
 	name = "prize ball"
 	desc = "A toy is a toy, but a prize ball could be anything! It could even be a toy!"
-	icon = 'icons/obj/arcade.dmi'
+	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "prizeball_1"
 	var/opening = 0
 	var/possible_contents = list(/obj/random/carp_plushie, /obj/random/plushie, /obj/random/figure, /obj/item/toy/eight_ball, /obj/item/stack/tickets)
@@ -60,7 +60,7 @@
 	name = "prize ticket"
 	desc = "Prize tickets from the arcade. Exchange them for fabulous prizes!"
 	singular_name = "prize ticket"
-	icon = 'icons/obj/arcade.dmi'
+	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "tickets_1"
 	force = 0
 	throwforce = 0

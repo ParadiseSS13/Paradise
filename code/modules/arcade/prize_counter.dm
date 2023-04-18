@@ -2,7 +2,7 @@
 /obj/machinery/prize_counter
 	name = "Prize Counter"
 	desc = "A machine which exchanges tickets for a variety of fabulous prizes!"
-	icon = 'icons/obj/arcade.dmi'
+	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "prize_counter-on"
 	density = 1
 	anchored = 1

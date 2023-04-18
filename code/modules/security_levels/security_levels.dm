@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_green")
 						FA.update_icon()
 
 			if(SEC_LEVEL_BLUE)
@@ -56,7 +56,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_blue")
 						FA.update_icon()
 
 			if(SEC_LEVEL_RED)
@@ -76,7 +76,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_red")
 						FA.update_icon()
 
 			if(SEC_LEVEL_GAMMA)
@@ -94,7 +94,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_gamma")
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
@@ -106,7 +106,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_epsilon")
 						FA.update_icon()
 				// Empty the manifest
 				GLOB.PDA_Manifest = list(\
@@ -131,7 +131,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
-						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+						FA.overlays += image('icons/obj/machines/monitors.dmi', "overlay_delta")
 						FA.update_icon()
 
 		SSnightshift.check_nightshift(TRUE)

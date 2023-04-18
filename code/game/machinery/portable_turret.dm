@@ -5,7 +5,7 @@
 
 /obj/machinery/porta_turret
 	name = "turret"
-	icon = 'icons/obj/turrets.dmi'
+	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "turretCover"
 	anchored = TRUE
 	density = FALSE
@@ -753,7 +753,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret_construct
 	name = "turret frame"
-	icon = 'icons/obj/turrets.dmi'
+	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "turret_frame"
 	density=1
 	var/target_type = /obj/machinery/porta_turret	// The type we intend to build
@@ -943,7 +943,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	return
 
 /atom/movable/porta_turret_cover
-	icon = 'icons/obj/turrets.dmi'
+	icon = 'icons/obj/machines/turrets.dmi'
 	anchored = TRUE
 
 // Syndicate turrets

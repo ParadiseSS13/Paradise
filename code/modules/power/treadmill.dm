@@ -2,7 +2,7 @@
 #define MAX_SPEED		2
 
 /obj/machinery/power/treadmill
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor0"
 	name = "treadmill"
 	desc = "A power-generating treadmill."

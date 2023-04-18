@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	name = "Requests Console"
 	desc = "A console intended to send requests to different departments on the station."
 	anchored = TRUE
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "req_comp0"
 	max_integrity = 300
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)

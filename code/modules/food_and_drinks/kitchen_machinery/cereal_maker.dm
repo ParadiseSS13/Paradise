@@ -1,7 +1,7 @@
 /obj/machinery/cooker/cerealmaker
 	name = "cereal maker"
 	desc = "Now with Dann O's available!"
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "cereal_off"
 	thiscooktype = "cerealized"
 	cooktime = 200

@@ -1,6 +1,6 @@
 /obj/machinery/computer/podtracker
 	name = "pod tracking console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "rdcomp"
 	light_color = LIGHT_COLOR_PURPLE

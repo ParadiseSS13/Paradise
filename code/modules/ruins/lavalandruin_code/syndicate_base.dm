@@ -26,7 +26,7 @@
 	mob_name = "Syndicate Bioweapon Scientist"
 	roundstart = FALSE
 	death = FALSE
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper_s"
 	important_info = "Do not work against Syndicate personnel (such as traitors or nuclear operatives). You may work with or against non-Syndicate antagonists on a case-by-case basis. Do not leave your base without admin permission."
 	description = "Experiment with deadly chems and viruses in peace or help any visiting Syndicate Agent."

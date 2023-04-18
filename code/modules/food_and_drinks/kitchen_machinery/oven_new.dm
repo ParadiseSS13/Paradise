@@ -2,7 +2,7 @@
 /obj/machinery/kitchen_machine/oven
 	name = "oven"
 	desc = "Cookies are ready, dear."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "oven_off"
 	cook_verbs = list("Baking", "Roasting", "Broiling")
 	recipe_type = RECIPE_OVEN

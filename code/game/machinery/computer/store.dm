@@ -1,6 +1,6 @@
 /obj/machinery/computer/merch
 	name = "merch computer"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_screen = "comm_logs"
 	circuit = /obj/item/circuitboard/merch
 

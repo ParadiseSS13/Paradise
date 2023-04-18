@@ -1,6 +1,6 @@
 /obj/machinery/dye_generator
 	name = "Dye Generator"
-	icon = 'icons/obj/vending.dmi'
+	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "barbervend"
 	density = 1
 	anchored = 1

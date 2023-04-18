@@ -2,7 +2,7 @@
 /obj/machinery/kitchen_machine/candy_maker
 	name = "candy machine"
 	desc = "The stuff of nightmares for a dentist."
-	icon = 'icons/obj/cooking_machines.dmi'
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "candymaker_off"
 	cook_verbs = list("Wonderizing", "Scrumpdiddlyumptiousification", "Miracle-coating", "Flavorifaction")
 	recipe_type = RECIPE_CANDY

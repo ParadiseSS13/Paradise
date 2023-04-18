@@ -9,7 +9,7 @@ FIRE ALARM
 /obj/machinery/firealarm
 	name = "fire alarm"
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "fire0"
 	var/detecting = 1.0
 	var/working = 1.0
@@ -281,9 +281,9 @@ FIRE ALARM
 
 	if(is_station_contact(z) && show_alert_level)
 		if(GLOB.security_level)
-			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
+			overlays += image('icons/obj/machines/monitors.dmi', "overlay_[get_security_level()]")
 		else
-			overlays += image('icons/obj/monitors.dmi', "overlay_green")
+			overlays += image('icons/obj/machines/monitors.dmi', "overlay_green")
 
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)

@@ -17,7 +17,7 @@ log transactions
 /obj/machinery/atm
 	name = "Nanotrasen automatic teller machine"
 	desc = "For all your monetary needs! Just insert your ID card to make a withdrawal or deposit!"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "atm"
 	anchored = TRUE
 	use_power = IDLE_POWER_USE

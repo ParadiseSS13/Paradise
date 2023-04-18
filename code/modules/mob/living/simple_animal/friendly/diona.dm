@@ -66,7 +66,7 @@
 
 /datum/action/innate/diona/evolve
 	name = "Evolve"
-	icon_icon = 'icons/obj/cloning.dmi'
+	icon_icon = 'icons/obj/machines/cloning.dmi'
 	button_icon_state = "pod_1"
 
 /datum/action/innate/diona/evolve/Activate()

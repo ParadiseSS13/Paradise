@@ -286,13 +286,13 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /obj/machinery/vox_win_button
 	name = "shoal contact computer"
 	desc = "Used to contact the Vox Shoal, generally to arrange for pickup."
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "tcstation"
 	anchored = TRUE
 
 /obj/machinery/vox_win_button/New()
 	. = ..()
-	overlays += icon('icons/obj/computer.dmi', "syndie")
+	overlays += icon('icons/obj/machines/computer.dmi', "syndie")
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round

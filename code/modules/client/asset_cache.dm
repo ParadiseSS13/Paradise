@@ -255,9 +255,9 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/verify = FALSE
 
 /datum/asset/cloning/register()
-	assets["pod_idle.gif"] = icon('icons/obj/cloning.dmi', "pod_idle")
-	assets["pod_cloning.gif"] = icon('icons/obj/cloning.dmi', "pod_cloning")
-	assets["pod_mess.gif"] = icon('icons/obj/cloning.dmi', "pod_mess")
+	assets["pod_idle.gif"] = icon('icons/obj/machines/cloning.dmi', "pod_idle")
+	assets["pod_cloning.gif"] = icon('icons/obj/machines/cloning.dmi', "pod_cloning")
+	assets["pod_mess.gif"] = icon('icons/obj/machines/cloning.dmi', "pod_mess")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
 
