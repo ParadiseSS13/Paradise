@@ -644,6 +644,9 @@
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
 
+/obj/item/clothing/suit/hooded/clockrobe/can_store_weighted()
+	return TRUE
+
 /obj/item/clothing/suit/hooded/clockrobe/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.robe_spells
@@ -743,6 +746,9 @@
 	var/reflect_uses = 3
 	var/normal_armor
 	var/harden_armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+
+/obj/item/clothing/suit/armor/clockwork/can_store_weighted()
+	return TRUE
 
 /obj/item/clothing/suit/armor/clockwork/Initialize(mapload)
 	. = ..()
