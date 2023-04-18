@@ -58,7 +58,8 @@
 			var/foundlaws = 0
 			var/checked = FALSE
 			for(var/datum/ai_law/law in current.laws.all_laws())
-				foundlaws = foundlaws + 1
+				if (law in current.laws.inherent_laws)
+					foundlaws = foundlaws + 1
 				if(current.laws.ion_laws.len == 0 && checked == FALSE)
 					checked = TRUE
 					if (rand(1,10) >= 9)  // 20% chance to generate an ion law if none exists
@@ -72,10 +73,6 @@
 						current.add_ion_law()
 						cooldown = world.time + 600
 						return
-				if (law in current.laws.supplied_laws) //exclude  supplied laws from the foundlaws list
-					foundlaws = foundlaws - 1
-			if(current.laws.ion_laws.len > 0) //exclude ion laws from the foundlaws list
-				foundlaws = foundlaws - current.laws.ion_laws.len
 			var/lawposition = rand(1,foundlaws)
 			if (foundlaws != 0) //as long as it finds a law to change
 				current.laws.inherent_laws[lawposition].law = new/datum/ai_law/inherent(generate_ion_law()).law
@@ -87,7 +84,7 @@
 				for (i=1,i<=current.connected_robots.len,i++) // push alert to the AI's borgs
 					current.connected_robots[i].cmd_show_laws()
 					current.connected_robots[i].throw_alert("newlaw", /obj/screen/alert/newlaw)
-				return
+			return
 	return ..()
 
 
