@@ -396,24 +396,25 @@
 	object_overlays.Cut()
 
 /obj/screen/inventory/proc/add_overlays()
+	if(!hud?.mymob || !slot_id || slot_id == slot_l_hand || slot_id == slot_r_hand)
+		return
+
 	var/mob/user = hud.mymob
+	var/obj/item/holding = user.get_active_hand()
 
-	if(hud && user && slot_id)
-		var/obj/item/holding = user.get_active_hand()
+	if(!holding || user.get_item_by_slot(slot_id))
+		return
 
-		if(!holding || user.get_item_by_slot(slot_id))
-			return
+	var/image/item_overlay = image(holding)
+	item_overlay.alpha = 92
 
-		var/image/item_overlay = image(holding)
-		item_overlay.alpha = 92
+	if(!user.advanced_can_equip(holding, slot_id, disable_warning = TRUE))
+		item_overlay.color = "#ff0000"
+	else
+		item_overlay.color = "#00ff00"
 
-		if(!user.advanced_can_equip(holding, slot_id, disable_warning = TRUE))
-			item_overlay.color = "#ff0000"
-		else
-			item_overlay.color = "#00ff00"
-
-		object_overlays += item_overlay
-		add_overlay(object_overlays)
+	object_overlays += item_overlay
+	add_overlay(object_overlays)
 
 /obj/screen/inventory/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
