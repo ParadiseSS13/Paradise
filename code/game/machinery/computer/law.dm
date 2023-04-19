@@ -9,6 +9,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
 	var/cooldown = 0
+	var/cooldown_delay = 600
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
@@ -64,14 +65,14 @@
 					checked = TRUE
 					if(prob(20))  // 20% chance to generate an ion law if none exists
 						current.add_ion_law(generate_ion_law())
-						cooldown = world.time + 600
+						cooldown = world.time + cooldown_delay
 						return
 				else if(law in current.laws.ion_laws && checked == FALSE) //10% chance to overwrite a current ion
 					checked = TRUE
 					if(prob(10))
 						current.clear_ion_laws()
 						current.add_ion_law()
-						cooldown = world.time + 600
+						cooldown = world.time + cooldown_delay
 						return
 			var/lawposition = rand(1,foundlaws)
 			if (foundlaws != 0) //as long as it finds a law to change
@@ -79,7 +80,7 @@
 				log_and_message_admins("has given [src] uploaded the emag'd inherent law: [current.laws.inherent_laws[lawposition].law]")
 				current.show_laws()
 				current.throw_alert("newlaw", /obj/screen/alert/newlaw)
-				cooldown = world.time + 600
+				cooldown = world.time + cooldown_delay
 				for(var/i in 1 to length(current.connected_robots)) // push alert to the AI's borgs
 					current.connected_robots[i].cmd_show_laws()
 					current.connected_robots[i].throw_alert("newlaw", /obj/screen/alert/newlaw)
