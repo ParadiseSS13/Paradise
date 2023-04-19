@@ -185,7 +185,10 @@
 	if(H.floating || H.flying || H.buckled)
 		return
 
-	if(H.shoes || (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET)))
+	if(!IS_HORIZONTAL(H) && (H.shoes || (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))))
+		return
+
+	if(IS_HORIZONTAL(H) && ((H.wear_suit && (H.wear_suit.body_parts_covered & UPPER_TORSO)) || (H.w_uniform && (H.w_uniform.body_parts_covered & UPPER_TORSO))))
 		return
 
 	H.visible_message("<span class='danger'>[H] is injected by [src].</span>", \
