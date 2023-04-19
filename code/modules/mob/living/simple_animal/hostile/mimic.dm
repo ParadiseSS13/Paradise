@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	if(. && target && Adjacent(target))
 		visible_message("<span class='danger'>[src] throws itself on top of [target], crushing [target.p_them()]!</span>")
-		orig_vendor.forceMove(get_turf(loc))
+		orig_vendor.forceMove(get_turf(target))  // just to be sure it'll tilt onto them
 		orig_vendor.tilt(target, TRUE, FALSE)  // geeeeet dunked on
 		orig_vendor = null
 		qdel(src)
