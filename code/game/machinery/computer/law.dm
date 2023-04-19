@@ -46,15 +46,15 @@
 		if(!atoms_share_level(T, src))
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 			return
-		if (!emagged) //non-emag law change
+		if(!emagged) //non-emag law change
 			var/obj/item/aiModule/M = O
 			M.install(src)
 			return
 		else
 			if(world.time < cooldown)
-				to_chat(user, "The program seems to have frozen. It will need some time to process")
+				to_chat(user, "The program seems to have frozen. It will need some time to process.")
 				return
-			do_sparks(5, 1, src)
+			do_sparks(5, TRUE, src)
 			var/foundlaws = 0
 			var/checked = FALSE
 			for(var/datum/ai_law/law in current.laws.all_laws())
