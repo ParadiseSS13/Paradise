@@ -7,14 +7,15 @@
 	anchored = TRUE
 	idle_power_consumption = 1
 	active_power_consumption = 5
+	can_buckle = TRUE // you can buckle someone if they have cuffs
+	buckle_lying = TRUE
 	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
-	buckle_lying = TRUE
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
-	can_buckle = TRUE // you can buckle someone if they have cuffs
+
 
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
