@@ -12,13 +12,13 @@
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
-	if (!emagged)
+	if(!emagged)
 		emagged = TRUE
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
 								"<span class='notice'>You emag [src], scrambling the computer's law encoding system.</span>")
-		playsound(loc, 'sound/effects/sparks4.ogg', 50, 1)
-		do_sparks(5, 1, src)
+		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		do_sparks(5, TRUE, src)
 		circuit = /obj/item/circuitboard/aiupload_broken
 
 // What the fuck even is this
