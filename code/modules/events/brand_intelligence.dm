@@ -45,7 +45,7 @@
 				// let them become "normal" after turning
 				upriser.shoot_inventory = FALSE
 				upriser.aggressive = FALSE
-				var/mob/living/simple_animal/hostile/mimic/copy/vendor/M = new(upriser.loc, upriser, null) // it will delete upriser on creation and override any machine checks
+				var/mob/living/simple_animal/hostile/mimic/copy/vendor/M = new(upriser.loc, upriser, null)
 				M.faction = list("profit")
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
