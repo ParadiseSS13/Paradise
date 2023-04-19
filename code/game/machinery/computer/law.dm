@@ -67,7 +67,7 @@
 						current.add_ion_law(generate_ion_law())
 						cooldown = world.time + cooldown_delay
 						return
-				else if(law in current.laws.ion_laws && checked == FALSE) //10% chance to overwrite a current ion
+				else if(law in current.laws.ion_laws && !checked) //10% chance to overwrite a current ion
 					checked = TRUE
 					if(prob(10))
 						current.clear_ion_laws()
