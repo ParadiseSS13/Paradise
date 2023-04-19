@@ -804,7 +804,7 @@
 				if(!disable_warning)
 					to_chat(H, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 				return FALSE
-			if(I.w_class > WEIGHT_CLASS_BULKY)
+			if(I.w_class > H.wear_suit.max_suit_w)
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>[I] is too big to attach.</span>")
 				return FALSE
