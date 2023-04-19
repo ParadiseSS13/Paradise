@@ -74,10 +74,10 @@
 						current.add_ion_law()
 						cooldown = world.time + cooldown_delay
 						return
-			var/lawposition = rand(1,foundlaws)
-			if (foundlaws != 0) //as long as it finds a law to change
+			var/lawposition = rand(1, foundlaws)
+			if(foundlaws) //as long as it finds a law to change
 				current.laws.inherent_laws[lawposition].law = new/datum/ai_law/inherent(generate_ion_law()).law
-				log_and_message_admins("has given [src] uploaded the emag'd inherent law: [current.laws.inherent_laws[lawposition].law]")
+				log_and_message_admins("has given [src] uploaded the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
 				current.show_laws()
 				current.throw_alert("newlaw", /obj/screen/alert/newlaw)
 				cooldown = world.time + cooldown_delay
