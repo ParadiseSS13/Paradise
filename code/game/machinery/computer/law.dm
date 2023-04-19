@@ -58,8 +58,8 @@
 			var/foundlaws = 0
 			var/checked = FALSE
 			for(var/datum/ai_law/law in current.laws.all_laws())
-				if (law in current.laws.inherent_laws)
-					foundlaws = foundlaws + 1
+				if(law in current.laws.inherent_laws)
+					foundlaws++
 				if(current.laws.ion_laws.len == 0 && checked == FALSE)
 					checked = TRUE
 					if(prob(20))  // 20% chance to generate an ion law if none exists
