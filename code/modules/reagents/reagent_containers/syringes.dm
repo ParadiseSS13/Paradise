@@ -179,7 +179,7 @@
 		M.update_inv_r_hand()
 
 /obj/item/reagent_containers/syringe/Crossed(mob/living/carbon/human/H, oldloc)
-	if(!istype(H) || !H.reagents || (HAS_TRAIT(H,TRAIT_PIERCEIMMUNE) || ismachineperson(H)))
+	if(!istype(H) || !H.reagents || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || ismachineperson(H))
 		return
 
 	if(H.floating || H.flying || H.buckled)
@@ -197,7 +197,7 @@
 	if(IS_HORIZONTAL(H))
 		H.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
 	else
-		H.apply_damage(5, BRUTE,(pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)))
+		H.apply_damage(5, BRUTE, pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 
 	if(reagents.total_volume && H.reagents.total_volume < H.reagents.maximum_volume)
 		var/inject_amount = reagents.total_volume
