@@ -42,7 +42,7 @@
 		for(var/thing in infectedMachines)
 			var/obj/machinery/economy/vending/upriser = thing
 			if(prob(70))
-				var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null, 1) // it will delete upriser on creation and override any machine checks
+				var/mob/living/simple_animal/hostile/mimic/copy/vendor/M = new(upriser.loc, upriser, null, 1) // it will delete upriser on creation and override any machine checks
 				M.faction = list("profit")
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
@@ -59,6 +59,8 @@
 		infectedMachines.Add(rebel)
 		rebel.shut_up = FALSE
 		rebel.shoot_inventory = TRUE
+		rebel.aggressive = TRUE
+		rebel.AddComponent(/datum/component/proximity_monitor)
 
 		if(ISMULTIPLE(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))

@@ -149,6 +149,9 @@
 	/// How long to wait before resetting the warning cooldown
 	var/hit_warning_cooldown_length = 10 SECONDS
 
+	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
+	var/aggressive = FALSE
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -427,6 +430,18 @@
 			new dump_path(get_turf(src))
 			R.amount--
 			break
+
+/obj/machinery/economy/vending/HasProximity(atom/movable/AM)
+	if(!aggressive)
+		return
+
+	if(isliving(AM))
+		AM.visible_message(
+			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
+			"<span class='userdanger'>[src] topples over onto you without warning!</span>"
+		)
+		tilt(AM, prob(90), FALSE)
+		// yes, it stays aggressive. This means you better deal with it from a distance.
 
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -880,6 +895,9 @@
 	stat |= BROKEN
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
+
+	if(aggressive)
+		aggressive = FALSE  // the evil is defeated
 
 	if(cash_transaction)
 		new /obj/item/stack/spacecash(get_turf(src), cash_transaction)
