@@ -68,7 +68,7 @@
 						return
 				else if(law in current.laws.ion_laws && checked == FALSE) //10% chance to overwrite a current ion
 					checked = TRUE
-					if (rand(1,10) >= 10)
+					if(prob(10))
 						current.clear_ion_laws()
 						current.add_ion_law()
 						cooldown = world.time + 600
