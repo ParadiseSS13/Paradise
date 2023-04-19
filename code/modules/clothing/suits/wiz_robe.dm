@@ -89,7 +89,7 @@
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
-	allowed = list(/obj/item/teleportation_scroll)
+	allowed = list(/obj/item/teleportation_scroll, /obj/item/gun/magic/staff)
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
 	put_on_delay = 50
