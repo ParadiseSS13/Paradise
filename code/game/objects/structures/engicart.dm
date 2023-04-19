@@ -103,12 +103,12 @@
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	user.set_machine(src)
 	var/dat
-	if(myplasteel)
-		dat += "<a href='?src=[UID()];plasteel=1'>[myplasteel.name]</a><br>"
-	if(mymetal)
-		dat += "<a href='?src=[UID()];metal=1'>[mymetal.name]</a><br>"
 	if(myglass)
 		dat += "<a href='?src=[UID()];glass=1'>[myglass.name]</a><br>"
+	if(mymetal)
+		dat += "<a href='?src=[UID()];metal=1'>[mymetal.name]</a><br>"
+	if(myplasteel)
+		dat += "<a href='?src=[UID()];plasteel=1'>[myplasteel.name]</a><br>"
 	if(myflashlight)
 		dat += "<a href='?src=[UID()];flashlight=1'>[myflashlight.name]</a><br>"
 	if(mybluetoolbox)
