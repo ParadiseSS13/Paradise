@@ -62,7 +62,7 @@
 					foundlaws = foundlaws + 1
 				if(current.laws.ion_laws.len == 0 && checked == FALSE)
 					checked = TRUE
-					if (rand(1,10) >= 9)  // 20% chance to generate an ion law if none exists
+					if(prob(20))  // 20% chance to generate an ion law if none exists
 						current.add_ion_law(generate_ion_law())
 						cooldown = world.time + 600
 						return
