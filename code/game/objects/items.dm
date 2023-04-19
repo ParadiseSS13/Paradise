@@ -73,6 +73,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Percentage armour reduction, happens before flat armour reduction.
 	var/armour_penetration_percentage = 0
 	var/list/allowed = null //suit storage stuff.
+	var/max_suit_w = WEIGHT_CLASS_BULKY //suit storage max weight
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
 	var/needs_permit = FALSE			//Used by security bots to determine if this item is safe for public use.

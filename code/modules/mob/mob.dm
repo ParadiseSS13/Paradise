@@ -461,7 +461,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
 					return 0
-				if(src.w_class > WEIGHT_CLASS_BULKY)
+				if(src.w_class > H.wear_suit.max_suit_w)
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
