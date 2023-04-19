@@ -440,7 +440,7 @@
 			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
 			"<span class='userdanger'>[src] topples over onto you without warning!</span>"
 		)
-		tilt(AM, prob(90), FALSE)
+		tilt(AM, prob(75), FALSE)
 		// yes, it stays aggressive. This means you better deal with it from a distance.
 
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)

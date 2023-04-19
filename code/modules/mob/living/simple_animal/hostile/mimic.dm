@@ -234,15 +234,14 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 
 	orig_vendor = base
 	orig_vendor.forceMove(src)
-
-
-	orig_vendor.aggressive = FALSE // just to be safe, in case this was turned
+	orig_vendor.aggressive = FALSE // just to be safe, in case this was converted
 
 	return ..(mapload, base, creator, destroy_original = FALSE)
 
 /mob/living/simple_animal/hostile/mimic/copy/vendor/AttackingTarget()
 	. = ..()
 	if(. && target && Adjacent(target))
+		visible_message("<span class='danger'>[src] throws itself on top of [target], crushing [target.p_them()]!</span>")
 		orig_vendor.forceMove(get_turf(loc))
 		orig_vendor.tilt(target, TRUE, FALSE)  // geeeeet dunked on
 		orig_vendor = null
@@ -251,6 +250,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 /mob/living/simple_animal/hostile/mimic/copy/vendor/death(gibbed)
 	if(!QDELETED(orig_vendor))
 		orig_vendor.forceMove(get_turf(src))
+		// tilt over in place
 		orig_vendor.tilt_over()
 		orig_vendor = null
 	return ..()
