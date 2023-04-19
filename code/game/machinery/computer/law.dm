@@ -9,7 +9,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
 	var/cooldown = 0
-	var/cooldown_delay = 600
+	var/cooldown_delay = 60 SECONDS
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
@@ -77,7 +77,7 @@
 			var/lawposition = rand(1, foundlaws)
 			if(foundlaws) //as long as it finds a law to change
 				current.laws.inherent_laws[lawposition].law = new/datum/ai_law/inherent(generate_ion_law()).law
-				log_and_message_admins("has given [src] uploaded the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
+				log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
 				current.show_laws()
 				current.throw_alert("newlaw", /obj/screen/alert/newlaw)
 				cooldown = world.time + cooldown_delay
