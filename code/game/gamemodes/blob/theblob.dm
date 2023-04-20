@@ -5,7 +5,7 @@
 	light_range = 3
 	desc = "Some blob creature thingy"
 	density = 0
-	opacity = 0
+	opacity = 1
 	anchored = 1
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
