@@ -358,6 +358,12 @@
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
 
+/obj/item/storage/belt/military/traitor/sec
+	name = "security belt"
+	desc = "Can hold security gear like handcuffs and flashes."
+	icon_state = "securitybelt"
+	item_state = "security"
+
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
 	desc = "A belt for holding grenades."
