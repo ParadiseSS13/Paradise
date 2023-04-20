@@ -65,6 +65,7 @@
 /obj/machinery/suit_storage_unit/ce
 	name = "chief engineer's suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/elite
+	storage_type = /obj/item/tank/internals/oxygen
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots/advance
 	req_access = list(ACCESS_CE)
@@ -119,12 +120,14 @@
 
 /obj/machinery/suit_storage_unit/cmo
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/medical
+	storage_type = /obj/item/tank/internals/oxygen
 	mask_type    = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_CMO)
 
 //version of the SSU for medbay secondary storage. Includes magboots.
 /obj/machinery/suit_storage_unit/cmo/sec_storage
 	name = "medical suit storage unit"
+	storage_type = null
 	mask_type = /obj/item/clothing/mask/gas
 
 /obj/machinery/suit_storage_unit/clown
@@ -142,6 +145,7 @@
 /obj/machinery/suit_storage_unit/rd
 	name = "research director's suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/hardsuit/rd
+	storage_type = /obj/item/tank/internals/oxygen
 	mask_type = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots
 	req_access = list(ACCESS_RD)
