@@ -1,7 +1,7 @@
 /datum/event/pirates
 	announceWhen	= 400
 	var/highpop_trigger = 80
-	var/spawncount = 2
+	var/spawncount = 5
 	var/list/playercount
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
