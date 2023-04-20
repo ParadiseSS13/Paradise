@@ -128,11 +128,22 @@
 	zoom_amt = 7
 	shaded_charge = TRUE
 	var/scope_active = FALSE //To ensure we don't activate the piercing ammo out of scope.
+	var/stored_dir
+
+/obj/item/gun/energy/lwap/Initialize(mapload, ...)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/gun/energy/lwap/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
 
 /obj/item/gun/energy/lwap/zoom(mob/living/user, forced_zoom)
 	. = ..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
+		stored_dir = H.dir
 		if(scope_active && !zoomed)
 			select_fire(H)
 			H.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
@@ -142,7 +153,15 @@
 				scope_active = TRUE
 				to_chat(user, "<b><span class='robot'>SMRT-SCOPE Online.</span></b>")
 				select_fire(H)
-				H.apply_status_effect(STATUS_EFFECT_LWAPSCOPE)
+				H.apply_status_effect(STATUS_EFFECT_LWAPSCOPE, stored_dir)
+
+/obj/item/gun/energy/lwap/process()
+	. = ..()
+	if(isliving(loc))
+		var/mob/living/M = loc
+		if(world.time - M.last_movement <= 21 && zoomed) //Not perfect, will cause moving just before scoping to not be happy, open for a better solution.
+			to_chat(M, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
+			zoom(M, FALSE)
 
 /obj/item/gun/energy/lwap/attack_self()
 	return //no manual ammo changing.

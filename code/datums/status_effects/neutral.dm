@@ -152,21 +152,36 @@
 	duration = -1
 	tick_interval = 4
 	var/locks = 0
+	var/owner_dir = 0
+
+/datum/status_effect/lwap_scope/on_creation(mob/living/new_owner, stored_dir = 0)
+	owner_dir = stored_dir
+	return ..()
 
 /datum/status_effect/lwap_scope/tick()
 	locks = 0
-	for(var/mob/living/L in range(14, owner))// So. I would like this to be centered on the mobs client screen. Unsure how to do that at the moment.
-		if(locks >= LWAP_LOCK_CAP)
-			return
-		if(L == owner)
+	var/turf/owner_turf = get_turf(owner)
+	var/scope_turf
+	for(var/turf/T in RANGE_EDGE_TURFS(7, owner_turf))
+		if(get_dir(owner, T) != owner_dir)
 			continue
-		if(L.stat == DEAD)
+		if(T in range(owner, 6))
 			continue
-		if(isslime(L) || ismonkeybasic(L)) //xenobio moment
+		scope_turf = T
+		break
+	if(scope_turf)
+		for(var/mob/living/L in range(10, scope_turf))
+			if(locks >= LWAP_LOCK_CAP)
+				return
+			if(L == owner)
+				continue
+			if(L.stat == DEAD)
+				continue
+			if(isslime(L) || ismonkeybasic(L)) //xenobio moment
+				continue
+			new /obj/effect/temp_visual/lwap_ping(owner.loc, owner, L)
+			locks++
 			continue
-		new /obj/effect/temp_visual/lwap_ping(owner.loc, owner, L)
-		locks++
-		continue
 
 #undef LWAP_LOCK_CAP
 
