@@ -1495,6 +1495,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/regenerate_icons()
 	. = ..()
 	update_module_icon()
+	update_icons()
 
 /mob/living/silicon/robot/emp_act(severity)
 	if(emp_protection)
