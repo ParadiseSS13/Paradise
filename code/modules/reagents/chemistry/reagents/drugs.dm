@@ -283,6 +283,7 @@
 	addiction_chance = 10
 	addiction_threshold = 10
 	taste_description = "very poor life choices"
+	allowed_overdose_process = TRUE
 
 
 /datum/reagent/krokodil/on_mob_life(mob/living/M)
