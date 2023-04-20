@@ -434,6 +434,9 @@
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 
+	// Temp for TM
+	to_chat(src, "<hr><span class='boldnotice'>We are doing a testmerge of widescreen. If your game viewport is still square, please go to the <code>OOC</code> tab and press <code>Fit Viewport</code>.</span><hr>")
+
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
 	if((!address && !world.port) || (address in localhost_addresses))
