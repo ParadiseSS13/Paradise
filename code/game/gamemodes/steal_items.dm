@@ -7,12 +7,31 @@ GLOBAL_LIST_INIT(potential_theft_objectives_hard, subtypesof(/datum/theft_object
 GLOBAL_LIST_INIT(potential_theft_objectives_medium, subtypesof(/datum/theft_objective/medium))
 GLOBAL_LIST_INIT(potential_theft_objectives_collect, subtypesof(/datum/theft_objective/collect) - /datum/theft_objective/collect/number - /datum/theft_objective/collect/number/name)
 
+GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
+
 #define THEFT_FLAG_HIGHRISK 0
 #define THEFT_FLAG_UNIQUE 	1
 #define THEFT_FLAG_HARD 	2
 #define THEFT_FLAG_MEDIUM 	3
 #define THEFT_FLAG_COLLECT 	4
 
+/proc/get_ungibbable_items_types()
+	var/types = list()
+
+	// Highrisk items
+	for(var/highrisk_objective_type in subtypesof(/datum/theft_objective/highrisk))
+		var/datum/theft_objective/highrisk_objective = highrisk_objective_type
+		types += initial(highrisk_objective.typepath)
+
+	// Cash objective
+	types += /obj/item/stack/spacecash
+
+	// Brains
+	types += /obj/item/mmi/robotic_brain // Robotic and positronic
+	types += /obj/item/organ/internal/brain // Regular brains
+	types += /mob/living/simple_animal/diona // Possible diona brains
+
+	return types
 
 /datum/objective/proc/get_theft_list_objectives(var/type_theft_flag)
 	switch(type_theft_flag)

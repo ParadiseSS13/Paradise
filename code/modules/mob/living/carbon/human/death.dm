@@ -54,7 +54,7 @@
 	icon = null
 	invisibility = 101
 	dust_animation()
-	QDEL_IN(src, 15)
+	QDEL_IN(src, 0)
 	return TRUE
 
 /mob/living/carbon/human/dust_animation()
