@@ -517,6 +517,7 @@ Difficulty: Hard
 				var/turf/T = get_turf(src)
 				for(var/atom/A in T)
 					A.ex_act(3) //Body is immune to explosions of this strength.
+				T.ex_act(3)
 
 	beam.forceMove(get_turf(src))
 	return ..()
@@ -591,7 +592,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/death(gibbed)
 	return //It shouldn't get gibbed by shuttle.
-
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Goto()
 	return // stops the legs from trying to move on their own
