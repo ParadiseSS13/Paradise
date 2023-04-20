@@ -5,6 +5,50 @@
 	species_allowed = list("Unathi")
 	over_hair = 1
 
+/datum/sprite_accessory/head_accessory/unathi/knight
+	name = "Knight"
+	icon_state = "knight_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/drake
+	name = "Drake"
+	icon_state = "drake_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/long
+	name = "Long"
+	icon_state = "long_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/largecurled
+	name = "Large curled"
+	icon_state = "largecurled_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/newcurly
+	name = "New curly"
+	icon_state = "newcurly_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/guilmon
+	name = "Guimon"
+	icon_state = "guilmon_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/straight
+	name = "Straight"
+	icon_state = "straight_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/straightdouble
+	name = "Straight double"
+	icon_state = "straight_double_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/broken
+	name = "Broken"
+	icon_state = "broken_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/brokenl
+	name = "Broken left"
+	icon_state = "brokenl_horns"
+
+/datum/sprite_accessory/head_accessory/unathi/brokenr
+	name = "broken right"
+	icon_state = "brokenr_horns"
+
 /datum/sprite_accessory/head_accessory/unathi/simple
 	name = "Simple"
 	icon_state = "simple_horns"
