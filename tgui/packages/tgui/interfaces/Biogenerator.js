@@ -11,45 +11,16 @@ import {
   Dimmer } from "../components";
 import { Window } from "../layouts";
 
-export const Biogenerator = (props, context) => {
-  const { data } = useBackend(context);
-  const { container } = data;
-
+export const Biogenerator = () => {
   return (
     <Window>
       <Window.Content display="flex" className="Layout__content--flexColumn">
         <Processing />
         <Storage />
         <Controls />
-        {!container ? (
-          <MissingContainer />
-        ) : (
-          <Products />
-        )}
+        <Products />
       </Window.Content>
     </Window>
-  );
-};
-
-const MissingContainer = (props, context) => {
-  return (
-    <Section flexGrow="1">
-      <Flex height="100%">
-        <Flex.Item
-          bold
-          grow="1"
-          textAlign="center"
-          align="center"
-          color="silver">
-          <Icon
-            name="flask"
-            size={5}
-            mb="10px"
-          /><br />
-          The biogenerator is missing a container.
-        </Flex.Item>
-      </Flex>
-    </Section>
   );
 };
 
@@ -118,7 +89,9 @@ const Storage = (props, context) => {
           </ProgressBar>
         ) : (
           <Flex.Item>
-            None
+            <Box color="red">
+              None
+            </Box>
           </Flex.Item>
         )}
       </Flex>
@@ -182,6 +155,7 @@ const Products = (props, context) => {
   const {
     biomass,
     product_list,
+    container,
   } = data;
 
   let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
@@ -202,7 +176,7 @@ const Products = (props, context) => {
             py="2px"
             className="candystripe"
             align="center">
-            <Flex.Item width="50%" ml="2px">
+            <Flex.Item width="40%" ml="2px">
               {item.name}
             </Flex.Item>
             <Flex.Item textAlign="right" width="20%">
@@ -215,15 +189,25 @@ const Products = (props, context) => {
               />
             </Flex.Item>
             <Flex.Item textAlign="right" width="40%">
-              <Button
-                content="Vend"
-                disabled={biomass < (item.cost * vendAmount)}
-                icon="arrow-circle-down"
-                onClick={() => act('create', {
-                  id: item.id,
-                  amount: vendAmount,
-                })}
-              />
+              {(item.needs_container && !container) ? (
+                <Button
+                  content="No container"
+                  disabled
+                  icon="flask"
+                  tooltip="Вставьте любой контейнер для использования этой опции"
+                  tooltipPosition="top-left"
+                />
+              ) : (
+                <Button
+                  content="Vend"
+                  disabled={biomass < (item.cost * vendAmount)}
+                  icon="arrow-circle-down"
+                  onClick={() => act('create', {
+                    id: item.id,
+                    amount: vendAmount,
+                  })}
+                />
+              )}
             </Flex.Item>
           </Flex>
         ))}
