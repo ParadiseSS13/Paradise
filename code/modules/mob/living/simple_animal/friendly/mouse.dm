@@ -324,9 +324,6 @@
 		icon_dead 		= "rat_[mouse_color]_dead"
 		icon_resting 	= "rat_[mouse_color]_sleep"
 
-/mob/living/simple_animal/mouse/rat/pull_constraint(atom/movable/AM, show_message = FALSE)
-	return TRUE
-
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
 	real_name = "gray rat"
