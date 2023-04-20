@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { clamp01, keyOfMatchingRange, scale, toFixed } from 'common/math';
 import { classes, pureComponentHooks } from 'common/react';
 import { Component } from 'inferno';

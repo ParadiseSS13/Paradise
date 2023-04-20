@@ -1,9 +1,7 @@
- /**
-  * tgui subsystem
-  *
-  * Contains all tgui state and subsystem code.
- **/
-
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
 
 SUBSYSTEM_DEF(tgui)
 	name = "TGUI"
