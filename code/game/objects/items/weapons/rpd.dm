@@ -282,7 +282,7 @@
 
 	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
 	if(ranged) //woosh beam if bluespaced at a distance
-		if(get_dist(src, T) <= (user.client.view + 2))\
+		if(get_dist(src, T) <= (user.client.maxview() + 2))\
 			user.Beam(T, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		else
 			message_admins("\[EXPLOIT] [key_name_admin(user)] attempted to place pipes with a BRPD via a camera console. (Attempted range exploit)")

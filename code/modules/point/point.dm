@@ -148,7 +148,7 @@
 		point_at(A)
 		return TRUE
 
-	if(client && !(A in view(client.view, src)))
+	if(client && !(A in view(client.maxview(), src)))
 		return FALSE
 
 	point_at(A)

@@ -285,6 +285,9 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
+	// Make the client widescreen
+	view = "19x15"
+
 	// We have a holder. Inform the relevant places
 	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
@@ -1248,6 +1251,11 @@
 
 	winset(src, null, "command=\".configure graphics-hwmode off\"")
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
+
+// Just returns the biggest number from client.view so we can do easier maths
+/client/proc/maxview()
+	var/list/screensize = getviewsize(view)
+	return max(screensize[1], screensize[2])
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

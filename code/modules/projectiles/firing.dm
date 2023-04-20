@@ -89,14 +89,14 @@
 
 			//Split Y+Pixel_Y up into list(Y, Pixel_Y)
 			var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-			var/x = text2num(screen_loc_X[1]) * world.icon_size + text2num(screen_loc_X[2]) - world.icon_size + (user.client ? user.client.pixel_x : 0)
-			var/y = text2num(screen_loc_Y[1]) * world.icon_size + text2num(screen_loc_Y[2]) - world.icon_size + (user.client ? user.client.pixel_y : 0)
+			var/x = (text2num(screen_loc_X[1]) - 1) * world.icon_size + text2num(screen_loc_X[2])
+			var/y = (text2num(screen_loc_Y[1]) - 1) * world.icon_size + text2num(screen_loc_Y[2])
 
 			//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
-			var/screenview = (user.client.view * 2 + 1) * world.icon_size //Refer to http://www.byond.com/docs/ref/info.html#/client/var/view for mad maths
+			var/list/screenview = getviewsize(user.client.view)
 
-			var/ox = round(screenview/2) //"origin" x
-			var/oy = round(screenview/2) //"origin" y
+			var/ox = round((screenview[1] * world.icon_size) / 2) - user.client.pixel_x //"origin" x
+			var/oy = round((screenview[2] * world.icon_size) / 2) - user.client.pixel_y //"origin" y
 			var/angle = ATAN2(y - oy, x - ox)
 			Angle = angle
 	if(spread)
