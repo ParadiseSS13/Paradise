@@ -185,48 +185,48 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/simple/paper
 	assets = list(
-		"large_stamp-clown.png"     = 'icons/paper_icons/large_stamp-clown.png',
-		"large_stamp-deny.png"      = 'icons/paper_icons/large_stamp-deny.png',
-		"large_stamp-ok.png"        = 'icons/paper_icons/large_stamp-ok.png',
-		"large_stamp-hop.png"       = 'icons/paper_icons/large_stamp-hop.png',
-		"large_stamp-cmo.png"       = 'icons/paper_icons/large_stamp-cmo.png',
-		"large_stamp-ce.png"        = 'icons/paper_icons/large_stamp-ce.png',
-		"large_stamp-hos.png"       = 'icons/paper_icons/large_stamp-hos.png',
-		"large_stamp-rd.png"        = 'icons/paper_icons/large_stamp-rd.png',
-		"large_stamp-cap.png"       = 'icons/paper_icons/large_stamp-cap.png',
-		"large_stamp-qm.png"        = 'icons/paper_icons/large_stamp-qm.png',
-		"large_stamp-law.png"       = 'icons/paper_icons/large_stamp-law.png',
-		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
-		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
-		"large_stamp-taipan.png" 	= 'icons/paper_icons/large_stamp-taipan.png',
-		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
-		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
-		"large_stamp-ward.png"      = 'icons/paper_icons/large_stamp-ward.png',
-		"talisman.png"              = 'icons/paper_icons/talisman.png',
-		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
-		"syndielogo.png"		    = 'icons/paper_icons/syndielogo.png',
-		"large_stamp-mime.png"      = 'icons/paper_icons/large_stamp-mime.png',
-		"thieflogo.png"		    	= 'icons/paper_icons/thieflogo.png',
-		"large_stamp-ploho.png"		= 'icons/paper_icons/large_stamp-ploho.png',
-		"large_stamp-BIGdeny.png"	= 'icons/paper_icons/large_stamp-BIGdeny.png'
+		"large_stamp-clown.png"     = 'icons/misc/paper_icons/large_stamp-clown.png',
+		"large_stamp-deny.png"      = 'icons/misc/paper_icons/large_stamp-deny.png',
+		"large_stamp-ok.png"        = 'icons/misc/paper_icons/large_stamp-ok.png',
+		"large_stamp-hop.png"       = 'icons/misc/paper_icons/large_stamp-hop.png',
+		"large_stamp-cmo.png"       = 'icons/misc/paper_icons/large_stamp-cmo.png',
+		"large_stamp-ce.png"        = 'icons/misc/paper_icons/large_stamp-ce.png',
+		"large_stamp-hos.png"       = 'icons/misc/paper_icons/large_stamp-hos.png',
+		"large_stamp-rd.png"        = 'icons/misc/paper_icons/large_stamp-rd.png',
+		"large_stamp-cap.png"       = 'icons/misc/paper_icons/large_stamp-cap.png',
+		"large_stamp-qm.png"        = 'icons/misc/paper_icons/large_stamp-qm.png',
+		"large_stamp-law.png"       = 'icons/misc/paper_icons/large_stamp-law.png',
+		"large_stamp-cent.png"      = 'icons/misc/paper_icons/large_stamp-cent.png',
+		"large_stamp-syndicate.png" = 'icons/misc/paper_icons/large_stamp-syndicate.png',
+		"large_stamp-taipan.png" 	= 'icons/misc/paper_icons/large_stamp-taipan.png',
+		"large_stamp-rep.png"	    = 'icons/misc/paper_icons/large_stamp-rep.png',
+		"large_stamp-magistrate.png"= 'icons/misc/paper_icons/large_stamp-magistrate.png',
+		"large_stamp-ward.png"      = 'icons/misc/paper_icons/large_stamp-ward.png',
+		"talisman.png"              = 'icons/misc/paper_icons/talisman.png',
+		"ntlogo.png"                = 'icons/misc/paper_icons/ntlogo.png',
+		"syndielogo.png"		    = 'icons/misc/paper_icons/syndielogo.png',
+		"large_stamp-mime.png"      = 'icons/misc/paper_icons/large_stamp-mime.png',
+		"thieflogo.png"		    	= 'icons/misc/paper_icons/thieflogo.png',
+		"large_stamp-ploho.png"		= 'icons/misc/paper_icons/large_stamp-ploho.png',
+		"large_stamp-BIGdeny.png"	= 'icons/misc/paper_icons/large_stamp-BIGdeny.png'
 	)
 
 /datum/asset/simple/chess
 	assets = list(
-		"bishop_black.png"			= 'icons/chess_pieces/bishop_black.png',
-		"bishop_white.png"			= 'icons/chess_pieces/bishop_white.png',
-		"king_black.png"			= 'icons/chess_pieces/king_black.png',
-		"king_white.png"			= 'icons/chess_pieces/king_white.png',
-		"knight_black.png"			= 'icons/chess_pieces/knight_black.png',
-		"knight_white.png"			= 'icons/chess_pieces/knight_white.png',
-		"pawn_black.png"			= 'icons/chess_pieces/pawn_black.png',
-		"pawn_white.png"			= 'icons/chess_pieces/pawn_white.png',
-		"queen_black.png"			= 'icons/chess_pieces/queen_black.png',
-		"queen_white.png"			= 'icons/chess_pieces/queen_white.png',
-		"rook_black.png"			= 'icons/chess_pieces/rook_black.png',
-		"rook_white.png"			= 'icons/chess_pieces/rook_white.png',
-		"sprites.png"			    = 'icons/chess_pieces/sprites.png',
-		"blank.gif"                 = 'icons/chess_pieces/blank.gif',
+		"bishop_black.png"			= 'icons/misc/chess_pieces/bishop_black.png',
+		"bishop_white.png"			= 'icons/misc/chess_pieces/bishop_white.png',
+		"king_black.png"			= 'icons/misc/chess_pieces/king_black.png',
+		"king_white.png"			= 'icons/misc/chess_pieces/king_white.png',
+		"knight_black.png"			= 'icons/misc/chess_pieces/knight_black.png',
+		"knight_white.png"			= 'icons/misc/chess_pieces/knight_white.png',
+		"pawn_black.png"			= 'icons/misc/chess_pieces/pawn_black.png',
+		"pawn_white.png"			= 'icons/misc/chess_pieces/pawn_white.png',
+		"queen_black.png"			= 'icons/misc/chess_pieces/queen_black.png',
+		"queen_white.png"			= 'icons/misc/chess_pieces/queen_white.png',
+		"rook_black.png"			= 'icons/misc/chess_pieces/rook_black.png',
+		"rook_white.png"			= 'icons/misc/chess_pieces/rook_white.png',
+		"sprites.png"			    = 'icons/misc/chess_pieces/sprites.png',
+		"blank.gif"                 = 'icons/misc/chess_pieces/blank.gif',
 		"garbochess.js"             = 'html/browser/garbochess.js',
 		"boardui.js"                = 'html/browser/boardui.js'
 	)
@@ -332,7 +332,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/safe
 	verify = FALSE
 	assets = list(
-		"safe_dial.png" = 'icons/safe_dial.png'
+		"safe_dial.png" = 'icons/obj/safe_dial.png'
 	)
 
 // Materials (metal, glass...)

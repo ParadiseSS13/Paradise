@@ -537,7 +537,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
 	name = "additional system for the reproduction of reagents"
 	desc = "Upgrade for the syringe gun. Increases synthesis speed and maximum capacity of reagents. Requires installation of the syringe gun system."
-	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "beaker_upgrade"
 	origin_tech = "materials=5;engineering=5;biotech=6"
 	energy_drain = 10
@@ -615,7 +615,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/improved_exosuit_control_system
 	name = "improved exosuit control system"
 	desc = "Equipment for medical exosuits. A system that provides more precise control of exosuit movement. In other words - Gotta go fast!"
-	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "move_plating"
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20

@@ -4,7 +4,7 @@
 	tele_proof = TRUE
 
 /obj/effect/landmark/map_loader/lavaland_room
-	icon = 'icons/testing/turf_analysis.dmi'
+	icon = 'icons/misc/Testing/turf_analysis.dmi'
 	icon_state = "arrow"
 
 /obj/effect/landmark/map_loader/lavaland_room/Initialize()

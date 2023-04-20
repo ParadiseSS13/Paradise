@@ -24,7 +24,7 @@
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg
 	desc = "A 6-shot grenade launcher."
-	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon = 'icons/obj/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_grenadelnchr"
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()

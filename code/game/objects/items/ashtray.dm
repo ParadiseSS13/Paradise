@@ -1,7 +1,7 @@
 /obj/item/storage/ashtray
 	name = "plastic ashtray"
 	desc = "Cheap plastic ashtray."
-	icon = 'icons/ashtray.dmi'
+	icon = 'icons/obj/ashtray.dmi'
 	icon_state = "ashtray_bl"
 	var/icon_half  = "ashtray_half_bl"
 	var/icon_full  = "ashtray_full_bl"

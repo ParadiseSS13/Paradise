@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(camera_range_display_status, 0)
 GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 /obj/effect/debugging/camera_range
-	icon = 'icons/480x480.dmi'
+	icon = 'icons/misc/480x480.dmi'
 	icon_state = "25percent"
 
 /obj/effect/debugging/camera_range/New()

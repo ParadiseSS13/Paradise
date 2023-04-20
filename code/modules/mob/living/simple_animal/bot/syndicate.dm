@@ -3,7 +3,7 @@
 	name = "Syndicate Sentry Bot"
 	desc = "A syndicate security bot."
 	model = "Guardian"
-	icon = 'icons/mecha/mecha.dmi'
+	icon = 'icons/obj/mecha/mecha.dmi'
 	icon_state = "darkgygax"
 	radio_channel = "Syndicate"
 	health = 300

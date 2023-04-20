@@ -144,13 +144,13 @@
 /datum/action/innate/dash/ninja/proc/update_cursor()
 	switch(current_charges)
 		if(3)
-			return "icons/mouse_pointers/ninja_cursor_three.dmi"
+			return "icons/misc/mouse_pointers/ninja_cursor_three.dmi"
 		if(2)
-			return "icons/mouse_pointers/ninja_cursor_two.dmi"
+			return "icons/misc/mouse_pointers/ninja_cursor_two.dmi"
 		if(1)
-			return "icons/mouse_pointers/ninja_cursor_one.dmi"
+			return "icons/misc/mouse_pointers/ninja_cursor_one.dmi"
 		if(0)
-			return "icons/mouse_pointers/ninja_cursor_off.dmi"
+			return "icons/misc/mouse_pointers/ninja_cursor_off.dmi"
 
 /datum/action/innate/dash/ninja/proc/update_action_style(color_style)
 	button_icon_state = "arrows_[clamp(current_charges, 0, max_charges)]" //Защита от потери иконок при админ абузе

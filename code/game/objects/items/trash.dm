@@ -137,7 +137,7 @@
 
 /obj/item/trash/broken_ashtray
 	name = "ashtray shards"
-	icon = 'icons/ashtray.dmi'
+	icon = 'icons/obj/ashtray.dmi'
 	icon_state = "ashtray_bork_bl"
 
 /obj/item/trash/broken_ashtray/Initialize(mapload)

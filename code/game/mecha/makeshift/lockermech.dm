@@ -1,7 +1,7 @@
 /obj/mecha/makeshift
 	desc = "A locker with stolen wires, struts, electronics and airlock servos crudley assemebled into something that resembles the fuctions of a mech."
 	name = "Locker Mech"
-	icon = 'icons/mecha/lockermech.dmi'
+	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "lockermech"
 	initial_icon = "lockermech"
 	max_integrity = 100 //its made of scraps
@@ -78,7 +78,7 @@
 /obj/mecha/combat/lockersyndie
 	desc = "A locker with stolen wires, struts, electronics and airlock servos crudley assemebled into something that resembles the fuctions of a mech. Dark-red painted."
 	name = "Syndie Locker Mech"
-	icon = 'icons/mecha/lockermech.dmi'
+	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "syndielockermech"
 	initial_icon = "syndielockermech"
 	lights_power = 5

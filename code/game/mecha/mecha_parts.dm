@@ -4,7 +4,7 @@
 
 /obj/item/mecha_parts
 	name = "mecha part"
-	icon = 'icons/mecha/mech_construct.dmi'
+	icon = 'icons/obj/mecha/mech_construct.dmi'
 	icon_state = "blank"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	flags = CONDUCT

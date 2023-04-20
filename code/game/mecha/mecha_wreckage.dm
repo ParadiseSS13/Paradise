@@ -6,7 +6,7 @@
 /obj/structure/mecha_wreckage
 	name = "exosuit wreckage"
 	desc = "Remains of some unfortunate mecha. Completely unrepairable, but perhaps something can be salvaged."
-	icon = 'icons/mecha/mecha.dmi'
+	icon = 'icons/obj/mecha/mecha.dmi'
 	density = TRUE
 	anchored = FALSE
 	opacity = 0

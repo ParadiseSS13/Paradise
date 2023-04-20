@@ -1,6 +1,6 @@
 /turf/simulated/floor/mech_bay_recharge_floor
 	name = "Mech Bay Recharge Station"
-	icon = 'icons/mecha/mech_bay.dmi'
+	icon = 'icons/obj/mecha/mech_bay.dmi'
 	icon_state = "recharge_floor"
 
 /turf/simulated/floor/mech_bay_recharge_floor/airless
@@ -14,7 +14,7 @@
 	density = 1
 	anchored = 1
 	dir = EAST
-	icon = 'icons/mecha/mech_bay.dmi'
+	icon = 'icons/obj/mecha/mech_bay.dmi'
 	icon_state = "recharge_port"
 	var/obj/mecha/recharging_mecha
 	var/obj/machinery/computer/mech_bay_power_console/recharge_console

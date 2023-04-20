@@ -28,7 +28,7 @@
 
 // "Directional" map template loader for N or S hotel room
 /obj/effect/landmark/map_loader/hotel_room
-	icon = 'icons/testing/turf_analysis.dmi'
+	icon = 'icons/misc/Testing/turf_analysis.dmi'
 	icon_state = "arrow"
 
 /obj/item/paper/crumpled/hotel_scrap_1
