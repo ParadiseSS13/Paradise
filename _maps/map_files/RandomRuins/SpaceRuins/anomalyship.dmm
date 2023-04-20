@@ -1,0 +1,8562 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ag" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	name = "Connector Port (Air Supply)"
+	},
+/obj/machinery/portable_atmospherics/canister/air{
+	maximum_pressure = 50000
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"ah" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/poison/giant_spider,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"at" = (
+/turf/simulated/mineral/plasma,
+/area/ae13/asteroid)
+"az" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/medbay)
+"aE" = (
+/obj/structure/alien/weeds,
+/obj/effect/contractor_flare,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"aU" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/miner)
+"bi" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"bG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/ae13/miner)
+"bM" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"cI" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/command)
+"cJ" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"cW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/statue/gold/cmo{
+	anchored = 1;
+	desc = "Looks unstable. Best to test it with the clown.";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	name = "bluespace portal"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"dd" = (
+/mob/living/simple_animal/hostile/mimic/crate,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"df" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/command)
+"do" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/epicenter)
+"dL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 6
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"dR" = (
+/turf/simulated/mineral/iron,
+/area/ae13/asteroid)
+"ew" = (
+/turf/space,
+/area/space)
+"eH" = (
+/obj/structure/safe,
+/obj/item/clothing/accessory/medal/gold{
+	pixel_x = -12
+	},
+/obj/item/lighter/zippo/gonzofist{
+	pixel_y = -5
+	},
+/obj/item/stack/spacecash/c1000{
+	amount = 5000
+	},
+/obj/item/gun/energy/gun/mini{
+	layer = 2.8;
+	pixel_x = 6;
+	pixel_y = -8
+	},
+/obj/item/paper/researchnotes,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"eX" = (
+/obj/machinery/computer/crew,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"fa" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/command)
+"fe" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"fw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"fA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"fD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 1
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"fN" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/miner)
+"fP" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/miner)
+"fW" = (
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/pickaxe/diamond{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/pickaxe/gold,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ae13/miner)
+"fY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1;
+	desc = "A portable generator for emergency backup power.";
+	name = "P.A.C.M.A.N.-type portable generator"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"gc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/headcrab,
+/mob/living/simple_animal/hostile/mimic/crate,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"gd" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/firstaid/o2,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkbluealtstrip"
+	},
+/area/ae13/medbay)
+"gv" = (
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ae13/miner)
+"gM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor,
+/area/ae13/energy)
+"gO" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/air{
+	maximum_pressure = 50000
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"hc" = (
+/obj/structure/alien/weeds,
+/obj/item/slimepotion/speed,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"hj" = (
+/turf/simulated/wall/shuttle,
+/area/ae13/medbay)
+"ho" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"hq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"hw" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/energy)
+"hy" = (
+/turf/simulated/floor,
+/area/ae13/miner)
+"hV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor,
+/area/ae13/hall)
+"ib" = (
+/obj/item/storage/belt/utility{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/item/storage/belt/utility{
+	pixel_x = -8;
+	pixel_y = -5
+	},
+/obj/machinery/recharger{
+	pixel_x = 8;
+	pixel_y = 8
+	},
+/obj/machinery/recharger{
+	pixel_x = -7;
+	pixel_y = 8
+	},
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"id" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor,
+/area/ae13/command)
+"ik" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/medbay)
+"is" = (
+/turf/simulated/wall/shuttle,
+/area/ae13/miner)
+"iL" = (
+/turf/space,
+/area/ae13/medbay)
+"iQ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"iU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"iV" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"jh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluecorners"
+	},
+/area/ae13/medbay)
+"jp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/energy)
+"jH" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/contractor_flare,
+/turf/simulated/floor,
+/area/ae13/command)
+"jT" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/sign/poster/official/healthy,
+/turf/simulated/wall/shuttle,
+/area/ae13/medbay)
+"kj" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/miner)
+"kG" = (
+/obj/item/storage/firstaid/regular{
+	pixel_x = -4;
+	pixel_y = 6
+	},
+/obj/structure/table/reinforced,
+/obj/item/clothing/gloves/color/yellow{
+	pixel_x = -1;
+	pixel_y = -7
+	},
+/obj/item/gps{
+	pixel_x = 8;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"lq" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/epicenter)
+"ls" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/medbay)
+"lF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"lG" = (
+/obj/item/grown/bananapeel/bluespace,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"lT" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowcorner"
+	},
+/area/ae13/miner)
+"mn" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/obj/structure/alien/resin/wall,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"mo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/insectguts,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"my" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"mH" = (
+/mob/living/simple_animal/hostile/carp/sea,
+/turf/space,
+/area/space)
+"mM" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"mS" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"mU" = (
+/obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien/queen/large{
+	desc = "A gigantic alien who is in charge of the hive and all of its loyal servants.";
+	health = 600;
+	maxHealth = 600;
+	name = "alien queen";
+	pixel_x = -16;
+	plants_off = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"nf" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/miner)
+"np" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/energy)
+"ns" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/medbay)
+"nv" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater2x2";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor,
+/area/ae13/medbay)
+"nV" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/miner)
+"nX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor,
+/area/ae13/hall)
+"ok" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor,
+/area/ae13/hall)
+"oB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/noalarm{
+	environ = 0;
+	equipment = 0;
+	lighting = 0;
+	name = "IPC area power controller";
+	pixel_y = -28;
+	req_access = list(111);
+	start_charge = 0
+	},
+/obj/structure/cable,
+/turf/simulated/floor,
+/area/ae13/energy)
+"oD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor,
+/area/ae13/hall)
+"oQ" = (
+/obj/structure/alien/weeds,
+/turf/simulated/mineral/iron,
+/area/ae13/asteroid)
+"oR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"pa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"pv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 6
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"pE" = (
+/obj/structure/alien/weeds,
+/obj/item/borg/upgrade/modkit/damage{
+	pixel_x = 8;
+	pixel_y = 13
+	},
+/obj/item/borg/upgrade/modkit/cooldown{
+	pixel_x = -5;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"pI" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/space,
+/area/space)
+"pJ" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/port_gen/pacman/super{
+	anchored = 1;
+	desc = "A portable generator for emergency backup power.";
+	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"pP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/statue/gold/cmo{
+	anchored = 1;
+	desc = "Looks unstable. Best to test it with the clown.";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	name = "bluespace portal"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"pW" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/energy)
+"qe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"qj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"qk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluecorners"
+	},
+/area/ae13/medbay)
+"qv" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater2x2";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor,
+/area/ae13/energy)
+"qM" = (
+/obj/structure/rack,
+/obj/item/tank/jetpack/carbondioxide{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/tank/jetpack/carbondioxide,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"ro" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater2x2_side";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor,
+/area/ae13/energy)
+"ru" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"rP" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/obj/item/clothing/suit/furcoat,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"rX" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater2x2_side";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor,
+/area/ae13/medbay)
+"sc" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"si" = (
+/obj/structure/closet/crate/secure/unknownchemicals,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"sI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"tc" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/o2{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/firstaid/adv,
+/obj/item/clothing/mask/breath{
+	pixel_x = -9;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"tm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/box,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/epicenter)
+"tp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/gluttony,
+/turf/simulated/floor,
+/area/ae13/hall)
+"tt" = (
+/obj/structure/alien/weeds,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	anchored = 1;
+	maximum_pressure = 50000
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"tv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor,
+/area/ae13/miner)
+"tx" = (
+/obj/effect/spawner/lootdrop/bluespace_tap/organic,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/epicenter)
+"ty" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/item/clothing/accessory/cowboyshirt/red,
+/obj/item/gun/projectile/automatic/pistol{
+	pixel_x = 15;
+	pixel_y = -12
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -7;
+	pixel_y = 10
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"tA" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"tD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/gluttony,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"uf" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"ug" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/fire/atmos,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"ur" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister/oxygen{
+	maximum_pressure = 50000
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"uw" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/medbay)
+"ux" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"uA" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"uE" = (
+/obj/machinery/computer/operating{
+	dir = 8
+	},
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = -34
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"uN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"uS" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/surgery{
+	pixel_y = 11
+	},
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/clothing/accessory/stethoscope,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"uU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/contractor_flare,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"vc" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/command)
+"vf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/command)
+"vo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"vu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/built,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor,
+/area/ae13/miner)
+"vw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/engineering,
+/obj/item/clothing/gloves/color/yellow/fake,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"vx" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"vy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"vD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"vZ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"ww" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"wy" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/mob/living/simple_animal/hostile/alien/sentinel,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"wC" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/medbay)
+"wK" = (
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"wL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/noalarm{
+	environ = 0;
+	equipment = 0;
+	lighting = 0;
+	name = "IPC area power controller";
+	pixel_y = 32;
+	req_access = list(111);
+	start_charge = 0
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"xd" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"xk" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"xp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"xs" = (
+/obj/item/stack/ore/uranium,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"xI" = (
+/obj/item/gps/ruin{
+	gpstag = "An#@13LyS&^ip"
+	},
+/turf/simulated/wall/shuttle,
+/area/ae13/command)
+"xM" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"xQ" = (
+/obj/structure/alien/weeds,
+/obj/structure/bed/nest,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"yk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"ym" = (
+/obj/item/stack/sheet/bluespace_crystal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"yC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"yD" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluecorners"
+	},
+/area/ae13/medbay)
+"yH" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"yJ" = (
+/obj/machinery/optable,
+/obj/machinery/shower{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"yP" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/miner)
+"yQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ae13/miner)
+"yZ" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/medbay)
+"zf" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/epicenter)
+"zE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/miner)
+"zS" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"zW" = (
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50;
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"Aa" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/shuttle,
+/area/ae13/medbay)
+"Ad" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/energy)
+"Ae" = (
+/obj/machinery/portable_atmospherics/canister/air{
+	maximum_pressure = 50000
+	},
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"Ai" = (
+/turf/simulated/wall/shuttle,
+/area/ae13/energy)
+"An" = (
+/obj/structure/alien/weeds,
+/obj/effect/gibspawner/xeno,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Au" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/epicenter)
+"Aw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/contractor_flare,
+/turf/simulated/floor,
+/area/ae13/miner)
+"Az" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/stripes/box,
+/turf/simulated/floor,
+/area/ae13/miner)
+"AB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"AE" = (
+/obj/item/stack/cable_coil,
+/turf/simulated/floor,
+/area/ae13/miner)
+"AF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/energy)
+"AR" = (
+/turf/simulated/floor,
+/area/ae13/energy)
+"AT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/suit/hooded/carp_costume,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"Bc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"BC" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	frequency = 1331;
+	id_tag = "syndie_cargo_left_shuttle_pump"
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"BN" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/energy)
+"BT" = (
+/obj/effect/contractor_flare,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"Ca" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/resin/wall,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Ce" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"Ck" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor,
+/area/ae13/hall)
+"Cz" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/effect/contractor_flare,
+/turf/simulated/floor,
+/area/ae13/hall)
+"CG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/miner)
+"CH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor,
+/area/ae13/hall)
+"Db" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1;
+	desc = "A portable generator for emergency backup power.";
+	name = "P.A.C.M.A.N.-type portable generator"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"Dg" = (
+/obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien/sentinel{
+	health = 250;
+	maxHealth = 250
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Do" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/energy)
+"Dq" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"DH" = (
+/obj/machinery/bodyscanner,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"DI" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"DW" = (
+/obj/structure/spider/stickyweb,
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"DY" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/obj/structure/bed/nest,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Ec" = (
+/obj/structure/alien/weeds,
+/obj/effect/contractor_flare,
+/mob/living/simple_animal/hostile/alien/sentinel,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"En" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"Es" = (
+/obj/item/stack/sheet/bluespace_crystal,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"EC" = (
+/obj/structure/shuttle/engine/large{
+	dir = 4
+	},
+/turf/simulated/floor,
+/area/ae13/medbay)
+"EE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor,
+/area/ae13/energy)
+"EM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/smes{
+	input_level = 10000;
+	inputting = 0;
+	output_level = 15000;
+	outputting = 0
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/energy)
+"EY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor/holofloor,
+/area/ae13/hall)
+"Fl" = (
+/obj/effect/spawner/lootdrop/bluespace_tap/hat,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"Fo" = (
+/obj/machinery/computer/camera_advanced,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"Fu" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"FD" = (
+/obj/item/gun/energy/kinetic_accelerator{
+	pixel_x = 5;
+	pixel_y = -5
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"FI" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"FN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor,
+/area/ae13/medbay)
+"FR" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor,
+/area/ae13/hall)
+"FZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/apc/noalarm{
+	environ = 0;
+	equipment = 0;
+	lighting = 0;
+	name = "IPC area power controller";
+	pixel_y = -28;
+	req_access = list(111);
+	start_charge = 0
+	},
+/obj/structure/cable,
+/mob/living/simple_animal/hostile/mimic/crate,
+/turf/simulated/floor/holofloor,
+/area/ae13/epicenter)
+"Gc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor,
+/area/ae13/hall)
+"Ge" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"Gp" = (
+/obj/structure/alien/weeds,
+/obj/item/clothing/suit/beekeeper_suit,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Gq" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/command)
+"Gw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"GP" = (
+/turf/simulated/floor,
+/area/ae13/hall)
+"GW" = (
+/obj/item/stack/sheet/bluespace_crystal,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"GY" = (
+/obj/structure/alien/weeds,
+/obj/item/clothing/suit/xenos,
+/obj/structure/alien/egg/burst,
+/obj/item/clothing/head/xenos,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Ha" = (
+/obj/structure/alien/weeds,
+/obj/item/clothing/suit/space/nasavoid/captain{
+	pixel_x = 8;
+	pixel_y = -7
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Ho" = (
+/obj/machinery/computer/emergency_shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"Ht" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"Ic" = (
+/turf/space,
+/area/ae13/energy)
+"Ix" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"IO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"JH" = (
+/obj/machinery/sleeper{
+	dir = 4;
+	pixel_x = -3
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"JL" = (
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor,
+/area/ae13/miner)
+"JN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"JU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"Ka" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/energy)
+"Kc" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/hall)
+"Kd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/plasma,
+/obj/item/stack/sheet/plasmaglass{
+	amount = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"Ke" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"Ki" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"Ko" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"Kw" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/command)
+"Ky" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/energy)
+"Lb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/bag/ore,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ae13/miner)
+"Ls" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/epicenter)
+"Lw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"LF" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/epicenter)
+"LR" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"Ma" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"Me" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/magboots{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/clothing/shoes/magboots,
+/obj/machinery/power/apc/noalarm{
+	environ = 0;
+	equipment = 0;
+	lighting = 0;
+	name = "IPC area power controller";
+	pixel_y = 28;
+	req_access = list(111);
+	start_charge = 0
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"Mf" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/hall)
+"Mp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/turf/simulated/floor,
+/area/ae13/energy)
+"Mq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"Mx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor,
+/area/ae13/hall)
+"MB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/miner)
+"Nb" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/energy)
+"Ni" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"No" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	frequency = 1331;
+	id_tag = "syndie_cargo_right_shuttle_pump"
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"Nr" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Nx" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"NR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = ""
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"NU" = (
+/obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien/sentinel,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Ot" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ae13/miner)
+"Oy" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkbluealtstrip"
+	},
+/area/ae13/medbay)
+"OE" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"OG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/ae13/miner)
+"OH" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"OV" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"Pa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/turf/simulated/floor,
+/area/ae13/energy)
+"Pf" = (
+/turf/simulated/wall/shuttle,
+/area/ae13/command)
+"Pm" = (
+/obj/structure/closet/secure_closet/personal/mining,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"Pp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/shuttle,
+/area/ae13/miner)
+"Pw" = (
+/obj/item/stack/ore/plasma,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"PF" = (
+/obj/item/paper_bin,
+/obj/item/pen/fancy,
+/obj/item/pen/fancy,
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/structure/table/wood/fancy/orange,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/paper{
+	info = "This is the end... I am writing this while looking at a statue that will crush me when I look away for even a second. We were flying to sell goods, but a bluespace anomaly appeared in the warehouse and a bunch of creatures scattered around our shuttle. I managed to run into the command post, but I won't be enough for long. My eyes are getting tired. I really want to close them mmsadmm...";
+	name = "last note";
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"PM" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/plasteel{
+	amount = 10
+	},
+/obj/item/stack/sheet/rglass{
+	amount = 20;
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/crowbar,
+/obj/item/wrench,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/ae13/miner)
+"Qg" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/energy)
+"Qi" = (
+/obj/structure/ore_box,
+/obj/effect/turf_decal/stripes/box,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/miner)
+"QI" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/energy)
+"QU" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"Rc" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/rods{
+	amount = 10
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/multitool,
+/turf/simulated/floor/plasteel{
+	icon_state = "yellowfull"
+	},
+/area/ae13/miner)
+"Rj" = (
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"Rn" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/miner)
+"Ro" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/cable_coil,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"Ru" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"Rv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/statue/gold/cmo{
+	anchored = 1;
+	desc = "Looks unstable. Best to test it with the clown.";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	name = "bluespace portal"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"Ry" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/epicenter)
+"RC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"RD" = (
+/turf/simulated/mineral/uranium,
+/area/ae13/asteroid)
+"RF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/epicenter)
+"RJ" = (
+/obj/effect/gibspawner/xeno,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/hall)
+"RS" = (
+/obj/machinery/mineral/ore_redemption,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"RW" = (
+/mob/living/simple_animal/hostile/statue,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"Sd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/epicenter)
+"Sq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"Sr" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/command)
+"SG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"SK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/power/apc/noalarm{
+	environ = 0;
+	equipment = 0;
+	lighting = 0;
+	name = "IPC area power controller";
+	pixel_y = 28;
+	req_access = list(111);
+	start_charge = 0
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"SS" = (
+/obj/effect/decal/cleanable/blood/writing,
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/medbay)
+"ST" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/machinery/light,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkbluealtstrip"
+	},
+/area/ae13/medbay)
+"SV" = (
+/obj/machinery/door/airlock/shuttle,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/ae13/command)
+"Tf" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"Ti" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/engineering,
+/obj/item/clothing/gloves/color/yellow,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"Tk" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/largecrate,
+/turf/simulated/floor/indestructible/plating,
+/area/ae13/epicenter)
+"To" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/hall)
+"Tq" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"Ts" = (
+/obj/structure/rack,
+/obj/item/storage/firstaid/toxin{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkbluealtstrip"
+	},
+/area/ae13/medbay)
+"Tw" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/ae13/energy)
+"Ty" = (
+/obj/structure/rack,
+/obj/item/clothing/glasses/meson/gar{
+	pixel_x = 2;
+	pixel_y = -11
+	},
+/obj/item/clothing/glasses/meson/night{
+	pixel_x = -1;
+	pixel_y = -2
+	},
+/obj/item/clothing/glasses/meson/sunglasses{
+	pixel_x = -6;
+	pixel_y = 3
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ae13/miner)
+"TC" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"TG" = (
+/obj/machinery/computer/station_alert,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"TJ" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"TK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ae13/medbay)
+"TM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/gibs/body,
+/turf/simulated/floor,
+/area/ae13/medbay)
+"TO" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "synd_pump_bottom"
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"TS" = (
+/obj/item/gun/projectile/revolver,
+/turf/simulated/mineral/iron,
+/area/ae13/asteroid)
+"TU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/statue/gold/cmo{
+	anchored = 1;
+	desc = "Looks unstable. Best to test it with the clown.";
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "portal";
+	name = "bluespace portal"
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"Us" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 1
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"UA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/mob_spawn/headcrab,
+/turf/simulated/floor,
+/area/ae13/hall)
+"UW" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "sepia"
+	},
+/area/ae13/epicenter)
+"UY" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"Va" = (
+/obj/structure/sign/poster/official/state_laws,
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ae13/command)
+"Vo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor,
+/area/ae13/miner)
+"VG" = (
+/turf/simulated/floor,
+/area/ae13/medbay)
+"VJ" = (
+/obj/structure/shuttle/engine/large{
+	dir = 4
+	},
+/turf/simulated/floor,
+/area/ae13/energy)
+"VX" = (
+/obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien{
+	health = 180;
+	maxHealth = 180
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Wd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/simulated/floor,
+/area/ae13/command)
+"Wh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
+/area/ae13/miner)
+"Wj" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor,
+/area/ae13/hall)
+"Wy" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon_state = "white_walls_corners"
+	},
+/area/ae13/command)
+"WJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/turf/simulated/floor,
+/area/ae13/hall)
+"WM" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/epicenter)
+"WS" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"XG" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
+/obj/item/ammo_box/magazine/m10mm,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"XH" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/ae13/medbay)
+"XQ" = (
+/turf/simulated/wall/shuttle,
+/area/ae13/epicenter)
+"XS" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/ae13/command)
+"XW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/ae13/miner)
+"XZ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "chapel"
+	},
+/area/ae13/command)
+"Yb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"Ye" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flamethrower/full/tank,
+/turf/simulated/floor,
+/area/ae13/miner)
+"Yg" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -3;
+	pixel_y = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_x = 3;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/energy)
+"Yq" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/miner)
+"Yy" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/ae13/miner)
+"YH" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/egg/burst,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"YV" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor,
+/area/ae13/epicenter)
+"Zc" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/mob/living/simple_animal/hostile/alien/sentinel,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"Zh" = (
+/obj/effect/landmark/tiles/damageturf,
+/turf/simulated/wall/shuttle,
+/area/ae13/epicenter)
+"Zv" = (
+/obj/structure/alien/resin/wall,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+"ZC" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/asteroid{
+	icon_state = "asteroidfloor";
+	name = "floor"
+	},
+/area/ae13/epicenter)
+"ZR" = (
+/obj/structure/alien/weeds,
+/obj/item/clothing/head/helmet/space/nasavoid/captain{
+	pixel_x = -8;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ae13/asteroid)
+
+(1,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(2,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(3,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(4,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(5,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(6,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+pI
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(7,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(8,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(9,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(10,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+mH
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(11,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+Zv
+Zv
+Zv
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(12,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Zv
+Zv
+Zv
+xQ
+Zv
+Zv
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(13,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Zv
+Nr
+Dg
+Nr
+WS
+Zv
+Zv
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+mH
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(14,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Zv
+Nr
+Ca
+Nr
+pE
+xQ
+Zv
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+mH
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(15,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Zv
+Nr
+Ca
+hc
+rP
+Ca
+Zv
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+Nr
+dR
+Nr
+Nr
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(16,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Zv
+Nr
+mn
+VX
+GY
+Ca
+NU
+Nr
+Nr
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+Nr
+dR
+dR
+dR
+Nr
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(17,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Zv
+Nr
+Ca
+Ca
+Ca
+Ca
+Nr
+An
+Nr
+Nr
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+Nr
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(18,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Zv
+Nr
+VX
+Nr
+Ca
+Nr
+WS
+Nr
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(19,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+Ca
+Nr
+Nr
+WS
+aE
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vc
+Gq
+Kw
+Kw
+Kw
+Kw
+Gq
+Wy
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(20,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+Ca
+Ca
+Ca
+Ca
+dR
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+lq
+cI
+tc
+Fo
+Ho
+eX
+TG
+PF
+cI
+Rn
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+Nr
+Nr
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(21,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+lq
+Au
+xI
+LR
+jH
+df
+XZ
+LR
+oR
+Pf
+fN
+Rn
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(22,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+XQ
+si
+Pf
+SK
+iV
+id
+Wd
+xk
+Nx
+Pf
+Rc
+is
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(23,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+dR
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+XQ
+Kd
+Pf
+eH
+ru
+vf
+zS
+RW
+ru
+fa
+OG
+is
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(24,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+LF
+Kd
+Sr
+Pf
+Va
+XS
+SV
+cI
+fa
+cI
+bG
+kj
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(25,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+YV
+UY
+UW
+OE
+Zh
+Ki
+tD
+is
+ib
+tA
+TJ
+Yq
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(26,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+YV
+iU
+tm
+Ls
+Zh
+Ck
+tp
+is
+zW
+Ot
+JL
+Yq
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(27,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+YV
+vw
+iU
+Ti
+XQ
+Bc
+TU
+is
+qM
+XW
+Aw
+Yq
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(28,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+pI
+ew
+ew
+ew
+LF
+gc
+Sd
+FZ
+XQ
+Bc
+CH
+is
+Me
+yQ
+nV
+kj
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+pI
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(29,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+pI
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+XQ
+bM
+Yb
+ug
+XQ
+Ma
+yC
+is
+kG
+Vo
+vu
+yP
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(30,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+lq
+LF
+Tk
+ww
+Sq
+Zh
+WJ
+sc
+yP
+RS
+gv
+tv
+Yy
+Rn
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(31,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+lq
+Ry
+DI
+zf
+tx
+ZC
+LF
+WJ
+yC
+kj
+mS
+AE
+nV
+nV
+MB
+Rn
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(32,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+lq
+Ry
+vo
+Es
+cW
+bi
+hq
+Tq
+pv
+iQ
+aU
+fe
+Ot
+nV
+nV
+Lb
+kj
+Rn
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(33,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+lq
+Zh
+GW
+fw
+vo
+ho
+lG
+mo
+Tf
+Us
+Mx
+fP
+uA
+Ty
+Qi
+Az
+gv
+Pm
+is
+Rn
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(34,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+dR
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+lq
+XQ
+RF
+Rv
+uU
+Fl
+vo
+En
+En
+LF
+Ro
+Ki
+kj
+Wh
+fW
+Qi
+Az
+lT
+PM
+Pp
+is
+Rn
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(35,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+dR
+dR
+dR
+dR
+ew
+ew
+ew
+ew
+ew
+WM
+Zh
+Zh
+Ry
+DI
+vo
+ym
+En
+DI
+XQ
+Cz
+AT
+is
+dd
+nV
+hy
+nV
+Ye
+CG
+yP
+is
+Yy
+ew
+ew
+ew
+vx
+vx
+vx
+dR
+dR
+dR
+dR
+TS
+dR
+dR
+dR
+dR
+dR
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(36,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+RD
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+do
+Ry
+FI
+Ry
+XQ
+Zh
+WM
+IO
+yC
+zE
+is
+yP
+kj
+Yq
+kj
+nf
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+dR
+dR
+dR
+dR
+Zv
+Zv
+Zv
+dR
+dR
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(37,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+FR
+GP
+FR
+FD
+OH
+Ke
+fA
+oD
+Ru
+Ru
+RJ
+FR
+GP
+FR
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+dR
+dR
+Zv
+Zv
+Ca
+DY
+Zv
+Zv
+Zv
+Zv
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(38,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+at
+vx
+Pw
+dR
+xs
+vx
+vx
+vx
+dR
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+FR
+BC
+nX
+my
+mM
+Lw
+Bc
+oD
+EY
+JU
+my
+nX
+No
+FR
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+Zv
+XG
+Nr
+NU
+Nr
+VX
+Ca
+Ca
+Zv
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(39,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+RD
+vx
+Nr
+dR
+dR
+at
+Nr
+Nr
+vx
+dR
+ew
+ew
+ew
+ew
+ew
+ew
+hw
+Tw
+pW
+Tw
+Ai
+Ai
+BN
+OV
+yC
+ns
+az
+hj
+wC
+Ge
+wC
+ls
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+Zv
+Ca
+Nr
+Nr
+Nr
+Nr
+xQ
+Ca
+Zv
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(40,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+vx
+Nr
+dR
+dR
+dR
+Nr
+Pw
+dR
+dR
+ew
+ew
+ew
+BN
+Ai
+Ai
+Tw
+ag
+vy
+QU
+pa
+fY
+Ai
+WJ
+Gc
+hj
+DH
+DW
+Ce
+xp
+gO
+wC
+hj
+hj
+ns
+ew
+ew
+ew
+ew
+vx
+vx
+Nr
+Nr
+Ec
+Zv
+Nr
+Nr
+Nr
+WS
+Nr
+Ca
+Zv
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(41,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+vx
+Nr
+at
+dR
+Nr
+vx
+at
+dR
+dR
+ew
+ew
+ew
+np
+Ai
+Ai
+Gw
+jp
+EM
+ux
+NR
+pJ
+Ai
+WJ
+UA
+hj
+JH
+TK
+ST
+Ts
+qk
+pP
+Aa
+hj
+uw
+ew
+ew
+ew
+vx
+vx
+Nr
+WS
+Zv
+Zv
+Ca
+Ha
+ty
+ZR
+NU
+YH
+Zv
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(42,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+Pw
+vx
+xs
+vx
+vx
+vx
+dR
+dR
+dR
+ew
+ew
+ew
+ew
+np
+Ai
+ur
+AF
+Do
+QU
+Mq
+Db
+Ka
+WJ
+ok
+wC
+RC
+Ce
+Oy
+gd
+jh
+Rj
+hj
+uw
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+Nr
+Ca
+oQ
+oQ
+Nr
+Nr
+Nr
+xQ
+Ca
+Zv
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(43,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+vx
+vx
+vx
+Pw
+vx
+dR
+dR
+ew
+ew
+ew
+ew
+ew
+ew
+np
+Ka
+Nb
+vZ
+vD
+wK
+Ht
+xM
+To
+Wj
+SS
+RC
+ah
+Ni
+qj
+XH
+wC
+uw
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+Nr
+Nr
+Zv
+Nr
+mU
+Nr
+An
+Nr
+Zv
+Zv
+Zv
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(44,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+vx
+vx
+vx
+dR
+dR
+dR
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+np
+Ad
+cJ
+EE
+gM
+Qg
+xd
+Kc
+AB
+yZ
+fD
+dL
+BT
+Dq
+wC
+uw
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Ca
+Nr
+tt
+Zv
+dR
+Nr
+Nr
+Nr
+Nr
+Zv
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(45,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+RD
+dR
+dR
+dR
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+np
+Tw
+Pa
+TC
+Mp
+Tw
+Fu
+Mf
+wC
+Ko
+uN
+FN
+wC
+uw
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+Ca
+Nr
+Nr
+Zv
+dR
+YH
+Nr
+Nr
+Zv
+Zv
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+pI
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(46,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+dR
+dR
+dR
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+pW
+Ht
+sI
+oB
+Ai
+Ru
+SG
+hj
+wL
+qe
+uS
+Ge
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+wy
+WS
+Zv
+Ca
+Nr
+WS
+Nr
+Zv
+dR
+dR
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(47,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+pW
+Qg
+Ht
+yk
+Ai
+Ix
+Mf
+az
+Ni
+TM
+yJ
+Ge
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+Ca
+Nr
+Nr
+Nr
+Gp
+Nr
+Zv
+Zv
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(48,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+Ad
+Yg
+Qg
+wK
+Tw
+FR
+hV
+wC
+JN
+yD
+uE
+wC
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+Ca
+Ca
+Nr
+Nr
+Zc
+Ca
+Zv
+dR
+dR
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(49,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+np
+Tw
+lF
+lF
+pW
+GP
+TO
+Ge
+Ae
+yH
+wC
+uw
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+dR
+Zv
+Zv
+Zv
+Zv
+Ca
+dR
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(50,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+Ai
+Ai
+Ky
+QI
+FR
+FR
+ik
+az
+jT
+hj
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(51,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+Ai
+qv
+ro
+Ai
+ew
+ew
+hj
+nv
+rX
+hj
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+dR
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(52,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+Ai
+AR
+VJ
+Ai
+ew
+ew
+hj
+VG
+EC
+hj
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+dR
+dR
+dR
+dR
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(53,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+mH
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+Ic
+Ic
+ew
+ew
+ew
+ew
+iL
+iL
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(54,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(55,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(56,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(57,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+Nr
+Nr
+Nr
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(58,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+pI
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(59,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+dR
+dR
+Nr
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+Nr
+Nr
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(60,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+Nr
+dR
+dR
+dR
+uf
+Nr
+ew
+ew
+ew
+ew
+mH
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+dR
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(61,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+Nr
+Nr
+dR
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+Nr
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(62,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+mH
+ew
+ew
+ew
+ew
+ew
+vx
+Nr
+dR
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(63,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+Nr
+Nr
+dR
+dR
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(64,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+vx
+vx
+dR
+vx
+vx
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(65,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(66,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(67,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(68,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+pI
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(69,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(70,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(71,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(72,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(73,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(74,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(75,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
+(76,1,1) = {"
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+ew
+"}
