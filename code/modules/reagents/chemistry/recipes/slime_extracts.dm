@@ -172,8 +172,7 @@
 		/obj/item/reagent_containers/food/snacks/chinese,
 		/obj/item/reagent_containers/food/snacks/human,
 		/obj/item/reagent_containers/food/snacks/monstermeat,
-		/obj/item/reagent_containers/food/snacks/meatsteak/stimulating,
-		/obj/item/reagent_containers/food/snacks/plum_pie
+		/obj/item/reagent_containers/food/snacks/meatsteak/stimulating
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
