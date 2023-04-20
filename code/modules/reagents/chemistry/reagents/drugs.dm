@@ -361,6 +361,7 @@
 	addiction_decay_rate = 0.1 // very low, to prevent people from abusing the massive speed boost for too long. forces them to take long downtimes to not die from brain damage.
 	heart_rate_increase = 1
 	taste_description = "speed"
+	allowed_overdose_process = TRUE //Requested by balance.
 	/// modifier to the stun time of the mob taking the drug
 	var/tenacity = 1.5
 
