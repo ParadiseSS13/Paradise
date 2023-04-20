@@ -706,7 +706,7 @@
 	name = "identification card compartmentalizer"
 	desc = "A machine capable of storing identification cards and PDAs. It's great for lost and terminated cards."
 	icon_state = "idbox"
-	icon_lightmask = FALSE
+	icon_lightmask = TRUE
 	pass_flags = PASSTABLE
 	visible_contents = FALSE
 	board_type = /obj/machinery/smartfridge/id
