@@ -26,7 +26,7 @@
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
-			to_chat(src, "<span class='danger'>Success! Бомба на [A] взведена!</span>")
+			to_chat(src, "<span class='danger'>Успех! Бомба на [A] взведена!</span>")
 			if(summoner)
 				to_chat(summoner, "<span class='warning'>Ваш Подрывник взвел [A] для взрыва!</span>")
 			bomb_cooldown = world.time + default_bomb_cooldown
@@ -95,12 +95,22 @@
 	to_chat(spawner, "<span class='danger'>Успех! Ваша мина на [src] поймала [user]!</span>")
 	stored_obj.forceMove(get_turf(loc))
 	playsound(get_turf(src),'sound/effects/bomb_activate.ogg', 200, 1)
-	playsound(get_turf(src),'sound/effects/explosion2.ogg', 200, 1)
+	playsound(get_turf(src),'sound/effects/explosion1.ogg', 200, 1)
 	user.ex_act(3)
-	user.ex_act(3) //Probably should create separate proc for this
 	user.Weaken(3)
+	if(ishuman(user))
+		dead_legs(user)
+	user.adjustBruteLoss(40)
 	qdel(src)
 	qdel(src)
+
+/obj/item/guardian_bomb/proc/dead_legs(mob/living/carbon/human/H as mob)
+	var/obj/item/organ/external/l = H.get_organ("l_leg")
+	var/obj/item/organ/external/r = H.get_organ("r_leg")
+	if(l && prob(50))
+		l.droplimb(0, DROPLIMB_SHARP)
+	if(r && prob(50))
+		r.droplimb(0, DROPLIMB_SHARP)
 
 /obj/item/guardian_bomb/attackby(obj/item/W, mob/living/user)
 	detonate(user)

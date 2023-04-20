@@ -23,6 +23,12 @@
 	invocation_type = "none"
 	damaging = 0
 
+/obj/effect/proc_holder/spell/targeted/lightning/guardian
+	name = "Малая молния"
+	desc = "Копит в себе заряд электричества, поражающий всех врагов. Чем больше зарядка, тем выше урон и дальность. Не так силен как оригинал, но все еще опасен. После выпуска молнии имеет перезарядку в 30 секунд."
+	clothes_req = 0
+	invocation = "За С+инд+ик+ат!"
+
 /obj/effect/proc_holder/spell/targeted/lightning/Click()
 	if(!ready && start_time == 0)
 		if(cast_check(TRUE, FALSE, usr))
@@ -77,7 +83,10 @@
 
 	var/energy = min(world.time - start_time,100)
 	if(damaging)
-		Bolt(user,target,max(15,energy/2),5,user) //5 bounces for energy/2 burn
+		if(isguardian(usr))
+			Bolt(user,target,max(15,energy/4),5,user) //5 bounces for energy/4 burn for beam guardian
+		else
+			Bolt(user,target,max(15,energy/2),5,user) // much better for everyone else
 	else
 		var/bounces = round(energy/20)
 		Bolt(user,target,0,bounces,user)
@@ -110,7 +119,7 @@
 		playsound(get_turf(current), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 		var/list/possible_targets = new
 		for(var/mob/living/M in view_or_range(range,target,"view"))
-			if(user == M || target == M && los_check(current,M)) // || origin == M ? Not sure double shockings is good or not
+			if(user == M || target == M && los_check(current,M) || (NO_SHOCK in M.mutations)) // || origin == M ? Not sure double shockings is good or not
 				continue
 			possible_targets += M
 		if(!possible_targets.len)

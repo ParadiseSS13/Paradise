@@ -1,9 +1,10 @@
 /mob/living/simple_animal/hostile/guardian/protector
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	tts_seed = "Cairne"
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
-	playstyle_string = "Как <b>Защитник</b>, вы заставляете своего призывателя привязываться к вам, вместо того чтобы вы привязывались к нему, и имеете два режима: боевой режим, в котором вы наносите средний урон и получаете очень малый, и режим защиты, в котором вы почти не наносите и не получаете урона, даже от взрывов, но двигаетесь немного медленнее"
+	playstyle_string = "Как <b>Защитник</b>, вы заставляете своего призывателя привязываться к вам, вместо того чтобы вы привязывались к нему, и имеете два режима: боевой режим, в котором вы наносите средний урон и получаете очень малый, и режим защиты, в котором вы почти не наносите и не получаете урона, даже от взрывов. Вы так же обладаете заклинанием создания краткосрочных барьеров."
 	magic_fluff_string = "..и берете Стража - непоколебимого защитника, который никогда не покидает сторону своего подопечного."
 	tech_fluff_string = "Последовательность загрузки завершена. Загружены модули защиты. Голопаразитный рой в сети."
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый защищать вас."
@@ -16,6 +17,10 @@
 		..()
 	if(toggle)
 		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>") //FLEX
+
+/mob/living/simple_animal/hostile/guardian/protector/New()
+	..()
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall/greater/guardian)
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()
 	if(cooldown > world.time)
@@ -36,8 +41,6 @@
 		overlays.Add(shield_overlay)
 		melee_damage_lower = 2
 		melee_damage_upper = 2
-		obj_damage = 6 //40/7.5 rounded up, we don't want a protector guardian 2 shotting blob tiles while taking 5% damage, thats just silly.
-		speed = 1
 		damage_transfer = 0.05 //damage? what's damage?
 		to_chat(src, "<span class='danger'>Вы переключились в режим защиты.</span>")
 		toggle = TRUE
@@ -67,11 +70,31 @@
 				return
 			summoner.adjustBruteLoss(damage)
 			if(damage)
-				to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
-				summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
-			if(summoner.stat == UNCONSCIOUS && prob(85))
+				to_chat(summoner, "<span class='danger'>Ваш [name] под атакой! Вы получаете урон!</span>")
+				summoner.visible_message("<span class='danger'>Кровь хлещет из [summoner] ибо [src] получает урон!</span>")
+			if(summoner.stat == UNCONSCIOUS)
 				to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
 				summoner.adjustCloneLoss(damage/2)
 	else
-		to_chat(summoner, "<span class='danger'>Your [name] is under attack, absorbing damage!</span>")
-		visible_message("<span class='danger'>[src] absorb damage!</span>")
+		to_chat(summoner, "<span class='danger'>Ваш [name] под атакой, поглощая урон!</span>")
+		visible_message("<span class='danger'>[src] поглотил урон!</span>")
+
+/obj/effect/proc_holder/spell/targeted/forcewall/greater/guardian
+	name = "Голографическая силовая стена"
+	desc = "Создает перед вами непробиваемый барьер, через который могут проходить вы и ваш хозяин."
+	clothes_req = FALSE
+	invocation = "YOU SHALL NOT PASS!"
+	wall_type = /obj/effect/forcefield/wizard/guardian
+
+/obj/effect/forcefield/wizard/guardian
+	desc = "Непробиваемый барьер неизвестной сущности."
+	name = "FORCEWALL"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "at_shield2"
+	lifetime = 15 SECONDS
+
+/obj/effect/forcefield/wizard/guardian/CanPass(atom/movable/mover, turf/target)
+	var/mob/living/simple_animal/hostile/guardian/P = wizard
+	if(mover == wizard || istype(P) && mover == P.summoner)
+		return TRUE
+	return FALSE

@@ -2,9 +2,8 @@
 	friendly = "heals"
 	speed = 0
 	damage_transfer = 0.7
-	melee_damage_lower = 20
-	melee_damage_upper = 20
-	melee_damage_type = TOX
+	melee_damage_lower = 5
+	melee_damage_upper = 5
 	armour_penetration = 100
 	playstyle_string = "Будучи <b>Поддержкой</b>, вы можете переключить свои базовые атаки в режим исцеления. Кроме того, нажатие Alt-кнопки на соседнем мобе деформирует его к вашему маяку в блюспейс пространстве с небольшой задержкой."
 	magic_fluff_string = "...и берете карту Главного Врача, мощную силу жизни... и смерти."
@@ -72,21 +71,26 @@
 		if(toggle)
 			a_intent = INTENT_HARM
 			hud_used.action_intent.icon_state = a_intent
-			speed = 0
-			melee_damage_lower = 15
-			melee_damage_upper = 15
+			melee_damage_lower = 5
+			melee_damage_upper = 5
 			to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
 			hud_used.action_intent.icon_state = a_intent
-			speed = 1
 			melee_damage_lower = 0
 			melee_damage_upper = 0
 			to_chat(src, "<span class='danger'>Вы переключились в режим исцеления.</span>")
 			toggle = TRUE
 	else
 		to_chat(src, "<span class='danger'>Нужно быть в хозяине для переключения режимов!</span>")
+
+/mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
+	if(!toggle)
+		var/mob/living/L = target
+		if(istype(L))
+			L.adjustToxLoss(15)
+		. = ..()
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
 	set name = "Установить блюспейс маяк"
@@ -214,7 +218,7 @@
 					to_chat(user, "Восстановлен поврежденный орган.")
 					return 1
 		else
-			to_chat(user, "Не удалось обнаружить травму. Возможно, нужно попробовать снова..")
+			to_chat(user, "Проверка окончилась неудачей.")
 			return 1
 	else
 		to_chat(user, "Нужно стоять смирно!")

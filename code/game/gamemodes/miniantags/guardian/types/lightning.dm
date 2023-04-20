@@ -10,7 +10,8 @@
 	attack_sound = 'sound/machines/defib_zap.ogg'
 	damage_transfer = 0.6
 	range = 7
-	playstyle_string = "Как тип <b>Молния</b>, вы будете иметь связующую смертоносную цепь молнии к своему призывателю. Цепь молний поражает всех, кто находится рядом с ней. Так же с небольшим шансом вы будете накладывать эту цепь при ударе."
+	tts_seed = "Archmage"
+	playstyle_string = "Как тип <b>Молния</b>, вы будете иметь связующую смертоносную цепь молнии к своему призывателю. Цепь молний поражает всех, кто находится рядом с ней. Так же у вас есть заклинание цепной молнии, оглушающее врагов по площади."
 	magic_fluff_string = "...и вытаскиваете Теслу, шокирующий, смертоносный источник энергии."
 	tech_fluff_string = "Последовательность загрузки завершена. Модуль молний активны. Голопаразитный рой в сети."
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый наэлектризовать ваших врагов."
@@ -25,27 +26,12 @@
 	if(!(NO_SHOCK in summoner.mutations))
 		summoner.mutations.Add(NO_SHOCK)
 
+/mob/living/simple_animal/hostile/guardian/beam/New()
+	..()
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/lightning/guardian)
+
 /mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return FALSE //You are lightning, you should not be hurt by such things.
-
-/mob/living/simple_animal/hostile/guardian/beam/AttackingTarget()
-	. = ..()
-	if(prob(10))
-		if(. && isliving(target) && target != src && target != summoner)
-			cleardeletedchains()
-			for(var/chain in enemychains)
-				var/datum/beam/B = chain
-				if(B.target == target)
-					return //oh this guy already HAS a chain, let's not chain again
-			if(enemychains.len > 2)
-				var/datum/beam/C = pick(enemychains)
-				qdel(C)
-				enemychains -= C
-			enemychains += Beam(target, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=20, maxdistance=4, beam_type=/obj/effect/ebeam/chain)
-
-/mob/living/simple_animal/hostile/guardian/beam/Destroy()
-	removechains()
-	return ..()
 
 /mob/living/simple_animal/hostile/guardian/beam/Manifest()
 	..()
