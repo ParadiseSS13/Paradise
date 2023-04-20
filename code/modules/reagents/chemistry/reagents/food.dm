@@ -453,6 +453,15 @@
 		T.assume_air(lowertemp)
 		qdel(hotspot)
 
+/datum/reagent/consumable/cornoil/oliveoil
+	name = "Olive Oil"
+	id = "oliveoil"
+	description = "An oil derived from young olives."
+	reagent_state = LIQUID
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	color = "#d3f558"
+	taste_description = "bittersweet olive oil"
+
 /datum/reagent/consumable/enzyme
 	name = "Universal Enzyme"
 	id = "enzyme"
