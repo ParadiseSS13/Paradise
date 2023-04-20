@@ -143,6 +143,9 @@
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/garmentbag/warden(src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8(src)
+	new /obj/item/ammo_box/magazine/sp8(src)
+	new /obj/item/ammo_box/magazine/sp8(src)
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"

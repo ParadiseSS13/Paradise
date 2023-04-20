@@ -816,6 +816,22 @@
 	build_path = /obj/item/ammo_casing/shotgun
 	category = list("hacked", "Security")
 
+/datum/design/sp8box
+	name = "Ammo Box (40n&r)"
+	id = "fortynrbox"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 45000)
+	build_path = /obj/item/ammo_box/fortynr
+	category = list("hacked", "Security")
+
+/datum/design/sp8mag
+	name = "handgun magazine (40n&r)"
+	id = "fortynrmag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 13000)
+	build_path = /obj/item/ammo_box/magazine/sp8
+	category = list("hacked", "Security")
+
 /datum/design/buckshot_shell
 	name = "Buckshot shell"
 	id = "buckshot_shell"

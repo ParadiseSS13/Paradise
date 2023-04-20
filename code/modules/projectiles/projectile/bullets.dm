@@ -76,6 +76,11 @@
 	damage_type = TOX
 	armour_penetration = 10
 
+/obj/item/projectile/bullet/weakbullet3/fortynr
+	name = "bullet"
+	damage = 25
+	stamina = 20
+
 /obj/item/projectile/bullet/weakbullet4
 	name = "rubber bullet"
 	damage = 5

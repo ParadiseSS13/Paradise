@@ -266,6 +266,17 @@
 	name = "handgun magazine (9mm)"
 	ammo_type = /obj/item/ammo_casing/c9mm
 
+/obj/item/ammo_box/magazine/sp8
+	name = "handgun magazine 40N&R"
+	icon_state = "sp8mag"
+	ammo_type = /obj/item/ammo_casing/fortynr
+	max_ammo = 10
+	caliber = "40nr"
+
+/obj/item/ammo_box/magazine/sp8/update_icon()
+	..()
+	icon_state = "sp8mag-[round(ammo_count(),2)]"
+
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
 	icon_state = "46x30mmt-20"

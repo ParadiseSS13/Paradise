@@ -46,6 +46,12 @@
 	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 20
 
+/obj/item/ammo_box/fortynr
+	name = "ammo box 40N&R"
+	icon_state = "40n&rbox"
+	ammo_type = /obj/item/ammo_casing/fortynr
+	max_ammo = 40
+
 /obj/item/ammo_box/c45
 	name = "ammo box (.45)"
 	icon_state = "45box"
