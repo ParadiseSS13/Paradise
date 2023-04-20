@@ -69,31 +69,17 @@
 	name = "increment ticket counter"
 	desc = "Use this button after you've served someone to tell the next person to come forward."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "doorctrl0"
 	req_access = list()
 	id = 1
 	var/cooldown = FALSE
 
-
-/obj/machinery/door_control/ticket_machine_button/attack_hand(mob/user)
-	if(allowed(usr) || user.can_advanced_admin_interact())
-		icon_state = "doorctrl1"
-		addtimer(CALLBACK(src, /obj/machinery/door_control/ticket_machine_button/.proc/update_icon), 15)
-		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
-			if(M.id == id)
-				if(cooldown)
-					return
-				cooldown = TRUE
-				M.increment()
-				addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
-	else
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-		flick("doorctrl-denied", src)
-
-/obj/machinery/door_control/ticket_machine_button/update_icon()
-	if(!(stat & NOPOWER))
-		icon_state = "doorctrl0"
+/obj/machinery/door_control/ticket_machine_button/do_main_action(mob/user as mob)
+	for(var/obj/machinery/ticket_machine/M in GLOB.machines)
+		if(M.id != id || cooldown)
+			continue
+		cooldown = TRUE
+		M.increment()
+		addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 
 /obj/machinery/ticket_machine/update_icon()
 	switch(ticket_number) //Gives you an idea of how many tickets are left

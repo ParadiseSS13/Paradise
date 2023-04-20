@@ -4529,10 +4529,8 @@
 /obj/effect/turf_decal/siding/red{
 	color = "#aa2222"
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "Aspid_poddor_right";
 	name = "Aspid poddor";
 	pixel_x = 24;
@@ -4604,10 +4602,8 @@
 	},
 /area/centcom/specops)
 "cnV" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "nukeop_outside";
 	name = "ATOM Outside Doors";
 	pixel_y = -29;
@@ -12236,10 +12232,8 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "syndFB_med";
 	name = "Tool Storage";
 	pixel_x = 24;
@@ -20955,10 +20949,8 @@
 	icon_state = "golden_stripes_corner"
 	},
 /obj/item/flag/syndi,
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "syndFB_teleport";
 	name = "Teleporter";
 	pixel_y = 24;
@@ -23208,10 +23200,8 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "msh" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_outside";
 	name = "SST Outside Doors";
 	pixel_x = -5;
@@ -23219,10 +23209,8 @@
 	req_access = list(153);
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_to_ATOM";
 	name = "SST to ATOM hall";
 	pixel_x = 5;
@@ -23977,10 +23965,8 @@
 	dir = 1
 	},
 /obj/item/flag/syndi,
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "nukeop_storage";
 	name = "ATOM Storage";
 	pixel_y = 32;
@@ -24787,9 +24773,7 @@
 /area/syndicate_mothership/control)
 "mWn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door_control{
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
+/obj/machinery/door_control/alt{
 	id = "nukeop_ready";
 	name = "Shuttle Dock Door";
 	pixel_x = -32;
@@ -27252,10 +27236,8 @@
 	},
 /area/centcom/zone3)
 "oaS" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "Aspid_main_storage";
 	name = "Aspid main storage";
 	pixel_y = -24;
@@ -27828,10 +27810,8 @@
 	},
 /area/centcom/zone1)
 "oor" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "Aspid_deck";
 	name = "Aspid deck";
 	pixel_y = 24;
@@ -29707,10 +29687,8 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "syndFB_tool";
 	name = "Tool Storage";
 	pixel_x = -24;
@@ -30198,10 +30176,8 @@
 	icon_state = "golden_stripes_corner"
 	},
 /obj/structure/railing/corner,
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "syndFB_teleport";
 	name = "Teleporter";
 	pixel_y = 24;
@@ -30683,9 +30659,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/door_control{
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
+/obj/machinery/door_control/alt{
 	id = "SIT_ready";
 	name = "Shuttle Dock Door";
 	pixel_x = 32;
@@ -31160,10 +31134,8 @@
 /obj/effect/turf_decal/siding/red{
 	color = "#aa2222"
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "Aspid_poddor_left";
 	name = "Aspid poddor";
 	pixel_x = -24;
@@ -33321,21 +33293,17 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "qXK" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_mech_maintenance";
 	name = "SST Armory Mech Maintenance";
 	pixel_y = -24;
 	req_access = list(153);
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	color = "#ffdd99";
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_mech_gygax";
 	name = "SST Armory Mech DarkGygax";
 	pixel_x = 6;
@@ -33343,11 +33311,9 @@
 	req_access = list(153);
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	color = "#9999ff";
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_mech_rover";
 	name = "SST Armory Mech Rover";
 	pixel_x = -6;
@@ -33355,11 +33321,9 @@
 	req_access = list(153);
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	color = "#ff9999";
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_mech_mauler";
 	name = "SST Armory Mech Mauler";
 	pixel_y = -40;
@@ -33373,10 +33337,8 @@
 /area/syndicate_mothership/elite_squad)
 "qXM" = (
 /obj/machinery/light,
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_main";
 	name = "SST Armory";
 	pixel_y = -24;
@@ -33396,22 +33358,18 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "qYf" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	color = "#99ff99";
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_basic";
 	name = "SST Armory Basic Weapons";
 	pixel_y = -24;
 	req_access = list(153);
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	color = "#ffdd99";
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_grenades";
 	name = "SST Armory Grenades";
 	pixel_x = 6;
@@ -33419,21 +33377,17 @@
 	req_access = list(153);
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_advanced";
 	name = "SST Armory Advanced Weapons";
 	pixel_y = -40;
 	req_access = list(153);
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	color = "#9999ff";
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SST_armory_support";
 	name = "SST Armory Support Items";
 	pixel_x = -6;
@@ -37205,10 +37159,8 @@
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
 "sRh" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SyndFB_prison_stroll_blast";
 	name = "Prison Stroll Blastdoors";
 	pixel_x = 8;
@@ -37216,10 +37168,8 @@
 	req_access = list(153);
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SyndFB_prison_stroll";
 	name = "Prison Stroll Zone";
 	normaldoorcontrol = 4;
@@ -37229,10 +37179,8 @@
 	specialfunctions = 4;
 	wires = 1
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SyndFB_prison_outside";
 	name = "Prison Outside Doors";
 	pixel_x = -12;
@@ -41432,9 +41380,7 @@
 	},
 /area/centcom/supply)
 "uKX" = (
-/obj/machinery/door_control{
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
+/obj/machinery/door_control/alt{
 	id = "SST_ready";
 	name = "Shuttle Dock Door";
 	pixel_x = -32;
@@ -43107,9 +43053,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/door_control{
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
+/obj/machinery/door_control/alt{
 	id = "SST_pod_ready";
 	name = "Shuttle Dock Door";
 	pixel_x = -32;
@@ -44081,10 +44025,8 @@
 /turf/simulated/floor/wood,
 /area/centcom/specops)
 "vYT" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/alt{
 	emagged = 1;
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
 	id = "SIT_outside";
 	name = "SIT Outside Doors";
 	pixel_y = -29;
@@ -45925,9 +45867,7 @@
 /area/centcom/court)
 "wZL" = (
 /obj/machinery/computer/shuttle/syndicate/recall,
-/obj/machinery/door_control{
-	icon_button = "altdoorctrl";
-	icon_state = "altdoorctrl";
+/obj/machinery/door_control/alt{
 	id = "nukeop_ready";
 	name = "Shuttle Dock Door";
 	pixel_y = 25;

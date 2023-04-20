@@ -3,7 +3,6 @@
 	desc = "A remote control-switch for a door."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
-	var/icon_button = "doorctrl" //Для хранения начального icon_state и перезаписи при разных взаимодействиях на нужный
 	power_channel = ENVIRON
 	var/id = null
 	var/safety_z_check = 1
@@ -31,6 +30,9 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 
+/obj/machinery/door_control/alt
+	icon_state = "altdoorctrl"
+
 /obj/machinery/door_control/attack_ai(mob/user as mob)
 	if(wires & 2)
 		return attack_hand(user)
@@ -52,76 +54,74 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
+/obj/machinery/door_control/proc/do_main_action(mob/user as mob)
+	if(normaldoorcontrol)
+		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+			if(safety_z_check && D.z != z || D.id_tag != id)
+				continue
+			if(specialfunctions & OPEN)
+				if(D.density)
+					spawn(0)
+						D.open()
+				else
+					spawn(0)
+						D.close()
+			if(desiredstate == 1)
+				if(specialfunctions & IDSCAN)
+					D.aiDisabledIdScanner = 1
+				if(specialfunctions & BOLTS)
+					D.lock()
+				if(specialfunctions & SHOCK)
+					D.electrify(-1)
+				if(specialfunctions & SAFE)
+					D.safe = 0
+			else
+				if(specialfunctions & IDSCAN)
+					D.aiDisabledIdScanner = 0
+				if(specialfunctions & BOLTS)
+					D.unlock()
+				if(specialfunctions & SHOCK)
+					D.electrify(0)
+				if(specialfunctions & SAFE)
+					D.safe = 1
+
+	else
+		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
+			if(safety_z_check && M.z != z || M.id_tag != id)
+				continue
+			if(M.density)
+				spawn(0)
+					M.open()
+			else
+				spawn(0)
+					M.close()
+
+	desiredstate = !desiredstate
+
 /obj/machinery/door_control/attack_hand(mob/user as mob)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	if(!allowed(user) && (wires & 1) && !user.can_advanced_admin_interact())
 		to_chat(user, "<span class='warning'>Access Denied.</span>")
-		flick("[icon_button]-denied",src)
+		flick("[initial(icon_state)]-denied",src)
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
 	use_power(5)
-	icon_state = "[icon_button]-inuse"
-	add_fingerprint(user)
+	icon_state = "[initial(icon_state)]-inuse"
 
-	if(normaldoorcontrol)
-		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
-			if(safety_z_check && D.z != z)
-				continue
-			if(D.id_tag == id)
-				if(specialfunctions & OPEN)
-					if(D.density)
-						spawn(0)
-							D.open()
-							return
-					else
-						spawn(0)
-							D.close()
-							return
-				if(desiredstate == 1)
-					if(specialfunctions & IDSCAN)
-						D.aiDisabledIdScanner = 1
-					if(specialfunctions & BOLTS)
-						D.lock()
-					if(specialfunctions & SHOCK)
-						D.electrify(-1)
-					if(specialfunctions & SAFE)
-						D.safe = 0
-				else
-					if(specialfunctions & IDSCAN)
-						D.aiDisabledIdScanner = 0
-					if(specialfunctions & BOLTS)
-						D.unlock()
-					if(specialfunctions & SHOCK)
-						D.electrify(0)
-					if(specialfunctions & SAFE)
-						D.safe = 1
+	do_main_action(user)
 
-	else
-		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
-			if(safety_z_check && M.z != z)
-				continue
-			if(M.id_tag == id)
-				if(M.density)
-					spawn( 0 )
-						M.open()
-						return
-				else
-					spawn( 0 )
-						M.close()
-						return
-
-	desiredstate = !desiredstate
-	spawn(15)
-		if(!(stat & NOPOWER))
-			icon_state = "[icon_button]"
+	addtimer(CALLBACK(src, .proc/update_icon), 15)
 
 /obj/machinery/door_control/power_change()
 	..()
+	update_icon()
+
+/obj/machinery/door_control/update_icon()
 	if(stat & NOPOWER)
-		icon_state = "[icon_button]-p"
+		icon_state = "[initial(icon_state)]-p"
 	else
-		icon_state = "[icon_button]"
+		icon_state = initial(icon_state)
