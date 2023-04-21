@@ -7,7 +7,6 @@
 	var/list/mobs_with_alert
 
 /datum/event/meteor_wave/setup()
-	// screen_alert = new()
 	mobs_with_alert = list()
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		mobs_with_alert |= O
