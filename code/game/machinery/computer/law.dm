@@ -61,13 +61,15 @@
 			for(var/datum/ai_law/law in current.laws.all_laws())
 				if(law in current.laws.inherent_laws)
 					foundlaws++
-				if(!length(current.laws.ion_laws) && !checked)
+				if (checked)
+					continue
+				if(!length(current.laws.ion_laws))
 					checked = TRUE
 					if(prob(20))  // 20% chance to generate an ion law if none exists
 						current.add_ion_law(generate_ion_law())
 						cooldown = world.time + cooldown_delay
 						return
-				else if(law in current.laws.ion_laws && !checked) //10% chance to overwrite a current ion
+				else if(law in current.laws.ion_laws) //10% chance to overwrite a current ion
 					checked = TRUE
 					if(prob(10))
 						current.clear_ion_laws()
