@@ -165,6 +165,8 @@ GLOBAL_VAR(bomb_set)
 			user.visible_message("<span class='notice'>[user] puts [O] back in [src].</span>", "<span class='notice'>You put [O] back in [src].</span>")
 			O.forceMove(src)
 			core = O
+			update_icon(UPDATE_OVERLAYS)
+			return
 
 	else if(istype(O, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
