@@ -557,7 +557,10 @@
 	. = ..()
 	update_icon(UPDATE_ICON)
 	if(!.)
-		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)),  1 MINUTES, TIMER_STOPPABLE)
+		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)),  8 MINUTES, TIMER_STOPPABLE)
+
+	if(prob(10))
+		overlays += image('icons/obj/trash.dmi', "big_stinkum")
 
 /obj/effect/decal/cleanable/garbage/update_icon()
 	var/turf/T = get_turf(src)
@@ -650,7 +653,7 @@
 	// temp check based off the turf they're in
 	var/turf/current_turf = get_turf(input_item)
 	var/temperature_check
-	if(world.time > input_item.last_temp_check_time + 10 SECONDS) //set to 10 seconds for debugging, should be 2 minutes
+	if(world.time > input_item.last_temp_check_time + 2 MINUTES)
 		var/datum/gas_mixture/environment = current_turf.return_air()
 		switch(environment.temperature)
 			if(0 to 273)
@@ -693,8 +696,11 @@
 					I.alpha = 120
 					I.blend_mode = BLEND_INSET_OVERLAY
 					input_item.overlays += I
+					if(prob(10))
+						input_item.overlays += image('icons/obj/trash.dmi', "fly")
 				if(3)
 					//move from decomposing to rotting
+					input_item.overlays.Cut()
 					input_item.name = "rotting [initial(input_item.name)]"
 					input_item.desc  = "[initial(input_item.desc)] Its completly [input_item.can_decompose == DECOMPOSE_RUST ? "rusted" : input_item.can_decompose == DECOMPOSE_MOLD ? "covered in mold" : input_item.can_decompose == DECOMPOSE_DEGRADE ? pick("rotten","decayed") : "disintegrated"], disgusting!"
 					var/image/I = image('icons/obj/trash.dmi',"deco")
@@ -703,6 +709,8 @@
 					input_item.color = input_item.can_decompose == DECOMPOSE_RUST ? "#a9572e" : input_item.can_decompose == DECOMPOSE_MOLD ? "#b1b1b1ff" : input_item.can_decompose == DECOMPOSE_DEGRADE ? pick("#4c593c","#5f5b30","#767654") : "#FFFFFF"
 					I.color = input_item.can_decompose == DECOMPOSE_RUST ? "#9b4519" : input_item.can_decompose == DECOMPOSE_MOLD ? "#887a90" : input_item.can_decompose == DECOMPOSE_DEGRADE ? pick("#34461f","#5f5700","#8b8b24") : rgb(71, 66, 71)
 					input_item.overlays += I
+					if(prob(10))
+						input_item.overlays += image('icons/obj/trash.dmi', pick("flies","big_stinkum"))
 				if(4)
 					//move from rotting to MUSH
 					input_item.visible_message("<span class='warning'>[input_item] decays into a pile of mush!</span>")
