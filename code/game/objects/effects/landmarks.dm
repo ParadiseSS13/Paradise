@@ -78,6 +78,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	spawner_list = GLOB.xeno_spawn
 	return ..()
 
+/obj/effect/landmark/spawner/pirate
+	name = "pirate_spawn"
+	icon_state = "Pirate"
+
+/obj/effect/landmark/spawner/pirate/Initialize(mapload)
+	spawner_list = GLOB.pirate_spawn
+	return ..()
+
 /obj/effect/landmark/spawner/nukedisc_respawn
 	name = "nukedisc_respawn"
 	icon_state = "Nuke_disk"

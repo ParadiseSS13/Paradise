@@ -1719,6 +1719,7 @@
 /area/shuttle/syndicate_elite)
 "gu" = (
 /obj/structure/chair/stool,
+/obj/effect/landmark/spawner/pirate,
 /turf/simulated/floor/plasteel,
 /area/syndicate_mothership)
 "gv" = (
@@ -7147,6 +7148,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/pirate,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "xX" = (
@@ -10624,6 +10626,7 @@
 "LA" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/pirate,
 /turf/simulated/floor/plasteel,
 /area/syndicate_mothership)
 "LC" = (
@@ -10764,6 +10767,7 @@
 "Me" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/spawner/pirate,
 /turf/simulated/floor,
 /area/syndicate_mothership)
 "Mf" = (
