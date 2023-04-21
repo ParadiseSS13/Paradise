@@ -325,6 +325,7 @@
 #include "code\datums\log_record.dm"
 #include "code\datums\log_viewer.dm"
 #include "code\datums\logging.dm"
+#include "code\datums\meteor_follow.dm"
 #include "code\datums\mind.dm"
 #include "code\datums\mixed.dm"
 #include "code\datums\mutable_appearance.dm"
