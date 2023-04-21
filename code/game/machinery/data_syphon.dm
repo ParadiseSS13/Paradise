@@ -10,6 +10,10 @@
 	var/credits_stored = 0
 	/// The number of credits which should be syphoned per tick.
 	var/siphon_per_tick = 5
+	/// The interval (in seconds) between siphon rate increases
+	var/siphon_rate_increase_interval = 60
+	/// The amount by which the siphon rate increases at each interval
+	var/siphon_rate_increase = 1
 
 /obj/machinery/data_syphon/Destroy()
 	SSshuttle.supply.active_syphon = null
