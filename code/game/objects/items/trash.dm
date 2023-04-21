@@ -599,6 +599,8 @@
 	name = "congealed blob of liquid garbage"
 	desc = "rancid, putrid, fetid, grossness, just looking at it makes you sick."
 	random_icon_states = list("gib1", "gib2", "gib4", "gib5", "gib6", "gibmid1","gibmid2","gibmid3","gibtorso_flesh")
+	plane = GAME_PLANE
+	layer = LOW_ITEM_LAYER
 
 /obj/effect/decal/cleanable/garbage/gibs/dry()
 	return
@@ -714,6 +716,7 @@
 				if(4)
 					//move from rotting to MUSH
 					input_item.visible_message("<span class='warning'>[input_item] decays into a pile of mush!</span>")
+					new /obj/effect/decal/cleanable/garbage/gibs(loc)
 					qdel(input_item)
 
 
