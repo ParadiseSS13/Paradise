@@ -43,7 +43,7 @@
 
 /datum/design/light_replacer
 	name = "Light Replacer"
-	desc = "A device to automatically replace lights. Refill with working lightbulbs."
+	desc = "A device to automatically replace lights. Refill with working light bulbs."
 	id = "light_replacer"
 	req_tech = list("magnets" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
