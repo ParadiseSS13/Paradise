@@ -210,7 +210,7 @@
 
 /obj/item/watertank/atmos/New()
 	..()
-	reagents.add_reagent("water", 200)
+	reagents.add_reagent("water", 500)
 
 /obj/item/watertank/atmos/make_noz()
 	return new /obj/item/extinguisher/mini/nozzle(src)
@@ -229,7 +229,7 @@
 	icon_state = "atmos_nozzle"
 	item_state = "nozzleatmos"
 	safety = 0
-	max_water = 200
+	max_water = 500
 	power = 8
 	precision = 1
 	cooling_power = 5
