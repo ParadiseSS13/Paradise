@@ -614,12 +614,13 @@
 	new /obj/effect/decal/cleanable/garbage(get_turf(src))
 	qdel(src)
 
-/obj/effect/decal/cleanable/garbage/gibs/Entered(atom/movable/AM, atom/oldLoc)
+/obj/effect/decal/cleanable/garbage/gibs/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
-	if(!isturf(AM))
+
+	if(!isturf(loc))
 		return
 
-	new /obj/effect/decal/cleanable/garbage(AM)
+	new /obj/effect/decal/cleanable/garbage(loc)
 
 
 
