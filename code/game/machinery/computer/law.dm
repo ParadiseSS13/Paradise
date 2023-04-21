@@ -61,7 +61,7 @@
 			for(var/datum/ai_law/law in current.laws.all_laws())
 				if(law in current.laws.inherent_laws)
 					foundlaws++
-				if (checked)
+				if(checked)
 					continue
 				if(!length(current.laws.ion_laws))
 					checked = TRUE
