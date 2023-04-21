@@ -25,15 +25,10 @@
 	if(active || !user.default_can_use_topic(src))
 		return
 
-	enable(user)
+	activate_syphon(user)
 	update_appearance()
 	send_notification()
 
-/**
-  * Activates the data syphon.
-  *
-  * This prevents the cargo shuttle from moving, and starts the process of 'blockading' the station (See `/obj/machinery/data_syphon/process()`).
-  */
 /obj/machinery/data_syphon/proc/activate_syphon(mob/user)
 	to_chat(user, "<span class='notice'>You enable [src].</span>")
 	active = TRUE
@@ -41,12 +36,11 @@
 	START_PROCESSING(SSmachines, src)
 
 	// Find the research server and set data_syphon_active to TRUE
-	var/datum/research_server/server = find_research_server()
+	var/obj/machinery/r_n_d/server/server = find_research_server()
 	if(server)
 		server.data_syphon_active = TRUE
 		addtimer(CALLBACK(src, .proc/sap_tech_levels, server), 3 MINUTES, TIMER_LOOP)
 
-/// Returns the first non-centcom `/obj/machinery/r_n_d/server` on the z level.
 /obj/machinery/data_syphon/proc/find_research_server()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && S.z == z)
@@ -79,19 +73,16 @@
 		server.emp_act()
 		new /obj/effect/temp_visual/emp(get_turf(server))
 
-		S.emp_act()
-		new /obj/effect/temp_visual/emp(get_turf(S))
-
 /// Reduces all tech levels in the RnD server by 1.
 /obj/machinery/data_syphon/proc/sap_tech_levels()
 	var/obj/machinery/r_n_d/server/server = find_research_server()
 	for(var/datum/tech/T in server.files.known_tech)
 		if(T.level > 1)
 			T.level -= 1
-		else(server && !QDELETED(/obj/machinery/r_n_d/server))
-			explosion(get_turf(/obj/machinery/r_n_d/server), 0,1,1,0)
+		else if(server && !QDELETED(server))
+			explosion(get_turf(server), 0,1,1,0)
 			if(server) //to check if the explosion killed it before we try to delete it
-				qdel(/obj/machinery/r_n_d/server)
+				qdel(server)
 
 /obj/machinery/data_syphon/proc/send_notification()
 	// TODO: Make sure this is working and update it.

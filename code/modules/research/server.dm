@@ -14,6 +14,7 @@
 	var/delay = 10
 	req_access = list(ACCESS_RD) //Only the R&D can change server settings.
 	var/plays_sound = 0
+	var/data_syphon_active = FALSE
 
 /obj/machinery/r_n_d/server/Initialize(mapload)
 	. = ..()
