@@ -165,8 +165,8 @@
 
 /obj/item/circuitboard/aiupload_broken
 	board_name = "AI Upload"
-	icon_state = "command_broken"
 	desc = "<span class='warning'>The board is charred and smells of burnt plastic. It has been rendered useless.</span>"
+	icon_state = "command_broken"
 
 /obj/item/circuitboard/borgupload
 	board_name = "Cyborg Upload"
