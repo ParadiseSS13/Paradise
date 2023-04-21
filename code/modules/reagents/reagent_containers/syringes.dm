@@ -178,6 +178,33 @@
 		M.update_inv_l_hand()
 		M.update_inv_r_hand()
 
+/obj/item/reagent_containers/syringe/Crossed(mob/living/carbon/human/H, oldloc)
+	if(!istype(H) || !H.reagents || HAS_TRAIT(H, TRAIT_PIERCEIMMUNE) || ismachineperson(H))
+		return
+
+	if(H.floating || H.flying || H.buckled)
+		return
+
+	if(!IS_HORIZONTAL(H) && (H.shoes || (H.wear_suit && (H.wear_suit.body_parts_covered & FEET)) || (H.w_uniform && (H.w_uniform.body_parts_covered & FEET))))
+		return
+
+	if(IS_HORIZONTAL(H) && ((H.wear_suit && (H.wear_suit.body_parts_covered & UPPER_TORSO)) || (H.w_uniform && (H.w_uniform.body_parts_covered & UPPER_TORSO))))
+		return
+
+	H.visible_message("<span class='danger'>[H] is injected by [src].</span>", \
+				"<span class='userdanger'>You are injected by [src]!</span>")
+
+	if(IS_HORIZONTAL(H))
+		H.apply_damage(5, BRUTE, BODY_ZONE_CHEST)
+	else
+		H.apply_damage(5, BRUTE, pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+
+	if(reagents.total_volume && H.reagents.total_volume < H.reagents.maximum_volume)
+		var/inject_amount = reagents.total_volume
+		reagents.reaction(H, REAGENT_INGEST, inject_amount)
+		reagents.trans_to(H, inject_amount)
+		update_icon()
+
 /obj/item/reagent_containers/syringe/antiviral
 	name = "syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
