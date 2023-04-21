@@ -8,9 +8,8 @@
 	INVOKE_ASYNC(src, PROC_REF(spawn_pirates))
 
 /datum/event/pirates/proc/spawn_pirates()
-	if(!spawn_pirates())
-		message_admins("Pirate event failed to find players. Retrying in 30s.")
-		addtimer(CALLBACK(src, PROC_REF(spawn_pirates)), 30 SECONDS)
+	world.log << "spawn_pirates() called"
+	// Create a list of pirate spawn locations
 	var/list/spawn_locations = list()
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/L = thing
@@ -23,6 +22,7 @@
 		return
 
 	while(spawncount && length(spawn_locations) && length(candidates))
+		world.log << "spawn_pirates() loop iteration, spawncount: [spawncount], spawn_locations: [length(spawn_locations)], candidates: [length(candidates)]"
 		var/turf/location = pick_n_take(spawn_locations)
 		var/mob/dead/observer/C = pick_n_take(candidates)
 		if(C)

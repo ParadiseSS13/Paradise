@@ -762,6 +762,9 @@
 /area/wizard_station)
 "cX" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
+	dir = 10
+	},
 /turf/simulated/floor,
 /area/shuttle/pirate)
 "cY" = (
@@ -826,7 +829,7 @@
 "dm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/shieldgen,
-/turf/simulated/floor/mineral/plastitanium,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/pirate)
 "do" = (
 /obj/structure/table/abductor,
@@ -2407,19 +2410,7 @@
 	},
 /area/centcom/evac)
 "iu" = (
-/obj/effect/spawner/window/plastitanium,
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	dir = 2;
-	icon_state = "open";
-	id_tag = "pirateshutters";
-	name = "Blast Shutters";
-	opacity = 0
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "iv" = (
 /obj/structure/table,
@@ -3312,9 +3303,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership/jail)
 "lu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor,
 /area/shuttle/pirate)
@@ -3977,7 +3965,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "nh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 6
 	},
 /turf/simulated/floor,
@@ -4209,7 +4197,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "nM" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+/obj/machinery/atmospherics/pipe/manifold/visible/supply{
 	dir = 8
 	},
 /turf/simulated/floor,
@@ -4357,13 +4345,10 @@
 "ok" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flag/syndi,
-/turf/simulated/floor/mineral/plastitanium,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/pirate)
 "ol" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor,
 /area/shuttle/pirate)
 "om" = (
@@ -4566,7 +4551,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "pd" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 5
 	},
 /turf/simulated/floor,
@@ -5534,11 +5519,8 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/pirate)
 "ss" = (
-/obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 8;
-	name = "scrubber outlet"
-	},
-/turf/simulated/floor/plating/airless,
+/obj/machinery/porta_turret/syndicate,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/pirate)
 "st" = (
 /obj/structure/table/wood,
@@ -6170,7 +6152,10 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "ut" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
+	dir = 9
+	},
 /turf/simulated/floor,
 /area/shuttle/pirate)
 "uu" = (
@@ -7264,7 +7249,7 @@
 /area/syndicate_mothership)
 "yC" = (
 /obj/item/flag/syndi,
-/turf/simulated/floor/mineral/plastitanium,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/pirate)
 "yE" = (
 /obj/machinery/light/spot,
@@ -7301,9 +7286,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/pirate)
 "yN" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
+	dir = 8
 	},
 /turf/simulated/floor,
 /area/shuttle/pirate)
@@ -7561,12 +7545,8 @@
 	},
 /area/centcom/control)
 "Ao" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/mineral/plastitanium,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/pirate)
 "Ap" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7767,9 +7747,7 @@
 /area/syndicate_mothership)
 "Bj" = (
 /obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_int";
-	locked = 1;
-	name = "Ship External Access";
+	id_tag = "syndicate_away";
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/stairs,
@@ -9514,10 +9492,11 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "HD" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/portable/scrubber,
-/turf/simulated/floor,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/pirate)
 "HI" = (
 /obj/structure/closet/secure_closet/guncabinet,
@@ -9729,8 +9708,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "Ix" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/visible/supply,
 /turf/simulated/floor,
 /area/shuttle/pirate)
 "Iy" = (
@@ -11255,10 +11233,10 @@
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
 "Nt" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
+	dir = 8
 	},
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor,
 /area/shuttle/pirate)
 "Nu" = (
@@ -12274,10 +12252,8 @@
 /area/shuttle/escape)
 "Rd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/turf/simulated/floor,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/pirate)
 "Re" = (
 /obj/machinery/computer/mech_bay_power_console,
@@ -13376,6 +13352,7 @@
 "VB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/shieldgen,
 /turf/simulated/floor,
 /area/shuttle/pirate)
 "VC" = (
@@ -13517,10 +13494,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "Wc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor,
+/turf/simulated/wall/mineral/plastitanium/interior,
 /area/shuttle/pirate)
 "Wd" = (
 /turf/simulated/floor/transparent/glass/reinforced,
@@ -14703,12 +14677,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "ZY" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/plastitanium,
+/obj/machinery/atmospherics/unary/outlet_injector/on,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/pirate)
 "ZZ" = (
 /obj/structure/railing,
@@ -66552,7 +66522,7 @@ aN
 aN
 aN
 aN
-WL
+ss
 Vr
 Vr
 Vr
@@ -66562,7 +66532,7 @@ Vr
 Vr
 Vr
 Vr
-WL
+ss
 aN
 aN
 aN
@@ -66811,11 +66781,11 @@ aN
 aN
 BS
 QJ
-Ga
+QJ
 ol
-Ix
+nh
 nM
-HD
+pd
 lu
 VB
 QJ
@@ -67064,21 +67034,21 @@ aN
 aN
 aN
 aN
-WL
+ss
 Lh
 BS
 nh
+Ix
+Ix
 ut
-Rd
-cX
 CL
 cX
-Wc
+Ix
 Ix
 pd
 BS
 Lh
-WL
+ss
 Db
 ED
 aN
@@ -67325,7 +67295,7 @@ BS
 yK
 BS
 yN
-rw
+Ga
 JZ
 zr
 YJ
@@ -67580,7 +67550,7 @@ aN
 Db
 BS
 fV
-BS
+iu
 Nt
 BS
 BS
@@ -67590,7 +67560,7 @@ BS
 BS
 BS
 Nt
-BS
+iu
 Dk
 BS
 aN
@@ -68610,13 +68580,13 @@ BS
 gE
 xs
 KW
-BS
+iu
 BS
 wL
 IJ
 hR
 BS
-BS
+iu
 mJ
 bA
 IJ
@@ -70662,7 +70632,7 @@ TB
 TB
 TB
 mE
-BS
+Wc
 MK
 bA
 LE
@@ -72204,7 +72174,7 @@ aN
 aN
 aN
 Db
-WL
+ss
 BS
 xs
 yd
@@ -72218,7 +72188,7 @@ mS
 Vw
 xs
 BS
-WL
+ss
 Db
 ED
 aN
@@ -72461,10 +72431,10 @@ aN
 aN
 aN
 aN
-aN
-BS
-bA
-xX
+ZY
+Ao
+Rd
+HD
 BS
 BS
 GZ
@@ -73496,7 +73466,7 @@ YF
 Ap
 Gl
 Kr
-ZY
+Kr
 Kr
 dP
 Gu
@@ -73753,7 +73723,7 @@ sr
 Pc
 xs
 xs
-Ao
+xs
 xs
 bA
 AW
@@ -74008,11 +73978,11 @@ BS
 LF
 ok
 Jm
-sJ
-sJ
-iu
-sJ
-sJ
+IJ
+IJ
+IJ
+IJ
+IJ
 dm
 yC
 IJ
@@ -74264,13 +74234,13 @@ aN
 BS
 BS
 BS
+BS
 sJ
 sJ
-aN
-ss
-aN
+Pq
 sJ
 sJ
+BS
 BS
 BS
 BS
@@ -74519,17 +74489,17 @@ aN
 aN
 Db
 aN
-WL
+ss
 BS
-WL
+ss
 aN
 aN
 aN
 aN
 aN
-WL
+ss
 BS
-WL
+ss
 aN
 Db
 aN
