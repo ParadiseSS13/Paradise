@@ -1014,11 +1014,14 @@
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
+			L.Weaken(6 SECONDS)
 			if(crit)
 				// increase damage if you knock it over onto yourself
 				damage_to_deal *= crit_damage_factor
 			else
 				damage_to_deal *= self_knockover_factor
+		else
+			L.Weaken(4 SECONDS)
 
 		if(iscarbon(L))
 			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
@@ -1039,7 +1042,6 @@
 			add_attack_logs(null, L, "crushed by [src]")
 
 		. = TRUE
-		L.Weaken(6 SECONDS)
 		L.KnockDown(12 SECONDS)
 
 		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
@@ -1083,6 +1085,8 @@
 	transform = M
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
+	if(HAS_TRAIT(target, TRAIT_FLATTENED))
+		return
 	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 	tilt(target, from_combat = TRUE)
 	return TRUE
