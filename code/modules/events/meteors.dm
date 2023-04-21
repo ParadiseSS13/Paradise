@@ -4,12 +4,9 @@
 	var/next_meteor = 6
 	var/waves = 1
 	var/obj/screen/alert/augury/meteor/screen_alert
-	var/list/mobs_with_alert
 
 /datum/event/meteor_wave/setup()
-	mobs_with_alert = list()
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		mobs_with_alert |= O
+	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 		var/obj/screen/alert/augury/meteor/A = O.throw_alert("\ref[src]_augury", /obj/screen/alert/augury/meteor)
 		if(A)
 			screen_alert = A
@@ -26,8 +23,7 @@
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
 	// keep observers updated with the alert
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		mobs_with_alert |= O
+	for(var/mob/dead/observer/O in GLOB.dead_mob_list)
 		O.throw_alert("\ref[src]_augury", /obj/screen/alert/augury/meteor)
 	if(waves && activeFor >= next_meteor)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), get_meteor_count(), get_meteors())
@@ -36,9 +32,8 @@
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
 
 /datum/event/meteor_wave/end()
-	for(var/mob/M in mobs_with_alert)
+	for(var/mob/M in GLOB.dead_mob_list)
 		M.clear_alert("\ref[src]_augury")
-	mobs_with_alert = null
 	qdel(screen_alert)
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
