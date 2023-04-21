@@ -51,15 +51,29 @@
 	for(var/datum/money_account/account in combined_accounts)
 		account.pirated = TRUE
 
+/obj/machinery/data_syphon/proc/find_account_database_terminal()
+	for(var/obj/machinery/computer/account_database/terminal in GLOB.machines)
+		if(terminal.z == z)
+			return terminal
+
+	var/obj/machinery/computer/account_database/terminal = find_account_database_terminal()
+	if(terminal)
+		terminal.data_syphon_active = TRUE
+
 /obj/machinery/data_syphon/proc/deactivate_syphon()
 	var/list/combined_accounts = GLOB.station_money_database.user_accounts + GLOB.station_money_database.department_accounts
 	for(var/datum/money_account/account in combined_accounts)
 		account.pirated = FALSE
 
+	var/obj/machinery/computer/account_database/terminal = find_account_database_terminal()
+	if(terminal)
+		terminal.data_syphon_active = FALSE
+
 /obj/machinery/data_syphon/proc/find_research_server()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && S.z == z)
 			return S
+
 
 /obj/machinery/data_syphon/process()
 	if(!active || !is_station_level(z))

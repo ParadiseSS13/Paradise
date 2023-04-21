@@ -30,6 +30,9 @@
 	return ..()
 
 /obj/machinery/computer/account_database/attack_hand(mob/user)
+	if(data_syphon_active)
+		to_chat(user, "<span class='warning'>Access to the account database is currently blocked due to an active data syphon.</span>")
+		return
 	ui_interact(user)
 
 /obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

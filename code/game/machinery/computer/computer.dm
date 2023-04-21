@@ -14,6 +14,8 @@
 	var/icon_screen = "generic"
 	var/light_range_on = 1
 	var/light_power_on = 0.7
+	/// Is an active pirate data siphon present?
+	var/data_syphon_active = FALSE
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
