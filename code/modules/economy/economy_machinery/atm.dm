@@ -166,6 +166,10 @@
 	if(..())
 		return
 
+	if(authenticated_account && authenticated_account.pirated)
+		to_chat(ui.user, "<span class='warning'>Your account is currently under piracy attack and cannot perform any transactions.</span>")
+		return
+
 	var/mob/user = ui.user
 
 	switch(action)
@@ -220,6 +224,10 @@
 	var/datum/money_account/user_account = account_database.find_user_account(account_number, include_departments = TRUE)
 	if(!user_account)
 		to_chat(user, "[bicon(src)]<span class='warning'>Authentification Failure: User Account Not Found.</span>")
+		return FALSE
+
+	if(user_account.pirated)
+		to_chat(user, "[bicon(src)]<span class='warning'>Authentication Failure: User Account is currently under piracy attack.</span>")
 		return FALSE
 
 	if(attempt_account_authentification(user_account, account_pin, user))

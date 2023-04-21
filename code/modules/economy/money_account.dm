@@ -25,6 +25,8 @@
 	var/security_level
 	///Bool - Is this account locked out from being used completely?
 	var/suspended = FALSE
+	///Is this account currently under piracy attack?
+	var/pirated = FALSE
 	///Type of account this is
 	var/account_type = ACCOUNT_TYPE_PERSONAL
 	///the amount this account recieves every payday

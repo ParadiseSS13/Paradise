@@ -21,10 +21,9 @@
 		message_admins("Warning: No suitable locations detected for spawning pirates!")
 		return
 
-	while(spawncount && length(spawn_locations) && length(candidates))
+	for(var/mob/dead/observer/C in candidates)
 		world.log << "spawn_pirates() loop iteration, spawncount: [spawncount], spawn_locations: [length(spawn_locations)], candidates: [length(candidates)]"
 		var/turf/location = pick_n_take(spawn_locations)
-		var/mob/dead/observer/C = pick_n_take(candidates)
 		if(C)
 			C.remove_from_respawnable_list()
 			var/mob/living/carbon/human/new_pirate = new(location) // Use the existing human type

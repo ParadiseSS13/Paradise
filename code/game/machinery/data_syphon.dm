@@ -13,6 +13,7 @@
 
 /obj/machinery/data_syphon/Destroy()
 	SSshuttle.supply.active_syphon = null
+	deactivate_syphon()
 	return ..()
 
 /obj/machinery/data_syphon/interact(mob/user)
@@ -41,6 +42,16 @@
 		server.data_syphon_active = TRUE
 		addtimer(CALLBACK(src, PROC_REF(sap_tech_levels), server), 3 MINUTES, TIMER_LOOP)
 
+	// Set the pirated flag on all accounts
+	var/list/combined_accounts = GLOB.station_money_database.user_accounts + GLOB.station_money_database.department_accounts
+	for(var/datum/money_account/account in combined_accounts)
+		account.pirated = TRUE
+
+/obj/machinery/data_syphon/proc/deactivate_syphon()
+	var/list/combined_accounts = GLOB.station_money_database.user_accounts + GLOB.station_money_database.department_accounts
+	for(var/datum/money_account/account in combined_accounts)
+		account.pirated = FALSE
+
 /obj/machinery/data_syphon/proc/find_research_server()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && S.z == z)
@@ -51,11 +62,27 @@
 		STOP_PROCESSING(SSmachines, src)
 		return
 
-	var/datum/money_account/cargo_account = GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY)
-	var/siphoned = min(cargo_account.credit_balance, siphon_per_tick)
-	cargo_account.try_withdraw_credits(siphoned)
-	credits_stored += siphoned
+	steal_credits_from_accounts()
 	interrupt_research()
+
+/obj/machinery/data_syphon/proc/steal_credits_from_accounts()
+	var/total_credits_to_siphon = 0
+
+	// Combine user accounts and department accounts into a single list
+	var/list/combined_accounts = GLOB.station_money_database.user_accounts + GLOB.station_money_database.department_accounts
+
+	// Steal from both crew and department accounts
+	for(var/datum/money_account/account in combined_accounts)
+		var/siphoned_from_account = min(account.credit_balance, siphon_per_tick)
+		account.try_withdraw_credits(siphoned_from_account)
+		total_credits_to_siphon += siphoned_from_account
+
+	// Add stolen credits to data syphon
+	credits_stored += total_credits_to_siphon
+
+	// Increase the siphon rate over time
+	if(world.time % (siphon_rate_increase_interval * 10) == 0)
+		siphon_per_tick += siphon_rate_increase
 
 /// Drops all stored credits on the floor as a stack of `/obj/item/stack/spacecash`.
 /obj/machinery/data_syphon/proc/drop_loot(mob/user)
