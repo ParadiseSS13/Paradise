@@ -711,7 +711,7 @@
 	description = "A constantly swirling, oddly colourful fluid. Causes the consumer's sense of direction and hand-eye coordination to become wild."
 	reagent_state = LIQUID
 	color = "#AC88CA" //RGB: 172, 136, 202
-	metabolization_rate = 0.6 * REAGENTS_METABOLISM
+	metabolization_rate = 0.6
 	taste_description = "spinning"
 
 /datum/reagent/rotatium/on_mob_life(mob/living/carbon/M)
