@@ -9,7 +9,7 @@
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
-	max_age = 120
+	max_age = 130
 	language = "Bubblish"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime

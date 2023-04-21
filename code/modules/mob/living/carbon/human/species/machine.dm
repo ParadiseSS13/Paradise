@@ -1,7 +1,7 @@
 /datum/species/machine
 	name = "Machine"
 	name_plural = "Machines"
-	max_age = 150
+	max_age = 60
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independent, free-willed \
 	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
