@@ -7,9 +7,18 @@
 	var/list/followers = list()
 	/// Queue of next atoms to follow
 	var/list/next_targets = list()
+	/// Title for the thing that will be followed.
 	var/thing_followed = "debris"
+	/// After a followed item is qdeleted, wait this long before switching to the next target, allowing you to see aftermath.
 	var/time_between_switches = 1 SECONDS
 
+/**
+ * Create a new augury alert.
+ *
+ * Arguments:
+ * * follow_target: The atom to start out following. Can be null, in which case change_targets() should be used at some point.
+ * * alert_overlay_override: If follow_target is provided (or not), use this for the alert image.
+ */
 /obj/screen/alert/augury/Initialize(mapload, atom/movable/follow_target, image/alert_overlay_override)
 	. = ..()
 	src.follow_target = follow_target
@@ -33,10 +42,10 @@
 	if(!usr || !usr.client || !isobserver(usr))
 		return
 	if(usr in followers)
-		to_chat(usr, "<span class='notice'>You will now not auto-follow debris.</span>")
+		to_chat(usr, "<span class='notice'>You will now not auto-follow [thing_followed].</span>")
 		remove_follower(usr)
 	else
-		to_chat(usr, "<span class='notice'>You are now auto-following [thing_followed].</span>")
+		to_chat(usr, "<span class='notice'>You are now auto-following [thing_followed]. Click again to stop.</span>")
 		add_follower(usr)
 
 /obj/screen/alert/augury/Destroy(force)
@@ -56,12 +65,14 @@
 
 	return ..()
 
+/// Add a new target
 /obj/screen/alert/augury/proc/enqueue(atom/movable/A)
 	if(!istype(A))
 		return
 	next_targets |= A
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(handle_qdel_while_queued))
 
+/// Have objects (hopefully) auto-remove themselves from the target list.
 /obj/screen/alert/augury/proc/handle_qdel_while_queued(atom/movable/A)
 	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
 	next_targets -= A
@@ -82,6 +93,12 @@
 		else
 			change_targets(follow_target)
 
+/**
+ * Change the atom that everyone is currently following, moving everyone to the new object.
+ *
+ * Arguments:
+ * * next_to - The next atom to follow.
+ */
 /obj/screen/alert/augury/proc/change_targets(atom/movable/next_to)
 	// unregister first so we aren't bombarded when changing orbits
 	if(isnull(next_to))
@@ -112,11 +129,10 @@
 	while(QDELETED(target) && length(next_targets))
 		target = next_targets[length(next_targets)]  // pop the (hopefully most recent)
 		next_targets.Remove(target)
-		// if(QDELETED(target))
 
 	return target
 
-/// Called when someone stops orbiting our followed object, so they can actually escape
+/// Called when someone stops orbiting our followed object, so they can actually get out of the loop.
 /obj/screen/alert/augury/proc/remove_follower_on_stop_orbit(atom/movable/followed, atom/movable/follower)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_STOP
 	if(locateUID(follower.orbiting_uid) != follow_target)
