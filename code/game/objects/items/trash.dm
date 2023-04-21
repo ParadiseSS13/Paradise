@@ -7,6 +7,16 @@
 #define DECOMPOSE_DEGRADE 1 //plastics & wrappers
 #define DECOMPOSE_DISINTEGRATE 0.8 //paper
 
+#define TRASH_ITEMS list(/obj/item/trash, /obj/item/paper, /obj/item/reagent_containers/food, /obj/item/organ)
+
+//------->	This file includes:
+//------->	Trashbags
+//------->	Trashbag rolls
+//------->	Trash Pokers
+//------->	Liquid Garbage
+//------->	[The Decay Handling datum]
+//------->	Trash Items
+
 //[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
 // ---------- TRASH BAGS -----------------------------------------------------
 //[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
@@ -44,20 +54,21 @@
 	if(I.type == type && length(I.contents) <= 0)
 		return TRUE
 
+/obj/item/storage/bag/trash/liquid_garbage_act(volume)
+	return //trashbags do not transfer drips
+
 /obj/item/storage/bag/trash/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	//collision_damage()
 	if(decay_amount >= ROTTENESS_ROTTEN)
-		playsound(get_turf(hit_atom),'sound/items/garbage_splat.ogg', 50, 1)
 		if(!istype(hit_atom, /obj/machinery/conveyor))
-			message_admins("splat!")
-			new /obj/effect/decal/cleanable/blood/garbage/splatter(get_turf(hit_atom))
+			splat(hit_atom)
 
 /obj/item/storage/bag/trash/attack(mob/living/M, mob/living/user, def_zone)
 	. = ..()
 
 	if(decay_amount == ROTTENESS_ROTTEN)
-		message_admins("splat!")
+		splat()
 
 	var/knockdown_duration
 
@@ -80,6 +91,34 @@
 	else
 		M.take_organ_damage(force * 2)
 	return
+
+/obj/item/storage/bag/trash/proc/splat(atom/target)
+	var/roach_amount = rand(3,8)
+	var/garbage_gibs_amount = rand(3, (length(contents) / 2))
+	var/turf/splat_turf = get_turf(src)
+	var/list/targets_turfs = range(2, splat_turf)
+	var/list/contents_throwing = list()
+	contents_throwing |= contents
+
+	playsound(splat_turf,'sound/items/garbage_splat.ogg', 80, 1, 10)
+	take_damage(max_integrity, BRUTE)
+
+	if(decay_amount < ROTTENESS_ROTTEN && obj_integrity)
+		return
+
+	for(var/i in 1 to roach_amount)
+		var/atom/movable/to_throw = new /mob/living/simple_animal/cockroach(splat_turf)
+		to_throw.throw_at(targets_turfs[rand(1, length(targets_turfs))], 1, 1)
+
+	for(var/i in 1 to garbage_gibs_amount)
+		var/atom/movable/to_throw = new /obj/effect/decal/cleanable/garbage/gibs(splat_turf)
+		to_throw.throw_at(targets_turfs[rand(1, length(targets_turfs))], 3, 1)
+
+	new /obj/effect/decal/cleanable/garbage(splat_turf)
+
+	for(var/atom/movable/i in contents_throwing)
+		i.forceMove(splat_turf)
+		i.throw_at(targets_turfs[rand(1, length(targets_turfs))], 2, 1)
 
 /obj/item/storage/bag/trash/attack_hand(mob/user)
 	if(ishuman(user))
@@ -123,7 +162,8 @@
 	if(!length(contents))
 		STOP_PROCESSING(SSobj, src)
 	if(obj_integrity > 0)
-		to_chat(usr, "<span class='warning'>The plastic streches and tears with the effort of removing [I]!</span>")
+		if(usr)
+			to_chat(usr, "<span class='warning'>The plastic streches and tears with the effort of removing [I]!</span>")
 		take_damage(25, BRUTE)
 
 /obj/item/storage/bag/trash/process()
@@ -146,20 +186,40 @@
 
 /obj/item/storage/bag/trash/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(ismob(AM) && decay_amount == ROTTENESS_ROTTEN && isturf(loc))
+	if(!isliving(AM))
+		return
+
+	var/mob/living/M = AM
+	if(M.mob_size <= MOB_SIZE_SMALL)
+		return
+
+	if(decay_amount == ROTTENESS_ROTTEN && isturf(loc))
 		playsound(loc,'sound/items/garbage_tread.ogg', 50, 1, -1)
-		message_admins("[src] bursts asunder")
-		//burst open
+		splat()
 
 /obj/item/storage/bag/trash/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
-	if(isturf(loc) && !isturf(OldLoc))
-		update_icon_state(UPDATE_ICON_STATE)
-		pixel_x = rand(-8,8)
-		pixel_y = rand(-8,8)
+
+	if(isturf(loc))
+		if(!isturf(OldLoc))
+			update_icon_state(UPDATE_ICON_STATE)
+			pixel_x = rand(-8,8)
+			pixel_y = rand(-8,8)
+		else if(isturf(OldLoc) && decay_amount >= ROTTENESS_ROTTEN)
+			message_admins("spawn trash trail")
+	if(ishuman(OldLoc) && !ishuman(loc))
+		UnregisterSignal(OldLoc, COMSIG_MOVABLE_MOVED)
 	else if(ishuman(loc) && !ishuman(OldLoc))
 		update_icon_state(UPDATE_ICON_STATE)
+		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, PROC_REF(leak))
 
+/obj/item/storage/bag/trash/proc/leak()
+	SIGNAL_HANDLER
+
+	if(decay_amount < ROTTENESS_ROTTEN)
+		return
+	take_damage(5 ,BRUTE)
+	new /obj/effect/decal/cleanable/garbage/drip(get_turf(src))
 
 /obj/item/storage/bag/trash/update_icon_state()
 	switch(contents.len)
@@ -213,9 +273,6 @@
 /obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
 
-/obj/item/storage/bag/trash/proc/explode()
-	reagents
-
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
@@ -226,6 +283,7 @@
 	storage_slots = 60
 	flags_2 = NO_MAT_REDEMPTION_2
 	torn_path = /obj/item/trash/trashbag_trash/bluespace
+
 
 
 
@@ -329,9 +387,6 @@
 
 
 
-
-
-
 //[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
 // ---------- TRASH POKER -----------------------------------------------------
 //[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
@@ -375,7 +430,16 @@
 	. = ..()
 
 	//none of this works without a human user (dexterity or something :P)
-	if(!ishuman(loc) || loc != user || !istype(target, /obj/item) || ishuman(target.loc))
+	if(!ishuman(loc) || loc != user || !istype(target, /obj/item/trash) || ishuman(target.loc))
+		return
+
+	var/is_trash = FALSE
+	for(var/i in TRASH_ITEMS)
+		if(istype(target, i))
+			is_trash = TRUE
+			break
+
+	if(!is_trash)
 		return
 
 	var/mob/living/carbon/human/human_location = loc
@@ -422,17 +486,52 @@
 
 
 
-
-
 //[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
 // ---------- LIQUID GARBAGE -----------------------------------------------------
 //[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
 
-/obj/effect/decal/cleanable/blood/garbage
+/datum/reagent/liquid_garbage
+	name = "Liquid Garbage"
+	id = "liquid_garbage"
+	description = "This is a fetid putrid mass of goop, grossness incarnate."
+	reagent_state = LIQUID
+	color = "#8b8b24" // rgb: 0, 100, 200
+	taste_description = "water"
+	process_flags = ORGANIC | SYNTHETIC
+	drink_icon = "glass_clear"
+	drink_name = "Glass of Liquid Garbage"
+	drink_desc = "This is vileness incarnate, its putrid and fetid."
+
+/datum/reagent/liquid_garbage/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	M.liquid_garbage_act(volume)
+
+/mob/living/proc/liquid_garbage_act(volume)
+	//dirty part holding trash, or the entire body if not specified
+	var/turf/T = get_turf(src)
+	T.liquid_garbage_act(volume)
+
+/datum/reagent/liquid_garbage/reaction_turf(turf/T, volume)
+	T.liquid_garbage_act(volume)
+
+/turf/proc/liquid_garbage_act(volume)
+	if(volume && volume <= 5)
+		new /obj/effect/decal/cleanable/garbage/drip(src)
+	else
+		new /obj/effect/decal/cleanable/garbage(src)
+
+/datum/reagent/liquid_garbage/reaction_obj(obj/O, volume)
+	O.liquid_garbage_act(volume)
+
+/obj/proc/liquid_garbage_act(volume)
+	var/turf/T = get_turf(src)
+	T.liquid_garbage_act(volume)
+
+// I am not making this a child of /obj/effect/decal/cleanable/blood because its stinky dog water
+/obj/effect/decal/cleanable/garbage
 	name = "liquid garbage"
-	dryname = "crusty garbage"
+	var/dryname = "crusty garbage"
 	desc = "It's putrid and voliatile, grossness incarnate."
-	drydesc = "It's dry and crusty. Someone is not doing their job."
+	var/drydesc = "It's dry and crusty. Someone is not doing their job."
 	gender = PLURAL
 	density = FALSE
 	layer = TURF_LAYER
@@ -440,50 +539,87 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
-	base_icon = 'icons/effects/blood.dmi'
-	basecolor = "#8b8b24" // Color when wet.
-	alpha = 200
+	var/base_icon = 'icons/effects/blood.dmi'
+	var/basecolor = "#8b8b24" // Color when wet.
+	var/dry_timer = 0
+	var/amount = 5
+	alpha = 220
 
-/obj/effect/decal/cleanable/blood/garbage/throw_impact(atom/hit_atom, throwingdatum)
+/obj/effect/decal/cleanable/garbage/throw_impact(atom/hit_atom, throwingdatum)
 	. = ..()
 	forceMove(get_turf(hit_atom))
 	update_icon(UPDATE_ICON)
 
-/obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
+/obj/effect/decal/cleanable/garbage/can_bloodcrawl_in()
 	return FALSE
 
-/obj/effect/decal/cleanable/blood/garbage/Initialize(mapload)
+/obj/effect/decal/cleanable/garbage/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON)
 	if(!.)
-		dry_timer = addtimer(CALLBACK(src, .proc/dry),  5 * 60 * 10 * (amount+1), TIMER_STOPPABLE)
+		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)),  1 MINUTES, TIMER_STOPPABLE)
 
-/obj/effect/decal/cleanable/blood/garbage/update_icon()
+/obj/effect/decal/cleanable/garbage/update_icon()
 	var/turf/T = get_turf(src)
 	if(T && (T.opacity && T.density || locate(/obj/structure/window) in T))
 		plane = GAME_PLANE
 		layer = ABOVE_WINDOW_LAYER
 		icon_state = "splatter[pick("1","2","3","4","5","6")]"
+	color = basecolor
 	..()
 
-/obj/effect/decal/cleanable/blood/garbage/dry()
+/obj/effect/decal/cleanable/garbage/proc/dry()
 	name = dryname
 	desc = drydesc
-	color = "#5f5700"
+	basecolor = "#5f5700"
+	color = basecolor
 	amount = 0
 	alpha = 255
 
-/obj/effect/decal/cleanable/blood/garbage/drip
+/obj/effect/decal/cleanable/garbage/drip
 	name = "drips of liquid garbage"
 	desc = "A drop of mess in an ocean of clean."
-	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
 	random_icon_states = list("1", "2", "3", "4", "5")
 	amount = 0
 	bloodiness = 0
-	var/drips = 1
+	mergeable_decal = FALSE
 
+/obj/effect/decal/cleanable/garbage/drip/Initialize(mapload)
+	. = ..()
+	pixel_x = rand(-6, 6)
+	pixel_y = rand(-6, 6)
+
+/obj/effect/decal/cleanable/garbage/gibs
+	//colored and using custom sprites for each garbage type
+	name = "congealed blob of liquid garbage"
+	desc = "rancid, putrid, fetid, grossness, just looking at it makes you sick."
+	random_icon_states = list("gib1", "gib2", "gib4", "gib5", "gib6", "gibmid1","gibmid2","gibmid3","gibtorso_flesh")
+
+/obj/effect/decal/cleanable/garbage/gibs/dry()
+	return
+
+/obj/effect/decal/cleanable/garbage/gibs/Crossed(atom/movable/O)
+	. = ..()
+	if(!isliving(O))
+		return
+
+	var/mob/living/M = O
+	if(M.mob_size <= MOB_SIZE_SMALL)
+		return
+
+	//dirty shoes
+	playsound(loc,'sound/items/garbage_tread.ogg', 50, 1, -1)
+	new /obj/effect/decal/cleanable/garbage(get_turf(src))
+	qdel(src)
+
+/obj/effect/decal/cleanable/garbage/gibs/Entered(atom/movable/AM, atom/oldLoc)
+	. = ..()
+	if(!isturf(AM))
+		return
+
+	new /obj/effect/decal/cleanable/garbage(AM)
 
 
 
@@ -491,7 +627,7 @@
 
 
 //[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
-// ---------- TRASH -----------------------------------------------------
+// ---------- TRASH DECAYING PROC-----------------------------------------------------
 //[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
 
 //Items labled as 'trash' for the trash bag.
@@ -513,7 +649,7 @@
 	// temp check based off the turf they're in
 	var/turf/current_turf = get_turf(input_item)
 	var/temperature_check
-	if(world.time > input_item.last_temp_check_time + 10 SECONDS)
+	if(world.time > input_item.last_temp_check_time + 10 SECONDS) //set to 10 seconds for debugging, should be 2 minutes
 		var/datum/gas_mixture/environment = current_turf.return_air()
 		switch(environment.temperature)
 			if(0 to 273)
@@ -530,13 +666,14 @@
 			input_item.decay_counter += temperature_check * input_item.can_decompose
 
 		// logic for spawning roaches here
-		if(input_item.decay_amount == 3 && prob(10*temperature_check))
+		if(input_item.decay_amount == ROTTENESS_ROTTEN && prob(10*temperature_check))
 			new /mob/living/simple_animal/cockroach(input_item.loc)
-		else if(prob(input_item.decay_amount * input_item.can_decompose * 20))
-			if(input_item.decay_amount != ROTTENESS_ROTTEN)
-				new /obj/effect/decal/cleanable/blood/garbage/drip(current_turf)
-			else
-				new /obj/effect/decal/cleanable/blood/garbage(current_turf)
+		else if(input_item.can_decompose == DECOMPOSE_DEGRADE && prob(input_item.decay_amount * input_item.can_decompose * 20))
+			// make reagent amount and force it to interact with its loc
+			var/datum/reagents/R = new/datum/reagents(30)
+			input_item.reagents = R
+			input_item.reagents.add_reagent("liquid_garbage", input_item.decay_amount != ROTTENESS_ROTTEN ? rand(1,5) : rand(6,30))
+			input_item.reagents.reaction(input_item.loc)
 
 		// logic for moving between decay states (fresh-->decomposing-->rotting-->mush)
 		var/next_decay_level = DECAY_TIMINGS[input_item.decay_amount]
@@ -569,6 +706,15 @@
 					//move from rotting to MUSH
 					input_item.visible_message("<span class='warning'>[input_item] decays into a pile of mush!</span>")
 					qdel(input_item)
+
+
+
+
+
+
+//[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
+// ---------- TRASH ITEMS-----------------------------------------------------
+//[x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x][x]
 
 //Added by Jack Rost
 /obj/item/trash
