@@ -279,7 +279,7 @@
 			add_hiddenprint(user)
 		else
 			visible_message("<span class='danger'>\The [src] reactivates!</span>")
-		playsound(loc, toggle_sound, 100, 1)
+		playsound(loc, toggle_sound, 100, TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	SEND_SIGNAL(src, COMSIG_CAMERA_ON, user, display_message)
 
