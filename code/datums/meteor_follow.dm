@@ -65,18 +65,6 @@
 
 	return ..()
 
-/// Add a new target
-/obj/screen/alert/augury/proc/enqueue(atom/movable/A)
-	if(!istype(A))
-		return
-	next_targets |= A
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(handle_qdel_while_queued))
-
-/// Have objects (hopefully) auto-remove themselves from the target list.
-/obj/screen/alert/augury/proc/handle_qdel_while_queued(atom/movable/A)
-	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
-	next_targets -= A
-
 /// Executed when the parent is deleted.
 /// Don't immediately kill ourselves, since it's possible that we might want to move somewhere else
 /// (for example, after a meteor strike)
@@ -105,6 +93,7 @@
 		return
 	if(follow_target)
 		UnregisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP)
+		UnregisterSignal(follow_target, COMSIG_PARENT_QDELETING)
 	follow_target = next_to
 	RegisterSignal(follow_target, COMSIG_PARENT_QDELETING, PROC_REF(on_following_qdel), override = TRUE)  // override our qdeleting signal
 	for(var/atom/movable/M in followers)
