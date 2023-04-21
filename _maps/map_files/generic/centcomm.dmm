@@ -186,6 +186,12 @@
 /obj/item/storage/box/permits,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"aJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/economy/vending/syndisnack,
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "aK" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -323,6 +329,11 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
+"bm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "bo" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -366,6 +377,16 @@
 /obj/item/hemostat/alien,
 /turf/simulated/floor/plating/abductor,
 /area/abductor_ship)
+"bx" = (
+/obj/structure/chair/stool,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "bz" = (
 /obj/structure/ninjatele{
 	pixel_y = 25
@@ -373,8 +394,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ninja/outpost)
 "bA" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "bB" = (
 /obj/effect/landmark/abductor/scientist,
 /turf/simulated/floor/plating/abductor,
@@ -730,6 +752,10 @@
 /obj/item/trash/tastybread,
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
+"cX" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "cY" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave/upgraded,
@@ -932,6 +958,14 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
+"dP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "dS" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
@@ -1009,8 +1043,10 @@
 /area/ninja/holding)
 "ef" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel,
-/area/space)
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken2"
+	},
+/area/syndicate_mothership)
 "eg" = (
 /obj/effect/landmark/spawner/prisonwarp,
 /turf/simulated/floor/plating,
@@ -1193,7 +1229,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "eU" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'FOURTH WALL'.";
@@ -1378,6 +1414,10 @@
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"fA" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -1386,6 +1426,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"fF" = (
+/obj/structure/sign/poster/contraband,
+/turf/simulated/wall/indestructible/riveted,
+/area/syndicate_mothership)
 "fH" = (
 /obj/docking_port/stationary/transit{
 	dir = 4;
@@ -1628,9 +1672,9 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
 "gu" = (
-/obj/structure/closet/syndicate/personal,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel,
+/area/syndicate_mothership)
 "gv" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
@@ -2116,6 +2160,9 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
+"hR" = (
+/turf/simulated/floor/redgrid,
+/area/shuttle/syndicate)
 "hS" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/plasteel{
@@ -2143,6 +2190,13 @@
 	icon_state = "vault"
 	},
 /area/tdome/tdomeadmin)
+"hU" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "hV" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit{
 	dir = 1
@@ -2300,6 +2354,13 @@
 	icon_state = "red"
 	},
 /area/centcom/evac)
+"iu" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate)
 "iv" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/tonic{
@@ -3656,6 +3717,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"mE" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/indestructible/opsglass,
+/area/syndicate_mothership)
 "mF" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass{
@@ -3679,9 +3744,14 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "mJ" = (
-/obj/item/storage/bag/money/vault,
-/turf/simulated/floor/redgrid,
-/area/awaymission/beach)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "mK" = (
 /obj/machinery/computer/shuttle/syndicate/recall,
 /turf/simulated/floor/plasteel{
@@ -3729,6 +3799,11 @@
 /obj/structure/mopbucket,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
+"mS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "mT" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Restroom";
@@ -3818,10 +3893,22 @@
 	icon_state = "bar"
 	},
 /area/syndicate_mothership)
+"nf" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "ng" = (
 /obj/mecha/combat/phazon,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"nh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "ni" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
@@ -4049,8 +4136,11 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "nM" = (
-/turf/simulated/wall/indestructible/opsglass,
-/area/awaymission/beach)
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "nN" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plating/airless,
@@ -4192,8 +4282,12 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "ol" = (
-/turf/simulated/floor/redgrid,
-/area/awaymission/beach)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "om" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup,
@@ -4232,6 +4326,10 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"oy" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "oz" = (
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
@@ -4389,6 +4487,12 @@
 "pc" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"pd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "pe" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
@@ -4456,7 +4560,14 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
+"py" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "pz" = (
 /obj/item/flag/syndi,
 /turf/simulated/floor/plasteel{
@@ -4568,7 +4679,7 @@
 /area/shuttle/assault_pod)
 "pS" = (
 /turf/simulated/mineral,
-/area/space)
+/area/asteroid)
 "pT" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/item/gun/energy/pulse/pistol{
@@ -4625,6 +4736,13 @@
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
+"qa" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "qb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -4733,7 +4851,7 @@
 "qz" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "qB" = (
 /obj/machinery/cryopod/offstation/right,
 /turf/simulated/floor/wood,
@@ -4756,8 +4874,14 @@
 /area/centcom/specops)
 "qE" = (
 /obj/machinery/door/airlock/hatch,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "qF" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -4772,6 +4896,13 @@
 /area/shuttle/syndicate)
 "qI" = (
 /obj/structure/closet/syndicate/nuclear,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
+"qJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "qK" = (
@@ -4852,8 +4983,12 @@
 /area/admin)
 "qW" = (
 /obj/structure/window/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "qX" = (
 /obj/structure/rack,
 /obj/item/ammo_box/magazine/smgm45,
@@ -4904,8 +5039,11 @@
 "rg" = (
 /obj/structure/window/reinforced,
 /obj/machinery/door/window,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "rh" = (
 /obj/machinery/economy/vending/liberationstation,
 /turf/simulated/floor/plasteel,
@@ -5043,8 +5181,8 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
 "rw" = (
-/turf/simulated/wall/mineral/plastitanium,
-/area/awaymission/beach)
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "rx" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/railing,
@@ -5288,6 +5426,18 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
+"sr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
+"ss" = (
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 8;
+	name = "scrubber outlet"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
 "st" = (
 /obj/structure/table/wood,
 /obj/item/clothing/accessory/lawyers_badge{
@@ -5375,7 +5525,7 @@
 /obj/effect/spawner/window/plastitanium,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "sK" = (
 /turf/simulated/floor/plasteel/stairs/old,
 /area/syndicate_mothership)
@@ -5388,9 +5538,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sO" = (
-/obj/structure/largecrate,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/syndicate_mothership)
 "sQ" = (
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel/dark,
@@ -5434,6 +5583,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"ta" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "tb" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
@@ -5569,6 +5728,11 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/trader_station/sol)
+"tI" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "tJ" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -5603,11 +5767,15 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "tN" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 11
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "tO" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -5638,8 +5806,13 @@
 "tR" = (
 /obj/item/storage/box/donkpockets,
 /obj/structure/closet/crate,
-/turf/simulated/floor/plasteel,
-/area/space)
+/obj/structure/sign/barsign{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/syndicate_mothership)
 "tT" = (
 /obj/machinery/door/window/westright{
 	name = "Tool Storage";
@@ -5866,6 +6039,10 @@
 /obj/item/storage/firstaid/tactical,
 /turf/simulated/floor/plasteel/freezer,
 /area/admin)
+"ut" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "uu" = (
 /obj/structure/table,
 /obj/item/grenade/syndieminibomb{
@@ -5930,8 +6107,9 @@
 "uE" = (
 /obj/machinery/economy/vending/boozeomat/syndicate_access,
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/plasteel,
-/area/space)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
 "uG" = (
 /obj/docking_port/stationary/transit{
 	dir = 8;
@@ -5958,8 +6136,9 @@
 /obj/structure/mirror/magic/nuclear{
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel,
-/area/space)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "uJ" = (
 /obj/machinery/optable,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6000,6 +6179,12 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/gamma/space)
+"uS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "uT" = (
 /obj/machinery/teleport/hub/upgraded,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -6013,6 +6198,14 @@
 "uV" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"uW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
 "uX" = (
 /obj/structure/chair/office/dark{
@@ -6396,8 +6589,10 @@
 "wm" = (
 /obj/machinery/chem_dispenser/soda/upgraded,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel,
-/area/space)
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken2"
+	},
+/area/syndicate_mothership)
 "wn" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
@@ -6521,16 +6716,16 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "wI" = (
-/obj/structure/chair/stool,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "wK" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/supply)
 "wL" = (
-/obj/machinery/tcomms/relay,
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/obj/item/storage/bag/money/vault,
+/turf/simulated/floor/redgrid,
+/area/shuttle/syndicate)
 "wR" = (
 /obj/structure/rack,
 /obj/item/gun/energy/kinetic_accelerator/crossbow,
@@ -6689,7 +6884,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "xo" = (
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
@@ -6707,9 +6902,19 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "xs" = (
-/obj/machinery/door/airlock/hatch/syndicate/vault,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
+"xu" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "syndishuttle_door_int";
+	locked = 1;
+	name = "Ship External Access";
+	req_access_txt = "150"
+	},
+/obj/structure/fans/tiny,
+/obj/docking_port/stationary,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "xv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
@@ -6806,8 +7011,19 @@
 /obj/structure/toilet{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/syndicate_mothership)
+"xX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "xZ" = (
 /obj/machinery/computer/security/mining{
 	dir = 4
@@ -6824,6 +7040,24 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"yd" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 11
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
+"yf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "yg" = (
 /mob/living/silicon/decoy{
 	name = "A.L.I.C.E."
@@ -6842,6 +7076,16 @@
 /obj/structure/flora/ausbushes/palebush,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"ys" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "yu" = (
 /obj/machinery/economy/vending/snack,
 /obj/effect/turf_decal/bot,
@@ -6857,6 +7101,13 @@
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/grass/jungle,
 /area/wizard_station)
+"yB" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Restroom";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel,
+/area/syndicate_mothership)
 "yH" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -6871,17 +7122,33 @@
 	dir = 4
 	},
 /turf/simulated/floor,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "yL" = (
 /obj/machinery/computer/card,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"yN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "yQ" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/centcom/control)
+"yW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "yZ" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Shuttle";
@@ -6910,6 +7177,16 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
+"zk" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/pod,
+/area/shuttle/syndicate)
+"zl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "zo" = (
 /obj/machinery/computer/card/centcom,
 /turf/simulated/floor/plasteel,
@@ -6927,10 +7204,24 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
+"zt" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "zv" = (
 /obj/item/flag/wiz,
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"zx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "zy" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Computer Hub"
@@ -6950,6 +7241,9 @@
 	icon_state = "cafeteria"
 	},
 /area/tdome/tdomeobserve)
+"zE" = (
+/turf/simulated/wall/indestructible/fakedoor,
+/area/syndicate_mothership)
 "zF" = (
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/plasteel{
@@ -6960,6 +7254,10 @@
 /obj/effect/landmark/spawner/aroomwarp,
 /turf/simulated/floor/plasteel,
 /area/admin)
+"zK" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "zM" = (
 /obj/machinery/door/airlock/hatch{
 	desc = "For all your shady business needs";
@@ -7041,10 +7339,21 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/control)
+"Ao" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "Ap" = (
-/obj/structure/marker_beacon/dock_marker,
-/turf/space,
-/area/awaymission/beach)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "As" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
@@ -7079,7 +7388,7 @@
 "AB" = (
 /obj/structure/closet/syndicate/personal,
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "AE" = (
 /obj/item/paper/monitorkey,
 /obj/machinery/computer/message_monitor{
@@ -7162,6 +7471,12 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"AW" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "AX" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
@@ -7217,6 +7532,10 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/admin)
+"Bi" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/syndicate_mothership)
 "Bj" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "syndishuttle_door_int";
@@ -7225,7 +7544,7 @@
 	req_access_txt = "150"
 	},
 /turf/simulated/floor/plasteel/stairs,
-/area/awaymission/beach)
+/area/syndicate_mothership)
 "Bl" = (
 /obj/machinery/conveyor/east{
 	id = "QMLoad2"
@@ -7278,7 +7597,7 @@
 "Bs" = (
 /obj/machinery/suit_storage_unit/syndicate/secure,
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Bt" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor/east{
@@ -7348,6 +7667,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
+"BH" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken2"
+	},
+/area/syndicate_mothership)
 "BL" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -7387,8 +7712,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/tdomeobserve)
 "BU" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "BV" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "syndicate_away";
@@ -7646,6 +7972,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"CL" = (
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "CM" = (
 /obj/machinery/door/airlock/external{
 	name = "Supply Shuttle";
@@ -7731,7 +8063,7 @@
 "Dk" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Dn" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control/no_emag{
@@ -7929,10 +8261,23 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"DT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "DU" = (
 /obj/machinery/door/airlock/hatch,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "DV" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Administrative Office";
@@ -8122,8 +8467,8 @@
 	},
 /area/shuttle/escape)
 "ED" = (
-/turf/space,
-/area/awaymission/beach)
+/turf/simulated/wall/indestructible/riveted,
+/area/syndicate_mothership)
 "EE" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -8228,12 +8573,22 @@
 "Fo" = (
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"Fp" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Fq" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
+"Fr" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "Fs" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome Back Room"
@@ -8462,6 +8817,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
+"Gl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "Gn" = (
 /obj/item/gun/projectile/automatic/pistol/m1911,
 /obj/item/ammo_box/magazine/m45,
@@ -8521,6 +8883,13 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Gu" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "Gv" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 28
@@ -8815,8 +9184,11 @@
 	dir = 1
 	},
 /obj/machinery/door/window,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Hy" = (
 /obj/structure/toilet{
 	dir = 8
@@ -8884,6 +9256,10 @@
 /obj/item/gun/energy/immolator/multi,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
+"HN" = (
+/obj/effect/decal/cleanable/blood/bubblegum,
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "HO" = (
 /obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/transparent/glass,
@@ -9003,8 +9379,10 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "In" = (
-/turf/simulated/wall/indestructible/riveted,
-/area/awaymission/beach)
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken"
+	},
+/area/syndicate_mothership)
 "Io" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
@@ -9048,8 +9426,10 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/escape)
 "Ix" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Iy" = (
 /obj/item/trash/sosjerky,
 /obj/effect/decal/cleanable/dirt,
@@ -9209,9 +9589,12 @@
 	},
 /area/centcom/specops)
 "IZ" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/pod,
-/area/awaymission/beach)
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Jb" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -9223,7 +9606,7 @@
 /area/shuttle/specops)
 "Jc" = (
 /turf/simulated/wall/indestructible/fakeglass,
-/area/awaymission/beach)
+/area/syndicate_mothership)
 "Je" = (
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = 32
@@ -9297,10 +9680,16 @@
 "Jm" = (
 /obj/machinery/shieldgen,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Jn" = (
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/suppy)
+"Jo" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Jq" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/beanbag,
@@ -9589,6 +9978,11 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"Kr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "Ku" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/iv_bag/blood/random,
@@ -9756,7 +10150,7 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "KQ" = (
 /obj/structure/table,
 /obj/item/toy/katana,
@@ -9780,9 +10174,14 @@
 	},
 /area/centcom/evac)
 "KW" = (
-/obj/effect/spawner/window/plastitanium,
-/turf/simulated/floor/plating,
-/area/awaymission/beach)
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "KX" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -9812,6 +10211,12 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"Ld" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Le" = (
 /obj/structure/chair/sofa/corp/left,
 /turf/simulated/floor/plasteel{
@@ -9842,7 +10247,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Lj" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "SPECOPS";
@@ -9937,8 +10342,9 @@
 /area/holodeck/source_thunderdomecourt)
 "LA" = (
 /obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/syndicate_mothership)
 "LC" = (
 /obj/structure/chair/comfy/green{
 	dir = 1
@@ -9952,8 +10358,24 @@
 "LE" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/soup/meatballsoup,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
+"LF" = (
+/obj/structure/chair/stool,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "LH" = (
 /obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
@@ -10065,6 +10487,11 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"Me" = (
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "Mf" = (
 /obj/item/ashtray/glass,
 /obj/structure/table,
@@ -10108,7 +10535,7 @@
 /area/tdome/tdomeadmin)
 "Ml" = (
 /turf/simulated/wall/r_wall,
-/area/space)
+/area/syndicate_mothership)
 "Mm" = (
 /obj/structure/table,
 /obj/item/storage/box/chemimp{
@@ -10261,6 +10688,11 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"MJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "ML" = (
 /obj/machinery/flasher{
 	id = "tdomeflash";
@@ -10462,7 +10894,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Nn" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -10492,8 +10924,11 @@
 /area/tdome/tdomeobserve)
 "Nt" = (
 /obj/machinery/door/airlock/maintenance_hatch,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Nu" = (
 /obj/structure/chair{
 	dir = 4
@@ -10707,7 +11142,7 @@
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium/red,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Op" = (
 /obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/plasteel{
@@ -10789,7 +11224,7 @@
 /obj/structure/closet/crate/can,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel,
-/area/space)
+/area/syndicate_mothership)
 "OD" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on,
 /turf/simulated/floor/plasteel{
@@ -10958,6 +11393,12 @@
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
+"Pc" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "Pd" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/indestructible/riveted,
@@ -11165,7 +11606,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/suit_storage_unit/syndicate/secure,
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "PU" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
@@ -11240,8 +11681,11 @@
 /obj/machinery/door/window{
 	dir = 2
 	},
-/turf/simulated/floor/plasteel,
-/area/space)
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken2"
+	},
+/area/syndicate_mothership)
 "Qj" = (
 /obj/structure/chair/sofa{
 	color = "#63009c"
@@ -11381,7 +11825,7 @@
 "QJ" = (
 /obj/machinery/shieldgen,
 /turf/simulated/floor,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "QL" = (
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -11449,11 +11893,18 @@
 "Rb" = (
 /obj/machinery/chem_dispenser/beer/upgraded,
 /obj/structure/table/wood,
-/turf/simulated/floor/plasteel,
-/area/space)
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
 "Rc" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/escape)
+"Rd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "Re" = (
 /obj/machinery/computer/mech_bay_power_console,
 /turf/simulated/floor/plasteel,
@@ -11645,8 +12096,8 @@
 	},
 /area/centcom/control)
 "RQ" = (
-/turf/simulated/mineral,
-/area/awaymission/beach)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/asteroid/cave)
 "RS" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "CCcustoms2";
@@ -11736,8 +12187,8 @@
 "Sh" = (
 /obj/structure/table/wood,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plasteel,
-/area/space)
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
 "Si" = (
 /obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/plasteel,
@@ -11823,6 +12274,11 @@
 	icon_state = "greencorner"
 	},
 /area/centcom/evac)
+"SC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/fans/tiny,
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "SD" = (
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -11923,6 +12379,10 @@
 	icon_state = "darkred"
 	},
 /area/centcom/control)
+"Tm" = (
+/obj/machinery/economy/vending/syndicigs,
+/turf/simulated/floor/plasteel,
+/area/syndicate_mothership)
 "Tn" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -11963,6 +12423,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
+"Ts" = (
+/obj/machinery/door/airlock/hatch/syndicate/vault,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "Tt" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -12010,12 +12474,16 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "TB" = (
-/turf/simulated/floor/plasteel,
-/area/space)
+/turf/simulated/floor,
+/area/syndicate_mothership)
 "TC" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
+"TD" = (
+/obj/machinery/tcomms/relay,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "TF" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 4;
@@ -12145,8 +12613,14 @@
 "Ub" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards/syndicate,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Uc" = (
 /obj/structure/rack,
 /obj/item/clothing/under/plasmaman/wizard,
@@ -12308,7 +12782,7 @@
 "UL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "UM" = (
 /obj/structure/flora/grass/brown,
 /turf/simulated/floor/holofloor{
@@ -12318,6 +12792,10 @@
 "UO" = (
 /turf/simulated/wall/indestructible/opsglass/limited_smooth,
 /area/syndicate_mothership)
+"UP" = (
+/obj/structure/marker_beacon/dock_marker,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/asteroid/cave)
 "UT" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -12432,7 +12910,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Vs" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/badminbrew,
@@ -12456,6 +12934,12 @@
 /obj/item/reagent_containers/food/drinks/cans/madminmalt,
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
+"Vw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "Vx" = (
 /turf/simulated/floor/plasteel/freezer,
 /area/wizard_station)
@@ -12469,6 +12953,11 @@
 	icon_state = "bar"
 	},
 /area/tdome/tdomeobserve)
+"VB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "VC" = (
 /obj/structure/table/reinforced,
 /obj/item/rpd/bluespace,
@@ -12607,6 +13096,12 @@
 /obj/effect/landmark/spawner/ertdirector,
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
+"Wc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "Wd" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/centcom/control)
@@ -12795,7 +13290,7 @@
 "WL" = (
 /obj/machinery/porta_turret/syndicate,
 /turf/simulated/wall/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "WM" = (
 /obj/structure/railing,
 /obj/structure/table,
@@ -13030,6 +13525,15 @@
 	icon_state = "greencorner"
 	},
 /area/centcom/evac)
+"XD" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "XE" = (
 /obj/structure/railing{
 	dir = 8
@@ -13097,6 +13601,16 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/specops)
+"XR" = (
+/obj/machinery/door/airlock/hatch,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "XS" = (
 /obj/item/toy/plushie/corgi,
 /turf/simulated/floor/grass/jungle,
@@ -13233,6 +13747,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Ys" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/wood,
+/area/syndicate_mothership)
 "Yt" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
@@ -13297,6 +13815,16 @@
 /obj/structure/flora/ausbushes/pointybush,
 /turf/simulated/floor/grass,
 /area/tdome/tdomeobserve)
+"YF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "YG" = (
 /obj/structure/marker_beacon/dock_marker{
 	name = "military no fly zone"
@@ -13310,6 +13838,12 @@
 	icon_state = "darkblue"
 	},
 /area/centcom/control)
+"YJ" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
+/turf/simulated/floor,
+/area/shuttle/syndicate)
 "YK" = (
 /obj/structure/chair{
 	dir = 4
@@ -13412,8 +13946,11 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
-/area/awaymission/beach)
+/area/shuttle/syndicate)
 "Za" = (
 /obj/structure/closet/crate/engineering,
 /obj/item/storage/toolbox/electrical{
@@ -13710,6 +14247,14 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"ZY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/syndicate)
 "ZZ" = (
 /obj/structure/railing,
 /obj/structure/railing{
@@ -64254,40 +64799,40 @@ aN
 aN
 aN
 aN
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -64511,40 +65056,40 @@ aN
 aN
 aN
 aN
-In
 ED
+pS
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -64768,40 +65313,40 @@ aN
 aN
 aN
 aN
-In
 ED
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -65025,40 +65570,40 @@ aN
 aN
 aN
 aN
-In
 ED
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+Db
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+Db
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -65282,20 +65827,20 @@ aN
 aN
 aN
 aN
-In
-RQ
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 Lh
 Lh
 Lh
@@ -65305,17 +65850,17 @@ Lh
 Lh
 Lh
 Lh
+aN
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -65539,19 +66084,19 @@ aN
 aN
 aN
 aN
-In
-RQ
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 WL
 Vr
 Vr
@@ -65563,16 +66108,16 @@ Vr
 Vr
 Vr
 WL
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -65794,42 +66339,42 @@ aN
 aN
 aN
 aN
-aa
-aa
-In
-RQ
-RQ
 ED
 ED
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
-QJ
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
 QJ
 rw
+ol
+Ix
+nM
+Ix
+pd
+VB
+QJ
+KY
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -66051,42 +66596,42 @@ aN
 aN
 aN
 aN
-aa
+ED
 pS
-RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+Db
+aN
 WL
 Lh
-rw
+KY
+nh
+ut
+Rd
+cX
+CL
+cX
+Wc
 Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-rw
+pd
+KY
 Lh
 WL
+Db
+aN
+aN
 ED
-Ap
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -66308,42 +66853,42 @@ aN
 aN
 aN
 aN
-aa
+ED
 pS
-RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+KY
 yK
-rw
-Ix
-Ix
-rw
+KY
+yN
 rw
 rw
 rw
+YJ
 rw
-Ix
-Ix
 rw
+rw
+yN
+KY
 xn
-rw
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -66565,42 +67110,42 @@ aN
 aN
 aN
 aN
-aa
+ED
 pS
-RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
-BU
-rw
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+KY
+KX
+KY
 Nt
-rw
-rw
-rw
-rw
-rw
-rw
-rw
+KY
+KY
+KY
+KY
+KY
+KY
+KY
 Nt
-rw
-BU
-rw
+KY
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -66822,42 +67367,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
 pS
 RQ
 RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+KY
+KX
+xs
+py
+KY
+KY
+KY
+KY
+KY
+KY
+KY
+py
+xs
 BU
-bA
-bA
-rw
-rw
-mJ
-BU
-mJ
-rw
-rw
-bA
-bA
-BU
-rw
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -67079,42 +67624,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
+pS
 pS
 RQ
-RQ
-RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-rw
-BU
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+KY
+KX
 bA
-bA
-rw
-rw
-BU
+zl
+KY
+KY
 wL
-BU
-rw
-rw
+KX
+wL
+KY
+KY
+zl
 bA
-bA
-BU
-rw
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -67336,42 +67881,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
+pS
 pS
 RQ
 RQ
-RQ
-RQ
-RQ
+aN
+aN
+aN
+aN
+aN
+aN
+KY
+KX
+wI
+yW
+KY
+KY
+KX
+TD
+KX
+KY
+KY
+ys
+DT
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-rw
-BU
-bA
-bA
-rw
-rw
-mJ
-BU
-ol
-rw
-rw
-bA
-bA
-BU
-rw
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -67593,42 +68138,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
+pS
 pS
 RQ
-RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
-BU
-bA
-bA
-rw
-rw
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
+KX
 xs
-rw
-rw
-rw
+KW
+KY
+KY
+wL
+KX
+hR
+KY
+KY
+mJ
 bA
-bA
-BU
-rw
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -67850,42 +68395,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
+pS
 pS
 RQ
 RQ
 RQ
-RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-rw
+aN
+aN
+aN
+aN
+aN
+KY
 BU
-bA
-bA
-BU
-rw
-ol
-BU
-ol
-rw
-BU
-bA
-bA
-BU
-rw
+xs
+XD
+IZ
+KY
+KY
+Ts
+KY
+KY
+zt
+qa
+xs
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -68107,42 +68652,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
 pS
 RQ
 RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
+KX
+xs
+KW
+KX
+KY
+hR
+KX
+hR
+KY
 BU
-bA
-bA
-BU
-rw
-rw
-IZ
-rw
-rw
-BU
-bA
-bA
-BU
-rw
+mJ
+xs
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -68360,46 +68905,46 @@ aN
 aN
 aN
 aN
-aa
-aa
-aa
-aa
-aa
-aa
-In
+ED
+ED
+ED
+ED
+ED
+ED
+ED
 RQ
 RQ
-ED
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+Db
 WL
-rw
+KY
+Fr
 qE
-qE
-rw
-rw
-BU
-BU
-BU
-rw
-rw
+KY
+KY
+KY
+zk
+KY
+KY
+KY
 DU
-DU
-rw
+oy
+KY
 WL
+Db
+aN
+aN
 ED
-Ap
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -68617,46 +69162,46 @@ aN
 aN
 aN
 aN
-aa
+ED
 uE
-TB
+In
 Qh
-TB
-TB
-In
+Bi
+zK
+ED
 RQ
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
+KX
+xs
+yd
+mS
+Ld
+uS
+yf
+uS
+Ld
+mS
+tI
+xs
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
-BU
-bA
-bA
-BU
-DU
-bA
-bA
-bA
-DU
-BU
-bA
-bA
-BU
-rw
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -68874,46 +69419,46 @@ aN
 aN
 aN
 aN
-aa
+ED
 tR
-TB
-ef
+Ys
+qU
 LA
 TB
 Jc
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-nM
-nM
-nM
-rw
+RQ
+aN
+aN
+aN
+aN
+aN
+aN
+BZ
+BZ
+BZ
+KY
 BU
 bA
-bA
+xX
 BU
-rw
-bA
-bA
-bA
-rw
-BU
-bA
-bA
-BU
-rw
+KY
+xs
+qJ
+xs
+KY
+KX
+ta
+xs
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -69131,46 +69676,46 @@ aN
 aN
 aN
 aN
-aa
+ED
 Rb
-TB
-ef
-LA
-TB
+BH
+qU
+Me
+Bi
 Jc
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-nM
-Ix
-Ix
+UP
+aN
+aN
+aN
+aN
+aN
+Db
+BZ
+TB
+SC
 Oo
-BU
-bA
-bA
-BU
-rw
+KX
+xs
+KW
+KX
+KY
 Bs
+KX
 bA
+KY
+KX
+mJ
 bA
-rw
-BU
-bA
-bA
-BU
+KX
 sJ
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -69388,46 +69933,46 @@ aN
 aN
 aN
 aN
-aa
+ED
 wm
-TB
-ef
-LA
-TB
-In
-nM
-nM
-nM
-nM
-nM
-nM
-nM
-nM
-Ix
-Ix
+Ys
+qU
+gu
+Bi
+ED
+BZ
+BZ
+BZ
+BZ
+BZ
+BZ
+BZ
+BZ
+zK
+BZ
+sG
+BU
+bA
 KW
 BU
-bA
-bA
-BU
-rw
+KY
 Bs
-bA
+KX
 AB
-rw
+KY
 BU
-bA
-bA
-BU
-rw
+mJ
+xs
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -69645,46 +70190,46 @@ aN
 aN
 aN
 aN
-aa
-aa
+ED
+ED
 Sh
 ef
 LA
-TB
+Bi
 Bj
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-Ix
-rw
+fA
+zK
+TB
+MJ
+TB
+zK
+TB
+TB
+TB
+mE
+KY
 BU
 bA
-bA
-BU
-rw
+KW
+KX
+KY
 Bs
-bA
+KX
 AB
-rw
-BU
-bA
-bA
-BU
-rw
+KY
+KX
+tN
+DT
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -69903,45 +70448,45 @@ aN
 Ml
 Ml
 Ml
-aa
-TB
+fF
+Bi
 LA
-TB
-TB
-In
-nM
-nM
-nM
-nM
-nM
-nM
-nM
-nM
-Ix
-Ix
-rw
-BU
-bA
-qz
-BU
-rw
+sO
+Bi
+ED
+BZ
+BZ
+BZ
+BZ
+BZ
+BZ
+BZ
+BZ
+zK
+mE
+KY
+KX
+xs
+LF
+Jo
+KY
 Bs
-bA
+BU
 AB
-rw
-BU
-bA
-bA
-BU
-rw
+KY
+bm
+qa
+xs
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -70158,47 +70703,47 @@ aN
 aN
 aN
 Ml
+HN
+Bi
+yB
+zK
+sO
 TB
-TB
-TB
-TB
-TB
-TB
-TB
+zK
 Jc
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-nM
-Ix
-Ix
-Oo
-BU
+UP
+aN
+aN
+aN
+aN
+aN
+Db
+BZ
+zK
+fA
+xu
+KX
 qz
 LE
-wI
-rw
+jz
+KY
 bA
-bA
+KX
 AB
-rw
+KY
 BU
+mJ
 bA
-bA
-BU
-rw
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -70417,45 +70962,45 @@ aN
 Ml
 xW
 uI
-aa
+ED
 OB
 sO
-sO
-TB
+Tm
+aJ
 Jc
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-nM
-nM
-nM
-rw
+RQ
+aN
+aN
+aN
+aN
+aN
+aN
+BZ
+BZ
+BZ
+KY
 BU
 qz
 Ub
-wI
-rw
-bA
-bA
-bA
-rw
+jz
+KY
+xs
 BU
-bA
-bA
+xs
+KY
+KX
+mJ
+xs
 BU
-rw
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -70674,45 +71219,45 @@ aN
 Ml
 Ml
 Ml
-aa
-aa
-aa
-aa
-aa
-In
+ED
+ED
+zE
+ED
+ED
+ED
 RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-KW
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+sG
+KX
+bA
+bx
+KX
+KY
+xs
+KX
+xs
+KY
 BU
-bA
-qz
-BU
-rw
-bA
-bA
-bA
-rw
-BU
-bA
-bA
-BU
+mJ
+xs
+KX
 sJ
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -70934,42 +71479,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
 pS
 RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
+KX
+wI
+uW
 BU
+KY
+xs
+Fp
 bA
-bA
-BU
-rw
-bA
-bA
-bA
-rw
-BU
-bA
-bA
-BU
-rw
+KY
+KX
+mJ
+xs
+KX
+KY
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -71191,42 +71736,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
 pS
 RQ
 RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+Db
 WL
-rw
-bA
-bA
-BU
-qE
-BU
-BU
-BU
-DU
-BU
-bA
-bA
-rw
+KY
+xs
+yd
+mS
+nf
+uS
+hU
+mS
+Ld
+mS
+Vw
+xs
+KY
 WL
+Db
+aN
+aN
 ED
-Ap
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -71448,42 +71993,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
 pS
 RQ
 RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
 bA
+xX
+KY
+KY
+sG
+sG
+sG
+KY
+KY
+mJ
 bA
-rw
-rw
-KW
-KW
-KW
-rw
-rw
-bA
-bA
-rw
+KY
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -71705,42 +72250,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
+pS
 pS
 RQ
 RQ
-RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
-bA
-bA
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
+xs
+KW
+KY
 eS
 Dk
 Dk
-gu
+mI
 PT
-rw
-bA
-bA
-rw
+KY
+mJ
+xs
+KY
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -71962,42 +72507,42 @@ aN
 aN
 aN
 aN
-aa
+ED
+pS
+pS
+pS
 pS
 RQ
-RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
+Fr
 qE
-qE
-rw
+KY
 YZ
 BU
-tN
+gx
 BU
 qW
-rw
-qE
-DU
+KY
+XR
+oy
 UL
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -72219,42 +72764,42 @@ aN
 aN
 aN
 aN
-aa
-aa
-In
+ED
+ED
+ED
+pS
+pS
 RQ
 RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
 BU
-bA
-rw
+xX
+KY
 Hx
 pu
 Nm
 pu
 rg
-rw
-bA
+KY
+ta
 BU
-rw
+KY
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -72478,40 +73023,40 @@ aN
 aN
 aN
 aN
-In
+ED
+pS
 RQ
 RQ
 RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
 BU
-bA
-bA
-bA
-bA
-bA
-bA
-bA
-bA
-bA
+YF
+Ap
+Gl
+Kr
+ZY
+Kr
+dP
+Gu
+zx
 BU
-rw
+KY
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -72735,40 +73280,40 @@ aN
 aN
 aN
 aN
-In
+ED
+pS
+pS
 RQ
-RQ
-RQ
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
 BU
+sr
+Pc
+xs
+xs
+Ao
+xs
 bA
-bA
-bA
-bA
-bA
-bA
-bA
-bA
-bA
-BU
-rw
+AW
+xs
+KX
+KY
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -72992,40 +73537,40 @@ aN
 aN
 aN
 aN
-In
-RQ
-RQ
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-rw
-BU
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+KY
+KX
 bA
 Jm
 sJ
 sJ
-sJ
+iu
 sJ
 sJ
 bA
-bA
-BU
-rw
+xs
+KX
+KY
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -73249,40 +73794,40 @@ aN
 aN
 aN
 aN
-In
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 WL
-rw
+KY
 Jm
 sJ
 sJ
-ED
-ED
-ED
+aN
+ss
+aN
 sJ
 sJ
 Jm
-rw
+KY
 WL
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -73506,40 +74051,40 @@ aN
 aN
 aN
 aN
-In
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
-ED
-rw
+pS
+pS
+pS
+aN
+pS
+pS
+aN
+aN
+aN
+aN
+Db
+aN
+KY
 WL
 KP
-ED
-ED
-ED
-ED
-ED
+aN
+aN
+aN
+aN
+aN
 sJ
 WL
-rw
+KY
+aN
+Db
+aN
+aN
+aN
 ED
-ED
-Ap
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -73763,40 +74308,40 @@ aN
 aN
 aN
 aN
-In
 ED
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+Db
+aN
+aN
+aN
+aN
+aN
+Db
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -74020,40 +74565,40 @@ aN
 aN
 aN
 aN
-In
 ED
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -74277,40 +74822,40 @@ aN
 aN
 aN
 aN
-In
 ED
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
-ED
-ED
-ED
-ED
-Ap
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -74534,40 +75079,40 @@ aN
 aN
 aN
 aN
-In
 ED
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -74791,40 +75336,40 @@ aN
 aN
 aN
 aN
-In
 ED
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+pS
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
+aN
 ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-ED
-In
+aN
+aN
+aN
+aN
 aN
 aN
 aN
@@ -75048,40 +75593,40 @@ aN
 aN
 aN
 aN
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
-In
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+ED
+aN
+aN
+aN
+aN
 aN
 aN
 aN
