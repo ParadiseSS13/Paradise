@@ -1,96 +1,156 @@
-// Loosely inspired by the /tg/ augury subsystem, without the need for a full subsystem
-
-// Creates the thing
-/datum/augury
+/obj/screen/alert/augury
+	name = "Something interesting!"
+	desc = "Click to follow."
 	/// The atom being followed
 	var/atom/movable/follow_target
 	/// The atoms following it
-	var/list/followers
-	var/alert_UID
+	var/list/followers = list()
+	/// Queue of next atoms to follow
+	var/list/next_targets = list()
+	var/thing_followed = "debris"
+	var/time_between_switches = 1 SECONDS
 
-
-/datum/augury/New(atom/movable/follow_target, list/starting_followers = null)
+/obj/screen/alert/augury/Initialize(mapload, atom/movable/follow_target, image/alert_overlay_override)
 	. = ..()
-	followers = starting_followers
 	src.follow_target = follow_target
-	change_targets(follow_target)
 
-	for(var/mob/dead/observer/O in GLOB.player_list)
-
-/datum/augury/Destroy(force, ...)
-	for(var/atom/movable/follower in followers)  // in case something was nulled
-		follower.stop_orbit()
-
-	followers = null
-	if(follow_target)
-		UnregisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP)
-	follow_target = null
-
-	return ..()
-
-/// Executed when the parent is deleted.
-/// Don't immediately kill ourselves, since it's possible that we might want to move somewhere else
-/// (for example, after a meteor strike)
-/datum/augury/proc/on_following_qdel(atom/movable/A)
-	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
-	for(var/atom/movable/follower in followers)
-		follower.stop_orbit()
-
-	follow_target = null
-
-/datum/augury/proc/change_targets(atom/movable/next_to)
-	// unregister first so we aren't bombarded when changing orbits
-	if(follow_target)
-		UnregisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP)
-	follow_target = next_to
-	RegisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP, PROC_REF(remove_follower_on_stop_orbit))
-	for(var/atom/movable/M in followers)
-		M.orbit(follow_target)
-
-/datum/augury/proc/add_follower(atom/movable/follower)
-	followers |= follower
-	follower.orbit(follow_target)
-
-/datum/augury/proc/remove_follower(atom/movable/follower)
-	followers -= follower
-	follower.stop_orbit()
-
-/// Called when someone stops orbiting our followed object, so they can actually escape
-/datum/augury/proc/remove_follower_on_stop_orbit(atom/movable/followed, atom/movable/follower)
-	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_STOP
-	remove_follower(follower)
-
-
-/// The alert for following
-/obj/screen/alert/augury
-	title = "Something interesting"
-	desc = "Click to follow"
-	var/datum/augury/source
-
-
-/obj/screen/alert/augury/Initialize(mapload, title, desc, datum/augury/source, image/alert_overlay, timeout)
-	. = ..()
-	src.source = source
-	src.title = title
-	src.desc = desc
-
-	if(!alert_overlay)
+	if(!alert_overlay_override && follow_target)
+		var/image/source = image(follow_target)
 		var/old_layer = source.layer
 		var/old_plane = source.plane
 		source.layer = FLOAT_LAYER
 		source.plane = FLOAT_PLANE
-		A.overlays += source
+		overlays += source
 		source.layer = old_layer
 		source.plane = old_plane
-	else
-		alert_overlay.layer = FLOAT_LAYER
-		alert_overlay.plane = FLOAT_PLANE
-		A.overlays += alert_overlay
+	else if(alert_overlay_override)
+		alert_overlay_override.layer = FLOAT_LAYER
+		alert_overlay_override.plane = FLOAT_PLANE
+		overlays += alert_overlay_override
 
 /obj/screen/alert/augury/Click(location, control, params)
 	. = ..()
 	if(!usr || !usr.client || !isobserver(usr))
 		return
+	if(usr in followers)
+		to_chat(usr, "<span class='notice'>You will now not auto-follow debris.</span>")
+		remove_follower(usr)
+	else
+		to_chat(usr, "<span class='notice'>You are now auto-following [thing_followed].</span>")
+		add_follower(usr)
 
-	owner.add_follower(usr)
+/obj/screen/alert/augury/Destroy(force)
+	for(var/atom/movable/follower in followers)  // in case something was nulled
+		follower.stop_orbit()
 
+	followers = null
+
+	for(var/atom/movable/target in next_targets)
+		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
+	next_targets = null
+
+	if(follow_target)
+		UnregisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP)
+		UnregisterSignal(follow_target, COMSIG_PARENT_QDELETING)
+	follow_target = null
+
+	return ..()
+
+/obj/screen/alert/augury/proc/enqueue(atom/movable/A)
+	if(!istype(A))
+		return
+	next_targets |= A
+	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(handle_qdel_while_queued))
+
+/obj/screen/alert/augury/proc/handle_qdel_while_queued(atom/movable/A)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	next_targets -= A
+
+/// Executed when the parent is deleted.
+/// Don't immediately kill ourselves, since it's possible that we might want to move somewhere else
+/// (for example, after a meteor strike)
+/obj/screen/alert/augury/proc/on_following_qdel(atom/movable/A)
+	SIGNAL_HANDLER  // COMSIG_PARENT_QDELETING
+	for(var/atom/movable/follower in followers)
+		follower.stop_orbit()
+
+	// process()  // force process to get an updated list of meteors too
+	follow_target = get_next_target()
+	if(follow_target)
+		if(time_between_switches > 0)
+			addtimer(CALLBACK(src, PROC_REF(change_targets), follow_target), time_between_switches)  // add a second so people can see what exploded
+		else
+			change_targets(follow_target)
+
+/obj/screen/alert/augury/proc/change_targets(atom/movable/next_to)
+	// unregister first so we aren't bombarded when changing orbits
+	if(isnull(next_to))
+		return
+	if(follow_target)
+		UnregisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP)
+	follow_target = next_to
+	RegisterSignal(follow_target, COMSIG_PARENT_QDELETING, PROC_REF(on_following_qdel), override = TRUE)  // override our qdeleting signal
+	for(var/atom/movable/M in followers)
+		M.orbit(follow_target)
+
+	RegisterSignal(follow_target, COMSIG_ATOM_ORBIT_STOP, PROC_REF(remove_follower_on_stop_orbit))
+
+/obj/screen/alert/augury/proc/add_follower(atom/movable/follower)
+	followers |= follower
+	follower.orbit(follow_target)
+
+/obj/screen/alert/augury/proc/remove_follower(atom/movable/follower, stop_orbit = TRUE)
+	followers -= follower
+	follower.stop_orbit()
+
+/obj/screen/alert/augury/proc/get_next_target()
+	if(!length(next_targets))
+		return null
+
+	var/atom/movable/target
+
+	while(QDELETED(target) && length(next_targets))
+		target = next_targets[1]
+		next_targets.Remove(target)
+		// if(QDELETED(target))
+
+	return target
+
+/// Called when someone stops orbiting our followed object, so they can actually escape
+/obj/screen/alert/augury/proc/remove_follower_on_stop_orbit(atom/movable/followed, atom/movable/follower)
+	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_STOP
+	if(locateUID(follower.orbiting_uid) != follow_target)
+		remove_follower(follower, FALSE)  // don't try to stop the orbit again
+
+/obj/screen/alert/augury/proc/get_all_following_targets()
+	return list()
+
+/// Meteor alert.
+/// Appears during a meteor storm and allows for auto-following of debris.
+/obj/screen/alert/augury/meteor
+	name = "Incoming!"
+
+/obj/screen/alert/augury/meteor/Initialize(mapload)
+	var/image/meteor_img = image(icon = 'icons/obj/meteor.dmi', icon_state = "flaming")
+	. = ..(mapload, alert_overlay_override = meteor_img)
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/screen/alert/augury/meteor/Destroy(force)
+	. = ..()
+	STOP_PROCESSING(SSfastprocess, src)
+
+/obj/screen/alert/augury/meteor/process()
+	for(var/obj/effect/meteor/M in GLOB.meteor_list)
+		if(!is_station_level(M.z))
+			continue  // don't worry about endlessly looping
+		if(istype(M, /obj/effect/meteor/tunguska))
+			change_targets(M)  // TUNGUSKAAAAAAA
+			continue
+		if(!(M in next_targets))
+			next_targets.Add(M)
+
+	if(QDELETED(follow_target) && length(next_targets))
+		change_targets(get_next_target())
+
+/obj/screen/alert/augury/meteor/get_all_following_targets()
+	return GLOB.meteor_list

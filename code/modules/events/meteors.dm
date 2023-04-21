@@ -3,8 +3,18 @@
 	endWhen 		= 7
 	var/next_meteor = 6
 	var/waves = 1
+	var/obj/screen/alert/augury/meteor/screen_alert
+	var/list/mobs_with_alert
 
 /datum/event/meteor_wave/setup()
+	// screen_alert = new()
+	mobs_with_alert = list()
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		mobs_with_alert |= O
+		var/obj/screen/alert/augury/meteor/A = O.throw_alert("\ref[src]_augury", /obj/screen/alert/augury/meteor)
+		if(A)
+			screen_alert = A
+
 	waves = severity * rand(1,3)
 
 /datum/event/meteor_wave/announce()
@@ -23,6 +33,10 @@
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
 
 /datum/event/meteor_wave/end()
+	for(var/mob/M in mobs_with_alert)
+		M.clear_alert("\ref[src]_augury")
+	mobs_with_alert = null
+	qdel(screen_alert)
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
 			GLOB.minor_announcement.Announce("The station has cleared the meteor storm.", "Meteor Alert")
