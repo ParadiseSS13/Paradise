@@ -39,6 +39,7 @@
 
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
+	var/list/datum/mind/pirates = list()
 	var/list/datum/mind/eventmiscs = list()
 	var/list/blob_overminds = list()
 

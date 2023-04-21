@@ -19,8 +19,8 @@
 		<a href='?src=[UID()];makeAntag=4'>Make Cult</a><br>
 		<a href='?src=[UID()];makeAntag=5'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=6'>Make Vampires</a><br>
-		<a href='?src=[UID()];makeAntag=7'>Make Space Pirates (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=7'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=[UID()];makeAntag=8'>Make Space Pirates (Requires Ghosts)</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
