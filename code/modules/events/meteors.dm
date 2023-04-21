@@ -26,6 +26,10 @@
 
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
+	// keep observers updated with the alert
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		mobs_with_alert |= O
+		O.throw_alert("\ref[src]_augury", /obj/screen/alert/augury/meteor)
 	if(waves && activeFor >= next_meteor)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(spawn_meteors), get_meteor_count(), get_meteors())
 		next_meteor += rand(15, 30) / severity

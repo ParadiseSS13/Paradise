@@ -110,7 +110,7 @@
 	var/atom/movable/target
 
 	while(QDELETED(target) && length(next_targets))
-		target = next_targets[1]
+		target = next_targets[length(next_targets)]  // pop the (hopefully most recent)
 		next_targets.Remove(target)
 		// if(QDELETED(target))
 
@@ -128,7 +128,8 @@
 /// Meteor alert.
 /// Appears during a meteor storm and allows for auto-following of debris.
 /obj/screen/alert/augury/meteor
-	name = "Incoming!"
+	name = "Meteors incoming!"
+	desc = "Click to automatically follow debris, and click again to stop."
 
 /obj/screen/alert/augury/meteor/Initialize(mapload)
 	var/image/meteor_img = image(icon = 'icons/obj/meteor.dmi', icon_state = "flaming")
@@ -140,16 +141,18 @@
 	STOP_PROCESSING(SSfastprocess, src)
 
 /obj/screen/alert/augury/meteor/process()
+	var/overridden = FALSE
 	for(var/obj/effect/meteor/M in GLOB.meteor_list)
 		if(!is_station_level(M.z))
 			continue  // don't worry about endlessly looping
 		if(istype(M, /obj/effect/meteor/tunguska))
 			change_targets(M)  // TUNGUSKAAAAAAA
+			overridden = TRUE
 			continue
 		if(!(M in next_targets))
 			next_targets.Add(M)
 
-	if(QDELETED(follow_target) && length(next_targets))
+	if(QDELETED(follow_target) && length(next_targets) && !overridden)
 		change_targets(get_next_target())
 
 /obj/screen/alert/augury/meteor/get_all_following_targets()
