@@ -65,6 +65,17 @@
 	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/machinery/computer/shuttle/pirate
+	name = "Pirate Shuttle Console"
+	desc = "Used to call and send the Pirate shuttle."
+	icon_keyboard = "syndie_key"
+	icon_screen = "syndishuttle"
+	req_access = list(ACCESS_SYNDICATE)
+	bubble_icon = "syndibot"
+	shuttleId = "pirate"
+	possible_destinations = "syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom""
+	resistance_flags = INDESTRUCTIBLE
+
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
 	name = "syndicate shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the syndicate shuttle."

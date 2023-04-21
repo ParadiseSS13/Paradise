@@ -360,6 +360,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "shuttle"
 	nad_allowed = TRUE
 
+/area/shuttle/pirate
+	name = "Pirate Shuttle"
+	icon_state = "shuttle"
+
 /area/shuttle/trade
 	name = "Trade Shuttle"
 	icon_state = "shuttle"
