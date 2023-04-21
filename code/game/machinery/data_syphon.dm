@@ -39,7 +39,7 @@
 	var/obj/machinery/r_n_d/server/server = find_research_server()
 	if(server)
 		server.data_syphon_active = TRUE
-		addtimer(CALLBACK(src, .proc/sap_tech_levels, server), 3 MINUTES, TIMER_LOOP)
+		addtimer(CALLBACK(src, PROC_REF(sap_tech_levels), server), 3 MINUTES, TIMER_LOOP))
 
 /obj/machinery/data_syphon/proc/find_research_server()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
