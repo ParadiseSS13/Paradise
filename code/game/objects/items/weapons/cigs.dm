@@ -176,6 +176,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				C.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
+		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 
 /obj/item/clothing/mask/cigarette/process()
