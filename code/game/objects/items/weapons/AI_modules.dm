@@ -8,8 +8,8 @@ AI MODULES
 
 /obj/item/aiModule
 	name = "AI Module"
-	icon = 'icons/obj/module.dmi'
-	icon_state = "std_mod"
+	icon = 'icons/obj/module_ai.dmi'
+	icon_state = "standard_low"
 	item_state = "electronic"
 	desc = "An AI Module for transmitting encrypted instructions to the AI."
 	flags = CONDUCT
@@ -103,6 +103,7 @@ AI MODULES
 	name = "\improper Safeguard AI module"
 	var/targetName = ""
 	desc = "A 'safeguard' AI module: 'Safeguard <name>. Individuals that threaten <name> are not crew and must be eliminated.'"
+	icon_state = "light_blue_medium"
 	origin_tech = "programming=3;materials=3"
 
 /obj/item/aiModule/safeguard/attack_self(mob/user as mob)
@@ -129,6 +130,7 @@ AI MODULES
 	name = "\improper One Crewmember AI module"
 	var/targetName = ""
 	desc = "A 'one crew' AI module: 'Only <name> is crew.'"
+	icon_state = "green_high"
 	origin_tech = "programming=4;materials=4"
 
 /obj/item/aiModule/oneCrewMember/attack_self(mob/user as mob)
@@ -159,6 +161,7 @@ AI MODULES
 /obj/item/aiModule/protectStation
 	name = "\improper Protect Station AI module"
 	desc = "A 'protect station' AI module: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.'"
+	icon_state = "red_high"
 	origin_tech = "programming=4;materials=4" //made of gold
 
 /obj/item/aiModule/protectStation/attack_self(mob/user as mob)
@@ -174,6 +177,7 @@ AI MODULES
 /obj/item/aiModule/oxygen
 	name = "\improper Oxygen Is Toxic To Crew AI module"
 	desc = "A 'Oxygen Is Toxic To Crew' AI module: 'Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member.'"
+	icon_state = "light_blue_high"
 	origin_tech = "programming=4;biotech=2;materials=4"
 
 /obj/item/aiModule/oxygen/attack_self(mob/user as mob)
@@ -191,6 +195,7 @@ AI MODULES
 	var/newFreeFormLaw = ""
 	var/lawpos = 15
 	desc = "A 'freeform' AI module: '<freeform>'"
+	icon_state = "standard_high"
 	origin_tech = "programming=4;materials=4"
 
 /obj/item/aiModule/freeform/attack_self(mob/user as mob)
@@ -240,6 +245,7 @@ AI MODULES
 /obj/item/aiModule/purge // -- TLE
 	name = "\improper Purge AI module"
 	desc = "A 'purge' AI Module: 'Purges all laws.'"
+	icon_state = "standard_high"
 	origin_tech = "programming=5;materials=4"
 
 /obj/item/aiModule/purge/transmitInstructions(mob/living/silicon/ai/target, mob/sender)
@@ -255,6 +261,7 @@ AI MODULES
 /obj/item/aiModule/asimov // -- TLE
 	name = "\improper Asimov core AI module"
 	desc = "An 'Asimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "green_high"
 	origin_tech = "programming=3;materials=4"
 	laws = new /datum/ai_laws/asimov
 
@@ -262,6 +269,7 @@ AI MODULES
 /obj/item/aiModule/crewsimov // -- TLE
 	name = "\improper Crewsimov core AI module"
 	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "green_low"
 	origin_tech = "programming=3;materials=4"
 	laws = new /datum/ai_laws/crewsimov
 
@@ -275,6 +283,7 @@ AI MODULES
 /obj/item/aiModule/quarantine
 	name = "\improper Quarantine core AI module"
 	desc = "A 'Quarantine' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "light_blue_medium"
 	origin_tech = "programming=3;materials=4"
 	laws = new /datum/ai_laws/quarantine
 
@@ -282,6 +291,7 @@ AI MODULES
 /obj/item/aiModule/nanotrasen // -- TLE
 	name = "\improper NT Default Core AI Module"
 	desc = "An 'NT Default' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "blue_low"
 	origin_tech = "programming=3;materials=4"
 	laws = new /datum/ai_laws/nanotrasen
 
@@ -289,6 +299,7 @@ AI MODULES
 /obj/item/aiModule/corp
 	name = "\improper Corporate core AI module"
 	desc = "A 'Corporate' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "blue_low"
 	origin_tech = "programming=3;materials=4"
 	laws = new /datum/ai_laws/corporate
 
@@ -303,6 +314,7 @@ AI MODULES
 /obj/item/aiModule/robocop // -- TLE
 	name = "\improper Robocop core AI module"
 	desc = "A 'Robocop' Core AI Module: 'Reconfigures the AI's core three laws.'"
+	icon_state = "red_medium"
 	origin_tech = "programming=4"
 	laws = new /datum/ai_laws/robocop()
 
@@ -310,6 +322,7 @@ AI MODULES
 /obj/item/aiModule/paladin // -- NEO
 	name = "\improper P.A.L.A.D.I.N. core AI module"
 	desc = "A P.A.L.A.D.I.N. Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "red_medium"
 	origin_tech = "programming=3;materials=4"
 	laws = new /datum/ai_laws/paladin
 
@@ -317,6 +330,7 @@ AI MODULES
 /obj/item/aiModule/tyrant // -- Darem
 	name = "\improper T.Y.R.A.N.T. core AI module"
 	desc = "A T.Y.R.A.N.T. Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "red_high"
 	origin_tech = "programming=3;materials=4;syndicate=1"
 	laws = new /datum/ai_laws/tyrant()
 
@@ -324,6 +338,7 @@ AI MODULES
 /obj/item/aiModule/antimov // -- TLE
 	name = "\improper Antimov core AI module"
 	desc = "An 'Antimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "red_high"
 	origin_tech = "programming=4"
 	laws = new /datum/ai_laws/antimov()
 
@@ -331,6 +346,7 @@ AI MODULES
 /obj/item/aiModule/pranksimov
 	name = "\improper Pranksimov core AI module"
 	desc = "A 'Pranksimov' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "pranksimov"
 	origin_tech = "programming=3;syndicate=2"
 	laws = new /datum/ai_laws/pranksimov()
 
@@ -338,30 +354,35 @@ AI MODULES
 /obj/item/aiModule/nanotrasen_aggressive
 	name = "\improper NT Aggressive core AI module"
 	desc = "An 'NT Aggressive' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "blue_high"
 	laws = new /datum/ai_laws/nanotrasen_aggressive()
 
 /******************** CCTV ********************/
 /obj/item/aiModule/cctv
 	name = "\improper CCTV core AI module"
 	desc = "A 'CCTV' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "green_low"
 	laws = new /datum/ai_laws/cctv()
 
 /******************** Hippocratic Oath ********************/
 /obj/item/aiModule/hippocratic
 	name = "\improper Hippocratic Oath core AI module"
 	desc = "An 'Hippocratic' Oath Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "green_low"
 	laws = new /datum/ai_laws/hippocratic()
 
 /******************** Station Efficiency ********************/
 /obj/item/aiModule/maintain
 	name = "\improper Station Efficiency core AI module"
 	desc = "A 'Station Efficiency' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "blue_medium"
 	laws = new /datum/ai_laws/maintain()
 
 /******************** Peacekeeper ********************/
 /obj/item/aiModule/peacekeeper
 	name = "\improper Peacekeeper core AI module"
 	desc = "A 'Peacekeeper' Core AI Module: 'Reconfigures the AI's core laws.'"
+	icon_state = "light_blue_medium"
 	laws = new /datum/ai_laws/peacekeeper()
 
 /******************** Freeform Core ******************/
@@ -369,6 +390,7 @@ AI MODULES
 	name = "\improper Freeform core AI module"
 	var/newFreeFormLaw = ""
 	desc = "A 'freeform' Core AI module: '<freeform>'"
+	icon_state = "standard_high"
 	origin_tech = "programming=5;materials=4"
 
 /obj/item/aiModule/freeformcore/attack_self(mob/user as mob)
@@ -395,6 +417,7 @@ AI MODULES
 	name = "hacked AI module"
 	var/newFreeFormLaw = ""
 	desc = "A hacked AI law module: '<freeform>'"
+	icon_state = "syndicate"
 	origin_tech = "programming=5;materials=5;syndicate=5"
 
 /obj/item/aiModule/syndicate/attack_self(mob/user as mob)
