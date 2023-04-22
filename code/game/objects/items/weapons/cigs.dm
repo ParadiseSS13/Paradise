@@ -52,6 +52,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/mask/cigarette/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 1
+	qdel(src)
+	return TRUE
+
 /obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
