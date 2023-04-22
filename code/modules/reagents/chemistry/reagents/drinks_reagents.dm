@@ -745,3 +745,13 @@
 /datum/reagent/consumable/drink/fyrsskar_tears/on_mob_delete(mob/living/M)
 	if(isskrell(M))
 		REMOVE_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE, id)
+
+/datum/reagent/consumable/drink/lean
+	name = "Lean"
+	id = "lean"
+	description = "Also known as Purple Drank."
+	color = "#f249d6"
+	drink_icon = "lean"
+	drink_name = "Lean"
+	drink_desc = "Also known as Purple Drank."
+	taste_description = "sweet druggy soda"
