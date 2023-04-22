@@ -152,6 +152,7 @@
 	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
 	var/aggressive = FALSE
 
+	/// How often slogans will be used by vendors if they're aggressive.
 	var/aggressive_slogan_delay = (1 MINUTES)
 
 /obj/machinery/economy/vending/Initialize(mapload)
@@ -207,7 +208,7 @@
 			. += "<span class='notice'>You can <b>Alt-Click</b> it to right it.</span>"
 
 	if(aggressive)
-		. += "<span class='danger'>Its product lights seem to be blinking ominously...</span>"
+		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
 
 /obj/machinery/economy/vending/RefreshParts()         //Better would be to make constructable child
 	if(!component_parts)
@@ -448,6 +449,7 @@
 		tilt(AM, FALSE, FALSE)
 		aggressive = FALSE
 		// NOTE: AFTER THE GREAT MASSACRE OF 4/22/23 IT HAS BECOME INCREDIBLY CLEAR THAT NOT SETTING AGGRESSIVE TO FALSE HERE IS A BAD BAD IDEA
+		// ALSO DEAR GOD DO NOT MAKE THEM CRIT
 
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
