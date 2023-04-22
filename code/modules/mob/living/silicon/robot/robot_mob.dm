@@ -1228,7 +1228,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/Moved(atom/OldLoc, Dir, Forced)
 	. = ..()
-	if(last_camera_update + CAMERA_UPDATE_COOLDOWN < world.time)
+	if(camera && last_camera_update + CAMERA_UPDATE_COOLDOWN < world.time)
 		last_camera_update = world.time
 		GLOB.cameranet.updatePortableCamera(camera, OldLoc)
 		SEND_SIGNAL(camera, COMSIG_CAMERA_MOVED, OldLoc)
