@@ -1111,6 +1111,13 @@
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
+/obj/machinery/alarm/AltClick(mob/user)
+	if(Adjacent(user) && allowed(user) && !wires.is_cut(WIRE_IDSCAN))
+		locked = !locked
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+	else
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	switch(buildstage)
