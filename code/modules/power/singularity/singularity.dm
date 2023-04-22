@@ -27,6 +27,8 @@
 	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
 	var/warps_projectiles = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	/// Whether or not we've pinged ghosts
+	var/isnt_shutting_down = FALSE
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
@@ -217,6 +219,7 @@
 				dissipate_delay = 10
 				dissipate_track = 0
 				dissipate_strength = 10
+				notify_dead()
 		if(STAGE_FIVE)//this one also lacks a check for gens because it eats everything
 			current_size = STAGE_FIVE
 			icon = 'icons/effects/288x288.dmi'
@@ -415,6 +418,22 @@
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
+
+/obj/singularity/proc/notify_dead()
+	if(isnt_shutting_down)
+		return
+	notify_ghosts(
+		"IT'S LOOSE",
+		ghost_sound = 'sound/machines/warning-buzzer.ogg',
+		source = src,
+		action = NOTIFY_FOLLOW,
+		flashwindow = FALSE,
+		title = "IT'S LOOSE",
+		alert_overlay = image(icon='icons/obj/singularity.dmi', icon_state="singularity_s1")
+	)
+
+	isnt_shutting_down = TRUE
+
 
 
 /obj/singularity/proc/mezzer()
