@@ -298,9 +298,12 @@
 	return TRUE
 
 /obj/item/stack/proc/get_amount()
-	if(is_cyborg)
-		return round(source.energy / cost)
-	return amount
+	if(!is_cyborg)
+		return amount
+
+	if(!source) // The energy source has not yet been initializied
+		return 0
+	return round(source.energy / cost)
 
 /obj/item/stack/proc/get_max_amount()
 	return max_amount
