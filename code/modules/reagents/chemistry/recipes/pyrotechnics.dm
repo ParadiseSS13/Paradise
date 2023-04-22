@@ -171,7 +171,10 @@
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	explosion(location, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+	if(istype(holder.my_atom))
+		explosion(holder.my_atom.loc, ex_severe, ex_heavy,ex_light, ex_flash, 1)
+	else
+		explosion(location, ex_severe, ex_heavy,ex_light, ex_flash, 1)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
