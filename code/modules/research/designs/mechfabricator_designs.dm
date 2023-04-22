@@ -1061,7 +1061,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_abductor_engi
-	name = "Cyborg Upgrade (Abdcutor Engineering Equipment)"
+	name = "Cyborg Upgrade (Abductor Engineering Equipment)"
 	id = "borg_upgade_abductor_engi"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/abductor_engi
@@ -1071,7 +1071,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borg_upgrade_abductor_medi
-	name = "Cyborg Upgrade (Abdcutor Medical Equipment)"
+	name = "Cyborg Upgrade (Abductor Medical Equipment)"
 	id = "borg_upgade_abductor_medi"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/abductor_medi
