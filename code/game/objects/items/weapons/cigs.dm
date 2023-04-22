@@ -271,8 +271,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/clothing/mask/cigarette/rollie/nicotine
-	list_reagents = list("nicotine" = 40)
+/obj/item/clothing/mask/cigarette/rollie/custom
+	list_reagents = list()
 
 
 /obj/item/cigbutt/roach
@@ -448,7 +448,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(O.dry)
 			user.unEquip(target, 1)
 			user.unEquip(src, 1)
-			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
+			var/obj/item/clothing/mask/cigarette/rollie/custom/R = new /obj/item/clothing/mask/cigarette/rollie/custom(user.loc)
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume)
 			user.put_in_active_hand(R)
