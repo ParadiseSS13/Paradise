@@ -435,7 +435,7 @@
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 
 	// Temp for TM
-	to_chat(src, "<hr><span class='boldnotice'>We are doing a testmerge of widescreen. If your game viewport is still square, please go to the <code>OOC</code> tab and press <code>Fit Viewport</code>.</span><hr>")
+	to_chat(src, "<hr><span class='boldnotice'>We are doing a testmerge of widescreen. If your game viewport is still square, please go to the <code>OOC</code> tab and press <code>Fit Viewport</code>. Please leave feedback on the thread here: https://www.paradisestation.org/forum/topic/23876-widescreen-feedback-thread/</span><hr>")
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
