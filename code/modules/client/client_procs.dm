@@ -286,7 +286,7 @@
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
 	// Make the client widescreen
-	view = "19x15"
+	view = CLIENT_VIEWSIZE
 
 	// We have a holder. Inform the relevant places
 	INVOKE_ASYNC(src, PROC_REF(announce_join))
