@@ -8,10 +8,9 @@
 	selection_color = "#ff0000"
 	access = list()
 	minimal_access = list()
-	admin_only = 1
+	admin_only = TRUE
 	syndicate_command = 1
 	outfit = /datum/outfit/job/syndicateofficer
-	allow_bureaucratic_error = FALSE
 
 /datum/job/syndicateofficer/get_access()
 	return get_syndicate_access(title)
