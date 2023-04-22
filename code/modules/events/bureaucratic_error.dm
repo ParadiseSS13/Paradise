@@ -12,7 +12,7 @@
 	while(errors <= overflow_amount)
 		var/random_change = pick(-1, 1)
 		overflow = pick_n_take(jobs)
-		if(!overflow.allow_bureaucratic_error)
+		if(!overflow.allow_bureaucratic_error || overflow.admin_only)
 			continue
 		overflow.total_positions = max(overflow.total_positions + random_change, 0)
 		log_and_message_admins("[overflow] slot changed by [random_change]")
