@@ -161,5 +161,4 @@
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/prime()
 	icon_state = "cherry_bomb_lit"
 	playsound(src, 'sound/goonstation/misc/fuse.ogg', seed.potency, 0)
-	sleep(3 SECONDS)
 	reagents.set_reagent_temp(1000) //Sets off the black powder
