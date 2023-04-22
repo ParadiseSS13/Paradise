@@ -268,7 +268,7 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
 	name = "boxed tracking bio-chip kit"
@@ -281,7 +281,7 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/mining(src)
 
 /obj/item/storage/box/chemimp
 	name = "chemical bio-chip kit"
