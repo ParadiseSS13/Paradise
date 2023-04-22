@@ -446,10 +446,10 @@
 			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
 			"<span class='userdanger'>[src] topples over onto you without warning!</span>"
 		)
-		tilt(AM, FALSE, FALSE)
+		tilt(AM, prob(5), FALSE)
 		aggressive = FALSE
 		// NOTE: AFTER THE GREAT MASSACRE OF 4/22/23 IT HAS BECOME INCREDIBLY CLEAR THAT NOT SETTING AGGRESSIVE TO FALSE HERE IS A BAD BAD IDEA
-		// ALSO DEAR GOD DO NOT MAKE THEM CRIT
+		// ALSO DEAR GOD DO NOT MAKE IT MORE LIKELY FOR THEM TO CRIT OR NOT
 
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
