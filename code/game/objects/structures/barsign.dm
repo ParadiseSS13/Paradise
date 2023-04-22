@@ -1,6 +1,6 @@
 /obj/structure/sign/barsign // All Signs are 64 by 32 pixels, they take two tiles
 	name = "Bar Sign"
-	desc = "A bar sign with no writing on it"
+	desc = "A bar sign with no writing on it."
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
 	req_access = list(ACCESS_BAR)
@@ -204,7 +204,7 @@
 /datum/barsign/slipperyshots
 	name = "Slippery Shots"
 	icon = "slipperyshots"
-	desc = "Slippery slope to drunkeness with our shots!"
+	desc = "Slippery slope to drunkenness with our shots!"
 
 /datum/barsign/thegreytide
 	name = "The Grey Tide"
