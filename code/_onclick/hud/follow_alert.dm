@@ -127,9 +127,6 @@
 	if(locateUID(follower.orbiting_uid) != follow_target)
 		remove_follower(follower, FALSE)  // don't try to stop the orbit again
 
-/obj/screen/alert/augury/proc/get_all_following_targets()
-	return list()
-
 /// Meteor alert.
 /// Appears during a meteor storm and allows for auto-following of debris.
 /obj/screen/alert/augury/meteor
@@ -159,6 +156,3 @@
 
 	if(QDELETED(follow_target) && length(next_targets) && !overridden)
 		change_targets(get_next_target())
-
-/obj/screen/alert/augury/meteor/get_all_following_targets()
-	return GLOB.meteor_list
