@@ -73,7 +73,6 @@
 	for(var/atom/movable/follower in followers)
 		follower.stop_orbit()
 
-	// process()  // force process to get an updated list of meteors too
 	follow_target = get_next_target()
 	if(follow_target)
 		if(time_between_switches > 0)
@@ -105,7 +104,7 @@
 	followers |= follower
 	follower.orbit(follow_target)
 
-/obj/screen/alert/augury/proc/remove_follower(atom/movable/follower, stop_orbit = TRUE)
+/obj/screen/alert/augury/proc/remove_follower(atom/movable/follower)
 	followers -= follower
 	follower.stop_orbit()
 
@@ -125,7 +124,7 @@
 /obj/screen/alert/augury/proc/remove_follower_on_stop_orbit(atom/movable/followed, atom/movable/follower)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_STOP
 	if(locateUID(follower.orbiting_uid) != follow_target)
-		remove_follower(follower, FALSE)  // don't try to stop the orbit again
+		remove_follower(follower)  // don't try to stop the orbit again
 
 /// Meteor alert.
 /// Appears during a meteor storm and allows for auto-following of debris.
