@@ -31,7 +31,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 
 	// Robots can interact with anything they can see.
 	var/list/clientviewlist = getviewsize(client.view)
-	if((src_object in view(src)) && (get_dist(src, src_object) <= min(clientviewlist[1],clientviewlist[2])))
+	if((src_object in view(src)) && (get_dist(src, src_object) <= max(clientviewlist[1], clientviewlist[2])))
 		return STATUS_INTERACTIVE
 	return STATUS_DISABLED // Otherwise they can keep the UI open.
 
