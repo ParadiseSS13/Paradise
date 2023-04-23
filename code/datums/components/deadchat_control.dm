@@ -137,7 +137,7 @@
 		deltimer(timerid)
 
 /datum/component/deadchat_control/proc/orbit_begin(atom/source, atom/orbiter)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_BEGIN
 
 	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, PROC_REF(deadchat_react))
 	RegisterSignal(orbiter, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))
@@ -145,7 +145,7 @@
 
 
 /datum/component/deadchat_control/proc/orbit_stop(atom/source, atom/orbiter)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_STOP
 
 	if(orbiter in orbiters)
 		UnregisterSignal(orbiter, list(
@@ -172,7 +172,7 @@
 
 /// Informs any examiners to the inputs available as part of deadchat control, as well as the current operating mode and cooldowns.
 /datum/component/deadchat_control/proc/on_examine(atom/A, mob/user, list/examine_list)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE
 
 	if(!isobserver(user))
 		return
@@ -193,7 +193,7 @@
 
 	examine_list += extended_examine
 
-///Removes the ghost from the ckey_to_cooldown list and lets them know they are free to submit a command for the parent again.
+/// Removes the ghost from the ckey_to_cooldown list and lets them know they are free to submit a command for the parent again.
 /datum/component/deadchat_control/proc/end_cooldown(ghost_ckey)
 	ckey_to_cooldown -= ghost_ckey
 	var/mob/ghost = get_mob_by_ckey(ghost_ckey)

@@ -2063,9 +2063,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 // Behavior for deadchat control
 
 /mob/living/carbon/human/proc/dchat_emote()
-	var/list/possible_emotes = list(
-		"scream", "clap", "snap", "crack", "dap", "burp"
-	)
+	var/list/possible_emotes = list("scream", "clap", "snap", "crack", "dap", "burp")
 	emote(pick(possible_emotes))
 
 /mob/living/carbon/human/proc/dchat_attack()
