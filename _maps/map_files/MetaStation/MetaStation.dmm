@@ -25088,23 +25088,9 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads)
 "bzV" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Teleporter Room";
-	dir = 4
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "north bump";
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/teleport/hub,
+/turf/simulated/floor/plating,
 /area/teleporter)
 "bzW" = (
 /obj/structure/cable/yellow{
@@ -29868,10 +29854,6 @@
 /turf/simulated/floor/plating,
 /area/bridge/hall)
 "bOJ" = (
-/obj/machinery/camera{
-	c_tag = "Command Hallway - Port";
-	dir = 1
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -30160,9 +30142,6 @@
 	},
 /area/medical/research)
 "bPn" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -30170,7 +30149,12 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/teleport/station,
+/turf/simulated/floor/plating,
 /area/teleporter)
 "bPo" = (
 /obj/structure/cable/yellow{
@@ -30193,7 +30177,11 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/turf/simulated/floor/plasteel,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/machinery/computer/teleporter,
+/turf/simulated/floor/plating,
 /area/teleporter)
 "bPq" = (
 /obj/structure/table,
@@ -30667,16 +30655,10 @@
 	},
 /area/hallway/primary/aft)
 "bQX" = (
-/obj/machinery/shieldwallgen,
-/obj/structure/window/reinforced{
-	dir = 4
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
-	},
+/turf/simulated/floor/plasteel,
 /area/teleporter)
 "bQZ" = (
 /obj/machinery/seed_extractor,
@@ -31283,11 +31265,15 @@
 /area/atmos)
 "bSN" = (
 /obj/machinery/shieldwallgen,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -31303,15 +31289,6 @@
 /obj/effect/landmark/start/atmospheric,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
-"bST" = (
-/obj/machinery/computer/teleporter{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/teleporter)
 "bSU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -31404,13 +31381,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
-"bTk" = (
-/obj/machinery/teleport/hub,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/teleporter)
 "bTl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -33212,11 +33182,13 @@
 /turf/simulated/floor/carpet/blue,
 /area/blueshield)
 "bXZ" = (
-/obj/machinery/teleport/station,
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/shieldwallgen,
+/obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgrey"
+	},
 /area/teleporter)
 "bYa" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -77843,6 +77815,15 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/cmo)
+"qvb" = (
+/obj/machinery/computer/teleporter{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/space/nearstation)
 "qvd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -78122,6 +78103,16 @@
 	icon_state = "redcorner"
 	},
 /area/security/brig)
+"qEm" = (
+/obj/machinery/camera{
+	c_tag = "Command Hallway - Port";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralcorner"
+	},
+/area/bridge/hall)
 "qEn" = (
 /obj/machinery/economy/vending/tool/free,
 /obj/effect/turf_decal/delivery,
@@ -80530,6 +80521,13 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
+"rMt" = (
+/obj/machinery/teleport/hub,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/space/nearstation)
 "rNt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87958,6 +87956,13 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"vHm" = (
+/obj/machinery/teleport/station,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/space/nearstation)
 "vHA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -89498,10 +89503,16 @@
 	},
 /area/toxins/xenobiology)
 "wyB" = (
-/obj/machinery/shieldwallgen,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
 	},
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel,
 /area/teleporter)
 "wyE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -92564,6 +92575,17 @@
 	icon_state = "darkbluecorners"
 	},
 /area/medical/surgeryobs)
+"xYo" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "teleshutter";
+	name = "Teleport Access Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/teleporter)
 "xYC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -92657,6 +92679,19 @@
 	icon_state = "darkbluecorners"
 	},
 /area/medical/biostorage)
+"yaj" = (
+/obj/machinery/camera{
+	c_tag = "Teleporter Room";
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "teleshutter";
+	name = "Teleporter Shutters Access Control";
+	pixel_x = -24;
+	req_access_txt = "62"
+	},
+/turf/simulated/floor/plasteel,
+/area/teleporter)
 "yap" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -117637,9 +117672,9 @@ bFH
 bEx
 bJg
 bOJ
-bMW
+xYo
 bzV
-uEE
+yaj
 wyB
 bMW
 bMS
@@ -117893,7 +117928,7 @@ bsO
 biL
 bFR
 vBv
-bKT
+qEm
 bMW
 bPn
 bQX
@@ -118154,7 +118189,7 @@ bKT
 bMW
 bPp
 bSh
-bTk
+uEE
 bMW
 bWB
 bWD
@@ -118649,7 +118684,7 @@ bgH
 bek
 bdb
 aYx
-abq
+rMt
 abq
 abq
 aJY
@@ -118668,7 +118703,7 @@ tbd
 bMW
 bPq
 bSk
-bST
+bXZ
 bMW
 bWR
 bWF
@@ -118906,7 +118941,7 @@ bdU
 bek
 bdb
 aYx
-abq
+vHm
 aBV
 aIb
 bkW
@@ -119163,7 +119198,7 @@ bNp
 bek
 bdb
 aYx
-abq
+qvb
 aCV
 boB
 bsb
