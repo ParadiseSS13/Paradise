@@ -4,7 +4,7 @@
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 
 	/// Minimum age this species can have
-	var/min_age = 17
+	var/min_age = AGE_MIN
 	/// Maximum age this species can have
 	var/max_age = 85
 
