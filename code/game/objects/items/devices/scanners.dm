@@ -364,8 +364,9 @@ REAGENT SCANNER
 		var/n2_concentration = environment.nitrogen/total_moles
 		var/co2_concentration = environment.carbon_dioxide/total_moles
 		var/plasma_concentration = environment.toxins/total_moles
+		var/n2o_concentration = environment.sleeping_agent/total_moles
 
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
+		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration+n2o_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			to_chat(user, "<span class='info'>Nitrogen: [round(n2_concentration*100)] %</span>")
 		else
@@ -383,6 +384,9 @@ REAGENT SCANNER
 
 		if(plasma_concentration > 0.01)
 			to_chat(user, "<span class='info'>Plasma: [round(plasma_concentration*100)] %</span>")
+
+		if(n2o_concentration > 0.01)
+			to_chat(user, "<span class='info'>Nitrous Oxide: [round(n2o_concentration*100)] %</span>")
 
 		if(unknown_concentration > 0.01)
 			to_chat(user, "<span class='alert'>Unknown: [round(unknown_concentration*100)] %</span>")
