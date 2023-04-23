@@ -77815,15 +77815,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/cmo)
-"qvb" = (
-/obj/machinery/computer/teleporter{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "qvd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -80521,13 +80512,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"rMt" = (
-/obj/machinery/teleport/hub,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "rNt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87956,13 +87940,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"vHm" = (
-/obj/machinery/teleport/station,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "vHA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -118684,7 +118661,7 @@ bgH
 bek
 bdb
 aYx
-rMt
+abq
 abq
 abq
 aJY
@@ -118941,7 +118918,7 @@ bdU
 bek
 bdb
 aYx
-vHm
+abq
 aBV
 aIb
 bkW
@@ -119198,7 +119175,7 @@ bNp
 bek
 bdb
 aYx
-qvb
+abq
 aCV
 boB
 bsb
