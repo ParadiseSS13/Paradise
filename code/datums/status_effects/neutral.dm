@@ -173,15 +173,10 @@
 		for(var/mob/living/L in range(10, scope_turf))
 			if(locks >= LWAP_LOCK_CAP)
 				return
-			if(L == owner)
-				continue
-			if(L.stat == DEAD)
-				continue
-			if(isslime(L) || ismonkeybasic(L)) //xenobio moment
+			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L)) //xenobio moment
 				continue
 			new /obj/effect/temp_visual/lwap_ping(owner.loc, owner, L)
 			locks++
-			continue
 
 #undef LWAP_LOCK_CAP
 
