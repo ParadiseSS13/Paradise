@@ -151,7 +151,9 @@
 	alert_type = null
 	duration = -1
 	tick_interval = 4
+	/// The number of people the gun has locked on to. Caps at 10 for sanity.
 	var/locks = 0
+	/// What direction the owner was in when using the scope.
 	var/owner_dir = 0
 
 /datum/status_effect/lwap_scope/on_creation(mob/living/new_owner, stored_dir = 0)
