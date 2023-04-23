@@ -34,7 +34,7 @@
 /datum/event/meteor_wave/end()
 	for(var/mob/M in GLOB.dead_mob_list)
 		M.clear_alert("\ref[src]_augury")
-	qdel(screen_alert)
+	QDEL_NULL(screen_alert)
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
 			GLOB.minor_announcement.Announce("The station has cleared the meteor storm.", "Meteor Alert")
