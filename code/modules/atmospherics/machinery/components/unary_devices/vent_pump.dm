@@ -3,14 +3,14 @@
 #define PRESSURE_CHECKS 1
 
 /obj/machinery/atmospherics/unary/vent_pump
+	name = "air vent"
+	desc = "Has a valve and pump attached to it."
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
-
-	name = "air vent"
-	desc = "Has a valve and pump attached to it"
 	power_state = IDLE_POWER_USE
 	plane = FLOOR_PLANE
-	layer = GAS_SCRUBBER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
+	layer_offset = GAS_SCRUBBER_OFFSET
 
 	can_unwrench = TRUE
 	var/open = FALSE
@@ -37,8 +37,9 @@
 
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY) //connects to regular and supply pipes
 
-/obj/machinery/atmospherics/unary/vent_pump/detailed_examine()
-	return "This pumps the contents of the attached pipe out into the atmosphere, if needed. It can be controlled from an Air Alarm."
+/obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This pumps the contents of the attached pipenet out into the atmosphere. Can be controlled from an Air Alarm.</span>"
 
 /obj/machinery/atmospherics/unary/vent_pump/on
 	on = TRUE

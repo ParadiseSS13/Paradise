@@ -84,6 +84,9 @@
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
 
+	/// How many ion thrusters we got on this bad boy
+	var/thruster_count = 0
+
 	// Action vars
 	var/defence_mode = FALSE
 	var/defence_mode_deflect_chance = 35
@@ -252,6 +255,8 @@
 	if(.)
 		return 1
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
+		step_in = initial(step_in) / thruster_count
+		new /obj/effect/particle_effect/ion_trails(get_turf(src), dir)
 		return 1
 
 	var/atom/movable/backup = get_spacemove_backup()
@@ -297,6 +302,10 @@
 			last_message = world.time
 		return 0
 
+	if(thrusters_active && has_gravity(src))
+		thrusters_active = FALSE
+		to_chat(occupant, "<span class='notice'>Thrusters automatically disabled.</span>")
+		step_in = initial(step_in)
 	var/move_result = 0
 	var/move_type = 0
 	if(internal_damage & MECHA_INT_CONTROL_LOST)

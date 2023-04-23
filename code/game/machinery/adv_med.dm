@@ -15,14 +15,7 @@
 /obj/machinery/bodyscanner/examine(mob/user)
 	. = ..()
 	if(Adjacent(user))
-		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant.</span>"
-
-/obj/machinery/bodyscanner/detailed_examine()
-	return "The advanced scanner detects and reports internal injuries such as bone fractures, internal bleeding, and organ damage. \
-			This is useful if you are about to perform surgery.<br>\
-			<br>\
-			Click your target and drag them onto the scanner to place them inside. Click the body scanner in order to operate it. \
-			Alt-Click to remove them, or use the eject button in the interface."
+		. += "<span class='notice'>You can <b>Alt-Click</b> to eject the current occupant. <b>Click-drag</b> someone to the scanner to place them inside.</span>"
 
 
 /obj/machinery/bodyscanner/Destroy()
@@ -318,6 +311,9 @@
 			if(E.status & ORGAN_INT_BLEEDING)
 				organData["internalBleeding"] = TRUE
 
+			if(E.status & ORGAN_BURNT)
+				organData["burnWound"] = TRUE
+
 			extOrganData.Add(list(organData))
 
 		occupantData["extOrgan"] = extOrganData
@@ -459,6 +455,8 @@
 			var/bled = ""
 			var/splint = ""
 			var/internal_bleeding = ""
+			var/burn_wound = ""
+			var/ointment = ""
 			var/lung_ruptured = ""
 			if(e.status & ORGAN_INT_BLEEDING)
 				internal_bleeding = "<br>Internal bleeding"
@@ -468,6 +466,10 @@
 				splint = "Splinted:"
 			if(e.status & ORGAN_BROKEN)
 				AN = "[e.broken_description]:"
+			if(e.status & ORGAN_SALVED)
+				ointment = "Salved:"
+			if(e.status & ORGAN_BURNT)
+				burn_wound = "Critical Burn:"
 			if(e.status & ORGAN_DEAD)
 				dead = "DEAD:"
 			if(e.is_robotic())
@@ -498,7 +500,7 @@
 				imp += "Unknown body present:"
 			if(!AN && !open && !infected && !imp)
 				AN = "None:"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][burn_wound][ointment][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
 			var/mech = i.desc

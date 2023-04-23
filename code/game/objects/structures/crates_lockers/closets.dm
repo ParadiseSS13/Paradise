@@ -386,14 +386,14 @@
 	return
 
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)
-	if(opened)
+	if(opened && can_close())
 		target.forceMove(src)
 		visible_message("<span class='danger'>[attacker] shoves [target] inside [src]!</span>", "<span class='warning'>You hear a thud, and something clangs shut.</span>")
 		close()
 		add_attack_logs(attacker, target, "shoved into [src]")
 		return TRUE
 
-	if(can_open())
+	if(!opened && can_open())
 		open()
 		visible_message("<span class='danger'>[attacker] shoves [target] against [src], knocking it open!</span>")
 		target.KnockDown(3 SECONDS)

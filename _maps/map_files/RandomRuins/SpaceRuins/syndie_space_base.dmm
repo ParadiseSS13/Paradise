@@ -3990,6 +3990,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/hatch/syndicate,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Qt" = (
@@ -4088,8 +4089,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "RM" = (
-/obj/structure/grille,
-/obj/structure/window/full/plastitanium,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4229,6 +4229,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Tg" = (
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch/syndicate,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Tl" = (
@@ -4242,6 +4243,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/hatch/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4630,6 +4632,7 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

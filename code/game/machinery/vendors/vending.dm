@@ -149,6 +149,9 @@
 	/// How long to wait before resetting the warning cooldown
 	var/hit_warning_cooldown_length = 10 SECONDS
 
+	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
+	var/aggressive = FALSE
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -428,19 +431,31 @@
 			R.amount--
 			break
 
+/obj/machinery/economy/vending/HasProximity(atom/movable/AM)
+	if(!aggressive)
+		return
+
+	if(isliving(AM))
+		AM.visible_message(
+			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
+			"<span class='userdanger'>[src] topples over onto you without warning!</span>"
+		)
+		tilt(AM, prob(75), FALSE)
+		// yes, it stays aggressive. This means you better deal with it from a distance.
+
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
 		return
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/economy/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -449,7 +464,7 @@
 /obj/machinery/economy/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -468,7 +483,7 @@
 /obj/machinery/economy/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>You'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
 		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
@@ -476,7 +491,7 @@
 /obj/machinery/economy/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat("<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
@@ -866,7 +881,7 @@
 	atom_say(message)
 
 /obj/machinery/economy/vending/power_change()
-	..()
+	. = ..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light(0)
 	else
@@ -880,6 +895,9 @@
 	stat |= BROKEN
 	set_light(0)
 	update_icon(UPDATE_OVERLAYS)
+
+	if(aggressive)
+		aggressive = FALSE  // the evil is defeated
 
 	if(cash_transaction)
 		new /obj/item/stack/spacecash(get_turf(src), cash_transaction)
@@ -1014,11 +1032,14 @@
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
+			L.Weaken(6 SECONDS)
 			if(crit)
 				// increase damage if you knock it over onto yourself
 				damage_to_deal *= crit_damage_factor
 			else
 				damage_to_deal *= self_knockover_factor
+		else
+			L.Weaken(4 SECONDS)
 
 		if(iscarbon(L))
 			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
@@ -1039,7 +1060,6 @@
 			add_attack_logs(null, L, "crushed by [src]")
 
 		. = TRUE
-		L.Weaken(6 SECONDS)
 		L.KnockDown(12 SECONDS)
 
 		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
@@ -1083,6 +1103,9 @@
 	transform = M
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
+	if(HAS_TRAIT(target, TRAIT_FLATTENED))
+		return
+	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 	tilt(target, from_combat = TRUE)
 	return TRUE
 

@@ -8,6 +8,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
 	var/thrown_alert = FALSE
+	var/wrapping = FALSE
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
@@ -20,6 +21,56 @@
 	else
 		adjustBruteLoss(-20)
 
+/mob/living/simple_animal/demon/shadow/ClickOn(atom/A)
+	if(!ishuman(A))
+		return ..()
+	var/mob/living/carbon/human/target = A
+	if(!in_range(src, target) || target.stat != DEAD)
+		return ..()
+
+	if(isLivingSSD(target) && client.send_ssd_warning(target)) //Similar to revenants, only wrap SSD targets if you've accepted the SSD warning
+		return
+
+	if(wrapping)
+		to_chat(src, "<span class='notice'>We are already wrapping something.</span>")
+		return
+
+	visible_message("<span class='danger'>[src] begins wrapping [target] in shadowy threads.</span>")
+	wrapping = TRUE
+	if(!do_after(src, 4 SECONDS, FALSE, target = target))
+		wrapping = FALSE
+		return
+
+	target.visible_message("<span class='warning'><b>[src] envelops [target] into an ethereal cocoon, and darkness begins to creep from it.</b></span>")
+	var/obj/structure/shadowcocoon/C = new(get_turf(target))
+	target.extinguish_light() // may as well be safe
+	target.forceMove(C)
+	wrapping = FALSE
+
+/obj/structure/shadowcocoon
+	name = "shadowy cocoon"
+	desc = "Something wrapped in what seems to be manifested darkness. Its surface distorts unnaturally, and it emanates deep shadows."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "shadowcocoon"
+	light_power = -4
+	light_range = 6
+	max_integrity = 100
+	light_color = "#AAD84B"
+	anchored = TRUE
+
+/obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type != BURN) //I unashamedly stole this from spider cocoon code
+		return
+	playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
+
+/obj/structure/shadowcocoon/obj_destruction()
+	visible_message("<span class='danger'>[src] splits open, and the shadows dancing around it fade.</span>")
+	return ..()
+
+/obj/structure/shadowcocoon/Destroy()
+	for(var/atom/movable/A in contents)
+		A.forceMove(loc)
+	return..()
 
 /mob/living/simple_animal/demon/shadow/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isliving(AM)) // when a living creature is thrown at it, dont knock it back

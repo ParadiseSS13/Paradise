@@ -406,7 +406,7 @@
 				S.scrub_Toxins = FALSE
 				S.scrub_N2O = FALSE
 				S.scrubbing = TRUE
-				S.widenet = TRUE
+				S.widenet = FALSE
 				S.update_icon(UPDATE_ICON_STATE)
 
 			for(var/obj/machinery/atmospherics/unary/vent_pump/P as anything in alarm_area.vents)
@@ -414,7 +414,7 @@
 					continue
 				P.on = TRUE
 				P.pressure_checks = TRUE
-				P.internal_pressure_bound = ONE_ATMOSPHERE
+				P.external_pressure_bound = ONE_ATMOSPHERE
 				P.update_icon(UPDATE_ICON_STATE)
 
 
@@ -1110,6 +1110,13 @@
 			I.obj_integrity = I.max_integrity * 0.5
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
+
+/obj/machinery/alarm/AltClick(mob/user)
+	if(Adjacent(user) && allowed(user) && !wires.is_cut(WIRE_IDSCAN))
+		locked = !locked
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
+	else
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()

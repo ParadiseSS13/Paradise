@@ -145,7 +145,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 45
+sql_version = 47
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -230,7 +230,6 @@ antag_account_age_restrictions = false
 # Gamemode probabilities map for if you are using secret or random
 gamemode_probabilities = [
 	{gamemode = "abduction", probability = 0},
-	{gamemode = "blob", probability = 1},
 	{gamemode = "changeling", probability = 3},
 	{gamemode = "cult", probability = 3},
 	{gamemode = "extend-a-traitormongous", probability = 2}, # Autotraitor
@@ -300,8 +299,6 @@ allow_antag_hud = true
 restrict_antag_hud_rejoin = true
 # Do we want to allow player respawns?
 respawn_enabled = false
-# Enable karma awarding and karma lockouts for jobs and species?
-enable_karma = false
 # Enable/disable the buster for the CID randomiser DLL
 enable_cid_randomiser_buster = false
 # Prevent admins from possessing the singularity

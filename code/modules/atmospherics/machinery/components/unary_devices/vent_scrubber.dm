@@ -1,10 +1,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber
+	name = "air scrubber"
+	desc = "Has a valve and pump attached to it."
 	icon = 'icons/atmos/vent_scrubber.dmi'
 	icon_state = "map_scrubber_off"
-
-	name = "air scrubber"
-	desc = "Has a valve and pump attached to it"
-	layer = GAS_SCRUBBER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
+	layer_offset = GAS_SCRUBBER_OFFSET
 	plane = FLOOR_PLANE
 	power_state = ACTIVE_POWER_USE
 	idle_power_consumption = 10
@@ -41,9 +41,9 @@
 	initial_loc.scrubbers += src
 	name = "[initial_loc.name] Air Scrubber #[length(initial_loc.scrubbers)]"
 
-/obj/machinery/atmospherics/unary/vent_scrubber/detailed_examine()
-	return "This filters the atmosphere of harmful gas. Filtered gas goes to the pipes connected to it, typically a scrubber pipe. \
-			It can be controlled from an Air Alarm. It can be configured to drain all air rapidly with a 'panic syphon' from an air alarm."
+/obj/machinery/atmospherics/unary/vent_scrubber/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This filters the atmosphere of harmful gas. Filtered gas goes straight into the connected pipenet. Controlled by an Air Alarm.</span>"
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Destroy()
 	if(initial_loc)

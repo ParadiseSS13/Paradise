@@ -38,7 +38,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/night
@@ -69,7 +70,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/diagnostic/night
@@ -102,7 +104,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 
@@ -139,7 +142,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/prescription
@@ -154,7 +158,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/hydroponic/night
@@ -211,7 +216,8 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -225,5 +231,6 @@
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
 		"Grey"  = 'icons/mob/clothing/species/grey/eyes.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
