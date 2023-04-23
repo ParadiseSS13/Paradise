@@ -43,7 +43,7 @@
 	var/list/input_names = list()
 	for(var/item in inputs)
 		input_names |= item
-	notify_ghosts("[parent] is now deadchat controllable! Possible commands are: [english_list(input_names)]", source = parent, action = NOTIFY_FOLLOW, title="Something Interesting!")
+	notify_ghosts("[parent] is now deadchat controllable! Possible commands are: [english_list(input_names)]", source = parent, action = NOTIFY_FOLLOW, title="Deadchat control!")
 	if(!ismob(parent) && !(parent in GLOB.poi_list))
 		GLOB.poi_list |= parent
 		generated_point_of_interest = TRUE
@@ -62,7 +62,7 @@
 	return ..()
 
 /datum/component/deadchat_control/proc/deadchat_react(mob/source, message)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOB_DEADSAY
 
 	message = lowertext(message)
 
@@ -139,6 +139,13 @@
 /datum/component/deadchat_control/proc/orbit_begin(atom/source, atom/orbiter)
 	SIGNAL_HANDLER  // COMSIG_ATOM_ORBIT_BEGIN
 
+	if(isobserver(orbiter))
+		var/mob/dead/observer/O = orbiter
+		if(O.client && !(O.client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
+			to_chat(O, "<span class='deadsay'>You have deadchat muted, and as such will not receive messages related to, nor be able to participate in, controlling this object.</span>")
+			to_chat(O, "<span class='notice'>If you would like to participate, unmute deadchat and follow this object again.</span>")
+			return
+
 	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, PROC_REF(deadchat_react))
 	RegisterSignal(orbiter, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))
 	orbiters |= orbiter
@@ -164,7 +171,7 @@
  * - mute_type: Which type of mute the message counts towards.
  */
 /datum/component/deadchat_control/proc/waive_automute(mob/speaker, client/client, message, mute_type)
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER  // COMSIG_MOB_AUTOMUTE_CHECK
 	if(mute_type == MUTE_DEADCHAT && inputs[lowertext(message)])
 		return WAIVE_AUTOMUTE_CHECK
 	return NONE
@@ -178,6 +185,10 @@
 		return
 
 	examine_list += "<span class='notice'>[A.p_theyre(TRUE)] currently under deadchat control using the [(deadchat_mode & DEADCHAT_DEMOCRACY_MODE) ? "democracy" : "anarchy"] ruleset!</span>"
+
+	if(user.client && !(user.client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
+		examine_list += "<span class='deadsay'>As you have deadchat disabled, you will not see vote messages, nor be able to participate in voting.</span>"
+		return
 
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
 		examine_list += "<span class='notice'>Type a command into chat to vote on an action. This happens once every [input_cooldown * 0.1] second\s.</span>"

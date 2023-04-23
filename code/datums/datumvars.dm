@@ -1244,6 +1244,11 @@
 		if(!istype(A))
 			return
 
+		if(!GLOB.dsay_enabled)
+			// TODO verify what happens when deadchat is muted
+			to_chat(usr, "<span class='warning'>Deadchat is globally muted, un-mute deadchat before enabling this.</span>")
+			return
+
 		if(A.GetComponent(/datum/component/deadchat_control))
 			to_chat(usr, "<span class='warning'>[A] is already under deadchat control!</span>")
 			return
@@ -1259,13 +1264,16 @@
 			else
 				return
 
-		var/cooldown = input(usr, "Please enter a cooldown time in seconds. For democracy, it's the time between actions. For anarchy, it's the time between each user's actions. -1 for no cooldown (only in anarchy mode).", "Cooldown", null) as null|num
+		var/cooldown = input(usr, "Please enter a cooldown time in seconds. For democracy, it's the time between actions (must be greater than zero). For anarchy, it's the time between each user's actions, or -1 for no cooldown.", "Cooldown", null) as null|num
 		if(isnull(cooldown) || (cooldown == -1 && selected_mode == DEADCHAT_DEMOCRACY_MODE))
+			return
+		if(cooldown < 0 && selected_mode == DEADCHAT_DEMOCRACY_MODE)
+			to_chat(usr, "<span class='warning'>The cooldown for democracy mode must be greater than zero.</span>")
 			return
 		if(cooldown == -1)
 			cooldown = 0
 		else
-			cooldown = (cooldown SECONDS)
+			cooldown = cooldown SECONDS
 
 		A.deadchat_plays(selected_mode, cooldown)
 		message_admins("[key_name_admin(usr)] provided deadchat control to [A].")
