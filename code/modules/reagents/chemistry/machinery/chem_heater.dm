@@ -88,7 +88,7 @@
 
 /obj/machinery/chem_heater/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if (!beaker)
+	if(!beaker)
 		default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I)
 	else
 		default_deconstruction_screwdriver(user, "mixer0b", "mixer1b", I)
