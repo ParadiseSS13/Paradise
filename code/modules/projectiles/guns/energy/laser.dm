@@ -186,7 +186,7 @@
 	icon_state = "sniperlaser"
 	range = 255
 	damage = 10
-	speed = 0.5
+	speed = 0.75
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	var/can_knockdown = TRUE
 
@@ -203,7 +203,7 @@
 
 /obj/item/projectile/beam/laser/sniper/pierce
 	forcedodge = 1 // Can pierce one mob.
-	speed = 0.33
+	speed = 0.5
 
 /obj/item/gun/energy/xray
 	name = "xray laser gun"
