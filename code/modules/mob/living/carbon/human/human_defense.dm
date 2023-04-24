@@ -739,26 +739,28 @@ emp_act
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	dna.species.water_act(src, volume, temperature, source, method)
-	if(method == REAGENT_TOUCH)
-		head?.water_act(src, volume, temperature, source, method)
-		wear_suit?.water_act(src, volume, temperature, source, method)
-		l_hand?.water_act(src, volume, temperature, source, method)
-		r_hand?.water_act(src, volume, temperature, source, method)
-		if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
-			return
-		else
-			w_uniform?.water_act(src, volume, temperature, source, method)
-			shoes?.water_act(src, volume, temperature, source, method)
-			belt?.water_act(src, volume, temperature, source, method)
-			gloves?.water_act(src, volume, temperature, source, method)
-			glasses?.water_act(src, volume, temperature, source, method)
-			l_ear?.water_act(src, volume, temperature, source, method)
-			r_ear?.water_act(src, volume, temperature, source, method)
-			wear_id?.water_act(src, volume, temperature, source, method)
-			wear_pda?.water_act(src, volume, temperature, source, method)
-			r_store?.water_act(src, volume, temperature, source, method)
-			l_store?.water_act(src, volume, temperature, source, method)
-			s_store?.water_act(src, volume, temperature, source, method)
+	if(method != REAGENT_TOUCH)
+		return
+
+	head?.water_act(src, volume, temperature, source, method)
+	wear_suit?.water_act(src, volume, temperature, source, method)
+	l_hand?.water_act(src, volume, temperature, source, method)
+	r_hand?.water_act(src, volume, temperature, source, method)
+	if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
+		return
+	else
+		w_uniform?.water_act(src, volume, temperature, source, method)
+		shoes?.water_act(src, volume, temperature, source, method)
+		belt?.water_act(src, volume, temperature, source, method)
+		gloves?.water_act(src, volume, temperature, source, method)
+		glasses?.water_act(src, volume, temperature, source, method)
+		l_ear?.water_act(src, volume, temperature, source, method)
+		r_ear?.water_act(src, volume, temperature, source, method)
+		wear_id?.water_act(src, volume, temperature, source, method)
+		wear_pda?.water_act(src, volume, temperature, source, method)
+		r_store?.water_act(src, volume, temperature, source, method)
+		l_store?.water_act(src, volume, temperature, source, method)
+		s_store?.water_act(src, volume, temperature, source, method)
 
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)

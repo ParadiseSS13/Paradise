@@ -460,11 +460,12 @@
 	..()
 	if(!istype(O))
 		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
+		return
 	if(isitem(O))
 		var/obj/item/I = O
 		if(I.slowdown <= 0)
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
-			return ..()
+			return
 		I.slowdown = 0
 
 	if(istype(O, /obj/vehicle))
@@ -472,7 +473,7 @@
 		var/vehicle_speed_mod = GLOB.configuration.movement.base_run_speed
 		if(V.vehicle_move_delay <= vehicle_speed_mod)
 			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
-			return ..()
+			return
 		V.vehicle_move_delay = vehicle_speed_mod
 
 	to_chat(user, "<span class='notice'>You slather the oliy gunk over [O], making it slick and slipery.</span>")
