@@ -28,7 +28,7 @@
 	/area/shuttle,
 	/area/maintenance,
 	/area/toxins/test_area,
-	/area/crew_quarters/sleep,))
+	/area/crew_quarters/sleep))
 
 	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
 	var/list/danger_areas = list(
