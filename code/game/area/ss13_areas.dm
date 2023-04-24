@@ -988,12 +988,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Auxiliary Toilets"
 
 /area/crew_quarters/sleep
-	name = "\improper Primary Cyrogenic Dormitories"
+	name = "\improper Primary Cryogenic Dormitories"
 	icon_state = "Sleep"
 	valid_territory = FALSE
 
 /area/crew_quarters/sleep/secondary
-	name = "\improper Secondary Cyrogenic Dormitories"
+	name = "\improper Secondary Cryogenic Dormitories"
 	icon_state = "Sleep"
 
 /area/crew_quarters/locker
