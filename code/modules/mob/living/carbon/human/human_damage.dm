@@ -108,6 +108,7 @@
 /mob/living/carbon/human/proc/adjustBruteLossByPart(amount, organ_name, obj/damage_source = null, updating_health = TRUE)
 	if(dna.species && amount > 0)
 		amount *= dna.species.brute_mod
+
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
@@ -132,6 +133,12 @@
 			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
+/mob/living/carbon/human/unmutateAllBodyparts()
+	for(var/obj/item/organ/external/O in bodyparts)
+		if(O.status & ORGAN_MUTATED)
+			O.unmutate()
+			to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+
 /mob/living/carbon/human/adjustCloneLoss(amount)
 	if(dna.species && amount > 0)
 		amount *= dna.species.clone_mod
@@ -144,10 +151,7 @@
 	var/heal_prob = max(0, 80 - getCloneLoss())
 
 	if(!getCloneLoss()) // All cloneloss was purged - fix all organs
-		for(var/obj/item/organ/external/O in bodyparts)
-			if(O.status & ORGAN_MUTATED)
-				O.unmutate()
-				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+		unmutateAllBodyparts()
 		return
 
 	if(amount > 0) // Cloneloss was inflicted - chance to mutate an organ
@@ -180,10 +184,7 @@
 	. = ..()
 
 	if(!amount) // Cloneloss was set to 0 - fix all organs
-		for(var/obj/item/organ/external/O in bodyparts)
-			if(O.status & ORGAN_MUTATED)
-				O.unmutate()
-				to_chat(src, "<span class='notice'>Your [O.name] is shaped normally again.</span>")
+		unmutateAllBodyparts()
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
