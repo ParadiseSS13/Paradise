@@ -519,7 +519,7 @@
 /atom/proc/unemag()
 	return
 
-/atom/proc/cmag_act()
+/atom/proc/cmag_act(mob/user)
 	return
 
 /atom/proc/uncmag()
