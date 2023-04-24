@@ -10,7 +10,7 @@
 	/// How long to wait when using it as normal
 	var/normal_cooldown = 2 SECONDS
 	/// How long to wait between insults
-	var/cmag_cooldown = 20 SECONDS
+	var/modified_cooldown = 20 SECONDS
 	/// If it's on cooldown.
 	var/on_cooldown = FALSE
 	/// Span to use by default for the message.
@@ -71,7 +71,7 @@
 		saymsg(user, message)
 
 		on_cooldown = TRUE
-		addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), HAS_TRAIT(src, TRAIT_CMAGGED) ? cmag_cooldown : normal_cooldown)
+		addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), (HAS_TRAIT(src, TRAIT_CMAGGED) || emagged) ? cmag_cooldown : normal_cooldown)
 
 /obj/item/megaphone/proc/saymsg(mob/living/user, message)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
