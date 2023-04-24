@@ -412,7 +412,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/Move()
 	if(!swooping)
-		..()
+		. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/Goto(target, delay, minimum_distance)
 	if(!swooping)

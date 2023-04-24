@@ -174,7 +174,7 @@
 
 
 /obj/structure/reagent_dispensers/fueltank/Move()
-	..()
+	. = ..()
 	if(rig)
 		rig.process_movement()
 

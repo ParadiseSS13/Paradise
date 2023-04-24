@@ -29,7 +29,7 @@
 	qdel(src)
 
 /obj/structure/chair/Move(atom/newloc, direct)
-	..()
+	. = ..()
 	handle_rotation()
 
 /obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)

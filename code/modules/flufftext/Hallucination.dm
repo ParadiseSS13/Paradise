@@ -111,7 +111,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	Show()
 
 /obj/effect/hallucination/simple/Move()
-	..()
+	. = ..()
 	Show()
 
 /obj/effect/hallucination/simple/Destroy()

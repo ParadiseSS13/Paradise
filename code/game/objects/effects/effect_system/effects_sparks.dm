@@ -38,7 +38,7 @@
 	return ..()
 
 /obj/effect/particle_effect/sparks/Move()
-	..()
+	. = ..()
 	var/turf/T = loc
 	if(isturf(T))
 		T.hotspot_expose(hotspottemp,100)

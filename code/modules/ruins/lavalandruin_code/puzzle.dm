@@ -206,8 +206,8 @@
 /obj/structure/puzzle_element/Move(nloc, dir)
 	if(!isturf(nloc) ||  moving_diagonally || get_dist(get_step(src,dir),get_turf(source)) > 1)
 		return 0
-	else
-		return ..()
+
+	. = ..()
 
 /obj/structure/puzzle_element/proc/set_puzzle_icon()
 	cut_overlays()

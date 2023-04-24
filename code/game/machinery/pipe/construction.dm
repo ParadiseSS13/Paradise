@@ -213,7 +213,7 @@
 	return
 
 /obj/item/pipe/Move()
-	..()
+	. = ..()
 	if(is_bent_pipe() \
 		&& (src.dir in GLOB.cardinal))
 		src.dir = src.dir|turn(src.dir, 90)

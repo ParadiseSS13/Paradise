@@ -58,6 +58,10 @@
 	return
 
 /atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
+	var/mob/M = AM
+	if(ismob(M) && M.buckled)
+		AM = M.buckled
+
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -80,11 +84,12 @@
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
 	AM.pulledby = src
-	if(ismob(AM))
-		var/mob/M = AM
-		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
+
+	var/mob/pulled_mob = ismob(AM) ? AM : buckled_mobs[1]
+	if(ismob(pulled_mob))
+		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(show_message)
-			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [M]!</span>")
+			visible_message("<span class='warning'>[src] схватил[genderize_ru(src.gender,"","а","о","и")] [pulled_mob]!</span>")
 	return TRUE
 
 /atom/movable/proc/stop_pulling()

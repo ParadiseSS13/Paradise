@@ -172,7 +172,7 @@
 	handle_layer()
 
 /obj/structure/railing/Move(newloc, direct, movetime)
-	..()
+	. = ..()
 	handle_layer()
 
 /obj/structure/railing/proc/handle_layer()

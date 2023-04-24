@@ -56,7 +56,7 @@
 	desc = "That's Hudson. " +  unbearable_pun// I am not sorry for this.
 
 /mob/living/simple_animal/hostile/bear/Move()
-	..()
+	. = ..()
 	if(stat != DEAD)
 		if(loc && istype(loc,/turf/space))
 			icon_state = "[icon_living]"

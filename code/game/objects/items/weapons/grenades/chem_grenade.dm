@@ -232,7 +232,7 @@
 		nadeassembly.HasProximity(AM)
 
 /obj/item/grenade/chem_grenade/Move() // prox sensors and infrared care about this
-	..()
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
 

@@ -69,7 +69,7 @@
 		if(client)
 			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
 		return 0
-	return ..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/statue/handle_automated_action()
 	if(!..())

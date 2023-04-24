@@ -115,7 +115,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Move()
 	if(charging)
 		return FALSE
-	return ..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/MiddleClickOn(atom/A)
 	. = ..()

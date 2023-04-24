@@ -223,7 +223,8 @@
 //Move all segments if one piece moves.
 /mob/living/simple_animal/hostile/spaceWorm/Move()
 	var/segmentNextPos = loc
-	if(..())
+	. = ..()
+	if(.)
 		if(previousWorm)
 			previousWorm.Move(segmentNextPos)
 		update_icon()

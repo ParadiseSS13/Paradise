@@ -35,7 +35,7 @@
 
 /obj/structure/wryn/wax/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	move_update_air(T)
 
 /obj/structure/wryn/wax/CanAtmosPass()

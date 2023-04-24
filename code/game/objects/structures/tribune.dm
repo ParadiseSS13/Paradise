@@ -47,7 +47,7 @@
 	handle_layer()
 
 /obj/structure/tribune/Move(newloc, direct, movetime)
-	..()
+	. = ..()
 	handle_layer()
 
 /obj/structure/tribune/proc/handle_layer()

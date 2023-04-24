@@ -108,7 +108,7 @@
 	var/turf/T = loc
 	for(var/obj/structure/cable/C in T)
 		C.deconstruct()
-	..()
+	. = ..()
 
 /obj/structure/lattice/catwalk/deconstruct()
 	var/turf/T = loc
