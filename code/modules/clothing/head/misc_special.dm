@@ -53,13 +53,44 @@
 	desc = "A welding helmet with blue flame decals on it."
 	icon_state = "welding_blueflame"
 
-/obj/item/clothing/head/welding/white
+/obj/item/clothing/head/welding/flamedecal/white
 	name = "white decal welding helmet"
 	desc = "A white welding helmet with a character written across it."
 	icon_state = "welding_white"
 
 /obj/item/clothing/head/welding/attack_self()
 	toggle()
+
+/obj/item/clothing/head/welding/attackby(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		if(icon_state != "welding")
+			to_chat(user, "<span class = 'warning'>Похоже, тут уже есть слой краски!</span>")
+			return
+		var/obj/item/toy/crayon/spraycan/C = I
+		if(C.capped)
+			to_chat(user, "<span class = 'warning'>Вы не можете раскрасить [src], если крышка на банке закрыта!</span>")
+			return
+		var/list/weld_icons = list("Flame" = image(icon = src.icon, icon_state = "welding_redflame"),
+									"Blue Flame" = image(icon = src.icon, icon_state = "welding_blueflame"),
+									"White Flame" = image(icon = src.icon, icon_state = "welding_white"))
+		var/list/weld = list("Flame" = "welding_redflame",
+							"Blue Flame" = "welding_blueflame",
+							"White Flame" = "welding_white")
+		var/choice = show_radial_menu(user, src, weld_icons)
+		if(!choice || I.loc != user || !Adjacent(user))
+			return
+		if(C.uses <= 0)
+			to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
+			return
+		icon_state = weld[choice]
+		C.uses--
+		update_icon()
+	if(istype(I, /obj/item/soap) && (icon_state != initial(icon_state)))
+		icon_state = initial(icon_state)
+		update_icon()
+	else
+		return ..()
+
 
 /obj/item/clothing/head/welding/proc/toggle()
 	if(up)
