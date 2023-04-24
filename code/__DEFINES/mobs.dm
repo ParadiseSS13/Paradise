@@ -24,6 +24,10 @@
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
+//BONE DEFINE
+
+#define FRAGILITY(A) (ishuman(A) ? A.dna.species.bonefragility : 1)
+
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
