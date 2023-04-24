@@ -26,7 +26,6 @@
 	)
 
 	outfit = /datum/outfit/job/rd
-	allow_bureaucratic_error = FALSE
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Science), basic job duties, and act professionally (roleplay)."
 
 /datum/outfit/job/rd

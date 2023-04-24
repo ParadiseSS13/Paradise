@@ -22,7 +22,6 @@
 	exp_map = list(EXP_TYPE_SECURITY = 1200)
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
-	allow_bureaucratic_error = FALSE
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Security), Space Law, basic job duties, and act professionally (roleplay)."
 
 /datum/outfit/job/hos
