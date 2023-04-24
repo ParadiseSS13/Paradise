@@ -21,6 +21,7 @@
 /obj/item/megaphone/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is uttering [user.p_their()] last words into [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	on_cooldown = FALSE
+	user.emote("scream")
 	saymsg(user, "AAAAAAAAAAAARGHHHHH")
 	return OXYLOSS
 
