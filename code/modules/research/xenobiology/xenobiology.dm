@@ -451,7 +451,7 @@
 	name = "slime oil potion"
 	desc = "A potent chemical mix that will remove the slowdown from any item by reducing friction. Doesn't mix well with water."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle3"
+	icon_state = "bottle4"
 	origin_tech = "biotech=5"
 
 /obj/item/slimepotion/oil_slick/afterattack(obj/O, mob/user, proximity_flag)
@@ -479,6 +479,9 @@
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	O.add_atom_colour("#3b3535", FIXED_COLOUR_PRIORITY)
 	ADD_TRAIT(O, TRAIT_OIL_SLICKED, "potion")
+	if(ishuman(O.loc))
+		var/mob/living/carbon/human/H = O.loc
+		H.regenerate_icons()
 	qdel(src)
 
 /obj/item/slimepotion/oil_slick/MouseDrop(obj/over_object)

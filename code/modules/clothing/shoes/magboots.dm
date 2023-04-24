@@ -21,10 +21,7 @@
 /obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
 	. = ..()
 	if(magpulse && slowdown_active > SHOES_SLOWDOWN)
-		if(ishuman(loc))
-			to_chat(loc, "<span class='warning'>Water causes [src] to short out!</span>")
-			new /obj/effect/particle_effect/sparks(get_turf(loc))
-			attack_self(loc, TRUE)
+		slowdown = slowdown_active
 
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
