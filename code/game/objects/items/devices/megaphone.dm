@@ -72,7 +72,7 @@
 		saymsg(user, message)
 
 		on_cooldown = TRUE
-		addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), (HAS_TRAIT(src, TRAIT_CMAGGED) || emagged) ? cmag_cooldown : normal_cooldown)
+		addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), (HAS_TRAIT(src, TRAIT_CMAGGED) || emagged) ? modified_cooldown : normal_cooldown)
 
 /obj/item/megaphone/proc/saymsg(mob/living/user, message)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
@@ -92,7 +92,6 @@
 /obj/item/megaphone/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
-	span = "reallybig userdanger"
 	if(user)
 		to_chat(user, "<span class='warning'>You slide your card through [src]'s voice synthesizer, gunking it up.</span>")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
@@ -101,8 +100,6 @@
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-	if(!emagged)  // don't clean it off entirely
-		span = initial(span)
 
 /obj/item/megaphone/emag_act(mob/user)
 	if(emagged)
@@ -110,5 +107,6 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))  // one at a time
 		to_chat(user, "<span class='warning'>You don't want to gunk up your emag!</span>")
 		return
-	span = "reallybig userdanger"
+	to_chat(user, "<span class='danger'>You short out [src]'s dampener circuits.</span>")
+	span = "reallybig userdanger"  // really obvious, but also really loud
 
