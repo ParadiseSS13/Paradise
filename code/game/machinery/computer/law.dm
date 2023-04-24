@@ -1,4 +1,4 @@
-#define cooldown_delay = 60 SECONDS
+#define EMAG_COOLDOWN 60 SECONDS
 
 /obj/machinery/computer/aiupload
 	name = "\improper AI upload console"
@@ -11,6 +11,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
 	var/cooldown = 0
+	var/foundlaws = 0
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
@@ -41,59 +42,66 @@
 
 
 /obj/machinery/computer/aiupload/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/aiModule))
-		if(!current)//no AI selected
-			to_chat(user, "<span class='danger'>No AI selected. Please chose a target before proceeding with upload.")
+	if(!istype(O, /obj/item/aiModule))
+		return
+	if(!current)//no AI selected
+		to_chat(user, "<span class='danger'>No AI selected. Please chose a target before proceeding with upload.")
+		return
+	var/turf/T = get_turf(current)
+	if(!atoms_share_level(T, src))
+		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+		return
+	if(!emagged) //non-emag law change
+		var/obj/item/aiModule/M = O
+		M.install(src)
+		return
+	else
+		if(world.time < cooldown)
+			to_chat(user, "The program seems to have frozen. It will need some time to process.")
 			return
-		var/turf/T = get_turf(current)
-		if(!atoms_share_level(T, src))
-			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
-			return
-		if(!emagged) //non-emag law change
-			var/obj/item/aiModule/M = O
-			M.install(src)
-			return
-		else
-			if(world.time < cooldown)
-				to_chat(user, "The program seems to have frozen. It will need some time to process.")
-				return
-			do_sparks(5, TRUE, src)
-			var/foundlaws = 0
-			var/checked = FALSE
-			for(var/datum/ai_law/law in current.laws.all_laws())
-				if(law in current.laws.inherent_laws)
-					foundlaws++
-				if(checked)
-					continue
-				if(!length(current.laws.ion_laws))
-					checked = TRUE
-					if(prob(20))  // 20% chance to generate an ion law if none exists
-						current.add_ion_law(generate_ion_law())
-						cooldown = world.time + cooldown_delay
-						return
-				else if(law in current.laws.ion_laws) //10% chance to overwrite a current ion
-					checked = TRUE
-					if(prob(10))
-						current.clear_ion_laws()
-						current.add_ion_law()
-						cooldown = world.time + cooldown_delay
-						return
-			var/lawposition = rand(1, foundlaws)
-			if(foundlaws) //as long as it finds a law to change
-				current.laws.inherent_laws[lawposition].law = new/datum/ai_law/inherent(generate_ion_law()).law
-				log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
-				current.show_laws()
-				current.throw_alert("newlaw", /obj/screen/alert/newlaw)
-				cooldown = world.time + cooldown_delay
-				for(var/i in 1 to length(current.connected_robots)) // push alert to the AI's borgs
-					current.connected_robots[i].cmd_show_laws()
-					current.connected_robots[i].throw_alert("newlaw", /obj/screen/alert/newlaw)
-			return
+		do_sparks(5, TRUE, src)
+		countlaws()
+		if(!emag_ion_check())
+			emag_inherent_law()
 		return
 	return ..()
 
+/obj/machinery/computer/aiupload/proc/countlaws()
+	foundlaws = 0
+	for(var/datum/ai_law/law in current.laws.inherent_laws)
+		foundlaws++
+	return
 
-/obj/machinery/computer/aiupload/proc/add_emag_law()
+/obj/machinery/computer/aiupload/proc/emag_ion_check()
+	if(!length(current.laws.ion_laws))
+		if(prob(20))  // 20% chance to generate an ion law if none exists
+			current.add_ion_law(generate_ion_law())
+			cooldown = world.time + EMAG_COOLDOWN
+			return TRUE
+	else //10% chance to overwrite a current ion
+		if(prob(10))
+			current.laws.ion_laws[1].law = new/datum/ai_law/ion(generate_ion_law()).law
+			cooldown = world.time + EMAG_COOLDOWN
+			return TRUE
+		else
+			return FALSE
+
+/obj/machinery/computer/aiupload/proc/emag_inherent_law()
+	if(foundlaws) //as long as it finds a law to change
+		var/lawposition = rand(1, foundlaws)
+		current.laws.inherent_laws[lawposition].law = new/datum/ai_law/inherent(generate_ion_law()).law
+		log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
+		current.show_laws()
+		alert_silicons()
+		cooldown = world.time + EMAG_COOLDOWN
+
+
+/obj/machinery/computer/aiupload/proc/alert_silicons()
+	current.show_laws()
+	current.throw_alert("newlaw", /obj/screen/alert/newlaw)
+	for(var/i in 1 to length(current.connected_robots)) // push alert to the AI's borgs
+		current.connected_robots[i].cmd_show_laws()
+		current.connected_robots[i].throw_alert("newlaw", /obj/screen/alert/newlaw)
 
 /obj/machinery/computer/aiupload/attack_hand(mob/user as mob)
 	if(src.stat & NOPOWER)
@@ -112,6 +120,7 @@
 	return
 
 /obj/machinery/computer/aiupload/attack_ghost(user as mob)
+	#undef EMAG_COOLDOWN
 	return 1
 
 // Why is this not a subtype
