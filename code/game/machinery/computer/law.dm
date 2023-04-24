@@ -1,3 +1,5 @@
+#define cooldown_delay = 60 SECONDS
+
 /obj/machinery/computer/aiupload
 	name = "\improper AI upload console"
 	desc = "Used to upload laws to the AI."
@@ -9,7 +11,6 @@
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
 	var/cooldown = 0
-	var/cooldown_delay = 60 SECONDS
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
@@ -87,8 +88,11 @@
 					current.connected_robots[i].cmd_show_laws()
 					current.connected_robots[i].throw_alert("newlaw", /obj/screen/alert/newlaw)
 			return
+		return
 	return ..()
 
+
+/obj/machinery/computer/aiupload/proc/add_emag_law()
 
 /obj/machinery/computer/aiupload/attack_hand(mob/user as mob)
 	if(src.stat & NOPOWER)
