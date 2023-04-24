@@ -56,8 +56,8 @@
 	max_plasma = 500
 
 /obj/item/organ/internal/xenos/plasmavessel/sentinel
-	stored_plasma = 100
-	max_plasma = 250
+	stored_plasma = 200
+	max_plasma = 500
 
 /obj/item/organ/internal/xenos/plasmavessel/hunter
 	name = "small xeno plasma vessel"
@@ -106,11 +106,11 @@
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
 	var/datum/action/innate/xeno_action/corrosive_acid/corrosive_acid_action = new
-	
+
 /obj/item/organ/internal/xenos/acidgland/insert(mob/living/carbon/M, special = 0)
 	..()
 	corrosive_acid_action.Grant(M)
-	
+
 /obj/item/organ/internal/xenos/acidgland/remove(mob/living/carbon/M, special = 0)
 	corrosive_acid_action.Remove(M)
 	. = ..()
@@ -142,11 +142,11 @@
 	slot = "neurotox"
 	origin_tech = "biotech=5;combat=5"
 	var/datum/action/innate/xeno_action/neurotoxin/neurotoxin_action = new
-	
+
 /obj/item/organ/internal/xenos/neurotoxin/insert(mob/living/carbon/M, special = 0)
 	..()
 	neurotoxin_action.Grant(M)
-	
+
 /obj/item/organ/internal/xenos/neurotoxin/remove(mob/living/carbon/M, special = 0)
 	neurotoxin_action.Remove(M)
 	. = ..()
@@ -159,12 +159,12 @@
 	origin_tech = "biotech=5;materials=4"
 	var/datum/action/innate/xeno_action/resin/resin_action = new
 	var/datum/action/innate/xeno_action/plant/plant_action = new
-	
+
 /obj/item/organ/internal/xenos/resinspinner/insert(mob/living/carbon/M, special = 0)
 	..()
 	resin_action.Grant(M)
 	plant_action.Grant(M)
-	
+
 /obj/item/organ/internal/xenos/resinspinner/remove(mob/living/carbon/M, special = 0)
 	resin_action.Remove(M)
 	plant_action.Remove(M)
@@ -182,7 +182,7 @@
 /obj/item/organ/internal/xenos/eggsac/insert(mob/living/carbon/M, special = 0)
 	..()
 	lay_egg_queen_action.Grant(M)
-	
+
 /obj/item/organ/internal/xenos/eggsac/remove(mob/living/carbon/M, special = 0)
 	lay_egg_queen_action.Remove(M)
 	. = ..()

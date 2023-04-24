@@ -41,7 +41,7 @@
 	if(name == "alien sentinel")
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel
+	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/sentinel
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
