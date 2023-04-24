@@ -18,6 +18,14 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
+	. = ..()
+	if(magpulse && slowdown_active > SHOES_SLOWDOWN)
+		if(ishuman(loc))
+			to_chat(loc, "<span class='warning'>Water causes [src] to short out!</span>")
+			new /obj/effect/particle_effect/sparks(get_turf(loc))
+			attack_self(loc, TRUE)
+
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
 	name = "atmospheric magboots"
@@ -25,7 +33,7 @@
 	magboot_state = "atmosmagboots"
 	gustprotection = TRUE
 
-/obj/item/clothing/shoes/magboots/attack_self(mob/user)
+/obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
 	if(magpulse)
 		START_PROCESSING(SSobj, src) //Gravboots
 		flags &= ~NOSLIP
@@ -36,7 +44,8 @@
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
+	if(!forced)
+		to_chat(user, "You [magpulse ? "enable" : "disable"] the [magpulse_name].")
 	user.update_inv_shoes()	//so our mob-overlays update
 	user.update_gravity(user.mob_has_gravity())
 	for(var/X in actions)

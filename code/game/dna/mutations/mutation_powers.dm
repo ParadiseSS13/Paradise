@@ -33,26 +33,6 @@
 	H.adjustBruteLoss(-1, FALSE)
 	H.adjustFireLoss(-1)
 
-/datum/mutation/increaserun
-	name = "Super Speed"
-	activation_messages = list("You feel swift and unencumbered.")
-	deactivation_messages = list("You feel slow.")
-	instability = GENE_INSTABILITY_MINOR
-	traits_to_add = list(TRAIT_IGNORESLOWDOWN)
-
-/datum/mutation/increaserun/New()
-	..()
-	block = GLOB.increaserunblock
-
-/datum/mutation/increaserun/can_activate(mob/M, flags)
-	if(!..())
-		return FALSE
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.dna.species && H.dna.species.speed_mod && !(flags & MUTCHK_FORCED))
-			return FALSE
-	return TRUE
-
 /datum/mutation/heat_resist
 	name = "Heat Resistance"
 	activation_messages = list("Your skin is icy to the touch.")
