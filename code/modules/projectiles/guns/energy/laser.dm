@@ -153,7 +153,7 @@
 	else if(do_after(user, 3 SECONDS, target = src) && zoomed)
 		if(zoomed && !scope_active) //We check after to be sure.
 			scope_active = TRUE
-			to_chat(user, "<b><span class='robot'>SMRT-SCOPE Online.</span></b>")
+			to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
 			select_fire(H)
 			H.apply_status_effect(STATUS_EFFECT_LWAPSCOPE, stored_dir)
 
