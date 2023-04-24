@@ -143,9 +143,8 @@
 	D.open()
 
 /obj/item/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
-	if(istype(C, /obj/structure/closet/secure_closet))
-		var/obj/structure/closet/secure_closet/SC = C
-		SC.locked = FALSE
+	if(C?.locked)
+		C.locked = FALSE
 	C.open()
 
 /obj/item/projectile/magic/change
