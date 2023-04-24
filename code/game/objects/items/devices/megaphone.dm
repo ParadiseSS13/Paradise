@@ -11,9 +11,11 @@
 	var/normal_cooldown = 2 SECONDS
 	/// How long to wait between insults
 	var/cmag_cooldown = 20 SECONDS
-
+	/// If it's on cooldown.
 	var/on_cooldown = FALSE
+	/// Span to use by default for the message.
 	var/span = "reallybig"
+	/// List of insults to be sent when the megaphone is cmagged.
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
 
 /obj/item/megaphone/suicide_act(mob/user)
@@ -27,7 +29,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		. += "<span class='warning'>Yellow ooze seems to be seeping from the speaker...</span>"
 
-/obj/item/megaphone/attack_self(mob/living/user as mob)
+/obj/item/megaphone/attack_self(mob/living/user)
 	if(check_mute(user.ckey, MUTE_IC))
 		to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
 		return
@@ -66,18 +68,12 @@
 	if((loc == user && !user.incapacitated()))
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			message = pick(insultmsg)
-			// message = "<span class='reallybig userdanger'>[pick(insultmsg)]</span>"
-			// message = pick(insultmsg)
-		// else
-			// if(span)
-			// 	message = "<span class='[span]'>[message]</span>"
 		saymsg(user, message)
 
 		on_cooldown = TRUE
-
 		addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), HAS_TRAIT(src, TRAIT_CMAGGED) ? cmag_cooldown : normal_cooldown)
 
-/obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
+/obj/item/megaphone/proc/saymsg(mob/living/user, message)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		playsound(src, "sound/items/bikehorn.ogg", 50, TRUE)
 	else
@@ -103,5 +99,15 @@
 /obj/item/megaphone/uncmag()
 	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
-	span = initial(span)
 	REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	if(!emagged)  // don't clean it off entirely
+		span = initial(span)
+
+/obj/item/megaphone/emag_act(mob/user)
+	if(emagged)
+		return
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))  // one at a time
+		to_chat(user, "<span class='warning'>You don't want to gunk up your emag!</span>")
+		return
+	span = "reallybig userdanger"
+
