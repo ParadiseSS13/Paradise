@@ -133,7 +133,7 @@
 			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)
 	return STATUS_UPDATE_HEALTH
 
-/mob/living/carbon/human/unmutateAllBodyparts()
+/mob/living/carbon/human/proc/unmutateAllBodyparts()
 	for(var/obj/item/organ/external/O in bodyparts)
 		if(O.status & ORGAN_MUTATED)
 			O.unmutate()
