@@ -93,7 +93,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		return
 	if(user)
-		to_chat(user, "<span class='warning'>You slide your card through [src]'s voice synthesizer, gunking it up.</span>")
+		to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]'s voice synthesizer, gunking it up.</span>")
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 /obj/item/megaphone/uncmag()
