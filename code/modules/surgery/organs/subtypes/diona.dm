@@ -97,7 +97,7 @@
 
 /datum/action/item_action/organ_action/diona_brain_evacuation/IsAvailable()
 	. = ..()
-	if(owner.mind.suicided)
+	if((!owner.mind) || owner.mind.suicided)
 		return FALSE
 
 

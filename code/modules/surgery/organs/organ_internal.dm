@@ -61,7 +61,8 @@
 		M.internal_organs -= src
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
-			SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
+			if(!special)
+				SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!
 				M.death()

@@ -653,7 +653,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 		// Let's non-specially remove all non-vital organs
 		// What could possibly go wrong
-		var/obj/item/I = O.remove(H)
+		var/obj/item/I = O.remove(H, TRUE)
 		// Make this support stuff that turns into items when removed
 		I.forceMove(src)
 		missing_organs += I
