@@ -120,8 +120,9 @@
 	return
 
 /obj/machinery/computer/aiupload/attack_ghost(user as mob)
-	#undef EMAG_COOLDOWN
 	return 1
+
+#undef EMAG_COOLDOWN
 
 // Why is this not a subtype
 /obj/machinery/computer/borgupload
