@@ -169,7 +169,7 @@
 	name = "[initial(name)] - Saline Glucose"
 
 /obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
-	var/blood_type
+	var/blood_type = "O-"
 	var/blood_species = "Human"
 	amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 
@@ -181,10 +181,16 @@
 		update_icon()
 
 
-/obj/item/reagent_containers/iv_bag/blood/random/Initialize()
+/obj/item/reagent_containers/iv_bag/blood/random/Initialize(mapload)
 	blood_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
 	blood_species = pick("Human", "Diona", "Drask", "Grey", "Kidan", "Tajaran", "Vulpkanin", "Skrell", "Unathi", "Nian", "Vox", "Wryn")
-	return ..()
+	. = ..()
+
+/obj/item/reagent_containers/iv_bag/blood/ABPlus
+	blood_type = "AB+"
+
+/obj/item/reagent_containers/iv_bag/blood/ABMinus
+	blood_type = "AB-"
 
 /obj/item/reagent_containers/iv_bag/blood/APlus
 	blood_type = "A+"
@@ -203,6 +209,36 @@
 
 /obj/item/reagent_containers/iv_bag/blood/OMinus
 	blood_type = "O-"
+
+/obj/item/reagent_containers/iv_bag/blood/skrell
+	blood_species = "Skrell"
+
+/obj/item/reagent_containers/iv_bag/blood/tajaran
+	blood_species = "Tajaran"
+
+/obj/item/reagent_containers/iv_bag/blood/vulpkanin
+	blood_species = "Vulpkanin"
+
+/obj/item/reagent_containers/iv_bag/blood/unathi
+	blood_species = "Unathi"
+
+/obj/item/reagent_containers/iv_bag/blood/kidan
+	blood_species = "Kidan"
+
+/obj/item/reagent_containers/iv_bag/blood/grey
+	blood_species = "Grey"
+
+/obj/item/reagent_containers/iv_bag/blood/diona
+	blood_species = "Diona"
+
+/obj/item/reagent_containers/iv_bag/blood/wryn
+	blood_species = "Wryn"
+
+/obj/item/reagent_containers/iv_bag/blood/nian
+	blood_species = "Nian"
+
+/obj/item/reagent_containers/iv_bag/blood/vox
+	blood_species = "Vox"
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic
 	var/blood_type = "Synthetic"

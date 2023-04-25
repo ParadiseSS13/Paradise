@@ -40473,20 +40473,20 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/machinery/iv_drip,
 /obj/machinery/ai_status_display{
 	pixel_y = -32
 	},
-/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/AMinus,
+/obj/item/reagent_containers/iv_bag/blood/APlus,
+/obj/item/reagent_containers/iv_bag/blood/BMinus,
+/obj/item/reagent_containers/iv_bag/blood/BPlus,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -45614,10 +45614,17 @@
 /area/medical/ward)
 "cfJ" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/blood/diona,
+/obj/item/reagent_containers/iv_bag/blood/grey,
+/obj/item/reagent_containers/iv_bag/blood/kidan,
+/obj/item/reagent_containers/iv_bag/blood/nian,
+/obj/item/reagent_containers/iv_bag/blood/skrell,
+/obj/item/reagent_containers/iv_bag/blood/tajaran,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
+/obj/item/reagent_containers/iv_bag/blood/wryn,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -46418,10 +46425,17 @@
 /area/medical/surgery/south)
 "chu" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/blood/diona,
+/obj/item/reagent_containers/iv_bag/blood/grey,
+/obj/item/reagent_containers/iv_bag/blood/kidan,
+/obj/item/reagent_containers/iv_bag/blood/nian,
+/obj/item/reagent_containers/iv_bag/blood/skrell,
+/obj/item/reagent_containers/iv_bag/blood/tajaran,
+/obj/item/reagent_containers/iv_bag/blood/unathi,
+/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
+/obj/item/reagent_containers/iv_bag/blood/wryn,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -92783,13 +92797,10 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
 /obj/item/tank/internals/emergency_oxygen/engi/empty,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"

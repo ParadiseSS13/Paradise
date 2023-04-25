@@ -1607,19 +1607,15 @@
 /area/mine/production)
 "dB" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/blood,
-/obj/item/reagent_containers/iv_bag/blood{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/machinery/camera{
 	c_tag = "Sleeper Room";
 	dir = 1;
 	network = list("Mining Outpost")
 	},
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /turf/simulated/floor/plasteel/white,
 /area/mine/living_quarters)
 "dC" = (
@@ -2975,17 +2971,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "gv" = (
-/obj/machinery/door/airlock/external{
-	glass = 1;
-	id_tag = "mining_away";
-	name = "Mining Shuttle Airlock";
-	opacity = 0;
-	req_access = list(48)
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel,
-/area/mine/production)
-"gw" = (
 /obj/machinery/door/airlock/external{
 	glass = 1;
 	id_tag = "mining_away";
@@ -6573,20 +6558,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
-"Nk" = (
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/table/reinforced/brass,
-/turf/simulated/floor/indestructible/boss,
-/area/lavaland/surface/outdoors/necropolis)
 "No" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
@@ -22097,7 +22068,7 @@ aj
 aj
 bN
 bN
-gw
+gv
 bN
 bN
 ab
@@ -32931,7 +32902,7 @@ aj
 (100,1,1) = {"
 oG
 oG
-Nk
+sQ
 gC
 mW
 gC
@@ -34992,7 +34963,7 @@ mq
 xY
 nc
 nz
-Nk
+sQ
 oG
 oG
 oG

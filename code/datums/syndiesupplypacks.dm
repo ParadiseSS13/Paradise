@@ -870,21 +870,25 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/vending_refill/wallmed)
 	containername = "medical vending crate"
 
-/datum/syndie_supply_packs/medical/bloodpacks
-	name = "Blood Pack Variety Crate"
-	contains = list(/obj/item/reagent_containers/iv_bag,
-					/obj/item/reagent_containers/iv_bag,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/datum/syndie_supply_packs/medical/bloodpacks_syn_oxygenis
+	name = "Synthetic Blood Pack Oxygenis"
+	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis)
-	cost = 1400
+	cost = 3000
 	containertype = /obj/structure/closet/crate/freezer
-	containername = "blood pack crate"
+	containername = "synthetic blood pack oxygenis crate"
+
+/datum/syndie_supply_packs/medical/bloodpacks_syn_nitrogenis
+	name = "Synthetic Blood Pack Nitrogenis"
+	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis)
+	cost = 3000
+	containertype = /obj/structure/closet/crate/freezer
+	containername = "synthetic blood pack nitrogenis crate"
 
 /datum/syndie_supply_packs/medical/iv_drip
 	name = "IV Drip Crate"

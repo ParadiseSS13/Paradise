@@ -22663,12 +22663,12 @@
 /area/syndicate_mothership/elite_squad)
 "mdw" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/item/reagent_containers/iv_bag/blood/vox,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
 "mdF" = (
