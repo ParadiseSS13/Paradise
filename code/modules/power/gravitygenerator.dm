@@ -298,6 +298,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 				if(!is_station_level(A.z))
 					continue
 				A.gravitychange(TRUE, A)
+				A.cmag_grav_change(TRUE, A)
 
 	else if(generators_in_level() == TRUE) // Turned off, and there is gravity
 		alert = TRUE
@@ -307,6 +308,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 			if(!is_station_level(A.z))
 				continue
 			A.gravitychange(FALSE, A)
+			A.cmag_grav_change(FALSE, A)
 
 	update_icon()
 	update_gen_list()
@@ -328,11 +330,13 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 /obj/machinery/gravity_generator/main/proc/do_cmagging(mob/user)
 	// give the perp a moment to get away, even though it will be incredibly obvious who did it.
-	for(var/area/A in world)
-		if(!is_station_level(A.z))
-			continue
-		A.cmag_grav_change(TRUE, A)
-	shake_everyone()
+	if(on)
+		// if it was already off, then we'll have a fun surprise when it wakes up
+		for(var/area/A in world)
+			if(!is_station_level(A.z))
+				continue
+			A.cmag_grav_change(TRUE, A)
+		shake_everyone()
 	add_fingerprint(user)
 	on_cmag_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, on_cmag_cooldown, FALSE), 5 MINUTES)
