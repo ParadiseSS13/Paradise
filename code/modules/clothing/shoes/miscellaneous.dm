@@ -416,6 +416,7 @@
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
+	var/datum/callback/last_jump = null
 
 /obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
 	if(!ishuman(user))
@@ -430,9 +431,13 @@
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 
+	if(last_jump) //in case we are trying to perfom jumping while first jump was not complete
+		last_jump.Invoke()
 	var/isflying = user.flying
 	user.flying = TRUE
-	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = CALLBACK(src, .proc/after_jump, user, isflying)))
+	var/after_jump_callback = CALLBACK(src, .proc/after_jump, user, isflying)
+	if (user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
+		last_jump = after_jump_callback
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
 		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
 		recharging_time = world.time + recharging_rate
@@ -442,6 +447,7 @@
 
 /obj/item/clothing/shoes/bhop/proc/after_jump(mob/user, isflying)
 	user.flying = isflying
+	last_jump = null
 
 /obj/item/clothing/shoes/bhop/clown
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
