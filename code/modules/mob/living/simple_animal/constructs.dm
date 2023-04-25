@@ -57,7 +57,13 @@
 	if(held_body) // Null check for empty bodies
 		held_body.forceMove(get_turf(src))
 		SSticker.mode.add_cult_immunity(held_body)
-		held_body.key = key
+		if(ismob(held_body)) // Check if the held_body is a mob
+			held_body.key = key
+		else if(istype(held_body, /obj/item/organ/internal/brain)) // Check if the held_body is a brain
+			var/obj/item/organ/internal/brain/brain = held_body
+			if(brain.brainmob) // Check if the brain has a brainmob
+				brain.brainmob.key = key // Set the key to the brainmob
+				brain.brainmob.mind.transfer_to(brain.brainmob) // Transfer the mind to the brainmob
 		held_body.cancel_camera()
 		held_body = null
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
