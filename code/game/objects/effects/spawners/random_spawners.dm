@@ -224,7 +224,6 @@
 /obj/effect/spawner/random_spawners/syndicate/loot
 	name = "common loot"
 	icon_state = "common"
-	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
 	// Loot schema: costumes, toys, useless gimmick items
 	result = list(/datum/nothing = 13,
 		/obj/item/storage/toolbox/syndicate = 1,
@@ -316,7 +315,6 @@
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
 	icon_state = "armory"
-	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(/obj/item/gun/projectile/automatic/c20r = 1,
 		/obj/item/gun/projectile/automatic/m90 = 1,
