@@ -89,7 +89,7 @@
 			qdel(src)
 			return ..()
 
-	if (istype(O, /obj/item/plant_analyzer))
+	if(istype(O, /obj/item/plant_analyzer))
 		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src].</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
@@ -103,6 +103,7 @@
 		if(reag_txt)
 			msg += reag_txt
 			msg += "<br><span class='info'>*---------*</span>"
+		playsound(O, 'sound/effects/scanbeep.ogg', 20)
 		to_chat(user, msg)
 	else
 		if(seed)

@@ -1,7 +1,7 @@
 /**********************Mining Scanner**********************/
 /obj/item/mining_scanner
-	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
 	name = "manual mining scanner"
+	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mining1"
 	item_state = "analyzer"
@@ -18,6 +18,7 @@
 		return
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
+		playsound(src, 'sound/effects/ping.ogg', 20)
 		mineral_scan_pulse(get_turf(user))
 
 
@@ -56,6 +57,7 @@
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
 		var/turf/t = get_turf(src)
+		playsound(src, 'sound/effects/ping.ogg', 20)
 		mineral_scan_pulse(t, range)
 
 /proc/mineral_scan_pulse(turf/T, range = world.view)

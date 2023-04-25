@@ -113,7 +113,7 @@ REAGENT SCANNER
 	user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>", "<span class='notice'>You analyze [M]'s vitals.</span>")
 
 	healthscan(user, M, mode, advanced)
-
+	playsound(src, 'sound/effects/fastbeep.ogg', 20)
 	add_fingerprint(user)
 
 // Used by the PDA medical scanner too
@@ -501,6 +501,7 @@ REAGENT SCANNER
 			to_chat(user, "<span class='notice'>No active chemical agents found in [O].</span>")
 	else
 		to_chat(user, "<span class='notice'>No significant chemical agents found in [O].</span>")
+	playsound(src, 'sound/effects/scanbeep.ogg', 20)
 	return
 
 /obj/item/reagent_scanner/adv
@@ -551,6 +552,7 @@ REAGENT SCANNER
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
 		return
+	playsound(src, 'sound/effects/scanbeep.ogg', 20)
 	slime_scan(M, user)
 
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)

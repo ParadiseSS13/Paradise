@@ -117,6 +117,8 @@
 
 		scanning = TRUE
 
+		playsound(src, 'sound/effects/fastbeep.ogg', 20)
+
 		user.visible_message("[user] points [src] at [A] and performs a forensic scan.",
 		"<span class='notice'>You scan [A]. The scanner is now analysing the results...</span>")
 

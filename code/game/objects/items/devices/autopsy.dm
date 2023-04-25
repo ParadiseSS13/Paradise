@@ -174,5 +174,6 @@
 		return
 	M.visible_message("<span class='warning'>[user] scans the wounds on [M]'s [S.name] with [src]</span>")
 
+	playsound(src, 'sound/effects/scanbeep.ogg', 20)
 	add_data(S)
 	return 1

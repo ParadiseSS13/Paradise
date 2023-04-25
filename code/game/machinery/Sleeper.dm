@@ -426,6 +426,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
+	playsound(src, 'sound/machines/podopen.ogg', 40)
 	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
@@ -496,6 +497,7 @@
 			return
 		L.forceMove(src)
 		occupant = L
+		playsound(src, 'sound/machines/podclose.ogg', 40)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		add_fingerprint(user)
@@ -567,6 +569,7 @@
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
+		playsound(src, 'sound/machines/podclose.ogg', 40)
 		update_icon(UPDATE_ICON_STATE)
 
 		for(var/obj/O in src)

@@ -325,6 +325,7 @@
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")
+		playsound(O, 'sound/effects/scanbeep.ogg', 20)
 
 		return
 	if(is_pen(O))

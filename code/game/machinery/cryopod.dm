@@ -584,6 +584,7 @@
 	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
+	playsound(src, 'sound/machines/podclose.ogg', 40)
 
 
 /obj/machinery/cryopod/verb/eject()
@@ -665,6 +666,7 @@
 	occupant = null
 	icon_state = base_icon_state
 	name = initial(name)
+	playsound(src, 'sound/machines/podopen.ogg', 40)
 
 	return
 

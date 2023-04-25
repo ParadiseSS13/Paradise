@@ -839,6 +839,7 @@
 		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
 		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
 		to_chat(user, "")
+		playsound(O, 'sound/effects/scanbeep.ogg', 20)
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
