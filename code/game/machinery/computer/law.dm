@@ -70,7 +70,6 @@
 	foundlaws = 0
 	for(var/datum/ai_law/law in current.laws.inherent_laws)
 		foundlaws++
-	return
 
 /obj/machinery/computer/aiupload/proc/emag_ion_check()
 	if(!length(current.laws.ion_laws))
