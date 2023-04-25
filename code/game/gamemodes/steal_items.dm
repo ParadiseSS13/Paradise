@@ -116,8 +116,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	return FALSE
 
 /datum/theft_objective/highrisk/defib
-	name = "a compact defibrillator"
-	typepath = /obj/item/defibrillator/compact
+	name = "an advanced compact defibrillator"
+	typepath = /obj/item/defibrillator/compact/advanced
 	protected_jobs = list("Chief Medical Officer", "Paramedic")
 
 /datum/theft_objective/highrisk/magboots

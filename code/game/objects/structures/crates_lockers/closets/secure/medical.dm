@@ -176,7 +176,7 @@
 			new /obj/item/clothing/under/rank/medical/purple(src)
 			new /obj/item/clothing/head/surgery/purple(src)
 	new /obj/item/radio/headset/heads/cmo(src)
-	new /obj/item/defibrillator/compact/loaded(src)
+	new /obj/item/defibrillator/compact/advanced/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/flash(src)

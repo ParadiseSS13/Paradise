@@ -23,18 +23,20 @@
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/combat = FALSE //can we revive through space suits?
 
+	/// Type of paddles that should be attached to this defib.
+	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
+
 /obj/item/defibrillator/get_cell()
 	return cell
 
 /obj/item/defibrillator/New() //starts without a cell for rnd
 	..()
-	paddles = make_paddles()
+	paddles = new paddle_type(src)
 	update_icon()
 	return
 
 /obj/item/defibrillator/loaded/New() //starts with hicap
 	..()
-	paddles = make_paddles()
 	cell = new(src)
 	update_icon()
 	return
@@ -128,6 +130,7 @@
 		add_attack_logs(user, src, "un-emagged")
 		safety = TRUE
 		to_chat(user, "<span class='notice'>You silently enable [src]'s safety protocols with the card.")
+	update_icon()
 
 /obj/item/defibrillator/emp_act(severity)
 	if(cell)
@@ -173,8 +176,6 @@
 
 	update_icon()
 
-/obj/item/defibrillator/proc/make_paddles()
-	return new /obj/item/twohanded/shockpaddles(src)
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
@@ -243,7 +244,6 @@
 
 /obj/item/defibrillator/compact/loaded/New()
 	..()
-	paddles = make_paddles()
 	cell = new(src)
 	update_icon()
 	return
@@ -251,15 +251,45 @@
 /obj/item/defibrillator/compact/combat
 	name = "combat defibrillator"
 	desc = "A belt-equipped blood-red defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
+	icon_state = "defibcombat"
+	item_state = "defibcombat"
+	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
 	combat = TRUE
 	safety = FALSE
 
 /obj/item/defibrillator/compact/combat/loaded/New()
 	..()
-	paddles = make_paddles()
 	cell = new(src)
 	update_icon()
 	return
+
+/obj/item/defibrillator/compact/advanced
+	name = "advanced compact defibrillator"
+	desc = "A belt-mounted state-of-the-art defibrillator that can be rapidly deployed in all environments. Uses an experimental self-charging cell, meaning that it will (probably) never stop working. Can be used to defibrillate through space suits. It is impossible to damage."
+	icon_state = "defibnt"
+	item_state = "defibnt"
+	paddle_type = /obj/item/twohanded/shockpaddles/advanced
+	combat = TRUE
+	safety = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
+	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
+
+/obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
+	if(W == paddles)
+		paddles.unwield()
+		toggle_paddles()
+		update_icon()
+
+/obj/item/defibrillator/compact/advanced/loaded/New()
+	..()
+	cell = new /obj/item/stock_parts/cell/infinite(src)
+	update_icon()
+
+/obj/item/defibrillator/compact/advanced/emp_act(severity)
+	if(world.time > next_emp_message)
+		atom_say("Warning: Electromagnetic pulse detected. Integrated shielding prevented all potential hardware damage.")
+		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
+		next_emp_message = world.time + 5 SECONDS
 
 //paddles
 
@@ -280,6 +310,18 @@
 	var/busy = FALSE
 	var/obj/item/defibrillator/defib
 
+/obj/item/twohanded/shockpaddles/advanced
+	name = "advanced defibrillator paddles"
+	desc = "A pair of high-tech paddles with flat plasteel surfaces that are used to deliver powerful electric shocks. They possess the ability to penetrate armor to deliver shock."
+	icon_state = "ntpaddles"
+	item_state = "ntpaddles"
+
+/obj/item/twohanded/shockpaddles/syndicate
+	name = "combat defibrillator paddles"
+	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
+	icon_state = "syndiepaddles"
+	item_state = "syndiepaddles"
+
 /obj/item/twohanded/shockpaddles/New(mainunit)
 	..()
 	if(check_defib_exists(mainunit, src))
@@ -297,10 +339,10 @@
 	defib.cooldowncheck(user)
 
 /obj/item/twohanded/shockpaddles/update_icon()
-	icon_state = "defibpaddles[wielded]"
-	item_state = "defibpaddles[wielded]"
+	icon_state = "[initial(icon_state)][wielded]"
+	item_state = "[initial(icon_state)][wielded]"
 	if(cooldown)
-		icon_state = "defibpaddles[wielded]_cooldown"
+		icon_state = "[initial(icon_state)][wielded]_cooldown"
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
 	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide.</span>")
