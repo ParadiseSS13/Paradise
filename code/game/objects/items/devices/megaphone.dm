@@ -94,12 +94,8 @@
 		return
 	if(user)
 		to_chat(user, "<span class='warning'>You drip some yellow ooze into [src]'s voice synthesizer, gunking it up.</span>")
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-
-/obj/item/megaphone/uncmag()
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
-	REMOVE_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
 
 /obj/item/megaphone/emag_act(mob/user)
 	if(emagged)
