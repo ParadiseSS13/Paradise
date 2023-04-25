@@ -188,7 +188,7 @@
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
 	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-	if(L)
+	if(L && L.initialized)
 		qdel(L)
 
 /turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
