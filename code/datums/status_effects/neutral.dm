@@ -213,8 +213,8 @@
 
 /// Add the image to the lwap user's screen
 /obj/effect/temp_visual/lwap_ping/proc/add_mind(mob/living/looker)
-	looker?.client?.images |= lwap_image
+	looker.client?.images |= lwap_image
 
 /// Remove the image from the lwap user's screen
 /obj/effect/temp_visual/lwap_ping/proc/remove_mind(mob/living/looker)
-	looker?.client?.images -= lwap_image
+	looker.client?.images -= lwap_image
