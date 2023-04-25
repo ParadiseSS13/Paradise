@@ -268,8 +268,8 @@ research holder datum.
 	max_level = 7
 
 /datum/tech/bluespace
-	name = "'Blue-space' Research"
-	desc = "Research into the sub-reality known as 'blue-space'."
+	name = "'Bluespace' Research"
+	desc = "Research into the sub-reality known as 'bluespace'."
 	id = "bluespace"
 	max_level = 7
 	rare = 2

@@ -111,7 +111,7 @@
 	id = "empty-shell"
 	suffix = "emptyshell.dmm"
 	name = "Empty Shell"
-	description = "Cosy, rural property availible for young professional \
+	description = "Cosy, rural property available for young professional \
 		couple. Only twelve parsecs from the nearest hyperspace lane!"
 
 /datum/map_template/ruin/space/intact_empty_ship

@@ -214,6 +214,49 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 			return 0
 	return ..()
 
+/mob/living/simple_animal/hostile/mimic/copy/vendor
+	is_electronic = TRUE
+	/// The vendor we were turned from.
+	var/obj/machinery/economy/vending/orig_vendor
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/CheckObject(obj/O)
+	return istype(O, /obj/machinery/economy/vending)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/Initialize(mapload, obj/machinery/economy/vending/base, mob/living/creator)
+	if(!base)
+		var/list/vendors = subtypesof(/obj/machinery/economy/vending)
+		var/obj/machinery/economy/vending/vendor_type = pick(vendors)
+		base = new vendor_type(src)
+
+	if(!istype(base))
+		qdel(src)
+		return
+
+	orig_vendor = base
+	orig_vendor.forceMove(src)
+	orig_vendor.aggressive = FALSE // just to be safe, in case this was converted
+
+	return ..(mapload, base, creator, destroy_original = FALSE)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/AttackingTarget()
+	. = ..()
+	if(. && target && Adjacent(target))
+		visible_message("<span class='danger'>[src] throws itself on top of [target], crushing [target.p_them()]!</span>")
+		orig_vendor.forceMove(get_turf(target))  // just to be sure it'll tilt onto them
+		orig_vendor.tilt(target, TRUE, FALSE)  // geeeeet dunked on
+		orig_vendor = null
+		qdel(src)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/death(gibbed)
+	if(!QDELETED(orig_vendor))
+		orig_vendor.forceMove(get_turf(src))
+		// tilt over in place
+		orig_vendor.tilt_over()
+		if(prob(70))
+			orig_vendor.obj_break()
+		orig_vendor = null
+	return ..()
+
 /mob/living/simple_animal/hostile/mimic/copy/ranged
 	var/obj/item/gun/TrueGun = null
 	var/obj/item/gun/magic/Zapstick

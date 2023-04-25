@@ -33,7 +33,8 @@
 							"syndicate_nanites" = image(icon = 'icons/obj/decals.dmi', icon_state = "greencross"),
 							"potass_iodide" = image(icon = 'icons/obj/decals.dmi', icon_state = "radiation"),
 							"mannitol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill19"),
-							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"))
+							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
+							"corazone" = image(icon = 'icons/obj/abductor.dmi', icon_state = "bed"))
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")

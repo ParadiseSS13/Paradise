@@ -380,6 +380,7 @@
 	return message
 
 /datum/mutation/disability/speech/chav/proc/replace_speech(matched)
+	REGEX_REPLACE_HANDLER
 	return chavlinks[matched]
 
 // WAS: /datum/bioEffect/swedish
