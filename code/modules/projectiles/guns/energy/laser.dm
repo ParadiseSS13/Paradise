@@ -150,7 +150,8 @@
 		select_fire(H)
 		H.remove_status_effect(STATUS_EFFECT_LWAPSCOPE)
 		scope_active = FALSE
-	else if(do_after(user, 3 SECONDS, target = src) && zoomed)
+		return
+	if(zoomed && do_after(user, 3 SECONDS, target = src))
 		if(zoomed && !scope_active) //We check after to be sure.
 			scope_active = TRUE
 			to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
@@ -162,7 +163,7 @@
 	if(!isliving(loc))
 		return
 	var/mob/living/M = loc
-	if(world.time - M.last_movement <= 21 && zoomed) //Not perfect, will cause moving just before scoping to not be happy, open for a better solution.
+	if(world.time - M.last_movement <= 2.1 SECONDS && zoomed) //If they have moved in the last process cycle.
 		to_chat(M, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
 		zoom(M, FALSE)
 
