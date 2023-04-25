@@ -476,7 +476,7 @@
 			return
 		V.vehicle_move_delay = vehicle_speed_mod
 
-	to_chat(user, "<span class='notice'>You slather the oliy gunk over [O], making it slick and slipery.</span>")
+	to_chat(user, "<span class='notice'>You slather the oily gunk over [O], making it slick and slippery.</span>")
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	O.add_atom_colour("#6e6e86", FIXED_COLOUR_PRIORITY)
 	ADD_TRAIT(O, TRAIT_OIL_SLICKED, "potion")
