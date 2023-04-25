@@ -91,9 +91,13 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	var/current_overlay = null
 	var/construction_state = GRAV_NEEDS_WELDING
 	var/overlay_state = "activated"
+	/// The last time we were cmagged, so we don't see this spammed.
+	var/on_cmag_cooldown = FALSE
 
 /obj/machinery/gravity_generator/main/examine(mob/user)
 	. = ..()
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		. += "<span class='warning'>Yellow ooze seems to be coming out of the control panel...</span>"
 	if(!(stat & BROKEN))
 		return
 
@@ -117,6 +121,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 		if(!is_station_level(A.z))
 			continue
 		A.gravitychange(FALSE, A)
+		A.cmag_grav_change(FALSE, A)
 	shake_everyone()
 	return ..()
 
@@ -307,6 +312,37 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	update_gen_list()
 	if(alert)
 		shake_everyone()
+
+/obj/machinery/gravity_generator/main/cmag_act(mob/user)
+	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		return
+	if(on_cmag_cooldown)
+		to_chat(user, "<span class='danger'>Some of the ooze is still sticking around from the last time it was slathered, you should probably wait a bit.</span>")
+		return
+	to_chat(user, "<span class='warning'>You slap the card around the gravity generator, and it seems to draw some of the ooze off of it by itself! Looks like it'll take effect shortly.</span>")
+	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
+	add_attack_logs(user, src, "cmagged, making everyone flippery.")
+
+	addtimer(CALLBACK(src, PROC_REF(do_cmagging), user), 10 SECONDS)
+
+/obj/machinery/gravity_generator/main/proc/do_cmagging(mob/user)
+	// give the perp a moment to get away, even though it will be incredibly obvious who did it.
+	for(var/area/A in world)
+		if(!is_station_level(A.z))
+			continue
+		A.cmag_grav_change(TRUE, A)
+	shake_everyone()
+	add_fingerprint(user)
+	on_cmag_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, on_cmag_cooldown, FALSE), 2 MINUTES)
+
+/obj/machinery/gravity_generator/main/uncmag()
+	for(var/area/A in world)
+		if(!is_station_level(A.z))
+			continue
+		A.cmag_grav_change(FALSE, A)
+	shake_everyone()
 
 // Charge/Discharge and turn on/off gravity when you reach 0/100 percent.
 // Also emit radiation and handle the overlays.
