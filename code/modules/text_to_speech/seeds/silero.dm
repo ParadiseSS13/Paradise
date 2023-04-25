@@ -677,7 +677,7 @@
 	name = "Lynette"
 	value = "lynette"
 	category = TTS_CATEGORY_FALLOUT2
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 
 /datum/tts_seed/silero/marcus
 	name = "Marcus"
