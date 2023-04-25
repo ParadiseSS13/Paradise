@@ -558,6 +558,10 @@
 	linked_emote = /datum/emote/living/silicon/beep
 	name = "Beep"
 
+/datum/keybinding/emote/silicon/boop
+	linked_emote = /datum/emote/living/silicon/boop
+	name = "Boop"
+
 /datum/keybinding/emote/silicon/yes
 	linked_emote = /datum/emote/living/silicon/yes
 	name = "Yes"
