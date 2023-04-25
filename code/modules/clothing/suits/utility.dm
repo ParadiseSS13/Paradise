@@ -30,6 +30,9 @@
 	strip_delay = 60
 	put_on_delay = 60
 	resistance_flags = FIRE_PROOF
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/fire/firefighter
 	icon_state = "firesuit"

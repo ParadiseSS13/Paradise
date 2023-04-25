@@ -140,12 +140,18 @@
 	desc = "A set of armoured robes that seem to radiate a dark power"
 	icon_state = "magusblue"
 	item_state = "magusblue"
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/wizrobe/magusred
 	name = "Magus Robe"
 	desc = "A set of armoured robes that seem to radiate a dark power"
 	icon_state = "magusred"
 	item_state = "magusred"
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/wizrobe/psypurple
 	name = "purple robes"

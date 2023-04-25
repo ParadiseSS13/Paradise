@@ -523,6 +523,7 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/shoes.dmi',
+		"Unathi" = 'icons/mob/species/unathi/shoes.dmi',
 		"Drask" = 'icons/mob/species/drask/shoes.dmi',
 		"Monkey" = 'icons/mob/species/monkey/shoes.dmi',
 		"Farwa" = 'icons/mob/species/monkey/shoes.dmi',
@@ -722,6 +723,7 @@ BLIND     // can't see anything
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
+		"Unathi" = 'icons/mob/species/unathi/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
 		"Grey" = 'icons/mob/species/grey/uniform.dmi',
 		"Monkey" = 'icons/mob/species/monkey/uniform.dmi',

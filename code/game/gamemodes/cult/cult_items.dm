@@ -99,6 +99,9 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 	magical = TRUE
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"

@@ -12,6 +12,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 
@@ -37,7 +38,8 @@
 	species_restricted = list("exclude", "Wryn", "lesser form")
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
 
 	//Deathsquad space suit, not hardsuits because no flashlight!

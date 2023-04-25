@@ -539,7 +539,9 @@
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/underwear.dmi')
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/underwear.dmi',
+	"Unathi" = 'icons/mob/species/unathi/underwear.dmi')
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude

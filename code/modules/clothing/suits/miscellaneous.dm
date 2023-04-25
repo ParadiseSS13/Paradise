@@ -194,6 +194,9 @@
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/corgisuit
 	name = "corgi suit"
@@ -297,6 +300,9 @@
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/head/hooded/carp_hood
 	name = "carp hood"
@@ -640,6 +646,9 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	strip_delay = 60
 	breakouttime = 3000
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
@@ -806,6 +815,9 @@
 	item_state = "xenos_helm"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 //swimsuit
 /obj/item/clothing/under/swimsuit/
