@@ -140,18 +140,35 @@
 		if(initial(D.name))
 			GLOB.keybindings += new path()
 
-/* // Uncomment to debug chemical reaction list.
-/client/verb/debug_chemical_list()
+	// Init chemical reagents
+	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")
 
-	for(var/reaction in GLOB.chemical_reactions_list)
-		. += "GLOB.chemical_reactions_list\[\"[reaction]\"\] = \"[GLOB.chemical_reactions_list[reaction]]\"\n"
-		if(islist(GLOB.chemical_reactions_list[reaction]))
-			var/list/L = GLOB.chemical_reactions_list[reaction]
-			for(var/t in L)
-				. += "    has: [t]\n"
-	to_chat(world, .)
-*/
+	// Chemical Reactions - Initialises all /datum/chemical_reaction into an assoc list of: reagent -> list of chemical reactions
+	// For example:
+	// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
+	for(var/path in subtypesof(/datum/chemical_reaction))
+		var/datum/chemical_reaction/reaction_datum = new path()
+		if(!length(reaction_datum?.required_reagents))
+			continue
 
+		for(var/reagent in reaction_datum.required_reagents)
+			if(!GLOB.chemical_reactions_list[reagent])
+				GLOB.chemical_reactions_list[reagent] = list()
+			GLOB.chemical_reactions_list[reagent] += reaction_datum
+
+	// Init disease archive
+	GLOB.archive_diseases += list(
+		"sneeze" = new /datum/disease/advance/preset/cold(),
+		"cough" = new /datum/disease/advance/preset/flu(),
+		"voice_change" = new /datum/disease/advance/preset/voice_change(),
+		"heal" = new /datum/disease/advance/preset/heal(),
+		"hallucigen" = new /datum/disease/advance/preset/hullucigen(),
+		"sensory_restoration" = new /datum/disease/advance/preset/sensory_restoration(),
+		"mind_restoration" = new /datum/disease/advance/preset/mind_restoration(),
+		"damage_converter:heal:viralevolution" = new /datum/disease/advance/preset/advanced_regeneration(),
+		"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/advance/preset/stealth_necrosis(),
+		"beard:itching:voice_change" = new /datum/disease/advance/preset/pre_kingstons()
+	)
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.

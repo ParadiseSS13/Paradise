@@ -15,18 +15,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 									"silver", "gold"
 ))
 
-GLOBAL_LIST_INIT(archive_diseases, list(
-	"sneeze" = new /datum/disease/advance/preset/cold(),
-	"cough" = new /datum/disease/advance/preset/flu(),
-	"voice_change" = new /datum/disease/advance/preset/voice_change(),
-	"heal" = new /datum/disease/advance/preset/heal(),
-	"hallucigen" = new /datum/disease/advance/preset/hullucigen(),
-	"sensory_restoration" = new /datum/disease/advance/preset/sensory_restoration(),
-	"mind_restoration" = new /datum/disease/advance/preset/mind_restoration(),
-	"damage_converter:heal:viralevolution" = new /datum/disease/advance/preset/advanced_regeneration(),
-	"dizzy:flesh_eating:viraladaptation:youth" = new /datum/disease/advance/preset/stealth_necrosis(),
-	"beard:itching:voice_change" = new /datum/disease/advance/preset/pre_kingstons()
-))
+GLOBAL_LIST_EMPTY(archive_diseases)
 
 /*
 
@@ -257,16 +246,11 @@ GLOBAL_LIST_INIT(archive_diseases, list(
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && properties.len)
-		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
-		cures = list(GLOB.advance_cures[res])
-		cure_text = GLOB.advance_cures[res]
+		var/res = round(clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len))
 
 		// Get the cure name from the cure_id
-		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
+		var/datum/reagent/D = GLOB.chemical_reagents_list[GLOB.advance_cures[res]]
 		cure_text = D.name
-
-
-	return
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
 /datum/disease/advance/proc/Evolve(min_level, max_level)
