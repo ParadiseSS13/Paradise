@@ -77,13 +77,22 @@
 /mob/living/carbon/alien/RestrainedClickOn(atom/A)
 	return
 
+/mob/living/carbon/alien/RangedAttack(atom/A, params)
+	. = ..()
+	if(dirslash_enabled && a_intent != INTENT_HELP)
+		var/turf/turf_attacking = get_step(src, get_compass_dir(src, A))
+		if(turf_attacking)
+			var/mob/living/target = locate() in turf_attacking
+			if(target && Adjacent(target))
+				changeNext_move(CLICK_CD_MELEE)
+				return UnarmedAttack(target, TRUE)
+
 // Babby aliens
 /mob/living/carbon/alien/larva/UnarmedAttack(atom/A)
 	A.attack_larva(src)
 
 /atom/proc/attack_larva(mob/user)
 	return
-
 
 /*
 	Slimes
