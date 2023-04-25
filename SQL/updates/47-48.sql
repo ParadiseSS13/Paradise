@@ -3,5 +3,8 @@
 ALTER TABLE `ban`
 	ADD COLUMN `exportable` TINYINT NOT NULL DEFAULT '1' AFTER `unbanned_ip`;
 
+ALTER TABLE `ban`
+	ADD INDEX `exportable` (`exportable`);
+
 # Marks all existing bans as non-exportable
 UPDATE ban SET exportable=0
