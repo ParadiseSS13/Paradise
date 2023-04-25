@@ -742,25 +742,14 @@ emp_act
 	if(method != REAGENT_TOUCH)
 		return
 
-	head?.water_act(src, volume, temperature, source, method)
-	wear_suit?.water_act(src, volume, temperature, source, method)
-	l_hand?.water_act(src, volume, temperature, source, method)
-	r_hand?.water_act(src, volume, temperature, source, method)
+	for(var/obj/O in list(head, wear_suit, l_hand, r_hand))
+			O?.water_act(src, volume, temperature, source, method)
 	if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 		return
 	else
-		w_uniform?.water_act(src, volume, temperature, source, method)
-		shoes?.water_act(src, volume, temperature, source, method)
-		belt?.water_act(src, volume, temperature, source, method)
-		gloves?.water_act(src, volume, temperature, source, method)
-		glasses?.water_act(src, volume, temperature, source, method)
-		l_ear?.water_act(src, volume, temperature, source, method)
-		r_ear?.water_act(src, volume, temperature, source, method)
-		wear_id?.water_act(src, volume, temperature, source, method)
-		wear_pda?.water_act(src, volume, temperature, source, method)
-		r_store?.water_act(src, volume, temperature, source, method)
-		l_store?.water_act(src, volume, temperature, source, method)
-		s_store?.water_act(src, volume, temperature, source, method)
+		for(var/obj/O in list(w_uniform, shoes, belt, gloves, glasses, l_ear, r_ear, wear_id, wear_pda, r_store, l_store, s_store))
+			O?.water_act(src, volume, temperature, source, method)
+
 
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)

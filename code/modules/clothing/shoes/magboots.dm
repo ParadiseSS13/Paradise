@@ -31,6 +31,9 @@
 	gustprotection = TRUE
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
+	toggle_magpulse(user, forced)
+
+/obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
 	if(magpulse)
 		START_PROCESSING(SSobj, src) //Gravboots
 		flags &= ~NOSLIP
@@ -203,7 +206,7 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/user = loc
 			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
-			attack_self(user)
+			attack_self(user, TRUE)
 	else
 		cell.use(power_consumption_rate)
 
@@ -267,7 +270,7 @@
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
-			attack_self(user)
+			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
 	if(slot == slot_shoes)

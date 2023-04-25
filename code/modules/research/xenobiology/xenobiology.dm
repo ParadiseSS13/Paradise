@@ -458,23 +458,22 @@
 	if(!proximity_flag)
 		return
 	..()
-	if(!istype(O))
-		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
-		return
-	if(isitem(O))
+	if(!isitem(O))
+		if(!istype(O, /obj/structure/table))
+			to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
+			return
+		var/obj/structure/table/T = O
+		if(T.slippery)
+			to_chat(user, "<span class='warning'>[T] can luckily not be made any slippier!</span>")
+			return
+		to_chat(user, "<span class='warning'>You go to place the potion on [T], but before you know it, your hands are moving on your own!</span>") //Speed table must remain.
+		T.slippery = TRUE
+	else
 		var/obj/item/I = O
 		if(I.slowdown <= 0)
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return
 		I.slowdown = 0
-
-	if(istype(O, /obj/vehicle))
-		var/obj/vehicle/V = O
-		var/vehicle_speed_mod = GLOB.configuration.movement.base_run_speed
-		if(V.vehicle_move_delay <= vehicle_speed_mod)
-			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
-			return
-		V.vehicle_move_delay = vehicle_speed_mod
 
 	to_chat(user, "<span class='notice'>You slather the oily gunk over [O], making it slick and slippery.</span>")
 	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
