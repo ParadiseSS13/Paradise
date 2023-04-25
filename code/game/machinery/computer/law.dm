@@ -88,7 +88,7 @@
 /obj/machinery/computer/aiupload/proc/emag_inherent_law()
 	if(foundlaws) //as long as it finds a law to change
 		var/lawposition = rand(1, foundlaws)
-		current.laws.inherent_laws[lawposition].law = new/datum/ai_law/inherent(generate_ion_law()).law
+		current.laws.inherent_laws[lawposition].law = new /datum/ai_law/inherent(generate_ion_law()).law
 		log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
 		current.show_laws()
 		alert_silicons()
