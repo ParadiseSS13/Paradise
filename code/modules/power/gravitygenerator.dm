@@ -335,7 +335,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 	shake_everyone()
 	add_fingerprint(user)
 	on_cmag_cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, on_cmag_cooldown, FALSE), 2 MINUTES)
+	addtimer(VARSET_CALLBACK(src, on_cmag_cooldown, FALSE), 5 MINUTES)
 
 /obj/machinery/gravity_generator/main/uncmag()
 	for(var/area/A in world)
