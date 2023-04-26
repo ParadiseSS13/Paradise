@@ -97,6 +97,7 @@
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
