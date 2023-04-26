@@ -798,7 +798,7 @@
 
 /obj/item/clothing/under/proc/detach_accessory(obj/item/clothing/accessory/A, mob/user)
 	accessories -= A
-	A.on_removed(user)
+	A.on_removed(user, src)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_w_uniform()

@@ -213,25 +213,19 @@
 /obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/S, mob/user)
 	. = ..()
 	if(isliving(user))
-		var/mob/living/M = user
+		var/mob/living/M = S.loc
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user)
+/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user, obj/item/clothing/under/S)
 	. = ..()
 	if(isliving(user))
-		var/mob/living/M = user
+		var/mob/living/M = S.loc
 		M.remove_status_effect(STATUS_EFFECT_HOPE)
 
 /obj/item/clothing/accessory/necklace/pandora_hope/attached_unequip()
 	if(isliving(usr))
 		var/mob/living/M = usr
 		M.remove_status_effect(STATUS_EFFECT_HOPE)
-	return ..()
-
-/obj/item/clothing/accessory/necklace/pandora_hope/attached_equip()
-	if(isliving(usr))
-		var/mob/living/M = usr
-		M.apply_status_effect(STATUS_EFFECT_HOPE)
 	return ..()
 
 #undef CHASER_BURST
