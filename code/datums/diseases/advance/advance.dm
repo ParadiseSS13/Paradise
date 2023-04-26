@@ -250,6 +250,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 		// Get the cure name from the cure_id
 		var/datum/reagent/D = GLOB.chemical_reagents_list[GLOB.advance_cures[res]]
+		cures = list(GLOB.advance_cures[res])
 		cure_text = D.name
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
