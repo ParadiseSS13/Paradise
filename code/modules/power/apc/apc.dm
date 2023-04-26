@@ -362,6 +362,10 @@
 	else
 		return ..()
 
+/obj/machinery/power/apc/AltClick(mob/user)
+	if(Adjacent(user))
+		togglelock(user)
+
 /obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)
 		return damage_amount

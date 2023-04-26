@@ -27,6 +27,24 @@
 		return
 	icon_state = initial(icon_state)
 
+/obj/machinery/processor/examine(mob/user)
+	. = ..()
+	if(!anchored)
+		. += "<span class='notice'>Alt-click to rotate it.</span>"
+	else
+		. += "<span class='notice'>It is secured in place.</span>"
+
+/obj/machinery/processor/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] is secured in place!</span>")
+		return
+	setDir(turn(dir, 90))
+
 /obj/machinery/processor/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		rating_amount = B.rating

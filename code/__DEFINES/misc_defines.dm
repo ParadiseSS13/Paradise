@@ -380,7 +380,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 47
+#define SQL_VERSION 48
 
 // Vending machine stuff
 #define CAT_NORMAL 1

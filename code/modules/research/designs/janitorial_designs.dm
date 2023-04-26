@@ -12,7 +12,7 @@
 	category = list("Janitorial")
 
 /datum/design/blutrash
-	name = "Trashbag of Holding"
+	name = "Trash Bag of Holding"
 	desc = "An advanced trash bag with bluespace properties; capable of holding a plethora of garbage."
 	id = "blutrash"
 	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
@@ -43,7 +43,7 @@
 
 /datum/design/light_replacer
 	name = "Light Replacer"
-	desc = "A device to automatically replace lights. Refill with working lightbulbs."
+	desc = "A device to automatically replace lights. Refill with working light bulbs."
 	id = "light_replacer"
 	req_tech = list("magnets" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
