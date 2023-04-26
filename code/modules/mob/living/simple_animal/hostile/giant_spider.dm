@@ -202,8 +202,6 @@
 		return
 	new /obj/structure/spider/stickyweb(T)
 	stop_automated_movement = FALSE
-
-
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/wrap_target()
 	if(!cocoon_target)
 		var/list/choices = list()
