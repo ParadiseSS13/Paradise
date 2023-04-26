@@ -26,6 +26,7 @@
 	var/last_warning
 	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
 	var/warps_projectiles = TRUE
+	var/obj/effect/warp_effect/supermatter/warp
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
@@ -40,6 +41,8 @@
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src
+	warp = new(src)
+	vis_contents += warp
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
 		if(singubeacon.active)
 			target = singubeacon
@@ -49,6 +52,8 @@
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	GLOB.singularities -= src
+	vis_contents -= warp
+	QDEL_NULL(warp)  // don't want to leave it hanging
 	target = null
 	return ..()
 
@@ -125,6 +130,7 @@
 	eat()
 	do_dissipate()
 	check_energy()
+	update_warp()
 
 	return
 
@@ -421,12 +427,19 @@
 		M.Stun(6 SECONDS)
 		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
 						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
-	return 
+	return
 
 
 /obj/singularity/proc/emp_area()
 	empulse(src, 8, 10)
 	return
+
+/obj/singularity/proc/update_warp()
+	warp.pixel_x = initial(warp.pixel_x) - pixel_x
+	warp.pixel_y = initial(warp.pixel_x) - pixel_y
+	var/scaling = allowed_size / 3
+	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
+	animate(time = 14, transform = matrix().Scale(scaling, scaling))
 
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)

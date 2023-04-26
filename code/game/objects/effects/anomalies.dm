@@ -100,7 +100,7 @@
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
-	var/atom/movable/supermatter_warp_effect/warp
+	var/obj/effect/warp_effect/supermatter/warp
 
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE, event_spawned = TRUE)
 	. = ..()

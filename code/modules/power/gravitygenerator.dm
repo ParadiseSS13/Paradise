@@ -361,7 +361,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
   */
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
-	new /atom/movable/gravity_generator_warp_effect(our_turf)
+	new /obj/effect/warp_effect/gravity_generator(our_turf)
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/shaken in GLOB.mob_list)
 		var/mob/M = shaken
@@ -393,15 +393,9 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 
 // Misc
 
-/atom/movable/gravity_generator_warp_effect
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE
-	icon = 'icons/effects/seismic_stomp_effect.dmi'
-	icon_state = "stomp_effect"
-	pixel_y = -16
-	pixel_x = -16
+/obj/effect/warp_effect/gravity_generator
 
-/atom/movable/gravity_generator_warp_effect/Initialize(mapload)
+/obj/effect/warp_effect/gravity_generator/Initialize(mapload)
 	. = ..()
 	var/matrix/M = matrix() * 0.5
 	transform = M

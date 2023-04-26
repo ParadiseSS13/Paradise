@@ -8,10 +8,8 @@
 
 /obj/screen/plane_master/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, 	TYPE_PROC_REF(/atom, add_filter), "displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10)), 2 SECONDS)//Why a timer vs just apply on initialize? I don't know. It just can't be.
-
-/obj/screen/plane_master/proc/bullshitiest()
-	add_filter("displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
+	//INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, add_filter), "displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
+	addtimer(CALLBACK(src, 	TYPE_PROC_REF(/atom, add_filter), "displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10)), 0.1 SECONDS)//Why a timer vs just apply on initialize / async? I don't know. It just can't be, neither works correctly.
 
 /obj/screen/plane_master/proc/Show(override)
 	alpha = override || show_alpha
@@ -34,10 +32,6 @@
 	plane = GAME_PLANE
 	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
-
-/obj/screen/plane_master/game_world/Initialize(mapload)
-	. = ..()
-	add_filter("displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
 	clear_filters()

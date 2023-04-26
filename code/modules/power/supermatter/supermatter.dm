@@ -169,7 +169,7 @@
 	///Our internal radio
 	var/obj/item/radio/radio
 	///Reference to the warp effect
-	var/atom/movable/supermatter_warp_effect/warp
+	var/obj/effect/warp_effect/supermatter/warp
 
 	///Boolean used for logging if we've been powered
 	var/has_been_powered = FALSE
@@ -911,7 +911,7 @@
 		)
 
 
-/atom/movable/supermatter_warp_effect
+/obj/effect/warp_effect/supermatter
 	plane = GRAVITY_PULSE_PLANE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
 	icon = 'icons/effects/light_352.dmi'

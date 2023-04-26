@@ -366,17 +366,11 @@
 
 /obj/effect/temp_visual/bsg_kaboom/Initialize(mapload)
 	. = ..()
-	new /atom/movable/bsg_warp_effect(loc)
+	new /obj/effect/warp_effect/bsg(loc)
 
-/atom/movable/bsg_warp_effect
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE
-	icon = 'icons/effects/seismic_stomp_effect.dmi'
-	icon_state = "stomp_effect"
-	pixel_y = -16
-	pixel_x = -16
+/obj/effect/warp_effect/bsg
 
-/atom/movable/bsg_warp_effect/Initialize(mapload)
+/obj/effect/warp_effect/bsg/Initialize(mapload)
 	. = ..()
 	var/matrix/M = matrix() * 0.5
 	transform = M
