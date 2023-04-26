@@ -97,7 +97,7 @@
 	alert_silicons()
 	cooldown = world.time + EMAG_COOLDOWN
 
-//pushes an alert to the AI and its borgs about the law changes
+/// pushes an alert to the AI and its borgs about the law changes
 /obj/machinery/computer/aiupload/proc/alert_silicons()
 	current.show_laws()
 	current.throw_alert("newlaw", /obj/screen/alert/newlaw)
