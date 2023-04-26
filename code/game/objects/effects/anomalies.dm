@@ -116,7 +116,7 @@
 
 /obj/effect/anomaly/grav/Destroy()
 	vis_contents -= warp
-	warp = null
+	QDEL_NULL(warp)  // don't want to leave it hanging
 	return ..()
 
 /obj/effect/anomaly/grav/anomalyEffect()

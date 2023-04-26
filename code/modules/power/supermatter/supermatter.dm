@@ -892,8 +892,8 @@
 // Change how bright the rock is
 /obj/machinery/atmospherics/supermatter_crystal/proc/lights()
 	set_light(
-		l_range = 4 + power/200,
-		l_power = 1 + power/1000,
+		l_range = 4 + power / 200,
+		l_power = 1 + power / 1000,
 		l_color = gasmix_power_ratio > 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR,
 	)
 
@@ -905,7 +905,7 @@
 		)
 	if(combined_gas > MOLE_PENALTY_THRESHOLD)
 		set_light(
-			l_range = 4 + clamp(damage/2, 10, 50),
+			l_range = 4 + clamp(damage / 2, 10, 50),
 			l_power = 3,
 			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
 		)
