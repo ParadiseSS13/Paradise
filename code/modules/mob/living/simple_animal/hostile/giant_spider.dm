@@ -122,7 +122,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)
-		if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
+		if(cocoon_target == C && get_dist(src, cocoon_target) > 1)
 			cocoon_target = null
 		stop_automated_movement = FALSE
 
