@@ -222,12 +222,6 @@
 		var/mob/living/M = S.loc
 		M.remove_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/attached_unequip()
-	if(isliving(usr))
-		var/mob/living/M = usr
-		M.remove_status_effect(STATUS_EFFECT_HOPE)
-	return ..()
-
 #undef CHASER_BURST
 #undef MAGIC_BOX
 #undef PANDORA_TELEPORT
