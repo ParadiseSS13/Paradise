@@ -694,11 +694,11 @@
 	switch(length(contents))
 		if(0)
 			fill_level = null
-		if(1 to 1)
+		if(1)
 			fill_level = 1
-		if(2 to 2)
+		if(2)
 			fill_level = 2
-		if(3 to 3)
+		if(3)
 			fill_level = 3
 		if(4 to INFINITY)
 			fill_level = 4
