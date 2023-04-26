@@ -236,7 +236,7 @@
 			return
 		if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src, cocoon_target) <= 1)
 			var/obj/structure/spider/cocoon/C = new(cocoon_target.loc)
-			var/large_cocoon = 0
+			var/large_cocoon = FALSE
 			C.pixel_x = cocoon_target.pixel_x
 			C.pixel_y = cocoon_target.pixel_y
 			for(var/obj/item/I in C.loc)
