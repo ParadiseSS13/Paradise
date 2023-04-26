@@ -278,7 +278,7 @@
 	stop_automated_movement = TRUE
 	if(!do_after_once(src, 4 SECONDS, target = loc, attempt_cancel_message = "You stop laying eggs."))
 		return
-	var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(src.loc)
+	var/obj/structure/spider/eggcluster/C = new /obj/structure/spider/eggcluster(loc)
 	C.faction = faction.Copy()
 	C.master_commander = master_commander
 	C.xenobiology_spawned = xenobiology_spawned
