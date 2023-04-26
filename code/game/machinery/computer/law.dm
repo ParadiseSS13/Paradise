@@ -66,7 +66,7 @@
 		emag_inherent_law()
 	return ..()
 
-//checks to see if an ion law is added or modified
+/// checks to see if an ion law is added or modified
 /obj/machinery/computer/aiupload/proc/emag_ion_check()
 	var/datum/ai_law/inherent/new_law = new(generate_ion_law())
 	var/emag_law = new_law.law
