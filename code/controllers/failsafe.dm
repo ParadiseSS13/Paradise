@@ -140,7 +140,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		return
 	del(Master)
 	var/list/subsytem_types = subtypesof(/datum/controller/subsystem)
-	sortTim(subsytem_types, /proc/cmp_subsystem_init)
+	sortTim(subsytem_types, GLOBAL_PROC_REF(cmp_subsystem_init))
 	for(var/I in subsytem_types)
 		new I
 	. = Recreate_MC()

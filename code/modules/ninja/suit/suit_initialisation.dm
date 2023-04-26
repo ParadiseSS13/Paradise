@@ -8,7 +8,7 @@
 
 	if(usr.mind.special_role == "Ninja")
 		if(suitBusy)
-			to_chat(usr, "<span style='color: #ff0000;'><b>ERROR: </b>Suit systems busy, cannot initiate [suitActive ? "de-activation" : "activation"] protocals at this time.</span>")
+			to_chat(usr, "<span style='color: #ff0000;'><b>ERROR: </b>Suit systems busy, cannot initiate [suitActive ? "de-activation" : "activation"] protocols at this time.</span>")
 			return
 
 		suitBusy = 1
@@ -86,7 +86,7 @@
 
 		else
 			suitBusy = 0
-			to_chat(usr, "<span class='darkmblue'><b>NOTICE: </b>Suit de-activation protocals aborted.</span>")
+			to_chat(usr, "<span class='darkmblue'><b>NOTICE: </b>Suit de-activation protocols aborted.</span>")
 	else
 		to_chat(usr, "<span style='color: #ff0000;'><b>FĆAL �Rr�R</b>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
 		return

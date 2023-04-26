@@ -223,7 +223,7 @@
 						if(can_use_species(user, _species))
 							new_species += _species
 
-					active_character.species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
+					active_character.species = input("Please select a species", "Character Generation", null) in sortTim(new_species, GLOBAL_PROC_REF(cmp_text_asc))
 					var/datum/species/NS = GLOB.all_species[active_character.species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						active_character.species = prev_species
@@ -308,7 +308,7 @@
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					active_character.language = input("Please select a secondary language", "Character Generation", null) in sortTim(new_languages, /proc/cmp_text_asc)
+					active_character.language = input("Please select a secondary language", "Character Generation", null) in sortTim(new_languages, GLOBAL_PROC_REF(cmp_text_asc))
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
@@ -367,7 +367,7 @@
 							if(active_character.species in SA.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 								valid_hairstyles += hairstyle
 
-					sortTim(valid_hairstyles, /proc/cmp_text_asc) //this alphabetizes the list
+					sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) //this alphabetizes the list
 					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 					if(new_h_style)
 						active_character.h_style = new_h_style
@@ -412,7 +412,7 @@
 
 							valid_head_accessory_styles += head_accessory_style
 
-						sortTim(valid_head_accessory_styles, /proc/cmp_text_asc)
+						sortTim(valid_head_accessory_styles, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_head_accessory_style = input(user, "Choose the style of your character's head accessory:", "Character Preference") as null|anything in valid_head_accessory_styles
 						if(new_head_accessory_style)
 							active_character.ha_style = new_head_accessory_style
@@ -470,7 +470,7 @@
 										continue
 
 							valid_markings += markingstyle
-						sortTim(valid_markings, /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = input(user, "Choose the style of your character's head markings:", "Character Preference", active_character.m_styles["head"]) as null|anything in valid_markings
 						if(new_marking_style)
 							active_character.m_styles["head"] = new_marking_style
@@ -494,7 +494,7 @@
 								continue
 
 							valid_markings += markingstyle
-						sortTim(valid_markings, /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference", active_character.m_styles["body"]) as null|anything in valid_markings
 						if(new_marking_style)
 							active_character.m_styles["body"] = new_marking_style
@@ -524,7 +524,7 @@
 									continue
 
 							valid_markings += markingstyle
-						sortTim(valid_markings, /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = input(user, "Choose the style of your character's tail markings:", "Character Preference", active_character.m_styles["tail"]) as null|anything in valid_markings
 						if(new_marking_style)
 							active_character.m_styles["tail"] = new_marking_style
@@ -551,7 +551,7 @@
 						possible_body_accessories += "None" //the only null entry should be the "None" option
 					else
 						possible_body_accessories -= "None" // in case an admin is viewing it
-					sortTim(possible_body_accessories, /proc/cmp_text_asc)
+					sortTim(possible_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
 						active_character.m_styles["tail"] = "None"
@@ -599,7 +599,7 @@
 						else //If the user is not a species who can have robotic heads, use the default handling.
 							if(active_character.species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
-					sortTim(valid_facial_hairstyles, /proc/cmp_text_asc)
+					sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_f_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in valid_facial_hairstyles
 					if(new_f_style)
 						active_character.f_style = new_f_style
@@ -615,7 +615,7 @@
 						if(!(active_character.species in SA.species_allowed))
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
-					sortTim(valid_underwear, /proc/cmp_text_asc)
+					sortTim(valid_underwear, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference") as null|anything in valid_underwear
 					ShowChoices(user)
 					if(new_underwear)
@@ -631,7 +631,7 @@
 						if(!(active_character.species in SA.species_allowed))
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
-					sortTim(valid_undershirts, /proc/cmp_text_asc)
+					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in valid_undershirts
 					ShowChoices(user)
 					if(new_undershirt)
@@ -648,7 +648,7 @@
 						if(!(active_character.species in SA.species_allowed))
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
-					sortTim(valid_sockstyles, /proc/cmp_text_asc)
+					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
 					ShowChoices(user)
 					if(new_socks)

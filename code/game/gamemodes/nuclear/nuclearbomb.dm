@@ -68,6 +68,7 @@ GLOBAL_VAR(bomb_set)
 	. = ..()
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
+	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	previous_level = get_security_level()
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
@@ -195,6 +196,10 @@ GLOBAL_VAR(bomb_set)
 			O.forceMove(src)
 			core = O
 			update_icon(UPDATE_OVERLAYS)
+<<<<<<< HEAD
+=======
+			return
+>>>>>>> master
 
 	else if(istype(O, /obj/item/disk/plantgene))
 		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
@@ -669,7 +674,8 @@ GLOBAL_VAR(bomb_set)
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")
-		return QDEL_HINT_HARDDEL_NOW
+		..()
+		return QDEL_HINT_HARDDEL_NOW // We want this to be deleted ASAP, but we want refs properly cleared too
 	else
 		error("[src] was supposed to be destroyed, but we were unable to locate a nukedisc_respawn landmark or open surroundings to spawn a new one.")
 	return QDEL_HINT_LETMELIVE // Cancel destruction unless forced.
