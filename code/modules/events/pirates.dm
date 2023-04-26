@@ -8,13 +8,11 @@
 	INVOKE_ASYNC(src, PROC_REF(spawn_pirates))
 
 /datum/event/pirates/proc/spawn_pirates()
-	world.log << "spawn_pirates() called"
+	log_world("Pirates have been spawned.")
 	// Create a list of pirate spawn locations
 	var/list/spawn_locations = list()
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
-		if(istype(L, /obj/effect/landmark/spawner/pirate))
-			spawn_locations += L
+	for(var/spawn_point in GLOB.pirate_spawn)
+		spawn_locations += spawn_point
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for Space Pirates", ROLE_PIRATE, TRUE)
 	if(!length(spawn_locations))
@@ -24,19 +22,18 @@
 	for(var/mob/dead/observer/C in candidates)
 		world.log << "spawn_pirates() loop iteration, spawncount: [spawncount], spawn_locations: [length(spawn_locations)], candidates: [length(candidates)]"
 		var/turf/location = pick_n_take(spawn_locations)
-		if(C)
-			C.remove_from_respawnable_list()
-			var/mob/living/carbon/human/new_pirate = new(location) // Use the existing human type
-			new_pirate.key = C.key
-			new_pirate.forceMove(location)
+		C.remove_from_respawnable_list()
+		var/mob/living/carbon/human/new_pirate = new(location) // Use the existing human type
+		new_pirate.key = C.key
+		new_pirate.forceMove(location)
 
-			customize_pirate(new_pirate)
+		customize_pirate(new_pirate)
 
-			if(SSticker && SSticker.mode)
-				SSticker.mode.pirates += new_pirate.mind
+		if(SSticker.mode)
+			SSticker.mode.pirates += new_pirate.mind
 
-			spawncount--
-			successSpawn = TRUE
+		spawncount--
+		successSpawn = TRUE
 
 /datum/event/pirates/proc/customize_pirate(mob/living/carbon/human/pirate)
 	pirate.set_species(/datum/species/human, TRUE)

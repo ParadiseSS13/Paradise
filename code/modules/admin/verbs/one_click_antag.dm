@@ -287,7 +287,7 @@
 	return 0
 
 /datum/admins/proc/makePirates()
-	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	var/antnum = input(owner, "How many pirates do you want to create? Enter 0 to cancel.","Amount:", 0) as num
 	if(!antnum || antnum <= 0)
 		return
 	var/datum/event/pirates/E = new /datum/event/pirates
