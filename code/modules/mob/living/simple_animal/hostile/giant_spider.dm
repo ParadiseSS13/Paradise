@@ -254,7 +254,7 @@
 					continue
 				if(L.stat != DEAD)
 					continue
-				large_cocoon = 1
+				large_cocoon = TRUE
 				L.loc = C
 				C.pixel_x = L.pixel_x
 				C.pixel_y = L.pixel_y
