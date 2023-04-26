@@ -244,7 +244,7 @@
 			for(var/obj/structure/S in C.loc)
 				if(!S.anchored)
 					S.loc = C
-					large_cocoon = 1
+					large_cocoon = TRUE
 			for(var/obj/machinery/M in C.loc)
 				if(!M.anchored)
 					M.loc = C
