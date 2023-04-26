@@ -262,7 +262,7 @@
 
 				break
 			if(large_cocoon)
-				C.icon_state = pick("cocoon_large1","cocoon_large2","cocoon_large3")
+				C.icon_state = pick("cocoon_large1", "cocoon_large2", "cocoon_large3")
 	cocoon_target = null
 	stop_automated_movement = FALSE
 
