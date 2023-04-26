@@ -41,7 +41,7 @@
 	return
 
 
-/obj/machinery/computer/aiupload/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/aiModule))
 		return
 	if(!current)//no AI selected
