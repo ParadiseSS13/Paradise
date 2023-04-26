@@ -41,8 +41,6 @@
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src
-	warp = new(src)
-	vis_contents += warp
 	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
 		if(singubeacon.active)
 			target = singubeacon
@@ -104,7 +102,7 @@
 
 /obj/singularity/bullet_act(obj/item/projectile/P)
 	qdel(P)
-	return 0 //Will there be an impact? Who knows.  Will we see it? No.
+	return 0 //Will there be an impact? Who knows. Will we see it? No.
 
 
 /obj/singularity/Bump(atom/A)
@@ -174,6 +172,9 @@
 			dissipate_delay = 10
 			dissipate_track = 0
 			dissipate_strength = 1
+			if(warp)
+				vis_contents -= warp
+				qdel(warp)
 		if(STAGE_TWO)
 			if((check_turfs_in(1,1))&&(check_turfs_in(2,1))&&(check_turfs_in(4,1))&&(check_turfs_in(8,1)))
 				current_size = STAGE_TWO
@@ -186,6 +187,9 @@
 				dissipate_delay = 5
 				dissipate_track = 0
 				dissipate_strength = 5
+				if(!warp)
+					warp = new(src)
+					vis_contents += warp
 		if(STAGE_THREE)
 			if((check_turfs_in(1,2))&&(check_turfs_in(2,2))&&(check_turfs_in(4,2))&&(check_turfs_in(8,2)))
 				current_size = STAGE_THREE
@@ -435,6 +439,8 @@
 	return
 
 /obj/singularity/proc/update_warp()
+	if(!warp)
+		return
 	warp.pixel_x = initial(warp.pixel_x) - pixel_x
 	warp.pixel_y = initial(warp.pixel_x) - pixel_y
 	var/scaling = allowed_size / 3
