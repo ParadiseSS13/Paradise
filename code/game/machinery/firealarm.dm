@@ -237,11 +237,16 @@ FIRE ALARM
 	else
 		set_light(l_power = LIGHTING_MINIMUM_POWER)
 
+/obj/machinery/firealarm/proc/update_fire_sound(fire)
+	if(stat & NOPOWER)
+		GLOB.firealarm_soundloop.stop(src, TRUE)
+
 /obj/machinery/firealarm/power_change()
 	if(!..())
 		return
 	update_fire_light()
 	update_icon()
+	update_fire_sound()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN) || buildstage != 2)
