@@ -174,7 +174,7 @@
 	var/ranged = FALSE
 	/// stores the world.time after which it can be used again, the `initial(cooldown)` is the cooldown between activations.
 	var/cooldown = -1
-	///If the spellblade has traits, has it applied them?
+	/// If the spellblade has traits, has it applied them?
 	var/applied_traits = FALSE
 
 /datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
@@ -216,10 +216,9 @@
 	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
 	if(applied_traits)
 		REMOVE_TRAIT(user, TRAIT_SHOCKIMMUNE, "[enchant_ID]")
-		applied_traits = FALSE
 	else
 		ADD_TRAIT(user, TRAIT_SHOCKIMMUNE, "[enchant_ID]")
-		applied_traits = TRUE
+	applied_traits = !applied_traits
 
 /datum/enchantment/lightning/proc/zap(mob/living/target, mob/living/source, protected_mobs, voltage)
 	source.Beam(target, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time = 2 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam/chain)
