@@ -218,7 +218,7 @@
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user, obj/item/clothing/under/S)
 	. = ..()
-	if(isliving(user))
+	if(isliving(S.loc))
 		var/mob/living/M = S.loc
 		M.remove_status_effect(STATUS_EFFECT_HOPE)
 
