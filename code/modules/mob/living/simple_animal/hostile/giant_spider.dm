@@ -258,7 +258,7 @@
 				C.pixel_x = L.pixel_x
 				C.pixel_y = L.pixel_y
 				fed++
-				visible_message("<span class='danger'>\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out.</span>")
+				visible_message("<span class='danger'>[src] sticks a proboscis into [L] and sucks a viscous substance out.</span>")
 
 				break
 			if(large_cocoon)
