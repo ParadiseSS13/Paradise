@@ -55,15 +55,13 @@
 		var/obj/item/aiModule/M = O
 		M.install(src)
 		return
-	else
-		if(world.time < cooldown)
-			to_chat(user, "<span class='danger'>The program seems to have frozen. It will need some time to process.</span>")
-			return
-		do_sparks(5, TRUE, src)
-		countlaws()
-		if(!emag_ion_check())
-			emag_inherent_law()
+	if(world.time < cooldown)
+		to_chat(user, "<span class='danger'>The program seems to have frozen. It will need some time to process.</span>")
 		return
+	do_sparks(5, TRUE, src)
+	countlaws()
+	if(!emag_ion_check())
+		emag_inherent_law()
 	return ..()
 
 /obj/machinery/computer/aiupload/proc/countlaws()
@@ -90,14 +88,13 @@
 /obj/machinery/computer/aiupload/proc/emag_inherent_law()
 	if(!foundlaws)
 		return
-	else
-		var/emag_law = new /datum/ai_law/inherent(generate_ion_law()).law
-		var/lawposition = rand(1, foundlaws)
-		current.laws.inherent_laws[lawposition].law = emag_law
-		log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
-		current.show_laws()
-		alert_silicons()
-		cooldown = world.time + EMAG_COOLDOWN
+	var/emag_law = new /datum/ai_law/inherent(generate_ion_law()).law
+	var/lawposition = rand(1, foundlaws)
+	current.laws.inherent_laws[lawposition].law = emag_law
+	log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
+	current.show_laws()
+	alert_silicons()
+	cooldown = world.time + EMAG_COOLDOWN
 
 
 /obj/machinery/computer/aiupload/proc/alert_silicons()
