@@ -248,7 +248,7 @@
 			for(var/obj/machinery/M in C.loc)
 				if(!M.anchored)
 					M.loc = C
-					large_cocoon = 1
+					large_cocoon = TRUE
 			for(var/mob/living/L in C.loc)
 				if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
 					continue
