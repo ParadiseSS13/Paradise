@@ -10,8 +10,10 @@
 	var/opened = FALSE
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
-	var/cooldown = 0 //sets the cooldown time between uploads when emag'd
-	var/foundlaws = 0 //holds the value for when the inherent_laws are counted in countlaws()
+	/// sets the cooldown time between uploads when emag'd
+	var/cooldown = 0
+	/// holds the value for when the inherent_laws are counted in countlaws()
+	var/foundlaws = 0
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
