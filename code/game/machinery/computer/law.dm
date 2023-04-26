@@ -45,11 +45,11 @@
 	if(!istype(O, /obj/item/aiModule))
 		return
 	if(!current)//no AI selected
-		to_chat(user, "<span class='danger'>No AI selected. Please chose a target before proceeding with upload.")
+		to_chat(user, "<span class='danger'>No AI selected. Please choose a target before proceeding with upload.</span>")
 		return
 	var/turf/T = get_turf(current)
 	if(!atoms_share_level(T, src))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
+		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!</span>")
 		return
 	if(!emagged) //non-emag law change
 		var/obj/item/aiModule/M = O
@@ -57,7 +57,7 @@
 		return
 	else
 		if(world.time < cooldown)
-			to_chat(user, "The program seems to have frozen. It will need some time to process.")
+			to_chat(user, "<span class='danger'>The program seems to have frozen. It will need some time to process.</span>")
 			return
 		do_sparks(5, TRUE, src)
 		countlaws()
@@ -72,6 +72,7 @@
 		foundlaws++
 
 /obj/machinery/computer/aiupload/proc/emag_ion_check()
+	var/emag_law = new /datum/ai_law/inherent(generate_ion_law()).law
 	if(!length(current.laws.ion_laws))
 		if(prob(20))  // 20% chance to generate an ion law if none exists
 			current.add_ion_law(generate_ion_law())
@@ -79,16 +80,20 @@
 			return TRUE
 	else //10% chance to overwrite a current ion
 		if(prob(10))
-			current.laws.ion_laws[1].law = new/datum/ai_law/ion(generate_ion_law()).law
+			current.laws.ion_laws[1].law = emag_law
 			cooldown = world.time + EMAG_COOLDOWN
+			log_and_message_admins("has given [current] the ion law: [current.laws.ion_laws[1].law].")
 			return TRUE
 		else
 			return FALSE
 
 /obj/machinery/computer/aiupload/proc/emag_inherent_law()
-	if(foundlaws) //as long as it finds a law to change
+	if(!foundlaws)
+		return
+	else
+		var/emag_law = new /datum/ai_law/inherent(generate_ion_law()).law
 		var/lawposition = rand(1, foundlaws)
-		current.laws.inherent_laws[lawposition].law = new /datum/ai_law/inherent(generate_ion_law()).law
+		current.laws.inherent_laws[lawposition].law = emag_law
 		log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
 		current.show_laws()
 		alert_silicons()
