@@ -1,0 +1,24 @@
+name: Deploy
+
+concurrency:
+  group: deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Update and build all production servers
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: >
+          sudo systemctl --wait start deploy-paradise
+          systemctl is-failed deploy-paradise | grep -q 'failed' && echo "Deployment Failed!" && exit 1
+
