@@ -522,12 +522,6 @@
 		return
 	return ..()
 
-/obj/item/gun/energy/bsg/process_chamber()
-	if(prob(25))
-		shatter()
-	..()
-	update_icon()
-
 /obj/item/gun/energy/bsg/update_icon_state()
 	if(core)
 		if(has_bluespace_crystal)
