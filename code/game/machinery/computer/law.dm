@@ -10,8 +10,8 @@
 	var/opened = FALSE
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
-	var/cooldown = 0
-	var/foundlaws = 0
+	var/cooldown = 0 //sets the cooldown time between uploads when emag'd
+	var/foundlaws = 0 //holds the value for when the inherent_laws are counted in countlaws()
 
 //For emagging the console
 /obj/machinery/computer/aiupload/emag_act(mob/user)
@@ -43,7 +43,7 @@
 
 /obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/aiModule))
-		return
+		return ..()
 	if(!current)//no AI selected
 		to_chat(user, "<span class='danger'>No AI selected. Please choose a target before proceeding with upload.</span>")
 		return
@@ -55,22 +55,19 @@
 		var/obj/item/aiModule/M = O
 		M.install(src)
 		return
-	if(world.time < cooldown)
+	if(world.time < cooldown) //checks if the cooldown isnt passed
 		to_chat(user, "<span class='danger'>The program seems to have frozen. It will need some time to process.</span>")
 		return
 	do_sparks(5, TRUE, src)
-	countlaws()
+	foundlaws = length(current.laws.inherent_laws)
 	if(!emag_ion_check())
 		emag_inherent_law()
 	return ..()
 
-/obj/machinery/computer/aiupload/proc/countlaws()
-	foundlaws = 0
-	for(var/datum/ai_law/law in current.laws.inherent_laws)
-		foundlaws++
-
+//checks to see if an ion law is added or modified
 /obj/machinery/computer/aiupload/proc/emag_ion_check()
-	var/emag_law = new /datum/ai_law/inherent(generate_ion_law()).law
+	var/datum/ai_law/inherent/new_law = new(generate_ion_law())
+	var/emag_law = new_law.law
 	if(!length(current.laws.ion_laws))
 		if(prob(20))  // 20% chance to generate an ion law if none exists
 			current.add_ion_law(generate_ion_law())
@@ -85,10 +82,12 @@
 		else
 			return FALSE
 
+//modifies one of the AI's laws to read like an ion law
 /obj/machinery/computer/aiupload/proc/emag_inherent_law()
 	if(!foundlaws)
 		return
-	var/emag_law = new /datum/ai_law/inherent(generate_ion_law()).law
+	var/datum/ai_law/inherent/new_law = new(generate_ion_law())
+	var/emag_law = new_law.law
 	var/lawposition = rand(1, foundlaws)
 	current.laws.inherent_laws[lawposition].law = emag_law
 	log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
@@ -96,13 +95,13 @@
 	alert_silicons()
 	cooldown = world.time + EMAG_COOLDOWN
 
-
+//pushes an alert to the AI and its borgs about the law changes
 /obj/machinery/computer/aiupload/proc/alert_silicons()
 	current.show_laws()
 	current.throw_alert("newlaw", /obj/screen/alert/newlaw)
-	for(var/i in 1 to length(current.connected_robots)) // push alert to the AI's borgs
-		current.connected_robots[i].cmd_show_laws()
-		current.connected_robots[i].throw_alert("newlaw", /obj/screen/alert/newlaw)
+	for(var/mob/living/silicon/robot/borg in current.connected_robots)
+		borg.cmd_show_laws()
+		borg.throw_alert("newlaw", /obj/screen/alert/newlaw)
 
 /obj/machinery/computer/aiupload/attack_hand(mob/user as mob)
 	if(src.stat & NOPOWER)
