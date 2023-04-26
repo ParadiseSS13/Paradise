@@ -84,7 +84,7 @@
 		else
 			return FALSE
 
-//modifies one of the AI's laws to read like an ion law
+/// modifies one of the AI's laws to read like an ion law
 /obj/machinery/computer/aiupload/proc/emag_inherent_law()
 	if(!foundlaws)
 		return
