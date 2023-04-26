@@ -65,10 +65,18 @@
 				brain.brainmob.key = key // Set the key to the brainmob
 				brain.brainmob.mind.transfer_to(brain.brainmob) // Transfer the mind to the brainmob
 		held_body.cancel_camera()
-		held_body = null
+		remove_held_body()
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	. = ..()
+
+/mob/living/simple_animal/hostile/construct/proc/add_held_body(atom/movable/body)
+	held_body = body
+	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
+
+/mob/living/simple_animal/hostile/construct/proc/remove_held_body()
+	SIGNAL_HANDLER
+	held_body = null
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()

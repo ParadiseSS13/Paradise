@@ -26,6 +26,14 @@
 	var/opt_in = FALSE
 	var/purified = FALSE
 
+/obj/item/soulstone/proc/add_held_body(atom/movable/body)
+	held_body = body
+	RegisterSignal(body, COMSIG_PARENT_QDELETING, PROC_REF(remove_held_body))
+
+/obj/item/soulstone/proc/remove_held_body()
+	SIGNAL_HANDLER
+	held_body = null
+
 /obj/item/soulstone/proc/can_use(mob/living/user)
 	if(iscultist(user) && purified && !iswizard(user))
 		return FALSE
@@ -218,21 +226,23 @@
 		to_chat(user, "<span class='notice'>The shard feels too tough to shatter, you are not holy enough to free its captive!</span>")
 		return
 
-	if(do_after_once(user, 10 SECONDS, FALSE, src))
-		user.visible_message("[user] shatters the soulstone apart! Releasing [held_body] from their prison!", "You shatter the soulstone holding [held_body], binding them free!", "You hear something shatter with a ghastly crack.")
-		if(ismob(held_body))
-			var/mob/M = held_body
-			M.key = S.key
-		else if(istype(held_body, /obj/item/organ/internal/brain))
-			var/obj/item/organ/internal/brain/B = held_body
-			B.brainmob.key = S.key
-		S.cancel_camera()
-		held_body.forceMove(get_turf(src))
-		SSticker.mode.add_cult_immunity(held_body)
-		held_body = null
-		new /obj/effect/temp_visual/cult/sparks(get_turf(src))
-		playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
-		qdel(src)
+	if(!do_after_once(user, 10 SECONDS, FALSE, src) || !held_body)
+		return
+
+	user.visible_message("[user] shatters the soulstone apart! Releasing [held_body] from their prison!", "You shatter the soulstone holding [held_body], binding them free!", "You hear something shatter with a ghastly crack.")
+	if(ismob(held_body))
+		var/mob/M = held_body
+		M.key = S.key
+	else if(istype(held_body, /obj/item/organ/internal/brain))
+		var/obj/item/organ/internal/brain/B = held_body
+		B.brainmob.key = S.key
+	S.cancel_camera()
+	held_body.forceMove(get_turf(src))
+	SSticker.mode.add_cult_immunity(held_body)
+	remove_held_body()
+	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
+	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
+	qdel(src)
 
 /obj/item/soulstone/proc/release_shades(mob/user)
 	for(var/mob/living/simple_animal/shade/A in src)
@@ -292,7 +302,7 @@
 				to_chat(user, "<span class='userdanger'>Capture failed!</span> The soul has already fled its mortal frame. You attempt to bring it back...")
 				T.Paralyse(40 SECONDS)
 				if(!get_cult_ghost(T, user, TRUE))
-					held_body = T
+					add_held_body(T)
 					T.forceMove(src) //If we can't get a ghost, shard the body anyways.
 
 		if("VICTIM")
@@ -384,8 +394,8 @@
 	else
 		to_chat(src, "<span class='userdanger'>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</span>")
 	SS.held_body.forceMove(src)
-	src.held_body = SS.held_body
-	SS.held_body = null
+	add_held_body(SS.held_body)
+	SS.remove_held_body()
 	cancel_camera()
 	qdel(shell)
 	qdel(shade)
@@ -436,10 +446,10 @@
 			M.unEquip(I)
 	if(isbrain(M))
 		var/obj/item/organ/internal/brain/brain_obj = M.loc
-		held_body = brain_obj
+		add_held_body(brain_obj)
 		brain_obj.forceMove(src)
 	else
-		held_body = M
+		add_held_body(M)
 		M.forceMove(src)
 
 /obj/item/soulstone/proc/get_shade_type()
