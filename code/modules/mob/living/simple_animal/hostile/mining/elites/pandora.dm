@@ -212,7 +212,7 @@
 
 /obj/item/clothing/accessory/necklace/pandora_hope/on_attached(obj/item/clothing/under/S, mob/user)
 	. = ..()
-	if(isliving(user))
+	if(isliving(S.loc))
 		var/mob/living/M = S.loc
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 
