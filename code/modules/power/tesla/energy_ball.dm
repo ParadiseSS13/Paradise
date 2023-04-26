@@ -2,7 +2,8 @@
 #define TESLA_MINI_POWER 869130
 //Zap constants, speeds up targeting
 #define COIL (ROD + 1)
-#define ROD (RIDE + 1)
+#define ROD (APC + 1)
+#define APC (RIDE + 1)
 #define RIDE (LIVING + 1)
 #define LIVING (MACHINERY + 1)
 #define MACHINERY (BLOB + 1)
@@ -104,22 +105,36 @@
 	if(length(orbiting_balls))
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
+#define T
+#define move_dir
+#define move_where
+
+/obj/singularity/energy_ball/proc/where_to_move()
+	var/list/possible_turfs = get_area_turfs(findEventArea()) // gets random area on station and makes a list of all the turfs
+	var/turf/move_where = pick(possible_turfs)
+	//var/move_dir = get_dir(src, move_where)
+	var/turf/T = get_step(src, move_where)
+	message_admins()
+	return
+
 /obj/singularity/energy_ball/proc/move_the_basket_ball(move_amount)
-	var/list/dirs = GLOB.alldirs.Copy()
 	if(length(shocked_things))
-		for(var/i in 1 to 30)
-			var/atom/real_thing = pick(shocked_things)
-			dirs += get_dir(src, real_thing) //Carry some momentum yeah? Just a bit tho
-	for(var/i in 0 to move_amount)
-		var/move_dir = pick(dirs) //ensures teslas don't just sit around
-		if(target && prob(10))
-			move_dir = get_dir(src,target)
-		var/turf/T = get_step(src, move_dir)
-		if(can_move(T))
-			forceMove(T)
-			setDir(move_dir)
-			for(var/mob/living/carbon/C in loc)
-				dust_mobs(C)
+		where_to_move()
+		for(var/i in 0 to move_amount)
+			if(can_move(T))
+				forceMove(T)
+				setDir(move_dir)
+				for(var/mob/living/carbon/C in loc)
+					dust_mobs(C)
+				var/has_arrived = locate(move_where) in urange(5, src, 1)
+				if(has_arrived)
+					where_to_move()
+					return
+
+
+#undef T
+#undef move_dir
+#undef move_where
 
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
@@ -274,6 +289,10 @@
 			closest_type = ROD
 			closest_atom = A
 
+		else if(istype(A, /obj/machinery/power/apc))
+			closest_type = APC
+			closest_atom = A
+
 		else if(closest_type >= RIDE)
 			continue
 
@@ -359,6 +378,7 @@
 
 #undef COIL
 #undef ROD
+#undef APC
 #undef RIDE
 #undef LIVING
 #undef MACHINERY
