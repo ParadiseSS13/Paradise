@@ -238,8 +238,11 @@ FIRE ALARM
 		set_light(l_power = LIGHTING_MINIMUM_POWER)
 
 /obj/machinery/firealarm/proc/update_fire_sound(fire)
+	var/area/A = get_area(src)
 	if(stat & NOPOWER)
 		GLOB.firealarm_soundloop.stop(src, TRUE)
+	else if(A.fire)
+		GLOB.firealarm_soundloop.start(src)
 
 /obj/machinery/firealarm/power_change()
 	if(!..())
