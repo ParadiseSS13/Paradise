@@ -242,7 +242,7 @@
 			LAZYREMOVE(stomach_contents, M)
 			continue
 		if(stat != DEAD)
-			if(M.stat == DEAD)
+			if(M.stat == DEAD && !iscarbon(M))
 				LAZYREMOVE(stomach_contents, M)
 				qdel(M)
 				continue
