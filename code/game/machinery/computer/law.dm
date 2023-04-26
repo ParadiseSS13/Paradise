@@ -46,25 +46,36 @@
 /obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/aiModule))
 		return ..()
-	if(!current)//no AI selected
-		to_chat(user, "<span class='danger'>No AI selected. Please choose a target before proceeding with upload.</span>")
-		return
-	var/turf/T = get_turf(current)
-	if(!atoms_share_level(T, src))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!</span>")
+	if (!check_valid_selection())
 		return
 	if(!emagged) //non-emag law change
 		var/obj/item/aiModule/M = O
 		M.install(src)
 		return
-	if(world.time < cooldown) //checks if the cooldown isnt passed
+	apply_emag_laws()
+	return
+
+/// checks to ensure there is a selected AI, and that it is on the same Z level
+/obj/machinery/computer/aiupload/proc/check_valid_selection(mob/user)
+	if(!current)//no AI selected
+		to_chat(user, "<span class='danger'>No AI selected. Please choose a target before proceeding with upload.</span>")
+		return FALSE
+	var/turf/T = get_turf(current)
+	if(!atoms_share_level(T, src))//off Z level
+		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!</span>")
+		return FALSE
+	return TRUE
+
+/// applies ion-like laws into either the inherent law or true ion law positions due to an emag'd AI upload being used
+/obj/machinery/computer/aiupload/proc/apply_emag_laws(mob/user)
+	if(world.time < cooldown) //if the cooldown isnt over
 		to_chat(user, "<span class='danger'>The program seems to have frozen. It will need some time to process.</span>")
 		return
 	do_sparks(5, TRUE, src)
 	foundlaws = length(current.laws.inherent_laws)
-	if(!emag_ion_check())
+	if(!emag_ion_check()) //creates an ion-like inherent law if the ion_laws arnt modified or added
 		emag_inherent_law()
-	return ..()
+	return
 
 /// checks to see if an ion law is added or modified
 /obj/machinery/computer/aiupload/proc/emag_ion_check()
