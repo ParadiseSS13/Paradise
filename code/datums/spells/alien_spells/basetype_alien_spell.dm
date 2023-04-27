@@ -12,9 +12,7 @@ Updates the spell's actions on use as well, so they know when they can or can't 
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	if(!vessel)
 		return
-	vessel.stored_plasma += amount
-	if(vessel.stored_plasma > vessel.max_plasma)
-		vessel.stored_plasma = vessel.max_plasma
+	vessel.stored_plasma = clamp(vessel.stored_plasma + amount, 0, vessel.max_plasma)
 	update_plasma_display(src)
 	for(var/datum/action/spell_action/action in actions)
 		action.UpdateButtonIcon()
