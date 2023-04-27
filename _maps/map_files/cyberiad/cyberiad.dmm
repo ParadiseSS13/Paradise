@@ -90022,7 +90022,8 @@
 /area/hallway/secondary/exit)
 "wVH" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Prisoner Oversight"
+	name = "Prisoner Oversight";
+	req_access_txt = "1"
 	},
 /obj/structure/cable{
 	d1 = 4;
