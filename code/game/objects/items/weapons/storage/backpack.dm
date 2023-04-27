@@ -630,27 +630,20 @@
 		if(8)
 			if(prob(50))
 				new /obj/item/sord(src)
-				value -= 1 //Useless joke, might as well give them a value point back. Will only actually spawn if hierophant staff spawns as well, pft. Thus coinflip
-			else
+				value -= 1 //Useless joke, might as well give them a value point back.
 				new /obj/item/twohanded/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
 	//Wands
 	var/wands = 0
 	while(wands < 2)
-		switch(rand(1, 7))
-			if(1)
-				new /obj/item/gun/magic/wand/death(src)
-			if(2)
-				new /obj/item/gun/magic/wand/resurrection(src)
-			if(3)
-				new /obj/item/gun/magic/wand/polymorph(src)
-			if(4)
-				new /obj/item/gun/magic/wand/teleport(src)
-			if(5)
-				new /obj/item/gun/magic/wand/door(src)
-			if(6)
-				new /obj/item/gun/magic/wand/fireball(src)
-			if(7)
-				new /obj/item/gun/magic/wand/slipping(src)
+		var/obj/item/pickedw = pick(
+			/obj/item/gun/magic/wand/death,
+			/obj/item/gun/magic/wand/resurrection,
+			/obj/item/gun/magic/wand/polymorph,
+			/obj/item/gun/magic/wand/teleport,
+			/obj/item/gun/magic/wand/door,
+			/obj/item/gun/magic/wand/fireball,
+			/obj/item/gun/magic/wand/slipping)
+		new pickedw(src)
 		wands += 1
 
 	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
@@ -658,67 +651,35 @@
 		W.charges = W.max_charges
 
 	//Staff
-	switch(rand(1, 10))
-		if(1)
-			new /obj/item/gun/magic/staff/change(src)
-			value += 2
-		if(2)
-			new /obj/item/gun/magic/staff/slipping(src)
-			value += 1
-		if(3)
-			new /obj/item/gun/magic/staff/door(src)
-			value += 1
-		if(4)
-			new /obj/item/gun/magic/staff/healing(src)
-			value += 1
-		if(5)
-			new /obj/item/gun/magic/staff/chaos(src)
-			value += 2
-		if(6)
-			new /obj/item/gun/magic/staff/animate(src)
-			value += 2
-		if(7)
-			new /obj/item/gun/magic/staff/focus(src)
-			value += 2 //Probably value 2? Test it out
-		if(8)
-			new /obj/item/gun/magic/hook(src)// Basically a staff
-			value += 1
-		if(9)
-			new /obj/item/hierophant_club(src)
-			value += 3 //Very strong, very point intensive. Will be rare.
-		if(10)
-			new /obj/item/lava_staff(src)
-			value += 2 //Hot seller
+	var/list/list_s = list(
+		/obj/item/gun/magic/staff/change = 2,
+		/obj/item/gun/magic/staff/slipping = 1,
+		/obj/item/gun/magic/staff/door = 1,
+		/obj/item/gun/magic/staff/healing = 1,
+		/obj/item/gun/magic/staff/chaos = 2,
+		/obj/item/gun/magic/staff/animate = 2,
+		/obj/item/gun/magic/staff/focus = 2,
+		/obj/item/gun/magic/hook = 1,
+		/obj/item/hierophant_club = 3, //Strong so super costly
+		/obj/item/lava_staff = 2 ) //Hot seller so 2
+	var/obj/item/pickeds = pick(list_s)
+	value += list_s[pickeds]
+	new pickeds(src)
 
 	//Random magical artifact.
-	switch(rand(1, 9))
-		if(1)
-			new /obj/item/necromantic_stone(src)
-			value += 2
-		if(2)
-			new /obj/item/scrying(src)
-			value += 1 //Thematic discount
-		if(3)
-			new /obj/item/organ/internal/heart/cursed/wizard(src)
-			value += 1
-		if(4)
-			new /obj/item/organ/internal/vocal_cords/colossus/wizard(src)
-			value += 2
-		if(5)
-			new /obj/item/warp_cube/red(src)
-			value += 1
-		if(6)
-			new /obj/item/reagent_containers/food/drinks/everfull(src)
-			value += 2
-		if(7)
-			new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
-			value += 2
-		if(8)
-			new /obj/item/jacobs_ladder(src) //This is still in the code? Well, why not.
-			value += 1
-		if(9)
-			new /obj/item/immortality_talisman(src) //Spells recharge during this, though minute cooldown. Potentially useful
-			value += 1
+	var/list/list_a = list(
+		/obj/item/necromantic_stone = 2,
+		/obj/item/scrying = 1, //thematic discount
+		/obj/item/organ/internal/heart/cursed/wizard = 1,
+		/obj/item/organ/internal/vocal_cords/colossus/wizard = 2,
+		/obj/item/warp_cube/red = 1,
+		/obj/item/reagent_containers/food/drinks/everfull = 2,
+		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 2,
+		/obj/item/jacobs_ladder = 1, //funny
+		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
+	var/obj/item/pickeda = pick(list_a)
+	value += list_a[pickeda]
+	new pickeda(src)
 
 	//Summon
 	switch(rand(1, 8))
@@ -751,17 +712,14 @@
 				new /obj/item/paicard(src) //Still useful, not a point useful.
 
 	//Treat / potion. Free.
-	switch(rand(1, 5))
-		if(1)
-			new /obj/item/storage/box/syndidonkpockets(src) // Healing + speed
-		if(2)
-			new /obj/item/reagent_containers/food/drinks/bottle/dragonsbreath(src) // Killing
-		if(3)
-			new /obj/item/reagent_containers/food/drinks/bottle/immorality(src) // Super healing for 20 seconds
-		if(4)
-			new /obj/item/reagent_containers/food/snacks/meatsteak/stimulating(src) //Healing + stun immunity
-		if(5)
-			new /obj/item/reagent_containers/food/snacks/plum_pie(src) // Great healing over long period of time
+	var/obj/item/pickedt = pick(
+			/obj/item/storage/box/syndidonkpockets, // Healing + speed
+			/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath, // Killing
+			/obj/item/reagent_containers/food/drinks/bottle/immorality, // Super healing for 20 seconds
+			/obj/item/reagent_containers/food/snacks/meatsteak/stimulating, //Healing + stun immunity
+			/obj/item/reagent_containers/food/snacks/plum_pie ) // Great healing over long period of time
+	new pickedt(src)
+
 
 	if(value > NANNY_MAX_VALUE || value < NANNY_MIN_VALUE)
 		if(attempts >= 5)
