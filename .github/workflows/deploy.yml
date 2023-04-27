@@ -19,6 +19,6 @@ jobs:
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
         script: >
-          sudo systemctl --wait start deploy-paradise
-          && (systemctl is-failed deploy-paradise | grep -q 'failed' && echo "Deployment Failed!" && exit 1)
+          sudo systemctl --wait start deploy-paradise;
+          (systemctl is-failed deploy-paradise | grep -q 'failed' && echo "Deployment Failed!" && exit 1)
 
