@@ -12,3 +12,4 @@
 #define RCD_MODE_AIRLOCK	"Airlocks"
 #define RCD_MODE_WINDOW		"Windows"
 #define RCD_MODE_DECON		"Deconstruction"
+#define RCD_MODE_FIRELOCK 	"Firelocks"

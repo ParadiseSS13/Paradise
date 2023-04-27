@@ -58,6 +58,7 @@ const ConstructionType = () => {
           <ConstructionTypeCheckbox mode_type="Airlocks" />
           <ConstructionTypeCheckbox mode_type="Windows" />
           <ConstructionTypeCheckbox mode_type="Deconstruction" />
+          <ConstructionTypeCheckbox mode_type="Firelocks" />
         </Flex.Item>
       </Flex>
     </Section>

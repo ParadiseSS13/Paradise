@@ -376,4 +376,22 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				new our_rcd.window_type(src)
 			ChangeTurf(our_rcd.floor_type) // Platings go under windows.
 			return RCD_ACT_SUCCESSFULL
+		if(RCD_MODE_FIRELOCK)
+			if(our_rcd.checkResource(8, user))
+				to_chat(user, "Building Firelock...")
+				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+					if(locate(/obj/machinery/door/firedoor) in src)
+						return RCD_NO_ACT
+					if(!our_rcd.useResource(8, user))
+						return RCD_ACT_FAILED
+					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
+					new our_rcd.firelock_type(src)
+					add_attack_logs(user, src, "Constructed firelock with RCD")
+					return RCD_ACT_SUCCESSFULL
+				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				return RCD_ACT_FAILED
+			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this Firelock!"))
+			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
+			return RCD_ACT_FAILED
 	return RCD_NO_ACT
