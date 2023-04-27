@@ -49,7 +49,7 @@
 		if(istype(I, /obj/item/disk/nuclear))
 			to_chat(owner, "<span class='warning'>[I] slips out of your [name]!</span>")
 			return
-		if(I.w_class >= WEIGHT_CLASS_SMALL)
+		if(I.w_class > WEIGHT_CLASS_SMALL)
 			to_chat(owner, "<span class='notice'>[I] is too large to fit in your [name].</span>")
 			return
 		if(owner.unEquip(I))

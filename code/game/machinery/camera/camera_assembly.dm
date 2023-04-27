@@ -68,7 +68,7 @@
 		return
 	var/obj/U = locate(/obj) in upgrades
 	if(U)
-		to_chat(user, "<span class='notice'>You unattach an upgrade from the assembly.</span>")
+		to_chat(user, "<span class='notice'>You detach an upgrade from the assembly.</span>")
 		playsound(loc, I.usesound, 50, 1)
 		U.loc = get_turf(src)
 		upgrades -= U

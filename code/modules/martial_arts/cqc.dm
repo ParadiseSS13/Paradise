@@ -1,6 +1,7 @@
 /datum/martial_art/cqc
 	name = "CQC"
 	has_explaination_verb = TRUE
+	can_parry = TRUE
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/chokehold_active = FALSE //Then uses this to determine if the restrain actually goes anywhere
@@ -10,10 +11,38 @@
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"
 
+/datum/martial_art/cqc/under_siege/teach(mob/living/carbon/human/H, make_temporary)
+	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(kitchen_check))
+	return ..()
+
+/datum/martial_art/cqc/under_siege/remove(mob/living/carbon/human/H)
+	UnregisterSignal(H, COMSIG_AREA_ENTERED)
+	. = ..()
+
+/datum/martial_art/cqc/under_siege/proc/kitchen_check(mob/living/carbon/human/H, area/entered_area)
+	SIGNAL_HANDLER //COMSIG_AREA_ENTERED
+	if(!is_type_in_typecache(entered_area, areas_under_siege))
+		var/list/held_items = list(H.get_active_hand(), H.get_inactive_hand())
+		for(var/obj/item/slapper/parry/smacking_hand in held_items)
+			qdel(smacking_hand)
+		can_parry = FALSE
+	else
+		can_parry = TRUE
+
 /datum/martial_art/cqc/under_siege/can_use(mob/living/carbon/human/H)
 	var/area/A = get_area(H)
 	if(!(is_type_in_typecache(A, areas_under_siege)))
 		return FALSE
+	return ..()
+
+/datum/martial_art/cqc/teach(mob/living/carbon/human/H, make_temporary)
+	var/datum/action/defensive_stance/defensive = new /datum/action/defensive_stance()
+	defensive.Grant(H)
+	return ..()
+
+/datum/martial_art/cqc/remove(mob/living/carbon/human/H)
+	for(var/datum/action/defensive_stance/defensive in H.actions)
+		defensive.Remove(H)
 	return ..()
 
 /datum/martial_art/cqc/proc/drop_restraining()
@@ -101,3 +130,6 @@
 
 /datum/martial_art/cqc/explaination_header(user)
 	to_chat(user, "<b><i>You try to remember some of the basics of CQC.</i></b>")
+
+/datum/martial_art/cqc/explaination_footer(user)
+	to_chat(user, "<b>Your slaps hit considerably harder, and allow you to parry incoming melee attacks.</b>")

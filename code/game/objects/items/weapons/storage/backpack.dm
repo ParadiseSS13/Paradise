@@ -51,7 +51,7 @@
 
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Blue Space."
+	desc = "A backpack that opens into a localized pocket of Bluespace."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
@@ -60,6 +60,7 @@
 	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack, /obj/item/storage/belt/bluespace)
+	cant_hold_override = list(/obj/item/storage/backpack/satchel_flat)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)

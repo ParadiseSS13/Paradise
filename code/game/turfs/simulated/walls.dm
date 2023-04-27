@@ -9,8 +9,8 @@
 	icon_state = "wall-0"
 	base_icon_state = "wall"
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS)
-	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_AIRLOCK)
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS, SMOOTH_GROUP_AIRLOCK)
 
 	var/rotting = FALSE
 
@@ -80,10 +80,7 @@
 
 	if(rotting)
 		. += "<span class='warning'>There is fungus growing on [src].</span>"
-
-/turf/simulated/wall/detailed_examine()
-	return "You can deconstruct this by welding it, and then wrenching the girder.<br>\
-			You can build a wall by using metal sheets and making a girder, then adding more metal or plasteel."
+	. += "<span class='notice'>Using a lit welding tool on this item will allow you to slice through it, eventually removing the outer layer.</span>"
 
 /// Apply rust effects to the wall
 /turf/simulated/wall/proc/rust()

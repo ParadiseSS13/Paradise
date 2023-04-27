@@ -336,7 +336,7 @@ Difficulty: Hard
 				var/turf/S = get_turf(src)
 				if(!S || !T)
 					return
-				var/obj/item/projectile/energy/shock_revolver/ancient/O = new /obj/item/projectile/energy/shock_revolver/ancient(S)
+				var/obj/item/projectile/energy/tesla_bolt/O = new /obj/item/projectile/energy/tesla_bolt(S)
 				O.current = S
 				O.yo = T.y - S.y
 				O.xo = T.x - S.x
@@ -692,10 +692,28 @@ Difficulty: Hard
 	icon_state = "small1"
 	duration = 20
 
-/obj/item/projectile/energy/shock_revolver/ancient
-	damage = 5
 
-/obj/item/projectile/energy/shock_revolver/ancient/Bump(atom/A, yes) // Don't want the projectile hitting the legs
+/obj/item/projectile/energy/tesla_bolt //Leaving here for adminbus / so vetus still uses it.
+	name = "shock bolt"
+	icon_state = "purple_laser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	damage = 5 //A worse lasergun
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_range = 3
+	var/power = 10000
+
+/obj/item/ammo_casing/energy/tesla_bolt/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	..()
+	var/obj/item/projectile/energy/tesla_bolt/P = BB
+	spawn(1)
+		P.chain = P.Beam(user, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1000, maxdistance = 30)
+
+/obj/item/projectile/energy/tesla_bolt/on_hit(atom/target)
+	. = ..()
+	tesla_zap(src, zap_range, power, zap_flags)
+	qdel(src)
+
+/obj/item/projectile/energy/tesla_bolt/Bump(atom/A, yes) // Don't want the projectile hitting the legs
 	if(!istype(/mob/living/simple_animal/hostile/ancient_robot_leg, A))
 		return ..()
 	var/turf/target_turf = get_turf(A)

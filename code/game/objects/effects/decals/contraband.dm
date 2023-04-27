@@ -507,7 +507,7 @@
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint
 	name = "50th Anniversary Vintage Reprint"
-	desc = "A reprint of a poster from 2505, commemorating the 50th Anniversery of Nanoposters Manufacturing, a subsidary of Nanotrasen."
+	desc = "A reprint of a poster from 2505, commemorating the 50th Anniversery of Nanoposters Manufacturing, a subsidiary of Nanotrasen."
 	icon_state = "poster26_legit"
 
 /obj/structure/sign/poster/official/fruit_bowl

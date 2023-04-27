@@ -334,7 +334,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
   *
   * By default this returns the Engineering, Janitor, Medical, Mining, and Service modules.
   * If there are any [/mob/living/silicon/robot/var/force_modules] set, then they are returned instead.
-  * If the MMI has a xenomorph brain in it ([/obj/item/mmi/var/alien]), then only the "Hunter" module is returned.
+  * If the MMI has a xenomorph brain in it ([/obj/item/mmi/var/alien]), then only the "Hunter" and standard modules is returned.
   */
 /mob/living/silicon/robot/proc/get_module_types()
 	var/static/list/standard_modules = list(
@@ -346,10 +346,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/static/list/special_modules = list(
 		"Combat" = image('icons/mob/robots.dmi', "security-radial"),
 		"Security" = image('icons/mob/robots.dmi', "security-radial"),
-		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"))
+		"Destroyer" = image('icons/mob/robots.dmi', "droidcombat"),
+		"Hunter" = image('icons/mob/robots.dmi', "xeno-radial"))
 
 	if(mmi?.alien)
-		return list("Hunter" = image('icons/mob/robots.dmi', "xeno-radial"))
+		if(!length(force_modules))
+			force_modules = list("Hunter") + standard_modules.Copy() // standard PLUS hunter
 
 	// Return a list of `force_modules`, with the associated images from the other lists.
 	if(length(force_modules))
@@ -1425,6 +1427,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/red
 	eprefix = "Red"
+	force_modules = list("Security", "Engineering", "Medical")
 	default_cell_type = /obj/item/stock_parts/cell/hyper
 
 /mob/living/silicon/robot/ert/gamma

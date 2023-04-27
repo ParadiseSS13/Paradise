@@ -268,7 +268,7 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
 	name = "boxed tracking bio-chip kit"
@@ -281,7 +281,7 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/mining(src)
 
 /obj/item/storage/box/chemimp
 	name = "chemical bio-chip kit"
@@ -358,17 +358,26 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
+	desc = "A heavy, insulated box that reads, <b>Instructions:</b> <i>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</i>"
+	storage_slots = 6
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/donkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak,
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket)
 	icon_state = "donk_kit"
 
 /obj/item/storage/box/donkpockets/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/storage/box/donkpockets/empty/populate_contents()
+	return
+
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "This box feels slightly warm"
-	icon_state = "donk_kit"
+	icon_state = "donk_kit_synd"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
 	for(var/I in 1 to 6)
@@ -839,6 +848,21 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 	new /obj/item/ammo_box/a357(src)
 	new /obj/item/ammo_box/a357(src)
+
+/obj/item/storage/box/soviet
+	name = "boxed survival kit"
+	desc = "A standard issue Soviet military survival kit."
+	icon_state = "box_soviet"
+
+/obj/item/storage/box/soviet/populate_contents()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"

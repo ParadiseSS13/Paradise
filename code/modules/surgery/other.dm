@@ -47,7 +47,7 @@
 	if(!.)
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!(affected.status & ORGAN_DEAD))
+	if(!(affected.status & ORGAN_DEAD) && !(affected.status & ORGAN_BURNT))
 		return FALSE
 	return TRUE
 
@@ -174,7 +174,7 @@
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(!(affected.status & ORGAN_DEAD))
+	if(!(affected.status & ORGAN_DEAD) && !(affected.status & ORGAN_BURNT))
 		to_chat(user, "<span class='warning'>The [affected] seems to already be in fine condition!")
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -200,6 +200,7 @@
 
 		if(mitocholide)
 			affected.status &= ~ORGAN_DEAD
+			affected.fix_burn_wound()
 			affected.germ_level = 0
 			target.update_body()
 

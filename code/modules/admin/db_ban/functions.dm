@@ -369,6 +369,21 @@
 			else
 				to_chat(usr, "Cancelled")
 				return
+		if("makepublic")
+			if(alert("Make this ban public? You cannot undo this action.", "Warning", "Yes", "No") == "Yes")
+				var/datum/db_query/make_public_query = SSdbcore.NewQuery("UPDATE ban SET exportable=1 WHERE id=:banid", list(
+					"banid" = banid
+				))
+				if(!make_public_query.warn_execute())
+					qdel(make_public_query)
+					return
+
+				qdel(make_public_query)
+				to_chat(usr, "Ban publicised")
+				log_admin("[usr.ckey] made ban #[banid] on [pckey] public.")
+			else
+				to_chat(usr, "Cancelled")
+				return
 		else
 			to_chat(usr, "Cancelled")
 			return
@@ -585,7 +600,7 @@
 
 
 			var/datum/db_query/select_query = SSdbcore.NewQuery({"
-				SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid, ban_round_id, unbanned_round_id
+				SELECT id, bantime, bantype, reason, job, duration, expiration_time, ckey, a_ckey, unbanned, unbanned_ckey, unbanned_datetime, edits, ip, computerid, ban_round_id, unbanned_round_id, exportable
 				FROM ban WHERE 1 [playersearch] [adminsearch] [ipsearch] [cidsearch] [bantypesearch] ORDER BY bantime DESC LIMIT 100"}, sql_params)
 
 			if(!select_query.warn_execute())
@@ -610,6 +625,7 @@
 				var/cid = select_query.item[15]
 				var/ban_round_id = select_query.item[16]
 				var/unban_round_id = select_query.item[17]
+				var/public = select_query.item[18]
 
 				var/lcolor = blcolor
 				var/dcolor = bdcolor
@@ -637,7 +653,13 @@
 				output += "<td align='center'><b>[ckey]</b></td>"
 				output += "<td align='center'>[bantime][ban_round_id ? " (Round [ban_round_id])" : ""]</td>"
 				output += "<td align='center'><b>[ackey]</b></td>"
-				output += "<td align='center'>[(unbanned) ? "" : "<b><a href=\"byond://?src=[cached_UID];dbbanedit=unban;dbbanid=[banid]\">Unban</a></b>"]</td>"
+				output += "<td align='center'>"
+				// Unban button
+				output += unbanned ? "" : "<b><a href=\"byond://?src=[cached_UID];dbbanedit=unban;dbbanid=[banid]\">Unban</a></b><br>"
+				// Make public button
+				output += public ? "<i>Ban is public</i>" : "<b><a href=\"byond://?src=[cached_UID];dbbanedit=makepublic;dbbanid=[banid]\">Make public</a></b>"
+				output += "</td>"
+
 				output += "</tr>"
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center' colspan='2' bgcolor=''><b>IP:</b> [ip]</td>"
@@ -665,9 +687,8 @@
 
 			qdel(select_query)
 
-	var/datum/browser/popup = new(usr, "ban_panel", "<div align='center'>Manual Ban Panel</div>", 500, 600)
+	var/datum/browser/popup = new(usr, "ban_panel", "<div align='center'>Manual Ban Panel</div>", 700, 800)
 	popup.set_content(output.Join(""))
-	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 	popup.open()
 	onclose(usr, "ban_panel")
 

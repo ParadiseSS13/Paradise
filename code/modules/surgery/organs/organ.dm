@@ -104,7 +104,7 @@
 		germ_level = 0
 		return
 
-	if(!owner)
+	if(!owner || ((status & ORGAN_BURNT) && !(status & ORGAN_SALVED)))
 		if(is_preserved())
 			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
@@ -243,6 +243,8 @@
 /obj/item/organ/proc/remove(mob/living/user, special = 0)
 	if(!istype(owner))
 		return
+
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	owner.internal_organs -= src
 

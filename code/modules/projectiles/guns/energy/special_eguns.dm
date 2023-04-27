@@ -102,7 +102,7 @@
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
+	desc = "A weapon favored by syndicate stealth specialists. Knocks down and injects toxins."
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
@@ -119,14 +119,6 @@
 	max_mod_capacity = 0
 	empty_state = "crossbow_empty"
 	can_holster = TRUE
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
-	return "This is an energy weapon. To fire the weapon, have your gun mode set to 'fire', \
-			then click where you want to fire."
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine_antag()
-	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a knockdown effect, in \
-			addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
@@ -300,7 +292,7 @@
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "disabler"
+	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
 	selfcharge = TRUE
@@ -755,6 +747,7 @@
 	. = ..()
 	Announcer = new /obj/item/radio/headset(src)
 	Announcer.config(list("Security" = 1))
+	Announcer.follow_target = src
 	options["The Original"] = "handgun"
 	options["Golden Mamba"] = "handgun_golden-mamba"
 	options["NT's Finest"] = "handgun_nt-finest"

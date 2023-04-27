@@ -251,8 +251,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/burn()
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
-		var/obj/effect/decal/cleanable/ash/A = new(T)
-		A.desc += "\nLooks like this used to be \an [name] some time ago."
+		new /obj/effect/decal/cleanable/ash(T)
 		..()
 
 /obj/item/acid_melt()
@@ -835,12 +834,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/job_icons = get_all_job_icons()
 	var/centcom = get_all_centcom_jobs()
 	var/solgov = get_all_solgov_jobs()
+	var/soviet = get_all_soviet_jobs()
 
 	if((assignmentName in centcom) || (rankName in centcom)) //Return with the NT logo if it is a Centcom job
 		return "Centcom"
 
 	if((assignmentName in solgov) || (rankName in solgov)) //Return with the SolGov logo if it is a SolGov job
 		return "solgov"
+
+	if((assignmentName in soviet) || (rankName in soviet)) //Return with the U.S.S.P logo if it is a Soviet job
+		return "soviet"
 
 	if(assignmentName in job_icons) //Check if the job has a hud icon
 		return assignmentName
