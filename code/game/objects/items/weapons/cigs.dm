@@ -52,6 +52,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/mask/cigarette/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 1
+	qdel(src)
+	return TRUE
+
 /obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -176,6 +181,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				C.wear_mask_update(src)
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
+		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 
 /obj/item/clothing/mask/cigarette/process()
@@ -271,8 +277,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/clothing/mask/cigarette/rollie/nicotine
-	list_reagents = list("nicotine" = 40)
+/obj/item/clothing/mask/cigarette/rollie/custom
+	list_reagents = list()
 
 
 /obj/item/cigbutt/roach
@@ -448,7 +454,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(O.dry)
 			user.unEquip(target, 1)
 			user.unEquip(src, 1)
-			var/obj/item/clothing/mask/cigarette/rollie/R = new /obj/item/clothing/mask/cigarette/rollie(user.loc)
+			var/obj/item/clothing/mask/cigarette/rollie/custom/R = new /obj/item/clothing/mask/cigarette/rollie/custom(user.loc)
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume)
 			user.put_in_active_hand(R)

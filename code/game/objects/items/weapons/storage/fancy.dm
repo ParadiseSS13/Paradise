@@ -65,6 +65,13 @@
 	update_icon(UPDATE_OVERLAYS)
 	return
 
+/obj/item/storage/fancy/donut_box/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!length(contents))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
 /*
  * Egg Box
  */
@@ -292,7 +299,7 @@
 	desc = "You can't understand the runes, but the packet smells funny."
 	icon_state = "midoripacket"
 	item_state = "midoripacket"
-	cigarette_type = /obj/item/clothing/mask/cigarette/rollie/nicotine
+	cigarette_type = /obj/item/clothing/mask/cigarette/rollie
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims"

@@ -9,6 +9,7 @@
 	throw_range = 7
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	parent_stack = TRUE
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20
@@ -111,6 +112,7 @@
 		remburn = nremburn
 		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
 							"<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+	return affecting
 
 //Bruise Packs//
 
@@ -220,6 +222,19 @@
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than some ointment!</span>")
 
+/obj/item/stack/medical/ointment/heal(mob/living/M, mob/user)
+	var/obj/item/organ/external/affecting = ..()
+	if((affecting.status & ORGAN_BURNT) && !(affecting.status & ORGAN_SALVED))
+		affecting.status |= ORGAN_SALVED
+		addtimer(CALLBACK(affecting, TYPE_PROC_REF(/obj/item/organ/external, remove_ointment), heal_burn), 3 MINUTES)
+
+/obj/item/organ/external/proc/remove_ointment(heal_amount) //de-ointmenterized D:
+	status &= ~ORGAN_SALVED
+	perma_injury = max(perma_injury - heal_amount, 0)
+	if(owner)
+		owner.updatehealth("permanent injury removal")
+	if(!perma_injury)
+		fix_burn_wound(update_health = FALSE)
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"

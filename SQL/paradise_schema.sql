@@ -222,10 +222,12 @@ CREATE TABLE `ban` (
   `unbanned_ckey` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unbanned_computerid` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unbanned_ip` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `exportable` TINYINT(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
   KEY `computerid` (`computerid`),
-  KEY `ip` (`ip`)
+  KEY `ip` (`ip`),
+  KEY `exportable` (`exportable`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58903 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
