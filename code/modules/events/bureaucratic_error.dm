@@ -35,4 +35,4 @@
 		overflow.total_positions = max(overflow.total_positions + random_change, 0)
 		affected_jobs += "[overflow] slot changed by [random_change].\n"
 		errors++
-	log_and_message_admins(affected_jobs)
+	log_and_message_admins(affected_jobs.Join(" "))
