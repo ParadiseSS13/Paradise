@@ -2011,13 +2011,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
-/mob/living/carbon/human/proc/get_perceived_trauma()
-	var/percieved_trauma = min(health, maxHealth - getStaminaLoss())
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				percieved_trauma += R.shock_reduction
-	return percieved_trauma
+/mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
+	return min(health, maxHealth - getStaminaLoss()) + shock_reduction
 
 /mob/living/carbon/human/WakeUp(updating = TRUE)
 	if(dna.species.spec_WakeUp(src))

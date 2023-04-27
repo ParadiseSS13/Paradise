@@ -664,8 +664,13 @@
 	if(dna.species.update_health_hud())
 		return
 	else
+		var/shock_reduction = 0
+		if(reagents)
+			for(var/datum/reagent/R in reagents.reagent_list)
+				if(R.shock_reduction)
+					shock_reduction += R.shock_reduction
 		if(healths)
-			var/health_amount = get_perceived_trauma()
+			var/health_amount = get_perceived_trauma(shock_reduction)
 			if(..(health_amount)) //not dead
 				switch(health_hud_override)
 					if(HEALTH_HUD_OVERRIDE_CRIT)
@@ -687,9 +692,10 @@
 				healthdoll.icon_state = "healthdoll_DEAD"
 				for(var/obj/item/organ/external/O in bodyparts)
 					var/damage = O.get_damage()
+					damage -= shock_reduction / 5
 					var/comparison = (O.max_damage/5)
 					var/icon_num = 0
-					if(damage)
+					if(damage > 0)
 						icon_num = 1
 					if(damage > (comparison))
 						icon_num = 2
