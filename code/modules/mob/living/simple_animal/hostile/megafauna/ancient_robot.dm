@@ -387,7 +387,8 @@ Difficulty: Hard
 	O.xo = T.x - spot.x
 	O.fire()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger()// To make this fight harder, it scales it's attacks based on number of players, or as injured. Capped lower on station.
+// To make this fight harder, it scales it's attacks based on number of players, or as injured. Capped lower on station.
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger() 
 	var/anger = 0
 	var/cap = 0
 	for(var/mob/living/carbon/human/H in range(10, src))
