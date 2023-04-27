@@ -70,11 +70,6 @@
 "m" = (
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
-"n" = (
-/obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c1000,
-/turf/simulated/floor/engine/cult,
-/area/ruin/powered/greed)
 "o" = (
 /obj/item/storage/bag/money,
 /turf/simulated/floor/engine/cult,
@@ -86,7 +81,6 @@
 /area/ruin/powered/greed)
 "q" = (
 /obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c20,
 /obj/item/stack/spacecash/c50,
 /obj/machinery/light/small{
 	brightness_range = 3;
@@ -96,21 +90,17 @@
 /area/ruin/powered/greed)
 "r" = (
 /obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c500,
 /obj/item/stack/spacecash/c100,
-/obj/item/stack/spacecash/c1000,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
 "s" = (
 /obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c200,
+/obj/item/stack/spacecash/c50,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
 "u" = (
 /obj/structure/table/wood/poker,
-/obj/item/stack/spacecash/c500,
 /obj/item/stack/spacecash/c100,
-/obj/item/stack/spacecash/c1000,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -277,7 +267,7 @@ c
 c
 W
 W
-n
+p
 q
 s
 W

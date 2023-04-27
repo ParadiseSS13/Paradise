@@ -215,7 +215,7 @@
 
 /obj/item/clothing/head/blob
 	name = "blob hat"
-	desc = "A collectible hat handed out at the latest Blob Family Reunion."
+	desc = "A collectable hat handed out at the latest Blob Family Reunion."
 	icon_state = "blobhat"
 	item_state = "blobhat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES

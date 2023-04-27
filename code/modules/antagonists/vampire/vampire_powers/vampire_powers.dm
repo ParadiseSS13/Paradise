@@ -304,6 +304,7 @@
 			if(prob(25))
 				E.mend_fracture()
 				E.fix_internal_bleeding()
+				E.fix_burn_wound()
 
 		return
 	if(H.stat != DEAD)

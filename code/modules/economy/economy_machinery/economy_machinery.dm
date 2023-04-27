@@ -77,7 +77,7 @@
 	if(amount > cash_money.amount)
 		return
 	var/amount_to_insert = amount ? amount : cash_money.amount
-	visible_message("<span class='info'>[user] inserts [cash_money] into [src].</span>")
+	visible_message("<span class='info'>[user] inserts [amount_to_insert == 1 ? "[amount_to_insert] credit" : "[amount_to_insert] credits"]  into [src].</span>")
 	cash_stored += amount_to_insert
 	cash_transaction += amount_to_insert
 	cash_money.use(amount_to_insert)

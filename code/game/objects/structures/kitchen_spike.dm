@@ -63,19 +63,30 @@
 		return
 	if(!istype(G, /obj/item/grab) || !G.affecting)
 		return
-	if(has_buckled_mobs())
-		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
-		return
 	if(isliving(G.affecting))
-		if(!has_buckled_mobs())
-			if(do_mob(user, src, 120))
-				var/mob/living/affected = G.affecting
-				if(spike(affected))
-					affected.visible_message("<span class='danger'>[user] slams [affected] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
-		return
+		start_spike(G.affecting, user)
 	return ..()
 
-/obj/structure/kitchenspike/proc/spike(mob/living/victim)
+/obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
+	if (!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user))
+		return
+	if(isanimal(user) && victim != user)
+		return // animals cannot put mobs other than themselves onto spikes
+	add_fingerprint(user)
+	start_spike(victim, user)
+
+/obj/structure/kitchenspike/proc/start_spike(mob/living/victim, mob/user)
+	if(has_buckled_mobs())
+		to_chat(user, "<span class='danger'>The spike already has something on it, finish collecting its meat first!</span>")
+		return
+	victim.visible_message(
+		"<span class='danger'>[user] tries to slam [victim] onto the meat spike!</span>",
+		"<span class='userdanger'>[user] tries to slam you onto the meat spike!</span>"
+	)
+	if(do_mob(user, src, 12 SECONDS))
+		end_spike(victim, user)
+
+/obj/structure/kitchenspike/proc/end_spike(mob/living/victim, mob/user)
 
 	if(!istype(victim))
 		return FALSE
@@ -87,6 +98,11 @@
 	playsound(loc, 'sound/effects/splat.ogg', 25, 1)
 	victim.forceMove(drop_location())
 	victim.emote("scream")
+	victim.visible_message(
+		"<span class='danger'>[user] slams [victim] onto the meat spike!</span>",
+		"<span class='userdanger'>[user] slams you onto the meat spike!</span>",
+		"<span class='italics'>You hear a squishy wet noise.</span>"
+	)
 	if(ishuman(victim))
 		var/mob/living/carbon/human/H = victim
 		H.add_splatter_floor()
@@ -97,10 +113,6 @@
 	victim.update_transform()
 	victim.pixel_y = victim.get_standard_pixel_y_offset(180)
 	return TRUE
-
-
-/obj/structure/kitchenspike/user_buckle_mob(mob/living/M, mob/living/user) //Don't want them getting put on the rack other than by spiking
-	return
 
 /obj/structure/kitchenspike/user_unbuckle_mob(mob/living/buckled_mob, mob/living/carbon/human/user)
 	if(buckled_mob)
