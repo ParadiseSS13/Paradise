@@ -23,6 +23,10 @@
 	shock_reduction = 200
 	taste_description = "numbness"
 
+/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_HEALTH
+	return ..() | update_flags
+
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
