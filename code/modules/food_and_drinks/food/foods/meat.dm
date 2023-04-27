@@ -79,7 +79,7 @@
 			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
 			"<span class ='notice'>You cut the raw cutlet with [W]!</span>" \
 			)
-		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
+		new /obj/item/reagent_containers/food/snacks/raw_bacon(src)
 		qdel(src)
 
 //////////////////////////
