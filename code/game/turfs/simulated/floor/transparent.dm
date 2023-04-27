@@ -87,6 +87,9 @@
 	ChangeTurf(/turf/simulated/floor/plating)
 
 
+/turf/simulated/floor/transparent/glass/can_lay_cable()
+	return FALSE // this turf isn't "intact" but you also can't lay cable on it
+
 /turf/simulated/floor/transparent/glass/reinforced
 	name = "reinforced glass floor"
 	desc = "Jump on it, it can cope. Promise..."

@@ -6,7 +6,8 @@
 	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
-	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
+	/// used to check if pipes should be visible under the turf or not
+	var/transparent_floor = FALSE
 
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
@@ -461,7 +462,7 @@
 	return TRUE
 
 /turf/proc/can_lay_cable()
-	return can_have_cabling() & !intact
+	return can_have_cabling() && !intact
 
 /*
 	* # power_list()
