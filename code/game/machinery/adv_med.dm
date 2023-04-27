@@ -76,6 +76,7 @@
 			return
 		M.forceMove(src)
 		occupant = M
+		playsound(src, 'sound/machines/podclose.ogg', 5)
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
@@ -138,6 +139,7 @@
 
 	H.forceMove(src)
 	occupant = H
+	playsound(src, 'sound/machines/podclose.ogg', 5)
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 	SStgui.update_uis(src)
@@ -183,6 +185,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
+	playsound(src, 'sound/machines/podopen.ogg', 5)
 	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
