@@ -1,4 +1,5 @@
 #define ADDICTION_TIME 4800 //8 minutes
+#define MINIMUM_REAGENT_AMOUNT 0.09 // To account for 0.1 sometimes being 0.09996 and etc.
 
 /**
  * # Reagents Holder
@@ -559,7 +560,7 @@
 	total_volume = 0
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.volume < 0.1)
+		if(R.volume < MINIMUM_REAGENT_AMOUNT)
 			del_reagent(R.id)
 		else
 			total_volume += R.volume
