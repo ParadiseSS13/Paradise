@@ -26,8 +26,9 @@ window.Byond = (function () {
   var hasOwn = Object.prototype.hasOwnProperty;
   // Basic checks to detect whether this page runs in BYOND
   var isByond = !!navigator.userAgent.match(/Trident\/(\d+).+?;/i)
-    && location.hostname === '127.0.0.1'
-    && location.pathname.indexOf('/tmp') === 0;
+    && location.hostname === '127.0.0.1';
+    //As of BYOND 515 the path doesn't seem to include tmp dir anymore if you're trying to open tgui in external browser and looking why it doesn't work
+    //&& location.pathname.indexOf('/tmp') === 0
   // Makes a BYOND call.
   // See: https://secure.byond.com/docs/ref/skinparams.html
   Byond.call = function (path, params) {

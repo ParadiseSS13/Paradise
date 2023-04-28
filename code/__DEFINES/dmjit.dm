@@ -4,7 +4,7 @@
 /proc/dmjit_hook_main_init()
 	if (world.system_type != UNIX)
 		return
-	world.log << call(DMJIT_LIB, "auxtools_init")()
+	world.log << CALL_EXT(DMJIT_LIB, "auxtools_init")()
 	world.log << dmjit_hook_log_init()
 	dmjit_compile_proc("/datum/gas_mixture/temperature_share")
 	dmjit_compile_proc("/datum/gas_mixture/heat_capacity")

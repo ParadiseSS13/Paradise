@@ -384,39 +384,6 @@ window "rpane"
 		saved-params = "is-checked"
 		text = "Donate"
 		command = "Donate"
-	elem "browseb"
-		type = BUTTON
-		pos = 561,7
-		size = 60x16
-		anchor1 = none
-		anchor2 = none
-		is-visible = false
-		saved-params = "is-checked"
-		text = "Browser"
-		command = ".winset \"rpanewindow.left=browserwindow\""
-		group = "rpanemode"
-		button-type = pushbox
-
-window "browserwindow"
-	elem "browserwindow"
-		type = MAIN
-		pos = 0,0
-		size = 640x480
-		anchor1 = none
-		anchor2 = none
-		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Browser"
-		is-pane = true
-	elem "browser"
-		type = BROWSER
-		pos = 0,0
-		size = 640x499
-		anchor1 = 0,0
-		anchor2 = 100,100
-		is-default = true
-		saved-params = ""
-		on-show = ".winset\"rpane.infob.is-visible=true?rpane.infob.pos=130,7;rpane.textb.is-visible=true;rpane.browseb.is-visible=true;rpane.browseb.is-checked=true;rpane.rpanewindow.pos=0,30;rpane.rpanewindow.size=0x0;rpane.rpanewindow.left=browserwindow\""
-		on-hide = ".winset\"rpane.infob.is-visible=true?rpane.infob.is-checked=true rpane.infob.pos=110,7 rpane.rpanewindow.left=infowindow:rpane.rpanewindow.left=textwindow rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0\""
 
 window "infowindow"
 	elem "infowindow"

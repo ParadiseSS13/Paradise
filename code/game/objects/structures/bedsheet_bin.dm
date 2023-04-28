@@ -262,9 +262,12 @@ LINEN BINS
 
 /obj/structure/bedsheetbin/update_icon()
 	switch(amount)
-		if(0)				icon_state = "linenbin-empty"
-		if(1 to amount / 2)	icon_state = "linenbin-half"
-		else				icon_state = "linenbin-full"
+		if(0)
+			icon_state = "linenbin-empty"
+		if(1 to 10)
+			icon_state = "linenbin-half"
+		else
+			icon_state = "linenbin-full"
 
 
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)

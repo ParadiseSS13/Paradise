@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
-		call(debug_server, "auxtools_init")()
+		CALL_EXT(debug_server, "auxtools_init")()
 		enable_debugging()
 
 	// Right off the bat, load up the DB
@@ -301,7 +301,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
-		call(debug_server, "auxtools_shutdown")()
+		CALL_EXT(debug_server, "auxtools_shutdown")()
 	..()
 
 /world/proc/init_byond_tracy()
@@ -315,6 +315,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		else
 			CRASH("Unsupported platform: [system_type]")
 
-	var/init_result = call(library, "init")()
+	var/init_result = CALL_EXT(library, "init")()
 	if (init_result != "0")
 		CRASH("Error initializing byond-tracy: [init_result]")

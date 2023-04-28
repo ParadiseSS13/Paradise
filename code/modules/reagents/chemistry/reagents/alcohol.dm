@@ -1331,16 +1331,15 @@
 	generate_data_info(data)
 
 /datum/reagent/consumable/ethanol/fruit_wine/proc/generate_data_info(list/data)
-	var/minimum_percent = 0.15 //Percentages measured between 0 and 1.
 	var/list/primary_tastes = list()
 	var/list/secondary_tastes = list()
 	drink_name = "glass of [name]"
 	drink_desc = description
 	for(var/taste in tastes)
 		switch(tastes[taste])
-			if(minimum_percent*2 to INFINITY)
+			if(0.3 to INFINITY)
 				primary_tastes += taste
-			if(minimum_percent to minimum_percent*2)
+			if(0.15 to 0.3)
 				secondary_tastes += taste
 
 	var/minimum_name_percent = 0.35
