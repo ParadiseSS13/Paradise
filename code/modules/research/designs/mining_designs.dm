@@ -90,3 +90,13 @@
 	materials = list(MAT_TITANIUM = 8000, MAT_BLUESPACE = 1000, MAT_DIAMOND = 2000, )
 	build_path = /obj/item/gun/energy/kinetic_accelerator/experimental
 	category = list("Mining")
+
+/datum/design/f_rods
+	name = "Fireproof Rods"
+	desc = "Rods made of a complex heat-resistant alloy"
+	id = "firerods"
+	req_tech = list("materials" = 6, "engineering" = 3, "plasmatech" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500, MAT_TITANIUM = 1000)
+	build_path = /obj/item/stack/fireproof_rods
+	category = list("Mining")

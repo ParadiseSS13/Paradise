@@ -2,8 +2,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1, on_lattice = 1), \
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, one_per_turf = 1, on_floor = 1), \
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1), \
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1), \
 	null,
 	new /datum/stack_recipe_list("chainlink fence", list( \
 		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
@@ -81,3 +81,34 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/cyborg/update_icon()
 	return
+
+/obj/item/stack/fireproof_rods
+	name = "fireproof rods"
+	desc = "Жаропрочные стержни, способные выдержать жар в несколько тысяч градусов. Могут использоваться для строительства мостов над лавой."
+	singular_name = "fireproof rod"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "f_rods"
+	item_state = "f_rods"
+	flags = CONDUCT
+	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	force = 9.0
+	throwforce = 10.0
+	throw_speed = 3
+	throw_range = 7
+	max_amount = 50
+	attack_verb = list("hit", "bludgeoned", "whacked")
+	hitsound = 'sound/weapons/grenadelaunch.ogg'
+	toolspeed = 1
+	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/stack/fireproof_rods/update_icon()
+	var/amount = get_amount()
+	if((amount <= 5) && (amount > 0))
+		icon_state = "f_rods-[amount]"
+	else
+		icon_state = "f_rods"
+
+/obj/item/stack/fireproof_rods/Initialize(mapload)
+	. = ..()
+	update_icon()

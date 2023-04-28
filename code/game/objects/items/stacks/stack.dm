@@ -23,7 +23,6 @@
 	var/datum/robot_energy_storage/source
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
-	..()
 	if(new_amount != null)
 		amount = new_amount
 	while(amount > max_amount)
@@ -31,6 +30,7 @@
 		new type(loc, max_amount, FALSE)
 	if(!merge_type)
 		merge_type = type
+	..()
 	if(merge && !(amount >= max_amount))
 		for(var/obj/item/stack/S in loc)
 			if(S.merge_type == merge_type)

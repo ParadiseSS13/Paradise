@@ -115,7 +115,30 @@
 
 
 /turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
-	return
+	if(istype(C, /obj/item/stack/fireproof_rods))
+		var/obj/item/stack/fireproof_rods/R = C
+		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice, src)
+		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
+		if(W)
+			to_chat(user, "<span class='warning'>Здесь уже есть мостик!</span>")
+			return
+		if(!L)
+			if(R.use(1))
+				to_chat(user, "<span class='notice'>Вы установили прочную решётку.</span>")
+				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+				new /obj/structure/lattice/fireproof(src)
+			else
+				to_chat(user, "<span class='warning'>Вам нужен один огнеупорный стержень для постройки решётки.</span>")
+			return
+		if(L)
+			if(R.use(2))
+				qdel(L)
+				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+				to_chat(user, "<span class='notice'>Вы установили мостик.</span>")
+				new /obj/structure/lattice/catwalk/fireproof(src)
+		else
+			return
+	else return
 
 /turf/simulated/floor/plating/lava/screwdriver_act()
 	return

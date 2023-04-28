@@ -13,7 +13,8 @@
 	canSmoothWith = list(/obj/structure/lattice,
 						/turf/simulated/floor,
 						/turf/simulated/wall,
-						/obj/structure/falsewall)
+						/obj/structure/falsewall,
+						/obj/structure/lattice/fireproof)
 	smooth = SMOOTH_MORE
 
 /obj/structure/lattice/Initialize(mapload)
@@ -29,22 +30,23 @@
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
 
+/obj/structure/lattice/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	new /obj/item/stack/rods(get_turf(src), number_of_rods)
+	deconstruct()
+
+/obj/structure/lattice/catwalk/deconstruct()
+	var/turf/T = loc
+	for(var/obj/structure/cable/C in T)
+		C.deconstruct()
+	..()
+
 /obj/structure/lattice/attackby(obj/item/C, mob/user, params)
 	if(resistance_flags & INDESTRUCTIBLE)
 		return
-	if(istype(C, /obj/item/wirecutters))
-		var/obj/item/wirecutters/W = C
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>Slicing [name] joints...</span>")
-		deconstruct()
 	else
 		var/turf/T = get_turf(src)
 		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
-
-/obj/structure/lattice/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		new /obj/item/stack/rods(get_turf(src), number_of_rods)
-	qdel(src)
 
 /obj/structure/lattice/ratvar_act()
 	new /obj/structure/lattice/clockwork(loc)
@@ -108,12 +110,6 @@
 	var/turf/T = loc
 	for(var/obj/structure/cable/C in T)
 		C.deconstruct()
-	. = ..()
-
-/obj/structure/lattice/catwalk/deconstruct()
-	var/turf/T = loc
-	for(var/obj/structure/cable/C in T)
-		C.deconstruct()
 	..()
 
 /obj/structure/lattice/catwalk/ratvar_act()
@@ -146,3 +142,55 @@
 		pixel_x = 0
 		pixel_y = 0
 	return TRUE
+
+/obj/structure/lattice/fireproof
+	name = "fireproof lattice"
+	desc = "A lightweight support lattice made of heat-resistance alloy."
+	icon = 'icons/obj/smooth_structures/lattice_f.dmi'
+	icon_state = "lattice"
+	smooth = SMOOTH_TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	canSmoothWith = list(/obj/structure/lattice,
+						/turf/simulated/floor,
+						/turf/simulated/wall,
+						/obj/structure/falsewall,
+						/obj/structure/lattice/fireproof,
+						/obj/structure/lattice/catwalk/fireproof,
+						/turf/simulated/floor/plating)
+	armor = list("melee" = 70, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	max_integrity = 100
+
+/obj/structure/lattice/fireproof/wirecutter_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		return
+	to_chat(user, "<span class='notice'>Вы срезали усиленные прутья!</span>")
+	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
+	deconstruct()
+
+/obj/structure/lattice/catwalk/fireproof
+	name = "strong catwalk"
+	desc = "Усиленный мостик, способный выдерживать высокие температуры и сильные нагрузки."
+	icon_state = "catwalk"
+	armor = list("melee" = 70, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	max_integrity = 150
+	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
+	icon_state = "catwalk"
+	smooth = SMOOTH_TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	canSmoothWith = list(/turf/simulated/floor,
+						/turf/simulated/wall,
+						/obj/structure/falsewall,
+						/obj/structure/lattice/fireproof,
+						/obj/structure/lattice/catwalk/fireproof)
+	number_of_rods = 3
+
+/obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
+		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		return
+	to_chat(user, "<span class='notice'>Вы срезали усиленный мостик!</span>")
+	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
+	deconstruct()
