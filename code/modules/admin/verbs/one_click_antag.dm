@@ -301,7 +301,9 @@
 		return FALSE
 	// Time to set up our team structure
 	if(length(thunderdome_candidates) > max_thunderdome_players)
-		thunderdome_candidates.Cut(max_thunderdome_players)
+		thunderdome_candidates.Cut(max_thunderdome_players + 1)
+	if(ISODD(length(thunderdome_candidates))) // We want fair fights
+		pick_n_take(thunderdome_candidates)
 	for(var/mob/dead/observer/candidate_to_spawn in thunderdome_candidates)
 		if(!candidate_to_spawn || !candidate_to_spawn.key || !candidate_to_spawn.client)
 			continue
