@@ -4,7 +4,6 @@
 /mob/var/typing
 /mob/var/last_typed
 /mob/var/last_typed_time
-
 GLOBAL_LIST_EMPTY(typing_indicator)
 
 /**
@@ -12,23 +11,21 @@ GLOBAL_LIST_EMPTY(typing_indicator)
   *
   * Arguments:
   * * state - Should a chat bubble be shown or hidden
-  * * me - Is the bubble being caused by the 'me' emote command
   */
-/mob/proc/set_typing_indicator(state, me)
-
+/mob/proc/set_typing_indicator(state)
 	if(!GLOB.typing_indicator[bubble_icon])
 		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
 		var/image/I = GLOB.typing_indicator[bubble_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	if(ishuman(src) && !me)
+	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if((MUTE in H.mutations) || H.silent)
 			overlays -= GLOB.typing_indicator[bubble_icon]
 			return
 
 	if(client)
-		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) || (me && (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE)))
+		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
 			overlays -= GLOB.typing_indicator[bubble_icon]
 		else
 			if(state)
@@ -38,6 +35,26 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 			else
 				if(typing)
 					overlays -= GLOB.typing_indicator[bubble_icon]
+					typing = FALSE
+			return state
+
+/mob/proc/set_typing_emote_indicator(state)
+	if(!GLOB.typing_indicator[bubble_emote_icon])
+		GLOB.typing_indicator[bubble_emote_icon] = image('icons/mob/talk.dmi', null, "[bubble_emote_icon]typing", FLY_LAYER)
+		var/image/I = GLOB.typing_indicator[bubble_emote_icon]
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+	if(client)
+		if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE))
+			overlays -= GLOB.typing_indicator[bubble_emote_icon]
+		else
+			if(state)
+				if(!typing)
+					overlays += GLOB.typing_indicator[bubble_emote_icon]
+					typing = TRUE
+			else
+				if(typing)
+					overlays -= GLOB.typing_indicator[bubble_emote_icon]
 					typing = FALSE
 			return state
 
@@ -57,12 +74,11 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	set name = ".Me"
 	set hidden = 1
 
-
-	set_typing_indicator(TRUE, TRUE)
+	set_typing_emote_indicator(TRUE)
 	hud_typing = 1
 	var/message = typing_input(src, "", "me (text)")
 	hud_typing = 0
-	set_typing_indicator(FALSE)
+	set_typing_emote_indicator(FALSE)
 	if(message)
 		me_verb(message)
 
@@ -93,7 +109,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 			if(length(temp) > 5 && findtext(temp, "Say \"", 1, 7))
 				set_typing_indicator(TRUE)
 			else if(length(temp) > 3 && findtext(temp, "Me ", 1, 5))
-				set_typing_indicator(TRUE, TRUE)
+				set_typing_emote_indicator(TRUE, TRUE)
 
 			else
 				set_typing_indicator(FALSE)
