@@ -1096,8 +1096,8 @@
 /datum/tts_seed/silero/draven
 	name = "Draven"
 	value = "draven"
-	category = TTS_GENDER_MALE
-	gender = TTS_GENDER_ANY
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_MALE
 	donator_level = 1
 
 /datum/tts_seed/silero/qiyana
