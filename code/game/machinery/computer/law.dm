@@ -1,4 +1,4 @@
-#define EMAG_COOLDOWN 60 SECONDS
+#define AIUPLOAD_AIUPLOAD_EMAG_COOLDOWN 60 SECONDS
 
 /obj/machinery/computer/aiupload
 	name = "\improper AI upload console"
@@ -83,12 +83,12 @@
 	if(!length(current.laws.ion_laws))
 		if(prob(20))  // 20% chance to generate an ion law if none exists
 			current.add_ion_law(generate_ion_law())
-			cooldown = world.time + EMAG_COOLDOWN
+			cooldown = world.time + AIUPLOAD_EMAG_COOLDOWN
 			return TRUE
 	else //10% chance to overwrite a current ion
 		if(prob(10))
 			current.laws.ion_laws[1].law = emag_law
-			cooldown = world.time + EMAG_COOLDOWN
+			cooldown = world.time + AIUPLOAD_EMAG_COOLDOWN
 			log_and_message_admins("has given [current] the ion law: [current.laws.ion_laws[1].law].")
 			return TRUE
 		else
@@ -105,7 +105,7 @@
 	log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
 	current.show_laws()
 	alert_silicons()
-	cooldown = world.time + EMAG_COOLDOWN
+	cooldown = world.time + AIUPLOAD_AIUPLOAD_EMAG_COOLDOWN
 
 /// pushes an alert to the AI and its borgs about the law changes
 /obj/machinery/computer/aiupload/proc/alert_silicons()
@@ -134,7 +134,7 @@
 /obj/machinery/computer/aiupload/attack_ghost(user as mob)
 	return 1
 
-#undef EMAG_COOLDOWN
+#undef AIUPLOAD_EMAG_COOLDOWN
 
 // Why is this not a subtype
 /obj/machinery/computer/borgupload
