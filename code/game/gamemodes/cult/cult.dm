@@ -262,6 +262,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult -= cult_mind
 		cultist.faction -= "cult"
 		cult_mind.special_role = null
+		for(var/datum/objective/servecult/O in cult_mind.objectives)
+			cult_mind.objectives -= O
+			qdel(O)
 		for(var/datum/action/innate/cult/C in cultist.actions)
 			qdel(C)
 		update_cult_icons_removed(cult_mind)

@@ -271,6 +271,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	clockwork_cult -= clock_mind
 	clocker.faction -= "clockwork_cult"
 	clock_mind.special_role = null
+	for(var/datum/objective/serveclock/O in clock_mind.objectives)
+		clock_mind.objectives -= O
+		qdel(O)
 	for(var/datum/action/innate/clockwork/C in clocker.actions)
 		qdel(C)
 	update_clock_icons_removed(clock_mind)
