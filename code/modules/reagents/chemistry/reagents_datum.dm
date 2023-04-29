@@ -109,7 +109,7 @@
 	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
 	return STATUS_UPDATE_NONE
 
-/datum/reagent/proc/on_mob_od_life(mob/living/M) //We want to drain reagents but not do the entire mob life.
+/datum/reagent/proc/on_mob_overdose_life(mob/living/M) //We want to drain reagents but not do the entire mob life.
 	current_cycle++
 	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency // Cache it
 

@@ -337,7 +337,7 @@
 			if(!R.overdosed || R.allowed_overdose_process)
 				update_flags |= R.on_mob_life(M)
 			else
-				update_flags |= R.on_mob_od_life(M) //We want to drain reagents but not do the entire mob life.
+				update_flags |= R.on_mob_overdose_life(M) //We want to drain reagents but not do the entire mob life.
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = FALSE
 			if(R.overdosed)
