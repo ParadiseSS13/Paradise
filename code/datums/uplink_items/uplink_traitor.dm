@@ -123,7 +123,6 @@
 	item = /obj/item/caution/proximity_sign
 	cost = 2
 	job = list("Janitor")
-	surplus = 0
 
 //Virology
 
