@@ -75,7 +75,6 @@
 	foundlaws = length(current.laws.inherent_laws)
 	if(!emag_ion_check()) //creates an ion-like inherent law if the ion_laws arnt modified or added
 		emag_inherent_law()
-	return
 
 /// checks to see if an ion law is added or modified
 /obj/machinery/computer/aiupload/proc/emag_ion_check()
