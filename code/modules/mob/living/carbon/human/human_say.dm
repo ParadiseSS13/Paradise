@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
 		returns[1] = sound(pick(dna.species.speech_sounds))
 		returns[2] = 50
-		returns[3] = get_age_pitch()
+		returns[3] = get_age_pitch(dna.species.max_age)
 	return returns
 
 /mob/living/carbon/human/binarycheck()

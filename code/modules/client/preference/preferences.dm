@@ -197,7 +197,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<h2>Identity</h2>"
 			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[active_character.gender == MALE ? "Male" : (active_character.gender == FEMALE ? "Female" : "Genderless")]</a>"
 			dat += "<br>"
-			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[clamp(active_character.age, S.min_age, S.max_age)]</a><br>"
+			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[active_character.age]</a><br>"
 			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[active_character.species]</a><br>"
 			if(active_character.species == "Vox") // Purge these bastards

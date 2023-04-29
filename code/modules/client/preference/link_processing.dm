@@ -230,6 +230,7 @@
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
 						return
 					if(prev_species != active_character.species)
+						active_character.age = clamp(active_character.age, NS.min_age, NS.max_age)
 						if(NS.has_gender && active_character.gender == PLURAL)
 							active_character.gender = pick(MALE,FEMALE)
 						var/datum/robolimb/robohead
