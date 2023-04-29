@@ -1,4 +1,4 @@
-#define AIUPLOAD_AIUPLOAD_EMAG_COOLDOWN 60 SECONDS
+#define AIUPLOAD_EMAG_COOLDOWN 60 SECONDS
 
 /obj/machinery/computer/aiupload
 	name = "\improper AI upload console"
@@ -105,7 +105,7 @@
 	log_and_message_admins("has given [current] the emag'd inherent law: [current.laws.inherent_laws[lawposition].law].")
 	current.show_laws()
 	alert_silicons()
-	cooldown = world.time + AIUPLOAD_AIUPLOAD_EMAG_COOLDOWN
+	cooldown = world.time + AIUPLOAD_EMAG_COOLDOWN
 
 /// pushes an alert to the AI and its borgs about the law changes
 /obj/machinery/computer/aiupload/proc/alert_silicons()
