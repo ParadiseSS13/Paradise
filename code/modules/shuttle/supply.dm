@@ -113,7 +113,7 @@
 
 	var/plasma_count = 0
 	var/intel_count = 0
-	var/crate_count
+	var/crate_count = 0
 	var/total_crate_value = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
