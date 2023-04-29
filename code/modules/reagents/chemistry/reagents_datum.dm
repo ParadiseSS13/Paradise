@@ -28,7 +28,7 @@
 	var/addiction_stage = 1
 	var/last_addiction_dose = 0
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
-	///If this variable is true, chemicals will continue to process in mobs when overdosed.
+	/// If this variable is true, chemicals will continue to process in mobs when overdosed.
 	var/allowed_overdose_process = FALSE
 	var/current_cycle = 1
 	var/drink_icon = null
