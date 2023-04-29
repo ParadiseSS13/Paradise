@@ -34,8 +34,10 @@ jobs:
         username: ${{ secrets.PRODUCTION_USERNAME }}
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
-        script: >
-          sudo systemctl --wait start deploy-main;
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-main
+          journalctl --since $TIME -u deploy-main --no-pager
           systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-vega:
@@ -51,8 +53,10 @@ jobs:
         username: ${{ secrets.PRODUCTION_USERNAME }}
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
-        script: >
-          sudo systemctl --wait start deploy-vega;
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-vega
+          journalctl --since $TIME -u deploy-vega --no-pager
           systemctl is-failed deploy-vega | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-cleo:
@@ -68,8 +72,10 @@ jobs:
         username: ${{ secrets.PRODUCTION_USERNAME }}
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
-        script: >
-          sudo systemctl --wait start deploy-cleo;
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-cleo
+          journalctl --since $TIME -u deploy-cleo --no-pager
           systemctl is-failed deploy-cleo | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-prime:
@@ -85,8 +91,10 @@ jobs:
         username: ${{ secrets.PRODUCTION_USERNAME }}
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
-        script: >
-          sudo systemctl --wait start deploy-prime;
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-prime
+          journalctl --since $TIME -u deploy-prime --no-pager
           systemctl is-failed deploy-prime | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-wl:
@@ -102,8 +110,10 @@ jobs:
         username: ${{ secrets.PRODUCTION_USERNAME }}
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
-        script: >
-          sudo systemctl --wait start deploy-wl;
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-wl
+          journalctl --since $TIME -u deploy-wl --no-pager
           systemctl is-failed deploy-wl | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-tutorial:
@@ -119,8 +129,10 @@ jobs:
         username: ${{ secrets.PRODUCTION_USERNAME }}
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
-        script: >
-          sudo systemctl --wait start deploy-tutorial;
+        script: |
+          TIME=$(date +'%Y-%m-%d%T')
+          sudo systemctl --wait start deploy-tutorial
+          journalctl --since $TIME -u deploy-tutorial --no-pager
           systemctl is-failed deploy-tutorial | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   # deploy-test:
@@ -136,6 +148,8 @@ jobs:
   #       username: ${{ secrets.PRODUCTION_USERNAME }}
   #       key: ${{ secrets.PRODUCTION_SSH_KEY }}
   #       passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
-  #       script: >
-  #         sudo systemctl --wait start deploy-test;
+  #       script: |
+  #         TIME=$(date +'%Y-%m-%d%T')
+  #         sudo systemctl --wait start deploy-test
+  #         journalctl --since $TIME -u deploy-test --no-pager
   #         systemctl is-failed deploy-test | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
