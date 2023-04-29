@@ -580,7 +580,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/install_mmi/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		"<span class='warning'> [user]'s hand slips!</span>.",
+		"<span class='warning'> [user]'s hand slips!</span>",
 		"<span class='warning'> Your hand slips!</span>"
 	)
 	return SURGERY_STEP_RETRY

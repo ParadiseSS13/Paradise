@@ -26270,7 +26270,7 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_command,
 /obj/item/aicard,
-/obj/item/multitool,
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -46053,8 +46053,8 @@
 "cpd" = (
 /obj/structure/mopbucket/full,
 /obj/item/mop,
-/obj/item/caution/proximity_sign,
-/obj/item/caution/proximity_sign,
+/obj/item/caution,
+/obj/item/caution,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"

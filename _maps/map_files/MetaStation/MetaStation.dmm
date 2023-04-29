@@ -24464,12 +24464,12 @@
 	pixel_y = -3
 	},
 /obj/item/wrench,
-/obj/item/multitool,
 /obj/machinery/newscaster{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"

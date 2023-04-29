@@ -76,11 +76,11 @@
 	times_used = max(0, times_used) //sanity
 
 
-/obj/item/flash/proc/try_use_flash(mob/user = null)
+/obj/item/flash/proc/try_use_flash(mob/user)
 	if(broken)
 		return FALSE
 
-	if(cooldown >= world.time)
+	if(cooldown >= world.time && user)
 		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
 	cooldown = world.time + cooldown_duration

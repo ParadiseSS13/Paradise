@@ -1427,6 +1427,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/red
 	eprefix = "Red"
+	force_modules = list("Security", "Engineering", "Medical")
 	default_cell_type = /obj/item/stock_parts/cell/hyper
 
 /mob/living/silicon/robot/ert/gamma
