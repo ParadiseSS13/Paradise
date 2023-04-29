@@ -79,12 +79,25 @@
 	AddSpell(mimic_spell)
 	ambush_spell = new
 	AddSpell(ambush_spell)
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
+/**
+ * This proc enables or disables morph reproducing ability
+ *
+ * Arguments
+ * * boolean - TRUE = enabled, FALSE = disabled
+ */
+/mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
+	if(boolean)
+		can_reproduce = TRUE
+		AddSpell(new /obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
+	else
+		can_reproduce = FALSE
+		RemoveSpell(/obj/effect/proc_holder/spell/targeted/morph_spell/reproduce)
 
 /mob/living/simple_animal/hostile/morph/Stat(Name, Value)
 	..()
@@ -342,7 +355,7 @@
 
 
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(give_default_objectives = TRUE)
-	can_reproduce = TRUE
+	enable_reproduce(TRUE)
 	mind.assigned_role = SPECIAL_ROLE_MORPH
 	mind.special_role = SPECIAL_ROLE_MORPH
 	SSticker.mode.traitors |= mind
