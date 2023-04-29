@@ -215,7 +215,7 @@
 		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		available += head_accessory
-	var/list/sorted = sortTim(available, /proc/cmp_text_asc)
+	var/list/sorted = sortTim(available, GLOBAL_PROC_REF(cmp_text_asc))
 
 	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE, length(sorted))
 	if(headacc > 0 && headacc <= length(sorted))

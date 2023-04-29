@@ -53,7 +53,7 @@
 			to_chat(A, "<span class='danger'>Malicious program detected in the [english_list(areaName)] lighting and airlock control systems by [my_department].</span>")
 
 	else
-		stack_trace("Could not initate grey-tide. Unable to find suitable containment area.")
+		stack_trace("Could not initiate grey-tide. Unable to find suitable containment area.")
 		kill()
 
 /datum/event/prison_break/tick()
