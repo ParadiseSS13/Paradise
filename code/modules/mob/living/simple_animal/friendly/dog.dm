@@ -23,6 +23,7 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
+	mob_size = MOB_SIZE_HUMAN
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
 	var/growl_sound = list('sound/creatures/dog_grawl1.ogg','sound/creatures/dog_grawl2.ogg') //Used in emote.
