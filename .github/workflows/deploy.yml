@@ -7,11 +7,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  update-isp-lists:
+    name: Update ISP Lists
     runs-on: ubuntu-latest
 
     steps:
-    - name: Update and build all production servers
+      - name: Update ISP Lists
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USERNAME }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+          script: /var/lib/byond/update_isp_lists.sh
+
+  deploy-main:
+    name: Update and Build Paradise Main/Secondary
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists]
+
+    steps:
+    - name: Update and Build Paradise Main/Secondary
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.PRODUCTION_HOST }}
@@ -19,6 +35,107 @@ jobs:
         key: ${{ secrets.PRODUCTION_SSH_KEY }}
         passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
         script: >
-          sudo systemctl --wait start deploy-paradise;
-          systemctl is-failed deploy-paradise | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+          sudo systemctl --wait start deploy-main;
+          systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
+  deploy-vega:
+    name: Update and Build Paradise Vega
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists]
+
+    steps:
+    - name: Update and Build Paradise Vega
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: >
+          sudo systemctl --wait start deploy-vega;
+          systemctl is-failed deploy-vega | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-cleo:
+    name: Update and Build Paradise Cleo
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists]
+
+    steps:
+    - name: Update and Build Paradise Cleo
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: >
+          sudo systemctl --wait start deploy-cleo;
+          systemctl is-failed deploy-cleo | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-prime:
+    name: Update and Build Paradise Prime
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists]
+
+    steps:
+    - name: Update and Build Paradise Prime
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: >
+          sudo systemctl --wait start deploy-prime;
+          systemctl is-failed deploy-prime | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-wl:
+    name: Update and Build Paradise WL
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists]
+
+    steps:
+    - name: Update and Build Paradise WL
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: >
+          sudo systemctl --wait start deploy-wl;
+          systemctl is-failed deploy-wl | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  deploy-tutorial:
+    name: Update and Build Paradise Tutorial
+    runs-on: ubuntu-latest
+    needs: [update-isp-lists]
+
+    steps:
+    - name: Update and Build Paradise Tutorial
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+        script: >
+          sudo systemctl --wait start deploy-tutorial;
+          systemctl is-failed deploy-tutorial | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
+
+  # deploy-test:
+  #   name: Update and Build Paradise Test
+  #   runs-on: ubuntu-latest
+  #   needs: [update-isp-lists]
+
+  #   steps:
+  #   - name: Update and Build Paradise Test
+  #     uses: appleboy/ssh-action@master
+  #     with:
+  #       host: ${{ secrets.PRODUCTION_HOST }}
+  #       username: ${{ secrets.PRODUCTION_USERNAME }}
+  #       key: ${{ secrets.PRODUCTION_SSH_KEY }}
+  #       passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
+  #       script: >
+  #         sudo systemctl --wait start deploy-test;
+  #         systemctl is-failed deploy-test | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
