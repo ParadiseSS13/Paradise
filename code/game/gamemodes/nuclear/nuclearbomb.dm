@@ -37,7 +37,7 @@ GLOBAL_VAR(bomb_set)
 	var/r_code = "ADMIN"
 	/// Code entered by user
 	var/code
-	/// Is the most recently inputed code correct?
+	/// Is the most recently inputted code correct?
 	var/yes_code = FALSE
 	var/safety = TRUE
 	var/obj/item/disk/nuclear/auth = null
