@@ -46,7 +46,7 @@
 /obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(!istype(O, /obj/item/aiModule))
 		return ..()
-	if (!check_valid_selection())
+	if(!check_valid_selection())
 		return
 	if(!emagged) //non-emag law change
 		var/obj/item/aiModule/M = O
