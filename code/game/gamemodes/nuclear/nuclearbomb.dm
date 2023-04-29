@@ -139,10 +139,7 @@ GLOBAL_VAR(bomb_set)
 		if(NUKE_CORE_PANEL_UNWELDED)
 			. += "nukecore2"
 		if(NUKE_CORE_FULLY_EXPOSED)
-			if(core)
-				. += "nukecore3"
-			else
-				. += "nukecore4"
+			. += core ? "nukecore3" : "nukecore4"
 
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/disk/nuclear))
