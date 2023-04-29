@@ -190,8 +190,10 @@
 	return TRUE
 
 /datum/enchantment/proc/on_gain(obj/item/melee/spellblade, mob/living/user)
+	return
 
 /datum/enchantment/proc/toggle_traits(obj/item/I, mob/living/user)
+	return
 
 /datum/enchantment/lightning
 	name = "lightning"
