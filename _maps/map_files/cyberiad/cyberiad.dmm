@@ -3284,7 +3284,9 @@
 	},
 /area/security/hos)
 "akL" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -11094,7 +11096,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aBL" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "aBM" = (
@@ -16772,14 +16776,18 @@
 	},
 /area/crew_quarters/sleep)
 "aPM" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitegreencorner"
 	},
 /area/crew_quarters/sleep)
 "aPN" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -16890,7 +16898,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aQd" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreencorner"
@@ -18298,7 +18308,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/garden)
 "aTC" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /obj/machinery/camera{
 	c_tag = "Cryodorms";
 	dir = 4
@@ -19625,7 +19637,9 @@
 	},
 /area/security/nuke_storage)
 "aWz" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -20396,7 +20410,9 @@
 	},
 /area/medical/morgue)
 "aYs" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /obj/machinery/light_switch{
 	name = "south light switch";
 	pixel_y = -24

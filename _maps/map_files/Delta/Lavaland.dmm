@@ -431,7 +431,9 @@
 /area/mine/laborcamp)
 "bm" = (
 /obj/machinery/light/small,
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -1353,7 +1355,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "ed" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1454,7 +1458,9 @@
 	},
 /area/mine/living_quarters)
 "eq" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1948,7 +1954,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/necropolis)
 "gp" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
@@ -2052,7 +2060,9 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "gH" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /obj/structure/closet/walllocker/emerglocker/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

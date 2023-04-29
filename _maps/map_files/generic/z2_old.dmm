@@ -7,8 +7,8 @@
 	height = 9;
 	id = "backup_transit";
 	name = "backup in transit";
-	width = 9;
-	turf_type = /turf/space/transit/south
+	turf_type = /turf/space/transit/south;
+	width = 9
 	},
 /turf/space/transit/south{
 	icon_state = "speedspace_1"
@@ -33,8 +33,8 @@
 	height = 7;
 	id = "supply_transit";
 	name = "supply in transit";
-	width = 12;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 12
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -122,8 +122,8 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "ajr" = (
@@ -151,8 +151,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "akN" = (
@@ -165,16 +165,16 @@
 "alv" = (
 /obj/structure/decorative_structures/metal/statue/metal_angel,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "alW" = (
 /obj/structure/table/wood,
 /obj/item/storage/pill_bottle/dice,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "amx" = (
@@ -228,8 +228,8 @@
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "aqc" = (
@@ -244,8 +244,8 @@
 "aqE" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "aqH" = (
@@ -329,8 +329,8 @@
 "avw" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "avK" = (
@@ -508,8 +508,8 @@
 "aBv" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "aBX" = (
@@ -613,8 +613,8 @@
 /area/ninja/outpost)
 "aGp" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "aGy" = (
@@ -623,8 +623,8 @@
 	height = 4;
 	id = "pod1_transit";
 	name = "pod 1 in transit";
-	width = 3;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 3
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -661,8 +661,8 @@
 	pixel_y = -7
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "aHs" = (
@@ -671,8 +671,8 @@
 	height = 4;
 	id = "pod2_transit";
 	name = "pod 2 in transit";
-	width = 3;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 3
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -686,14 +686,14 @@
 /area/centcom/jail)
 "aHX" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/zone1)
 "aIN" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/zone1)
 "aIV" = (
@@ -748,8 +748,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "aKL" = (
@@ -767,8 +767,8 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "aLA" = (
@@ -848,16 +848,16 @@
 /area/ninja/holding)
 "aOd" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/zone1)
 "aOB" = (
 /obj/structure/rack/holorack,
 /obj/item/autoimplanter/old,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "aOV" = (
@@ -997,8 +997,8 @@
 "aSN" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "aSW" = (
@@ -1012,8 +1012,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "aTA" = (
@@ -1065,8 +1065,8 @@
 	id = "SOL"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "aVK" = (
@@ -1077,8 +1077,8 @@
 /area/holodeck/source_meetinghall)
 "aWd" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 9
+	dir = 9;
+	icon_state = "darkgreen"
 	},
 /area/centcom/zone1)
 "aWu" = (
@@ -1098,8 +1098,8 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "aXG" = (
@@ -1116,8 +1116,8 @@
 "aYx" = (
 /obj/structure/chair/comfy/beige,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "aYR" = (
@@ -1149,8 +1149,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "aZR" = (
@@ -1181,8 +1181,8 @@
 /area/centcom/zone1)
 "baI" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkpurplecorners";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurplecorners"
 	},
 /area/centcom/specops)
 "bbX" = (
@@ -1224,8 +1224,8 @@
 	},
 /obj/item/pen,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "beF" = (
@@ -1419,16 +1419,16 @@
 /obj/item/paper_bin,
 /obj/item/pen/multi/gold,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "bne" = (
 /obj/structure/bed,
 /obj/item/bedsheet/black,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "bnq" = (
@@ -1468,8 +1468,8 @@
 	pixel_x = 25
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 6
+	dir = 6;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "bpL" = (
@@ -1499,8 +1499,8 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "bqf" = (
@@ -1533,8 +1533,8 @@
 /area/ninja/outside)
 "bsn" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/specops)
 "bsp" = (
@@ -1545,8 +1545,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "bst" = (
@@ -1580,8 +1580,8 @@
 "bsQ" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "bsY" = (
@@ -1662,8 +1662,8 @@
 /obj/machinery/chem_dispenser/beer/upgraded,
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "bvY" = (
@@ -1744,8 +1744,8 @@
 /area/ninja/holding)
 "bAy" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/zone1)
 "bAQ" = (
@@ -1760,8 +1760,8 @@
 /area/space)
 "bBg" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/zone1)
 "bBn" = (
@@ -1806,14 +1806,14 @@
 /area/ninja/outpost)
 "bDt" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone1)
 "bDQ" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "bEx" = (
@@ -1917,8 +1917,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "bJR" = (
@@ -1974,14 +1974,14 @@
 	pixel_y = 27
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "bMW" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "bNp" = (
@@ -2088,8 +2088,8 @@
 "bQR" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "bRh" = (
@@ -2113,8 +2113,8 @@
 	height = 5;
 	id = "laborcamp_transit";
 	name = "labor in transit";
-	width = 9;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 9
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -2123,8 +2123,8 @@
 "bUG" = (
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "bVa" = (
@@ -2186,8 +2186,8 @@
 	opacity = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "bXF" = (
@@ -2196,16 +2196,16 @@
 	department = "Syndicate"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "bXY" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/radio/intercom/specops,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "bYr" = (
@@ -2224,8 +2224,8 @@
 "bZo" = (
 /obj/machinery/computer/scan_consolenew,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "bZG" = (
@@ -2233,8 +2233,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "bZL" = (
@@ -2280,8 +2280,8 @@
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/reagent_scanner/adv,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 6
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "cbA" = (
@@ -2327,8 +2327,8 @@
 "ccC" = (
 /obj/machinery/computer/shuttle/sst,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "ccE" = (
@@ -2378,8 +2378,8 @@
 "cdB" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "ceq" = (
@@ -2461,8 +2461,8 @@
 /area/ninja/outpost)
 "chH" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavybluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavybluecorner"
 	},
 /area/centcom/specops)
 "chW" = (
@@ -2492,8 +2492,8 @@
 /area/centcom/jail)
 "ckg" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 10
+	dir = 10;
+	icon_state = "darkgreen"
 	},
 /area/centcom/zone1)
 "ckB" = (
@@ -2511,8 +2511,8 @@
 	name = "Armory level 4"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "clq" = (
@@ -2540,15 +2540,15 @@
 /area/centcom/evac)
 "clx" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 6
+	dir = 6;
+	icon_state = "darkred"
 	},
 /area/centcom/zone1)
 "clX" = (
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "cmf" = (
@@ -2586,8 +2586,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "cnx" = (
@@ -2600,15 +2600,15 @@
 /obj/structure/table/wood/poker,
 /obj/item/dice/d20,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "coa" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "cok" = (
@@ -2669,8 +2669,8 @@
 /obj/item/documents/syndicate/yellow/trapped,
 /obj/item/documents/syndicate,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "crq" = (
@@ -2680,8 +2680,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/zone1)
 "cst" = (
@@ -2713,8 +2713,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/zone1)
 "ctP" = (
@@ -2808,7 +2808,9 @@
 	},
 /area/centcom/zone1)
 "cCk" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
@@ -2898,8 +2900,8 @@
 	pixel_y = -2
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "cDm" = (
@@ -2965,14 +2967,14 @@
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "cFi" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/bridge)
 "cFt" = (
@@ -3055,8 +3057,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "cHw" = (
@@ -3105,8 +3107,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "cId" = (
@@ -3138,8 +3140,8 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "cJn" = (
@@ -3268,8 +3270,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "cNh" = (
@@ -3302,8 +3304,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 10
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "cNX" = (
@@ -3377,8 +3379,8 @@
 /obj/item/reagent_containers/food/snacks/mashed_potatoes,
 /obj/item/reagent_containers/food/snacks/mashed_potatoes,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "cQL" = (
@@ -3404,8 +3406,8 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "cRS" = (
@@ -3450,8 +3452,8 @@
 	},
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "cVb" = (
@@ -3513,8 +3515,8 @@
 /obj/item/pizzabox,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "cXy" = (
@@ -3572,14 +3574,14 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "daG" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 5
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/centcom/bridge)
 "daV" = (
@@ -3611,8 +3613,8 @@
 /obj/structure/table/wood/poker,
 /obj/item/toy/cards/deck,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "dbl" = (
@@ -3789,8 +3791,8 @@
 	pixel_y = -7
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "djn" = (
@@ -3832,16 +3834,18 @@
 /area/ninja/outside)
 "dkl" = (
 /obj/machinery/light,
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
 /area/trader_station/sol)
 "dko" = (
 /turf/simulated/wall/indestructible{
+	color = "#91857C";
 	icon_state = "rock";
-	name = "rock";
-	color = "#91857C"
+	name = "rock"
 	},
 /area/space)
 "dks" = (
@@ -3859,8 +3863,8 @@
 	department = "Central Command"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "dli" = (
@@ -3878,8 +3882,8 @@
 /area/centcom/zone1)
 "dlm" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 6
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "dlx" = (
@@ -3887,8 +3891,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "dlU" = (
@@ -3964,8 +3968,8 @@
 	req_access = list(153)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "dnA" = (
@@ -4140,8 +4144,8 @@
 	id = "SOL"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "dxx" = (
@@ -4173,8 +4177,8 @@
 	req_access = list(153)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "dyv" = (
@@ -4287,8 +4291,8 @@
 	opacity = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "dBz" = (
@@ -4327,8 +4331,8 @@
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "dCo" = (
@@ -4375,8 +4379,8 @@
 "dCZ" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "dDe" = (
@@ -4394,8 +4398,8 @@
 /area/centcom/evac)
 "dEc" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkyellowcorners";
-	dir = 4
+	dir = 4;
+	icon_state = "darkyellowcorners"
 	},
 /area/centcom/specops)
 "dEq" = (
@@ -4633,8 +4637,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/jail)
 "dNa" = (
@@ -4693,8 +4697,8 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "dRt" = (
@@ -4707,8 +4711,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
 /area/ussp_ship)
 "dRv" = (
@@ -4801,8 +4805,8 @@
 	},
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "dVm" = (
@@ -4831,8 +4835,8 @@
 	tag = "icon-shower (EAST)"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "dWu" = (
@@ -4849,8 +4853,8 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "dWH" = (
@@ -4860,8 +4864,8 @@
 	pixel_x = -4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "dWZ" = (
@@ -4900,8 +4904,8 @@
 "dYk" = (
 /obj/structure/dresser,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "dYF" = (
@@ -4984,8 +4988,8 @@
 	name = "Bridge"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "eac" = (
@@ -4996,8 +5000,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 9
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "eak" = (
@@ -5181,8 +5185,8 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/mashed_potatoes,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "egq" = (
@@ -5239,8 +5243,8 @@
 /obj/machinery/light/spot,
 /obj/item/flag/syndi,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "ehx" = (
@@ -5255,8 +5259,8 @@
 	name = "TU-802"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "eiu" = (
@@ -5385,8 +5389,8 @@
 	pixel_x = 10
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "emj" = (
@@ -5409,9 +5413,9 @@
 /area/centcom/zone1)
 "ene" = (
 /turf/simulated/wall/shuttle{
+	dir = 1;
 	icon = 'icons/turf/shuttle/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 1
+	icon_state = "window5_end"
 	},
 /area/space)
 "enf" = (
@@ -5429,8 +5433,8 @@
 "eod" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "eoB" = (
@@ -5457,8 +5461,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "eqZ" = (
@@ -5507,8 +5511,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "esE" = (
@@ -5570,8 +5574,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "ewu" = (
@@ -5631,8 +5635,8 @@
 /obj/structure/closet/secure_closet/syndicate_officer,
 /obj/item/suppressor,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "ezi" = (
@@ -5695,8 +5699,8 @@
 "ezE" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "eAm" = (
@@ -5715,14 +5719,14 @@
 "eAI" = (
 /obj/mecha/combat/gygax/ert,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "eBL" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "eCq" = (
@@ -5764,8 +5768,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "eEL" = (
@@ -5793,8 +5797,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "eFg" = (
@@ -5890,8 +5894,8 @@
 /area/centcom/zone1)
 "eJk" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/specops)
 "eJo" = (
@@ -5932,8 +5936,8 @@
 	},
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "eKf" = (
@@ -5969,7 +5973,9 @@
 	},
 /area/centcom/jail)
 "eLm" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/carpet,
 /area/centcom/zone1)
 "eLL" = (
@@ -5991,8 +5997,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "eMx" = (
@@ -6145,8 +6151,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "ePM" = (
@@ -6158,8 +6164,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "eQm" = (
@@ -6290,8 +6296,8 @@
 	volume = 1500
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkpurple";
-	dir = 6
+	dir = 6;
+	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
 "eVl" = (
@@ -6349,8 +6355,8 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "eXh" = (
@@ -6396,8 +6402,8 @@
 /area/centcom/specops)
 "eZu" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "eZS" = (
@@ -6449,8 +6455,8 @@
 	name = "Акула?"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "fbv" = (
@@ -6529,8 +6535,8 @@
 	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "fcL" = (
@@ -6587,8 +6593,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "fdP" = (
@@ -6655,15 +6661,15 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fgt" = (
 /obj/machinery/sleeper/upgraded,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fgC" = (
@@ -6677,8 +6683,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fgT" = (
@@ -6745,8 +6751,8 @@
 "fjI" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "fjS" = (
@@ -6775,8 +6781,8 @@
 	},
 /obj/item/clothing/gloves/color/latex/nitrile,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fku" = (
@@ -6816,8 +6822,8 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "flI" = (
@@ -6837,8 +6843,8 @@
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "flR" = (
@@ -6855,8 +6861,8 @@
 /obj/item/storage/toolbox/surgery,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fmO" = (
@@ -6874,8 +6880,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "fnz" = (
@@ -6908,8 +6914,8 @@
 /obj/item/storage/box/beanbag,
 /obj/item/storage/box/beanbag,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "foN" = (
@@ -7020,8 +7026,8 @@
 	department = "Syndicate"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "fsd" = (
@@ -7095,8 +7101,8 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "fsI" = (
@@ -7139,8 +7145,8 @@
 /obj/item/clothing/glasses/thermal/sunglasses,
 /obj/item/clothing/glasses/thermal/sunglasses,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "fuq" = (
@@ -7264,8 +7270,8 @@
 /obj/structure/closet/secure_closet/medical2,
 /obj/machinery/light,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fyw" = (
@@ -7302,8 +7308,8 @@
 /obj/item/reagent_containers/iv_bag/blood/OPlus,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fzc" = (
@@ -7347,8 +7353,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "fBN" = (
@@ -7382,12 +7388,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fCu" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "darkfull"
 	},
@@ -7395,8 +7403,8 @@
 "fDh" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "fDj" = (
@@ -7407,8 +7415,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "fDK" = (
@@ -7484,8 +7492,8 @@
 	pixel_x = 10
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "fGG" = (
@@ -7520,8 +7528,8 @@
 "fHb" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "fHd" = (
@@ -7559,8 +7567,8 @@
 	name = "Launch Bay #3"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
+	icon_state = "catwalk";
 	name = "plating"
 	},
 /area/centcom/specops)
@@ -7590,8 +7598,8 @@
 	height = 5;
 	id = "sst_away";
 	name = "Syndicate Base";
-	width = 11;
-	turf_type = /turf/simulated/floor/indestructible/plating
+	turf_type = /turf/simulated/floor/indestructible/plating;
+	width = 11
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/syndicate_mothership)
@@ -7658,8 +7666,8 @@
 "fNO" = (
 /obj/structure/mineral_door/wood,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "fOf" = (
@@ -7721,8 +7729,8 @@
 /obj/item/gavelhammer,
 /obj/item/gavelblock,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "fRZ" = (
@@ -7837,8 +7845,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "fWB" = (
@@ -7982,8 +7990,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 6
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "gcS" = (
@@ -8086,8 +8094,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "ghO" = (
@@ -8195,8 +8203,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "glP" = (
@@ -8457,8 +8465,8 @@
 	name = "Arrivals Blastdoor"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitedelivery";
-	dir = 8
+	dir = 8;
+	icon_state = "whitedelivery"
 	},
 /area/centcom/evac)
 "gxP" = (
@@ -8508,8 +8516,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "gzA" = (
@@ -8520,8 +8528,8 @@
 /area/syndicate_mothership)
 "gAt" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
 	dir = 8;
+	icon_state = "vault";
 	name = "Operative position"
 	},
 /area/centcom/specops)
@@ -8540,8 +8548,8 @@
 "gAJ" = (
 /obj/machinery/photocopier/syndie,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "gAP" = (
@@ -8572,8 +8580,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "gCq" = (
@@ -8650,8 +8658,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "gDX" = (
@@ -8718,8 +8726,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "gGV" = (
@@ -8851,8 +8859,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "gKE" = (
@@ -8882,8 +8890,8 @@
 /obj/item/reagent_containers/iv_bag/blood/OPlus,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "gLu" = (
@@ -8926,8 +8934,8 @@
 	switchcount = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitecorner";
-	dir = 4
+	dir = 4;
+	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
 "gMh" = (
@@ -8967,8 +8975,8 @@
 /area/centcom/evac)
 "gMB" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 1
+	dir = 1;
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "gMQ" = (
@@ -9006,8 +9014,8 @@
 /obj/mecha/combat/marauder/loaded,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrownfull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrownfull"
 	},
 /area/centcom/specops)
 "gQd" = (
@@ -9036,8 +9044,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "gRt" = (
@@ -9089,8 +9097,8 @@
 /obj/machinery/chem_dispenser/soda/upgraded,
 /obj/structure/table/wood/poker,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "gTE" = (
@@ -9151,8 +9159,8 @@
 /area/shuttle/ninja)
 "gYA" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/jail)
 "gZh" = (
@@ -9176,8 +9184,8 @@
 /obj/item/candle/eternal,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "has" = (
@@ -9200,8 +9208,8 @@
 	height = 5;
 	id = "mining_transit";
 	name = "mining in transit";
-	width = 7;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 7
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -9375,8 +9383,8 @@
 "hfk" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "hfF" = (
@@ -9434,7 +9442,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/zone1)
 "hhZ" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1;
 	layer = 3.0
@@ -9676,8 +9686,8 @@
 	pixel_y = 25
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "hsH" = (
@@ -9761,8 +9771,8 @@
 /obj/item/storage/box/tranquilizer,
 /obj/item/storage/box/tranquilizer,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "huv" = (
@@ -9798,8 +9808,8 @@
 	height = 5;
 	id = "sit_transit";
 	name = "sit in transit";
-	width = 11;
-	turf_type = /turf/space/transit/south
+	turf_type = /turf/space/transit/south;
+	width = 11
 	},
 /turf/space/transit/south{
 	icon_state = "speedspace_1"
@@ -9851,8 +9861,8 @@
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "hxr" = (
@@ -9862,8 +9872,8 @@
 	height = 5;
 	id = "sst_transit";
 	name = "sst in transit";
-	width = 11;
-	turf_type = /turf/space/transit/south
+	turf_type = /turf/space/transit/south;
+	width = 11
 	},
 /turf/space/transit/south{
 	icon_state = "speedspace_1"
@@ -9878,8 +9888,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hyA" = (
@@ -9887,8 +9897,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "hyI" = (
@@ -9961,8 +9971,8 @@
 /obj/machinery/computer/message_monitor,
 /obj/item/paper/monitorkey,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "hBO" = (
@@ -9976,8 +9986,8 @@
 	},
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "hCF" = (
@@ -9995,8 +10005,8 @@
 	},
 /obj/machinery/computer/operating,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hCT" = (
@@ -10017,8 +10027,8 @@
 	layer = 2.8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hDv" = (
@@ -10064,8 +10074,8 @@
 	layer = 2.8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hGZ" = (
@@ -10257,8 +10267,8 @@
 	pixel_y = -6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "hLv" = (
@@ -10278,15 +10288,15 @@
 	switchcount = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "hLL" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hLQ" = (
@@ -10297,8 +10307,8 @@
 /area/centcom/zone2)
 "hMK" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/zone2)
 "hNx" = (
@@ -10320,8 +10330,8 @@
 	},
 /obj/machinery/optable,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hOU" = (
@@ -10344,15 +10354,15 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hPT" = (
 /obj/machinery/sleeper,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hQm" = (
@@ -10453,8 +10463,8 @@
 	},
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "hSg" = (
@@ -10503,8 +10513,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "hTB" = (
@@ -10576,8 +10586,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "hXo" = (
@@ -10618,8 +10628,8 @@
 /area/centcom/zone1)
 "hZx" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 5
+	dir = 5;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "hZZ" = (
@@ -10709,10 +10719,10 @@
 /area/ninja/outside)
 "igG" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	name = "Officer position";
+	color = "#CCCCCC";
 	dir = 8;
-	color = "#CCCCCC"
+	icon_state = "vault";
+	name = "Officer position"
 	},
 /area/centcom/jail)
 "igW" = (
@@ -10754,8 +10764,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "iiz" = (
@@ -10766,8 +10776,8 @@
 /area/syndicate_mothership)
 "ijb" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "ijg" = (
@@ -10848,8 +10858,8 @@
 "ila" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "ilE" = (
@@ -11036,8 +11046,8 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "irj" = (
@@ -11141,8 +11151,8 @@
 "isY" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "itg" = (
@@ -11152,8 +11162,8 @@
 /obj/item/ammo_box/magazine/tommygunm45,
 /obj/item/ammo_box/magazine/tommygunm45,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "iuh" = (
@@ -11175,8 +11185,8 @@
 "iuV" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "ivt" = (
@@ -11202,8 +11212,8 @@
 	operation_req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "ivP" = (
@@ -11276,8 +11286,8 @@
 /obj/item/storage/box/slug,
 /obj/item/storage/box/slug,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "ixm" = (
@@ -11402,8 +11412,8 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitecorner";
-	dir = 4
+	dir = 4;
+	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
 "iDt" = (
@@ -11449,8 +11459,8 @@
 	height = 7;
 	id = "steel_rain_transit";
 	name = "steel_rain in transit";
-	width = 7;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 7
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -11477,8 +11487,8 @@
 "iFw" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 9
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "iFB" = (
@@ -11531,15 +11541,15 @@
 "iGV" = (
 /obj/machinery/computer/mecha,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "iIJ" = (
 /obj/machinery/computer/robotics,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "iIT" = (
@@ -11548,15 +11558,15 @@
 	},
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "iIV" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 5
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "iJd" = (
@@ -11569,8 +11579,8 @@
 "iJh" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "iKj" = (
@@ -11667,8 +11677,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "iMD" = (
@@ -11733,8 +11743,8 @@
 "iPw" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "iPX" = (
@@ -11748,8 +11758,8 @@
 /obj/item/ammo_box/magazine/m50,
 /obj/item/ammo_box/magazine/m50,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "iQi" = (
@@ -11832,8 +11842,8 @@
 /area/ninja/outpost)
 "iTG" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "warnwhitered";
-	dir = 8
+	dir = 8;
+	icon_state = "warnwhitered"
 	},
 /area/centcom/zone1)
 "iTN" = (
@@ -11922,8 +11932,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "iXH" = (
@@ -11963,8 +11973,8 @@
 /area/ninja/outpost)
 "jaa" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "jat" = (
@@ -11976,8 +11986,8 @@
 "jaQ" = (
 /obj/structure/foodcart,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitecorner";
-	dir = 1
+	dir = 1;
+	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
 "jaU" = (
@@ -12059,8 +12069,8 @@
 	switchcount = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitecorner";
-	dir = 4
+	dir = 4;
+	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
 "jcY" = (
@@ -12073,15 +12083,15 @@
 "jej" = (
 /obj/structure/chair,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "jes" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "jeA" = (
@@ -12108,8 +12118,8 @@
 "jfD" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 1
+	dir = 1;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "jfH" = (
@@ -12127,8 +12137,8 @@
 	switchcount = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitecorner";
-	dir = 1
+	dir = 1;
+	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
 "jga" = (
@@ -12164,8 +12174,8 @@
 	department = "Central Command"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 9
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "jhs" = (
@@ -12186,8 +12196,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "jjA" = (
@@ -12217,8 +12227,8 @@
 "jkr" = (
 /obj/machinery/computer/operating,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 10
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "jkB" = (
@@ -12268,8 +12278,8 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "jkG" = (
@@ -12381,15 +12391,15 @@
 "joi" = (
 /obj/structure/chair/comfy/red,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/zone2)
 "jop" = (
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "joR" = (
@@ -12490,8 +12500,8 @@
 	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "jrE" = (
@@ -12513,27 +12523,27 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "jsp" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whitegreen";
-	dir = 8
+	dir = 8;
+	icon_state = "whitegreen"
 	},
 /area/centcom/zone1)
 "jtt" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 9
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "jty" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreycamo";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreycamo"
 	},
 /area/centcom/specops)
 "jtK" = (
@@ -12577,8 +12587,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "juo" = (
@@ -12767,8 +12777,8 @@
 	name = "Armory level 2"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "jBz" = (
@@ -12837,8 +12847,8 @@
 	height = 20;
 	id = "freegolem_transit";
 	name = "free golem in transit";
-	width = 16;
-	turf_type = /turf/space/transit/west
+	turf_type = /turf/space/transit/west;
+	width = 16
 	},
 /turf/space/transit/west{
 	icon_state = "speedspace_1"
@@ -12870,8 +12880,8 @@
 "jFy" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 9
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "jFD" = (
@@ -12966,8 +12976,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 5
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "jHs" = (
@@ -12998,8 +13008,8 @@
 	},
 /obj/item/stack/sheet/mineral/gold,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "jIJ" = (
@@ -13023,8 +13033,8 @@
 /obj/item/reagent_containers/food/snacks/grown/potato/wedges,
 /obj/item/reagent_containers/food/snacks/grown/potato/wedges,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "jJg" = (
@@ -13128,8 +13138,8 @@
 	desc = null
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "jNu" = (
@@ -13254,8 +13264,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkyellow";
-	dir = 10
+	dir = 10;
+	icon_state = "darkyellow"
 	},
 /area/centcom/specops)
 "jTh" = (
@@ -13324,8 +13334,8 @@
 /area/centcom/specops)
 "jVm" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/specops)
 "jVp" = (
@@ -13498,9 +13508,9 @@
 /area/centcom/specops)
 "kdb" = (
 /turf/simulated/wall/shuttle{
+	dir = 8;
 	icon = 'icons/turf/shuttle/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 8
+	icon_state = "window5_end"
 	},
 /area/space)
 "kdE" = (
@@ -13842,8 +13852,8 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "kqr" = (
@@ -13929,14 +13939,14 @@
 /area/centcom/zone1)
 "kvb" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whitegreen";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreen"
 	},
 /area/centcom/zone1)
 "kvK" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whitegreencorner";
-	dir = 1
+	dir = 1;
+	icon_state = "whitegreencorner"
 	},
 /area/centcom/zone1)
 "kvS" = (
@@ -13944,8 +13954,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "warnwhiteorange";
-	dir = 8
+	dir = 8;
+	icon_state = "warnwhiteorange"
 	},
 /area/centcom/evac)
 "kvU" = (
@@ -14001,8 +14011,8 @@
 /area/syndicate_mothership)
 "kwX" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "whitecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
 "kxa" = (
@@ -14138,8 +14148,8 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitecorner"
 	},
 /area/centcom/evac)
 "kBB" = (
@@ -14187,8 +14197,8 @@
 "kDo" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "kDp" = (
@@ -14213,8 +14223,8 @@
 "kEe" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/zone2)
 "kEs" = (
@@ -14316,8 +14326,8 @@
 /area/shuttle/ninja)
 "kHZ" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "kIf" = (
@@ -14376,8 +14386,8 @@
 	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "kLW" = (
@@ -14405,8 +14415,8 @@
 	pixel_y = -7
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "kMR" = (
@@ -14540,8 +14550,8 @@
 "kQS" = (
 /obj/machinery/computer/camera_advanced,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "kQX" = (
@@ -14845,8 +14855,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "kZR" = (
@@ -14877,8 +14887,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "lbQ" = (
@@ -14903,8 +14913,8 @@
 "ldk" = (
 /obj/machinery/computer/med_data,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "ldq" = (
@@ -14913,8 +14923,8 @@
 	},
 /obj/machinery/computer/card,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "ldx" = (
@@ -14929,8 +14939,8 @@
 	},
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "ldM" = (
@@ -14951,8 +14961,8 @@
 	volume = 1500
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkpurple";
-	dir = 10
+	dir = 10;
+	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
 "leJ" = (
@@ -15015,8 +15025,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "lfG" = (
@@ -15033,8 +15043,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "lgE" = (
@@ -15068,14 +15078,14 @@
 	layer = 2
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "lhq" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkpurple";
-	dir = 8
+	dir = 8;
+	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
 "lhB" = (
@@ -15086,8 +15096,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
 /area/ussp_ship)
 "lhP" = (
@@ -15142,8 +15152,8 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 5
+	dir = 5;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "lkJ" = (
@@ -15154,8 +15164,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "llk" = (
@@ -15192,8 +15202,8 @@
 /area/centcom/zone1)
 "lmp" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "lmq" = (
@@ -15208,8 +15218,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "lmC" = (
@@ -15777,8 +15787,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "lDs" = (
@@ -15811,8 +15821,8 @@
 	name = "Officer Room"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "lEF" = (
@@ -15848,7 +15858,9 @@
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "lFY" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1;
 	layer = 3.0
@@ -15908,8 +15920,8 @@
 	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "lHa" = (
@@ -15919,9 +15931,9 @@
 /area/shuttle/escape)
 "lHq" = (
 /turf/simulated/wall/shuttle{
+	dir = 4;
 	icon = 'icons/turf/shuttle/shuttle.dmi';
-	icon_state = "window5_mid";
-	dir = 4
+	icon_state = "window5_mid"
 	},
 /area/space)
 "lHA" = (
@@ -15977,20 +15989,20 @@
 "lKT" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 10
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "lLK" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/zone2)
 "lLT" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "lNy" = (
@@ -16025,8 +16037,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "lPi" = (
@@ -16043,8 +16055,8 @@
 "lPk" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrownfull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrownfull"
 	},
 /area/centcom/specops)
 "lPx" = (
@@ -16129,8 +16141,8 @@
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
 /obj/item/reagent_containers/food/drinks/bottle/holywater,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "lTx" = (
@@ -16151,8 +16163,8 @@
 /area/admin)
 "lUG" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "lUP" = (
@@ -16178,8 +16190,8 @@
 	height = 5;
 	id = "sit_away";
 	name = "Syndicate Base";
-	width = 11;
-	turf_type = /turf/simulated/floor/indestructible/plating
+	turf_type = /turf/simulated/floor/indestructible/plating;
+	width = 11
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/syndicate_mothership)
@@ -16198,8 +16210,8 @@
 "lWK" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "lWN" = (
@@ -16217,8 +16229,8 @@
 "lXf" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "lXh" = (
@@ -16278,8 +16290,8 @@
 	},
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 5
+	dir = 5;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "maH" = (
@@ -16290,8 +16302,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "mbn" = (
@@ -16311,15 +16323,15 @@
 "mbt" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mbF" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "mbN" = (
@@ -16351,8 +16363,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mcv" = (
@@ -16398,8 +16410,8 @@
 	},
 /obj/item/pen/multi/fountain,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mdi" = (
@@ -16444,8 +16456,8 @@
 	},
 /obj/item/pen/multi/fountain,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "meY" = (
@@ -16543,8 +16555,8 @@
 /obj/item/reagent_containers/applicator/dual,
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "mhA" = (
@@ -16590,8 +16602,8 @@
 	pixel_x = 3
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "miK" = (
@@ -16751,8 +16763,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "mnu" = (
@@ -16847,8 +16859,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "mrJ" = (
@@ -16876,8 +16888,8 @@
 /obj/structure/table/wood/fancy/black,
 /obj/item/storage/briefcase,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "msj" = (
@@ -16889,8 +16901,8 @@
 	},
 /obj/item/pen/multi/fountain,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "msU" = (
@@ -16910,8 +16922,8 @@
 	start_showpiece_type = /obj/item/gun/projectile/automatic/tommygun
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "mtJ" = (
@@ -16933,16 +16945,16 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mvA" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mvV" = (
@@ -16952,8 +16964,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mwa" = (
@@ -17014,8 +17026,8 @@
 /obj/structure/window/reinforced,
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mAx" = (
@@ -17077,8 +17089,8 @@
 /obj/structure/window/reinforced,
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mCJ" = (
@@ -17103,8 +17115,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "mDm" = (
@@ -17115,8 +17127,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "mDD" = (
@@ -17247,8 +17259,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "mGN" = (
@@ -17275,8 +17287,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/zone2)
 "mHZ" = (
@@ -17310,16 +17322,16 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "mIO" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/decorations/sticky_decorations/flammable/pot_of_gold,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "mJm" = (
@@ -17483,8 +17495,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "mRa" = (
@@ -17525,8 +17537,8 @@
 	name = "Комната отдыха"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "mTV" = (
@@ -17574,15 +17586,15 @@
 /area/centcom/jail)
 "mVv" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/zone2)
 "mVD" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
 /area/ussp_ship)
 "mVN" = (
@@ -17605,8 +17617,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "mWs" = (
@@ -17761,8 +17773,8 @@
 /area/centcom/zone2)
 "naR" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 8
+	dir = 8;
+	icon_state = "rampbottom"
 	},
 /area/centcom/zone1)
 "nbx" = (
@@ -18104,8 +18116,8 @@
 "nnr" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "nnH" = (
@@ -18122,8 +18134,8 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "noe" = (
@@ -18175,8 +18187,8 @@
 	pixel_y = 25
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "npV" = (
@@ -18191,8 +18203,8 @@
 /area/centcom/specops)
 "nqa" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "nqk" = (
@@ -18222,8 +18234,8 @@
 "nqO" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/zone2)
 "nri" = (
@@ -18414,8 +18426,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "nxP" = (
@@ -18472,14 +18484,14 @@
 	pixel_x = 13
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkpurple";
-	dir = 4
+	dir = 4;
+	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
 "nzf" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "nzi" = (
@@ -18580,8 +18592,8 @@
 /area/centcom/specops)
 "nEz" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "nFi" = (
@@ -18687,8 +18699,8 @@
 	req_access = list(110)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "nHi" = (
@@ -18754,9 +18766,9 @@
 /area/centcom/bridge)
 "nIF" = (
 /turf/simulated/wall/indestructible{
+	color = "#91857C";
 	icon_state = "rock";
-	name = "rock";
-	color = "#91857C"
+	name = "rock"
 	},
 /area/ninja/holding)
 "nIO" = (
@@ -18789,8 +18801,8 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "nKW" = (
@@ -18869,8 +18881,8 @@
 /obj/item/ammo_box/magazine/uzim9mm,
 /obj/item/ammo_box/magazine/uzim9mm,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "nLY" = (
@@ -18924,8 +18936,8 @@
 /obj/structure/table/wood/fancy/black,
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "nNz" = (
@@ -18940,8 +18952,8 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "nNN" = (
@@ -18951,8 +18963,8 @@
 	height = 15;
 	id = "admin_transit";
 	name = "admin in transit";
-	width = 18;
-	turf_type = /turf/space/transit/south
+	turf_type = /turf/space/transit/south;
+	width = 18
 	},
 /turf/space/transit/south{
 	icon_state = "speedspace_1"
@@ -19201,8 +19213,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "ody" = (
@@ -19212,8 +19224,8 @@
 	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "navyblue";
-	dir = 4
+	dir = 4;
+	icon_state = "navyblue"
 	},
 /area/centcom/specops)
 "odP" = (
@@ -19297,8 +19309,8 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "ofd" = (
@@ -19385,8 +19397,8 @@
 "oiI" = (
 /obj/structure/table/wood/fancy,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "ojC" = (
@@ -19424,8 +19436,8 @@
 	name = "Special Delivery from Central Command"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/supply)
 "omh" = (
@@ -19450,8 +19462,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "onh" = (
@@ -19465,8 +19477,8 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "oor" = (
@@ -19533,8 +19545,8 @@
 /area/centcom/zone2)
 "ouh" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 9
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "ouq" = (
@@ -19550,7 +19562,9 @@
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/ninja/outside)
 "ovq" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /obj/machinery/camera{
 	c_tag = "CentComm Black Ops Ready Room";
 	dir = 4;
@@ -19702,8 +19716,8 @@
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
 /obj/item/storage/backpack/duffel/syndie/ammo/shotgun,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "ozD" = (
@@ -19713,8 +19727,8 @@
 	height = 18;
 	id = "skipjack_transit";
 	name = "skipjack in transit";
-	width = 19;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 19
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -19787,8 +19801,8 @@
 "oCg" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "oCr" = (
@@ -19796,8 +19810,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "oCw" = (
@@ -19807,8 +19821,8 @@
 	pixel_x = 3
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "oCE" = (
@@ -19836,8 +19850,8 @@
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "oCZ" = (
@@ -19933,8 +19947,8 @@
 "oJr" = (
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "oKj" = (
@@ -19955,8 +19969,8 @@
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "oLz" = (
@@ -19975,8 +19989,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "oNb" = (
@@ -19990,8 +20004,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "oNP" = (
@@ -20116,8 +20130,8 @@
 /area/syndicate_mothership)
 "oTG" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 9
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "oTM" = (
@@ -20173,8 +20187,8 @@
 	},
 /obj/item/pen/multi/fountain,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "oWO" = (
@@ -20192,8 +20206,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "navyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "navyblue"
 	},
 /area/centcom/specops)
 "oXq" = (
@@ -20215,8 +20229,8 @@
 "oXT" = (
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "oYE" = (
@@ -20252,8 +20266,8 @@
 /obj/structure/table/wood/fancy/black,
 /obj/item/documents/nanotrasen,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pal" = (
@@ -20332,8 +20346,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pcd" = (
@@ -20469,8 +20483,8 @@
 	name = "beret"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pfs" = (
@@ -20494,15 +20508,15 @@
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/gloves/combat,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pfv" = (
 /obj/structure/piano,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "pfB" = (
@@ -20547,16 +20561,16 @@
 	},
 /obj/item/pen/multi/gold,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "phs" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/soda,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "phv" = (
@@ -20620,8 +20634,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "piw" = (
@@ -20635,8 +20649,8 @@
 /area/vox_station)
 "piH" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "piN" = (
@@ -20846,8 +20860,8 @@
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pon" = (
@@ -21006,8 +21020,8 @@
 	name = "jumpsuit"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "poJ" = (
@@ -21019,8 +21033,8 @@
 	name = "Armory level 3"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "ppb" = (
@@ -21161,8 +21175,8 @@
 "pvh" = (
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "pvQ" = (
@@ -21248,8 +21262,8 @@
 /area/syndicate_mothership)
 "pxG" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 6
+	dir = 6;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "pyu" = (
@@ -21260,8 +21274,8 @@
 "pyS" = (
 /obj/structure/table,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "pyW" = (
@@ -21307,8 +21321,8 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pAl" = (
@@ -21377,8 +21391,8 @@
 /obj/item/storage/belt/fannypack/black,
 /obj/item/storage/belt/fannypack/black,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pCb" = (
@@ -21447,8 +21461,8 @@
 	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pDS" = (
@@ -21471,8 +21485,8 @@
 	height = 13;
 	id = "emergency_transit";
 	name = "emergency in transit";
-	width = 24;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 24
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -21507,15 +21521,15 @@
 	layer = 2.8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "pHf" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "pHh" = (
@@ -21524,8 +21538,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "pHj" = (
@@ -21602,8 +21616,8 @@
 /obj/item/ammo_box/magazine/pistolm9mm,
 /obj/item/ammo_box/magazine/pistolm9mm,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "pJc" = (
@@ -21638,8 +21652,8 @@
 /area/holodeck/source_basketball)
 "pKK" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 6
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/centcom/bridge)
 "pKX" = (
@@ -21663,16 +21677,16 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pLz" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/storage/briefcase,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "pLE" = (
@@ -21684,8 +21698,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pLV" = (
@@ -21736,15 +21750,15 @@
 	name = "Dress shoes"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pMa" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "pMb" = (
@@ -21757,8 +21771,8 @@
 "pMo" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "pMu" = (
@@ -21786,29 +21800,29 @@
 "pNM" = (
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "pOd" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/clothing/accessory/medal/gold,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "pOM" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "pOT" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/centcom/ferry)
 "pPX" = (
@@ -21832,8 +21846,8 @@
 	pixel_x = -4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "pQj" = (
@@ -21904,15 +21918,15 @@
 "pSQ" = (
 /obj/machinery/computer/med_data,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "pTF" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "pUb" = (
@@ -21928,8 +21942,8 @@
 /obj/structure/table/wood/fancy/black,
 /obj/item/folder/blue,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "pVf" = (
@@ -21947,8 +21961,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pVo" = (
@@ -21973,8 +21987,8 @@
 "pWD" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrownfull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrownfull"
 	},
 /area/centcom/specops)
 "pXf" = (
@@ -22003,14 +22017,14 @@
 /obj/item/organ/internal/cyberimp/arm/toolset,
 /obj/item/organ/internal/cyberimp/arm/janitorial,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "pXI" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "pYa" = (
@@ -22280,8 +22294,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "qfK" = (
@@ -22291,8 +22305,8 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "qfQ" = (
@@ -22326,8 +22340,8 @@
 	pixel_x = -5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "qgZ" = (
@@ -22344,8 +22358,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "qhl" = (
@@ -22399,8 +22413,8 @@
 	pixel_y = -7
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "qjz" = (
@@ -22417,8 +22431,8 @@
 	height = 4;
 	id = "pod4_transit";
 	name = "pod 4 in transit";
-	width = 3;
-	turf_type = /turf/space/transit/east
+	turf_type = /turf/space/transit/east;
+	width = 3
 	},
 /turf/space/transit/east{
 	icon_state = "speedspace_1"
@@ -22433,8 +22447,8 @@
 	pixel_x = 3
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "qkb" = (
@@ -22498,8 +22512,8 @@
 /obj/item/radio/intercom,
 /obj/item/megaphone,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "qmQ" = (
@@ -22516,8 +22530,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "qny" = (
@@ -22578,8 +22592,8 @@
 /obj/machinery/computer/camera_advanced,
 /obj/machinery/light,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "qpU" = (
@@ -22610,8 +22624,8 @@
 	name = "Nuclear Operatives Shuttle Console"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "qqR" = (
@@ -22630,8 +22644,8 @@
 "qqY" = (
 /obj/item/flag/species/human,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "qrd" = (
@@ -22741,8 +22755,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/trader_station/sol)
 "qvI" = (
@@ -22841,8 +22855,8 @@
 	pixel_y = -7
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "qyL" = (
@@ -22869,8 +22883,8 @@
 /obj/item/paper_bin/nanotrasen,
 /obj/item/taperecorder,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "qyX" = (
@@ -22965,8 +22979,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "qBW" = (
@@ -23011,8 +23025,8 @@
 /area/centcom/zone2)
 "qDX" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavybluecorner";
-	dir = 1
+	dir = 1;
+	icon_state = "darkgreynavybluecorner"
 	},
 /area/centcom/specops)
 "qEK" = (
@@ -23060,8 +23074,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "qGO" = (
@@ -23111,15 +23125,15 @@
 /obj/item/reagent_containers/iv_bag/blood/OPlus,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "qJw" = (
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "qJE" = (
@@ -23167,9 +23181,9 @@
 /area/holodeck/source_knightarena)
 "qKJ" = (
 /turf/simulated/wall/shuttle{
+	dir = 4;
 	icon = 'icons/turf/shuttle/shuttle.dmi';
-	icon_state = "window5_end";
-	dir = 4
+	icon_state = "window5_end"
 	},
 /area/space)
 "qKY" = (
@@ -23203,8 +23217,8 @@
 "qMW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "qNb" = (
@@ -23246,8 +23260,8 @@
 /obj/item/ammo_box/magazine/mm556x45/bleeding,
 /obj/item/ammo_box/magazine/mm556x45,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/syndicate_mothership)
 "qOL" = (
@@ -23346,8 +23360,8 @@
 /obj/item/gun/energy/gun/pdw9,
 /obj/item/gun/energy/gun/pdw9,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "qTB" = (
@@ -23392,8 +23406,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "qUw" = (
@@ -23434,14 +23448,14 @@
 	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "qVA" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 9
+	dir = 9;
+	icon_state = "darkbrown"
 	},
 /area/centcom/ferry)
 "qWe" = (
@@ -23500,7 +23514,9 @@
 	},
 /area/centcom/zone3)
 "qYi" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -23535,8 +23551,8 @@
 	tag = "icon-bulb1 (WEST)"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "qZw" = (
@@ -23583,8 +23599,8 @@
 /area/centcom/court)
 "raO" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "raW" = (
@@ -23609,8 +23625,8 @@
 	req_access = list()
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "rci" = (
@@ -23679,8 +23695,8 @@
 	department = "Central Command"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "rfl" = (
@@ -23733,8 +23749,8 @@
 /area/centcom/specops)
 "rhd" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 4
+	dir = 4;
+	icon_state = "rampbottom"
 	},
 /area/ussp_ship)
 "rhk" = (
@@ -23764,8 +23780,8 @@
 /area/syndicate_mothership)
 "rje" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/zone2)
 "rjm" = (
@@ -23792,8 +23808,8 @@
 	name = "Assault Jaeger"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrownfull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrownfull"
 	},
 /area/centcom/specops)
 "rkr" = (
@@ -23864,8 +23880,8 @@
 	},
 /obj/item/melee/baseball_bat/homerun/central_command/srt,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "rmG" = (
@@ -23905,8 +23921,8 @@
 "rod" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "roP" = (
@@ -23915,8 +23931,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rpb" = (
@@ -23941,8 +23957,8 @@
 /area/ninja/holding)
 "rpv" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 5
+	dir = 5;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rpC" = (
@@ -23951,8 +23967,8 @@
 	},
 /obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "rqj" = (
@@ -24026,8 +24042,8 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 1
+	dir = 1;
+	icon_state = "vault"
 	},
 /area/centcom/srtops)
 "rqS" = (
@@ -24106,8 +24122,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rsE" = (
@@ -24118,8 +24134,8 @@
 	name = "Николай Степанченко"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "rsL" = (
@@ -24217,8 +24233,8 @@
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "rvG" = (
@@ -24230,8 +24246,8 @@
 "rwu" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rwE" = (
@@ -24249,8 +24265,8 @@
 "rwK" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rwX" = (
@@ -24302,8 +24318,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "rxX" = (
@@ -24337,8 +24353,8 @@
 /area/holodeck/source_knightarena)
 "ryN" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "ryQ" = (
@@ -24358,8 +24374,8 @@
 	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "rzl" = (
@@ -24377,8 +24393,8 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "rAb" = (
@@ -24401,8 +24417,8 @@
 "rBz" = (
 /obj/structure/dresser,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "rBD" = (
@@ -24481,8 +24497,8 @@
 	layer = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone2)
 "rEy" = (
@@ -24507,8 +24523,8 @@
 	layer = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
 "rFK" = (
@@ -24537,8 +24553,8 @@
 	level = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rFZ" = (
@@ -24641,8 +24657,8 @@
 	layer = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 10
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
 "rKK" = (
@@ -24680,8 +24696,8 @@
 /area/centcom/evac)
 "rMD" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 6
+	dir = 6;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rMK" = (
@@ -24693,8 +24709,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "rNa" = (
@@ -24721,8 +24737,8 @@
 	name = "TU-802"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "rNH" = (
@@ -24735,8 +24751,8 @@
 /area/centcom/jail)
 "rOi" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 10
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rOy" = (
@@ -24764,14 +24780,14 @@
 "rPX" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 10
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rQj" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "rQA" = (
@@ -24799,8 +24815,8 @@
 /obj/item/ammo_box/magazine/m12g/buckshot,
 /obj/item/ammo_box/magazine/m12g/buckshot,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "rQK" = (
@@ -24850,8 +24866,8 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "rRv" = (
@@ -24902,8 +24918,8 @@
 	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "rSz" = (
@@ -24939,14 +24955,14 @@
 	tag = ""
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "rTc" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "rUg" = (
@@ -25051,14 +25067,14 @@
 /area/centcom/jail)
 "rXl" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "rXt" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 8
+	dir = 8;
+	icon_state = "darkbrown"
 	},
 /area/centcom/ferry)
 "rYT" = (
@@ -25112,8 +25128,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "sao" = (
@@ -25140,8 +25156,8 @@
 /area/centcom/zone2)
 "sbx" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredcorners";
-	dir = 4
+	dir = 4;
+	icon_state = "darkredcorners"
 	},
 /area/centcom/zone3)
 "sbD" = (
@@ -25152,8 +25168,8 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "sca" = (
@@ -25164,8 +25180,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "scb" = (
@@ -25197,8 +25213,8 @@
 /obj/item/ammo_box/a40mm,
 /obj/item/ammo_box/a40mm,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "scl" = (
@@ -25234,8 +25250,8 @@
 	level = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "sdu" = (
@@ -25254,15 +25270,15 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "seJ" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "seX" = (
@@ -25282,8 +25298,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "sfT" = (
@@ -25298,8 +25314,8 @@
 	department = "Central Command"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "sgM" = (
@@ -25404,8 +25420,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "sjd" = (
@@ -25501,8 +25517,8 @@
 /area/syndicate_mothership)
 "slM" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/syndicate_mothership)
 "slS" = (
@@ -25622,8 +25638,8 @@
 /obj/item/ammo_box/a357,
 /obj/item/ammo_box/a357,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "spy" = (
@@ -25645,8 +25661,8 @@
 	req_access = list(111)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "navyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "navyblue"
 	},
 /area/centcom/blops)
 "spW" = (
@@ -25660,8 +25676,8 @@
 	layer = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone2)
 "sqc" = (
@@ -25691,8 +25707,8 @@
 	layer = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
 "sss" = (
@@ -25716,8 +25732,8 @@
 "ssS" = (
 /obj/machinery/computer/shuttle/sit,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "ssW" = (
@@ -25754,8 +25770,8 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "stD" = (
@@ -25781,8 +25797,8 @@
 /area/ussp_ship)
 "stT" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "rampbottom";
-	dir = 8
+	dir = 8;
+	icon_state = "rampbottom"
 	},
 /area/centcom/bridge)
 "svp" = (
@@ -25829,8 +25845,8 @@
 	level = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "swV" = (
@@ -25844,8 +25860,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
 "sxh" = (
@@ -25866,15 +25882,15 @@
 "sxL" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "syD" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "syH" = (
@@ -26077,8 +26093,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "sGv" = (
@@ -26112,8 +26128,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "sHO" = (
@@ -26125,14 +26141,14 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "sIa" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
+	icon_state = "catwalk";
 	name = "plating"
 	},
 /area/centcom/specops)
@@ -26157,8 +26173,8 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "sJq" = (
@@ -26237,8 +26253,8 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "sMH" = (
@@ -26314,8 +26330,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "sNE" = (
@@ -26416,8 +26432,8 @@
 	layer = 1000
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
 "sRV" = (
@@ -26451,8 +26467,8 @@
 	layer = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "sTG" = (
@@ -26543,8 +26559,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "sVv" = (
@@ -26590,21 +26606,23 @@
 /turf/simulated/wall/indestructible,
 /area/start)
 "sXn" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
 /area/centcom/blops)
 "sXw" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "warnwhiteorange";
-	dir = 8
+	dir = 8;
+	icon_state = "warnwhiteorange"
 	},
 /area/centcom/evac)
 "sYp" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 5
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "sZr" = (
@@ -26614,8 +26632,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "navyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "navyblue"
 	},
 /area/centcom/specops)
 "taf" = (
@@ -26628,14 +26646,14 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "tai" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "tar" = (
@@ -26643,8 +26661,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "tav" = (
@@ -26713,15 +26731,15 @@
 	pixel_y = -5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "thb" = (
 /obj/machinery/computer/card,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "tho" = (
@@ -26738,8 +26756,8 @@
 "thL" = (
 /obj/machinery/computer/crew,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "tiN" = (
@@ -26748,8 +26766,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "tiP" = (
@@ -26761,8 +26779,8 @@
 	},
 /obj/item/pen/multi/fountain,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "tjg" = (
@@ -26777,8 +26795,8 @@
 	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "tjE" = (
@@ -26812,8 +26830,8 @@
 /obj/item/folder/yellow,
 /obj/item/pen/multi/gold,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "tko" = (
@@ -26851,8 +26869,8 @@
 	},
 /obj/machinery/dna_scannernew,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "tlo" = (
@@ -26864,8 +26882,8 @@
 	amount = 10
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "tlV" = (
@@ -26876,8 +26894,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
 "tlX" = (
@@ -26937,8 +26955,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tnq" = (
@@ -26949,8 +26967,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 9
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone3)
 "tnx" = (
@@ -26969,8 +26987,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "toZ" = (
@@ -26998,8 +27016,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tqd" = (
@@ -27083,8 +27101,8 @@
 	info = "В крайнем случае, вызывайте коричневый код"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tub" = (
@@ -27159,15 +27177,15 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tvt" = (
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tvy" = (
@@ -27178,8 +27196,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "twG" = (
@@ -27190,8 +27208,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "txn" = (
@@ -27211,8 +27229,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tyk" = (
@@ -27227,15 +27245,15 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tyz" = (
 /obj/machinery/vending/cola/free,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tyB" = (
@@ -27272,8 +27290,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tEC" = (
@@ -27284,14 +27302,14 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tED" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 5
+	dir = 5;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "tEG" = (
@@ -27322,8 +27340,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tGb" = (
@@ -27367,8 +27385,8 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrownfull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrownfull"
 	},
 /area/centcom/specops)
 "tJH" = (
@@ -27377,8 +27395,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tJM" = (
@@ -27547,8 +27565,8 @@
 /area/centcom/specops)
 "tLQ" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "tLV" = (
@@ -27578,8 +27596,8 @@
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/ert_director,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "tNi" = (
@@ -27594,7 +27612,9 @@
 	},
 /area/holodeck/source_picnicarea)
 "tPp" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -27638,8 +27658,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "tRF" = (
@@ -27657,16 +27677,16 @@
 "tRW" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "tSy" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom/specops,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "tTw" = (
@@ -27687,8 +27707,8 @@
 /area/ussp_ship)
 "tUD" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavybluecorner";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreynavybluecorner"
 	},
 /area/centcom/specops)
 "tVF" = (
@@ -27717,8 +27737,8 @@
 "tWj" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "tWz" = (
@@ -27738,8 +27758,8 @@
 	name = "Armory level 2"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "tXx" = (
@@ -27749,8 +27769,8 @@
 	req_access = list(109)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "navyblue";
-	dir = 4
+	dir = 4;
+	icon_state = "navyblue"
 	},
 /area/centcom/specops)
 "tXH" = (
@@ -27763,8 +27783,8 @@
 	color = "#FFFFFF"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "tYg" = (
@@ -27861,8 +27881,8 @@
 /area/centcom/blops)
 "uaY" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "ubp" = (
@@ -27883,14 +27903,14 @@
 "ubv" = (
 /obj/machinery/syndiepad/admin/receivepad,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/syndicate_mothership)
 "ubS" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 9
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "udj" = (
@@ -27985,7 +28005,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom)
 "ugn" = (
-/obj/machinery/cryopod,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible/carpet,
 /area/centcom/zone1)
 "ugp" = (
@@ -28010,8 +28032,8 @@
 	pixel_x = -25
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "ugR" = (
@@ -28037,8 +28059,8 @@
 "uik" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "uil" = (
@@ -28046,8 +28068,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "uin" = (
@@ -28080,8 +28102,8 @@
 "uiW" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "uje" = (
@@ -28112,8 +28134,8 @@
 	name = "CC Requests Console"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "ujV" = (
@@ -28142,8 +28164,8 @@
 	pixel_y = 9
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "ujX" = (
@@ -28156,8 +28178,8 @@
 /obj/effect/landmark/commando_manual,
 /obj/effect/landmark/commando_manual,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "uku" = (
@@ -28234,8 +28256,8 @@
 "unC" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uom" = (
@@ -28243,8 +28265,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uoL" = (
@@ -28263,8 +28285,8 @@
 	name = "Supreme commander action figure"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "upL" = (
@@ -28430,8 +28452,8 @@
 /area/syndicate_mothership)
 "uvQ" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "uwv" = (
@@ -28553,8 +28575,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "uEN" = (
@@ -28569,8 +28591,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uFe" = (
@@ -28599,8 +28621,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uFB" = (
@@ -28755,8 +28777,8 @@
 "uMk" = (
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "uMJ" = (
@@ -28774,8 +28796,8 @@
 	name = "Special Reaction Team of Nanotrasen"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/srtops)
 "uNK" = (
@@ -28801,8 +28823,8 @@
 "uOr" = (
 /obj/machinery/computer/card/centcom,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uOx" = (
@@ -28811,8 +28833,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uPA" = (
@@ -28871,15 +28893,15 @@
 /obj/item/folder/yellow,
 /obj/item/pen/multi/gold,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uQw" = (
 /obj/machinery/syndiepad/admin/loadpad,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/syndicate_mothership)
 "uSb" = (
@@ -29052,8 +29074,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uYF" = (
@@ -29082,8 +29104,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "uZf" = (
@@ -29094,8 +29116,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uZr" = (
@@ -29103,8 +29125,8 @@
 /obj/item/book/manual/engineering_construction,
 /obj/item/book/manual/engineering_construction,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "uZF" = (
@@ -29145,8 +29167,8 @@
 /obj/structure/table/wood,
 /obj/item/whetstone,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "vaO" = (
@@ -29205,8 +29227,8 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "vdv" = (
@@ -29374,8 +29396,8 @@
 /obj/item/ammo_box/magazine/m10mm/hp,
 /obj/item/ammo_box/magazine/m10mm/hp,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "vfS" = (
@@ -29450,8 +29472,8 @@
 /obj/item/storage/box/rubbershot,
 /obj/item/storage/box/rubbershot,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "vjT" = (
@@ -29473,10 +29495,10 @@
 /area/admin)
 "vlp" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
+	color = "#CCCCCC";
 	dir = 8;
-	name = "Leader position";
-	color = "#CCCCCC"
+	icon_state = "vault";
+	name = "Leader position"
 	},
 /area/centcom/specops)
 "vlB" = (
@@ -29488,8 +29510,8 @@
 	name = "Armory level 3"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 4
+	dir = 4;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "vlY" = (
@@ -29547,8 +29569,8 @@
 /area/ninja/outpost)
 "vpr" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 1
+	dir = 1;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "vpF" = (
@@ -29600,8 +29622,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "vrp" = (
@@ -29619,8 +29641,8 @@
 	height = 35;
 	id = "whiteship_transit";
 	name = "whiteship in transit";
-	width = 21;
-	turf_type = /turf/space/transit/east
+	turf_type = /turf/space/transit/east;
+	width = 21
 	},
 /turf/space/transit/east{
 	icon_state = "speedspace_1"
@@ -29696,8 +29718,8 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/CQC_manual,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "vvD" = (
@@ -29740,8 +29762,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/centcom/zone2)
 "vxE" = (
@@ -29827,8 +29849,8 @@
 /area/vox_station)
 "vzH" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/specops)
 "vzU" = (
@@ -29895,8 +29917,8 @@
 "vCX" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "vDb" = (
@@ -29910,8 +29932,8 @@
 "vDc" = (
 /obj/item/flag/nt,
 /turf/simulated/floor/indestructible{
-	icon_state = "floor";
-	dir = 1
+	dir = 1;
+	icon_state = "floor"
 	},
 /area/centcom/evac)
 "vDe" = (
@@ -29933,8 +29955,8 @@
 	height = 5;
 	id = "ruins_civil_shuttle_transit";
 	name = "Regular Civilian Shuttle in transit";
-	width = 8;
-	turf_type = /turf/space/transit/south
+	turf_type = /turf/space/transit/south;
+	width = 8
 	},
 /turf/space/transit/south{
 	icon_state = "speedspace_1"
@@ -29960,8 +29982,8 @@
 /area/syndicate_mothership)
 "vEg" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
 	dir = 8;
+	icon_state = "vault";
 	name = "Operative position"
 	},
 /area/centcom/srtops)
@@ -29996,8 +30018,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/jail)
 "vFd" = (
@@ -30055,8 +30077,8 @@
 "vGJ" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "vGX" = (
@@ -30141,8 +30163,8 @@
 	name = "TU-802"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "vIp" = (
@@ -30215,7 +30237,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/zone1)
 "vKY" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "grimy"
 	},
@@ -30268,8 +30292,8 @@
 /obj/item/clothing/shoes/combat,
 /obj/item/clothing/shoes/combat,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "vLF" = (
@@ -30286,8 +30310,8 @@
 "vLT" = (
 /obj/effect/landmark/marauder_exit,
 /turf/simulated/floor/indestructible{
-	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
+	icon_state = "catwalk";
 	name = "plating"
 	},
 /area/centcom/specops)
@@ -30296,8 +30320,8 @@
 	name = "statue of THE Supreme Commander"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "vMK" = (
@@ -30331,8 +30355,8 @@
 	name = "Supreme judge gloves"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "vMT" = (
@@ -30399,8 +30423,8 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "vPf" = (
@@ -30408,8 +30432,8 @@
 /area/space)
 "vPR" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 10
+	dir = 10;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "vQj" = (
@@ -30433,8 +30457,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "vSa" = (
@@ -30448,8 +30472,8 @@
 /area/syndicate_mothership)
 "vTj" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 5
+	dir = 5;
+	icon_state = "darkred"
 	},
 /area/centcom/zone1)
 "vTl" = (
@@ -30466,8 +30490,8 @@
 /area/centcom/blops)
 "vTv" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "vTC" = (
@@ -30511,14 +30535,14 @@
 "vUT" = (
 /obj/machinery/computer/pod/deathsquad,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 1
+	dir = 1;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "vVh" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "vVu" = (
@@ -30538,8 +30562,8 @@
 	name = "Admin Accounts Database"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "vWR" = (
@@ -30560,7 +30584,9 @@
 	},
 /area/shuttle/gamma/space)
 "vXj" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -30618,8 +30644,8 @@
 "waa" = (
 /obj/machinery/computer/shuttle/ert,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "wai" = (
@@ -30686,8 +30712,8 @@
 /area/admin)
 "wbG" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrownfull";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrownfull"
 	},
 /area/centcom/specops)
 "wbY" = (
@@ -30713,8 +30739,8 @@
 	name = "Master R&amp;D Server Controller"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "wdp" = (
@@ -30733,8 +30759,8 @@
 "wdT" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 9
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "wed" = (
@@ -30779,8 +30805,8 @@
 	network = list("ERT","CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 10
+	dir = 10;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "wfy" = (
@@ -30848,8 +30874,8 @@
 	name = "Armory level 4"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "whE" = (
@@ -30887,14 +30913,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluefull";
-	dir = 4
+	dir = 4;
+	icon_state = "darkbluefull"
 	},
 /area/centcom/specops)
 "wjl" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "wkc" = (
@@ -30935,8 +30961,8 @@
 /area/centcom/jail)
 "wll" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "wmH" = (
@@ -30969,8 +30995,8 @@
 	operation_req_access = list()
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/supply)
 "wpd" = (
@@ -30995,8 +31021,8 @@
 	opacity = 0
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "wpN" = (
@@ -31032,8 +31058,8 @@
 	operation_req_access = list()
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/supply)
 "wqo" = (
@@ -31061,14 +31087,14 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "wqy" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "wqz" = (
@@ -31186,14 +31212,14 @@
 	color = "#000000"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "wua" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "darkyellow"
 	},
 /area/centcom/specops)
 "wuj" = (
@@ -31202,8 +31228,8 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "wuw" = (
@@ -31223,8 +31249,8 @@
 /obj/structure/table/wood,
 /obj/item/storage/box/ids,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "wvR" = (
@@ -31249,10 +31275,10 @@
 /area/centcom/zone2)
 "wwf" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
+	color = "#CCCCCC";
 	dir = 8;
-	name = "Leader position";
-	color = "#CCCCCC"
+	icon_state = "vault";
+	name = "Leader position"
 	},
 /area/centcom/srtops)
 "wwk" = (
@@ -31260,8 +31286,8 @@
 	color = "#FFFFFF"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/court)
 "wxl" = (
@@ -31432,15 +31458,15 @@
 /obj/structure/table/wood/fancy/black,
 /obj/item/radio/intercom/specops,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone2)
 "wAv" = (
 /obj/mecha/combat/durand/loaded,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/supply)
 "wAw" = (
@@ -31485,8 +31511,8 @@
 	height = 4;
 	id = "pod3_transit";
 	name = "pod 3 in transit";
-	width = 3;
-	turf_type = /turf/space/transit/east
+	turf_type = /turf/space/transit/east;
+	width = 3
 	},
 /turf/space/transit/east{
 	icon_state = "speedspace_1"
@@ -31664,8 +31690,8 @@
 	pixel_y = 10
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/specops)
 "wIx" = (
@@ -31689,8 +31715,8 @@
 	department = "Central Command"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/srtops)
 "wJe" = (
@@ -31780,8 +31806,8 @@
 	name = "Launch Bay #0"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
+	icon_state = "catwalk";
 	name = "plating"
 	},
 /area/centcom/specops)
@@ -32055,15 +32081,15 @@
 "wVM" = (
 /obj/mecha/medical/odysseus,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/supply)
 "wWC" = (
 /obj/mecha/combat/phazon,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/supply)
 "wWX" = (
@@ -32088,8 +32114,8 @@
 /obj/machinery/light,
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "wYg" = (
@@ -32200,8 +32226,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "whitehall";
-	dir = 4
+	dir = 4;
+	icon_state = "whitehall"
 	},
 /area/centcom/evac)
 "xbG" = (
@@ -32235,8 +32261,8 @@
 	pixel_y = -7
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "xcj" = (
@@ -32245,8 +32271,8 @@
 	name = "bedsheet"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "xcs" = (
@@ -32336,8 +32362,8 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "xia" = (
@@ -32368,8 +32394,8 @@
 	height = 5;
 	id = "ruins_transport_shuttle_transit";
 	name = "Transport Shuttle in transit";
-	width = 8;
-	turf_type = /turf/space/transit/north
+	turf_type = /turf/space/transit/north;
+	width = 8
 	},
 /turf/space/transit/north{
 	icon_state = "speedspace_1"
@@ -32407,8 +32433,8 @@
 /obj/item/storage/bible,
 /obj/structure/table/wood,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "xlW" = (
@@ -32505,8 +32531,8 @@
 "xnY" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "xoc" = (
@@ -32581,8 +32607,8 @@
 /area/ninja/outpost)
 "xqL" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 5
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/centcom/jail)
 "xqQ" = (
@@ -32594,14 +32620,14 @@
 /area/ninja/outside)
 "xqX" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 4
+	dir = 4;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "xrQ" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreen";
-	dir = 10
+	dir = 10;
+	icon_state = "darkgreen"
 	},
 /area/centcom/specops)
 "xrZ" = (
@@ -32617,8 +32643,8 @@
 /area/syndicate_mothership)
 "xse" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 9
+	dir = 9;
+	icon_state = "darkred"
 	},
 /area/centcom/jail)
 "xso" = (
@@ -32654,8 +32680,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "xtF" = (
@@ -32826,8 +32852,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "xCr" = (
@@ -32839,8 +32865,8 @@
 	pixel_x = -30
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreynavyblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
 "xCC" = (
@@ -32861,8 +32887,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 8
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/centcom/specops)
 "xDo" = (
@@ -32913,8 +32939,8 @@
 	tag = "icon-tube1 (EAST)"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "xEt" = (
@@ -33013,8 +33039,8 @@
 	height = 22;
 	id = "syndicate_transit";
 	name = "syndicate in transit";
-	width = 18;
-	turf_type = /turf/space/transit/south
+	turf_type = /turf/space/transit/south;
+	width = 18
 	},
 /turf/space/transit/south{
 	icon_state = "speedspace_1"
@@ -33022,9 +33048,9 @@
 /area/space)
 "xHb" = (
 /turf/simulated/floor/indestructible{
+	dir = 8;
 	icon_state = "vault";
-	name = "Prisoner position";
-	dir = 8
+	name = "Prisoner position"
 	},
 /area/centcom/jail)
 "xHJ" = (
@@ -33040,8 +33066,8 @@
 	req_access = list(113)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/bridge)
 "xIK" = (
@@ -33121,8 +33147,8 @@
 	name = "Launch Bay #2"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
+	icon_state = "catwalk";
 	name = "plating"
 	},
 /area/centcom/specops)
@@ -33134,8 +33160,8 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/centcom/zone1)
 "xLl" = (
@@ -33274,8 +33300,8 @@
 /area/centcom/supply)
 "xPm" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 8
+	dir = 8;
+	icon_state = "darkred"
 	},
 /area/centcom/jail)
 "xPw" = (
@@ -33292,7 +33318,9 @@
 	},
 /area/holodeck/source_knightarena)
 "xQD" = (
-/obj/machinery/cryopod/right,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -33304,8 +33332,8 @@
 	name = "Launch Bay #1"
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "catwalk";
 	icon = 'icons/obj/smooth_structures/catwalk.dmi';
+	icon_state = "catwalk";
 	name = "plating"
 	},
 /area/centcom/specops)
@@ -33334,8 +33362,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/jail)
 "xUq" = (
@@ -33361,8 +33389,8 @@
 	network = list("CentComm")
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/centcom/specops)
 "xWx" = (
@@ -33397,8 +33425,8 @@
 /area/admin)
 "xXr" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
 "xXA" = (
@@ -33442,8 +33470,8 @@
 	height = 20;
 	id = "ombra_transit";
 	name = "Ombra in transit";
-	width = 9;
-	turf_type = /turf/space/transit/south
+	turf_type = /turf/space/transit/south;
+	width = 9
 	},
 /turf/space/transit/south{
 	icon_state = "speedspace_1"
@@ -33484,8 +33512,8 @@
 /obj/item/storage/briefcase/inflatable,
 /obj/item/storage/briefcase/inflatable,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkpurple";
-	dir = 1
+	dir = 1;
+	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
 "xZm" = (
@@ -33496,8 +33524,8 @@
 /area/ninja/outpost)
 "xZq" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/zone1)
 "xZI" = (
@@ -33506,8 +33534,8 @@
 	},
 /obj/effect/landmark/syndicate_officer,
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/syndicate_mothership)
 "xZJ" = (
@@ -33552,8 +33580,8 @@
 	req_access = list(114)
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkgreenfull";
-	dir = 8
+	dir = 8;
+	icon_state = "darkgreenfull"
 	},
 /area/centcom/specops)
 "ybJ" = (
@@ -33581,8 +33609,8 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkpurple";
-	dir = 5
+	dir = 5;
+	icon_state = "darkpurple"
 	},
 /area/centcom/specops)
 "ydp" = (
@@ -33648,8 +33676,8 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 1
+	dir = 1;
+	icon_state = "darkred"
 	},
 /area/centcom/zone3)
 "yeD" = (
@@ -33733,8 +33761,8 @@
 /obj/item/ammo_box/magazine/mm556x45/ap,
 /obj/item/ammo_box/magazine/mm556x45/ap,
 /turf/simulated/floor/indestructible{
-	icon_state = "vault";
-	dir = 8
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/ussp_ship)
 "ygj" = (
@@ -33784,8 +33812,8 @@
 	throw_range = 6
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "carpet";
-	icon = 'icons/turf/floors/carpet_black.dmi'
+	icon = 'icons/turf/floors/carpet_black.dmi';
+	icon_state = "carpet"
 	},
 /area/ussp_ship)
 "ygH" = (
@@ -33807,8 +33835,8 @@
 /obj/item/storage/box/buck,
 /obj/item/storage/box/buck,
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredfull";
-	dir = 9
+	dir = 9;
+	icon_state = "darkredfull"
 	},
 /area/centcom/specops)
 "ygK" = (
@@ -33913,8 +33941,8 @@
 	switchcount = 50
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "white";
-	dir = 8
+	dir = 8;
+	icon_state = "white"
 	},
 /area/centcom/evac)
 "yhI" = (
@@ -33935,8 +33963,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbluecorners";
-	dir = 1
+	dir = 1;
+	icon_state = "darkbluecorners"
 	},
 /area/centcom/jail)
 "yix" = (
@@ -33988,8 +34016,8 @@
 /area/centcom/zone1)
 "yjg" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkblue";
-	dir = 6
+	dir = 6;
+	icon_state = "darkblue"
 	},
 /area/centcom/jail)
 "yjh" = (
@@ -34011,8 +34039,8 @@
 /area/syndicate_mothership)
 "ykd" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkred";
-	dir = 10
+	dir = 10;
+	icon_state = "darkred"
 	},
 /area/centcom/jail)
 "ykm" = (
@@ -34035,8 +34063,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/indestructible{
-	icon_state = "darkredcorners";
-	dir = 4
+	dir = 4;
+	icon_state = "darkredcorners"
 	},
 /area/centcom/jail)
 "ykO" = (
@@ -34051,8 +34079,8 @@
 /area/ninja/outpost)
 "ylb" = (
 /turf/simulated/floor/indestructible{
-	icon_state = "darkbrown";
-	dir = 9
+	dir = 9;
+	icon_state = "darkbrown"
 	},
 /area/centcom/specops)
 "ylm" = (

@@ -208,13 +208,13 @@
 	name = "cryogenic freezer"
 	desc = "A man-sized pod for entering suspended animation."
 	icon = 'icons/obj/machines/cryogenic2.dmi'
-	icon_state = "body_scanner_0"
-	density = 1
-	anchored = 1
+	icon_state = "bodyscanner-open"
+	density = TRUE
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
-	var/base_icon_state = "body_scanner_0"
-	var/occupied_icon_state = "body_scanner_1"
+	var/base_icon_state = "bodyscanner-open"
+	var/occupied_icon_state = "bodyscanner"
 	var/on_store_message = "помещен в криохранилище."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
@@ -264,10 +264,6 @@
 	var/list/do_not_preserve_items = list (
 		/obj/item/mmi/robotic_brain
 	)
-
-/obj/machinery/cryopod/right
-	orient_right = 1
-	icon_state = "body_scanner_0-r"
 
 //////
 //Syndie cryopod.
