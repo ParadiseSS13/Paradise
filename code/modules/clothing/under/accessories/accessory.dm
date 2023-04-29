@@ -53,7 +53,7 @@
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
 	src.add_fingerprint(user)
 
-/obj/item/clothing/accessory/proc/on_removed(mob/user)
+/obj/item/clothing/accessory/proc/on_removed(mob/user, obj/item/clothing/under/S)
 	if(!has_suit)
 		return
 	has_suit.overlays -= inv_overlay
