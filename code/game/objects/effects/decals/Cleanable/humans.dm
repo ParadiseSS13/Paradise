@@ -22,7 +22,6 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	var/dry_timer = 0
 	var/off_floor = FALSE
 	var/weightless_icon = 'icons/effects/blood_weightless.dmi'
-	var/gravity_check = TRUE
 	var/image/weightless_image
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)

@@ -147,7 +147,7 @@
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
 	no_clear = TRUE
 	scoop_reagents = list("vomit" = 5)
-	var/gravity_check = TRUE
+
 
 /obj/effect/decal/cleanable/vomit/Initialize(mapload)
 	. = ..()
@@ -175,14 +175,14 @@
 /obj/effect/decal/cleanable/vomit/proc/splat(atom/A)
 	if(!gravity_check)
 		var/turf/T = get_turf(A)
-		forceMove(get_turf(src))
+		forceMove(T)
 		icon = initial(icon)
 		gravity_check = TRUE
 		layer = initial(layer)
 		plane = initial(plane)
 		animate(src)
 
-/obj/effect/decal/cleanable/vomit/replace_decal(obj/effect/decal/cleanable/C)
+/obj/effect/decal/cleanable/vomit/replace_decal(obj/effect/decal/cleanable/vomit/C)
 	. = ..()
 	if(C == src || C.gravity_check != gravity_check)
 		return FALSE
