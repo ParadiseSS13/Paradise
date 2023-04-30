@@ -48,6 +48,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 			animate_float(src, -1, rand(30,120))
 		else
 			animate_levitate(src,-1,rand(30,120))
+		update_icon()
 		return
 
 /obj/effect/decal/cleanable/blood/Initialize(mapload)
@@ -129,8 +130,6 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	B.blood_DNA = blood_DNA
 	B.update_icon()
 	qdel(src)
-	spawn(10 SECONDS)
-		message_admins("[B] --> @ x:[B.x], y:[B.y], z:[B.z]")
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)
 	if(has_gravity(src))

@@ -456,6 +456,8 @@
 		for(var/obj/effect/decal/cleanable/blood/B in A)
 			if(!B.gravity_check)
 				B.splat(get_turf(B))
+		for(var/obj/effect/decal/cleanable/vomit/V in A)
+			V.splat(V)
 
 /area/proc/thunk(mob/living/carbon/human/M)
 	if(!istype(M)) // Rather not have non-humans get hit with a THUNK
