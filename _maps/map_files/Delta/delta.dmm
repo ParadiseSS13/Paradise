@@ -126520,6 +126520,7 @@
 "xjj" = (
 /obj/structure/table,
 /obj/item/paper/deltainfo,
+/obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
