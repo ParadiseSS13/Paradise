@@ -28,6 +28,7 @@
 		new_pirate.forceMove(location)
 
 		customize_pirate(new_pirate)
+		equip_pirate(new_pirate)
 
 		if(SSticker.mode)
 			SSticker.mode.pirates += new_pirate.mind
@@ -56,6 +57,10 @@
 	pirate.body_accessory = null
 	pirate.regenerate_icons()
 	pirate.update_body()
+
+/datum/event/pirates/proc/greet_pirate(pirate)
+	to_chat(pirate, "<b>You are a space pirate, defend the data sipon at all cost and avoid leaving the ship.</b>")
+	to_chat(pirate, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Ash_Walker)</span>")
 
 
 /datum/event/pirates/proc/equip_pirate(mob/living/carbon/human/pirate, uplink_uses = 20)
