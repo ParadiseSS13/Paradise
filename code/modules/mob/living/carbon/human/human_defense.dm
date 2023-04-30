@@ -495,7 +495,7 @@ emp_act
 			bloody = 1
 			var/turf/location = loc
 			if(issimulatedturf(location))
-				add_splatter_floor(location)
+				add_splatter_floor(location, emittor_intertia=inertia_next_move > world.time ? dir : null)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
 				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood

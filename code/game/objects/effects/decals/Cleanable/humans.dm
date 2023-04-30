@@ -21,9 +21,13 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	var/amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
-
+	var/weightless_icon = 'icons/effects/blood_weightless.dmi'
+	var/gravity_check = TRUE
+	var/image/weightless_image
 
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
+	if(C == src || C.gravity_check != gravity_check)
+		return FALSE
 	if(C.blood_DNA)
 		blood_DNA |= C.blood_DNA.Copy()
 	if(bloodiness)
@@ -31,12 +35,34 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 			C.bloodiness += bloodiness
 	return ..()
 
+/obj/effect/decal/cleanable/blood/New(loc, do_check=TRUE)
+	..()
+	var/turf/T = get_turf(loc)
+	gravity_check = do_check ? has_gravity(src, T) : TRUE
+	if(get_turf(src) != loc)
+		forceMove(loc)
+	if(!gravity_check)
+		layer = MOB_LAYER
+		plane = GAME_PLANE
+		if(prob(50))
+			animate_float(src, -1, rand(30,120))
+		else
+			animate_levitate(src,-1,rand(30,120))
+		return
 
 /obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
+	var/turf/T = get_turf(loc)
+	weightless_image = new()
 	update_icon()
-	if(type == /obj/effect/decal/cleanable/blood/gibs)
+
+	if(T ? T.density || locate(/obj/structure/window/) in T : FALSE)
+		layer = ABOVE_WINDOW_LAYER
+		plane = GAME_PLANE
+
+	if(type == /obj/effect/decal/cleanable/blood/gibs || !gravity_check)
 		return
+
 	if(!.)
 		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
@@ -49,6 +75,17 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(basecolor == "rainbow")
 		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	color = basecolor
+
+	if(!gravity_check)
+		if(weightless_image.icon_state)
+			icon_state = weightless_image.icon_state
+		overlays -= weightless_image
+		color = "#FFFFFF"
+		icon = weightless_icon
+		weightless_image = image(weightless_icon, icon_state)
+		icon_state = "empty"
+		weightless_image.icon += basecolor
+		overlays += weightless_image
 	..()
 
 /obj/effect/decal/cleanable/blood/proc/dry()
@@ -56,6 +93,89 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	desc = drydesc
 	color = adjust_brightness(color, -50)
 	amount = 0
+
+/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
+	. = ..()
+	if(ishuman(O) && !gravity_check)
+		var/mob/living/carbon/human/H = O
+		var/list/obj/item/things_to_potentially_bloody = list()
+		var/count = amount + 1
+
+		for(var/obj/item/i in H.contents)
+			things_to_potentially_bloody |= i
+
+		if(length(things_to_potentially_bloody))
+			for(var/i in 1 to count)
+				things_to_potentially_bloody[rand(1, length(things_to_potentially_bloody))].add_blood(blood_DNA, basecolor)
+				count--
+				if(!count)
+					break
+		else
+			splat(get_turf(O))
+
+		qdel(src)
+
+/obj/effect/decal/cleanable/blood/proc/splat(atom/AT)
+	if(gravity_check) //only floating blood can splat :C
+		return
+	var/obj/effect/decal/cleanable/blood/B
+	var/turf/T = get_turf(AT)
+	if(!amount)
+		B = new /obj/effect/decal/cleanable/blood/drip(T, FALSE)
+	else
+		B = new /obj/effect/decal/cleanable/blood/splatter(T, FALSE)
+	B.amount = amount
+	B.basecolor = basecolor
+	B.blood_DNA = blood_DNA
+	B.update_icon()
+	qdel(src)
+	spawn(10 SECONDS)
+		message_admins("[B] --> @ x:[B.x], y:[B.y], z:[B.z]")
+
+/obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)
+	if(has_gravity(src))
+		if(!gravity_check)
+			splat(get_step(src, movement_dir))
+		return 1
+
+	if(pulledby && !pulledby.pulling)
+		return 1
+
+	if(throwing)
+		return 1
+
+	return 0
+
+
+/obj/effect/decal/cleanable/blood/Bump(atom/A, yes)
+	if(gravity_check)
+		return ..()
+	if(iswallturf(A) || istype(A, /obj/structure/window))
+		splat(A)
+		return
+	else if(A.density)
+		splat(get_turf(A))
+		return
+
+	..()
+
+	if(ishuman(A))
+		var/mob/living/carbon/human/H = A
+		var/list/obj/item/things_to_potentially_bloody = list()
+		var/count = amount + 1
+
+		for(var/obj/item/i in H.contents)
+			things_to_potentially_bloody |= i
+
+		for(var/i in 1 to count)
+			things_to_potentially_bloody[rand(1, length(things_to_potentially_bloody))].add_blood(blood_DNA, basecolor)
+			count--
+			if(!count)
+				break
+
+		qdel(src)
+		return
+
 
 /obj/effect/decal/cleanable/blood/attack_hand(mob/living/carbon/human/user)
 	..()

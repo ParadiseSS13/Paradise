@@ -453,6 +453,9 @@
 	if(gravitystate)
 		for(var/mob/living/carbon/human/M in A)
 			thunk(M)
+		for(var/obj/effect/decal/cleanable/blood/B in A)
+			if(!B.gravity_check)
+				B.splat(get_turf(B))
 
 /area/proc/thunk(mob/living/carbon/human/M)
 	if(!istype(M)) // Rather not have non-humans get hit with a THUNK
