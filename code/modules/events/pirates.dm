@@ -56,3 +56,28 @@
 	pirate.body_accessory = null
 	pirate.regenerate_icons()
 	pirate.update_body()
+
+
+/datum/event/pirates/proc/equip_pirate(mob/living/carbon/human/pirate, uplink_uses = 20)
+	var/radio_freq = SYND_FREQ
+
+	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(pirate)
+	R.set_frequency(radio_freq)
+	pirate.equip_to_slot_or_del(R, slot_l_ear)
+
+	pirate.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(pirate), slot_w_uniform)
+	pirate.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(pirate), slot_shoes)
+	pirate.equip_or_collect(new /obj/item/clothing/gloves/combat(pirate), slot_gloves)
+	pirate.equip_to_slot_or_del(new /obj/item/card/id/syndicate(pirate), slot_wear_id)
+	pirate.equip_to_slot_or_del(new /obj/item/storage/backpack(pirate), slot_back)
+	pirate.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(pirate), slot_belt)
+	pirate.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(pirate.back), slot_in_backpack)
+	pirate.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(pirate), slot_wear_pda)
+	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(pirate)
+	U.hidden_uplink.uplink_owner="[pirate.key]"
+	U.hidden_uplink.uses = uplink_uses
+	pirate.equip_to_slot_or_del(U, slot_in_backpack)
+
+	synd_mob.faction |= "syndicate"
+	synd_mob.update_icons()
+	return 1
