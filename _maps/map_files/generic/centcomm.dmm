@@ -1257,7 +1257,9 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_boxingcourt)
 "eS" = (
-/mob/living/simple_animal/parrot,
+/mob/living/simple_animal/parrot{
+	faction = list("syndicate")
+	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/carpet/black,
 /area/shuttle/pirate)
@@ -1389,7 +1391,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate{
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -1658,6 +1660,9 @@
 	dir = 4
 	},
 /area/space)
+"gg" = (
+/turf/space,
+/area/shuttle/pirate)
 "gh" = (
 /turf/simulated/wall/indestructible/opsglass,
 /area/centcom)
@@ -4010,6 +4015,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"nn" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
+	dir = 4
+	},
+/turf/simulated/floor,
+/area/shuttle/pirate)
 "no" = (
 /obj/item/mop,
 /obj/structure/mirror/magic/nuclear{
@@ -6847,6 +6858,18 @@
 /obj/item/storage/bag/money/vault,
 /turf/simulated/floor/redgrid,
 /area/shuttle/pirate)
+"wO" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	height = 35;
+	id = "pirate_transit";
+	name = "pirate in transit";
+	width = 16
+	},
+/turf/space/transit/horizontal{
+	dir = 4
+	},
+/area/space)
 "wR" = (
 /obj/structure/rack,
 /obj/item/gun/energy/kinetic_accelerator/crossbow,
@@ -6980,6 +7003,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"xh" = (
+/obj/machinery/computer/data_syphon,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/pirate)
 "xk" = (
 /obj/machinery/r_n_d/server/centcom,
 /turf/simulated/floor/plasteel,
@@ -7026,20 +7053,24 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/pirate)
 "xu" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_int";
-	locked = 1;
-	name = "Ship External Access";
-	req_access_txt = "150"
-	},
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
-	dir = 2;
-	name = "pirate shuttle"
+	dir = 8;
+	name = "pirate shuttle";
+	id = "pirate_away";
+	height = 35;
+	width = 16
 	},
 /obj/docking_port/mobile{
-	dir = 2;
-	name = "pirate shuttle"
+	dir = 8;
+	name = "pirate shuttle";
+	id = "pirate";
+	width = 15;
+	height = 35
+	},
+/obj/machinery/door/airlock/external{
+	id_tag = "syndicate_away";
+	req_access_txt = "150"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/pirate)
@@ -8852,6 +8883,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
+"Ft" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/pirate)
 "Fu" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "admin_away";
@@ -11196,7 +11233,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/shuttle/syndicate{
+/obj/machinery/computer/shuttle/syndicate/pirate{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -11455,13 +11492,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "Oo" = (
+/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
-	id_tag = "syndishuttle_door_int";
-	locked = 1;
-	name = "Ship External Access";
+	id_tag = "syndicate_away";
 	req_access_txt = "150"
 	},
-/obj/structure/fans/tiny,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/pirate)
 "Op" = (
@@ -11944,7 +11979,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "PT" = (
-/obj/machinery/suit_storage_unit/syndicate/secure,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/carpet/black,
 /area/shuttle/pirate)
 "PU" = (
@@ -12859,9 +12894,10 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "TD" = (
-/obj/structure/closet/syndicate/personal,
-/turf/simulated/floor/carpet/black,
-/area/shuttle/pirate)
+/obj/structure/chair/stool,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/syndicate_mothership)
 "TF" = (
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 4;
@@ -35037,7 +35073,7 @@ aq
 aq
 aq
 aq
-aq
+wO
 aq
 aq
 aq
@@ -67041,7 +67077,7 @@ nh
 Ix
 Ix
 ut
-CL
+nn
 cX
 Ix
 Ix
@@ -67298,7 +67334,7 @@ yN
 Ga
 JZ
 zr
-YJ
+CL
 UC
 UC
 rw
@@ -67555,7 +67591,7 @@ Nt
 BS
 BS
 BS
-BS
+YJ
 BS
 BS
 BS
@@ -68326,7 +68362,7 @@ yW
 BS
 BS
 IJ
-IJ
+xh
 IJ
 BS
 BS
@@ -68568,7 +68604,7 @@ pS
 pS
 pS
 pS
-RQ
+UP
 aN
 aN
 aN
@@ -70875,7 +70911,7 @@ Ml
 Ml
 fF
 Bi
-LA
+TD
 sO
 Bi
 ED
@@ -72680,7 +72716,7 @@ pS
 pS
 pS
 pS
-RQ
+UP
 RQ
 aN
 aN
@@ -72696,7 +72732,7 @@ BS
 eS
 Td
 Am
-TD
+PT
 PT
 BS
 mJ
@@ -73985,7 +74021,7 @@ IJ
 IJ
 dm
 yC
-IJ
+Ft
 BS
 aN
 aN
@@ -74229,14 +74265,14 @@ aN
 aN
 aN
 aN
-aN
+Db
 aN
 BS
 BS
 BS
 BS
 sJ
-sJ
+gg
 Pq
 sJ
 sJ
@@ -74245,7 +74281,7 @@ BS
 BS
 BS
 aN
-aN
+Db
 ED
 aN
 aN
@@ -74487,21 +74523,21 @@ aN
 aN
 aN
 aN
-Db
-aN
-ss
-BS
-ss
-aN
-aN
-aN
 aN
 aN
 ss
 BS
 ss
 aN
-Db
+aN
+aN
+aN
+aN
+ss
+BS
+ss
+aN
+aN
 aN
 ED
 aN

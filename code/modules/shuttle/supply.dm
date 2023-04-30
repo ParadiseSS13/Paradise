@@ -9,7 +9,7 @@
 	width = 12
 	dwidth = 5
 	height = 7
-	var/obj/machinery/data_syphon/active_syphon
+	var/obj/machinery/computer/data_syphon/active_syphon
 
 /obj/docking_port/mobile/supply/register()
 	if(!..())

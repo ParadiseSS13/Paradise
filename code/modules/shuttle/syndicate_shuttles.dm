@@ -112,3 +112,21 @@
 	name = "vox skipjack console"
 	req_access = list(ACCESS_VOX)
 	possible_destinations = "admin_home;admin_custom"
+
+/obj/machinery/computer/shuttle/syndicate/pirate
+	name = "pirate shuttle terminal"
+	icon_screen = "syndishuttle"
+	icon_keyboard = "syndie_key"
+	req_access = list(ACCESS_SYNDICATE)
+	bubble_icon = "syndibot"
+	circuit = /obj/item/circuitboard/shuttle/syndicate
+	shuttleId = "pirate"
+	possible_destinations = "pirate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;pirate_custom"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags = NODECONSTRUCT
+
+/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate
+	name = "pirate shuttle navigation computer"
+	desc = "Used to designate a precise transit location for the pirate shuttle."
+	shuttleId = "pirate"
+	shuttlePortId = "pirate_custom"

@@ -1,8 +1,9 @@
-/obj/machinery/data_syphon
+/obj/machinery/computer/data_syphon
 	name = "data syphon"
 	desc = "!!Placeholder!!"
 	anchored = TRUE
 	density = TRUE
+	icon_screen = "pirate"
 
 	/// Has the syphon been activated?
 	var/active = FALSE
@@ -15,12 +16,12 @@
 	/// The amount by which the siphon rate increases at each interval
 	var/siphon_rate_increase = 1
 
-/obj/machinery/data_syphon/Destroy()
+/obj/machinery/computer/data_syphon/Destroy()
 	SSshuttle.supply.active_syphon = null
 	deactivate_syphon()
 	return ..()
 
-/obj/machinery/data_syphon/interact(mob/user)
+/obj/machinery/computer/data_syphon/interact(mob/user)
 	if(active)
 		drop_loot(user)
 		return
@@ -34,7 +35,7 @@
 	update_appearance()
 	send_notification()
 
-/obj/machinery/data_syphon/proc/activate_syphon(mob/user)
+/obj/machinery/computer/data_syphon/proc/activate_syphon(mob/user)
 	to_chat(user, "<span class='notice'>You enable [src].</span>")
 	active = TRUE
 	SSshuttle.supply.active_syphon = src
@@ -51,7 +52,7 @@
 	for(var/datum/money_account/account in combined_accounts)
 		account.pirated = TRUE
 
-/obj/machinery/data_syphon/proc/find_account_database_terminal()
+/obj/machinery/computer/data_syphon/proc/find_account_database_terminal()
 	for(var/obj/machinery/computer/account_database/terminal in GLOB.machines)
 		if(terminal.z == z)
 			return terminal
@@ -60,7 +61,7 @@
 	if(terminal)
 		terminal.data_syphon_active = TRUE
 
-/obj/machinery/data_syphon/proc/deactivate_syphon()
+/obj/machinery/computer/data_syphon/proc/deactivate_syphon()
 	var/list/combined_accounts = GLOB.station_money_database.user_accounts + GLOB.station_money_database.department_accounts
 	for(var/datum/money_account/account in combined_accounts)
 		account.pirated = FALSE
@@ -69,13 +70,13 @@
 	if(terminal)
 		terminal.data_syphon_active = FALSE
 
-/obj/machinery/data_syphon/proc/find_research_server()
+/obj/machinery/computer/data_syphon/proc/find_research_server()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && S.z == z)
 			return S
 
 
-/obj/machinery/data_syphon/process()
+/obj/machinery/computer/data_syphon/process()
 	if(!active || !is_station_level(z))
 		STOP_PROCESSING(SSmachines, src)
 		return
@@ -83,7 +84,7 @@
 	steal_credits_from_accounts()
 	interrupt_research()
 
-/obj/machinery/data_syphon/proc/steal_credits_from_accounts()
+/obj/machinery/computer/data_syphon/proc/steal_credits_from_accounts()
 	var/total_credits_to_siphon = 0
 
 	// Combine user accounts and department accounts into a single list
@@ -103,7 +104,7 @@
 		siphon_per_tick += siphon_rate_increase
 
 /// Drops all stored credits on the floor as a stack of `/obj/item/stack/spacecash`.
-/obj/machinery/data_syphon/proc/drop_loot(mob/user)
+/obj/machinery/computer/data_syphon/proc/drop_loot(mob/user)
 	if(credits_stored)
 		new /obj/item/stack/spacecash(get_turf(src)) // TODO: Make this actually work. (/obj/machinery/economy/proc/dispense_space_cash()?)
 		to_chat(user, "<span class='notice'>You retrieve the siphoned credits!</span>")
@@ -112,14 +113,14 @@
 		to_chat(user, "<span class='notice'>There's nothing to withdraw.</span>")
 
 /// Calls `emp_act()` on the RnD server to temporarily disable it.
-/obj/machinery/data_syphon/proc/interrupt_research()
+/obj/machinery/computer/data_syphon/proc/interrupt_research()
 	var/obj/machinery/r_n_d/server/server = find_research_server()
 	if(!(server.stat & (BROKEN | NOPOWER)))
 		server.emp_act()
 		new /obj/effect/temp_visual/emp(get_turf(server))
 
 /// Reduces all tech levels in the RnD server by 1.
-/obj/machinery/data_syphon/proc/sap_tech_levels()
+/obj/machinery/computer/data_syphon/proc/sap_tech_levels()
 	var/obj/machinery/r_n_d/server/server = find_research_server()
 	for(var/datum/tech/T in server.files.known_tech)
 		if(T.level > 1)
@@ -129,6 +130,6 @@
 			if(server) //to check if the explosion killed it before we try to delete it
 				qdel(server)
 
-/obj/machinery/data_syphon/proc/send_notification()
+/obj/machinery/computer/data_syphon/proc/send_notification()
 	// TODO: Make sure this is working and update it.
 	GLOB.minor_announcement.Announce("Data theft detected.")
