@@ -105,36 +105,22 @@
 	if(length(orbiting_balls))
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
-#define T
-#define move_dir
-#define move_where
-
-/obj/singularity/energy_ball/proc/where_to_move()
-	var/list/possible_turfs = get_area_turfs(findEventArea()) // gets random area on station and makes a list of all the turfs
-	var/turf/move_where = pick(possible_turfs)
-	//var/move_dir = get_dir(src, move_where)
-	var/turf/T = get_step(src, move_where)
-	message_admins()
-	return
-
 /obj/singularity/energy_ball/proc/move_the_basket_ball(move_amount)
+	var/turf/where_to_move = findEventArea()
+	var/obj/singularity/tesloose = thing
+	tesloose.target = pick_n_take(where_to_move)
 	if(length(shocked_things))
-		where_to_move()
 		for(var/i in 0 to move_amount)
+			var/movement_dir = get_dir(src,target)
+			var/turf/T = get_step(src, movement_dir)
 			if(can_move(T))
 				forceMove(T)
-				setDir(move_dir)
+				setDir(movement_dir)
+				step(src, movement_dir)
 				for(var/mob/living/carbon/C in loc)
 					dust_mobs(C)
-				var/has_arrived = locate(move_where) in urange(5, src, 1)
-				if(has_arrived)
-					where_to_move()
-					return
-
-
-#undef T
-#undef move_dir
-#undef move_where
+				//var/has_arrived = locate(move_where) in urange(5, src, 1)
+				//if(has_arrived)
 
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
