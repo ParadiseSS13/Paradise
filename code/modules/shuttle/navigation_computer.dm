@@ -44,13 +44,6 @@
 	if(jumpto_ports.len)
 		jump_action = new /datum/action/innate/camera_jump/shuttle_docker
 	..()
-	/* 	//technically working but some icons are buggy as shit and either don't rotate or rotate wrong :
-		//namely shuttle walls, shuttle windows, shuttle engines and buckled mobs
-	if(rotate_action)
-		rotate_action.target = user
-		rotate_action.Grant(user)
-		actions += rotate_action
-	*/
 	if(place_action)
 		place_action.target = user
 		place_action.Grant(user)
@@ -62,7 +55,7 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(null, src)
+	eyeobj = new /mob/camera/aiEye/remote/shuttle_docker(get_turf(locate("landmark*Observer-Start")), src) // There should always be an observer start landmark
 	var/mob/camera/aiEye/remote/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x + x_offset, shuttle_port.y + y_offset, shuttle_port.z)

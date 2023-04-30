@@ -46,7 +46,7 @@
 	colour = "gray"
 
 /obj/item/pen/invisible
-	desc = "It's an invisble pen marker."
+	desc = "It's an invisible pen marker."
 	icon_state = "pen"
 	colour = "white"
 
@@ -150,6 +150,7 @@
 	var/backstab_sound = 'sound/items/unsheath.ogg'
 	var/backstab_damage = 12
 	armour_penetration_flat = 20
+	throw_speed = 4
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
 	var/extra_force_applied = FALSE

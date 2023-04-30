@@ -224,12 +224,12 @@
 
 /obj/structure/sign/mech
 	name = "\improper mech painting"
-	desc = "A painting of a mech"
+	desc = "A painting of a mech."
 	icon_state = "mech"
 
 /obj/structure/sign/nuke
 	name = "\improper nuke painting"
-	desc = "A painting of a nuke"
+	desc = "A painting of a nuke."
 	icon_state = "nuke"
 
 /obj/structure/sign/clown

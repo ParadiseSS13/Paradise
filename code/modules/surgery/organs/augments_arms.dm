@@ -340,6 +340,7 @@
 	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment"
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/apc_powercord)
+	requires_robotic_bodypart = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/power_cord/emp_act(severity)
 	// To allow repair via nanopaste/screwdriver

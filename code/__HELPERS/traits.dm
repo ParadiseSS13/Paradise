@@ -179,6 +179,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
+#define TRAIT_BURN_WOUND_IMMUNE "burn_immune"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_NOFINGERPRINTS	"no_fingerprints"
@@ -198,6 +199,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
 #define TRAIT_SOAPY_MOUTH		"soapy_mouth"
 #define TRAIT_UNREVIVABLE 		"unrevivable" // Prevents changeling revival
+#define TRAIT_FLATTENED			"flattened"
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -206,6 +208,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
+/// Wires on this will have their titles randomized for those with SHOW_WIRES
+#define TRAIT_OBSCURED_WIRES "obscured_wires"
 /// Forces open doors after a delay specific to the item
 #define TRAIT_FORCES_OPEN_DOORS_ITEM "forces_open_doors_item_varient"
 
