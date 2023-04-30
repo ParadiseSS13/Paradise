@@ -28,7 +28,8 @@
 		colourblind_mode,
 		keybindings,
 		server_region,
-		muted_adminsounds_ckeys
+		muted_adminsounds_ckeys,
+		viewrange
 		FROM player
 		WHERE ckey=:ckey"}, list(
 			"ckey" = C.ckey

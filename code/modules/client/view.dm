@@ -38,11 +38,11 @@
 		var/datum/viewmod/V = ViewMods[mod_id]
 		highest_range = max(highest_range, V.size)
 
-	SetView(highest_range ? highest_range : CLIENT_VIEWSIZE)
+	SetView(highest_range ? highest_range : prefs.viewrange)
 	ViewModsActive = (highest_range > 0)
 
 /client/proc/SetView(view_range)
-	if(view_range == CLIENT_VIEWSIZE)
+	if(view_range == prefs.viewrange)
 		winset(src, "mapwindow.map", "icon-size=[ViewPreferedIconSize]")
 	else
 		winset(src, "mapwindow.map", "icon-size=0")

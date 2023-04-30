@@ -29,6 +29,7 @@
 		keybindings = init_keybindings(raw = query.item[22])
 		server_region = query.item[23]
 		raw_muted_admins = query.item[24]
+		viewrange = query.item[25]
 
 	lastchangelog_2 = lastchangelog // Clone please
 
@@ -98,7 +99,8 @@
 		colourblind_mode=:colourblind_mode,
 		keybindings=:keybindings,
 		server_region=:server_region,
-		muted_adminsounds_ckeys=:muted_adminsounds_ckeys
+		muted_adminsounds_ckeys=:muted_adminsounds_ckeys,
+		viewrange=:viewrange
 		WHERE ckey=:ckey"}, list(
 			// OH GOD THE PARAMETERS
 			"ooccolour" = ooccolor,
@@ -125,6 +127,7 @@
 			"ckey" = C.ckey,
 			"server_region" = server_region,
 			"muted_adminsounds_ckeys" = json_encode(admin_sound_ckey_ignore),
+			"viewrange" = viewrange,
 		))
 
 	if(!query.warn_execute())

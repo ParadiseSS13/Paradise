@@ -543,4 +543,4 @@
 #define REFLECTABILITY_ENERGY 2
 
 // This isnt in client_defines due to scoping issues
-#define CLIENT_VIEWSIZE "19x15"
+#define DEFAULT_CLIENT_VIEWSIZE "19x15"

@@ -285,9 +285,6 @@
 
 	log_client_to_db(tdata) // Make sure our client exists in the DB
 
-	// Make the client widescreen
-	view = CLIENT_VIEWSIZE
-
 	// We have a holder. Inform the relevant places
 	INVOKE_ASYNC(src, PROC_REF(announce_join))
 
@@ -322,6 +319,9 @@
 
 		// ToS accepted
 		tos_consent = TRUE
+
+	// Setup widescreen
+	view = prefs.viewrange
 
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
@@ -435,7 +435,13 @@
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
 
 	// Temp for TM
-	to_chat(src, "<hr><span class='boldnotice'>We are doing a testmerge of widescreen. If your game viewport is still square, please go to the <code>OOC</code> tab and press <code>Fit Viewport</code>. Please leave feedback on the thread here: https://www.paradisestation.org/forum/topic/23876-widescreen-feedback-thread/</span><hr>")
+	var/list/tmlines = list(
+		"<hr><span class='boldnotice'>",
+		"We are doing a testmerge of widescreen. If your game viewport is still square, please go to the <code>OOC</code> tab and press <code>Fit Viewport</code>. ",
+		"Please leave feedback on the thread here: https://www.paradisestation.org/forum/topic/23876-widescreen-feedback-thread/",
+		"</span><br><span class='userdanger'>UPDATE: </span><span class='notice'>A <code>View Range</code> option has been added to <code>Game Preferences</code>.</span><hr>"
+	)
+	to_chat(src, tmlines.Join(""))
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")
