@@ -78,6 +78,6 @@
 	U.hidden_uplink.uses = uplink_uses
 	pirate.equip_to_slot_or_del(U, slot_in_backpack)
 
-	synd_mob.faction |= "syndicate"
-	synd_mob.update_icons()
+	pirate.faction |= "syndicate"
+	pirate.update_icons()
 	return 1
