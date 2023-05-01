@@ -248,5 +248,7 @@
 	stage2	= list("Your skin feels saggy.")
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You're ravenous.</span>")
-	stage5	= list("<span class='danger'>You have become a morph.</span>")
+	stage5	= list("<span class='danger'><FONT size = 5><B>ТЕПЕРЬ ВЫ МОРФ!</B></FONT></span> \n \
+	Хоть Вы и трансформировались в отвратительную зелёную жижу, но это не повлияло на Ваше сознание \
+	и память. Вы не являетесь антагонистом.")
 	new_form = /mob/living/simple_animal/hostile/morph
