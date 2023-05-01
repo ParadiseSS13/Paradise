@@ -5,10 +5,53 @@ concurrency:
 
 on:
   workflow_dispatch:
+    inputs:
+      ci_required:
+        description: 'CI Suite is required'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_main:
+        description: 'Deploy Paradise Main/Secondary'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_vega:
+        description: 'Deploy Paradise Vega'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_cleo:
+        description: 'Deploy Paradise Cleo'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_prime:
+        description: 'Deploy Paradise Prime'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_wl:
+        description: 'Deploy Paradise WL'
+        type: boolean
+        required: true
+        default: true
+      perform_deploy_tutorial:
+        description: 'Deploy Paradise Tutorial'
+        type: boolean
+        required: true
+        default: true
+      # perform_deploy_test:
+      #   description: 'Deploy Paradise Test'
+      #   type: boolean
+      #   required: true
+      #   default: true
 
 jobs:
   CI:
     uses: ./.github/workflows/ci.yml  # use the callable tests job to run tests
+    if: ${{ inputs.ci_required }}
+
   update-isp-lists:
     name: Update ISP Lists
     runs-on: ubuntu-latest
@@ -27,6 +70,7 @@ jobs:
     name: Deploy Paradise Main/Secondary
     runs-on: ubuntu-latest
     needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_main
 
     steps:
     - name: Update and Build Paradise Main/Secondary
@@ -46,6 +90,7 @@ jobs:
     name: Deploy Paradise Vega
     runs-on: ubuntu-latest
     needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_vega
 
     steps:
     - name: Update and Build Paradise Vega
@@ -65,6 +110,7 @@ jobs:
     name: Deploy Paradise Cleo
     runs-on: ubuntu-latest
     needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_cleo
 
     steps:
     - name: Update and Build Paradise Cleo
@@ -84,6 +130,7 @@ jobs:
     name: Deploy Paradise Prime
     runs-on: ubuntu-latest
     needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_prime
 
     steps:
     - name: Update and Build Paradise Prime
@@ -103,6 +150,7 @@ jobs:
     name: Deploy Paradise WL
     runs-on: ubuntu-latest
     needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_wl
 
     steps:
     - name: Update and Build Paradise WL
@@ -122,6 +170,7 @@ jobs:
     name: Deploy Paradise Tutorial
     runs-on: ubuntu-latest
     needs: [update-isp-lists, CI]
+    if: always() && !cancelled() && !failure() && inputs.perform_deploy_tutorial
 
     steps:
     - name: Update and Build Paradise Tutorial
@@ -141,6 +190,7 @@ jobs:
   #   name: Deploy Paradise Test
   #   runs-on: ubuntu-latest
   #   needs: [update-isp-lists, CI]
+  #   if: always() && !cancelled() && !failure() && inputs.perform_deploy_test
 
   #   steps:
   #   - name: Update and Build Paradise Test
