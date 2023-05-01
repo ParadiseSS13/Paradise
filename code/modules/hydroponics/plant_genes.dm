@@ -308,14 +308,20 @@
 	origin_tech = list("bluespace" = 5)
 	dangerous = TRUE
 
-/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
 	if(isliving(target))
+		var/mob/living/living_target = target
+		if(thrower == living_target && !do_after(living_target, 1 SECONDS, target = living_target))
+			to_chat(target, "<span class='notice'>You need to hold still to squash [G.name].</span>")
+			return
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
-		var/turf/T = get_turf(target)
+		var/turf/T = get_turf(living_target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		add_attack_logs(target, T, "teleport squash [G](max radius: [teleport_radius])")
 		do_teleport(target, T, teleport_radius)
-		target.investigate_log("teleported from [COORD(T)] to [COORD(target)], squashing [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
+		if(thrower == living_target)
+			living_target.adjustStaminaLoss(33)
+		living_target.investigate_log("teleported from [COORD(T)] to [COORD(living_target)], squashing [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
