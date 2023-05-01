@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		if(prob(50))
 			animate_float(src, -1, rand(30,120))
 		else
-			animate_levitate(src,-1,rand(30,120))
+			animate_levitate(src, -1, rand(30,120))
 
 		if(weightless_image.icon_state)
 			icon_state = weightless_image.icon_state

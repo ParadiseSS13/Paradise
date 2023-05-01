@@ -159,9 +159,9 @@
 		layer = MOB_LAYER
 		plane = GAME_PLANE
 		if(prob(50))
-			animate_float(src, -1, rand(30,120))
+			animate_float(src, -1, rand(30, 120))
 		else
-			animate_levitate(src,-1,rand(30,120))
+			animate_levitate(src, -1, rand(30, 120))
 		icon = 'icons/effects/blood_weightless.dmi'
 
 /obj/effect/decal/cleanable/vomit/Bump(atom/A, yes)
@@ -173,14 +173,16 @@
 	..()
 
 /obj/effect/decal/cleanable/vomit/proc/splat(atom/A)
-	if(!gravity_check)
-		var/turf/T = get_turf(A)
+	if(gravity_check)
+		return
+	var/turf/T = get_turf(A)
+	if(loc != T)
 		forceMove(T)
-		icon = initial(icon)
-		gravity_check = TRUE
-		layer = initial(layer)
-		plane = initial(plane)
-		animate(src)
+	icon = initial(icon)
+	gravity_check = TRUE
+	layer = initial(layer)
+	plane = initial(plane)
+	animate(src)
 
 /obj/effect/decal/cleanable/vomit/replace_decal(obj/effect/decal/cleanable/vomit/C)
 	. = ..()
