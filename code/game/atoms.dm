@@ -977,6 +977,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 				return
 
 		var/obj/effect/decal/cleanable/vomit/this = new type(src)
+		if(!this.gravity_check)
+			this.newtonian_move(dir)
 
 		// Make toxins vomit look different
 		if(toxvomit)

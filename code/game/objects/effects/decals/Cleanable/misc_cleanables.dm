@@ -166,7 +166,8 @@
 
 /obj/effect/decal/cleanable/vomit/Bump(atom/A, yes)
 	. = ..()
-	splat(A)
+	if(A.density)
+		splat(A)
 
 /obj/effect/decal/cleanable/vomit/Crossed(atom/movable/AM, oldloc)
 	splat(AM)
@@ -180,9 +181,30 @@
 		forceMove(T)
 	icon = initial(icon)
 	gravity_check = TRUE
-	layer = initial(layer)
-	plane = initial(plane)
+	if(T.density || locate(/obj/structure/window) in T)
+		layer = ABOVE_WINDOW_LAYER
+		plane = GAME_PLANE
+	else
+		layer = initial(layer)
+		plane = initial(plane)
 	animate(src)
+
+/obj/effect/decal/cleanable/vomit/Process_Spacemove(movement_dir)
+	if(gravity_check)
+		return 1
+
+	if(has_gravity(src))
+		if(!gravity_check)
+			splat(get_step(src, movement_dir))
+		return 1
+
+	if(pulledby && !pulledby.pulling)
+		return 1
+
+	if(throwing)
+		return 1
+
+	return 0
 
 /obj/effect/decal/cleanable/vomit/replace_decal(obj/effect/decal/cleanable/vomit/C)
 	. = ..()
