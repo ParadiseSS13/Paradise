@@ -134,6 +134,9 @@
 	shoes =	/obj/item/clothing/shoes/cowboy/white
 	gloves = /obj/item/clothing/gloves/color/white
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
+	backpack_contents = list(
+		/obj/item/stamp/navcom = 1
+	)
 
 //Tran-Solar Federation General
 /datum/job/ntspecops/solgovspecops

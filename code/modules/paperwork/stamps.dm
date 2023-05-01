@@ -106,6 +106,11 @@
 	name = "BIG DENY rubber stamp"
 	icon_state = "stamp-BIGdeny"
 	item_color = "redcoat"
+	
+/obj/item/stamp/navcom
+	name = "Nanotrasen Naval Command rubber stamp"
+	icon_state = "stamp-navcom"
+	item_color = "captain"
 
 /obj/item/stamp/syndicate
 	name = "suspicious rubber stamp"
