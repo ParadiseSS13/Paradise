@@ -28338,7 +28338,9 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "oAE" = (
-/obj/machinery/computer/shuttle/ferry/request,
+/obj/machinery/computer/shuttle/ferry/request{
+	req_access = list(101)
+	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
 "oAH" = (
