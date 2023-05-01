@@ -10,6 +10,7 @@ on:
     branches:
     - master220
     - whitelist220
+  workflow_call:
 
 jobs:
   run_linters:
