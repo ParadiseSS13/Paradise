@@ -1056,19 +1056,6 @@
 		var/target = href_list["notessearch"]
 		show_note(index = target)
 
-	else if(href_list["noteedits"])
-		var/note_id = text2num(href_list["noteedits"])
-		var/datum/db_query/query_noteedits = SSdbcore.NewQuery("SELECT edits FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE id=:note_id", list(
-			"note_id" = note_id
-		))
-		if(!query_noteedits.warn_execute())
-			qdel(query_noteedits)
-			return
-		if(query_noteedits.NextRow())
-			var/edit_log = {"<meta charset="UTF-8">"} + query_noteedits.item[1]
-			usr << browse(edit_log,"window=noteedits")
-		qdel(query_noteedits)
-
 	else if(href_list["removejobban"])
 		if(!check_rights(R_BAN))	return
 

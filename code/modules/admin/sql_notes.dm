@@ -137,7 +137,10 @@
 		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
 		if(!new_note)
 			return
-		var/edit_text = "Edited by [usr.ckey] on [SQLtime()] from \"[old_note]\" to \"[new_note]\"<hr>"
+		var/server
+		if(config && config.server_name)
+			server = config.server_name
+		var/edit_text = "Last edit by [usr.ckey] at [SQLtime()][server ? " on [server]" : ""]"
 		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("notes")] SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
 			"new_note" = new_note,
 			"akey" = usr.ckey,
@@ -199,7 +202,7 @@
 			if(!linkless)
 				output += " <a href='?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
 				if(last_editor)
-					output += " <font size='2'>Last edit by [last_editor] <a href='?_src_=holder;noteedits=[id]'>(Click here to see edit log)</a></font>"
+					output += " <font size='2'>Last edit by [last_editor]</font>"
 			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
 		qdel(query_get_notes)
 	else if(index)
