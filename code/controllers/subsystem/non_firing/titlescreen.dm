@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(title)
 
 /datum/splashscreen
 	var/author = ""
-	var/list/screen_states = list("reshig1", "reshig2") // sprite names go here
+	var/list/screen_states = list()
 
 /datum/splashscreen/Reshig
 	author = "Reshig"
