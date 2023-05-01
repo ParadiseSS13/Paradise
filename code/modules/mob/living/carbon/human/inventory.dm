@@ -521,38 +521,3 @@
 		to_chat(src, "<span class='warning'>You can't unequip this item beacause the slot is obscuread!</span>")
 		return
 	return unEquip(item, force)
-
-/// take the most recent item out of a slot or place held item in a slot
-/mob/living/carbon/human/proc/smart_equip_targeted(slot_type = slot_belt, slot_item_name = "belt")
-	if(incapacitated())
-		return
-	var/obj/item/thing = get_active_hand()
-	var/obj/item/equipped_item = get_item_by_slot(slot_type)
-	if(!equipped_item) // We also let you equip an item like this
-		if(!thing)
-			to_chat(src, span_warning("You have no [slot_item_name] to take something out of!"))
-			return
-		if(equip_to_slot_if_possible(thing, slot_type))
-			update_inv_l_hand()
-			update_inv_r_hand()
-		return
-	var/obj/item/storage/storage
-	if(istype(equipped_item, /obj/item/storage))
-		storage = equipped_item
-	if(!storage)
-		if(!thing)
-			equipped_item.attack_hand(src)
-		else
-			to_chat(src, span_warning("You can't fit [thing] into your [slot_item_name]!"))
-		return
-	if(thing)
-		if(storage.can_be_inserted(thing))
-			storage.handle_item_insertion(thing)
-		return
-	if(!length(storage.contents))
-		to_chat(src, span_warning("There's nothing in your [equipped_item] to take out!"))
-		return
-	var/obj/item/stored = storage.contents[length(storage.contents)]
-	if(!stored || stored.on_found(src))
-		return
-	stored.attack_hand(src) // take out thing from item in storage slot
