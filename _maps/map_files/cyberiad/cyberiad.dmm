@@ -14382,10 +14382,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"aNw" = (
-/obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall,
-/area/hallway/secondary/entry)
 "aNx" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -17688,18 +17684,8 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "aVH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 4
-	},
 /obj/structure/grille/broken,
+/obj/effect/decal/cleanable/generic,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -86649,6 +86635,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "tTz" = (
@@ -103669,7 +103656,7 @@ aab
 aab
 aMs
 sIG
-aNw
+sIG
 aLd
 aPT
 aMD
@@ -112159,8 +112146,8 @@ aSt
 aDD
 aVj
 aVj
-aDD
-aDD
+aVj
+aVj
 aVj
 aVj
 bdq
@@ -119605,7 +119592,7 @@ aOB
 aPE
 aEl
 aQl
-aVH
+aVF
 aRw
 aRw
 bbQ
@@ -120118,7 +120105,7 @@ aNN
 aOH
 aPG
 aEl
-aPi
+aVH
 aVF
 aQl
 aMA
@@ -120375,7 +120362,7 @@ aNM
 aKr
 aPF
 aEl
-aZn
+aPi
 aVK
 aYb
 bak
