@@ -106,9 +106,10 @@
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(move_amount)
-	var/turf/where_to_move = findEventArea()
-	var/obj/singularity/tesloose = thing
-	tesloose.target = pick_n_take(where_to_move)
+	for(var/thing in GLOB.singularities)
+		var/turf/where_to_move = findEventArea()
+		var/obj/singularity/tesloose = thing
+		tesloose.target = pick(where_to_move)
 	if(length(shocked_things))
 		for(var/i in 0 to move_amount)
 			var/movement_dir = get_dir(src,target)
@@ -119,8 +120,6 @@
 				step(src, movement_dir)
 				for(var/mob/living/carbon/C in loc)
 					dust_mobs(C)
-				//var/has_arrived = locate(move_where) in urange(5, src, 1)
-				//if(has_arrived)
 
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
