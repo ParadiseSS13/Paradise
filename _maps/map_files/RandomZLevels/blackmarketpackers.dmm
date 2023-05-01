@@ -6906,7 +6906,10 @@
 /area/space)
 "Pi" = (
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
-/mob/living/simple_animal/hostile/syndicate/ranged/space/spacebattle,
+/mob/living/simple_animal/hostile/syndicate/ranged/space{
+	health = 300;
+	maxHealth = 300
+},
 /turf/simulated/floor/pod,
 /area/awaymission/BMPship/Shelter)
 "Pt" = (
