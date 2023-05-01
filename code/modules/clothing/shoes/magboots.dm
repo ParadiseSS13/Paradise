@@ -146,3 +146,164 @@
 			..()
 		else
 			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")
+
+/obj/item/clothing/shoes/magboots/gravity
+	name = "gravitational boots"
+	desc = "These experimental boots try to get around the restrictions of magboots by installing miniture gravitational generators in the soles. Sadly, power hungry, and needs a gravitational anomaly core."
+	icon_state = "gravboots0"
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/gravity_jump) //combination of magboots and jumpboots
+	strip_delay = 10 SECONDS
+	put_on_delay = 10 SECONDS
+	slowdown_active = 0
+	magboot_state = "gravboots"
+	magpulse_name = "micro gravitational traction system"
+	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
+	var/jumpdistance = 5
+	var/jumpspeed = 3
+	var/recharging_rate = 6 SECONDS
+	var/recharging_time = 0 // Time until next dash
+	var/dash_cost = 1000 // Cost to dash.
+	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
+	var/obj/item/assembly/signaler/anomaly/grav/core = null
+	var/obj/item/stock_parts/cell/cell = null
+
+/obj/item/clothing/shoes/magboots/gravity/Destroy()
+	QDEL_NULL(style)
+	QDEL_NULL(cell)
+	QDEL_NULL(core)
+	return ..()
+
+/obj/item/clothing/shoes/magboots/gravity/examine(mob/user)
+	. = ..()
+	if(core && cell)
+		. += "<span class='notice'>[src] are fully operational!</span>"
+		. += "<span class='notice'>The boots are [round(cell.percent())]% charged.</span>"
+	else if(core)
+		. += "<span class='warning'>It has a gravitational anomaly core installed, but no power cell installed.</span>"
+	else if(cell)
+		. += "<span class='warning'>It has a power installed, but no gravitational anomaly core installed.</span>"
+	else
+		. += "<span class='warning'>It is missing a gravitational anomaly core and a power cell.</span>"
+
+/obj/item/clothing/shoes/magboots/gravity/attack_self(mob/user)
+	if(!cell)
+		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		return
+	else if(cell.charge <= power_consumption_rate && !magpulse)
+		to_chat(user, "<span class='warning'>Your boots do not have enough charge!</span>")
+		return
+	if(!core)
+		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		return
+
+	..()
+
+/obj/item/clothing/shoes/magboots/gravity/process()
+	if(!cell) //There should be a cell here, but safety first
+		return
+	if(cell.charge <= power_consumption_rate * 2)
+		if(ishuman(loc))
+			var/mob/living/carbon/human/user = loc
+			to_chat(user, "<span class='warning'>[src] has ran out of charge, and turned off!</span>")
+			attack_self(user)
+	else
+		cell.use(power_consumption_rate)
+
+/obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/I)
+	if(!cell)
+		to_chat(user, "<span class='warning'>There's no cell installed!</span>")
+		return
+
+	if(magpulse)
+		to_chat(user, "<span class='warning'>Turn off the boots first!</span>")
+		return
+
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+
+	user.put_in_hands(cell)
+	to_chat(user, "<span class='notice'>You remove [cell] from [src].</span>")
+	cell.update_icon()
+	cell = null
+	update_icon()
+
+/obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stock_parts/cell))
+		if(cell)
+			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
+			return
+		if(!user.unEquip(I))
+			return
+		I.forceMove(src)
+		cell = I
+		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
+		update_icon()
+		return
+
+	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+		if(core)
+			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
+			return
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
+			return
+		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
+		I.forceMove(src)
+		core = I
+	else
+		return ..()
+
+/obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot)
+	..()
+	if(!ishuman(user))
+		return
+	if(slot == slot_shoes && cell && core)
+		style.teach(user, TRUE)
+
+/obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.get_item_by_slot(slot_shoes) == src)
+		style.remove(H)
+		if(magpulse)
+			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
+			attack_self(user)
+
+/obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
+	if(slot == slot_shoes)
+		return TRUE
+
+/obj/item/clothing/shoes/magboots/gravity/proc/dash(mob/user, action)
+	if(!isliving(user))
+		return
+
+	if(cell)
+		if(cell.charge <= dash_cost)
+			to_chat(user, "<span class='warning'>Your boots do not have enough charge to dash!</span>")
+			return
+	else
+		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		return
+
+	if(!core)
+		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		return
+
+	if(recharging_time > world.time)
+		to_chat(user, "<span class='warning'>The boot's gravitational pulse needs to recharge still!</span>")
+		return
+
+	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
+	var/do_callback = FALSE
+	if(!user.flying)
+		user.flying = TRUE
+		do_callback = TRUE
+	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = do_callback ? VARSET_CALLBACK(user, flying, FALSE) : null))
+		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
+		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		recharging_time = world.time + recharging_rate
+		cell.use(dash_cost)
+	else
+		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")

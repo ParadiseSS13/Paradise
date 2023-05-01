@@ -492,6 +492,18 @@
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "clown"
 
+/datum/action/item_action/gravity_jump
+	name = "Gravity jump"
+	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
+
+/datum/action/item_action/gravity_jump/Trigger()
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/obj/item/clothing/shoes/magboots/gravity/G = target
+	G.dash(usr)
+
 ///prset for organ actions
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS

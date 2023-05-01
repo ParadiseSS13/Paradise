@@ -310,3 +310,13 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_DIAMOND = 500)
 	build_path = /obj/item/t_scanner/security
 	category = list("Equipment")
+
+/datum/design/gravboots
+	name = "Gravitational Boots"
+	desc = "Experimental magboots that use miniture gravity generators. No slowdown, can let the user leap like jump boots, and lets the user kick and stomp like they have krav maga."
+	id = "gravboots"
+	req_tech = list("magnets" = 7,"engineering" = 7, "materials" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_PLASMA = 4000, MAT_SILVER = 4000, MAT_TITANIUM = 6000, MAT_URANIUM = 4000)
+	build_path = /obj/item/clothing/shoes/magboots/gravity
+	category = list("Equipment")
