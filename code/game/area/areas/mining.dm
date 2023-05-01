@@ -71,14 +71,14 @@
 	name = "Mining Station Storage"
 
 /area/mine/production
-	name = "Mining Station Starboard Wing"
+	name = "Mining Station Production Wing"
 	icon_state = "mining_production"
 
 /area/mine/abandoned
 	name = "Abandoned Mining Station"
 
 /area/mine/living_quarters
-	name = "Mining Station Port Wing"
+	name = "Mining Station Living Wing"
 	icon_state = "mining_living"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
