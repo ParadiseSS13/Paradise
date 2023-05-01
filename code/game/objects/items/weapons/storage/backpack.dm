@@ -397,28 +397,35 @@
 
 			if(zip_time)
 				slowdown = 1
-			if(open_icon_sprite)
-				icon_state = open_icon_sprite
-			if(open_item_sprite)
-				item_state = open_item_sprite
-				user.update_inv_r_hand()
-				user.update_inv_l_hand()
 			if(antidrop_on_zip)
 				flags ^= NODROP
+			update_icon_state(UPDATE_ICON_STATE)
 			return
 
 		slowdown = 0
 		hide_from_all()
 		for(var/obj/item/storage/container in src)
 			container.hide_from_all() // Hide everything inside the bag too
+		if(antidrop_on_zip)
+			flags |= NODROP
+		update_icon_state(UPDATE_ICON_STATE)
+
+/obj/item/storage/backpack/duffel/update_icon_state()
+	. = ..()
+	if(!zipped)
+		if(open_icon_sprite)
+			icon_state = open_icon_sprite
+		if(open_item_sprite)
+			item_state = open_item_sprite
+	else
 		if(open_icon_sprite)
 			icon_state = initial(icon_state)
 			item_state = initial(item_state)
-		if(open_item_sprite)
-			user.update_inv_r_hand()
-			user.update_inv_l_hand()
-		if(antidrop_on_zip)
-			flags |= NODROP
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_r_hand()
+		H.update_inv_l_hand()
+
 
 // The following three procs handle refusing access to contents if the duffel is zipped
 
