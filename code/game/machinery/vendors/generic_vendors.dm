@@ -833,7 +833,8 @@
 					/obj/item/analyzer = 5,
 					/obj/item/t_scanner = 5,
 					/obj/item/stack/cable_coil/random = 10,
-					/obj/item/clothing/gloves/color/yellow = 1)
+					/obj/item/clothing/gloves/color/yellow = 1,
+					/obj/item/crowbar/large = 1)
 	contraband = list(/obj/item/clothing/gloves/color/fyellow = 2,
 					/obj/item/weldingtool/hugetank = 2)
 	prices = list(/obj/item/crowbar = 75,
@@ -845,7 +846,8 @@
 				/obj/item/t_scanner = 25,
 				/obj/item/stack/cable_coil/random = 20,
 				/obj/item/clothing/gloves/color/yellow = 250,
-				/obj/item/weldingtool/hugetank = 120)
+				/obj/item/weldingtool/hugetank = 120,
+				/obj/item/crowbar/large = 150)
 	refill_canister = /obj/item/vending_refill/youtool
 
 /// we want a free version for engineering to use
