@@ -171,7 +171,7 @@
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	if(istype(holder.my_atom))
+	if(istype(holder.my_atom)) //ensures the explosion happens at the container, not where its primed at
 		explosion(holder.my_atom.loc, ex_severe, ex_heavy,ex_light, ex_flash, 1)
 	else
 		explosion(location, ex_severe, ex_heavy,ex_light, ex_flash, 1)
