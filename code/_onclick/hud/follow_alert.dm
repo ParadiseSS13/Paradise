@@ -110,7 +110,7 @@
 
 /obj/screen/alert/augury/proc/get_next_target()
 	if(!length(next_targets))
-		return null
+		return
 
 	var/atom/movable/target
 
@@ -146,8 +146,9 @@
 	for(var/obj/effect/meteor/M in GLOB.meteor_list)
 		if(!is_station_level(M.z))
 			continue  // don't worry about endlessly looping
-		if(istype(M, /obj/effect/meteor/tunguska))
-			change_targets(M)  // TUNGUSKAAAAAAA
+		if(istype(M, /obj/effect/meteor/tunguska) && !overridden)
+			if(M != follow_target)  // keep following it, but don't force an orbit change
+				change_targets(M)  // TUNGUSKAAAAAAA
 			overridden = TRUE
 			continue
 		if(!(M in next_targets))
