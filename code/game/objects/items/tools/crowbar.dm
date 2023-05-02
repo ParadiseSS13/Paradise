@@ -1,6 +1,6 @@
 /obj/item/crowbar
 	name = "crowbar"
-	desc = "A small crowbar. This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
+	desc = "This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	item_state = "crowbar"
@@ -58,7 +58,7 @@
 	toolspeed = 1.25
 
 /obj/item/crowbar/large
-	name = "crowbar"
+	name = "large crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
 	force = 12
 	w_class = WEIGHT_CLASS_HUGE
