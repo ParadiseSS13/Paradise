@@ -152,6 +152,9 @@
 	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
 	var/aggressive = FALSE
 
+	/// How often slogans will be used by vendors if they're aggressive.
+	var/aggressive_slogan_delay = (1 MINUTES)
+
 /obj/machinery/economy/vending/Initialize(mapload)
 	. = ..()
 	var/build_inv = FALSE
@@ -203,6 +206,9 @@
 		. += "<span class='warning'>It's been tipped over and won't be usable unless it's righted.</span>"
 		if(Adjacent(user))
 			. += "<span class='notice'>You can <b>Alt-Click</b> it to right it.</span>"
+
+	if(aggressive)
+		. += "<span class='warning'>Its product lights seem to be blinking ominously...</span>"
 
 /obj/machinery/economy/vending/RefreshParts()         //Better would be to make constructable child
 	if(!component_parts)
@@ -432,16 +438,18 @@
 			break
 
 /obj/machinery/economy/vending/HasProximity(atom/movable/AM)
-	if(!aggressive)
+	if(!aggressive || tilted || !tiltable)
 		return
 
-	if(isliving(AM))
+	if(isliving(AM) && prob(25))
 		AM.visible_message(
 			"<span class='danger'>[src] suddenly topples over onto [AM]!</span>",
 			"<span class='userdanger'>[src] topples over onto you without warning!</span>"
 		)
-		tilt(AM, prob(75), FALSE)
-		// yes, it stays aggressive. This means you better deal with it from a distance.
+		tilt(AM, prob(5), FALSE)
+		aggressive = FALSE
+		// NOTE: AFTER THE GREAT MASSACRE OF 4/22/23 IT HAS BECOME INCREDIBLY CLEAR THAT NOT SETTING AGGRESSIVE TO FALSE HERE IS A BAD BAD IDEA
+		// ALSO DEAR GOD DO NOT MAKE IT MORE LIKELY FOR THEM TO CRIT OR NOT
 
 /obj/machinery/economy/vending/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
@@ -860,7 +868,8 @@
 		seconds_electrified--
 
 	//Pitch to the people!  Really sell it!
-	if(last_slogan + slogan_delay <= world.time && LAZYLEN(slogan_list) && !shut_up && prob(5))
+	// especially if we want to tip over onto them!
+	if((last_slogan + slogan_delay <= world.time || (aggressive && last_slogan + aggressive_slogan_delay <= world.time)) && LAZYLEN(slogan_list) && !shut_up && prob(5))
 		var/slogan = pick(slogan_list)
 		speak(slogan)
 		last_slogan = world.time

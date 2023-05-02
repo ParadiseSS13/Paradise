@@ -494,6 +494,7 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 40
 	taste_mult = 0
+	allowed_overdose_process = TRUE
 
 /datum/reagent/histamine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))

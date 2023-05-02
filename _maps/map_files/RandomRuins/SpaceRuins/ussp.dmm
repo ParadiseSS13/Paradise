@@ -1575,14 +1575,8 @@
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/shoes/jackboots,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/head/foragecap{
-	desc = "The softcap worn by mech pilots.";
-	name = "forage cap"
-	},
-/obj/item/clothing/head/foragecap{
-	desc = "The softcap worn by mech pilots.";
-	name = "forage cap"
-	},
+/obj/item/clothing/head/sovietsidecap,
+/obj/item/clothing/head/sovietsidecap,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/crew_quarters)
 "dU" = (

@@ -13,6 +13,8 @@
 	var/silent = FALSE
 	/// List of objects which this item can store (if set, it can't store anything else)
 	var/list/can_hold = list()
+	/// List of objects that can be stored, regardless of w_class
+	var/list/w_class_override = list()
 	/// List of objects which this item can't store (in effect only if can_hold isn't set)
 	var/list/cant_hold = list()
 	/// List of objects which this item overrides the cant_hold list (used to negate cant_hold on specific items. Ex: Allowing Smuggler's Satchels (subtype of backpack) to be stored inside bags of holding.)
@@ -385,9 +387,17 @@
 				return FALSE
 
 	if(I.w_class > max_w_class)
-		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
-		return FALSE
+		if(length(w_class_override))
+			if(is_type_in_list(I, w_class_override))
+				return TRUE
+			else
+				if(!stop_messages)
+					to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
+				return FALSE
+		else
+			if(!stop_messages)
+				to_chat(usr, "<span class='warning'>[I] is too big for [src].</span>")
+			return FALSE
 
 	var/sum_w_class = I.w_class
 	for(var/obj/item/item in contents)
