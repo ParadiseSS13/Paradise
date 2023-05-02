@@ -265,8 +265,8 @@
 	name = "\improper Nanotrasen-brand Rapid Paint Applicator"
 	desc = "A metallic container containing tasty paint."
 	icon_state = "spraycan_cap"
-	var/capped = 1
-	instant = 1
+	var/capped = TRUE
+	instant = TRUE
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
 /obj/item/toy/crayon/spraycan/New()
@@ -279,12 +279,12 @@
 		if("Toggle Cap")
 			to_chat(user, "<span class='notice'>You [capped ? "remove" : "replace"] the cap of [src].</span>")
 			capped = !capped
-			update_icon(UPDATE_ICON_STATE)
+			update_icon()
 		if("Change Drawing")
 			..()
 		if("Change Color")
 			colour = input(user,"Choose Color") as color
-			update_icon(UPDATE_OVERLAYS)
+			update_icon()
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity)
@@ -293,7 +293,7 @@
 		return
 	else
 		if(iscarbon(target))
-			if(uses-10 > 0)
+			if(uses - 10 > 0)
 				uses = uses - 10
 				var/mob/living/carbon/C = target
 				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
@@ -308,7 +308,7 @@
 						H.lip_style = "spray_face"
 						H.lip_color = colour
 						H.update_body()
-		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		playsound(user, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		..()
 
 /obj/item/toy/crayon/spraycan/update_icon_state()

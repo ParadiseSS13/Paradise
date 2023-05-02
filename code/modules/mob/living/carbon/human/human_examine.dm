@@ -187,6 +187,9 @@
 				else if(!E.properly_attached)
 					wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is barely attached!\n"
 
+				else if(E.status & ORGAN_BURNT)
+					wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is badly burnt!\n"
+
 			if(E.open)
 				if(E.is_robotic())
 					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"

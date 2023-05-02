@@ -31,9 +31,13 @@
 	var/table_type
 	/// If this stack has a dynamic icon_state based on amount / max_amount
 	var/dynamic_icon_state = FALSE
+	/// if true, then this item can't stack with subtypes
+	var/parent_stack = FALSE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
+	if(dynamic_icon_state) //If we have a dynamic icon state, we don't want item states to follow the same pattern.
+		item_state = initial(icon_state)
 	if(new_amount != null)
 		amount = new_amount
 	while(amount > max_amount)
@@ -296,9 +300,12 @@
 	return TRUE
 
 /obj/item/stack/proc/get_amount()
-	if(is_cyborg)
-		return round(source.energy / cost)
-	return amount
+	if(!is_cyborg)
+		return amount
+
+	if(!source) // The energy source has not yet been initializied
+		return 0
+	return round(source.energy / cost)
 
 /obj/item/stack/proc/get_max_amount()
 	return max_amount
@@ -355,7 +362,7 @@
 	use(amount)
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, merge_type))
+	if((!parent_stack && istype(W, merge_type)) || (parent_stack && W.type == type))
 		var/obj/item/stack/S = W
 		merge(S)
 		to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
