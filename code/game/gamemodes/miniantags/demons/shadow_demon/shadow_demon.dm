@@ -58,10 +58,6 @@
 	light_color = "#b4ada6"
 	anchored = TRUE
 
-/obj/structure/spider/shadowcocoon/Initialize(mapload)
-	. = ..()
-	icon_state = pick("shadowcocoon1","shadowcocoon2","shadowcocoon3")
-
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type != BURN) //I unashamedly stole this from spider cocoon code
 		return
