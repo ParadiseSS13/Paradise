@@ -114,7 +114,7 @@
 		var/obj/item/extinguisher/E = inventory_back
 		E.AttemptRefill(A, src)
 		return
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/pet/dog/corgi/show_inv(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
