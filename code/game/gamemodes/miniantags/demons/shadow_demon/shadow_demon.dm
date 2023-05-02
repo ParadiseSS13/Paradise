@@ -55,7 +55,7 @@
 	light_power = -4
 	light_range = 6
 	max_integrity = 100
-	light_color = "#b4ada6"
+	light_color = "#ddd6cf"
 	anchored = TRUE
 
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
