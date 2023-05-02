@@ -110,11 +110,10 @@
 		inventory_back.afterattack(A, src)
 
 /mob/living/simple_animal/pet/dog/corgi/UnarmedAttack(atom/A)
-	if(inventory_back)
-		if(istype(inventory_back, /obj/item/extinguisher))
-			var/obj/item/extinguisher/E = inventory_back
-			E.AttemptRefill(A, src)
-			return
+	if(istype(inventory_back, /obj/item/extinguisher))
+		var/obj/item/extinguisher/E = inventory_back
+		E.AttemptRefill(A, src)
+		return
 	. = ..()
 
 /mob/living/simple_animal/pet/dog/corgi/show_inv(mob/user)
