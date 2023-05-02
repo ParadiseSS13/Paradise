@@ -12,6 +12,33 @@
 	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
+	/// Bypasses the "belt in bag" prevention if TRUE
+	var/storable = FALSE
+	/// Ignores update_weight() if TRUE
+	var/large = FALSE
+
+/obj/item/storage/belt/proc/update_weight()
+	if(large)
+		return
+	if(!length(contents) || storable)
+		w_class = WEIGHT_CLASS_NORMAL
+		return
+
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/storage/belt/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !storable)
+		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+		return FALSE
+	. = ..()
+
+/obj/item/storage/belt/Initialize(mapload)
+	. = ..()
+	update_weight()
 
 /obj/item/storage/belt/update_overlays()
 	. = ..()
@@ -23,6 +50,10 @@
 		var/image/belt_image = image(icon, I.belt_icon)
 		belt_image.color = I.color
 		. += belt_image
+
+/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
+	. = ..()
+	update_weight()
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
@@ -96,9 +127,10 @@
 
 /obj/item/storage/belt/utility/chief
 	name = "advanced toolbelt"
-	desc = "Holds tools, looks snazzy"
+	desc = "Holds tools, looks snazzy, and fits nicely into a bag"
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
+	storable = TRUE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
@@ -189,6 +221,7 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
+	update_icon()
 
 /obj/item/storage/belt/medical/response_team/populate_contents()
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
@@ -327,10 +360,11 @@
 
 /obj/item/storage/belt/military/traitor
 	name = "tool-belt"
-	desc = "Can hold various tools. This model seems to have additional compartments."
+	desc = "Can hold various tools. This model seems to have additional compartments and folds up rather nicely into a bag."
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	storable = TRUE
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -462,6 +496,7 @@
 	max_combined_w_class = 6
 	storage_slots = 6
 	can_hold = list(/obj/item/mobcapsule)
+	large = TRUE
 
 /obj/item/storage/belt/lazarus/Initialize(mapload)
 	. = ..()
@@ -611,6 +646,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier)
+	large = TRUE
 
 /obj/item/storage/belt/rapier/populate_contents()
 	new /obj/item/melee/rapier(src)
@@ -670,6 +706,7 @@
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
+	large = TRUE
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
