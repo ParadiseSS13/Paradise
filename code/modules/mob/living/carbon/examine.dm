@@ -161,6 +161,13 @@
 		else
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
 
+	//legcuffed?
+	if(legcuffed)
+		if(istype(legcuffed, /obj/item/restraints/legcuffs/beartrap))
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>\n"
+		else
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
+
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
