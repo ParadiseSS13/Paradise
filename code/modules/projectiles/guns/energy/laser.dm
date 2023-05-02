@@ -159,13 +159,15 @@
 			to_chat(user, "<b><span class='robot'>SCOPE_CREEPER_[rand(1, 9999)] Online.</span></b>")
 			select_fire(H)
 			H.apply_status_effect(STATUS_EFFECT_LWAPSCOPE, stored_dir)
+		return
+	zoom(user, FALSE) //Moved while scope was booting, so we unzoom
 
 /obj/item/gun/energy/lwap/process()
 	. = ..()
 	if(!isliving(loc))
 		return
 	var/mob/living/M = loc
-	if(world.time - M.last_movement <= PROCESS_TIME_PLUS_DECISECOND && zoomed) //If they have moved in the last process cycle.
+	if(world.time - M.last_movement <= PROCESS_TIME_PLUS_DECISECOND && scope_active) //If they have moved in the last process cycle.
 		to_chat(M, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
 		zoom(M, FALSE)
 
