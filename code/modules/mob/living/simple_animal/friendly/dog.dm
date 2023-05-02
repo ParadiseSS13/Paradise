@@ -107,7 +107,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/RangedAttack(atom/A, params)
 	if(inventory_back)
-		inventory_back.afterattack(A, src, )
+		inventory_back.afterattack(A, src)
 
 /mob/living/simple_animal/pet/dog/corgi/UnarmedAttack(atom/A)
 	if(inventory_back)
