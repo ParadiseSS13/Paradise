@@ -134,7 +134,8 @@
 	flags_2 = RAD_PROTECT_CONTENTS_2
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/radiation
