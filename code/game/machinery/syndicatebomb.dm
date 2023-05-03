@@ -446,7 +446,7 @@
 	name = "\improper EMP bomb core"
 	var/light_emp = 36
 	var/heavy_emp = 18
-	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
+	var/pulse_number = 3 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
 	var/adminlogged = FALSE //If it exploded once, don't do it again.
 
 /obj/item/bombcore/emp/ex_act(severity) //It's an EMP bomb, not a chemical explosive

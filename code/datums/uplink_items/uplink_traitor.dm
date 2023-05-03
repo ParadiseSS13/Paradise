@@ -537,7 +537,7 @@
 /datum/uplink_item/explosives/emp_bomb
 	name = "EMP bomb"
 	desc = "The EMP has an adjustable timer with a minimum setting of 90 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
-	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
+	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb. Will pulse 3 times."
 	reference = "SBEMP"
 	item = /obj/item/radio/beacon/syndicate/bomb/emp
 	cost = 8
