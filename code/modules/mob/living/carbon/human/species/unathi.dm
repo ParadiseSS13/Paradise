@@ -192,17 +192,20 @@
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
+	..()
 	if(H.reagents.get_reagent_amount("zessulblood") < 5)         //unique unathi chemical, heals over time and increases shock reduction for 20
 		H.reagents.add_reagent("zessulblood", 1)
-	if(H.bodytemperature < 273)                       //anabiosis. unathi falls asleep if body temp is too low
-		switch(H.bodytemperature)
-			if(200 to 260)
-				H.EyeBlurry(3)
-			if(170 to 200)
-				H.AdjustDrowsy(3)
-			if(170 to 200)
-				to_chat(H, "<span class='danger'>Слишком холодно, я сейчас усну...</span>")
-			if(0 to 170)
+	switch(H.bodytemperature)
+		if(200 to 260)
+			H.EyeBlurry(3)
+			if(prob(5))
+				to_chat(H, "<span class='danger'>Здесь холодно, голова раскалывается...</span>")
+		if(0 to 200)
+			H.AdjustDrowsy(3)
+			//"anabiosis. unathi falls asleep if body temp is too low" (с) captainnelly
+			//sorry Nelly, no anabiosis for ya without proper temperature regulation system
+			if(prob(5) && H.bodytemperature <= 170)
 				H.AdjustSleeping(2)
-	else
-		return
+				to_chat(H, "<span class='danger'>Слишком холодно, я засыпаю...</span>")
+		else
+			return
