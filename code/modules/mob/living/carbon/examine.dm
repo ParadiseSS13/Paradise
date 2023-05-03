@@ -268,7 +268,7 @@
 			msg += examine_show_ssd()
 
 	// add anything else in here before huds
-	msg += examine_extra_general_flavor()
+	msg += examine_extra_general_flavor(user)
 
 	if(print_flavor_text() && !skipface)
 		if(get_organ("head"))
