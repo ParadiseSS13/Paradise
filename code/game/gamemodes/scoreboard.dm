@@ -165,7 +165,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	// return value of space cash on the person + whatever balance they currently have in their original money account
 	return get_score_container_worth(H) + H.mind.initial_account?.credit_balance
 
-// A recursive function to properly determine the cash on the wealthiest escapee
+/// A recursive function to properly determine the cash on the wealthiest escapee
 /datum/scoreboard/proc/get_score_container_worth(atom/C, level = 0)
 	. = 0
 	if(level >= 5) // in case the containers recurse or something
