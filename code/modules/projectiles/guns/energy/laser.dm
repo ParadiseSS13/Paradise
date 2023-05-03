@@ -160,7 +160,8 @@
 			select_fire(H)
 			H.apply_status_effect(STATUS_EFFECT_LWAPSCOPE, stored_dir)
 		return
-	zoom(user, FALSE) //Moved while scope was booting, so we unzoom
+	if(zoomed)
+		zoom(user, FALSE) //Moved while scope was booting, so we unzoom
 
 /obj/item/gun/energy/lwap/process()
 	. = ..()
