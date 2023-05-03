@@ -90,6 +90,7 @@
 			break
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()
+	qdel(occupant_overlay)
 	QDEL_NULL(beaker)
 	return ..()
 
