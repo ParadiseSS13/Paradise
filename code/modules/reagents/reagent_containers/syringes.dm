@@ -19,11 +19,10 @@
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 
-/obj/item/reagent_containers/syringe/New()
-	..()
+/obj/item/reagent_containers/syringe/Initialize(mapload)
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
-		update_icon()
+	. = ..()
 
 /obj/item/reagent_containers/syringe/set_APTFT()
 	set hidden = TRUE

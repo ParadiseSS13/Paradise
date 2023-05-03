@@ -136,11 +136,7 @@
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
-
-/obj/item/reagent_containers/food/snacks/organ/New()
-	..()
-
-	reagents.add_reagent("nutriment", 5)
+	list_reagents = list("nutriment" = 5)
 
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))

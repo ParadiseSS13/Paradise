@@ -13,10 +13,6 @@
 	tastes = list("ice cream" = 1)
 	foodtype = SUGAR | DAIRY
 
-/obj/item/reagent_containers/food/snacks/icecream/New()
-	..()
-	update_icon()
-
 /obj/item/reagent_containers/food/snacks/icecream/update_icon()
 	cut_overlays()
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/kitchen.dmi', "icecream_color")

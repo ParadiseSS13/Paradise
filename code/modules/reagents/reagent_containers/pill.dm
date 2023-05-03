@@ -13,10 +13,10 @@
 	can_taste = FALSE
 	antable = FALSE
 
-/obj/item/reagent_containers/food/pill/New()
-	..()
+/obj/item/reagent_containers/food/pill/Initialize(mapload)
 	if(!icon_state)
 		icon_state = "pill[rand(1,20)]"
+	. = ..()
 
 /obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	return

@@ -229,7 +229,7 @@
 
 /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop/New()
 	. = ..()
-	icon_state = pick(list("sucker_blue", "sucker_green", "sucker_orange", "sucker_purple", "sucker_red", "sucker_yellow"))
+	icon_state = pick("sucker_blue", "sucker_green", "sucker_orange", "sucker_purple", "sucker_red", "sucker_yellow")
 
 // ***********************************************************
 // Gummy Bear Flavors

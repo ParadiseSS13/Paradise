@@ -238,10 +238,10 @@
 	item_state = "coffee"
 	list_reagents = list("tea" = 30)
 
-/obj/item/reagent_containers/food/drinks/tea/New()
-	..()
+/obj/item/reagent_containers/food/drinks/tea/Initialize(mapload)
 	if(prob(20))
 		reagents.add_reagent("mugwort", 3)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/mugwort
 	name = "mugwort tea"
@@ -280,10 +280,10 @@
 	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
 
-/obj/item/reagent_containers/food/drinks/dry_ramen/New()
-	..()
+/obj/item/reagent_containers/food/drinks/dry_ramen/Initialize(mapload)
 	if(prob(20))
 		reagents.add_reagent("enzyme", 3)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
 	name = "canned chicken soup"

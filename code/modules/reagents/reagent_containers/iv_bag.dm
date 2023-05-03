@@ -165,8 +165,8 @@
 	list_reagents = list("salglu_solution" = 200)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
-	. = ..()
 	name = "[initial(name)] - Saline Glucose"
+	. = ..()
 
 /obj/item/reagent_containers/iv_bag/blood // Don't use this - just an abstract type to allow blood bags to have a common blood_type var for ease of creation.
 	var/blood_type = "O-"
@@ -174,11 +174,10 @@
 	amount_per_transfer_from_this = 5 // Bloodbags are set to transfer 5 units by default.
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
-	. = ..()
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - [blood_type] - [blood_species]"
 		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
-		update_icon()
+	. = ..()
 
 
 /obj/item/reagent_containers/iv_bag/blood/random/Initialize(mapload)
@@ -249,24 +248,22 @@
 	var/blood_species = "Oxygen - synthetic"
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
-	. = ..()
 	if(blood_type != null && blood_species != null)
 		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
-		update_icon()
+	. = ..()
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis
 	name = "\improper IV Bag - Nitrogenis"
 	var/blood_species = "Vox - synthetic"
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
-	. = ..()
 	if(blood_type != null && blood_species != null)
 		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
-		update_icon()
+	. = ..()
 
 /obj/item/reagent_containers/iv_bag/slime
 	list_reagents = list("slimejelly" = 200)
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
-	. = ..()
 	name = "[initial(name)] - Slime Jelly"
+	. = ..()

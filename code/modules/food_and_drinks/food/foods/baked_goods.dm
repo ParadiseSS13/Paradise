@@ -394,12 +394,12 @@
 	tastes = list("pie" = 1, "mushroom" = 1)
 	foodtype = GRAIN | VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/plump_pie/New()
-	..()
+/obj/item/reagent_containers/food/snacks/plump_pie/Initialize(mapload)
 	if(prob(10))
 		name = "exceptional plump pie"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!" // What
 		reagents.add_reagent("omnizine", 5)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
 	name = "xeno-pie"
@@ -471,14 +471,14 @@
 	tastes = list("donut" = 1)
 	foodtype = JUNKFOOD
 
-/obj/item/reagent_containers/food/snacks/donut/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/Initialize(mapload)
 	if(randomized_sprinkles && prob(30))
 		icon_state = "donut2"
 		name = "frosted donut"
 		reagents.add_reagent("sprinkles", 2)
 		donut_sprite_type = "frosted"
 		filling_color = "#FF69B4"
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
@@ -495,8 +495,7 @@
 	tastes = list("donut" = 3, "chaos" = 1)
 	log_eating = TRUE
 
-/obj/item/reagent_containers/food/snacks/donut/chaos/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/chaos/Initialize(mapload)
 	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
 	reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -504,6 +503,7 @@
 		name = "frosted chaos donut"
 		reagents.add_reagent("sprinkles", 2)
 		filling_color = "#FF69B4"
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly
 	name = "jelly donut"
@@ -513,8 +513,7 @@
 	donut_sprite_type = "jelly"
 	tastes = list("jelly" = 1, "donut" = 3)
 
-/obj/item/reagent_containers/food/snacks/donut/jelly/New()
-	..()
+/obj/item/reagent_containers/food/snacks/donut/jelly/Initialize(mapload)
 	if(extra_reagent)
 		reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -523,6 +522,7 @@
 		donut_sprite_type = "frostedjelly"
 		reagents.add_reagent("sprinkles", 2)
 		filling_color = "#FF69B4"
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
 	name = "jelly donut"
@@ -605,12 +605,12 @@
 	tastes = list("mushroom" = 1, "biscuit" = 1)
 	foodtype = GRAIN | SUGAR | VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/New()
-	..()
+/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit/Initialize(mapload)
 	if(prob(10))
 		name = "exceptional plump helmet biscuit"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?
 		reagents.add_reagent("omnizine", 5)
+	. = ..()
 
 /obj/item/reagent_containers/food/snacks/appletart
 	name = "golden apple streusel tart"

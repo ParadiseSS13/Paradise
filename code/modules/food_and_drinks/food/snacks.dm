@@ -31,11 +31,6 @@
 	else
 		..()
 
-/obj/item/reagent_containers/food/snacks/New()
-	if(!opened)
-		update_icon()
-	..()
-
 /obj/item/reagent_containers/food/snacks/update_icon()
 	if(!opened)
 		icon_state = "[initial(icon_state)]-closed"

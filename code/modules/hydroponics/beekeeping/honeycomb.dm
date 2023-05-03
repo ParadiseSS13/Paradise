@@ -16,7 +16,6 @@
 	..()
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)
-	update_icon()
 
 /obj/item/reagent_containers/honeycomb/set_APTFT()
 	set hidden = TRUE

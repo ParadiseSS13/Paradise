@@ -253,9 +253,9 @@
 	possible_transfer_amounts = list(5,10,15,25,30,40)
 	volume = 40
 
-/obj/item/reagent_containers/glass/bottle/traitor/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
 	reagents.add_reagent(pick_list("chemistry_tools.json", "traitor_poison_bottle"), 40)
+	. = ..()
 
 /obj/item/reagent_containers/glass/bottle/plasma
 	name = "plasma dust bottle"

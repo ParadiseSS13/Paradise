@@ -45,8 +45,7 @@
 	name = "unlabelled bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_reagent/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_reagent/Initialize(mapload)
 	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= GLOB.blocked_chems.Copy()
 	var/datum/reagent/R = pick(possible_chems)
@@ -56,14 +55,14 @@
 		reagents.add_reagent(R, rand(2, 3)*10)
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
+	. = ..()
 
 //Cuts out the food and drink reagents
 /obj/item/reagent_containers/glass/bottle/random_chem
 	name = "unlabelled chemical bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_chem/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_chem/Initialize(mapload)
 	var/R = get_random_reagent_id()
 	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
@@ -72,26 +71,26 @@
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
+	. = ..()
 
 /obj/item/reagent_containers/glass/bottle/random_base_chem
 	name = "unlabelled chemical bottle"
 	//	identify_probability = 0
 
-/obj/item/reagent_containers/glass/bottle/random_base_chem/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/random_base_chem/Initialize(mapload)
 	var/datum/reagent/R = pick(GLOB.base_chemicals)
 	reagents.add_reagent(R, rand(2, 6)*5)
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/bottle/random_drink
 	name = "unlabelled drink"
 	icon = 'icons/obj/drinks.dmi'
 	var/list/special_drinks = list(/datum/reagent/pancuronium, /datum/reagent/lsd,/datum/reagent/medicine/omnizine, /datum/reagent/blood)
 
-/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize()
-	. = ..()
+/obj/item/reagent_containers/food/drinks/bottle/random_drink/Initialize(mapload)
 	var/datum/reagent/reagent
 	if(prob(50 * length(special_drinks) / (length(special_drinks) + length(GLOB.drinks))))
 		reagent = pick(special_drinks)
@@ -105,14 +104,13 @@
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
+	. = ..()
 
 /obj/item/reagent_containers/food/drinks/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
 	icon = 'icons/obj/drinks.dmi'
 
-/obj/item/reagent_containers/food/drinks/bottle/random_reagent/New()
-	..()
-
+/obj/item/reagent_containers/food/drinks/bottle/random_reagent/Initialize(mapload)
 	var/R = get_random_reagent_id()
 	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
@@ -122,6 +120,7 @@
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
+	. = ..()
 	qdel(src)
 
 /obj/item/storage/pill_bottle/random_meds
