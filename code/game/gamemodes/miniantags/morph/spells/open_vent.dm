@@ -8,10 +8,12 @@
 	allowed_type = /obj/machinery/atmospherics/unary
 
 /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent/valid_target(target, user)
+	if(!..())
+		return FALSE
 	if(istype(target, /obj/machinery/atmospherics/unary/vent_scrubber))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/S = target
 		return S.welded
-	else if(istype(target, /obj/machinery/atmospherics/unary/vent_pump))
+	if(istype(target, /obj/machinery/atmospherics/unary/vent_pump))
 		var/obj/machinery/atmospherics/unary/vent_scrubber/V = target
 		return V.welded
 	return FALSE
