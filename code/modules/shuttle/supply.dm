@@ -133,7 +133,7 @@
 			SSeconomy.sold_atoms += ":"
 			if(!length(MA.contents))
 				SSeconomy.sold_atoms += " (empty)"
-			if(istype(MA,/obj/structure/closet/crate))
+			if(istype(MA, /obj/structure/closet/crate))
 				var/obj/structure/closet/crate/exported_crate = MA
 				total_crate_value += exported_crate.crate_value
 			else
