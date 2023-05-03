@@ -59,26 +59,32 @@
 	icon_living = "rare_frog"
 	icon_dead = "rare_frog_dead"
 	icon_resting = "rare_frog"
-	var/toxin_per_touch = 5
+	var/toxin_per_touch = 2.5
 	var/toxin_type = "toxin"
 	gold_core_spawnable = HOSTILE_SPAWN
 	holder_type = /obj/item/holder/frog/toxic
 
 /mob/living/simple_animal/frog/toxic/attack_hand(mob/living/carbon/human/H as mob)
-	if(!istype(H.gloves, /obj/item/clothing/gloves))
-		to_chat(H, "<span class='warning'>Дотронувшись до [src.name], ваша кожа начинает чесаться!</span>")
-		toxin_affect(H)
-		if(H.a_intent == INTENT_DISARM || H.a_intent == INTENT_HARM)
-			..()
-	else
-		..()
+	if(ishuman(H))
+		if(!istype(H.gloves, /obj/item/clothing/gloves))
+			for(var/obj/item/organ/external/A in H.bodyparts)
+				if(!A.is_robotic())
+					if((A.body_part == HAND_LEFT) || (A.body_part == HAND_RIGHT))
+						to_chat(H, "<span class='warning'>Дотронувшись до [src.name], ваша кожа начинает чесаться!</span>")
+						toxin_affect(H)
+						if(H.a_intent == INTENT_DISARM || H.a_intent == INTENT_HARM)
+							..()
+	..()
 
 /mob/living/simple_animal/frog/toxic/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		if(!istype(H.shoes, /obj/item/clothing/shoes))
-			toxin_affect(H)
-			to_chat(H, "<span class='warning'>Ваши ступни начинают чесаться!</span>")
+			for(var/obj/item/organ/external/F in H.bodyparts)
+				if(!F.is_robotic())
+					if((F.body_part == FOOT_LEFT) || (F.body_part == FOOT_RIGHT))
+						toxin_affect(H)
+						to_chat(H, "<span class='warning'>Ваши ступни начинают чесаться!</span>")
 	..()
 
 /mob/living/simple_animal/frog/toxic/proc/toxin_affect(mob/living/carbon/human/M as mob)
