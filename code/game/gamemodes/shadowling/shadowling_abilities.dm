@@ -28,6 +28,7 @@
 	selection_activated_message		= "<span class='notice'>Your prepare to your eyes for a stunning glare! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>Your eyes relax... for now.</span>"
 	allowed_type = /mob/living/carbon/human
+	auto_target_nearest = TRUE
 
 /obj/effect/proc_holder/spell/targeted/click/glare/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incorporeal_move == INCORPOREAL_NORMAL)

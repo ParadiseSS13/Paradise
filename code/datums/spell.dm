@@ -439,6 +439,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
 	var/allowed_type = /mob/living	// Which type the targets have to be
 	var/auto_target_single = TRUE	// If the spell should auto select a target if only one is found
+	var/auto_target_nearest = FALSE // If the spell should always auto select a nearest target
 	/// does this spell generate attack logs?
 	var/create_logs = TRUE
 
@@ -452,14 +453,36 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		remove_ranged_ability(user, selection_deactivated_message)
 	else
 		if(cast_check(TRUE, FALSE, user))
-			if(auto_target_single && attempt_auto_target(user))
+			if(auto_target_nearest)
+				if(!attempt_auto_target_nearest(user))
+					to_chat(user, "<span class='warning'>No targets found!</span>")
+				return
+
+			if(auto_target_single && attempt_auto_target_single(user))
 				return
 
 			add_ranged_ability(user, selection_activated_message)
 		else
 			to_chat(user, "<span class='warning'>[src] is not ready to be used yet.</span>")
 
-/obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target(mob/user)
+/obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target_nearest(mob/user)
+	var/atom/target
+	var/current_distance
+	var/min_distance = range + 1
+	for(var/atom/A in view_or_range(range, user, selection_type))
+		if(valid_target(A, user))
+			current_distance = get_dist(A, user)
+			if(current_distance < min_distance)
+				target = A
+				min_distance = current_distance
+
+	if(target && cast_check(TRUE, TRUE, user))
+		to_chat(user, "<span class='warning'>Casting [src] on nearest target: [target]!</span>")
+		perform(list(target), user = user, make_attack_logs = create_logs)
+		return TRUE
+	return FALSE
+
+/obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target_single(mob/user)
 	var/atom/target
 	for(var/atom/A in view_or_range(range, user, selection_type))
 		if(valid_target(A, user))
