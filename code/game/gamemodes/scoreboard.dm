@@ -158,7 +158,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		damaged_job = H.job
 		damaged_key = H.key
 
-// A function to determine the cash plus the account balance of the wealthiest escapee
+/// A function to determine the cash plus the account balance of the wealthiest escapee
 /datum/scoreboard/proc/get_score_person_worth(mob/living/carbon/human/H)
 	if(!H.mind)
 		return
