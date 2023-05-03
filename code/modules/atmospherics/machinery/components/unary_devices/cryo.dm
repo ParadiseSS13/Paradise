@@ -1,7 +1,6 @@
 #define AUTO_EJECT_DEAD		(1<<0)
 #define AUTO_EJECT_HEALTHY	(1<<1)
-#define HIGH 24
-#define MID 23
+#define HIGH 28
 #define LOW 22
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
@@ -19,6 +18,8 @@
 	var/current_heat_capacity = 50
 
 	var/mob/living/carbon/occupant = null
+	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
+	var/obj/effect/occupant_overlay = null
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely healthy patients.
 	var/auto_eject_prefs = AUTO_EJECT_HEALTHY | AUTO_EJECT_DEAD
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -341,48 +342,26 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_overlays()
 	. = ..()
+	if(occupant_overlay)
+		qdel(occupant_overlay)
 	if(!occupant)
 		. += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
 		return
 
 	if(occupant)
-		var/mutable_appearance/pickle = mutable_appearance(occupant.icon, occupant.icon_state)
-		pickle.overlays = occupant.overlays
-		pickle.pixel_y = LOW
+		occupant_overlay = new(get_turf(src))
+		occupant_overlay.icon = occupant.icon
+		occupant_overlay.icon_state = occupant.icon_state
+		occupant_overlay.overlays = occupant.overlays
+		occupant_overlay.pixel_y = LOW
+		occupant_overlay.layer = layer + 0.01
 
-		. += pickle
-		. += "lid[on]"
-		if(on && !running_bob_animation) //no bobbing if off
-			var/bobbing = NONE //used to see if we are going up or down
-			spawn(0) // Without this, the icon update will block. The new thread will die once the occupant leaves.
-				running_bob_animation = TRUE
-				while(occupant && on)
-					cut_overlay("lid[on]") //have to remove the overlays first, to force an update- remove cloning pod overlay
-					cut_overlay(pickle) //remove mob overlay
+		if(on)
+			animate(occupant_overlay, time = 3 SECONDS, loop = -1, easing = BACK_EASING, pixel_y = HIGH)
+			animate(time = 3 SECONDS, loop = -1, easing = BACK_EASING, pixel_y = LOW)
+		var/mutable_appearance/lid = mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
+		. += lid
 
-					switch(pickle.pixel_y) //this looks messy as fuck but it works, switch won't call itself twice
-
-						if(MID) //inbetween state, for smoothness
-							switch(bobbing) //this is set later in the switch, to keep track of where the mob is supposed to go
-								if(UP)
-									pickle.pixel_y = HIGH //set to highest
-
-								if(DOWN)
-									pickle.pixel_y = LOW //set to lowest
-
-						if(LOW) //mob is at it's lowest
-							pickle.pixel_y = MID //set to inbetween
-							bobbing = UP //have to go up
-
-						if(HIGH) //mob is at it's highest
-							pickle.pixel_y = MID //set to inbetween
-							bobbing = DOWN //have to go down
-
-					add_overlay(pickle) //re-add the mob to the icon
-					add_overlay("lid[on]") //re-add the overlay of the pod, they are inside it, not floating
-
-					sleep(7) //don't want to jiggle violently, just slowly bob
-				running_bob_animation = FALSE
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
@@ -542,5 +521,4 @@
 #undef AUTO_EJECT_HEALTHY
 #undef AUTO_EJECT_DEAD
 #undef HIGH
-#undef MID
 #undef LOW
