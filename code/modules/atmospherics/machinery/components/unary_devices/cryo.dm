@@ -27,8 +27,6 @@
 	var/injection_cooldown = 34 SECONDS
 	var/efficiency
 
-	var/running_bob_animation = FALSE // This is used to prevent threads from building up if update_icons is called multiple times
-
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
