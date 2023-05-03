@@ -161,14 +161,9 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 /// A function to determine the cash plus the account balance of the wealthiest escapee
 /datum/scoreboard/proc/get_score_person_worth(mob/living/carbon/human/H)
 	if(!H.mind)
-		return
-	. = get_score_container_worth(H)
-
-	if(!H.mind.initial_account)
-		return
-
-	var/balance = H.mind.initial_account.credit_balance
-	. += balance
+		return // if they have no mind, we don't care
+	// return value of space cash on the person + whatever balance they currently have in their original money account
+	return get_score_container_worth(H) + H.mind.initial_account?.credit_balance
 
 // A recursive function to properly determine the cash on the wealthiest escapee
 /datum/scoreboard/proc/get_score_container_worth(atom/C, level = 0)
