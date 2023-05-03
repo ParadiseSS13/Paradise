@@ -496,7 +496,7 @@
 	name = "Gravity jump"
 	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
 
-/datum/action/item_action/gravity_jump/Trigger()
+/datum/action/item_action/gravity_jump/Trigger(attack_self = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
