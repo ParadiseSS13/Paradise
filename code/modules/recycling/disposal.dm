@@ -178,6 +178,8 @@
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals", target.ckey ? null : ATKLOG_ALL)
 	playsound(src, "sound/effects/bang.ogg")
+
+	update()
 	return TRUE
 
 // mouse drop another mob or self
@@ -1030,7 +1032,7 @@
 /obj/structure/disposalpipe/sortjunction
 	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
-	var/list/sort_type = list(1)	
+	var/list/sort_type = list(1)
 	var/sort_type_txt //Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
