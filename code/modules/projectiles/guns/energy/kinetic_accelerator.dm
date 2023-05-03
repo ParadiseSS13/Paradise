@@ -39,9 +39,11 @@
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/borg/upgrade/modkit))
 		var/obj/item/borg/upgrade/modkit/MK = I
-		MK.install(src, user)
-	else
-		return ..()
+		if(!MK.only_borg)
+			MK.install(src, user)
+			return
+		to_chat(user, "<span class = 'warning'>Похоже, что этот модуль не подходит для таких ускорителей!</span>")
+	return ..()
 
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -268,17 +270,22 @@
 	var/modifier = 1 //For use in any mod kit that has numerical modifiers
 	var/minebot_upgrade = TRUE
 	var/minebot_exclusive = FALSE
+	var/only_borg = FALSE //Is it only for robots
 
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
 		. += "<span class='notice'>Occupies <b>[cost]%</b> of mod capacity.</span>"
+	if(only_borg)
+		. += "<span class = 'warning'>Не похоже что этот модуль подходит для обычного КА.</span>"
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/gun/energy/kinetic_accelerator) && !issilicon(user))
-		install(A, user)
-	else
-		return ..()
+	if(istype(A, /obj/item/gun/energy/kinetic_accelerator))
+		if(!only_borg)
+			install(A, user)
+			return
+		to_chat(user, "<span class = 'warning'>Похоже, что этот модуль не подходит для таких ускорителей!</span>")
+	return ..()
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
 	if(..())
@@ -344,6 +351,8 @@
 /obj/item/borg/upgrade/modkit/range/modify_projectile(obj/item/projectile/kinetic/K)
 	K.range += modifier
 
+/obj/item/borg/upgrade/modkit/range/borg
+	only_borg = TRUE
 
 //Damage
 /obj/item/borg/upgrade/modkit/damage
@@ -354,6 +363,8 @@
 /obj/item/borg/upgrade/modkit/damage/modify_projectile(obj/item/projectile/kinetic/K)
 	K.damage += modifier
 
+/obj/item/borg/upgrade/modkit/damage/borg
+	only_borg = TRUE
 
 //Cooldown
 /obj/item/borg/upgrade/modkit/cooldown
@@ -372,6 +383,9 @@
 /obj/item/borg/upgrade/modkit/cooldown/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	KA.overheat_time += modifier
 	..()
+
+/obj/item/borg/upgrade/modkit/cooldown/borg
+	only_borg = TRUE
 
 /obj/item/borg/upgrade/modkit/cooldown/minebot
 	name = "minebot cooldown decrease"
