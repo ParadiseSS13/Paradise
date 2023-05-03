@@ -20,7 +20,7 @@
 	GLOB.major_announcement.Announce("A recent bureaucratic error in the Human Resources Department may result in personnel shortages in some departments and redundant staffing in others.", "Paperwork Mishap Alert")
 
 /datum/event/bureaucratic_error/start()
-	var/list/affected_jobs // For logging
+	var/list/affected_jobs = list() // For logging
 	var/list/jobs = SSjobs.occupations.Copy()
 	var/datum/job/overflow
 	var/overflow_amount = rand(1, 6)
@@ -33,6 +33,6 @@
 		if(overflow.type in blacklisted_jobs)
 			continue
 		overflow.total_positions = max(overflow.total_positions + random_change, 0)
-		affected_jobs += "[overflow] slot changed by [random_change].\n"
+		affected_jobs += "[overflow.title] slot changed by [random_change]."
 		errors++
-	log_and_message_admins(affected_jobs.Join(" "))
+	log_and_message_admins(affected_jobs.Join("\n"))
