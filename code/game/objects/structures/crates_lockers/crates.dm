@@ -296,6 +296,8 @@
 	icon_state = "plasticcrate"
 	icon_opened = "plasticcrate_open"
 	icon_closed = "plasticcrate"
+	material_drop = /obj/item/stack/sheet/plastic
+	material_drop_amount = 4
 	crate_value = 3 // You can mass produce plastic crates, this is needed to prevent cargo from making tons of money too easily
 
 /obj/structure/closet/crate/internals

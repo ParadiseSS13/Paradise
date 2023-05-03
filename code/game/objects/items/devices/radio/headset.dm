@@ -123,7 +123,7 @@
 	set_frequency(SYND_FREQ)
 
 /obj/item/radio/headset/soviet
-	name = "soviet headset"
+	name = "soviet bowman headset"
 	desc = "Used by U.S.S.P forces. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	origin_tech = "syndicate=3"
