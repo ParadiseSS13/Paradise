@@ -1138,3 +1138,14 @@
 /mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	stop_pulling()
 	return ..()
+
+/mob/living/carbon_throw_hit(mob/living/carbon/human/C, damage, hurt, hurt_self)
+	if(C == src || flying || !density)
+		return
+	if(hurt)
+		if(hurt_self)
+			take_organ_damage(damage)
+		C.take_organ_damage(damage)
+		C.KnockDown(3 SECONDS)
+		C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
+	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)

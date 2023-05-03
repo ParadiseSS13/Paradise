@@ -547,6 +547,10 @@
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
+/// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set hurt to false to avoid double dipping through subtypes if returning ..()
+/atom/proc/carbon_throw_hit(mob/living/carbon/human/C, damage, hurt, hurt_self) //TODO: Name hurt/self hit better
+	return
+
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))

@@ -613,6 +613,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return
 
 	var/hurt = TRUE
+	var/hurt_self = TRUE
 	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
@@ -620,23 +621,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			var/mob/living/silicon/robot/R = D.thrower
 			if(!R.emagged)
 				hurt = FALSE*/
-	if(hit_atom.density && isturf(hit_atom))
-		if(hurt)
-			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
-			take_organ_damage(damage)
-			KnockDown(3 SECONDS)
-			playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
-	if(iscarbon(hit_atom) && hit_atom != src)
-		var/mob/living/carbon/victim = hit_atom
-		if(victim.flying)
-			return
-		if(hurt)
-			victim.take_organ_damage(damage)
-			take_organ_damage(damage)
-			victim.KnockDown(3 SECONDS)
-			KnockDown(3 SECONDS)
-			visible_message("<span class='danger'>[src] crashes into [victim], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [victim]!</span>")
-		playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+
+	hit_atom.carbon_throw_hit(src, damage, hurt, hurt_self)
+
+/mob/living/carbon/carbon_throw_hit(mob/living/carbon/human/C, damage, hurt, hurt_self)
+	. = ..()
+	KnockDown(3 SECONDS)
 
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(in_throw_mode)

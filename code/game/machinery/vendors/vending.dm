@@ -1118,6 +1118,14 @@
 	tilt(target, from_combat = TRUE)
 	return TRUE
 
+/obj/machinery/economy/vending/carbon_throw_hit(mob/living/carbon/human/C, damage, hurt, hurt_self)
+	if(HAS_TRAIT(C, TRAIT_FLATTENED))
+		return
+	tilt(C, from_combat = TRUE)
+	hurt = FALSE
+	return ..()
+
+
 /*
  * Vending machine types
  */

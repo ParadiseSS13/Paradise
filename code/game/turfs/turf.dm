@@ -548,3 +548,11 @@
 		else
 			return I
 	return I
+
+
+/turf/carbon_throw_hit(mob/living/carbon/human/C, damage, hurt, hurt_self)
+	if(hurt && density)
+		C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
+		C.take_organ_damage(damage)
+		C.KnockDown(3 SECONDS)
+		playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
