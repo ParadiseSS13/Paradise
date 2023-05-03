@@ -160,7 +160,12 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 
 // A function to determine the cash plus the account balance of the wealthiest escapee
 /datum/scoreboard/proc/get_score_person_worth(mob/living/carbon/human/H)
+	if(!H.mind)
+		return
 	. = get_score_container_worth(H)
+
+	if(!H.mind.initial_account)
+		return
 
 	var/balance = H.mind.initial_account.credit_balance
 	. += balance
