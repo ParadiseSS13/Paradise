@@ -115,6 +115,8 @@
 	for(var/level in levels)
 		if(!is_teleport_allowed(level))
 			levels -= level
+		if(text2num(level) == T.z)
+			levels -= level
 
 	T.ChangeTurf(/turf/simulated/floor/chasm)
 	var/turf/simulated/floor/chasm/C = T
