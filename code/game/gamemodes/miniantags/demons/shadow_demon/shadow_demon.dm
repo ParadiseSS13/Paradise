@@ -50,7 +50,7 @@
 /obj/structure/shadowcocoon
 	name = "shadowy cocoon"
 	desc = "Something wrapped in what seems to be manifested darkness. Its surface distorts unnaturally, and it emanates deep shadows."
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "shadowcocoon"
 	light_power = -4
 	light_range = 6
