@@ -967,7 +967,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "synthetic blood pack oxygenis crate"
 
-/datum/supply_packs/medical/bloodpacks_syn_oxygenis
+/datum/supply_packs/medical/bloodpacks_syn_nitrogenis
 	name = "Synthetic Blood Pack Nitrogenis"
 	contains = list(/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 					/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
@@ -991,7 +991,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "human blood pack crate"
 
-/datum/supply_packs/medical/bloodpacks_human
+/datum/supply_packs/medical/bloodpacks_xenos
 	name = "Xenos Blood Pack"
 	contains = list(/obj/item/reagent_containers/iv_bag/blood/skrell,
 					/obj/item/reagent_containers/iv_bag/blood/tajaran,
