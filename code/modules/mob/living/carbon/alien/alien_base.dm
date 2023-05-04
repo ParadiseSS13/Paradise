@@ -193,6 +193,29 @@
 
 	return threatcount
 
+/mob/living/carbon/alien/death(gibbed)
+	. = ..()
+	if(!.)
+		return
+
+	deathrattle()
+
+
+/mob/living/carbon/alien/proc/deathrattle()
+	var/alien_message = deathrattle_message()
+	// var/ghost_message = deathrattle_message(TRUE)
+	for(var/mob/M in GLOB.player_list)
+		if(!isobserver(M) && !isalien(M))
+			continue
+
+		if(isobserver(M))
+			to_chat(M, deathrattle_message(M))
+		else
+			to_chat(M, alien_message)
+
+/mob/living/carbon/alien/proc/deathrattle_message(mob/dead/observer/G)
+	return "<i><span class='alien'>The hivemind echoes: [name][!isnull(G) ? " ([ghost_follow_link(src, ghost=G)]) " : ""] has been slain!</span></i>"
+
 /*----------------------------------------
 Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
