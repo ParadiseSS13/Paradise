@@ -499,13 +499,16 @@
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
-/obj/structure/window/carbon_throw_hit(mob/living/carbon/human/C, damage, hurt, hurt_self)
-	if(damage >= obj_integrity && shardtype && hurt)
+/obj/structure/window/carbon_throw_hit(mob/living/carbon/human/C, damage, mob_hurt, self_hurt)
+	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
 		var/obj/item/S = new shardtype(loc)
 		S.embedded_ignore_throwspeed_threshold = TRUE
 		S.throw_impact(C)
 		S.embedded_ignore_throwspeed_threshold = FALSE
 		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
+	if(!self_hurt)
+		take_damage(damage * 2, BRUTE) //Makes windows more vunerable to being thrown so they'll actually shatter in a reasonable ammount of time.
+		self_hurt = TRUE
 	return ..()
 
 /obj/structure/window/GetExplosionBlock()

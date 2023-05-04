@@ -612,8 +612,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 		return
 
-	var/hurt = TRUE
-	var/hurt_self = TRUE
 	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
 	/*if(istype(throwingdatum, /datum/thrownthing))
 		var/datum/thrownthing/D = throwingdatum
@@ -622,9 +620,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(!R.emagged)
 				hurt = FALSE*/
 
-	hit_atom.carbon_throw_hit(src, damage, hurt, hurt_self)
+	hit_atom.carbon_throw_hit(src, damage, FALSE, FALSE)
 
-/mob/living/carbon/carbon_throw_hit(mob/living/carbon/human/C, damage, hurt, hurt_self)
+/mob/living/carbon/carbon_throw_hit(mob/living/carbon/human/C, damage, mob_hurt, self_hurt)
 	. = ..()
 	KnockDown(3 SECONDS)
 

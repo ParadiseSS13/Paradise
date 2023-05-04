@@ -1139,11 +1139,11 @@
 	stop_pulling()
 	return ..()
 
-/mob/living/carbon_throw_hit(mob/living/carbon/human/C, damage, hurt, hurt_self)
+/mob/living/carbon_throw_hit(mob/living/carbon/human/C, damage, mob_hurt, self_hurt)
 	if(C == src || flying || !density)
 		return
-	if(hurt)
-		if(hurt_self)
+	if(!mob_hurt)
+		if(!self_hurt)
 			take_organ_damage(damage)
 		C.take_organ_damage(damage)
 		C.KnockDown(3 SECONDS)
