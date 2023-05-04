@@ -462,7 +462,7 @@
 	text = replacetext(text, "\[/i\]",		"</I>")
 	text = replacetext(text, "\[u\]",		"<U>")
 	text = replacetext(text, "\[/u\]",		"</U>")
-	if(check_rights(R_ADMIN))
+	if(check_rights(R_EVENT))
 		text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
 		text = replacetext(text, "\[/signfont\]",		"</i></font>")
 	if(sign)
