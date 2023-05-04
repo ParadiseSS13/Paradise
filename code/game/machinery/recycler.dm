@@ -75,7 +75,7 @@
 
 /obj/machinery/recycler/update_overlays()
 	. = ..()
-	if(panel_open == TRUE)
+	if(panel_open)
 		. += "grinder-oOpen"
 	else
 		. -= "grinder-oOpen"
