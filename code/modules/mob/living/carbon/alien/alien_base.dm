@@ -203,18 +203,11 @@
 
 /mob/living/carbon/alien/proc/deathrattle()
 	var/alien_message = deathrattle_message()
-	// var/ghost_message = deathrattle_message(TRUE)
-	for(var/mob/M in GLOB.player_list)
-		if(!isobserver(M) && !isalien(M))
-			continue
-
-		if(isobserver(M))
-			to_chat(M, deathrattle_message(M))
-		else
-			to_chat(M, alien_message)
+	for(var/mob/living/carbon/alien/M in GLOB.player_list)
+		to_chat(M, alien_message)
 
 /mob/living/carbon/alien/proc/deathrattle_message(mob/dead/observer/G)
-	return "<i><span class='alien'>The hivemind echoes: [name][!isnull(G) ? " ([ghost_follow_link(src, ghost=G)]) " : ""] has been slain!</span></i>"
+	return "<i><span class='alien'>The hivemind echoes: [name] has been slain!</span></i>"
 
 /*----------------------------------------
 Proc: AddInfectionImages()

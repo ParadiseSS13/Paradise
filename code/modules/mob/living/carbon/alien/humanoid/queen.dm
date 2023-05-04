@@ -42,7 +42,7 @@
 	)
 
 /mob/living/carbon/alien/humanoid/queen/deathrattle_message(for_ghosts)/mob/living/carbon/alien/proc/deathrattle_message(mob/dead/observer/G)
-	return "<i><span class='alien reallybig'>A shock reverberates through the hive; [name][!isnull(G) ? " ([ghost_follow_link(src, ghost=G)]) " : ""] has been slain!</span></i>"
+	return "<i><span class='alien reallybig'>A shock reverberates through the hive; [name] has been slain!</span></i>"
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE
