@@ -21,7 +21,7 @@
 	current_size = STAGE_TWO
 	move_self = TRUE
 	grav_pull = 0
-	density = TRUE
+	density = FALSE
 	energy = 0
 	dissipate = FALSE
 	dissipate_delay = 5
@@ -78,7 +78,7 @@
 	if(!parent_energy_ball)
 		handle_energy()
 
-		move_the_basket_ball(4 + length(orbiting_balls) * 1.5)
+		move_the_basket_ball()
 
 		playsound(loc, 'sound/magic/lightningbolt.ogg', 100, TRUE, extrarange = 30, channel = CHANNEL_ENGINE)
 
@@ -105,14 +105,14 @@
 	if(length(orbiting_balls))
 		. += "There are [length(orbiting_balls)] mini-balls orbiting it."
 
-/obj/singularity/energy_ball/proc/move_the_basket_ball(move_amount)
+/obj/singularity/energy_ball/proc/move_the_basket_ball()
 	for(var/thing in GLOB.singularities)
 		var/turf/where_to_move = findEventArea()
 		var/obj/singularity/tesloose = thing
+		message_admins("The target is [where_to_move]")
 		tesloose.target = pick(where_to_move)
-	if(length(shocked_things))
-		for(var/i in 0 to move_amount)
-			var/movement_dir = get_dir(src,target)
+		for(var/i in 0 to 8)
+			var/movement_dir = get_dir(src, target)
 			var/turf/T = get_step(src, movement_dir)
 			if(can_move(T))
 				forceMove(T)
@@ -120,6 +120,7 @@
 				step(src, movement_dir)
 				for(var/mob/living/carbon/C in loc)
 					dust_mobs(C)
+	sleep(1000)
 
 /obj/singularity/energy_ball/proc/handle_energy()
 	if(energy >= energy_to_raise)
