@@ -206,7 +206,7 @@
 	for(var/mob/living/carbon/alien/M in GLOB.player_list)
 		to_chat(M, alien_message)
 
-/mob/living/carbon/alien/proc/deathrattle_message(mob/dead/observer/G)
+/mob/living/carbon/alien/proc/deathrattle_message()
 	return "<i><span class='alien'>The hivemind echoes: [name] has been slain!</span></i>"
 
 /*----------------------------------------
