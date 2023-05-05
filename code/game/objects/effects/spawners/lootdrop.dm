@@ -448,3 +448,14 @@
 /obj/effect/spawner/lootdrop/three_course_meal/New()
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)
 	. = ..()
+
+/obj/effect/spawner/lootdrop/officetoys
+	icon_state = "office_toy"
+	name = "Office desk toy spawner"
+	loot = list(
+		/obj/item/toy/desk/officetoy,
+		/obj/item/toy/desk/dippingbird,
+		/obj/item/toy/desk/newtoncradle,
+		/obj/item/toy/desk/fan,
+		/obj/item/hourglass
+	)
