@@ -425,7 +425,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -22;
+	alarm_frequency = 1200
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -675,8 +676,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external{
-	id_tag = "SSSP_Xeno_inner";
-	tag = null
+	id_tag = "SSSP_Xeno_inner"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -702,8 +702,7 @@
 "jC" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/external{
-	id_tag = "SSSP_Xeno_outer";
-	tag = null
+	id_tag = "SSSP_Xeno_outer"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1771,7 +1770,8 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 24;
+	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2055,7 +2055,8 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 24;
+	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2163,7 +2164,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -22;
+	alarm_frequency = 1200
 	},
 /obj/structure/sink{
 	dir = 1
@@ -2805,7 +2807,8 @@
 /obj/item/clothing/head/ushanka,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -22;
+	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3611,7 +3614,8 @@
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 24;
+	alarm_frequency = 1200
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -3632,7 +3636,8 @@
 /area/ruin/ussp_xeno/medbay)
 "Xh" = (
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 24;
+	alarm_frequency = 1200
 	},
 /obj/structure/chair/comfy/red{
 	dir = 8
