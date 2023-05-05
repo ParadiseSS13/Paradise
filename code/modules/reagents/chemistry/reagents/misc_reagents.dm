@@ -526,7 +526,7 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	if (M.mind.assigned_role != "Clown")
+	if(M.mind.assigned_role != "Clown")
 		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
 		M.RemoveElement(/datum/element/waddling)
 	qdel(M.GetComponent(/datum/component/squeak))
