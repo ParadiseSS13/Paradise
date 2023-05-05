@@ -259,13 +259,21 @@
 		temp_server.files.RefreshResearch()
 
 	else if(href_list["reset_design"])
-		var/choice = alert("Design Data Deletion", "Are you sure you want to delete this design? Data lost cannot be recovered.", "Continue", "Cancel")
+		var/choice = alert("Design Data Deletion", "Are you sure you want to blacklist this design? Ensure you sync servers after this decision.", "Continue", "Cancel")
 		if(choice == "Continue")
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
 				if(D.id == href_list["reset_design"])
 					temp_server.files.known_designs -= D.id
+					temp_server.files.blacklisted_designs += D.id
 					break
+		temp_server.files.RefreshResearch()
+
+	else if(href_list["restore_design"])
+		var/choice = alert("Design Data Restoration", "Are you sure you want to restore this design? Ensure you sync servers after this decision.", "Continue", "Cancel")
+		if(choice == "Continue")
+			temp_server.files.blacklisted_designs -= href_list["restore_design"]
+			temp_server.files.unblacklisted_designs += href_list["restore_design"]
 		temp_server.files.RefreshResearch()
 
 	updateUsrDialog()
@@ -323,7 +331,12 @@
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
 				dat += "* [D.name] "
-				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Delete)</A><BR>"
+				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Blacklist)</A><BR>"
+			if(length(temp_server.files.blacklisted_designs))
+				dat += "Blacklisted Designs<BR>"
+					for(var/I in temp_server.files.blacklisted_designs)
+						dat += "* [I] "
+						dat += "<A href='?src=[UID()];restore_design=[I]'>(Restore design)</A><BR>"
 			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
 
 		if(3) //Server Data Transfer
