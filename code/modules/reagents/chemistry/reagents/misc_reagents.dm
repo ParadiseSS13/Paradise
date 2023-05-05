@@ -489,9 +489,10 @@
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+	if(C.mind.assigned_role != "Clown")
+		ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+		C.AddElement(/datum/element/waddling)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
-	C.AddElement(/datum/element/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -525,9 +526,11 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
+	if (M.mind.assigned_role != "Clown")
+		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
+		M.RemoveElement(/datum/element/waddling)
 	qdel(M.GetComponent(/datum/component/squeak))
-	M.RemoveElement(/datum/element/waddling)
+
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"
