@@ -70,6 +70,7 @@
 		for(var/X in actions)
 			var/datum/action/A = X
 			A.Remove(user)
+			src.actions -= X
 
 		icon_state = "armor"
 		user.update_inv_wear_suit()
