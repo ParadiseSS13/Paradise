@@ -401,12 +401,14 @@
 	result = /obj/item/reagent_containers/food/snacks/croissant
 
 /datum/recipe/oven/birthdaycake
-	reagents = list("milk" = 5, "sugar" = 5)
+	reagents = list("milk" = 5, "sugar" = 15, "vanilla" = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/clothing/head/cakehat
+		/obj/item/candle,
+		/obj/item/candle,
+		/obj/item/candle,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/birthdaycake
 
