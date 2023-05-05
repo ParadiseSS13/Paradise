@@ -63,7 +63,7 @@
 	icon_dead = "olives-dead"
 	icon_harvest = "olives-harvest"
 	mutatelist = list(/obj/item/seeds/soya/olive/charc)
-	reagents_add = list("oliveoil" = 0.3, "plantmatter" = 0.05, "vitamins" = 0.04)
+	reagents_add = list("oliveoil" = 0.3, "plantmatter" = 0.05, "vitamin" = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/olive
 	seed = /obj/item/seeds/soya/olive
