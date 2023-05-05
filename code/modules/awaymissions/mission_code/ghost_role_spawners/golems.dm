@@ -32,7 +32,7 @@
 		/obj/item/stack/sheet/mineral/plastitanium		= /datum/species/golem/plastitanium,
 		/obj/item/stack/sheet/mineral/abductor			= /datum/species/golem/alloy,
 		/obj/item/stack/sheet/wood						= /datum/species/golem/wood,
-		/obj/item/stack/sheet/bluespace_crystal			= /datum/species/golem/bluespace,
+		/obj/item/stack/ore/bluespace_crystal/refined	= /datum/species/golem/bluespace,
 		/obj/item/stack/medical/bruise_pack	        	= /datum/species/golem/cloth,
 		/obj/item/stack/medical/bruise_pack/improvised	= /datum/species/golem/cloth,
 		/obj/item/stack/sheet/cloth	                	= /datum/species/golem/cloth,
