@@ -235,6 +235,7 @@
 	icon_state = "lawyer_black_skirt"
 	item_state = "lawyer_black_skirt"
 	item_color = "lawyer_black_skirt"
+
 /obj/item/clothing/under/rank/civilian/lawyer/red
 	name = "lawyer red suit"
 	icon_state = "lawyer_red"
@@ -292,7 +293,7 @@
 	item_state = "good_suit"
 	item_color = "good_suit"
 
-/obj/item/clothing/under/rank/civilian/lawyer/goodsuit
+/obj/item/clothing/under/rank/civilian/lawyer/skirt/goodsuit
 	name = "good man's skirt"
 	desc = "It's all good, man!"
 	icon_state = "good_suit_skirt"

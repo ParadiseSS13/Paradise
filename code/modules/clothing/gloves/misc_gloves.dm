@@ -80,6 +80,17 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 115, ACID = 20)
 
+/obj/item/clothing/gloves/janitor
+	name = "janitorial gloves"
+	desc = "Gloves designed to offer minor protection against messes. They don't feel like rubber."
+	icon_state = "janitor"
+	item_state = "janitor"
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
+
 /obj/item/clothing/gloves/batmangloves
 	name = "batgloves"
 	desc = "Used for handling all things bat related."
