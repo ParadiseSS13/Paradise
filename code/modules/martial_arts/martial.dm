@@ -33,6 +33,8 @@
 	var/in_stance = FALSE
 	/// If the martial art allows parrying.
 	var/can_parry = FALSE
+	/// The priority of which martial art is picked from all the ones someone knows.
+	var/weight = 0
 
 /datum/martial_art/New()
 	. = ..()
@@ -136,27 +138,30 @@
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)
 		return
+	var/datum/martial_art/MA = src
+	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+		if(istype(MA, src))
+			return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
-	if(make_temporary)
-		temporary = TRUE
-	if(temporary)
-		if(H.mind.martial_art)
-			base = H.mind.martial_art.base
-	else
-		base = src
-	H.mind.martial_art = src
+	H.mind.known_martial_arts.Add(src)
+	H.mind.martial_art = get_highest_weight(H)
 
 /datum/martial_art/proc/remove(mob/living/carbon/human/H)
+	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
-	if(H.mind.martial_art != src)
-		return
-	H.mind.martial_art = null // Remove reference
+	else
+		H.mind.known_martial_arts.Remove(MA)
+		H.mind.martial_art = get_highest_weight(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	if(base)
-		base.teach(H)
-		base = null
+
+/datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
+	var/datum/martial_art/highest_weight = null
+	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+		if(!highest_weight || MA.weight > highest_weight.weight)
+			highest_weight = MA
+	return highest_weight
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -220,7 +225,7 @@
 		return
 	if(slot == slot_gloves)
 		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
+		style.teach(H, TRUE)
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
@@ -243,7 +248,7 @@
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
 			return
-		style.teach(H,1)
+		style.teach(H, TRUE)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
 	return
 

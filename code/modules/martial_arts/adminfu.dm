@@ -2,6 +2,7 @@
 	name = "Way of the Dancing Admin"
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/adminfu/healing_palm)
+	weight = 99999999 //Matt Malvor?
 
 /datum/martial_art/adminfu/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK

@@ -1,5 +1,6 @@
 /datum/martial_art/grav_stomp
 	name = "Gravitational Boots"
+	weight = 4
 
 /datum/martial_art/grav_stomp/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
