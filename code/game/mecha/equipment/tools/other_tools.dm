@@ -16,6 +16,8 @@
 /obj/item/mecha_parts/mecha_equipment/teleporter/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/turf/T = get_turf(target)
 	if(T)
 		chassis.use_power(energy_drain)
@@ -46,6 +48,8 @@
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator/action(atom/target)
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
 	if(!theareas.len)
 		return
@@ -97,6 +101,8 @@
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/action(atom/movable/target)
 	if(!action_checks(target))
 		return
+	if(!is_faced_target(target))
+		return FALSE
 	if(cooldown_timer > world.time)
 		occupant_message("<span class='warning'>[src] is still recharging.</span>")
 		return

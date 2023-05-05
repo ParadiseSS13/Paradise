@@ -306,6 +306,8 @@
 		return
 	if(mode)
 		return analyze_reagents(target)
+	if(!is_faced_target(target))
+		return FALSE
 	if(!syringes.len)
 		occupant_message("<span class=\"alert\">No syringes loaded.</span>")
 		return
