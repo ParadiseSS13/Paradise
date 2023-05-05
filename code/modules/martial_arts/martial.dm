@@ -138,7 +138,6 @@
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)
 		return
-	var/datum/martial_art/MA = src
 	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
 		if(istype(MA, src))
 			return
