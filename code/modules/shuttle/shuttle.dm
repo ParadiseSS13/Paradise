@@ -496,22 +496,25 @@
 		if(!T1)
 			continue
 
-		T0.copyTurf(T1)
 		areaInstance.contents += T1
 
-		//copy over air
-		if(istype(T1, /turf/simulated))
-			var/turf/simulated/Ts1 = T1
-			Ts1.copy_air_with_tile(T0)
+		var/should_transit = !is_turf_blacklisted_for_transit(T0)
+		if(should_transit) // Only move over stuff if the transfer actually happened
+			T0.copyTurf(T1)
 
-		areaInstance.moving = TRUE
-		//move mobile to new location
-		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T0, T1, rotation, last_caller)
+			//copy over air
+			if(issimulatedturf(T1))
+				var/turf/simulated/Ts1 = T1
+				Ts1.copy_air_with_tile(T0)
 
-		if(rotation)
-			T1.shuttleRotate(rotation)
+			//move mobile to new location
+			for(var/atom/movable/AM in T0)
+				AM.onShuttleMove(T0, T1, rotation, last_caller)
 
+			if(rotation)
+				T1.shuttleRotate(rotation)
+
+		// Always do this stuff as it ensures that the destination turfs still behave properly with the rest of the shuttle transit
 		//atmos and lighting stuff
 		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
@@ -519,7 +522,9 @@
 
 		T1.lighting_build_overlay()
 
-		T0.ChangeTurf(turf_type)
+		if(!should_transit)
+			continue // Don't want to actually change the skipped turf
+		T0.ChangeTurf(turf_type, keep_icon = FALSE)
 
 		SSair.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
@@ -545,6 +550,9 @@
 
 	unlockPortDoors(S1)
 
+/obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
+	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava, /turf/simulated/floor/plating/asteroid))
+	return is_type_in_typecache(T, blacklisted_turf_types)
 
 /obj/docking_port/mobile/proc/findTransitDock()
 	var/obj/docking_port/stationary/transit/T = SSshuttle.getDock("[id]_transit")
@@ -1024,7 +1032,7 @@
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
 			O.underlays.Add(T)
-		T.ChangeTurf(type)
+		T.ChangeTurf(type, keep_icon = FALSE)
 		if(underlays.len)
 			T.underlays = O.underlays
 	if(T.icon_state != icon_state)
