@@ -334,9 +334,9 @@
 				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Blacklist)</A><BR>"
 			if(length(temp_server.files.blacklisted_designs))
 				dat += "Blacklisted Designs<BR>"
-					for(var/I in temp_server.files.blacklisted_designs)
-						dat += "* [I] "
-						dat += "<A href='?src=[UID()];restore_design=[I]'>(Restore design)</A><BR>"
+				for(var/I in temp_server.files.blacklisted_designs)
+					dat += "* [I] "
+					dat += "<A href='?src=[UID()];restore_design=[I]'>(Restore design)</A><BR>"
 			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
 
 		if(3) //Server Data Transfer

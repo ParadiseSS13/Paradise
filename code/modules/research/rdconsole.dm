@@ -267,11 +267,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/sync_research()
 	if(!sync)
 		return
+	var/list/temp_unblacklist = list()
+	for(var/v in files.unblacklisted_designs)
+		temp_unblacklist += v
+	files.unblacklisted_designs = list() //Remove this asap, else it will stick around
 	clear_wait_message()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 		var/server_processed = FALSE
 
 		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
+			for(var/v in temp_unblacklist)
+				S.files.blacklisted_designs -= v
 			files.push_data(S.files)
 			server_processed = TRUE
 
@@ -606,7 +612,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
 			else
 				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
-				griefProtection() //Putting this here because I dont trust the sync process
 				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
 
 		if("togglesync") //Prevents the console from being synced by other consoles. Can still send data.

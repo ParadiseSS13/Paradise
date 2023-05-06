@@ -169,12 +169,6 @@ research holder datum.
 // Arguments:
 // `other` - The research datum to send designs and techs to
 /datum/research/proc/push_data(datum/research/other)
-	for(var/v in known_tech)
-		var/datum/tech/T = known_tech[v]
-		other.AddTech2Known(T)
-	for(var/v in known_designs)
-		var/datum/design/D = known_designs[v]
-		other.AddDesign2Known(D)
 	for(var/v in blacklisted_designs)
 		if(v in other.blacklisted_designs)
 			continue
@@ -183,7 +177,13 @@ research holder datum.
 		blacklisted_designs -= v
 		other.blacklisted_designs -= v
 		unblacklisted_designs -= v
-		other.unblacklisted_designs -= v //We dont want to leave these variables lying around or things stay blacklisted / dont get blacklisted
+		other.unblacklisted_designs += v //Needed so the main rnd console actually removes the rest of the blacklists in the fucking world
+	for(var/v in known_tech)
+		var/datum/tech/T = known_tech[v]
+		other.AddTech2Known(T)
+	for(var/v in known_designs)
+		var/datum/design/D = known_designs[v]
+		other.AddDesign2Known(D)
 	other.RefreshResearch()
 
 
