@@ -143,7 +143,7 @@
 		if(!(A in summon_areas))  // Check again to make sure they didn't move
 			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
 			return
-		GLOB.command_announcement.Announce("Образы внепространственного бога из неизвестного измерения собираются воединно в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+		GLOB.command_announcement.Announce("Образы внепространственного бога из неизвестного измерения собираются воедино в [A.map_name]. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 		log_admin("[key_name_log(user)] started to draw narsie rune!")
 		add_game_logs("started to draw narsie rune at [AREACOORD(user)]", user)
 		for(var/I in spiral_range_turfs(1, user, 1))
