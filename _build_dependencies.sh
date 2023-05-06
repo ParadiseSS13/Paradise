@@ -3,10 +3,14 @@
 export SPACEMANDMM_TAG=suite-1.7.1
 # For TGUI
 export NODE_VERSION=16
-# Byond Major
-export BYOND_MAJOR=514
-# Byond Minor
-export BYOND_MINOR=1575
+# Stable Byond Major
+export STABLE_BYOND_MAJOR=514
+# Stable Byond Minor
+export STABLE_BYOND_MINOR=1575
+# Beta Byond Major
+export BETA_BYOND_MAJOR=515
+# Beta Byond Minor
+export BETA_BYOND_MINOR=1606
 # For the RUSTG library. Not actually installed by CI but kept as a reference
 export RUSTG_VERSION=1.2.0-ss220
 #For DMJIT librarry
