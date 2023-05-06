@@ -66199,10 +66199,6 @@
 	icon_state = "dark"
 	},
 /area/engine/engineering)
-"euM" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "euQ" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/closet,
@@ -114445,12 +114441,12 @@ aQg
 hNI
 aSy
 aaa
-oej
-euM
-oej
-euM
-oej
-euM
+aaa
+aab
+aaa
+aab
+aaa
+aab
 aaa
 beS
 bgA
