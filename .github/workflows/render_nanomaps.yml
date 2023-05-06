@@ -18,7 +18,7 @@ jobs:
       contents: write  # for Git to git push
       pull-requests: write  # for repo-sync/pull-request to create pull requests
     name: 'Generate NanoMaps'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: 'Update Branch'
       uses: actions/checkout@v3

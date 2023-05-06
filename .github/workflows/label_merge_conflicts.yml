@@ -9,7 +9,7 @@ on:
 
 jobs:
   triage:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: eps1lon/actions-label-merge-conflict@v2.1.0
         with:
