@@ -59,6 +59,8 @@
 	..()
 	if(M?.dna?.species)
 		M.bodytemperature = M.dna.species.body_temperature
+	else
+		M.bodytemperature = BODYTEMP_NORMAL
 	return STATUS_UPDATE_ALL
 
 /datum/reagent/medicine/adminordrazine/nanites
