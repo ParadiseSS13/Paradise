@@ -113,6 +113,15 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
+"bk" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_plating)
 "bn" = (
 /obj/structure/rack,
 /obj/item/melee/baseball_bat/ablative,
@@ -124,6 +133,17 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
+"bp" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_desert)
 "bq" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluecorners"
@@ -159,6 +179,15 @@
 	tag = "icon-carpet9-4 (EAST)"
 	},
 /area/holodeck/source_theatre)
+"bF" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_thunderdomecourt)
 "bJ" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -197,6 +226,17 @@
 /obj/item/gun/projectile/revolver,
 /turf/simulated/floor/wood,
 /area/admin)
+"cb" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_beach)
 "cd" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
@@ -218,6 +258,15 @@
 	icon_state = "redgreenfull"
 	},
 /area/holodeck/source_thunderdomecourt)
+"cx" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_desert)
 "cy" = (
 /obj/item/beach_ball,
 /turf/simulated/floor/beach/sand,
@@ -251,6 +300,15 @@
 /obj/item/gun/projectile/automatic/mini_uzi,
 /turf/simulated/floor/wood,
 /area/admin)
+"cN" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_knightarena)
 "cP" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/gloves/boxing/hologlove{
@@ -305,6 +363,9 @@
 	icon_state = "rampbottom"
 	},
 /area/tdome/tdomeobserve)
+"dg" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_snowfield)
 "dn" = (
 /obj/mecha/combat/marauder/loaded{
 	operation_req_access = list(114)
@@ -356,6 +417,9 @@
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome1)
+"dT" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_desert)
 "dU" = (
 /obj/structure/table/wood,
 /obj/item/toy/sword,
@@ -445,6 +509,15 @@
 	tag = "icon-carpet14-0 (EAST)"
 	},
 /area/holodeck/source_meetinghall)
+"ez" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_burntest)
 "eI" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -566,6 +639,17 @@
 	icon_state = "darkgrey"
 	},
 /area/admin)
+"fq" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_emptycourt)
 "fs" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
@@ -661,6 +745,15 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
+"gC" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_emptycourt)
 "gD" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
@@ -685,6 +778,9 @@
 	icon_state = "redgreenfull"
 	},
 /area/holodeck/source_thunderdomecourt)
+"gP" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_theatre)
 "gS" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/brown,
@@ -734,6 +830,15 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
+"hk" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_boxingcourt)
 "hl" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
@@ -796,6 +901,12 @@
 	tag = "icon-snow"
 	},
 /area/holodeck/source_snowfield)
+"ib" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_beach)
+"in" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_meetinghall)
 "io" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/wt550,
@@ -893,12 +1004,30 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"iP" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_basketball)
 "iQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/tdome2)
+"iR" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_picnicarea)
 "iZ" = (
 /obj/structure/table/wood,
 /obj/item/suppressor,
@@ -912,6 +1041,15 @@
 /obj/item/suppressor,
 /turf/simulated/floor/wood,
 /area/admin)
+"jb" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_meetinghall)
 "jc" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -938,7 +1076,7 @@
 /turf/simulated/wall/indestructible{
 	icon_state = "iron12"
 	},
-/area/space)
+/area/holodeck/source_space)
 "ji" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
@@ -1031,6 +1169,17 @@
 /obj/machinery/syndicatebomb/badmin,
 /turf/simulated/floor/wood,
 /area/admin)
+"jH" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_basketball)
 "jN" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/detective,
@@ -1254,11 +1403,23 @@
 	tag = "icon-carpet9-0 (EAST)"
 	},
 /area/holodeck/source_meetinghall)
+"ml" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_theatre)
 "mr" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic/dual_tube,
 /turf/simulated/floor/wood,
 /area/admin)
+"mv" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_picnicarea)
 "mw" = (
 /obj/structure/table,
 /obj/item/assembly/signaler,
@@ -1541,6 +1702,15 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
+"qd" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_emptycourt)
 "qi" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "green"
@@ -1655,6 +1825,17 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
+"rP" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_plating)
 "sk" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/bostaff,
@@ -1667,6 +1848,17 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
+"sn" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_burntest)
 "sZ" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/fireaxe,
@@ -1720,11 +1912,31 @@
 	icon_state = "dark"
 	},
 /area/tdome/arena)
+"tD" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_theatre)
 "tG" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping/honkmother,
 /turf/simulated/floor/wood,
 /area/admin)
+"tJ" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_beach)
 "tK" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/head/helmet/thunderdome,
@@ -1872,6 +2084,9 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
+"vl" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_boxingcourt)
 "vo" = (
 /obj/structure/table/holotable/wood,
 /turf/simulated/floor/holofloor{
@@ -1894,7 +2109,7 @@
 /turf/simulated/wall/indestructible{
 	icon_state = "iron3"
 	},
-/area/space)
+/area/holodeck/source_boxingcourt)
 "vD" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -2075,7 +2290,7 @@
 /turf/simulated/wall/indestructible{
 	icon_state = "iron12"
 	},
-/area/space)
+/area/holodeck/source_wildlife)
 "wZ" = (
 /obj/structure/table/wood,
 /obj/item/multisword,
@@ -2090,6 +2305,9 @@
 /obj/item/gun/projectile/automatic/toy/pistol,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"xm" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_emptycourt)
 "xo" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -2197,6 +2415,17 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
+"yN" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_meetinghall)
 "yT" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/enforcer/security,
@@ -2355,6 +2584,9 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"Ap" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_plating)
 "AJ" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/resurrection,
@@ -2392,6 +2624,15 @@
 	tag = "icon-carpet14-10 (EAST)"
 	},
 /area/holodeck/source_theatre)
+"Bj" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_snowfield)
 "Bk" = (
 /obj/structure/table/wood,
 /obj/item/implanter/adrenalin{
@@ -2542,6 +2783,9 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"Ck" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_wildlife)
 "Cs" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/carbine,
@@ -2588,6 +2832,15 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
+"CM" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_burntest)
 "CY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood,
@@ -2623,9 +2876,23 @@
 /obj/item/gun/magic/wand/fireball,
 /turf/simulated/floor/wood,
 /area/admin)
+"DH" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_thunderdomecourt)
 "DM" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/space)
+"DP" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_thunderdomecourt)
 "DU" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
@@ -2645,6 +2912,17 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
+"DY" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_snowfield)
 "Ec" = (
 /turf/simulated/floor/holofloor{
 	dir = 1;
@@ -2663,6 +2941,17 @@
 "Ep" = (
 /turf/simulated/floor/wood,
 /area/admin)
+"Ew" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_space)
 "Ey" = (
 /obj/structure/table/wood,
 /obj/item/nullrod/tribal_knife,
@@ -2684,6 +2973,15 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
+"EE" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_basketball)
 "EK" = (
 /turf/space,
 /area/adminconstruction)
@@ -2760,6 +3058,15 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_basketball)
+"FG" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_wildlife)
 "FU" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/fireaxe/energized,
@@ -2886,6 +3193,15 @@
 	name = "Holodeck Projector Floor"
 	},
 /area/holodeck/source_wildlife)
+"Hv" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_thunderdomecourt)
 "Hx" = (
 /obj/structure/table,
 /obj/machinery/door_control{
@@ -2986,6 +3302,9 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
+"IQ" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_basketball)
 "IT" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/butcher,
@@ -3104,11 +3423,31 @@
 /obj/item/gun/energy/lasercannon,
 /turf/simulated/floor/wood,
 /area/admin)
+"Ky" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_picnicarea)
 "KA" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot/buckshot,
 /turf/simulated/floor/wood,
 /area/admin)
+"KC" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_plating)
 "KL" = (
 /obj/structure/table,
 /obj/item/storage/box/syringes,
@@ -3138,7 +3477,7 @@
 /area/admin)
 "KU" = (
 /turf/simulated/wall/indestructible,
-/area/space)
+/area/holodeck/source_space)
 "Lb" = (
 /obj/structure/table/wood,
 /obj/item/whetstone,
@@ -3434,6 +3773,9 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
+"OH" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_burntest)
 "OK" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "green"
@@ -3464,6 +3806,17 @@
 /obj/item/reagent_containers/glass/bottle/adminordrazine,
 /turf/simulated/floor/wood,
 /area/admin)
+"Pj" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_knightarena)
 "Pn" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/animate,
@@ -3584,11 +3937,23 @@
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena_source)
+"QN" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_beach)
 "QP" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle,
 /turf/simulated/floor/wood,
 /area/admin)
+"QQ" = (
+/turf/simulated/wall/indestructible,
+/area/holodeck/source_knightarena)
 "Rj" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
@@ -3786,6 +4151,17 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"Ue" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron3"
+	},
+/area/holodeck/source_wildlife)
 "Uf" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "asteroid";
@@ -3982,6 +4358,15 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
+"Wh" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_boxingcourt)
 "Wt" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/meteorgun,
@@ -4012,7 +4397,7 @@
 /turf/simulated/wall/indestructible{
 	icon_state = "iron3"
 	},
-/area/space)
+/area/holodeck/source_boxingcourt)
 "WJ" = (
 /obj/structure/chair/comfy/beige{
 	dir = 4;
@@ -4049,6 +4434,15 @@
 /obj/mecha/combat/reticence/loaded,
 /turf/simulated/floor/wood,
 /area/admin)
+"WX" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/wall/indestructible{
+	icon_state = "iron12"
+	},
+/area/holodeck/source_knightarena)
 "Xk" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -14363,18 +14757,18 @@ Yq
 Yq
 "}
 (40,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+QQ
+Pj
+Pj
+Pj
+Pj
+Pj
+Pj
+Pj
+Pj
+Pj
+Pj
+QQ
 Yq
 Yq
 Yq
@@ -14620,7 +15014,7 @@ Yq
 Yq
 "}
 (41,1,1) = {"
-jh
+cN
 nc
 yq
 yq
@@ -14631,7 +15025,7 @@ xo
 xo
 xo
 Uk
-wX
+WX
 Yq
 Yq
 Yq
@@ -14877,7 +15271,7 @@ Yq
 Yq
 "}
 (42,1,1) = {"
-jh
+cN
 ph
 BU
 BU
@@ -14888,7 +15282,7 @@ BU
 BU
 BU
 Qi
-wX
+WX
 Yq
 Yq
 Yq
@@ -15134,7 +15528,7 @@ Yq
 Yq
 "}
 (43,1,1) = {"
-jh
+cN
 ph
 BU
 BU
@@ -15145,7 +15539,7 @@ BU
 BU
 BU
 Qi
-wX
+WX
 Yq
 Yq
 Yq
@@ -15391,7 +15785,7 @@ Yq
 Yq
 "}
 (44,1,1) = {"
-jh
+cN
 ph
 BU
 BU
@@ -15402,7 +15796,7 @@ BU
 BU
 BU
 Qi
-wX
+WX
 Yq
 Yq
 Yq
@@ -15648,7 +16042,7 @@ Yq
 Yq
 "}
 (45,1,1) = {"
-jh
+cN
 SA
 vD
 vD
@@ -15659,7 +16053,7 @@ Wg
 Wg
 Wg
 wQ
-wX
+WX
 Yq
 Yq
 Yq
@@ -15905,18 +16299,18 @@ Yq
 Yq
 "}
 (46,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+dT
+bp
+bp
+bp
+bp
+bp
+bp
+bp
+bp
+bp
+bp
+dT
 Yq
 Yq
 Yq
@@ -16162,7 +16556,7 @@ Yq
 Yq
 "}
 (47,1,1) = {"
-jh
+cx
 Uf
 Uf
 Uf
@@ -16173,7 +16567,7 @@ Uf
 Uf
 Uf
 nu
-jh
+cx
 Yq
 Yq
 Yq
@@ -16419,7 +16813,7 @@ Yq
 Yq
 "}
 (48,1,1) = {"
-jh
+cx
 Uf
 uI
 Uf
@@ -16430,7 +16824,7 @@ uI
 Uf
 Uf
 Uf
-jh
+cx
 Yq
 Yq
 Yq
@@ -16676,7 +17070,7 @@ Yq
 Yq
 "}
 (49,1,1) = {"
-jh
+cx
 Uf
 Uf
 Uf
@@ -16687,7 +17081,7 @@ Uf
 Uf
 Uf
 Uf
-jh
+cx
 Yq
 Yq
 Yq
@@ -16933,7 +17327,7 @@ Yq
 Yq
 "}
 (50,1,1) = {"
-jh
+cx
 Uf
 Uf
 Uf
@@ -16944,7 +17338,7 @@ Uf
 Uf
 Uf
 Uf
-jh
+cx
 Yq
 Yq
 Yq
@@ -17190,7 +17584,7 @@ Yq
 Yq
 "}
 (51,1,1) = {"
-jh
+cx
 Uf
 Uf
 Uf
@@ -17201,7 +17595,7 @@ nu
 Uf
 Uf
 uI
-jh
+cx
 Yq
 Yq
 Yq
@@ -17447,18 +17841,18 @@ Yq
 Yq
 "}
 (52,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+mv
+Ky
+Ky
+Ky
+Ky
+Ky
+Ky
+Ky
+Ky
+Ky
+Ky
+mv
 Yq
 Yq
 Yq
@@ -17704,7 +18098,7 @@ Yq
 Yq
 "}
 (53,1,1) = {"
-jh
+iR
 pi
 LS
 qc
@@ -17715,7 +18109,7 @@ ZR
 qc
 LS
 pi
-jh
+iR
 Yq
 Yq
 Yq
@@ -17961,7 +18355,7 @@ Yq
 Yq
 "}
 (54,1,1) = {"
-jh
+iR
 LD
 qc
 LS
@@ -17972,7 +18366,7 @@ ZR
 LS
 qc
 LD
-jh
+iR
 Yq
 Yq
 Yq
@@ -18218,7 +18612,7 @@ Yq
 Yq
 "}
 (55,1,1) = {"
-jh
+iR
 pi
 LS
 qc
@@ -18229,7 +18623,7 @@ ZR
 qc
 LS
 pi
-jh
+iR
 Yq
 Yq
 Yq
@@ -18475,7 +18869,7 @@ Yq
 Yq
 "}
 (56,1,1) = {"
-jh
+iR
 LD
 qc
 LS
@@ -18486,7 +18880,7 @@ ZR
 LS
 qc
 LD
-jh
+iR
 Yq
 Yq
 Yq
@@ -18732,7 +19126,7 @@ Yq
 Yq
 "}
 (57,1,1) = {"
-jh
+iR
 pi
 LS
 qc
@@ -18743,7 +19137,7 @@ ZR
 qc
 LS
 pi
-jh
+iR
 Yq
 Yq
 Yq
@@ -18989,18 +19383,18 @@ Yq
 Yq
 "}
 (58,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+gP
+tD
+tD
+tD
+tD
+tD
+tD
+tD
+tD
+tD
+tD
+gP
 Yq
 Yq
 Yq
@@ -19246,7 +19640,7 @@ Yq
 Yq
 "}
 (59,1,1) = {"
-jh
+ml
 WO
 gI
 gI
@@ -19257,7 +19651,7 @@ oL
 oL
 oL
 oL
-jh
+ml
 Yq
 Yq
 Yq
@@ -19503,7 +19897,7 @@ Yq
 Yq
 "}
 (60,1,1) = {"
-jh
+ml
 Bx
 gI
 gI
@@ -19514,7 +19908,7 @@ iH
 iH
 aZ
 oL
-jh
+ml
 Yq
 Yq
 Yq
@@ -19760,7 +20154,7 @@ Yq
 Yq
 "}
 (61,1,1) = {"
-jh
+ml
 Bx
 gI
 gI
@@ -19771,7 +20165,7 @@ CD
 CD
 bu
 oL
-jh
+ml
 Yq
 Yq
 Yq
@@ -20017,7 +20411,7 @@ Yq
 Yq
 "}
 (62,1,1) = {"
-jh
+ml
 Bx
 gI
 gI
@@ -20028,7 +20422,7 @@ gJ
 gJ
 bE
 oL
-jh
+ml
 Yq
 Yq
 Yq
@@ -20274,7 +20668,7 @@ Yq
 Yq
 "}
 (63,1,1) = {"
-jh
+ml
 Bx
 gI
 gI
@@ -20285,7 +20679,7 @@ oL
 oL
 oL
 oL
-jh
+ml
 Yq
 Yq
 Yq
@@ -20531,18 +20925,18 @@ Yq
 Yq
 "}
 (64,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+Ck
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ck
 Yq
 Yq
 Yq
@@ -20788,7 +21182,7 @@ Yq
 Yq
 "}
 (65,1,1) = {"
-jh
+FG
 Hu
 Hu
 Hu
@@ -21045,7 +21439,7 @@ Yq
 Yq
 "}
 (66,1,1) = {"
-jh
+FG
 Hu
 ol
 Hu
@@ -21302,7 +21696,7 @@ Yq
 Yq
 "}
 (67,1,1) = {"
-jh
+FG
 Hu
 Hu
 Hu
@@ -21559,7 +21953,7 @@ Yq
 Yq
 "}
 (68,1,1) = {"
-jh
+FG
 Hu
 ol
 Hu
@@ -21816,7 +22210,7 @@ Yq
 Yq
 "}
 (69,1,1) = {"
-jh
+FG
 Hu
 Hu
 Hu
@@ -22073,18 +22467,18 @@ Yq
 Yq
 "}
 (70,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+Ap
+rP
+rP
+rP
+rP
+rP
+rP
+rP
+rP
+rP
+rP
+Ap
 Yq
 Yq
 Yq
@@ -22330,7 +22724,7 @@ Yq
 Yq
 "}
 (71,1,1) = {"
-jh
+bk
 xr
 xr
 xr
@@ -22341,7 +22735,7 @@ xr
 xr
 xr
 xr
-wX
+KC
 Yq
 Yq
 Yq
@@ -22587,7 +22981,7 @@ Yq
 Yq
 "}
 (72,1,1) = {"
-jh
+bk
 xr
 xr
 xr
@@ -22598,7 +22992,7 @@ xr
 xr
 xr
 xr
-wX
+KC
 Yq
 Yq
 Yq
@@ -22844,7 +23238,7 @@ Yq
 Yq
 "}
 (73,1,1) = {"
-jh
+bk
 xr
 xr
 xr
@@ -22855,7 +23249,7 @@ xr
 xr
 xr
 xr
-wX
+KC
 Yq
 Yq
 Yq
@@ -23101,7 +23495,7 @@ Yq
 Yq
 "}
 (74,1,1) = {"
-jh
+bk
 xr
 xr
 xr
@@ -23112,7 +23506,7 @@ xr
 xr
 xr
 xr
-wX
+KC
 Yq
 Yq
 Yq
@@ -23358,7 +23752,7 @@ Yq
 Yq
 "}
 (75,1,1) = {"
-jh
+bk
 xr
 xr
 xr
@@ -23369,7 +23763,7 @@ xr
 xr
 xr
 xr
-wX
+KC
 Yq
 Yq
 Yq
@@ -23615,18 +24009,18 @@ Yq
 Yq
 "}
 (76,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+OH
+sn
+sn
+sn
+sn
+sn
+sn
+sn
+sn
+sn
+sn
+OH
 Yq
 Yq
 Yq
@@ -23872,7 +24266,7 @@ Yq
 Yq
 "}
 (77,1,1) = {"
-jh
+CM
 QF
 QF
 QF
@@ -23883,7 +24277,7 @@ QF
 QF
 QF
 QF
-wX
+ez
 Yq
 Yq
 Yq
@@ -24129,7 +24523,7 @@ Yq
 Yq
 "}
 (78,1,1) = {"
-jh
+CM
 QF
 Yb
 QF
@@ -24140,7 +24534,7 @@ QF
 QF
 Yb
 QF
-wX
+ez
 Yq
 Yq
 Yq
@@ -24386,7 +24780,7 @@ Yq
 Yq
 "}
 (79,1,1) = {"
-jh
+CM
 QF
 QF
 QF
@@ -24397,7 +24791,7 @@ QF
 QF
 QF
 QF
-wX
+ez
 Yq
 Yq
 Yq
@@ -24643,7 +25037,7 @@ Yq
 Yq
 "}
 (80,1,1) = {"
-jh
+CM
 QF
 Yb
 QF
@@ -24654,7 +25048,7 @@ QF
 QF
 Yb
 QF
-wX
+ez
 Yq
 Yq
 Yq
@@ -24900,7 +25294,7 @@ Yq
 Yq
 "}
 (81,1,1) = {"
-jh
+CM
 QF
 QF
 QF
@@ -24911,7 +25305,7 @@ QF
 QF
 QF
 QF
-wX
+ez
 Yq
 Yq
 Yq
@@ -25157,18 +25551,18 @@ Yq
 Yq
 "}
 (82,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+xm
+fq
+fq
+fq
+fq
+fq
+fq
+fq
+fq
+fq
+fq
+xm
 Yq
 Yq
 Yq
@@ -25414,7 +25808,7 @@ Yq
 Yq
 "}
 (83,1,1) = {"
-jh
+gC
 eu
 jc
 jc
@@ -25425,7 +25819,7 @@ rO
 rO
 rO
 SG
-wX
+qd
 Yq
 Yq
 Yq
@@ -25671,7 +26065,7 @@ Yq
 Yq
 "}
 (84,1,1) = {"
-jh
+gC
 zI
 ZJ
 ZJ
@@ -25682,7 +26076,7 @@ ZJ
 ZJ
 ZJ
 OK
-wX
+qd
 Yq
 Yq
 Yq
@@ -25928,7 +26322,7 @@ Yq
 Yq
 "}
 (85,1,1) = {"
-jh
+gC
 zI
 ZJ
 ZJ
@@ -25939,7 +26333,7 @@ ZJ
 ZJ
 ZJ
 OK
-wX
+qd
 Yq
 Yq
 Yq
@@ -26185,7 +26579,7 @@ Yq
 Yq
 "}
 (86,1,1) = {"
-jh
+gC
 zI
 ZJ
 ZJ
@@ -26196,7 +26590,7 @@ ZJ
 ZJ
 ZJ
 OK
-wX
+qd
 Yq
 Yq
 Yq
@@ -26442,7 +26836,7 @@ Yq
 Yq
 "}
 (87,1,1) = {"
-jh
+gC
 Mj
 Jm
 Jm
@@ -26453,7 +26847,7 @@ Lh
 Lh
 Lh
 DX
-wX
+qd
 Yq
 Yq
 Yq
@@ -26700,16 +27094,16 @@ Yq
 "}
 (88,1,1) = {"
 KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
+Ew
+Ew
+Ew
+Ew
+Ew
+Ew
+Ew
+Ew
+Ew
+Ew
 KU
 Yq
 Yq
@@ -28241,18 +28635,18 @@ Yq
 Yq
 "}
 (94,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+dg
+DY
+DY
+DY
+DY
+DY
+DY
+DY
+DY
+DY
+DY
+dg
 Yq
 Yq
 Yq
@@ -28498,7 +28892,7 @@ Yq
 Yq
 "}
 (95,1,1) = {"
-jh
+Bj
 hV
 hV
 hV
@@ -28509,7 +28903,7 @@ hV
 ea
 hV
 hV
-jh
+Bj
 Yq
 Yq
 Yq
@@ -28755,7 +29149,7 @@ Yq
 Yq
 "}
 (96,1,1) = {"
-jh
+Bj
 hV
 ta
 hV
@@ -28766,7 +29160,7 @@ hV
 hV
 eW
 hV
-jh
+Bj
 Yq
 Yq
 Yq
@@ -29012,7 +29406,7 @@ Yq
 Yq
 "}
 (97,1,1) = {"
-jh
+Bj
 hV
 hV
 hV
@@ -29023,7 +29417,7 @@ hV
 hV
 hV
 hV
-jh
+Bj
 Yq
 Yq
 Yq
@@ -29269,7 +29663,7 @@ Yq
 Yq
 "}
 (98,1,1) = {"
-jh
+Bj
 hV
 hV
 HP
@@ -29280,7 +29674,7 @@ hV
 hV
 uC
 hV
-jh
+Bj
 Yq
 Yq
 Yq
@@ -29526,7 +29920,7 @@ Yq
 Yq
 "}
 (99,1,1) = {"
-jh
+Bj
 hV
 hV
 hV
@@ -29537,7 +29931,7 @@ ta
 hV
 hV
 ea
-jh
+Bj
 Yq
 Yq
 Yq
@@ -29783,18 +30177,18 @@ Yq
 Yq
 "}
 (100,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+in
+yN
+yN
+yN
+yN
+yN
+yN
+yN
+yN
+yN
+yN
+in
 Yq
 Yq
 Yq
@@ -30040,7 +30434,7 @@ Yq
 Yq
 "}
 (101,1,1) = {"
-jh
+jb
 lx
 lx
 lx
@@ -30051,7 +30445,7 @@ lx
 lx
 lx
 lx
-jh
+jb
 Yq
 Yq
 Yq
@@ -30297,7 +30691,7 @@ Yq
 Yq
 "}
 (102,1,1) = {"
-jh
+jb
 lx
 SP
 QG
@@ -30308,7 +30702,7 @@ aj
 aj
 bO
 lx
-jh
+jb
 Yq
 Yq
 Yq
@@ -30554,7 +30948,7 @@ Yq
 Yq
 "}
 (103,1,1) = {"
-jh
+jb
 lx
 zv
 QG
@@ -30565,7 +30959,7 @@ qN
 qN
 DU
 lx
-jh
+jb
 Yq
 Yq
 Yq
@@ -30811,7 +31205,7 @@ Yq
 Yq
 "}
 (104,1,1) = {"
-jh
+jb
 lx
 fa
 QG
@@ -30822,7 +31216,7 @@ un
 un
 me
 lx
-jh
+jb
 Yq
 Yq
 Yq
@@ -31068,7 +31462,7 @@ Yq
 Yq
 "}
 (105,1,1) = {"
-jh
+jb
 lx
 lx
 lx
@@ -31079,7 +31473,7 @@ lx
 lx
 lx
 lx
-jh
+jb
 Yq
 Yq
 Yq
@@ -31325,18 +31719,18 @@ Yq
 Yq
 "}
 (106,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+IQ
+jH
+jH
+jH
+jH
+jH
+jH
+jH
+jH
+jH
+jH
+IQ
 Yq
 Yq
 Yq
@@ -31582,7 +31976,7 @@ Yq
 Yq
 "}
 (107,1,1) = {"
-jh
+EE
 nV
 FF
 FF
@@ -31593,7 +31987,7 @@ LC
 LC
 LC
 cE
-wX
+iP
 Yq
 Yq
 Yq
@@ -31839,7 +32233,7 @@ Yq
 Yq
 "}
 (108,1,1) = {"
-jh
+EE
 nV
 FF
 nx
@@ -31850,7 +32244,7 @@ YI
 JR
 LC
 cE
-wX
+iP
 Yq
 Yq
 Yq
@@ -32096,7 +32490,7 @@ Yq
 Yq
 "}
 (109,1,1) = {"
-jh
+EE
 dq
 YI
 nx
@@ -32107,7 +32501,7 @@ nk
 JR
 YI
 JC
-wX
+iP
 Yq
 Yq
 Yq
@@ -32353,7 +32747,7 @@ Yq
 Yq
 "}
 (110,1,1) = {"
-jh
+EE
 Ma
 ce
 nx
@@ -32364,7 +32758,7 @@ YI
 JR
 Mc
 WD
-wX
+iP
 Yq
 Yq
 Yq
@@ -32610,7 +33004,7 @@ Yq
 Yq
 "}
 (111,1,1) = {"
-jh
+EE
 Ma
 ce
 ce
@@ -32621,7 +33015,7 @@ Mc
 Mc
 Mc
 WD
-wX
+iP
 Yq
 Yq
 Yq
@@ -32867,18 +33261,18 @@ Yq
 Yq
 "}
 (112,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+ib
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+ib
 Yq
 Yq
 Yq
@@ -33124,7 +33518,7 @@ Yq
 Yq
 "}
 (113,1,1) = {"
-jh
+QN
 YC
 YC
 YC
@@ -33135,7 +33529,7 @@ YC
 OT
 Qt
 Pq
-wX
+tJ
 Yq
 Yq
 Yq
@@ -33381,7 +33775,7 @@ Yq
 Yq
 "}
 (114,1,1) = {"
-jh
+QN
 YC
 hJ
 YC
@@ -33392,7 +33786,7 @@ YC
 OT
 Qt
 Pq
-wX
+tJ
 Yq
 Yq
 Yq
@@ -33638,7 +34032,7 @@ Yq
 Yq
 "}
 (115,1,1) = {"
-jh
+QN
 YC
 YC
 YC
@@ -33649,7 +34043,7 @@ YC
 OT
 Qt
 Pq
-wX
+tJ
 Yq
 Yq
 Yq
@@ -33895,7 +34289,7 @@ Yq
 Yq
 "}
 (116,1,1) = {"
-jh
+QN
 YC
 vw
 YC
@@ -33906,7 +34300,7 @@ YC
 OT
 Qt
 Pq
-wX
+tJ
 Yq
 Yq
 Yq
@@ -34152,7 +34546,7 @@ Yq
 Yq
 "}
 (117,1,1) = {"
-jh
+QN
 YC
 YC
 YC
@@ -34163,7 +34557,7 @@ YC
 OT
 Qt
 Pq
-wX
+tJ
 Yq
 Yq
 Yq
@@ -34409,18 +34803,18 @@ Yq
 Yq
 "}
 (118,1,1) = {"
-KU
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-vC
-KU
+DH
+DP
+DP
+DP
+DP
+DP
+DP
+DP
+DP
+DP
+DP
+DH
 Yq
 Yq
 Yq
@@ -34666,7 +35060,7 @@ Yq
 Yq
 "}
 (119,1,1) = {"
-jh
+bF
 PG
 PL
 PL
@@ -34677,7 +35071,7 @@ UM
 UM
 UM
 OF
-wX
+Hv
 Yq
 Yq
 Yq
@@ -34923,7 +35317,7 @@ Yq
 Yq
 "}
 (120,1,1) = {"
-jh
+bF
 Hy
 ck
 ck
@@ -34934,7 +35328,7 @@ ck
 ck
 ck
 tK
-wX
+Hv
 Yq
 Yq
 Yq
@@ -35180,7 +35574,7 @@ Yq
 Yq
 "}
 (121,1,1) = {"
-jh
+bF
 Hy
 ck
 ck
@@ -35191,7 +35585,7 @@ ck
 ck
 ck
 tK
-wX
+Hv
 Yq
 Yq
 Yq
@@ -35437,7 +35831,7 @@ Yq
 Yq
 "}
 (122,1,1) = {"
-jh
+bF
 Hy
 ck
 ck
@@ -35448,7 +35842,7 @@ ck
 ck
 ck
 tK
-wX
+Hv
 Yq
 Yq
 Yq
@@ -35694,7 +36088,7 @@ Yq
 Yq
 "}
 (123,1,1) = {"
-jh
+bF
 wc
 hm
 hm
@@ -35705,7 +36099,7 @@ lY
 lY
 lY
 Cf
-wX
+Hv
 Yq
 Yq
 Yq
@@ -35951,7 +36345,7 @@ Yq
 Yq
 "}
 (124,1,1) = {"
-KU
+vl
 vC
 vC
 vC
@@ -35962,7 +36356,7 @@ vC
 vC
 vC
 vC
-KU
+vl
 Yq
 Yq
 Yq
@@ -36208,7 +36602,7 @@ Yq
 Yq
 "}
 (125,1,1) = {"
-jh
+Wh
 MQ
 FB
 FB
@@ -36219,7 +36613,7 @@ Cv
 Cv
 Cv
 pG
-wX
+hk
 Yq
 Yq
 Yq
@@ -36465,7 +36859,7 @@ Yq
 Yq
 "}
 (126,1,1) = {"
-jh
+Wh
 Dn
 XW
 XW
@@ -36476,7 +36870,7 @@ XW
 XW
 XW
 qi
-wX
+hk
 Yq
 Yq
 Yq
@@ -36722,7 +37116,7 @@ Yq
 Yq
 "}
 (127,1,1) = {"
-jh
+Wh
 Dn
 XW
 XW
@@ -36733,7 +37127,7 @@ XW
 XW
 XW
 qi
-wX
+hk
 Yq
 Yq
 Yq
@@ -36979,7 +37373,7 @@ Yq
 Yq
 "}
 (128,1,1) = {"
-jh
+Wh
 Dn
 XW
 XW
@@ -36990,7 +37384,7 @@ XW
 XW
 XW
 qi
-wX
+hk
 Yq
 Yq
 Yq
@@ -37236,7 +37630,7 @@ Yq
 Yq
 "}
 (129,1,1) = {"
-jh
+Wh
 Gn
 bM
 bM
@@ -37247,7 +37641,7 @@ Bs
 Bs
 Bs
 cP
-wX
+hk
 Yq
 Yq
 Yq
@@ -37493,7 +37887,7 @@ Yq
 Yq
 "}
 (130,1,1) = {"
-KU
+vl
 WG
 WG
 WG
@@ -37504,7 +37898,7 @@ WG
 WG
 WG
 WG
-KU
+vl
 Yq
 Yq
 Yq
