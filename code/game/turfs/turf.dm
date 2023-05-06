@@ -473,7 +473,7 @@
 
 /*
 	* # power_list()
-	* returns a list power machinery on the turf and cables on the truf that have a direction equal to the one supplied in params
+	* returns a list power machinery on the turf and cables on the turf that have a direction equal to the one supplied in params
 	*
 	* Arguments:
 	* source - the atom that is calling this proc
