@@ -87,7 +87,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(donator_level > 0)
 				if((prefs.toggles & PREFTOGGLE_DONATOR_PUBLIC))
-					var/icon/donator = icon('icons/ooc_tag_16x.dmi', "donator")
+					var/icon/donator = icon('icons/ooc_tag_16x.png')
 					display_name = "[bicon(donator)][display_name]"
 
 			if(holder)
