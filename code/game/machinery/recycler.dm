@@ -67,10 +67,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(panel_open)
-		panel_open = FALSE
-	else
-		panel_open = TRUE
+	panel_open = !panel_open
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/recycler/update_overlays()
