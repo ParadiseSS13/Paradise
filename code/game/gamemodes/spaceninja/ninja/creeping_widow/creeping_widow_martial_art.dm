@@ -83,7 +83,7 @@
 			defender.silent += 20
 			defender.adjustOxyLoss(20)
 			defender.apply_damage(5, BRUTE, pick("head", "mouth"))
-			addtimer(CALLBACK(src, .proc/regain_focus, attacker), 300)
+			addtimer(CALLBACK(src, PROC_REF(regain_focus), attacker), 300)
 	return TRUE
 
 /datum/martial_art/ninja_martial_art/proc/regain_focus(user)

@@ -60,18 +60,18 @@
 		return
 	if(src == H.l_hand || src == H.r_hand)
 		can_shake = FALSE
-		addtimer(CALLBACK(src, .proc/reset_shakable), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
 		if(do_after(H, 1 SECONDS, target = H))
 			visible_message("<span class='warning'>[user] shakes up the [name]!</span>")
 			if(times_shaken == 0)
 				times_shaken++
-				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), 1 MINUTES, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 			else if(times_shaken < 5)
 				times_shaken++
-				addtimer(CALLBACK(src, .proc/reset_shaken), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 			else
-				addtimer(CALLBACK(src, .proc/reset_shaken), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+				addtimer(CALLBACK(src, PROC_REF(reset_shaken)), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 				handle_bursting(user)
 	else
 		to_chat(H, "<span class='warning'>You need to hold [src] in order to shake it.</span>")
@@ -166,7 +166,7 @@
 		can_burst = FALSE
 		burst_chance = 0
 	if(times_shaken)
-		addtimer(CALLBACK(src, .proc/reset_shaken), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
+		addtimer(CALLBACK(src, PROC_REF(reset_shaken)), (70 - (times_shaken * 10)) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE | TIMER_NO_HASH_WAIT)
 
 /obj/item/reagent_containers/food/drinks/cans/cola
 	name = "space cola"

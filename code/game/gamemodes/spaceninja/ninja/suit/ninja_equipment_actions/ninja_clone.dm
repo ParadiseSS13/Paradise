@@ -20,7 +20,7 @@
 		for(var/datum/action/item_action/advanced/ninja/ninja_clones/ninja_action in actions)
 			ninja_action.use_action()
 			break
-		addtimer(CALLBACK(src, .proc/spawn_ninja_clones, ninja), 15)
+		addtimer(CALLBACK(src, PROC_REF(spawn_ninja_clones), ninja), 15)
 
 
 /obj/item/clothing/suit/space/space_ninja/proc/spawn_ninja_clones(mob/living/carbon/human/ninja)

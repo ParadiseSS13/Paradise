@@ -149,7 +149,7 @@
 
 			atom_say("Калибровка хаба до указанной цели в процессе...")
 			calibrating = TRUE
-			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
+			addtimer(CALLBACK(src, PROC_REF(calibrateCallback)), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
 /**
 *	Resets the connected powerstation to initial values. Helper function of ui_act
@@ -467,7 +467,7 @@
 		if(tele_delay)
 			recalibrating = TRUE
 			update_icon()
-			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
+			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE

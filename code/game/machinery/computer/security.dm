@@ -289,7 +289,7 @@
 				return
 			is_printing = TRUE
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-			addtimer(CALLBACK(src, .proc/print_record_finish), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(print_record_finish)), 5 SECONDS)
 		else
 			return FALSE
 
@@ -401,7 +401,7 @@
 						return
 					is_printing = TRUE
 					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-					addtimer(CALLBACK(src, .proc/print_cell_log_finish, T.name, T.info), 5 SECONDS)
+					addtimer(CALLBACK(src, PROC_REF(print_cell_log_finish), T.name, T.info), 5 SECONDS)
 				else
 					return FALSE
 		else

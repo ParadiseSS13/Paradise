@@ -43,7 +43,7 @@
 /datum/game_mode/space_ninja/post_setup()
 	for(var/datum/mind/space_ninja_mind in space_ninjas)
 		add_game_logs("has been selected as a Space Ninja", space_ninja_mind.current)
-		INVOKE_ASYNC(src, .proc/name_ninja, space_ninja_mind.current)
+		INVOKE_ASYNC(src, PROC_REF(name_ninja), space_ninja_mind.current)
 		equip_space_ninja(space_ninja_mind.current)
 		give_ninja_datum(space_ninja_mind)
 		forge_ninja_objectives(space_ninja_mind)

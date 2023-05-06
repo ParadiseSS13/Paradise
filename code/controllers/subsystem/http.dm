@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(http)
 /client/verb/testing()
 	set name = "Testing"
 
-	var/datum/callback/cb = CALLBACK(src, /client/.proc/response, usr)
+	var/datum/callback/cb = CALLBACK(src, TYPE_PROC_REF(/client, response), usr)
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://site.domain/page.html", proc_callback=cb)
 
 /client/proc/response(mob/user, datum/http_response/response)

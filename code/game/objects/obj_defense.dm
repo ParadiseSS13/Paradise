@@ -213,7 +213,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	being_shocked = TRUE
 	var/power_bounced = power * 0.5
 	tesla_zap(src, 3, power_bounced)
-	addtimer(CALLBACK(src, .proc/reset_shocked), 10)
+	addtimer(CALLBACK(src, PROC_REF(reset_shocked)), 10)
 
 /obj/proc/reset_shocked()
 	being_shocked = FALSE

@@ -29,7 +29,7 @@
 /obj/structure/energy_net/Initialize(mapload)
 	. = ..()
 	if(self_destroy)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), destroy_after)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), destroy_after)
 
 /obj/structure/energy_net/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BRUTE || damage_type == BURN)

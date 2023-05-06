@@ -19,7 +19,7 @@
 			target.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
 			target.Stun(1)
 			add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]")
-			addtimer(CALLBACK(creeping_widow, /datum/martial_art/ninja_martial_art/.proc/regain_focus, user), 50)
+			addtimer(CALLBACK(creeping_widow, TYPE_PROC_REF(/datum/martial_art/ninja_martial_art, regain_focus), user), 50)
 			return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL
 

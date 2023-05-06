@@ -16,7 +16,7 @@
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(istype(parent, /obj/item/clothing/shoes))
-		RegisterSignal(parent, COMSIG_SHOES_STEP_ACTION, .proc/step_sound)
+		RegisterSignal(parent, COMSIG_SHOES_STEP_ACTION, PROC_REF(step_sound))
 
 /datum/component/jackboots/proc/step_sound()
 	if(steps > step_delay)

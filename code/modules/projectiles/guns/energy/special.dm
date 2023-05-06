@@ -550,7 +550,7 @@
 	if(sibyl_mod && sibyl_mod.voice_is_enabled && !sound_cd)
 		var/temp_select = select
 		if(sound_voice[select] && select == temp_select)
-			sound_cd = addtimer(CALLBACK(src, .proc/select_playvoice, user, temp_select), 2 SECONDS)
+			sound_cd = addtimer(CALLBACK(src, PROC_REF(select_playvoice), user, temp_select), 2 SECONDS)
 	return
 
 /obj/item/gun/energy/dominator/proc/select_playvoice(mob/living/user, temp_select)

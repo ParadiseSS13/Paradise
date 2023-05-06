@@ -111,8 +111,8 @@
 		return
 	TGUI_blocked = TRUE
 	update_state_icon(BSM_ACTIVATION_STATE)
-	addtimer(CALLBACK(src, .proc/update_state_icon, BSM_LOADING_STATE), 3 SECONDS)
-	addtimer(CALLBACK(src, .proc/scan_blood_sample_recursive), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(update_state_icon), BSM_LOADING_STATE), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(scan_blood_sample_recursive)), 3 SECONDS)
 
 /obj/machinery/ninja_bloodscan_machine/proc/scan_blood_sample_recursive(iterator = 1)
 	var/obj/item/reagent_containers/glass/beaker/vial/blood_vial = vials[iterator]
@@ -123,8 +123,8 @@
 		handle_say("Ошибка! Два или более одинаковых образца! Замените образец номер [iterator] на уникальный!")
 		clear_important_vars()
 		update_state_icon(BSM_WRONG_STATE)
-		addtimer(CALLBACK(src, .proc/update_state_icon, BSM_DEACTIVATION_STATE), 3 SECONDS)
-		addtimer(CALLBACK(src, .proc/update_state_icon), 6 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(update_state_icon), BSM_DEACTIVATION_STATE), 3 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(update_state_icon)), 6 SECONDS)
 		return
 	//vial naming, for in game convenience
 	blood_vial.name = "[initial(blood_vial.name)] Образец: [sample_blood.data["real_name"]]"
@@ -135,8 +135,8 @@
 		handle_say("Ошибка! Образец [iterator] принадлежит слишком примитивному или лишённому самосознания существу!")
 		clear_important_vars()
 		update_state_icon(BSM_WRONG_STATE)
-		addtimer(CALLBACK(src, .proc/update_state_icon, BSM_DEACTIVATION_STATE), 3 SECONDS)
-		addtimer(CALLBACK(src, .proc/update_state_icon), 6 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(update_state_icon), BSM_DEACTIVATION_STATE), 3 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(update_state_icon)), 6 SECONDS)
 		return
 	if(istype(sample_mind.vampire))
 		scan_state[iterator] = NINJA_BLOODSCAN_SUCCESSFULL
@@ -144,10 +144,10 @@
 		scan_state[iterator] = NINJA_BLOODSCAN_FAILED
 		handle_say("Оповещение! Образец номер [iterator] не принадлежит вампиру!")
 	if(iterator != 3)
-		addtimer(CALLBACK(src, .proc/scan_blood_sample_recursive, iterator+1), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(scan_blood_sample_recursive), iterator+1), 5 SECONDS)
 	else
 		TGUI_progress_bar = 99
-		addtimer(CALLBACK(src, .proc/end_samples_scan), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(end_samples_scan)), 5 SECONDS)
 
 /obj/machinery/ninja_bloodscan_machine/proc/end_samples_scan()
 	if(length(samples_mind_list) == 3)
@@ -156,8 +156,8 @@
 				handle_say("Сканирование окончено! Некоторые образцы не подходят. Продолжайте поиск.")
 				clear_important_vars()
 				update_state_icon(BSM_WRONG_STATE)
-				addtimer(CALLBACK(src, .proc/update_state_icon, BSM_DEACTIVATION_STATE), 3 SECONDS)
-				addtimer(CALLBACK(src, .proc/update_state_icon), 6 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(update_state_icon), BSM_DEACTIVATION_STATE), 3 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(update_state_icon)), 6 SECONDS)
 				return
 		objective.completed = TRUE
 		scan_state = list(
@@ -165,11 +165,11 @@
 		NINJA_BLOODSCAN_NOT_DONE,
 		NINJA_BLOODSCAN_NOT_DONE) // initial() for some reason fully clears the list
 		update_state_icon(BSM_CORRECT_STATE)
-		addtimer(CALLBACK(src, .proc/update_state_icon, BSM_DEACTIVATION_STATE), 3 SECONDS)
-		addtimer(CALLBACK(src, .proc/clear_important_vars, FALSE, TRUE), 8 SECONDS)
-		addtimer(CALLBACK(src, .proc/update_state_icon), 9 SECONDS)
-		addtimer(CALLBACK(src, .proc/handle_powerUps), 9 SECONDS)
-		addtimer(CALLBACK(src, .proc/handle_say, "Сканирование успешно! Задача выполнена. Реагенты извлечены..."), 10 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(update_state_icon), BSM_DEACTIVATION_STATE), 3 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(clear_important_vars), FALSE, TRUE), 8 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(update_state_icon)), 9 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(handle_powerUps)), 9 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(handle_say), "Сканирование успешно! Задача выполнена. Реагенты извлечены..."), 10 SECONDS)
 
 /obj/machinery/ninja_bloodscan_machine/proc/clear_important_vars(hard_clear = FALSE, clear_vials = FALSE)
 	TGUI_progress_bar = 0

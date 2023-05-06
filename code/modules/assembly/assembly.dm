@@ -56,7 +56,7 @@
 	cooldown--
 	if(cooldown <= 0)
 		return FALSE
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	return TRUE
 
 /obj/item/assembly/Destroy()
@@ -97,7 +97,7 @@
 	if(!secured || cooldown > 0)
 		return FALSE
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	return TRUE
 
 /obj/item/assembly/toggle_secure()

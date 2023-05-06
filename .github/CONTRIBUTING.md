@@ -346,7 +346,7 @@ This is bad:
 ````
 This is good:
 ````DM
-  addtimer(CALLBACK(procsource, .proc/dothing, arg1, arg2, arg3), waittime, timertype)
+  addtimer(CALLBACK(procsource, PROC_REF(dothing), arg1, arg2, arg3), waittime, timertype)
 ````
 This prevents nesting levels from getting deeper then they need to be.
 

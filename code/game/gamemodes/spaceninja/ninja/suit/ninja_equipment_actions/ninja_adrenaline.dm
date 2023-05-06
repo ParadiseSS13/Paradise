@@ -45,7 +45,7 @@
 			ninja_action.action_ready = FALSE
 			ninja_action.toggle_button_on_off()
 		break
-	addtimer(CALLBACK(src, .proc/ninjaboost_after), 70)
+	addtimer(CALLBACK(src, PROC_REF(ninjaboost_after)), 70)
 
 /**
  * Proc called to inject the ninja with radium.

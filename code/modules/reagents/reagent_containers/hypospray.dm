@@ -205,7 +205,7 @@
 											"Completely Green" = image(icon = src.icon, icon_state = "greeninjector"),
 											"Green" = image(icon = src.icon, icon_state = "autoinjector"),
 											"Gray" = image(icon = src.icon, icon_state = "stimpen"))
-			var/choice = show_radial_menu(user, src, injector_icons, custom_check = CALLBACK(src, .proc/check_reskin, user))
+			var/choice = show_radial_menu(user, src, injector_icons, custom_check = CALLBACK(src, PROC_REF(check_reskin), user))
 			if(!choice || W.loc != user || src.loc != user)
 				return
 			if(C.uses <= 0)

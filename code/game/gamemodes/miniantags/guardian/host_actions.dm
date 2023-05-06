@@ -80,7 +80,7 @@
 		return
 
 	// Do this immediately, so the user can't spam a bunch of polls.
-	cooldown_timer = addtimer(CALLBACK(src, .proc/reset_cooldown), 5 MINUTES)
+	cooldown_timer = addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 5 MINUTES)
 	UpdateButtonIcon()
 
 	to_chat(owner, "<span class='danger'>Searching for a replacement ghost...</span>")

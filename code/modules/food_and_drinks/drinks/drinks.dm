@@ -71,8 +71,8 @@
 			var/chargeAmount = max(30,4*trans)
 			bro.cell.use(chargeAmount)
 			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
-			addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent_list, ids_data), 30 SECONDS)
-			addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 30 SECONDS)
+			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 30 SECONDS)
 		else
 			reagents.add_reagent_list(ids_data)
 	else

@@ -100,7 +100,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		update_cult_icons_added(cult_mind)
 		cult_objs.study(cult_mind.current)
 	cult_threshold_check()
-	addtimer(CALLBACK(src, .proc/cult_threshold_check), 2 MINUTES) // Check again in 2 minutes for latejoiners
+	addtimer(CALLBACK(src, PROC_REF(cult_threshold_check)), 2 MINUTES) // Check again in 2 minutes for latejoiners
 	..()
 
 /**
@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 			log_admin("The Blood Cult has risen. The eyes started to glow.")
-			addtimer(CALLBACK(src, .proc/rise, M.current), 20 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
 
 	else if(cult_players >= ascend_number)
 		cult_ascendant = TRUE
@@ -235,7 +235,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
-			addtimer(CALLBACK(src, .proc/ascend, M.current), 20 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
 
 

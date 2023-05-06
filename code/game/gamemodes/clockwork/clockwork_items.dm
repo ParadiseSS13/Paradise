@@ -515,7 +515,7 @@
 		swordsman = TRUE
 		add_attack_logs(user, user, "Sworded [src]", ATKLOG_ALL)
 		to_chat(user, "<span class='danger'>The blood inside your veind flows quickly, as you try to sharp someone by any means!</span>")
-		addtimer(CALLBACK(src, .proc/reset_swordsman, user), 9 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(reset_swordsman), user), 9 SECONDS)
 
 /obj/item/melee/clock_sword/proc/reset_swordsman(mob/user)
 	to_chat(user, "<span class='notice'>The grip on [src] looses...</span>")
@@ -680,12 +680,12 @@
 			sleep(10)
 			carbon.alpha = 20
 			add_attack_logs(user, user, "cloaked [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, .proc/uncloak, carbon), 10 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(uncloak), carbon), 10 SECONDS)
 		if(enchant_type == SPEED_SPELL)
 			enchant_type = CASTING_SPELL
 			flags |= NODROP
 			carbon.status_flags |= GOTTAGOFAST
-			addtimer(CALLBACK(src, .proc/unspeed, carbon), 8 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(unspeed), carbon), 8 SECONDS)
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
@@ -815,14 +815,14 @@
 			enchant_type = CASTING_SPELL
 			add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
 			set_light(1.5, 0.8, COLOR_RED)
-			addtimer(CALLBACK(src, .proc/reset_armor, carbon), 12 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_armor), carbon), 12 SECONDS)
 		if(FLASH_SPELL)
 			if(carbon.wear_suit != src)
 				to_chat(carbon, "<span class='notice'>You should wear [src]!</span>")
 				return
 			playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
 			set_light(2, 1, COLOR_WHITE)
-			addtimer(CALLBACK(src, /atom./proc/set_light, 0), 0.2 SECONDS)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.2 SECONDS)
 			carbon.visible_message("<span class='disarm'>[carbon]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
 			for(var/mob/living/carbon/M in oviewers(3, carbon))
 				if(isclocker(M))
@@ -893,7 +893,7 @@
 			enchant_type = CASTING_SPELL
 			north_star = TRUE
 			add_attack_logs(human, human, "North-starred [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, .proc/reset), 6 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset)), 6 SECONDS)
 		if(FIRE_SPELL)
 			if(human.gloves != src)
 				to_chat(human, "<span class='notice'>You should wear [src]!</span>")
@@ -903,7 +903,7 @@
 			enchant_type = CASTING_SPELL
 			fire_casting = TRUE
 			add_attack_logs(human, human, "Fire-casted [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, .proc/reset), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset)), 5 SECONDS)
 
 /obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
 	var/mob/living/user = loc

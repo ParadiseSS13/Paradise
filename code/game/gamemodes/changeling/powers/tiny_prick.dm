@@ -7,7 +7,7 @@
 
 /datum/action/changeling/sting/New(Target)
 	. = ..()
-	click_override = new /datum/middleClickOverride/callback_invoker(CALLBACK(src, .proc/try_to_sting))
+	click_override = new /datum/middleClickOverride/callback_invoker(CALLBACK(src, PROC_REF(try_to_sting)))
 
 /datum/action/changeling/sting/Trigger()
 	var/mob/user = owner

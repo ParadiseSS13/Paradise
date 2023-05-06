@@ -53,7 +53,7 @@
 		current_charges--
 		if(owner)
 			owner.update_action_buttons_icon()
-		addtimer(CALLBACK(src, .proc/charge), charge_rate)
+		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
 		if(istype(pulled_mob))
 			pulled_mob.forceMove(target_turf)

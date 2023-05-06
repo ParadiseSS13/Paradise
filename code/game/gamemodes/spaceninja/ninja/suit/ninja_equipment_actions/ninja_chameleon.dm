@@ -66,9 +66,9 @@
 
 /obj/item/ninja_chameleon_scanner/proc/ninja_chameleon(mob/living/target, mob/living/ninja)
 	if(target == ninja)
-		INVOKE_ASYNC(my_suit, /obj/item/clothing/suit/space/space_ninja/.proc/pick_form, ninja)
+		INVOKE_ASYNC(my_suit, TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, pick_form), ninja)
 		return
-	INVOKE_ASYNC(my_suit, /obj/item/clothing/suit/space/space_ninja/.proc/remember_form, target, ninja)
+	INVOKE_ASYNC(my_suit, TYPE_PROC_REF(/obj/item/clothing/suit/space/space_ninja, remember_form), target, ninja)
 
 /*
  * Suit procs

@@ -26,7 +26,7 @@
 /datum/component/proximity_monitor/RegisterWithParent()
 	. = ..()
 	if(ismovable(parent))
-		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/HandleMove)
+		RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(HandleMove))
 
 /datum/component/proximity_monitor/UnregisterFromParent()
 	. = ..()
@@ -58,7 +58,7 @@
 		var/obj/effect/abstract/proximity_checker/P = new(T, parent)
 		proximity_checkers += P
 		// Basic movement for the proximity_checker objects. The objects will move 1 tile in the direction the parent just moved.
-		P.RegisterSignal(parent, COMSIG_MOVABLE_MOVED, /obj/effect/abstract/proximity_checker/.proc/HandleMove)
+		P.RegisterSignal(parent, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/obj/effect/abstract/proximity_checker, HandleMove))
 
 /**
  * Re-centers all of the parent's `proximity_checker`s around its current location.
@@ -86,7 +86,7 @@
 /obj/effect/abstract/proximity_checker/Initialize(mapload, atom/_hasprox_receiver)
 	if(_hasprox_receiver)
 		hasprox_receiver = _hasprox_receiver
-		RegisterSignal(hasprox_receiver, COMSIG_PARENT_QDELETING, .proc/OnParentDeletion)
+		RegisterSignal(hasprox_receiver, COMSIG_PARENT_QDELETING, PROC_REF(OnParentDeletion))
 		if(isturf(hasprox_receiver.loc)) // if the reciever is inside a locker/crate/etc, they don't detect proximity
 			active = TRUE
 	else

@@ -56,7 +56,7 @@
 		return FALSE
 	cooldown = 2
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	pulse(FALSE, triggered)
 
 /obj/item/assembly/prox_sensor/process()

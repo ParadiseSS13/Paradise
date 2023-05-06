@@ -19,7 +19,7 @@
 
 /datum/event/spider_terror/start()
 	// It is necessary to wrap this to avoid the event triggering repeatedly.
-	INVOKE_ASYNC(src, .proc/wrappedstart)
+	INVOKE_ASYNC(src, PROC_REF(wrappedstart))
 
 /datum/event/spider_terror/proc/wrappedstart()
 	var/spider_type

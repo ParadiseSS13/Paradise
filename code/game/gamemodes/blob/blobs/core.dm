@@ -98,7 +98,7 @@
 	if(overmind)
 		qdel(overmind)
 
-	INVOKE_ASYNC(src, .proc/get_new_overmind, new_overmind)
+	INVOKE_ASYNC(src, PROC_REF(get_new_overmind), new_overmind)
 
 /obj/structure/blob/core/proc/get_new_overmind(client/new_overmind)
 	var/mob/C = null
@@ -126,7 +126,7 @@
 		B.is_offspring = is_offspring
 
 /obj/structure/blob/core/proc/lateblobtimer()
-	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)
+	addtimer(CALLBACK(src, PROC_REF(lateblobcheck)), 50)
 
 /obj/structure/blob/core/proc/lateblobcheck()
 	if(overmind)

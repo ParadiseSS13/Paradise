@@ -84,8 +84,8 @@
 			to_chat(user, "<span class='danger'>[H] has a hardsuit!</span>")
 		cooldown = TRUE
 		icon_state = "[icon_base]-shock"
-		addtimer(CALLBACK(src, .proc/short_charge), 10)
-		addtimer(CALLBACK(src, .proc/recharge), charge_time)
+		addtimer(CALLBACK(src, PROC_REF(short_charge)), 10)
+		addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
 
 	else
 		to_chat(user, "<span class='notice'>[src]'s on board medical scanner indicates that no shock is required.</span>")

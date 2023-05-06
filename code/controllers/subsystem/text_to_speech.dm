@@ -288,7 +288,7 @@ SUBSYSTEM_DEF(tts)
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, text)
 	var/filename = "sound/tts_cache/[seed.name]/[hash]"
 
-	var/datum/callback/play_tts_cb = CALLBACK(src, .proc/play_tts, speaker, listener, filename, is_local, effect, preSFX, postSFX)
+	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
 
 	if(fexists("[filename].ogg"))
 		tts_reused++
@@ -302,7 +302,7 @@ SUBSYSTEM_DEF(tts)
 		LAZYADD(tts_queue[filename], play_tts_cb)
 		return
 
-	var/datum/callback/cb = CALLBACK(src, .proc/get_tts_callback, speaker, listener, filename, seed, is_local, effect, preSFX, postSFX)
+	var/datum/callback/cb = CALLBACK(src, PROC_REF(get_tts_callback), speaker, listener, filename, seed, is_local, effect, preSFX, postSFX)
 	queue_request(text, seed, cb)
 	LAZYADD(tts_queue[filename], play_tts_cb)
 
@@ -341,7 +341,7 @@ SUBSYSTEM_DEF(tts)
 	rustg_file_write(voice, "[filename].ogg", "true")
 
 	if(!config.tts_cache)
-		addtimer(CALLBACK(src, .proc/cleanup_tts_file, "[filename].ogg"), 30 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(cleanup_tts_file), "[filename].ogg"), 30 SECONDS)
 
 	for(var/datum/callback/cb in tts_queue[filename])
 		cb.InvokeAsync()
@@ -371,7 +371,7 @@ SUBSYSTEM_DEF(tts)
 			CRASH("Invalid sound effect chosen.")
 	if(effect != SOUND_EFFECT_NONE)
 		if(!fexists(voice))
-			var/datum/callback/play_tts_cb = CALLBACK(src, .proc/play_tts, speaker, listener, filename, is_local, effect, preSFX, postSFX)
+			var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
 			if(LAZYLEN(tts_effects_queue[voice]))
 				LAZYADD(tts_effects_queue[voice], play_tts_cb)
 				return

@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
 	SSticker.mode.victims.Remove(target)
 	target = null
-	INVOKE_ASYNC(src, .proc/post_target_cryo)
+	INVOKE_ASYNC(src, PROC_REF(post_target_cryo))
 
 /**
   * Called a tick after when the objective's target goes to cryo.
@@ -1025,7 +1025,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 	if(owner?.current)
 		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
-	INVOKE_ASYNC(src, .proc/post_target_cryo)
+	INVOKE_ASYNC(src, PROC_REF(post_target_cryo))
 
 /datum/objective/protect/ninja/post_target_cryo()
 	find_target()
@@ -1080,7 +1080,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
 	if(!completed)
 		target = null
-		INVOKE_ASYNC(src, .proc/post_target_cryo)
+		INVOKE_ASYNC(src, PROC_REF(post_target_cryo))
 
 /datum/objective/set_up/check_completion()
 	if(issilicon(target.current))

@@ -18,7 +18,7 @@
 	text_override = _text_override
 
 /datum/component/examine_override/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/Examine)
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(Examine))
 
 /datum/component/examine_override/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE))

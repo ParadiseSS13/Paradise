@@ -67,7 +67,7 @@
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, source, owner, radio_speech, lifespan, italics, emote)
+	INVOKE_ASYNC(src, PROC_REF(generate_image), text, source, owner, radio_speech, lifespan, italics, emote)
 
 /datum/chatmessage/Destroy()
 	for(var/target in signal_targets)
@@ -107,7 +107,7 @@
 
 	// Register client who owns this message
 	owned_by = owner.client
-	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
+	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, PROC_REF(on_parent_qdel))
 
 	// Clip message
 	var/maxlen = CHAT_MESSAGE_MAX_LENGTH
@@ -205,7 +205,7 @@
 		UnregisterSignal(obsolete_target, COMSIG_MOVABLE_MOVED)
 
 	for(var/new_target in next_signal_targets - previous_signal_targets)
-		RegisterSignal(new_target, COMSIG_MOVABLE_MOVED, .proc/adjust_message_loc)
+		RegisterSignal(new_target, COMSIG_MOVABLE_MOVED, PROC_REF(adjust_message_loc))
 
 	signal_targets = next_signal_targets
 

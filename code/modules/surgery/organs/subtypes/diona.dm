@@ -179,7 +179,7 @@
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(istype(parent, /obj/item/organ/internal))
-		RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, .proc/transform_organ)
+		RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(transform_organ))
 
 /datum/component/diona_internals/proc/transform_organ()
 	if(is_int_organ(parent))

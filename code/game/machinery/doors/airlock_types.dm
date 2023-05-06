@@ -154,14 +154,14 @@
 
 /obj/machinery/door/airlock/uranium/New()
 	..()
-	addtimer(CALLBACK(src, .proc/radiate), event_step)
+	addtimer(CALLBACK(src, PROC_REF(radiate)), event_step)
 
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
 	if(prob(50))
 		for(var/mob/living/L in range (3,src))
 			L.apply_effect(15,IRRADIATE,0)
-	addtimer(CALLBACK(src, .proc/radiate), event_step)
+	addtimer(CALLBACK(src, PROC_REF(radiate)), event_step)
 
 
 /obj/machinery/door/airlock/uranium/glass

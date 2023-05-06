@@ -96,8 +96,8 @@
 	// Activate the cooldown
 	is_on_cooldown = TRUE
 	update_icon()
-	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
-	addtimer(CALLBACK(null, .proc/playsound, loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown_duration)
+	addtimer(CALLBACK(null, PROC_REF(playsound), loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
 
 	H.emote("scream")
 	if(!masterAI) // If the factory was placed via admin spawning or other means, it wont have an owner_AI.
@@ -145,7 +145,7 @@
 	// Activate the cooldown
 	is_on_cooldown = TRUE
 	update_icon()
-	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown_duration)
 
 /obj/machinery/transformer/xray
 	name = "Automatic X-Ray 5000"

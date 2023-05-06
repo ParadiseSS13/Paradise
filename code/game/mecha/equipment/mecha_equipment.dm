@@ -103,7 +103,7 @@
 	if(istype(W))
 		cooldown += (W.projectiles_per_shot - 1) * W.projectile_delay
 
-	addtimer(CALLBACK(src, .proc/set_ready_state, 1), cooldown)
+	addtimer(CALLBACK(src, PROC_REF(set_ready_state), 1), cooldown)
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_cooldown(atom/target)
 	if(!chassis)

@@ -238,7 +238,7 @@
 				if(ismob(A) && !(A in flashers)) // don't flash if we're already doing an effect
 					var/mob/M = A
 					if(M.client)
-						INVOKE_ASYNC(src, .proc/blue_effect, M)
+						INVOKE_ASYNC(src, PROC_REF(blue_effect), M)
 
 /obj/effect/anomaly/bluespace/proc/blue_effect(mob/M)
 	var/obj/blueeffect = new /obj(src)
@@ -274,7 +274,7 @@
 		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
 
 /obj/effect/anomaly/pyro/detonate()
-	INVOKE_ASYNC(src, .proc/makepyroslime)
+	INVOKE_ASYNC(src, PROC_REF(makepyroslime))
 
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)

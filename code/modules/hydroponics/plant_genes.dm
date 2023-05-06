@@ -443,7 +443,7 @@
 	for(var/datum/reagent/R in G.reagents.reagent_list)
 		reglist += "[R.name] [R.volume], "
 	target.investigate_log("started a chemical smoke, squashing [G]. [reglist]")
-	addtimer(CALLBACK(S, /datum/effect_system/smoke_spread/chem/.proc/start, smoke_amount), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
+	addtimer(CALLBACK(S, TYPE_PROC_REF(/datum/effect_system/smoke_spread/chem, start), smoke_amount), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /datum/plant_gene/trait/fire_resistance // Lavaland
 	name = "Fire Resistance"

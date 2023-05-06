@@ -310,7 +310,7 @@ field_generator power level display
 	//This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
 	//singulo eats the evidence". It's not fool-proof but better than nothing.
 	//I want to avoid using global variables.
-	INVOKE_ASYNC(src, .proc/admin_alert)
+	INVOKE_ASYNC(src, PROC_REF(admin_alert))
 
 /obj/machinery/field/generator/proc/admin_alert()
 	var/temp = TRUE //stops spam

@@ -96,7 +96,7 @@
 	var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
 
 	if(!effect_range)
-		INVOKE_ASYNC(src, .proc/SmokeEm, effect_range, chemholder.reagents, 1)
+		INVOKE_ASYNC(src, PROC_REF(SmokeEm), effect_range, chemholder.reagents, 1)
 		for(var/x in 0 to 9)
 			for(var/i = 0, i < rand(2, 6), i++)
 				new /obj/effect/particle_effect/chem_smoke/small(location, color)
@@ -117,7 +117,7 @@
 				tile_reagents.reagents.clear_reagents()
 				var/square_size = range * 2 + 1
 				chemholder.reagents.copy_to(tile_reagents, chemholder.reagents.total_volume, 1 / (square_size * square_size) / effect_range)
-				INVOKE_ASYNC(src, .proc/SmokeEm, range, tile_reagents.reagents)
+				INVOKE_ASYNC(src, PROC_REF(SmokeEm), range, tile_reagents.reagents)
 
 			sleep(1)
 	qdel(src)

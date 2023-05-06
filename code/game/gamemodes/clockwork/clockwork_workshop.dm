@@ -195,7 +195,7 @@
 	build_start = world.time
 	build_end = build_start + CD.build_time SECONDS
 	desc = "It's creating \a [initial(CD.design_name)]."
-	addtimer(CALLBACK(src, .proc/build_design_timer_finish, CD), CD.build_time SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), CD), CD.build_time SECONDS)
 
 	return TRUE
 

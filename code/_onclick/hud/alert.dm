@@ -71,7 +71,7 @@
 
 	var/timeout = timeout_override || alert.timeout
 	if(timeout)
-		addtimer(CALLBACK(alert, /obj/screen/alert/.proc/do_timeout, src, category), timeout)
+		addtimer(CALLBACK(alert, TYPE_PROC_REF(/obj/screen/alert, do_timeout), src, category), timeout)
 		alert.timeout = world.time + timeout - world.tick_lag
 
 	return alert

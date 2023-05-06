@@ -34,7 +34,7 @@
 	if(prob(5) && !rend)
 		rend = new(get_turf(our_mob))
 		rend.GetOccupant(our_mob)
-		addtimer(CALLBACK(src, .proc/clearRend), rend.duration)
+		addtimer(CALLBACK(src, PROC_REF(clearRend)), rend.duration)
 	if(prob(25))
 		last_random_turf = get_turf(our_mob)
 	//We don't tolerate ANY other reagent.

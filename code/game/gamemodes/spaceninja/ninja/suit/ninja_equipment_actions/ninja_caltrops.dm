@@ -79,7 +79,7 @@
 		if(other_caltrop!=src)
 			qdel(other_caltrop)	//Не больше одной кучки калтропов на тайле!
 	if(self_destroy)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), destroy_after)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), destroy_after)
 
 /obj/structure/energy_caltrops/Crossed(mob/living/L, oldloc)
 	if(istype(L) && has_gravity(loc))
@@ -87,5 +87,5 @@
 			return
 		add_attack_logs(L, src, "Stepped on Caltrop")
 		playsound(loc, 'sound/weapons/bladeslice.ogg', 50, TRUE)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), 1)	//На нас наступили? Удаляемся быстрее. Нужно в целях баланса.
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), 1)	//На нас наступили? Удаляемся быстрее. Нужно в целях баланса.
 	return ..()

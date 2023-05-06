@@ -23,7 +23,7 @@
 /obj/screen/plane_master/proc/remove_filter(key)
 	if(current_filters[key])
 		animate(current_filters[key], size=0, time=5) //not all filters have a size param, but this is good enough for the general case
-		addtimer(CALLBACK(src, .proc/remove_callback, key), 5)
+		addtimer(CALLBACK(src, PROC_REF(remove_callback), key), 5)
 
 /obj/screen/plane_master/proc/remove_callback(key)
 	filters -= current_filters[key]

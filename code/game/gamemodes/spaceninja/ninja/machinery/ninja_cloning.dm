@@ -107,7 +107,7 @@
 	//Проверка и перевыдача бомбы
 	SSticker.mode.basic_ninja_needs_check(ninja.mind)
 	//Пробуждение из клонёрки
-	addtimer(CALLBACK(src, .proc/force_ninja_out), 150)
+	addtimer(CALLBACK(src, PROC_REF(force_ninja_out)), 150)
 	suits_data.Remove(ninja_suit_data)
 	return TRUE
 

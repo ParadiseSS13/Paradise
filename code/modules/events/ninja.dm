@@ -23,4 +23,4 @@
 		return
 	if(!get_ninja())
 		message_admins("Space Ninja event failed to find players. Retrying in 30s.")
-		addtimer(CALLBACK(src, .proc/get_ninja), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(get_ninja)), 5 SECONDS)

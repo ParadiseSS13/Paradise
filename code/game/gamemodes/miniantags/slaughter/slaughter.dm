@@ -66,7 +66,7 @@
 	whisper_action.Grant(src)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = 1
-	addtimer(CALLBACK(src, .proc/attempt_objectives), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
 
 
 /mob/living/simple_animal/slaughter/Life(seconds, times_fired)

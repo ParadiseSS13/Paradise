@@ -49,7 +49,7 @@
 		return
 
 	GLOB.event_announcement.Announce(war_declaration, "Объявление войны.", 'sound/effects/siren.ogg')
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/set_security_level, "gamma"), 30 SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/set_security_level, "gamma"), 30 SECONDS)
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 	to_chat(user, "<b>Your bonus telecrystals have been split between your team's uplinks.</b>")

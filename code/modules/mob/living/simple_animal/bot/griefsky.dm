@@ -101,7 +101,7 @@
 		if(!spam_flag)
 			speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
 			spam_flag = 1
-			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
+			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 100) //to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")
 
 
@@ -177,7 +177,7 @@
 			icon_state = "[base_icon]-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			INVOKE_ASYNC(src, .proc/handle_automated_action)
+			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
 		else
 			continue
@@ -288,7 +288,7 @@
 			else
 				speak("Back away! I will deal with this level [threat] swine <b>[C]</b> in [location] myself!.", radio_channel)
 			spam_flag = 1
-			addtimer(CALLBACK(src, .proc/spam_flag_false), 100) //to avoid spamming comms of sec for each hit
+			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 100) //to avoid spamming comms of sec for each hit
 			visible_message("[src] flails his swords and cuts [C]!")
 
 /mob/living/simple_animal/bot/secbot/griefsky/syndicate/proc/check_for_mug(obj/item/slot_item)
@@ -326,7 +326,7 @@
 			icon_state = "[base_icon]-c"
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
-			INVOKE_ASYNC(src, .proc/handle_automated_action)
+			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
 		else
 			continue

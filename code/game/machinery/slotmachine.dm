@@ -49,7 +49,7 @@
 		working = TRUE
 		icon_state = "slots-on"
 		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-		addtimer(CALLBACK(src, .proc/spin_slots, usr.name), 25)
+		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
 
 /obj/machinery/slot_machine/proc/spin_slots(userName)
 	switch(rand(1,5000))

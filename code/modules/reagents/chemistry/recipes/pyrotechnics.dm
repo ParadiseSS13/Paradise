@@ -167,7 +167,7 @@
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	do_sparks(2, 1, location)
-	addtimer(CALLBACK(null, .proc/blackpowder_detonate, holder, created_volume), rand(5, 15))
+	addtimer(CALLBACK(null, PROC_REF(blackpowder_detonate), holder, created_volume), rand(5, 15))
 
 /datum/chemical_reaction/blackpowder_explosion/proc/blackpowder_detonate(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)

@@ -91,8 +91,8 @@
 		//if on the floor, glowshroom on-floor sprite
 		icon_state = "[base_icon_state]f"
 
-	addtimer(CALLBACK(src, .proc/Spread), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
-	addtimer(CALLBACK(src, .proc/Decay), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
+	addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
+	addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
 
 /obj/structure/glowshroom/proc/Spread()
 	//We could be deleted at any point and the timers might not be cleaned up
@@ -154,7 +154,7 @@
 	if((shrooms_planted <= myseed.yield) && (max_failed_spreads >= 0))
 		myseed.adjust_yield(-shrooms_planted)
 		//Lets make this a unique hash
-		addtimer(CALLBACK(src, .proc/Spread), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
+		addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 
 /obj/structure/glowshroom/proc/calc_dir(turf/location = loc)
 	var/direction = (1<<4)
@@ -203,7 +203,7 @@
 		// Timed decay
 		myseed.endurance -= 2
 		if(myseed.endurance > 0)
-			addtimer(CALLBACK(src, .proc/Decay), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT) // Recall decay timer
+			addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT) // Recall decay timer
 			return
 	// Plant is gone
 	if(myseed.endurance < 1)

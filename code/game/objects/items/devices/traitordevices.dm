@@ -55,7 +55,7 @@ effective or pretty fucking useless.
 	playsound(loc, 'sound/misc/interference.ogg', 50, 1)
 	charges--
 	to_chat(user, "<span class='notice'>You trigger [src]. It has [charges] charges left.</span>")
-	addtimer(CALLBACK(src, .proc/recharge), 3 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(recharge)), 3 MINUTES)
 
 /obj/item/batterer/proc/recharge()
 	charges++

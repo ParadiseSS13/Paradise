@@ -318,7 +318,7 @@
 					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
 				else
 					hacking = TRUE
-					INVOKE_ASYNC(src, /datum/pai_software/door_jack/.proc/hackloop)
+					INVOKE_ASYNC(src, TYPE_PROC_REF(/datum/pai_software/door_jack, hackloop))
 		if("cancel")
 			hackdoor = null
 		if("cable")

@@ -42,7 +42,7 @@
 		return FALSE
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
 	pulse(FALSE, user)
 
 /obj/item/assembly/timer/process()

@@ -137,7 +137,7 @@
 		s_TGUI_initialized = TRUE
 	playsound(ninja, 'sound/effects/sparks1.ogg', 10, TRUE)
 	if (phase < NINJA_INIT_COMPLETE_PHASE)
-		addtimer(CALLBACK(src, .proc/ninitialize, delay, ninja, phase + 1), delay)
+		addtimer(CALLBACK(src, PROC_REF(ninitialize), delay, ninja, phase + 1), delay)
 
 /**
  * Deinitializes the ninja suit
@@ -208,5 +208,5 @@
 		sleep(10)
 		s_TGUI_initialized = TRUE
 	if (phase < NINJA_DEINIT_COMPLETE_PHASE)
-		addtimer(CALLBACK(src, .proc/deinitialize, delay, ninja, phase + 1), delay)
+		addtimer(CALLBACK(src, PROC_REF(deinitialize), delay, ninja, phase + 1), delay)
 

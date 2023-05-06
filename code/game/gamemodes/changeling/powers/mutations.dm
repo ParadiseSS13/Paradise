@@ -317,7 +317,7 @@
 			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
 			add_attack_logs(src, I, "[src] pulled [I] towards them with a tentacle")
 			H.throw_mode_on()
-			I.throw_at(H, 10, 2, callback = CALLBACK(src, .proc/tentacle_disarm, I))
+			I.throw_at(H, 10, 2, callback = CALLBACK(src, PROC_REF(tentacle_disarm), I))
 			. = 1
 
 	else if(isliving(target))
@@ -359,13 +359,13 @@
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
 						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
 						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_grab, C))
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, PROC_REF(tentacle_grab), C))
 						return 1
 
 					if(INTENT_HARM)
 						C.visible_message("<span class='danger'>[L] is thrown towards [H] by a tentacle!</span>","<span class='userdanger'>A tentacle grabs you and throws you towards [H]!</span>")
 						C.client?.move_delay = world.time + 10
-						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, .proc/tentacle_stab, C))
+						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(src, PROC_REF(tentacle_stab), C))
 						return 1
 			else
 				L.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")

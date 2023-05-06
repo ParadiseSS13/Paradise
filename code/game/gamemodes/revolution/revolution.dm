@@ -118,7 +118,7 @@
 		add_game_logs("has been selected as a head rev", rev_mind.current)
 		forge_revolutionary_objectives(rev_mind)
 
-		addtimer(CALLBACK(src, .proc/equip_revolutionary, rev_mind.current), rand(10, 100))
+		addtimer(CALLBACK(src, PROC_REF(equip_revolutionary), rev_mind.current), rand(10, 100))
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)

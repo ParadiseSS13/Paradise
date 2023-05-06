@@ -51,7 +51,7 @@
 
 	O.tts_seed = tts_seed
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 
@@ -118,7 +118,7 @@
 
 	O.tts_seed = tts_seed
 
-	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 /mob/living/carbon/human/proc/corgize()

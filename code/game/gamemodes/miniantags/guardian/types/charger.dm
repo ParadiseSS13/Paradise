@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/hostile/guardian/charger/Shoot(atom/targeted_atom)
 	charging = 1
-	throw_at(targeted_atom, range, 1, src, 0, callback = CALLBACK(src, .proc/charging_end))
+	throw_at(targeted_atom, range, 1, src, 0, callback = CALLBACK(src, PROC_REF(charging_end)))
 
 /mob/living/simple_animal/hostile/guardian/charger/proc/charging_end()
 	charging = 0

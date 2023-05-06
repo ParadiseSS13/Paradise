@@ -42,7 +42,7 @@
 	slip_verb = _slip_verb
 
 /datum/component/slippery/RegisterWithParent()
-	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), .proc/Slip)
+	RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(Slip))
 
 /datum/component/slippery/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED))

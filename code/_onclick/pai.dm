@@ -55,7 +55,7 @@
 	if(!capa_is_cooldown)
 		capa_is_cooldown = TRUE
 		A.PAIShiftClick(src)
-		addtimer(CALLBACK(src, .proc/reset_cooldown), ai_capability_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 
@@ -66,7 +66,7 @@
 	if(!capa_is_cooldown)
 		capa_is_cooldown = TRUE
 		A.PAICtrlClick(src)
-		addtimer(CALLBACK(src, .proc/reset_cooldown), ai_capability_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 
@@ -76,7 +76,7 @@
 	if(!capa_is_cooldown)
 		capa_is_cooldown = TRUE
 		A.PAIAltClick(src)
-		addtimer(CALLBACK(src, .proc/reset_cooldown), ai_capability_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 
@@ -86,7 +86,7 @@
 	if(!capa_is_cooldown)
 		capa_is_cooldown = TRUE
 		A.PAICtrlShiftClick(src)
-		addtimer(CALLBACK(src, .proc/reset_cooldown), ai_capability_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 
@@ -96,7 +96,7 @@
 	if(!capa_is_cooldown)
 		capa_is_cooldown = TRUE
 		A.PAIAltShiftClick(src)
-		addtimer(CALLBACK(src, .proc/reset_cooldown), ai_capability_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 

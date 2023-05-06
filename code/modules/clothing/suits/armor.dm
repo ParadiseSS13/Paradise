@@ -310,7 +310,7 @@
 	if(istype(loc, /mob/living/carbon/human))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
-		addtimer(CALLBACK(src, .proc/reboot), 100 / severity)
+		addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
 	..()
 
 /obj/item/clothing/suit/armor/reactive/proc/reboot()

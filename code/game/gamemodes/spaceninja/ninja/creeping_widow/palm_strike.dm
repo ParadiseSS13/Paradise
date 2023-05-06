@@ -20,7 +20,7 @@
 			target.Weaken(2)
 			add_attack_logs(user, target, "Melee attacked with martial-art [creeping_widow.name] : [name]")
 			playsound(get_turf(target), 'sound/weapons/punch1.ogg', 50, TRUE, -1)
-			addtimer(CALLBACK(creeping_widow, /datum/martial_art/ninja_martial_art/.proc/regain_focus, user), 50)
+			addtimer(CALLBACK(creeping_widow, TYPE_PROC_REF(/datum/martial_art/ninja_martial_art, regain_focus), user), 50)
 			return MARTIAL_COMBO_DONE
 	return MARTIAL_COMBO_FAIL
 

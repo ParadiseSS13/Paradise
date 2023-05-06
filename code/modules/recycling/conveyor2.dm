@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		// spawn hundreds of callbacks for the same thing.
 		// (they don't behave weirdly or anything, just eat CPU)
 		affecting.Add(AM)
-		addtimer(CALLBACK(src, .proc/move_thing, AM), slow_factor)
+		addtimer(CALLBACK(src, PROC_REF(move_thing), AM), slow_factor)
 		CHECK_TICK
 
 	// Use speedy process only if the belt is actually in use, and use normal process otherwise.

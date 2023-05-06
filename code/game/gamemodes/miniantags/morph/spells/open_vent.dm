@@ -33,7 +33,7 @@
 	for(var/thing in targets)
 		var/obj/machinery/atmospherics/unary/unary = thing
 		unary.add_overlay(GLOB.acid_overlay, TRUE)
-		addtimer(CALLBACK(src, .proc/unweld_vent, unary), 2 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(unweld_vent), unary), 2 SECONDS)
 		playsound(unary, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/effect/proc_holder/spell/targeted/click/morph_spell/open_vent/proc/unweld_vent(obj/machinery/atmospherics/unary/unary)

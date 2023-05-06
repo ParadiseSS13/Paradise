@@ -7,9 +7,9 @@
 	for(var/obj/machinery/door/D in GLOB.airlocks)
 		if(!is_station_level(D.z))
 			continue
-		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown)
-		addtimer(CALLBACK(D, /obj/machinery/door.proc/disable_lockdown), 90 SECONDS)
-	addtimer(CALLBACK(src, .proc/reboot), 90 SECONDS)
+		INVOKE_ASYNC(D, TYPE_PROC_REF(/obj/machinery/door, hostile_lockdown))
+		addtimer(CALLBACK(D, TYPE_PROC_REF(/obj/machinery/door, disable_lockdown)), 90 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), 90 SECONDS)
 	post_status("alert", "lockdown")
 
 /datum/event/door_runtime/proc/reboot()

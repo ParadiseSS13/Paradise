@@ -13,7 +13,7 @@
 	var/ip = null
 
 /datum/geoip_data/New(client/C, addr)
-	INVOKE_ASYNC(src, .proc/get_geoip_data, C, addr)
+	INVOKE_ASYNC(src, PROC_REF(get_geoip_data), C, addr)
 
 /datum/geoip_data/proc/get_geoip_data(client/C, addr)
 

@@ -24,7 +24,7 @@
 		if(FOOTSTEP_MOB_HUMAN)
 			if(!ishuman(parent))
 				return COMPONENT_INCOMPATIBLE
-			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_humanstep)
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_humanstep))
 			return
 		if(FOOTSTEP_MOB_CLAW)
 			footstep_sounds = GLOB.clawfootstep
@@ -38,13 +38,13 @@
 			footstep_sounds = 'sound/effects/footstep/slime1.ogg'
 		if(FOOTSTEP_OBJ_MACHINE)
 			footstep_sounds = 'sound/effects/bang.ogg'
-			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine) //Note that this doesn't get called for humans.
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep_machine)) //Note that this doesn't get called for humans.
 			return
 		if(FOOTSTEP_OBJ_ROBOT)
 			footstep_sounds = 'sound/effects/tank_treads.ogg'
-			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep_machine) //Note that this doesn't get called for humans.
+			RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep_machine)) //Note that this doesn't get called for humans.
 			return
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/play_simplestep) //Note that this doesn't get called for humans.
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep)) //Note that this doesn't get called for humans.
 
 ///Prepares a footstep. Determines if it should get played. Returns the turf it should get played on. Note that it is always a /turf/simulated/floor (eventually /turf/open)
 /datum/component/footstep/proc/prepare_step()

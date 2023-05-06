@@ -69,7 +69,7 @@
 		add_game_logs("has been selected as a Wizard", wizard.current)
 		forge_wizard_objectives(wizard)
 		equip_wizard(wizard.current)
-		INVOKE_ASYNC(src, .proc/name_wizard, wizard.current)
+		INVOKE_ASYNC(src, PROC_REF(name_wizard), wizard.current)
 		greet_wizard(wizard)
 		if(use_huds)
 			update_wiz_icons_added(wizard)
@@ -80,7 +80,7 @@
 		log_game("[key_name(apprentice)] has been selected as a Wizard-Apprentice")
 		forge_wizard_apprentice_objectives(wizard_teacher, apprentice)
 		equip_wizard_apprentice(apprentice.current)
-		INVOKE_ASYNC(src, .proc/name_wizard, apprentice.current)
+		INVOKE_ASYNC(src, PROC_REF(name_wizard), apprentice.current)
 		greet_wizard(apprentice)
 		if(use_huds)
 			update_wiz_icons_added(apprentice)
@@ -159,7 +159,7 @@
 
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
-	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
+	addtimer(CALLBACK(wizard.current, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")

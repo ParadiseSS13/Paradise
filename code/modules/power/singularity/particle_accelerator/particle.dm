@@ -21,9 +21,9 @@
 
 /obj/effect/accelerated_particle/Initialize(loc)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/propagate), 1)
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, .proc/try_irradiate)
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, .proc/try_irradiate)
+	addtimer(CALLBACK(src, PROC_REF(propagate)), 1)
+	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_irradiate))
+	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_irradiate))
 	QDEL_IN(src, movement_range)
 
 /obj/effect/accelerated_particle/proc/try_irradiate(src, atom/A)
@@ -51,6 +51,6 @@
 	return
 
 /obj/effect/accelerated_particle/proc/propagate()
-	addtimer(CALLBACK(src, .proc/propagate), 1)
+	addtimer(CALLBACK(src, PROC_REF(propagate)), 1)
 	if(!step(src,dir))
 		forceMove(get_step(src, dir))

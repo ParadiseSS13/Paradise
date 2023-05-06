@@ -43,7 +43,7 @@
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
 
 	var/delay = (rand(350,450) + B.host.getBrainLoss())
-	addtimer(CALLBACK(src, .proc/return_control, B), delay)
+	addtimer(CALLBACK(src, PROC_REF(return_control), B), delay)
 
 
 /mob/living/captive_brain/proc/return_control(mob/living/simple_animal/borer/B)
@@ -573,7 +573,7 @@
 
 	leaving = TRUE
 
-	addtimer(CALLBACK(src, .proc/let_go), 200)
+	addtimer(CALLBACK(src, PROC_REF(let_go)), 200)
 
 /mob/living/simple_animal/borer/proc/let_go()
 
@@ -648,7 +648,7 @@
 	bonding = TRUE
 
 	var/delay = 300+(host.getBrainLoss()*5)
-	addtimer(CALLBACK(src, .proc/assume_control), delay)
+	addtimer(CALLBACK(src, PROC_REF(assume_control)), delay)
 
 /mob/living/simple_animal/borer/proc/assume_control()
 	if(!host || !src || controlling)

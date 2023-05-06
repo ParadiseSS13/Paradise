@@ -38,7 +38,7 @@
 		if(animation)
 			qdel(animation)
 
-	addtimer(CALLBACK(src, .proc/spew_critters), rand(30, 120))
+	addtimer(CALLBACK(src, PROC_REF(spew_critters)), rand(30, 120))
 
 /obj/effect/tear/proc/spew_critters()
 	for(var/i in 1 to 5)

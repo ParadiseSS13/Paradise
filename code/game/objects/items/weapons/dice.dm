@@ -176,7 +176,7 @@
 	else
 		triggered = TRUE
 		visible_message("<span class='notice'>Вы слышите тихий щелчок.</span>")
-		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(boom), user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)
 	var/capped = FALSE

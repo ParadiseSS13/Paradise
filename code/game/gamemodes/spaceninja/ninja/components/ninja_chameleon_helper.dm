@@ -16,7 +16,7 @@
 	my_suit = ninja_suit
 
 /datum/component/ninja_chameleon_helper/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_HUMAN_APPLY_OVERLAY, .proc/restart_chameleon)
+	RegisterSignal(parent, COMSIG_HUMAN_APPLY_OVERLAY, PROC_REF(restart_chameleon))
 
 
 /datum/component/ninja_chameleon_helper/UnregisterFromParent()

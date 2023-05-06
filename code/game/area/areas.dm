@@ -235,7 +235,7 @@
 				if(D.operating)
 					D.nextstate = opening ? FD_OPEN : FD_CLOSED
 				else if(!(D.density ^ opening))
-					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+					INVOKE_ASYNC(D, (opening ? TYPE_PROC_REF(/obj/machinery/door/firedoor, open) : TYPE_PROC_REF(/obj/machinery/door/firedoor, close)))
 
 /**
   * Generate a firealarm alert for this area
@@ -326,7 +326,7 @@
 
 	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
 		//Cancel silicon alert after 1 minute
-		addtimer(CALLBACK(SSalarm, /datum/controller/subsystem/alarm.proc/cancelAlarm, "Burglar", src, trigger), 600)
+		addtimer(CALLBACK(SSalarm, TYPE_PROC_REF(/datum/controller/subsystem/alarm, cancelAlarm), "Burglar", src, trigger), 600)
 
 /**
   * Trigger the fire alarm visual affects in an area
@@ -494,7 +494,7 @@
 		if(!L.client.played)
 			SEND_SOUND(L, sound(sound, repeat = FALSE, wait = FALSE, volume = 25 * L.client.prefs.get_channel_volume(CHANNEL_AMBIENCE), channel = CHANNEL_AMBIENCE))
 			L.client.played = TRUE
-			addtimer(CALLBACK(L.client, /client/proc/ResetAmbiencePlayed), 600)
+			addtimer(CALLBACK(L.client, TYPE_PROC_REF(/client, ResetAmbiencePlayed)), 600)
 
 /**
   * Reset the played var to false on the client
@@ -551,7 +551,7 @@
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in src)
-		INVOKE_ASYNC(temp_apc, /obj/machinery/power/apc.proc/overload_lighting, 70)
+		INVOKE_ASYNC(temp_apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting), 70)
 	for(var/obj/machinery/door/airlock/temp_airlock in src)
 		temp_airlock.prison_open()
 	for(var/obj/machinery/door/window/temp_windoor in src)

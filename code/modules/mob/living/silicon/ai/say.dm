@@ -145,7 +145,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 	var/i = 0
 	for(var/word in words)
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/play_vox_word, word, src.z, null), i, TIMER_CLIENT_TIME)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/play_vox_word, word, src.z, null), i, TIMER_CLIENT_TIME)
 		i++
 
 	ai_voice_announcement_to_text(words)

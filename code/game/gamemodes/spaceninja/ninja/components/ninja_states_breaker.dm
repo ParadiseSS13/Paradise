@@ -28,7 +28,7 @@
 		COMSIG_MOB_ITEM_ATTACK,
 		COMSIG_MOB_APPLY_DAMAGE,
 		COMSIG_SIMPLE_ANIMAL_ATTACKEDBY,
-		COMSIG_CARBON_HITBY), .proc/cancel_states)
+		COMSIG_CARBON_HITBY), PROC_REF(cancel_states))
 
 
 /datum/component/ninja_states_breaker/UnregisterFromParent()

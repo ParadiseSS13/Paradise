@@ -33,7 +33,7 @@
 	occupant = user
 	update_icon()
 	feedinTopanim()
-	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
+	addtimer(CALLBACK(src, PROC_REF(startgibbing), user), 33)
 	return OBLITERATION
 
 /obj/machinery/gibber/Destroy()

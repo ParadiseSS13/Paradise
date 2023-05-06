@@ -54,7 +54,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	for(var/i in 1 to number)
 		if(total_effects > 20)
 			return
-		INVOKE_ASYNC(src, .proc/generate_effect)
+		INVOKE_ASYNC(src, PROC_REF(generate_effect))
 
 /datum/effect_system/proc/generate_effect()
 	if(holder)
@@ -71,7 +71,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		sleep(5)
 		step(E,direction)
 	if(!QDELETED(src))
-		addtimer(CALLBACK(src, .proc/decrement_total_effect), 20)
+		addtimer(CALLBACK(src, PROC_REF(decrement_total_effect)), 20)
 
 /datum/effect_system/proc/decrement_total_effect()
 	total_effects--

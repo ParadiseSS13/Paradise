@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(verb_manager)
 #ifdef UNIT_TESTS
 	if(QDELETED(usr) && ismob(incoming_callback.object))
 		incoming_callback.usr_uid = incoming_callback.object.UID()
-		var/datum/callback/new_us = CALLBACK(arglist(list(GLOBAL_PROC, .proc/_queue_verb) + args.Copy()))
+		var/datum/callback/new_us = CALLBACK(arglist(list(GLOBAL_PROC, /proc/_queue_verb) + args.Copy()))
 		return world.invoke_callback_with_usr(incoming_callback.object, new_us)
 #endif
 

@@ -132,7 +132,7 @@
 				return
 			toggle_ability_buy_block()
 			if(alert(usr, "Вы уверены, что хотите приобрести эту способность?",,"Да","Нет") == "Нет")
-				addtimer(CALLBACK(src, .proc/toggle_ability_buy_block), 2 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(toggle_ability_buy_block)), 2 SECONDS)
 				return
 			var/ability = params["style"]
 			var/row_to_block = text2num(params["row"])
@@ -145,13 +145,13 @@
 				creeping_widow.my_suit = src
 				creeping_widow.my_energy_katana = energyKatana
 				ninja.mind.ninja.purchased_abilities += "<BIG>[bicon(ability_icon)]</BIG>"
-				addtimer(CALLBACK(src, .proc/toggle_ability_buy_block), 2 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(toggle_ability_buy_block)), 2 SECONDS)
 				return
 			if(ability == "cloning")
 				ninja_clonable = TRUE
 				to_chat(usr, span_notice("Вы внесены в список устройства для воскрешения на своей базе."))
 				ninja.mind.ninja.purchased_abilities += "<BIG>[bicon(ability_icon)]</BIG>"
-				addtimer(CALLBACK(src, .proc/toggle_ability_buy_block), 2 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(toggle_ability_buy_block)), 2 SECONDS)
 				return
 			var/action_path = get_suit_ability(ability)
 			actions_types += action_path
@@ -169,7 +169,7 @@
 			if(istype(ninja_action, /datum/action/item_action/advanced/ninja/ninjaheal))
 				heal_chems = ninja_action
 			ninja.mind.ninja.purchased_abilities += "<BIG>[bicon(ability_icon)]</BIG>"
-			addtimer(CALLBACK(src, .proc/toggle_ability_buy_block), 2 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(toggle_ability_buy_block)), 2 SECONDS)
 		if("move")
 			var/destination = params["move"]
 			if(!options.Find(destination))

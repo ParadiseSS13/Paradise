@@ -85,7 +85,7 @@
 		target.overlays += image_overlay
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
-			addtimer(CALLBACK(src, .proc/prime), det_time*10)
+			addtimer(CALLBACK(src, PROC_REF(prime)), det_time*10)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src.name] at [ADMIN_COORDJMP(user)]")
@@ -268,12 +268,12 @@
 			var/turf/T = get_step(location, aim_dir)
 			for(var/turf/simulated/wall/W in range(1, location))
 				W.thermitemelt(speed = 30)
-			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
-			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
+			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
 		else
 			var/turf/T = get_step(location, aim_dir)
-			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
-			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
+			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
 
 
 	if(isliving(target))
