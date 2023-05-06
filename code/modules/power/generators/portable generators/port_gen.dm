@@ -14,12 +14,6 @@
 	var/power_output = 1
 	var/base_icon = "portgen0"
 
-/obj/machinery/power/port_gen/attack_hand(mob/user as mob)
-	if(..())
-		return
-	if(!anchored)
-		return
-
 /obj/machinery/power/port_gen/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src))

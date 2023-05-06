@@ -10,7 +10,10 @@
 //#define NORTHWEST 9
 //#define SOUTHWEST 10
 
-
+/// Using the ^ operator or XOR, we can compared TRUE East and West bits against our direction,
+/// since XOR will only return TRUE if one bit is False and the other is True, if East is 0, that bit will return TRUE
+/// and if West is 1, then that bit will return 0
+/// hence  EAST (0010) XOR EAST|WEST (0011) --> WEST (0001)
 
 ///Flips a direction along the horizontal axis, will convert E -> W, W -> E, NE -> NW, SE -> SW, etc
 #define FLIP_DIR_HORIZONTALLY(dir) (dir ^ (EAST|WEST))
