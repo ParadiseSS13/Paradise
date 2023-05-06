@@ -81708,10 +81708,6 @@
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"qfX" = (
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space)
 "qgj" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
@@ -110571,7 +110567,7 @@ abN
 aaa
 aaa
 aaa
-qfX
+doE
 nJV
 oxe
 wwc
