@@ -85,7 +85,7 @@ jobs:
           sudo dpkg --add-architecture i386
           sudo apt update || true
           ## sudo apt install -o APT::Immediate-Configure=false libssl1.1:i386
-          wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.1_1.1.0l-1~deb9u6_i386.deb
+          wget http://ftp.de.debian.org/debian/pool/main/o/openssl/libssl1.1_1.1.1n-0+deb11u4_i386.deb
           sudo dpkg -i libssl1.1_1.1.0l-1~deb9u6_i386.deb
           bash tools/ci/install_rustg.sh
       - name: Install DMJIT
