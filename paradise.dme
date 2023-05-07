@@ -59,7 +59,7 @@
 #include "code\__DEFINES\instrument_defines.dm"
 #include "code\__DEFINES\inventory_defines.dm"
 #include "code\__DEFINES\is_helpers.dm"
-#include "code\__DEFINES\job.dm"
+#include "code\__DEFINES\job_defines.dm"
 #include "code\__DEFINES\js.dm"
 #include "code\__DEFINES\keybindings_defines.dm"
 #include "code\__DEFINES\language.dm"
