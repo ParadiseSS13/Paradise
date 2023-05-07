@@ -449,7 +449,7 @@
 #include "code\datums\keybindings\human_keybinds.dm"
 #include "code\datums\keybindings\living_keybinds.dm"
 #include "code\datums\keybindings\mob_keybinds.dm"
-#include "code\datums\keybindings\movement.dm"
+#include "code\datums\keybindings\movement_keybinds.dm"
 #include "code\datums\keybindings\robot_keybinds.dm"
 #include "code\datums\keybindings\silicon_keybinds.dm"
 #include "code\datums\looping_sounds\item_sounds.dm"
