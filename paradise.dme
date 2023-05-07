@@ -303,7 +303,7 @@
 #include "code\controllers\subsystem\tickets\tickets.dm"
 #include "code\datums\action.dm"
 #include "code\datums\ai_law_sets.dm"
-#include "code\datums\ai_laws.dm"
+#include "code\datums\ai_laws_datums.dm"
 #include "code\datums\alarm_manager.dm"
 #include "code\datums\armor.dm"
 #include "code\datums\atom_hud.dm"
