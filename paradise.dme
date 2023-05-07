@@ -2337,7 +2337,7 @@
 #include "code\modules\procedural_mapping\mapGeneratorModules\mapgen_helpers.dm"
 #include "code\modules\procedural_mapping\mapGeneratorModules\nature.dm"
 #include "code\modules\procedural_mapping\mapGenerators\asteroid.dm"
-#include "code\modules\procedural_mapping\mapGenerators\nature.dm"
+#include "code\modules\procedural_mapping\mapGenerators\nature_test.dm"
 #include "code\modules\procedural_mapping\mapGenerators\syndicate_mapgen.dm"
 #include "code\modules\projectiles\ammunition.dm"
 #include "code\modules\projectiles\firing.dm"
