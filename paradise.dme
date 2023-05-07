@@ -188,7 +188,7 @@
 #include "code\_onclick\hud\alien_larva.dm"
 #include "code\_onclick\hud\blob_overmind.dm"
 #include "code\_onclick\hud\bot.dm"
-#include "code\_onclick\hud\constructs.dm"
+#include "code\_onclick\hud\constructs_hud.dm"
 #include "code\_onclick\hud\fullscreen.dm"
 #include "code\_onclick\hud\ghost_hud.dm"
 #include "code\_onclick\hud\guardian_hud.dm"
