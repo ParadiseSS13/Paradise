@@ -768,7 +768,7 @@
 #include "code\game\machinery\computer\medical_records.dm"
 #include "code\game\machinery\computer\message_monitor.dm"
 #include "code\game\machinery\computer\Operating.dm"
-#include "code\game\machinery\computer\power_monitor.dm"
+#include "code\game\machinery\computer\power_monitor_console.dm"
 #include "code\game\machinery\computer\prisoner.dm"
 #include "code\game\machinery\computer\robot_control.dm"
 #include "code\game\machinery\computer\security_records.dm"
