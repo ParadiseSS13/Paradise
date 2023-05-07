@@ -175,7 +175,7 @@ Difficulty: Hard
 	anger_modifier = clamp(((maxHealth - health) / 50), 0, 20)
 	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger) / 10))
 
-	if(prob(30 + anger_modifier))
+	if(prob(30 + (anger_modifier / 2))) //Less scaling as the weaker attack / first calculated.
 		triple_charge()
 
 	else if(prob(15 + anger_modifier))
@@ -336,7 +336,7 @@ Difficulty: Hard
 				var/turf/S = get_turf(src)
 				if(!S || !T)
 					return
-				var/obj/item/projectile/energy/shock_revolver/ancient/O = new /obj/item/projectile/energy/shock_revolver/ancient(S)
+				var/obj/item/projectile/energy/tesla_bolt/O = new /obj/item/projectile/energy/tesla_bolt(S)
 				O.current = S
 				O.yo = T.y - S.y
 				O.xo = T.x - S.x
@@ -344,7 +344,7 @@ Difficulty: Hard
 		if(VORTEX)
 			visible_message("<span class='danger'>[src] begins vibrate rapidly. It's causing an earthquake!</span>")
 			for(var/turf/turf in range(9,get_turf(target)))
-				if(prob(11))
+				if(prob(15))
 					new /obj/effect/temp_visual/target/ancient(turf)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/spawn_anomalies()
@@ -381,20 +381,23 @@ Difficulty: Hard
 	var/turf/T = get_turf(target)
 	if(!spot || !T)
 		return
-	var/obj/item/projectile/rock/O = new /obj/item/projectile/rock(spot)
+	var/obj/item/projectile/bullet/rock/O = new /obj/item/projectile/bullet/rock(spot)
 	O.current = spot
 	O.yo = T.y - spot.y
 	O.xo = T.x - spot.x
 	O.fire()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger()// To make this fight harder, it scales it's attacks based on number of players. Capped lower on station.
+// To make this fight harder, it scales it's attacks based on number of players, or as injured. Capped lower on station.
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger() 
 	var/anger = 0
 	var/cap = 0
 	for(var/mob/living/carbon/human/H in range(10, src))
 		if(stat == DEAD)
 			continue
 		anger++
-		cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
+	if(health <= health / 2)
+		anger += 2
+	cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
 	extra_player_anger = clamp(anger,1,cap) - 1
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
@@ -512,8 +515,10 @@ Difficulty: Hard
 					new /obj/effect/hotspot(T)
 					T.hotspot_expose(700,50,1)
 			if(mode == VORTEX)
-				var/turf/C = get_turf(src)
-				C.ex_act(3)
+				var/turf/T = get_turf(src)
+				for(var/atom/A in T)
+					A.ex_act(3) //Body is immune to explosions of this strength.
+				T.ex_act(3)
 
 	beam.forceMove(get_turf(src))
 	return ..()
@@ -536,7 +541,7 @@ Difficulty: Hard
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
-	projectiletype = /obj/item/projectile/ancient_robot_bullet
+	projectiletype = /obj/item/projectile/bullet/ancient_robot_bullet
 	attacktext = "stomps on"
 	armour_penetration_percentage = 50
 	melee_damage_lower = 15
@@ -551,7 +556,7 @@ Difficulty: Hard
 	wander = 0
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
-	stat_attack = DEAD
+	stat_attack = UNCONSCIOUS
 	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 300
@@ -585,6 +590,9 @@ Difficulty: Hard
 			core.FindTarget(list(P.firer), 1)
 		core.Goto(P.starting, core.move_to_delay, 3)
 	..()
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/death(gibbed)
+	return //It shouldn't get gibbed by shuttle.
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Goto()
 	return // stops the legs from trying to move on their own
@@ -674,11 +682,11 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
 
-/obj/item/projectile/ancient_robot_bullet
+/obj/item/projectile/bullet/ancient_robot_bullet
 	damage = 8
 	damage_type = BRUTE
 
-/obj/item/projectile/rock
+/obj/item/projectile/bullet/rock
 	name= "thrown rock"
 	damage = 25
 	damage_type = BRUTE
@@ -692,10 +700,28 @@ Difficulty: Hard
 	icon_state = "small1"
 	duration = 20
 
-/obj/item/projectile/energy/shock_revolver/ancient
-	damage = 5
 
-/obj/item/projectile/energy/shock_revolver/ancient/Bump(atom/A, yes) // Don't want the projectile hitting the legs
+/obj/item/projectile/energy/tesla_bolt //Leaving here for adminbus / so vetus still uses it.
+	name = "shock bolt"
+	icon_state = "purple_laser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
+	damage = 5 //A worse lasergun
+	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
+	var/zap_range = 3
+	var/power = 10000
+
+/obj/item/ammo_casing/energy/tesla_bolt/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	..()
+	var/obj/item/projectile/energy/tesla_bolt/P = BB
+	spawn(1)
+		P.chain = P.Beam(user, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1000, maxdistance = 30)
+
+/obj/item/projectile/energy/tesla_bolt/on_hit(atom/target)
+	. = ..()
+	tesla_zap(src, zap_range, power, zap_flags)
+	qdel(src)
+
+/obj/item/projectile/energy/tesla_bolt/Bump(atom/A, yes) // Don't want the projectile hitting the legs
 	if(!istype(/mob/living/simple_animal/hostile/ancient_robot_leg, A))
 		return ..()
 	var/turf/target_turf = get_turf(A)

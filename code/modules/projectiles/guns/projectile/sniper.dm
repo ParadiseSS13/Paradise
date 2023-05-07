@@ -156,7 +156,7 @@
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60
-	forcedodge = 1
+	forcedodge = -1
 	dismemberment = 0
 	weaken = 0
 

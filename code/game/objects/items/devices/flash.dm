@@ -76,11 +76,11 @@
 	times_used = max(0, times_used) //sanity
 
 
-/obj/item/flash/proc/try_use_flash(mob/user = null)
+/obj/item/flash/proc/try_use_flash(mob/user)
 	if(broken)
 		return FALSE
 
-	if(cooldown >= world.time)
+	if(cooldown >= world.time && user)
 		to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
 		return FALSE
 	cooldown = world.time + cooldown_duration
@@ -104,7 +104,7 @@
 		if(targeted)
 			if(M.flash_eyes(1, 1))
 				M.AdjustConfused(power)
-				terrible_conversion_proc(M, user)
+				revolution_conversion(M, user)
 				M.drop_l_hand()
 				M.drop_r_hand()
 				visible_message("<span class='disarm'>[user] blinds [M] with [src]!</span>")
@@ -155,29 +155,15 @@
 	..()
 
 
-/obj/item/flash/proc/terrible_conversion_proc(mob/M, mob/user)
-	if(ishuman(M) && ishuman(user) && M.stat != DEAD)
-		if(user.mind && (user.mind in SSticker.mode.head_revolutionaries))
-			if(M.client)
-				if(M.stat == CONSCIOUS)
-					M.mind_initialize() //give them a mind datum if they don't have one.
-					var/resisted
-					if(!ismindshielded(M))
-						if(user.mind in SSticker.mode.head_revolutionaries)
-							if(SSticker.mode.add_revolutionary(M.mind))
-								times_used -- //Flashes less likely to burn out for headrevs when used for conversion
-							else
-								resisted = 1
-					else
-						resisted = 1
-
-					if(resisted)
-						to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
-				else
-					to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
-			else
-				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
-
+/obj/item/flash/proc/revolution_conversion(mob/M, mob/user)
+	if(!ishuman(M) || !(user.mind in SSticker.mode.head_revolutionaries))
+		return
+	if(M.stat != CONSCIOUS)
+		to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
+	else if(SSticker.mode.add_revolutionary(M.mind))
+		times_used-- //Flashes less likely to burn out for headrevs when used for conversion
+	else
+		to_chat(user, "<span class='warning'>This mind seems resistant to [src]!</span>")
 
 /obj/item/flash/cyborg
 	origin_tech = null

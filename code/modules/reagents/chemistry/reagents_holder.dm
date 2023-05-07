@@ -331,10 +331,13 @@
 				continue
 		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
 		if(M && R)
-			update_flags |= R.on_mob_life(M)
 			if(R.volume >= R.overdose_threshold && !R.overdosed && R.overdose_threshold > 0)
 				R.overdosed = TRUE
 				R.overdose_start(M)
+			if(!R.overdosed || R.allowed_overdose_process)
+				update_flags |= R.on_mob_life(M)
+			else
+				update_flags |= R.on_mob_overdose_life(M) //We want to drain reagents but not do the entire mob life.
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = FALSE
 			if(R.overdosed)
@@ -464,7 +467,7 @@
 					matching_container = TRUE
 
 				else
-					if(my_atom.type == C.required_container)
+					if(my_atom && my_atom.type == C.required_container)
 						matching_container = TRUE
 
 				if(!C.required_other)

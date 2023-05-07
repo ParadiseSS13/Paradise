@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		for(var/asset in GLOB.chatResources)
 			owner << browse_rsc(wrap_file(asset))
 
-		for(var/subattempts in 1 to 3)
+		for(var/subattempts in 1 to 3) // GDN note- Remove this later it DOES NOT WORK
 			owner << browse(file2text("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
 			sleep(10 SECONDS)
 			if(!owner || loaded)
@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		ehjax_send(data = data)
 
 /datum/chatOutput/proc/doneLoading()
-	if(loaded)
+	if(loaded || !owner) // Chatloading is so fucking slow that we actually need to check if there's an owner between these calls, they mighta ollied outta there by closing their client right after a restart
 		return
 
 	loaded = TRUE

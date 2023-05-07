@@ -239,12 +239,31 @@
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/item/projectile/plasma/adv
 
-/obj/item/ammo_casing/energy/shock_revolver
+/obj/item/ammo_casing/energy/tesla_bolt
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	e_cost = 200
 	select_name = "lightning beam"
 	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
-	projectile_type = /obj/item/projectile/energy/shock_revolver
+	projectile_type = /obj/item/projectile/energy/tesla_bolt
+
+/obj/item/ammo_casing/energy/arc_revolver
+	fire_sound = 'sound/magic/lightningbolt.ogg' //New sound
+	e_cost = 125 //8 shots?
+	select_name = "lightning beam" //I guess
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE // Depends on sprite
+	projectile_type = /obj/item/projectile/energy/arc_revolver
+	///This number is randomly generated when the arc revolver is made. This ensures the beams only link to beams from the gun, one lower or higher than the number on the boosted object.
+	var/random_link_number
+
+/obj/item/ammo_casing/energy/arc_revolver/Initialize()
+	. = ..()
+	random_link_number = rand(1, 9999999)
+
+/obj/item/ammo_casing/energy/arc_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	..()
+	var/obj/item/projectile/energy/arc_revolver/P = BB
+	P.charge_number = random_link_number
+	random_link_number++
 
 /obj/item/ammo_casing/energy/weak_plasma
 	projectile_type = /obj/item/projectile/energy/weak_plasma
@@ -285,7 +304,7 @@
 	fire_sound = 'sound/weapons/wave.ogg'
 	e_cost = 10000
 	select_name = "the experimental setting"
-	delay = 10 SECONDS //Looooooong cooldown
+	delay = 4 SECONDS //Looooooong cooldown // Used to be 10 seconds, has been rebalanced to be normal firing rate now
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport

@@ -128,7 +128,9 @@
 		visible_message("<span class='notice'>[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name].</span>")
 		playsound(src, 'sound/items/pshoom.ogg', 15, TRUE)
 		playsound(bin, 'sound/items/pshoom.ogg', 15, TRUE)
-		Beam(bin, icon_state = "rped_upgrade", time = 5)
+		Beam(bin, icon_state = "rped_upgrade", icon = 'icons/effects/effects.dmi', time = 5)
 		bin.update_icon()
 		flick("synthesizer_beam", src)
+	else if(manual)
+		to_chat(usr, "<span class='notice'>There are no disposable items to be beamed.</span>")
 	time_since_dishes = world.time + 60 SECONDS

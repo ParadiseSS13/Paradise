@@ -382,6 +382,10 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
+"bD" = (
+/obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/syndicate)
 "bE" = (
 /obj/machinery/optable/abductor,
 /turf/simulated/floor/plating/abductor,
@@ -5101,12 +5105,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
-"rP" = (
-/obj/machinery/light/spot{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate)
 "rQ" = (
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -5386,12 +5384,6 @@
 /area/syndicate_mothership)
 "tf" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/shuttle/syndicate)
-"tg" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -28
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "tj" = (
 /obj/structure/flora/bush,
@@ -11347,6 +11339,15 @@
 /obj/machinery/pdapainter,
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"RN" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/item/radio/intercom/syndicate{
+	pixel_x = -28
+	},
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate)
 "RO" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -59235,7 +59236,7 @@ tf
 KY
 tP
 ub
-KY
+bD
 KY
 KY
 KY
@@ -59479,16 +59480,16 @@ lA
 lQ
 KX
 KX
-KY
+bD
 nx
 gx
 gx
 gx
 gx
-rP
+RN
 KX
 KX
-tg
+KX
 tw
 KX
 KX
@@ -59993,7 +59994,7 @@ lA
 lS
 KX
 mH
-KY
+bD
 nA
 iS
 iS
@@ -60263,7 +60264,7 @@ tf
 KY
 tT
 ue
-KY
+bD
 KY
 KY
 KY

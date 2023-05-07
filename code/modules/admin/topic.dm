@@ -2833,7 +2833,7 @@
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity off.</span>", 1)
-					GLOB.minor_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					GLOB.minor_announcement.Announce("Feedback surge detected in mass-distributions systems. Artificial gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
 				switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs", "Repair and Power APCs")) //Alert notification in this code for standarization purposes
@@ -3350,27 +3350,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
-	else if(href_list["viewkarma"])
-		if(!check_rights(R_ADMIN))
-			return
 
-		var/client/C = GLOB.directory[href_list["viewkarma"]]
-		if(!C)
-			return
-
-		// Pack it into a dat
-		var/dat = {"
-		<ul>
-		<li>Total Karma: [C.karmaholder.karma_earned]</li>
-		<li>Spent Karma: [C.karmaholder.karma_spent]</li>
-		<li>Available Karma: [C.karmaholder.karma_earned - C.karmaholder.karma_spent]</li>
-		<li>Unlocked Packages: [C.karmaholder.purchased_packages.Join(", ")]</li>
-		</ul>
-		"}
-
-		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [C.ckey]", 600, 300)
-		popup.set_content(dat)
-		popup.open(FALSE)
 	else if(href_list["who_advanced"])
 		usr.client.who_advanced()
 

@@ -581,6 +581,12 @@
 	new newbook.book_type(loc)
 	visible_message("<span class='notice'>[src]'s printer hums as it produces a completely bound book. How did it do that?</span>")
 
+/obj/machinery/computer/library/emag_act(mob/user)
+	if(print_cooldown <= world.time)
+		new /obj/item/storage/bible/syndi(loc)
+		visible_message("<span class='notice'>[src]'s printer ominously hums as it produces a completely bound book. How did it do that?</span>")
+		print_cooldown = world.time + PRINTING_COOLDOWN
+
 #undef LIBRARY_BOOKS_PER_PAGE
 #undef LOGIN_FULL
 #undef LOGIN_PUBLIC

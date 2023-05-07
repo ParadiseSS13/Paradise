@@ -43,6 +43,7 @@
 /obj/item/radio/headset/Destroy()
 	QDEL_NULL(keyslot1)
 	QDEL_NULL(keyslot2)
+	QDEL_NULL(syndiekey)
 	return ..()
 
 /obj/item/radio/headset/examine(mob/user)
@@ -120,6 +121,16 @@
 /obj/item/radio/headset/syndicate/alt/nocommon/New()
 	. = ..()
 	set_frequency(SYND_FREQ)
+
+/obj/item/radio/headset/soviet
+	name = "soviet bowman headset"
+	desc = "Used by U.S.S.P forces. Protects ears from flashbangs."
+	flags = EARBANGPROTECT
+	origin_tech = "syndicate=3"
+	icon_state = "soviet_headset"
+	item_state = "soviet_headset"
+	ks1type = /obj/item/encryptionkey/soviet
+	requires_tcomms = FALSE
 
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"

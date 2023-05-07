@@ -4,14 +4,15 @@ GLOBAL_LIST_EMPTY(air_injectors)
 	icon = 'icons/atmos/injector.dmi'
 	icon_state = "map_injector"
 	power_state = IDLE_POWER_USE
-	layer = GAS_SCRUBBER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
+	layer_offset = GAS_SCRUBBER_OFFSET
 
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
 
 	can_unwrench = TRUE
 
 	name = "air injector"
-	desc = "Has a valve and pump attached to it"
+	desc = "Has a valve and pump attached to it."
 
 	var/injecting = FALSE
 
@@ -28,9 +29,10 @@ GLOBAL_LIST_EMPTY(air_injectors)
 /obj/machinery/atmospherics/unary/outlet_injector/on
 	on = TRUE
 
-/obj/machinery/atmospherics/unary/outlet_injector/detailed_examine()
-	return "Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
-			A green light on it means it is on."
+/obj/machinery/atmospherics/unary/outlet_injector/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Outputs the pipe's gas into the atmosphere, similar to an air vent. It can be controlled by a nearby atmospherics computer. \
+			A green light on it means it is on.</span>"
 
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon_state()
 	if(!has_power())

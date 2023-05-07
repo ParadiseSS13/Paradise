@@ -925,7 +925,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/bodyscanner
 	board_name = "Body Scanner"
-	icon_state = "science"
+	icon_state = "medical"
 	build_path = /obj/machinery/bodyscanner
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=2;engineering=3"

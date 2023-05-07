@@ -57,6 +57,11 @@
 /obj/item/grown/bananapeel/proc/choose_icon_state()
 	icon_state = "[icon_state]_[rand(1, 3)]"
 
+/obj/item/grown/bananapeel/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 1
+	qdel(src)
+	return TRUE
+
 /obj/item/grown/bananapeel/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)

@@ -14,6 +14,10 @@
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
+	/// Cooldown until the next turned on message/sound can be activated
+	var/next_on_message
+	/// Cooldown until the next turned off message/sound can be activated
+	var/next_off_message
 
 /obj/item/lighter/random/New()
 	..()
@@ -59,6 +63,9 @@
 		if(affecting.receive_damage( 0, 5 ))		//INFERNO
 			H.UpdateDamageIcon()
 		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
+	if(world.time > next_on_message)
+		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
+		next_on_message = world.time + 5 SECONDS
 
 /obj/item/lighter/proc/turn_off_lighter(mob/living/user)
 	lit = FALSE
@@ -81,6 +88,9 @@
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
 	to_chat(user, "<span class='notice'>You shut off [src].")
+	if(world.time > next_off_message)
+		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
+		next_off_message = world.time + 5 SECONDS
 
 /obj/item/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!isliving(M))
@@ -98,6 +108,7 @@
 				cig.light("<span class='rose'>[user] whips [src] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
 				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 			M.update_inv_wear_mask()
 	else
 		..()
@@ -116,8 +127,6 @@
 	item_state = "zippo"
 	icon_on = "zippoon"
 	icon_off = "zippo"
-	var/next_on_message
-	var/next_off_message
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
@@ -269,6 +278,7 @@
 			cig.attackby(src, user)
 		else
 			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	else
 		..()
 

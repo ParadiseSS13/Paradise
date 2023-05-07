@@ -102,7 +102,7 @@
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
+	desc = "A weapon favored by syndicate stealth specialists. Knocks down and injects toxins."
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
@@ -120,14 +120,6 @@
 	empty_state = "crossbow_empty"
 	can_holster = TRUE
 
-/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine()
-	return "This is an energy weapon. To fire the weapon, have your gun mode set to 'fire', \
-			then click where you want to fire."
-
-/obj/item/gun/energy/kinetic_accelerator/crossbow/detailed_examine_antag()
-	return "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a knockdown effect, in \
-			addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
-
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
 	desc = "A reverse engineered weapon using syndicate technology."
@@ -136,6 +128,7 @@
 	materials = list(MAT_METAL=4000)
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = FALSE
+	can_holster = FALSE // it's large after all
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	empty_state = "crossbowlarge_empty"
 
@@ -299,7 +292,7 @@
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "disabler"
+	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
 	selfcharge = TRUE
@@ -467,7 +460,7 @@
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
-	w_class = WEIGHT_CLASS_HUGE
+	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
 	slot_flags = SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
@@ -528,12 +521,6 @@
 		to_chat(user, "<span class='warning'>[src] has no flux anomaly core to power it!</span>")
 		return
 	return ..()
-
-/obj/item/gun/energy/bsg/process_chamber()
-	if(prob(25))
-		shatter()
-	..()
-	update_icon()
 
 /obj/item/gun/energy/bsg/update_icon_state()
 	if(core)
@@ -754,6 +741,7 @@
 	. = ..()
 	Announcer = new /obj/item/radio/headset(src)
 	Announcer.config(list("Security" = 1))
+	Announcer.follow_target = src
 	options["The Original"] = "handgun"
 	options["Golden Mamba"] = "handgun_golden-mamba"
 	options["NT's Finest"] = "handgun_nt-finest"

@@ -2,13 +2,13 @@ macro "default"
 
 
 menu "menu"
-	elem 
+	elem
 		name = "&File"
-	elem 
+	elem
 		name = "&Quick screenshot"
 		command = ".screenshot auto"
 		category = "&File"
-	elem 
+	elem
 		name = "&Save screenshot as..."
 		command = ".screenshot"
 		category = "&File"
@@ -16,16 +16,16 @@ menu "menu"
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
-	elem 
+	elem
 		name = ""
 		category = "&File"
-	elem 
+	elem
 		name = "&Quit"
 		command = ".quit"
 		category = "&File"
-	elem 
+	elem
 		name = "&Icons"
-	elem 
+	elem
 		name = "&Size"
 		category = "&Icons"
 	elem "stretch"
@@ -77,7 +77,7 @@ menu "menu"
 		category = "&Size"
 		can-check = true
 		group = "size"
-	elem 
+	elem
 		name = "&Scaling"
 		category = "&Icons"
 	elem "NN"
@@ -104,9 +104,9 @@ menu "menu"
 		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
 		category = "&Icons"
 		can-check = true
-	elem 
+	elem
 		name = "&Options"
-	elem 
+	elem
 		name = "&Open Volume Mixer"
 		command = "Open-Volume-Mixer"
 		category = "&Options"
@@ -117,9 +117,9 @@ menu "menu"
 		is-checked = true
 		saved-params = "is-checked"
 		command = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
-	elem 
+	elem
 		name = "&Help"
-	elem 
+	elem
 		name = "&Admin help"
 		command = "adminhelp"
 		category = "&Help"
@@ -312,18 +312,9 @@ window "rpane"
 		background-color = #7289da
 		text = "Discord"
 		command = "discord"
-	elem "karma"
-		type = BUTTON
-		pos = 535,7
-		size = 60x16
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #ff4500
-		text = "Karma"
-		command = "karmashop"
 	elem "donate"
 		type = BUTTON
-		pos = 597,7
+		pos = 535,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff

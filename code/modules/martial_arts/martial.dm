@@ -31,6 +31,8 @@
 	var/last_hit = 0
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
+	/// If the martial art allows parrying.
+	var/can_parry = FALSE
 
 /datum/martial_art/New()
 	. = ..()
@@ -188,6 +190,25 @@
 
 /datum/martial_art/proc/try_deflect(mob/user)
 		return prob(deflection_chance)
+
+/datum/action/defensive_stance
+	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
+	button_icon_state = "block"
+
+/datum/action/defensive_stance/Trigger()
+	var/mob/living/carbon/human/H = owner
+	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial-arts users anyway
+	if(!MA.can_parry)
+		to_chat(H, "<span class='warning'>You can't parry right now.</span>")
+		return
+	if(H.incapacitated())
+		to_chat(H, "<span class='warning'>You can't defend yourself while you're incapacitated.</span>")
+		return
+	var/obj/item/slapper/parry/slap = new(H)
+	if(H.put_in_hands(slap))
+		H.visible_message("<span class='danger'>[H] assumes a defensive stance!</span>", "<b><i>You drop back into a defensive stance.</i></b>")
+	else
+		to_chat(H, "<span class='warning'>Your hands are full.</span>")
 
 //ITEMS
 

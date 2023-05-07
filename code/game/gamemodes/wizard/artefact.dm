@@ -593,12 +593,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("soviet")
-				M.equip_to_slot_or_del(new /obj/item/clothing/head/hgpiratecap(M), slot_head)
+				M.equip_to_slot_or_del(new /obj/item/clothing/head/sovietofficerhat(M), slot_head)
 				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(M), slot_shoes)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(M), slot_gloves)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
-				M.equip_to_slot_or_del(new /obj/item/clothing/suit/hgpirate(M), slot_wear_suit)
-				M.equip_to_slot_or_del(new /obj/item/clothing/under/costume/soviet(M), slot_w_uniform)
+				M.equip_to_slot_or_del(new /obj/item/clothing/suit/sovietcoat(M), slot_wear_suit)
+				M.equip_to_slot_or_del(new /obj/item/clothing/under/new_soviet/sovietofficer(M), slot_w_uniform)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("officer")
@@ -704,7 +704,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	if(heresy)
 		spawnheresy(M)//oh god why
 	else
-		M.set_species(/datum/species/skeleton)
+		M.set_species(/datum/species/skeleton) // OP skellybones
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.grab_ghost() // yoinks the ghost if its not in the body
 		M.revive()

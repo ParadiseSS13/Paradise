@@ -52,7 +52,7 @@
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	. = ..()
-	SSticker.mode.remove_cultist(mind, FALSE)
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
@@ -289,10 +289,10 @@
 	desc = "A harbinger of enlightenment. It'll be all over soon."
 	icon_state = "harvester"
 	icon_living = "harvester"
-	maxHealth = 60
-	health = 60
-	melee_damage_lower = 1
-	melee_damage_upper = 5
+	maxHealth = 40
+	health = 40
+	melee_damage_lower = 20
+	melee_damage_upper = 25
 	attacktext = "prods"
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	attack_sound = 'sound/weapons/tap.ogg'
