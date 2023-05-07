@@ -476,7 +476,7 @@
 #include "code\datums\spell_targeting\matter_eater_targeting.dm"
 #include "code\datums\spell_targeting\reachable_turfs.dm"
 #include "code\datums\spell_targeting\remoteview_targeting.dm"
-#include "code\datums\spell_targeting\self.dm"
+#include "code\datums\spell_targeting\self_targeting.dm"
 #include "code\datums\spell_targeting\spell_targeting.dm"
 #include "code\datums\spell_targeting\spiral_targeting.dm"
 #include "code\datums\spell_targeting\targeted.dm"
