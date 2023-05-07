@@ -55,9 +55,9 @@
 		return FALSE
 
 	var/obj/structure/cable/C = T.get_cable_node() //check if we have a node cable on the machine turf, the first found is picked
+
 	if(!C || !C.powernet)
 		return FALSE
-
 	C.powernet.add_machine(src)
 	return TRUE
 

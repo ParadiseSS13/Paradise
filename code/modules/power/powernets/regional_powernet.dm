@@ -79,7 +79,7 @@
 		else
 			return // already connected to this powernet, return
 	M.powernet = src
-	nodes += M
+	nodes[M] = M
 
 /// Returns the difference between available power on the net and the demanded power, i.e. the surplus power available
 /datum/regional_powernet/proc/calculate_surplus()
