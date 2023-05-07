@@ -552,7 +552,7 @@
 #include "code\datums\wires\camera_wires.dm"
 #include "code\datums\wires\explosive.dm"
 #include "code\datums\wires\mulebot_wires.dm"
-#include "code\datums\wires\nuclearbomb.dm"
+#include "code\datums\wires\nuclearbomb_wires.dm"
 #include "code\datums\wires\particle_accelerator.dm"
 #include "code\datums\wires\radio_wires.dm"
 #include "code\datums\wires\robot_wires.dm"
