@@ -99,7 +99,7 @@
 	else
 		heal_overall_damage(0, -amount, updating_health, FALSE, robotic)
 
-	if(((maxHealth - getFireLoss()) < HEALTH_THRESHOLD_DEAD * 2) && stat == DEAD)
+	if(((maxHealth - getFireLoss()) < HEALTH_THRESHOLD_DEAD * 2) && stat == DEAD && !ismachineperson(src))
 		become_husk(BURN)
 	// brainless default for now
 	return STATUS_UPDATE_HEALTH
