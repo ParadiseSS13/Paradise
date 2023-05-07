@@ -2029,7 +2029,7 @@
 #include "code\modules\mob\living\silicon\silicon_login.dm"
 #include "code\modules\mob\living\silicon\silicon_mob.dm"
 #include "code\modules\mob\living\silicon\silicon_say.dm"
-#include "code\modules\mob\living\silicon\subsystems.dm"
+#include "code\modules\mob\living\silicon\silicon_subsystems.dm"
 #include "code\modules\mob\living\silicon\ai\ai_death.dm"
 #include "code\modules\mob\living\silicon\ai\ai_defense.dm"
 #include "code\modules\mob\living\silicon\ai\ai_examine.dm"
