@@ -313,6 +313,21 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 
+/obj/item/clothing/suit/armor/swat
+	name = "SWAT armor"
+	desc = "Tactical SWAT armor."
+	icon_state = "heavy"
+	item_state = "swat_suit"
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 450, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
+	strip_delay = 120
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		)
+
 /obj/item/clothing/suit/armor/laserproof
 	name = "ablative armor vest"
 	desc = "A vest that excels in protecting the wearer against energy projectiles. Projects an energy field around the user, allowing a chance of energy projectile deflection no matter where on the user it would hit."
