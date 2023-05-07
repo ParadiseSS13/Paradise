@@ -31,7 +31,7 @@
 #include "code\__DEFINES\announce_defines.dm"
 #include "code\__DEFINES\antagonists.dm"
 #include "code\__DEFINES\armour.dm"
-#include "code\__DEFINES\atmospherics.dm"
+#include "code\__DEFINES\atmospherics_defines.dm"
 #include "code\__DEFINES\bitfields.dm"
 #include "code\__DEFINES\bots.dm"
 #include "code\__DEFINES\callbacks.dm"
