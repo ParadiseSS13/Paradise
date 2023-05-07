@@ -1418,7 +1418,7 @@
 #include "code\modules\atmospherics\machinery\pipes\simple\pipe_simple_visible.dm"
 #include "code\modules\atmospherics\machinery\portable\canister.dm"
 #include "code\modules\atmospherics\machinery\portable\portable_atmospherics.dm"
-#include "code\modules\atmospherics\machinery\portable\pump.dm"
+#include "code\modules\atmospherics\machinery\portable\portable_pump.dm"
 #include "code\modules\atmospherics\machinery\portable\scrubber.dm"
 #include "code\modules\awaymissions\corpse.dm"
 #include "code\modules\awaymissions\gateway.dm"
