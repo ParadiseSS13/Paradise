@@ -1170,7 +1170,7 @@
 #include "code\game\objects\structures\crates_lockers\closets\utility_closets.dm"
 #include "code\game\objects\structures\crates_lockers\closets\wardrobe.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\bar.dm"
-#include "code\game\objects\structures\crates_lockers\closets\secure\cargo.dm"
+#include "code\game\objects\structures\crates_lockers\closets\secure\cargo_lockers.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\chaplain.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\depot_closets.dm"
 #include "code\game\objects\structures\crates_lockers\closets\secure\engineering_lockers.dm"
