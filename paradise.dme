@@ -43,7 +43,7 @@
 #include "code\__DEFINES\crafting.dm"
 #include "code\__DEFINES\criminal_status.dm"
 #include "code\__DEFINES\cult_defines.dm"
-#include "code\__DEFINES\departments.dm"
+#include "code\__DEFINES\departments_defines.dm"
 #include "code\__DEFINES\dna.dm"
 #include "code\__DEFINES\economy_defines.dm"
 #include "code\__DEFINES\emotes.dm"
