@@ -445,7 +445,7 @@
 #include "code\datums\keybindings\admin_keybinds.dm"
 #include "code\datums\keybindings\carbon.dm"
 #include "code\datums\keybindings\client.dm"
-#include "code\datums\keybindings\emote.dm"
+#include "code\datums\keybindings\emote_keybinds.dm"
 #include "code\datums\keybindings\human_keybinds.dm"
 #include "code\datums\keybindings\living.dm"
 #include "code\datums\keybindings\mob.dm"
