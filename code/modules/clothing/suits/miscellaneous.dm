@@ -353,6 +353,9 @@
 	icon_state = "lingspacesuit"
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	sprite_sheets = list(
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
+		)
 
 /obj/item/clothing/suit/draculacoat // Bleh!
 	name = "transylvanian coat"
