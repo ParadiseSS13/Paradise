@@ -1840,7 +1840,7 @@
 #include "code\modules\martial_arts\combos\mimejutsu\mime_smokebomb.dm"
 #include "code\modules\martial_arts\combos\mimejutsu\mimechucks.dm"
 #include "code\modules\martial_arts\combos\mimejutsu\silent_palm.dm"
-#include "code\modules\martial_arts\combos\plasma_fist\plasma_fist.dm"
+#include "code\modules\martial_arts\combos\plasma_fist\the_plasma_fist.dm"
 #include "code\modules\martial_arts\combos\plasma_fist\throwback.dm"
 #include "code\modules\martial_arts\combos\plasma_fist\tornado_sweep.dm"
 #include "code\modules\martial_arts\combos\sleeping_carp\crashing_kick.dm"
