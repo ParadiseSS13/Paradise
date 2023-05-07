@@ -133,9 +133,15 @@
 		//Possible spread due to radiated heat
 		if(location.air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
 			var/radiated_temperature = location.air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
-			for(var/turf/simulated/T in location.atmos_adjacent_turfs)
-				if(!T.active_hotspot)
-					T.hotspot_expose(radiated_temperature, CELL_VOLUME / 4)
+			for(var/direction in GLOB.cardinal)
+				if(!(location.atmos_adjacent_turfs & direction))
+					var/turf/simulated/wall/W = get_step(src, direction)
+					if(istype(W))
+						W.adjacent_fire_act(W, radiated_temperature)
+					continue
+				var/turf/simulated/T = get_step(src, direction)
+				if(istype(T) && !T.active_hotspot)
+					T.hotspot_expose(radiated_temperature, CELL_VOLUME/4)
 
 	else
 		if(volume > CELL_VOLUME*0.4)
@@ -152,6 +158,11 @@
 			location.ReplaceWithSpace()
 			return 0*/
 	return 1
+
+
+/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
+	if(radiated_temperature > max_temperature)
+		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 
 // Garbage collect itself by nulling reference to it
 

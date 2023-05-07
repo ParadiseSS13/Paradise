@@ -12,8 +12,7 @@
 	opacity = FALSE
 	density = FALSE
 	max_integrity = 300
-	resistance_flags = FIRE_PROOF
-	heat_proof = TRUE
+	var/max_temperature = 1000
 	glass = TRUE
 	explosion_block = 1
 	safe = FALSE
