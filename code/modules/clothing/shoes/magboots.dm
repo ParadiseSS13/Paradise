@@ -8,7 +8,7 @@
 	var/slowdown_active = 2
 	var/slowdown_passive = SHOES_SLOWDOWN
 	var/magpulse_name = "mag-pulse traction system"
-	var/gustprotection = FALSE									//this is for unsafe_unwrenching protection
+	var/gustprotection = TRUE									//this is for unsafe_unwrenching protection
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
@@ -23,7 +23,6 @@
 	name = "atmospheric magboots"
 	icon_state = "atmosmagboots0"
 	magboot_state = "atmosmagboots"
-	gustprotection = TRUE
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
