@@ -674,7 +674,7 @@
 #include "code\game\jobs\job\engineering_jobs.dm"
 #include "code\game\jobs\job\job.dm"
 #include "code\game\jobs\job\medical_jobs.dm"
-#include "code\game\jobs\job\science.dm"
+#include "code\game\jobs\job\science_jobs.dm"
 #include "code\game\jobs\job\security_jobs.dm"
 #include "code\game\jobs\job\silicon_jobs.dm"
 #include "code\game\jobs\job\supervisor.dm"
