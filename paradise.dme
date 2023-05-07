@@ -560,7 +560,7 @@
 #include "code\datums\wires\suitstorage.dm"
 #include "code\datums\wires\syndicatebomb_wires.dm"
 #include "code\datums\wires\tesla_coil.dm"
-#include "code\datums\wires\vending.dm"
+#include "code\datums\wires\vending_wires.dm"
 #include "code\datums\wires\wires.dm"
 #include "code\defines\vox_sounds.dm"
 #include "code\defines\procs\admin_keyname_procs.dm"
