@@ -517,7 +517,7 @@
 #include "code\datums\spells\touch_attacks.dm"
 #include "code\datums\spells\trigger.dm"
 #include "code\datums\spells\turf_teleport.dm"
-#include "code\datums\spells\wizard.dm"
+#include "code\datums\spells\wizard_spells.dm"
 #include "code\datums\spells\alien_spells\basetype_alien_spell.dm"
 #include "code\datums\spells\alien_spells\basetype_alien_touch.dm"
 #include "code\datums\spells\alien_spells\build_resin_structure.dm"
