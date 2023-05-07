@@ -62,7 +62,7 @@
 #include "code\__DEFINES\job_defines.dm"
 #include "code\__DEFINES\js.dm"
 #include "code\__DEFINES\keybindings_defines.dm"
-#include "code\__DEFINES\language.dm"
+#include "code\__DEFINES\language_defines.dm"
 #include "code\__DEFINES\layers.dm"
 #include "code\__DEFINES\library.dm"
 #include "code\__DEFINES\lighting_defines.dm"
