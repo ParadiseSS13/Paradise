@@ -582,7 +582,7 @@
 #include "code\game\area\areas\ruins\blackmarketpackers.dm"
 #include "code\game\area\areas\ruins\lavaland_areas.dm"
 #include "code\game\area\areas\ruins\space_areas.dm"
-#include "code\game\area\areas\ruins\syndicate_space_base.dm"
+#include "code\game\area\areas\ruins\syndicate_space_base_areas.dm"
 #include "code\game\dna\dna2.dm"
 #include "code\game\dna\dna2_domutcheck.dm"
 #include "code\game\dna\dna2_helpers.dm"
