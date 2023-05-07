@@ -937,7 +937,7 @@
 #include "code\game\objects\items\devices\traitordevices.dm"
 #include "code\game\objects\items\devices\transfer_valve.dm"
 #include "code\game\objects\items\devices\uplinks.dm"
-#include "code\game\objects\items\devices\voice.dm"
+#include "code\game\objects\items\devices\voice_changer.dm"
 #include "code\game\objects\items\devices\whistle.dm"
 #include "code\game\objects\items\devices\painter\airlock_painter.dm"
 #include "code\game\objects\items\devices\painter\floor_painter.dm"
