@@ -1626,7 +1626,7 @@
 #include "code\modules\events\meaty_gore.dm"
 #include "code\modules\events\meaty_ops.dm"
 #include "code\modules\events\meaty_ores.dm"
-#include "code\modules\events\meteors.dm"
+#include "code\modules\events\meteors_event.dm"
 #include "code\modules\events\money_spam.dm"
 #include "code\modules\events\prison_break.dm"
 #include "code\modules\events\radiation_storm_event.dm"
