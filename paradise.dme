@@ -35,7 +35,7 @@
 #include "code\__DEFINES\bitfields.dm"
 #include "code\__DEFINES\bots.dm"
 #include "code\__DEFINES\callbacks.dm"
-#include "code\__DEFINES\clothing.dm"
+#include "code\__DEFINES\clothing_defines.dm"
 #include "code\__DEFINES\colors.dm"
 #include "code\__DEFINES\combat_defines.dm"
 #include "code\__DEFINES\construction_defines.dm"
