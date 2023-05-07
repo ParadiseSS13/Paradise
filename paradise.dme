@@ -156,7 +156,7 @@
 #include "code\_globalvars\economy_globals.dm"
 #include "code\_globalvars\game_modes.dm"
 #include "code\_globalvars\genetics.dm"
-#include "code\_globalvars\logging.dm"
+#include "code\_globalvars\logging_vars.dm"
 #include "code\_globalvars\mapping_vars.dm"
 #include "code\_globalvars\misc_globals.dm"
 #include "code\_globalvars\traits.dm"
