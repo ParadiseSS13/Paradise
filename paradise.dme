@@ -1530,7 +1530,7 @@
 #include "code\modules\clothing\spacesuits\plasmamen.dm"
 #include "code\modules\clothing\spacesuits\syndi.dm"
 #include "code\modules\clothing\spacesuits\void.dm"
-#include "code\modules\clothing\suits\armor.dm"
+#include "code\modules\clothing\suits\armor_suits.dm"
 #include "code\modules\clothing\suits\bio.dm"
 #include "code\modules\clothing\suits\hood.dm"
 #include "code\modules\clothing\suits\job_suits.dm"
