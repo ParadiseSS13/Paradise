@@ -632,7 +632,7 @@
 #include "code\game\gamemodes\miniantags\guardian\types\chaos.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\charger.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\healer.dm"
-#include "code\game\gamemodes\miniantags\guardian\types\lightning.dm"
+#include "code\game\gamemodes\miniantags\guardian\types\lightning_guardian.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\protector.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\ranged.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\standard.dm"
