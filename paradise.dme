@@ -857,7 +857,7 @@
 #include "code\game\objects\effects\decals\remains.dm"
 #include "code\game\objects\effects\decals\turf_decal.dm"
 #include "code\game\objects\effects\decals\warning_stripes.dm"
-#include "code\game\objects\effects\decals\Cleanable\aliens.dm"
+#include "code\game\objects\effects\decals\Cleanable\alien_blood.dm"
 #include "code\game\objects\effects\decals\Cleanable\fuel.dm"
 #include "code\game\objects\effects\decals\Cleanable\humans.dm"
 #include "code\game\objects\effects\decals\Cleanable\misc_cleanables.dm"
@@ -2625,7 +2625,7 @@
 #include "code\modules\tgui\states\inventory_state.dm"
 #include "code\modules\tgui\states\not_incapacitated.dm"
 #include "code\modules\tgui\states\notcontained.dm"
-#include "code\modules\tgui\states\observer_state.dm"
+#include "code\modules\tgui\states\observer_state.dm"w
 #include "code\modules\tgui\states\physical.dm"
 #include "code\modules\tgui\states\self.dm"
 #include "code\modules\tgui\states\zlevel_state.dm"
