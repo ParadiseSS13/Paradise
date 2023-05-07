@@ -957,7 +957,7 @@
 #include "code\game\objects\items\mountable_frames\fire_alarm.dm"
 #include "code\game\objects\items\mountable_frames\frames.dm"
 #include "code\game\objects\items\mountable_frames\intercom_frame.dm"
-#include "code\game\objects\items\mountable_frames\lights.dm"
+#include "code\game\objects\items\mountable_frames\light_frames.dm"
 #include "code\game\objects\items\mountable_frames\mountables.dm"
 #include "code\game\objects\items\mountable_frames\newscaster_frame.dm"
 #include "code\game\objects\items\robot\ai_upgrades.dm"
