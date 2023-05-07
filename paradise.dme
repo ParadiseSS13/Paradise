@@ -1780,7 +1780,7 @@
 #include "code\modules\instruments\guitar.dm"
 #include "code\modules\instruments\hardcoded.dm"
 #include "code\modules\instruments\organ_instrument.dm"
-#include "code\modules\instruments\piano.dm"
+#include "code\modules\instruments\piano_instrument.dm"
 #include "code\modules\instruments\synth_tones.dm"
 #include "code\modules\instruments\objs\items\_instrument.dm"
 #include "code\modules\instruments\objs\items\headphones.dm"
