@@ -766,7 +766,7 @@
 #include "code\game\machinery\computer\HolodeckControl.dm"
 #include "code\game\machinery\computer\law.dm"
 #include "code\game\machinery\computer\medical_records.dm"
-#include "code\game\machinery\computer\message.dm"
+#include "code\game\machinery\computer\message_monitor.dm"
 #include "code\game\machinery\computer\Operating.dm"
 #include "code\game\machinery\computer\power_monitor.dm"
 #include "code\game\machinery\computer\prisoner.dm"
