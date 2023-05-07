@@ -106,7 +106,7 @@
 #include "code\__DEFINES\vampire_defines.dm"
 #include "code\__DEFINES\verb_manager.dm"
 #include "code\__DEFINES\vv.dm"
-#include "code\__DEFINES\wires.dm"
+#include "code\__DEFINES\wires_defines.dm"
 #include "code\__DEFINES\zlevel_defines.dm"
 #include "code\__DEFINES\dcs\dcs_helpers.dm"
 #include "code\__DEFINES\dcs\flags.dm"
