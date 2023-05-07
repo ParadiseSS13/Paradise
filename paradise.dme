@@ -2415,7 +2415,7 @@
 #include "code\modules\reagents\chemistry\reagents\toxins.dm"
 #include "code\modules\reagents\chemistry\reagents\water.dm"
 #include "code\modules\reagents\chemistry\recipes\drinks_reactions.dm"
-#include "code\modules\reagents\chemistry\recipes\drugs.dm"
+#include "code\modules\reagents\chemistry\recipes\drugs_reactions.dm"
 #include "code\modules\reagents\chemistry\recipes\food_reactions.dm"
 #include "code\modules\reagents\chemistry\recipes\medicine.dm"
 #include "code\modules\reagents\chemistry\recipes\others.dm"
