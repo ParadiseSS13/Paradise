@@ -588,7 +588,7 @@
 	uniform = /obj/item/clothing/under/new_soviet
 	back = /obj/item/storage/backpack/satchel
 	head = /obj/item/clothing/head/sovietsidecap
-	id = /obj/item/card/id
+	id = /obj/item/card/id/data
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/soviet
 	backpack_contents = list(
@@ -599,6 +599,8 @@
 	. = ..()
 	if(visualsOnly)
 		return
+	H.real_name = "[capitalize(pick(GLOB.first_names_soviet))] [capitalize(pick(GLOB.last_names_soviet))]"
+	H.name = H.real_name
 	H.add_language("Neo-Russkiya")
 	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
 	var/obj/item/card/id/I = H.wear_id
@@ -651,6 +653,41 @@
 		/obj/item/lighter/zippo = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/ammo_box/a357 = 2
+	)
+
+/datum/outfit/admin/soviet/marine
+	name = "Soviet Marine"
+
+	gloves = /obj/item/clothing/gloves/combat
+	suit = /obj/item/clothing/suit/space/hardsuit/soviet
+	head = null
+	mask = /obj/item/clothing/mask/gas
+	glasses = /obj/item/clothing/glasses/night
+	belt = /obj/item/storage/belt/military/assault/soviet/full
+	r_pocket = /obj/item/melee/classic_baton/telescopic
+	l_hand = /obj/item/gun/projectile/automatic/ak814
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/ammo_box/magazine/apsm10mm = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/lighter/zippo/engraved = 1
+	)
+
+/datum/outfit/admin/soviet/marine/captain
+	name = "Soviet Marine Captain"
+
+	uniform = /obj/item/clothing/under/new_soviet/sovietofficer
+	suit = /obj/item/clothing/suit/space/hardsuit/soviet/commander
+
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/gun/projectile/revolver/mateba = 1,
+		/obj/item/ammo_box/a357 = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/lighter/zippo/engraved = 1
 	)
 
 /datum/outfit/admin/soviet/admiral

@@ -100,7 +100,7 @@
 	icon_state = "blastwave"
 	damage = 0
 	nodamage = FALSE
-	forcedodge = TRUE
+	forcedodge = -1
 	range = 150
 	var/heavyr = 0
 	var/mediumr = 0
