@@ -1208,7 +1208,7 @@
 #include "code\game\turfs\simulated\floor\indestructible.dm"
 #include "code\game\turfs\simulated\floor\lava.dm"
 #include "code\game\turfs\simulated\floor\light_floor.dm"
-#include "code\game\turfs\simulated\floor\mineral.dm"
+#include "code\game\turfs\simulated\floor\mineral_floors.dm"
 #include "code\game\turfs\simulated\floor\misc_floor.dm"
 #include "code\game\turfs\simulated\floor\plasteel_floor.dm"
 #include "code\game\turfs\simulated\floor\plating.dm"
