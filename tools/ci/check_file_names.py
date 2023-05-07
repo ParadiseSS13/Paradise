@@ -10,7 +10,7 @@ for file in Path(".").glob("**/*.dm"):
 def main():
     alert_sent = False
     for filename, fullpaths in file_name_map.items():
-        if len(fullpaths) > 2:
+        if len(fullpaths) > 1:
             if not alert_sent:
                 print("The following files have the same name in multiple places in the codebase. Please fix!")
                 alert_sent = True
