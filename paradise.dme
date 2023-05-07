@@ -578,7 +578,7 @@
 #include "code\game\area\areas.dm"
 #include "code\game\area\ss13_areas.dm"
 #include "code\game\area\areas\depot-areas.dm"
-#include "code\game\area\areas\mining.dm"
+#include "code\game\area\areas\mining_areas.dm"
 #include "code\game\area\areas\ruins\blackmarketpackers.dm"
 #include "code\game\area\areas\ruins\lavaland_areas.dm"
 #include "code\game\area\areas\ruins\space_areas.dm"
