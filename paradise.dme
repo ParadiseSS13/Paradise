@@ -191,7 +191,7 @@
 #include "code\_onclick\hud\constructs.dm"
 #include "code\_onclick\hud\fullscreen.dm"
 #include "code\_onclick\hud\ghost_hud.dm"
-#include "code\_onclick\hud\guardian.dm"
+#include "code\_onclick\hud\guardian_hud.dm"
 #include "code\_onclick\hud\hud_datum.dm"
 #include "code\_onclick\hud\human_hud.dm"
 #include "code\_onclick\hud\map_popups.dm"
