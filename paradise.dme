@@ -558,7 +558,7 @@
 #include "code\datums\wires\robot_wires.dm"
 #include "code\datums\wires\smartfridge_wires.dm"
 #include "code\datums\wires\suitstorage.dm"
-#include "code\datums\wires\syndicatebomb.dm"
+#include "code\datums\wires\syndicatebomb_wires.dm"
 #include "code\datums\wires\tesla_coil.dm"
 #include "code\datums\wires\vending.dm"
 #include "code\datums\wires\wires.dm"
