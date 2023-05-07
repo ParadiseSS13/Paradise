@@ -455,7 +455,7 @@
 #include "code\datums\looping_sounds\item_sounds.dm"
 #include "code\datums\looping_sounds\looping_sound.dm"
 #include "code\datums\looping_sounds\machinery_sounds.dm"
-#include "code\datums\looping_sounds\thermal_drill.dm"
+#include "code\datums\looping_sounds\thermal_drill_sounds.dm"
 #include "code\datums\looping_sounds\weather_sounds.dm"
 #include "code\datums\outfits\outfit.dm"
 #include "code\datums\outfits\outfit_admin.dm"
