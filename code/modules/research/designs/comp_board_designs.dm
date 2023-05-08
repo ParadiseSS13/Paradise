@@ -351,3 +351,13 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/xenobiology
 	category = list("Computer Boards")
+
+/datum/design/honkputer
+	name = "Console Board (HONKputer)"
+	desc = "Allows for the construction of circuit boards used to build HonkPuter."
+	id = "honkputer"
+	req_tech = list("programming" = 5, "bluespace" = 6)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 2000)
+	build_path = /obj/item/circuitboard/HONKputer
+	category = list("Computer Boards")
