@@ -143,7 +143,7 @@
 	if(locate(/obj/item/grab, mob))
 		delay += 7
 
-	if(mob.pulling)
+	if(mob.pulling && (istype(mob.pulling, /obj/structure) || istype(mob.pulling, /obj/machinery)))
 		delay += 0.5
 
 	if(istype(living_mob))
