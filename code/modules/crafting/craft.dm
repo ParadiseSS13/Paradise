@@ -197,7 +197,7 @@
 	var/list/parts_used = list()
 	var/list/reagent_containers_for_deletion = list()
 	var/list/item_stacks_for_deletion = list()
-	var/list/blacklisted = list()
+	var/list/blacklisted = list() // list of items not to use from the surroundings based on recipe blacklist
 
 	for(var/thing in recipe.reqs)
 		var/needed_amount = recipe.reqs[thing]
@@ -249,11 +249,12 @@
 		else
 			for(var/i in 1 to needed_amount)
 				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_used)
-				while(recipe.blacklist.Find(part_atom.type))
+				for(var/j in 1 to length(surroundings - parts_used))
+					if(!recipe.blacklist.Find(part_atom.type))
+						break
 					blacklisted += part_atom
 					part_atom = locate(thing) in (surroundings - parts_used - blacklisted)
-					if(!part_atom)
-						break
+
 				if(!part_atom)
 					stack_trace("While crafting [recipe], the [thing] went missing!")
 					continue
