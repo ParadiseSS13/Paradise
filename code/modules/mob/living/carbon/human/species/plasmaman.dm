@@ -45,8 +45,9 @@
 	speciesbox = /obj/item/storage/box/survival_plasmaman
 	flesh_color = "#8b3fba"
 
-	disliked_food = DAIRY | FRUIT | VEGETABLES
-	liked_food = GRAIN | MEAT
+	toxic_food = NONE
+	disliked_food = NONE
+	liked_food = NONE
 
 //внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
