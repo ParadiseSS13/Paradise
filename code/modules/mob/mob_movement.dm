@@ -143,6 +143,9 @@
 	if(locate(/obj/item/grab, mob))
 		delay += 7
 
+	if(mob.pulling)
+		delay += 0.5
+
 	if(istype(living_mob))
 		var/newdir = NONE
 		var/confusion = living_mob.get_confusion()
