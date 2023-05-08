@@ -174,6 +174,8 @@
 	var/ranged = FALSE
 	/// stores the world.time after which it can be used again, the `initial(cooldown)` is the cooldown between activations.
 	var/cooldown = -1
+	/// If the spellblade has traits, has it applied them?
+	var/applied_traits = FALSE
 
 /datum/enchantment/proc/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	if(world.time < cooldown)
@@ -188,23 +190,41 @@
 	return TRUE
 
 /datum/enchantment/proc/on_gain(obj/item/melee/spellblade, mob/living/user)
+	return
+
+/datum/enchantment/proc/toggle_traits(obj/item/I, mob/living/user)
+	return
 
 /datum/enchantment/lightning
 	name = "lightning"
-	desc = "this blade conducts arcane energy to arc between its victims"
+	desc = "this blade conducts arcane energy to arc between its victims. It also makes the user immune to shocks."
 	// the damage of the first lighting arc.
 	power = 20
 	cooldown = 3 SECONDS
+
+/datum/enchantment/lightning/on_gain(obj/item/melee/spellblade/S, mob/living/user)
+	..()
+	RegisterSignal(S, list(COMSIG_ITEM_PICKUP, COMSIG_ITEM_DROPPED), PROC_REF(toggle_traits))
+	if(user)
+		toggle_traits(S, user)
+
 
 /datum/enchantment/lightning/on_hit(mob/living/target, mob/living/user, proximity, obj/item/melee/spellblade/S)
 	. = ..()
 	if(.)
 		zap(target, user, list(user), power)
 
+/datum/enchantment/lightning/toggle_traits(obj/item/I, mob/living/user)
+	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
+	if(applied_traits)
+		REMOVE_TRAIT(user, TRAIT_SHOCKIMMUNE, "[enchant_ID]")
+	else
+		ADD_TRAIT(user, TRAIT_SHOCKIMMUNE, "[enchant_ID]")
+	applied_traits = !applied_traits
 
 /datum/enchantment/lightning/proc/zap(mob/living/target, mob/living/source, protected_mobs, voltage)
 	source.Beam(target, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time = 2 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam/chain)
-	if(!target.electrocute_act(voltage, flags = SHOCK_TESLA)) // if it fails to shock someone, break the chain
+	if(!target.electrocute_act(voltage, "lightning", flags = SHOCK_TESLA)) // if it fails to shock someone, break the chain
 		return
 	protected_mobs += target
 	addtimer(CALLBACK(src, PROC_REF(arc), target, voltage, protected_mobs), 2.5 SECONDS)
@@ -224,7 +244,6 @@
 	name = "fire"
 	desc = "this blade ignites on striking a foe, releasing a ball of fire. It also makes the wielder immune to fire"
 	cooldown = 8 SECONDS
-	var/applied_traits = FALSE
 
 /datum/enchantment/fire/on_gain(obj/item/melee/spellblade/S, mob/living/user)
 	..()
@@ -232,7 +251,7 @@
 	if(user)
 		toggle_traits(S, user)
 
-/datum/enchantment/fire/proc/toggle_traits(obj/item/I, mob/living/user)
+/datum/enchantment/fire/toggle_traits(obj/item/I, mob/living/user)
 	var/enchant_ID = UID(src) // so it only removes the traits applied by this specific enchant.
 	if(applied_traits)
 		REMOVE_TRAIT(user, TRAIT_NOFIRE, "[enchant_ID]")

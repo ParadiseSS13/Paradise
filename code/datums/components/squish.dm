@@ -19,6 +19,7 @@
 	var/mob/living/carbon/C = target
 	var/was_lying = C.body_position == LYING_DOWN
 	addtimer(CALLBACK(src, PROC_REF(Detach), C, was_lying, reverse), duration)
+	ADD_TRAIT(target, TRAIT_FLATTENED, "vendor_flattening")
 
 	if(reverse)
 		C.transform = C.transform.Scale(SHORT_SCALE, TALL_SCALE)
@@ -30,7 +31,7 @@
 	if(!istype(C))
 		return
 	var/is_lying = C.body_position == LYING_DOWN
-
+	REMOVE_TRAIT(C, TRAIT_FLATTENED, "vendor_flattening")
 	if(reverse)
 		is_lying = !is_lying
 

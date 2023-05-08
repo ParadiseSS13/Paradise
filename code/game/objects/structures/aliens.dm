@@ -242,7 +242,7 @@
 	icon_state = "weeds"
 	base_icon_state = "weeds"
 	max_integrity = 15
-	layer = WIRE_TERMINAL_LAYER
+	layer = ABOVE_ICYOVERLAY_LAYER
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)

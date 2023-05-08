@@ -32,6 +32,7 @@
 	var/next_beep
 	var/detonation_timer
 	var/explode_now = FALSE
+	var/hide_wires = TRUE
 
 /obj/machinery/syndicatebomb/proc/try_detonate(ignore_active = FALSE)
 	. = (payload in src) && (active || ignore_active) && !defused
@@ -86,6 +87,8 @@
 /obj/machinery/syndicatebomb/Initialize(mapload)
 	. = ..()
 	wires = new(src)
+	if(hide_wires)
+		ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	if(payload)
 		payload = new payload(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -659,24 +662,29 @@
 	var/existant =	0
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
-	if(timer < world.time)
-		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
-			if(B.active)
-				B.detonation_timer = world.time + BUTTON_DELAY
-				detonated++
-			existant++
-		playsound(user, 'sound/machines/click.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
-		if(detonated)
-			var/turf/T = get_turf(src)
-			var/area/A = get_area(T)
-			detonated--
-			investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
-			add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
-			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
-		detonated =	0
-		existant =	0
-		timer = world.time + BUTTON_COOLDOWN
+	if(timer >= world.time)
+		to_chat(user, "<span class='alert'>Nothing happens.</span>")
+		return
+
+	for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+		if(B.active)
+			B.detonation_timer = world.time + BUTTON_DELAY
+			detonated++
+		existant++
+
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
+	flick("bigred_press", src)
+	to_chat(user, "<span class='notice'>[existant] found, [detonated] triggered.</span>")
+	if(detonated)
+		var/turf/T = get_turf(src)
+		var/area/A = get_area(T)
+		detonated--
+		investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
+		log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
+	detonated =	0
+	existant = 0
+	timer = world.time + BUTTON_COOLDOWN
 
 #undef BUTTON_COOLDOWN
 #undef BUTTON_DELAY

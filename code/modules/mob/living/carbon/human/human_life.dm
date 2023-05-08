@@ -686,7 +686,7 @@
 				// Use the dead health doll as the base, since we have proper "healthy" overlays now
 				healthdoll.icon_state = "healthdoll_DEAD"
 				for(var/obj/item/organ/external/O in bodyparts)
-					var/damage = O.burn_dam + O.brute_dam
+					var/damage = O.get_damage()
 					var/comparison = (O.max_damage/5)
 					var/icon_num = 0
 					if(damage)

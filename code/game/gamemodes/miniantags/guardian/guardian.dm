@@ -196,7 +196,7 @@
 		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 	else
 		input = message
-	if(!input)
+	if(!input || !summoner)
 		return
 
 	// Show the message to the host and to the guardian.

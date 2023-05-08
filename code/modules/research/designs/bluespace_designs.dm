@@ -13,7 +13,7 @@
 
 /datum/design/bag_holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Blue Space."
+	desc = "A backpack that opens into a localized pocket of Bluespace."
 	id = "bag_holding"
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 7, "plasmatech" = 6)
 	build_type = PROTOLATHE
@@ -23,7 +23,7 @@
 
 /datum/design/bluespace_belt
 	name = "Belt of Holding"
-	desc = "An astonishingly complex belt popularized by a rich blue-space technology magnate."
+	desc = "An astonishingly complex belt popularized by a rich bluespace technology magnate."
 	id = "bluespace_belt"
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 6, "plasmatech" = 6)
 	build_type = PROTOLATHE
@@ -73,7 +73,7 @@
 
 /datum/design/beacon
 	name = "Tracking Beacon"
-	desc = "A blue space tracking beacon."
+	desc = "A bluespace tracking beacon."
 	id = "beacon"
 	req_tech = list("bluespace" = 1)
 	build_type = PROTOLATHE

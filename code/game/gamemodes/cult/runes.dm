@@ -362,6 +362,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						E.mend_fracture()
 						E.fix_internal_bleeding()
+						E.fix_burn_wound()
 					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 						crit.cure()
 
@@ -621,7 +622,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(mob_to_revive.ghost_can_reenter())
 			mob_to_revive.grab_ghost()
 
-	if(!mob_to_revive.get_ghost() || mob_to_revive.client && mob_to_revive.client.is_afk())
+	if(!mob_to_revive.get_ghost() && (!mob_to_revive.client || mob_to_revive.client.is_afk()))
 		set waitfor = FALSE
 		to_chat(user, "<span class='cult'>[mob_to_revive] was revived, but their mind is lost! Seeking a lost soul to replace it.</span>")
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a revived Cultist?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)

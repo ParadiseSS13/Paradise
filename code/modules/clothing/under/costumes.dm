@@ -169,12 +169,11 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/costume/soviet
-	name = "soviet uniform"
+	name = "old soviet uniform"
 	desc = "For the Motherland!"
 	icon_state = "soviet"
 	item_state = "soviet"
 	item_color = "soviet"
-
 
 /obj/item/clothing/under/costume/tourist_suit
 	name = "tourist outfit"

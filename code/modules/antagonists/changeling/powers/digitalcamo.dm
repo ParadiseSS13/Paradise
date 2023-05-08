@@ -1,6 +1,6 @@
 /datum/action/changeling/digitalcamo
 	name = "Digital Camouflage"
-	desc = "By evolving the ability to distort our form and proprotions, we defeat common altgorithms used to detect lifeforms on cameras."
+	desc = "By evolving the ability to distort our form and proportions, we defeat common algorithms used to detect lifeforms on cameras."
 	helptext = "We cannot be tracked by camera while using this skill."
 	button_icon_state = "digital_camo"
 	dna_cost = 1

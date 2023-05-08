@@ -24,6 +24,7 @@
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			E.mend_fracture()
 			E.fix_internal_bleeding()
+			E.fix_burn_wound(update_health = FALSE)
 	M.SetEyeBlind(0)
 	M.cure_nearsighted(null, FALSE)
 	M.cure_blind(null, FALSE)
