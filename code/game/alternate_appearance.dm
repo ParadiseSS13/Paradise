@@ -71,6 +71,8 @@
 	var/list/alternate_appearances //the alternate appearances we own
 	var/list/viewing_alternate_appearances //the alternate appearances we're viewing, stored here to reestablish them after Logout()s
 	//these lists are built as necessary, so atoms aren't all lugging around empty lists
+	var/drag_start = 0
+	var/dragging = FALSE
 
 /*
 	Builds an alternate_appearance datum for the supplied args, optionally displaying it straight away

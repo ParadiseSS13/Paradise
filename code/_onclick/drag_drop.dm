@@ -1,3 +1,11 @@
+/atom/MouseDrag()
+	if(!dragging)
+		dragging = TRUE
+		drag_start = world.time
+
+/atom/proc/could_be_lag()
+	return world.time - drag_start < 0.2 SECONDS // should be enough to lag
+
 /*
 	MouseDrop:
 
@@ -8,14 +16,17 @@
 /atom/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	if(!usr || !over)
 		return
+	dragging = FALSE
+	var/lagging = could_be_lag()
 	if(!(istype(over, /obj/screen) || (loc && loc == over.loc)))
 		if(!Adjacent(usr) || !over.Adjacent(usr)) // should stop you from dragging through windows
-			usr.ClickOn(src, params)
+			if(lagging)
+				usr.ClickOn(src, params)
 			return
 
 	var/datum/callback/mousedrop = new(over, PROC_REF(MouseDrop_T), src, usr, params)
 	var/result = mousedrop.InvokeAsync() // if it gets TRUE in return, we think that all is fine
-	if(!result)
+	if(!result && lagging)
 		usr.ClickOn(src, params) // if not, we click object
 
 /*
