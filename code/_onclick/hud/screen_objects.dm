@@ -217,6 +217,7 @@
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
 		S.attackby(I, user)
+	return TRUE
 
 /obj/screen/zone_sel
 	name = "damage zone"

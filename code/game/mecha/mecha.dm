@@ -1096,7 +1096,7 @@
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
 	if(frozen)
 		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
-		return
+		return TRUE
 	if(user.incapacitated())
 		return
 	if(user != M)
@@ -1105,7 +1105,7 @@
 	if(occupant)
 		to_chat(user, "<span class='warning'>[src] is already occupied!</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	var/passed
 	if(dna)
 		if(ishuman(user))
@@ -1116,14 +1116,14 @@
 	if(!passed)
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	if(user.buckled)
 		to_chat(user, "<span class='warning'>You are currently buckled and cannot move.</span>")
 		log_append_to_last("Permission denied.")
-		return
+		return TRUE
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
-		return
+		return TRUE
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 
@@ -1140,6 +1140,7 @@
 			moved_inside(user)
 	else
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
+	return TRUE
 
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H as mob)
 	if(H && H.client && (H in range(1)))

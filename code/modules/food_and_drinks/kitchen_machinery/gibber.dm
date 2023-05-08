@@ -125,6 +125,7 @@
 		return
 
 	move_into_gibber(user,target)
+	return TRUE
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)

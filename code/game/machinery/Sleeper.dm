@@ -502,8 +502,7 @@
 		if(user.pulling == L)
 			user.stop_pulling()
 		SStgui.update_uis(src)
-		return
-	return
+		return TRUE
 
 /obj/machinery/sleeper/proc/permitted_check(atom/movable/O, mob/user)
 	if(O.loc == user) //no you can't pull things out of your ass

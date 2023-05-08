@@ -222,7 +222,7 @@
 		C.show_message(msg, 3)
 
 	update()
-	return
+	return TRUE
 
 // attempt to move while inside
 /obj/machinery/disposal/relaymove(mob/user as mob)

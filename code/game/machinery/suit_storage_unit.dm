@@ -431,13 +431,13 @@
 	var/mob/living/target = A
 	if(!state_open)
 		to_chat(user, "<span class='warning'>[src]'s doors are shut!</span>")
-		return
+		return TRUE
 	if(!is_operational())
 		to_chat(user, "<span class='warning'>[src] is not operational!</span>")
-		return
+		return TRUE
 	if(occupant || helmet || suit || storage)
 		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
-		return
+		return TRUE
 
 	if(target == user)
 		user.visible_message("<span class='warning'>[user] starts squeezing into [src]!</span>", "<span class='notice'>You start working your way into [src]...</span>")
@@ -453,6 +453,7 @@
 			target.visible_message("<span class='warning'>[user] pushes [target] into [src] and shuts its door!<span>", "<span class='userdanger'>[user] shoves you into [src] and shuts the door!</span>")
 		close_machine(target)
 		add_fingerprint(user)
+	return TRUE
 
 /obj/machinery/suit_storage_unit/proc/cook()
 	if(uv_cycles)

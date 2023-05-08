@@ -185,7 +185,7 @@
 		return
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
-	return
+		return TRUE
 
 /obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -805,8 +805,8 @@
 		var/mob/living/M = user
 		if(M.UID() in held_items)
 			return FALSE
-	return ..()	
-	
+	return ..()
+
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
 	if(is_type_in_typecache(item, typecache_can_hold))
@@ -815,7 +815,7 @@
 			var/mob/living/M = item
 			if(M.pulling == src)
 				M.stop_pulling()
-			
+
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
@@ -876,6 +876,7 @@
 		return
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
+		return TRUE
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
 	if(isrobot(user))

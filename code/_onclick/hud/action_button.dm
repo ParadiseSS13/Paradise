@@ -6,7 +6,8 @@
 
 /obj/screen/movable/action_button/MouseDrop(over_object)
 	if(over_object == src) // in case something bad happend and game realised we dragged our ability instead of pressing it
-		src.Click()
+		Click()
+		return
 	if(locked)
 		to_chat(usr, "<span class='warning'>Action button \"[name]\" is locked, unlock it first.</span>")
 		closeToolTip(usr)
