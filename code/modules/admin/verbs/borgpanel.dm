@@ -70,9 +70,9 @@
 		var/obj/item/robot_module/module = module_type
 		var/name = initial(module.name)
 		.["modules"] += list(list("name" = "[name]", "type" = module_type))
-	.["ais"] = list(list("name" = "None", "connected" = isnull(borg.connected_ai)))
+	.["ais"] = list(list("ref" = "", "name" = "None", "connected" = isnull(borg.connected_ai)))
 	for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
-		.["ais"] += list(list("name" = ai.name, "connected" = (borg.connected_ai == ai)))
+		.["ais"] += list(list("ref" = ai, "name" = ai.name, "connected" = (borg.connected_ai == ai)))
 
 
 /datum/borgpanel/ui_act(action, params)
@@ -191,13 +191,16 @@
 				borg.install_upgrade(reset)
 				log_and_message_admins("resets [key_name(borg)] module.")
 		if("slavetoai")
-			var/mob/living/silicon/ai/newai = locate(params["slavetoai"]) in GLOB.ai_list
+			var/mob/living/silicon/ai/newai
+			for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
+				if(ai.name == params["slavetoai"])
+					newai = ai
 			if(newai && newai != borg.connected_ai)
 				borg.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 				borg.connect_to_ai(newai)
 				borg.notify_ai(TRUE)
 				log_and_message_admins("slaved [key_name(borg)] to the AI [key_name(newai)].")
-			else if (params["slavetoai"] == "null")
+			else if (params["slavetoai"] == "")
 				borg.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 				borg.disconnect_from_ai()
 				log_and_message_admins("freed [key_name(borg)] from being slaved to an AI.")
