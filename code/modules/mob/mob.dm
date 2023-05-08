@@ -911,7 +911,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return
 
 /mob/MouseDrop(mob/M as mob, src_location, over_location, src_control, over_control, params)
-	if(!(M == usr) || !istype(M))
+	if((M != usr) || !istype(M))
 		..()
 		return
 	if(isliving(M))
