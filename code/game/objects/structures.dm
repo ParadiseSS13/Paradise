@@ -47,7 +47,7 @@
 	if(..())
 		return TRUE
 	if(C == user)
-		do_climb(user)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/structure, do_climb), user)
 		return TRUE
 
 /obj/structure/proc/density_check()

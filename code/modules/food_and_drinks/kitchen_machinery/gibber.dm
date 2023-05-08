@@ -124,7 +124,7 @@
 	if(targetl.buckled)
 		return
 
-	move_into_gibber(user,target)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/gibber, move_into_gibber), user, target)
 	return TRUE
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)

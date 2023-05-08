@@ -1126,7 +1126,10 @@
 		return TRUE
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/mecha, put_in), user)
+	return TRUE
 
+/obj/mecha/proc/put_in(mob/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	if(do_after(user, 40, target = src))
 		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
@@ -1140,7 +1143,6 @@
 			moved_inside(user)
 	else
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
-	return TRUE
 
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H as mob)
 	if(H && H.client && (H in range(1)))
