@@ -234,6 +234,12 @@
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "cat"
 
+/obj/item/holder/crusher
+	name = "pet"
+	desc = "It's a pet"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "crusher"
+
 /obj/item/holder/cat2
 	name = "pet"
 	desc = "It's a pet"

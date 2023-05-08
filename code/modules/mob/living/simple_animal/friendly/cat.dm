@@ -327,7 +327,7 @@
 	icon_resting = "crusher_rest"
 	icon_sit = "rest"
 	gender = MALE
-	holder_type = /obj/item/holder/cak
+	holder_type = /obj/item/holder/crusher
 
 /mob/living/simple_animal/pet/cat/spacecat
 	name = "spacecat"
