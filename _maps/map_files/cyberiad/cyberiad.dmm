@@ -19167,7 +19167,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aZo" = (
@@ -107495,7 +107494,7 @@ aPh
 aGn
 aGn
 aQe
-aGn
+aKW
 aGn
 aTu
 aUu
