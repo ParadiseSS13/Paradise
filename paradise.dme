@@ -196,7 +196,7 @@
 #include "code\_onclick\hud\human_hud.dm"
 #include "code\_onclick\hud\map_popups.dm"
 #include "code\_onclick\hud\movable_screen_objects.dm"
-#include "code\_onclick\hud\other_mobs.dm"
+#include "code\_onclick\hud\other_mobs_hud.dm"
 #include "code\_onclick\hud\parallax.dm"
 #include "code\_onclick\hud\picture_in_picture.dm"
 #include "code\_onclick\hud\plane_master.dm"
