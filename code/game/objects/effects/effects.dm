@@ -104,6 +104,8 @@
 /obj/effect/decal/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
 		scoop(I, user)
+	else if(issimulatedturf(loc))
+		I.melee_attack_chain(user, loc)
 
 /obj/effect/decal/proc/scoop(obj/item/I, mob/user)
 	if(reagents && I.reagents && !no_scoop)
