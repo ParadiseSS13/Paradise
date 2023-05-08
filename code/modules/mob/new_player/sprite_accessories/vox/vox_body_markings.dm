@@ -3,17 +3,17 @@
 	species_allowed = list("Vox")
 
 /datum/sprite_accessory/body_markings/tattoo/vox/heart_vox
-	name = "Vox Heart Tattoo"
+	name = "Heart Tattoo"
 	icon_state = "heart"
 
 /datum/sprite_accessory/body_markings/tattoo/vox/hive_vox
-	name = "Vox Hive Tattoo"
+	name = "Hive Tattoo"
 	icon_state = "hive"
 
 /datum/sprite_accessory/body_markings/tattoo/vox/nightling_vox
-	name = "Vox Nightling Tattoo"
+	name = "Nightling Tattoo"
 	icon_state = "nightling"
 
 /datum/sprite_accessory/body_markings/tattoo/vox/tiger_body_vox
-	name = "Vox Tiger-stripe Tattoo"
+	name = "Tiger-stripe Tattoo"
 	icon_state = "tiger"

@@ -4,7 +4,7 @@
 	gender = NEUTER
 
 /datum/sprite_accessory/facial_hair/vox/vox_colonel
-	name = "Vox Colonel Beard"
+	name = "Colonel Beard"
 	icon_state = "colonel"
 
 /datum/sprite_accessory/facial_hair/vox/vox_long
@@ -16,9 +16,9 @@
 	icon_state = "neck"
 
 /datum/sprite_accessory/facial_hair/vox/vox_beard
-	name = "Vox Quill Beard"
+	name = "Quill Beard"
 	icon_state = "beard"
 
 /datum/sprite_accessory/facial_hair/vox/vox_mane
-	name = "Vox Mane Beard"
+	name = "Mane Beard"
 	icon_state = "mane"

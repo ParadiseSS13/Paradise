@@ -3,13 +3,13 @@
 	species_allowed = list("Vox")
 
 /datum/sprite_accessory/body_markings/tail/vox/vox_band
-	name = "Vox Tail Band"
+	name = "Tail Band"
 	icon_state = "band"
 
 /datum/sprite_accessory/body_markings/tail/vox/vox_tip
-	name = "Vox Tail Tip"
+	name = "Tail Tip"
 	icon_state = "tip"
 
 /datum/sprite_accessory/body_markings/tail/vox/vox_stripe
-	name = "Vox Tail Stripe"
+	name = "Tail Stripe"
 	icon_state = "stripe"
