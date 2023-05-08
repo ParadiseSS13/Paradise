@@ -910,25 +910,27 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/stripPanelEquip(obj/item/what, mob/who)
 	return
 
-/mob/MouseDrop(mob/M as mob)
+/mob/MouseDrop(mob/M as mob, src_location, over_location, src_control, over_control, params)
 	..()
-	if(M != usr) return
-	if(isliving(M))
-		var/mob/living/L = M
-		if(L.mob_size <= MOB_SIZE_SMALL)
-			return // Stops pAI drones and small mobs (parrots, crabs) from stripping people. --DZD
-	if(!M.can_strip)
-		return
-	if(usr == src)
-		return
-	if(!Adjacent(usr))
-		return
-	if(IsFrozen(src) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
-		return
-	if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
-		return
-	show_inv(usr)
+	if(M == usr)
+		if(isliving(M))
+			var/mob/living/L = M
+			if(L.mob_size <= MOB_SIZE_SMALL)
+				return // Stops pAI drones and small mobs (parrots, crabs) from stripping people. --DZD
+		if(!M.can_strip)
+			return
+		if(usr == src)
+			return
+		if(!Adjacent(usr))
+			return
+		if(IsFrozen(src) && !is_admin(usr))
+			to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+			return
+		if(isLivingSSD(src) && M.client && M.client.send_ssd_warning(src))
+			return
+		show_inv(usr)
+	else
+		usr.ClickOn(M, params)
 
 /mob/proc/can_use_hands()
 	return
