@@ -352,33 +352,99 @@
 	name = "Chameleon kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station." // "Набор хамелеона изученный с помощью реверс инженеринга."
 	id = "chameleon_kit"
-	req_tech = list("combat" = 4, "engineering" = 6, "syndicate" = 4, "magnets" = 5)
+	req_tech = list("combat" = 4, "engineering" = 6, "syndicate" = 3, "magnets" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4500, MAT_GLASS = 3000, MAT_SILVER = 2000, MAT_DIAMOND = 1000)
 	build_path = /obj/item/storage/box/syndie_kit/chameleon
 	locked = 1
 	category = list("ILLEGAL")
 
-/datum/design/adrenaline
-	name = "Adrenaline implant"
-	desc = "A glass case containing an adrenaline implant." // "Кейс с адреналин имплантом, который позволяет игнорировать шокеры, в течение котороткого времени."
-	id = "implant_adrenaline"
-	req_tech = list("syndicate" = 2, "programming" = 3, "biotech"= 4, "materials" = 3)
+/datum/design/chameleon_hud
+	name = "Chameleon hud"
+	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
+	id = "chameleon_hud"
+	req_tech = list("combat" = 4, "engineering" = 6, "syndicate" = 3, "magnets" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 100, MAT_GLASS = 50,)
-	reagents_list = list("omnizine" = 10)
-	build_path = /obj/item/implantcase/adrenaline
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 500)
+	build_path = /obj/item/clothing/glasses/hud/security/chameleon
 	locked = 1
 	category = list("ILLEGAL")
 
-/datum/design/Freedom
-	name = "Freedom implant"
-	desc = "A glass case containing a freedom implant." // "Кейс с имплантом, который позволяет освобождаться от наручников ограниченное количество раз."
-	id = "implant_freedom"
-	req_tech = list("syndicate" = 2, "programming" = 3, "biotech"= 4,"materials" = 3)
+/datum/design/e_dagger
+	name = "Energy dagger"
+	desc = "A dagger made of energy that looks and functions as a pen when off."
+	id = "e_dagger"
+	req_tech = list("combat" = 7, "programming" = 7, "syndicate" = 4, "materials" = 7)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 3000,)
-	build_path = /obj/item/implantcase/freedom
+	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 3000, MAT_TITANIUM = 3000)
+	build_path = /obj/item/pen/edagger
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/a_tuner
+	name = "Acces tuner"
+	desc = "The access tuner is a small device that can interface with airlocks from range. It takes a few seconds to connect and can change the bolt state, open the door, or toggle emergency access."
+	id = "a_tuner"
+	req_tech = list("programming" = 7, "syndicate" = 4, "materials" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 9000, MAT_DIAMOND = 2500, MAT_SILVER = 2000)
+	build_path = /obj/item/door_remote/omni/access_tuner
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/c_flash
+	name = "Camera flash"
+	desc = "A flash disguised as a camera with a self-charging safety system preventing the flash from burning out."
+	id = "c_flash"
+	req_tech = list("combat" = 7, "programming" = 6, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_DIAMOND = 1000, MAT_TITANIUM = 1500)
+	build_path = /obj/item/flash/cameraflash
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/dna_scrambler
+	name = "DNA scrambler"
+	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
+	id = "dna_scrambler"
+	req_tech = list("biotech" = 7, "programming" = 7, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_DIAMOND = 1500)
+	reagents_list = list("stable_mutagen" = 20)
+	build_path = /obj/item/dnascrambler
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/c_bug
+	name = "Camera bug"
+	desc = "Enables you to view all cameras on the network to track a target."
+	id = "c_bug"
+	req_tech = list("materials" = 5, "programming" = 7, "syndicate" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000)
+	build_path = /obj/item/camera_bug
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/ai_detector
+	name = "Artificial Intelligence Detector"
+	desc = "A functional multitool that turns red when it detects an artificial intelligence watching it or its holder. Knowing when an artificial intelligence is watching you is useful for knowing when to maintain cover."
+	id = "ai_detector"
+	req_tech = list("materials" = 5, "programming" = 7, "syndicate" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 3000, MAT_SILVER = 1500)
+	build_path = /obj/item/multitool/ai_detect
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/adv_pointer
+	name = "Advanced pinpointer"
+	desc = "A pinpointer that tracks any specified coordinates, DNA string, high value item or the nuclear authentication disk."
+	id = "adv_pointer"
+	req_tech = list("materials" = 7, "programming" = 7, "syndicate" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 20000, MAT_TITANIUM = 4000, MAT_DIAMOND = 5000)
+	build_path = /obj/item/pinpointer/advpinpointer
 	locked = 1
 	category = list("ILLEGAL")
 
@@ -397,7 +463,7 @@
 	name = "Syndicate encryptionkey"
 	desc = "An encyption key for a radio headset. Contains syndicate cypherkeys." // "Ключ шифрования синдиката, позволяющий перехватывать другие зашифрованные радиоволны."
 	id = "syndicatekey"
-	req_tech = list("engineering" = 4, "syndicate" = 4, "programming" = 4,"materials" = 3)
+	req_tech = list("engineering" = 4, "syndicate" = 3, "programming" = 4,"materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000,)
 	build_path = /obj/item/encryptionkey/syndicate
