@@ -2626,7 +2626,6 @@
 #include "code\modules\tgui\states\not_incapacitated.dm"
 #include "code\modules\tgui\states\notcontained.dm"
 #include "code\modules\tgui\states\observer_state.dm"
-#include "code\modules\tgui\states\observer_state.dm"w
 #include "code\modules\tgui\states\physical.dm"
 #include "code\modules\tgui\states\self.dm"
 #include "code\modules\tgui\states\zlevel_state.dm"
