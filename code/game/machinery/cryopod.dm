@@ -533,7 +533,7 @@
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/cryopod, put_in), user, L)
 	return TRUE
 
-/obj/machinery/cryopod/proc/put_in(mob/user, var/mob/living/L) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
+/obj/machinery/cryopod/proc/put_in(mob/user, mob/living/L) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/willing = null //We don't want to allow people to be forced into despawning.
 	time_till_despawn = initial(time_till_despawn)
 
