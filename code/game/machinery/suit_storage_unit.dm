@@ -446,7 +446,7 @@
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/suit_storage_unit, put_in), user, target)
 	return TRUE
 
-/obj/machinery/suit_storage_unit/proc/put_in(mob/user, var/mob/living/target)
+/obj/machinery/suit_storage_unit/proc/put_in(mob/user, mob/living/target)
 	if(do_mob(user, target, 30))
 		if(occupant || helmet || suit || storage)
 			return
