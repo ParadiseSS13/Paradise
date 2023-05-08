@@ -84,8 +84,8 @@
 /datum/pai_software/flashlight/toggle(mob/living/silicon/pai/user)
 	var/atom/movable/actual_location = istype(user.loc, /obj/item/paicard) ? user.loc : user
 	if(!user.flashlight_on)
-		actual_location.set_light(2)
-		user.card.set_light(2)
+		actual_location.set_light(5)
+		user.card.set_light(5)
 	else
 		actual_location.set_light(0)
 		user.card.set_light(0)
@@ -95,10 +95,38 @@
 /datum/pai_software/flashlight/is_active(mob/living/silicon/pai/user)
 	return user.flashlight_on
 
+// Night Vision //
+/datum/pai_software/vision
+	name = "Night Vision"
+	ram_cost = 5
+	id = "nignt_vis"
+	ui_icon = "bullseye"
+	toggle_software = TRUE
+	var/sight_mode = SILICONNIGHTVISION
+
+/datum/pai_software/vision/toggle(mob/living/silicon/pai/user)
+	if(!is_active(user))
+		user.sight_mode |= sight_mode
+	else
+		user.sight_mode &= ~sight_mode
+	user.update_sight()
+
+/datum/pai_software/vision/is_active(mob/living/silicon/pai/user)
+	return (user.sight_mode & sight_mode)
+
+// Meson Vision //
+/datum/pai_software/vision/meson_vision
+	name = "Meson Vision"
+	ram_cost = 10
+	id = "meson_vis"
+	ui_icon = "adjust"
+	toggle_software = TRUE
+	sight_mode = SILICONMESON
+
 // Advanced Security Hud //
 /datum/pai_software/adv_sec_hud
 	name = "Advanced Security HUD"
-	ram_cost = 40
+	ram_cost = 20
 	id = "adv_sec_hud"
 	ui_icon = "exclamation-triangle"
 	toggle_software = TRUE
@@ -115,8 +143,8 @@
 
 // Weakened AI Сapability //
 /datum/pai_software/weak_ai
-	name = "Weakened AI Сapability"
-	ram_cost = 90
+	name = "Weakened AI Capability"
+	ram_cost = 75
 	id = "weak_ai"
 	ui_icon = "bug"
 	toggle_software = TRUE
@@ -127,3 +155,13 @@
 
 /datum/pai_software/weak_ai/is_active(mob/living/silicon/pai/user)
 	return user.ai_capability
+
+// Thermal Vision //
+/datum/pai_software/vision/thermal_vision
+	name = "Thermal Vision"
+	ram_cost = 35
+	id = "therm_vis"
+	ui_icon = "binoculars"
+	toggle_software = TRUE
+	only_syndi = TRUE
+	sight_mode = SILICONTHERM

@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(pai_emotions, list(
+GLOBAL_LIST_INIT(base_pai_emotions, list(
 		"Happy" = 1,
 		"Cat" = 2,
 		"Extremely Happy" = 3,
@@ -9,6 +9,8 @@ GLOBAL_LIST_INIT(pai_emotions, list(
 		"Angry" = 8,
 		"What" = 9
 ))
+
+GLOBAL_LIST_INIT(spec_pai_emotions, list("Syndicate" = 10))
 
 GLOBAL_LIST_EMPTY(pai_software_by_key)
 

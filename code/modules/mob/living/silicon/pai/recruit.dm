@@ -13,6 +13,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 /datum/paiController
 	var/list/pai_candidates = list()
 	var/list/asked = list()
+	var/summon_cooldown = 0
 
 	var/askDelay = 10 * 60 * 1	// One minute [ms * sec * min]
 
@@ -46,7 +47,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
-			card.used = TRUE
+			card.upgrade?.used = TRUE
 
 			SSticker.mode.update_cult_icons_removed(card.pai.mind)
 			SSticker.mode.update_rev_icons_removed(card.pai.mind)
@@ -58,7 +59,10 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 	if("signup" in href_list)
 		var/mob/dead/observer/O = locate(href_list["signup"])
 		if(!O)
-			return
+			O = usr
+			if(!istype(O))
+				return
+
 		if(!(O in GLOB.respawnable_list))
 			to_chat(O, "You've given up your ability to respawn!")
 			return
@@ -370,7 +374,12 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			if(player_old_enough_antag(O.client,ROLE_PAI))
 				if(check_recruit(O))
 					to_chat(O, "<span class='boldnotice'>A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
-					//question(O.client)
+	if(P.is_syndicate_type)
+		if(summon_cooldown > world.time)
+			return
+		var/image/alert_overlay = image('icons/obj/aicards.dmi', "ghostalert")
+		notify_ghosts("[user] activated [user.p_their()] Syndicate pAI card, calling for your help!", enter_link="<a href='?src=[UID()];signup=1'>(Click to Sign Up)</a>", source = P, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		summon_cooldown = world.time + 60 SECONDS
 
 /datum/paiController/proc/check_recruit(var/mob/dead/observer/O)
 	if(jobban_isbanned(O, ROLE_PAI) || jobban_isbanned(O,"nonhumandept"))

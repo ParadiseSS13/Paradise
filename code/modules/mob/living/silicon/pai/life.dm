@@ -1,3 +1,5 @@
+#define PAI_CHEMICALS_COOLDOWN 15 SECONDS
+
 /mob/living/silicon/pai/Life(seconds, times_fired)
 	. = ..()
 	if(QDELETED(src) || stat == DEAD)
@@ -16,7 +18,7 @@
 
 	if(installed_software["sec_chem"])
 		if(chemicals < initial(chemicals))
-			if(world.time > (last_change_chemicals + 30 SECONDS))
+			if(world.time > (last_change_chemicals + PAI_CHEMICALS_COOLDOWN))
 				chemicals += 5
 				last_change_chemicals = world.time
 
@@ -25,3 +27,5 @@
 		return ..()
 	health = maxHealth - getBruteLoss() - getFireLoss()
 	update_stat("updatehealth([reason])", should_log)
+
+#undef PAI_CHEMICALS_COOLDOWN

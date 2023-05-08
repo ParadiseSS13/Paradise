@@ -12,11 +12,18 @@
 
 	// Emotions
 	var/list/emotions = list()
-	for(var/name in GLOB.pai_emotions)
+	for(var/name in GLOB.base_pai_emotions)
 		var/list/emote = list()
 		emote["name"] = name
-		emote["id"] = GLOB.pai_emotions[name]
+		emote["id"] = GLOB.base_pai_emotions[name]
 		emotions[++emotions.len] = emote
+	if(pai_holder.syndipai)
+		for(var/name in GLOB.spec_pai_emotions)
+			var/list/emote = list()
+			emote["name"] = name
+			emote["id"] = GLOB.spec_pai_emotions[name]
+			emote["syndi"] = TRUE
+			emotions[++emotions.len] = emote
 
 	data["emotions"] = emotions
 	data["current_emotion"] = user.card.current_emotion
@@ -25,7 +32,7 @@
 	for(var/s in GLOB.pai_software_by_key)
 		var/datum/pai_software/PS = GLOB.pai_software_by_key[s]
 		if(!PS.only_syndi || pai_holder.syndipai)
-			available_s += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost))
+			available_s += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost, "syndi" = PS.only_syndi))
 
 	// Split to installed software and toggles for the UI
 	var/list/installed_s = list()
@@ -55,7 +62,7 @@
 				pai_holder.ram -= newPS.ram_cost
 				pai_holder.installed_software[newPS.id] = newPS
 		if("setEmotion")
-			var/emotion = clamp(text2num(params["emotion"]), 1, 9)
+			var/emotion = clamp(text2num(params["emotion"]), 1, 10)
 			pai_holder.card.setEmotion(emotion)
 		if("startSoftware")
 			var/software_key = params["software_key"]
@@ -454,3 +461,21 @@
 			to_chat(pai_holder, "<span class='notice'>You inject [R.name] from your internal secret laboratory into [held]'s bloodstream.</span>")
 			held.reagents.add_reagent(C.key, C.quantity)
 			pai_holder.chemicals -= C.chemuse
+
+// Advanced Security Records //
+/datum/pai_software/adv_sec_records
+	name = "Advanced Security Records"
+	ram_cost = 25
+	id = "adv_sec_records"
+	template_file = "pai_advsecrecords"
+	ui_icon = "calendar"
+	only_syndi = TRUE
+
+/datum/pai_software/adv_sec_records/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	switch(action)
+		if("ui_interact")
+			pai_holder.integrated_records.ui_interact(pai_holder)
+

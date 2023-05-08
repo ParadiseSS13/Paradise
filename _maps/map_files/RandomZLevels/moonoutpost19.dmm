@@ -4853,6 +4853,7 @@
 	},
 /obj/item/storage/backpack/satchel_tox,
 /obj/item/clothing/gloves/color/latex,
+/obj/item/paicard_upgrade,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";

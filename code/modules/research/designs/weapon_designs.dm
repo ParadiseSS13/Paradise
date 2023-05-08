@@ -480,3 +480,13 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/gun/laser
 	locked = 1
 	category = list("ILLEGAL")
+
+/datum/design/paicard_cartridge
+	name = "Special PAIcard Cartridge"
+	desc = "A cartridge that allows you to install special improvements for your PAI."
+	id = "paicardcartridge"
+	req_tech = list("syndicate" = 3, "programming" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD=500, MAT_GLASS=500)
+	build_path = /obj/item/paicard_upgrade
+	category = list("ILLEGAL")

@@ -53,10 +53,10 @@
 	if(!ai_capability)
 		return ..()
 	if(!capa_is_cooldown)
-		capa_is_cooldown = TRUE
-		A.PAIShiftClick(src)
-		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
-		return
+		if(A.PAIShiftClick(src))
+			capa_is_cooldown = TRUE
+			addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
+			return
 	return ..()
 
 
@@ -64,9 +64,9 @@
 	if(!ai_capability)
 		return ..()
 	if(!capa_is_cooldown)
-		capa_is_cooldown = TRUE
-		A.PAICtrlClick(src)
-		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
+		if(A.PAICtrlClick(src))
+			capa_is_cooldown = TRUE
+			addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 
@@ -74,9 +74,9 @@
 	if(!ai_capability)
 		return ..()
 	if(!capa_is_cooldown)
-		capa_is_cooldown = TRUE
-		A.PAIAltClick(src)
-		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
+		if(A.PAIAltClick(src))
+			capa_is_cooldown = TRUE
+			addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 
@@ -84,9 +84,9 @@
 	if(!ai_capability)
 		return ..()
 	if(!capa_is_cooldown)
-		capa_is_cooldown = TRUE
-		A.PAICtrlShiftClick(src)
-		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
+		if(A.PAICtrlShiftClick(src))
+			capa_is_cooldown = TRUE
+			addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 
@@ -94,9 +94,9 @@
 	if(!ai_capability)
 		return ..()
 	if(!capa_is_cooldown)
-		capa_is_cooldown = TRUE
-		A.PAIAltShiftClick(src)
-		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
+		if(A.PAIAltShiftClick(src))
+			capa_is_cooldown = TRUE
+			addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
 	return ..()
 
@@ -104,61 +104,68 @@
 /atom/proc/PAIShiftClick(mob/user)
 	if(user.client && user.client.eye == user)
 		user.examinate(src)
-	return
+	return FALSE
 
 /atom/proc/PAICtrlClick(mob/living/silicon/robot/user) //forward to human click if not overriden
 	CtrlClick(user)
+	return FALSE
 
 /atom/proc/PAIAltClick(mob/living/silicon/robot/user)
 	AltClick(user)
-	return
+	return FALSE
 
 /atom/proc/PAICtrlShiftClick(mob/user) // Examines
 	if(user.client && user.client.eye == user)
 		user.examinate(src)
-	return
+	return FALSE
 
 /atom/proc/PAIAltShiftClick()
-	return
-
+	return FALSE
 
 // AIRLOCKS
 
 /obj/machinery/door/airlock/PAIShiftClick(mob/living/silicon/pai/user)  // Opens and closes doors! Forwards to AI code.
 	AIShiftClick(user)
+	return TRUE
 
 /obj/machinery/door/airlock/PAICtrlClick(mob/living/silicon/pai/user) // Bolts doors. Forwards to AI code.
 	AICtrlClick(user)
+	return TRUE
 
 /obj/machinery/door/airlock/PAIAltClick(mob/living/silicon/pai/user) // Eletrifies doors. Forwards to AI code.
 	AIAltClick(user)
+	return TRUE
 
 /obj/machinery/door/airlock/PAIAltShiftClick(mob/living/silicon/pai/user)  // Enables emergency override on doors! Forwards to AI code.
 	AIAltShiftClick(user)
-
+	return TRUE
 
 // APC
 
 /obj/machinery/power/apc/PAICtrlClick(mob/living/silicon/pai/user) // turns off/on APCs. Forwards to AI code.
 	AICtrlClick(user)
+	return TRUE
 
 
 // AI SLIPPER
 
 /obj/machinery/ai_slipper/PAICtrlClick(mob/living/silicon/pai/user) //Turns liquid dispenser on or off
 	ToggleOn()
+	return TRUE
 
 /obj/machinery/ai_slipper/PAIAltClick(mob/living/silicon/pai/user) //Dispenses liquid if on
 	Activate()
-
+	return TRUE
 
 // TURRETCONTROL
 
 /obj/machinery/turretid/PAICtrlClick(mob/living/silicon/pai/user) //turret control on/off. Forwards to AI code.
 	AICtrlClick(user)
+	return TRUE
 
 /obj/machinery/turretid/PAIAltClick(mob/living/silicon/pai/user) //turret lethal on/off. Forwards to AI code.
 	AIAltClick(user)
+	return TRUE
 
 /mob/living/silicon/pai/proc/reset_cooldown()
 	capa_is_cooldown = FALSE

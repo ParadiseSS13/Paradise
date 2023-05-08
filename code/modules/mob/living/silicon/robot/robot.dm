@@ -1696,16 +1696,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-	if(sight_mode & BORGMESON)
+	if(sight_mode & SILICONMESON)
 		sight |= SEE_TURFS
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-	if(sight_mode & BORGXRAY)
+	if(sight_mode & SILICONXRAY)
 		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		see_invisible = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		see_in_dark = 8
 
-	if(sight_mode & BORGTHERM)
+	if(sight_mode & SILICONTHERM)
 		sight |= SEE_MOBS
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 

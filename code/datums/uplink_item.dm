@@ -1541,11 +1541,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Personal AI Device (SPAI)"
 	desc = "You will have your personal assistant. It comes with an increased amount of memory and special programs."
 	reference = "SPAI"
-	item = /obj/item/paicard/uplink
+	item = /obj/item/storage/box/syndie_kit/pai
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
 	refundable = TRUE
+	refund_path = /obj/item/paicard_upgrade/unused
 	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/thermal_drill

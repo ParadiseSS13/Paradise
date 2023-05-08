@@ -13,23 +13,18 @@
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
+	var/next_ping_at = 0
 
 	/// for Syndicate pAI type
 	var/is_syndicate_type = FALSE
 	var/extra_memory = 0
-	var/used = FALSE
+	var/obj/item/paicard_upgrade/upgrade
 
 /obj/item/paicard/syndicate // Only seems that it is syndicard
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
-
-/obj/item/paicard/uplink // true Syndicate
 	is_syndicate_type = TRUE
-	faction = list("syndicate")
-	extra_memory = 30
-
-/obj/item/paicard/uplink/check_uplink_validity()
-	return !used
+	extra_memory = 50
 
 /obj/item/paicard/New()
 	..()
@@ -330,6 +325,7 @@
 			if(7) overlays += "pai-sad"
 			if(8) overlays += "pai-angry"
 			if(9) overlays += "pai-what"
+			if(10) overlays += "pai-spai"
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()
@@ -345,3 +341,107 @@
 /obj/item/paicard/extinguish_light()
 	pai.extinguish_light()
 	set_light(0)
+
+/obj/item/paicard/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/paicard_upgrade))
+		var/obj/item/paicard_upgrade/P = I
+		if(pai)
+			if(pai.syndipai)
+				return
+			pai.reset_software()
+			pai.ram += P.extra_memory
+			pai.syndipai = TRUE
+			qdel(P)
+			return
+		if(upgrade || is_syndicate_type)
+			return
+		to_chat(user, "<span class='notice'>You install upgrade.</span>")
+		upgrade = P
+		user.unEquip(P)
+		P.forceMove(src)
+		extra_memory += P.extra_memory
+		is_syndicate_type = TRUE
+		return
+
+/obj/item/paicard/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(pai)
+		return
+	if(!upgrade)
+		return
+	extra_memory -= upgrade.extra_memory
+	is_syndicate_type = FALSE
+	upgrade.forceMove(get_turf(src))
+	upgrade = null
+
+/obj/item/paicard/attack_ghost(mob/dead/observer/user)
+	if(pai)
+		return
+	if(looking_for_personality)
+		GLOB.paiController.recruitWindow(user)
+		return
+	if(!GLOB.paiController.check_recruit(user))
+		to_chat(user, "<span class='warning'>You are not eligible to become a pAI.</span>")
+		return
+	if(world.time >= next_ping_at)
+		next_ping_at = world.time + 20 SECONDS
+		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
+		visible_message("<span class='notice'>[src] pings softly.</span>")
+
+/obj/item/paicard_upgrade
+	name = "PAI upgrade"
+	desc = "A data cartridge for portable AI."
+	icon = 'icons/obj/pda.dmi'
+	icon_state = "pai-spai"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "programming=2;syndicate=2"
+	var/extra_memory = 50
+	var/used = TRUE
+
+/obj/item/paicard_upgrade/check_uplink_validity()
+	return !used
+
+/obj/item/paicard_upgrade/unused
+	used = FALSE
+
+/obj/item/paper/pai_upgrade
+	name = "Инструкция по применению"
+	icon_state = "paper"
+	info = {"<center> <b>Инструкция по применению СпИИ</b> </center><br>
+
+ <b>В набор СпИИ входит:</b><br>
+ 1.Картридж СпИИ<br>
+ 2.Обычная карта для пИИ<br>
+ 3.Отвертка<br>
+ 4.Инструкция по применению<br>
+ <br>
+ <b>Использование:</b><br>
+ Вариант №1<br>
+ Вставить картридж в пИИ и запросить личность. Нужно подождать пока из базы данных загрузится пИИ. Примерное время ожидания от 30 секунд до 5 минут.<br>
+ Вариант №2<br>
+ Если у вас уже есть активный пИИ, то вставьте в него картридж. Он получит все обновления и перезагрузку ЦПУ.<br>
+ Вариант №3<br>
+ Если из базы данных не было предоставлено личности пИИ, то вы можете достать картридж с помощью отвертки, чтобы вернуть потраченные средства.<br>
+ <br>
+ <b>После обновления ваш пИИ получит дополнительную память, а также возможность установить новые программы:</b><br>
+ 1.Доступ к видеокамерам станции.<br>
+ 2.Возможность синтезировать и вводить лечащие реагенты в хозяина.<br>
+ 3.Возмоность взаимодействия со шлюзами раз в 10 секунд (открытие, болтировка, электризация)<br>
+ 4.Доступ к продвинутым записям СБ, для выставления и снятия статусов ареста или ввода в манифест.<br>
+ 5.Термальное зрение для пИИ<br>
+"}
+
+/obj/item/paper/pai_upgrade/update_icon()
+	return
+
+/obj/item/storage/box/syndie_kit/pai
+	name = "Набор ПИИ"
+
+/obj/item/storage/box/syndie_kit/pai/New()
+	..()
+	new /obj/item/paicard(src)
+	new /obj/item/paicard_upgrade/unused(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/paper/pai_upgrade(src)
+	return

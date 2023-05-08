@@ -24,3 +24,19 @@
 	chemname = "Salbutamol"
 	key = "salbutamol"
 	chemdesc = "Heals suffocation damage."
+
+/datum/pai_chem/salglucose
+	chemname = "Saline-Glucose Solution"
+	key = "salglu_solution"
+	chemdesc = "Heals all damage, but it requires more costs."
+	chemuse = 10
+
+/datum/pai_chem/earthsblood
+	chemname = "Earthsblood"
+	key = "earthsblood"
+	chemdesc = "Heals all damage, great for restoring wounds, but it's a little heavy on the brain."
+
+/datum/pai_chem/mannitol
+	chemname = "Mannitol"
+	key = "mannitol"
+	chemdesc = "Heals brain damage."

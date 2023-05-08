@@ -28,7 +28,7 @@ export const pai_main_menu = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Available Software">
           {available_software.filter(s => !installedSoftwareKeys[s.key]).map(s => (
-            <Button key={s.key} content={s.name + " (" + s.cost + ")"} icon={s.icon} disabled={s.cost > available_ram} onClick={
+            <Button key={s.key} color={s.syndi?"red":"default"} content={s.name + " (" + s.cost + ")"} icon={s.icon} disabled={s.cost > available_ram} onClick={
               () => act('purchaseSoftware', { key: s.key })
             } />
           ))}
@@ -58,7 +58,7 @@ export const pai_main_menu = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Select Emotion">
           {emotions.map(e => (
-            <Button key={e.id} content={e.name} selected={e.id === current_emotion} onClick={
+            <Button key={e.id} color={e.syndi?"red":"default"} content={e.name} selected={e.id === current_emotion} onClick={
               () => act('setEmotion', { emotion: e.id })
             } />
           ))}

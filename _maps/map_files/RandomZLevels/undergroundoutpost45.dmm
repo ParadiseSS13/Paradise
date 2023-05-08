@@ -5802,6 +5802,7 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/suit/storage/labcoat/science,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/paicard_upgrade,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
