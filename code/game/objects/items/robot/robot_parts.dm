@@ -278,6 +278,11 @@
 				lawsync = FALSE
 				laws_to_give = new /datum/ai_laws/syndicate_override
 
+			if(M.ninja)
+				aisync = FALSE
+				lawsync = FALSE
+				laws_to_give = new /datum/ai_laws/ninja_override
+
 			if(M.clock)
 				aisync = FALSE
 				lawsync = FALSE

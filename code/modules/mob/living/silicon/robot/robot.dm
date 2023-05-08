@@ -336,6 +336,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		forced_module = "Hunter"
 	if(mmi?.syndicate)
 		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
+	if(mmi?.ninja)
+		forced_module = "Ninja"
 	if(mmi?.clock || isclocker(src))
 		forced_module = "Clockwork"
 	if(forced_module)

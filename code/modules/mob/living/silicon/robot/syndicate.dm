@@ -29,6 +29,7 @@
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
 	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
+	mmi.icon_state = "sofia"
 
 /mob/living/silicon/robot/syndicate/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/syndicate_override
