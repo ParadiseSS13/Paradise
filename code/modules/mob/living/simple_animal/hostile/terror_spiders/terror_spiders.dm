@@ -15,8 +15,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider
 	//COSMETIC
-	name = ""
-	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
+	name = "Паучок"
+	desc = "Стандартный паук. Если ты это видишь, это баг."
 	gender = FEMALE
 	icon = 'icons/mob/terrorspider.dmi'
 	icon_state = "terror_red"
@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	deathmessage = "Screams in pain and slowly stops moving."
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
-	var/spider_intro_text = "Если ты это видишь, напиши разрабам"
+	var/spider_intro_text = "Если ты это видишь, это баг."
 	speak_chance = 0 // quiet but deadly
 	speak_emote = list("hisses")
 	emote_hear = list("hisses")
@@ -35,6 +35,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	sentience_type = SENTIENCE_OTHER
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
+	friendly = "осторожно проводит лапками по"
 	footstep_type = FOOTSTEP_MOB_CLAW
 	talk_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
 	damaged_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
@@ -84,7 +85,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	aggro_vision_range = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	sight = SEE_MOBS
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 
 	// AI aggression settings
 	var/ai_target_method = TS_DAMAGE_SIMPLE
@@ -295,15 +296,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
 	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
-		if(prob(2))
-			// 2% chance every cycle to decompose
+		if(prob(10))
+			// 10% chance every cycle to decompose
 			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
 			gib()
 	else
-		if(stat != DEAD)
+		if(health < maxHealth)
 			adjustBruteLoss(-regeneration)
 		if(degenerate)
-			adjustBruteLoss(15)
+			adjustBruteLoss(6)
 		if(prob(5))
 			CheckFaction()
 

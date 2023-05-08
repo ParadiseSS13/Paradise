@@ -18,14 +18,14 @@
 	icon_dead = "terror_red_dead"
 	maxHealth = 220
 	health = 220
-	damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+	damage_coeff = list(BRUTE = 0.6, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	melee_damage_lower = 15
-	melee_damage_upper = 19
+	melee_damage_upper = 15
 	obj_damage = 60
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
 	death_sound = 'sound/creatures/terrorspiders/death1.ogg'
-	armour_penetration = 10
+	armour_penetration = 25
 	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
 	speed = 0.8
 	spider_opens_doors = 2
@@ -33,6 +33,7 @@
 	web_type = /obj/structure/spider/terrorweb/knight
 	spider_intro_text = "Будучи Рыцарем Ужаса, ваша задача - создавать места для прорыва, или же оборонять гнездо. Несмотря на медлительность, вы живучи и опасны вблизи, используйте свою силу и выносливость, чтобы другие пауки могли выполнять свои функции! Ваши способности позволяют вам переключаться между режимом атаки и обороны, первый - увеличивает скорость, а также наносимый и получаемый урон, второй - уменьшает скорость, получаемый и наносимый урон."
 	gender = MALE
+	tts_seed = "Chu"
 	var/last_attack_mode = 0
 	var/last_defence_mode = 0
 	var/attack_mode_av = 1
@@ -70,12 +71,13 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/proc/activate_mode(n)
 	var/t = world.time
 	if	(n==0)
-		playsound(src, 'sound/creatures/terrorspiders/mod_defence_out.ogg', 100)
-		to_chat(src, "<span class='notice'>You are now in default mode</span>")
+		playsound(src, 'sound/creatures/terrorspiders/keratosis_out.ogg', 150)
+		to_chat(src, "<span class='notice'>Your body relaxes!</span>")
 		speed = 0.8
-		damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
-		melee_damage_lower = 19
-		melee_damage_upper = 19
+		damage_coeff = list(BRUTE = 0.6, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+		melee_damage_lower = 15
+		melee_damage_upper = 15
+		regeneration = 2
 		current_mode = 0
 		return 1
 	if	(n==1)
@@ -83,13 +85,13 @@
 			last_attack_mode = t
 			last_mode = t
 			attack_mode_av = 0
-			playsound(src, 'sound/creatures/terrorspiders/mod_attack_out.ogg', 100)
-			to_chat(src, "<span class='notice'>You are now in attack mode</span>")
+			playsound(src, 'sound/creatures/terrorspiders/mod_attack.ogg', 120)
+			to_chat(src, "<span class='notice'>You are now in rage</span>")
 			speed = 0
-			damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+			damage_coeff = list(BRUTE = 0.8, BURN = 1.2, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 			melee_damage_lower = 30
 			melee_damage_upper = 30
-			src.adjustBruteLoss(30)
+			regeneration = 0
 			current_mode = 1
 			return 1
 		to_chat(src, "<span class='notice'>You cant do this yet!</span>")
@@ -99,12 +101,13 @@
 			last_defence_mode = t
 			last_mode = t
 			defence_mode_av = 0
-			playsound(src, 'sound/creatures/terrorspiders/mod_defence.ogg', 100)
-			to_chat(src, "<span class='notice'>You are now in defence mode</span>")
+			playsound(src, 'sound/creatures/terrorspiders/keratosis_in.ogg', 150)
+			to_chat(src, "<span class='notice'>You cover yourself with keratosis!</span>")
 			speed = 1.6
-			damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
-			melee_damage_lower = 15
-			melee_damage_upper = 15
+			damage_coeff = list(BRUTE = 0.4, BURN = 0.7, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+			melee_damage_lower = 10
+			melee_damage_upper = 10
+			regeneration = 6
 			current_mode = 2
 			return 1
 		to_chat(src, "<span class='notice'>You cant do this yet!</span>")

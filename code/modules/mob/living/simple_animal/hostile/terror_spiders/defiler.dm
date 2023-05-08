@@ -14,21 +14,21 @@
 	icon_state = "terror_white"
 	icon_living = "terror_white"
 	icon_dead = "terror_white_dead"
-	maxHealth = 180
-	health = 180
+	maxHealth = 200
+	health = 200
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
-	speed = -0.1
+	speed = -0.3
 	melee_damage_lower = 2
 	melee_damage_upper = 5
 	spider_opens_doors = 2
 	spider_tier = TS_TIER_2
 	gender = MALE
 	web_type = /obj/structure/spider/terrorweb/white
-	delay_web = 20
+	delay_web = 15
 	special_abillity = list(/obj/effect/proc_holder/spell/targeted/terror/smoke,
 							/obj/effect/proc_holder/spell/targeted/terror/parasmoke,
-							/obj/effect/proc_holder/spell/targeted/terror/infest)
-	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за два укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
+							/obj/effect/proc_holder/spell/aoe_turf/terror/terrify)
+	spider_intro_text = "Будучи Осквернителем Ужаса, ваша цель - атаковать ничего не подозревающих гуманоидов, чтобы заразить их яйцами. Вы наносите мало урона, но можете парализовать цель за три укуса, а ваш яд заставит её замолчать. Вы также можете генерировать различные дымы вредящие противникам. И помните, не нужно убивать заражённых, они послужат носителями для новых пауков!"
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/LoseTarget()
@@ -42,21 +42,16 @@
 		UnlockBlastDoors("UO71_Bridge")
 	return ..(gibbed)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
-	L.AdjustSilence(5)
-	L.adjustStaminaLoss(39)
-	if(!poisonable)
-		..()
-		return
+/mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L)
 	var/inject_target = pick("chest","head")
-	L.attack_animal(src)
-	if(L.stunned || L.paralysis || L.can_inject(null, FALSE, inject_target, FALSE))
-		if(!IsTSInfected(L) && ishuman(L))
-			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
-			new /obj/item/organ/internal/body_egg/terror_eggs(L)
-			if(!ckey)
-				LoseTarget()
-				walk_away(src,L,2,1)
+	L.AdjustSilence(7)
+	L.adjustStaminaLoss(39)
+	if(!IsTSInfected(L) && ishuman(L))
+		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
+		new /obj/item/organ/internal/body_egg/terror_eggs(L)
+		if(!ckey)
+			LoseTarget()
+			walk_away(src,L,2,1)
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))

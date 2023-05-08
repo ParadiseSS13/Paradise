@@ -24,10 +24,9 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 30
 	armour_penetration = 20
-	obj_damage = 75
+	obj_damage = 100
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	ventcrawler = 1
-	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	ai_break_lights = FALSE
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
@@ -47,7 +46,7 @@
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe_turf/terror/queen)
 	can_wrap = FALSE
 	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
-	var/spider_spawnfrequency = 1300 // 130 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
+	var/spider_spawnfrequency = 1600 // 160 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
 	var/spider_spawnfrequency_stable = 3600 // 360 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
 	var/spider_lastspawn = 0
 	var/nestfrequency = 300 // 30 seconds
@@ -63,7 +62,7 @@
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/remoteview/remoteview_action
-	tts_seed = "Queen"
+	tts_seed = "Anivia"
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
@@ -96,9 +95,10 @@
 	canlay += getSpiderLevel()
 	if(canlay == 1)
 		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
+		SEND_SOUND(src, sound('sound/effects/ping.ogg'))
 	else if(canlay > 1)
 		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
-
+		SEND_SOUND(src, sound('sound/effects/ping.ogg'))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/getSpiderLevel()
 	return 1 + round(MinutesAlive() / 10)
@@ -317,8 +317,8 @@
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, numlings)
 		if(TS_DESC_MOTHER)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother, numlings)
-		if(TS_DESC_PRINCE)
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, numlings)
+		if(TS_DESC_DEFILER)
+			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/defiler, numlings)
 		if(TS_DESC_PRINCESS)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess, numlings)
 		else
@@ -332,10 +332,10 @@
 		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait just a few more seconds...</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ListAvailableEggTypes()
-	if(MinutesAlive() >= 20)
-		var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/prince, /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess))
+	if(MinutesAlive() >= 25)
+		var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/defiler, /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess))
 		if(spider_array["all"] == 0)
-			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS, TS_DESC_MOTHER)
+			return list(TS_DESC_DEFILER, TS_DESC_PRINCESS, TS_DESC_MOTHER)
 
 	var/list/valid_types = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_BUILDER)
 	var/list/spider_array = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/guardian, /mob/living/simple_animal/hostile/poison/terror_spider/widow))
@@ -379,6 +379,7 @@
 /obj/structure/spider/terrorweb/queen
 	name = "airtight web"
 	desc = "This multi-layered web seems to be able to resist air pressure."
+	max_integrity = 30
 
 
 /obj/structure/spider/terrorweb/queen/Initialize(mapload)

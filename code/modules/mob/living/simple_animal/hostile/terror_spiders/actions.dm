@@ -43,7 +43,7 @@
 	user.activate_mode(0)
 
 /datum/action/innate/terrorspider/knight/attackm
-	name = "Attack"
+	name = "Rage"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "attack"
 
@@ -52,7 +52,7 @@
 	user.activate_mode(1)
 
 /datum/action/innate/terrorspider/knight/defencem
-	name = "Defence"
+	name = "Keratosis"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "defence"
 
@@ -183,13 +183,10 @@
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			M.Stun(1) // 2 seconds.
 			M.Weaken(1) // 2 seconds.
-			M.slowed = 3
+			M.slowed = 5
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover
 				web_special_ability(C)
-				spawn(70)
-					if(C.loc == loc)
-						qdel(src)
 			return 1
 		else
 			return 0
@@ -298,8 +295,8 @@
 	if(!valid_target)
 		to_chat(src, "<span class='warning'>No welded vent or scrubber nearby!</span>")
 		return
-	playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, 0)
-	if(do_after(src, 40, target = loc))
+	playsound(get_turf(src), 'sound/creatures/terrorspiders/ventbreak.ogg', 75, 0)
+	if(do_after(src, 43, target = loc))
 		for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(src)))
 			if(P.welded)
 				P.welded = 0

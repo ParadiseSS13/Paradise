@@ -15,7 +15,6 @@
 #define TS_DESC_REAPER "Reaper - BRAWL"
 #define TS_DESC_BUILDER "Drone - BUILD"
 //TIER 2
-#define TS_DESC_DEFILER "Defiler - INFECT"
 #define TS_DESC_WIDOW "Widow - POISON"
 #define TS_DESC_GUARDIAN "Guardian - GUARD"
 #define TS_DESC_DESTROYER "Destroyer - BREACHER"
@@ -23,6 +22,7 @@
 #define TS_DESC_PRINCE "Prince - HERO"
 #define TS_DESC_PRINCESS "Princess - HORDE"
 #define TS_DESC_MOTHER "Mother - SUPPORT"
+#define TS_DESC_DEFILER "Defiler - INFECT"
 //TIER 4
 #define TS_DESC_QUEEN "Queen - LEADER"
 

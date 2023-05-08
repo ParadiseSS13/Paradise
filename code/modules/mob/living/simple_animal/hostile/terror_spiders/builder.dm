@@ -16,25 +16,24 @@
 	icon_state = "terror_drone"
 	icon_living = "terror_drone"
 	icon_dead = "terror_drone_dead"
-	maxHealth = 80
-	health = 80
+	maxHealth = 100
+	health = 100
 	regeneration = 0
 	delay_web = 10
-	melee_damage_lower = 5
-	melee_damage_upper = 10
+	melee_damage_lower = 10
+	melee_damage_upper = 15
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	spider_opens_doors = 2
 	ranged = 1
 	rapid = 2
-	ranged_cooldown_time = 25
+	ranged_cooldown_time = 30
 	speed = 1
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
 	projectiletype = /obj/item/projectile/terrorspider/builder
 	web_type = /obj/structure/spider/terrorweb/queen/builder
-	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	ventcrawler = 0
 	can_wrap = FALSE
+	tts_seed = "F_darkelf"
 	spider_intro_text = "Будучи Дроном Ужаса, ваша задача - постройка и защита гнезда. Плетите паутину, используйте свои замедляющие плевки и замораживающие укусы для защиты яиц и гнезда. Помните, вы не регенерируете и двигаетесь медленно вне паутины!."
 
 /mob/living/simple_animal/hostile/poison/terror_spider/builder/spider_specialattack(mob/living/carbon/human/L, poisonable)
@@ -57,14 +56,14 @@
 	var/obj/structure/spider/terrorweb/W = locate() in get_turf(src)
 	if(W)
 		if(speed == 1)
-			speed = -0.2
+			speed = -0.4
 			regeneration = 3
 	else if(speed != 1)
 		regeneration = 0
 		speed = 1
 
 /obj/structure/spider/terrorweb/queen/builder
-	max_integrity = 30
+	max_integrity = 35
 	opacity = 1
 	name = "drone web"
 	desc = "Extremely thick web."
@@ -72,8 +71,8 @@
 /obj/item/projectile/terrorspider/builder
 	name = "drone venom"
 	icon_state = "toxin2"
-	damage = 17
-	stamina = 17
+	damage = 15
+	stamina = 15
 
 /obj/item/projectile/terrorspider/drone/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))

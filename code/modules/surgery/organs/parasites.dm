@@ -50,7 +50,7 @@
 
 	var/cycle_num = 0 // # of on_life() cycles completed, never reset
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
-	var/egg_progress_per_hatch = 90 // if egg_progress > this, chance to hatch and reset egg_progress
+	var/egg_progress_per_hatch = 100 // if egg_progress > this, chance to hatch and reset egg_progress
 	var/eggs_hatched = 0 // num of hatch events completed
 	var/awaymission_checked = FALSE
 	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
@@ -78,8 +78,7 @@
 			qdel(src)
 			return
 
-	// Once at least one egg has hatched from you, you'll need help to reach medbay.
-	if(eggs_hatched >= 1)
+	if(eggs_hatched >= 0)
 		owner.SetConfused(45)
 
 	if(egg_progress > egg_progress_per_hatch)
@@ -103,20 +102,15 @@
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/lurker
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/builder, /mob/living/simple_animal/hostile/poison/terror_spider/healer)
 		if(1) // 2nd
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/knight
-		if(2) // 3rd
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/destroyer
-		if(3) // 4th
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/reaper
-		if(4) // 5th
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/healer
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight)
 			infection_completed = TRUE
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
 	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
 	owner.Paralyse(10)
+	owner.adjustBruteLoss(200)
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
 

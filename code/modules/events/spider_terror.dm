@@ -1,5 +1,5 @@
-#define TS_HIGHPOP_TRIGGER 90
-#define TS_MIDPOP_TRIGGER 60
+#define TS_HIGHPOP_TRIGGER 80
+#define TS_MIDPOP_TRIGGER 50
 
 /datum/event/spider_terror
 	announceWhen = 180
@@ -25,31 +25,35 @@
 	var/spider_type
 	var/infestation_type
 	if((length(GLOB.clients)) <= TS_MIDPOP_TRIGGER)
-		infestation_type = 1
+		infestation_type = pick(1, 2)
 	else if((length(GLOB.clients)) >= TS_HIGHPOP_TRIGGER)
-		infestation_type = pick(3, 4)
+		infestation_type = pick(5, 6)
 	else
-		infestation_type = 2
+		infestation_type = pick(3, 4)
 	switch(infestation_type)
-		if(1)
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
-			spawncount = 2
+		if(1)          //lowpop spawns
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
+			spawncount = 3
 		if(2)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
-			spawncount = 3
-		if(3)
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
-			spawncount = 1
+			spawncount = 2
+		if(3)          //midpop spawns
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
+			spawncount = 4
 		if(4)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
-			spawncount = 4
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Террора?", null, TRUE, source = spider_type)
+			spawncount = 3
+		if(5)          //highpop spawns
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
+			spawncount = 1
+		if(6)
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/prince
+			spawncount = 1
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Ужаса?", null, TRUE, 60 SECONDS, source = spider_type)
 	if(length(candidates) < spawncount)
 		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [spawncount]!")
-	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
-	while(spawncount && length(vents) && length(candidates))
-		var/obj/vent = pick_n_take(vents)
-		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(vent.loc)
+	while(spawncount && length(candidates))
+		var/mob/living/simple_animal/hostile/poison/terror_spider/S = new spider_type(pick(GLOB.xeno_spawn))
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
 		S.give_intro_text()
