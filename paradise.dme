@@ -132,7 +132,7 @@
 #include "code\__HELPERS\lists.dm"
 #include "code\__HELPERS\matrices.dm"
 #include "code\__HELPERS\mob_helpers.dm"
-#include "code\__HELPERS\names.dm"
+#include "code\__HELPERS\name_helpers.dm"
 #include "code\__HELPERS\path.dm"
 #include "code\__HELPERS\pronouns.dm"
 #include "code\__HELPERS\qdel.dm"
