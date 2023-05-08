@@ -42,6 +42,9 @@
 	nitrogen = 82
 	temperature = 180
 
+/turf/simulated/floor/wood/hot
+	temperature = 350
+
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon = 'icons/turf/floors/grass.dmi'

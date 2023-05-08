@@ -1008,6 +1008,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
 
+/area/crew_quarters/pool
+	name = "\improper Pool Room"
+	icon_state = "pool"
+
 /area/crew_quarters/recreation
 	name = "\improper Recreation Area"
 
@@ -1044,6 +1048,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/crew_quarters/mrchangs
 	name = "\improper Mr Chang's"
 	icon_state = "changs"
+
+/area/crew_quarters/servicehall
+	name = "\improper Service Hall"
+	icon_state = "service"
 
 /area/library
 	name = "\improper Library"
@@ -1173,10 +1181,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "engibreak"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/engine/hallways
+	name = "\improper Engineering Hallway"
+	sound_environment = SOUND_AREA_STANDARD_STATION
+	icon_state = "engihall"
+
 /area/engine/equipmentstorage
 	name = "Engineering Equipment Storage"
-	icon_state = "engilocker"
+	icon_state = "engiequip"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+
+/area/engine/lockerroom
+	name = "Engineering Locker Room"
+	icon_state = "engilocker"
 
 /area/engine/hardsuitstorage
 	name = "\improper Engineering Hardsuit Storage"
@@ -1786,6 +1803,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
+
+/area/storage/eva/arrivals
+	name = "Auxillary EVA Storage"
+
+/area/storage/eva/exterior
+	name = "Exterior EVA Storage"
+	icon_state = "spaceequip"
+	outdoors = TRUE
+	ambientsounds = SPACE_SOUNDS
+	sound_environment = SOUND_AREA_SPACE
+
+/area/storage/eva/exterior/charging
+	name = "Exterior Charging"
+	icon_state = "spacecharging"
 
 /area/storage/secure
 	name = "Engineering Secure Storage"
