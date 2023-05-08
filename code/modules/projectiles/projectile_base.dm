@@ -54,7 +54,8 @@
 	var/drowsy = 0
 	var/stamina = 0
 	var/jitter = 0
-	var/forcedodge = 0 //to pass through everything
+	/// Number of times an object can pass through an object. -1 is infinite
+	var/forcedodge = 0 
 	var/dismemberment = 0 //The higher the number, the greater the bonus to dismembering. 0 will not dismember at all.
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/ricochets = 0
@@ -228,6 +229,8 @@
 	prehit(A)
 	var/permutation = A.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
+		if(forcedodge)
+			forcedodge -= 1
 		loc = target_turf
 		if(A)
 			permutated.Add(A)
