@@ -292,7 +292,7 @@
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
 	desc = "Clown Planet's finest."
-	icon_state = "disabler"
+	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
 	selfcharge = TRUE
@@ -460,7 +460,7 @@
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
 	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
 	weapon_weight = WEAPON_HEAVY
-	w_class = WEIGHT_CLASS_HUGE
+	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
 	slot_flags = SLOT_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
@@ -521,12 +521,6 @@
 		to_chat(user, "<span class='warning'>[src] has no flux anomaly core to power it!</span>")
 		return
 	return ..()
-
-/obj/item/gun/energy/bsg/process_chamber()
-	if(prob(25))
-		shatter()
-	..()
-	update_icon()
 
 /obj/item/gun/energy/bsg/update_icon_state()
 	if(core)

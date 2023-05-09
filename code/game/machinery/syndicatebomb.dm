@@ -32,6 +32,7 @@
 	var/next_beep
 	var/detonation_timer
 	var/explode_now = FALSE
+	var/hide_wires = TRUE
 
 /obj/machinery/syndicatebomb/proc/try_detonate(ignore_active = FALSE)
 	. = (payload in src) && (active || ignore_active) && !defused
@@ -86,6 +87,8 @@
 /obj/machinery/syndicatebomb/Initialize(mapload)
 	. = ..()
 	wires = new(src)
+	if(hide_wires)
+		ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	if(payload)
 		payload = new payload(src)
 	update_icon(UPDATE_ICON_STATE)

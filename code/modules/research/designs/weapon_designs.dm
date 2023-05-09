@@ -131,7 +131,7 @@
 	id = "lwap"
 	req_tech = list("combat" = 7, "magnets" = 7, "powerstorage" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_GOLD = 5000, MAT_DIAMOND = 5000)
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 8000, MAT_GOLD = 5000, MAT_DIAMOND = 8000)
 	build_path = /obj/item/weaponcrafting/gunkit/lwap
 	category = list("Weapons")
 

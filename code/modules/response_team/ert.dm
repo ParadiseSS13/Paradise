@@ -146,8 +146,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /client/proc/create_response_team_part_1(new_gender, new_species, role, turf/spawn_location)
 	if(role == "Cyborg")
 		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
-		if(GLOB.active_team.cyborg_security_permitted)
-			R.force_modules = list("Security", "Engineering", "Medical")
+		if(!GLOB.active_team.cyborg_security_permitted)
+			R.force_modules = list("Engineering", "Medical")
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
