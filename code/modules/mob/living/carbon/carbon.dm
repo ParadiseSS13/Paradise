@@ -28,11 +28,6 @@
 		show_message("<span class='userdanger'>The blob attacks!</span>")
 		adjustBruteLoss(10)
 
-/mob/living/carbon/movement_delay()
-	. = ..()
-	if(pulling && (istype(pulling, /obj/structure) || istype(pulling, /obj/machinery)))
-		. += 0.5
-
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
 	if(.)
