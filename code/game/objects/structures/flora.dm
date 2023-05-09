@@ -293,7 +293,7 @@
 //and now these defines
 /obj/structure/flora/rock
 	name = "rock"
-	desc = "a rock"
+	desc = "A rock."
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
 	resistance_flags = FIRE_PROOF
@@ -305,7 +305,7 @@
 
 /obj/structure/flora/rock/pile
 	name = "rocks"
-	desc = "some rocks"
+	desc = "Some rocks."
 	icon_state = "rockpile1"
 
 /obj/structure/flora/rock/pile/Initialize(mapload)

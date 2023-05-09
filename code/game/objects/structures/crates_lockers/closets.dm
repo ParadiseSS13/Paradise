@@ -133,7 +133,7 @@
 			break
 		if(isobserver(M))
 			continue
-		if(istype(M, /mob/living/simple_animal/bot/mulebot))
+		if(istype(M, /mob/living/simple_animal/bot/mulebot) || istype(M, /mob/camera))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue

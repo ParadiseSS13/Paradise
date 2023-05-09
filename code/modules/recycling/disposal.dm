@@ -1044,7 +1044,7 @@
 /obj/structure/disposalpipe/sortjunction
 	name = "disposal sort junction"
 	icon_state = "pipe-j1s"
-	var/list/sort_type = list(1)	
+	var/list/sort_type = list(1)
 	var/sort_type_txt //Look at the list called TAGGERLOCATIONS in /code/_globalvars/lists/flavor_misc.dm and cry
 	var/posdir = 0
 	var/negdir = 0
@@ -1414,7 +1414,7 @@
 	add_fingerprint(user)
 
 	if(mode == FALSE)
-		to_chat(user, "<span class='notice'>You remove the screws around the power connection</span>.")
+		to_chat(user, "<span class='notice'>You remove the screws around the power connection.</span>")
 	else if(mode == TRUE)
 		to_chat(user, "<span class='notice'>You attach the screws around the power connection.</span>")
 	I.play_tool_sound(src)

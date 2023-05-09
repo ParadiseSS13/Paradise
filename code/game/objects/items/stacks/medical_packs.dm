@@ -9,6 +9,7 @@
 	throw_range = 7
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	parent_stack = TRUE
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20

@@ -59,6 +59,7 @@
 	throwforce = 8
 	attack_verb = list("drilled", "screwed", "jabbed")
 	toolspeed = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/wrench/power/attack_self(mob/user)
 	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)

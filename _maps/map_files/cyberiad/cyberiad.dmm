@@ -46053,8 +46053,8 @@
 "cpd" = (
 /obj/structure/mopbucket/full,
 /obj/item/mop,
-/obj/item/caution/proximity_sign,
-/obj/item/caution/proximity_sign,
+/obj/item/caution,
+/obj/item/caution,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"

@@ -304,7 +304,7 @@
 	fire_sound = 'sound/weapons/wave.ogg'
 	e_cost = 10000
 	select_name = "the experimental setting"
-	delay = 10 SECONDS //Looooooong cooldown
+	delay = 4 SECONDS //Looooooong cooldown // Used to be 10 seconds, has been rebalanced to be normal firing rate now
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
