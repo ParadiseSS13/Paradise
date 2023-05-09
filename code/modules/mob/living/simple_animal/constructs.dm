@@ -52,6 +52,10 @@
 
 	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
+/mob/living/simple_animal/hostile/construct/Destroy()
+	remove_held_body()
+	return ..()
+
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 	if(held_body) // Null check for empty bodies
@@ -65,7 +69,6 @@
 				brain.brainmob.key = key // Set the key to the brainmob
 				brain.brainmob.mind.transfer_to(brain.brainmob) // Transfer the mind to the brainmob
 		held_body.cancel_camera()
-		remove_held_body()
 	new /obj/effect/temp_visual/cult/sparks(get_turf(src))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 40, TRUE)
 	. = ..()
