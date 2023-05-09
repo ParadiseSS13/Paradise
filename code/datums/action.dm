@@ -589,8 +589,7 @@
 	if(progress == 1)
 		return ..() // This means that the spell is charged but unavailable due to something else
 
-	var/alpha = 220
-	alpha = 220 - 140 * progress
+	var/alpha = 220 - 140 * progress
 	var/datum/spell_cooldown/charges/handler = S.cooldown_handler
 	if(istype(handler))
 		if(handler.charge_time > world.time)
