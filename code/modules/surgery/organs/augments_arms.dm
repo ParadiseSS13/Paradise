@@ -238,8 +238,8 @@
 	desc = "An alien toolset, designed to be installed on subject's arm."
 	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=3"
 	contents = newlist(/obj/item/screwdriver/abductor, /obj/item/wirecutters/abductor, /obj/item/crowbar/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor, /obj/item/multitool/abductor)
-	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
-	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "hacktool")
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/abductor.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "belt")
 
 /obj/item/organ/internal/cyberimp/arm/toolset_abductor/l
 	parent_organ = "l_arm"
