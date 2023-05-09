@@ -143,6 +143,9 @@
 
 
 /obj/item/gun/energy/lwap/zoom(mob/living/user, forced_zoom)
+	if(world.time - user.last_movement <= PROCESS_TIME_PLUS_DECISECOND && !zoomed)
+		to_chat(user, "<span class='warning'>[src]'s scope is overloaded by movement and cannot be used yet!</span>")
+		return
 	. = ..()
 	if(!ishuman(user))
 		return
