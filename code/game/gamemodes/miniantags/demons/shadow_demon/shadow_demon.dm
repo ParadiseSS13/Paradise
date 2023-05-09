@@ -58,6 +58,28 @@
 	light_color = "#AAD84B"
 	anchored = TRUE
 
+/obj/structure/shadowcocoon/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/shadowcocoon/process()
+	for(var/atom/to_darken in range(4, src))
+		if(prob(60))
+			continue
+		if(iswelder(to_darken) && length(to_darken.light_sources))
+			var/obj/item/weldingtool/welder_to_darken = to_darken
+			welder_to_darken.remove_fuel(welder_to_darken.reagents.get_reagent_amount("fuel"))
+			welder_to_darken.visible_message("<span class='notice'>The shadows swarm around and overwhelm the flame of [welder_to_darken].</span>")
+			return
+		if(istype(to_darken, /obj/item/flashlight/flare))
+			var/obj/item/flashlight/flare/flare_to_darken = to_darken
+			if(!flare_to_darken.on)
+				continue
+			flare_to_darken.turn_off()
+			flare_to_darken.fuel = 0
+			flare_to_darken.visible_message("<span class='notice'>[flare_to_darken] suddenly dims.</span>")
+		to_darken.extinguish_light()
+
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type != BURN) //I unashamedly stole this from spider cocoon code
 		return
@@ -76,7 +98,6 @@
 	if(isliving(AM)) // when a living creature is thrown at it, dont knock it back
 		return
 	..()
-
 
 /mob/living/simple_animal/demon/shadow/Initialize(mapload)
 	. = ..()
@@ -99,11 +120,13 @@
 			thrown_alert = TRUE
 			throw_alert("light", /obj/screen/alert/lightexposure)
 		alpha = 255
+		speed = initial(speed)
 	else
 		if(thrown_alert)
 			thrown_alert = FALSE
 			clear_alert("light")
 		alpha = 125
+		speed = 1 / 2
 	return lum_count
 
 
@@ -145,6 +168,12 @@
 	. = ..()
 	if(!isliving(target))
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
+		if(iswallturf(target))
+			var/turf/simulated/wall = target
+			target.visible_message("<span class='warning'>The [src] rips right through [wall]!")
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+			wall.dismantle_wall(TRUE, FALSE)
+			return
 	else
 		var/mob/living/L = target
 		L.Immobilize(2 SECONDS)
