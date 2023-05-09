@@ -590,11 +590,13 @@
 		return ..() // This means that the spell is charged but unavailable due to something else
 
 	var/alpha = 220
+	alpha = 220 - 140 * progress
 	var/datum/spell_cooldown/charges/handler = S.cooldown_handler
-	if(istype(handler) && handler.current_charges == 0 || !istype(handler))
-		alpha = 220 - 140 * progress
-	else
-		alpha = 60
+	if(istype(handler))
+		if(handler.charge_time > world.time)
+			alpha = 220
+		else if(handler.current_charges != 0)
+			alpha = 60
 
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 	img.alpha = alpha
