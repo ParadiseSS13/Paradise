@@ -16,6 +16,7 @@
 	imp_in.SetParalysis(0)
 	imp_in.adjustStaminaLoss(-75)
 	imp_in.stand_up(TRUE)
+	imp_in.remove_status_effect(STATUS_EFFECT_BATONNED)
 
 	imp_in.reagents.add_reagent("synaptizine", 10)
 	imp_in.reagents.add_reagent("omnizine", 10)

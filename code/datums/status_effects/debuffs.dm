@@ -23,6 +23,16 @@
 	owner.adjustFireLoss(0.1)
 	owner.adjustToxLoss(0.2)
 
+/datum/status_effect/stunbaton
+	id = "stunbatonned"
+	duration = 2.5 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+
+/datum/status_effect/stunbaton/on_timeout()
+	. = ..()
+	owner.KnockDown(10 SECONDS)
+
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
 	id = "cult_ghost"
 	duration = -1
