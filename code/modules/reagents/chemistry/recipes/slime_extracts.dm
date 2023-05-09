@@ -238,7 +238,7 @@
 					step(B, pick(NORTH,SOUTH,EAST,WEST))
 
 
-//Blue (cyan in game)
+//Cyan
 /datum/chemical_reaction/slimefrost
 	name = "Slime Frost Oil"
 	id = "m_frostoil"
@@ -265,7 +265,7 @@
 	var/obj/item/slimepotion/slime/stabilizer/P = new /obj/item/slimepotion/slime/stabilizer
 	P.forceMove(get_turf(holder.my_atom))
 
-//Dark Blue (blue in game)
+//Blue
 /datum/chemical_reaction/slimefreeze
 	name = "Slime Freeze"
 	id = "m_freeze"
@@ -378,7 +378,7 @@
 	var/obj/item/flashlight/slime/F = new /obj/item/flashlight/slime
 	F.forceMove(get_turf(holder.my_atom))
 
-//Purple (violet in game)
+//Violet
 /datum/chemical_reaction/slimepsteroid
 	name = "Slime Steroid"
 	id = "m_steroid"
@@ -406,7 +406,7 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
 
-//Dark Purple (purple in game)
+//Purple
 /datum/chemical_reaction/slimeplasma
 	name = "Slime Plasma"
 	id = "m_plasma"
@@ -472,7 +472,7 @@
 	P.forceMove(get_turf(holder.my_atom))
 
 
-//Pink (magenta in game)
+//Magenta
 /datum/chemical_reaction/docility
 	name = "Docility Potion"
 	id = "m_potion"
@@ -526,7 +526,7 @@
 	log_game("[who] triggered an oil slime explosion at [COORD(extract_turf)].")
 	explosion(extract_turf, 1, 3, 6)
 
-//Light Pink (pink in game)
+//Pink
 /datum/chemical_reaction/slimepotion2
 	name = "Slime Potion 2"
 	id = "m_potion2"
