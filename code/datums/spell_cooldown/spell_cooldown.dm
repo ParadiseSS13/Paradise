@@ -45,7 +45,7 @@
 /datum/spell_cooldown/proc/get_availability_percentage()
 	if(!is_on_cooldown()) // if off cooldown, we don't bother with the maths
 		return 1
-	return (recharge_duration - (recharge_time - world.time)) / recharge_duration
+	return min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration)
 
 /datum/spell_cooldown/proc/start_recharge(recharge_duration_override = 0)
 	var/recharge_increment = recharge_duration_override || recharge_duration

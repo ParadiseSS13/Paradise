@@ -43,5 +43,5 @@
 		return 1
 
 	if(charge_time > world.time)
-		return (charge_duration - (charge_time - world.time)) / charge_duration
-	return (recharge_duration - (recharge_time - world.time)) / recharge_duration //parent proc without the on cooldown check
+		return min(1, (charge_duration - (charge_time - world.time)) / charge_duration)
+	return min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration) //parent proc without the on cooldown check
