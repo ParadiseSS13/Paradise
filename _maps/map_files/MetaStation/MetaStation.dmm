@@ -3105,7 +3105,7 @@
 	department = "Science";
 	departmentType = 2;
 	name = "Science Requests Console";
-	pixel_y = 30
+	pixel_y = 4
 	},
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -53050,7 +53050,7 @@
 	department = "Science";
 	departmentType = 2;
 	name = "Science Requests Console";
-	pixel_y = 30
+	pixel_y = 4
 	},
 /obj/machinery/alarm{
 	dir = 8;
@@ -78967,10 +78967,6 @@
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/fancy/donut_box{
-	pixel_x = -5;
-	pixel_y = 5
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -89324,6 +89320,14 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"wwn" = (
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console"
+	},
+/turf/simulated/wall/r_wall,
+/area/toxins/lab)
 "wwo" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/structure/disposalpipe/segment,
@@ -92060,10 +92064,7 @@
 	pixel_y = -6;
 	req_access_txt = "7"
 	},
-/obj/machinery/cell_charger{
-	step_x = -0.5;
-	step_y = 6
-	},
+/obj/machinery/cell_charger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -124000,7 +124001,7 @@ cPD
 uhY
 bdb
 dbb
-cmo
+wwn
 hYA
 pho
 bYq
