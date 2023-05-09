@@ -1,6 +1,6 @@
 /obj/item/crowbar
-	name = "pocket crowbar"
-	desc = "A small crowbar. This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
+	name = "crowbar"
+	desc = "This handy tool is useful for lots of things, such as prying floor tiles or opening unpowered doors."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "crowbar"
 	item_state = "crowbar"
@@ -10,7 +10,7 @@
 	slot_flags = SLOT_BELT
 	force = 5
 	throwforce = 7
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL = 300)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
 	pickup_sound =  'sound/items/handling/crowbar_pickup.ogg'
@@ -42,13 +42,26 @@
 	usesound = 'sound/weapons/sonic_jackhammer.ogg'
 	icon_state = "crowbar"
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
+/obj/item/crowbar/small
+	name = "miniature titanium crowbar"
+	desc = "A tiny, lightweight titanium crowbar. It fits handily in your pocket."
+	force = 3
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 3
+	materials = list(MAT_TITANIUM = 250)
+	icon_state = "crowbar_titanium"
+	item_state = "crowbar_titanium"
+	origin_tech = "materials=2"
+	toolspeed = 1.25
+
 /obj/item/crowbar/large
-	name = "crowbar"
+	name = "large crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
 	force = 12
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_HUGE
 	throw_speed = 3
 	throw_range = 3
 	materials = list(MAT_METAL = 400)
@@ -75,6 +88,7 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 	var/airlock_open_time = 100 // Time required to open powered airlocks
 
 /obj/item/crowbar/power/Initialize(mapload)

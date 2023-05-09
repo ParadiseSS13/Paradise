@@ -213,7 +213,7 @@
 		return blood_data
 	if(blood_id == "slimejelly")
 		var/blood_data = list()
-		blood_data["colour"] = dna.species.blood_color
+		blood_data["blood_color"] = dna.species.blood_color
 		return blood_data
 
 //get the id of the substance this mob use as blood.
@@ -255,8 +255,8 @@
 			return list("O-", "O+")
 
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, emittor_intertia)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_yy, emittor_intertia)
+	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly"))//is it blood or welding fuel?
 		return
 	if(!T)
 		T = get_turf(src)

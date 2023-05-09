@@ -98,6 +98,7 @@
 	overdose_threshold = 200 // Hyperglycaemic shock
 	taste_description = "sweetness"
 	taste_mult = 1.5
+	allowed_overdose_process = TRUE
 
 /datum/reagent/consumable/sugar/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -717,6 +718,7 @@
 	overdose_threshold = 75
 	harmless = FALSE
 	taste_description = "oil"
+	allowed_overdose_process = TRUE
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/on_mob_life(mob/living/M)
 	if(prob(15))
