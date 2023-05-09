@@ -54,9 +54,9 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 /obj/effect/decal/cleanable/blood/update_icon()
 	var/turf/T = get_turf(loc)
 
-	if(T ? T.density || locate(/obj/structure/window/) in T : FALSE || !gravity_check)
+	if((T && (T.density || locate(/obj/structure/window/) in T)) || !gravity_check)
 		off_floor = TRUE
-		layer = ABOVE_WINDOW_LAYER
+		layer = ABOVE_MOB_LAYER
 		plane = GAME_PLANE
 
 	if(basecolor == "rainbow")
