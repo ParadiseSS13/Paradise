@@ -255,7 +255,7 @@
 			return list("O-", "O+")
 
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_yy, emittor_intertia)
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, emittor_intertia)
 	if((get_blood_id() != "blood") && (get_blood_id() != "slimejelly"))//is it blood or welding fuel?
 		return
 	if(!T)
