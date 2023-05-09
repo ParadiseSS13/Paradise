@@ -469,6 +469,7 @@
 	var/obj/item/assembly/signaler/anomaly/flux/core = null
 	var/has_bluespace_crystal = FALSE
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
+	ratio = 4
 
 /obj/item/gun/energy/bsg/Destroy()
 	QDEL_NULL(core)
@@ -523,6 +524,7 @@
 	return ..()
 
 /obj/item/gun/energy/bsg/update_icon_state()
+	. = ..()
 	if(core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
