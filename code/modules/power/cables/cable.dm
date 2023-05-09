@@ -362,9 +362,8 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(d1) //if d1 is not a node
 		T1 = get_step(T1, d1)
-		P_list = T1.power_list(src, turn(d1, 180), cable_only = TRUE, log_the_debug = TRUE)	// what adjacently joins on to cut cable...
-	P_list += T1.power_list(loc, d1, cable_only = TRUE, log_the_debug = TRUE) //... and on turf
-	message_admins(length(P_list))
+		P_list = T1.power_list(src, turn(d1, 180), cable_only = TRUE)	// what adjacently joins on to cut cable...
+	P_list += T1.power_list(loc, d1, cable_only = TRUE) //... and on turf
 	if(!length(P_list))//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)
 
@@ -378,7 +377,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(remove)
 		loc = null
 	powernet.remove_cable(src) //remove the cut cable from its powernet
-	message_admins("adding to deferred powernet rebuild")
 	// queue it to rebuild
 	SSmachines.deferred_powernet_rebuilds += O
 

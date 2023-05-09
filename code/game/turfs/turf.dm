@@ -480,7 +480,7 @@
 	* direction - the direction that a cable must have in order to be returned in this proc i.e. d1 or d2 must equal direction
 	* cable_only - if TRUE, power_list will only return cables, if FALSE it will also return power machinery
 */
-/turf/proc/power_list(atom/source, direction, cable_only = FALSE, log_the_debug = FALSE)
+/turf/proc/power_list(atom/source, direction, cable_only = FALSE)
 	. = list()
 	for(var/obj/AM in src)
 		if(AM == source)
@@ -488,12 +488,7 @@
 		if(istype(AM, /obj/structure/cable))
 
 			var/obj/structure/cable/C = AM
-			if(log_the_debug)
-				message_admins("found cable")
-				message_admins("[dir], d1 [C.d1] | d2 [C.d2]")
 			if(C.d1 == direction || C.d2 == direction)
-				if(log_the_debug)
-					message_admins("checks out!")
 				. += C // one of the cables ends matches the supplied direction, add it to connnections
 		if(cable_only || direction)
 			continue
