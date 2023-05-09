@@ -36,7 +36,7 @@
 	charge_time = world.time
 
 /datum/spell_cooldown/charges/statpanel_info()
-	return "[current_charges] / [max_charges], [..()]"
+	return "[..()]\n[current_charges] / [max_charges]"
 
 /datum/spell_cooldown/charges/get_availability_percentage()
 	if(max_charges == current_charges)
@@ -44,5 +44,4 @@
 
 	if(charge_time > world.time)
 		return (charge_duration - (charge_time - world.time)) / charge_duration
-
 	return (recharge_duration - (recharge_time - world.time)) / recharge_duration //parent proc without the on cooldown check
