@@ -33,7 +33,7 @@
 	var/in_stance = FALSE
 	/// If the martial art allows parrying.
 	var/can_parry = FALSE
-	/// The priority of which martial art is picked from all the ones someone knows.
+	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
 
 /datum/martial_art/New()
@@ -155,6 +155,7 @@
 		H.mind.martial_art = get_highest_weight(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 
+///	Returns the martial art with the highest weight from all the ones someone knows.
 /datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
 	var/datum/martial_art/highest_weight = null
 	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
