@@ -14,6 +14,7 @@
 		var/datum/disease/advance/A = new /datum/disease/advance
 		A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs)) // random silly name
 		A.symptoms = A.GenerateSymptoms(1,9,6)
+		A.Refresh()
 		A.AssignProperties(list("resistance" = rand(0,11), "stealth" = rand(0,2), "stage_rate" = rand(0,5), "transmittable" = rand(0,5), "severity" = rand(0,10)))
 		D = A
 
