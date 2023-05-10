@@ -317,14 +317,28 @@
 			var/list/construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured,
 											"Wraith" = /mob/living/simple_animal/hostile/construct/wraith,
 											"Artificer" = /mob/living/simple_animal/hostile/construct/builder)
+
+			var/list/holy_construct_types = list("Juggernaut" = /mob/living/simple_animal/hostile/construct/armoured/holy,
+												"Wraith" = /mob/living/simple_animal/hostile/construct/wraith/holy,
+												"Artificer" = /mob/living/simple_animal/hostile/construct/builder/holy)
 			/// Custom construct icons for different cults
 			var/list/construct_icons = list("Juggernaut" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("juggernaut")),
 											"Wraith" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("wraith")),
 											"Artificer" = image(icon = 'icons/mob/mob.dmi', icon_state = SSticker.cultdat.get_icon("builder")))
 
+			var/list/holy_construct_icons = list("Juggernaut" = image(icon = 'icons/mob/mob.dmi', icon_state = "holy_juggernaut"),
+											"Wraith" = image(icon = 'icons/mob/mob.dmi', icon_state = "holy_shifter"),
+											"Artificer" = image(icon = 'icons/mob/mob.dmi', icon_state = "holy_artificer"))
+
 			if(shade)
-				var/construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
-				var/picked_class = construct_types[construct_choice]
+				var/construct_choice = 0
+				var/picked_class = 0
+				if(purified)
+					construct_choice = show_radial_menu(user, shell, holy_construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
+					picked_class = holy_construct_types[construct_choice]
+				else
+					construct_choice = show_radial_menu(user, shell, construct_icons, custom_check = CALLBACK(src, PROC_REF(radial_check), user), require_near = TRUE)
+					picked_class = construct_types[construct_choice]
 				if((picked_class && !QDELETED(shell) && !QDELETED(src)) && user.Adjacent(shell) && !user.incapacitated() && radial_check(user))
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
@@ -349,9 +363,6 @@
 		name = "Holy [name]"
 		real_name = "Holy [real_name]"
 
-		// Replace regular soulstone summoning with purified soulstones
-		RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone)
-		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
 
 	else if(iscultist(src)) // Re-grant cult actions, lost in the transfer
 		var/datum/action/innate/cult/comm/CC = new

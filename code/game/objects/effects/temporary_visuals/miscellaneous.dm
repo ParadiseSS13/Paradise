@@ -98,6 +98,15 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.wraith_jaunt_out_animation
 
+/obj/effect/temp_visual/dir_setting/holy_shift
+	name = "blood"
+	icon = 'icons/mob/mob.dmi'
+	icon_state = "holy_shift"
+	duration = 12
+
+/obj/effect/temp_visual/dir_setting/holy_shift/out
+	icon_state = "holy_shift_out"
+
 /obj/effect/temp_visual/dir_setting/tailsweep
 	icon_state = "tailsweep"
 	duration = 4

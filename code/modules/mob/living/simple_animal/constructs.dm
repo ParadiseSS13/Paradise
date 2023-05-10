@@ -26,20 +26,22 @@
 	deathmessage = "collapses in a shattered heap."
 	var/construct_type = "shade"
 	var/list/construct_spells = list()
+	var/cult_icon_changing = TRUE //Changing the sprite from the type of cult
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 
 /mob/living/simple_animal/hostile/construct/New()
 	. = ..()
-	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
-		name = "[construct_type] ([rand(1, 1000)])"
-		real_name = construct_type
-		icon_living = construct_type
-		icon_state = construct_type
-	else
-		name = "[SSticker.cultdat.get_name(construct_type)] ([rand(1, 1000)])"
-		real_name = SSticker.cultdat.get_name(construct_type)
-		icon_living = SSticker.cultdat.get_icon(construct_type)
-		icon_state = SSticker.cultdat.get_icon(construct_type)
+	if(cult_icon_changing)
+		if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+			name = "[construct_type] ([rand(1, 1000)])"
+			real_name = construct_type
+			icon_living = construct_type
+			icon_state = construct_type
+		else
+			name = "[SSticker.cultdat.get_name(construct_type)] ([rand(1, 1000)])"
+			real_name = SSticker.cultdat.get_name(construct_type)
+			icon_living = SSticker.cultdat.get_icon(construct_type)
+			icon_state = SSticker.cultdat.get_icon(construct_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
@@ -133,7 +135,11 @@
 
 	return (..(P))
 
-
+/mob/living/simple_animal/hostile/construct/armoured/holy
+	cult_icon_changing = FALSE
+	icon_state = "holy_juggernaut"
+	icon_living = "holy_juggernaut"
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/aoe_turf/conjure/lesserforcewall/holy)
 
 ////////////////////////Wraith/////////////////////////////////////////////
 
@@ -160,6 +166,12 @@
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
+
+/mob/living/simple_animal/hostile/construct/wraith/holy
+	cult_icon_changing = FALSE
+	icon_state = "holy_shifter"
+	icon_living = "holy_shifter"
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/holy)
 
 /////////////////////////////Artificer/////////////////////////
 
@@ -241,6 +253,17 @@
 	AIStatus = AI_ON
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //only token destruction, don't smash the cult wall NO STOP
 
+/mob/living/simple_animal/hostile/construct/builder/holy
+	cult_icon_changing = FALSE
+	icon_state = "holy_artificer"
+	icon_living = "holy_artificer"
+	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
+							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall/holy,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor/holy,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon/holy,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy)
 
 /////////////////////////////Behemoth/////////////////////////
 
