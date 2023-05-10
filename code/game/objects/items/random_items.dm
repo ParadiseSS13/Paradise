@@ -131,6 +131,10 @@
 
 /obj/item/storage/pill_bottle/random_meds/New()
 	..()
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+
+/obj/item/storage/pill_bottle/random_meds/populate_contents()
 	for(var/i in 1 to storage_slots)
 		var/list/possible_medicines = GLOB.standard_medicines.Copy()
 		if(prob(50))
@@ -148,8 +152,6 @@
 		else
 			P.name = "Unlabelled Pill"
 			P.desc = "Something about this pill entices you to try it, against your better judgement."
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
 
 /obj/item/storage/pill_bottle/random_meds/labelled
 	name = "variety pillbottle"
@@ -317,8 +319,7 @@
 	/obj/item/grenade/chem_grenade/dirt, /obj/item/grenade/chem_grenade/lube, /obj/item/grenade/smokebomb,
 	/obj/item/grenade/chem_grenade/drugs, /obj/item/grenade/chem_grenade/ethanol) // holy list batman
 
-/obj/item/storage/box/grenades/New()
-	..()
+/obj/item/storage/box/grenades/populate_contents()
 	for(var/i in 1 to 6)
 		var/nade = pick(grenadelist)
 		new nade(src)

@@ -144,8 +144,7 @@
 	storage_slots = 2
 	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
-/obj/item/storage/firstaid/with_mousetrap/tactical/New()
-	..()
+/obj/item/storage/firstaid/with_mousetrap/tactical/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
 
@@ -169,8 +168,7 @@
 	storage_slots = 2
 	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
-/obj/item/storage/firstaid/with_mousetrap/syndie/New()
-	..()
+/obj/item/storage/firstaid/with_mousetrap/syndie/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
 

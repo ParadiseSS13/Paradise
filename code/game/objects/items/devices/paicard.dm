@@ -438,10 +438,8 @@
 /obj/item/storage/box/syndie_kit/pai
 	name = "Набор ПИИ"
 
-/obj/item/storage/box/syndie_kit/pai/New()
-	..()
+/obj/item/storage/box/syndie_kit/pai/populate_contents()
 	new /obj/item/paicard(src)
 	new /obj/item/paicard_upgrade/unused(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/paper/pai_upgrade(src)
-	return

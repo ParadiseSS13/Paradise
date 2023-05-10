@@ -5,8 +5,7 @@
 	icon_state = "box_thief"
 	item_state = "syringe_kit"
 
-/obj/item/storage/box/thief_kit/New()
-	..()
+/obj/item/storage/box/thief_kit/populate_contents()
 	new /obj/item/clothing/gloves/color/black/thief(src)
 	new /obj/item/storage/backpack/satchel_flat(src)
 	new /obj/item/coin/twoheaded/thief(src)

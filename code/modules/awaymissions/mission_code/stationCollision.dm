@@ -147,10 +147,12 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 /obj/item/storage/secure/safe/sc_ssafe
 	name = "Captain's secure safe"
 
-/obj/item/storage/secure/safe/sc_ssafe/New()
-	..()
+/obj/item/storage/secure/safe/sc_ssafe/Initialize(mapload)
+	. = ..()
 	l_code = "[GLOB.sc_safecode1][GLOB.sc_safecode2][GLOB.sc_safecode3][GLOB.sc_safecode4][GLOB.sc_safecode5]"
 	l_set = 1
+
+/obj/item/storage/secure/safe/sc_ssafe/populate_contents()
 	new /obj/item/gun/energy/mindflayer(src)
 	new /obj/item/soulstone(src)
 	new /obj/item/clothing/head/helmet/space/cult(src)

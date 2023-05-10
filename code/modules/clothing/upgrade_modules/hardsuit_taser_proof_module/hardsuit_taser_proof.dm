@@ -23,24 +23,13 @@
 	icon_state = "box_ert"
 	ert_locked = TRUE
 
-/obj/item/storage/box/ert_taser_proof/New()
-	. = ..()
+/obj/item/storage/box/ert_taser_proof/populate_contents()
 	if(!ert_locked)
-		new /obj/item/hardsuit_taser_proof(src)
-		new /obj/item/hardsuit_taser_proof(src)
-		new /obj/item/hardsuit_taser_proof(src)
-		new /obj/item/hardsuit_taser_proof(src)
-		new /obj/item/hardsuit_taser_proof(src)
-		new /obj/item/hardsuit_taser_proof(src)
-		new /obj/item/hardsuit_taser_proof(src)
+		for(var/I in 1 to 7)
+			new /obj/item/hardsuit_taser_proof(src)
 	else
-		new /obj/item/hardsuit_taser_proof/ert_locked(src)
-		new /obj/item/hardsuit_taser_proof/ert_locked(src)
-		new /obj/item/hardsuit_taser_proof/ert_locked(src)
-		new /obj/item/hardsuit_taser_proof/ert_locked(src)
-		new /obj/item/hardsuit_taser_proof/ert_locked(src)
-		new /obj/item/hardsuit_taser_proof/ert_locked(src)
-		new /obj/item/hardsuit_taser_proof/ert_locked(src)
+		for(var/I in 1 to 7)
+			new /obj/item/hardsuit_taser_proof/ert_locked(src)
 
 /obj/item/hardsuit_taser_proof/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!hardsuit)

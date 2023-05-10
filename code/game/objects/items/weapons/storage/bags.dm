@@ -209,11 +209,7 @@
 	var/capacity = 300; //the number of sheets it can carry.
 	w_class = WEIGHT_CLASS_NORMAL
 
-	allow_quick_empty = 1 // this function is superceded
-/obj/item/storage/bag/sheetsnatcher/New()
-	..()
-	//verbs -= /obj/item/storage/verb/quick_empty
-	//verbs += /obj/item/storage/bag/sheetsnatcher/quick_empty
+	allow_quick_empty = TRUE// this function is superceded
 
 /obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
@@ -309,7 +305,7 @@
 	update_icon()
 
 // Instead of removing
-/obj/item/storage/bag/sheetsnatcher/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/bag/sheetsnatcher/remove_from_storage(obj/item/W, atom/new_location)
 	var/obj/item/stack/sheet/S = W
 	if(!istype(S)) return 0
 
@@ -412,7 +408,7 @@
 	for(var/obj/item/I in contents)
 		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 
-/obj/item/storage/bag/tray/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/bag/tray/remove_from_storage(obj/item/W, atom/new_location)
 	..()
 	rebuild_overlays()
 
@@ -465,8 +461,7 @@
 /obj/item/storage/bag/tray/cookies_tray
 	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
 
-/obj/item/storage/bag/tray/cookies_tray/New() /// By Azule Utama, thank you a lot!
-	..()
+/obj/item/storage/bag/tray/cookies_tray/populate_contents() /// By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
 		var/obj/item/C = new cookie(src)
 		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned

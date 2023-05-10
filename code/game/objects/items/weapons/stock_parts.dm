@@ -50,8 +50,7 @@
 	toolspeed = 0.5
 	var/empty_mode = 4 //То, что выгружаем. Если меньше или равно, то выгружаем
 
-/obj/item/storage/part_replacer/bluespace/tier4/New()
-	. = ..()
+/obj/item/storage/part_replacer/bluespace/tier4/populate_contents()
 	for(var/amount in 1 to 30)
 		new /obj/item/stock_parts/capacitor/quadratic(src)
 		new /obj/item/stock_parts/manipulator/femto(src)

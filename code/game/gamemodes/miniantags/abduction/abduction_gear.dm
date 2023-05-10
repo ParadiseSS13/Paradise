@@ -829,8 +829,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	throw_speed = 2
 	throw_range = 8
 
-/obj/item/storage/firstaid_abductor/New()
-	..()
+/obj/item/storage/firstaid_abductor/populate_contents()
 	new /obj/item/reagent_containers/applicator/abductor/brute(src)
 	new /obj/item/reagent_containers/applicator/abductor/burn(src)
 	new /obj/item/reagent_containers/glass/bottle/abductor/rezadone(src)

@@ -176,12 +176,7 @@
 /obj/item/storage/box/mechabeacons
 	name = "Exosuit Tracking Beacons"
 
-/obj/item/storage/box/mechabeacons/New()
-	..()
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
+/obj/item/storage/box/mechabeacons/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/mecha_parts/mecha_tracking(src)
+

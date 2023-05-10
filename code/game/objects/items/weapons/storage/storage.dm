@@ -12,7 +12,6 @@
 	var/silent = FALSE // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
-	var/empty = FALSE // Will this spawn as an empty box
 	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
 	var/max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	var/storage_slots = 7 //The number of storage slots in this container.
@@ -31,6 +30,38 @@
 	var/foldable_amt = 0
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
+
+/obj/item/storage/Initialize(mapload)
+	. = ..()
+
+	can_hold = typecacheof(can_hold)
+	cant_hold = typecacheof(cant_hold)
+
+	if(allow_quick_empty)
+		verbs += /obj/item/storage/verb/quick_empty
+	else
+		verbs -= /obj/item/storage/verb/quick_empty
+
+	if(allow_quick_gather)
+		verbs += /obj/item/storage/verb/toggle_gathering_mode
+	else
+		verbs -= /obj/item/storage/verb/toggle_gathering_mode
+
+	populate_contents()
+
+	boxes = new /obj/screen/storage()
+	boxes.name = "storage"
+	boxes.master = src
+	boxes.icon_state = "block"
+	boxes.screen_loc = "7,7 to 10,8"
+	boxes.layer = HUD_LAYER
+	boxes.plane = HUD_PLANE
+	closer = new /obj/screen/close()
+	closer.master = src
+	closer.icon_state = "backpack_close"
+	closer.layer = ABOVE_HUD_LAYER
+	closer.plane = ABOVE_HUD_PLANE
+	orient2hud()
 
 /obj/item/storage/Destroy()
 	for(var/obj/O in contents)
@@ -490,34 +521,13 @@
 		remove_from_storage(I, T)
 		CHECK_TICK
 
-/obj/item/storage/New()
-	..()
-	can_hold = typecacheof(can_hold)
-	cant_hold = typecacheof(cant_hold)
-
-	if(allow_quick_empty)
-		verbs += /obj/item/storage/verb/quick_empty
-	else
-		verbs -= /obj/item/storage/verb/quick_empty
-
-	if(allow_quick_gather)
-		verbs += /obj/item/storage/verb/toggle_gathering_mode
-	else
-		verbs -= /obj/item/storage/verb/toggle_gathering_mode
-
-	boxes = new /obj/screen/storage()
-	boxes.name = "storage"
-	boxes.master = src
-	boxes.icon_state = "block"
-	boxes.screen_loc = "7,7 to 10,8"
-	boxes.layer = HUD_LAYER
-	boxes.plane = HUD_PLANE
-	closer = new /obj/screen/close()
-	closer.master = src
-	closer.icon_state = "backpack_close"
-	closer.layer = ABOVE_HUD_LAYER
-	closer.plane = ABOVE_HUD_PLANE
-	orient2hud()
+/**
+  * Populates the container with items
+  *
+  * Override with whatever you want to put in the container
+  */
+/obj/item/storage/proc/populate_contents()
+	return // Override
 
 /obj/item/storage/emp_act(severity)
 	..()
