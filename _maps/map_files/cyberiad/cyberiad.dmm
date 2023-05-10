@@ -70277,18 +70277,6 @@
 	icon_state = "dark"
 	},
 /area/medical/cmo)
-"hnU" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/girder,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint2)
 "hnY" = (
 /obj/machinery/light{
 	dir = 1
@@ -73829,9 +73817,9 @@
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
 "jUM" = (
-/obj/structure/grille/broken,
-/obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel,
 /area/maintenance/apmaint2)
 "jUZ" = (
 /obj/structure/window/plasmareinforced{
@@ -81598,7 +81586,13 @@
 	},
 /area/hallway/primary/aft)
 "pAx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/grille_maybe,
@@ -83235,15 +83229,16 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "qGb" = (
-/obj/structure/girder,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "qGn" = (
@@ -115365,7 +115360,7 @@ bLV
 oWV
 cLi
 cLi
-wfP
+ogh
 cLF
 cLi
 aaa
@@ -116136,8 +116131,8 @@ clF
 vyw
 sJC
 rMq
-ogh
-eAw
+wfP
+pAx
 cOx
 aaa
 aab
@@ -116650,8 +116645,8 @@ usA
 gSd
 cLi
 cLi
-pAx
-hnU
+pgV
+qod
 rEZ
 aaa
 aaa
@@ -117424,7 +117419,7 @@ ykF
 ogh
 weq
 cLi
-rYm
+jUM
 cZw
 ybL
 cKJ
@@ -120252,8 +120247,8 @@ cLG
 cNG
 cLf
 cKb
-jUM
-qGb
+cNB
+gxl
 rgM
 dsI
 iUF
@@ -120767,7 +120762,7 @@ cJx
 cOQ
 cKb
 tmS
-mcW
+qGb
 rgM
 dsK
 uVt
