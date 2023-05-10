@@ -399,3 +399,10 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 11. Готово. Юнит снова функционирует.<BR>
 <BR><BR><BR>
 	"}
+/obj/item/storage/box/syndie_kit/chameleon_counter
+	name = "chameleon counterfeiter kit"
+
+/obj/item/storage/box/syndie_kit/chameleon_counter/populate_contents()
+	new /obj/item/chameleon_counterfeiter(src)
+	new /obj/item/chameleon_counterfeiter(src)
+	new /obj/item/chameleon_counterfeiter(src)
