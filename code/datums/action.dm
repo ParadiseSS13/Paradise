@@ -586,9 +586,7 @@
 	var/datum/spell_cooldown/charges/handler = S.cooldown_handler
 	if(!istype(S) || !istype(handler))
 		return ..()
-	if(handler.current_charges < handler.max_charges)
-		return TRUE
-	return FALSE
+	return handler.current_charges < handler.max_charges
 
 /datum/action/spell_action/apply_unavailable_effect()
 	var/obj/effect/proc_holder/spell/S = target
