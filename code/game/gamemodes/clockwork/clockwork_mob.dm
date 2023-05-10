@@ -46,10 +46,10 @@
 	SSticker.mode.remove_clocker(mind, FALSE)
 
 /mob/living/simple_animal/hostile/clockwork/marauder/AttackingTarget()
-	if(a_intent == INTENT_HELP && isliving(target) && !isclocker(target)) // yes i know, it's not a disarm
+	if(a_intent == INTENT_DISARM && isliving(target) && !isclocker(target))
 		var/mob/living/L = target
 		playsound(loc, 'sound/weapons/clash.ogg', 50, TRUE)
-		L.adjustStaminaLoss(20)
+		L.adjustStaminaLoss(25)
 		src.do_attack_animation(target)
 		target.visible_message("<span class='danger'>[src] hits [target] with flat of the sword!</span>", \
 						"<span class='userdanger'>[src] hits you with flat of the sword!</span>")
@@ -99,6 +99,31 @@
 			playsound(src, "ricochet", 50, TRUE)
 		return TRUE
 	return FALSE
+
+/mob/living/simple_animal/hostile/clockwork/marauder/a_intent_change(input as text)
+	set name = "a-intent"
+	set hidden = 1
+	if(can_change_intents)
+		switch(input)
+			if(INTENT_HELP,INTENT_DISARM,INTENT_HARM)
+				a_intent = input
+			if("right")
+				if(a_intent == INTENT_HELP)
+					a_intent = INTENT_DISARM
+				else if(a_intent == INTENT_DISARM)
+					a_intent = INTENT_HARM
+				else if(a_intent == INTENT_HARM)
+					a_intent = INTENT_HELP
+			if("left")
+				if(a_intent == INTENT_HELP)
+					a_intent = INTENT_HARM
+				else if(a_intent == INTENT_DISARM)
+					a_intent = INTENT_HELP
+				else if(a_intent == INTENT_HARM)
+					a_intent = INTENT_DISARM
+		if(hud_used && hud_used.action_intent)
+			hud_used.action_intent.icon_state = "[a_intent]"
+
 
 /*MOUSE*/
 /mob/living/simple_animal/mouse/clockwork

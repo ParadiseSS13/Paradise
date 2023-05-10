@@ -85,8 +85,8 @@
 	if(hud_used)
 		var/datum/hud/hud = hud_used
 		if(!hud.wind_up_timer)
-			hud.wind_up_timer = new /obj/screen()
-			hud.static_inventory += hud.wind_up_timer
+			hud.wind_up_timer = new /obj/screen/wind_up_timer()
+			hud.infodisplay += hud.wind_up_timer
 			hud.show_hud(hud.hud_version)
 
 /mob/living/silicon/robot/cogscarab/Life(seconds, times_fired)
@@ -176,7 +176,7 @@
 /mob/living/silicon/robot/cogscarab/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
 		return ..()
-	if(health <= -maxHealth && stat != DEAD)
+	if(health <= 0 && stat != DEAD)
 		ghostize(TRUE)
 		gib()
 		log_debug("died of damage, trigger reason: [reason]")

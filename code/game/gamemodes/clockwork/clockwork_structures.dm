@@ -97,7 +97,7 @@
 	name = "herald's beacon"
 	desc = "An imposing spire formed of brass. It somewhat pulsates."
 	icon_state = "beacon"
-	max_integrity = 750 // A very important one
+	max_integrity = 250 // A very important one
 	death_message = "<span class='danger'>The beacon crumbles and falls in parts to the ground relaesing it's power!</span>"
 	death_sound = 'sound/effects/creepyshriek.ogg'
 	var/heal_delay = 6 SECONDS
