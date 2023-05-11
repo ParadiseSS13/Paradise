@@ -28,6 +28,8 @@
 	var/addiction_stage = 1
 	var/last_addiction_dose = 0
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
+	/// If this variable is true, chemicals will continue to process in mobs when overdosed.
+	var/allowed_overdose_process = FALSE
 	var/current_cycle = 1
 	var/drink_icon = null
 	var/drink_name = "Glass of ..what?"
@@ -98,6 +100,16 @@
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
+	current_cycle++
+	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency // Cache it
+
+	handle_addiction(M, total_depletion_rate)
+	sate_addiction(M)
+
+	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
+	return STATUS_UPDATE_NONE
+
+/datum/reagent/proc/on_mob_overdose_life(mob/living/M) //We want to drain reagents but not do the entire mob life.
 	current_cycle++
 	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency // Cache it
 

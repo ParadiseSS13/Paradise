@@ -14,7 +14,7 @@
 	belt_icon = "multitool"
 	flags = CONDUCT
 	force = 0
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 0
 	throw_range = 7
 	throw_speed = 3
@@ -53,6 +53,7 @@
 	var/rangealert = 8	//Glows red when inside
 	var/rangewarning = 20 //Glows yellow when inside
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/multitool/ai_detect/Initialize(mapload)
 	. = ..()
@@ -104,6 +105,7 @@
 	item_state = "multitool_syndi"
 	belt_icon = "multitool_syndi"
 	toolspeed = 0.95 // dangerously fast... not like multitools use speed anyways
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
 
 /obj/item/multitool/command
@@ -167,6 +169,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 
 /obj/item/multitool/abductor/Initialize(mapload)

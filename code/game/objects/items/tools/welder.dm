@@ -14,7 +14,7 @@
 	throw_speed = 3
 	throw_range = 5
 	hitsound = "swing_hit"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL = 400, MAT_GLASS = 100)
@@ -218,7 +218,7 @@
 	desc = "A miniature welder used during emergencies."
 	icon_state = "miniwelder"
 	maximum_fuel = 10
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL = 200, MAT_GLASS = 50)
 	low_fuel_changes_icon = FALSE
 
@@ -228,6 +228,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	toolspeed = 0.1
+	w_class = WEIGHT_CLASS_SMALL
 	light_intensity = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
 	requires_fuel = FALSE
