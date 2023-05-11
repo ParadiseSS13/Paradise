@@ -7,6 +7,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 2
+	resistance_flags = FLAMMABLE
 	throw_speed = 1
 	layer = 4
 	pressure_resistance = 2
@@ -22,11 +23,13 @@
 		new /obj/item/paper(src)
 		amount += 1
 
-/obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/paper_bundle/attackby(obj/item/W, mob/living/user, params)
 	..()
-	var/obj/item/paper/P
+	if(resistance_flags & ON_FIRE)
+		return
+
 	if(istype(W, /obj/item/paper))
-		P = W
+		var/obj/item/paper/P = W
 		if(istype(P, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/C = P
 			if(!C.iscopy && !C.copied)
@@ -51,8 +54,26 @@
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
+
 	else if(istype(W, /obj/item/lighter))
 		burnpaper(W, user)
+
+	else if(is_hot(W))
+		if((CLUMSY in user.mutations) && prob(10))
+			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
+								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
+			user.unEquip(W)
+			user.adjust_fire_stacks(1)
+			user.IgniteMob()
+			return
+
+		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
+			return
+
+		user.unEquip(src)
+		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [W]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		fire_act()
+
 	else if(istype(W, /obj/item/paper_bundle))
 		user.unEquip(W)
 		for(var/obj/O in W)
@@ -66,7 +87,7 @@
 	else
 		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=PaperBundle[UID()]") //Closes the dialog
-		P = src[page]
+		var/obj/item/paper/P = src[page]
 		P.attackby(W, user, params)
 
 
@@ -76,9 +97,19 @@
 	add_fingerprint(usr)
 	return
 
+/obj/item/paper_bundle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
+	if(!(resistance_flags & FIRE_PROOF))
+		for(var/I = 1 to amount+1)
+			var/obj/item/paper/P = src[I]
+			P.info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
+
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
+
+	if(resistance_flags & FIRE_PROOF)
+		return
 
 	if(P.lit && !user.restrained())
 		if(istype(P, /obj/item/lighter/zippo))
