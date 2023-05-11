@@ -315,6 +315,7 @@
 						if(prob(10))
 							E.mend_fracture()
 							E.fix_internal_bleeding()
+							E.fix_burn_wound(update_health = FALSE)
 							heal_points--
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
@@ -349,6 +350,7 @@
 		if(is_mining_level(H.z))
 			for(var/obj/item/organ/external/E in H.bodyparts)
 				E.fix_internal_bleeding()
+				E.fix_burn_wound()
 				E.mend_fracture()
 		else
 			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")

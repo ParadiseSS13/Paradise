@@ -133,7 +133,7 @@
 		var/datum/client_login_processor/CLP = new processor_type
 		GLOB.client_login_processors += CLP
 	// Sort them by priority, lowest first
-	sortTim(GLOB.client_login_processors, /proc/cmp_login_processor_priority)
+	sortTim(GLOB.client_login_processors, GLOBAL_PROC_REF(cmp_login_processor_priority))
 
 	GLOB.emote_list = init_emote_list()
 

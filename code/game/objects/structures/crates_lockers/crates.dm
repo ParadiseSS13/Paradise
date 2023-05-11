@@ -291,6 +291,8 @@
 	icon_state = "plasticcrate"
 	icon_opened = "plasticcrate_open"
 	icon_closed = "plasticcrate"
+	material_drop = /obj/item/stack/sheet/plastic
+	material_drop_amount = 4
 
 /obj/structure/closet/crate/internals
 	desc = "A internals crate."

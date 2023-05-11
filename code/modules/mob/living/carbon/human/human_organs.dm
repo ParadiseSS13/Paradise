@@ -25,6 +25,10 @@
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
 				custom_pain("You feel broken bones moving in your [E.name]!")
 				I.receive_damage(rand(3,5))
+			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
+				custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
+				E.germ_level++
+
 
 	//handle_stance()
 	handle_grasp()
@@ -171,11 +175,14 @@ I use this to standardize shadowling dethrall code
 
 /mob/living/carbon/human/has_organic_damage()
 	var/robo_damage = 0
+	var/perma_injury_damage = 0
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(E.is_robotic())
 			robo_damage += E.brute_dam
 			robo_damage += E.burn_dam
-	return health < maxHealth - robo_damage
+		if(E.perma_injury > (E.brute_dam + E.burn_dam))
+			perma_injury_damage += E.perma_injury - (E.brute_dam + E.burn_dam)
+	return health < maxHealth - robo_damage - perma_injury_damage
 
 /mob/living/carbon/human/proc/handle_splints() //proc that rebuilds the list of splints on this person, for ease of processing
 	splinted_limbs.Cut()

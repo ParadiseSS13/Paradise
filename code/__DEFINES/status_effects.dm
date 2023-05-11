@@ -159,3 +159,5 @@
 
 /// gives you fluff messages for cough, sneeze, headache, etc but without an actual virus
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
+/// This status effect lets the user see the lwap dots.
+#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope 

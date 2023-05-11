@@ -705,7 +705,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(href_list["track"])
 		var/mob/living/target = locate(href_list["track"]) in GLOB.mob_list
-		if(target && target.can_track())
+		if(istype(target) && target.can_track())
 			ai_actual_track(target)
 		else
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
@@ -713,7 +713,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(href_list["trackbot"])
 		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.bots_list
-		if(target)
+		if(istype(target))
 			ai_actual_track(target)
 		else
 			to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")

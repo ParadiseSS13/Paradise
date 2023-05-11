@@ -14,7 +14,7 @@
 
 /datum/middleClickOverride/proc/onClick(atom/A, mob/living/user)
 	user.middleClickOverride = null
-	return 1
+	return TRUE
 	/* Note, when making a new click override it is ABSOLUTELY VITAL that you set the source's clickOverride to null at some point if you don't want them to be stuck with it forever.
 	Calling the super will do this for you automatically, but if you want a click override to NOT clear itself after the first click, you must do it at some other point in the code*/
 
@@ -46,23 +46,23 @@
 
 /datum/middleClickOverride/power_gloves/onClick(atom/A, mob/living/carbon/human/user)
 	if(A == user || user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
-		return
+		return FALSE
 	if(user.incapacitated())
-		return
+		return FALSE
 	var/obj/item/clothing/gloves/color/yellow/power/P = user.gloves
 	if(world.time < P.last_shocked + P.shock_delay)
 		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
-		return
+		return FALSE
 	var/turf/T = get_turf(user)
 	var/obj/structure/cable/C = locate() in T
 	if(!P.unlimited_power)
 		if(!C || !istype(C))
 			to_chat(user, "<span class='warning'>There is no cable here to power the gloves.</span>")
-			return
+			return FALSE
 	var/turf/target_turf = get_turf(A)
 	if(get_dist(T, target_turf) > P.shock_range)
 		to_chat(user, "<span class='warning'>The target is too far away.</span>")
-		return
+		return FALSE
 	target_turf.hotspot_expose(2000, 400)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, 1)
 
@@ -99,6 +99,7 @@
 		next_shocked.Cut()
 
 	P.last_shocked = world.time
+	return TRUE
 
 /**
  * # Callback invoker middle click override datum
@@ -114,4 +115,5 @@
 	callback = _callback
 
 /datum/middleClickOverride/callback_invoker/onClick(atom/A, mob/living/user)
-	callback.Invoke(user, A)
+	if(callback.Invoke(user, A))
+		return TRUE

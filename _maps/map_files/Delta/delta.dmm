@@ -32287,6 +32287,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = -3
 	},
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
