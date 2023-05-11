@@ -79,7 +79,7 @@
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
 	build_path = /obj/item/borg/upgrade/modkit/damage/borg
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/cooldown_mod
 	name = "Kinetic Accelerator Cooldown Mod"
@@ -89,7 +89,7 @@
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/borg
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/range_mod
 	name = "Kinetic Accelerator Range Mod"
@@ -99,7 +99,7 @@
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
 	build_path = /obj/item/borg/upgrade/modkit/range/borg
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/hyperaccelerator
 	name = "Kinetic Accelerator Mining AoE Mod"
@@ -109,7 +109,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/kineticexperimental
 	name = "Experimental Kinetic Accelerator"

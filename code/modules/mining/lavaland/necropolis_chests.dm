@@ -128,7 +128,7 @@
 	id = "hyperaoemod"
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/unique_modkit/rapid_repeater
 	name = "Kinetic Accelerator Rapid Repeater Mod"
@@ -136,7 +136,7 @@
 	id = "repeatermod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/unique_modkit/resonator_blast
 	name = "Kinetic Accelerator Resonator Blast Mod"
@@ -144,7 +144,7 @@
 	id = "resonatormod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 /datum/design/unique_modkit/bounty
 	name = "Kinetic Accelerator Death Syphon Mod"
@@ -153,7 +153,7 @@
 	materials = list(MAT_METAL = 4000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_BLUESPACE = 4000)
 	reagents_list = list("blood" = 40)
 	build_path = /obj/item/borg/upgrade/modkit/bounty
-	category = list("Mining", "Cyborg Upgrade Modules")
+	category = list("Mining")
 
 //Spooky special loot
 
