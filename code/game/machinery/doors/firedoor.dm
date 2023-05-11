@@ -30,6 +30,7 @@
 	/// Whether the "bolts" are "screwed". Used for deconstruction sequence. Has nothing to do with airlock bolting.
 	var/boltslocked = TRUE
 	var/active_alarm = FALSE
+	var/heat_resistance = 50
 	var/list/affecting_areas
 
 /obj/machinery/door/firedoor/Initialize(mapload)
@@ -320,6 +321,11 @@
 	else
 		return 1
 
+/obj/structure/firedoor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)
+
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/doorfire.dmi'
@@ -349,6 +355,7 @@
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
+	var/heat_resistance = 50
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -510,7 +517,10 @@
 		new /obj/machinery/door/firedoor(get_turf(src))
 	qdel(src)
 
-
+/obj/structure/firelock_frame/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 
 

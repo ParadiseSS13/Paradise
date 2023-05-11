@@ -87,6 +87,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
 	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
+	var/heat_resistance = 50
 
 	var/mutable_appearance/old_buttons_underlay
 	var/mutable_appearance/old_lights_underlay
@@ -1662,6 +1663,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		execute_current_command()
 	else
 		return PROCESS_KILL
+
+/obj/machinery/door/airlock/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING
