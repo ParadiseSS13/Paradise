@@ -22,7 +22,7 @@
 	if(get_dist(get_turf(src), get_turf(A)) > 3)
 		to_chat(src, "<span class='danger'>Слишком далеко от [A] чтобы скрыть это как бомбу.</span>")
 		return
-	if(istype(A, /obj/) && can_plant(A))
+	if(isobj(A) && can_plant(A))
 		if(bomb_cooldown <= world.time && !stat)
 			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			add_attack_logs(src, A, "booby trapped (summoner: [summoner])")
@@ -48,6 +48,8 @@
 			return FALSE
 	if(istype(A, /obj/machinery/disposal)) // Have no idea why they just destroy themselves
 		to_chat(src, "<span class='warning'>Бомбы не мусор! Нельзя минировать мусорки!</span>")
+		return FALSE
+	if(istype(A, /obj/item/guardian_bomb)) //No multibombing, be aware of infinite bombs if you dare removing this
 		return FALSE
 	return TRUE
 
