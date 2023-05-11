@@ -57,7 +57,7 @@
 //Cloaks
 /datum/gear/neck/cloak
 	display_name = "cloak, grey"
-	path = /obj/item/clothing/neck/cloak
+	path = /obj/item/clothing/neck/cloak/grey
 
 /datum/gear/neck/cloak/job
 	subtype_path = /datum/gear/neck/cloak/job
