@@ -52,6 +52,12 @@
 		return
 	..()
 
+/obj/item/twohanded/staff/broom/unwield(mob/living/carbon/user)
+	..()
+	user.flying = 0
+	user.update_gravity(user.mob_has_gravity())
+	animate(user)
+
 /obj/item/twohanded/staff/broom/horsebroom
 	name = "broomstick horse"
 	desc = "Saddle up!"

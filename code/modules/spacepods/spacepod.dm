@@ -871,6 +871,7 @@
 		user.forceMove(get_turf(src))
 		passengers -= user
 		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
+	user.update_gravity(user.mob_has_gravity())
 
 /obj/spacepod/verb/lock_pod()
 	set name = "Lock Doors"
