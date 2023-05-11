@@ -28,6 +28,13 @@
 	item_color = "qmf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/under/rank/cargo/official
+	name = "quartermaster uniform"
+	desc = "Pretty stylish for common NT supply workers uniform who are ready to check your request."
+	icon_state = "qmu"
+	item_state = "qmu"
+	item_color = "qmu"
+
 /obj/item/clothing/under/rank/cargotech
 	name = "cargo technician's jumpsuit"
 	desc = "Shooooorts! They're comfy and easy to wear!"
