@@ -753,6 +753,27 @@
 				else
 					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
 		return
+
+	if(istype(I, /obj/item/twohanded/supermatter))
+		if(ishuman(user))
+			var/mob/living/carbon/human/M = user
+			to_chat(M, "<span class='notice'>You begin to carve off a sliver of [src] with [I]...</span>")
+			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
+				to_chat(M, "<span class='danger'>[src] seethes with energy as you finish cutting off a sliver!</span>")
+				matter_power += 600
+
+				var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+
+				var/obj/item/retractor/supermatter/tongs = M.is_in_hands(/obj/item/retractor/supermatter)
+
+				if(tongs && !tongs.sliver)
+					tongs.sliver = S
+					S.forceMove(tongs)
+					tongs.icon_state = "supermatter_tongs_loaded"
+					tongs.item_state = "supermatter_tongs_loaded"
+					to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
+		return
+
 	if(istype(I, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[I] bounces off [src], you need to cut a sliver off first!</span>")
 	else if(user.drop_item())

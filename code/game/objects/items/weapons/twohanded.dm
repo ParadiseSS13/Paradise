@@ -1035,3 +1035,35 @@
 	cart.put_in_cart(src, user)
 
 #undef BROOM_PUSH_LIMIT
+
+/obj/item/twohanded/supermatter  //Supermatter Halberd, used by Oblivion Enforcers
+	name = "supermatter halberd"
+	desc = "The revered weapon of Oblivion Enforcers, used to enforce the Order's will."
+	icon_state = "fireaxe0" //no sprites yet :(
+	force = 5
+	sharp = TRUE
+	damtype = BURN
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = SLOT_BACK
+	force_unwielded = 5
+	force_wielded = 25
+	toolspeed = 0.25
+	attack_verb = list("enlightened", "enforced", "cleaved", "stabbed", "whacked")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	resistance_flags = FIRE_PROOF
+
+/obj/item/twohanded/supermatter/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+
+/obj/item/twohanded/supermatter/update_icon_state()
+	icon_state = "fireaxe[wielded]"
+
+/obj/item/twohanded/supermatter/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
+	if(wielded) //same behavior as a fireaxe
+		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
+			var/obj/structure/W = A
+			W.obj_destruction("fireaxe")
