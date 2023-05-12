@@ -57,7 +57,7 @@
 			continue
 		D.cure(0)
 	..()
-	if(M?.dna?.species)
+	if(M.dna?.species)
 		// Set the temperature to the species's preferred temperature
 		// For things like drasks, for example
 		M.bodytemperature = M.dna.species.body_temperature
