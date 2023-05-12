@@ -21,8 +21,10 @@
 	else
 		adjustBruteLoss(-20)
 
-/mob/living/simple_animal/demon/shadow/ClickOn(atom/A)
+/mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/A)
 	if(!ishuman(A))
+		if(isitem(A))
+			A.extinguish_light()
 		return ..()
 	var/mob/living/carbon/human/target = A
 	if(!in_range(src, target) || target.stat != DEAD)
@@ -64,7 +66,7 @@
 
 /obj/structure/shadowcocoon/process()
 	for(var/atom/to_darken in range(4, src))
-		if(prob(60))
+		if(prob(60) || !length(to_darken.light_sources))
 			continue
 		if(iswelder(to_darken) && length(to_darken.light_sources))
 			var/obj/item/weldingtool/welder_to_darken = to_darken
@@ -166,20 +168,15 @@
 		return
 	hit = TRUE // to prevent double hits from the pull
 	. = ..()
+	for(var/atom/extinguish_target in range(2, src))
+		extinguish_target.extinguish_light(TRUE)
 	if(!isliving(target))
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
-		if(iswallturf(target))
-			var/turf/simulated/wall = target
-			target.visible_message("<span class='warning'>The [src] rips right through [wall]!")
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-			wall.dismantle_wall(TRUE, FALSE)
-			return
 	else
 		var/mob/living/L = target
 		L.Immobilize(2 SECONDS)
 		L.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
 		L.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
-	target.extinguish_light(TRUE)
 
 /obj/effect/ebeam/floor
 	plane = FLOOR_PLANE
