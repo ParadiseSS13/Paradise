@@ -862,4 +862,4 @@
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
 
-#define COMSIG_PREVENT_DELAYED_KNOCKDOWN "prevent_delayed_knockdown"
+#define COMSIG_LIVING_CLEAR_STUNS "prevent_delayed_knockdown"

@@ -229,6 +229,7 @@
 /datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, datum/callback/new_expire_proc, new_prevent_signal = null)
 	if(!duration || !new_expire_proc || !istype(new_expire_proc))
 		qdel(src)
+		return
 	duration = new_duration
 	expire_proc = new_expire_proc
 	. = ..()
@@ -237,6 +238,7 @@
 		prevent_signal = new_prevent_signal
 
 /datum/status_effect/proc/prevent_action()
+	SIGNAL_HANDLER
 	qdel(src)
 
 /datum/status_effect/delayed/on_remove()
