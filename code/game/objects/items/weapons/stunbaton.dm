@@ -206,7 +206,7 @@
 		H.adjustStaminaLoss(stam_damage)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
-	L.apply_status_effect(STATUS_EFFECT_BATONNED)
+	L.apply_status_effect(STATUS_EFFECT_DELAYED, 2.5 SECONDS, CALLBACK(L, TYPE_PROC_REF(/mob/living/, KnockDown), 10), COMSIG_PREVENT_DELAYED_KNOCKDOWN)
 	addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), knockdown_delay)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)

@@ -22,7 +22,7 @@
 	user.SetWeakened(0)
 	user.setStaminaLoss(0)
 	user.SetKnockDown(0)
-	user.remove_status_effect(STATUS_EFFECT_BATONNED)
+	SEND_SIGNAL(user, COMSIG_PREVENT_DELAYED_KNOCKDOWN)
 	user.reagents.add_reagent("synaptizine", 15)
 	user.reagents.add_reagent("stimulative_cling", 1)
 

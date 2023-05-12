@@ -23,15 +23,34 @@
 	owner.adjustFireLoss(0.1)
 	owner.adjustToxLoss(0.2)
 
-/datum/status_effect/stunbaton
-	id = "stunbatonned"
-	duration = 2.5 SECONDS
+/datum/status_effect/delayed
+	id = "delayed_status_effect"
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = null
+	var/prevent_signal = null
+	var/datum/callback/expire_proc = null
 
-/datum/status_effect/stunbaton/on_timeout()
+/datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, var/datum/callback/new_expire_proc, new_prevent_signal = null)
+	if(!duration || !new_expire_proc || !istype(new_expire_proc))
+		qdel(src)
 	. = ..()
-	owner.KnockDown(10 SECONDS)
+	duration = new_duration
+	expire_proc = new_expire_proc
+	if(new_prevent_signal)
+		RegisterSignal(owner, new_prevent_signal, PROC_REF(prevent_action))
+		prevent_signal = new_prevent_signal
+
+/datum/status_effect/proc/prevent_action()
+	qdel(src)
+
+/datum/status_effect/delayed/on_remove()
+	if(prevent_signal)
+		UnregisterSignal(owner, prevent_signal)
+	. = ..()
+
+/datum/status_effect/delayed/on_timeout()
+	. = ..()
+	expire_proc.Invoke()
 
 /datum/status_effect/cultghost //is a cult ghost and can't use manifest runes, can see ghosts and dies if too far from summoner
 	id = "cult_ghost"

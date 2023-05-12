@@ -486,7 +486,7 @@
 	RestoreEars()
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
-	remove_status_effect(STATUS_EFFECT_BATONNED)
+	SEND_SIGNAL(src, COMSIG_PREVENT_DELAYED_KNOCKDOWN)
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0

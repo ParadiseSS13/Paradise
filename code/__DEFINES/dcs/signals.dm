@@ -861,3 +861,5 @@
 #define COMSIG_OBJECTIVE_CHECK_VALID_TARGET "objective_check_valid_target"
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
+
+#define COMSIG_PREVENT_DELAYED_KNOCKDOWN "prevent_delayed_knockdown"
