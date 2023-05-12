@@ -3355,3 +3355,227 @@
 	value = "eugene"
 	category = TTS_CATEGORY_OTHER
 	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/senna
+	name = "Senna"
+	value = "senna"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/nunu
+	name = "Nunu"
+	value = "nunu"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/ryze
+	name = "Ryze"
+	value = "ryze"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/yone
+	name = "Yone"
+	value = "yone"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/sett
+	name = "Sett"
+	value = "sett"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/camille
+	name = "Camille"
+	value = "camille"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/lee_sin
+	name = "Lee_sin"
+	value = "lee_sin"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/kayle
+	name = "Kayle"
+	value = "kayle"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/azir
+	name = "Azir"
+	value = "azir"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/tryndamere
+	name = "Tryndamere"
+	value = "tryndamere"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/nami
+	name = "Nami"
+	value = "nami"
+	category = TTS_CATEGORY_LOL
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/delvin
+	name = "Delvin"
+	value = "delvin"
+	category = TTS_CATEGORY_SKYRIM
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/cicero
+	name = "Cicero"
+	value = "cicero"
+	category = TTS_CATEGORY_SKYRIM
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/linzi
+	name = "Linzi"
+	value = "linzi"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/cache
+	name = "Cache"
+	value = "cache"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/cravitz
+	name = "Cravitz"
+	value = "cravitz"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/lady_vashj
+	name = "Lady_vashj"
+	value = "lady_vashj"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/dendrologist
+	name = "Dendrologist"
+	value = "dendrologist"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/jythiros
+	name = "Jythiros"
+	value = "jythiros"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/draan
+	name = "Draan"
+	value = "draan"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/rikkar
+	name = "Rikkar"
+	value = "rikkar"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/splintergraft
+	name = "Splintergraft"
+	value = "splintergraft"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/malchezaar
+	name = "Malchezaar"
+	value = "malchezaar"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/taskmaster
+	name = "Taskmaster"
+	value = "taskmaster"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/oxana
+	name = "Oxana"
+	value = "oxana"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/inara
+	name = "Inara"
+	value = "inara"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/ivan
+	name = "Ivan"
+	value = "ivan"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/kazamon
+	name = "Kazamon"
+	value = "kazamon"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/albin
+	name = "Albin"
+	value = "albin"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/ammunae
+	name = "Ammunae"
+	value = "ammunae"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/illidara
+	name = "Illidara"
+	value = "illidara"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
+
+/datum/tts_seed/silero/nici
+	name = "Nici"
+	value = "nici"
+	category = TTS_CATEGORY_HEARTHSTONE
+	gender = TTS_GENDER_ANY
+	donator_level = 1
