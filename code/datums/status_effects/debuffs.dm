@@ -30,12 +30,12 @@
 	var/prevent_signal = null
 	var/datum/callback/expire_proc = null
 
-/datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, var/datum/callback/new_expire_proc, new_prevent_signal = null)
+/datum/status_effect/delayed/on_creation(mob/living/new_owner, new_duration, datum/callback/new_expire_proc, new_prevent_signal = null)
 	if(!duration || !new_expire_proc || !istype(new_expire_proc))
 		qdel(src)
-	. = ..()
 	duration = new_duration
 	expire_proc = new_expire_proc
+	. = ..()
 	if(new_prevent_signal)
 		RegisterSignal(owner, new_prevent_signal, PROC_REF(prevent_action))
 		prevent_signal = new_prevent_signal
