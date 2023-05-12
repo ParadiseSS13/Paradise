@@ -1,9 +1,19 @@
+/*
+This function is called every time we cross other turf(i guess) while dragging atom
+It means that while one dragNdrop if you cross multiple turfs this function will be called multiple times
+*/
 /atom/MouseDrag()
-	if(!dragging)
-		dragging = TRUE
+	if(drag_start == 0) // we want to capture only moment of start dragging
 		drag_start = world.time
 
-/atom/proc/could_be_lag()
+/*
+This function is exist to check of our current dragNdrop could be just laggy click
+Currently it just checks how long our dragNdrop was. If it was lag, it would be extremely small, otherwise it would be long
+returns
+TRUE if current dragNdrop is lesser than 0.2 sec
+FALSE if not
+*/
+/atom/proc/could_be_click_lag()
 	return world.time - drag_start < 0.2 SECONDS // should be enough to lag
 
 /*
@@ -16,8 +26,8 @@
 /atom/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	if(!usr || !over)
 		return
-	dragging = FALSE
-	var/lagging = could_be_lag()
+	drag_start = 0
+	var/lagging = could_be_click_lag()
 	if(!(istype(over, /obj/screen) || (loc && loc == over.loc)))
 		if(!Adjacent(usr) || !over.Adjacent(usr)) // should stop you from dragging through windows
 			if(lagging)
