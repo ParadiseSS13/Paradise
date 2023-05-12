@@ -125,7 +125,7 @@
 /obj/machinery/quantumpad/attack_hand(mob/user)
 	if(isAI(user))
 		return
-	if(!checkUsable(user))
+	if(!check_usable(user))
 		return
 	add_fingerprint(user)
 	doteleport(user)
@@ -136,7 +136,7 @@
 	if(user.eyeobj.loc != loc)
 		user.eyeobj.setLoc(get_turf(loc))
 		return
-	if(!checkUsable(user))
+	if(!check_usable(user))
 		return
 	var/turf/T = get_turf(linked_pad)
 	if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
