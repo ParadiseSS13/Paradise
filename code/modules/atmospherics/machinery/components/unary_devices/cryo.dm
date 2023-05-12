@@ -88,7 +88,7 @@
 			break
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()
-	qdel(occupant_overlay)
+	QDEL_NULL(occupant_overlay)
 	QDEL_NULL(beaker)
 	return ..()
 
@@ -342,7 +342,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/update_overlays()
 	. = ..()
 	if(occupant_overlay)
-		qdel(occupant_overlay)
+		QDEL_NULL(occupant_overlay)
 	if(!occupant)
 		. += "lid[on]" //if no occupant, just put the lid overlay on, and ignore the rest
 		return
