@@ -26,8 +26,8 @@ FALSE if not
 /atom/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	if(!usr || !over)
 		return
-	drag_start = 0
 	var/lagging = could_be_click_lag()
+	drag_start = 0
 	if(!(istype(over, /obj/screen) || (loc && loc == over.loc)))
 		if(!Adjacent(usr) || !over.Adjacent(usr)) // should stop you from dragging through windows
 			if(lagging)
