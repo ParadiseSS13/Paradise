@@ -588,6 +588,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PS"
 	item = /obj/item/radio/beacon/syndicate/power_sink
 	cost = 10
+	hijack_only = TRUE // A powersink causes stationwide chaos and if hidden well or defended, will cease function of the station bit by bit
 
 /datum/uplink_item/device_tools/singularity_beacon
 	name = "Power Beacon"
