@@ -91,8 +91,7 @@
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user)
 	var/obj/item/flash/flash = I
 	if(!istype(flash) || !flash.try_use_flash(user))
-		. = ..()
-		return
+		return ..()
 	user.visible_message("<span class='danger'>[user] points [I] at [src]!</span>",
 	"<span class='danger'>You point [I] at [src]!</span>")
 	visible_message("<span class='notice'>[src] withers away.</span>")
