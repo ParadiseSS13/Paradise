@@ -109,38 +109,42 @@
 /mob/proc/drop_item_v()		//this is dumb.
 	if(stat == CONSCIOUS && isturf(loc))
 		SEND_SIGNAL(usr, COMSIG_MOB_WILLINGLY_DROP)
-		return drop_item()
+		return drop_item(TRUE)
 	return 0
 
 //Drops the item in our left hand
-/mob/proc/drop_l_hand(force = FALSE)
-	return unEquip(l_hand, force) //All needed checks are in unEquip
+/mob/proc/drop_l_hand(force = FALSE, activated_by_user = FALSE)
+	return unEquip(l_hand, force, FALSE, activated_by_user) //All needed checks are in unEquip
 
 //Drops the item in our right hand
-/mob/proc/drop_r_hand(force = FALSE)
-	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
+/mob/proc/drop_r_hand(force = FALSE, activated_by_user = FALSE)
+	return unEquip(r_hand, force, FALSE, activated_by_user) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
-/mob/proc/drop_item() //THIS. DOES. NOT. NEED. AN. ARGUMENT.
+/mob/proc/drop_item(activated_by_user = FALSE)
 	if(hand)
-		return drop_l_hand()
+		return drop_l_hand(FALSE, activated_by_user) // second arg is TRUE cause user activated it by himself
 	else
-		return drop_r_hand()
+		return drop_r_hand(FALSE, activated_by_user)
 
 //Here lie unEquip and before_item_take, already forgotten and not missed.
 
-/mob/proc/canUnEquip(obj/item/I, force)
+/mob/proc/canUnEquip(obj/item/I, force, activated_by_user = FALSE)
 	if(!I)
 		return TRUE
 	if((I.flags & NODROP) && !force)
+		if(activated_by_user)
+			return I.can_drop()
 		return FALSE
 	return TRUE
 
-/mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
+/mob/proc/unEquip(obj/item/I, force, silent = FALSE, activated_by_user = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
 	if(!canUnEquip(I, force))
+		if(activated_by_user)
+			return I.failed_drop()
 		return 0
 
 	if(I == r_hand)

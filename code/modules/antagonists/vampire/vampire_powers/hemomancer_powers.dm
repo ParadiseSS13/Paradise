@@ -9,17 +9,16 @@
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/cast(mob/user)
 	if(user.l_hand || user.r_hand)
 		to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
-		user.drop_l_hand()
-		user.drop_r_hand()
-	else
-		to_chat(user, "<span class='notice'>Large blades of blood spring from your fingers!</span>")
+		user.drop_l_hand(FALSE, TRUE)
+		user.drop_r_hand(FALSE, TRUE)
+	to_chat(user, "<span class='notice'>Large blades of blood spring from your fingers!</span>")
 	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc)
 	user.put_in_hands(claws)
 
 
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/L = user
-	if(L.canUnEquip(L.l_hand) && L.canUnEquip(L.r_hand))
+	if(L.canUnEquip(L.l_hand, FALSE, TRUE) && L.canUnEquip(L.r_hand, FALSE, TRUE))
 		return ..()
 
 /obj/item/twohanded/required/vamp_claws
@@ -40,6 +39,18 @@
 	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
+
+/obj/item/twohanded/required/vamp_claws/can_drop()
+	if(!ishuman(loc))
+		return FALSE
+	var/mob/living/carbon/human/owner = loc
+	return lowertext(owner.mind.special_role) == ROLE_VAMPIRE
+
+/obj/item/twohanded/required/vamp_claws/failed_drop()
+	if(!can_drop())
+		return FALSE
+	dispel()
+	return TRUE
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -72,7 +83,12 @@
 		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
 /obj/item/twohanded/required/vamp_claws/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You dispel your claws!</span>")
+	dispel()
+
+/obj/item/twohanded/required/vamp_claws/proc/dispel()
+	var/mob/living/carbon/human/owner = loc
+	if(istype(owner))
+		to_chat(owner, "<span class='notice'>You dispel your claws!</span>")
 	qdel(src)
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils

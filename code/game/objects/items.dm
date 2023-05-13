@@ -152,6 +152,12 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
+/obj/item/proc/can_drop() //this proc is called if we want to check if used possibly can drop held item, but basic drop is restricted(NO_DROP flag for example)
+	return FALSE
+
+/obj/item/proc/failed_drop() //this proc is called if user tried to drop item by himself(by clicking Q), but for some reason he failed
+	return FALSE
+
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
 		if(WEIGHT_CLASS_TINY)
