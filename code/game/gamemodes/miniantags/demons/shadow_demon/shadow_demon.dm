@@ -27,7 +27,7 @@
 			A.extinguish_light()
 		return ..()
 	var/mob/living/carbon/human/target = A
-	if(!in_range(src, target) || target.stat != DEAD)
+	if(target.stat != DEAD)
 		return ..()
 
 	if(isLivingSSD(target) && client.send_ssd_warning(target)) //Similar to revenants, only wrap SSD targets if you've accepted the SSD warning
