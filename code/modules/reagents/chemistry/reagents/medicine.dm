@@ -501,6 +501,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
 	overdose_threshold = 4
+	allowed_overdose_process = TRUE
 	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 10
