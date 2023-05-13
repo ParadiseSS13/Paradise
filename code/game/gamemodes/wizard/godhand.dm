@@ -41,7 +41,6 @@
 	playsound(get_turf(user), on_use_sound, 50, 1)
 	if(attached_spell)
 		attached_spell.perform(new /list)
-		attached_spell.attached_hand = null
 	qdel(src)
 
 /obj/item/melee/touch_attack/Destroy()

@@ -35,7 +35,7 @@
 	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
 	return 1
 
-/obj/effect/proc_holder/spell/touch/proc/DischargeHand(/obj/item/melee/touch_attack/item)
+/obj/effect/proc_holder/spell/touch/proc/DischargeHand()
 	if(!istype(attached_hand))
 		return
 	qdel(attached_hand)

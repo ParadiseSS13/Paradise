@@ -6,6 +6,20 @@
 	required_blood = 30
 	action_icon_state = "vampire_claws"
 
+/obj/effect/proc_holder/spell/vampire/self/vamp_claws/Click()
+	var/mob/living/carbon/human/user = action.owner
+	if(!istype(user))
+		return ..()
+	if(istype(user.l_hand, /obj/item/twohanded/required/vamp_claws))
+		var/obj/item/twohanded/required/vamp_claws/current = user.l_hand
+		current.dispel()
+		return
+	if(istype(user.r_hand, /obj/item/twohanded/required/vamp_claws))
+		var/obj/item/twohanded/required/vamp_claws/current = user.r_hand
+		current.dispel()
+		return
+	return ..()
+
 /obj/effect/proc_holder/spell/vampire/self/vamp_claws/cast(mob/user)
 	if(user.l_hand || user.r_hand)
 		to_chat(user, "<span class='notice'>You drop what was in your hands as large blades spring from your fingers!</span>")
