@@ -381,6 +381,7 @@
 	if(!S)
 		return FALSE
 	S.remaining_uses = round(cling.absorbed_count * 3)
+	S.source = src
 	return TRUE
 
 /obj/item/shield/changeling
@@ -388,6 +389,7 @@
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
+	var/datum/action/changeling/weapon/source = null
 
 	var/remaining_uses //Set by the changeling ability.
 
@@ -408,6 +410,18 @@
 	else
 		remaining_uses--
 		return ..()
+
+/obj/item/shield/changeling/can_drop()
+	if(!ishuman(loc) || !istype(source))
+		return FALSE
+	var/mob/living/carbon/human/owner = loc
+	return lowertext(owner.mind.special_role) == ROLE_CHANGELING
+
+/obj/item/shield/changeling/failed_drop()
+	if(!can_drop())
+		return FALSE
+	source.try_to_sting(loc)
+	return TRUE
 
 
 /***************************************\

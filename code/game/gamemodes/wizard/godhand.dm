@@ -25,11 +25,23 @@
 		return
 	..()
 
+/obj/item/melee/touch_attack/can_drop()
+	return TRUE
+
+/obj/item/melee/touch_attack/failed_drop()
+	if(attached_spell)
+		attached_spell.DischargeHand()
+	else
+		qdel(src)
+	return TRUE
+
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
 	if(catchphrase)
 		user.say(catchphrase)
-	playsound(get_turf(user), on_use_sound,50,1)
-	attached_spell.attached_hand = null
+	playsound(get_turf(user), on_use_sound, 50, 1)
+	if(attached_spell)
+		attached_spell.perform(new /list)
+		attached_spell.attached_hand = null
 	qdel(src)
 
 /obj/item/melee/touch_attack/Destroy()

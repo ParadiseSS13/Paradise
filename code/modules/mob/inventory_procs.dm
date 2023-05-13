@@ -142,7 +142,7 @@
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
-	if(!canUnEquip(I, force))
+	if(!canUnEquip(I, force, activated_by_user))
 		if(activated_by_user)
 			return I.failed_drop()
 		return 0
