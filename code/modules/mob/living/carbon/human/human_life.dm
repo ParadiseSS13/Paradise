@@ -666,11 +666,7 @@
 	if(dna.species.update_health_hud())
 		return
 	else
-		var/shock_reduction = 0
-		if(reagents)
-			for(var/datum/reagent/R in reagents.reagent_list)
-				if(R.shock_reduction)
-					shock_reduction += R.shock_reduction
+		var/shock_reduction = shock_reduction()
 		if(healths)
 			var/health_amount = get_perceived_trauma(shock_reduction)
 			if(..(health_amount)) //not dead

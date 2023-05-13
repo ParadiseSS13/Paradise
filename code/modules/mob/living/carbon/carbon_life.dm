@@ -293,11 +293,7 @@
 /mob/living/carbon/update_damage_hud()
 	if(!client)
 		return
-	var/shock_reduction = 0
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(R.shock_reduction)
-				shock_reduction += R.shock_reduction
+	var/shock_reduction = shock_reduction()
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
