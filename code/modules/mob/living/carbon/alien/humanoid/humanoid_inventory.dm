@@ -1,5 +1,5 @@
 //unequip
-/mob/living/carbon/alien/humanoid/unEquip(obj/item/I, force, silent = FALSE, activated_by_user = FALSE)
+/mob/living/carbon/alien/humanoid/unEquip(obj/item/I, force, silent = FALSE)
 	. = ..()
 	if(!. || !I)
 		return

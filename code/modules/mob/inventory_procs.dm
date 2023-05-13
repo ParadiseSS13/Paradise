@@ -109,42 +109,38 @@
 /mob/proc/drop_item_v()		//this is dumb.
 	if(stat == CONSCIOUS && isturf(loc))
 		SEND_SIGNAL(usr, COMSIG_MOB_WILLINGLY_DROP)
-		return drop_item(TRUE)
+		return drop_item()
 	return 0
 
 //Drops the item in our left hand
-/mob/proc/drop_l_hand(force = FALSE, activated_by_user = FALSE)
-	return unEquip(l_hand, force, FALSE, activated_by_user) //All needed checks are in unEquip
+/mob/proc/drop_l_hand(force = FALSE)
+	return unEquip(l_hand, force) //All needed checks are in unEquip
 
 //Drops the item in our right hand
-/mob/proc/drop_r_hand(force = FALSE, activated_by_user = FALSE)
-	return unEquip(r_hand, force, FALSE, activated_by_user) //Why was this not calling unEquip in the first place jesus fuck.
+/mob/proc/drop_r_hand(force = FALSE)
+	return unEquip(r_hand, force) //Why was this not calling unEquip in the first place jesus fuck.
 
 //Drops the item in our active hand.
-/mob/proc/drop_item(activated_by_user = FALSE)
+/mob/proc/drop_item()
 	if(hand)
-		return drop_l_hand(FALSE, activated_by_user) // second arg is TRUE cause user activated it by himself
+		return drop_l_hand()
 	else
-		return drop_r_hand(FALSE, activated_by_user)
+		return drop_r_hand()
 
 //Here lie unEquip and before_item_take, already forgotten and not missed.
 
-/mob/proc/canUnEquip(obj/item/I, force, activated_by_user = FALSE)
+/mob/proc/canUnEquip(obj/item/I, force)
 	if(!I)
 		return TRUE
 	if((I.flags & NODROP) && !force)
-		if(activated_by_user)
-			return I.can_drop()
 		return FALSE
 	return TRUE
 
-/mob/proc/unEquip(obj/item/I, force, silent = FALSE, activated_by_user = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
+/mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
 	if(!I) //If there's nothing to drop, the drop is automatically succesfull. If(unEquip) should generally be used to check for NODROP.
 		return 1
 
-	if(!canUnEquip(I, force)) // we do not check if it was activated by user here cause if so, we would call failed_drop later instead of not doing it at all
-		if(activated_by_user)
-			return I.failed_drop()
+	if(!canUnEquip(I, force))
 		return 0
 
 	if(I == r_hand)

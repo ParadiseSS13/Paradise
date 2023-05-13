@@ -25,16 +25,6 @@
 		return
 	..()
 
-/obj/item/melee/touch_attack/can_drop()
-	return TRUE
-
-/obj/item/melee/touch_attack/failed_drop()
-	if(attached_spell)
-		attached_spell.DischargeHand()
-	else
-		qdel(src)
-	return TRUE
-
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
 	if(catchphrase)
 		user.say(catchphrase)

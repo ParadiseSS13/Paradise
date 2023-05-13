@@ -33,12 +33,20 @@
 	..(user, target)
 
 /datum/action/changeling/weapon/sting_action(mob/user)
-	if(!user.drop_item(TRUE))
+	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
 	user.put_in_hands(W)
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract))
 	return W
+
+/datum/action/changeling/weapon/proc/retract()
+	SIGNAL_HANDLER
+	if(!lowertext(owner.mind.special_role) == ROLE_CHANGELING)
+		return
+	if(istype(owner.get_active_hand(), weapon_type))
+		try_to_sting(owner)
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
@@ -141,18 +149,6 @@
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
 
-/obj/item/melee/arm_blade/can_drop()
-	if(!ishuman(loc) || !istype(source))
-		return FALSE
-	var/mob/living/carbon/human/owner = loc
-	return lowertext(owner.mind.special_role) == ROLE_CHANGELING
-
-/obj/item/melee/arm_blade/failed_drop()
-	if(!can_drop())
-		return FALSE
-	source.try_to_sting(loc)
-	return TRUE
-
 /***************************************\
 |***********COMBAT TENTACLES*************|
 \***************************************/
@@ -207,18 +203,6 @@
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return OXYLOSS
-
-/obj/item/gun/magic/tentacle/can_drop()
-	if(!ishuman(loc) || !istype(source))
-		return FALSE
-	var/mob/living/carbon/human/owner = loc
-	return lowertext(owner.mind.special_role) == ROLE_CHANGELING
-
-/obj/item/gun/magic/tentacle/failed_drop()
-	if(!can_drop())
-		return FALSE
-	source.try_to_sting(loc)
-	return TRUE
 
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
@@ -410,19 +394,6 @@
 	else
 		remaining_uses--
 		return ..()
-
-/obj/item/shield/changeling/can_drop()
-	if(!ishuman(loc) || !istype(source))
-		return FALSE
-	var/mob/living/carbon/human/owner = loc
-	return lowertext(owner.mind.special_role) == ROLE_CHANGELING
-
-/obj/item/shield/changeling/failed_drop()
-	if(!can_drop())
-		return FALSE
-	source.try_to_sting(loc)
-	return TRUE
-
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|

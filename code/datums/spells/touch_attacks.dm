@@ -16,6 +16,7 @@
 /obj/effect/proc_holder/spell/touch/proc/ChargeHand(mob/living/carbon/user)
 	var/hand_handled = 1
 	attached_hand = new hand_path(src)
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(DischargeHand))
 	if(isalien(user))
 		user.put_in_hands(attached_hand)
 		return
@@ -36,12 +37,14 @@
 	return 1
 
 /obj/effect/proc_holder/spell/touch/proc/DischargeHand()
+	SIGNAL_HANDLER
+	var/mob/living/carbon/user = action.owner
 	if(!istype(attached_hand))
 		return
 	qdel(attached_hand)
 	attached_hand = null
 	if(on_remove_message)
-		to_chat(usr, "<span class='notice'>You draw the power out of your hand.</span>")
+		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
 
 
 /obj/effect/proc_holder/spell/touch/disintegrate

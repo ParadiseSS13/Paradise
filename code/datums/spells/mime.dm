@@ -106,9 +106,22 @@
 			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
 			C.drop_item()
 			C.put_in_hands(new gun)
+			RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(holster))
 		else
-			to_chat(user, "<span class='notice'>Holster your fingers first.</span>")
+			holster()
 			revert_cast(user)
+
+/obj/effect/proc_holder/spell/mime/fingergun/proc/holster()
+	SIGNAL_HANDLER
+	var/mob/user = action.owner
+	var/current
+	if(istype(user.r_hand, gun))
+		current = user.r_hand
+	if(istype(user.l_hand, gun))
+		current = user.l_hand
+	if(current)
+		to_chat(user, "<span class='notice'>You holster your fingers. Another time.</span>")
+		qdel(current)
 
 /obj/effect/proc_holder/spell/mime/fingergun/fake
 	desc = "Pretend you're shooting bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
