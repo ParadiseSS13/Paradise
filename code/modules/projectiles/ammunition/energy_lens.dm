@@ -303,7 +303,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	fire_sound = 'sound/weapons/wave.ogg'
 	e_cost = 10000
-	select_name = "the experimental setting"
+	select_name = null //No one is sticking this into another gun / so I don't have to rename 20 icon states
 	delay = 4 SECONDS //Looooooong cooldown // Used to be 10 seconds, has been rebalanced to be normal firing rate now
 
 /obj/item/ammo_casing/energy/teleport
