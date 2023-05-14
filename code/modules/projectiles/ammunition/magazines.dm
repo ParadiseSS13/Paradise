@@ -154,7 +154,7 @@
 	max_ammo = 6
 	multiload = 0
 
-/obj/item/ammo_box/magazine/internal/rus357/New()
+/obj/item/ammo_box/magazine/internal/rus357/Initialize(mapload)
 	..()
 	stored_ammo.Cut() // We only want 1 bullet in there
 	stored_ammo += new ammo_type(src)
@@ -259,6 +259,7 @@
 	max_ammo = 20
 	multi_sprite_step = 4
 	multiload = 0
+	slow_loading = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	///A var to check if the mag is being loaded
 	var/being_loaded = FALSE
@@ -275,29 +276,19 @@
 	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
 		to_chat(user, "<span class='notice'>You begin to load the magazine with [A].</span>")
 		var/obj/item/ammo_box/AB = A
-		if(being_loaded == TRUE && double_loaded == FALSE)
-			double_loaded = TRUE //This will cancel ongoing reloads if made true by someone trying to do two reload processes at once
-			to_chat(user, "<span class='notice'>You're already loading the magazine!.</span>")
-			to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
-		being_loaded = TRUE
 		for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
-			if(double_loaded == FALSE)// checks to make sure double_loaded hasn't been made true while an ongoing reload is already ongoing
-				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
-				double_loaded = FALSE
-				break
 			if(length(stored_ammo) >= max_ammo)
 				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
 				break
-			if(!moving_do_after(user, 0.5 SECONDS, target = src, use_default_checks = TRUE))
-				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
+			if(do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = "<span class='notice'>You stop loading the magazine with [A].</span>"))
+				src.give_round(AC)
+				AB.stored_ammo -= AC
+				update_mat_value()
+				update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+				AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+			else
 				break
-			src.give_round(AC)
-			AB.stored_ammo -= AC
-			update_mat_value()
-			update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-			AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-			playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
-		being_loaded = FALSE
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -319,9 +310,9 @@
 	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 
-/obj/item/ammo_box/magazine/wt550m9/empty/New()
+/obj/item/ammo_box/magazine/wt550m9/empty/Initialize(mapload)
 	. = ..()
-	stored_ammo = list()
+	stored_ammo.Cut()
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/magazine/uzim9mm
