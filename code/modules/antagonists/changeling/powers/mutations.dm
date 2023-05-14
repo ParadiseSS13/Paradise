@@ -18,17 +18,8 @@
 	var/weapon_name_simple
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
-	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
-		qdel(user.l_hand)
-		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-		user.update_inv_l_hand()
-		return
-	if(istype(user.r_hand, weapon_type))
-		qdel(user.r_hand)
-		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-		user.update_inv_r_hand()
+	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
+		retract_any_hand()
 		return
 	..(user, target)
 
@@ -38,15 +29,31 @@
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
 	user.put_in_hands(W)
-	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract))
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_current_hand))
 	return W
 
-/datum/action/changeling/weapon/proc/retract()
+/datum/action/changeling/weapon/proc/retract_current_hand()
 	SIGNAL_HANDLER
 	if(!lowertext(owner.mind.special_role) == ROLE_CHANGELING)
 		return
-	if(istype(owner.get_active_hand(), weapon_type))
-		try_to_sting(owner)
+	if(!istype(owner.get_active_hand(), weapon_type))
+		return
+	retract_any_hand()
+
+/datum/action/changeling/weapon/proc/retract_any_hand()
+	var/done = FALSE
+	if(istype(owner.l_hand, weapon_type))
+		qdel(owner.l_hand)
+		owner.update_inv_l_hand()
+		done = TRUE
+	if(istype(owner.r_hand, weapon_type))
+		qdel(owner.r_hand)
+		owner.update_inv_r_hand()
+		done = TRUE
+	UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
+	if(done)
+		if(!silent)
+			owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit

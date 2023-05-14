@@ -9,14 +9,14 @@
 
 /obj/effect/proc_holder/spell/touch/Click(mob/user = usr)
 	if(attached_hand)
-		DischargeHand()
+		discharge_any_hand(TRUE)
 		return FALSE
-	ChargeHand(user)
+	charge_hand(user)
 
-/obj/effect/proc_holder/spell/touch/proc/ChargeHand(mob/living/carbon/user)
+/obj/effect/proc_holder/spell/touch/proc/charge_hand(mob/living/carbon/user)
 	var/hand_handled = 1
 	attached_hand = new hand_path(src)
-	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(DischargeHand))
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(discharge_current_hand))
 	if(isalien(user))
 		user.put_in_hands(attached_hand)
 		return
@@ -36,15 +36,24 @@
 	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
 	return 1
 
-/obj/effect/proc_holder/spell/touch/proc/DischargeHand()
-	SIGNAL_HANDLER
+/obj/effect/proc_holder/spell/touch/proc/discharge_any_hand()
 	var/mob/living/carbon/user = action.owner
 	if(!istype(attached_hand))
 		return
 	qdel(attached_hand)
+	UnregisterSignal(user, COMSIG_MOB_WILLINGLY_DROP)
 	attached_hand = null
 	if(on_remove_message)
 		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
+
+/obj/effect/proc_holder/spell/touch/proc/discharge_current_hand()
+	SIGNAL_HANDLER
+	var/mob/living/carbon/user = action.owner
+	if(!istype(attached_hand))
+		return
+	if(attached_hand != user.get_active_hand())
+		return
+	discharge_any_hand()
 
 
 /obj/effect/proc_holder/spell/touch/disintegrate

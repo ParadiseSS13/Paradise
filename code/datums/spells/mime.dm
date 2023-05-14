@@ -99,29 +99,33 @@
 	action_icon_state = "fingergun"
 	action_background_icon_state = "bg_mime"
 	var/gun = /obj/item/gun/projectile/revolver/fingergun
+	var/obj/item/gun/projectile/revolver/fingergun/current_gun
 
 /obj/effect/proc_holder/spell/mime/fingergun/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/C in targets)
-		if(!istype(C.get_active_hand(), gun) && !istype(C.get_inactive_hand(), gun))
+		if(!current_gun)
 			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
+			current_gun = new gun
 			C.drop_item()
-			C.put_in_hands(new gun)
-			RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(holster))
+			C.put_in_hands(current_gun)
+			RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(holster_current_hand))
 		else
-			holster()
+			holster_any_hand()
 			revert_cast(user)
 
-/obj/effect/proc_holder/spell/mime/fingergun/proc/holster()
+/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_current_hand()
 	SIGNAL_HANDLER
-	var/mob/user = action.owner
-	var/current
-	if(istype(user.r_hand, gun))
-		current = user.r_hand
-	if(istype(user.l_hand, gun))
-		current = user.l_hand
-	if(current)
-		to_chat(user, "<span class='notice'>You holster your fingers. Another time.</span>")
-		qdel(current)
+	if(!current_gun || action.owner.get_active_hand() != current_gun)
+		return
+	holster_any_hand()
+
+/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_any_hand()
+	if(!current_gun)
+		return
+	UnregisterSignal(action.owner, COMSIG_MOB_WILLINGLY_DROP)
+	to_chat(action.owner, "<span class='notice'>You holster your fingers. Another time.</span>")
+	qdel(current_gun)
+	current_gun = null
 
 /obj/effect/proc_holder/spell/mime/fingergun/fake
 	desc = "Pretend you're shooting bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
