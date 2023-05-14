@@ -27,7 +27,7 @@
 	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
-	var/obj/item/W = new weapon_type(user, silent, src)
+	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_current_hand))
 	return W
@@ -137,10 +137,8 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
-	var/datum/action/changeling/weapon/source = null
 
-/obj/item/melee/arm_blade/Initialize(mapload, silent, datum/action/changeling/weapon/new_source)
-	source = new_source
+/obj/item/melee/arm_blade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 
@@ -193,10 +191,8 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
-	var/datum/action/changeling/weapon/source = null
 
-/obj/item/gun/magic/tentacle/Initialize(mapload, silent, datum/action/changeling/weapon/new_source)
-	source = new_source
+/obj/item/gun/magic/tentacle/Initialize(mapload, silent)
 	. = ..()
 	if(ismob(loc))
 		if(!silent)
@@ -372,7 +368,6 @@
 	if(!S)
 		return FALSE
 	S.remaining_uses = round(cling.absorbed_count * 3)
-	S.source = src
 	return TRUE
 
 /obj/item/shield/changeling
@@ -380,7 +375,6 @@
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
-	var/datum/action/changeling/weapon/source = null
 
 	var/remaining_uses //Set by the changeling ability.
 
