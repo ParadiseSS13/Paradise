@@ -64,6 +64,7 @@
 
 /obj/item/organ/internal/body_egg/changeling_egg/egg_process()
 	// Changeling eggs grow in everyone
+	time++
 	if(time >= 30 && prob(30))
 		owner.bleed(5)
 	if(time >= 60 && prob(5))
