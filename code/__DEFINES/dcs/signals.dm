@@ -504,6 +504,11 @@
 ///from base power_change() when power is restored
 #define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"
 
+// /obj/machinery/camera signals
+#define COMSIG_CAMERA_ON "camera_on"
+#define COMSIG_CAMERA_OFF "camera_off"
+#define COMSIG_CAMERA_MOVED "camera_moved"
+
 // /obj/item signals
 
 ///from base of obj/item/attack(): (/mob/living/target, /mob/living/user)
