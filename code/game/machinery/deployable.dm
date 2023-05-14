@@ -6,7 +6,9 @@
 #define WOOD 2
 #define SAND 3
 
-#define DROPWALL_UPTIME 12
+#define DROPWALL_UPTIME 60//We'll start with this.
+
+#define AUTO "automatic"
 
 //Barricades/cover
 
@@ -227,6 +229,7 @@
 	desc = "A temporary deployable energy shield powered by a generator. Breaking the generator will destroy all the shields connected to it."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead" //sprite chosen in init
+	armor = list(melee = 0, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 10, acid = 0) // Copied from the security barrier, but no melee armor
 	density = FALSE
 	directional_blockage = TRUE
 	proj_pass_rate = 100 //don't worry about it, covered by directional blockage.
@@ -271,11 +274,17 @@
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall"
 	item_state = "grenade"
-	mode = NORTH
+	mode = "automatic"
 	var/uptime = DROPWALL_UPTIME SECONDS
+	/// If this is true we do not ar magain, due to the sleep
+	var/deployed = FALSE
+	/// Mob who armed it. Needed for the get_dir proc
+	var/armer
 
 /obj/item/grenade/barrier/dropwall/toggle_mode(mob/user)
 	switch(mode)
+		if(AUTO)
+			mode = NORTH
 		if(NORTH)
 			mode = EAST
 		if(EAST)
@@ -283,12 +292,33 @@
 		if(SOUTH)
 			mode = WEST
 		if(WEST)
-			mode = NORTH
+			mode = AUTO
 
-	to_chat(user, "[src] is now in [dir2text(mode)] mode.")
+	to_chat(user, "[src] is now in [mode == AUTO ? mode : dir2text(mode)] mode.")
+
+/obj/item/grenade/barrier/dropwall/attack_self(mob/user)
+	. = ..()
+	armer = user
+
+
+/obj/item/grenade/barrier/dropwall/end_throw()
+	if(active)
+		addtimer(CALLBACK(src, PROC_REF(prime)), 1) //Wait for the throw to fully end
+	return
 
 /obj/item/grenade/barrier/dropwall/prime()
+	if(deployed)
+		return
+	if(mode == AUTO)
+		mode = get_dir_rounded(armer, get_turf(src))
+		switch(mode) //We do need to specify a cardinal still in the end, so we do flub it a bit
+			if(NORTHEAST, SOUTHEAST)
+				mode = EAST
+			if(NORTHWEST, SOUTHWEST)
+				mode = WEST
 	new /obj/structure/dropwall_generator(get_turf(loc), mode, uptime)
+	deployed = TRUE
+	armer = null
 	qdel(src)
 
 /obj/structure/dropwall_generator
@@ -355,6 +385,12 @@
 	else
 		qdel(src)
 
+/obj/structure/dropwall_generator/ex_act(severity)
+	if(protected && severity > 1) //We would throw the explosion at the shield, but it is already getting hit
+		return
+	else
+		qdel(src)
+
 /obj/structure/dropwall_generator/proc/power_out()
 	visible_message("<span class='warning'>[src] runs out of power, causing its shields to fail!</span>")
 	new /obj/item/used_dropwall(get_turf(src))
@@ -395,3 +431,5 @@
 
 
 #undef DROPWALL_UPTIME
+
+#undef AUTO

@@ -30,6 +30,29 @@
 	if(A > upper) return 0
 	return 1
 
+// A more advanced version of get_dir that returns ordinal/cardinal that is accurate to angle
+// If its closer to north than north east, it will round to north
+/proc/get_dir_rounded(loc1, loc2)
+	var/turf/turf1 = get_turf(loc1)
+	var/turf/turf2 = get_turf(loc2)
+	var/angle = ATAN2((turf2.y - turf1.y), (turf2.x - turf1.x))
+	angle = round(angle, 0.1)
+	if(angle < 0)
+		angle += 360
+
+	var/result = 0
+	switch(angle)
+		if(300 to 360, 0 to 60)
+			result |= NORTH
+		if(120 to 240)
+			result |= SOUTH
+	switch(angle)
+		if(30 to 150)
+			result |= EAST
+		if(210 to 330)
+			result |= WEST
+	return result
+
 
 /proc/get_angle(atom/movable/start, atom/movable/end)//For beams.
 	if(!start || !end)
