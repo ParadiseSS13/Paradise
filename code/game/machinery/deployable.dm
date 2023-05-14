@@ -229,7 +229,7 @@
 	desc = "A temporary deployable energy shield powered by a generator. Breaking the generator will destroy all the shields connected to it."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead" //sprite chosen in init
-	armor = list(melee = 0, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 10, acid = 0) // Copied from the security barrier, but no melee armor
+	armor = list(MELEE = 0, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 10, ACID = 0) // Copied from the security barrier, but no melee armor
 	density = FALSE
 	directional_blockage = TRUE
 	proj_pass_rate = 100 //don't worry about it, covered by directional blockage.
