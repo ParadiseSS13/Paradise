@@ -69,7 +69,7 @@
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
 
-/datum/action/proc/ShouldShowCooldown() // Should we show cooldown in HUD panel or not
+/datum/action/proc/should_show_cooldown() // Should we show cooldown in HUD panel or not
 	return !IsAvailable()
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
@@ -110,7 +110,7 @@
 
 		ApplyIcon(button)
 
-		if(ShouldShowCooldown())
+		if(should_show_cooldown())
 			apply_unavailable_effect()
 		else
 			return TRUE
@@ -581,7 +581,7 @@
 		return spell.can_cast(owner)
 	return FALSE
 
-/datum/action/spell_action/ShouldShowCooldown()
+/datum/action/spell_action/should_show_cooldown()
 	var/obj/effect/proc_holder/spell/S = target
 	var/datum/spell_cooldown/charges/handler = S.cooldown_handler
 	if(!istype(S) || !istype(handler))
