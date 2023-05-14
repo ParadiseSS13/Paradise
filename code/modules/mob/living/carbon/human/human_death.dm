@@ -133,6 +133,9 @@
 	update_mutantrace()
 
 /mob/living/carbon/human/proc/become_husk(source)
+	if(ismachineperson(src))
+		return
+
 	if(!HAS_TRAIT(src, TRAIT_HUSK))
 		ADD_TRAIT(src, TRAIT_HUSK, source)
 		var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
