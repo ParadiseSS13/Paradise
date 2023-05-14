@@ -153,6 +153,8 @@
 
 #define MIDNIGHT_ROLLOVER	864000 //number of deciseconds in a day
 
+#define CAMERA_VIEW_DISTANCE 7
+#define CAMERA_CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 
 
 //Turf wet states
@@ -380,7 +382,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 47
+#define SQL_VERSION 48
 
 // Vending machine stuff
 #define CAT_NORMAL 1

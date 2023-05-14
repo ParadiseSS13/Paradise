@@ -45,16 +45,16 @@
 	open_door_sprite = "syndicate1_door"
 
 /obj/structure/closet/gimmick/russian/populate_contents()
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/under/costume/soviet(src)
-	new /obj/item/clothing/under/costume/soviet(src)
-	new /obj/item/clothing/under/costume/soviet(src)
-	new /obj/item/clothing/under/costume/soviet(src)
-	new /obj/item/clothing/under/costume/soviet(src)
+	new /obj/item/clothing/head/sovietsidecap(src)
+	new /obj/item/clothing/head/sovietsidecap(src)
+	new /obj/item/clothing/head/sovietsidecap(src)
+	new /obj/item/clothing/head/sovietsidecap(src)
+	new /obj/item/clothing/head/sovietsidecap(src)
+	new /obj/item/clothing/under/new_soviet(src)
+	new /obj/item/clothing/under/new_soviet(src)
+	new /obj/item/clothing/under/new_soviet(src)
+	new /obj/item/clothing/under/new_soviet(src)
+	new /obj/item/clothing/under/new_soviet(src)
 
 
 /obj/structure/closet/gimmick/tacticool

@@ -172,6 +172,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 	return list("verb" = verb)
 
 /mob/living/carbon/human/proc/replace_speech(matched)
+	REGEX_REPLACE_HANDLER
 	return GLOB.soapy_words[lowertext(matched)]
 
 /mob/living/carbon/human/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)

@@ -318,16 +318,19 @@
 				status = "battered"
 			if(40 to INFINITY)
 				status = "mangled"
-		if(brutedamage > 0 && burndamage > 0)
+		if(brutedamage > 0 && (burndamage > 0 || LB.status & ORGAN_BURNT))
 			status += " and "
 
-		switch(burndamage)
-			if(0.1 to 10)
-				status += "numb"
-			if(10 to 40)
-				status += "blistered"
-			if(40 to INFINITY)
-				status += "peeling away"
+		if(LB.status & ORGAN_BURNT)
+			status += "critically burnt"
+		else
+			switch(burndamage)
+				if(0.1 to 10)
+					status += "numb"
+				if(10 to 40)
+					status += "blistered"
+				if(40 to INFINITY)
+					status += "peeling away"
 
 		if(LB.status & ORGAN_MUTATED)
 			status = "weirdly shapen"
@@ -1118,6 +1121,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	KnockDown(knockdown)
 	return TRUE
+
+/mob/living/carbon/proc/shock_reduction()
+	var/shock_reduction = 0
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(R.shock_reduction)
+				shock_reduction += R.shock_reduction
+	return shock_reduction
 
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return 1
