@@ -1661,7 +1661,17 @@
 	},
 /area/space)
 "gg" = (
-/turf/space,
+/obj/structure/fans/tiny,
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "pirateshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/pirate)
 "gh" = (
 /turf/simulated/wall/indestructible/opsglass,
@@ -6860,11 +6870,14 @@
 /area/shuttle/pirate)
 "wO" = (
 /obj/docking_port/stationary/transit{
-	dir = 8;
-	height = 35;
+	dir = 2;
+	height = 16;
 	id = "pirate_transit";
 	name = "pirate in transit";
-	width = 16
+	width = 33;
+	bound_width = 33;
+	bound_height = 16;
+	dwidth = 13
 	},
 /turf/space/transit/horizontal{
 	dir = 4
@@ -7054,23 +7067,29 @@
 /area/shuttle/pirate)
 "xu" = (
 /obj/structure/fans/tiny,
-/obj/docking_port/stationary{
-	dir = 8;
-	name = "pirate shuttle";
-	id = "pirate_away";
-	height = 35;
-	width = 16
-	},
-/obj/docking_port/mobile{
-	dir = 8;
-	name = "pirate shuttle";
-	id = "pirate";
-	width = 15;
-	height = 35
-	},
 /obj/machinery/door/airlock/external{
 	id_tag = "syndicate_away";
 	req_access_txt = "150"
+	},
+/obj/docking_port/stationary{
+	dir = 2;
+	name = "pirate shuttle";
+	id = "pirate_away";
+	height = 16;
+	width = 33;
+	bound_height = 16;
+	bound_width = 33;
+	dwidth = 13
+	},
+/obj/docking_port/mobile{
+	dir = 2;
+	name = "pirate shuttle";
+	id = "pirate";
+	width = 33;
+	height = 16;
+	bound_height = 16;
+	bound_width = 33;
+	dwidth = 13
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/pirate)
