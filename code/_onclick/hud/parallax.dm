@@ -265,6 +265,8 @@
 			new_overlays += texture_overlay
 	cut_overlays()
 	add_overlay(new_overlays)
+	// Cache this
+	view_sized = view
 
 /obj/screen/parallax_layer/proc/update_status(mob/M)
 	return

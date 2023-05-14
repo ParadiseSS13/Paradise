@@ -950,7 +950,9 @@
 
 					if(actual_new_range != parent.view)
 						parent.view = actual_new_range
-
+						// Update the size of the click catcher
+						var/list/actualview = getviewsize(parent.view)
+						parent.void.UpdateGreed(actualview[1],actualview[2])
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))

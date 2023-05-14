@@ -1261,7 +1261,7 @@
 	winset(src, null, "command=\".configure graphics-hwmode off\"")
 	winset(src, null, "command=\".configure graphics-hwmode on\"")
 
-// Just returns the biggest number from client.view so we can do easier maths
+/// Returns the biggest number from client.view so we can do easier maths
 /client/proc/maxview()
 	var/list/screensize = getviewsize(view)
 	return max(screensize[1], screensize[2])
