@@ -464,56 +464,6 @@
 	if(progress)
 		qdel(progbar)
 
-/// A version of do_after that will not get cancelled by a mob moving, for situations when signals are not viable
-/proc/moving_do_after(mob/user, delay, needhand = TRUE, atom/target = null, progress = TRUE, allow_moving = 0, list/extra_checks = list(), use_default_checks = TRUE, must_be_held = TRUE)
-	if(!istype(user))
-		return FALSE
-	var/atom/target_loc = null
-	if(target)
-		target_loc = target.loc
-
-	var/holding = user.get_active_hand()
-
-	var/datum/progressbar/progbar
-	if(progress)
-		progbar = new(user, delay, target)
-
-	var/endtime = world.time + delay
-	var/starttime = world.time
-	. = TRUE
-
-	if(use_default_checks)
-		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsWeakened))
-		extra_checks += CALLBACK(user, TYPE_PROC_REF(/mob/living, IsStunned))
-
-	while(world.time < endtime)
-		sleep(1)
-		if(progress)
-			progbar.update(world.time - starttime)
-
-		if(!user || user.stat || check_for_true_callbacks(extra_checks))
-			. = FALSE
-			break
-
-		if(target_loc && (!target || target_loc != target.loc))
-			. = FALSE
-			break
-
-		if(must_be_held )
-			if(target.loc != user)
-				. = FALSE
-				break
-
-		if(needhand)
-			if(!holding)
-				. = FALSE
-				break
-			if(user.get_active_hand() != holding)
-				. = FALSE
-				break
-	if(progress)
-		qdel(progbar)
-
 // Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
 /proc/check_for_true_callbacks(list/extra_checks)
 	for(var/datum/callback/CB in extra_checks)
