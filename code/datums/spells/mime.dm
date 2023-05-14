@@ -108,19 +108,14 @@
 			current_gun = new gun
 			C.drop_item()
 			C.put_in_hands(current_gun)
-			RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(holster_current_hand))
+			RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(holster_hand))
 		else
-			holster_any_hand()
+			holster_hand(user, TRUE)
 			revert_cast(user)
 
-/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_current_hand()
+/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_hand(atom/target, any=FALSE)
 	SIGNAL_HANDLER
-	if(!current_gun || action.owner.get_active_hand() != current_gun)
-		return
-	holster_any_hand()
-
-/obj/effect/proc_holder/spell/mime/fingergun/proc/holster_any_hand()
-	if(!current_gun)
+	if(!current_gun || !any && action.owner.get_active_hand() != current_gun)
 		return
 	UnregisterSignal(action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	to_chat(action.owner, "<span class='notice'>You holster your fingers. Another time.</span>")

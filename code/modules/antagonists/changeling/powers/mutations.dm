@@ -19,7 +19,7 @@
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
-		retract_any_hand()
+		retract(user, TRUE)
 		return
 	..(user, target)
 
@@ -29,18 +29,15 @@
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
-	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract_current_hand))
+	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract))
 	return W
 
-/datum/action/changeling/weapon/proc/retract_current_hand()
+/datum/action/changeling/weapon/proc/retract(atom/target, any=FALSE)
 	SIGNAL_HANDLER
 	if(!lowertext(owner.mind.special_role) == ROLE_CHANGELING)
 		return
 	if(!istype(owner.get_active_hand(), weapon_type))
 		return
-	retract_any_hand()
-
-/datum/action/changeling/weapon/proc/retract_any_hand()
 	var/done = FALSE
 	if(istype(owner.l_hand, weapon_type))
 		qdel(owner.l_hand)
