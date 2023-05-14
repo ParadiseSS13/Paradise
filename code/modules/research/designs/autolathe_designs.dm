@@ -888,6 +888,14 @@
 	build_path = /obj/item/assembly/mousetrap
 	category = list("initial", "Miscellaneous")
 
+/datum/design/mousetrap
+	name = "Bear Trap"
+	id = "beartrap"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 12000)
+	build_path = /obj/item/restraints/legcuffs/beartrap
+	category = list("hacked", "Miscellaneous")
+
 /datum/design/vendor
 	name = "Machine Board (Vendor)"
 	desc = "The circuit board for a Vendor."
