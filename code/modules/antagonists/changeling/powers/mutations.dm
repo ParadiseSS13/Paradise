@@ -24,12 +24,14 @@
 	..(user, target)
 
 /datum/action/changeling/weapon/sting_action(mob/user)
+	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
 	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent)
 	user.put_in_hands(W)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract))
+	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract))
 	return W
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any=FALSE)
