@@ -65,3 +65,4 @@
 	. = ..()
 	if(toggle && isliving(mover)) //No crawling under a protector
 		return FALSE
+
