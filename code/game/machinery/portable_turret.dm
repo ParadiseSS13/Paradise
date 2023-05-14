@@ -561,10 +561,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(get_turf(AM) == get_turf(src))
 		return TURRET_PREASSESS_INVALID
 
-	if(get_dist(src, L) > scan_range)	//if it's too far away, why bother?
+	if(get_dist(src, AM) > scan_range)	//if it's too far away, why bother?
 		return TURRET_PREASSESS_INVALID
 
-	if(lethal && locate(/mob/living/silicon/ai) in get_turf(L))		//don't accidentally kill the AI!
+	if(lethal && locate(/mob/living/silicon/ai) in get_turf(AM))		//don't accidentally kill the AI!
 		return TURRET_PREASSESS_INVALID
 
 	return TURRET_PREASSESS_VALID
