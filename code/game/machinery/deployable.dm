@@ -310,12 +310,7 @@
 	if(deployed)
 		return
 	if(mode == AUTO)
-		mode = get_dir_rounded(armer, get_turf(src))
-		switch(mode) //We do need to specify a cardinal still in the end, so we do flub it a bit
-			if(NORTHEAST, SOUTHEAST)
-				mode = EAST
-			if(NORTHWEST, SOUTHWEST)
-				mode = WEST
+		mode = angle2dir_cardinal(get_angle(armer, get_turf(src)))
 	new /obj/structure/dropwall_generator(get_turf(loc), mode, uptime)
 	deployed = TRUE
 	armer = null
