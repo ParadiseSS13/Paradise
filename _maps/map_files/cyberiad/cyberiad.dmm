@@ -32390,6 +32390,10 @@
 	dir = 8;
 	layer = 2.9
 	},
+/obj/item/destTagger{
+	pixel_x = 4;
+	pixel_y = 3
+	},
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -34510,11 +34514,11 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/port)
 "bKH" = (
-/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/gray,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 5
+	dir = 9
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/maintenance/port)
 "bKI" = (
 /obj/machinery/light{
@@ -34647,6 +34651,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 8
 	},
+/obj/item/clothing/gloves/color/fyellow/old,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bKY" = (
@@ -51599,8 +51604,12 @@
 	},
 /area/hallway/primary/aft)
 "cFi" = (
-/obj/item/stack/sheet/cardboard,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/latexballon,
+/obj/structure/table,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cFj" = (
@@ -66369,12 +66378,8 @@
 	},
 /area/maintenance/asmaint2)
 "eLB" = (
-/obj/structure/door_assembly/door_assembly_mai{
-	anchored = 1
-	},
-/obj/structure/barricade/wooden/crude,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/floor/plasteel,
+/turf/simulated/wall,
 /area/maintenance/port)
 "eLE" = (
 /obj/machinery/camera{
@@ -66839,6 +66844,7 @@
 	dir = 8;
 	layer = 2.9
 	},
+/obj/item/rcs,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 2;
 	name = "2maintenance loot spawner"
@@ -66897,13 +66903,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "fea" = (
-/obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
+/obj/structure/closet,
+/obj/item/clothing/suit/ianshirt,
+/obj/effect/landmark/spawner/nukedisc_respawn,
+/turf/simulated/floor/plating,
 /area/maintenance/port)
 "fes" = (
 /obj/structure/chair{
@@ -67209,11 +67213,9 @@
 /area/maintenance/turbine)
 "fnO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/missing_gloves{
-	pixel_y = 30
-	},
-/obj/item/clothing/gloves/color/fyellow/old,
-/turf/simulated/floor/plasteel,
+/obj/item/latexballon,
+/obj/structure/table,
+/turf/simulated/floor/plating,
 /area/maintenance/port)
 "fnP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -73090,15 +73092,16 @@
 	},
 /area/mimeoffice)
 "jre" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 1
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
 /area/maintenance/port)
 "jrh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -76148,12 +76151,11 @@
 /turf/simulated/wall,
 /area/security/permabrig)
 "lKF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/missing_gloves{
+	pixel_y = 30
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -86208,11 +86210,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"sPK" = (
-/mob/living/simple_animal/mouse/gray,
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "sQe" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green{
@@ -89688,19 +89685,9 @@
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint)
 "vhD" = (
-/obj/structure/table,
-/obj/item/destTagger{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/rcs,
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 2;
-	name = "2maintenance loot spawner"
-	},
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plating,
 /area/maintenance/port)
 "vhH" = (
 /obj/structure/cable{
@@ -112707,7 +112694,7 @@ blQ
 blQ
 iZp
 blQ
-bwy
+lKF
 bMg
 bxb
 bPX
@@ -114247,7 +114234,7 @@ bnK
 jre
 myP
 eLB
-sPK
+ciA
 bKH
 bxb
 bIX
@@ -114500,7 +114487,7 @@ bKW
 bwu
 bAu
 cHE
-lKF
+bAu
 cqQ
 rVV
 mBl
