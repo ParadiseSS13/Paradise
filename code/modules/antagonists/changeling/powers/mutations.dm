@@ -50,9 +50,8 @@
 		owner.update_inv_r_hand()
 		done = TRUE
 	UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
-	if(done)
-		if(!silent)
-			owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+	if(done && !silent)
+		owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
