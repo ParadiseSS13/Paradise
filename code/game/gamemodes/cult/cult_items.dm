@@ -583,7 +583,7 @@
 /obj/item/twohanded/cult_spear/Destroy()
 	if(spear_act)
 		qdel(spear_act)
-	..()
+	return ..()
 
 /obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[wielded]"
@@ -795,7 +795,7 @@
 
 /obj/effect/portal/cult
 	name = "eldritch portal"
-	desc = "An evil portal made by dark magics. Suprisingly stable."
+	desc = "An evil portal made by dark magics. Surprisingly stable."
 	icon_state = "portal1"
 	failchance = 0
 	precision = FALSE

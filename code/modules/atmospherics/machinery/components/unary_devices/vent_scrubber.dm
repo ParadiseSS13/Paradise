@@ -1,10 +1,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber
+	name = "air scrubber"
+	desc = "Has a valve and pump attached to it."
 	icon = 'icons/atmos/vent_scrubber.dmi'
 	icon_state = "map_scrubber_off"
-
-	name = "air scrubber"
-	desc = "Has a valve and pump attached to it"
-	layer = GAS_SCRUBBER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
+	layer_offset = GAS_SCRUBBER_OFFSET
 	plane = FLOOR_PLANE
 	power_state = ACTIVE_POWER_USE
 	idle_power_consumption = 10

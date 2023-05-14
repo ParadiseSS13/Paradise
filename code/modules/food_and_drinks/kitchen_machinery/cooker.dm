@@ -110,8 +110,6 @@
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
 		return FALSE
-	if(istype(check, /obj/item/grab))
-		return can_grab_attack(check, user, TRUE)  // tell the user here
 	if(has_specials && checkSpecials(check))
 		return TRUE
 	if(istype(check, /obj/item/reagent_containers/food/snacks) || emagged)
@@ -191,6 +189,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='warning'>Close the panel first!</span>")
 		return
+	if(istype(I, /obj/item/grab))
+		return special_attack_grab(I, user)
 	if(!checkValid(I, user))
 		return
 	if(!burns)
@@ -207,8 +207,7 @@
 			else
 				L.death()
 		break
-	if(istype(I, /obj/item/grab))
-		return special_attack_grab(I, user)
+
 	addtimer(CALLBACK(src, PROC_REF(finish_cook), I, user), cooktime)
 
 /obj/machinery/cooker/proc/finish_cook(obj/item/I, mob/user, params)

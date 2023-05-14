@@ -153,8 +153,8 @@
 			R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 	else if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
-		if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
-			H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
+		if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < NUTRITION_LEVEL_FULL - 1)
+			H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
 		if(repairs)
 			H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 

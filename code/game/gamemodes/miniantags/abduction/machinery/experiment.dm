@@ -168,7 +168,7 @@
 			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 			return "<span class='bad'>Experiment failed! No replacement organ detected.</span>"
 	else
-		atom_say("Brain activity nonexistant - disposing sample...")
+		atom_say("Brain activity nonexistent - disposing sample...")
 		eject_abductee()
 		SendBack(H)
 		return "<span class='bad'>Specimen braindead - disposed.</span>"

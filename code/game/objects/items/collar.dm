@@ -67,6 +67,7 @@
 
 	var/area/pet_death_area = get_area(M)
 	var/obj/item/radio/headset/pet_death_announcer = new /obj/item/radio/headset(src)
+	pet_death_announcer.follow_target = src
 	if(istype(pet_death_area, /area/syndicate_mothership) || istype(pet_death_area, /area/shuttle/syndicate_elite))
 		//give the syndicats a bit of stealth
 		pet_death_announcer.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")

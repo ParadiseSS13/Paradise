@@ -3,14 +3,14 @@
 #define PRESSURE_CHECKS 1
 
 /obj/machinery/atmospherics/unary/vent_pump
+	name = "air vent"
+	desc = "Has a valve and pump attached to it."
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
-
-	name = "air vent"
-	desc = "Has a valve and pump attached to it"
 	power_state = IDLE_POWER_USE
 	plane = FLOOR_PLANE
-	layer = GAS_SCRUBBER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
+	layer_offset = GAS_SCRUBBER_OFFSET
 
 	can_unwrench = TRUE
 	var/open = FALSE

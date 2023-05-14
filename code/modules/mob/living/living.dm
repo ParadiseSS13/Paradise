@@ -48,6 +48,7 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	QDEL_NULL(middleClickOverride)
 	if(mind?.current == src)
 		mind.current = null
 	return ..()
@@ -1089,7 +1090,6 @@
 /mob/living/onTransitZ(old_z,new_z)
 	..()
 	update_z(new_z)
-	SSticker.mode.transit_z(src)
 
 /mob/living/rad_act(amount)
 	. = ..()

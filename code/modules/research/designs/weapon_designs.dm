@@ -131,7 +131,7 @@
 	id = "lwap"
 	req_tech = list("combat" = 7, "magnets" = 7, "powerstorage" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_GOLD = 5000, MAT_DIAMOND = 5000)
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 8000, MAT_GOLD = 5000, MAT_DIAMOND = 8000)
 	build_path = /obj/item/weaponcrafting/gunkit/lwap
 	category = list("Weapons")
 
@@ -177,6 +177,16 @@
 	id = "mag_oldsmg_tx"
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_URANIUM = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
+
+/datum/design/mag_laser
+	name = "Laser Rifle Projector Magazine"
+	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
+	id = "mag_laser"
+	build_type = PROTOLATHE
+	req_tech = list("combat" = 4, "powerstorage" = 4)
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)
+	build_path = /obj/item/ammo_box/magazine/laser
+	category = list("Weapons")
 
 /datum/design/stunrevolver
 	name = "Arc Revolver Parts Kit"

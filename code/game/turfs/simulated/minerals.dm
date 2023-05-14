@@ -164,7 +164,8 @@
 	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS, SMOOTH_GROUP_ASTEROID_WALLS)
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
-	layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
+	real_layer = TURF_LAYER
 	should_reset_color = FALSE
 	mineralAmt = 2
 	mineralType = /obj/item/stack/ore/glass/basalt/ancient
@@ -194,6 +195,23 @@
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 	else
 		return attack_hand(user)
+
+/turf/simulated/mineral/ancient/blob_act(obj/structure/blob/B)
+	if(prob(50))
+		blob_destruction()
+
+/turf/simulated/mineral/ancient/proc/blob_destruction()
+	playsound(src, pick(list('sound/effects/picaxe1.ogg', 'sound/effects/picaxe2.ogg', 'sound/effects/picaxe3.ogg')), 30, 1 )
+
+	for(var/obj/O in contents) //Eject contents!
+		if(istype(O, /obj/structure/sign/poster))
+			var/obj/structure/sign/poster/P = O
+			P.roll_and_drop(src)
+		else
+			O.forceMove(src)
+
+	ChangeTurf(/turf/simulated/floor/plating/asteroid/ancient)
+	return TRUE
 
 /turf/simulated/mineral/ancient/outer
 	name = "cold ancient rock"

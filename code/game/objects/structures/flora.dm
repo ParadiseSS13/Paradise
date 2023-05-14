@@ -266,23 +266,40 @@
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
+	/// Method to track plant overlay on mob for later removal
+	var/mutable_appearance/mob_overlay
 
-/obj/item/twohanded/required/kirbyplants/New()
-	..()
+/obj/item/twohanded/required/kirbyplants/Initialize(mapload)
+	. = ..()
 	icon_state = "plant-[rand(1,35)]"
 	if(prob(1))
 		icon_state = "plant-36"
 
+/obj/item/twohanded/required/kirbyplants/Destroy()
+	if(isliving(loc))
+		unhide_user(loc)
+
+	QDEL_NULL(mob_overlay)
+	return ..()
+
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	. = ..()
 	if(wielded)
-		var/image/I = image(icon, user, icon_state)
-		I.override = TRUE
-		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+		hide_user(user)
+
+/obj/item/twohanded/required/kirbyplants/proc/hide_user(mob/living/user)
+	mob_overlay = mutable_appearance(icon, icon_state, user.layer, user.plane, 255, appearance_flags = RESET_COLOR | RESET_TRANSFORM | RESET_ALPHA | KEEP_APART)
+	user.add_overlay(mob_overlay)
+	user.alpha = 0
+
+/obj/item/twohanded/required/kirbyplants/proc/unhide_user(mob/living/user)
+	user.cut_overlay(mob_overlay)
+	user.alpha = initial(user.alpha)
+	QDEL_NULL(mob_overlay)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()
-	user.remove_alt_appearance("sneaking_mission")
+	unhide_user(user)
 
 /obj/item/twohanded/required/kirbyplants/dead
 	name = "\improper RD's potted plant"
@@ -293,7 +310,7 @@
 //and now these defines
 /obj/structure/flora/rock
 	name = "rock"
-	desc = "a rock"
+	desc = "A rock."
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
 	resistance_flags = FIRE_PROOF
@@ -305,7 +322,7 @@
 
 /obj/structure/flora/rock/pile
 	name = "rocks"
-	desc = "some rocks"
+	desc = "Some rocks."
 	icon_state = "rockpile1"
 
 /obj/structure/flora/rock/pile/Initialize(mapload)
