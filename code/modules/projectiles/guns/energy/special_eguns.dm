@@ -523,6 +523,7 @@
 	return ..()
 
 /obj/item/gun/energy/bsg/update_icon_state()
+	. = ..()
 	if(core)
 		if(has_bluespace_crystal)
 			icon_state = "bsg_finished"
