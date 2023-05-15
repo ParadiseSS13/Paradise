@@ -48,7 +48,7 @@
 
 //Eat all thing in my hand
 /obj/item/proc/item_eat(mob/living/carbon/target, mob/user)
-	if (!check_item_eat(target, user))
+	if(!check_item_eat(target, user))
 		return FALSE
 
 	var/chat_message_to_user = "Вы кормите [target] [src.name]."
@@ -77,8 +77,8 @@
 	to_chat(user, "<span class='notice'>[chat_message_to_user]</span>")
 
 	current_bites++
-	playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-	if(!target.mind.vampire) //Dont give nutrition to vampires
+	playsound(target.loc, 'sound/items/eatfood.ogg', 50, 0)
+	if(!target.mind?.vampire) //Dont give nutrition to vampires
 		target.adjust_nutrition(nutritional_value)
 	obj_integrity = max(obj_integrity - integrity_bite, 0)
 	colour_change()
