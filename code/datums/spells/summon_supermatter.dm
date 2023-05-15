@@ -2,7 +2,6 @@
 	name = "Summon supermatter crystal"
 	desc = "Summons an active supermatter crystal. Imbues you with some supermatter, giving you resistance to it's hallucinations and radiation immunity."
 	base_cooldown = 5 MINUTES
-	clothes_req = FALSE
 	summon_type = list(/obj/machinery/atmospherics/supermatter_crystal)
 	summon_amt = 1
 	aoe_range = 0
