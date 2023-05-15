@@ -26187,6 +26187,19 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
+"vAX" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/chem_dispenser/botanical/upgraded,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate/unpowered/syndicate_space_base/botany)
 "vAZ" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -59703,7 +59716,7 @@ ieq
 iQV
 jxt
 iPh
-lxf
+vAX
 mfr
 mBn
 nqL

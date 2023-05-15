@@ -430,6 +430,18 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
+/obj/machinery/chem_dispenser/botanical/upgraded/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
+	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
+	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new cell_type(null)
+	RefreshParts()
+
 // Handheld chem dispenser
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"
