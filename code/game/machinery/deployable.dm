@@ -6,7 +6,7 @@
 #define WOOD 2
 #define SAND 3
 
-#define DROPWALL_UPTIME 1 MINUTE
+#define DROPWALL_UPTIME 1 MINUTES
 
 #define AUTO "automatic"
 
