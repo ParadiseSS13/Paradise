@@ -62,6 +62,10 @@
 	shaded_charge = FALSE
 	can_holster = TRUE
 
+/obj/item/gun/energy/gun/hos/Initialize(mapload, ...)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced energy revolver"
 	desc = "An advanced energy revolver with the capacity to shoot both disablers and lasers."

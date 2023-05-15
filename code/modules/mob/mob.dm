@@ -3,6 +3,8 @@
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
 	input_focus = null
+	if(s_active)
+		s_active.close(src)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)

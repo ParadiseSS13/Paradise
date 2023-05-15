@@ -319,6 +319,8 @@
 /datum/component/material_container/proc/get_item_material_amount(obj/item/I)
 	if(!istype(I))
 		return FALSE
+	if(!I.materials) // some objects have no materials and this will cause runtimes without this check
+		return 0
 	var/material_amount = 0
 	for(var/MAT in materials)
 		material_amount += I.materials[MAT]
