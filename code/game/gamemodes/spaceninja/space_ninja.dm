@@ -211,7 +211,7 @@
 			var/datum/objective/pain_hunter/pain_objective = new
 			pain_objective.owner = ninja_mind
 			pain_objective.find_target()
-			if("[pain_objective]" in ninja_datum.assigned_targets)
+			if("[pain_objective.target]" in ninja_datum.assigned_targets)
 				qdel(pain_objective)
 			else if(pain_objective.target)
 				ninja_datum.assigned_targets.Add("[pain_objective.target]")
@@ -337,7 +337,7 @@
 	var/datum/objective/pain_hunter/pain_objective = new
 	pain_objective.owner = ninja_mind
 	pain_objective.find_target()
-	if("[pain_objective]" in ninja_datum.assigned_targets)
+	if("[pain_objective.target]" in ninja_datum.assigned_targets)
 		qdel(pain_objective)
 	else if(pain_objective.target)
 		ninja_datum.assigned_targets.Add("[pain_objective.target]")
