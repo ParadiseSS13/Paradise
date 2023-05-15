@@ -248,7 +248,7 @@
 	name = "Summon supermatter crystal"
 	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter
 	cost = 3
-	log_name = "Summon Supermatter" // IDC for the standard of 2 letters per log, it's stupid as fuck, SS and SM are also already taken
+	log_name = "SSM"
 	category = "Defensive"
 
 /datum/spellbook_entry/summon_supermatter/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
