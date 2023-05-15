@@ -10,6 +10,7 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
+#include "__odlint.dm"
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\base_map.dm"
 #include "_maps\map_datums.dm"

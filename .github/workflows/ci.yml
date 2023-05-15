@@ -37,6 +37,18 @@ jobs:
         with:
           outputFile: output-annotations.txt
 
+  odlint:
+    name: Lint with OpenDream
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup OD
+        run: |
+          bash tools/ci/setup_od.sh
+      - name: Run OD
+        run: |
+          bash tools/ci/run_od.sh
+
   compile_all_maps:
     name: Compile All Maps
     runs-on: ubuntu-20.04
