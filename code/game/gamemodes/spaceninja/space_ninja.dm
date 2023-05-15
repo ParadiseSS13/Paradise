@@ -361,7 +361,7 @@
 	collect_vamp_blood.owner = ninja_mind
 	collect_vamp_blood.generate_vampires()
 	ninja_mind.objectives += collect_vamp_blood
-	if(!length(SSticker.mode.vampires)) //Если нет вампиров, просто не даём цель
+	if(length(SSticker.mode.vampires) < collect_vamp_blood.samples_to_win) //Если вампиров недостаточно, для сбора образцов, просто не даём цель
 		GLOB.all_objectives -= collect_vamp_blood
 		ninja_mind.objectives -= collect_vamp_blood
 		qdel(collect_vamp_blood)
