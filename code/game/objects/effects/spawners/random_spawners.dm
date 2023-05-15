@@ -23,6 +23,8 @@
 	var/thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /datum/nothing))
 		// Nothing.
+		qdel(src) // See line 13, this needs moving to /Initialize() so we can use the qdel hint already
+		return
 	else if(ispath(thing_to_place, /turf))
 		T.ChangeTurf(thing_to_place)
 	else

@@ -186,7 +186,6 @@
 	switch(severity)
 		if(1.0)
 			ChangeTurf(baseturf)
-			return
 		if(2.0)
 			if(prob(50))
 				take_damage(rand(150, 250))
@@ -194,8 +193,6 @@
 				dismantle_wall(1, 1)
 		if(3.0)
 			take_damage(rand(0, 250))
-		else
-	return
 
 /turf/simulated/wall/blob_act(obj/structure/blob/B)
 	if(prob(50))

@@ -21,6 +21,7 @@
 #pragma InvalidSetStatement error
 #pragma InvalidOverride error
 #pragma DanglingVarType error
+#pragma MissingInterpolatedExpression error
 
 //3000-3999
 #pragma EmptyBlock error

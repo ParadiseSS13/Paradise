@@ -33,8 +33,6 @@
 
 	var/blocks_air = FALSE
 
-	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
-
 	flags = 0
 
 	var/image/obscured	//camerachunks

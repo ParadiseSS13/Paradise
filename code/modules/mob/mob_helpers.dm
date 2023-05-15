@@ -357,12 +357,11 @@
 	var/newletter=""
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
-		if(newletter in list(" ", "!", "?", ".", ","))
-			//do nothing
-		else if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y"))
+		if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y"))
 			newletter = "ph"
 		else
-			newletter = "m"
+			if(!(newletter in list(" ", "!", "?", ".", ",")))
+				newletter = "m"
 		newphrase+="[newletter]"
 		counter-=1
 	return newphrase
