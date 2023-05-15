@@ -474,11 +474,11 @@
 				clear_fullscreen("oxy")
 
 		//Fire and Brute damage overlay (BSSR)
-		var/hurtdamage = getBruteLoss() + getFireLoss() + damageoverlaytemp
+		var/percent_damage = (getBruteLoss() + getFireLoss() + damageoverlaytemp)/(maxHealth/100)
 		damageoverlaytemp = 0 // We do this so we can detect if someone hits us or not.
-		if(hurtdamage)
+		if(percent_damage)
 			var/severity = 0
-			switch(hurtdamage)
+			switch(percent_damage)
 				if(5 to 15) severity = 1
 				if(15 to 30) severity = 2
 				if(30 to 45) severity = 3
