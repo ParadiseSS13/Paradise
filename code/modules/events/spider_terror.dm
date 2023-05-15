@@ -1,8 +1,8 @@
 #define TS_HIGHPOP_TRIGGER 80
-#define TS_MIDPOP_TRIGGER 50
+#define TS_MIDPOP_TRIGGER 40
 
 /datum/event/spider_terror
-	announceWhen = 180
+	announceWhen = 240
 	var/spawncount = 1
 	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 

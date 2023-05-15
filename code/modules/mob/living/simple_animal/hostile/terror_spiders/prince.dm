@@ -15,10 +15,10 @@
 	icon_state = "terror_allblack"
 	icon_living = "terror_allblack"
 	icon_dead = "terror_allblack_dead"
-	maxHealth = 550
-	health = 550
+	maxHealth = 600
+	health = 600
 	speed = -0.1
-	damage_coeff = list(BRUTE = 0.3, BURN = 0.8, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+	damage_coeff = list(BRUTE = 0.3, BURN = 0.6, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	deathmessage =  "morbidly growls, flailing and crumbling as death finally washes away the burning hatred in it's eyes."
 	death_sound = 'sound/creatures/terrorspiders/prince_dead.ogg'
 	regeneration = 0 //no healing on life, prince should play agressive
@@ -48,7 +48,7 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
-	L.adjustStaminaLoss(30) //4 hits for stam crit
+	L.adjustStaminaLoss(35) //3 hits for stam crit
 	if(prob(delimb_chance))
 		if(L.stat != DEAD) //no dismemberment for dead carbons, less griefy
 			do_attack_animation(L)

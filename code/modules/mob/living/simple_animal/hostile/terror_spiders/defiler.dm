@@ -14,17 +14,17 @@
 	icon_state = "terror_white"
 	icon_living = "terror_white"
 	icon_dead = "terror_white_dead"
-	maxHealth = 200
-	health = 200
+	maxHealth = 220
+	health = 220
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	speed = -0.3
-	melee_damage_lower = 2
-	melee_damage_upper = 5
+	melee_damage_lower = 1
+	melee_damage_upper = 1
 	spider_opens_doors = 2
-	spider_tier = TS_TIER_2
+	spider_tier = TS_TIER_3
 	gender = MALE
 	web_type = /obj/structure/spider/terrorweb/white
-	delay_web = 15
+	delay_web = 10
 	special_abillity = list(/obj/effect/proc_holder/spell/targeted/terror/smoke,
 							/obj/effect/proc_holder/spell/targeted/terror/parasmoke,
 							/obj/effect/proc_holder/spell/aoe_turf/terror/terrify)
@@ -42,22 +42,31 @@
 		UnlockBlastDoors("UO71_Bridge")
 	return ..(gibbed)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L)
-	var/inject_target = pick("chest","head")
-	L.AdjustSilence(7)
-	L.adjustStaminaLoss(39)
-	if(!IsTSInfected(L) && ishuman(L))
-		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
+/mob/living/simple_animal/hostile/poison/terror_spider/defiler/spider_specialattack(mob/living/carbon/human/L, poisonable)
+	L.AdjustSilence(10)
+	L.adjustStaminaLoss(50)
+	L.attack_animal(src)
+	if(!poisonable)
+		return ..()
+	var/inject_target = pick("chest", "head")
+	if(L.paralysis || L.can_inject(null, FALSE, inject_target, FALSE) && prob(50))
 		new /obj/item/organ/internal/body_egg/terror_eggs(L)
-		if(!ckey)
-			LoseTarget()
-			walk_away(src,L,2,1)
+		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
+	else
+		if(prob(20))
+			new /obj/item/organ/internal/body_egg/terror_eggs(L)
+			visible_message("<span class='danger'>[src] pierces armour and buries its long fangs deep into the [inject_target] of [target]!</span>")
+	if(!ckey && !IsTSInfected(L))
+		step_away(src, L)
+		step_away(src, L)
+		LoseTarget()
+		step_away(src, L)
+		visible_message("<span class='notice'>[src] jumps away from [L]!</span>")
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
 		return 1
 	return 0
-
 
 /obj/structure/spider/terrorweb/white
 	name = "infested web"

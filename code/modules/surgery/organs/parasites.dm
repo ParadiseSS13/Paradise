@@ -50,7 +50,7 @@
 
 	var/cycle_num = 0 // # of on_life() cycles completed, never reset
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
-	var/egg_progress_per_hatch = 100 // if egg_progress > this, chance to hatch and reset egg_progress
+	var/egg_progress_per_hatch = 120 // if egg_progress > this, chance to hatch and reset egg_progress
 	var/eggs_hatched = 0 // num of hatch events completed
 	var/awaymission_checked = FALSE
 	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
@@ -63,8 +63,9 @@
 
 	// Parasite growth
 	cycle_num += 1
-	egg_progress += pick(0, 1, 2)
+	egg_progress += 1
 	egg_progress += calc_variable_progress()
+	owner.AdjustHallucinate(20)
 
 	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
 	if(!awaymission_checked)
@@ -78,9 +79,6 @@
 			qdel(src)
 			return
 
-	if(eggs_hatched >= 0)
-		owner.SetConfused(45)
-
 	if(egg_progress > egg_progress_per_hatch)
 		egg_progress -= egg_progress_per_hatch
 		hatch_egg()
@@ -90,7 +88,7 @@
 	if(owner.nutrition > NUTRITION_LEVEL_FULL)
 		extra_progress += 1
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-	if(antibiotics > 50)
+	if(antibiotics > 15)
 		extra_progress -= 0.5
 	var/boosters = owner.reagents.get_reagent_amount("salglu_solution")
 	if(boosters > 1)
@@ -102,15 +100,21 @@
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
-			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/builder, /mob/living/simple_animal/hostile/poison/terror_spider/healer)
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/reaper)
 		if(1) // 2nd
-			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight)
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
+		if(2) // 3d spiderling. can only grow if egg owner is being healed, and/or eggs isnt removed by surgeons
+			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/builder, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/knight)
+			owner.adjustBruteLoss(200)
+			owner.death()
 			infection_completed = TRUE
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++
-	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
+	owner.adjustBruteLoss(80)
 	owner.Paralyse(10)
-	owner.adjustBruteLoss(200)
+	owner.SetConfused(20)
+	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
+
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
 

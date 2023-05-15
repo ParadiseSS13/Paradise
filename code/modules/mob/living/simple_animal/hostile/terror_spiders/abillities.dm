@@ -237,7 +237,7 @@
 	range = 7
 	sound = 'sound/creatures/terrorspiders/white_shriek.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/terror/princess/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/terror/terrify/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/mob/target in T.contents)
 			if(iscarbon(target))
@@ -245,7 +245,8 @@
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				M.AdjustSilence(5)
 				M.AdjustConfused(10)
-				M.Jitter(75)
+				M.slowed = 2
+				M.Jitter(300)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
@@ -276,7 +277,7 @@
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				M.adjustStaminaLoss(30)
-				M.Jitter(75)
+				M.Jitter(300)
 				M.slowed = 5
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
@@ -306,6 +307,7 @@
 				var/mob/living/carbon/M = target
 				M.AdjustWeakened(1)
 				M.adjustBruteLoss(20)
+				M.slowed = 4
 		var/turf/simulated/floor/tile = user.loc
 		for(tile in range(2, user))
 			tile.break_tile()
@@ -373,7 +375,7 @@
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				M.AdjustWeakened(2)
 				M.adjustStaminaLoss(50)
-				M.Jitter(150)
+				M.Jitter(500)
 				M.slowed = 7
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target
