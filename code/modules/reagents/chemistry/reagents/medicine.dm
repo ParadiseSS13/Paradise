@@ -611,6 +611,7 @@
 	shock_reduction = 50
 	harmless = FALSE
 	taste_description = "a delightful numbing"
+	allowed_overdose_process = TRUE
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
