@@ -51,9 +51,9 @@
 		colors = GLOB.wire_color_directory[holder_type]
 
 /datum/wires/Destroy()
-	holder = null
 	for(var/color in colors)
 		detach_assembly(color)
+	holder = null
 	return ..()
 
 /**
