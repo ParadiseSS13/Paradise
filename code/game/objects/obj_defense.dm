@@ -23,7 +23,7 @@
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	if (damage_type != BRUTE || damage_type != BURN)
+	if (damage_type != BRUTE && damage_type != BURN)
 		return 0
 	var/armor_protection = 0
 	if(damage_flag)
