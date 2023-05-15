@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
-	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
+	breakouttime = 30 SECONDS
 
 /obj/item/restraints/legcuffs/beartrap
 	name = "bear trap"
@@ -19,6 +19,7 @@
 	icon_state = "beartrap0"
 	desc = "A trap used to catch bears and other legged creatures."
 	origin_tech = "engineering=4"
+	breakouttime = 15 SECONDS
 	var/armed = FALSE
 	var/trap_damage = 20
 	///Do we want the beartrap not to make a visable message on arm? Use when a beartrap is applied by something else.
@@ -41,10 +42,16 @@
 
 /obj/item/restraints/legcuffs/beartrap/attack_self(mob/user)
 	..()
-	if(ishuman(user) && !user.stat && !user.restrained())
+	if(ishuman(user) && !user.stat && !user.restrained() && do_after(user, 20, target = src))
 		armed = !armed
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
+		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"].</span>")
+
+/obj/item/restraints/legcuffs/beartrap/can_enter_storage(obj/item/storage/S, mob/user)
+	if(armed)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's active!</span>")
+		return FALSE
+	return TRUE
 
 /obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
 	if(istype(I, /obj/item/grenade/iedcasing))
@@ -127,7 +134,10 @@
 					SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
 			else
-				L.apply_damage(trap_damage, BRUTE)
+				if(istype(L,/mob/living/simple_animal/hostile/bear))
+					L.apply_damage(trap_damage * 2.5, BRUTE)
+				else
+					L.apply_damage(trap_damage, BRUTE)
 	..()
 
 /obj/item/restraints/legcuffs/beartrap/energy
