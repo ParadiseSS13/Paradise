@@ -11,7 +11,7 @@
 		list("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: Kitchen.", "Anomaly Alert", 'sound/AI/anomaly_flux.ogg'),
 		list("Overload detected in [station_name()]'s powernet. Engineering, please check all underfloor APC terminals.", "Critical Power Failure", 'sound/AI/power_overload.ogg'),
 		list("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert", 'sound/AI/door_runtimes.ogg'),
-		list("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be vendomat.", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg'),
+		list("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be a vendomat.", "Machine Learning Alert", 'sound/AI/brand_intelligence.ogg'),
 		list("Massive migration of unknown biological entities has been detected near [station_name()], please stand-by.", "Lifesign Alert"),
 		list("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert", 'sound/AI/elec_storm.ogg'),
 		list("What the fuck was that?!", "General Alert"),
