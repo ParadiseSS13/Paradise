@@ -888,7 +888,7 @@
 	build_path = /obj/item/assembly/mousetrap
 	category = list("initial", "Miscellaneous")
 
-/datum/design/mousetrap
+/datum/design/beartrap
 	name = "Bear Trap"
 	id = "beartrap"
 	build_type = AUTOLATHE
