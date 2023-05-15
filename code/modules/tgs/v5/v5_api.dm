@@ -205,6 +205,7 @@
 			server_port = new_port
 			return TopicResponse()
 		if(DMAPI5_TOPIC_COMMAND_HEARTBEAT)
+			SSheartbeat.last_heartbeat = REALTIMEOFDAY // PARADISE CHANGE
 			return TopicResponse()
 		if(DMAPI5_TOPIC_COMMAND_WATCHDOG_REATTACH)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
