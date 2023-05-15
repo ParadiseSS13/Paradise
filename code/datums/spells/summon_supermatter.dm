@@ -3,7 +3,7 @@
 	desc = "Summons an active supermatter crystal. Imbues you with some supermatter, giving you resistance to it's hallucinations and radiation immunity."
 	base_cooldown = 5 MINUTES
 	cooldown_min = 60 SECONDS
-	summon_type = list(/obj/machinery/atmospherics/supermatter_crystal)
+	summon_type = list(/obj/machinery/atmospherics/supermatter_crystal/shard)
 	summon_amt = 1
 	aoe_range = 0
 
