@@ -102,6 +102,18 @@
 	var/wall_cooldown = 200
 	var/large_wall = FALSE
 
+	// Strafe variables
+	///Allows strafe mode for mecha
+	var/strafe_allowed = FALSE
+	///Special module that allows strafe mode by modifying "strafe_allowed" variable
+	var/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/actuator = null
+	///Multiplier that modifies mecha speed while strafing (bigger numbers mean slower movement)
+	var/strafe_speed_factor = 1
+	///Allows diagonal strafing while strafe is enabled (very OP, FALSE by default on all mechas)
+	var/strafe_diagonal = FALSE
+	///Is mecha strafing currently
+	var/strafe = FALSE
+
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
@@ -248,6 +260,48 @@
 /obj/mecha/proc/range_action(atom/target)
 	return
 
+/**
+ * Proc that converts diagonal direction into cardinal for mecha
+ *
+ * Arguments
+ * * direction - input direction we need to convert
+ */
+/obj/mecha/proc/convert_diagonal_dir(direction)
+	switch(src.dir)
+		if(NORTH, SOUTH)
+			switch(direction)
+				if(NORTHEAST, SOUTHEAST)
+					return EAST
+				if(NORTHWEST, SOUTHWEST)
+					return WEST
+				if(NORTH, SOUTH, EAST, WEST)
+					return direction
+		if(EAST, WEST, NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST)
+			switch(direction)
+				if(NORTHEAST, NORTHWEST)
+					return NORTH
+				if(SOUTHEAST, SOUTHWEST)
+					return SOUTH
+				if(NORTH, SOUTH, EAST, WEST)
+					return direction
+
+/**
+ * Proc that checks if current cardinal direction is opposite for mecha
+ *
+ * Arguments
+ * * direction - input direction we need to check
+ */
+/obj/mecha/proc/is_opposite_dir(direction)
+	. = FALSE
+	switch(src.dir)
+		if(NORTH)
+			return direction == SOUTH
+		if(SOUTH)
+			return direction == NORTH
+		if(EAST)
+			return direction == WEST
+		if(WEST)
+			return direction == EAST
 
 //////////////////////////////////
 ////////  Movement procs  ////////
@@ -255,9 +309,12 @@
 /obj/mecha/Process_Spacemove(var/movement_dir = 0)
 	. = ..()
 	if(.)
-		return 1
+		return TRUE
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
-		return 1
+		return TRUE
+	//Turns strafe OFF if not enough energy to step (with actuator module only)
+	if(strafe && actuator && !has_charge(actuator.energy_per_step))
+		toggle_strafe(silent = TRUE)
 
 	var/atom/movable/backup = get_spacemove_backup()
 	if(backup)
@@ -265,68 +322,112 @@
 			if(backup.newtonian_move(turn(movement_dir, 180)))
 				if(occupant)
 					to_chat(occupant, "<span class='info'>You push off of [backup] to propel yourself.</span>")
-		return 1
+		return TRUE
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
-		return
+		return FALSE
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
 		to_chat(user, "<span class='notice'>You climb out from [src].</span>")
-		return 0
+		return FALSE
 	if(connected_port)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='warning'>Unable to move while connected to the air system port!</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(state)
 		occupant_message("<span class='danger'>Maintenance protocols in effect.</span>")
-		return
+		return FALSE
 	return domove(direction)
+
+//Constants for strafe mode
+#define STRAFE_TURN_FACTOR 1.5 //Speed multiplier for strafe while mecha turns around
+#define STRAFE_DIAGONAL_FACTOR 2 //Speed multiplier for strafe while mecha moves diagonally
+#define STRAFE_BACKWARDS_FACTOR 2 //Speed and energy drain multiplier for strafe while mecha moves backwards
 
 /obj/mecha/proc/domove(direction)
 	if(can_move >= world.time)
-		return 0
+		return FALSE
 	if(!Process_Spacemove(direction))
-		return 0
+		return FALSE
 	if(!has_charge(step_energy_drain))
-		return 0
+		return FALSE
 	if(defence_mode)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='danger'>Unable to move while in defence mode.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 	if(zoom_mode)
 		if(world.time - last_message > 20)
 			occupant_message("<span class='danger'>Unable to move while in zoom mode.</span>")
 			last_message = world.time
-		return 0
+		return FALSE
 
-	var/move_result = 0
-	var/move_type = 0
+	//Turns strafe OFF if not enough energy to step (with actuator module only)
+	if(strafe && actuator && !has_charge(actuator.energy_per_step))
+		toggle_strafe(silent = TRUE)
+
+	var/move_result = FALSE
+	var/move_type = FALSE
+	var/old_direction = dir //Initial direction of the mecha
+	var/step_in_final = strafe ? (step_in * strafe_speed_factor) : step_in //Modifies strafe speed, if "strafe_speed_factor" is anything other than 1
+	var/strafed_backwards = FALSE //Checks if mecha moved backwards, while strafe is active (used later to modify speed and energy drain)
+
+	var/keyheld = FALSE //Checks if player pressed ALT button down while strafe is active
+	if(strafe && occupant.client?.input_data.keys_held["Alt"])
+		keyheld = TRUE
+
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
-		if(direction & (direction - 1))	//moved diagonally
+		if(strafe) //No strafe while controls are malfunctioning
+			toggle_strafe(silent = TRUE)
+		if(direction & (direction - 1))	//Trick to check for diagonal direction
 			glide_for(step_in * 1.41)
 		else
 			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
-	else if(dir != direction)
+	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafe is active to change direction on fly
+		if(strafe)
+			step_in_final *= STRAFE_TURN_FACTOR
 		move_result = mechturn(direction)
 		move_type = MECHAMOVE_TURN
 	else
-		if(direction & (direction - 1))	//moved diagonally
-			glide_for(step_in * 1.41)
+		if(direction & (direction - 1))	//Trick to check for diagonal direction
+			if(strafe)
+				if(strafe_diagonal) //Diagonal strafe is overpowered, disabled by default on all mechas
+					glide_for(step_in * 1.41)
+					step_in_final *= STRAFE_DIAGONAL_FACTOR //Applies speed multiplier if mecha moved diagonally
+					move_result = mechstep(direction, old_direction, step_in_final)
+					move_type = MECHAMOVE_STEP
+				else
+					glide_for(step_in)
+					strafed_backwards = is_opposite_dir(convert_diagonal_dir(direction))
+					step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
+					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal_dir" proc
+					move_type = MECHAMOVE_STEP
+			else
+				glide_for(step_in * 1.41)
+				move_result = mechstep(direction)
+				move_type = MECHAMOVE_STEP
 		else
 			glide_for(step_in)
-		move_result = mechstep(direction)
-		move_type = MECHAMOVE_STEP
+			strafed_backwards = is_opposite_dir(direction)
+			step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
+			move_result = mechstep(direction, old_direction, step_in_final)
+			move_type = MECHAMOVE_STEP
 
 	if(move_result && move_type)
+		if(strafe && actuator) //Energy drain mechanics for actuator module
+			use_power(strafed_backwards ? (actuator.energy_per_step * STRAFE_BACKWARDS_FACTOR) : actuator.energy_per_step)
 		aftermove(move_type)
-		can_move = world.time + step_in
+		can_move = world.time + step_in_final
 		return TRUE
 	return FALSE
+
+#undef STRAFE_TURN_FACTOR
+#undef STRAFE_DIAGONAL_FACTOR
+#undef STRAFE_BACKWARDS_FACTOR
 
 /obj/mecha/proc/aftermove(move_type)
 	use_power(step_energy_drain)
@@ -339,6 +440,8 @@
 		else
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
+		if(strafe) //No strafe while overload is active
+			toggle_strafe(silent = TRUE)
 		log_message("Leg Overload damage.")
 		take_damage(1, BRUTE, FALSE, FALSE)
 		if(obj_integrity < max_integrity - max_integrity / 3)
@@ -351,12 +454,20 @@
 	dir = direction
 	if(turnsound)
 		playsound(src,turnsound,40,1)
-	return 1
+	return TRUE
 
-/obj/mecha/proc/mechstep(direction)
+/obj/mecha/proc/mechstep(direction, old_direction, step_in_final)
 	. = step(src, direction)
+	if(strafe)
+		setDir(old_direction) //Mecha will always face the same direction while moving and strafe is active
 	if(!.)
+		if(strafe) //Cooldown and sound effect if mecha failed to step
+			can_move = world.time + step_in_final
+			if(turnsound)
+				playsound(src, turnsound, 40, 1)
 		if(phasing && get_charge() >= phasing_energy_drain)
+			if(strafe) //No strafe while phase mode is active
+				toggle_strafe(silent = TRUE)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
 				flick("[initial_icon]-phase", src)

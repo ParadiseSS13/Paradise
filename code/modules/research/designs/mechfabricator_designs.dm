@@ -1017,6 +1017,17 @@
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
+/datum/design/mech_servo_hydra_actuator
+	name = "Servo-Hydraulic Actuator"
+	desc = "Exosuit servo-motors. Allows strafe mode"
+	id = "mech_servo_hydra_actuator"
+	build_type = MECHFAB
+	req_tech = list("powerstorage" = 7, "programming" = 7, "engineering" = 7,"combat" = 7)
+	build_path = /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
+	materials = list(MAT_METAL=40000,MAT_TITANIUM =10000,MAT_URANIUM=10000,MAT_DIAMOND=10000)
+	construction_time = 30 SECONDS
+	category = list("Exosuit Equipment")
+
 /datum/design/clusterbang_launcher
 	name = "Exosuit Non-lethal Weapon (SOB-3 Clusterbang Flashbang Launcher)"
 	desc = "A weapon that violates the Geneva Convention at 3 rounds per minute"

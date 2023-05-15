@@ -13,6 +13,7 @@
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
 	var/datum/action/innate/mecha/mech_energywall/energywall_action = new
+	var/datum/action/innate/mecha/mech_strafe/strafe_action = new
 
 /obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -20,6 +21,8 @@
 	internals_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
+	if(strafe_allowed)
+		strafe_action.Grant(user, src)
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -27,6 +30,8 @@
 	internals_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
+	if(strafe_allowed)
+		strafe_action.Remove(user)
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
@@ -253,3 +258,39 @@
 			chassis.wall_ready = 1
 	else
 		chassis.occupant_message("<span class='warning'>Energy wall is not ready yet!</span>")
+
+/////////////////////////////////// STRAFE PROCS ////////////////////////////////////////////////
+/datum/action/innate/mecha/mech_strafe
+	name = "Toggle Strafing. Disabled when Alt is held."
+	button_icon_state = "strafe"
+
+/datum/action/innate/mecha/mech_strafe/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	chassis.toggle_strafe()
+
+/obj/mecha/AltClick(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
+	if(!occupant || occupant != user)
+		return
+	toggle_strafe()
+
+/**
+ * Proc that toggles strafe mode of the mecha ON/OFF
+ *
+ * Arguments
+ * * silent - if we want to stop showing messages for mecha pilot and prevent logging
+ */
+/obj/mecha/proc/toggle_strafe(silent = FALSE)
+	if(!strafe_allowed)
+		occupant_message("This mecha doesn't support strafing!")
+		return
+	var/datum/action/innate/mecha/mech_strafe/mech_strafe = locate(/datum/action/innate/mecha/mech_strafe) in occupant.actions
+	if(!mech_strafe)
+		return
+	strafe = !strafe
+	mech_strafe.button_icon_state = "strafe[strafe ? "_on" : ""]"
+	mech_strafe.UpdateButtonIcon()
+	if(!silent)
+		occupant_message("<font color='[strafe ? "green" : "red"]'>Strafing mode [strafe ? "en" : "dis"]abled.")
+		log_message("Toggled strafing mode [strafe ? "on" : "off"].")
+
