@@ -137,7 +137,7 @@
 				if(istype(L,/mob/living/simple_animal/hostile/bear))
 					L.apply_damage(trap_damage * 2.5, BRUTE)
 				else
-					L.apply_damage(trap_damage, BRUTE)
+					L.apply_damage(trap_damage * 1.75, BRUTE)
 	..()
 
 /obj/item/restraints/legcuffs/beartrap/energy
