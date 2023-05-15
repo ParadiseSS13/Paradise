@@ -6,7 +6,7 @@
 #define WOOD 2
 #define SAND 3
 
-#define DROPWALL_UPTIME 60//We'll start with this.
+#define DROPWALL_UPTIME 1 MINUTE
 
 #define AUTO "automatic"
 
@@ -274,9 +274,9 @@
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall"
 	item_state = "grenade"
-	mode = "automatic"
+	mode = AUTO
 	var/uptime = DROPWALL_UPTIME SECONDS
-	/// If this is true we do not ar magain, due to the sleep
+	/// If this is true we do not arm again, due to the sleep
 	var/deployed = FALSE
 	/// Mob who armed it. Needed for the get_dir proc
 	var/armer
