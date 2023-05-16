@@ -617,12 +617,12 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-50 SECONDS)
 	switch(current_cycle)
-		if(1 to 15)
+		if(1 to 24)
 			if(prob(7))
 				M.emote("yawn")
-		if(16 to 35)
+		if(25 to 56)
 			M.Drowsy(40 SECONDS)
-		if(36 to INFINITY)
+		if(57 to INFINITY)
 			M.Paralyse(30 SECONDS)
 			M.Drowsy(40 SECONDS)
 	return ..() | update_flags
