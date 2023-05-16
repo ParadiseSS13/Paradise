@@ -162,8 +162,7 @@
 	item_state = "hacktool"
 	var/hack_speed
 	var/busy = FALSE
-	region_access = list(REGION_GENERAL)
-	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO)
+	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/attack_self(mob/user)
 	to_chat(user, "<span class='warning'>You shake [src]!</span>")
