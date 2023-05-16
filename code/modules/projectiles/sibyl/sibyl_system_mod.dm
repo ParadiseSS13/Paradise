@@ -100,7 +100,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(state != SIBSYS_STATE_INSTALLED)
 		return FALSE
 	if(emagged)
-		to_chat(user, "span class='danger'>As you try to swipe [ID], sparks flying out of it!</span>")
+		to_chat(user, "<span class='danger'>As you try to swipe [ID], sparks flying out of it!</span>")
 		return
 	if(!auth_id)
 		unlock(user, ID)
