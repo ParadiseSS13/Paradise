@@ -194,7 +194,7 @@
 		if(!(D.arePowerSystemsOn()))
 			to_chat(user, "<span class='danger'>[D] has no power!</span>")
 			return
-		if(D.check_access(src.ID))
+		if(D.check_access(ID))
 			D.add_hiddenprint(user)
 			if(D.density)
 				D.open()
