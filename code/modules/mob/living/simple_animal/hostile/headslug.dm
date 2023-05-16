@@ -23,7 +23,7 @@
 	density = FALSE
 	ventcrawler = 2
 	a_intent = INTENT_HARM
-	speed = -0.3
+	speed = 0.3
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	var/datum/mind/origin
