@@ -1,11 +1,12 @@
 "ab" = (/obj/structure/computerframe,/obj/effect/decal/warning_stripes/northeast,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
 "ad" = (/obj/effect/decal/warning_stripes/southwest,/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
 "al" = (/obj/structure/lattice,/turf/template_noop,/area/ruin/space/tcommsat)
-"au" = (/obj/structure/bed,/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"au" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/kitchenspike,/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "ax" = (/turf/simulated/mineral/volcanic,/area/space/nearstation)
 "bc" = (/obj/structure/bed,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "bg" = (/obj/effect/decal/warning_stripes/northeastcorner,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
 "bx" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 4},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"cM" = (/obj/effect/decal/cleanable/blood/writing{dir = 8},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "dM" = (/obj/machinery/economy/vending/cola{tilted = 1},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "eb" = (/obj/structure/rack,/obj/item/multitool/red,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/space/tcommsat)
 "eu" = (/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
@@ -17,7 +18,9 @@
 "gg" = (/obj/structure/chair{dir = 8},/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "gs" = (/obj/item/stock_parts/cell/high,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "hg" = (/obj/item/camera_assembly,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"hk" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/effect/decal/cleanable/blood/writing{dir = 9},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "hO" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/turf/template_noop,/area/template_noop)
+"hQ" = (/obj/effect/decal/cleanable/dirt,/obj/structure/table,/obj/item/stack/tape_roll,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "ii" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "jd" = (/obj/machinery/light/small{dir = 8},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
 "jk" = (/obj/structure/door_assembly/door_assembly_hatch,/obj/item/airlock_electronics,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
@@ -35,6 +38,7 @@
 "nv" = (/obj/effect/decal/warning_stripes/southwestcorner,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
 "nG" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/template_noop,/area/space/nearstation)
 "nX" = (/turf/template_noop,/area/template_noop)
+"oh" = (/obj/structure/table,/obj/item/taperecorder,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "ok" = (/obj/item/gps/ruin{gpstag = "Faint Radio Signal"},/turf/simulated/wall/r_wall,/area/ruin/space/tcommsat)
 "ot" = (/obj/effect/spawner/random_spawners/wall_rusted_always,/turf/simulated/wall/r_wall,/area/ruin/space/tcommsat)
 "oZ" = (/obj/structure/rack,/obj/item/circuitboard/teleporter,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/space/tcommsat)
@@ -80,6 +84,7 @@
 "GV" = (/obj/structure/door_assembly/door_assembly_hatch,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "HW" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/lattice,/turf/template_noop,/area/space/nearstation)
 "Ie" = (/obj/item/stack/sheet/plasteel,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"If" = (/obj/structure/table,/obj/item/scalpel/laser/laser2,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Is" = (/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "IG" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Jr" = (/obj/structure/lattice,/obj/structure/grille,/turf/template_noop,/area/space/nearstation)
@@ -89,8 +94,10 @@
 "KH" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/lattice,/turf/template_noop,/area/space/nearstation)
 "KR" = (/obj/structure/computerframe{dir = 1},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "KX" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"Mt" = (/obj/effect/decal/cleanable/dirt,/obj/effect/decal/cleanable/blood/writing{dir = 6},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "MC" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/item/airlock_electronics,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Nb" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/wall/r_wall,/area/space/nearstation)
+"Nw" = (/obj/item/reagent_containers/food/snacks/xenomeatbreadslice{name = "green mold bread slice"},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "NJ" = (/obj/structure/disposaloutlet{dir = 4},/obj/structure/disposalpipe/trunk{dir = 8},/turf/simulated/floor/plating/airless,/area/space/nearstation)
 "Or" = (/obj/machinery/door/airlock/hatch,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "OY" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
@@ -109,6 +116,7 @@
 "Sp" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "St" = (/obj/structure/window/reinforced,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "SS" = (/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"Tt" = (/obj/structure/kitchenspike,/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Tz" = (/obj/item/radio/off,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "TW" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/template_noop,/area/space/nearstation)
 "Ua" = (/obj/effect/decal/cleanable/blood/writing,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
@@ -123,6 +131,8 @@
 "Wc" = (/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Wr" = (/turf/simulated/wall/r_wall,/area/ruin/space/tcommsat)
 "WC" = (/obj/item/cigbutt,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"WD" = (/obj/item/trash/tapetrash,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"WP" = (/obj/structure/table,/obj/item/shard,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Ye" = (/obj/structure/lattice/catwalk,/turf/template_noop,/area/space/nearstation)
 "Yt" = (/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
 "Yu" = (/obj/item/electropack,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
@@ -158,15 +168,15 @@ nXJrJrzEzEnXnXnXnXptAcZitETWPOnXnXnXVxUCKHnXnXnXPOnGQTZifhDsnXnXnXnXzEzEJrPOnX
 POJrJrzEzEnXnXnXnXAcrsTWnXnXPOnXnXnXPOrcPOnXnXnXPOnXnXnGeMfhnXnXnXnXzEzEJrJrPO
 POJrzEzEzEJrJrJrJrrcTWnXnXnXwOJrJrJrJrMCJrJrJrJrwOnXnXnXnGrcEfEfEfEfzEzEzEJrwO
 JrJrzEWrotWrotWrWrCqotWrnXnXJrJrotWrYWGVYWotWrJrJrnXnXWrotCqWrWrWrotWrWrzEJrJr
-JrJrzEWrZdZdfSloWrWcWcWrPOwOJrWrWcWcWcWchgWcWcotJrwOPOWrbxiiiirgiiiiaukcNbsDNJ
-JrJrzEotsbsbsbsbWrWcIsWrnXJrWrIsWcIsIGWcWcIsWcIsWrJrnXWrkoIsWcGVWcIsWcWrzEJrJr
+JrJrzEWrZdZdfSloWrWcWcWrPOwOJrWrWcWcWcWchgWcWcotJrwOPOWrbxiiiirgiihkaukcNbsDNJ
+JrJrzEotsbsbsbsbWrWcIsWrnXJrWrIsWcIsIGWcWcIsWcIsWrJrnXWrkoIsWcGVcMMtWcWrzEJrJr
 POJrzEWrWrWrCqWrWrWcIsotnXJrotWcWcWcWcYTjvIsWcWcWrJrnXotCZggWcWrWrWrotWrzEJrPO
 wOJrzEWrIsWcSpIsGVSpWcWrnXJrWrWcIsVHWcWcWcDHIsWcWrJrnXWrsmWCIsQNIsWcbcWrzEJrwO
 JrJrzEotWcIsWcSpSpIsWcWrnXJrotWcWcWcWcQeWcAVWcWcotJrnXWrWcWcWcOrWcfDWcWrzEJrJr
 JrJrzEWrWrotjkWrWrSpIsWrnXJrWrWcIsIGIsWCWcYuWcWcWrPOnXotpgIsSpWrWrotWrWrzEJrJr
 JrJrzEWrsbsbsbsbWrWcWcotnXPOWrWcWcWcTzWcWcIGWcIsotwOnXWrSpSpalQNWcIsbcWrzEJrJr
-JrJrzEotebleoZnkotWcIsWrPOwOWrWcWcWcWcWcIsWcWcWcWrJrPOWrdMSpIsYZWcWcWcotzEJrwO
-JrJrzEWrWrWrotWrWrOrWrWrnXJrJrotWcIsWcWcWcWcWcWrJrJrnXWralIeWcotWrWrWrWrzEJrJr
+JrJrzEotebleoZnkotWcIsWrPOwOWrWcWcWcWcUaIsWDWcWcWrJrPOWrdMSpIsYZWcNwWcotzEJrwO
+JrJrzEWrWrWrotWrWrOrWrWrnXJrJrotohhQWDTtWcWPIfWrJrJrnXWralIeWcotWrWrWrWrzEJrJr
 POJrzEzEzEJrJrJrJrPnzTnXnXPOJrJrWrWrotWrWrotWrJrJrPOnXnXQmrcwOJrJrJrzEzEzEJrJr
 nXPOJrzEzEnXnXnXnXFKQYzTnXPOnXJrJrJrJrJrJrJrJrJrnXPOnXQmJHQdnXnXnXnXzEzEJrJrPO
 zEwOaxzEzEPOPOPOPOVxFKqAqAQYzTnXnXnXnXPOnXnXnXnXQmOYqAqAzOKHPOPOPOPOzEzEJrwOnX
