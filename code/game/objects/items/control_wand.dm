@@ -155,6 +155,52 @@
 	busy = FALSE
 	icon_state = "hacktool"
 
+/obj/item/door_remote/janikeyring
+	name = "janitor's keyring"
+	desc = "An absolutely unwieldy set of keys attached to a metal ring."
+	icon_state = "hacktool"
+	item_state = "hacktool"
+	var/hack_speed
+	var/busy = FALSE
+	region_access = list(REGION_GENERAL)
+	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO)
+
+/obj/item/door_remote/janikeyring/attack_self(mob/user)
+	to_chat(user, "<span class='warning'>You shake [src]!</span>")
+
+/obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/airlock/D, mob/user, proximity)
+	if(!proximity)
+		return
+	if(!istype(D))
+		return
+	if(busy)
+		to_chat(user, "<span class='warning'>You are already using [src] on the airlock's access panel!</span>")
+		return
+	busy = TRUE
+	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D] airlock...</span>")
+	hack_speed = rand(75,200)
+	if(do_after(user, hack_speed, target = D, progress = 0))
+		if(!istype(D))
+			return
+		if(HAS_TRAIT(D, TRAIT_CMAGGED))
+			to_chat(user, "<span class='danger'>[src] wont fit in the airlock's access panel, theres slime everywhere!</span>")
+			return
+		if(D.is_special)
+			to_chat(user, "<span class='danger'>[src] cannot fit in this kind of airlock!</span>")
+			return
+		if(!(D.arePowerSystemsOn()))
+			to_chat(user, "<span class='danger'>[D] has no power!</span>")
+			return
+		if(D.check_access(src.ID))
+			D.add_hiddenprint(user)
+			if(D.density)
+				D.open()
+			else
+				to_chat(user, "<span class='danger'>The [D] airlock is already open!.</span>")
+		else
+			to_chat(user, "<span class='danger'>[src] does not seem to have a key for this airlock!.</span>")
+	busy = FALSE
+
 #undef WAND_OPEN
 #undef WAND_BOLT
 #undef WAND_EMERGENCY
