@@ -16,7 +16,6 @@
 #define LASER 		"laser"
 #define ENERGY 		"energy"
 #define BOMB 		"bomb"
-#define BIO 		"bio"
 #define RAD 		"rad"
 #define FIRE 		"fire"
 #define ACID 		"acid"

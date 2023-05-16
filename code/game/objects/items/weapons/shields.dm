@@ -1,6 +1,6 @@
 /obj/item/shield
 	name = "shield"
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 30, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 30, RAD = 0, FIRE = 80, ACID = 70)
 
 /obj/item/shield/proc/add_parry_component()
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)

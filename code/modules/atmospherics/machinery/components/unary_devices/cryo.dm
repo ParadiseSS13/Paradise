@@ -14,7 +14,7 @@
 	plane = GAME_PLANE
 	interact_offline = TRUE
 	max_integrity = 350
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 30, ACID = 30)
 	var/temperature_archived
 	var/current_heat_capacity = 50
 
