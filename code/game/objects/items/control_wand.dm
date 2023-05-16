@@ -162,7 +162,11 @@
 	item_state = "hacktool"
 	var/hack_speed
 	var/busy = FALSE
-	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
+	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
+
+/obj/item/door_remote/janikeyring/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!</span>"
 
 /obj/item/door_remote/janikeyring/attack_self(mob/user)
 	to_chat(user, "<span class='warning'>You shake [src]!</span>")
@@ -177,7 +181,7 @@
 		return
 	busy = TRUE
 	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D] airlock...</span>")
-	hack_speed = rand(75,200)
+	hack_speed = rand(5,20) SECONDS
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(!istype(D))
 			return
