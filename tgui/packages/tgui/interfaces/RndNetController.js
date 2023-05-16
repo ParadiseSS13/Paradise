@@ -12,7 +12,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const RNDNetworkController = (props, context) => {
+export const RndNetController = (props, context) => {
   const {act, data} = useBackend(context);
 
   const [filterType, setFilterType] = useLocalState(context, 'filterType', 'ALL');
