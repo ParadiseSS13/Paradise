@@ -197,7 +197,6 @@
 	var/list/parts_used = list()
 	var/list/reagent_containers_for_deletion = list()
 	var/list/item_stacks_for_deletion = list()
-	var/list/blacklisted = list() // list of items not to use from the surroundings based on recipe blacklist
 
 	for(var/thing in recipe.reqs)
 		var/needed_amount = recipe.reqs[thing]
