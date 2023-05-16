@@ -69,9 +69,6 @@
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
 
-/datum/action/proc/should_show_cooldown() // Should we show cooldown in HUD panel or not
-	return !IsAvailable()
-
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
@@ -109,8 +106,8 @@
 		button.desc = desc
 
 		ApplyIcon(button)
-
-		if(should_show_cooldown())
+		var/obj/effect/proc_holder/spell/S = target
+		if(istype(S) && S.cooldown_handler.should_draw_cooldown())
 			apply_unavailable_effect()
 		else
 			return TRUE
@@ -581,28 +578,12 @@
 		return spell.can_cast(owner)
 	return FALSE
 
-/datum/action/spell_action/should_show_cooldown()
-	var/obj/effect/proc_holder/spell/S = target
-	var/datum/spell_cooldown/charges/handler = S.cooldown_handler
-	if(!istype(S) || !istype(handler))
-		return ..()
-	return handler.current_charges < handler.max_charges
-
 /datum/action/spell_action/apply_unavailable_effect()
 	var/obj/effect/proc_holder/spell/S = target
 	if(!istype(S))
 		return ..()
-	var/progress = S.cooldown_handler.get_availability_percentage()
-	if(progress == 1)
-		return ..() // This means that the spell is charged but unavailable due to something else
 
-	var/alpha = 220 - 140 * progress
-	var/datum/spell_cooldown/charges/handler = S.cooldown_handler
-	if(istype(handler))
-		if(handler.charge_time > world.time)
-			alpha = 220
-		else if(handler.current_charges != 0)
-			alpha = 60
+	var/alpha = S.cooldown_handler.get_cooldown_alpha()
 
 	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 	img.alpha = alpha
