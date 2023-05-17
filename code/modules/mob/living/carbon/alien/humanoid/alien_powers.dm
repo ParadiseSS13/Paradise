@@ -7,6 +7,7 @@ Doesn't work on other aliens/AI.*/
 #define WORLD_VIEW "15x15"
 
 /datum/action/innate/xeno_action
+	background_icon_state = "bg_alien"
 
 /datum/action/innate/xeno_action/Activate()
 
@@ -47,24 +48,49 @@ Doesn't work on other aliens/AI.*/
 		host.update_sight()
 		return
 
-/datum/action/innate/xeno_action/plant
+/obj/effect/proc_holder/spell/xeno_plant
 	name = "Plant Weeds (50)"
 	desc = "Plants some alien weeds"
-	button_icon_state = "alien_plant"
+	action_icon_state = "alien_plant"
+	action_background_icon_state = "bg_alien"
+	clothes_req = FALSE
+	charge_max = 10 SECONDS
+	var/no_plasma = FALSE
 
-/datum/action/innate/xeno_action/plant/Activate()
-	var/mob/living/carbon/alien/host = owner
+/obj/effect/proc_holder/spell/xeno_plant/Click()
+	if(cast_check())
+		var/mob/living/carbon/alien/host = action?.owner
+		if(!host)
+			return
 
-	if(locate(/obj/structure/alien/weeds/node) in get_turf(owner))
-		to_chat(owner, "<span class='noticealien'>There's already a weed node here.</span>")
-		return
+		if(locate(/obj/structure/alien/weeds/node) in get_turf(host))
+			to_chat(host, "<span class='noticealien'>There's already a weed node here.</span>")
+			return
 
-	if(plasmacheck(50,1))
-		host.adjustPlasma(-50)
-		for(var/mob/O in viewers(owner, null))
-			O.show_message(text("<span class='alertalien'>[owner] has planted some alien weeds!</span>"), 1)
-		new /obj/structure/alien/weeds/node(owner.loc)
+		if(action.plasmacheck(no_plasma? 0 : 50, 1))
+			host.adjustPlasma(-50)
+			for(var/mob/O in viewers(host, null))
+				O.show_message(text("<span class='alertalien'>[host] has planted some alien weeds!</span>"), 1)
+			new /obj/structure/alien/weeds/node(host.loc)
+			charge_counter = 0
+			start_recharge()
 	return
+
+/obj/effect/proc_holder/spell/xeno_plant/cast_check()
+	if(!can_cast())
+		return FALSE
+	if(action)
+		action.UpdateButtonIcon()
+	return TRUE
+
+/obj/effect/proc_holder/spell/xeno_plant/can_cast(mob/user)
+	if(charge_counter < charge_max)
+		return FALSE
+	return TRUE
+
+/obj/effect/proc_holder/spell/xeno_plant/queen
+	name = "Plant Weeds"
+	no_plasma = TRUE
 
 /datum/action/innate/xeno_action/whisper
 	name = "Whisper (10)"
@@ -135,23 +161,39 @@ Doesn't work on other aliens/AI.*/
 	return
 
 /datum/action/innate/xeno_action/corrosive_acid
-	name = "Corrossive Acid (200)"
+	name = "Corrossive Acid"
 	desc = "Drench an object in acid, destroying it over time."
 	button_icon_state = "alien_acid"
+	var/cost = 200
+	var/acid_power = 400
+
+/datum/action/innate/xeno_action/corrosive_acid/sentinel
+	cost = 150
+
+/datum/action/innate/xeno_action/corrosive_acid/praetorian
+	cost = 100
+
+/datum/action/innate/xeno_action/corrosive_acid/queen
+	cost = 50
+	acid_power = 1000
+
+/datum/action/innate/xeno_action/corrosive_acid/New()
+	name = "[name] ([cost])"
+	..()
 
 /datum/action/innate/xeno_action/corrosive_acid/Activate(var/atom/target)
 	var/mob/living/carbon/alien/host = owner
 
-	if(!plasmacheck(200))
+	if(!plasmacheck(cost))
 		return
 
 	if(target)
 		if(!(owner.Adjacent(target)))
 			to_chat(host, "<span class='alertalien'> Target is too far away!</span>")
 			return
-		if(target.acid_act(200, 100))
+		if(target.acid_act(acid_power, 100))
 			host.visible_message("<span class='alertalien'>[host] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
-			host.adjustPlasma(-200)
+			host.adjustPlasma(-cost)
 			return
 
 	var/list/target_list = list()
@@ -169,9 +211,9 @@ Doesn't work on other aliens/AI.*/
 	if(!L)
 		return
 
-	if(L.acid_act(200, 100))
+	if(L.acid_act(acid_power, 100))
 		host.visible_message("<span class='alertalien'>[host] vomits globs of vile stuff all over [L]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
-		host.adjustPlasma(-200)
+		host.adjustPlasma(-cost)
 	else
 		to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 
@@ -179,9 +221,9 @@ Doesn't work on other aliens/AI.*/
 	name = "Spit Neurotoxin (50)"
 	desc = "Spits neurotoxin at someone, paralyzing them for a short time."
 	action_icon_state = "alien_neurotoxin"
-	action_background_icon_state = "bg_default"
+	action_background_icon_state = "bg_alien"
 	clothes_req = FALSE
-	charge_max = 5
+	charge_max = 0.5 SECONDS
 
 /obj/effect/proc_holder/spell/neurotoxin/Click()
 	if(cast_check())
@@ -260,6 +302,47 @@ Doesn't work on other aliens/AI.*/
 			if("resin nest")
 				new /obj/structure/bed/nest(host.loc)
 	return
+
+/datum/action/innate/xeno_action/break_vents
+	name = "Break Welded Vent"
+	icon_icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
+	button_icon_state = "map_vent"
+
+/datum/action/innate/xeno_action/break_vents/Activate()
+	var/mob/living/carbon/alien/host = owner
+
+	var/obj/machinery/atmospherics/unary/vent_pump/pump_target
+	var/obj/machinery/atmospherics/unary/vent_scrubber/scrubber_target
+	for(var/obj/machinery/atmospherics/unary/vent_pump/P in range(1, get_turf(host)))
+		if(P.welded)
+			pump_target = P
+			break
+	for(var/obj/machinery/atmospherics/unary/vent_scrubber/S in range(1, get_turf(host)))
+		if(S.welded)
+			scrubber_target = S
+			break
+	if(!pump_target && !scrubber_target)
+		to_chat(host, "<span class='warning'>No welded vent or scrubber nearby!</span>")
+		return
+	playsound(get_turf(host),'sound/weapons/bladeslice.ogg' , 100, 0)
+	if(do_after(host, 4 SECONDS, target = (pump_target? pump_target.loc : scrubber_target.loc)))
+		playsound(get_turf(host),'sound/weapons/bladeslice.ogg' , 100, 0)
+		if(pump_target?.welded)
+			pump_target.welded = 0
+			pump_target.update_icon()
+			pump_target.update_pipe_image()
+			host.forceMove(pump_target.loc)
+			pump_target.visible_message("<span class='danger'>[host] smashes the welded cover off [pump_target]!</span>")
+			return
+		if(scrubber_target?.welded)
+			scrubber_target.welded = 0
+			scrubber_target.update_icon()
+			scrubber_target.update_pipe_image()
+			host.forceMove(scrubber_target.loc)
+			scrubber_target.visible_message("<span class='danger'>[host] smashes the welded cover off [scrubber_target]!</span>")
+			return
+
+		to_chat(host, "<span class='danger'>There is no welded vent or scrubber close enough to do this.</span>")
 
 /datum/action/innate/xeno_action/regurgitate
 	name = "Regurgitate"

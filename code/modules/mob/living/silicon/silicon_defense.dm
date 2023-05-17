@@ -3,7 +3,7 @@
 
 /mob/living/silicon/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent
-		var/damage = 20
+		var/damage = M.attack_damage
 		if(prob(90))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", "<span class='userdanger'>[M] has slashed at [src]!</span>")

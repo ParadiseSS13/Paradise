@@ -33,7 +33,7 @@
 
 	var/stored_plasma = 0
 	var/max_plasma = 500
-	var/heal_rate = 5
+	var/heal_rate = 7.5
 	var/plasma_rate = 10
 
 /obj/item/organ/internal/xenos/plasmavessel/prepare_eat()
@@ -72,19 +72,20 @@
 
 
 /obj/item/organ/internal/xenos/plasmavessel/on_life()
-	//If there are alien weeds on the ground then heal if needed or give some plasma
+	//passive regeneration amount
+	var/heal_amount = 1
+
 	if(locate(/obj/structure/alien/weeds) in owner.loc)
 		if(owner.health >= owner.maxHealth)
 			owner.adjustPlasma(plasma_rate)
 		else
-			var/heal_amt = heal_rate
-			if(!isalien(owner))
-				heal_amt *= 0.2
+			heal_amount += isalien(owner) ? heal_rate : 0.2 * heal_rate
 			owner.adjustPlasma(plasma_rate*0.5)
-			owner.adjustBruteLoss(-heal_amt)
-			owner.adjustFireLoss(-heal_amt)
-			owner.adjustOxyLoss(-heal_amt)
-			owner.adjustCloneLoss(-heal_amt)
+
+	owner.adjustBruteLoss(-heal_amount)
+	owner.adjustFireLoss(-heal_amount)
+	owner.adjustOxyLoss(-heal_amount)
+	owner.adjustCloneLoss(-heal_amount)
 
 /obj/item/organ/internal/xenos/plasmavessel/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -106,6 +107,18 @@
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
 	var/datum/action/innate/xeno_action/corrosive_acid/corrosive_acid_action = new
+
+/obj/item/organ/internal/xenos/acidgland/sentinel
+	name = "medium xeno acid gland"
+	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/sentinel
+
+/obj/item/organ/internal/xenos/acidgland/praetorian
+	name = "massive xeno acid gland"
+	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/praetorian
+
+/obj/item/organ/internal/xenos/acidgland/queen
+	name = "royal xeno acid gland"
+	corrosive_acid_action = new /datum/action/innate/xeno_action/corrosive_acid/queen
 
 /obj/item/organ/internal/xenos/acidgland/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -159,17 +172,21 @@
 	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
 	var/datum/action/innate/xeno_action/resin/resin_action = new
-	var/datum/action/innate/xeno_action/plant/plant_action = new
+	var/obj/effect/proc_holder/spell/xeno_plant/plant_spell = new
 
 /obj/item/organ/internal/xenos/resinspinner/insert(mob/living/carbon/M, special = 0)
 	..()
 	resin_action.Grant(M)
-	plant_action.Grant(M)
+	plant_spell.action.Grant(M)
 
 /obj/item/organ/internal/xenos/resinspinner/remove(mob/living/carbon/M, special = 0)
 	resin_action.Remove(M)
-	plant_action.Remove(M)
+	plant_spell.action.Remove(M)
 	. = ..()
+
+/obj/item/organ/internal/xenos/resinspinner/queen
+	name = "extensive xeno resin organ"
+	plant_spell = new /obj/effect/proc_holder/spell/xeno_plant/queen
 
 /obj/item/organ/internal/xenos/eggsac
 	name = "xeno egg sac"

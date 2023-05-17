@@ -275,7 +275,7 @@
 /mob/living/simple_animal/bot/attack_alien(mob/living/carbon/alien/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
-	apply_damage(rand(15,30), BRUTE)
+	apply_damage(user.attack_damage, BRUTE)
 	visible_message("<span class='danger'>[user] has slashed [src]!</span>")
 	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 	if(prob(10))

@@ -144,7 +144,8 @@
 
 	else if(istype(target, /obj/machinery/computer))
 		var/obj/machinery/computer/C = target
-		C.attack_alien(user) //muh copypasta
+		if(C.attack_generic(user, 60, BRUTE, "melee", 0))
+			playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
 
 	else if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target

@@ -610,13 +610,13 @@ emp_act
 		if(M.a_intent == INTENT_HARM)
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
-			var/damage = prob(90) ? 20 : 0
+			var/damage = prob(90) ? M.attack_damage : 0
 			if(!damage)
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
 				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
 				return 0
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			var/armor_block = run_armor_check(affecting, "melee", armour_penetration = 10)
+			var/armor_block = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
@@ -635,7 +635,7 @@ emp_act
 			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
-				src.adjustStaminaLoss(rand(10,20))
+				src.adjustStaminaLoss(M.disarm_stamina_damage)
 				if(prob(40))
 					apply_effect(1, WEAKEN, run_armor_check(affecting, "melee"))
 					add_attack_logs(M, src, "Alien tackled")

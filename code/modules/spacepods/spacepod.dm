@@ -244,9 +244,9 @@
 		add_attack_logs(user, src, "attacked")
 		return TRUE
 
-/obj/spacepod/attack_alien(mob/user)
+/obj/spacepod/attack_alien(mob/living/carbon/alien/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	deal_damage(15)
+	deal_damage(user.attack_damage)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
 	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")

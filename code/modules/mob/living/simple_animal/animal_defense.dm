@@ -42,7 +42,7 @@
 			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", "<span class='userdanger'>[M] [response_disarm] you!</span>")
 			add_attack_logs(M, src, "Alien disarmed")
 		else
-			var/damage = rand(15, 30)
+			var/damage = M.attack_damage
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 					"<span class='userdanger'>[M] has slashed at [src]!</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)

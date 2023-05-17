@@ -385,7 +385,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!(stat & BROKEN))
 		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 		visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
-		take_damage(15)
+		take_damage(M.attack_damage)
 	else
 		to_chat(M, "<span class='noticealien'>That object is useless to you.</span>")
 	return

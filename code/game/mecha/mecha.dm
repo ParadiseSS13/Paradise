@@ -664,11 +664,11 @@
 	log_message("Attack by hand/paw. Attacker - [user].")
 
 
-/obj/mecha/attack_alien(mob/living/user)
+/obj/mecha/attack_alien(mob/living/carbon/alien/user)
 	log_message("Attack by alien. Attacker - [user].", TRUE)
 	add_attack_logs(user, OCCUPANT_LOGGING, "Alien attacked mech [src]")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
-	attack_generic(user, 15, BRUTE, "melee", 0)
+	attack_generic(user, user.attack_damage, BRUTE, "melee", 0, user.armour_penetration)
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user)
 	log_message("Attack by simple animal. Attacker - [user].")
