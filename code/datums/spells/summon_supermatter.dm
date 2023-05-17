@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter
-	name = "Summon supermatter crystal"
+	name = "Summon Supermatter Crystal"
 	desc = "Summons an active supermatter crystal. Imbues you with some supermatter, giving you resistance to it's hallucinations and radiation immunity."
 	base_cooldown = 5 MINUTES
 	cooldown_min = 60 SECONDS
