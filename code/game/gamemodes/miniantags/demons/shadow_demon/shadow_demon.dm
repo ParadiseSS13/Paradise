@@ -59,12 +59,14 @@
 	max_integrity = 100
 	light_color = "#AAD84B"
 	anchored = TRUE
+	var/time_since_last_hallucination = 0
 
 /obj/structure/shadowcocoon/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/shadowcocoon/process()
+	time_since_last_hallucination++
 	for(var/atom/to_darken in range(4, src))
 		if(prob(60) || !length(to_darken.light_sources))
 			continue
@@ -81,6 +83,9 @@
 			flare_to_darken.fuel = 0
 			flare_to_darken.visible_message("<span class='notice'>[flare_to_darken] suddenly dims.</span>")
 		to_darken.extinguish_light()
+	if(time_since_last_hallucination >= rand(4, 8))
+		playsound(src, pick('sound/items/deconstruct.ogg', 'sound/weapons/handcuffs.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
+		time_since_last_hallucination = 0
 
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type != BURN) //I unashamedly stole this from spider cocoon code
