@@ -189,7 +189,12 @@
 	busy = TRUE
 	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D] airlock...</span>")
 	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
-	hack_speed = rand(5,20) SECONDS
+
+	var/mob/living/carbon/human/H = user
+	if(H.mind.assigned_role != "Janitor")
+		hack_speed = rand(30,60) SECONDS
+	else
+		hack_speed = rand(5,20) SECONDS
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(!istype(D))
 			return
