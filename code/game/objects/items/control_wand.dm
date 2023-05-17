@@ -155,16 +155,16 @@
 	busy = FALSE
 	icon_state = "hacktool"
 
-#define JANGLE_COOLDOWN 10 SECONDS
+#define JANGLE_COOLDOWN 10 SECONDS //How long before you can "jangle" your keyring again (to prevent spam)
 
 /obj/item/door_remote/janikeyring
 	name = "janitor's keyring"
 	desc = "An absolutely unwieldy set of keys attached to a metal ring."
 	icon_state = "keyring"
 	item_state = "keyring"
-	var/hack_speed
 	var/busy = FALSE
 	var/cooldown = 0
+	var/hack_speed
 	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/examine(mob/user)
@@ -192,9 +192,9 @@
 
 	var/mob/living/carbon/human/H = user
 	if(H.mind.assigned_role != "Janitor")
-		hack_speed = rand(30,60) SECONDS
+		hack_speed = rand(30, 60) SECONDS
 	else
-		hack_speed = rand(5,20) SECONDS
+		hack_speed = rand(5, 20) SECONDS
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(!istype(D))
 			return
