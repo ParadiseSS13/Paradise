@@ -38,6 +38,9 @@
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE
 
+/mob/living/carbon/alien/humanoid/queen/is_strong()
+	return TRUE
+
 //Queen verbs
 /datum/action/innate/xeno_action/lay_egg_queen
 	name = "Lay Egg (75)"

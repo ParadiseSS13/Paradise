@@ -49,6 +49,9 @@
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
+/mob/living/carbon/alien/humanoid/empress/is_strong()
+	return TRUE
+
 /datum/action/innate/xeno_action/lay_egg
 	name = "Lay Egg (250)"
 	desc = "Lay an egg to produce huggers to impregnate prey with."
