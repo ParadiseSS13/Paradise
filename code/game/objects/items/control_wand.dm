@@ -155,6 +155,8 @@
 	busy = FALSE
 	icon_state = "hacktool"
 
+#define JANGLE_COOLDOWN 25 SECONDS
+
 /obj/item/door_remote/janikeyring
 	name = "janitor's keyring"
 	desc = "An absolutely unwieldy set of keys attached to a metal ring."
@@ -162,6 +164,7 @@
 	item_state = "hacktool"
 	var/hack_speed
 	var/busy = FALSE
+	var/cooldown = 0
 	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
 /obj/item/door_remote/janikeyring/examine(mob/user)
@@ -169,7 +172,10 @@
 	. += "<span class='notice'>This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!</span>"
 
 /obj/item/door_remote/janikeyring/attack_self(mob/user)
+	if(cooldown >= world.time + JANGLE_COOLDOWN)
+		return
 	to_chat(user, "<span class='warning'>You shake [src]!</span>")
+	playsound(user.loc, 'sound/items/keyring_shake.ogg')
 
 /obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/airlock/D, mob/user, proximity)
 	if(!proximity)
@@ -181,6 +187,7 @@
 		return
 	busy = TRUE
 	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D] airlock...</span>")
+	playsound(user.loc, 'sound/items/keyring_unlock.ogg')
 	hack_speed = rand(5,20) SECONDS
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(!istype(D))
