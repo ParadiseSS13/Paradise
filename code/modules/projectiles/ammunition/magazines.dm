@@ -259,7 +259,7 @@
 	max_ammo = 20
 	multi_sprite_step = 4
 	multiload = 0
-	slow_loading = 1
+	slow_loading = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
 	///A var to check if the mag is being loaded
 	var/being_loaded = FALSE

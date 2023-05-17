@@ -402,9 +402,8 @@
 	var/atom/Uloc = user.loc
 
 	var/drifting = FALSE
-	if(!allow_moving)
-		if(!user.Process_Spacemove(0) && user.inertia_dir)
-			drifting = TRUE
+	if(!allow_moving && !user.Process_Spacemove(0) && user.inertia_dir)
+		drifting = TRUE
 
 	var/holding = user.get_active_hand()
 
@@ -434,7 +433,7 @@
 			if(drifting && !user.inertia_dir)
 				drifting = FALSE
 				Uloc = user.loc
-			if((!drifting && user.loc != Uloc))
+			if(!drifting && user.loc != Uloc)
 				. = FALSE
 				break
 
@@ -446,10 +445,9 @@
 			. = FALSE
 			break
 
-		if(must_be_held)
-			if(target.loc != user)
-				. = FALSE
-				break
+		if(must_be_held && target.loc != user)
+			. = FALSE
+			break
 
 		if(needhand)
 			//This might seem like an odd check, but you can still need a hand even when it's empty

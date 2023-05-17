@@ -129,7 +129,7 @@
 	var/multi_sprite_step = AMMO_MULTI_SPRITE_STEP_NONE // see update_icon_state() for details
 	var/caliber
 	var/multiload = 1
-	var/slow_loading = 0
+	var/slow_loading = FALSE
 	var/list/initial_mats //For calculating refund values.
 
 /obj/item/ammo_box/Initialize(mapload)
