@@ -642,7 +642,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
-
+	if(HAS_TRAIT(owner, TRAIT_NO_BONES))
+		return
 	if((status & ORGAN_BROKEN) || (limb_flags & CANNOT_BREAK))
 		return
 	if(owner && !silent)
