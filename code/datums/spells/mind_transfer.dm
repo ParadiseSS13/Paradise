@@ -77,7 +77,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 			caster.verbs += V
 
 /obj/effect/proc_holder/spell/aoe/mass_mindswap //Basically Mass Ranged Mindswap
-	name = "Mass mindswap"
+	name = "Mass Mindswap"
 	desc = "Shuffles the minds of everyone in your general vicinity."
 	school = "transmutation"
 	base_cooldown = 3 MINUTES
