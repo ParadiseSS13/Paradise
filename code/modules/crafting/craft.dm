@@ -249,7 +249,7 @@
 			for(var/i in 1 to needed_amount)
 				var/atom/movable/part_atom
 				for(var/atom/movable/candidate as anything in (surroundings - parts_used))
-					if(istype(candidate, thing) && !is_type_in_list(candidate, recipe.blacklist)
+					if(istype(candidate, thing) && !is_type_in_list(candidate, recipe.blacklist))
 						part_atom = candidate
 						break
 
