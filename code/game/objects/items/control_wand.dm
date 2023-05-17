@@ -155,13 +155,13 @@
 	busy = FALSE
 	icon_state = "hacktool"
 
-#define JANGLE_COOLDOWN 25 SECONDS
+#define JANGLE_COOLDOWN 10 SECONDS
 
 /obj/item/door_remote/janikeyring
 	name = "janitor's keyring"
 	desc = "An absolutely unwieldy set of keys attached to a metal ring."
-	icon_state = "hacktool"
-	item_state = "hacktool"
+	icon_state = "keyring"
+	item_state = "keyring"
 	var/hack_speed
 	var/busy = FALSE
 	var/cooldown = 0
@@ -172,10 +172,11 @@
 	. += "<span class='notice'>This keyring has access to Medbay, Science, Engineering, Cargo, the Bar and the Kitchen!</span>"
 
 /obj/item/door_remote/janikeyring/attack_self(mob/user)
-	if(cooldown >= world.time + JANGLE_COOLDOWN)
+	if(cooldown > world.time)
 		return
 	to_chat(user, "<span class='warning'>You shake [src]!</span>")
-	playsound(user.loc, 'sound/items/keyring_shake.ogg')
+	playsound(src, 'sound/items/keyring_shake.ogg', 50)
+	cooldown = world.time + JANGLE_COOLDOWN
 
 /obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/airlock/D, mob/user, proximity)
 	if(!proximity)
@@ -187,7 +188,7 @@
 		return
 	busy = TRUE
 	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D] airlock...</span>")
-	playsound(user.loc, 'sound/items/keyring_unlock.ogg')
+	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
 	hack_speed = rand(5,20) SECONDS
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(!istype(D))
@@ -215,3 +216,4 @@
 #undef WAND_BOLT
 #undef WAND_EMERGENCY
 #undef WAND_SPEED
+#undef JANGLE_COOLDOWN
