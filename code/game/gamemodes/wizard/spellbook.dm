@@ -245,7 +245,7 @@
 	return ..()
 
 /datum/spellbook_entry/summon_supermatter
-	name = "Summon supermatter crystal"
+	name = "Summon Supermatter Crystal"
 	spell_type = /obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter
 	cost = 3
 	log_name = "SSM"
