@@ -8,15 +8,13 @@
 "bx" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 4},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "cM" = (/obj/effect/decal/cleanable/blood/writing{dir = 8},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "dM" = (/obj/machinery/economy/vending/cola{tilted = 1},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
-"eb" = (/obj/structure/rack,/obj/item/multitool/red,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/space/tcommsat)
 "eu" = (/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
 "eM" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "fh" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "fD" = (/obj/effect/decal/remains/human,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "fI" = (/obj/structure/window/reinforced{dir = 1},/obj/effect/decal/cleanable/dirt,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
-"fS" = (/obj/item/storage/toolbox/electrical{pixel_x = 1; pixel_y = -1},/obj/structure/rack,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/space/tcommsat)
+"fS" = (/obj/structure/rack,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/space/tcommsat)
 "gg" = (/obj/structure/chair{dir = 8},/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
-"gs" = (/obj/item/stock_parts/cell/high,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "hg" = (/obj/item/camera_assembly,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "hk" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/effect/decal/cleanable/blood/writing{dir = 9},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "hO" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/turf/template_noop,/area/template_noop)
@@ -79,7 +77,7 @@
 "Em" = (/obj/item/stack/cable_coil/cut{amount = 1},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "EC" = (/obj/structure/table,/obj/item/paper/crumpled,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "FK" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
-"Go" = (/obj/structure/table,/obj/item/wrench,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"Go" = (/obj/structure/table,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "GG" = (/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
 "GV" = (/obj/structure/door_assembly/door_assembly_hatch,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "HW" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/lattice,/turf/template_noop,/area/space/nearstation)
@@ -105,7 +103,7 @@
 "Pn" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "PO" = (/obj/structure/lattice,/turf/template_noop,/area/space/nearstation)
 "PP" = (/obj/effect/decal/warning_stripes/west,/obj/structure/closet/firecloset,/turf/simulated/floor/plasteel,/area/ruin/space/tcommsat)
-"PZ" = (/obj/structure/closet,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
+"PZ" = (/obj/structure/closet,/obj/item/stock_parts/cell/high,/obj/item/wrench,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Qd" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Qe" = (/obj/structure/chair,/obj/effect/decal/cleanable/blood,/obj/effect/decal/remains/human,/obj/item/clothing/under/rank/centcom,/obj/item/restraints/handcuffs,/turf/simulated/floor/plating/airless,/area/ruin/space/tcommsat)
 "Qm" = (/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/template_noop,/area/space/nearstation)
@@ -157,7 +155,7 @@ nXnXnXzEnXnXJrzEnXJrnXnXnXnXJrWrotWrWrWrotWrWrWrJrJrPOzEzEzEnXPOnXnXzEzEJrwOnX
 nXnXnXnXnXnXnXnXnXPOnXnXzEnXnXWrYMUrUrYNUrUrECWrWrJrnXzEJrwOJrnXnXPOnXzEnXJrnX
 nXnXnXnXnXnXPOnXnXnXJrzEnXJrWrxmBqIsWcKXIsWcWcGoWrJrnXzEJrnXnXnXnXnXnXzEzEJrwO
 nXnXnXnXnXnXzEnXnXnXJrnXnXJrotPZWcWcIsEmWcWcWcyMotwOnXnXJrnXnXnXnXnXnXnXzEJrPO
-nXnXnXnXnXJrzEnXnXnXPOnXnXwOWrWcWcgsWcBqWcIsWcWcWrJrnXnXPOnXnXPOnXnXnXnXzEPOJr
+nXnXnXnXnXJrzEnXnXnXPOnXnXwOWrWcWcWcWcBqWcIsWcWcWrJrnXnXPOnXnXPOnXnXnXnXzEPOJr
 nXnXnXPOJrzEPfPOPOPOwDPOPOPOWrBqWcIsWckoWCWcBqWcWrPOPOPOwDPOPOnXnXPOnXnXnXnXPO
 nXnXPOwOzEzEzEnXnXnXPOnXnXnXWrGVWrQNrMKRUpQNotCqWrnXnXnXPOnXnXnXnXnXPOPfnXnXnX
 nXnXJrJrzEzEnXnXnXnXPOnXnXnXnXrcnXPOQNQNQNPOnXUCnXnXnXnXPOnXnXnXnXnXnXnXnXnXnX
@@ -168,14 +166,14 @@ nXJrJrzEzEnXnXnXnXptAcZitETWPOnXnXnXVxUCKHnXnXnXPOnGQTZifhDsnXnXnXnXzEzEJrPOnX
 POJrJrzEzEnXnXnXnXAcrsTWnXnXPOnXnXnXPOrcPOnXnXnXPOnXnXnGeMfhnXnXnXnXzEzEJrJrPO
 POJrzEzEzEJrJrJrJrrcTWnXnXnXwOJrJrJrJrMCJrJrJrJrwOnXnXnXnGrcEfEfEfEfzEzEzEJrwO
 JrJrzEWrotWrotWrWrCqotWrnXnXJrJrotWrYWGVYWotWrJrJrnXnXWrotCqWrWrWrotWrWrzEJrJr
-JrJrzEWrZdZdfSloWrWcWcWrPOwOJrWrWcWcWcWchgWcWcotJrwOPOWrbxiiiirgiihkaukcNbsDNJ
+JrJrzEWrZdZdnkloWrWcWcWrPOwOJrWrWcWcWcWchgWcWcotJrwOPOWrbxiiiirgiihkaukcNbsDNJ
 JrJrzEotsbsbsbsbWrWcIsWrnXJrWrIsWcIsIGWcWcIsWcIsWrJrnXWrkoIsWcGVcMMtWcWrzEJrJr
-POJrzEWrWrWrCqWrWrWcIsotnXJrotWcWcWcWcYTjvIsWcWcWrJrnXotCZggWcWrWrWrotWrzEJrPO
+POJrzEWrWrWrCqWrWrWcIsotnXJrotWcWcWcWcYTjvIsWcWcWrJrnXotCZggWcWrWrQNotWrzEJrPO
 wOJrzEWrIsWcSpIsGVSpWcWrnXJrWrWcIsVHWcWcWcDHIsWcWrJrnXWrsmWCIsQNIsWcbcWrzEJrwO
 JrJrzEotWcIsWcSpSpIsWcWrnXJrotWcWcWcWcQeWcAVWcWcotJrnXWrWcWcWcOrWcfDWcWrzEJrJr
-JrJrzEWrWrotjkWrWrSpIsWrnXJrWrWcIsIGIsWCWcYuWcWcWrPOnXotpgIsSpWrWrotWrWrzEJrJr
+JrJrzEWrWrotjkWrWrSpIsWrnXJrWrWcIsIGIsWCWcYuWcWcWrPOnXotpgIsSpWrotQNWrWrzEJrJr
 JrJrzEWrsbsbsbsbWrWcWcotnXPOWrWcWcWcTzWcWcIGWcIsotwOnXWrSpSpalQNWcIsbcWrzEJrJr
-JrJrzEotebleoZnkotWcIsWrPOwOWrWcWcWcWcUaIsWDWcWcWrJrPOWrdMSpIsYZWcNwWcotzEJrwO
+JrJrzEotlefSoZfSotWcIsWrPOwOWrWcWcWcWcUaIsWDWcWcWrJrPOWrdMSpIsYZWcNwWcotzEJrwO
 JrJrzEWrWrWrotWrWrOrWrWrnXJrJrotohhQWDTtWcWPIfWrJrJrnXWralIeWcotWrWrWrWrzEJrJr
 POJrzEzEzEJrJrJrJrPnzTnXnXPOJrJrWrWrotWrWrotWrJrJrPOnXnXQmrcwOJrJrJrzEzEzEJrJr
 nXPOJrzEzEnXnXnXnXFKQYzTnXPOnXJrJrJrJrJrJrJrJrJrnXPOnXQmJHQdnXnXnXnXzEzEJrJrPO
