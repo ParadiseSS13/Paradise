@@ -10883,16 +10883,17 @@
 /turf/simulated/wall/r_wall,
 /area/engine/supermatter)
 "aRb" = (
-/obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1;
-	name = "Supermatter Chamber"
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
+/obj/machinery/door/airlock/engineering/glass{
+	heat_proof = 1;
+	name = "Supermatter Chamber";
+	req_one_access_txt = "24; 10"
+	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "aRc" = (
@@ -10904,11 +10905,12 @@
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "aRd" = (
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/door/airlock/engineering/glass{
 	heat_proof = 1;
-	name = "Supermatter Chamber"
+	name = "Supermatter Chamber";
+	req_one_access_txt = "24; 10"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "aRe" = (
