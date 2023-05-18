@@ -738,7 +738,7 @@
 /obj/item/melee/blood_magic/manipulator/proc/restore_blood(mob/living/carbon/human/user, mob/living/carbon/human/H)
 	if(uses == 0)
 		return
-	if(!H.dna || NO_BLOOD in H.dna.species.species_traits || H.dna.species.exotic_blood != null)
+	if(!H.dna || (NO_BLOOD in H.dna.species.species_traits) || H.dna.species.exotic_blood != null)
 		return
 	if(H.blood_volume >= BLOOD_VOLUME_SAFE)
 		return
@@ -825,7 +825,7 @@
 	if(H.AmountCultSlurring())
 		to_chat(user, "<span class='danger'>[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!</span>")
 		return
-	if(!H.dna || NO_BLOOD in H.dna.species.species_traits || H.dna.species.exotic_blood != null)
+	if(!H.dna || (NO_BLOOD in H.dna.species.species_traits) || H.dna.species.exotic_blood != null)
 		to_chat(user, "<span class='warning'>[H] does not have any usable blood!</span>")
 		return
 	if(H.blood_volume <= BLOOD_VOLUME_SAFE)
@@ -850,6 +850,7 @@
 	if(ishuman(target))
 		if(iscultist(target))
 			heal_cultist(user, target)
+			target.clean_blood()
 		else
 			steal_blood(user, target)
 		return
