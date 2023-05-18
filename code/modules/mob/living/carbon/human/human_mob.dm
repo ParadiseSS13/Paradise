@@ -1603,7 +1603,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return threatcount
 
 	//Check for ID
-	var/obj/item/card/id/idcard = get_idcard()
+	var/obj/item/card/id/idcard = get_idcard(TRUE)
 	if(judgebot.idcheck && !idcard)
 		threatcount += 4
 
