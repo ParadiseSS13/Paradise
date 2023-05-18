@@ -114,13 +114,15 @@
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/structure/sign/poster/proc/roll_and_drop(loc)
+/obj/structure/sign/poster/proc/roll_and_drop(loc, mob/user)
 	if(ruined)
 		qdel(src)
 		return
 	pixel_x = 0
 	pixel_y = 0
 	var/obj/item/poster/P = new(loc, src)
+	if(user)
+		transfer_fingerprints_to(P)
 	forceMove(P)
 	return P
 
@@ -161,6 +163,7 @@
 			to_chat(user, "<span class='notice'>You cannot reach the wall from here!</span>")
 			return
 
+	P.transfer_fingerprints_to(D)
 	flick("poster_being_set", D)
 	D.forceMove(temp_loc)
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
@@ -175,7 +178,7 @@
 			return
 
 	to_chat(user, "<span class='notice'>The poster falls down!</span>")
-	D.roll_and_drop(temp_loc)
+	D.roll_and_drop(temp_loc, user)
 
 
 ////////////////////////////////POSTER VARIATIONS////////////////////////////////

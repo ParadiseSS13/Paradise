@@ -47,6 +47,7 @@
 		else if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[G] is stuck to your hand!</span>")
 			return FALSE
+		add_fingerprint(user)
 		G.forceMove(src)
 		to_chat(user, "<span class='notice'>You place [G] into [src] to start the fermentation process.</span>")
 		addtimer(CALLBACK(src, PROC_REF(makeWine), G), rand(80, 120) * speed_multiplier)

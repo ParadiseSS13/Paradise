@@ -245,11 +245,13 @@
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 	if(busy)
+		add_fingerprint(user)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return 1
 	if(exchange_parts(user, O))
 		return
 	if(stat)
+		add_fingerprint(user)
 		return 1
 
 	// Disks in general
@@ -272,6 +274,7 @@
 				playsound(get_turf(src), 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				busy = TRUE
 				if(do_after(user, 14.4, target = src))
+					add_fingerprint(user)
 					imported[design.id] = TRUE
 					files.AddDesign2Known(design)
 					recipiecache = list()

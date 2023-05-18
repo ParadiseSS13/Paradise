@@ -325,6 +325,7 @@
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
+		add_fingerprint(user)
 		power_change()
 		return
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
@@ -336,6 +337,7 @@
 		if(!user.drop_item())
 			return
 
+		add_fingerprint(user)
 		beaker =  I
 		beaker.loc = src
 		to_chat(user, "<span class='notice'>Вы вставили мензурку в машину.</span>")
@@ -344,6 +346,7 @@
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(beaker)
+			add_fingerprint(user)
 			beaker.forceMove(get_turf(src))
 	else
 		return ..()

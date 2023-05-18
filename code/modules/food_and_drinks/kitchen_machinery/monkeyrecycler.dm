@@ -47,12 +47,14 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, O))
 		return
 
 	if(default_unfasten_wrench(user, O))
+		add_fingerprint(user)
 		power_change()
 		return
 
@@ -60,6 +62,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		return
 
 	if(istype(O, /obj/item/multitool))
+		add_fingerprint(user)
 		if(!panel_open)
 			cycle_through++
 			switch(cycle_through)
@@ -91,6 +94,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 				if(target.stat == 0)
 					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
 				else
+					add_fingerprint(user)
 					user.drop_item()
 					qdel(target)
 					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
@@ -113,6 +117,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	if(stat != 0) //NOPOWER etc
 		return
 	if(grinded >= required_grind)
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube.</span>")
 		playsound(loc, 'sound/machines/hiss.ogg', 50, 1)
 		grinded -= required_grind

@@ -32,9 +32,11 @@
 			return
 		cut_overlays()
 		if(t)
+			add_fingerprint(user)
 			add_overlay(image(icon, "bodybag_label"))
 		return
 	if(istype(W, /obj/item/wirecutters))
+		add_fingerprint(user)
 		to_chat(user, "You cut the tag off the bodybag")
 		name = "body bag"
 		cut_overlays()

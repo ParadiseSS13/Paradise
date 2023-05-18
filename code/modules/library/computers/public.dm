@@ -8,6 +8,7 @@
 
 /obj/machinery/computer/library/public/attackby(obj/item/W as obj, mob/user as mob)
 	if(default_unfasten_wrench(user, W))
+		add_fingerprint(user)
 		power_change()
 		return
 	return ..()

@@ -9,8 +9,7 @@
 	playsound(loc, 'sound/items/zip.ogg', 75, 1)
 	to_chat(user, "<span class='notice'>You inflate [src].</span>")
 	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
-	src.transfer_fingerprints_to(R)
-	R.add_fingerprint(user)
+	transfer_fingerprints_to(R)
 	qdel(src)
 
 /obj/structure/inflatable
@@ -137,8 +136,10 @@
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(!C.handcuffed)
+					add_fingerprint(user)
 					SwitchState()
 			else
+				add_fingerprint(user)
 				SwitchState()
 	else if(istype(user, /obj/mecha))
 		SwitchState()

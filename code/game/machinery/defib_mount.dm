@@ -89,6 +89,7 @@
 	if(defib.paddles.loc != defib)
 		to_chat(user, "<span class='warning'>[defib.paddles.loc == user ? "You are already" : "Someone else is"] holding [defib]'s paddles!</span>")
 		return
+	add_fingerprint(user)
 	defib.paddles_on_defib = FALSE
 	user.put_in_hands(defib.paddles)
 
@@ -100,6 +101,7 @@
 		if(I.flags & NODROP || !user.drop_item() || !I.forceMove(src))
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
+		add_fingerprint(user)
 		user.visible_message("<span class='notice'>[user] hooks up [I] to [src]!</span>", \
 		"<span class='notice'>You press [I] into the mount, and it clicks into place.</span>")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
@@ -107,6 +109,7 @@
 		update_icon()
 		return
 	else if(defib && I == defib.paddles)
+		add_fingerprint(user)
 		user.drop_item()
 		return
 	var/obj/item/card/id = I.GetID()
@@ -115,6 +118,7 @@
 			if(!defib)
 				to_chat(user, "<span class='warning'>You can't engage the clamps on a defibrillator that isn't there.</span>")
 				return
+			add_fingerprint(user)
 			clamps_locked = !clamps_locked
 			to_chat(user, "<span class='notice'>Clamps [clamps_locked ? "" : "dis"]engaged.</span>")
 			update_icon()

@@ -275,13 +275,13 @@ update_flag
 			investigate_log("[key_name_log(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
-	add_hiddenprint(user)
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user)
 	return ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
+	add_fingerprint(user)
 	return ui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)

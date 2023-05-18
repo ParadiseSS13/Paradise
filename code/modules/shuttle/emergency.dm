@@ -41,6 +41,7 @@
 		switch(choice)
 			if("Authorize")
 				if(!authorized.Find(id.registered_name))
+					add_fingerprint(user)
 					authorized += id.registered_name
 					if(auth_need - authorized.len > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
@@ -54,10 +55,12 @@
 
 			if("Repeal")
 				if(authorized.Remove(id.registered_name))
+					add_fingerprint(user)
 					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - authorized.len] авторизацию(-й).")
 
 			if("Abort")
 				if(authorized.len)
+					add_fingerprint(user)
 					GLOB.minor_announcement.Announce("Все авторизации на досрочный запуск шаттла были отозваны.")
 					authorized.Cut()
 

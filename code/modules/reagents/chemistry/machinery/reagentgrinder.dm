@@ -175,6 +175,7 @@
 		else
 			if(!user.drop_item())
 				return FALSE
+			add_fingerprint(user)
 			beaker =  I
 			beaker.loc = src
 			update_icon()
@@ -199,6 +200,7 @@
 			to_chat(user, "<span class='warning'>[B] is empty.</span>")
 			return FALSE
 
+		add_fingerprint(user)
 		var/original_contents_len = B.contents.len
 
 		for(var/obj/item/G in B.contents)
@@ -228,6 +230,7 @@
 			return TRUE
 
 	if(user.drop_item())
+		add_fingerprint(user)
 		I.loc = src
 		holdingitems += I
 		src.updateUsrDialog()

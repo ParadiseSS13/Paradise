@@ -144,6 +144,7 @@
 			return
 		if(get_dist(src, user) > 1)
 			return
+		add_fingerprint(user)
 		coil.place_turf(T, user)
 	else
 		return ..()

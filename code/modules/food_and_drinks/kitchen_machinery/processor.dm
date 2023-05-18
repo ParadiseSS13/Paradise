@@ -161,12 +161,14 @@
 	return 0
 
 /obj/machinery/processor/attackby(obj/item/O, mob/user, params)
+	add_fingerprint(user)
 
 	if(processing)
 		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
 		return 1
 
 	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, O))

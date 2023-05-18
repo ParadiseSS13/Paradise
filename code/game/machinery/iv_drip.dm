@@ -33,11 +33,13 @@
 		return
 
 	if(Adjacent(target) && usr.Adjacent(target))
+		add_fingerprint(usr)
 		bag.afterattack(target, usr, TRUE)
 		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
+		add_fingerprint(user)
 		user.put_in_hands(bag)
 		bag.update_icon()
 		bag = null
@@ -51,12 +53,14 @@
 		if(!user.drop_item())
 			return
 
+		add_fingerprint(user)
 		I.forceMove(src)
 		bag = I
 		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 		update_icon()
 		START_PROCESSING(SSmachines, src)
 	else if (bag && istype(I, /obj/item/reagent_containers))
+		add_fingerprint(user)
 		bag.attackby(I)
 		I.afterattack(bag, usr, TRUE)
 		update_icon()

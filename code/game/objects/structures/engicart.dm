@@ -35,6 +35,7 @@
 	if(!I.is_robot_module())
 		if(istype(I, /obj/item/stack/sheet/glass))
 			if(!myglass)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				myglass=I
 				update_icon()
@@ -42,6 +43,7 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/stack/sheet/metal))
 			if(!mymetal)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				mymetal=I
 				update_icon()
@@ -49,6 +51,7 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/stack/sheet/plasteel))
 			if(!myplasteel)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				myplasteel=I
 				update_icon()
@@ -56,6 +59,7 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/flashlight))
 			if(!myflashlight)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				myflashlight=I
 				update_icon()
@@ -63,6 +67,7 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/storage/toolbox/mechanical))
 			if(!mybluetoolbox)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				mybluetoolbox=I
 				update_icon()
@@ -70,6 +75,7 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/storage/toolbox/electrical))
 			if(!myyellowtoolbox)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				myyellowtoolbox=I
 				update_icon()
@@ -77,12 +83,14 @@
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/storage/toolbox))
 			if(!myredtoolbox)
+				add_fingerprint(user)
 				put_in_cart(I, user)
 				myredtoolbox=I
 				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/wrench))
+			add_fingerprint(user)
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
@@ -101,6 +109,7 @@
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8">"}
 	if(myglass)

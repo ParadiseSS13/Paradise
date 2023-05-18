@@ -115,6 +115,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 
 /obj/machinery/message_server/attack_hand(user as mob)
 //	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")
+	add_fingerprint(user)
 	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
 	active = !active
 	update_icon()

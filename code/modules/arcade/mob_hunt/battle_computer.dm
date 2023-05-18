@@ -53,6 +53,7 @@
 
 /obj/machinery/computer/mob_battle_terminal/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/nanomob_card))
+		add_fingerprint(user)
 		insert_card(O, user)
 		return
 	return ..()
@@ -288,6 +289,7 @@
 
 /obj/machinery/computer/mob_healer_terminal/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/nanomob_card))
+		add_fingerprint(user)
 		heal_card(O, user)
 		return
 	return ..()

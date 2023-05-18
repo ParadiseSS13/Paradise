@@ -64,6 +64,7 @@
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state
+		src.transfer_fingerprints_to(S)
 		to_chat(user, "You fasten \the [S] with your [tool].")
 		qdel(src)
 	else

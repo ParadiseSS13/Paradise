@@ -111,6 +111,7 @@
 
 /obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
 	if(default_change_direction_wrench(user, I))
+		add_fingerprint(user)
 		turbine = null
 		inturf = get_step(src, dir)
 		locate_machinery()
@@ -272,9 +273,11 @@
 
 /obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
+		add_fingerprint(user)
 		return
 
 	if(default_change_direction_wrench(user, I))
+		add_fingerprint(user)
 		compressor = null
 		outturf = get_step(src, dir)
 		locate_machinery()

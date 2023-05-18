@@ -145,12 +145,15 @@
 
 /obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(disabled)
+		add_fingerprint(user)
 		return
 
 	if(shocked)
+		add_fingerprint(user)
 		shock(user,50)
 
 	if(istype(O, /obj/item/screwdriver))
+		add_fingerprint(user)
 		default_deconstruction_screwdriver(user, icon_open, icon_closed, O)
 		return 1
 
@@ -170,6 +173,7 @@
 		return
 
 	if(shocked)
+		add_fingerprint(user)
 		shock(user,50)
 	return
 
@@ -338,6 +342,7 @@
 /obj/machinery/computer/rdservercontrol/attack_hand(mob/user as mob)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = ""
 

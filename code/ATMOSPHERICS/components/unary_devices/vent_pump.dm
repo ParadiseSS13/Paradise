@@ -340,6 +340,7 @@
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/stack/spacecash))
 		if(!welded)
 			if(open)
+				add_fingerprint(user)
 				user.drop_item(W)
 				W.forceMove(src)
 			if(!open)
@@ -395,9 +396,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/attack_hand()
 	if(!welded)
 		if(open)
+			add_fingerprint(usr)
 			for(var/obj/item/W in src)
 				if(istype(W, /obj/item/pipe))
 					continue
+				W.add_fingerprint(usr)
 				W.forceMove(get_turf(src))
 
 

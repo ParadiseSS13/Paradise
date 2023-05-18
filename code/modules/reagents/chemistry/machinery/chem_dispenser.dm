@@ -267,6 +267,7 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+		add_fingerprint(user)
 		beaker =  I
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
@@ -334,6 +335,7 @@
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
 	if(stat & BROKEN)
 		return
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/chem_dispenser/soda

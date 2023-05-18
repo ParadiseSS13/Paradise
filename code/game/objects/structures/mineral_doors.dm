@@ -75,8 +75,10 @@
 			if(iscarbon(M))
 				var/mob/living/carbon/C = M
 				if(!C.handcuffed)
+					add_fingerprint(user)
 					SwitchState()
 			else
+				add_fingerprint(user)
 				SwitchState()
 	else if(istype(user, /obj/mecha))
 		SwitchState()
@@ -188,6 +190,7 @@
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
 	if(is_hot(W))
+		add_fingerprint(user)
 		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		TemperatureAct(100)

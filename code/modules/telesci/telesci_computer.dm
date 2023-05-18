@@ -54,12 +54,14 @@
 		if(crystals >= max_crystals)
 			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
 			return
+		add_fingerprint(user)
 		crystals += 1
 		user.visible_message("<span class='notice'>[user] inserts a [B.singular_name] into [src]'s crystal slot.</span>")
 		B.use(1)
 		updateUsrDialog()
 	else if(istype(W, /obj/item/gps))
 		if(!inserted_gps)
+			add_fingerprint(user)
 			inserted_gps = W
 			user.unEquip(W)
 			W.loc = src
@@ -68,6 +70,7 @@
 	else if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
+			add_fingerprint(user)
 			telepad = M.buffer
 			M.buffer = null
 			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")

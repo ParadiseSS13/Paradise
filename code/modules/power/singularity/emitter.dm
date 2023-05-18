@@ -62,6 +62,7 @@
 	if(src.anchored || usr:stat)
 		to_chat(usr, "It is fastened to the floor!")
 		return 0
+	add_fingerprint(usr)
 	src.dir = turn(src.dir, 90)
 	return 1
 
@@ -94,6 +95,7 @@
 			to_chat(user, "The emitter isn't connected to a wire.")
 			return 1
 		if(!src.locked)
+			add_fingerprint(usr)
 			if(src.active==1)
 				src.active = 0
 				to_chat(user, "You turn off the [src].")
@@ -215,6 +217,7 @@
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
 			return
 		if(src.allowed(user))
+			add_fingerprint(usr)
 			if(active)
 				src.locked = !src.locked
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
@@ -226,6 +229,7 @@
 		return
 
 	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, W))

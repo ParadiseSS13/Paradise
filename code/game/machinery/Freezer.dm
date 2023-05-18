@@ -110,6 +110,7 @@
 		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -277,6 +278,8 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Сначала закройте панель техобслуживания.</span>")
 		return
+
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

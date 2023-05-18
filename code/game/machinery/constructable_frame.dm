@@ -80,6 +80,7 @@
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 1 && C.use(5))
+							add_fingerprint(user)
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 2
 							icon_state = "box_1"
@@ -99,6 +100,7 @@
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "machine")
+					add_fingerprint(user)
 					playsound(src.loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
 					circuit = P
@@ -114,6 +116,7 @@
 					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
 				return
 			if(istype(P, /obj/item/wirecutters))
+				add_fingerprint(user)
 				playsound(src.loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 1
@@ -122,6 +125,7 @@
 				A.amount = 5
 				return
 			if(istype(P, /obj/item/wrench))
+				add_fingerprint(user)
 				playsound(src.loc, P.usesound, 75, 1)
 				if(!anchored && !isinspace())
 					anchored = TRUE
@@ -132,6 +136,7 @@
 				return
 		if(3)
 			if(istype(P, /obj/item/crowbar))
+				add_fingerprint(user)
 				playsound(src.loc, P.usesound, 50, 1)
 				state = 2
 				circuit.loc = src.loc
@@ -149,6 +154,7 @@
 				return
 
 			if(istype(P, /obj/item/wrench))
+				add_fingerprint(user)
 				playsound(src.loc, P.usesound, 75, 1)
 				if(!anchored && !isinspace())
 					anchored = TRUE
@@ -176,6 +182,7 @@
 						new_machine.component_parts += O
 					circuit.loc = null
 					new_machine.RefreshParts()
+					transfer_fingerprints_to(new_machine)
 					qdel(src)
 				return
 
@@ -208,6 +215,7 @@
 				var/success
 				for(var/I in req_components)
 					if(istype(P, I) && (req_components[I] > 0) && (!(P.flags & NODROP) || istype(P, /obj/item/stack)))
+						add_fingerprint(user)
 						success=1
 						playsound(src.loc, P.usesound, 50, 1)
 						if(istype(P, /obj/item/stack))

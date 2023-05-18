@@ -23,6 +23,7 @@
 
 /obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
+		add_fingerprint(user)
 		anchored = !anchored
 		playsound(src.loc, W.usesound, 75, 1)
 		if(anchored)

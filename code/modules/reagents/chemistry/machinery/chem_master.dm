@@ -101,6 +101,7 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+		add_fingerprint(user)
 		beaker = I
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
@@ -116,6 +117,7 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
 
+		add_fingerprint(user)
 		loaded_pill_bottle = I
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add [I] into the dispenser slot!</span>")

@@ -232,6 +232,7 @@
 
 /obj/machinery/door/window/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
 		return

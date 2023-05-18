@@ -66,7 +66,9 @@
 		"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
 	if(!do_after(user, 20, target = pod))
 		return
+	add_fingerprint(user)
 	for(var/atom/movable/AM in pod)
+		AM.add_fingerprint(user)
 		pod.eject(AM)
 		if(ismob(AM))
 			var/mob/M = AM
@@ -74,6 +76,7 @@
 
 
 /obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
+	add_fingerprint(user)
 	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
@@ -81,6 +84,7 @@
 			for(var/obj/structure/transit_tube_pod/pod in loc)
 				pod.visible_message("<span class='warning'>[user] starts putting [GM] into the [pod]!</span>")
 				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
+					GM.add_fingerprint(user)
 					GM.Weaken(5)
 					Bumped(GM)
 					qdel(G)

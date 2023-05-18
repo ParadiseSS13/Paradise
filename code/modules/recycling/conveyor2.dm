@@ -60,12 +60,14 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		var/obj/item/conveyor_switch_construct/S = I
 		if(S.id == id)
 			return ..()
+		add_fingerprint(user)
 		for(var/obj/machinery/conveyor_switch/CS in GLOB.conveyor_switches)
 			if(CS.id == id)
 				CS.conveyors -= src
 		id = S.id
 		to_chat(user, "<span class='notice'>You link [I] with [src].</span>")
 	else if(user.a_intent != INTENT_HARM)
+		add_fingerprint(user)
 		if(user.drop_item())
 			I.forceMove(loc)
 	else
@@ -92,6 +94,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	user.Move_Pulled(src)
 
 /obj/machinery/conveyor/update_icon()

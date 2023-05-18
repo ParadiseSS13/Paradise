@@ -125,6 +125,7 @@
 	if(rig)
 		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
 		if(do_after(usr, 20, target = src))
+			add_fingerprint(usr)
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
 			rig = null
@@ -139,6 +140,7 @@
 			return ..()
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
 		if(do_after(user, 20, target = src))
+			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
 
 			var/obj/item/assembly_holder/H = I
@@ -227,6 +229,7 @@
 	if(!paper_cups)
 		to_chat(user, "<span class='warning'>There aren't any cups left!</span>")
 		return
+	add_fingerprint(user)
 	user.visible_message("<span class='notice'>[user] takes a cup from [src].</span>", "<span class='notice'>You take a paper cup from [src].</span>")
 	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
 	user.put_in_hands(S)
@@ -259,6 +262,7 @@
 		has_lid = FALSE
 
 /obj/structure/reagent_dispensers/beerkeg/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(has_lid)
 		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
 		remove_lid()

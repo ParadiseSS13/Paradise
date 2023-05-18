@@ -11,8 +11,8 @@
 	max_integrity = 200
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
 	if(istype(I, /obj/item/wrench))
+		add_fingerprint(user)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
 			anchored = 0
@@ -24,8 +24,8 @@
 		if(R.get_amount() >= 4)
 			R.use(4)
 			to_chat(user, "<span class='notice'>You add spikes to the frame.</span>")
-			new /obj/structure/kitchenspike(loc)
-			add_fingerprint(user)
+			var/obj/structure/kitchenspike/spikes = new(loc)
+			spikes.add_fingerprint(user)
 			qdel(src)
 		return
 	else
@@ -47,6 +47,7 @@
 /obj/structure/kitchenspike/attack_hand(mob/user)
 	if(has_buckled_mobs())
 		for(var/mob/living/L in buckled_mobs)
+			add_fingerprint(user)
 			user_unbuckle_mob(L, user)
 	else
 		..()
@@ -71,6 +72,7 @@
 			if(do_mob(user, src, 120))
 				var/mob/living/affected = G.affecting
 				if(spike(affected))
+					add_fingerprint(user)
 					affected.visible_message("<span class='danger'>[user] slams [affected] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
 		return
 	return ..()

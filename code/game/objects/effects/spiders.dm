@@ -27,6 +27,9 @@
 	master_commander = null
 	return ..()
 
+/obj/structure/spider/has_prints()
+	return FALSE
+
 /obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)

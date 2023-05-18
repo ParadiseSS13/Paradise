@@ -176,6 +176,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/attackby(obj/item/I, mob/user, params)
 	if(open)
 		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
 			qdel(I)
 			broken = FALSE
@@ -184,6 +185,7 @@ GLOBAL_LIST_EMPTY(safes)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
 				return
+			add_fingerprint(user)
 			space += I.w_class
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
@@ -201,6 +203,7 @@ GLOBAL_LIST_EMPTY(safes)
 				if(!user.drop_item())
 					to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the safe!</span>")
 					return
+				add_fingerprint(user)
 				I.forceMove(src)
 				drill = I
 				time_to_drill = DRILL_TIME * drill.time_multiplier

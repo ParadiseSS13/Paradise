@@ -162,6 +162,7 @@
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
+		add_fingerprint(user)
 		var/obj/item/stack/rods/R = W
 		R.use(1)
 		can_buckle = TRUE
@@ -170,6 +171,7 @@
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
 	if(is_hot(W))
+		add_fingerprint(user)
 		lighter = user.ckey
 		add_misc_logs(user, "lit a bonfire", src)
 		StartBurning()

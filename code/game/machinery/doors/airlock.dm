@@ -739,20 +739,25 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))
+		add_fingerprint(user)
 		return
 
 	if(headbutt_airlock(user))
+		add_fingerprint(user)
 		return // Smack that head against that airlock
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
 		return
 	if(remove_airlock_note(user, FALSE))
+		add_fingerprint(user)
 		return
 	if(panel_open)
 		if(security_level)
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
 			return
+		add_fingerprint(user)
 		wires.Interact(user)
 	else
 		..()

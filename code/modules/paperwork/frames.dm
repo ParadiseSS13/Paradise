@@ -216,6 +216,7 @@
 		if(do_after(user, 100 * I.toolspeed * gettoolspeedmod(user), target = src))
 			playsound(src, I.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
+			transfer_fingerprints_to(frame)
 			frame.forceMove(user.loc)
 			frame = null
 			if(explosive)
@@ -233,6 +234,7 @@
 		if(do_after(user, 150, target = src))
 			if(explosive || !tilted)
 				return
+			add_fingerprint(user)
 			playsound(src, 'sound/weapons/handcuffs.ogg', 50, 1)
 			user.unEquip(I)
 			explosive = I

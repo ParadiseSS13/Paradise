@@ -141,6 +141,7 @@
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
+	add_fingerprint(user)
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 		SStgui.update_uis(src)
@@ -150,6 +151,7 @@
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
 			if(load(G, user))
+				G.add_fingerprint(user)
 				items_loaded++
 		if(items_loaded)
 			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
@@ -188,9 +190,11 @@
 		to_chat(user, "<span class='notice'>\The [P] is empty.</span>")
 		return
 
+	add_fingerprint(user)
 	var/items_loaded = 0
 	for(var/obj/G in P.contents)
 		if(load(G, user))
+			G.add_fingerprint(user)
 			items_loaded++
 	if(items_loaded)
 		user.visible_message("<span class='notice'>[user] empties \the [P] into \the [src].</span>", "<span class='notice'>You empty \the [P] into \the [src].</span>")

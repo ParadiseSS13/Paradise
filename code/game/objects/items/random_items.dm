@@ -268,6 +268,7 @@
 								/mob/living/simple_animal/hostile/creature,/mob/living/simple_animal/hostile/pirate/ranged,
 								/mob/living/simple_animal/hostile/hivebot,/mob/living/simple_animal/hostile/viscerator,/mob/living/simple_animal/hostile/pirate)
 
+		add_fingerprint(user)
 		visible_message("<span class='warning'>Something falls out of the [src]!</span>")
 		var/obj/item/grenade/clusterbuster/C = new(src.loc)
 		C.prime()
@@ -295,6 +296,7 @@
 
 /obj/structure/largecrate/schrodinger/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/crowbar))
+		add_fingerprint(user)
 		sleep(2)
 		var/mob/living/simple_animal/pet/cat/Cat = new(loc)
 		Cat.name = "Schrodinger's Cat"

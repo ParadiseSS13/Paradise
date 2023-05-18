@@ -12,10 +12,6 @@
 	var/mover_dir = null
 	var/ini_dir = null
 
-/obj/structure/tribune/attack_hand(obj/item/I, mob/living/user, params)
-	..()
-	add_fingerprint(user)
-
 /obj/structure/tribune/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)

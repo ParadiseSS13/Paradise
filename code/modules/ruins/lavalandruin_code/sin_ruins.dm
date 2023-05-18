@@ -11,6 +11,7 @@
 	var/win_prob = 5
 
 /obj/structure/cursed_slot_machine/attack_hand(mob/user)
+	add_fingerprint(user)
 	interact(user)
 
 /obj/structure/cursed_slot_machine/interact(mob/living/carbon/human/user)

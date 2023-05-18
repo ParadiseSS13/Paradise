@@ -28,6 +28,7 @@
 /obj/structure/chair/e_chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wrench))
 		var/obj/structure/chair/C = new /obj/structure/chair(loc)
+		transfer_fingerprints_to(C)
 		playsound(loc, W.usesound, 50, 1)
 		C.dir = dir
 		part.loc = loc

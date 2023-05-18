@@ -569,6 +569,7 @@
 /obj/machinery/fishtank/attack_hand(mob/user)
 	if(isAI(user))
 		return
+	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(user.a_intent == INTENT_HARM)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
@@ -619,12 +620,14 @@
 			water_value += O.reagents.get_reagent_amount("ice") * 0.80			//Ice is 80% value
 			var/message = ""
 			if(!water_value)													//The container has no water value, clear everything in it
+				add_fingerprint(user)
 				message = "The filtration process removes everything, leaving the water level unchanged."
 				O.reagents.clear_reagents()
 			else
 				if(water_level == water_capacity)
 					to_chat(user, "<span class='notice'>[src] is already full!</span>")
 				else
+					add_fingerprint(user)
 					message = "The filtration process purifies the water, raising the water level."
 
 					if((water_level + water_value) == water_capacity)
@@ -639,6 +642,7 @@
 			if(!water_level)
 				to_chat(user, "<span class='notice'>[src] is empty!</span>")
 			else
+				add_fingerprint(user)
 				if(water_level >= O.reagents.maximum_volume) //Enough to fill the container completely
 					O.reagents.add_reagent("fishwater", O.reagents.maximum_volume)
 					adjust_water_level(-O.reagents.maximum_volume)
@@ -658,6 +662,7 @@
 			if(fish_count >= max_fish)
 				to_chat(user, "<span class='notice'>[src] can't hold any more fish.</span>")
 			else
+				add_fingerprint(user)
 				add_fish(egg.fish_type)
 				qdel(egg)
 	//Fish food
@@ -665,6 +670,7 @@
 		//Only add food if there is water and it isn't already full of food
 		if(water_level)
 			if(food_level < 10)
+				add_fingerprint(user)
 				if(fish_count == 0)
 					user.visible_message("<span class='notice'>[user.name] shakes some fish food into the empty [src]... How sad.</span>", "<span class='notice'>You shake some fish food into the empty [src]... If only it had fish.</span>")
 				else
@@ -676,6 +682,7 @@
 			to_chat(user, "<span class='notice'>[src] doesn't have any water in it. You should fill it with water first.</span>")
 	//Fish egg scoop
 	else if(istype(O, /obj/item/egg_scoop))
+		add_fingerprint(user)
 		if(egg_count)
 			// Is the user holding a fish bag?
 			var/obj/item/storage/bag/fish_bag
@@ -689,12 +696,14 @@
 			user.visible_message("<span class='notice'>[user.name] fails to harvest any fish eggs from [src].</span>", "<span class='notice'>There are no fish eggs in [src] to scoop out.</span>")
 	//Fish net
 	else if(istype(O, /obj/item/fish_net))
+		add_fingerprint(user)
 		harvest_fish(user)
 	//Tank brush
 	else if(istype(O, /obj/item/tank_brush))
 		if(filth_level == 0)
 			to_chat(user, "<span class='warning'>[src] is already spotless!</span>")
 		else
+			add_fingerprint(user)
 			adjust_filth_level(-filth_level)
 			user.visible_message("<span class='notice'>[user.name] scrubs the inside of [src], cleaning the filth.</span>", "<span class='notice'>You scrub the inside of [src], cleaning the filth.</span>")
 	else

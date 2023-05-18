@@ -54,6 +54,7 @@
 			if(!user.unEquip(L))
 				to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in [src]</span>")
 				return
+			add_fingerprint(user)
 			L.forceMove(src)
 			locked = L
 			to_chat(user, "<span class='caution'>You insert the GPS device into the [src]'s slot.</span>")
@@ -71,6 +72,7 @@
 	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 
@@ -560,6 +562,7 @@
 	if(exchange_parts(user, I))
 		return
 	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		add_fingerprint(user)
 		var/obj/item/circuitboard/teleporter_perma/C = I
 		C.target = teleporter_console.target
 		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
@@ -606,6 +609,7 @@
 	attack_hand()
 
 /obj/machinery/teleport/station/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(!panel_open)
 		toggle(user)
 	else

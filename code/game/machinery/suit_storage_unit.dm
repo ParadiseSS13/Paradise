@@ -285,18 +285,22 @@
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked)
+		add_fingerprint(user)
 		if(shock(user, 100))
 			return
 	if(!is_operational())
+		add_fingerprint(user)
 		if(panel_open)
 			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
 			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
 		return
 	if(panel_open)
+		add_fingerprint(user)
 		wires.Interact(user)
 		return
 	if(state_open)
+		add_fingerprint(user)
 		if(store_item(I, user))
 			update_icon()
 			SStgui.update_uis(src)

@@ -15,13 +15,13 @@
     ui_interact(user)
 
 /obj/machinery/computer/brigcells/attack_hand(mob/user)
-    add_fingerprint(user)
-    if(stat & (BROKEN|NOPOWER))
-        return
-    if(!allowed(user))
-        to_chat(user, "<span class='warning'>Access denied.</span>")
-        return
-    ui_interact(user)
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+	add_fingerprint(user)
+	ui_interact(user)
 
 /obj/machinery/computer/brigcells/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

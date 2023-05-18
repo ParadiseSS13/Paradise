@@ -147,7 +147,6 @@
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	add_fingerprint(user)
 	if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
 		if(!shock(user, 90))
@@ -160,6 +159,7 @@
 
 //window placing begin
 	else if(is_glass_sheet(W))
+		add_fingerprint(user)
 		build_window(W, user)
 		return
 //window placing end

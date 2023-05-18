@@ -37,6 +37,7 @@
 			var/success = 0
 			for(var/s=1,s<=6,s++)
 				if(!food_slots[s])
+					add_fingerprint(user)
 					put_in_cart(I, user)
 					food_slots[s]=I
 					update_icon()
@@ -48,6 +49,7 @@
 			var/success = 0
 			for(var/s=1,s<=6,s++)
 				if(!drink_slots[s])
+					add_fingerprint(user)
 					put_in_cart(I, user)
 					drink_slots[s]=I
 					update_icon()
@@ -56,6 +58,7 @@
 			if(!success)
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/wrench))
+			add_fingerprint(user)
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
@@ -74,6 +77,7 @@
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 
 /obj/structure/foodcart/attack_hand(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8">"}
 	if(food_slots[1])

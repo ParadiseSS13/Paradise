@@ -358,6 +358,7 @@
 					var/obj/item/stack/sheet/wood/W = new(src.loc)
 					W.amount = rand(3,15)
 					if(prob(50))
+						add_fingerprint(user)
 						icon_state = "stump[rand(1,2)]"
 						name = "cleared foliage"
 						desc = "There used to be dense undergrowth here."

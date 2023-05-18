@@ -48,6 +48,7 @@
 		return
 	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
 		return
+	add_fingerprint(user)
 	take_patient(O, user)
 
 /**
@@ -109,6 +110,7 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(iscarbon(G.affecting))
+			add_fingerprint(user)
 			take_patient(G.affecting, user)
 			qdel(G)
 	else

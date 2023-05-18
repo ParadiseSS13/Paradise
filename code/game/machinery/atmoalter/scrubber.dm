@@ -103,13 +103,13 @@
 	return air_contents
 
 /obj/machinery/portable_atmospherics/scrubber/attack_ai(mob/user)
-	add_hiddenprint(user)
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/scrubber/attack_ghost(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/scrubber/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 	return
 

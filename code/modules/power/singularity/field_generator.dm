@@ -80,12 +80,15 @@ field_generator power level display
 
 /obj/machinery/field/generator/attackby(obj/item/W, mob/user, params)
 	if(active)
+		add_fingerprint(user)
 		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
 		return
 	else if(istype(W, /obj/item/wrench))
 		switch(state)
 			if(FG_UNSECURED)
-				if(isinspace()) return
+				if(isinspace())
+					return
+				add_fingerprint(user)
 				state = FG_SECURED
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] secures [name] to the floor.", \
@@ -93,6 +96,7 @@ field_generator power level display
 					"<span class='italics'>You hear ratchet.</span>")
 				anchored = 1
 			if(FG_SECURED)
+				add_fingerprint(user)
 				state = FG_UNSECURED
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \

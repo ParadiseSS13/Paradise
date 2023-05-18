@@ -10,9 +10,9 @@
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
-	add_fingerprint(user)
 	if(!(flags & NODECONSTRUCT))
 		if(default_unfasten_wrench(user, W))
+			add_fingerprint(user)
 			return
 		if(istype(W, /obj/item/gun/energy/plasmacutter))
 			playsound(src, W.usesound, 100, 1)
@@ -129,6 +129,7 @@
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
+		add_fingerprint(user)
 		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(is_hot(W))
@@ -395,6 +396,9 @@
 	new /obj/item/grown/log(drop_location())
 	new /obj/item/grown/log(drop_location())
 	return ..()
+
+/obj/structure/snowman/built/has_prints()
+	return FALSE
 
 /obj/structure/snowman/built/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)

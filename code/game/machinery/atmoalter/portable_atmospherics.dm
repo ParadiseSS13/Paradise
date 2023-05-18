@@ -121,6 +121,7 @@
 		if(!(stat & BROKEN))
 			if(!user.drop_item())
 				return
+			add_fingerprint(user)
 			user.drop_item()
 			if(src.holding)
 				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")

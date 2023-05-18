@@ -53,6 +53,7 @@
 	if(istype(I, /obj/item/card/id))
 		if(!giver)
 			if(user.drop_item())
+				add_fingerprint(user)
 				I.forceMove(src)
 				giver = I
 				updateUsrDialog()

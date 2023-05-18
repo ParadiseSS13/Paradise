@@ -77,6 +77,7 @@
 	T.frame = type
 	T.framestack = framestack
 	T.framestackamount = framestackamount
+	T.add_fingerprint(usr)
 	qdel(src)
 
 /obj/structure/table_frame/deconstruct(disassembled = TRUE)

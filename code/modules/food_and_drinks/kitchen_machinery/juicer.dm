@@ -48,6 +48,7 @@
 			if(!user.unEquip(O))
 				to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
 				return 0
+			add_fingerprint(user)
 			O.forceMove(src)
 			beaker = O
 			verbs += /obj/machinery/juicer/verb/detach
@@ -60,6 +61,7 @@
 	if(!user.unEquip(O))
 		to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
 		return 0
+	add_fingerprint(user)
 	O.forceMove(src)
 	updateUsrDialog()
 	return 0
@@ -68,6 +70,7 @@
 	return 0
 
 /obj/machinery/juicer/attack_hand(mob/user)
+	add_fingerprint(user)
 	user.set_machine(src)
 	interact(user)
 

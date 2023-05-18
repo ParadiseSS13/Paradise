@@ -132,8 +132,6 @@
 	if(stat & BROKEN || !I || !user)
 		return
 
-	src.add_fingerprint(user)
-
 	if(istype(I, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
@@ -141,6 +139,7 @@
 	if(istype(I, /obj/item/storage))
 		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
+			add_fingerprint(user)
 			S.hide_from(user)
 			for(var/obj/item/O in S.contents)
 				if(!can_be_inserted(O))
@@ -162,6 +161,7 @@
 			for(var/mob/V in viewers(usr))
 				V.show_message("[usr] starts putting [GM.name] into the disposal.", 3)
 			if(do_after(usr, 20, target = GM))
+				add_fingerprint(user)
 				GM.forceMove(src)
 				for(var/mob/C in viewers(src))
 					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
@@ -179,6 +179,7 @@
 	if(I)
 		I.forceMove(src)
 
+	add_fingerprint(user)
 	to_chat(user, "You place \the [I] into the [src].")
 	for(var/mob/M in viewers(src))
 		if(M == user)
@@ -561,6 +562,7 @@
 
 /obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/destTagger))
+		add_fingerprint(user)
 		to_waste = !to_waste
 		playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 		to_chat(user, "<span class='notice'>The chute is now set to [to_waste ? "waste" : "cargo"] disposals.</span>")
@@ -1013,12 +1015,11 @@
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
 /obj/structure/disposalpipe/attackby(var/obj/item/I, var/mob/user, params)
+	add_fingerprint(user)
 	var/turf/T = get_turf(src)
 	if(T.intact || T.transparent_floor)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return 		// prevent interaction with T-scanner revealed pipes and pipes under glass
-
-	add_fingerprint(user)
 
 /obj/structure/disposalpipe/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1328,6 +1329,7 @@
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
 /obj/structure/disposalpipe/trunk/attackby(var/obj/item/I, var/mob/user, params)
+	add_fingerprint(user)
 
 	//Disposal bins or chutes
 	//Disposal constructors
@@ -1338,7 +1340,6 @@
 	var/turf/T = src.loc
 	if(T.intact || T.transparent_floor)
 		return		// prevent interaction with T-scanner revealed pipes
-	src.add_fingerprint(user)
 
 	// would transfer to next pipe segment, but we are in a trunk
 	// if not entering from disposal bin,

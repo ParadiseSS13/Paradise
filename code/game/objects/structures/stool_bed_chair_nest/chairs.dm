@@ -49,6 +49,7 @@
 			return
 		user.drop_item()
 		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
+		E.add_fingerprint(user)
 		playsound(src.loc, W.usesound, 50, 1)
 		E.dir = dir
 		SK.loc = E
@@ -91,6 +92,7 @@
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
 		var/C = new item_chair(loc)
 		usr.put_in_hands(C)
+		transfer_fingerprints_to(C)
 		qdel(src)
 
 /obj/structure/chair/attack_tk(mob/user as mob)
@@ -130,6 +132,7 @@
 	set src in oview(1)
 
 	if(config.ghost_interaction)
+		add_fingerprint(usr)
 		setDir(turn(dir, 90))
 		handle_rotation()
 		return
@@ -137,6 +140,7 @@
 	if(usr.incapacitated())
 		return
 
+	add_fingerprint(usr)
 	setDir(turn(dir, 90))
 	handle_rotation()
 
@@ -423,6 +427,7 @@
 
 	user.visible_message("<span class='notice'>[user] rights \the [src.name].</span>", "<span class='notice'>You right \the [name].</span>")
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
+	transfer_fingerprints_to(C)
 	C.setDir(dir)
 	qdel(src)
 
@@ -525,6 +530,7 @@
 		return
 	if(!in_range(src, user))
 		return
+	add_fingerprint(user)
 	turns = 0
 	if(!isprocessing)
 		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \

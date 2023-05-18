@@ -69,6 +69,7 @@
 /obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
 
 	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, O))
@@ -81,12 +82,14 @@
 		return
 
 	if (istype(O,/obj/item/storage/bag/plants))
+		add_fingerprint(user)
 		var/obj/item/storage/P = O
 		var/loaded = 0
 		for(var/obj/item/seeds/G in P.contents)
 			if(contents.len >= max_seeds)
 				break
 			++loaded
+			G.add_fingerprint(user)
 			add_seed(G)
 		if (loaded)
 			to_chat(user, "<span class='notice'>You put the seeds from \the [O.name] into [src].</span>")
@@ -95,14 +98,17 @@
 		return
 
 	else if(seedify(O,-1, src, user))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
 		return
 	else if (istype(O,/obj/item/seeds))
 		if(add_seed(O))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
 			updateUsrDialog()
 		return
 	else if(user.a_intent != INTENT_HARM)
+		add_fingerprint(user)
 		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
 	else
 		return ..()

@@ -28,4 +28,5 @@
 	var/obj/machinery/newscaster/N = new /obj/machinery/newscaster(get_turf(src), get_dir(on_wall, user), 1)
 	N.pixel_y -= (loc.y - on_wall.y) * 32
 	N.pixel_x -= (loc.x - on_wall.x) * 32
+	N.add_fingerprint(user)
 	qdel(src)

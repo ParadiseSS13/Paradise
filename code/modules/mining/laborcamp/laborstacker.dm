@@ -40,6 +40,7 @@
 		if(!inserted_id)
 			if(!user.unEquip(I))
 				return
+			add_fingerprint(user)
 			I.forceMove(src)
 			inserted_id = I
 			to_chat(user, "<span class='notice'>You insert [I].</span>")
@@ -51,6 +52,7 @@
 	return ..()
 
 /obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/mineral/labor_claim_console/attack_ghost(mob/user)
@@ -148,6 +150,7 @@
 
 /obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/stack/sheet) && user.canUnEquip(I))
+		add_fingerprint(user)
 		var/obj/item/stack/sheet/inp = I
 		points += inp.point_value * inp.amount
 		return
@@ -171,6 +174,7 @@
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
 	if(I.GetID())
 		if(istype(I.GetID(), /obj/item/card/id/prisoner))
+			add_fingerprint(user)
 			var/obj/item/card/id/prisoner/prisoner_id = I.GetID()
 			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
 			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")

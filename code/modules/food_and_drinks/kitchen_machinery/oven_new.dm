@@ -54,6 +54,7 @@
 		if(!head)
 			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
 			return 0
+		add_fingerprint(user)
 		C.visible_message("<span class='danger'>[user] bashes [C]'s head in [src]'s door!</span>", \
 						"<span class='userdanger'>[user] bashes your head in [src]'s door! It feels rather hot in the oven!</span>")
 		C.emote("scream")

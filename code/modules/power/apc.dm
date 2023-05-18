@@ -483,6 +483,7 @@
 				return
 			if(!user.drop_item())
 				return
+			add_fingerprint(user)
 			W.forceMove(src)
 			cell = W
 			user.visible_message(\
@@ -492,6 +493,7 @@
 			update_icon()
 
 	else if(W.GetID() || ispda(W))			// trying to unlock the interface with an ID card
+		add_fingerprint(user)
 		togglelock(user)
 
 	else if(istype(W, /obj/item/stack/cable_coil) && opened)
@@ -520,6 +522,7 @@
 			if(C.get_amount() < 10 || !C)
 				return
 			if(C.get_amount() >= 10 && !terminal && opened && has_electronics > 0)
+				add_fingerprint(user)
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
 				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE))
@@ -543,6 +546,7 @@
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 10, target = src))
 			if(!has_electronics)
+				add_fingerprint(user)
 				has_electronics = TRUE
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
@@ -556,6 +560,7 @@
 			user.visible_message("[user.name] replaces missing APC's cover.",\
 							"<span class='notice'>You begin to replace APC's cover...</span>")
 			if(do_after(user, 20, target = src)) // replacing cover is quicker than replacing whole frame
+				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>You replace missing APC's cover.</span>")
 				qdel(W)
 				opened = 1
@@ -567,6 +572,7 @@
 		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
 							"<span class='notice'>You begin to replace the damaged APC frame...</span>")
 		if(do_after(user, 50, target = src))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You replace the damaged APC frame with a new one.</span>")
 			qdel(W)
 			stat &= ~BROKEN
@@ -587,6 +593,7 @@
 			"<span class='notice'>You start slicing [src]'s cover lock apart with [W].</span>")
 			if(!do_after(user, 4 SECONDS, target = src))
 				return
+			add_fingerprint(user)
 			user.visible_message("<span class='warning'>[user] slices [src]'s cover lock, and it swings wide open!</span>", \
 			"<span class='clock'>You slice [src]'s cover lock apart with [W], and the cover swings open.</span>")
 			opened = TRUE
@@ -597,6 +604,7 @@
 			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 			if(!do_after(user, 7 SECONDS, target = src))
 				return
+			add_fingerprint(user)
 			user.visible_message("<span class='warning'>[user] installs [W] in [src]!</span>", \
 			"<span class='clock'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
 			<span class='clockitalic'>This APC will now passively provide power for the cult!</span>")

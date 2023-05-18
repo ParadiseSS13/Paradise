@@ -621,6 +621,12 @@
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
 
+/**
+* Proc thats checks if mobs can leave fingerprints and fibers on the atom
+*/
+/atom/proc/has_prints()
+	return FALSE
+
 GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/blood_splatter_index()

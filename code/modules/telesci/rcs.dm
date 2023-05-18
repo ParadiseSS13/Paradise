@@ -112,24 +112,25 @@
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
 		to_chat(user, "<span class='warning'>You're already using [src]!</span>")
-		return
+		return FALSE
 	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
 		to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
-		return
+		return FALSE
 	if(rcell.charge < chargecost)
 		to_chat(user, "<span class='warning'>Unable to teleport, insufficient charge.</span>")
-		return
+		return FALSE
 	if(!pad)
 		to_chat(user, "<span class='warning'>Error: No telepad selected.</span>")
-		return
+		return FALSE
 	if(!is_level_reachable(C.z))
 		to_chat(user, "<span class='warning'>Warning: No telepads in range!</span>")
-		return
+		return FALSE
 	if(C.anchored)
 		to_chat(user, "<span class ='warning'>Ошибка: Ящик прикручен! Отмена операции.</span>")
-		return
+		return FALSE
 
 	teleport(user, C, pad)
+	return TRUE
 
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)

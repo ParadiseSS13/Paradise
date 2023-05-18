@@ -112,6 +112,7 @@
 			return
 		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
 		if(do_after(user, 30, target = src))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
 			user.drop_item()
 			qdel(I)
@@ -127,6 +128,7 @@
 	else if(I.GetID())
 		var/obj/item/card/id/heldID = I.GetID()
 		if(ACCESS_HOP in heldID.access)
+			add_fingerprint(user)
 			dispense_enabled = !dispense_enabled
 			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
 			handle_maptext()

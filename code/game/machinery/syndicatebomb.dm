@@ -113,11 +113,13 @@
 /obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler))
 		if(open_panel)
+			add_fingerprint(user)
 			wires.Interact(user)
 	else if(istype(I, /obj/item/bombcore))
 		if(!payload)
 			if(!user.drop_item())
 				return
+			add_fingerprint(user)
 			payload = I
 			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
 			payload.forceMove(src)
@@ -203,6 +205,7 @@
 	interact(user)
 
 /obj/machinery/syndicatebomb/attack_hand(mob/user)
+	add_fingerprint(user)
 	interact(user)
 
 /obj/machinery/syndicatebomb/attack_ai()

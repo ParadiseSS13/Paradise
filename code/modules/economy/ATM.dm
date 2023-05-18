@@ -86,6 +86,7 @@ log transactions
 			return
 
 		if(!held_card)
+			add_fingerprint(user)
 			user.drop_item()
 			I.forceMove(src)
 			held_card = I
@@ -97,6 +98,7 @@ log transactions
 			//consume the money
 			if(!powered())
 				return
+			add_fingerprint(user)
 			var/obj/item/stack/spacecash/C = I
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 

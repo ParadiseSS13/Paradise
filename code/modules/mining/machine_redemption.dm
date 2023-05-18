@@ -199,11 +199,13 @@
 		return ..()
 
 	if(istype(W, /obj/item/card/id))
-		try_insert_id(user)
+		if(try_insert_id(user))
+			add_fingerprint(user)
 		return
 	else if(istype(W, /obj/item/disk/design_disk))
 		if(!user.drop_item())
 			return
+		add_fingerprint(user)
 		W.forceMove(src)
 		inserted_disk = W
 		SStgui.update_uis(src)

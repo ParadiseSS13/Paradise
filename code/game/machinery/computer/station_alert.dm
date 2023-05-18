@@ -27,9 +27,9 @@
 	ui_interact(user)
 
 /obj/machinery/computer/station_alert/attack_hand(mob/user)
-	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/computer/station_alert/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

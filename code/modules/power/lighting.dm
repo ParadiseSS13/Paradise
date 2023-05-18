@@ -105,9 +105,9 @@
 	qdel(src)
 
 /obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
-	add_fingerprint(user)
 
 	if(istype(W, /obj/item/stack/cable_coil))
+		add_fingerprint(user)
 		if(stage != 1)
 			return
 		var/obj/item/stack/cable_coil/coil = W
@@ -391,6 +391,7 @@
 	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
+		add_fingerprint(user)
 		var/obj/item/lightreplacer/LR = W
 		LR.ReplaceLight(src, user)
 
@@ -399,9 +400,9 @@
 		if(status != LIGHT_EMPTY)
 			to_chat(user, "<span class='warning'>There is a [fitting] already inserted.</span>")
 		else
-			add_fingerprint(user)
 			var/obj/item/light/L = W
 			if(istype(L, light_type))
+				add_fingerprint(user)
 				status = L.status
 				to_chat(user, "<span class='notice'>You insert [L].</span>")
 				switchcount = L.switchcount
@@ -431,6 +432,7 @@
 
 	else if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 
+		add_fingerprint(user)
 		user.do_attack_animation(src)
 		if(prob(1 + W.force * 5))
 
@@ -456,6 +458,7 @@
 			return
 
 		if(has_power() && (W.flags & CONDUCT))
+			add_fingerprint(user)
 			do_sparks(3, 1, src)
 			if(prob(75)) // If electrocuted
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)

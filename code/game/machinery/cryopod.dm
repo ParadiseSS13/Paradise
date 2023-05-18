@@ -516,6 +516,7 @@
 					to_chat(user, "<span class='boldnotice'>[src] is in use.</span>")
 					return
 
+				add_fingerprint(user)
 				take_occupant(M, willing)
 
 			else //because why the fuck would you keep going if the mob isn't in the pod
@@ -603,6 +604,7 @@
 			if(occupant)
 				to_chat(user, "<span class='boldnotice'>\The [src] is in use.</span>")
 				return
+			add_fingerprint(user)
 			take_occupant(L, willing)
 		else
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")

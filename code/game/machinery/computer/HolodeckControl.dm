@@ -362,6 +362,9 @@
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
 
+/obj/structure/table/holotable/has_prints()
+	return FALSE
+
 /obj/structure/table/holotable
 	flags = NODECONSTRUCT
 	canSmoothWith = list(/obj/structure/table/holotable)
@@ -373,6 +376,9 @@
 	icon_state = "wood_table"
 	canSmoothWith = list(/obj/structure/table/holotable/wood)
 
+/obj/structure/chair/stool/holostool/has_prints()
+	return FALSE
+
 /obj/structure/chair/stool/holostool
 	flags = NODECONSTRUCT
 	item_chair = null
@@ -382,6 +388,9 @@
 	desc = "Because you really needed another excuse to punch your crewmates."
 	icon_state = "boxing"
 	item_state = "boxing"
+
+/obj/structure/holowindow/has_prints()
+	return FALSE
 
 /obj/structure/holowindow
 	name = "reinforced window"
@@ -393,6 +402,9 @@
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = 1.0
 	flags = ON_BORDER
+
+/obj/structure/rack/holorack/has_prints()
+	return FALSE
 
 /obj/structure/rack/holorack
 	flags = NODECONSTRUCT
@@ -514,6 +526,9 @@
 		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
 		return
 
+/obj/structure/holohoop/has_prints()
+	return FALSE
+
 /obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
@@ -560,6 +575,7 @@
 	return
 
 /obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
+	add_fingerprint(user)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
@@ -575,6 +591,7 @@
 		to_chat(usr, "The event has already begun!")
 		return
 
+	add_fingerprint(user)
 	ready = !ready
 
 	update_icon()

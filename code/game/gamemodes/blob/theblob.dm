@@ -34,6 +34,9 @@
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
 
+/obj/structure/blob/has_prints()
+	return FALSE
+
 /obj/structure/blob/BlockSuperconductivity()
 	return atmosblock
 

@@ -39,6 +39,7 @@
 		if(current.on_the_card)
 			to_chat(user, "<span class='danger'>Unable to establish a connection</span>: Target silicon is on an inteliCard or undergoing a repair procedure!")
 			return
+		add_fingerprint(user)
 		var/obj/item/aiModule/M = O
 		M.install(src)
 		return

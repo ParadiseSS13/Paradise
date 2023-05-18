@@ -22,6 +22,7 @@
 			if(istype(P, /obj/item/circuitboard/aicore))
 				if(!user.drop_item())
 					return
+				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 				update_icon()
@@ -36,6 +37,7 @@
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
 					if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
+						add_fingerprint(user)
 						to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 						state = CABLED_CORE
 						update_icon()
@@ -49,6 +51,7 @@
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, "<span class='notice'>You start to put in the glass panel...</span>")
 					if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
+						add_fingerprint(user)
 						to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 						state = GLASS_CORE
 						update_icon()
@@ -57,11 +60,13 @@
 				return
 
 			if(istype(P, /obj/item/aiModule/purge))
+				add_fingerprint(user)
 				laws.clear_inherent_laws()
 				to_chat(usr, "<span class='notice'>Law module applied.</span>")
 				return
 
 			if(istype(P, /obj/item/aiModule/freeform))
+				add_fingerprint(user)
 				var/obj/item/aiModule/freeform/M = P
 				laws.add_inherent_law(M.newFreeFormLaw)
 				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
@@ -72,6 +77,7 @@
 				if(!M.laws)
 					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
 					return
+				add_fingerprint(user)
 				laws = M.laws
 
 			if(istype(P, /obj/item/mmi) && !brain)
@@ -102,6 +108,7 @@
 				if(!user.drop_item())
 					return
 
+				add_fingerprint(user)
 				M.forceMove(src)
 				brain = M
 				to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")

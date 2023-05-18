@@ -63,7 +63,6 @@ GLOBAL_VAR(bomb_set)
 				return
 			O.forceMove(src)
 			auth = O
-			add_fingerprint(user)
 			return attack_hand(user)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
@@ -176,6 +175,7 @@ GLOBAL_VAR(bomb_set)
 	attack_hand(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
+	add_fingerprint(user)
 	if(panel_open)
 		wires.Interact(user)
 	else

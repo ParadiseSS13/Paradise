@@ -84,9 +84,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(shocked)
+		add_fingerprint(user)
 		if(shock(user,50))
 			return TRUE
 	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
+		add_fingerprint(user)
 		if(linked_console)
 			linked_console.linked_imprinter = null
 			linked_console = null

@@ -68,6 +68,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		GLOB.hidden_departments |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
@@ -75,6 +76,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/item, mob/user, params)
 	if(istype(item,/obj/item/card/id) && !scan)
+		add_fingerprint(user)
 		scan(item)
 	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
 		..()

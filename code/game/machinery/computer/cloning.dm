@@ -93,6 +93,7 @@
 /obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if(!src.diskette)
+			add_fingerprint(user)
 			user.drop_item()
 			W.loc = src
 			src.diskette = W
@@ -104,6 +105,7 @@
 		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
 			var/obj/machinery/clonepod/P = M.buffer
 			if(P && !(P in pods))
+				add_fingerprint(user)
 				pods += P
 				P.connected = src
 				P.name = "[initial(P.name)] #[pods.len]"

@@ -28,5 +28,6 @@
 	return TRUE
 
 /obj/item/mounted/frame/apc_frame/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/power/apc(get_turf(src), get_dir(user, on_wall), 1)
+	var/obj/machinery/power/apc/apc = new(get_turf(src), get_dir(user, on_wall), 1)
+	apc.add_fingerprint(user)
 	qdel(src)

@@ -37,6 +37,7 @@
 	if(is_type_in_list(O, allowed_books))
 		if(!user.drop_item())
 			return
+		add_fingerprint(user)
 		O.forceMove(src)
 		update_icon()
 		return TRUE
@@ -44,7 +45,9 @@
 		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
 			if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook) || istype(T, /obj/item/tome) || istype(T, /obj/item/storage/bible))
+				T.add_fingerprint(user)
 				B.remove_from_storage(T, src)
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
 		return TRUE
@@ -65,6 +68,7 @@
 			busy = FALSE
 		return TRUE
 	else if(istype(O, /obj/item/pen))
+		add_fingerprint(user)
 		rename_interactive(user, O)
 		return TRUE
 	else
@@ -76,6 +80,7 @@
 		if(choice)
 			if(user.incapacitated() || user.lying || !Adjacent(user))
 				return
+			add_fingerprint(user)
 			if(!user.get_active_hand())
 				user.put_in_hands(choice)
 			else

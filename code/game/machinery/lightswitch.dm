@@ -77,6 +77,7 @@
 		return attack_hand(user)
 
 /obj/machinery/light_switch/attack_hand(mob/user)
+	add_fingerprint(user)
 	on = !on
 	updateicon()
 

@@ -95,6 +95,7 @@
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
 		if(has_buckled_mobs())
+			add_fingerprint(user)
 			if(buckled_mobs.len > 1)
 				unbuckle_all_mobs()
 				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")

@@ -21,6 +21,9 @@
 		projector = null
 	return ..()
 
+/obj/structure/holosign/has_prints()
+	return FALSE
+
 /obj/structure/holosign/attack_hand(mob/living/user)
 	. = ..()
 	if(.)

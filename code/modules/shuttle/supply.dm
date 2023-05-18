@@ -412,6 +412,7 @@
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return 1
 
+	add_fingerprint(user)
 	post_signal("supply")
 	ui_interact(user)
 	return

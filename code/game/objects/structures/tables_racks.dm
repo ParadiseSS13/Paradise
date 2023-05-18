@@ -190,6 +190,7 @@
 	if(!user.drop_item())
 		return
 	if(O.loc != src.loc)
+		add_fingerprint(user)
 		step(O, get_dir(O, src))
 	return
 
@@ -222,6 +223,7 @@
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
+		add_fingerprint(user)
 		tablepush(I, user)
 		return
 
@@ -230,6 +232,7 @@
 
 	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
 		if(user.drop_item())
+			add_fingerprint(user)
 			I.Move(loc)
 			var/list/click_params = params2list(params)
 			//Center the icon where the user clicked.
@@ -306,6 +309,7 @@
 		to_chat(usr, "<span class='notice'>It won't budge.</span>")
 		return
 
+	add_fingerprint(usr)
 	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
 
 	if(climbable)
@@ -751,6 +755,7 @@
 	if(!user.drop_item())
 		return
 	if(O.loc != src.loc)
+		add_fingerprint(user)
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
@@ -760,6 +765,7 @@
 		return ..()
 	if(!(W.flags & ABSTRACT))
 		if(user.drop_item())
+			add_fingerprint(user)
 			W.Move(loc)
 	return
 
@@ -775,6 +781,7 @@
 /obj/structure/rack/attack_hand(mob/living/user)
 	if(user.IsWeakened() || user.resting || user.lying)
 		return
+	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
@@ -818,6 +825,7 @@
 		return
 	if(O.loc != src.loc)
 		if(istype(O, /obj/item/gun))
+			add_fingerprint(user)
 			var/obj/item/gun/our_gun = O
 			step(O, get_dir(O, src))
 			our_gun.place_on_rack()
@@ -831,6 +839,7 @@
 		to_chat(user, "<span class='warning'>This item doesn't fit!</span>")
 		return
 	if(!(W.flags & ABSTRACT) && user.drop_item())
+		add_fingerprint(user)
 		var/obj/item/gun/our_gun = W
 		our_gun.place_on_rack()
 		our_gun.Move(loc)

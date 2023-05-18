@@ -52,10 +52,12 @@ GLOBAL_VAR(current_date_string)
 
 /obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
 	if(ui_login_attackby(O, user))
+		add_fingerprint(user)
 		return
 	return ..()
 
 /obj/machinery/computer/account_database/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)

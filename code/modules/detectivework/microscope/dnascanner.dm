@@ -27,6 +27,7 @@
 		return
 
 	if(istype(W, /obj/item/forensics/swab))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>Вы вставляете \the [W] в ДНК анализатор.</span>")
 		user.unEquip(W)
 		W.forceMove(src)
@@ -40,6 +41,7 @@
 	if(!swab)
 		to_chat(user, "<span class='warning'>Сканер пуст!</span>")
 		return
+	add_fingerprint(user)
 	scanning = 1
 	update_icon()
 	to_chat(user, "<span class='notice'>Сканер начинает с жужением анализировать содержимое пробирки \the [swab].</span>")

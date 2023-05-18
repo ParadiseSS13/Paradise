@@ -86,6 +86,7 @@
 
 /obj/structure/windoor_assembly/attack_hand(mob/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
 		attack_generic(user, user.dna.species.obj_damage)
 		return
@@ -93,7 +94,6 @@
 
 /obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
-	add_fingerprint(user)
 	switch(state)
 		if("01")
 			//Adding plasteel makes the assembly a secure windoor assembly. Step 2 (optional) complete.
@@ -106,6 +106,7 @@
 				if(do_after(user, 40 * P.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || secure || P.get_amount() < 2)
 						return
+					add_fingerprint(user)
 					playsound(loc, P.usesound, 100, 1)
 					P.use(2)
 					to_chat(user, "<span class='notice'>You reinforce [src].</span>")
@@ -118,6 +119,7 @@
 				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || !anchored || state != "01")
 						return
+					add_fingerprint(user)
 					var/obj/item/stack/cable_coil/CC = W
 					CC.use(1)
 					to_chat(user, "<span class='notice'>You wire [src].</span>")
@@ -138,6 +140,7 @@
 				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
 					if(!src || electronics)
 						return
+					add_fingerprint(user)
 					user.drop_item()
 					W.forceMove(src)
 					to_chat(user, "<span class='notice'>You install [W].</span>")
@@ -146,11 +149,13 @@
 			else if(istype(W, /obj/item/pen))
 				var/t = rename_interactive(user, W)
 				if(!isnull(t))
+					add_fingerprint(user)
 					created_name = t
 				return
 			else
 				return ..()
 
+	add_fingerprint(user)
 	//Update to reflect changes(if applicable)
 	update_icon()
 

@@ -402,6 +402,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			to_chat(user, "<span class='danger'>Error: Pod has no occupant.</span>")
 			return
 		else
+			add_fingerprint(user)
 			connected_message("Authorized Ejection")
 			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
 			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
@@ -427,6 +428,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 // A user can feed in biomass sources manually.
 	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
 		if(user.drop_item())
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
 			biomass += BIOMASS_BASE_AMOUNT
 			qdel(I)

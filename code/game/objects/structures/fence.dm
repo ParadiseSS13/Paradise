@@ -123,6 +123,7 @@
 
 /obj/structure/fence/attackby(obj/item/C, mob/user)
 	if(shock(user, 90))
+		add_fingerprint(user)
 		return
 	if(istype(C, /obj/item/stack/rods))
 		if(hole_size == NO_HOLE)
@@ -133,6 +134,7 @@
 			return
 		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
 		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
+			add_fingerprint(user)
 			playsound(src, C.usesound, 80, 1)
 			hole_size = NO_HOLE
 			obj_integrity = max_integrity
@@ -194,6 +196,7 @@
 	density = TRUE
 
 /obj/structure/fence/door/attack_hand(mob/user, list/modifiers)
+	add_fingerprint(user)
 	shock(user, 70)
 	if(can_open(user))
 		toggle(user)

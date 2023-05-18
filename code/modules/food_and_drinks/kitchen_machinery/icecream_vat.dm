@@ -36,6 +36,7 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
 			return
+		add_fingerprint(user)
 		beaker = I
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You add [I] to [src]</span>")
@@ -43,6 +44,7 @@
 		return
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
 		if(!I.reagents.has_reagent("sprinkles"))
+			add_fingerprint(user)
 			if(I.reagents.total_volume > 29)
 				I.reagents.remove_any(1)
 			I.reagents.add_reagent("sprinkles", 1)

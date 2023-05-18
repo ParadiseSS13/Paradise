@@ -454,6 +454,7 @@
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
+					add_fingerprint(user)
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
@@ -462,6 +463,7 @@
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed * gettoolspeedmod(user), target = src))
+					add_fingerprint(user)
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
@@ -469,6 +471,7 @@
 			if(istype(P, /obj/item/circuitboard) && !circuit)
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "computer")
+					add_fingerprint(user)
 					playsound(loc, B.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 					icon_state = "1"
@@ -479,12 +482,14 @@
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
 				return
 			if(istype(P, /obj/item/screwdriver) && circuit)
+				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
 				return
 			if(istype(P, /obj/item/crowbar) && circuit)
+				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				state = 1
@@ -494,6 +499,7 @@
 				return
 		if(2)
 			if(istype(P, /obj/item/screwdriver) && circuit)
+				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
@@ -506,6 +512,7 @@
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 2 && C.use(5))
+							add_fingerprint(user)
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 3
 							icon_state = "3"
@@ -517,6 +524,7 @@
 				return
 		if(3)
 			if(istype(P, /obj/item/wirecutters))
+				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
 				state = 2
@@ -531,6 +539,7 @@
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
 					if(do_after(user, 20 * G.toolspeed * gettoolspeedmod(user), target = src))
 						if(state == 3 && G.use(2))
+							add_fingerprint(user)
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4
 							icon_state = "4"
@@ -542,6 +551,7 @@
 				return
 		if(4)
 			if(istype(P, /obj/item/crowbar))
+				add_fingerprint(user)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 				state = 3
@@ -589,6 +599,7 @@
 	base_mineral = /obj/item/stack/sheet/mineral/bananium
 
 /obj/structure/computerframe/HONKputer/attackby(obj/item/P as obj, mob/user as mob, params)
+	add_fingerprint(user)
 	switch(state)
 		if(0)
 			if(istype(P, /obj/item/wrench))

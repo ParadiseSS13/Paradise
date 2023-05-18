@@ -59,6 +59,7 @@
 		. = "ERROR"
 
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user)
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)

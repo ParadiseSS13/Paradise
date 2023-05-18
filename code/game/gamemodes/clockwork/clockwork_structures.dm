@@ -33,6 +33,7 @@
 		if(hidden)
 			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
 			return TRUE
+		add_fingerprint(user)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)

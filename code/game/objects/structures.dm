@@ -33,6 +33,19 @@
 			queue_smooth_neighbors(T)
 	return ..()
 
+/obj/structure/has_prints()
+	return TRUE
+
+/obj/structure/attack_hand(mob/living/user)
+	if(has_prints() && Adjacent(user))
+		add_fingerprint(user)
+	return ..()
+
+/obj/structure/attackby(obj/item/P, mob/user, params)
+	if(has_prints() && Adjacent(user) && !(istype(P, /obj/item/detective_scanner)))
+		add_fingerprint(user)
+	return ..()
+
 /obj/structure/proc/climb_on()
 
 	set name = "Climb structure"

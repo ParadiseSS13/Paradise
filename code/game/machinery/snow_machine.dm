@@ -40,6 +40,7 @@
 	if(!powered() || !anchored)
 		return
 	if(turn_on_or_off(!active))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You [active ? "turn on" : "turn off"] [src].</span>")
 	return ..()
 

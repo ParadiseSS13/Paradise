@@ -59,6 +59,7 @@
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+		add_fingerprint(user)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
@@ -88,6 +89,7 @@
 	var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
 	var/picked_type = choosable_items[choice]
 	if(!QDELETED(src) && picked_type && Adjacent(user) && !user.incapacitated() && cooldowntime <= world.time)
+		add_fingerprint(user)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type
 		if(istype(O, /obj/structure) || !user.put_in_hands(O))
@@ -184,6 +186,7 @@
 			to_chat(user, "<span class='warning'>[C] has no head!</span>")
 			return FALSE
 
+		add_fingerprint(user)
 		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>",
 						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
 		C.emote("scream")

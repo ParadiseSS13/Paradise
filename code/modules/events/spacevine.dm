@@ -463,6 +463,9 @@
 		unbuckle_all_mobs(force = TRUE)
 	return ..()
 
+/obj/structure/spacevine/has_prints()
+	return FALSE
+
 /obj/structure/spacevine/proc/add_mutation(datum/spacevine_mutation/mutation)
 	mutations |= mutation
 	color = mutation.hue
@@ -573,6 +576,9 @@
 /obj/structure/spacevine_controller/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/structure/spacevine_controller/has_prints()
+	return FALSE
 
 /obj/structure/spacevine_controller/proc/spawn_spacevine_piece(turf/location, obj/structure/spacevine/parent, list/muts)
 	var/obj/structure/spacevine/SV = new(location)

@@ -158,11 +158,13 @@
 		var/input = clean_input("Enter [codelen] digits.", "Deca-Code Lock", "")
 		if(in_range(src, user))
 			if(input == code)
+				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
 				locked = 0
 				overlays.Cut()
 				overlays += "securecrateg"
 			else if(input == null || length(input) != codelen)
+				add_fingerprint(user)
 				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
 			else
 				to_chat(user, "<span class='warning'>A red light flashes.</span>")
@@ -179,6 +181,7 @@
 			boom(user)
 			return 1
 		if(istype(W, /obj/item/multitool))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
 			if(attempts == 1)
 				to_chat(user, "<span class='warning'>* Anti-Tamper Bomb will activate on next failed access attempt.</span>")

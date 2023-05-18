@@ -41,6 +41,9 @@
 	affected_mob = null
 	return ..()
 
+/obj/structure/energy_net/has_prints()
+	return FALSE
+
 /obj/structure/energy_net/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	return//We only want our target to be buckled
 

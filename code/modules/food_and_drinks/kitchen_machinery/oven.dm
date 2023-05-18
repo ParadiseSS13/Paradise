@@ -16,6 +16,7 @@
 	updatefood()
 
 /obj/machinery/cooking/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
 	if(on)
 		to_chat(user, "The machine is already running.")
 		return

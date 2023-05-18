@@ -339,6 +339,7 @@
 
 /obj/machinery/power/supermatter_shard/attackby(obj/item/W as obj, mob/living/user as mob, params)
 	if(istype(W,/obj/item/wrench)) //allows wrench/unwrench shards
+		add_fingerprint(user)
 		if(!anchored)
 			anchored = !anchored
 			WRENCH_ANCHOR_MESSAGE
@@ -374,6 +375,7 @@
 	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
 		return
 	else if(user.drop_item(W))
+		add_fingerprint(user)
 		Consume(W)
 		user.visible_message("<span class='danger'>As [user] touches \the [src] with \a [W], silence fills the room...</span>",\
 			"<span class='userdanger'>You touch \the [src] with \the [W], and everything suddenly goes silent.\"</span>\n<span class='notice'>\The [W] flashes into dust as you flinch away from \the [src].</span>",\

@@ -240,6 +240,7 @@
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		clean_cmag_ooze(I, user)
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
+		add_fingerprint(user)
 		try_to_crowbar(user, I)
 		return 1
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)

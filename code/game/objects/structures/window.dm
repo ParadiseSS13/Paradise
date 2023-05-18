@@ -205,13 +205,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(!can_be_reached(user))
 		return 1 //skip the afterattack
 
-	add_fingerprint(user)
 	if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
 		var/obj/item/grab/G = I
 		if(isliving(G.affecting))
 			var/mob/living/M = G.affecting
 			var/state = G.state
 			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
+			add_fingerprint(user)
 			switch(state)
 				if(1)
 					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")

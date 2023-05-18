@@ -26,6 +26,7 @@
 /obj/structure/spacepod_frame/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!construct || !construct.action(W, user))
 		return ..()
+	add_fingerprint(user)
 
 /obj/structure/spacepod_frame/attack_hand()
 	return

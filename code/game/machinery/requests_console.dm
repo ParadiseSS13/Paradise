@@ -288,9 +288,11 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			return
 		var/obj/item/card/id/id = I.GetID()
 		if(screen == RCS_MESSAUTH)
+			add_fingerprint(user)
 			msgVerified = "Verified by [id.registered_name] ([id.assignment])"
 			SStgui.update_uis(src)
 		if(screen == RCS_ANNOUNCE)
+			add_fingerprint(user)
 			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
 				announceAuth = 1
 				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
@@ -299,6 +301,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
 			SStgui.update_uis(src)
 		if(screen == RCS_SHIPPING)
+			add_fingerprint(user)
 			msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
 			SStgui.update_uis(src)
 		return
@@ -306,6 +309,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(inoperable(MAINT))
 			return
 		if(screen == RCS_MESSAUTH)
+			add_fingerprint(user)
 			var/obj/item/stamp/T = I
 			msgStamped = "Stamped with the [T.name]"
 			SStgui.update_uis(src)

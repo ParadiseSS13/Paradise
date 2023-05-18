@@ -137,6 +137,7 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -294,6 +295,7 @@
 				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 				return
 
+			add_fingerprint(user)
 			beaker = I
 			I.forceMove(src)
 			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")

@@ -61,6 +61,7 @@
 		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
 		return
 
+	add_fingerprint(user)
 	pick_sign()
 
 /obj/structure/sign/barsign/screwdriver_act(mob/user, obj/item/I)
@@ -93,6 +94,7 @@
 
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(2))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
 			broken = FALSE
 		else

@@ -81,6 +81,9 @@
 	if(self_destroy)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), destroy_after)
 
+/obj/structure/energy_caltrops/has_prints()
+	return FALSE
+
 /obj/structure/energy_caltrops/Crossed(mob/living/L, oldloc)
 	if(istype(L) && has_gravity(loc))
 		if(L.incorporeal_move || L.flying || L.floating)

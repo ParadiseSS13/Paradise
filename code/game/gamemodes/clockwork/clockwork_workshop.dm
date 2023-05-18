@@ -75,6 +75,7 @@
 		to_chat(user,"<span class='warning'>You are trying to understand how this table works, but to no avail.</span>")
 		return
 	if(anchored && !hidden)
+		add_fingerprint(user)
 		ui_interact(user)
 
 /obj/structure/clockwork/functional/workshop/attack_ghost(mob/user)
@@ -84,6 +85,7 @@
 	if(istype(O, /obj/item/stack/sheet/brass) && isclocker(user))
 		var/obj/item/stack/sheet/brass/B = O
 		if(user.unEquip(B))
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You reconstruct [B] for workshop to work with.")
 			brass_amount += MINERAL_MATERIAL_AMOUNT*B.amount
 			qdel(B)

@@ -14,6 +14,9 @@
 	. = ..()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
 
+/obj/structure/bed/nest/has_prints()
+	return FALSE
+
 /obj/structure/bed/nest/user_unbuckle_mob(mob/living/user)
 	if(has_buckled_mobs())
 		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore

@@ -325,6 +325,7 @@
 		if(!D.buf)
 			to_chat(user, "<span class='warning'>Error: No data found.</span>")
 			return FALSE
+		add_fingerprint(user)
 		template = D.buf.dna.Clone()
 		to_chat(user, "<span class='notice'>Upload of gene template for '[template.real_name]' complete!</span>")
 		return TRUE

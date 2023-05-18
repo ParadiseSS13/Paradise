@@ -46,6 +46,7 @@
 		return 0
 	if(is_type_in_list(O,acceptable_items))
 		if(istype(O, /obj/item/reagent_containers/food/snacks))
+			add_fingerprint(user)
 			var/obj/item/reagent_containers/food/snacks/S = O
 			user.unEquip(S)
 			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
@@ -60,6 +61,7 @@
 				if(C.canopened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
 					to_chat(user, "<span class='warning'>Only unopened cans and bottles can be processed to ensure product integrity.</span>")
 					return 0
+				add_fingerprint(user)
 				user.unEquip(C)
 				if(!C.reagents.total_volume)		//Empty cans get recycled, even if they have somehow remained unopened due to some sort of error
 					recycle_container(C)
@@ -67,15 +69,18 @@
 					insert_item(C, user)
 			return 1
 		else
+			add_fingerprint(user)
 			user.unEquip(O)
 			insert_item(O, user)
 			return 1
 	else if(istype(O, /obj/item/trash/can))			//Crushed cans (and bottles) are returnable still
+		add_fingerprint(user)
 		var/obj/item/trash/can/C = O
 		user.unEquip(C)
 		recycle_container(C)
 		return 1
 	else if(istype(O, /obj/item/stack/sheet))		//Sheets of materials can replenish the machine's supply of drink containers (when people inevitably don't return them)
+		add_fingerprint(user)
 		var/obj/item/stack/sheet/S = O
 		user.unEquip(S)
 		process_sheets(S)
@@ -301,6 +306,7 @@
 /obj/machinery/bottler/attack_hand(mob/user)
 	if(stat & BROKEN)
 		return
+	add_fingerprint(user)
 	interact(user)
 
 /obj/machinery/bottler/interact(mob/user)

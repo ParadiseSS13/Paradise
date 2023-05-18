@@ -67,6 +67,7 @@
 		if(!has_extinguisher && opened)
 			if(!user.drop_item())
 				return
+			add_fingerprint(user)
 			user.drop_item(O)
 			contents += O
 			has_extinguisher = O
@@ -78,6 +79,7 @@
 			opened = !opened
 		update_icon()
 	else if(user.a_intent != INTENT_HARM)
+		add_fingerprint(user)
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 		update_icon()
@@ -111,6 +113,7 @@
 		if(temp && !temp.is_usable())
 			to_chat(user, "<span class='notice'>You try to move your [temp.name], but cannot!")
 			return
+	add_fingerprint(user)
 	if(has_extinguisher)
 		if(icon_state == "extinguisher_closed")
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)

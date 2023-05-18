@@ -63,6 +63,7 @@
 	if(istype(W, /obj/item/organ/internal/heart/gland))
 		if(!user.drop_item())
 			return
+		add_fingerprint(user)
 		W.forceMove(src)
 		for(var/i=1,i<=gland_colors.len,i++)
 			if(gland_types[i] == W.type)

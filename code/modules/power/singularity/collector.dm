@@ -39,6 +39,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/rad_collector/attack_hand(mob/user as mob)
 	if(anchored)
 		if(!src.locked)
+			add_fingerprint(user)
 			toggle_power()
 			user.visible_message("[user.name] turns the [src.name] [active? "on":"off"].", \
 			"You turn the [src.name] [active? "on":"off"].")
@@ -51,6 +52,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))
+		add_fingerprint(user)
 		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
 		return 1
 	else if(istype(W, /obj/item/tank/internals/plasma))
@@ -60,18 +62,21 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		if(src.P)
 			to_chat(user, "<span class='warning'>There's already a plasma tank loaded.</span>")
 			return 1
+		add_fingerprint(user)
 		user.drop_item()
 		src.P = W
 		W.loc = src
 		update_icons()
 	else if(istype(W, /obj/item/crowbar))
 		if(P && !src.locked)
+			add_fingerprint(user)
 			eject()
 			return 1
 	else if(istype(W, /obj/item/wrench))
 		if(P)
 			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
 			return 1
+		add_fingerprint(user)
 		playsound(src.loc, W.usesound, 75, 1)
 		src.anchored = !src.anchored
 		user.visible_message("[user.name] [anchored? "secures":"unsecures"] the [src.name].", \
@@ -83,6 +88,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 			disconnect_from_network()
 	else if(W.GetID() || ispda(W))
 		if(src.allowed(user))
+			add_fingerprint(user)
 			if(active)
 				src.locked = !src.locked
 				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")

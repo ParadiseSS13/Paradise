@@ -275,6 +275,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/dna_probe))
+		add_fingerprint(user)
 		var/obj/item/dna_probe/P = I
 		var/uploaded = 0
 		for(var/plant in P.plants)

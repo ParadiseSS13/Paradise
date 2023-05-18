@@ -77,6 +77,7 @@
 
 	opening = 1
 	if(density)
+		add_fingerprint(user)
 		do_the_flick()
 		sleep(4)
 		density = 0
@@ -87,6 +88,7 @@
 		for(var/mob/living/obstacle in srcturf) //Stop people from using this as a shield
 			opening = 0
 			return
+		add_fingerprint(user)
 		do_the_flick()
 		density = 1
 		sleep(4)
@@ -287,6 +289,7 @@
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)
+		add_fingerprint(user)
 		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()

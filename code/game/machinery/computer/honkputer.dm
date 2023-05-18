@@ -99,6 +99,7 @@
 			var/obj/item/circuitboard/M = new circuit( A )
 			A.circuit = M
 			A.anchored = 1
+			A.add_fingerprint(user)
 			for(var/obj/C in src)
 				C.loc = src.loc
 			if(src.stat & BROKEN)

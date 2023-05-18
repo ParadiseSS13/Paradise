@@ -246,9 +246,9 @@
 		forms[++forms.len] = form
 
 /obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob, params)
-	add_fingerprint(user)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
 		if(!copyitem)
+			add_fingerprint(user)
 			user.drop_item()
 			copyitem = O
 			O.forceMove(src)
@@ -258,6 +258,7 @@
 			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
 	else if(istype(O, /obj/item/toner))
 		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
+			add_fingerprint(user)
 			user.drop_item()
 			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
 			var/obj/item/toner/T = O
@@ -272,6 +273,7 @@
 			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
 			GM.forceMove(get_turf(src))
 			ass = GM
+			add_fingerprint(user)
 			if(copyitem)
 				copyitem.forceMove(get_turf(src))
 				copyitem = null

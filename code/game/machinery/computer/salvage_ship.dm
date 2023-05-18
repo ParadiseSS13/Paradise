@@ -47,6 +47,7 @@
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 
+	add_fingerprint(user)
 	user.set_machine(src)
 
 	var/dat = {"<meta charset="UTF-8">Location: [curr_location]<br>

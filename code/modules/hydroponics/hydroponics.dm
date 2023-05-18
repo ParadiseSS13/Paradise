@@ -80,6 +80,7 @@
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
+		add_fingerprint(user)
 		return
 
 	if(exchange_parts(user, I))
@@ -757,6 +758,8 @@
 			to_chat(user, "<span class='warning'>You need to open [O] first!</span>")
 			return TRUE
 
+		add_fingerprint(user)
+
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : src
 		var/visi_msg = ""
@@ -815,6 +818,7 @@
 
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
+			add_fingerprint(user)
 			if(istype(O, /obj/item/seeds/kudzu))
 				investigate_log("had Kudzu <span class='warning'>planted</span> in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
 			user.unEquip(O)
@@ -832,6 +836,7 @@
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
 	else if(istype(O, /obj/item/plant_analyzer))
+		add_fingerprint(user)
 		if(myseed)
 			to_chat(user, "*** <B>[myseed.plantname]</B> ***") //Carn: now reports the plants growing, not the seeds.
 			to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
@@ -849,6 +854,7 @@
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
+			add_fingerprint(user)
 			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
 			adjustWeeds(-10)
 			update_icon()
@@ -871,6 +877,7 @@
 		playsound(src, O.usesound, 50, 1)
 		if(!do_after(user, 25 * O.toolspeed * gettoolspeedmod(user), target = src) || (!myseed && !weedlevel))
 			return
+		add_fingerprint(user)
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
 		playsound(src, O.usesound, 50, 1)
 		if(myseed) //Could be that they're just using it as a de-weeder
@@ -885,6 +892,7 @@
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_icon()
 	else if(is_pen(O) && myseed)
+		add_fingerprint(user)
 		myseed.variant_prompt(user, src)
 	else
 		return ..()
@@ -934,8 +942,10 @@
 		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return
 	if(harvest)
+		add_fingerprint(user)
 		myseed.harvest(user)
 	else if(dead)
+		add_fingerprint(user)
 		dead = 0
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		QDEL_NULL(myseed)

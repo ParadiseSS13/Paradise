@@ -30,9 +30,11 @@
 	if(istype(W, /obj/item/mop))
 		var/obj/item/mop/m = W
 		if(m.reagents.total_volume < m.reagents.maximum_volume)
+			add_fingerprint(user)
 			m.wet_mop(src, user)
 			return
 		if(!mymop)
+			add_fingerprint(user)
 			m.janicart_insert(user, src)
 			return
 		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")

@@ -187,7 +187,8 @@
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
-			new /obj/item/gps(loc)
+			var/obj/item/gps/gps = new(loc)
+			gps.add_fingerprint(user)
 			qdel(src)
 			return ..()
 
@@ -322,7 +323,8 @@
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
-			new /obj/item/stack/rods(loc)
+			var/obj/item/stack/rods/rods = new(loc)
+			rods.add_fingerprint(user)
 			qdel(src)
 			return ..()
 

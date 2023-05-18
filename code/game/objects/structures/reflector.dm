@@ -49,7 +49,8 @@
 				return
 			else
 				S.use(5)
-				new /obj/structure/reflector/single (src.loc)
+				var/obj/structure/reflector/single/reflector = new(loc)
+				reflector.add_fingerprint(user)
 				qdel(src)
 		if(istype(W,/obj/item/stack/sheet/rglass))
 			if(S.get_amount() < 10)
@@ -57,12 +58,14 @@
 				return
 			else
 				S.use(10)
-				new /obj/structure/reflector/double (src.loc)
+				var/obj/structure/reflector/double/reflector = new(loc)
+				reflector.add_fingerprint(user)
 				qdel(src)
 		if(istype(W, /obj/item/stack/sheet/mineral/diamond))
 			if(S.get_amount() >= 1)
 				S.use(1)
-				new /obj/structure/reflector/box (src.loc)
+				var/obj/structure/reflector/box/reflector = new(src.loc)
+				reflector.add_fingerprint(user)
 				qdel(src)
 		return
 	return ..()

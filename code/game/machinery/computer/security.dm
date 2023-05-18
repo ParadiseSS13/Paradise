@@ -62,6 +62,7 @@
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
 	if(ui_login_attackby(O, user))
+		add_fingerprint(user)
 		return
 	return ..()
 

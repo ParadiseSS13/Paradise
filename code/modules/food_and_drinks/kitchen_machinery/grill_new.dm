@@ -49,6 +49,7 @@
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return 0
+		add_fingerprint(user)
 		var/mob/living/carbon/human/C = G.affecting
 		C.visible_message("<span class='danger'>[user] forces [C] onto [src], searing [C]'s body!</span>", \
 						"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")

@@ -71,6 +71,7 @@
 			return
 
 		if(user.drop_item())
+			add_fingerprint(user)
 			beaker = I
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")

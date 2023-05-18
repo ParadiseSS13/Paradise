@@ -175,6 +175,7 @@
 		result_list = list(result_list)
 	for(var/result in result_list)
 		var/atom/movable/I = new result(get_turf(user.loc))
+		I.add_fingerprint(user)
 		user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
 		I.CheckParts(parts, R)
 		if(isitem(I))

@@ -25,6 +25,8 @@
 	smooth = SMOOTH_TRUE
 
 /obj/structure/wryn/wax/Initialize()
+	if(usr)
+		add_fingerprint(usr)
 	air_update_turf(1)
 	..()
 

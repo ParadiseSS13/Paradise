@@ -140,6 +140,7 @@
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
 		if(user.drop_item())
+			add_fingerprint(user)
 			monkeys++
 			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 			qdel(O)
@@ -147,6 +148,7 @@
 	else if(istype(O, /obj/item/slimepotion/slime))
 		var/replaced = FALSE
 		if(user.drop_item())
+			add_fingerprint(user)
 			if(!QDELETED(current_potion))
 				current_potion.forceMove(drop_location())
 				replaced = TRUE
@@ -162,6 +164,7 @@
 			P.remove_from_storage(MC)
 			qdel(MC)
 		if(loaded)
+			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
 		return
 	return ..()

@@ -503,13 +503,16 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return 1
+	add_fingerprint(user)
 	ui_interact(user)
 	return
 
 /obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/user, params)
 	if(!powered())
+		add_fingerprint(user)
 		return 0
 	if(istype(I, /obj/item/stack/spacecash))
+		add_fingerprint(user)
 		//consume the money
 		var/obj/item/stack/spacecash/C = I
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)

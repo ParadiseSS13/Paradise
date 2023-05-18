@@ -153,6 +153,7 @@
 		if(honey_frames.len < BEEBOX_MAX_FRAMES)
 			if(!user.unEquip(HF))
 				return
+			add_fingerprint(user)
 			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
 			HF.forceMove(src)
 			honey_frames += HF
@@ -214,6 +215,7 @@
 /obj/structure/beebox/attack_hand(mob/user)
 	if(ishuman(user))
 		if(!user.bee_friendly())
+			add_fingerprint(user)
 			//Time to get stung!
 			var/bees = FALSE
 			for(var/b in bees) //everyone who's ever lived here now instantly hates you, suck it assistant!
@@ -238,6 +240,7 @@
 
 					var/obj/item/honey_frame/HF = pick_n_take(honey_frames)
 					if(HF)
+						add_fingerprint(user)
 						if(!user.put_in_active_hand(HF))
 							HF.forceMove(get_turf(src))
 						visible_message("<span class='notice'>[user] removes a frame from the apiary.</span>")
@@ -247,6 +250,7 @@
 						while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
 							var/obj/item/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
+								HC.add_fingerprint(user)
 								HC.forceMove(get_turf(src))
 								amtH--
 								fallen++
@@ -258,7 +262,9 @@
 					if(!queen_bee || queen_bee.loc != src)
 						to_chat(user, "<span class='warning'>There is no queen bee to remove!</span>")
 						return
+					add_fingerprint(user)
 					var/obj/item/queen_bee/QB = new()
+					QB.add_fingerprint(user)
 					queen_bee.forceMove(QB)
 					bees -= queen_bee
 					QB.queen = queen_bee

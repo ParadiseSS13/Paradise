@@ -10,6 +10,9 @@
 	max_integrity = 15
 	var/cooldown = 0 // very cool down
 
+/obj/structure/snow/has_prints()
+	return FALSE
+
 /obj/structure/snow/AltClick(mob/user)
 	. = ..()
 	if(cooldown > world.time)

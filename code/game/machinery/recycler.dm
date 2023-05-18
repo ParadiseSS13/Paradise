@@ -51,7 +51,6 @@
 	update_icon()
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
 	if(exchange_parts(user, I))
 		return
 	return ..()
