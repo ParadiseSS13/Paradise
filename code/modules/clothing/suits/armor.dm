@@ -566,3 +566,11 @@
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
 		)
+
+/obj/item/clothing/suit/armor/makeshift_armor
+	name = "makeshift armor"
+	desc = "This is a makeshift armor. Somehow duct tape grants more protection, than a sign itself."
+	icon_state = "makeshift_armor"
+	item_state = "makeshift_armor"
+	resistance_flags = FIRE_PROOF
+	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)

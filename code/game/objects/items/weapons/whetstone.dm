@@ -41,11 +41,21 @@
 	if(istype(I, /obj/item/melee/energy))
 		to_chat(user, "<span class = 'warning'>[I] уже остр, и не может быть заточен ещё сильнее!</span>")
 		return
+
+	if(istype(I, /obj/item/clothing/gloves/color/black/razorgloves))
+		var/obj/item/clothing/gloves/color/black/razorgloves/razorgloves = I
+		if(razorgloves.razor_damage_low > initial(razorgloves.razor_damage_low))
+			to_chat(user, "<span class='warning'>[I] has already been refined before. It cannot be sharpened further!</span>")
+			return
+		razorgloves.razor_damage_low = clamp(razorgloves.razor_damage_low + increment, 0, max)
+		razorgloves.razor_damage_high = clamp(razorgloves.razor_damage_high + increment, 0, max)
+	else
+		if(!requires_sharpness)
+			I.sharp = 1
+		I.force = clamp(I.force + increment, 0, max)
+		I.throwforce = clamp(I.throwforce + increment, 0, max)
+
 	user.visible_message("<span class='notice'>[user] sharpens [I] with [src]!</span>", "<span class='notice'>You sharpen [I], making it much more deadly than before.</span>")
-	if(!requires_sharpness)
-		I.sharp = 1
-	I.force = clamp(I.force + increment, 0, max)
-	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
 	playsound(get_turf(src), usesound, 50, 1)
 	name = "worn out [name]"

@@ -241,3 +241,20 @@
 	tools = list(TOOL_WIRECUTTER)
 	pathtools = list(/obj/item/kitchen/knife)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/makeshift_armor
+	name = "Makeshift armor"
+	result = /obj/item/clothing/suit/armor/makeshift_armor
+	time = 6 SECONDS
+	reqs = list(/obj/item/caution = 1,
+				/obj/item/stack/tape_roll = 10)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/buckhelm
+	name = "BuckHelm"
+	result = /obj/item/clothing/head/helmet/buckhelm
+	time = 6 SECONDS
+	reqs = list(/obj/item/reagent_containers/glass/bucket = 3)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_CLOTHING

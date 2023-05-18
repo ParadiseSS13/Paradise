@@ -316,3 +316,10 @@
 	name = "tribal splints"
 	icon_state = "tribal_splint"
 	other_delay = 50
+
+/obj/item/stack/medical/splint/makeshift
+	name = "makeshift splints"
+	desc = "Makeshift splint for fixing bones. Better than nothing and more based than others."
+	icon_state = "makeshift_splint"
+	other_delay = 3 SECONDS
+	self_delay = 15 SECONDS

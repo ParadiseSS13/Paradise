@@ -192,3 +192,62 @@
 	name = "Gloves of Headpats"
 	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
 	accepted_intents = list(INTENT_HELP)
+
+/obj/item/clothing/gloves/color/black/razorgloves
+	name = "Razor gloves"
+	desc = "These are razorgloves! You gotta show these tajarans who are the real deal on this station!"
+	icon_state = "razor"
+	item_state = "razorgloves"
+	can_be_cut = FALSE
+	resistance_flags = FLAMMABLE
+	sharp = TRUE
+	extra_knock_chance = 5
+	var/razor_damage_low = 8
+	var/razor_damage_high = 9
+
+/obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
+	. = FALSE
+	if(!ishuman(loc))
+		return FALSE
+
+	var/mob/living/carbon/human/user = loc
+	if(!user.mind || user.mind.martial_art)
+		return FALSE
+
+	if(!(user.a_intent == INTENT_HARM) || !proximity || isturf(A))
+		return FALSE
+
+	var/damage = rand(razor_damage_low, razor_damage_high)
+	if(ishuman(A))
+		user.do_attack_animation(A, "claw")
+		var/mob/living/carbon/human/target = A
+		add_attack_logs(user, target, "Melee attacked with razor gloves")
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
+		var/armor_block = target.run_armor_check(affecting, "melee")
+		playsound(target.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+
+		target.visible_message("<span class='danger'>[user] cuts [target] with razor gloves!</span>")
+
+		if(target.mind && user?.mind?.objectives)
+			for(var/datum/objective/pain_hunter/objective in user.mind.objectives)
+				if(target.mind == objective.target)
+					objective.take_damage(damage, BRUTE)
+
+		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = TRUE)
+		return TRUE
+
+	if(isliving(A))
+		user.do_attack_animation(A, "claw")
+		var/mob/living/living = A
+		playsound(living.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+		living.visible_message("<span class='danger'>[user] cuts [living] with razor gloves!</span>")
+		living.apply_damage(damage, BRUTE)
+		return TRUE
+
+	if(isobj(A) && !isitem(A))
+		var/obj/obj = A
+		user.do_attack_animation(A, "claw")
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.visible_message("<span class='danger'>[user] has hit [obj] with razor gloves!</span>", "<span class='danger'>You hit [obj] with razor gloves!</span>")
+		obj.take_damage(damage, BRUTE, "melee", 1, get_dir(src, user))
+		return TRUE

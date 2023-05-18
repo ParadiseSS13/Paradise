@@ -295,6 +295,7 @@ BLIND     // can't see anything
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
+	var/extra_knock_chance = 0 //extra chance to knock down target when disarming
 	strip_delay = 20
 	put_on_delay = 40
 
