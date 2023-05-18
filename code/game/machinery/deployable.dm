@@ -304,7 +304,6 @@
 /obj/item/grenade/barrier/dropwall/end_throw()
 	if(active)
 		addtimer(CALLBACK(src, PROC_REF(prime)), 1) //Wait for the throw to fully end
-	return
 
 /obj/item/grenade/barrier/dropwall/prime()
 	if(deployed)
@@ -383,8 +382,7 @@
 /obj/structure/dropwall_generator/ex_act(severity)
 	if(protected && severity > 1) //We would throw the explosion at the shield, but it is already getting hit
 		return
-	else
-		qdel(src)
+	qdel(src)
 
 /obj/structure/dropwall_generator/proc/power_out()
 	visible_message("<span class='warning'>[src] runs out of power, causing its shields to fail!</span>")
