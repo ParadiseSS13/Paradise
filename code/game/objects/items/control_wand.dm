@@ -155,7 +155,8 @@
 	busy = FALSE
 	icon_state = "hacktool"
 
-#define JANGLE_COOLDOWN 10 SECONDS //How long before you can "jangle" your keyring again (to prevent spam)
+/// How long before you can "jangle" your keyring again (to prevent spam)
+#define JANGLE_COOLDOWN 10 SECONDS 
 
 /obj/item/door_remote/janikeyring
 	name = "janitor's keyring"
