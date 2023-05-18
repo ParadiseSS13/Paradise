@@ -871,7 +871,7 @@
 
 /obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
-	var/turf/T = isturf(target) ? target : get_turf(target)
+	var/turf/T = get_turf(target)
 	if(!T)
 		return
 	for(var/obj/effect/decal/cleanable/blood/B in range(T, 2))
