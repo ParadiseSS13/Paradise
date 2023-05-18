@@ -9,6 +9,7 @@
 	throw_range = 7
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	parent_stack = TRUE
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20
@@ -111,6 +112,7 @@
 		remburn = nremburn
 		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
 							"<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+	return affecting
 
 //Bruise Packs//
 
@@ -118,11 +120,13 @@
 	name = "roll of gauze"
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	icon_state = "gauze"
 	origin_tech = "biotech=2"
 	max_amount = 12
 	heal_brute = 10
 	stop_bleeding = 1800
+	dynamic_icon_state = TRUE
 
 /obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
@@ -168,6 +172,7 @@
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
+	icon = 'icons/obj/items.dmi'
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
@@ -175,6 +180,7 @@
 	max_amount = 6
 	heal_brute = 25
 	stop_bleeding = 0
+	dynamic_icon_state = FALSE
 
 /obj/item/stack/medical/bruise_pack/advanced/cyborg
 	energy_type = /datum/robot_energy_storage/medical/adv_brute_kit
@@ -190,11 +196,13 @@
 	name = "ointment"
 	desc = "Used to treat those nasty burns."
 	gender = PLURAL
+	icon = 'icons/obj/stacks/miscellaneous.dmi'
 	singular_name = "ointment"
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
 	healverb = "salve"
 	heal_burn = 10
+	dynamic_icon_state = TRUE
 
 /obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
 	if(..())
@@ -214,14 +222,29 @@
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than some ointment!</span>")
 
+/obj/item/stack/medical/ointment/heal(mob/living/M, mob/user)
+	var/obj/item/organ/external/affecting = ..()
+	if((affecting.status & ORGAN_BURNT) && !(affecting.status & ORGAN_SALVED))
+		affecting.status |= ORGAN_SALVED
+		addtimer(CALLBACK(affecting, TYPE_PROC_REF(/obj/item/organ/external, remove_ointment), heal_burn), 3 MINUTES)
+
+/obj/item/organ/external/proc/remove_ointment(heal_amount) //de-ointmenterized D:
+	status &= ~ORGAN_SALVED
+	perma_injury = max(perma_injury - heal_amount, 0)
+	if(owner)
+		owner.updatehealth("permanent injury removal")
+	if(!perma_injury)
+		fix_burn_wound(update_health = FALSE)
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "burnkit"
 	belt_icon = "burnkit"
 	heal_burn = 25
+	dynamic_icon_state = FALSE
 
 /obj/item/stack/medical/ointment/advanced/cyborg
 	energy_type = /datum/robot_energy_storage/medical/adv_burn_kit
@@ -244,6 +267,7 @@
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
 	hitsound = 'sound/misc/moist_impact.ogg'
+	dynamic_icon_state = FALSE
 
 /obj/item/stack/medical/bruise_pack/comfrey/heal(mob/living/M, mob/user)
 	playsound(src, 'sound/misc/soggy.ogg', 30, TRUE)
@@ -257,6 +281,7 @@
 	icon_state = "ambrosiavulgaris"
 	color = "#4CC5C7"
 	heal_burn = 12
+	dynamic_icon_state = FALSE
 
 // Splints
 /obj/item/stack/medical/splint

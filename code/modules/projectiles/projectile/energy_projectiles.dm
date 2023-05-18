@@ -57,26 +57,6 @@
 /obj/item/projectile/energy/bolt/large
 	damage = 20
 
-/obj/item/projectile/energy/shock_revolver
-	name = "shock bolt"
-	icon_state = "purple_laser"
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
-	damage = 10 //A worse lasergun
-	var/zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE
-	var/zap_range = 3
-	var/power = 10000
-
-/obj/item/ammo_casing/energy/shock_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
-	..()
-	var/obj/item/projectile/energy/shock_revolver/P = BB
-	spawn(1)
-		P.chain = P.Beam(user, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 1000, maxdistance = 30)
-
-/obj/item/projectile/energy/shock_revolver/on_hit(atom/target)
-	. = ..()
-	tesla_zap(src, zap_range, power, zap_flags)
-	qdel(src)
-
 /obj/item/projectile/energy/bsg
 	name = "orb of pure bluespace energy"
 	icon_state = "bluespace"
@@ -147,3 +127,122 @@
 	armour_penetration_flat = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
 	reflectability = REFLECTABILITY_PHYSICAL //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard. Carp still can reflect though, screw you.
+
+/obj/item/projectile/energy/arc_revolver
+	name = "arc emitter"
+	icon_state = "plasma_light"
+	damage = 10
+	damage_type = BURN
+	var/charge_number = null
+
+/obj/item/projectile/energy/arc_revolver/on_hit(atom/target)
+	. = ..()
+	for(var/obj/effect/E in target)
+		if(istype(E, /obj/effect/abstract/arc_revolver))
+			var/obj/effect/abstract/arc_revolver/A = E
+			A.charge_numbers += charge_number
+			A.duration += 10 SECONDS
+			qdel(src)
+			return
+	new /obj/effect/abstract/arc_revolver(target, charge_number)
+	qdel(src)
+
+
+/obj/effect/abstract/arc_revolver
+	name = "arc emitter"
+	desc = "Emits arcs. What more do you want?"
+	var/duration = 10 SECONDS
+	var/list/charge_numbers = list()
+	var/list/chains = list()
+	var/successfulshocks = 0
+	var/wait_for_three = 0
+
+/obj/effect/abstract/arc_revolver/Initialize(mapload, charge_number)
+	. = ..()
+	charge_numbers += charge_number
+	START_PROCESSING(SSfastprocess, src)
+	GLOB.arc_emitters += src
+	build_chains()
+
+/obj/effect/abstract/arc_revolver/proc/build_chains()
+	for(var/obj/effect/abstract/arc_revolver/A in GLOB.arc_emitters)
+		if(A == src)
+			continue
+		for(var/chain in chains)
+			var/datum/beam/B = chain
+			if(B.target == A.loc)
+				continue
+		for(var/num1 in A.charge_numbers)
+			for(var/num2 in charge_numbers)
+				if(num1 - num2 == -1) //Don't ABS it, we only want one chain made, not 2.
+					var/dont = FALSE
+					for(var/datum/beam/B as anything in chains)
+						if(B.target == A.loc)
+							dont = TRUE
+							break
+					if(!dont && (A.loc in view(7, loc)))
+						chains += loc.Beam(A.loc, "lightning[rand(1, 12)]", 'icons/effects/effects.dmi', time = 10 SECONDS, maxdistance = 7, beam_type = /obj/effect/ebeam/chain)
+
+
+/obj/effect/abstract/arc_revolver/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	GLOB.arc_emitters -= src
+	removechains()
+	return ..()
+
+/obj/effect/abstract/arc_revolver/process()// We want this to not be on crossed, or people fucking die when yeeted diagonally. We want this fast process to be faster, but not doing for loops every tick. Thus, every 3 fastproccesses
+	duration -= 2 // 5 ticks per second, second is 10
+	if(duration <= 0)
+		qdel(src)
+	wait_for_three++
+	if(wait_for_three >= 3) //Every 0.6 seconds.
+		wait_for_three = 0
+		cleardeletedchains()
+		build_chains()
+		if(successfulshocks > 3)
+			successfulshocks = 0
+		if(shockallchains())
+			successfulshocks++
+
+/obj/effect/abstract/arc_revolver/proc/shockallchains()
+	. = 0
+	cleardeletedchains()
+	if(length(chains))
+		for(var/chain in chains)
+			. += chainshock(chain)
+
+/obj/effect/abstract/arc_revolver/proc/chainshock(datum/beam/B)
+	. = 0
+	var/list/turfs = list()
+	for(var/obj/effect/ebeam/chainpart as anything in B.elements)
+		if(chainpart && chainpart.x && chainpart.y && chainpart.z)
+			var/turf/T1 = get_turf_pixel(chainpart)
+			turfs |= T1
+			if(T1 != get_turf(B.origin) && T1 != get_turf(B.target))
+				for(var/turf/TU in circlerange(T1, 1))
+					turfs |= TU
+	for(var/turf/T as anything in turfs)
+		for(var/mob/living/L in T)
+			if(L.stat != DEAD)
+				if(successfulshocks > 2)
+					L.visible_message(
+						"<span class='danger'>[L] was shocked by the lightning chain!</span>", \
+						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
+						"<span class='italics'>You hear a heavy electrical crack.</span>" \
+					)
+				var/damage = (2 - isliving(B.origin) + 2 - isliving(B.target)) //Damage is upped depending if the origin is a mob or not. Wall to wall hurts more than mob to wall, or mob to mob
+				L.adjustFireLoss(damage) //time to die
+				. = 1
+
+/obj/effect/abstract/arc_revolver/proc/removechains()
+	if(length(chains))
+		for(var/chain in chains)
+			qdel(chain)
+
+
+/obj/effect/abstract/arc_revolver/proc/cleardeletedchains()
+	if(length(chains))
+		for(var/chain in chains)
+			var/datum/cd = chain
+			if(!chain || QDELETED(cd))
+				chains -= chain

@@ -281,7 +281,7 @@
 				// Medchem
 				/obj/item/storage/pill_bottle/random_meds/labelled = 100, // random medical and other chems
 				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
-				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+				/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent = 50,
 
 				// Surgery
 				/obj/item/scalpel/laser/manager = 100,

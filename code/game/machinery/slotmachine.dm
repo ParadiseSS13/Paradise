@@ -13,6 +13,11 @@
 
 	var/datum/money_account/user_account
 
+	/// Used to handle bolting/unbolting the emagged machine while someone is using it
+	var/emagged_game_in_progress = FALSE
+	/// The %chance of winning money and resetting the emagged state
+	var/emagged_win_chance = 1
+
 /obj/machinery/economy/slot_machine/Initialize(mapload)
 	. = ..()
 	reconnect_database()
@@ -52,10 +57,10 @@
 	data["resultlvl"] = resultlvl
 	return data
 
-/obj/machinery/economy/slot_machine/ui_act(action, params)
+/obj/machinery/economy/slot_machine/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 	if(action == "spin")
 		if(working)
@@ -68,8 +73,11 @@
 		plays++
 		working = TRUE
 		icon_state = "slots-on"
-		playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
-		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
+		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		addtimer(CALLBACK(src, PROC_REF(spin_slots), ui.user.name), 25)
+
+		if(emagged)
+			emagged_spinning(ui.user)
 
 /obj/machinery/economy/slot_machine/proc/spin_slots(userName)
 	switch(rand(1, 5000))
@@ -118,4 +126,72 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
+	// This prevents the emagged machine to be moved while someone is playing on it.
+	if(emagged_game_in_progress)
+		return
 	default_unfasten_wrench(user, I)
+
+/*
+	* Emag behaviour below. When the machine is emagged, it'll stun and anchor its user, spin them, then throw them away.
+	* With a chance of "emagged_win_chance", the machine resets its emagged state and throws money at the user.
+*/
+/obj/machinery/economy/slot_machine/emag_act(user)
+	if(emagged)
+		to_chat(user, "<span class='notice'>[src] is unresponsive. It is probably already modified.</span>")
+		return
+	playsound(loc, 'sound/effects/sparks4.ogg', 75, 1)
+	emagged = TRUE
+	to_chat(user, "<span class='notice'>You engage the reverse-gripping mechanism on the machine's handle.</span>")
+	log_game("[key_name(user)] emagged [src]")
+
+/// The spinning and throwing away is handled here, with a possible call to winning
+/obj/machinery/economy/slot_machine/proc/emagged_spinning(mob/living/user)
+	to_chat(user, "<span class='danger'>As you grip the handle of the machine, it grips back at you, and starts to wildly spin you around!</span>")
+	user.SpinAnimation(speed = 2, loops = 6)
+	emagged_game_in_progress = TRUE
+
+	// Make sure the machine is anchored to avoid people cheesing it
+	if(!anchored)
+		atom_say("Deploying safety bolts.")
+		anchored = TRUE
+
+	// Stun them, there is no escape from this unless you get teleported
+	user.anchored = TRUE
+	user.SetStunned(1.2 SECONDS, TRUE)
+
+	// No cheesing with buckling ourselves, this spinning is too fast for seatbelts
+	if(user.buckled)
+		user.buckled.unbuckle_mob(user, force = TRUE)
+
+	// Check if the machine and the user are still next to each other
+	if(!do_after(user, delay = 1.2 SECONDS, target = src, use_default_checks = FALSE))
+		user.anchored = FALSE
+		emagged_game_in_progress = FALSE
+		return
+
+	// Find the right direction and throw the user away from the machine
+	to_chat(user, "<span class='userdanger'>The handle suddenly lets you go!</span>")
+	user.anchored = FALSE
+	var/user_direction = get_dir(src, user)
+	var/turf/throw_direction = get_edge_target_turf(user, user_direction)
+	user.throw_at(throw_direction, 6, 10)
+
+	// Reset the machine
+	emagged_game_in_progress = FALSE
+
+	// Are we the lucky winner?
+	if(prob(emagged_win_chance))
+		addtimer(CALLBACK(src, PROC_REF(emagged_winning), user), 1 SECONDS)
+
+/// With a chance of "emagged_win_chance", we win some money and reset the machine to a non-emagged state
+/obj/machinery/economy/slot_machine/proc/emagged_winning(user)
+	// Notify nearby people
+	atom_say("ERROR ERROR ERROR. Entering safe mode. Disabling reverse-gripping mechanism!")
+	playsound(loc, 'sound/machines/bell.ogg', 55, 1)
+
+	// This resets us back to normal
+	emagged = FALSE
+
+	// Reward the winner
+	var/obj/item/reward_to_throw = new /obj/item/stack/spacecash/c100(get_turf(src))
+	reward_to_throw.throw_at(user, 6, 10)

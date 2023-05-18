@@ -225,11 +225,9 @@
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
-		if(client.prefs.active_character.species in GLOB.whitelisted_species)
-
-			if(!can_use_species(src, client.prefs.active_character.species))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
-				return FALSE
+		if(!can_use_species(src, client.prefs.active_character.species))
+			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
+			return FALSE
 
 		LateChoices()
 
@@ -245,10 +243,9 @@
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
 
-		if(client.prefs.active_character.species in GLOB.whitelisted_species)
-			if(!can_use_species(src, client.prefs.active_character.species))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
-				return FALSE
+		if(!can_use_species(src, client.prefs.active_character.species))
+			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
+			return FALSE
 
 		AttemptLateSpawn(href_list["SelectedJob"])
 		return
@@ -419,7 +416,7 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer", follow_target_override = character)
 
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
@@ -436,7 +433,7 @@
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer", follow_target_override = character)
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
@@ -601,8 +598,9 @@
 	return check_rights(R_ADMIN, 0, src)
 
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
-	if(!S) return 1
-	return can_use_species(src, S.name) || !(IS_WHITELISTED in S.species_traits)
+	if(!S)
+		return TRUE // Allow null species?
+	return can_use_species(src, S.name)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

@@ -94,6 +94,12 @@
 /mob/living/carbon/human/skeleton/Initialize(mapload)
 	. = ..(mapload, /datum/species/skeleton)
 
+/mob/living/carbon/human/skeleton/lich/Initialize(mapload)
+	. = ..(mapload, /datum/species/skeleton/lich)
+
+/mob/living/carbon/human/skeleton/brittle/Initialize(mapload)
+	. = ..(mapload, /datum/species/skeleton/brittle)
+
 /mob/living/carbon/human/kidan/Initialize(mapload)
 	. = ..(mapload, /datum/species/kidan)
 
@@ -1597,7 +1603,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return threatcount
 
 	//Check for ID
-	var/obj/item/card/id/idcard = get_idcard()
+	var/obj/item/card/id/idcard = get_idcard(TRUE)
 	if(judgebot.idcheck && !idcard)
 		threatcount += 4
 
@@ -2005,8 +2011,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
 
-/mob/living/carbon/human/proc/get_perceived_trauma()
-	return min(health, maxHealth - getStaminaLoss())
+/mob/living/carbon/human/proc/get_perceived_trauma(shock_reduction)
+	return min(health, maxHealth - getStaminaLoss()) + shock_reduction
 
 /mob/living/carbon/human/WakeUp(updating = TRUE)
 	if(dna.species.spec_WakeUp(src))
@@ -2038,7 +2044,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(client)
 			to_chat(usr, "[src]'s Metainfo:<br>[sanitize(client.prefs.active_character.metadata)]")
 		else
-			to_chat(usr, "[src] does not have any stored infomation!")
+			to_chat(usr, "[src] does not have any stored information!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
 

@@ -140,6 +140,8 @@
 /////////////
 
 #define STATUS_EFFECT_HIGHFIVE /datum/status_effect/high_five
+#define STATUS_EFFECT_DAP /datum/status_effect/high_five/dap
+#define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
@@ -154,3 +156,8 @@
 #define STATUS_EFFECT_OFFERING_ITEM /datum/status_effect/offering_item
 
 #define STATUS_EFFECT_BLOB_BURST /datum/status_effect/blob_burst
+
+/// gives you fluff messages for cough, sneeze, headache, etc but without an actual virus
+#define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
+/// This status effect lets the user see the lwap dots.
+#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope 

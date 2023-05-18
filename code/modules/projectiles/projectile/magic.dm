@@ -35,7 +35,7 @@
 			else if(target.stat != DEAD)
 				to_chat(target, "<span class='notice'>You feel great!</span>")
 			return
-		if(ismachineperson(target)) //speshul snowfleks deserv speshul treetment
+		if(ismachineperson(target) || issilicon(target)) //speshul snowfleks deserv speshul treetment
 			target.adjustFireLoss(6969)  //remember - slimes love fire
 		target.death(FALSE)
 

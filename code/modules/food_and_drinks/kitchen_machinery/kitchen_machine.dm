@@ -25,6 +25,10 @@
 	///Sound used when starting and ending cooking
 	var/datum/looping_sound/kitchen/soundloop
 	var/soundloop_type
+	/// Time between special attacks
+	var/special_attack_cooldown_time = 7 SECONDS
+	/// Whether or not a special attack can be performed right now
+	var/special_attack_on_cooldown = FALSE
 
 /*******************
 *   Initialising
@@ -111,8 +115,9 @@
 			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return TRUE
-	else if(istype(O,/obj/item/grab))
-		return special_attack(O, user)
+	else if(istype(O, /obj/item/grab))
+		var/obj/item/grab/G = O
+		return special_attack_grab(G, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
 		return TRUE
@@ -141,8 +146,49 @@
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return FALSE
 
-/obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
-	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
+/obj/machinery/kitchen_machine/proc/special_attack_grab(obj/item/grab/G, mob/user)
+	if(special_attack_on_cooldown)
+		return FALSE
+	if(!istype(G))
+		return FALSE
+	if(!iscarbon(G.affecting))
+		to_chat(user, "<span class='warning'>You can't shove that in there!</span>")
+		return FALSE
+	if(G.state < GRAB_AGGRESSIVE)
+		to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
+		return FALSE
+	var/result = special_attack(user, G.affecting, TRUE)
+	user.changeNext_move(CLICK_CD_MELEE)
+	special_attack_on_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, special_attack_on_cooldown, FALSE), special_attack_cooldown_time)
+	if(result && !isnull(G) && !QDELETED(G))
+		qdel(G)
+
+	return TRUE
+
+/**
+ * Perform the special grab interaction.
+ * Return TRUE to drop the grab or FALSE to keep the grab afterwards.
+ */
+/obj/machinery/kitchen_machine/proc/special_attack(mob/user, mob/living/carbon/target, obj/item/grab/G)
+	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [target] in this [src].</span>")
+	return FALSE
+
+/obj/machinery/kitchen_machine/shove_impact(mob/living/target, mob/living/attacker)
+	if(special_attack_on_cooldown)
+		return FALSE
+
+	if(!operating)
+		// only do a special interaction if it's actually cooking something
+		return FALSE
+
+	return special_attack_shove(target, attacker)
+
+/**
+ * Perform a special shove attack.
+ * The return value of this proc gets passed up to shove_impact, so returning TRUE will prevent any further shove handling (like knockdown).
+ */
+/obj/machinery/kitchen_machine/proc/special_attack_shove(mob/living/target, mob/living/attacker)
 	return FALSE
 
 /********************
@@ -288,9 +334,9 @@
 
 			qdel(O)
 		source.reagents.clear_reagents()
-
-		var/reagents_per_serving = temp_reagents.total_volume / efficiency
-		for(var/i in 1 to efficiency) // Extra servings when upgraded, ingredient reagents split equally
+		var/portions = recipe.duplicate ? efficiency : 1
+		var/reagents_per_serving = temp_reagents.total_volume / portions
+		for(var/i in 1 to portions) // Extra servings when upgraded, ingredient reagents split equally
 			var/obj/cooked = new recipe.result(loc)
 			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
 		temp_reagents.clear_reagents()
@@ -301,7 +347,7 @@
 
 		if(istype(source, /obj/item/mixing_bowl)) // Cooking in mixing bowls returns them dirtier
 			var/obj/item/mixing_bowl/mb = source
-			mb.make_dirty(5 * efficiency)
+			mb.make_dirty(5 * portions)
 			mb.forceMove(loc)
 
 	stop()

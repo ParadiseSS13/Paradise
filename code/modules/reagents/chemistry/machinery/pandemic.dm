@@ -323,7 +323,7 @@
 	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
 		power_change()
 		return
-	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
+	if((istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER)) && user.a_intent != INTENT_HARM)
 		if(stat & (NOPOWER|BROKEN))
 			return
 		if(beaker)

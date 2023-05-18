@@ -126,6 +126,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/keybindings_overrides = null
 	/// Player's region override for routing optimisation
 	var/server_region = null
+	/// List of admin ckeys this player wont hear sounds from
+	var/list/admin_sound_ckey_ignore = list()
 
 /datum/preferences/New(client/C, datum/db_query/Q) // Process our query
 	parent = C

@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(uid_log)
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/list/sorted = sortTim(GLOB.uid_log, cmp=/proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/sorted = sortTim(GLOB.uid_log, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	var/list/text = list("<h1>UID Log</h1>", "<p>Current UID: [GLOB.next_unique_datum_id]</p>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"

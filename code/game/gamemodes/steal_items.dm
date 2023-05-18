@@ -92,7 +92,7 @@
 	altitems = list(/obj/item/photo)
 	location_override = "the Chief Engineer's Office"
 
-/datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
+/datum/theft_objective/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints/ce))
 		return 1
 	if(istype(I, /obj/item/photo))

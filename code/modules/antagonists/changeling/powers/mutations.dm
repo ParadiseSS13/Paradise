@@ -481,10 +481,14 @@
 		var/obj/item/I = hitby
 		if(istype(I, /obj/item/circular_saw))
 			armor_durability -= 25 // saws used to cut away armor through an interaction, so let's keep them somewhat more effective
-		else if(I.damtype == BURN)
-			armor_durability -= damage * 2
+		else if(istype(I))
+			if(I.damtype == BURN)
+				armor_durability -= damage * 2
+			else
+				armor_durability -= damage
 		else
-			armor_durability -= damage
+			armor_durability--
+		
 	if(armor_durability <= 0)
 		visible_message("<span class='warning'>[owner]'s chitinous armor collapses in clumps onto the ground.</span>")
 		new /obj/effect/decal/cleanable/shreds(owner.loc)

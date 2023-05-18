@@ -10,14 +10,6 @@
 	. = ..()
 	flick(icon_state + "_anim", src)
 
-/obj/screen/ghost/jumptomob
-	name = "Jump to mob"
-	icon_state = "jumptomob"
-
-/obj/screen/ghost/jumptomob/Click()
-	var/mob/dead/observer/G = usr
-	G.jumptomob()
-
 /obj/screen/ghost/orbit
 	name = "Orbit"
 	icon_state = "orbit"
@@ -94,10 +86,6 @@
 /datum/hud/ghost/New(mob/owner)
 	..()
 	var/obj/screen/using
-
-	using = new /obj/screen/ghost/jumptomob()
-	using.screen_loc = ui_ghost_jumptomob
-	static_inventory += using
 
 	using = new /obj/screen/ghost/orbit()
 	using.screen_loc = ui_ghost_orbit

@@ -50,8 +50,6 @@ SUBSYSTEM_DEF(economy)
 
 	/// points gained per slip returned
 	var/credits_per_manifest = 5
-	/// points gained per crate returned
-	var/credits_per_crate = 15
 	/// points gained per intel returned
 	var/credits_per_intel = 750
 	/// points gained per plasma returned

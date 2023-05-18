@@ -38,6 +38,8 @@
 	var/list/items // example: =list(/obj/item/crowbar, /obj/item/welder) // place /foo/bar before /foo
 	var/result //example: = /obj/item/reagent_containers/food/snacks/donut
 	var/time = 100 // 1/10 part of second
+	/// Whether or not an upgraded kitchen machine will create more products using the same amount of ingredients
+	var/duplicate = TRUE
 	var/byproduct		// example: = /obj/item/kitchen/mould		// byproduct to return, such as a mould or trash
 
 /datum/recipe/proc/check_reagents(datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
