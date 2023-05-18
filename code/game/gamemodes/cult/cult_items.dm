@@ -324,6 +324,7 @@
 	desc = "This relic teleports you forward by a medium distance."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
+	w_class = WEIGHT_CLASS_SMALL
 	var/uses = 4
 
 /obj/item/cult_shift/examine(mob/user)
