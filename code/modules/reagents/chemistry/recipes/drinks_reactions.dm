@@ -1063,3 +1063,11 @@
 	required_reagents = list("space_drugs" = 1, "sodawater" = 1, "grapejuice" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/snakebite
+	name = "Snakebite"
+	id = "snakebite"
+	result = "snakebite"
+	required_reagents = list("cider" = 1, "lager" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

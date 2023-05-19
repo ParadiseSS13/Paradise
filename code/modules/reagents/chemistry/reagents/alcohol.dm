@@ -275,6 +275,18 @@
 	M.Jitter(10 SECONDS)
 	return ..()
 
+/datum/reagent/consumable/ethanol/lager
+	name = "Lager"
+	id = "lager"
+	description = "A pale beer, perfect for watching a match of space football."
+	reagent_state = LIQUID
+	color = "#e7a326" //rgb: 231, 163, 38
+	alcohol_perc = 0.1
+	drink_icon = "meadglass"
+	drink_name = "Glass of Lager"
+	drink_desc = "A traditional pale beer popular amongst sports fans. Perfect for space football and marital disputes."
+	taste_description = "lager"
+
 
 /////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
 
@@ -1776,3 +1788,14 @@
 	mutated = TRUE
 
 	return ..()
+
+/datum/reagent/consumable/ethanol/snakebite
+	name = "Snakebite"
+	id = "snakebite"
+	description = "A potent beer cocktail mixing lager and cider, and an alcoholic's favourite science experiment."
+	color = "#c53a00" //rgb: 197, 58, 0
+	alcohol_perc = 0.4
+	drink_icon = "snakebite"
+	drink_name = "Glass of Snakebite"
+	drink_desc = "A potent beer cocktail mixing lager and cider, and an alcoholic's favourite science experiment."
+	taste_description = "lager and cider"
