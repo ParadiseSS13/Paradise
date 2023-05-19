@@ -1,6 +1,6 @@
 /datum/action/changeling/biodegrade
 	name = "Biodegrade"
-	desc = "Dissolves restraints or other objects preventing free movement if we are restrained. Prepares hand to vomits acid on other object, doesnt work on living targets. Costs 30 chemicals."
+	desc = "Dissolves restraints or other objects preventing free movement if we are restrained. Prepares hand to vomit acid on other objects, doesn't work on living targets. Costs 30 chemicals."
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
 	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
