@@ -275,7 +275,7 @@
 	icon_state = "dropwall"
 	item_state = "grenade"
 	mode = AUTO
-	var/uptime = DROPWALL_UPTIME SECONDS
+	var/uptime = DROPWALL_UPTIME
 	/// If this is true we do not arm again, due to the sleep
 	var/deployed = FALSE
 	/// Mob who armed it. Needed for the get_dir proc
