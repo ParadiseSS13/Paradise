@@ -436,7 +436,7 @@
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe(src.loc)
 				A.add_fingerprint(user)
-				var/obj/item/shard/shard = (src.loc)
+				var/obj/item/shard/shard = new(src.loc)
 				shard.add_fingerprint(user)
 				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)
 				M.add_fingerprint(user)

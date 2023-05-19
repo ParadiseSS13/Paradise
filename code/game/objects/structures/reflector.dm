@@ -64,7 +64,7 @@
 		if(istype(W, /obj/item/stack/sheet/mineral/diamond))
 			if(S.get_amount() >= 1)
 				S.use(1)
-				var/obj/structure/reflector/box/reflector = new(src.loc)
+				var/obj/structure/reflector/box/reflector = new(loc)
 				reflector.add_fingerprint(user)
 				qdel(src)
 		return
