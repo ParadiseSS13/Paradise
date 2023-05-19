@@ -7,8 +7,8 @@
 	dna_cost = 2
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	var/hand = /obj/item/melee/changeling_corrosive_acid
-	var/obj/item/melee/changeling_corrosive_acid/current_hand
+	var/hand = /obj/item/melee/changeling_corrosive_acid //Type of acid hand we give to person
+	var/obj/item/melee/changeling_corrosive_acid/current_hand //Current hand given to human, null is we did not give hand, object if hand is given
 
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
