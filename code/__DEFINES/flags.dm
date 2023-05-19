@@ -186,6 +186,10 @@
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
 
+#define EMP_PROTECT_SELF (1<<0)
+#define EMP_PROTECT_CONTENTS (1<<1)
+#define EMP_PROTECT_WIRES (1<<2)
+
 //Mob mobility var flags
 /// can move
 #define MOBILITY_MOVE (1<<0)

@@ -174,6 +174,120 @@
 			I.appearance_flags = old_appearance_flags
 	else
 		..()
+
+/datum/action/proc/build_all_button_icons(update_flags = ALL, force)
+	for(var/datum/hud/hud as anything in viewers)
+		build_button_icon(viewers[hud], update_flags, force)
+
+	if(!button)
+		return
+
+	if(update_flags & UPDATE_BUTTON_NAME)
+		update_button_name(button, force)
+
+	if(update_flags & UPDATE_BUTTON_BACKGROUND)
+		apply_button_background(button, force)
+
+	if(update_flags & UPDATE_BUTTON_ICON)
+		apply_button_icon(button, force)
+
+	if(update_flags & UPDATE_BUTTON_OVERLAY)
+		apply_button_overlay(button, force)
+
+	if(update_flags & UPDATE_BUTTON_STATUS)
+		update_button_status(button, force)
+
+/datum/action/proc/update_button_name(atom/movable/screen/movable/action_button/button, force = FALSE)
+	button.name = name
+	if(desc)
+		button.desc = desc
+
+/**
+ * Creates the background underlay for the button
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/apply_button_background(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+	if(!background_icon || !background_icon_state || (current_button.active_underlay_icon_state == background_icon_state && !force))
+		return
+
+	// What icons we use for our background
+	var/list/icon_settings = list(
+		// The icon file
+		"bg_icon" = background_icon,
+		// The icon state, if is_action_active() returns FALSE
+		"bg_state" = background_icon_state,
+		// The icon state, if is_action_active() returns TRUE
+		"bg_state_active" = background_icon_state,
+	)
+
+	// If background_icon_state is ACTION_BUTTON_DEFAULT_BACKGROUND instead use our hud's action button scheme
+	if(background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND && owner?.hud_used)
+		icon_settings = owner.hud_used.get_action_buttons_icons()
+
+	// Determine which icon to use
+	var/used_icon_key = is_action_active(current_button) ? "bg_state_active" : "bg_state"
+
+	// Make the underlay
+	current_button.underlays.Cut()
+	current_button.underlays += image(icon = icon_settings["bg_icon"], icon_state = icon_settings[used_icon_key])
+	current_button.active_underlay_icon_state = icon_settings[used_icon_key]
+
+/**
+ * Applies our button icon and icon state to the button
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/apply_button_icon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+	if(!button_icon || !button_icon_state || (current_button.icon_state == button_icon_state && !force))
+		return
+
+	current_button.icon = button_icon
+	current_button.icon_state = button_icon_state
+
+/**
+ * Applies any overlays to our button
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/apply_button_overlay(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+
+	SEND_SIGNAL(src, COMSIG_ACTION_OVERLAY_APPLY, current_button, force)
+
+	if(!overlay_icon || !overlay_icon_state || (current_button.active_overlay_icon_state == overlay_icon_state && !force))
+		return
+
+	current_button.cut_overlay(current_button.button_overlay)
+	current_button.button_overlay = mutable_appearance(icon = overlay_icon, icon_state = overlay_icon_state)
+	current_button.add_overlay(current_button.button_overlay)
+	current_button.active_overlay_icon_state = overlay_icon_state
+
+/**
+ * Any other miscellaneous "status" updates within the action button is handled here,
+ * such as redding out when unavailable or modifying maptext.
+ *
+ * current_button - what button are we editing?
+ * force - whether an update is forced regardless of existing status
+ */
+/datum/action/proc/update_button_status(atom/movable/screen/movable/action_button/current_button, force = FALSE)
+	if(IsAvailable())
+		current_button.color = rgb(255,255,255,255)
+	else
+		current_button.color = transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+
+/// Gives our action to the passed viewer.
+/// Puts our action in their actions list and shows them the button.
+/datum/action/proc/GiveAction(mob/viewer)
+	var/datum/hud/our_hud = viewer.hud_used
+	if(viewers[our_hud]) // Already have a copy of us? go away
+		return
+
+	LAZYOR(viewer.actions, src) // Move this in
+	ShowTo(viewer)
+
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
