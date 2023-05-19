@@ -11,6 +11,7 @@
 	max_temperature = 15000
 	wreckage = /obj/structure/mecha_wreckage/reticence
 	operation_req_access = list(ACCESS_MIME)
+	maint_access = 1
 	add_req_access = 0
 	internal_damage_threshold = 60
 	max_equip = 3

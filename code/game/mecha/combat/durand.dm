@@ -10,6 +10,7 @@
 	armor = list(melee = 40, bullet = 35, laser = 15, energy = 10, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
+	maint_access = 1
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
 
@@ -42,6 +43,7 @@
 	armor = list(melee = 50, bullet = 35, laser = 15, energy = 15, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
+	maint_access = 0
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
@@ -57,6 +59,7 @@
 	armor = list(melee = 30, bullet = 15, laser = 50, energy = 50, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
+	maint_access = 0
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/rover
 	wall_type = /obj/effect/forcefield/mecha/syndicate //energywall icon_state
