@@ -14,33 +14,34 @@
 	var/max_combined_w_class = 15
 	/// Max amount of items in the storage.
 	var/max_items = 7
+	var/obj/item/storage/backpack/modstorage/bag
 
 /obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()
-	create_storage(max_specific_storage = max_w_class, max_total_storage = max_combined_w_class, max_slots = max_items)
-	atom_storage.allow_big_nesting = TRUE
-	atom_storage.locked = TRUE
+	var/obj/item/storage/backpack/modstorage/S = new(src)
+	bag = S
+	bag.max_w_class = max_w_class
+	bag.max_combined_w_class = max_combined_w_class
+	bag.max_items = max_items
+	bag.locked
 
 /obj/item/mod/module/storage/on_install()
-	var/datum/storage/modstorage = mod.create_storage(max_specific_storage = max_w_class, max_total_storage = max_combined_w_class, max_slots = max_items)
-	modstorage.set_real_location(src)
-	atom_storage.locked = FALSE
+	mod.bag = bag
+	bag.forceMove(mod)
 	RegisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_chestplate_unequip))
 
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
-	var/datum/storage/modstorage = mod.atom_storage
-	atom_storage.locked = TRUE
-	qdel(modstorage)
+	qdel(bag)
 	if(!deleting)
-		atom_storage.remove_all(get_turf(src))
+		bag.remove_all(get_turf(src))
 	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
 
 /obj/item/mod/module/storage/proc/on_chestplate_unequip(obj/item/source, force, atom/newloc, no_move, invdrop, silent)
 	if(QDELETED(source) || !mod.wearer || newloc == mod.wearer || !mod.wearer.s_store)
 		return
-	to_chat(mod.wearer, span_notice("[src] tries to store [mod.wearer.s_store] inside itself."))
-	if(atom_storage?.attempt_insert(mod.wearer.s_store, mod.wearer, override = TRUE))
-		mod.wearer.temporarilyRemoveItemFromInventory(mod.wearer.s_store)
+	to_chat(mod.wearer, ("<span class='notice'>[src] tries to store [mod.wearer.s_store] inside itself.</span>"))
+	if(bag?.attempt_insert(mod.wearer.s_store, mod.wearer, override = TRUE))
+		mod.wearer.UnEquip(I, force, null, TRUE, idrop, silent = TRUE)
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
@@ -80,6 +81,12 @@
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 60
 	max_items = 21
+
+
+//Internal
+/obj/item/storage/backpack/modstorage
+	name = "mod storage bag"
+	desc = "Either you tried to spawn a storage mod, or someone fucked up. Unless you are an admin that just tried to spawn something, issue report."
 
 ///Ion Jetpack - Lets the user fly freely through space using battery charge.
 /obj/item/mod/module/jetpack
@@ -162,33 +169,6 @@
 	overlay_state_inactive = "module_jetpackadv"
 	overlay_state_active = "module_jetpackadv_on"
 	full_speed = TRUE
-
-///Eating Apparatus - Lets the user eat/drink with the suit on.
-/obj/item/mod/module/mouthhole
-	name = "MOD eating apparatus module"
-	desc = "A favorite by Miners, this modification to the helmet utilizes a nanotechnology barrier infront of the mouth \
-		to allow eating and drinking while retaining protection and atmosphere. However, it won't free you from masks, \
-		lets pepper spray pass through and it will do nothing to improve the taste of a goliath steak."
-	icon_state = "apparatus"
-	complexity = 1
-	incompatible_modules = list(/obj/item/mod/module/mouthhole)
-	overlay_state_inactive = "module_apparatus"
-	/// Former flags of the helmet.
-	var/former_flags = NONE
-	/// Former visor flags of the helmet.
-	var/former_visor_flags = NONE
-
-/obj/item/mod/module/mouthhole/on_install()
-	former_flags = mod.helmet.flags_cover
-	former_visor_flags = mod.helmet.visor_flags_cover
-	mod.helmet.flags_cover &= ~HEADCOVERSMOUTH|PEPPERPROOF
-	mod.helmet.visor_flags_cover &= ~HEADCOVERSMOUTH|PEPPERPROOF
-
-/obj/item/mod/module/mouthhole/on_uninstall(deleting = FALSE)
-	if(deleting)
-		return
-	mod.helmet.flags_cover |= former_flags
-	mod.helmet.visor_flags_cover |= former_visor_flags
 
 ///EMP Shield - Protects the suit from EMPs.
 /obj/item/mod/module/emp_shield

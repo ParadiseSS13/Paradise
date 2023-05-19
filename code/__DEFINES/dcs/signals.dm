@@ -527,6 +527,10 @@
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_ATTACK_QDELETED "item_attack_qdeleted"
 ///from base of obj/item/equipped(): (/mob/equipper, slot)
+///called on [/obj/item] before unequip from base of [mob/proc/doUnEquip]: (force, atom/newloc, no_move, invdrop, silent)
+#define COMSIG_ITEM_PRE_UNEQUIP "item_pre_unequip"
+	///only the pre unequip can be cancelled
+	#define COMPONENT_ITEM_BLOCK_UNEQUIP (1<<0)
 #define COMSIG_ITEM_EQUIPPED "item_equip"
 ///from base of obj/item/dropped(): (mob/user)
 #define COMSIG_ITEM_DROPPED "item_drop"

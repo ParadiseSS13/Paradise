@@ -1,7 +1,7 @@
 /obj/item/mod/construction
 	desc = "A part used in MOD construction. You could insert it into a MOD shell"
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
-	inhand_icon_state = "rack_parts"
+	icon_state = "rack_parts"
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"

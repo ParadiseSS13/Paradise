@@ -83,14 +83,10 @@
 	var/list/modules = list()
 	/// Currently used module.
 	var/obj/item/mod/module/selected_module
-	/// AI mob inhabiting the MOD.
-	var/mob/living/silicon/ai/ai
-	/// Delay between moves as AI.
-	var/static/movedelay = 0
-	/// Cooldown for AI moves.
-	COOLDOWN_DECLARE(cooldown_mod_move) //tf is this?
 	/// Person wearing the MODsuit.
 	var/mob/living/carbon/human/wearer
+	/// Internal storage in a modsuit
+	var/obj/item/storage/backpack/modstorage/bag
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()

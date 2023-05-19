@@ -134,6 +134,10 @@
 		return TRUE
 	if((I.flags & NODROP) && !force)
 		return FALSE
+
+	if((SEND_SIGNAL(I, COMSIG_ITEM_PRE_UNEQUIP, force, newloc, no_move, invdrop, silent) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
+		return FALSE
+
 	return TRUE
 
 /mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.

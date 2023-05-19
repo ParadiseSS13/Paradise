@@ -269,10 +269,8 @@
 	. = ..()
 	if(!.)
 		return
-	mod.wearer.visible_message(span_warning("[mod.wearer] starts charging a kick!"), \
-		blind_message = span_hear("You hear a charging sound."))
+	mod.wearer.visible_message("<span class='warning'>[mod.wearer] starts charging a kick!</span>")
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
-	balloon_alert(mod.wearer, "you start charging...")
 	animate(mod.wearer, 0.3 SECONDS, pixel_z = 16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, SpinAnimation), 3, 2), 0.3 SECONDS)
 	if(!do_after(mod.wearer, 1 SECONDS, target = mod))
@@ -284,7 +282,7 @@
 	var/angle = get_angle(mod.wearer, target) + 180
 	mod.wearer.transform = mod.wearer.transform.Turn(angle)
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_IMPACT, PROC_REF(on_throw_impact))
-	mod.wearer.throw_at(target, range = 7, speed = 2, thrower = mod.wearer, spin = FALSE, gentle = TRUE, callback = CALLBACK(src, PROC_REF(on_throw_end), mod.wearer, -angle))
+	mod.wearer.throw_at(target, range = 7, speed = 2, thrower = mod.wearer, spin = FALSE, callback = CALLBACK(src, PROC_REF(on_throw_end), mod.wearer, -angle))
 
 /obj/item/mod/module/power_kick/proc/on_throw_end(mob/user, angle)
 	if(!user)
@@ -300,88 +298,11 @@
 		return
 	if(isliving(target))
 		var/mob/living/living_target = target
-		living_target.apply_damage(damage, BRUTE, mod.wearer.zone_selected, wound_bonus = wounding_power)
-		living_target.Knockdown(knockdown_time)
-	else if(target.uses_integrity)
-		target.take_damage(damage, BRUTE, MELEE)
+		living_target.apply_damage(damage, BRUTE, mod.wearer.zone_selected)
+		living_target.KnockDown(knockdown_time)
 	else
 		return
 	mod.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)
-
-///Chameleon - lets the suit disguise as any item that would fit on that slot.
-/obj/item/mod/module/chameleon
-	name = "MOD chameleon module"
-	desc = "A module using chameleon technology to disguise the suit as another object."
-	icon_state = "chameleon"
-	module_type = MODULE_USABLE
-	complexity = 2
-	incompatible_modules = list(/obj/item/mod/module/chameleon)
-	cooldown_time = 0.5 SECONDS
-	allow_flags = MODULE_ALLOW_INACTIVE
-	/// A list of all the items the suit can disguise as.
-	var/list/possible_disguises = list()
-	/// The path of the item we're disguised as.
-	var/obj/item/current_disguise
-
-/obj/item/mod/module/chameleon/on_install()
-	var/list/all_disguises = sort_list(subtypesof(get_path_by_slot(mod.slot_flags)), GLOBAL_PROC_REF(cmp_typepaths_asc))
-	for(var/clothing_path in all_disguises)
-		var/obj/item/clothing = clothing_path
-		if(!initial(clothing.icon_state))
-			continue
-		var/chameleon_item_name = "[initial(clothing.name)] ([initial(clothing.icon_state)])"
-		possible_disguises[chameleon_item_name] = clothing_path
-
-/obj/item/mod/module/chameleon/on_uninstall(deleting = FALSE)
-	if(current_disguise)
-		return_look()
-	possible_disguises = null
-
-/obj/item/mod/module/chameleon/on_use()
-	if(mod.active || mod.activating)
-		balloon_alert(mod.wearer, "suit active!")
-		return
-	. = ..()
-	if(!.)
-		return
-	if(current_disguise)
-		return_look()
-		return
-	var/picked_name = tgui_input_list(mod.wearer, "Select look to change into", "Chameleon Settings", possible_disguises)
-	if(!possible_disguises[picked_name] || mod.active || mod.activating)
-		return
-	current_disguise = possible_disguises[picked_name]
-	update_look()
-
-/obj/item/mod/module/chameleon/proc/update_look()
-	mod.name = initial(current_disguise.name)
-	mod.desc = initial(current_disguise.desc)
-	mod.icon_state = initial(current_disguise.icon_state)
-	mod.icon = initial(current_disguise.icon)
-	mod.worn_icon = initial(current_disguise.worn_icon)
-	mod.alternate_worn_layer = initial(current_disguise.alternate_worn_layer)
-	mod.lefthand_file = initial(current_disguise.lefthand_file)
-	mod.righthand_file = initial(current_disguise.righthand_file)
-	mod.worn_icon_state = initial(current_disguise.worn_icon_state)
-	mod.inhand_icon_state = initial(current_disguise.inhand_icon_state)
-	mod.wearer.update_clothing(mod.slot_flags)
-	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(return_look))
-
-/obj/item/mod/module/chameleon/proc/return_look()
-	mod.name = "[mod.theme.name] [initial(mod.name)]"
-	mod.desc = "[initial(mod.desc)] [mod.theme.desc]"
-	mod.icon_state = "[mod.skin]-[initial(mod.icon_state)]"
-	var/list/mod_skin = mod.theme.skins[mod.skin]
-	mod.icon = mod_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
-	mod.worn_icon = mod_skin[MOD_WORN_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
-	mod.alternate_worn_layer = mod_skin[CONTROL_LAYER]
-	mod.lefthand_file = initial(mod.lefthand_file)
-	mod.righthand_file = initial(mod.righthand_file)
-	mod.worn_icon_state = null
-	mod.inhand_icon_state = null
-	mod.wearer.update_clothing(mod.slot_flags)
-	current_disguise = null
-	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 
 ///Plate Compression - Compresses the suit to normal size
 /obj/item/mod/module/plate_compression
@@ -405,28 +326,8 @@
 	old_size = null
 	if(!mod.loc)
 		return
-	var/datum/storage/holding_storage = mod.loc.atom_storage
-	if(!holding_storage || holding_storage.max_specific_storage >= mod.w_class)
-		return
 	mod.forceMove(drop_location())
 
-/obj/item/mod/module/demoralizer
-	name = "MOD psi-echo demoralizer module"
-	desc = "One incredibly morbid member of the RND team at Roseus Galactic posed a question to her colleagues. \
-	'I desire the power to scar my enemies mentally as I murder them. Who will stop me implementing this in our next project?' \
-	And thus the Psi-Echo Demoralizer Device was reluctantly invented. The future of psychological warfare, today!"
-	icon_state = "brain_hurties"
-	complexity = 0
-	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
-	removable = FALSE
-	var/datum/proximity_monitor/advanced/demoraliser/demoralizer
-
-/obj/item/mod/module/demoralizer/on_suit_activation()
-	var/datum/demoralise_moods/module/mood_category = new()
-	demoralizer = new(mod.wearer, 7, TRUE, mood_category)
-
-/obj/item/mod/module/demoralizer/on_suit_deactivation(deleting = FALSE)
-	QDEL_NULL(demoralizer)
 
 /obj/item/mod/module/infiltrator
 	name = "MOD infiltration core programs module"
@@ -438,18 +339,12 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0
 	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/armor_booster, /obj/item/mod/module/welding)
 
-/obj/item/mod/module/infiltrator/on_install()
-	mod.item_flags |= EXAMINE_SKIP
-
-/obj/item/mod/module/infiltrator/on_uninstall(deleting = FALSE)
-	mod.item_flags &= ~EXAMINE_SKIP
-
 /obj/item/mod/module/infiltrator/on_suit_activation()
-	mod.wearer.add_traits(list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN), MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, "mod_trait")
 	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
 
 /obj/item/mod/module/infiltrator/on_suit_deactivation(deleting = FALSE)
-	mod.wearer.remove_traits(list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN), MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, "mod_trait")
 	if(deleting)
 		return
 	mod.helmet.flash_protect = initial(mod.helmet.flash_protect)

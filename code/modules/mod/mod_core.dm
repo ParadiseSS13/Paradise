@@ -279,13 +279,13 @@
 		if(0.75 to INFINITY)
 			mod.wearer.clear_alert("mod_charge")
 		if(0.5 to 0.75)
-			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 1)
+			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 1)
 		if(0.25 to 0.5)
-			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 2)
+			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 2)
 		if(0.01 to 0.25)
-			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 3)
+			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 3)
 		else
-			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell)
+			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/emptycell)
 
 /obj/item/mod/core/plasma/proc/on_attackby(datum/source, obj/item/attacking_item, mob/user)
 	SIGNAL_HANDLER
