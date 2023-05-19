@@ -53,8 +53,10 @@ research holder datum.
 	var/list/known_tech = list()				//List of locally known tech.
 	var/list/possible_designs = list()		//List of all designs
 	var/list/known_designs = list()			//List of available designs
-	var/list/blacklisted_designs = list()		//List of designs that have been blacklisted by the server controller
-	var/list/unblacklisted_designs = list()		//Used during the rnd sync system, to ensure that blacklists are reverted, then cleared.
+	/// List of designs that have been blacklisted by the server controller
+	var/list/blacklisted_designs = list()		
+	/// Used during the rnd sync system, to ensure that blacklists are reverted, then cleared.
+	var/list/unblacklisted_designs = list()
 
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
