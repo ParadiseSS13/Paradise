@@ -27,6 +27,7 @@
 /obj/item/projectile/beam/laser/ik/on_range() //Should spark out of the gun. Theoretically, one could emp projectiles out of the air. However, its more practical to EMP the guns, rather than projectiles in flight
 	do_sparks(1, 1, src)
 	..()
+
 /obj/item/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
