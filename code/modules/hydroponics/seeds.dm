@@ -140,24 +140,20 @@
 	return CEILING(return_yield, 1) // No decimal plants, please
 
 /obj/item/seeds/proc/harvest(mob/user = usr)
-	var/obj/machinery/hydroponics/parent = loc //for ease of access
-	var/t_amount = 0
-	var/list/result = list()
-	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc //needed for TK
+	var/obj/machinery/hydroponics/parent = loc // For ease of access
+	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc // Needed for TK
 	var/product_name
-	while(t_amount < getYield())
-		var/obj/item/reagent_containers/food/snacks/grown/t_prod = new product(output_loc, src)
-		result.Add(t_prod) // User gets a consumable
-		if(!t_prod)
+	for(var/i = 1 to getYield())
+		var/obj/item/reagent_containers/food/snacks/grown/produce = new product(output_loc, src)
+		if(!produce)
 			return
-		t_amount++
-		product_name = t_prod.name
-	if(getYield() >= 1)
+
+		product_name = produce.name
+
+	if(getYield())
 		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
+
 	parent.update_tray()
-
-	return result
-
 
 /obj/item/seeds/proc/prepare_result(obj/item/T)
 	if(!T.reagents)
