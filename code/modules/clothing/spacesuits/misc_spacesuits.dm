@@ -195,6 +195,8 @@
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
+	slowdown = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
