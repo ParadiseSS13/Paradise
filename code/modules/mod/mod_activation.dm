@@ -173,8 +173,6 @@
 		seal_part(helmet, seal = !active)
 	if(do_after(wearer, activation_step_time, wearer, extra_checks = CALLBACK(src, PROC_REF(has_wearer))))
 		to_chat(wearer, "<span class='notice'>Systems [active ? "shut down. Parts unsealed. Goodbye" : "started up. Parts sealed. Welcome"], [wearer].</span>")
-		if(ai)
-			to_chat(wearer, "<span class='notice'><b>SYSTEMS [active ? "DEACTIVATED. GOODBYE" : "ACTIVATED. WELCOME"]: \"[ai]\"</b></span>")
 		finish_activation(on = !active)
 		if(active)
 			playsound(src, 'sound/machines/synth_yes.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)

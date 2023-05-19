@@ -90,8 +90,6 @@
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
-	if(!movedelay)
-		movedelay = 1.5
 	if(new_theme)
 		theme = new_theme
 	theme = GLOB.mod_themes[theme]
@@ -179,13 +177,6 @@
 		var/obj/item/overslot = overslotting_parts[part]
 		overslot.forceMove(drop_location())
 		overslotting_parts[part] = null
-	if(ai)
-		ai
-		ai.remote_control = null
-		for(var/datum/action/action as anything in actions)
-			if(action.owner == ai)
-				action.Remove(ai)
-		new /obj/item/mod/ai_minicard(drop_location(), ai)
 	return ..()
 
 /obj/item/mod/control/examine(mob/user)
@@ -207,15 +198,9 @@
 			. += "You could remove [core] with a <b>wrench</b>."
 		else
 			. += "You could use a <b>MOD core</b> on it to install one."
-		if(ai)
-			. += "You could remove [ai] with an <b>intellicard</b>."
 		else
 			. += "You could install an AI with an <b>intellicard</b>."
-	. += "<i>You could examine it more thoroughly...</i>" //please no
-
-/obj/item/mod/control/examine_more(mob/user)
-	. = ..()
-	. += "<i>[extended_desc]</i>" //MNOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+	. += "<i>[extended_desc]</i>" //god is dead
 
 /obj/item/mod/control/process(seconds_per_tick)
 	if(seconds_electrified > 0)
@@ -398,12 +383,12 @@
 	. = ..()
 	if(!active || !wearer)
 		return
-	to_chat(user, "<span class='warning'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
+	to_chat(wearer, "<span class='warning'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
 	if(. & EMP_PROTECT_CONTENTS)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)
 	wearer.apply_damage(5 / severity, BURN, spread_damage=TRUE)
-	to_chat(user, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly!")
+	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly!")
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
 
@@ -440,7 +425,6 @@
 	wearer = user
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
 	RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
-	RegisterSignal(wearer, COMSIG_SPECIES_GAIN, PROC_REF(on_species_gain))
 	update_charge_alert()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_equip()
@@ -582,7 +566,7 @@
 	if(!wearer)
 		return
 	if(!core)
-		wearer.throw_alert("mod_charge", /atom/movable/screen/alert/nocore)
+		wearer.throw_alert("mod_charge", /obj/screen/alert/nocore)
 		return
 	core.update_charge_alert()
 

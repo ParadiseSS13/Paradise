@@ -148,30 +148,6 @@
 	for(var/track in songs)
 		. += track
 
-///Tanner - Tans you with spraytan.
-/obj/item/mod/module/tanner
-	name = "MOD tanning module"
-	desc = "A tanning module for modular suits. Skin cancer functionality has not been ever proven, \
-		although who knows with the rumors..."
-	icon_state = "tanning"
-	module_type = MODULE_USABLE
-	complexity = 1
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
-	incompatible_modules = list(/obj/item/mod/module/tanner)
-	cooldown_time = 30 SECONDS
-
-/obj/item/mod/module/tanner/on_use()
-	. = ..()
-	if(!.)
-		return
-	playsound(src, 'sound/machines/microwave/microwave-end.ogg', 50, TRUE)
-	var/datum/reagents/holder = new()
-	holder.add_reagent(/datum/reagent/spraytan, 10)
-	holder.trans_to(mod.wearer, 10, methods = VAPOR)
-	if(prob(5))
-		SSradiation.irradiate(mod.wearer)
-	drain_power(use_power_cost)
-
 ///Balloon Blower - Blows a balloon.
 /obj/item/mod/module/balloon
 	name = "MOD balloon blower module"
@@ -263,74 +239,3 @@
 	else
 		icon_state = "stamp-ok"
 	balloon_alert(user, "switched mode")
-
-///Atrocinator - Flips your gravity.
-/obj/item/mod/module/atrocinator
-	name = "MOD atrocinator module"
-	desc = "A mysterious orb that has mysterious effects when inserted in a MODsuit."
-	icon_state = "atrocinator"
-	module_type = MODULE_TOGGLE
-	complexity = 2
-	active_power_cost = DEFAULT_CHARGE_DRAIN
-	incompatible_modules = list(/obj/item/mod/module/atrocinator, /obj/item/mod/module/magboot, /obj/item/mod/module/anomaly_locked/antigrav)
-	cooldown_time = 0.5 SECONDS
-	overlay_state_inactive = "module_atrocinator"
-	/// How many steps the user has taken since turning the suit on, used for footsteps.
-	var/step_count = 0
-	/// If you use the module on a planetary turf, you fly up. To the sky.
-	var/you_fucked_up = FALSE
-
-/obj/item/mod/module/atrocinator/on_activation()
-	. = ..()
-	if(!.)
-		return
-	playsound(src, 'sound/effects/curseattack.ogg', 50)
-	mod.wearer.AddElement(/datum/element/forced_gravity, NEGATIVE_GRAVITY)
-	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(check_upstairs))
-	ADD_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, MOD_TRAIT)
-	check_upstairs() //todo at some point flip your screen around
-
-/obj/item/mod/module/atrocinator/on_deactivation(display_message = TRUE, deleting = FALSE)
-	if(you_fucked_up && !deleting)
-		to_chat(mod.wearer, span_danger("It's too late."))
-		return FALSE
-	. = ..()
-	if(!.)
-		return
-	if(deleting)
-		playsound(src, 'sound/effects/curseattack.ogg', 50)
-	qdel(mod.wearer.RemoveElement(/datum/element/forced_gravity, NEGATIVE_GRAVITY))
-	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
-	step_count = 0
-	REMOVE_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, MOD_TRAIT)
-	var/turf/open/openspace/current_turf = get_turf(mod.wearer)
-	if(istype(current_turf))
-		current_turf.zFall(mod.wearer, falling_from_move = TRUE)
-
-/obj/item/mod/module/atrocinator/proc/check_upstairs()
-	SIGNAL_HANDLER
-
-	if(you_fucked_up || mod.wearer.has_gravity() > NEGATIVE_GRAVITY)
-		return
-	var/turf/open/current_turf = get_turf(mod.wearer)
-	var/turf/open/openspace/turf_above = get_step_multiz(mod.wearer, UP)
-	if(current_turf && istype(turf_above))
-		current_turf.zFall(mod.wearer)
-	else if(!turf_above && istype(current_turf) && current_turf.planetary_atmos) //nothing holding you down
-		INVOKE_ASYNC(src, PROC_REF(fly_away))
-	else if(!(step_count % 2))
-		playsound(current_turf, 'sound/items/modsuit/atrocinator_step.ogg', 50)
-	step_count++
-
-#define FLY_TIME (5 SECONDS)
-
-/obj/item/mod/module/atrocinator/proc/fly_away()
-	you_fucked_up = TRUE
-	playsound(src, 'sound/effects/whirthunk.ogg', 75)
-	to_chat(mod.wearer, span_userdanger("That was stupid."))
-	investigate_log("has flown off into space due to the [src].", INVESTIGATE_DEATHS)
-	mod.wearer.Stun(FLY_TIME, ignore_canstun = TRUE)
-	animate(mod.wearer, FLY_TIME, pixel_z = 256, alpha = 0)
-	QDEL_IN(mod.wearer, FLY_TIME)
-
-#undef FLY_TIME

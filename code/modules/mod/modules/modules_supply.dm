@@ -87,7 +87,7 @@
 	if(length(stored_crates) >= max_crates)
 		to_chat(mod.wearer, "<span class='warning'>Too many crates!</span>")
 		return FALSE
-	for(var/mob/living/mob in target.get_contents())
+	for(var/mob/living/mob in target.client_mobs_in_contents)
 		if(mob.mob_size < MOB_SIZE_HUMAN)
 			continue
 		to_chat(mod.wearer, "<span class='warning'>Too heavy!</span>")

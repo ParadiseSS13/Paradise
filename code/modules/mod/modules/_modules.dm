@@ -72,7 +72,7 @@
 /obj/item/mod/module/proc/on_select()
 	if(((!mod.active || mod.activating) && !(allow_flags & MODULE_ALLOW_INACTIVE)) || module_type == MODULE_PASSIVE)
 		if(mod.wearer)
-			to_chat(user, "<span class='warning'>Module is not active!</span>")
+			to_chat(mod.wearer, "<span class='warning'>Module is not active!</span>")
 		return
 	if(module_type != MODULE_USABLE)
 		if(active)
