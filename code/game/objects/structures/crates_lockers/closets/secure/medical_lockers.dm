@@ -205,6 +205,7 @@
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/storage/firstaid/adv(src)
 	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/storage/toolbox/emergency(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
