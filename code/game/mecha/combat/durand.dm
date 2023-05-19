@@ -64,6 +64,7 @@
 	wreckage = /obj/structure/mecha_wreckage/durand/rover
 	wall_type = /obj/effect/forcefield/mecha/syndicate //energywall icon_state
 	large_wall = TRUE
+	strafe_allowed = TRUE
 
 /obj/mecha/combat/durand/rover/GrantActions(mob/living/user, human_occupant = 0)
 	..()
