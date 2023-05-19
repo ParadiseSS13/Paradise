@@ -180,7 +180,7 @@
 
 /datum/design/mag_laser
 	name = "Laser Rifle Projector Ammunition"
-	desc = "A 20 round encased projector box for the IK Laser Rifle series"
+	desc = "A 20 round encased projector box for the IK Laser Rifle series."
 	id = "mag_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
