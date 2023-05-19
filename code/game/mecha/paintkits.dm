@@ -21,7 +21,7 @@
 	new_name = "APLU \"Titan's Fist\""
 	new_desc = "This ordinary mining Ripley has been customized to look like a unit of the Titans Fist."
 	new_icon = "titan"
-	allowed_types = list("ripley")
+	allowed_types = list("ripley", "firefighter")
 
 /obj/item/paintkit/ripley_mercenary
 	name = "APLU \"Strike the Earth!\" customisation kit"
@@ -32,7 +32,7 @@
 	new_name = "APLU \"Strike the Earth!\""
 	new_desc = "Looks like an over worked, under maintained Ripley with some horrific damage."
 	new_icon = "earth"
-	allowed_types = list("ripley")
+	allowed_types = list("ripley", "firefighter")
 
 /obj/item/paintkit/gygax_syndie
 	name = "Syndicate Gygax customisation kit"
@@ -62,7 +62,7 @@
 	new_name = "APLU \"Firestarter\""
 	new_desc = "A standard APLU exosuit with stylish orange flame decals."
 	new_icon = "ripley_flames_red"
-	allowed_types = list("ripley")
+	allowed_types = list("ripley", "firefighter")
 
 /obj/item/paintkit/firefighter_Hauler
 	name = "APLU \"Hauler\" customisation kit"
@@ -72,7 +72,7 @@
 	new_name = "APLU \"Hauler\""
 	new_desc = "An old engineering exosuit. For lovers of classics."
 	new_icon = "hauler"
-	allowed_types = list( "firefighter")
+	allowed_types = list("ripley", "firefighter")
 
 /obj/item/paintkit/durand_shire
 	name = "Durand \"Shire\" modification kit"
@@ -92,7 +92,7 @@
 	new_name = "APLU \"Zairjah\""
 	new_desc = "A mining mecha of custom design, a closed cockpit with powerloader appendages."
 	new_icon = "ripley_zairjah"
-	allowed_types = list("firefighter")
+	allowed_types = list("ripley", "firefighter")
 
 /obj/item/paintkit/firefighter_combat
 	name = "APLU \"Combat Ripley\" customisation kit"
@@ -102,7 +102,7 @@
 	new_name = "APLU \"Combat Ripley\""
 	new_desc = "Wait a second, why does his equipment slots spark so dangerously?"
 	new_icon = "combatripley"
-	allowed_types = list("firefighter")
+	allowed_types = list("ripley", "firefighter")
 
 /obj/item/paintkit/firefighter_Reaper
 	name = "APLU \"Reaper\" customisation kit"
@@ -112,7 +112,7 @@
 	new_name = "APLU \"Reaper\""
 	new_desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA D- Stop, it's just a painted firefighter."
 	new_icon = "deathripley"
-	allowed_types = list("firefighter")
+	allowed_types = list("ripley", "firefighter")
 
 /obj/item/paintkit/odysseus_hermes
 	name = "Odysseus \"Hermes\" customisation kit"
@@ -182,7 +182,7 @@
 	new_name = "Aluminizer"
 	new_desc = "Did you just painted your Ripley white? It looks good."
 	new_icon = "aluminizer"
-	allowed_types = list("firefighter")
+	allowed_types = list("ripley", "firefighter")
 
 /obj/item/paintkit/odysseus_death
 	name = "Odysseus \"Reaper\" customisation kit"
