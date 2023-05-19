@@ -112,8 +112,6 @@
 	if(prob(traitmut))
 		add_random_traits(1, 1)
 
-
-
 /obj/item/seeds/bullet_act(obj/item/projectile/Proj) // Works with the Somatoray to modify plant variables.
 	if(istype(Proj, /obj/item/projectile/energy/florayield))
 		var/rating = 1
@@ -128,7 +126,6 @@
 	else
 		return ..()
 
-
 // Harvest procs
 /obj/item/seeds/proc/getYield()
 	var/return_yield = yield
@@ -140,8 +137,7 @@
 		else
 			return_yield *= (parent.yieldmod)
 
-	return return_yield
-
+	return CEILING(return_yield, 1) // No decimal plants, please
 
 /obj/item/seeds/proc/harvest(mob/user = usr)
 	var/obj/machinery/hydroponics/parent = loc //for ease of access
