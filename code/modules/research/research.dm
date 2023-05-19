@@ -132,9 +132,7 @@ research holder datum.
 			if(!AddDesign2Known(PD))
 				stack_trace("Game attempted to add a null design to list of known designs! Design: [PD] with ID: [PD.id]")
 	if(length(blacklisted_designs)) //No need to run this unless there are blacklisted designs
-		for(var/v in known_designs)
-			if(v in blacklisted_designs)
-				known_designs -= v
+		known_designs -= blacklisted_designs
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
 		T.level = clamp(T.level, 0, 20)
