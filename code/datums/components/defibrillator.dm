@@ -274,7 +274,7 @@
 		target.adjustBruteLoss(-heal_amount)
 
 		// Inflict some brain damage scaling with time spent dead
-		var/defib_time_brain_damage = min(100 * (DEFIB_TIME_LIMIT - time_dead) / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
+		var/defib_time_brain_damage = min(100 * time_dead / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
 		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
 			target.setBrainLoss(defib_time_brain_damage)
 
