@@ -215,7 +215,7 @@
 		return
 
 	if(target.undergoing_cardiac_arrest())
-		if(!target.get_int_organ(/obj/item/organ/internal/heart) && !target.get_int_organ(/obj/item/organ/internal/brain/slime)) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
+		if(!target.get_int_organ(/obj/item/organ/internal/heart) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
