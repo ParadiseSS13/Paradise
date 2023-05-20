@@ -110,15 +110,14 @@
 		take_damage(20, BRUTE, MELEE, 1)
 
 /obj/structure/grille/CanPass(atom/movable/mover, turf/target, height=0)
+	. = !density
 	if(height==0)
-		return 1
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
-		return 1
-	else
+		return TRUE
+	if(density)
 		if(istype(mover, /obj/item/projectile))
 			return prob(30)
-		else
-			return !density
 
 /obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
