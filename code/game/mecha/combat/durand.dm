@@ -16,13 +16,11 @@
 
 /obj/mecha/combat/durand/GrantActions(mob/living/user, human_occupant = 0)
 	..()
-	if(!istype(src, /obj/mecha/combat/durand/rover))
-		defense_action.Grant(user, src)
+	defense_action.Grant(user, src)
 
 /obj/mecha/combat/durand/RemoveActions(mob/living/user, human_occupant = 0)
 	..()
-	if(!istype(src, /obj/mecha/combat/durand/rover))
-		defense_action.Remove(user)
+	defense_action.Remove(user)
 
 /obj/mecha/combat/durand/loaded/New()
 	..()
@@ -48,7 +46,7 @@
 	wreckage = /obj/structure/mecha_wreckage/durand/old
 
 /obj/mecha/combat/durand/rover
-	desc = "Combat exosuit, developed by syndicate from the Durand Mk. II by scraping unnecessary things, and adding some of their tech. Much more protected from laser and energy weapons, less so from bullets."
+	desc = "Combat exosuit, developed by syndicate from the Durand Mk. II by scraping unnecessary things, and adding some of their tech. Much more protected from any Nanotrasen hazards."
 	name = "Rover"
 	icon_state = "darkdurand"
 	initial_icon = "darkdurand"
@@ -56,9 +54,10 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 400
 	deflect_chance = 20
-	armor = list(melee = 30, bullet = 15, laser = 50, energy = 50, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
+	armor = list(melee = 30, bullet = 40, laser = 50, energy = 50, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
+	max_equip = 4
 	maint_access = 0
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/rover
@@ -86,6 +85,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/ionshotgun
 	ME.attach(src)
 
 /obj/mecha/combat/durand/rover/loaded/add_cell()
