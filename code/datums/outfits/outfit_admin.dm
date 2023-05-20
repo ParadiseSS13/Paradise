@@ -1316,7 +1316,7 @@
 		backpack_contents.Add(/obj/item/gun/throw/piecannon)
 		backpack_contents[/obj/item/gun/throw/piecannon] = 1
 
-	var/clown_rank = pick("Trickster First Class", "Master Clown", "Prankster Major")
+	var/clown_rank = pick("Trickster First Class", "Master Clown", "Major Prankster")
 	var/clown_name = pick(GLOB.clown_names)
 	H.real_name = "[clown_rank] [clown_name]"
 
