@@ -547,6 +547,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"LU" = (
+/obj/structure/lattice,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/tcommsat)
 "Mt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing{
@@ -1704,12 +1708,12 @@ nX
 nX
 nX
 nX
-nX
+Wr
 Wr
 ot
 ot
 Wr
-nX
+Wr
 PO
 nX
 nX
@@ -1757,14 +1761,14 @@ FK
 PO
 PO
 PO
-PO
+LU
 Wr
 Vh
 kP
 PP
 ad
 ot
-PO
+LU
 nX
 nX
 nX
@@ -2081,14 +2085,14 @@ Qd
 PO
 PO
 PO
-PO
+LU
 Wr
 ab
 KD
 Za
 vl
 ot
-PO
+LU
 nX
 nX
 nX
@@ -2136,12 +2140,12 @@ nX
 nX
 nX
 nX
-nX
+Wr
 Wr
 ot
 Wr
 Wr
-nX
+Wr
 PO
 nX
 nX
