@@ -24,7 +24,7 @@
 			"description" = module.desc,
 			"module_type" = module.module_type,
 			"module_active" = module.active,
-			"pinned" = module.pinned_to[REF(user)],
+			"pinned" = module.pinned_to[UID(user)], //might just want user here
 			"idle_power" = module.idle_power_cost,
 			"active_power" = module.active_power_cost,
 			"use_power" = module.use_power_cost,
@@ -32,7 +32,7 @@
 			"cooldown_time" = module.cooldown_time,
 			"cooldown" = round(COOLDOWN_TIMELEFT(module, cooldown_timer), 1 SECONDS),
 			"id" = module.tgui_id,
-			"ref" = REF(module),
+			"ref" = UID(module), //might just want user here
 			"configuration_data" = module.get_configuration()
 		)
 		module_data += module.add_ui_data()

@@ -112,8 +112,6 @@
 	var/pinner_ref
 
 /datum/action/item_action/mod/pinned_module/New(Target, obj/item/mod/module/linked_module, mob/user)
-	if(isAI(user))
-		ai_action = TRUE
 	button_icon = linked_module.icon
 	button_icon_state = linked_module.icon_state
 	..()
@@ -132,11 +130,11 @@
 	return ..()
 
 /datum/action/item_action/mod/pinned_module/Grant(mob/user)
-	var/user_ref = REF(user)
-	if(!pinner_ref)
-		pinner_ref = user_ref
-		module.pinned_to[pinner_ref] = src
-	else if(pinner_ref != user_ref)
+	var/user_uid = UID(user)
+	if(!pinner_uid)
+		pinner_uid = user_uid
+		module.pinned_to[uid] = src
+	else if(pinner_uis != user_uisf)
 		return
 	return ..()
 

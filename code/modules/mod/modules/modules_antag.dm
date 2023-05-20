@@ -50,7 +50,7 @@
 	mod.slowdown -= actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.set_armor(part.getarmor().add_other_armor(armor_mod))
+		part.armor.attachArmor(armor_mod)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
@@ -67,7 +67,7 @@
 	mod.slowdown += actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.set_armor(part.getarmor().subtract_other_armor(armor_mod))
+		part.armor.detachArmor(armor_mod)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
@@ -136,7 +136,7 @@
 	mod.boots.flags |= NOSLIP
 
 /obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
-	mod.boots.flags ~= NOSLIP
+	mod.boots.flags ^= NOSLIP
 
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock.
 /obj/item/mod/module/springlock/bite_of_87

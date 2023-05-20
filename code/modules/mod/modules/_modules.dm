@@ -39,7 +39,7 @@
 	var/cooldown_time = 0
 	/// The mouse button needed to use this module
 	var/used_signal
-	/// List of REF()s mobs we are pinned to, linked with their action buttons
+	/// List of UID()s mobs we are pinned to, linked with their action buttons
 	var/list/pinned_to = list()
 	/// flags that let the module ability be used in odd circumstances
 	var/allow_flags = NONE
@@ -101,7 +101,7 @@
 			if(mod.wearer.put_in_hands(device))
 				to_chat(mod.wearer, "<span class='notice'>[device] extended.</span>")
 				RegisterSignal(mod.wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
-				RegisterSignal(mod.wearer, COMSIG_KB_MOB_DROPITEM_DOWN, PROC_REF(dropkey))
+				RegisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dropkey))
 			else
 				to_chat(mod.wearer, "<span class='warning'>You can not extend the [device]!</span>")
 				mod.wearer.drop_item()
@@ -126,7 +126,7 @@
 		if(device)
 			mod.wearer.drop_item()
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
-			UnregisterSignal(mod.wearer, COMSIG_KB_MOB_DROPITEM_DOWN)
+			UnregisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP)
 		else
 			UnregisterSignal(mod.wearer, used_signal)
 			used_signal = null
@@ -152,7 +152,7 @@
 
 /// Called when an activated module without a device is used
 /obj/item/mod/module/proc/on_select_use(atom/target)
-	if(!(allow_flags & MODULE_ALLOW_INCAPACITATED) && mod.wearer.incapacitated(IGNORE_GRAB))
+	if(!(allow_flags & MODULE_ALLOW_INCAPACITATED))
 		return FALSE
 	mod.wearer.face_atom(target)
 	if(!on_use())
@@ -292,7 +292,7 @@
 	if(module_type == MODULE_PASSIVE)
 		return
 
-	var/datum/action/item_action/mod/pinned_module/existing_action = pinned_to[REF(user)]
+	var/datum/action/item_action/mod/pinned_module/existing_action = pinned_to[UID(user)]
 	if(existing_action)
 		mod.remove_item_action(existing_action)
 		return

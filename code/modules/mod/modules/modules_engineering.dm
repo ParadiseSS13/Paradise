@@ -65,7 +65,7 @@
 	. = ..()
 	if(!.)
 		return
-	mod.boots.flags ~= NOSLIP
+	mod.boots.flags ^= NOSLIP
 	mod.slowdown -= slowdown_active
 	mod.boots.magbooted = FALSE
 
@@ -74,64 +74,6 @@
 	removable = FALSE
 	complexity = 0
 	slowdown_active = 0
-
-///Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
-/obj/item/mod/module/tether
-	name = "MOD emergency tether module"
-	desc = "A custom-built grappling-hook powered by a winch capable of hauling the user. \
-		While some older models of cargo-oriented grapples have capacities of a few tons, \
-		these are only capable of working in zero-gravity environments, a blessing to some Engineers."
-	icon_state = "tether"
-	module_type = MODULE_ACTIVE
-	complexity = 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN
-	incompatible_modules = list(/obj/item/mod/module/tether)
-	cooldown_time = 1.5 SECONDS
-
-/obj/item/mod/module/tether/on_use()
-	if(mod.wearer.mob_has_gravity())
-		balloon_alert(mod.wearer, "too much gravity!")
-		playsound(src, 'sound/weapons/gun/general/dry_fire.ogg', 25, TRUE)
-		return FALSE
-	return ..()
-
-/obj/item/mod/module/tether/on_select_use(atom/target)
-	. = ..()
-	if(!.)
-		return
-	var/obj/projectile/tether = new /obj/projectile/tether(mod.wearer.loc)
-	tether.preparePixelProjectile(target, mod.wearer)
-	tether.firer = mod.wearer
-	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
-	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/projectile, fire))
-	drain_power(use_power_cost)
-
-/obj/projectile/tether
-	name = "tether"
-	icon_state = "tether_projectile"
-	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	damage = 0
-	range = 10
-	hitsound = 'sound/weapons/batonextend.ogg'
-	hitsound_wall = 'sound/weapons/batonextend.ogg'
-	suppressed = SUPPRESSED_VERY
-	hit_threshhold = LATTICE_LAYER
-	/// Reference to the beam following the projectile.
-	var/line
-
-/obj/projectile/tether/fire(setAngle)
-	if(firer)
-		line = firer.Beam(src, "line", 'icons/obj/clothing/modsuit/mod_modules.dmi', emissive = FALSE)
-	..()
-
-/obj/projectile/tether/on_hit(atom/target)
-	. = ..()
-	if(firer)
-		firer.throw_at(target, 10, 1, firer, FALSE, FALSE, null, MOVE_FORCE_NORMAL, TRUE)
-
-/obj/projectile/tether/Destroy()
-	QDEL_NULL(line)
-	return ..()
 
 ///Radiation Protection - Gives the user rad info in the ui, currently
 /obj/item/mod/module/rad_protection

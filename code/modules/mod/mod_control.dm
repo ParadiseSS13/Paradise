@@ -119,7 +119,7 @@
 	for(var/obj/item/part as anything in all_parts)
 		part.name = "[theme.name] [part.name]"
 		part.desc = "[part.desc] [theme.desc]"
-		part.set_armor(theme.armor_type)
+		part.armor.attachArmor(theme.armor_type)
 		part.resistance_flags = theme.resistance_flags
 		part.flags |= theme.atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add
 		part.heat_protection = NONE
@@ -240,15 +240,6 @@
 	if(!wearer || old_loc != wearer || loc == wearer)
 		return
 	clean_up()
-
-/obj/item/mod/control/allow_attack_hand_drop(mob/user) //this is a made up proc?
-	if(user != wearer)
-		return
-	for(var/obj/item/part as anything in mod_parts)
-		if(part.loc != src)
-			to_chat(user, "<span class='warning'>Retract parts first!</span>")
-			playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
-			return FALSE
 
 ///obj/item/mod/control/MouseDrop(atom/over_object)
 //	if(usr != wearer) //  || !istype(over_object, /atom/movable/screen/inventory/hand)// hopefully not important
@@ -454,7 +445,7 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(module.module_type == MODULE_PASSIVE)
 			continue
-		display_names[module.name] = REF(module)
+		display_names[module.name] = UID(module)
 		var/image/module_image = image(icon = module.icon, icon_state = module.icon_state)
 		if(module == selected_module)
 			module_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_selected")

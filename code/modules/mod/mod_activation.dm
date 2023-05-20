@@ -5,7 +5,7 @@
 	var/list/display_names = list()
 	var/list/items = list()
 	for(var/obj/item/part as anything in mod_parts)
-		display_names[part.name] = REF(part)
+		display_names[part.name] = UID(part)
 		var/image/part_image = image(icon = part.icon, icon_state = part.icon_state)
 		if(part.loc != src)
 			part_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_active")
@@ -202,8 +202,8 @@
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 		part.alternate_worn_layer = mod_parts[part]
-		if(ishuman(mod.wearer))
-			var/mob/living/carbon/human/h = mod.wearer
+		if(ishuman(wearer))
+			var/mob/living/carbon/human/H = mod.wearer
 			H.regenerate_icons()//TODO SPECIFIY THIS
 
 /// Finishes the suit's activation, starts processing

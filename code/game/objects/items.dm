@@ -133,6 +133,11 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
+	///Icon file for mob worn overlays.
+	var/icon/worn_icon
+	///Icon state for mob worn overlays, if null the normal icon_state will be used.
+	var/worn_icon_state
+
 /obj/item/New()
 	..()
 

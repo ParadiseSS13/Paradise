@@ -63,12 +63,12 @@
 		drain_power(use_power_cost)
 	else if(length(stored_crates))
 		var/turf/target_turf = get_turf(target)
-		if(target_turf.is_blocked_turf())
+		if(target_turf.density)
 			return
 		playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
 		if(!do_after(mod.wearer, load_time, target = target))
 			return
-		if(target_turf.is_blocked_turf())
+		if(target_turf.density)
 			return
 		var/atom/movable/dropped_crate = pop(stored_crates)
 		dropped_crate.forceMove(target_turf)
@@ -317,7 +317,7 @@
 		return
 	mod.wearer.start_pulling(locker)
 
-/obj/item/mod/module/ash_accretion
+/obj/item/mod/module/ash_accretion//Disabled armor values for now so it compiles
 	name = "MOD ash accretion module"
 	desc = "A module that collects ash from the terrain, covering the suit in a protective layer, this layer is \
 		lost when moving across standard terrain."
@@ -368,9 +368,9 @@
 	if(!traveled_tiles)
 		return
 	var/list/parts = mod.mod_parts + mod
-	var/datum/armor/to_remove = getarmor_by_type(armor_mod)
+	//var/datum/armor/to_remove = getarmor_by_type(armor_mod)
 	for(var/obj/item/part as anything in parts)
-		part.set_armor(part.getarmor().subtract_other_armor(to_remove.generate_new_with_multipliers(list(ARMOR_ALL = traveled_tiles))))
+		//part.set_armor(part.getarmor().subtract_other_armor(to_remove.generate_new_with_multipliers(list(ARMOR_ALL = traveled_tiles))))
 	if(traveled_tiles == max_traveled_tiles)
 		mod.slowdown += speed_added
 	traveled_tiles = 0
@@ -390,7 +390,7 @@
 		traveled_tiles++
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			part.set_armor(part.getarmor().add_other_armor(armor_mod))
+			//part.set_armor(part.getarmor().add_other_armor(armor_mod))
 		if(traveled_tiles >= max_traveled_tiles)
 			to_chat(mod.wearer, "<span class='notice'>You are fully covered in ash!</span>")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
@@ -408,7 +408,7 @@
 		traveled_tiles--
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			part.set_armor(part.getarmor().subtract_other_armor(armor_mod))
+			//part.set_armor(part.getarmor().subtract_other_armor(armor_mod))
 		if(traveled_tiles <= 0)
 			to_chat(mod.wearer, "<span class='warning'>You have ran out of ash!</span>")
 

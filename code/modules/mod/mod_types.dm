@@ -28,9 +28,9 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(!default_pins[module.type]) //this module isnt meant to be pinned by default
 			continue
-		if(REF(wearer) in default_pins[module.type]) //if we already had pinned once to this user, don care anymore
+		if(UID(wearer) in default_pins[module.type]) //if we already had pinned once to this user, don care anymore
 			continue
-		default_pins[module.type] += REF(wearer)
+		default_pins[module.type] += UID(wearer)
 		module.pin(wearer)
 
 /obj/item/mod/control/pre_equipped/uninstall(obj/item/mod/module/old_module, deleting)
@@ -268,10 +268,8 @@
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/tether,
 	)
 	default_pins = list(
-		/obj/item/mod/module/tether,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
@@ -384,13 +382,12 @@
 /obj/item/mod/control/pre_equipped/debug
 	theme = /datum/mod_theme/debug
 	applied_core = /obj/item/mod/core/infinite
-	applied_modules = list( //one of every type of module, for testing if they all work correctly
+	applied_modules = list( //one of every type of module, for testing if they all work correctly // boy this isn't even 25% the modules
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/bikehorn,
 		/obj/item/mod/module/rad_protection,
-		/obj/item/mod/module/tether,
 		/obj/item/mod/module/injector,
 	)
 
