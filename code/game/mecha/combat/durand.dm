@@ -62,8 +62,11 @@
 	maint_access = 0
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/rover
+	internal_damage_threshold = 35
 	wall_type = /obj/effect/forcefield/mecha/syndicate //energywall icon_state
 	large_wall = TRUE
+	starting_voice = /obj/item/mecha_modkit/voice/syndicate
+	destruction_sleep_duration = 1
 	strafe_allowed = TRUE
 
 /obj/mecha/combat/durand/rover/GrantActions(mob/living/user, human_occupant = 0)
@@ -80,7 +83,10 @@
 	..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
+	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	ME.attach(src)
+
+/obj/mecha/combat/durand/rover/loaded/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src)

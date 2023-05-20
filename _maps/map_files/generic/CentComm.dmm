@@ -26390,15 +26390,19 @@
 /obj/item/stack/cable_coil{
 	pixel_y = 10
 	},
-/obj/item/stock_parts/cell/high{
+/obj/item/stock_parts/cell/bluespace{
 	pixel_x = 6;
 	pixel_y = 1
 	},
-/obj/item/stock_parts/cell/high{
+/obj/item/stock_parts/cell/bluespace{
 	pixel_x = 6;
 	pixel_y = 1
 	},
-/obj/item/stock_parts/cell/high{
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/stock_parts/cell/bluespace{
 	pixel_x = 6;
 	pixel_y = 1
 	},
@@ -32347,7 +32351,7 @@
 /area/centcom/bridge)
 "qxu" = (
 /obj/structure/table/glass,
-/obj/item/storage/backpack/duffel/syndie/surgery_fake,
+/obj/item/storage/backpack/duffel/syndie/surgery,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
