@@ -51,63 +51,62 @@
 	var/list/skins = list(
 		"standard" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				SEALED_INVISIBILITY =  HIDEFACIALHAIR|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				SEALED_INVISIBILITY =  HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"civilian" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
-/datum/armor/mod_theme
-	melee = 10
+/datum/armor/mod_theme //Since this is a direct armor datum (don't shoot me), anything with a value not stated is zero
+	melee = 15
 	bullet = 5
 	laser = 5
 	energy = 5
-	bio = 100
-	fire = 25
-	acid  =25
-	wound = 5
+	bio = INFINITY
+	fire = 33
+	acid = 33
 
 /datum/mod_theme/engineering
 	name = "engineering"
@@ -125,48 +124,47 @@
 	slowdown_inactive = 1.5
 	slowdown_active = 1
 	allowed_suit_storage = list(
-		/obj/item/construction/rcd,
-		/obj/item/fireaxe/metal_h2_axe,
-		/obj/item/storage/bag/construction,
+		/obj/item/rcd,
+		/obj/item/twohanded/fireaxe,
 	)
 	skins = list(
 		"engineering" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_engineering
-	melee = 10
+	melee = 20
 	bullet = 5
-	laser = 20
-	energy = 10
-	bomb = 10
-	bio = 100
-	fire = 100
-	acid = 25
-	wound = 10
+	laser = 5
+	energy = 5
+	bomb = 15
+	rad = 150
+	bio = INFINITY
+	fire = INFINITY
+	acid = 150
 
 /datum/mod_theme/atmospheric
 	name = "atmospheric"
@@ -183,50 +181,51 @@
 	slowdown_inactive = 1.5
 	slowdown_active = 1
 	allowed_suit_storage = list(
-		/obj/item/analyzer,
-		/obj/item/fireaxe/metal_h2_axe,
-		/obj/item/pipe_dispenser,
+		/obj/item/rcd,
+		/obj/item/twohanded/fireaxe/,
+		/obj/item/rpd,
 		/obj/item/t_scanner,
+		/obj/item/analyzer
 	)
 	skins = list(
 		"atmospheric" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDESNOUT,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
 				UNSEALED_COVER = HEADCOVERSMOUTH,
-				SEALED_COVER = HEADCOVERSEYES|PEPPERPROOF,
+				SEALED_COVER = HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_atmospheric
-	melee = 10
+	melee = 20
 	bullet = 5
-	laser = 10
-	energy = 15
-	bomb = 10
-	bio = 100
-	fire = 100
-	acid = 75
-	wound = 10
+	laser = 5
+	energy = 5
+	bomb = 15
+	rad = 15 //This is what the atmos hardsuit has, belive it or not
+	bio = INFINITY
+	fire = INFINITY
+	acid = 150
 
 /datum/mod_theme/advanced
 	name = "advanced"
@@ -246,51 +245,51 @@
 	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
-		/obj/item/construction/rcd,
-		/obj/item/fireaxe/metal_h2_axe,
-		/obj/item/melee/baton/telescopic,
-		/obj/item/pipe_dispenser,
-		/obj/item/storage/bag/construction,
+		/obj/item/rcd,
+		/obj/item/twohanded/fireaxe,
+		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/rpd,
 		/obj/item/t_scanner,
+		/obj/item/analyzer
 	)
 	skins = list(
 		"advanced" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_advanced
-	melee = 15
-	bullet = 5
-	laser = 20
-	energy = 15
-	bomb = 50
-	bio = 100
-	fire = 100
-	acid = 90
-	wound = 10
+	melee = 35
+	bullet = 10
+	laser = 10
+	energy = 10
+	bomb = 25
+	bio = INFINITY
+	fire = INFINITY
+	rad = INFINITY
+	acid = 150
 
 /datum/mod_theme/mining
 	name = "mining"
@@ -324,75 +323,75 @@
 		/obj/item/mining_scanner,
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/pickaxe,
-		/obj/item/kinetic_crusher,
+		/obj/item/twohanded/kinetic_crusher,
 		/obj/item/stack/ore/plasma,
 		/obj/item/storage/bag/ore,
-		/obj/item/gun/energy/recharge/kinetic_accelerator,
+		/obj/item/gun/energy/kinetic_accelerator,
 	)
 	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
 	skins = list(
 		"mining" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEEARS|HIDEHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEEARS,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"asteroid" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEEARS|HIDEHAIR|HIDESNOUT,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE,
 				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_mining
-	melee = 15
+	melee = 20
 	bullet = 5
 	laser = 5
 	energy = 5
-	bomb = 30
-	bio = 100
-	fire = 100
-	acid = 75
-	wound = 15
+	bomb = 50
+	bio = INFINITY
+	rad = 50
+	fire = 50
+	acid = 50
 
 /datum/mod_theme/loader
 	name = "loader"
@@ -415,20 +414,16 @@
 	slowdown_inactive = 0.5
 	slowdown_active = 0
 	allowed_suit_storage = list(
-		/obj/item/mail,
-		/obj/item/delivery/small,
-		/obj/item/paper,
-		/obj/item/storage/bag/mail,
 	)
 	inbuilt_modules = list(/obj/item/mod/module/hydraulic, /obj/item/mod/module/clamp/loader, /obj/item/mod/module/magnet)
 	skins = list(
 		"loader" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				UNSEALED_INVISIBILITY = HIDEEARS|HIDEHAIR,
-				SEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEYES|HIDEFACE|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				UNSEALED_INVISIBILITY = HIDEEARS,
+				SEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -445,7 +440,7 @@
 	)
 
 /datum/armor/mod_theme_loader
-	melee = 15
+	melee = 20
 	bullet = 5
 	laser = 5
 	energy = 5
@@ -453,7 +448,6 @@
 	bio = 10
 	fire = 25
 	acid = 25
-	wound = 10
 
 /datum/mod_theme/medical
 	name = "medical"
@@ -472,10 +466,9 @@
 	allowed_suit_storage = list(
 		/obj/item/healthanalyzer,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/hypospray,
-		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/stack/medical,
 		/obj/item/sensor_device,
@@ -486,66 +479,65 @@
 	skins = list(
 		"medical" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"corpsman" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_medical
-	melee = 5
+	melee = 10
 	bullet = 5
 	laser = 5
 	energy = 5
 	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 75
-	wound = 5
+	bio = INFINITY
+	fire = 75
+	acid = 150
 
 /datum/mod_theme/rescue
 	name = "rescue"
@@ -563,45 +555,44 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	slowdown_inactive = 0.75
 	slowdown_active = 0.25
-	inbuilt_modules = list(/obj/item/mod/module/quick_carry/advanced)
+	inbuilt_modules = list()
 	allowed_suit_storage = list(
 		/obj/item/healthanalyzer,
 		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/cup/beaker,
-		/obj/item/reagent_containers/cup/bottle,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/hypospray,
-		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/stack/medical,
 		/obj/item/sensor_device,
 		/obj/item/storage/pill_bottle,
 		/obj/item/storage/bag/chemistry,
 		/obj/item/storage/bag/bio,
-		/obj/item/melee/baton/telescopic,
+		/obj/item/melee/classic_baton/telescopic,
 	)
 	skins = list(
 		"rescue" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
@@ -613,10 +604,9 @@
 	laser = 5
 	energy = 5
 	bomb = 10
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 5
+	bio = INFINITY
+	fire = 150
+	acid = 150
 
 /datum/mod_theme/research
 	name = "research"
@@ -631,7 +621,7 @@
 	default_skin = "research"
 	armor_type = /datum/armor/mod_theme_research
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
+
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	slowdown_inactive = 1.75
@@ -640,48 +630,47 @@
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/dnainjector,
-		/obj/item/biopsy_tool,
-		/obj/item/experi_scanner,
+		/obj/item/hand_tele,
 		/obj/item/storage/bag/bio,
-		/obj/item/melee/baton/telescopic,
+		/obj/item/melee/classic_baton/telescopic,
 	)
 	skins = list(
 		"research" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_research
-	melee = 20
-	bullet = 15
+	melee = 25
+	bullet = 5
 	laser = 5
 	energy = 5
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 15
+	bomb = INFINITY
+	bio = INFINITY
+	rad = 75
+	fire = 75
+	acid = 150
 
 /datum/mod_theme/security
 	name = "security"
@@ -702,48 +691,48 @@
 		/obj/item/ammo_casing,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 	)
 	skins = list(
 		"security" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEEARS|HIDEHAIR|HIDESNOUT,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE,
 				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
 				UNSEALED_COVER = HEADCOVERSMOUTH,
-				SEALED_COVER = HEADCOVERSEYES|PEPPERPROOF,
+				SEALED_COVER = HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_security
-	melee = 15
-	bullet = 15
-	laser = 15
-	energy = 15
+	melee = 25
+	bullet = 20
+	laser = 20
+	energy = 5
 	bomb = 25
-	bio = 100
-	fire = 75
-	acid = 75
-	wound = 15
+	bio = INFINITY
+	rad = 50
+	fire = 150
+	acid = 150
 
 /datum/mod_theme/safeguard
 	name = "safeguard"
@@ -765,46 +754,45 @@
 		/obj/item/ammo_casing,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 	)
 	skins = list(
 		"safeguard" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_safeguard
-	melee = 15
-	bullet = 15
-	laser = 15
+	melee = 30
+	bullet = 20
+	laser = 20
 	energy = 15
 	bomb = 40
-	bio = 100
-	fire = 100
-	acid = 95
-	wound = 15
+	bio = INFINITY
+	fire = INFINITY
+	acid = 450
 
 /datum/mod_theme/magnate
 	name = "magnate"
@@ -821,7 +809,6 @@
 	default_skin = "magnate"
 	armor_type = /datum/armor/mod_theme_magnate
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
@@ -831,47 +818,47 @@
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 	)
 	skins = list(
 		"magnate" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_magnate
-	melee = 20
-	bullet = 15
-	laser = 15
+	melee = 50
+	bullet = 50
+	laser = 50
 	energy = 15
-	bomb = 50
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 15
+	bomb = 15
+	rad = 50
+	bio = INFINITY
+	fire = INFINITY
+	acid = 450
 
 /datum/mod_theme/cosmohonk
 	name = "cosmohonk"
@@ -888,7 +875,6 @@
 	slowdown_active = 1.25
 	allowed_suit_storage = list(
 		/obj/item/bikehorn,
-		/obj/item/food/grown/banana,
 		/obj/item/grown/bananapeel,
 		/obj/item/reagent_containers/spray/waterflower,
 		/obj/item/instrument,
@@ -896,26 +882,26 @@
 	skins = list(
 		"cosmohonk" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEEARS|HIDEHAIR,
-				SEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEYES|HIDEFACE|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEEARS,
+				SEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
@@ -924,13 +910,12 @@
 /datum/armor/mod_theme_cosmohonk
 	melee = 5
 	bullet = 5
-	laser = 20
-	energy = 20
-	bomb = 10
-	bio = 100
-	fire = 60
-	acid = 30
-	wound = 5
+	laser = 5
+	energy = 5
+	bomb = 5
+	bio = INFINITY
+	fire = 75
+	acid = 50
 
 /datum/mod_theme/syndicate
 	name = "syndicate"
@@ -944,7 +929,7 @@
 		All rights reserved, tampering with suit will void warranty."
 	default_skin = "syndicate"
 	armor_type = /datum/armor/mod_theme_syndicate
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
+
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1
@@ -955,7 +940,7 @@
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
@@ -963,66 +948,66 @@
 	skins = list(
 		"syndicate" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"honkerative" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
-/datum/armor/mod_theme_syndicate
-	melee = 15
-	bullet = 20
-	laser = 15
-	energy = 15
+/datum/armor/mod_theme_syndicate //Note, do not forget the armor booster that slows the armor in exchange for better stats. Speed is war however, so these will in total have better armor than hardsuits
+	melee = 20 //45 with booster
+	bullet = 30 //60 with booster, however degrading effects over 50
+	laser = 15 //30 with booster
+	energy = 5 //20 with booster, energy has always been an armor hole.
 	bomb = 35
-	bio = 100
+	bio = INFINITY
+	rad = 50
 	fire = 50
-	acid = 90
-	wound = 25
+	acid = 450
 
 /datum/mod_theme/elite
 	name = "elite"
@@ -1036,7 +1021,6 @@
 	default_skin = "elite"
 	armor_type = /datum/armor/mod_theme_elite
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1
@@ -1047,7 +1031,7 @@
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
@@ -1056,40 +1040,40 @@
 		"elite" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_elite
-	melee = 35
-	bullet = 30
-	laser = 35
-	energy = 35
-	bomb = 55
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 25
+	melee = 50 // 75 with booster, same as elite hardsuit. I might make this higher due to slowdown
+	bullet = 45 // 75 same as
+	laser = 35 //50 same as
+	energy = 15 // 30, this is double energy armor currently, but slowdown so.
+	bomb = 60
+	bio = INFINITY
+	rad = 150
+	fire = INFINITY
+	acid = INFINITY
 
 /datum/mod_theme/infiltrator
 	name = "infiltrator"
@@ -1105,18 +1089,17 @@
 	default_skin = "infiltrator"
 	armor_type = /datum/armor/mod_theme_infiltrator
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
 	siemens_coefficient = 0
 	slowdown_inactive = 0
 	slowdown_active = 0
 	ui_theme = "syndicate"
-	slot_flags = ITEM_SLOT_BELT
-	inbuilt_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/storage/belt, /obj/item/mod/module/demoralizer)
+	slot_flags = SLOT_BELT //really?
+	inbuilt_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/storage/belt)
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
@@ -1125,10 +1108,10 @@
 		"infiltrator" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				UNSEALED_INVISIBILITY = HIDEEARS|HIDEHAIR,
-				SEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEYES|HIDEFACE|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				UNSEALED_INVISIBILITY = HIDEEARS,
+				SEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 				CAN_OVERSLOT = TRUE,
 			),
 			CHESTPLATE_FLAGS = list(
@@ -1147,7 +1130,7 @@
 		),
 	)
 
-/datum/armor/mod_theme_infiltrator
+/datum/armor/mod_theme_infiltrator //you give this no slowdown but better stats then the blood red / elite? what the fuck tg? Look into this, we dont have some of these modules
 	melee = 50
 	bullet = 50
 	laser = 40
@@ -1155,9 +1138,8 @@
 	bomb = 40
 	fire = 100
 	acid = 100
-	wound = 25
 
-/datum/mod_theme/enchanted
+/datum/mod_theme/enchanted //We don't have anti magic, and frankly wizards might be so low tech they keep the old suit. Will think on this.
 	name = "enchanted"
 	desc = "The Wizard Federation's relatively low-tech MODsuit. Is very protective, though."
 	extended_desc = "The Wizard Federation's relatively low-tech MODsuit. This armor employs not \
@@ -1176,34 +1158,33 @@
 	slowdown_inactive = 0.75
 	slowdown_active = 0.25
 	ui_theme = "wizard"
-	inbuilt_modules = list(/obj/item/mod/module/anti_magic/wizard)
+	inbuilt_modules = list()
 	allowed_suit_storage = list(
 		/obj/item/teleportation_scroll,
-		/obj/item/highfrequencyblade/wizard,
 		/obj/item/gun/magic,
 	)
 	skins = list(
 		"enchanted" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL|CASTING_CLOTHES,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL|CASTING_CLOTHES,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
@@ -1218,71 +1199,6 @@
 	bio = 100
 	fire = 100
 	acid = 100
-	wound = 30
-
-/datum/mod_theme/ninja
-	name = "ninja"
-	desc = "A unique, vacuum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
-	extended_desc = "A suit of nano-enhanced armor designed specifically for Spider Clan assassin-saboteurs. \
-		This MODsuit employs the cutting edge of stealth and combat technology, built skin-tight but just as durable as \
-		suits two or three times as thick. The nanomachines making up the outermost layer of armor \
-		are capable of shifting their form into almost-microscopic radiating fins, rendering the suit itself \
-		nigh-immune to even volcanic heat. It's entirely sealed against even the strongest acids, \
-		and the myoelectric artifical muscles of the suit leave it light as a feather during movement."
-	default_skin = "ninja"
-	armor_type = /datum/armor/mod_theme_ninja
-	resistance_flags = LAVA_PROOF|FIRE_PROOF|ACID_PROOF
-	charge_drain = DEFAULT_CHARGE_DRAIN * 0.5
-	siemens_coefficient = 0
-	slowdown_inactive = 0.5
-	slowdown_active = 0
-	ui_theme = "hackerman"
-	inbuilt_modules = list(/obj/item/mod/module/welding/camera_vision, /obj/item/mod/module/hacker, /obj/item/mod/module/weapon_recall, /obj/item/mod/module/adrenaline_boost, /obj/item/mod/module/energy_net)
-	allowed_suit_storage = list(
-		/obj/item/gun,
-		/obj/item/ammo_box,
-		/obj/item/ammo_casing,
-		/obj/item/melee/baton,
-		/obj/item/restraints/handcuffs,
-	)
-	skins = list(
-		"ninja" = list(
-			HELMET_FLAGS = list(
-				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEEARS|HIDEHAIR,
-				SEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEYES|HIDEFACE|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
-			),
-			CHESTPLATE_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT,
-			),
-			GAUNTLETS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-			BOOTS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-		),
-	)
-
-/datum/armor/mod_theme_ninja
-	melee = 40
-	bullet = 30
-	laser = 20
-	energy = 30
-	bomb = 30
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 10
 
 /datum/mod_theme/prototype
 	name = "prototype"
@@ -1303,35 +1219,35 @@
 	slowdown_inactive = 2
 	slowdown_active = 1.5
 	ui_theme = "hackerman"
-	inbuilt_modules = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype)
+	inbuilt_modules = list()
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/t_scanner,
-		/obj/item/pipe_dispenser,
-		/obj/item/construction/rcd,
+		/obj/item/rpd,
+		/obj/item/rcd,
 	)
 	skins = list(
 		"prototype" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
@@ -1346,7 +1262,6 @@
 	bio = 100
 	fire = 100
 	acid = 75
-	wound = 5
 
 /datum/mod_theme/responsory
 	name = "responsory"
@@ -1358,7 +1273,7 @@
 		While wearing it you feel an extreme deference to darkness. "
 	default_skin = "responsory"
 	armor_type = /datum/armor/mod_theme_responsory
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
+
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -1368,71 +1283,71 @@
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 	)
 	skins = list(
 		"responsory" = list(
 			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_LAYER = COLLAR_LAYER,
+
+				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 		"inquisitory" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
-/datum/armor/mod_theme_responsory
-	melee = 50
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 50
-	bio = 100
-	fire = 100
-	acid = 90
-	wound = 10
+/datum/armor/mod_theme_responsory //This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
+	melee = 40
+	bullet = 25
+	laser = 25
+	energy = 20
+	bomb = 25
+	rad = INFINITY
+	bio = INFINITY
+	fire = 200
+	acid = 200
 
 /datum/mod_theme/apocryphal
 	name = "apocryphal"
@@ -1446,7 +1361,7 @@
 	default_skin = "apocryphal"
 	armor_type = /datum/armor/mod_theme_apocryphal
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
+
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 10
@@ -1454,7 +1369,7 @@
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
@@ -1463,40 +1378,40 @@
 		"apocryphal" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEEARS|HIDEHAIR,
-				SEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEMASK|HIDEEYES|HIDEFACE|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEEARS,
+				SEALED_INVISIBILITY = HIDEFACE|HIDEMASK|HIDEEYES|HIDEFACE,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_apocryphal
-	melee = 80
-	bullet = 80
+	melee = 200
+	bullet = 200
 	laser = 50
-	energy = 60
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 25
+	energy = 50
+	bomb = INFINITY
+	bio = INFINITY
+	rad = INFINITY
+	fire = INFINITY
+	acid = INFINITY
 
 /datum/mod_theme/corporate
 	name = "corporate"
@@ -1509,7 +1424,7 @@
 	default_skin = "corporate"
 	armor_type = /datum/armor/mod_theme_corporate
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
+
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 0.5
@@ -1518,103 +1433,47 @@
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
-		/obj/item/assembly/flash,
+		/obj/item/flash,
 		/obj/item/melee/baton,
 	)
 	skins = list(
 		"corporate" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEEARS|HIDEHAIR|HIDESNOUT,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
+				UNSEALED_INVISIBILITY = HIDEFACE,
 				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
 /datum/armor/mod_theme_corporate
-	melee = 50
-	bullet = 40
+	melee = 200
+	bullet = 200
 	laser = 50
 	energy = 50
-	bomb = 50
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 15
-
-/datum/mod_theme/chrono
-	name = "chrono"
-	desc = "A suit beyond our time, beyond time itself. Used to traverse timelines and \"correct their course\"."
-	extended_desc = "A suit whose tech goes beyond this era's understanding. The internal mechanisms are all but \
-		completely alien, but the purpose is quite simple. The suit protects the user from the many incredibly lethal \
-		and sometimes hilariously painful side effects of jumping timelines, while providing inbuilt equipment for \
-		making timeline adjustments to correct a bad course."
-	default_skin = "chrono"
-	armor_type = /datum/armor/mod_theme_chrono
-	resistance_flags = FIRE_PROOF|ACID_PROOF
-	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
-	complexity_max = DEFAULT_MAX_COMPLEXITY - 10
-	slowdown_inactive = 0
-	slowdown_active = 0
-	allowed_suit_storage = list(
-		/obj/item/restraints/handcuffs,
-	)
-	skins = list(
-		"chrono" = list(
-			HELMET_FLAGS = list(
-				UNSEALED_LAYER = NECK_LAYER,
-				UNSEALED_CLOTHING = SNUG_FIT,
-				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDESNOUT,
-				SEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
-			),
-			CHESTPLATE_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT,
-			),
-			GAUNTLETS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-			BOOTS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-		),
-	)
-
-/datum/armor/mod_theme_chrono
-	melee = 60
-	bullet = 60
-	laser = 60
-	energy = 60
-	bomb = 30
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 15
+	bomb = INFINITY
+	bio = INFINITY
+	rad = INFINITY
+	fire = INFINITY
+	acid = INFINITY
 
 /datum/mod_theme/debug
 	name = "debug"
@@ -1625,7 +1484,7 @@
 	default_skin = "debug"
 	armor_type = /datum/armor/mod_theme_debug
 	resistance_flags = FIRE_PROOF|ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
+
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	complexity_max = 50
 	siemens_coefficient = 0
@@ -1638,26 +1497,26 @@
 		"debug" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEEARS|HIDEHAIR|HIDESNOUT,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE,
+				UNSEALED_CLOTHING = THICKMATERIAL,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
 				UNSEALED_COVER = HEADCOVERSMOUTH,
-				SEALED_COVER = HEADCOVERSEYES|PEPPERPROOF,
+				SEALED_COVER = HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
 				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDAMAGE,
+				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
@@ -1683,7 +1542,7 @@
 	default_skin = "debug"
 	armor_type = /datum/armor/mod_theme_administrative
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
-	atom_flags = PREVENT_CONTENTS_EXPLOSION_1
+
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = 1000
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0
@@ -1697,33 +1556,33 @@
 		"debug" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = SNUG_FIT|THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCK_GAS_SMOKE_EFFECT|HEADINTERNALS,
-				UNSEALED_INVISIBILITY = HIDEFACIALHAIR|HIDEEARS|HIDEHAIR|HIDESNOUT,
-				SEALED_INVISIBILITY = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE,
-				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES|PEPPERPROOF,
+				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
+				UNSEALED_INVISIBILITY = HIDEFACE,
+				SEALED_INVISIBILITY = HIDEMASK|HIDEEYES|HIDEFACE,
+				UNSEALED_COVER = HEADCOVERSMOUTH|HEADCOVERSEYES,
 			),
 			CHESTPLATE_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE|BLOCKS_SHOVE_KNOCKDOWN,
+				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
 				SEALED_INVISIBILITY = HIDEJUMPSUIT,
 			),
 			GAUNTLETS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 			BOOTS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDAMAGE,
+				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
 				CAN_OVERSLOT = TRUE,
 			),
 		),
 	)
 
-/datum/armor/mod_theme_administrative
-	melee = 100
-	bullet = 100
-	laser = 100
-	energy = 100
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 100
-	wound = 100
+/datum/armor/mod_theme_administrative //considering this should not be used, it's getting just DS armor, not infinity in everything.
+	melee = 200
+	bullet = 200
+	laser = 50
+	energy = 50
+	bomb = INFINITY
+	bio = INFINITY
+	rad = INFINITY
+	fire = INFINITY
+	acid = INFINITY

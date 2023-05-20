@@ -88,7 +88,6 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/paper_dispenser,
 		/obj/item/mod/module/stamp,
 	)
 	default_pins = list(
@@ -118,8 +117,6 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/health_analyzer,
-		/obj/item/mod/module/quick_carry,
 	)
 
 /obj/item/mod/control/pre_equipped/rescue
@@ -128,7 +125,6 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/health_analyzer,
 		/obj/item/mod/module/injector,
 	)
 
@@ -139,7 +135,6 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/circuit,
 		/obj/item/mod/module/t_ray,
 	)
 
@@ -150,7 +145,6 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/pepper_shoulders,
-		/obj/item/mod/module/criminalcapture,
 		/obj/item/mod/module/dispenser/mirage,
 	)
 
@@ -175,10 +169,8 @@
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
-		/obj/item/mod/module/hat_stabilizer,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/pathfinder,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
@@ -200,7 +192,6 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/pathfinder,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dna_lock,
 	)
@@ -279,7 +270,6 @@
 	applied_modules = list(
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
-		/obj/item/mod/module/quick_carry,
 		/obj/item/mod/module/visor/diaghud,
 	)
 
@@ -290,27 +280,6 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/energy_shield/wizard,
 		/obj/item/mod/module/emp_shield/advanced,
-	)
-
-/obj/item/mod/control/pre_equipped/ninja
-	theme = /datum/mod_theme/ninja
-	applied_cell = /obj/item/stock_parts/cell/ninja
-	applied_modules = list(
-		/obj/item/mod/module/storage,
-		/obj/item/mod/module/noslip,
-		/obj/item/mod/module/status_readout,
-		/obj/item/mod/module/stealth/ninja,
-		/obj/item/mod/module/dispenser/ninja,
-		/obj/item/mod/module/dna_lock/reinforced,
-		/obj/item/mod/module/emp_shield/pulse,
-	)
-	default_pins = list(
-		/obj/item/mod/module/stealth/ninja,
-		/obj/item/mod/module/dispenser/ninja,
-		/obj/item/mod/module/emp_shield/pulse,
-		/obj/item/mod/module/weapon_recall,
-		/obj/item/mod/module/adrenaline_boost,
-		/obj/item/mod/module/energy_net,
 	)
 
 /obj/item/mod/control/pre_equipped/prototype
@@ -325,7 +294,6 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/tether,
-		/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
@@ -365,7 +333,6 @@
 
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
-	additional_module = /obj/item/mod/module/quick_carry
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
@@ -382,7 +349,6 @@
 /obj/item/mod/control/pre_equipped/responsory/inquisitory
 	applied_skin = "inquisitory"
 	applied_modules = list(
-		/obj/item/mod/module/anti_magic,
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
@@ -400,7 +366,6 @@
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
-	additional_module = /obj/item/mod/module/quick_carry
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 	insignia_type = /obj/item/mod/module/insignia/chaplain
@@ -424,7 +389,6 @@
 /obj/item/mod/control/pre_equipped/apocryphal/officer
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
-		/obj/item/mod/module/hat_stabilizer,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/magnetic_harness,
@@ -437,29 +401,8 @@
 	req_access = list(ACCESS_CENT_SPECOPS)
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
-		/obj/item/mod/module/hat_stabilizer,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/emp_shield/advanced,
-	)
-
-/obj/item/mod/control/pre_equipped/chrono
-	theme = /datum/mod_theme/chrono
-	applied_core = /obj/item/mod/core/infinite
-	applied_modules = list(
-		/obj/item/mod/module/eradication_lock,
-		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/timeline_jumper,
-		/obj/item/mod/module/timestopper,
-		/obj/item/mod/module/rewinder,
-		/obj/item/mod/module/tem,
-		/obj/item/mod/module/anomaly_locked/kinesis/plus,
-	)
-	default_pins = list(
-		/obj/item/mod/module/timestopper,
-		/obj/item/mod/module/timeline_jumper,
-		/obj/item/mod/module/rewinder,
-		/obj/item/mod/module/tem,
-		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 	)
 
 /obj/item/mod/control/pre_equipped/debug
@@ -482,17 +425,13 @@
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/emp_shield/advanced,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/stealth/ninja,
-		/obj/item/mod/module/quick_carry/advanced,
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 	)
 	default_pins = list(
 		/obj/item/mod/module/stealth/ninja,
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 	)
 
 //these exist for the prefs menu

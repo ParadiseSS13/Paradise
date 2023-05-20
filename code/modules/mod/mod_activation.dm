@@ -80,7 +80,7 @@
 			wearer.drop_item()
 			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
 	if(wearer.equip_to_slot_if_possible(part, part.slot_flags, disable_warning = TRUE))
-		ADD_TRAIT(part, TRAIT_NODROP, MOD_TRAIT)
+		part |= NODROP
 		if(!user)
 			return TRUE
 		wearer.visible_message("<span class='notice'>[wearer]'s [part.name] deploy[part.p_s()] with a mechanical hiss.</span>",
@@ -102,7 +102,7 @@
 			return FALSE
 		to_chat(user, "<span class='warning'>You already have retracted there!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-	REMOVE_TRAIT(part, TRAIT_NODROP, MOD_TRAIT)
+	part ^= NODROP
 	wearer.drop_item()
 	if(overslotting_parts[part])
 		UnregisterSignal(part, COMSIG_ATOM_EXITED)
@@ -231,7 +231,7 @@
 		STOP_PROCESSING(SSobj, src)
 	update_speed()
 	update_icon_state()
-	wearer.update_clothing(slot_flags)
+	wearer.regenerate_icons()//TODO MAKE IT NOT REGENERATE EVERYTHING, THIS IS FOR COMPILE SAKE
 
 /// Quickly deploys all the suit parts and if successful, seals them and turns on the suit. Intended mostly for outfits.
 /obj/item/mod/control/proc/quick_activation()

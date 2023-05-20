@@ -66,4 +66,29 @@
 	. = ..()
 	tag = ARMORID // update tag in case armor values were edited
 
+/// Sets the armor of this atom to the specified armor
+/atom/proc/set_armor(datum/armor/armor)
+	if(src.armor == armor)
+		return
+	if(!(src.armor?.type in GLOB.armor_by_type))
+		qdel(src.armor)
+	src.armor = ispath(armor) ? get_armor_by_type(armor) : armor
+
+/// Returns a new armor datum with the given armor added onto this one
+/datum/armor/proc/add_other_armor(datum/armor/other)
+	if(ispath(other))
+		other = get_armor_by_type(other)
+	return generate_new_with_modifiers(other.get_rating_list())
+
+/**
+ * Gets an armor type datum using the given type by formatting it into the expected datum tag
+ */
+/proc/get_armor_by_type(armor_type)
+	var/armor = locate(replacetext("[armor_type]", "/", "-"))
+	if(armor)
+		return armor
+	if(armor_type == /datum/armor)
+		CRASH("Attempted to get the base armor type, you probably meant to use /datum/armor/none")
+	CRASH("Attempted to get an armor type that did not exist! '[armor_type]'")
+
 #undef ARMORID
