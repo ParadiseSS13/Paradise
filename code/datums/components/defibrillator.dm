@@ -208,17 +208,13 @@
 		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
 
-	if(target.undergoing_cardiac_arrest()) // Can have a heart attack, and heart is either missing, necrotic, or not beating
-		if(!target.get_int_organ(/obj/item/organ/internal/heart) // Prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
-			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
-			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
-			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
-			busy = FALSE
-			return
-
+	if(target.undergoing_cardiac_arrest()) // Can have a heart attack and heart is either missing, necrotic, or not beating
 		var/obj/item/organ/internal/heart/heart = target.get_int_organ(/obj/item/organ/internal/heart)
-		if(heart.status & ORGAN_DEAD)
+		if(!heart)
+			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
+		else if(heart.status & ORGAN_DEAD)
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
+		if(!heart || (heart.status & ORGAN_DEAD))
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 			busy = FALSE
@@ -251,7 +247,6 @@
 	var/defib_success = TRUE
 
 	// Run through some quick failure states after shocking.
-
 	var/time_dead = world.time - target.timeofdeath
 
 	if(time_dead > DEFIB_TIME_LIMIT)
