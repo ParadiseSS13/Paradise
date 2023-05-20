@@ -115,31 +115,30 @@
 /obj/item/reagent_containers/dropper/precision/viral_injector
 
 /obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/M, mob/living/user, def_zone)
-	if(M.can_inject(user, TRUE))
-		to_chat(user, "<span class='warning'>You stab [M] with the [src].</span>")
-		if(reagents.total_volume && M.reagents)
-			var/list/injected = list()
-			for(var/datum/reagent/R in reagents.reagent_list)
-				injected += R.name
-				var/datum/reagent/blood/B = R
+	to_chat(user, "<span class='warning'>You stab [M] with the [src].</span>")
+	if(reagents.total_volume && M.reagents)
+		var/list/injected = list()
+		for(var/datum/reagent/R in reagents.reagent_list)
+			injected += R.name
+			var/datum/reagent/blood/B = R
 
-				if(istype(B) && B.data["viruses"])
-					var/virList = list()
-					for(var/dis in B.data["viruses"])
-						var/datum/disease/D = dis
-						var/virusData = D.name
-						var/english_symptoms = list()
-						var/datum/disease/advance/A = D
-						if(A)
-							for(var/datum/symptom/S in A.symptoms)
-								english_symptoms += S.name
-							virusData += " ([english_list(english_symptoms)])"
-						virList += virusData
-					var/str = english_list(virList)
-					add_attack_logs(user, M, "Infected with [str].")
+			if(istype(B) && B.data["viruses"])
+				var/virList = list()
+				for(var/dis in B.data["viruses"])
+					var/datum/disease/D = dis
+					var/virusData = D.name
+					var/english_symptoms = list()
+					var/datum/disease/advance/A = D
+					if(A)
+						for(var/datum/symptom/S in A.symptoms)
+							english_symptoms += S.name
+						virusData += " ([english_list(english_symptoms)])"
+					virList += virusData
+				var/str = english_list(virList)
+				add_attack_logs(user, M, "Infected with [str].")
 
-				reagents.reaction(M, REAGENT_INGEST, reagents.total_volume)
-				reagents.trans_to(M, 1)
+			reagents.reaction(M, REAGENT_INGEST, reagents.total_volume)
+			reagents.trans_to(M, 1)
 
-			var/contained = english_list(injected)
-			add_attack_logs(user, M, "Injected with [src] containing ([contained])")
+		var/contained = english_list(injected)
+		add_attack_logs(user, M, "Injected with [src] containing ([contained])")
