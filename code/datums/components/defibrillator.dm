@@ -118,20 +118,20 @@
 	var/parent_unit = locateUID(actual_unit_uid)
 	var/should_cause_harm = user.a_intent == INTENT_HARM && !safety
 
-	// find what the defib should be referring to itself as
+	// Find what the defib should be referring to itself as
 	var/atom/defib_ref
 	if(parent_unit)
 		defib_ref = parent_unit
 	if(!defib_ref && robotic)
 		defib_ref = user
 	if(!defib_ref)
-		defib_ref = parent  // contingency
+		defib_ref = parent  // Contingency
 
-	// before we do all the hard work, make sure we aren't already defibbing someone
+	// Before we do all the hard work, make sure we aren't already defibbing someone
 	if(busy)
 		return
 
-	// check what the unit itself has to say about how the defib went
+	// Check what the unit itself has to say about how the defib went
 	var/application_result = SEND_SIGNAL(parent, COMSIG_DEFIB_PADDLES_APPLIED, user, target, should_cause_harm)
 
 	if(!should_cause_harm && (application_result & COMPONENT_DEFIB_BECOME_THE_DANGER))
@@ -149,7 +149,7 @@
 		return
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)
-		return  // the unit should handle this
+		return  // The unit should handle this
 
 	if(!istype(target))
 		if(robotic)
@@ -175,7 +175,7 @@
 		notify_ghosts()
 		ghost << sound('sound/effects/genetics.ogg')
 
-	if(!do_after(user, 3 SECONDS * speed_multiplier, target = target)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
+	if(!do_after(user, 3 SECONDS * speed_multiplier, target = target)) // Beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		busy = FALSE
 		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
@@ -187,15 +187,9 @@
 		log_debug("Ghost of name [ghost.name] is bound to [target.real_name], but lacks a client. Deleting ghost.")
 		QDEL_NULL(ghost)
 
-	var/tplus = world.time - target.timeofdeath
-	var/tlimit = DEFIB_TIME_LIMIT
-	var/tloss = DEFIB_TIME_LOSS
-	var/total_burn	= 0
-	var/total_brute	= 0
-
 	var/signal_result = SEND_SIGNAL(target, COMSIG_LIVING_PRE_DEFIB, user, parent, ghost)
 
-	if(!do_after(user, 2 SECONDS * speed_multiplier, target = target)) //placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
+	if(!do_after(user, 2 SECONDS * speed_multiplier, target = target)) // Placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 		busy = FALSE
 		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
@@ -209,13 +203,13 @@
 		return
 
 	if(signal_result & COMPONENT_DEFIB_OVERRIDE)
-		// let our signal handle it
+		// Let our signal handle it
 		busy = FALSE
 		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
 
-	if(target.undergoing_cardiac_arrest())
-		if(!target.get_int_organ(/obj/item/organ/internal/heart) //prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
+	if(target.undergoing_cardiac_arrest()) // Can have a heart attack, and heart is either missing, necrotic, or not beating
+		if(!target.get_int_organ(/obj/item/organ/internal/heart) // Prevents defibing someone still alive suffering from a heart attack attack if they lack a heart
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
@@ -249,25 +243,21 @@
 		busy = FALSE
 		return
 
-	var/health = target.health
 	target.visible_message("<span class='warning'>[target]'s body convulses a bit.</span>")
 	playsound(get_turf(defib_ref), "bodyfall", 50, 1)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-	for(var/obj/item/organ/external/O in target.bodyparts)
-		total_brute	+= O.brute_dam
-		total_burn	+= O.burn_dam
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
 
 	var/defib_success = TRUE
 
-	// run through some quick failure states after shocking.
+	// Run through some quick failure states after shocking.
 
-	var/obj/item/organ/internal/brain/brain_org = target.get_organ_slot("brain")
+	var/time_dead = world.time - target.timeofdeath
 
-	if(tplus > tlimit || (!target.get_int_organ(/obj/item/organ/internal/heart || !target.get_int_organ(/obj/item/organ/internal/brain/slime))))
+	if(time_dead > DEFIB_TIME_LIMIT)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 		defib_success = FALSE
-	else if(total_burn >= 180 || total_brute >= 180)
+	else if(getBruteLoss() >= 180 || getFireLoss() >= 180)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
 		defib_success = FALSE
 	else if(HAS_TRAIT(target, TRAIT_HUSK))
@@ -276,7 +266,7 @@
 	else if (target.blood_volume < BLOOD_VOLUME_SURVIVE)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>")
 		defib_success = FALSE
-	else if(!istype(brain_org))  // so things like headless clings don't get outed
+	else if(!target.get_organ_slot("brain"))  // So things like headless clings don't get outed
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - No brain detected within patient.</span>")
 		defib_success = FALSE
 	else if(ghost)
@@ -292,8 +282,8 @@
 	if(!defib_success)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 	else
-		tobehealed = min(health + threshold, 0) // It's HILARIOUS without this min statqement, let me tell you
-		tobehealed -= 5 //They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
+		tobehealed = min(target.health + threshold, 0) // It's HILARIOUS without this min statqement, let me tell you
+		tobehealed -= 5 // They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
 		target.adjustOxyLoss(tobehealed)
 		target.adjustToxLoss(tobehealed)
 		target.adjustFireLoss(tobehealed)
@@ -309,11 +299,11 @@
 		target.KnockOut()
 		target.Paralyse(10 SECONDS)
 		target.emote("gasp")
-		if(tplus > tloss)
-			target.setBrainLoss(max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
+		if(time_dead > DEFIB_TIME_LOSS)
+			target.setBrainLoss(clamp((DEFIB_TIME_LIMIT - time_dead) / DEFIB_TIME_LIMIT * 100, 0, 99)
 
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
-		if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
+		if(ishuman(target.pulledby)) // For some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
 			excess_shock(user, target, target.pulledby, defib_ref)
 		for(var/obj/item/grab/G in target.grabbed_by)
 			if(ishuman(G.assailant))
