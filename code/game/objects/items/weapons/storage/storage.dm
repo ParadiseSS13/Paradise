@@ -309,6 +309,11 @@
 	if(!W.can_enter_storage(src, usr))
 		return FALSE
 
+	if(!W.Adjacent(src))
+		if(!stop_messages)
+			to_chat(usr, "<span class='warning'>[src] is too far from [W]!</span>")
+		return FALSE
+
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
