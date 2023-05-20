@@ -273,9 +273,10 @@
 		target.adjustFireLoss(-heal_amount)
 		target.adjustBruteLoss(-heal_amount)
 
-		// Set brain damage to 100 * ratio of time spent dead over max defib time threshold
-		if(time_dead > DEFIB_TIME_LOSS)
-			target.setBrainLoss(clamp(100 * (DEFIB_TIME_LIMIT - time_dead) / DEFIB_TIME_LIMIT, 0, 99))
+		// Inflict some brain damage scaling with time spent dead
+		var/defib_time_brain_damage = min(100 * (DEFIB_TIME_LIMIT - time_dead) / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
+		if(time_dead > DEFIB_TIME_LOSS && defib_time_brain_damage > target.getBrainLoss())
+			target.setBrainLoss(defib_time_brain_damage)
 
 		target.update_revive()
 		target.KnockOut()
