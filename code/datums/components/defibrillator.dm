@@ -113,8 +113,10 @@
  * Perform a defibrillation.
  */
 /datum/component/defib/proc/defibrillate(mob/living/user, mob/living/carbon/human/target)
-	var/tobehealed
-	var/threshold = -HEALTH_THRESHOLD_DEAD
+	// Before we do all the hard work, make sure we aren't already defibbing someone
+	if(busy)
+		return
+
 	var/parent_unit = locateUID(actual_unit_uid)
 	var/should_cause_harm = user.a_intent == INTENT_HARM && !safety
 
@@ -122,14 +124,10 @@
 	var/atom/defib_ref
 	if(parent_unit)
 		defib_ref = parent_unit
-	if(!defib_ref && robotic)
+	else if(robotic)
 		defib_ref = user
-	if(!defib_ref)
-		defib_ref = parent  // Contingency
-
-	// Before we do all the hard work, make sure we aren't already defibbing someone
-	if(busy)
-		return
+	if(!defib_ref) // Contingency
+		defib_ref = parent
 
 	// Check what the unit itself has to say about how the defib went
 	var/application_result = SEND_SIGNAL(parent, COMSIG_DEFIB_PADDLES_APPLIED, user, target, should_cause_harm)
@@ -242,7 +240,7 @@
 	if(time_dead > DEFIB_TIME_LIMIT)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
 		defib_success = FALSE
-	else if(getBruteLoss() >= 180 || getFireLoss() >= 180)
+	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected.</span>")
 		defib_success = FALSE
 	else if(HAS_TRAIT(target, TRAIT_HUSK))
@@ -267,25 +265,31 @@
 	if(!defib_success)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 	else
-		tobehealed = min(target.health + threshold, 0) // It's HILARIOUS without this min statqement, let me tell you
-		tobehealed -= 5 // They get 5 of each type of damage healed so excessive combined damage will not immediately kill them after they get revived
-		target.adjustOxyLoss(tobehealed)
-		target.adjustToxLoss(tobehealed)
-		target.adjustFireLoss(tobehealed)
-		target.adjustBruteLoss(tobehealed)
-		if(target.get_int_organ(/obj/item/organ/internal/brain) && target.getBrainLoss() >= 100)
+		// Heal each basic damage type by as much as we're under -100 health
+		var/damage_above_threshold = -(min(target.health, HEALTH_THRESHOLD_DEAD) - HEALTH_THRESHOLD_DEAD)
+		var/heal_amount = damage_above_threshold + 5
+		target.adjustOxyLoss(-heal_amount)
+		target.adjustToxLoss(-heal_amount)
+		target.adjustFireLoss(-heal_amount)
+		target.adjustBruteLoss(-heal_amount)
+
+		// Set brain damage to 100 * ratio of time spent dead over max defib time threshold
+		if(time_dead > DEFIB_TIME_LOSS)
+			target.setBrainLoss(clamp(100 * (DEFIB_TIME_LIMIT - time_dead) / DEFIB_TIME_LIMIT, 0, 99))
+
+		target.update_revive()
+		target.KnockOut()
+		target.Paralyse(10 SECONDS)
+		target.emote("gasp")
+
+		if(target.getBrainLoss() >= 100)
 			// If you want to treat this with mannitol, it'll have to metabolize while the patient is alive, so it's alright to bring them back up for a minute
 			playsound(get_turf(defib_ref), 'sound/machines/defib_saftyoff.ogg', 50, 0)
 			user.visible_message("<span class='boldnotice'>[defib_ref] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation.</span>")
 		else
 			playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
+
 		user.visible_message("<span class='boldnotice'>[defib_ref] pings: Resuscitation successful.</span>")
-		target.update_revive()
-		target.KnockOut()
-		target.Paralyse(10 SECONDS)
-		target.emote("gasp")
-		if(time_dead > DEFIB_TIME_LOSS)
-			target.setBrainLoss(clamp((DEFIB_TIME_LIMIT - time_dead) / DEFIB_TIME_LIMIT * 100, 0, 99)
 
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		if(ishuman(target.pulledby)) // For some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
