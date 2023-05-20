@@ -124,5 +124,5 @@
 		if(iscarbon(A))
 			var/mob/living/carbon/C = A
 			if(C.can_breathe_gas())
-				SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, reagents, chemholder, total_volume)
+				SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, chemholder.reagents, chemholder, chemholder.reagents.total_volume)
 				chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)

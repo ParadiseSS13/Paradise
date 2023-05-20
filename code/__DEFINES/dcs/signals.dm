@@ -565,6 +565,8 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+/// Called by /obj/item/proc/worn_overlays(list/overlays, mutable_appearance/standing, isinhands, icon_file)
+#define COMSIG_ITEM_GET_WORN_OVERLAYS "item_get_worn_overlays"
 
 /// Defib-specific signals
 

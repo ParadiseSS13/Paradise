@@ -107,7 +107,7 @@
 				mod.wearer.drop_item()
 				return FALSE
 		else
-			var/used_button = mod.wearer.client?.prefs.read_preference(/datum/preference/choiced/mod_select) || MIDDLE_CLICK //oh fuck me
+			var/used_button = "TODO FIGURE OUT WHAT BUTTON WE WANT FOR CLICKS AND PUT IT HERE WE NEED THIS QWERTY" //oh fuck me
 			update_signal(used_button)
 			to_chat(mod.wearer, "<span class='notice'>[src] activated, middle click to use I guess? or left click? Pain.</span>")
 	active = TRUE
@@ -281,9 +281,9 @@
 /// Updates the signal used by active modules to be activated
 /obj/item/mod/module/proc/update_signal(value)
 	switch(value)
-		if(MIDDLE_CLICK)
+		if("TODO THIS SHIT")
 			mod.selected_module.used_signal = COMSIG_MOB_MIDDLECLICKON
-		if(ALT_CLICK)
+		if("STILL TODO THIS SHIT")
 			mod.selected_module.used_signal = COMSIG_MOB_ALTCLICKON
 	RegisterSignal(mod.wearer, mod.selected_module.used_signal, TYPE_PROC_REF(/obj/item/mod/module, on_special_click))
 
@@ -294,20 +294,20 @@
 
 	var/datum/action/item_action/mod/pinned_module/existing_action = pinned_to[UID(user)]
 	if(existing_action)
-		mod.remove_item_action(existing_action)
+		//mod.remove_item_action(existing_action)
 		return
 
 	var/datum/action/item_action/mod/pinned_module/new_action = new(mod, src, user)
-	mod.add_item_action(new_action)
+	//mod.add_item_action(new_action)
 
 /// On drop key, concels a device item.
 /obj/item/mod/module/proc/dropkey(mob/living/user)
 	SIGNAL_HANDLER
 
-	//if(user.get_active_held_item() != device) //good question
+	if(user.get_active_hand() != device)
 		return
 	on_deactivation()
-	return COMSIG_KB_ACTIVATED
+	return
 
 ///Anomaly Locked - Causes the module to not function without an anomaly.
 /obj/item/mod/module/anomaly_locked

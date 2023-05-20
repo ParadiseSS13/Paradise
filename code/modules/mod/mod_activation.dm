@@ -190,20 +190,20 @@
 		part.icon_state = "[skin]-[part.base_icon_state]-sealed"
 		part.flags |= part.visor_flags
 		part.flags_inv |= part.visor_flags_inv
-		part.flags_cover |= part.visor_flags_cover
+		part.flags_cover |= part.visor_flags
 		part.heat_protection = initial(part.heat_protection)
 		part.cold_protection = initial(part.cold_protection)
 		part.alternate_worn_layer = null
 	else
 		part.icon_state = "[skin]-[part.base_icon_state]"
-		part.flags_cover &= ~part.visor_flags_cover
+		part.flags_cover &= ~part.visor_flags
 		part.flags_inv &= ~part.visor_flags_inv
 		part.flags &= ~part.visor_flags
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 		part.alternate_worn_layer = mod_parts[part]
 		if(ishuman(wearer))
-			var/mob/living/carbon/human/H = mod.wearer
+			var/mob/living/carbon/human/H = wearer
 			H.regenerate_icons()//TODO SPECIFIY THIS
 
 /// Finishes the suit's activation, starts processing

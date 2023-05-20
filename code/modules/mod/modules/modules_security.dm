@@ -30,10 +30,10 @@
 	mod.chestplate.allowed -= (guns_typecache - already_allowed_guns)
 
 /obj/item/mod/module/magnetic_harness/on_suit_activation()
-	RegisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(check_dropped_item))
+	RegisterSignal(mod.wearer, COMSIG_ITEM_DROPPED, PROC_REF(check_dropped_item))
 
 /obj/item/mod/module/magnetic_harness/on_suit_deactivation(deleting = FALSE)
-	UnregisterSignal(mod.wearer, COMSIG_MOB_UNEQUIPPED_ITEM)
+	UnregisterSignal(mod.wearer, COMSIG_ITEM_DROPPED)
 
 /obj/item/mod/module/magnetic_harness/proc/check_dropped_item(datum/source, obj/item/dropped_item, force, new_location)
 	SIGNAL_HANDLER
@@ -47,7 +47,7 @@
 /obj/item/mod/module/magnetic_harness/proc/pick_up_item(obj/item/item)
 	if(!isturf(item.loc) || !item.Adjacent(mod.wearer))
 		return
-	if(!mod.wearer.equip_to_slot_if_possible(item, s_store))
+	if(!mod.wearer.equip_to_slot_if_possible(item, slot_wear_suit))
 		return
 	playsound(src, 'sound/items/modsuit/magnetic_harness.ogg', 50, TRUE)
 	drain_power(use_power_cost)
@@ -82,13 +82,11 @@
 			return
 		holstered = holding
 		mod.wearer.visible_message("<span class='notice'>[mod.wearer] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
-		playsound(src, 'sound/weapons/gun/revolver/empty.ogg', 100, TRUE)
-		mod.holder.unEquip(get_active_hand())
+		mod.wearer.unEquip(mod.wearer.get_active_hand())
 		holstered.loc = src
 	else if(mod.wearer.put_in_active_hand(holstered))
 		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [holstered], ready to shoot!</span></span>", \
 			"<span class='warning'>You draw [holstered], ready to shoot!</span>")
-		playsound(src, 'sound/weapons/gun/revolver/empty.ogg', 100, TRUE)
 	else
 		to_chat(mod.wearer, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
 
@@ -135,7 +133,7 @@
 /obj/item/grenade/mirage/prime()
 	do_sparks(rand(3, 6), FALSE, src)
 	if(thrower)
-		var/mob/living/simple_animal/hostile/illusion/mirage/mirage = new(get_turf(src), thrower)
+		new/mob/living/simple_animal/hostile/illusion/mirage(get_turf(src), thrower)
 	qdel(src)
 
 /mob/living/simple_animal/hostile/illusion/mirage //It's just standing there, menacingly

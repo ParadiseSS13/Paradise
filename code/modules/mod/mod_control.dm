@@ -20,10 +20,6 @@
 		/datum/action/item_action/mod/activate,
 		/datum/action/item_action/mod/panel,
 		/datum/action/item_action/mod/module,
-		/datum/action/item_action/mod/deploy/ai,
-		/datum/action/item_action/mod/activate/ai,
-		/datum/action/item_action/mod/panel/ai,
-		/datum/action/item_action/mod/module/ai,
 	)
 	resistance_flags = NONE
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
@@ -309,7 +305,7 @@
 			if(!module.removable)
 				continue
 			removable_modules += module
-		var/obj/item/mod/module/module_to_remove = tgui_input_list(user, "Which module to remove?", "Module Removal", removable_modules)//uhoh
+		var/obj/item/mod/module/module_to_remove = alert(user, "Which module to remove?", "Module Removal", removable_modules)//uhoh
 		if(!module_to_remove?.mod)
 			return FALSE
 		uninstall(module_to_remove)
@@ -558,7 +554,7 @@
 		part.slowdown = (active ? slowdown_active : slowdown_inactive) / length(all_parts)
 
 /obj/item/mod/control/proc/power_off()
-	to_chat(mod.wearer, "<span class='warning'>Power cells depleted!")
+	to_chat(wearer, "<span class='warning'>Power cells depleted!")
 	toggle_activate(wearer, force_deactivate = TRUE)
 
 /obj/item/mod/control/proc/set_mod_color(new_color)
@@ -573,8 +569,8 @@
 		CRASH("[src] tried to set skin while active!")
 	skin = new_skin
 	var/list/used_skin = theme.skins[new_skin]
-	if(used_skin[CONTROL_LAYER])
-		alternate_worn_layer = used_skin[CONTROL_LAYER] ///FICK
+	//if(used_skin[CONTROL_LAYER])
+	//	alternate_worn_layer = used_skin[CONTROL_LAYER] ///FICK
 	var/list/skin_updating = mod_parts + src
 	for(var/obj/item/part as anything in skin_updating)
 		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
@@ -591,14 +587,14 @@
 		if(part == boots)
 			used_category = BOOTS_FLAGS
 		var/list/category = used_skin[used_category]
-		part.clothing_flags = category[UNSEALED_CLOTHING] || NONE
+		part.flags = category[UNSEALED_CLOTHING] || NONE
 		part.visor_flags = category[SEALED_CLOTHING] || NONE
 		part.flags_inv = category[UNSEALED_INVISIBILITY] || NONE
 		part.visor_flags_inv = category[SEALED_INVISIBILITY] || NONE
 		part.flags_cover = category[UNSEALED_COVER] || NONE
-		part.visor_flags_cover = category[SEALED_COVER] || NONE
-		part.alternate_worn_layer = category[UNSEALED_LAYER]
-		mod_parts[part] = part.alternate_worn_layer
+		part.visor_flags = category[SEALED_COVER] || NONE
+	//.	part.alternate_worn_layer = category[UNSEALED_LAYER]
+	//	mod_parts[part] = part.alternate_worn_layer
 		if(!category[CAN_OVERSLOT])
 			if(overslotting_parts[part])
 				var/obj/item/overslot = overslotting_parts[part]

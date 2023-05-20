@@ -412,3 +412,7 @@
 		if(traveled_tiles <= 0)
 			to_chat(mod.wearer, "<span class='warning'>You have ran out of ash!</span>")
 
+/obj/effect/temp_visual/light_ash
+	icon_state = "light_ash"
+	icon = 'icons/effects/weather_effects.dmi'
+	duration = 3.2 SECONDS

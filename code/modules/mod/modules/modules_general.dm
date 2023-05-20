@@ -88,7 +88,7 @@
 	name = "mod storage bag"
 	desc = "Either you tried to spawn a storage mod, or someone fucked up. Unless you are an admin that just tried to spawn something, issue report."
 
-///Ion Jetpack - Lets the user fly freely through space using battery charge.
+///Ion Jetpack - Lets the user fly freely through space using battery charge. //Battery? Are you insane? Anyway, disabled to compile
 /obj/item/mod/module/jetpack
 	name = "MOD ion jetpack module"
 	desc = "A series of electric thrusters installed across the suit, this is a module highly anticipated by trainee Engineers. \
@@ -122,7 +122,7 @@
 	return ..()
 
 /obj/item/mod/module/jetpack/proc/refresh_jetpack()
-	AddComponent(/datum/component/jetpack, stabilizers, COMSIG_MODULE_TRIGGERED, COMSIG_MODULE_DEACTIVATED, MOD_ABORT_USE, get_mover, check_on_move, /datum/effect_system/trail_follow/ion/grav_allowed)
+	//AddComponent(/datum/component/jetpack, stabilizers, COMSIG_MODULE_TRIGGERED, COMSIG_MODULE_DEACTIVATED, MOD_ABORT_USE, get_mover, check_on_move, /datum/effect_system/trail_follow/ion/grav_allowed)
 
 /obj/item/mod/module/jetpack/proc/set_stabilizers(new_stabilizers)
 	if(stabilizers == new_stabilizers)
@@ -135,12 +135,14 @@
 	if(!.)
 		return
 	if(full_speed)
-		mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
+		//mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
+		return
 
 /obj/item/mod/module/jetpack/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(full_speed)
-		mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
+		//mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/jetpack/fullspeed)
+		return
 
 /obj/item/mod/module/jetpack/get_configuration()
 	. = ..()
@@ -200,11 +202,10 @@
 	incompatible_modules = list(/obj/item/mod/module/flashlight)
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_light"
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_color = COLOR_WHITE
 	light_range = 4
 	light_power = 1
-	light_on = FALSE
+	var/light_on = FALSE
 	/// Charge drain per range amount.
 	var/base_power = DEFAULT_CHARGE_DRAIN * 0.1
 	/// Minimum range we can set.
@@ -216,16 +217,12 @@
 	. = ..()
 	if(!.)
 		return
-	set_light_flags(light_flags | LIGHT_ATTACHED)
-	set_light_on(active)
 	active_power_cost = base_power * light_range
 
 /obj/item/mod/module/flashlight/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(!.)
 		return
-	set_light_flags(light_flags & ~LIGHT_ATTACHED)
-	set_light_on(active)
 
 /obj/item/mod/module/flashlight/on_process(seconds_per_tick)
 	active_power_cost = base_power * light_range
@@ -252,12 +249,18 @@
 			if(!value)
 				return
 			if(is_color_dark(value, 50))
-				balloon_alert(mod.wearer, "too dark!")
+				to_chat(mod.wearer, ("<span class='warning'>That is too dark</span>"))
 				return
-			set_light_color(value)
-			mod.wearer.update_clothing(mod.slot_flags)
+			light_color = value
+			mod.wearer.regenerate_icons() /// TODO TEMP NO BAD DON'T
 		if("light_range")
-			set_light_range(clamp(value, min_range, max_range))
+			light_range = (clamp(value, min_range, max_range))
+
+/// Given a color in the format of "#RRGGBB", will return if the color //Make a helpers file for this this it temp TODO ECT ECT ETC
+/// is dark.
+/proc/is_color_dark(color, threshold = 25)
+	var/hsl = rgb2num(color, COLORSPACE_HSL)
+	return hsl[3] < threshold
 
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
@@ -333,7 +336,7 @@
 	module_type = MODULE_USABLE
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
-	incompatible_modules = list(/obj/item/mod/module/dna_lock, /obj/item/mod/module/eradication_lock)
+	incompatible_modules = list(/obj/item/mod/module/dna_lock)
 	cooldown_time = 0.5 SECONDS
 	/// The DNA we lock with.
 	var/dna = null
@@ -359,7 +362,7 @@
 
 /obj/item/mod/module/dna_lock/emp_act(severity)
 	. = ..()
-	if(emp_proof)
+	if(mod.emp_proof)
 		return
 	on_emp(src, severity)
 
