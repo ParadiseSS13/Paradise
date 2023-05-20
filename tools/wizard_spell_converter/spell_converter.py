@@ -32,7 +32,8 @@ except FileNotFoundError:
     sys.exit()
 
 for spell in convert_dict:
-    cursor.execute("UPDATE feedback SET json = replace(json, '%s', '%s') WHERE key_name = 'wizard_spell_learned'" % (spell, convert_dict[spell]))
+    query = "UPDATE feedback SET json = replace(json, %s, %s) WHERE key_name = 'wizard_spell_learned'"
+    cursor.execute(query, (spell, convert_dict[spell]))
 db.commit()
 
 stopwatch = time.time()
