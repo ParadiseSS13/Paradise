@@ -144,7 +144,6 @@
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/pepper_shoulders,
 		/obj/item/mod/module/dispenser/mirage,
 	)
 
@@ -156,9 +155,6 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack,
-		/obj/item/mod/module/megaphone,
-		/obj/item/mod/module/projectile_dampener,
-		/obj/item/mod/module/pepper_shoulders,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
@@ -248,22 +244,6 @@
 		/obj/item/mod/module/jetpack/advanced,
 	)
 
-/obj/item/mod/control/pre_equipped/elite/flamethrower
-	applied_modules = list(
-		/obj/item/mod/module/storage/syndicate,
-		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
-		/obj/item/mod/module/thermal_regulator,
-		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/flamethrower,
-	)
-	default_pins = list(
-		/obj/item/mod/module/armor_booster,
-		/obj/item/mod/module/jetpack/advanced,
-		/obj/item/mod/module/flamethrower,
-	)
-
 /obj/item/mod/control/pre_equipped/infiltrator
 	theme = /datum/mod_theme/infiltrator
 	applied_cell = /obj/item/stock_parts/cell/super
@@ -279,7 +259,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/energy_shield/wizard,
-		/obj/item/mod/module/emp_shield/advanced,
+		/obj/item/mod/module/emp_shield,
 	)
 
 /obj/item/mod/control/pre_equipped/prototype
@@ -325,7 +305,6 @@
 
 /obj/item/mod/control/pre_equipped/responsory/security
 	insignia_type = /obj/item/mod/module/insignia/security
-	additional_module = /obj/item/mod/module/pepper_shoulders
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
@@ -362,7 +341,6 @@
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
 	insignia_type = /obj/item/mod/module/insignia/security
-	additional_module = /obj/item/mod/module/pepper_shoulders
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
@@ -378,7 +356,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield/advanced,
+		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 	)
@@ -390,7 +368,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield/advanced,
+		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 	)
@@ -402,7 +380,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/magnetic_harness,
-		/obj/item/mod/module/emp_shield/advanced,
+		/obj/item/mod/module/emp_shield,
 	)
 
 /obj/item/mod/control/pre_equipped/debug
@@ -423,7 +401,7 @@
 	applied_core = /obj/item/mod/core/infinite
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
-		/obj/item/mod/module/emp_shield/advanced,
+		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,

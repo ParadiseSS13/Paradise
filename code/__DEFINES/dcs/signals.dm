@@ -696,6 +696,8 @@
 #define COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY "human_change_head_accessory"
 //sent from living mobs when they parry
 #define COMSIG_HUMAN_PARRY "human_parry"
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 
 // /datum/species signals
 

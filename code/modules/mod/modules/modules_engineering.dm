@@ -59,7 +59,7 @@
 	. = ..()
 	if(!.)
 		return
-	mod.wearer.add_traits(active_traits, MOD_TRAIT)
+	mod.wearer.add_traits(active_traits, "mod_trait")
 	mod.slowdown += slowdown_active
 	mod.wearer.update_equipment_speed_mods()
 
@@ -67,7 +67,7 @@
 	. = ..()
 	if(!.)
 		return
-	mod.wearer.remove_traits(active_traits, MOD_TRAIT)
+	mod.wearer.remove_traits(active_traits, "mod_trait")
 	mod.slowdown -= slowdown_active
 	mod.wearer.update_equipment_speed_mods()
 
@@ -151,17 +151,17 @@
 
 /obj/item/mod/module/rad_protection/on_suit_activation()
 	AddComponent(/datum/component/geiger_sound)
-	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, "mod_trait")
 	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
 	for(var/obj/item/part in mod.mod_parts)
-		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MOD_TRAIT)
+		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, "mod_trait")
 
 /obj/item/mod/module/rad_protection/on_suit_deactivation(deleting = FALSE)
 	qdel(GetComponent(/datum/component/geiger_sound))
-	REMOVE_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, "mod_trait")
 	UnregisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION)
 	for(var/obj/item/part in mod.mod_parts)
-		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MOD_TRAIT)
+		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, "mod_trait")
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
@@ -192,10 +192,10 @@
 	cooldown_time = 11 SECONDS
 
 /obj/item/mod/module/constructor/on_suit_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_QUICK_BUILD, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_QUICK_BUILD, "mod_trait")
 
 /obj/item/mod/module/constructor/on_suit_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_QUICK_BUILD, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_QUICK_BUILD, "mod_trait")
 
 /obj/item/mod/module/constructor/on_use()
 	. = ..()

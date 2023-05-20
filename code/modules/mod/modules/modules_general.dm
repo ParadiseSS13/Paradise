@@ -182,23 +182,10 @@
 	incompatible_modules = list(/obj/item/mod/module/emp_shield)
 
 /obj/item/mod/module/emp_shield/on_install()
-	mod.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_WIRES|EMP_PROTECT_CONTENTS)
+	mod.emp_proof = TRUE
 
 /obj/item/mod/module/emp_shield/on_uninstall(deleting = FALSE)
-	mod.RemoveElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_WIRES|EMP_PROTECT_CONTENTS)
-
-/obj/item/mod/module/emp_shield/advanced
-	name = "MOD advanced EMP shield module"
-	desc = "An advanced field inhibitor installed into the suit, protecting it against feedback such as \
-		electromagnetic pulses that would otherwise damage the electronic systems of the suit or electronic devices on the wearer, \
-		including augmentations. However, it will take from the suit's power to do so."
-	complexity = 2
-
-/obj/item/mod/module/emp_shield/advanced/on_suit_activation()
-	mod.wearer.AddElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_CONTENTS)
-
-/obj/item/mod/module/emp_shield/advanced/on_suit_deactivation(deleting)
-	mod.wearer.RemoveElement(/datum/element/empprotection, EMP_PROTECT_SELF|EMP_PROTECT_CONTENTS)
+	mod.emp_proof = FALSE
 
 ///Flashlight - Gives the suit a customizable flashlight.
 /obj/item/mod/module/flashlight
@@ -298,7 +285,6 @@
 		return FALSE
 	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
 	mod.wearer.put_in_hands(dispensed)
-	balloon_alert(mod.wearer, "[dispensed] dispensed")
 	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
 	drain_power(use_power_cost)
 	return dispensed
@@ -332,7 +318,10 @@
 			temperature_setting = clamp(value + T0C, min_temp, max_temp)
 
 /obj/item/mod/module/thermal_regulator/on_active_process(seconds_per_tick)
-	mod.wearer.adjust_bodytemperature(get_temp_change_amount((temperature_setting - mod.wearer.bodytemperature), 0.16))
+	if(mod.wearer.bodytemperature > temperature_setting)
+		mod.wearer.bodytemperature = max(temperature_setting, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	else if(mod.wearer.bodytemperature < 311)
+		mod.wearer.bodytemperature = min(temperature_setting, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 
 ///DNA Lock - Prevents people without the set DNA from activating the suit.
 /obj/item/mod/module/dna_lock

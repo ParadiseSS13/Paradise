@@ -72,18 +72,18 @@
 		return
 	if(!(src.armor?.type in GLOB.armor_by_type))
 		qdel(src.armor)
-	src.armor = ispath(armor) ? get_armor_by_type(armor) : armor
+	src.armor = ispath(armor) ? getarmor_by_type(armor) : armor
 
 /// Returns a new armor datum with the given armor added onto this one
 /datum/armor/proc/add_other_armor(datum/armor/other)
 	if(ispath(other))
-		other = get_armor_by_type(other)
+		other = getarmor_by_type(other)
 	return generate_new_with_modifiers(other.get_rating_list())
 
 /**
  * Gets an armor type datum using the given type by formatting it into the expected datum tag
  */
-/proc/get_armor_by_type(armor_type)
+/proc/getarmor_by_type(armor_type)
 	var/armor = locate(replacetext("[armor_type]", "/", "-"))
 	if(armor)
 		return armor

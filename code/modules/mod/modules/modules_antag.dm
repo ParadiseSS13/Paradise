@@ -50,12 +50,12 @@
 	mod.slowdown -= actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.set_armor(part.get_armor().add_other_armor(armor_mod))
+		part.set_armor(part.getarmor().add_other_armor(armor_mod))
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
-		if(clothing_part.clothing_flags & STOPSPRESSUREDAMAGE)
-			clothing_part.clothing_flags &= ~STOPSPRESSUREDAMAGE
+		if(clothing_part.flags & STOPSPRESSUREDMAGE)
+			clothing_part.flags &= ~STOPSPRESSUREDMAGE
 			spaceproofed[clothing_part] = TRUE
 
 /obj/item/mod/module/armor_booster/on_deactivation(display_message = TRUE, deleting = FALSE)
@@ -67,86 +67,18 @@
 	mod.slowdown += actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.set_armor(part.get_armor().subtract_other_armor(armor_mod))
+		part.set_armor(part.getarmor().subtract_other_armor(armor_mod))
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
 		if(spaceproofed[clothing_part])
-			clothing_part.clothing_flags |= STOPSPRESSUREDAMAGE
+			clothing_part.flags |= STOPSPRESSUREDMAGE
 	spaceproofed = list()
 
 /obj/item/mod/module/armor_booster/generate_worn_overlay(mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
 	overlay_state_active = "[initial(overlay_state_active)]-[mod.skin]"
 	return ..()
-
-///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
-/obj/item/mod/module/energy_shield
-	name = "MOD energy shield module"
-	desc = "A personal, protective forcefield typically seen in military applications. \
-		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
-		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
-		though with its' low amount of separate charges, the user remains mortal."
-	icon_state = "energy_shield"
-	complexity = 3
-	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
-	incompatible_modules = list(/obj/item/mod/module/energy_shield)
-	/// Max charges of the shield.
-	var/max_charges = 3
-	/// The time it takes for the first charge to recover.
-	var/recharge_start_delay = 20 SECONDS
-	/// How much time it takes for charges to recover after they started recharging.
-	var/charge_increment_delay = 1 SECONDS
-	/// How much charge is recovered per recovery.
-	var/charge_recovery = 1
-	/// Whether or not this shield can lose multiple charges.
-	var/lose_multiple_charges = FALSE
-	/// The item path to recharge this shielkd.
-	var/recharge_path = null
-	/// The icon file of the shield.
-	var/shield_icon_file = 'icons/effects/effects.dmi'
-	/// The icon_state of the shield.
-	var/shield_icon = "shield-red"
-	/// Charges the shield should start with.
-	var/charges
-
-/obj/item/mod/module/energy_shield/Initialize(mapload)
-	. = ..()
-	charges = max_charges
-
-/obj/item/mod/module/energy_shield/on_suit_activation()
-	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
-	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
-	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
-
-/obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
-	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
-	charges = shield.current_charges
-	qdel(shield)
-	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
-
-/obj/item/mod/module/energy_shield/proc/shield_reaction(mob/living/carbon/human/owner, atom/movable/hitby, damage = 0, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
-	if(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, 0, damage, attack_type) & COMPONENT_HIT_REACTION_BLOCK)
-		drain_power(use_power_cost)
-		return SHIELD_BLOCK
-	return NONE
-
-/obj/item/mod/module/energy_shield/wizard
-	name = "MOD battlemage shield module"
-	desc = "The caster wielding this spell gains a visible barrier around them, channeling arcane power through \
-		specialized runes engraved onto the surface of the suit to generate a wall of force. \
-		This shield can perfectly nullify attacks ranging from high-caliber rifles to magic missiles, \
-		though can also be drained by more mundane attacks. It will not protect the caster from social ridicule."
-	icon_state = "battlemage_shield"
-	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 0 //magic too
-	max_charges = 15
-	recharge_start_delay = 0 SECONDS
-	charge_recovery = 8
-	shield_icon_file = 'icons/effects/magic.dmi'
-	shield_icon = "mageshield"
-	recharge_path = /obj/item/wizard_armour_charge
 
 ///Insignia - Gives you a skin specific stripe.
 /obj/item/mod/module/insignia
@@ -201,10 +133,10 @@
 	incompatible_modules = list(/obj/item/mod/module/noslip)
 
 /obj/item/mod/module/noslip/on_suit_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_NO_SLIP_WATER, MOD_TRAIT)
+	ADD_TRAIT(mod.wearer, TRAIT_NO_SLIP_WATER, "mod_trait")
 
 /obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_NO_SLIP_WATER, MOD_TRAIT)
+	REMOVE_TRAIT(mod.wearer, TRAIT_NO_SLIP_WATER, "mod_trait")
 
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock.
 /obj/item/mod/module/springlock/bite_of_87
@@ -223,30 +155,6 @@
 
 /obj/item/mod/module/springlock/bite_of_87/on_uninstall(deleting = FALSE)
 	mod.activation_step_time *= 10
-
-///Flamethrower - Launches fire across the area.
-/obj/item/mod/module/flamethrower
-	name = "MOD flamethrower module"
-	desc = "A custom-manufactured flamethrower, used to burn through your path. Burn well."
-	icon_state = "flamethrower"
-	module_type = MODULE_ACTIVE
-	complexity = 3
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
-	incompatible_modules = list(/obj/item/mod/module/flamethrower)
-	cooldown_time = 2.5 SECONDS
-	overlay_state_inactive = "module_flamethrower"
-	overlay_state_active = "module_flamethrower_on"
-
-/obj/item/mod/module/flamethrower/on_select_use(atom/target)
-	. = ..()
-	if(!.)
-		return
-	var/obj/projectile/flame = new /obj/projectile/bullet/incendiary/fire(mod.wearer.loc)
-	flame.preparePixelProjectile(target, mod.wearer)
-	flame.firer = mod.wearer
-	playsound(src, 'sound/items/modsuit/flamethrower.ogg', 75, TRUE)
-	INVOKE_ASYNC(flame, TYPE_PROC_REF(/obj/projectile, fire))
-	drain_power(use_power_cost)
 
 ///Power kick - Lets the user launch themselves at someone to kick them.
 /obj/item/mod/module/power_kick
@@ -348,3 +256,79 @@
 	if(deleting)
 		return
 	mod.helmet.flash_protect = initial(mod.helmet.flash_protect)
+
+//Ninja modules for MODsuits
+
+///Cloaking - Lowers the user's visibility, can be interrupted by being touched or attacked.
+/obj/item/mod/module/stealth
+	name = "MOD prototype cloaking module"
+	desc = "A complete retrofitting of the suit, this is a form of visual concealment tech employing esoteric technology \
+		to bend light around the user, as well as mimetic materials to make the surface of the suit match the \
+		surroundings based off sensor data. For some reason, this tech is rarely seen."
+	icon_state = "cloak"
+	module_type = MODULE_TOGGLE
+	complexity = 4
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 2
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
+	incompatible_modules = list(/obj/item/mod/module/stealth)
+	cooldown_time = 5 SECONDS
+	/// Whether or not the cloak turns off on bumping.
+	var/bumpoff = TRUE
+	/// The alpha applied when the cloak is on.
+	var/stealth_alpha = 25 //Honestly this might be too visable
+
+/obj/item/mod/module/stealth/on_activation()
+	. = ..()
+	if(!.)
+		return
+	if(bumpoff)
+		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
+	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
+	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED), PROC_REF(unstealth))
+	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
+	drain_power(use_power_cost)
+
+/obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
+	. = ..()
+	if(!.)
+		return
+	if(bumpoff)
+		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
+	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED))
+	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
+
+/obj/item/mod/module/stealth/proc/unstealth(datum/source)
+	SIGNAL_HANDLER
+
+	to_chat(mod.wearer, "<span class='warning'>[src] gets discharged from contact!</span>")
+	do_sparks(2, TRUE, src)
+	drain_power(use_power_cost)
+	on_deactivation(display_message = TRUE, deleting = FALSE)
+
+/obj/item/mod/module/stealth/proc/on_unarmed_attack(datum/source, atom/target)
+	SIGNAL_HANDLER
+
+	if(!isliving(target))
+		return
+	unstealth(source)
+
+/obj/item/mod/module/stealth/proc/on_bullet_act(datum/source, obj/projectile/projectile)
+	SIGNAL_HANDLER
+	unstealth(source)
+
+//Advanced Cloaking - Doesn't turf off on bump, less power drain, more stealthy.
+/obj/item/mod/module/stealth/ninja
+	name = "MOD advanced cloaking module"
+	desc = "The latest in stealth technology, this module is a definite upgrade over previous versions. \
+		The field has been tuned to be even more responsive and fast-acting, with enough stability to \
+		continue operation of the field even if the user bumps into others. \
+		The power draw has been reduced drastically, making this perfect for activities like \
+		standing near sentry turrets for extended periods of time."
+	icon_state = "cloak_ninja"
+	bumpoff = FALSE
+	stealth_alpha = 10
+	active_power_cost = DEFAULT_CHARGE_DRAIN
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	cooldown_time = 3 SECONDS
+

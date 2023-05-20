@@ -3,8 +3,6 @@
 	button_icon_state = "bg_mod_border"
 	button_icon = 'icons/mob/actions/actions_mod.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
-	/// Whether this action is intended for the AI. Stuff breaks a lot if this is done differently.
-	var/ai_action = FALSE
 
 /datum/action/item_action/mod/New(Target)
 	..()
@@ -14,18 +12,10 @@
 
 /datum/action/item_action/mod/Grant(mob/user)
 	var/obj/item/mod/control/mod = target
-	if(ai_action && user != mod.ai)
-		return
-	else if(!ai_action && user == mod.ai)
-		return
 	return ..()
 
 /datum/action/item_action/mod/Remove(mob/user)
 	var/obj/item/mod/control/mod = target
-	if(ai_action && user != mod.ai)
-		return
-	else if(!ai_action && user == mod.ai)
-		return
 	return ..()
 
 /datum/action/item_action/mod/Trigger(trigger_flags)

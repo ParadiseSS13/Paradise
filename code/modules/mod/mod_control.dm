@@ -119,7 +119,7 @@
 		part.desc = "[part.desc] [theme.desc]"
 		part.set_armor(theme.armor_type)
 		part.resistance_flags = theme.resistance_flags
-		part.flags_1 |= theme.atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add
+		part.flags |= theme.atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 		part.max_heat_protection_temperature = theme.max_heat_protection_temperature
@@ -384,10 +384,10 @@
 	if(!active || !wearer)
 		return
 	to_chat(wearer, "<span class='warning'>[severity > 1 ? "Light" : "Strong"] electromagnetic pulse detected!")
-	if(. & EMP_PROTECT_CONTENTS)
+	if(emp_proof)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)
-	wearer.apply_damage(5 / severity, BURN, spread_damage=TRUE)
+	wearer.apply_damage(5 / severity, BURN, spread_damage=TRUE) //Test this with ion shotguns.
 	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly!")
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
