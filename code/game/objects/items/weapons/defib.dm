@@ -312,11 +312,8 @@
 	if(!wielded)
 		to_chat(user, "<span class='boldnotice'>You need to wield the paddles in both hands before you can use them on someone!</span>")
 		return COMPONENT_BLOCK_DEFIB_MISC
-
 	if(!defib.powered)
 		return COMPONENT_BLOCK_DEFIB_DEAD
-
-	return
 
 /obj/item/twohanded/shockpaddles/proc/on_cooldown_expire(obj/item/paddles)
 	SIGNAL_HANDLER  // COMSIG_DEFIB_READY
