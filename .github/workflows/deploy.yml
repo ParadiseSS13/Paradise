@@ -83,7 +83,7 @@ jobs:
         script: |
           TIME=$(date +'%Y-%m-%d%T')
           sudo systemctl --wait start deploy-main
-          journalctl --since $TIME -u deploy-main --no-pager
+          journalctl --since $TIME -u deploy-main --no-pager --all
           systemctl is-failed deploy-main | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-vega:
@@ -103,7 +103,7 @@ jobs:
         script: |
           TIME=$(date +'%Y-%m-%d%T')
           sudo systemctl --wait start deploy-vega
-          journalctl --since $TIME -u deploy-vega --no-pager
+          journalctl --since $TIME -u deploy-vega --no-pager --all
           systemctl is-failed deploy-vega | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-cleo:
@@ -123,7 +123,7 @@ jobs:
         script: |
           TIME=$(date +'%Y-%m-%d%T')
           sudo systemctl --wait start deploy-cleo
-          journalctl --since $TIME -u deploy-cleo --no-pager
+          journalctl --since $TIME -u deploy-cleo --no-pager --all
           systemctl is-failed deploy-cleo | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-prime:
@@ -143,7 +143,7 @@ jobs:
         script: |
           TIME=$(date +'%Y-%m-%d%T')
           sudo systemctl --wait start deploy-prime
-          journalctl --since $TIME -u deploy-prime --no-pager
+          journalctl --since $TIME -u deploy-prime --no-pager --all
           systemctl is-failed deploy-prime | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-wl:
@@ -163,7 +163,7 @@ jobs:
         script: |
           TIME=$(date +'%Y-%m-%d%T')
           sudo systemctl --wait start deploy-wl
-          journalctl --since $TIME -u deploy-wl --no-pager
+          journalctl --since $TIME -u deploy-wl --no-pager --all
           systemctl is-failed deploy-wl | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   deploy-tutorial:
@@ -183,7 +183,7 @@ jobs:
         script: |
           TIME=$(date +'%Y-%m-%d%T')
           sudo systemctl --wait start deploy-tutorial
-          journalctl --since $TIME -u deploy-tutorial --no-pager
+          journalctl --since $TIME -u deploy-tutorial --no-pager --all
           systemctl is-failed deploy-tutorial | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
 
   # deploy-test:
@@ -203,5 +203,5 @@ jobs:
   #       script: |
   #         TIME=$(date +'%Y-%m-%d%T')
   #         sudo systemctl --wait start deploy-test
-  #         journalctl --since $TIME -u deploy-test --no-pager
+  #         journalctl --since $TIME -u deploy-test --no-pager --all
   #         systemctl is-failed deploy-test | grep -q "failed" && echo "Deployment Failed!" && exit 1 || exit 0
