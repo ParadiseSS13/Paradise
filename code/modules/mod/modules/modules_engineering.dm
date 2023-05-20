@@ -48,28 +48,26 @@
 	module_type = MODULE_TOGGLE
 	complexity = 2
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
-	incompatible_modules = list(/obj/item/mod/module/magboot, /obj/item/mod/module/atrocinator)
+	incompatible_modules = list(/obj/item/mod/module/magboot)
 	cooldown_time = 0.5 SECONDS
 	/// Slowdown added onto the suit.
 	var/slowdown_active = 0.5
-	/// A list of traits to add to the wearer when we're active (see: Magboots)
-	var/list/active_traits = list(TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_SLIDE, TRAIT_NEGATES_GRAVITY)
 
 /obj/item/mod/module/magboot/on_activation()
 	. = ..()
 	if(!.)
 		return
-	mod.wearer.add_traits(active_traits, "mod_trait")
+	mod.boots.flags |= NOSLIP
 	mod.slowdown += slowdown_active
-	mod.wearer.update_equipment_speed_mods()
+	mod.boots.magbooted = TRUE
 
 /obj/item/mod/module/magboot/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(!.)
 		return
-	mod.wearer.remove_traits(active_traits, "mod_trait")
+	mod.boots.flags ~= NOSLIP
 	mod.slowdown -= slowdown_active
-	mod.wearer.update_equipment_speed_mods()
+	mod.boots.magbooted = FALSE
 
 /obj/item/mod/module/magboot/advanced
 	name = "MOD advanced magnetic stability module"
@@ -91,7 +89,7 @@
 	cooldown_time = 1.5 SECONDS
 
 /obj/item/mod/module/tether/on_use()
-	if(mod.wearer.has_gravity(get_turf(src)))
+	if(mod.wearer.mob_has_gravity())
 		balloon_alert(mod.wearer, "too much gravity!")
 		playsound(src, 'sound/weapons/gun/general/dry_fire.ogg', 25, TRUE)
 		return FALSE
@@ -135,74 +133,22 @@
 	QDEL_NULL(line)
 	return ..()
 
-///Radiation Protection - Protects the user from radiation, gives them a geiger counter and rad info in the panel.
+///Radiation Protection - Gives the user rad info in the ui, currently
 /obj/item/mod/module/rad_protection
-	name = "MOD radiation protection module"
-	desc = "A module utilizing polymers and reflective shielding to protect the user against ionizing radiation; \
-		a common danger in space. This comes with software to notify the wearer that they're even in a radioactive area, \
-		giving a voice to an otherwise silent killer."
+	name = "MOD radiation detector module"
+	desc = "A protoype module that improves the sensors on the modsuit to detect radiation on the user. \
+	Currently due to time restraints and a lack of lead on lavaland, it does not have a built in geiger counter or radiation protection."
 	icon_state = "radshield"
-	complexity = 2
-	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
+	complexity = 0 //I'm setting this to zero for now due to it not currently increasing radiaiton armor. If we add giger counter / additional rad protecion to this, it should be 2. We denied radiation potions before, so this should NOT give full rad immunity on a engi modsuit
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1 //Lowered from 0.3 due to no protection.
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	tgui_id = "rad_counter"
-	/// Radiation threat level being perceived.
-	var/perceived_threat_level
-
-/obj/item/mod/module/rad_protection/on_suit_activation()
-	AddComponent(/datum/component/geiger_sound)
-	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, "mod_trait")
-	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
-	for(var/obj/item/part in mod.mod_parts)
-		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, "mod_trait")
-
-/obj/item/mod/module/rad_protection/on_suit_deactivation(deleting = FALSE)
-	qdel(GetComponent(/datum/component/geiger_sound))
-	REMOVE_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, "mod_trait")
-	UnregisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION)
-	for(var/obj/item/part in mod.mod_parts)
-		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, "mod_trait")
 
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
-	.["userradiated"] = mod.wearer ? HAS_TRAIT(mod.wearer, TRAIT_IRRADIATED) : FALSE
+	.["userradiated"] = mod.wearer?.radiation || 0
 	.["usertoxins"] = mod.wearer?.getToxLoss() || 0
 	.["usermaxtoxins"] = mod.wearer?.getMaxHealth() || 0
-	.["threatlevel"] = perceived_threat_level
-
-/obj/item/mod/module/rad_protection/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
-	SIGNAL_HANDLER
-
-	perceived_threat_level = get_perceived_radiation_danger(pulse_information, insulation_to_target)
-	addtimer(VARSET_CALLBACK(src, perceived_threat_level, null), TIME_WITHOUT_RADIATION_BEFORE_RESET, TIMER_UNIQUE | TIMER_OVERRIDE)
-
-///Constructor - Lets you build quicker and create RCD holograms.
-/obj/item/mod/module/constructor
-	name = "MOD constructor module"
-	desc = "This module entirely occupies the wearer's forearm, notably causing conflict with \
-		advanced arm servos meant to carry crewmembers. However, it functions as an \
-		extremely advanced construction hologram scanner, as well as containing the \
-		latest engineering schematics combined with inbuilt memory to help the user build walls."
-	icon_state = "constructor"
-	module_type = MODULE_USABLE
-	complexity = 2
-	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
-	incompatible_modules = list(/obj/item/mod/module/constructor, /obj/item/mod/module/quick_carry)
-	cooldown_time = 11 SECONDS
-
-/obj/item/mod/module/constructor/on_suit_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_QUICK_BUILD, "mod_trait")
-
-/obj/item/mod/module/constructor/on_suit_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_QUICK_BUILD, "mod_trait")
-
-/obj/item/mod/module/constructor/on_use()
-	. = ..()
-	if(!.)
-		return
-	rcd_scan(src, fade_time = 10 SECONDS)
-	drain_power(use_power_cost)
 
 ///Mister - Sprays water over an area.
 /obj/item/mod/module/mister

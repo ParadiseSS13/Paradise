@@ -22,8 +22,7 @@
 	bag = S
 	bag.max_w_class = max_w_class
 	bag.max_combined_w_class = max_combined_w_class
-	bag.max_items = max_items
-	bag.locked
+	bag.storage_slots = max_items
 
 /obj/item/mod/module/storage/on_install()
 	mod.bag = bag
@@ -33,15 +32,16 @@
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
 	qdel(bag)
 	if(!deleting)
-		bag.remove_all(get_turf(src))
+		for(var/obj/I in bag.contents)
+			I.forceMove(get_turf(loc))
 	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
 
 /obj/item/mod/module/storage/proc/on_chestplate_unequip(obj/item/source, force, atom/newloc, no_move, invdrop, silent)
 	if(QDELETED(source) || !mod.wearer || newloc == mod.wearer || !mod.wearer.s_store)
 		return
 	to_chat(mod.wearer, ("<span class='notice'>[src] tries to store [mod.wearer.s_store] inside itself.</span>"))
-	if(bag?.attempt_insert(mod.wearer.s_store, mod.wearer, override = TRUE))
-		mod.wearer.UnEquip(I, force, null, TRUE, idrop, silent = TRUE)
+	//if(bag?.attempt_insert(mod.wearer.s_store, mod.wearer, override = TRUE)) //todo WHAT IS THIS?
+		//mod.wearer.unEquip(I, force, silent = TRUE)
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
@@ -264,7 +264,7 @@
 	name = "MOD burger dispenser module"
 	desc = "A rare piece of technology reverse-engineered from a prototype found in a Donk Corporation vessel. \
 		This can draw incredible amounts of power from the suit's charge to create edible organic matter in the \
-		palm of the wearer's glove; however, research seemed to have entirely stopped at burgers. \
+		palm of the wearer's glove; however, research seemed to have entirely stopped at cheeseburgers. \
 		Notably, all attempts to get it to dispense Earl Grey tea have failed."
 	icon_state = "dispenser"
 	module_type = MODULE_USABLE
@@ -273,7 +273,7 @@
 	incompatible_modules = list(/obj/item/mod/module/dispenser)
 	cooldown_time = 5 SECONDS
 	/// Path we dispense.
-	var/dispense_type = /obj/item/food/burger/plain
+	var/dispense_type = /obj/item/reagent_containers/food/snacks/cheeseburger
 	/// Time it takes for us to dispense.
 	var/dispense_time = 0 SECONDS
 
@@ -319,9 +319,9 @@
 
 /obj/item/mod/module/thermal_regulator/on_active_process(seconds_per_tick)
 	if(mod.wearer.bodytemperature > temperature_setting)
-		mod.wearer.bodytemperature = max(temperature_setting, M.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		mod.wearer.bodytemperature = max(temperature_setting, mod.wearer.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(mod.wearer.bodytemperature < 311)
-		mod.wearer.bodytemperature = min(temperature_setting, M.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
+		mod.wearer.bodytemperature = min(temperature_setting, mod.wearer.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 
 ///DNA Lock - Prevents people without the set DNA from activating the suit.
 /obj/item/mod/module/dna_lock
@@ -359,7 +359,7 @@
 
 /obj/item/mod/module/dna_lock/emp_act(severity)
 	. = ..()
-	if(. & EMP_PROTECT_SELF)
+	if(emp_proof)
 		return
 	on_emp(src, severity)
 

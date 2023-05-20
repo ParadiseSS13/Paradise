@@ -109,7 +109,6 @@
 	default_pins = list(
 		/obj/item/mod/module/gps,
 		/obj/item/mod/module/drill,
-		/obj/item/mod/module/sphere_transform,
 	)
 
 /obj/item/mod/control/pre_equipped/medical
@@ -258,7 +257,6 @@
 	applied_core = /obj/item/mod/core/infinite
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
-		/obj/item/mod/module/energy_shield/wizard,
 		/obj/item/mod/module/emp_shield,
 	)
 
@@ -423,8 +421,5 @@
 
 /obj/item/mod/control/pre_equipped/empty/elite
 	theme = /datum/mod_theme/elite
-
-/obj/item/mod/control/pre_equipped/empty/ninja
-	theme = /datum/mod_theme/ninja
 
 INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)

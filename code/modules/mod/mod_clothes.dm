@@ -53,3 +53,7 @@
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
 	cold_protection = FEET|LEGS
+	var/magbooted
+
+/obj/item/clothing/shoes/mod/negates_gravity()
+	return magbooted

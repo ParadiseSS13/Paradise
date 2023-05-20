@@ -91,10 +91,6 @@
 	if(!mod.active || mod.activating || !mod.get_charge())
 		to_chat(mod.wearer, "<span class='warning'>Module is unpowered!</span>")
 		return FALSE
-	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
-		//specifically a to_chat because the user is phased out.
-		to_chat(mod.wearer, "<span class='warning'>You can not activate this module while phasing!</span>")
-		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
 		return FALSE
 	if(module_type == MODULE_ACTIVE)
@@ -145,10 +141,6 @@
 		return FALSE
 	if(!check_power(use_power_cost))
 		to_chat(mod.wearer, "<span class='warning'>Module costs too much power to use!</span>")
-		return FALSE
-	if(!(allow_flags & MODULE_ALLOW_PHASEOUT) && istype(mod.wearer.loc, /obj/effect/dummy/phased_mob))
-		//specifically a to_chat because the user is phased out.
-		to_chat(mod.wearer, "<span class='warning'>You can not activate this module while phasing!</span>")
 		return FALSE
 	if(SEND_SIGNAL(src, COMSIG_MODULE_TRIGGERED) & MOD_ABORT_USE)
 		return FALSE

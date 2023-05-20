@@ -23,7 +23,7 @@
 	amount_per_transfer_from_this = 30
 	possible_transfer_amounts = list(5, 10, 15, 20, 30)
 	volume = 30
-	inject_flags = INJECT_CHECK_PENETRATE_THICK
+	penetrates_thick = TRUE
 
 ///Defibrillator - Gives the suit an extendable pair of shock paddles.
 /obj/item/mod/module/defibrillator

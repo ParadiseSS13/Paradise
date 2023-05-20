@@ -305,9 +305,6 @@
 		both casual backstroking through molten magma and romantic walks through arctic terrain. \
 		Instead, the suit is capable of using its' anomalous properties to attract and \
 		carefully distribute layers of ash or ice across the surface; these layers are ablative, but incredibly strong. \
-		Lastly, the suit is capable of compressing and shrinking the mass of the wearer, as well as \
-		rearranging its own constitution, to allow them to fit upright in a sphere form that can \
-		roll around at half their original size; leaving high-powered mining ordinance in its wake. \
 		However, all of this has proven to be straining on all Nanotrasen-approved cells, \
 		so much so that it comes default fueled by equally-enigmatic plasma fuel rather than a simple recharge. \
 		Additionally, the systems have been put to near their maximum load, allowing for far less customization than others."
@@ -328,7 +325,7 @@
 		/obj/item/storage/bag/ore,
 		/obj/item/gun/energy/kinetic_accelerator,
 	)
-	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
+	inbuilt_modules = list(/obj/item/mod/module/ash_accretion)
 	skins = list(
 		"mining" = list(
 			HELMET_FLAGS = list(

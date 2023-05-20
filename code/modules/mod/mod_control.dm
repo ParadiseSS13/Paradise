@@ -87,6 +87,8 @@
 	var/mob/living/carbon/human/wearer
 	/// Internal storage in a modsuit
 	var/obj/item/storage/backpack/modstorage/bag
+	///Is it EMP proof?
+	var/emp_proof = TRUE
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
@@ -126,7 +128,7 @@
 		part.min_cold_protection_temperature = theme.min_cold_protection_temperature
 		part.siemens_coefficient = theme.siemens_coefficient
 	for(var/obj/item/part as anything in mod_parts)
-		RegisterSignal(part, COMSIG_ATOM_DESTRUCTION, PROC_REF(on_part_destruction)) //look into
+		RegisterSignal(part, COMSIG_OBJ_DECONSTRUCT, PROC_REF(on_part_destruction)) //look into
 		RegisterSignal(part, COMSIG_PARENT_QDELETING, PROC_REF(on_part_deletion))
 	set_mod_skin(new_skin || theme.default_skin)
 	update_speed()
@@ -198,8 +200,6 @@
 			. += "You could remove [core] with a <b>wrench</b>."
 		else
 			. += "You could use a <b>MOD core</b> on it to install one."
-		else
-			. += "You could install an AI with an <b>intellicard</b>."
 	. += "<i>[extended_desc]</i>" //god is dead
 
 /obj/item/mod/control/process(seconds_per_tick)
@@ -241,9 +241,9 @@
 		return
 	clean_up()
 
-/obj/item/mod/control/allow_attack_hand_drop(mob/user)
+/obj/item/mod/control/allow_attack_hand_drop(mob/user) //this is a made up proc?
 	if(user != wearer)
-		return ..()
+		return
 	for(var/obj/item/part as anything in mod_parts)
 		if(part.loc != src)
 			to_chat(user, "<span class='warning'>Retract parts first!</span>")
@@ -354,7 +354,7 @@
 		update_charge_alert()
 		return TRUE
 	else if(istype(attacking_item, /obj/item/multitool) && open)
-		wires.interact(user)
+		wires.Interact(user)
 		return TRUE
 	else if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())
@@ -391,13 +391,6 @@
 	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly!")
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
-
-/obj/item/mod/control/visual_equipped(mob/user, slot, initial = FALSE)
-	if(slot & slot_flags)
-		set_wearer(user)
-
-/obj/item/mod/control/on_outfit_equip(mob/living/carbon/human/outfit_wearer, visuals_only, item_slot)
-	quick_activation()
 
 /obj/item/mod/control/dropped(mob/stripper, mob/owner)
 	if(active && !toggle_activate(stripper, force_deactivate = TRUE))
@@ -473,9 +466,7 @@
 	if(!length(items))
 		return
 	var/radial_anchor = src
-	if(istype(user.loc, /obj/effect/dummy/phased_mob))
-		radial_anchor = get_turf(user.loc) //they're phased out via some module, anchor the radial on the turf so it may still display
-	var/pick = show_radial_menu(user, radial_anchor, items, custom_check = FALSE, require_near = TRUE, tooltips = TRUE) //todo
+	var/pick = show_radial_menu(user, radial_anchor, items, custom_check = FALSE, require_near = TRUE) //todo
 	if(!pick)
 		return
 	var/module_reference = display_names[pick]
@@ -509,7 +500,7 @@
 	modules += new_module
 	complexity += new_module.complexity
 	new_module.mod = src
-	new_module.RegisterSignal(src, COMSIG_ITEM_GET_WORN_OVERLAYS, TYPE_PROC_REF(/obj/item/mod/module, add_module_overlay))
+	new_module.RegisterSignal(src, COMSIG_ITEM_GET_WORN_OVERLAYS, TYPE_PROC_REF(/obj/item/mod/module, add_module_overlay)) //look into this
 	new_module.on_install()
 	if(wearer)
 		new_module.on_equip()
@@ -566,7 +557,7 @@
 	if(!wearer)
 		return
 	if(!core)
-		wearer.throw_alert("mod_charge", /obj/screen/alert/nocore)
+		wearer.throw_alert("mod_charge", /obj/screen/alert/nocell)
 		return
 	core.update_charge_alert()
 
@@ -576,7 +567,7 @@
 		part.slowdown = (active ? slowdown_active : slowdown_inactive) / length(all_parts)
 
 /obj/item/mod/control/proc/power_off()
-	to_chat(user, "<span class='warning'>Power cells depleted!")
+	to_chat(mod.wearer, "<span class='warning'>Power cells depleted!")
 	toggle_activate(wearer, force_deactivate = TRUE)
 
 /obj/item/mod/control/proc/set_mod_color(new_color)
@@ -657,7 +648,7 @@
 		overslotting_parts[part] = null
 	if(QDELETED(src))
 		return
-	atom_destruction(damage_flag)
+	obj_destruction(damage_flag)
 
 /obj/item/mod/control/proc/on_part_deletion(obj/item/part) //the part doesnt count as being qdeleted, so our destroying does an infinite loop, fix later
 	SIGNAL_HANDLER

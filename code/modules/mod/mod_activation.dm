@@ -188,7 +188,7 @@
 /obj/item/mod/control/proc/seal_part(obj/item/clothing/part, seal)
 	if(seal)
 		part.icon_state = "[skin]-[part.base_icon_state]-sealed"
-		part.clothing_flags |= part.visor_flags
+		part.flags |= part.visor_flags
 		part.flags_inv |= part.visor_flags_inv
 		part.flags_cover |= part.visor_flags_cover
 		part.heat_protection = initial(part.heat_protection)
@@ -198,25 +198,13 @@
 		part.icon_state = "[skin]-[part.base_icon_state]"
 		part.flags_cover &= ~part.visor_flags_cover
 		part.flags_inv &= ~part.visor_flags_inv
-		part.clothing_flags &= ~part.visor_flags
+		part.flags &= ~part.visor_flags
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 		part.alternate_worn_layer = mod_parts[part]
-	if(part == boots)
-		wearer.update_worn_shoes()
-	if(part == gauntlets)
-		wearer.update_worn_gloves()
-	if(part == chestplate)
-		wearer.update_worn_oversuit()
-		wearer.update_worn_undersuit()
-	if(part == helmet)
-		wearer.update_worn_head()
-		wearer.update_worn_mask()
-		wearer.update_worn_glasses()
-		wearer.update_body_parts()
-		// Close internal air tank if MOD helmet is unsealed and was the only breathing apparatus.
-		if (!seal && wearer?.invalid_internals())
-			wearer.cutoff_internals()
+		if(ishuman(mod.wearer))
+			var/mob/living/carbon/human/h = mod.wearer
+			H.regenerate_icons()//TODO SPECIFIY THIS
 
 /// Finishes the suit's activation, starts processing
 /obj/item/mod/control/proc/finish_activation(on)

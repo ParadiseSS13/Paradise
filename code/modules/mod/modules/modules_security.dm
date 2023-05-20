@@ -81,12 +81,12 @@
 			to_chat(mod.wearer, "<span class='warning'>It's too big to fit!</span>")
 			return
 		holstered = holding
-		mod.wearer.visible_message("<span class='notice'>[user] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
+		mod.wearer.visible_message("<span class='notice'>[mod.wearer] holsters [holstered].</span>", "<span class='notice'>You holster [holstered].</span>")
 		playsound(src, 'sound/weapons/gun/revolver/empty.ogg', 100, TRUE)
-		user.unEquip(holstered)
+		mod.holder.unEquip(get_active_hand())
 		holstered.loc = src
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.visible_message("<span class='warning'>[user] draws [holstered], ready to shoot!</span></span>", \
+		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [holstered], ready to shoot!</span></span>", \
 			"<span class='warning'>You draw [holstered], ready to shoot!</span>")
 		playsound(src, 'sound/weapons/gun/revolver/empty.ogg', 100, TRUE)
 	else
