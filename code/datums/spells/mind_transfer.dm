@@ -100,8 +100,8 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/list/mobs_to_swap = list()
 
 	for(var/mob/living/mind_we_will_transfer as anything in targets)
-	//	if(mind_we_will_transfer.stat != CONSCIOUS || !mind_we_will_transfer.mind || user == mind_we_will_transfer || mind_we_will_transfer.suiciding)
-//			continue //spare the casters and the poor SSD lads, don't want suiciding people getting slapped either
+		if(mind_we_will_transfer.stat != CONSCIOUS || !mind_we_will_transfer.mind || user == mind_we_will_transfer || mind_we_will_transfer.suiciding)
+			continue //spare the casters and the poor SSD lads, don't want suiciding people getting slapped either
 		mobs_to_swap += mind_we_will_transfer
 
 	if(!length(mobs_to_swap))
