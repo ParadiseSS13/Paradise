@@ -2,7 +2,7 @@
 
 //Standard loadouts, which are meant to be suggestions for beginners. Should always be worth exactly 10 spell points, and only contain standard wizard spells/items.
 /datum/spellbook_entry/loadout/mutant
-	name = "Offense Focus : Mutant"
+	name = "Offense Focus - Mutant"
 	desc = "A spellset focused around the Mutate spell as its main source of damage, which provides stun protection, laser eyes, and strong punches. <br> \
 		Ethereal Jaunt and Blink provide escape and mobility, while Magic Missile and Disintegrate can be used together for dangerous or key targets. <br> \
 		As this set lacks any form of healing or resurrection, healing items should be acquired from the station, and you should be careful to avoid being hurt in the first place. <br><br> \
@@ -11,7 +11,7 @@
 		/obj/effect/proc_holder/spell/projectile/magic_missile, /obj/effect/proc_holder/spell/touch/disintegrate)
 
 /datum/spellbook_entry/loadout/lich
-	name = "Defense Focus : Lich"
+	name = "Defense Focus - Lich"
 	desc = "This spellset uses the Bind Soul spell to safeguard your life as a lich and allow for more dangerous offensive spells to be used. <br> \
 		Ethereal Jaunt provides escape, Fireball and Rod Form are your offensive spells, and Disable Tech and Forcewall provides utility in disabling sec equipment or blocking their path. <br> \
 		Care should be taken in hiding the item you choose as your phylactery after using Bind Soul, as you cannot revive if it destroyed or too far from your body! <br><br> \
@@ -21,7 +21,7 @@
 	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/loadout/wands
-	name = "Utility Focus : Wands"
+	name = "Utility Focus - Wands"
 	desc = "This set contain a Belt of Wands, providing offensive, defensive, and utility wands. Wands have limited charges, but can be partially recharged with the Charge spell included. <br> \
 		Ethereal Jaunt and Blink provide escape and mobility, while Disintegrate and Repulse can be used to annihilate or push away anyone that gets too close to you. <br> \
 		Do not lose any of your wands to the station's crew, as they are extremely deadly even in their hands. Remember that the Revive wand can be used on yourself for a full heal! <br><br> \

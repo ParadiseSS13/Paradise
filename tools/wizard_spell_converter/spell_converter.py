@@ -28,11 +28,11 @@ try:
     with open('spell_converter.json') as json_file:
         convert_dict = json.load(json_file)
 except FileNotFoundError:
-    print("Could not find the conversion file. Please make sure you're running the script from tools/loadout_converter/, not the repo root!")
+    print("Could not find the conversion file. Please make sure you're running the script from tools/wizard_spell_converter/, not the repo root!")
     sys.exit()
 
 for spell in convert_dict:
-    cursor.execute(f"UPDATE feedback SET json = replace(json, '{spell}', '{convert_dict[spell]}') WHERE key_name = 'wizard_spell_learned'")
+    cursor.execute("UPDATE feedback SET json = replace(json, '%s', '%s') WHERE key_name = 'wizard_spell_learned'" % (spell, convert_dict[spell]))
 db.commit()
 
 stopwatch = time.time()
