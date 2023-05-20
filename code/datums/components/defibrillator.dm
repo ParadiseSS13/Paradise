@@ -177,7 +177,6 @@
 
 	if(!do_after(user, 3 SECONDS * speed_multiplier, target = target)) // Beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 		busy = FALSE
-		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
 
 	user.visible_message("<span class='notice'>[user] places [parent] on [target]'s chest.</span>", "<span class='warning'>You place [parent] on [target]'s chest.</span>")
@@ -191,7 +190,6 @@
 
 	if(!do_after(user, 2 SECONDS * speed_multiplier, target = target)) // Placed on chest and short delay to shock for dramatic effect, revive time is 5sec total
 		busy = FALSE
-		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
 
 	signal_result |= SEND_SIGNAL(target, COMSIG_LIVING_DEFIBBED, user, parent, ghost)
@@ -199,13 +197,11 @@
 		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient's chest is obscured. Operation aborted.</span>")
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 		busy = FALSE
-		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
 
 	if(signal_result & COMPONENT_DEFIB_OVERRIDE)
 		// Let our signal handle it
 		busy = FALSE
-		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		return
 
 	if(target.undergoing_cardiac_arrest()) // Can have a heart attack and heart is either missing, necrotic, or not beating
@@ -216,7 +212,6 @@
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
 		if(!heart || (heart.status & ORGAN_DEAD))
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
-			SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 			busy = FALSE
 			return
 
@@ -235,7 +230,6 @@
 	if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient is not in a valid state. Operation aborted.</span>")
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
-		SEND_SIGNAL(parent, COMSIG_DEFIB_ABORTED, user, target, should_cause_harm)
 		busy = FALSE
 		return
 
