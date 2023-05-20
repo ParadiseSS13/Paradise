@@ -134,11 +134,6 @@
 	// Check what the unit itself has to say about how the defib went
 	var/application_result = SEND_SIGNAL(parent, COMSIG_DEFIB_PADDLES_APPLIED, user, target, should_cause_harm)
 
-	if(!should_cause_harm && (application_result & COMPONENT_DEFIB_BECOME_THE_DANGER))
-		should_cause_harm = TRUE
-	if(should_cause_harm && (application_result & COMPONENT_DEFIB_BECOME_SAFE))
-		should_cause_harm = FALSE
-
 	if(application_result & COMPONENT_BLOCK_DEFIB_DEAD)
 		user.visible_message("<span class='notice'>[defib_ref] beeps: Unit is unpowered.</span>")
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
@@ -192,12 +187,13 @@
 		busy = FALSE
 		return
 
-	signal_result |= SEND_SIGNAL(target, COMSIG_LIVING_DEFIBBED, user, parent, ghost)
 	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !combat)
 		user.visible_message("<span class='notice'>[defib_ref] buzzes: Patient's chest is obscured. Operation aborted.</span>")
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 		busy = FALSE
 		return
+
+	signal_result |= SEND_SIGNAL(target, COMSIG_LIVING_DEFIBBED, user, parent, ghost)
 
 	if(signal_result & COMPONENT_DEFIB_OVERRIDE)
 		// Let our signal handle it
