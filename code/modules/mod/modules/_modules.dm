@@ -107,7 +107,7 @@
 				mod.wearer.drop_item()
 				return FALSE
 		else
-			var/used_button = "TODO FIGURE OUT WHAT BUTTON WE WANT FOR CLICKS AND PUT IT HERE WE NEED THIS QWERTY" //oh fuck me
+			var/used_button = "TODO middle for now"
 			update_signal(used_button)
 			to_chat(mod.wearer, "<span class='notice'>[src] activated, middle click to use I guess? or left click? Pain.</span>")
 	active = TRUE
@@ -136,9 +136,9 @@
 
 /// Called when the module is used
 /obj/item/mod/module/proc/on_use()
-	if(!COOLDOWN_FINISHED(src, cooldown_timer))
-		to_chat(mod.wearer, "<span class='warning'>Module is on cooldown!</span>")
-		return FALSE
+	//if(!COOLDOWN_FINISHED(src, cooldown_timer))
+	//	to_chat(mod.wearer, "<span class='warning'>Module is on cooldown!</span>")
+	//	return FALSE
 	if(!check_power(use_power_cost))
 		to_chat(mod.wearer, "<span class='warning'>Module costs too much power to use!</span>")
 		return FALSE
@@ -152,7 +152,7 @@
 
 /// Called when an activated module without a device is used
 /obj/item/mod/module/proc/on_select_use(atom/target)
-	if(!(allow_flags & MODULE_ALLOW_INCAPACITATED))
+	if(!(allow_flags & MODULE_ALLOW_INCAPACITATED) && mod.wearer.incapacitated())
 		return FALSE
 	mod.wearer.face_atom(target)
 	if(!on_use())
@@ -281,7 +281,7 @@
 /// Updates the signal used by active modules to be activated
 /obj/item/mod/module/proc/update_signal(value)
 	switch(value)
-		if("TODO THIS SHIT")
+		if("TODO middle for now")
 			mod.selected_module.used_signal = COMSIG_MOB_MIDDLECLICKON
 		if("STILL TODO THIS SHIT")
 			mod.selected_module.used_signal = COMSIG_MOB_ALTCLICKON

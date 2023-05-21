@@ -285,7 +285,7 @@
 
 /obj/item/mod/module/magnet/on_select_use(atom/target)
 	. = ..()
-	if(!.)
+	if(!.)w
 		return
 	if(istype(mod.wearer.pulling, /obj/structure/closet))
 		var/obj/structure/closet/locker = mod.wearer.pulling
@@ -294,7 +294,7 @@
 		locker.throw_at(target, range = 7, speed = 4, thrower = mod.wearer)
 		return
 	if(!istype(target, /obj/structure/closet) || !(target in view(mod.wearer)))
-		to_chat(mod.wearer, /obj/item/mod/module/clamp/loader)
+		to_chat(mod.wearer, "Bad target")
 		return
 	var/obj/structure/closet/locker = target
 	if(locker.anchored || locker.move_resist >= MOVE_FORCE_OVERPOWERING)

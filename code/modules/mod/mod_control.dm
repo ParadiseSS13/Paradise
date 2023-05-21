@@ -441,7 +441,7 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(module.module_type == MODULE_PASSIVE)
 			continue
-		display_names[module.name] = UID(module)
+		display_names[module.name] = module
 		var/image/module_image = image(icon = module.icon, icon_state = module.icon_state)
 		if(module == selected_module)
 			module_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_selected")
@@ -457,7 +457,7 @@
 	if(!pick)
 		return
 	var/module_reference = display_names[pick]
-	var/obj/item/mod/module/picked_module = locateUID(module_reference)
+	var/obj/item/mod/module/picked_module = module_reference
 	picked_module.on_select()
 
 /obj/item/mod/control/proc/shock(mob/living/user)
@@ -481,6 +481,11 @@
 			to_chat(user, "<span class='warning'>[new_module] would make [src] too complex!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
+	if(user)
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>[new_module] is stuck to your hand!</span>")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			return
 	new_module.forceMove(src)
 	modules += new_module
 	complexity += new_module.complexity

@@ -239,11 +239,13 @@
 	Only used for swapping hands
 */
 /mob/proc/MiddleClickOn(atom/A)
+
 	pointed(A)
 	return
 
 // See click_override.dm
 /mob/living/MiddleClickOn(atom/A)
+	SEND_SIGNAL(src, COMSIG_MOB_MIDDLECLICKON, A, src)
 	if(middleClickOverride)
 		middleClickOverride.onClick(A, src)
 	else
