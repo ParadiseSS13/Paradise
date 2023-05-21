@@ -40,7 +40,6 @@
 /obj/structure/kitchenspike_frame/deconstruct(disassembled = TRUE)
 	if(disassembled)
 		new /obj/item/stack/sheet/metal(loc, 5)
-		transfer_fingerprints_to(F)
 	else
 		new /obj/item/stack/sheet/metal(loc, 4)
 	..()
