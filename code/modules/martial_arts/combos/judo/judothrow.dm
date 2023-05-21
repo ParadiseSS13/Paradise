@@ -11,6 +11,6 @@
 						"<span class='userdanger'>[user] judo throws you to the ground!</span>")
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, 1, -1)
 	target.apply_damage(25, STAMINA)
-	target.KnockDown(5 SECONDS)
-	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Slam", ATKLOG_ALL)
+	target.KnockDown(7 SECONDS)
+	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  judo throw", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

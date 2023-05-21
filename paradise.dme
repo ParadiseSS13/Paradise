@@ -1856,6 +1856,8 @@
 #include "code\modules\martial_arts\combos\judo\discombobulate.dm"
 #include "code\modules\martial_arts\combos\judo\eyepoke.dm"
 #include "code\modules\martial_arts\combos\judo\judothrow.dm"
+#include "code\modules\martial_arts\combos\judo\armbar.dm"
+#include "code\modules\martial_arts\combos\judo\fatality.dm"
 #include "code\modules\maze_generation\maze_generator.dm"
 #include "code\modules\maze_generation\maze_generator_blockwise.dm"
 #include "code\modules\maze_generation\maze_helper_atoms.dm"
