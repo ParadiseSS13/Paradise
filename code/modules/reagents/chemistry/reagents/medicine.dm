@@ -816,23 +816,46 @@
 	color = "#770101"
 	taste_description = "coppery fuel"
 	harmless = FALSE
-	overdose_threshold = 20
+	overdose_threshold = 15
 
 /datum/reagent/medicine/sanguine_reagent/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
+
 		if(!(NO_BLOOD in H.dna.species.species_traits))
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 5
+			return ..()
+
+		if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+			switch(current_cycle)
+				if(1)
+					H.blood_volume += 1
+				if(2 to 25)
+					H.blood_volume += 3
+				else
+					H.blood_volume += 5
 	return ..()
 
 /datum/reagent/medicine/sanguine_reagent/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(10))
-		var/overdose_message = pick("Your veins writhe under your skin!", "Your heart skips a beat!", "You cough up congealed blood!")
-		to_chat(M, "<span class='danger'>[overdose_message]</span>")
-	update_flags |= M.adjustOxyLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	if(volume < 20)
+		if(prob(10))
+			to_chat(H, "<span class='warning>You cough up some congealed blood.</span>")
+			H.vomit(blood = TRUE, stun = FALSE) //mostly visual
+		else if(prob(10))
+			var/overdose_message = pick("Your vision is tinted red for a moment.", "You can hear your heart beating.")
+			to_chat(H, "<span class='warning'>[overdose_message]</span>")
+	else
+		if(prob(10))
+			to_chat(H, "<span class='danger'>You choke on congealed blood!</span>")
+			H.AdjustLoseBreath(2 SECONDS)
+			H.vomit(blood = TRUE, stun = FALSE)
+		else if(prob(10))
+			var/overdose_message = pick("You're seeing red!", "Your heartbeat thunders in your ears!", "Your veins writhe under your skin!")
+			to_chat(H, "<span class='danger'>[overdose_message]</span>")
+			H.adjustBruteLoss(3)
 	return list(0, update_flags)
 
 /datum/reagent/medicine/osseous_reagent
