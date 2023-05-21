@@ -67,20 +67,20 @@
 	else
 		..()
 
-/obj/structure/kitchenspike/attackby(obj/item/grab/G, mob/user)
-	if(istype(G, /obj/item/crowbar))
+/obj/structure/kitchenspike/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/crowbar))
 		if(!has_buckled_mobs())
-			playsound(loc, G.usesound, 100, 1)
-			if(do_after(user, 20 * G.toolspeed, target = src))
+			playsound(loc, I.usesound, 100, 1)
+			if(do_after(user, 20 * I.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
 				deconstruct(TRUE)
 		else
 			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
-	if(!istype(G, /obj/item/grab) || !G.affecting)
-		return
-	if(isliving(G.affecting))
-		start_spike(G.affecting, user)
+	else if(istype(I, /obj/item/grab))
+		var/obj/item/grab/G = I
+		if(G.affecting && isliving(G.affecting))
+			start_spike(G.affecting, user)
 	return ..()
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
