@@ -33,6 +33,8 @@
 	var/in_stance = FALSE
 	/// If the martial art allows parrying.
 	var/can_parry = FALSE
+	/// Set to TRUE to prevent users of this style from using stun batons (and stunprods)
+	var/no_baton = FALSE
 
 /datum/martial_art/New()
 	. = ..()

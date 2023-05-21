@@ -67,6 +67,9 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
+	if(user.mind && user.mind.martial_art && user.mind.martial_art.no_baton)
+		user.visible_message("<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>")
+		return
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
 							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
