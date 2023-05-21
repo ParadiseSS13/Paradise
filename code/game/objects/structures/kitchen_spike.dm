@@ -7,18 +7,16 @@
 	icon_state = "spikeframe"
 	desc = "The frame of a meat spike."
 	density = TRUE
-	anchored = FALSE
+	anchored = TRUE
 	max_integrity = 200
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	if(istype(I, /obj/item/wrench))
-		if(anchored)
-			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
-			anchored = FALSE
-		else
-			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = TRUE
+		playsound(loc, I.usesound, 75, 1)
+		to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
+		deconstruct(TRUE)
+		return
 	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
@@ -31,6 +29,9 @@
 	else
 		return ..()
 
+/obj/structure/kitchenspike_frame/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Add metal rods to complete construction, or use a wrench to deconstruct it.</span>"
 
 /obj/structure/kitchenspike
 	name = "meat spike"
@@ -42,6 +43,10 @@
 	buckle_lying = FALSE
 	can_buckle = TRUE
 	max_integrity = 250
+
+/obj/structure/kitchenspike/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>To deconstruct, pry out the spikes with a crowbar, then deconstruct the frame with a wrench.</span>"
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/kitchenspike/attack_hand(mob/user)
@@ -83,7 +88,7 @@
 		"<span class='danger'>[user] tries to slam [victim] onto the meat spike!</span>",
 		"<span class='userdanger'>[user] tries to slam you onto the meat spike!</span>"
 	)
-	if(do_mob(user, src, 12 SECONDS))
+	if(do_mob(user, src, 6 SECONDS))
 		end_spike(victim, user)
 
 /obj/structure/kitchenspike/proc/end_spike(mob/living/victim, mob/user)
@@ -121,7 +126,7 @@
 			M.visible_message("<span class='notice'>[user] tries to pull [M] free of [src]!</span>",\
 				"<span class='notice'>[user] is trying to pull you off [src], opening up fresh wounds!</span>",\
 				"<span class='italics'>You hear a squishy wet noise.</span>")
-			if(!do_after(user, 300, target = src))
+			if(!do_after(user, 15 SECONDS, target = src))
 				if(M && M.buckled)
 					M.visible_message("<span class='notice'>[user] fails to free [M]!</span>",\
 					"<span class='notice'>[user] fails to pull you off of [src].</span>")
@@ -132,7 +137,7 @@
 			"<span class='notice'>You struggle to break free from [src], exacerbating your wounds! (Stay still for two minutes.)</span>",\
 			"<span class='italics'>You hear a wet squishing noise..</span>")
 			M.adjustBruteLoss(30)
-			if(!do_after(M, 1200, target = src))
+			if(!do_after(M, 2 MINUTES, target = src))
 				if(M && M.buckled)
 					to_chat(M, "<span class='warning'>You fail to free yourself!</span>")
 				return
@@ -142,11 +147,10 @@
 
 /obj/structure/kitchenspike/proc/release_mob(mob/living/M)
 	M.adjustBruteLoss(30)
-	src.visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
+	visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
 	unbuckle_mob(M, force = TRUE)
 	M.emote("scream")
 	M.AdjustWeakened(20 SECONDS)
-
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
