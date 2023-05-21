@@ -263,11 +263,11 @@
 // Genetics
 
 /datum/uplink_item/jobspecific/magillitis_serum
-	name = "Magillitis Serum Autoinjector"
-	desc = "A single-use autoinjector which contains an experimental serum that causes rapid muscular growth in Hominidae. \
+	name = "Magillitis Serum Bio-chip"
+	desc = "A single-use bio-chip which contains an experimental serum that causes rapid muscular growth in Hominidae. \
 			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	reference = "MAG"
-	item = /obj/item/reagent_containers/hypospray/autoinjector/magillitis
+	item = /obj/item/implanter/gorilla_rampage
 	cost = 5
 	job = list("Research Director", "Geneticist")
 

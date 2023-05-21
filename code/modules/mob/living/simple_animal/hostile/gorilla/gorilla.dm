@@ -133,7 +133,7 @@
 			living_target.throw_at(get_edge_target_turf(living_target, dir), rand(1, 2), 7, src)
 			return
 
-		living_target.Paralyse(2 SECONDS)
+		living_target.adjustStaminaLoss(40)
 		visible_message("<span class='warning'>[src] knocks [living_target] down!</span>")
 
 /mob/living/simple_animal/hostile/gorilla/update_icon_state()
@@ -226,6 +226,10 @@
 	QDEL_NULL(access_card)
 	return ..()
 
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic/get_access()
+	. = ..()
+	. |= access_card.GetAccess()
+
 /obj/item/card/id/supply/cargo_gorilla
 	name = "cargorilla ID"
 	registered_name = "Cargorilla"
@@ -238,6 +242,9 @@
 	color = "#ff0000"
 	health = 350
 	maxHealth = 350
+	melee_damage_lower = 25
+	melee_damage_upper = 35
+	obj_damage = 40
 	damage_coeff = list(BRUTE = 1.25, BURN = 1, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1)
 
 /mob/living/simple_animal/hostile/gorilla/rampaging/Initialize(mapload)

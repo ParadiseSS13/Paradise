@@ -698,17 +698,3 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
-
-/datum/reagent/magillitis
-	name = "Magillitis"
-	id = "magillitis"
-	description = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
-	reagent_state = LIQUID
-	color = "#00f041"
-	taste_description = "muscular"
-
-/datum/reagent/magillitis/on_mob_life(mob/living/carbon/human/M)
-	..()
-	if((istype(M)) && current_cycle >= 10)
-		M.gorillize(TRUE)
-		to_chat(M, "<span class='userdanger'>You feel your muscles swell and your hair grow as you return to monke.</span>")
