@@ -682,7 +682,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 		var/mutable_appearance/standing
 		if(gloves.icon_override)
-			standing = mutable_appearance(gloves.icon_override, "[t_state]", layer = -GLOVES_LAYER)
+			standing = mutable_appearance(gloves.icon_override, "[gloves.icon_state]", layer = -GLOVES_LAYER)
 		else if(gloves.sprite_sheets && gloves.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(gloves.sprite_sheets[dna.species.name], "[t_state]", layer = -GLOVES_LAYER)
 		else

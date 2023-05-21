@@ -285,7 +285,7 @@
 
 /obj/item/mod/module/magnet/on_select_use(atom/target)
 	. = ..()
-	if(!.)w
+	if(!.)
 		return
 	if(istype(mod.wearer.pulling, /obj/structure/closet))
 		var/obj/structure/closet/locker = mod.wearer.pulling

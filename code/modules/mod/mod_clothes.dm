@@ -5,6 +5,7 @@
 	icon_state = "standard-helmet"
 	base_icon_state = "helmet"
 	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = HEAD
 	heat_protection = HEAD
@@ -17,6 +18,7 @@
 	icon_state = "standard-chestplate"
 	base_icon_state = "chestplate"
 	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	blood_overlay_type = "armor"
 	allowed = list(
 		/obj/item/tank/internals,
@@ -36,6 +38,7 @@
 	icon_state = "standard-gauntlets"
 	base_icon_state = "gauntlets"
 	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = HANDS|ARMS
 	heat_protection = HANDS|ARMS
@@ -49,6 +52,7 @@
 	icon_state = "standard-boots"
 	base_icon_state = "boots"
 	item_state = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	icon_override = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	body_parts_covered = FEET|LEGS
 	heat_protection = FEET|LEGS
