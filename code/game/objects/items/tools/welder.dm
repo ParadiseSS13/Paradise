@@ -213,6 +213,34 @@
 	desc = "An advanced welder designed to be used in robotic systems."
 	toolspeed = 0.5
 
+/obj/item/weldingtool/research
+	name = "research welding tool"
+	desc = "A scratched-up welder that's been modified many times. Is it still the same tool?"
+	icon_state = "welder_research"
+	item_state = "welder_research"
+	belt_icon = "welder_research"
+	maximum_fuel = 40
+	toolspeed = 0.75
+	light_intensity = 1
+
+/obj/item/weldingtool/research/suicide_act(mob/living/user)
+
+	if(!user)
+		return
+
+	user.visible_message("<span class='suicide'>[user] is tinkering with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	to_chat(user, "<span class='notice'> You begin tinkering with [src]...")
+	user.Immobilize(10 SECONDS)
+	sleep(2 SECONDS)
+	add_fingerprint(user)
+
+	user.visible_message("<span class='danger'>[src] blows up in [user]'s face!</span>", "<span class='userdanger'>Oh, shit!</span>")
+	playsound(loc, "sound/effects/explosion1.ogg", 50, TRUE, -1)
+	user.gib()
+
+	return OBLITERATION
+
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
 	desc = "A miniature welder used during emergencies."

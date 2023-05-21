@@ -9706,6 +9706,7 @@
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
 /obj/item/flashlight/lamp,
+/obj/item/wirecutters/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39446,6 +39447,7 @@
 "bWW" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bWY" = (
@@ -57087,7 +57089,6 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
-/obj/item/crowbar/large,
 /obj/item/storage/box/lights/mixed,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -57097,6 +57098,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cTU" = (
@@ -58749,6 +58751,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
