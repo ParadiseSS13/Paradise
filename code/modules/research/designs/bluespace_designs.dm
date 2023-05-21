@@ -95,8 +95,8 @@
 	name = "Bluespace Shot Glass"
 	desc = "For when you need to make the Bartender's life extra hell."
 	req_tech = list("bluespace" = 3, "toxins" = 6)
-	id = "brpd"
+	id = "bluespaceshotglass"
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
+	materials = list(MAT_METAL = 7000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/rpd/bluespace
 	category = list("Bluespace")
