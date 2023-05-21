@@ -133,7 +133,8 @@
 /obj/item/grenade/mirage/prime()
 	do_sparks(rand(3, 6), FALSE, src)
 	if(thrower)
-		new/mob/living/simple_animal/hostile/illusion/mirage(get_turf(src), thrower)
+		var/mob/living/simple_animal/hostile/illusion/mirage/M = new(get_turf(src))
+		M.Copy_Parent(thrower, 15 SECONDS)
 	qdel(src)
 
 /mob/living/simple_animal/hostile/illusion/mirage //It's just standing there, menacingly

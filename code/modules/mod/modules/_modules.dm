@@ -52,7 +52,6 @@
 		return
 	if(ispath(device))
 		device = new device(src)
-		flags += NODROP
 		RegisterSignal(device, COMSIG_PARENT_QDELETING, PROC_REF(on_device_deletion))
 		RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
@@ -122,10 +121,14 @@
 	active = FALSE
 	if(module_type == MODULE_ACTIVE)
 		mod.selected_module = null
-		if(display_message)
-			to_chat(mod.wearer, "[device] retracted")
+		if(display_message && device)
+			to_chat(mod.wearer, "<span class='notice'>[device] retracted.</span>")
+		else if(display_message)
+			to_chat(mod.wearer, "<span class='notice'>[src] deactivated.</span>")
+
 		if(device)
 			mod.wearer.drop_item()
+			device.forceMove(src)
 			UnregisterSignal(mod.wearer, COMSIG_ATOM_EXITED)
 			UnregisterSignal(mod.wearer, COMSIG_MOB_WILLINGLY_DROP)
 		else
@@ -168,18 +171,18 @@
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /// Called on the MODsuit's process
-/obj/item/mod/module/proc/on_process(seconds_per_tick)
+/obj/item/mod/module/proc/on_process()
 	if(active)
-		if(!drain_power(active_power_cost * seconds_per_tick))
+		if(!drain_power(active_power_cost))
 			on_deactivation()
 			return FALSE
-		on_active_process(seconds_per_tick)
+		on_active_process()
 	else
-		drain_power(idle_power_cost * seconds_per_tick)
+		drain_power(idle_power_cost)
 	return TRUE
 
 /// Called on the MODsuit's process if it is an active module
-/obj/item/mod/module/proc/on_active_process(seconds_per_tick)
+/obj/item/mod/module/proc/on_active_process()
 	return
 
 /// Called from MODsuit's install() proc, so when the module is installed.
@@ -357,12 +360,12 @@
 		return
 	return ..()
 
-/obj/item/mod/module/anomaly_locked/on_process(seconds_per_tick)
+/obj/item/mod/module/anomaly_locked/on_process()
 	. = ..()
 	if(!core)
 		return FALSE
 
-/obj/item/mod/module/anomaly_locked/on_active_process(seconds_per_tick)
+/obj/item/mod/module/anomaly_locked/on_active_process()
 	if(!core)
 		return FALSE
 	return TRUE

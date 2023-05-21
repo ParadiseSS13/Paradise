@@ -333,7 +333,9 @@
 	/// How many tiles we traveled through.
 	var/traveled_tiles = 0
 	/// Armor values per tile.
-	var/datum/armor/armor_mod = /datum/armor/mod_ash_accretion
+	var/list/armor_mod_1 = /obj/item/mod/armor/mod_module_armor_boost
+	/// the actual armor object
+	var/obj/item/mod/armor/armor_mod_2 = null
 	/// Speed added when you're fully covered in ash.
 	var/speed_added = 0.5
 	/// Speed that we actually added.
@@ -343,12 +345,12 @@
 	/// Turfs that let us keep ash.
 	var/static/list/keep_turfs
 
-/datum/armor/mod_ash_accretion
-	melee = 4
-	bullet = 1
-	laser = 2
-	energy = 2
-	bomb = 4
+/obj/item/mod/module/ash_accretion/New()
+	. = ..()
+	armor_mod_2 = new armor_mod_1
+
+/obj/item/mod/armor/mod_ash_accretion
+	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
 	. = ..()
@@ -370,12 +372,15 @@
 	if(!traveled_tiles)
 		return
 	var/list/parts = mod.mod_parts + mod
-	//var/datum/armor/to_remove = getarmor_by_type(armor_mod)
 	for(var/obj/item/part as anything in parts)
-		//part.set_armor(part.getarmor().subtract_other_armor(to_remove.generate_new_with_multipliers(list(ARMOR_ALL = traveled_tiles))))
+		part.armor.detachArmor(part.armor)
+		var/obj/item/mod/armor/mod_theme_mining/A = new(src)
+		part.armor.attachArmor(A.armor) //TODO: ANYTHING BUT FUCKING THIS
+		qdel(A)
 	if(traveled_tiles == max_traveled_tiles)
 		mod.slowdown += speed_added
 	traveled_tiles = 0
+	mod.wearer.weather_immunities -= "ash"
 
 /obj/item/mod/module/ash_accretion/generate_worn_overlay(mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
@@ -392,7 +397,7 @@
 		traveled_tiles++
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			//part.set_armor(part.getarmor().add_other_armor(armor_mod))
+			part.armor.attachArmor(armor_mod_2)
 		if(traveled_tiles >= max_traveled_tiles)
 			to_chat(mod.wearer, "<span class='notice'>You are fully covered in ash!</span>")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
@@ -400,6 +405,7 @@
 			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
 			actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
 			mod.slowdown -= actual_speed_added
+			mod.wearer.weather_immunities |= "ash"
 	else if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
 		return
 	else
@@ -410,9 +416,10 @@
 		traveled_tiles--
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			//part.set_armor(part.getarmor().subtract_other_armor(armor_mod))
+			part.armor.detachArmor(armor_mod_2)
 		if(traveled_tiles <= 0)
 			to_chat(mod.wearer, "<span class='warning'>You have ran out of ash!</span>")
+			mod.wearer.weather_immunities -= "ash"
 
 /obj/effect/temp_visual/light_ash
 	icon_state = "light_ash"

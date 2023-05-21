@@ -204,7 +204,7 @@
 	overlay_state_inactive = "module_light"
 	light_color = COLOR_WHITE
 	light_range = 4
-	light_power = 1
+	light_power = 2
 	var/light_on = FALSE
 	/// Charge drain per range amount.
 	var/base_power = DEFAULT_CHARGE_DRAIN * 0.1
@@ -218,24 +218,26 @@
 	if(!.)
 		return
 	active_power_cost = base_power * light_range
+	mod.set_light(light_range, light_power, light_color)
 
 /obj/item/mod/module/flashlight/on_deactivation(display_message = TRUE, deleting = FALSE)
+	mod.set_light(0, light_power, light_color)
 	. = ..()
 	if(!.)
 		return
 
-/obj/item/mod/module/flashlight/on_process(seconds_per_tick)
+/obj/item/mod/module/flashlight/on_process()
 	active_power_cost = base_power * light_range
 	return ..()
 
-/obj/item/mod/module/flashlight/generate_worn_overlay(mutable_appearance/standing)
-	. = ..()
-	if(!active)
-		return
-	var/mutable_appearance/light_icon = mutable_appearance(overlay_icon_file, "module_light_on", layer = standing.layer + 0.2)
-	light_icon.appearance_flags = RESET_COLOR
-	light_icon.color = light_color
-	. += light_icon
+///obj/item/mod/module/flashlight/generate_worn_overlay(mutable_appearance/standing)
+//	. = ..()
+///	if(!active)
+//		return
+///	var/mutable_appearance/light_icon = mutable_appearance(overlay_icon_file, "module_light_on", layer = standing.layer + 0.2)
+//	light_icon.appearance_flags = RESET_COLOR
+//	light_icon.color = light_color
+//	. += light_icon
 
 /obj/item/mod/module/flashlight/get_configuration()
 	. = ..()
@@ -255,6 +257,7 @@
 			mod.wearer.regenerate_icons() /// TODO TEMP NO BAD DON'T
 		if("light_range")
 			light_range = (clamp(value, min_range, max_range))
+	mod.set_light(0, light_power, light_color)
 
 /// Given a color in the format of "#RRGGBB", will return if the color //Make a helpers file for this this it temp TODO ECT ECT ETC
 /// is dark.
@@ -320,7 +323,7 @@
 		if("temperature_setting")
 			temperature_setting = clamp(value + T0C, min_temp, max_temp)
 
-/obj/item/mod/module/thermal_regulator/on_active_process(seconds_per_tick)
+/obj/item/mod/module/thermal_regulator/on_active_process()
 	if(mod.wearer.bodytemperature > temperature_setting)
 		mod.wearer.bodytemperature = max(temperature_setting, mod.wearer.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(mod.wearer.bodytemperature < 311)
@@ -373,7 +376,6 @@
 /obj/item/mod/module/dna_lock/proc/dna_check(mob/user)
 	if(!iscarbon(user))
 		return FALSE
-	var/mob/living/carbon/carbon_user = user
 	if(!dna)
 		return TRUE
 	return FALSE

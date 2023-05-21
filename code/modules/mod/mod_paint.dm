@@ -28,3 +28,11 @@
 /obj/item/mod/skin_applier/honkerative
 	skin = "honkerative"
 	compatible_theme = /datum/mod_theme/syndicate
+
+/obj/item/mod/skin_applier/asteroid
+	skin = "asteroid"
+	compatible_theme = /datum/mod_theme/mining
+
+/obj/item/mod/skin_applier/corpsman
+	skin = "corpsman"
+	compatible_theme = /datum/mod_theme/medical

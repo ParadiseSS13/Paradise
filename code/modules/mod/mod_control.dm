@@ -200,7 +200,7 @@
 			. += "You could use a <b>MOD core</b> on it to install one."
 	. += "<i>[extended_desc]</i>" //god is dead
 
-/obj/item/mod/control/process(seconds_per_tick)
+/obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--
 	if(!get_charge() && active && !activating)
@@ -209,12 +209,12 @@
 	var/malfunctioning_charge_drain = 0
 	if(malfunctioning)
 		malfunctioning_charge_drain = rand(1,20)
-	subtract_charge((charge_drain + malfunctioning_charge_drain)*seconds_per_tick)
+	subtract_charge((charge_drain + malfunctioning_charge_drain))
 	update_charge_alert()
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(malfunctioning && module.active && prob(5))
 			module.on_deactivation(display_message = TRUE)
-		module.on_process(seconds_per_tick)
+		module.on_process()
 
 /obj/item/mod/control/equipped(mob/user, slot)
 	..()
@@ -385,7 +385,7 @@
 			to_chat(user, "<span class='warning'>There is no core installed!</span>")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
-		core.on_attackby(attacking_item, params)
+		core.on_attackby(attacking_item, user, params)
 	else if(bag && !istype(attacking_item))
 		bag.loc = user
 		bag.attackby(attacking_item, user, params)

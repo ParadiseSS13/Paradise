@@ -119,6 +119,7 @@
 	return charge_source.give(amount)
 
 /obj/item/mod/core/standard/subtract_charge(amount)
+	message_admins("[amount] used!")
 	var/obj/item/stock_parts/cell/charge_source = charge_source()
 	if(!charge_source)
 		return FALSE

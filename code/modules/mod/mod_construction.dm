@@ -121,6 +121,7 @@
 			playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 			to_chat(user, "<span class='notice'>Core inserted.</span>")
 			core = part
+			core.forceMove(src)
 			step = CORE_STEP
 		if(CORE_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
@@ -140,6 +141,7 @@
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				to_chat(user, "<span class='notice'>Helmet added.</span>")
 				helmet = part
+				helmet.forceMove(src)
 				step = HELMET_STEP
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Deconstruct
 				if(part.use_tool(src, user, 0, volume=30))
@@ -152,7 +154,9 @@
 					return
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				to_chat(user, "<span class='notice'>Chestplate added.</span>")
+				forceMove(src)
 				chestplate = part
+				chestplate.forceMove(src)
 				step = CHESTPLATE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume=30))
@@ -168,6 +172,7 @@
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				to_chat(user, "<span class='notice'>Gauntlets added.</span>")
 				gauntlets = part
+				gauntlets.forceMove(src)
 				step = GAUNTLETS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume=30))
@@ -183,6 +188,7 @@
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				to_chat(user, "<span class='notice'>Boots added.</span>")
 				boots = part
+				boots.forceMove(src)
 				step = BOOTS_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
 				if(part.use_tool(src, user, 0, volume=30))
@@ -218,6 +224,7 @@
 				playsound(src, 'sound/machines/click.ogg', 30, TRUE)
 				var/obj/item/mod = new /obj/item/mod/control(drop_location(), external_plating.theme, null, core)
 				core = null
+				qdel(external_plating)
 				qdel(src)
 				user.put_in_hands(mod)
 				to_chat(user, "<span class='notice'>Suit finished!</span>")

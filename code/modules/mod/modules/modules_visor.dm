@@ -11,8 +11,8 @@
 	cooldown_time = 0.5 SECONDS
 	/// The HUD type given by the visor.
 	var/hud_type
-	/// The traits given by the visor.
-	var/list/visor_traits = list()
+	/// The trait given by the visor.
+	var/visor_trait = list()
 
 /obj/item/mod/module/visor/on_activation()
 	. = ..()
@@ -21,8 +21,8 @@
 	if(hud_type)
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
 		hud.add_hud_to(mod.wearer)
-	if(length(visor_traits))
-		ADD_TRAIT(mod.wearer, visor_traits, "mod_trait")
+	if(length(visor_trait))
+		ADD_TRAIT(mod.wearer, visor_trait, "mod_trait")
 	mod.wearer.update_sight()
 
 /obj/item/mod/module/visor/on_deactivation(display_message = TRUE, deleting = FALSE)
@@ -32,8 +32,8 @@
 	if(hud_type)
 		var/datum/atom_hud/hud = GLOB.huds[hud_type]
 		hud.remove_hud_from(mod.wearer)
-	if(length(visor_traits))
-		REMOVE_TRAIT(mod.wearer, visor_traits, "mod_trait")
+	if(length(visor_trait))
+		REMOVE_TRAIT(mod.wearer, visor_trait, "mod_trait")
 	mod.wearer.update_sight()
 
 //Medical Visor - Gives you a medical HUD.
@@ -70,7 +70,7 @@
 		technology, used by construction workers and miners across the galaxy to see basic structural and terrain layouts \
 		through walls, regardless of lighting conditions. They say these also let you see behind you."
 	icon_state = "meson_visor"
-	visor_traits = list(TRAIT_MESON_VISION)
+	visor_trait = TRAIT_MESON_VISION
 
 //Thermal Visor - Gives you thermal vision.
 /obj/item/mod/module/visor/thermal
@@ -79,7 +79,7 @@
 		the thermal radiation output of objects near the user. While it can detect the heat output of even something as \
 		small as a rodent, it still produces irritating red overlay. They say these also let you see behind you."
 	icon_state = "thermal_visor"
-	visor_traits = list(TRAIT_THERMAL_VISION)
+	visor_trait = TRAIT_THERMAL_VISION
 
 //Night Visor - Gives you night vision.
 /obj/item/mod/module/visor/night
@@ -88,4 +88,4 @@
 		this allows the user to perceive their surroundings while in complete darkness, enhancing the view by tenfold; \
 		yet brightening everything into a spooky green glow. They say these also let you see behind you."
 	icon_state = "night_visor"
-	visor_traits = list(TRAIT_NIGHT_VISION)
+	visor_trait = TRAIT_NIGHT_VISION

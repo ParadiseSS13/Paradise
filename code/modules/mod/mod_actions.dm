@@ -83,6 +83,7 @@
 
 /datum/action/item_action/mod/pinned_module
 	desc = "Activate the module."
+	use_itemicon = TRUE
 	/// Overrides the icon applications.
 	var/override = FALSE
 	/// Module we are linked to.
@@ -91,8 +92,6 @@
 	var/pinner_uid
 
 /datum/action/item_action/mod/pinned_module/New(Target, obj/item/mod/module/linked_module, mob/user)
-	button_icon = linked_module.icon
-	button_icon_state = linked_module.icon_state
 	..()
 	module = linked_module
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
