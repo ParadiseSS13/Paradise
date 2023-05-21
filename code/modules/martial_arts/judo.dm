@@ -2,7 +2,7 @@
 	name = "Corporate Judo"
 	has_explaination_verb = TRUE
 	no_baton = TRUE
-	//combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/gunfight, /datum/martial_combo/judo/gunfightfinisher, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/meelefinisher)
+	combos = list(/datum/martial_combo/judo/discombobulate)//, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/gunfight, /datum/martial_combo/judo/gunfightfinisher, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/meelefinisher)
 	var/armbar_active = FALSE //used to check if the victim is in an armbar, useful for finishing moves
 
 //Corporate Judo Belt
@@ -36,12 +36,18 @@
 //Increased harm damage
 /datum/martial_art/judo/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
-	add_attack_logs(A, D, "Melee attacked with [src]")
-	var/picked_hit_type = pick("punches")
+	var/picked_hit_type = pick("punches", "slugs", "strikes", "jabs", "hooks", "uppercuts")
 	var/bonus_damage = 10
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	D.apply_damage(bonus_damage, BRUTE)
 	playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	add_attack_logs(A, D, "Melee attacked with [src]")
 	return TRUE
+
+/datum/martial_art/judo/explaination_header(user)
+	to_chat(user, "<b><i>You recall the teachings of Corperate Judo.</i></b>")
+
+/datum/martial_art/cqc/explaination_footer(user)
+	to_chat(user, "<b>Your unarmed strikes hit about twice as hard as your peers, on average.</b>")
