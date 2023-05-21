@@ -97,6 +97,6 @@
 	req_tech = list("bluespace" = 3, "toxins" = 6)
 	id = "bluespaceshotglass"
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 7000, MAT_BLUESPACE = 2000)
+	materials = list(MAT_METAL = 1000, MAT_BLUESPACE = 500)
 	build_path = /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/bluespace
 	category = list("Bluespace")
