@@ -86,7 +86,6 @@
 		install_cell(cell)
 	RegisterSignal(mod, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(mod, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
-	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(mod, COMSIG_MOD_WEARER_SET, PROC_REF(on_wearer_set))
 	if(mod.wearer)
 		on_wearer_set(mod, mod.wearer)
@@ -94,10 +93,13 @@
 /obj/item/mod/core/standard/uninstall()
 	if(!QDELETED(cell))
 		cell.forceMove(drop_location())
-	UnregisterSignal(mod, list(COMSIG_PARENT_EXAMINE, COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_ATTACKBY, COMSIG_MOD_WEARER_SET))
+	UnregisterSignal(mod, list(COMSIG_PARENT_EXAMINE, COMSIG_ATOM_ATTACK_HAND, COMSIG_MOD_WEARER_SET))
 	if(mod.wearer)
 		on_wearer_unset(mod, mod.wearer)
 	return ..()
+
+/obj/item/mod/core/proc/on_attackby(obj/item/attacking_item, mob/user, params)
+	return
 
 /obj/item/mod/core/standard/charge_source()
 	return cell
@@ -191,9 +193,7 @@
 	user.put_in_hands(cell_to_move)
 	mod.update_charge_alert()
 
-/obj/item/mod/core/standard/proc/on_attackby(datum/source, obj/item/attacking_item, mob/user)
-	SIGNAL_HANDLER
-
+/obj/item/mod/core/standard/on_attackby(obj/item/attacking_item, mob/user, params)
 	if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!mod.open)
 			to_chat(user, "<span class='warning'>Open the cover first!</span>")
@@ -203,6 +203,7 @@
 			to_chat(user, "<span class='warning'>Cell already installed!</span>")
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return COMPONENT_NO_AFTERATTACK
+		user.drop_item()
 		install_cell(attacking_item)
 		to_chat(user, "<span class='notice'>You install the cell.</span>")
 		playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -239,14 +240,6 @@
 	var/charge = 10000
 	/// Associated list of charge sources and how much they charge, only stacks allowed.
 	var/list/charger_list = list(/obj/item/stack/ore/plasma = 1000, /obj/item/stack/sheet/mineral/plasma = 2000)
-
-/obj/item/mod/core/plasma/install(obj/item/mod/control/mod_unit)
-	. = ..()
-	RegisterSignal(mod, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
-
-/obj/item/mod/core/plasma/uninstall()
-	UnregisterSignal(mod, COMSIG_PARENT_ATTACKBY)
-	return ..()
 
 /obj/item/mod/core/plasma/attackby(obj/item/attacking_item, mob/user, params)
 	if(charge_plasma(attacking_item, user))
@@ -287,12 +280,8 @@
 		else
 			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/emptycell)
 
-/obj/item/mod/core/plasma/proc/on_attackby(datum/source, obj/item/attacking_item, mob/user)
-	SIGNAL_HANDLER
-
-	if(charge_plasma(attacking_item, user))
-		return COMPONENT_NO_AFTERATTACK
-	return NONE
+/obj/item/mod/core/plasma/on_attackby(obj/item/attacking_item, mob/user, params)
+	charge_plasma(attacking_item, user)
 
 /obj/item/mod/core/plasma/proc/charge_plasma(obj/item/stack/plasma, mob/user)
 	var/charge_given = is_type_in_list(plasma, charger_list)

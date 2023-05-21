@@ -1,8 +1,10 @@
 /datum/action/item_action/mod
 	background_icon_state = "bg_mod"
 	button_icon_state = "bg_mod_border"
+	icon_icon = 'icons/mob/actions/actions_mod.dmi'
 	button_icon = 'icons/mob/actions/actions_mod.dmi'
 	check_flags = AB_CHECK_CONSCIOUS
+	use_itemicon = FALSE
 
 /datum/action/item_action/mod/New(Target)
 	..()

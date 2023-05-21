@@ -208,9 +208,9 @@
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 		part.alternate_worn_layer = mod_parts[part]
-		if(ishuman(wearer))
-			var/mob/living/carbon/human/H = wearer
-			H.regenerate_icons()//TODO SPECIFIY THIS
+	if(ishuman(wearer))
+		var/mob/living/carbon/human/H = wearer
+		H.regenerate_icons()//TODO SPECIFIY THIS
 
 /// Finishes the suit's activation, starts processing
 /obj/item/mod/control/proc/finish_activation(on)
@@ -219,10 +219,12 @@
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_activation()
 		START_PROCESSING(SSobj, src)
+		flags |= NODROP
 	else
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_deactivation()
 		STOP_PROCESSING(SSobj, src)
+		flags &= ~NODROP
 	update_speed()
 	update_icon_state()
 	wearer.regenerate_icons()//TODO MAKE IT NOT REGENERATE EVERYTHING, THIS IS FOR COMPILE SAKE

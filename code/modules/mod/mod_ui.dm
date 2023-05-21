@@ -68,17 +68,17 @@
 		if("activate")
 			toggle_activate(usr)
 		if("select")
-			var/obj/item/mod/module/module = locate(params["ref"]) in modules
+			var/obj/item/mod/module/module = locateUID(params["ref"])
 			if(!module)
 				return
 			module.on_select()
 		if("configure")
-			var/obj/item/mod/module/module = locate(params["ref"]) in modules
+			var/obj/item/mod/module/module = locateUID(params["ref"])
 			if(!module)
 				return
 			module.configure_edit(params["key"], params["value"])
 		if("pin")
-			var/obj/item/mod/module/module = locate(params["ref"]) in modules
+			var/obj/item/mod/module/module = locateUID(params["ref"])
 			if(!module)
 				return
 			module.pin(usr)

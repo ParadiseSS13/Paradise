@@ -35,7 +35,7 @@
 /obj/item/mod/module/springlock/proc/on_activate_spring_block(datum/source, user)
 	SIGNAL_HANDLER
 
-	to_chat(mod.wearer, "<span class='danger'>The springlocks aren't responding...?</span>")
+	to_chat(mod.wearer, "<span class='userdanger'>The springlocks aren't responding...?</span>")
 	return MOD_CANCEL_ACTIVATE
 
 ///Delayed death proc of the suit after the wearer is exposed to reagents
@@ -43,11 +43,11 @@
 	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	if(!mod.wearer) //while there is a guaranteed user when on_wearer_exposed() fires, that isn't the same case for this proc
 		return
-	mod.wearer.visible_message("[src] inside [mod.wearer]'s [mod.name] snaps shut, mutilating the user inside!", "<span class='danger'>*SNAP*</span>")
+	mod.wearer.visible_message("<span class='danger'>[src] inside [mod.wearer]'s [mod.name] snaps shut, mutilating the user inside!</span>", "<span class='biggerdanger'><b>*SNAP*</b></span>")
 	mod.wearer.emote("scream")
 	playsound(mod.wearer, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
 	playsound(mod.wearer, 'sound/effects/splat.ogg', 50, TRUE, frequency = 0.5)
-	mod.wearer.apply_damage(500, BRUTE, sharp = TRUE, spread_damage = TRUE) //boggers, bogchamp, etc //why not just poggers
+	mod.wearer.adjustBruteLoss(1000) //boggers, bogchamp, etc //why not just poggers
 
 ///Balloon Blower - Blows a balloon.
 /obj/item/mod/module/balloon

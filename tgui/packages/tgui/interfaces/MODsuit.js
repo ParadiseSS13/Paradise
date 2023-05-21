@@ -470,7 +470,6 @@ const ParametersSection = (props, context) => {
     complexity_max,
     wearer_name,
     wearer_job,
-    AI,
   } = data;
   const status = malfunctioning
     ? 'Malfunctioning'
@@ -514,7 +513,6 @@ const ParametersSection = (props, context) => {
         <LabeledList.Item label="Occupant">
           {wearer_name}, {wearer_job}
         </LabeledList.Item>
-        <LabeledList.Item label="Onboard AI">{AI || 'None'}</LabeledList.Item>
       </LabeledList>
     </Section>
   );
@@ -746,6 +744,9 @@ export const MODsuitContent = (props, context) => {
           </Stack.Item>
           <Stack.Item>
             <InfoSection />
+          </Stack.Item>
+          <Stack.Item grow>
+            <ModuleSection />
           </Stack.Item>
         </Stack>
       )}

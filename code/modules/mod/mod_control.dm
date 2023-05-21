@@ -85,6 +85,8 @@
 	var/obj/item/storage/backpack/modstorage/bag
 	///Is it EMP proof?
 	var/emp_proof = TRUE
+	///List of overlays the mod has. Needs to be cut onremoval / module deactivation
+	var/list/mod_overlays = list()
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
@@ -237,6 +239,29 @@
 		return
 	clean_up()
 
+/obj/item/mod/control/MouseDrop(atom/over_object)
+	if(iscarbon(usr))
+		var/mob/M = usr
+
+		if(!over_object)
+			return
+
+		if(ismecha(M.loc))
+			return
+
+		if(!M.restrained() && !M.stat)
+			playsound(loc, "rustle", 50, 1, -5)
+
+			if(istype(over_object, /obj/screen/inventory/hand))
+				if(!M.unEquip(src))
+					return
+				M.put_in_active_hand(src)
+			else if(bag)
+				bag.loc = usr
+				bag.attack_hand(usr)
+
+			add_fingerprint(M)
+
 ///obj/item/mod/control/MouseDrop(atom/over_object)
 //	if(usr != wearer) //  || !istype(over_object, /atom/movable/screen/inventory/hand)// hopefully not important
 //		return ..()
@@ -305,7 +330,9 @@
 			if(!module.removable)
 				continue
 			removable_modules += module
-		var/obj/item/mod/module/module_to_remove = alert(user, "Which module to remove?", "Module Removal", removable_modules)//uhoh
+		var/obj/item/mod/module/module_to_remove = input(user, "Which module do you want to pry out?", "Module Removal") as null|anything in removable_modules
+		if(!module_to_remove)
+			return FALSE
 		if(!module_to_remove?.mod)
 			return FALSE
 		uninstall(module_to_remove)
@@ -336,8 +363,9 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE
 		var/obj/item/mod/core/attacking_core = attacking_item
-		attacking_core.install(src)
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
+		user.drop_item()
+		attacking_core.install(src)
 		update_charge_alert()
 		return TRUE
 	else if(istype(attacking_item, /obj/item/multitool) && open)
@@ -346,7 +374,33 @@
 	else if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())
 		return TRUE
+	else if(istype(attacking_item, /obj/item/stock_parts/cell))
+		if(!core)
+			to_chat(user, "<span class='warning'>There is no core installed!</span>")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			return FALSE
+		core.on_attackby(attacking_item, user, params)
+	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
+		if(!core)
+			to_chat(user, "<span class='warning'>There is no core installed!</span>")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			return FALSE
+		core.on_attackby(attacking_item, params)
+	else if(bag && !istype(attacking_item))
+		bag.loc = user
+		bag.attackby(attacking_item, user, params)
+
 	return ..()
+
+/obj/item/mod/control/attack_hand(mob/living/carbon/user)
+	if(!iscarbon(user))
+		return
+	if(loc == user && user.back && user.back == src)
+		if(bag)
+			bag.loc = user
+			bag.attack_hand(user)
+	else
+		..()
 
 /obj/item/mod/control/get_cell()
 	if(!open)
@@ -380,6 +434,7 @@
 		wearer.emote("scream")
 
 /obj/item/mod/control/dropped(mob/stripper, mob/owner)
+	update_mod_overlays(TRUE)
 	if(active && !toggle_activate(stripper, force_deactivate = TRUE))
 		return
 	for(var/obj/item/part as anything in mod_parts)
@@ -406,6 +461,7 @@
 	SEND_SIGNAL(src, COMSIG_MOD_WEARER_SET, wearer)
 	RegisterSignal(wearer, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 	update_charge_alert()
+	update_mod_overlays()
 	for(var/obj/item/mod/module/module as anything in modules)
 		module.on_equip()
 
@@ -490,7 +546,7 @@
 	modules += new_module
 	complexity += new_module.complexity
 	new_module.mod = src
-	new_module.RegisterSignal(src, COMSIG_ITEM_GET_WORN_OVERLAYS, TYPE_PROC_REF(/obj/item/mod/module, add_module_overlay)) //look into this
+//	new_module.RegisterSignal(src, COMSIG_ITEM_GET_WORN_OVERLAYS, TYPE_PROC_REF(/obj/item/mod/module, add_module_overlay)) //look into this
 	new_module.on_install()
 	if(wearer)
 		new_module.on_equip()
@@ -509,7 +565,7 @@
 		old_module.on_suit_deactivation(deleting = deleting)
 		if(old_module.active)
 			old_module.on_deactivation(display_message = !deleting, deleting = deleting)
-	old_module.UnregisterSignal(src, COMSIG_ITEM_GET_WORN_OVERLAYS)
+//	old_module.UnregisterSignal(src, COMSIG_ITEM_GET_WORN_OVERLAYS)
 	old_module.on_uninstall(deleting = deleting)
 	QDEL_LIST_ASSOC_VAL(old_module.pinned_to)
 	old_module.mod = null
@@ -521,6 +577,15 @@
 		return
 	req_access = card.access.Copy()
 	to_chat(user, "<span class='notice'>Access updated!")
+
+/obj/item/mod/control/proc/update_mod_overlays(full_removal = FALSE)
+	if(wearer)
+		for(var/I in mod_overlays)
+			wearer.cut_overlay(I)
+			mod_overlays -= I
+		if(!full_removal)
+			for(var/obj/item/mod/module/M in modules)
+				M.add_module_overlay(wearer)
 
 /obj/item/mod/control/proc/get_charge_source()
 	return core?.charge_source()

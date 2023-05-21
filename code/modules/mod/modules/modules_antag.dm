@@ -23,15 +23,18 @@
 	/// Speed that we actually added.
 	var/actual_speed_added = 0
 	/// Armor values added to the suit parts.
-	var/list/armor_mod = /datum/armor/mod_module_armor_boost
+	var/list/armor_mod_1 = /obj/item/mod/armor/mod_module_armor_boost
+	/// the actual armor object
+	var/obj/item/mod/armor/armor_mod_2 = null
 	/// List of parts of the suit that are spaceproofed, for giving them back the pressure protection.
 	var/list/spaceproofed = list()
 
-/datum/armor/mod_module_armor_boost
-	melee = 25
-	bullet = 30
-	laser = 15
-	energy = 15
+/obj/item/mod/module/armor_booster/New()
+	. = ..()
+	armor_mod_2 = new armor_mod_1
+
+/obj/item/mod/armor/mod_module_armor_boost
+	armor = list(MELEE = 25, BULLET = 30, LASER = 15, ENERGY = 15, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/mod/module/armor_booster/on_suit_activation()
 	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
@@ -50,7 +53,7 @@
 	mod.slowdown -= actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.armor.attachArmor(armor_mod)
+		part.armor.attachArmor(armor_mod_2)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
@@ -67,7 +70,7 @@
 	mod.slowdown += actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.armor.detachArmor(armor_mod)
+		part.armor.detachArmor(armor_mod_2)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part

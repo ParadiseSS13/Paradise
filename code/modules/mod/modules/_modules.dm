@@ -111,6 +111,7 @@
 			update_signal(used_button)
 			to_chat(mod.wearer, "<span class='notice'>[src] activated, middle click to use I guess? or left click? Pain.</span>")
 	active = TRUE
+	mod.update_mod_overlays()
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)
 	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
@@ -132,6 +133,7 @@
 			used_signal = null
 	//mod.wearer.update_clothing(mod.slot_flags)
 	SEND_SIGNAL(src, COMSIG_MODULE_DEACTIVATED)
+	mod.update_mod_overlays()
 	return TRUE
 
 /// Called when the module is used
@@ -186,6 +188,7 @@
 
 /// Called from MODsuit's uninstall() proc, so when the module is uninstalled.
 /obj/item/mod/module/proc/on_uninstall(deleting = FALSE)
+	mod.update_mod_overlays()
 	return
 
 /// Called when the MODsuit is activated
@@ -194,10 +197,12 @@
 
 /// Called when the MODsuit is deactivated
 /obj/item/mod/module/proc/on_suit_deactivation(deleting = FALSE)
+	mod.update_mod_overlays()
 	return
 
 /// Called when the MODsuit is equipped
 /obj/item/mod/module/proc/on_equip()
+	mod.update_mod_overlays()
 	return
 
 /// Called when the MODsuit is unequipped
@@ -254,13 +259,11 @@
 		qdel(src)
 
 /// Adds the worn overlays to the suit.
-/obj/item/mod/module/proc/add_module_overlay(obj/item/source, list/overlays, mutable_appearance/standing, isinhands, icon_file)
-	SIGNAL_HANDLER
-
-	overlays += generate_worn_overlay(standing)
+/obj/item/mod/module/proc/add_module_overlay(mob/living/user)
+	user.add_overlay(generate_worn_overlay())
 
 /// Generates an icon to be used for the suit's worn overlays
-/obj/item/mod/module/proc/generate_worn_overlay(mutable_appearance/standing)
+/obj/item/mod/module/proc/generate_worn_overlay()
 	. = list()
 	if(!mod.active)
 		return
@@ -273,10 +276,12 @@
 		used_overlay = overlay_state_inactive
 	else
 		return
-	var/mutable_appearance/module_icon = mutable_appearance(overlay_icon_file, used_overlay, layer = standing.layer + 0.1)
-	if(!use_mod_colors)
-		module_icon.appearance_flags |= RESET_COLOR
-	. += module_icon
+	var/final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
+	//mutable_appearance(overlay_icon_file, used_overlay, layer = standing.layer + 0.1)
+	//if(!use_mod_colors)
+	//	module_icon.appearance_flags |= RESET_COLOR
+	. += final_overlay
+	mod.mod_overlays += final_overlay
 
 /// Updates the signal used by active modules to be activated
 /obj/item/mod/module/proc/update_signal(value)

@@ -113,7 +113,6 @@
 
 
 /datum/effect_system/smoke_spread/chem/proc/SmokeEm(effect_range = 2)
-	SIGNAL_HANDLER
 	for(var/atom/A in view(effect_range, get_turf(location)))
 		if(istype(A, /obj/effect/particle_effect)) // Don't impact particle effects, as there can be hundreds of them in a small area. Also, we don't want smoke particles adding themselves to this list. Major performance issue.
 			continue
@@ -121,8 +120,8 @@
 			continue
 		smoked_atoms += A
 		chemholder.reagents.reaction(A)
+		SEND_SIGNAL(A, COMSIG_ATOM_EXPOSE_REAGENTS, chemholder.reagents, chemholder, chemholder.reagents.total_volume)
 		if(iscarbon(A))
 			var/mob/living/carbon/C = A
 			if(C.can_breathe_gas())
-				SEND_SIGNAL(src, COMSIG_ATOM_EXPOSE_REAGENTS, chemholder.reagents, chemholder, chemholder.reagents.total_volume)
 				chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
