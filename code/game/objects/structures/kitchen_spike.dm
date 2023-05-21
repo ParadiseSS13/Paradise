@@ -12,7 +12,15 @@
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
-	if(istype(I, /obj/item/stack/rods))
+	if(istype(I, /obj/item/wrench))
+		if(!I.tool_use_check(user, 0))
+			return
+		TOOL_ATTEMPT_DISMANTLE_MESSAGE
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+			return
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct(TRUE)
+	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
 			R.use(4)
@@ -24,24 +32,12 @@
 	else
 		return ..()
 
-/obj/structure/girder/wrench_act(mob/user, obj/item/I)
-	if(!I.tool_use_check(user, 0))
-		return
-	TOOL_ATTEMPT_DISMANTLE_MESSAGE
-	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-		return
-	TOOL_DISMANTLE_SUCCESS_MESSAGE
-	deconstruct()
-
 /obj/structure/kitchenspike_frame/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Add metal rods to complete construction, or use a wrench to deconstruct it.</span>"
 
-/obj/structure/kitchenspike_frame/deconstruct(disassembled = TRUE)
-	if(disassembled)
-		new /obj/item/stack/sheet/metal(loc, 5)
-	else
-		new /obj/item/stack/sheet/metal(loc, 4)
+/obj/structure/kitchenspike_frame/deconstruct()
+	new /obj/item/stack/sheet/metal(loc, 5)
 	..()
 
 /obj/structure/kitchenspike
@@ -73,7 +69,7 @@
 			playsound(loc, G.usesound, 100, 1)
 			if(do_after(user, 20 * G.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
-				deconstruct(TRUE)
+				deconstruct()
 		else
 			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
@@ -174,11 +170,7 @@
 			release_mob(L)
 	return ..()
 
-/obj/structure/kitchenspike/deconstruct(disassembled = TRUE)
-	if(disassembled)
-		var/obj/F = new /obj/structure/kitchenspike_frame(loc)
-		transfer_fingerprints_to(F)
-	else
-		new /obj/item/stack/sheet/metal(loc, 4)
+/obj/structure/kitchenspike/deconstruct()
+	new /obj/item/stack/sheet/metal(loc, 5)
 	new /obj/item/stack/rods(loc, 4)
 	..()
