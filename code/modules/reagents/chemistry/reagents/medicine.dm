@@ -809,6 +809,32 @@
 					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
+/datum/reagent/medicine/sanguine_reagent
+	name = "Sanguine Reagent"
+	id = "sanguine_reagent"
+	description = "A deeply crimson almost-gel that can mimic blood, regardless of type."
+	color = "#770101"
+	taste_description = "coppery fuel"
+	harmless = FALSE
+	overdose_threshold = 20
+
+/datum/reagent/medicine/sanguine_reagent/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits))
+			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
+				H.blood_volume += 5
+	return ..()
+
+/datum/reagent/medicine/sanguine_reagent/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(10))
+		var/overdose_message = pick("Your veins writhe under your skin!", "Your heart skips a beat!", "You cough up congealed blood!")
+		to_chat(M, "<span class='warn'>[overdose_message]</span>")
+	update_flags |= M.adjustOxyLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return list(0, update_flags)
+
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
 	id = "mannitol"
