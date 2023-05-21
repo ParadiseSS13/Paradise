@@ -170,7 +170,7 @@
 			release_mob(L)
 	return ..()
 
-/obj/structure/kitchenspike/deconstruct()
+/obj/structure/kitchenspike/deconstruct(disassembled = TRUE)
 	if(disassembled)
 		var/obj/F = new /obj/structure/kitchenspike_frame(loc)
 		transfer_fingerprints_to(F)
