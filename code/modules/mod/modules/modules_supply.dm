@@ -294,13 +294,13 @@
 		locker.throw_at(target, range = 7, speed = 4, thrower = mod.wearer)
 		return
 	if(!istype(target, /obj/structure/closet) || !(target in view(mod.wearer)))
-		to_chat(mod.wearer, "Bad target")
+		to_chat(mod.wearer, "<span class='warning'>Invalid target!</span>")
 		return
 	var/obj/structure/closet/locker = target
 	if(locker.anchored || locker.move_resist >= MOVE_FORCE_OVERPOWERING)
 		return
 	playsound(locker, 'sound/effects/gravhit.ogg', 75, TRUE)
-	locker.throw_at(mod.wearer, range = 7, speed = 3, force = MOVE_FORCE_WEAK, \
+	locker.throw_at(get_step_towards(mod.wearer, target), range = 7, speed = 3, force = MOVE_FORCE_WEAK, \
 		callback = CALLBACK(src, PROC_REF(check_locker), locker))
 
 /obj/item/mod/module/magnet/on_deactivation(display_message = TRUE, deleting = FALSE)

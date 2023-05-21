@@ -747,9 +747,6 @@ export const MODsuitContent = (props, context) => {
           <Stack.Item>
             <InfoSection />
           </Stack.Item>
-          <Stack.Item grow>
-            <ModuleSection />
-          </Stack.Item>
         </Stack>
       )}
     </Section>
@@ -761,10 +758,6 @@ export const MODsuit = (props, context) => {
   const { ui_theme, interface_break } = data;
   return (
     <Window
-      width={400}
-      height={525}
-      theme={ui_theme}
-      title="MOD Interface Panel"
       resizable>
       <Window.Content scrollable={!interface_break}>
         <MODsuitContent />
