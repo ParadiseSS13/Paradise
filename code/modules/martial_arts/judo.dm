@@ -6,9 +6,14 @@
 
 //Corporate Judo Belt
 
-/obj/item/storage/belt/champion/judo
-	name = "Corporate Judo Belt"
+/obj/item/storage/belt/champion/judo //failing to attach this item to storage/belt/champion results in code screaming.
 	var/datum/martial_art/judo/style = new
+	name = "Corporate Judo Belt"
+	desc = "Teaches the wearer NT Corporate Judo"
+	icon_state = "championbelt" //placeholder sprite
+	item_state = "champion" //Placeholder sprite
+	storage_slots = FALSE
+
 
 /obj/item/storage/belt/champion/judo/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -16,7 +21,7 @@
 	if(slot == slot_belt)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
-			to_chat(H, "<span class='warning'>The arts of Corporate Judo echo uselessly in your head, the thought of their violence repulsive to you!</span>")
+			to_chat(H, "<span class='warning'>The arts of Corporate Judo echo uselessly in your head, the thought of violence disgust you!</span>")
 			return
 		style.teach(H,1)
 		to_chat(H, "<span class = 'userdanger'>The belt's nanites infuse you with the prowess of a black belt in Corporate Judo!</span>")
@@ -39,14 +44,14 @@
 	var/bonus_damage = 10
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	D.apply_damage(bonus_damage, BRUTE)
-	playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+	playsound(get_turf(D), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					"<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	return TRUE
 
 /datum/martial_art/judo/explaination_header(user)
-	to_chat(user, "<b><i>You recall the teachings of Corperate Judo.</i></b>")
+	to_chat(user, "<b><i>You recall the teachings of Corporate Judo.</i></b>")
 
 /datum/martial_art/cqc/explaination_footer(user)
 	to_chat(user, "<b>Your unarmed strikes hit about twice as hard as your peers, on average.</b>")
