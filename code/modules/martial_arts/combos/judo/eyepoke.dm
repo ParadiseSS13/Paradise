@@ -4,12 +4,12 @@
 	explaination_text = "Jab your opponent in the eye, damaging and blinding them"
 	combo_text_override = "Disarm, Harm"
 
-/datum/martial_combo/judo/discombobulate/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
+/datum/martial_combo/judo/eyepoke/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.IsWeakened())
 		return MARTIAL_COMBO_FAIL
 	target.visible_message("<span class='warning'>[user] jabs [target] in their eyes!</span>", \
 						"<span class='userdanger'>[user] jabs you in the eyes!</span>")
-	playsound(get_turf(user), 'sound/weapons/slap.ogg', 40, 1, -1)
+	playsound(get_turf(user), 'sound/weapons/whip.ogg', 40, 1, -1)
 	target.apply_damage(10, BRUTE)
 	target.SetEyeBlurry(10 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  eyepoke", ATKLOG_ALL)
