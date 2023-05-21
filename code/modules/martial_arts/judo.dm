@@ -2,8 +2,7 @@
 	name = "Corporate Judo"
 	has_explaination_verb = TRUE
 	no_baton = TRUE
-	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/fatailty)
-	var/armbar_active = FALSE //used to check if the victim is in an armbar, useful for finishing moves
+	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow)
 
 //Corporate Judo Belt
 

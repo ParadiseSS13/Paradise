@@ -5,11 +5,11 @@
 	combo_text_override = "Grab, swap hands, disarm, grab, swap hands, harm"
 
 /datum/martial_combo/judo/armbar/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(target.IsWeakened() || !IS_HORIZONTAL(target))
+	if(!IS_HORIZONTAL(target) || user.IsKnockedDown())
 		return MARTIAL_COMBO_FAIL
 	target.visible_message("<span class='warning'>[user] puts [target] into an armbar!</span>", \
 						"<span class='userdanger'>[user] wrestles you into an armbar!</span>")
-	playsound(get_turf(user), 'sound/weapons/slashmiss.ogg', 40, 1, -1)
+	playsound(get_turf(user), 'sound/weapons/slashmiss.ogg', 40, TRUE, -1)
 	target.apply_damage(45, STAMINA)
 	target.SetImmobilized(5 SECONDS)
 	target.SetKnockDown(5 SECONDS)
