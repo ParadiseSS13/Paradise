@@ -1,15 +1,15 @@
 /datum/martial_combo/judo/discombobulate
 	name = "Discombobulate"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB)
-	explaination_text = "Deliver a palm strike to your opponets ear, breifly confusing them"
+	explaination_text = "Deliver a palm strike to your opponents ear, briefly confusing them"
 	combo_text_override = "Disarm, Grab"
 
 /datum/martial_combo/judo/discombobulate/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(target.IsWeakened())
+	if(user.IsKnockedDown())
 		return MARTIAL_COMBO_FAIL
 	target.visible_message("<span class='warning'>[user] strikes [target] in the head with their palm!</span>", \
 						"<span class='userdanger'>[user] strikes you with their palm!</span>")
-	playsound(get_turf(user), 'sound/weapons/slap.ogg', 40, 1, -1)
+	playsound(get_turf(user), 'sound/weapons/slap.ogg', 40, TRUE, -1)
 	target.apply_damage(10, STAMINA)
 	target.SetConfused(10 SECONDS)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  discombobulate", ATKLOG_ALL)
