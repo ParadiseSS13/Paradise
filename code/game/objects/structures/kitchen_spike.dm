@@ -36,9 +36,13 @@
 	. = ..()
 	. += "<span class='notice'>Add metal rods to complete construction, or use a wrench to deconstruct it.</span>"
 
-/obj/structure/kitchenspike_frame/deconstruct()
-	new /obj/item/stack/sheet/metal(loc, 5)
+/obj/structure/kitchenspike_frame/deconstruct(disassembled = TRUE)
+	if(disassembled)
+		new /obj/item/stack/sheet/metal(loc, 5)
+	else
+		new /obj/item/stack/sheet/metal(loc, 4)
 	..()
+
 
 /obj/structure/kitchenspike
 	name = "meat spike"
@@ -80,7 +84,7 @@
 	return ..()
 
 /obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
-	if (!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user))
+	if (!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user) || !ismob(victim))
 		return
 	if(isanimal(user) && victim != user)
 		return // animals cannot put mobs other than themselves onto spikes
