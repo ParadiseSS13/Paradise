@@ -69,7 +69,7 @@
 			playsound(loc, G.usesound, 100, 1)
 			if(do_after(user, 20 * G.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
-				deconstruct()
+				deconstruct(TRUE)
 		else
 			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
@@ -171,6 +171,10 @@
 	return ..()
 
 /obj/structure/kitchenspike/deconstruct()
-	new /obj/item/stack/sheet/metal(loc, 5)
+	if(disassembled)
+		var/obj/F = new /obj/structure/kitchenspike_frame(loc)
+		transfer_fingerprints_to(F)
+	else
+		new /obj/item/stack/sheet/metal(loc, 4)
 	new /obj/item/stack/rods(loc, 4)
 	..()
