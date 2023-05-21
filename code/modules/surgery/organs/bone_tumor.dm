@@ -15,7 +15,7 @@
 	if(prob(1))
 		to_chat(owner, "<span class='danger'>Something just tore in your lower body!</span>")
 
-		var/list/obj/item/organ/internal/other_groin_organs = G.internal_organs
+		var/list/other_groin_organs = G.internal_organs
 		other_groin_organs -= src
 
 		for(var/obj/item/organ/internal/I in other_groin_organs)
