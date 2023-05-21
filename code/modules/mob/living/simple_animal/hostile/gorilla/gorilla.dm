@@ -180,7 +180,10 @@
 	. = ..()
 	var/num_crates = LAZYLEN(crates_in_hand)
 	if(num_crates)
-		. += "<span class='notice'>[p_theyre(TRUE)] carrying [num_crates == 1 ? "a crate" : "[num_crates] crates"].</span>"
+		. += "<span class='notice'>[p_theyre(TRUE)] carrying the following:"
+		for(var/atom/movable/crate in crates_in_hand)
+			. += "[crate]."
+		. += "</span>"
 
 /mob/living/simple_animal/hostile/gorilla/drop_item_v()
 	drop_random_crate(drop_location())
@@ -202,9 +205,10 @@
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic
 	name = "Cargorilla" // Overriden, normally
 	icon = 'icons/mob/cargorillia.dmi'
-	desc = "Cargo's pet gorilla. They seem to have an 'I love Mom' tattoo."
+	desc = "Cargo's pet gorilla. He seems to have an 'I love Mom' tattoo."
 	faction = list("neutral", "monkey", "jungle")
 	gold_core_spawnable = NO_SPAWN
+	gender = MALE
 	a_intent = INTENT_HELP
 	unique_pet = TRUE
 	crate_limit = 2
