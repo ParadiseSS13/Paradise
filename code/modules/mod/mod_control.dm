@@ -115,7 +115,7 @@
 	for(var/obj/item/part as anything in all_parts)
 		part.name = "[theme.name] [part.name]"
 		part.desc = "[part.desc] [theme.desc]"
-		part.armor.attachArmor(theme.armor_type)
+		part.armor = part.armor.attachArmor(theme.armor_type_2.armor)
 		part.resistance_flags = theme.resistance_flags
 		part.flags |= theme.atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add
 		part.heat_protection = NONE
@@ -216,7 +216,7 @@
 
 /obj/item/mod/control/equipped(mob/user, slot)
 	..()
-	if(slot & slot_flags)
+	if(slot == slot_back)
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
@@ -228,7 +228,7 @@
 	clean_up()
 
 /obj/item/mod/control/item_action_slot_check(slot)
-	if(slot & slot_flags)
+	if(slot == slot_back)
 		return TRUE
 
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -457,9 +457,7 @@
 	if(!pick)
 		return
 	var/module_reference = display_names[pick]
-	var/obj/item/mod/module/picked_module = locate(module_reference) in modules
-	if(!istype(picked_module))
-		return
+	var/obj/item/mod/module/picked_module = locateUID(module_reference)
 	picked_module.on_select()
 
 /obj/item/mod/control/proc/shock(mob/living/user)

@@ -53,9 +53,9 @@
 		break
 	for(var/obj/item/part as anything in mod_parts)
 		if(deploy && part.loc == src)
-			deploy(null, part)
+			deploy(user, part)
 		else if(!deploy && part.loc != src)
-			retract(null, part)
+			retract(user, part)
 	wearer.visible_message("<span class='notice'>[wearer]'s [src] [deploy ? "deploys" : "retracts"] its' parts with a mechanical hiss.</span>",
 		"<span class='notice'>[src] [deploy ? "deploys" : "retracts"] its' parts with a mechanical hiss.</span>",
 		"You hear a mechanical hiss.")
@@ -79,8 +79,8 @@
 			overslotting_parts[part] = overslot
 			wearer.drop_item()
 			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
-	if(wearer.equip_to_slot_if_possible(part, part.slot_flags, disable_warning = TRUE))
-		part |= NODROP
+	if(wearer.equip_to_slot_if_possible(part, slot_bitfield_to_slot(part.slot_flags), disable_warning = TRUE))
+		part.flags |= NODROP
 		if(!user)
 			return TRUE
 		wearer.visible_message("<span class='notice'>[wearer]'s [part.name] deploy[part.p_s()] with a mechanical hiss.</span>",
@@ -102,12 +102,12 @@
 			return FALSE
 		to_chat(user, "<span class='warning'>You already have retracted there!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-	part ^= NODROP
+	part.flags ^= NODROP
 	wearer.drop_item()
 	if(overslotting_parts[part])
 		UnregisterSignal(part, COMSIG_ATOM_EXITED)
 		var/obj/item/overslot = overslotting_parts[part]
-		if(!wearer.equip_to_slot_if_possible(overslot, overslot.slot_flags, disable_warning = TRUE))
+		if(!wearer.equip_to_slot_if_possible(overslot, slot_bitfield_to_slot(overslot.slot_flags), disable_warning = TRUE))
 			overslot.forceMove(get_turf(wearer))
 		overslotting_parts[part] = null
 	if(!user)

@@ -22,7 +22,9 @@
 	/// The slot this mod theme fits on
 	var/slot_flags = SLOT_BACK
 	/// Armor shared across the MOD parts.
-	var/datum/armor/armor_type = /datum/armor/mod_theme
+	var/obj/item/mod/armor/armor_type_1 = /obj/item/mod/armor/mod_theme
+	/// the actual armor object placed in a datum as I am tired and I just want this to work
+	var/obj/item/mod/armor/armor_type_2 = null
 	/// Resistance flags shared across the MOD parts.
 	var/resistance_flags = NONE
 	/// Atom flags shared across the MOD parts.
@@ -99,14 +101,12 @@
 		),
 	)
 
-/datum/armor/mod_theme //Since this is a direct armor datum (don't shoot me), anything with a value not stated is zero
-	melee = 15
-	bullet = 5
-	laser = 5
-	energy = 5
-	bio = INFINITY
-	fire = 33
-	acid = 33
+/datum/mod_theme/New()
+	. = ..()
+	armor_type_2 = new armor_type_1
+
+/obj/item/mod/armor/mod_theme
+	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = INFINITY, RAD = 25, FIRE = 33, ACID = 33)
 
 /datum/mod_theme/engineering
 	name = "engineering"
@@ -117,7 +117,7 @@
 		a shock-resistant outer layer, making the suit nigh-invulnerable against even the extremes of high-voltage electricity. \
 		However, the capacity for modification remains the same as civilian-grade suits."
 	default_skin = "engineering"
-	armor_type = /datum/armor/mod_theme_engineering
+	armor_type_1 = /obj/item/mod/armor/mod_theme_engineering
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -155,16 +155,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_engineering
-	melee = 20
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 15
-	rad = 150
-	bio = INFINITY
-	fire = INFINITY
-	acid = 150
+/obj/item/mod/armor/mod_theme_engineering
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 150, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/atmospheric
 	name = "atmospheric"
@@ -175,7 +167,7 @@
 		corrosive gasses and liquids, useful in the world of pipes. \
 		However, the capacity for modification remains the same as civilian-grade suits."
 	default_skin = "atmospheric"
-	armor_type = /datum/armor/mod_theme_atmospheric
+	armor_type_1 = /obj/item/mod/armor/mod_theme_atmospheric
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown_inactive = 1.5
@@ -216,16 +208,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_atmospheric
-	melee = 20
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 15
-	rad = 15 //This is what the atmos hardsuit has, belive it or not
-	bio = INFINITY
-	fire = INFINITY
-	acid = 150
+/obj/item/mod/armor/mod_theme_atmospheric
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 15, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/advanced
 	name = "advanced"
@@ -236,7 +220,7 @@
 		The paint used is almost entirely immune to corrosives, and certainly looks damn fine. \
 		These come pre-installed with magnetic boots, using an advanced system to toggle them on or off as the user walks."
 	default_skin = "advanced"
-	armor_type = /datum/armor/mod_theme_advanced
+	armor_type_1 = /obj/item/mod/armor/mod_theme_advanced
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -280,16 +264,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_advanced
-	melee = 35
-	bullet = 10
-	laser = 10
-	energy = 10
-	bomb = 25
-	bio = INFINITY
-	fire = INFINITY
-	rad = INFINITY
-	acid = 150
+/obj/item/mod/armor/mod_theme_advanced
+	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 25, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/mining
 	name = "mining"
@@ -309,7 +285,7 @@
 		so much so that it comes default fueled by equally-enigmatic plasma fuel rather than a simple recharge. \
 		Additionally, the systems have been put to near their maximum load, allowing for far less customization than others."
 	default_skin = "mining"
-	armor_type = /datum/armor/mod_theme_mining
+	armor_type_1 = /obj/item/mod/armor/mod_theme_mining
 	resistance_flags = FIRE_PROOF|LAVA_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -379,16 +355,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_mining
-	melee = 20
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 50
-	bio = INFINITY
-	rad = 50
-	fire = 50
-	acid = 50
+/obj/item/mod/armor/mod_theme_mining
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 50)
 
 /datum/mod_theme/loader
 	name = "loader"
@@ -403,7 +371,7 @@
 		the user being able to run at greater speeds for much longer distances and times than an unsuited equivalent. \
 		A lot of people would say loading cargo is a dull job. You could not disagree more."
 	default_skin = "loader"
-	armor_type = /datum/armor/mod_theme_loader
+	armor_type_1 = /obj/item/mod/armor/mod_theme_loader
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.25
@@ -436,15 +404,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_loader
-	melee = 20
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 10
-	bio = 10
-	fire = 25
-	acid = 25
+/obj/item/mod/armor/mod_theme_loader
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = 10, RAD = 0, FIRE = 25, ACID = 25)
 
 /datum/mod_theme/medical
 	name = "medical"
@@ -456,7 +417,7 @@
 		it is incredibly acid-resistant. It is slightly more demanding of power than civilian-grade models, \
 		and weak against fingers tapping the glass."
 	default_skin = "medical"
-	armor_type = /datum/armor/mod_theme_medical
+	armor_type_1 = /obj/item/mod/armor/mod_theme_medical
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	slowdown_inactive = 1
 	slowdown_active = 0.5
@@ -526,15 +487,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_medical
-	melee = 10
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 10
-	bio = INFINITY
-	fire = 75
-	acid = 150
+/obj/item/mod/armor/mod_theme_medical
+	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 10, BIO = INFINITY, RAD = 0, FIRE = 75, ACID = 150)
 
 /datum/mod_theme/rescue
 	name = "rescue"
@@ -546,7 +500,7 @@
 		all while being entirely immune against chemical and thermal threats. \
 		It is slightly more demanding of power than civilian-grade models, and weak against fingers tapping the glass."
 	default_skin = "rescue"
-	armor_type = /datum/armor/mod_theme_rescue
+	armor_type_1 = /obj/item/mod/armor/mod_theme_rescue
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
@@ -595,15 +549,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_rescue
-	melee = 10
-	bullet = 10
-	laser = 5
-	energy = 5
-	bomb = 10
-	bio = INFINITY
-	fire = 150
-	acid = 150
+/obj/item/mod/armor/mod_theme_rescue
+	armor = list(MELEE = 10, BULLET = 10, LASER = 5, ENERGY = 5, BOMB = 10, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/research
 	name = "research"
@@ -616,7 +563,7 @@
 		missiles and artillery, all the explosive resistance is mostly working to keep the user intact, \
 		not alive. The user will also find narrow doorframes nigh-impossible to surmount."
 	default_skin = "research"
-	armor_type = /datum/armor/mod_theme_research
+	armor_type_1 = /obj/item/mod/armor/mod_theme_research
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
@@ -658,16 +605,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_research
-	melee = 25
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = INFINITY
-	bio = INFINITY
-	rad = 75
-	fire = 75
-	acid = 150
+/obj/item/mod/armor/mod_theme_research
+	armor = list(MELEE = 25, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = INFINITY, BIO = INFINITY, RAD = 75, FIRE = 75, ACID = 150)
 
 /datum/mod_theme/security
 	name = "security"
@@ -679,7 +618,7 @@
 		allowing the suit to do more work in carrying the weight. However, the systems used in these suits are more than \
 		a few years out of date, leading to an overall lower capacity for modules."
 	default_skin = "security"
-	armor_type = /datum/armor/mod_theme_security
+	armor_type_1 = /obj/item/mod/armor/mod_theme_security
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	slowdown_inactive = 1
 	slowdown_active = 0.5
@@ -720,16 +659,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_security
-	melee = 25
-	bullet = 20
-	laser = 20
-	energy = 5
-	bomb = 25
-	bio = INFINITY
-	rad = 50
-	fire = 150
-	acid = 150
+/obj/item/mod/armor/mod_theme_security
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 25, BIO = INFINITY, RAD = 0, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/safeguard
 	name = "safeguard"
@@ -741,7 +672,7 @@
 		Heatsinks line the sides of the suit, and greater technology has been used in insulating it against \
 		both corrosive environments and sudden impacts to the user's joints."
 	default_skin = "safeguard"
-	armor_type = /datum/armor/mod_theme_safeguard
+	armor_type_1 = /obj/item/mod/armor/mod_theme_safeguard
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	slowdown_inactive = 0.75
@@ -781,15 +712,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_safeguard
-	melee = 30
-	bullet = 20
-	laser = 20
-	energy = 15
-	bomb = 40
-	bio = INFINITY
-	fire = INFINITY
-	acid = 450
+/obj/item/mod/armor/mod_theme_safeguard
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 15, BOMB = 40, BIO = INFINITY, RAD = 25, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/magnate
 	name = "magnate"
@@ -804,7 +728,7 @@
 		and bluespace processing to allow for a wide array of onboard modules to be supported, and only the best actuators \
 		have been employed for speed. The resemblance to a Gorlex Marauder helmet is purely coincidental."
 	default_skin = "magnate"
-	armor_type = /datum/armor/mod_theme_magnate
+	armor_type_1 = /obj/item/mod/armor/mod_theme_magnate
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -846,16 +770,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_magnate
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 15
-	bomb = 15
-	rad = 50
-	bio = INFINITY
-	fire = INFINITY
-	acid = 450
+/obj/item/mod/armor/mod_theme_magnate
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = 450)
 
 /datum/mod_theme/cosmohonk
 	name = "cosmohonk"
@@ -866,7 +782,7 @@
 		this particular model does not employ manganese bipolar capacitor cleaners, thank the Honkmother. \
 		All you know is that this suit is mysteriously power-efficient, and far too colorful for the Mime to steal."
 	default_skin = "cosmohonk"
-	armor_type = /datum/armor/mod_theme_cosmohonk
+	armor_type_1 = /obj/item/mod/armor/mod_theme_cosmohonk
 	charge_drain = DEFAULT_CHARGE_DRAIN * 0.25
 	slowdown_inactive = 1.75
 	slowdown_active = 1.25
@@ -904,15 +820,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_cosmohonk
-	melee = 5
-	bullet = 5
-	laser = 5
-	energy = 5
-	bomb = 5
-	bio = INFINITY
-	fire = 75
-	acid = 50
+/obj/item/mod/armor/mod_theme_cosmohonk
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, BIO = INFINITY, RAD = 0, FIRE = 75, ACID = 50)
 
 /datum/mod_theme/syndicate
 	name = "syndicate"
@@ -925,7 +834,7 @@
 		A small tag hangs off of it reading; 'Property of the Gorlex Marauders, with assistance from Cybersun Industries. \
 		All rights reserved, tampering with suit will void warranty."
 	default_skin = "syndicate"
-	armor_type = /datum/armor/mod_theme_syndicate
+	armor_type_1 = /obj/item/mod/armor/mod_theme_syndicate
 
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -995,16 +904,12 @@
 		),
 	)
 
-/datum/armor/mod_theme_syndicate //Note, do not forget the armor booster that slows the armor in exchange for better stats. Speed is war however, so these will in total have better armor than hardsuits
-	melee = 20 //45 with booster
-	bullet = 30 //60 with booster, however degrading effects over 50
-	laser = 15 //30 with booster
-	energy = 5 //20 with booster, energy has always been an armor hole.
-	bomb = 35
-	bio = INFINITY
-	rad = 50
-	fire = 50
-	acid = 450
+/obj/item/mod/armor/mod_theme_syndicate //Note, do not forget the armor booster that slows the armor in exchange for better stats. Speed is war however, so these will in total have better armor than hardsuits
+	armor = list(MELEE = 20, BULLET = 30, LASER = 15, ENERGY = 5, BOMB = 35, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 450)
+	//melee = 20 //45 with booster
+	//bullet = 30 //60 with booster, however degrading effects over 50
+	//laser = 15 //30 with booster
+	//energy = 5 //20 with booster, energy has always been an armor hole.
 
 /datum/mod_theme/elite
 	name = "elite"
@@ -1016,7 +921,7 @@
 		'Property of the Gorlex Marauders, with assistance from Cybersun Industries. \
 		All rights reserved, tampering with suit will void life expectancy.'"
 	default_skin = "elite"
-	armor_type = /datum/armor/mod_theme_elite
+	armor_type_1 = /obj/item/mod/armor/mod_theme_elite
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -1061,16 +966,12 @@
 		),
 	)
 
-/datum/armor/mod_theme_elite
-	melee = 50 // 75 with booster, same as elite hardsuit. I might make this higher due to slowdown
-	bullet = 45 // 75 same as
-	laser = 35 //50 same as
-	energy = 15 // 30, this is double energy armor currently, but slowdown so.
-	bomb = 60
-	bio = INFINITY
-	rad = 150
-	fire = INFINITY
-	acid = INFINITY
+/obj/item/mod/armor/mod_theme_elite
+	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 15, BOMB = 60, BIO = INFINITY, RAD = 150, FIRE = INFINITY, ACID = INFINITY)
+	//melee = 50 // 75 with booster, same as elite hardsuit. I might make this higher due to slowdown
+	//bullet = 45 // 75 same as
+	//laser = 35 //50 same as
+	//energy = 15 // 30, this is double energy armor currently, but slowdown so.
 
 /datum/mod_theme/infiltrator
 	name = "infiltrator"
@@ -1084,7 +985,7 @@
 		backed by inbuilt psi-emitters, heightening stressors common amongst Nanotrasen staff, and clouding identifiable information. \
 		Scrubbed statistical data presented a single correlation within documented psychological profiles. The fear of the Unknown."
 	default_skin = "infiltrator"
-	armor_type = /datum/armor/mod_theme_infiltrator
+	armor_type_1 = /obj/item/mod/armor/mod_theme_infiltrator
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	siemens_coefficient = 0
 	slowdown_inactive = 0
@@ -1127,14 +1028,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_infiltrator //you give this no slowdown but better stats then the blood red / elite? what the fuck tg? Look into this, we dont have some of these modules
-	melee = 50
-	bullet = 50
-	laser = 40
-	energy = 50
-	bomb = 40
-	fire = 100
-	acid = 100
+/obj/item/mod/armor/mod_theme_infiltrator //you give this no slowdown but better stats then the blood red / elite? what the fuck tg? Look into this, we dont have some of these modules
+	armor = list(MELEE = 50, BULLET = 50, LASER = 40, ENERGY = 20, BOMB = 40, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150) //No I am not giving this 50 energy resist
 
 /datum/mod_theme/enchanted //We don't have anti magic, and frankly wizards might be so low tech they keep the old suit. Will think on this.
 	name = "enchanted"
@@ -1147,7 +1042,7 @@
 		default means of power. The hood and platform boots are of unknown usage, but it's speculated that \
 		wizards trend towards the dramatic."
 	default_skin = "enchanted"
-	armor_type = /datum/armor/mod_theme_enchanted
+	armor_type_1 = /obj/item/mod/armor/mod_theme_enchanted
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
@@ -1187,15 +1082,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_enchanted
-	melee = 40
-	bullet = 40
-	laser = 50
-	energy = 50
-	bomb = 35
-	bio = 100
-	fire = 100
-	acid = 100
+/obj/item/mod/armor/mod_theme_enchanted
+	armor = list(MELEE = 40, BULLET = 40, LASER = 50, ENERGY = 20, BOMB = 35, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/prototype
 	name = "prototype"
@@ -1208,7 +1096,7 @@
 		The internal heads-up display is rendered in nearly unreadable cyan, as the visor suggests, \
 		leaving the user unable to see long distances. However, the way the helmet retracts is pretty cool."
 	default_skin = "prototype"
-	armor_type = /datum/armor/mod_theme_prototype
+	armor_type_1 = /obj/item/mod/armor/mod_theme_prototype
 	resistance_flags = FIRE_PROOF
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
@@ -1250,15 +1138,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_prototype
-	melee = 20
-	bullet = 5
-	laser = 10
-	energy = 10
-	bomb = 50
-	bio = 100
-	fire = 100
-	acid = 75
+/obj/item/mod/armor/mod_theme_prototype
+	armor = list(MELEE = 20, BULLET = 5, LASER = 10, ENERGY = 10, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/responsory
 	name = "responsory"
@@ -1269,7 +1150,7 @@
 		it keeps the wearer safe from the harsh void of space while sacrificing no speed whatsoever. \
 		While wearing it you feel an extreme deference to darkness. "
 	default_skin = "responsory"
-	armor_type = /datum/armor/mod_theme_responsory
+	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory
 
 	resistance_flags = FIRE_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1335,16 +1216,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_responsory //This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
-	melee = 40
-	bullet = 25
-	laser = 25
-	energy = 20
-	bomb = 25
-	rad = INFINITY
-	bio = INFINITY
-	fire = 200
-	acid = 200
+/obj/item/mod/armor/mod_theme_responsory //This has no slowdown active, and no variation between levels. I am ASSUMING this will be gamma only.
+	armor = list(MELEE = 40, BULLET = 25, LASER = 25, ENERGY = 20, BOMB = 25, BIO = INFINITY, RAD = INFINITY, FIRE = 200, ACID = 200)
 
 /datum/mod_theme/apocryphal
 	name = "apocryphal"
@@ -1356,7 +1229,7 @@
 		Whether the wearer uses it or not is up to them. \
 		There seems to be a little inscription on the wrist that reads; \'squiddie', d'aww."
 	default_skin = "apocryphal"
-	armor_type = /datum/armor/mod_theme_apocryphal
+	armor_type_1 = /obj/item/mod/armor/mod_theme_apocryphal
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1399,16 +1272,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_apocryphal
-	melee = 200
-	bullet = 200
-	laser = 50
-	energy = 50
-	bomb = INFINITY
-	bio = INFINITY
-	rad = INFINITY
-	fire = INFINITY
-	acid = INFINITY
+/obj/item/mod/armor/mod_theme_apocryphal
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /datum/mod_theme/corporate
 	name = "corporate"
@@ -1419,7 +1284,7 @@
 		counted as a war-crime and reason for immediate execution in over fifty Nanotrasen space stations. \
 		The resemblance to a Gorlex Marauder helmet is purely coincidental."
 	default_skin = "corporate"
-	armor_type = /datum/armor/mod_theme_corporate
+	armor_type_1 = /obj/item/mod/armor/mod_theme_corporate
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1461,16 +1326,8 @@
 		),
 	)
 
-/datum/armor/mod_theme_corporate
-	melee = 200
-	bullet = 200
-	laser = 50
-	energy = 50
-	bomb = INFINITY
-	bio = INFINITY
-	rad = INFINITY
-	fire = INFINITY
-	acid = INFINITY
+/obj/item/mod/armor/mod_theme_corporate
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 
 /datum/mod_theme/debug
 	name = "debug"
@@ -1479,7 +1336,7 @@
 		Contains an internal self-recharging high-current capacitor for short, powerful bo- \
 		Oh wait, this is not actually a flight suit. Fuck."
 	default_skin = "debug"
-	armor_type = /datum/armor/mod_theme_debug
+	armor_type_1 = /obj/item/mod/armor/mod_theme_debug
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
@@ -1519,15 +1376,9 @@
 		),
 	)
 
-/datum/armor/mod_theme_debug
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 50
-	bomb = 100
-	bio = 100
-	fire = 100
-	acid = 100
+/obj/item/mod/armor/mod_theme_debug
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
+
 
 /datum/mod_theme/administrative
 	name = "administrative"
@@ -1537,7 +1388,7 @@
 		have all the fun. If this continues to be a pattern for your \"events\" (Admin Abuse) \
 		there will be an admin complaint. You have been warned."
 	default_skin = "debug"
-	armor_type = /datum/armor/mod_theme_administrative
+	armor_type_1 = /obj/item/mod/armor/mod_theme_administrative
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -1573,13 +1424,5 @@
 		),
 	)
 
-/datum/armor/mod_theme_administrative //considering this should not be used, it's getting just DS armor, not infinity in everything.
-	melee = 200
-	bullet = 200
-	laser = 50
-	energy = 50
-	bomb = INFINITY
-	bio = INFINITY
-	rad = INFINITY
-	fire = INFINITY
-	acid = INFINITY
+/obj/item/mod/armor/mod_theme_administrative //considering this should not be used, it's getting just DS armor, not infinity in everything.
+	armor = list(MELEE = 200, BULLET = 200, LASER = 50, ENERGY = 50, BOMB = INFINITY, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
