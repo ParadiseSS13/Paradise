@@ -830,10 +830,36 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		var/overdose_message = pick("Your veins writhe under your skin!", "Your heart skips a beat!", "You cough up congealed blood!")
-		to_chat(M, "<span class='warn'>[overdose_message]</span>")
+		to_chat(M, "<span class='danger'>[overdose_message]</span>")
 	update_flags |= M.adjustOxyLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	update_flags |= M.adjustBruteLoss(0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return list(0, update_flags)
+
+/datum/reagent/medicine/osseous_reagent
+	name = "Osseous Reagent"
+	id = "osseous_reagent"
+	description = "A solution of pinkish gel with white shards floating in it, which is supposedly able to be processed into bone gel."
+	color = "#c9abab"
+	taste_description = "chunky marrow"
+	harmless = FALSE
+	overdose_threshold = 30 //so a single shotgun dart can't cause the tumor effect
+
+/datum/reagent/medicine/osseous_reagent/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/osseous_reagent/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+
+	if(prob(5))
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
+				new/obj/item/organ/internal/bone_tumor(H)
+
+	return ..()
 
 /datum/reagent/medicine/mannitol
 	name = "Mannitol"
