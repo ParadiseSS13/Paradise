@@ -45,9 +45,12 @@
 	var/allow_flags = NONE
 	/// Timer for the cooldown
 	COOLDOWN_DECLARE(cooldown_timer) //sohtgdoiuduhnfipguhndshnfigdnghd
+	///The UID of the module. Don't ask.
+	var/module_UID = null
 
 /obj/item/mod/module/Initialize(mapload)
 	. = ..()
+	module_UID = UID(src)
 	if(module_type != MODULE_ACTIVE)
 		return
 	if(ispath(device))

@@ -22,6 +22,7 @@
 
 	var/visor_flags = NONE			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = NONE		//same as visor_flags, but for flags_inv
+	var/visor_flags_cover = NONE	//for cover flags
 	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
 
 	var/can_toggle = FALSE

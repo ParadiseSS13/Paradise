@@ -83,7 +83,8 @@
 
 /datum/action/item_action/mod/pinned_module
 	desc = "Activate the module."
-	use_itemicon = TRUE
+	icon_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
+	button_icon_state = "module"
 	/// Overrides the icon applications.
 	var/override = FALSE
 	/// Module we are linked to.
@@ -99,6 +100,7 @@
 		check_flags = NONE
 	name = "Activate [capitalize(linked_module.name)]"
 	desc = "Quickly activate [linked_module]."
+	button_icon_state = linked_module.icon_state
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))

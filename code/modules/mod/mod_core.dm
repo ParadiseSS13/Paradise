@@ -119,7 +119,6 @@
 	return charge_source.give(amount)
 
 /obj/item/mod/core/standard/subtract_charge(amount)
-	message_admins("[amount] used!")
 	var/obj/item/stock_parts/cell/charge_source = charge_source()
 	if(!charge_source)
 		return FALSE
@@ -145,6 +144,9 @@
 			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/lowcell, 3)
 		else
 			mod.wearer.throw_alert("mod_charge", /obj/screen/alert/emptycell)
+
+/obj/item/mod/core/standard/emp_act(severity)
+	cell.emp_act(severity)
 
 /obj/item/mod/core/standard/proc/install_cell(new_cell)
 	cell = new_cell

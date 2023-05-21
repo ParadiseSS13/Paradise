@@ -6,14 +6,6 @@
 	window_x = 345
 	window_y = 75
 
-/datum/wires/nuclearbomb
-	holder_type = /obj/machinery/nuclearbomb
-	randomize = TRUE
-	wire_count = 7 // 3 actual, 4 duds.
-	proper_name = "Nuclear bomb"
-	window_x = 345
-	window_y = 75
-
 /datum/wires/mod/New(atom/holder)
 	wires = list(WIRE_HACK, WIRE_DISABLE, WIRE_ELECTRIFY, WIRE_INTERFACE)
 	..()

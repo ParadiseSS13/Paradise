@@ -84,7 +84,7 @@
 	/// Internal storage in a modsuit
 	var/obj/item/storage/backpack/modstorage/bag
 	///Is it EMP proof?
-	var/emp_proof = TRUE
+	var/emp_proof = FALSE
 	///List of overlays the mod has. Needs to be cut onremoval / module deactivation
 	var/list/mod_overlays = list()
 
@@ -223,11 +223,6 @@
 	else if(wearer)
 		unset_wearer()
 
-/obj/item/mod/control/dropped(mob/user)
-	. = ..()
-	if(!wearer)
-		return
-	clean_up()
 
 /obj/item/mod/control/item_action_slot_check(slot)
 	if(slot == slot_back)
@@ -432,10 +427,18 @@
 	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly!")
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
+	core.emp_act(severity)
+	if(prob(50/severity))
+		wires.emp_pulse() //3 wires get pulsed. Dangerous to a mod user.
 
-/obj/item/mod/control/dropped(mob/stripper, mob/owner)
+
+/obj/item/mod/control/dropped(mob/user)
+	. = ..()
+	if(!wearer)
+		return
+	clean_up()
 	update_mod_overlays(TRUE)
-	if(active && !toggle_activate(stripper, force_deactivate = TRUE))
+	if(active && !toggle_activate(force_deactivate = TRUE))
 		return
 	for(var/obj/item/part as anything in mod_parts)
 		if(part.loc == src)
@@ -660,7 +663,7 @@
 		part.flags_inv = category[UNSEALED_INVISIBILITY] || NONE
 		part.visor_flags_inv = category[SEALED_INVISIBILITY] || NONE
 		part.flags_cover = category[UNSEALED_COVER] || NONE
-		part.visor_flags = category[SEALED_COVER] || NONE
+		part.visor_flags_cover = category[SEALED_COVER] || NONE
 	//.	part.alternate_worn_layer = category[UNSEALED_LAYER]
 	//	mod_parts[part] = part.alternate_worn_layer
 		if(!category[CAN_OVERSLOT])

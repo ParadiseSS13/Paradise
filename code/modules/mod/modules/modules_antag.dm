@@ -172,7 +172,7 @@
 	/// Damage on kick.
 	var/damage = 20
 	/// How long we knockdown for on the kick.
-	var/knockdown_time = 2 SECONDS
+	var/knockdown_time = 6 SECONDS
 
 /obj/item/mod/module/power_kick/on_select_use(atom/target)
 	. = ..()

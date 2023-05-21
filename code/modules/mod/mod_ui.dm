@@ -31,8 +31,8 @@
 			"module_complexity" = module.complexity,
 			"cooldown_time" = module.cooldown_time,
 			"cooldown" = round(COOLDOWN_TIMELEFT(module, cooldown_timer), 1 SECONDS),
+			"ref" = module.module_UID, //might just want user here
 			"id" = module.tgui_id,
-			"ref" = UID(module), //might just want user here
 			"configuration_data" = module.get_configuration()
 		)
 		module_data += module.add_ui_data()

@@ -196,13 +196,13 @@
 		part.icon_state = "[skin]-[part.base_icon_state]-sealed"
 		part.flags |= part.visor_flags
 		part.flags_inv |= part.visor_flags_inv
-		part.flags_cover |= part.visor_flags
+		part.flags_cover |= part.visor_flags_cover
 		part.heat_protection = initial(part.heat_protection)
 		part.cold_protection = initial(part.cold_protection)
 		part.alternate_worn_layer = null
 	else
 		part.icon_state = "[skin]-[part.base_icon_state]"
-		part.flags_cover &= ~part.visor_flags
+		part.flags_cover &= ~part.visor_flags_cover
 		part.flags_inv &= ~part.visor_flags_inv
 		part.flags &= ~part.visor_flags
 		part.heat_protection = NONE
