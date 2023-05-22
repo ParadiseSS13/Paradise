@@ -49,6 +49,11 @@
 		generated_point_of_interest = TRUE
 	message_admins("[parent] has been given deadchat control in [deadchat_mode == DEADCHAT_ANARCHY_MODE ? "anarchy" : "democracy"] mode with a cooldown of [input_cooldown SECONDS] second\s.")
 
+	var/atom/A = parent
+	for(var/mob/dead/observer/ghost in A.get_orbiters())
+		// get started with anyone who's already following
+		orbit_begin(A, ghost)
+
 /datum/component/deadchat_control/Destroy(force, silent)
 	var/message = "<span class='deadsay italics bold'>[parent] is no longer controllable.</span>"
 	for(var/mob/dead/observer/M in orbiters)

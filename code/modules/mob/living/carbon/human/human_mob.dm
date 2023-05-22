@@ -2072,7 +2072,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/list/possible_emotes = list("scream", "clap", "snap", "crack", "dap", "burp")
 	emote(pick(possible_emotes), intentional = TRUE)
 
-/mob/living/carbon/human/proc/dchat_attack()
+/mob/living/carbon/human/proc/dchat_attack(intent)
 	var/turf/ahead = get_turf(get_step(src, dir))
 	var/atom/victim = locate(/mob/living) in ahead
 	var/obj/item/in_hand = get_active_hand()
@@ -2080,15 +2080,23 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!victim)
 		victim = locate(/obj/structure) in ahead
 	if(!victim)
-		visible_message("<span class='warning'>[src] swings [implement] wildly!</span>")
+		switch(intent)
+			if(INTENT_HARM)
+				visible_message("<span class='warning'>[src] swings [implement] wildly!</span>")
+			if(INTENT_HELP)
+				visible_message("<span class='warning'>[src] seems to be calm and collected!</span>")
 		return
 	if(isLivingSSD(victim))
-		visible_message("<span class='notice'>[src] reluctantly lowers [p_their()] [implement].</span>")
+		visible_message("<span class='notice'>[src] [intent == INTENT_HARM ? "reluctantly " : ""]lowers [p_their()] [implement].</span>")
 		return
+
+	var/original_intent = a_intent
+	a_intent = intent
 	if(in_hand)
 		in_hand.melee_attack_chain(src, victim)
 	else
 		UnarmedAttack(victim, TRUE)
+	a_intent = original_intent
 
 /mob/living/carbon/human/proc/dchat_resist()
 	if(!can_resist())
@@ -2099,7 +2107,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 
 	visible_message("<span class='warning'>[src] is trying to break free!</span>")
-	run_resist()
+	resist()
 
 /mob/living/carbon/human/proc/dchat_pickup()
 	var/turf/ahead = get_step(src, dir)
@@ -2152,7 +2160,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 7 SECONDS)
 	var/list/inputs = list(
 		"emote" = CALLBACK(src, PROC_REF(dchat_emote)),
-		"attack" = CALLBACK(src, PROC_REF(dchat_attack)),
+		"attack" = CALLBACK(src, PROC_REF(dchat_attack), INTENT_HARM),
+		"help" = CALLBACK(src, PROC_REF(dchat_attack), INTENT_HELP),
 		"pickup" = CALLBACK(src, PROC_REF(dchat_pickup)),
 		"throw" = CALLBACK(src, PROC_REF(dchat_throw)),
 		"disarm" = CALLBACK(src, PROC_REF(dchat_shove)),
