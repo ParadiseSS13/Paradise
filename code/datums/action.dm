@@ -107,7 +107,7 @@
 
 		ApplyIcon(button)
 		var/obj/effect/proc_holder/spell/S = target
-		if(istype(S) && S.cooldown_handler.should_draw_cooldown())
+		if(istype(S) && S.cooldown_handler.should_draw_cooldown() || !IsAvailable())
 			apply_unavailable_effect()
 		else
 			return TRUE
