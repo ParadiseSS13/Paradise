@@ -11,6 +11,7 @@
  *		Knighthammer
  *		Pyro Claws
  *		Push Broom
+ *      Supermatter Halberd
  */
 
 /*##################################################################
@@ -1051,11 +1052,13 @@
 	attack_verb = list("enlightened", "enforced", "cleaved", "stabbed", "whacked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	resistance_flags = FIRE_PROOF
+	var/static/list/obliteration_targets = list(/turf/simulated/wall, /obj/machinery/door/airlock)
 
 /obj/item/twohanded/supermatter/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
+	//Not sure on the numbers here (remind me to remove this comment before merge if I don't do it myself)
 
 /obj/item/twohanded/supermatter/update_icon_state()
 	icon_state = "fireaxe[wielded]"
@@ -1063,7 +1066,41 @@
 /obj/item/twohanded/supermatter/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
-	if(wielded) //same behavior as a fireaxe
+	if(wielded) //same behavior as a fireaxe for windows
 		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
+
+		if(!is_type_in_list(A, obliteration_targets))
+			return
+		//walls and airlock obliteration logic
+		if(iswallturf(A))
+			if(istype(A, /turf/simulated/wall/indestructible))
+				return
+
+			to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
+			playsound(loc, hitsound, 50, 1)
+			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
+
+			if(do_after(user, 5 SECONDS * toolspeed, target = A))
+				playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
+				var/turf/AT = A
+				AT.ChangeTurf(/turf/simulated/floor/plating)
+				return
+
+			qdel(E)
+			return
+
+		if(istype(A, /obj/machinery/door/airlock))
+
+			to_chat(user, "<span class='notice'>You start to obliterate [A].</span>")
+			playsound(loc, hitsound, 50, 1)
+			var/obj/effect/temp_visual/rcd_effect/reverse/E = new(get_turf(A))
+
+			if(do_after(user, 5 SECONDS * toolspeed, target = A))
+				playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
+				qdel(A)
+				return
+
+			qdel(E)
+			return
