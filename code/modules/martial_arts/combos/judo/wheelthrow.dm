@@ -2,7 +2,7 @@
 	name = "Wheel Throw"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "From an armbar, flip your opponent over your shoulder, slamming them onto the floor, leaving them stunned."
-	combo_text_override = "Grab, swap hands, Disarm, Harm"
+	combo_text_override = "Grab, Disarm, Harm"
 
 /datum/martial_combo/judo/wheelthrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!IS_HORIZONTAL(target) || !(target.IsImmobilized() || user.IsKnockedDown()))
