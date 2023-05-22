@@ -145,6 +145,8 @@
 			to_chat(O, "<span class='deadsay'>You have deadchat muted, and as such will not receive messages related to, nor be able to participate in, controlling this object.</span>")
 			to_chat(O, "<span class='notice'>If you would like to participate, unmute deadchat and follow this object again.</span>")
 			return
+		else
+			to_chat(O, "<span class='deadsay'>[parent] is deadchat-controllable! Examine [parent] to see possible commands you can use while orbiting [parent.p_them()] to control [parent.p_their()] behavior!</span>")
 
 	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, PROC_REF(deadchat_react))
 	RegisterSignal(orbiter, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))
