@@ -10,9 +10,9 @@
 	/// Theme name for the MOD.
 	var/name = "standard"
 	/// Description added to the MOD.
-	var/desc = "A civilian class suit by Nakamura Engineering, doesn't offer much other than slightly quicker movement."
+	var/desc = "A civilian class suit by Cybersun Industries, doesn't offer much other than slightly quicker movement."
 	/// Extended description on examine_more
-	var/extended_desc = "A third-generation, modular civilian class suit by Nakamura Engineering, \
+	var/extended_desc = "A third-generation, modular civilian class suit by Cybersun Industries, \
 		this suit is a staple across the galaxy for civilian applications. These suits are oxygenated, \
 		spaceworthy, resistant to fire and chemical threats, and are immunized against everything between \
 		a sneeze and a bioweapon. However, their combat applications are incredibly minimal due to the amount of \
@@ -110,8 +110,8 @@
 
 /datum/mod_theme/engineering
 	name = "engineering"
-	desc = "An engineer-fit suit with heat and shock resistance. Nakamura Engineering's classic."
-	extended_desc = "A classic by Nakamura Engineering, and surely their claim to fame. This model is an \
+	desc = "An engineer-fit suit with heat and shock resistance. Cybersun Industries's classic."
+	extended_desc = "A classic by Cybersun Industries, and surely their claim to fame. This model is an \
 		improvement upon the first-generation prototype models from before the Void War, boasting an array of features. \
 		The modular flexibility of the base design has been combined with a blast-dampening insulated inner layer and \
 		a shock-resistant outer layer, making the suit nigh-invulnerable against even the extremes of high-voltage electricity. \
@@ -160,8 +160,8 @@
 
 /datum/mod_theme/atmospheric
 	name = "atmospheric"
-	desc = "An atmospheric-resistant suit by Nakamura Engineering, offering extreme heat resistance compared to the engineer suit."
-	extended_desc = "A modified version of the Nakamura Engineering industrial model. This one has been \
+	desc = "An atmospheric-resistant suit by Cybersun Industries, offering extreme heat resistance compared to the engineer suit."
+	extended_desc = "A modified version of the Cybersun Industries industrial model. This one has been \
 		augmented with the latest in heat-resistant alloys, paired with a series of advanced heatsinks. \
 		Additionally, the materials used to construct this suit have rendered it extremely hardy against \
 		corrosive gasses and liquids, useful in the world of pipes. \
@@ -213,8 +213,8 @@
 
 /datum/mod_theme/advanced
 	name = "advanced"
-	desc = "An advanced version of Nakamura Engineering's classic suit, shining with a white, acid and fire resistant polish."
-	extended_desc = "The flagship version of the Nakamura Engineering industrial model, and their latest product. \
+	desc = "An advanced version of Cybersun Industries's classic suit, shining with a white, acid and fire resistant polish."
+	extended_desc = "The flagship version of the Cybersun Industrie industrial model, and their latest product. \
 		Combining all the features of their other industrial model suits inside, with blast resistance almost approaching \
 		some EOD suits, the outside has been coated with a white polish rumored to be a corporate secret. \
 		The paint used is almost entirely immune to corrosives, and certainly looks damn fine. \
@@ -270,7 +270,7 @@
 /datum/mod_theme/mining
 	name = "mining"
 	desc = "A Nanotrasen mining suit for on-site operations, fit with accreting ash armor and a sphere form."
-	extended_desc = "A high-powered Nanotrasen-designed suit, based off the work of Nakamura Engineering. \
+	extended_desc = "A high-powered Nanotrasen-designed suit, based off the work of Cybersun Industries. \
 		While initial designs were built for the rigors of asteroid mining, given blast resistance through inbuilt ceramics, \
 		mining teams have since heavily tweaked the suit themselves with assistance from devices crafted by \
 		destructive analysis of unknown technologies discovered on the Indecipheres mining sites, patterned off \
@@ -410,8 +410,8 @@
 /datum/mod_theme/medical
 	name = "medical"
 	desc = "A lightweight suit by DeForest Medical Corporation, allows for easier movement."
-	extended_desc = "A lightweight suit produced by the DeForest Medical Corporation, based off the work of \
-		Nakamura Engineering. The latest in technology has been employed in this suit to render it immunized against \
+	extended_desc = "A lightweight suit produced by the DeForest Medical Corporation and BioTech Solutions, based off the work of \
+		Cybersun Industries. The latest in technology has been employed in this suit to render it immunized against \
 		allergens, airborne toxins, and regular pathogens. The primary asset of this suit is the speed, \
 		fusing high-powered servos and actuators with a carbon-fiber construction. While there's very little armor used, \
 		it is incredibly acid-resistant. It is slightly more demanding of power than civilian-grade models, \
@@ -493,7 +493,7 @@
 /datum/mod_theme/rescue
 	name = "rescue"
 	desc = "An advanced version of DeForest Medical Corporation's medical suit, designed for quick rescue of bodies from the most dangerous environments."
-	extended_desc = "An upgraded, armor-plated version of DeForest Medical Corporation's medical suit, \
+	extended_desc = "An upgraded, overtuned version of DeForest Medical Corporation's medical suit, with BioTech Solutions making heavy modifications. \
 		designed for quick rescue of bodies from the most dangerous environments. The same advanced leg servos \
 		as the base version are seen here, giving paramedics incredible speed, but the same servos are also in the arms. \
 		Users are capable of quickly hauling even the heaviest crewmembers using this suit, \
@@ -555,7 +555,7 @@
 /datum/mod_theme/research
 	name = "research"
 	desc = "A private military EOD suit by Aussec Armory, intended for explosive research. Bulky, but expansive."
-	extended_desc = "A private military EOD suit by Aussec Armory, based off the work of Nakamura Engineering. \
+	extended_desc = "A private military EOD suit by Aussec Armory, based off the work of Cybersun Industries. \
 		This suit is intended for explosive research, built incredibly bulky and well-covering. \
 		Featuring an inbuilt chemical scanning array, this suit uses two layers of plastitanium armor, \
 		sandwiching an inert layer to dissipate kinetic energy into the suit and away from the user; \
@@ -610,8 +610,8 @@
 
 /datum/mod_theme/security
 	name = "security"
-	desc = "An Apadyne Technologies security suit, offering quicker speed at the cost of carrying capacity."
-	extended_desc = "An Apadyne Technologies classic, this model of MODsuit has been designed for quick response to \
+	desc = "An Shellguard Munitions security suit, offering quicker speed at the cost of carrying capacity."
+	extended_desc = "An Shellguard Munitions classic, this model of MODsuit has been designed for quick response to \
 		hostile situations. These suits have been layered with plating worthy enough for fires or corrosive environments, \
 		and come with composite cushioning and an advanced honeycomb structure underneath the hull to ensure protection \
 		against broken bones or possible avulsions. The suit's legs have been given more rugged actuators, \
@@ -664,8 +664,8 @@
 
 /datum/mod_theme/safeguard
 	name = "safeguard"
-	desc = "An Apadyne Technologies advanced security suit, offering greater speed and fire protection than the standard security model."
-	extended_desc = "An Apadyne Technologies advanced security suit, and their latest model. This variant has \
+	desc = "An Shellguard Munitions advanced security suit, offering greater speed and fire protection than the standard security model."
+	extended_desc = "An Shellguard Munitions advanced security suit, and their latest model. This variant has \
 		ditched the presence of a reinforced glass visor entirely, replacing it with a 'blast visor' utilizing a \
 		small camera on the left side to display the outside to the user. The plating on the suit has been \
 		dramatically increased, especially in the pauldrons, giving the wearer an imposing silhouette. \
@@ -726,7 +726,7 @@
 		My God, it even has a granite trim. The double-classified paint that's been painstakingly applied to the hull \
 		provides protection against shock, fire, and the strongest acids. Onboard systems employ meta-positronic learning \
 		and bluespace processing to allow for a wide array of onboard modules to be supported, and only the best actuators \
-		have been employed for speed. The resemblance to a Gorlex Marauder helmet is purely coincidental."
+		have been employed for speed. The resemblance to a Gorlex Marauder helmet is *purely* coincidental."
 	default_skin = "magnate"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_magnate
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
@@ -978,7 +978,7 @@
 	desc = "A prototype modular suit powered by locomotives. While it is comfortable and has a big capacity, it remains very bulky and power-inefficient."
 	extended_desc = "This is a prototype powered exoskeleton, a design not seen in hundreds of years, the first \
 		post-void war era modular suit to ever be safely utilized by an operator. This ancient clunker is still functional, \
-		though it's missing several modern-day luxuries from updated Nakamura Engineering designs. \
+		though it's missing several modern-day luxuries from updated Cybersun Industries designs. \
 		Primarily, the suit's myoelectric suit layer is entirely non-existant, and the servos do very little to \
 		help distribute the weight evenly across the wearer's body, making it slow and bulky to move in. \
 		The internal heads-up display is rendered in nearly unreadable cyan, as the visor suggests, \
@@ -1109,10 +1109,10 @@
 
 /datum/mod_theme/apocryphal
 	name = "apocryphal"
-	desc = "A high-tech, only technically legal, armored suit created by a collaboration effort between Nanotrasen and Apadyne Technologies."
+	desc = "A high-tech, only technically legal, armored suit created by a collaboration effort between Nanotrasen and Shellguard Munitions."
 	extended_desc = "A bulky and only legal by technicality suit, this ominous black and red MODsuit is only worn by \
 		Nanotrasen Black Ops teams. If you can see this suit, you fucked up. A collaborative joint effort between \
-		Apadyne and Nanotrasen the construction and modules gives the user robust protection against \
+		Shellguard and Nanotrasen, the construction and modules gives the user robust protection against \
 		anything that can be thrown at it, along with acute combat awareness tools for it's wearer. \
 		Whether the wearer uses it or not is up to them. \
 		There seems to be a little inscription on the wrist that reads; \'squiddie', d'aww."
@@ -1170,7 +1170,7 @@
 		anti-corrosion coated suit for high-ranking CentCom Officers, deploying pristine protective armor and \
 		advanced actuators, feeling practically weightless when turned on. Scraping the paint of this suit is \
 		counted as a war-crime and reason for immediate execution in over fifty Nanotrasen space stations. \
-		The resemblance to a Gorlex Marauder helmet is purely coincidental."
+		The resemblance to a Gorlex Marauder helmet is *purely* coincidental."
 	default_skin = "corporate"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_corporate
 	resistance_flags = FIRE_PROOF | ACID_PROOF

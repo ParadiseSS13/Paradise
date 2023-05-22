@@ -38,7 +38,7 @@
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
-	desc = "Reverse engineered by Nakamura Engineering from Donk Corporation designs, this system of hidden compartments \
+	desc = "Reverse engineered by Cybersun Industries from Donk Corporation designs, this system of hidden compartments \
 		is entirely within the suit, distributing items and weight evenly to ensure a comfortable experience for the user; \
 		whether smuggling, or simply hauling."
 	icon_state = "storage_large"
@@ -47,12 +47,13 @@
 
 /obj/item/mod/module/storage/syndicate
 	name = "MOD syndicate storage module"
-	desc = "A storage system using nanotechnology developed by Cybersun Industries, these compartments use \
+	desc = "A storage system using nanotechnology developed by Donk Corporation, these compartments use \
 		esoteric technology to compress the physical matter of items put inside of them, \
 		essentially shrinking items for much easier and more portable storage."
 	icon_state = "storage_syndi"
 	max_combined_w_class = 30
 	max_items = 21
+	origin_tech = "materials=6;bluespace=5;syndicate=2"
 
 /obj/item/mod/module/storage/belt
 	name = "MOD case storage module"
@@ -86,7 +87,7 @@
 	name = "MOD ion jetpack module"
 	desc = "A series of electric thrusters installed across the suit, this is a module highly anticipated by trainee Engineers. \
 		Rather than using gasses for combustion thrust, these jets are capable of accelerating ions using \
-		charge from the suit's charge. Some say this isn't Nakamura Engineering's first foray into jet-enabled suits."
+		charge from the suit's charge. Some say this isn't Cybersun Industries's first foray into jet-enabled suits."
 	icon_state = "jetpack"
 	module_type = MODULE_TOGGLE
 	complexity = 3

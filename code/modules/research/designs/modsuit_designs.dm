@@ -4,7 +4,7 @@
 
 /datum/design/mod_shell
 	name = "MOD Shell"
-	desc = "A 'Nakamura Engineering' designed shell for a Modular Suit."
+	desc = "A 'Cybersun Industries' designed shell for a Modular Suit."
 	id = "mod_shell"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 10000, MAT_PLASMA = 5000)
@@ -14,7 +14,7 @@
 
 /datum/design/mod_helmet
 	name = "MOD Helmet"
-	desc = "A 'Nakamura Engineering' designed helmet for a Modular Suit."
+	desc = "A 'Cybersun Industries' designed helmet for a Modular Suit."
 	id = "mod_helmet"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 5000)
@@ -24,7 +24,7 @@
 
 /datum/design/mod_chestplate
 	name = "MOD Chestplate"
-	desc = "A 'Nakamura Engineering' designed chestplate for a Modular Suit."
+	desc = "A 'Cybersun Industries' designed chestplate for a Modular Suit."
 	id = "mod_chestplate"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 5000)
@@ -34,7 +34,7 @@
 
 /datum/design/mod_gauntlets
 	name = "MOD Gauntlets"
-	desc = "'Nakamura Engineering' designed gauntlets for a Modular Suit."
+	desc = "'Cybersun Industries' designed gauntlets for a Modular Suit."
 	id = "mod_gauntlets"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 5000)
@@ -44,7 +44,7 @@
 
 /datum/design/mod_boots
 	name = "MOD Boots"
-	desc = "'Nakamura Engineering' designed boots for a Modular Suit."
+	desc = "'Cybersun Industries' designed boots for a Modular Suit."
 	id = "mod_boots"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 5000)

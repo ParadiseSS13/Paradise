@@ -79,6 +79,7 @@
 		the thermal radiation output of objects near the user. While it can detect the heat output of even something as \
 		small as a rodent, it still produces irritating red overlay. They say these also let you see behind you."
 	icon_state = "thermal_visor"
+	origin_tech = "combat=6;engineering=6;syndicate=2"
 	visor_trait = TRAIT_THERMAL_VISION
 
 //Night Visor - Gives you night vision.
@@ -88,4 +89,5 @@
 		this allows the user to perceive their surroundings while in complete darkness, enhancing the view by tenfold; \
 		yet brightening everything into a spooky green glow. They say these also let you see behind you."
 	icon_state = "night_visor"
+	origin_tech = "combat=5;engineering=5;syndicate=1"
 	visor_trait = TRAIT_NIGHT_VISION

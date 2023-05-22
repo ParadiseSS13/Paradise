@@ -146,7 +146,7 @@
 	name = "MOD ore bag module"
 	desc = "An integrated ore storage system installed into the suit, \
 		this utilizes precise electromagnets and storage compartments to automatically collect and deposit ore. \
-		It's recommended by Nakamura Engineering to actually deposit that ore at local refineries."
+		It's recommended by Cybersun Industries to actually deposit that ore at local refineries."
 	icon_state = "ore"
 	module_type = MODULE_USABLE
 	complexity = 1

@@ -136,6 +136,7 @@
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
 	incompatible_modules = list(/obj/item/mod/module/noslip)
+	origin_tech = "syndicate=2"
 
 /obj/item/mod/module/noslip/on_suit_activation()
 	mod.boots.flags |= NOSLIP
@@ -227,6 +228,7 @@
 	var/new_size = WEIGHT_CLASS_NORMAL
 	/// The suit's size before the module is installed.
 	var/old_size
+	origin_tech = "materials=6;bluespace=5;syndicate=1" //Printable at illegals 2, so only one level.
 
 /obj/item/mod/module/plate_compression/on_install()
 	old_size = mod.w_class
@@ -275,6 +277,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/stealth)
 	cooldown_time = 5 SECONDS
+	origin_tech = "combat=6;materials=6;powerstorage=5;bluespace=5;syndicate=2" //Printable at 3
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
 	/// The alpha applied when the cloak is on.
@@ -334,6 +337,7 @@
 	active_power_cost = DEFAULT_CHARGE_DRAIN
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 3 SECONDS
+	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;syndicate=4"
 
 ///Status Readout - Puts a lot of information including health, nutrition, fingerprints, temperature to the suit TGUI.
 /obj/item/mod/module/status_readout
@@ -348,6 +352,7 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
 	incompatible_modules = list(/obj/item/mod/module/status_readout)
 	tgui_id = "status_readout"
+	origin_tech = "combat=6;biotech=6;syndicate=1"
 
 /obj/item/mod/module/status_readout/add_ui_data()
 	. = ..()

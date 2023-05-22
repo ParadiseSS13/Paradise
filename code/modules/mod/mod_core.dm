@@ -44,11 +44,11 @@
 /obj/item/mod/core/proc/update_charge_alert()
 	mod.wearer.clear_alert("mod_charge")
 
-/obj/item/mod/core/infinite
+/obj/item/mod/core/infinite //Admin only.
 	name = "MOD infinite core"
 	icon_state = "mod-core-infinite"
-	desc = "A fusion core using the rare Fixium to sustain enough energy for the lifetime of the MOD's user. \
-		This might be because of the slowly killing poison inside, but those are just rumors."
+	desc = "A fusion core using the rare Infinium to sustain enough energy for the lifetime of the MOD's user. \
+		This might be because of the slowly killing radiation inside, but those are just rumors."
 
 /obj/item/mod/core/infinite/charge_source()
 	return src
