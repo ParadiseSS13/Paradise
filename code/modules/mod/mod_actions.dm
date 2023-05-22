@@ -23,7 +23,7 @@
 
 /datum/action/item_action/mod/deploy
 	name = "Deploy MODsuit"
-	desc = "Quick deploy / retract your suit"
+	desc = "Quick deploy / retract your suit."
 	button_icon_state = "deploy"
 
 /datum/action/item_action/mod/deploy/Trigger()

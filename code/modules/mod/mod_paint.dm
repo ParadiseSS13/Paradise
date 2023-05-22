@@ -18,7 +18,7 @@
 		to_chat(user, "<span class='warning'>Deactivate the suit!</span>")
 		return TRUE
 	if(!istype(mod.theme, compatible_theme))
-		to_chat(user, "<span class='warning'>Theme is not compatable!</span>")
+		to_chat(user, "<span class='warning'>Theme is not compatible!</span>")
 		return TRUE
 	mod.set_mod_skin(skin)
 	to_chat(user, "<span class='warning'>You apply the theme.</span>")

@@ -70,8 +70,8 @@
 
 /obj/item/mod/core/standard
 	name = "MOD standard core"
-	icon_state = "mod-core-standard"
 	desc = "Using Thermo Generators to store and amplify power in the form of heat, this core acts as a power cell for your modsuit." //We don't have etherals
+	icon_state = "mod-core-standard"
 	/// Installed cell.
 	var/obj/item/stock_parts/cell/cell
 
@@ -234,9 +234,9 @@
 
 /obj/item/mod/core/plasma
 	name = "MOD plasma core"
-	icon_state = "mod-core-plasma"
 	desc = "Nanotrasen's attempt at capitalizing on their plasma research. These plasma cores are refueled \
 		through plasma fuel, allowing for easy continued use by their mining squads."
+	icon_state = "mod-core-plasma"
 	/// How much charge we can store.
 	var/maxcharge = 10000
 	/// How much charge we are currently storing.

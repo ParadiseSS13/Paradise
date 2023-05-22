@@ -1,12 +1,12 @@
 /obj/item/mod/construction
-	desc = "A part used in MOD construction. You could insert it into a MOD shell"
+	desc = "A part used in MOD construction. You could insert it into a MOD shell."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "rack_parts"
 
 /obj/item/mod/construction/helmet
 	name = "MOD helmet"
+	desc = "You could insert it into a MOD shell."
 	icon_state = "helmet"
-	desc = "You could insert it into a MOD shell"
 
 /obj/item/mod/construction/chestplate
 	name = "MOD chestplate"
@@ -76,8 +76,8 @@
 
 /obj/item/mod/construction/shell
 	name = "MOD shell"
-	icon_state = "mod-construction_start"
 	desc = "A MOD shell."
+	icon_state = "mod-construction_start"
 	var/obj/item/core
 	var/obj/item/helmet
 	var/obj/item/chestplate
@@ -125,7 +125,7 @@
 			step = CORE_STEP
 		if(CORE_STEP)
 			if(part.tool_behaviour == TOOL_SCREWDRIVER) //Construct
-				if(part.use_tool(src, user, 0, volume=30))
+				if(part.use_tool(src, user, 0, volume = 30))
 					to_chat(user, "<span class='notice'>Core screwed.</span>")
 				step = SCREWED_CORE_STEP
 			else if(part.tool_behaviour == TOOL_CROWBAR) //Deconstruct
@@ -145,7 +145,7 @@
 				step = HELMET_STEP
 			else if(part.tool_behaviour == TOOL_SCREWDRIVER) //Deconstruct
 				if(part.use_tool(src, user, 0, volume=30))
-					to_chat(user, "<span class='notice'>Core unscrewed</span>")
+					to_chat(user, "<span class='notice'>Core unscrewed.</span>")
 					step = CORE_STEP
 		if(HELMET_STEP)
 			if(istype(part, /obj/item/mod/construction/chestplate)) //Construct

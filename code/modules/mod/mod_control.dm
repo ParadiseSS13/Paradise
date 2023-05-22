@@ -208,7 +208,7 @@
 		return PROCESS_KILL
 	var/malfunctioning_charge_drain = 0
 	if(malfunctioning)
-		malfunctioning_charge_drain = rand(1,20)
+		malfunctioning_charge_drain = rand(1, 20)
 	subtract_charge((charge_drain + malfunctioning_charge_drain))
 	update_charge_alert()
 	for(var/obj/item/mod/module/module as anything in modules)
@@ -245,7 +245,7 @@
 			return
 
 		if(!M.restrained() && !M.stat)
-			playsound(loc, "rustle", 50, 1, -5)
+			playsound(loc, "rustle", 50, TRUE, -5)
 
 			if(istype(over_object, /obj/screen/inventory/hand))
 				for(var/obj/item/part as anything in mod_parts)
@@ -405,7 +405,7 @@
 
 /obj/item/mod/control/emag_act(mob/user)
 	locked = !locked
-	to_chat(user, "<span class='warning'>suit access [locked ? "locked" : "unlocked"]")
+	to_chat(user, "<span class='warning'>Suit access [locked ? "locked" : "unlocked"]")
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()
@@ -415,7 +415,7 @@
 	if(emp_proof)
 		return
 	selected_module?.on_deactivation(display_message = TRUE)
-	wearer.apply_damage(5 / severity, BURN, spread_damage=TRUE) //Test this with ion shotguns.
+	wearer.apply_damage(5 / severity, BURN, spread_damage = TRUE) //Test this with ion shotguns.
 	to_chat(wearer, "<span class='danger'>You feel [src] heat up from the EMP, burning you slightly!")
 	if(wearer.stat < UNCONSCIOUS && prob(10))
 		wearer.emote("scream")
