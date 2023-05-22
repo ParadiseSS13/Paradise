@@ -254,7 +254,7 @@
 
 	//inputting
 	if(terminal && input_attempt)
-		input_available = terminal.get_surplus()
+		input_available = terminal.get_power_balance()
 
 		if(inputting)
 			if(input_available > 0)		// if there's power available, try to charge

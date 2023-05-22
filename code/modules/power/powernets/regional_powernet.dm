@@ -81,9 +81,13 @@
 	M.powernet = src
 	nodes[M] = M
 
-/// Returns the difference between available power on the net and the demanded power, i.e. the surplus power available
+/// Returns the clamped difference between available power on the net and the demanded power, i.g. the surplus power available
 /datum/regional_powernet/proc/calculate_surplus()
 	return clamp(available_power - power_demand, 0, available_power)
+
+/// Returns the non-clamped difference between available power on the net and the demanded power, i.g. consumption vs. supply
+/datum/regional_powernet/proc/calculate_power_balance()
+	return (available_power - power_demand)
 
 /datum/regional_powernet/proc/calculate_queued_surplus()
 	return clamp(queued_power_production - queued_power_demand, 0, queued_power_production)
