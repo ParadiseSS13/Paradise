@@ -6,16 +6,20 @@
 
 //Corporate Judo Belt
 
-/obj/item/storage/belt/champion/judo //failing to attach this item to storage/belt/champion results in code screaming.
-	var/datum/martial_art/judo/style = new
+/obj/item/judobelt
 	name = "Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo"
-	icon_state = "championbelt" //placeholder sprite
-	item_state = "champion" //Placeholder sprite
-	storage_slots = FALSE
+	icon = 'icons/obj/clothing/belts.dmi'
+	icon_state = "championbelt"
+	item_state = "champion"
+	slot_flags = SLOT_BELT
+	var/datum/martial_art/judo/style
 
+/obj/item/judobelt/New()
+	style = new()
+	..()
 
-/obj/item/storage/belt/champion/judo/equipped(mob/user, slot)
+/obj/item/judobelt/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
 	if(slot == slot_belt)
@@ -28,7 +32,7 @@
 		to_chat(H, "<span class = 'danger'>See the martial arts tab for an explantion of combos!.</span>")
 		return
 
-/obj/item/storage/belt/champion/judo/dropped(mob/user)
+/obj/item/judobelt/dropped(mob/user)
 	..()
 	if(!ishuman(user))
 		return

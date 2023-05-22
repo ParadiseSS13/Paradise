@@ -2,7 +2,7 @@
 	name = "Armbar"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM,MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "place an opponent on the ground into an armbar, immobilizing them"
-	combo_text_override = "Grab, swap hands, disarm, grab, swap hands, harm"
+	combo_text_override = "Grab, disarm, grab, harm"
 
 /datum/martial_combo/judo/armbar/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!IS_HORIZONTAL(target) || user.IsKnockedDown())
