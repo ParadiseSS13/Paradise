@@ -1514,6 +1514,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			else if(req_one_access.len)
 				ae.selected_accesses = req_one_access
 				ae.one_access = 1
+			ae.unres_access_from = unres_sides
 		else
 			ae = electronics
 			electronics = null

@@ -160,7 +160,7 @@
 	med_bot_skin = "machine"
 
 /obj/item/storage/firstaid/machine/populate_contents()
-	new /obj/item/weldingtool(src)
+	new /obj/item/weldingtool/mini(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
