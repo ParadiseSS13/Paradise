@@ -274,7 +274,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 4
 	},
 /area/storage/tools)
 "add" = (
@@ -423,11 +424,7 @@
 	},
 /area/crew_quarters/fitness)
 "adX" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "adZ" = (
@@ -541,7 +538,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "aeQ" = (
@@ -733,7 +730,10 @@
 	d2 = 10;
 	icon_state = "1-10"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "longred"
+	},
 /area/security/lobby)
 "aho" = (
 /obj/structure/disposalpipe/segment{
@@ -1163,9 +1163,10 @@
 	pixel_y = 6;
 	pixel_x = -6
 	},
-/obj/item/circuitboard/aifixer{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/circuitboard/large_tank_control{
+	pixel_y = 3;
+	pixel_x = -3
 	},
 /obj/item/circuitboard/teleporter{
 	pixel_y = 0
@@ -1178,7 +1179,6 @@
 	pixel_x = 6;
 	pixel_y = -6
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "alm" = (
@@ -1550,7 +1550,8 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "aoP" = (
@@ -1627,16 +1628,16 @@
 	d2 = 10;
 	icon_state = "4-10"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 4
+	},
 /area/storage/tools)
 "app" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1994,7 +1995,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 8
+	},
 /area/hallway/primary/port/north)
 "asR" = (
 /obj/structure/table/wood,
@@ -2233,12 +2237,24 @@
 	},
 /area/security/permabrig)
 "avR" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint2)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/camera{
+	dir = 1;
+	c_tag = "Engineering Hallway Minor"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellowcorner"
+	},
+/area/hallway/primary/fore/west)
 "awh" = (
 /obj/machinery/computer/station_alert{
 	dir = 8
@@ -2340,8 +2356,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longredwhite";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "axz" = (
@@ -2580,14 +2596,11 @@
 	},
 /area/shuttle/arrival/station)
 "azQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central/se)
+/area/hallway/primary/central/south)
 "azR" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -2689,10 +2702,7 @@
 /area/hallway/primary/port)
 "aBk" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
@@ -3176,7 +3186,7 @@
 	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 5;
 	icon_state = "yellow"
 	},
 /area/storage/tools)
@@ -3323,8 +3333,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/se)
 "aHK" = (
@@ -3358,7 +3368,9 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblue"
+	},
 /area/security/lobby)
 "aId" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3765,7 +3777,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "aMp" = (
@@ -4232,10 +4244,7 @@
 	autolink_id = "mine1brg_vent";
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "aRw" = (
@@ -4714,8 +4723,8 @@
 /area/maintenance/atmos_control)
 "aWb" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/se)
 "aWe" = (
@@ -4812,6 +4821,25 @@
 	},
 /area/medical/sleeper)
 "aWF" = (
+/obj/structure/closet/crate{
+	name = "solar pack crate"
+	},
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/solar_assembly,
+/obj/item/circuitboard/solar_control,
+/obj/item/tracker_electronics,
+/obj/item/paper/solar,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/storage/secure)
@@ -5053,7 +5081,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "aYH" = (
@@ -5218,7 +5246,8 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	dir = 8;
+	icon_state = "escape"
 	},
 /area/hallway/primary/central/south)
 "bbo" = (
@@ -5318,7 +5347,7 @@
 "bcr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/hallway/primary/port/north)
 "bcv" = (
@@ -5326,7 +5355,9 @@
 	codes_txt = "patrol;next_patrol=DEP1";
 	location = "SCI1"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "long"
+	},
 /area/hallway/primary/starboard/north)
 "bcx" = (
 /mob/living/simple_animal/bot/mulebot{
@@ -5453,7 +5484,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/security/lobby)
 "bek" = (
@@ -5856,11 +5887,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "biZ" = (
@@ -5896,7 +5923,7 @@
 	d1 = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/se)
 "bjk" = (
@@ -6178,7 +6205,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "blc" = (
@@ -7330,10 +7357,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "pspcbrg_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -7483,7 +7507,10 @@
 	d2 = 6;
 	icon_state = "1-6"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblue";
+	dir = 6
+	},
 /area/security/lobby)
 "bwv" = (
 /obj/machinery/light_switch{
@@ -8537,7 +8564,10 @@
 "bGn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 4
+	},
 /area/storage/tools)
 "bGo" = (
 /obj/structure/closet/secure_closet/iaa,
@@ -8577,8 +8607,8 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard/north)
 "bGB" = (
@@ -9011,7 +9041,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "bKi" = (
@@ -10561,7 +10591,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longyellow";
+	dir = 10
 	},
 /area/hallway/primary/port/north)
 "bZy" = (
@@ -10968,10 +10999,7 @@
 	},
 /area/hallway/primary/central/sw)
 "cda" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/storage/eva)
 "cdi" = (
@@ -11051,10 +11079,7 @@
 	},
 /area/gateway)
 "cdD" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -11207,8 +11232,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
+	icon_state = "longwhite";
+	dir = 1
 	},
 /area/hallway/primary/central/sw)
 "ceY" = (
@@ -11281,6 +11306,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/incinerator)
+"cfJ" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "browncorner"
+	},
+/area/hallway/primary/central/south)
 "cfL" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -11348,6 +11385,7 @@
 /area/library)
 "cge" = (
 /obj/structure/closet/radiation,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "cgi" = (
@@ -11543,10 +11581,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating/airless,
 /area/medical/research)
 "chL" = (
@@ -11564,6 +11599,17 @@
 	icon_state = "white"
 	},
 /area/toxins/misc_lab)
+"cic" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreenbrown"
+	},
+/area/hallway/primary/central/south)
 "cih" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -11909,8 +11955,8 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "ckO" = (
@@ -12312,10 +12358,7 @@
 /area/maintenance/apmaint2)
 "cnP" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/medical/research)
@@ -12438,7 +12481,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "green"
+	icon_state = "brown"
 	},
 /area/hallway/primary/central/east)
 "cpj" = (
@@ -13167,7 +13210,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenpurple";
+	dir = 1
 	},
 /area/hallway/primary/starboard)
 "cuh" = (
@@ -13200,7 +13244,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/sw)
 "cuO" = (
@@ -13367,8 +13411,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "cwj" = (
@@ -13648,11 +13692,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "czF" = (
@@ -13897,8 +13937,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard/north)
 "cCm" = (
@@ -14010,7 +14050,7 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "cDs" = (
@@ -14117,8 +14157,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/se)
 "cEw" = (
@@ -14319,7 +14359,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/security/lobby)
 "cGU" = (
@@ -14809,7 +14849,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/sw)
 "cKQ" = (
@@ -15203,14 +15243,18 @@
 	},
 /area/maintenance/starboard)
 "cNs" = (
-/obj/machinery/hologram/holopad,
 /obj/structure/cable/orange{
 	d2 = 9;
 	icon_state = "1-9";
 	d1 = 1
 	},
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=DOR1";
+	location = "CAR1"
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longbluepurple";
+	dir = 6
 	},
 /area/hallway/primary/central/se)
 "cNy" = (
@@ -15831,7 +15875,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 1
 	},
 /area/hallway/primary/central/se)
 "cSX" = (
@@ -16075,8 +16120,8 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard/north)
 "cVm" = (
@@ -16101,10 +16146,7 @@
 	},
 /area/toxins/lab)
 "cVo" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -16150,7 +16192,9 @@
 	d2 = 9;
 	icon_state = "2-9"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow"
+	},
 /area/security/lobby)
 "cVN" = (
 /obj/structure/cable/yellow{
@@ -16420,8 +16464,8 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "cXZ" = (
@@ -17435,8 +17479,8 @@
 /area/bridge)
 "diC" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "diO" = (
@@ -17457,7 +17501,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "diY" = (
@@ -17594,7 +17638,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/sw)
 "djY" = (
@@ -17682,7 +17726,10 @@
 	codes_txt = "patrol;next_patrol=SEC1";
 	location = "MED1"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblueyellow";
+	dir = 10
+	},
 /area/hallway/primary/central/sw)
 "dkH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -17768,7 +17815,8 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longyellow";
+	dir = 4
 	},
 /area/storage/tools)
 "dlk" = (
@@ -18001,7 +18049,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenpurple";
+	dir = 1
 	},
 /area/hallway/primary/central/east)
 "dmQ" = (
@@ -18148,8 +18197,8 @@
 	d1 = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/se)
 "doM" = (
@@ -18328,10 +18377,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "dpR" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/blue{
 	d1 = 1;
 	d2 = 2;
@@ -18468,10 +18514,7 @@
 	pixel_y = -1;
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -18723,7 +18766,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "duc" = (
@@ -18898,7 +18941,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown";
+	dir = 5
 	},
 /area/hallway/primary/central/se)
 "dvY" = (
@@ -18941,10 +18985,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "dwi" = (
@@ -19757,8 +19798,8 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "dEA" = (
@@ -19783,8 +19824,8 @@
 	icon_state = "4-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "dEM" = (
@@ -20217,6 +20258,10 @@
 	dir = 9;
 	pixel_y = 0
 	},
+/obj/machinery/camera{
+	dir = 10;
+	c_tag = "Secondary Command Hallway 3"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -20429,8 +20474,8 @@
 	d1 = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/se)
 "dLr" = (
@@ -21373,8 +21418,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "dXx" = (
@@ -21479,7 +21524,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "dYl" = (
@@ -21751,10 +21796,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/mrchangs)
 "ebU" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
@@ -22509,7 +22551,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/sw)
 "eju" = (
@@ -22562,10 +22604,7 @@
 	autolink_id = "mine1brg_vent";
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "ejW" = (
@@ -22706,10 +22745,7 @@
 	},
 /area/hallway/primary/central/south)
 "elA" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating/airless,
 /area/medical/research)
@@ -22767,8 +22803,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "emf" = (
@@ -22958,8 +22994,8 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/se)
 "enF" = (
@@ -23044,8 +23080,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "eoC" = (
@@ -23083,11 +23119,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/asmaint)
 "eoP" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "eoS" = (
@@ -23241,6 +23273,17 @@
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
+"epZ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "longblue"
+	},
+/area/security/lobby)
 "eqa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -23399,10 +23442,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable{
 	d1 = 6;
 	d2 = 10;
@@ -23421,7 +23461,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/security/lobby)
 "erT" = (
@@ -23994,8 +24034,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "exg" = (
@@ -24596,7 +24636,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "eDV" = (
@@ -24766,7 +24806,7 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "eFJ" = (
@@ -25078,10 +25118,7 @@
 	},
 /area/bridge)
 "eHL" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating/airless,
 /area/storage/eva/exterior/charging)
@@ -25203,11 +25240,7 @@
 /area/maintenance/starboard)
 "eIE" = (
 /obj/structure/closet/walllocker/emerglocker/west,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "eIJ" = (
@@ -26538,7 +26571,7 @@
 	d1 = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/se)
 "eVm" = (
@@ -26596,7 +26629,7 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "eVA" = (
@@ -27253,7 +27286,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/security/lobby)
 "fcp" = (
@@ -27332,7 +27365,7 @@
 	location = "DOR1"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "fdt" = (
@@ -27595,7 +27628,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/hallway/primary/port/north)
 "fgq" = (
@@ -27704,10 +27737,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "fhG" = (
@@ -28889,10 +28919,7 @@
 	req_access_txt = "13"
 	},
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "frW" = (
@@ -29360,8 +29387,8 @@
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "fwn" = (
@@ -29432,6 +29459,10 @@
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/camera{
+	dir = 4;
+	c_tag = "Secondary Command Hallway"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29532,10 +29563,7 @@
 	},
 /area/hallway/primary/starboard/north)
 "fxQ" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
 /turf/simulated/floor/plating,
 /area/storage/eva)
@@ -30125,8 +30153,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port/north)
 "fDj" = (
@@ -30172,7 +30200,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
+	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/east)
 "fDy" = (
@@ -30380,7 +30408,7 @@
 "fFQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "fFV" = (
@@ -30565,11 +30593,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
-"fHz" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "long"
-	},
-/area/hallway/primary/central/se)
 "fHE" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
@@ -30668,8 +30691,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "fIX" = (
@@ -31484,8 +31507,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "fRb" = (
@@ -31767,7 +31790,9 @@
 	d2 = 8;
 	icon_state = "5-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "long"
+	},
 /area/security/lobby)
 "fUj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -32589,7 +32614,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 4
+	},
 /area/storage/tools)
 "gby" = (
 /obj/machinery/porta_turret,
@@ -32961,7 +32989,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/sw)
 "geX" = (
@@ -33102,7 +33130,10 @@
 	codes_txt = "patrol;next_patrol=ENG1";
 	location = "SEC1"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "longyellow"
+	},
 /area/security/lobby)
 "ggC" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -33147,7 +33178,7 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "ggW" = (
@@ -33394,10 +33425,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "gjw" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -33662,7 +33690,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/se)
 "gmp" = (
@@ -33848,7 +33876,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/se)
 "gnT" = (
@@ -33905,7 +33933,7 @@
 "goe" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/se)
 "gon" = (
@@ -33972,10 +34000,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "goH" = (
@@ -34467,8 +34492,8 @@
 	icon_state = "2-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "gtC" = (
@@ -34585,8 +34610,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "guO" = (
@@ -34880,8 +34905,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "gxX" = (
@@ -35088,11 +35113,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "gzU" = (
@@ -35622,8 +35643,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "gFo" = (
@@ -36112,8 +36133,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/sw)
 "gJV" = (
@@ -36235,7 +36256,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "gKW" = (
@@ -36574,8 +36595,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "gNr" = (
@@ -36958,6 +36979,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/camera{
+	dir = 4;
+	c_tag = "EVA lower"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -37335,7 +37360,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/sw)
 "gVz" = (
@@ -37409,8 +37434,8 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "gWp" = (
@@ -37436,8 +37461,8 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "gWB" = (
@@ -37447,8 +37472,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "gWF" = (
@@ -37484,10 +37509,7 @@
 /area/medical/cryo)
 "gWH" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/blue{
 	d1 = 4;
 	d2 = 6;
@@ -37657,7 +37679,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "gYb" = (
@@ -38343,10 +38365,7 @@
 	dir = 4;
 	autolink_id = "eva0_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "heh" = (
@@ -38571,11 +38590,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "hgF" = (
@@ -38989,6 +39004,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
+"hjL" = (
+/obj/structure/cable/white{
+	d1 = 6;
+	d2 = 8;
+	icon_state = "6-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "longbluepurple"
+	},
+/area/hallway/primary/central/south)
 "hjO" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -39153,10 +39178,7 @@
 	},
 /area/engine/break_room)
 "hls" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "hlx" = (
@@ -39654,10 +39676,7 @@
 	icon_state = "1-2";
 	d1 = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "hpP" = (
@@ -39720,7 +39739,9 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblue"
+	},
 /area/hallway/primary/central/east)
 "hqJ" = (
 /obj/structure/closet,
@@ -40500,10 +40521,7 @@
 	int_button_link_id = "sspcbrg_btn_int";
 	pixel_y = 29
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -40751,7 +40769,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "greencorner"
+	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/east)
 "hAE" = (
@@ -40982,21 +41000,17 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "hDf" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "hDo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=DOR1";
-	location = "CAR1"
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreen";
+	dir = 6
 	},
-/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "hDr" = (
 /obj/structure/chair/comfy/shuttle{
@@ -41045,7 +41059,10 @@
 	d2 = 10;
 	icon_state = "9-10"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 6
+	},
 /area/security/lobby)
 "hDL" = (
 /obj/structure/disposalpipe/segment{
@@ -41306,8 +41323,8 @@
 /obj/effect/turf_decal/stripes/white/line,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "hFA" = (
@@ -41575,7 +41592,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "hIc" = (
@@ -42958,8 +42975,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/security/lobby)
 "hXp" = (
@@ -43468,11 +43485,7 @@
 	},
 /area/hallway/primary/central/sw)
 "icD" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/south)
 "icO" = (
@@ -43802,10 +43815,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -44067,8 +44077,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "iiv" = (
@@ -44101,8 +44111,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/se)
 "iiO" = (
@@ -45024,7 +45034,10 @@
 	d2 = 6;
 	icon_state = "4-6"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblue";
+	dir = 8
+	},
 /area/security/lobby)
 "ipT" = (
 /obj/effect/decal/warning_stripes/west,
@@ -45043,8 +45056,8 @@
 	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "ipW" = (
@@ -45179,8 +45192,8 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "iqV" = (
@@ -45325,7 +45338,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreenpurple";
+	dir = 9
+	},
 /area/hallway/primary/central/east)
 "isp" = (
 /obj/structure/disposalpipe/segment{
@@ -45516,7 +45532,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "iuc" = (
@@ -46400,10 +46416,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "mine2brg_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "iCR" = (
@@ -47715,10 +47728,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -49066,10 +49076,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/servicehall)
 "jce" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/blue{
 	d1 = 2;
 	d2 = 4;
@@ -49350,7 +49357,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/hallway/primary/port/north)
 "jeE" = (
@@ -49693,7 +49700,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "jil" = (
@@ -49755,10 +49762,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -50501,7 +50505,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
+	dir = 10;
 	icon_state = "red"
 	},
 /area/security/lobby)
@@ -50624,7 +50628,10 @@
 	d2 = 6;
 	icon_state = "4-6"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreenpurple";
+	dir = 6
+	},
 /area/hallway/primary/starboard)
 "joW" = (
 /obj/machinery/disposal,
@@ -50815,8 +50822,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "jqR" = (
@@ -50984,8 +50991,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "jsm" = (
@@ -52416,7 +52423,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/se)
 "jFw" = (
@@ -53181,10 +53188,7 @@
 	dir = 8;
 	autolink_id = "eva0_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -53274,10 +53278,7 @@
 	},
 /area/hallway/primary/central/north)
 "jNC" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "jNG" = (
@@ -53361,7 +53362,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/sw)
 "jOJ" = (
@@ -53933,6 +53934,11 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/mineral/bananium/lubed,
 /area/clownoffice)
+"jUf" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "longbluepurple"
+	},
+/area/hallway/primary/central/south)
 "jUi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
@@ -54497,8 +54503,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/security/lobby)
 "jZO" = (
@@ -54514,6 +54520,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	dir = 10;
+	c_tag = "Secondary Command Hallway 2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
@@ -54946,7 +54956,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "kdV" = (
@@ -54983,10 +54993,7 @@
 /turf/simulated/wall,
 /area/maintenance/fpmaint2)
 "key" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/cable/blue{
 	d1 = 9;
@@ -56301,10 +56308,7 @@
 	autolink_id = "incnbrg_vent";
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "kqH" = (
@@ -56474,10 +56478,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -57418,7 +57419,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/security/lobby)
 "kAB" = (
@@ -57607,10 +57608,7 @@
 	req_access_txt = "13";
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -57628,10 +57626,7 @@
 /area/maintenance/atmos_control)
 "kBV" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/hallways)
 "kCa" = (
@@ -58055,10 +58050,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "kEZ" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/table,
 /obj/machinery/recharger,
 /turf/simulated/floor/plating/airless,
@@ -58231,10 +58223,7 @@
 	},
 /area/bridge)
 "kHW" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "kHY" = (
@@ -58693,8 +58682,8 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "kMj" = (
@@ -58783,7 +58772,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "kML" = (
@@ -59185,7 +59174,7 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "kQB" = (
@@ -59521,6 +59510,16 @@
 	icon_state = "long"
 	},
 /area/security/prison/cell_block/A)
+"kUM" = (
+/obj/structure/cable/white{
+	d1 = 4;
+	d2 = 10;
+	icon_state = "4-10"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "longbluepurple"
+	},
+/area/hallway/primary/central/south)
 "kUO" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -59730,6 +59729,10 @@
 	d1 = 4;
 	d2 = 6;
 	icon_state = "4-6"
+	},
+/obj/item/circuitboard/aifixer{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -60062,10 +60065,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "kZX" = (
@@ -60297,6 +60297,10 @@
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
+	},
+/obj/machinery/camera{
+	dir = 5;
+	c_tag = "EVA upper"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -61073,8 +61077,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "ljl" = (
@@ -61782,8 +61786,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "loH" = (
@@ -62046,10 +62050,7 @@
 /area/medical/genetics)
 "lrg" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/hallways)
 "lrh" = (
@@ -62162,10 +62163,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5;
 	icon_state = "intact"
@@ -62514,10 +62512,17 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningstorage)
 "lvw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/central/se)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "longredwhite"
+	},
+/area/hallway/primary/central/south)
 "lvC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -63051,10 +63056,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	pixel_y = 0
@@ -63150,10 +63152,7 @@
 	autolink_id = "medbrg_vent";
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "lBD" = (
@@ -63389,7 +63388,9 @@
 	d2 = 8;
 	icon_state = "6-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreen"
+	},
 /area/hallway/primary/starboard)
 "lDG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -64084,7 +64085,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "lKk" = (
@@ -64275,7 +64276,7 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "lMB" = (
@@ -64455,8 +64456,8 @@
 /area/maintenance/incinerator)
 "lOe" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "lOf" = (
@@ -64822,6 +64823,12 @@
 	icon_state = "long"
 	},
 /area/assembly/showroom)
+"lRn" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "longyellow"
+	},
+/area/security/lobby)
 "lRs" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/green{
@@ -65164,8 +65171,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/se)
 "lUH" = (
@@ -65575,8 +65582,8 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "lYp" = (
@@ -65625,11 +65632,7 @@
 	},
 /area/security/detectives_office)
 "lYV" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "lYW" = (
@@ -65749,10 +65752,7 @@
 /area/maintenance/apmaint)
 "lZT" = (
 /obj/structure/closet/walllocker/emerglocker/south,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/hallways)
 "maf" = (
@@ -65810,8 +65810,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "may" = (
@@ -65894,6 +65894,12 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/blueshield)
+"mbp" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblueyellow"
+	},
+/area/hallway/primary/central/south)
 "mbK" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
@@ -66249,7 +66255,8 @@
 	icon_state = "8-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "blueyellow";
+	dir = 8
 	},
 /area/hallway/primary/central/south)
 "mev" = (
@@ -66962,10 +66969,7 @@
 	ext_button_link_id = "engines_btn_ext";
 	int_button_link_id = "engines_btn_int"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
@@ -67293,6 +67297,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/newscaster{
+	name = "north bump";
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
@@ -67550,7 +67558,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "greencorner"
+	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/east)
 "mpO" = (
@@ -68506,11 +68514,7 @@
 	name = "\improper Engine Containment"
 	})
 "myD" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "myG" = (
@@ -69503,8 +69507,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/se)
 "mJv" = (
@@ -69771,8 +69775,8 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "mLV" = (
@@ -69930,8 +69934,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/security/lobby)
 "mMX" = (
@@ -70366,10 +70370,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
@@ -70577,7 +70578,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "mTI" = (
@@ -70920,10 +70921,7 @@
 	dir = 1;
 	autolink_id = "engines_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
@@ -70994,7 +70992,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/sw)
 "mWP" = (
@@ -71003,10 +71001,7 @@
 /turf/simulated/floor/plating,
 /area/security/seceqstorage)
 "mWY" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/unary/passive_vent/high_volume,
 /turf/simulated/floor/plating/airless,
 /area/medical/research)
@@ -71123,10 +71118,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "mYP" = (
@@ -71527,7 +71519,7 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "nbY" = (
@@ -71706,7 +71698,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "neh" = (
@@ -71736,8 +71728,8 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "nev" = (
@@ -72714,8 +72706,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard/north)
 "npu" = (
@@ -72727,8 +72719,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "npA" = (
@@ -72738,11 +72730,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "npI" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/closet/walllocker/emerglocker/west,
+/obj/machinery/camera{
+	dir = 4;
+	c_tag = "EVA airlock"
+	},
 /turf/simulated/floor/plating,
 /area/storage/eva)
 "npM" = (
@@ -73060,10 +73053,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -73382,6 +73372,10 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/northwest,
+/obj/machinery/camera{
+	dir = 4;
+	c_tag = "EVA airlock"
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "nuY" = (
@@ -73391,8 +73385,8 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "nvd" = (
@@ -73793,7 +73787,9 @@
 /obj/effect/turf_decal/caution/white{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblue"
+	},
 /area/security/lobby)
 "nzm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -73919,8 +73915,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "nAm" = (
@@ -74018,7 +74014,7 @@
 	icon_state = "8-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "nAY" = (
@@ -74697,10 +74693,7 @@
 /turf/simulated/floor/wood,
 /area/bridge/meeting_room)
 "nGs" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/airlock_controller/air_cycler{
 	name = "Science Space Bridge";
 	vent_link_id = "scibrg_vent";
@@ -75108,7 +75101,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "nLj" = (
@@ -75260,10 +75253,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "nMF" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore/east)
 "nML" = (
@@ -76007,10 +75997,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
 "nUh" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/airlock_controller/air_cycler{
 	name = "Starboard Space Bridge";
 	req_one_access_txt = "18";
@@ -76738,8 +76725,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "ocl" = (
@@ -77306,7 +77293,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longyellow"
 	},
 /area/hallway/primary/port/north)
 "oho" = (
@@ -77511,26 +77498,8 @@
 	},
 /area/engine/break_room)
 "oiH" = (
-/obj/structure/closet/crate{
-	name = "solar pack crate"
-	},
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/solar_assembly,
-/obj/item/circuitboard/solar_control,
-/obj/item/tracker_electronics,
-/obj/item/paper/solar,
 /obj/effect/decal/warning_stripes/northwestcorner,
+/obj/machinery/floodlight,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "oiL" = (
@@ -77622,6 +77591,16 @@
 	icon_state = "long"
 	},
 /area/security/prison/cell_block/A)
+"oka" = (
+/obj/structure/cable/white{
+	d1 = 5;
+	d2 = 8;
+	icon_state = "5-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "longblueyellow"
+	},
+/area/hallway/primary/central/south)
 "okd" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave{
@@ -77741,7 +77720,7 @@
 	icon_state = "4-5"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/hallway/primary/port/north)
 "olt" = (
@@ -77992,8 +77971,8 @@
 "omZ" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "onc" = (
@@ -78092,7 +78071,10 @@
 	sort_type_txt = "3";
 	icon_state = "pipe-j2s"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "longbrown"
+	},
 /area/hallway/primary/central/se)
 "onM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -78543,7 +78525,8 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenpurple";
+	dir = 1
 	},
 /area/hallway/primary/starboard)
 "orW" = (
@@ -79714,8 +79697,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "oDd" = (
@@ -79747,6 +79730,16 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/security/permabrig)
+"oDr" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 10;
+	icon_state = "4-10"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow"
+	},
+/area/security/lobby)
 "oDt" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -79888,7 +79881,7 @@
 "oFH" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "oFI" = (
@@ -80109,7 +80102,10 @@
 /area/bridge)
 "oHn" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "longbrown"
+	},
 /area/quartermaster/lobby)
 "oHs" = (
 /obj/machinery/light/small{
@@ -80956,8 +80952,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "oOX" = (
@@ -81001,10 +80997,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "eng2_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/hallways)
 "oPD" = (
@@ -81094,8 +81087,8 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "oQG" = (
@@ -81482,10 +81475,7 @@
 	dir = 4;
 	autolink_id = "sci_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/medical/research)
 "oTQ" = (
@@ -81892,10 +81882,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "scibrg_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore/east)
 "oWr" = (
@@ -82144,10 +82131,7 @@
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "oYC" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
@@ -82416,7 +82400,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/security/lobby)
 "pbE" = (
@@ -82754,8 +82738,8 @@
 	icon_state = "8-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "peh" = (
@@ -82881,7 +82865,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenpurple";
+	dir = 1
 	},
 /area/hallway/primary/starboard)
 "pfx" = (
@@ -82891,8 +82876,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "pfy" = (
@@ -82928,8 +82913,8 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "pgn" = (
@@ -83124,10 +83109,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "sspcbrg_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "piE" = (
@@ -83168,7 +83150,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "piO" = (
@@ -83622,8 +83604,8 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard/north)
 "pns" = (
@@ -83806,8 +83788,8 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "poE" = (
@@ -84484,10 +84466,7 @@
 /area/hallway/primary/starboard/north)
 "pwu" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5;
 	level = 1
@@ -84671,7 +84650,9 @@
 	dir = 1;
 	icon_state = "pipe-y"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreen"
+	},
 /area/hallway/primary/starboard)
 "pyi" = (
 /obj/machinery/camera{
@@ -84799,8 +84780,8 @@
 	d2 = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/sw)
 "pzg" = (
@@ -84877,7 +84858,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "greencorner"
+	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/east)
 "pzR" = (
@@ -85001,8 +84982,8 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/se)
 "pAT" = (
@@ -85524,7 +85505,10 @@
 	d2 = 10;
 	icon_state = "9-10"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 4
+	},
 /area/storage/tools)
 "pGX" = (
 /turf/simulated/floor/plasteel,
@@ -86364,21 +86348,6 @@
 	icon_state = "floorgrime"
 	},
 /area/maintenance/aft2)
-"pQi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitecorner"
-	},
-/area/hallway/primary/central/sw)
 "pQj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -86694,7 +86663,10 @@
 	location = "SCI2"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "long"
+	},
 /area/hallway/primary/starboard/north)
 "pTn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -87109,10 +87081,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -87325,10 +87294,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/storage/eva)
 "pZR" = (
@@ -88424,8 +88390,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "qiK" = (
@@ -88578,8 +88544,8 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "qjV" = (
@@ -89077,7 +89043,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "qpu" = (
@@ -89461,7 +89427,10 @@
 	d2 = 9;
 	icon_state = "6-9"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 4
+	},
 /area/storage/tools)
 "qta" = (
 /obj/structure/table,
@@ -89747,7 +89716,7 @@
 	icon_state = "8-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "qvV" = (
@@ -90037,10 +90006,7 @@
 	int_button_link_id = "mine1brg_btn_int";
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -90330,13 +90296,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
-"qBJ" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "qBM" = (
 /obj/structure/cable/cyan{
 	d2 = 4;
@@ -90683,8 +90642,8 @@
 	location = "SER1"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "qGm" = (
@@ -90925,10 +90884,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/portable/canister/air,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating/airless,
 /area/medical/research)
 "qHY" = (
@@ -91102,8 +91058,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "qJf" = (
@@ -91156,10 +91112,7 @@
 	ext_button_link_id = "enginen_btn_ext";
 	int_button_link_id = "enginen_btn_int"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
@@ -91288,7 +91241,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "qKQ" = (
@@ -91318,8 +91271,8 @@
 /area/maintenance/asmaint2)
 "qLf" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "qLj" = (
@@ -91409,8 +91362,8 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "qLT" = (
@@ -92684,14 +92637,13 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice2)
 "qXg" = (
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/particle_accelerator/power_box,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "qXk" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "qXs" = (
@@ -92774,10 +92726,7 @@
 	},
 /area/crew_quarters/pool)
 "qYg" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -94310,7 +94259,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "rll" = (
@@ -94388,8 +94337,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longredwhite";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "rlR" = (
@@ -95810,10 +95759,7 @@
 	pixel_y = -1;
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
@@ -96772,8 +96718,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/se)
 "rHp" = (
@@ -97370,8 +97316,8 @@
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "rMW" = (
@@ -97691,10 +97637,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/blue{
 	d1 = 1;
 	d2 = 8;
@@ -97735,7 +97678,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/se)
 "rPV" = (
@@ -98121,11 +98064,7 @@
 	})
 "rUu" = (
 /obj/item/shard,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
 "rUz" = (
@@ -98504,8 +98443,8 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/security/lobby)
 "rXU" = (
@@ -98642,7 +98581,7 @@
 "rZE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/hallway/primary/port/north)
 "rZZ" = (
@@ -99508,10 +99447,7 @@
 /area/crew_quarters/servicehall)
 "skd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "skf" = (
@@ -99577,7 +99513,8 @@
 "skE" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/se)
 "skI" = (
@@ -99608,10 +99545,7 @@
 	dir = 4;
 	autolink_id = "sci_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -99701,8 +99635,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "slR" = (
@@ -99718,6 +99652,13 @@
 	icon_state = "titanium_white"
 	},
 /area/hallway/primary/fore)
+"slW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblueyellow"
+	},
+/area/hallway/primary/central/south)
 "slX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -100224,10 +100165,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "sqJ" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "sqL" = (
@@ -100308,7 +100246,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longredwhite";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "srx" = (
@@ -100793,10 +100732,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "swB" = (
@@ -100896,10 +100832,7 @@
 /area/storage/primary)
 "sxK" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "syc" = (
@@ -101104,11 +101037,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "sBi" = (
@@ -101198,6 +101127,14 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry/north)
+"sCk" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreenbrown"
+	},
+/area/hallway/primary/central/south)
 "sCo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
@@ -101433,7 +101370,10 @@
 	d2 = 9;
 	icon_state = "5-9"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longbluepurple";
+	dir = 5
+	},
 /area/hallway/primary/central/east)
 "sEw" = (
 /obj/machinery/door/airlock/public/glass{
@@ -101591,7 +101531,10 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "longpurple"
+	},
 /area/hallway/primary/starboard/north)
 "sFo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -101665,7 +101608,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/sw)
 "sGd" = (
@@ -101678,10 +101621,7 @@
 	},
 /area/crew_quarters/servicehall)
 "sGl" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/light/small{
 	dir = 8
@@ -101766,8 +101706,8 @@
 	d2 = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "sGJ" = (
@@ -101791,10 +101731,7 @@
 	},
 /area/medical/medbreak)
 "sGS" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry)
 "sHb" = (
@@ -102131,7 +102068,10 @@
 	icon_state = "5-6";
 	d1 = 5
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "longbrown"
+	},
 /area/quartermaster/lobby)
 "sKl" = (
 /obj/structure/table/wood,
@@ -102220,8 +102160,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "sLh" = (
@@ -102783,7 +102723,7 @@
 /area/hallway/primary/central/east)
 "sQG" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "sQO" = (
@@ -102912,10 +102852,7 @@
 	name = "\improper AI Satellite Service"
 	})
 "sRC" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "sRD" = (
@@ -103038,8 +102975,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "sSq" = (
@@ -103188,7 +103125,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "sTj" = (
@@ -103440,10 +103377,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -103575,7 +103509,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "sXg" = (
@@ -103888,7 +103822,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/se)
 "taE" = (
@@ -104484,8 +104418,8 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longred";
+	dir = 5
 	},
 /area/security/lobby)
 "ths" = (
@@ -105141,10 +105075,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
 	},
@@ -105162,6 +105093,17 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/hallway/primary/port)
+"tny" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreenbrown"
+	},
+/area/hallway/primary/central/se)
 "tnF" = (
 /obj/structure/cable/green{
 	d1 = 6;
@@ -105288,10 +105230,7 @@
 	c_tag = "Engineering Loading Airlock";
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/hallways)
 "toU" = (
@@ -105411,8 +105350,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "tpT" = (
@@ -105450,8 +105389,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard/north)
 "tpY" = (
@@ -105578,10 +105517,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "tqL" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating/airless,
 /area/storage/eva/exterior/charging)
 "tqM" = (
@@ -105881,10 +105817,7 @@
 	autolink_id = "incnbrg_vent";
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "ttp" = (
@@ -106473,8 +106406,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longredwhite";
+	dir = 5
 	},
 /area/hallway/primary/central/sw)
 "tzd" = (
@@ -106550,7 +106483,8 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "tzF" = (
@@ -106689,6 +106623,10 @@
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
+	},
+/obj/machinery/camera{
+	dir = 4;
+	c_tag = "AI Satellite Access"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -106936,6 +106874,10 @@
 "tDN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/machinery/camera{
+	dir = 4;
+	c_tag = "Secondary Command Hallway 4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "long"
@@ -107254,7 +107196,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/sw)
 "tGZ" = (
@@ -107420,7 +107362,7 @@
 	icon_state = "6-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "tIl" = (
@@ -107483,8 +107425,8 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/se)
 "tIA" = (
@@ -107912,7 +107854,8 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "tNf" = (
@@ -108604,8 +108547,8 @@
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "tSO" = (
@@ -109094,8 +109037,8 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "tWE" = (
@@ -109361,17 +109304,6 @@
 	icon_state = "arrival"
 	},
 /area/maintenance/atmos_control)
-"tZr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "long"
-	},
-/area/security/lobby)
 "tZu" = (
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/cobweb2,
@@ -109499,7 +109431,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 1
 	},
 /area/hallway/primary/central/se)
 "ubE" = (
@@ -109509,7 +109442,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "ubH" = (
@@ -109989,6 +109922,10 @@
 	dir = 4;
 	name = "east bump";
 	pixel_x = 24
+	},
+/obj/machinery/camera{
+	dir = 8;
+	c_tag = "Security Command Checkpoint"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -110549,10 +110486,7 @@
 	autolink_id = "mine2brg_vent";
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "ukp" = (
@@ -110613,10 +110547,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/storage)
 "ulc" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
@@ -110726,8 +110657,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "ume" = (
@@ -111458,7 +111389,7 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "usp" = (
@@ -111676,10 +111607,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "uun" = (
@@ -111973,7 +111901,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/sw)
 "uwL" = (
@@ -112422,8 +112350,8 @@
 /area/maintenance/fore)
 "uBt" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "uBv" = (
@@ -113077,7 +113005,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblueyellow";
+	dir = 9
+	},
 /area/security/lobby)
 "uIj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -113558,7 +113489,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "uLU" = (
@@ -114052,8 +113983,8 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/east)
 "uQJ" = (
@@ -115342,7 +115273,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "greencorner"
+	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/east)
 "vcw" = (
@@ -115717,8 +115648,11 @@
 	d2 = 10;
 	icon_state = "5-10"
 	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "purplecorner"
 	},
 /area/hallway/primary/central/south)
 "vfQ" = (
@@ -115747,8 +115681,8 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "vga" = (
@@ -115993,7 +115927,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "vic" = (
@@ -116250,10 +116184,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "vkG" = (
@@ -116390,7 +116321,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/sw)
 "vmb" = (
@@ -116771,10 +116702,7 @@
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
 "vqo" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plating,
@@ -116941,8 +116869,8 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/se)
 "vso" = (
@@ -117339,10 +117267,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -117692,8 +117617,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/east)
 "vyG" = (
@@ -117899,10 +117824,7 @@
 	int_button_link_id = "sci_btn_int";
 	pixel_y = 29
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/medical/research)
 "vzQ" = (
@@ -118158,10 +118080,7 @@
 	int_button_link_id = "pspcbrg_btn_int";
 	pixel_y = 29
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -118176,7 +118095,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longblue";
+	dir = 9
+	},
 /area/security/lobby)
 "vCJ" = (
 /obj/effect/spawner/window/reinforced,
@@ -118403,10 +118325,7 @@
 /area/bridge)
 "vEr" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "vEs" = (
@@ -118531,7 +118450,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "vFu" = (
@@ -118579,8 +118498,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longred"
 	},
 /area/hallway/primary/central/west)
 "vGd" = (
@@ -118740,7 +118659,7 @@
 /area/atmos)
 "vHf" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/hallway/primary/port/north)
 "vHi" = (
@@ -118831,7 +118750,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/hallway/primary/port/north)
 "vIl" = (
@@ -118950,10 +118869,7 @@
 	autolink_id = "medbrg_vent";
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "vJq" = (
@@ -119543,7 +119459,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 1
 	},
 /area/hallway/primary/central/se)
 "vNK" = (
@@ -120023,7 +119940,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "vSk" = (
@@ -120252,7 +120169,7 @@
 	icon_state = "6-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblue"
 	},
 /area/hallway/primary/central/east)
 "vTO" = (
@@ -120478,7 +120395,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longredwhite";
+	dir = 10
+	},
 /area/hallway/primary/central/sw)
 "vWg" = (
 /obj/machinery/light{
@@ -120722,7 +120642,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/se)
 "vYa" = (
@@ -120914,7 +120834,8 @@
 "vZI" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "vZJ" = (
@@ -121521,10 +121442,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -121546,10 +121464,7 @@
 	pixel_y = 1;
 	pixel_x = -25
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "wfU" = (
@@ -122170,7 +122085,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/se)
 "wlk" = (
@@ -122225,6 +122140,11 @@
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
 	})
+"wlJ" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "longbluepurple"
+	},
+/area/hallway/primary/central/se)
 "wlK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -122583,10 +122503,7 @@
 	pixel_y = 1;
 	pixel_x = -25
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/hallways)
 "wpi" = (
@@ -122663,7 +122580,10 @@
 "wpX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 4
+	},
 /area/hallway/primary/port/north)
 "wpY" = (
 /obj/machinery/light/small{
@@ -123227,10 +123147,7 @@
 	},
 /area/maintenance/fpmaint2)
 "wwX" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
@@ -123423,10 +123340,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "wyB" = (
@@ -123618,7 +123532,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "wAK" = (
@@ -124048,7 +123962,7 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "wEK" = (
@@ -124172,10 +124086,7 @@
 	icon_state = "1-2";
 	d1 = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -124342,8 +124253,8 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/security/lobby)
 "wHd" = (
@@ -124609,7 +124520,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/sw)
 "wJD" = (
@@ -124622,17 +124533,14 @@
 	autolink_id = "btybrg_vent";
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "wJE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenbrown"
 	},
 /area/hallway/primary/central/south)
 "wJG" = (
@@ -124713,7 +124621,7 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/south)
 "wKh" = (
@@ -124752,10 +124660,7 @@
 	icon_state = "4-8";
 	d1 = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
@@ -125124,7 +125029,7 @@
 	icon_state = "4-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "wNy" = (
@@ -125291,13 +125196,13 @@
 	icon_state = "1-6";
 	d1 = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "longbrown"
+	},
 /area/quartermaster/lobby)
 "wOY" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/storage/eva)
@@ -125420,8 +125325,8 @@
 	d1 = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longbluepurple";
+	dir = 4
 	},
 /area/hallway/primary/central/se)
 "wRf" = (
@@ -125715,6 +125620,14 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/south)
+"wTm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "longred"
+	},
+/area/hallway/primary/central/sw)
 "wTv" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
@@ -125773,11 +125686,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/atmos_control)
 "wTO" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "wTP" = (
@@ -126112,7 +126021,7 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/se)
 "wWW" = (
@@ -126536,7 +126445,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longbluepurple"
 	},
 /area/hallway/primary/central/se)
 "wZY" = (
@@ -126885,8 +126794,8 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "xcV" = (
@@ -126928,16 +126837,16 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "longyellow";
+	dir = 5
+	},
 /area/hallway/primary/port/north)
 "xdh" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "enginen_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Engine Containment"
@@ -127159,8 +127068,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 5;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard/north)
 "xfA" = (
@@ -127168,8 +127077,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longyellow";
+	dir = 8
 	},
 /area/hallway/primary/port)
 "xfQ" = (
@@ -127526,6 +127435,17 @@
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
+"xiI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "longgreenbrown"
+	},
+/area/hallway/primary/central/south)
 "xiL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -127655,15 +127575,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longredwhite"
 	},
 /area/hallway/primary/central/south)
 "xjY" = (
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/aft2)
 "xkd" = (
@@ -128199,7 +128115,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "greencorner"
+	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/east)
 "xoU" = (
@@ -128473,8 +128389,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longgreen";
+	dir = 8
 	},
 /area/hallway/primary/central/se)
 "xrg" = (
@@ -128488,10 +128404,7 @@
 /obj/structure/rack{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/medical/research)
 "xrm" = (
@@ -128520,7 +128433,8 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longgreenpurple";
+	dir = 1
 	},
 /area/hallway/primary/starboard)
 "xru" = (
@@ -129453,8 +129367,8 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/sw)
 "xzu" = (
@@ -129581,7 +129495,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "longpurple"
+	},
 /area/hallway/primary/starboard/north)
 "xAG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -130180,7 +130097,7 @@
 	icon_state = "5-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longblueyellow"
 	},
 /area/hallway/primary/central/south)
 "xGg" = (
@@ -130249,10 +130166,7 @@
 /area/crew_quarters/fitness)
 "xGt" = (
 /obj/structure/closet/walllocker/emerglocker/west,
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "xGA" = (
@@ -130290,10 +130204,7 @@
 	icon_state = "4-8";
 	d1 = 4
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
@@ -130447,10 +130358,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "btybrg_vent"
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0"
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard2)
 "xIH" = (
@@ -130477,7 +130385,7 @@
 /area/library)
 "xJg" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "long"
+	icon_state = "longyellow"
 	},
 /area/security/lobby)
 "xJh" = (
@@ -130742,8 +130650,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	icon_state = "longblueyellow";
+	dir = 4
 	},
 /area/hallway/primary/central/west)
 "xLz" = (
@@ -131149,7 +131057,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/south)
 "xPd" = (
@@ -131504,8 +131413,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard/north)
 "xSK" = (
@@ -131594,11 +131503,7 @@
 	icon_state = "1-2";
 	d1 = 1
 	},
-/obj/effect/turf_decal/stripes/full{
-	icon = 'icons/obj/smooth_structures/catwalk.dmi';
-	icon_state = "catwalk-0";
-	layer = 1.7
-	},
+/obj/effect/turf_decal/catwalk,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "xUw" = (
@@ -132612,7 +132517,8 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "botblue"
+	icon_state = "longyellow";
+	dir = 4
 	},
 /area/storage/tools)
 "yeR" = (
@@ -132815,8 +132721,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "long"
+	dir = 4;
+	icon_state = "longpurple"
 	},
 /area/hallway/primary/starboard)
 "ygu" = (
@@ -132833,7 +132739,10 @@
 	d2 = 5;
 	icon_state = "2-5"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "long"
+	},
 /area/hallway/primary/port/north)
 "ygy" = (
 /obj/structure/sign/chemistry,
@@ -133008,7 +132917,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "greencorner"
+	icon_state = "browncorner"
 	},
 /area/hallway/primary/central/east)
 "yiu" = (
@@ -156376,7 +156285,7 @@ dDL
 dDL
 fJc
 tzI
-pQi
+bQA
 ceP
 ecR
 xfQ
@@ -156632,7 +156541,7 @@ nQB
 pxO
 ruS
 gJU
-axy
+wTm
 pzb
 tza
 rlQ
@@ -156643,7 +156552,7 @@ axy
 axy
 axy
 axy
-jlB
+axy
 vWf
 ujn
 wIf
@@ -156859,10 +156768,10 @@ iEG
 teo
 ggr
 cGR
-gME
-gME
-gME
-gME
+lRn
+lRn
+lRn
+lRn
 erR
 uHY
 mMU
@@ -156901,7 +156810,7 @@ sGD
 qXk
 qXk
 dkE
-bQA
+jOH
 pbm
 wIf
 oYf
@@ -157121,7 +157030,7 @@ rSe
 aNb
 rSe
 dMu
-tZr
+epZ
 mfi
 cMl
 myJ
@@ -157371,14 +157280,14 @@ teY
 vUG
 spA
 ceq
-nQv
+oDr
 cUy
 inQ
 hKx
 rNB
 mzY
 laU
-tZr
+epZ
 eVh
 viT
 viT
@@ -157635,7 +157544,7 @@ tdo
 vov
 twI
 dMu
-tZr
+epZ
 xGA
 viT
 wCa
@@ -157892,7 +157801,7 @@ oVy
 rWI
 ojA
 dfE
-tZr
+epZ
 pZk
 viT
 aUV
@@ -158149,7 +158058,7 @@ tdo
 nmD
 ojA
 jUu
-tZr
+epZ
 mjQ
 oTi
 eYM
@@ -158406,7 +158315,7 @@ tdo
 cPE
 fxF
 laU
-tZr
+epZ
 cUy
 oTi
 aUV
@@ -158663,7 +158572,7 @@ bfS
 tXZ
 jKZ
 dMu
-tZr
+epZ
 ssh
 jls
 caJ
@@ -158920,7 +158829,7 @@ raw
 kck
 raw
 laU
-tZr
+epZ
 ssh
 cwL
 caJ
@@ -158979,8 +158888,8 @@ kfK
 rJQ
 egh
 ezR
-avR
-avR
+lYV
+lYV
 byK
 uhN
 fBi
@@ -159689,7 +159598,7 @@ gia
 pSi
 ltn
 ssh
-tZr
+epZ
 rBy
 rLp
 uCD
@@ -162040,7 +161949,7 @@ ctr
 slD
 aRi
 aNk
-oFH
+mbp
 aeL
 ppf
 yee
@@ -162480,7 +162389,7 @@ psC
 iCH
 avJ
 alm
-rOg
+avR
 avJ
 aFC
 iwB
@@ -163068,7 +162977,7 @@ gHn
 lfH
 rxl
 ilh
-ubE
+oka
 lKi
 ppf
 oJm
@@ -163583,7 +163492,7 @@ uQr
 uQr
 auV
 mTF
-dtX
+lvw
 ppf
 oJm
 xia
@@ -165895,7 +165804,7 @@ kMb
 oZK
 gUj
 qZB
-bla
+slW
 via
 qOC
 ndL
@@ -167180,7 +167089,7 @@ wvj
 wvj
 wvj
 eOV
-sQG
+azQ
 xOY
 bGB
 vfF
@@ -167438,7 +167347,7 @@ bKE
 wvj
 pcl
 vfK
-aYD
+cfJ
 wip
 vfF
 xYM
@@ -167694,8 +167603,8 @@ gRb
 gRb
 hNi
 wTl
-sQG
-lKi
+jUf
+xiI
 ppf
 vfF
 xYM
@@ -167952,7 +167861,7 @@ uem
 hNi
 mNz
 kdU
-lKi
+xiI
 wip
 ebu
 ebu
@@ -168209,7 +168118,7 @@ wvj
 wvj
 xoE
 ubE
-lKi
+xiI
 euS
 eSR
 vDf
@@ -168723,7 +168632,7 @@ gfz
 aYn
 tQL
 fdn
-lKi
+xiI
 wLq
 eSR
 hWE
@@ -169236,8 +169145,8 @@ unD
 unD
 unD
 eyt
-cDo
-nLi
+hjL
+cic
 uHb
 isW
 wpi
@@ -169750,8 +169659,8 @@ qPj
 gYL
 jZb
 aRx
-sQG
-lKi
+jUf
+xiI
 wip
 ebu
 xlh
@@ -170008,7 +169917,7 @@ nrA
 jZb
 fFc
 kdU
-lKi
+xiI
 ydr
 rnF
 rnF
@@ -170265,7 +170174,7 @@ xHL
 nev
 gku
 dYk
-vFt
+sCk
 mFB
 rnF
 mpP
@@ -170521,7 +170430,7 @@ gYL
 fnp
 jZb
 eOg
-sQG
+jUf
 jik
 qOC
 rnF
@@ -170778,7 +170687,7 @@ gYL
 iCV
 jZb
 bro
-sQG
+jUf
 vRT
 jeh
 rnF
@@ -171035,8 +170944,8 @@ lNM
 ayS
 jZb
 fFc
-eVu
-lKi
+kUM
+xiI
 sEa
 rnF
 cHK
@@ -171292,7 +171201,7 @@ unD
 unD
 unD
 pII
-cDo
+hjL
 dtX
 wip
 rnF
@@ -171807,7 +171716,7 @@ idv
 idv
 wpr
 nAX
-lKi
+xiI
 pwA
 knz
 qGJ
@@ -175918,7 +175827,7 @@ wxk
 nZu
 ucw
 sbr
-fHz
+wlJ
 vXU
 iIS
 ddF
@@ -176432,8 +176341,8 @@ tSs
 epL
 ucw
 jsm
-fHz
-cSU
+wlJ
+tny
 qMW
 ggI
 iPV
@@ -176689,8 +176598,8 @@ fqU
 mpB
 frG
 wwi
-fHz
-cSU
+wlJ
+tny
 iQz
 ggI
 hCK
@@ -177203,7 +177112,7 @@ rpP
 aCJ
 frG
 pUT
-fHz
+wlJ
 ubw
 xek
 oeK
@@ -177717,7 +177626,7 @@ tDm
 vQN
 ucw
 qpu
-fHz
+wlJ
 cSU
 iQz
 ggI
@@ -178231,7 +178140,7 @@ fST
 lsa
 ucw
 xZa
-fHz
+wlJ
 cSU
 aKq
 rio
@@ -179003,7 +178912,7 @@ aWb
 wQX
 vsf
 cNs
-azQ
+cSU
 qBG
 mEv
 lva
@@ -179259,7 +179168,7 @@ iiN
 iiN
 iiN
 cEv
-lvw
+iiN
 hDo
 uWo
 mEv
@@ -184386,7 +184295,7 @@ fBi
 uhN
 scF
 qKe
-qBJ
+wTO
 rUc
 scF
 fBi
@@ -184643,7 +184552,7 @@ scF
 uhN
 scF
 qKe
-qBJ
+wTO
 rUc
 scF
 fBi

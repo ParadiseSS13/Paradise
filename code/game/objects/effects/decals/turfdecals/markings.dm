@@ -168,3 +168,13 @@
 
 /obj/effect/turf_decal/siding/box
 	icon_state = "siding_box"
+
+/obj/effect/turf_decal/catwalk
+	name = "catwalk"
+	desc = "A catwalk for easier EVA maneuvering and cable placement."
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "catwalk-0"
+	base_icon_state = "catwalk"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_CATWALK)
+	canSmoothWith = list(SMOOTH_GROUP_CATWALK)
