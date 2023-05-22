@@ -389,7 +389,7 @@
 		traveled_tiles++
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			part.armor.attachArmor(armor_mod_2)
+			part.armor.attachArmor(armor_mod_2.armor)
 		if(traveled_tiles >= max_traveled_tiles)
 			to_chat(mod.wearer, "<span class='notice'>You are fully covered in ash!</span>")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
@@ -408,7 +408,7 @@
 		traveled_tiles--
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			part.armor.detachArmor(armor_mod_2)
+			part.armor.detachArmor(armor_mod_2.armor)
 		if(traveled_tiles <= 0)
 			to_chat(mod.wearer, "<span class='warning'>You have ran out of ash!</span>")
 			mod.wearer.weather_immunities -= "ash"

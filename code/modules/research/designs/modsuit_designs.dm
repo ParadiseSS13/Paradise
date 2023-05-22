@@ -176,13 +176,6 @@
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	build_path = /obj/item/mod/module/magboot
 
-/datum/design/module/mod_mag_harness
-	name = "Magnetic Harness Module"
-	id = "mod_mag_harness"
-	req_tech = list("materials" = 4, "magnets" = 4, "combat" = 5)
-	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
-	build_path = /obj/item/mod/module/magnetic_harness
-
 /datum/design/module/mod_rad_protection
 	name = "Radiation Protection Module"
 	id = "mod_rad_protection"

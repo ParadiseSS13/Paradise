@@ -372,7 +372,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/mod/control/pre_equipped/medical,
 /obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

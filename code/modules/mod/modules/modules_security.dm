@@ -1,57 +1,5 @@
 //Security modules for MODsuits
 
-///Magnetic Harness - Automatically puts guns in your suit storage when you drop them.
-/obj/item/mod/module/magnetic_harness
-	name = "MOD magnetic harness module"
-	desc = "Based off old SolGov harness kits, this magnetic harness automatically attaches dropped guns back to the wearer."
-	icon_state = "mag_harness"
-	complexity = 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN
-	incompatible_modules = list(/obj/item/mod/module/magnetic_harness)
-	/// Time before we activate the magnet.
-	var/magnet_delay = 0.8 SECONDS
-	/// The typecache of all guns we allow.
-	var/static/list/guns_typecache
-	/// The guns already allowed by the modsuit chestplate.
-	var/list/already_allowed_guns = list()
-
-/obj/item/mod/module/magnetic_harness/Initialize(mapload)
-	. = ..()
-	if(!guns_typecache)
-		guns_typecache = typecacheof(list(/obj/item/gun))
-
-/obj/item/mod/module/magnetic_harness/on_install()
-	already_allowed_guns = guns_typecache & mod.chestplate.allowed
-	mod.chestplate.allowed |= guns_typecache
-
-/obj/item/mod/module/magnetic_harness/on_uninstall(deleting = FALSE)
-	if(deleting)
-		return
-	mod.chestplate.allowed -= (guns_typecache - already_allowed_guns)
-
-/obj/item/mod/module/magnetic_harness/on_suit_activation()
-	RegisterSignal(mod.wearer, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(check_dropped_item))
-
-/obj/item/mod/module/magnetic_harness/on_suit_deactivation(deleting = FALSE)
-	UnregisterSignal(mod.wearer, COMSIG_ITEM_PRE_UNEQUIP)
-
-/obj/item/mod/module/magnetic_harness/proc/check_dropped_item(datum/source, obj/item/dropped_item, force, new_location)
-	SIGNAL_HANDLER
-
-	if(!is_type_in_typecache(dropped_item, guns_typecache))
-		return
-	if(new_location != get_turf(src))
-		return
-	addtimer(CALLBACK(src, PROC_REF(pick_up_item), dropped_item), magnet_delay)
-
-/obj/item/mod/module/magnetic_harness/proc/pick_up_item(obj/item/item)
-	if(!isturf(item.loc) || !item.Adjacent(mod.wearer))
-		return
-	if(!mod.wearer.equip_to_slot_if_possible(item, slot_wear_suit))
-		return
-	playsound(src, 'sound/items/modsuit/magnetic_harness.ogg', 50, TRUE)
-	drain_power(use_power_cost)
-
 ///Holster - Instantly holsters any not huge gun.
 /obj/item/mod/module/holster
 	name = "MOD holster module"

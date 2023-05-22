@@ -267,7 +267,7 @@
 	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
 	result = list(/datum/nothing = 27,
 		/obj/item/storage/box/syndie_kit/space = 1,
-		/obj/item/storage/box/syndie_kit/hardsuit = 1,
+		/obj/item/storage/box/syndie_kit/modsuit = 1,
 		/obj/item/clothing/shoes/magboots/syndie = 1,
 		/obj/item/clothing/suit/armor/vest/combat = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,

@@ -48,7 +48,7 @@
 	. = ..()
 	RegisterSignal(device, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(on_defib_success))
 
-/obj/item/mod/module/defibrillator/proc/on_defib_success(obj/item/shockpaddles/source)
+/obj/item/mod/module/defibrillator/proc/on_defib_success()
 	SIGNAL_HANDLER  // COMSIG_DEFIB_SHOCK_APPLIED
 	drain_power(use_power_cost)
 

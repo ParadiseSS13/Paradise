@@ -53,7 +53,7 @@
 	mod.slowdown -= actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.armor.attachArmor(armor_mod_2)
+		part.armor.attachArmor(armor_mod_2.armor)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part
@@ -70,7 +70,7 @@
 	mod.slowdown += actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.armor.detachArmor(armor_mod_2)
+		part.armor.detachArmor(armor_mod_2.armor)
 		if(!remove_pressure_protection || !isclothing(part))
 			continue
 		var/obj/item/clothing/clothing_part = part

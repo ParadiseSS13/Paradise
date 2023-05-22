@@ -33,12 +33,11 @@
 /datum/outfit/syndicatecommandocorpse
 	name = "Corpse of a Syndicate Commando"
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/syndicate
-	back = /obj/item/tank/jetpack/oxygen
+	back = /obj/item/mod/control/pre_equipped/traitor
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 

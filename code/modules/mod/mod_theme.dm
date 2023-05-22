@@ -904,12 +904,12 @@
 		),
 	)
 
-/obj/item/mod/armor/mod_theme_syndicate //Note, do not forget the armor booster that slows the armor in exchange for better stats. Speed is war however, so these will in total have better armor than hardsuits
-	armor = list(MELEE = 20, BULLET = 30, LASER = 15, ENERGY = 5, BOMB = 35, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 450)
-	//melee = 20 //45 with booster
-	//bullet = 30 //60 with booster, however degrading effects over 50
-	//laser = 15 //30 with booster
-	//energy = 5 //20 with booster, energy has always been an armor hole.
+/obj/item/mod/armor/mod_theme_syndicate
+	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 450)
+	//melee = 20 //35 with booster
+	//bullet = 30 //50 with booster, however degrading effects over 50
+	//laser = 15 //20 with booster
+	//energy = 15 //20 with booster, energy has always been an armor hole.
 
 /datum/mod_theme/elite
 	name = "elite"
@@ -967,68 +967,11 @@
 	)
 
 /obj/item/mod/armor/mod_theme_elite
-	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 15, BOMB = 60, BIO = INFINITY, RAD = 150, FIRE = INFINITY, ACID = INFINITY)
-	//melee = 50 // 75 with booster, same as elite hardsuit. I might make this higher due to slowdown
+	armor = list(MELEE = 50, BULLET = 45, LASER = 35, ENERGY = 10, BOMB = 60, BIO = INFINITY, RAD = 150, FIRE = INFINITY, ACID = INFINITY)
+	//melee = 50 // 75 with booster
 	//bullet = 45 // 75 same as
 	//laser = 35 //50 same as
-	//energy = 15 // 30, this is double energy armor currently, but slowdown so.
-
-/datum/mod_theme/infiltrator
-	name = "infiltrator"
-	desc = "A specialized infiltration suit, developed by the Roseus Galactic Actors Guild to strike fear and awe into the hearts of the public."
-	extended_desc = "Several questions have been raised over the years in regards to the clandestine Infiltrator modular suit. \
-		Why is the suit blood red despite being a sneaking suit? Why did a movie company of all things develop a stealth suit? \
-		The simplest answer is that Roseus Galactic hire more than a few eccentric individuals who know more about \
-		visual aesthetics and prop design than they do functional operative camouflage. But the true reason goes deeper. \
-		The visual appearance of the suit exemplifies brazen displays of power, not true stealth. However, the suit's inbuilt stealth mechanisms\
-		prevent anyone from fully recognizing the occupant, only the suit, creating perfect anonymity. This visual transformation is \
-		backed by inbuilt psi-emitters, heightening stressors common amongst Nanotrasen staff, and clouding identifiable information. \
-		Scrubbed statistical data presented a single correlation within documented psychological profiles. The fear of the Unknown."
-	default_skin = "infiltrator"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_infiltrator
-	resistance_flags = FIRE_PROOF  |  ACID_PROOF
-	siemens_coefficient = 0
-	slowdown_inactive = 0
-	slowdown_active = 0
-	ui_theme = "syndicate"
-	inbuilt_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/storage/belt)
-	allowed_suit_storage = list(
-		/obj/item/ammo_box,
-		/obj/item/ammo_casing,
-		/obj/item/restraints/handcuffs,
-		/obj/item/flash,
-		/obj/item/melee/baton,
-		/obj/item/melee/energy/sword,
-		/obj/item/shield/energy,
-	)
-	skins = list(
-		"infiltrator" = list(
-			HELMET_FLAGS = list(
-				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				UNSEALED_INVISIBILITY = HIDEEARS,
-				SEALED_INVISIBILITY = HIDEFACE | HIDEMASK | HIDEEYES | HIDEFACE,
-				SEALED_COVER = HEADCOVERSMOUTH | HEADCOVERSEYES,
-				CAN_OVERSLOT = TRUE,
-			),
-			CHESTPLATE_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT,
-				CAN_OVERSLOT = TRUE,
-			),
-			GAUNTLETS_FLAGS = list(
-				SEALED_CLOTHING = THICKMATERIAL,
-				CAN_OVERSLOT = TRUE,
-			),
-			BOOTS_FLAGS = list(
-				SEALED_CLOTHING = THICKMATERIAL,
-				CAN_OVERSLOT = TRUE,
-			),
-		),
-	)
-
-/obj/item/mod/armor/mod_theme_infiltrator //you give this no slowdown but better stats then the blood red / elite? what the fuck tg? Look into this, we dont have some of these modules
-	armor = list(MELEE = 50, BULLET = 50, LASER = 40, ENERGY = 20, BOMB = 40, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150) //No I am not giving this 50 energy resist
+	//energy = 15 // 25
 
 /datum/mod_theme/prototype
 	name = "prototype"

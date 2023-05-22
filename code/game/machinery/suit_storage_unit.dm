@@ -192,9 +192,8 @@
 
 /obj/machinery/suit_storage_unit/syndicate
 	name = "syndicate suit storage unit"
-	suit_type		= /obj/item/clothing/suit/space/hardsuit/syndi
 	mask_type		= /obj/item/clothing/mask/gas/syndicate
-	storage_type	= /obj/item/tank/internals/oxygen/red
+	storage_type	= /obj/item/mod/control/pre_equipped/nuclear
 	req_access = list(ACCESS_SYNDICATE)
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 

@@ -146,7 +146,7 @@
 	theme = /datum/mod_theme/security
 	applied_modules = list(
 		/obj/item/mod/module/storage,
-		/obj/item/mod/module/magnetic_harness,
+
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dispenser/mirage,
 	)
@@ -156,7 +156,7 @@
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
-		/obj/item/mod/module/magnetic_harness,
+
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/jetpack,
 	)
@@ -169,7 +169,7 @@
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
-		/obj/item/mod/module/magnetic_harness,
+
 		/obj/item/mod/module/jetpack/advanced,
 	)
 	default_pins = list(
@@ -194,8 +194,8 @@
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/flashlight,
 	)
@@ -210,7 +210,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
+
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 	)
@@ -226,7 +226,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
+
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 	)
@@ -242,22 +242,13 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
+
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
-	)
-
-/obj/item/mod/control/pre_equipped/infiltrator
-	theme = /datum/mod_theme/infiltrator
-	applied_cell = /obj/item/stock_parts/cell/super
-	applied_modules = list(
-		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
-		/obj/item/mod/module/visor/diaghud,
 	)
 
 /obj/item/mod/control/pre_equipped/prototype
@@ -280,7 +271,7 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
+
 		/obj/item/mod/module/flashlight,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
@@ -327,7 +318,7 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
+
 		/obj/item/mod/module/flashlight,
 	)
 
@@ -353,7 +344,6 @@
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 	)
 	default_pins = list(
@@ -365,7 +355,6 @@
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
-		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 	)
 
@@ -375,7 +364,6 @@
 	req_access = list(ACCESS_CENT_SPECOPS)
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
-		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/emp_shield,
 	)
 

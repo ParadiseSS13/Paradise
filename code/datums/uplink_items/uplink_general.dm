@@ -545,7 +545,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
-	category = "Space Suits and Hardsuits"
+	category = "Space Suits and Modsuits"
 	surplus = 40
 
 /datum/uplink_item/suits/space_suit

@@ -132,7 +132,7 @@
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
-		/obj/item/storage/box/syndie_kit/hardsuit, // 6TC
+		/obj/item/storage/box/syndie_kit/modsuit, // 6TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
@@ -154,13 +154,21 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
-/obj/item/storage/box/syndie_kit/hardsuit
-	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
+/obj/item/storage/box/syndie_kit/modsuit
+	name = "Boxed Blood Red MODsuit"
+	can_hold = list(/obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/box/syndie_kit/hardsuit/populate_contents()
-	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
+/obj/item/storage/box/syndie_kit/modsuit/populate_contents()
+	new /obj/item/mod/control/pre_equipped/traitor(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+
+/obj/item/storage/box/syndie_kit/modsuit/elite //I have been informed this is a good idea.
+	name = "Boxed Elite MODsuit"
+
+/obj/item/storage/box/syndie_kit/modsuit/elite/populate_contents()
+	new /obj/item/mod/control/pre_equipped/traitor_elite(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
