@@ -249,7 +249,7 @@
 
 /// Registers multiple signals to the same proc.
 /datum/proc/RegisterSignals(datum/target, list/signal_types, proctype, override = FALSE)
-	for (var/signal_type in signal_types)
+	for(var/signal_type in signal_types)
 		RegisterSignal(target, signal_type, proctype, override)
 
 /**
