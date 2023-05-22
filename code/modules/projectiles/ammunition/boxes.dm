@@ -65,6 +65,13 @@
 	ammo_type = /obj/item/ammo_casing/n762
 	max_ammo = 14
 
+/obj/item/ammo_box/laser
+	name = "ammo box (laser)"
+	icon_state = "laserbox"
+	origin_tech = "combat=3"
+	ammo_type = /obj/item/ammo_casing/caseless/laser
+	max_ammo = 20
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/ammo_box/shotgun
 	name = "shotgun speedloader (Slug)"
