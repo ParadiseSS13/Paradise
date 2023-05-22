@@ -30,10 +30,10 @@
 	mod.chestplate.allowed -= (guns_typecache - already_allowed_guns)
 
 /obj/item/mod/module/magnetic_harness/on_suit_activation()
-	RegisterSignal(mod.wearer, COMSIG_ITEM_DROPPED, PROC_REF(check_dropped_item))
+	RegisterSignal(mod.wearer, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(check_dropped_item))
 
 /obj/item/mod/module/magnetic_harness/on_suit_deactivation(deleting = FALSE)
-	UnregisterSignal(mod.wearer, COMSIG_ITEM_DROPPED)
+	UnregisterSignal(mod.wearer, COMSIG_ITEM_PRE_UNEQUIP)
 
 /obj/item/mod/module/magnetic_harness/proc/check_dropped_item(datum/source, obj/item/dropped_item, force, new_location)
 	SIGNAL_HANDLER

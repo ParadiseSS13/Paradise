@@ -116,6 +116,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/injector,
 	)
 
 /obj/item/mod/control/pre_equipped/rescue
@@ -125,6 +126,10 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/injector,
+		/obj/item/mod/module/defibrillator,
+	)
+	default_pins = list(
+		/obj/item/mod/module/defibrillator,
 	)
 
 /obj/item/mod/control/pre_equipped/research
@@ -170,6 +175,11 @@
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
 	)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
+
+/obj/item/mod/control/pre_equipped/magnate/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/mod/control/pre_equipped/cosmohonk
 	theme = /datum/mod_theme/cosmohonk
@@ -188,7 +198,6 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/dna_lock,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
@@ -204,7 +213,6 @@
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/dna_lock,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
@@ -250,14 +258,6 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/magnetic_harness,
 		/obj/item/mod/module/visor/diaghud,
-	)
-
-/obj/item/mod/control/pre_equipped/enchanted
-	theme = /datum/mod_theme/enchanted
-	applied_core = /obj/item/mod/core/infinite
-	applied_modules = list(
-		/obj/item/mod/module/storage/large_capacity,
-		/obj/item/mod/module/emp_shield,
 	)
 
 /obj/item/mod/control/pre_equipped/prototype

@@ -92,53 +92,56 @@
 /obj/item/mod/module/jetpack
 	name = "MOD ion jetpack module"
 	desc = "A series of electric thrusters installed across the suit, this is a module highly anticipated by trainee Engineers. \
-		Unfortunently, due to the lack of ports on modsuits, the jetpack must spend energy to propell ionised gas through the hardsuit. \
-		Some say this isn't Nakamura Engineering's first foray into jet-enabled suits."
+		Rather than using gasses for combustion thrust, these jets are capable of accelerating ions using \
+		charge from the suit's charge. Some say this isn't Nakamura Engineering's first foray into jet-enabled suits."
 	icon_state = "jetpack"
 	module_type = MODULE_TOGGLE
 	complexity = 3
-	active_power_cost = DEFAULT_CHARGE_DRAIN * 1
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 	use_power_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/jetpack)
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_jetpack"
 	overlay_state_active = "module_jetpack_on"
-	var/obj/item/tank/jetpack/suit/jet
+	/// Do we stop the wearer from gliding in space.
+	var/stabilizers = FALSE
 
-/obj/item/mod/module/jetpack/Initialize(mapload)
-	. = ..()
-	jet = new /obj/item/tank/jetpack/suit(src)
-	jet.enabled = FALSE
-
-/obj/item/mod/module/jetpack/Destroy()
-	qdel(jet)
-	return ..()
-
-/obj/item/mod/module/jetpack/on_activation()
-	. = ..()
-	if(!.)
+/obj/item/mod/module/jetpack/proc/set_stabilizers(new_stabilizers)
+	if(stabilizers == new_stabilizers)
 		return
-	jet.enabled = TRUE
-	if(mod == mod.wearer.get_item_by_slot(slot_back))
-		for(var/X in jet.actions)
-			var/datum/action/A = X
-			A.Grant(mod.wearer)
+	stabilizers = new_stabilizers
 
-
-/obj/item/mod/module/jetpack/on_deactivation(display_message = TRUE, deleting = FALSE)
+/obj/item/mod/module/jetpack/get_configuration()
 	. = ..()
-	jet.enabled = FALSE
+	.["stabilizers"] = add_ui_configuration("Stabilizers", "bool", stabilizers)
+
+/obj/item/mod/module/jetpack/configure_edit(key, value)
+	switch(key)
+		if("stabilizers")
+			set_stabilizers(text2bool(value))
+
+/obj/item/mod/module/jetpack/proc/allow_thrust()
+	if(!active)
+		return
+	if(!drain_power(use_power_cost))
+		return FALSE
+	return TRUE
+
+/obj/item/mod/module/jetpack/proc/get_user()
+	return mod.wearer
 
 /obj/item/mod/module/jetpack/advanced
 	name = "MOD advanced ion jetpack module"
-	desc = "An improvement on the previous model of electric thrusters. This one has almost no power usage, thanks to some clever bluespace usage."
+	desc = "An improvement on the previous model of electric thrusters. This one achieves better efficency through \
+		mounting of more jets and a red paint applied on it."
 	icon_state = "jetpack_advanced"
 	overlay_state_inactive = "module_jetpackadv"
 	overlay_state_active = "module_jetpackadv_on"
 	active_power_cost = DEFAULT_CHARGE_DRAIN * 0.25
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
 
 ///EMP Shield - Protects the suit from EMPs.
-/obj/item/mod/module/emp_shield //TODO: Make this not work with the dna lock unless advanced
+/obj/item/mod/module/emp_shield
 	name = "MOD EMP shield module"
 	desc = "A field inhibitor installed into the suit, protecting it against feedback such as \
 		electromagnetic pulses that would otherwise damage the electronic systems of the suit or it's modules. \
@@ -146,7 +149,7 @@
 	icon_state = "empshield"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
-	incompatible_modules = list(/obj/item/mod/module/emp_shield)
+	incompatible_modules = list(/obj/item/mod/module/emp_shield, /obj/item/mod/module/dna_lock)
 
 /obj/item/mod/module/emp_shield/on_install()
 	mod.emp_proof = TRUE
@@ -167,9 +170,12 @@
 	incompatible_modules = list(/obj/item/mod/module/flashlight)
 	cooldown_time = 0.5 SECONDS
 	overlay_state_inactive = "module_light"
+	overlay_state_active = "module_light_on"
 	light_color = COLOR_WHITE
-	light_range = 4
-	light_power = 2
+	///The light power for the mod
+	var/mod_light_range = 4
+	///The light range for the mod
+	var/mod_light_power = 2
 	var/light_on = FALSE
 	/// Charge drain per range amount.
 	var/base_power = DEFAULT_CHARGE_DRAIN * 0.1
@@ -182,32 +188,23 @@
 	. = ..()
 	if(!.)
 		return
-	active_power_cost = base_power * light_range
-	mod.set_light(light_range, light_power, light_color)
+	active_power_cost = base_power * mod_light_range
+	mod.set_light(mod_light_range, mod_light_power, light_color)
 
 /obj/item/mod/module/flashlight/on_deactivation(display_message = TRUE, deleting = FALSE)
-	mod.set_light(0, light_power, light_color)
+	mod.set_light(0, mod_light_power, light_color)
 	. = ..()
 	if(!.)
 		return
 
 /obj/item/mod/module/flashlight/on_process()
-	active_power_cost = base_power * light_range
+	active_power_cost = base_power * mod_light_range
 	return ..()
-
-///obj/item/mod/module/flashlight/generate_worn_overlay(mutable_appearance/standing)
-//	. = ..()
-///	if(!active)
-//		return
-///	var/mutable_appearance/light_icon = mutable_appearance(overlay_icon_file, "module_light_on", layer = standing.layer + 0.2)
-//	light_icon.appearance_flags = RESET_COLOR
-//	light_icon.color = light_color
-//	. += light_icon
 
 /obj/item/mod/module/flashlight/get_configuration()
 	. = ..()
 	.["light_color"] = add_ui_configuration("Light Color", "color", light_color)
-	.["light_range"] = add_ui_configuration("Light Range", "number", light_range)
+	.["light_range"] = add_ui_configuration("Light Range", "number", mod_light_range)
 
 /obj/item/mod/module/flashlight/configure_edit(key, value)
 	switch(key)
@@ -221,8 +218,10 @@
 			light_color = value
 			mod.wearer.regenerate_icons() /// TODO TEMP NO BAD DON'T
 		if("light_range")
-			light_range = (clamp(value, min_range, max_range))
-	mod.set_light(0, light_power, light_color)
+			mod_light_range = (clamp(text2num(value), min_range, max_range))
+	mod.set_light(0, mod_light_power, light_color)
+	mod_color_overide = light_color
+	on_deactivation()
 
 /// Given a color in the format of "#RRGGBB", will return if the color //Make a helpers file for this this it temp TODO ECT ECT ETC
 /// is dark.
@@ -286,15 +285,13 @@
 /obj/item/mod/module/thermal_regulator/configure_edit(key, value)
 	switch(key)
 		if("temperature_setting")
-			temperature_setting = clamp(value + T0C, min_temp, max_temp)
+			temperature_setting = clamp(text2num(value) + T0C, min_temp, max_temp)
 
 /obj/item/mod/module/thermal_regulator/on_active_process()
 	if(mod.wearer.bodytemperature > temperature_setting)
 		mod.wearer.bodytemperature = max(temperature_setting, mod.wearer.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	else if(mod.wearer.bodytemperature < 311)
 		mod.wearer.bodytemperature = min(temperature_setting, mod.wearer.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-
-///DNA Lock - Prevents people without the set DNA from activating the suit.
 /obj/item/mod/module/dna_lock
 	name = "MOD DNA lock module"
 	desc = "A module which engages with the various locks and seals tied to the suit's systems, \
@@ -304,7 +301,7 @@
 	module_type = MODULE_USABLE
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
-	incompatible_modules = list(/obj/item/mod/module/dna_lock)
+	incompatible_modules = list(/obj/item/mod/module/dna_lock, /obj/item/mod/module/emp_shield)
 	cooldown_time = 0.5 SECONDS
 	/// The DNA we lock with.
 	var/dna = null
@@ -342,6 +339,8 @@
 	if(!iscarbon(user))
 		return FALSE
 	if(!dna)
+		return TRUE
+	if(dna == mod.wearer.dna.unique_enzymes)
 		return TRUE
 	return FALSE
 

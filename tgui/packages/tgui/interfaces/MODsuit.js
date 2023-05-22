@@ -759,6 +759,7 @@ export const MODsuit = (props, context) => {
   const { ui_theme, interface_break } = data;
   return (
     <Window
+      theme={ui_theme}
       resizable>
       <Window.Content scrollable={!interface_break}>
         <MODsuitContent />

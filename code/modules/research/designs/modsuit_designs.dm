@@ -62,18 +62,11 @@
 	build_path = /obj/item/mod/construction/plating
 	category = list("Modsuit Construction")
 
-/datum/design/mod_plating/New()
-	. = ..()
-	var/obj/item/mod/construction/plating/armor_type = build_path
-	var/datum/mod_theme/theme = GLOB.mod_themes[initial(armor_type.theme)]
-	desc = "External plating for a MODsuit. [theme.desc]"
-
 /datum/design/mod_plating/engineering
 	name = "MOD Engineering Plating"
 	id = "mod_plating_engineering"
 	build_path = /obj/item/mod/construction/plating/engineering
 	 materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_GOLD = 2000, MAT_PLASMA = 1000)
-
 
 /datum/design/mod_plating/atmospheric
 	name = "MOD Atmospheric Plating"
@@ -107,11 +100,6 @@
 	build_path = /obj/item/mod/module
 	category = list("Modsuit Modules")
 
-/datum/design/module/New()
-	. = ..()
-	var/obj/item/mod/module/module = build_path
-	desc = "[initial(module.desc)] It uses [initial(module.complexity)] complexity."
-
 /datum/design/module/mod_storage
 	name = "Storage Module"
 	id = "mod_storage"
@@ -121,183 +109,216 @@
 /datum/design/module/mod_storage_expanded
 	name = "Expanded Storage Module"
 	id = "mod_storage_expanded"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "syndicate" = 2)
 	materials = list(MAT_METAL = 2500, MAT_URANIUM = 10000)
 	build_path = /obj/item/mod/module/storage/large_capacity
 
 /datum/design/module/mod_visor_medhud
 	name = "Medical Visor Module"
 	id = "mod_visor_medhud"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
 	materials = list(MAT_SILVER = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/visor/medhud
 
 /datum/design/module/mod_visor_diaghud
 	name = "Diagnostic Visor Module"
 	id = "mod_visor_diaghud"
+	req_tech = list("materials" = 5, "engineering" = 4, "programming" = 4, "biotech" = 4)
 	materials = list(MAT_GOLD = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/visor/diaghud
 
 /datum/design/module/mod_visor_sechud
 	name = "Security Visor Module"
 	id = "mod_visor_sechud"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4, "combat" = 3)
 	materials = list(MAT_TITANIUM = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/visor/sechud
 
 /datum/design/module/mod_visor_meson
 	name = "Meson Visor Module"
 	id = "mod_visor_meson"
+	req_tech = list("materials" = 4, "biotech" = 4, "engineering" = 4)
 	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/visor/meson
 
 /datum/design/module/mod_visor_welding
 	name = "Welding Protection Module"
 	id = "mod_welding"
+	req_tech = list("materials" = 4, "biotech" = 4, "engineering" = 5, "plasmatech" = 4)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/welding
 
 /datum/design/module/mod_t_ray
 	name = "T-Ray Scanner Module"
 	id = "mod_t_ray"
+	req_tech = list("materials" = 2, "engineering" = 2)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/t_ray
 
 /datum/design/module/mod_stealth
 	name = "Cloak Module"
 	id = "mod_stealth"
+	req_tech = list("combat" = 7, "magnets" = 6, "syndicate" = 3)
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //It's a cloaking device, while not foolproof I am making it expencive
 	build_path = /obj/item/mod/module/stealth
 
 /datum/design/module/mod_jetpack
 	name = "Ion Jetpack Module"
 	id = "mod_jetpack"
+	req_tech = list("materials" = 7, "magnets" = 7, "engineering" = 7)
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000) //Jetpacks are rare, so might as well make it... sorta expencive, I guess.
 	build_path = /obj/item/mod/module/jetpack
 
 /datum/design/module/mod_magboot
 	name = "Magnetic Stabilizator Module"
 	id = "mod_magboot"
+	req_tech = list("materials" = 4, "magnets" = 4, "engineering" = 5)
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	build_path = /obj/item/mod/module/magboot
 
 /datum/design/module/mod_mag_harness
 	name = "Magnetic Harness Module"
 	id = "mod_mag_harness"
+	req_tech = list("materials" = 4, "magnets" = 4, "combat" = 5)
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
 	build_path = /obj/item/mod/module/magnetic_harness
 
 /datum/design/module/mod_rad_protection
 	name = "Radiation Protection Module"
 	id = "mod_rad_protection"
+	req_tech = list("materials" = 4, "magnets" = 4, "combat" = 5)
 	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/rad_protection
 
 /datum/design/module/mod_emp_shield //TODO: Make this not work with the dna lock unless advanced
 	name = "EMP Shield Module"
 	id = "mod_emp_shield"
+	req_tech = list("combat" = 7, "magnets" = 6, "syndicate" = 3)
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000) //While you are not EMP proof with this, your modules / cell are, and that is quite strong.
 	build_path = /obj/item/mod/module/emp_shield
 
 /datum/design/module/mod_flashlight
 	name = "Flashlight Module"
 	id = "mod_flashlight"
+	req_tech = list("magnets" = 2, "engineering" = 2, "plasmatech" = 2)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/flashlight
 
 /datum/design/module/mod_reagent_scanner
 	name = "Reagent Scanner Module"
 	id = "mod_reagent_scanner"
+	req_tech = list("magnets" = 2, "engineering" = 2, "plasmatech" = 2)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/reagent_scanner
 
 /datum/design/module/mod_gps
 	name = "Internal GPS Module"
 	id = "mod_gps"
+	req_tech = list("materials" = 2, "bluespace" = 2)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/gps
 
 /datum/design/module/mod_thermal_regulator
 	name = "Thermal Regulator Module"
 	id = "mod_thermal_regulator"
+	req_tech = list("materials" = 3, "plasmatech" = 3, "magnets" = 2)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/thermal_regulator
 
 /datum/design/module/mod_injector
 	name = "Injector Module"
 	id = "mod_injector"
+	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/injector
+
+/datum/design/module/defibrillator
+	name = "Defibrillator Module"
+	id = "mod_defib"
+	req_tech = list("materials" = 7, "biotech" = 7, "powerstorage" = 6)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 4000, MAT_SILVER = 2000)
+	build_path = /obj/item/mod/module/defibrillator
 
 /datum/design/module/mod_bikehorn
 	name = "Bike Horn Module"
 	id = "mod_bikehorn"
+	req_tech = list("programming" = 3, "materials" = 3)
 	materials = list(MAT_METAL = 2500, MAT_BANANIUM = 2000)
 	build_path = /obj/item/mod/module/bikehorn
 
 /datum/design/module/mod_waddle
 	name = "Waddle Module"
 	id = "mod_waddle"
+	req_tech = list("programming" = 3, "materials" = 3)
 	materials = list(MAT_METAL = 2500, MAT_BANANIUM = 2000)
 	build_path = /obj/item/mod/module/waddle
 
 /datum/design/module/mod_clamp
 	name = "Crate Clamp Module"
 	id = "mod_clamp"
+	req_tech = list("programming" = 3, "materials" = 3)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/clamp
 
 /datum/design/module/mod_drill
 	name = "Drill Module"
 	id = "mod_drill"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
 	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000) //This drills **really** fast
 	build_path = /obj/item/mod/module/drill
 
 /datum/design/module/mod_orebag
 	name = "Ore Bag Module"
 	id = "mod_orebag"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/orebag
 
 /datum/design/module/mod_dna_lock
 	name = "DNA Lock Module"
 	id = "mod_dna_lock"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "syndicate" = 2)
 	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000) //EMP beats it, but still, anti theft is a premium price in these here parts partner
 	build_path = /obj/item/mod/module/dna_lock
-
 
 /datum/design/module/mister_atmos
 	name = "Resin Mister Module"
 	id = "mod_mister_atmos"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/mister/atmos
 
 /datum/design/module/mod_holster
 	name = "Holster Module"
 	id = "mod_holster"
+	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/holster
 
 /datum/design/module/mod_sonar
 	name = "Active Sonar Module"
 	id = "mod_sonar"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
 	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
 	build_path = /obj/item/mod/module/active_sonar
-
-///datum/design/module/defibrillator //TODO: ADD THIS DIPSHIT
-//	name = "Defibrillator Module"
-//	id = "mod_defib"
-//	materials = list(/datum/material/titanium = SMALL_MATERIAL_AMOUNT * 2.5, /datum/material/diamond =HALF_SHEET_MATERIAL_AMOUNT, /datum/material/silver =HALF_SHEET_MATERIAL_AMOUNT * 1.5)
-//	build_path = /obj/item/mod/module/defibrillator
-//	category = list(
-//		RND_CATEGORY_MODSUIT_MODULES + RND_SUBCATEGORY_MODSUIT_MODULES_MEDICAL
-//	)
 
 /datum/design/module/disposal
 	name = "Disposal Connector Module"
 	id = "mod_disposal"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/disposal_connector
+
+/datum/design/module/plate_compression
+	name = "Plate Compression Module"
+	id = "mod_compression"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "syndicate" = 2)
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000) //While you are not EMP proof with this, your modules / cell are, and that is quite strong.
+	build_path = /obj/item/mod/module/plate_compression
 
 /datum/design/module/mod_teleporter
 	name = "Teleporter Module"
 	id = "mod_teleporter"
+	req_tech = list("combat" = 5, "engineering" = 5, "bluespace" = 7, "plasmatech" = 6)
 	materials = list(MAT_METAL = 12000, MAT_GLASS = 2000, MAT_SILVER = 4000, MAT_PLASMA = 4000, MAT_TITANIUM = 4000, MAT_BLUESPACE = 6000) //Requires bluespace anomaly core to function.
 	build_path = /obj/item/mod/module/anomaly_locked/teleporter

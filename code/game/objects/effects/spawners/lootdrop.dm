@@ -132,6 +132,8 @@
 				/obj/item/storage/wallet = 20,
 				/obj/item/storage/wallet/random = 5,
 				/obj/item/caution = 10,
+				/obj/item/mod/construction/broken_core = 4,
+				/obj/effect/spawner/random_spawners/mod/maint = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/grenade/smokebomb = 3,
@@ -160,7 +162,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
-				"" = 60 // This should be a decently high number for chances where no loot will spawn
+				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
 
 /obj/effect/spawner/lootdrop/maintenance/two

@@ -33,6 +33,8 @@
 	var/overlay_icon_file = 'icons/mob/clothing/modsuit/mod_modules.dmi'
 	/// Does the overlay use the control unit's colors?
 	var/use_mod_colors = FALSE
+	///Does the mod overide the colour in some way?
+	var/mod_color_overide
 	/// What modules are we incompatible with?
 	var/list/incompatible_modules = list()
 	/// Cooldown after use
@@ -282,10 +284,9 @@
 		used_overlay = overlay_state_inactive
 	else
 		return
-	var/final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
-	//mutable_appearance(overlay_icon_file, used_overlay, layer = standing.layer + 0.1)
-	//if(!use_mod_colors)
-	//	module_icon.appearance_flags |= RESET_COLOR
+	var/image/final_overlay = image(icon = overlay_icon_file, icon_state = used_overlay, layer = EFFECTS_LAYER)
+	if(mod_color_overide)
+		final_overlay.color = mod_color_overide
 	. += final_overlay
 	mod.mod_overlays += final_overlay
 

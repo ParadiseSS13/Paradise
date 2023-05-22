@@ -729,7 +729,7 @@
 		have been employed for speed. The resemblance to a Gorlex Marauder helmet is purely coincidental."
 	default_skin = "magnate"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_magnate
-	resistance_flags = FIRE_PROOF | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF // Theft targets should be hard to destroy
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
@@ -1029,60 +1029,6 @@
 
 /obj/item/mod/armor/mod_theme_infiltrator //you give this no slowdown but better stats then the blood red / elite? what the fuck tg? Look into this, we dont have some of these modules
 	armor = list(MELEE = 50, BULLET = 50, LASER = 40, ENERGY = 20, BOMB = 40, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150) //No I am not giving this 50 energy resist
-
-/datum/mod_theme/enchanted //We don't have anti magic, and frankly wizards might be so low tech they keep the old suit. Will think on this.
-	name = "enchanted"
-	desc = "The Wizard Federation's relatively low-tech MODsuit. Is very protective, though."
-	extended_desc = "The Wizard Federation's relatively low-tech MODsuit. This armor employs not \
-		plasteel or carbon fibre, but space dragon scales for its protection. Recruits are expected to \
-		gather these themselves, but the effort is well worth it, the suit being well-armored against threats \
-		both mundane and mystic. Rather than wholly relying on a cell, which would surely perish \
-		under the load, several naturally-occurring bluespace gemstones have been utilized as \
-		default means of power. The hood and platform boots are of unknown usage, but it's speculated that \
-		wizards trend towards the dramatic."
-	default_skin = "enchanted"
-	armor_type_1 = /obj/item/mod/armor/mod_theme_enchanted
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	siemens_coefficient = 0
-	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
-	slowdown_inactive = 0.75
-	slowdown_active = 0.25
-	ui_theme = "wizard"
-	inbuilt_modules = list()
-	allowed_suit_storage = list(
-		/obj/item/teleportation_scroll,
-		/obj/item/gun/magic,
-	)
-	skins = list(
-		"enchanted" = list(
-			HELMET_FLAGS = list(
-				UNSEALED_LAYER = null,
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				UNSEALED_INVISIBILITY = HIDEFACE | HIDEMASK | HIDEEYES | HIDEFACE,
-				UNSEALED_COVER = HEADCOVERSMOUTH | HEADCOVERSEYES,
-			),
-			CHESTPLATE_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				SEALED_INVISIBILITY = HIDEJUMPSUIT,
-			),
-			GAUNTLETS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-			BOOTS_FLAGS = list(
-				UNSEALED_CLOTHING = THICKMATERIAL,
-				SEALED_CLOTHING = STOPSPRESSUREDMAGE,
-				CAN_OVERSLOT = TRUE,
-			),
-		),
-	)
-
-/obj/item/mod/armor/mod_theme_enchanted
-	armor = list(MELEE = 40, BULLET = 40, LASER = 50, ENERGY = 20, BOMB = 35, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/prototype
 	name = "prototype"

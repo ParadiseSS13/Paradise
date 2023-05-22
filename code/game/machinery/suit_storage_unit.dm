@@ -65,10 +65,9 @@
 /obj/machinery/suit_storage_unit/captain
 	name = "captain's suit storage unit"
 	desc = "An industrial U-Stor-It Storage unit designed to accommodate all kinds of space suits. Its on-board equipment also allows the user to decontaminate the contents through a UV-ray purging cycle. There's a warning label dangling from the control pad, reading \"STRICTLY NO BIOLOGICALS IN THE CONFINES OF THE UNIT\". This one looks kind of fancy."
-	suit_type	= /obj/item/clothing/suit/space/captain
-	helmet_type	= /obj/item/clothing/head/helmet/space/capspace
+	helmet_type	= /obj/item/clothing/head/helmet/space/capspace //Looks like they couldn't handle the Neutron Style
 	mask_type	= /obj/item/clothing/mask/gas
-	storage_type = /obj/item/tank/jetpack/oxygen/captain
+	storage_type = /obj/item/mod/control/pre_equipped/magnate
 	req_access	= list(ACCESS_CAPTAIN)
 
 /obj/machinery/suit_storage_unit/captain/secure
@@ -78,9 +77,9 @@
 	name = "engineering suit storage unit"
 	icon_state = "industrial"
 	base_icon_state = "industrial"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type	= /obj/item/clothing/mask/breath
 	boots_type = /obj/item/clothing/shoes/magboots
+	storage_type = /obj/item/mod/control/pre_equipped/engineering
 	req_access	= list(ACCESS_ENGINE_EQUIP)
 
 /obj/machinery/suit_storage_unit/engine/secure
@@ -90,9 +89,9 @@
 	name = "chief engineer's suit storage unit"
 	icon_state = "industrial"
 	base_icon_state = "industrial"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/engine/elite
 	mask_type	= /obj/item/clothing/mask/gas
 	boots_type = /obj/item/clothing/shoes/magboots/advance
+	storage_type = /obj/item/mod/control/pre_equipped/advanced
 	req_access	= list(ACCESS_CE)
 
 /obj/machinery/suit_storage_unit/ce/secure
@@ -100,7 +99,7 @@
 
 /obj/machinery/suit_storage_unit/rd
 	name = "research director's suit storage unit"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/rd
+	storage_type = /obj/item/mod/control/pre_equipped/research
 	mask_type	= /obj/item/clothing/mask/gas
 	req_access	= list(ACCESS_RD)
 
@@ -109,9 +108,8 @@
 
 /obj/machinery/suit_storage_unit/security
 	name = "security suit storage unit"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/security
 	mask_type	= /obj/item/clothing/mask/gas/sechailer
-	storage_type	= /obj/item/tank/jetpack/oxygen/security
+	storage_type	= /obj/item/mod/control/pre_equipped/security
 	req_access	= list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/secure
@@ -119,9 +117,8 @@
 
 /obj/machinery/suit_storage_unit/security/hos
 	name = "Head of Security's suit storage unit"
-	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	mask_type = /obj/item/clothing/mask/gas/sechailer/hos
-	storage_type = null
+	storage_type = /obj/item/mod/control/pre_equipped/safeguard
 	req_access = list(ACCESS_HOS)
 
 /obj/machinery/suit_storage_unit/security/hos/secure
@@ -138,9 +135,9 @@
 
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	mask_type	= /obj/item/clothing/mask/gas
 	boots_type = /obj/item/clothing/shoes/magboots/atmos
+	storage_type = /obj/item/mod/control/pre_equipped/atmospheric
 	req_access	= list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/suit_storage_unit/atmos/secure
@@ -384,7 +381,7 @@
 		if(try_store_item(I, user))
 			boots = I
 			return TRUE
-	if((istype(I, /obj/item/tank) || I.w_class <= WEIGHT_CLASS_SMALL) && !storage)
+	if(((istype(I, /obj/item/tank) || I.w_class <= WEIGHT_CLASS_SMALL) || istype(I, /obj/item/mod/control)) && !storage)
 		if(try_store_item(I, user))
 			storage = I
 			return TRUE

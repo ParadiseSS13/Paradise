@@ -151,6 +151,18 @@
 	/turf/simulated/wall = 1,
 	/obj/effect/decal/cleanable/fungus = 7)
 
+/obj/effect/spawner/random_spawners/mod
+	name = "MOD module spawner"
+	desc = "Modularize this, please."
+	icon_state = "circuit"
+
+/obj/effect/spawner/random_spawners/mod/maint
+	name = "maint MOD module spawner"
+	result = list(
+		/obj/item/mod/module/springlock = 2,
+		/obj/item/mod/module/balloon = 1,
+		/obj/item/mod/module/stamp = 1
+	)
 
 
 // z6 DEPOT SPAWNERS

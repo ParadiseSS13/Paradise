@@ -133,11 +133,6 @@
 	item_state = "jetpack-captain"
 	volume = 90
 	w_class = WEIGHT_CLASS_NORMAL
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
-
-/obj/item/tank/jetpack/oxygen/captain/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"
@@ -167,8 +162,6 @@
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
 	var/mob/living/carbon/human/cur_user
-	///Used by modsuits to disable the jetpack useage when power is diabled
-	var/enabled = TRUE
 
 /obj/item/tank/jetpack/suit/New()
 	..()
@@ -179,8 +172,8 @@
 	return
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) && !istype(loc, /obj/item/mod/module/jetpack))
-		to_chat(user, "<span class='warning'>[src] must be connected to a hardsuit or modsuit!</span>")
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
+		to_chat(user, "<span class='warning'>[src] must be connected to a hardsuit!</span>")
 		return
 
 	var/mob/living/carbon/human/H = user
@@ -190,10 +183,8 @@
 	..()
 
 /obj/item/tank/jetpack/suit/turn_on(mob/user)
-	if((!istype(loc, /obj/item/clothing/suit/space/hardsuit) && !istype(loc, /obj/item/mod/module/jetpack)) || !ishuman(loc.loc.loc) || loc.loc.loc != user) //How many times would a L-O-C-OC-C, If a L-O-O-Chop wood?
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc) || loc.loc != user)
 		return
-	if(!enabled)
-		to_chat(user, "<span class='warning'>The module must be enabled to power the jetpack!</span>")
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
 	air_contents = tank.air_contents
@@ -209,10 +200,10 @@
 	..()
 
 /obj/item/tank/jetpack/suit/process()
-	if((!istype(loc, /obj/item/clothing/suit/space/hardsuit) && !istype(loc, /obj/item/mod/module/jetpack)) || !ishuman(loc.loc.loc) || !enabled)
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc))
 		turn_off(cur_user)
 		return
-	var/mob/living/carbon/human/H = loc.loc.loc
+	var/mob/living/carbon/human/H = loc.loc
 	if(!tank || tank != H.s_store)
 		turn_off(cur_user)
 		return
