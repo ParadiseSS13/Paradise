@@ -141,6 +141,7 @@
 		electromagnetic pulses that would otherwise damage the electronic systems of the suit or it's modules. \
 		However, it will take from the suit's power to do so."
 	icon_state = "empshield"
+	origin_tech = "materials=6;bluespace=5;syndicate=2"
 	complexity = 1
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.3
 	incompatible_modules = list(/obj/item/mod/module/emp_shield, /obj/item/mod/module/dna_lock)
@@ -286,6 +287,7 @@
 		enabling it to only be worn by someone corresponding with the user's exact DNA profile; \
 		however, this incredibly sensitive module is shorted out by EMPs. Luckily, cloning has been outlawed."
 	icon_state = "dnalock"
+	origin_tech = "materials=6;bluespace=5;syndicate=1"
 	module_type = MODULE_USABLE
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 3
