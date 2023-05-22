@@ -564,7 +564,34 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 4
 
+/datum/uplink_item/suits/thermal
+	name = "MODsuit Thermal Visor Module"
+	desc = "A visor for a MODsuit. Lets you see living beings through walls. Also provides night vision."
+	reference = "MSTV"
+	item = /obj/item/mod/module/visor/thermal
+	cost = 3 // Don't forget, you need to get a modsuit to go with this
 
+/datum/uplink_item/suits/night
+	name = "MODsuit Night Visor Module"
+	desc = "A visor for a MODsuit. Lets you see clearer in the dark."
+	reference = "MSNV"
+	item = /obj/item/mod/module/visor/night
+	cost = 1 // It's night vision, rnd pumps out those goggles for anyone man.
+
+/datum/uplink_item/suits/plate_compression
+	name = "MODsuit Plate Compression Module"
+	desc = "A MODsuit module that lets the suit compress into a smaller size. Not compatible with storage modules, \
+	you will have to take that module out first."
+	reference = "MSPC"
+	item = /obj/item/mod/module/plate_compression
+	cost = 2
+
+/datum/uplink_item/suits/noslip
+	name = "MODsuit Anti-Slip Module"
+	desc = "A MODsuit module preventing the user from slipping on water."
+	reference = "MSNS"
+	item = /obj/item/mod/module/noslip
+	cost = 2
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"

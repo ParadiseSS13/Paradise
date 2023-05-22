@@ -49,6 +49,7 @@
 	if(!.)
 		return
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(mod.wearer, "<span class='notice'>Armor deployed, EVA disabled, speed increased.</span>")
 	actual_speed_added = max(0, min(mod.slowdown_active, speed_added))
 	mod.slowdown -= actual_speed_added
 	var/list/parts = mod.mod_parts + mod
@@ -67,6 +68,7 @@
 		return
 	if(!deleting)
 		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	to_chat(mod.wearer, "<span class='notice'>Armor retracted, EVA enabled, speed decreased.</span>")
 	mod.slowdown += actual_speed_added
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
@@ -333,3 +335,44 @@
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
 	cooldown_time = 3 SECONDS
 
+///Status Readout - Puts a lot of information including health, nutrition, fingerprints, temperature to the suit TGUI.
+/obj/item/mod/module/status_readout
+	name = "MOD status readout module"
+	desc = "A once-common module, this technology went unfortunately out of fashion; \
+		and right into the arachnid grip of the Spider Clan. This hooks into the suit's spine, \
+		capable of capturing and displaying all possible biometric data of the wearer; sleep, nutrition, fitness, fingerprints, \
+		and even useful information such as their overall health and wellness. \
+		The syndicate has been seen using this module of late, with NT as well getting into the technology on their elitest of suits."
+	icon_state = "status"
+	complexity = 1
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.1
+	incompatible_modules = list(/obj/item/mod/module/status_readout)
+	tgui_id = "status_readout"
+
+/obj/item/mod/module/status_readout/add_ui_data()
+	. = ..()
+	.["statustime"] = station_time_timestamp()
+	.["statusid"] = GLOB.round_id
+	.["statushealth"] = mod.wearer?.health || 0
+	.["statusmaxhealth"] = mod.wearer?.getMaxHealth() || 0
+	.["statusbrute"] = mod.wearer?.getBruteLoss() || 0
+	.["statusburn"] = mod.wearer?.getFireLoss() || 0
+	.["statustoxin"] = mod.wearer?.getToxLoss() || 0
+	.["statusoxy"] = mod.wearer?.getOxyLoss() || 0
+	.["statustemp"] = mod.wearer?.bodytemperature || 0
+	.["statusnutrition"] = mod.wearer?.nutrition || 0
+	.["statusfingerprints"] = mod.wearer ? md5(mod.wearer.dna.unique_enzymes) : null
+	.["statusdna"] = mod.wearer?.dna.unique_enzymes
+	.["statusviruses"] = null
+	if(!length(mod.wearer?.viruses))
+		return
+	var/list/viruses = list()
+	for(var/datum/disease/virus as anything in mod.wearer.viruses)
+		var/list/virus_data = list()
+		virus_data["name"] = virus.name
+		virus_data["type"] = virus.spread_text
+		virus_data["stage"] = virus.stage
+		virus_data["maxstage"] = virus.max_stages
+		virus_data["cure"] = virus.cure_text
+		viruses += list(virus_data)
+	.["statusviruses"] = viruses

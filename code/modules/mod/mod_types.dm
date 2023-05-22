@@ -146,7 +146,6 @@
 	theme = /datum/mod_theme/security
 	applied_modules = list(
 		/obj/item/mod/module/storage,
-
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/dispenser/mirage,
 	)
@@ -156,8 +155,8 @@
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
-
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/dispenser/mirage,
 		/obj/item/mod/module/jetpack,
 	)
 	default_pins = list(
@@ -169,7 +168,6 @@
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
-
 		/obj/item/mod/module/jetpack/advanced,
 	)
 	default_pins = list(
@@ -210,7 +208,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
-
+		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 	)
@@ -226,7 +224,6 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
-
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 	)
@@ -242,7 +239,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
 		/obj/item/mod/module/emp_shield,
-
+		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
 	)
@@ -271,7 +268,7 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
-
+		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/flashlight,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
@@ -292,6 +289,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/security
 	insignia_type = /obj/item/mod/module/insignia/security
+	additional_module = /obj/item/mod/module/dispenser/mirage
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
@@ -299,6 +297,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
+	additional_module = /obj/item/mod/module/defibrillator
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
@@ -318,7 +317,7 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
-
+		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/flashlight,
 	)
 
@@ -328,9 +327,11 @@
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
 	insignia_type = /obj/item/mod/module/insignia/security
+	additional_module = /obj/item/mod/module/dispenser/mirage
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
+	additional_module = /obj/item/mod/module/defibrillator
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 	insignia_type = /obj/item/mod/module/insignia/chaplain
@@ -345,6 +346,7 @@
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/status_readout,
 	)
 	default_pins = list(
 		/obj/item/mod/module/jetpack,
@@ -356,6 +358,7 @@
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/status_readout,
 	)
 
 /obj/item/mod/control/pre_equipped/corporate
@@ -365,6 +368,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/status_readout,
 	)
 
 /obj/item/mod/control/pre_equipped/debug
