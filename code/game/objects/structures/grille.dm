@@ -115,14 +115,13 @@
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return TRUE
-	if(density)
-		if(istype(mover, /obj/item/projectile))
-			return prob(30)
+	if(istype(mover, /obj/item/projectile))
+		return (prob(30) || !density)
 
 /obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
-		var/atom/movable/mover = caller
+		var/atom/movable/mover = caller 
 		. = . || mover.checkpass(PASSGRILLE)
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
