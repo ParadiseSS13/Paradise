@@ -27,7 +27,6 @@
 /obj/item/mod/module/storage/on_install()
 	mod.bag = bag
 	bag.forceMove(mod)
-	RegisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_chestplate_unequip))
 
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
 	qdel(bag)
@@ -36,12 +35,6 @@
 			I.forceMove(get_turf(loc))
 	UnregisterSignal(mod.chestplate, COMSIG_ITEM_PRE_UNEQUIP)
 
-/obj/item/mod/module/storage/proc/on_chestplate_unequip(obj/item/source, force, atom/newloc, no_move, invdrop, silent)
-	if(QDELETED(source) || !mod.wearer || newloc == mod.wearer || !mod.wearer.s_store)
-		return
-	to_chat(mod.wearer, ("<span class='notice'>[src] tries to store [mod.wearer.s_store] inside itself.</span>"))
-	//if(bag?.attempt_insert(mod.wearer.s_store, mod.wearer, override = TRUE)) //todo WHAT IS THIS?
-		//mod.wearer.unEquip(I, force, silent = TRUE)
 
 /obj/item/mod/module/storage/large_capacity
 	name = "MOD expanded storage module"
@@ -216,18 +209,12 @@
 				to_chat(mod.wearer, ("<span class='warning'>That is too dark</span>"))
 				return
 			light_color = value
-			mod.wearer.regenerate_icons() /// TODO TEMP NO BAD DON'T
+			mod.wearer.regenerate_icons()
 		if("light_range")
 			mod_light_range = (clamp(text2num(value), min_range, max_range))
 	mod.set_light(0, mod_light_power, light_color)
 	mod_color_overide = light_color
 	on_deactivation()
-
-/// Given a color in the format of "#RRGGBB", will return if the color //Make a helpers file for this this it temp TODO ECT ECT ETC
-/// is dark.
-/proc/is_color_dark(color, threshold = 25)
-	var/hsl = rgb2num(color, COLORSPACE_HSL)
-	return hsl[3] < threshold
 
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
@@ -340,7 +327,7 @@
 		return FALSE
 	if(!dna)
 		return TRUE
-	if(dna == mod.wearer.dna.unique_enzymes)
+	if(dna == user)
 		return TRUE
 	return FALSE
 

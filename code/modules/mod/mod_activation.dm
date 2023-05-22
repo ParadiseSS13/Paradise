@@ -208,7 +208,7 @@
 		part.cold_protection = NONE
 	if(ishuman(wearer))
 		var/mob/living/carbon/human/H = wearer
-		H.regenerate_icons()//TODO SPECIFIY THIS
+		H.regenerate_icons()
 
 /// Finishes the suit's activation, starts processing
 /obj/item/mod/control/proc/finish_activation(on)
@@ -223,7 +223,7 @@
 		STOP_PROCESSING(SSobj, src)
 	update_speed()
 	update_icon_state()
-	wearer.regenerate_icons()//TODO MAKE IT NOT REGENERATE EVERYTHING, THIS IS FOR COMPILE SAKE
+	wearer.regenerate_icons()
 
 /// Quickly deploys all the suit parts and if successful, seals them and turns on the suit. Intended mostly for outfits.
 /obj/item/mod/control/proc/quick_activation()

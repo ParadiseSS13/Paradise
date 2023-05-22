@@ -498,13 +498,13 @@
 			module_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_selected")
 		else if(module.active)
 			module_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_active")
-		if(!COOLDOWN_FINISHED(module, cooldown_timer)) //fuck todo
+		if(!COOLDOWN_FINISHED(module, cooldown_timer))
 			module_image.add_overlay(image(icon = 'icons/hud/radial.dmi', icon_state = "module_cooldown"))
 		items += list(module.name = module_image)
 	if(!length(items))
 		return
 	var/radial_anchor = src
-	var/pick = show_radial_menu(user, radial_anchor, items, custom_check = FALSE, require_near = TRUE) //todo
+	var/pick = show_radial_menu(user, radial_anchor, items, custom_check = FALSE, require_near = TRUE)
 	if(!pick)
 		return
 	var/module_reference = display_names[pick]

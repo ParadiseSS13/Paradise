@@ -190,7 +190,7 @@
 	materials = list(MAT_URANIUM = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/rad_protection
 
-/datum/design/module/mod_emp_shield //TODO: Make this not work with the dna lock unless advanced
+/datum/design/module/mod_emp_shield
 	name = "EMP Shield Module"
 	id = "mod_emp_shield"
 	req_tech = list("combat" = 7, "magnets" = 6, "syndicate" = 3)

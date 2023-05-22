@@ -111,9 +111,10 @@
 				mod.wearer.drop_item()
 				return FALSE
 		else
-			var/used_button = "TODO middle for now"
+			var/used_button = "Middle Click"
 			update_signal(used_button)
-			to_chat(mod.wearer, "<span class='notice'>[src] activated, middle click to use I guess? or left click? Pain.</span>")
+			to_chat(mod.wearer, "<span class='notice'>[src] activated, middle click to use.</span>")
+
 	active = TRUE
 	mod.update_mod_overlays()
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)
@@ -146,9 +147,9 @@
 
 /// Called when the module is used
 /obj/item/mod/module/proc/on_use()
-	//if(!COOLDOWN_FINISHED(src, cooldown_timer))
-	//	to_chat(mod.wearer, "<span class='warning'>Module is on cooldown!</span>")
-	//	return FALSE
+	if(!COOLDOWN_FINISHED(src, cooldown_timer))
+		to_chat(mod.wearer, "<span class='warning'>Module is on cooldown!</span>")
+		return FALSE
 	if(!check_power(use_power_cost))
 		to_chat(mod.wearer, "<span class='warning'>Module costs too much power to use!</span>")
 		return FALSE
@@ -293,10 +294,10 @@
 /// Updates the signal used by active modules to be activated
 /obj/item/mod/module/proc/update_signal(value)
 	switch(value)
-		if("TODO middle for now")
+		if("Middle Click")
 			mod.selected_module.used_signal = COMSIG_MOB_MIDDLECLICKON
-		if("STILL TODO THIS SHIT")
-			mod.selected_module.used_signal = COMSIG_MOB_ALTCLICKON
+//		if("Alt Click") // We may wish to make a preference for this
+//			mod.selected_module.used_signal = COMSIG_MOB_ALTCLICKON
 	RegisterSignal(mod.wearer, mod.selected_module.used_signal, TYPE_PROC_REF(/obj/item/mod/module, on_special_click))
 
 /// Pins the module to the user's action buttons
