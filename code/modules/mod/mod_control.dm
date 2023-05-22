@@ -574,13 +574,15 @@
 	to_chat(user, "<span class='notice'>Access updated!")
 
 /obj/item/mod/control/proc/update_mod_overlays(full_removal = FALSE)
-	if(wearer)
-		for(var/I in mod_overlays)
-			wearer.cut_overlay(I)
-			mod_overlays -= I
-		if(!full_removal)
-			for(var/obj/item/mod/module/M in modules)
-				M.add_module_overlay(wearer)
+	if(!wearer)
+		return
+	for(var/I in mod_overlays)
+		wearer.cut_overlay(I)
+		mod_overlays -= I
+	if(full_removal)
+		return
+	for(var/obj/item/mod/module/M in modules)
+		M.add_module_overlay(wearer)
 
 /obj/item/mod/control/proc/get_charge_source()
 	return core?.charge_source()
