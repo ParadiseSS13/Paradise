@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!UI)
 		return
 	if(UI.limited_stock == 0)
-		to_chat(usr, "<span class='warning'>You have redeemed this discount already.</span>")
+		to_chat(usr, "<span class='warning'>You have have bought the entire stock.</span>")
 		return
 	UI.buy(src,usr)
 	if(UI.limited_stock > 0) // only decrement it if it's actually limited
