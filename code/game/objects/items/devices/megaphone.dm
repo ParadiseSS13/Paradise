@@ -22,7 +22,7 @@
 	user.visible_message("<span class='suicide'>[user] is uttering [user.p_their()] last words into [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	on_cooldown = FALSE
 	user.emote("scream")
-	saymsg(user, "AAAAAAAAAAAARGHHHHH")
+	say_msg(user, "AAAAAAAAAAAARGHHHHH")
 	return OXYLOSS
 
 /obj/item/megaphone/examine(mob/user)
@@ -69,12 +69,12 @@
 	if((loc == user && !user.incapacitated()))
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			message = pick(insultmsg)
-		saymsg(user, message)
+		say_msg(user, message)
 
 		on_cooldown = TRUE
 		addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), (HAS_TRAIT(src, TRAIT_CMAGGED) || emagged) ? modified_cooldown : normal_cooldown)
 
-/obj/item/megaphone/proc/saymsg(mob/living/user, message)
+/obj/item/megaphone/proc/say_msg(mob/living/user, message)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		playsound(src, "sound/items/bikehorn.ogg", 50, TRUE)
 	else
@@ -101,7 +101,7 @@
 	if(emagged)
 		return
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))  // one at a time
-		to_chat(user, "<span class='warning'>You don't want to gunk up your emag!</span>")
+		to_chat(user, "<span class='warning'>You go to short out [src], but it's covered in yellow ooze! You don't want to gunk up your emag!</span>")
 		return
 	to_chat(user, "<span class='danger'>You short out [src]'s dampener circuits.</span>")
 	span = "reallybig userdanger"  // really obvious, but also really loud
