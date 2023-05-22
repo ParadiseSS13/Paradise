@@ -2070,7 +2070,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/dchat_emote()
 	var/list/possible_emotes = list("scream", "clap", "snap", "crack", "dap", "burp")
-	emote(pick(possible_emotes))
+	emote(pick(possible_emotes), intentional = TRUE)
 
 /mob/living/carbon/human/proc/dchat_attack()
 	var/turf/ahead = get_turf(get_step(src, dir))
