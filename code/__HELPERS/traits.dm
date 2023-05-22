@@ -182,6 +182,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BURN_WOUND_IMMUNE "burn_immune"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
+#define TRAIT_CHAV				"chav"
 #define TRAIT_NOFINGERPRINTS	"no_fingerprints"
 #define TRAIT_SLOWDIGESTION		"slow_digestion"
 #define TRAIT_COLORBLIND		"colorblind"
@@ -199,6 +200,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
 #define TRAIT_SOAPY_MOUTH		"soapy_mouth"
 #define TRAIT_UNREVIVABLE 		"unrevivable" // Prevents changeling revival
+#define TRAIT_CULT_IMMUNITY		"cult_immunity"
 #define TRAIT_FLATTENED			"flattened"
 
 //***** ITEM AND MOB TRAITS *****//
