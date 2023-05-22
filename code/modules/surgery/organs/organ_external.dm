@@ -146,6 +146,8 @@
 	if(HAS_TRAIT(owner, TRAIT_STURDY_LIMBS))
 		limb_flags |= CANNOT_DISMEMBER
 
+	if(HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
+		limb_flags |= CANNOT_BURN
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
@@ -191,6 +193,8 @@
 
 	// See if bones need to break
 	check_fracture(brute)
+	// See if we need to inflict severe burns
+	check_for_burn_wound(burn)
 	// Threshold needed to have a chance of hurting internal bits with something sharp
 #define LIMB_SHARP_THRESH_INT_DMG 5
 	// Threshold needed to have a chance of hurting internal bits
@@ -364,9 +368,6 @@ This function completely restores a damaged organ to perfect condition.
 				if(trace_chemicals[chemID] <= 0)
 					trace_chemicals.Remove(chemID)
 
-		if(!(status & ORGAN_BROKEN))
-			perma_injury = 0
-
 	if(..())
 		if(owner.germ_level > germ_level && infection_check())
 			//Open wounds can become infected
@@ -447,14 +448,20 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(damage > 15 && local_damage > 30 && prob(damage))
 		cause_internal_bleeding()
 
+/obj/item/organ/external/proc/check_for_burn_wound(damage, update_health = TRUE)
+	if(is_robotic())
+		return
+	if(burn_dam >= min_broken_damage && prob(damage * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
+		cause_burn_wound(update_health)
+
 // new damage icon system
 // returns just the brute/burn damage code
 /obj/item/organ/external/proc/damage_state_text()
 	var/tburn = 0
 	var/tbrute = 0
 
-	if(burn_dam ==0)
-		tburn =0
+	if(burn_dam == 0)
+		tburn = 0
 	else if(burn_dam < (max_damage * 0.25 / 2))
 		tburn = 1
 	else if(burn_dam < (max_damage * 0.75 / 2))
@@ -657,7 +664,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	status |= ORGAN_BROKEN
 	broken_description = pick("broken", "fracture", "hairline fracture")
-	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
@@ -672,7 +678,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
-	perma_injury = 0
 	if(owner)
 		owner.handle_splints()
 	return TRUE
@@ -689,7 +694,20 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(is_robotic())
 		return
 	status &= ~ORGAN_INT_BLEEDING
-	perma_injury = 0
+
+/obj/item/organ/external/proc/cause_burn_wound(update_health = TRUE)
+	if(is_robotic() || (limb_flags & CANNOT_BURN) || (status & ORGAN_BURNT))
+		return
+	status |= ORGAN_BURNT
+	perma_injury = min_broken_damage
+	if(update_health)
+		owner.updatehealth("burn wound inflicted")
+
+/obj/item/organ/external/proc/fix_burn_wound(update_health = TRUE)
+	status &= ~ORGAN_BURNT
+	perma_injury = max(perma_injury - min_broken_damage, 0)
+	if(update_health)
+		owner.updatehealth("burn wound fixed")
 
 /obj/item/organ/external/robotize(company, make_tough = FALSE, convert_all = TRUE)
 	..()
@@ -733,7 +751,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_MUTATED
 
 /obj/item/organ/external/proc/get_damage()	//returns total damage
-	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?
+	return max(brute_dam + burn_dam, perma_injury)
 
 /obj/item/organ/external/proc/has_infected_wound()
 	if(germ_level > INFECTION_LEVEL_ONE)

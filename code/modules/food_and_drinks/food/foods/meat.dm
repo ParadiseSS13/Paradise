@@ -84,8 +84,13 @@
 			"<span class ='notice'>[user] cuts the raw cutlet with [W]!</span>", \
 			"<span class ='notice'>You cut the raw cutlet with [W]!</span>" \
 			)
-		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
-		qdel(src)
+		var/obj/item/reagent_containers/food/snacks/raw_bacon/bacon = new(get_turf(src))
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			qdel(src)
+			H.put_in_hands(bacon)
+		else
+			qdel(src)
 
 //////////////////////////
 //		Monster Meat	//

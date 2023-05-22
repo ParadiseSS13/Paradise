@@ -136,7 +136,7 @@
 	origin_tech = "materials=2;engineering=2"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 	usesound = 'sound/effects/shovel_dig.ogg'
-	toolspeed = 1
+	toolspeed = 0.5
 
 /obj/item/shovel/spade
 	name = "spade"
