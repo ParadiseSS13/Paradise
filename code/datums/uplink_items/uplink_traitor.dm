@@ -223,6 +223,7 @@
 		This version of the module has been modified to allow for near instant activation of the MODsuit. \
 		Useful for quickly getting your MODsuit on/off, or for taking care of a target via a tragic accident. \
 		It is hidden as a DNA lock module."
+	reference = "FNAF"
 	item = /obj/item/mod/module/springlock/bite_of_87
 	job = list("Roboticist", "Research Director")
 	cost = 2
