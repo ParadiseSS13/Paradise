@@ -4,8 +4,9 @@ SUBSYSTEM_DEF(garbage)
 	wait = 2 SECONDS
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
-	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
+	init_order = INIT_ORDER_GARBAGE // AA 2020: Why does this have an init order if it has SS_NO_INIT? | AA 2022: Its used for shutdown
 	offline_implications = "Garbage collection is no longer functional, and objects will not be qdel'd. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	var/list/collection_timeout = list(2 MINUTES, 10 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
 
@@ -83,7 +84,7 @@ SUBSYSTEM_DEF(garbage)
 	var/list/dellog = list()
 
 	//sort by how long it's wasted hard deleting
-	sortTim(items, cmp=/proc/cmp_qdel_item_time, associative = TRUE)
+	sortTim(items, GLOBAL_PROC_REF(cmp_qdel_item_time), TRUE)
 	for(var/path in items)
 		var/datum/qdel_item/I = items[path]
 		dellog += "Path: [path]"
@@ -414,6 +415,9 @@ SUBSYSTEM_DEF(garbage)
 	log_gc("Finished searching clients")
 
 	log_gc("Completed search for references to a [type].")
+	#ifdef FIND_REF_NOTIFY_ON_COMPLETE
+	rustg_create_toast("ParadiseSS13", "GC search complete for [type]")
+	#endif
 	if(usr && usr.client)
 		usr.client.running_find_references = null
 	running_find_references = null

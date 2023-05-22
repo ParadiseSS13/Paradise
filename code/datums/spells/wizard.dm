@@ -195,13 +195,13 @@
 	desc = "This spell creates a 3 tile wide unbreakable wall that only you can pass through, and does not need wizard garb. Lasts 30 seconds."
 
 	school = "transmutation"
-	base_cooldown = 100
+	base_cooldown = 15 SECONDS
 	clothes_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
 	invocation_type = "whisper"
 	sound = 'sound/magic/forcewall.ogg'
 	action_icon_state = "shield"
-	cooldown_min = 50 //12 deciseconds reduction per rank
+	cooldown_min = 5 SECONDS //25 deciseconds reduction per rank
 	var/wall_type = /obj/effect/forcefield/wizard
 
 /obj/effect/proc_holder/spell/forcewall/create_new_targeting()

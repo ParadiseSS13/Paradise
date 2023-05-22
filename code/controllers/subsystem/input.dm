@@ -10,14 +10,13 @@ SUBSYSTEM_DEF(input)
 	priority = FIRE_PRIORITY_INPUT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	offline_implications = "Player input will no longer be recognised. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	/// List of clients whose input to process in loop.
 	var/list/client/processing = list()
 
 /datum/controller/subsystem/input/Initialize()
-	initialized = TRUE
 	refresh_client_macro_sets()
-	return ..()
 
 /datum/controller/subsystem/input/get_stat_details()
 	return "P: [length(processing)]"

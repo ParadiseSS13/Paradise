@@ -6,7 +6,8 @@
 	desc = "For connecting portables devices related to atmospherics control."
 
 	can_unwrench = TRUE
-	layer = GAS_FILTER_LAYER
+	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
+	layer_offset = GAS_FILTER_OFFSET
 
 	var/obj/machinery/atmospherics/portable/connected_device
 

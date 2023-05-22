@@ -55,8 +55,8 @@
 		B.beehome = null
 	bees.Cut()
 	bees = null
-	QDEL_LIST(honeycombs)
-	QDEL_LIST(honey_frames)
+	QDEL_LIST_CONTENTS(honeycombs)
+	QDEL_LIST_CONTENTS(honey_frames)
 	QDEL_NULL(queen_bee)
 	return ..()
 

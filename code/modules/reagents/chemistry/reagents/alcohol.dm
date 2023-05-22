@@ -102,6 +102,7 @@
 	drink_name = "Glass of Absinthe"
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "fucking pain"
+	allowed_overdose_process = TRUE
 
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
@@ -143,6 +144,7 @@
 	drink_name = "Glass of Rum"
 	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
 	taste_description = "rum"
+	allowed_overdose_process = TRUE
 
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -780,14 +782,14 @@
 /datum/reagent/consumable/ethanol/singulo
 	name = "Singulo"
 	id = "singulo"
-	description = "A blue-space beverage!"
+	description = "A bluespace beverage!"
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	dizzy_adj = 30 SECONDS
 	alcohol_perc = 0.7
 	drink_icon = "singulo"
 	drink_name = "Singulo"
-	drink_desc = "A blue-space beverage."
+	drink_desc = "A bluespace beverage."
 	taste_description = "infinity"
 
 /datum/reagent/consumable/ethanol/sbiten
@@ -1652,12 +1654,12 @@
 /datum/reagent/consumable/ethanol/acid_dreams
 	name = "Acid Dreams"
 	id = "aciddreams"
-	description = "This one looks just wierd and reeks of acid."
+	description = "This one looks just weird and reeks of acid."
 	color = "#B7FF6A" // rgb: 183, 255, 106
 	alcohol_perc = 0.7
 	drink_icon = "aciddreams"
 	drink_name = "Acid Dreams"
-	drink_desc = "This one looks just wierd and reeks of acid."
+	drink_desc = "This one looks just weird and reeks of acid."
 	taste_description = "acid"
 
 /datum/reagent/consumable/ethanol/acid_dreams/on_mob_life(mob/living/M)
@@ -1669,8 +1671,8 @@
 			if(L.is_dead() || !L.client) //we don't care about dead mobs
 				continue
 			targets += L
-		var/mob/living/target = pick(targets)
-		if(target)
+		if(length(targets))
+			var/mob/living/target = pick(targets)
 			to_chat(target, "<span class='warning'>You feel that [M.name] is somewhere near.</span>")
 	return ..()
 

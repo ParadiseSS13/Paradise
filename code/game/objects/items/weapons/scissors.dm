@@ -28,6 +28,9 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ("head")
+		if(!C)
+			to_chat(user, "<span class='warning'>[M] doesn't have a head!</span>")
+			return
 		//facial hair
 		var/f_new_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in H.generate_valid_facial_hairstyles()
 		//handle normal hair

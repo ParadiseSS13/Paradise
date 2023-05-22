@@ -4,8 +4,7 @@
 	desc = "One of the most generic arcade games ever."
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "clawmachine_on"
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 40
+	idle_power_consumption = 40
 
 	var/tokens = 0
 	var/freeplay = FALSE			//for debugging and admin kindness

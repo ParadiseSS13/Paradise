@@ -1,6 +1,6 @@
 /datum/sprite_accessory/head_accessory/vulpkanin
-    icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_facial_hair.dmi'
-    species_allowed = list("Vulpkanin")
+	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_facial_hair.dmi'
+	species_allowed = list("Vulpkanin")
 
 /datum/sprite_accessory/head_accessory/vulpkanin/vulp_earfluff
 	name = "Vulpkanin Earfluff"
@@ -39,14 +39,14 @@
 	icon_state = "swift"
 
 /datum/sprite_accessory/head_accessory/vulpkanin/vulp_nose
-    icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_head_markings.dmi'
-    name = "Vulpkanin Nose"
-    icon_state = "nose"
+	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_head_markings.dmi'
+	name = "Vulpkanin Nose"
+	icon_state = "nose"
 
 /datum/sprite_accessory/head_accessory/vulpkanin/vulp_nose2
-    icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_head_markings.dmi'
-    name = "Vulpkanin Nose Alt."
-    icon_state = "nose_alt"
+	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_head_markings.dmi'
+	name = "Vulpkanin Nose Alt."
+	icon_state = "nose_alt"
 
 /datum/sprite_accessory/head_accessory/vulpkanin/vulp_elder
 	name = "Elder"

@@ -3,7 +3,9 @@ SUBSYSTEM_DEF(mobs)
 	priority = FIRE_PRIORITY_MOBS
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	init_order = INIT_ORDER_MOBS
 	offline_implications = "Mobs will no longer process. Immediate server restart recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	var/list/currentrun = list()
 	var/static/list/clients_by_zlevel[][]
@@ -21,10 +23,9 @@ SUBSYSTEM_DEF(mobs)
 /datum/controller/subsystem/mobs/get_stat_details()
 	return "P:[length(GLOB.mob_living_list)]"
 
-/datum/controller/subsystem/mobs/Initialize(start_timeofday)
-	clients_by_zlevel = new /list(world.maxz,0)
-	dead_players_by_zlevel = new /list(world.maxz,0)
-	return ..()
+/datum/controller/subsystem/mobs/Initialize()
+	clients_by_zlevel = new /list(world.maxz, 0)
+	dead_players_by_zlevel = new /list(world.maxz, 0)
 
 /datum/controller/subsystem/mobs/fire(resumed = 0)
 	var/seconds = wait * 0.1

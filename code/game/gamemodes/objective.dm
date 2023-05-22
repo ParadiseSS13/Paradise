@@ -1,8 +1,17 @@
+/// Stores a reference to every [objective][/datum/objective] which currently exists.
 GLOBAL_LIST_EMPTY(all_objectives)
+// Used in admin procs to give them a pretty list to look at, and to also have sane reusable code.
+/// Stores objective [names][/datum/objective/var/name] as list keys, and their corresponding typepaths as list values.
+GLOBAL_LIST_EMPTY(admin_objective_list)
 
 GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
 
 /datum/objective
+	/**
+	 * Proper name of the objective. Not player facing, only shown to admins when adding objectives.
+	 * Leave as null (or override to null) if you don't want admins to see that objective as a viable one to add (such as the mindslave objective).
+	 */
+	var/name
 	/**
 	 * Owner of the objective.
 	 * Note that it's fine to set this directly, but when needing to check completion of the objective or otherwise check conditions on the owner of the objective,
@@ -68,21 +77,25 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_EVENT
 
 /datum/objective/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
 	for(var/datum/mind/M in get_owners())
 		if(possible_target == M)
 			return TARGET_INVALID_IS_OWNER
 		if(possible_target in M.targets)
 			return TARGET_INVALID_IS_TARGET
-	return ..()
+	if(SEND_SIGNAL(src, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, possible_target) & OBJECTIVE_INVALID_TARGET)
+		return TARGET_INVALID_BLACKLISTED
 
 
-/datum/objective/proc/find_target()
+/datum/objective/proc/find_target(list/target_blacklist)
 	if(!needs_target)
 		return
 
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in SSticker.minds)
-		if(is_invalid_target(possible_target))
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
 
 		possible_targets += possible_target
@@ -117,9 +130,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		M.announce_objectives()
 
 /datum/objective/assassinate
+	name = "Assassinate"
 	martyr_compatible = 1
 
-/datum/objective/assassinate/find_target()
+/datum/objective/assassinate/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
@@ -140,9 +154,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/mutiny
+	name = "Mutiny"
 	martyr_compatible = 1
 
-/datum/objective/mutiny/find_target()
+/datum/objective/mutiny/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
@@ -166,9 +181,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	qdel(src)
 
 /datum/objective/maroon
+	name = "Maroon"
 	martyr_compatible = 1
 
-/datum/objective/maroon/find_target()
+/datum/objective/maroon/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
@@ -194,9 +210,18 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/debrain //I want braaaainssss
+	name = "Debrain"
 	martyr_compatible = 0
 
-/datum/objective/debrain/find_target()
+/datum/objective/debrain/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return
+	// If the target is a changeling, then it's an invalid target. Since changelings can not be debrained.
+	if(ischangeling(possible_target.current))
+		return TARGET_INVALID_CHANGELING
+
+/datum/objective/debrain/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
@@ -219,9 +244,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/protect //The opposite of killing a dude.
+	name = "Protect"
 	martyr_compatible = 1
 
-/datum/objective/protect/find_target()
+/datum/objective/protect/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
@@ -256,6 +282,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		qdel(src)
 
 /datum/objective/hijack
+	name = "Hijack"
 	martyr_compatible = 0 //Technically you won't get both anyway.
 	explanation_text = "Hijack the shuttle by escaping on it with no loyalist Nanotrasen crew on board and free. \
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
@@ -271,6 +298,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return SSshuttle.emergency.is_hijacked()
 
 /datum/objective/hijackclone
+	name = "Hijack (with clones)"
 	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
 	martyr_compatible = 0
 	needs_target = FALSE
@@ -303,6 +331,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return FALSE
 
 /datum/objective/block
+	name = "Silicon hijack"
 	explanation_text = "Hijack the shuttle with no loyalist Nanotrasen crew on board and free. \
 	Syndicate agents, other enemies of Nanotrasen, cyborgs, pets, and cuffed/restrained hostages may be allowed on the shuttle alive. \
 	Using the doomsday device successfully is also an option."
@@ -322,6 +351,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/escape
+	name = "Escape"
 	explanation_text = "Escape on the shuttle or an escape pod alive and free."
 	needs_target = FALSE
 
@@ -350,12 +380,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/escape/escape_with_identity
+	name = null
 	/// Stored because the target's `[mob/var/real_name]` can change over the course of the round.
 	var/target_real_name
 	/// If the objective has an assassinate objective tied to it.
 	var/has_assassinate_objective = FALSE
 
-/datum/objective/escape/escape_with_identity/New(text, datum/objective/assassinate/assassinate)
+/datum/objective/escape/escape_with_identity/New(text, datum/team/team_to_join, datum/objective/assassinate/assassinate)
 	..()
 	if(!assassinate)
 		return
@@ -364,6 +395,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	has_assassinate_objective = TRUE
 	RegisterSignal(assassinate, COMSIG_OBJECTIVE_TARGET_FOUND, PROC_REF(assassinate_found_target))
+	RegisterSignal(assassinate, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, PROC_REF(assassinate_checking_target))
 
 /datum/objective/escape/escape_with_identity/is_invalid_target(datum/mind/possible_target)
 	if(..() || !possible_target.current.client)
@@ -371,13 +403,20 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	// If the target is geneless, then it's an invalid target.
 	return HAS_TRAIT(possible_target.current, TRAIT_GENELESS)
 
-/datum/objective/escape/escape_with_identity/find_target()
+/datum/objective/escape/escape_with_identity/find_target(list/target_blacklist)
 	..()
 	if(target && target.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
 		explanation_text = "Free Objective"
+
+/datum/objective/escape/escape_with_identity/proc/assassinate_checking_target(datum/source, datum/mind/possible_target)
+	SIGNAL_HANDLER
+	if(!possible_target.current.client || HAS_TRAIT(possible_target.current, TRAIT_GENELESS))
+		// Stop our linked assassinate objective from choosing a clientless/geneless target.
+		return OBJECTIVE_INVALID_TARGET
+	return OBJECTIVE_VALID_TARGET
 
 /datum/objective/escape/escape_with_identity/proc/assassinate_found_target(datum/source, datum/mind/new_target)
 	SIGNAL_HANDLER
@@ -413,6 +452,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return FALSE
 
 /datum/objective/die
+	name = "Die a glorious death"
 	explanation_text = "Die a glorious death."
 	needs_target = FALSE
 
@@ -428,6 +468,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/survive
+	name = "Survive"
 	explanation_text = "Stay alive until the end."
 	needs_target = FALSE
 
@@ -440,11 +481,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/nuclear
+	name = "Nuke station"
 	explanation_text = "Destroy the station with a nuclear device."
 	martyr_compatible = 1
 	needs_target = FALSE
 
 /datum/objective/steal
+	name = "Steal Item"
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
 	var/theft_area
@@ -452,7 +495,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/proc/get_location()
 	return steal_target.location_override || "an unknown area"
 
-/datum/objective/steal/find_target()
+/datum/objective/steal/find_target(list/target_blacklist)
 	var/potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
@@ -531,6 +574,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/absorb
+	name = "Absorb DNA"
 	needs_target = FALSE
 
 /datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
@@ -562,10 +606,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return FALSE
 
 /datum/objective/destroy
+	name = "Destroy AI"
 	martyr_compatible = 1
 	var/target_real_name
 
-/datum/objective/destroy/find_target()
+/datum/objective/destroy/find_target(list/target_blacklist)
 	var/list/possible_targets = active_ais(1)
 	var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 	target = target_ai.mind
@@ -584,6 +629,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/steal_five_of_type
+	name = "Steal Five Items"
 	explanation_text = "Steal at least five items!"
 	needs_target = FALSE
 	var/list/wanted_items = list()
@@ -606,10 +652,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return stolen_count >= 5
 
 /datum/objective/steal_five_of_type/summon_guns
+	name = "Steal Five Guns"
 	explanation_text = "Steal at least five guns!"
 	wanted_items = list(/obj/item/gun)
 
 /datum/objective/steal_five_of_type/summon_magic
+	name = "Steal Five Artefacts"
 	explanation_text = "Steal at least five magical artefacts!"
 	wanted_items = list()
 
@@ -639,6 +687,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return stolen_count >= 5
 
 /datum/objective/blood
+	name = "Spread blood"
 	needs_target = FALSE
 
 /datum/objective/blood/New()

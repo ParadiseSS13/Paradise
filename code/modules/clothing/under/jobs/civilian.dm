@@ -17,7 +17,7 @@
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/dress
 	name = "head of personal's dress uniform"
-	desc = "Feminine fashion for the style concious HoP."
+	desc = "Feminine fashion for the style conscious HoP."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
 
@@ -133,13 +133,6 @@
 /obj/item/clothing/under/rank/civilian/internalaffairs
 	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
 	name = "Internal Affairs uniform"
-	icon_state = "internalaffairs"
-	item_state = "internalaffairs"
-	item_color = "internalaffairs"
-
-/obj/item/clothing/under/rank/civilian/dress_shirt
-	desc = "A well-ironed dress shirt and matching set of black pants."
-	name = "dress shirt"
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"

@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/tail/vulpkanin
-    icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_tail_markings.dmi'
-    species_allowed = list("Vulpkanin")
+	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_tail_markings.dmi'
+	species_allowed = list("Vulpkanin")
 
 /datum/sprite_accessory/body_markings/tail/vulpkanin/vulp_default_tip
 	name = "Vulpkanin Default Tail Tip"

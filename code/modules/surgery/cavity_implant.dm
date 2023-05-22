@@ -52,7 +52,7 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/cavity_manipulation/robotic,
-		/datum/surgery_step/cavity/close_space,
+		/datum/surgery_step/cavity/close_space/synth,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
 	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN)
@@ -199,6 +199,15 @@
 	)
 
 	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/cavity/close_space/synth
+	name = "seal cavity"
+	allowed_tools = list(
+		TOOL_WELDER = 100,
+		/obj/item/scalpel/laser = 60,
+		TOOL_CAUTERY = 50,
+		/obj/item/lighter = 30,
+	)
 
 
 /datum/surgery_step/cavity/remove_item

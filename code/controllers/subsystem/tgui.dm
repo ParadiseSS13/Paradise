@@ -88,9 +88,9 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/get_open_ui(mob/user, datum/src_object, ui_key)
 	var/src_object_key = "[src_object.UID()]"
-	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !islist(open_uis[src_object_key]))
 		return null // No UIs open.
-	else if(isnull(open_uis[src_object_key][ui_key]) || !istype(open_uis[src_object_key][ui_key], /list))
+	else if(isnull(open_uis[src_object_key][ui_key]) || !islist(open_uis[src_object_key][ui_key]))
 		return null // No UIs open for this object.
 
 	for(var/datum/tgui/ui in open_uis[src_object_key][ui_key]) // Find UIs for this object.
@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/update_uis(datum/src_object, update_static_data = FALSE)
 	var/src_object_key = "[src_object.UID()]"
-	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !islist(open_uis[src_object_key]))
 		return 0 // Couldn't find any UIs for this object.
 
 	var/update_count = 0
@@ -135,7 +135,7 @@ SUBSYSTEM_DEF(tgui)
 	if(!src_object.unique_datum_id) // First check if the datum has an UID set
 		return 0
 	var/src_object_key = "[src_object.UID()]"
-	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !islist(open_uis[src_object_key]))
 		return 0 // Couldn't find any UIs for this object.
 
 	var/close_count = 0
@@ -145,6 +145,29 @@ SUBSYSTEM_DEF(tgui)
 				ui.close() // Close the UI.
 				close_count++ // Count each UI we close.
 	return close_count
+
+/**
+ *
+ * Gets the amount of open UIs on an object
+ * Returns the number of UIs open.
+ *
+ * * datum/src_object - The object/datum which owns the UIs.
+ */
+/datum/controller/subsystem/tgui/proc/get_open_ui_count(datum/src_object)
+	if(!src_object.unique_datum_id) // First check if the datum has an UID set
+		return 0
+	var/src_object_key = "[src_object.UID()]"
+	if(isnull(open_uis[src_object_key]) || !islist(open_uis[src_object_key]))
+		return 0 // Couldn't find any UIs for this object.
+
+	var/open_count = 0
+	for(var/ui_key in open_uis[src_object_key])
+		for(var/datum/tgui/ui in open_uis[src_object_key][ui_key])
+			if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user)) // Check the UI is valid.
+				open_count++ // Count each UI thats open
+
+	return open_count
+
 
 /**
  * private
@@ -173,7 +196,7 @@ SUBSYSTEM_DEF(tgui)
  * * ui_key - If provided, only update UIs with this UI key. (OPTIONAL)
  */
 /datum/controller/subsystem/tgui/proc/update_user_uis(mob/user, datum/src_object = null, ui_key = null)
-	if(isnull(user.open_uis) || !istype(user.open_uis, /list) || open_uis.len == 0)
+	if(isnull(user.open_uis) || !islist(user.open_uis) || open_uis.len == 0)
 		return 0 // Couldn't find any UIs for this user.
 
 	var/update_count = 0
@@ -194,7 +217,7 @@ SUBSYSTEM_DEF(tgui)
  * * ui_key - If provided, only close UIs with this UI key. (OPTIONAL)
  */
 /datum/controller/subsystem/tgui/proc/close_user_uis(mob/user, datum/src_object = null, ui_key = null)
-	if(isnull(user.open_uis) || !istype(user.open_uis, /list) || open_uis.len == 0)
+	if(isnull(user.open_uis) || !islist(user.open_uis) || open_uis.len == 0)
 		return 0 // Couldn't find any UIs for this user.
 
 	var/close_count = 0
@@ -213,9 +236,9 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/on_open(datum/tgui/ui)
 	var/src_object_key = "[ui.src_object.UID()]"
-	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !islist(open_uis[src_object_key]))
 		open_uis[src_object_key] = list(ui.ui_key = list()) // Make a list for the ui_key and src_object.
-	else if(isnull(open_uis[src_object_key][ui.ui_key]) || !istype(open_uis[src_object_key][ui.ui_key], /list))
+	else if(isnull(open_uis[src_object_key][ui.ui_key]) || !islist(open_uis[src_object_key][ui.ui_key]))
 		open_uis[src_object_key][ui.ui_key] = list() // Make a list for the ui_key.
 
 	// Append the UI to all the lists.
@@ -234,9 +257,9 @@ SUBSYSTEM_DEF(tgui)
  */
 /datum/controller/subsystem/tgui/proc/on_close(datum/tgui/ui)
 	var/src_object_key = "[ui.src_object.UID()]"
-	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
+	if(isnull(open_uis[src_object_key]) || !islist(open_uis[src_object_key]))
 		return FALSE // It wasn't open.
-	else if(isnull(open_uis[src_object_key][ui.ui_key]) || !istype(open_uis[src_object_key][ui.ui_key], /list))
+	else if(isnull(open_uis[src_object_key][ui.ui_key]) || !islist(open_uis[src_object_key][ui.ui_key]))
 		return FALSE // It wasn't open.
 
 	processing_uis.Remove(ui) // Remove it from the list of processing UIs.
@@ -274,10 +297,10 @@ SUBSYSTEM_DEF(tgui)
  * * mob/target - The client's new mob.
  */
 /datum/controller/subsystem/tgui/proc/on_transfer(mob/source, mob/target)
-	if(!source || isnull(source.open_uis) || !istype(source.open_uis, /list) || open_uis.len == 0)
+	if(!source || isnull(source.open_uis) || !islist(source.open_uis) || open_uis.len == 0)
 		return FALSE // The old mob had no open UIs.
 
-	if(isnull(target.open_uis) || !istype(target.open_uis, /list))
+	if(isnull(target.open_uis) || !islist(target.open_uis))
 		target.open_uis = list() // Create a list for the new mob if needed.
 
 	for(var/datum/tgui/ui in source.open_uis)

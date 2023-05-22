@@ -599,8 +599,9 @@
 			D.toggle_polarization()
 
 /obj/machinery/button/windowtint/power_change()
-	..()
-	if(active && !powered(power_channel))
+	if(!..())
+		return
+	if(active && (stat & NOPOWER))
 		toggle_tint()
 
 /obj/machinery/button/windowtint/update_icon_state()
@@ -650,8 +651,8 @@
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	smoothing_flags = SMOOTH_BITMASK
-	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS) //they are not walls but this lets walls smooth with them
-	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_WALLS)
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_REGULAR_WALLS, SMOOTH_GROUP_REINFORCED_WALLS, SMOOTH_GROUP_AIRLOCK) //they are not walls but this lets walls smooth with them
+	canSmoothWith = list(SMOOTH_GROUP_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE, SMOOTH_GROUP_AIRLOCK)
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."

@@ -107,7 +107,7 @@
 				severity = 0
 
 			//20% chance to actually hit the eyes
-			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
+			if(prob(effectchance * diode.rating) && C.flash_eyes(severity, laser_pointer = TRUE))
 				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
 			else
 				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"

@@ -45,8 +45,9 @@
 		if(M.stat == DEAD)
 			continue
 		M.show_message("<span class='warning'>BANG</span>", 2)
+		var/mobturf = get_turf(M)
 
-		var/distance = max(1, get_dist(source_turf, get_turf(M)))
+		var/distance = max(1, get_dist(source_turf, mobturf))
 		var/status_duration = max(10 SECONDS / distance, 4 SECONDS)
 
 		// Flash
@@ -57,7 +58,7 @@
 		// Bang
 		var/ear_safety = M.check_ear_prot()
 		if(bang)
-			if(!distance || A.loc == M || A.loc == M.loc) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
+			if(source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
 				M.KnockDown(10 SECONDS)
 			if(!ear_safety)
 				M.KnockDown(status_duration)

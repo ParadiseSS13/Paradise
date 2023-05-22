@@ -10,9 +10,7 @@
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
-	power_environ = FALSE
-	power_equip = FALSE
-	power_light = FALSE
+	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
 	flags = NONE
@@ -29,14 +27,40 @@
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
-	power_environ = FALSE
-	power_equip = FALSE
-	power_light = FALSE
+	apc_starts_off = TRUE
 	outdoors = TRUE
 	ambientsounds = MINING_SOUNDS
+	sound_environment = SOUND_AREA_ASTEROID
 	flags = NONE
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+
+/area/mine/unexplored/cere/ai
+	name = "AI Asteroid"
+
+/area/mine/unexplored/cere/cargo
+	name = "Cargo Asteroid"
+
+/area/mine/unexplored/cere/civilian
+	name = "Civilian Asteroid"
+
+/area/mine/unexplored/cere/command
+	name = "Command Asteroid"
+
+/area/mine/unexplored/cere/docking
+	name = "Docking Asteroid"
+
+/area/mine/unexplored/cere/engineering
+	name = "Engineering Asteroid"
+
+/area/mine/unexplored/cere/medical
+	name = "Medical Asteroid"
+
+/area/mine/unexplored/cere/research
+	name = "Research Asteroid"
+
+/area/mine/unexplored/cere/orbiting
+	name = "Near Station Asteroids"
 
 /area/mine/lobby
 	name = "Mining Station"
@@ -50,6 +74,9 @@
 
 /area/mine/abandoned
 	name = "Abandoned Mining Station"
+
+/area/mine/comms
+	name = "Mining Station Communications"
 
 /area/mine/living_quarters
 	name = "Mining Station Port Wing"
@@ -79,6 +106,7 @@
 
 /area/mine/laborcamp
 	name = "Labor Camp"
+	icon_state = "brig"
 
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
@@ -107,9 +135,7 @@
 	icon_state = "explored"
 	always_unpowered = TRUE
 	poweralm = FALSE
-	power_environ = FALSE
-	power_equip = FALSE
-	power_light = FALSE
+	apc_starts_off = TRUE
 	requires_power = TRUE
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
@@ -121,9 +147,7 @@
 	always_unpowered = TRUE
 	requires_power = TRUE
 	poweralm = FALSE
-	power_environ = FALSE
-	power_equip = FALSE
-	power_light = FALSE
+	apc_starts_off = TRUE
 	ambientsounds = MINING_SOUNDS
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS

@@ -40,8 +40,6 @@
 	var/genetic_damage = 0
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
-	/// If the changeling is in the process of linking with someone.
-	var/is_linking = FALSE
 	/// The amount of points available to purchase changeling abilities.
 	var/genetic_points = 10
 	/// A name that will display in place of the changeling's real name when speaking.
@@ -77,20 +75,20 @@
 	absorbed_languages = list()
 
 	var/mob/living/carbon/human/H = owner.current
-	absorbed_dna += H.dna.Clone()
+	protected_dna += H.dna.Clone()
 	..()
 
 /datum/antagonist/changeling/Destroy()
 	SSticker.mode.changelings -= owner
 	chosen_sting = null
-	QDEL_LIST(acquired_powers)
+	QDEL_LIST_CONTENTS(acquired_powers)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /datum/antagonist/changeling/greet()
 	..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	to_chat(owner.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")
+	to_chat(owner.current, "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>")
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
@@ -101,7 +99,6 @@
 		START_PROCESSING(SSobj, src)
 	add_new_languages(L.languages) // Absorb the languages of the new body.
 	update_languages() // But also, give the changeling the languages they've already absorbed before this.
-	L.add_language("Changeling")
 	// If there's a mob_override, this is a body transfer, and therefore we should give them back their powers they had while in the old body.
 	if(mob_override)
 		for(var/datum/action/changeling/power in acquired_powers)
@@ -111,6 +108,17 @@
 		for(var/power_type in innate_powers)
 			give_power(new power_type, L)
 
+	RegisterSignal(L, COMSIG_MOB_DEATH, PROC_REF(on_death))
+
+	var/mob/living/carbon/C = L
+
+	if(!istype(C))
+		return
+
+	// Brains are optional for changelings.
+	var/obj/item/organ/internal/brain/ling_brain = C.get_organ_slot("brain")
+	ling_brain?.decoy_brain = TRUE
+
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
 	if(!ishuman(L))
@@ -118,8 +126,8 @@
 	if(L.hud_used?.lingstingdisplay)
 		L.hud_used.lingstingdisplay.invisibility = 101
 		L.hud_used.lingchemdisplay.invisibility = 101
-	L.remove_language("Changeling")
 	remove_unnatural_languages(L)
+	UnregisterSignal(L, COMSIG_MOB_DEATH)
 	// If there's a mob_override, this is a body transfer, and therefore we should only remove their powers from the old body.
 	if(mob_override)
 		for(var/datum/action/changeling/power in acquired_powers)
@@ -127,6 +135,16 @@
 	// Else, they're losing the datum.
 	else
 		respec(FALSE)
+
+	var/mob/living/carbon/C = L
+
+	if(!istype(C))
+		return
+
+	// If they get de-clinged, make sure they can't just chop their own head off for the hell of it
+	var/obj/item/organ/internal/brain/former_ling_brain = C.get_organ_slot("brain")
+	if(former_ling_brain && former_ling_brain.decoy_brain != initial(former_ling_brain.decoy_brain))
+		former_ling_brain.decoy_brain = FALSE
 
 /*
  * Always absorb X amount of genomes, plus random traitor objectives.
@@ -399,6 +417,19 @@
 		to_chat(user, "<span class='warning'>We already have this DNA in storage!</span>")
 		return FALSE
 	return TRUE
+
+/datum/antagonist/changeling/proc/on_death(mob/living/L, gibbed)
+	SIGNAL_HANDLER
+	if(QDELETED(L) || gibbed)  // they were probably incinerated or gibbed, no coming back from that.
+		return
+	var/mob/living/carbon/human/H = L
+	if(!istype(H))
+		return
+
+	if(!H.get_organ_slot("brain"))
+		to_chat(L, "<span class='notice'>The brain is a useless organ to us, we are able to regenerate!</span>")
+	else
+		to_chat(L, "<span class='notice'>While our current form may be lifeless, this is not the end for us as we can still regenerate!</span>")
 
 /proc/ischangeling(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/changeling)

@@ -127,7 +127,7 @@
 /datum/pathfind/New(atom/movable/caller, atom/goal, id, max_distance, mintargetdist, simulated_only, avoid, diagonal_safety)
 	src.caller = caller
 	end = get_turf(goal)
-	open = new /datum/heap(/proc/HeapPathWeightCompare)
+	open = new /datum/heap(GLOBAL_PROC_REF(HeapPathWeightCompare))
 	sources = new()
 	src.id = id
 	src.max_distance = max_distance
@@ -428,7 +428,7 @@
 	for(var/obj/iter_object in destination_turf)
 		if(!iter_object.CanPathfindPass(ID, reverse_dir, caller, no_id = no_id))
 			return TRUE
-	
+
 	for(var/mob/living/iter_mob in destination_turf)
 		if(!iter_mob.CanPathfindPass(ID, reverse_dir, caller, no_id = no_id))
 			return TRUE

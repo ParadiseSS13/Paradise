@@ -222,13 +222,13 @@
 	resistance_flags = NONE
 
 /*
-SEE_SELF  // can see self, no matter what
-SEE_MOBS  // can see all mobs, no matter what
-SEE_OBJS  // can see all objs, no matter what
-SEE_TURFS // can see all turfs (and areas), no matter what
-SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
-          // in a lit area (via pixel_x,y or smooth movement), can see those pixels
-BLIND     // can't see anything
+ * SEE_SELF  // can see self, no matter what
+ * SEE_MOBS  // can see all mobs, no matter what
+ * SEE_OBJS  // can see all objs, no matter what
+ * SEE_TURFS // can see all turfs (and areas), no matter what
+ * SEE_PIXELS// if an object is located on an unlit area, but some of its pixels are
+ *           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
+ * BLIND     // can't see anything
 */
 
 /obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
@@ -257,7 +257,8 @@ BLIND     // can't see anything
 //Gloves
 /obj/item/clothing/gloves
 	name = "gloves"
-	gender = PLURAL //Carn: for grammarically correct text-parsing
+	///Carn: for grammarically correct text-parsing
+	gender = PLURAL
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
@@ -265,8 +266,11 @@ BLIND     // can't see anything
 	slot_flags = SLOT_GLOVES
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
-	var/pickpocket = 0 //Master pickpocket?
+	///Master pickpocket?
+	var/pickpocket = 0
 	var/clipped = 0
+	///Do they protect the wearer from poison ink?
+	var/safe_from_poison = FALSE
 	strip_delay = 20
 	put_on_delay = 40
 
@@ -706,7 +710,7 @@ BLIND     // can't see anything
 		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_VITALS, SENSOR_COORDS)
 
 /obj/item/clothing/under/Destroy()
-	QDEL_LIST(accessories)
+	QDEL_LIST_CONTENTS(accessories)
 	return ..()
 
 

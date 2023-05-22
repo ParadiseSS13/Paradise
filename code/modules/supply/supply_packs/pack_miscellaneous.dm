@@ -10,13 +10,6 @@
 	containername = "\improper MULEbot crate"
 	department_restrictions = list(DEPARTMENT_SUPPLY)
 
-/datum/supply_packs/misc/watertank
-	name = "Water Tank Crate"
-	contains = list(/obj/structure/reagent_dispensers/watertank)
-	cost = 50
-	containertype = /obj/structure/largecrate
-	containername = "water tank crate"
-
 /datum/supply_packs/misc/hightank
 	name = "High-Capacity Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank/high)
@@ -106,17 +99,6 @@
 	cost = 100
 	containername = "bureaucracy crate"
 
-/datum/supply_packs/misc/toner
-	name = "Toner Cartridges Crate"
-	contains = list(/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner,
-					/obj/item/toner)
-	cost = 100
-	containername = "toner cartridges crate"
-
 /datum/supply_packs/misc/artscrafts
 	name = "Arts and Crafts Supplies Crate"
 	contains = list(/obj/item/storage/fancy/crayons,
@@ -161,6 +143,7 @@
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/mop,
+					/obj/item/twohanded/push_broom,
 					/obj/item/caution,
 					/obj/item/caution,
 					/obj/item/caution,
@@ -301,7 +284,7 @@
 					/obj/item/clothing/head/collectable/slime,
 					/obj/item/clothing/head/collectable/xenom,
 					/obj/item/clothing/head/collectable/petehat)
-	name = "Collectible Hats Crate"
+	name = "Collectable Hats Crate"
 	cost = 2500
 	containername = "collectable hats crate! Brought to you by Bass.inc!"
 

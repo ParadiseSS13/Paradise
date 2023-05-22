@@ -76,7 +76,7 @@
 	speed_process = TRUE
 
 /obj/machinery/mineral/stacking_machine/Destroy()
-	QDEL_LIST(stack_list)
+	QDEL_LIST_CONTENTS(stack_list)
 	if(console)
 		console.machine = null
 	console = null

@@ -19,13 +19,14 @@
 	pass_flags = PASSTABLE
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/humanoid/New()
+/mob/living/carbon/alien/humanoid/Initialize(mapload)
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	..()
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
+	. = ..()
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(check_drift = 0)

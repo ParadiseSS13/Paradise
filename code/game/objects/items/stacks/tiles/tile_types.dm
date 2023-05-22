@@ -32,8 +32,8 @@
 	if (mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
 		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-					 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
-					 "<span class='italics'>You hear welding.</span>")
+					"<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
+					"<span class='italics'>You hear welding.</span>")
 		var/obj/item/stack/rods/R = src
 		src = null
 		var/replace = (user.get_inactive_hand()==R)
@@ -46,7 +46,7 @@
 	name = "grass tiles"
 	gender = PLURAL
 	singular_name = "grass floor tile"
-	desc = "A patch of grass like they often use on golf courses"
+	desc = "A patch of grass like they often use on golf courses."
 	icon_state = "tile_grass"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/grass
@@ -57,7 +57,7 @@
 	name = "wood floor tiles"
 	gender = PLURAL
 	singular_name = "wood floor tile"
-	desc = "an easy to fit wood floor tile"
+	desc = "An easy to fit wood floor tile."
 	icon_state = "tile-wood"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
@@ -72,7 +72,7 @@
 /obj/item/stack/tile/carpet
 	name = "carpet"
 	singular_name = "carpet"
-	desc = "A piece of carpet. It is the same size as a floor tile"
+	desc = "A piece of carpet. It is the same size as a floor tile."
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
@@ -260,3 +260,14 @@
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20
+
+/obj/item/stack/tile/disco_light
+	name = "disco light tiles"
+	singular_name = "disco light tile"
+	desc = "A sheet of disco light tile."
+	icon_state = "tile_disco"
+	turf_type = /turf/simulated/floor/light/disco
+	merge_type = /obj/item/stack/tile/disco_light
+
+/obj/item/stack/tile/disco_light/thirty
+	amount = 30

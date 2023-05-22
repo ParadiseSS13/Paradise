@@ -40,6 +40,7 @@
 	var/datum/object = GLOBAL_PROC
 	var/delegate
 	var/list/arguments
+	var/usr_uid
 
 /datum/callback/New(thingtocall, proctocall, ...)
 	if(thingtocall)
@@ -47,6 +48,8 @@
 	delegate = proctocall
 	if(length(args) > 2)
 		arguments = args.Copy(3)
+	if(usr)
+		usr_uid = usr.UID()
 
 /proc/ImmediateInvokeAsync(thingtocall, proctocall, ...)
 	set waitfor = FALSE
@@ -62,6 +65,12 @@
 		call(thingtocall, proctocall)(arglist(calling_arguments))
 
 /datum/callback/proc/Invoke(...)
+	if(!usr && usr_uid)
+		var/mob/M = locateUID(usr_uid)
+		if(M)
+			if(length(args))
+				return world.invoke_callback_with_usr(arglist(list(M, src) + args))
+			return world.invoke_callback_with_usr(M, src)
 	if(!object)
 		return
 	var/list/calling_arguments = arguments
@@ -77,6 +86,14 @@
 //copy and pasted because fuck proc overhead
 /datum/callback/proc/InvokeAsync(...)
 	set waitfor = FALSE
+
+	if(!usr && usr_uid)
+		var/mob/M = locateUID(usr_uid)
+		if(M)
+			if(length(args))
+				return world.invoke_callback_with_usr(arglist(list(M, src) + args))
+			return world.invoke_callback_with_usr(M, src)
+
 	if(!object)
 		return
 	var/list/calling_arguments = arguments

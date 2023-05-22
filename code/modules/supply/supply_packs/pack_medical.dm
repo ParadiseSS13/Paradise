@@ -22,9 +22,9 @@
 					/obj/item/reagent_containers/iv_bag/salglu,
 					/obj/item/storage/box/beakers,
 					/obj/item/storage/box/syringes,
-				    /obj/item/storage/box/bodybags,
-				    /obj/item/storage/box/iv_bags,
-				    /obj/item/vending_refill/medical)
+					/obj/item/storage/box/bodybags,
+					/obj/item/storage/box/iv_bags,
+					/obj/item/vending_refill/medical)
 	cost = 400
 	containertype = /obj/structure/closet/crate/medical
 	containername = "medical supplies crate"

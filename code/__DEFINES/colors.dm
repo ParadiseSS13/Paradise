@@ -84,6 +84,8 @@
 #define COLOR_ROCK             "#464646"
 #define COLOR_NULLGLASS        "#ff6088"
 #define COLOR_DIAMOND          "#d8d4ea"
+#define COLOR_ANCIENT_ROCK     "#575757"
+#define COLOR_COLD_ANCIENT_ROCK "#575764"
 #define COLOR_HEALING_GREEN    "#375637"
 
 //Color defines used by the assembly detailer.

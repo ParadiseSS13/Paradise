@@ -3,20 +3,21 @@ SUBSYSTEM_DEF(instancing)
 	runlevels = RUNLEVEL_INIT | RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 30 SECONDS
 	flags = SS_KEEP_TIMING
+	cpu_display = SS_CPUDISPLAY_LOW
 	// This SS has the default init value since it needs to happen after the DB & redis
 
 	/// Associative list of registered commands. K = command name | V = command datum
 	var/list/datum/server_command/registered_commands = list()
 
-/datum/controller/subsystem/instancing/Initialize(start_timeofday)
+/datum/controller/subsystem/instancing/Initialize()
 	// Make sure no one broke things. This check will trip up CI
 	if(init_order >= SSredis.init_order)
 		CRASH("SSinstancing was set to init before SSredis. Who broke it?")
 
 	// Dont even bother if we arent connected to redis or the DB
-	if(!SSdbcore.IsConnected() || !SSredis.connected)
+	if(!SSdbcore.IsConnected() || !SSredis.connected || !GLOB.configuration.system.enable_multi_instance_support)
 		flags |= SS_NO_FIRE
-		return ..()
+		return
 
 	// Setup our commands
 	for(var/sct in subtypesof(/datum/server_command))
@@ -36,13 +37,16 @@ SUBSYSTEM_DEF(instancing)
 	// Announce startup to peers
 	var/datum/server_command/new_round_announce/NRA = registered_commands["new_round_announce"]
 	NRA.custom_dispatch(GLOB.configuration.general.server_name, SSmapping.map_datum.fluff_name, SSmapping.map_datum.technical_name)
-	return ..()
 
 /datum/controller/subsystem/instancing/fire(resumed)
 	update_heartbeat()
 	update_playercache()
 
 /datum/controller/subsystem/instancing/proc/execute_command(source, command, list/arguments)
+	// We aint enabled. Dont bother.
+	if(!GLOB.configuration.system.enable_multi_instance_support)
+		return
+
 	var/datum/server_command/SC = registered_commands[command]
 	if(!SC)
 		CRASH("Attempted to execute command with ID '[command]' from [source], but that command didnt exist!")
@@ -58,6 +62,10 @@ SUBSYSTEM_DEF(instancing)
   * Updates the player cache in the DB. Different from heartbeat so we can force invoke it on player operations
   */
 /datum/controller/subsystem/instancing/proc/update_playercache(optional_ckey)
+	// We aint enabled. Dont bother.
+	if(!GLOB.configuration.system.enable_multi_instance_support)
+		return
+
 	// You may be wondering, why the fuck is an "optional ckey" variable here
 	// Well, this is invoked in client/New(), and needs to read from GLOB.clients
 	// However, this proc sleeps, and if you sleep during client/New() once the client is in GLOB.clients, stuff breaks bad
@@ -111,6 +119,10 @@ SUBSYSTEM_DEF(instancing)
   * This is called during world/New() instead of on initialize so it can be done *instantly*
   */
 /datum/controller/subsystem/instancing/proc/seed_data()
+	// We aint enabled. Dont bother.
+	if(!GLOB.configuration.system.enable_multi_instance_support)
+		return
+
 	// We need to seed a lot of keys, so lets just use a key-value-pair-map to do this easily
 	var/list/kvp_map = list()
 	kvp_map["server_name"] = GLOB.configuration.general.server_name // Name of the server
@@ -145,6 +157,10 @@ SUBSYSTEM_DEF(instancing)
   * ckey - The ckey to check if they are logged into another server
   */
 /datum/controller/subsystem/instancing/proc/check_player(ckey)
+	// We aint enabled. Dont bother.
+	if(!GLOB.configuration.system.enable_multi_instance_support)
+		return
+
 	// Please see above rant on L127
 	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"
 		SELECT server_id, key_value FROM instance_data_cache WHERE server_id IN

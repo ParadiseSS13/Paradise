@@ -189,7 +189,7 @@
 		switch(progress)
 			if(1)
 				to_chat(user, "<span class='notice'>You begin by introducing yourself and explaining what you're about.</span>")
-				user.visible_message("<span class='danger'>[user] introduces [user.p_them()]self and explains [user.p_their()] plans.</span>")
+				user.visible_message("<span class='danger'>[user] introduces [user.p_themselves()] and explains [user.p_their()] plans.</span>")
 			if(2)
 				to_chat(user, "<span class='notice'>You begin the recruitment of [target].</span>")
 				user.visible_message("<span class='danger'>[user] leans over towards [target], whispering excitedly as [user.p_they()] give[user.p_s()] a speech.</span>")
@@ -220,7 +220,7 @@
 	SSticker.mode.greyshirts += target.mind
 	target.set_species(/datum/species/human)
 	var/obj/item/organ/external/head/head_organ = target.get_organ("head")
-	if(head_organ)
+	if(istype(head_organ))
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
 	target.s_tone = 35

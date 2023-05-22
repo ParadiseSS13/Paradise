@@ -117,11 +117,16 @@
 /obj/singularity/narsie/singularity_act() //handled in /obj/singularity/proc/consume
 	return
 
+/obj/singularity/narsie/notify_dead()
+	return
+
 /obj/singularity/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
 	var/list/cultists = list()
 	var/list/noncultists = list()
 	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
+		if(!pos) // The GLOB mob list (alive or dead) can contain null entries, so we gotta check if we're trying to get the turf of something that doesn't exist
+			return
 		if(pos.z != src.z)
 			continue
 

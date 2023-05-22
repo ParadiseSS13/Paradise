@@ -70,7 +70,7 @@
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
 
 /obj/item/seeds/Destroy()
-	QDEL_LIST(genes)
+	QDEL_LIST_CONTENTS(genes)
 	return ..()
 
 /obj/item/seeds/proc/Copy()
@@ -321,7 +321,7 @@
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
+		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")

@@ -41,7 +41,6 @@
 					/obj/item/seeds/reishi = 2,
 					/obj/item/seeds/tobacco = 1)
 	contraband = list()
-	premium = list()
 	refill_canister = null
 
 /obj/machinery/economy/vending/hydronutrients/syndicate_druglab
@@ -67,11 +66,21 @@
 	slogan_list = list("Liberation Station: Your one-stop shop for all things second amendment!", "Be a patriot today, pick up a gun!", "Quality weapons for cheap prices!", "Better dead than red!")
 	ads_list = list("Float like an astronaut, sting like a bullet!", "Express your second amendment today!", "Guns don't kill people, but you can!", "Who needs responsibilities when you have guns?")
 	vend_reply = "Remember the name: Liberation Station!"
-	products = list(/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
-					/obj/item/gun/projectile/automatic/pistol/m1911 = 2,/obj/item/gun/projectile/automatic/proto = 2,
-					/obj/item/gun/projectile/shotgun/automatic/combat = 2,/obj/item/gun/projectile/automatic/gyropistol = 1,
-					/obj/item/gun/projectile/shotgun = 2,/obj/item/gun/projectile/automatic/ar = 2)
-	premium = list(/obj/item/ammo_box/magazine/smgm9mm = 2, /obj/item/ammo_box/magazine/m50 = 4, /obj/item/ammo_box/magazine/m45 = 2, /obj/item/ammo_box/magazine/m75 = 2)
+	products = list(/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
+					/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
+					/obj/item/gun/projectile/automatic/pistol/m1911 = 2,
+					/obj/item/gun/projectile/automatic/proto = 2,
+					/obj/item/gun/projectile/shotgun/automatic/combat = 2,
+					/obj/item/gun/projectile/automatic/gyropistol = 1,
+					/obj/item/gun/projectile/shotgun = 2,
+					/obj/item/gun/projectile/automatic/ar = 2,
+					/obj/item/gun/projectile/automatic/ak814 = 2,
+					/obj/item/ammo_box/magazine/smgm9mm = 2,
+					/obj/item/ammo_box/magazine/m50 = 4,
+					/obj/item/ammo_box/magazine/m45 = 2,
+					/obj/item/ammo_box/magazine/m75 = 2,
+					/obj/item/ammo_box/magazine/m556/arg = 2,
+					/obj/item/ammo_box/magazine/ak814 = 2)
 	contraband = list(/obj/item/clothing/under/costume/patriotsuit = 1, /obj/item/bedsheet/patriot = 3)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
@@ -94,12 +103,12 @@
 					/obj/item/clothing/suit/syndicatefake = 5,
 					/obj/item/clothing/head/syndicatefake = 5) //OPS IN DORMS oh wait it's just an assistant
 	contraband = list(/obj/item/gun/projectile/shotgun/toy/crossbow = 10,   //Congrats, you unlocked the +18 setting!
-					  /obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
-					  /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
-  					  /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
-					  /obj/item/ammo_box/foambox/riot = 20,
-					  /obj/item/toy/katana = 10,
-					  /obj/item/twohanded/dualsaber/toy = 5,
-					  /obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
+					/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
+					/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
+					/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
+					/obj/item/ammo_box/foambox/riot = 20,
+					/obj/item/toy/katana = 10,
+					/obj/item/twohanded/dualsaber/toy = 5,
+					/obj/item/deck/cards/syndicate = 10) //Gambling and it hurts, making it a +18 item
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF

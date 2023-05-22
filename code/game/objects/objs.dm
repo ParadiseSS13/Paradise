@@ -24,8 +24,6 @@
 
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
-	var/Mtoollink = FALSE // variable to decide if an object should show the multitool menu linking menu, not all objects use it
-
 	var/being_shocked = FALSE
 	var/speed_process = FALSE
 
@@ -112,6 +110,7 @@
 		return null
 
 /obj/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(loc)
 		return loc.return_air()
 	else
@@ -201,87 +200,7 @@
 	return
 
 /obj/proc/hear_message(mob/M, text)
-
-/obj/proc/multitool_menu(mob/user, obj/item/multitool/P)
-	return "<b>NO MULTITOOL_MENU!</b>"
-
-/obj/proc/linkWith(mob/user, obj/buffer, context)
-	return FALSE
-
-/obj/proc/unlinkFrom(mob/user, obj/buffer)
-	return FALSE
-
-/obj/proc/canLink(obj/O, list/context)
-	return FALSE
-
-/obj/proc/isLinkedWith(obj/O)
-	return FALSE
-
-/obj/proc/getLink(idx)
-	return null
-
-/obj/proc/linkMenu(obj/O)
-	var/dat = ""
-	if(canLink(O, list()))
-		dat += " <a href='?src=[UID()];link=1'>\[Link\]</a> "
-	return dat
-
-/obj/proc/format_tag(label, varname, act = "set_tag")
-	var/value = vars[varname]
-	if(!value || value == "")
-		value = "-----"
-	return "<b>[label]:</b> <a href=\"?src=[UID()];[act]=[varname]\">[value]</a>"
-
-
-/obj/proc/update_multitool_menu(mob/user)
-	var/obj/item/multitool/P = get_multitool(user)
-
-	if(!istype(P))
-		return FALSE
-
-	var/dat = {"<html>
-	<head>
-		<title>[name] Configuration</title>
-		<style type="text/css">
-html,body {
-	font-family:courier;
-	background:#999999;
-	color:#333333;
-}
-
-a {
-	color:#000000;
-	text-decoration:none;
-	border-bottom:1px solid black;
-}
-		</style>
-	</head>
-	<body>
-		<h3>[name]</h3>
-"}
-	if(allowed(user))//no, assistants, you're not ruining all vents on the station with just a multitool
-		dat += multitool_menu(user, P)
-		if(Mtoollink)
-			if(P)
-				if(P.buffer)
-					var/id = null
-					if("id_tag" in P.buffer.vars)
-						id = P.buffer:id_tag
-					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] [id ? "([id])" : ""]"
-
-					dat += linkMenu(P.buffer)
-
-					if(P.buffer)
-						dat += "<a href='?src=[UID()];flush=1'>\[Flush\]</a>"
-					dat += "</p>"
-				else
-					dat += "<p><b>MULTITOOL BUFFER:</b> <a href='?src=[UID()];buffer=1'>\[Add Machine\]</a></p>"
-	else
-		dat += "<b>ACCESS DENIED</a>"
-	dat += "</body></html>"
-	user << browse(dat, "window=mtcomputer")
-	user.set_machine(src)
-	onclose(user, "mtcomputer")
+	return
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
 	if(obj_integrity >= max_integrity)
@@ -376,5 +295,5 @@ a {
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
-	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
+	CRASH("Proc force_eject_occupant() is not overridden on a machine containing a mob.")
 

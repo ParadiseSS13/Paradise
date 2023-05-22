@@ -272,6 +272,16 @@ const DetailedAccountInfo = (properties, context) => {
               {account_pin}
             </LabeledList.Item>
           }
+          <LabeledList.Item label="Account Pin Actions">
+            <Button ml={1}
+              icon="user-cog"
+              content="Set New Pin"
+              disabled={Boolean(is_department_account)}
+              onClick={() => act('set_account_pin', {
+                account_number: account_number,
+              })}
+            />
+          </LabeledList.Item>
           <LabeledList.Item label="Account Holder">
             {owner_name}
           </LabeledList.Item>

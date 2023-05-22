@@ -4,7 +4,7 @@
 	info = "<b>Day 11 Entry</b><br><br> Thana and I have finally arrived at our cabin and are getting settled in. Thana seemed troubled upon our arrival, \
 	she claims that something feels off but I'm just writing it off as nervousness. I, on the otherhand, am very excited. It has been our dream to \
 	be closer to the harshness and beauty of nature and I believe this property, this new home will bring us closer to accomplishing that goal. \
-	It was Thana's idea in the first place to choose a tundra of all places, something about it being the epitome of a 'transcendentalist' enviroment. \
+	It was Thana's idea in the first place to choose a tundra of all places, something about it being the epitome of a 'transcendentalist' environment. \
 	Even if this landscape appears to be cruel and unforgiving one can't deny the formidable beauty and power of it. While I could marvel at our surroundings \
 	all day, we still have much work to do <br> <ul><li><s>Chop Firewood</s></li><li><s>Refuel ATV</s></li><li><s>unpack</s></li></ul> \
 	<br><br>Signed, <i>Pana Toklo</i>"
@@ -25,7 +25,7 @@
 	dangerously low on firewood and I fear for our safety. I followed the road out of here and tried getting to our truck so I could get an emergency signal out \
 	but upon reaching the perimeter of the property I ran into a massive steel wall. I followed the circumference of it a little but found no ext as it seems to go all the way in \
 	a circle. The blizzard only seems to be getting stronger and I'm certain that our windows will soon give way to the wind; Me and Thana have decided to \
-	take shelter in our back room, it's a bit colder there but its protected from the wind and snow atleast. \
+	take shelter in our back room, it's a bit colder there but its protected from the wind and snow at least. \
 	<br><br>Signed, <i>Pana Toklo</i>"
 
 /obj/item/paper/crumpled/bloody/fluff/ruins/snowbiodome/cabin3

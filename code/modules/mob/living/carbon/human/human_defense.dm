@@ -26,14 +26,18 @@ emp_act
 
 		if(reflected)
 			visible_message("<span class='danger'>[P] gets reflected by [src]!</span>", \
-				   "<span class='userdanger'>[P] gets reflected by [src]!</span>")
+				"<span class='userdanger'>[P] gets reflected by [src]!</span>")
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
 
 	//Shields
-	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage))
+	var/shield_check_result = check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration_flat, P.armour_penetration_percentage)
+	if(shield_check_result == 1)
 		return 2
+	else if(shield_check_result == -1)
+		P.reflect_back(src)
+		return -1
 
 	if(mind?.martial_art?.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!IS_HORIZONTAL(src) && !HAS_TRAIT(src, TRAIT_HULK) && mind.martial_art.try_deflect(src)) //But only if they're not lying down, and hulks can't do it
@@ -100,12 +104,12 @@ emp_act
 			E = S
 		else if(LAZYLEN(childlist))
 			E = pick_n_take(childlist)
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				continue
 		else if(S.parent && !parenthealed)
 			E = S.parent
 			parenthealed = TRUE
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam  || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				break
 		else
 			break
@@ -219,9 +223,11 @@ emp_act
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	var/obj/item/shield = get_best_shield()
-
-	if(shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
+	var/shield_result = shield?.hit_reaction(src, AM, attack_text, 0, damage, attack_type)
+	if(shield_result >= 1)
 		return TRUE
+	if(shield_result == -1)
+		return -1
 
 	if(wear_suit && wear_suit.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
@@ -238,6 +244,10 @@ emp_act
 	var/datum/component/parry/left_hand_parry = l_hand?.GetComponent(/datum/component/parry)
 	var/datum/component/parry/right_hand_parry = r_hand?.GetComponent(/datum/component/parry)
 	if(!right_hand_parry && !left_hand_parry)
+		if(l_hand?.flags_2 & RANDOM_BLOCKER_2)
+			return l_hand
+		if(r_hand?.flags_2 & RANDOM_BLOCKER_2)
+			return r_hand
 		return null // no parry component
 
 	if(right_hand_parry && left_hand_parry)
@@ -471,7 +481,6 @@ emp_act
 		weapon_sharp = 0
 	if(armor == INFINITY)
 		return 0
-	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/bonus_damage = 0
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -501,7 +510,7 @@ emp_act
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							KnockDown(10 SECONDS)
 							AdjustConfused(30 SECONDS)
-						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+						if(mind && prob(I.force + ((100 - health) / 2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
@@ -529,11 +538,6 @@ emp_act
 						if(w_uniform)
 							w_uniform.add_mob_blood(src)
 							update_inv_w_uniform()
-
-
-
-	if(Iforce > 10 || Iforce >= 5 && prob(33))
-		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 
@@ -632,7 +636,7 @@ emp_act
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
- 				"<span class='userdanger'>[M] has slashed at [src]!</span>")
+				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
 			apply_damage(M.alien_slash_damage, BRUTE, affecting, armor_block)
 			add_attack_logs(M, src, "Alien attacked")

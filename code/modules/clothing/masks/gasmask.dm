@@ -39,6 +39,15 @@
 	visor_flags_inv = HIDEEYES
 	resistance_flags = FIRE_PROOF
 
+	sprite_sheets = list(
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
+	)
+
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
@@ -72,7 +81,18 @@
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize()
 	. = ..()
-	adjustmask()
+	force_adjust_mask()
+
+/obj/item/clothing/mask/gas/explorer/folded/proc/force_adjust_mask()
+	up = !up
+	update_icon(UPDATE_ICON_STATE)
+	gas_transfer_coefficient = null
+	permeability_coefficient = null
+	flags_cover &= ~MASKCOVERSMOUTH
+	flags_inv &= ~HIDEFACE
+	flags &= ~AIRTIGHT
+	w_class = WEIGHT_CLASS_SMALL
+
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask

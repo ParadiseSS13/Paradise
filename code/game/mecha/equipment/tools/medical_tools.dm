@@ -213,6 +213,9 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/process()
 	if(..())
 		return
+	if(!chassis)
+		STOP_PROCESSING(SSobj, src)
+		return
 	if(!chassis.has_charge(energy_drain))
 		set_ready_state(1)
 		log_message("Deactivated.")

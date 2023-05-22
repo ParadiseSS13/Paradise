@@ -167,7 +167,7 @@ GLOBAL_DATUM_INIT(configuration, /datum/server_configuration, new())
 	var/protection_state = PROTECTION_NONE
 
 /datum/configuration_section/proc/load_data(list/data)
-	CRASH("load() not overriden for [type]!")
+	CRASH("load() not overridden for [type]!")
 
 // Maximum protection
 /datum/configuration_section/can_vv_get(var_name)

@@ -11,10 +11,9 @@
 	icon = 'icons/obj/power.dmi'
 	anchored = TRUE
 	on_blueprints = TRUE
+	power_state = NO_POWER_USE
+
 	var/datum/powernet/powernet = null
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
@@ -42,7 +41,7 @@
 
 /obj/machinery/power/proc/surplus()
 	if(powernet)
-		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
+		return clamp(powernet.avail - powernet.load, 0, powernet.avail)
 	else
 		return 0
 
@@ -71,48 +70,6 @@
 /obj/machinery/power/proc/disconnect_terminal() // machines without a terminal will just return, no harm no fowl.
 	return
 
-// returns true if the area has power on given channel (or doesn't require power).
-// defaults to power_channel
-/obj/machinery/proc/powered(chan = -1) // defaults to power_channel
-	if(!loc)
-		return FALSE
-	if(!use_power)
-		return TRUE
-
-	var/area/A = get_area(src)		// make sure it's in an area
-	if(!A)
-		return FALSE					// if not, then not powered
-	if(chan == -1)
-		chan = power_channel
-	return A.powered(chan)	// return power status of the area
-
-// increment the power usage stats for an area
-/obj/machinery/proc/use_power(amount, chan = -1) // defaults to power_channel
-	var/area/A = get_area(src)		// make sure it's in an area
-	if(!A)
-		return
-	if(chan == -1)
-		chan = power_channel
-	A.use_power(amount, chan)
-
-/obj/machinery/proc/addStaticPower(value, powerchannel)
-	var/area/A = get_area(src)
-	if(!A)
-		return
-	A.addStaticPower(value, powerchannel)
-
-/obj/machinery/proc/removeStaticPower(value, powerchannel)
-	addStaticPower(-value, powerchannel)
-
-/obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
-										// by default, check equipment channel & set flag
-										// can override if needed
-	if(powered(power_channel))
-		stat &= ~NOPOWER
-	else
-
-		stat |= NOPOWER
-	return
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network()
@@ -351,7 +308,7 @@
 	var/drained_energy = drained_hp*20
 
 	if(source_area)
-		source_area.use_power(drained_energy/GLOB.CELLRATE)
+		source_area.powernet.use_active_power(drained_energy / GLOB.CELLRATE)
 	else if(istype(power_source, /datum/powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
 		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
@@ -377,5 +334,5 @@
 /area/proc/get_apc()
 	for(var/thing in GLOB.apcs)
 		var/obj/machinery/power/apc/APC = thing
-		if(APC.area == src)
+		if(APC.apc_area == src)
 			return APC

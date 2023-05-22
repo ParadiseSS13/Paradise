@@ -47,6 +47,7 @@
 						aspell.name = "Instant [aspell.name]"
 				if(aspell.spell_level >= aspell.level_max)
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
+				aspell.on_purchase_upgrade()
 				return TRUE
 	//No same spell found - just learn it
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
@@ -184,6 +185,13 @@
 	category = "Defensive"
 	cost = 1
 
+/datum/spellbook_entry/rathens
+	name = "Rathen's Secret"
+	spell_type = /obj/effect/proc_holder/spell/rathens
+	log_name = "RS"
+	category = "Defensive"
+	cost = 2
+
 /datum/spellbook_entry/repulse
 	name = "Repulse"
 	spell_type = /obj/effect/proc_holder/spell/aoe/repulse
@@ -256,6 +264,13 @@
 	log_name = "EJ"
 	category = "Mobility"
 
+/datum/spellbook_entry/spacetime_dist
+	name = "Spacetime Distortion"
+	spell_type = /obj/effect/proc_holder/spell/spacetime_dist
+	cost = 1 //Better defence than greater forcewall (maybe) but good luck hitting anyone, so 1 point.
+	log_name = "STD" //listen it can't be SD and no one ever sees this unless they are stat profiling
+	category = "Mobility"
+
 /datum/spellbook_entry/greaterknock
 	name = "Greater Knock"
 	spell_type = /obj/effect/proc_holder/spell/aoe/knock/greater
@@ -310,10 +325,10 @@
 /datum/spellbook_entry/summon/GetInfo()
 	var/dat =""
 	dat += "<b>[name]</b>"
-	if(cost>0)
-		dat += " Cost:[cost]<br>"
-	else
+	if(cost == 0)
 		dat += " No Cost<br>"
+	else
+		dat += " Cost:[cost]<br>"
 	dat += "<i>[desc]</i><br>"
 	if(active)
 		dat += "<b>Already cast!</b><br>"
@@ -350,7 +365,8 @@
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
-	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
+	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first. Hopefully. Gives you 2 extra spell points on purchase."
+	cost = -2
 	log_name = "SG"
 	is_ragin_restricted = TRUE
 
@@ -364,7 +380,8 @@
 
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
-	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
+	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time. Gives you 2 extra spell points on purchase."
+	cost = -2
 	log_name = "SU"
 	is_ragin_restricted = TRUE
 
@@ -456,6 +473,14 @@
 	log_name = "WC"
 	cost = 1
 	spawn_on_floor = TRUE // breaks if spawned in hand
+	category = "Artefacts"
+
+/datum/spellbook_entry/item/everfull_mug
+	name = "Everfull Mug"
+	desc = "A magical mug that can be filled with omnizine at will, though beware of addiction! It can also produce alchohol and other less useful substances."
+	item_path = /obj/item/reagent_containers/food/drinks/everfull
+	log_name = "EM"
+	cost = 1
 	category = "Artefacts"
 
 //Weapons and Armors
@@ -592,6 +617,24 @@
 	category = "Summons"
 	limit = 3
 
+/datum/spellbook_entry/item/shadowbottle
+	name = "Bottle of Shadows"
+	desc = "A bottle of pure darkness, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned from the shadows are indiscriminate in their killing, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/slaughter_demon/shadow
+	log_name = "BOS"
+	category = "Summons"
+	limit = 3
+	cost = 1 //Unless you blackout the station this ain't going to do much, wizard doesn't get NV, still dies easily to a group of 2 and it doesn't eat bodies.
+
+/datum/spellbook_entry/item/revenantbottle
+	name = "Bottle of Ectoplasm"
+	desc = "A magically infused bottle of ectoplasm, effectively pure salt from the spectral realm. Be careful though, these salty spirits are indiscriminate in their harvesting, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/revenant
+	log_name = "RB"
+	category = "Summons"
+	limit = 3
+	cost = 1 //Needs essence to live. Needs crew to die for essence, doubt xenobio will be making many monkeys. As such, weaker. Also can hardstun the wizard.
+
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
 	desc = "A magical contract binding an apprentice wizard to your service, using it will summon them to your side."
@@ -710,6 +753,11 @@
 			for(var/datum/spellbook_entry/item/hugbottle/HB in entries)
 				if(!isnull(HB.limit))
 					HB.limit++
+		else if(istype(O, /obj/item/antag_spawner/slaughter_demon/shadow))
+			uses += 1
+			for(var/datum/spellbook_entry/item/shadowbottle/SB in entries)
+				if(!isnull(SB.limit))
+					SB.limit++
 		else
 			uses += 2
 			for(var/datum/spellbook_entry/item/bloodbottle/BB in entries)
@@ -726,6 +774,15 @@
 				OB.limit++
 		qdel(O)
 		return
+
+	if(istype(O, /obj/item/antag_spawner/revenant))
+		to_chat(user, "<span class='notice'>On second thought, maybe the ghosts have been salty enough today. You refund your points.</span>")
+		uses += 1
+		for(var/datum/spellbook_entry/item/revenantbottle/RB in entries)
+			if(!isnull(RB.limit))
+				RB.limit++
+		qdel(O)
+		return
 	return ..()
 
 /obj/item/spellbook/proc/GetCategoryHeader(category)
@@ -736,7 +793,7 @@
 			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
 			dat += "You can reduce this number by spending more points on the spell.<BR>"
 		if("Defensive")
-			dat += "Spells geared towards improving your survivabilty or reducing foes ability to attack.<BR><BR>"
+			dat += "Spells geared towards improving your survivability or reducing foes ability to attack.<BR><BR>"
 			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
 			dat += "You can reduce this number by spending more points on the spell.<BR>"
 		if("Mobility")
@@ -751,16 +808,16 @@
 			dat += "These powerful spells are capable of changing the very fabric of reality. Not always in your favour.<BR>"
 		if("Weapons and Armors")
 			dat += "Various weapons and armors to crush your enemies and protect you from harm.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Items are not bound to you and can be stolen. Additionally they cannot typically be returned once purchased.<BR>"
 		if("Staves")
 			dat += "Various staves granting you their power, which they slowly recharge over time.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Items are not bound to you and can be stolen. Additionally they cannot typically be returned once purchased.<BR>"
 		if("Artefacts")
 			dat += "Various magical artefacts to aid you.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Items are not bound to you and can be stolen. Additionally they cannot typically be returned once purchased.<BR>"
 		if("Summons")
 			dat += "Magical items geared towards bringing in outside forces to aid you.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Items are not bound to you and can be stolen. Additionally they cannot typically be returned once purchased.<BR>"
 		if("Standard")
 			dat += "These battle-tested spell sets are easy to use and provide good balance between offense and defense.<BR><BR>"
 			dat += "They all cost, and are worth, 10 spell points. You are able to refund any of the spells included as long as you stay in the wizard den.<BR>"
@@ -775,21 +832,21 @@
 	dat += {"
 	<head>
 		<style type="text/css">
-      		body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-      		ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.6em 0; }
-      		ul#tabs li { display: inline; }
-      		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
-      		ul#tabs li a:hover { background-color: #f1f0ee; }
-      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; border-bottom: 1px solid #f1f0ee; font-weight: bold; padding: 0.6em 0.6em 0.6em 0.6em; }
+			body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
+			ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.6em 0; }
+			ul#tabs li { display: inline; }
+			ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
+			ul#tabs li a:hover { background-color: #f1f0ee; }
+			ul#tabs li a.selected { color: #000; background-color: #f1f0ee; border-bottom: 1px solid #f1f0ee; font-weight: bold; padding: 0.6em 0.6em 0.6em 0.6em; }
 			ul#maintabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 1em 0; font-size: 14px; }
 			ul#maintabs li { display: inline; }
-      		ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; padding: 1em; text-decoration: none; }
-      		ul#maintabs li a:hover { background-color: #f1f0ee; }
-      		ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1.4em 1.2em 1em 1.2em; }
-      		div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
-      		div.tabContent.hide { display: none; }
-    	</style>
-  	</head>
+			ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; padding: 1em; text-decoration: none; }
+			ul#maintabs li a:hover { background-color: #f1f0ee; }
+			ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1.4em 1.2em 1em 1.2em; }
+			div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
+			div.tabContent.hide { display: none; }
+		</style>
+	</head>
 	"}
 	dat += {"[content]</body></html>"}
 	return dat

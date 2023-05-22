@@ -9,9 +9,9 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
-    if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No")=="No")
-        return
-    ..()
+	if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No")=="No")
+		return
+	..()
 
 /datum/action/changeling/headslug/sting_action(mob/user)
 	var/datum/mind/M = user.mind

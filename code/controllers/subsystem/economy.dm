@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(economy)
 	wait = 30 SECONDS
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Crew wont get their paychecks. No immediate action is needed." // money go down
+	cpu_display = SS_CPUDISPLAY_LOW
 	///List of all money account databases existing in the round
 	var/list/money_account_databases = list()
 	///Total amount of account created during the round, neccesary for generating unique account ids
@@ -49,8 +50,6 @@ SUBSYSTEM_DEF(economy)
 
 	/// points gained per slip returned
 	var/credits_per_manifest = 5
-	/// points gained per crate returned
-	var/credits_per_crate = 15
 	/// points gained per intel returned
 	var/credits_per_intel = 750
 	/// points gained per plasma returned
@@ -95,7 +94,7 @@ SUBSYSTEM_DEF(economy)
 	var/payday_count = 0
 
 	var/global_paycheck_bonus = 0
-	var/global_paycheck_deducation = 0
+	var/global_paycheck_deduction = 0
 
 /datum/controller/subsystem/economy/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -133,7 +132,6 @@ SUBSYSTEM_DEF(economy)
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	next_paycheck_delay = 30 MINUTES + world.time
-	return ..()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)
@@ -208,7 +206,7 @@ SUBSYSTEM_DEF(economy)
 		request_list += order //submit a request but do not finalize it
 		return TRUE
 
-	if(order.requires_head_approval || order.requires_qm_approval)
+	if(order.requires_head_approval || order.requires_cargo_approval)
 		return TRUE
 
 	//if purchaser has already paid it means it's fully approved, finalize order
@@ -241,7 +239,7 @@ SUBSYSTEM_DEF(economy)
 	var/datum/money_account_database/main_station/station_db = GLOB.station_money_database
 	var/list/all_station_accounts = station_db.user_accounts + station_db.get_all_department_accounts()
 	for(var/datum/money_account/account in all_station_accounts)
-		var/amount_to_pay = account.payday_amount + global_paycheck_bonus - global_paycheck_deducation
+		var/amount_to_pay = account.payday_amount + global_paycheck_bonus - global_paycheck_deduction
 		if(LAZYLEN(account.pay_check_bonuses))
 			for(var/bonus in account.pay_check_bonuses)
 				amount_to_pay += bonus
@@ -260,7 +258,7 @@ SUBSYSTEM_DEF(economy)
 
 	//reset global paycheck modifiers to 0
 	global_paycheck_bonus = 0
-	global_paycheck_deducation = 0
+	global_paycheck_deduction = 0
 	//update space credit statistics
 	space_credits_created += total_payout
 	total_space_credits += total_payout

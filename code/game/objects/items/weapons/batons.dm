@@ -40,8 +40,8 @@
 
 	add_fingerprint(user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
-							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
+		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_themselves()] with [src]!</span>", \
+							"<span class='userdanger'>You accidentally club yourself with [src]!</span>")
 		user.KnockDown(knockdown_duration)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -69,7 +69,7 @@
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
-							 "<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
 		on_silicon_stun(target, user)
 	else
 		// Check for shield/countering
@@ -78,7 +78,7 @@
 			if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 				return FALSE
 		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
-							 "<span class='danger'>You knock down [target] with [src]!</span>")
+							"<span class='danger'>You knock down [target] with [src]!</span>")
 		on_non_silicon_stun(target, user)
 	// Visuals and sound
 	user.do_attack_animation(target)

@@ -18,10 +18,7 @@ SUBSYSTEM_DEF(overlays)
 	stats = list()
 
 /datum/controller/subsystem/overlays/Initialize()
-	initialized = TRUE
 	fire(mc_check = FALSE)
-	return ..()
-
 
 /datum/controller/subsystem/overlays/get_stat_details()
 	return "Ov:[length(queue)]"

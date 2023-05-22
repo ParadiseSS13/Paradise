@@ -8,8 +8,10 @@
 
 	var/life_tick = 0      // The amount of life ticks that have processed on this mob.
 
-	var/obj/item/restraints/handcuffs/handcuffed = null //Whether or not the mob is handcuffed, restraints/handcuffs/ required for var/cuffed_state
-	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
+	/// Whether or not the mob is handcuffed, restraints/handcuffs/ required for var/cuffed_state
+	var/obj/item/restraints/handcuffs/handcuffed = null
+	/// Same as handcuffs but for legs. Bear traps use this.
+	var/obj/item/restraints/legcuffs/legcuffed = null
 
 	var/obj/item/head = null
 	var/obj/item/clothing/suit/wear_suit = null		//TODO: necessary? Are they even used? ~Carn

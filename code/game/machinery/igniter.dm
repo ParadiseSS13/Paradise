@@ -8,9 +8,8 @@
 	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, bio = 0, rad = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
+	idle_power_consumption = 2
+	active_power_consumption = 4
 	/// ID to hook buttons into
 	var/id = null
 	/// Are we on?
@@ -66,7 +65,8 @@
 	update_icon()
 
 /obj/machinery/igniter/power_change()
-	. = ..()
+	if(!..())
+		return
 	if(stat & NOPOWER)
 		on = FALSE
 	update_icon()
@@ -85,13 +85,16 @@
 	var/base_state = "migniter"
 	anchored = TRUE
 
-/obj/machinery/sparker/power_change()
-	if(powered() && !disable)
-		stat &= ~NOPOWER
-		icon_state = "[base_state]"
-	else
-		stat |= NOPOWER
+/obj/machinery/sparker/update_icon_state()
+	if(stat & NOPOWER)
 		icon_state = "[base_state]-p"
+	else
+		icon_state = "[base_state]"
+
+/obj/machinery/sparker/power_change()
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/sparker/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -105,7 +108,7 @@
 		icon_state = "[base_state]-d"
 	else
 		user.visible_message("<span class='warning'>[user] has reconnected [src]!</span>", "<span class='warning'>You fix the connection to [src].</span>")
-		if(powered())
+		if(has_power())
 			icon_state = "[base_state]"
 		else
 			icon_state = "[base_state]-p"
@@ -116,7 +119,7 @@
 
 
 /obj/machinery/sparker/proc/spark()
-	if(!powered())
+	if(!has_power())
 		return
 
 	if(disable || (last_spark && world.time < last_spark + 5 SECONDS))

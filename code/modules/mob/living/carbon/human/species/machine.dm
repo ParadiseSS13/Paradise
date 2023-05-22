@@ -2,7 +2,7 @@
 	name = "Machine"
 	name_plural = "Machines"
 
-	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
+	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independent, free-willed \
 	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
 	to corporate operations. IPCs (Integrated Positronic Chassis) are a loose category of self-willed robots with a humanoid form, \
 	generally self-owned after being 'born' into servitude; they are reliable and dedicated workers, albeit more than slightly \
@@ -22,7 +22,7 @@
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
-	species_traits = list(IS_WHITELISTED, NO_BLOOD, NO_CLONESCAN, NO_INTORGANS)
+	species_traits = list(NO_BLOOD, NO_CLONESCAN, NO_INTORGANS)
 	inherent_traits = list(TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOGERMS, TRAIT_NODECAY, TRAIT_NOPAIN, TRAIT_GENELESS) //Computers that don't decay? What a lie!
 	inherent_biotypes = MOB_ROBOTIC | MOB_HUMANOID
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -103,7 +103,7 @@
 
 /datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!head_organ)
+	if(!istype(head_organ))
 		return
 	head_organ.h_style = "Bald"
 	head_organ.f_style = "Shaved"

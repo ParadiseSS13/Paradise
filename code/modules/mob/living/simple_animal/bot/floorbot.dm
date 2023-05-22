@@ -17,7 +17,6 @@
 	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
-	path_image_color = "#FFA500"
 
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
 	var/targetdirection
@@ -302,7 +301,7 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
 	if(isspaceturf(target_turf))
-		 //Must be a hull breach or in bridge mode to continue.
+		//Must be a hull breach or in bridge mode to continue.
 		if(!is_hull_breach(target_turf) && !targetdirection)
 			target = null
 			return

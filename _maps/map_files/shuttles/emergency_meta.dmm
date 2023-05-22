@@ -286,7 +286,7 @@
 "aS" = (
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	use_power = 0
+	power_state = 0
 	},
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
@@ -329,9 +329,9 @@
 "ba" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	active_power_usage = 0;
-	idle_power_usage = 0;
-	use_power = 0
+	active_power_consumption = 0;
+	idle_power_consumption = 0;
+	power_state = 0
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
@@ -635,9 +635,9 @@
 "bR" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	active_power_usage = 0;
-	idle_power_usage = 0;
-	use_power = 0
+	active_power_consumption = 0;
+	idle_power_consumption = 0;
+	power_state = 0
 	},
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)

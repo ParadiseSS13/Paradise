@@ -1,5 +1,6 @@
 /datum/disease/cold9
 	name = "The Cold"
+	medical_name = "ICE9 Cold"
 	max_stages = 3
 	spread_text = "On contact"
 	spread_flags = CONTACT_GENERAL
@@ -11,7 +12,8 @@
 	severity = MEDIUM
 
 /datum/disease/cold9/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(2)
 			affected_mob.bodytemperature -= 10

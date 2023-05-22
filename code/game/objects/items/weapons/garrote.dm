@@ -93,11 +93,11 @@
 	strangling = M
 	update_icon(UPDATE_ICON_STATE)
 
-	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, 1, -10, ignore_walls = FALSE)
 
 	M.visible_message("<span class='danger'>[U] comes from behind and begins garroting [M] with [src]!</span>", \
-				  "<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
-				  "You hear struggling and wire strain against flesh!")
+				"<span class='userdanger'>[U] begins garroting you with [src]![improvised ? "" : " You are unable to speak!"]</span>", \
+				"You hear struggling and wire strain against flesh!")
 
 	return
 
@@ -126,7 +126,7 @@
 
 	else
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
-				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
+				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
 		update_icon(UPDATE_ICON_STATE)
@@ -153,11 +153,11 @@
 		return
 
 
-	strangling.Silence(6 SECONDS) // Non-improvised effects
+	strangling.AbsoluteSilence(6 SECONDS) // Non-improvised effects
 	strangling.apply_damage(4, OXY, "head")
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 15, 1, -10, ignore_walls = FALSE)
 	return OXYLOSS

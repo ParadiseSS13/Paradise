@@ -197,7 +197,7 @@
 
 /obj/item/flag/ussp
 	name = "\improper USSP flag"
-	desc = "A flag proudly boasting the logo of the USSP, a noticable faction in the galaxy."
+	desc = "A flag proudly boasting the logo of the USSP, a noticeable faction in the galaxy."
 	icon_state = "usspflag"
 
 /obj/item/flag/solgov

@@ -86,7 +86,7 @@
 						to_chat(src, "<span class='revenboldnotice'>The perfection of [target]'s soul has increased your maximum essence level. Your new maximum essence is [essence_regen_cap].</span>")
 					to_chat(src, "<span class='revennotice'>[target]'s soul has been considerably weakened and will yield no more essence for the time being.</span>")
 					target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
- 										   "<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
+										"<span class='revenwarning'>Violets lights, dancing in your vision, getting clo--</span>")
 					drained_mobs.Add(mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
 					target.death()
@@ -96,7 +96,7 @@
 					essence_drained = 0
 					if(target) //Wait, target is WHERE NOW?
 						target.visible_message("<span class='warning'>[target] slumps onto the ground.</span>", \
-											   "<span class='revenwarning'>Violets lights, dancing in your vision, receding--</span>")
+											"<span class='revenwarning'>Violets lights, dancing in your vision, receding--</span>")
 					return
 			else
 				to_chat(src, "<span class='revenwarning'>You are not close enough to siphon [target ? "[target]'s":"their"] soul. The link has been broken.</span>")
@@ -415,14 +415,14 @@
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/create_new_targeting()
 	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
-	targeting.allowed_type = /mob/living
+	targeting.allowed_type = /mob/living/carbon
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
 
-	for(var/mob/living/M as anything in targets)
+	for(var/mob/living/carbon/M as anything in targets)
 		M.AdjustHallucinate(120 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
 		new /obj/effect/temp_visual/revenant(get_turf(M))
 

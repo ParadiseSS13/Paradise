@@ -338,7 +338,7 @@
 	name = "Cry"
 
 /datum/keybinding/emote/carbon/human/dap
-	linked_emote = /datum/emote/living/carbon/human/dap
+	linked_emote = /datum/emote/living/carbon/human/highfive/dap
 	name = "Dap"
 
 /datum/keybinding/emote/carbon/human/eyebrow
@@ -371,7 +371,7 @@
 
 /datum/keybinding/emote/carbon/human/shake
 	linked_emote = /datum/emote/living/carbon/human/shake
-	name = "Shake"
+	name = "Shake Head"
 
 /datum/keybinding/emote/carbon/human/pale
 	linked_emote = /datum/emote/living/carbon/human/pale
@@ -418,7 +418,7 @@
 	name = "High Five"
 
 /datum/keybinding/emote/carbon/human/handshake
-	linked_emote = /datum/emote/living/carbon/human/handshake
+	linked_emote = /datum/emote/living/carbon/human/highfive/handshake
 	name = "Handshake"
 
 /datum/keybinding/emote/carbon/human/snap
@@ -440,14 +440,6 @@
 /datum/keybinding/emote/carbon/human/wag/stop
 	linked_emote = /datum/emote/living/carbon/human/wag/stop
 	name = "Stop Wag"
-
-/datum/keybinding/emote/carbon/human/scream/screech
-	linked_emote = /datum/emote/living/carbon/human/scream/screech
-	name = "Screech"
-
-/datum/keybinding/emote/carbon/human/scream/screech/roar
-	linked_emote = /datum/emote/living/carbon/human/scream/screech/roar
-	name = "Roar"
 
 /datum/keybinding/emote/carbon/human/flap
 	linked_emote = /datum/emote/living/carbon/human/flap
@@ -513,6 +505,9 @@
 	linked_emote = /datum/emote/living/carbon/human/rattle
 	name = "Rattle"
 
+/datum/keybinding/emote/carbon/human/monkey/can_use(client/C, mob/M)
+	return ismonkeybasic(M) && ..()
+
 /datum/keybinding/emote/carbon/human/monkey/gnarl
 	linked_emote = /datum/emote/living/carbon/human/monkey/gnarl
 	name = "Gnarl (Monkey)"
@@ -528,6 +523,14 @@
 /datum/keybinding/emote/carbon/human/monkey/tail
 	linked_emote = /datum/emote/living/carbon/human/monkey/tail
 	name = "Tail (Monkey)"
+
+/datum/keybinding/emote/carbon/human/monkey/scream/screech
+	linked_emote = /datum/emote/living/carbon/human/scream/screech
+	name = "Screech (Monkey)"
+
+/datum/keybinding/emote/carbon/human/monkey/scream/screech/roar
+	linked_emote = /datum/emote/living/carbon/human/scream/screech/roar
+	name = "Roar (Monkey)"
 
 /datum/keybinding/emote/silicon
 	category = KB_CATEGORY_EMOTE_SILICON
@@ -555,6 +558,10 @@
 	linked_emote = /datum/emote/living/silicon/beep
 	name = "Beep"
 
+/datum/keybinding/emote/silicon/boop
+	linked_emote = /datum/emote/living/silicon/boop
+	name = "Boop"
+
 /datum/keybinding/emote/silicon/yes
 	linked_emote = /datum/emote/living/silicon/yes
 	name = "Yes"
@@ -581,6 +588,9 @@
 	linked_emote = /datum/emote/living/simple_animal/diona_chirp
 	name = "Chirp (Nymph)"
 
+/datum/keybinding/emote/simple_animal/diona_chirp/can_use(client/C, mob/M)
+	return isnymph(M) && ..()
+
 /datum/keybinding/emote/simple_animal/pet/dog/bark
 	linked_emote = /datum/emote/living/simple_animal/pet/dog/bark
 	name = "Bark (Dog)"
@@ -593,9 +603,15 @@
 	linked_emote = /datum/emote/living/simple_animal/pet/dog/growl
 	name = "Growl (Dog)"
 
+/datum/keybinding/emote/simple_animal/pet/dog/can_use(client/C, mob/M)
+	return isdog(M) && ..()
+
 /datum/keybinding/emote/simple_animal/mouse/squeak
 	linked_emote = /datum/emote/living/simple_animal/mouse/squeak
 	name = "Squeak (Mouse)"
+
+/datum/keybinding/emote/simple_animal/mouse/can_use(client/C, mob/M)
+	return ismouse(M) && ..()
 
 /datum/keybinding/emote/simple_animal/pet/cat/meow
 	linked_emote = /datum/emote/living/simple_animal/pet/cat/meow
@@ -608,6 +624,13 @@
 /datum/keybinding/emote/simple_animal/pet/cat/purr
 	linked_emote = /datum/emote/living/simple_animal/pet/cat/purr
 	name = "Purr (Cat)"
+
+/datum/keybinding/emote/simple_animal/pet/cat/sit
+	linked_emote = /datum/emote/living/sit/cat
+	name = "Sit/Stand (Cat)"
+
+/datum/keybinding/emote/simple_animal/pet/cat/can_use(client/C, mob/M)
+	return iscat(M) && ..()
 
 /datum/keybinding/custom
 	category = KB_CATEGORY_EMOTE_CUSTOM

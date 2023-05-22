@@ -93,178 +93,137 @@ export const CardComputer = (props, context) => {
             No card to modify.
           </Section>
         );
-      } else if (data.target_dept) {
-        bodyBlock = (
-          <Section title="Department Job Transfer">
-            <LabeledList>
-              {!!data.modify_lastlog && (
-                <LabeledList.Item label="Latest Transfer">
-                  {data.modify_lastlog}
-                </LabeledList.Item>
-              )}
-              <LabeledList.Item label="Department">
-                {data.jobs_dept.map((v) => (
-                  <Button
-                    selected={v === data.modify_rank}
-                    key={v}
-                    content={v}
-                    onClick={() => act('assign', { assign_target: v })}
-                  />
-                ))}
-              </LabeledList.Item>
-              <LabeledList.Item label="Retirement">
-                <Button
-                  selected={'Assistant' === data.modify_rank}
-                  key="Assistant"
-                  content="Assistant"
-                  onClick={() => act('assign', { assign_target: 'Assistant' })}
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="Demotion">
-                <Button
-                  selected={'Demoted' === data.modify_rank}
-                  key="Demoted"
-                  content="Demoted"
-                  tooltip="Assistant access, 'demoted' title."
-                  color="red"
-                  icon="times"
-                  onClick={() => act('demote')}
-                />
-              </LabeledList.Item>
-              {!!data.canterminate && (
-                <LabeledList.Item label="Non-Crew">
-                  <Button
-                    disabled={'Terminated' === data.modify_rank}
-                    key="Terminate"
-                    content="Terminated"
-                    tooltip="Zero access. Not crew."
-                    color="red"
-                    icon="eraser"
-                    onClick={() => act('terminate')}
-                  />
-                </LabeledList.Item>
-              )}
-            </LabeledList>
-          </Section>
-        );
       } else {
         bodyBlock = (
           <Fragment>
             <Section title="Card Information">
-              <LabeledList.Item label="Registered Name">
-                <Button
-                  icon={
-                    !data.modify_owner || data.modify_owner === 'Unknown'
-                      ? 'exclamation-triangle'
-                      : 'pencil-alt'
-                  }
-                  selected={data.modify_name}
-                  content={data.modify_owner}
-                  onClick={() => act('reg')}
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="Account Number">
-                <Button
-                  icon={
-                    data.account_number ? 'pencil-alt' : 'exclamation-triangle'
-                  }
-                  selected={data.account_number}
-                  content={data.account_number ? data.account_number : 'None'}
-                  onClick={() => act('account')}
-                />
-              </LabeledList.Item>
-              {!!data.modify_lastlog && (
-                <LabeledList.Item label="Latest Transfer">
-                  {data.modify_lastlog}
-                </LabeledList.Item>
+              {!data.target_dept && (
+                <Fragment>
+                  <LabeledList.Item label="Registered Name">
+                    <Button
+                      icon={
+                        !data.modify_owner || data.modify_owner === 'Unknown'
+                          ? 'exclamation-triangle'
+                          : 'pencil-alt'
+                      }
+                      selected={data.modify_name}
+                      content={data.modify_owner}
+                      onClick={() => act('reg')}
+                    />
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Account Number">
+                    <Button
+                      icon={data.account_number ? 'pencil-alt' : 'exclamation-triangle'}
+                      selected={data.account_number}
+                      content={data.account_number ? data.account_number : 'None'}
+                      onClick={() => act('account')}
+                    />
+                  </LabeledList.Item>
+                </Fragment>
               )}
+              <LabeledList.Item label="Latest Transfer">
+                {data.modify_lastlog || "---"}
+              </LabeledList.Item>
             </Section>
-            <Section title="Job Transfer">
+            <Section title={data.target_dept ? "Department Job Transfer" : "Job Transfer"}>
               <LabeledList>
-                <LabeledList.Item label="Special">
-                  {data.jobs_top.map((v) => (
-                    <Button
-                      selected={v === data.modify_rank}
-                      key={v}
-                      content={v}
-                      color={data.jobFormats[v] ? data.jobFormats[v] : ''}
-                      onClick={() => act('assign', { assign_target: v })}
-                    />
-                  ))}
-                </LabeledList.Item>
-                <LabeledList.Item
-                  label="Engineering"
-                  labelColor={deptCols.engineering}
-                >
-                  {data.jobs_engineering.map((v) => (
-                    <Button
-                      key={v}
-                      content={v}
-                      color={data.jobFormats[v] ? data.jobFormats[v] : ''}
-                      onClick={() => act('assign', { assign_target: v })}
-                    />
-                  ))}
-                </LabeledList.Item>
-                <LabeledList.Item label="Medical" labelColor={deptCols.medical}>
-                  {data.jobs_medical.map((v) => (
-                    <Button
-                      key={v}
-                      content={v}
-                      color={data.jobFormats[v] ? data.jobFormats[v] : ''}
-                      onClick={() => act('assign', { assign_target: v })}
-                    />
-                  ))}
-                </LabeledList.Item>
-                <LabeledList.Item label="Science" labelColor={deptCols.science}>
-                  {data.jobs_science.map((v) => (
-                    <Button
-                      key={v}
-                      content={v}
-                      color={data.jobFormats[v] ? data.jobFormats[v] : ''}
-                      onClick={() => act('assign', { assign_target: v })}
-                    />
-                  ))}
-                </LabeledList.Item>
-                <LabeledList.Item
-                  label="Security"
-                  labelColor={deptCols.security}
-                >
-                  {data.jobs_security.map((v) => (
-                    <Button
-                      selected={v === data.modify_rank}
-                      key={v}
-                      content={v}
-                      color={data.jobFormats[v] ? data.jobFormats[v] : ''}
-                      onClick={() => act('assign', { assign_target: v })}
-                    />
-                  ))}
-                </LabeledList.Item>
-                <LabeledList.Item label="Service" labelColor={deptCols.service}>
-                  {data.jobs_service.map((v) => (
-                    <Button
-                      selected={v === data.modify_rank}
-                      key={v}
-                      content={v}
-                      color={data.jobFormats[v] ? data.jobFormats[v] : ''}
-                      onClick={() => act('assign', { assign_target: v })}
-                    />
-                  ))}
-                </LabeledList.Item>
-                <LabeledList.Item label="Supply" labelColor={deptCols.supply}>
-                  {data.jobs_supply.map((v) => (
-                    <Button
-                      selected={v === data.modify_rank}
-                      key={v}
-                      content={v}
-                      color={data.jobFormats[v] ? data.jobFormats[v] : ''}
-                      onClick={() => act('assign', { assign_target: v })}
-                    />
-                  ))}
-                </LabeledList.Item>
-                <LabeledList.Item label="Assistant">
+                {data.target_dept ? (
+                  <LabeledList.Item label="Department">
+                    {data.jobs_dept.map((v) => (
+                      <Button
+                        selected={data.modify_rank === v}
+                        key={v}
+                        content={v}
+                        color={data.jobFormats[v] ? data.jobFormats[v] : ''}
+                        onClick={() => act('assign', { assign_target: v })}
+                      />
+                    ))}
+                  </LabeledList.Item>
+                ) : (
+                  <Fragment>
+                    <LabeledList.Item label="Special">
+                      {data.jobs_top.map((v) => (
+                        <Button
+                          selected={data.modify_rank === v}
+                          key={v}
+                          content={v}
+                          color={data.jobFormats[v] ? data.jobFormats[v] : ''}
+                          onClick={() => act('assign', { assign_target: v })}
+                        />
+                      ))}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Engineering" labelColor={deptCols.engineering}>
+                      {data.jobs_engineering.map((v) => (
+                        <Button
+                          selected={data.modify_rank === v}
+                          key={v}
+                          content={v}
+                          color={data.jobFormats[v] ? data.jobFormats[v] : ''}
+                          onClick={() => act('assign', { assign_target: v })}
+                        />
+                      ))}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Medical" labelColor={deptCols.medical}>
+                      {data.jobs_medical.map((v) => (
+                        <Button
+                          selected={data.modify_rank === v}
+                          key={v}
+                          content={v}
+                          color={data.jobFormats[v] ? data.jobFormats[v] : ''}
+                          onClick={() => act('assign', { assign_target: v })}
+                        />
+                      ))}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Science" labelColor={deptCols.science}>
+                      {data.jobs_science.map((v) => (
+                        <Button
+                          selected={data.modify_rank === v}
+                          key={v}
+                          content={v}
+                          color={data.jobFormats[v] ? data.jobFormats[v] : ''}
+                          onClick={() => act('assign', { assign_target: v })}
+                        />
+                      ))}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Security" labelColor={deptCols.security}>
+                      {data.jobs_security.map((v) => (
+                        <Button
+                          selected={data.modify_rank === v}
+                          key={v}
+                          content={v}
+                          color={data.jobFormats[v] ? data.jobFormats[v] : ''}
+                          onClick={() => act('assign', { assign_target: v })}
+                        />
+                      ))}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Service" labelColor={deptCols.service}>
+                      {data.jobs_service.map((v) => (
+                        <Button
+                          selected={data.modify_rank === v}
+                          key={v}
+                          content={v}
+                          color={data.jobFormats[v] ? data.jobFormats[v] : ''}
+                          onClick={() => act('assign', { assign_target: v })}
+                        />
+                      ))}
+                    </LabeledList.Item>
+                    <LabeledList.Item label="Supply" labelColor={deptCols.supply}>
+                      {data.jobs_supply.map((v) => (
+                        <Button
+                          selected={data.modify_rank === v}
+                          key={v}
+                          content={v}
+                          color={data.jobFormats[v] ? data.jobFormats[v] : ''}
+                          onClick={() => act('assign', { assign_target: v })}
+                        />
+                      ))}
+                    </LabeledList.Item>
+                  </Fragment>
+                )}
+                <LabeledList.Item label="Retirement">
                   {data.jobs_assistant.map((v) => (
                     <Button
-                      selected={v === data.modify_rank}
+                      selected={data.modify_rank === v}
                       key={v}
                       content={v}
                       color={data.jobFormats[v] ? data.jobFormats[v] : ''}
@@ -273,71 +232,72 @@ export const CardComputer = (props, context) => {
                   ))}
                 </LabeledList.Item>
                 {!!data.iscentcom && (
-                  <LabeledList.Item
-                    label="CentCom"
-                    labelColor={deptCols.centcom}
-                  >
+                  <LabeledList.Item label="CentCom" labelColor={deptCols.centcom}>
                     {data.jobs_centcom.map((v) => (
                       <Button
-                        selected={v === data.modify_rank}
-                        color={
-                          data.jobFormats[v] ? data.jobFormats[v] : 'purple'
-                        }
+                        selected={data.modify_rank === v}
                         key={v}
                         content={v}
+                        color={data.jobFormats[v] ? data.jobFormats[v] : 'purple'}
                         onClick={() => act('assign', { assign_target: v })}
                       />
                     ))}
                   </LabeledList.Item>
                 )}
-                <LabeledList.Item label="Demotions">
+                <LabeledList.Item label="Demotion">
                   <Button
-                    disabled={'Terminated' === data.modify_rank}
+                    disabled={
+                      data.modify_assignment === "Demoted" ||
+                      data.modify_assignment === "Terminated"
+                    }
                     key="Demoted"
                     content="Demoted"
-                    selected={'Demoted' === data.modify_rank}
                     tooltip="Assistant access, 'demoted' title."
                     color="red"
                     icon="times"
                     onClick={() => act('demote')}
                   />
                 </LabeledList.Item>
-                <LabeledList.Item label="Non-Crew">
-                  <Button
-                    disabled={'Terminated' === data.modify_rank}
-                    key="Terminate"
-                    content="Terminated"
-                    tooltip="Zero access. Not crew."
-                    color="red"
-                    icon="eraser"
-                    onClick={() => act('terminate')}
-                  />
-                </LabeledList.Item>
+                {!!data.canterminate && (
+                  <LabeledList.Item label="Non-Crew">
+                    <Button
+                      disabled={data.modify_assignment === 'Terminated'}
+                      key="Terminate"
+                      content="Terminated"
+                      tooltip="Zero access. Not crew."
+                      color="red"
+                      icon="eraser"
+                      onClick={() => act('terminate')}
+                    />
+                  </LabeledList.Item>
+                )}
               </LabeledList>
             </Section>
-            <Section title="Card Skins">
-              {data.card_skins.map((v) => (
-                <Button
-                  selected={v.skin === data.current_skin}
-                  key={v.skin}
-                  content={v.display_name}
-                  onClick={() => act('skin', { skin_target: v.skin })}
-                />
-              ))}
-              {!!data.iscentcom && (
-                <Box>
-                  {data.all_centcom_skins.map((v) => (
-                    <Button
-                      selected={v.skin === data.current_skin}
-                      key={v.skin}
-                      content={v.display_name}
-                      color="purple"
-                      onClick={() => act('skin', { skin_target: v.skin })}
-                    />
-                  ))}
-                </Box>
-              )}
-            </Section>
+            {!data.target_dept && (
+              <Section title="Card Skins">
+                {data.card_skins.map((v) => (
+                  <Button
+                    selected={data.current_skin === v.skin}
+                    key={v.skin}
+                    content={v.display_name}
+                    onClick={() => act('skin', { skin_target: v.skin })}
+                  />
+                ))}
+                {!!data.iscentcom && (
+                  <Box>
+                    {data.all_centcom_skins.map((v) => (
+                      <Button
+                        selected={data.current_skin === v.skin}
+                        key={v.skin}
+                        content={v.display_name}
+                        color="purple"
+                        onClick={() => act('skin', { skin_target: v.skin })}
+                      />
+                    ))}
+                  </Box>
+                )}
+              </Section>
+            )}
           </Fragment>
         );
       }
@@ -602,8 +562,8 @@ export const CardComputer = (props, context) => {
   return (
     <Window resizable>
       <Window.Content scrollable>
-        {menuBlock}
         {authBlock}
+        {menuBlock}
         {bodyBlock}
       </Window.Content>
     </Window>

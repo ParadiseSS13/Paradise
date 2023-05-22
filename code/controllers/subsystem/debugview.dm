@@ -3,10 +3,15 @@ SUBSYSTEM_DEF(debugview)
 	wait = 1 // SS_TICKER subsystem, so wait is in ticks
 	flags = SS_TICKER|SS_NO_INIT
 	offline_implications = "Shift+F3 will no longer show a debug view. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 	/// List of clients currently processing
 	var/list/client/processing = list()
 
 /datum/controller/subsystem/debugview/fire(resumed)
+	// Dont generate text if no one is there to look at it
+	if(!length(processing))
+		return
+
 	// Generate debug text
 	var/list/entries = list()
 	entries += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"

@@ -31,6 +31,8 @@ BONUS
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+			if(!istype(head_organ))
+				return
 			switch(A.stage)
 				if(1, 2)
 					to_chat(H, "<span class='warning'>Your chin itches.</span>")

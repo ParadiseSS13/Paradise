@@ -71,6 +71,9 @@
 		M.take_overall_damage((M.health - obj_integrity - 100),0) //any new damage the statue incurred is transfered to the mob
 
 	..()
+	
+/obj/structure/closet/statue/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
 
 /obj/structure/closet/statue/open()
 	return

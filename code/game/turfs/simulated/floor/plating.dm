@@ -12,6 +12,7 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	smoothing_groups = list(SMOOTH_GROUP_TURF)
+	real_layer = PLATING_LAYER
 
 /turf/simulated/floor/plating/Initialize(mapload)
 	. = ..()
@@ -97,6 +98,12 @@
 				to_chat(user, "<span class='notice'>You swap the plating for [C].</span>")
 				new /obj/item/stack/sheet/metal(src, 2)
 			return TRUE
+
+	else if(istype(C, /obj/item/storage/backpack/satchel_flat)) //if you click plating with a smuggler satchel, place it on the plating please
+		if(user.drop_item())
+			C.forceMove(src)
+
+		return TRUE
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	if(!I.tool_use_check(user, 0))

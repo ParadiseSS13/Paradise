@@ -79,7 +79,7 @@
 		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Knock and No Clothes.<i>"
 	log_name = "GT"
 	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/shoes/black, \
-		 /obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
+		/obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
 	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/forcewall, \
 		/obj/effect/proc_holder/spell/aoe/knock, /obj/effect/proc_holder/spell/noclothes)
 	category = "Unique"

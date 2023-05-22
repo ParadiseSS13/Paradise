@@ -68,7 +68,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/head/helmet/space/hardsuit/extinguish_light()
+/obj/item/clothing/head/helmet/space/hardsuit/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
@@ -411,12 +411,14 @@
 			linkedsuit.slowdown = 1
 			linkedsuit.flags |= STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+			linkedsuit.on = TRUE
 		else
 			linkedsuit.name += " (combat)"
 			linkedsuit.desc = linkedsuit.alt_desc
 			linkedsuit.slowdown = 0
 			linkedsuit.flags &= ~STOPSPRESSUREDMAGE
 			linkedsuit.cold_protection &= ~(UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS)
+			linkedsuit.on = FALSE
 
 		linkedsuit.update_icon()
 		user.update_inv_wear_suit()
@@ -494,6 +496,40 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon_state()
 	return
+
+//Soviet hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/soviet
+	name = "\improper Soviet hardsuit helmet"
+	desc = "A military hardsuit helmet bearing the red star of the U.S.S.P."
+	icon_state = "hardsuit0-soviet"
+	item_state = "hardsuit0-soviet"
+	item_color = "soviet"
+	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
+
+/obj/item/clothing/suit/space/hardsuit/soviet
+	name = "\improper Soviet hardsuit"
+	desc = "A soviet military hardsuit designed for maximum speed and mobility. Proudly displays the U.S.S.P flag on the chest."
+	icon_state = "hardsuit-soviet"
+	item_state = "hardsuit-soviet"
+	slowdown = 0.5
+	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
+	allowed = list(/obj/item/gun, /obj/item/flashlight, /obj/item/tank/internals, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet
+	jetpack = /obj/item/tank/jetpack/suit
+
+/obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
+	name = "\improper Soviet command hardsuit helmet"
+	desc = "A military hardsuit helmet with a red command stripe."
+	icon_state = "hardsuit0-soviet-commander"
+	item_state = "hardsuit0-soviet-commander"
+	item_color = "soviet-commander"
+
+/obj/item/clothing/suit/space/hardsuit/soviet/commander
+	name = "\improper Soviet command hardsuit"
+	desc = "A soviet military command hardsuit designed for maximum speed and mobility."
+	icon_state = "hardsuit-soviet-commander"
+	item_state = "hardsuit-soviet-commander"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/soviet/commander
 
 //Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical

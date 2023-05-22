@@ -36,7 +36,7 @@
 		radiation_pulse(src, 400, 2)
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_themselves()]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS
 
 /obj/item/nuke_core/plutonium //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives

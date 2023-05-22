@@ -407,14 +407,14 @@
 				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked out to [computer.user_data.patron_name].'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
 		if(BARCODE_MODE_CHECKIN)
 			if(computer.checkin(B))
 				playsound(src, 'sound/items/scannerbeep.ogg', 15, TRUE)
 				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'Title checked back into general inventory.'</span>")
 			else
 				playsound(src, 'sound/machines/synth_no.ogg', 15, TRUE)
-				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccesful.'</span>")
+				to_chat(user, "<span class='notice'>[src]'s screen flashes: 'ERROR! Book Checkout Unsuccessful.'</span>")
 
 /obj/item/barcodescanner/proc/check_connection(mob/user as mob) //fuck you null references!
 	if(computer)

@@ -23,8 +23,6 @@ GLOBAL_VAR(chat_debug_log)
 GLOBAL_PROTECT(chat_debug_log)
 GLOBAL_VAR(round_id)
 GLOBAL_PROTECT(round_id)
-GLOBAL_VAR(karma_log)
-GLOBAL_PROTECT(karma_log)
 
 #ifdef REFERENCE_TRACKING
 GLOBAL_VAR(gc_log)
@@ -49,4 +47,3 @@ GLOBAL_PROTECT(OOClog)
 
 GLOBAL_DATUM_INIT(logging, /datum/logging, new /datum/logging())
 
-GLOBAL_LIST_INIT(investigate_log_subjects, list("notes", "watchlist", "hrefs"))

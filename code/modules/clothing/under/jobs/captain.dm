@@ -16,7 +16,7 @@
 
 /obj/item/clothing/under/rank/captain/dress
 	name = "captain's dress"
-	desc = "Feminine fashion for the style concious captain."
+	desc = "Feminine fashion for the style conscious captain."
 	icon_state = "captain_dress"
 	item_color = "captain_dress"
 

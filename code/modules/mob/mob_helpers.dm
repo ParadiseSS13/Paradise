@@ -3,7 +3,7 @@
 		var/mob/living/carbon/human/H = A
 		if(H.dna.species && H.dna.species.is_small)
 			return 1
- 	return 0
+	return 0
 
 /proc/ispet(A)
 	if(isanimal(A))
@@ -38,10 +38,10 @@
 				// Red-green (green weak, deuteranopia)
 				// Below is a colour matrix to account for that
 				. = list(
-					 1.8,  0, -0.14, 0,
+					1.8,  0, -0.14, 0,
 					-1.05, 1,  0.1,  0,
-					 0.3,  0,  1,    0,
-					 0,    0,  0,    1
+					0.3,  0,  1,    0,
+					0,    0,  0,    1
 				) // Time spent creating this matrix: 1 hour 32 minutes
 
 			if(COLOURBLIND_MODE_PROT)
@@ -58,10 +58,10 @@
 				// Blue-yellow (tritanopia)
 				// Below is a colour matrix to account for that
 				. = list(
-					 0.74,  0.07,  0, 0,
+					0.74,  0.07,  0, 0,
 					-0.405, 0.593, 0, 0,
-					 0.665, 0.335, 1, 0,
-					 0,     0,     0, 1
+					0.665, 0.335, 1, 0,
+					0,     0,     0, 1
 				) // Time spent creating this matrix: 34 minutes
 
 	return

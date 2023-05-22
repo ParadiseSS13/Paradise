@@ -147,7 +147,7 @@
 	atom_say("Software override initiated.")
 	playsound(src, 'sound/machines/terminal_on.ogg', 100, FALSE)
 	var/turf/console_hijack_turf = get_turf(src)
-	message_admins("[src] is being overriden for hijack by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(console_hijack_turf)]")
+	message_admins("[src] is being overridden for hijack by [ADMIN_LOOKUPFLW(user)] in [ADMIN_VERBOSEJMP(console_hijack_turf)]")
 	. = FALSE
 	if(do_after(user, speed, target = src))
 		increase_hijack_stage()
@@ -410,9 +410,6 @@
 					"The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.",
 					new_title = "Priority Announcement"
 				)
-				for(var/mob/M in GLOB.player_list)
-					if(!isnewplayer(M) && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
-						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
 
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)

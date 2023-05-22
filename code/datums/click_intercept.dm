@@ -24,7 +24,7 @@
 	holder.click_intercept = null
 	holder.show_popup_menus = TRUE
 	holder = null
-	QDEL_LIST(buttons)
+	QDEL_LIST_CONTENTS(buttons)
 	return ..()
 
 /**

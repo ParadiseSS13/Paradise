@@ -8,7 +8,7 @@
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_2 = RAD_NO_CONTAMINATE_2
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	light_range = 4
 	layer = OBJ_LAYER + 0.1
 	var/obj/machinery/field/generator/FG1 = null

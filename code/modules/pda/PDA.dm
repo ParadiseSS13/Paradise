@@ -137,6 +137,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 		var/datum/data/pda/P = A
 		P.pda = src
 
+/obj/item/pda/update_overlays()
+	. = ..()
+	if(id)
+		. += image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+	if(length(notifying_programs))
+		. += image('icons/obj/pda.dmi', "pda-r")
+
 /obj/item/pda/proc/close(mob/user)
 	SStgui.close_uis(src)
 
@@ -151,7 +158,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(can_use(usr))
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
-		overlays -= image('icons/obj/pda.dmi', "pda-r")
+		update_icon(UPDATE_OVERLAYS)
 		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
 		SStgui.update_uis(src)
 	else
@@ -185,9 +192,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 			SStgui.update_uis(src)
 		else
 			id.forceMove(get_turf(src))
-		overlays -= image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
 		id = null
+		update_icon(UPDATE_OVERLAYS)
 		playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID()
 
 /obj/item/pda/verb/verb_remove_id()
 	set category = "Object"
@@ -246,7 +258,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 			id = I
 			user.put_in_hands(old_id)
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
-	return
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/wearing_human = loc
+		if(wearing_human.wear_id == src)
+			wearing_human.sec_hud_set_ID()
 
 /obj/item/pda/attackby(obj/item/C, mob/user, params)
 	..()
@@ -286,7 +302,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				if( can_use(user) )//If they can still act.
 					id_check(user, 2)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
-					overlays += image('icons/goonstation/objects/pda_overlay.dmi', C.icon_state)
+					update_icon(UPDATE_OVERLAYS)
 					SStgui.update_uis(src)
 
 	else if(istype(C, /obj/item/paicard) && !src.pai)
@@ -351,7 +367,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	current_app = null
 	scanmode = null
 	QDEL_NULL(held_pen)
-	QDEL_LIST(programs)
+	QDEL_LIST_CONTENTS(programs)
 	QDEL_NULL(cartridge)
 	return ..()
 
@@ -390,7 +406,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(current_app)
 		current_app.program_process()
 
-/obj/item/pda/extinguish_light()
+/obj/item/pda/extinguish_light(force = FALSE)
 	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
 	if(FL && FL.fon)
 		FL.start()
+
+/obj/item/pda/get_ID_assignment(if_no_id = "No id")
+	. = ..()
+	if(. == if_no_id) // We dont have an ID in us, check our cached job
+		return ownjob
+
+/obj/item/pda/get_ID_rank(if_no_id = "No id")
+	. = ..()
+	if(. == if_no_id) // Ditto but rank
+		return ownrank

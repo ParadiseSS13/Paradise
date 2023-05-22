@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(jobs)
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -20,13 +21,12 @@ SUBSYSTEM_DEF(jobs)
 	///list of station departments and their associated roles and economy payments
 	var/list/station_departments = list()
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
-	if(!occupations.len)
+/datum/controller/subsystem/jobs/Initialize()
+	if(!length(occupations))
 		SetupOccupations()
 	for(var/department_type in subtypesof(/datum/station_department))
 		station_departments += new department_type()
 	LoadJobs(FALSE)
-	return ..()
 
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
@@ -502,11 +502,9 @@ SUBSYSTEM_DEF(jobs)
 					G.prescription = TRUE
 					G.name = "prescription [G.name]"
 					H.update_nearsighted_effects()
+
+	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
 	return H
-
-
-
-
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
 	if(!GLOB.configuration.jobs.enable_job_amount_overrides)
@@ -634,7 +632,7 @@ SUBSYSTEM_DEF(jobs)
 	if(tgtcard)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
-			if(tgtcard.assignment && tgtcard.assignment == job.title)
+			if(tgtcard.rank && tgtcard.rank == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
 				jobs_to_formats[job.title] = "grey"
@@ -678,7 +676,7 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/job/tgt_job = GetJob(jobtitle)
 	if(!tgt_job)
 		return
-	if(!tgt_job.department_head[1])
+	if(!length(tgt_job.department_head))
 		return
 	var/boss_title = tgt_job.department_head[1]
 	var/obj/item/pda/target_pda

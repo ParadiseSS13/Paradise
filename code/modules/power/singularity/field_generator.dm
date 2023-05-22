@@ -1,12 +1,11 @@
 /*
 field_generator power level display
-   The icon used for the field_generator need to have 'num_power_levels' number of icon states
-   named 'Field_Gen +p[num]' where 'num' ranges from 1 to 'num_power_levels'
-
-   The power level is displayed using overlays. The current displayed power level is stored in 'powerlevel'.
-   The overlay in use and the powerlevel variable must be kept in sync.  A powerlevel equal to 0 means that
-   no power level overlay is currently in the overlays list.
-   -Aygar
+ *   The icon used for the field_generator need to have 'num_power_levels' number of icon states
+ *   named 'Field_Gen +p[num]' where 'num' ranges from 1 to 'num_power_levels'
+ *   The power level is displayed using overlays. The current displayed power level is stored in 'powerlevel'.
+ *   The overlay in use and the powerlevel variable must be kept in sync.  A powerlevel equal to 0 means that
+ *   no power level overlay is currently in the overlays list.
+ *   -Aygar
 */
 
 #define field_generator_max_power 250
@@ -26,7 +25,7 @@ field_generator power level display
 	icon_state = "Field_Gen"
 	anchored = FALSE
 	density = TRUE
-	use_power = NO_POWER_USE
+	power_state = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
 	armor = list(MELEE = 25, BULLET = 10, LASER = 100, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70)

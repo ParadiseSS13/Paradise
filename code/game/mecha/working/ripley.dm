@@ -134,7 +134,7 @@
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
 	HC.attach(src)
-	QDEL_LIST(trackers) //Deletes the beacon so it can't be found easily
+	QDEL_LIST_CONTENTS(trackers) //Deletes the beacon so it can't be found easily
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
@@ -195,6 +195,9 @@
 			O.forceMove(drop_location())
 
 /obj/mecha/working/ripley/proc/update_pressure()
+	if(thrusters_active)
+		return // Don't calculate this if they have thrusters on, this is calculated right after domove because of course it is
+
 	var/turf/T = get_turf(loc)
 
 	if(lavaland_equipment_pressure_check(T))

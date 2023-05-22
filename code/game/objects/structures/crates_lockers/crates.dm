@@ -12,8 +12,10 @@
 	open_sound_volume = 35
 	close_sound_volume = 50
 	var/obj/item/paper/manifest/manifest
-	// A list of beacon names that the crate will announce the arrival of, when delivered.
+	/// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
+	/// How much this crate is worth if you sell it via the cargo shuttle, needed for balance :)
+	var/crate_value = DEFAULT_CRATE_VALUE
 
 /obj/structure/closet/crate/update_overlays()
 	. = ..()
@@ -103,7 +105,7 @@
 			to_chat(user, "<span class='notice'>You rig [src].</span>")
 			rigged = TRUE
 		else
-			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
+			to_chat(user, "<span class='warning'>You need at least 15 wires to rig [src]!</span>")
 		return TRUE
 	if(istype(W, /obj/item/electropack))
 		if(rigged)
@@ -149,6 +151,9 @@
 		add_fingerprint(user)
 		toggle(user, by_hand = TRUE)
 
+/obj/structure/closet/crate/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
+
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)
 	var/list/msg = list("[capitalize(name)] has arrived at [destination].")
@@ -163,16 +168,19 @@
 	icon_state = "securecrate"
 	icon_opened = "securecrate_open"
 	icon_closed = "securecrate"
-	var/redlight = "securecrater"
-	var/greenlight = "securecrateg"
-	var/emag = "securecrateemag"
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
-	var/tamperproof = FALSE
 	broken = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
+	crate_value = 25 // rarer and cannot be crafted, bonus credits for exporting them
+
+	var/redlight = "securecrater"
+	var/greenlight = "securecrateg"
+	var/emag = "securecrateemag"
+
+	var/tamperproof = FALSE
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
@@ -288,6 +296,9 @@
 	icon_state = "plasticcrate"
 	icon_opened = "plasticcrate_open"
 	icon_closed = "plasticcrate"
+	material_drop = /obj/item/stack/sheet/plastic
+	material_drop_amount = 4
+	crate_value = 3 // You can mass produce plastic crates, this is needed to prevent cargo from making tons of money too easily
 
 /obj/structure/closet/crate/internals
 	desc = "A internals crate."
@@ -302,22 +313,6 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
-
-/*these aren't needed anymore
-/obj/structure/closet/crate/hat
-	desc = "A crate filled with Valuable Collector's Hats!."
-	name = "Hat Crate"
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-
-/obj/structure/closet/crate/contraband
-	name = "Poster crate"
-	desc = "A random assortment of posters manufactured by providers NOT listed under Nanotrasen's whitelist."
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-*/
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -346,6 +341,7 @@
 	var/cooling_power = 40
 
 /obj/structure/closet/crate/freezer/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/gas = (..())
 	if(!gas)	return null
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()

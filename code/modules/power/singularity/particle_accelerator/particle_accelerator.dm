@@ -30,11 +30,11 @@ proc
 process()
 check_build()
 
-Setup map
-  |EC|
-CC|FC|
-  |PB|
-PE|PE|PE
+* Setup map
+*   |EC|
+* CC|FC|
+*   |PB|
+* PE|PE|PE
 
 
 Icon Addemdum
@@ -251,9 +251,8 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "none"
 	anchored = FALSE
 	density = TRUE
-	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
+	power_state = NO_POWER_USE
+
 	var/construction_state = 0
 	var/active = FALSE
 	var/reference = null
@@ -309,11 +308,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		construction_state = ACCELERATOR_READY
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 	else
 		construction_state = ACCELERATOR_WIRED
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
-		use_power = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 		update_state()
 	update_icon()
 

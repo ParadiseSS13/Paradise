@@ -28,13 +28,13 @@
 /datum/recipe/candy/fudge_peanut
 	reagents = list("sugar" = 5, "milk" = 5)
 	items = list(/obj/item/reagent_containers/food/snacks/chocolatebar, /obj/item/reagent_containers/food/snacks/grown/peanuts,
-				 /obj/item/reagent_containers/food/snacks/grown/peanuts, /obj/item/reagent_containers/food/snacks/grown/peanuts)
+				/obj/item/reagent_containers/food/snacks/grown/peanuts, /obj/item/reagent_containers/food/snacks/grown/peanuts)
 	result = /obj/item/reagent_containers/food/snacks/candy/fudge/peanut
 
 /datum/recipe/candy/fudge_cherry
 	reagents = list("sugar" = 5, "milk" = 5)
 	items = list(/obj/item/reagent_containers/food/snacks/chocolatebar, /obj/item/reagent_containers/food/snacks/grown/cherries,
-				 /obj/item/reagent_containers/food/snacks/grown/cherries, /obj/item/reagent_containers/food/snacks/grown/cherries)
+				/obj/item/reagent_containers/food/snacks/grown/cherries, /obj/item/reagent_containers/food/snacks/grown/cherries)
 	result = /obj/item/reagent_containers/food/snacks/candy/fudge/cherry
 
 /datum/recipe/candy/fudge_cookies_n_cream

@@ -123,6 +123,15 @@
 	oxygen = 0
 	nitrogen = 0
 
+/turf/simulated/floor/plating/asteroid/ancient
+	digResult = /obj/item/stack/ore/glass/basalt/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
+
+/turf/simulated/floor/plating/asteroid/ancient/airless
+	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
+
 /turf/simulated/floor/plating/asteroid/basalt/Initialize(mapload)
 	. = ..()
 	set_basalt_light(src)

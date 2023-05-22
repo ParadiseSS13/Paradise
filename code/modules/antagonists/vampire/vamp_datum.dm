@@ -265,7 +265,7 @@
 	handle_vampire_cloak()
 	if(isspaceturf(get_turf(owner.current)))
 		check_sun()
-	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full))
+	if(istype(get_area(owner.current), /area/chapel) && !get_ability(/datum/vampire_passive/full) && bloodtotal > 0)
 		vamp_burn(7)
 	nullified = max(0, nullified - 2)
 

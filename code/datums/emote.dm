@@ -368,6 +368,8 @@
 		msg = replacetext(msg, "them", user.p_them())
 	if(findtext(msg, "they"))
 		msg = replacetext(msg, "they", user.p_they())
+	if(findtext(msg, "themselves"))
+		msg = replacetext(msg, "themselves", user.p_themselves())
 	if(findtext(msg, "%s"))
 		msg = replacetext(msg, "%s", user.p_s())
 	return msg
@@ -591,6 +593,10 @@
 		return FALSE
 	if((emote_type & EMOTE_MOUTH) && !can_vocalize_emotes(user))
 		return FALSE
+	if(isliving(user))
+		var/mob/living/liveuser = user
+		if(liveuser.has_status_effect(STATUS_EFFECT_ABSSILENCED))
+			return FALSE
 	return TRUE
 
 /datum/emote/proc/remove_ending_punctuation(msg)

@@ -1,5 +1,6 @@
 //Quick type checks for some tools
 
+// Why are these not defines?
 /proc/iswrench(O)
 	if(istype(O, /obj/item/wrench))
 		return TRUE

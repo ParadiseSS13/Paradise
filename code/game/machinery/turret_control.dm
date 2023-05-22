@@ -218,7 +218,8 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/turretid/power_change()
-	..()
+	if(!..())
+		return
 	updateTurrets()
 	update_icon(UPDATE_ICON_STATE)
 

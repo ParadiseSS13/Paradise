@@ -19,7 +19,7 @@
 	..()
 
 /obj/item/paper_bin/Destroy()
-	QDEL_LIST(papers)
+	QDEL_LIST_CONTENTS(papers)
 	return ..()
 
 /obj/item/paper_bin/burn()

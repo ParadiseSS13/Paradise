@@ -444,9 +444,9 @@
 		var/jobs = ""
 
 		/***********************************WARNING!************************************
-					      The jobban stuff looks mangled and disgusting
-							      But it looks beautiful in-game
-							                -Nodrak
+						The jobban stuff looks mangled and disgusting
+								But it looks beautiful in-game
+											-Nodrak
 		************************************WARNING!***********************************/
 		var/counter = 0
 //Regular jobs
@@ -1608,6 +1608,49 @@
 
 	else if(href_list["check_antagonist"])
 		check_antagonists()
+
+	else if(href_list["check_teams"])
+		if(!check_rights(R_ADMIN))
+			return
+		check_teams()
+
+	else if(href_list["team_command"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/datum/team/team
+		var/datum/mind/member
+		if(href_list["team"])
+			team = locateUID(href_list["team"])
+			if(QDELETED(team))
+				to_chat(usr, "<span class='warning'>This team doesn't exist anymore!</span>")
+				return
+		if(href_list["member"])
+			member = locateUID(href_list["member"])
+			if(QDELETED(member))
+				to_chat(usr, "<span class='warning'>This team member doesn't exist anymore!</span>")
+				return
+		switch(href_list["team_command"])
+			if("communicate")
+				team.admin_communicate(usr)
+			if("delete_team")
+				message_admins("[key_name_admin(usr)] has deleted the '[team.name]' team.")
+				log_admin("[key_name_admin(usr)] has deleted the '[team.name]' team.")
+				qdel(team)
+			if("rename_team")
+				team.admin_rename_team(usr)
+			if("admin_add_member")
+				team.admin_add_member(usr)
+			if("remove_member")
+				team.admin_remove_member(usr, member)
+			if("view_member")
+				show_player_panel(member.current)
+			if("add_objective")
+				team.admin_add_objective(usr)
+			if("remove_objective")
+				var/datum/objective/O = locateUID(href_list["objective"])
+				if(O)
+					team.admin_remove_objective(usr, O)
+		check_teams()
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
@@ -2790,7 +2833,7 @@
 				else
 					log_admin("[key_name(usr)] toggled gravity off.", 1)
 					message_admins("<span class='notice'>[key_name_admin(usr)] toggled gravity off.</span>", 1)
-					GLOB.minor_announcement.Announce("Feedback surge detected in mass-distributions systems. Artifical gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
+					GLOB.minor_announcement.Announce("Feedback surge detected in mass-distributions systems. Artificial gravity has been disabled whilst the system reinitializes. Further failures may result in a gravitational collapse and formation of blackholes. Have a nice day.")
 
 			if("power")
 				switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs", "Repair and Power APCs")) //Alert notification in this code for standarization purposes
@@ -2899,16 +2942,14 @@
 			if("flicklights")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
 				while(!usr.stat)
-//knock yourself out to stop the ghosts
+					//knock yourself out to stop the ghosts
 					for(var/mob/M in GLOB.player_list)
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
 							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
-								AffectedArea.power_light = 0
-								AffectedArea.power_change()
-								spawn(rand(55,185))
-									AffectedArea.power_light = 1
-									AffectedArea.power_change()
+								AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
+								spawn(rand(55, 185))
+									AffectedArea.powernet.set_power_channel(PW_CHANNEL_LIGHTING, TRUE)
 								var/Message = rand(1,4)
 								switch(Message)
 									if(1)
@@ -3050,12 +3091,7 @@
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")
 				if(confirmation == "No")
 					return
-				if(makeThunderdomeTeams())
-					log_admin("[key_name(usr)] started a Thunderdome match!", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] has started a Thunderdome match!</span>")
-				else
-					log_admin("[key_name(usr)] attempted to start a Thunderdome match, but no ghosts signed up.", 1)
-					message_admins("<span class='adminnotice'>[key_name_admin(usr)] tried starting a Thunderdome match, but no ghosts signed up.</span>")
+				makeThunderdomeTeams()
 			if("securitylevel0")
 				set_security_level(0)
 				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
@@ -3314,29 +3350,16 @@
 		if(!check_rights(R_ADMIN))
 			return
 		add_note(href_list["suppresscidwarning"], CIDWARNING_SUPPRESSED_NOTETEXT, show_after = FALSE)
-	else if(href_list["viewkarma"])
+
+	else if(href_list["who_advanced"])
+		usr.client.who_advanced()
+
+	else if(href_list["adminalert"])
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/client/C = GLOB.directory[href_list["viewkarma"]]
-		if(!C)
-			return
-
-		// Pack it into a dat
-		var/dat = {"
-		<ul>
-		<li>Total Karma: [C.karmaholder.karma_earned]</li>
-		<li>Spent Karma: [C.karmaholder.karma_spent]</li>
-		<li>Available Karma: [C.karmaholder.karma_earned - C.karmaholder.karma_spent]</li>
-		<li>Unlocked Packages: [C.karmaholder.purchased_packages.Join(", ")]</li>
-		</ul>
-		"}
-
-		var/datum/browser/popup = new(usr, "view_karma", "Karma stats for [C.ckey]", 600, 300)
-		popup.set_content(dat)
-		popup.open(FALSE)
-	else if(href_list["who_advanced"])
-		usr.client.who_advanced()
+		var/mob/about_to_be_banned = locateUID(href_list["adminalert"])
+		usr.client.cmd_admin_alert_message(about_to_be_banned)
 
 /client/proc/create_eventmob_for(mob/living/carbon/human/H, killthem = 0)
 	if(!check_rights(R_EVENT))

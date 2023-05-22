@@ -11,10 +11,9 @@
 	name = "Electromagnetic Generator"
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
-	layer = WIRE_LAYER+0.001
+	layer = WIRE_LAYER + 0.001
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 50
+	idle_power_consumption = 50
 
 	var/freq = AIRLOCK_FREQ		// radio frequency
 	var/electricity_level = 1 // intensity of the magnetic pull
@@ -54,14 +53,13 @@
 	icon_state = "floor_magnet[on ? "" : "0"][invisibility ? "-f" : ""]"	// if invisible, set icon to faded version
 											// in case of being revealed by T-scanner
 
+// This is the LAST thing allowed to use this
 /obj/machinery/magnetic_module/receive_signal(datum/signal/signal)
 	var/command = signal.data["command"]
 	var/modifier = signal.data["modifier"]
 	var/signal_code = signal.data["code"]
 	if(command && (signal_code == code))
 		Cmd(command, modifier)
-
-
 
 /obj/machinery/magnetic_module/proc/Cmd(command, modifier)
 	if(command)
@@ -140,10 +138,10 @@
 
 	// Update power usage:
 	if(on)
-		use_power = 2
-		active_power_usage = electricity_level*15
+		change_power_mode(ACTIVE_POWER_USE)
+		active_power_consumption = electricity_level*15
 	else
-		use_power = 0
+		change_power_mode(NO_POWER_USE)
 		update_icon(UPDATE_ICON_STATE)
 
 
@@ -173,9 +171,11 @@
 	icon_state = "airlock_control_standby"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 45
-	frequency = AIRLOCK_FREQ
+	idle_power_consumption = 45
+
+	// this is a temp measure
+	var/frequency = AIRLOCK_FREQ
+	var/datum/radio_frequency/radio_connection
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"

@@ -12,7 +12,8 @@
 	severity = MINOR
 
 /datum/disease/cold/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(2)
 /*

@@ -47,7 +47,7 @@
 	var/frustration = 0 //Used by some bots for tracking failures to reach their target.
 	var/base_speed = 2 //The speed at which the bot moves, or the number of times it moves per process() tick.
 	var/turf/ai_waypoint //The end point of a bot's path, or the target location.
-	var/list/path = list() //List of turfs through which a bot 'steps' to reach the waypoint, associated with the path image, if there is one.
+	var/list/path = list() //List of turfs through which a bot 'steps' to reach the waypoint
 	var/pathset = FALSE
 	var/list/ignore_list = list() //List of unreachable targets for an ignore-list enabled bot to ignore.
 	var/mode = BOT_IDLE //Standardizes the vars that indicate the bot is busy with its function.
@@ -86,16 +86,12 @@
 	"Responding", "Navigating to Delivery Location", "Navigating to Home", \
 	"Waiting for clear path", "Calculating navigation path", "Pinging beacon network", "Unable to reach destination")
 
-	var/datum/atom_hud/data/bot_path/path_hud = new /datum/atom_hud/data/bot_path()
-	var/path_image_icon = 'icons/obj/aibots.dmi'
-	var/path_image_icon_state = "path_indicator"
-	var/path_image_color = "#FFFFFF"
 	var/reset_access_timer_id
 
 	/// List of access values you can have to access the bot. Consider this as req_one_access
 	var/list/req_access = list()
 
-	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_PATH_HUD = HUD_LIST_LIST)//Diagnostic HUD views
+	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD)//Diagnostic HUD views
 
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
@@ -170,9 +166,6 @@
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
-	if(path_hud)
-		path_hud.add_to_hud(src)
-
 
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return //we use a different hud
@@ -185,15 +178,12 @@
 	if(paicard)
 		ejectpai()
 	set_path(null)
-	if(path_hud)
-		QDEL_NULL(path_hud)
-		path_hud = null
 
 	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
 	if(data_hud)
 		data_hud.remove_hud_from(src)
 
- 	GLOB.bots_list -= src
+	GLOB.bots_list -= src
 	QDEL_NULL(path)
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
@@ -577,7 +567,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(reset_access_timer_id)
 		deltimer(reset_access_timer_id)
 		reset_access_timer_id = null
- 	set_path(null)
+	set_path(null)
 	summon_target = null
 	pathset = FALSE
 	access_card.access = prev_access
@@ -713,7 +703,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			to_chat(src, "<span class='warning big'>RETURN HOME!</span>")
 		if("ejectpai")
 		else
-			to_chat(src, "<span class='warning'>Unidentified control sequence recieved: [command]</span>")
+			to_chat(src, "<span class='warning'>Unidentified control sequence received: [command]</span>")
 
 /mob/living/simple_animal/bot/proc/handle_command(mob/user, command, list/params)
 	// We aint even on, why bother
@@ -1028,75 +1018,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/set_path(list/newpath)
 	path = newpath ? newpath : list()
-	if(!path_hud)
-		return
-	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED])
-	if(path_hud)
-		path_huds_watching_me += path_hud
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.remove_from_hud(src)
-	clear_path_image()
-
-	var/list/path_images = hud_list[DIAG_PATH_HUD]
-	QDEL_LIST(path_images)
-	if(newpath)
-		for(var/i in 1 to newpath.len)
-			var/turf/T = newpath[i]
-			if(T == loc) //don't bother putting an image if it's where we already exist.
-				continue
-			var/direction = NORTH
-			if(i > 1)
-				var/turf/prevT = path[i - 1]
-				var/image/prevI = path[prevT]
-				direction = get_dir(prevT, T)
-				if(i > 2)
-					var/turf/prevprevT = path[i - 2]
-					var/prevDir = get_dir(prevprevT, prevT)
-					var/mixDir = direction|prevDir
-					if(mixDir in GLOB.diagonals)
-						prevI.dir = mixDir
-						if(prevDir & (NORTH|SOUTH))
-							var/matrix/ntransform = matrix()
-							ntransform.Turn(90)
-							if((mixDir == NORTHWEST) || (mixDir == SOUTHEAST))
-								ntransform.Scale(-1, 1)
-							else
-								ntransform.Scale(1, -1)
-							prevI.transform = ntransform
-			var/mutable_appearance/MA = new /mutable_appearance()
-			MA.icon = path_image_icon
-			MA.icon_state = path_image_icon_state
-			MA.layer = ABOVE_OPEN_TURF_LAYER
-			MA.plane = FLOOR_PLANE
-			MA.appearance_flags = RESET_COLOR|RESET_TRANSFORM
-			MA.color = path_image_color
-			MA.dir = direction
-			var/image/I = image(loc = T)
-			I.appearance = MA
-			path[T] = I
-			path_images += I
-
-	for(var/V in path_huds_watching_me)
-		var/datum/atom_hud/H = V
-		H.add_to_hud(src)
-
 
 /mob/living/simple_animal/bot/proc/increment_path()
 	if(!path || !length(path))
 		return
-	var/image/I = path[path[1]]
-	if(I)
-		I.icon_state = null
 	path.Cut(1, 2)
-
-/mob/living/simple_animal/bot/proc/clear_path_image()
-	if(!path || !length(path))
-		return
-	for(var/P in path)
-		var/image/I = path[P]
-		if(I?.icon_state)
-			I.icon_state = null
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)

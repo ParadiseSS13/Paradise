@@ -11,6 +11,7 @@
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
 			throw_mode_off()
+			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 			return TRUE
 	return ..()
 

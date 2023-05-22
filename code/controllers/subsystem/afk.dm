@@ -6,18 +6,17 @@ SUBSYSTEM_DEF(afk)
 	name = "AFK Watcher"
 	wait = 300
 	flags = SS_BACKGROUND
+	cpu_display = SS_CPUDISPLAY_LOW
 	offline_implications = "Players will no longer be marked as AFK. No immediate action is needed."
 	var/list/afk_players = list() // Associative list. ckey as key and AFK state as value
 	var/list/non_cryo_antags
 
 
 /datum/controller/subsystem/afk/Initialize()
-
 	if(GLOB.configuration.afk.warning_minutes <= 0 || GLOB.configuration.afk.auto_cryo_minutes <= 0 || GLOB.configuration.afk.auto_despawn_minutes <= 0)
 		flags |= SS_NO_FIRE
 	else
 		non_cryo_antags = list(SPECIAL_ROLE_ABDUCTOR_AGENT, SPECIAL_ROLE_ABDUCTOR_SCIENTIST, SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_WIZARD_APPRENTICE, SPECIAL_ROLE_NUKEOPS)
-	return ..()
 
 /datum/controller/subsystem/afk/fire()
 	var/list/toRemove = list()

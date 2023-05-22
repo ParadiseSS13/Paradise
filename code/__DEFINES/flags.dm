@@ -78,6 +78,8 @@
 #define NO_MALF_EFFECT_2		(1<<17)
 /// Use when this shouldn't be obscured by large icons.
 #define CRITICAL_ATOM_2			(1<<18)
+/// Use this flag for items that can block randomly
+#define RANDOM_BLOCKER_2		(1<<19)
 
 //Reagent flags
 #define REAGENT_NOREACT			1

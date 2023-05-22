@@ -37,7 +37,7 @@
 
 /obj/item/gun/throw/Destroy()
 	QDEL_NULL(to_launch)
-	QDEL_LIST(loaded_projectiles)
+	QDEL_LIST_CONTENTS(loaded_projectiles)
 	loaded_projectiles = null
 	return ..()
 

@@ -182,15 +182,18 @@
 	icon = 'icons/obj/watertank.dmi'
 	icon_state = "misterjani"
 	item_state = "misterjani"
-	amount_per_transfer_from_this = 5
+	spray_maxrange = 4
+	spray_currentrange = 4
+	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 
 /obj/item/watertank/janitor/make_noz()
 	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
 /obj/item/reagent_containers/spray/mister/janitor/attack_self(mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
+	amount_per_transfer_from_this = (amount_per_transfer_from_this == 5 ? 10 : 5)
+	spray_currentrange = (spray_currentrange == 2 ? spray_maxrange : 2)
+	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 5 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 //ATMOS FIRE FIGHTING BACKPACK
 
@@ -203,11 +206,11 @@
 	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
 	icon_state = "waterbackpackatmos"
 	item_state = "waterbackpackatmos"
-	volume = 200
+	volume = 500
 
 /obj/item/watertank/atmos/New()
 	..()
-	reagents.add_reagent("water", 200)
+	reagents.add_reagent("water", 500)
 
 /obj/item/watertank/atmos/make_noz()
 	return new /obj/item/extinguisher/mini/nozzle(src)
@@ -226,7 +229,7 @@
 	icon_state = "atmos_nozzle"
 	item_state = "nozzleatmos"
 	safety = 0
-	max_water = 200
+	max_water = 500
 	power = 8
 	precision = 1
 	cooling_power = 5

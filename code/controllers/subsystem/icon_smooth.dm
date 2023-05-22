@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	priority = FIRE_PRIORITY_SMOOTHING
 	flags = SS_TICKER
 	offline_implications = "Objects will no longer smooth together properly. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	var/list/smooth_queue = list()
 
@@ -40,7 +41,6 @@ SUBSYSTEM_DEF(icon_smooth)
 		A.smooth_icon()
 		CHECK_TICK
 
-	return ..()
 
 /datum/controller/subsystem/icon_smooth/proc/add_to_queue(atom/thing)
 	if(thing.smoothing_flags & SMOOTH_QUEUED)

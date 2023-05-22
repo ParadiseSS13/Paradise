@@ -400,7 +400,7 @@
 	START_PROCESSING(SSfastprocess, src)
 
 /obj/item/pinpointer/crew/proc/stop_tracking()
-	visible_message("<span class='notice'>The pinpointer powers down, no longer recieving signals from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer powering down.</span>")
+	visible_message("<span class='notice'>The pinpointer powers down, no longer receiving signals from a detective's revolver.</span>", "<span class='notice'>You hear a pinpointer powering down.</span>")
 	target = null
 	target_set = FALSE
 	mode = MODE_OFF

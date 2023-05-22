@@ -3,6 +3,8 @@
 	name = "wet floor sign"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 1.0
 	throwforce = 3.0
 	throw_speed = 1
@@ -22,7 +24,7 @@
 /obj/item/caution/proximity_sign/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind.assigned_role != "Janitor")
+		if(!H.mind.has_antag_datum(/datum/antagonist/traitor) && !ismindslave(H))
 			return
 		if(armed)
 			armed = FALSE
@@ -49,7 +51,8 @@
 		if(iscarbon(AM) && !isbrain(AM))
 			var/mob/living/carbon/C = AM
 			if(C.m_intent != MOVE_INTENT_WALK)
-				src.visible_message("[src] beeps, \"Running on wet floors is hazardous to your health.\"")
+				visible_message("[src] beeps, \"Sign says walk, asshole.\"")
+				playsound(src, 'sound/misc/sign_says_walk.ogg', 40)
 				explosion(src.loc,-1,0,2)
 				if(ishuman(C))
 					dead_legs(C)

@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(runechat)
 	wait = 1
 	priority = FIRE_PRIORITY_RUNECHAT
 	offline_implications = "Runechat messages will no longer clear. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	/// world.time of the first entry in the bucket list, effectively the 'start time' of the current buckets
 	var/head_offset = 0

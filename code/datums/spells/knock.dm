@@ -26,8 +26,6 @@
 			INVOKE_ASYNC(src, PROC_REF(try_open_closet), C)
 
 /obj/effect/proc_holder/spell/aoe/knock/proc/try_open_airlock(obj/machinery/door/door)
-	if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
-		return
 	if(istype(door, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = door
 		A.unlock(TRUE)	//forced because it's magic!

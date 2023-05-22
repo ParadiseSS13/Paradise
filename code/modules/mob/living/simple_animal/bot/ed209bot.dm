@@ -22,7 +22,6 @@
 	req_access = list(ACCESS_SECURITY)
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
-	path_image_color = "#FF0000"
 	data_hud_type = DATA_HUD_SECURITY_ADVANCED
 
 	allow_pai = FALSE
@@ -570,7 +569,7 @@
 	shootAt(A)
 
 /mob/living/simple_animal/bot/ed209/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 	icon_state = "[lasercolor]ed209-c"
 	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 2)
 	var/threat = C.assess_threat(src)

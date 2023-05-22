@@ -31,12 +31,41 @@
 	to_chat(imp_in, "<span class='danger'>You activate your microbomb bio-chip.</span>")
 //If the delay is short, just blow up already jeez
 	if(delay <= 7)
-		explosion(src, heavy, medium, weak, weak, flame_range = weak)
-		if(imp_in)
-			imp_in.gib()
-		qdel(src)
+		self_destruct()
 		return
 	timed_explosion()
+
+/// Gib the implantee and delete their destructible contents.
+/obj/item/implant/explosive/proc/self_destruct()
+	if(!imp_in)
+		return
+
+	explosion(src, heavy, medium, weak, weak, flame_range = weak)
+
+	// In case something happens to the implantee between now and the
+	// self-destruct
+	var/current_location = get_turf(imp_in)
+
+	var/list/destructed_items = list()
+
+	// Iterate over the implantee's contents and take out indestructible
+	// things to avoid having to worry about containers and recursion
+	for(var/obj/item/I in imp_in.get_contents())
+		if(I == src) // Don't delete ourselves prematurely
+			continue
+		// Drop indestructible items on the ground first, to avoid them
+		// getting deleted when destroying the rest of the items, which we
+		// track in a list to qdel afterwards
+		if(I.resistance_flags & INDESTRUCTIBLE)
+			I.forceMove(current_location)
+		else
+			destructed_items += I
+
+	QDEL_LIST_CONTENTS(destructed_items)
+
+	imp_in.gib()
+
+	qdel(src)
 
 /obj/item/implant/explosive/implant(mob/source)
 	var/obj/item/implant/explosive/imp_e = locate(type) in source
@@ -64,10 +93,7 @@
 	sleep(wait_delay)
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	sleep(wait_delay)
-	explosion(src, heavy,medium,weak,weak, flame_range = weak)
-	if(imp_in)
-		imp_in.gib()
-	qdel(src)
+	self_destruct()
 
 /obj/item/implant/explosive/macro
 	name = "macrobomb bio-chip"

@@ -84,6 +84,9 @@
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
 
+	/// How many ion thrusters we got on this bad boy
+	var/thruster_count = 0
+
 	// Action vars
 	var/defence_mode = FALSE
 	var/defence_mode_deflect_chance = 35
@@ -252,6 +255,8 @@
 	if(.)
 		return 1
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
+		step_in = initial(step_in) / thruster_count
+		new /obj/effect/particle_effect/ion_trails(get_turf(src), dir)
 		return 1
 
 	var/atom/movable/backup = get_spacemove_backup()
@@ -297,6 +302,10 @@
 			last_message = world.time
 		return 0
 
+	if(thrusters_active && has_gravity(src))
+		thrusters_active = FALSE
+		to_chat(occupant, "<span class='notice'>Thrusters automatically disabled.</span>")
+		step_in = initial(step_in)
 	var/move_result = 0
 	var/move_type = 0
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
@@ -640,7 +649,7 @@
 	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
+	QDEL_LIST_CONTENTS(trackers)
 	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
@@ -1013,6 +1022,7 @@
 			return T.remove_air(amount)
 
 /obj/mecha/return_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(use_internal_tank)
 		return cabin_air
 	return get_turf_air()
@@ -1063,14 +1073,20 @@
 /obj/mecha/portableConnectorReturnAir()
 	return internal_tank.return_air()
 
-/obj/mecha/proc/toggle_lights()
+/obj/mecha/proc/toggle_lights(show_message = TRUE)
 	lights = !lights
 	if(lights)
 		set_light(light_range + lights_power)
 	else
 		set_light(light_range - lights_power)
-	occupant_message("Toggled lights [lights ? "on" : "off"].")
-	log_message("Toggled lights [lights ? "on" : "off"].")
+	if(show_message)
+		occupant_message("Toggled lights [lights ? "on" : "off"].")
+		log_message("Toggled lights [lights ? "on" : "off"].")
+
+/obj/mecha/extinguish_light(force)
+	if(!lights)
+		return
+	toggle_lights(show_message = FALSE)
 
 /obj/mecha/proc/toggle_internal_tank()
 	use_internal_tank = !use_internal_tank

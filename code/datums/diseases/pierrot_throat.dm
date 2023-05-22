@@ -12,7 +12,8 @@
 	severity = MEDIUM
 
 /datum/disease/pierrot_throat/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(10))
@@ -41,7 +42,8 @@
 	severity = DANGEROUS
 
 /datum/disease/pierrot_throat/advanced/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(1)
 			if(prob(10))

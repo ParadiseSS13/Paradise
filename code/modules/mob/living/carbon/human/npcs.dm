@@ -14,3 +14,10 @@
 	name = "Pun Pun"
 	real_name = name
 	equip_to_slot(new /obj/item/clothing/under/punpun(src), slot_w_uniform)
+
+/mob/living/carbon/human/monkey/teeny/Initialize(mapload)
+	. = ..()
+	name = "Mr. Teeny"
+	real_name = name
+	resize = 0.8
+	update_transform()

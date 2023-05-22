@@ -109,7 +109,7 @@
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
-			L.visible_message("<span class='warning'>[L] gets ensared in blood tendrils, restricting [L.p_their()] movement!</span>")
+			L.visible_message("<span class='warning'>[L] gets ensnare in blood tendrils, restricting [L.p_their()] movement!</span>")
 			new /obj/effect/temp_visual/blood_tendril/long(get_turf(L))
 
 /obj/effect/temp_visual/blood_tendril
@@ -243,6 +243,7 @@
 	gain_desc = "Your senses are heightened, nobody can hide from you now."
 	action_icon_state = "predator_sense"
 	base_cooldown = 20 SECONDS
+	create_attack_logs = FALSE
 
 /obj/effect/proc_holder/spell/vampire/predator_senses/create_new_targeting()
 	var/datum/spell_targeting/alive_mob_list/A = new()

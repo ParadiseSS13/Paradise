@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(vote)
 	flags = SS_KEEP_TIMING|SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	offline_implications = "Votes (Endround shuttle) will no longer function. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// Active vote, if any
 	var/datum/vote/active_vote

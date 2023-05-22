@@ -4,13 +4,13 @@ SUBSYSTEM_DEF(metrics)
 	offline_implications = "Server metrics will no longer be ingested into monitoring systems. No immediate action is needed."
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME // ALL THE LEVELS
 	flags = SS_KEEP_TIMING // This needs to ingest every 30 IRL seconds, not ingame seconds.
+	cpu_display = SS_CPUDISPLAY_LOW
 	/// The real time of day the server started. Used to calculate time drift
 	var/world_init_time = 0 // Not set in here. Set in world/New()
 
-/datum/controller/subsystem/metrics/Initialize(start_timeofday)
+/datum/controller/subsystem/metrics/Initialize()
 	if(!GLOB.configuration.metrics.enable_metrics)
 		flags |= SS_NO_FIRE // Disable firing to save CPU
-	return ..()
 
 
 /datum/controller/subsystem/metrics/fire(resumed)

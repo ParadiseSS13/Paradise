@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	light_color = LIGHT_COLOR_PURE_GREEN
 
 /obj/machinery/clonepod/power_change()
-	..()
+	..() //we don't check return here because we also care about the BROKEN flag
 	if(!(stat & (BROKEN|NOPOWER)))
 		set_light(2)
 	else
@@ -70,6 +70,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	Radio = new /obj/item/radio(src)
 	Radio.listening = FALSE
 	Radio.config(list("Medical" = 0))
+	Radio.follow_target = src
 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
@@ -106,7 +107,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
 	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
-	QDEL_LIST(missing_organs)
+	QDEL_LIST_CONTENTS(missing_organs)
 	return ..()
 
 /obj/machinery/clonepod/RefreshParts()
@@ -196,6 +197,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		. +=  "Current clone cycle is [round(get_completion())]% complete."
 
 /obj/machinery/clonepod/return_air() //non-reactive air
+	RETURN_TYPE(/datum/gas_mixture)
 	var/datum/gas_mixture/GM = new
 	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
 	GM.temperature = T20C
@@ -233,13 +235,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		var/mob/dead/observer/G = clonemind.get_ghost()
 		if(!G)
 			return 0
-
-/*
-	if(clonemind.damnation_type) //Can't clone the damned.
-		playsound('sound/hallucinations/veryfar_noise.ogg', 50, 0)
-		malfunction()
- 		return -1 // so that the record gets flushed out
-	*/
 
 	if(biomass >= CLONE_BIOMASS)
 		biomass -= CLONE_BIOMASS
@@ -332,7 +327,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		else if(occupant.cloneloss > (100 - heal_level))
 			occupant.Paralyse(8 SECONDS)
 
-			 //Slowly get that clone healed and finished.
+			//Slowly get that clone healed and finished.
 			occupant.adjustCloneLoss(-((speed_coeff/2)))
 
 			// For human species that lack non-vital parts for some weird reason
@@ -383,7 +378,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			return
 		else
 			connected_message("Authorized Ejection")
-			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
+			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occurred")
 			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
 			go_out()
 
@@ -504,7 +499,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		clonemind = null
 
 
-	QDEL_LIST(missing_organs)
+	QDEL_LIST_CONTENTS(missing_organs)
 	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
 	occupant.setOxyLoss(0)
 	for(var/datum/disease/critical/crit in occupant.viruses)
@@ -531,7 +526,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			message += "<i>Is this what dying is like? Yes it is.</i>"
 			to_chat(occupant, "<span class='warning'>[message]</span>")
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
-		QDEL_LIST(missing_organs)
+		QDEL_LIST_CONTENTS(missing_organs)
 		clonemind = null
 		spawn(40)
 			qdel(occupant)
@@ -582,7 +577,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
-	QDEL_LIST(missing_organs)
+	QDEL_LIST_CONTENTS(missing_organs)
 
 	H.setCloneLoss(CLONE_INITIAL_DAMAGE, FALSE)
 	H.setBrainLoss(BRAIN_INITIAL_DAMAGE)

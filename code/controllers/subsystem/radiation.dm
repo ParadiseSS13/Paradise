@@ -3,6 +3,7 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	flags = SS_BACKGROUND | SS_NO_INIT
 	wait = 1 SECONDS
 	offline_implications = "Radiation will no longer function; power generation may not happen. A restart may or may not be required, depending on the situation."
+	cpu_display = SS_CPUDISPLAY_HIGH
 	var/list/warned_atoms = list()
 	// Cache radiation levels for each turf so it doesn't need to be done iteratively
 	// turf_rad_cache is the state in the current loop, and may not be 100% representative

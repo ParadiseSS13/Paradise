@@ -12,16 +12,12 @@ const VendingRow = (props, context) => {
     usermoney,
     inserted_cash,
     vend_ready,
-    coin_name,
     inserted_item_name,
   } = data;
   const free = !chargesMoney || product.price === 0;
   let buttonText = 'ERROR!';
   let rowIcon = '';
-  if (product.req_coin) {
-    buttonText = 'COIN';
-    rowIcon = 'circle';
-  } else if (free) {
+  if (free) {
     buttonText = 'FREE';
     rowIcon = 'arrow-circle-down';
   } else {
@@ -30,7 +26,6 @@ const VendingRow = (props, context) => {
   }
   let buttonDisabled =
     !vend_ready ||
-    (!coin_name && product.req_coin) ||
     productStock === 0 ||
     (!free && (product.price > usermoney && product.price > inserted_cash));
   return (
@@ -84,11 +79,9 @@ export const Vending = (props, context) => {
     inserted_cash,
     chargesMoney,
     product_records = [],
-    coin_records = [],
     hidden_records = [],
     stock,
     vend_ready,
-    coin_name,
     inserted_item_name,
     panel_open,
     speaker,
@@ -96,7 +89,7 @@ export const Vending = (props, context) => {
   } = data;
   let inventory;
 
-  inventory = [...product_records, ...coin_records];
+  inventory = [...product_records];
   if (data.extended_inventory) {
     inventory = [...inventory, ...hidden_records];
   }
@@ -113,6 +106,9 @@ export const Vending = (props, context) => {
                 <br />
                 Your balance is <b>{usermoney} credits</b>.
                 <br />
+              </Box>
+            ))}
+            <Box>
                 There is <b>{inserted_cash} credits </b> of space cash inserted.
                 <br />
                 <Button
@@ -123,22 +119,6 @@ export const Vending = (props, context) => {
                   onClick={() => act('change')}
                 />
               </Box>
-            ))}
-          </Section>
-        )}
-        {!!coin_name && (
-          <Section
-            title="Coin"
-            buttons={
-              <Button
-                fluid
-                icon="eject"
-                content="Remove Coin"
-                onClick={() => act('remove_coin', {})}
-              />
-            }
-          >
-            <Box>{coin_name}</Box>
           </Section>
         )}
         {!!inserted_item_name && (

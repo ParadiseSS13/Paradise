@@ -48,6 +48,9 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	QDEL_NULL(middleClickOverride)
+	if(mind?.current == src)
+		mind.current = null
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -249,6 +252,9 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
+	return ..()
+
+/mob/living/run_pointed(atom/A)
 	if(!..())
 		return FALSE
 	var/obj/item/hand_item = get_active_hand()
@@ -428,7 +434,7 @@
 
 		if(C.reagents)
 			C.reagents.clear_reagents()
-			QDEL_LIST(C.reagents.addiction_list)
+			QDEL_LIST_CONTENTS(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
 		if(iscultist(src))
 			if(SSticker.mode.cult_risen)
@@ -436,7 +442,7 @@
 			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(src)
 
-		QDEL_LIST(C.processing_patches)
+		QDEL_LIST_CONTENTS(C.processing_patches)
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
@@ -721,6 +727,10 @@
 	set name = "Resist"
 	set category = "IC"
 
+	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
+
+///proc extender of [/mob/living/verb/resist] meant to make the process queable if the server is overloaded when the verb is called
+/mob/living/proc/run_resist()
 	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
@@ -830,9 +840,16 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
+//Checks for anything other than eye protection that would stop flashing. Overridden in carbon.dm and human.dm
+/mob/living/proc/can_be_flashed(intensity = 1, override_blindness_check = 0)
+	if(check_eye_prot() >= intensity || (!override_blindness_check && (HAS_TRAIT(src, TRAIT_BLIND) || HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))))
+		return FALSE
+
+	return TRUE
+
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, laser_pointer = FALSE, type = /obj/screen/fullscreen/flash)
+	if(can_be_flashed(intensity, override_blindness_check))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return 1
@@ -1016,7 +1033,10 @@
 /mob/living/proc/can_use_guns(obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return 0
+		return FALSE
+	if(G.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, "<span class='warning'>This gun is only built to be fired by machines!</span>")
+		return FALSE
 	return 1
 
 /mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
@@ -1092,10 +1112,10 @@
 /mob/living/proc/fakefire()
 	return
 
-/mob/living/extinguish_light()
+/mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
-			A.extinguish_light()
+			A.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)

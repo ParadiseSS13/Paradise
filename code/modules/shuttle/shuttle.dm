@@ -228,6 +228,10 @@
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
+	/// Does this shuttle use the lockdown system?
+	var/uses_lockdown = FALSE
+	/// If this variable is true, shuttle is on lockdown, and other requests can not be processed
+	var/lockeddown = FALSE
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -731,6 +735,26 @@
 			dst = destination
 		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
 
+/obj/docking_port/mobile/labour
+	dir = 8
+	dwidth = 2
+	height = 5
+	id = "laborcamp"
+	name = "labor camp shuttle"
+	rebuildable = TRUE
+	width = 9
+	uses_lockdown = TRUE
+
+/obj/docking_port/mobile/mining
+	dir = 8
+	dwidth = 3
+	height = 5
+	id = "mining"
+	name = "mining shuttle"
+	rebuildable = TRUE
+	width = 7
+	uses_lockdown = TRUE
+
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
@@ -832,8 +856,10 @@
 				return TRUE
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
-			else
+			if(2)
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+			if(3)
+				atom_say("Shuttle has already received a pending movement request. Please wait until the movement request is processed.")
 
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
@@ -868,7 +894,7 @@
 		if(world.time < next_request)
 			return
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
-		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
+		to_chat(usr, "<span class='notice'>Your request has been received by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE

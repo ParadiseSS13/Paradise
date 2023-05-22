@@ -135,7 +135,7 @@
 	return 0
 
 /obj/effect/sliding_puzzle/proc/elements_in_order()
-	return sortTim(elements,cmp=/proc/cmp_xy_desc)
+	return sortTim(elements, GLOBAL_PROC_REF(cmp_xy_desc))
 
 /obj/effect/sliding_puzzle/proc/get_base_icon()
 	var/icon/I = new('icons/obj/puzzle.dmi')
@@ -317,7 +317,7 @@
 		to_chat(user,"<span class='warning'>You trap [victim] in the prison cube!</span>")
 		qdel(src)
 	else
-		to_chat(user,"<span class='notice'>[src] only accepts restrained or unconcious prisoners.</span>")
+		to_chat(user,"<span class='notice'>[src] only accepts restrained or unconscious prisoners.</span>")
 
 /proc/puzzle_imprison(mob/living/prisoner)
 	var/turf/T = get_turf(prisoner)

@@ -153,21 +153,22 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/mineral/ore_redemption/power_change()
-	..()
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
-	if(inserted_id && !powered())
+	if(inserted_id && !(stat & NOPOWER))
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
 /obj/machinery/mineral/ore_redemption/update_icon_state()
-	if(powered())
+	if(has_power())
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]-off"
 
 /obj/machinery/mineral/ore_redemption/process()
-	if(panel_open || !powered())
+	if(panel_open || !has_power())
 		return
 	// Check if the input turf has a [/obj/structure/ore_box] to draw ore from. Otherwise suck ore from the turf
 	var/atom/input = get_step(src, input_dir)
@@ -194,7 +195,7 @@
 /obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
 		return
-	if(!powered())
+	if(!has_power())
 		return ..()
 
 	if(istype(I, /obj/item/card/id))
@@ -209,7 +210,7 @@
 		SStgui.update_uis(src)
 		interact(user)
 		user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>",
-						 	 "<span class='notice'>You insert [I] into [src].</span>")
+							"<span class='notice'>You insert [I] into [src].</span>")
 		return
 	return ..()
 
@@ -221,7 +222,7 @@
 	if(!panel_open)
 		return
 	. = TRUE
-	if(!powered())
+	if(!has_power())
 		return
 	if(!I.tool_start_check(src, user, 0))
 		return

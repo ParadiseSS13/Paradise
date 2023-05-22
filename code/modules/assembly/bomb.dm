@@ -70,16 +70,6 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
-	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	sleep(10)
-	if(!src)
-		return
-	if(status)
-		bombtank.detonate()	//if its not a dud, boom (or not boom if you made shitty mix) the ignite proc is below, in this file
-	else
-		bombtank.release()
-
 /obj/item/onetankbomb/HasProximity(atom/movable/AM)
 	if(bombassembly)
 		bombassembly.HasProximity(AM)
@@ -102,7 +92,7 @@
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
-/obj/item/tank/proc/bomb_assemble(W,user)	//Bomb assembly proc. This turns assembly+tank into a bomb
+/obj/item/tank/proc/bomb_assemble(W, user)	//Bomb assembly proc. This turns assembly+tank into a bomb
 	var/obj/item/assembly_holder/S = W
 	var/mob/M = user
 	if(!S.secured)										//Check if the assembly is secured
@@ -127,7 +117,7 @@
 	return
 
 /obj/item/tank/proc/detonate()	//This happens when a bomb is told to explode
-	var/fuel_moles = air_contents.toxins + air_contents.oxygen/6
+	var/fuel_moles = air_contents.toxins + air_contents.oxygen / 6
 	var/strength = 1
 
 	var/turf/ground_zero = get_turf(loc)

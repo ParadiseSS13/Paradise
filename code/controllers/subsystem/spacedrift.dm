@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(spacedrift)
 	flags = SS_NO_INIT|SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Mobs will no longer respect a lack of gravity. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
 
 	var/list/currentrun = list()
 	var/list/processing = list()

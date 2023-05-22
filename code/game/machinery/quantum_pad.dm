@@ -4,15 +4,32 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 200
-	active_power_usage = 5000
+	idle_power_consumption = 200
+	active_power_consumption = 5000
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
 	var/teleport_speed = 50
 	var/last_teleport //to handle the cooldown
 	var/teleporting = FALSE //if it's in the process of teleporting
 	var/power_efficiency = 1
 	var/obj/machinery/quantumpad/linked_pad = null
+	var/preset_target = null
+
+/obj/machinery/quantumpad/cere/cargo_arrivals
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_cargo
+/obj/machinery/quantumpad/cere/cargo_security
+	preset_target = /obj/machinery/quantumpad/cere/security_cargo
+/obj/machinery/quantumpad/cere/security_cargo
+	preset_target = /obj/machinery/quantumpad/cere/cargo_security
+/obj/machinery/quantumpad/cere/security_science
+	preset_target = /obj/machinery/quantumpad/cere/science_security
+/obj/machinery/quantumpad/cere/science_security
+	preset_target = /obj/machinery/quantumpad/cere/security_science
+/obj/machinery/quantumpad/cere/science_arrivals
+	preset_target = /obj/machinery/quantumpad/cere/arrivals_science
+/obj/machinery/quantumpad/cere/arrivals_science
+	preset_target = /obj/machinery/quantumpad/cere/science_arrivals
+/obj/machinery/quantumpad/cere/arrivals_cargo
+	preset_target = /obj/machinery/quantumpad/cere/cargo_arrivals
 
 /obj/machinery/quantumpad/Initialize(mapload)
 	. = ..()
@@ -23,6 +40,10 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+
+/obj/machinery/quantumpad/cere/Initialize(mapload)
+	. = ..()
+	linked_pad = locate(preset_target)
 
 /obj/machinery/quantumpad/Destroy()
 	linked_pad = null
@@ -53,17 +74,20 @@
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/quantumpad/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(!I.multitool_check_buffer(user))
-		return
-	var/obj/item/multitool/M = I
-	if(panel_open)
-		M.set_multitool_buffer(user, src)
+	if(!preset_target)
+		. = TRUE
+		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+			return
+		if(!I.multitool_check_buffer(user))
+			return
+		var/obj/item/multitool/M = I
+		if(panel_open)
+			M.set_multitool_buffer(user, src)
+		else
+			linked_pad = M.buffer
+			to_chat(user, "<span class='notice'>You link [src] to the one in [I]'s buffer.</span>")
 	else
-		linked_pad = M.buffer
-		to_chat(user, "<span class='notice'>You link [src] to the one in [I]'s buffer.</span>")
+		to_chat(user, "<span class='notice'>[src]'s target cannot be modified!</span>")
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -102,7 +126,7 @@
 	do_sparks(5, 1, get_turf(src))
 
 /obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
-	if(linked_pad)
+	if(!QDELETED(linked_pad))
 		ghost.forceMove(get_turf(linked_pad))
 
 /obj/machinery/quantumpad/proc/doteleport(mob/user)

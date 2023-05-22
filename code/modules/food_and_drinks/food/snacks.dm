@@ -216,7 +216,7 @@
 	var/slices_lost = 0
 	if(!inaccurate)
 		user.visible_message("<span class='notice'>[user] slices [src]!</span>",
-		 "<span class='notice'>You slice [src]!</span>")
+		"<span class='notice'>You slice [src]!</span>")
 	else
 		user.visible_message("<span class='notice'>[user] crudely slices [src] with [I]!</span>",
 			"<span class='notice'>You crudely slice [src] with your [I]</span>!")

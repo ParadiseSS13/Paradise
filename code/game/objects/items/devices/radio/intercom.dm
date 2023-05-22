@@ -249,25 +249,25 @@
 	if(!current_area)
 		return
 	if(on)
-		RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(AreaPowerCheck))
+		RegisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE, PROC_REF(local_powernet_check))
 	else
-		UnregisterSignal(current_area, COMSIG_AREA_POWER_CHANGE)
+		UnregisterSignal(current_area.powernet, COMSIG_POWERNET_POWER_CHANGE)
 
 /**
-  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
+  * Proc called whenever the intercom's local powernet loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
   *
-  * Normally called after the intercom's area recieves the `COMSIG_AREA_POWER_CHANGE` signal, but it can also be called directly.
+  * Normally called after the intercom's local powernet sends the `COMSIG_POWERNET_POWER_CHANGE` signal, but it can also be called directly.
   * Arguments:
   *
   * source - the area that just had a power change.
   */
-/obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
+/obj/item/radio/intercom/proc/local_powernet_check(datum/source)
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		on = FALSE
 		set_light(0)
 	else
-		on = current_area.powered(EQUIP) // set "on" to the equipment power status of our area.
+		on = current_area.powernet.has_power(PW_CHANNEL_EQUIPMENT) // set "on" to the equipment power status of our area.
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 

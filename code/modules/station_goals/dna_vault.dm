@@ -36,9 +36,9 @@
 	<br><br>
 	The DNA Vault needs to contain samples of:
 	<ul style='margin-top: 10px; margin-bottom: 10px;'>
-	 <li>[animal_count] unique animal data.</li>
-	 <li>[plant_count] unique non-standard plant data.</li>
-	 <li>[human_count] unique sapient humanoid DNA data.</li>
+	<li>[animal_count] unique animal data.</li>
+	<li>[plant_count] unique non-standard plant data.</li>
+	<li>[human_count] unique sapient humanoid DNA data.</li>
 	</ul>
 	The base vault parts should be available for shipping by your cargo shuttle."}
 
@@ -121,6 +121,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 /obj/item/circuitboard/machine/dna_vault
 	board_name = "DNA Vault"
+	icon_state = "command"
 	build_path = /obj/machinery/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
@@ -149,7 +150,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	icon_state = "vault"
 	density = TRUE
 	anchored = TRUE
-	idle_power_usage = 5000
+	idle_power_consumption = 5000
 	pixel_x = -32
 	pixel_y = -64
 	luminosity = 1
@@ -195,15 +196,13 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	icon_state = "vault"
 
 /obj/machinery/dna_vault/power_change()
-	if(powered(power_channel))
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
+	if(!..())
+		return
 	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/dna_vault/Destroy()
-	QDEL_LIST(fillers)
+	QDEL_LIST_CONTENTS(fillers)
 	return ..()
 
 /obj/machinery/dna_vault/attack_ghost(mob/user)

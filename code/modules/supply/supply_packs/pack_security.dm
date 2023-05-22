@@ -255,6 +255,23 @@
 	cost = 500
 	containername = "auto rifle ammo crate"
 
+/datum/supply_packs/security/armory/laserrifle
+	name = "IK-30 Security Laser Rifle Crate"
+	contains = list(/obj/item/gun/projectile/automatic/laserrifle,
+					/obj/item/gun/projectile/automatic/laserrifle)
+	cost = 500
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "laser rifle crate"
+
+/datum/supply_packs/security/armory/laserammo
+	name = "IK-30 Security Laser Rifle Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser,
+					/obj/item/ammo_box/magazine/laser)
+	cost = 300
+	containername = "laser rifle ammo crate"
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield

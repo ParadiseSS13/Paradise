@@ -37,7 +37,7 @@ Difficulty: Medium
 	maxHealth = 2500
 	attacktext = "chomps"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
+	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	icon_state = "dragon"
 	icon_living = "dragon"
 	icon_dead = "dragon_dead"
@@ -49,7 +49,7 @@ Difficulty: Medium
 	speed = 5
 	move_to_delay = 5
 	ranged = TRUE
-	pixel_x = -16
+	pixel_x = -32
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
@@ -62,9 +62,9 @@ Difficulty: Medium
 	death_sound = 'sound/misc/demon_dies.ogg'
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
-							   /datum/action/innate/megafauna_attack/fire_cone_meteors,
-							   /datum/action/innate/megafauna_attack/mass_fire,
-							   /datum/action/innate/megafauna_attack/lava_swoop)
+							/datum/action/innate/megafauna_attack/fire_cone_meteors,
+							/datum/action/innate/megafauna_attack/mass_fire,
+							/datum/action/innate/megafauna_attack/lava_swoop)
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"
@@ -490,10 +490,10 @@ Difficulty: Medium
 	duration = 10
 
 /obj/effect/temp_visual/dragon_flight
-	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
+	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	icon_state = "dragon"
 	layer = ABOVE_ALL_MOB_LAYER
-	pixel_x = -16
+	pixel_x = -32
 	duration = 10
 	randomdir = FALSE
 
@@ -507,7 +507,7 @@ Difficulty: Medium
 	else
 		animate(src, pixel_x = DRAKE_SWOOP_HEIGHT*0.1, pixel_z = DRAKE_SWOOP_HEIGHT*0.15, time = 3, easing = BOUNCE_EASING)
 	sleep(3)
-	icon_state = "swoop"
+	icon_state = "dragon_swoop"
 	if(negative)
 		animate(src, pixel_x = -DRAKE_SWOOP_HEIGHT, pixel_z = DRAKE_SWOOP_HEIGHT, time = 7)
 	else
@@ -521,9 +521,9 @@ Difficulty: Medium
 /obj/effect/temp_visual/dragon_flight/end/flight(negative)
 	if(negative)
 		pixel_x = -DRAKE_SWOOP_HEIGHT
-		animate(src, pixel_x = -16, pixel_z = 0, time = 5)
+		animate(src, pixel_x = -32, pixel_z = 0, time = 5)
 	else
-		animate(src, pixel_x = -16, pixel_z = 0, time = 5)
+		animate(src, pixel_x = -32, pixel_z = 0, time = 5)
 
 /obj/effect/temp_visual/fireball
 	icon = 'icons/obj/wizard.dmi'
@@ -589,9 +589,6 @@ Difficulty: Medium
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	attack_action_types = list()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/lesser/grant_achievement(medaltype,scoretype)
-	return
-
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
 	maxHealth = 250
@@ -615,9 +612,6 @@ Difficulty: Medium
 	pull_force = MOVE_FORCE_NORMAL
 	deathmessage = "screeches as its wings turn to dust and it collapses on the floor, life estinguished."
 	attack_action_types = list()
-
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/grant_achievement(medaltype, scoretype)
-	return
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
 	var/obj/effect/proc_holder/spell/aoe/repulse/spacedragon/repulse_action = new /obj/effect/proc_holder/spell/aoe/repulse/spacedragon(src)

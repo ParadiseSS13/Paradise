@@ -12,13 +12,9 @@
 
 /obj/machinery/computer/station_alert/Initialize(mapload)
 	. = ..()
-	GLOB.alert_consoles += src
-	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
-	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
+	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
 
-/obj/machinery/computer/station_alert/Destroy()
-	GLOB.alert_consoles -= src
-	return ..()
 
 /obj/machinery/computer/station_alert/attack_ai(mob/user)
 	add_fingerprint(user)
@@ -42,12 +38,12 @@
 	var/list/data = list()
 
 	data["alarms"] = list()
-	for(var/class in SSalarm.alarms)
+	for(var/class in GLOB.alarm_manager.alarms)
 		if(!(class in alarms_listend_for))
 			continue
 		data["alarms"][class] = list()
-		for(var/area in SSalarm.alarms[class])
-			for(var/thing in SSalarm.alarms[class][area][3])
+		for(var/area in GLOB.alarm_manager.alarms[class])
+			for(var/thing in GLOB.alarm_manager.alarms[class][area][3])
 				var/atom/A = locateUID(thing)
 				if(atoms_share_level(A, src))
 					data["alarms"][class] += area
@@ -74,7 +70,7 @@
 
 /obj/machinery/computer/station_alert/update_icon_state()
 	var/active_alarms = FALSE
-	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	var/list/list/temp_alarm_list = GLOB.alarm_manager.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
