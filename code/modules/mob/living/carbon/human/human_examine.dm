@@ -34,9 +34,8 @@
 				if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
 					return "<span class='boldwarning'>[p_their(TRUE)] glowing red eyes are glazed over!</span>\n"
 				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glazed over.</span>\n"
-			else
-				if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-					return "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
+			if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
+				return "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	return msg
 
@@ -52,6 +51,7 @@
 		if(C == head || C == wear_suit || C == wear_mask || C == w_uniform || C == belt || C == back)
 			if(C.species_disguise)
 				displayed_species = C.species_disguise
+				break
 	if(skip_jumpsuit && skip_face || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
