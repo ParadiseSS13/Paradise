@@ -68,6 +68,8 @@
 	categories = list(
 		"Cyborg",
 		"Cyborg Repair",
+		"Modsuit Construction",
+		"Modsuit Modules",
 		"Ripley",
 		"Firefighter",
 		"Odysseus",

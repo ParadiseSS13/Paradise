@@ -7,20 +7,12 @@
 		down to the exact coordinates. This information is fed to a central database viewable from the device itself, \
 		though using it to help people is up to you."
 	icon_state = "gps"
-	module_type = MODULE_USABLE
+	module_type = MODULE_ACTIVE
 	complexity = 1
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 0.2
 	incompatible_modules = list(/obj/item/mod/module/gps)
 	cooldown_time = 0.5 SECONDS
-	allow_flags = MODULE_ALLOW_INACTIVE
-	var/obj/item/gps/internal_gps
-	var/internal_gps_path = /obj/item/gps/internal/mining
-
-/obj/item/mod/module/gps/on_use()
-	. = ..()
-	if(!.)
-		return
-	internal_gps.attack_self(mod.wearer)
+	device = /obj/item/gps/mod
 
 ///Hydraulic Clamp - Lets you pick up and drop crates.
 /obj/item/mod/module/clamp
@@ -374,7 +366,7 @@
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
 		part.armor.detachArmor(part.armor)
-		var/obj/item/mod/armor/mod_theme_mining/A = new(src)
+		var/obj/item/mod/armor/mod_ash_accretion/A = new(src)
 		part.armor.attachArmor(A.armor) //TODO: ANYTHING BUT FUCKING THIS
 		qdel(A)
 	if(traveled_tiles == max_traveled_tiles)

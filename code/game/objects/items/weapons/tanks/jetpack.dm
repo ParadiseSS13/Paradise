@@ -167,6 +167,8 @@
 	var/datum/gas_mixture/temp_air_contents
 	var/obj/item/tank/internals/tank = null
 	var/mob/living/carbon/human/cur_user
+	///Used by modsuits to disable the jetpack useage when power is diabled
+	var/enabled = TRUE
 
 /obj/item/tank/jetpack/suit/New()
 	..()
@@ -177,8 +179,8 @@
 	return
 
 /obj/item/tank/jetpack/suit/cycle(mob/user)
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
-		to_chat(user, "<span class='warning'>[src] must be connected to a hardsuit!</span>")
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) && !istype(loc, /obj/item/mod/module/jetpack))
+		to_chat(user, "<span class='warning'>[src] must be connected to a hardsuit or modsuit!</span>")
 		return
 
 	var/mob/living/carbon/human/H = user
@@ -188,8 +190,10 @@
 	..()
 
 /obj/item/tank/jetpack/suit/turn_on(mob/user)
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc) || loc.loc != user)
+	if((!istype(loc, /obj/item/clothing/suit/space/hardsuit) && !istype(loc, /obj/item/mod/module/jetpack)) || !ishuman(loc.loc.loc) || loc.loc.loc != user) //How many times would a L-O-C-OC-C, If a L-O-O-Chop wood?
 		return
+	if(!enabled)
+		to_chat(user, "<span class='warning'>The module must be enabled to power the jetpack!</span>")
 	var/mob/living/carbon/human/H = user
 	tank = H.s_store
 	air_contents = tank.air_contents
@@ -205,10 +209,10 @@
 	..()
 
 /obj/item/tank/jetpack/suit/process()
-	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc))
+	if((!istype(loc, /obj/item/clothing/suit/space/hardsuit) && !istype(loc, /obj/item/mod/module/jetpack)) || !ishuman(loc.loc.loc) || !enabled)
 		turn_off(cur_user)
 		return
-	var/mob/living/carbon/human/H = loc.loc
+	var/mob/living/carbon/human/H = loc.loc.loc
 	if(!tank || tank != H.s_store)
 		turn_off(cur_user)
 		return

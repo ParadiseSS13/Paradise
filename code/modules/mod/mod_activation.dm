@@ -199,7 +199,6 @@
 		part.flags_cover |= part.visor_flags_cover
 		part.heat_protection = initial(part.heat_protection)
 		part.cold_protection = initial(part.cold_protection)
-		part.alternate_worn_layer = null
 	else
 		part.icon_state = "[skin]-[part.base_icon_state]"
 		part.flags_cover &= ~part.visor_flags_cover
@@ -207,7 +206,6 @@
 		part.flags &= ~part.visor_flags
 		part.heat_protection = NONE
 		part.cold_protection = NONE
-		part.alternate_worn_layer = mod_parts[part]
 	if(ishuman(wearer))
 		var/mob/living/carbon/human/H = wearer
 		H.regenerate_icons()//TODO SPECIFIY THIS
@@ -219,12 +217,10 @@
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_activation()
 		START_PROCESSING(SSobj, src)
-		flags |= NODROP
 	else
 		for(var/obj/item/mod/module/module as anything in modules)
 			module.on_suit_deactivation()
 		STOP_PROCESSING(SSobj, src)
-		flags &= ~NODROP
 	update_speed()
 	update_icon_state()
 	wearer.regenerate_icons()//TODO MAKE IT NOT REGENERATE EVERYTHING, THIS IS FOR COMPILE SAKE

@@ -64,7 +64,7 @@
 	switch(action)
 		if("lock")
 			locked = !locked
-			to_chat(usr, "<span class='notice'>[locked ? "locked" : "unlocked"].</span>")
+			to_chat(usr, "<span class='notice'>ID [locked ? "locked" : "unlocked"].</span>")
 		if("activate")
 			toggle_activate(usr)
 		if("select")

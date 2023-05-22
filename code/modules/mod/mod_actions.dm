@@ -6,7 +6,7 @@
 	check_flags = AB_CHECK_CONSCIOUS
 	use_itemicon = FALSE
 
-/datum/action/item_action/mod/New(Target)
+/datum/action/item_action/mod/New(Target, custom_icon, custom_icon_state)
 	..()
 	if(!istype(Target, /obj/item/mod/control))
 		qdel(src)
@@ -84,23 +84,24 @@
 /datum/action/item_action/mod/pinned_module
 	desc = "Activate the module."
 	icon_icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
+	button_icon = 'icons/mob/actions/actions_mod.dmi'
 	button_icon_state = "module"
-	/// Overrides the icon applications.
-	var/override = FALSE
 	/// Module we are linked to.
 	var/obj/item/mod/module/module
 	/// A ref to the mob we are pinned to.
 	var/pinner_uid
 
-/datum/action/item_action/mod/pinned_module/New(Target, obj/item/mod/module/linked_module, mob/user)
+/datum/action/item_action/mod/pinned_module/New(Target, custom_icon, custom_icon_state, obj/item/mod/module/linked_module, mob/user)
 	..()
 	module = linked_module
+	button_icon_state = module.icon_state
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
 		// clears check hands and check conscious
 		check_flags = NONE
 	name = "Activate [capitalize(linked_module.name)]"
 	desc = "Quickly activate [linked_module]."
-	button_icon_state = linked_module.icon_state
+	if(target == user.get_item_by_slot(slot_back))
+		Grant(user)
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))

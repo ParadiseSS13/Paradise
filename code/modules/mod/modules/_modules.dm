@@ -305,11 +305,11 @@
 
 	var/datum/action/item_action/mod/pinned_module/existing_action = pinned_to[UID(user)]
 	if(existing_action)
-		//mod.remove_item_action(existing_action)
+		qdel(existing_action)
 		return
+	var/datum/action/item_action/mod/pinned_module/new_action = new(Target = mod, custom_icon = src.icon, custom_icon_state = src.icon_state, linked_module = src, user = user)
+	to_chat(user, "[new_action] is now pinned to the UI!")
 
-	var/datum/action/item_action/mod/pinned_module/new_action = new(mod, src, user)
-	//mod.add_item_action(new_action)
 
 /// On drop key, concels a device item.
 /obj/item/mod/module/proc/dropkey(mob/living/user)

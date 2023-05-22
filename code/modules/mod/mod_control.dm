@@ -248,8 +248,11 @@
 			playsound(loc, "rustle", 50, 1, -5)
 
 			if(istype(over_object, /obj/screen/inventory/hand))
-				if(!M.unEquip(src))
-					return
+				for(var/obj/item/part as anything in mod_parts)
+					if(part.loc != src)
+						to_chat(wearer, "<span class='warning'>Retract parts first!</span>")
+						playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
+						return
 				M.put_in_active_hand(src)
 			else if(bag)
 				bag.loc = usr
@@ -258,18 +261,7 @@
 			add_fingerprint(M)
 
 ///obj/item/mod/control/MouseDrop(atom/over_object)
-//	if(usr != wearer) //  || !istype(over_object, /atom/movable/screen/inventory/hand)// hopefully not important
-//		return ..()
-//	for(var/obj/item/part as anything in mod_parts)
-//		if(part.loc != src)
-//			to_chat(user, "<span class='warning'>Retract parts first!</span>")
-//			playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
-//			return
-//	if(!wearer.incapacitated())
-//		var/atom/movable/screen/inventory/hand/ui_hand = over_object
-//		if(wearer.putItemFromInventoryInHandIfPossible(src, ui_hand.held_index))
-//			add_fingerprint(usr)
-//			return ..()
+
 
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
 	if(..())
@@ -645,7 +637,6 @@
 	var/list/skin_updating = mod_parts + src
 	for(var/obj/item/part as anything in skin_updating)
 		part.icon = used_skin[MOD_ICON_OVERRIDE] || 'icons/obj/clothing/modsuit/mod_clothing.dmi'
-		part.worn_icon = used_skin[MOD_WORN_ICON_OVERRIDE] || 'icons/mob/clothing/modsuit/mod_clothing.dmi'
 		part.icon_state = "[skin]-[part.base_icon_state]"
 	for(var/obj/item/clothing/part as anything in mod_parts)
 		var/used_category

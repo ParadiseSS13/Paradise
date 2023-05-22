@@ -133,12 +133,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
-	///Icon file for mob worn overlays.
-	var/icon/worn_icon
-	///Icon state for mob worn overlays, if null the normal icon_state will be used.
-	var/worn_icon_state
-	///Forced mob worn layer instead of the standard preferred size.
-	var/alternate_worn_layer
 
 /obj/item/New()
 	..()
@@ -876,39 +870,4 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 /obj/item/proc/GetID()
 	return null
-
-//Todo, might not be needed, but needed for compiling for now
-
-/// Adds an item action to our list of item actions.
-/// Item actions are actions linked to our item, that are granted to mobs who equip us.
-/// This also ensures that the actions are properly tracked in the actions list and removed if they're deleted.
-/// Can be be passed a typepath of an action or an instance of an action.
-/obj/item/proc/add_item_action(action_or_action_type)
-
-	var/datum/action/action
-	if(ispath(action_or_action_type, /datum/action))
-		action = new action_or_action_type(src)
-	else if(istype(action_or_action_type, /datum/action))
-		action = action_or_action_type
-	else
-		CRASH("item add_item_action got a type or instance of something that wasn't an action.")
-
-	LAZYADD(actions, action)
-	RegisterSignal(action, COMSIG_PARENT_QDELETING, PROC_REF(on_action_deleted))
-	if(ismob(loc))
-		// We're being held or are equipped by someone while adding an action?
-		// Then they should also probably be granted the action, given it's in a correct slot
-		var/mob/holder = loc
-		action.Grant(holder) //TODO, NEEDS A SLOT CHECK
-
-	return action
-
-/// Called when an action associated with our item is deleted
-/obj/item/proc/on_action_deleted(datum/source)
-	SIGNAL_HANDLER
-
-	if(!(source in actions))
-		CRASH("An action ([source.type]) was deleted that was associated with an item ([src]), but was not found in the item's actions list.")
-
-	LAZYREMOVE(actions, source)
 
