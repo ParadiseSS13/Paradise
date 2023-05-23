@@ -79,7 +79,7 @@
 
 //Internal
 /obj/item/storage/backpack/modstorage
-	name = "mod storage bag"
+	name = "mod's storage"
 	desc = "Either you tried to spawn a storage mod, or someone fucked up. Unless you are an admin that just tried to spawn something, issue report."
 
 ///Ion Jetpack - Lets the user fly freely through space using battery charge. //Battery? Are you insane? Anyway, disabled to compile

@@ -93,11 +93,10 @@
 /datum/outfit/job/centcom/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
+	back = /obj/item/mod/control/pre_equipped/responsory/commander
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	belt = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
-
-	r_hand = /obj/item/mod/control/pre_equipped/responsory/commander
 
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
@@ -181,6 +180,7 @@
 	name = "RT Security (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	belt = /obj/item/storage/belt/security/response_team_gamma
+	back = /obj/item/mod/control/pre_equipped/responsory/security
 	suit_store = /obj/item/gun/energy/gun/nuclear
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -188,8 +188,6 @@
 	r_pocket = /obj/item/extinguisher/mini
 
 	l_hand = /obj/item/gun/energy/immolator/multi
-	r_hand = /obj/item/mod/control/pre_equipped/responsory/security
-
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/flashbangs = 1,
@@ -271,6 +269,7 @@
 /datum/outfit/job/centcom/response_team/engineer/gamma
 	name = "RT Engineer (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
+	back = /obj/item/mod/control/pre_equipped/responsory/engineer
 	belt = /obj/item/storage/belt/utility/chief/full
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -278,7 +277,6 @@
 	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
-	r_hand = /obj/item/mod/control/pre_equipped/responsory/engineer
 
 	backpack_contents = list(
 		/obj/item/rcd/combat = 1,
@@ -379,13 +377,13 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	back = /obj/item/mod/control/pre_equipped/responsory/medic
 
 	belt = /obj/item/storage/belt/medical //No need for belt defib, they got the built in ones. This gives them some extra storage.
 
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
 
-	r_hand = /obj/item/mod/control/pre_equipped/responsory/medic
 
 	backpack_contents = list(
 		/obj/item/bodyanalyzer/advanced = 1,
@@ -463,11 +461,10 @@
 /datum/outfit/job/centcom/response_team/paranormal/gamma
 	name = "RT Paranormal (Gamma)"
 	l_pocket = /obj/item/grenade/clusterbuster/holy
+	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
 	r_pocket = /obj/item/nullrod/ert
-
-	r_hand = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
@@ -539,10 +536,9 @@
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
 	glasses = /obj/item/clothing/glasses/night
+	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	r_pocket = /obj/item/scythe/tele
 	shoes = /obj/item/clothing/shoes/magboots/advance
-
-	r_hand = /obj/item/mod/control/pre_equipped/responsory/janitor
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
