@@ -449,7 +449,6 @@
 	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon('icons/mob/clothing/modsuit/mod_modules.dmi', "ball_mask"), flags = MASK_INVERSE))
 	mod.wearer.add_filter("mod_blur", 2, angular_blur_filter(size = 15))
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
-	//mod.wearer.base_pixel_y -= 4 //This was base_pixel_y. If this breaks, that is why, tell qwerty to fix it
 	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y - 4, flags = ANIMATION_PARALLEL)
 	mod.wearer.SpinAnimation(1.5)
 	ADD_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, "metriod[UID()]")
@@ -462,7 +461,6 @@
 		return
 	if(!deleting)
 		playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE, frequency = -1)
-	//mod.wearer.base_pixel_y += 4
 	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y + 4)
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/atom, remove_filter), list("mod_ball", "mod_blur", "mod_outline")), animate_time)
 	REMOVE_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, "metriod[UID()]")
@@ -470,7 +468,7 @@
 	UnregisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE)
 
 /obj/item/mod/module/sphere_transform/on_use()
-	if(!lavaland_equipment_pressure_check(get_turf(src))) //Try it on station
+	if(!lavaland_equipment_pressure_check(get_turf(src)))
 		to_chat(mod.wearer, "<span class='warning'>ERROR, OVER PRESSURE!</span>")
 		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
 		return FALSE
@@ -496,7 +494,6 @@
 
 /obj/item/mod/module/sphere_transform/proc/on_statchange(datum/source)
 	SIGNAL_HANDLER
-
 	if(!mod.wearer.stat)
 		return
 	on_deactivation()

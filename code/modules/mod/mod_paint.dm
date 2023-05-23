@@ -21,7 +21,7 @@
 		to_chat(user, "<span class='warning'>Theme is not compatible!</span>")
 		return TRUE
 	mod.set_mod_skin(skin)
-	to_chat(user, "<span class='warning'>You apply the theme.</span>")
+	to_chat(user, "<span class='notice'>You apply the theme to [mod].</span>")
 	qdel(src)
 	return TRUE
 
