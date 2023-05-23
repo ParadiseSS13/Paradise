@@ -1,8 +1,8 @@
 //For my sanity :))
 
-#define COOLANT_INPUT_GATE airs[1]
-#define MODERATOR_INPUT_GATE airs[2]
-#define COOLANT_OUTPUT_GATE airs[3]
+#define COOLANT_INPUT_GATE air1
+#define MODERATOR_INPUT_GATE air2
+#define COOLANT_OUTPUT_GATE air3
 
 #define RBMK_TEMPERATURE_OPERATING 640 //Celsius
 #define RBMK_TEMPERATURE_CRITICAL 800 //At this point the entire ship is alerted to a meltdown. This may need altering
@@ -235,7 +235,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		L.adjust_bodytemperature(CLAMP(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/process()
-	update_parents() //Update the pipenet to register new gas mixes
+	process_atmos() //Update the pipenet to register new gas mixes
 	if(next_slowprocess < world.time)
 		slowprocess()
 		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
@@ -284,17 +284,16 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	gas_absorption_effectiveness = gas_absorption_constant
 	//Next up, handle moderators!
 	if(moderator_input.total_moles() >= minimum_coolant_level)
-		var/total_fuel_moles = moderator_input.get_moles(GAS_PLASMA)
+		var/total_fuel_moles = moderator_input.get_moles(GAS_PL)
 		var/power_modifier = max((moderator_input.get_moles(GAS_O2) / moderator_input.total_moles() * 10), 1) //You can never have negative IPM. For now.
 		if(total_fuel_moles >= minimum_coolant_level) //You at least need SOME fuel.
 			var/power_produced = max((total_fuel_moles / moderator_input.total_moles() * 10), 1)
 			last_power_produced = max(0,((power_produced*power_modifier)*moderator_input.total_moles()))
 			last_power_produced *= (max(0,power)/100) //Aaaand here comes the cap. Hotter reactor => more power.
 			last_power_produced *= base_power_modifier //Finally, we turn it into actual usable numbers.
-			radioactivity_spice_multiplier += moderator_input.get_moles(GAS_TRITIUM) / 5 //Chernobyl 2.
 			var/turf/T = get_turf(src)
 			if(power >= 20)
-				coolant_output.adjust_moles(GAS_NUCLEIUM, total_fuel_moles/20) //Shove out nucleium into the air when it's fuelled. You need to filter this off, or you're gonna have a bad time.
+				coolant_output.adjust_moles(GAS_A_B, total_fuel_moles/20) //Shove out agent B into the air when it's fuelled. You need to filter this off, or you're gonna have a bad (and green) time.
 			var/obj/structure/cable/C = T.get_cable_node()
 			if(!C?.powernet)
 				return
@@ -356,7 +355,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(temperature > 0)
 				L.adjust_bodytemperature(CLAMP(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 		if(istype(I, /obj/item/reagent_containers/food) && !istype(I, /obj/item/reagent_containers/food/drinks))
-			playsound(src, pick('sound/machines/fryer/deep_fryer_1.ogg', 'sound/machines/fryer/deep_fryer_2.ogg'), 100, TRUE)
+			playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 100, TRUE)
 			var/obj/item/reagent_containers/food/grilled_item = I
 			if(prob(80))
 				return //To give the illusion that it's actually cooking omegalul.
@@ -406,7 +405,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Second alert condition: Overpressurized (the more lethal one)
 	if(pressure >= RBMK_PRESSURE_CRITICAL)
 		alert = TRUE
-		playsound(loc, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
+		playsound(loc, 'sound/effects/rmbk/steam_whoosh.ogg', 100, TRUE)
 		var/turf/T = get_turf(src)
 		T.atmos_spawn_air("nitrogen=[pressure/100];TEMP=[CELSIUS_TO_KELVIN(temperature)]")
 		var/pressure_damage = min(pressure/100, initial(vessel_integrity)/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
@@ -446,7 +445,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	AddComponent(/datum/component/radioactive, 15000 , src)
 	//var/obj/effect/landmark/nuclear_waste_spawner/NSW = new /obj/effect/landmark/nuclear_waste_spawner/strong(get_turf(src)) //commeted out due to mapping required for use
 	var/obj/structure/overmap/OM = get_overmap()
-	OM.relay('sound/effects/rbmk/meltdown.ogg', "<span class='userdanger'>You hear a horrible metallic hissing.</span>")
+	OM.relay('sound/effects/rmbk/meltdown.ogg', "<span class='userdanger'>You hear a horrible metallic hissing.</span>")
 	OM?.stop_relay(CHANNEL_REACTOR_ALERT)
 	NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	for(var/obj/machinery/power/apc/A in GLOB.apcs_list)
@@ -464,7 +463,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	T.assume_air(coolant_output)
 	explosion(get_turf(src), 0, 5, 10, 20, TRUE, TRUE)
 	empulse(get_turf(src), 25, 15)
-	fail_meltdown_objective()
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "failed")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 
@@ -684,18 +682,20 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	fuel_rod.forceMove(get_turf(reactor))
 	reactor.fuel_rods -= fuel_rod
 
-//Preset pumps for mappers. You can also set the id tags yourself.
+//Preset pumps for mappers. You can also set the id tags yourself. Commeted out until computer is setup and fixed
+/*
 /obj/machinery/atmospherics/components/binary/pump/rbmk_input
-	id = "rbmk_input"
+	name = "rbmk_input"
 	frequency = FREQ_RBMK_CONTROL
 
 /obj/machinery/atmospherics/components/binary/pump/rbmk_output
-	id = "rbmk_output"
+	name = "rbmk_output"
 	frequency = FREQ_RBMK_CONTROL
 
 /obj/machinery/atmospherics/components/binary/pump/rbmk_moderator
-	id = "rbmk_moderator"
+	name = "rbmk_moderator"
 	frequency = FREQ_RBMK_CONTROL
+	*/
 
 /obj/machinery/computer/reactor/pump
 	name = "reactor inlet valve computer"

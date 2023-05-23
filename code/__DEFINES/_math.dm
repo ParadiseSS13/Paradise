@@ -248,4 +248,5 @@
 ///Math for RMBK reactor
 #define CLAMP(CLVALUE,CLMIN,CLMAX) clamp(CLVALUE, CLMIN, CLMAX)
 #define KELVIN_TO_CELSIUS(A) (A-273.15)
+#define CELSIUS_TO_KELVIN(A) (A+273.15)
 #define KPA_TO_PSI(A) (A/6.895)

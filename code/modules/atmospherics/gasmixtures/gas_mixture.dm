@@ -59,6 +59,21 @@ What are the archived variables for?
 	var/moles = agent_b
 	return moles
 
+// below are procs used in the RMBK reactor for modification of gasses
+
+	///Find moles of one gas in an envrioment
+/datum/gas_mixture/proc/get_moles(gas_type)
+	///Set mols of gas in an enviroment
+/datum/gas_mixture/proc/set_moles(gas_type, moles)
+	/// Clear gas in an enviroment
+/datum/gas_mixture/proc/clear()
+	///set tempertaure in an enviroment
+/datum/gas_mixture/proc/set_temperature(new_temp)
+	///Modify moles of gas in an enviroment
+/datum/gas_mixture/proc/adjust_moles(gas_type, amt = 0)
+	set_moles(gas_type, clamp(get_moles(gas_type) + amt,0,INFINITY))
+
+
 	/// Calculate pressure in kilopascals
 /datum/gas_mixture/proc/return_pressure()
 	if(volume > 0)
