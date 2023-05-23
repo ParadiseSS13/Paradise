@@ -207,6 +207,15 @@
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
 	build_path = /obj/item/mod/module/flashlight
 
+
+/datum/design/module/mod_tether
+	name = "Emergency Tether Module"
+	id = "mod_tether"
+	req_tech = list("materials" = 4, "magnets" = 4, "engineering" = 5)
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_GOLD = 2500)
+	build_path = /obj/item/mod/module/tether
+
+
 /datum/design/module/mod_reagent_scanner
 	name = "Reagent Scanner Module"
 	id = "mod_reagent_scanner"

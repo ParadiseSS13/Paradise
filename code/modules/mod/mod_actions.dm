@@ -96,8 +96,8 @@
 	module = linked_module
 	button_icon_state = module.icon_state
 	if(linked_module.allow_flags & MODULE_ALLOW_INCAPACITATED)
-		// clears check hands and check conscious
-		check_flags = NONE
+		// clears check hands
+		check_flags = AB_CHECK_CONSCIOUS
 	name = "Activate [capitalize(linked_module.name)]"
 	desc = "Quickly activate [linked_module]."
 	if(target == user.get_item_by_slot(slot_back))

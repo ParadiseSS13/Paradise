@@ -307,7 +307,7 @@
 		/obj/item/storage/bag/ore,
 		/obj/item/gun/energy/kinetic_accelerator,
 	)
-	inbuilt_modules = list(/obj/item/mod/module/ash_accretion)
+	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
 	skins = list(
 		"mining" = list(
 			HELMET_FLAGS = list(

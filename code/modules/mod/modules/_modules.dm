@@ -114,7 +114,8 @@
 			var/used_button = "Middle Click"
 			update_signal(used_button)
 			to_chat(mod.wearer, "<span class='notice'>[src] activated, middle click to use.</span>")
-
+	else
+		COOLDOWN_START(src, cooldown_timer, cooldown_time) //We don't want to put active modules on cooldown when selected
 	active = TRUE
 	mod.update_mod_overlays()
 	COOLDOWN_START(src, cooldown_timer, cooldown_time)

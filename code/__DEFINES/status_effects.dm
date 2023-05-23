@@ -145,6 +145,8 @@
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
+#define STATUS_EFFECT_IMPACT_IMMUNE /datum/status_effect/impact_immune
+
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target
@@ -160,4 +162,4 @@
 /// gives you fluff messages for cough, sneeze, headache, etc but without an actual virus
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
-#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope 
+#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope

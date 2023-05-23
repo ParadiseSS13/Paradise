@@ -92,3 +92,62 @@
 	.["usertoxins"] = mod.wearer?.getToxLoss() || 0
 	.["usermaxtoxins"] = mod.wearer?.getMaxHealth() || 0
 
+
+///Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
+/obj/item/mod/module/tether
+	name = "MOD emergency tether module"
+	desc = "A custom-built grappling-hook powered by a winch capable of hauling the user. \
+		While some older models of cargo-oriented grapples have capacities of a few tons, \
+		these are only capable of working in zero-gravity environments, a blessing to some Engineers."
+	icon_state = "tether"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN
+	incompatible_modules = list(/obj/item/mod/module/tether)
+	cooldown_time = 4 SECONDS
+
+/obj/item/mod/module/tether/on_use()
+	if(has_gravity(get_turf(src)))
+		to_chat(mod.wearer, "<span class='warning'>Too much gravity to use the tether!</span>")
+		playsound(src, 'sound/weapons/gun_interactions/dry_fire.ogg', 25, TRUE)
+		return FALSE
+	return ..()
+
+/obj/item/mod/module/tether/on_select_use(atom/target)
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/projectile/tether = new /obj/item/projectile/tether(get_turf(mod.wearer))
+	tether.original = target
+	tether.firer = mod.wearer
+	tether.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	tether.fire()
+	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
+	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/item/projectile/tether, make_chain))
+	drain_power(use_power_cost)
+
+/obj/item/projectile/tether
+	name = "tether"
+	icon_state = "tether_projectile"
+	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
+	speed = 2
+	damage = 5
+	range = 15
+	hitsound = 'sound/weapons/batonextend.ogg'
+	hitsound_wall = 'sound/weapons/batonextend.ogg'
+
+/obj/item/projectile/tether/proc/make_chain()
+	if(firer)
+		chain = Beam(firer, icon_state = "line", icon = 'icons/obj/clothing/modsuit/mod_modules.dmi', time = 10 SECONDS, maxdistance = 15)
+
+/obj/item/projectile/tether/on_hit(atom/target)
+	. = ..()
+	if(firer && isliving(firer))
+		var/mob/living/L = firer
+		L.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
+		L.throw_at(target, 15, 1, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE))
+
+/obj/item/projectile/tether/Destroy()
+	QDEL_NULL(chain)
+	return ..()
+

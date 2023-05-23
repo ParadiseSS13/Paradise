@@ -194,13 +194,15 @@
 	var/angle = get_angle(mod.wearer, target) + 180
 	mod.wearer.transform = mod.wearer.transform.Turn(angle)
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_IMPACT, PROC_REF(on_throw_impact))
+	mod.wearer.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
 	mod.wearer.throw_at(target, range = 7, speed = 2, thrower = mod.wearer, spin = FALSE, callback = CALLBACK(src, PROC_REF(on_throw_end), mod.wearer, -angle))
 
-/obj/item/mod/module/power_kick/proc/on_throw_end(mob/user, angle)
+/obj/item/mod/module/power_kick/proc/on_throw_end(mob/living/user, angle)
 	if(!user)
 		return
 	user.transform = user.transform.Turn(angle)
 	animate(user, 0.2 SECONDS, pixel_z = -16, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
+	user.remove_status_effect((STATUS_EFFECT_IMPACT_IMMUNE))
 
 /obj/item/mod/module/power_kick/proc/on_throw_impact(mob/living/source, atom/target, datum/thrownthing/thrownthing)
 	SIGNAL_HANDLER
@@ -212,6 +214,7 @@
 		var/mob/living/living_target = target
 		living_target.apply_damage(damage, BRUTE, mod.wearer.zone_selected)
 		living_target.KnockDown(knockdown_time)
+		mod.wearer.visible_message("<span class='danger'>[mod.wearer] crashes into [target], knocking them over!</span>", "<span class='userdanger'>You violently crash into [target]!</span>")
 	else
 		return
 	mod.wearer.do_attack_animation(target, ATTACK_EFFECT_SMASH)

@@ -20,12 +20,13 @@
 	. = ..()
 	if(!.)
 		return
+	var/msg = "[holstered]"
 	if(!holstered)
 		var/obj/item/gun/holding = mod.wearer.get_active_hand()
 		if(!holding)
 			to_chat(mod.wearer, "<span class='warning'>Nothing to holster!</span>")
 			return
-		if(!istype(holding) || holding.w_class > WEIGHT_CLASS_BULKY)
+		if(!istype(holding) || holding.w_class > WEIGHT_CLASS_NORMAL) //god no holstering a BSG / combat shotgun
 			to_chat(mod.wearer, "<span class='warning'>It's too big to fit!</span>")
 			return
 		holstered = holding
@@ -33,8 +34,8 @@
 		mod.wearer.unEquip(mod.wearer.get_active_hand())
 		holstered.loc = src
 	else if(mod.wearer.put_in_active_hand(holstered))
-		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [holstered], ready to shoot!</span></span>", \
-			"<span class='warning'>You draw [holstered], ready to shoot!</span>")
+		mod.wearer.visible_message("<span class='warning'>[mod.wearer] draws [msg], ready to shoot!</span></span>", \
+			"<span class='warning'>You draw [msg], ready to shoot!</span>")
 	else
 		to_chat(mod.wearer, "<span class='warning'>You need an empty hand to draw [holstered]!</span>")
 
