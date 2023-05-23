@@ -635,6 +635,7 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
 		/obj/item/melee/baton,
+		/obj/item/gun,
 	)
 	skins = list(
 		"security" = list(
@@ -690,6 +691,7 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
 		/obj/item/melee/baton,
+		/obj/item/gun,
 	)
 	skins = list(
 		"safeguard" = list(
@@ -746,7 +748,8 @@
 		/obj/item/ammo_casing,
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
-		/obj/item/melee/baton,
+		/obj/item/melee,
+		/obj/item/gun,
 	)
 	skins = list(
 		"magnate" = list(
@@ -856,6 +859,7 @@
 		/obj/item/melee/baton,
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
+		/obj/item/gun,
 	)
 	skins = list(
 		"syndicate" = list(
@@ -943,6 +947,7 @@
 		/obj/item/melee/baton,
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
+		/obj/item/gun,
 	)
 	skins = list(
 		"elite" = list(
@@ -1057,6 +1062,7 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
 		/obj/item/melee/baton,
+		/obj/item/gun,
 	)
 	skins = list(
 		"responsory" = list(
@@ -1137,6 +1143,7 @@
 		/obj/item/melee/baton,
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
+		/obj/item/gun,
 	)
 	skins = list(
 		"apocryphal" = list(
@@ -1191,6 +1198,7 @@
 		/obj/item/restraints/handcuffs,
 		/obj/item/flash,
 		/obj/item/melee/baton,
+		/obj/item/gun,
 	)
 	skins = list(
 		"corporate" = list(

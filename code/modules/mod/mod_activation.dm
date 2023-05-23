@@ -73,12 +73,6 @@
 			return FALSE
 		to_chat(user, "<span class='warning'>[part.name] already deployed!</span>")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-	if(part in overslotting_parts)
-		var/obj/item/overslot = wearer.get_item_by_slot(part.slot_flags)
-		if(overslot)
-			overslotting_parts[part] = overslot
-			wearer.drop_item()
-			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
 	if(wearer.equip_to_slot_if_possible(part, slot_bitfield_to_slot(part.slot_flags), disable_warning = TRUE))
 		part.flags |= NODROP
 		if(!user)
@@ -105,12 +99,6 @@
 	part.flags &= ~NODROP
 	wearer.unEquip(part, TRUE)
 	part.forceMove(src)
-	if(overslotting_parts[part])
-		UnregisterSignal(part, COMSIG_ATOM_EXITED)
-		var/obj/item/overslot = overslotting_parts[part]
-		if(!wearer.equip_to_slot_if_possible(overslot, slot_bitfield_to_slot(overslot.slot_flags), disable_warning = TRUE))
-			overslot.forceMove(get_turf(wearer))
-		overslotting_parts[part] = null
 	if(!user)
 		return
 	wearer.visible_message("<span class='notice'>[wearer]'s [part.name] retract[part.p_s()] back into [src] with a mechanical hiss.</span>",

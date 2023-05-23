@@ -124,6 +124,14 @@
 /obj/item/mod/module/jetpack/proc/get_user()
 	return mod.wearer
 
+/obj/item/mod/module/jetpack/on_activation()
+	. = ..()
+	mod.jetpack_active = TRUE
+
+/obj/item/mod/module/jetpack/on_deactivation(display_message, deleting)
+	. = ..()
+	mod.jetpack_active = FALSE
+
 /obj/item/mod/module/jetpack/advanced
 	name = "MOD advanced ion jetpack module"
 	desc = "An improvement on the previous model of electric thrusters. This one achieves better efficency through \

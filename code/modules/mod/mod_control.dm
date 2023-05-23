@@ -74,8 +74,6 @@
 	var/obj/item/mod/core/core
 	/// Associated list of parts (helmet, chestplate, gauntlets, boots) to their unsealed worn layer.
 	var/list/mod_parts = list()
-	/// Associated list of parts that can overslot to their overslot (overslot means the part can cover another layer of clothing).
-	var/list/overslotting_parts = list()
 	/// Modules the MOD currently possesses.
 	var/list/modules = list()
 	/// Currently used module.
@@ -88,6 +86,8 @@
 	var/emp_proof = FALSE
 	///List of overlays the mod has. Needs to be cut onremoval / module deactivation
 	var/list/mod_overlays = list()
+	///Is the jetpack on so we should make ion effects?
+	var/jetpack_active = FALSE
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
@@ -141,8 +141,6 @@
 		STOP_PROCESSING(SSobj, src)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module, deleting = TRUE)
-	for(var/obj/item/part as anything in mod_parts)
-		overslotting_parts -= part
 	var/atom/deleting_atom
 	if(!QDELETED(helmet))
 		deleting_atom = helmet
@@ -169,16 +167,6 @@
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/item/mod/control/Destroy()
-	for(var/obj/item/mod/module/module as anything in modules)
-		uninstall(module)
-	for(var/obj/item/part as anything in mod_parts)
-		if(!overslotting_parts[part])
-			continue
-		var/obj/item/overslot = overslotting_parts[part]
-		overslot.forceMove(drop_location())
-		overslotting_parts[part] = null
-	return ..()
 
 /obj/item/mod/control/examine(mob/user)
 	. = ..()
@@ -229,6 +217,12 @@
 	if(slot == slot_back)
 		return TRUE
 
+/obj/item/mod/control/on_mob_move(direction, mob/user)
+	if(jetpack_active)
+		var/turf/T = get_step(src, GetOppositeDir(direction))
+		if(!has_gravity(T))
+			new /obj/effect/particle_effect/ion_trails(T, direction)
+
 /obj/item/mod/control/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!wearer || old_loc != wearer || loc == wearer)
@@ -260,9 +254,6 @@
 				bag.attack_hand(usr)
 
 			add_fingerprint(M)
-
-///obj/item/mod/control/MouseDrop(atom/over_object)
-
 
 /obj/item/mod/control/wrench_act(mob/living/user, obj/item/wrench)
 	if(..())
@@ -660,13 +651,6 @@
 		part.visor_flags_cover = category[SEALED_COVER] || NONE
 	//.	part.alternate_worn_layer = category[UNSEALED_LAYER]
 	//	mod_parts[part] = part.alternate_worn_layer
-		if(!category[CAN_OVERSLOT])
-			if(overslotting_parts[part])
-				var/obj/item/overslot = overslotting_parts[part]
-				overslot.forceMove(drop_location())
-			overslotting_parts -= part
-			continue
-		overslotting_parts |= part
 	wearer?.regenerate_icons()
 
 /obj/item/mod/control/proc/on_exit(datum/source, atom/movable/part, direction)
@@ -694,10 +678,6 @@
 /obj/item/mod/control/proc/on_part_destruction(obj/item/part, damage_flag)
 	SIGNAL_HANDLER
 
-	if(overslotting_parts[part])
-		var/obj/item/overslot = overslotting_parts[part]
-		overslot.forceMove(drop_location())
-		overslotting_parts[part] = null
 	if(QDELETED(src))
 		return
 	obj_destruction(damage_flag)
@@ -709,9 +689,3 @@
 		return
 	qdel(src)
 
-/obj/item/mod/control/proc/on_overslot_exit(datum/source, atom/movable/overslot, direction)
-	SIGNAL_HANDLER
-
-	if(overslot != overslotting_parts[source])
-		return
-	overslotting_parts[source] = null
