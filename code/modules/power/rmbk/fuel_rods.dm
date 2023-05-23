@@ -234,7 +234,7 @@
 /obj/item/fuel_rod/material/bananium/deplete(amount=0.035)
 	..()
 	if(initial_amount == max_initial_amount && prob(10))
-		playsound(src, pick('sound/items/bikehorn.ogg', 'sound/misc/bikehorn_creepy.ogg'), 50) // HONK
+		playsound(src, 'sound/items/bikehorn.ogg') // HONK
 
 /obj/item/fuel_rod/material/bananium/depletion_final(result_rod)
 	..()

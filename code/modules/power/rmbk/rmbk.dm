@@ -66,40 +66,27 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		return FALSE
 	ambient_buzz = sound
 	var/list/affecting = list() //Which mobs are we about to transmit to?
-	for(var/obj/structure/overmap/OM in GLOB.overmap_objects) //Currently needs to go through global objects due to areas not having a loc. Could probably be changed into get_overmap() for a objects within the area, although this is safer.
-		if(OM.linked_areas?.len)
-			if(src in OM.linked_areas)
-				affecting = OM.mobs_in_ship
 	if(!affecting.len) //OK, we can't get away with the cheaper check.
 		for(var/mob/L in src) //This is really really expensive, please use this proc on non-overmap supported areas sparingly!
 			if(!istype(L))
 				continue
 			affecting += L
 	for(var/mob/L in affecting)
-		if(L.client && L.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE && L.client?.last_ambience != ambient_buzz)
-			L.client.buzz_playing = ambient_buzz
+		if(L.client && L.client?.last_ambience != ambient_buzz)
 			SEND_SOUND(L, sound(ambient_buzz, repeat = 1, wait = 0, volume = 100, channel = CHANNEL_BUZZ))
 			L.client.last_ambience = ambient_buzz
 	return TRUE
-/*
-/obj/item/book/manual/wiki/rbmk
-	name = "\improper Haynes nuclear reactor owner's manual"
-	icon_state ="bookEngineering2"
-	author = "CogWerk Engineering Reactor Design Department"
-	title = "Haynes nuclear reactor owner's manual"
-	page_link = "Guide_to_the_Nuclear_Reactor"
-*/
 
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor
 	name = "\improper Advanced Gas-Cooled Nuclear Reactor"
 	desc = "A tried and tested design which can output stable power at an acceptably low risk. The moderator can be changed to provide different effects."
-	icon = 'icons/obj/machinery/rbmk.dmi'
+	icon = 'icons/obj/rmbk.dmi'
 	icon_state = "reactor_map"
 	pixel_x = -32
 	pixel_y = -32
 	density = FALSE //It burns you if you're stupid enough to walk over it.
 	anchored = TRUE
-	processing_flags = START_PROCESSING_MANUALLY
+	//processing_flags = START_PROCESSING_MANUALLY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	light_color = LIGHT_COLOR_CYAN
 	dir = 8 //Less headache inducing :))
@@ -178,7 +165,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			W.forceMove(src)
 			radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
 		return TRUE
-	if(!slagged && istype(W, /obj/item/sealant))
+	if(!slagged && istype(W, /obj/item/stack/sheet/plasteel))
 		if(power >= 20)
 			to_chat(user, "<span class='notice'>You cannot repair [src] while it is running at above 20% power.</span>")
 			return FALSE
@@ -361,7 +348,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(power >= 90 && world.time >= next_flicker) //You're overloading the reactor. Give a more subtle warning that power is getting out of control.
 		next_flicker = world.time + 1.5 MINUTES
 		for(var/obj/machinery/light/L in GLOB.machines)
-			if(prob(25) && shares_overmap(src, L)) //If youre running the reactor cold though, no need to flicker the lights.
+			if(prob(25)) //If youre running the reactor cold though, no need to flicker the lights.
 				L.flicker()
 	for(var/atom/movable/I in get_turf(src))
 		if(isliving(I))
@@ -419,7 +406,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Second alert condition: Overpressurized (the more lethal one)
 	if(pressure >= RBMK_PRESSURE_CRITICAL)
 		alert = TRUE
-		shake_animation(0.5)
 		playsound(loc, 'sound/machines/clockcult/steam_whoosh.ogg', 100, TRUE)
 		var/turf/T = get_turf(src)
 		T.atmos_spawn_air("nitrogen=[pressure/100];TEMP=[CELSIUS_TO_KELVIN(temperature)]")
@@ -428,9 +414,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if(vessel_integrity <= pressure_damage) //It wouldn't be able to tank another hit.
 			blowout()
 			return
-	var/obj/structure/overmap/OM = get_overmap()
-	if(!OM) //Can't be bothered to do this any other way ;)
-		return
+
 	if(warning)
 		if(!alert) //Congrats! You stopped the meltdown / blowout.
 			OM.stop_relay(CHANNEL_REACTOR_ALERT)
@@ -460,7 +444,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	STOP_PROCESSING(SSmachines, src)
 	icon_state = "reactor_slagged"
 	AddComponent(/datum/component/radioactive, 15000 , src)
-	var/obj/effect/landmark/nuclear_waste_spawner/NSW = new /obj/effect/landmark/nuclear_waste_spawner/strong(get_turf(src))
+	//var/obj/effect/landmark/nuclear_waste_spawner/NSW = new /obj/effect/landmark/nuclear_waste_spawner/strong(get_turf(src)) //commeted out due to mapping required for use
 	var/obj/structure/overmap/OM = get_overmap()
 	OM.relay('sound/effects/rbmk/meltdown.ogg', "<span class='userdanger'>You hear a horrible metallic hissing.</span>")
 	OM?.stop_relay(CHANNEL_REACTOR_ALERT)
@@ -544,7 +528,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	desired_k = 1
 	set_light(10)
 	var/area/AR = get_area(src)
-	AR.set_looping_ambience('sound/effects/rbmk/reactor_hum.ogg')
+	AR.set_looping_ambience('sound/effects/rmbk/reactor_hum.ogg')
 	var/startup_sound = pick('sound/effects/rmbk/startup.ogg', 'sound/effects/rmbk/startup2.ogg')
 	playsound(loc, startup_sound, 100)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
@@ -555,7 +539,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	STOP_PROCESSING(SSmachines, src)
 	set_light(0)
 	var/area/AR = get_area(src)
-	AR.set_looping_ambience('sound/effect/rmbk/shipambience.ogg')
+	AR.set_looping_ambience('sound/effects/rmbk/shipambience.ogg')
 	K = 0
 	desired_k = 0
 	temperature = 0
@@ -563,7 +547,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 /obj/item/fuel_rod/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/two_handed, require_twohands=TRUE)
 	AddComponent(/datum/component/radioactive, 350 , src)
 
 //Controlling the reactor.
@@ -696,7 +679,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "[src]", null) as null|anything in reactor.fuel_rods
 	if(!fuel_rod)
 		return
-	playsound(src, pick('sound/effects/rbmk/switch.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+	playsound(src, pick('sound/effects/rmbk/switch.ogg','sound/effects/rmbk/switch2.ogg','sound/effects/rmbk/switch3.ogg'), 100, FALSE)
 	playsound(reactor, 'sound/effects/rmbk/crane_1.wav', 100, FALSE)
 	fuel_rod.forceMove(get_turf(reactor))
 	reactor.fuel_rods -= fuel_rod
@@ -861,10 +844,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	. = ..(user)
 	//No reactor? Go find one then.
 	if(!reactor)
-		for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
-			if(shares_overmap(user, R))
+		/*for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
+			if(shares_overmap+(user, R))
 				reactor = R
-				break
+				break*/
 	active = TRUE
 
 /datum/computer_file/program/nuclear_monitor/kill_program(forced = FALSE)
@@ -891,8 +874,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if("swap_reactor")
 			var/list/choices = list()
 			for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/R in GLOB.machines)
-				if(!shares_overmap(usr, R))
-					continue
 				choices += R
 			reactor = input(usr, "What reactor do you wish to monitor?", "[src]", null) as null|anything in choices
 			powerData = list()

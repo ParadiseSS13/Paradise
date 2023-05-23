@@ -244,3 +244,8 @@
 #define PERCENT_OF(val1, val2) (val1 * (val2 / 100))
 
 #define num2hex(X, len) uppertext(num2text(X, len, 16))
+
+///Math for RMBK reactor
+#define CLAMP(CLVALUE,CLMIN,CLMAX) clamp(CLVALUE, CLMIN, CLMAX)
+#define KELVIN_TO_CELSIUS(A) (A-273.15)
+#define KPA_TO_PSI(A) (A/6.895)

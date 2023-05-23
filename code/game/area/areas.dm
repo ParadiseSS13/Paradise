@@ -78,6 +78,10 @@
 
 	var/area/area_limited_icon_smoothing
 
+	///used in RMBK and Stormdrive engines for ambience
+	var/ambient_buzz = 'sound/ambience/shipambience.ogg'
+	/client/var/last_ambience = null
+
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
 		GLOB.all_unique_areas[type] = src
