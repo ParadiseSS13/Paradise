@@ -33,8 +33,10 @@
 	// Stronger reagents must always come first to avoid being displaced by weaker ones.
 	// Total amount of any reagent in plant is calculated by formula: 1 + round(potency * multiplier)
 
-	var/weed_rate = 1 // If the chance below passes, then this many weeds sprout during growth
-	var/weed_chance = 5 // Percentage chance per tray update to grow weeds
+	/// Percentage chance per tray update to grow weeds
+	var/weed_chance = 5
+	/// If weed chance passes, this many weeds sprout during growth
+	var/weed_rate = 1
 
 /obj/item/seeds/New(loc, nogenes = 0)
 	..()
@@ -143,7 +145,7 @@
 	var/obj/machinery/hydroponics/parent = loc // For ease of access
 	var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc // Needed for TK
 	var/product_name
-	for(var/i = 1 to getYield())
+	for(var/i in 1 to getYield())
 		var/obj/item/reagent_containers/food/snacks/grown/produce = new product(output_loc, src)
 		if(!produce)
 			return
