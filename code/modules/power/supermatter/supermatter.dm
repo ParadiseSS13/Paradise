@@ -768,15 +768,6 @@
 				matter_power += 600
 
 				var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
-
-				var/obj/item/retractor/supermatter/tongs = M.is_in_hands(/obj/item/retractor/supermatter)
-
-				if(tongs && !tongs.sliver)
-					tongs.sliver = S
-					S.forceMove(tongs)
-					tongs.icon_state = "supermatter_tongs_loaded"
-					tongs.item_state = "supermatter_tongs_loaded"
-					to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
 		return
 
 	if(istype(I, /obj/item/retractor/supermatter))
