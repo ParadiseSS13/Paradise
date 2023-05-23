@@ -121,7 +121,7 @@
 /obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
 	. = !density
 	if(ismovable(caller))
-		var/atom/movable/mover = caller 
+		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSGRILLE)
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
