@@ -915,5 +915,3 @@
 #define COMSIG_MOD_WEARER_SET "mod_wearer_set"
 /// Called when the MODsuit wearer is unset.
 #define COMSIG_MOD_WEARER_UNSET "mod_wearer_unset"
-///sent from borg recharge stations: (amount)
-#define COMSIG_PROCESS_BORGCHARGER_OCCUPANT "living_charge"
