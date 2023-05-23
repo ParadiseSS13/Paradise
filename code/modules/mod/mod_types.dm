@@ -196,6 +196,7 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/noslip,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
@@ -210,6 +211,7 @@
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/noslip,
 		/obj/item/mod/module/flashlight,
 	)
 	default_pins = list(
@@ -223,9 +225,11 @@
 	req_access = list(ACCESS_SYNDICATE)
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate,
+		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/noslip,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,
@@ -242,6 +246,7 @@
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/flashlight,
+		/obj/item/mod/module/noslip,
 	)
 	default_pins = list(
 		/obj/item/mod/module/armor_booster,

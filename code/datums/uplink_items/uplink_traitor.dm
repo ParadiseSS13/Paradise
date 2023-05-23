@@ -226,8 +226,8 @@
 	reference = "FNAF"
 	item = /obj/item/mod/module/springlock/bite_of_87
 	job = list("Roboticist", "Research Director")
-	cost = 2
-	surplus = 15
+	cost = 1
+	surplus = 10
 
 //Librarian
 /datum/uplink_item/jobspecific/etwenty

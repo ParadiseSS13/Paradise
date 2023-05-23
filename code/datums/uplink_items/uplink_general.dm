@@ -588,10 +588,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/suits/noslip
 	name = "MODsuit Anti-Slip Module"
-	desc = "A MODsuit module preventing the user from slipping on water."
+	desc = "A MODsuit module preventing the user from slipping on water. Already installed in the uplink modsuits"
 	reference = "MSNS"
 	item = /obj/item/mod/module/noslip
-	cost = 2
+	cost = 1
 
 /datum/uplink_item/device_tools/binary
 	name = "Binary Translator Key"
