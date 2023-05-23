@@ -493,9 +493,7 @@
 		if(cable_only || direction)
 			continue
 		if(istype(AM, /obj/machinery/power) && !istype(AM, /obj/machinery/power/apc))
-			var/obj/machinery/power/P = AM
-			if(!P.powernet)
-				. += P
+			. += AM
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
