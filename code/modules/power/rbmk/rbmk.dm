@@ -408,7 +408,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	if(warning)
 		if(!alert) //Congrats! You stopped the meltdown / blowout.
-			OM.stop_relay(CHANNEL_REACTOR_ALERT)
 			warning = FALSE
 			set_light(0)
 			light_color = LIGHT_COLOR_CYAN
@@ -420,7 +419,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			return
 		next_warning = world.time + 30 SECONDS //To avoid engis pissing people off when reaaaally trying to stop the meltdown or whatever.
 		warning = TRUE //Start warning the crew of the imminent danger.
-		OM.relay('sound/effects/rbmk/alarm.ogg', null, loop=TRUE, channel = CHANNEL_REACTOR_ALERT)
+		playsound(src.loc, 'sound/effects/rbmk/alarm.ogg', 100, TRUE, channel = CHANNEL_ENGINE)
 		set_light(0)
 		light_color = LIGHT_COLOR_RED
 		set_light(10)
@@ -436,10 +435,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	icon_state = "reactor_slagged"
 	AddComponent(/datum/component/radioactive, 15000 , src)
 	//var/obj/effect/landmark/nuclear_waste_spawner/NSW = new /obj/effect/landmark/nuclear_waste_spawner/strong(get_turf(src)) //commeted out due to mapping required for use
-	var/obj/structure/overmap/OM = get_overmap()
-	OM.relay('sound/effects/rmbk/meltdown.ogg', "<span class='userdanger'>You hear a horrible metallic hissing.</span>")
-	OM?.stop_relay(CHANNEL_REACTOR_ALERT)
-	NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
+	//var/obj/structure/overmap/OM = get_overmap()
+	playsound(src.loc, 'sound/effects/rmbk/meltdown.ogg', TRUE, channel = CHANNEL_ENGINE)
+	visible_message("<span class='userdanger'>You hear a horrible metallic hissing.</span>")
+	//NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	for(var/obj/machinery/power/apc/A in GLOB.apcs_list)
 		if(prob(70))
 			A.overload_lighting()
@@ -462,8 +461,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/blowout()
 	explosion(get_turf(src), 3, 7, 14, 14)
 	meltdown() //Double kill.
-	var/obj/structure/overmap/OM = get_overmap()
-	OM.relay('sound/effects/ship/reactor/explode.ogg')
+	playsound('sound/effects/rbmk/explode.ogg', TRUE, channel = CHANNEL_ENGINE)
 	/*
 	// commented out due to round ending nature, this has been commented out
 	if(OM?.role == MAIN_OVERMAP) //Irradiate the shit out of the player ship

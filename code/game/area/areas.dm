@@ -78,7 +78,7 @@
 
 	var/area/area_limited_icon_smoothing
 
-	///used in RMBK and Stormdrive engines for ambience
+	///used in RBMK and Stormdrive engines for ambience
 	var/ambient_buzz = 'sound/ambience/shipambience.ogg'
 	/client/var/last_ambience = null
 
