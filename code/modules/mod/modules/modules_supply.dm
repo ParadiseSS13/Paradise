@@ -325,7 +325,7 @@
 	/// How many tiles we traveled through.
 	var/traveled_tiles = 0
 	/// Armor values per tile.
-	var/list/armor_mod_1 = /obj/item/mod/armor/mod_module_armor_boost
+	var/list/armor_mod_1 = /obj/item/mod/armor/mod_ash_accretion
 	/// the actual armor object
 	var/obj/item/mod/armor/armor_mod_2 = null
 	/// Speed added when you're fully covered in ash.
@@ -365,9 +365,9 @@
 		return
 	var/list/parts = mod.mod_parts + mod
 	for(var/obj/item/part as anything in parts)
-		part.armor.detachArmor(part.armor)
-		var/obj/item/mod/armor/mod_ash_accretion/A = new(src)
-		part.armor.attachArmor(A.armor) //TODO: ANYTHING BUT FUCKING THIS
+		part.armor = part.armor.detachArmor(part.armor = part.armor)
+		var/obj/item/mod/armor/mod_theme_mining/A = new(src)
+		part.armor = part.armor.attachArmor(A.armor) //TODO: ANYTHING BUT FUCKING THIS
 		qdel(A)
 	if(traveled_tiles == max_traveled_tiles)
 		mod.slowdown += speed_added
@@ -390,7 +390,7 @@
 		traveled_tiles++
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			part.armor.attachArmor(armor_mod_2.armor)
+			part.armor = part.armor.attachArmor(armor_mod_2.armor)
 		if(traveled_tiles >= max_traveled_tiles)
 			to_chat(mod.wearer, "<span class='notice'>You are fully covered in ash!</span>")
 			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
@@ -410,7 +410,7 @@
 		traveled_tiles--
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
-			part.armor.detachArmor(armor_mod_2.armor)
+			part.armor = part.armor.detachArmor(armor_mod_2.armor)
 		if(traveled_tiles <= 0)
 			to_chat(mod.wearer, "<span class='warning'>You have ran out of ash!</span>")
 			mod.wearer.weather_immunities -= "ash"

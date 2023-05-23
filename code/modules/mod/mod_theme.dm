@@ -160,7 +160,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_engineering
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 15, BIO = INFINITY, RAD = 150, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 30, BIO = INFINITY, RAD = 150, FIRE = INFINITY, ACID = 150) //Bomb armor bumped up a bit, as the modsuit describes it with blast-dampening
 
 /datum/mod_theme/atmospheric
 	name = "atmospheric"
@@ -238,7 +238,9 @@
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/rpd,
 		/obj/item/t_scanner,
-		/obj/item/analyzer
+		/obj/item/analyzer,
+		/obj/item/gun
+
 	)
 	skins = list(
 		"advanced" = list(
@@ -269,7 +271,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_advanced
-	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 25, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 50, BIO = INFINITY, RAD = INFINITY, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/mining
 	name = "mining"
@@ -362,7 +364,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_mining
-	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 50)
 
 /datum/mod_theme/loader
 	name = "loader"
@@ -556,7 +558,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_rescue
-	armor = list(MELEE = 10, BULLET = 10, LASER = 5, ENERGY = 5, BOMB = 10, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150)
+	armor = list(MELEE = 20, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 10, BIO = INFINITY, RAD = 50, FIRE = 150, ACID = 150) //Extra melee / bullet armor for if they get caught in a fight. Of course, no laser armor.
 
 /datum/mod_theme/research
 	name = "research"
@@ -583,6 +585,7 @@
 		/obj/item/hand_tele,
 		/obj/item/storage/bag/bio,
 		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/gun
 	)
 	skins = list(
 		"research" = list(
@@ -612,7 +615,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_research
-	armor = list(MELEE = 25, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = INFINITY, BIO = INFINITY, RAD = 75, FIRE = 75, ACID = 150)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 5, ENERGY = 5, BOMB = INFINITY, BIO = INFINITY, RAD = 75, FIRE = 75, ACID = 150) //Slow balistic / explosive testing armor. Not laser testing however!
 
 /datum/mod_theme/security
 	name = "security"
@@ -723,7 +726,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_safeguard
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 15, BOMB = 40, BIO = INFINITY, RAD = 25, FIRE = INFINITY, ACID = 150)
+	armor = list(MELEE = 30, BULLET = 25, LASER = 25, ENERGY = 15, BOMB = 40, BIO = INFINITY, RAD = 25, FIRE = INFINITY, ACID = 150)
 
 /datum/mod_theme/magnate
 	name = "magnate"
@@ -782,7 +785,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_magnate
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = 450)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 15, BOMB = 15, BIO = INFINITY, RAD = 50, FIRE = INFINITY, ACID = 450) //On one hand this is quite strong, on the other hand energy hole / antagonists need to steal, and thus by extention use this.
 
 /datum/mod_theme/cosmohonk
 	name = "cosmohonk"
@@ -850,7 +853,7 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1
-	slowdown_active = 0.5
+	slowdown_active = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
 	ui_theme = "syndicate"
 	inbuilt_modules = list(/obj/item/mod/module/armor_booster)
 	allowed_suit_storage = list(
@@ -938,7 +941,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1
-	slowdown_active = 0.5
+	slowdown_active = 0.5 //This is EVA mode slowdown. In combat mode, no slowdown.
 	ui_theme = "syndicate"
 	inbuilt_modules = list(/obj/item/mod/module/armor_booster)
 	allowed_suit_storage = list(
