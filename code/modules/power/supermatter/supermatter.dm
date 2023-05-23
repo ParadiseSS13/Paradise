@@ -706,6 +706,11 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_hand(mob/living/user)
 	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(HAS_TRAIT(H, TRAIT_SUPERMATTER_IMMUNE))
+			H.visible_message("[H] reaches out and pokes [src] harmlessly.. somehow.", "<span class='notice'>You poke [src].</span>")
+			return
 	dust_mob(user, cause = "hand")
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/dust_mob(mob/living/nom, vis_msg, mob_msg, cause)
@@ -787,6 +792,15 @@
 		radiation_pulse(src, 150, 4)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/AM)
+	if(ishuman(AM))
+		var/mob/living/carbon/human/H = AM
+		if(HAS_TRAIT_FROM(H, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES))
+			to_chat(H, "<span class='danger'>You throw your hands out and catch yourself before bumping into [src]! That was close...</span>")
+			return
+		else if(HAS_TRAIT(H, TRAIT_SUPERMATTER_IMMUNE))
+			to_chat(H, "<span class='danger>You bump into [src] harmlessly! That could have been bad...</span>")
+			return
+
 	if(isliving(AM))
 		AM.visible_message("<span class='danger'>[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
 		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
