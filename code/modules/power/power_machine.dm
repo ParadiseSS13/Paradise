@@ -28,6 +28,10 @@
 /obj/machinery/power/proc/get_surplus()
 	return powernet ? powernet.calculate_surplus() : 0
 
+/// Gets surplus power available on this machines powernet, machines should use this proc
+/obj/machinery/power/proc/get_power_balance()
+	return powernet ? powernet.calculate_power_balance() : 0
+
 /// Gets power available (NOT EXTRA) on this cables powernet, machines should use this
 /obj/machinery/power/proc/get_available_power()
 	return powernet ? powernet.available_power : 0

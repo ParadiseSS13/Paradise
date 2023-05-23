@@ -193,7 +193,7 @@
 
 	// See if bones need to break
 	check_fracture(brute)
-	// see if we need to inflict severe burns
+	// See if we need to inflict severe burns
 	check_for_burn_wound(burn)
 	// Threshold needed to have a chance of hurting internal bits with something sharp
 #define LIMB_SHARP_THRESH_INT_DMG 5
@@ -448,11 +448,11 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(damage > 15 && local_damage > 30 && prob(damage))
 		cause_internal_bleeding()
 
-/obj/item/organ/external/proc/check_for_burn_wound(damage)
+/obj/item/organ/external/proc/check_for_burn_wound(damage, update_health = TRUE)
 	if(is_robotic())
 		return
 	if(burn_dam >= min_broken_damage && prob(damage * max(owner.bodytemperature / BODYTEMP_HEAT_DAMAGE_LIMIT, 1)))
-		cause_burn_wound()
+		cause_burn_wound(update_health)
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -460,8 +460,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	var/tburn = 0
 	var/tbrute = 0
 
-	if(burn_dam ==0)
-		tburn =0
+	if(burn_dam == 0)
+		tburn = 0
 	else if(burn_dam < (max_damage * 0.25 / 2))
 		tburn = 1
 	else if(burn_dam < (max_damage * 0.75 / 2))
@@ -695,17 +695,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return
 	status &= ~ORGAN_INT_BLEEDING
 
-/obj/item/organ/external/proc/cause_burn_wound()
+/obj/item/organ/external/proc/cause_burn_wound(update_health = TRUE)
 	if(is_robotic() || (limb_flags & CANNOT_BURN) || (status & ORGAN_BURNT))
 		return
 	status |= ORGAN_BURNT
 	perma_injury = min_broken_damage
+	if(update_health)
+		owner.updatehealth("burn wound inflicted")
 
 /obj/item/organ/external/proc/fix_burn_wound(update_health = TRUE)
 	status &= ~ORGAN_BURNT
 	perma_injury = max(perma_injury - min_broken_damage, 0)
 	if(update_health)
-		owner.updatehealth("burn wound")
+		owner.updatehealth("burn wound fixed")
 
 /obj/item/organ/external/robotize(company, make_tough = FALSE, convert_all = TRUE)
 	..()

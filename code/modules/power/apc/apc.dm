@@ -612,7 +612,7 @@
 	var/last_charging_state = charging
 	update_last_used() // get local powernet usage and clear it for next cycle
 
-	var/excess = get_surplus()
+	var/excess = get_power_balance()
 
 	if(!get_available_power())
 		main_status = APC_EXTERNAL_POWER_NOTCONNECTED
@@ -780,6 +780,12 @@
 /obj/machinery/power/apc/get_surplus()
 	if(terminal)
 		return terminal.get_surplus()
+	else
+		return 0
+
+/obj/machinery/power/apc/get_power_balance()
+	if(terminal)
+		return terminal.get_power_balance()
 	else
 		return 0
 
