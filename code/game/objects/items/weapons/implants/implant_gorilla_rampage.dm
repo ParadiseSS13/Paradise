@@ -8,10 +8,10 @@
 	implant_state = "implant-syndicate"
 
 /obj/item/implant/gorilla_rampage/activate()
-	if(!ishuman(imp_in))
+	if(!iscarbon(imp_in))
 		return
 
-	var/mob/living/carbon/human/target = imp_in
+	var/mob/living/carbon/target = imp_in
 	target.visible_message("<span class='userdanger'>[target] swells and their hair grows rapidly. Uh oh!.</span>","<span class='userdanger'>You feel your muscles swell and your hair grow as you return to monke.</span>", "<span class='userdanger'>You hear angry gorilla noises.</span>")
 	target.gorillize(TRUE)
 
