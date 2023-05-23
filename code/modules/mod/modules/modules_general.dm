@@ -279,8 +279,9 @@
 /obj/item/mod/module/thermal_regulator/on_active_process()
 	if(mod.wearer.bodytemperature > temperature_setting)
 		mod.wearer.bodytemperature = max(temperature_setting, mod.wearer.bodytemperature - (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	else if(mod.wearer.bodytemperature < 311)
+	else if(mod.wearer.bodytemperature < temperature_setting)
 		mod.wearer.bodytemperature = min(temperature_setting, mod.wearer.bodytemperature + (40 * TEMPERATURE_DAMAGE_COEFFICIENT))
+
 /obj/item/mod/module/dna_lock
 	name = "MOD DNA lock module"
 	desc = "A module which engages with the various locks and seals tied to the suit's systems, \

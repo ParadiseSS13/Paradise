@@ -40,7 +40,7 @@
 	name = "MOD external plating"
 	desc = "External plating used to finish a MOD control unit."
 	icon_state = "standard-plating"
-	var/datum/mod_theme/theme = /datum/mod_theme
+	var/datum/mod_theme/theme = /datum/mod_theme/standard
 
 /obj/item/mod/construction/plating/Initialize(mapload)
 	. = ..()

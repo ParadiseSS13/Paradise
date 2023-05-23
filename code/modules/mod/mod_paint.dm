@@ -1,10 +1,10 @@
 /obj/item/mod/skin_applier
 	name = "MOD skin applier"
-	desc = "This one-use skin applier will add a skin to MODsuits of a specific type."
+	desc = "This one-use skin applier will add a skin to MODsuits of a specific type. This one applies to standard modsuits."
 	icon = 'icons/obj/clothing/modsuit/mod_construction.dmi'
 	icon_state = "skinapplier"
 	var/skin = "civilian"
-	var/compatible_theme = /datum/mod_theme
+	var/compatible_theme = /datum/mod_theme/standard
 
 /obj/item/mod/skin_applier/Initialize(mapload)
 	. = ..()
@@ -28,7 +28,9 @@
 /obj/item/mod/skin_applier/asteroid
 	skin = "asteroid"
 	compatible_theme = /datum/mod_theme/mining
+	desc = "This one-use skin applier will add a skin to MODsuits of a specific type. This one applies to mining modsuits. Enjoy the days when you had MODsuits on the asteroid. Wait a minute."
 
 /obj/item/mod/skin_applier/corpsman
 	skin = "corpsman"
 	compatible_theme = /datum/mod_theme/medical
+	desc = "This one-use skin applier will add a skin to MODsuits of a specific type. This one applies to medical modsuits. You look like a corpse, man! Or was it a corps man?"

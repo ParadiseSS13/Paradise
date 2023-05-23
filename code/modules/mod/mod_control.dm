@@ -29,7 +29,7 @@
 	var/datum/wires/mod/wires
 
 	/// The MOD's theme, decides on some stuff like armor and statistics.
-	var/datum/mod_theme/theme = /datum/mod_theme
+	var/datum/mod_theme/theme = /datum/mod_theme/standard
 	/// Looks of the MOD.
 	var/skin = "standard"
 	/// Theme of the MOD TGUI

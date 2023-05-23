@@ -92,6 +92,21 @@
 	build_path = /obj/item/mod/construction/plating/cosmohonk
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_BANANIUM = 2000, MAT_PLASMA = 1000)
 
+/datum/design/mod_skin
+	name = "MOD Civilian Skin"
+	desc = "A skin applier for a modsuit."
+	id = "mod_skin_civilian"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_PLASMA = 1000)
+	construction_time = 5 SECONDS
+	build_path = /obj/item/mod/skin_applier
+	category = list("Modsuit Construction")
+
+/datum/design/mod_skin/corpsman
+	name = "MOD Corpsman Skin"
+	id = "mod_skin_corpsman"
+	build_path = /obj/item/mod/skin_applier/corpsman
+
 /datum/design/module
 	name = "MOD Module"
 	build_type = MECHFAB

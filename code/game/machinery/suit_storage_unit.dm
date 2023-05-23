@@ -160,14 +160,14 @@
 	req_access = list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/cmo
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/medical
 	mask_type	= /obj/item/clothing/mask/breath
+	storage_type = /obj/item/mod/control/pre_equipped/medical
 	req_access	= list(ACCESS_CMO)
 
 /obj/machinery/suit_storage_unit/cmo/secure
 	secure = TRUE
 
-//version of the SSU for medbay secondary storage. Includes magboots.
+//version of the SSU for medbay secondary storage. Includes magboots. //no it doesn't, it aint have shit for magboots
 /obj/machinery/suit_storage_unit/cmo/secure/sec_storage
 	name = "medical suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas

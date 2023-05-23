@@ -35,19 +35,26 @@
 	. = ..()
 	if(!.)
 		return
-	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(sense_explosion))
+	GLOB.doppler_arrays += src
 
 /obj/item/mod/module/reagent_scanner/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
 	if(!.)
 		return
-	UnregisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION)
 
-/obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(datum/source, turf/epicenter,
-	devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
-	SIGNAL_HANDLER
-	var/turf/wearer_turf = get_turf(mod.wearer)
-	if(get_dist(epicenter, wearer_turf) > explosion_detection_dist)
+/obj/item/mod/module/reagent_scanner/advanced/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
+		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+	var/turf/T = get_turf(src)
+	var/dx = abs(x0 - T.x)
+	var/dy = abs(y0 - T.y)
+	var/distance
+	if(T.z != z0)
+		return
+	if(dx > dy)
+		distance = dx
+	else
+		distance = dy
+	if(distance > explosion_detection_dist)
 		return
 	to_chat(mod.wearer, "<span class='notice'>Explosion detected! Epicenter: [devastation_range], Outer: [heavy_impact_range], Shock: [light_impact_range]</span>")
 
