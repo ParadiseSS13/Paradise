@@ -163,8 +163,8 @@
 	air.merge(G)
 	SSair.add_to_active(src, 0)
 
-/atom/proc/atmos_rmbk_overpressure(text) //Proc used to release superheated air in the event of an rmbk meltdown
+/atom/proc/atmos_rbmk_overpressure(text) //Proc used to release superheated air in the event of an rmbk meltdown
 	var/turf/open/T = get_turf(src)
 	if(!istype(T))
 		return
-	T.atmos_rmbk_overpressure(text)
+	T.atmos_rbmk_overpressure(text)

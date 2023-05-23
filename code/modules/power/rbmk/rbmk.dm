@@ -80,7 +80,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor
 	name = "\improper Advanced Gas-Cooled Nuclear Reactor"
 	desc = "A tried and tested design which can output stable power at an acceptably low risk. The moderator can be changed to provide different effects."
-	icon = 'icons/obj/rmbk.dmi'
+	icon = 'icons/obj/rbmk.dmi'
 	icon_state = "reactor_map"
 	pixel_x = -32
 	pixel_y = -32
@@ -397,9 +397,9 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Second alert condition: Overpressurized (the more lethal one)
 	if(pressure >= RBMK_PRESSURE_CRITICAL)
 		alert = TRUE
-		playsound(loc, 'sound/effects/rmbk/steam_whoosh.ogg', 100, TRUE)
+		playsound(loc, 'sound/effects/rbmk/steam_whoosh.ogg', 100, TRUE)
 		var/turf/T = get_turf(src)
-		T.atmos_rmbk_overpressure("nitrogen=[pressure/100];TEMP=[CELSIUS_TO_KELVIN(temperature)]")
+		T.atmos_rbmk_overpressure("nitrogen=[pressure/100];TEMP=[CELSIUS_TO_KELVIN(temperature)]")
 		var/pressure_damage = min(pressure/100, initial(vessel_integrity)/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
 		vessel_integrity -= pressure_damage
 		if(vessel_integrity <= pressure_damage) //It wouldn't be able to tank another hit.
@@ -436,7 +436,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	AddComponent(/datum/component/radioactive, 15000 , src)
 	//var/obj/effect/landmark/nuclear_waste_spawner/NSW = new /obj/effect/landmark/nuclear_waste_spawner/strong(get_turf(src)) //commeted out due to mapping required for use
 	//var/obj/structure/overmap/OM = get_overmap()
-	playsound(src.loc, 'sound/effects/rmbk/meltdown.ogg', TRUE, channel = CHANNEL_ENGINE)
+	playsound(src.loc, 'sound/effects/rbmk/meltdown.ogg', TRUE, channel = CHANNEL_ENGINE)
 	visible_message("<span class='userdanger'>You hear a horrible metallic hissing.</span>")
 	//NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
 	for(var/obj/machinery/power/apc/A in GLOB.apcs_list)
@@ -516,8 +516,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	desired_k = 1
 	set_light(10)
 	var/area/AR = get_area(src)
-	AR.set_looping_ambience('sound/effects/rmbk/reactor_hum.ogg')
-	var/startup_sound = pick('sound/effects/rmbk/startup.ogg', 'sound/effects/rmbk/startup2.ogg')
+	AR.set_looping_ambience('sound/effects/rbmk/reactor_hum.ogg')
+	var/startup_sound = pick('sound/effects/rbmk/startup.ogg', 'sound/effects/rbmk/startup2.ogg')
 	playsound(loc, startup_sound, 100)
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "started")
@@ -527,7 +527,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	STOP_PROCESSING(SSmachines, src)
 	set_light(0)
 	var/area/AR = get_area(src)
-	AR.set_looping_ambience('sound/effects/rmbk/shipambience.ogg')
+	AR.set_looping_ambience('sound/effects/rbmk/shipambience.ogg')
 	K = 0
 	desired_k = 0
 	temperature = 0
@@ -667,8 +667,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/atom/movable/fuel_rod = input(usr, "Select a fuel rod to remove", "[src]", null) as null|anything in reactor.fuel_rods
 	if(!fuel_rod)
 		return
-	playsound(src, pick('sound/effects/rmbk/switch.ogg','sound/effects/rmbk/switch2.ogg','sound/effects/rmbk/switch3.ogg'), 100, FALSE)
-	playsound(reactor, 'sound/effects/rmbk/crane_1.wav', 100, FALSE)
+	playsound(src, pick('sound/effects/rbmk/switch.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
+	playsound(reactor, 'sound/effects/rbmk/crane_1.wav', 100, FALSE)
 	fuel_rod.forceMove(get_turf(reactor))
 	reactor.fuel_rods -= fuel_rod
 
