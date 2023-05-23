@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 # Generate maps
-tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 -o "data/nanomaps" "./_maps/map_files/cyberiad/cyberiad.dmm"
-tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 -o "data/nanomaps" "./_maps/map_files/Delta/delta.dmm"
-tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 -o "data/nanomaps" "./_maps/map_files/MetaStation/MetaStation.dmm"
-tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 -o "data/nanomaps" "./_maps/map_files/cerestation/cerestation.dmm"
+tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files/cyberiad/cyberiad.dmm"
+tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files/Delta/delta.dmm"
+tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files/MetaStation/MetaStation.dmm"
+tools/github-actions/nanomap-renderer minimap -w 2040 -h 2040 "./_maps/map_files/cerestation/cerestation.dmm"
 # Move and rename files so the game understands them
 cd "data/nanomaps"
 mv "cyberiad_nanomap_z1.png" "Cyberiad_nanomap_z1.png"
