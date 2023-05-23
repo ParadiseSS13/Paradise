@@ -30,7 +30,7 @@
 /obj/item/fuel_rod/Destroy()
 	if(process)
 		STOP_PROCESSING(SSobj, src)
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/N = loc
+	var/obj/machinery/atmospherics/trinary/nuclear_reactor/N = loc
 	if(istype(N))
 		N.fuel_rods -= src
 	return ..()
@@ -40,7 +40,7 @@
 /obj/item/fuel_rod/proc/depletion_final(result_rod)
 	if(!result_rod)
 		return
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/N = loc
+	var/obj/machinery/atmospherics/trinary/nuclear_reactor/N = loc
 	// Rod conversion is moot when you can't find the reactor
 	if(istype(N))
 		var/obj/item/fuel_rod/R

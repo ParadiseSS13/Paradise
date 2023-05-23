@@ -77,7 +77,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			L.client.last_ambience = ambient_buzz
 	return TRUE
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor
+/obj/machinery/atmospherics/trinary/nuclear_reactor
 	name = "\improper Advanced Gas-Cooled Nuclear Reactor"
 	desc = "A tried and tested design which can output stable power at an acceptably low risk. The moderator can be changed to provide different effects."
 	icon = 'icons/obj/rbmk.dmi'
@@ -119,15 +119,15 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
 
 //Use this in your maps if you want everything to be preset.
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/preset
+/obj/machinery/atmospherics/trinary/nuclear_reactor/preset
 	id = "default_reactor_for_lazy_mappers"
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/destroyed
+/obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
 	vessel_integrity = 0
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/examine(mob/user)
+/obj/machinery/atmospherics/trinary/nuclear_reactor/examine(mob/user)
 	. = ..()
 	if(Adjacent(src, user))
 		if(do_after(user, 1 SECONDS, target=src))
@@ -148,7 +148,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 					msg = "<span class='notice'>[src]'s seals look factory new, and the reactor's in excellent shape.</span>"
 			. += msg
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/attackby(obj/item/W, mob/user, params)
+/obj/machinery/atmospherics/trinary/nuclear_reactor/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/fuel_rod))
 		if(power >= 20)
 			to_chat(user, "<span class='notice'>You cannot insert fuel into [src] when it has been raised above 20% power.</span>")
@@ -186,7 +186,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		return TRUE
 	return ..()
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/welder_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/trinary/nuclear_reactor/welder_act(mob/living/user, obj/item/I)
 	if(slagged)
 		to_chat(user, "<span class='notice'>You can't repair [src], it's completely slagged!</span>")
 		return FALSE
@@ -206,17 +206,17 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 //Admin procs to mess with the reaction environment.
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/lazy_startup()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/lazy_startup()
 	slagged = FALSE
 	for(var/I=0;I<5;I++)
 		fuel_rods += new /obj/item/fuel_rod(src)
 	start_up()
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/deplete()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/deplete()
 	for(var/obj/item/fuel_rod/FR in fuel_rods)
 		FR.depletion = 100
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/Initialize(mapload)
+/obj/machinery/atmospherics/trinary/nuclear_reactor/Initialize(mapload)
 	. = ..()
 	icon_state = "reactor_off"
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
@@ -227,23 +227,23 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/on_entered(datum/source, atom/movable/AM, oldloc)
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/on_entered(datum/source, atom/movable/AM, oldloc)
 	SIGNAL_HANDLER
 
 	if(isliving(AM) && temperature > 0)
 		var/mob/living/L = AM
 		L.adjust_bodytemperature(CLAMP(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/process()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/process()
 	process_atmos() //Update the pipenet to register new gas mixes
 	if(next_slowprocess < world.time)
 		slowprocess()
 		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/has_fuel()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/has_fuel()
 	return length(fuel_rods)
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/slowprocess()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/slowprocess()
 	if(slagged)
 		STOP_PROCESSING(SSmachines, src)
 		return
@@ -374,7 +374,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 					grilled_item.desc = "A [initial(grilled_item.name)]. A grill this perfect is a rare technique only known by a few engineers who know how to perform a 'controlled' meltdown whilst also having the time to throw food on a reactor. I'll bet it tastes amazing."
 
 //Method to handle sound effects, reactor warnings, all that jazz.
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/handle_alerts()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/handle_alerts()
 	var/alert = FALSE //If we have an alert condition, we'd best let people know.
 	if(K <= 0 && temperature <= 0)
 		shut_down()
@@ -426,7 +426,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 //Failure condition 1: Meltdown. Achieved by having heat go over tolerances. This is less devastating because it's easier to achieve.
 //Results: Engineering becomes unusable and your engine irreparable
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/meltdown()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/meltdown()
 	set waitfor = FALSE
 	SSair.atmos_machinery -= src //Annd we're now just a useless brick.
 	slagged = TRUE
@@ -439,7 +439,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	playsound(src.loc, 'sound/effects/rbmk/meltdown.ogg', TRUE, channel = CHANNEL_ENGINE)
 	visible_message("<span class='userdanger'>You hear a horrible metallic hissing.</span>")
 	//NSW.fire() //This will take out engineering for a decent amount of time as they have to clean up the sludge.
-	for(var/obj/machinery/power/apc/A in GLOB.apcs_list)
+	for(var/obj/machinery/power/apc/A in GLOB.apcs)
 		if(prob(70))
 			A.overload_lighting()
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
@@ -458,7 +458,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 
 //Failure condition 2: Blowout. Achieved by reactor going over-pressured. This is a round-ender because it requires more fuckery to achieve. basically a meltdown and big boom
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/blowout()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/blowout()
 	explosion(get_turf(src), 3, 7, 14, 14)
 	meltdown() //Double kill.
 	playsound('sound/effects/rbmk/explode.ogg', TRUE, channel = CHANNEL_ENGINE)
@@ -488,7 +488,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 					MO.meltdown = TRUE
 */
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/update_icon()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/update_icon()
+	. = ..()
 	icon_state = "reactor_off"
 	switch(temperature)
 		if(0 to 200)
@@ -509,7 +510,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 //Startup, shutdown
 
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/start_up()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/start_up()
 	if(slagged)
 		return // No :)
 	START_PROCESSING(SSmachines, src)
@@ -523,7 +524,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "started")
 
 //Shuts off the fuel rods, ambience, etc. Keep in mind that your temperature may still go up!
-/obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/shut_down()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/shut_down()
 	STOP_PROCESSING(SSmachines, src)
 	set_light(0)
 	var/area/AR = get_area(src)
@@ -548,7 +549,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	icon_state = "oldcomp"
 	icon_screen = "library"
 	icon_keyboard = null
-	var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/reactor = null
+	var/obj/machinery/atmospherics/trinary/nuclear_reactor/reactor = null
 	var/id = "default_reactor_for_lazy_mappers"
 
 /obj/machinery/computer/reactor/Initialize(mapload, obj/item/circuitboard/C)
@@ -556,7 +557,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	addtimer(CALLBACK(src, PROC_REF(link_to_reactor)), 10 SECONDS)
 
 /obj/machinery/computer/reactor/proc/link_to_reactor()
-	for(var/obj/machinery/atmospherics/components/trinary/nuclear_reactor/asdf in GLOB.machines)
+	for(var/obj/machinery/atmospherics/trinary/nuclear_reactor/asdf in GLOB.machines)
 		if(asdf.id && asdf.id == id)
 			reactor = asdf
 			return TRUE
@@ -713,7 +714,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 /obj/machinery/computer/reactor/pump/attack_hand(mob/living/user)
 	. = ..()
-	if(!is_operational)
+	if(!(stat & (NOPOWER|BROKEN|MAINT)))
 		return FALSE
 	playsound(loc, pick('sound/effects/rbmk/switch.ogg','sound/effects/rbmk/switch2.ogg','sound/effects/rbmk/switch3.ogg'), 100, FALSE)
 	visible_message("<span class='notice'>[src]'s switch flips [on ? "off" : "on"].</span>")
