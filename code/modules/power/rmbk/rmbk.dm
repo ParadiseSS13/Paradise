@@ -399,7 +399,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		alert = TRUE
 		playsound(loc, 'sound/effects/rmbk/steam_whoosh.ogg', 100, TRUE)
 		var/turf/T = get_turf(src)
-		T.atmos_spawn_air("nitrogen=[pressure/100];TEMP=[CELSIUS_TO_KELVIN(temperature)]")
+		T.atmos_rmbk_overpressure("nitrogen=[pressure/100];TEMP=[CELSIUS_TO_KELVIN(temperature)]")
 		var/pressure_damage = min(pressure/100, initial(vessel_integrity)/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
 		vessel_integrity -= pressure_damage
 		if(vessel_integrity <= pressure_damage) //It wouldn't be able to tank another hit.
@@ -458,9 +458,9 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "failed")
 	SSblackbox.record_feedback("tally", "engine_stats", 1, "agcnr")
 
-//Failure condition 2: Blowout. Achieved by reactor going over-pressured. This is a round-ender because it requires more fuckery to achieve.
+//Failure condition 2: Blowout. Achieved by reactor going over-pressured. This is a round-ender because it requires more fuckery to achieve. basically a meltdown and big boom
 /obj/machinery/atmospherics/components/trinary/nuclear_reactor/proc/blowout()
-	explosion(get_turf(src), GLOB.MAX_EX_DEVESTATION_RANGE, GLOB.MAX_EX_HEAVY_RANGE, GLOB.MAX_EX_LIGHT_RANGE, GLOB.MAX_EX_FLASH_RANGE)
+	explosion(get_turf(src), 3, 7, 14, 14)
 	meltdown() //Double kill.
 	var/obj/structure/overmap/OM = get_overmap()
 	OM.relay('sound/effects/ship/reactor/explode.ogg')
