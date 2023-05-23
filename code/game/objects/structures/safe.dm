@@ -305,7 +305,7 @@ GLOBAL_LIST_EMPTY(safes)
 					notify_user(usr, canhear, list("tonk", "krunk", "plunk"), ticks, i, TRUE)
 					current_tumbler_index++
 				else
-					notify_user(usr, canhear, list("click", "chink", "clink"), ticks, i)
+					notify_user(usr, canhear, list("click", "crink", "clink"), ticks, i)
 			check_unlocked()
 		if("retrieve")
 			if(!open)
