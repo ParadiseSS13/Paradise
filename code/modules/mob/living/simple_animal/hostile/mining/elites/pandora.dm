@@ -216,11 +216,11 @@
 		var/mob/living/M = S.loc
 		M.apply_status_effect(STATUS_EFFECT_HOPE)
 
-/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user, obj/item/clothing/under/S)
-	. = ..()
-	if(isliving(S.loc))
-		var/mob/living/M = S.loc
+/obj/item/clothing/accessory/necklace/pandora_hope/on_removed(mob/user)
+	if(isliving(has_suit.loc))
+		var/mob/living/M = has_suit.loc
 		M.remove_status_effect(STATUS_EFFECT_HOPE)
+	. = ..()
 
 #undef CHASER_BURST
 #undef MAGIC_BOX
