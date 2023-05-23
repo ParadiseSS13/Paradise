@@ -318,7 +318,7 @@
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 		"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
 		charges--
-		playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE)
+		playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, -13) // 4 tile range.
 		owner.whisper(invocation)
 		for(var/obj/O in range(4, owner))
 			O.cult_conceal()
@@ -331,7 +331,7 @@
 		"<span class='cultitalic'>You invoke the counterspell, revealing nearby runes and cult structures.</span>")
 		charges--
 		owner.whisper(invocation)
-		playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE)
+		playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, -10) // 7 tile range.
 		for(var/obj/O in range(5, owner)) // Slightly higher in case we arent in the exact same spot
 			O.cult_reveal()
 		revealing = FALSE // Switch on use

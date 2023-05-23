@@ -45,7 +45,7 @@
 // Intents
 /datum/keybinding/mob/prev_intent
 	name = "Previous Intent"
-	keys = list("F")
+	keys = null
 
 /datum/keybinding/mob/prev_intent/down(client/C)
 	. = ..()
@@ -53,7 +53,7 @@
 
 /datum/keybinding/mob/next_intent
 	name = "Next Intent"
-	keys = list("G", "Insert")
+	keys = list("Insert")
 
 /datum/keybinding/mob/next_intent/down(client/C)
 	. = ..()

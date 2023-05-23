@@ -212,6 +212,8 @@
 	SSair.atmos_machinery -= src
 	QDEL_NULL(radio)
 	GLOB.poi_list -= src
+	if(!processes)
+		GLOB.frozen_atom_list -= src
 	QDEL_NULL(countdown)
 	QDEL_NULL(soundloop)
 	return ..()
@@ -290,6 +292,11 @@
 			SEND_SOUND(M, sound('sound/machines/engine_alert2.ogg')) // then send them the sound file
 	radio.autosay(speaking, name, null, list(z))
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
+		if(!processes) // Stop exploding if you're frozen by an admin, damn you
+			cut_overlay(causality_field, TRUE)
+			final_countdown = FALSE
+			damage = explosion_point - 1 // One point below exploding, so it will re-start the countdown once unfrozen
+			return
 		if(damage < explosion_point) // Cutting it a bit close there engineers
 			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null, list(z))
 			cut_overlay(causality_field, TRUE)
@@ -665,16 +672,17 @@
 			Consume(B)
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "supermatter")
-		C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/C = user
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "supermatter")
+	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you mentally focus on the supermatter you feel the contents of your skull start melting away. That was a really dense idea.</span>")
-		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-		C.ghostize(0)
-		if(B)
-			B.remove(C)
-			qdel(B)
+	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
+	C.ghostize(0)
+	if(B)
+		B.remove(C)
+		qdel(B)
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_alien(mob/user)
 	dust_mob(user, cause = "alien attack")

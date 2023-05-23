@@ -266,6 +266,9 @@
 	if(notransform)
 		return
 
+	if(stat == DEAD)
+		return
+
 	for(var/obj/item/W in src)
 		unEquip(W)
 

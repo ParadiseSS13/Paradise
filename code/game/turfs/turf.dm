@@ -8,6 +8,10 @@
 	var/slowdown = 0 //negative for faster, positive for slower
 	var/transparent_floor = FALSE //used to check if pipes should be visible under the turf or not
 
+	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
+	var/real_layer = TURF_LAYER
+	layer = MAP_EDITOR_TURF_LAYER
+
 	///Icon-smoothing variable to map a diagonal wall corner with a fixed underlay.
 	var/list/fixed_underlay = null
 
@@ -48,6 +52,9 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+
+	if(layer == MAP_EDITOR_TURF_LAYER)
+		layer = real_layer
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()

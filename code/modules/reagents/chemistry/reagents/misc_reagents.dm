@@ -455,9 +455,10 @@
 		else
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-	ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+	if(C.mind.assigned_role != "Clown")
+		ADD_TRAIT(C, TRAIT_COMIC_SANS, id)
+		C.AddElement(/datum/element/waddling)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
-	C.AddElement(/datum/element/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -491,9 +492,11 @@
 
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
-	REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
+	if(M.mind.assigned_role != "Clown")
+		REMOVE_TRAIT(M, TRAIT_COMIC_SANS, id)
+		M.RemoveElement(/datum/element/waddling)
 	qdel(M.GetComponent(/datum/component/squeak))
-	M.RemoveElement(/datum/element/waddling)
+
 
 /datum/reagent/royal_bee_jelly
 	name = "Royal bee jelly"
@@ -698,17 +701,3 @@
 
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
 		H.change_skin_color("#9B7653")
-
-/datum/reagent/magillitis
-	name = "Magillitis"
-	id = "magillitis"
-	description = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
-	reagent_state = LIQUID
-	color = "#00f041"
-	taste_description = "muscular"
-
-/datum/reagent/magillitis/on_mob_life(mob/living/carbon/human/M)
-	..()
-	if((istype(M)) && current_cycle >= 10)
-		M.gorillize(TRUE)
-		to_chat(M, "<span class='userdanger'>You feel your muscles swell and your hair grow as you return to monke.</span>")

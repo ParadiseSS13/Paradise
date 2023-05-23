@@ -133,7 +133,7 @@
 			living_target.throw_at(get_edge_target_turf(living_target, dir), rand(1, 2), 7, src)
 			return
 
-		living_target.Paralyse(2 SECONDS)
+		living_target.adjustStaminaLoss(40)
 		visible_message("<span class='warning'>[src] knocks [living_target] down!</span>")
 
 /mob/living/simple_animal/hostile/gorilla/update_icon_state()
@@ -180,7 +180,10 @@
 	. = ..()
 	var/num_crates = LAZYLEN(crates_in_hand)
 	if(num_crates)
-		. += "<span class='notice'>[p_theyre(TRUE)] carrying [num_crates == 1 ? "a crate" : "[num_crates] crates"].</span>"
+		. += "<span class='notice'>[p_theyre(TRUE)] carrying the following:"
+		for(var/atom/movable/crate in crates_in_hand)
+			. += "[crate]."
+		. += "</span>"
 
 /mob/living/simple_animal/hostile/gorilla/drop_item_v()
 	drop_random_crate(drop_location())
@@ -202,9 +205,10 @@
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic
 	name = "Cargorilla" // Overriden, normally
 	icon = 'icons/mob/cargorillia.dmi'
-	desc = "Cargo's pet gorilla. They seem to have an 'I love Mom' tattoo."
+	desc = "Cargo's pet gorilla. He seems to have an 'I love Mom' tattoo."
 	faction = list("neutral", "monkey", "jungle")
 	gold_core_spawnable = NO_SPAWN
+	gender = MALE
 	a_intent = INTENT_HELP
 	unique_pet = TRUE
 	crate_limit = 2
@@ -226,6 +230,10 @@
 	QDEL_NULL(access_card)
 	return ..()
 
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic/get_access()
+	. = ..()
+	. |= access_card.GetAccess()
+
 /obj/item/card/id/supply/cargo_gorilla
 	name = "cargorilla ID"
 	registered_name = "Cargorilla"
@@ -238,6 +246,9 @@
 	color = "#ff0000"
 	health = 350
 	maxHealth = 350
+	melee_damage_lower = 25
+	melee_damage_upper = 35
+	obj_damage = 40
 	damage_coeff = list(BRUTE = 1.25, BURN = 1, TOX = 1.5, CLONE = 0, STAMINA = 0, OXY = 1)
 
 /mob/living/simple_animal/hostile/gorilla/rampaging/Initialize(mapload)
