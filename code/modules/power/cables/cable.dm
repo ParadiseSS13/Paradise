@@ -34,6 +34,9 @@ By design, d1 is the smallest direction and d2 is the highest
 	plane = GAME_PLANE //is set to FLOOR_PLANE when spawned
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
+	var/cable_coil_type
+
+	var/power_voltage_type = 0
 	/// The direction of endpoint one of this cable
 	var/d1 = 0
 	/// The direction of enpoint two of this cable
@@ -78,80 +81,13 @@ By design, d1 is the smallest direction and d2 is the highest
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 
-// Items usable on a cable :
-//   - Wirecutters : cut it duh !
-//   - Cable coil : merge cables
-//   - Multitool : get the power currently passing through the cable
-//
-/obj/structure/cable/attackby(obj/item/W, mob/user)
-	var/turf/T = get_turf(src)
-	if(T.transparent_floor || T.intact)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return
-
-	else if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = W
-		if(coil.get_amount() < 1)
-			to_chat(user, "<span class='warning'>Not enough cable!</span>")
-			return
-		coil.cable_join(src, user)
-
-	else if(istype(W, /obj/item/twohanded/rcl))
-		var/obj/item/twohanded/rcl/R = W
-		if(R.loaded)
-			R.loaded.cable_join(src, user)
-			R.is_empty(user)
-
-	else if(istype(W, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = W
-		cable_color(C.colourName)
-
-	else
-		if(W.flags & CONDUCT)
-			shock(user, 50, 0.7)
-
-	add_fingerprint(user)
-
-/obj/structure/cable/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	var/turf/T = get_turf(src)
-	if(T.intact)
-		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(powernet && (powernet.available_power > 0))		// is it powered?
-		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.available_power)]\nLoad: [DisplayPower(powernet.power_demand)]\nExcess power: [DisplayPower(get_surplus())]</span>")
-	else
-		to_chat(user, "<span class='danger'>The cable is not powered.</span>")
-	shock(user, 5, 0.2)
 
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if(T.transparent_floor || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(shock(user, 50))
-		return
-	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
-	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
-	deconstruct()
-
-/obj/structure/cable/proc/cable_color(colorC)
-	if(!colorC)
-		color = COLOR_RED
-	else if(colorC == "rainbow")
-		color = color_rainbow()
-	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
-		color = COLOR_ORANGE
-	else
-		color = colorC
-
-/obj/structure/cable/proc/color_rainbow()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
-	return color
+		return FALSE
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
@@ -404,27 +340,6 @@ By design, d1 is the smallest direction and d2 is the highest
 // override, so telekinesis has no effect on a cable
 /obj/structure/cable/attack_tk(mob/user)
 	return
-
-/obj/structure/cable/yellow
-	color = COLOR_YELLOW
-
-/obj/structure/cable/green
-	color = COLOR_GREEN
-
-/obj/structure/cable/blue
-	color = COLOR_BLUE
-
-/obj/structure/cable/pink
-	color = COLOR_PINK
-
-/obj/structure/cable/orange
-	color = COLOR_ORANGE
-
-/obj/structure/cable/cyan
-	color = COLOR_CYAN
-
-/obj/structure/cable/white
-	color = COLOR_WHITE
 
 //
 //	This ASCII art represents my brain after looking at cable

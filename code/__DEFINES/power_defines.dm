@@ -38,3 +38,7 @@
 #define APC_IS_CHARGING 1
 /// APC battery is at 100%
 #define APC_FULLY_CHARGED 2
+
+
+#define VOLTAGE_LOW 	1
+#define VOLTAGE_HIGH	2
