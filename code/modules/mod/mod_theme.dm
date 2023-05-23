@@ -571,11 +571,11 @@
 	default_skin = "research"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_research
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	slowdown_inactive = 1.75
 	slowdown_active = 1
+	ui_theme = "changeling"
 	inbuilt_modules = list(/obj/item/mod/module/reagent_scanner/advanced)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
@@ -628,6 +628,7 @@
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	slowdown_inactive = 1
 	slowdown_active = 0.5
+	ui_theme = "security"
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,
@@ -684,6 +685,7 @@
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	slowdown_inactive = 0.75
 	slowdown_active = 0.25
+	ui_theme = "security"
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,

@@ -108,18 +108,13 @@
 	build_path = /obj/item/mod/skin_applier/corpsman
 
 /datum/design/module
-	name = "MOD Module"
-	build_type = MECHFAB
-	construction_time = 5 SECONDS
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000)
-	build_path = /obj/item/mod/module
-	category = list("Modsuit Modules")
-
-/datum/design/module/mod_storage
 	name = "Storage Module"
 	id = "mod_storage"
+	build_type = MECHFAB
+	construction_time = 5 SECONDS
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 10000)
 	build_path = /obj/item/mod/module/storage
+	category = list("Modsuit Modules")
 
 /datum/design/module/mod_storage_expanded
 	name = "Expanded Storage Module"
@@ -288,13 +283,6 @@
 	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 6, "syndicate" = 2)
 	materials = list(MAT_METAL = 12500, MAT_DIAMOND = 4000) //EMP beats it, but still, anti theft is a premium price in these here parts partner
 	build_path = /obj/item/mod/module/dna_lock
-
-/datum/design/module/mister_atmos
-	name = "Resin Mister Module"
-	id = "mod_mister_atmos"
-	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
-	materials = list(MAT_METAL = 2500, MAT_GLASS = 5000)
-	build_path = /obj/item/mod/module/mister/atmos
 
 /datum/design/module/mod_holster
 	name = "Holster Module"
