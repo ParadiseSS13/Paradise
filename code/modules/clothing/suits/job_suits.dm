@@ -144,7 +144,10 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
 		)
 
 //Forensics
@@ -165,6 +168,11 @@
 	name = "blue jacket"
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_blue"
+
+/obj/item/clothing/suit/storage/det_suit/forensics/black
+	name = "black jacket"
+	desc = "A black forensics technician jacket."
+	icon_state = "forensics_black"
 
 //Blueshield
 /obj/item/clothing/suit/storage/blueshield

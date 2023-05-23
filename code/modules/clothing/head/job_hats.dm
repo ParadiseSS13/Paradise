@@ -110,7 +110,8 @@
 	dog_fashion = /datum/dog_fashion/head/detective
 
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 //Mime
