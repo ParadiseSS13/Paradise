@@ -522,3 +522,20 @@
 	projectile_angle += angle_to_projectile / (distance ** 2)
 	P.damage += 10 / distance
 	P.set_angle(projectile_angle)
+
+/obj/singularity/proc/end_deadchat_plays()
+	move_self = TRUE
+
+
+/obj/singularity/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 12 SECONDS)
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, TYPE_PROC_REF(/atom/movable, stop_deadchat_plays)))
+
+	if(. == COMPONENT_INCOMPATIBLE)
+		return
+
+	move_self = FALSE
+
+
+/obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
+	. = ..()
+	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)

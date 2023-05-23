@@ -23,6 +23,10 @@
 	shock_reduction = 200
 	taste_description = "numbness"
 
+/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
+	var/update_flags = STATUS_UPDATE_HEALTH
+	return ..() | update_flags
+
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -500,6 +504,8 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
+	overdose_threshold = 4
+	allowed_overdose_process = TRUE
 	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 10
@@ -508,13 +514,17 @@
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
+
 	update_flags |= M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(volume >= 4)
-		M.LoseBreath(12 SECONDS)
 	if(prob(33))
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+
 	return ..() | update_flags
+
+/datum/reagent/medicine/perfluorodecalin/overdose_process(mob/living/M)
+	M.LoseBreath(12 SECONDS)
+	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"

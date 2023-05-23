@@ -513,6 +513,15 @@
 	caliber = "laser"
 	max_ammo = 20
 	multi_sprite_step = 5
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/ammo_box/magazine/laser/ert //Used by red ERT. Keeps the size for them
+	name = "compact laser carbine projector magazine"
+	desc = "By use of bluespace technology, the ammo casings are stored in a pocket dimension, saving on space and making them EMP proof."
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/ammo_box/magazine/laser/ert/emp_act(severity)
+	return
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
