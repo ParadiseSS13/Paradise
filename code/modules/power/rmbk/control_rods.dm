@@ -60,4 +60,4 @@
 	build_path = /obj/item/control_rod/inferior
 	category = list("Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
-/*
+*/
