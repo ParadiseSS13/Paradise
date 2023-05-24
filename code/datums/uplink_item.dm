@@ -427,6 +427,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer")
 
+/datum/uplink_item/jobspecific/supertoolbox
+	name = "Superior Suspicious Toolbox"
+	desc = "Ultimate version of all toolboxes, this one more robust and more useful than his cheaper version. Comes with experimental type tools, combat gloves and cool sunglasses."
+	item = /obj/item/storage/toolbox/syndisuper
+	reference = "CSSTB"
+	cost = 2
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	job = list("Station Engineer", "Trainee Engineer", "Chief Engineer", "Mechanic", "Roboticist", "Paramedic")
+
 //RD
 /datum/uplink_item/jobspecific/telegun
 	name = "Telegun"
@@ -1490,6 +1499,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "FLTB"
 	item = /obj/item/storage/toolbox/syndicate
 	cost = 1
+
+/datum/uplink_item/device_tools/supertoolbox
+	name = "Superior Suspicious Toolbox"
+	desc = "Ultimate version of all toolboxes, this one more robust and more useful than his cheaper version. Comes with experimental type tools, combat gloves and cool sunglasses."
+	item = /obj/item/storage/toolbox/syndisuper
+	reference = "SSTB"
+	cost = 2
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/holster
 	name = "Shoulder Holster"
