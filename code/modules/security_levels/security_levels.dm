@@ -24,6 +24,9 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 		if("delta")
 			level = SEC_LEVEL_DELTA
 
+	if(level != SEC_LEVEL_DELTA)
+		stop_delta_alarm()
+
 	//Will not be announced if you try to set to the same level as it already is
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != GLOB.security_level)
 		if(level >= SEC_LEVEL_RED && GLOB.security_level < SEC_LEVEL_RED)
@@ -92,12 +95,12 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				return
 
 			if(SEC_LEVEL_DELTA)
-				GLOB.security_announcement.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound2 = 'sound/AI/delta.ogg')
+				GLOB.security_announcement.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!")
 				GLOB.security_level = SEC_LEVEL_DELTA
-				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(delta_alarm)), 3 SECONDS)
 				post_status(STATUS_DISPLAY_ALERT, "deltaalert")
 				update_firealarms()
 				set_stationwide_emergency_lighting()
+				delta_alarm()
 				SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 				return
 
@@ -239,8 +242,6 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 	alarm.channel = CHANNEL_DELTA_ALARM
 	alarm.start()
 
-/proc/stop_delta_alarm(mob/optional_remove_from_this)
+/proc/stop_delta_alarm()
 	for(var/datum/looping_sound/decreasing/delta_alarm/alarm in GLOB.looping_sounds)
-		alarm.stop(optional_remove_from_this)
-
-// TODO S34N: MAKE IT STOP WHEN THE STATION EXPLODES/EXITS DELTA, MAKE ADMIN MIDIS MUTE IT IF USERS HAVE THAT ADMIN'S MIDIS ON
+		alarm.stop()

@@ -344,6 +344,8 @@ SUBSYSTEM_DEF(ticker)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
+	stop_delta_alarm() // If we are playing the delta alarm, cease.
+
 	auto_toggle_ooc(TRUE) // Turn it on
 	//initialise our cinematic screen object
 	cinematic = new /obj/screen(src)

@@ -119,11 +119,11 @@
 	if(end_sound)
 		play(end_sound)
 
-// Self-decreasing volume thingy
+/// Looping sounds that decrease volume by a specified % each loop until it reaches a specified total % volume.
 /datum/looping_sound/decreasing
-	/// What volume level to eventually decrease to
+	/// What volume level, as a % of original, to eventually decrease to
 	var/decrease_to_amount = 50
-	/// How much to decrease the volume by each loop
+	/// How much, as a % of original, to decrease the volume by each loop
 	var/decrease_by_amount = 1
 
 /datum/looping_sound/decreasing/sound_loop(looped = 0)
@@ -133,7 +133,8 @@
 
 /datum/looping_sound/decreasing/delta_alarm
 	mid_sounds = 'sound/effects/delta_alarm.ogg'
-	mid_length = 130
-	decrease_to_amount = 20
-	decrease_by_amount = 2
+	volume = 50
+	mid_length = 80
+	decrease_to_amount = 10
+	decrease_by_amount = 5
 	channel = CHANNEL_DELTA_ALARM
