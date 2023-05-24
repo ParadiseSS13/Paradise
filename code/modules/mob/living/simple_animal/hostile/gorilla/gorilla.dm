@@ -26,6 +26,7 @@
 	minbodytemp = 270
 	maxbodytemp = 350
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
+	stat_attack = UNCONSCIOUS // Sleeping won't save you
 	a_intent = INTENT_HARM // Angrilla
 	/// Is the gorilla stood up or not?
 	var/is_bipedal = FALSE
