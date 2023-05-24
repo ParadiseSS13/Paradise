@@ -7,7 +7,8 @@
 	var/move_resist = MOVE_RESIST_DEFAULT
 	var/move_force = MOVE_FORCE_DEFAULT
 	var/pull_force = PULL_FORCE_DEFAULT
-	var/pull_speed = 0 // bigger value slower pulling speed
+	/// bigger value slower pulling speed
+	var/pull_speed = 0 
 	// var/elevation = 2    - not used anywhere
 	var/move_speed = 10
 	var/l_move_time = 1
