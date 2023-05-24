@@ -54,12 +54,9 @@
 		return ..()
 	if(on_cooldown)
 		return
-	if(issilicon(target) && !affect_silicon)
+	if((issilicon(target) || isbot(target)) && !affect_silicon)
 		return ..()
-	if(isbot(target) && !affect_silicon)
-		return ..()
-	else
-		baton_knockdown(target, user)
+	baton_knockdown(target, user)
 
 /**
   * Called when a target is about to be hit non-lethally.
@@ -75,7 +72,7 @@
 		on_silicon_stun(target, user)
 
 	// Check for shield/countering
-	if(ishuman(target))
+	else if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			return FALSE
@@ -83,7 +80,7 @@
 							"<span class='danger'>You knock down [target] with [src]!</span>")
 		on_non_silicon_stun(target, user)
 
-	if(isbot(target))
+	else if(isbot(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
 							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
 		var/mob/living/simple_animal/bot/H = target
