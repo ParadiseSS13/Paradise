@@ -229,7 +229,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1
-	slowdown_active = 0.5
+	slowdown_active = 0.45
 	inbuilt_modules = list(/obj/item/mod/module/magboot/advanced)
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
@@ -428,7 +428,7 @@
 	armor_type_1 = /obj/item/mod/armor/mod_theme_medical
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
 	slowdown_inactive = 1
-	slowdown_active = 0.5
+	slowdown_active = 0.45
 	allowed_suit_storage = list(
 		/obj/item/healthanalyzer,
 		/obj/item/reagent_containers/dropper,
@@ -630,7 +630,7 @@
 	armor_type_1 = /obj/item/mod/armor/mod_theme_security
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	slowdown_inactive = 1
-	slowdown_active = 0.5
+	slowdown_active = 0.45
 	ui_theme = "security"
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,

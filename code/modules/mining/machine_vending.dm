@@ -39,8 +39,8 @@
 		EQUIPMENT("Jump Boots", /obj/item/clothing/shoes/bhop, 2500),
 		EQUIPMENT("Lazarus Capsule", /obj/item/mobcapsule, 800),
 		EQUIPMENT("Lazarus Capsule belt", /obj/item/storage/belt/lazarus, 200),
-		EQUIPMENT("Mining Modsuit", /obj/item/mod/control/pre_equipped/mining, 3000),
-		EQUIPMENT("Asteroid Modsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
+		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining, 3000),
+		EQUIPMENT("Asteroid MODsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
 		EQUIPMENT("Tracking Bio-chip Kit", /obj/item/storage/box/minertracker, 600),
 	)
 	prize_list["Consumables"] = list(

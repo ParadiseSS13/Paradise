@@ -384,8 +384,8 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/modsuit
-	name = "Syndicate Modsuit"
-	desc = "The feared Modsuit of a syndicate nuclear agent. Features armor and a eva mode \
+	name = "Syndicate MODsuit"
+	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and a eva mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Comes packaged with internals. \
@@ -396,8 +396,8 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/modsuit_elite
-	name = "Syndicate Elite Modsuit"
-	desc = "An advanced Modsuit with superior armor to the standard Syndicate Modsuit. \
+	name = "Syndicate Elite MODsuit"
+	desc = "An advanced MODsuit with superior armor to the standard Syndicate MODsuit. \
 	Nanotrasen crew who spot these suits are known to *really* panic."
 	reference = "MSE"
 	item = /obj/item/storage/box/syndie_kit/modsuit/elite

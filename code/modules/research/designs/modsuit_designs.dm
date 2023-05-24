@@ -10,7 +10,7 @@
 	materials = list(MAT_METAL = 10000, MAT_PLASMA = 5000)
 	construction_time = 25 SECONDS
 	build_path = /obj/item/mod/construction/shell
-	category = list("Modsuit Construction")
+	category = list("MODsuit Construction")
 
 /datum/design/mod_helmet
 	name = "MOD Helmet"
@@ -20,7 +20,7 @@
 	materials = list(MAT_METAL = 5000)
 	construction_time = 10 SECONDS
 	build_path = /obj/item/mod/construction/helmet
-	category = list("Modsuit Construction")
+	category = list("MODsuit Construction")
 
 /datum/design/mod_chestplate
 	name = "MOD Chestplate"
@@ -30,7 +30,7 @@
 	materials = list(MAT_METAL = 5000)
 	construction_time = 10 SECONDS
 	build_path = /obj/item/mod/construction/chestplate
-	category = list("Modsuit Construction")
+	category = list("MODsuit Construction")
 
 /datum/design/mod_gauntlets
 	name = "MOD Gauntlets"
@@ -40,7 +40,7 @@
 	materials = list(MAT_METAL = 5000)
 	construction_time = 10 SECONDS
 	build_path = /obj/item/mod/construction/gauntlets
-	category = list("Modsuit Construction")
+	category = list("MODsuit Construction")
 
 /datum/design/mod_boots
 	name = "MOD Boots"
@@ -50,7 +50,7 @@
 	materials = list(MAT_METAL = 5000)
 	construction_time = 10 SECONDS
 	build_path = /obj/item/mod/construction/boots
-	category = list("Modsuit Construction")
+	category = list("MODsuit Construction")
 
 /datum/design/mod_plating
 	name = "MOD External Plating"
@@ -60,7 +60,7 @@
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_PLASMA = 1000)
 	construction_time = 15 SECONDS
 	build_path = /obj/item/mod/construction/plating
-	category = list("Modsuit Construction")
+	category = list("MODsuit Construction")
 
 /datum/design/mod_plating/engineering
 	name = "MOD Engineering Plating"
@@ -100,7 +100,7 @@
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_PLASMA = 1000)
 	construction_time = 5 SECONDS
 	build_path = /obj/item/mod/skin_applier
-	category = list("Modsuit Construction")
+	category = list("MODsuit Construction")
 
 /datum/design/mod_skin/corpsman
 	name = "MOD Corpsman Skin"
@@ -114,7 +114,7 @@
 	construction_time = 5 SECONDS
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 10000)
 	build_path = /obj/item/mod/module/storage
-	category = list("Modsuit Modules")
+	category = list("MODsuit Modules")
 
 /datum/design/module/mod_storage_expanded
 	name = "Expanded Storage Module"

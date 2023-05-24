@@ -482,8 +482,8 @@
 // SPACE SUITS
 
 /datum/uplink_item/suits/hardsuit/elite
-	name = "Elite Syndicate Modsuit"
-	desc = "An advanced Modsuit with superior armor and mobility to the standard Syndicate Modsuit."
+	name = "Elite Syndicate MODsuit"
+	desc = "An advanced MODsuit with superior armor and mobility to the standard Syndicate MODsuit."
 	item = /obj/item/mod/control/pre_equipped/elite
 	cost = 8
 	reference = "ESHS"

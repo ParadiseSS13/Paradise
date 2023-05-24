@@ -187,7 +187,7 @@
 
 /obj/structure/closet/secure_closet/paramedic
 	name = "paramedic EVA gear"
-	desc = "A locker with a Rescue Modsuit."
+	desc = "A locker with a Rescue MODsuit."
 	icon_state = "med"
 	open_door_sprite = "med_door"
 	icon_opened = "med_open"
