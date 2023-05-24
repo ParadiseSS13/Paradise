@@ -61,7 +61,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	toolspeed = 1
 	var/defib_cooldown = 5 SECONDS
-	var/revivecost = 1000
 	var/safety = TRUE
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
 	var/on_cooldown = FALSE
@@ -69,7 +68,7 @@
 
 /obj/item/mod_defib/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/defib, cooldown = defib_cooldown, speed_multiplier = toolspeed, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
+	AddComponent(/datum/component/defib, cooldown = defib_cooldown, speed_multiplier = toolspeed, combat = !safety, heart_attack_chance = safety ? 0 : 100, robotic = TRUE, safe_by_default = safety, emp_proof = TRUE)
 
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))
@@ -103,6 +102,7 @@
 		those in-built safeties. Operatives in the field can benefit from what they dub as 'Stun Gloves', able to apply shocks \
 		straight to a victims heart to disable them, or maybe even outright stop their heart with enough power."
 	complexity = 1
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 400 // 2000 charge. Since you like causing heart attacks, don't you?
 	module_type = MODULE_ACTIVE
 	overlay_state_inactive = "module_defibrillator_combat"
 	overlay_state_active = "module_defibrillator_combat_active"

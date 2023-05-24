@@ -64,7 +64,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(!do_after(mod.wearer, 10 SECONDS, target = mod))
+	if(!do_after(mod.wearer, 10 SECONDS, target = mod.wearer))
 		return FALSE
 	mod.wearer.adjustOxyLoss(20)
 	playsound(src, 'sound/items/modsuit/inflate_bloon.ogg', 50, TRUE)

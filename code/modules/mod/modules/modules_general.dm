@@ -58,7 +58,7 @@
 /obj/item/mod/module/storage/belt
 	name = "MOD case storage module"
 	desc = "Some concessions had to be made when creating a compressed modular suit core. \
-	As a result, Roseus Galactic equipped their suit with a slimline storage case.  \
+	As a result, Roseus Galactic equipped their suit with a slimline storage case. \
 	If you find this equipped to a standard modular suit, then someone has almost certainly shortchanged you on a proper storage module."
 	icon_state = "storage_case"
 	complexity = 0
@@ -248,7 +248,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(dispense_time && !do_after(mod.wearer, dispense_time, target = mod))
+	if(dispense_time && !do_after(mod.wearer, dispense_time, target = mod.wearer))
 		return FALSE
 	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
 	mod.wearer.put_in_hands(dispensed)

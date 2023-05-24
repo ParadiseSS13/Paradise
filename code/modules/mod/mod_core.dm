@@ -187,7 +187,7 @@
 	if(!cell)
 		to_chat(user, "<span class='warning'>No cell installed!</span>")
 		return
-	if(!do_after(user, 1.5 SECONDS, target = mod))
+	if(!do_after(user, 1.5 SECONDS, target = user))
 		return
 	to_chat(user, "<span class='notice'>You remove the cell.</span>")
 	playsound(mod, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)

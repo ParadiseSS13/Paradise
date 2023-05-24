@@ -112,7 +112,7 @@
 	if(!.)
 		return
 	playsound(mod.wearer, 'sound/mecha/skyfall_power_up.ogg', vol = 20, vary = TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
-	if(!do_after(mod.wearer, 1.1 SECONDS, target = mod))
+	if(!do_after(mod.wearer, 1.1 SECONDS, target = mod.wearer))
 		return
 	var/creatures_detected = 0
 	for(var/mob/living/creature in range(9, mod.wearer))

@@ -204,18 +204,30 @@
 	use_mod_colors = TRUE
 	/// Time it takes to launch
 	var/launch_time = 2 SECONDS
+	/// The overlay used to show that you are charging.
+	var/image/charge_up_overlay
+
+/obj/item/mod/module/hydraulic/Initialize(mapload)
+	. = ..()
+	charge_up_overlay = image(icon = 'icons/effects/effects.dmi', icon_state = "electricity3", layer = EFFECTS_LAYER)
 
 /obj/item/mod/module/hydraulic/on_select_use(atom/target)
 	. = ..()
 	if(!.)
 		return
 	var/current_time = world.time
+	var/atom/movable/plane_master_controller/pm_controller = mod.wearer.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	for(var/key in pm_controller.controlled_planes)
+		animate(pm_controller.controlled_planes[key], launch_time, transform = matrix(1.25, MATRIX_SCALE))
 	mod.wearer.visible_message("<span class='warning'>[mod.wearer] starts whirring!</span>")
 	playsound(src, 'sound/items/modsuit/loader_charge.ogg', 75, TRUE)
+	mod.wearer.add_overlay(charge_up_overlay)
 	var/power = launch_time
-	if(!do_after(mod.wearer, launch_time, target = mod))
+	if(!do_after(mod.wearer, launch_time, target = mod.wearer))
 		power = world.time - current_time
 	drain_power(use_power_cost)
+	for(var/key in pm_controller.controlled_planes)
+		animate(pm_controller.controlled_planes[key], 0.1 SECONDS, transform = matrix(1, MATRIX_SCALE))
 	playsound(src, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
 	var/angle = get_angle(mod.wearer, target)
 	mod.wearer.transform = mod.wearer.transform.Turn(angle)
@@ -227,6 +239,7 @@
 	if(!user)
 		return
 	user.transform = user.transform.Turn(angle)
+	user.cut_overlay(charge_up_overlay)
 
 /obj/item/mod/module/disposal_connector
 	name = "MOD disposal selector module"

@@ -56,10 +56,10 @@
 	surplus = 40
 
 /datum/uplink_item/dangerous/combat_defib
-	name = "Combat defibrillator"
-	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well."
+	name = "Combat defibrillator module"
+	desc = "A lifesaving device turned dangerous weapon. Click on someone with the paddles on harm intent to instantly stop their heart. Can be used as a regular defib as well. Installs in a modsuit"
 	reference = "CD"
-	item = /obj/item/defibrillator/compact/combat/loaded
+	item = /obj/item/mod/module/defibrillator/combat
 	cost = 12
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
