@@ -23,6 +23,11 @@
 	path = /obj/item/clothing/mask/cigarette/pipe
 	cost = 2
 
+/datum/gear/robustpipe
+	display_name = "robust smoking pipe"
+	path = /obj/item/clothing/mask/cigarette/pipe/oldpipe
+	cost = 2
+
 /datum/gear/lighter
 	display_name = "a cheap lighter"
 	path = /obj/item/lighter

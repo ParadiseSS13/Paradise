@@ -425,6 +425,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 800
 	chem_volume = 40
 
+/obj/item/clothing/mask/cigarette/pipe/oldpipe
+	name = "robust smoking pipe"
+	desc = "A worn out smoking pipe. Looks robust"
+	icon_state = "oldpipeoff"
+	item_state = "oldpipeoff"
+	icon_on = "oldpipeon"
+	icon_off = "oldpipeoff"
+
 ///////////
 //ROLLING//
 ///////////
