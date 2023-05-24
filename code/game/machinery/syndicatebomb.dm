@@ -32,6 +32,7 @@
 	var/next_beep
 	var/detonation_timer
 	var/explode_now = FALSE
+	var/hide_wires = TRUE
 
 /obj/machinery/syndicatebomb/proc/try_detonate(ignore_active = FALSE)
 	. = (payload in src) && (active || ignore_active) && !defused
@@ -86,6 +87,8 @@
 /obj/machinery/syndicatebomb/Initialize(mapload)
 	. = ..()
 	wires = new(src)
+	if(hide_wires)
+		ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
 	if(payload)
 		payload = new payload(src)
 	update_icon(UPDATE_ICON_STATE)
@@ -443,7 +446,7 @@
 	name = "\improper EMP bomb core"
 	var/light_emp = 36
 	var/heavy_emp = 18
-	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
+	var/pulse_number = 3 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
 	var/adminlogged = FALSE //If it exploded once, don't do it again.
 
 /obj/item/bombcore/emp/ex_act(severity) //It's an EMP bomb, not a chemical explosive

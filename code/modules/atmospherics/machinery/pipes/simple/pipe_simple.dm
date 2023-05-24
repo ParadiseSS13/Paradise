@@ -1,9 +1,9 @@
 /obj/machinery/atmospherics/pipe/simple
+	name = "pipe"
+	desc = "A one meter section of regular pipe."
 	icon = 'icons/atmos/pipes.dmi'
 	icon_state = ""
 	var/pipe_icon = "" //what kind of pipe it is and from which dmi is the icon manager getting its icons, "" for simple pipes, "hepipe" for HE pipes, "hejunction" for HE junctions
-	name = "pipe"
-	desc = "A one meter section of regular pipe"
 
 	volume = 70
 

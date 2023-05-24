@@ -23,6 +23,8 @@
  * Utensils
  */
 /obj/item/kitchen/utensil
+	lefthand_file = 'icons/mob/inhands/utensil_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/utensil_righthand.dmi'
 	force = 5.0
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0.0

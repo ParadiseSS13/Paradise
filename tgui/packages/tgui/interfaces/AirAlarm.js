@@ -114,6 +114,15 @@ const AirStatus = (props, context) => {
               color={Danger2Colour(air.danger.plasma)}
             />
           </LabeledList.Item>
+          {air.contents.n2o > 0.1 && (
+            <LabeledList.Item label="Nitrous Oxide">
+              <ProgressBar
+                value={air.contents.n2o / 100}
+                fractionDigits="1"
+                color={Danger2Colour(air.danger.n2o)}
+              />
+            </LabeledList.Item>
+          )}
           {air.contents.other > 0.1 && (
             <LabeledList.Item label="Other">
               <ProgressBar
