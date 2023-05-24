@@ -10,7 +10,6 @@
 	..()
 	if(!istype(Target, /obj/item/mod/control))
 		qdel(src)
-		return
 
 /datum/action/item_action/mod/Trigger(trigger_flags)
 	if(!IsAvailable())
@@ -32,6 +31,7 @@
 		return
 	var/obj/item/mod/control/mod = target
 	mod.quick_deploy(usr)
+
 /datum/action/item_action/mod/activate
 	name = "Activate MODsuit"
 	desc = "Press this twice to activate the suit."
