@@ -37,10 +37,10 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	. = ..()
 	var/turf/T = get_turf(loc)
 	weightless_image = new()
-	gravity_check =  has_gravity(src, T)
+	gravity_check = has_gravity(src, T)
 	update_icon()
 
-	if(type == /obj/effect/decal/cleanable/blood/gibs || !gravity_check)
+	if(!gravity_check)
 		return
 
 	if(!.)
@@ -92,8 +92,8 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 
 /obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
 	. = ..()
-	if(ishuman(O) && !gravity_check)
-		bloodyify_mob(O)
+	if(!gravity_check && ishuman(O))
+		bloodyify_human(O)
 
 /obj/effect/decal/cleanable/blood/proc/splat(atom/AT)
 	if(gravity_check) //only floating blood can splat :C
@@ -111,20 +111,20 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 
 /obj/effect/decal/cleanable/blood/Process_Spacemove(movement_dir)
 	if(gravity_check)
-		return 1
+		return TRUE
 
 	if(has_gravity(src))
 		if(!gravity_check)
 			splat(get_step(src, movement_dir))
-		return 1
+		return TRUE
 
 	if(pulledby && !pulledby.pulling)
-		return 1
+		return TRUE
 
 	if(throwing)
-		return 1
+		return TRUE
 
-	return 0
+	return FALSE
 
 
 /obj/effect/decal/cleanable/blood/Bump(atom/A, yes)
@@ -140,26 +140,20 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	..()
 
 	if(ishuman(A))
-		var/mob/living/carbon/human/H = A
-		bloodyify_mob(H)
+		bloodyify_human(A)
 		return
 
-/obj/effect/decal/cleanable/blood/proc/bloodyify_mob(mob/M)
-	if(!ishuman(M))
-		return
-	var/mob/living/carbon/human/H = M
+/obj/effect/decal/cleanable/blood/proc/bloodyify_human(var/mob/living/carbon/human/H)
 	var/list/obj/item/things_to_potentially_bloody = list()
 	var/count = amount + 1
 
 	for(var/obj/item/i in H.contents)
-		things_to_potentially_bloody |= i
+		things_to_potentially_bloody += i
 
 	if(length(things_to_potentially_bloody))
 		for(var/i in 1 to count)
 			things_to_potentially_bloody[rand(1, length(things_to_potentially_bloody))].add_blood(blood_DNA, basecolor)
 			count--
-			if(!count)
-				break
 		qdel(src)
 	else
 		splat(get_turf(H))

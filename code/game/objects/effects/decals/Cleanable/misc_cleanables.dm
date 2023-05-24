@@ -170,7 +170,8 @@
 		splat(A)
 
 /obj/effect/decal/cleanable/vomit/Crossed(atom/movable/AM, oldloc)
-	splat(AM)
+	if(!gravity_check)
+		splat(AM)
 	..()
 
 /obj/effect/decal/cleanable/vomit/proc/splat(atom/A)

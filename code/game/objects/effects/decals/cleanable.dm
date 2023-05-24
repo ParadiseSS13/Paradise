@@ -1,9 +1,14 @@
 /obj/effect/decal/cleanable
+	///when Initialized() its icon_state will be chosen from this list
 	var/list/random_icon_states = list()
-	var/bloodiness = 0 //0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
-	var/mergeable_decal = TRUE //when two of these are on a same tile or do we need to merge them into just one?
-	plane = FLOOR_PLANE //prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
-	var/gravity_check = TRUE //for blood n vomit in zero G
+	///0-100, amount of blood in this decal, used for making footprints and affecting the alpha of bloody footprints
+	var/bloodiness = 0
+	///when another of the same type is made on the same tile will they merge --- YES=TRUE; NO=FLASE
+	var/mergeable_decal = TRUE
+	///prevents Ambient Occlusion effects around it ; Set to GAME_PLANE in Initialize() if on a wall
+	plane = FLOOR_PLANE
+	///for blood n vomit in zero G --- IN GRAVITY=TRUE; NO GRAVITY=FALSE
+	var/gravity_check = TRUE
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)
