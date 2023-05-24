@@ -92,7 +92,8 @@
 	)
 /datum/outfit/job/centcom/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	gloves = null
+	shoes = null
 	back = /obj/item/mod/control/pre_equipped/responsory/commander
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
@@ -178,7 +179,8 @@
 
 /datum/outfit/job/centcom/response_team/security/gamma
 	name = "RT Security (Gamma)"
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	gloves = null
+	shoes = null
 	belt = /obj/item/storage/belt/security/response_team_gamma
 	back = /obj/item/mod/control/pre_equipped/responsory/security
 	suit_store = /obj/item/gun/energy/gun/nuclear
@@ -268,7 +270,8 @@
 
 /datum/outfit/job/centcom/response_team/engineer/gamma
 	name = "RT Engineer (Gamma)"
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	gloves = null
+	shoes = null
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
 	belt = /obj/item/storage/belt/utility/chief/full
 	glasses = /obj/item/clothing/glasses/meson/night
@@ -374,7 +377,8 @@
 
 /datum/outfit/job/centcom/response_team/medic/gamma
 	name = "RT Medic (Gamma)"
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	gloves = null
+	shoes = null
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	back = /obj/item/mod/control/pre_equipped/responsory/medic
@@ -462,7 +466,8 @@
 	name = "RT Paranormal (Gamma)"
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	gloves = null
+	shoes = null
 	glasses = /obj/item/clothing/glasses/night
 	r_pocket = /obj/item/nullrod/ert
 
@@ -538,7 +543,8 @@
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	r_pocket = /obj/item/scythe/tele
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	gloves = null
+	shoes = null
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,

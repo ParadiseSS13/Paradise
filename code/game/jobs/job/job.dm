@@ -226,6 +226,10 @@
 
 		gear_leftovers.Cut()
 
+	if(istype(H.back, /obj/item/mod/control))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
+
 	return 1
 
 /datum/outfit/job/proc/imprint_idcard(mob/living/carbon/human/H)

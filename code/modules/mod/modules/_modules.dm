@@ -202,6 +202,7 @@
 
 /// Called when the MODsuit is activated
 /obj/item/mod/module/proc/on_suit_activation()
+	mod.update_mod_overlays()
 	return
 
 /// Called when the MODsuit is deactivated
