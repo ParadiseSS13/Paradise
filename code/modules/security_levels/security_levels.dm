@@ -95,7 +95,12 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				return
 
 			if(SEC_LEVEL_DELTA)
-				GLOB.security_announcement.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!")
+				var/temp_sound = GLOB.security_announcement.config.sound
+				GLOB.security_announcement.config.sound = null
+				GLOB.security_announcement.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!",
+					new_sound = null,
+					new_sound2 = null)
+				GLOB.security_announcement.config.sound = temp_sound
 				GLOB.security_level = SEC_LEVEL_DELTA
 				post_status(STATUS_DISPLAY_ALERT, "deltaalert")
 				update_firealarms()
@@ -244,4 +249,6 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 /proc/stop_delta_alarm()
 	for(var/datum/looping_sound/decreasing/delta_alarm/alarm in GLOB.looping_sounds)
-		alarm.stop()
+		for(var/mob/hearer in alarm.output_atoms) // Immediately stop the alarm for anyone who can hear it.
+			hearer.stop_sound_channel(CHANNEL_DELTA_ALARM)
+		qdel(alarm)
