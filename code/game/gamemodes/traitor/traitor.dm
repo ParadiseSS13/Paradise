@@ -59,10 +59,12 @@
 		if(!possible_traitors.len)
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
+		possible_traitors.Remove(traitor)
+		if(traitor.special_role == SPECIAL_ROLE_THIEF) //Disable traitor + thief combination
+			continue
 		pre_traitors += traitor
 		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
-		possible_traitors.Remove(traitor)
 		if(num_contractors-- > 0)
 			selected_contractors += traitor
 
