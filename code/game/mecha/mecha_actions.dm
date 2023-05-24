@@ -19,6 +19,8 @@
 	internals_action.Grant(user, src)
 	lights_action.Grant(user, src)
 	stats_action.Grant(user, src)
+	if(locate(/obj/item/mecha_parts/mecha_equipment/thrusters) in equipment)
+		add_thrusters()
 
 /obj/mecha/proc/RemoveActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -26,6 +28,7 @@
 	internals_action.Remove(user)
 	lights_action.Remove(user)
 	stats_action.Remove(user)
+	thrusters_action.Remove(user)
 
 /datum/action/innate/mecha
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_CONSCIOUS
@@ -152,6 +155,8 @@
 		return
 	if(chassis.get_charge() > 0)
 		chassis.thrusters_active = !chassis.thrusters_active
+		if(!chassis.thrusters_active)
+			chassis.step_in = initial(chassis.step_in)
 		button_icon_state = "mech_thrusters_[chassis.thrusters_active ? "on" : "off"]"
 		chassis.log_message("Toggled thrusters.")
 		chassis.occupant_message("<font color='[chassis.thrusters_active ? "blue" : "red"]'>Thrusters [chassis.thrusters_active ? "en" : "dis"]abled.")
