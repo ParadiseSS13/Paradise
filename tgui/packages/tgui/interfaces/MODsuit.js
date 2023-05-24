@@ -93,8 +93,7 @@ const ConfigureDataEntry = (props, context) => {
 };
 
 const RadCounter = (props, context) => {
-  const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } =
-    props;
+  const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } = props;
   return (
     <Flex fill textAlign="center">
       <Flex.Item grow>
@@ -597,11 +596,7 @@ const InfoSection = (props, context) => {
 const ModuleSection = (props, context) => {
   const { act, data } = useBackend(context);
   const { complexity_max, modules } = data;
-  const [configureState, setConfigureState] = useLocalState(
-    context,
-    'module_configuration',
-    null
-  );
+  const [configureState, setConfigureState] = useLocalState(context, 'module_configuration', null);
   return (
     <Section title="Modules" fill>
       <Flex direction="column">
