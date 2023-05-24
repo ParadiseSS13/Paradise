@@ -569,7 +569,7 @@
 	. = ..()
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/sexymime
-		suit = /obj/item/clothing/mask/gas/sexymime
+		suit = /obj/item/clothing/mask/gas/mime/sexy
 
 /datum/outfit/admin/mime_assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

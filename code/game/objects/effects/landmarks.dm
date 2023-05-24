@@ -645,7 +645,7 @@
 
 /obj/effect/landmark/costume/sexymime/New()
 	. = ..()
-	new /obj/item/clothing/mask/gas/sexymime(src.loc)
+	new /obj/item/clothing/mask/gas/mime/sexy(src.loc)
 	new /obj/item/clothing/under/sexymime(src.loc)
 	qdel(src)
 

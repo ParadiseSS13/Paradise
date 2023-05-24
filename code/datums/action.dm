@@ -3,6 +3,7 @@
 	var/desc = null
 	var/obj/target = null
 	var/check_flags = 0
+	var/invisibility = FALSE
 	var/obj/screen/movable/action_button/button = null
 	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
@@ -61,6 +62,19 @@
 
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
+
+/datum/action/proc/ToggleInvisibility()
+	if(!owner || !owner?.client)
+		return
+	if(invisibility)
+		invisibility = FALSE
+		owner.client.screen += button
+		owner.actions += src
+	else
+		invisibility = TRUE
+		owner.client.screen -= button
+		owner.actions -= src
+	owner.update_action_buttons()
 
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)

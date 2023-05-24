@@ -1380,7 +1380,7 @@
 					/obj/item/twohanded/staff = 3,
 					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
 					/obj/item/clothing/under/rank/clown/sexy = 1,
-					/obj/item/clothing/mask/gas/sexymime = 1,
+					/obj/item/clothing/mask/gas/mime/sexy = 1,
 					/obj/item/clothing/under/sexymime = 1,
 					/obj/item/clothing/mask/face/bat = 1,
 					/obj/item/clothing/mask/face/bee = 1,
