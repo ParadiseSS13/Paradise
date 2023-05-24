@@ -334,6 +334,7 @@
 
 #undef ADD_SLOWDOWN
 #undef SLOWDOWN_INCREMENT
+#undef SLOWDOWN_MULTIPLIER
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
 	for(var/slot_id in no_equip)
