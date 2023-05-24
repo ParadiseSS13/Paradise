@@ -359,7 +359,6 @@
 	module_actions = list(/datum/action/innate/robot_sight/meson)
 	basic_modules = list(
 		/obj/item/flash/cyborg,
-		/obj/item/rcd/borg,
 		/obj/item/rpd,
 		/obj/item/extinguisher,
 		/obj/item/weldingtool/largetank/cyborg,
@@ -383,7 +382,7 @@
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)
-	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg)
+	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg)
 

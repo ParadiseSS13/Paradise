@@ -122,7 +122,7 @@
 	icon_state = "swat"
 	item_state = "swat"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 450, RAD = 10, FIRE = 50, ACID = 50)
-	flags = null
+	flags = BLOCKHAIR
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
@@ -215,7 +215,7 @@
 
 /obj/item/clothing/head/blob
 	name = "blob hat"
-	desc = "A collectible hat handed out at the latest Blob Family Reunion."
+	desc = "A collectable hat handed out at the latest Blob Family Reunion."
 	icon_state = "blobhat"
 	item_state = "blobhat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
@@ -262,6 +262,11 @@
 	resistance_flags = FLAMMABLE
 	armor = list(MELEE = 10, BULLET = 5, LASER = 20, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 35, ACID = 50)
 	strip_delay = 60
+
+/obj/item/clothing/head/helmet/street_judge
+	name = "judge's helmet"
+	desc = "Commonly used security headgear for the more theatrically inclined. Wear this in hostage situations to make everything worse."
+	icon_state = "streetjudge_hat"
 
 //Commander
 /obj/item/clothing/head/helmet/ert/command

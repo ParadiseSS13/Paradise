@@ -425,6 +425,16 @@
 	name = "\improper ARG magazine (5.56mm)"
 	icon_state = "arg"
 
+/obj/item/ammo_box/magazine/ak814
+	name = "AK magazine (5.45x39mm)"
+	desc = "A universal magazine for an AK style rifle."
+	icon_state = "ak814"
+	origin_tech = "combat=5;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/a545
+	caliber = "a545"
+	max_ammo = 30
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
+
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	desc = "A drum magazine."
@@ -536,14 +546,23 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/laser
-	name = "encased laser projector magazine"
-	desc = "Fits experimental laser ammo casings."
+	name = "laser carbine projector magazine"
+	desc = "Fits experimental laser ammo casings. Compatible with laser rifles and carbines."
 	icon_state = "laser"
-	ammo_type = /obj/item/ammo_casing/laser
+	ammo_type = /obj/item/ammo_casing/caseless/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
 	multi_sprite_step = 5
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/ammo_box/magazine/laser/ert //Used by red ERT. Keeps the size for them
+	name = "compact laser carbine projector magazine"
+	desc = "By use of bluespace technology, the ammo casings are stored in a pocket dimension, saving on space and making them EMP proof."
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/ammo_box/magazine/laser/ert/emp_act(severity)
+	return
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"

@@ -45,6 +45,7 @@ GLOBAL_LIST_INIT(poi_list, list())					//list of points of interest for observe/
 GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jammers
 GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(mirrors) //list of all mirrors and mirror shields.
+GLOBAL_LIST_EMPTY(arc_emitters) 					//list of all arc emitters
 
 GLOBAL_LIST_INIT(active_diseases, list()) 			//List of Active disease in all mobs; purely for quick referencing.
 

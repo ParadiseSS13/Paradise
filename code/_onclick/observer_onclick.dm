@@ -4,6 +4,10 @@
 		// But we return here since we don't want to do regular dblclick handling
 		return
 
+	var/list/modifiers = params2list(params)
+	if(modifiers["middle"]) // Let ghosts point without teleporting
+		return
+
 	if(can_reenter_corpse && mind && mind.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)

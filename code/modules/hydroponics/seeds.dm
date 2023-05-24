@@ -168,7 +168,7 @@
 		CRASH("[T] has no reagents.")
 
 	for(var/rid in reagents_add)
-		var/amount = 1 + round(potency * reagents_add[rid], 1)
+		var/amount = max(round(potency * reagents_add[rid], 1), 1)
 
 		var/list/data = null
 		if(rid == "blood") // Hack to make blood in plants always O-
@@ -321,7 +321,7 @@
 
 /obj/item/seeds/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
+		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src].</span></span>")
 		var/text = get_analyzer_text()
 		if(text)
 			to_chat(user, "<span class='notice'>[text]</span>")

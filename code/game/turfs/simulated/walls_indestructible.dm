@@ -182,13 +182,11 @@
 		QUEUE_SMOOTH(src)
 
 /turf/simulated/wall/indestructible/fakeglass/update_overlays()
-	. = ..()
-
 	if(!edge_overlay_file)
 		return
 
 	edge_overlay = mutable_appearance(edge_overlay_file, "[smoothing_junction]", layer + 0.1, appearance_flags = RESET_COLOR)
-	. += edge_overlay
+	return list(edge_overlay)
 
 /turf/simulated/wall/indestructible/fakeglass/brass
 	icon = 'icons/obj/smooth_structures/windows/clockwork_window.dmi'

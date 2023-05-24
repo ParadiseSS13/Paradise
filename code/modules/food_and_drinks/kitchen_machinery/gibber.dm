@@ -25,7 +25,7 @@
 
 /obj/machinery/gibber/Initialize(mapload)
 	. = ..()
-	add_overlay("grjam")
+	add_overlay("grinder_jam")
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/gibber(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -45,23 +45,29 @@
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	feedinTopanim()
 	addtimer(CALLBACK(src, PROC_REF(startgibbing), user), 33)
 	return OBLITERATION
 
+/obj/machinery/gibber/update_icon_state()
+	if(operating && !(stat & (NOPOWER|BROKEN)))
+		icon_state = "grinder_on"
+		return
+	icon_state = initial(icon_state)
+
 /obj/machinery/gibber/update_overlays()
 	. = ..()
 	if(dirty)
-		. += "grbloody"
+		. += "grinder_bloody"
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(!occupant)
-		. += "grjam"
+		. += "grinder_jam"
 	else if(operating)
-		. += "gruse"
+		. += "grinder_use"
 	else
-		. += "gridle"
+		. += "grinder_idle"
 
 /obj/machinery/gibber/relaymove(mob/user)
 	if(locked)
@@ -145,7 +151,7 @@
 		victim.forceMove(src)
 		occupant = victim
 
-		update_icon(UPDATE_OVERLAYS)
+		update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 		INVOKE_ASYNC(src, PROC_REF(feedinTopanim))
 
 /obj/machinery/gibber/verb/eject()
@@ -172,7 +178,7 @@
 	occupant.forceMove(get_turf(src))
 	occupant = null
 
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 	return
 
@@ -184,8 +190,9 @@
 
 	var/image/gibberoverlay = new //used to simulate 3D effects
 	gibberoverlay.icon = icon
-	gibberoverlay.icon_state = "grinderoverlay"
-	gibberoverlay.overlays += image('icons/obj/kitchen.dmi', "gridle")
+	gibberoverlay.icon_state = "grinder_overlay"
+	gibberoverlay.overlays += image('icons/obj/kitchen.dmi', "grinder_idle")
+	icon_state = "grinder_on"
 
 	var/image/feedee = new
 	occupant.dir = 2
@@ -195,7 +202,6 @@
 	holder.name = null //make unclickable
 	holder.overlays += feedee //add occupant to holder overlays
 	holder.pixel_y = 25 //above the gibber
-	holder.pixel_x = 2
 	holder.loc = get_turf(src)
 	holder.layer = MOB_LAYER //simulate mob-like layering
 	holder.anchored = TRUE
@@ -221,6 +227,7 @@
 	qdel(holder) //get rid of holder object
 	qdel(holder2) //get rid of holder object
 	locked = FALSE //unlock
+	dirty = TRUE //dirty gibber
 
 /obj/machinery/gibber/proc/startgibbing(mob/user, UserOverride=0)
 	if(!istype(user) && !UserOverride)
@@ -242,7 +249,7 @@
 	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
 
 	operating = TRUE
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
 
@@ -304,7 +311,7 @@
 
 		pixel_x = initial(pixel_x) //return to it's spot after shaking
 		operating = FALSE
-		update_icon(UPDATE_OVERLAYS)
+		update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 
 
@@ -334,7 +341,7 @@
 	RefreshParts()
 
 /obj/machinery/gibber/autogibber/process()
-	if(!lturf || occupant || locked || dirty || operating || victim_targets.len)
+	if(!lturf || occupant || locked || operating || victim_targets.len)
 		return
 
 	if(acceptdir != lastacceptdir)
@@ -368,7 +375,7 @@
 	victim.forceMove(src)
 	occupant = victim
 
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 	feedinTopanim()
 	return 1
 

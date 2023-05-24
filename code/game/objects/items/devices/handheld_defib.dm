@@ -45,7 +45,7 @@
 
 		user.visible_message("<span class='danger'>[user] violently shocks [H] with [src]!</span>", "<span class='danger'>You violently shock [H] with [src]!</span>")
 		add_attack_logs(user, H, "emag-defibbed with [src]")
-		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
+		playsound(user.loc, "sound/weapons/egloves.ogg", 75, 1)
 		H.KnockDown(knockdown_duration)
 		H.adjustStaminaLoss(60)
 		SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK, 100)
@@ -60,7 +60,7 @@
 	if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
 		user.visible_message("<span class='notice'>[user] shocks [H] with [src].</span>", "<span class='notice'>You shock [H] with [src].</span>")
 		add_attack_logs(user, H, "defibrillated with [src]")
-		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
+		playsound(user.loc, "sound/weapons/egloves.ogg", 75, 1)
 
 		if(H.stat == DEAD)
 			to_chat(user, "<span class='danger'>[H] doesn't respond at all!</span>")

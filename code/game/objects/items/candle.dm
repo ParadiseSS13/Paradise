@@ -106,13 +106,17 @@
 		var/turf/T = loc
 		T.hotspot_expose(700, 5)
 
+/obj/item/candle/proc/unlight()
+	if(lit)
+		lit = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		set_light(0)
+
 
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
-		lit = FALSE
-		update_icon(UPDATE_ICON_STATE)
-		set_light(0)
+		unlight()
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."

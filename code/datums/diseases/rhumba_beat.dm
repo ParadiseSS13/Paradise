@@ -11,7 +11,8 @@
 	severity = BIOHAZARD
 
 /datum/disease/rhumba_beat/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	if(affected_mob.ckey == "rosham")
 		cure()
 		return

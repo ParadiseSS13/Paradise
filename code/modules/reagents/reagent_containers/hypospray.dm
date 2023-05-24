@@ -84,6 +84,10 @@
 	list_reagents = list("omnizine" = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/reagent_containers/hypospray/CMO/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
+
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
@@ -164,6 +168,14 @@
 	volume = 42
 	amount_per_transfer_from_this = 42
 	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
+
+/obj/item/reagent_containers/hypospray/autoinjector/emergency_nuclear
+	name = "emergency stabilization medipen"
+	desc = "A fast acting life-saving emergency autoinjector. Effective in combat situations, made by the syndicate for the syndicate."
+	icon_state = "stimpen"
+	volume = 12
+	amount_per_transfer_from_this = 12
+	list_reagents = list("perfluorodecalin" = 3, "teporone" = 3, "atropine" = 3, "mannitol" = 3)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"

@@ -195,6 +195,9 @@
 			O.forceMove(drop_location())
 
 /obj/mecha/working/ripley/proc/update_pressure()
+	if(thrusters_active)
+		return // Don't calculate this if they have thrusters on, this is calculated right after domove because of course it is
+
 	var/turf/T = get_turf(loc)
 
 	if(lavaland_equipment_pressure_check(T))

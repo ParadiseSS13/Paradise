@@ -133,10 +133,9 @@
 		item_color = pick("red", "blue", "green", "purple")
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = ALL_ATTACK_TYPES)
 
-/obj/item/melee/energy/sword/detailed_examine()
-	return "The energy sword is a very strong melee weapon, capable of severing limbs easily, if they are targeted. It can also has a chance \
-			to block projectiles and melee attacks while it is on and being held. The sword can be toggled on or off by using it in your hand. While it is off, \
-			it can be concealed in your pocket or bag."
+/obj/item/melee/energy/sword/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Can parry melee attacks and sometimes blocks ranged energy attacks. Use in hand to turn off and on.</span>"
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)

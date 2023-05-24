@@ -559,12 +559,12 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 				E = S
 			else if(LAZYLEN(childlist))
 				E = pick_n_take(childlist)
-				if(!E.burn_dam || !E.is_robotic())
+				if(!E.burn_dam || E.burn_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 					continue
 			else if(S.parent && !parenthealed)
 				E = S.parent
 				parenthealed = TRUE
-				if(!E.burn_dam || !E.is_robotic())
+				if(!E.burn_dam ||  E.burn_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 					break
 			else
 				break

@@ -409,7 +409,10 @@
 		<br>\nImportant Notes:
 		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><B>Comments/Log</B></center><br>"}
 		for(var/c in record_security.fields["comments"])
-			P.info += "[c]<br>"
+			if(islist(c))
+				P.info += "\"[c["text"]]\" Comment [c["header"]]<br>"
+			else
+				P.info += "[c]<br>"
 	else
 		P.info += "<b>Security Record Lost!</b><br>"
 	is_printing = FALSE
@@ -438,7 +441,7 @@
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)
-					R.fields["age"] = rand(5, 85)
+					R.fields["age"] = rand(AGE_MIN, AGE_MAX)
 				if(4)
 					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
 				if(5)

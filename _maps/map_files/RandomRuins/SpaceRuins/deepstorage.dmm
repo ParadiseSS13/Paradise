@@ -483,8 +483,7 @@
 	},
 /area/ruin/space/unpowered)
 "bc" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bd" = (

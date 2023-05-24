@@ -89,6 +89,14 @@
 	icon_state = "wtbox_tox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/tox
 
+/obj/item/ammo_box/laser
+	name = "ammo box (laser)"
+	icon_state = "laserbox"
+	origin_tech = "combat=3"
+	ammo_type = /obj/item/ammo_casing/caseless/laser
+	max_ammo = 20
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/ammo_box/shotgun
 	name = "shotgun speedloader (Slug)"
 	icon_state = "slugloader"

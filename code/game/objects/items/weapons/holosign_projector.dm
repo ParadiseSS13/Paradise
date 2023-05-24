@@ -13,7 +13,7 @@
 	origin_tech = "magnets=1;programming=3"
 	flags = NOBLUDGEON
 	var/list/signs = list()
-	var/max_signs = 10
+	var/max_signs = 6
 	var/creation_time = 0 //time to create a holosign in deciseconds.
 	var/holosign_type = null
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
@@ -60,10 +60,11 @@
 		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
 
 /obj/item/holosign_creator/janitor
-	name = "Janitorial Holosign projector"
+	name = "janitorial holosign projector"
 	desc = "A handy-dandy holographic projector that displays a janitorial sign."
 	holosign_type = /obj/structure/holosign/wetsign
-	var/wet_enabled = FALSE
+	max_signs = 18
+	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/AltClick(mob/user)
 	wet_enabled = !wet_enabled
@@ -91,7 +92,6 @@
 	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier
 	creation_time = 30
-	max_signs = 6
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
@@ -100,7 +100,6 @@
 	belt_icon = null
 	holosign_type = /obj/structure/holosign/barrier/engineering
 	creation_time = 30
-	max_signs = 6
 
 /obj/item/holosign_creator/atmos
 	name = "ATMOS holofan projector"
@@ -112,7 +111,7 @@
 	max_signs = 3
 
 /obj/item/holosign_creator/cyborg
-	name = "Energy Barrier Projector"
+	name = "energy barrier projector"
 	desc = "A holographic projector that creates fragile energy fields."
 	creation_time = 15
 	max_signs = 9

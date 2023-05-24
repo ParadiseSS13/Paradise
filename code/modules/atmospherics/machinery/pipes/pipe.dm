@@ -8,6 +8,8 @@
 	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
 
+	can_be_undertile = TRUE
+
 	//Buckling
 	can_buckle = TRUE
 	buckle_requires_restraints = TRUE
@@ -42,11 +44,9 @@
 /obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
 	return parent
 
-/obj/machinery/atmospherics/pipe/detailed_examine()
-	return "This pipe, and all other pipes, can be connected or disconnected by a wrench. The internal pressure of the pipe must \
-			be below 300 kPa to do this. More pipes can be obtained from the pipe dispenser.<br> \
-			Most pipes and atmospheric devices can be connected or disconnected with a wrench. The pipe's pressure must not be too high, \
-			or if it is a device, it must be turned off first."
+/obj/machinery/atmospherics/pipe/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This pipe can be disconnected from a pipenet using a wrench. If the pipe's pressure is too high, you'll end up flying.</span>"
 
 /obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))

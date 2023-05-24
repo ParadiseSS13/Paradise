@@ -104,12 +104,12 @@ emp_act
 			E = S
 		else if(LAZYLEN(childlist))
 			E = pick_n_take(childlist)
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				continue
 		else if(S.parent && !parenthealed)
 			E = S.parent
 			parenthealed = TRUE
-			if(!E.brute_dam || !E.is_robotic())
+			if(!E.brute_dam  || E.brute_dam >= ROBOLIMB_SELF_REPAIR_CAP || !E.is_robotic())
 				break
 		else
 			break
@@ -510,7 +510,7 @@ emp_act
 											"<span class='combat userdanger'>[src] has been knocked down!</span>")
 							KnockDown(10 SECONDS)
 							AdjustConfused(30 SECONDS)
-						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+						if(mind && prob(I.force + ((100 - health) / 2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood

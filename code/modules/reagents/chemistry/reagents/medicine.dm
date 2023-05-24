@@ -23,6 +23,10 @@
 	shock_reduction = 200
 	taste_description = "numbness"
 
+/datum/reagent/medicine/hydrocodone/on_mob_life(mob/living/M) //Needed so the hud updates when injested / removed from system
+	var/update_flags = STATUS_UPDATE_HEALTH
+	return ..() | update_flags
+
 /datum/reagent/medicine/sterilizine
 	name = "Sterilizine"
 	id = "sterilizine"
@@ -156,10 +160,10 @@
 
 /datum/reagent/medicine/rezadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.setCloneLoss(0, FALSE) //Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
-	update_flags |= M.adjustCloneLoss(-1, FALSE) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate. // why don't you fix the code instead
+	update_flags |= M.setCloneLoss(0, FALSE) // Rezadone is almost never used in favor of cryoxadone. Hopefully this will change that.
 	update_flags |= M.adjustBruteLoss(-1, FALSE)
 	update_flags |= M.adjustFireLoss(-1, FALSE)
+
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head = H.get_organ("head")
@@ -416,8 +420,7 @@
 	taste_description = "cleansing"
 
 /datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
-	if(prob(80))
-		M.radiation = max(0, M.radiation-10)
+	M.radiation = max(0, M.radiation - 25)
 	return ..()
 
 /datum/reagent/medicine/pen_acid
@@ -501,6 +504,8 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
+	overdose_threshold = 4
+	allowed_overdose_process = TRUE
 	addiction_chance = 1
 	addiction_chance_additional = 20
 	addiction_threshold = 10
@@ -509,13 +514,17 @@
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
+
 	update_flags |= M.adjustOxyLoss(-25*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	if(volume >= 4)
-		M.LoseBreath(12 SECONDS)
 	if(prob(33))
 		update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+
 	return ..() | update_flags
+
+/datum/reagent/medicine/perfluorodecalin/overdose_process(mob/living/M)
+	M.LoseBreath(12 SECONDS)
+	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/medicine/ephedrine
 	name = "Ephedrine"
@@ -734,10 +743,10 @@
 			M.emote("collapse")
 	return list(effect, update_flags)
 
-/datum/reagent/medicine/strange_reagent
-	name = "Strange Reagent"
-	id = "strange_reagent"
-	description = "A glowing green fluid highly reminiscent of nuclear waste."
+/datum/reagent/medicine/lazarus_reagent
+	name = "Lazarus Reagent"
+	id = "lazarus_reagent"
+	description = "A bioluminescent green fluid that seems to move on its own."
 	reagent_state = LIQUID
 	color = "#A0E85E"
 	metabolization_rate = 0.2
@@ -745,14 +754,14 @@
 	harmless = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
-/datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
+/datum/reagent/medicine/lazarus_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		update_flags |= M.adjustBruteLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+/datum/reagent/medicine/lazarus_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
@@ -762,13 +771,15 @@
 			return
 		if(SM.stat == DEAD)
 			SM.revive()
-			SM.loot.Cut() //no abusing strange reagent for farming unlimited resources
+			SM.loot.Cut() //no abusing Lazarus Reagent for farming unlimited resources
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+					if(ischangeling(M))
+						return
 					M.delayed_gib()
 					return
 				if(!M.ghost_can_reenter())
@@ -800,8 +811,8 @@
 
 					M.grab_ghost()
 					M.update_revive()
-					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
-					SSblackbox.record_feedback("tally", "players_revived", 1, "strange_reagent")
+					add_attack_logs(M, M, "Revived with lazarus reagent") //Yes, the logs say you revived yourself.
+					SSblackbox.record_feedback("tally", "players_revived", 1, "lazarus_reagent")
 	..()
 
 /datum/reagent/medicine/mannitol
@@ -1308,7 +1319,7 @@
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
 					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
-						if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED)) //I can't just check for !E.status
+						if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT)) //I can't just check for !E.status
 							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
 							E.rejuvenate() //Repair it completely.
 				if(ishuman(M))

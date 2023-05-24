@@ -67,6 +67,29 @@
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
+/obj/item/screwdriver/cargo
+	name = "cargo screwdriver"
+	desc = "A brownish screwdriver belonging to the supply department. Unfortunately, it can't do all the paperwork for you..."
+	icon_state = "screwdriver_cargo"
+	belt_icon = "screwdriver_cargo"
+	toolspeed = 0.75
+	random_color = FALSE
+
+/obj/item/screwdriver/cargo/suicide_act(mob/living/user)
+
+	if(!user)
+		return
+	user.visible_message("<span class='suicide'>[user] is trying to take [src]'s independence! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+
+	user.Immobilize(10 SECONDS)
+	sleep(2 SECONDS)
+	add_fingerprint(user)
+
+	user.visible_message("<span class='warn'>[src] retaliates viciously!</span>", "<span class='userdanger'>[src] retaliates viciously!</span>")
+	playsound(loc, hitsound, 50, TRUE, -1)
+
+	return BRUTELOSS
+
 /obj/item/screwdriver/abductor
 	name = "alien screwdriver"
 	desc = "An ultrasonic screwdriver."
@@ -85,7 +108,6 @@
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
 	force = 8 //might or might not be too high, subject to change
-	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 8
 	throw_speed = 2
 	throw_range = 3//it's heavier than a screw driver/wrench, so it does more damage, but can't be thrown as far
@@ -93,6 +115,7 @@
 	hitsound = 'sound/items/drill_hit.ogg'
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 	random_color = FALSE
 
 /obj/item/screwdriver/power/Initialize(mapload)

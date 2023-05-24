@@ -265,6 +265,21 @@
 		to_chat(owner, "<span class='notice'>You turn off your translator implant.</span>")
 		active = FALSE
 
+/obj/item/organ/internal/cyberimp/brain/wire_interface
+	name = "Wire interface implant"
+	desc = "This cybernetic brain implant will allow you to interface with electrical currents to sense the purpose of wires."
+	implant_color = "#fff782"
+	slot = "brain_wire_interface"
+	origin_tech = "materials=5;programming=4;biotech=4"
+
+/obj/item/organ/internal/cyberimp/brain/wire_interface/insert(mob/living/carbon/M, special = FALSE)
+	ADD_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/brain/wire_interface/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
+	return ..()
+
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth
 	parent_organ = "mouth"

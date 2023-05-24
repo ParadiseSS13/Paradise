@@ -255,6 +255,12 @@
 	H.trophies -= src
 	return TRUE
 
+/obj/item/crusher_trophy/Destroy()
+	if(istype(loc, /obj/item/twohanded/kinetic_crusher))
+		var/obj/item/twohanded/kinetic_crusher/crusher = loc
+		crusher.trophies -= src
+	return ..()
+
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
 
 /obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
