@@ -420,7 +420,11 @@
 
 		dat += "<hr>"
 
+<<<<<<< HEAD
 		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 1)
+=======
+		var/blood_percent =  round(occupant.blood_volume / BLOOD_VOLUME_NORMAL * 100, 1)
+>>>>>>> 009bb06a54e38ba04efc3ae31c087d1da6eb537d
 
 		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
