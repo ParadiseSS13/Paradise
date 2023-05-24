@@ -33,3 +33,13 @@
 /datum/sprite_accessory/body_markings/tattoo/nightling
 	name = "Nightling Tattoo"
 	icon_state = "nightling"
+
+/datum/sprite_accessory/body_markings/heterochromia
+	name = "Heterochromia"
+	species_allowed = list("Human")
+	icon_state = "heterochromia"
+
+/datum/sprite_accessory/body_markings/eyebrows
+	name = "Eyebrows"
+	species_allowed = list("Human")
+	icon_state = "eyebrows"
