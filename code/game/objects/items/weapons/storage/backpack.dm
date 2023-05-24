@@ -651,7 +651,7 @@
 			/obj/item/gun/magic/wand/fireball,
 			/obj/item/gun/magic/wand/slipping)
 		new pickedw(src)
-		wands += 1
+		wands++
 
 	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
 		W.max_charges = initial(W.max_charges)
