@@ -370,8 +370,9 @@
 	var/zipped = TRUE
 	/// How long it takes to toggle the zip state of this bag
 	var/zip_time = 0.7 SECONDS
-	/// If it has a sprite when open, change the icon state to it
+	/// This variable is used to change the icon state to the variable when opened
 	var/open_icon_sprite
+	/// This variable is used to change the item state to the variable when opened
 	var/open_item_sprite
 	/// Do we want the bag to be antidropped when zipped up?
 	var/antidrop_on_zip = FALSE
