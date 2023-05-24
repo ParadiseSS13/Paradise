@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		bloodyify_human(A)
 		return
 
-/obj/effect/decal/cleanable/blood/proc/bloodyify_human(var/mob/living/carbon/human/H)
+/obj/effect/decal/cleanable/blood/proc/bloodyify_human(mob/living/carbon/human/H)
 	var/list/obj/item/things_to_potentially_bloody = list()
 	var/count = amount + 1
 
