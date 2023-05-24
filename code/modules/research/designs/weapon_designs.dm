@@ -179,13 +179,13 @@
 	build_path = /obj/item/ammo_box/magazine/wt550m9/wttx
 
 /datum/design/mag_laser
-	name = "Laser Rifle Projector Magazine"
-	desc = "A 20 round encased projector magazine for the IK Laser Rifle series"
+	name = "Laser Rifle Projector Ammunition"
+	desc = "A 20 round encased projector box for the IK Laser Rifle series."
 	id = "mag_laser"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 600)
-	build_path = /obj/item/ammo_box/magazine/laser
+	build_path = /obj/item/ammo_box/laser
 	category = list("Weapons")
 
 /datum/design/stunrevolver

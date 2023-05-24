@@ -165,8 +165,8 @@
 	name = "SWAT Gear Crate"
 	contains = list(/obj/item/clothing/head/helmet/swat,
 					/obj/item/clothing/head/helmet/swat,
-					/obj/item/clothing/suit/space/swat,
-					/obj/item/clothing/suit/space/swat,
+					/obj/item/clothing/suit/armor/swat,
+					/obj/item/clothing/suit/armor/swat,
 					/obj/item/kitchen/knife/combat,
 					/obj/item/kitchen/knife/combat,
 					/obj/item/clothing/mask/gas/sechailer/swat,
