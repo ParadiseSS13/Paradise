@@ -38,6 +38,7 @@
 	if(prob(35))
 		icon_state = "NurnKal"
 		icon_living = "NurnKal"
+	update_icons()
 
 /mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(var/movement_dir = 0)
 	return 1 //copypasta from carp code
@@ -47,6 +48,10 @@
 
 /mob/living/simple_animal/ascendant_shadowling/singularity_act()
 	return 0 //Well hi, fellow god! How are you today?
+
+/mob/living/simple_animal/ascendant_shadowling/update_icons()
+	overlays.Cut()
+	overlays += mutable_appearance(icon = 'icons/mob/mob.dmi', icon_state = "shadowling_ascended_ms")
 
 /mob/living/simple_animal/ascendant_shadowling/proc/announce(var/text, var/size = 4, var/new_sound = null)
 	var/message = "<font size=[size]><span class='shadowling'><b>\"[text]\"</font></span>"
