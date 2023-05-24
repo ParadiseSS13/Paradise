@@ -18,7 +18,7 @@
 		cling.chosen_sting = null
 	return ..()
 
-/datum/action/changeling/sting/Trigger()
+/datum/action/changeling/sting/Trigger(left_click)
 	if(!cling.chosen_sting)
 		set_sting()
 	else

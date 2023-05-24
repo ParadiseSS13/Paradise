@@ -87,7 +87,7 @@
 	button_icon_state = "draw"
 	use_itemicon = FALSE
 
-/datum/action/item_action/draw_card/Trigger()
+/datum/action/item_action/draw_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.draw_card(owner)
@@ -98,7 +98,7 @@
 	button_icon_state = "deal_card"
 	use_itemicon = FALSE
 
-/datum/action/item_action/deal_card/Trigger()
+/datum/action/item_action/deal_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card()
@@ -109,7 +109,7 @@
 	button_icon_state = "deal_card_multi"
 	use_itemicon = FALSE
 
-/datum/action/item_action/deal_card_multi/Trigger()
+/datum/action/item_action/deal_card_multi/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card_multi()
@@ -120,7 +120,7 @@
 	button_icon_state = "shuffle"
 	use_itemicon = FALSE
 
-/datum/action/item_action/shuffle/Trigger()
+/datum/action/item_action/shuffle/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deckshuffle()
@@ -417,7 +417,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/item_action/remove_card/Trigger()
+/datum/action/item_action/remove_card/Trigger(left_click)
 	if(!IsAvailable())
 		return
 	if(istype(target, /obj/item/cardhand))
@@ -430,7 +430,7 @@
 	button_icon_state = "discard"
 	use_itemicon = FALSE
 
-/datum/action/item_action/discard/Trigger()
+/datum/action/item_action/discard/Trigger(left_click)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
 		return C.discard()

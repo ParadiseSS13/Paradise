@@ -50,7 +50,7 @@
 	cling = null
 	return ..()
 
-/datum/action/changeling/Trigger()
+/datum/action/changeling/Trigger(left_click)
 	try_to_sting(owner)
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)

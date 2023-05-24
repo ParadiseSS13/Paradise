@@ -48,7 +48,7 @@
 /datum/action/item_action/hands_free/activate_pill
 	name = "Activate Pill"
 
-/datum/action/item_action/hands_free/activate_pill/Trigger()
+/datum/action/item_action/hands_free/activate_pill/Trigger(left_click)
 	if(!..())
 		return
 	to_chat(owner, "<span class='caution'>You grit your teeth and burst the implanted [target]!</span>")

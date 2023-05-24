@@ -11,7 +11,7 @@
 	if(!istype(Target, /obj/item/mod/control))
 		qdel(src)
 
-/datum/action/item_action/mod/Trigger(trigger_flags)
+/datum/action/item_action/mod/Trigger(left_click, attack_self)
 	if(!IsAvailable())
 		return FALSE
 	var/obj/item/mod/control/mod = target
@@ -22,28 +22,31 @@
 
 /datum/action/item_action/mod/deploy
 	name = "Deploy MODsuit"
-	desc = "Quick deploy / retract your suit."
+	desc = "LMB: Deploy/Undeploy part. MMB: Deploy/Undeploy full suit."
 	button_icon_state = "deploy"
 
-/datum/action/item_action/mod/deploy/Trigger()
+/datum/action/item_action/mod/deploy/Trigger(left_click, attack_self)
 	. = ..()
 	if(!.)
 		return
 	var/obj/item/mod/control/mod = target
-	mod.quick_deploy(usr)
+	if(left_click)
+		mod.quick_deploy(usr)
+	else
+		mod.choose_deploy(usr)
 
 /datum/action/item_action/mod/activate
 	name = "Activate MODsuit"
-	desc = "Press this twice to activate the suit."
+	desc = "LMB: Activate/Deactivate suit with prompt. MMB: Activate/Deactivate suit skipping prompt."
 	button_icon_state = "activate"
 	/// First time clicking this will set it to TRUE, second time will activate it.
 	var/ready = FALSE
 
-/datum/action/item_action/mod/activate/Trigger(trigger_flags)
+/datum/action/item_action/mod/activate/Trigger(left_click, attack_self)
 	. = ..()
 	if(!.)
 		return
-	if(!ready)
+	if(!ready && left_click)
 		ready = TRUE
 		button_icon_state = "activate-ready"
 		addtimer(CALLBACK(src, PROC_REF(reset_ready)), 3 SECONDS)
@@ -62,7 +65,7 @@
 	desc = "Toggle a MODsuit module."
 	button_icon_state = "module"
 
-/datum/action/item_action/mod/module/Trigger(trigger_flags)
+/datum/action/item_action/mod/module/Trigger(left_click, attack_self)
 	. = ..()
 	if(!.)
 		return
@@ -74,7 +77,7 @@
 	desc = "Open the MODsuit's panel."
 	button_icon_state = "panel"
 
-/datum/action/item_action/mod/panel/Trigger(trigger_flags)
+/datum/action/item_action/mod/panel/Trigger(left_click, attack_self)
 	. = ..()
 	if(!.)
 		return
@@ -100,8 +103,7 @@
 		check_flags = AB_CHECK_CONSCIOUS
 	name = "Activate [capitalize(linked_module.name)]"
 	desc = "Quickly activate [linked_module]."
-	if(target == user.get_item_by_slot(slot_back))
-		Grant(user)
+	Grant(user)
 
 /datum/action/item_action/mod/pinned_module/Destroy()
 	UnregisterSignal(module, list(COMSIG_MODULE_ACTIVATED, COMSIG_MODULE_DEACTIVATED, COMSIG_MODULE_USED))
@@ -118,7 +120,7 @@
 		return
 	return ..()
 
-/datum/action/item_action/mod/pinned_module/Trigger(trigger_flags)
+/datum/action/item_action/mod/pinned_module/Trigger(left_click, attack_self)
 	. = ..()
 	if(!.)
 		return

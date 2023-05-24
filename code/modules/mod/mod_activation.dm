@@ -5,7 +5,7 @@
 	var/list/display_names = list()
 	var/list/items = list()
 	for(var/obj/item/part as anything in mod_parts)
-		display_names[part.name] = UID(part)
+		display_names[part.name] = part.UID()
 		var/image/part_image = image(icon = part.icon, icon_state = part.icon_state)
 		if(part.loc != src)
 			part_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_active")
@@ -14,7 +14,7 @@
 	if(!pick)
 		return
 	var/part_reference = display_names[pick]
-	var/obj/item/part = locate(part_reference) in mod_parts
+	var/obj/item/part = locateUID(part_reference)
 	if(!istype(part) || user.incapacitated())
 		return
 	if(active || activating)
