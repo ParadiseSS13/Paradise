@@ -24,6 +24,7 @@
 
 /datum/keybinding/living/whisper
 	name = "Whisper"
+	keys = list("U")
 
 /datum/keybinding/living/whisper/down(client/C)
 	var/mob/M = C.mob
