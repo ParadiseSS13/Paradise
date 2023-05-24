@@ -723,7 +723,7 @@
 	var/obj/item/pickedt = pick(
 			/obj/item/storage/box/syndidonkpockets, // Healing + speed
 			/obj/item/reagent_containers/food/drinks/bottle/dragonsbreath, // Killing
-			/obj/item/reagent_containers/food/drinks/bottle/immorality, // Super healing for 20 seconds
+			/obj/item/reagent_containers/food/drinks/bottle/immortality, // Super healing for 20 seconds
 			/obj/item/reagent_containers/food/snacks/meatsteak/stimulating, //Healing + stun immunity
 			/obj/item/reagent_containers/food/snacks/plum_pie ) // Great healing over long period of time
 	new pickedt(src)
@@ -747,8 +747,8 @@
 	volume = 100
 	list_reagents = list("dragonsbreath" = 80, "hell_water" = 20)
 
-/obj/item/reagent_containers/food/drinks/bottle/immorality
-	name = "drop of immorality"
+/obj/item/reagent_containers/food/drinks/bottle/immortality
+	name = "drop of immortality"
 	desc = "Drinking this will make you immortal. For a moment or two, at least."
 	icon_state = "holyflask"
 	color = "#C8A5DC"
