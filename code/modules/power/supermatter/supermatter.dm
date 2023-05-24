@@ -294,6 +294,7 @@
 	final_countdown = TRUE
 
 	var/image/causality_field = image(icon, null, "causality_field")
+	add_overlay(causality_field)
 
 	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
 	for(var/mob/M in GLOB.player_list) // for all players
@@ -852,17 +853,21 @@
 	if(power > POWER_PENALTY_THRESHOLD)
 		add_filter(name = "ray", priority = 1, params = list(
 			type = "rays",
-			size = power ? clamp((damage/100) * power, 50, 125) : 1,
+			size = power ? clamp((damage/100) * power, 50, 175) : 1, //Higher power
 			color = SUPERMATTER_TESLA_COLOUR,
-			factor = clamp(damage/300, 1, 30),
+			factor = clamp(damage/300, 1, 20),
 			density = clamp(damage/5, 12, 200)
 		))
-
-		add_filter(name = "icon", priority = 2, params = list(
-			type = "layer",
-			icon = new/icon('icons/obj/tesla_engine/energy_ball.dmi', "energy_ball", frame = rand(1,12)),
-			flags = FILTER_UNDERLAY
-		))
+		if(prob(25))
+			new /obj/effect/warp_effect/bsg(get_turf(src)) //Some extra visual effect to the shocking sm which is a bit less interesting.
+		if(final_countdown)
+			add_filter(name = "icon", priority = 2, params = list(
+				type = "layer",
+				icon = new/icon('icons/obj/tesla_engine/energy_ball.dmi', "energy_ball", frame = rand(1,12)),
+				flags = FILTER_UNDERLAY
+			))
+		else
+			remove_filter("icon")
 
 	if(combined_gas > MOLE_PENALTY_THRESHOLD)
 		add_filter(name = "ray", priority = 1, params=list(
@@ -870,7 +875,7 @@
 			size = power ? clamp((damage/100) * power, 50, 125) : 1,
 			color = SUPERMATTER_SINGULARITY_RAYS_COLOUR,
 			factor = clamp(damage / 300, 1, 30),
-			density = clamp(damage / 5, 12, 200)
+			density = clamp(damage / 5, 12, 300) //More compressed due to gravity
 		))
 
 		add_filter(name = "outline", priority = 2, params = list(

@@ -217,6 +217,9 @@
 				dissipate_delay = 4
 				dissipate_track = 0
 				dissipate_strength = 20
+				if(!warp) //In the event the singularity eats a clown and scips stage 2.
+					warp = new(src)
+					vis_contents += warp
 		if(STAGE_FOUR)
 			if((check_turfs_in(1,3))&&(check_turfs_in(2,3))&&(check_turfs_in(4,3))&&(check_turfs_in(8,3)))
 				current_size = STAGE_FOUR
