@@ -19,46 +19,52 @@
 #define PREFTOGGLE_CHAT_GHOSTSIGHT			8
 #define PREFTOGGLE_CHAT_PRAYER				16
 #define PREFTOGGLE_CHAT_RADIO				32
-#define PREFTOGGLE_AZERTY					64
+#define PREFTOGGLE_AZERTY					64 // obsolete
 #define PREFTOGGLE_CHAT_DEBUGLOGS 			128
 #define PREFTOGGLE_CHAT_LOOC 				256
 #define PREFTOGGLE_CHAT_GHOSTRADIO 			512
 #define PREFTOGGLE_SHOW_TYPING 				1024
 #define PREFTOGGLE_DISABLE_SCOREBOARD 		2048
-#define PREFTOGGLE_DISABLE_KARMA_REMINDER	4096
+// #define PREFTOGGLE_DISABLE_KARMA_REMINDER	4096	// Defunct as of 2023-03-12
 #define PREFTOGGLE_MEMBER_PUBLIC			8192
 #define PREFTOGGLE_CHAT_NO_ADMINLOGS 		16384
 #define PREFTOGGLE_DONATOR_PUBLIC			32768
 #define PREFTOGGLE_CHAT_NO_TICKETLOGS 		65536
 #define PREFTOGGLE_UI_DARKMODE 				131072
-#define PREFTOGGLE_DISABLE_KARMA 			262144
+// #define PREFTOGGLE_DISABLE_KARMA 			262144	// Defunct as of 2023-03-12
 #define PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS 524288
 #define PREFTOGGLE_TYPING_ONCE 				1048576
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		2097152
 #define PREFTOGGLE_CHAT_GHOSTPDA 			4194304
-#define PREFTOGGLE_NUMPAD_TARGET 			8388608
+#define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
 
 #define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA|PREFTOGGLE_NUMPAD_TARGET)
 
 // toggles_2 variables. These MUST be prefixed with PREFTOGGLE_2
-#define PREFTOGGLE_2_RANDOMSLOT		1
-#define PREFTOGGLE_2_FANCYUI		2
-#define PREFTOGGLE_2_ITEMATTACK		4
-#define PREFTOGGLE_2_WINDOWFLASHING	8
-#define PREFTOGGLE_2_ANONDCHAT		16
-#define PREFTOGGLE_2_AFKWATCH		32
-#define PREFTOGGLE_2_RUNECHAT		64
-#define PREFTOGGLE_2_DEATHMESSAGE	128
-#define PREFTOGGLE_2_EMOTE_BUBBLE	256
+#define PREFTOGGLE_2_RANDOMSLOT				(1<<0) // 1
+#define PREFTOGGLE_2_FANCYUI				(1<<1) // 2
+#define PREFTOGGLE_2_ITEMATTACK				(1<<2) // 4
+#define PREFTOGGLE_2_WINDOWFLASHING			(1<<3) // 8
+#define PREFTOGGLE_2_ANON					(1<<4) // 16
+#define PREFTOGGLE_2_AFKWATCH				(1<<5) // 32
+#define PREFTOGGLE_2_RUNECHAT				(1<<6) // 64
+#define PREFTOGGLE_2_DEATHMESSAGE			(1<<7) // 128
+#define PREFTOGGLE_2_EMOTE_BUBBLE			(1<<8) // 256
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
-#define PREFTOGGLE_2_REVERB_DISABLE	512
-#define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT	1024
+#define PREFTOGGLE_2_REVERB_DISABLE			(1<<9) // 512
+#define PREFTOGGLE_2_FORCE_WHITE_RUNECHAT	(1<<10) // 1024
+#define PREFTOGGLE_2_SIMPLE_STAT_PANEL		(1<<11) // 2048
+#define PREFTOGGLE_2_SEE_ITEM_OUTLINES 		(1<<12) // 4096
+#define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS  	(1<<13) // 8192
+#define PREFTOGGLE_2_THOUGHT_BUBBLE			(1<<14) // 16384
+#define PREFTOGGLE_2_MC_TABS				(1<<15) // 32768
+#define PREFTOGGLE_2_DANCE_DISCO			(1<<16) // 65536
 
-#define TOGGLES_2_TOTAL 			2047 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL 			131072 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE)
+#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_EMOTE_BUBBLE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_THOUGHT_BUBBLE|PREFTOGGLE_2_DANCE_DISCO)
 
 // Sanity checks
 #if TOGGLES_TOTAL > 16777215
@@ -83,7 +89,6 @@
 #define EXP_TYPE_CREW			"Crew"
 #define EXP_TYPE_SPECIAL		"Special"
 #define EXP_TYPE_GHOST			"Ghost"
-#define EXP_TYPE_EXEMPT			"Exempt"
 #define EXP_TYPE_COMMAND		"Command"
 #define EXP_TYPE_ENGINEERING	"Engineering"
 #define EXP_TYPE_MEDICAL		"Medical"
@@ -92,9 +97,8 @@
 #define EXP_TYPE_SECURITY		"Security"
 #define EXP_TYPE_SILICON		"Silicon"
 #define EXP_TYPE_SERVICE		"Service"
-#define EXP_TYPE_WHITELIST		"Whitelist"
 
-#define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL)
+#define EXP_DEPT_TYPE_LIST		list(EXP_TYPE_SUPPLY, EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL, EXP_TYPE_GHOST)
 
 // Defines just for parallax because its levels make storing it in the regular prefs a pain in the ass
 // These dont need to be bitflags because there isnt going to be more than one at a time of these active
@@ -104,3 +108,27 @@
 #define PARALLAX_MED			4
 #define PARALLAX_HIGH			8
 #define PARALLAX_INSANE			16
+
+// 2FA Defines. These are the same as the schema DB enums //
+
+/// Client has 2FA disabled
+#define _2FA_DISABLED "DISABLED"
+/// Client will be prompted for 2FA on IP changes
+#define _2FA_ENABLED_IP "ENABLED_IP"
+/// Client will be prompted for 2FA always
+#define _2FA_ENABLED_ALWAYS "ENABLED_ALWAYS"
+
+
+#define MAX_SAVE_SLOTS 30 // Save slots for regular players
+#define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
+
+#define TAB_CHAR 0
+#define TAB_GAME 1
+#define TAB_GEAR 2
+#define TAB_KEYS 3
+
+// Colourblind modes
+#define COLOURBLIND_MODE_NONE "None"
+#define COLOURBLIND_MODE_DEUTER "Red-green (green weak, deuteranopia)"
+#define COLOURBLIND_MODE_PROT "Red-green (red weak, protanopia)"
+#define COLOURBLIND_MODE_TRIT "Blue-yellow (tritanopia)"

@@ -1,6 +1,6 @@
 #define NEXT_PAGE_ID "__next__"
 #define DEFAULT_CHECK_DELAY 20
-#define ANIM_SPEED 1
+#define ANIM_SPEED 0.5
 
 GLOBAL_LIST_EMPTY(radial_menus)
 
@@ -9,6 +9,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
 	var/datum/radial_menu/parent
+
+/obj/screen/radial/Destroy()
+	parent = null
+	return ..()
 
 /obj/screen/radial/slice
 	icon_state = "radial_slice"
@@ -270,6 +274,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/Destroy()
 	Reset()
 	hide()
+	QDEL_LIST_CONTENTS(elements)
+	QDEL_NULL(close_button)
+	anchor = null
 	. = ..()
 
 /*

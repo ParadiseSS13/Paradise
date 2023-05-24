@@ -7,26 +7,17 @@
 	name = "passive gate"
 	desc = "A one-way air valve that does not require power"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
-	var/on = 0
-	var/target_pressure = ONE_ATMOSPHERE
+	target_pressure = ONE_ATMOSPHERE
 
 	var/id = null
 
-/obj/machinery/atmospherics/binary/passive_gate/atmos_init()
-	..()
-	if(frequency)
-		set_frequency(frequency)
+/obj/machinery/atmospherics/binary/passive_gate/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>This is a one-way regulator, allowing gas to flow only at a specific pressure and flow rate. If the light is green, gas is flowing.</span>"
 
-/obj/machinery/atmospherics/binary/passive_gate/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
-/obj/machinery/atmospherics/binary/passive_gate/update_icon()
-	..()
+/obj/machinery/atmospherics/binary/passive_gate/update_icon_state()
 	icon_state = "[on ? "on" : "off"]"
 
 /obj/machinery/atmospherics/binary/passive_gate/update_underlays()
@@ -66,56 +57,6 @@
 
 		parent2.update = 1
 	return 1
-
-/obj/machinery/atmospherics/binary/passive_gate/proc/broadcast_status()
-	if(!radio_connection)
-		return 0
-
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.source = src
-
-	signal.data = list(
-		"tag" = id,
-		"device" = "AGP",
-		"power" = on,
-		"target_output" = target_pressure,
-		"sigtype" = "status"
-	)
-
-	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
-
-	return 1
-
-/obj/machinery/atmospherics/binary/passive_gate/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
-		return 0
-
-	var/old_on = on //for logging
-
-	if("power" in signal.data)
-		on = text2num(signal.data["power"])
-
-	if("power_toggle" in signal.data)
-		on = !on
-
-	if("set_output_pressure" in signal.data)
-		target_pressure = between(
-			0,
-			text2num(signal.data["set_output_pressure"]),
-			ONE_ATMOSPHERE*50
-		)
-
-	if(on != old_on)
-		investigate_log("was turned [on ? "on" : "off"] by a remote signal", "atmos")
-
-	if("status" in signal.data)
-		broadcast_status()
-		return //do not update_icon
-
-	broadcast_status()
-	update_icon()
-	return
 
 /obj/machinery/atmospherics/binary/passive_gate/attack_hand(mob/user)
 	if(..())
@@ -170,11 +111,6 @@
 			. = TRUE
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-
-/obj/machinery/atmospherics/binary/passive_gate/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
 
 /obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/wrench))

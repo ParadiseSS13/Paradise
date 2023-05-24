@@ -26,9 +26,9 @@
 	..()
 	overload_action.Remove(user)
 
-/obj/mecha/combat/gygax/loaded/New()
-	..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
+/obj/mecha/combat/gygax/loaded/Initialize(mapload)
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	ME.attach(src)
@@ -45,21 +45,13 @@
 	leg_overload_coeff = 100
 	operation_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/gygax/dark
-	max_equip = 4
+	max_equip = 5
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
-	destruction_sleep_duration = 1
+	destruction_sleep_duration = 2 SECONDS
 
-/obj/mecha/combat/gygax/dark/GrantActions(mob/living/user, human_occupant = 0)
+/obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
 	. = ..()
-	thrusters_action.Grant(user, src)
-
-/obj/mecha/combat/gygax/dark/RemoveActions(mob/living/user, human_occupant = 0)
-	. = ..()
-	thrusters_action.Remove(user)
-
-/obj/mecha/combat/gygax/dark/loaded/New()
-	..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
@@ -67,6 +59,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
 /obj/mecha/combat/gygax/dark/add_cell()

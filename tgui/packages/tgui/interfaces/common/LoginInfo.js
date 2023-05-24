@@ -10,9 +10,7 @@ import { Box, Button, NoticeBox } from '../../components';
  */
 export const LoginInfo = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    loginState,
-  } = data;
+  const { loginState } = data;
   if (!data) {
     return;
   }

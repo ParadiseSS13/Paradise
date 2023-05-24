@@ -11,6 +11,8 @@
 	throw_speed = 2
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 18
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("robusted")
@@ -24,16 +26,16 @@
 	. = ..()
 	if(has_latches)
 		if(prob(10))
-			latches = "double_latch"
 			if(prob(1))
 				latches = "triple_latch"
-	update_icon()
+			else
+				latches = "double_latch"
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/storage/toolbox/update_icon()
-	..()
-	cut_overlays()
+/obj/item/storage/toolbox/update_overlays()
+	. = ..()
 	if(has_latches)
-		add_overlay(latches)
+		. += latches
 
 /obj/item/storage/toolbox/emergency
 	name = "emergency toolbox"
@@ -41,7 +43,7 @@
 	item_state = "toolbox_red"
 
 /obj/item/storage/toolbox/emergency/populate_contents()
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/extinguisher/mini(src)
 	if(prob(50))
@@ -104,12 +106,12 @@
 	throwforce = 18
 
 /obj/item/storage/toolbox/syndicate/populate_contents()
-	new /obj/item/screwdriver(src, "red")
+	new /obj/item/screwdriver/nuke(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
-	new /obj/item/multitool(src)
+	new /obj/item/multitool/red(src)
 	new /obj/item/clothing/gloves/combat(src)
 
 /obj/item/storage/toolbox/fakesyndi
@@ -132,3 +134,24 @@
 	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
+
+/obj/item/storage/toolbox/artistic
+	name = "artistic toolbox"
+	desc = "A toolbox painted bright green. Why anyone would store art supplies in a toolbox is beyond you, but it has plenty of extra space."
+	icon_state = "green"
+	item_state = "artistic_toolbox"
+	w_class = WEIGHT_CLASS_GIGANTIC //Holds more than a regular toolbox!
+	max_combined_w_class = 20
+	storage_slots = 10
+
+/obj/item/storage/toolbox/artistic/populate_contents()
+	new /obj/item/storage/fancy/crayons(src)
+	new /obj/item/crowbar(src)
+	new /obj/item/stack/cable_coil(src)
+	new /obj/item/stack/cable_coil/yellow(src)
+	new /obj/item/stack/cable_coil/blue(src)
+	new /obj/item/stack/cable_coil/green(src)
+	new /obj/item/stack/cable_coil/pink(src)
+	new /obj/item/stack/cable_coil/orange(src)
+	new /obj/item/stack/cable_coil/cyan(src)
+	new /obj/item/stack/cable_coil/white(src)

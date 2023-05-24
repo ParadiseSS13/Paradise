@@ -15,7 +15,7 @@
 		if(A.type == /area) continue
 		var/list/turflist = list()
 		for(var/turf/T in A)
-			if(istype(T,/turf/space) || T.density) continue
+			if(isspaceturf(T) || T.density) continue
 			if(locate(/mob/living) in T) continue
 			var/okay = 1
 			for(var/obj/O in T)

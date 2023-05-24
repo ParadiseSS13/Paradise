@@ -50,7 +50,7 @@
 	if(current_user)
 		current_user.unset_machine()
 	QDEL_NULL(eyeobj)
-	QDEL_LIST(actions)
+	QDEL_LIST_CONTENTS(actions)
 	return ..()
 
 /obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
@@ -75,7 +75,7 @@
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
-			if(C.network&networks)
+			if(length(C.network & networks))
 				camera_location = get_turf(C)
 				break
 		if(camera_location)
@@ -101,6 +101,8 @@
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
+	// Abductors dont trigger the Ai Detector
+	ai_detector_visible = FALSE
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
@@ -132,7 +134,9 @@
 		if(!isturf(eye_user.loc))
 			return
 		T = get_turf(T)
+		var/old_loc = loc
 		loc = T
+		Moved(old_loc, get_dir(old_loc, loc))
 		if(use_static)
 			GLOB.cameranet.visibility(src, GetViewerClient())
 		if(visible_icon)

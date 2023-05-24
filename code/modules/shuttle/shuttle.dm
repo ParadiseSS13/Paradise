@@ -10,7 +10,7 @@
 	icon_state = "pinonfar"
 
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	anchored = 1
+	anchored = TRUE
 
 	var/id
 	dir = NORTH		//this should point -away- from the dockingport door, ie towards the ship
@@ -228,6 +228,10 @@
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
+	/// Does this shuttle use the lockdown system?
+	var/uses_lockdown = FALSE
+	/// If this variable is true, shuttle is on lockdown, and other requests can not be processed
+	var/lockeddown = FALSE
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -489,22 +493,25 @@
 		if(!T1)
 			continue
 
-		T0.copyTurf(T1)
 		areaInstance.contents += T1
 
-		//copy over air
-		if(istype(T1, /turf/simulated))
-			var/turf/simulated/Ts1 = T1
-			Ts1.copy_air_with_tile(T0)
+		var/should_transit = !is_turf_blacklisted_for_transit(T0)
+		if(should_transit) // Only move over stuff if the transfer actually happened
+			T0.copyTurf(T1)
 
-		areaInstance.moving = TRUE
-		//move mobile to new location
-		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T0, T1, rotation, last_caller)
+			//copy over air
+			if(issimulatedturf(T1))
+				var/turf/simulated/Ts1 = T1
+				Ts1.copy_air_with_tile(T0)
 
-		if(rotation)
-			T1.shuttleRotate(rotation)
+			//move mobile to new location
+			for(var/atom/movable/AM in T0)
+				AM.onShuttleMove(T0, T1, rotation, last_caller)
 
+			if(rotation)
+				T1.shuttleRotate(rotation)
+
+		// Always do this stuff as it ensures that the destination turfs still behave properly with the rest of the shuttle transit
 		//atmos and lighting stuff
 		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
@@ -512,7 +519,9 @@
 
 		T1.lighting_build_overlay()
 
-		T0.ChangeTurf(turf_type)
+		if(!should_transit)
+			continue // Don't want to actually change the skipped turf
+		T0.ChangeTurf(turf_type, keep_icon = FALSE)
 
 		SSair.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
@@ -528,7 +537,19 @@
 	loc = S1.loc
 	dir = S1.dir
 
+	//update mining and labor shuttle ash storm audio
+	if(id in list("mining", "laborcamp"))
+		var/mining_zlevel = level_name_to_num(MINING)
+		var/datum/weather/ash_storm/W = SSweather.get_weather(mining_zlevel, /area/lavaland/surface/outdoors)
+		if(W)
+			W.update_eligible_areas()
+			W.update_audio()
+
 	unlockPortDoors(S1)
+
+/obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
+	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava, /turf/simulated/floor/plating/asteroid))
+	return is_type_in_typecache(T, blacklisted_turf_types)
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
@@ -585,7 +606,6 @@
 					A.unlock()
 
 /obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	var/list/hurt_mobs = list()
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
 		var/turf/T1 = L1[i]
@@ -595,6 +615,8 @@
 		for(var/atom/movable/AM in T1)
 			if(AM.pulledby)
 				AM.pulledby.stop_pulling()
+			if(AM.flags_2 & IMMUNE_TO_SHUTTLECRUSH_2)
+				continue
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)
@@ -602,17 +624,11 @@
 				if(isliving(AM))
 					var/mob/living/L = AM
 					L.stop_pulling()
-					if(L.anchored)
-						L.gib()
-					else
-						if(!(L in hurt_mobs))
-							hurt_mobs |= L
-							L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
+					L.visible_message("<span class='warning'>[L] is hit by \
+									a hyperspace ripple!</span>",
 									"<span class='userdanger'>You feel an immense \
 									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(10)
-							L.ex_act(2)
+					L.gib()
 
 			// Move unanchored atoms
 			if(!AM.anchored)
@@ -719,6 +735,26 @@
 			dst = destination
 		. += " towards [dst ? dst.name : "unknown location"] ([timeLeft(600)]mins)"
 
+/obj/docking_port/mobile/labour
+	dir = 8
+	dwidth = 2
+	height = 5
+	id = "laborcamp"
+	name = "labor camp shuttle"
+	rebuildable = TRUE
+	width = 9
+	uses_lockdown = TRUE
+
+/obj/docking_port/mobile/mining
+	dir = 8
+	dwidth = 3
+	height = 5
+	id = "mining"
+	name = "mining shuttle"
+	rebuildable = TRUE
+	width = 7
+	uses_lockdown = TRUE
+
 /obj/machinery/computer/shuttle
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
@@ -820,14 +856,16 @@
 				return TRUE
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
-			else
+			if(2)
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+			if(3)
+				atom_say("Shuttle has already received a pending movement request. Please wait until the movement request is processed.")
 
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
 		src.req_access = list()
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 //for restricting when the computer can be used, needed for some console subtypes.
@@ -856,9 +894,9 @@
 		if(world.time < next_request)
 			return
 		next_request = world.time + 60 SECONDS	//1 minute cooldown
-		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
+		to_chat(usr, "<span class='notice'>Your request has been received by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
-		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
+		message_admins("<b>FERRY: <font color='#EB4E00'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		return TRUE
 
 
@@ -946,7 +984,7 @@
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
 			O.underlays.Add(T)
-		T.ChangeTurf(type)
+		T.ChangeTurf(type, keep_icon = FALSE)
 		if(underlays.len)
 			T.underlays = O.underlays
 	if(T.icon_state != icon_state)

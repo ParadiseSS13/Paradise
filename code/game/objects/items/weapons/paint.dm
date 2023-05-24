@@ -6,7 +6,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "paint_neutral"
 	item_state = "paintcan"
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 400)
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
@@ -14,6 +14,7 @@
 	possible_transfer_amounts = list(5,10,20,30,50,70)
 	volume = 70
 	container_type = OPENCONTAINER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity)
 	if(!proximity)

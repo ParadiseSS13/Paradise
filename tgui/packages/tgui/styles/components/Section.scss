@@ -11,36 +11,19 @@ $color-separator: colors.$primary !default;
   position: relative;
   margin-bottom: 6px;
   // IE8: Does not support rgba colors
-  background-color: color.adjust(
-    $color-background,
-    $lightness: 10%,
-    $alpha: 1);
+  background-color: color.adjust($color-background, $lightness: 10%, $alpha: 1);
   background-color: $color-background;
   box-shadow: inset 0 0 5px $color-shadow;
   box-sizing: border-box;
 
   // Fancy scrollbar
-  scrollbar-base-color: color.scale(
-    base.$color-bg,
-    $lightness: -25%);
-  scrollbar-face-color: color.scale(
-    base.$color-bg,
-    $lightness: 10%);
-  scrollbar-3dlight-color: color.scale(
-    base.$color-bg,
-    $lightness: 0%);
-  scrollbar-highlight-color: color.scale(
-    base.$color-bg,
-    $lightness: 0%);
-  scrollbar-track-color: color.scale(
-    base.$color-bg,
-    $lightness: -25%);
-  scrollbar-arrow-color: color.scale(
-    base.$color-bg,
-    $lightness: 50%);
-  scrollbar-shadow-color: color.scale(
-    base.$color-bg,
-    $lightness: 10%);
+  scrollbar-base-color: color.scale(base.$color-bg, $lightness: -25%);
+  scrollbar-face-color: color.scale(base.$color-bg, $lightness: 10%);
+  scrollbar-3dlight-color: color.scale(base.$color-bg, $lightness: 0%);
+  scrollbar-highlight-color: color.scale(base.$color-bg, $lightness: 0%);
+  scrollbar-track-color: color.scale(base.$color-bg, $lightness: -25%);
+  scrollbar-arrow-color: color.scale(base.$color-bg, $lightness: 50%);
+  scrollbar-shadow-color: color.scale(base.$color-bg, $lightness: 10%);
 
   &:last-child {
     margin-bottom: 0;

@@ -4,10 +4,10 @@
 /area/template_noop)
 "x" = (
 /turf/simulated/mineral/random/high_chance,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "H" = (
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/area/ruin/space/unpowered)
 "S" = (
 /obj/docking_port/stationary{
 	dir = 8;

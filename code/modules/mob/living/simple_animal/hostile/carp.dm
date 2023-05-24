@@ -63,6 +63,7 @@
 
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, SPECIES_TRAIT)
 	carp_randomify(rarechance)
 	update_icons()
 
@@ -124,7 +125,7 @@
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
 	gold_core_spawnable = NO_SPAWN
-	del_on_death = 1
+	del_on_death = TRUE
 	random_color = FALSE
 
 /mob/living/simple_animal/hostile/carp/megacarp

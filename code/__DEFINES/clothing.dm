@@ -40,6 +40,8 @@
 #define ACCESSORY_SLOT_UTILITY 2
 #define ACCESSORY_SLOT_ARMBAND 3
 
+///max number of accessories that can be equiped to one piece of clothing
+#define MAX_EQUIPABLE_ACCESSORIES 5
 //Cant seem to find a mob bitflags area other than the powers one
 
 // bitflags for clothing parts

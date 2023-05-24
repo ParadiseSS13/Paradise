@@ -4,13 +4,13 @@
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"
-	anchored = 0
-	density = 1
-	use_power = NO_POWER_USE
-	idle_power_usage = 500
-	active_power_usage = 10000
+	anchored = FALSE
+	density = TRUE
+	power_state = NO_POWER_USE
+	idle_power_consumption = 500
+	active_power_consumption = 10000
 	construction_state = 0
-	active = 0
+	active = FALSE
 	dir = 1
 	var/strength_upper_limit = 2
 	var/interface_control = 1
@@ -48,30 +48,30 @@
 
 /obj/machinery/particle_accelerator/control_box/update_state()
 	if(construction_state < 3)
-		use_power = NO_POWER_USE
+		change_power_mode(NO_POWER_USE)
 		assembled = 0
-		active = 0
+		active = FALSE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
-			part.powered = 0
+			part.powered = FALSE
 			part.update_icon()
 		connected_parts = list()
 		return
 	if(!part_scan())
-		use_power = IDLE_POWER_USE
-		active = 0
+		change_power_mode(IDLE_POWER_USE)
+		active = FALSE
 		connected_parts = list()
 
 	return
 
-/obj/machinery/particle_accelerator/control_box/update_icon()
+/obj/machinery/particle_accelerator/control_box/update_icon_state()
 	if(active)
 		icon_state = "[reference]p[strength]"
 	else
 		if(stat & NOPOWER)
 			icon_state = "[reference]w"
 			return
-		else if(use_power && assembled)
+		else if(power_state && assembled)
 			icon_state = "[reference]p"
 		else
 			switch(construction_state)
@@ -83,7 +83,6 @@
 					icon_state = "[reference]w"
 				else
 					icon_state = "[reference]c"
-	return
 
 /obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
 	if(..(href, href_list))
@@ -150,16 +149,16 @@
 /obj/machinery/particle_accelerator/control_box/power_change()
 	..()
 	if(stat & NOPOWER)
-		active = 0
-		use_power = NO_POWER_USE
+		active = FALSE
+		change_power_mode(NO_POWER_USE)
 	else if(!stat && construction_state <= 3)
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 	update_icon()
 
 	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
-			part.powered = 0
+			part.powered = FALSE
 			part.update_icon()
 	return
 
@@ -235,23 +234,23 @@
 		usr.create_log(MISC_LOG, "PA Control Computer turned ON", src)
 		log_game("PA Control Computer turned ON by [key_name(usr)] in ([x],[y],[z])")
 	if(active)
-		use_power = ACTIVE_POWER_USE
+		change_power_mode(ACTIVE_POWER_USE)
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = strength
-			part.powered = 1
+			part.powered = TRUE
 			part.update_icon()
 	else
-		use_power = IDLE_POWER_USE
+		change_power_mode(IDLE_POWER_USE)
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
-			part.powered = 0
+			part.powered = FALSE
 			part.update_icon()
 	return 1
 
 
 /obj/machinery/particle_accelerator/control_box/interact(mob/user)
 	if(((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)))
-		if(!istype(user, /mob/living/silicon))
+		if(!issilicon(user))
 			user.unset_machine()
 			user << browse(null, "window=pacontrol")
 			return

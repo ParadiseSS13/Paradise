@@ -152,9 +152,9 @@
 
 /turf/space/transit/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/turf/space/transit/proc/update_icon()
+/turf/space/transit/update_icon_state()
 	var/p = 9
 	var/angle = 0
 	var/state = 1

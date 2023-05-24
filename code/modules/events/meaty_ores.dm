@@ -1,14 +1,14 @@
 /datum/event/dust/meaty/announce()
 	if(prob(16))
-		GLOB.event_announcement.Announce("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
+		GLOB.minor_announcement.Announce("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
 	else
-		GLOB.event_announcement.Announce("Meaty ores have been detected on collision course with the station.", "Meaty Ore Alert", new_sound = 'sound/AI/meteors.ogg')
+		GLOB.minor_announcement.Announce("Meaty ores have been detected on collision course with the station.", "Meaty Ore Alert", new_sound = 'sound/AI/meteors.ogg')
 
 /datum/event/dust/meaty/setup()
 	qnty = rand(45,125)
 
 /datum/event/dust/meaty/start()
-	INVOKE_ASYNC(src, .proc/spawn_meaty_ores)
+	INVOKE_ASYNC(src, PROC_REF(spawn_meaty_ores))
 
 /datum/event/dust/meaty/proc/spawn_meaty_ores()
 	while(qnty-- > 0)

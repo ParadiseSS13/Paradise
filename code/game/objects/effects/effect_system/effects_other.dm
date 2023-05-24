@@ -1,8 +1,7 @@
-/// Ion trails for spacepods and other space-flying things
+/// Ion trails for jetpacks, ion thrusters and other space-flying things
 /obj/effect/particle_effect/ion_trails
 	name = "ion trails"
 	icon_state = "ion_trails"
-	anchored = TRUE
 
 /obj/effect/particle_effect/ion_trails/Initialize(mapload, targetdir)
 	. = ..()
@@ -34,10 +33,10 @@
 
 		for(var/mob/M in viewers(5, location))
 			to_chat(M, "<span class='warning'>The solution violently explodes.</span>")
-		for(var/mob/M in viewers(1, location))
+		for(var/mob/living/L in viewers(1, location))
 			if(prob(50 * amount))
-				to_chat(M, "<span class='warning'>The explosion knocks you down.</span>")
-				M.Weaken(rand(1,5))
+				to_chat(L, "<span class='warning'>The explosion knocks you down.</span>")
+				L.Weaken(rand(2 SECONDS, 10 SECONDS))
 		return
 	else
 		var/devastation = -1
@@ -45,15 +44,15 @@
 		var/light = -1
 		var/flash = -1
 
-		// Clamp all values to MAX_EXPLOSION_RANGE
+		// We dont need to clamp here. It gets clamped inside explosion()
 		if(round(amount/12) > 0)
-			devastation = min (GLOB.max_ex_devastation_range, devastation + round(amount/12))
+			devastation += round(amount/12)
 
 		if(round(amount/6) > 0)
-			heavy = min (GLOB.max_ex_heavy_range, heavy + round(amount/6))
+			heavy += round(amount/6)
 
 		if(round(amount/3) > 0)
-			light = min (GLOB.max_ex_light_range, light + round(amount/3))
+			light += round(amount/3)
 
 		if(flashing && flashing_factor)
 			flash += (round(amount/4) * flashing_factor)

@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("What the fuck was that?!", "General Alert")
+	GLOB.minor_announcement.Announce("What the fuck was that?!", "General Alert")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -86,14 +86,32 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 				"<span class ='danger'>You hear a CLANG!</span>")
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
-			clong.ex_act(2)
+			clong.ex_act(EXPLODE_HEAVY)
 
 /obj/effect/immovablerod/event
-	var/tiles_moved = 0
+	// The base chance to "damage" the floor when passing. This is not guaranteed to cause a full on hull breach.
+	// Chance to expose the tile to space is like 60% of this value.
+	var/floor_rip_chance = 40
 
 /obj/effect/immovablerod/event/Move()
 	var/atom/oldloc = loc
 	. = ..()
-	tiles_moved++
-	if(get_dist(oldloc, loc) > 2 && tiles_moved > 10) // We went on a journey, commit sudoku
+	if(prob(floor_rip_chance))
+		var/turf/simulated/floor/T = get_turf(oldloc)
+		if(istype(T))
+			T.ex_act(EXPLODE_HEAVY)
+	if(loc == destination)
 		qdel(src)
+
+/obj/effect/immovablerod/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 6 SECONDS)
+	return AddComponent(/datum/component/deadchat_control/immovable_rod, mode, list(), cooldown)
+
+/**
+ * Rod will walk towards edge turf in the specified direction.
+ *
+ * Arguments:
+ * * direction - The direction to walk the rod towards: NORTH, SOUTH, EAST, WEST.
+ */
+/obj/effect/immovablerod/proc/walk_in_direction(direction)
+	destination = get_edge_target_turf(src, direction)
+	walk_towards(src, destination)

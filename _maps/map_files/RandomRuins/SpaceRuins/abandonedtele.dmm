@@ -4,7 +4,7 @@
 /area/template_noop)
 "b" = (
 /turf/simulated/wall/r_wall,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "c" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -12,99 +12,95 @@
 "d" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "e" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "f" = (
 /obj/machinery/teleport/hub,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "g" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "h" = (
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "i" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "j" = (
 /obj/effect/spawner/window/reinforced{
 	useFull = 0
 	},
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "k" = (
 /obj/item/stock_parts/cell,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "l" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "m" = (
 /obj/effect/decal/cleanable/blood/gibs/robot,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "n" = (
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
-"o" = (
-/obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "p" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flashlight,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "q" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/beacon,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "r" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "s" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "t" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "u" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "v" = (
 /obj/item/shard,
 /obj/item/apc_electronics,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "w" = (
 /obj/structure/closet,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "x" = (
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
 	pixel_y = -1
 	},
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "y" = (
 /obj/structure/closet/crate,
 /obj/item/aicard,
@@ -113,19 +109,19 @@
 /obj/item/wrench,
 /obj/item/circuitboard/teleporter,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "z" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
-"A" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/AIsattele)
+/area/ruin/space/abandtele)
 "B" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/AIsattele)
+/area/ruin/space/abandtele)
+"F" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandtele)
 
 (1,1,1) = {"
 a
@@ -160,7 +156,7 @@ a
 a
 c
 j
-o
+F
 j
 c
 a
@@ -188,7 +184,7 @@ a
 c
 b
 b
-o
+F
 b
 b
 c
@@ -248,7 +244,7 @@ q
 u
 l
 h
-A
+c
 c
 a
 c

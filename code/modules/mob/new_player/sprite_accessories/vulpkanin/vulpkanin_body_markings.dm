@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/vulpkanin
-    icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_body_markings.dmi'
-    species_allowed = list("Vulpkanin")
+	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_body_markings.dmi'
+	species_allowed = list("Vulpkanin")
 
 /datum/sprite_accessory/body_markings/vulpkanin/belly_fox_vulp
 	name = "Vulpkanin Belly"

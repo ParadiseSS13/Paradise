@@ -7,11 +7,11 @@
 
 	density = TRUE
 	max_integrity = 300
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
 	layer = OBJ_LAYER
 
-	///Check if the device should be on or off
-	var/on = FALSE
+	idle_power_consumption = 500
+	active_power_consumption = 0
 
 	var/icon_state_off = "freezer"
 	var/icon_state_on = "freezer_1"
@@ -39,6 +39,10 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 	update_icon()
+
+/obj/machinery/atmospherics/unary/thermomachine/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Cools or heats the gas of the connected pipenet, uses a large amount of electricity while activated.</span>"
 
 /obj/machinery/atmospherics/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
@@ -72,7 +76,7 @@
 			calculated_laser_rating += laser.rating
 		max_temperature = T20C + (base_heating * calculated_laser_rating) //573.15K with T1 stock parts
 
-/obj/machinery/atmospherics/unary/thermomachine/update_icon()
+/obj/machinery/atmospherics/unary/thermomachine/update_icon_state()
 	if(panel_open)
 		icon_state = icon_state_open
 	else if(on)
@@ -103,12 +107,14 @@
 
 	//todo: have current temperature affected. require power to bring down current temperature again
 
-	var/temperature_delta= abs(old_temperature - air_contents.temperature)
+	var/temperature_delta = abs(old_temperature - air_contents.temperature)
 	if(temperature_delta > 1)
-		active_power_usage = (heat_capacity * temperature_delta) / 10 + idle_power_usage
-		parent.update = 1
+		var/new_active_consumption = (temperature_delta * 25) * min(log(10, air_contents.temperature) - 1, 1)
+		update_active_power_consumption(power_channel, new_active_consumption + idle_power_consumption)
+		change_power_mode(ACTIVE_POWER_USE)
+		parent.update = TRUE
 	else
-		active_power_usage = idle_power_usage
+		change_power_mode(IDLE_POWER_USE)
 	return 1
 
 /obj/machinery/atmospherics/unary/thermomachine/attackby(obj/item/I, mob/user, params)
@@ -184,7 +190,7 @@
 	switch(action)
 		if("power")
 			on = !on
-			use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			change_power_mode(on ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
 			update_icon()
 			. = TRUE

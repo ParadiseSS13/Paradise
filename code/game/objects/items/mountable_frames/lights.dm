@@ -3,8 +3,11 @@
 	desc = "Used for building lights."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube-construct-item"
+
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR
+	metal_sheets_refunded = 2
+	///specifies which type of light fixture this frame will build
 	var/fixture_type = "tube"
-	mount_reqs = list("simfloor")
 
 /obj/item/mounted/frame/light_fixture/do_build(turf/on_wall, mob/user)
 	to_chat(user, "You begin attaching [src] to \the [on_wall].")
@@ -36,4 +39,4 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-item"
 	fixture_type = "bulb"
-	sheets_refunded = 1
+	metal_sheets_refunded = 1

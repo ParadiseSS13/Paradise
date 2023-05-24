@@ -4,8 +4,8 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "shock_kit"
 	var/obj/item/clothing/head/helmet/part1 = null
-	var/obj/item/radio/electropack/part2 = null
-	var/status = 0
+	var/obj/item/electropack/part2 = null
+	var/status = FALSE
 	w_class = WEIGHT_CLASS_HUGE
 	flags = CONDUCT
 
@@ -26,12 +26,12 @@
 		part1 = null
 		part2 = null
 		qdel(src)
-		return
-	if(istype(W, /obj/item/screwdriver))
-		status = !status
-		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
+
+/obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
+	status = !status
+	to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
 	add_fingerprint(user)
-	return
+	return TRUE
 
 /obj/item/assembly/shock_kit/attack_self(mob/user as mob)
 	part1.attack_self(user, status)
@@ -39,8 +39,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/assembly/shock_kit/receive_signal()
+/obj/item/assembly/shock_kit/proc/shock_invoke()
 	if(istype(loc, /obj/structure/chair/e_chair))
 		var/obj/structure/chair/e_chair/C = loc
 		C.shock()
-	return

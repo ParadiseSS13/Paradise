@@ -30,6 +30,6 @@ export class StoreProvider extends Component {
   }
 }
 
-export const useDispatch = context => {
+export const useDispatch = (context) => {
   return context.store.dispatch;
 };

@@ -24,11 +24,11 @@
 
 	if(!ignorecap)
 		// Clamp all values to MAX_EXPLOSION_RANGE
-		devastation_range = min (GLOB.max_ex_devastation_range, devastation_range)
-		heavy_impact_range = min (GLOB.max_ex_heavy_range, heavy_impact_range)
-		light_impact_range = min (GLOB.max_ex_light_range, light_impact_range)
-		flash_range = min (GLOB.max_ex_flash_range, flash_range)
-		flame_range = min (GLOB.max_ex_flame_range, flame_range)
+		devastation_range = min(GLOB.configuration.general.bomb_cap / 4, devastation_range)
+		heavy_impact_range = min(GLOB.configuration.general.bomb_cap / 2, heavy_impact_range)
+		light_impact_range = min(GLOB.configuration.general.bomb_cap, light_impact_range)
+		flash_range = min(GLOB.configuration.general.bomb_cap, flash_range)
+		flame_range = min(GLOB.configuration.general.bomb_cap, flame_range)
 
 	var/max_range = max(devastation_range, heavy_impact_range, light_impact_range, flame_range)
 
@@ -105,7 +105,7 @@
 						M.playsound_local(epicenter, null, echo_volume, 1, frequency, S = explosion_echo_sound, distance_multiplier = 0)
 
 					if(creaking_explosion) // 5 seconds after the bang, the station begins to creak
-						addtimer(CALLBACK(M, /mob/proc/playsound_local, epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
+						addtimer(CALLBACK(M, TYPE_PROC_REF(/mob, playsound_local), epicenter, null, rand(FREQ_LOWER, FREQ_UPPER), 1, frequency, null, null, FALSE, hull_creaking_sound, 0), CREAK_DELAY)
 
 		if(heavy_impact_range > 1)
 			var/datum/effect_system/explosion/E
@@ -118,7 +118,7 @@
 
 		var/list/affected_turfs = spiral_range_turfs(max_range, epicenter)
 
-		if(config.reactionary_explosions)
+		if(GLOB.configuration.general.reactionary_explosions)
 			for(var/A in affected_turfs) // we cache the explosion block rating of every turf in the explosion area
 				var/turf/T = A
 				cached_exp_block[T] = 0
@@ -136,7 +136,7 @@
 				continue
 			var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
-			if(config.reactionary_explosions)
+			if(GLOB.configuration.general.reactionary_explosions)
 				var/turf/Trajectory = T
 				while(Trajectory != epicenter)
 					Trajectory = get_step_towards(Trajectory, epicenter)
@@ -156,10 +156,10 @@
 			//------- TURF FIRES -------
 
 			if(T)
-				if(flame_dist && prob(40) && !istype(T, /turf/space) && !T.density)
+				if(flame_dist && prob(40) && !isspaceturf(T) && !T.density)
 					new /obj/effect/hotspot(T) //Mostly for ambience!
 				if(dist > 0)
-					if(istype(T, /turf/simulated))
+					if(issimulatedturf(T))
 						var/turf/simulated/S = T
 						var/affecting_level
 						if(dist == 1)
@@ -186,8 +186,7 @@
 
 		var/took = stop_watch(watch)
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
-		if(GLOB.debug2)
-			log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
+		log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
 		//Machines which report explosions.
 		for(var/array in GLOB.doppler_arrays)
@@ -237,7 +236,7 @@
 			heavy = 5
 			light = 7
 		if("Custom Bomb")
-			dev = input("Devestation range (Tiles):") as num
+			dev = input("Devastation range (Tiles):") as num
 			heavy = input("Heavy impact range (Tiles):") as num
 			light = input("Light impact range (Tiles):") as num
 

@@ -1,12 +1,5 @@
-/datum/event/wallrot/setup()
-	announceWhen = rand(0, 300)
-	endWhen = announceWhen + 1
-
-/datum/event/wallrot/announce()
-	GLOB.event_announcement.Announce("Harmful fungi detected on station. Station structures may be contaminated.", "Biohazard Alert")
-
 /datum/event/wallrot/start()
-	INVOKE_ASYNC(src, .proc/spawn_wallrot)
+	INVOKE_ASYNC(src, PROC_REF(spawn_wallrot))
 
 /datum/event/wallrot/proc/spawn_wallrot()
 	var/turf/simulated/wall/center = null
@@ -14,7 +7,7 @@
 	// 100 attempts
 	for(var/i in 0 to 100)
 		var/turf/candidate = locate(rand(1, world.maxx), rand(1, world.maxy), level_name_to_num(MAIN_STATION))
-		if(istype(candidate, /turf/simulated/wall))
+		if(iswallturf(candidate))
 			center = candidate
 			break
 

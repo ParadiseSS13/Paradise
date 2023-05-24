@@ -1,8 +1,7 @@
 /obj/effect/particle_effect/expl_particles
 	name = "explosive particles"
 	icon_state = "explosion_particle"
-	opacity = 1
-	anchored = 1
+	opacity = TRUE
 
 /obj/effect/particle_effect/expl_particles/New()
 	..()
@@ -25,8 +24,7 @@
 	name = "explosive particles"
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "explosion"
-	opacity = 1
-	anchored = 1
+	opacity = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pixel_x = -32
 	pixel_y = -32
@@ -53,9 +51,9 @@
 
 /datum/effect_system/explosion/smoke/proc/create_smoke()
 	var/datum/effect_system/smoke_spread/S = new
-	S.set_up(5,0,location,null)
+	S.set_up(5, FALSE, location, null)
 	S.start()
 
 /datum/effect_system/explosion/smoke/start()
 	..()
-	addtimer(CALLBACK(src, .proc/create_smoke), 5)
+	addtimer(CALLBACK(src, PROC_REF(create_smoke)), 5)

@@ -18,17 +18,14 @@
 	/// Associative list of all jobs and their department color classes
 	var/all_jobs = list(
 		// AI
+		"Automated Announcement" = "airadio",
 		"AI" = "airadio",
 		"Android" = "airadio",
 		"Cyborg" = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
-		// Civilian + Varients
+		// Assistant
 		"Assistant" = "radio",
-		"Businessman" = "radio",
-		"Civilian" = "radio",
-		"Tourist" = "radio",
-		"Trader" = "radio",
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
@@ -41,16 +38,34 @@
 		"Engine Technician" = "engradio",
 		"Life Support Specialist" = "engradio",
 		"Maintenance Technician" = "engradio",
-		"Mechanic" = "engradio",
 		"Station Engineer" = "engradio",
 		// Central Command
-		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
+		"Custodian" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
+		"Deathsquad Commando" = "dsquadradio",
+		"Emergency Response Team Engineer" = "dsquadradio",
 		"Emergency Response Team Leader" = "dsquadradio",
 		"Emergency Response Team Medic" = "dsquadradio",
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
+		"Emergency Response Team Inquisitor" = "dsquadradio",
+		"Emergency Response Team Janitor" = "dsquadradio",
+		"Intel Officer" = "dsquadradio",
+		"Medical Officer" = "dsquadradio",
+		"Nanotrasen Navy Captain" = "dsquadradio",
 		"Nanotrasen Navy Officer" = "dsquadradio",
+		"Nanotrasen Navy Representative" = "dsquadradio",
+		"Research Officer" = "dsquadradio",
 		"Special Operations Officer" = "dsquadradio",
+		"Sol Trader" = "dsquadradio",
+		"Solar Federation General" = "dsquadradio",
+		"Solar Federation Representative" = "dsquadradio",
+		"Solar Federation Specops Lieutenant" = "dsquadradio",
+		"Solar Federation Specops Marine" = "dsquadradio",
+		"Solar Federation Lieutenant" = "dsquadradio",
+		"Solar Federation Marine" = "dsquadradio",
+		"Supreme Commander" = "dsquadradio",
+		"Thunderdome Overseer" = "dsquadradio",
+		"VIP Guest" = "dsquadradio",
 		// Medical
 		"Chemist" = "medradio",
 		"Chief Medical Officer" = "medradio",
@@ -59,6 +74,7 @@
 		"Microbiologist" = "medradio",
 		"Nurse" = "medradio",
 		"Paramedic" = "medradio",
+		"Pathologist" = "medradio",
 		"Pharmacologist" = "medradio",
 		"Pharmacist" = "medradio",
 		"Psychiatrist" = "medradio",
@@ -79,7 +95,6 @@
 		"Xenoarcheologist" = "sciradio",
 		"Xenobiologist" = "sciradio",
 		// Security
-		"Brig Physician" = "secradio",
 		"Detective" = "secradio",
 		"Forensic Technician" = "secradio",
 		"Head of Security" = "secradio",
@@ -87,7 +102,6 @@
 		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
-		"Security Pod Pilot" = "secradio",
 		"Warden" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",
@@ -117,9 +131,11 @@
 	/// List of Command jobs
 	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
 	/// List of ERT jobs
-	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
+	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Inquisitor", "Emergency Response Team Janitor", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
-	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	var/list/cc_jobs = list("Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer", "Intel Officer", "Medical Officer", "Nanotrasen Navy Captain", "Nanotrasen Navy Representative", "Research Officer", "Supreme Commander", "Thunderdome Overseer")
+	/// List of SolGov Marine jobs
+	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Lieutenant", "Solar Federation Marine", "Solar Federation Representative", "Solar Federation General", "VIP Guest")
 	// Defined so code compiles and incase someone has a non-standard job
 	var/job_class = "radio"
 	// NOW FOR ACTUAL TOGGLES
@@ -176,7 +192,7 @@
 /datum/nttc_configuration/proc/update_languages()
 	for(var/language in GLOB.all_languages)
 		var/datum/language/L = GLOB.all_languages[language]
-		if(L.flags & HIVEMIND)
+		if(L.flags & (HIVEMIND | NONGLOBAL))
 			continue
 		valid_languages[language] = TRUE
 
@@ -234,10 +250,15 @@
 	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
 		var/job = tcm.sender_job
-		job_class = all_jobs[job]
+		var/rank = tcm.sender_rank
+		//if the job title is not custom, just use that to decide the rules of formatting
+		if (job in all_jobs)
+			job_class = all_jobs[job]
+		else
+			job_class = all_jobs[rank]
 
 	if(toggle_name_color)
-		var/new_name = "<span class=\"[job_class]\">" + tcm.sender_name + "</span>"
+		var/new_name = "<span class=\"[job_class]\">[tcm.sender_name]</span>"
 		tcm.sender_name = new_name
 		tcm.vname = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
 
@@ -278,10 +299,20 @@
 	// Makes heads of staff bold
 	if(toggle_command_bold)
 		var/job = tcm.sender_job
-		if((job in ert_jobs) || (job in heads) || (job in cc_jobs))
-			for(var/datum/multilingual_say_piece/S in message_pieces)
-				if(S.message)
-					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
+		var/rank = tcm.sender_rank
+		var/realjob = job
+		if(!(job in all_jobs))
+			realjob = rank
+
+		if((realjob in ert_jobs) || (realjob in heads) || (realjob in cc_jobs) || (realjob in tsf_jobs))
+			for(var/I in 1 to length(message_pieces))
+				var/datum/multilingual_say_piece/S = message_pieces[I]
+				if(!S.message)
+					continue
+				if(I == 1 && !istype(S.speaking, /datum/language/noise)) // Capitalise the first section only, unless it's an emote.
+					S.message = "[capitalize(S.message)]"
+				S.message = "<b>[S.message]</b>" // Make everything bolded
+
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])

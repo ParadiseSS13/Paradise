@@ -1,13 +1,13 @@
-import { useBackend } from "../backend";
-import { Button, Box, Section, Flex, Icon } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import { Button, Box, Section, Flex, Icon } from '../components';
+import { Window } from '../layouts';
 
 /* This is all basically stolen from routes.js. */
-import { routingError } from "../routes";
+import { routingError } from '../routes';
 
 const RequirePDAInterface = require.context('./pda', false, /\.js$/);
 
-const GetApp = name => {
+const GetApp = (name) => {
   let appModule;
   try {
     appModule = RequirePDAInterface(`./${name}.js`);
@@ -26,10 +26,7 @@ const GetApp = name => {
 
 export const PDA = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    app,
-    owner,
-  } = data;
+  const { app, owner } = data;
   if (!owner) {
     return (
       <Window>
@@ -56,7 +53,8 @@ export const PDA = (props, context) => {
               {app.name}
             </Box>
           }
-          p={1}>
+          p={1}
+        >
           <App />
         </Section>
 
@@ -69,12 +67,7 @@ export const PDA = (props, context) => {
 
 const PDAHeader = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    idInserted,
-    idLink,
-    stationTime,
-    cartridge_name,
-  } = data;
+  const { idInserted, idLink, stationTime, cartridge_name } = data;
 
   return (
     <Box mb={1}>
@@ -84,8 +77,9 @@ const PDAHeader = (props, context) => {
             <Button
               icon="id-card"
               color="transparent"
-              onClick={() => act("Authenticate")}
-              content={idLink} />
+              onClick={() => act('Authenticate')}
+              content={idLink}
+            />
           </Flex.Item>
         ) : (
           <Flex.Item m={1} color="grey">
@@ -98,8 +92,9 @@ const PDAHeader = (props, context) => {
             <Button
               icon="sd-card"
               color="transparent"
-              onClick={() => act("Eject")}
-              content={"Eject " + cartridge_name} />
+              onClick={() => act('Eject')}
+              content={'Eject ' + cartridge_name}
+            />
           </Flex.Item>
         ) : (
           <Flex.Item m={1} color="grey">
@@ -115,34 +110,35 @@ const PDAHeader = (props, context) => {
   );
 };
 
-
 const PDAFooter = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    app,
-  } = data;
+  const { app } = data;
 
   return (
-    <Box className="PDA__footer">
+    <Box className="PDA__footer" backgroundColor="#1b1b1b">
       <Flex>
         <Flex.Item basis="33%">
           <Button
             fluid
             className="PDA__footer__button"
             color="transparent"
-            iconColor={app.has_back ? "white" : "disabled"}
+            iconColor={app.has_back ? 'white' : 'disabled'}
             icon="arrow-alt-circle-left-o"
-            onClick={() => act("Back")} />
+            onClick={() => act('Back')}
+          />
         </Flex.Item>
         <Flex.Item basis="33%">
           <Button
             fluid
             className="PDA__footer__button"
             color="transparent"
-            iconColor={app.is_home ? "disabled" : "white"}
+            iconColor={app.is_home ? 'disabled' : 'white'}
             icon="home"
-            onClick={() => { act("Home"); }} />
+            onClick={() => {
+              act('Home');
+            }}
+          />
         </Flex.Item>
       </Flex>
     </Box>

@@ -7,7 +7,7 @@
 		adjustBruteLoss(15)
 		var/hitverb = "punched"
 		if(mob_size < MOB_SIZE_LARGE)
-			Paralyse(1)
+			Paralyse(2 SECONDS)
 			spawn(0)
 				step_away(src, user, 15)
 				sleep(1)
@@ -27,7 +27,7 @@
 					visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 							"<span class='userdanger'>[M] has punched [src]!</span>")
 					if((stat != DEAD) && (damage > 9||prob(5)))//Regular humans have a very small chance of weakening an alien.
-						Paralyse(2)
+						Paralyse(4 SECONDS)
 						visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 								"<span class='userdanger'>[M] has weakened [src]!</span>", \
 								"<span class='danger'>You hear someone fall.</span>")
@@ -38,9 +38,9 @@
 					visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 
 			if(INTENT_DISARM)
-				if(!lying)
+				if(!IS_HORIZONTAL(src))
 					if(prob(5))//Very small chance to push an alien down.
-						Paralyse(2)
+						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "Pushed over")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
@@ -56,6 +56,6 @@
 							visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
 
 /mob/living/carbon/alien/humanoid/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!no_effect && !visual_effect_icon)
+	if(!no_effect && !visual_effect_icon && !get_active_hand())
 		visual_effect_icon = ATTACK_EFFECT_CLAW
 	..()

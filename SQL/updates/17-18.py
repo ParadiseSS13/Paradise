@@ -8,7 +8,7 @@
 #To view the parameters for this script, execute it with the argument --help
 #All the positional arguments are required, remember to include prefixes in your table names if you use them
 #An example of the command used to execute this script from powershell:
-#python feedback_conversion_2017-11-12.py "localhost" "root" "password" "feedback" "feedback" "feedback_2"
+#python feedback_conversion_2017-11-12.py "localhost" "root" "password" "paradise_gamedb" "feedback" "feedback_2"
 #I found that this script would complete conversion of 10000 rows approximately every 2-3 seconds
 #Depending on the size of your feedback table and the computer used it may take several minutes for the script to finish
 #

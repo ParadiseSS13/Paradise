@@ -6,8 +6,8 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "spikeframe"
 	desc = "The frame of a meat spike."
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	max_integrity = 200
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
@@ -15,10 +15,10 @@
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
-			anchored = 0
+			anchored = FALSE
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = 1
+			anchored = TRUE
 	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
@@ -37,8 +37,8 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "spike"
 	desc = "A spike for collecting meat from animals."
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	buckle_lying = FALSE
 	can_buckle = TRUE
 	max_integrity = 250
@@ -63,19 +63,30 @@
 		return
 	if(!istype(G, /obj/item/grab) || !G.affecting)
 		return
-	if(has_buckled_mobs())
-		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
-		return
 	if(isliving(G.affecting))
-		if(!has_buckled_mobs())
-			if(do_mob(user, src, 120))
-				var/mob/living/affected = G.affecting
-				if(spike(affected))
-					affected.visible_message("<span class='danger'>[user] slams [affected] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
-		return
+		start_spike(G.affecting, user)
 	return ..()
 
-/obj/structure/kitchenspike/proc/spike(mob/living/victim)
+/obj/structure/kitchenspike/MouseDrop_T(mob/living/victim, mob/living/user)
+	if (!user.Adjacent(src) || !user.Adjacent(victim) || isAI(user))
+		return
+	if(isanimal(user) && victim != user)
+		return // animals cannot put mobs other than themselves onto spikes
+	add_fingerprint(user)
+	start_spike(victim, user)
+
+/obj/structure/kitchenspike/proc/start_spike(mob/living/victim, mob/user)
+	if(has_buckled_mobs())
+		to_chat(user, "<span class='danger'>The spike already has something on it, finish collecting its meat first!</span>")
+		return
+	victim.visible_message(
+		"<span class='danger'>[user] tries to slam [victim] onto the meat spike!</span>",
+		"<span class='userdanger'>[user] tries to slam you onto the meat spike!</span>"
+	)
+	if(do_mob(user, src, 12 SECONDS))
+		end_spike(victim, user)
+
+/obj/structure/kitchenspike/proc/end_spike(mob/living/victim, mob/user)
 
 	if(!istype(victim))
 		return FALSE
@@ -87,21 +98,21 @@
 	playsound(loc, 'sound/effects/splat.ogg', 25, 1)
 	victim.forceMove(drop_location())
 	victim.emote("scream")
+	victim.visible_message(
+		"<span class='danger'>[user] slams [victim] onto the meat spike!</span>",
+		"<span class='userdanger'>[user] slams you onto the meat spike!</span>",
+		"<span class='italics'>You hear a squishy wet noise.</span>"
+	)
 	if(ishuman(victim))
 		var/mob/living/carbon/human/H = victim
 		H.add_splatter_floor()
 	victim.adjustBruteLoss(30)
 	victim.setDir(2)
 	buckle_mob(victim, force = TRUE)
-	var/matrix/m180 = matrix(victim.transform)
-	m180.Turn(180)
-	animate(victim, transform = m180, time = 3)
+	victim.set_lying_angle(180)
+	victim.update_transform()
 	victim.pixel_y = victim.get_standard_pixel_y_offset(180)
 	return TRUE
-
-
-/obj/structure/kitchenspike/user_buckle_mob(mob/living/M, mob/living/user) //Don't want them getting put on the rack other than by spiking
-	return
 
 /obj/structure/kitchenspike/user_unbuckle_mob(mob/living/buckled_mob, mob/living/carbon/human/user)
 	if(buckled_mob)
@@ -134,13 +145,13 @@
 	src.visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
 	unbuckle_mob(M, force = TRUE)
 	M.emote("scream")
-	M.AdjustWeakened(10)
+	M.AdjustWeakened(20 SECONDS)
+
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = M.get_standard_pixel_y_offset(0)
-	var/matrix/m180 = matrix(M.transform)
-	m180.Turn(180)
-	animate(M, transform = m180, time = 3)
+	M.set_lying_angle(0)
+	M.update_transform()
 
 /obj/structure/kitchenspike/Destroy()
 	if(has_buckled_mobs())

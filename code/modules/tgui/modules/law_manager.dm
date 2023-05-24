@@ -98,7 +98,7 @@
 				var/datum/ai_law/AL = locate(params["edit_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to edit their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(usr, "<span class='warning'>You cant edit that law.</span>")
+					to_chat(usr, "<span class='warning'>You can't edit that law.</span>")
 					return
 				if(AL)
 					var/new_law = sanitize(input(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law))
@@ -111,7 +111,7 @@
 				var/datum/ai_law/AL = locate(params["delete_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to delete their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(usr, "<span class='warning'>You cant delete that law.</span>")
+					to_chat(usr, "<span class='warning'>You can't delete that law.</span>")
 					return
 				if(AL && is_malf(usr))
 					owner.delete_law(AL)

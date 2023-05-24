@@ -1,0 +1,14 @@
+name: Check for DMI5
+
+on: pull_request_target
+
+jobs:
+  check-dmi5:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ParadiseSS13/DMI5Checker@v1
+      with:
+        icons-path: 'icons'
+

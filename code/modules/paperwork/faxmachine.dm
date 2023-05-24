@@ -10,6 +10,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
+	var/receive_anim = "faxsend"
 	pass_flags = PASSTABLE
 	var/fax_network = "Local Fax Network"
 	/// If true, prevents fax machine from sending messages to NT machines
@@ -19,9 +20,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/long_range_enabled = FALSE
 	req_one_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 30
-	active_power_usage = 200
+	idle_power_consumption = 30
+	active_power_consumption = 200
 
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null
@@ -39,10 +39,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	/// Target department to send outgoing faxes to
 	var/destination
 
-/obj/machinery/photocopier/faxmachine/New()
-	..()
+/obj/machinery/photocopier/faxmachine/Initialize(mapload)
+	. = ..()
 	GLOB.allfaxes += src
 	update_network()
+
+/obj/machinery/photocopier/faxmachine/Destroy()
+	GLOB.allfaxes -= src
+	return ..()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
@@ -54,12 +58,20 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	fax_network = "Central Command Quantum Entanglement Network"
 	long_range_enabled = TRUE
 
+/obj/machinery/photocopier/faxmachine/longrange/Initialize(mapload)
+	. = ..()
+	add_overlay("longfax")
+
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
 	emagged = TRUE
 	syndie_restricted = TRUE
 	req_one_access = list(ACCESS_SYNDICATE)
 	//No point setting fax network, being emagged overrides that anyway.
+
+/obj/machinery/photocopier/faxmachine/longrange/syndie/Initialize(mapload)
+	. = ..()
+	add_overlay("syndiefax")
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != "Unknown")
@@ -77,12 +89,18 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
 		..()
 		SStgui.update_uis(src)
+	else if(istype(item, /obj/item/folder))
+		to_chat(user, "<span class='warning'>The [src] can't accept folders!</span>")
+		return //early return so the parent proc doesn't suck up and items that a photocopier would take
 	else
 		return ..()
 
+/obj/machinery/photocopier/faxmachine/MouseDrop_T()
+	return //you should not be able to fax your ass without first copying it at an actual photocopier
+
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		req_one_access = list()
 		to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
 	else
@@ -133,7 +151,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 
 /obj/machinery/photocopier/faxmachine/ui_act(action, params)
-	if(..())
+	if(isnull(..())) // isnull(..()) here because the parent photocopier proc returns null as opposed to TRUE if the ui should not be interacted with.
 		return
 	var/is_authenticated = is_authenticated(usr)
 	. = TRUE
@@ -267,7 +285,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		to_chat(usr, "There is nothing to remove from [src].")
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(destination, mob/sender)
-	use_power(active_power_usage)
+	use_power(active_power_consumption)
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
@@ -293,27 +311,26 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(department == "Unknown")
 		return FALSE //You can't send faxes to "Unknown"
 
-	flick("faxreceive", src)
+	flick(receive_anim, src)
 
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	addtimer(CALLBACK(src, PROC_REF(print_fax), incoming), 2 SECONDS)
+	return TRUE
 
-	// give the sprite some time to flick
-	sleep(20)
-
+/obj/machinery/photocopier/faxmachine/proc/print_fax(obj/item/incoming)
 	if(istype(incoming, /obj/item/paper))
-		copy(incoming)
+		papercopy(incoming)
 	else if(istype(incoming, /obj/item/photo))
 		photocopy(incoming)
 	else if(istype(incoming, /obj/item/paper_bundle))
 		bundlecopy(incoming)
 	else
-		return FALSE
+		return
 
-	use_power(active_power_usage)
-	return TRUE
+	use_power(active_power_consumption)
 
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(mob/sender, destination)
-	use_power(active_power_usage)
+	use_power(active_power_consumption)
 
 	if(!(istype(copyitem, /obj/item/paper) || istype(copyitem, /obj/item/paper_bundle) || istype(copyitem, /obj/item/photo)))
 		visible_message("[src] beeps, \"Error transmitting message.\"")

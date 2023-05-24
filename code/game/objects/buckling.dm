@@ -6,6 +6,7 @@
 	var/buckle_offset = 0
 	var/max_buckled_mobs = 1
 	var/buckle_prevents_pull = FALSE
+	var/can_be_unanchored = FALSE
 
 //Interaction
 /atom/movable/attack_hand(mob/living/user)
@@ -54,6 +55,7 @@
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
 		return FALSE
 	M.buckling = src
+
 	if(!M.can_buckle() && !force)
 		if(M == usr)
 			to_chat(M, "<span class='warning'>You are unable to buckle yourself to [src]!</span>")
@@ -72,14 +74,21 @@
 	if(!check_loc && M.loc != loc)
 		M.forceMove(loc)
 
+	if(!buckle_lying)
+		M.set_body_position(STANDING_UP)
+	else
+		M.set_body_position(LYING_DOWN)
+
+	if(M.pulling && M.pulling == src)
+		M.stop_pulling()
+
 	M.buckling = null
 	M.buckled = src
 	M.setDir(dir)
 	buckled_mobs |= M
-	M.update_canmove()
+	ADD_TRAIT(M, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
 	M.throw_alert("buckled", /obj/screen/alert/restrained/buckled)
 	post_buckle_mob(M)
-
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, M, force)
 	return TRUE
 
@@ -95,10 +104,14 @@
 		. = buckled_mob
 		buckled_mob.buckled = null
 		buckled_mob.anchored = initial(buckled_mob.anchored)
-		buckled_mob.update_canmove()
+		REMOVE_TRAIT(buckled_mob, TRAIT_IMMOBILIZED, BUCKLING_TRAIT)
 		buckled_mob.clear_alert("buckled")
 		buckled_mobs -= buckled_mob
 		SEND_SIGNAL(src, COMSIG_MOVABLE_UNBUCKLE, buckled_mob, force)
+		if((buckled_mob.mobility_flags & MOBILITY_STAND) && !buckled_mob.resting)
+			buckled_mob.stand_up()
+		else if(!buckle_lying)
+			buckled_mob.fall()
 
 		post_unbuckle_mob(.)
 
@@ -122,11 +135,15 @@
 	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored)
 		return FALSE
 
+	if (isguardian(user))
+		if (M.loc == user.loc || user.alpha == 60) //Alpha is for detecting ranged guardians in scout mode
+			return  //unmanifested guardians shouldn't be able to buckle mobs
+
 	add_fingerprint(user)
 	. = buckle_mob(M, check_loc = check_loc)
 	if(.)
 		if(M == user)
-			M.visible_message("<span class='notice'>[M] buckles [M.p_them()]self to [src].</span>",\
+			M.visible_message("<span class='notice'>[M] buckles [M.p_themselves()] to [src].</span>",\
 				"<span class='notice'>You buckle yourself to [src].</span>",\
 				"<span class='italics'>You hear metal clanking.</span>")
 		else
@@ -142,7 +159,7 @@
 				"<span class='notice'>[user] unbuckles you from [src].</span>",\
 				"<span class='italics'>You hear metal clanking.</span>")
 		else
-			M.visible_message("<span class='notice'>[M] unbuckles [M.p_them()]self from [src].</span>",\
+			M.visible_message("<span class='notice'>[M] unbuckles [M.p_themselves()] from [src].</span>",\
 				"<span class='notice'>You unbuckle yourself from [src].</span>",\
 				"<span class='italics'>You hear metal clanking.</span>")
 		add_fingerprint(user)

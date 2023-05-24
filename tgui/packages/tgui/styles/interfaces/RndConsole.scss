@@ -1,4 +1,4 @@
-@import "../colors";
+@import '../colors';
 
 .RndConsole {
   position: relative;
@@ -46,13 +46,18 @@
   flex-grow: 1;
 
   padding: 24px;
-  background-color: rgba(255, 255, 255, 0); // force a background to capture clicks
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0
+  ); // force a background to capture clicks
 
   .NoticeBox {
     flex-grow: 1;
     margin-bottom: 80px;
     font-size: 18pt;
-    padding: .3em .75em;
+    padding: 0.3em 0.75em;
   }
 }
 

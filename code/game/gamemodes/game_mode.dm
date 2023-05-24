@@ -1,3 +1,6 @@
+#define NUKE_INTACT 0
+#define NUKE_CORE_MISSING 1
+#define NUKE_MISSING 2
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -13,11 +16,11 @@
 /datum/game_mode
 	var/name = "invalid"
 	var/config_tag = null
-	var/intercept_hacked = 0
-	var/votable = 1
+	var/intercept_hacked = FALSE
+	var/votable = TRUE
 	var/probability = 0
-	var/station_was_nuked = 0 //see nuclearbomb.dm and malfunction.dm
-	var/explosion_in_progress = 0 //sit back and relax
+	var/station_was_nuked = FALSE //see nuclearbomb.dm and malfunction.dm
+	var/explosion_in_progress = FALSE //sit back and relax
 	var/list/datum/mind/modePlayer = new
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
 	var/list/secondary_restricted_jobs = list() // Same as above, but for secondary antagonists
@@ -30,15 +33,14 @@
 	var/secondary_enemies = 0
 	var/secondary_enemies_scaling = 0 // Scaling rate of secondary enemies
 	var/newscaster_announcements = null
-	var/ert_disabled = 0
+	var/ert_disabled = FALSE
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
 
-	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
 	var/list/player_draft_log = list()
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/blob_overminds = list()
 
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
@@ -54,7 +56,7 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!config.enable_gamemode_player_limit || (playerC >= required_players))
+	if(!GLOB.configuration.gamemode.enable_gamemode_player_limit || (playerC >= required_players))
 		return 1
 	return 0
 
@@ -77,7 +79,7 @@
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
-	INVOKE_ASYNC(src, .proc/set_mode_in_db) // Async query, dont bother slowing roundstart
+	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query), dont bother slowing roundstart
 
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
@@ -92,56 +94,13 @@
 // I wonder what this could do guessing by the name
 /datum/game_mode/proc/set_mode_in_db()
 	if(SSticker?.mode && SSdbcore.IsConnected())
-		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET game_mode=:gm WHERE id=:rid", list(
+		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE round SET game_mode=:gm WHERE id=:rid", list(
 			"gm" = SSticker.mode.name,
 			"rid" = GLOB.round_id
 		))
 		// We dont do anything with output. Dont bother wrapping with if()
 		query_round_game_mode.warn_execute()
 		qdel(query_round_game_mode)
-
-//Called by the gameticker
-/datum/game_mode/proc/process_job_tasks()
-	var/obj/machinery/message_server/useMS = null
-	if(GLOB.message_servers)
-		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
-			if(MS.active)
-				useMS = MS
-				break
-	for(var/mob/M in GLOB.player_list)
-		if(M.mind)
-			var/obj/item/pda/P=null
-			for(var/obj/item/pda/check_pda in GLOB.PDAs)
-				if(check_pda.owner==M.name)
-					P=check_pda
-					break
-			var/count=0
-			for(var/datum/job_objective/objective in M.mind.job_objectives)
-				count++
-				var/msg=""
-				var/pay=0
-				if(objective.per_unit && objective.units_compensated<objective.units_completed)
-					var/newunits = objective.units_completed - objective.units_compensated
-					msg="We see that you completed [newunits] new unit[newunits>1?"s":""] for Task #[count]! "
-					pay=objective.completion_payment * newunits
-					objective.units_compensated += newunits
-					objective.is_completed() // So we don't get many messages regarding completion
-				else if(!objective.completed)
-					if(objective.is_completed())
-						pay=objective.completion_payment
-						msg="Task #[count] completed! "
-				if(pay>0)
-					if(M.mind.initial_account)
-						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
-						msg += "You have been sent the $[pay], as agreed."
-					else
-						msg += "However, we were unable to send you the $[pay] you're entitled."
-					if(useMS && P)
-						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
-
-						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
-					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
 	if((SSshuttle.emergency && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
@@ -220,7 +179,26 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	if(SSredis.connected)
+		// Send our presence to required channels
+		var/list/presence_data = list()
+		presence_data["author"] = "system"
+		presence_data["source"] = GLOB.configuration.system.instance_id
+		presence_data["message"] = "Round [GLOB.round_id] ended at `[SQLtime()]`"
+
+		var/presence_text = json_encode(presence_data)
+
+		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+			SSredis.publish(channel, presence_text)
+
+		// Report detailed presence info to system
+		var/list/presence_data_2 = list()
+		presence_data_2["source"] = GLOB.configuration.system.instance_id
+		presence_data_2["round_id"] = GLOB.round_id
+		presence_data_2["event"] = "round_end"
+		SSredis.publish("byond.system", json_encode(presence_data_2))
+
 	return 0
 
 
@@ -237,8 +215,8 @@
 
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.client && player.ready && player.has_valid_preferences())
-			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
+		if(player.client && player.ready)
+			if(!jobban_isbanned(player, ROLE_SYNDICATE) && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
 					players += player
 
@@ -248,20 +226,10 @@
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
 		if(!player.client.skip_antag)
-			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.active_character.species in protected_species))
 				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 				candidates += player.mind
 				players -= player
-
-	// If we don't have enough antags, draft people who voted for the round.
-	if(candidates.len < recommended_enemies)
-		for(var/key in SSvote.round_voters)
-			for(var/mob/new_player/player in players)
-				if(player.ckey == key)
-					player_draft_log += "[player.key] voted for this round, so we are drafting them."
-					candidates += player.mind
-					players -= player
-					break
 
 	// Remove candidates who want to be antagonist but have a job that precludes it
 	if(restricted_jobs)
@@ -381,7 +349,7 @@
 
 			continue //Happy connected client
 		for(var/mob/dead/observer/D in GLOB.mob_list)
-			if(D.mind && (D.mind.original == L || D.mind.current == L))
+			if(D.mind && (D.mind.is_original_mob(L) || D.mind.current == L))
 				if(L.stat == DEAD)
 					if(L.suiciding)	//Suicider
 						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Suicide</b></font>)\n"
@@ -434,6 +402,15 @@
 			nukecode = bomb.r_code
 	return nukecode
 
+/proc/get_nuke_status()
+	var/nuke_status = NUKE_MISSING
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		if(is_station_level(bomb.z))
+			nuke_status = NUKE_CORE_MISSING
+			if(bomb.core)
+				nuke_status = NUKE_INTACT
+	return nuke_status
+
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
 	var/mob/dead/observer/theghost = null
@@ -451,7 +428,7 @@
 	var/jobtext = ""
 	if(ply.assigned_role)
 		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
+	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>[jobtext] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"
@@ -468,7 +445,7 @@
 	return text
 
 /proc/printeventplayer(datum/mind/ply)
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>"
+	var/text = "<b>[ply.get_display_key()]</b> was <b>[ply.name]</b>"
 	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [ply.special_role]"
 	text += " and"
@@ -510,7 +487,7 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
-	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
+	message_text += "<h3>NAS Trurl Orders</h3></div><hr>"
 	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
 
 	for(var/datum/station_goal/G in station_goals)
@@ -518,7 +495,7 @@
 		message_text += G.get_report()
 		message_text += "<hr>"
 
-	print_command_report(message_text, "[command_name()] Orders", FALSE)
+	print_command_report(message_text, "NAS Trurl Orders", FALSE)
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)
@@ -534,3 +511,7 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+#undef NUKE_INTACT
+#undef NUKE_CORE_MISSING
+#undef NUKE_MISSING

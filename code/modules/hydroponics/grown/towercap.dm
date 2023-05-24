@@ -52,6 +52,9 @@
 
 /obj/item/grown/log/attackby(obj/item/W, mob/user, params)
 	if(is_sharp(W))
+		if(in_inventory)
+			to_chat(user, "<span class='warning'>You need to place [src] on a flat surface to make [plank_name].</span>")
+			return
 		user.show_message("<span class='notice'>You make [plank_name] out of \the [src]!</span>", 1)
 		var/seed_modifier = 0
 		if(seed)
@@ -115,6 +118,15 @@
 
 /obj/structure/bonfire/dense
 	density = TRUE
+
+/obj/structure/bonfire/lit //haha empty define
+
+/obj/structure/bonfire/lit/dense
+	density = TRUE
+
+/obj/structure/bonfire/lit/Initialize(mapload)
+	. = ..()
+	StartBurning()
 
 /obj/structure/bonfire/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)

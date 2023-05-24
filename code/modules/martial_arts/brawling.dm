@@ -24,7 +24,7 @@
 
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
 
@@ -38,11 +38,7 @@
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(10,WEAKEN,armor_block)
-			D.Weaken(5)
-			D.forcesay(GLOB.hit_appends)
-		else if(D.lying)
-			D.forcesay(GLOB.hit_appends)
+			D.Weaken(10 SECONDS)
 	return 1
 
 /datum/martial_art/drunk_brawling
@@ -82,7 +78,7 @@
 		return 1 //returns 1 so that they actually miss and don't switch to attackhand damage
 
 	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
-	var/armor_block = D.run_armor_check(affecting, "melee")
+	var/armor_block = D.run_armor_check(affecting, MELEE)
 
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 25, 1, -1)
 
@@ -97,9 +93,5 @@
 		if((D.stat != DEAD) && prob(knockout_prob))
 			D.visible_message("<span class='danger'>[A] has knocked [D] out with a haymaker!</span>", \
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
-			D.apply_effect(10,WEAKEN,armor_block)
-			D.Paralyse(5)
-			D.forcesay(GLOB.hit_appends)
-		else if(D.lying)
-			D.forcesay(GLOB.hit_appends)
+			D.Paralyse(10 SECONDS)
 	return 1

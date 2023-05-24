@@ -1,6 +1,7 @@
 /datum/species/unathi
 	name = "Unathi"
 	name_plural = "Unathi"
+	max_age = 45
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
@@ -17,7 +18,7 @@
 	species_traits = list(LIPS)
 	inherent_biotypes = MOB_ORGANIC | MOB_HUMANOID | MOB_REPTILE
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
+	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING | TAIL_OVERLAPPED
 	dietflags = DIET_CARN
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 
@@ -36,7 +37,6 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	brute_mod = 1.05
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
@@ -49,7 +49,7 @@
 		)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
-								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
+								/mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/hostile/poison/bees)
 
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -57,17 +57,15 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	var/datum/action/innate/tail_lash/lash
-
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
-	lash = new
+	var/datum/action/innate/tail_lash/lash = new()
 	lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
-	if(lash)
+	for(var/datum/action/innate/tail_lash/lash in H.actions)
 		lash.Remove(H)
 
 /datum/action/innate/tail_lash
@@ -96,7 +94,7 @@
 			add_attack_logs(user, C, "tail whipped")
 			if(user.restrained())
 				if(prob(50))
-					user.Weaken(5)
+					user.Weaken(10 SECONDS)
 					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
@@ -117,4 +115,15 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	inherent_traits = list(TRAIT_CHUNKYFINGERS, TRAIT_NOBREATH)
+	species_traits = list(LIPS, NOT_SELECTABLE)
+	inherent_traits = list(TRAIT_CHUNKYFINGERS)
+
+	has_organ = list( // same as unathi's organs, aside for the lungs as they need to be able to breathe on lavaland.
+		"heart" =    /obj/item/organ/internal/heart/unathi,
+		"lungs" =    /obj/item/organ/internal/lungs/unathi/ash_walker,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
+		"brain" =    /obj/item/organ/internal/brain/unathi,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		)

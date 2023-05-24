@@ -3,13 +3,11 @@
 
 /datum/world_topic_handler/status/execute(list/input, key_valid)
 	var/list/status_info = list()
-	var/list/admins = list()
 	status_info["version"] = GLOB.revision_info.commit_hash
 	status_info["mode"] = GLOB.master_mode
-	status_info["respawn"] = GLOB.abandon_allowed
+	status_info["respawn"] = GLOB.configuration.general.respawn_enabled
 	status_info["enter"] = GLOB.enter_allowed
-	status_info["vote"] = config.allow_vote_mode
-	status_info["ai"] = config.allow_ai
+	status_info["ai"] = GLOB.configuration.jobs.allow_ai
 	status_info["host"] = world.host ? world.host : null
 	status_info["players"] = list()
 	status_info["roundtime"] = worldtime2text()
@@ -26,28 +24,36 @@
 			if(C.holder.fakekey)
 				continue	//so stealthmins aren't revealed by the hub
 			admin_count++
-			admins += list(list(C.key, C.holder.rank))
 		player_count++
 	status_info["players"] = player_count
 	status_info["admins"] = admin_count
-	status_info["map_name"] = GLOB.map_name ? GLOB.map_name : "Unknown"
+	status_info["map_name"] = SSmapping.map_datum.fluff_name
+	status_info["round_id"] = GLOB.round_id
+
+	// Export performance metrics
+	status_info["perfmetrics"] = list(
+		"td" = list(
+			"time_dilation_current" = SStime_track.time_dilation_current,
+			"time_dilation_avg_fast" = SStime_track.time_dilation_avg_fast,
+			"time_dilation_avg" = SStime_track.time_dilation_avg,
+			"time_dilation_avg_slow" = SStime_track.time_dilation_avg_slow
+		),
+		"mcpu" = world.map_cpu,
+		"cpu" = world.cpu
+	)
+
 
 	// Add more info if we are authed
 	if(key_valid)
-		if(SSticker && SSticker.mode)
+		if(SSticker.mode)
 			status_info["real_mode"] = SSticker.mode.name
 			status_info["security_level"] = get_security_level()
 			status_info["ticker_state"] = SSticker.current_state
 
-		if(SSshuttle && SSshuttle.emergency)
+		if(SSshuttle.emergency)
 			// Shuttle status, see /__DEFINES/stat.dm
 			status_info["shuttle_mode"] = SSshuttle.emergency.mode
 			// Shuttle timer, in seconds
 			status_info["shuttle_timer"] = SSshuttle.emergency.timeLeft()
-
-		for(var/i in 1 to admins.len)
-			var/list/A = admins[i]
-			status_info["admin[i - 1]"] = A[1]
-			status_info["adminrank[i - 1]"] = A[2]
 
 	return json_encode(status_info)

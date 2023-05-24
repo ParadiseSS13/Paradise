@@ -4,11 +4,13 @@
 	icon_state = "jetpack"
 	w_class = WEIGHT_CLASS_BULKY
 	item_state = "jetpack"
+	lefthand_file = 'icons/mob/inhands/jetpack_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/jetpack_righthand.dmi'
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	var/gas_type = "oxygen"
-	var/on = 0
-	var/stabilizers = 0
+	var/on = FALSE
+	var/stabilizers = FALSE
 	var/volume_rate = 500              //Needed for borg jetpack transfer
 
 /obj/item/tank/jetpack/populate_gas()
@@ -102,10 +104,12 @@
 /obj/item/tank/jetpack/void/grey
 	name = "Void Jetpack (Oxygen)"
 	icon_state = "jetpack-void-grey"
+	item_state = "jetpack-void-grey"
 
 /obj/item/tank/jetpack/void/gold
 	name = "Retro Jetpack (Oxygen)"
 	icon_state = "jetpack-void-gold"
+	item_state = "jetpack-void-gold"
 
 /obj/item/tank/jetpack/oxygen
 	name = "Jetpack (Oxygen)"
@@ -130,6 +134,10 @@
 	volume = 90
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //steal objective items are hard to destroy.
+
+/obj/item/tank/jetpack/oxygen/captain/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/tank/jetpack/oxygen/security
 	name = "security jetpack (oxygen)"

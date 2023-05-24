@@ -26,7 +26,7 @@
 	throw_range = 7
 
 /obj/item/fish_net/suicide_act(mob/user)			//"A tiny net is a death sentence: it's a net and it's tiny!" https://www.youtube.com/watch?v=FCI9Y4VGCVw
-	to_chat(viewers(user), "<span class='warning'>[user] places the [src.name] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='suicide'>[user] places [src] on top of [user.p_their()] head, [user.p_their()] fingers tangled in the netting! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return OXYLOSS
 
 /obj/item/fishfood
@@ -52,7 +52,7 @@
 	attack_verb = list("scrubbed", "brushed", "scraped")
 
 /obj/item/tank_brush/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='warning'>[user] is vigorously scrubbing [user.p_them()]self raw with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	visible_message("<span class='suicide'>[user] is vigorously scrubbing [user.p_themselves()] raw with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/storage/bag/fish
@@ -80,12 +80,12 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimp_raw"
 	filling_color = "#FF1C1C"
+	bitesize = 1
 
-/obj/item/reagent_containers/food/snacks/shrimp/New()
-	..()
+/obj/item/reagent_containers/food/snacks/shrimp/Initialize(mapload)
+	. = ..()
 	desc = pick("Anyway, like I was sayin', shrimp is the fruit of the sea.", "You can barbecue it, boil it, broil it, bake it, saute it.")
 	reagents.add_reagent("protein", 1)
-	src.bitesize = 1
 
 /obj/item/reagent_containers/food/snacks/feederfish
 	name = "feeder fish"
@@ -93,11 +93,11 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "feederfish"
 	filling_color = "#FF1C1C"
+	bitesize = 1
 
-/obj/item/reagent_containers/food/snacks/shrimp/New()
-	..()
+/obj/item/reagent_containers/food/snacks/feederfish/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("protein", 1)
-	src.bitesize = 1
 
 /obj/item/fish
 	name = "fish"
@@ -117,9 +117,9 @@
 	desc = "A small bio-luminescent fish. Not very bright, but at least it's pretty!"
 	icon_state = "glofish"
 
-/obj/item/fish/glofish/New()
-	..()
-	set_light(2,1,"#99FF66")
+/obj/item/fish/glofish/Initialize(mapload)
+	. = ..()
+	set_light(2, 1, "#99FF66")
 
 /obj/item/fish/electric_eel
 	name = "electric eel"
@@ -157,10 +157,10 @@
 	throwforce = 5.0
 	materials = list()
 
-/obj/item/shard/shark_teeth/New()
-	..()
-	src.pixel_x = rand(-5,5)
-	src.pixel_y = rand(-5,5)
+/obj/item/shard/shark_teeth/set_initial_icon_state()
+	icon_state = "teeth"
+	pixel_x = rand(-5,5)
+	pixel_y = rand(-5,5)
 
 /obj/item/fish/catfish
 	name = "catfish"
@@ -219,3 +219,6 @@
 	throwforce = 1
 	force = 1
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
+
+/obj/item/grown/bananapeel/clownfish/choose_icon_state()
+	return

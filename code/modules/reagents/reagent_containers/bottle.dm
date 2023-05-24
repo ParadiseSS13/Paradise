@@ -13,12 +13,11 @@
 	volume = 30
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/bottle/update_icon()
-	overlays.Cut()
+/obj/item/reagent_containers/glass/bottle/update_overlays()
+	. = ..()
 	underlays.Cut()
-
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
 
@@ -39,8 +38,7 @@
 		underlays += filling
 
 	if(!is_open_container())
-		var/image/lid = image(icon, src, "lid_bottle")
-		overlays += lid
+		. += "lid_[icon_state]"
 
 /obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)
@@ -98,62 +96,62 @@
 	list_reagents = list("diethylamine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/facid
-	name = "Fluorosulfuric Acid Bottle"
+	name = "fluorosulfuric acid bottle"
 	desc = "A small bottle. Contains a small amount of Fluorosulfuric Acid"
 	icon_state = "round_bottle"
 	list_reagents = list("facid" = 30)
 
 /obj/item/reagent_containers/glass/bottle/adminordrazine
-	name = "Adminordrazine Bottle"
+	name = "adminordrazine bottle"
 	desc = "A small bottle. Contains the liquid essence of the gods."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "holyflask"
 	list_reagents = list("adminordrazine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/capsaicin
-	name = "Capsaicin Bottle"
+	name = "capsaicin bottle"
 	desc = "A small bottle. Contains hot sauce."
 	icon_state = "round_bottle"
 	list_reagents = list("capsaicin" = 30)
 
 /obj/item/reagent_containers/glass/bottle/frostoil
-	name = "Frost Oil Bottle"
+	name = "frost oil bottle"
 	desc = "A small bottle. Contains cold sauce."
 	icon_state = "round_bottle"
 	list_reagents = list("frostoil" = 30)
 
 /obj/item/reagent_containers/glass/bottle/morphine
-	name = "Morphine Bottle"
+	name = "morphine bottle"
 	desc = "A small bottle of morphine, a powerful painkiller."
 	icon_state = "bottle"
 	list_reagents = list("morphine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/ether
-	name = "Ether Bottle"
+	name = "ether bottle"
 	desc = "A small bottle of an ether, a strong anesthetic and sedative."
 	icon_state = "round_bottle"
 	list_reagents = list("ether" = 30)
 
 /obj/item/reagent_containers/glass/bottle/charcoal
-	name = "Charcoal Bottle"
+	name = "charcoal bottle"
 	desc = "A small bottle. Contains charcoal."
 	icon_state = "wide_bottle"
 	list_reagents = list("charcoal" = 30)
 
 /obj/item/reagent_containers/glass/bottle/epinephrine
-	name = "Epinephrine Bottle"
+	name = "epinephrine bottle"
 	desc = "A small bottle. Contains epinephrine - used to stabilize patients."
 	icon_state = "round_bottle"
 	list_reagents = list("epinephrine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/pancuronium
-	name = "Pancuronium Bottle"
+	name = "pancuronium bottle"
 	desc = "A small bottle of pancuronium."
 	icon_state = "round_bottle"
 	list_reagents = list("pancuronium" = 30)
 
 /obj/item/reagent_containers/glass/bottle/sulfonal
-	name = "Sulfonal Bottle"
+	name = "sulfonal bottle"
 	desc = "A small bottle of Sulfonal."
 	icon_state = "round_bottle"
 	list_reagents = list("sulfonal" = 30)
@@ -161,90 +159,90 @@
 //Reagent bottles
 
 /obj/item/reagent_containers/glass/bottle/reagent
-	name = "Reagent Bottle"
+	name = "reagent bottle"
 	desc = "A bottle for storing reagents"
 	icon_state = "reagent_bottle"
 	volume = 50
 
 /obj/item/reagent_containers/glass/bottle/reagent/oil
-	name = "Oil Bottle"
+	name = "oil bottle"
 	desc = "A reagent bottle. Contains oil."
 	list_reagents = list("oil" = 50)
 	pixel_x = -4
 	pixel_y = 6
 
 /obj/item/reagent_containers/glass/bottle/reagent/phenol
-	name = "Phenol Bottle"
+	name = "phenol bottle"
 	desc = "A reagent bottle. Contains phenol."
 	list_reagents = list("phenol" = 50)
 	pixel_x = 6
 	pixel_y = 6
 
 /obj/item/reagent_containers/glass/bottle/reagent/acetone
-	name = "Acetone Bottle"
+	name = "acetone bottle"
 	desc = "A reagent bottle. Contains acetone."
 	list_reagents = list("acetone" = 50)
 	pixel_x = -4
 
 /obj/item/reagent_containers/glass/bottle/reagent/ammonia
-	name = "Ammonia Bottle"
+	name = "ammonia bottle"
 	desc = "A reagent bottle. Contains ammonia."
 	list_reagents = list("ammonia" = 50)
 	pixel_x = 6
 
 /obj/item/reagent_containers/glass/bottle/reagent/diethylamine
-	name = "Diethylamine Bottle"
+	name = "diethylamine bottle"
 	desc = "A reagent bottle. Contains diethylamine."
 	list_reagents = list("diethylamine" = 50)
 	pixel_x = -4
 	pixel_y = -6
 
 /obj/item/reagent_containers/glass/bottle/reagent/acid
-	name = "Acid Bottle"
+	name = "acid bottle"
 	desc = "A reagent bottle. Contains sulfuric acid."
 	list_reagents = list("sacid" = 50)
 	pixel_x = 6
 	pixel_y = -6
 
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde
-	name = "Formaldehyde Bottle"
+	name = "formaldehyde bottle"
 	desc = "A reagent bottle. Contains formaldehyde."
 	list_reagents = list("formaldehyde" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/synaptizine
-	name = "Synaptizine Bottle"
+	name = "synaptizine bottle"
 	desc = "A reagent bottle. Contains synaptizine."
 	list_reagents = list("synaptizine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/morphine
-	name = "Morphine Bottle"
+	name = "morphine bottle"
 	desc = "A reagent bottle. Contains morphine."
 	list_reagents = list("morphine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/insulin
-	name = "Insulin Bottle"
+	name = "insulin bottle"
 	desc = "A reagent bottle. Contains insulin."
 	list_reagents = list("insulin" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium
-	name = "Hair Grow Gel"
+	name = "hair grow gel"
 	desc = "A bottle full of a stimulative hair growth formula"
 	list_reagents = list("hairgrownium" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hair_dye
-	name = "Quantum Hair Dye Bottle"
+	name = "quantum hair dye bottle"
 	desc = "A bottle of the ever-changing quantum hair dye."
 	list_reagents = list("hair_dye" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/omnizine
-	name = "Omnizine Bottle"
+	name = "omnizine bottle"
 	desc = "A reagent bottle. Contains Omnizine."
 	list_reagents = list("omnizine" = 50)
 
-/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent
-	name = "Strange Reagent Bottle"
+/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent
+	name = "lazarus reagent bottle"
 	desc = "A bottle of glowing fluid."
-	list_reagents = list("strange_reagent" = 30)
+	list_reagents = list("lazarus_reagent" = 30)
 
 ////////////////////Traitor Poison Bottle//////////////////////////////
 
@@ -253,8 +251,8 @@
 	possible_transfer_amounts = list(5,10,15,25,30,40)
 	volume = 40
 
-/obj/item/reagent_containers/glass/bottle/traitor/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent(pick_list("chemistry_tools.json", "traitor_poison_bottle"), 40)
 
 /obj/item/reagent_containers/glass/bottle/plasma

@@ -1,8 +1,8 @@
-import { useBackend } from "../backend";
-import { Button, LabeledList, Section, Box } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import { Button, LabeledList, Section, Box } from '../components';
+import { Window } from '../layouts';
 
-const addcommas = x => {
+const addcommas = (x) => {
   return x.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 };
 
@@ -17,7 +17,8 @@ export const TEG = (props, context) => {
             <Button
               icon="circle"
               content="Recheck"
-              onClick={() => act("check")} />
+              onClick={() => act('check')}
+            />
           </Section>
         </Window.Content>
       </Window>
@@ -26,23 +27,27 @@ export const TEG = (props, context) => {
   return (
     <Window>
       <Window.Content>
-        <Section title={"Cold Loop (" + data.cold_dir + ")"}>
+        <Section title={'Cold Loop (' + data.cold_dir + ')'}>
           <LabeledList>
             <LabeledList.Item label="Cold Inlet">
-              {addcommas(data.cold_inlet_temp)} K, {addcommas(data.cold_inlet_pressure)} kPa
+              {addcommas(data.cold_inlet_temp)} K,{' '}
+              {addcommas(data.cold_inlet_pressure)} kPa
             </LabeledList.Item>
             <LabeledList.Item label="Cold Outlet">
-              {addcommas(data.cold_outlet_temp)} K, {addcommas(data.cold_outlet_pressure)} kPa
+              {addcommas(data.cold_outlet_temp)} K,{' '}
+              {addcommas(data.cold_outlet_pressure)} kPa
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title={"Hot Loop (" + data.hot_dir + ")"}>
+        <Section title={'Hot Loop (' + data.hot_dir + ')'}>
           <LabeledList>
             <LabeledList.Item label="Hot Inlet">
-              {addcommas(data.hot_inlet_temp)} K, {addcommas(data.hot_inlet_pressure)} kPa
+              {addcommas(data.hot_inlet_temp)} K,{' '}
+              {addcommas(data.hot_inlet_pressure)} kPa
             </LabeledList.Item>
             <LabeledList.Item label="Hot Outlet">
-              {addcommas(data.hot_outlet_temp)} K, {addcommas(data.hot_outlet_pressure)} kPa
+              {addcommas(data.hot_outlet_temp)} K,{' '}
+              {addcommas(data.hot_outlet_pressure)} kPa
             </LabeledList.Item>
           </LabeledList>
         </Section>

@@ -5,16 +5,16 @@ import { Window } from '../layouts';
 
 export const VolumeMixer = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    channels,
-  } = data;
+  const { channels } = data;
   return (
     <Window>
       <Window.Content>
         <Section height="100%" overflow="auto">
           {channels.map((channel, key) => (
             <Fragment key={channel.num}>
-              <Box fontSize="1.25rem" color="label" mt={key > 0 && "0.5rem"}>{channel.name}</Box>
+              <Box fontSize="1.25rem" color="label" mt={key > 0 && '0.5rem'}>
+                {channel.name}
+              </Box>
               <Box mt="0.5rem">
                 <Flex>
                   <Flex.Item>
@@ -23,7 +23,9 @@ export const VolumeMixer = (properties, context) => {
                         name="volume-off"
                         size="1.5"
                         mt="0.1rem"
-                        onClick={() => act("volume", { channel: channel.num, volume: 0 })}
+                        onClick={() =>
+                          act('volume', { channel: channel.num, volume: 0 })
+                        }
                       />
                     </Button>
                   </Flex.Item>
@@ -33,7 +35,9 @@ export const VolumeMixer = (properties, context) => {
                       maxValue={100}
                       stepPixelSize={3.13}
                       value={channel.volume}
-                      onChange={(e, value) => act("volume", { channel: channel.num, volume: value })}
+                      onChange={(e, value) =>
+                        act('volume', { channel: channel.num, volume: value })
+                      }
                     />
                   </Flex.Item>
                   <Flex.Item>
@@ -42,7 +46,9 @@ export const VolumeMixer = (properties, context) => {
                         name="volume-up"
                         size="1.5"
                         mt="0.1rem"
-                        onClick={() => act("volume", { channel: channel.num, volume: 100 })}
+                        onClick={() =>
+                          act('volume', { channel: channel.num, volume: 100 })
+                        }
                       />
                     </Button>
                   </Flex.Item>

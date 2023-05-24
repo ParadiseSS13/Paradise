@@ -61,11 +61,11 @@
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
 		to_chat(owner, "<span class='warning'>You cannot alter your bioluminescence in your current state.</span>")
-		return 0
+		return FALSE
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 		to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
-		return 0
+		return FALSE
 
 	if(!colour)
 		colour = BlendRGB(owner.m_colours["head"], owner.m_colours["body"], 0.65)

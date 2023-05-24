@@ -7,9 +7,9 @@
 #define STATUS_HUD		"2" // a simple line rounding the mob's number health
 #define ID_HUD			"3" // the job asigned to your ID
 #define WANTED_HUD		"4" // wanted, released, parroled, security status
-#define IMPMINDSHIELD_HUD	"5" // mindshield implant
-#define IMPCHEM_HUD		"6" // chemical implant
-#define IMPTRACK_HUD	"7" // tracking implant
+#define IMPMINDSHIELD_HUD	"5" // mindshield bio-chip
+#define IMPCHEM_HUD		"6" // chemical bio-chip
+#define IMPTRACK_HUD	"7" // tracking bio-chip
 #define DIAG_STAT_HUD	"8" // Silicon/Mech Status
 #define DIAG_HUD		"9" // Silicon health bar
 #define DIAG_BATT_HUD	"10"// Borg/Mech power meter
@@ -25,8 +25,9 @@
 #define PLANT_PEST_HUD		"20"// Pest level
 #define PLANT_WEED_HUD		"21"// Weed level
 #define DIAG_TRACK_HUD		"22"// Mech tracking beacon
-#define DIAG_PATH_HUD 		"23"//Bot path indicators
-#define GLAND_HUD 			"24"//Gland indicators for abductors
+#define DIAG_AIRLOCK_HUD 	"23" // Airlock shock overlay
+//#define DIAG_PATH_HUD 		"24"//Bot path indicators
+#define GLAND_HUD 			"25"//Gland indicators for abductors
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -38,7 +39,7 @@
 #define DATA_HUD_SECURITY_ADVANCED	2
 #define DATA_HUD_MEDICAL_BASIC		3
 #define DATA_HUD_MEDICAL_ADVANCED	4
-#define DATA_HUD_DIAGNOSTIC			5
+#define DATA_HUD_DIAGNOSTIC_BASIC	5
 #define DATA_HUD_DIAGNOSTIC_ADVANCED	6
 #define DATA_HUD_HYDROPONIC			7
 //antag HUD defines

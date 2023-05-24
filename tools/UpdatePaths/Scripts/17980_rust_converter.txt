@@ -1,0 +1,2 @@
+/turf/simulated/wall/r_wall/rust : /turf/simulated/wall/r_wall , /obj/effect/spawner/random_spawners/wall_rusted_always
+/turf/simulated/wall/rust : /turf/simulated/wall , /obj/effect/spawner/random_spawners/wall_rusted_always

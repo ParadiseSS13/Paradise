@@ -22,7 +22,7 @@
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/clothing/glasses/meson/engine/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -46,7 +46,7 @@
 		if(H.glasses == src)
 			H.update_sight()
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -66,32 +66,12 @@
 		if(MODE_RAD)
 			show_rads()
 
+
 /obj/item/clothing/glasses/meson/engine/proc/show_rads()
 	var/mob/living/carbon/human/user = loc
-	var/list/rad_places = list()
-	for(var/datum/component/radioactive/thing in SSradiation.processing)
-		var/atom/owner = thing.parent
-		var/turf/place = get_turf(owner)
-		if(rad_places[place])
-			rad_places[place] += thing.strength
-		else
-			rad_places[place] = thing.strength
+	user.show_rads(range * 5) // Rads are easier to see than wires under the floor
 
-	for(var/i in rad_places)
-		var/turf/place = i
-		if(get_dist(user, place) >= range * 5)	//Rads are easier to see than wires under the floor
-			continue
-		var/strength = round(rad_places[i] / 1000, 0.1)
-		var/image/pic = image(loc = place)
-		var/mutable_appearance/MA = new()
-		MA.maptext = MAPTEXT("[strength]k")
-		MA.color = "#04e604"
-		MA.layer = RAD_TEXT_LAYER
-		MA.plane = GAME_PLANE
-		pic.appearance = MA
-		flick_overlay(pic, list(user.client), 10)
-
-/obj/item/clothing/glasses/meson/engine/update_icon()
+/obj/item/clothing/glasses/meson/engine/update_icon_state()
 	icon_state = "trayson-[mode]"
 	update_mob()
 

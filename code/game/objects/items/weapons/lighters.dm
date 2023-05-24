@@ -14,6 +14,10 @@
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
+	/// Cooldown until the next turned on message/sound can be activated
+	var/next_on_message
+	/// Cooldown until the next turned off message/sound can be activated
+	var/next_off_message
 
 /obj/item/lighter/random/New()
 	..()
@@ -28,6 +32,13 @@
 		turn_on_lighter(user)
 	else
 		turn_off_lighter(user)
+
+/obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/lighter/proc/turn_on_lighter(mob/living/user)
 	lit = TRUE
@@ -52,6 +63,9 @@
 		if(affecting.receive_damage( 0, 5 ))		//INFERNO
 			H.UpdateDamageIcon()
 		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
+	if(world.time > next_on_message)
+		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
+		next_on_message = world.time + 5 SECONDS
 
 /obj/item/lighter/proc/turn_off_lighter(mob/living/user)
 	lit = FALSE
@@ -62,18 +76,27 @@
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
 
-	show_off_message(user)
+	if(user)
+		show_off_message(user)
 	set_light(0)
 	STOP_PROCESSING(SSobj, src)
 
+/obj/item/lighter/extinguish_light(force)
+	if(!force)
+		return
+	turn_off_lighter()
+
 /obj/item/lighter/proc/show_off_message(mob/living/user)
 	to_chat(user, "<span class='notice'>You shut off [src].")
+	if(world.time > next_off_message)
+		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
+		next_off_message = world.time + 5 SECONDS
 
 /obj/item/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!isliving(M))
 		return
 	M.IgniteMob()
-	if(!istype(M, /mob))
+	if(!ismob(M))
 		return
 
 	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && lit)
@@ -82,9 +105,10 @@
 			cig.attackby(src, user)
 		else
 			if(istype(src, /obj/item/lighter/zippo))
-				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
+				cig.light("<span class='rose'>[user] whips [src] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
-				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
+				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 			M.update_inv_wear_mask()
 	else
 		..()
@@ -103,8 +127,6 @@
 	item_state = "zippo"
 	icon_on = "zippoon"
 	icon_off = "zippo"
-	var/next_on_message
-	var/next_off_message
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
@@ -117,6 +139,9 @@
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
 	. = ..()
+	if(!user)
+		return
+
 	if(world.time > next_off_message)
 		user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
@@ -194,6 +219,11 @@
 	..()
 	matchignite()
 
+/obj/item/match/extinguish_light(force)
+	if(!force)
+		return
+	matchburnout()
+
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
 		lit = TRUE
@@ -227,6 +257,13 @@
 	matchburnout()
 	. = ..()
 
+/obj/item/match/can_enter_storage(obj/item/storage/S, mob/user)
+	if(lit)
+		to_chat(user, "<span class='warning'>[S] can't hold [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
+		return FALSE
+	else
+		return TRUE
+
 /obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!isliving(M))
 		return ..()
@@ -241,6 +278,7 @@
 			cig.attackby(src, user)
 		else
 			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	else
 		..()
 

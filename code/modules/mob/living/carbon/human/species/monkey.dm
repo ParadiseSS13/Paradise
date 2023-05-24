@@ -10,6 +10,7 @@
 	language = null
 	default_language = "Chimpanzee"
 	inherent_traits = list(TRAIT_NOEXAMINE)
+	species_traits = list(NOT_SELECTABLE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
 	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
@@ -27,7 +28,7 @@
 	female_scream_sound = 'sound/goonstation/voice/monkey_scream.ogg'
 
 	tail = "chimptail"
-	bodyflags = HAS_TAIL
+	bodyflags = HAS_TAIL | HAS_BODYACC_COLOR
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
 
@@ -40,7 +41,7 @@
 /datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return
-	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
+	if(prob(33) && (H.mobility_flags & MOBILITY_MOVE) && isturf(H.loc) && !H.pulledby) //won't move if being pulled
 		step(H, pick(GLOB.cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
@@ -144,7 +145,7 @@
 	base_color = "#000000"
 	reagent_tag = PROCESS_ORG
 
-	bodyflags = HAS_TAIL
+	bodyflags = HAS_TAIL | HAS_BODYACC_COLOR
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,

@@ -1,5 +1,5 @@
-import { useBackend } from "../../backend";
-import { Button } from "../../components";
+import { useBackend } from '../../backend';
+import { Button } from '../../components';
 
 export const RndNavButton = (properties, context) => {
   const { icon, children, disabled, content } = properties;
@@ -22,9 +22,11 @@ export const RndNavButton = (properties, context) => {
     <Button
       content={content}
       icon={icon}
-      disabled={disabled} onClick={() => {
+      disabled={disabled}
+      onClick={() => {
         act('nav', { menu: nextMenu, submenu: nextSubmenu });
-      }}>
+      }}
+    >
       {children}
     </Button>
   );

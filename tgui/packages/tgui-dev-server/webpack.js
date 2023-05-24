@@ -9,13 +9,13 @@ import { resolveGlob } from './util.js';
 
 const logger = createLogger('webpack');
 
-export const getWebpackConfig = async options => {
+export const getWebpackConfig = async (options) => {
   const require = createRequire(import.meta.url);
   const createConfig = await require('../tgui/webpack.config.js');
   return createConfig({}, options);
 };
 
-export const setupWebpack = async config => {
+export const setupWebpack = async (config) => {
   logger.log('setting up');
   const bundleDir = config.output.path;
   // Setup link
@@ -32,7 +32,7 @@ export const setupWebpack = async config => {
     logger.log('compiling');
   });
   // Start reloading when it's finished
-  compiler.hooks.done.tap('tgui-dev-server', async stats => {
+  compiler.hooks.done.tap('tgui-dev-server', async (stats) => {
     // Load source maps
     await loadSourceMaps(bundleDir);
     // Reload cache

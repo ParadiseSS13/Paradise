@@ -19,6 +19,8 @@
 	var/linked = FALSE
 	/// Is this link invisible on the hub?
 	var/hidden_link = FALSE
+	/// Does this relay need a password to connect to hubs?
+	var/password_bypass = FALSE
 
 /**
   * Initializer for the relay.
@@ -128,7 +130,8 @@
   * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
   */
 /obj/machinery/tcomms/relay/power_change()
-	..()
+	if(!..())
+		return
 	if(linked_core)
 		linked_core.refresh_zlevels()
 
@@ -210,6 +213,10 @@
 				return
 			var/obj/machinery/tcomms/core/C = locate(params["addr"])
 			if(istype(C, /obj/machinery/tcomms/core))
+				if(password_bypass)
+					AddLink(C)
+					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_id]</b>.</span>")
+					return
 				var/user_pass = input(usr, "Please enter core password","Password Entry")
 				// Check the password
 				if(user_pass == C.link_password)

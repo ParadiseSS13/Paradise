@@ -31,7 +31,6 @@
 	move_to_delay = 0
 	obj_damage = 0
 	environment_smash = 0
-	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
@@ -51,6 +50,8 @@
 	var/isqueen = FALSE
 	var/bee_syndicate = FALSE
 	var/icon_base = "bee"
+	var/last_attack = 0
+	var/opacity_time = 1 MINUTES
 	var/static/list/bee_icons = list()
 	var/static/beehometypecache = typecacheof(/obj/structure/beebox)
 	var/static/hydroponicstypecache = typecacheof(/obj/machinery/hydroponics)
@@ -58,10 +59,10 @@
 /mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/bees/New()
-	..()
-	generate_bee_visuals()
+/mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/swarming)
+	generate_bee_visuals()
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null
@@ -147,7 +148,7 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/poison/bees/AttackingTarget()
- 	//Pollinate
+	//Pollinate
 	if(istype(target, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/Hydro = target
 		pollinate(Hydro)
@@ -162,6 +163,7 @@
 	else
 		. = ..()
 		if(. && isliving(target) && (!client || a_intent == INTENT_HARM))
+			make_opaque()
 			var/mob/living/L = target
 			if(L.reagents)
 				if(beegent)
@@ -170,6 +172,23 @@
 				else
 					L.reagents.add_reagent("spidertoxin", 5)
 
+/mob/living/simple_animal/hostile/poison/bees/proc/make_opaque()
+	// If a bee attacks someone, make it very easy to hit for a while
+	last_attack = world.time
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
+
+/mob/living/simple_animal/hostile/poison/bees/Life(seconds, times_fired)
+	. = ..()
+	if(mind || (mouse_opacity == initial(mouse_opacity)))
+		return
+	var/diff = world.time - last_attack
+	if(diff >= opacity_time)
+		mouse_opacity = initial(mouse_opacity)
+
+/mob/living/simple_animal/hostile/poison/bees/sentience_act()
+	. = ..()
+	make_opaque()
+
 /mob/living/simple_animal/hostile/poison/bees/proc/assign_reagent(datum/reagent/R)
 	if(istype(R))
 		beegent = R
@@ -177,7 +196,7 @@
 		generate_bee_visuals()
 
 /mob/living/simple_animal/hostile/poison/bees/proc/pollinate(obj/machinery/hydroponics/Hydro)
-	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_state)
+	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_closed)
 		target = null
 		return
 
@@ -229,10 +248,11 @@
 
 //Botany Queen Bee
 /mob/living/simple_animal/hostile/poison/bees/queen
- 	name = "queen bee"
- 	desc = "She's the queen of bees, BZZ BZZ"
- 	icon_base = "queen"
- 	isqueen = TRUE
+	name = "queen bee"
+	desc = "She's the queen of bees, BZZ BZZ"
+	icon_base = "queen"
+	isqueen = TRUE
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 
 //the Queen doesn't leave the box on her own, and she CERTAINLY doesn't pollinate by herself
@@ -265,6 +285,7 @@
 	icon_state = "queen_item"
 	item_state = ""
 	icon = 'icons/mob/bees.dmi'
+	gender = FEMALE
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 
@@ -323,10 +344,11 @@
 	search_objects = FALSE //these bees don't care about trivial things like plants, especially when there is havoc to sow
 	bee_syndicate = TRUE
 	var/list/master_and_friends = list()
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
-/mob/living/simple_animal/hostile/poison/bees/syndi/New()
+/mob/living/simple_animal/hostile/poison/bees/syndi/Initialize(mapload)
+	. = ..()
 	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
-	..()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()

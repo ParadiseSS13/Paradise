@@ -6,12 +6,13 @@
 	anchored = TRUE
 	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
+	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	light_range = 6
 	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
 	var/energy = 100 //How strong are we?
-	var/dissipate = 1 //Do we lose energy over time?
+	var/dissipate = TRUE //Do we lose energy over time?
 	var/dissipate_delay = 10
 	var/dissipate_track = 0
 	var/dissipate_strength = 1 //How much energy do we lose?
@@ -23,9 +24,11 @@
 	var/target = null //its target. moves towards the target if it has one
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
-	var/consumedSupermatter = 0 //If the singularity has eaten a supermatter shard and can go to stage six
-	allow_spin = 0
+	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
+	var/warps_projectiles = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	/// Whether or not we've pinged ghosts
+	var/isnt_shutting_down = FALSE
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
@@ -33,6 +36,8 @@
 	admin_investigate_setup()
 
 	energy = starting_energy
+	if(warps_projectiles)
+		AddComponent(/datum/component/proximity_monitor/singulo, _radius = 10)
 
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -71,6 +76,19 @@
 /obj/singularity/attackby(obj/item/W, mob/user, params)
 	consume(user)
 	return 1
+
+/obj/singularity/attack_tk(mob/user)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/C = user
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
+	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
+		"<span class='userdanger'>As you concentrate on the singularity, your understanding of the cosmos expands exponentially. An immense wealth of raw information is at your fingertips, and you're determined not to squander a single morsel. Within mere microseconds, you absorb a staggering amount of information—more than any AI could ever hope to access—and you can't help but feel a godlike sense of power. However, the gravity of this situation swiftly sinks in. As you sense your skull starting to collapse under pressure, you can't help but admit to yourself: That was a really dense idea, wasn't it?</span>")
+	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
+	C.ghostize(0)
+	if(B)
+		B.remove(C)
+		qdel(B)
 
 /obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
 	return 0
@@ -120,7 +138,7 @@
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
 	eat()
-	dissipate()
+	do_dissipate()
 	check_energy()
 
 	return
@@ -137,7 +155,7 @@
 		message_admins("A singularity has been created without containment fields active at [x], [y], [z] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	investigate_log("was created. [count?"":"<font color='red'>No containment fields were active</font>"]","singulo")
 
-/obj/singularity/proc/dissipate()
+/obj/singularity/proc/do_dissipate()
 	if(!dissipate)
 		return
 	if(dissipate_track >= dissipate_delay)
@@ -201,6 +219,7 @@
 				dissipate_delay = 10
 				dissipate_track = 0
 				dissipate_strength = 10
+				notify_dead()
 		if(STAGE_FIVE)//this one also lacks a check for gens because it eats everything
 			current_size = STAGE_FIVE
 			icon = 'icons/effects/288x288.dmi'
@@ -209,7 +228,7 @@
 			pixel_y = -128
 			grav_pull = 10
 			consume_range = 4
-			dissipate = 0 //It cant go smaller due to e loss
+			dissipate = FALSE //It cant go smaller due to e loss
 		if(STAGE_SIX) //This only happens if a stage 5 singulo consumes a supermatter shard.
 			current_size = STAGE_SIX
 			icon = 'icons/effects/352x352.dmi'
@@ -218,7 +237,7 @@
 			pixel_y = -160
 			grav_pull = 15
 			consume_range = 5
-			dissipate = 0
+			dissipate = FALSE
 	if(current_size == allowed_size)
 		investigate_log("<font color='red'>grew to size [current_size]</font>","singulo")
 		return 1
@@ -275,10 +294,10 @@
 /obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size)
 	src.energy += gain
-	if(istype(A, /obj/machinery/power/supermatter_crystal) && !consumedSupermatter)
+	if(istype(A, /obj/machinery/atmospherics/supermatter_crystal) && !consumedSupermatter)
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
-		consumedSupermatter = 1
+		consumedSupermatter = TRUE
 		set_light(10)
 	if(istype(A, /obj/singularity/narsie))
 		if(current_size == STAGE_SIX)
@@ -335,10 +354,10 @@
 	var/dir2 = 0
 	var/dir3 = 0
 	switch(direction)
-		if(NORTH||SOUTH)
+		if(NORTH, SOUTH)
 			dir2 = 4
 			dir3 = 8
-		if(EAST||WEST)
+		if(EAST, WEST)
 			dir2 = 1
 			dir3 = 2
 	var/turf/T2 = T
@@ -371,7 +390,7 @@
 			return 0
 	else if(locate(/obj/machinery/shieldwallgen) in T)
 		var/obj/machinery/shieldwallgen/S = locate(/obj/machinery/shieldwallgen) in T
-		if(S && S.active)
+		if(S?.activated)
 			return 0
 	return 1
 
@@ -395,15 +414,31 @@
 /obj/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/C in urange(20, src, 1))
 		C.visible_message("<span class='warning'>[C]'s skin bursts into flame!</span>", \
-						  "<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
+						"<span class='userdanger'>You feel an inner fire as your skin bursts into flames!</span>")
 		C.adjust_fire_stacks(5)
 		C.IgniteMob()
 	return
 
+/obj/singularity/proc/notify_dead()
+	if(isnt_shutting_down)
+		return
+	notify_ghosts(
+		"IT'S LOOSE",
+		ghost_sound = 'sound/machines/warning-buzzer.ogg',
+		source = src,
+		action = NOTIFY_FOLLOW,
+		flashwindow = FALSE,
+		title = "IT'S LOOSE",
+		alert_overlay = image(icon='icons/obj/singularity.dmi', icon_state="singularity_s1")
+	)
+
+	isnt_shutting_down = TRUE
+
+
 
 /obj/singularity/proc/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
-		if(istype(M, /mob/living/carbon/brain)) //Ignore brains
+		if(isbrain(M)) //Ignore brains
 			continue
 
 		if(M.stat == CONSCIOUS)
@@ -412,13 +447,12 @@
 				if(istype(H.glasses, /obj/item/clothing/glasses/meson))
 					var/obj/item/clothing/glasses/meson/MS = H.glasses
 					if(MS.vision_flags == SEE_TURFS)
-						to_chat(H, "<span class='notice'>You look directly into the [src.name], good thing you had your protective eyewear on!</span>")
+						to_chat(H, "<span class='notice'>You look directly into [src], good thing you had your protective eyewear on!</span>")
 						return
 
-		M.apply_effect(3, STUN)
-		M.visible_message("<span class='danger'>[M] stares blankly at the [src.name]!</span>", \
-						"<span class='userdanger'>You look directly into the [src.name] and feel weak.</span>")
-	return
+		M.Stun(6 SECONDS)
+		M.visible_message("<span class='danger'>[M] stares blankly at [src]!</span>", \
+						"<span class='userdanger'>You look directly into [src] and feel weak.</span>")
 
 
 /obj/singularity/proc/emp_area()
@@ -431,3 +465,77 @@
 	explosion(src.loc,(dist),(dist*2),(dist*4))
 	qdel(src)
 	return(gain)
+
+/obj/singularity/onetile
+	dissipate = FALSE
+	move_self = FALSE
+	grav_pull = TRUE
+
+/obj/singularity/onetile/admin_investigate_setup()
+	return
+
+/obj/singularity/onetile/process()
+	eat()
+	if(prob(1))
+		mezzer()
+
+/datum/component/proximity_monitor/singulo
+	field_checker_type = /obj/effect/abstract/proximity_checker/singulo
+
+/datum/component/proximity_monitor/singulo/create_single_prox_checker(turf/T, checker_type)
+	. = ..()
+	var/obj/effect/abstract/proximity_checker/singulo/S = .
+	S.calibrate()
+
+/datum/component/proximity_monitor/singulo/recenter_prox_checkers()
+	. = ..()
+	for(var/obj/effect/abstract/proximity_checker/singulo/S as anything in proximity_checkers)
+		S.calibrate()
+
+/obj/effect/abstract/proximity_checker/singulo
+	var/angle_to_singulo
+	var/distance_to_singulo
+
+/obj/effect/abstract/proximity_checker/singulo/proc/calibrate()
+	angle_to_singulo = ATAN2(monitor.hasprox_receiver.y - y, monitor.hasprox_receiver.x - x)
+	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
+
+/obj/effect/abstract/proximity_checker/singulo/Crossed(atom/movable/AM, oldloc)
+	. = ..()
+	if(!istype(AM, /obj/item/projectile))
+		return
+	var/obj/item/projectile/P = AM
+	var/distance = distance_to_singulo
+	var/projectile_angle = P.Angle
+	var/angle_to_projectile = angle_to_singulo
+	if(angle_to_projectile == 180)
+		angle_to_projectile = -180
+	angle_to_projectile -= projectile_angle
+	if(angle_to_projectile > 180)
+		angle_to_projectile -= 360
+	else if(angle_to_projectile < -180)
+		angle_to_projectile += 360
+
+	if(distance == 0)
+		qdel(P)
+		return
+	projectile_angle += angle_to_projectile / (distance ** 2)
+	P.damage += 10 / distance
+	P.set_angle(projectile_angle)
+
+/obj/singularity/proc/end_deadchat_plays()
+	move_self = TRUE
+
+
+/obj/singularity/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 12 SECONDS)
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, TYPE_PROC_REF(/atom/movable, stop_deadchat_plays)))
+
+	if(. == COMPONENT_INCOMPATIBLE)
+		return
+
+	move_self = FALSE
+
+
+/obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
+	. = ..()
+	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)

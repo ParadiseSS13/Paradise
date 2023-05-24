@@ -134,7 +134,7 @@
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack_self(mob/user)
-	if(awakening || istype(user.loc, /turf/space))
+	if(awakening || isspaceturf(user.loc))
 		return
 	to_chat(user, "<span class='notice'>You begin to awaken the Killer Tomato...</span>")
 	awakening = 1

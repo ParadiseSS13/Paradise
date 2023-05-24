@@ -1,0 +1,10 @@
+@use '../colors.scss';
+
+.Ingredient__Table {
+  tr:nth-child(even) {
+    background-color: #333;
+  }
+  td {
+    padding: 3px;
+  }
+}

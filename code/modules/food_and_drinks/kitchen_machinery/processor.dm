@@ -3,25 +3,47 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
 	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
+	idle_power_consumption = 5
+	active_power_consumption = 50
 
-	var/broken = 0
-	var/processing = 0
-
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 5
-	active_power_usage = 50
+	var/processing = FALSE
 	var/rating_speed = 1
 	var/rating_amount = 1
 
-/obj/machinery/processor/New()
-		..()
-		component_parts = list()
-		component_parts += new /obj/item/circuitboard/processor(null)
-		component_parts += new /obj/item/stock_parts/matter_bin(null)
-		component_parts += new /obj/item/stock_parts/manipulator(null)
-		RefreshParts()
+/obj/machinery/processor/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/processor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	RefreshParts()
+
+/obj/machinery/processor/update_icon_state()
+	. = ..()
+	if(processing)
+		icon_state = "processor_on"
+		return
+	icon_state = initial(icon_state)
+
+/obj/machinery/processor/examine(mob/user)
+	. = ..()
+	if(!anchored)
+		. += "<span class='notice'>Alt-click to rotate it.</span>"
+	else
+		. += "<span class='notice'>It is secured in place.</span>"
+
+/obj/machinery/processor/AltClick(mob/user)
+	if(user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!Adjacent(user))
+		return
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] is secured in place!</span>")
+		return
+	setDir(turn(dir, 90))
 
 /obj/machinery/processor/RefreshParts()
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
@@ -54,6 +76,7 @@
 	var/output
 	var/time = 40
 
+/// WHO NAME A PARAMETER FOR A PROC "what" holy hell
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
 		for(var/i = 0, i < processor.rating_amount, i++)
@@ -172,7 +195,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	if(default_unfasten_wrench(user, O))
+	if(default_unfasten_wrench(user, O, time = 4 SECONDS))
 		return
 
 	default_deconstruction_crowbar(user, O)
@@ -208,7 +231,8 @@
 	if(contents.len == 0)
 		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
 		return 1
-	processing = 1
+	processing = TRUE
+	update_icon(UPDATE_ICON_STATE)
 	user.visible_message("[user] turns on [src].", \
 		"<span class='notice'>You turn on [src].</span>", \
 		"<span class='italics'>You hear a food processor.</span>")
@@ -229,7 +253,8 @@
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
 		P.process_food(loc, O, src)
-	processing = 0
+	processing = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
 		"<span class='notice'>\the [src] has finished processing.</span>", \

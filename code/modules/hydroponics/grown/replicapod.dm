@@ -58,7 +58,7 @@
 	var/obj/machinery/hydroponics/parent = loc
 	var/make_podman = 0
 	var/ckey_holder = null
-	if(config.revival_pod_plants)
+	if(GLOB.configuration.general.enable_revival_pod_plants)
 		if(ckey)
 			for(var/mob/M in GLOB.player_list)
 				if(isobserver(M))
@@ -92,6 +92,7 @@
 			podman.ckey = ckey_holder
 		podman.gender = blood_gender
 		podman.faction |= factions
+		SSblackbox.record_feedback("tally", "players_revived", 1, "replica_pod")
 
 	else //else, one packet of seeds. maybe two
 		var/seed_count = 1

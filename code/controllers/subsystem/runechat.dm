@@ -3,7 +3,7 @@
 /// Helper for getting the correct bucket for a given chatmessage
 #define BUCKET_POS(scheduled_destruction) (((round((scheduled_destruction - SSrunechat.head_offset) / world.tick_lag) + 1) % BUCKET_LEN) || BUCKET_LEN)
 /// Gets the maximum time at which messages will be handled in buckets, used for deferring to secondary queue
-#define BUCKET_LIMIT (world.time + TICKS2DS(min(BUCKET_LEN - (SSrunechat.practical_offset - DS2TICKS(world.time - SSrunechat.head_offset)) - 1, BUCKET_LEN - 1)))
+#define BUCKET_LIMIT (SSrunechat.head_offset + TICKS2DS(BUCKET_LEN + SSrunechat.practical_offset - 1))
 
 /**
   * # Runechat Subsystem
@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(runechat)
 	wait = 1
 	priority = FIRE_PRIORITY_RUNECHAT
 	offline_implications = "Runechat messages will no longer clear. Shuttle call recommended."
+	cpu_display = SS_CPUDISPLAY_HIGH
 
 	/// world.time of the first entry in the bucket list, effectively the 'start time' of the current buckets
 	var/head_offset = 0
@@ -46,8 +47,8 @@ SUBSYSTEM_DEF(runechat)
 	head_offset = world.time
 	bucket_resolution = world.tick_lag
 
-/datum/controller/subsystem/runechat/stat_entry(msg)
-	..("ActMsgs:[bucket_count] SecQueue:[length(second_queue)]")
+/datum/controller/subsystem/runechat/get_stat_details()
+	return "ActMsgs:[bucket_count] SecQueue:[length(second_queue)]"
 
 /datum/controller/subsystem/runechat/fire(resumed = FALSE)
 	// Store local references to datum vars as it is faster to access them this way

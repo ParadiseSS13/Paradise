@@ -8,16 +8,16 @@
 
 
 // creates a new object and deletes itself
-/obj/random/New()
-	..()
+/obj/random/Initialize(mapload)
+	. = ..()
 	if(!prob(spawn_nothing_percentage))
 		spawn_item()
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 
 // this function should return a specific item to spawn
 /obj/random/proc/item_to_spawn()
-	return 0
+	return
 
 
 // creates the random item
@@ -29,8 +29,8 @@
 /obj/random/tool
 	name = "Random Tool"
 	desc = "This is a random tool"
-	icon = 'icons/obj/items.dmi'
-	icon_state = "welder"
+	icon = 'icons/obj/tools.dmi'
+	icon_state = "random_tool"
 
 /obj/random/tool/item_to_spawn()
 	return pick(/obj/item/screwdriver,\

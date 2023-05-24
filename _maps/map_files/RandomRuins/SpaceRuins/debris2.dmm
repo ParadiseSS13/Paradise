@@ -183,9 +183,7 @@
 /turf/simulated/floor/plating/damaged,
 /area/space)
 "Z" = (
-/obj/machinery/computer/pandemic{
-	circuit = /obj/effect/decal/cleanable/shreds
-	},
+/obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 

@@ -1,8 +1,17 @@
 import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Collapsible, Dropdown, Flex, Input, NoticeBox, Section } from '../components';
-import { Window } from "../layouts";
+import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Dropdown,
+  Flex,
+  Input,
+  NoticeBox,
+  Section,
+} from '../components';
+import { Window } from '../layouts';
 
 const sortTypes = {
   'Alphabetical': (a, b) => a - b,
@@ -24,10 +33,7 @@ export const MiningVendor = (_properties, _context) => {
 
 const MiningVendorUser = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    has_id,
-    id,
-  } = data;
+  const { has_id, id } = data;
   return (
     <NoticeBox success={has_id}>
       {has_id ? (
@@ -37,7 +43,8 @@ const MiningVendorUser = (_properties, context) => {
             verticalAlign="middle"
             style={{
               float: 'left',
-            }}>
+            }}
+          >
             Logged in as {id.name}.<br />
             You have {id.points.toLocaleString('en-US')} points.
           </Box>
@@ -51,12 +58,12 @@ const MiningVendorUser = (_properties, context) => {
           />
           <Box
             style={{
-              clear: "both",
+              clear: 'both',
             }}
           />
         </Fragment>
       ) : (
-        "Please insert an ID in order to make purchases."
+        'Please insert an ID in order to make purchases.'
       )}
     </NoticeBox>
   );
@@ -64,25 +71,20 @@ const MiningVendorUser = (_properties, context) => {
 
 const MiningVendorItems = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    has_id,
-    id,
-    items,
-  } = data;
+  const { has_id, id, items } = data;
   // Search thingies
-  const [
-    searchText,
-    _setSearchText,
-  ] = useLocalState(context, 'search', '');
-  const [
-    sortOrder,
-    _setSortOrder,
-  ] = useLocalState(context, 'sort', 'Alphabetical');
-  const [
-    descending,
-    _setDescending,
-  ] = useLocalState(context, 'descending', false);
-  const searcher = createSearch(searchText, item => {
+  const [searchText, _setSearchText] = useLocalState(context, 'search', '');
+  const [sortOrder, _setSortOrder] = useLocalState(
+    context,
+    'sort',
+    'Alphabetical'
+  );
+  const [descending, _setDescending] = useLocalState(
+    context,
+    'descending',
+    false
+  );
+  const searcher = createSearch(searchText, (item) => {
     return item[0];
   });
 
@@ -90,7 +92,7 @@ const MiningVendorItems = (_properties, context) => {
   let contents = Object.entries(items).map((kv, _i) => {
     let items_in_cat = Object.entries(kv[1])
       .filter(searcher)
-      .map(kv2 => {
+      .map((kv2) => {
         kv2[1].affordable = has_id && id.points >= kv2[1].price;
         return kv2[1];
       })
@@ -114,30 +116,24 @@ const MiningVendorItems = (_properties, context) => {
   return (
     <Flex.Item grow="1" overflow="auto">
       <Section>
-        {has_contents
-          ? contents : (
-            <Box color="label">
-              No items matching your criteria was found!
-            </Box>
-          )}
+        {has_contents ? (
+          contents
+        ) : (
+          <Box color="label">No items matching your criteria was found!</Box>
+        )}
       </Section>
     </Flex.Item>
   );
 };
 
 const MiningVendorSearch = (_properties, context) => {
-  const [
-    _searchText,
-    setSearchText,
-  ] = useLocalState(context, 'search', '');
-  const [
-    _sortOrder,
-    setSortOrder,
-  ] = useLocalState(context, 'sort', '');
-  const [
-    descending,
-    setDescending,
-  ] = useLocalState(context, 'descending', false);
+  const [_searchText, setSearchText] = useLocalState(context, 'search', '');
+  const [_sortOrder, setSortOrder] = useLocalState(context, 'sort', '');
+  const [descending, setDescending] = useLocalState(
+    context,
+    'descending',
+    false
+  );
   return (
     <Box mb="0.5rem">
       <Flex width="100%">
@@ -154,13 +150,14 @@ const MiningVendorSearch = (_properties, context) => {
             options={Object.keys(sortTypes)}
             width="100%"
             lineHeight="19px"
-            onSelected={v => setSortOrder(v)} />
+            onSelected={(v) => setSortOrder(v)}
+          />
         </Flex.Item>
         <Flex.Item>
           <Button
-            icon={descending ? "arrow-down" : "arrow-up"}
+            icon={descending ? 'arrow-down' : 'arrow-up'}
             height="19px"
-            tooltip={descending ? "Descending order" : "Ascending order"}
+            tooltip={descending ? 'Descending order' : 'Ascending order'}
             tooltipPosition="bottom-left"
             ml="0.5rem"
             onClick={() => setDescending(!descending)}
@@ -173,14 +170,10 @@ const MiningVendorSearch = (_properties, context) => {
 
 const MiningVendorItemsCategory = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    title,
-    items,
-    ...rest
-  } = properties;
+  const { title, items, ...rest } = properties;
   return (
     <Collapsible open title={title} {...rest}>
-      {items.map(item => (
+      {items.map((item) => (
         <Box key={item.name}>
           <Box
             display="inline-block"
@@ -188,7 +181,8 @@ const MiningVendorItemsCategory = (properties, context) => {
             lineHeight="20px"
             style={{
               float: 'left',
-            }}>
+            }}
+          >
             {item.name}
           </Box>
           <Button
@@ -199,14 +193,16 @@ const MiningVendorItemsCategory = (properties, context) => {
             style={{
               float: 'right',
             }}
-            onClick={() => act('purchase', {
-              cat: title,
-              name: item.name,
-            })}
+            onClick={() =>
+              act('purchase', {
+                cat: title,
+                name: item.name,
+              })
+            }
           />
           <Box
             style={{
-              clear: "both",
+              clear: 'both',
             }}
           />
         </Box>

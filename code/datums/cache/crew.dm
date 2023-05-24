@@ -26,6 +26,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		bold_jobs = list()
 		bold_jobs += GLOB.command_positions
 		bold_jobs += get_all_centcom_jobs()
+		bold_jobs += get_all_ERT_jobs()
 		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
 
 	for(var/thing in GLOB.human_list)
@@ -49,6 +50,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 		if(C.sensor_mode >= SUIT_SENSOR_VITAL)
 			crewmemberData["stat"] = H.stat
+			crewmemberData["health"] = H.health
 			crewmemberData["oxy"] = round(H.getOxyLoss(), 1)
 			crewmemberData["tox"] = round(H.getToxLoss(), 1)
 			crewmemberData["fire"] = round(H.getFireLoss(), 1)
@@ -56,7 +58,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 		if(C.sensor_mode >= SUIT_SENSOR_TRACKING)
 			var/area/A = get_area(H)
-			crewmemberData["area"] = sanitize(A.name)
+			crewmemberData["area"] = sanitize_simple(A.name)
 			crewmemberData["x"] = pos.x
 			crewmemberData["y"] = pos.y
 

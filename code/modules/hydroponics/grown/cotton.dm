@@ -1,6 +1,6 @@
 /obj/item/seeds/cotton
 	name = "pack of cotton seeds"
-	desc = "A pack of seeds that'll grow into a cotton plant. Assistants make good free labor if neccesary."
+	desc = "A pack of seeds that'll grow into a cotton plant. Assistants make good free labor if necessary."
 	icon_state = "seed-cotton"
 	species = "cotton"
 	plantname = "Cotton"
@@ -32,7 +32,7 @@
 	var/cotton_name = "raw cotton"
 
 /obj/item/grown/cotton/attack_self(mob/user)
-	user.show_message("<span class='notice'>You pull some [cotton_name] out of the [name]!</span>", 1)
+	user.show_message("<span class='notice'>You pull some [cotton_name] out of [src]!</span>", 1)
 	var/seed_modifier = 0
 	if(seed)
 		seed_modifier = round(seed.potency / 25)

@@ -4,6 +4,7 @@
 	. = ..()
 	var/obj/machinery/hologram/holopad/H = origin
 	H.move_hologram(eye_user, loc)
+	ai_detector_visible = FALSE // Holocalls dont trigger the Ai Detector
 
 //this datum manages it's own references
 
@@ -172,8 +173,7 @@
 			if(!.)
 				calling_holopad.atom_say("No answer received.")
 				calling_holopad.temp = ""
-
-	else if(!.)
+	if(!.)
 		qdel(src)
 
 /datum/action/innate/end_holocall

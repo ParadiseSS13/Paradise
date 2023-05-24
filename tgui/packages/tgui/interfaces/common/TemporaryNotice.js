@@ -1,5 +1,5 @@
-import { useBackend } from "../../backend";
-import { Box, Button, NoticeBox } from "../../components";
+import { useBackend } from '../../backend';
+import { Box, Button, NoticeBox } from '../../components';
 
 /**
  * Displays a notice box with text and style dictated by the
@@ -29,7 +29,8 @@ export const TemporaryNotice = (_properties, context) => {
       <Button
         icon="times-circle"
         float="right"
-        onClick={() => act('cleartemp')} />
+        onClick={() => act('cleartemp')}
+      />
       <Box clear="both" />
     </NoticeBox>
   );

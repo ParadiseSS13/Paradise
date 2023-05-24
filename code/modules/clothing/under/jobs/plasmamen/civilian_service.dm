@@ -71,7 +71,7 @@
 	item_color = "clown_envirosuit"
 
 /obj/item/clothing/under/plasmaman/assistant
-	name = "Assistant envirosuit"
+	name = "assistant's envirosuit"
 	desc = "The finest from the bottom of the plasmamen clothing barrel."
 	icon_state = "assistant_envirosuit"
 	item_state = "assistant_envirosuit"
@@ -93,21 +93,21 @@
 	return FALSE
 
 /obj/item/clothing/under/plasmaman/hop
-	name = "head of personnel envirosuit"
+	name = "head of personnel's envirosuit"
 	desc = "An envirosuit designed for plasmamen employed as the head of personnel."
 	icon_state = "hop_envirosuit"
 	item_state = "hop_envirosuit"
 	item_color = "hop_envirosuit"
 
 /obj/item/clothing/under/plasmaman/captain
-	name = "captain envirosuit"
+	name = "captain's envirosuit"
 	desc = "An envirosuit designed for plasmamen employed as the captain."
 	icon_state = "cap_envirosuit"
 	item_state = "cap_envirosuit"
 	item_color = "cap_envirosuit"
 
 /obj/item/clothing/under/plasmaman/blueshield
-	name = "blueshield envirosuit"
+	name = "blueshield's envirosuit"
 	desc = "An envirosuit designed for plasmamen employed as the blueshield."
 	icon_state = "bs_envirosuit"
 	item_state = "bs_envirosuit"

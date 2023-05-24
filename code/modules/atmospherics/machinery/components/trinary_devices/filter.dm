@@ -17,8 +17,8 @@
 	icon = 'icons/atmos/filter.dmi'
 	icon_state = "map"
 	can_unwrench = TRUE
-	/// The amount of pressure the filter wants to operate at.
-	var/target_pressure = ONE_ATMOSPHERE
+
+	target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
 	var/filter_type = FILTER_TOXINS
 	/// A list of available filter options. Used with `ui_data`.
@@ -31,71 +31,46 @@
 		"N2O" = FILTER_N2O
 	)
 
+// So we can CtrlClick without triggering the anchored message.
+/obj/machinery/atmospherics/trinary/filter/can_be_pulled(user, grab_state, force, show_message)
+	return FALSE
+
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	toggle()
+	if(can_use_shortcut(user))
+		toggle(user)
+		investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 	return ..()
 
-/obj/machinery/atmospherics/trinary/filter/AICtrlClick()
-	toggle()
-	return ..()
+/obj/machinery/atmospherics/trinary/filter/AICtrlClick(mob/living/silicon/user)
+	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
-		return
-	set_max()
-	return
+	if(can_use_shortcut(user))
+		set_max(user)
+		investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
-/obj/machinery/atmospherics/trinary/filter/AIAltClick()
-	set_max()
-	return ..()
-
-/obj/machinery/atmospherics/trinary/filter/proc/toggle()
-	if(powered())
-		on = !on
-		update_icon()
-
-/obj/machinery/atmospherics/trinary/filter/proc/set_max()
-	if(powered())
-		target_pressure = MAX_OUTPUT_PRESSURE
-		update_icon()
-
-/obj/machinery/atmospherics/trinary/filter/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
+/obj/machinery/atmospherics/trinary/filter/AIAltClick(mob/living/silicon/user)
+	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
-	flipped = 1
+	flipped = TRUE
 
-/obj/machinery/atmospherics/trinary/filter/update_icon()
-	..()
-
+/obj/machinery/atmospherics/trinary/filter/update_icon_state()
 	if(flipped)
 		icon_state = "m"
 	else
 		icon_state = ""
 
-	if(!powered())
+	if(!has_power())
 		icon_state += "off"
 	else if(node2 && node3 && node1)
 		icon_state += on ? "on" : "off"
 	else
 		icon_state += "off"
-		on = 0
+		on = FALSE
 
 /obj/machinery/atmospherics/trinary/filter/update_underlays()
 	if(..())
@@ -114,10 +89,9 @@
 		add_underlay(T, node3, dir)
 
 /obj/machinery/atmospherics/trinary/filter/power_change()
-	var/old_stat = stat
-	..()
-	if(old_stat != stat)
-		update_icon()
+	if(!..())
+		return
+	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()
@@ -186,10 +160,6 @@
 
 	return 1
 
-/obj/machinery/atmospherics/trinary/filter/atmos_init()
-	set_frequency(frequency)
-	..()
-
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
 	ui_interact(user)
 
@@ -253,7 +223,7 @@
 		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 		return
 	else

@@ -13,8 +13,13 @@
     cursor: pointer;
 
     transition: background-color 50ms;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: rgba(base.$color-bg, 1);
     }
   }
+}
+
+.AccountsUplinkTerminal__listRow--SUSPENDED {
+  background-color: colors.bg(#890e26);
 }

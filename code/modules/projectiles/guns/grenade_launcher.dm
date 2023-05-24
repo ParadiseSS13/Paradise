@@ -25,7 +25,7 @@
 				return
 			I.loc = src
 			grenades += I
-			to_chat(user, "<span class='notice'>You put the grenade in the [name].</span>")
+			to_chat(user, "<span class='notice'>You put the grenade in [src].</span>")
 			to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>")
 		else
 			to_chat(user, "<span class='warning'>The grenade launcher cannot hold more grenades.</span>")
@@ -50,7 +50,7 @@
 	F.throw_at(target, 30, 2, user)
 	message_admins("[key_name_admin(user)] fired a grenade ([F.name]) from a grenade launcher ([name]).")
 	log_game("[key_name(user)] fired a grenade ([F.name]) from a grenade launcher ([name]).")
-	F.active = 1
+	F.active = TRUE
 	F.icon_state = initial(icon_state) + "_active"
 	playsound(user.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 	spawn(15)

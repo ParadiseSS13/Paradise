@@ -55,8 +55,8 @@
 		B.beehome = null
 	bees.Cut()
 	bees = null
-	QDEL_LIST(honeycombs)
-	QDEL_LIST(honey_frames)
+	QDEL_LIST_CONTENTS(honeycombs)
+	QDEL_LIST_CONTENTS(honey_frames)
 	QDEL_NULL(queen_bee)
 	return ..()
 
@@ -96,7 +96,7 @@
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST)
 			if(honeycombs.len < get_max_honeycomb())
 				bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
-				var/obj/item/reagent_containers/honeycomb/HC = new(src)
+				var/obj/item/reagent_containers/food/snacks/honeycomb/HC = new(src)
 				if(queen_bee.beegent)
 					HC.set_reagent(queen_bee.beegent.id)
 				honeycombs += HC
@@ -174,11 +174,11 @@
 			queen_bee = qb.queen
 			qb.queen = null
 		else
-			visible_message("<span class='notice'>The [qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
+			visible_message("<span class='notice'>[qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
 			return
 
 		if(queen_bee)
-			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [user.p_their()] new home.</span>")
+			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [qb.p_their()] new home.</span>")
 			var/relocated = 0
 			for(var/b in bees)
 				var/mob/living/simple_animal/hostile/poison/bees/B = b
@@ -245,7 +245,7 @@
 						var/amtH = HF.honeycomb_capacity
 						var/fallen = 0
 						while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
-							var/obj/item/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
+							var/obj/item/reagent_containers/food/snacks/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
 								HC.forceMove(get_turf(src))
 								amtH--

@@ -2,10 +2,12 @@
 	icon = 'icons/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 	plane = FLOOR_PLANE
+	layer = GAS_PIPE_VISIBLE_LAYER + 0.004
+	layer_offset = 0.004
 	name = "passive vent"
 	desc = "A large air vent"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/volume = 250
 
@@ -13,8 +15,8 @@
 	name = "large passive vent"
 	volume = 1000
 
-/obj/machinery/atmospherics/unary/passive_vent/New()
-	..()
+/obj/machinery/atmospherics/unary/passive_vent/Initialize(mapload)
+	. = ..()
 	air_contents.volume = volume
 
 /obj/machinery/atmospherics/unary/passive_vent/process_atmos()
@@ -22,6 +24,10 @@
 
 	if(!node)
 		return 0
+
+	var/turf/T = loc
+	if(T.density) //No, you should not be able to get free air from walls
+		return
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
@@ -62,3 +68,5 @@
 		if(!istype(T))
 			return
 		add_underlay(T, node, dir)
+		var/icon/frame = icon('icons/atmos/vent_pump.dmi', "frame")
+		underlays += frame

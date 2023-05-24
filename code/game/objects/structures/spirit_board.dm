@@ -3,8 +3,8 @@
 	desc = "A wooden board with letters etched into it, used in seances."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "spirit_board"
-	density = 1
-	anchored = 0
+	density = TRUE
+	anchored = FALSE
 	var/used = FALSE
 	var/cooldown = 0
 	var/planchette = "A"
@@ -12,7 +12,7 @@
 
 /obj/structure/spirit_board/examine(mob/user)
 	. = ..()
-	. += "[initial(desc)] The planchette is sitting at \"[planchette]\"."
+	. += "The planchette is sitting at \"[planchette]\"."
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())
@@ -74,7 +74,11 @@
 				users_in_range++
 
 	if(users_in_range < 2)
-		to_chat(M, "<span class='warning'>There aren't enough people to use the [src.name]!</span>")
+		to_chat(M, "<span class='warning'>There aren't enough people to use [src]!</span>")
 		return 0
 
 	return 1
+
+/obj/structure/spirit_board/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I, time = 4 SECONDS)

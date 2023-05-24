@@ -3,6 +3,8 @@
 	name = "wet floor sign"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	force = 1.0
 	throwforce = 3.0
 	throw_speed = 1
@@ -11,28 +13,28 @@
 	attack_verb = list("warned", "cautioned", "smashed")
 
 /obj/item/caution/proximity_sign
-	var/timing = 0
-	var/armed = 0
+	var/timing = FALSE
+	var/armed = FALSE
 	var/timepassed = 0
 
-/obj/item/caution/proximity_sign/ComponentInitialize()
+/obj/item/caution/proximity_sign/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
 
 /obj/item/caution/proximity_sign/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind.assigned_role != "Janitor")
+		if(!H.mind.has_antag_datum(/datum/antagonist/traitor) && !ismindslave(H))
 			return
 		if(armed)
-			armed = 0
+			armed = FALSE
 			to_chat(user, "<span class='notice'>You disarm \the [src].</span>")
 			return
 		timing = !timing
 		if(timing)
 			START_PROCESSING(SSobj, src)
 		else
-			armed = 0
+			armed = FALSE
 			timepassed = 0
 		to_chat(H, "<span class='notice'>You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]</span>")
 
@@ -41,15 +43,16 @@
 		STOP_PROCESSING(SSobj, src)
 	timepassed++
 	if(timepassed >= 15 && !armed)
-		armed = 1
-		timing = 0
+		armed = TRUE
+		timing = FALSE
 
 /obj/item/caution/proximity_sign/HasProximity(atom/movable/AM)
 	if(armed)
-		if(istype(AM, /mob/living/carbon) && !istype(AM, /mob/living/carbon/brain))
+		if(iscarbon(AM) && !isbrain(AM))
 			var/mob/living/carbon/C = AM
 			if(C.m_intent != MOVE_INTENT_WALK)
-				src.visible_message("The [src.name] beeps, \"Running on wet floors is hazardous to your health.\"")
+				visible_message("[src] beeps, \"Sign says walk, asshole.\"")
+				playsound(src, 'sound/misc/sign_says_walk.ogg', 40)
 				explosion(src.loc,-1,0,2)
 				if(ishuman(C))
 					dead_legs(C)

@@ -14,8 +14,8 @@
 	speed = 0
 	mob_biotypes = NONE
 	a_intent = INTENT_HARM
-	can_change_intents = 0
-	stop_automated_movement = 1
+	can_change_intents = FALSE
+	stop_automated_movement = TRUE
 	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
@@ -33,7 +33,7 @@
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
-	var/light_on = 0
+	var/light_on = FALSE
 	var/luminosity_on = 3
 	var/mob/living/summoner
 	var/range = 10 //how far from the user the spirit can be
@@ -43,6 +43,8 @@
 	var/bio_fluff_string = "Your scarabs fail to mutate. This shouldn't happen! Submit a bug report!"
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/name_color = "white"//only used with protector shields for the time being
+	/// If true, it will not make a message on host when hit, or make an effect when deploying or recalling
+	var/stealthy_deploying = FALSE
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
@@ -89,12 +91,13 @@
 		else
 			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
 			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
-			if(istype(summoner.loc, /obj/effect))
+			if(iseffect(summoner.loc))
 				Recall(TRUE)
 			else
-				new /obj/effect/temp_visual/guardian/phase/out(loc)
+				if(!stealthy_deploying)
+					new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+					new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
-				new /obj/effect/temp_visual/guardian/phase(loc)
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
@@ -139,7 +142,8 @@
 		summoner.adjustBruteLoss(damage)
 		if(damage)
 			to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
-			summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
+			if(!stealthy_deploying)
+				summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
 		if(summoner.stat == UNCONSCIOUS)
 			to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
 			summoner.adjustCloneLoss(damage/2)
@@ -158,7 +162,7 @@
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
 		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
-		summoner.Weaken(10)// your fermillier has died! ROLL FOR CON LOSS!
+		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
 
@@ -169,8 +173,10 @@
 		return
 	if(!summoner) return
 	if(loc == summoner)
-		forceMove(get_turf(summoner))
-		new /obj/effect/temp_visual/guardian/phase(loc)
+		var/turf/T = get_turf(summoner)
+		forceMove(T)
+		if(!stealthy_deploying)
+			new /obj/effect/temp_visual/guardian/phase(T)
 		reset_perspective()
 		cooldown = world.time + 30
 
@@ -178,7 +184,8 @@
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
 	if(!summoner) return
-	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+	if(!stealthy_deploying)
+		new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
 	buckled = null
 	cooldown = world.time + 30
@@ -189,7 +196,7 @@
 		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 	else
 		input = message
-	if(!input)
+	if(!input || !summoner)
 		return
 
 	// Show the message to the host and to the guardian.
@@ -228,7 +235,7 @@
 /obj/item/guardiancreator
 	name = "deck of tarot cards"
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power. "
-	icon = 'icons/obj/toy.dmi'
+	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "deck_syndicate_full"
 	var/used = FALSE
 	var/theme = "magic"
@@ -250,11 +257,10 @@
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
-		if(G.summoner == user)
-			to_chat(user, "You already have a [mob_name]!")
-			return
-	if(user.mind && (user.mind.changeling || user.mind.vampire))
+	if(has_guardian(user))
+		to_chat(user, "You already have a [mob_name]!")
+		return
+	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used == TRUE)
@@ -285,6 +291,10 @@
 
 	if(candidates.len)
 		theghost = pick(candidates)
+		if(has_guardian(user))
+			to_chat(user, "You already have a [mob_name]!")
+			used = FALSE
+			return
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")
@@ -294,6 +304,13 @@
 	. = ..()
 	if(used)
 		. += "<span class='notice'>[used_message]</span>"
+
+/obj/item/guardiancreator/proc/has_guardian(mob/living/user)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
+		if(G.summoner == user)
+			return TRUE
+	return FALSE
+
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
@@ -333,12 +350,14 @@
 	to_chat(G, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
 	to_chat(G, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
 	to_chat(G, "[G.playstyle_string]")
+	to_chat(G, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)</span>")
 	G.faction = user.faction
 
 	var/color = pick(color_list)
 	G.name_color = color_list[color]
 	var/picked_name = pick(name_list)
 	create_theme(G, user, picked_name, color)
+	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]")
 
 /obj/item/guardiancreator/proc/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"
@@ -447,22 +466,19 @@
  <br>
  <b>Assassin</b>: Medium damage with no damage resistance, can enter stealth which massively increases the damage of the next attack causing it to ignore armour.
  <br>
- <b>Charger</b>: Medium damage and defense, very fast and has a special charge attack which damages a target and knocks items out of their hands.
+ <b>Charger</b>: Medium damage and defense, very fast and has a special charge attack which damages a target and knocks them to the ground.
  <br>
  <b>Lightning</b>: Applies lightning chains to any targets on attack with a link to your summoner, lightning chains will shock anyone nearby.
  <br>
  <b>Protector</b>: You will become leashed to your holoparasite instead of them to you. Has two modes, a medium attack/defense mode and a protection mode which greatly reduces incoming damage to the holoparasite.
 "}
 
-/obj/item/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
 	name = "holoparasite injector kit"
 
-/obj/item/storage/box/syndie_kit/guardian/New()
-	..()
+/obj/item/storage/box/syndie_kit/guardian/populate_contents()
 	new /obj/item/guardiancreator/tech/choose(src)
 	new /obj/item/paper/guardian(src)
-	return

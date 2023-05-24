@@ -89,10 +89,6 @@
 	button_icon_state = "choose_module"
 	auto_use_uses = FALSE // This is an infinite ability.
 
-/datum/action/innate/ai/choose_modules/Grant(mob/living/L)
-	. = ..()
-	owner_AI.malf_picker = new /datum/module_picker
-
 /datum/action/innate/ai/choose_modules/Trigger()
 	. = ..()
 	owner_AI.malf_picker.use(owner_AI)
@@ -128,7 +124,7 @@
 
 /datum/module_picker/proc/use(mob/user)
 	var/dat
-	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
+	dat += {"<B>Select use of processing time: (currently [processing_time] left.)</B><BR>
 			<HR>
 			<B>Install Module:</B><BR>
 			<I>The number afterwards is the amount of processing time it consumes.</I><BR>"}
@@ -248,7 +244,7 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
-	GLOB.event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
+	GLOB.major_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
@@ -265,11 +261,11 @@
 	name = "doomsday device"
 	icon_state = "nuclearbomb_base"
 	desc = "A weapon which disintegrates all organic life in a large area."
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	atom_say_verb = "blares"
 	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
-	var/timing = 0
+	var/timing = FALSE
 	var/default_timer = 4500
 	var/detonation_timer
 	var/announced = 0
@@ -280,12 +276,12 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
 		SSshuttle.emergency.timer = world.time
-		GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+		GLOB.major_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
 	detonation_timer = world.time + default_timer
-	timing = 1
+	timing = TRUE
 	START_PROCESSING(SSfastprocess, src)
 	SSshuttle.emergencyNoEscape = 1
 
@@ -295,25 +291,25 @@
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
-		GLOB.minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+		GLOB.major_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 		SSshuttle.emergencyNoEscape = 0
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+			GLOB.major_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/eshuttle_dock.ogg')
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
 		return
 	var/sec_left = seconds_remaining()
 	if(sec_left <= 0)
-		timing = 0
+		timing = FALSE
 		detonate(T.z)
 		qdel(src)
 	else
 		if(!(sec_left % 60) && !announced)
 			var/message = "[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!"
-			GLOB.minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+			GLOB.major_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 			announced = 10
 		announced = max(0, announced-1)
 
@@ -322,16 +318,9 @@
 	for(var/explodee in GLOB.player_list)
 		SEND_SOUND(explodee, doomsday_alarm)
 	sleep(100)
-	for(var/mob/living/L in GLOB.mob_list)
-		var/turf/T = get_turf(L)
-		if(!T || T.z != z_level)
-			continue
-		if(issilicon(L))
-			continue
-		to_chat(L, "<span class='danger'><B>The blast wave from [src] tears you atom from atom!</B></span>")
-		L.dust()
+	SSticker.station_explosion_cinematic(null, "AI malfunction")
 	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
-	SSticker.force_ending = 1
+	SSticker.mode.station_was_nuked = TRUE
 
 //AI Turret Upgrade: Increases the health and damage of all turrets.
 /datum/AI_Module/large/upgrade_turrets
@@ -458,7 +447,7 @@
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = TRUE
-	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
+	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overridden. Air alarms may now use the Flood environmental mode.")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
 
@@ -504,6 +493,9 @@
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only overload machines!</span>")
 		return
+	if(target.flags_2 & NO_MALF_EFFECT_2)
+		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overloaded!</span>")
+		return
 
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
 	attached_action.adjust_uses(-1)
@@ -511,7 +503,7 @@
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machine.proc/detonate_machine, target), 50) //kaboom!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/overload_machine, detonate_machine), target), 50) //kaboom!
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
 	return TRUE
 
@@ -556,7 +548,7 @@
 	if(!istype(target))
 		to_chat(ranged_ability_user, "<span class='warning'>You can only animate machines!</span>")
 		return
-	if(!target.can_be_overridden())
+	if(target.flags_2 & NO_MALF_EFFECT_2)
 		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overridden!</span>")
 		return
 
@@ -566,7 +558,7 @@
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
 	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
-	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machine.proc/animate_machine, target), 50) //kabeep!
+	addtimer(CALLBACK(attached_action, TYPE_PROC_REF(/datum/action/innate/ai/ranged/override_machine, animate_machine), target), 50) //kabeep!
 	remove_ranged_ability(ranged_ability_user, "<span class='danger'>Sending override signal...</span>")
 	return TRUE
 
@@ -640,7 +632,7 @@
 		I.loc = T
 		client.images += I
 		I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
-		addtimer(CALLBACK(src, .proc/remove_transformer_image, client, I, T), 30)
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, T), 30)
 	if(!success)
 		to_chat(src, "<span class='warning'>[alert_msg]</span>")
 	return success
@@ -670,7 +662,7 @@
 	for(var/thing in GLOB.apcs)
 		var/obj/machinery/power/apc/apc = thing
 		if(prob(30 * apc.overload))
-			INVOKE_ASYNC(apc, /obj/machinery/power/apc.proc/overload_lighting)
+			INVOKE_ASYNC(apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
 		else
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
@@ -734,8 +726,6 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
-	AI.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //Night-vision, without which X-ray would be very limited in power.
-	AI.update_sight()
 	var/upgraded_cameras = 0
 
 	for(var/V in GLOB.cameranet.cameras)
@@ -745,8 +735,6 @@
 
 			if(!C.isXRay())
 				C.upgradeXRay()
-				//Update what it can see.
-				GLOB.cameranet.updateVisibility(C, 0)
 				upgraded = TRUE
 
 			if(!C.isEmpProof())
@@ -755,6 +743,7 @@
 
 			if(upgraded)
 				upgraded_cameras++
+		C.update_remote_sight(AI)
 
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
 
@@ -786,3 +775,23 @@
 	if(AI.builtInCamera)
 		QDEL_NULL(AI.builtInCamera)
 
+/datum/AI_Module/large/engi_upgrade
+	module_name = "Engineering Cyborg Emitter Upgrade"
+	mod_pick_name = "emitter"
+	description = "Downloads firmware that activates the built in emitter in all engineering cyborgs linked to you. Cyborgs built after this upgrade will have it pre-installed."
+	cost = 50 // IDK look into this
+	one_purchase = TRUE
+	upgrade = TRUE
+	unlock_text = "<span class='notice'>Firmware downloaded. Bugs removed. Built in emitters operating at 73% efficiency.</span>"
+	unlock_sound = 'sound/items/rped.ogg'
+
+/datum/AI_Module/large/engi_upgrade/upgrade(mob/living/silicon/ai/AI)
+	AI.purchased_modules += /obj/item/robot_module/engineering
+	log_game("[key_name(usr)] purchased emitters for all engineering cyborgs.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] purchased emitters for all engineering cyborgs!</span>")
+	for(var/mob/living/silicon/robot/R in AI.connected_robots)
+		if(!istype(R.module, /obj/item/robot_module/engineering))
+			continue
+		R.module.malfhacked = TRUE
+		R.module.rebuild_modules()
+		to_chat(R, "<span class='notice'>New firmware downloaded. Emitter is now online.</span>")

@@ -21,6 +21,8 @@
 	var/move_delay		= 1
 	var/moving			= null
 	var/area			= null
+
+	// why the hell do we track this when you can just file > reconnect to bypass it
 	var/time_died_as_mouse = null //when the client last died as a mouse
 
 	var/typing = FALSE // Prevents typing window stacking
@@ -41,7 +43,7 @@
 	var/list/topiclimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
-	//control_freak = 1
+	control_freak = CONTROL_FREAK_ALL
 
 	var/ssd_warning_acknowledged = FALSE
 
@@ -56,18 +58,18 @@
 
 	var/global/obj/screen/click_catcher/void
 
-	var/karma = 0
-	var/karma_spent = 0
-	var/karma_tab = 0
-
-	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
-
 	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
 
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
+
+	// Overlay for showing debug info
+	var/obj/screen/debugtextholder/debug_text_overlay
+
+	/// Persistent storage for the flavour text of examined atoms.
+	var/list/description_holders = list()
 
 	// Their chat window, sort of important.
 	// See /goon/code/datums/browserOutput.dm
@@ -78,11 +80,6 @@
 
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
-
-	var/client_keysend_amount = 0
-	var/next_keysend_reset = 0
-	var/next_keysend_trip_reset = 0
-	var/keysend_tripped = FALSE
 
 	/// Messages currently seen by this client
 	var/list/seen_messages
@@ -112,10 +109,32 @@
 	/// Is the client watchlisted
 	var/watchlisted = FALSE
 
+	/// Client's pAI save
+	var/datum/pai_save/pai_save
+
+	/// List of the clients CUIs
+	var/list/datum/custom_user_item/cui_entries = list()
+
+	/// The client's job ban holder
+	var/datum/job_ban_holder/jbh = new()
+
+	/// Input datum, what the client is pressing.
+	var/datum/input_data/input_data = new()
+	/// The client's active keybindings, depending on their active mob.
+	var/list/active_keybindings = list()
+	/// The client's movement keybindings to directions, which work regardless of modifiers.
+	var/list/movement_kb_dirs = list()
+
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
 		// But guess what, if I have the ability to overengineer something, I am going to do it
 		if("tos_consent")
+			return FALSE
+		// Dont fuck with this
+		if("cui_entries")
+			return FALSE
+		// or this
+		if("jbh")
 			return FALSE
 	return ..()

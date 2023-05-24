@@ -5,7 +5,7 @@
 	attacktext = "sears"
 	damage_transfer = 0.8
 	range = 10
-	playstyle_string = "As a <b>Chaos</b> type, you have only light damage resistance, but will ignite any enemy you bump into. In addition, your melee attacks will randomly teleport enemies."
+	playstyle_string = "As a <b>Chaos</b> type, you have only light damage resistance, but will ignite any enemy you bump into. In addition, you can toggle modes to make your attacks teleport enemies or make them hallucinate."
 	environment_smash = 1
 	magic_fluff_string = "..And draw the Wizard, bringer of endless chaos!"
 	tech_fluff_string = "Boot sequence complete. Crowd control modules activated. Holoparasite swarm online."
@@ -19,20 +19,18 @@
 		summoner.adjust_fire_stacks(-20)
 
 /mob/living/simple_animal/hostile/guardian/fire/ToggleMode()
-	if(loc == summoner)
-		if(toggle)
-			to_chat(src, "<span class='notice'>You switch to dispersion mode, and will teleport victims away from your master.</span>")
-			toggle = FALSE
-		else
-			to_chat(src, "<span class='notice'>You switch to deception mode, and will turn your victims against their allies.</span>")
-			toggle = TRUE
+	if(toggle)
+		to_chat(src, "<span class='notice'>You switch to dispersion mode, and will teleport victims away from your master.</span>")
+		toggle = FALSE
+	else
+		to_chat(src, "<span class='notice'>You switch to deception mode, and will turn your victims against their allies.</span>")
+		toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
 	. = ..()
 	if(toggle)
-		if(. && ishuman(target) && !summoner)
-			spawn(0)
-				new /obj/effect/hallucination/delusion(target.loc, target, force_kind = "custom", duration = 200, skip_nearby = 0, custom_icon = icon_state, custom_icon_file = icon)
+		if(. && iscarbon(target))
+			new /obj/effect/hallucination/delusion(get_turf(target), target, icon, icon_state)
 	else
 		if(prob(45))
 			if(ismovable(target))

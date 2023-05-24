@@ -6,15 +6,12 @@
 	armor = list(melee = 100, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70) //default + ignores melee
 
 /obj/structure/shuttle/shuttleRotate(rotation)
-	..()
-	var/matrix/M = transform
-	M.Turn(rotation)
-	transform = M
+	return //This override is needed to properly rotate the object when on a shuttle that is rotated.
 
 /obj/structure/shuttle/engine
 	name = "engine"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 
 /obj/structure/shuttle/engine/heater
 	name = "heater"
@@ -27,17 +24,14 @@
 /obj/structure/shuttle/engine/propulsion
 	name = "propulsion"
 	icon_state = "propulsion"
-	opacity = 1
+	opacity = TRUE
 
 /obj/structure/shuttle/engine/propulsion/burst
-	name = "burst"
 
 /obj/structure/shuttle/engine/propulsion/burst/left
-	name = "left"
 	icon_state = "burst_l"
 
 /obj/structure/shuttle/engine/propulsion/burst/right
-	name = "right"
 	icon_state = "burst_r"
 
 /obj/structure/shuttle/engine/router

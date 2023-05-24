@@ -28,10 +28,10 @@
 				<small>[fluffnotice]</small><hr>"
 	switch(get_area_type())
 		if(AREA_SPACE)
-			text += "<p>According to the [src.name], you are now in <b>outer space</b>.  Hold your breath.</p> \
+			text += "<p>According to [src], you are now in <b>outer space</b>. Hold your breath.</p> \
 			<p><a href='?src=[UID()];create_area=1'>Mark this place as new area.</a></p>"
 		if(AREA_SPECIAL)
-			text += "<p>This place is not noted on the [src.name].</p>"
+			text += "<p>This place is not noted on [src].</p>"
 	return text
 
 
@@ -48,7 +48,7 @@
 /obj/item/areaeditor/permit
 	name = "construction permit"
 	icon_state = "permit"
-	desc = "This is a one-use permit that allows the user to officially declare a built room as new addition to the station."
+	desc = "This is a one-use permit that allows the user to officially declare a built room as an addition to the station."
 	fluffnotice = "Nanotrasen Engineering requires all on-station construction projects to be approved by a head of staff, as detailed in Nanotrasen Company Regulation 512-C (Mid-Shift Modifications to Company Property). \
 						By submitting this form, you accept any fines, fees, or personal injury/death that may occur during construction."
 	w_class = WEIGHT_CLASS_TINY
@@ -57,7 +57,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -79,7 +79,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
 	popup.set_content(.)
 	popup.open()
@@ -106,7 +106,7 @@
 	. = ..()
 	var/area/A = get_area()
 	if(get_area_type() == AREA_STATION)
-		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
+		. += "<p>According to [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
 	if(!viewing)
 		. += "<p><a href='?src=[UID()];view_blueprints=1'>View structural data</a></p>"
@@ -205,13 +205,13 @@
 	if(!str || !length(str)) //cancel
 		return area_created
 	if(length(str) > 50)
-		to_chat(usr, "<span class='warning'>The given name is too long.  The area remains undefined.</span>")
+		to_chat(usr, "<span class='warning'>The given name is too long. The area remains undefined.</span>")
 		return area_created
 	var/area/A = new
 	A.name = str
-	A.power_equip = FALSE
-	A.power_light = FALSE
-	A.power_environ = FALSE
+	A.powernet.equipment_powered = FALSE
+	A.powernet.lighting_powered = FALSE
+	A.powernet.environment_powered = FALSE
 	A.always_unpowered = FALSE
 	A.set_dynamic_lighting()
 
@@ -271,15 +271,15 @@
 	//TODO: much much more. Unnamed airlocks, cameras, etc.
 
 /obj/item/areaeditor/proc/check_tile_is_border(turf/T2, dir)
-	if(istype(T2, /turf/space))
+	if(isspaceturf(T2))
 		return BORDER_SPACE //omg hull breach we all going to die here
 	if(get_area_type(T2.loc)!=AREA_SPACE)
 		return BORDER_BETWEEN
-	if(istype(T2, /turf/simulated/wall))
+	if(iswallturf(T2))
 		return BORDER_2NDTILE
-	if(istype(T2, /turf/simulated/mineral))
+	if(ismineralturf(T2))
 		return BORDER_2NDTILE
-	if(!istype(T2, /turf/simulated))
+	if(!issimulatedturf(T2))
 		return BORDER_BETWEEN
 
 	for(var/obj/structure/window/W in T2)
@@ -341,3 +341,8 @@
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 
 /obj/item/areaeditor/blueprints/ce
+
+/obj/item/areaeditor/blueprints/ce/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))

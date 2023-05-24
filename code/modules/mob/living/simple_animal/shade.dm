@@ -2,7 +2,7 @@
 	name = "Shade"
 	real_name = "Shade"
 	desc = "A bound spirit"
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/cult.dmi'
 	icon_state = "shade"
 	icon_living = "shade"
 	icon_dead = "shade_dead"
@@ -34,9 +34,13 @@
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
 
+/mob/living/simple_animal/shade/cult/Initialize(mapload)
+	. = ..()
+	icon_state = SSticker.cultdat?.shade_icon_state
+
 /mob/living/simple_animal/shade/death(gibbed)
 	. = ..()
-	SSticker.mode.remove_cultist(mind, FALSE)
+	SSticker.mode.remove_cultist(show_message = FALSE, target_mob = src)
 
 /mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))
@@ -47,11 +51,6 @@
 
 /mob/living/simple_animal/shade/Process_Spacemove()
 	return TRUE
-
-
-/mob/living/simple_animal/shade/cult/Initialize(mapload)
-	. = ..()
-	icon_state = SSticker.cultdat?.shade_icon_state
 
 /mob/living/simple_animal/shade/holy
 	holy = TRUE
@@ -66,6 +65,6 @@
 
 /mob/living/simple_animal/shade/update_runechat_msg_location()
 	if(istype(loc, /obj/item/soulstone))
-		runechat_msg_location = loc
+		runechat_msg_location = loc.UID()
 	else
-		runechat_msg_location = src
+		return ..()

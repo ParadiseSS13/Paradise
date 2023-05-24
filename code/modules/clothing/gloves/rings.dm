@@ -11,11 +11,11 @@
 	var/stud = 0
 	var/ring_color = "iron"
 
-/obj/item/clothing/gloves/ring/New()
-	..()
-	update_icon()
+/obj/item/clothing/gloves/ring/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/clothing/gloves/ring/update_icon()
+/obj/item/clothing/gloves/ring/update_icon_state()
 	icon_state = "[stud ? "d_" : ""][ring_color]ring"
 
 /obj/item/clothing/gloves/ring/examine(mob/user)
@@ -29,13 +29,13 @@
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
 		var/obj/item/stack/sheet/mineral/diamond/D = I
 		if(stud)
-			to_chat(usr, "<span class='notice'>The [src] already has a gem.</span>")
+			to_chat(usr, "<span class='notice'>[src] already has a gem.</span>")
 		else
 			if(D.amount >= 1)
 				D.use(1)
-				stud = 1
-				update_icon()
-				to_chat(usr, "<span class='notice'>You socket the diamond into the [src].</span>")
+				stud = TRUE
+				update_icon(UPDATE_ICON_STATE)
+				to_chat(usr, "<span class='notice'>You socket the diamond into [src].</span>")
 
 // s'pensive
 /obj/item/clothing/gloves/ring/silver
@@ -73,10 +73,10 @@
 	icon_state = "redring"
 	ring_color = "red"
 
-/obj/item/clothing/gloves/ring/plastic/random/New()
+/obj/item/clothing/gloves/ring/plastic/random/Initialize(mapload)
 	ring_color = pick("white","blue","red")
 	name = "[ring_color] plastic ring"
-	..()
+	. = ..()
 
 // weird
 /obj/item/clothing/gloves/ring/glass

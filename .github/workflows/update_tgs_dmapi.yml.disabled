@@ -1,0 +1,54 @@
+name: Update TGS DMAPI
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  update-dmapi:
+    runs-on: ubuntu-latest
+    name: Update the TGS DMAPI
+    steps:
+    - name: Clone
+      uses: actions/checkout@v3
+
+    - name: Branch
+      run: |
+        git fetch origin
+        git branch -f tgs-dmapi-update
+        git checkout tgs-dmapi-update
+        git reset --hard origin/master
+
+    - name: Apply DMAPI update
+      uses: tgstation/tgs-dmapi-updater@v2
+      with:
+        header-path: 'code/__DEFINES/tgs.dm'
+        library-path: 'code/modules/tgs'
+
+    - name: Commit and Push
+      run: |
+        echo '*.dm text eol=lf' >> .gitattributes
+        echo '*.md text eol=lf' >> .gitattributes
+        echo '*LICENSE text eol=lf' >> .gitattributes
+        git config --global core.autocrlf false
+        git config --global core.eol lf
+        git config --local user.email "action@github.com"
+        git config --local user.name "DMAPI Update"
+        git add .
+        git commit -m 'Update TGS DMAPI'
+        rm .gitattributes
+        git add .
+        git commit -m 'Cleanup attributes'
+        git push -f -u origin tgs-dmapi-update
+
+    - name: Create Pull Request
+      uses: repo-sync/pull-request@v2
+      with:
+        source_branch: "tgs-dmapi-update"
+        destination_branch: "master"
+        pr_title: "Automatic TGS DMAPI Update"
+        pr_body: "This pull request updates the TGS DMAPI to the latest version. Please note any breaking or unimplemented changes before merging."
+        pr_label: "Infrastructure"
+        pr_allow_empty: false
+        github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -45,41 +45,39 @@ GLOBAL_LIST_EMPTY(message_servers)
 				priority = "Undetermined"
 
 /obj/machinery/message_server
-	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "server"
 	name = "Messaging Server"
-	density = 1
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
+	desc = "A machine that processes and routes PDA and request console messages."
+	icon = 'icons/obj/machines/telecomms.dmi'
+	icon_state = "message_server"
+	density = TRUE
+	anchored = TRUE
+	idle_power_consumption = 10
+	active_power_consumption = 100
 
 	var/list/datum/data_pda_msg/pda_msgs = list()
 	var/list/datum/data_rc_msg/rc_msgs = list()
-	var/active = 1
+	var/active = TRUE
 	var/decryptkey = "password"
 
-/obj/machinery/message_server/New()
+/obj/machinery/message_server/Initialize(mapload)
+	. = ..()
 	GLOB.message_servers += src
 	decryptkey = GenerateKey()
 	send_pda_message("System Administrator", "system", "This is an automated message. The messaging system is functioning correctly.")
-	..()
-	return
 
 /obj/machinery/message_server/Destroy()
 	GLOB.message_servers -= src
+	QDEL_LIST_CONTENTS(pda_msgs)
+	QDEL_LIST_CONTENTS(rc_msgs)
 	return ..()
 
 /obj/machinery/message_server/process()
-	//if(decryptkey == "password")
-	//	decryptkey = generateKey()
-	if(active && (stat & (BROKEN|NOPOWER)))
-		active = 0
+	if(active && (stat & (BROKEN | NOPOWER)))
+		active = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		return
 	if(prob(3))
 		playsound(loc, "computer_ambience", 50, 1)
-	update_icon()
-	return
 
 /obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
@@ -114,29 +112,18 @@ GLOBAL_LIST_EMPTY(message_servers)
 			RC.set_light(2)
 
 /obj/machinery/message_server/attack_hand(user as mob)
-//	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")
 	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
 	active = !active
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-	return
+/obj/machinery/message_server/update_icon_state()
+	icon_state = "[initial(icon_state)][panel_open ? "_o" : null][active ? null : "_off"]"
 
-/obj/machinery/message_server/update_icon()
-	if((stat & (BROKEN|NOPOWER)))
-		icon_state = "server-nopower"
-	else if(!active)
-		icon_state = "server-off"
-	else
-		icon_state = "server-on"
-
-	return
 /obj/machinery/blackbox_recorder
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
 	name = "Blackbox Recorder"
-	density = 1
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 10
-	active_power_usage = 100
-
+	density = TRUE
+	anchored = TRUE
+	idle_power_consumption = 10
+	active_power_consumption = 100

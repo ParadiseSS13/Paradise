@@ -9,10 +9,12 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo and robotic storage). Are you entirely sure you want to do this?",
 					"Wipe Core", "No", "No", "Yes") != "Yes")
 		return
+	cryo_AI()
 
-	// We warned you.
-	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
-	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
+/mob/living/silicon/ai/proc/cryo_AI()
+	var/dead_aicore = new /obj/structure/AIcore/deactivated(loc)
+	GLOB.empty_playable_ai_cores += dead_aicore
+	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight", follow_target_override = dead_aicore)
 
 	//Handle job slot/tater cleanup.
 	var/job = mind.assigned_role
@@ -28,39 +30,37 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 			current_mode.possible_traitors.Remove(src)
 
 	// Ghost the current player and disallow them to return to the body
-	ghostize(FALSE)
+	if(TOO_EARLY_TO_GHOST)
+		ghostize(FALSE)
+	else
+		ghostize(TRUE)
 	// Delete the old AI shell
 	qdel(src)
 
-// TODO: Move away from the insane name-based landmark system
 /mob/living/silicon/ai/proc/moveToAILandmark()
 	var/obj/loc_landmark
-	for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-		if(sloc.name != "AI")
+	for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
+		if(locate(/mob/living) in get_turf(A))
 			continue
-		if(locate(/mob/living) in sloc.loc)
-			continue
-		loc_landmark = sloc
+		loc_landmark = A
 	if(!loc_landmark)
 		for(var/obj/effect/landmark/tripai in GLOB.landmarks_list)
 			if(tripai.name == "tripai")
-				if(locate(/mob/living) in tripai.loc)
+				if(locate(/mob/living) in get_turf(tripai))
 					continue
 				loc_landmark = tripai
 	if(!loc_landmark)
-		to_chat(src, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.")
-		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-			if(sloc.name == "AI")
-				loc_landmark = sloc
+		to_chat(src, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.") //lol what is this message
+		for(var/obj/effect/landmark/start/ai/A in GLOB.landmarks_list)
+			loc_landmark = A
 
-	forceMove(loc_landmark.loc)
+	forceMove(get_turf(loc_landmark))
 	view_core()
 
 // Before calling this, make sure an empty core exists, or this will no-op
 /mob/living/silicon/ai/proc/moveToEmptyCore()
 	if(!GLOB.empty_playable_ai_cores.len)
-		log_runtime(EXCEPTION("moveToEmptyCore called without any available cores"), src)
-		return
+		CRASH("moveToEmptyCore called without any available cores")
 
 	// IsJobAvailable for AI checks that there is an empty core available in this list
 	var/obj/structure/AIcore/deactivated/C = GLOB.empty_playable_ai_cores[1]

@@ -10,7 +10,7 @@
 	/// Last status of the active supermatter for caching purposes
 	var/last_status
 	/// Reference to the active shard
-	var/obj/machinery/power/supermatter_crystal/active
+	var/obj/machinery/atmospherics/supermatter_crystal/active
 
 /obj/machinery/computer/sm_monitor/Destroy()
 	active = null
@@ -72,7 +72,7 @@
 	else
 		var/list/SMS = list()
 		for(var/I in supermatters)
-			var/obj/machinery/power/supermatter_crystal/S = I
+			var/obj/machinery/atmospherics/supermatter_crystal/S = I
 			var/area/A = get_area(S)
 			if(!A)
 				continue
@@ -98,9 +98,9 @@
 	var/turf/T = get_turf(ui_host()) // Get the UI host incase this ever turned into a supermatter monitoring module for AIs to use or something
 	if(!T)
 		return
-	for(var/obj/machinery/power/supermatter_crystal/S in SSair.atmos_machinery)
+	for(var/obj/machinery/atmospherics/supermatter_crystal/S in SSair.atmos_machinery)
 		// Delaminating, not within coverage, not on a tile.
-		if(!(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T) || !istype(S.loc, /turf/simulated/)))
+		if(!(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T) || !issimulatedturf(S.loc)))
 			continue
 		supermatters.Add(S)
 
@@ -137,7 +137,7 @@
 
 		if("view")
 			var/newuid = text2num(params["view"])
-			for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
+			for(var/obj/machinery/atmospherics/supermatter_crystal/S in supermatters)
 				if(S.supermatter_id == newuid)
 					active = S
 					break

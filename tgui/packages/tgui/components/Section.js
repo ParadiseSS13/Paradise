@@ -1,7 +1,7 @@
 import { classes, isFalsy, pureComponentHooks } from 'common/react';
 import { Box } from './Box';
 
-export const Section = props => {
+export const Section = (props) => {
   const {
     className,
     title,
@@ -23,23 +23,22 @@ export const Section = props => {
         props.flexGrow && 'Section--flex',
         className,
       ])}
-      {...rest}>
+      {...rest}
+    >
       {hasTitle && (
         <div className="Section__title">
-          <span className="Section__titleText">
-            {title}
-          </span>
-          <div className="Section__buttons">
-            {buttons}
-          </div>
+          <span className="Section__titleText">{title}</span>
+          <div className="Section__buttons">{buttons}</div>
         </div>
       )}
       {hasContent && (
-        <Box className={classes([
-          "Section__content",
-          !!stretchContents && "Section__content--stretchContents",
-          !!noTopPadding && "Section__content--noTopPadding",
-        ])}>
+        <Box
+          className={classes([
+            'Section__content',
+            !!stretchContents && 'Section__content--stretchContents',
+            !!noTopPadding && 'Section__content--noTopPadding',
+          ])}
+        >
           {content}
           {children}
         </Box>

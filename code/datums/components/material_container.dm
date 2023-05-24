@@ -37,8 +37,8 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/OnExamine)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(OnAttackBy))
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(OnExamine))
 
 	var/list/possible_mats = list()
 	for(var/mat_type in subtypesof(/datum/material))
@@ -48,6 +48,10 @@
 		if(possible_mats[id])
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
+
+/datum/component/material_container/Destroy(force, silent)
+	QDEL_LIST_ASSOC_VAL(materials)
+	return ..()
 
 /datum/component/material_container/proc/OnExamine(datum/source, mob/user, list/examine_list)
 	if(show_on_examine)
@@ -130,13 +134,13 @@
 
 /datum/component/material_container/proc/insert_stack(obj/item/stack/S, amt, multiplier = 1)
 	if(isnull(amt))
-		amt = S.amount
+		amt = S.get_amount()
 
 	if(amt <= 0)
 		return FALSE
 
-	if(amt > S.amount)
-		amt = S.amount
+	if(amt > S.get_amount())
+		amt = S.get_amount()
 
 	var/material_amt = get_item_material_amount(S)
 	if(!material_amt)
@@ -315,6 +319,8 @@
 /datum/component/material_container/proc/get_item_material_amount(obj/item/I)
 	if(!istype(I))
 		return FALSE
+	if(!I.materials) // some objects have no materials and this will cause runtimes without this check
+		return 0
 	var/material_amount = 0
 	for(var/MAT in materials)
 		material_amount += I.materials[MAT]
@@ -380,7 +386,7 @@
 /datum/material/bluespace
 	name = "Bluespace Mesh"
 	id = MAT_BLUESPACE
-	sheet_type = /obj/item/stack/sheet/bluespace_crystal
+	sheet_type = /obj/item/stack/ore/bluespace_crystal/refined
 	ore_type = /obj/item/stack/ore/bluespace_crystal
 
 /datum/material/bananium

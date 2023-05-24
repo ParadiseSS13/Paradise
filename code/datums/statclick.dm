@@ -1,5 +1,6 @@
 // Clickable stat() button
 /obj/effect/statclick
+	flags = NO_SCREENTIPS
 	var/target
 
 INITIALIZE_IMMEDIATE(/obj/effect/statclick)

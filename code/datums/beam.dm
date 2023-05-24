@@ -9,10 +9,10 @@
 	var/max_distance = 0
 	var/endtime = 0
 	var/sleep_time = 3
-	var/finished = 0
+	var/finished = FALSE
 	var/target_oldloc = null
 	var/origin_oldloc = null
-	var/static_beam = 0
+	var/static_beam = FALSE
 	var/beam_type = /obj/effect/ebeam //must be subtype
 
 /datum/beam/New(beam_origin,beam_target,beam_icon='icons/effects/beam.dmi',beam_icon_state="b_beam",time=50,maxdistance=10,btype = /obj/effect/ebeam,beam_sleep_time=3)
@@ -23,7 +23,7 @@
 	target_oldloc = get_turf(target)
 	sleep_time = beam_sleep_time
 	if(origin_oldloc == origin && target_oldloc == target)
-		static_beam = 1
+		static_beam = TRUE
 	max_distance = maxdistance
 	base_icon = new(beam_icon,beam_icon_state)
 	icon = beam_icon
@@ -45,11 +45,10 @@
 	qdel(src)
 
 /datum/beam/proc/End()
-	finished = 1
+	finished = TRUE
 
 /datum/beam/proc/Reset()
-	for(var/obj/effect/ebeam/B in elements)
-		qdel(B)
+	QDEL_LIST_CONTENTS(elements)
 
 /datum/beam/Destroy()
 	Reset()
@@ -58,7 +57,7 @@
 	return ..()
 
 /datum/beam/proc/Draw()
-	var/Angle = round(Get_Angle(origin,target))
+	var/Angle = round(get_angle(origin, target))
 
 	var/matrix/rot_matrix = matrix()
 	rot_matrix.Turn(Angle)
@@ -112,8 +111,11 @@
 
 /obj/effect/ebeam
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = 1
+	anchored = TRUE
 	var/datum/beam/owner
+
+/obj/effect/ebeam/ex_act(severity)
+	return
 
 /obj/effect/ebeam/Destroy()
 	owner = null
@@ -129,7 +131,34 @@
 	..()
 	A.ex_act(1)
 
+/obj/effect/ebeam/disintegration_telegraph
+	alpha = 100
+	layer = ON_EDGED_TURF_LAYER
+
+/obj/effect/ebeam/disintegration
+	layer = ON_EDGED_TURF_LAYER
+
+/obj/effect/ebeam/disintegration/Crossed(atom/A, oldloc)
+	..()
+	if(!isliving(A))
+		return
+	var/mob/living/L = A
+	var/damage = 50
+	if(L.stat == DEAD)
+		visible_message("<span class='danger'>[L] is disintegrated by the beam!</span>")
+		L.dust()
+	if(isliving(owner.origin))
+		var/mob/living/O = owner.origin
+		if(faction_check(O.faction, L.faction, FALSE))
+			return
+		damage = 70 - ((O.health / O.maxHealth) * 20)
+	playsound(L,'sound/weapons/sear.ogg', 50, TRUE, -4)
+	to_chat(L, "<span class='userdanger'>You're struck by a disintegration laser!</span>")
+	var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
+	var/armor = L.run_armor_check(limb_to_hit, LASER)
+	L.apply_damage(damage, BURN, limb_to_hit, armor)
+
 /atom/proc/Beam(atom/BeamTarget,icon_state="b_beam",icon='icons/effects/beam.dmi',time=50, maxdistance=10,beam_type=/obj/effect/ebeam,beam_sleep_time=3)
 	var/datum/beam/newbeam = new(src,BeamTarget,icon,icon_state,time,maxdistance,beam_type,beam_sleep_time)
-	INVOKE_ASYNC(newbeam, /datum/beam.proc/Start)
+	INVOKE_ASYNC(newbeam, TYPE_PROC_REF(/datum/beam, Start))
 	return newbeam

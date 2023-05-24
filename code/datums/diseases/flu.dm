@@ -12,10 +12,11 @@
 	severity = MEDIUM
 
 /datum/disease/flu/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(2)
-			if(affected_mob.lying && prob(20))
+			if(IS_HORIZONTAL(affected_mob) && prob(20))
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				stage--
 				return
@@ -33,7 +34,7 @@
 					affected_mob.adjustToxLoss(1)
 
 		if(3)
-			if(affected_mob.lying && prob(15))
+			if(IS_HORIZONTAL(affected_mob) && prob(15))
 				to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 				stage--
 				return

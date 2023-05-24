@@ -3,7 +3,7 @@
 	name = "syndicate minibomb"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "syndicate"
-	item_state = "flashbang"
+	item_state = "grenade"
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
 /obj/item/grenade/syndieminibomb/prime()

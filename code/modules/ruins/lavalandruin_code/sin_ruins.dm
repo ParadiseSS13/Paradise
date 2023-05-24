@@ -1,6 +1,8 @@
 //These objects are used in the cardinal sin-themed ruins (i.e. Gluttony, Pride...)
 
 // Greed
+#define WIN_PROB 5
+
 /obj/structure/cursed_slot_machine //Greed's slot machine: Used in the Greed ruin. Deals clone damage on each use, with a successful use giving a d20 of fate.
 	name = "greed's slot machine"
 	desc = "High stakes, high rewards."
@@ -8,7 +10,6 @@
 	icon_state = "slots-off"
 	anchored = TRUE
 	density = TRUE
-	var/win_prob = 5
 
 /obj/structure/cursed_slot_machine/attack_hand(mob/user)
 	interact(user)
@@ -21,7 +22,11 @@
 		return
 
 	in_use = TRUE
-	user.adjustCloneLoss(20)
+	if(!ismachineperson(user))
+		user.adjustCloneLoss(20)
+	else
+		to_chat(user, "<span class='userdanger'>Your brain is sparking!</span>")
+		user.adjustBrainLoss(15)
 	if(user.stat)
 		to_chat(user, "<span class='userdanger'>No... just one more try...</span>")
 		user.gib()
@@ -29,14 +34,14 @@
 		user.visible_message("<span class='warning'>[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!</span>", "<span class='warning'>You feel a draining as you pull the lever, but you \
 		know it'll be worth it.</span>")
 	icon_state = "slots-on"
-	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50, 0)
-	addtimer(CALLBACK(src, .proc/determine_victor, user), 50)
+	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50)
+	addtimer(CALLBACK(src, PROC_REF(determine_victor), user), 50)
 
 /obj/structure/cursed_slot_machine/proc/determine_victor(mob/living/user)
 	icon_state = "slots-off"
 	in_use = FALSE
-	if(prob(win_prob))
-		playsound(src, 'sound/lavaland/cursed_slot_machine_jackpot.ogg', 50, 0)
+	if(prob(WIN_PROB))
+		playsound(src, 'sound/lavaland/cursed_slot_machine_jackpot.ogg', 50)
 		new/obj/structure/cursed_money(get_turf(src))
 		if(user)
 			to_chat(user, "<span class='boldwarning'>You've hit jackpot. Laughter echoes around you as your reward appears in the machine's place.</span>")
@@ -44,6 +49,8 @@
 	else
 		if(user)
 			to_chat(user, "<span class='boldwarning'>Fucking machine! Must be rigged. Still... one more try couldn't hurt, right?</span>")
+
+#undef WIN_PROB
 
 /obj/structure/cursed_money
 	name = "bag of money"
@@ -55,7 +62,7 @@
 
 /obj/structure/cursed_money/Initialize()
 	. = ..()
-	addtimer(CALLBACK(src, .proc/collapse), 600)
+	addtimer(CALLBACK(src, PROC_REF(collapse)), 600)
 
 /obj/structure/cursed_money/proc/collapse()
 	visible_message("<span class='warning'>[src] falls in on itself, \
@@ -115,12 +122,16 @@
 	for(var/level in levels)
 		if(!is_teleport_allowed(level))
 			levels -= level
-
-	T.ChangeTurf(/turf/simulated/floor/chasm)
+	if(user.z != 3) //if you somehow manage to bloody get out of lavaland without closing the UI
+		var/turf/return_turf = locate(user.x, user.y, 3) //return to sender
+		var/mob/living/carbon/human/fool = user
+		if(return_turf && fool)
+			to_chat(fool, "<span class='danger'><B>You dare try to play me for a fool?</B></span>")
+			fool.monkeyize()
+			fool.forceMove(return_turf)
+			return
+	T.ChangeTurf(/turf/simulated/floor/chasm/pride)
 	var/turf/simulated/floor/chasm/C = T
-	C.drop_x = T.x
-	C.drop_y = T.y
-	C.drop_z = pick(levels)
 	C.drop(user)
 
 // Envy

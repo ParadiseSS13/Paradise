@@ -18,10 +18,8 @@
 	resistance_flags = FLAMMABLE
 	var/icon_type
 
-/obj/item/storage/fancy/update_icon(itemremoved = 0)
-	var/total_contents = length(contents) - itemremoved
-	icon_state = "[icon_type]box[total_contents]"
-	return
+/obj/item/storage/fancy/update_icon_state()
+	icon_state = "[icon_type]box[length(contents)]"
 
 /obj/item/storage/fancy/examine(mob/user)
 	. = ..()
@@ -41,31 +39,38 @@
 /obj/item/storage/fancy/donut_box
 	name = "donut box"
 	icon_type = "donut"
-	icon_state = "donutbox_back"
+	icon_state = "donutbox"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
 	icon_type = "donut"
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
-/obj/item/storage/fancy/donut_box/update_icon()
-	overlays.Cut()
-
+/obj/item/storage/fancy/donut_box/update_overlays()
+	. = ..()
 	for(var/I = 1 to length(contents))
 		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[I]
-		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "donut_[donut.donut_sprite_type]")
-		new_donut_icon.Shift(EAST, 3 * (I-1))
-		overlays += new_donut_icon
+		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "[(I - 1)]donut[donut.donut_sprite_type]")
+		. += new_donut_icon
 
-	overlays += icon('icons/obj/food/containers.dmi', "donutbox_front")
+/obj/item/storage/fancy/update_icon_state()
+	return
 
 /obj/item/storage/fancy/donut_box/populate_contents()
 	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/donut(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/fancy/donut_box/empty/populate_contents()
+	update_icon(UPDATE_OVERLAYS)
 	return
+
+/obj/item/storage/fancy/donut_box/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!length(contents))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /*
  * Egg Box
@@ -121,26 +126,28 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonbox"
 	w_class = WEIGHT_CLASS_SMALL
-	storage_slots = 6
+	storage_slots = 8
 	icon_type = "crayon"
 	can_hold = list(
 		/obj/item/toy/crayon
 	)
 
 /obj/item/storage/fancy/crayons/populate_contents()
+	new /obj/item/toy/crayon/white(src)
 	new /obj/item/toy/crayon/red(src)
 	new /obj/item/toy/crayon/orange(src)
 	new /obj/item/toy/crayon/yellow(src)
 	new /obj/item/toy/crayon/green(src)
 	new /obj/item/toy/crayon/blue(src)
 	new /obj/item/toy/crayon/purple(src)
+	new /obj/item/toy/crayon/black(src)
 	update_icon()
 
-/obj/item/storage/fancy/crayons/update_icon()
-	overlays = list() //resets list
-	overlays += image('icons/obj/crayons.dmi',"crayonbox")
+/obj/item/storage/fancy/crayons/update_overlays()
+	. = ..()
+	. += image('icons/obj/crayons.dmi',"crayonbox")
 	for(var/obj/item/toy/crayon/crayon in contents)
-		overlays += image('icons/obj/crayons.dmi',crayon.colourName)
+		. += image('icons/obj/crayons.dmi',crayon.colourName)
 
 /obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon))
@@ -163,6 +170,7 @@
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
 	item_state = "cigpacket"
+	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
 	slot_flags = SLOT_BELT
@@ -181,11 +189,11 @@
 	for(var/I in 1 to storage_slots)
 		new cigarette_type(src)
 
-/obj/item/storage/fancy/cigarettes/update_icon()
+/obj/item/storage/fancy/cigarettes/update_icon_state()
 	icon_state = "[initial(icon_state)][contents.len]"
 
 /obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!istype(M, /mob))
+	if(!ismob(M))
 		return
 
 	if(istype(M) && M == user && user.zone_selected == "mouth" && contents.len > 0 && !user.wear_mask)
@@ -207,13 +215,13 @@
 /obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(istype(W, /obj/item/match))
 		var/obj/item/match/M = W
-		if(M.lit == 1)
+		if(M.lit)
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>Putting a lit [W] in [src] probably isn't a good idea.</span>")
 			return 0
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/L = W
-		if(L.lit == 1)
+		if(L.lit)
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>Putting [W] in [src] while lit probably isn't a good idea.</span>")
 			return 0
@@ -291,6 +299,7 @@
 	desc = "You can't understand the runes, but the packet smells funny."
 	icon_state = "midoripacket"
 	item_state = "midoripacket"
+	cigarette_type = /obj/item/clothing/mask/cigarette/rollie
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims"
@@ -321,10 +330,10 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/rollingpaper(src)
 
-/obj/item/storage/fancy/rollingpapers/update_icon()
-	overlays.Cut()
+/obj/item/storage/fancy/rollingpapers/update_overlays()
+	. = ..()
 	if(!contents.len)
-		overlays += "[icon_state]_empty"
+		. += "[icon_state]_empty"
 
 /*
  * Vial Box
@@ -360,15 +369,18 @@
 	. = ..()
 	update_icon()
 
-/obj/item/storage/lockbox/vials/update_icon()
+/obj/item/storage/lockbox/vials/update_icon_state()
 	icon_state = "vialbox[length(contents)]"
 	cut_overlays()
+
+/obj/item/storage/lockbox/vials/update_overlays()
+	. = ..()
 	if(!broken)
-		overlays += image(icon, src, "led[locked]")
+		. += "led[locked]"
 		if(locked)
-			overlays += image(icon, src, "cover")
+			. += "cover"
 	else
-		overlays += image(icon, src, "ledb")
+		. += "ledb"
 
 /obj/item/storage/lockbox/vials/attackby(obj/item/I, mob/user, params)
 	..()

@@ -8,12 +8,12 @@
 	if(!istype(I)) //Something went wrong
 		return
 	if(!hide_tape) //if TRUE this hides the tape overlay and added examine text
-		RegisterSignal(parent, COMSIG_OBJ_UPDATE_ICON, .proc/add_tape_overlay)
-		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/add_tape_text)
+		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_tape_overlay))
+		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(add_tape_text))
 	x_offset = x
 	y_offset = y
-	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, .proc/afterattack)
-	RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/pick_up)
+	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(afterattack))
+	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(pick_up))
 	I.update_icon() //Do this first so the action button properly shows the icon
 	if(!hide_tape) //the tape can no longer be removed if TRUE
 		var/datum/action/item_action/remove_tape/RT = new(I)
@@ -27,7 +27,7 @@
 	tape_overlay = new('icons/obj/bureaucracy.dmi', "tape")
 	tape_overlay.Shift(EAST, x_offset - 2)
 	tape_overlay.Shift(NORTH, y_offset - 2)
-	O.overlays += tape_overlay
+	O.add_overlay(tape_overlay)
 
 /datum/component/ducttape/proc/remove_tape(obj/item/I, mob/user)
 	to_chat(user, "<span class='notice'>You tear the tape off [I]!</span>")
@@ -38,7 +38,7 @@
 	for(var/datum/action/item_action/remove_tape/RT in I.actions)
 		RT.Remove(user)
 		qdel(RT)
-	I.overlays.Cut(tape_overlay)
+	I.cut_overlay(tape_overlay)
 	user.transfer_fingerprints_to(I)
 	qdel(src)
 
@@ -55,7 +55,7 @@
 		var/target_direction = get_dir(source_turf, target_turf)//The direction we clicked
 		// Snowflake diagonal handling
 		if(target_direction in GLOB.diagonals)
-			to_chat(user, "<span class='warning'>You cant reach [target_turf].</span>")
+			to_chat(user, "<span class='warning'>You can't reach [target_turf].</span>")
 			return
 		if(target_direction & EAST)
 			x_offset = 16

@@ -11,8 +11,8 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 		setDir(angle2dir(rotation+dir2angle(dir)))
 
 	//resmooth if need be.
-	if(smooth && (params & ROTATE_SMOOTH))
-		queue_smooth(src)
+	if(params & ROTATE_SMOOTH && smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH(src)
 
 	//rotate the pixel offsets too.
 	if((pixel_x || pixel_y) && (params & ROTATE_OFFSET))
@@ -54,7 +54,10 @@ If ever any of these procs are useful for non-shuttles, rename it to proc/rotate
 		var/temp = d1
 		d1 = d2
 		d2 = temp
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/structure/shuttle/engine/shuttleRotate(rotation, params)
+	setDir(angle2dir(rotation+dir2angle(dir)))
 
 //Fixes dpdir on shuttle rotation
 /obj/structure/disposalpipe/shuttleRotate(rotation, params)

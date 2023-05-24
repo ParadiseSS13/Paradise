@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
 		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
-		"Deathsquad Officer", "Ian", "Slaughter Demon",
+		"Deathsquad Commando", "Ian", "Slaughter Demon",
 		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
 	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
@@ -120,10 +120,6 @@
 			name = "Unknown"
 			desc = "A cardboard cutout of a cultist."
 			icon_state = "cutout_cultist"
-		//if("Clockwork Cultist")
-		//	name = "[random_name(pick(MALE,FEMALE))]"
-		//	desc = "A cardboard cutout of a servant of Ratvar."
-		//	icon_state = "cutout_servant"
 		if("Revolutionary")
 			name = "Unknown"
 			desc = "A cardboard cutout of a revolutionary."
@@ -150,9 +146,9 @@
 		//	name = random_name(pick(MALE,FEMALE),"Unathi")
 		//	desc = "A cardboard cutout of an ash walker."
 		//	icon_state = "cutout_free_antag"
-		if("Deathsquad Officer")
-			name = pick(GLOB.commando_names)
-			desc = "A cardboard cutout of a death commando."
+		if("Deathsquad Commando")
+			name = pick(GLOB.deathsquad_names)
+			desc = "A cardboard cutout of a Deathsquad Commando, from that show about loose-cannon ERT Officers."
 			icon_state = "cutout_deathsquad"
 		if("Ian")
 			name = "Ian"

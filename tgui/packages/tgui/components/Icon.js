@@ -3,10 +3,10 @@ import { Box } from './Box';
 
 const FA_OUTLINE_REGEX = /-o$/;
 
-export const Icon = props => {
+export const Icon = (props) => {
   const { name, size, spin, className, style = {}, rotation, ...rest } = props;
   if (size) {
-    style['font-size'] = (size * 100) + '%';
+    style['font-size'] = size * 100 + '%';
   }
   if (typeof rotation === 'number') {
     style['transform'] = `rotate(${rotation}deg)`;
@@ -23,7 +23,8 @@ export const Icon = props => {
         spin && 'fa-spin',
       ])}
       style={style}
-      {...rest} />
+      {...rest}
+    />
   );
 };
 

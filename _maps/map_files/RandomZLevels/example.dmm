@@ -19,9 +19,9 @@
 	charge = 5e+006
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -30,23 +30,21 @@
 	dir = 8
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ag" = (
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/off_station{
 	dir = 1;
-	name = "area power controller";
-	pixel_x = 0;
 	pixel_y = 24
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -100,7 +98,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -122,9 +119,9 @@
 /area/awaymission/example)
 "ao" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /obj/machinery/gateway/centeraway,
 /turf/simulated/floor/plasteel,
@@ -173,7 +170,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -190,8 +186,8 @@
 /area/awaymission/example)
 "ax" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/example)
@@ -201,7 +197,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plating,
@@ -211,7 +206,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
@@ -228,7 +222,6 @@
 /area/awaymission/example)
 "aB" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /obj/structure/table,
@@ -237,8 +230,7 @@
 /area/awaymission/example)
 "aC" = (
 /obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -309,15 +301,13 @@
 /area/awaymission/example)
 "aQ" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-yellowfull (WEST)";
-	icon_state = "yellowfull";
-	dir = 8
+	dir = 8;
+	icon_state = "yellowfull"
 	},
 /area/awaymission/example)
 "aR" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "whitehall";
-	dir = 2
+	icon_state = "whitehall"
 	},
 /area/awaymission/example)
 "aS" = (
@@ -342,13 +332,13 @@
 	},
 /area/awaymission/example)
 "aV" = (
-/obj/machinery/vending/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/awaymission/example)
 "aW" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -462,7 +452,6 @@
 /area/awaymission/example)
 "bj" = (
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -501,9 +490,8 @@
 /area/awaymission/example)
 "bo" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-stage_stairs (WEST)";
-	icon_state = "stage_stairs";
-	dir = 8
+	dir = 8;
+	icon_state = "stage_stairs"
 	},
 /area/awaymission/example)
 "bp" = (
@@ -612,7 +600,6 @@
 /area/awaymission/example)
 "bC" = (
 /obj/structure/sink{
-	icon_state = "sink";
 	dir = 8;
 	pixel_x = -12;
 	pixel_y = 2
@@ -636,13 +623,12 @@
 /area/awaymission/example)
 "bF" = (
 /obj/machinery/door/airlock{
-	name = "Unisex Restrooms";
-	req_access_txt = "0"
+	name = "Unisex Restrooms"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bG" = (
-/obj/machinery/vending/boozeomat{
+/obj/machinery/economy/vending/boozeomat{
 	density = 0;
 	pixel_x = -32
 	},
@@ -663,7 +649,7 @@
 	pixel_y = 32
 	},
 /obj/item/book/manual/barman_recipes,
-/obj/item/book/manual/chef_recipes,
+/obj/item/book/manual/wiki/chef_recipes,
 /obj/item/book/manual/ripley_build_and_repair,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -671,8 +657,6 @@
 /area/awaymission/example)
 "bJ" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (EAST)";
-	icon_state = "wooden_chair";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -681,8 +665,6 @@
 /area/awaymission/example)
 "bK" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (WEST)";
-	icon_state = "wooden_chair";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -707,8 +689,6 @@
 /area/awaymission/example)
 "bN" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
-	icon_state = "wooden_chair";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -716,7 +696,7 @@
 	},
 /area/awaymission/example)
 "bO" = (
-/obj/machinery/vending/snack,
+/obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bP" = (
@@ -748,7 +728,7 @@
 	},
 /area/awaymission/example)
 "bT" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bU" = (
@@ -778,7 +758,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "bZ" = (
-/obj/machinery/vending/assist,
+/obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ca" = (
@@ -810,7 +790,6 @@
 /obj/item/screwdriver,
 /obj/item/hand_labeler,
 /obj/machinery/light{
-	icon_state = "tube1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -865,15 +844,11 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "cn" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "co" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -882,20 +857,14 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "cq" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/machinery/light_construct/small{
-	tag = "icon-bulb-construct-stage1 (WEST)";
-	icon_state = "bulb-construct-stage1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "cr" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /obj/item/mop,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -905,9 +874,7 @@
 /area/awaymission/example)
 "ct" = (
 /obj/structure/chair/stool,
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "cu" = (

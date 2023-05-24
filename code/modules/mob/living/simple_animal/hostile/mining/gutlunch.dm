@@ -1,7 +1,7 @@
 //Gutlunches, passive mods that devour blood and gibs
 /mob/living/simple_animal/hostile/asteroid/gutlunch
 	name = "gutlunch"
-	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Produces a thick, nutritious milk."
+	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Produces a thick, medicinally nutritious milk."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "gutlunch"
 	icon_living = "gutlunch"
@@ -95,16 +95,13 @@
 /obj/item/udder/gutlunch
 	name = "nutrient sac"
 
-/obj/item/udder/gutlunch/Initialize(mapload)
-	. = ..()
-	reagents = new(50)
-	reagents.my_atom = src
-
 /obj/item/udder/gutlunch/generateMilk()
 	if(prob(60))
 		reagents.add_reagent("cream", rand(2, 5))
 	if(prob(45))
-		reagents.add_reagent("salglu_solution", rand(2,5))
+		reagents.add_reagent("salglu_solution", rand(2, 5))
+	if(prob(30))
+		reagents.add_reagent("epinephrine", rand(2, 5))
 
 
 //Male gutlunch. They're smaller and more colorful!

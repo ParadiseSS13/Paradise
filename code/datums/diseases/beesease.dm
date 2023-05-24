@@ -12,7 +12,8 @@
 	severity = DANGEROUS
 
 /datum/disease/beesease/stage_act()
-	..()
+	if(!..())
+		return FALSE
 	switch(stage)
 		if(2) //also changes say, see say.dm // no it doesn't, that's horrifyingly snowflakey
 			if(prob(2))

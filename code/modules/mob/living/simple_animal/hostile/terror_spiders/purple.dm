@@ -12,6 +12,10 @@
 	name = "Purple Terror spider"
 	desc = "An ominous-looking purple spider. It looks about warily, as if waiting for something."
 	spider_role_summary = "Guards the nest of the Queen of Terror."
+	spider_intro_text = "As a Purple Terror Spider, your role is to guard all princess or queen terror spiders. \
+	You move faster than other spiders, have high health, deal decent damage, can force open powered doors and can destroy walls. \
+	Additionally, your webs are thick and will block vision for most of the crew. \
+	However, being away from queen or princess spiders for too long will cause you to degenerate, taking gradual damage until you die or gain sight of them again."
 	ai_target_method = TS_DAMAGE_BRUTE
 	icon_state = "terror_purple"
 	icon_living = "terror_purple"
@@ -25,7 +29,6 @@
 	speed = 0 // '0' (also the default for human mobs) converts to 2.5 total delay, or 4 tiles/sec.
 	spider_opens_doors = 2
 	ventcrawler = 0
-	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0 // stick to the queen!
@@ -112,5 +115,5 @@
 /obj/structure/spider/terrorweb/purple
 	name = "thick web"
 	desc = "This web is so thick, most cannot see beyond it."
-	opacity = 1
+	opacity = TRUE
 	max_integrity = 40

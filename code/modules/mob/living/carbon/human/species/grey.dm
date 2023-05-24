@@ -1,6 +1,7 @@
 /datum/species/grey
 	name = "Grey"
 	name_plural = "Greys"
+	max_age = 50
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	language = "Psionic Communication"
 	eyes = "grey_eyes_s"
@@ -16,11 +17,9 @@
 		"eyes" =     /obj/item/organ/internal/eyes/grey //5 darksight.
 		)
 
-	brute_mod = 1.25 //greys are fragile
-
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
+	species_traits = list(LIPS, CAN_WINGDINGS, NO_HAIR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags =  HAS_BODY_MARKINGS
+	bodyflags =  HAS_BODY_MARKINGS | HAS_BODYACC_COLOR | SHAVED | BALD
 	dietflags = DIET_HERB
 	has_gender = FALSE
 	reagent_tag = PROCESS_ORG
@@ -40,14 +39,8 @@
 	. = ..()
 
 	if(method == REAGENT_TOUCH)
-		if(H.wear_mask)
-			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+		if((H.head?.flags & THICKMATERIAL) && (H.wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 			return
-
-		if(H.head)
-			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
-			return
-
 		if(volume > 25)
 			if(prob(75))
 				H.take_organ_damage(5, 10)
@@ -67,7 +60,7 @@
 			to_chat(H, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	var/translator_pref = H.client.prefs.speciesprefs
+	var/translator_pref = H.client.prefs.active_character.speciesprefs
 	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && HAS_TRAIT(H, TRAIT_WINGDINGS)))
 		if(J.title == "Mime")
 			return
@@ -81,7 +74,7 @@
 				to_chat(H, "<span class='notice'>A speech translator implant has been installed due to your role on the station.</span>")
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "sacid")
+	if(R.id == "sacid" || R.id == "facid")
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return FALSE
 	if(R.id == "water")
@@ -91,4 +84,6 @@
 
 /datum/species/grey/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-	return E.eye_color
+	if(E)
+		return E.eye_color
+	return flesh_color
