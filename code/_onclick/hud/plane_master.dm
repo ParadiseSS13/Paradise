@@ -8,7 +8,6 @@
 
 /obj/screen/plane_master/Initialize(mapload)
 	. = ..()
-	//INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, add_filter), "displacer", 1, displacement_map_filter(render_source = GRAVITY_PULSE_RENDER_TARGET, size = 10))
 
 
 /obj/screen/plane_master/proc/Show(override)
@@ -35,7 +34,7 @@
 	blend_mode = BLEND_OVERLAY
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
-	. = ..()//if you delete it so help me god
+	. = ..() //if you delete it so help me god
 	clear_filters()
 	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
 		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
