@@ -64,7 +64,7 @@
 /obj/machinery/computer/reactor/stats
 	name = "reactor statistics console"
 	desc = "A console for monitoring the statistics of a nuclear reactor."
-	icon_screen = "rbmk_stats"
+	icon_screen = "power"
 	var/next_stat_interval = 0
 	var/list/psiData = list()
 	var/list/powerData = list()
@@ -75,10 +75,10 @@
 	. = ..()
 	ui_interact(user)
 
-/obj/machinery/computer/reactor/stats/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
+/obj/machinery/computer/reactor/stats/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "RbmkStats")
+		ui = new(user, src, ui_key, "RbmkStats", name, master_ui, state)
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
@@ -113,7 +113,7 @@
 /obj/machinery/computer/reactor/fuel_rods
 	name = "Reactor Fuel Management Console"
 	desc = "A console which can remotely raise fuel rods out of nuclear reactors."
-	icon_screen = "rbmk_fuel"
+	icon_screen = "forensics"
 
 /obj/machinery/computer/reactor/fuel_rods/attack_hand(mob/living/user)
 	. = ..()
