@@ -381,6 +381,10 @@
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")
 	SM.name = "[SM.name] as [user.real_name]"
+	if(istype(SM, /mob/living/simple_animal/hostile/lightgeist))
+		if(!GLOB.med_hud_users.Find(SM))
+			var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+			medsensor.add_hud_to(SM)
 	qdel(src)
 
 /obj/item/slimepotion/slime/steroid
