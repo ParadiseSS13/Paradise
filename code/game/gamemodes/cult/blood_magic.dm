@@ -838,7 +838,6 @@
 					"<span class='userdanger'>[user] has drained some of your blood!</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H))
-	return
 
 // This should really be split into multiple procs
 /obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
