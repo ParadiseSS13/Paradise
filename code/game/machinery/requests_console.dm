@@ -118,8 +118,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
 
-	// NOT BOOLEAN. DO NOT CONVERT.
 	update_icon()
+	// NOT BOOLEAN. DO NOT CONVERT.
 	set_light(1)
 
 /obj/machinery/requests_console/Destroy()
