@@ -156,7 +156,7 @@
 	icon_state = "hacktool"
 
 /// How long before you can "jangle" your keyring again (to prevent spam)
-#define JANGLE_COOLDOWN 10 SECONDS 
+#define JANGLE_COOLDOWN 10 SECONDS
 
 /obj/item/door_remote/janikeyring
 	name = "janitor's keyring"
@@ -196,6 +196,7 @@
 		hack_speed = rand(30, 60) SECONDS
 	else
 		hack_speed = rand(5, 20) SECONDS
+
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(!istype(D))
 			return
