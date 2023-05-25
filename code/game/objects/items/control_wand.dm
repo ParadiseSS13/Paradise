@@ -222,7 +222,7 @@
 				to_chat(user, "<span class='danger'>[D] is already open!</span>")
 
 		else
-			to_chat(user, "<span class='danger'>[src] does not seem to have a key for [D].</span>")
+			to_chat(user, "<span class='danger'>[src] does not seem to have a key for [D]!</span>")
 	busy = FALSE
 
 #undef WAND_OPEN
