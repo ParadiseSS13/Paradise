@@ -201,7 +201,7 @@
 		if(!istype(D))
 			return
 		if(HAS_TRAIT(D, TRAIT_CMAGGED))
-			to_chat(user, "<span class='danger'>[src] wont fit in the airlock's access panel, theres slime everywhere!</span>")
+			to_chat(user, "<span class='danger'>[src] wont fit in the airlock's access panel, there's slime everywhere!</span>")
 			return
 		if(D.is_special)
 			to_chat(user, "<span class='danger'>[src] cannot fit in this kind of airlock!</span>")
@@ -214,7 +214,7 @@
 			if(D.density)
 				D.open()
 			else
-				to_chat(user, "<span class='danger'>The [D] airlock is already open!.</span>")
+				to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
 		else
 			to_chat(user, "<span class='danger'>[src] does not seem to have a key for this airlock!.</span>")
 	busy = FALSE
