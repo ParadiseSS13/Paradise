@@ -35,6 +35,35 @@
 	var/magical = FALSE
 	var/dyeable = FALSE
 	w_class = WEIGHT_CLASS_SMALL
+	var/times_eaten = 0 //How many times this clothing has been gnawed on
+	var/max_bites = 4 //How many times a clothing can be bitten before being depleted. You eated it
+
+/obj/item/clothing/attack(mob/M, mob/user)
+	if(M == user && ismoth(user))
+		if (resistance_flags & FLAMMABLE) // Loose indicator that something is made out of cloth
+			var/mob/living/carbon/human/H = user
+			if(!H.check_has_mouth())
+				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
+				return
+			times_eaten++
+			playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
+			user.adjust_nutrition(5)
+			if(times_eaten < max_bites)
+				to_chat(user, "<span class='notice'>You take a bite of the [name]. Delicious!</span>")
+			else
+				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+				qdel(src)
+	else
+		..()
+
+/obj/item/clothing/examine(mob/user)
+	. = ..()
+	if(!user.Adjacent(src) || !times_eaten)
+		return
+	if(times_eaten == 1)
+		. += "<span class='notice'>[src] was bitten by someone!</span>"
+	else
+		. += "<span class='notice'>[src] was bitten multiple times!</span>"
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
