@@ -275,8 +275,8 @@
 	desc = "A great hat ruined by being within fifty yards of you."
 	actions_types = list(/datum/action/item_action/tip_fedora)
 	sprite_sheets = list(
-	"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-	"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
 	)
 
 
