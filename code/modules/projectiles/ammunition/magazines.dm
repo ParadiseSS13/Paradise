@@ -155,7 +155,7 @@
 	multiload = 0
 
 /obj/item/ammo_box/magazine/internal/rus357/Initialize(mapload)
-	..()
+	. = ..()
 	stored_ammo.Cut() // We only want 1 bullet in there
 	stored_ammo += new ammo_type(src)
 
