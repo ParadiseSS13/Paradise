@@ -393,6 +393,7 @@
 	reference = "BRHS"
 	item = /obj/item/storage/box/syndie_kit/modsuit
 	cost = 6
+	surplus = 60 //I have upped the chance of modsuits from 40, as I do feel they are much more worthwhile with the base modsuit no longer being 8 tc, and the high armor values of the elite.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/modsuit_elite
@@ -402,6 +403,7 @@
 	reference = "MSE"
 	item = /obj/item/storage/box/syndie_kit/modsuit/elite
 	cost = 9 //9 to start, no holopara / ebow.
+	surplus = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/implants/uplink // Nukies get Nuclear Uplink Bio-chip instead

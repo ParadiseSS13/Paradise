@@ -553,7 +553,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits and MODsuits"
-	surplus = 40
+	surplus = 10 //I am setting this to 10 as there are a bunch of modsuit parts in here that should be weighted to 10. Suits and modsuits adjusted below.
 
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
@@ -570,6 +570,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MSTV"
 	item = /obj/item/mod/module/visor/thermal
 	cost = 3 // Don't forget, you need to get a modsuit to go with this
+	surplus = 10 //You don't need more than
 
 /datum/uplink_item/suits/night
 	name = "MODsuit Night Visor Module"
