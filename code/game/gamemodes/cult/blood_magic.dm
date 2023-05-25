@@ -807,7 +807,7 @@
 	if(uses > missing)
 		M.adjustHealth(-missing)
 		M.visible_message("<span class='warning'>[M] is fully healed by [user]'s blood magic!</span>",
-		"<span class='cultitalic'>You are fully healed by [user]'s blood magic!</span>")
+			"<span class='cultitalic'>You are fully healed by [user]'s blood magic!</span>")
 		uses -= missing
 	else
 		M.adjustHealth(-uses)
