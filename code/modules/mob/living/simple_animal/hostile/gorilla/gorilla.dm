@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/gorilla
-	name = "Gorilla"
+	name = "gorilla"
 	desc = "A ground-dwelling, predominantly herbivorous ape that inhabits the forests of central Africa on Earth."
 	icon = 'icons/mob/gorilla.dmi'
 	icon_state = "crawling"
@@ -204,7 +204,7 @@
 	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic
-	name = "Cargorilla" // Overriden, normally
+	name = "cargorilla" // Overriden, normally
 	icon = 'icons/mob/cargorillia.dmi'
 	desc = "Cargo's pet gorilla. He seems to have an 'I love Mom' tattoo."
 	faction = list("neutral", "monkey", "jungle")
