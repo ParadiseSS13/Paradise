@@ -119,6 +119,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		GLOB.req_console_information |= department
 
 	// NOT BOOLEAN. DO NOT CONVERT.
+	update_icon()
 	set_light(1)
 
 /obj/machinery/requests_console/Destroy()
