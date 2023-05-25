@@ -580,6 +580,8 @@
 	icon_state = "janidrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
+	icon_broken = "base_drobe"
+	icon_off = "base_drobe"
 	ads_list = list("Come and get your janitorial clothing, now endorsed by lizard janitors everywhere!")
 	vend_reply = "Thank you for using the JaniDrobe!"
 	products = list(/obj/item/clothing/under/rank/civilian/janitor = 3,
