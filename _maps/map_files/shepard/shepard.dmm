@@ -273,10 +273,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
-	},
+/turf/simulated/floor/plasteel,
 /area/storage/tools)
 "add" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -538,7 +535,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "aeQ" = (
@@ -731,8 +728,8 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "aho" = (
@@ -1550,8 +1547,7 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/east)
 "aoP" = (
@@ -1629,8 +1625,8 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/storage/tools)
 "app" = (
@@ -1996,8 +1992,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "asR" = (
@@ -2352,14 +2348,6 @@
 	icon_state = "long"
 	},
 /area/engine/engineering)
-"axy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "longredwhite";
-	dir = 4
-	},
-/area/hallway/primary/central/sw)
 "axz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2595,12 +2583,6 @@
 	icon_state = "titanium_white"
 	},
 /area/shuttle/arrival/station)
-"azQ" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/hallway/primary/central/south)
 "azR" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -3333,8 +3315,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "aHK" = (
@@ -3777,7 +3759,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "aMp" = (
@@ -4723,8 +4705,8 @@
 /area/maintenance/atmos_control)
 "aWb" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "aWe" = (
@@ -5081,7 +5063,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "aYH" = (
@@ -5246,8 +5228,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "escape"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "bbo" = (
@@ -5347,7 +5328,7 @@
 "bcr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "bcv" = (
@@ -5484,7 +5465,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/security/lobby)
 "bek" = (
@@ -5923,7 +5904,7 @@
 	d1 = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "bjk" = (
@@ -6205,7 +6186,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "blc" = (
@@ -8565,8 +8546,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/storage/tools)
 "bGo" = (
@@ -8607,8 +8588,8 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "bGB" = (
@@ -9041,7 +9022,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "bKi" = (
@@ -10591,8 +10572,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 10
+	icon_state = "botblue"
 	},
 /area/hallway/primary/port/north)
 "bZy" = (
@@ -11231,10 +11211,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longwhite";
-	dir = 1
-	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "ceY" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
@@ -11315,7 +11292,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "browncorner"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "cfL" = (
@@ -11607,7 +11584,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "cih" = (
@@ -11955,8 +11932,8 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "ckO" = (
@@ -13210,8 +13187,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenpurple";
-	dir = 1
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "cuh" = (
@@ -13244,7 +13220,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "cuO" = (
@@ -13411,8 +13387,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "cwj" = (
@@ -13937,8 +13913,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "cCm" = (
@@ -14043,16 +14019,6 @@
 	icon_state = "dark"
 	},
 /area/security/checkpoint)
-"cDo" = (
-/obj/structure/cable/white{
-	d1 = 6;
-	d2 = 8;
-	icon_state = "6-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
-	},
-/area/hallway/primary/central/south)
 "cDs" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -14157,8 +14123,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "cEw" = (
@@ -14359,7 +14325,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/security/lobby)
 "cGU" = (
@@ -14849,7 +14815,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "cKQ" = (
@@ -15253,8 +15219,8 @@
 	location = "CAR1"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 6
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "cNy" = (
@@ -15875,8 +15841,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 1
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "cSX" = (
@@ -16120,8 +16085,8 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "cVm" = (
@@ -16193,7 +16158,7 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/security/lobby)
 "cVN" = (
@@ -16464,8 +16429,8 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "cXZ" = (
@@ -17479,8 +17444,8 @@
 /area/bridge)
 "diC" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "diO" = (
@@ -17501,7 +17466,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "diY" = (
@@ -17638,7 +17603,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "djY" = (
@@ -17726,10 +17691,7 @@
 	codes_txt = "patrol;next_patrol=SEC1";
 	location = "MED1"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 10
-	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "dkH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -17815,8 +17777,7 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
+	icon_state = "botblue"
 	},
 /area/storage/tools)
 "dlk" = (
@@ -18049,8 +18010,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenpurple";
-	dir = 1
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "dmQ" = (
@@ -18197,8 +18157,8 @@
 	d1 = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "doM" = (
@@ -18757,18 +18717,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/north)
-"dtX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
-	},
-/area/hallway/primary/central/south)
 "duc" = (
 /turf/simulated/wall/r_wall,
 /area/storage/secure)
@@ -18941,8 +18889,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown";
-	dir = 5
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "dvY" = (
@@ -19798,8 +19745,8 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "dEA" = (
@@ -19824,8 +19771,8 @@
 	icon_state = "4-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "dEM" = (
@@ -20474,8 +20421,8 @@
 	d1 = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "dLr" = (
@@ -21418,8 +21365,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "dXx" = (
@@ -21524,7 +21471,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "dYl" = (
@@ -22551,7 +22498,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "eju" = (
@@ -22803,8 +22750,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "emf" = (
@@ -22994,8 +22941,8 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "enF" = (
@@ -23080,8 +23027,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "eoC" = (
@@ -23461,7 +23408,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/security/lobby)
 "erT" = (
@@ -24034,8 +23981,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "exg" = (
@@ -24636,7 +24583,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "eDV" = (
@@ -24806,7 +24753,7 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "eFJ" = (
@@ -26571,7 +26518,7 @@
 	d1 = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "eVm" = (
@@ -26629,7 +26576,7 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "eVA" = (
@@ -27286,7 +27233,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/security/lobby)
 "fcp" = (
@@ -27365,7 +27312,7 @@
 	location = "DOR1"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "fdt" = (
@@ -27628,7 +27575,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "fgq" = (
@@ -29387,8 +29334,8 @@
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "fwn" = (
@@ -30153,8 +30100,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "fDj" = (
@@ -30408,7 +30355,7 @@
 "fFQ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "fFV" = (
@@ -30691,8 +30638,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "fIX" = (
@@ -31507,8 +31454,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "fRb" = (
@@ -32615,8 +32562,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/storage/tools)
 "gby" = (
@@ -32989,7 +32936,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "geX" = (
@@ -33131,8 +33078,8 @@
 	location = "SEC1"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "longyellow"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "ggC" = (
@@ -33178,7 +33125,7 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "ggW" = (
@@ -33690,7 +33637,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "gmp" = (
@@ -33876,7 +33823,7 @@
 	d1 = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "gnT" = (
@@ -33933,7 +33880,7 @@
 "goe" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "gon" = (
@@ -34492,8 +34439,8 @@
 	icon_state = "2-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "gtC" = (
@@ -34610,8 +34557,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "guO" = (
@@ -34905,8 +34852,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "gxX" = (
@@ -35643,8 +35590,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "gFo" = (
@@ -36133,8 +36080,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "gJV" = (
@@ -36256,7 +36203,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "gKW" = (
@@ -36595,8 +36542,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "gNr" = (
@@ -37360,7 +37307,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "gVz" = (
@@ -37434,8 +37381,8 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "gWp" = (
@@ -37461,8 +37408,8 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "gWB" = (
@@ -37472,8 +37419,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "gWF" = (
@@ -37679,7 +37626,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "gYb" = (
@@ -39011,7 +38958,7 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "hjO" = (
@@ -39740,7 +39687,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "hqJ" = (
@@ -41008,8 +40955,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 6
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/se)
 "hDr" = (
@@ -41059,10 +41005,7 @@
 	d2 = 10;
 	icon_state = "9-10"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 6
-	},
+/turf/simulated/floor/plasteel,
 /area/security/lobby)
 "hDL" = (
 /obj/structure/disposalpipe/segment{
@@ -41323,8 +41266,8 @@
 /obj/effect/turf_decal/stripes/white/line,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "hFA" = (
@@ -41592,7 +41535,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "hIc" = (
@@ -42975,8 +42918,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "hXp" = (
@@ -44077,8 +44020,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "iiv" = (
@@ -44111,8 +44054,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "iiO" = (
@@ -45056,8 +44999,8 @@
 	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "ipW" = (
@@ -45192,8 +45135,8 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "iqV" = (
@@ -45339,8 +45282,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenpurple";
-	dir = 9
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "isp" = (
@@ -45532,7 +45474,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "iuc" = (
@@ -49357,7 +49299,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "jeE" = (
@@ -49700,7 +49642,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "jil" = (
@@ -50629,8 +50571,7 @@
 	icon_state = "4-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenpurple";
-	dir = 6
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "joW" = (
@@ -50822,8 +50763,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "jqR" = (
@@ -50991,8 +50932,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "jsm" = (
@@ -52423,7 +52364,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "jFw" = (
@@ -53362,7 +53303,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "jOJ" = (
@@ -53934,11 +53875,6 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/mineral/bananium/lubed,
 /area/clownoffice)
-"jUf" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
-	},
-/area/hallway/primary/central/south)
 "jUi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
@@ -54503,8 +54439,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "jZO" = (
@@ -54956,7 +54892,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "kdV" = (
@@ -57419,7 +57355,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/security/lobby)
 "kAB" = (
@@ -58682,8 +58618,8 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "kMj" = (
@@ -58772,7 +58708,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "kML" = (
@@ -59174,7 +59110,7 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "kQB" = (
@@ -59510,16 +59446,6 @@
 	icon_state = "long"
 	},
 /area/security/prison/cell_block/A)
-"kUM" = (
-/obj/structure/cable/white{
-	d1 = 4;
-	d2 = 10;
-	icon_state = "4-10"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
-	},
-/area/hallway/primary/central/south)
 "kUO" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -61077,8 +61003,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "ljl" = (
@@ -61786,8 +61712,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "loH" = (
@@ -62520,7 +62446,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/south)
 "lvC" = (
@@ -63389,7 +63315,7 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen"
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "lDG" = (
@@ -64077,17 +64003,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
-"lKi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
-	},
-/area/hallway/primary/central/south)
 "lKk" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
@@ -64276,7 +64191,7 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "lMB" = (
@@ -64456,8 +64371,8 @@
 /area/maintenance/incinerator)
 "lOe" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "lOf" = (
@@ -64823,12 +64738,6 @@
 	icon_state = "long"
 	},
 /area/assembly/showroom)
-"lRn" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "longyellow"
-	},
-/area/security/lobby)
 "lRs" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/green{
@@ -65171,8 +65080,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "lUH" = (
@@ -65582,8 +65491,8 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "lYp" = (
@@ -65810,8 +65719,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "may" = (
@@ -65894,12 +65803,6 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/blueshield)
-"mbp" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
-	},
-/area/hallway/primary/central/south)
 "mbK" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
@@ -66255,8 +66158,7 @@
 	icon_state = "8-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blueyellow";
-	dir = 8
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "mev" = (
@@ -69507,8 +69409,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "mJv" = (
@@ -69775,8 +69677,8 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "mLV" = (
@@ -69934,8 +69836,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "mMX" = (
@@ -70578,7 +70480,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "mTI" = (
@@ -70992,7 +70894,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "mWP" = (
@@ -71519,7 +71421,7 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "nbY" = (
@@ -71698,7 +71600,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "neh" = (
@@ -71728,8 +71630,8 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "nev" = (
@@ -72706,8 +72608,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "npu" = (
@@ -72719,8 +72621,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "npA" = (
@@ -73385,8 +73287,8 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "nvd" = (
@@ -73915,8 +73817,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "nAm" = (
@@ -74014,7 +73916,7 @@
 	icon_state = "8-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "nAY" = (
@@ -75093,17 +74995,6 @@
 	icon_state = "caution"
 	},
 /area/engine/hallways)
-"nLi" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
-	},
-/area/hallway/primary/central/south)
 "nLj" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
@@ -76725,8 +76616,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "ocl" = (
@@ -77293,7 +77184,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "oho" = (
@@ -77598,7 +77489,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "okd" = (
@@ -77720,7 +77611,7 @@
 	icon_state = "4-5"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "olt" = (
@@ -77971,8 +77862,8 @@
 "omZ" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "onc" = (
@@ -78071,10 +77962,7 @@
 	sort_type_txt = "3";
 	icon_state = "pipe-j2s"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longbrown"
-	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "onM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -78525,8 +78413,7 @@
 	icon_state = "4-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenpurple";
-	dir = 1
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "orW" = (
@@ -79697,8 +79584,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "oDd" = (
@@ -79730,16 +79617,6 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/security/permabrig)
-"oDr" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 10;
-	icon_state = "4-10"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
-	},
-/area/security/lobby)
 "oDt" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -79881,7 +79758,7 @@
 "oFH" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "oFI" = (
@@ -80102,10 +79979,7 @@
 /area/bridge)
 "oHn" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longbrown"
-	},
+/turf/simulated/floor/plasteel,
 /area/quartermaster/lobby)
 "oHs" = (
 /obj/machinery/light/small{
@@ -80952,8 +80826,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "oOX" = (
@@ -81087,8 +80961,8 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "oQG" = (
@@ -82400,7 +82274,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/security/lobby)
 "pbE" = (
@@ -82738,8 +82612,8 @@
 	icon_state = "8-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "peh" = (
@@ -82865,8 +82739,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenpurple";
-	dir = 1
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "pfx" = (
@@ -82876,8 +82749,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "pfy" = (
@@ -82913,8 +82786,8 @@
 	icon_state = "4-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "pgn" = (
@@ -83150,7 +83023,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "piO" = (
@@ -83604,8 +83477,8 @@
 	icon_state = "2-5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "pns" = (
@@ -83788,8 +83661,8 @@
 	icon_state = "6-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "poE" = (
@@ -84651,7 +84524,7 @@
 	icon_state = "pipe-y"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen"
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "pyi" = (
@@ -84780,8 +84653,8 @@
 	d2 = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "pzg" = (
@@ -84982,8 +84855,8 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "pAT" = (
@@ -85506,8 +85379,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/storage/tools)
 "pGX" = (
@@ -88390,8 +88263,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "qiK" = (
@@ -88544,8 +88417,8 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "qjV" = (
@@ -89043,7 +88916,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "qpu" = (
@@ -89428,8 +89301,8 @@
 	icon_state = "6-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/storage/tools)
 "qta" = (
@@ -89716,7 +89589,7 @@
 	icon_state = "8-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "qvV" = (
@@ -90642,8 +90515,8 @@
 	location = "SER1"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "qGm" = (
@@ -91058,8 +90931,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "qJf" = (
@@ -91241,7 +91114,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "qKQ" = (
@@ -91271,8 +91144,8 @@
 /area/maintenance/asmaint2)
 "qLf" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "qLj" = (
@@ -91362,8 +91235,8 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "qLT" = (
@@ -92642,8 +92515,8 @@
 /area/storage/secure)
 "qXk" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "qXs" = (
@@ -94259,7 +94132,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "rll" = (
@@ -94337,8 +94210,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "rlR" = (
@@ -96718,8 +96591,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "rHp" = (
@@ -97316,8 +97189,8 @@
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "rMW" = (
@@ -97678,7 +97551,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "rPV" = (
@@ -98443,8 +98316,8 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "rXU" = (
@@ -98581,7 +98454,7 @@
 "rZE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "rZZ" = (
@@ -99513,8 +99386,7 @@
 "skE" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/se)
 "skI" = (
@@ -99635,8 +99507,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "slR" = (
@@ -99652,13 +99524,6 @@
 	icon_state = "titanium_white"
 	},
 /area/hallway/primary/fore)
-"slW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
-	},
-/area/hallway/primary/central/south)
 "slX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -100246,8 +100111,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite";
-	dir = 4
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/sw)
 "srx" = (
@@ -101132,7 +100996,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "sCo" = (
@@ -101371,8 +101235,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 5
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "sEw" = (
@@ -101532,8 +101395,8 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "sFo" = (
@@ -101608,7 +101471,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/sw)
 "sGd" = (
@@ -101706,8 +101569,8 @@
 	d2 = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "sGJ" = (
@@ -102068,10 +101931,7 @@
 	icon_state = "5-6";
 	d1 = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longbrown"
-	},
+/turf/simulated/floor/plasteel,
 /area/quartermaster/lobby)
 "sKl" = (
 /obj/structure/table/wood,
@@ -102160,8 +102020,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "sLh" = (
@@ -102723,7 +102583,7 @@
 /area/hallway/primary/central/east)
 "sQG" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "sQO" = (
@@ -102975,8 +102835,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "sSq" = (
@@ -103125,7 +102985,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "sTj" = (
@@ -103509,7 +103369,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "sXg" = (
@@ -103822,7 +103682,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "taE" = (
@@ -104418,8 +104278,8 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longred";
-	dir = 5
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "ths" = (
@@ -105093,17 +104953,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/hallway/primary/port)
-"tny" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
-	},
-/area/hallway/primary/central/se)
 "tnF" = (
 /obj/structure/cable/green{
 	d1 = 6;
@@ -105350,8 +105199,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "tpT" = (
@@ -105389,8 +105238,8 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "tpY" = (
@@ -106406,8 +106255,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite";
-	dir = 5
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "tzd" = (
@@ -106483,8 +106332,7 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/east)
 "tzF" = (
@@ -107196,7 +107044,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "tGZ" = (
@@ -107362,7 +107210,7 @@
 	icon_state = "6-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/east)
 "tIl" = (
@@ -107425,8 +107273,8 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "tIA" = (
@@ -107854,8 +107702,7 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/west)
 "tNf" = (
@@ -108547,8 +108394,8 @@
 	},
 /obj/effect/turf_decal/stripes/white/line,
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "tSO" = (
@@ -109037,8 +108884,8 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "tWE" = (
@@ -109431,20 +109278,9 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 1
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
-"ubE" = (
-/obj/structure/cable/white{
-	d1 = 5;
-	d2 = 8;
-	icon_state = "5-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
-	},
-/area/hallway/primary/central/south)
 "ubH" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -110657,8 +110493,8 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "ume" = (
@@ -111389,7 +111225,7 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "usp" = (
@@ -111901,7 +111737,7 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "uwL" = (
@@ -112350,8 +112186,8 @@
 /area/maintenance/fore)
 "uBt" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "uBv" = (
@@ -113006,8 +112842,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 9
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "uIj" = (
@@ -113489,7 +113325,7 @@
 	icon_state = "5-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "uLU" = (
@@ -113983,8 +113819,8 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "uQJ" = (
@@ -115652,7 +115488,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "vfQ" = (
@@ -115681,8 +115517,8 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "vga" = (
@@ -115927,7 +115763,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "vic" = (
@@ -116321,7 +116157,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "vmb" = (
@@ -116869,8 +116705,8 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "vso" = (
@@ -117617,8 +117453,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "vyG" = (
@@ -118445,14 +118281,6 @@
 	icon_state = "long"
 	},
 /area/hallway/secondary/entry/north)
-"vFt" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
-	},
-/area/hallway/primary/central/south)
 "vFu" = (
 /turf/simulated/floor/wood,
 /area/maintenance/fsmaint2)
@@ -118498,8 +118326,8 @@
 	icon_state = "9-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "vGd" = (
@@ -118659,7 +118487,7 @@
 /area/atmos)
 "vHf" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "vHi" = (
@@ -118750,7 +118578,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "vIl" = (
@@ -119459,8 +119287,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 1
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "vNK" = (
@@ -119940,7 +119767,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "vSk" = (
@@ -120169,7 +119996,7 @@
 	icon_state = "6-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblue"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/east)
 "vTO" = (
@@ -120395,10 +120222,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "longredwhite";
-	dir = 10
-	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "vWg" = (
 /obj/machinery/light{
@@ -120642,7 +120466,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/se)
 "vYa" = (
@@ -120834,8 +120658,7 @@
 "vZI" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	icon_state = "botblue"
 	},
 /area/hallway/primary/port)
 "vZJ" = (
@@ -122085,7 +121908,7 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "wlk" = (
@@ -122142,7 +121965,7 @@
 	})
 "wlJ" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "wlK" = (
@@ -122581,8 +122404,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "wpY" = (
@@ -123532,7 +123355,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "wAK" = (
@@ -123962,7 +123785,7 @@
 	icon_state = "2-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "wEK" = (
@@ -124253,8 +124076,8 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/security/lobby)
 "wHd" = (
@@ -124520,7 +124343,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "wJD" = (
@@ -124540,7 +124363,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "wJG" = (
@@ -124621,7 +124444,7 @@
 	icon_state = "1-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "wKh" = (
@@ -125029,7 +124852,7 @@
 	icon_state = "4-6"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "wNy" = (
@@ -125196,10 +125019,7 @@
 	icon_state = "1-6";
 	d1 = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longbrown"
-	},
+/turf/simulated/floor/plasteel,
 /area/quartermaster/lobby)
 "wOY" = (
 /obj/effect/turf_decal/catwalk,
@@ -125325,8 +125145,8 @@
 	d1 = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "wRf" = (
@@ -125624,8 +125444,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longred"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "wTv" = (
@@ -126021,7 +125841,7 @@
 	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "wWW" = (
@@ -126445,7 +126265,7 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longbluepurple"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "wZY" = (
@@ -126794,8 +126614,8 @@
 	icon_state = "1-10"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "xcV" = (
@@ -126838,8 +126658,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 5
+	icon_state = "long"
 	},
 /area/hallway/primary/port/north)
 "xdh" = (
@@ -127068,8 +126887,8 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "xfA" = (
@@ -127077,8 +126896,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/port)
 "xfQ" = (
@@ -127443,7 +127262,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenbrown"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "xiL" = (
@@ -127575,7 +127394,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "longredwhite"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "xjY" = (
@@ -128389,8 +128208,8 @@
 	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreen";
-	dir = 8
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/se)
 "xrg" = (
@@ -128433,8 +128252,7 @@
 	icon_state = "1-9"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longgreenpurple";
-	dir = 1
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "xru" = (
@@ -129367,8 +129185,8 @@
 	d1 = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/sw)
 "xzu" = (
@@ -129495,10 +129313,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "longpurple"
-	},
+/turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/north)
 "xAG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -130097,7 +129912,7 @@
 	icon_state = "5-10"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow"
+	icon_state = "long"
 	},
 /area/hallway/primary/central/south)
 "xGg" = (
@@ -130385,7 +130200,7 @@
 /area/library)
 "xJg" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow"
+	icon_state = "long"
 	},
 /area/security/lobby)
 "xJh" = (
@@ -130650,8 +130465,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "longblueyellow";
-	dir = 4
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/central/west)
 "xLz" = (
@@ -131057,8 +130872,7 @@
 	icon_state = "5-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "botblue"
 	},
 /area/hallway/primary/central/south)
 "xPd" = (
@@ -131413,8 +131227,8 @@
 	icon_state = "5-6"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard/north)
 "xSK" = (
@@ -132517,8 +132331,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "longyellow";
-	dir = 4
+	icon_state = "botblue"
 	},
 /area/storage/tools)
 "yeR" = (
@@ -132721,8 +132534,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "longpurple"
+	dir = 8;
+	icon_state = "long"
 	},
 /area/hallway/primary/starboard)
 "ygu" = (
@@ -156545,14 +156358,14 @@ wTm
 pzb
 tza
 rlQ
-axy
-axy
+wTm
+wTm
 srw
-axy
-axy
-axy
-axy
-axy
+wTm
+wTm
+wTm
+wTm
+wTm
 vWf
 ujn
 wIf
@@ -156768,10 +156581,10 @@ iEG
 teo
 ggr
 cGR
-lRn
-lRn
-lRn
-lRn
+gME
+gME
+gME
+gME
 erR
 uHY
 mMU
@@ -157280,7 +157093,7 @@ teY
 vUG
 spA
 ceq
-oDr
+nQv
 cUy
 inQ
 hKx
@@ -161949,7 +161762,7 @@ ctr
 slD
 aRi
 aNk
-mbp
+oFH
 aeL
 ppf
 yee
@@ -162721,7 +162534,7 @@ qJf
 qJf
 cMR
 sXd
-lKi
+xiI
 wip
 gZA
 ocw
@@ -162978,7 +162791,7 @@ lfH
 rxl
 ilh
 oka
-lKi
+xiI
 ppf
 oJm
 xia
@@ -163235,7 +163048,7 @@ rWX
 lvP
 gli
 mTF
-nLi
+cic
 iDg
 mlC
 gbi
@@ -163749,7 +163562,7 @@ dOC
 uQr
 mps
 sQG
-lKi
+xiI
 wip
 yee
 tWL
@@ -164006,7 +163819,7 @@ nBI
 ajk
 fiN
 mTF
-lKi
+xiI
 sEa
 yee
 vho
@@ -164263,7 +164076,7 @@ bjN
 ajk
 tbh
 sQG
-lKi
+xiI
 xSE
 yee
 yee
@@ -164520,7 +164333,7 @@ iVo
 vvb
 tpY
 gKO
-vFt
+sCk
 iMo
 uTM
 xDY
@@ -165034,7 +164847,7 @@ uQr
 uQr
 iSf
 sQG
-nLi
+cic
 uHb
 qOZ
 rpm
@@ -165804,7 +165617,7 @@ kMb
 oZK
 gUj
 qZB
-slW
+bla
 via
 qOC
 ndL
@@ -166062,7 +165875,7 @@ wvj
 wvj
 elw
 eVu
-lKi
+xiI
 bqc
 ndL
 jkh
@@ -166318,8 +166131,8 @@ gRb
 hEQ
 tul
 fiN
-cDo
-lKi
+hjL
+xiI
 ppf
 uTM
 uTM
@@ -167089,7 +166902,7 @@ wvj
 wvj
 wvj
 eOV
-azQ
+sQG
 xOY
 bGB
 vfF
@@ -167603,7 +167416,7 @@ gRb
 gRb
 hNi
 wTl
-jUf
+sQG
 xiI
 ppf
 vfF
@@ -168117,7 +167930,7 @@ lEs
 wvj
 wvj
 xoE
-ubE
+oka
 xiI
 euS
 eSR
@@ -169659,7 +169472,7 @@ qPj
 gYL
 jZb
 aRx
-jUf
+sQG
 xiI
 wip
 ebu
@@ -170430,7 +170243,7 @@ gYL
 fnp
 jZb
 eOg
-jUf
+sQG
 jik
 qOC
 rnF
@@ -170687,7 +170500,7 @@ gYL
 iCV
 jZb
 bro
-jUf
+sQG
 vRT
 jeh
 rnF
@@ -170944,7 +170757,7 @@ lNM
 ayS
 jZb
 fFc
-kUM
+eVu
 xiI
 sEa
 rnF
@@ -171202,7 +171015,7 @@ unD
 unD
 pII
 hjL
-dtX
+lvw
 wip
 rnF
 gxy
@@ -176342,7 +176155,7 @@ epL
 ucw
 jsm
 wlJ
-tny
+cSU
 qMW
 ggI
 iPV
@@ -176599,7 +176412,7 @@ mpB
 frG
 wwi
 wlJ
-tny
+cSU
 iQz
 ggI
 hCK
