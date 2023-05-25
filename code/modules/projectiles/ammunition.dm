@@ -52,6 +52,8 @@
 /obj/item/ammo_casing/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/ammo_box))
 		var/obj/item/ammo_box/box = I
+		if(box.slow_loading)
+			return
 		if(isturf(loc))
 			var/boolets = 0
 			for(var/obj/item/ammo_casing/bullet in loc)
@@ -130,10 +132,11 @@
 	var/multi_sprite_step = AMMO_MULTI_SPRITE_STEP_NONE // see update_icon_state() for details
 	var/caliber
 	var/multiload = 1
+	var/slow_loading = FALSE
 	var/list/initial_mats //For calculating refund values.
 
-/obj/item/ammo_box/New()
-	..()
+/obj/item/ammo_box/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to max_ammo)
 		stored_ammo += new ammo_type(src)
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
