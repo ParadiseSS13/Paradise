@@ -200,23 +200,29 @@
 	if(do_after(user, hack_speed, target = D, progress = 0))
 		if(!istype(D))
 			return
+			
 		if(HAS_TRAIT(D, TRAIT_CMAGGED))
-			to_chat(user, "<span class='danger'>[src] wont fit in the airlock's access panel, theres slime everywhere!</span>")
+			to_chat(user, "<span class='danger'>[src] wont fit in [D]'s access panel, theres slime everywhere!</span>")
 			return
+			
 		if(D.is_special)
-			to_chat(user, "<span class='danger'>[src] cannot fit in this kind of airlock!</span>")
+			to_chat(user, "<span class='danger'>[src] cannot fit in [D]!</span>")
 			return
-		if(!(D.arePowerSystemsOn()))
+			
+		if(!D.arePowerSystemsOn())
 			to_chat(user, "<span class='danger'>[D] has no power!</span>")
 			return
+			
 		if(D.check_access(ID))
 			D.add_hiddenprint(user)
 			if(D.density)
 				D.open()
+				
 			else
-				to_chat(user, "<span class='danger'>The [D] airlock is already open!.</span>")
+				to_chat(user, "<span class='danger'>[D] is already open!.</span>")
+				
 		else
-			to_chat(user, "<span class='danger'>[src] does not seem to have a key for this airlock!.</span>")
+			to_chat(user, "<span class='danger'>[src] does not seem to have a key for [D].</span>")
 	busy = FALSE
 
 #undef WAND_OPEN
