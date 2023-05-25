@@ -812,7 +812,7 @@
 	else
 		M.adjustHealth(-uses)
 		M.visible_message("<span class='warning'>[M] is partially healed by [user]'s blood magic!</span>",
-		"<span class='cultitalic'>You are partially healed by [user]'s blood magic.</span>")
+			"<span class='cultitalic'>You are partially healed by [user]'s blood magic.</span>")
 		uses = 0
 	playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
 	user.Beam(M, icon_state = "sendbeam", time = 10)
