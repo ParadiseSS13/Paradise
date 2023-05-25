@@ -123,7 +123,6 @@
 	item = /obj/item/caution/proximity_sign
 	cost = 2
 	job = list("Janitor")
-	surplus = 0
 
 //Virology
 
@@ -259,16 +258,6 @@
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 8
 	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
-
-//Tator Poison Bottles
-
-/datum/uplink_item/jobspecific/poisonbottle
-	name = "Poison Bottle"
-	desc = "The Syndicate will ship a bottle containing 40 units of a randomly selected poison. The poison can range from highly irritating to incredibly lethal."
-	reference = "TPB"
-	item = /obj/item/reagent_containers/glass/bottle/traitor
-	cost = 2
-	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
 
 // Paper contact poison pen
 
