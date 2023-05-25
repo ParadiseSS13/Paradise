@@ -738,7 +738,7 @@
 /obj/item/melee/blood_magic/manipulator/proc/restore_blood(mob/living/carbon/human/user, mob/living/carbon/human/H)
 	if(uses == 0)
 		return
-	if(!H.dna || (NO_BLOOD in H.dna.species.species_traits) || H.dna.species.exotic_blood != null)
+	if(!H.dna || (NO_BLOOD in H.dna.species.species_traits) || !isnull(H.dna.species.exotic_blood))
 		return
 	if(H.blood_volume >= BLOOD_VOLUME_SAFE)
 		return
