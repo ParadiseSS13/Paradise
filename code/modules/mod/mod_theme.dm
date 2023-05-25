@@ -671,7 +671,7 @@
 	)
 
 /obj/item/mod/armor/mod_theme_security
-	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 25, BIO = INFINITY, RAD = 0, FIRE = 150, ACID = 150)
+	armor = list(MELEE = 25, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 25, BIO = INFINITY, RAD = 0, FIRE = 150, ACID = 150)
 
 /datum/mod_theme/safeguard
 	name = "safeguard"

@@ -269,6 +269,7 @@
 				/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray = 25, // mecha x-ray laser
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
 				/obj/item/autosurgeon/organ = 50,
+				/obj/item/mod/construction/plating/research = 25,
 
 				// Research / Experimentor
 				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
@@ -298,7 +299,10 @@
 
 				// Virology
 				/obj/item/reagent_containers/glass/bottle/regeneration = 50,
-				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50
+				/obj/item/reagent_containers/glass/bottle/sensory_restoration = 50,
+
+				// Medical in general
+				/obj/item/mod/construction/plating/rescue = 25
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/sec
@@ -312,6 +316,8 @@
 				/obj/item/storage/belt/military/assault = 50,
 				/obj/item/clothing/mask/gas/sechailer/swat = 50,
 				/obj/item/clothing/glasses/thermal = 50, // see heat-source mobs through walls. Less powerful than already-available xray.
+				/obj/item/mod/construction/plating/safeguard = 25,
+				/obj/item/mod/module/power_kick = 50,
 
 				// Ranged weapons
 				/obj/item/storage/box/enforcer_rubber = 50,
@@ -333,7 +339,8 @@
 				/obj/item/storage/backpack/holding = 25,
 				/obj/item/clothing/glasses/meson/night = 25, // NV mesons
 				/obj/item/clothing/glasses/material = 25, // shows objects, but not mobs, through walls
-				/obj/item/grenade/clusterbuster/metalfoam = 25 // cluster metal foam grenade
+				/obj/item/grenade/clusterbuster/metalfoam = 25, // cluster metal foam grenade
+				/obj/item/mod/construction/plating/advanced = 13
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/largeitem
