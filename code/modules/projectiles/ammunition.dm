@@ -136,7 +136,7 @@
 	var/list/initial_mats //For calculating refund values.
 
 /obj/item/ammo_box/Initialize(mapload)
-	..()
+	. = ..()
 	for(var/i in 1 to max_ammo)
 		stored_ammo += new ammo_type(src)
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
