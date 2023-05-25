@@ -1027,3 +1027,236 @@
 #undef ORION_TRAIL_COLLISION
 #undef ORION_TRAIL_SPACEPORT
 #undef ORION_TRAIL_BLACKHOLE
+
+#define PROB_CANDIDATE_ERRORS 10
+#define PROB_UNIQUE_CANDIDATE 2
+#define UNIQUE_STEVE 1
+#define UNIQUE_MIME 2
+#define UNIQUE_CEO_CHILD 3
+#define UNIQUE_VIGILANTE 4
+
+/obj/machinery/computer/arcade/recruiter
+	name = "NT Recruiter Simulator"
+	desc = "Play as the nanotrasen recruiter."
+	circuit = /obj/item/circuitboard/arcade/recruiter
+	var/candidate_name
+	var/candidate_gender
+	var/age
+	var/datum/species/cand_species
+	var/planet_of_origin
+	var/job_requested
+	var/employment_records
+	/// Current turn of the game
+	var/curriculums
+	/// Is he a unique candidate/character?
+	var/unique_candidate
+
+	var/list/planets = list("Earth", "Mars", "Luna", "Jargoon 4", "New Cannan", "Mauna-B", "Ahdomai", "Moghes", "Qerrballak", "Xarxis 5", "Hoorlm", "Aurum", "Boron 2", "Kelune", "Dalstadt")
+	/// Planets with either mispellings or ones that cannot support life
+	var/list/incorrect_planets = list("Altam", "Eath", "Marks", "Lunao", "Jaboon 4", "Old Cannan", "Mauna-P", "Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
+
+	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Station Engineer", "Atmospherics Technician", "Medical Doctor", "Coroner", "Geneticist", "Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs")
+	/// Jobs that NT stations dont offer/mispelled
+	var/list/incorrect_jobs = list("Syndicate Operative", "Syndicate Researcher", "Veterinary", "ERT", "Pod Pilot", "Cremist", "Cluwne", "Work Safety Inspector", "Musician", "Chauffeur", "Teacher", "Maid", "Plumber", "Trader", "Hobo", "NT CEO", "Mime", "Assitant", "Janitor", "Medical", "Generticist", "Baton Officer", "Detecctive", "Sccientist", "Robocticist", "Cargo Tecchhnician", "Internal Afairs")
+
+	var/list/records = list("Janitor", "Cargo Technician")
+	var/list/incorrect_records = list("Syndicate Janitor", "Syndicate Cargo Tech", "None")
+
+	/// Species that are hirable in the eyes of NT
+	var/list/hirable_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell,
+										/datum/species/tajaran, /datum/species/kidan, /datum/species/golem,
+										/datum/species/diona, /datum/species/machine, /datum/species/slime,
+										/datum/species/grey, /datum/species/vulpkanin, /datum/species/plasmaman,
+										/datum/species/moth)
+	/// Species that are NOT hirable in the eyes of NT
+	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey, /datum/species/nucleation,
+										/datum/species/shadow, /datum/species/skeleton)
+
+	/// Is he a good candidate for hiring?
+	var/good_candidate = TRUE
+	var/playing = FALSE
+	var/game_over = FALSE
+
+/obj/machinery/computer/arcade/recruiter/proc/generate_candidate()
+	if(prob(PROB_CANDIDATE_ERRORS))
+		cand_species = pick(incorrect_species)
+		good_candidate = FALSE
+	else
+		cand_species = pick(hirable_species)
+
+	candidate_gender = pick(MALE, FEMALE, NEUTER)
+
+	if(candidate_gender == NEUTER && initial(cand_species.has_gender)) // If the species has a gender it cannot be neuter!
+		good_candidate = FALSE
+
+	if(prob(PROB_CANDIDATE_ERRORS))
+		age = pick(initial(cand_species.max_age) + rand(10, 100), (initial(cand_species.min_age) - rand(1, 10))) // Its either too young or too old for the job
+		good_candidate = FALSE
+	else
+		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
+
+	candidate_name = random_name(candidate_gender, cand_species)
+
+	if(prob(PROB_CANDIDATE_ERRORS))
+		planet_of_origin = pick(incorrect_planets)
+		good_candidate = FALSE
+	else
+		planet_of_origin = pick(planets)
+
+	if(prob(PROB_CANDIDATE_ERRORS))
+		job_requested = pick(incorrect_jobs)
+		good_candidate = FALSE
+	else
+		job_requested = pick(jobs)
+
+	if(prob(PROB_CANDIDATE_ERRORS))
+		employment_records = pick(incorrect_records)
+		good_candidate = FALSE
+	else
+		employment_records = pick(records)
+
+	if(job_requested == "Clown") // Clowns always get hired no matter what, ZERO requirements
+		good_candidate = TRUE
+
+/obj/machinery/computer/arcade/recruiter/proc/unique_candidate()
+	unique_candidate = pick(UNIQUE_STEVE, UNIQUE_MIME, UNIQUE_CEO_CHILD, UNIQUE_VIGILANTE)
+	switch(unique_candidate)
+		if(UNIQUE_STEVE) // Steve is special
+			candidate_name = "Steve"
+			candidate_gender = MALE
+			age = "30"
+			cand_species = /datum/species/human
+			planet_of_origin = "Unknown"
+			job_requested = "Central Command Intern"
+			employment_records = "Experience in pressing buttons"
+		if(UNIQUE_MIME) // Only hire mimes that don't fill their curriculum
+			candidate_name = "..."
+			candidate_gender = "..."
+			age = "..."
+			planet_of_origin = "..."
+			job_requested = "Mime"
+			employment_records = "..."
+		if(UNIQUE_CEO_CHILD) // Hes the son of the CEO, what do you expect?
+			candidate_name = "John Nanotrasen Junior"
+			candidate_gender = MALE
+			age = "12"
+			cand_species = /datum/species/human
+			planet_of_origin = "Unknown"
+			job_requested = "Captain"
+			employment_records = "Whatever"
+		if(UNIQUE_VIGILANTE) // For some reason vigilantes do get inside NT stations, let them slip in
+			candidate_name = "Owlman"
+			candidate_gender = MALE
+			age = "38"
+			cand_species = /datum/species/human
+			planet_of_origin = "Unknown"
+			job_requested = "Assistant"
+			employment_records = "Experience in hunting criminals"
+
+/obj/machinery/computer/arcade/recruiter/proc/win()
+	playing = FALSE
+	atom_say("Congratulations recruiter, the company is going to have a productive shift thanks to you.")
+	playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
+	prizevend(200)
+
+/obj/machinery/computer/arcade/recruiter/attack_hand(mob/user)
+	if(..())
+		return
+	user.set_machine(src)
+	var/dat = ""
+	if(game_over)
+		if(!good_candidate)
+			dat = "<center><h1>Game Over</h1></center>"
+			dat += "You ended up hiring incompetent employees and now the company is wasting lots of resources to fix what you caused..."
+			dat += "<br><P ALIGN=Right><a href='byond://?src=[UID()];menu=1'>Menu</a></P>"
+		else
+			dat = "<center><h1>Game Over</h1></center>"
+			dat += "You ended up dismissing a competent employee and now the company is suffering with the lack of crew."
+			dat += "<br><P ALIGN=Right><a href='byond://?src=[UID()];menu=1'>Menu</a></P>"
+	else if(playing)
+		dat = "<center><h1>Candidate number #[curriculums]</h1></center>"
+		dat += "<h3><b>Name:</b></h3>"
+		dat += "[candidate_name]"
+		dat += "<h3><b>Gender:</b></h3>"
+		dat += "[capitalize(candidate_gender)]"
+		dat += "<h3><b>Age:</b></h3>"
+		dat += "[age] years"
+		dat += "<h3><b>Species:</b></h3>"
+		dat += "[initial(cand_species.name)]"
+		dat += "<h3><b>Planet of Origin:</b></h3>"
+		dat += "[planet_of_origin]"
+		dat += "<h3><b>Requested Job:</b></h3>"
+		dat += "[job_requested]"
+		dat += "<h3><b>Employment Records:</b></h3>"
+		dat += "[employment_records]"
+
+		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];hire=1'>Hire</a></P>"
+		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];dismiss=1'>Dismiss</a></P>"
+		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
+	else
+		dat = "<center><h2>NT Recruiter Simulator</h2></center>"
+		dat += "<br><center><h3>Work as the Nanotrasen recruiter and avoid hiring incompetent employees!</h3></center><br><br>"
+		dat += "<center><b><a href='byond://?src=[UID()];newgame=1'>Begin shift</a></b></center>"
+		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
+	var/datum/browser/popup = new(user, "arcade", "NT Recruiter Simulator", 400, 700)
+	popup.set_content(dat)
+	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
+	popup.open()
+	return
+
+/obj/machinery/computer/arcade/recruiter/Topic(href, href_list)
+	. = ..()
+	if(.)
+		return
+	if(href_list["close"])
+		usr.unset_machine()
+		usr << browse(null, "window=arcade")
+
+	if(href_list["hire"])
+		if(!good_candidate)
+			game_over = TRUE
+		else if(curriculums >= 5)
+			win()
+		else
+			curriculums++
+			if(prob(PROB_UNIQUE_CANDIDATE))
+				unique_candidate()
+			else
+				generate_candidate()
+
+	if(href_list["dismiss"])
+		if(good_candidate)
+			game_over = TRUE
+		else if(curriculums >= 5)
+			win()
+		else
+			curriculums++
+			good_candidate = TRUE
+			if(prob(PROB_UNIQUE_CANDIDATE))
+				unique_candidate()
+			else
+				generate_candidate()
+
+	if(href_list["newgame"])
+		good_candidate = TRUE
+		playing = TRUE
+		curriculums = 1
+		if(prob(PROB_UNIQUE_CANDIDATE))
+			unique_candidate()
+		else
+			generate_candidate()
+
+	if(href_list["menu"])
+		game_over = FALSE
+		playing = FALSE
+
+	add_fingerprint(usr)
+	updateUsrDialog()
+	return
+
+#undef PROB_CANDIDATE_ERRORS
+#undef PROB_UNIQUE_CANDIDATE
+#undef UNIQUE_STEVE
+#undef UNIQUE_MIME
+#undef UNIQUE_CEO_CHILD
+#undef UNIQUE_VIGILANTE
