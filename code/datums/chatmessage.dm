@@ -5,7 +5,7 @@
 /// How long the chat message's end of life fading animation will occur for
 #define CHAT_MESSAGE_EOL_FADE		(0.7 SECONDS)
 /// Grace period for fade before we actually delete the chat message
-#define CHAT_MESSAGE_GRACE_PERIOD 	(2 SECONDS)
+#define CHAT_MESSAGE_GRACE_PERIOD 	(0.2 SECONDS)
 /// Factor of how much the message index (number of messages) will account to exponential decay
 #define CHAT_MESSAGE_EXP_DECAY		0.7
 /// Factor of how much height will account to exponential decay
@@ -165,27 +165,26 @@
 		for(var/datum/chatmessage/m as anything in owned_by.seen_messages[message_loc])
 			combined_height += m.approx_lines
 
-			var/time_spent = rough_time - m.animate_start
-			var/time_before_fade = m.animate_lifespan - CHAT_MESSAGE_EOL_FADE
+			var/time_alive = rough_time - m.animate_start
+			var/lifespan_until_fade = m.animate_lifespan - CHAT_MESSAGE_EOL_FADE
 
-			// When choosing to update the remaining time we have to be careful not to update the
-			// scheduled time once the EOL has been executed.
-			if(time_spent >= time_before_fade)
+			if(time_alive >= lifespan_until_fade) // If already fading out or dead, just shift upwards
 				animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME, flags = ANIMATION_PARALLEL)
 				continue
 
-			var/remaining_time = time_before_fade * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** combined_height)
 			// Ensure we don't accidentially spike alpha up or something silly like that
-			m.message.alpha = m.get_current_alpha(time_spent)
-			if(remaining_time > 0)
-				// Stay faded in for a while, then
-				animate(m.message, alpha = 255, remaining_time)
-				// Fade out
+			m.message.alpha = m.get_current_alpha(time_alive)
+
+			var/adjusted_lifespan_until_fade = lifespan_until_fade * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** combined_height)
+			m.animate_lifespan = adjusted_lifespan_until_fade + CHAT_MESSAGE_EOL_FADE
+
+			var/remaining_lifespan_until_fade = adjusted_lifespan_until_fade - time_alive
+			if(remaining_lifespan_until_fade > 0) // Still got some lifetime to go; stay faded in for the remainder, then fade out
+				animate(m.message, alpha = 255, time = remaining_lifespan_until_fade)
 				animate(alpha = 0, time = CHAT_MESSAGE_EOL_FADE)
-				m.animate_lifespan = remaining_time + CHAT_MESSAGE_EOL_FADE
-			else
-				// Your time has come my son
-				animate(alpha = 0, time = CHAT_MESSAGE_EOL_FADE)
+			else // Current time alive is beyond new adjusted lifespan, your time has come my son
+				animate(m.message, alpha = 0, time = CHAT_MESSAGE_EOL_FADE)
+
 			// We run this after the alpha animate, because we don't want to interrup it, but also don't want to block it by running first
 			// Sooo instead we do this. bit messy but it fuckin works
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME, flags = ANIMATION_PARALLEL)
@@ -214,9 +213,8 @@
 
 	// Fade in
 	animate(message, alpha = 255, time = CHAT_MESSAGE_SPAWN_TIME)
-	var/time_before_fade = lifespan - CHAT_MESSAGE_SPAWN_TIME - CHAT_MESSAGE_EOL_FADE
 	// Stay faded in
-	animate(alpha = 255, time = time_before_fade)
+	animate(alpha = 255, time = lifespan - CHAT_MESSAGE_SPAWN_TIME - CHAT_MESSAGE_EOL_FADE)
 	// Fade out
 	animate(alpha = 0, time = CHAT_MESSAGE_EOL_FADE)
 
@@ -224,15 +222,15 @@
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), lifespan + CHAT_MESSAGE_GRACE_PERIOD, TIMER_DELETE_ME, SSrunechat)
 
 /// Returns the current alpha of the message based on the time spent
-/datum/chatmessage/proc/get_current_alpha(time_spent)
-	if(time_spent < CHAT_MESSAGE_SPAWN_TIME)
-		return (time_spent / CHAT_MESSAGE_SPAWN_TIME) * 255
+/datum/chatmessage/proc/get_current_alpha(time_alive)
+	if(time_alive < CHAT_MESSAGE_SPAWN_TIME)
+		return (time_alive / CHAT_MESSAGE_SPAWN_TIME) * 255
 
-	var/time_before_fade = animate_lifespan - CHAT_MESSAGE_EOL_FADE
-	if(time_spent <= time_before_fade)
+	var/lifespan_until_fade = animate_lifespan - CHAT_MESSAGE_EOL_FADE
+	if(time_alive <= lifespan_until_fade)
 		return 255
 
-	return (1 - ((time_spent - time_before_fade) / CHAT_MESSAGE_EOL_FADE)) * 255
+	return (1 - ((time_alive - lifespan_until_fade) / CHAT_MESSAGE_EOL_FADE)) * 255
 
 /**
   * Creates a message overlay at a defined location for a given speaker
