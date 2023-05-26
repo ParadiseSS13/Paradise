@@ -10,8 +10,10 @@
 	name = "Corporate Judo Belt"
 	desc = "Teaches the wearer NT Corporate Judo"
 	icon = 'icons/obj/clothing/belts.dmi'
-	icon_state = "championbelt"
-	item_state = "champion"
+	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
+	icon_state = "judobelt"
+	item_state = "judo"
 	slot_flags = SLOT_BELT
 	var/datum/martial_art/judo/style
 
