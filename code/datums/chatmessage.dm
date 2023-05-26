@@ -1,11 +1,11 @@
 /// How long the chat message's spawn-in animation will occur for
-#define CHAT_MESSAGE_SPAWN_TIME		0.2 SECONDS
+#define CHAT_MESSAGE_SPAWN_TIME		(0.2 SECONDS)
 /// How long the chat message will exist prior to any exponential decay
-#define CHAT_MESSAGE_LIFESPAN		5 SECONDS
+#define CHAT_MESSAGE_LIFESPAN		(5 SECONDS)
 /// How long the chat message's end of life fading animation will occur for
-#define CHAT_MESSAGE_EOL_FADE		0.7 SECONDS
+#define CHAT_MESSAGE_EOL_FADE		(0.7 SECONDS)
 /// Grace period for fade before we actually delete the chat message
-#define CHAT_MESSAGE_GRACE_PERIOD (0.2 SECONDS)
+#define CHAT_MESSAGE_GRACE_PERIOD 	(1 SECONDS)
 /// Factor of how much the message index (number of messages) will account to exponential decay
 #define CHAT_MESSAGE_EXP_DECAY		0.7
 /// Factor of how much height will account to exponential decay
@@ -40,18 +40,10 @@
 	var/atom/message_loc
 	/// The client who heard this message
 	var/client/owned_by
-	/// Contains the scheduled destruction time, used for scheduling EOL
-	var/scheduled_destruction
-	/// Contains the time that the EOL for the message will be complete, used for qdel scheduling
-	var/eol_complete
 	/// Contains the approximate amount of lines for height decay
 	var/approx_lines
 	/// The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones
 	var/static/current_z_idx = 0
-	/// Contains the reference to the next chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/next
-	/// Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem
-	var/datum/chatmessage/prev
 	/// When we started animating the message
 	var/animate_start = 0
 	/// Our animation lifespan, how long this message will last
@@ -117,12 +109,12 @@
 	// Clip message
 	var/maxlen = CHAT_MESSAGE_MAX_LENGTH
 	var/datum/html/split_holder/s = split_html(text)
-	if (length_char(s.inner_text) > maxlen)
+	if(length_char(s.inner_text) > maxlen)
 		var/chattext = copytext_char(s.inner_text, 1, maxlen + 1) + "..."
 		text = jointext(s.opening, "") + chattext + jointext(s.closing, "")
 
 	// Calculate target color if not already present
-	if (!target.chat_color || target.chat_color_name != target.name)
+	if(!target.chat_color || target.chat_color_name != target.name)
 		target.chat_color = colorize_string(target.name)
 		target.chat_color_name = target.name
 
@@ -132,7 +124,7 @@
 
 	// Reject whitespace
 	var/static/regex/whitespace = new(@"^\s*$")
-	if (whitespace.Find(text))
+	if(whitespace.Find(text))
 		qdel(src)
 		return
 
@@ -167,7 +159,7 @@
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = target
-	if (owned_by.seen_messages)
+	if(owned_by.seen_messages)
 		var/idx = 1
 		var/combined_height = approx_lines
 		for(var/datum/chatmessage/m as anything in owned_by.seen_messages[message_loc])
@@ -199,7 +191,7 @@
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME, flags = ANIMATION_PARALLEL)
 
 	// Reset z index if relevant
-	if (current_z_idx >= CHAT_LAYER_MAX_Z)
+	if(current_z_idx >= CHAT_LAYER_MAX_Z)
 		current_z_idx = 0
 
 	// Build message image
