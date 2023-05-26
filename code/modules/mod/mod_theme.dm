@@ -921,11 +921,10 @@
 
 /obj/item/mod/armor/mod_theme_syndicate
 	armor = list(MELEE = 15, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 35, BIO = INFINITY, RAD = 50, FIRE = 50, ACID = 450)
-	//melee = 20 //35 with booster
-	//bullet = 30 //50 with booster, however degrading effects over 50
-	//laser = 15 //20 with booster
-	//energy = 15 //20 with booster, energy has always been an armor hole.
-
+	//melee = 40 with booster
+	//bullet = 50
+	//laser = 20 with booster
+	//energy = //20 with booster, energy has always been an armor hole.
 /datum/mod_theme/elite
 	name = "elite"
 	desc = "An elite suit upgraded by Cybersun Industries, offering upgraded armor values."

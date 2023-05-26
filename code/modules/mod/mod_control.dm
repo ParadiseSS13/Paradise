@@ -82,11 +82,11 @@
 	var/mob/living/carbon/human/wearer
 	/// Internal storage in a modsuit
 	var/obj/item/storage/backpack/modstorage/bag
-	///Is it EMP proof?
+	/// Is it EMP proof?
 	var/emp_proof = FALSE
-	///List of overlays the mod has. Needs to be cut onremoval / module deactivation
+	/// List of overlays the mod has. Needs to be cut onremoval / module deactivation
 	var/list/mod_overlays = list()
-	///Is the jetpack on so we should make ion effects?
+	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
