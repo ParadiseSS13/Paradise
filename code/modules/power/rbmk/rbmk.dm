@@ -263,8 +263,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
 	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
-	var/transfer_moles1 = 0
-	var/transfer_moles2 = 0
 
 
 	//Firstly, heat up the reactor based off of K.
@@ -276,11 +274,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
 		var/heat_delta = (KELVIN_TO_CELSIUS(coolant_input.return_temperature()) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
-		//temperature += heat_delta
-		var/new_temperature = coolant_input.return_temperature + heat_delta
-		transfer_moles1 = (coolant_input.total_moles())*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+		temperature += heat_delta
+		//transfer_moles1 = (coolant_input.total_moles())*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
 		//issue here with moving gas from node3 to pipenet.
-		coolant_output.merge(coolant_input.remove(transfer_moles1)) //And now, shove the input into the output.
+		coolant_output.merge(coolant_input) //And now, shove the input into the output.
 		to_chat(world,"Coolant output total moles [coolant_output.total_moles()]" )
 		to_chat(world, "Coolant output temp [coolant_output.return_temperature()]")
 		coolant_input.clear() //Clear out anything left in the input gate.
@@ -304,8 +301,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	gas_absorption_effectiveness = gas_absorption_constant
 	//Next up, handle moderators!
 	if(moderator_input.total_moles() >= minimum_coolant_level)
-		var/total_fuel_moles = moderator_input.get_moles(GAS_PL)
-		var/power_modifier = max((moderator_input.get_moles(GAS_O2) / moderator_input.total_moles() * 10), 1) //You can never have negative IPM. For now.
+		var/total_fuel_moles = moderator_input.toxins
+		var/power_modifier = max((moderator_input.oxygen / moderator_input.total_moles() * 10), 1) //You can never have negative IPM. For now.
 		if(total_fuel_moles >= minimum_coolant_level) //You at least need SOME fuel.
 			var/power_produced = max((total_fuel_moles / moderator_input.total_moles() * 10), 1)
 			last_power_produced = max(0,((power_produced*power_modifier)*moderator_input.total_moles()))
@@ -320,13 +317,13 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				return
 			else
 				C.powernet.newavail += last_power_produced
-		var/total_control_moles = moderator_input.get_moles(GAS_N2) + (moderator_input.get_moles(GAS_CO2)*2) //N2 helps you control the reaction at the cost of making it absolutely blast you with rads.
+		var/total_control_moles = moderator_input.nitrogen + (moderator_input.carbon_dioxide*2) //N2 helps you control the reaction at the cost of making it absolutely blast you with rads.
 		if(total_control_moles >= minimum_coolant_level)
 			var/control_bonus = total_control_moles / 250 //1 mol of n2 -> 0.002 bonus control rod effectiveness, if you want a super controlled reaction, you'll have to sacrifice some power.
 			control_rod_effectiveness = initial(control_rod_effectiveness) + control_bonus
-			radioactivity_spice_multiplier += moderator_input.get_moles(GAS_N2) / 25 //An example setup of 50 moles of n2 (for dealing with spent fuel) leaves us with a radioactivity spice multiplier of 3.
-			radioactivity_spice_multiplier += moderator_input.get_moles(GAS_CO2) / 12.5
-		var/total_permeability_moles = moderator_input.get_moles(GAS_N2O)
+			radioactivity_spice_multiplier += moderator_input.nitrogen / 25 //An example setup of 50 moles of n2 (for dealing with spent fuel) leaves us with a radioactivity spice multiplier of 3.
+			radioactivity_spice_multiplier += moderator_input.carbon_dioxide / 12.5
+		var/total_permeability_moles = moderator_input.sleeping_agent
 		if(total_permeability_moles >= minimum_coolant_level)
 			var/permeability_bonus = total_permeability_moles / 500
 			gas_absorption_effectiveness = gas_absorption_constant + permeability_bonus
