@@ -118,9 +118,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
-	node1 = NORTH
-	node2 = WEST
-	node3 = SOUTH
+	//commet to overrite commits
 /obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
@@ -135,7 +133,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		add_underlay(T, node1, turn(dir, -180))
 		add_underlay(T, node2, turn(dir, -90))
 		add_underlay(T, node3, dir)
-
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/examine(mob/user)
 	. = ..()
