@@ -84,6 +84,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	icon_state = "reactor_map"
 	pixel_x = -32
 	pixel_y = -32
+	dir = SOUTH
 	density = FALSE //It burns you if you're stupid enough to walk over it.
 	anchored = TRUE
 	//processing_flags = START_PROCESSING_MANUALLY
@@ -117,6 +118,9 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
+	node1 = NORTH
+	node2 = WEST
+	node3 = SOUTH
 /obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
@@ -216,6 +220,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	icon_state = "reactor_off"
 	gas_absorption_effectiveness = rand(5, 6)/10 //All reactors are slightly different. This will result in you having to figure out what the balance is for K.
 	gas_absorption_constant = gas_absorption_effectiveness //And set this up for the rest of the round.
+	initialize_directions = NORTH|WEST|SOUTH|EAST
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -244,9 +249,9 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		return
 
 	//Let's get our gasses sorted out.
-	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
-	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
-	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
+	var/datum/gas_mixture/coolant_input = air1
+	var/datum/gas_mixture/moderator_input = air2
+	var/datum/gas_mixture/coolant_output = air3
 
 	//Firstly, heat up the reactor based off of K.
 	var/input_moles = coolant_input.total_moles() //Firstly. Do we have enough moles of coolant?
