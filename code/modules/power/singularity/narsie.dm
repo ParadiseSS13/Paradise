@@ -117,6 +117,9 @@
 /obj/singularity/narsie/singularity_act() //handled in /obj/singularity/proc/consume
 	return
 
+/obj/singularity/narsie/notify_dead()
+	return
+
 /obj/singularity/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
 	var/list/cultists = list()
 	var/list/noncultists = list()

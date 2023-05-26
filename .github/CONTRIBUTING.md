@@ -723,17 +723,17 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 `Headcoders` are the overarching "administrators" of the repository. People included in this role are:
 
-* [Charliminator](https://github.com/hal9000PR)
 * [farie82](https://github.com/farie82)
 * [Fox P McCloud](https://github.com/Fox-McCloud)
+* [SteelSlayer](https://github.com/SteelSlayer)
 
 ---
 
 `Commit Access` members have write access to the repository and can merge your PRs. People included in this role are:
 
 
-* [Sirryan2002](https://github.com/Sirryan2002)
-* [SteelSlayer](https://github.com/SteelSlayer)
+* [AffectedArc07](https://github.com/AffectedArc07)
+* [Charliminator](https://github.com/hal9000PR)
 
 ---
 
@@ -741,6 +741,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 
 * [lewcc](https://github.com/lewcc)
 * [S34N](https://github.com/S34NW)
+* [Sirryan2002](https://github.com/Sirryan2002)
 
 ---
 

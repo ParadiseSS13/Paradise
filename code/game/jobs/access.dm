@@ -400,6 +400,9 @@
 /proc/get_all_solgov_jobs()
 	return list("Solar Federation Lieutenant","Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
 
+/proc/get_all_soviet_jobs()
+	return list("Soviet Tourist", "Soviet Conscript", "Soviet Soldier", "Soviet Officer", "Soviet Marine", "Soviet Marine Captain", "Soviet Admiral")
+
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + get_all_ERT_jobs() + list("Prisoner")
 
