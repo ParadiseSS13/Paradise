@@ -8,7 +8,7 @@
 
 /obj/item/judobelt
 	name = "Corporate Judo Belt"
-	desc = "Teaches the wearer NT Corporate Judo"
+	desc = "Teaches the wearer NT Corporate Judo."
 	icon = 'icons/obj/clothing/belts.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
@@ -29,7 +29,7 @@
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(H, "<span class='warning'>The arts of Corporate Judo echo uselessly in your head, the thought of violence disgust you!</span>")
 			return
-		style.teach(H,1)
+		style.teach(H, 1)
 		to_chat(H, "<span class = 'userdanger'>The belt's nanites infuse you with the prowess of a black belt in Corporate Judo!</span>")
 		to_chat(H, "<span class = 'danger'>See the martial arts tab for an explantion of combos!.</span>")
 		return
