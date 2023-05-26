@@ -5,7 +5,7 @@
 /// How long the chat message's end of life fading animation will occur for
 #define CHAT_MESSAGE_EOL_FADE		(0.7 SECONDS)
 /// Grace period for fade before we actually delete the chat message
-#define CHAT_MESSAGE_GRACE_PERIOD 	(1 SECONDS)
+#define CHAT_MESSAGE_GRACE_PERIOD 	(0.2 SECONDS)
 /// Factor of how much the message index (number of messages) will account to exponential decay
 #define CHAT_MESSAGE_EXP_DECAY		0.7
 /// Factor of how much height will account to exponential decay
