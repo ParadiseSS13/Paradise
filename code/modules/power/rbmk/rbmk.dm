@@ -247,8 +247,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(next_slowprocess < world.time)
 		slowprocess()
 		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
+		to_chat(world, "Process has just triggered!")
 		return 1
 	return 0
+
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/has_fuel()
 	return length(fuel_rods)
 
@@ -264,6 +266,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	//Firstly, heat up the reactor based off of K.
 	var/input_moles = coolant_input.total_moles() //Firstly. Do we have enough moles of coolant?
+	to_chat(world,"Coolant input total moles [coolant_input.total_moles()]" )
 	if(input_moles >= minimum_coolant_level)
 		last_coolant_temperature = KELVIN_TO_CELSIUS(coolant_input.return_temperature())
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
@@ -280,7 +283,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
 				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
 				vessel_integrity -= temperature / 200 //Think fast loser.
-				take_damage(10) //Just for the sound effect, to let you know you've fucked up.
+				take_damage(1) //Just for the sound effect, to let you know you've fucked up. NOTE: take_damage is normally set to 10 but is set to 1 for current test.
+				to_chat(world, "Reactor is taking damage because of no coolant!")
 				color = "[COLOR_RED]"
 
 	//Now, heat up the output and set our pressure.
@@ -301,6 +305,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			last_power_produced *= (max(0,power)/100) //Aaaand here comes the cap. Hotter reactor => more power.
 			last_power_produced *= base_power_modifier //Finally, we turn it into actual usable numbers.
 			var/turf/T = get_turf(src)
+			to_chat(world, "Moderator input total moles [moderator_input.total_moles()]")
 			if(power >= 20)
 				coolant_output.adjust_moles(GAS_A_B, total_fuel_moles/20) //Shove out agent B into the air when it's fuelled. You need to filter this off, or you're gonna have a bad (and green) time.
 			var/obj/structure/cable/C = T.get_cable_node()
