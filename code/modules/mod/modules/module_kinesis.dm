@@ -5,7 +5,7 @@
 		despite the suits it used to be mounted on still seeing some circulation. \
 		This piece of technology allows the user to generate precise anti-gravity fields, \
 		letting them move objects as small as a titanium rod to as large as industrial machinery. \
-		Oddly enough, it doesn't seem to work on living creatures."
+		It does seem to work on living creatures, but not well."
 	icon_state = "kinesis"
 	module_type = MODULE_ACTIVE
 	complexity = 3
@@ -20,9 +20,11 @@
 	/// Time between us hitting objects with kinesis.
 	var/hit_cooldown_time = 1 SECONDS
 	/// Stat required for us to grab a mob.
-	var/stat_required = DEAD
+	var/stat_required = CONSCIOUS //Honestly. It's grav core locked. We'll try it, but I am going to need you to stun the mod. No fucking holding a poor terror prince in the air
+	/// Is incapitated required for us to grab a mob?
+	var/incapacitated_required = TRUE
 	/// How long we stun a mob for.
-	var/mob_stun_time = 5 SECONDS
+	var/mob_stun_time = 0
 	/// Atom we grabbed with kinesis.
 	var/atom/movable/grabbed_atom
 	/// Overlay we add to each grabbed atom.
@@ -168,6 +170,8 @@
 		var/mob/living/living_target = movable_target
 		if(living_target.stat < stat_required)
 			return FALSE
+		if(!living_target.incapacitated() && incapacitated_required)
+			return FALSE
 	else if(isitem(movable_target))
 		var/obj/item/item_target = movable_target
 		if(item_target.w_class >= WEIGHT_CLASS_GIGANTIC)
@@ -234,12 +238,12 @@
 
 /obj/item/mod/module/anomaly_locked/kinesis/prebuilt
 	prebuilt = TRUE
+	removable = FALSE // No switching it into another suit / no free anomaly core
 
 /obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype
 	name = "MOD prototype kinesis module"
 	complexity = 0
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
-	removable = FALSE
 
 /obj/screen/fullscreen/cursor_catcher/kinesis
 	icon_state = "kinesis"
@@ -253,4 +257,6 @@
 		beings. They can, however, still struggle after an initial burst of inertia."
 	complexity = 0
 	prebuilt = TRUE
-	stat_required = CONSCIOUS
+	stat_required = CONSCIOUS //Still conscious here so we don't forget about it if the above is changed
+	incapacitated_required = FALSE
+	mob_stun_time = 10 SECONDS

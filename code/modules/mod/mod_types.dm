@@ -265,6 +265,7 @@
 	)
 	default_pins = list(
 		/obj/item/mod/module/tether,
+		/obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
@@ -302,7 +303,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
-	additional_module = /obj/item/mod/module/jetpack/advanced
+	additional_module = /obj/item/mod/module/anomaly_locked/kinesis/prebuilt //This can only end well.
 
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic

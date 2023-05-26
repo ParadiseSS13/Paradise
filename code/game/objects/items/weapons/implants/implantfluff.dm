@@ -110,3 +110,7 @@
 /datum/implant_fluff/sad_trombone
 	name = "BioTech Solutions Comedy Bio-chip"
 	function = "Plays a sad trombone noise upon death of the implantee, allows clowns to entertain the crew even post-mortem."
+
+/datum/implant_fluff/pathfinder
+	name = "WITTY_NAME_HERE Pathfinder Implant"
+	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
