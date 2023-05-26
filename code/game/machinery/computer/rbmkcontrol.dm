@@ -10,7 +10,7 @@
 	icon_screen = "power"
 	icon_keyboard = null
 	var/obj/machinery/atmospherics/trinary/nuclear_reactor/reactor = null
-	var/id = "default_reactor_for_lazy_mappers"
+	var/id = "rbmk"
 
 /obj/machinery/computer/reactor/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()

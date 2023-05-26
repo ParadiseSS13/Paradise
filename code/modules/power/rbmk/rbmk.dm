@@ -1,8 +1,8 @@
 //For my sanity :))
 
-#define COOLANT_INPUT_GATE air1
-#define MODERATOR_INPUT_GATE air2
-#define COOLANT_OUTPUT_GATE air3
+#define COOLANT_INPUT_GATE node1
+#define MODERATOR_INPUT_GATE node2
+#define COOLANT_OUTPUT_GATE node3
 
 #define RBMK_TEMPERATURE_OPERATING 640 //Celsius
 #define RBMK_TEMPERATURE_CRITICAL 800 //At this point the entire ship is alerted to a meltdown. This may need altering
@@ -90,7 +90,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	light_color = LIGHT_COLOR_CYAN
 	dir = 8 //Less headache inducing :))
-	var/id = null //Change me mappers
+	var/id = rbmk //Change me mappers
 	//Variables essential to operation
 	var/temperature = 0 //Lose control of this -> Meltdown
 	var/vessel_integrity = 400 //How long can the reactor withstand overpressure / meltdown? This gives you a fair chance to react to even a massive pipe fire
@@ -117,11 +117,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
-
-//Use this in your maps if you want everything to be preset.
-/obj/machinery/atmospherics/trinary/nuclear_reactor/preset
-	id = "default_reactor_for_lazy_mappers"
-
 /obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
