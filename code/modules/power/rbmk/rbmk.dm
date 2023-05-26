@@ -243,11 +243,12 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		L.adjust_bodytemperature(CLAMP(temperature, BODYTEMP_COOLING_MAX, BODYTEMP_HEATING_MAX)) //If you're on fire, you heat up!
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/process()
-	process_atmos() //Update the pipenet to register new gas mixes
+	..()
 	if(next_slowprocess < world.time)
 		slowprocess()
 		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
-
+		return 1
+	return 0
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/has_fuel()
 	return length(fuel_rods)
 
