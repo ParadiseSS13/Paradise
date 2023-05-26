@@ -31,7 +31,7 @@
 			return
 		style.teach(H, 1)
 		to_chat(H, "<span class = 'userdanger'>The belt's nanites infuse you with the prowess of a black belt in Corporate Judo!</span>")
-		to_chat(H, "<span class = 'danger'>See the martial arts tab for an explantion of combos!.</span>")
+		to_chat(H, "<span class = 'danger'>See the martial arts tab for an explanation of combos.</span>")
 		return
 
 /obj/item/judobelt/dropped(mob/user)
