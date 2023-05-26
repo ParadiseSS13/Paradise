@@ -15,5 +15,5 @@
 	target.SetWeakened(1 SECONDS) //weaken used to insure spin animation stops. Without this, the victim will continue to spin as if they had consued rotatium.
 	target.KnockDown(15 SECONDS)
 	target.SetConfused(10 SECONDS)
-	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Wheel Throw", ATKLOG_ALL)
+	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Wheel Throw", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

@@ -13,5 +13,5 @@
 	target.apply_damage(45, STAMINA)
 	target.SetImmobilized(5 SECONDS)
 	target.SetKnockDown(5 SECONDS)
-	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Armbar", ATKLOG_ALL)
+	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Armbar", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

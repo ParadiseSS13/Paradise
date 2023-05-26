@@ -12,5 +12,5 @@
 	playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, TRUE, -1)
 	target.apply_damage(25, STAMINA)
 	target.KnockDown(7 SECONDS)
-	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  judo throw", ATKLOG_ALL)
+	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Judo Throw", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

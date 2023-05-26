@@ -12,5 +12,5 @@
 	playsound(get_turf(user), 'sound/weapons/whip.ogg', 40, TRUE, -1)
 	target.apply_damage(10, BRUTE)
 	target.SetEyeBlurry(10 SECONDS)
-	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  eyepoke", ATKLOG_ALL)
+	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Eye Poke", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
