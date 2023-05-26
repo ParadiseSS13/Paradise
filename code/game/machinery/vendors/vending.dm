@@ -605,7 +605,7 @@
 		return
 
 	if(tilted)
-		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! You'll need to right it first.</span>")
+		to_chat(user, "<span class='warning'>[src] is tipped over and non-functional! Alt+click to right it first.</span>")
 		return
 
 	if(seconds_electrified != 0 && shock(user, 100))
