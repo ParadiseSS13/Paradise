@@ -90,7 +90,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//processing_flags = START_PROCESSING_MANUALLY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	light_color = LIGHT_COLOR_CYAN
-	dir = 8 //Less headache inducing :))
+	dir = SOUTH //Less headache inducing :))
 	var/id = "rbmk" //Change me mappers
 	//Variables essential to operation
 	var/temperature = 0 //Lose control of this -> Meltdown
@@ -118,7 +118,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
-	//commet to overrite commits
+
 /obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
@@ -260,20 +260,29 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		return
 
 	//Let's get our gasses sorted out.
-	var/datum/gas_mixture/coolant_input = air1
-	var/datum/gas_mixture/moderator_input = air2
-	var/datum/gas_mixture/coolant_output = air3
+	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
+	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
+	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
+	var/transfer_moles1 = 0
+	var/transfer_moles2 = 0
+
 
 	//Firstly, heat up the reactor based off of K.
 	var/input_moles = coolant_input.total_moles() //Firstly. Do we have enough moles of coolant?
 	to_chat(world,"Coolant input total moles [coolant_input.total_moles()]" )
 	if(input_moles >= minimum_coolant_level)
 		last_coolant_temperature = KELVIN_TO_CELSIUS(coolant_input.return_temperature())
+		to_chat(world,"Coolant input temp [coolant_input.return_temperature()]" )
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
 		var/heat_delta = (KELVIN_TO_CELSIUS(coolant_input.return_temperature()) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
-		temperature += heat_delta
-		coolant_output.merge(coolant_input) //And now, shove the input into the output.
+		//temperature += heat_delta
+		var/new_temperature = coolant_input.return_temperature + heat_delta
+		transfer_moles1 = (coolant_input.total_moles())*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+		//issue here with moving gas from node3 to pipenet.
+		coolant_output.merge(coolant_input.remove(transfer_moles1)) //And now, shove the input into the output.
+		to_chat(world,"Coolant output total moles [coolant_output.total_moles()]" )
+		to_chat(world, "Coolant output temp [coolant_output.return_temperature()]")
 		coolant_input.clear() //Clear out anything left in the input gate.
 		color = null
 		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
@@ -288,9 +297,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				color = "[COLOR_RED]"
 
 	//Now, heat up the output and set our pressure.
-	coolant_output.set_temperature(CELSIUS_TO_KELVIN(temperature)) //Heat the coolant output gas that we just had pass through us.
-	last_output_temperature = KELVIN_TO_CELSIUS(coolant_output.return_temperature())
-	pressure = KPA_TO_PSI(coolant_output.return_pressure())
+
 	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
 	var/radioactivity_spice_multiplier = 1 //Some gasses make the reactor a bit spicy.
 	var/depletion_modifier = 0.035 //How rapidly do your rods decay
