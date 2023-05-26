@@ -117,6 +117,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
+	//commet to overrite commits
 /obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
