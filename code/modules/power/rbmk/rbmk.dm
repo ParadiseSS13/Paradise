@@ -1,8 +1,8 @@
 //For my sanity :))
 
-#define COOLANT_INPUT_GATE node1
-#define MODERATOR_INPUT_GATE node2
-#define COOLANT_OUTPUT_GATE node3
+#define COOLANT_INPUT_GATE air1
+#define MODERATOR_INPUT_GATE air2
+#define COOLANT_OUTPUT_GATE air3
 
 #define RBMK_TEMPERATURE_OPERATING 640 //Celsius
 #define RBMK_TEMPERATURE_CRITICAL 800 //At this point the entire ship is alerted to a meltdown. This may need altering
@@ -121,6 +121,17 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	icon_state = "reactor_slagged"
 	slagged = TRUE
 	vessel_integrity = 0
+
+/obj/machinery/atmospherics/trinary/nuclear_reactor/update_underlays()
+	if(..())
+		underlays.Cut()
+		var/turf/T = get_turf(src)
+		if(!istype(T))
+			return
+		add_underlay(T, node1, turn(dir, -180))
+		add_underlay(T, node2, turn(dir, -90))
+		add_underlay(T, node3, dir)
+
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/examine(mob/user)
 	. = ..()
