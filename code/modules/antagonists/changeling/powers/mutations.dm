@@ -28,7 +28,7 @@
 	if(!user.drop_item())
 		to_chat(user, "[user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return FALSE
-	var/obj/item/W = new weapon_type(user, silent)
+	var/obj/item/W = new weapon_type(user, silent, src)
 	user.put_in_hands(W)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract))
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract))
@@ -49,8 +49,6 @@
 		qdel(owner.r_hand)
 		owner.update_inv_r_hand()
 		done = TRUE
-	UnregisterSignal(owner, COMSIG_MOB_WILLINGLY_DROP)
-	UnregisterSignal(owner, COMSIG_MOB_WEAPON_APPEARS)
 	if(done && !silent)
 		owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
@@ -136,10 +134,18 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/melee/arm_blade/Initialize(mapload)
+/obj/item/melee/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	parent_action = new_parent_action
 	ADD_TRAIT(src, TRAIT_FORCES_OPEN_DOORS_ITEM, ROUNDSTART_TRAIT)
+
+/obj/item/melee/arm_blade/Destroy()
+	if(parent_action)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	return ..()
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -190,14 +196,22 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/gun/magic/tentacle/Initialize(mapload, silent)
+/obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
 	. = ..()
+	parent_action = new_parent_action
 	if(ismob(loc))
 		if(!silent)
 			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 		else
 			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
+
+/obj/item/gun/magic/tentacle/Destroy()
+	if(parent_action)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
+	return ..()
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, "<span class='warning'>[src] is not ready yet.</span>")

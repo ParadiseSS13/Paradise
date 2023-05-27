@@ -13,7 +13,7 @@
 		user.drop_r_hand()
 	else
 		to_chat(user, "<span class='notice'>Large blades of blood spring from your fingers!</span>")
-	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc)
+	var/obj/item/twohanded/required/vamp_claws/claws = new /obj/item/twohanded/required/vamp_claws(user.loc, src)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(dispel))
 	user.put_in_hands(claws)
 
@@ -27,7 +27,6 @@
 		current = user.l_hand
 	if(istype(user.r_hand, /obj/item/twohanded/required/vamp_claws))
 		current = user.r_hand
-	UnregisterSignal(user, COMSIG_MOB_WILLINGLY_DROP)
 	if(current)
 		qdel(current)
 		to_chat(user, "<span class='notice'>You dispel your claws!</span>")
@@ -55,6 +54,16 @@
 	var/durability = 15
 	var/blood_drain_amount = 15
 	var/blood_absorbed_amount = 5
+	var/obj/effect/proc_holder/spell/vampire/self/vamp_claws/parent_spell
+
+/obj/item/twohanded/required/vamp_claws/Initialize(mapload, new_parent_spell)
+	. = ..()
+	parent_spell = new_parent_spell
+
+/obj/item/twohanded/required/vamp_claws/Destroy()
+	if(parent_spell)
+		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
+	return ..()
 
 /obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)

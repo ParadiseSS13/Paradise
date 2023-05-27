@@ -105,7 +105,7 @@
 	for(var/mob/living/carbon/human/C in targets)
 		if(!current_gun)
 			to_chat(user, "<span class='notice'>You draw your fingers!</span>")
-			current_gun = new gun
+			current_gun = new gun(src)
 			C.drop_item()
 			C.put_in_hands(current_gun)
 			RegisterSignal(C, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(holster_hand))
@@ -117,7 +117,6 @@
 	SIGNAL_HANDLER
 	if(!current_gun || !any && action.owner.get_active_hand() != current_gun)
 		return
-	UnregisterSignal(action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	to_chat(action.owner, "<span class='notice'>You holster your fingers. Another time.</span>")
 	qdel(current_gun)
 	current_gun = null

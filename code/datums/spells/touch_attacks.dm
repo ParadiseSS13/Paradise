@@ -44,7 +44,6 @@
 	if(!any && attached_hand != user.get_active_hand())
 		return
 	qdel(attached_hand)
-	UnregisterSignal(user, COMSIG_MOB_WILLINGLY_DROP)
 	attached_hand = null
 	if(on_remove_message)
 		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
