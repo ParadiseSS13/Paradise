@@ -119,7 +119,6 @@
 	if(any_hand && user.get_active_hand() != current_hand)
 		return FALSE
 	qdel(current_hand)
-	UnregisterSignal(user, COMSIG_MOB_WILLINGLY_DROP)
 	return TRUE
 
 /obj/item/melee/changeling_corrosive_acid
@@ -139,6 +138,11 @@
 	. = ..()
 	parent_action = new_parent
 
+/obj/item/melee/changeling_corrosive_acid/Destroy()
+	parent_action.current_hand = null
+	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
+	return ..()
+
 /obj/item/melee/changeling_corrosive_acid/afterattack(atom/target, mob/user, proximity, params)
 	if(target == user)
 		to_chat(user, "<span class='noticealien'>You withdraw your readied acid.</span>")
@@ -155,7 +159,3 @@
 	else
 		to_chat(user, "<span class='noticealien'>You cannot dissolve this object.</span>")
 	parent_action.remove_hand_spell(user)
-
-/obj/item/melee/changeling_corrosive_acid/Destroy()
-	parent_action.current_hand = null
-	return ..()
