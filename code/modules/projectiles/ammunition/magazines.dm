@@ -154,8 +154,8 @@
 	max_ammo = 6
 	multiload = 0
 
-/obj/item/ammo_box/magazine/internal/rus357/New()
-	..()
+/obj/item/ammo_box/magazine/internal/rus357/Initialize(mapload)
+	. = ..()
 	stored_ammo.Cut() // We only want 1 bullet in there
 	stored_ammo += new ammo_type(src)
 
@@ -258,6 +258,37 @@
 	caliber = "4.6x30mm"
 	max_ammo = 20
 	multi_sprite_step = 4
+	multiload = 0
+	slow_loading = TRUE
+	w_class = WEIGHT_CLASS_NORMAL
+	///A var to check if the mag is being loaded
+	var/being_loaded = FALSE
+	/// There are two reloading processes ongoing so cancel them
+	var/double_loaded = FALSE
+
+/obj/item/ammo_box/magazine/wt550m9/attackby(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/ammo_casing))
+		var/obj/item/ammo_casing/AC = A
+		if(give_round(AC))
+			user.drop_item()
+			AC.loc = src
+			return
+	if(istype(A, /obj/item/ammo_box/wt550) || istype(A, /obj/item/ammo_box/magazine/wt550m9))
+		to_chat(user, "<span class='notice'>You begin to load the magazine with [A].</span>")
+		var/obj/item/ammo_box/AB = A
+		for(var/obj/item/ammo_casing/AC in AB.stored_ammo)
+			if(length(stored_ammo) >= max_ammo)
+				to_chat(user, "<span class='notice'>You stop loading the magazine with [A].</span>")
+				break
+			if(do_after_once(user, 0.5 SECONDS, target = src, allow_moving = TRUE, must_be_held = TRUE, attempt_cancel_message = "<span class='notice'>You stop loading the magazine with [A].</span>"))
+				src.give_round(AC)
+				AB.stored_ammo -= AC
+				update_mat_value()
+				update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+				AB.update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
+			else
+				break
 
 /obj/item/ammo_box/magazine/wt550m9/wtap
 	name = "wt550 magazine (Armour Piercing 4.6x30mm)"
@@ -273,6 +304,16 @@
 	name = "wt550 magazine (Incendiary 4.6x30mm)"
 	icon_state = "46x30mmtI"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
+
+/obj/item/ammo_box/magazine/wt550m9/empty
+	name = "wt550 magazine (4.6x30mm)"
+	icon_state = "46x30mmt"
+	ammo_type = /obj/item/ammo_casing/c46x30mm
+
+/obj/item/ammo_box/magazine/wt550m9/empty/Initialize(mapload)
+	. = ..()
+	stored_ammo.Cut()
+	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "uzi magazine (9mm)"
@@ -383,6 +424,16 @@
 /obj/item/ammo_box/magazine/m556/arg
 	name = "\improper ARG magazine (5.56mm)"
 	icon_state = "arg"
+
+/obj/item/ammo_box/magazine/ak814
+	name = "AK magazine (5.45x39mm)"
+	desc = "A universal magazine for an AK style rifle."
+	icon_state = "ak814"
+	origin_tech = "combat=5;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/a545
+	caliber = "a545"
+	max_ammo = 30
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
 
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
@@ -503,6 +554,15 @@
 	caliber = "laser"
 	max_ammo = 20
 	multi_sprite_step = 5
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/ammo_box/magazine/laser/ert //Used by red ERT. Keeps the size for them
+	name = "compact laser carbine projector magazine"
+	desc = "By use of bluespace technology, the ammo casings are stored in a pocket dimension, saving on space and making them EMP proof."
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/ammo_box/magazine/laser/ert/emp_act(severity)
+	return
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"

@@ -672,16 +672,17 @@
 			Consume(B)
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "supermatter")
-		C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/C = user
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "supermatter")
+	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
 		"<span class='userdanger'>As you mentally focus on the supermatter you feel the contents of your skull start melting away. That was a really dense idea.</span>")
-		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-		C.ghostize(0)
-		if(B)
-			B.remove(C)
-			qdel(B)
+	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
+	C.ghostize(0)
+	if(B)
+		B.remove(C)
+		qdel(B)
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_alien(mob/user)
 	dust_mob(user, cause = "alien attack")

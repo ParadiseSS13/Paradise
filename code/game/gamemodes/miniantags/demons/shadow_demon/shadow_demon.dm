@@ -50,12 +50,12 @@
 /obj/structure/shadowcocoon
 	name = "shadowy cocoon"
 	desc = "Something wrapped in what seems to be manifested darkness. Its surface distorts unnaturally, and it emanates deep shadows."
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/effects/effects.dmi'
 	icon_state = "shadowcocoon"
 	light_power = -4
 	light_range = 6
 	max_integrity = 100
-	light_color = "#AAD84B"
+	light_color = "#ddd6cf"
 	anchored = TRUE
 
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

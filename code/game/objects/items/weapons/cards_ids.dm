@@ -1089,6 +1089,9 @@
 	else
 		..()
 
+/obj/item/card/id/data
+	icon_state = "data"
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"

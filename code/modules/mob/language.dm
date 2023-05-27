@@ -333,6 +333,7 @@
 	colour = "abductor"
 	key = "^"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)

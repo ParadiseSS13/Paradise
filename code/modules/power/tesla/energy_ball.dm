@@ -160,14 +160,17 @@
 	dust_mobs(AM)
 
 /obj/singularity/energy_ball/attack_tk(mob/user)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
-		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
-		C.ghostize(0)
-		if(B)
-			B.remove(C)
-			qdel(B)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/C = user
+	investigate_log("has consumed the brain of [key_name(C)] after being touched with telekinesis", "singulo")
+	C.visible_message("<span class='danger'>[C] suddenly slumps over.</span>", \
+		"<span class='userdanger'>As you mentally focus on the energy ball you feel the contents of your skull become overcharged. That was shockingly stupid.</span>")
+	var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
+	C.ghostize(0)
+	if(B)
+		B.remove(C)
+		qdel(B)
 
 /// When we get orbited, add the orbiter to our tracked balls
 /obj/singularity/energy_ball/proc/on_start_orbit(atom/movable/this, atom/orbiter)

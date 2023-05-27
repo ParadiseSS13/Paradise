@@ -1,6 +1,7 @@
 /datum/species/unathi
 	name = "Unathi"
 	name_plural = "Unathi"
+	max_age = 45
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"

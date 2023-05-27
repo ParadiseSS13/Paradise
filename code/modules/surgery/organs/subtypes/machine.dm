@@ -111,6 +111,7 @@
 	slot = "heart"
 	vital = TRUE
 	status = ORGAN_ROBOT
+	requires_robotic_bodypart = TRUE
 
 /obj/item/organ/internal/eyes/optical_sensor
 	name = "optical sensor"
@@ -119,6 +120,7 @@
 	status = ORGAN_ROBOT
 //	dead_icon = "camera_broken"
 	weld_proof = TRUE
+	requires_robotic_bodypart = TRUE
 
 /obj/item/organ/internal/eyes/optical_sensor/remove(mob/living/user,special = 0)
 	if(!special)
@@ -152,6 +154,7 @@
 	icon_state = "taperecorder_idle"
 	status = ORGAN_ROBOT
 	dead_icon = "taperecorder_empty"
+	requires_robotic_bodypart = TRUE
 
 /obj/item/organ/internal/ears/microphone/remove(mob/living/user, special = FALSE)
 	if(!special)
