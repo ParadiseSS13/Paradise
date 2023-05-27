@@ -124,6 +124,13 @@
 	possible_destinations = "pirate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;pirate_custom"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODECONSTRUCT
+	var/active_syphon = FALSE
+
+/obj/machinery/computer/shuttle/syndicate/pirate/can_call_shuttle(mob/user, action)
+	if(action == "move" && active_syphon)
+		to_chat(user, "<span class='warning'>The shuttle cannot be moved while the data syphon is active!</span>")
+		return FALSE
+	return TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/pirate
 	name = "pirate shuttle navigation computer"

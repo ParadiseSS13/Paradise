@@ -15,30 +15,59 @@
 	var/siphon_rate_increase_interval = 60
 	/// The amount by which the siphon rate increases at each interval
 	var/siphon_rate_increase = 1
+	/// The custom taunting message that will be sent when the syphon is activated.
+	var/taunting_message = ""
 
 /obj/machinery/computer/data_syphon/Destroy()
 	SSshuttle.supply.active_syphon = null
 	deactivate_syphon()
 	return ..()
 
-/obj/machinery/computer/data_syphon/interact(mob/user)
+/obj/machinery/computer/data_syphon/attack_hand(mob/user)
 	if(active)
 		drop_loot(user)
 		return
 
+	if(!is_station_level(z))
+		to_chat(user, "<span class='warning'>[src] can only be activated near the station!</span>")
+		return
 	if(alert(user, "!!Placeholder!!", "Data Syphon", "Yes", "Cancel") != "Yes")
 		return
 	if(active || !user.default_can_use_topic(src))
 		return
 
+	send_taunting_message(user)
 	activate_syphon(user)
 	update_appearance()
 	send_notification()
 
+/obj/machinery/computer/data_syphon/proc/check_allowed(mob/user)
+	if(active)
+		to_chat(user, "<span class='warning'>[src] is already active!</span>")
+		return FALSE
+	if(!user.default_can_use_topic(src))
+		to_chat(user, "<span class='warning'>You can't use [src]!</span>")
+		return FALSE
+	if(!is_station_level(z))
+		to_chat(user, "<span class='warning'>[src] can only be activated near the station!</span>")
+		return FALSE
+	return TRUE
+
+/obj/machinery/computer/data_syphon/proc/send_taunting_message(mob/user)
+	var/decision = alert(user, "Do you want to send a taunting message to the station?", "Taunting message?", "Yes", "No")
+	if(decision == "Yes")
+		taunting_message = stripped_input(user, "Insert your taunting message", "Message")
+	if(taunting_message)
+		GLOB.major_announcement.Announce(taunting_message, "Data Syphon Alert", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
+	else
+		GLOB.major_announcement.Announce("ALERT! Data theft detected. All crew, be advised.", "Data Syphon Alert", 'sound/effects/siren.ogg')
+
 /obj/machinery/computer/data_syphon/proc/activate_syphon(mob/user)
 	to_chat(user, "<span class='notice'>You enable [src].</span>")
 	active = TRUE
-	SSshuttle.supply.active_syphon = src
+	SSshuttle.supply.active_syphon = TRUE
+	var/obj/machinery/computer/shuttle/syndicate/pirate/shuttle_console = locate() in get_area(src)
+	shuttle_console.active_syphon = TRUE
 	START_PROCESSING(SSmachines, src)
 
 	// Find the research server and set data_syphon_active to TRUE
