@@ -1,6 +1,10 @@
 /mob/living/simple_animal/slime/death(gibbed)
 	if(stat == DEAD)
 		return
+
+	if(buckled)
+		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
+
 	if(!gibbed)
 		if(is_adult)
 			var/mob/living/simple_animal/slime/M = new(loc, colour)
@@ -17,9 +21,6 @@
 			regenerate_icons()
 			update_name()
 			return
-
-	if(buckled)
-		Feedstop(silent = TRUE) //releases ourselves from the mob we fed on.
 
 	set_stat(DEAD) //Temporarily set to dead for icon updates
 	regenerate_icons()

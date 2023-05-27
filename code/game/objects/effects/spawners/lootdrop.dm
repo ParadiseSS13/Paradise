@@ -82,6 +82,7 @@
 				/obj/item/stack/cable_coil = 40,
 				/obj/item/stack/cable_coil{amount = 5} = 60,
 				/obj/item/stack/medical/bruise_pack/advanced = 10,
+				/obj/item/stack/medical/ointment/advanced = 10,
 				/obj/item/stack/rods{amount = 10} = 80,
 				/obj/item/stack/rods{amount = 23} = 20,
 				/obj/item/stack/rods{amount = 50} = 10,
@@ -281,7 +282,7 @@
 				// Medchem
 				/obj/item/storage/pill_bottle/random_meds/labelled = 100, // random medical and other chems
 				/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 50,
-				/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
+				/obj/item/reagent_containers/glass/bottle/reagent/lazarus_reagent = 50,
 
 				// Surgery
 				/obj/item/scalpel/laser/manager = 100,

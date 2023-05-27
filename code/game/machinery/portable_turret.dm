@@ -1105,3 +1105,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	health = 100
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
+
+/obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior
+	health = 100

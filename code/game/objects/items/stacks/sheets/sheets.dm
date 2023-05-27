@@ -1,5 +1,8 @@
 /obj/item/stack/sheet
 	name = "sheet"
+	icon = 'icons/obj/stacks/minerals.dmi'
+	lefthand_file = 'icons/mob/inhands/sheet_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/sheet_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 5
 	throwforce = 5
@@ -16,6 +19,8 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 	var/wall_allowed = TRUE	//determines if sheet can be used in wall construction or not.
+	dynamic_icon_state = TRUE
 
-/obj/item/stack/sheet/detailed_examine()
-	return "Use in your hand to bring up the recipe menu. If you have enough sheets, click on something on the list to build it."
+/obj/item/stack/sheet/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'><b>Use it in hand</b> to bring up the recipe menu. If you have enough sheets, click on something on the list to build it.</span>"

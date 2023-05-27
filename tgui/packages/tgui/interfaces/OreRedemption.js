@@ -14,11 +14,6 @@ import { Window } from '../layouts';
 
 const formatPoints = (amt) => amt.toLocaleString('en-US') + ' pts';
 
-const iconNameOverrides = {
-  bananium: 'clown',
-  tranquillite: 'mime',
-};
-
 export const OreRedemption = (properties, context) => {
   return (
     <Window>
@@ -221,7 +216,7 @@ const SheetLine = (properties, context) => {
         <Flex.Item basis="45%" align="middle">
           <Box
             as="img"
-            src={'sheet-' + (iconNameOverrides[cleanId] || cleanId) + '.png'}
+            src={'sheet-' + cleanId + '.png'}
             verticalAlign="middle"
             ml="0rem"
             />

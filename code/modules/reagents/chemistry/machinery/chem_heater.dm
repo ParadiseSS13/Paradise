@@ -64,7 +64,7 @@
 	if(isrobot(user))
 		return
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
 		if(beaker)
 			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")
 			return
@@ -88,7 +88,7 @@
 
 /obj/machinery/chem_heater/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I)
+	default_deconstruction_screwdriver(user, "mixer0b", "mixer[beaker ? "1" : "0"]b", I)
 
 /obj/machinery/chem_heater/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)

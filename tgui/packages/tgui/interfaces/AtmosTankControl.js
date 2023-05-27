@@ -22,7 +22,7 @@ export const AtmosTankControl = (props, context) => {
               ) : ""}
               {(Object.keys(sensors_list[s]).indexOf("temperature") > -1) ? (
                 <LabeledList.Item label="Temperature">
-                  {sensors_list[s]['temperature']} kpa
+                  {sensors_list[s]['temperature']} K
                 </LabeledList.Item>
               ) : ""}
 

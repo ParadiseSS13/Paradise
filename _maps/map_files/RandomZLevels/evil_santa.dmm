@@ -117,8 +117,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/challenge/main)
 "au" = (
-/obj/structure/grille,
-/obj/structure/window/full/basic,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/awaymission/challenge/main)
 "av" = (

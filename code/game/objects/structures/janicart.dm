@@ -12,8 +12,9 @@
 	//copypaste sorry
 	var/maximum_volume = 150
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
-	var/obj/item/storage/bag/trash/mybag	= null
+	var/obj/item/storage/bag/trash/mybag = null
 	var/obj/item/mop/mymop = null
+	var/obj/item/twohanded/push_broom/mybroom = null
 	var/obj/item/reagent_containers/spray/cleaner/myspray = null
 	var/obj/item/lightreplacer/myreplacer = null
 	var/signs = 0
@@ -28,6 +29,7 @@
 	GLOB.janitorial_equipment -= src
 	QDEL_NULL(mybag)
 	QDEL_NULL(mymop)
+	QDEL_NULL(mybroom)
 	QDEL_NULL(myspray)
 	QDEL_NULL(myreplacer)
 	return ..()
@@ -56,7 +58,12 @@
 				m.janicart_insert(user, src)
 			else
 				to_chat(user, fail_msg)
-
+		else if(istype(I, /obj/item/twohanded/push_broom))
+			if(!mybroom)
+				var/obj/item/twohanded/push_broom/B = I
+				B.janicart_insert(user, src)
+			else
+				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/storage/bag/trash))
 			if(!mybag)
 				var/obj/item/storage/bag/trash/t=I
@@ -114,6 +121,8 @@
 		dat += "<a href='?src=[UID()];garbage=1'>[mybag.name]</a><br>"
 	if(mymop)
 		dat += "<a href='?src=[UID()];mop=1'>[mymop.name]</a><br>"
+	if(mybroom)
+		dat += "<a href='?src=[UID()];broom=1'>[mybroom.name]</a><br>"
 	if(myspray)
 		dat += "<a href='?src=[UID()];spray=1'>[myspray.name]</a><br>"
 	if(myreplacer)
@@ -140,6 +149,11 @@
 			user.put_in_hands(mymop)
 			to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
 			mymop = null
+	if(href_list["broom"])
+		if(mybroom)
+			user.put_in_hands(mybroom)
+			to_chat(user, "<span class='notice'>You take [mybroom] from [src].</span>")
+			mybroom = null
 	if(href_list["spray"])
 		if(myspray)
 			user.put_in_hands(myspray)
@@ -170,6 +184,8 @@
 		. += "cart_garbage"
 	if(mymop)
 		. += "cart_mop"
+	if(mybroom)
+		. += "cart_broom"
 	if(myspray)
 		. += "cart_spray"
 	if(myreplacer)

@@ -4,7 +4,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
 	density = TRUE
-	anchored = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
 	max_integrity = 300
@@ -99,6 +98,7 @@
 	icon_state = "fuel"
 	reagent_id = "fuel"
 	tank_volume = 4000
+	anchored = TRUE
 	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 
@@ -231,6 +231,7 @@
 	icon_state = "pepper"
 	density = FALSE
 	can_be_unwrenched = FALSE
+	anchored = TRUE
 	reagent_id = "condensedcapsaicin"
 
 /obj/structure/reagent_dispensers/water_cooler
@@ -240,6 +241,7 @@
 	icon_state = "water_cooler"
 	tank_volume = 500
 	reagent_id = "water"
+	anchored = TRUE
 	var/paper_cups = 25 //Paper cups left from the cooler
 
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
@@ -272,14 +274,16 @@
 	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap\
 	to produce and devestatingly effective. Signs explain that though this is just a model, every Nanotrasen station is equipped with one, just in case. \
 	All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
-	icon = 'icons/obj/stationobjs.dmi'
+	icon = 'icons/obj/nuclearbomb.dmi'
 	icon_state = "nuclearbomb0"
+	anchored = TRUE
 
 /obj/structure/reagent_dispensers/virusfood
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
 	can_be_unwrenched = FALSE
+	anchored = TRUE
 	density = FALSE
 	reagent_id = "virusfood"
 
@@ -288,6 +292,7 @@
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
 	can_be_unwrenched = FALSE
+	anchored = TRUE
 	density = FALSE
 	tank_volume = 5000
 	reagent_id = "cleaner"

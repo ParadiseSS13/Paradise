@@ -172,11 +172,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
 		return TRUE
 
-/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE)
+/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
 	if(!(cult_mind in cult)) // Not actually a cultist in the first place
 		return
 
-	var/mob/cultist = cult_mind.current
+	var/mob/cultist = target_mob
+	if(!cultist)
+		cultist = cult_mind.current
 	cult -= cult_mind
 	cultist.faction -= "cult"
 	cult_mind.special_role = null
@@ -208,6 +210,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(show_message)
 		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+
+/datum/game_mode/proc/add_cult_immunity(mob/living/target)
+	ADD_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(remove_cult_immunity), target), 1 MINUTES)
+
+/datum/game_mode/proc/remove_cult_immunity(mob/living/target)
+	REMOVE_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)
 
 
 /**

@@ -85,6 +85,8 @@
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
 	new /obj/item/caution(src)
+	new /obj/item/twohanded/push_broom(src)
+	new /obj/item/twohanded/push_broom(src)
 	new /obj/item/storage/bag/trash(src)
 	new /obj/item/storage/bag/trash(src)
 	new /obj/item/lightreplacer(src)
@@ -101,28 +103,6 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/under/rank/civilian/janitor(src)
 	new /obj/item/cartridge/janitor(src)
-
-/*
- * Lawyer
- */
-/obj/structure/closet/lawcloset
-	name = "legal closet"
-	desc = "It's a storage unit for courtroom apparel and items."
-	icon_state = "blue"
-	icon_opened = "generic_open"
-	open_door_sprite = "generic_door"
-
-/obj/structure/closet/lawcloset/populate_contents()
-	new /obj/item/clothing/under/rank/civilian/lawyer/black(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/red(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/blue(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/purple(src)
-	new /obj/item/clothing/under/rank/civilian/lawyer/bluesuit(src)
-	new /obj/item/clothing/under/suit/female(src)
-	new /obj/item/clothing/suit/storage/lawyer/bluejacket(src)
-	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/black(src)
 
 //Paramedic
 

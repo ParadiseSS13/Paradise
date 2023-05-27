@@ -159,7 +159,7 @@
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
 
 		apc_area = get_area(src)
-		apc_area.apc |= src
+		apc_area.apc += src
 		opened = APC_OPENED
 		operating = FALSE
 		name = "[apc_area.name] APC"
@@ -174,7 +174,7 @@
 
 	machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
 	machine_powernet.set_power_channel(PW_CHANNEL_EQUIPMENT, FALSE)
-	machine_powernet.set_power_channel(PW_CHANNEL_LIGHTING, FALSE)
+	machine_powernet.set_power_channel(PW_CHANNEL_ENVIRONMENT, FALSE)
 	machine_powernet.power_change()
 	if(occupier)
 		malfvacate(1)
@@ -183,6 +183,7 @@
 	if(terminal)
 		disconnect_terminal()
 	machine_powernet.powernet_apc = null
+	apc_area.apc -= src
 	return ..()
 
 
@@ -242,17 +243,13 @@
 				. += "The cover is broken. It may be hard to force it open."
 			else
 				. += "The cover is closed."
-
-/obj/machinery/power/apc/detailed_examine()
-	return "An APC (Area Power Controller) regulates and supplies backup power for the area they are in. Their power channels are divided \
-			out into 'environmental' (Items that manipulate airflow and temperature), 'lighting' (the lights), and 'equipment' (Everything else that consumes power). \
-			Power consumption and backup power cell charge can be seen from the interface, further controls (turning a specific channel on, off or automatic, \
-			toggling the APC's ability to charge the backup cell, or toggling power for the entire area via master breaker) first requires the interface to be unlocked \
-			with an ID with Engineering access or by one of the station's robots or the artificial intelligence."
-
-/obj/machinery/power/apc/detailed_examine_antag()
-	return "This can be emagged to unlock it. It will cause the APC to have a blue error screen. \
-			Wires can be pulsed remotely with a signaler attached to it. A powersink will also drain any APCs connected to the same wire the powersink is on."
+	. += "<span class='notice'>This powerful, yet small, device powers the entire room in which it is located. From lighting, airlocks, and equipment, an APC is able to power it all! You can unlock an APC by using an ID with the required access on it, or by a local synthetic.</span>"
+	. += "<span class='notice'>The enviroment setting controls the gas and airlock power.</span>"
+	. += "<span class='notice'>The lighting setting controls the power of all the lighting of the room.</span>"
+	. += "<span class='notice'>The equipment setting controls the power of all machines and computers in the room.</span>"
+	. += "<span class='notice'>You can crowbar an unlocked APC to open the cover of the APC.</span>"
+	if(isAntag(user))
+		. += "<span class='warning'>An APC can be emagged to unlock it, this will keep it in it's refresh state, making very obvious something is wrong.</span>"
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
@@ -364,6 +361,10 @@
 		return
 	else
 		return ..()
+
+/obj/machinery/power/apc/AltClick(mob/user)
+	if(Adjacent(user))
+		togglelock(user)
 
 /obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)
@@ -495,11 +496,10 @@
 	if(issilicon(user))
 		var/mob/living/silicon/ai/AI = user
 		var/mob/living/silicon/robot/robot = user
-		if(aidisabled || malfhack && istype(malfai))
-			if((istype(AI) && (malfai!=AI && malfai != AI.parent)) || (istype(robot) && (robot in malfai.connected_robots)))
-				if(!loud)
-					to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
-				return FALSE
+		if(aidisabled || (malfhack && istype(malfai) && ((istype(AI) && (malfai != AI && malfai != AI.parent))) || (istype(robot) && malfai && !(robot in malfai.connected_robots))))
+			if(!loud)
+				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
+			return FALSE
 	else
 		if((!in_range(src, user) || !isturf(loc)))
 			return FALSE

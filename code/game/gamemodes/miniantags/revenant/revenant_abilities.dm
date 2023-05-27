@@ -415,14 +415,14 @@
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/create_new_targeting()
 	var/datum/spell_targeting/aoe/targeting = new()
 	targeting.range = aoe_range
-	targeting.allowed_type = /mob/living
+	targeting.allowed_type = /mob/living/carbon
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/revenant/hallucinations/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
 
-	for(var/mob/living/M as anything in targets)
+	for(var/mob/living/carbon/M as anything in targets)
 		M.AdjustHallucinate(120 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
 		new /obj/effect/temp_visual/revenant(get_turf(M))
 

@@ -373,7 +373,8 @@ GLOBAL_LIST_EMPTY(safes)
 	icon_state = "floorsafe"
 	density = FALSE
 	level = 1 //Under the floor
-	layer = LOW_OBJ_LAYER
+	plane = FLOOR_PLANE
+	layer = ABOVE_PLATING_LAYER
 	drill_x_offset = -1
 	drill_y_offset = 20
 

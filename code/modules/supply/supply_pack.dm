@@ -45,7 +45,7 @@
 		if(!typepath)
 			continue
 		var/atom/A = new typepath(crate)
-		if(isstack(A))
+		if(isstack(A) && amount)
 			var/obj/item/stack/mats = A
 			mats.amount = amount
 

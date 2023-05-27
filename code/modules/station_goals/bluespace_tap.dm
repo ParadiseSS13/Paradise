@@ -43,6 +43,7 @@
 
 /obj/item/circuitboard/machine/bluespace_tap
 	board_name = "Bluespace Harvester"
+	icon_state = "command"
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
