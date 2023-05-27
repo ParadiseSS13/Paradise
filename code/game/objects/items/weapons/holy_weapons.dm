@@ -362,13 +362,13 @@
 				melee_attack_chain(attacking_shade, attacking_atom)
 			return
 	if(Adjacent(attacking_atom)) // without a buddy we only deal 7 damage :c
-		force = force - 5
+		force -= 5
 		var/mob/living/simple_animal/hostile/hostile_target = attacking_atom
 		if(istype(hostile_target) && prob(40)) // Cheese reduction, non sentient animals have a hard time attacking things in objects
 			attack_animal(hostile_target)
 		do_attack_animation(attacking_atom, used_item = src)
 		melee_attack_chain(attacking_shade, attacking_atom)
-		force = force + 5
+		force += 5
 
 /mob/living/simple_animal/shade/sword/create_mob_hud()
 	hud_used = new /datum/hud/sword(src)
