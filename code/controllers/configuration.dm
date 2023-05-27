@@ -873,8 +873,11 @@
 				if("tts_token_silero")
 					tts_token_silero = value
 
+				if("tts_url_silero")
+					tts_url_silero = value
+
 				if("tts_enabled")
-					config.tts_enabled = tts_token_silero ? TRUE : FALSE
+					config.tts_enabled = tts_token_silero && tts_url_silero ? TRUE : FALSE
 
 				if("tts_cache")
 					config.tts_cache = TRUE

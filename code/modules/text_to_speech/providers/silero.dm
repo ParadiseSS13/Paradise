@@ -6,7 +6,7 @@
 	if(throttle_check())
 		return FALSE
 
-	var/api_url = "https://api-tts.silero.ai/voice"
+	var/api_url = tts_url_silero
 	var/ssml_text = {"<speak>[text]</speak>"}
 
 	var/list/req_body = list()
