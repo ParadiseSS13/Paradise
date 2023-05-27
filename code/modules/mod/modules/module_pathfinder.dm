@@ -11,7 +11,7 @@
 		Nakamura Engineering swears up and down there's airbrakes."
 	icon_state = "pathfinder"
 	complexity = 2
-	use_power_cost = DEFAULT_CHARGE_DRAIN * 10
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 200
 	incompatible_modules = list(/obj/item/mod/module/pathfinder)
 	/// The pathfinding implant.
 	var/obj/item/implant/mod/implant

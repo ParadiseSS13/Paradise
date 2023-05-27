@@ -245,26 +245,6 @@
 	mod.forceMove(drop_location())
 
 
-/obj/item/mod/module/infiltrator
-	name = "MOD infiltration core programs module"
-	desc = "The primary stealth systems operating within the suit. Utilizing electromagnetic signals, \
-		the wearer simply cannot be heard clearly by those around them."
-	icon_state = "infiltrator"
-	complexity = 0
-	removable = FALSE
-	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0
-	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/armor_booster, /obj/item/mod/module/welding)
-
-/obj/item/mod/module/infiltrator/on_suit_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, "mod_trait")
-	mod.helmet.flash_protect = FLASH_PROTECTION_WELDER
-
-/obj/item/mod/module/infiltrator/on_suit_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_SILENT_FOOTSTEPS, "mod_trait")
-	if(deleting)
-		return
-	mod.helmet.flash_protect = initial(mod.helmet.flash_protect)
-
 //Ninja modules for MODsuits
 
 ///Cloaking - Lowers the user's visibility, can be interrupted by being touched or attacked.
