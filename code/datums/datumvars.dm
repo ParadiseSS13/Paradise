@@ -637,9 +637,9 @@
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
 		var/mob/living/carbon/C = locateUID(href_list["givemartialart"])
-		if(!istype(C))
-			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
-			return
+//		if(!istype(C))
+//			to_chat(usr, "This can only be done to instances of type /mob/living/carbon")
+//			return
 
 		var/list/artpaths = subtypesof(/datum/martial_art)
 		var/list/artnames = list()
