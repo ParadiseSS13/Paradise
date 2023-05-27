@@ -1,14 +1,14 @@
 ///Pathfinder - Can fly the suit from a long distance to an implant installed in someone.
 /obj/item/mod/module/pathfinder
 	name = "MOD pathfinder module"
-	desc = "This module, brought to you by WITTY_NAME_HERE, has two components. \
+	desc = "This module, brought to you by Paizo Productions, has two components. \
 		The first component is a series of thrusters and a computerized location subroutine installed into the \
 		very control unit of the suit, allowing it flight at highway speeds using the suit's access locks \
 		to navigate through the station, and to be able to locate the second part of the system; \
 		a pathfinding implant installed into the base of the user's spine, \
 		broadcasting their location to the suit and allowing them to recall it to their person at any time. \
 		The implant is stored in the module and needs to be injected in a human to function. \
-		Nakamura Engineering swears up and down there's airbrakes."
+		Paizo Productions swears up and down there's airbrakes."
 	icon_state = "pathfinder"
 	complexity = 2
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 200
@@ -147,10 +147,11 @@
 /obj/item/implant/mod/proc/mod_move(dest)
 	dest = get_turf(dest) //We must always compare turfs, so get the turf of the dest var if dest was originally something else.
 	if(get_turf(module.mod) == dest) //We have arrived, no need to move again.
-		if(get_turf(module) == get_turf(imp_in))
-			module.attach(imp_in)
-			end_recall()
-			return TRUE
+		for(var/mob/living/carbon/human/H in range(1, module.mod))
+			if(H == imp_in)
+				module.attach(imp_in)
+				end_recall()
+				return TRUE
 		end_recall(FALSE)
 		return FALSE
 

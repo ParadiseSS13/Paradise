@@ -301,6 +301,7 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
+		/obj/item/gun/energy/pulse,
 		/obj/item/disk/nuclear/unrestricted
 	)
 
