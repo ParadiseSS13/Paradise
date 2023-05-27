@@ -15,6 +15,6 @@
 		return
 
 	simplemob.layer = MOB_LAYER
-	simplemob.visible_message("[src] slowly peeks up from the ground...", "<span class=notice'>You have stopped hiding.</span>")
+	simplemob.visible_message("<b>[src] slowly peeks up from the ground...</b>", "<span class=notice'>You have stopped hiding.</span>")
 	if(simplemob.pass_door_while_hidden)
 		simplemob.pass_flags &= ~PASSDOOR
