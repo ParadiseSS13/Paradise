@@ -318,11 +318,11 @@ SUBSYSTEM_DEF(tts)
 		return
 
 	if(response.status_code != 200)
-		// provider.failed_requests++
+		provider.failed_requests++
 		if(provider.failed_requests >= provider.failed_requests_limit)
 			provider.is_enabled = FALSE
 		log_and_message_admins("<span class='warning'>Error performing [provider.name] TTS API request (Code: [response.status_code])</span>")
-		// tts_request_failed++
+		tts_request_failed++
 		if(response.status_code)
 			if(tts_errors["[response.status_code]"])
 				tts_errors["[response.status_code]"]++
