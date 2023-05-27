@@ -139,8 +139,9 @@
 	parent_action = new_parent
 
 /obj/item/melee/changeling_corrosive_acid/Destroy()
-	parent_action.current_hand = null
-	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
+	if(parent_action)
+		parent_action.current_hand = null
+		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	return ..()
 
 /obj/item/melee/changeling_corrosive_acid/afterattack(atom/target, mob/user, proximity, params)
