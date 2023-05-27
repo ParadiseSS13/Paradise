@@ -245,7 +245,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/trinary/nuclear_reactor/process()
 	..()
 	if(next_slowprocess < world.time)
-		slowprocess()
+		process_atmos()
 		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
 		to_chat(world, "Process has just triggered!")
 		return 1
@@ -254,7 +254,8 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/has_fuel()
 	return length(fuel_rods)
 
-/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/slowprocess()
+/obj/machinery/atmospherics/trinary/nuclear_reactor/process_atmos()
+	..()
 	if(slagged)
 		STOP_PROCESSING(SSmachines, src)
 		return
