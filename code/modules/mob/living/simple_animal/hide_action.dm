@@ -9,7 +9,7 @@
 
 	if(simplemob.layer != TURF_LAYER + 0.2)
 		simplemob.layer = TURF_LAYER + 0.2
-		simplemob.visible_message("<B>[src] scurries to the ground!</B>", "<span class=notice'>You are now hiding.</span>")
+		simplemob.visible_message("<b>[src] scurries to the ground!</b>", "<span class=notice'>You are now hiding.</span>")
 		if(simplemob.pass_door_while_hidden)
 			simplemob.pass_flags |= PASSDOOR
 		return
