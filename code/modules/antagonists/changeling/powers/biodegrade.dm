@@ -110,14 +110,13 @@
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(remove_hand_spell))
 	return TRUE
 
-/datum/action/changeling/biodegrade/proc/remove_hand_spell(mob/living/carbon/human/user, any=FALSE)
+/datum/action/changeling/biodegrade/proc/remove_hand_spell(mob/living/carbon/human/user, any_hand=FALSE)
 	SIGNAL_HANDLER
 	if(!current_hand)
 		return FALSE
-	if(any && user.get_active_hand() != current_hand)
+	if(any_hand && user.get_active_hand() != current_hand)
 		return FALSE
 	qdel(current_hand)
-	current_hand = null
 	UnregisterSignal(user, COMSIG_MOB_WILLINGLY_DROP)
 	return TRUE
 
@@ -154,3 +153,7 @@
 	else
 		to_chat(user, "<span class='noticealien'>You cannot dissolve this object.</span>")
 	parent_action.remove_hand_spell(user)
+
+/obj/item/melee/changeling_corrosive_acid/Destroy()
+	parent_action.current_hand = null
+	return ..()
