@@ -260,18 +260,30 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		STOP_PROCESSING(SSmachines, src)
 		return
 
+
+	to_chat(world,"------ Running Process Atmos ------" )
+
 	//Let's get our gasses sorted out.
 	var/datum/gas_mixture/coolant_input = COOLANT_INPUT_GATE
 	var/datum/gas_mixture/moderator_input = MODERATOR_INPUT_GATE
 	var/datum/gas_mixture/coolant_output = COOLANT_OUTPUT_GATE
 
 
+	to_chat(world,"----- START OF PROC -----")
+	to_chat(world,"--- Coolant Input ---")
+	to_chat(world,"Total Moles: [coolant_input.total_moles()]" )
+	to_chat(world,"Temperature: [coolant_input.return_temperature()]" )
+	to_chat(world,"--- Coolant Output ---")
+	to_chat(world,"Total Moles: [coolant_output.total_moles()]" )
+	to_chat(world,"Temperature: [coolant_output.return_temperature()]" )
+	to_chat(world,"--- Moderator Total ---")
+	to_chat(world,"Total Moles: [moderator_input.total_moles()]" )
+	to_chat(world,"Temperature: [moderator_input.return_temperature()]" )
+
 	//Firstly, heat up the reactor based off of K.
 	var/input_moles = coolant_input.total_moles() //Firstly. Do we have enough moles of coolant?
-	to_chat(world,"Coolant input total moles [coolant_input.total_moles()]" )
 	if(input_moles >= minimum_coolant_level)
 		last_coolant_temperature = KELVIN_TO_CELSIUS(coolant_input.return_temperature())
-		to_chat(world,"Coolant input temp [coolant_input.return_temperature()]" )
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
 		var/heat_delta = (KELVIN_TO_CELSIUS(coolant_input.return_temperature()) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
@@ -279,9 +291,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		//transfer_moles1 = (coolant_input.total_moles())*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
 		//issue here with moving gas from node3 to pipenet.
 		coolant_output.merge(coolant_input) //And now, shove the input into the output.
-		to_chat(world,"Coolant output total moles [coolant_output.total_moles()]" )
-		to_chat(world, "Coolant output temp [coolant_output.return_temperature()]")
-		coolant_input.clear() //Clear out anything left in the input gate.
+		coolant_input.remove(coolant_input.total_moles()) //Clear out anything left in the input gate.
 		color = null
 		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
 	else
@@ -291,7 +301,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
 				vessel_integrity -= temperature / 200 //Think fast loser.
 				take_damage(1) //Just for the sound effect, to let you know you've fucked up. NOTE: take_damage is normally set to 10 but is set to 1 for current test.
-				to_chat(world, "Reactor is taking damage because of no coolant!")
+				to_chat(world, "Reactor is taking damage because of no coolant! Total Damage: [src.obj_integrity]")
 				color = "[COLOR_RED]"
 
 	//Now, heat up the output and set our pressure.
@@ -315,6 +325,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				coolant_output.adjust_moles(GAS_A_B, total_fuel_moles/20) //Shove out agent B into the air when it's fuelled. You need to filter this off, or you're gonna have a bad (and green) time.
 			var/obj/structure/cable/C = T.get_cable_node()
 			if(!C?.powernet)
+				to_chat(world, "<span class='userdanger'> !!! Returning Early because no powernet! !!! </span>")
 				return
 			else
 				C.powernet.newavail += last_power_produced
@@ -333,7 +344,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			depletion_modifier += total_degradation_moles / 15 //Oops! All depletion. This causes your fuel rods to get SPICY.
 			playsound(src, pick('sound/machines/sm/accent/normal/1.ogg','sound/machines/sm/accent/normal/2.ogg','sound/machines/sm/accent/normal/3.ogg','sound/machines/sm/accent/normal/4.ogg','sound/machines/sm/accent/normal/5.ogg'), 100, TRUE)
 		//From this point onwards, we clear out the remaining gasses.
-		moderator_input.clear() //Woosh. And the soul is gone.
+		moderator_input.remove(moderator_input.total_moles()) //Woosh. And the soul is gone.
 		K += total_fuel_moles / 1000
 	var/fuel_power = 0 //So that you can't magically generate K with your control rods.
 	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
@@ -377,6 +388,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			playsound(src, 'sound/machines/fryer/deep_fryer_emerge.ogg', 100, TRUE)
 			var/obj/item/reagent_containers/food/grilled_item = I
 			if(prob(80))
+				to_chat(world, "<span class='userdanger'> !!! Returning Early because of Cooking??? !!! </span>")
 				return //To give the illusion that it's actually cooking omegalul.
 			switch(power)
 				if(20 to 39)
@@ -391,6 +403,22 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				if(95 to INFINITY)
 					grilled_item.name = "Ultimate Meltdown Grilled [initial(grilled_item.name)]"
 					grilled_item.desc = "A [initial(grilled_item.name)]. A grill this perfect is a rare technique only known by a few engineers who know how to perform a 'controlled' meltdown whilst also having the time to throw food on a reactor. I'll bet it tastes amazing."
+
+	to_chat(world,"----- END OF PROC -----")
+	to_chat(world,"--- Coolant Input ---")
+	to_chat(world,"Total Moles: [coolant_input.total_moles()]" )
+	to_chat(world,"Temperature: [coolant_input.return_temperature()]" )
+	to_chat(world,"--- Coolant Output ---")
+	to_chat(world,"Total Moles: [coolant_output.total_moles()]" )
+	to_chat(world,"Temperature: [coolant_output.return_temperature()]" )
+	to_chat(world,"--- Moderator Total ---")
+	to_chat(world,"Total Moles: [moderator_input.total_moles()]" )
+	to_chat(world,"Temperature: [moderator_input.return_temperature()]" )
+
+	parent1.update = 1
+	parent2.update = 1
+	parent3.update = 1
+	return 1
 
 //Method to handle sound effects, reactor warnings, all that jazz.
 //currently broken. needs total rework.

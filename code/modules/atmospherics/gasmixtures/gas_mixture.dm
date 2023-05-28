@@ -65,8 +65,6 @@ What are the archived variables for?
 /datum/gas_mixture/proc/get_moles(gas_type)
 	///Set mols of gas in an enviroment
 /datum/gas_mixture/proc/set_moles(gas_type, moles)
-	/// Clear gas in an enviroment
-/datum/gas_mixture/proc/clear()
 	///set tempertaure in an enviroment
 /datum/gas_mixture/proc/set_temperature(new_temp)
 	///Modify moles of gas in an enviroment
