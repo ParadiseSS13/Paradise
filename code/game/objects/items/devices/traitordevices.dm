@@ -259,7 +259,7 @@
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 
-	/// How many uses the mind batter has been used
+	/// How many times the mind batter has been used
 	var/times_used = 0
 	var/max_uses = 5
 
