@@ -314,7 +314,7 @@
 				to_chat(M, "<span class='danger'>but as soon as it arrives, it fades.</span>")
 		add_attack_logs(user, M, "Mind battered with [src]")
 
-	playsound(get_turf(src), 'sound/misc/interference.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/misc/interference.ogg', 50, TRUE)
 	times_used++
 	to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
 	if(times_used >= max_uses)
