@@ -9,7 +9,7 @@
 	icon_medium = "pinonmedium_contractor"
 	icon_far = "pinonfar_contractor"
 	/// The minimum range for the pinpointer to function properly.
-	var/min_range = 20
+	var/min_range = 15
 	/// The first person to have used the item. If this is set already, no one else can use it.
 	var/mob/owner = null
 

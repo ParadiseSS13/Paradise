@@ -61,39 +61,38 @@
 	new /obj/item/encryptionkey/syndicate(src)
 
 /obj/item/paper/contractor_guide
-	name = "contractor guide"
+	name = "Инструкции контрактнику"
 
-/obj/item/paper/contractor_guide/Initialize()
-	info = {"<p>Welcome agent, congratulations on your new position as a Syndicate contractor. On top of your already assigned objectives,
-			this kit will provide you contracts to take on for telecrystal payments.</p>
-			<p>Provided within is your specialist contractor space suit. It's even more compact, being able to fit into a pocket, and faster than the
-			Syndicate space suit available to you on your hidden uplink. We also provide you a chameleon jumpsuit and mask, both of which can be changed
-			to any form you need for the moment. The cigarettes are a special blend - they will heal your injuries slowly over time.</p>
-			<p>Three additional items have been randomly selected from what we had available and included in this kit. We hope they're useful to you for your mission.</p>
-			<p>The Contractor Hub, available in your contractor uplink, can provide you unique items and abilities. These are bought using Contractor Rep,
-			with two Rep being provided each time you complete a contract.</p>
-			<h3>Using the Contractor Uplink</h3>
+/obj/item/paper/contractor_guide/Initialize() //The translation is slightly different from the original text, since the chapter "extraction" does not correspond to the actions in the game
+	info = {"<p>Приветствуем, агент. Наши поздравления по поводу вашего назначения на должность контрактника Синдиката. Помимо уже имеющихся у вас целей,
+			данный набор открывает вам доступ к контрактам, выполнение которых оплачивается телекристаллами.</p>
+			<p>Внутри вашего набора находится специализированный скафандр контрактника. Он компактнее, чем стандартные скафандры Синдиката, доступные в вашем аплинке,
+			и может влезть в ваш карман. Скафандр сделан из легких материалов и не замедляет вас. Помимо прочего, мы предоставили вам противогаз и комбинезон с функцией "Хамелеон",
+			оба этих предмета могут в любой момент менять свой внешний вид на нужный вам. Сигареты пропитаны особой смесью - они будут медленно исцелять ваши травмы с течением времени.</p>
+			<p>Дополнительно вам в набор будет выделено три случайных предмета, что были у нас под рукой. Мы надеемся, что они помогут вам в вашей задаче.</p>
+			<p>Хаб контрактника, доступный в вашем специализированном аплинке, предоставляет доступ к уникальным предметам и возможностям.
+			Покупка осуществляется с помощью особой валюты - репутации (Rep), которая предоставляется в двух условных единицах после каждого успешного завершения контракта.</p>
+			<h3>Использование Аплинка Контрактника</h3>
 			<ol>
-				<li>Take the contractor uplink from this kit and activate it.</li>
-				<li>From there, you can accept a contract, and redeem your TC payments from completed contracts.</li>
-				<li>The payment number shown in brackets is the bonus you'll receive when bringing your target <b>alive</b>. You receive the
-				other number regardless of whether they were alive or not.</li>
-				<li>Contracts are completed by bringing the target to the designated extraction zone, calling for extraction, and putting them
-				inside the extraction portal.</li>
+				<li>Возьмите в руки аплинк, лежащий в вашем наборе, и запустите его.</li>
+				<li>После успешного запуска вы можете принимать контракты и получать выплаты в телекристаллах за их выполнение.</li>
+				<li>Сумма получаемой награды, указанная в скобках как TC, это награда, которую вы получите, если доставите вашу цель <b>живой</b>. Награду в виде
+				кредитов вы получите в полном объеме, вне зависимости от того, жива ли ваша цель, или нет.</li>
+				<li>Выполнение контрактов осуществляется путем доставки цели вашего контракта в обозначенную зону эвакуации, запроса эвакуации через ваш аплинк и перемещения цели в портал.</li>
 			</ol>
-			<p>Be careful when accepting a contract. While you'll be able to see its extraction zone beforehand, cancelling will make it
-			unavailable to take on again.</p>
-			<h3>Extracting</h3>
+			<p>Внимательно всё обдумайте, принимая контракт. В то время, как вы можете видеть все возможные зоны эвакуации заранее, отказ от уже взятого контракта приведет к
+			невозможности повторно взять или заменить этот контракт.</p>
+			<h3>Похищение</h3>
 			<ol>
-				<li>Make sure both yourself and your target are at the extraction zone.</li>
-				<li>Call the extraction, and stand back from the drop point.</li>
-				<li>If it fails, make sure your target is inside, and there's a free space for the extraction portal to appear.</li>
-				<li>Grab your target, and drag them into the extraction portal.</li>
+				<li>Убедитесь, что и вы, и цель находитесь в зоне эвакуации.</li>
+				<li>Возьмите в руки ваш аплинк и запросите эвакуацию через кнопку "Call Extraction", после чего подожгите предоставленный вам фальшфейер.</li>
+				<li>После использования фальшфейера, дождитесь активации эвакуационного портала.</li>
+				<li>Переместите вашу цель в эвакуационный портал.</li>
 			</ol>
-			<h3>Ransoms</h3>
-			<p>We need your target for our own reasons, but we ransom them back to your mission area once their use is served. They will return back
-			from where you sent them off from in several minutes time. Don't worry, we give you a cut of what we get paid. We pay this into whatever
-			ID card you have equipped, on top of the TC payment we give.</p>
-			<p>Good luck agent. You can burn this document with the supplied lighter.</p>"}
+			<h3>Выкуп</h3>
+			<p>Ваши цели нужны нам по нашим собственным причинам, однако, как только они станут для нас бесполезными, мы возвращаем их обратно на станцию за выкуп со стороны НТ.
+			Через некоторое время после похищения они будут возвращены в ту локацию, откуда они были доставлены нам. И да, вдобавок от выплаты в виде ТК, вы получите свою долю от выкупа.
+			Мы платим на ту карту, что была помещена вами в слот карты в момент эвакуации.</p>
+			<p>Удачи, агент. Вы можете сжечь эту бумагу с помощью предоставленной вам зажигалки.</p>"}
 
 	return ..()

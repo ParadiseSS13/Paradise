@@ -4,7 +4,8 @@
 /datum/rep_purchase/reroll
 	name = "Contract Reroll"
 	description = "Replaces your inactive contracts with new ones, containing a new target and extraction zones."
-	cost = 2
+	cost = 0
+	stock = 2
 
 /datum/rep_purchase/reroll/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	var/eligible = FALSE

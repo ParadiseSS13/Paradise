@@ -3,6 +3,7 @@
 	var/list/datum/mind/traitors = list()
 	var/list/datum/mind/implanter = list()
 	var/list/datum/mind/implanted = list()
+	var/list/datum/mind/support = list()
 
 	var/datum/mind/exchange_red
 	var/datum/mind/exchange_blue
@@ -169,6 +170,10 @@
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
 				var/mob/living/carbon/human/master = master_mind.current
 				text += " (slaved by: <b>[master]</b>)<br>"
+		if(length(SSticker.mode.support))
+			text += "<br><br><FONT size = 2><B>The Contractor Support Units were:</B></FONT><br>"
+			for(var/datum/mind/csu in SSticker.mode.support)
+				text += "[printplayer(csu)]<br>"
 
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")

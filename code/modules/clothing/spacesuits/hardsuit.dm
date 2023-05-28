@@ -664,3 +664,4 @@
 //Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
 //Deathsquad Hardsuit — code\modules\clothing\spacesuits\ert.dm
 //Prototype RIG Hardsuit — code\modules\awaymissions\mission_code\ruins\oldstation.dm
+//Contractor Hardsuit - code\modules\antagonists\traitor\contractor\items\contractor_hardsuit.dm

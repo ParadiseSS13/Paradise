@@ -40,3 +40,16 @@
 			 + "<span class='boldnotice'>[text]</span>")
 	if(sndfile)
 		M.playsound_local(get_turf(M), sndfile, 30, FALSE)
+
+/obj/item/contractor_uplink/attackby(obj/item/O as obj, mob/user as mob, params)
+	if(istype(O, /obj/item/antag_spawner/contractor_partner))
+		var/obj/item/antag_spawner/contractor_partner/device = O
+		if(device.checking)
+			to_chat(user, "<span class='notice'>Trying to refund a used device is a rather stupid idea.</span>")
+		else
+			hub.rep += 2
+			to_chat(user, "<span class='notice'>You are successfully refund the device!</span>")
+			for(var/datum/rep_purchase/item/contractor_partner/C in hub.purchases)
+				C.stock += 1
+			qdel(device)
+

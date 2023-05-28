@@ -233,6 +233,7 @@ GLOBAL_LIST_EMPTY(all_objectives)
 
 /datum/objective/protect/mindslave //subtype for mindslave implants
 
+/datum/objective/protect/contractor //subtype for support units
 
 /datum/objective/hijack
 	martyr_compatible = 0 //Technically you won't get both anyway.

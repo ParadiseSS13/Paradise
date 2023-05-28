@@ -27,10 +27,17 @@
 		/datum/rep_purchase/reroll,
 		/datum/rep_purchase/item/pinpointer,
 		/datum/rep_purchase/item/baton,
+		/datum/rep_purchase/item/baton_cuffup,
+		/datum/rep_purchase/item/baton_muteup,
+		//datum/rep_purchase/item/baton_focusup,
+		/datum/rep_purchase/item/baton_antidropup,
 		/datum/rep_purchase/item/fulton,
 		/datum/rep_purchase/blackout,
+		/datum/rep_purchase/comms_blackout,
 		/datum/rep_purchase/item/zippo,
 		/datum/rep_purchase/item/balloon,
+		/datum/rep_purchase/item/contractor_partner,
+		/datum/rep_purchase/item/contractor_hardsuit,
 	)
 	// Variables
 	/// The contractor associated to this hub.
