@@ -325,7 +325,7 @@
 	if(times_used >= max_uses)
 		return
 	visible_message("<span class='notice'>[src] suddenly triggers, sending a shower of sparks everywhere!</span>")
-	do_sparks(4, 0, get_turf(src))
+	do_sparks(4, FALSE, get_turf(src))
 	attack_self()
 
 /obj/item/batterer/emp_act(severity)
