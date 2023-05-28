@@ -796,7 +796,7 @@
 /obj/machinery/door/airlock/syndicate/command
 	name = "evil looking command airlock"
 	icon = 'icons/obj/doors/airlocks/syndicate/command.dmi'
-	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_research
+	assemblytype = /obj/structure/door_assembly/syndicate/door_assembly_syndie_com
 	normal_integrity = 500
 
 /obj/machinery/door/airlock/syndicate/command/glass
