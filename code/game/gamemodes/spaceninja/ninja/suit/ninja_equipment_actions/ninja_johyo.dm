@@ -86,7 +86,7 @@
 	armour_penetration = 100
 	damage_type = BRUTE
 	hitsound = 'sound/weapons/whip.ogg'
-	weaken = 4
+	weaken = 1
 	var/chain
 
 
