@@ -41,7 +41,7 @@
 	var/randomspread = 1
 
 	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = FALSE //allows one-time reskinning
+	var/unique_reskin = FALSE //allows reskinning
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
@@ -90,7 +90,7 @@
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
-	if(unique_reskin && !current_skin)
+	if(unique_reskin)
 		. += "<span class='info'>Alt-click it to reskin it.</span>"
 	if(unique_rename)
 		. += "<span class='info'>Use a pen on it to rename it.</span>"
@@ -419,13 +419,13 @@
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
-	if(unique_reskin && !current_skin && loc == user)
+	if(unique_reskin && loc == user)
 		reskin_gun(user)
 
 /obj/item/gun/proc/reskin_gun(mob/M)
-	var/choice = input(M,"Warning, you can only reskin your weapon once!","Reskin Gun") in options
+	var/choice = input(M,"Select your skin.","Reskin Gun") in options
 
-	if(src && choice && !current_skin && !M.incapacitated() && in_range(M,src))
+	if(src && choice && !M.incapacitated() && in_range(M,src))
 		if(options[choice] == null)
 			return
 		current_skin = options[choice]
