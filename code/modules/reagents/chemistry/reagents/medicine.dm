@@ -305,7 +305,7 @@
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() < UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
+			if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
 				H.cure_husk(BURN)
 				H.visible_message("<span class='nicegreen'>The squishy liquid coats [H]'s burns. [H] looks a lot healthier!") //we're avoiding using the phrases "burnt flesh" and "burnt skin" here because humans could be a skeleton or a golem or something
 	..()
