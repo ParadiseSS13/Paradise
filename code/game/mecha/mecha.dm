@@ -226,7 +226,6 @@
 		target = safepick(view(3,target))
 		if(!target)
 			return
-
 	var/mob/living/L = user
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())

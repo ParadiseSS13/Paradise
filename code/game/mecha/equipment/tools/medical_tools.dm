@@ -633,3 +633,7 @@
 		var/obj/mecha/medical/odysseus/O = src.loc
 		O.step_in = initial(O.step_in)
 		return ..()
+	if(istype(src.loc, /obj/mecha/combat/lockersyndie))
+		var/obj/mecha/combat/lockersyndie/S = src.loc
+		S.step_in = initial(S.step_in)
+		return ..()
