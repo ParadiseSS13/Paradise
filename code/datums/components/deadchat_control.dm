@@ -47,7 +47,7 @@
 	if(!ismob(parent) && !(parent in GLOB.poi_list))
 		GLOB.poi_list |= parent
 		generated_point_of_interest = TRUE
-	message_admins("[parent] has been given deadchat control in [deadchat_mode == DEADCHAT_ANARCHY_MODE ? "anarchy" : "democracy"] mode with a cooldown of [input_cooldown SECONDS] second\s.")
+	message_admins("[parent] has been given deadchat control in [deadchat_mode == DEADCHAT_ANARCHY_MODE ? "anarchy" : "democracy"] mode with a cooldown of [input_cooldown] second\s.")
 
 	var/atom/A = parent
 	for(var/mob/dead/observer/ghost in A.get_orbiters())
@@ -197,6 +197,11 @@
 		examine_list += "<span class='deadsay'>As you have deadchat disabled, you will not see vote messages, nor be able to participate in voting.</span>"
 		return
 
+	if(!(user in orbiters))
+		examine_list += "<span class='deadsay bold'>Orbit [A.p_them()] and examine [A.p_them()] again to see the list of possible commands.</span>"
+		return
+
+
 	if(deadchat_mode & DEADCHAT_DEMOCRACY_MODE)
 		examine_list += "<span class='notice'>Type a command into chat to vote on an action. This happens once every [input_cooldown * 0.1] second\s.</span>"
 	else if(deadchat_mode & DEADCHAT_ANARCHY_MODE)
@@ -204,8 +209,7 @@
 
 	var/extended_examine = "<span class='notice'>Command list:"
 
-	for(var/possible_input in inputs)
-		extended_examine += " [possible_input]"
+	extended_examine += english_list(inputs)
 
 	extended_examine += ".</span>"
 

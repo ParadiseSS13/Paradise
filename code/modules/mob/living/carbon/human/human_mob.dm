@@ -2084,7 +2084,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			if(INTENT_HARM)
 				visible_message("<span class='warning'>[src] swings [implement] wildly!</span>")
 			if(INTENT_HELP)
-				visible_message("<span class='warning'>[src] seems to be calm and collected!</span>")
+				visible_message("<span class='notice'>[src] seems to take a deep breath.</span>")
 		return
 	if(isLivingSSD(victim))
 		visible_message("<span class='notice'>[src] [intent == INTENT_HARM ? "reluctantly " : ""]lowers [p_their()] [implement].</span>")
