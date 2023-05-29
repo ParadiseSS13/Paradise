@@ -312,16 +312,14 @@ SUBSYSTEM_DEF(tts)
 	// Bail if it errored
 	if(response.errored)
 		provider.failed_requests++
-		if(provider.failed_requests >= provider.failed_requests_limit)
-			provider.is_enabled = FALSE
-		log_and_message_admins("<span class='warning'>Error connecting to [provider.name] TTS API. Please inform a maintainer or server host.</span>")
+		// if(provider.failed_requests >= provider.failed_requests_limit)
+		// 	provider.is_enabled = FALSE
 		return
 
 	if(response.status_code != 200)
 		provider.failed_requests++
-		if(provider.failed_requests >= provider.failed_requests_limit)
-			provider.is_enabled = FALSE
-		log_and_message_admins("<span class='warning'>Error performing [provider.name] TTS API request (Code: [response.status_code])</span>")
+		// if(provider.failed_requests >= provider.failed_requests_limit)
+		// 	provider.is_enabled = FALSE
 		tts_request_failed++
 		if(response.status_code)
 			if(tts_errors["[response.status_code]"])
