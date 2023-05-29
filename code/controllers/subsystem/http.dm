@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(http)
 
 			// And log the result
 			if(logging_enabled)
-				if(logging_errors_only && !res.errored)
+				if(logging_errors_only && (!res.errored || res.status_code != 200))
 					return
 				var/list/log_data = list()
 				log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
