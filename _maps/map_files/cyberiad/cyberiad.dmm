@@ -65609,7 +65609,7 @@
 "ecZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/r_wall,
-/area/toxins/xenobiology)
+/area/maintenance/asmaint)
 "edf" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 1;
@@ -79812,6 +79812,9 @@
 	icon_state = "purple"
 	},
 /area/toxins/hallway)
+"oJr" = (
+/turf/simulated/wall/r_wall,
+/area/maintenance/asmaint)
 "oJO" = (
 /obj/machinery/light/small,
 /obj/structure/closet/firecloset/full,
@@ -83018,6 +83021,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/office)
+"qZN" = (
+/turf/simulated/wall/r_wall,
+/area/maintenance/asmaint2)
 "rac" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -135053,22 +135059,22 @@ cDg
 cuQ
 chf
 chf
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
+cxO
 cVD
 nMU
 cmt
@@ -135310,7 +135316,7 @@ soR
 cuQ
 bGG
 uCK
-cBR
+qZN
 cJK
 cJK
 cJK
@@ -135325,7 +135331,7 @@ cBP
 cMk
 cMk
 dbR
-cBR
+cxO
 hqx
 lWE
 chf
@@ -135567,7 +135573,7 @@ cuQ
 cuQ
 jxu
 dbg
-cBR
+qZN
 gGQ
 taM
 cJK
@@ -135582,7 +135588,7 @@ hLC
 cJK
 cJK
 gIp
-cBR
+cxO
 cVD
 dfM
 chf
@@ -135824,7 +135830,7 @@ cEE
 xsC
 bGG
 cEE
-cBR
+qZN
 cJL
 cMk
 cMk
@@ -135839,7 +135845,7 @@ ilj
 cJK
 cJK
 cJK
-cBR
+cxO
 hqx
 scP
 chf
@@ -136081,7 +136087,7 @@ hGb
 hFn
 fog
 qkC
-cBR
+qZN
 cxN
 smP
 cIb
@@ -136096,7 +136102,7 @@ rSo
 gyS
 wkX
 cxN
-cBR
+cxO
 cVD
 nMU
 dhQ
@@ -136338,7 +136344,7 @@ cuQ
 cuQ
 upd
 cuQ
-cBR
+qZN
 cJK
 cJK
 cJK
@@ -136353,7 +136359,7 @@ muq
 cMk
 cMk
 pRE
-cBR
+cxO
 fnP
 iTs
 iGL
@@ -136595,7 +136601,7 @@ cKQ
 lqd
 cLQ
 dbg
-cBR
+qZN
 gGQ
 taM
 cJK
@@ -136610,7 +136616,7 @@ twx
 cJK
 cJK
 gIp
-cBR
+cxO
 cep
 lWE
 dhQ
@@ -136852,7 +136858,7 @@ cKQ
 cuQ
 pUR
 bGG
-cBR
+qZN
 dQM
 cMk
 cMk
@@ -136867,7 +136873,7 @@ gbw
 cJK
 cJK
 cJK
-cBR
+cxO
 cep
 dfM
 chf
@@ -137109,7 +137115,7 @@ cEE
 cQx
 cLQ
 dgy
-cBR
+qZN
 cxN
 cRY
 cMj
@@ -137124,7 +137130,7 @@ vfc
 wmr
 jEQ
 cxN
-cBR
+cxO
 gmu
 dfM
 cDm
@@ -137366,7 +137372,7 @@ cLc
 cuQ
 cLQ
 cLR
-cBR
+qZN
 cJK
 cJK
 cJK
@@ -137381,7 +137387,7 @@ tdd
 cMk
 cMk
 kUv
-cBR
+cxO
 cAu
 dfM
 chf
@@ -137623,7 +137629,7 @@ cLc
 cuQ
 mRD
 cuQ
-cBR
+qZN
 gGQ
 taM
 cJK
@@ -137638,7 +137644,7 @@ pKP
 cJK
 cJK
 gIp
-cBR
+cxO
 gmu
 dfM
 chf
@@ -137880,7 +137886,7 @@ cJQ
 lqd
 cLQ
 bKl
-cBR
+qZN
 iGI
 cMk
 cMk
@@ -137895,7 +137901,7 @@ jtc
 cJK
 cJK
 cJK
-cBR
+cxO
 cyJ
 nMU
 cDm
@@ -138137,7 +138143,7 @@ cuQ
 lqd
 cLQ
 oVH
-cBR
+qZN
 cBR
 cBR
 cBR
@@ -138152,7 +138158,7 @@ cBR
 cBR
 cBR
 cBR
-cBR
+cxO
 chf
 jdP
 chf
@@ -138394,8 +138400,8 @@ bGG
 cuQ
 cLQ
 bGG
-cBR
-cBR
+qZN
+qZN
 tAp
 xUK
 hqo
@@ -138652,7 +138658,7 @@ cOp
 cOR
 bGG
 cQs
-cBR
+qZN
 cSf
 cEH
 cEH
@@ -138666,7 +138672,7 @@ iun
 fpG
 fMb
 cJK
-cBR
+oJr
 cQC
 dhR
 csL
@@ -138909,7 +138915,7 @@ lqd
 cLQ
 jxu
 cQr
-cBR
+qZN
 cSH
 cXA
 cEH
@@ -138923,7 +138929,7 @@ xUX
 tMx
 qKZ
 jIE
-cBR
+oJr
 jrt
 dMD
 aPn
@@ -139166,7 +139172,7 @@ cuQ
 cLQ
 cuQ
 cuQ
-cBR
+qZN
 cSh
 weM
 cNc
@@ -139180,7 +139186,7 @@ iun
 dvM
 tQn
 cJK
-cBR
+oJr
 sFy
 dhR
 nMd
@@ -139423,7 +139429,7 @@ lqd
 cLQ
 cuQ
 cQu
-cBR
+qZN
 fTy
 oSt
 qOs
@@ -139679,22 +139685,22 @@ rKV
 rKV
 mRD
 rKV
-cBR
-cBR
+qZN
+qZN
 cBR
 uPe
 cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
 kMc
 kdc
 csL
@@ -139941,7 +139947,7 @@ lCQ
 cWr
 kdP
 cNl
-cBR
+oJr
 tlI
 vum
 ojz
@@ -140198,7 +140204,7 @@ aoo
 vJv
 cWw
 xFt
-cBR
+oJr
 eKA
 ijg
 hra
@@ -140455,7 +140461,7 @@ miN
 xTZ
 qyf
 osm
-cBR
+oJr
 ksj
 mdX
 cga
@@ -140707,12 +140713,12 @@ rKV
 rKV
 uMj
 rKV
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+oJr
+oJr
+oJr
+oJr
+oJr
+oJr
 mhm
 pAl
 kdh
