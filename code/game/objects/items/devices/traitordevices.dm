@@ -259,9 +259,11 @@
 	item_state = "electronic"
 	origin_tech = "magnets=3;combat=3;syndicate=3"
 
-	/// How many times the mind batter has been used
+	/// How many uses the mind batter has been used
 	var/times_used = 0
 	var/max_uses = 5
+	/// Is this item on cooldown from being thrown
+	var/on_throwing_cooldown = FALSE
 
 /obj/item/batterer/examine(mob/user)
 	. = ..()
@@ -272,6 +274,9 @@
 		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
 
 /obj/item/batterer/attack_self(mob/living/carbon/user)
+	activate_batterer(user)
+
+/obj/item/batterer/proc/activate_batterer(mob/user)
 	if(user)
 		if(times_used >= max_uses)
 			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
@@ -294,12 +299,8 @@
 				M.apply_status_effect(STATUS_EFFECT_PACIFIED_BATTERER)
 				to_chat(M, "<span class='warning'>and you feel an innate love for life for a fleeting moment!</span>")
 			if(3)
-				if(prob(80))
-					M.Druggy(45 SECONDS)
-					to_chat(M, "<span class='warning'>and you feel like, totally chill dude!</span>")
-				else
-					M.AdjustHallucinate(45 SECONDS)
-					to_chat(M, "<span class='warning'>and this doesn't feel like a good trip!</span>")
+				new /obj/effect/hallucination/delusion(get_turf(M), M)
+				to_chat(M, "<span class='warning'>and the people around you morph in appearence!</span>")
 			if(4)
 				if(prob(80))
 					M.EyeBlurry(25 SECONDS)
@@ -322,20 +323,25 @@
 
 /obj/item/batterer/throw_impact(atom/hit_atom)
 	..()
-	if(times_used >= max_uses)
+	if(times_used >= max_uses || on_throwing_cooldown)
 		return
+	addtimer(CALLBACK(src, PROC_REF(end_throwing_delay)), 3 SECONDS)
 	visible_message("<span class='notice'>[src] suddenly triggers, sending a shower of sparks everywhere!</span>")
 	do_sparks(4, FALSE, get_turf(src))
-	attack_self()
+	activate_batterer()
+	on_throwing_cooldown = TRUE
+
+/obj/item/batterer/proc/end_throwing_delay()
+	on_throwing_cooldown = FALSE
 
 /obj/item/batterer/emp_act(severity)
 	if(times_used >= max_uses)
 		return
 	visible_message("<span class='notice'>[src] explodes into a light show of colors!</span>")
 	if(severity == EMP_HEAVY)
-		attack_self()
+		activate_batterer()
 		times_used = max_uses - 1
-		attack_self()
+		activate_batterer()
 	else
 		times_used = max_uses - 1
-		attack_self()
+		activate_batterer()
