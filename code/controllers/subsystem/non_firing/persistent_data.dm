@@ -22,16 +22,19 @@ SUBSYSTEM_DEF(persistent_data)
 		A.persistent_load()
 
 /datum/controller/subsystem/persistent_data/Shutdown()
+	save()
+
+/datum/controller/subsystem/persistent_data/proc/round_end()
+	save()
+	end_of_round_shutdown = TRUE
+
+/datum/controller/subsystem/persistent_data/proc/save()\
 	// Stops data from being saved twice on round end
 	if(end_of_round_shutdown)
 		return
 	// Save all the data of registered atoms
 	for(var/atom/A in registered_atoms)
 		A.persistent_save()
-
-/datum/controller/subsystem/persistent_data/proc/round_end()
-	Shutdown()
-	end_of_round_shutdown = TRUE
 
 
 /**
