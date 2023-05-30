@@ -244,12 +244,13 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/process()
 	..()
-	if(next_slowprocess < world.time)
+	if((next_slowprocess < world.time))
 		process_atmos()
-		next_slowprocess = world.time + 1 SECONDS //Set to wait for another second before processing again, we don't need to process more than once a second
+		next_slowprocess = world.time + 100 //Set to wait for another second before processing again, we don't need to process more than once a second
 		to_chat(world, "Process has just triggered!")
-		return 1
-	return 0
+		return
+	else
+		return
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/has_fuel()
 	return length(fuel_rods)
@@ -601,6 +602,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	frequency = FREQ_RBMK_CONTROL
 	*/
 
+/* Not  in use on paracode
 /obj/machinery/computer/reactor/pump
 	name = "reactor inlet valve computer"
 	desc = "A computer which controls valve settings on an advanced gas cooled reactor. Alt click it to remotely set pump pressure."
@@ -638,6 +640,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	. = ..()
 	radio_connection = SSradio.add_object(src, FREQ_RBMK_CONTROL,filter=RADIO_ATMOSIA)
 
+
 /obj/machinery/computer/reactor/pump/proc/signal(power, set_output_pressure=null)
 	var/datum/signal/signal
 	if(!set_output_pressure) //Yes this is stupid, but technically if you pass through "set_output_pressure" onto the signal, it'll always try and set its output pressure and yeahhh...
@@ -658,6 +661,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			"sigtype" = "command"
 		))
 	radio_connection.post_signal(src, signal, filter=RADIO_ATMOSIA)
+	*/
 
 //Preset subtypes for mappers
 /*
