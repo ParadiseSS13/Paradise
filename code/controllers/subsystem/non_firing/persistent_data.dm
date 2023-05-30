@@ -13,6 +13,8 @@ SUBSYSTEM_DEF(persistent_data)
 	flags = SS_NO_FIRE
 	/// List of atoms registered into the subsystem for persistent data storage. Can be anything at all
 	var/list/registered_atoms = list()
+	/// Set to true after a the end of the round to prevent griefing being saved
+	var/end_of_round_shutdown = FALSE
 
 /datum/controller/subsystem/persistent_data/Initialize()
 	// Load all the data of registered atoms
@@ -20,9 +22,16 @@ SUBSYSTEM_DEF(persistent_data)
 		A.persistent_load()
 
 /datum/controller/subsystem/persistent_data/Shutdown()
+	// Stops data from being saved twice on round end
+	if(end_of_round_shutdown)
+		return
 	// Save all the data of registered atoms
 	for(var/atom/A in registered_atoms)
 		A.persistent_save()
+
+/datum/controller/subsystem/persistent_data/proc/round_end()
+	Shutdown()
+	end_of_round_shutdown = TRUE
 
 
 /**
