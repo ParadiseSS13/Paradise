@@ -39575,7 +39575,7 @@
 	layer = 4
 	},
 /turf/simulated/wall,
-/area/toxins/xenobiology)
+/area/maintenance/apmaint)
 "eFw" = (
 /obj/structure/chair{
 	dir = 4
@@ -43748,9 +43748,6 @@
 	icon_state = "whitegreenfull"
 	},
 /area/crew_quarters/sleep)
-"gtJ" = (
-/turf/simulated/mineral/ancient,
-/area/toxins/xenobiology)
 "gtU" = (
 /obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/wall,
@@ -89855,12 +89852,6 @@
 /obj/machinery/ai_status_display,
 /turf/simulated/wall,
 /area/hallway/secondary/exit)
-"wwJ" = (
-/obj/machinery/status_display{
-	layer = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/toxins/xenobiology)
 "wwQ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Walkway"
@@ -116079,7 +116070,7 @@ uMr
 uMr
 uMr
 uMr
-xPU
+uMr
 xIa
 vbY
 pzF
@@ -116336,7 +116327,7 @@ uMr
 wIq
 wIq
 wIq
-xPU
+cGd
 wNA
 muT
 uBC
@@ -116593,7 +116584,7 @@ nWA
 uxn
 uxn
 cGd
-xPU
+cGd
 qqa
 muT
 uBC
@@ -116850,7 +116841,7 @@ kMZ
 giH
 cmZ
 wBr
-xPU
+cGd
 erm
 kvq
 wAG
@@ -117107,7 +117098,7 @@ clY
 clY
 nIL
 kbd
-xPU
+cGd
 tvP
 qKO
 wAG
@@ -117364,7 +117355,7 @@ rsR
 giH
 mbd
 mwy
-xPU
+cGd
 nKb
 cpI
 qZD
@@ -117618,10 +117609,10 @@ gPL
 dXV
 cGd
 uFG
-xPU
-xPU
-xPU
-xPU
+cGd
+cGd
+cGd
+cGd
 xPU
 hrH
 wAG
@@ -117632,7 +117623,7 @@ xPU
 pzF
 pzF
 pzF
-xIa
+ftr
 ftr
 ksj
 czK
@@ -117875,7 +117866,7 @@ gPL
 pQN
 gNc
 dNm
-xPU
+cGd
 pAi
 pAi
 pAi
@@ -117889,7 +117880,7 @@ naD
 pAi
 pAi
 pAi
-xIa
+ftr
 wIq
 vru
 wsR
@@ -118132,7 +118123,7 @@ vlI
 pQN
 sKh
 nta
-xPU
+cGd
 isf
 vUX
 pAi
@@ -118146,7 +118137,7 @@ oTP
 pAi
 pAi
 anv
-gtJ
+wIq
 wIq
 vru
 wIq
@@ -118389,7 +118380,7 @@ gPL
 pQN
 sKh
 nta
-xPU
+cGd
 dzs
 koR
 koR
@@ -118403,7 +118394,7 @@ hcG
 koR
 koR
 dHN
-xIa
+ftr
 wIq
 nta
 czM
@@ -118646,7 +118637,7 @@ fIE
 pQN
 qlW
 nta
-xPU
+cGd
 xPU
 xPU
 xPU
@@ -118660,7 +118651,7 @@ xPU
 xPU
 xPU
 xPU
-xIa
+ftr
 wIq
 nta
 wIq
@@ -118903,7 +118894,7 @@ gPL
 pQN
 sKh
 nta
-xPU
+cGd
 pAi
 pAi
 pAi
@@ -118917,7 +118908,7 @@ csQ
 pAi
 pAi
 pAi
-xPU
+cGd
 wsR
 nta
 wIq
@@ -119160,7 +119151,7 @@ hEs
 uYL
 dhH
 uPP
-xPU
+cGd
 isf
 cvW
 pAi
@@ -119174,7 +119165,7 @@ hbF
 pAi
 pAi
 anv
-xPU
+cGd
 wsR
 nta
 wIq
@@ -119417,7 +119408,7 @@ gPL
 pQN
 pQN
 nta
-xPU
+cGd
 dzs
 koR
 koR
@@ -119431,7 +119422,7 @@ jwB
 koR
 koR
 dHN
-xPU
+cGd
 rVL
 nta
 czP
@@ -119674,7 +119665,7 @@ gPL
 dXD
 pQN
 nta
-xPU
+cGd
 xPU
 xPU
 xPU
@@ -119688,7 +119679,7 @@ xPU
 xPU
 xPU
 xPU
-xPU
+cGd
 rxg
 nta
 czQ
@@ -119931,7 +119922,7 @@ gPL
 nwv
 pQN
 mGE
-xPU
+cGd
 pAi
 pAi
 pAi
@@ -119945,7 +119936,7 @@ evG
 pAi
 pAi
 pAi
-xPU
+cGd
 jRl
 nta
 wsR
@@ -120188,7 +120179,7 @@ gPL
 nUz
 pQN
 nta
-xPU
+cGd
 isf
 pAi
 pAi
@@ -120202,7 +120193,7 @@ daq
 pAi
 cvW
 anv
-xPU
+cGd
 tnj
 nta
 sKh
@@ -120445,7 +120436,7 @@ vni
 pQN
 pQN
 nta
-xPU
+cGd
 dzs
 koR
 koR
@@ -120459,7 +120450,7 @@ kRY
 koR
 koR
 dHN
-xPU
+cGd
 sKh
 nta
 cSx
@@ -120702,7 +120693,7 @@ gPL
 pQN
 fYD
 clq
-xPU
+cGd
 xPU
 xPU
 xPU
@@ -120716,7 +120707,7 @@ xPU
 xPU
 xPU
 xPU
-xPU
+cGd
 wsR
 vru
 wsR
@@ -120959,7 +120950,7 @@ gPL
 pQN
 jRl
 kmp
-xPU
+cGd
 pAi
 pAi
 pAi
@@ -120973,7 +120964,7 @@ sAu
 pAi
 pAi
 pAi
-xPU
+cGd
 wsR
 vru
 hCC
@@ -121216,7 +121207,7 @@ gPL
 pQN
 gtV
 vru
-xPU
+cGd
 isf
 cvW
 pAi
@@ -121230,7 +121221,7 @@ dLg
 pAi
 pAi
 anv
-xPU
+cGd
 wsR
 vru
 xUt
@@ -121473,7 +121464,7 @@ gPL
 pQN
 fqM
 vru
-xPU
+cGd
 dzs
 koR
 koR
@@ -121487,7 +121478,7 @@ ktF
 koR
 koR
 dHN
-xPU
+cGd
 tcN
 vru
 jhz
@@ -121730,21 +121721,21 @@ nWY
 pQN
 wsR
 vru
-xPU
-xPU
-xPU
-xIa
-xPU
-wwJ
+cGd
+cGd
+cGd
+ftr
+cGd
+dOm
 rRv
 xPU
-xIa
+ftr
 eFm
-xIa
-xIa
-xIa
-xIa
-xPU
+ftr
+ftr
+ftr
+ftr
+cGd
 wIq
 vru
 wsR
