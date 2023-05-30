@@ -286,10 +286,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(input_moles >= minimum_coolant_level)
 		last_coolant_temperature = KELVIN_TO_CELSIUS(coolant_input.return_temperature())
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
-		var/heat_delta = (KELVIN_TO_CELSIUS(coolant_input.return_temperature()) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
+		var/heat_delta = 1000*log(10, coolant_input.temperature)*gas_absorption_constant * (0.33 * length(fuel_rods)) * (0.0001 +K) //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
-		temperature += heat_delta
-		//transfer_moles1 = (coolant_input.total_moles())*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+		coolant_output.temperature = heat_delta
+		last_output_temperature = coolant_output.temperature
 		//issue here with moving gas from node3 to pipenet.
 		coolant_output.merge(coolant_input) //And now, shove the input into the output.
 		coolant_input.remove(coolant_input.total_moles()) //Clear out anything left in the input gate.
@@ -307,7 +307,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 
 	//Now, heat up the output and set our pressure.
 
-	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
+	power = (((coolant_input.temperature + coolant_input.temperature + coolant_output.temperature)/2) / RBMK_TEMPERATURE_CRITICAL) * 100
+	if (!length(fuel_rods))
+		power = 0
+		return
 	var/radioactivity_spice_multiplier = 1 //Some gasses make the reactor a bit spicy.
 	var/depletion_modifier = 0.035 //How rapidly do your rods decay
 	gas_absorption_effectiveness = gas_absorption_constant
@@ -323,13 +326,14 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			var/turf/T = get_turf(src)
 			to_chat(world, "Moderator input total moles [moderator_input.total_moles()]")
 			if(power >= 20)
-				coolant_output.adjust_moles(GAS_A_B, total_fuel_moles/20) //Shove out agent B into the air when it's fuelled. You need to filter this off, or you're gonna have a bad (and green) time.
-			var/obj/structure/cable/C = T.get_cable_node()
-			if(!C?.powernet)
-				to_chat(world, "<span class='userdanger'> !!! Returning Early because no powernet! !!! </span>")
+				coolant_output.agent_b = total_fuel_moles/20 //Shove out agent B into the air when it's fuelled. You need to filter this off, or you're gonna have a bad (and green) time.
 				return
-			else
-				C.powernet.newavail += last_power_produced
+			//var/obj/structure/cable/C = T.get_cable_node()
+			//if(!C?.powernet)
+			//	to_chat(world, "<span class='userdanger'> !!! Returning Early because no powernet! !!! </span>")
+			//	return
+			//else
+				//C.powernet.newavail += last_power_produced
 		var/total_control_moles = moderator_input.nitrogen + (moderator_input.carbon_dioxide*2) //N2 helps you control the reaction at the cost of making it absolutely blast you with rads.
 		if(total_control_moles >= minimum_coolant_level)
 			var/control_bonus = total_control_moles / 250 //1 mol of n2 -> 0.002 bonus control rod effectiveness, if you want a super controlled reaction, you'll have to sacrifice some power.
@@ -340,7 +344,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if(total_permeability_moles >= minimum_coolant_level)
 			var/permeability_bonus = total_permeability_moles / 500
 			gas_absorption_effectiveness = gas_absorption_constant + permeability_bonus
-		var/total_degradation_moles = moderator_input.get_moles(GAS_A_B) //Because it's quite hard to get.
+		var/total_degradation_moles = moderator_input.agent_b //Because it's quite hard to get.
 		if(total_degradation_moles >= minimum_coolant_level*0.5) //I'll be nice.
 			depletion_modifier += total_degradation_moles / 15 //Oops! All depletion. This causes your fuel rods to get SPICY.
 			playsound(src, pick('sound/machines/sm/accent/normal/1.ogg','sound/machines/sm/accent/normal/2.ogg','sound/machines/sm/accent/normal/3.ogg','sound/machines/sm/accent/normal/4.ogg','sound/machines/sm/accent/normal/5.ogg'), 100, TRUE)
