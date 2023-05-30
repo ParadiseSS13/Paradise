@@ -291,7 +291,9 @@
 		/obj/item/pen/edagger = 1,
 		/obj/item/stack/sheet/mineral/plasma{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/silver{amount = 20} = 1,
-		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1)
+		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1,
+		/obj/item/mod/module/noslip = 1,
+		/obj/item/mod/module/visor/night = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
@@ -319,7 +321,10 @@
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
 		/obj/item/toy/carpplushie/dehy_carp = 1,
-		/obj/item/clothing/glasses/hud/security/chameleon = 1)
+		/obj/item/clothing/glasses/hud/security/chameleon = 1,
+		/obj/item/mod/module/visor/thermal = 1,
+		/obj/item/mod/module/stealth = 1,
+		/obj/item/mod/module/power_kick = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
@@ -338,7 +343,8 @@
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/grenade/plastic/c4/x4 = 1)
+		/obj/item/grenade/plastic/c4/x4 = 1,
+		/obj/item/storage/box/syndie_kit/modsuit/elite = 1)// Adding this as it is something an explorer can use to explore space better, that isn't a high powered murder weapon.
 
 
 // Layout-affecting spawns
