@@ -81,7 +81,8 @@
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
 			return
 
-	default_deconstruction_crowbar(user, O)
+	if(default_deconstruction_crowbar(user, O))
+		return
 
 	if(broken > 0)
 		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
@@ -165,6 +166,9 @@
 /obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
 	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
 	return 0
+
+/obj/machinery/kitchen_machine/on_deconstruction()
+	dropContents()
 
 /********************
 *   Machine Menu	*

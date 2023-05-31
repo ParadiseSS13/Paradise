@@ -84,6 +84,9 @@
 		return 0
 	new recipe.output(get_turf(src))
 
+/obj/machinery/cooker/deepfryer/on_deconstruction()
+	dropContents()
+
 //////////////////////////////////
 //		Deepfryer Special		//
 //		Interaction Datums		//
