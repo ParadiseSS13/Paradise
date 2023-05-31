@@ -7,7 +7,7 @@ There are two types of powernets in our code
 1. Regional Powernets
 2. Local Powernets
 
-They are two completely different datum types from eachother and serve different completely different purposes. In a nutshell, regional powernets are dynamically sized and deal with physical machinery, cables, and generators whereas local powernets area statically locked into a single area each and work directly with APCs to handle individual machines interactions with the larger regional powernet.
+They are two completely different datum types from eachother and serve different completely different purposes. In a nutshell, regional powernets are dynamically sized and deal with physical machinery, cables, and generators whereas local powernets are statically locked into a single area each and work directly with APCs to handle individual machines interactions with the larger regional powernet.
 
 ## Regional Powernet
 An inter-area datum which handles 1 continuous set of cables (`var/list/cables`) and all the connected machinery/nodes on that set of cable (`var/list/nodes`).
