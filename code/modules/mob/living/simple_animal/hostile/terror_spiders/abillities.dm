@@ -243,9 +243,8 @@
 			if(iscarbon(target))
 				var/mob/living/carbon/M = target
 				to_chat(M, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-				M.AdjustSilence(5)
 				M.AdjustConfused(10)
-				M.slowed = 2
+				M.slowed = 1
 				M.Jitter(300)
 			else if(issilicon(target))
 				var/mob/living/silicon/S = target

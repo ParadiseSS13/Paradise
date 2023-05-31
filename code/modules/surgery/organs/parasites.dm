@@ -65,7 +65,6 @@
 	cycle_num += 1
 	egg_progress += 1
 	egg_progress += calc_variable_progress()
-	owner.AdjustHallucinate(20)
 
 	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
 	if(!awaymission_checked)

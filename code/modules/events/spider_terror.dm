@@ -33,13 +33,13 @@
 	switch(infestation_type)
 		if(1)          //lowpop spawns
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
-			spawncount = 3
+			spawncount = 2
 		if(2)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 			spawncount = 2
 		if(3)          //midpop spawns
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/defiler
-			spawncount = 4
+			spawncount = 3
 		if(4)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 			spawncount = 3
