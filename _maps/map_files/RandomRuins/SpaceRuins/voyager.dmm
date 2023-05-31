@@ -22,7 +22,7 @@
 /area/space/nearstation)
 "z" = (
 /obj/structure/safe/floor,
-/obj/item/disk/design_disk/golem_shell,
+/obj/item/golden_record,
 /turf/simulated/wall/mineral/plastitanium/nosmooth{
 	name = "satellite components storage"
 	},
