@@ -26,7 +26,7 @@
 
 /datum/action/neck_chop/Trigger()
 	var/mob/living/carbon/human/H = owner
-	var/datum/martial_art/krav_maga/krav = new()
+	var/datum/martial_art/krav_maga/krav = new() //This is a janky solution, but I want to refactor krav anyway and un-jank this (written in may 2023)
 	if(!istype(krav, H.mind.martial_art))
 		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
 		return
