@@ -7,18 +7,19 @@
 	name = "low gain antenna";
 	anchored = 1
 	},
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 "p" = (
+/obj/machinery/power/solar,
 /obj/structure/lattice,
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 "t" = (
 /obj/structure/lattice,
 /obj/structure/window/full/shuttle{
 	name = "satellite lense"
 	},
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 "z" = (
 /obj/structure/safe/floor,
@@ -28,9 +29,8 @@
 	},
 /area/space/nearstation)
 "F" = (
-/obj/machinery/power/solar,
 /obj/structure/lattice,
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 
 (1,1,1) = {"
@@ -43,7 +43,7 @@ a
 "}
 (2,1,1) = {"
 a
-F
+p
 a
 a
 a
@@ -51,7 +51,7 @@ a
 "}
 (3,1,1) = {"
 a
-F
+p
 a
 a
 a
@@ -61,13 +61,13 @@ a
 m
 z
 t
-p
-p
-p
+F
+F
+F
 "}
 (5,1,1) = {"
 a
-F
+p
 a
 a
 a
@@ -75,7 +75,7 @@ a
 "}
 (6,1,1) = {"
 a
-F
+p
 a
 a
 a
@@ -83,7 +83,7 @@ a
 "}
 (7,1,1) = {"
 a
-F
+p
 a
 a
 a
