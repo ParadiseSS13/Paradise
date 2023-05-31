@@ -1113,7 +1113,7 @@
 	name = "God Of Power"
 	id = "teslasingylo"
 	result = "teslasingylo"
-	required_reagents = list("teslium" = 2, "radium" = 2, "whiskey" = 1)
+	required_reagents = list("teslium" = 2, "radium" = 2, "synthanol" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
