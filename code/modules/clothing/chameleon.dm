@@ -36,7 +36,7 @@
 	var/outfit_type = outfit_options[selected]
 	if(!outfit_type)
 		return FALSE
-	var/datum/outfit/O = new outfit_type()
+	var/datum/outfit/job/O = new outfit_type()
 	var/list/outfit_types = O.get_chameleon_disguise_info()
 
 	for(var/V in user.chameleon_item_actions)

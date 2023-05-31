@@ -277,6 +277,13 @@
 		PDA.ownrank = C.rank
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
+/datum/outfit/job/proc/get_chameleon_disguise_info()
+	var/on_back = (allow_backbag_choice) ? backpack : back
+	var/list/types = list(uniform, suit, on_back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
+	types += chameleon_extras
+	listclearnulls(types)
+	return types
+
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
 	if(!transfer_allowed)
 		return FALSE

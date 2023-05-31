@@ -183,12 +183,6 @@
 		H.wear_pda.add_fingerprint(H, 1)
 	return 1
 
-/datum/outfit/proc/get_chameleon_disguise_info()
-	var/list/types = list(uniform, suit, back, belt, gloves, shoes, head, mask, neck, l_ear, r_ear, glasses, id, l_pocket, r_pocket, suit_store, r_hand, l_hand, pda)
-	types += chameleon_extras
-	listclearnulls(types)
-	return types
-
 /datum/outfit/proc/save_to_file(mob/admin)
 	var/stored_data = get_json_data()
 	var/json = json_encode(stored_data)
