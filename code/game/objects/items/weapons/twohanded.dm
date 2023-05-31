@@ -1071,9 +1071,23 @@
 			var/obj/structure/W = A
 			W.obj_destruction("fireaxe")
 
+		//dusting downed people
+		if(isliving(A))
+			var/mob/living/target = A
+			if(target.stat == DEAD)
+				visible_message("<span class='danger'>[user] raises [src] high, ready to bring it down on [target]!</span>")
+				if(do_after(user, 4 SECONDS, TRUE, target))
+					visible_message("<span class='danger'>[user] brings down [src], obliterating [target] with a heavy blow!</span>")
+					playsound(loc, 'sound/effects/supermatter.ogg', 50, 1)
+					target.dust()
+					return
+				to_chat(user, "<span class='notice'>You lower [src]. There'll be time to obliterate them later...</span>")
+				return
+
+		//walls and airlock obliteration logic
 		if(!is_type_in_list(A, obliteration_targets))
 			return
-		//walls and airlock obliteration logic
+
 		if(iswallturf(A))
 			if(istype(A, /turf/simulated/wall/indestructible))
 				return
