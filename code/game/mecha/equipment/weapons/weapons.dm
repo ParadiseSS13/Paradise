@@ -423,6 +423,7 @@
 	projectile_energy_cost = 800
 	equip_cooldown = 60
 	var/det_time = 20
+	harmful = TRUE
 	size=1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/action(target, params)
