@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(persistent_data)
 	/// List of atoms registered into the subsystem for persistent data storage. Can be anything at all
 	var/list/registered_atoms = list()
 	/// Set to true after a the end of the round to prevent griefing being saved
-	var/end_of_round_shutdown = FALSE
+	var/data_saved = FALSE
 
 /datum/controller/subsystem/persistent_data/Initialize()
 	// Load all the data of registered atoms
@@ -24,14 +24,12 @@ SUBSYSTEM_DEF(persistent_data)
 /datum/controller/subsystem/persistent_data/Shutdown()
 	save()
 
-/datum/controller/subsystem/persistent_data/proc/round_end()
-	save()
-	end_of_round_shutdown = TRUE
-
-/datum/controller/subsystem/persistent_data/proc/save()\
-	// Stops data from being saved twice on round end
-	if(end_of_round_shutdown)
+/datum/controller/subsystem/persistent_data/proc/save()
+	// Stops data from being saved twice
+	if(data_saved)
 		return
+	data_saved = TRUE
+
 	// Save all the data of registered atoms
 	for(var/atom/A in registered_atoms)
 		A.persistent_save()
