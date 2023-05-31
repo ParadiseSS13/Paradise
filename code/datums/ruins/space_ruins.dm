@@ -316,3 +316,4 @@
 	name = "Voyager"
 	description = "A relic of old times, you don't know what it hide inside."
 	allow_duplicates = FALSE
+	cost = 1 // Gives research levels and it should be hard-to-find
