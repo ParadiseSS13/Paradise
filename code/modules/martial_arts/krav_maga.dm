@@ -25,9 +25,8 @@
 	button_icon_state = "neckchop"
 
 /datum/action/neck_chop/Trigger()
-	var/mob/living/carbon/human/H = owner
-	var/datum/martial_art/krav_maga/krav = new() //This is a janky solution, but I want to refactor krav anyway and un-jank this (written in may 2023)
-	if(!istype(krav, H.mind.martial_art))
+	var/mob/living/carbon/human/H = owner //This is a janky solution, but I want to refactor krav anyway and un-jank this (written in may 2023)
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
 		return
 	if(owner.incapacitated())
@@ -45,8 +44,7 @@
 
 /datum/action/leg_sweep/Trigger()
 	var/mob/living/carbon/human/H = owner
-	var/datum/martial_art/krav_maga/krav = new()
-	if(!istype(krav, H.mind.martial_art))
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
 		return
 	if(owner.incapacitated())
@@ -68,8 +66,7 @@
 
 /datum/action/lung_punch/Trigger()
 	var/mob/living/carbon/human/H = owner
-	var/datum/martial_art/krav_maga/krav = new()
-	if(!istype(krav, H.mind.martial_art))
+	if(!istype(H.mind.martial_art, /datum/martial_art/krav_maga))
 		to_chat(owner, "<span class='warning'>You don't know how to do that right now.</span>")
 		return
 	if(owner.incapacitated())
