@@ -6,10 +6,6 @@
 	var/show_alpha = 255
 	var/hide_alpha = 0
 
-/obj/screen/plane_master/Initialize(mapload)
-	. = ..()
-
-
 /obj/screen/plane_master/proc/Show(override)
 	alpha = override || show_alpha
 

@@ -217,7 +217,7 @@
 				dissipate_delay = 4
 				dissipate_track = 0
 				dissipate_strength = 20
-				if(!warp) //In the event the singularity eats a clown and scips stage 2.
+				if(!warp) //In the event the singularity eats a clown and skips stage 2.
 					warp = new(src)
 					vis_contents += warp
 		if(STAGE_FOUR)
