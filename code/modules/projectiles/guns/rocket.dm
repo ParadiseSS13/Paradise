@@ -1,23 +1,23 @@
 /obj/item/gun/rocketlauncher
 	var/projectile
 	name = "rocket launcher"
-	desc = "Say hello to my little friend"
+	desc = "A rocket propelled grenade launcher. Holds one shell at a time."
 	icon_state = "rocket"
 	item_state = "rocket"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
-	throw_range = 10
-	force = 5.0
+	throw_range = 3
+	force = 15
 	flags = CONDUCT
-	origin_tech = "combat=6"
+	origin_tech = "combat=6, syndicate=7"
 	var/missile_speed = 2
 	var/missile_range = 30
-	var/max_rockets = 1
-	var/list/rockets = new/list()
+	var/infinite_ammo = FALSE //In case an admin wishes to do The Funny
+	var/loaded = FALSE
 
 /obj/item/gun/rocketlauncher/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>"
+	. += "<span class='notice'>It is currently [loaded ? "" : "un"]loaded.</span>"
 
 /obj/item/gun/rocketlauncher/Destroy()
 	QDEL_LIST_CONTENTS(rockets)
@@ -26,7 +26,7 @@
 
 /obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
-		if(rockets.len < max_rockets)
+		if(!loaded)
 			user.drop_item()
 			I.loc = src
 			rockets += I
