@@ -65,16 +65,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	GLOB.sent_syndicate_infiltration_team = 1
 
 	var/list/sit_spawns = list()
-	var/list/sit_spawns_leader = list()
-	var/list/sit_spawns_mgmt = list()
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/L = thing
 		if(L.name == "Syndicate-Infiltrator")
 			sit_spawns += L
-		if(L.name == "Syndicate-Infiltrator-Leader")
-			sit_spawns_leader += L
-		if(L.name == "Syndicate-Infiltrator-Admin")
-			sit_spawns_mgmt += L
 
 	var/num_spawned = 1
 	var/team_leader = null
@@ -94,9 +88,6 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
 		if(syndicate_leader_selected)
-			var/obj/effect/landmark/warpto = pick(sit_spawns_leader)
-			new_syndicate_infiltrator.loc = warpto.loc
-			sit_spawns_leader -= warpto
 			team_leader = new_syndicate_infiltrator
 			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it.</span>")
 		else
