@@ -151,10 +151,10 @@
 
 /obj/effect/decal/cleanable/vomit/Initialize(mapload)
 	. = ..()
-	var/turf/T = get_turf(loc)
+	var/turf/T = get_turf(src)
 	gravity_check = has_gravity(src, T)
-	if(get_turf(src) != loc)
-		forceMove(loc)
+	if(loc != T)
+		forceMove(T)
 	if(!gravity_check)
 		layer = MOB_LAYER
 		plane = GAME_PLANE
