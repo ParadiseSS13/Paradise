@@ -32,10 +32,15 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"J" = (
+/obj/structure/lattice,
+/obj/machinery/power/solar,
+/turf/space,
+/area/space/nearstation)
 
 (1,1,1) = {"
 a
-F
+J
 a
 a
 a
