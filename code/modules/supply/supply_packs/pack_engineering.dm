@@ -212,7 +212,7 @@
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
-		/obj/machinery/power/generator,
+		/obj/machinery/power/teg,
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 250
