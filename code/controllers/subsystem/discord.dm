@@ -19,6 +19,8 @@ SUBSYSTEM_DEF(discord)
 	switch(destination)
 		if(DISCORD_WEBHOOK_ADMIN)
 			webhook_urls = config.discord_admin_webhook_urls
+		if(DISCORD_WEBHOOK_REQUESTS)
+			webhook_urls = config.discord_requests_webhook_urls
 		if(DISCORD_WEBHOOK_PRIMARY)
 			webhook_urls = config.discord_main_webhook_urls
 		if(DISCORD_WEBHOOK_MENTOR)
@@ -37,6 +39,8 @@ SUBSYSTEM_DEF(discord)
 	switch(destination)
 		if(DISCORD_WEBHOOK_ADMIN)
 			webhook_urls = config.discord_admin_webhook_urls
+		if(DISCORD_WEBHOOK_REQUESTS)
+			webhook_urls = config.discord_requests_webhook_urls
 		if(DISCORD_WEBHOOK_PRIMARY)
 			webhook_urls = config.discord_main_webhook_urls
 	for(var/url in webhook_urls)

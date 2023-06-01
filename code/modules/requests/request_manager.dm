@@ -56,6 +56,9 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 	requests_by_id.len++
 	requests_by_id[request.id] = request
 
+	var/data = " **\[[uppertext(replacetext(type, "request_", ""))]\]** [C.ckey]/([C?.mob?.name ? C.mob.name : "INVALID"]): [message]"
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_REQUESTS, data)
+
 /datum/request_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)

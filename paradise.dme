@@ -77,6 +77,7 @@
 #include "code\__DEFINES\radio.dm"
 #include "code\__DEFINES\RCD.dm"
 #include "code\__DEFINES\reagents.dm"
+#include "code\__DEFINES\request.dm"
 #include "code\__DEFINES\role_preferences.dm"
 #include "code\__DEFINES\rolebans.dm"
 #include "code\__DEFINES\rust_g.dm"

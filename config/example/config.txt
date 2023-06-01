@@ -515,6 +515,9 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## Webhook URLs for the admin discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
 #DISCORD_WEBHOOKS_ADMIN_URL
 
+## Webhook URLs for the requests discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
+#DISCORD_WEBHOOKS_REQUESTS_URL
+
 ## Webhook URLs for the mentor discord webhook. Separate multiple URLs with a | (EG: https://url1|https://url2)
 #DISCORD_WEBHOOKS_MENTOR_URL
 

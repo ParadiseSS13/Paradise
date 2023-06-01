@@ -395,7 +395,7 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/item/paper/safe_code
 	name = "safe codes"
 	var/owner
-	info = "<div style='text-align:center;'><img src='ntlogo.png'><center><h3>Safe Codes</h3></center>"
+	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Safe Codes</h3></center>"
 
 /obj/item/paper/safe_code/Initialize(mapload)
 	..()

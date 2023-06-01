@@ -496,7 +496,7 @@
 
 /datum/game_mode/proc/send_station_goals_message()
 	for(var/datum/station_goal/G in station_goals)
-		var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+		var/message_text = "<div style='text-align:center;'><img src = ntlogo.png>"
 		message_text += "<h3>Приказания [command_name()]</h3></div><hr>"
 		message_text += "<b>Особые указания для [station_name()]</b><br><br>"
 		G.on_report()
