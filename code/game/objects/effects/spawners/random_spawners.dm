@@ -140,16 +140,16 @@
 	icon_state = "fungus"
 	color = "#D5820B"
 	result = list(
-	/turf/simulated/wall = 7,
-	/obj/effect/decal/cleanable/fungus = 1)
+		/datum/nothing = 7,
+		/obj/effect/decal/cleanable/fungus = 1)
 
 /obj/effect/spawner/random_spawners/fungus_probably
 	name = "fungus probably"
 	icon_state = "fungus"
 	color = "#D5820B"
 	result = list(
-	/turf/simulated/wall = 1,
-	/obj/effect/decal/cleanable/fungus = 7)
+		/datum/nothing = 1,
+		/obj/effect/decal/cleanable/fungus = 7)
 
 
 
