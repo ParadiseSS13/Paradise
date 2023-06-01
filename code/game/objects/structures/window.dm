@@ -33,6 +33,8 @@
 	var/edge_overlay_file
 	/// Tracks the edging appearence sprite
 	var/mutable_appearance/edge_overlay
+	/// Minimum environment smash level (found on simple animals) to break through this instantly
+	var/env_smash_level = ENVIRONMENT_SMASH_STRUCTURES
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -175,7 +177,7 @@
 	if(!can_be_reached(M))
 		return
 	. = ..()
-	if(M.environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
+	if(M.environment_smash >= env_smash_level)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 	else
@@ -689,6 +691,7 @@
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/window_edges.dmi'
+	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -706,6 +709,7 @@
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	rad_insulation = RAD_NO_INSULATION
 	edge_overlay_file = 'icons/obj/smooth_structures/windows/reinforced_window_edges.dmi'
+	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
@@ -753,6 +757,7 @@
 	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
 	glass_type = /obj/item/stack/sheet/titaniumglass
+	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // shuttle windows should probably be a bit stronger, too
 
 /obj/structure/window/full/shuttle/narsie_act()
 	color = "#3C3434"
