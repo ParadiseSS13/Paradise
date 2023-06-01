@@ -310,7 +310,7 @@
 	allow_duplicates = FALSE
 	cost = 2 // Also pretty big
 
-/datum/map_template/ruin/space/voyager
+/datum/map_template/ruin/space/voyager.dmm
 	id = "voyager"
 	suffix = "voyager.dmm"
 	name = "Voyager"
