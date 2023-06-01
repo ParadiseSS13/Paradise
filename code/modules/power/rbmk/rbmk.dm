@@ -106,7 +106,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/next_slowprocess = 0
 	var/gas_absorption_effectiveness = 0.5
 	var/gas_absorption_constant = 0.5 //We refer to this one as it's set on init, randomized.
-	var/minimum_coolant_level = 5
+	var/minimum_coolant_level = 0.1 //moles of gas required for calculation to occur
 	var/warning = FALSE //Have we begun warning the crew of their impending death?
 	var/next_warning = 0 //To avoid spam.
 	var/last_power_produced = 0 //For logging purposes
@@ -118,6 +118,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
+	var/obj/item/fuel_rod/held_fuel_rod
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
@@ -153,7 +154,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(95 to 100)
 				msg = "<span class='notice'>[src]'s seals look factory new, and the reactor's in excellent shape.</span>"
 		. += msg
-
 //issue with fuel rod remaning after insertion
 /obj/machinery/atmospherics/trinary/nuclear_reactor/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/fuel_rod))
@@ -169,7 +169,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(!length(fuel_rods))
 				start_up() //That was the first fuel rod. Let's heat it up.
 			fuel_rods += W
+			user.drop_item()
 			W.forceMove(src)
+			held_fuel_rod = W
+			RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(clear_held_fuel_rod))
 			radiation_pulse(src, temperature) //Wear protective equipment when even breathing near a reactor!
 		return TRUE
 	if(!slagged && istype(W, /obj/item/stack/nanopaste))
@@ -192,6 +195,10 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			vessel_integrity = CLAMP(vessel_integrity, 0, initial(vessel_integrity))
 		return TRUE
 	return ..()
+
+/obj/machinery/atmospherics/trinary/nuclear_reactor/proc/clear_held_fuel_rod()
+	UnregisterSignal(held_fuel_rod, COMSIG_PARENT_QDELETING)
+	held_fuel_rod = null
 
 /obj/machinery/atmospherics/trinary/nuclear_reactor/welder_act(mob/living/user, obj/item/I)
 	if(slagged)
@@ -286,13 +293,13 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(input_moles >= minimum_coolant_level)
 		last_coolant_temperature = KELVIN_TO_CELSIUS(coolant_input.return_temperature())
 		//Important thing to remember, once you slot in the fuel rods, this thing will not stop making heat, at least, not unless you can live to be thousands of years old which is when the spent fuel finally depletes fully.
-		var/heat_delta = 1000*log(10, coolant_input.temperature)*gas_absorption_constant * (0.33 * length(fuel_rods)) * (0.0001 +K) //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
+		var/heat_delta = (KELVIN_TO_CELSIUS(coolant_input.return_temperature()) / 100) * gas_absorption_effectiveness //Take in the gas as a cooled input, cool the reactor a bit. The optimum, 100% balanced reaction sits at K=1, coolant input temp of 200K / -73 celsius.
 		last_heat_delta = heat_delta
-		coolant_output.temperature = heat_delta
+		temperature += heat_delta
+		coolant_output.temperature = temperature
 		last_output_temperature = coolant_output.temperature
-		//issue here with moving gas from node3 to pipenet.
 		coolant_output.merge(coolant_input) //And now, shove the input into the output.
-		coolant_input.remove(coolant_input.total_moles()) //Clear out anything left in the input gate.
+		coolant_input.remove(10) //Clear out anything left in the input gate.
 		color = null
 		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
 	else
@@ -302,12 +309,12 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
 				vessel_integrity -= temperature / 200 //Think fast loser.
 				take_damage(1) //Just for the sound effect, to let you know you've fucked up. NOTE: take_damage is normally set to 10 but is set to 1 for current test.
-				to_chat(world, "Reactor is taking damage because of no coolant! Total Damage: [src.obj_integrity]")
+				to_chat(world, "Reactor is taking damage because of no coolant! Total Damage: [src.vessel_integrity]/400")
 				color = "[COLOR_RED]"
 
 	//Now, heat up the output and set our pressure.
 
-	power = (((coolant_input.temperature + coolant_input.temperature + coolant_output.temperature)/2) / RBMK_TEMPERATURE_CRITICAL) * 100
+	power = (temperature / RBMK_TEMPERATURE_CRITICAL) * 100
 	if (!length(fuel_rods))
 		power = 0
 		return
@@ -317,23 +324,16 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	//Next up, handle moderators!
 	if(moderator_input.total_moles() >= minimum_coolant_level)
 		var/total_fuel_moles = moderator_input.toxins
-		var/power_modifier = max((moderator_input.oxygen / moderator_input.total_moles() * 10), 1) //You can never have negative IPM. For now.
+		var/power_modifier = max((moderator_input.oxygen / (moderator_input.total_moles() * 10)), 1) //You can never have negative IPM. For now.
 		if(total_fuel_moles >= minimum_coolant_level) //You at least need SOME fuel.
-			var/power_produced = max((total_fuel_moles / moderator_input.total_moles() * 10), 1)
+			var/power_produced = max((total_fuel_moles / moderator_input.total_moles() * 10), 1) //used for reactor power output, this power CANNOT be harnessed.
 			last_power_produced = max(0,((power_produced*power_modifier)*moderator_input.total_moles()))
 			last_power_produced *= (max(0,power)/100) //Aaaand here comes the cap. Hotter reactor => more power.
 			last_power_produced *= base_power_modifier //Finally, we turn it into actual usable numbers.
-			var/turf/T = get_turf(src)
 			to_chat(world, "Moderator input total moles [moderator_input.total_moles()]")
 			if(power >= 20)
 				coolant_output.agent_b = total_fuel_moles/20 //Shove out agent B into the air when it's fuelled. You need to filter this off, or you're gonna have a bad (and green) time.
 				return
-			//var/obj/structure/cable/C = T.get_cable_node()
-			//if(!C?.powernet)
-			//	to_chat(world, "<span class='userdanger'> !!! Returning Early because no powernet! !!! </span>")
-			//	return
-			//else
-				//C.powernet.newavail += last_power_produced
 		var/total_control_moles = moderator_input.nitrogen + (moderator_input.carbon_dioxide*2) //N2 helps you control the reaction at the cost of making it absolutely blast you with rads.
 		if(total_control_moles >= minimum_coolant_level)
 			var/control_bonus = total_control_moles / 250 //1 mol of n2 -> 0.002 bonus control rod effectiveness, if you want a super controlled reaction, you'll have to sacrifice some power.
@@ -348,9 +348,9 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if(total_degradation_moles >= minimum_coolant_level*0.5) //I'll be nice.
 			depletion_modifier += total_degradation_moles / 15 //Oops! All depletion. This causes your fuel rods to get SPICY.
 			playsound(src, pick('sound/machines/sm/accent/normal/1.ogg','sound/machines/sm/accent/normal/2.ogg','sound/machines/sm/accent/normal/3.ogg','sound/machines/sm/accent/normal/4.ogg','sound/machines/sm/accent/normal/5.ogg'), 100, TRUE)
+			K += total_fuel_moles / 1000
 		//From this point onwards, we clear out the remaining gasses.
-		moderator_input.remove(moderator_input.total_moles()) //Woosh. And the soul is gone.
-		K += total_fuel_moles / 1000
+		moderator_input.remove(moderator_input.remove(10)) //Woosh. And the soul is gone.
 	var/fuel_power = 0 //So that you can't magically generate K with your control rods.
 	if(!has_fuel())  //Reactor must be fuelled and ready to go before we can heat it up boys.
 		K = 0
@@ -375,7 +375,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	if(has_fuel())
 		temperature += K
 	else
-		temperature -= 10 //Nothing to heat us up, so.
+		temperature -= 10 //Nothing to heat us up, so heat is absorbed by the reactor
 	handle_alerts() //Let's check if they're about to die, and let them know.
 	update_icon()
 	radiation_pulse(src, temperature*radioactivity_spice_multiplier)
@@ -420,6 +420,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	to_chat(world,"Total Moles: [moderator_input.total_moles()]" )
 	to_chat(world,"Temperature: [moderator_input.return_temperature()]" )
 
+// issue here, stems from nulled pipe
 	parent1.update = 1
 	parent2.update = 1
 	parent3.update = 1
@@ -580,8 +581,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/shut_down()
 	STOP_PROCESSING(SSmachines, src)
 	set_light(0)
-	var/area/AR = get_area(src)
-	AR.set_looping_ambience('sound/effects/rbmk/shipambience.ogg')
 	K = 0
 	desired_k = 0
 	temperature = 0
@@ -797,3 +796,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			tempOutputdata = list()
 			return TRUE
 			*/
+
+#undef COOLANT_INPUT_GATE
+#undef MODERATOR_INPUT_GATE
+#undef COOLANT_OUTPUT_GATE
