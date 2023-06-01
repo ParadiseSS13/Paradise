@@ -36,6 +36,8 @@
 	var/framestackamount = 2
 	var/deconstruction_ready = TRUE
 	var/flipped = FALSE
+	/// The minimum level of environment_smash required for simple animals to be able to one-shot this.
+	var/minimum_env_smash = ENVIRONMENT_SMASH_WALLS
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -236,6 +238,12 @@
 	else
 		return ..()
 
+/obj/structure/table/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(M.environment_smash >= minimum_env_smash)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] smashes [src]!</span>", "<span class='notice'>You smash [src].</span>")
+
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
 	if(locate(/obj/structure/table) in get_turf(target))
 		return FALSE
@@ -408,6 +416,7 @@
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	minimum_env_smash = ENVIRONMENT_SMASH_STRUCTURES
 	var/list/debris = list()
 	var/shardtype = /obj/item/shard
 
@@ -500,6 +509,7 @@
 	buildstack = /obj/item/stack/sheet/plasmaglass
 	max_integrity = 140
 	shardtype = /obj/item/shard/plasma
+	minimum_env_smash = ENVIRONMENT_SMASH_RWALLS
 
 /obj/structure/table/glass/reinforced
 	name = "reinforced glass table"
@@ -513,6 +523,7 @@
 	deconstruction_ready = FALSE
 	armor = list(MELEE = 10, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 20, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
 	smoothing_groups = list(SMOOTH_GROUP_REINFORCED_TABLES)
+	minimum_env_smash = ENVIRONMENT_SMASH_RWALLS
 	canSmoothWith = list(SMOOTH_GROUP_REINFORCED_TABLES)
 
 /obj/structure/table/glass/reinforced/deconstruction_hints(mob/user) //look, it was either copy paste these 4 procs, or copy paste all of the glass stuff
@@ -805,8 +816,8 @@
 		var/mob/living/M = user
 		if(M.UID() in held_items)
 			return FALSE
-	return ..()	
-	
+	return ..()
+
 /obj/structure/table/tray/item_placed(atom/movable/item)
 	. = ..()
 	if(is_type_in_typecache(item, typecache_can_hold))
@@ -815,7 +826,7 @@
 			var/mob/living/M = item
 			if(M.pulling == src)
 				M.stop_pulling()
-			
+
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)

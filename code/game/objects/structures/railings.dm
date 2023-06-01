@@ -21,6 +21,13 @@
 	..()
 	add_fingerprint(user)
 
+/obj/structure/railing/attack_animal(mob/living/simple_animal/M)
+	. = ..()
+	if(M.environment_smash >= ENVIRONMENT_SMASH_WALLS)
+		deconstruct(FALSE)
+		M.visible_message("<span class='danger'>[M] tears apart [src]!</span>", "<span class='notice'>You tear apart [src]!</span>")
+
+
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)
 		return
