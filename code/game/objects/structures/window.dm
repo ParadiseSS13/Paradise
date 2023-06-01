@@ -176,11 +176,10 @@
 		return
 	. = ..()
 	if(M.environment_smash >= ENVIRONMENT_SMASH_STRUCTURES)
-		// playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 		deconstruct(FALSE)
 		M.visible_message("<span class='danger'>[M] smashes through [src]!</span>", "<span class='warning'>You smash through [src].</span>", "<span class='warning'>You hear glass breaking.</span>")
 	else
-		to_chat(M, text("<span class='notice'>You smash against the wall.</span>"))
+		to_chat(M, "<span class='notice'>You smash against the wall.</span>")
 		take_damage(rand(25, 75))
 		return
 
