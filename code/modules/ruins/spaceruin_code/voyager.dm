@@ -1,6 +1,6 @@
 /obj/item/golden_record
 	name = "Golden Record"
-	description = "A relic of the past, you don't know what lies inside, but you remember someone talking about it arriving in 250356 years."
+	desc = "A relic of the past, you don't know what lies inside, but you remember someone talking about it arriving in 250356 years."
 	icon = 'icons/obj/space/voyager.dmi'
 	icon_state = "golden_record_new" //credits to mcramon for brand new sprite.
 	drop_sound = 'sound/items/handling/disk_drop.ogg'
