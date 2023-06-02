@@ -17,7 +17,7 @@
 
 
 /obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
-	if(surplus() < 1500)
+	if(get_surplus() < 1500)
 		if(user)
 			to_chat(user, "<span class='notice'>The connected wire doesn't have enough current.</span>")
 		return
@@ -42,10 +42,8 @@
 	if(user)
 		to_chat(user, "<span class='notice'>You deactivate the beacon.</span>")
 
-
 /obj/machinery/power/singularity_beacon/attack_ai(mob/user as mob)
 	return
-
 
 /obj/machinery/power/singularity_beacon/attack_hand(mob/user as mob)
 	if(anchored)
@@ -53,7 +51,6 @@
 	else
 		to_chat(user, "<span class='warning'>You need to screw the beacon to the floor first!</span>")
 		return
-
 
 /obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -84,8 +81,8 @@
 	if(!active)
 		return PROCESS_KILL
 
-	if(surplus() >= 1500)
-		add_load(1500)
+	if(get_surplus() >= 1500)
+		consume_direct_power(1500)
 	else
 		Deactivate()
 

@@ -10,6 +10,7 @@
 	speak_emote = list("yawns")
 	emote_hear = list("snores.","yawns.")
 	emote_see = list("dozes off.", "looks around sleepily.")
+	faction = list("neutral", "jungle")
 	speak_chance = 1
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
@@ -25,9 +26,9 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 
-//Cargo Sloth
+//IAA Sloth
 /mob/living/simple_animal/pet/sloth/paperwork
 	name = "Paperwork"
-	desc = "Cargo's pet sloth. About as useful as the rest of the techs."
+	desc = "Internal Affairs' pet sloth. About as useful as the rest of the agents."
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
