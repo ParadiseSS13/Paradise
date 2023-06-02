@@ -211,7 +211,7 @@ Pipelines + Other Objects -> Pipe network
 		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
 
 		for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-			if(usermagboots.magpulse)
+			if(usermagboots.gustprotection && usermagboots.magpulse)
 				safefromgusts = TRUE
 
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
@@ -223,7 +223,7 @@ Pipelines + Other Objects -> Pipe network
 
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
-				if(usermagboots.magpulse) // Check again, incase they change magpulse mid-wrench
+				if(usermagboots.gustprotection && usermagboots.magpulse) // Check again, incase they change magpulse mid-wrench
 					safefromgusts = TRUE
 				else
 					safefromgusts = FALSE
