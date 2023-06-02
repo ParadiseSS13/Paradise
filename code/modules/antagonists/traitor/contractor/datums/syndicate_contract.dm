@@ -100,6 +100,7 @@
 			/obj/item/implant/explosive,
 			/obj/item/implant/freedom,
 			/obj/item/implant/traitor,
+			/obj/item/implant/gorilla_rampage,
 		))
 	// Initialize
 	owning_hub = hub
