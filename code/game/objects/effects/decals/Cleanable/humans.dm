@@ -36,7 +36,6 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 
 /obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
-	var/turf/T = get_turf(loc)
 	weightless_image = new()
 	update_icon()
 
