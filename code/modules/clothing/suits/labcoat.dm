@@ -72,13 +72,13 @@
 
 /obj/item/clothing/suit/storage/labcoat/robowhite
 	name = "roboticist labcoat"
-	desc = "A suit that protects against minor chemical spills. Has a brown stripe on the shoulder."
+	desc = "A suit that protects against minor chemical spills. Has a red stripe on the shoulder."
 	icon_state = "labcoat_robowhite_open"
 	item_state = "labcoat_robowhite_open"
 
 /obj/item/clothing/suit/storage/labcoat/roboblack
 	name = "bioengineer labcoat"
-	desc = "A black suit that protects against minor chemical spills. Has a cyan stripe on the shoulder."
+	desc = "A black suit that protects against minor chemical spills. Has a red stripe on the shoulder."
 	icon_state = "labcoat_roboblack_open"
 	item_state = "labcoat_roboblack_open"
 
