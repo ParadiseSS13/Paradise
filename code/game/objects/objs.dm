@@ -297,7 +297,7 @@
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overridden on a machine containing a mob.")
 
-/obj/carbon_throw_hit(mob/living/carbon/human/C, damage, mob_hurt, self_hurt)
+/obj/carbon_throw_hit(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	damage *= 0.75 //Define this probably somewhere, we want objects to hurt less than walls, unless special impact effects.
 	if(!mob_hurt && density)
 		C.visible_message("<span class='danger'>[C] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")

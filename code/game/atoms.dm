@@ -548,7 +548,7 @@
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 /// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
-/atom/proc/carbon_throw_hit(mob/living/carbon/human/C, damage, mob_hurt = FALSE, self_hurt = FALSE)
+/atom/proc/carbon_throw_hit(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
 	return
 
 /atom/proc/hitby_react(atom/movable/AM)

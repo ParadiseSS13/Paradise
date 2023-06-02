@@ -1118,7 +1118,7 @@
 	tilt(target, from_combat = TRUE)
 	return TRUE
 
-/obj/machinery/economy/vending/carbon_throw_hit(mob/living/carbon/human/C, damage, mob_hurt, self_hurt)
+/obj/machinery/economy/vending/carbon_throw_hit(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(HAS_TRAIT(C, TRAIT_FLATTENED))
 		return
 	tilt(C, from_combat = TRUE)

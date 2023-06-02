@@ -1139,7 +1139,7 @@
 	stop_pulling()
 	return ..()
 
-/mob/living/carbon_throw_hit(mob/living/carbon/human/C, damage, mob_hurt, self_hurt)
+/mob/living/carbon_throw_hit(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(C == src || flying || !density)
 		return
 	if(!mob_hurt)
