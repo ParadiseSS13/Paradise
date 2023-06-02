@@ -160,11 +160,14 @@
 
 /obj/item/door_remote/janikeyring
 	name = "janitor's keyring"
-	desc = "An absolutely unwieldy set of keys attached to a metal ring."
+	desc = "An absolutely unwieldy set of keys attached to a metal ring. The keys on the ring allow you to access most Departmental entries and the Service Department!"
 	icon_state = "keyring"
 	item_state = "keyring"
+	/// Are you already using the keyring?
 	var/busy = FALSE
+	/// This prevents spamming the key-shake.
 	var/cooldown = 0
+	/// How fast does the keyring open an airlock. It is not set here so that it can be set via the user's role.
 	var/hack_speed
 	additional_access = list(ACCESS_MEDICAL, ACCESS_RESEARCH, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_MINING, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CHAPEL_OFFICE)
 
@@ -185,7 +188,7 @@
 	if(!istype(D))
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>You are already using [src] on the airlock's access panel!</span>")
+		to_chat(user, "<span class='warning'>You are already using [src] on the [D] airlock's access panel!</span>")
 		return
 	busy = TRUE
 	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D] airlock...</span>")
@@ -202,15 +205,15 @@
 			return
 
 		if(HAS_TRAIT(D, TRAIT_CMAGGED))
-			to_chat(user, "<span class='danger'>[src] wont fit in [D]'s access panel, there's slime everywhere!</span>")
+			to_chat(user, "<span class='danger'>[src] won't fit in the [D] airlock's access panel, there's slime everywhere!</span>")
 			return
 
 		if(D.is_special)
-			to_chat(user, "<span class='danger'>[src] cannot fit in [D]!</span>")
+			to_chat(user, "<span class='danger'>[src] cannot fit in the [D] airlock's access panel!</span>")
 			return
 
 		if(!D.arePowerSystemsOn())
-			to_chat(user, "<span class='danger'>[D] has no power!</span>")
+			to_chat(user, "<span class='danger'>The [D] airlock has no power!</span>")
 			return
 
 		if(D.check_access(ID))
@@ -219,10 +222,10 @@
 				D.open()
 
 			else
-				to_chat(user, "<span class='danger'>[D] is already open!</span>")
+				to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
 
 		else
-			to_chat(user, "<span class='danger'>[src] does not seem to have a key for [D]!</span>")
+			to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D] airlock's access panel!</span>")
 	busy = FALSE
 
 #undef WAND_OPEN
