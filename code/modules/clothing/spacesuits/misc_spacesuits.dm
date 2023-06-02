@@ -63,21 +63,6 @@
 	strip_delay = 130
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
-	//NEW SWAT suit
-/obj/item/clothing/suit/space/swat
-	name = "SWAT armor"
-	desc = "Space-proof tactical SWAT armor."
-	icon_state = "heavy"
-	item_state = "swat_suit"
-	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals,/obj/item/kitchen/knife/combat)
-	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 450, RAD = 10, FIRE = INFINITY, ACID = INFINITY)
-	strip_delay = 120
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer beret"
 	desc = "An armored beret commonly used by special operations officers."
@@ -195,6 +180,8 @@
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
+	slowdown = 0.25
+	w_class = WEIGHT_CLASS_NORMAL
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',

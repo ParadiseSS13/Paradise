@@ -25,10 +25,14 @@
 /datum/keybinding/mob/drop_held_object/down(client/C)
 	. = ..()
 	var/obj/item/I = C.mob.get_active_hand()
+	if(!I)
+		I = C.mob.special_get_hands_check()
+
 	if(I)
 		C.mob.drop_item_v()
-	else
-		to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
+		return
+
+	to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
 
 /datum/keybinding/mob/swap_hands
 	name = "Swap Hands"
@@ -41,7 +45,7 @@
 // Intents
 /datum/keybinding/mob/prev_intent
 	name = "Previous Intent"
-	keys = list("F")
+	keys = null
 
 /datum/keybinding/mob/prev_intent/down(client/C)
 	. = ..()
@@ -49,7 +53,7 @@
 
 /datum/keybinding/mob/next_intent
 	name = "Next Intent"
-	keys = list("G", "Insert")
+	keys = list("Insert")
 
 /datum/keybinding/mob/next_intent/down(client/C)
 	. = ..()

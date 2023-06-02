@@ -49,6 +49,10 @@
 /obj/screen/guardian/Manifest/Click()
 	if(isguardian(usr))
 		var/mob/living/simple_animal/hostile/guardian/G = usr
+		var/summoner_loc = G.summoner.loc
+		if(istype(summoner_loc, /obj/machinery/atmospherics))
+			to_chat(G, "<span class='warning'>You can not manifest while in these pipes!</span>")
+			return
 		if(G.loc == G.summoner)
 			G.Manifest()
 

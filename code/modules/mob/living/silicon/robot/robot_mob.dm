@@ -550,6 +550,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		weather_immunities -= "lava"
 	armor = getArmor(arglist(initial(armor)))
 
+	for(var/obj/item/borg/upgrade/U in contents)
+		QDEL_NULL(U)
+		//This is needed so that upgrades can be installed again after the borg's module is reset.
+
 	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
