@@ -25,7 +25,8 @@
 /obj/structure/safe/floor,
 /obj/item/golden_record,
 /turf/simulated/wall/mineral/plastitanium/nosmooth{
-	name = "satellite components storage"
+	name = "satellite components storage";
+	desc = "Plate covering inside storage is wide, it have engraved "Voyager" on it."
 	},
 /area/space/nearstation)
 "F" = (
