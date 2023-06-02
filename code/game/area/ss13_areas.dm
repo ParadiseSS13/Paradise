@@ -739,6 +739,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Alternate Construction Area"
 	icon_state = "construction"
 
+/area/maintenance/xenobio_north
+	name = "Xenobiology North Maintenance"
+	icon_state = "xenobio_north_maint"
+
+/area/maintenance/xenobio_south
+	name = "Xenobiology South Maintenance"
+	icon_state = "xenobio_south_maint"
+
 
 //Hallway
 
