@@ -200,33 +200,34 @@
 	else
 		hack_speed = rand(5, 20) SECONDS
 
-	if(do_after(user, hack_speed, target = D, progress = 0))
-		if(!istype(D))
-			return
-
-		if(HAS_TRAIT(D, TRAIT_CMAGGED))
-			to_chat(user, "<span class='danger'>[src] won't fit in the [D] airlock's access panel, there's slime everywhere!</span>")
-			return
-
-		if(D.is_special)
-			to_chat(user, "<span class='danger'>[src] cannot fit in the [D] airlock's access panel!</span>")
-			return
-
-		if(!D.arePowerSystemsOn())
-			to_chat(user, "<span class='danger'>The [D] airlock has no power!</span>")
-			return
-
-		if(D.check_access(ID))
-			D.add_hiddenprint(user)
-			if(D.density)
-				D.open()
-
-			else
-				to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
-
-		else
-			to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D] airlock's access panel!</span>")
+	if(!do_after(user, hack_speed, target = D, progress = 0))
+		return
 	busy = FALSE
+
+	if(!istype(D))
+		return
+
+	if(HAS_TRAIT(D, TRAIT_CMAGGED))
+		to_chat(user, "<span class='danger'>[src] won't fit in the [D] airlock's access panel, there's slime everywhere!</span>")
+		return
+
+	if(D.is_special)
+		to_chat(user, "<span class='danger'>[src] cannot fit in the [D] airlock's access panel!</span>")
+		return
+
+	if(!D.arePowerSystemsOn())
+		to_chat(user, "<span class='danger'>The [D] airlock has no power!</span>")
+		return
+
+	if(D.check_access(ID))
+		D.add_hiddenprint(user)
+		if(D.density)
+			D.open()
+		else
+			to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
+
+	else
+		to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D] airlock's access panel!</span>")
 
 #undef WAND_OPEN
 #undef WAND_BOLT
