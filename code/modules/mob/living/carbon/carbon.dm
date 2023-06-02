@@ -620,7 +620,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(!R.emagged)
 				hurt = FALSE*/
 
-	hit_atom.carbon_throw_hit(src, throwingdatum damage, FALSE, FALSE)
+	hit_atom.carbon_throw_hit(src, throwingdatum, damage, FALSE, FALSE)
 
 /mob/living/carbon/carbon_throw_hit(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	. = ..()
