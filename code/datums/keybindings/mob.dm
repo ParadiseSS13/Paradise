@@ -25,10 +25,14 @@
 /datum/keybinding/mob/drop_held_object/down(client/C)
 	. = ..()
 	var/obj/item/I = C.mob.get_active_hand()
+	if(!I)
+		I = C.mob.special_get_hands_check()
+
 	if(I)
 		C.mob.drop_item_v()
-	else
-		to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
+		return
+
+	to_chat(C, "<span class='warning'>You have nothing to drop in your hand!</span>")
 
 /datum/keybinding/mob/swap_hands
 	name = "Swap Hands"
