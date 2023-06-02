@@ -66,7 +66,7 @@
 
 /obj/item/rpd/bluespace
 	name = "bluespace rapid pipe dispenser"
-	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to, at any range.  It is slightly more compact than the standard version and can be stored in a toolbelt."
+	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to, at any range. It is slightly more compact than the standard version and can be stored in a toolbelt."
 	icon_state = "brpd"
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
 	origin_tech = "engineering=4;materials=2;bluespace=3"
