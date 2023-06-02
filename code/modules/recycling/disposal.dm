@@ -178,6 +178,7 @@
 	target.forceMove(src)
 	add_attack_logs(attacker, target, "Shoved into disposals", target.ckey ? null : ATKLOG_ALL)
 	playsound(src, "sound/effects/bang.ogg")
+	update()
 	return TRUE
 
 // mouse drop another mob or self
