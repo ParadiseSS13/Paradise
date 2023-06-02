@@ -26,6 +26,7 @@
 	var/last_warning
 	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
 	var/warps_projectiles = TRUE
+	var/obj/effect/warp_effect/supermatter/warp
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	/// Whether or not we've pinged ghosts
 	var/isnt_shutting_down = FALSE
@@ -51,6 +52,8 @@
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	GLOB.singularities -= src
+	vis_contents -= warp
+	QDEL_NULL(warp)  // don't want to leave it hanging
 	target = null
 	return ..()
 
@@ -114,7 +117,7 @@
 
 /obj/singularity/bullet_act(obj/item/projectile/P)
 	qdel(P)
-	return 0 //Will there be an impact? Who knows.  Will we see it? No.
+	return 0 //Will there be an impact? Who knows. Will we see it? No.
 
 
 /obj/singularity/Bump(atom/A)
@@ -140,6 +143,7 @@
 	eat()
 	do_dissipate()
 	check_energy()
+	update_warp()
 
 	return
 
@@ -183,6 +187,9 @@
 			dissipate_delay = 10
 			dissipate_track = 0
 			dissipate_strength = 1
+			if(warp)
+				vis_contents -= warp
+				qdel(warp)
 		if(STAGE_TWO)
 			if((check_turfs_in(1,1))&&(check_turfs_in(2,1))&&(check_turfs_in(4,1))&&(check_turfs_in(8,1)))
 				current_size = STAGE_TWO
@@ -195,6 +202,9 @@
 				dissipate_delay = 5
 				dissipate_track = 0
 				dissipate_strength = 5
+				if(!warp)
+					warp = new(src)
+					vis_contents += warp
 		if(STAGE_THREE)
 			if((check_turfs_in(1,2))&&(check_turfs_in(2,2))&&(check_turfs_in(4,2))&&(check_turfs_in(8,2)))
 				current_size = STAGE_THREE
@@ -207,6 +217,9 @@
 				dissipate_delay = 4
 				dissipate_track = 0
 				dissipate_strength = 20
+				if(!warp) //In the event the singularity eats a clown and skips stage 2.
+					warp = new(src)
+					vis_contents += warp
 		if(STAGE_FOUR)
 			if((check_turfs_in(1,3))&&(check_turfs_in(2,3))&&(check_turfs_in(4,3))&&(check_turfs_in(8,3)))
 				current_size = STAGE_FOUR
@@ -458,6 +471,15 @@
 /obj/singularity/proc/emp_area()
 	empulse(src, 8, 10)
 	return
+
+/obj/singularity/proc/update_warp()
+	if(!warp)
+		return
+	warp.pixel_x = initial(warp.pixel_x) - pixel_x
+	warp.pixel_y = initial(warp.pixel_x) - pixel_y
+	var/scaling = allowed_size / 3
+	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
+	animate(time = 14, transform = matrix().Scale(scaling, scaling))
 
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
