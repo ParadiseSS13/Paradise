@@ -614,6 +614,7 @@
 	overdose_threshold = 20
 	addiction_chance = 10
 	addiction_threshold = 15
+	metabolization_rate = 0.25 //Lasts for 120 seconds
 	shock_reduction = 50
 	harmless = FALSE
 	taste_description = "a delightful numbing"
