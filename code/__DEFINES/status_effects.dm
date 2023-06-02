@@ -74,6 +74,8 @@
 
 #define STATUS_EFFECT_SUMMONEDGHOST /datum/status_effect/cultghost //is a cult ghost: can see dead people, can't manifest more ghosts
 
+#define STATUS_EFFECT_DELAYED /datum/status_effect/delayed //delayed status effect: gets /datum/callback to call on expire, signal if we want to prevent and duration
+
 #define STATUS_EFFECT_CRUSHERMARK /datum/status_effect/crusher_mark //if struck with a proto-kinetic crusher, takes a ton of damage
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
@@ -160,4 +162,4 @@
 /// gives you fluff messages for cough, sneeze, headache, etc but without an actual virus
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
-#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope 
+#define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
