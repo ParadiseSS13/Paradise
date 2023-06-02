@@ -880,6 +880,8 @@
 	#define OBJECTIVE_VALID_TARGET		(1<<0)
 	#define OBJECTIVE_INVALID_TARGET	(1<<1)
 
+#define COMSIG_LIVING_CLEAR_STUNS "living_clear_stuns"
+
 //MODsuit signals
 /// Called when a module is selected to be the active one from on_select(obj/item/mod/module/module)
 #define COMSIG_MOD_MODULE_SELECTED "mod_module_selected"
@@ -915,3 +917,5 @@
 #define COMSIG_MOD_WEARER_SET "mod_wearer_set"
 /// Called when the MODsuit wearer is unset.
 #define COMSIG_MOD_WEARER_UNSET "mod_wearer_unset"
+
+

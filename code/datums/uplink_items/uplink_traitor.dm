@@ -274,6 +274,17 @@
 	cost = 8
 	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
+// Genetics
+
+/datum/uplink_item/jobspecific/magillitis_serum
+	name = "Magillitis Serum Bio-chip"
+	desc = "A single-use bio-chip which contains an experimental serum that causes rapid muscular growth in Hominidae. \
+			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
+	reference = "MAG"
+	item = /obj/item/implanter/gorilla_rampage
+	cost = 5
+	job = list("Research Director", "Geneticist")
+
 // Paper contact poison pen
 
 /datum/uplink_item/jobspecific/poison_pen

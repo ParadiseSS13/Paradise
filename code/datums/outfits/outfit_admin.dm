@@ -1355,13 +1355,18 @@
 		backpack_contents.Add(/obj/item/gun/throw/piecannon)
 		backpack_contents[/obj/item/gun/throw/piecannon] = 1
 
+	var/clown_rank = pick("Trickster First Class", "Master Clown", "Major Prankster")
+	var/clown_name = pick(GLOB.clown_names)
+	H.real_name = "[clown_rank] [clown_name]"
+
 /datum/outfit/admin/honksquad/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 
-	// Setup their clumsy gene
+	// Setup their clumsy and comic sans gene
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
+	H.dna.SetSEState(GLOB.comicblock, TRUE)
 	H.check_mutations = TRUE
 
 	// Setup their headset
@@ -1373,11 +1378,11 @@
 	var/obj/item/pda/P = H.wear_pda
 	if(istype(P))
 		P.owner = H.real_name
-		P.ownjob = "Clown"
+		P.ownjob = "Emergency Response Clown"
 		P.name = "PDA-[H.real_name] ([P.ownjob])"
 
 	// And their ID
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_CLOWN), "Clown")
+		apply_to_card(I, H, list(ACCESS_CLOWN), "Emergency Response Clown")
 	H.sec_hud_set_ID()
