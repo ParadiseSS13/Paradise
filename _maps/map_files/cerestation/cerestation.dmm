@@ -53542,7 +53542,9 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/mine/unexplored/cere/command)
 "jKR" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71237,6 +71239,11 @@
 	icon_state = "bar"
 	},
 /area/crew_quarters/theatre)
+"pXk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/carpet,
+/area/lawoffice)
 "pXp" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -110048,7 +110055,7 @@ cwh
 dby
 bHD
 cEC
-cEZ
+pXk
 cEZ
 djt
 vFG
