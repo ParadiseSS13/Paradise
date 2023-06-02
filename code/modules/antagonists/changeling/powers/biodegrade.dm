@@ -78,9 +78,8 @@
 			return FALSE
 		to_chat(user, "<span class='warning'>We prepare hand to vomit acid!</span>")
 		return TRUE
-	else
-		remove_hand_spell(user, TRUE)
-		return FALSE
+	remove_hand_spell(user, TRUE)
+	return FALSE
 
 /datum/action/changeling/biodegrade/proc/dissolve_restraint(mob/living/carbon/human/user, obj/O)
 	if(O && (user.handcuffed == O || user.legcuffed == O || user.wear_suit == O))
