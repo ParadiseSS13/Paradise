@@ -36,6 +36,7 @@ GLOBAL_LIST_EMPTY(status_displays)
 /obj/machinery/status_display/Initialize()
 	. = ..()
 	GLOB.status_displays |= src
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/status_display/Destroy()
 	GLOB.status_displays -= src
