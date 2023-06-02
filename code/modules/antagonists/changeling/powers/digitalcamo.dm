@@ -19,6 +19,6 @@
 	else
 		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
 		to_chat(user, "<span class='notice'>We distort our form to prevent AI-tracking.</span>")
-		user.invisibility = 25
+		user.invisibility = SEE_INVISIBLE_LIVING
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
