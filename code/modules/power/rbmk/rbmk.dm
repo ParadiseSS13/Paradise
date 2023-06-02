@@ -118,8 +118,20 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 	var/last_output_temperature = 0
 	var/last_heat_delta = 0 //For administrative cheating only. Knowing the delta lets you know EXACTLY what to set K at.
 	var/no_coolant_ticks = 0	//How many times in succession did we not have enough coolant? Decays twice as fast as it accumulates.
-	var/obj/item/fuel_rod/held_fuel_rod
+	var/obj/item/fuel_rod/held_fuel_rod //used to prevent fuel rod duplicaiton
 
+	// below vars contol emergency alert systems
+	var/obj/item/radio/radio
+	var/rbmk_warning_delay = 60
+	var/lastrbmkwarn = 0
+	var/rbmk_safe_alert = "Reactor core returning to safe operating parameters"
+	var/rbmk_temp_alert = "Reactor core internal temperature rising above critical levels!"
+	var/rbmk_pressure_alert = "Reactor core internal pressure rising above critical levels!"
+	var/rbmk_meltdown_alert = "REACTOR MELTDOWN IMMINENT"
+	var/rbmk_blowout_alert = "REACTOR BLOWOUT IMMINENT"
+	var/alert = FALSE //If we have an alert condition, we'd best let people know.
+	var/temp_damage = 0
+	var/pressure_damage = 0
 /obj/machinery/atmospherics/trinary/nuclear_reactor/destroyed
 	icon_state = "reactor_slagged"
 	slagged = TRUE
@@ -299,7 +311,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		coolant_output.temperature = temperature
 		last_output_temperature = coolant_output.temperature
 		coolant_output.merge(coolant_input) //And now, shove the input into the output.
-		coolant_input.remove(10) //Clear out anything left in the input gate.
+		coolant_input.remove(coolant_input.total_moles()) //Clear out anything left in the input gate.
 		color = null
 		no_coolant_ticks = max(0, no_coolant_ticks-2)	//Needs half as much time to recover the ticks than to acquire them
 	else
@@ -308,7 +320,7 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 			if(no_coolant_ticks > RBMK_NO_COOLANT_TOLERANCE)
 				temperature += temperature / 500 //This isn't really harmful early game, but when your reactor is up to full power, this can get out of hand quite quickly.
 				vessel_integrity -= temperature / 200 //Think fast loser.
-				take_damage(1) //Just for the sound effect, to let you know you've fucked up. NOTE: take_damage is normally set to 10 but is set to 1 for current test.
+				take_damage(10) //Just for the sound effect, to let you know you've fucked up. NOTE: take_damage is normally set to 10 but is set to 1 for current test.
 				to_chat(world, "Reactor is taking damage because of no coolant! Total Damage: [src.vessel_integrity]/400")
 				color = "[COLOR_RED]"
 
@@ -384,6 +396,12 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		for(var/obj/machinery/light/L in GLOB.machines)
 			if(prob(25)) //If youre running the reactor cold though, no need to flicker the lights.
 				L.flicker()
+
+	if(!alert || (pressure_damage > 0))
+		pressure_damage -= min(pressure/100, initial(vessel_integrity)/45)
+	if(!alert || (temp_damage > 0))
+		temp_damage -= min(temperature/100, initial(vessel_integrity)/40)
+
 	for(var/atom/movable/I in get_turf(src))
 		if(isliving(I))
 			var/mob/living/L = I
@@ -429,7 +447,6 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 //Method to handle sound effects, reactor warnings, all that jazz.
 //currently broken. needs total rework.
 /obj/machinery/atmospherics/trinary/nuclear_reactor/proc/handle_alerts()
-	var/alert = FALSE //If we have an alert condition, we'd best let people know.
 	if(K <= 0 && temperature <= 0)
 		shut_down()
 	//First alert condition: Overheat
@@ -438,6 +455,14 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		if(temperature >= RBMK_TEMPERATURE_MELTDOWN)
 			var/temp_damage = min(temperature/100, initial(vessel_integrity)/40)	//40 seconds to meltdown from full integrity, worst-case. Bit less than blowout since it's harder to spike heat that much.
 			vessel_integrity -= temp_damage
+			if((REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
+				radio.autosay("[rbmk_temp_alert] Core Integrity: [temp_damage/400]%", name, "Engineering", list(z)) //scream on engi comms meltdown is occuring
+				playsound(src, 'sound/machines/terminal_alert.ogg', 75)
+				lastrbmkwarn = REALTIMEOFDAY
+			to_chat(world, "Reactor is taking overheat damage! Total Damage: [src.temp_damage]/400")
+			if(temp_damage >= (0.75 * vessel_integrity) || (REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
+				playsound(src, 'sound/machines/engine_alert1.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
+				radio.autosay("[rbmk_meltdown_alert] Core Integrity: [temp_damage/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
 			if(vessel_integrity <= temp_damage) //It wouldn't be able to tank another hit.
 				meltdown() //Oops! All meltdown
 				return
@@ -456,27 +481,17 @@ The reactor CHEWS through moderator. It does not do this slowly. Be very careful
 		T.atmos_rbmk_overpressure("nitrogen=[pressure/100];TEMP=[CELSIUS_TO_KELVIN(temperature)]")
 		var/pressure_damage = min(pressure/100, initial(vessel_integrity)/45)	//You get 45 seconds (if you had full integrity), worst-case. But hey, at least it can't be instantly nuked with a pipe-fire.. though it's still very difficult to save.
 		vessel_integrity -= pressure_damage
+		if((REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
+			radio.autosay("[rbmk_pressure_alert] Core Integrity: [pressure_damage/400]%", name, "Engineering", list(z)) //scream on engi comms blowout is occuring
+			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
+			lastrbmkwarn = REALTIMEOFDAY
+		to_chat(world, "Reactor is taking pressure damage! Total Damage: [src.pressure_damage]/400")
+		if(pressure_damage >= (0.75 * vessel_integrity) || (REALTIMEOFDAY - lastrbmkwarn) / 10 >= rbmk_warning_delay)
+			playsound(src, 'sound/machines/engine_alert2.ogg', 100, FALSE, 30, 30, falloff_distance = 10)
+			radio.autosay("[rbmk_blowout_alert] Core Integrity: [pressure_damage/400]%", name, null, list(z)) //tell everyone meltdown is occuring and to panic
 		if(vessel_integrity <= pressure_damage) //It wouldn't be able to tank another hit.
 			blowout()
 			return
-
-	if(warning)
-		if(!alert) //Congrats! You stopped the meltdown / blowout.
-			warning = FALSE
-			set_light(0)
-			light_color = LIGHT_COLOR_CYAN
-			set_light(10)
-	else
-		if(!alert)
-			return
-		if(world.time < next_warning)
-			return
-		next_warning = world.time + 30 SECONDS //To avoid engis pissing people off when reaaaally trying to stop the meltdown or whatever.
-		warning = TRUE //Start warning the crew of the imminent danger.
-		playsound(src.loc, 'sound/effects/rbmk/alarm.ogg', 100, TRUE, channel = CHANNEL_ENGINE)
-		set_light(0)
-		light_color = LIGHT_COLOR_RED
-		set_light(10)
 
 //Failure condition 1: Meltdown. Achieved by having heat go over tolerances. This is less devastating because it's easier to achieve.
 //Results: Engineering becomes unusable and your engine irreparable
