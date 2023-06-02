@@ -123,7 +123,7 @@
 		stack_trace("Simple animal being instantiated in nullspace")
 	verbs -= /mob/verb/observe
 	if(can_hide)
-		var/datum/action/innate/animal_hide/hide = new()
+		var/datum/action/innate/hide/hide = new()
 		hide.Grant(src)
 	if(pcollar)
 		pcollar = new(src)
@@ -135,7 +135,7 @@
 	/// We need to clear the reference to where we're walking to properly GC
 	walk_to(src, 0)
 	QDEL_NULL(pcollar)
-	for(var/datum/action/innate/animal_hide/hide in actions)
+	for(var/datum/action/innate/hide/hide in actions)
 		hide.Remove(src)
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
