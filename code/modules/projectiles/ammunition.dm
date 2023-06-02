@@ -107,7 +107,7 @@
 	return ..()
 
 /obj/item/ammo_casing/emp_act(severity)
-	BB.emp_act(severity)
+	BB?.emp_act(severity)
 
 #define AMMO_MULTI_SPRITE_STEP_NONE null
 #define AMMO_MULTI_SPRITE_STEP_ON_OFF -1

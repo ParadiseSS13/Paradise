@@ -1314,16 +1314,15 @@
 					M.AdjustKnockDown(10 SECONDS) //You can still crawl around a bit for now, but soon suffering kicks in.
 		if(44)
 			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
-			M.AdjustWeakened(30 SECONDS)
+			M.AdjustWeakened(15 SECONDS)
 		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
 			if(has_stimulant == TRUE)
 				return ..()
 			else
 				for(var/obj/item/organ/external/E in M.bodyparts)
-					if(prob(25)) // Each tick has a 25% chance of repearing a bone.
-						if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT)) //I can't just check for !E.status
-							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
-							E.rejuvenate() //Repair it completely.
+					if(E.status & (ORGAN_INT_BLEEDING | ORGAN_BROKEN | ORGAN_SPLINTED | ORGAN_BURNT)) //I can't just check for !E.status
+						to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
+						E.rejuvenate() //Repair it completely.
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I in M.internal_organs) // 60 healing to all internal organs.

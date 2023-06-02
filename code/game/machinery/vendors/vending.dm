@@ -191,6 +191,7 @@
 		for(var/typepath in subtypesof(/datum/vendor_crit))
 			all_possible_crits[typepath] = new typepath()
 
+	update_icon(UPDATE_OVERLAYS)
 	reconnect_database()
 	power_change()
 
