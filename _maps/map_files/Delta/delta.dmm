@@ -23066,6 +23066,11 @@
 	icon_state = "red"
 	},
 /area/security/permabrig)
+"blS" = (
+/obj/effect/decal/warning_stripes/south,
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "blW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -81289,14 +81294,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel/dark,
 /area/security/securearmoury)
-"eDX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "eEG" = (
 /obj/machinery/economy/atm{
 	pixel_x = 32
@@ -85011,7 +85008,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/teleporter,
+/obj/item/circuitboard/teleporter{
+	pixel_y = 0
+	},
 /obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = -3
@@ -91377,18 +91376,6 @@
 	icon_state = "arrival"
 	},
 /area/hallway/secondary/entry)
-"qtp" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment,
-/mob/living/simple_animal/pet/sloth/paperwork,
-/turf/simulated/floor/carpet,
-/area/lawoffice)
 "qtC" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -95248,7 +95235,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/stationalert,
+/obj/item/circuitboard/stationalert{
+	pixel_y = 0
+	},
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
@@ -96831,7 +96820,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/mech_bay_power_console,
+/obj/item/circuitboard/mech_bay_power_console{
+	pixel_y = 0
+	},
 /obj/item/circuitboard/mech_recharger{
 	pixel_x = 3;
 	pixel_y = -3
@@ -142349,7 +142340,7 @@ aIe
 aBS
 aEZ
 aCN
-eDX
+aWz
 azL
 ssy
 aVa
@@ -142606,7 +142597,7 @@ aBS
 aBS
 aBS
 aCN
-aKK
+blS
 azL
 aBS
 aBS
@@ -147274,7 +147265,7 @@ hiO
 ccB
 cep
 chO
-qtp
+chO
 chO
 ckU
 oDy

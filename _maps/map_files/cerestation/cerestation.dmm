@@ -53542,9 +53542,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/mine/unexplored/cere/command)
 "jKR" = (
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
+/mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80743,11 +80741,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/toxins/xenobiology)
-"tqV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/mob/living/simple_animal/pet/sloth/paperwork,
-/turf/simulated/floor/carpet,
-/area/lawoffice)
 "trc" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -110055,7 +110048,7 @@ cwh
 dby
 bHD
 cEC
-tqV
+cEZ
 cEZ
 djt
 vFG

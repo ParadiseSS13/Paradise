@@ -64475,7 +64475,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/stationalert,
+/obj/item/circuitboard/stationalert{
+	pixel_y = 0
+	},
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
@@ -66924,12 +66926,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
-"fRT" = (
-/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
-	name = "Forklift"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/office)
 "fSi" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
@@ -70887,10 +70883,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/exit)
-"iwG" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
-/turf/simulated/floor/carpet,
-/area/lawoffice)
 "ixW" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
@@ -71903,6 +71895,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "jpb" = (
@@ -76107,7 +76100,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/mech_bay_power_console,
+/obj/item/circuitboard/mech_bay_power_console{
+	pixel_y = 0
+	},
 /obj/item/circuitboard/mech_recharger{
 	pixel_x = 3;
 	pixel_y = -3
@@ -89533,7 +89528,9 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/teleporter,
+/obj/item/circuitboard/teleporter{
+	pixel_y = 0
+	},
 /obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = -3
@@ -114716,7 +114713,7 @@ bNM
 bQj
 bSp
 bUm
-fRT
+bBn
 joP
 bBn
 bBn
@@ -117747,7 +117744,7 @@ anZ
 aqY
 asN
 asN
-iwG
+asN
 asN
 asN
 azA
