@@ -18,6 +18,7 @@
 	intact = FALSE
 	transparent_floor = TRUE
 	heat_capacity = 800
+	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished glass floor tile has been lit up
 	var/light_process = 0
 
 /turf/simulated/floor/transparent/glass/Initialize(mapload)
@@ -99,6 +100,8 @@
 		light_process++
 		if(light_process > 3)
 			reset_light()
+		return
+	light_process = 0
 
 /turf/simulated/floor/transparent/glass/proc/reset_light()
 	light_process = 0

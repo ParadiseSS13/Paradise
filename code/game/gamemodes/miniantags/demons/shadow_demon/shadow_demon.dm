@@ -59,6 +59,7 @@
 	max_integrity = 100
 	light_color = "#AAD84B"
 	anchored = TRUE
+	/// Amount of SSobj ticks (Roughly 2 seconds) since the last hallucination proc'd
 	var/time_since_last_hallucination = 0
 
 /obj/structure/shadowcocoon/Initialize(mapload)
