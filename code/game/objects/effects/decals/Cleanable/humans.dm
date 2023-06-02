@@ -1,4 +1,5 @@
 #define DRYING_TIME 5 * 60 * 10 //for 1 unit of depth in puddle (amount var)
+#define ALWAYS_IN_GRAVITY 2
 
 GLOBAL_LIST_EMPTY(splatter_cache)
 
@@ -37,10 +38,10 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	. = ..()
 	var/turf/T = get_turf(loc)
 	weightless_image = new()
-	gravity_check = has_gravity(src, T)
 	update_icon()
 
 	if(!gravity_check)
+		//weightless blood cannot dry
 		return
 
 	if(!.)
@@ -52,12 +53,15 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	return ..()
 
 /obj/effect/decal/cleanable/blood/update_icon()
-	var/turf/T = get_turf(loc)
+	var/turf/T = get_turf(src)
+	check_gravity(T)
 
-	if((T && (T.density || locate(/obj/structure/window/) in T)) || !gravity_check)
+	if((T && (T.density)) || !gravity_check || locate(/obj/structure/window/) in T || locate(/obj/structure/grille/) in T)
 		off_floor = TRUE
 		layer = ABOVE_MOB_LAYER
 		plane = GAME_PLANE
+		if(gravity_check)
+			icon_state = pick("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
 
 	if(basecolor == "rainbow")
 		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
@@ -84,11 +88,28 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		overlays.Cut()
 	..()
 
+/obj/effect/decal/cleanable/blood/proc/check_gravity(turf/T)
+	if(isnull(T))
+		T = get_turf(src)
+	if(gravity_check != ALWAYS_IN_GRAVITY)
+		gravity_check = has_gravity(src, T)
+
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
 	desc = drydesc
 	color = adjust_brightness(color, -50)
 	amount = 0
+	gravity_check = ALWAYS_IN_GRAVITY
+	animate(src)
+
+	if(isspaceturf(loc))
+		var/turf/T = get_turf(src)
+		if(!locate(/obj/structure/grille/) in T && !locate(/obj/structure/window/) in T)
+			qdel(src) //no free floating dried blood in space, thatd look weird
+
+/obj/effect/decal/cleanable/blood/ex_act()
+	. = ..()
+	update_icon()
 
 /obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
 	. = ..()
@@ -102,7 +123,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(loc != T)
 		forceMove(T) //move to the turf to splatter on
 	animate(src) //stop floating
-	gravity_check = TRUE
+	gravity_check = ALWAYS_IN_GRAVITY
 	icon = initial(icon)
 	icon_state = weightless_image.icon_state
 	layer = initial(layer)
@@ -245,6 +266,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	mergeable_decal = FALSE
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
+	gravity_check = ALWAYS_IN_GRAVITY
 
 /obj/effect/decal/cleanable/blood/gibs/Destroy()
 	giblets = null
