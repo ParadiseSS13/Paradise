@@ -879,11 +879,10 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
 
-	if(prob(5))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
-				new/obj/item/organ/internal/bone_tumor(H)
+	if(ishuman(M) && prob(5))
+		var/mob/living/carbon/human/H = M
+		if(!H.get_int_organ(/obj/item/organ/internal/bone_tumor))
+			new/obj/item/organ/internal/bone_tumor(H)
 
 	return ..()
 
