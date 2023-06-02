@@ -11,7 +11,7 @@
 	category = list("initial","Tools")
 
 /datum/design/crowbar
-	name = "Pocket Crowbar"
+	name = "Crowbar"
 	id = "crowbar"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 300)
