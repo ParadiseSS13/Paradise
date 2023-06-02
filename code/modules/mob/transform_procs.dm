@@ -261,3 +261,34 @@
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
 	pai.update_pipe_vision()
 	qdel(src)
+
+/mob/living/carbon/proc/gorillize(rage = FALSE)
+	if(notransform)
+		return
+
+	if(stat == DEAD)
+		return
+
+	for(var/obj/item/W in src)
+		unEquip(W)
+
+	regenerate_icons()
+	notransform = TRUE
+	icon = null
+	invisibility = INVISIBILITY_MAXIMUM
+	visible_message("<span class='warning'>[src] transforms into a gorilla!</span>", "<span class='warning'>You transform into a gorilla! Ooga ooga!</span>", "<span class='warning'>You hear a loud roar!</span>")
+	var/mob/living/simple_animal/hostile/gorilla/new_gorilla
+	if(rage)
+		var/mob/living/simple_animal/hostile/gorilla/rampaging/rampaging_gorilla = new (get_turf(src))
+		new_gorilla = rampaging_gorilla
+	else
+		new_gorilla = new (get_turf(src))
+
+	playsound(new_gorilla, 'sound/creatures/gorilla.ogg', 50)
+
+	if(mind)
+		mind.transfer_to(new_gorilla)
+	else
+		new_gorilla.key = key
+
+	qdel(src)
