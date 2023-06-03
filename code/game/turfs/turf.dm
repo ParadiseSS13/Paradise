@@ -8,6 +8,8 @@
 	var/slowdown = 0 //negative for faster, positive for slower
 	/// used to check if pipes should be visible under the turf or not
 	var/transparent_floor = FALSE
+	/// used to check if pipes should be visible under the turf or not
+	var/transparent_floor = FALSE
 
 	/// Set if the turf should appear on a different layer while in-game and map editing, otherwise use normal layer.
 	var/real_layer = TURF_LAYER
@@ -493,9 +495,7 @@
 		if(cable_only || direction)
 			continue
 		if(istype(AM, /obj/machinery/power) && !istype(AM, /obj/machinery/power/apc))
-			var/obj/machinery/power/P = AM
-			if(!P.powernet)
-				. += P
+			. += AM
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon

@@ -276,7 +276,6 @@ Difficulty: Hard
 	if(P.damage)
 		disable_shield()
 
-
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
 	if(!body_shield_enabled)
 		return ..()
@@ -388,7 +387,7 @@ Difficulty: Hard
 	O.fire()
 
 // To make this fight harder, it scales it's attacks based on number of players, or as injured. Capped lower on station.
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger() 
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger()
 	var/anger = 0
 	var/cap = 0
 	for(var/mob/living/carbon/human/H in range(10, src))
@@ -486,7 +485,7 @@ Difficulty: Hard
 		if(BOTTOM_LEFT)
 			BL.leg_movement(target, 0.6)
 
-/mob/living/simple_animal/hostile/megafauna/anicent_robot/ex_act(severity, target)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/ex_act(severity, target)
 	switch(severity)
 		if(1)
 			adjustBruteLoss(25)

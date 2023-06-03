@@ -9,7 +9,7 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
-	if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No")=="No")
+	if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No") == "No")
 		return
 	..()
 
@@ -20,21 +20,21 @@
 	for(var/obj/item/organ/internal/I in organs)
 		I.remove(user, TRUE)
 
-	explosion(get_turf(user),0,0,2,0,silent=1)
-	for(var/mob/living/carbon/human/H in range(2,user))
+	explosion(get_turf(user), 0, 0, 2, 0, silent = TRUE)
+	for(var/mob/living/carbon/human/H in range(2, user))
 		to_chat(H, "<span class='userdanger'>You are blinded by a shower of blood!</span>")
-		H.Stun(2 SECONDS)
+		H.KnockDown(4 SECONDS)
 		H.EyeBlurry(40 SECONDS)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(istype(E))
 			E.receive_damage(5, 1)
 		H.AdjustConfused(6 SECONDS)
-	for(var/mob/living/silicon/S in range(2,user))
+	for(var/mob/living/silicon/S in range(2, user))
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
 		S.Weaken(6 SECONDS)
-	var/new_location = user.drop_location()
+	var/turf/our_turf = get_turf(user)
 	spawn(5) // So it's not killed in explosion
-		var/mob/living/simple_animal/hostile/headslug/crab = new(new_location)
+		var/mob/living/simple_animal/hostile/headslug/crab = new(our_turf)
 		for(var/obj/item/organ/internal/I in organs)
 			I.forceMove(crab)
 		crab.origin = M

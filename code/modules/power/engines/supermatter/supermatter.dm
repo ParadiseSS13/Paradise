@@ -78,6 +78,13 @@
 
 #define MAX_SPACE_EXPOSURE_DAMAGE 2
 
+/// Colours used for effects.
+#define SUPERMATTER_COLOUR "#ffd04f"
+#define SUPERMATTER_RED "#aa2c16"
+#define SUPERMATTER_TESLA_COLOUR "#00ffff"
+#define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
+#define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
+
 /obj/machinery/atmospherics/supermatter_crystal
 	name = "supermatter crystal"
 	desc = "A strangely translucent and iridescent crystal."
@@ -85,8 +92,9 @@
 	icon_state = "darkmatter"
 	density = TRUE
 	anchored = TRUE
+	layer = ABOVE_MOB_LAYER + 0.01
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2 | IMMUNE_TO_SHUTTLECRUSH_2 | NO_MALF_EFFECT_2 | CRITICAL_ATOM_2
-	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	base_icon_state = "darkmatter"
 
@@ -160,9 +168,10 @@
 	var/bullet_energy = 2
 	///How much hallucination should we produce per unit of power?
 	var/hallucination_power = 1
-
 	///Our internal radio
 	var/obj/item/radio/radio
+	///Reference to the warp effect
+	var/obj/effect/warp_effect/supermatter/warp
 
 	///Boolean used for logging if we've been powered
 	var/has_been_powered = FALSE
@@ -208,6 +217,9 @@
 	soundloop = new(list(src), TRUE)
 
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
+	if(warp)
+		vis_contents -= warp
+		QDEL_NULL(warp)
 	investigate_log("has been destroyed.", "supermatter")
 	SSair.atmos_machinery -= src
 	QDEL_NULL(radio)
@@ -225,8 +237,8 @@
 		var/immune = istype(H.glasses, /obj/item/clothing/glasses/meson)
 		if(!immune && !HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
-	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of use the psudo-perpetual energy source, the supermatter crystal.</span>"
-	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or simple as a metal rod. These burts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
+	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
+	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
 	if(isAntag(user))
 		. += "<span class='warning'>Although a T.E.G. is more costly, there's a damn good reason the syndicate doesn't use this. If the integrity of [src] dips to 0%, perhaps from overheating, the supermatter will violently explode destroying nearly everything even somewhat close to it and releasing massive amounts of radiation.</span>"
 
@@ -283,7 +295,7 @@
 	final_countdown = TRUE
 
 	var/image/causality_field = image(icon, null, "causality_field")
-	add_overlay(causality_field, TRUE)
+	add_overlay(causality_field)
 
 	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
 	for(var/mob/M in GLOB.player_list) // for all players
@@ -301,6 +313,7 @@
 			radio.autosay("[safe_alert] Failsafe has been disengaged.", name, null, list(z))
 			cut_overlay(causality_field, TRUE)
 			final_countdown = FALSE
+			remove_filter(list("outline", "icon"))
 			return
 		else if((i % 50) != 0 && i > 50) // A message once every 5 seconds until the final 5 seconds which count down individualy
 			sleep(10)
@@ -593,6 +606,8 @@
 
 	if(prob(15))
 		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
+	lights()
+	sm_filters()
 
 	//Tells the engi team to get their butt in gear
 	if(damage > warning_point) // while the core is still damaged and it's still worth noting its status
@@ -818,6 +833,106 @@
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
 		else
 			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/sm_filters()
+	var/new_filter = isnull(get_filter("ray"))
+
+	add_filter(name = "ray", priority = 1, params = list(
+		type = "rays",
+		size = power ? clamp((damage/100) * power, 50, 125) : 1,
+		color = (gasmix_power_ratio> 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR),
+		factor = clamp(damage/600, 1, 10),
+		density = clamp(damage/10, 12, 100)
+	))
+
+	// Filter animation persists even if the filter itself is changed externally.
+	// Probably prone to breaking. Treat with suspicion.
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)
+
+	if(power > POWER_PENALTY_THRESHOLD)
+		add_filter(name = "ray", priority = 1, params = list(
+			type = "rays",
+			size = power ? clamp((damage/100) * power, 50, 175) : 1, //Higher power
+			color = SUPERMATTER_TESLA_COLOUR,
+			factor = clamp(damage/300, 1, 20),
+			density = clamp(damage/5, 12, 200)
+		))
+		if(prob(25))
+			new /obj/effect/warp_effect/bsg(get_turf(src)) //Some extra visual effect to the shocking sm which is a bit less interesting.
+		if(final_countdown)
+			add_filter(name = "icon", priority = 2, params = list(
+				type = "layer",
+				icon = new/icon('icons/obj/tesla_engine/energy_ball.dmi', "energy_ball", frame = rand(1,12)),
+				flags = FILTER_UNDERLAY
+			))
+		else
+			remove_filter("icon")
+
+	if(combined_gas > MOLE_PENALTY_THRESHOLD)
+		add_filter(name = "ray", priority = 1, params=list(
+			type = "rays",
+			size = power ? clamp((damage/100) * power, 50, 125) : 1,
+			color = SUPERMATTER_SINGULARITY_RAYS_COLOUR,
+			factor = clamp(damage / 300, 1, 30),
+			density = clamp(damage / 5, 12, 300) //More compressed due to gravity
+		))
+
+		add_filter(name = "outline", priority = 2, params = list(
+			type = "outline",
+			size = 1,
+			color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR
+		))
+		if(!warp)
+			warp = new(src)
+			vis_contents += warp
+		animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
+		animate(time = 14, transform = matrix())
+		if(final_countdown)
+			add_filter(name = "icon", priority = 3, params = list(
+				type = "layer",
+				icon = new/icon('icons/effects/96x96.dmi', "singularity_s3", frame = rand(1,8)),
+				flags = FILTER_OVERLAY
+			))
+		else
+			remove_filter("icon")
+	else
+		vis_contents -= warp
+		remove_filter("outline")
+		QDEL_NULL(warp)
+
+
+
+// Change how bright the rock is
+/obj/machinery/atmospherics/supermatter_crystal/proc/lights()
+	set_light(
+		l_range = 4 + power / 200,
+		l_power = 1 + power / 1000,
+		l_color = gasmix_power_ratio > 0.8 ? SUPERMATTER_RED : SUPERMATTER_COLOUR,
+	)
+
+	if(power > POWER_PENALTY_THRESHOLD)
+		set_light(
+			l_range = 4 + clamp(damage * power, 50, 500),
+			l_power = 3,
+			l_color = SUPERMATTER_TESLA_COLOUR,
+		)
+	if(combined_gas > MOLE_PENALTY_THRESHOLD)
+		set_light(
+			l_range = 4 + clamp(damage / 2, 10, 50),
+			l_power = 3,
+			l_color = SUPERMATTER_SINGULARITY_LIGHT_COLOUR,
+		)
+
+
+/obj/effect/warp_effect/supermatter
+	plane = GRAVITY_PULSE_PLANE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
+	icon = 'icons/effects/light_352.dmi'
+	icon_state = "light"
+	pixel_x = -176
+	pixel_y = -176
 
 /obj/machinery/atmospherics/supermatter_crystal/engine
 	is_main_engine = TRUE
