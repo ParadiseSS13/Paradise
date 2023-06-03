@@ -212,8 +212,8 @@
 			return 0
 
 	var/distance = get_dist(get_turf(A), starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.
-	if(A == original)
-		def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
+	if(get_dist(A, original) <= 1)
+		def_zone = ran_zone(def_zone, max(100 - (7 * distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 	else
 		def_zone = pick(list("head", "chest", "l_arm", "r_arm", "l_leg", "r_leg")) // If we were aiming at one target but another one got hit, no accuracy is applied
 
