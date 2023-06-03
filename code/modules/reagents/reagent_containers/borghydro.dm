@@ -9,14 +9,14 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 	/// It doesn't matter what reagent is used in the autohypos, so we don't!
-	var/total_reagents = 100
+	var/total_reagents = 50
 	/// Maximum reagents that the base autohypo can store
-	var/maximum_reagents = 100
+	var/maximum_reagents = 50
 	var/charge_cost = 50
 	/// Used for delay with the recharge time, each charge tick is worth 2 seconds of real time
 	var/charge_tick = 0
-	/// Time it takes for reagents to recharge, *2 and you get how many seconds it will additionally take from 2
-	var/recharge_time = 2
+	/// How many SSobj ticks it takes for the reagents to recharge by 10 units
+	var/recharge_time = 3
 	/// Can the autohypo inject through thick materials?
 	var/bypass_protection = 0
 	var/choosen_reagent = "salglu_solution"
@@ -33,7 +33,8 @@
 							"syndicate_nanites" = image(icon = 'icons/obj/decals.dmi', icon_state = "greencross"),
 							"potass_iodide" = image(icon = 'icons/obj/decals.dmi', icon_state = "radiation"),
 							"mannitol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill19"),
-							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"))
+							"salbutamol" = image(icon = 'icons/obj/chemical.dmi', icon_state = "pill8"),
+							"corazone" = image(icon = 'icons/obj/abductor.dmi', icon_state = "bed"))
 
 /obj/item/reagent_containers/borghypo/surgeon
 	reagent_ids = list("styptic_powder", "epinephrine", "salbutamol")
@@ -50,10 +51,10 @@
 	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and hydrocodone, for field surgery and pain relief."
 	icon_state = "borghypo_s"
 	charge_cost = 20
-	recharge_time = 1 // No time to recharge
+	recharge_time = 2 // No time to recharge
 	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone")
-	total_reagents = 60
-	maximum_reagents = 60
+	total_reagents = 30
+	maximum_reagents = 30
 	bypass_protection = TRUE
 	choosen_reagent = "syndicate_nanites"
 

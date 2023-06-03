@@ -18,6 +18,8 @@ GLOBAL_LIST_INIT(mime_names, file2list("config/names/mime.txt"))
 GLOBAL_LIST_INIT(golem_names, file2list("config/names/golem.txt"))
 GLOBAL_LIST_INIT(megacarp_first_names, file2list("strings/names/megacarp1.txt"))
 GLOBAL_LIST_INIT(megacarp_last_names, file2list("strings/names/megacarp2.txt"))
+GLOBAL_LIST_INIT(first_names_soviet, file2list("config/names/first_soviet_male.txt"))
+GLOBAL_LIST_INIT(last_names_soviet, file2list("config/names/last_soviet_male.txt"))
 
 GLOBAL_LIST_INIT(verbs, file2list("config/names/verbs.txt"))
 GLOBAL_LIST_INIT(nouns, file2list("config/names/nouns.txt"))

@@ -175,7 +175,7 @@ Difficulty: Hard
 	anger_modifier = clamp(((maxHealth - health) / 50), 0, 20)
 	ranged_cooldown = world.time + (ranged_cooldown_time * ((10 - extra_player_anger) / 10))
 
-	if(prob(30 + anger_modifier))
+	if(prob(30 + (anger_modifier / 2))) //Less scaling as the weaker attack / first calculated.
 		triple_charge()
 
 	else if(prob(15 + anger_modifier))
@@ -344,7 +344,7 @@ Difficulty: Hard
 		if(VORTEX)
 			visible_message("<span class='danger'>[src] begins vibrate rapidly. It's causing an earthquake!</span>")
 			for(var/turf/turf in range(9,get_turf(target)))
-				if(prob(11))
+				if(prob(15))
 					new /obj/effect/temp_visual/target/ancient(turf)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/spawn_anomalies()
@@ -381,20 +381,23 @@ Difficulty: Hard
 	var/turf/T = get_turf(target)
 	if(!spot || !T)
 		return
-	var/obj/item/projectile/rock/O = new /obj/item/projectile/rock(spot)
+	var/obj/item/projectile/bullet/rock/O = new /obj/item/projectile/bullet/rock(spot)
 	O.current = spot
 	O.yo = T.y - spot.y
 	O.xo = T.x - spot.x
 	O.fire()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger()// To make this fight harder, it scales it's attacks based on number of players. Capped lower on station.
+// To make this fight harder, it scales it's attacks based on number of players, or as injured. Capped lower on station.
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/calculate_extra_player_anger() 
 	var/anger = 0
 	var/cap = 0
 	for(var/mob/living/carbon/human/H in range(10, src))
 		if(stat == DEAD)
 			continue
 		anger++
-		cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
+	if(health <= health / 2)
+		anger += 2
+	cap = (is_station_level(loc.z) ? EXTRA_PLAYER_ANGER_STATION_CAP : EXTRA_PLAYER_ANGER_NORMAL_CAP)
 	extra_player_anger = clamp(anger,1,cap) - 1
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
@@ -512,8 +515,10 @@ Difficulty: Hard
 					new /obj/effect/hotspot(T)
 					T.hotspot_expose(700,50,1)
 			if(mode == VORTEX)
-				var/turf/C = get_turf(src)
-				C.ex_act(3)
+				var/turf/T = get_turf(src)
+				for(var/atom/A in T)
+					A.ex_act(3) //Body is immune to explosions of this strength.
+				T.ex_act(3)
 
 	beam.forceMove(get_turf(src))
 	return ..()
@@ -536,7 +541,7 @@ Difficulty: Hard
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
-	projectiletype = /obj/item/projectile/ancient_robot_bullet
+	projectiletype = /obj/item/projectile/bullet/ancient_robot_bullet
 	attacktext = "stomps on"
 	armour_penetration_percentage = 50
 	melee_damage_lower = 15
@@ -551,7 +556,7 @@ Difficulty: Hard
 	wander = 0
 	robust_searching = TRUE
 	ranged_ignores_vision = TRUE
-	stat_attack = DEAD
+	stat_attack = UNCONSCIOUS
 	var/range = 3
 	var/mob/living/simple_animal/hostile/megafauna/ancient_robot/core = null
 	var/fake_max_hp = 300
@@ -585,6 +590,9 @@ Difficulty: Hard
 			core.FindTarget(list(P.firer), 1)
 		core.Goto(P.starting, core.move_to_delay, 3)
 	..()
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/death(gibbed)
+	return //It shouldn't get gibbed by shuttle.
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Goto()
 	return // stops the legs from trying to move on their own
@@ -674,11 +682,11 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
 
-/obj/item/projectile/ancient_robot_bullet
+/obj/item/projectile/bullet/ancient_robot_bullet
 	damage = 8
 	damage_type = BRUTE
 
-/obj/item/projectile/rock
+/obj/item/projectile/bullet/rock
 	name= "thrown rock"
 	damage = 25
 	damage_type = BRUTE

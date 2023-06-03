@@ -65,7 +65,7 @@
 			for(var/datum/playingcard/P in H.cards)
 				cards += P
 			qdel(H)
-			to_chat(user,"<span class='notice'>You place your cards on the bottom of [src]</span>.")
+			to_chat(user,"<span class='notice'>You place your cards on the bottom of [src].</span>")
 			update_icon(UPDATE_ICON_STATE)
 			return
 		else

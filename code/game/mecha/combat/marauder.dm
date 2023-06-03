@@ -15,20 +15,18 @@
 	add_req_access = 0
 	internal_damage_threshold = 25
 	force = 45
-	max_equip = 5
+	max_equip = 6
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
 	destruction_sleep_duration = 2 SECONDS
 	emag_proof = TRUE //no stealing CC mechs.
 
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
-	thrusters_action.Grant(user, src)
 	smoke_action.Grant(user, src)
 	zoom_action.Grant(user, src)
 
 /obj/mecha/combat/marauder/RemoveActions(mob/living/user, human_occupant = 0)
 	. = ..()
-	thrusters_action.Remove(user)
 	smoke_action.Remove(user)
 	zoom_action.Remove(user)
 
@@ -44,6 +42,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
+	ME.attach(src)
 
 /obj/mecha/combat/marauder/ares
 	name = "Ares"
@@ -55,7 +55,7 @@
 	armor = list(melee = 50, bullet = 40, laser = 20, energy = 20, bomb = 20, bio = 100, rad = 60, fire = 100, acid = 100)
 	max_temperature = 40000
 	wreckage = /obj/structure/mecha_wreckage/ares
-	max_equip = 4
+	max_equip = 5
 	emag_proof = FALSE //Gamma armory can be stolen however.
 
 /obj/mecha/combat/marauder/ares/loaded/Initialize(mapload)
@@ -67,6 +67,8 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)
 
 /obj/mecha/combat/marauder/seraph
@@ -104,7 +106,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
-
+	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
+	ME.attach(src)
 
 /obj/mecha/combat/marauder/mauler
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
@@ -127,4 +130,6 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay(src)
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/thrusters
 	ME.attach(src)

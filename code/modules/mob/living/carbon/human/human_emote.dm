@@ -152,8 +152,22 @@
 
 /datum/emote/living/carbon/human/gasp/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
 	var/mob/living/carbon/human/H = user
+	var/oxy = H.getOxyLoss()
+	var/volume_decrease = 0
+	switch(oxy)
+		if(0 to 50)
+			volume_decrease = 0
+		if(51 to 100)
+			volume_decrease = 50
+		if(101 to 150)
+			volume_decrease = 65
+		if(151 to 200)
+			volume_decrease = 80
+		else
+			volume_decrease = 95
+	sound_volume -= volume_decrease
 	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
-	playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch(), ignore_walls = !isnull(user.mind))
+	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = H.get_age_pitch(), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/carbon/human/shake
 	key = "shake"
@@ -260,11 +274,14 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	var/obj/item/slapper/N = new(user)
-	if(user.put_in_hands(N))
+	var/obj/item/slapper/smacking_hand
+	if(user.mind && user.mind.martial_art?.can_parry)
+		smacking_hand = new /obj/item/slapper/parry(user)
+	else
+		smacking_hand = new /obj/item/slapper(user)
+	if(user.put_in_hands(smacking_hand))
 		to_chat(user, "<span class='notice'>You ready your slapping hand.</span>")
 	else
-		qdel(N)
 		to_chat(user, "<span class='warning'>You're incapable of slapping in your current state.</span>")
 
 /datum/emote/living/carbon/human/wink

@@ -8,6 +8,8 @@
 	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
 
+	can_be_undertile = TRUE
+
 	//Buckling
 	can_buckle = TRUE
 	buckle_requires_restraints = TRUE

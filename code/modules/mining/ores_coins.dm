@@ -8,6 +8,8 @@
 /obj/item/stack/ore
 	name = "rock"
 	icon = 'icons/obj/stacks/ores.dmi'
+	lefthand_file = 'icons/mob/inhands/ore_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/ore_righthand.dmi'
 	icon_state = "ore"
 	max_amount = 50
 	singular_name = "ore chunk"

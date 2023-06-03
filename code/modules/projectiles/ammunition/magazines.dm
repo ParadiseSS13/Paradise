@@ -384,6 +384,16 @@
 	name = "\improper ARG magazine (5.56mm)"
 	icon_state = "arg"
 
+/obj/item/ammo_box/magazine/ak814
+	name = "AK magazine (5.45x39mm)"
+	desc = "A universal magazine for an AK style rifle."
+	icon_state = "ak814"
+	origin_tech = "combat=5;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/a545
+	caliber = "a545"
+	max_ammo = 30
+	multi_sprite_step = AMMO_MULTI_SPRITE_STEP_ON_OFF
+
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"
 	desc = "A drum magazine."
