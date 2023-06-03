@@ -241,8 +241,6 @@ Doesn't work on other aliens/AI.*/
 	return TRUE
 
 /obj/effect/proc_holder/spell/neurotoxin/can_cast(mob/user = usr)
-	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return FALSE
 
 	if(charge_counter < charge_max)
 		return FALSE
