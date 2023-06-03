@@ -4,11 +4,17 @@ import { Window } from '../layouts';
 
 export const TurbineComputer = (props, context) => {
   const { act, data } = useBackend(context);
-  const operational = Boolean(data.compressor && !data.compressor_broken && data.turbine && !data.turbine_broken);
+  const {
+    compressor,
+    compressor_broken,
+    turbine,
+    turbine_broken
+  } = data;
+  const operational = Boolean(compressor && !compressor_broken && turbine && !turbine_broken);
   return (
     <Window>
       <Window.Content>
-        <Section title="Status" 
+        <Section title="Status"
           buttons={(
             <>
               <Button
