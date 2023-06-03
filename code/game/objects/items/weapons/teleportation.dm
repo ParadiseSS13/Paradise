@@ -160,13 +160,13 @@ Frequency:
 	add_fingerprint(user)
 
 /obj/item/hand_tele/emp_act(severity)
-	emp_timer = world.time + rand(45 SECONDS, 60 SECONDS) * severity
+	emp_timer = world.time + rand(25 SECONDS, 30 SECONDS) * severity
 	return ..()
 
 /obj/item/hand_tele/examine(mob/user)
 	. = ..()
 	if(emp_timer > world.time)
-		. += "<span class='danger'>Currently looks inactive.</span>"
+		. += "<span class='warning'>Currently looks inactive.</span>"
 
 /obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
 	active_portals--

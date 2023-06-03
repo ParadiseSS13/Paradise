@@ -2,7 +2,7 @@
 
 /obj/effect/portal
 	name = "portal"
-	desc = "Looks unstable. Best to test it with the clown."
+	desc = "Result of bluespace high tech development."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
 
@@ -17,7 +17,6 @@
 
 	var/precision = FALSE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
 	var/can_multitool_to_remove = FALSE
-	var/can_handtele_to_remove = FALSE // can we remove portal with hand tele? TRUE = yes, FALSE = no
 	var/ignore_tele_proof_area_setting = FALSE
 	var/one_use = FALSE // Does this portal go away after one teleport?
 	/// The time after which the effects should play again. Too many effects can lag the server
@@ -87,12 +86,6 @@
 /obj/effect/portal/attack_ghost(mob/dead/observer/O)
 	if(target)
 		O.forceMove(target)
-
-/obj/effect/portal/attackby(obj/item/I, mob/user, params)
-	if(can_handtele_to_remove && istype(I, /obj/item/hand_tele))
-		qdel(src)
-		return FALSE
-	user.forceMove(get_turf(src))
 
 /obj/effect/portal/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -174,11 +167,15 @@
 #define UNSTABLE_TIME_DELAY 2 SECONDS
 
 /obj/effect/portal/hand_tele
-	can_handtele_to_remove = TRUE
 	/// After you touch the portal, it will be unstable with high bad teleport chance, this variable contains time when it will be fine again
 	var/unstable_time = 0
 	/// If this is TRUE, you will not be able to teleport with that portal
 	var/inactive = FALSE
+
+/obj/effect/portal/hand_tele/examine(mob/user, infix, suffix)
+	. = ..()
+	if(unstable_time > world.time)
+		. += "<span class='warning'>[src] is shaking, looks very unstable!</span>"
 
 /obj/effect/portal/hand_tele/can_teleport(atom/movable/M)
 	if(inactive)
