@@ -102,6 +102,7 @@
 	drink_name = "Glass of Absinthe"
 	drink_desc = "The green fairy is going to get you now!"
 	taste_description = "fucking pain"
+	allowed_overdose_process = TRUE
 
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
@@ -143,6 +144,7 @@
 	drink_name = "Glass of Rum"
 	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
 	taste_description = "rum"
+	allowed_overdose_process = TRUE
 
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1174,6 +1176,9 @@
 		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
 		M.reagents.del_reagent("milk")
 		M.reagents.del_reagent("dragonsbreath")
+		return
+	if(iswizard(M))
+		M.reagents.del_reagent("dragonsbreath") //As funny as it is, let's not have new wizards dust themselfs.
 		return
 	if(prob(8))
 		to_chat(M, "<span class='userdanger'>Oh god! Oh GODD!!</span>")

@@ -588,7 +588,7 @@
 	uniform = /obj/item/clothing/under/new_soviet
 	back = /obj/item/storage/backpack/satchel
 	head = /obj/item/clothing/head/sovietsidecap
-	id = /obj/item/card/id
+	id = /obj/item/card/id/data
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/soviet
 	backpack_contents = list(
@@ -599,6 +599,8 @@
 	. = ..()
 	if(visualsOnly)
 		return
+	H.real_name = "[capitalize(pick(GLOB.first_names_soviet))] [capitalize(pick(GLOB.last_names_soviet))]"
+	H.name = H.real_name
 	H.add_language("Neo-Russkiya")
 	H.set_default_language(GLOB.all_languages["Neo-Russkiya"])
 	var/obj/item/card/id/I = H.wear_id
@@ -651,6 +653,41 @@
 		/obj/item/lighter/zippo = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/ammo_box/a357 = 2
+	)
+
+/datum/outfit/admin/soviet/marine
+	name = "Soviet Marine"
+
+	gloves = /obj/item/clothing/gloves/combat
+	suit = /obj/item/clothing/suit/space/hardsuit/soviet
+	head = null
+	mask = /obj/item/clothing/mask/gas
+	glasses = /obj/item/clothing/glasses/night
+	belt = /obj/item/storage/belt/military/assault/soviet/full
+	r_pocket = /obj/item/melee/classic_baton/telescopic
+	l_hand = /obj/item/gun/projectile/automatic/ak814
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/ammo_box/magazine/apsm10mm = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/lighter/zippo/engraved = 1
+	)
+
+/datum/outfit/admin/soviet/marine/captain
+	name = "Soviet Marine Captain"
+
+	uniform = /obj/item/clothing/under/new_soviet/sovietofficer
+	suit = /obj/item/clothing/suit/space/hardsuit/soviet/commander
+
+	backpack_contents = list(
+		/obj/item/storage/box/soviet = 1,
+		/obj/item/gun/projectile/revolver/mateba = 1,
+		/obj/item/ammo_box/a357 = 2,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
+		/obj/item/lighter/zippo/engraved = 1
 	)
 
 /datum/outfit/admin/soviet/admiral
@@ -1316,13 +1353,18 @@
 		backpack_contents.Add(/obj/item/gun/throw/piecannon)
 		backpack_contents[/obj/item/gun/throw/piecannon] = 1
 
+	var/clown_rank = pick("Trickster First Class", "Master Clown", "Major Prankster")
+	var/clown_name = pick(GLOB.clown_names)
+	H.real_name = "[clown_rank] [clown_name]"
+
 /datum/outfit/admin/honksquad/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 
-	// Setup their clumsy gene
+	// Setup their clumsy and comic sans gene
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
+	H.dna.SetSEState(GLOB.comicblock, TRUE)
 	H.check_mutations = TRUE
 
 	// Setup their headset
@@ -1334,11 +1376,11 @@
 	var/obj/item/pda/P = H.wear_pda
 	if(istype(P))
 		P.owner = H.real_name
-		P.ownjob = "Clown"
+		P.ownjob = "Emergency Response Clown"
 		P.name = "PDA-[H.real_name] ([P.ownjob])"
 
 	// And their ID
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_CLOWN), "Clown")
+		apply_to_card(I, H, list(ACCESS_CLOWN), "Emergency Response Clown")
 	H.sec_hud_set_ID()
