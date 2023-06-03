@@ -3,6 +3,7 @@
 	has_explaination_verb = TRUE
 	no_baton = TRUE
 	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow)
+	weight = 5
 
 //Corporate Judo Belt
 
