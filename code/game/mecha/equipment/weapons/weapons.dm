@@ -345,21 +345,7 @@
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
-	if(!action_checks(target))
-		return
-	set_ready_state(0)
-	var/obj/item/missile/M = new projectile(chassis.loc)
-	M.primed = 1
-	if(heavy_missile)
-		M.heavy_missile = 1
-	playsound(chassis, fire_sound, 50, 1)
-	M.throw_at(target, missile_range, missile_speed, spin = FALSE)
-	projectiles--
-	log_message("Fired from [name], targeting [target].")
-	var/turf/T = get_turf(src)
-	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
-	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
-	do_after_cooldown()
+	//Gonna revert and fix this later, removing for testing purposes.
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
 	name = "\improper SRX-13 Heavy Missile Launcher"
