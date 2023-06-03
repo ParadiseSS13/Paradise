@@ -3,7 +3,7 @@
 	has_explaination_verb = TRUE
 	no_baton = TRUE
 	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow)
-	weight = 5
+	weight = 5 //takes priority over boxing and drunkneness, less priority than krav or CQC/carp
 
 //Corporate Judo Belt
 
