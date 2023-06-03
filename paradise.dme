@@ -188,6 +188,7 @@
 #include "code\_onclick\hud\alien_hud.dm"
 #include "code\_onclick\hud\alien_larva.dm"
 #include "code\_onclick\hud\blob_overmind.dm"
+#include "code\_onclick\hud\follow_alert.dm"
 #include "code\_onclick\hud\bot_hud.dm"
 #include "code\_onclick\hud\constructs_hud.dm"
 #include "code\_onclick\hud\fullscreen.dm"
