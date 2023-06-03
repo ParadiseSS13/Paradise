@@ -4,7 +4,7 @@
 	icon_state = "solgov"
 	item_state = "ro_suit"
 	item_color = "solgov"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	displays_id = FALSE
 
 	icon = 'icons/obj/clothing/under/solgov.dmi'
