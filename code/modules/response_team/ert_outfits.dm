@@ -183,7 +183,6 @@
 	shoes = null
 	belt = /obj/item/storage/belt/security/response_team_gamma
 	back = /obj/item/mod/control/pre_equipped/responsory/security
-	suit_store = /obj/item/gun/energy/gun/nuclear
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/restraints/legcuffs/bola/energy

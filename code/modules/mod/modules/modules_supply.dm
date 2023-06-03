@@ -324,7 +324,7 @@
 		return
 	mod.wearer.start_pulling(locker)
 
-/obj/item/mod/module/ash_accretion//Disabled armor values for now so it compiles
+/obj/item/mod/module/ash_accretion
 	name = "MOD ash accretion module"
 	desc = "A module that collects ash from the terrain, covering the suit in a protective layer, this layer is \
 		lost when moving across standard terrain."

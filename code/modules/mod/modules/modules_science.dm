@@ -69,7 +69,7 @@
 	cooldown_time = 5 SECONDS
 	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/bluespace)
 	/// Time it takes to teleport
-	var/teleport_time = 2 SECONDS //This is a bluespace core this should be fast, like you can get a phazon with this man, we don't have anomaly refining either
+	var/teleport_time = 1.25 SECONDS //This is a bluespace core this should be fast, like you can get a phazon with this man, we don't have anomaly refining either
 
 /obj/item/mod/module/anomaly_locked/teleporter/on_select_use(atom/target)
 	. = ..()

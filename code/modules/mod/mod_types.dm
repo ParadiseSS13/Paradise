@@ -109,7 +109,11 @@
 	default_pins = list(
 		/obj/item/mod/module/gps,
 		/obj/item/mod/module/drill,
+		/obj/item/mod/module/sphere_transform,
 	)
+
+/obj/item/mod/control/pre_equipped/mining/asteroid //The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
+	applied_skin = "asteroid"
 
 /obj/item/mod/control/pre_equipped/medical
 	theme = /datum/mod_theme/medical

@@ -145,8 +145,8 @@
 
 /obj/machinery/suit_storage_unit/mining
 	name = "mining suit storage unit"
-	suit_type	= /obj/item/clothing/suit/space/hardsuit/mining
 	mask_type	= /obj/item/clothing/mask/breath
+	storage_type = /obj/item/mod/control/pre_equipped/mining/asteroid
 	req_access	= list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/mining/secure

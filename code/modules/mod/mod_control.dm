@@ -74,6 +74,8 @@
 	var/obj/item/mod/core/core
 	/// Associated list of parts (helmet, chestplate, gauntlets, boots) to their unsealed worn layer.
 	var/list/mod_parts = list()
+	/// Associated list of parts that can overslot to their overslot (overslot means the part can cover another layer of clothing).
+	var/list/overslotting_parts = list()
 	/// Modules the MOD currently possesses.
 	var/list/modules = list()
 	/// Currently used module.
@@ -141,6 +143,8 @@
 		STOP_PROCESSING(SSobj, src)
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module, deleting = TRUE)
+	for(var/obj/item/part as anything in mod_parts)
+		overslotting_parts -= part
 	var/atom/deleting_atom
 	if(!QDELETED(helmet))
 		deleting_atom = helmet
@@ -649,8 +653,13 @@
 		part.visor_flags_inv = category[SEALED_INVISIBILITY] || NONE
 		part.flags_cover = category[UNSEALED_COVER] || NONE
 		part.visor_flags_cover = category[SEALED_COVER] || NONE
-	//.	part.alternate_worn_layer = category[UNSEALED_LAYER]
-	//	mod_parts[part] = part.alternate_worn_layer
+		if(!category[CAN_OVERSLOT])
+			if(overslotting_parts[part])
+				var/obj/item/overslot = overslotting_parts[part]
+				overslot.forceMove(drop_location())
+			overslotting_parts -= part
+			continue
+		overslotting_parts |= part
 	wearer?.regenerate_icons()
 
 /obj/item/mod/control/proc/on_exit(datum/source, atom/movable/part, direction)
@@ -678,9 +687,20 @@
 /obj/item/mod/control/proc/on_part_destruction(obj/item/part, damage_flag)
 	SIGNAL_HANDLER
 
+	if(overslotting_parts[part])
+		var/obj/item/overslot = overslotting_parts[part]
+		overslot.forceMove(drop_location())
+		overslotting_parts[part] = null
 	if(QDELETED(src))
 		return
 	obj_destruction(damage_flag)
+
+/obj/item/mod/control/proc/on_overslot_exit(datum/source, atom/movable/overslot, direction)
+	SIGNAL_HANDLER
+
+	if(overslot != overslotting_parts[source])
+		return
+	overslotting_parts[source] = null
 
 /obj/item/mod/control/proc/on_part_deletion(obj/item/part) //the part doesnt count as being qdeleted, so our destroying does an infinite loop, fix later
 	SIGNAL_HANDLER
