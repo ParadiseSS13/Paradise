@@ -16,7 +16,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
-	faction = list("neutral")
+	faction = list("neutral", "jungle")
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	attack_same = TRUE
 	attacktext = "kicks"
