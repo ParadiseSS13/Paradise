@@ -653,8 +653,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	in_throw_mode = FALSE
 	if(throw_icon) //in case we don't have the HUD and we use the hotkey
 		throw_icon.icon_state = "act_throw_off"
-	if(!client)
-		return
 	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
