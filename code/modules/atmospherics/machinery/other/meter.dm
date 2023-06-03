@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(gas_meters)
 	layer_offset = GAS_PUMP_OFFSET
 	anchored = TRUE
 	max_integrity = 150
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, RAD = 100, FIRE = 40, ACID = 0)
 	power_channel = PW_CHANNEL_ENVIRONMENT
 	power_state = IDLE_POWER_USE
 	idle_power_consumption = 2
