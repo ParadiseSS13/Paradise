@@ -1,4 +1,4 @@
-/obj/item/golden_record
+/obj/item/twohanded/required/golden_record
 	name = "Golden Record"
 	desc = "A relic of the past, you don't know what lies inside, but you remember someone talking about it arriving in 250356 years"
 	icon = 'icons/obj/space/voyager.dmi'
@@ -8,7 +8,7 @@
 	throw_speed = 1
 	throw_range = 3
 	force = 5
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=6;biotech=6"
 
