@@ -31,6 +31,10 @@
 	var/last_hit = 0
 	/// If the user is preparing a martial arts stance.
 	var/in_stance = FALSE
+	/// If the martial art allows parrying.
+	var/can_parry = FALSE
+	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
+	var/weight = 0
 
 /datum/martial_art/New()
 	. = ..()
@@ -134,27 +138,29 @@
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(!H.mind)
 		return
+	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+		if(istype(MA, src))
+			return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
-	if(make_temporary)
-		temporary = TRUE
-	if(temporary)
-		if(H.mind.martial_art)
-			base = H.mind.martial_art.base
-	else
-		base = src
-	H.mind.martial_art = src
+	H.mind.known_martial_arts.Add(src)
+	H.mind.martial_art = get_highest_weight(H)
 
 /datum/martial_art/proc/remove(mob/living/carbon/human/H)
+	var/datum/martial_art/MA = src
 	if(!H.mind)
 		return
-	if(H.mind.martial_art != src)
-		return
-	H.mind.martial_art = null // Remove reference
+	H.mind.known_martial_arts.Remove(MA)
+	H.mind.martial_art = get_highest_weight(H)
 	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	if(base)
-		base.teach(H)
-		base = null
+
+///	Returns the martial art with the highest weight from all the ones someone knows.
+/datum/martial_art/proc/get_highest_weight(mob/living/carbon/human/H)
+	var/datum/martial_art/highest_weight = null
+	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
+		if(!highest_weight || MA.weight > highest_weight.weight)
+			highest_weight = MA
+	return highest_weight
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -189,6 +195,25 @@
 /datum/martial_art/proc/try_deflect(mob/user)
 		return prob(deflection_chance)
 
+/datum/action/defensive_stance
+	name = "Defensive Stance - Ready yourself to be attacked, allowing you to parry incoming melee hits."
+	button_icon_state = "block"
+
+/datum/action/defensive_stance/Trigger()
+	var/mob/living/carbon/human/H = owner
+	var/datum/martial_art/MA = H.mind.martial_art //This should never be available to non-martial-arts users anyway
+	if(!MA.can_parry)
+		to_chat(H, "<span class='warning'>You can't parry right now.</span>")
+		return
+	if(H.incapacitated())
+		to_chat(H, "<span class='warning'>You can't defend yourself while you're incapacitated.</span>")
+		return
+	var/obj/item/slapper/parry/slap = new(H)
+	if(H.put_in_hands(slap))
+		H.visible_message("<span class='danger'>[H] assumes a defensive stance!</span>", "<b><i>You drop back into a defensive stance.</i></b>")
+	else
+		to_chat(H, "<span class='warning'>Your hands are full.</span>")
+
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
@@ -199,7 +224,7 @@
 		return
 	if(slot == slot_gloves)
 		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
+		style.teach(H, TRUE)
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
@@ -222,7 +247,7 @@
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
 			return
-		style.teach(H,1)
+		style.teach(H, TRUE)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
 	return
 

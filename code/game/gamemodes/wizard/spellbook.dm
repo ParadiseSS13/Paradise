@@ -451,6 +451,16 @@
 	log_name = "WA"
 	category = "Artefacts"
 
+/datum/spellbook_entry/item/magic_nanny_bag
+	name = "Magic Nanny Bag"
+	desc = "A magical bottomless bag that comes filled with many random goodies, and sticks well in your hand. Will have a melee weapon, a staff, a wand, an artifact, and a special food treat! Can't fit on your back."
+	item_path = /obj/item/storage/backpack/duffel/magic_nanny_bag
+	cost = 4
+	spawn_on_floor = TRUE // it isn't happy if it has to remake itself in hand
+	is_ragin_restricted = TRUE //No blocked magic items on raging, sorry!
+	log_name = "MNB"
+	category = "Artefacts"
+
 /datum/spellbook_entry/item/cursed_heart
 	name = "Cursed Heart"
 	desc = "A heart that has been empowered with magic to heal the user. The user must ensure the heart is manually beaten or their blood circulation will suffer, but every beat heals their injuries. It must beat every 6 seconds. Not reccomended for first time wizards."
@@ -793,7 +803,7 @@
 			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
 			dat += "You can reduce this number by spending more points on the spell.<BR>"
 		if("Defensive")
-			dat += "Spells geared towards improving your survivabilty or reducing foes ability to attack.<BR><BR>"
+			dat += "Spells geared towards improving your survivability or reducing foes ability to attack.<BR><BR>"
 			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
 			dat += "You can reduce this number by spending more points on the spell.<BR>"
 		if("Mobility")
@@ -808,16 +818,16 @@
 			dat += "These powerful spells are capable of changing the very fabric of reality. Not always in your favour.<BR>"
 		if("Weapons and Armors")
 			dat += "Various weapons and armors to crush your enemies and protect you from harm.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Items are not bound to you and can be stolen. Additionally they cannot typically be returned once purchased.<BR>"
 		if("Staves")
 			dat += "Various staves granting you their power, which they slowly recharge over time.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Items are not bound to you and can be stolen. Additionally they cannot typically be returned once purchased.<BR>"
 		if("Artefacts")
 			dat += "Various magical artefacts to aid you.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Items are not bound to you and can be stolen. Additionally they cannot typically be returned once purchased.<BR>"
 		if("Summons")
 			dat += "Magical items geared towards bringing in outside forces to aid you.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Items are not bound to you and can be stolen. Additionally they cannot typically be returned once purchased.<BR>"
 		if("Standard")
 			dat += "These battle-tested spell sets are easy to use and provide good balance between offense and defense.<BR><BR>"
 			dat += "They all cost, and are worth, 10 spell points. You are able to refund any of the spells included as long as you stay in the wizard den.<BR>"

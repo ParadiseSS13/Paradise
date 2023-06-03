@@ -76,6 +76,7 @@
 			return
 		M.forceMove(src)
 		occupant = M
+		playsound(src, 'sound/machines/podclose.ogg', 5)
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
@@ -138,6 +139,7 @@
 
 	H.forceMove(src)
 	occupant = H
+	playsound(src, 'sound/machines/podclose.ogg', 5)
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 	SStgui.update_uis(src)
@@ -183,6 +185,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
+	playsound(src, 'sound/machines/podopen.ogg', 5)
 	update_icon(UPDATE_ICON_STATE)
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
@@ -311,6 +314,9 @@
 			if(E.status & ORGAN_INT_BLEEDING)
 				organData["internalBleeding"] = TRUE
 
+			if(E.status & ORGAN_BURNT)
+				organData["burnWound"] = TRUE
+
 			extOrganData.Add(list(organData))
 
 		occupantData["extOrgan"] = extOrganData
@@ -414,8 +420,7 @@
 
 		dat += "<hr>"
 
-		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
-		blood_percent *= 100
+		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL) * 100, 1)
 
 		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
 		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
@@ -452,6 +457,8 @@
 			var/bled = ""
 			var/splint = ""
 			var/internal_bleeding = ""
+			var/burn_wound = ""
+			var/ointment = ""
 			var/lung_ruptured = ""
 			if(e.status & ORGAN_INT_BLEEDING)
 				internal_bleeding = "<br>Internal bleeding"
@@ -461,6 +468,10 @@
 				splint = "Splinted:"
 			if(e.status & ORGAN_BROKEN)
 				AN = "[e.broken_description]:"
+			if(e.status & ORGAN_SALVED)
+				ointment = "Salved:"
+			if(e.status & ORGAN_BURNT)
+				burn_wound = "Critical Burn:"
 			if(e.status & ORGAN_DEAD)
 				dead = "DEAD:"
 			if(e.is_robotic())
@@ -491,7 +502,7 @@
 				imp += "Unknown body present:"
 			if(!AN && !open && !infected && !imp)
 				AN = "None:"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
+			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][burn_wound][ointment][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
 			var/mech = i.desc

@@ -28,6 +28,10 @@
 	var/block = pick(GLOB.bad_blocks)
 	M.dna.SetSEState(block, 1)
 
+	var/mob/living/carbon/C = M
+	if(prob(RAD_MOB_GORILLIZE_PROB) && istype(C))
+		C.gorillize() // OH SHIT A GORILLA
+
 // Give Random Good Mutation to M
 /proc/randmutg(mob/living/M)
 	if(!M || !M.dna)
@@ -215,7 +219,7 @@
 		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		available += head_accessory
-	var/list/sorted = sortTim(available, /proc/cmp_text_asc)
+	var/list/sorted = sortTim(available, GLOBAL_PROC_REF(cmp_text_asc))
 
 	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE, length(sorted))
 	if(headacc > 0 && headacc <= length(sorted))

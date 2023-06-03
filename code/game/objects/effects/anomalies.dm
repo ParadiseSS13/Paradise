@@ -97,12 +97,16 @@
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
+	var/obj/effect/warp_effect/supermatter/warp
 
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core = TRUE, event_spawned = TRUE)
 	. = ..()
+	warp = new(src)
+	vis_contents += warp
 	if(!event_spawned) //So an anomaly in the hallway is assured to have some risk to it, but not make sm / vetus too much pain
 		return
 	for(var/I in 1 to 3)
@@ -110,6 +114,11 @@
 			new /obj/item/stack/rods(loc)
 		if(prob(75))
 			new /obj/item/shard(loc)
+
+/obj/effect/anomaly/grav/Destroy()
+	vis_contents -= warp
+	QDEL_NULL(warp)  // don't want to leave it hanging
+	return ..()
 
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
@@ -127,6 +136,9 @@
 			var/mob/living/target = locate() in view(4, src)
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10, dodgeable = FALSE)
+	//anomaly quickly contracts then slowly expands it's ring
+	animate(warp, time = 6, transform = matrix().Scale(0.5,0.5))
+	animate(time = 14, transform = matrix())
 
 /obj/effect/anomaly/grav/Crossed(atom/movable/AM)
 	. = ..()

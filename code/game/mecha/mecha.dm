@@ -12,7 +12,7 @@
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
 	max_integrity = 300 //max_integrity is base health
-	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, rad = 0, fire = 100, acid = 100)
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
@@ -83,6 +83,9 @@
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
+
+	/// How many ion thrusters we got on this bad boy
+	var/thruster_count = 0
 
 	// Action vars
 	var/defence_mode = FALSE
@@ -252,6 +255,8 @@
 	if(.)
 		return 1
 	if(thrusters_active && movement_dir && use_power(step_energy_drain))
+		step_in = initial(step_in) / thruster_count
+		new /obj/effect/particle_effect/ion_trails(get_turf(src), dir)
 		return 1
 
 	var/atom/movable/backup = get_spacemove_backup()
@@ -297,6 +302,10 @@
 			last_message = world.time
 		return 0
 
+	if(thrusters_active && has_gravity(src))
+		thrusters_active = FALSE
+		to_chat(occupant, "<span class='notice'>Thrusters automatically disabled.</span>")
+		step_in = initial(step_in)
 	var/move_result = 0
 	var/move_type = 0
 	if(internal_damage & MECHA_INT_CONTROL_LOST)

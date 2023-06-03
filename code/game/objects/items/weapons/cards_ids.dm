@@ -113,7 +113,7 @@
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
@@ -1088,6 +1088,9 @@
 		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
 	else
 		..()
+
+/obj/item/card/id/data
+	icon_state = "data"
 
 // Decals
 /obj/item/id_decal

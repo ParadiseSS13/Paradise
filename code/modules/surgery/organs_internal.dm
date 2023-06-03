@@ -394,7 +394,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(I.requires_robotic_bodypart)
-		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
@@ -769,7 +769,7 @@
 	return ..()
 
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool]</span>."
+	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool].</span>"
 	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with [tool].</span>"
 	if(target_zone == BODY_ZONE_CHEST)
 		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with [tool].</span>"

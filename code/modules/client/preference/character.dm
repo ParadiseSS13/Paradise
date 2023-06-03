@@ -457,11 +457,15 @@
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
+	if(!SP)
+		stack_trace("Couldn't find a species matching [species], character name is [real_name].")
+
 	metadata = sanitize_text(metadata, initial(metadata))
 	real_name = reject_bad_name(real_name, TRUE)
 
 	if(isnull(species))
 		species = "Human"
+		stack_trace("Character doesn't have a species, character name is [real_name]. Defaulting to human.")
 
 	if(isnull(language))
 		language = "None"
@@ -477,7 +481,7 @@
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	gender			= sanitize_gender(gender, FALSE, !SP.has_gender)
-	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
+	age				= sanitize_integer(age, SP.min_age, SP.max_age, initial(age))
 	h_colour		= sanitize_hexcolor(h_colour)
 	h_sec_colour	= sanitize_hexcolor(h_sec_colour)
 	f_colour		= sanitize_hexcolor(f_colour)
@@ -592,7 +596,7 @@
 	if(S.bodyflags & HAS_SKIN_COLOR)
 		randomize_skin_color()
 	backbag = 2
-	age = rand(AGE_MIN, AGE_MAX)
+	age = rand(S.min_age, S.max_age)
 
 
 /datum/character_save/proc/randomize_hair_color(target = "hair")
