@@ -26,6 +26,11 @@
 	/// Callback for executing after async requests. Will be called with an argument of [/datum/http_response] as first argument
 	var/datum/callback/cb
 
+/datum/http_request/can_vv_get(var_name)
+	. = ..()
+	if(var_name == "body")
+		return FALSE
+
 /*
 ###########################################################################
 THE METHODS IN THIS FILE ARE TO BE USED BY THE SUBSYSTEM AS A MANGEMENT HUB
