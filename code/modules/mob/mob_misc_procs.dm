@@ -563,13 +563,20 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					A.action = action
 					A.target = source
 					if(!alert_overlay)
-						var/old_layer = source.layer
-						var/old_plane = source.plane
-						source.layer = FLOAT_LAYER
-						source.plane = FLOAT_PLANE
-						A.overlays += source
-						source.layer = old_layer
-						source.plane = old_plane
+						// if the icon is greater than 32x, use its base icon instead of its full actual appearance
+						// otherwise, if we don't do this, it totally messes with the viewport
+						var/icon/atom_icon = icon(source.icon, source.icon_state)
+						var/width = atom_icon.Width()
+						var/height = atom_icon.Height()
+						if(width > 32 || height > 32)
+							atom_icon.Scale(32, 32)
+							atom_icon.Crop(0, 0, 32, 32)
+							A.overlays += atom_icon
+						else
+							var/image/appearance = image(source)
+							appearance.layer = FLOAT_LAYER
+							appearance.plane = FLOAT_PLANE
+							A.overlays += appearance
 					else
 						alert_overlay.layer = FLOAT_LAYER
 						alert_overlay.plane = FLOAT_PLANE

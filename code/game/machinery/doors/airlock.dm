@@ -559,7 +559,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	overlays += damag_overlay
 	overlays += note_overlay
 
-	check_unres()
+	overlays += check_unres()
 
 	//EMISSIVE ICONS
 	if(buttons_underlay != old_buttons_underlay)
