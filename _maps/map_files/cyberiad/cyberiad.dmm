@@ -9706,6 +9706,7 @@
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
 /obj/item/flashlight/lamp,
+/obj/item/wirecutters/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25652,7 +25653,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bok" = (
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -38999,7 +39000,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bVK" = (
@@ -39446,6 +39449,7 @@
 "bWW" = (
 /obj/structure/table,
 /obj/item/storage/belt/utility,
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bWY" = (
@@ -48424,9 +48428,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/mech_bay_power_console{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/mech_bay_power_console,
 /obj/item/circuitboard/mech_recharger{
 	pixel_x = 3;
 	pixel_y = -3
@@ -49524,9 +49526,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/teleporter{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/teleporter,
 /obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = -3
@@ -50628,9 +50628,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/stationalert{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/stationalert,
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
@@ -57087,7 +57085,6 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
-/obj/item/crowbar/large,
 /obj/item/storage/box/lights/mixed,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -57097,6 +57094,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cTU" = (
@@ -58749,6 +58747,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -64747,6 +64746,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
+"dvv" = (
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/carpet,
+/area/lawoffice)
 "dvD" = (
 /obj/machinery/camera{
 	c_tag = "Prison Cafeteria External";
@@ -117741,7 +117744,7 @@ anZ
 aqY
 asN
 asN
-asN
+dvv
 asN
 asN
 azA

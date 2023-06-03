@@ -112,8 +112,10 @@
 	name = "command multitool"
 	desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain."
 	icon_state = "multitool_command"
+	item_state = "multitool_command"
 	belt_icon = "multitool_command"
 	toolspeed = 0.95 //command those wires / that fireaxe cabinet!
+	var/list/victims = list()
 
 /obj/item/multitool/command/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is attempting to command the command multitool! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -121,13 +123,19 @@
 	if(!user)
 		return
 
-	user.Stun(10 SECONDS)
-	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
+	user.Immobilize(10 SECONDS)
 	sleep(20)
-
 	add_fingerprint(user)
-	desc += " Its screen displays the text \"[user.name]: executed for mutiny.\""
 
+	var/base_desc = "Used for pulsing wires to test which to cut. Not recommended by the Captain. Its screen displays the text \""
+	victims += user.name
+
+	if(length(victims) < 3)
+		desc = base_desc + english_list(victims) + ": executed for mutiny.\""
+	else
+		desc = base_desc + english_list(victims) + ", all executed for mutiny. Impressive.\""
+
+	playsound(loc, 'sound/effects/supermatter.ogg', 50, TRUE, -1)
 	for(var/obj/item/W in user)
 		user.unEquip(W)
 

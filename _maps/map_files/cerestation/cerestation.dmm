@@ -7288,7 +7288,9 @@
 	},
 /area/quartermaster/office)
 "aSk" = (
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9070,6 +9072,7 @@
 	name = "east bump"
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/item/wirecutters/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19575,6 +19578,7 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/gloves/color/yellow,
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -25933,6 +25937,7 @@
 	name = "cargo display";
 	pixel_y = 32
 	},
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -28808,7 +28813,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "cOa" = (
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -49900,6 +49905,10 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/hallway)
+"izl" = (
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/carpet,
+/area/lawoffice)
 "izC" = (
 /turf/simulated/mineral/ancient,
 /area/hallway/primary/aft/east)
@@ -69813,6 +69822,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -110302,7 +110312,7 @@ qCk
 cph
 vFG
 aUo
-aUo
+izl
 aUo
 cYg
 qCk

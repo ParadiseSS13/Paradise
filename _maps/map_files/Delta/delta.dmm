@@ -15502,6 +15502,7 @@
 /obj/item/folder/yellow,
 /obj/item/multitool,
 /obj/item/pen/red,
+/obj/item/screwdriver/cargo,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -16337,7 +16338,9 @@
 /area/quartermaster/office)
 "aWu" = (
 /obj/effect/decal/warning_stripes/south,
-/mob/living/simple_animal/pet/sloth/paperwork,
+/mob/living/simple_animal/hostile/gorilla/cargo_domestic{
+	name = "Forklift"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "aWv" = (
@@ -16881,7 +16884,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/crew_quarters/theatre)
 "aXD" = (
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel/grimy,
 /area/crew_quarters/theatre)
@@ -26673,6 +26676,7 @@
 	listening = 0;
 	pixel_y = 28
 	},
+/obj/item/wirecutters/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -29387,6 +29391,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
+/obj/item/crowbar/engineering,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
 "bzP" = (
@@ -31287,9 +31292,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/mech_bay_power_console{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/mech_bay_power_console,
 /obj/item/circuitboard/mech_recharger{
 	pixel_x = 3;
 	pixel_y = -3
@@ -33851,9 +33854,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/teleporter{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/teleporter,
 /obj/item/circuitboard/teleporter_hub{
 	pixel_x = 3;
 	pixel_y = -3
@@ -34598,9 +34599,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/stationalert{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/stationalert,
 /obj/item/circuitboard/atmos_alert{
 	pixel_x = 3;
 	pixel_y = -3
@@ -46610,6 +46609,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
+/mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "cmq" = (
@@ -84571,7 +84571,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/piano,
+/obj/structure/musician/piano,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "iiY" = (
@@ -95806,6 +95806,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /obj/item/wrench,
+/obj/item/weldingtool/research,
 /turf/simulated/floor/plasteel/white,
 /area/toxins/explab)
 "vzo" = (

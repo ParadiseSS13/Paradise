@@ -441,7 +441,7 @@
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)
-					R.fields["age"] = rand(5, 85)
+					R.fields["age"] = rand(AGE_MIN, AGE_MAX)
 				if(4)
 					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
 				if(5)

@@ -24,7 +24,7 @@
 /obj/item/caution/proximity_sign/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind.assigned_role != "Janitor")
+		if(!H.mind.has_antag_datum(/datum/antagonist/traitor) && !ismindslave(H))
 			return
 		if(armed)
 			armed = FALSE
