@@ -12,9 +12,6 @@
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return
 
-/obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
-	return FALSE
-
 /obj/effect/singularity_act()
 	qdel(src)
 	return FALSE
@@ -104,6 +101,20 @@
 /obj/effect/decal/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
 		scoop(I, user)
+	else if(issimulatedturf(loc))
+		I.melee_attack_chain(user, loc)
+
+/obj/effect/decal/attack_animal(mob/living/simple_animal/M)
+	if(issimulatedturf(loc))
+		loc.attack_animal(M)
+
+/obj/effect/decal/attack_hand(mob/living/user)
+	if(issimulatedturf(loc))
+		loc.attack_hand(user)
+
+/obj/effect/decal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(issimulatedturf(loc))
+		loc.attack_hulk(user, does_attack_animation)
 
 /obj/effect/decal/proc/scoop(obj/item/I, mob/user)
 	if(reagents && I.reagents && !no_scoop)

@@ -208,3 +208,11 @@
 /obj/item/vending_refill/hydrodrobe
 	machine_name = "HydroDrobe"
 	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/janidrobe
+	machine_name = "JaniDrobe"
+	icon_state = "refill_clothes"
+
+/obj/item/vending_refill/lawdrobe
+	machine_name = "LawDrobe"
+	icon_state = "refill_clothes"
