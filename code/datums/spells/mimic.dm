@@ -47,7 +47,7 @@
 		var/atom/movable/AM = target
 		if(AM.bound_height > world.icon_size || AM.bound_width > world.icon_size)
 			return FALSE // No multitile structures
-	if(user != target && istype(target, /mob/living/simple_animal/hostile/morph))
+	if(user != target && ismorph(target))
 		return FALSE
 	return ..()
 
@@ -197,7 +197,7 @@
 	return H
 
 /obj/effect/proc_holder/spell/mimic/morph/valid_target(atom/target, user)
-	if(target != user && istype(target, /mob/living/simple_animal/hostile/morph))
+	if(target != user && ismorph(target))
 		return FALSE
 	return ..()
 
