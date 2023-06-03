@@ -3,7 +3,7 @@
 	desc = "Lunge at something in your view range."
 	clothes_req = FALSE
 	base_cooldown = 15 SECONDS
-	invocation = "EN GUARD!"
+	invocation = "EN GARDE!"
 	invocation_type = "shout"
 	sound = 'sound/magic/repulse.ogg'
 	action_icon_state = "lunge"
