@@ -71,9 +71,19 @@
 		return
 	if(shock(user, 50))
 		return
+	var/turf/T = get_turf(src)
 	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 	deconstruct()
+
+/obj/structure/cable/low_voltage/deconstruct(disassembled = TRUE)
+	var/turf/T = get_turf(src)
+	if(!(flags & NODECONSTRUCT))
+		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
+			new cable_coil_type(T, 2, paramcolor = color)
+		else
+			new cable_coil_type(T, 1, paramcolor = color)
+	return ..()
 
 /obj/structure/cable/low_voltage/proc/cable_color(colorC)
 	if(!colorC)

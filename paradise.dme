@@ -2303,7 +2303,6 @@
 #include "code\modules\power\lights.dm"
 #include "code\modules\power\power_machine.dm"
 #include "code\modules\power\smes.dm"
-#include "code\modules\power\transformer.dm"
 #include "code\modules\power\apc\apc.dm"
 #include "code\modules\power\apc\apc_construction.dm"
 #include "code\modules\power\apc\apc_malfunction.dm"

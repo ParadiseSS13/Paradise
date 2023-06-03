@@ -21,7 +21,7 @@ By design, d1 is the smallest direction and d2 is the highest
 */
 /obj/structure/cable
 	name = "power cable"
-	desc = "A flexible superconducting cable for heavy-duty power transfer."
+	desc = "A flexible superconducting cable for power transfer."
 	icon = 'icons/obj/power_cond/power_cond_white.dmi'
 	icon_state = "0-1"
 	level = 1
@@ -34,8 +34,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	plane = GAME_PLANE //is set to FLOOR_PLANE when spawned
 	layer = LOW_OBJ_LAYER //isset to WIRE_LAYER when spawned
 
+	/// Can the cable be laid diagonally?
+	var/allow_diagonal_cable = FALSE
+	/// The coil item type that this will turn into when deconstructed
 	var/cable_coil_type
-
+	/// The type of voltage that this cable supports, can either be low or hight voltage
 	var/power_voltage_type = 0
 	/// The direction of endpoint one of this cable
 	var/d1 = 0
@@ -81,7 +84,6 @@ By design, d1 is the smallest direction and d2 is the highest
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 
-
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
@@ -90,14 +92,8 @@ By design, d1 is the smallest direction and d2 is the highest
 		return FALSE
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
-	var/turf/T = get_turf(src)
 	if(usr)
-		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
-	if(!(flags & NODECONSTRUCT))
-		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
-		else
-			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(get_turf(src))])","wires")
 	qdel(src)
 
 /* ===POWERNET PROCS=== */
