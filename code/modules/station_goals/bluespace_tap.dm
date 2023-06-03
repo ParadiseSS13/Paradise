@@ -186,10 +186,11 @@
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
-	icon_state = "bluespace_tap"	//sprites by Ionward
+	icon_state = "bluespace_tap"
+	base_icon_state = "bluespace_tap"
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
-	pixel_y = -64
+	pixel_y = -32
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
 	power_state = NO_POWER_USE	// power usage is handelled manually
@@ -238,10 +239,8 @@
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
-	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
+	for(var/direct in list(NORTH, NORTHEAST, NORTHWEST, EAST, WEST, SOUTHEAST, SOUTHWEST))
 		occupied += get_step(src, direct)
-	occupied += locate(x + 1, y - 2, z)
-	occupied += locate(x - 1, y - 2, z)
 
 	for(var/T in occupied)
 		var/obj/structure/filler/F = new(T)
@@ -254,6 +253,39 @@
 		component_parts += new /obj/item/stack/ore/bluespace_crystal(null)
 	if(!powernet)
 		connect_to_network()
+
+/obj/machinery/power/bluespace_tap/update_icon(updates)
+	. = ..()
+	overlays.Cut()
+
+	if(!powernet || powernet.available_power <= 0)
+		icon_state = base_icon_state
+	else
+		icon_state = "[base_icon_state][get_icon_state_number()]"
+		overlays += icon(icon, "screen")
+
+/obj/machinery/power/bluespace_tap/proc/get_icon_state_number()
+	switch(input_level)
+		if(0)
+			return 0
+		if(1 to 2)
+			return 1
+		if(3 to 5)
+			return 2
+		if(6 to 7)
+			return 3
+		if(8 to 10)
+			return 4
+		if(11 to INFINITY)
+			return 5
+
+/obj/machinery/power/bluespace_tap/connect_to_network()
+	..()
+	update_icon()
+
+/obj/machinery/power/bluespace_tap/disconnect_from_network()
+	..()
+	update_icon()
 
 /obj/machinery/power/bluespace_tap/Destroy()
 	QDEL_LIST_CONTENTS(fillers)
@@ -324,8 +356,10 @@
 	// actual input level changes slowly
 	if(input_level < desired_level && (get_surplus() >= get_power_use(input_level + 1)))
 		input_level++
+		update_icon(UPDATE_ICON)
 	else if(input_level > desired_level)
 		input_level--
+		update_icon(UPDATE_ICON)
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
 		GLOB.major_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction", 'sound/AI/harvester.ogg')
 		if(!emagged)
@@ -334,7 +368,6 @@
 		for(var/i in 1 to rand(1, 3))
 			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
 			new /obj/structure/spawner/nether/bluespace_tap(location)
-
 
 
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
@@ -389,6 +422,7 @@
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
 	new A.product_path(get_turf(src))
+	flick_overlay_view(image(icon, src, "flash", FLY_LAYER))
 
 
 
