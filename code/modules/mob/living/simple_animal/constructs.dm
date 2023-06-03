@@ -259,7 +259,7 @@
 	icon_living = "holy_artificer"
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/night_vision,
 							/obj/effect/proc_holder/spell/targeted/projectile/magic_missile/lesser,
-							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser,
+							/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser/holy,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/wall/holy,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/floor/holy,
 							/obj/effect/proc_holder/spell/aoe_turf/conjure/pylon/holy,

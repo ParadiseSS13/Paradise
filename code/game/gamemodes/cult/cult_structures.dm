@@ -222,6 +222,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	var/last_heal = 0
 	var/corrupt_delay = 50
 	var/last_corrupt = 0
+	var/holy = FALSE
 
 /obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
@@ -251,12 +252,13 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(iscultist(L) || iswizard(L) || isshade(L) || isconstruct(L))
+			if(holy || iscultist(L) || iswizard(L) || isshade(L) || isconstruct(L))
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 
 					if(ishuman(L))
-						L.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
+						var/mob/living/carbon/human/human = L
+						human.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
 
 					else if(isshade(L) || isconstruct(L))
 						var/mob/living/simple_animal/M = L
@@ -266,7 +268,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1
 
-	if(!is_station_level(z) && last_corrupt <= world.time) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
+	if(!is_station_level(z) && last_corrupt <= world.time && !holy) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
 		var/list/validturfs = list()
 		var/list/cultturfs = list()
 		for(var/T in circleviewturfs(src, 5))
@@ -297,7 +299,9 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/pylon/holy
 	cult_icon_changing = FALSE
+	light_color = LIGHT_COLOR_BLUE
 	icon_state = "holy"
+	holy = TRUE
 
 /obj/structure/cult/functional/archives
 	name = "archives"

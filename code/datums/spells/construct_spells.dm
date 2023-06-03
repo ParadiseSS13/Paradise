@@ -5,6 +5,11 @@
 	action_icon_state = "artificer"
 	action_background_icon_state = "bg_cult"
 
+/obj/effect/proc_holder/spell/aoe_turf/conjure/construct/lesser/holy
+	action_icon_state = "artificer_holy"
+	action_background_icon_state = "bg_spell"
+	summon_type = list(/obj/structure/constructshell/holy)
+
 /obj/effect/proc_holder/spell/aoe_turf/conjure/floor
 	name = "Summon Cult Floor"
 	desc = "This spell constructs a cult floor"
@@ -77,6 +82,7 @@
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/soulstone/holy
 	action_icon_state = "summonsoulstone_holy"
+	action_background_icon_state = "bg_spell"
 
 	summon_type = list(/obj/item/soulstone/anybody/purified)
 

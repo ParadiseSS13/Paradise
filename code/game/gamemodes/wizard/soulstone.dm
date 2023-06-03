@@ -35,7 +35,7 @@
 /obj/item/soulstone/proc/was_used()
 	if(!reusable)
 		spent = TRUE
-		name = "dull [name]"
+		name = "dull [initial(name)]"
 		desc = "A fragment of the legendary treasure known simply as \
 			the 'Soul Stone'. The shard lies still, dull and lifeless; \
 			whatever spark it once held long extinguished."
@@ -233,7 +233,7 @@
 	name = "empty shell"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct-cult"
-	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
+	desc = "A wicked machine used by those skilled in magical arts. It is inactive."
 	/// Is someone currently placing a soulstone into the shell
 	var/active = FALSE
 
@@ -254,9 +254,42 @@
 			user.Confused(10)
 			return
 		SS.transfer_soul("CONSTRUCT", src, user)
-		SS.was_used()
 	else
 		return ..()
+
+/obj/structure/constructshell/holy
+	name = "empty holy shell"
+	icon_state = "construct-holy"
+	desc = "A holy machine used by those who are pure in soul and mind. It is inactive."
+	var/defiled = FALSE
+
+/obj/structure/constructshell/holy/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
+		if(!defiled)
+			return
+		name = initial(name)
+		icon_state = initial(icon_state)
+		desc = initial(desc)
+		defiled = FALSE
+	if(defiled)
+		return ..()
+	if(istype(I, /obj/item/soulstone))
+		var/obj/item/soulstone/SS = I
+		if(!SS.purified || iscultist(user))
+			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell.</span>")
+			user.Confused(15)
+			return
+		SS.transfer_soul("CONSTRUCT", src, user)
+		return
+	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+		if(do_after(user, 4 SECONDS, target = src))
+			user.visible_message("<span class='warning'>[user] defile [src] with dark magic!!</span>", "<span class='cult'>You sanctified [src]. Yes-yes. I need more acolytes!</span>")
+			name = "empty shell"
+			icon_state = "construct-cult"
+			desc = "A wicked machine used by those skilled in magical arts. It is inactive."
+			defiled = TRUE
+		return
+	return ..()
 
 ////////////////////////////Proc for moving soul in and out off stone//////////////////////////////////////
 
@@ -343,6 +376,7 @@
 					var/mob/living/simple_animal/hostile/construct/C = new picked_class(shell.loc)
 					C.init_construct(shade, src, shell)
 					to_chat(C, C.playstyle_string)
+					was_used()
 			else
 				to_chat(user, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 
