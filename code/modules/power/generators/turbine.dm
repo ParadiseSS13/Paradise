@@ -321,9 +321,9 @@
 /obj/machinery/power/turbine/ui_data(mob/user)
 	var/list/data = list()
 	data["compressor"] = compressor ? TRUE : FALSE
-	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN)) ? TRUE : FALSE
+	data["compressor_broken"] = (!compressor || (compressor.stat & BROKEN))
 	data["turbine"] = compressor?.turbine ? TRUE : FALSE
-	data["turbine_broken"] = (!compressor || !compressor.turbine || (compressor.turbine.stat & BROKEN)) ? TRUE : FALSE
+	data["turbine_broken"] = (!compressor || !compressor.turbine || (compressor.turbine.stat & BROKEN))
 	data["online"] = compressor?.starter
 	data["power"] = compressor?.turbine?.lastgen
 	data["rpm"] = compressor?.rpm

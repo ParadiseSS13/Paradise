@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section} from '../components';
+import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const TurbineComputer = (props, context) => {
@@ -8,7 +8,8 @@ export const TurbineComputer = (props, context) => {
   return (
     <Window>
       <Window.Content>
-        <Section title="Status" buttons={(
+        <Section title="Status" 
+          buttons={(
             <>
               <Button
                 icon={data.online ? 'power-off' : 'times'}
